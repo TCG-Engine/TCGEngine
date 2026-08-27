@@ -7,16 +7,44 @@
     {
         "step": 3,
         "type": "card_property_equals",
-        "mzId": "myField-0",
+        "mzId": "p1Banish-0",
+        "property": "CardID",
+        "value": "1db8hz4prm"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
         "property": "Damage",
         "value": "3"
     },
     {
         "step": 3,
-        "type": "zone_count",
-        "zone": "myHand",
-        "viewerPlayerID": 1,
-        "value": 1
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Counters",
+        "value": "{\"cardistry_used\":1}"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "TurnEffects",
+        "value": "[\"DAMAGED_SINCE_LAST_TURN\",\"HIT_BY_3hgldrogit\"]"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "1"
     },
     {
         "step": 3,
@@ -24,47 +52,5 @@
         "zone": "myField",
         "viewerPlayerID": 1,
         "value": 1
-    },
-    {
-        "step": 3,
-        "type": "zone_count",
-        "zone": "myGraveyard",
-        "viewerPlayerID": 1,
-        "value": 1
-    },
-    {
-        "step": 3,
-        "type": "zone_count",
-        "zone": "myMemory",
-        "viewerPlayerID": 1,
-        "value": 5
-    },
-    {
-        "step": 3,
-        "type": "zone_count",
-        "zone": "theirHand",
-        "viewerPlayerID": 1,
-        "value": 1
-    },
-    {
-        "step": 3,
-        "type": "zone_count",
-        "zone": "theirField",
-        "viewerPlayerID": 1,
-        "value": 2
-    },
-    {
-        "step": 3,
-        "type": "zone_count",
-        "zone": "theirGraveyard",
-        "viewerPlayerID": 1,
-        "value": 1
-    },
-    {
-        "step": 3,
-        "type": "zone_count",
-        "zone": "theirMemory",
-        "viewerPlayerID": 1,
-        "value": 5
     }
 ]

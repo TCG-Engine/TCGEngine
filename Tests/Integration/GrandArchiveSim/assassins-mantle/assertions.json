@@ -7,63 +7,56 @@
     {
         "step": 5,
         "type": "card_property_equals",
-        "mzId": "myField-5",
-        "property": "Damage",
-        "value": "9"
+        "mzId": "p1Field-2",
+        "property": "Status",
+        "value": "1"
     },
     {
         "step": 5,
-        "type": "zone_count",
-        "zone": "myHand",
-        "viewerPlayerID": 1,
-        "value": 2
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "{\"preparation\":2,\"_champCombatDamageDealtThisTurn\":4}"
     },
     {
         "step": 5,
-        "type": "zone_count",
-        "zone": "myField",
-        "viewerPlayerID": 1,
-        "value": 7
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "CardID",
+        "value": "u1a1s4ys44"
     },
     {
         "step": 5,
-        "type": "zone_count",
-        "zone": "myGraveyard",
-        "viewerPlayerID": 1,
-        "value": 2
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "Counters",
+        "value": "{\"durability\":1}"
     },
     {
         "step": 5,
-        "type": "zone_count",
-        "zone": "myMemory",
-        "viewerPlayerID": 1,
-        "value": 0
+        "type": "card_property_equals",
+        "mzId": "p2Banish-3",
+        "property": "CardID",
+        "value": "3tcs0axa03"
     },
     {
         "step": 5,
-        "type": "zone_count",
-        "zone": "theirHand",
-        "viewerPlayerID": 1,
-        "value": 3
+        "type": "card_property_equals",
+        "mzId": "p2Banish-3",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-3",
+        "property": "TurnEffects",
+        "value": "[]"
     },
     {
         "step": 5,
         "type": "zone_count",
         "zone": "theirField",
-        "viewerPlayerID": 1,
-        "value": 3
-    },
-    {
-        "step": 5,
-        "type": "zone_count",
-        "zone": "theirGraveyard",
-        "viewerPlayerID": 1,
-        "value": 2
-    },
-    {
-        "step": 5,
-        "type": "zone_count",
-        "zone": "theirMemory",
         "viewerPlayerID": 1,
         "value": 3
     }

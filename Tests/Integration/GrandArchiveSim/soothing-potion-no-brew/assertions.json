@@ -6,6 +6,90 @@
     },
     {
         "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "l8ao8bls6g"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-5",
+        "property": "CardID",
+        "value": "gnYM2V6TTw"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-5",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-5",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-5",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-5",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "14m4c8ljye"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "9g44vm5kt3"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-2",
+        "property": "CardID",
+        "value": "9g44vm5kt3"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-3",
+        "property": "CardID",
+        "value": "oz23yfzk96"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-4",
+        "property": "CardID",
+        "value": "qtb31x97n2"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-5",
+        "property": "CardID",
+        "value": "ShQkyQMBCT"
+    },
+    {
+        "step": 8,
         "type": "zone_count",
         "zone": "myHand",
         "viewerPlayerID": 1,
@@ -24,33 +108,5 @@
         "zone": "myMemory",
         "viewerPlayerID": 1,
         "value": 6
-    },
-    {
-        "step": 8,
-        "type": "zone_count",
-        "zone": "theirHand",
-        "viewerPlayerID": 1,
-        "value": 9
-    },
-    {
-        "step": 8,
-        "type": "zone_count",
-        "zone": "theirField",
-        "viewerPlayerID": 1,
-        "value": 1
-    },
-    {
-        "step": 8,
-        "type": "zone_count",
-        "zone": "theirGraveyard",
-        "viewerPlayerID": 1,
-        "value": 0
-    },
-    {
-        "step": 8,
-        "type": "zone_count",
-        "zone": "theirMemory",
-        "viewerPlayerID": 1,
-        "value": 0
     }
 ]

@@ -6,10 +6,24 @@
     },
     {
         "step": 6,
-        "type": "zone_count",
-        "zone": "myHand",
-        "viewerPlayerID": 1,
-        "value": 6
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"WAS_ATTACKED\"]"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-2",
+        "property": "CardID",
+        "value": "urfp66pv4n"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Status",
+        "value": "1"
     },
     {
         "step": 6,
@@ -22,13 +36,6 @@
         "step": 6,
         "type": "zone_count",
         "zone": "myGraveyard",
-        "viewerPlayerID": 1,
-        "value": 3
-    },
-    {
-        "step": 6,
-        "type": "zone_count",
-        "zone": "myMemory",
         "viewerPlayerID": 1,
         "value": 3
     }

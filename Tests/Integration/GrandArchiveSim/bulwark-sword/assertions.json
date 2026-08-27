@@ -7,37 +7,86 @@
     {
         "step": 7,
         "type": "card_property_equals",
-        "mzId": "myField-1",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"WAS_ATTACKED\"]"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "TurnEffects",
+        "value": "[\"SERVILE_POSSESSIONS_POWER_3\"]"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-3",
+        "property": "Counters",
+        "value": "{\"prize\":2}"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-0",
+        "property": "CardID",
+        "value": "rn1gmo124j"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-1",
+        "property": "CardID",
+        "value": "crv1etn4g3"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-2",
+        "property": "CardID",
+        "value": "akmv2ssjhu"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-15",
+        "property": "CardID",
+        "value": "8kmoi0a5uh"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-15",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-15",
         "property": "Damage",
-        "value": "21"
+        "value": "0"
     },
     {
         "step": 7,
-        "type": "zone_count",
-        "zone": "myHand",
-        "viewerPlayerID": 1,
-        "value": 4
+        "type": "card_property_equals",
+        "mzId": "p2Banish-15",
+        "property": "Counters",
+        "value": "[]"
     },
     {
         "step": 7,
-        "type": "zone_count",
-        "zone": "myField",
-        "viewerPlayerID": 1,
-        "value": 15
-    },
-    {
-        "step": 7,
-        "type": "zone_count",
-        "zone": "myGraveyard",
-        "viewerPlayerID": 1,
-        "value": 6
-    },
-    {
-        "step": 7,
-        "type": "zone_count",
-        "zone": "myMemory",
-        "viewerPlayerID": 1,
-        "value": 0
+        "type": "card_property_equals",
+        "mzId": "p2Banish-15",
+        "property": "TurnEffects",
+        "value": "[]"
     },
     {
         "step": 7,

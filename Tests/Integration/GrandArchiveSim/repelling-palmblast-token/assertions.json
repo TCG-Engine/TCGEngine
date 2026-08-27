@@ -7,16 +7,177 @@
     {
         "step": 8,
         "type": "card_property_equals",
-        "mzId": "myField-0",
-        "property": "Damage",
-        "value": "4"
+        "mzId": "p1Memory-5",
+        "property": "CardID",
+        "value": "2zs1pana81"
     },
     {
         "step": 8,
-        "type": "zone_count",
-        "zone": "myHand",
-        "viewerPlayerID": 1,
-        "value": 2
+        "type": "card_property_equals",
+        "mzId": "p1Memory-5",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-5",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-5",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-5",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-6",
+        "property": "CardID",
+        "value": "wsqvfsyid4"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-6",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-6",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-6",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-6",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-7",
+        "property": "CardID",
+        "value": "fz1nr5a3pm"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-7",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-7",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-7",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-7",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\"]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-1",
+        "property": "CardID",
+        "value": "UVAb8CmjtL"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-3",
+        "property": "CardID",
+        "value": "4xippor7ch"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-3",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-3",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-0",
+        "property": "CardID",
+        "value": "F2wp1v0Tyk"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-1",
+        "property": "CardID",
+        "value": "XgJ72Ot13P"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-2",
+        "property": "CardID",
+        "value": "7cx66hjlgx"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-3",
+        "property": "CardID",
+        "value": "95ynk6lmnf"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-4",
+        "property": "CardID",
+        "value": "G8pN8Hackq"
     },
     {
         "step": 8,

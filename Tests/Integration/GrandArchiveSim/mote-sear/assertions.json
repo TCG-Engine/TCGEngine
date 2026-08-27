@@ -7,9 +7,58 @@
     {
         "step": 7,
         "type": "card_property_equals",
-        "mzId": "myField-2",
+        "mzId": "p1Field-2",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\"]"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-2",
+        "property": "CardID",
+        "value": "0G32Pp5atK"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "el7cwdzin7"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "cxqf8rr452"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Mastery-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
         "property": "Damage",
-        "value": "5"
+        "value": "4"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"_champCombatDamageDealtThisTurn\":2,\"_champDamageThisTurn\":4}"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"DAMAGED_SINCE_LAST_TURN\"]"
     },
     {
         "step": 7,
@@ -17,13 +66,6 @@
         "zone": "myHand",
         "viewerPlayerID": 1,
         "value": 1
-    },
-    {
-        "step": 7,
-        "type": "zone_count",
-        "zone": "myField",
-        "viewerPlayerID": 1,
-        "value": 6
     },
     {
         "step": 7,
@@ -36,20 +78,6 @@
         "step": 7,
         "type": "zone_count",
         "zone": "myMemory",
-        "viewerPlayerID": 1,
-        "value": 2
-    },
-    {
-        "step": 7,
-        "type": "zone_count",
-        "zone": "theirHand",
-        "viewerPlayerID": 1,
-        "value": 5
-    },
-    {
-        "step": 7,
-        "type": "zone_count",
-        "zone": "theirField",
         "viewerPlayerID": 1,
         "value": 2
     }

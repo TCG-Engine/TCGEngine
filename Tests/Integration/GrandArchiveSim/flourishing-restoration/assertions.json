@@ -7,9 +7,58 @@
     {
         "step": 5,
         "type": "card_property_equals",
-        "mzId": "myField-3",
+        "mzId": "p1Field-3",
         "property": "Damage",
         "value": "11"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-3",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\"]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "h9u9584zpn"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-4",
+        "property": "CardID",
+        "value": "alnjt7DyZL"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-4",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-4",
+        "property": "TurnEffects",
+        "value": "[\"EMPOWERED\",\"EMPOWER_PLUS_6\"]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "l94wp7qjwb"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "5WP1TXJo9E"
     },
     {
         "step": 5,
@@ -17,13 +66,6 @@
         "zone": "myHand",
         "viewerPlayerID": 1,
         "value": 2
-    },
-    {
-        "step": 5,
-        "type": "zone_count",
-        "zone": "myField",
-        "viewerPlayerID": 1,
-        "value": 11
     },
     {
         "step": 5,
@@ -38,33 +80,5 @@
         "zone": "myMemory",
         "viewerPlayerID": 1,
         "value": 2
-    },
-    {
-        "step": 5,
-        "type": "zone_count",
-        "zone": "theirHand",
-        "viewerPlayerID": 1,
-        "value": 8
-    },
-    {
-        "step": 5,
-        "type": "zone_count",
-        "zone": "theirField",
-        "viewerPlayerID": 1,
-        "value": 19
-    },
-    {
-        "step": 5,
-        "type": "zone_count",
-        "zone": "theirGraveyard",
-        "viewerPlayerID": 1,
-        "value": 0
-    },
-    {
-        "step": 5,
-        "type": "zone_count",
-        "zone": "theirMemory",
-        "viewerPlayerID": 1,
-        "value": 0
     }
 ]

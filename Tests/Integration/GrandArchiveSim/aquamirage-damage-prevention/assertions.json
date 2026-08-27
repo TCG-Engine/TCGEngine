@@ -6,45 +6,31 @@
     },
     {
         "step": 1,
-        "type": "zone_count",
-        "zone": "myHand",
-        "viewerPlayerID": 1,
-        "value": 4
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"WAS_ATTACKED\",\"CALMING_BREEZE\",\"vz4kc558yx-ACTION_ACTIVATED\"]"
     },
     {
         "step": 1,
-        "type": "zone_count",
-        "zone": "myField",
-        "viewerPlayerID": 1,
-        "value": 3
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "Counters",
+        "value": "{\"durability\":2}"
     },
     {
         "step": 1,
-        "type": "zone_count",
-        "zone": "myGraveyard",
-        "viewerPlayerID": 1,
-        "value": 1
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-1",
+        "property": "CardID",
+        "value": "7l9th23niu"
     },
     {
         "step": 1,
-        "type": "zone_count",
-        "zone": "myMemory",
-        "viewerPlayerID": 1,
-        "value": 2
-    },
-    {
-        "step": 1,
-        "type": "zone_count",
-        "zone": "theirHand",
-        "viewerPlayerID": 1,
-        "value": 6
-    },
-    {
-        "step": 1,
-        "type": "zone_count",
-        "zone": "theirField",
-        "viewerPlayerID": 1,
-        "value": 3
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-1",
+        "property": "TurnEffects",
+        "value": "[]"
     },
     {
         "step": 1,

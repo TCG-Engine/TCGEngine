@@ -7,9 +7,44 @@
     {
         "step": 5,
         "type": "card_property_equals",
-        "mzId": "myField-3",
-        "property": "Damage",
-        "value": "12"
+        "mzId": "p1Field-3",
+        "property": "Counters",
+        "value": "{\"quest\":2}"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-3",
+        "property": "CardID",
+        "value": "2sn7hlyrkw"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-4",
+        "property": "CardID",
+        "value": "h8n1520m2d"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-9",
+        "property": "CardID",
+        "value": "vZH2xr4yq2"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "2sn7hlyrkw"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "267kgpwjmc"
     },
     {
         "step": 5,
@@ -17,13 +52,6 @@
         "zone": "myHand",
         "viewerPlayerID": 1,
         "value": 5
-    },
-    {
-        "step": 5,
-        "type": "zone_count",
-        "zone": "myField",
-        "viewerPlayerID": 1,
-        "value": 9
     },
     {
         "step": 5,
@@ -38,33 +66,5 @@
         "zone": "myMemory",
         "viewerPlayerID": 1,
         "value": 2
-    },
-    {
-        "step": 5,
-        "type": "zone_count",
-        "zone": "theirHand",
-        "viewerPlayerID": 1,
-        "value": 2
-    },
-    {
-        "step": 5,
-        "type": "zone_count",
-        "zone": "theirField",
-        "viewerPlayerID": 1,
-        "value": 9
-    },
-    {
-        "step": 5,
-        "type": "zone_count",
-        "zone": "theirGraveyard",
-        "viewerPlayerID": 1,
-        "value": 12
-    },
-    {
-        "step": 5,
-        "type": "zone_count",
-        "zone": "theirMemory",
-        "viewerPlayerID": 1,
-        "value": 7
     }
 ]

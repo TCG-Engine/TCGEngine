@@ -7,30 +7,51 @@
     {
         "step": 5,
         "type": "card_property_equals",
-        "mzId": "myField-3",
-        "property": "Damage",
-        "value": "8"
+        "mzId": "p2Field-8",
+        "property": "Counters",
+        "value": "{\"buff\":1}"
     },
     {
         "step": 5,
-        "type": "zone_count",
-        "zone": "myHand",
-        "viewerPlayerID": 1,
-        "value": 4
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-2",
+        "property": "CardID",
+        "value": "Kc5Bktw0yK"
     },
     {
         "step": 5,
-        "type": "zone_count",
-        "zone": "myField",
-        "viewerPlayerID": 1,
-        "value": 15
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-2",
+        "property": "Counters",
+        "value": "[]"
     },
     {
         "step": 5,
-        "type": "zone_count",
-        "zone": "myGraveyard",
-        "viewerPlayerID": 1,
-        "value": 18
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-2",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-5",
+        "property": "CardID",
+        "value": "Kc5Bktw0yK"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-6",
+        "property": "CardID",
+        "value": "Kc5Bktw0yK"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p2GlobalEffects-0",
+        "property": "CardID",
+        "value": "Kc5Bktw0yK"
     },
     {
         "step": 5,
@@ -38,13 +59,6 @@
         "zone": "theirHand",
         "viewerPlayerID": 1,
         "value": 0
-    },
-    {
-        "step": 5,
-        "type": "zone_count",
-        "zone": "theirField",
-        "viewerPlayerID": 1,
-        "value": 9
     },
     {
         "step": 5,

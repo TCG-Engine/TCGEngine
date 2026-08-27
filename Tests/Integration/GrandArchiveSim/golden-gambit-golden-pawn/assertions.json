@@ -6,31 +6,87 @@
     },
     {
         "step": 7,
-        "type": "zone_count",
-        "zone": "myHand",
-        "viewerPlayerID": 1,
-        "value": 7
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\"]"
     },
     {
         "step": 7,
-        "type": "zone_count",
-        "zone": "myField",
-        "viewerPlayerID": 1,
-        "value": 2
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "CardID",
+        "value": "9gv4vm4kj3"
     },
     {
         "step": 7,
-        "type": "zone_count",
-        "zone": "myGraveyard",
-        "viewerPlayerID": 1,
-        "value": 0
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
     },
     {
         "step": 7,
-        "type": "zone_count",
-        "zone": "myMemory",
-        "viewerPlayerID": 1,
-        "value": 0
+        "type": "card_property_equals",
+        "mzId": "p2Hand-4",
+        "property": "CardID",
+        "value": "9urNxU7SZw"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-5",
+        "property": "CardID",
+        "value": "o6gb0op3nq"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-1",
+        "property": "CardID",
+        "value": "Lewf9sfv9m"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-2",
+        "property": "CardID",
+        "value": "B1EbF6jcYF"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-2",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-2",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-0",
+        "property": "CardID",
+        "value": "fgBpQZe0js"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-1",
+        "property": "CardID",
+        "value": "w1d0uc5dxZ"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-2",
+        "property": "CardID",
+        "value": "IPmK09iEIT"
     },
     {
         "step": 7,
@@ -45,6 +101,13 @@
         "zone": "theirField",
         "viewerPlayerID": 1,
         "value": 2
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 3
     },
     {
         "step": 7,
