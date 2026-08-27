@@ -1,7 +1,8 @@
 # HMW — Card Implementation Plan
 
-**⚠ PREVIEW SET.** 99 cards exist (97 numbered + 2 tokens) of ~262 printed — as of the wave imported
-2026-08-26 (HMW_175 / HMW_208 / HMW_225 / HMW_237 landed then), and the wave imported
+**⚠ PREVIEW SET.** 109 cards exist (107 numbered + 2 tokens) of ~262 printed — count re-derived from
+`AppCore/SWU/CardMocks.php` on 2026-08-27; the last import wave was 2026-08-26 (three separate rewrites
+that session: 103 → 108 → 109). Earlier waves: 2026-08-26 (HMW_175 / HMW_208 / HMW_225 / HMW_237), and the wave imported
 2026-08-24 (HMW_018 / HMW_180 / HMW_212 / HMW_221 / HMW_222 / HMW_230 / HMW_240 / HMW_268 landed
 then) — as mock entries in `AppCore/SWU/CardMocks.php`. Regenerate this plan (`swusim-generate-set-implement-doc HMW`) as more
 previews land — the phases below cover only what was previewed when each was written.
@@ -414,7 +415,24 @@ covered the cards previewed when they were written, and a preview set GROWS. The
 
 ## Status
 
-**NOT card-complete — a NINTH preview wave landed.** `CardMocks.php` now holds **103** HMW CardIDs, and
+**CARD-COMPLETE as of 2026-08-27 — 109 of 109.** Verified by the diff (`### Already Done` vs
+`grep -oE "'HMW_[0-9T]+'" AppCore/SWU/CardMocks.php`): **empty in both directions**, and cross-checked
+against the 109 HMW entries in `SWUSim/GeneratedCode/GeneratedCardDictionaries.php` (also an empty
+diff). Suite **9881 passed / 0 failed**. The 19 Done cards with no reference under `SWUSim/Custom/`
+are all legitimately handler-free: 13 blank-text bases (HMW_019/020/021/023/024/026/027/028/029/030/
+031/033/034), 4 blank-text units (HMW_116 Ewok Brigade, HMW_163 Champion of Endor, HMW_174 Maul,
+HMW_268 Offworld Jawa) and 2 keyword-only units (HMW_175 Fennec Shand = Raid 2, HMW_201 Sandtrooper
+Squad = Ambush + Raid 1) — all served by the generic keyword engine.
+
+⚠ **Data-quality flag, not a code gap:** HMW_174 Maul (Only Revenge Remains) is mocked as a *vanilla*
+4-cost 6/6 Rare with `text: ''`. That stat line for a blank Rare is unusual; if the real preview has
+printed text, the MOCK is incomplete and the card needs re-importing, not re-implementing. Same
+question, lower stakes, for HMW_116 / HMW_163 / HMW_268.
+
+⚠ True only until the next preview wave lands. Re-derive with the diff — never a Status line, never
+the batch checkboxes.
+
+**(historical, 2026-08-26 — the NINTH preview wave.)** `CardMocks.php` now holds **103** HMW CardIDs, and
 the `### Already Done` diff (run 2026-08-26) named THREE unimplemented cards, ALL NOW DONE:
 **HMW_088 Numa, HMW_265 Twi'lek Kalikori, HMW_185 Ty Yorrick.**
 
