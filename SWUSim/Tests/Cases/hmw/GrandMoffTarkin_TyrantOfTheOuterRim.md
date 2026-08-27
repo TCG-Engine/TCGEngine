@@ -219,3 +219,38 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 ## EXPECT
 P2BASEDMG:25
 PHASE:MAIN
+
+---
+
+# FourSeats_RegroupDefeatsTheCHOSENSeatsBase
+#// HMW_004 deployed — "You may defeat a base with 10 or less remaining HP." Unqualified, so every base at
+#// the table that meets the threshold is offered. Here BOTH P2 (25 damage on a 30-HP base) and P4 (20 on
+#// a 25-HP base) qualify, and P1 names P4. Two legacy shapes die on this: the offer used to be the literal
+#// pair ['myBase-0','theirBase-0'], so p4Base-0 was not even a candidate; and the applier used to collapse
+#// any non-"my" pick onto OtherPlayer(), which would eliminate P2 instead. For an ability whose entire
+#// effect is "that player is out of the game", guessing the seat is the worst possible failure.
+#// Only P4 leaves, so its TEAM (2 and 4) still has a live seat — the game must not be over.
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:HMW_004;myLeaderDeployed:true;myResources:9;theirBaseDamage:25}
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:20
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP4Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>Pass
+- P1>AnswerDecision:p4Base-0
+
+## EXPECT
+SEATCOUNT:4
+SEATLIVE:4:false
+SEATLIVE:2:true
+SEATLIVE:1:true
+NOGAMEWINNER

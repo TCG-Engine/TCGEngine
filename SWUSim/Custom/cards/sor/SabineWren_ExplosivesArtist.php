@@ -18,7 +18,11 @@ $onAttackAbilities["SOR_142:0"] = function($player, $mzID) {
         return;
     }
     // Attacking a unit → may deal 1 to the defender or a base.
-    $targets = [$defenderMz, 'theirBase-0', 'myBase-0'];
+    // ⚠ 'theirBase-0' is a HAND-BUILT relative mzID: it names SEAT 2 and nothing else, so above two seats
+    // a far seat's base could not be targeted at all. SWUAllBaseMzIDs(…, 'any') is the caster's own base
+    // plus EVERY opponent's, as real p{n}Base mzIDs. (This shape is invisible to a seat-helper scan —
+    // there is no OtherPlayer() here, just a string.)
+    $targets = array_merge([$defenderMz], SWUAllBaseMzIDs(intval($player), 'any'));
     SWUQueueMayChooseTarget(intval($player), $targets,
         "You_may_deal_1_to_the_defender_or_a_base", "Deal_1_damage_to_the_defender_or_a_base", "SOR_142#0");
 };

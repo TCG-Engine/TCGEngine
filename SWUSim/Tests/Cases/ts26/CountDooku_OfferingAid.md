@@ -31,3 +31,32 @@ P2BASEDMG:2
 P1GROUNDARENACOUNT:1
 P2GROUNDARENACOUNT:1
 P1LEADER:EXHAUSTED
+
+---
+
+# TwinSuns_ChooseTwoPLAYERS_NotJustBothSeats
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — "Choose 2 PLAYERS. They each heal 1 damage from their base
+#// and create a Battle Droid token." Forced at two seats (both), a real pick of 2 out of N above that.
+#// It always resolved to the caster + OtherPlayer($player).
+#// P1 picks SEATS 3 and 4 — its own TEAMMATE and one opponent — and neither is the caster: P3 and P4 each
+#// heal (4 → 3) and gain a droid, while P1's own base stays on 3 and seat 2 is untouched. The old code
+#// would have healed P1 and P2 instead, so all four assertions move.
+## GIVEN
+CommonSetup: bbk/rrk/{myLeader:TS26_01;myBaseDamage:3}
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:4
+WithP4Base: SOR_019:4
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:P4
+## EXPECT
+SEATCOUNT:4
+P3BASEDMG:3
+P4BASEDMG:3
+P1BASEDMG:3
+P3GROUNDARENACOUNT:1
+P4GROUNDARENACOUNT:1

@@ -231,3 +231,38 @@ WithP1Deck: SOR_237
 P1WIN
 P1NODECISION
 P2NODECISION
+
+---
+
+# FourSeats_ChoosesWHICHEnemyBaseTakesTheDamage
+#// SOR_152 at FOUR seats — "deal 1 damage to AN enemy base" per Heroism card revealed. The lump lands on
+#// ONE base the caster picks, and above two seats that pick is a real prompt (SWUQueueChooseOpponent →
+#// SOR_152#BASE → SWUPickedOpponent). This section is the guard for that: P1 names P4, so the damage must
+#// be on P4's base and NOT on P2's — the seat a legacy OtherPlayer()/auto-pick would have hit. The pick
+#// comes BEFORE the arrange answer, which also pins the queue order (damage first, arrange after).
+
+## GIVEN
+CommonSetup: rrw/rrw
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 3
+WithP1Hand: SOR_152
+WithP1Deck: SOR_095
+WithP1Deck: SOR_189
+WithP1Deck: SOR_128
+WithP1Deck: SOR_111
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P4
+- P1>AnswerDecision:SOR_111,SOR_128|SOR_095,SOR_189
+
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:2
+P2BASEDMG:0
+P1DECKCOUNT:2

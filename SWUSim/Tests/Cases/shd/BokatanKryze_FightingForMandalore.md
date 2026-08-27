@@ -99,7 +99,7 @@ WithP4Base: SOR_019:15
 WithP1Deck: [SOR_095 SOR_046 SEC_080 SOR_128 SOR_237]
 
 ## WHEN
-- P1>AttackGroundArena:0:0
+- P1>AttackGroundArena:0:P2G0
 
 ## EXPECT
 SEATCOUNT:4

@@ -122,3 +122,54 @@ P1OnlyActions: true
 ## EXPECT
 P1RESAVAILABLE:0
 P1GROUNDARENAUNIT:1:CARDID:JTL_103
+
+---
+
+# Decline_NoFreePlay_ByConfirmingEmpty
+#// ⚠ PASS-TWIN of Decline_NoFreePlay — byte-for-byte identical except the decline.
+#// `-` and "PASS" are two DIFFERENT declines, and the client only ever submits "PASS" (all three decline
+#// paths in Core/UILibraries*.js). Historically every decline test here answered `-`, so the path players
+#// actually take was untested. This continuation (DISCOUNT_PLAY_FROM_HAND) is one that does more than apply the pick, and
+#// it now runs on a decline because SWUQueueMayChooseTarget defaults dontSkipOnPass to 1 — this twin is
+#// what covers that. If the two declines ever diverge, one of the pair goes red.
+## GIVEN
+CommonSetup: ggw/ggk/{myResources:8;handCardIds:ASH_108,SOR_095}
+WithP1GroundArena: SOR_046:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+## EXPECT
+P1RESAVAILABLE:5
+P1GROUNDARENACOUNT:2
+
+---
+
+# TwinSuns_MostUnitsIsVsEVERYPlayer
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — "each arena in which you control THE MOST units".
+#// "The most" is a comparison against EVERY other player, not against one opponent. It compared only
+#// against OtherPlayer($player), so a seat-4 board bigger than yours was invisible and the discount was
+#// OVER-granted.
+#// Fixture: P1 ends with 2 ground units and SEAT 4 also has 2 — so P1 does NOT have the most and gets no
+#// discount. Seat 2 is empty, which is exactly what the old code looked at and why it would grant one.
+#// Mutation-verified: restricting the comparison back to OtherPlayer() reddens this.
+## GIVEN
+CommonSetup: ggw/ggk
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 8
+WithP1Hand: ASH_108
+WithP1Hand: SOR_095
+WithP1GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_059:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-0
+## EXPECT
+SEATCOUNT:4
+P1RESAVAILABLE:3

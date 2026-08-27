@@ -14,7 +14,26 @@ $customDQHandlers["SOR_010#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
     SWUDealDamageToUnit($lastDecision, 1, intval($player));
-    SWUDealDamageToBase(1, GetOpponent(intval($player)));
+    // ⚠ "and 1 damage to A BASE" is UNQUALIFIED — it names no controller, so ANY base is a legal target,
+    // including YOUR OWN. This dealt to GetOpponent() unconditionally, which was wrong on two counts:
+    //   • it removed a legal choice even in Premier (the unqualified-target family — the same reading the
+    //     unit half above already uses, since $targets there spans my+their arenas); and
+    //   • GetOpponent() names ONE seat and is null above seat 2.
+    // SWUAllBaseMzIDs(…, 'any') is myBase-0 plus every theirBase, fanned out across live opponents.
+    // ⚠ SWUAfterAction MOVES to the continuation: the action must not close before the damage lands.
+    SWUOfferBaseTarget(intval($player), [
+        'baseSide' => 'any', 'amount' => 1,
+        'continuation' => 'SOR_010#1',
+        'prompt' => 'Choose_a_base_to_deal_1_damage',
+    ]);
+};
+
+// The base half of the leader Action. Closes the action here, not in #0.
+$customDQHandlers["SOR_010#1"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    if (!SWUDecisionDeclined($lastDecision)) {
+        SWUDealDamageToBase(1, SWUMzOwner((string)$lastDecision, intval($player)), intval($player));
+    }
     SWUAfterAction(intval($player));
 };
 

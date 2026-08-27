@@ -17,7 +17,11 @@ $customDQHandlers["SEC_180#0"] = function($player, $parts, $lastDecision) {
     // about to vanish, and picking it silently throws the 2 damage away. Blocks only order within ONE
     // player's queue, so the only way to sequence behind their decision is to queue the offer-builder
     // onto THEIR queue, after the entries the damage just added. Detect that by watching their queue grow.
-    $opp = OtherPlayer(intval($player));
+    // ⚠ The queue to watch belongs to the DAMAGED UNIT'S controller — a determined seat, since a
+    // replacement effect (Amidala, The Mandalorian) is offered to whoever controls the unit taking the
+    // damage. OtherPlayer() named seat 2, so above two seats this watched a bystander's queue: it never
+    // grew, the deferral never happened, and the second 2 damage resolved against a board mid-change.
+    $opp = SWUMzOwner((string)$lastDecision, intval($player));
     $qBefore = count(GetDecisionQueue($opp));
     SWUDealDamageToUnit($lastDecision, 3, intval($player));
     $playerID = intval($player);

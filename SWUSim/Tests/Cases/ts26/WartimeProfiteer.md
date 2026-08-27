@@ -85,7 +85,7 @@ WithP4Resources: 2:SOR_046:1,1:SOR_046:0
 WithP1Deck: [SOR_095 SOR_046 SEC_080]
 
 ## WHEN
-- P1>AttackGroundArena:0:0
+- P1>AttackGroundArena:0:P2G0
 - P2>AnswerDecision:YES
 - P3>AnswerDecision:NO
 - P4>AnswerDecision:YES

@@ -14,7 +14,14 @@
 $leaderAbilities["SOR_002"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
-    if (GlobalEffectCount(GetOpponent($player), 'SWU_FRIENDLY_DEFEATED') > 0) {
+    // "If AN enemy unit was defeated this phase" — EXISTENTIAL. The flag is stamped on the DEFEATED
+    // unit's controller, so any opponent's flag satisfies it; GetOpponent() read one seat, and returns
+    // null above seat 2 (so a far-seat Iden healed nothing at all).
+    $anyEnemyDefeated = false;
+    foreach (OpponentsOf(intval($player)) as $o) {
+        if (GlobalEffectCount($o, 'SWU_FRIENDLY_DEFEATED') > 0) { $anyEnemyDefeated = true; break; }
+    }
+    if ($anyEnemyDefeated) {
         OnHealBase($player, $player, 1);
     }
     SWUAfterAction($player);

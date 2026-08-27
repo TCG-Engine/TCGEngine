@@ -14,7 +14,10 @@ $customDQHandlers["SOR_233#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     $uid = intval($o->UniqueID);
-    $controller = intval($o->Controller ?? OtherPlayer($caster));
+    // The Controller field is the answer; the fallback is only for an unset field, and it must still
+    // name the RIGHT seat above two seats — derive it from the mzID rather than OtherPlayer().
+    $controller = intval($o->Controller ?? 0);
+    if ($controller <= 0) $controller = SWUMzOwner((string)$lastDecision, $caster);
     DecisionQueueController::AddDecision($controller, "YESNO", "-", 1,
         tooltip:"Say_no_to_the_7_damage?_(opponent_draws_3)");
     DecisionQueueController::AddDecision($controller, "CUSTOM", "SOR_233#1|{$caster}|{$uid}", 1);

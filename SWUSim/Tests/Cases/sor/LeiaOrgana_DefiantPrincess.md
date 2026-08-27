@@ -8,7 +8,7 @@ WithP2GroundArena: SOR_095:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:Exhaust a unit
+- P1>AnswerDecision:Exhaust_a_unit
 - P1>ChooseTheirGroundUnit:0
 
 ## EXPECT
@@ -27,7 +27,7 @@ WithP1GroundArena: SOR_095:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:Exhaust a unit
+- P1>AnswerDecision:Exhaust_a_unit
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
@@ -46,7 +46,7 @@ WithP2GroundArena: SOR_095:1:0
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:Exhaust a unit
+- P1>AnswerDecision:Exhaust_a_unit
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:EXHAUSTED
@@ -63,7 +63,7 @@ CommonSetup: ygw/grw/{myResources:2;theirResources:2;handCardIds:SOR_189}
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:Ready a resource
+- P1>AnswerDecision:Ready_a_resource
 
 ## EXPECT
 P1RESAVAILABLE:1

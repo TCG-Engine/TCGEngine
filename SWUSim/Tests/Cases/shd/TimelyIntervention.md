@@ -236,3 +236,29 @@ P1HANDCOUNT:2
 P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:SHD_129
 P1RESAVAILABLE:4
+
+---
+
+# ChooseNothing_NoUnitIsPlayedAndNothingGainsAmbush_ByConfirmingEmpty
+#// ⚠ PASS-TWIN of ChooseNothing_NoUnitIsPlayedAndNothingGainsAmbush — byte-for-byte identical except the decline.
+#// `-` and "PASS" are two DIFFERENT declines, and the client only ever submits "PASS" (all three decline
+#// paths in Core/UILibraries*.js). Historically every decline test here answered `-`, so the path players
+#// actually take was untested. This continuation (SHD_129#0) is one that does more than apply the pick, and
+#// it now runs on a decline because SWUQueueMayChooseTarget defaults dontSkipOnPass to 1 — this twin is
+#// what covers that. If the two declines ever diverge, one of the pair goes red.
+
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:5}
+P1OnlyActions: true
+WithP1Hand: [SHD_129 SOR_095 SOR_046]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1SPACEARENACOUNT:0
+P1HANDCOUNT:2
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:SHD_129
+P1RESAVAILABLE:4

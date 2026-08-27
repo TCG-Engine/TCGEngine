@@ -7,13 +7,13 @@
 // if you control fewer resources than the opponent, +2/+0 for this attack.
 $customDQHandlers["LAW_202#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $savedPID = $playerID; $playerID = intval($player);
-    $opp = intval($parts[0] ?? OtherPlayer(intval($player)));
+    // (no $opp: the only clause that needed one — "if you control fewer resources than AN OPPONENT" — is
+    // EXISTENTIAL and already scans OpponentsOf() below. The seat this used to receive was never read.)
     $attackerMzID = $lastDecision ?? '';
     $attacker = (!empty($attackerMzID) && str_contains($attackerMzID, '-')) ? GetZoneObject($attackerMzID) : null;
     if (SWUObjGone($attacker)) { $playerID = $savedPID; SWUAfterAction($player); return; }
     AddTurnEffect($attackerMzID, SWUMakeTurnEffect('SABOTEUR', [], SWU_DUR_ATTACK, 'LAW_202'));
-    // "if an opponent controls more resources than you" is EXISTENTIAL — ANY live opponent, not the
-    // single seat $opp named. $opp stays as-is for the rest of the handler; only the buff test widens.
+    // "if an opponent controls more resources than you" is EXISTENTIAL — ANY live opponent, not one seat.
     // Adding a picker here would raise a prompt Premier must never see.
     $meRes = SWUResourceCount(intval($player));
     foreach (OpponentsOf(intval($player)) as $o) {
@@ -39,6 +39,8 @@ $whenPlayedAbilities["LAW_202:0"] = function($player, $mzID = '') {
                 }
             }
             if (empty($readyUnits)) return;
-            SWUQueueChooseTarget(intval($player), $readyUnits, "Choose_a_unit_to_attack_with_(Saboteur)", "LAW_202#0|" . OtherPlayer(intval($player)));
+            // No seat param — LAW_202#0 never read it (§1c per-clause re-check, 2026-08-27). Passing
+            // OtherPlayer() here made the card look like a determined-seat suspect in every scan.
+            SWUQueueChooseTarget(intval($player), $readyUnits, "Choose_a_unit_to_attack_with_(Saboteur)", "LAW_202#0");
             return;
 };

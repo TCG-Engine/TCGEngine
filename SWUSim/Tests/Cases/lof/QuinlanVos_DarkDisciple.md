@@ -72,3 +72,28 @@ WithP1GroundArena: LOF_163:1:0
 
 ## EXPECT
 P2BASEDMG:4
+
+---
+
+# TwinSuns_CasterPicksWhichEnemyBase
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — batch 2, "you may deal 2 damage to AN enemy base".
+#// The YESNO is unchanged; what is new is that saying yes now asks WHICH enemy base. Quinlan attacks
+#// seat 2's base but sends the ability damage to seat 4 — deliberately different targets, so a fix that
+#// merely followed the attack target could not pass either.
+## GIVEN
+CommonSetup: rrw/rrk
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1GroundArena: LOF_163:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+## WHEN
+- P1>AttackGroundArena:0:P2B
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:P4
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:2

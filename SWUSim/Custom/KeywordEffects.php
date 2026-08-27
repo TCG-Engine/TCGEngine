@@ -592,13 +592,28 @@ function HasConditionalKeyword_Ambush($obj) {
     return false;
 }
 
+// JTL_047 Admiral Yularen — "While this unit is in play, each friendly Vehicle unit gains the chosen
+// keyword." The choice is stored as SWU_YULAREN_{sourceUID}_{kw} on the CONTROLLER's GlobalEffects, so
+// this reader has to find the SOURCE by UID.
+//
+// ⚠ Two defects fixed 2026-08-27, both measured, and both the SAME shape already fixed on TWI_110 Huyang
+// and LOF_191 BD-1 — this was the third member of that family:
+//   • Do NOT filter the source scan to CardID === 'JTL_047'. The key is written by whichever unit's When
+//     Played resolved, and TS26_34 Fives enters play "with the When Played abilities of another unit", so
+//     a copied Yularen writes SWU_YULAREN_{FIVES_uid}_{kw} — never scanned, so the Vehicle gained nothing.
+//     ⚠ The existing Clone_CopyOfYularenAlsoGrants section did NOT cover this and made it look covered: a
+//     TWI_116 Clone enters play AS a JTL_047, so it passes a CardID filter. A Fives copy does not.
+//   • Do NOT hardcode seats 1-2. GetGroundArena(1)/(2) only — a Yularen at seat 3 or 4 granted nothing to
+//     anybody (Twin Suns two-seat hardcode family). Loop every live seat instead.
+// The key is self-authenticating (only JTL_047#0, or a copy of it, ever writes it) and is already read
+// against the Vehicle's own controller, so scanning every in-play unit by UID is correct and sufficient.
 function _SWUYularenGrants($obj, string $kw): bool {
     if (!HasTrait($obj->CardID ?? '', 'Vehicle')) return false;
     $ctrl = intval($obj->Controller ?? 0);
     if ($ctrl <= 0) return false;
-    foreach ([GetGroundArena(1), GetGroundArena(2), GetSpaceArena(1), GetSpaceArena(2)] as $arena) {
-        foreach ($arena as $u) {
-            if (($u->CardID ?? '') !== 'JTL_047' || !empty($u->removed)) continue;
+    for ($seat = 1; $seat <= SeatCountForGame(); $seat++) {
+        foreach (array_merge(GetGroundArena($seat) ?? [], GetSpaceArena($seat) ?? []) as $u) {
+            if (!empty($u->removed)) continue;
             if (GlobalEffectCount($ctrl, "SWU_YULAREN_" . intval($u->UniqueID ?? 0) . "_{$kw}") > 0) return true;
         }
     }
@@ -779,7 +794,10 @@ function HasConditionalKeyword_Saboteur($obj) {
     // seat but 1 granted nothing to anybody above two seats).
     if (_SWUAnyOpponentControlsActive(intval($obj->Controller ?? 0), 'LAW_233')) return true;
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SABOTEUR')) return true;
-    if (_SWULof191HasBuff($obj)) return true; // LOF_191 BD-1: chosen unit gains Saboteur while BD-1 in play
+    // LOF_191 BD-1: the chosen unit gains Saboteur while the source is in play. A keyword does not stack,
+    // so > 0 is the whole test — but it must go through the COUNT reader, because that is what scans the
+    // link by source UID and therefore sees a BD-1 ability COPIED onto another unit (TS26_34 Fives).
+    if (_SWULof191BuffCount($obj) > 0) return true;
     // TWI_143 Jyn Erso — "While an enemy unit has been defeated this phase, this unit gains Saboteur."
     if (($obj->CardID ?? '') === 'TWI_143' && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_ENEMY_DEFEATED') > 0) return true;
     // SHD_190 Zuckuss: each friendly unit named 4-LOM gains Saboteur.

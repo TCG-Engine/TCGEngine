@@ -372,3 +372,36 @@ WithP2GroundArena: LAW_124:1:0
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2GROUNDARENAUNIT:0:DAMAGE:5
+
+---
+
+# Front_DeclineWithPASS_StillClosesTheAction
+#// ⚠ NEW GUARD 2026-08-27. TS26_03 Maul had NO decline test of either kind, and its continuation is one of the
+#// 8 MZMAYCHOOSE continuations whose DECLINE PATH CLOSES THE ACTION (SWUAfterAction). Before the
+#// SWUQueueMayChooseTarget default flipped to dontSkipOnPass:1, a sticky "PASS" skipped that CUSTOM
+#// entirely: the cost was paid, nothing happened, and the player KEPT THE TURN — a free extra action
+#// (measured on JTL_003 Lando). This pins the decline for TS26_03 Maul, and also proves the flip did not
+#// introduce the opposite failure, a DOUBLE close.
+#//
+#// ⚠ P1OnlyActions is deliberately ABSENT — it makes TURNPLAYER unobservable, which is precisely how the
+#// Lando bug stayed green in a section that already answered "PASS". Do not add it.
+#// Maul's FRONT Action queues TS26_03#0 with the close flag 1 (the deployed On-Attack side passes 0,
+#// because combat owns the close there) — so the front side is the one that can strand the turn.
+#// P1 declines: SOR_063 gains no Experience and takes no damage, Maul is still exhausted, turn passes.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myLeader:TS26_03}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SOR_063:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:PASS
+
+## EXPECT
+TURNPLAYER:2
+P1GROUNDARENAUNIT:0:POWER:2
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1LEADER:EXHAUSTED
+P1NODECISION

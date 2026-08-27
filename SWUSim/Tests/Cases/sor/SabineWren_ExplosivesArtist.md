@@ -121,3 +121,32 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_142
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P1BASEDMG:3
+
+---
+
+# TwinSuns_CanPingAFarSeatsBase
+#// ⚠ TWIN SUNS SWEEP (2026-08-27) — the HAND-BUILT mzID shape, invisible to every seat-helper scan.
+#// The offer was literally `[$defenderMz, 'theirBase-0', 'myBase-0']`. There is no OtherPlayer() here to
+#// grep for — just a string — and 'theirBase-0' names SEAT 2 and nothing else, so above two seats a far
+#// seat's base could not be pinged at all. Now built from SWUAllBaseMzIDs(…, 'any').
+#// Sabine attacks SEAT 2's unit but pings SEAT 4's base: different seats on purpose, so a fix that merely
+#// followed the attack target would not pass either. Seat 2's base must stay clean.
+## GIVEN
+CommonSetup: rrw/rrk
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1GroundArena: SOR_142:1:0
+WithP2GroundArena: SOR_063:1:0
+## WHEN
+- P1>AttackGroundArena:0:P2G0
+- P1>AnswerDecision:p4Base-0
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:1
+P2BASEDMG:0
+P2GROUNDARENAUNIT:0:DAMAGE:2

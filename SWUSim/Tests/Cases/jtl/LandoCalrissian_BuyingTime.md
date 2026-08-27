@@ -190,3 +190,57 @@ P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P1RESAVAILABLE:1
 P1HANDCOUNT:0
 P1LEADER:EXHAUSTED
+
+---
+
+# LeaderAction_SoftPass_StillClosesTheAction
+#// ⚠ REGRESSION GUARD, live bug 2026-08-27 — and a lesson about the section right above it.
+#//
+#// LeaderAction_SoftPass_DeclinePlay already answers "PASS" and was already green, because it sets
+#// `P1OnlyActions: true` — which makes TURNPLAYER UNOBSERVABLE. The bug lived entirely in the turn swap.
+#//
+#// JTL_003#0's decline branch calls SWUAfterAction(), i.e. the continuation is what CLOSES THE ACTION.
+#// It was queued through SWUQueueMayChooseTarget with the old dontSkipOnPass default of 0, so a "PASS"
+#// answer went sticky and ExecuteStaticMethods skipped it: Lando was exhausted, the resource was spent,
+#// and P1 STILL HELD THE TURN — a free extra action. Measured: TURNPLAYER stayed 1.
+#//
+#// ⚠ Every real client decline is a "PASS": all three client decline paths (keyboard, inline board Pass
+#// button, MZChoose popup Pass button) submit the literal "PASS" and NONE submits '-'. So this was the
+#// path players actually took, not an edge case.
+#//
+#// This section deliberately omits P1OnlyActions so the turn swap is visible. Do not add it back.
+
+## GIVEN
+CommonSetup: gyw/bbk/{myLeader:JTL_003;myResources:5;handCardIds:SOR_095}
+WithActivePlayer: 1
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:PASS
+
+## EXPECT
+TURNPLAYER:2
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1NODECISION
+
+---
+
+# LeaderAction_SoftPass_DashDecline_ClosesTheActionToo
+#// The `-` twin of the section above — the two declines must stay indistinguishable in outcome. `-` was
+#// always fine (it is not sticky), so this one is the CONTROL: if it ever goes red the harness itself
+#// changed, and if the PASS twin alone goes red the DontSkipOnPass class has regressed.
+
+## GIVEN
+CommonSetup: gyw/bbk/{myLeader:JTL_003;myResources:5;handCardIds:SOR_095}
+WithActivePlayer: 1
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:-
+
+## EXPECT
+TURNPLAYER:2
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1NODECISION

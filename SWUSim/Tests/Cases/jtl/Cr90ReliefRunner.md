@@ -137,3 +137,31 @@ WithP2SpaceArena: SOR_225:1:0
 P1SPACEARENACOUNT:0
 P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1GROUNDARENAUNIT:0:DAMAGE:4
+
+---
+
+# TwinSuns_HealsTheBASEYOUCHOSE
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — batch 1, "resolve the seat from the mzID".
+#// The seat came from `(strpos($mz,'my') === 0) ? $player : OtherPlayer/GetOpponent(...)`, which collapses
+#// EVERY non-"my" mzID to seat 2. The chosen mzID already names its seat, so SWUMzOwner() reads it.
+#//
+#// "When Defeated: Heal up to 3 damage from a unit or BASE" — the base is whichever the player picked, so
+#// a far seat's base is a legal choice. Seat 4's base starts on 5 and is healed to 2. Under the old code
+#// the heal was applied to seat 2's base instead, healing a board the player never selected.
+## GIVEN
+CommonSetup: bbw/bbk/{myLeader:JTL_004;myBase:JTL_019}
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:5
+WithP4Base: SOR_019:5
+WithP1SpaceArena: JTL_071:1:5
+WithP2SpaceArena: SOR_225:1:0
+## WHEN
+- P1>AttackSpaceArena:0:P2S0
+- P1>AnswerDecision:p4Base-0
+- P1>AnswerDecision:3
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:2

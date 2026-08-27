@@ -100,3 +100,30 @@ P2RESAVAILABLE:2
 P1RESCOUNT:8
 P1RESAVAILABLE:5
 P1DECKCOUNT:1
+
+---
+
+# TwinSuns_ExhaustsTheOPPONENTYOUCHOSE
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — "Exhaust 2 ENEMY resources" names no seat.
+#// It always hit OtherPlayer($player). Both seat 2 and seat 4 hold four ready resources; P1 picks seat 4,
+#// which drops to 2 ready while seat 2 stays untouched at 4. Deliberately identical boards so the ONLY
+#// difference the assertions can detect is which seat the pick named.
+## GIVEN
+CommonSetup: yyk/rrk
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 3
+WithP1Hand: SEC_235
+WithP2Resources: 4:SOR_046:1
+WithP4Resources: 4:SOR_046:1
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P4
+## EXPECT
+SEATCOUNT:4
+P4RESAVAILABLE:2
+P2RESAVAILABLE:4

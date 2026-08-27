@@ -83,3 +83,49 @@ P2GROUNDARENACOUNT:0
 P2SPACEARENACOUNT:1
 P2SPACEARENAUNIT:0:CARDID:SHD_187
 P2BASEDMG:1
+
+---
+
+# TwinSuns_EachControllersOwnBaseTakesItsOwnCount
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — §1b, and this card carried THREE defects at once:
+#//   1. "enemy" was OtherPlayer($player), i.e. seat 2 — a seat-4 unit was not an enemy at all;
+#//   2. the defeat pool was my+their, and in a TEAM game 'their' EXCLUDES a teammate, so "defeat ALL
+#//      units" left P3's board standing;
+#//   3. "deal 1 damage to ITS CONTROLLER's base" is a determined PER-UNIT seat, but every point went to
+#//      the single $opp base.
+#//
+#// Board: P1 (caster) 1 unit · teammate P3 1 unit · enemy P2 2 units · enemy P4 1 unit.
+#// ALL FIVE units are defeated — the teammate's included, which is the clause-2 assertion.
+#// P2's base takes exactly 2 and P4's exactly 1 — asymmetric on purpose, so a fix that pooled the count
+#// or sent it to one base cannot pass. P3 is a teammate, so its defeated unit deals NO base damage.
+
+## GIVEN
+CommonSetup: rrk/bgw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 10
+WithP1Hand: LAW_044
+WithP1GroundArena: SEC_080:1:0
+WithP3GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_237:1:0
+WithP4GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:0
+P3GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P2SPACEARENACOUNT:0
+P4GROUNDARENACOUNT:0
+P2BASEDMG:2
+P4BASEDMG:1
+P3BASEDMG:0
+P1BASEDMG:0

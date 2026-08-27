@@ -13,7 +13,11 @@ $customDQHandlers["SHD_144#0"] = function($player, $parts, $lastDecision) {
     $obj = GetZoneObject($lastDecision);
     if (SWUObjGone($obj)) return;
     $uid        = intval($obj->UniqueID ?? 0);
-    $controller = OtherPlayer(intval($player));   // target was chosen from the enemy arena
+    // ⚠ "its controller" is a DETERMINED seat, and $obj is the unit itself — read it, don't guess.
+    // OtherPlayer() named seat 2, so above two seats the forced-attack flag was armed on the wrong
+    // player's GlobalEffects and the chosen unit was never forced to attack.
+    $controller = intval($obj->Controller ?? 0);
+    if ($controller <= 0) $controller = SWUMzOwner((string)$lastDecision, intval($player));
     SWUDealDamageToUnit($lastDecision, 1, intval($player));
     if ($uid > 0) AddGlobalEffects($controller, 'SWU_SHD144_FORCE|' . $uid);
 };

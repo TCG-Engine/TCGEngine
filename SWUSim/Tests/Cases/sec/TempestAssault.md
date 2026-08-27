@@ -98,3 +98,29 @@ WithP1Hand: SEC_144
 P2BASEDMG:2
 P2SPACEARENAUNIT:0:DAMAGE:2
 P2SPACEARENAUNIT:1:DAMAGE:2
+
+---
+
+# TwinSuns_ANYEnemyBaseDamagedThisPhaseArmsIt
+#// ⚠ TWIN SUNS SWEEP (2026-08-27) — the same existential gate as ASH_039, and the same harness blocker.
+#// "If you've dealt damage to AN enemy base this phase" checked seat 2 alone. Here the damage goes to
+#// SEAT 4's base, and the payoff ("deal 2 to each enemy space unit") lands on seat 2's ship — so the
+#// section fails unless the gate looks past seat 2 AND the payoff still fans out to every opponent.
+## GIVEN
+CommonSetup: rrk/grw
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 4
+WithP1SpaceArena: SOR_237:1:0
+WithP2SpaceArena: JTL_069:1:0
+WithP1Hand: SEC_144
+## WHEN
+- P1>AttackSpaceArena:0:P4B
+- P1>PlayHand:0
+## EXPECT
+SEATCOUNT:4
+P2SPACEARENAUNIT:0:DAMAGE:2

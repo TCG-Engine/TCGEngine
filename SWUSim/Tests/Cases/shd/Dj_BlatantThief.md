@@ -253,3 +253,33 @@ P1RESAVAILABLE:1
 P2RESCOUNT:2
 P2RESAVAILABLE:2
 
+---
+
+# TwinSuns_TakesTheResourceFromTHATSEAT
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — "Take control of AN ENEMY RESOURCE."
+#// Pins that the resource is taken from the SEAT THE PICK NAMED: it comes from seat 4, whose count drops
+#// to 1, and DJ enters under P1. That path is driven by $lastDecision and works at any seat count.
+#//
+#// ⚠ HONEST LIMIT — this does NOT pin the $opp fix in SHD_213#0. That value is only consulted as a
+#// fallback when the chosen resource's Owner field is unset ("resource Owner is often 0"), and a harness
+#// fixture always sets it. Measured: swapping $opp back to OtherPlayer() leaves this section GREEN.
+#// The fallback is a real correctness fix (it decides who gets the resource back when DJ leaves play),
+#// it is simply not reachable from here. Do not read this section as covering it.
+## GIVEN
+CommonSetup: yyw/yyw
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 7:SOR_046:1,1:SHD_213:1
+WithP4Resources: 2:SEC_080:0
+WithP1Deck: SOR_095
+## WHEN
+- P1>SmuggleResource:7
+- P1>AnswerDecision:p4Resources-0
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:CARDID:SHD_213
+P4RESCOUNT:1

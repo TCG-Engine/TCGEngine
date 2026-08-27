@@ -16,6 +16,11 @@ $customDQHandlers["SHD_172#0"] = function($player, $parts, $lastDecision) {
     // The seat that PLAYED the card — "their base or a ground unit THEY control" is scoped to that one
     // player, never to "any enemy". Threaded from the trigger payload; absent ⇒ the single opponent.
     $playing = intval($parts[2] ?? 0);
+    // ⚠ REACHABLE fallback, not dead code — turning it into a `return` reddened TwoKrayts_BothTrigger,
+    // so some trigger paths genuinely arrive without $parts[2]. SWUChooseOpponent AUTO-PICKS the first
+    // live opponent: correct at two seats, a guess above them. Left as-is deliberately — the real fix is
+    // to thread the playing seat on EVERY path that raises this trigger, which is a trigger-payload
+    // change beyond this card. Recorded in the plan doc's known-gaps list (2026-08-27).
     if ($playing <= 0) $playing = SWUChooseOpponent(intval($player));
     if ($amount <= 0 || $count <= 0) return;
     // ⚠ TWO opposite seat bugs lived in the old pool:

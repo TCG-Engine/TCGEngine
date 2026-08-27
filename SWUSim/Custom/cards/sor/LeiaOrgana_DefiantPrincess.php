@@ -5,10 +5,16 @@
 
 // SOR_189 Leia Organa (Defiant Princess) — "When Played: Either ready a resource or exhaust a unit."
 // Mandatory either/or → OPTIONCHOOSE with two labeled buttons (no decline).
+// ⚠ THE LABELS MUST BE UNDERSCORED. A DecisionQueue row is space-delimited and AddDecision sanitises the
+// TOOLTIP only — $param is written raw, because a space there cannot be told apart from the field
+// separator. "Ready a resource&Exhaust a unit" was therefore stored as Param="Ready" with
+// Tooltip="resource&Exhaust": the real client rendered ONE button, sent back "Ready", and the handler's
+// === "Ready a resource" test failed — so the ready-a-resource half of a MANDATORY either/or was
+// unreachable in play and Leia always exhausted a unit. Caught by the OPTIONCHOOSE pool validator.
 // "Ready a resource" → auto-ready the first exhausted resource (no further player choice).
 // "Exhaust a unit"   → exhaust a unit; auto-picks when only 1 other ready unit exists.
 $whenPlayedAbilities["SOR_189:0"] = function($player, $mzID) {
-    DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", "Ready a resource&Exhaust a unit", 1, "Ready_a_resource_or_exhaust_a_unit?");
+    DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", "Ready_a_resource&Exhaust_a_unit", 1, "Ready_a_resource_or_exhaust_a_unit?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_189#0|{$mzID}", 1);
 };
 
@@ -18,7 +24,7 @@ $customDQHandlers["SOR_189#0"] = function($player, $parts, $lastDecision) {
     $playerID = intval($player);
     $leiaMzID  = $parts[0] ?? '';
 
-    if ($lastDecision === "Ready a resource") {
+    if ($lastDecision === "Ready_a_resource") {
         // Ready the first exhausted resource belonging to this player.
         $resources = GetResources($player);
         $target = null;

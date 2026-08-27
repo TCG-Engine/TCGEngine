@@ -48,5 +48,8 @@ $baseAbilities["SOR_022"] = function($player) {
     if (empty($eligible)) { SWUAfterAction($player); return; }
     $targetStr = implode("&", $eligible);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, "Choose_a_unit_costing_6_or_less");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_022#0", 1);
+    // dontSkipOnPass:1 — the decline path calls SWUAfterAction(), i.e. it is what CLOSES the epic action.
+    // A "PASS" decline (every real client decline is a "PASS") skipped it, so the Epic Action was spent
+    // and the player still held the turn. Same shape as JTL_003 Lando, measured 2026-08-27.
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_022#0", 1, dontSkipOnPass: 1);
 };

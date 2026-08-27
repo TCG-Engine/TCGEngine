@@ -128,3 +128,42 @@ P1GROUNDARENAUNIT:0:DAMAGE:0
 P1SPACEARENAUNIT:0:DAMAGE:3
 P2GROUNDARENAUNIT:0:DAMAGE:3
 P2SPACEARENAUNIT:0:DAMAGE:0
+
+---
+
+# TwinSuns_EVERYPlayerSparesAUnit
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — "EACH PLAYER chooses a unit they control".
+#// The chain asked exactly the caster and OtherPlayer($caster), so at four seats TWO players never got to
+#// spare anything and their entire boards took the 3 damage. It now chains a pick per live seat.
+#//
+#// Every seat spares a DIFFERENT slot on purpose: P2 spares index 0, P4 spares index 1. A fix that asked
+#// only one opponent, or that applied one seat's answer to another, cannot produce this pattern.
+#// P4's units are both SOR_046 (3/7) so the unspared one SURVIVES its 3 damage — with a 3-HP unit there
+#// it is defeated, the arena compacts, and the positional assertions silently describe a different unit.
+## GIVEN
+CommonSetup: rrk/ggw
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 4
+WithP1Hand: LOF_177
+WithP1GroundArena: LOF_050:1:0
+WithP2GroundArena: SOR_059:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
+- P4>AnswerDecision:myGroundArena-1
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:1:DAMAGE:3
+P4GROUNDARENAUNIT:0:DAMAGE:3
+P4GROUNDARENAUNIT:1:DAMAGE:0

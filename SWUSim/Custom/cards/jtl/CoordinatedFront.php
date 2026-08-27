@@ -25,6 +25,9 @@ $whenPlayedAbilities["JTL_253:0"] = function($player, $mzID = '') {
                 SWUQueueMayChooseTarget(intval($player), $ground,
                     "You_may_give_a_ground_unit_+2/+2", "Give_+2/+2_this_phase", "APPLY_PHASE_BUFF|2|2|JTL_253");
             }
-            DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_253#0", 1);
+            // ⚠ dontSkipOnPass: the two grants are INDEPENDENT ("You may … / You may …"). Declining the
+            // ground half with "PASS" made the sticky pass swallow this continuation, so the SPACE half
+            // never ran at all — the event did half of what it says.
+            DecisionQueueController::AddDecision($player, "CUSTOM", "JTL_253#0", 1, dontSkipOnPass: 1);
             return;
 };

@@ -33,3 +33,32 @@ WithP1Hand: IBH_031
 P1SPACEARENAUNIT:0:CARDID:IBH_031
 P1SPACEARENAUNIT:0:EXHAUSTED
 P1NODECISION
+
+---
+
+# TwinSuns_ComparesAgainstTheLEASTDamagedEnemyBase
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — batch 4, an EXISTENTIAL comparison.
+#// "If your base has more damage on it than AN enemy base" — "an" means ANY, so the condition is met
+#// when even one enemy base is less damaged than yours. This compared against GetOpponent() alone, i.e.
+#// seat 2.
+#// The fixture is built so seat 2 says NO and seat 4 says YES: P1 has 3 damage, seat 2 has 5 (3 > 5 is
+#// false) and seat 4 has 0 (3 > 0 is true). Under the old code the Falcon does not ready; it must.
+
+## GIVEN
+CommonSetup: yyw/rrk/{myBaseDamage:3;theirBaseDamage:5}
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 7
+WithP1Hand: IBH_031
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1SPACEARENAUNIT:0:CARDID:IBH_031
+P1SPACEARENAUNIT:0:READY

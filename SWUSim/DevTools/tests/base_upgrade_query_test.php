@@ -11,8 +11,15 @@ $logic = file_get_contents(__DIR__ . '/../../Custom/GameLogic.php');
 // that existed before Fortify) rather than warning or crashing.
 check(preg_match('/function BaseUpgradeCount\(\$obj\): int/', $logic) === 1,
       'BaseUpgradeCount($obj): int defined');
-check(preg_match('/function BaseUpgradeCount\(\$obj\): int \{\s*return is_array\(\$obj->Subcards \?\? null\)/', $logic) === 1,
-      'BaseUpgradeCount null-guards Subcards');
+// ⚠ UPDATED 2026-08-27. This used to pin the literal body `return is_array($obj->Subcards ?? null) …`.
+// The implementation was deliberately rewritten to route through GetUpgradesOnUnit(), which is the
+// CANONICAL subcard reader: after a gamestate round-trip Subcards come back as associative ARRAYS rather
+// than objects, and GetUpgradesOnUnit normalises them and skips removed/captive entries. So the old
+// assertion was pinning a body that no longer exists while its INTENT — tolerate a base with no Subcards
+// instead of warning or crashing — is still satisfied, and more thoroughly than before.
+// Assert the seam, not the exact expression, so a future refactor of the body does not re-red this.
+check(preg_match('/function BaseUpgradeCount\(\$obj\): int \{[^}]*GetUpgradesOnUnit\(\$obj\)/s', $logic) === 1,
+      'BaseUpgradeCount reads through GetUpgradesOnUnit (round-trip-safe, null-tolerant)');
 
 // Player-keyed forms — what card logic calls (HMW_061 "if your base is upgraded").
 check(preg_match('/function SWUBaseUpgradeCount\(int \$player\): int/', $logic) === 1,

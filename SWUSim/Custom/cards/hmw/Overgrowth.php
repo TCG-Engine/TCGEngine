@@ -65,9 +65,14 @@ $whenPlayedAbilities["HMW_151:0"] = function($player, $mzID = '') {
     $owner = $me;
     $evMz  = _SWUFindDiscardMzID($me, 'HMW_151');
     if ($evMz === null) {
-        $opp  = OtherPlayer($me);
-        $evMz = _SWUFindDiscardMzID($opp, 'HMW_151');
-        if ($evMz !== null) $owner = $opp;
+        // ⚠ The card can be in ANY player's discard pile, not just seat 2's — it may have been
+        // played from a foreign resource. OtherPlayer() checked one seat, so above two seats the
+        // event could not be found and the whole 'resource this card' clause silently no-opped.
+        foreach (GetLiveSeatsArray() as $seat) {
+            if ($seat === $me) continue;
+            $evMz = _SWUFindDiscardMzID($seat, 'HMW_151');
+            if ($evMz !== null) { $owner = $seat; break; }
+        }
     }
     if ($evMz === null) return;
     $playerID = $me;

@@ -7,16 +7,26 @@
 // less for each arena in which you control the most units.
 $whenPlayedAbilities["ASH_108:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
+    // ⚠ "each arena in which you control THE MOST units" is a comparison against EVERY other player, not
+    // against one opponent. This compared only against OtherPlayer($player), so above two seats a seat-4
+    // board with more units than yours was ignored and the discount was over-granted.
+    // "The most" = strictly more than every other player; a tie is not "the most", which is the reading
+    // the two-seat code already used ($myG > $opG).
+    // ⚠ Every OTHER player, not every opponent: in a team game a teammate still controls units, and the
+    // card asks who controls the most — teams do not pool boards for that comparison.
     $arenas = 0;
-    // Ground
-    $myG = 0; foreach (GetGroundArena(intval($player)) as $u) { if (empty($u->removed)) $myG++; }
-    $opG = 0; foreach (GetGroundArena($opp) as $u) { if (empty($u->removed)) $opG++; }
-    if ($myG > $opG) $arenas++;
-    // Space
-    $myS = 0; foreach (GetSpaceArena(intval($player)) as $u) { if (empty($u->removed)) $myS++; }
-    $opS = 0; foreach (GetSpaceArena($opp) as $u) { if (empty($u->removed)) $opS++; }
-    if ($myS > $opS) $arenas++;
+    $countIn = function(callable $zone, int $seat): int {
+        $n = 0; foreach ($zone($seat) as $u) { if (empty($u->removed)) $n++; } return $n;
+    };
+    foreach ([fn($s) => GetGroundArena($s), fn($s) => GetSpaceArena($s)] as $zone) {
+        $mine = $countIn($zone, intval($player));
+        $most = true;
+        foreach (GetLiveSeatsArray() as $seat) {
+            if ($seat === intval($player)) continue;
+            if ($countIn($zone, $seat) >= $mine) { $most = false; break; }
+        }
+        if ($most) $arenas++;
+    }
     $discount = 2 * $arenas;
     // Heroism units in hand.
     $tg = [];

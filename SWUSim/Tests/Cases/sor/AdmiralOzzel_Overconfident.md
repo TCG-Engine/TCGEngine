@@ -157,3 +157,33 @@ WithP2GroundArena: SOR_046:0:0
 
 ## EXPECT
 P2SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# Declined_OppReadyStillOffered_DeclinedWithPASS
+#// Byte-for-byte twin of Declined_OppReadyStillOffered, answering **PASS**. This is the guard for the
+#// SECOND funnel into the sticky-PASS hazard: SWUQueueMayChooseTarget derives dontSkipOnPass from its
+#// arguments, but SWUQueueChooseTarget(…, may: true) — a separate helper with NINE callers — queued the
+#// continuation unflagged. So a real decline skipped OZZEL_PLAY entirely: "each opponent may ready a
+#// unit" (an UNCONDITIONAL sentence) never happened, and the action never closed. Fixed centrally in
+#// SWUQueueChooseTarget; a mandatory MZCHOOSE cannot be passed at all, so non-$may callers are unchanged.
+
+## GIVEN
+CommonSetup: ryk/rrk/{myResources:4}
+WithActivePlayer: 1
+WithP1GroundArena: SOR_129:1:0
+WithP1Hand: SEC_080
+WithP1Hand: SOR_128
+WithP2GroundArena: SOR_046:0:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:PASS
+- P2>Pass
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1HANDCOUNT:2
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:0:READY

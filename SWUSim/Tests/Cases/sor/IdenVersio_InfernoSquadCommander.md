@@ -306,3 +306,30 @@ P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:0
 P1LEADER:EXHAUSTED
 P1BASEDMG:2
+
+---
+
+# TwinSuns_ANYEnemyUnitDefeatedThisPhaseCounts
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — "If AN enemy unit was defeated this phase" is EXISTENTIAL.
+#// The SWU_FRIENDLY_DEFEATED flag is stamped on the DEFEATED unit's controller, and this read only
+#// GetOpponent($player) — one seat, and null above seat 2, so a far-seat Iden healed nothing at all.
+#// The only unit defeated here belongs to SEAT 4, so the heal (3 → 2) can only happen if every opponent's
+#// flag is checked.
+## GIVEN
+CommonSetup: bbk/grk/{myLeader:SOR_002;myBaseDamage:3}
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 6
+WithP1GroundArena: SOR_164:1:0
+WithP4GroundArena: SOR_059:1:0
+## WHEN
+- P1>AttackGroundArena:0:p4GroundArena-0
+- P1>UseLeaderAbility
+## EXPECT
+SEATCOUNT:4
+P4GROUNDARENACOUNT:0
+P1BASEDMG:2

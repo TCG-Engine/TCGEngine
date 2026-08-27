@@ -300,3 +300,30 @@ P1SPACEARENACOUNT:0
 P1HANDCOUNT:2
 P1LEADER:EXHAUSTED
 P1RESAVAILABLE:4
+
+---
+
+# Front_ChooseNothing_NothingIsPlayedAndTheCostIsStillPaid_ByConfirmingEmpty
+#// ⚠ PASS-TWIN of Front_ChooseNothing_NothingIsPlayedAndTheCostIsStillPaid — byte-for-byte identical except the decline.
+#// `-` and "PASS" are two DIFFERENT declines, and the client only ever submits "PASS" (all three decline
+#// paths in Core/UILibraries*.js). Historically every decline test here answered `-`, so the path players
+#// actually take was untested. This continuation (SHD_016#play) is one that does more than apply the pick, and
+#// it now runs on a decline because SWUQueueMayChooseTarget defaults dontSkipOnPass to 1 — this twin is
+#// what covers that. If the two declines ever diverge, one of the pair goes red.
+
+## GIVEN
+CommonSetup: gyw/gyw/{myLeader:SHD_016}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [SOR_095 SOR_046]
+WithP1Resources: 5
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:PASS
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1SPACEARENACOUNT:0
+P1HANDCOUNT:2
+P1LEADER:EXHAUSTED
+P1RESAVAILABLE:4

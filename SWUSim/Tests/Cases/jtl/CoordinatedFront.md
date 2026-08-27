@@ -149,3 +149,36 @@ P1GROUNDARENAUNIT:0:POWER:5
 P1GROUNDARENAUNIT:0:HP:5
 P1SPACEARENAUNIT:0:POWER:4
 P1SPACEARENAUNIT:0:HP:5
+
+---
+
+# OnlySpace_DeclineGround_DeclinedWithPASS
+#// Byte-for-byte twin of OnlySpace_DeclineGround, answering **PASS** — the real client's decline token
+#// for an MZMAYCHOOSE. The two grants are INDEPENDENT ("You may … / You may …"), but the CUSTOM that runs
+#// the SPACE half was unflagged, so a sticky PASS on the GROUND half swallowed it: the space unit was
+#// never offered and the event did half of what it says. The "-" twin cannot see this — "-" is not
+#// sticky. Fixed with dontSkipOnPass: 1 on the JTL_253#0 continuation.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_253
+WithP1Resources: 2
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+- P1>AnswerDecision:mySpaceArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:3
+P1SPACEARENAUNIT:0:POWER:4
+P1SPACEARENAUNIT:0:HP:5

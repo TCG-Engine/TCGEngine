@@ -26,5 +26,6 @@ $customDQHandlers["SEC_136#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = intval($player);
     SWUDefeatUnit(intval($player), $lastDecision);
-    SWUDealDamageToBase(4, OtherPlayer(intval($player)));
+    // "deal 4 damage to EACH enemy base" — a fan-out, not one seat.
+    foreach (OpponentsOf(intval($player)) as $o) SWUDealDamageToBase(4, $o);
 };

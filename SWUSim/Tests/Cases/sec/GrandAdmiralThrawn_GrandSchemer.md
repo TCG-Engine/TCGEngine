@@ -267,3 +267,29 @@ P1OPTIONHAS:P2
 P1OPTIONHAS:P3
 P1OPTIONHAS:P4
 P1OPTIONNOT:P1
+
+---
+
+# OppDeclines_ReadiesThrawn_DeclinedWithPASS
+#// Byte-for-byte twin of OppDeclines_ReadiesThrawn, answering **PASS** — the token the real client's
+#// selection-mode Pass button submits (Core/UILibraries: three SubmitInput(… cardID=PASS) sites). "-" is
+#// the MZMultiChooseUI empty-selection token and never reaches an MZMAYCHOOSE, so the "-" section could
+#// not see the bug: "PASS" is STICKY in ExecuteStaticMethods, and the follow-up CUSTOM was unflagged, so
+#// SEC_193#0 was skipped entirely and Thrawn stayed EXHAUSTED. The handler's own
+#// `$lastDecision !== 'PASS'` branch was unreachable. Fixed with dontSkipOnPass: 1.
+
+## GIVEN
+CommonSetup: yyk/grw/{myResources:7}
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+WithP1Hand: SEC_193
+
+## WHEN
+- P1>PlayHand:0
+- P2>AnswerDecision:PASS
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_193
+P1GROUNDARENAUNIT:0:READY
+P1NODECISION

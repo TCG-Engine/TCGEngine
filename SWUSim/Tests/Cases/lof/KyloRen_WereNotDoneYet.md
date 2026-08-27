@@ -248,7 +248,6 @@ WithP1Resources: 10
 - P1>DeployLeader
 - P1>AnswerDecision:myDiscard-0
 - P1>AnswerDecision:myDiscard-0
-- P1>AnswerDecision:-
 ## EXPECT
 P1LEADER:DEPLOYED
 P1GROUNDARENAUNIT:0:CARDID:LOF_001

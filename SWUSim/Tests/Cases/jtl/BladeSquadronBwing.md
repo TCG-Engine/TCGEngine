@@ -82,3 +82,34 @@ WithP2SpaceArena: SOR_237:0:0
 P1HASDECISION
 P1SPACEARENAUNIT:0:CARDID:JTL_199
 P1SELECTABLEEXACT:mySpaceArena-0&myGroundArena-0&theirGroundArena-0&theirGroundArena-1&theirSpaceArena-0
+
+---
+
+# TwinSuns_AnotherPLAYERAtAnySeatCounts
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — batch 4, an EXISTENTIAL condition.
+#// "If ANOTHER PLAYER controls 3 or more exhausted units" — any other seat satisfies it, and note the
+#// text says another PLAYER, not another opponent, so in a team game a TEAMMATE counts too. This read
+#// GetOpponent(), which checks ONE seat and returns null above seat 2 — so a far-seat caster counted
+#// zero and the ability silently did nothing.
+#// Here the 3 exhausted units are on SEAT 4 and nobody else has any, so the condition can only be met by
+#// looking past seat 2. The Shield offer appearing at all is the assertion.
+#// ⚠ The count is per PLAYER, never a sum across players — "a player controls 3+", not "3+ exist".
+## GIVEN
+CommonSetup: byw/bbk
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Hand: JTL_199
+WithP1Resources: 3
+WithP4GroundArena: SEC_080:0:0
+WithP4GroundArena: SOR_095:0:0
+WithP4SpaceArena: SOR_237:0:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-0
+## EXPECT
+SEATCOUNT:4
+P1SPACEARENAUNIT:0:SHIELDCOUNT:1

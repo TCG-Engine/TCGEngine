@@ -9,16 +9,22 @@
 // picker suffices; the "you may" adds a Pass to decline. A DEPLOYED leader (leader-unit) is excluded.
 $onAttackAbilities["SEC_188:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $p = intval($player); $opp = OtherPlayer($p);
+    $p = intval($player);
     $exhaustedUndeployedLeader = function($pl) {
         foreach (GetLeader($pl) as $l) {
             if (empty($l->removed) && empty($l->Deployed) && empty($l->Ready)) return true;
         }
         return false;
     };
+    // ⚠ "Ready A NON-UNIT LEADER" is UNQUALIFIED — any player's leader, yours included (readying an
+    // opponent's is a downside, but it is a legal choice). The old picker was a literal You/Opponent pair
+    // built from OtherPlayer($p), so above two seats only seat 2's leader could ever be offered.
+    // Seats are now offered as "P{n}" tokens, which SWUDecodePlayerPick already understands alongside
+    // the legacy You/Opponent labels.
     $opts = [];
-    if ($exhaustedUndeployedLeader($p))   $opts[] = 'You';
-    if ($exhaustedUndeployedLeader($opp)) $opts[] = 'Opponent';
+    foreach (GetLiveSeatsArray() as $seat) {
+        if ($exhaustedUndeployedLeader($seat)) $opts[] = "P{$seat}";
+    }
     if (empty($opts)) return;   // no undeployed exhausted leader anywhere → nothing to ready, no prompt
     $opts[] = 'Pass';           // "you may" → allow declining
     DecisionQueueController::AddDecision($p, "OPTIONCHOOSE", implode('&', $opts), 1,

@@ -17,15 +17,15 @@ $customDQHandlers["LAW_018#0"] = function($player, $parts, $lastDecision) {   //
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) { SWUAfterAction(intval($player)); return; }
     $aspect = $lastDecision;
-    $opp = OtherPlayer(intval($player));
-    $mine = _SWUTopDeckFrontIdx(intval($player)) !== -1;
-    $theirs = _SWUTopDeckFrontIdx($opp) !== -1;
-    if (SeatCountForGame() <= 2) {   // 2-player auto-resolve short-cuts (N-player always offers the picker)
-        if (!$mine && !$theirs) { SWUAfterAction(intval($player)); return; }
-        if ($mine && !$theirs) { LandoCalrissianFullSabaccMill(intval($player), intval($player), $aspect); return; }
-        if ($theirs && !$mine) { LandoCalrissianFullSabaccMill(intval($player), $opp, $aspect); return; }
-    }
-    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "@-&" . SWUDeckPickerLabels(intval($player)), 1, "Discard_from_which_deck?");
+    // ⚠ An EMPTY deck is not a legal pick — discarding from it resolves to nothing. LAW_215 filtered its
+    // pool by hand and this sibling did not, so above two seats the picker listed every seat regardless.
+    // The seat-count special-case is gone: the general form (0 eligible → fizzle, 1 → resolve inline,
+    // 2+ → offer exactly those) SUBSUMES the old two-player short-cuts and is byte-identical there.
+    $decks = SWUSeatsWithNonEmptyDeck(intval($player));
+    if (empty($decks)) { SWUAfterAction(intval($player)); return; }
+    if (count($decks) === 1) { LandoCalrissianFullSabaccMill(intval($player), $decks[0], $aspect); return; }
+    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE",
+        "@-&" . SWUDeckPickerLabels(intval($player), "Your_deck&Opponent's_deck", $decks), 1, "Discard_from_which_deck?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_018#1|" . $aspect, 1);
 };
 

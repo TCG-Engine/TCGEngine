@@ -506,3 +506,34 @@ P1GROUNDARENAUNIT:1:CARDID:TS26_34
 P1GROUNDARENAUNIT:1:READY
 P1RESAVAILABLE:0
 P1RESCOUNT:9
+
+---
+
+# CopiedBd1Buff_AppliesToTheChosenUnit
+#// ⚠ REGRESSION GUARD — the LOF_191 BD-1 twin of CopiedWhileInPlayBuff_AppliesToTheChosenUnit.
+#//
+#// BD-1 has the same printed shape as Huyang ("When Played: Choose another friendly unit. While this unit
+#// is in play, the chosen unit gets +1/+0 and gains Saboteur") and had the SAME bug — the Huyang fix was
+#// never back-ported to its own documented mirror. The link is stored as SWU_LOF191_{sourceUID}_{targetUID},
+#// but the reader scanned only in-play units whose CardID is LOF_191. Fives is TS26_34, so his UID was
+#// never checked and the target got NOTHING — measured 2026-08-27: power 3 (not 4) and no Saboteur.
+#// BOTH halves were lost, because the Saboteur grant reads the same helper.
+#// BD-1 played normally worked, which is exactly what hid it — same as Huyang.
+#// Note "another friendly unit" resolves against FIVES, so the offer is BD-1 + the Marine, not Fives.
+
+## GIVEN
+CommonSetup: byw/rrk/{myResources:6;handCardIds:TS26_34}
+P1OnlyActions: true
+WithP1GroundArena: LOF_191:1:0
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENAUNIT:1:POWER:4
+P1GROUNDARENAUNIT:1:HASKEYWORD:Saboteur
+P1GROUNDARENAUNIT:0:POWER:1

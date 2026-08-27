@@ -21,7 +21,7 @@ $customDQHandlers["SOR_252#0"] = function($player, $parts, $lastDecision) {
         elseif ($prefix !== $pilePrefix) continue;   // cross-pile pick → not a legal choice, skip
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
-        $owner = ($prefix === 'my') ? intval($player) : GetOpponent(intval($player));
+        $owner = SWUMzOwner($mz, intval($player));   // SWUMzOwner reads the seat OUT OF the mzID; the my/their ternary named seat 2 above two seats.
         $byOwner[$owner][] = $o->CardID;
         $o->removed = true;
     }

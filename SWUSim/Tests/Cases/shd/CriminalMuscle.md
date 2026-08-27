@@ -51,3 +51,58 @@ P2HANDCOUNT:0
 P2DISCARDCOUNT:0
 P1GROUNDARENACOUNT:1
 P1HANDCOUNT:0
+
+---
+
+# WhenPlayed_Decline_UpgradeStaysAndStagingIsDrained
+#// Closes the `decline=KNOWN-OPEN` gap this file documents in its own COVERAGE note.
+#// "You MAY return a non-unique upgrade" — declining leaves SOR_120 attached. The assertion that matters
+#// beyond that is P1TEMPZONECOUNT: SHD_209#0 stages the candidate upgrades into TempZone and its DECLINE
+#// path is what drains them, so a skipped continuation would leave a phantom staged copy behind with the
+#// visible board looking completely correct (the LOF_205 Force Speed shape).
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:1}
+P1OnlyActions: true
+WithP1Hand: SHD_209
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:-
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SEC_080
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_120
+P1HANDCOUNT:0
+P1TEMPZONECOUNT:0
+P1NODECISION
+
+---
+
+# WhenPlayed_Decline_ByConfirmingEmpty
+#// ⚠ PASS-TWIN of the section above — byte-for-byte except the decline.
+#// `-` and "PASS" are two different declines, and the client only ever submits "PASS" (all three decline
+#// paths in Core/UILibraries*.js). A file whose only decline test answers `-` is testing a path no player
+#// can take. The pair must agree; if they ever diverge, one of them goes red.
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:1}
+P1OnlyActions: true
+WithP1Hand: SHD_209
+WithP1GroundArena: SEC_080:1:0
+WithP1GroundArenaUpgrade: 0:SOR_120
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SEC_080
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_120
+P1HANDCOUNT:0
+P1TEMPZONECOUNT:0
+P1NODECISION

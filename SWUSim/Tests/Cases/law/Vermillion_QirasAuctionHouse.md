@@ -626,3 +626,79 @@ P1OPTIONHAS:You
 P1OPTIONHAS:Opponent
 P1DECKCOUNT:0
 P2DECKCOUNT:2
+
+---
+
+# FourSeats_CreditChooserIsVermillionsController
+#// LAW_215 at FOUR seats — "If they do, A DIFFERENT PLAYER creates Credit tokens equal to that card's
+#// cost." Nothing in the text hands that choice to anyone but the ability's controller, so the prompt
+#// belongs to P1 (the Vermillion's controller), not to the revealed deck's owner. It used to be queued
+#// onto $D, the DECK OWNER — indistinguishable while you reveal your own deck, but reveal an opponent's
+#// and the prompt landed on THEM; because that seat is idle at that moment its queue never drained in the
+#// request, so the Credits simply never appeared. Here P1 reveals P2's deck, plays the card itself, and
+#// P1 names P4 — a seat neither $D nor a "first live opponent" auto-pick would produce.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myLeader:JTL_002;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+WithP1SpaceArena: LAW_215:1:0
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackSpaceArena:0:P2B
+- P1>AnswerDecision:You
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:P4
+
+## EXPECT
+SEATCOUNT:4
+P2BASEDMG:5
+P1SPACEARENACOUNT:1
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P4CREDITCOUNT:2
+P2CREDITCOUNT:0
+P3CREDITCOUNT:0
+P1CREDITCOUNT:0
+
+---
+
+# FourSeats_TeammatesDeckIsInThePoolAndMayTakeTheCredits
+#// LAW_215 — "reveal the top card of A DECK … a DIFFERENT player creates Credits". Both references are
+#// UNQUALIFIED, so both span every live seat, a TEAMMATE included. The deck pool used to be built from
+#// OpponentsOf($V), which in Team Suns dropped P1's partner: with only P3's deck stocked the pool came
+#// back empty and the whole When-Attack-Ends trigger fizzled silently (no reveal, no play, no Credits).
+#// The credits pool is "any player except the one who PLAYED it", so P3 is eligible there too — P1 plays
+#// the card itself and hands its own partner the 2 Credits.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myLeader:JTL_002;myBase:SOR_021;theirBase:SOR_021}
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+WithP1SpaceArena: LAW_215:1:0
+WithP3Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackSpaceArena:0:P2B
+- P1>AnswerDecision:You
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:P3
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P3DECKCOUNT:1
+P3CREDITCOUNT:2
+P2CREDITCOUNT:0
+P4CREDITCOUNT:0
+P1CREDITCOUNT:0

@@ -12,7 +12,11 @@ $customDQHandlers["LOF_222#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     $uid = intval($o->UniqueID ?? -1);
-    $opp = OtherPlayer(intval($player));
+    // ⚠ The cross-player YESNO goes to the CHOSEN UNIT'S controller — a DETERMINED seat we already hold
+    // a reference to. OtherPlayer() named seat 2, so above two seats the wrong player was asked whether
+    // to keep a unit that is not theirs (Twin Suns sweep Pass 2, §1b family).
+    $opp = intval($o->Controller ?? 0);
+    if ($opp <= 0) $opp = SWUMzOwner((string)$lastDecision, intval($player));
     DecisionQueueController::AddDecision($opp, "YESNO", "-", 1,
         tooltip: "Say_'It_could_be_worse'_to_keep_this_unit?_(opponent_may_then_play_It's_Worse_for_free)");
     DecisionQueueController::AddDecision($opp, "CUSTOM", "LOF_222#1|" . intval($player) . "|{$uid}", 1);

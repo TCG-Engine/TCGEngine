@@ -21,7 +21,7 @@ $customDQHandlers["JTL_041#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     $controller = intval($o->Controller ?? 0);
-    if ($controller <= 0) $controller = GetOpponent(intval($player));
+    if ($controller <= 0) $controller = SWUMzOwner((string)$lastDecision, intval($player));   // never OtherPlayer/GetOpponent: both name one seat
     $name = SWUObjectTitle($o);
     // "If you do, search…" — gate the name-hunt on a defeat EVENT actually firing. SWUDefeatUnit returns
     // false ONLY when the target AVOIDS defeat (immune to enemy-ability defeat, e.g. SHD_187 Lurking TIE
@@ -35,7 +35,14 @@ $customDQHandlers["JTL_041#0"] = function($player, $parts, $lastDecision) {
     // full zone that was searched, including the copies about to be discarded. Only reached when a unit
     // was actually defeated; declining the "may" returns above, so no peek without a defeat.
     AddGameLogEntry('REVEAL', "P" . intval($player) . " searched P{$controller}'s hand and deck for " . $name . " (Annihilator)", 'ALL');
-    SWUQueueShowOpponentHand(intval($player));
+    // ⚠ BOTH zones, and BOTH seat-aware. Two defects here, found 2026-08-27 by asking why the deck
+    // counterpart SWUQueueShowOpponentDeck() existed with no caller:
+    //   • the DECK reveal was never wired at all, so "search its controller's deck and hand" showed only
+    //     the hand — the comment above already promised both.
+    //   • the hand reveal omitted $opp, i.e. the legacy two-seat default. $controller is the DETERMINED
+    //     seat (the defeated unit's controller); at 3+ seats the bare call revealed a bystander's hand.
+    SWUQueueShowOpponentHand(intval($player), $controller);
+    SWUQueueShowOpponentDeck(intval($player), $controller);
     // Name-hunt the controller's HAND — unconditional (reveal the hand and discard ALL
     // matches, no choice).
     $hand = &GetHand($controller);

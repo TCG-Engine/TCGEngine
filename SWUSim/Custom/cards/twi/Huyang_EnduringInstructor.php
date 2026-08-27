@@ -4,7 +4,8 @@
 // Text: When Played: Choose another friendly unit. While this unit is in play, the chosen unit gets +2/+2.
 
 // TWI_110 Huyang — "When Played: Choose another friendly unit. While this unit is in play, the chosen
-// unit gets +2/+2." (Link stored as SWU_TWI110_{srcUID}_{tgtUID}; read by _SWUTwi110HasBuff.)
+// unit gets +2/+2." (Link stored as SWU_TWI110_{srcUID}_{tgtUID}; read by _SWUTwi110BuffCount, which
+// scans by SOURCE UID so a COPIED Huyang — TS26_34 Fives — is seen too, and counts so repeats stack.)
 $whenPlayedAbilities["TWI_110:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);

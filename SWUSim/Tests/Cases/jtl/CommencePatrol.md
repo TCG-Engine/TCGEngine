@@ -120,3 +120,34 @@ P1NODECISION
 P1SPACEARENACOUNT:0
 P1DISCARDCOUNT:1
 P1DECKCOUNT:0
+
+---
+
+# TwinSuns_CardReturnsToITSOWNOwnersDeck
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — batch 1, "resolve the seat from the mzID".
+#// The seat came from `(strpos($mz,'my') === 0) ? $player : OtherPlayer/GetOpponent(...)`, which collapses
+#// EVERY non-"my" mzID to seat 2. The chosen mzID already names its seat, so SWUMzOwner() reads it.
+#//
+#// "Put another card in a discard pile on the bottom of ITS OWNER'S deck." P1 picks a card from SEAT 4's
+#// discard: it must land in SEAT 4's deck. Asserting P2's deck stays EMPTY is the half that matters —
+#// under the old code the card was posted to seat 2, an untouched bystander.
+## GIVEN
+CommonSetup: byw/byk
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 5
+WithP1Hand: JTL_205
+WithP4Discard: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p4Discard-0
+## EXPECT
+SEATCOUNT:4
+P4DISCARDCOUNT:0
+P4DECKCOUNT:1
+P2DECKCOUNT:0
+P1SPACEARENACOUNT:1

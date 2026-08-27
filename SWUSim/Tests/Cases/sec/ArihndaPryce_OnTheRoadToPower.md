@@ -67,3 +67,29 @@ WithP2Hand: JTL_043
 P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:0
 P1BASEDMG:4
+
+---
+
+# TwinSuns_FourDamageToEVERYEnemyBase
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — batch 3, "deal 4 damage to EACH enemy base" is a fan-out.
+#// It dealt to OtherPlayer(), so above two seats only seat 2 was hit. Both enemy bases now take 4;
+#// teammate P3 takes nothing, which is what pins "each ENEMY base" rather than "each base".
+## GIVEN
+CommonSetup: rrk/grw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: SEC_136:1:0
+WithP2GroundArena: LAW_124:1:0
+## WHEN
+- P1>AttackGroundArena:1:P2G0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+SEATCOUNT:4
+P2BASEDMG:4
+P4BASEDMG:4
+P3BASEDMG:0

@@ -25,5 +25,7 @@ $customDQHandlers["LAW_174#0"] = function($player, $parts, $lastDecision) {
     $o->removed = true;
     DecisionQueueController::CleanupRemovedCards();
     _topDeckPutRemainingToBottom(intval($player), [$cardID]);
-    SWUDealDamageToBase(1, OtherPlayer(intval($player)));
+    // "deal 1 damage to EACH enemy base" — a fan-out. OtherPlayer() hit ONE seat, so above two seats
+    // every other opponent's base was spared entirely.
+    foreach (OpponentsOf(intval($player)) as $o) SWUDealDamageToBase(1, $o);
 };

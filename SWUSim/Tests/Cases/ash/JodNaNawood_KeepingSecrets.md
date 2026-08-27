@@ -28,7 +28,6 @@ WithP2GroundArena: SOR_046:1:0
 P1OnlyActions: true
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:-
 ## EXPECT
 P2GROUNDARENAUNIT:0:READY
 

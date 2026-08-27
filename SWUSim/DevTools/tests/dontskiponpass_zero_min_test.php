@@ -70,6 +70,48 @@ function dsop_calls(string $text): array {
     return $out;
 }
 
+/**
+ * Source of ONE $customDQHandlers["NAME"] body, via token_get_all().
+ * ⚠ Must be the tokenizer, not a regex window and not brace counting. A regex window run past the
+ * handler start reads into the NEXT function and reports whatever it finds there (that false-positived
+ * SHD_012 Bo-Katan on a `SWUAfterAction` belonging to her leaderAbilities block further down the file).
+ * Brace counting is no better: it miscounts `{` inside strings, comments and "{$interpolation}", which
+ * is how an earlier scan read a 19-line handler as 3261 lines.
+ */
+function dsop_handler_body(string $text, string $name): ?string {
+    $T = token_get_all($text); $n = count($T);
+    $norm = [];
+    foreach ($T as $x) $norm[] = is_array($x) ? [$x[0], $x[1]] : [null, $x];
+    for ($i = 0; $i < $n; $i++) {
+        if ($norm[$i][0] !== T_VARIABLE || $norm[$i][1] !== '$customDQHandlers') continue;
+        $j = $i + 1; while ($j < $n && $norm[$j][0] === T_WHITESPACE) $j++;
+        if ($norm[$j][1] !== '[') continue;
+        $j++; while ($j < $n && $norm[$j][0] === T_WHITESPACE) $j++;
+        if ($norm[$j][0] !== T_CONSTANT_ENCAPSED_STRING || trim($norm[$j][1], "'\"") !== $name) continue;
+        $k = $j; $d = 0; $open = -1;
+        for (; $k < $n; $k++) {
+            $c = $norm[$k][1];
+            if ($c === '(') $d++; elseif ($c === ')') $d--;
+            elseif ($c === '{' && $d === 0) { $open = $k; break; }
+            elseif ($c === ';' && $d === 0) break;
+        }
+        if ($open < 0) continue;
+        $d = 0; $out = '';
+        for ($k = $open; $k < $n; $k++) {
+            $id = $norm[$k][0]; $c = $norm[$k][1];
+            if ($c === '{' || $id === T_CURLY_OPEN || $id === T_DOLLAR_OPEN_CURLY_BRACES) $d++;
+            elseif ($c === '}') { $d--; if ($d === 0) return $out; }
+            // ⚠ COMMENTS ARE EXCLUDED. Matching them is a real failure mode, not a hypothetical: this
+            // check first reported IC27_168#2 as an action-closer because its body carries the comment
+            // "No SWUAfterAction: this is an event…". A sibling scan flagged Yularen as a two-seat
+            // hardcode by matching the comment telling you not to hardcode seats. Assert CODE.
+            if ($id === T_COMMENT || $id === T_DOC_COMMENT) continue;
+            $out .= $c;
+        }
+    }
+    return null;
+}
+
 $files = [];
 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root . '/SWUSim/Custom'));
 foreach ($it as $f) {
@@ -108,6 +150,109 @@ check(empty($offenders),
         . "\n  Fix: route the pair through SWUQueueMultiChoose(\$player, 0, \$max, \$mzIDs, \$tooltip, \$continuation)"
         . "\n       (it derives the flag from \$min <= 0), or add `dontSkipOnPass: 1` to the CUSTOM."
         . "\n  Then add a decline test that answers \"PASS\", not just `-` — they are different declines."));
+
+// ── The MZMAYCHOOSE half of the same class ───────────────────────────────────────────────────────────
+// ⚠ THE CLIENT NEVER SUBMITS '-'. All three decline paths in Core/UILibraries*.js — the keyboard pass
+// (TryPassCurrentDecision), the inline board Pass button, and the MZChoose popup Pass button — submit the
+// literal "PASS". `-` is a server/harness-internal value only. So for an MZMAYCHOOSE, "PASS" is not the
+// exotic decline, it is the ONLY decline a player can produce, and a sticky PASS skipped the continuation
+// every single time. Where that continuation also closed the action (SWUAfterAction), the player kept the
+// turn after paying the cost — measured on JTL_003 Lando and SOR_022 Energy Conversion Lab, 2026-08-27.
+//
+// The fix is at the helper: SWUQueueMayChooseTarget now DEFAULTS dontSkipOnPass to 1, mirroring
+// SWUQueueMultiChoose's min<=0 derivation. That is safe because all 205 continuations inspect
+// $lastDecision and SWUDecisionDeclined() treats '-' and "PASS" identically.
+$gl = file_get_contents($root . '/SWUSim/Custom/GameLogic.php');
+check(preg_match('/function\s+SWUQueueMayChooseTarget\s*\([^)]*\$dontSkipOnPass\s*=\s*1\s*\)/', $gl) === 1,
+    'SWUQueueMayChooseTarget defaults dontSkipOnPass to 1 (a 0 default silently skips every real decline)');
+
+// Raw MZMAYCHOOSE + CUSTOM pairs bypass that helper, so they must carry the flag themselves whenever the
+// continuation closes the action.
+$rawOffenders = [];
+foreach ($files as $path) {
+    $text = file_get_contents($path);
+    if (strpos($text, 'MZMAYCHOOSE') === false) continue;
+    $calls = dsop_calls($text);
+    foreach ($calls as $idx => $call) {
+        $args = dsop_split_args($call['body']);
+        if (count($args) < 2 || strpos($args[1], 'MZMAYCHOOSE') === false) continue;
+        $next = $calls[$idx + 1] ?? null;
+        if ($next === null) continue;
+        $nargs = dsop_split_args($next['body']);
+        if (count($nargs) < 3 || strpos($nargs[1], 'CUSTOM') === false) continue;
+        if (preg_match('/dontSkipOnPass\s*:\s*(?!0\b)/', $next['body']) || count($nargs) >= 6) continue;
+        // only flag it when the continuation closes the action — that is the case with a visible cost
+        if (!preg_match('/^\s*["\']([^"\'|]+)/', $nargs[2], $hm)) continue;
+        $hbody = dsop_handler_body($text, $hm[1]);
+        if ($hbody === null || strpos($hbody, 'SWUAfterAction') === false) continue;
+        $rawOffenders[] = str_replace($root . '/', '', $path) . ':' . $next['line'];
+    }
+}
+check(empty($rawOffenders),
+    'no raw MZMAYCHOOSE pair closes the action through an unflagged continuation'
+    . (empty($rawOffenders) ? '' : " — UNFLAGGED:\n    " . implode("\n    ", $rawOffenders)));
+
+// ── Every ACTION-CLOSING MZMAYCHOOSE continuation must have a "PASS" decline guard ────────────────────
+// The 8 continuations whose decline path calls SWUAfterAction() are the highest-severity members of this
+// class: skipping one meant the cost was paid, nothing happened, and the player KEPT THE TURN — a free
+// extra action (measured on JTL_003 Lando, 2026-08-27). They now RUN on a decline because the helper
+// default flipped, so each needs a section answering "PASS" to prove the flip did not instead cause a
+// DOUBLE close. A test answering `-` does NOT count: that is the other decline, and it always worked.
+// ⚠ A handler is very often REGISTERED in one file and QUEUED from another — DISCOUNT_PLAY_FROM_HAND
+// lives in CardDQHandlers.php but is queued from CrixMadine_StrikeTeamStrategist.php. Looking the body
+// up only in the queueing file silently dropped it (and any other cross-file handler) from this check.
+$bodyOf = [];
+foreach ($files as $path) {
+    $text = file_get_contents($path);
+    if (strpos($text, '$customDQHandlers') === false) continue;
+    if (!preg_match_all('/\$customDQHandlers\s*\[\s*[\'"]([^\'"]+)[\'"]\s*\]\s*=/', $text, $rm)) continue;
+    foreach ($rm[1] as $hn) {
+        $b = dsop_handler_body($text, $hn);
+        if ($b !== null) $bodyOf[$hn] = [$b, $path];
+    }
+}
+$closers = [];
+foreach ($files as $path) {
+    $text = file_get_contents($path);
+    if (strpos($text, 'SWUQueueMayChooseTarget') === false) continue;
+    if (!preg_match_all('/SWUQueueMayChooseTarget\s*\(([^;]{0,400}?)\)\s*;/s', $text, $mm)) continue;
+    foreach ($mm[1] as $args) {
+        $parts = preg_split('/,(?![^(\[]*[)\]])/', $args);
+        if (count($parts) < 5 || !preg_match('/[\'"]([^\'"|]+)/', $parts[4], $hm)) continue;
+        if (!isset($bodyOf[$hm[1]])) continue;
+        if (strpos($bodyOf[$hm[1]][0], 'SWUAfterAction') !== false) $closers[$hm[1]] = $path;
+    }
+}
+check(count($closers) >= 8, 'found the action-closing continuations (' . count($closers) . ')');
+
+// A guard exists if ANY test case answers "PASS" in a file naming that handler's card.
+$caseText = '';
+$ci = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root . '/SWUSim/Tests/Cases'));
+$caseFiles = [];
+foreach ($ci as $cf) if ($cf->isFile() && $cf->getExtension() === 'md') $caseFiles[] = $cf->getPathname();
+$unguarded = [];
+foreach ($closers as $handler => $srcPath) {
+    // the card id is the handler name up to '#', when it looks like one
+    $card = preg_match('/^([A-Z]{2,5}[0-9]*_[0-9A-Z]+)/', $handler, $cm) ? $cm[1] : null;
+    // Match on the test FILE NAME as well as its content. A handler with no CardID in its name
+    // (DISCOUNT_PLAY_FROM_HAND) will never appear in the .md text, but its card's test file is named
+    // after the card that queues it — CrixMadine_StrikeTeamStrategist.php -> …/CrixMadine_….md.
+    $srcBase = basename($srcPath, '.php');
+    $found = false;
+    foreach ($caseFiles as $cf) {
+        $t = file_get_contents($cf);
+        if (strpos($t, 'AnswerDecision:PASS') === false) continue;
+        if (basename($cf, '.md') === $srcBase) { $found = true; break; }
+        if ($card !== null && strpos($t, $card) !== false) { $found = true; break; }
+    }
+    if (!$found) $unguarded[] = $handler . '  (' . str_replace($root . '/', '', $srcPath) . ')';
+}
+check(empty($unguarded),
+    'every action-closing MZMAYCHOOSE continuation has a "PASS" decline guard'
+    . (empty($unguarded) ? '' : " — UNGUARDED:\n    " . implode("\n    ", $unguarded)
+        . "\n  Add a section answering \"PASS\" that asserts the action still closes (TURNPLAYER swaps)."
+        . "\n  ⚠ Do NOT set P1OnlyActions in it — that makes TURNPLAYER unobservable, which is exactly how"
+        . "\n    the Lando bug stayed green in a section that already answered \"PASS\"."));
 
 // Self-test the scanner: a guard that cannot fail is not a guard. Feed it the exact broken shape and
 // assert it is detected (the #971 art-path guard passed with the implementation deleted; not again).

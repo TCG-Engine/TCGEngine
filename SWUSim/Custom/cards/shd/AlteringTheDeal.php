@@ -18,7 +18,8 @@ $customDQHandlers["SHD_243#0"] = function($player, $parts, $lastDecision) {
     $cid   = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
     $owner = is_array($sub) ? intval($sub['Owner'] ?? 0) : intval($sub->Owner ?? 0);
     if ($cid === '') return;
-    if ($owner === 0) $owner = OtherPlayer(intval($player));
+    // A captive's Owner should always be set; when it is not, the seat still must not default to 2.
+    if ($owner === 0) $owner = SWUMzOwner((string)$lastDecision, intval($player));
     SWUAddToDiscard($owner, $cid, 'PLAY');
 };
 

@@ -30,7 +30,7 @@ WithP1Hand: LAW_067
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:Experience
+- P1>AnswerDecision:GiveExperience
 - P1>AnswerDecision:theirGroundArena-0
 
 ## EXPECT
@@ -53,7 +53,7 @@ WithP1Hand: LAW_067
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:Experience
+- P1>AnswerDecision:GiveExperience
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
@@ -76,7 +76,7 @@ WithP1Hand: LAW_067
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:Experience
+- P1>AnswerDecision:GiveExperience
 - P1>AnswerDecision:myGroundArena-1
 
 ## EXPECT

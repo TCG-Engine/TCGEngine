@@ -38,8 +38,8 @@ WithP2Deck: SOR_164
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:Yours
-- P1>AnswerDecision:Top
+- P1>AnswerDecision:Your_deck
+- P1>AnswerDecision:Leave
 
 ## EXPECT
 P1DECKTOPCARD:SOR_046
@@ -62,8 +62,8 @@ WithP2Deck: SOR_164
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:Theirs
-- P1>AnswerDecision:Top
+- P1>AnswerDecision:Opponent's_deck
+- P1>AnswerDecision:Leave
 
 ## EXPECT
 P2DECKTOPCARD:SOR_128
@@ -86,7 +86,7 @@ WithP2Deck: SOR_164
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:Theirs
+- P1>AnswerDecision:Opponent's_deck
 - P1>AnswerDecision:Bottom
 
 ## EXPECT
@@ -183,3 +183,36 @@ WithP1Hand: LAW_125
 
 ## EXPECT
 P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0&theirGroundArena-0&theirSpaceArena-0
+
+---
+
+# FourSeats_TheOnlyStockedDeckAutoResolvesWithNoPrompt
+#// LAW_125 at FOUR seats — same empty-deck gating as LAW_018, asserted the other way round: with ONLY a
+#// far seat's deck stocked, the pool narrows to one and the peek must resolve WITHOUT a deck prompt, so
+#// the very next answer is the Bottom/Leave choice on P4's card. Under the old code the gating sat behind
+#// a `SeatCountForGame() <= 2` short-cut, so above two seats the picker offered all four decks — three of
+#// them empty — and "Bottom" was rejected as not a candidate (the mutation message names the whole pool:
+#// `[@-&Your_deck&P2_deck&P3_deck&P4_deck]`).
+#// Bottoming the top card leaves the deck at 2 with the OTHER card on top.
+
+## GIVEN
+CommonSetup: yyw/rrk/{}
+SkipPreGame: true
+WithTeams: true
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP4Deck: [SOR_046 SOR_128]
+WithP1GroundArenaUpgrade: 0:LAW_125
+
+## WHEN
+- P1>AttackGroundArena:0:P2G0
+- P1>AnswerDecision:Bottom
+
+## EXPECT
+SEATCOUNT:4
+P4DECKCOUNT:2
+P4DECKTOPCARD:SOR_128

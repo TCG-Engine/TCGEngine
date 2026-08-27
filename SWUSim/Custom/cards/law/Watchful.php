@@ -8,15 +8,14 @@
 // seam fires this with the HOST mzID when the host attacks.)
 $onAttackAbilities["LAW_125:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $opp    = OtherPlayer(intval($player));
-    $mine   = _SWUTopDeckFrontIdx(intval($player)) !== -1;
-    $theirs = _SWUTopDeckFrontIdx($opp) !== -1;
-    if (SeatCountForGame() <= 2) {   // 2-player auto-resolve short-cuts (N-player always offers the picker)
-        if (!$mine && !$theirs) return;
-        if ($mine && !$theirs) { WatchfulPeek(intval($player), intval($player)); return; }
-        if ($theirs && !$mine) { WatchfulPeek(intval($player), $opp); return; }
-    }
-    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "@-&" . SWUDeckPickerLabels(intval($player)), 1, "Look_at_the_top_card_of_which_deck?");
+    // ⚠ An EMPTY deck is not a legal pick — there is no top card to look at. Same gap as LAW_018, and
+    // the same fix: one eligibility list drives the fizzle / auto-resolve / offer branches at EVERY seat
+    // count, so the old `SeatCountForGame() <= 2` short-cuts are subsumed rather than duplicated.
+    $decks = SWUSeatsWithNonEmptyDeck(intval($player));
+    if (empty($decks)) return;
+    if (count($decks) === 1) { WatchfulPeek(intval($player), $decks[0]); return; }
+    DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE",
+        "@-&" . SWUDeckPickerLabels(intval($player), "Your_deck&Opponent's_deck", $decks), 1, "Look_at_the_top_card_of_which_deck?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_125#0", 1);
 };
 

@@ -345,6 +345,10 @@ $customDQHandlers["DEAL_BASE_DAMAGE"] = function ($player, $parts, $lastDecision
   $tp = SWUMzOwner((string) $lastDecision, intval($player));   // Twin Suns: base owner from the mzID
   SWUDealDamageToBase($amount, $tp);
 };
+// SOR_045 Yoda, the TWO-SEAT branch only. ⚠ NOT a seat bug: its sole caller gates on
+// SeatCountForGame() <= 2 and takes a per-seat YES/NO path above that, so OtherPlayer() here is only
+// ever reached in a game where it is correct by definition. Flagged by the Twin Suns clause scan
+// (2026-08-27) because the guard lives in the CALLER, not in this handler — left as-is deliberately.
 $customDQHandlers["YODA_DRAW"] = function ($player, $parts, $lastDecision) {
   global $playerID;
   $playerID = intval($player);
@@ -2001,8 +2005,16 @@ function _SWUOnUnitDamaged($obj, int $amount = 0, bool $isCombat = false, bool $
   switch ($obj->CardID ?? '') {
     case 'SHD_084': // Phase-III Dark Trooper — "When COMBAT damage is dealt to this unit: give it an
       // Experience token (if it survives — guaranteed here, $obj is the surviving unit)."
-      if ($isCombat && $amount > 0)
-        DoGiveExperienceToken(intval($obj->Controller ?? 0), $obj->GetMzID());
+      // ⚠ GetMzID() resolves against the AMBIENT $playerID ("my…" vs "their…"), so calling it on a unit
+      // whose controller is not the ambient frame yields a two-seat answer: at 3+ seats a seat-3 unit
+      // returns "theirGroundArena-N", which resolves to SEAT 2 — the token would land on the wrong unit.
+      // Pin the frame to the unit's own controller first, the same way _SWUOnPlayerDrew does for LAW_052.
+      if ($isCombat && $amount > 0) {
+        $shd084Ctrl = intval($obj->Controller ?? 0);
+        $shd084Saved = $playerID; $playerID = $shd084Ctrl;
+        DoGiveExperienceToken($shd084Ctrl, $obj->GetMzID());
+        $playerID = $shd084Saved;
+      }
       break;
   }
   // SEC_002 Jabba (deployed) — field observer: "When ANOTHER friendly unit is dealt damage and

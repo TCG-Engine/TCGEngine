@@ -505,3 +505,33 @@ P2BASEDMG:4
 P1HANDCOUNT:4
 P1DECKCOUNT:1
 P1NODECISION
+
+---
+
+# TwinSuns_ThreeToANYEnemyBaseArmsTheDraw
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — "If you've dealt 3 or more damage to AN enemy base this phase".
+#// EXISTENTIAL, and the threshold is PER BASE — never a sum across bases. It read only
+#// SWU_BASEDMG_AMT_{OtherPlayer($player)}, i.e. seat 2, so damage dealt to any other seat did not count.
+#// Here the ONLY base damaged is SEAT 4's (3 damage), so the draw can only happen if every opponent's
+#// tally is checked. Mutation-verified: restricting the loop back to OtherPlayer() reddens this.
+
+## GIVEN
+CommonSetup: grw/bbk/{myLeader:SOR_013}
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 6
+WithP1GroundArena: SOR_046:1:0
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>AttackGroundArena:0:P4B
+- P1>UseLeaderAbility
+
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:3
+P1HANDCOUNT:1

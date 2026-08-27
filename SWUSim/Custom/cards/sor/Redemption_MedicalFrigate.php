@@ -20,7 +20,14 @@ $whenPlayedAbilities["SOR_052:0"] = function($player, $mzID) {
         if ($dmg > 0) $specs[] = "{$mz}:{$dmg}";
     }
     // Damaged bases.
-    foreach (['myBase-0' => intval($player), 'theirBase-0' => GetOpponent(intval($player))] as $baseMz => $bp) {
+    // ⚠ The OFFER, not just the applier. This listed exactly two bases — 'myBase-0' and a bare
+    // 'theirBase-0' — so above two seats a far seat's damaged base was never even OFFERED, and the
+    // legacy 'theirBase-0' token does not name which seat it means. SWUAllBaseMzIDs(…, 'any') is the
+    // caster's own base plus EVERY opponent's, as real p{n}Base mzIDs; SWUMzOwner in SOR_052#0 then
+    // resolves each pick back to its seat. ("any number of units and/or BASES" is unqualified — your own
+    // base is a legal heal target, which the two-seat sections already cover.)
+    foreach (SWUAllBaseMzIDs(intval($player), 'any') as $baseMz) {
+        $bp   = SWUMzOwner($baseMz, intval($player));
         $base = GetBase($bp);
         $bdmg = (count($base) > 0 && empty($base[0]->removed)) ? intval($base[0]->Damage ?? 0) : 0;
         if ($bdmg > 0) $specs[] = "{$baseMz}:{$bdmg}";
@@ -44,7 +51,7 @@ $customDQHandlers["SOR_052#0"] = function($player, $parts, $lastDecision) {
             $mz = trim($p[0]); $amt = intval($p[1]);
             if ($amt <= 0) continue;
             if (strpos($mz, 'Base') !== false) {
-                $tp = (strpos($mz, 'my') === 0) ? intval($player) : GetOpponent(intval($player));
+                $tp = SWUMzOwner($mz, intval($player));   // SWUMzOwner reads the seat OUT OF the mzID; the my/their ternary named seat 2 above two seats.
                 $base = GetBase($tp);
                 $before = (count($base) > 0) ? intval($base[0]->Damage ?? 0) : 0;
                 OnHealBase(intval($player), $tp, $amt);

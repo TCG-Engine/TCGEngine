@@ -146,7 +146,7 @@ WithP1Hand: SEC_178
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:Self
+- P1>AnswerDecision:You
 
 ## EXPECT
 P1HANDCOUNT:0

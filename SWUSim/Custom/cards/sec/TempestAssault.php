@@ -8,8 +8,13 @@ $whenPlayedAbilities["SEC_144:0"] = function($player, $mzID = '') {
 // Tempest Assault — "If you've dealt damage to an enemy base this phase, deal 2
                           // to each enemy space unit."
             global $playerID; $playerID = intval($player);
-            $opp = OtherPlayer(intval($player));
-            if (GlobalEffectCount(intval($player), 'SWU_DMGBASE_' . $opp) <= 0) return;
+            // "If you've dealt damage to AN enemy base this phase" — EXISTENTIAL, any opponent.
+            // (The "each enemy space unit" half below already fans out via ZoneSearch('theirSpaceArena').)
+            $dmgdAnyEnemyBase = false;
+            foreach (OpponentsOf(intval($player)) as $o) {
+                if (GlobalEffectCount(intval($player), 'SWU_DMGBASE_' . $o) > 0) { $dmgdAnyEnemyBase = true; break; }
+            }
+            if (!$dmgdAnyEnemyBase) return;
             $uids = [];
             foreach (ZoneSearch("theirSpaceArena", AnyUnitFilter) as $mz) {
                 $o = GetZoneObject($mz);

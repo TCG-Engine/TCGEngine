@@ -27,7 +27,10 @@ $customDQHandlers["SHD_213#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    $opp    = OtherPlayer(intval($player));
+    // "Take control of an ENEMY resource" — its owner is the seat in the chosen mzID, not seat 2. The
+    // wrong seat here mis-set the resource's Owner, so the "when this unit leaves play, that resource's
+    // owner takes control of it" rider would have handed it back to a bystander.
+    $opp    = SWUMzOwner((string)$lastDecision, intval($player));
     $cardID = $o->CardID;
     $status = intval($o->Status ?? 0);
     $owner  = intval($o->Owner ?? 0); if ($owner <= 0) $owner = $opp;   // resource Owner is often 0

@@ -159,3 +159,79 @@ P2RESCOUNT:3
 P2RESAVAILABLE:3
 P2DISCARDCOUNT:0
 P2DECKCOUNT:3
+
+---
+
+# TwinSuns_CasterPicksWHOSEResourcesToScan
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — §1b "defending player / that opponent / its controller" family.
+#// "Reveal 3 ENEMY resources" names no seat. This resolved OtherPlayer($player) — literally seat 2 — so
+#// above two seats the card always scanned seat 2 no matter who the caster meant. Now the caster chooses,
+#// following SHD_184 Bazine Netal ("look at AN OPPONENT's hand"), the canonical analogue for this shape.
+#//
+#// The fixture is built so the LEGACY answer differs from the CORRECT one (sweep rule 6): P1's opponents
+#// are 2 and 4 (3 is a teammate), both hold an identical ready Smuggle resource, and P1 picks P4. Under
+#// the old code P2 would have been scanned instead — so this section fails if the fix is reverted.
+#// P4 keeps 3 resources but only 2 ready (the Smuggle one defeated, replaced EXHAUSTED); P2 is untouched.
+
+## GIVEN
+CommonSetup: rrk/grw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 4
+WithP1Hand: SHD_114
+WithP2Resources: 2:SOR_095:1,1:SHD_129:1
+WithP2Deck: SEC_080
+WithP4Resources: 2:SOR_095:1,1:SHD_129:1
+WithP4Deck: SEC_080
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P4
+
+## EXPECT
+SEATCOUNT:4
+P4RESCOUNT:3
+P4RESAVAILABLE:2
+P2RESCOUNT:3
+P2RESAVAILABLE:3
+
+---
+
+# TwinSuns_OfferIsBothOpponents_AndExcludesAResourcelessOne
+#// Sweep rule 4: assert the PROMPT, never just answer it — a spare answer is silently absorbed, so a
+#// section that only answers proves nothing about who was offered. Rule 5: a menu assertion needs TWO
+#// eligible opponents, since at one the picker correctly auto-resolves invisibly.
+#//
+#// Here P2 and P4 both hold resources and P3 is a TEAMMATE, so the offer must be exactly {P2, P4} —
+#// asserting P3 is absent is what pins "teammates are never enemies" for this card.
+#// (The resource-less filter is Bazine's precedent: an opponent with nothing to reveal is a choice among
+#// nothing. It is covered by the auto-resolve in the sections above, where only one opponent has any.)
+
+## GIVEN
+CommonSetup: rrk/grw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 4
+WithP1Hand: SHD_114
+WithP2Resources: 2:SOR_095:1,1:SHD_129:1
+WithP2Deck: SEC_080
+WithP3Resources: 2:SOR_095:1,1:SHD_129:1
+WithP4Resources: 2:SOR_095:1,1:SHD_129:1
+WithP4Deck: SEC_080
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1OPTIONHAS:P2
+P1OPTIONHAS:P4
+P1OPTIONNOT:P3

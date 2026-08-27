@@ -161,6 +161,10 @@ P1NODECISION
 #// plus nothing else moved out of it — and the deck gains the chosen unit on top.
 #// This deliberately chains both remaining clauses; the isolated Action sections below use a seeded
 #// upgrade instead so they do not depend on the attach path.
+#// ⚠ There is only ONE non-Vehicle unit on the table, so the When-Played TARGET auto-resolves
+#// (SWUQueueChooseTarget emits a PASSPARAMETER) and the amount is the FIRST thing actually asked. This
+#// section used to lead with a spare "myGroundArena-0", which the amount prompt swallowed — the classic
+#// auto-resolve artifact. Exposed by the OPTIONCHOOSE pool validator.
 
 ## GIVEN
 CommonSetup: bgw/rrk/{myResources:1;discardCardIds:SOR_095}
@@ -171,7 +175,6 @@ WithP1Deck: [SOR_046 SOR_046]
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myGroundArena-0
 - P1>AnswerDecision:Heal0
 - P1>UseBaseAbility
 - P1>AnswerDecision:myDiscard-0

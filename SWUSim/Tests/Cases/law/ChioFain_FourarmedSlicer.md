@@ -92,3 +92,38 @@ WithP2Deck: SOR_095
 P1HANDCOUNT:0
 P2HANDCOUNT:1
 P1BASEDMG:3
+
+---
+
+# TwinSuns_ChooseTwoPLAYERS_TeammateIsLegal
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — "You may choose 2 PLAYERS. If you do, they each draw a card."
+#// At two seats that is forced (both) and the old inline pair was right; above two it is a real pick of
+#// 2 out of N, and it drew for the caster + OtherPlayer() regardless of what the player wanted.
+#//
+#// ⚠ The pool is every LIVE SEAT, not OpponentsOf() — the text says PLAYERS, so the caster's own TEAMMATE
+#// is a legal pick. This section proves exactly that: P1 picks SEAT 3 (its teammate) and SEAT 4, so P3 and
+#// P4 draw while P1 and P2 draw NOTHING. An opponent-scoped picker could not even offer P3.
+## GIVEN
+CommonSetup: brk/bgw
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1GroundArena: LAW_048:1:0
+WithP1Deck: SOR_237
+WithP2Deck: SOR_095
+WithP3Deck: SOR_095
+WithP4Deck: SOR_095
+## WHEN
+- P1>AttackGroundArena:0:P2B
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:P3
+- P1>AnswerDecision:P4
+## EXPECT
+SEATCOUNT:4
+P3HANDCOUNT:1
+P4HANDCOUNT:1
+P1HANDCOUNT:0
+P2HANDCOUNT:0

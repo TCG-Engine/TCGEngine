@@ -352,3 +352,39 @@ P2CREDITCOUNT:1
 P1CREDITCOUNT:0
 P1DECKCOUNT:0
 P2DECKCOUNT:1
+
+---
+
+# FourSeats_EmptyDecksAreNOTOfferedInTheDeckPool
+#// LAW_018 at FOUR seats — the deck prompt is affordance-gated: an empty deck is not a legal source, so
+#// it must not appear in the picker. The two-seat sibling FrontDeckChoiceAutoResolvesToTheOnlyStockedDeck
+#// pins this via auto-resolution, but the gating lived in a `SeatCountForGame() <= 2` short-cut, so above
+#// two seats EVERY seat was listed regardless of whether its deck held a card. Only P1's and P4's decks
+#// are stocked here; P2 and P3 must be absent from the pool, not merely unchosen.
+#// The empty-deck filter now drives the fizzle / auto-resolve / offer branches at every seat count
+#// (SWUSeatsWithNonEmptyDeck + the new $seats argument to SWUDeckPickerLabels), so the seat-count
+#// special-case is gone rather than duplicated. Its twin is law/Watchful.md.
+
+## GIVEN
+CommonSetup: yyw/grw/{myLeader:LAW_018;myBase:SOR_028}
+SkipPreGame: true
+WithTeams: true
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+WithP1Resources: 1
+WithP1Deck: SOR_046
+WithP4Deck: SOR_237
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:Heroism
+
+## EXPECT
+SEATCOUNT:4
+P1HASDECISION
+P1OPTIONHAS:Your_deck
+P1OPTIONHAS:P4_deck
+P1OPTIONNOT:P2_deck
+P1OPTIONNOT:P3_deck

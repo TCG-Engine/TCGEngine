@@ -16,6 +16,18 @@ $whenPlayedAbilities["LAW_233:0"] = function($player, $mzID) {
 $customDQHandlers["LAW_233#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID; $playerID = intval($player);
+    // "You may have AN OPPONENT take control of this unit" — an opponent of your CHOICE. Auto-resolves
+    // invisibly at one opponent, so Premier is byte-identical.
     $mz = SWUFindMzByUID(intval($parts[0] ?? 0));
-    if ($mz !== null) SWUTakeControlOfUnit(OtherPlayer(intval($player)), $mz);
+    if ($mz === null) return;
+    SWUQueueChooseOpponent(intval($player), 'LAW_233#GIVE|' . intval($parts[0] ?? 0),
+        "Which_opponent_takes_control_of_this_unit?");
+};
+
+$customDQHandlers["LAW_233#GIVE"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0) return;
+    $mz = SWUFindMzByUID(intval($parts[0] ?? 0));
+    if ($mz !== null) SWUTakeControlOfUnit($opp, $mz);
 };

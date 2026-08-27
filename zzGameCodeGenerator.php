@@ -1473,7 +1473,21 @@ for($i=0; $i<count($zones); ++$i) {
     $ownerExpr = $hasControllerField ? "\$this->Controller" : "\$this->PlayerID";
     fwrite($handler, "  function GetMzID() {\r\n");
     fwrite($handler, "    global \$playerID;\r\n");
-    fwrite($handler, "    \$prefix = \$playerID == " . $ownerExpr . " ? \"my\" : \"their\";\r\n");
+    if($rootName == "SWUSim") {
+      // Twin Suns: "their<Zone>" names no seat, so above two seats a FOREIGN object's mzID is ambiguous —
+      // it resolves to whichever opponent the reader's frame happens to pick, which is seat 2 for seat 1
+      // and NULL/self for seats 3-4. Every unqualified pool (ZoneSearch's opponent fan-out,
+      // SWUAllUnits, SWUAllBaseMzIDs) already emits real p{n} mzIDs; GetMzID() was the last producer
+      // still speaking the two-seat dialect, and it feeds ~29 call sites that hand the result straight to
+      // damage/token/trigger APIs. Emit the seat-specific form whenever the object is NOT the reader's
+      // and the game has more than two seats; 2-player is byte-identical.
+      fwrite($handler, "    \$mzOwner = " . $ownerExpr . ";\r\n");
+      fwrite($handler, "    if(\$playerID != \$mzOwner && function_exists('SeatCountForGame') && SeatCountForGame() > 2)\r\n");
+      fwrite($handler, "      return \"p\" . intval(\$mzOwner) . \$this->Location . \"-\" . \$this->mzIndex;\r\n");
+      fwrite($handler, "    \$prefix = \$playerID == \$mzOwner ? \"my\" : \"their\";\r\n");
+    } else {
+      fwrite($handler, "    \$prefix = \$playerID == " . $ownerExpr . " ? \"my\" : \"their\";\r\n");
+    }
     fwrite($handler, "    return \$prefix . \$this->Location . \"-\" . \$this->mzIndex;\r\n");
     fwrite($handler, "  }\r\n");
 
@@ -2536,13 +2550,18 @@ function AddGetNextTurnForPlayer($player) {
     } else if($zone->DisplayMode == "Value") {
       if ($scope == 'global') {
         if ($zone->Name == "GameLog") {
-          // GameLog entries are "TYPE|VISIBILITY|text" joined by "<NL>". Filter
-          // per viewer: ALL always; P1/P2 only for that seated player (never spectators).
+          // GameLog entries are "TYPE|VISIBILITY|text" joined by "<NL>". Filter per viewer:
+          // 'ALL' always; otherwise a COMMA-SEPARATED seat list ('P1' or 'P1,P3'), visible only to a
+          // seated viewer named in it — never to a spectator.
+          // ⚠ The list form is what makes "just the two players involved" expressible. It used to be a
+          // single seat, so a private look (SWULogPrivateReveal) had to emit ONE ENTRY PER SEAT and the
+          // same line appeared twice in the stored log; team-scoped visibility was not expressible at all.
           $getNextTurn .= "  \$logEntries = explode('<NL>', \$gGameLog);\r\n";
           $getNextTurn .= "  \$visibleLog = [];\r\n";
+          $getNextTurn .= "  \$vSeatTag = 'P' . intval(\$viewerInfo[\"viewerSeat\"] ?? 0);\r\n";
           $getNextTurn .= "  foreach(\$logEntries as \$logEntry) {\r\n";
           $getNextTurn .= "    \$logVis = explode('|', \$logEntry, 3)[1] ?? 'ALL';\r\n";
-          $getNextTurn .= "    if(\$logVis === 'ALL' || (!\$viewerInfo[\"isSpectator\"] && \$logVis === 'P' . intval(\$viewerInfo[\"viewerSeat\"] ?? 0))) \$visibleLog[] = \$logEntry;\r\n";
+          $getNextTurn .= "    if(\$logVis === 'ALL' || (!\$viewerInfo[\"isSpectator\"] && in_array(\$vSeatTag, array_map('trim', explode(',', \$logVis)), true))) \$visibleLog[] = \$logEntry;\r\n";
           $getNextTurn .= "  }\r\n";
           $getNextTurn .= "  echo(implode('<NL>', \$visibleLog));\r\n";
         } else {

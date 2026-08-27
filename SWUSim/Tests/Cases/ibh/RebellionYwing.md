@@ -75,3 +75,34 @@ WithP1SpaceArena: IBH_006:1:0
 ## EXPECT
 P1BASEDMG:1
 P2BASEDMG:2
+
+---
+
+# TeamSuns_OfferPoolIncludesTheTEAMMATESBase
+#// IBH_006 "deal 1 damage to A BASE" — unqualified, so the pool is EVERY live seat's base: your own, your
+#// PARTNER's, and both opponents'. SWUAllBaseMzIDs(…,'any') used to be 'my' + 'their', and "their" is
+#// ZoneSearch's opponent fan-out, so the teammate's base was silently missing from ~35 unqualified
+#// "a base" offers. Answering p3Base-0 is the assertion: it is only a candidate once the pool is
+#// team + their. (SWUAllUnits() already documents this exact hole for units; bases were left behind.)
+
+## GIVEN
+CommonSetup: yyw/rrk/{}
+SkipPreGame: true
+WithTeams: true
+WithGamePhase: ActionPhase
+P1OnlyActions: true
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+WithP1SpaceArena: IBH_006:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:P2S0
+- P1>AnswerDecision:p3Base-0
+
+## EXPECT
+SEATCOUNT:4
+P3BASEDMG:1
+P2BASEDMG:0
+P4BASEDMG:0
+P1BASEDMG:0

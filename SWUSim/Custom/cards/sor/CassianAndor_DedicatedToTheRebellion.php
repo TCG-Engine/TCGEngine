@@ -22,9 +22,11 @@ $customDQHandlers["SOR_013#0"] = function($player, $parts, $lastDecision) {
 $leaderAbilities["SOR_013"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
-    $opp = OtherPlayer($player);
-    if (GlobalEffectCount($player, 'SWU_BASEDMG_AMT_' . $opp) >= 3) {
-        DoDrawCard($player, 1);
+    // ⚠ "If you've dealt 3 or more damage to AN enemy base this phase" — EXISTENTIAL, and the threshold
+    // is PER BASE, never a sum across bases: 2 into seat 2 and 2 into seat 4 is not "3 or more to an
+    // enemy base". This checked only OtherPlayer($player), so damage dealt to any other seat did not count.
+    foreach (OpponentsOf($player) as $o) {
+        if (GlobalEffectCount($player, 'SWU_BASEDMG_AMT_' . $o) >= 3) { DoDrawCard($player, 1); break; }
     }
     SWUAfterAction($player);
 };

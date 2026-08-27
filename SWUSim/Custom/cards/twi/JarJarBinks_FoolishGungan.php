@@ -15,11 +15,17 @@ $onAttackAbilities["TWI_202:0"] = function($player, $mzID) {
             if ($o !== null && empty($o->removed)) $pool[] = $mz;
         }
     }
-    $pool[] = "myBase-0";
-    $pool[] = "theirBase-0";
+    // ⚠ 'theirBase-0' is a HAND-BUILT relative mzID: it names SEAT 2 and nothing else, so above two seats
+    // a far seat's base could not be targeted at all. SWUAllBaseMzIDs(…, 'any') is the caster's own base
+    // plus EVERY opponent's, as real p{n}Base mzIDs. (This shape is invisible to a seat-helper scan —
+    // there is no OtherPlayer() here, just a string.)
+    // For Jar Jar this also skews the RANDOM pick: with only two bases in the pool a four-seat table
+    // was drawing from 2 bases instead of 4, so every base's odds were wrong as well as unreachable.
+    foreach (SWUAllBaseMzIDs(intval($player), 'any') as $bmz) $pool[] = $bmz;
     $pick = $pool[array_rand($pool)];
     if (strpos($pick, 'Base') !== false) {
-        SWUDealDamageToBase(2, ($pick === 'myBase-0') ? intval($player) : OtherPlayer(intval($player)), intval($player));
+        // The random pick already names the seat — read it out of the mzID rather than assuming seat 2.
+        SWUDealDamageToBase(2, SWUMzOwner($pick, intval($player)), intval($player));
     } else {
         SWUDealDamageToUnit($pick, 2, intval($player));
     }

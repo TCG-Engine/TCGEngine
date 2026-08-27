@@ -188,3 +188,31 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_128
 P1RESAVAILABLE:3
+
+---
+
+# FourSeats_VillainyFaceHitsEVERYEnemyBase
+#// TWI_017 (VILLAINY face) — "deal 2 damage to EACH enemy base". "Each" is a fan-out, not a single
+#// target, so at four seats BOTH opposing bases take 2. The clause used to deal to OtherPlayer() alone,
+#// which silently spared the far opponent; this section fails on any single-seat form. Teammate P3 and
+#// the caster's own base must be untouched — "enemy" is the qualifier that keeps them out.
+
+## GIVEN
+CommonSetup: brk/bbw/{myLeader:TWI_017:1;myLeaderFlipped:true;myResources:4;handCardIds:SOR_128}
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>UseLeaderAbility
+
+## EXPECT
+SEATCOUNT:4
+P2BASEDMG:2
+P4BASEDMG:2
+P3BASEDMG:0
+P1BASEDMG:0

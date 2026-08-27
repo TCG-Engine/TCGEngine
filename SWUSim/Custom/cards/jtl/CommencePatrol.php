@@ -11,7 +11,7 @@ $customDQHandlers["JTL_205#0"] = function($player, $parts, $lastDecision) {
     $playerID = intval($player);
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    $owner = (strpos($lastDecision, 'my') === 0) ? intval($player) : GetOpponent(intval($player));
+    $owner = SWUMzOwner((string)$lastDecision, intval($player));   // SWUMzOwner reads the seat OUT OF the mzID; the my/their ternary named seat 2 above two seats.
     $cid = $o->CardID;
     $o->removed = true;
     DecisionQueueController::CleanupRemovedCards();

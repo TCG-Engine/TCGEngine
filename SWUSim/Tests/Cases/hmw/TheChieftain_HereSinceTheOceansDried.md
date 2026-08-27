@@ -305,7 +305,7 @@ WithP1GroundArena: [HMW_212:1:0 HMW_180:1:0]
 WithP3GroundArena: SOR_046:1:0
 
 ## WHEN
-- P3>AttackGroundArena:0:0
+- P3>AttackGroundArena:0:P1G0
 
 ## EXPECT
 SEATCOUNT:4

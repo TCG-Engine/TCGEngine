@@ -54,7 +54,6 @@ P1OnlyActions: true
 - P1>PlayHand:0
 - P1>AnswerDecision:YES
 - P1>AnswerDecision:YES
-- P1>AnswerDecision:-
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:POWER:3

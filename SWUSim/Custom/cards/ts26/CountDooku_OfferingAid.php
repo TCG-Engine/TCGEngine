@@ -15,10 +15,34 @@ $onAttackAbilities["TS26_01:0"] = function($player, $mzID) {
 // create a Battle Droid token. (2-player: both players. Deployed side: Restore 2 auto + OnAttack create 2.)
 $leaderAbilities["TS26_01"] = function(int $player): void {
     global $playerID; $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
-    OnHealBase(intval($player), intval($player), 1);
-    SWUCreateUnitToken(intval($player), 'TS26_T01');
-    OnHealBase(intval($player), $opp, 1);
-    SWUCreateUnitToken($opp, 'TS26_T01');
+    // ⚠ "Choose 2 PLAYERS" — forced at two seats (both), a real pick of 2 out of N above that. The pool is
+    // every live seat: the text lets you pick yourself, and in a team game a teammate too, so this uses
+    // SWUQueueChoosePlayer rather than OpponentsOf().
+    $seats = GetLiveSeatsArray();
+    if (count($seats) > 2) {
+        SWUQueueChoosePlayer(intval($player), 'TS26_01#P1', "First_player_to_heal_and_create_a_droid?", $seats);
+        SWUAfterAction(intval($player));
+        return;
+    }
+    foreach ($seats as $s) { OnHealBase(intval($player), $s, 1); SWUCreateUnitToken($s, 'TS26_T01'); }
     SWUAfterAction(intval($player));
+};
+
+// "Choose 2 players. They EACH heal 1 damage from their base and create a Battle Droid token."
+$customDQHandlers["TS26_01#P1"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $first = SWUPickedOpponent($lastDecision);
+    if ($first <= 0) return;
+    $rest = [];
+    foreach (GetLiveSeatsArray() as $s) if ($s !== $first) $rest[] = $s;
+    SWUQueueChoosePlayer(intval($player), "TS26_01#P2|{$first}", "Second_player_to_heal_and_create_a_droid?", $rest);
+};
+
+$customDQHandlers["TS26_01#P2"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $first  = intval($parts[0] ?? 0);
+    $second = SWUPickedOpponent($lastDecision);
+    foreach ([$first, $second] as $s) {
+        if ($s > 0) { OnHealBase(intval($player), $s, 1); SWUCreateUnitToken($s, 'TS26_T01'); }
+    }
 };

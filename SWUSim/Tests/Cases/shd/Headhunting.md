@@ -49,7 +49,6 @@ WithP2GroundArena: SOR_046:1:0
 - P1>PlayHand:0
 - P1>AnswerDecision:myGroundArena-0
 - P1>AnswerDecision:myGroundArena-1
-- P1>AnswerDecision:-
 
 ## EXPECT
 P2GROUNDARENACOUNT:0

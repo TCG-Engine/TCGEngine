@@ -79,5 +79,8 @@ $customDQHandlers["HMW_114#1"] = function ($player, $parts, $lastDecision) {
     $playerID = intval($player);
     if ($uid > 0 && SWUFindMzByUID($uid) !== null) return;         // survived → prevented or non-lethal
     $excess = max(0, $power - $remainBefore);
-    if ($excess > 0) SWUDealDamageToBase($excess, OtherPlayer(intval($player)));
+    // ⚠ Overwhelm spills into the base of the seat whose unit just died — a DETERMINED seat, named by the
+    // mzID we already hold. OtherPlayer() sent it to seat 2, so above two seats killing a seat-4 unit
+    // splashed a bystander's base while seat 4 took nothing.
+    if ($excess > 0) SWUDealDamageToBase($excess, SWUMzOwner((string)$lastDecision, intval($player)), intval($player));
 };

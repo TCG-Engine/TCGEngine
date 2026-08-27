@@ -21,8 +21,12 @@ $onAttackAbilities["SOR_016:0"] = function($player) {
 if (!function_exists('_SWUThrawnAskDeckOwner')) {
     function _SWUThrawnAskDeckOwner(int $player, string $context): void {
         if (SeatCountForGame() > 2) {
-            SWUQueueChooseOpponent($player, "SOR_016#OWNER|{$context}",
-                "Reveal_the_top_card_of_which_player's_deck?", null, true);
+            // ⚠ "ANY PLAYER'S deck" — every seat, the caster's own AND a teammate's. This used
+            // SWUQueueChooseOpponent(includeSelf), which starts from OpponentsOf() and therefore DROPS
+            // TEAMMATES: in a team game Thrawn could not look at his own partner's deck, which the text
+            // plainly allows. SWUQueueChoosePlayer takes the pool explicitly (2026-08-27).
+            SWUQueueChoosePlayer($player, "SOR_016#OWNER|{$context}",
+                "Reveal_the_top_card_of_which_player's_deck?", GetLiveSeatsArray());
             return;
         }
         DecisionQueueController::AddDecision($player, 'YESNO', '', 1, 'Own_deck_or_opponent?');
@@ -54,7 +58,9 @@ $customDQHandlers["SOR_016#2"] = function($player, $parts, $lastDecision) {
 // Context param 'action' calls SWUAfterAction when done; 'attack' does not (combat handles it).
 $customDQHandlers["SOR_016#0"] = function($player, $parts, $lastDecision) {
     $context = $parts[0] ?? 'action';
-    // 2-player only (see _SWUThrawnAskDeckOwner): YES = own deck, NO = the single opponent's.
+    // 2-player branch ONLY (see _SWUThrawnAskDeckOwner, which routes 3+ seats to SOR_016#OWNER).
+    // ⚠ NOT a seat bug: OtherPlayer() here is only ever reached in a game where it is correct by
+    // definition. Flagged by the Twin Suns clause scan because the guard lives in the CALLER.
     _SWUThrawnReveal(intval($player), ($lastDecision === 'YES') ? intval($player) : OtherPlayer(intval($player)), $context);
 };
 

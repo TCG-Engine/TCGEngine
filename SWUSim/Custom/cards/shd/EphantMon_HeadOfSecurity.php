@@ -8,13 +8,18 @@
 // same arena captures that unit. (Uses the per-unit SWU_DEALT_BASEDMG flag set in combat.)
 $onAttackAbilities["SHD_088:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
+    // ⚠ SWU_DEALT_BASEDMG_{uid} is stamped on the UNIT'S OWN CONTROLLER, so it has to be read per
+    // candidate. This read it against OtherPlayer($player) — one seat — while ZoneSearch('their…') already
+    // fans out across every opponent, so a seat-4 attacker's flag was looked up on seat 2 and never found:
+    // the unit that actually hit your base could not be chosen.
     $targets = [];
     foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
+            $oc = ($o !== null) ? intval($o->Controller ?? 0) : 0;
+            if ($oc <= 0) $oc = SWUMzOwner($mz, intval($player));
             if ($o !== null && empty($o->removed)
-                && GlobalEffectCount($opp, 'SWU_DEALT_BASEDMG_' . intval($o->UniqueID ?? 0)) > 0) $targets[] = $mz;
+                && GlobalEffectCount($oc, 'SWU_DEALT_BASEDMG_' . intval($o->UniqueID ?? 0)) > 0) $targets[] = $mz;
         }
     }
     SWUQueueMayChooseTarget(intval($player), $targets,

@@ -281,3 +281,32 @@ WithP1Hand: LAW_170
 P1HASDECISION
 P2GROUNDARENAUNIT:1:ISLEADERUNIT
 P1SELECTABLEEXACT:theirGroundArena-0&theirSpaceArena-0
+
+---
+
+# TwinSuns_ExchangeGivesToTHATUnitsController
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — twin of SHD_132 Choose Sides, same defect.
+#// The seat that RECEIVES the friendly unit is the chosen ENEMY unit's controller, known only once the
+#// pick lands; it was threaded in as OtherPlayer($player) — seat 2. Above two seats the caster took a
+#// SEAT 4 unit while SEAT 2 received the friendly one. P2's arena staying EMPTY is what catches it.
+## GIVEN
+CommonSetup: ggk/ggk
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 7
+WithP1Hand: LAW_170
+WithP1GroundArena: SOR_046:1:0
+WithP4GroundArena: SHD_095:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:p4GroundArena-0
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:CARDID:SHD_095
+P4GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENACOUNT:0

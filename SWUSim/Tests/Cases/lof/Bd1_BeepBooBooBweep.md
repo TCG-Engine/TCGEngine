@@ -67,3 +67,41 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LOF_191
 P1NODECISION
+
+---
+
+# 191_BuffSurvivesBd1LosingItsAbilities
+#// CR 14.3: "An ability that has already begun to resolve continues to resolve even if the card that had
+#// that ability loses that ability or leaves play." BD-1's buff is created by a WHEN PLAYED (triggered)
+#// ability that has already resolved; its duration is "while this unit is IN PLAY". Blanking BD-1 is not
+#// the same as BD-1 leaving play, so the buff continues.
+#//
+#// The official Admiral Yularen ruling (10/31/2025 errata + 03/06/2025) is the same printed shape —
+#// "When Played: Choose ... While this unit is in play, each Vehicle unit you control gains it" — and says
+#// the effect lasts "until Yularen LEAVES PLAY" and "is not changed if an opponent takes control of
+#// Yularen". Duration is tied to leaving play, not to the source still possessing its abilities.
+#//
+#// SWUSim agreed with that for Huyang (TWI_110) and Yularen (JTL_047) — neither reader checks
+#// LostAbilities — but BD-1's reader skipped a blanked source, so P1 blanking their own BD-1 with
+#// SOR_138 Force Lightning silently cancelled the buff it had already granted. Fixed 2026-08-27.
+#//
+#// BD-1 enters (the lone other friendly SOR_095 auto-resolves as the target) -> 4 power + Saboteur.
+#// P1 then plays SOR_138 on their OWN BD-1 ("choose a unit" is unqualified, so a friendly is legal).
+#// Neither unit is a Force unit, so no "pay any number of resources" follow-up is offered.
+
+## GIVEN
+CommonSetup: yrw/bbk/{myResources:8}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: [LOF_191 SOR_138]
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:1:CARDID:LOF_191
+P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:0:HASKEYWORD:Saboteur

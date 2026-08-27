@@ -9,8 +9,12 @@
 $whenPlayedAbilities["ASH_039:0"] =
 $onAttackEndAbilities["ASH_039:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
-    if (GlobalEffectCount(intval($player), 'SWU_DMGBASE_' . $opp) > 0) {
+    // "If AN enemy base was damaged this phase" — EXISTENTIAL: any opponent's base counts, not seat 2's.
+    $dmgdAnyEnemyBase = false;
+    foreach (OpponentsOf(intval($player)) as $o) {
+        if (GlobalEffectCount(intval($player), 'SWU_DMGBASE_' . $o) > 0) { $dmgdAnyEnemyBase = true; break; }
+    }
+    if ($dmgdAnyEnemyBase) {
         GiveTokenUpgrade($player, '', [
             'token' => 'ADVANTAGE', 'friendlyOnly' => false,
             'prompt' => "Give_an_Advantage_token_to_a_unit",

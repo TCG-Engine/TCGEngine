@@ -11,7 +11,7 @@ function CR90ReliefRunnerHeal(int $player, string $mz, int $amt): void
   if ($amt <= 0)
     return;
   if (strpos($mz, 'Base') !== false) {
-    $tp = (strpos($mz, 'my') === 0) ? intval($player) : GetOpponent(intval($player));
+    $tp = SWUMzOwner($mz, intval($player));   // SWUMzOwner reads the seat OUT OF the mzID; the my/their ternary named seat 2 above two seats.
     OnHealBase(intval($player), $tp, $amt);
   } else {
     OnHealUnit(intval($player), $mz, $amt);
@@ -44,7 +44,7 @@ $customDQHandlers["JTL_071#1"] = function ($player, $parts, $lastDecision) {
   $mz = trim((string) $lastDecision);
   $dmg = 0;
   if (strpos($mz, 'Base') !== false) {
-    $tp = (strpos($mz, 'my') === 0) ? intval($player) : GetOpponent(intval($player));
+    $tp = SWUMzOwner($mz, intval($player));   // SWUMzOwner reads the seat OUT OF the mzID; the my/their ternary named seat 2 above two seats.
     $base = GetBase($tp);
     $dmg = (count($base) > 0 && empty($base[0]->removed)) ? intval($base[0]->Damage ?? 0) : 0;
   } else {

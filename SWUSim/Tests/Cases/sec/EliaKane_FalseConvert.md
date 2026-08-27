@@ -300,3 +300,74 @@ P2RESCOUNT:2
 P2RESAVAILABLE:1
 P2DISCARDCOUNT:1
 P2DECKCOUNT:0
+
+---
+
+# TwinSuns_CasterPicksWHOSEResourcesToLookAt
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — §1b family, the twin of SHD_114 Scanning Officer.
+#// "Look at 3 ENEMY resources" named no seat and resolved OtherPlayer($player) — literally seat 2 — so
+#// above two seats Elia Kane always looked at seat 2 whoever the caster meant. The caster now picks whose.
+#//
+#// Built so the LEGACY answer differs from the CORRECT one (sweep rule 6): P1's opponents are 2 and 4
+#// (3 is a teammate), both hold three identical ready resources and a one-card deck, and P1 picks P4.
+#// P4 spends its deck card replacing the defeated resource; P2's deck is untouched. Under the old code
+#// those two assertions swap, so this section fails if the fix is reverted.
+#// Note the answer form: p4Resources-0. Above two seats the offer must carry real p{n} mzIDs — a legacy
+#// "theirResources" would name seat 2 and render as card backs.
+
+## GIVEN
+CommonSetup: rrk/grw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 4
+WithP1Hand: SEC_242
+WithP2Resources: 3:SOR_095:1
+WithP2Deck: [SOR_095]
+WithP4Resources: 3:SOR_095:1
+WithP4Deck: [SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P4
+- P1>AnswerDecision:p4Resources-0
+
+## EXPECT
+SEATCOUNT:4
+P4DECKCOUNT:0
+P2DECKCOUNT:1
+
+---
+
+# TwinSuns_OfferIsBothOpponents_NotTheTeammate
+#// Sweep rule 4: assert the PROMPT, not just the answer — a spare answer is silently absorbed. Rule 5: a
+#// menu needs TWO eligible opponents, since at one the picker auto-resolves invisibly. P3 holds resources
+#// too but is a TEAMMATE, so asserting its absence is what pins "a teammate is never an enemy" here.
+
+## GIVEN
+CommonSetup: rrk/grw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 4
+WithP1Hand: SEC_242
+WithP2Resources: 3:SOR_095:1
+WithP2Deck: [SOR_095]
+WithP4Resources: 3:SOR_095:1
+WithP4Deck: [SOR_095]
+WithP3Resources: 3:SOR_095:1
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1OPTIONHAS:P2
+P1OPTIONHAS:P4
+P1OPTIONNOT:P3

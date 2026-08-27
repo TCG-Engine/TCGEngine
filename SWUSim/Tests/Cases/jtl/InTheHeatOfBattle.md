@@ -184,3 +184,40 @@ WithP2Deck: [SEC_080 SEC_080 SEC_080]
 P1GROUNDARENAUNIT:0:CARDID:SHD_147
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
 P1GROUNDARENAUNIT:0:HASKEYWORD:Saboteur
+
+---
+
+# TwinSuns_EachUnitMeansEVERYSeat
+#// ⚠ REGRESSION GUARD, live bug 2026-08-27 — Twin Suns two-seat hardcode family.
+#// "EACH unit gains Sentinel and loses Saboteur" is the WHOLE TABLE. The handler looped seats 1..2, so at
+#// four seats the units on seats 3 and 4 were simply never reached: no Sentinel, and a Saboteur unit there
+#// kept its Saboteur. Every existing section in this file is a two-seat board, which is exactly why it
+#// stayed invisible — the same reason the JTL_047 Yularen seat bug survived.
+#//
+#// P1 plays the event. SHD_147 Ketsu Onyo (native Saboteur) sits on seat 1 AND on seat 3: both must gain
+#// Sentinel and lose Saboteur. The seat-1 copy is the control — it was always correct, so if IT ever goes
+#// red the problem is the fixture, not the seat loop.
+
+## GIVEN
+CommonSetup: bbw/grw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Hand: JTL_077
+WithP1Resources: 6
+WithP1GroundArena: SHD_147:1:0
+WithP3GroundArena: SHD_147:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Saboteur
+P3GROUNDARENAUNIT:0:CARDID:SHD_147
+P3GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P3GROUNDARENAUNIT:0:NOTKEYWORD:Saboteur

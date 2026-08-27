@@ -186,3 +186,34 @@ P1GROUNDARENAUNIT:1:CARDID:SOR_095
 P2GROUNDARENAUNIT:0:CARDID:SHD_095
 P2GROUNDARENAUNIT:1:CARDID:SOR_046
 P1NODECISION
+
+---
+
+# TwinSuns_ExchangeGivesToTHATUnitsController
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — "Exchange control of those units."
+#// The seat that RECEIVES the friendly unit is the chosen ENEMY unit's controller — a determined seat,
+#// known only once the pick lands. It was threaded in from the offer builder as OtherPlayer($player),
+#// literally seat 2, so above two seats the caster took a SEAT 4 unit while SEAT 2 received the friendly
+#// one: a three-way swap the card never describes. P2's arena must stay EMPTY — that is the assertion
+#// that catches it.
+## GIVEN
+CommonSetup: ggk/ggk
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 7
+WithP1Hand: SHD_132
+WithP1GroundArena: SOR_046:1:0
+WithP4GroundArena: SHD_095:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:p4GroundArena-0
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:CARDID:SHD_095
+P4GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENACOUNT:0

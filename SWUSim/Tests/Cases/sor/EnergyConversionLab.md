@@ -266,3 +266,37 @@ P1DISCARDCOUNT:1
 P2GROUNDARENACOUNT:0
 P2DISCARDCOUNT:1
 P1BASE:EPICUSED
+
+---
+
+# ChooseNothing_ByConfirmingEmpty_StillClosesTheAction
+#// ⚠ REGRESSION GUARD, live bug 2026-08-27 — the PASS twin of ChooseNothing_NothingPlayed, which answers
+#// `-` and could not see this.
+#//
+#// SOR_022#0's null branch calls SWUAfterAction(): the continuation is what CLOSES the Epic Action. It is
+#// queued as a RAW MZMAYCHOOSE + CUSTOM pair (not via SWUQueueMayChooseTarget), so flipping that helper's
+#// default did not cover it — the flag had to be added at this call site. Skipped on a sticky "PASS", the
+#// once-per-game Epic Action was spent and the player still held the turn.
+#//
+#// P1OnlyActions is deliberately absent so TURNPLAYER is observable — that is the whole assertion.
+
+## GIVEN
+SkipPreGame: true
+CommonSetup: grw/grw/{
+  myBase:SOR_022;
+  theirBase:SOR_023
+}
+WithActivePlayer: 1
+WithP1Resources: 10:SOR_095
+WithP1Hand: [SOR_239 SOR_232]
+
+## WHEN
+- P1>UseBaseAbility
+- P1>AnswerDecision:PASS
+
+## EXPECT
+TURNPLAYER:2
+P1HANDCOUNT:2
+P1GROUNDARENACOUNT:0
+P1BASE:EPICUSED
+P1NODECISION

@@ -47,7 +47,7 @@ WithP3Base: SOR_021:2
 WithP4Base: SOR_021:0
 
 ## WHEN
-- P1>AttackGroundArena:0:0
+- P1>AttackGroundArena:0:P2G0
 
 ## EXPECT
 SEATCOUNT:4
@@ -80,7 +80,7 @@ WithP3Base: SOR_021:0
 WithP4Base: SOR_021:0
 
 ## WHEN
-- P1>AttackGroundArena:0:0
+- P1>AttackGroundArena:0:P2G0
 - P1>AnswerDecision:P4
 
 ## EXPECT

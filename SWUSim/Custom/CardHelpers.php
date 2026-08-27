@@ -49,9 +49,12 @@ if (!function_exists('SWUObjGone')) {
 //   $of    = 'my' | 'their' | null (both sides)
 //   $arena = 'Ground' | 'Space'    | null (both arenas)
 // Iteration is side-outer, arena-inner, so the returned order is exactly the
-// historical inline merges: SWUAllUnits() == array_merge(myGround, mySpace,
-// theirGround, theirSpace); SWUAllUnits('my') == array_merge(myGround, mySpace);
-// SWUAllUnits(null,'Ground') == array_merge(myGround, theirGround); etc.
+// historical inline merges — with 'team' where the pool is UNQUALIFIED (see the note in the body):
+// SWUAllUnits() == array_merge(teamGround, teamSpace, theirGround, theirSpace);
+// SWUAllUnits('my') == array_merge(myGround, mySpace);   // an explicit side is untouched
+// SWUAllUnits(null,'Ground') == array_merge(teamGround, theirGround); etc.
+// Outside a team game 'team' degrades to the caller's own zone, so all of these are byte-identical
+// to the pre-Team-Suns behaviour at two seats.
 if (!function_exists('SWUAllUnits')) {
     function SWUAllUnits(?string $of = null, ?string $arena = null, $filter = null): array {
         // $filter: a ZoneSearch card-type filter (AnyUnitFilter default, NonLeaderUnitFilter, …).
@@ -410,6 +413,15 @@ if (!function_exists('SWUAllBaseMzIDs')) {
         global $playerID; $playerID = intval($player);
         $out = [];
         if ($side === 'my' || $side === 'any') $out[] = 'myBase-0';
+        // ⚠ 'any' means EVERY LIVE SEAT'S base, so it cannot be 'my' + 'their': "their" is ZoneSearch's
+        // OPPONENT fan-out and deliberately excludes a TEAMMATE. That is the identical hole SWUAllUnits()
+        // already documents ("once 'their' excludes a teammate, 'my' + 'their' no longer covers the
+        // table") — it was fixed for units and left open for bases, silently deleting the partner's base
+        // from ~35 unqualified "a base" offers. SWUTeammatesOf returns [] outside a team game, so
+        // 2-player and free-for-all Twin Suns stay byte-identical.
+        if ($side === 'any') {
+            foreach (SWUTeammatesOf(intval($player)) as $mate) $out[] = "p{$mate}Base-0";
+        }
         if ($side === 'their' || $side === 'any') {
             foreach (ZoneSearch('theirBase', null) as $mz) $out[] = $mz;
         }

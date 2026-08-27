@@ -7,7 +7,7 @@ P1OnlyActions: true
 WithP1Hand: [TWI_223 SOR_095]
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:OK
 - P1>AnswerDecision:theirHand-0
 ## EXPECT
 P1HANDCOUNT:0

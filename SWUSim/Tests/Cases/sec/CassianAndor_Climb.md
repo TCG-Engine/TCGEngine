@@ -498,3 +498,42 @@ P1LEADER:DEPLOYED
 P1GROUNDARENAUNIT:0:CARDID:SEC_012
 P1GROUNDARENAUNIT:0:DAMAGE:3
 P2BASEDMG:6
+
+---
+
+# TeamSuns_ATeammatesBaseIsNotANOPPONENTSBase
+#// SEC_012 (front passive) — "friendly units that have damaged AN OPPONENT'S base this phase can't be
+#// attacked." In Team Suns "an opponent" and "anyone but me" differ by exactly one seat: your PARTNER.
+#// P1's Y-Wing (IBH_006) attacks P2's fighter and aims its On Attack ping at P3 — P1's OWN TEAMMATE — so
+#// nothing it damaged belongs to an opponent and it stays attackable. P2 then kills it.
+#// TWO bugs had to be fixed for this to be expressible, and each one masked the other:
+#//   • SWUAllBaseMzIDs(…,'any') was 'my' + 'their', and "their" is ZoneSearch's OPPONENT fan-out — so a
+#//     teammate's base was never in the pool at all. Reverting that fails this at the ANSWER:
+#//     "p3Base-0 is not a candidate … MZCHOOSE [myBase-0&p2Base-0&p4Base-0]".
+#//   • _SWUSec012Protected scanned every owner except $ctrl instead of OpponentsOf($ctrl), so a
+#//     teammate's base counted. Reverting that fails this at the ATTACK: "p1SpaceArena-0 is not a valid
+#//     attack target … MZCHOOSE [p1Base-0&p3Base-0]" — the Y-Wing wrongly protected.
+#// Note the second message is only visible because declareAttack now VALIDATES the injected target; it
+#// used to be handed straight to the queue, so a protected unit could be attacked and killed.
+
+## GIVEN
+CommonSetup: brw/bbk/{myLeader:SEC_012;myBase:JTL_019;theirBase:SOR_021}
+SkipPreGame: true
+WithTeams: true
+WithGamePhase: ActionPhase
+WithActivePlayer: 1
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+WithP1SpaceArena: IBH_006:1:0
+WithP2SpaceArena: [SOR_225:1:0 SOR_225:1:0]
+
+## WHEN
+- P1>AttackSpaceArena:0:P2S0
+- P1>AnswerDecision:p3Base-0
+- P2>AttackSpaceArena:0:P1S0
+
+## EXPECT
+SEATCOUNT:4
+P3BASEDMG:1
+P2BASEDMG:0
+P1SPACEARENACOUNT:0

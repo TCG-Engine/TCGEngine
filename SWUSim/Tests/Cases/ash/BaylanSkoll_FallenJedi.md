@@ -217,3 +217,34 @@ WithActivePlayer: 2
 ## EXPECT
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P2GROUNDARENAUNIT:1:EXHAUSTED
+
+---
+
+# TwinSuns_ANYEnemyBaseDamagedThisPhaseCounts
+#// ⚠ TWIN SUNS SWEEP (2026-08-27) — "If AN enemy base was damaged this phase" is EXISTENTIAL.
+#// The check read SWU_DMGBASE_{OtherPlayer($player)}, i.e. seat 2 only, so damaging a seat-3/4 base did
+#// not arm the ability at all. Here the ONLY base damaged is SEAT 4's, so the Advantage token can only
+#// appear if every opponent is checked.
+#//
+#// ⚠ This section was UNWRITEABLE until the harness was fixed the same day: P1OnlyActions silenced only
+#// one seat via the claimed initiative, so after the attack the turn walked to seat 3 and the following
+#// PlayHand was rejected. See SchemaTestRunner::applyPostSetupDirectives (SWU_COUNTER_TAKEN).
+## GIVEN
+CommonSetup: ryk/ryk
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 6
+WithP1Hand: ASH_039
+WithP1GroundArena: SOR_095:1:0
+## WHEN
+- P1>AttackGroundArena:0:P4B
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:3
+P1GROUNDARENAUNIT:0:ADVANTAGECOUNT:1

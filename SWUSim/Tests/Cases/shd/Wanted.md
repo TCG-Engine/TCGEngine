@@ -90,7 +90,7 @@ WithP1Resources: 2:SOR_046:0
 WithP3Resources: 2:SOR_046:0
 
 ## WHEN
-- P1>AttackGroundArena:0:0
+- P1>AttackGroundArena:0:P2G0
 - P1>AnswerDecision:YES
 - P1>AnswerDecision:1
 

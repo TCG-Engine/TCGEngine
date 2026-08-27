@@ -7,6 +7,8 @@
 // When Played: Deal 1 damage to each base.
 $whenPlayedAbilities["SHD_160:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    SWUDealDamageToBase(1, 1);
-    SWUDealDamageToBase(1, 2);
+    // ⚠ "Deal 1 damage to EACH base" — every base at the table, the caster's own included. Written as two
+    // literal seat calls, which is a two-seat hardcode invisible to any OtherPlayer()/GetOpponent() scan.
+    // Twin of SOR_014 Sabine's front Action, found the same way (2026-08-27).
+    foreach (GetLiveSeatsArray() as $seat) SWUDealDamageToBase(1, $seat);
 };

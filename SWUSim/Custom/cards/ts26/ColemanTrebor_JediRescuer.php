@@ -7,7 +7,8 @@
 // damage dealt this way. (2-player: one enemy base → deal 1 → heal 1.)
 $whenPlayedAbilities["TS26_19:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));                    // 2-player: one enemy base
+    // "Deal 1 damage to EACH enemy base" — a fan-out. This took OtherPlayer(), so above two seats only
+    // one enemy base was hit AND the heal was undercounted to match.
     // "Heal 1 damage from your base FOR EACH DAMAGE DEALT this way" — measure what actually landed
     // instead of assuming the 1 got through. JTL_074 Close the Shield Gate (or any other prevention on
     // that base) stops it, and then there is nothing to heal. Healing unconditionally handed the
@@ -16,8 +17,13 @@ $whenPlayedAbilities["TS26_19:0"] = function($player, $mzID) {
         foreach (GetBase($seat) as $b) { if (empty($b->removed)) return intval($b->Damage ?? 0); }
         return 0;
     };
-    $before = $dmgOf($opp);
-    SWUDealDamageToBase(1, $opp);
-    $dealt = max(0, $dmgOf($opp) - $before);
+    // Measure per base and SUM: "heal 1 for each damage dealt this way" counts every point that
+    // actually landed across every enemy base, so at four seats this heals up to 2 (or 3), not 1.
+    $dealt = 0;
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        $before = $dmgOf($opp);
+        SWUDealDamageToBase(1, $opp);
+        $dealt += max(0, $dmgOf($opp) - $before);
+    }
     if ($dealt > 0) OnHealBase(intval($player), intval($player), $dealt);
 };

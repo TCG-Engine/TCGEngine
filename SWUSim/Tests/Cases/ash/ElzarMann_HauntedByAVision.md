@@ -25,7 +25,6 @@ CommonSetup: yyk/yyk/{myResources:6;handCardIds:ASH_224;myLeader:SOR_005}
 WithActivePlayer: 1
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:-
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:ASH_224
 P1GROUNDARENAUNIT:0:READY
@@ -40,7 +39,6 @@ CommonSetup: yyk/yyk/{myResources:6;handCardIds:ASH_224;myLeader:SOR_001}
 WithActivePlayer: 1
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:-
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:ASH_224
 P1GROUNDARENAUNIT:0:EXHAUSTED
@@ -56,7 +54,6 @@ WithActivePlayer: 1
 WithP2Deck: [ASH_136 SOR_063 SOR_063 SOR_063]
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:-
 ## EXPECT
 P2HANDCOUNT:0
 P2DECKCOUNT:4

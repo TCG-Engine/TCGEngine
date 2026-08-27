@@ -1145,6 +1145,9 @@ class SchemaTestRunner {
      *                               could not be written — the gap that left SHD_161's bounty defect
      *                               unassertable. The claimed initiative goes to the lowest OTHER seat,
      *                               so P1OnlyActions stays byte-identical (initiative → P2).
+     *                               ⚠ At 3+ seats the claimed initiative silences only ONE seat, so every
+     *                               OTHER seat is also marked in SWU_COUNTER_TAKEN — without that, the turn
+     *                               walks past the actor after any action that swaps it (e.g. an attack).
      */
     public static function applyPostSetupDirectives(array $givenLines): void {
         $given = self::_parseGiven($givenLines);
@@ -1155,6 +1158,26 @@ class SchemaTestRunner {
             if (strtolower($given["P{$oaSeat}OnlyActions"] ?? '') !== 'true') continue;
             $oaHolder = ($oaSeat === 1) ? 2 : 1;   // any OTHER seat; 2 for seat 1 keeps P1OnlyActions identical
             SetInitiativeCounter("P{$oaHolder}_CLAIMED");
+            // ⚠ THE CLAIMED INITIATIVE ONLY SILENCES **ONE** SEAT. SWUSwapTurnPlayer auto-passes a seat via
+            // _SWUSeatTookCounterThisRound, and the initiative counter can name exactly one claimant — so at
+            // three or four seats the OTHER opponents never auto-passed. After any action that swaps the
+            // turn (an ATTACK is the common one), the turn walked to seat 3 and stopped there, and the
+            // section's next "P{n}>…" line was silently rejected because it was no longer that seat's turn.
+            // That made "attack, then act again as the same player" IMPOSSIBLE to express at four seats —
+            // measured 2026-08-27, and it blocked pinning ASH_039 and SEC_144.
+            //
+            // SWU_COUNTER_TAKEN is the PRODUCTION list of seats that have taken a counter this round (the
+            // Twin Suns blast/plan path), and _SWUSeatTookCounterThisRound already reads it. Marking every
+            // other live seat there is the same statement the engine already understands — "these seats
+            // have passed for the rest of the round" — so no test-only hook is needed.
+            // Left untouched at two seats so every existing P1OnlyActions section stays byte-identical.
+            if (function_exists('SeatCountForGame') && SeatCountForGame() > 2) {
+                $taken = '';
+                foreach (GetLiveSeatsArray() as $liveSeat) {
+                    if (intval($liveSeat) !== $oaSeat) $taken .= strval($liveSeat);
+                }
+                SetSWUVar('SWU_COUNTER_TAKEN', $taken);
+            }
             SetTurnPlayer($oaSeat);
             return;
         }

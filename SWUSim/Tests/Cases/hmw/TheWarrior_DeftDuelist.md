@@ -524,3 +524,28 @@ WithP2GroundArena: SOR_046:1:0
 P2GROUNDARENAUNIT:0:DAMAGE:3
 P1GROUNDARENAUNIT:0:CARDID:HMW_018
 P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# Front_Decline_ActionCostIsStillPaid_ByConfirmingEmpty
+#// ⚠ PASS-TWIN of Front_Decline_ActionCostIsStillPaid — byte-for-byte identical except the decline.
+#// `-` and "PASS" are two DIFFERENT declines, and the client only ever submits "PASS" (all three decline
+#// paths in Core/UILibraries*.js). Historically every decline test here answered `-`, so the path players
+#// actually take was untested. This continuation (HMW_018#0) is one that does more than apply the pick, and
+#// it now runs on a decline because SWUQueueMayChooseTarget defaults dontSkipOnPass to 1 — this twin is
+#// what covers that. If the two declines ever diverge, one of the pair goes red.
+
+## GIVEN
+CommonSetup: yyw/rrk/{myLeader:HMW_018;myResources:9}
+P1OnlyActions: true
+WithP1Hand: [SEC_214 SHD_200]
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:PASS
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:2
+P1LEADER:EXHAUSTED
+P1RESAVAILABLE:8
+P1NODECISION

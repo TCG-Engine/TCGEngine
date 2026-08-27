@@ -110,3 +110,30 @@ P3GROUNDARENAUNIT:0:CARDID:LAW_233
 P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1GROUNDARENAUNIT:0:HASKEYWORD:Raid
 P1GROUNDARENAUNIT:0:HASKEYWORD:Saboteur
+
+---
+
+# TwinSuns_CasterPicksWHICHOpponentTakesHim
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — "You may have AN OPPONENT take control of this unit."
+#// An opponent OF YOUR CHOICE. It handed him to OtherPlayer($player), literally seat 2, with no pick at
+#// all. P1 gives Galen to SEAT 4: he must appear on seat 4's board and NOT on seat 2's — the two
+#// assertions swap under the old code. Auto-resolves invisibly at one opponent, so Premier is unchanged.
+## GIVEN
+CommonSetup: yyk/bgw
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 3
+WithP1Hand: LAW_233
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:P4
+## EXPECT
+SEATCOUNT:4
+P4GROUNDARENAUNIT:0:CARDID:LAW_233
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0

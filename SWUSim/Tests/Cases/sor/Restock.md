@@ -132,3 +132,33 @@ P1DECKCOUNT:2
 P2DECKCOUNT:1
 P2DISCARDCOUNT:1
 P1DISCARDCOUNT:1
+
+---
+
+# TwinSuns_ReturnsToTheCHOSENPilesOwner
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — batch 1, "resolve the seat from the mzID".
+#// The seat came from `(strpos($mz,'my') === 0) ? $player : OtherPlayer/GetOpponent(...)`, which collapses
+#// EVERY non-"my" mzID to seat 2. The chosen mzID already names its seat, so SWUMzOwner() reads it.
+#//
+#// "Choose up to 4 cards in a discard pile. Put them on the bottom of THEIR OWNER'S deck." Both picks come
+#// from seat 4's pile and must return to seat 4's deck; seat 2's deck stays empty.
+## GIVEN
+CommonSetup: ggk/ggk
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 1
+WithP1Hand: SOR_252
+WithP4Discard: SOR_095
+WithP4Discard: SOR_046
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p4Discard-0&p4Discard-1
+## EXPECT
+SEATCOUNT:4
+P4DISCARDCOUNT:0
+P4DECKCOUNT:2
+P2DECKCOUNT:0

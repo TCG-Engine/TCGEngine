@@ -95,3 +95,29 @@ P1DECKCOUNT:2
 P2DECKCOUNT:2
 P2BASEDMG:5
 P1BASEDMG:0
+
+---
+
+# TwinSuns_DealsOneToEVERYEnemyBase
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — batch 3, "deal 1 damage to EACH enemy base" is a fan-out.
+#// It took OtherPlayer(), so above two seats every enemy base but seat 2 was spared.
+#// 0-0-0 attacks SEAT 4's base (4 combat) and the ability then adds 1 to EVERY enemy base: P4 → 5, P2 → 1.
+#// The asymmetry is deliberate — attacking P4 while P2 takes only the ability damage means a fix that
+#// merely swapped which single seat got hit cannot pass. P3 is a teammate and takes nothing.
+## GIVEN
+CommonSetup: grk/bgw/{discardCardIds:SOR_128}
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1GroundArena: LAW_174:1:0
+## WHEN
+- P1>AttackGroundArena:0:P4B
+- P1>AnswerDecision:myDiscard-0
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:5
+P2BASEDMG:1
+P3BASEDMG:0

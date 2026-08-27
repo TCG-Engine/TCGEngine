@@ -311,3 +311,30 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095]
 ## EXPECT
 P1RESAVAILABLE:0
 P1BASEDMG:2
+
+---
+
+# Deployed_CanBeDeclined_NoReadyAndNoDiscount_ByConfirmingEmpty
+#// ⚠ PASS-TWIN of Deployed_CanBeDeclined_NoReadyAndNoDiscount — byte-for-byte except the decline.
+#// TS26_06#0 is one of the 8 MZMAYCHOOSE continuations that CLOSE THE ACTION (SWUAfterAction). Since the
+#// SWUQueueMayChooseTarget default flipped to dontSkipOnPass:1, they now RUN on a decline where they were
+#// previously skipped — so this twin is what proves the flip did not introduce a DOUBLE close.
+#// `-` and "PASS" are two different declines and the client only ever sends "PASS"; the pair must agree.
+
+## GIVEN
+CommonSetup: rrw/rrk/{myLeader:TS26_06:1:1;myResources:2}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: TS26_64
+WithP2GroundArena: SEC_080:0:0
+WithP1Deck: [SEC_080 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:PASS
+- P1>PlayHand:0
+
+## EXPECT
+P1RESAVAILABLE:0
+P1BASEDMG:2
+P2GROUNDARENAUNIT:0:EXHAUSTED

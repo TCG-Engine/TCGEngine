@@ -29,7 +29,8 @@ $leaderAbilities["TWI_017"] = function(int $player): void {
         // VILLAINY face: if you played a Villainy card this phase → create a Clone Trooper, deal 2 to each enemy base, flip.
         if (GlobalEffectCount($player, 'SWU_PLAYED_VILLAINY') > 0) {
             SWUCreateUnitToken($player, 'TWI_T02');                 // Clone Trooper token
-            SWUDealDamageToBase(2, OtherPlayer($player));           // 2-player: the single enemy base
+            // "deal 2 damage to EACH enemy base" — a fan-out, not one seat.
+            foreach (OpponentsOf(intval($player)) as $o) SWUDealDamageToBase(2, $o);
             $lead->Deployed = false; // flip back to the Heroism face
         }
     }

@@ -322,6 +322,22 @@ class GameTestAdapter {
             $pending = $this->state->pendingDecision($player);
             if ($pending !== null && $pending->Type === 'MZCHOOSE'
                 && ($pending->Tooltip ?? '') === 'Choose_an_attack_target') {
+                // ⚠ VALIDATE, exactly as answerDecision() does. This injection used to hand the target
+                // straight to ExecuteStaticMethods, so a section could attack a unit the legality pool had
+                // DELIBERATELY EXCLUDED — SEC_012's protection, Sentinel, Hidden, "can't be attacked".
+                // At two seats the hole was usually invisible (with one target left the attack resolves
+                // INLINE with no picker, so the bogus mzID was simply ignored and the right thing happened
+                // anyway); at 3+ seats the extra bases mean a picker DOES appear, and the unvalidated
+                // injection went through. Measured on a 4-seat SEC_012 fixture: a protected unit was
+                // attacked and killed.
+                if (function_exists('SWUValidateDecisionAnswer')
+                        && !SWUValidateDecisionAnswer($player, $targetMzID)) {
+                    ob_end_clean();
+                    $playerID = $saved;
+                    throw new RuntimeException(
+                        "Attack target '{$targetMzID}' is not a valid attack target for P{$player}: "
+                        . 'MZCHOOSE [' . substr((string)($pending->Param ?? ''), 0, 200) . ']');
+                }
                 $dq = new DecisionQueueController();
                 $dq->PopDecision($player);
                 $dq->ExecuteStaticMethods($player, $targetMzID);

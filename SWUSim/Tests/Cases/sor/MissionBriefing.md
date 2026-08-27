@@ -48,3 +48,32 @@ P1HANDCOUNT:2
 P1DECKCOUNT:1
 P2HANDCOUNT:0
 P2DECKCOUNT:2
+
+---
+
+# FourSeats_ChooseAPlayerIncludesYourTeammate
+#// SOR_171 "Choose a player. They draw 2 cards." — UNQUALIFIED, so the offer is every live seat, your
+#// PARTNER included. SWUPlayerPickerLabels used to enumerate OpponentsOf($caster), which in Team Suns
+#// deleted P3 from P1's own offer for all nine cards that share the helper. P1 hands its partner the draw.
+#// ⚠ This section pins the OUTCOME, not the offer: OPTIONCHOOSE answers are not pool-validated by the
+#// harness, so a picker that never listed P3 would still resolve this answer. See the plan doc's
+#// "OPTIONCHOOSE answers are unvalidated" item.
+
+## GIVEN
+CommonSetup: rrw/rrw/{myResources:3}
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP1Hand: SOR_171
+WithP3Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P3
+
+## EXPECT
+SEATCOUNT:4
+P3HANDCOUNT:2
+P3DECKCOUNT:2
+P1HANDCOUNT:0

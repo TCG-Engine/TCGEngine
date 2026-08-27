@@ -517,3 +517,34 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:DAMAGE:4
 P1GROUNDARENAUNIT:1:CARDID:SHD_210
+
+---
+
+# Bd1Aura_StacksOnRepeat
+#// ⚠ REGRESSION GUARD — the LOF_191 BD-1 twin of HuyangAura_StacksOnRepeat.
+#// Repeating a "while this unit is in play" When-Played is a SECOND continuous effect, so it stacks (CR).
+#// Huyang counted its links and stacked; BD-1 read a BOOLEAN, so the repeat added nothing.
+#// LOF_197 attacks (arms). BD-1 enters; choose SOR_046 → +1/+0. The repeat re-applies → +2/+0 → power 5.
+#// HP is untouched (BD-1 grants +1/+0, not +1/+1), which is what separates this from the Huyang twin.
+#// Saboteur is a keyword — one instance or two, it is simply present; asserted here as the other half.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LOF_197:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP1Hand: LOF_191
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:HP:7
+P1GROUNDARENAUNIT:0:HASKEYWORD:Saboteur

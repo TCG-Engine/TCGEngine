@@ -300,3 +300,32 @@ WithP2SpaceArena: SOR_225:1:0
 ## EXPECT
 P2SPACEARENACOUNT:0
 P2BASEDMG:2
+
+---
+
+# TwinSuns_OverwhelmExcessHitsTheDEFENDERSBase
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — a DETERMINED seat, not a choice.
+#// Overwhelm excess spills into the base of the seat whose unit just died. It went to OtherPlayer($player)
+#// — seat 2 — so killing a SEAT 4 unit splashed a bystander's base while seat 4 took nothing.
+#// The Wampa (4 power) kills seat 4's 3-HP Marine for 1 excess: seat 4's base takes it, seat 2's stays 0.
+## GIVEN
+CommonSetup: ggk/rrk
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 2
+WithP1Hand: HMW_114
+WithP1GroundArena: SOR_164:1:0
+WithP4GroundArena: SOR_095:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:p4GroundArena-0
+## EXPECT
+SEATCOUNT:4
+P4GROUNDARENACOUNT:0
+P4BASEDMG:1
+P2BASEDMG:0

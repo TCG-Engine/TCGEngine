@@ -65,3 +65,55 @@ WithP2GroundArena: SOR_239:1:0    # Rebel Pathfinder 2/3
 ## EXPECT
 P1WIN
 P2BASEDMG:30
+
+---
+
+# TwinSuns_FrontAction_EachBaseMeansALLFOUR
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — a two-seat hardcode NO legacy-helper scan could find.
+#// The front Action was written as two literal calls, SWUDealDamageToBase(1, 1) and (1, 2). It names
+#// seats as INTEGERS, so every sweep for OtherPlayer()/GetOpponent() walked straight past it. At four
+#// seats it damaged seats 1 and 2 and left 3 and 4 untouched, whoever the caster was.
+#// "Deal 1 damage to EACH base" is every base at the table — the caster's own included, which is exactly
+#// what separates this side from the deployed one below.
+## GIVEN
+CommonSetup: grw/grw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 2
+## WHEN
+- P1>UseLeaderAbility
+## EXPECT
+SEATCOUNT:4
+P1BASEDMG:1
+P2BASEDMG:1
+P3BASEDMG:1
+P4BASEDMG:1
+
+---
+
+# TwinSuns_DeployedOnAttack_EachENEMYBase_NotYourOwn
+#// The deployed side says "each ENEMY base", so it is the CONTRAST to the section above: seats 2 and 4
+#// take 1 each, while P1's own base and teammate P3's take NOTHING. Sabine attacks seat 2's base, so it
+#// shows 3 (2 combat + 1 ping) and seat 4 shows 1 — asymmetric on purpose, so a fix that merely swapped
+#// which single enemy base got pinged cannot pass. Previously GetOpponent() pinged one seat and returned
+#// null above seat 2.
+## GIVEN
+CommonSetup: grw/grw/{myLeaderDeployed:true}
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+## WHEN
+- P1>AttackGroundArena:0:P2B
+## EXPECT
+SEATCOUNT:4
+P2BASEDMG:3
+P4BASEDMG:1
+P3BASEDMG:0
+P1BASEDMG:0

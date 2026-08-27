@@ -31,3 +31,28 @@ WithP1GroundArena: TWI_T01:1:0
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:TWI_160
 P2BASEDMG:2
+
+---
+
+# TwinSuns_CasterPicksWhichEnemyBase
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — batch 2, "AN enemy base" names no seat, so the caster picks.
+#// It dealt to OtherPlayer() — seat 2 — with no choice at all. P1 picks seat 4: it takes 2 and seat 2
+#// takes NOTHING, so the assertions swap under the old code.
+## GIVEN
+CommonSetup: rrk/bbw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 4
+WithP1Hand: TWI_160
+WithP1GroundArena: TWI_T01:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P4
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:2
+P2BASEDMG:0

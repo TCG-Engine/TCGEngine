@@ -127,7 +127,6 @@ WithP2Deck: [SEC_080 SEC_080]
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:-
 - P1>PlayHand:0
 
 ## EXPECT
@@ -155,7 +154,7 @@ WithP2Deck: [SEC_080 SEC_080]
 
 ## WHEN
 - P1>PlayHand:0
-- P1>AnswerDecision:theirHand-0
+- P1>AnswerDecision:OK
 - P1>PlayHand:0
 
 ## EXPECT

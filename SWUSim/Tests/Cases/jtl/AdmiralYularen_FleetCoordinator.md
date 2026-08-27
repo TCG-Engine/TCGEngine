@@ -325,3 +325,60 @@ P1OPTIONHAS:Sentinel
 P1OPTIONHAS:Shielded
 P1OPTIONNOT:Overwhelm
 P1OPTIONNOT:Raid_1
+
+---
+
+# FivesCopy_GrantsToo
+#// ⚠ REGRESSION GUARD, live bug 2026-08-27 — and the section directly above it,
+#// Clone_CopyOfYularenAlsoGrants, is why this looked covered when it was not.
+#//
+#// A TWI_116 Clone enters play AS a JTL_047, so it satisfies a CardID-filtered reader and that section
+#// passed throughout. TS26_34 Fives is DIFFERENT: he enters "with the When Played abilities of another
+#// unit" while remaining TS26_34, so the grant is written as SWU_YULAREN_{FIVES_uid}_{kw}. The reader
+#// scanned only units whose CardID is JTL_047, never saw Fives' UID, and the Vehicle gained nothing.
+#// Third member of the same family as TWI_110 Huyang and LOF_191 BD-1; fixed the same way (scan by UID).
+
+## GIVEN
+CommonSetup: byw/rrk/{myResources:8;handCardIds:TS26_34}
+P1OnlyActions: true
+WithP1GroundArena: JTL_047:1:0
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:Sentinel
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# TwinSuns_Seat3Yularen_GrantsToSeat3Vehicle
+#// ⚠ REGRESSION GUARD, live bug 2026-08-27 — the Twin Suns two-seat hardcode family.
+#// The reader looped [GetGroundArena(1), GetGroundArena(2), GetSpaceArena(1), GetSpaceArena(2)], so a
+#// Yularen played at seat 3 or 4 granted its keyword to NOBODY — including his own controller's Vehicles.
+#// Every existing section in this file plays him at seat 1, which is exactly why it stayed invisible.
+#// Now loops every live seat. SEATCOUNT:4 is asserted so the section cannot silently degrade to 2 seats.
+
+## GIVEN
+CommonSetup: bbw/grw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 3
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP3Hand: JTL_047
+WithP3Resources: 7
+WithP3SpaceArena: SOR_237:1:0
+
+## WHEN
+- P3>PlayHand:0
+- P3>AnswerDecision:Sentinel
+
+## EXPECT
+SEATCOUNT:4
+P3SPACEARENAUNIT:0:CARDID:SOR_237
+P3SPACEARENAUNIT:0:HASKEYWORD:Sentinel

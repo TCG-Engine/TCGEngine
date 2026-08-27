@@ -2211,7 +2211,8 @@ function _SWUShd072PurgeGrantsGainedWhileJailed(int $player, $host): void {
         $keep[] = $e['raw'];
     }
     $host->TurnEffects = $keep;
-    for ($p = 1; $p <= 2; $p++) SWUClearGlobalEffectsByPrefix($p, $preFlag);
+    // Clear the marker on EVERY seat — a 1..2 loop left stale flags on seats 3-4 (two-seat hardcode family).
+    for ($p = 1; $p <= SeatCountForGame(); $p++) SWUClearGlobalEffectsByPrefix($p, $preFlag);
 }
 
 // Saboteur, shield half (CR 7.6.9): "defeat the defender's Shields." Resolves in the BEGIN ATTACK
@@ -2595,7 +2596,9 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
 // SWUCombatDamage must skip its own SWUAfterAction call in this case to
 // avoid a double TurnPlayer swap when Ambush fires from the entry trigger path.
 function _SWUInTriggerResumeMode(): bool {
-    for ($p = 1; $p <= 2; $p++) {
+    // ⚠ EVERY seat's queue. This gates whether SWUCombatDamage skips its own SWUAfterAction; a resume
+    // entry sitting on seat 3 or 4 was invisible, so the turn player could be swapped TWICE.
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $dq = GetDecisionQueue($p);
         foreach ($dq as $entry) {
             $param = $entry->Param ?? '';
@@ -3462,9 +3465,12 @@ function _SWUSec012Protected($u): bool {
     // dealt, which is not the current controller after a steal. (Same shape as SEC_042 Retaliation's fix.)
     $uid = intval($u->UniqueID ?? 0);
     if ($uid <= 0) return false;
-    for ($seat = 1; $seat <= SeatCountForGame(); $seat++) {
-        for ($owner = 1; $owner <= SeatCountForGame(); $owner++) {
-            if ($owner === $ctrl) continue;                       // our own base is not "an opponent's"
+    // ⚠ "AN OPPONENT'S base" — OpponentsOf($ctrl), not "every seat except $ctrl". In Team Suns those two
+    // differ by exactly one seat: your PARTNER. Skipping only our own base counted a teammate's base as an
+    // opponent's, so pinging your partner's base wrongly made the unit unattackable. (Invisible until
+    // SWUAllBaseMzIDs('any') started offering the teammate's base at all — the two bugs masked each other.)
+    foreach (OpponentsOf($ctrl) as $owner) {
+        for ($seat = 1; $seat <= SeatCountForGame(); $seat++) {
             if (GlobalEffectCount($seat, 'SWU_DMGDBASE_' . $uid . '_' . $owner) > 0) return true;
         }
     }

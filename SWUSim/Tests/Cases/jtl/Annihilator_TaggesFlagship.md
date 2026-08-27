@@ -57,9 +57,14 @@ WithP2Deck: [SOR_225 SEC_080 SEC_080 SEC_080 SOR_128 SOR_128 SOR_128 SOR_095 SOR
 #// P2 hand: 6 cards = 1 SOR_225 (name-matched, discarded) + 5 non-matching fillers
 WithP2Hand: [SOR_225 SEC_080 SEC_080 SEC_080 SOR_128 SOR_128]
 
+#// (2026-08-27: the answer sequence gained one `OK`. "Search its controller's deck AND hand" now
+#//  reveals BOTH searched zones — the deck reveal was specified in the handler's comment but never
+#//  wired. Two acknowledge popups now: the hand, then the deck.)
+
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:OK
 - P1>AnswerDecision:OK
 - P1>AnswerDecision:SOR_225
 
@@ -169,11 +174,16 @@ WithP2Hand: [SHD_079 SOR_179 JTL_189 SHD_195]
 WithP2Deck: [SOR_179 JTL_189 SOR_178]
 WithP2Resources: 6
 
+#// (2026-08-27: the answer sequence gained one `OK`. "Search its controller's deck AND hand" now
+#//  reveals BOTH searched zones — the deck reveal was specified in the handler's comment but never
+#//  wired. Two acknowledge popups now: the hand, then the deck.)
+
 ## WHEN
 - P2>PlayHand:0
 - P2>AnswerDecision:theirSpaceArena-0
 - P1>Drain
 - P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:OK
 - P1>AnswerDecision:OK
 - P1>AnswerDecision:SOR_179,JTL_189
 
@@ -212,9 +222,14 @@ WithP2GroundArena: SOR_232:1:0
 WithP2Hand: [SHD_197 JTL_049 SOR_178]
 WithP2Deck: [SHD_197 JTL_049 SOR_178]
 
+#// (2026-08-27: the answer sequence gained one `OK`. "Search its controller's deck AND hand" now
+#//  reveals BOTH searched zones — the deck reveal was specified in the handler's comment but never
+#//  wired. Two acknowledge popups now: the hand, then the deck.)
+
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:OK
 - P1>AnswerDecision:OK
 - P1>AnswerDecision:SHD_197,JTL_049
 - P2>AnswerDecision:YES
@@ -253,9 +268,14 @@ WithP2SpaceArena: SOR_179:1:0
 WithP2Hand: [SOR_179 JTL_189 SHD_195]
 WithP2Deck: [SOR_179 JTL_189 SOR_178]
 
+#// (2026-08-27: the answer sequence gained one `OK`. "Search its controller's deck AND hand" now
+#//  reveals BOTH searched zones — the deck reveal was specified in the handler's comment but never
+#//  wired. Two acknowledge popups now: the hand, then the deck.)
+
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:OK
 - P1>AnswerDecision:OK
 - P1>AnswerDecision:SOR_179
 
@@ -293,9 +313,14 @@ WithP2SpaceArena: SOR_179:1:0
 WithP2Hand: [SOR_179 JTL_189 SOR_178]
 WithP2Deck: SOR_178
 
+#// (2026-08-27: the answer sequence gained one `OK`. "Search its controller's deck AND hand" now
+#//  reveals BOTH searched zones — the deck reveal was specified in the handler's comment but never
+#//  wired. Two acknowledge popups now: the hand, then the deck.)
+
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:OK
 - P1>AnswerDecision:OK
 
 ## EXPECT
@@ -331,9 +356,14 @@ WithP1Resources: 11
 WithP2SpaceArena: SOR_179:1:0
 WithP2Deck: [SOR_179 JTL_189 SOR_178]
 
+#// (2026-08-27: the answer sequence gained one `OK`. "Search its controller's deck AND hand" now
+#//  reveals BOTH searched zones — the deck reveal was specified in the handler's comment but never
+#//  wired. Two acknowledge popups now: the hand, then the deck.)
+
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:OK
 - P1>AnswerDecision:SOR_179,JTL_189
 
 ## EXPECT
@@ -370,9 +400,14 @@ WithP2GroundArena: JTL_189:1:0
 WithP2Hand: [SOR_179 SOR_178]
 WithP2Deck: [JTL_189 SOR_178]
 
+#// (2026-08-27: the answer sequence gained one `OK`. "Search its controller's deck AND hand" now
+#//  reveals BOTH searched zones — the deck reveal was specified in the handler's comment but never
+#//  wired. Two acknowledge popups now: the hand, then the deck.)
+
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:OK
 - P1>AnswerDecision:OK
 - P1>AnswerDecision:JTL_189
 
@@ -412,11 +447,16 @@ WithP2Hand: [SHD_079 SHD_197 JTL_049 SOR_178]
 WithP2Deck: [SHD_197 JTL_049 SOR_178]
 WithP2Resources: 6
 
+#// (2026-08-27: the answer sequence gained one `OK`. "Search its controller's deck AND hand" now
+#//  reveals BOTH searched zones — the deck reveal was specified in the handler's comment but never
+#//  wired. Two acknowledge popups now: the hand, then the deck.)
+
 ## WHEN
 - P2>PlayHand:0
 - P2>AnswerDecision:theirSpaceArena-0
 - P1>Drain
 - P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:OK
 - P1>AnswerDecision:OK
 - P1>AnswerDecision:SHD_197,JTL_049
 - P2>AnswerDecision:YES
@@ -456,9 +496,14 @@ WithP1Deck: [SOR_128 SOR_046 SOR_095]
 WithP2SpaceArena: SOR_179:1:0
 WithP2Deck: [SOR_179 SOR_178 SOR_046]
 
+#// (2026-08-27: the answer sequence gained one `OK`. "Search its controller's deck AND hand" now
+#//  reveals BOTH searched zones — the deck reveal was specified in the handler's comment but never
+#//  wired. Two acknowledge popups now: the hand, then the deck.)
+
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:theirSpaceArena-0
+- P1>AnswerDecision:OK
 - P1>AnswerDecision:SOR_179
 
 ## EXPECT

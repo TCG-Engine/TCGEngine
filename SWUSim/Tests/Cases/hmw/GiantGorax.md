@@ -429,7 +429,7 @@ WithP3Resources: 3
 WithP1Deck: [SOR_095 SOR_046 SEC_080]
 
 ## WHEN
-- P1>AttackGroundArena:0:BASE
+- P1>AttackGroundArena:0:P2B
 - P2>AnswerDecision:Deal3
 - P1>AnswerDecision:p2GroundArena-0
 - P3>AnswerDecision:DiscardAndDefeat
@@ -480,7 +480,7 @@ WithP4Base: SOR_019:0
 WithP1Deck: [SOR_095 SOR_046 SEC_080]
 
 ## WHEN
-- P1>AttackGroundArena:0:BASE
+- P1>AttackGroundArena:0:P2B
 - P2>AnswerDecision:DiscardAndDefeat
 - P3>AnswerDecision:Deal3
 

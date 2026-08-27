@@ -7,7 +7,9 @@
 $whenDefeatedAbilities["SOR_163:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $ic = (string)GetInitiativeCounter();
-    $holder = (strpos($ic, 'P1') === 0) ? 1 : 2;       // "P1_CLAIMED"/"P1_UNCLAIMED" → 1, else 2
-    if ($holder === intval($player)) DoDrawCard(intval($player), 2);
+    // ⚠ "If YOU have the initiative" — PlayerHasIniative matches "P{seat}_CLAIMED"/"P{seat}_UNCLAIMED"
+    // for ANY seat. The old `strpos($ic,'P1') === 0 ? 1 : 2` collapsed every non-P1 holder onto seat 2,
+    // so above two seats a seat-3/4 holder never drew and seat 2 drew when it should not have.
+    // (Engine spells it "Iniative" — a load-bearing typo.)
+    if (PlayerHasIniative(intval($player))) DoDrawCard(intval($player), 2);
 };

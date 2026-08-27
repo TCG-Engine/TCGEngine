@@ -22,7 +22,9 @@ $customDQHandlers["SHD_101#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    $holder = strpos((string)GetInitiativeCounter(), 'P1') === 0 ? 1 : 2;
-    if ($holder === intval($player)) SWUAddAttackPowerBonus($lastDecision, 2);
+    // ⚠ "If YOU have the initiative" — ask the engine, do not decode the counter string. This used to be
+    // `strpos($ic,'P1') === 0 ? 1 : 2`, which collapses EVERY non-P1 holder onto seat 2: at 3+ seats a
+    // seat-3 or seat-4 initiative holder got no bonus, and seat 2 got one it had not earned.
+    if (PlayerHasIniative(intval($player))) SWUAddAttackPowerBonus($lastDecision, 2);
     BeginSWUAttack(intval($player), $lastDecision);
 };

@@ -19,10 +19,10 @@
 $customDQHandlers["HMW_004#0"] = function ($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;          // "You may" — declining changes nothing
-    // Only the two bases are ever offered; map the chosen mzID back to the base's controller.
-    if (strpos((string)$lastDecision, 'myBase') !== false) {
-        SWUDefeatBase(intval($player));                       // legal: it just loses you the game
-    } elseif (strpos((string)$lastDecision, 'theirBase') !== false) {
-        SWUDefeatBase(OtherPlayer(intval($player)));
-    }
+    // ⚠ ANY base can be offered now (see _SWUHmw004RegroupBaseDefeat), so the seat must be read out of
+    // the chosen mzID. The old my/their string match collapsed every non-"my" pick onto seat 2 — which,
+    // for an ability whose whole effect is "that player loses the game", is the worst possible place to
+    // guess. Choosing your own base is still legal; it just loses you the game.
+    $seat = SWUMzOwner((string)$lastDecision, intval($player));
+    if ($seat > 0) SWUDefeatBase($seat);
 };

@@ -9,7 +9,7 @@ WithP1GroundArena: SEC_188:1:0
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:You
+- P1>AnswerDecision:P1
 
 ## EXPECT
 P2BASEDMG:2
@@ -29,7 +29,7 @@ WithP1GroundArena: SEC_188:1:0
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:Opponent
+- P1>AnswerDecision:P2
 
 ## EXPECT
 P2BASEDMG:2
@@ -70,7 +70,7 @@ WithP1GroundArena: SEC_188:1:0
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:Opponent
+- P1>AnswerDecision:P2
 
 ## EXPECT
 P2BASEDMG:2
@@ -97,3 +97,38 @@ P2BASEDMG:2
 P1LEADER:EXHAUSTED
 P2LEADER:EXHAUSTED
 P1NODECISION
+
+---
+
+# FourSeats_OffersAndReadiesAFARSeatsLeader
+#// SEC_188 at FOUR seats — "ready A NON-UNIT LEADER" carries no friendly/enemy qualifier, so every seat
+#// holding an exhausted, undeployed leader is a candidate. The picker used to be a literal You/Opponent
+#// pair built from OtherPlayer($p), so above two seats only seat 2's leader could ever be offered.
+#// BOTH P2's and P4's leaders are exhausted here and P1 names P4: the legacy shape fails on the OFFER
+#// (its pool is [P2&Pass] — the message names the missing seat), and any "collapse the pick onto seat 2"
+#// applier fails on P2LEADER:EXHAUSTED. P1's and P3's leaders start ready, so they are correctly absent
+#// from the pool rather than merely unchosen.
+#// ⚠ Needs the OPTIONCHOOSE pool validator to discriminate on the offer — without it an answer naming a
+#// seat the picker never listed still resolves. See the plan doc.
+
+## GIVEN
+CommonSetup: yyk/rrk/{theirLeader:SOR_016:0}
+SkipPreGame: true
+WithTeams: true
+WithGamePhase: ActionPhase
+WithActivePlayer: 1
+WithP1GroundArena: SEC_188:1:0
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+WithP4Leader: SOR_016:0
+
+## WHEN
+- P1>AttackGroundArena:0:P2B
+- P1>AnswerDecision:P4
+
+## EXPECT
+SEATCOUNT:4
+P2BASEDMG:2
+P4LEADER:READY
+P4LEADER:NOTDEPLOYED
+P2LEADER:EXHAUSTED

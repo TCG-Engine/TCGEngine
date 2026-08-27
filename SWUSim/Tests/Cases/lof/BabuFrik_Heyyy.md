@@ -94,3 +94,37 @@ WithP1GroundArena: LOF_206:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P2BASEDMG:0
+
+---
+
+# Action_DeclineWithPASS_StillClosesTheAction
+#// ⚠ NEW GUARD 2026-08-27. LOF_206 Babu Frik had NO decline test of either kind, and its continuation is one of the
+#// 8 MZMAYCHOOSE continuations whose DECLINE PATH CLOSES THE ACTION (SWUAfterAction). Before the
+#// SWUQueueMayChooseTarget default flipped to dontSkipOnPass:1, a sticky "PASS" skipped that CUSTOM
+#// entirely: the cost was paid, nothing happened, and the player KEPT THE TURN — a free extra action
+#// (measured on JTL_003 Lando). This pins the decline for LOF_206 Babu Frik, and also proves the flip did not
+#// introduce the opposite failure, a DOUBLE close.
+#//
+#// ⚠ P1OnlyActions is deliberately ABSENT — it makes TURNPLAYER unobservable, which is precisely how the
+#// Lando bug stayed green in a section that already answered "PASS". Do not add it.
+#// LOF_206's Action [Exhaust] offers "you MAY attack with a friendly Droid". P1 declines: Babu Frik is
+#// still exhausted (the cost was paid), the Droid SOR_188 never attacks so it stays READY and the enemy
+#// base is untouched, and the turn passes to P2.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myLeader:JTL_001;theirBase:SOR_021}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: LOF_206:1:0
+WithP1GroundArena: SOR_188:1:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:PASS
+
+## EXPECT
+TURNPLAYER:2
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:1:READY
+P2BASEDMG:0
+P1NODECISION

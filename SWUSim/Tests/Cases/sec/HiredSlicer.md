@@ -155,3 +155,30 @@ P2BASEDMG:3
 P1GROUNDARENAUNIT:1:READY
 P1DECKCOUNT:0
 P1NODECISION
+
+---
+
+# OnAttack_DeclineExhaust_WithValidTarget_ByConfirmingEmpty
+#// ⚠ PASS-TWIN of OnAttack_DeclineExhaust_WithValidTarget — byte-for-byte except the decline.
+#// `-` and "PASS" are two different declines and the client only ever sends "PASS". SEC_220#1 is not a
+#// pure applier: on a decline it still puts the REVEALED cards back on the bottom of the deck — skipping it would
+#// have stranded them outside every zone.
+#// It now runs on a decline because SWUQueueMayChooseTarget defaults dontSkipOnPass to 1; this twin
+#// is what covers that. If the two declines ever diverge, one of the pair goes red.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SEC_220:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:You
+- P1>AnswerDecision:PASS
+## EXPECT
+P2BASEDMG:3
+P1GROUNDARENAUNIT:1:READY
+P1DECKCOUNT:2
+P1NODECISION

@@ -76,3 +76,30 @@ WithP1GroundArena: SOR_046:1:2    # 3/7 with 2 damage
 ## EXPECT
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P1SPACEARENAUNIT:0:DAMAGE:2
+
+---
+
+# TwinSuns_CanHealAFarSeatsBase
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — and this one needed BOTH halves of the card fixed.
+#// The applier (SOR_052#0) resolved a picked base with the my/their ternary, i.e. seat 2. But the OFFER
+#// was the real blocker: it listed exactly ['myBase-0', 'theirBase-0'], so a far seat's damaged base was
+#// never even presented — and the bare 'theirBase-0' token does not name WHICH seat it means.
+#// Fixing only the applier left this section red, which is how the offer half was found.
+#// Seat 4's base starts on 6 damage and is healed by 3 → 3. Seat 2's base is untouched at 0.
+## GIVEN
+CommonSetup: bbw/bbw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:6
+WithP4Base: SOR_019:6
+WithP1Resources: 8
+WithP1Hand: SOR_052
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p4Base-0:3
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:3
+P2BASEDMG:0

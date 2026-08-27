@@ -36,3 +36,36 @@ WithP1SpaceArena: SOR_237:1:0
 
 ## EXPECT
 P2BASEDMG:2
+
+---
+
+# FourSeats_AFARSeatsInitiativeGrantsTheBuff
+#// SHD_101 "If YOU have the initiative, it gets +2/+0 for this attack." Same hand-decoded counter as
+#// SOR_163 — `strpos($ic,'P1') === 0 ? 1 : 2` — so above two seats a seat-3/4 initiative holder got no
+#// bonus and seat 2 got one it had not earned. SEAT 3 holds the initiative and plays the Patrol Wing;
+#// its 2-power SOR_237 must hit P2's base for 4, not 2. Now gated on PlayerHasIniative().
+#// ⚠ P3 needs 9 resources, not 5: CommonSetup only dresses seats 1-2, so seat 3 pays the aspect penalty.
+
+## GIVEN
+CommonSetup: ggw/ggw
+SkipPreGame: true
+WithTeams: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+WithInitiativePlayer: 3
+WithInitiativeClaimed: true
+WithActivePlayer: 3
+WithP3Resources: 9
+WithP3Hand: SHD_101
+WithP3SpaceArena: SOR_237:1:0
+
+## WHEN
+- P3>PlayHand:0
+- P3>AnswerDecision:mySpaceArena-0
+- P3>AnswerDecision:p2Base-0
+
+## EXPECT
+SEATCOUNT:4
+P3HANDCOUNT:0
+P2BASEDMG:4

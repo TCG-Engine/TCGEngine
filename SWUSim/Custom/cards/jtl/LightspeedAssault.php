@@ -38,7 +38,10 @@ $customDQHandlers["JTL_127#1"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($e)) return;
     $euid        = intval($e->UniqueID ?? 0);
     $epow        = intval(ObjectCurrentPower($e));           // captured before any defeat (power ≠ HP)
-    $econtroller = intval($e->Controller ?? GetOpponent(intval($player)));
+    // Controller is the answer; the fallback only covers an unset field and must still name the RIGHT
+    // seat above two seats, so derive it from the mzID rather than OtherPlayer()/GetOpponent().
+    $econtroller = intval($e->Controller ?? 0);
+    if ($econtroller <= 0) $econtroller = SWUMzOwner((string)$lastDecision, intval($player));
     $fmz = SWUFindMzByUID($fuid);
     if ($fmz === null) return;                               // friendly already gone → can't complete
     SWUDefeatUnit(intval($player), $fmz);                    // defeat the friendly space unit

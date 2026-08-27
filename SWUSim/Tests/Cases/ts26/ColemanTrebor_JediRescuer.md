@@ -35,3 +35,30 @@ WithP2Deck: [SOR_095 SOR_095]
 ## EXPECT
 P1BASEDMG:2
 P2BASEDMG:2
+
+---
+
+# TwinSuns_EachEnemyBase_AndTheHealCountsThemAll
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — batch 3, "each enemy base" is a FAN-OUT.
+#// This took OtherPlayer(), so above two seats only ONE enemy base was hit — and because the heal is
+#// "1 for each damage dealt this way", the heal was undercounted to match. Both halves are asserted here.
+#// P1's opponents are 2 and 4; 3 is a TEAMMATE and must take nothing. P1's base starts on 3 damage and
+#// ends on 1, i.e. healed TWO — the count is what proves the fan-out, not just that a second base was hit.
+## GIVEN
+CommonSetup: bgw/rrk/{myBaseDamage:3}
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 3
+WithP1Hand: TS26_19
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+SEATCOUNT:4
+P2BASEDMG:1
+P4BASEDMG:1
+P3BASEDMG:0
+P1BASEDMG:1

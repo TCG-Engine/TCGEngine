@@ -11,7 +11,10 @@ $customDQHandlers["LAW_103#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     $cardID     = $o->CardID ?? '';
-    $controller = intval($o->Controller ?? OtherPlayer(intval($player)));
+    // Controller is the answer; the fallback only covers an unset field and must still name the RIGHT
+    // seat above two seats, so derive it from the mzID rather than OtherPlayer()/GetOpponent().
+    $controller = intval($o->Controller ?? 0);
+    if ($controller <= 0) $controller = SWUMzOwner((string)$lastDecision, intval($player));
     $owner      = intval($o->Owner ?? $controller);
     if ($owner <= 0) $owner = $controller;
     SWUDefeatUnit(intval($player), $lastDecision);   // → owner's discard
@@ -43,7 +46,9 @@ $whenPlayedAbilities["LAW_103:0"] = function($player, $mzID = '') {
                 ZoneSearch("theirSpaceArena",  NonLeaderUnitFilter)
             );
             if (empty($enemy)) return;
-            SWUQueueChooseTarget(intval($player), $enemy, "Defeat_an_enemy_non-leader_unit",
-                "LAW_103#0|" . OtherPlayer(intval($player)));
+            // No seat param: LAW_103#0 reads the CHOSEN unit's own Controller. The OtherPlayer() that
+            // used to be passed here was never read — dead, and misleading to anyone grepping for the
+            // determined-seat family.
+            SWUQueueChooseTarget(intval($player), $enemy, "Defeat_an_enemy_non-leader_unit", "LAW_103#0");
             return;
 };

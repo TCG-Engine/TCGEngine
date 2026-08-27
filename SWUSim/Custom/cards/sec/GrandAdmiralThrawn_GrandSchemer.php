@@ -59,7 +59,10 @@ $customDQHandlers["SEC_193#3"] = function($player, $parts, $lastDecision) {
         return;
     }
     DecisionQueueController::AddDecision($opp, "MZMAYCHOOSE", implode('&', $units), 1, tooltip: "Choose_a_unit_to_be_captured_by_Thrawn_(or_pass)");
-    DecisionQueueController::AddDecision($opp, "CUSTOM", "SEC_193#0|{$thrawnUID}|" . $caster, 1);
+    // ⚠ dontSkipOnPass: the opponent DECLINING is a real answer here — "no unit is captured, so Thrawn
+    // readies" — and a sticky "PASS" would otherwise skip this continuation entirely, leaving Thrawn
+    // exhausted. The handler's own `$lastDecision !== 'PASS'` branch was unreachable without it.
+    DecisionQueueController::AddDecision($opp, "CUSTOM", "SEC_193#0|{$thrawnUID}|" . $caster, 1, dontSkipOnPass: 1);
     // leave $playerID = $opp so MZCountChoices resolves the relative mzIDs under the opponent
 };
 

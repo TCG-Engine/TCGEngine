@@ -28,6 +28,39 @@ four-seat pin and an independent mutation.
 `SHD_184` Bazine Netal — same clause word for word, and it does carry the "controlling player chooses"
 ruling. **Re-check both when HMW / IC27 release and the rulings database is refreshed.**
 
+### PASS 2 — §1b CLOSED, §1c CLOSED, per-clause worklist now known (2026-08-27)
+
+**Suite 9831 / 0.** The old per-FILE classifier was replaced with a per-CLAUSE one (tokenizer, exact
+handler bodies, comments stripped — methodology note #2 the hard way). **2718 CardID-keyed clauses**
+indexed; **58 cards** carry a legacy `OtherPlayer`/`GetOpponent`/`SWUChooseOpponent` call in at least one
+clause.
+
+| bucket | count | state |
+|---|---|---|
+| **§1b — the 45 "defending player / that opponent" cards** | 45 | ✅ **CLOSED.** 33 already clean; of the 12 flagged, **5 were real bugs** (`SHD_114`, `SEC_242`, `LAW_044`, `LOF_222`, `SHD_144`), 4 were unreachable `??` fallbacks (tightened), 3 were scan false positives (`SEC_126`, `SEC_038`, `SHD_143` — all already seat-guarded). |
+| **§1c — "considered" re-checked per clause** | 12 whitewashed | ✅ **CLOSED.** Only ONE live (`LAW_202`), and it was a DEAD seat param the handler never read. The other 11 are `??` fallbacks. |
+| **Pass 2 body — plain LIVE clauses** | **~29** | ✅ **CLOSED 2026-08-27** — see "PASS 2 BODY — CLOSED" below: 25 live clauses converted, 3 deliberate leftovers annotated in code. |
+
+⚠ **Two ENGINE helpers were found by card tests refusing to pass — both fixed, both far wider than any card:**
+- **`SWUFindMzByUID` (316 call sites)** scanned `my`+`their`, and `their` EXCLUDES a teammate, so it
+  returned null for any teammate's unit. Re-resolving by UID is the standard defence against index shift
+  after a defeat, so every caller silently skipped teammate units. Now `SWUAllUnits()`.
+- **`SWURevealResources` ignored the seat it was handed** — `$ownerPlayer` only chose `my` vs `their`, and
+  `their` is the FAN-OUT, so it pooled every opponent's resources. Measured offer:
+  `p4Resources-2 & p2Resources-1 & p2Resources-2`. Now filtered to the named seat.
+- ★ The pattern: **the fan-out helpers are correct by default, so a caller that has DETERMINED a seat must
+  narrow them back down.** `their<Zone>` being right for "each opponent" is what makes it wrong for
+  "that opponent".
+
+⚠ **Scan precision, for whoever runs the next one:** the §1b triage was 5/12. A windowed scan over a long
+file attributes a NEIGHBOUR's code to your card — `SHD_143` was flagged by LAW_056's call 19 lines away,
+and its own comment says "not merely OtherPlayer". Use exact handler bodies, never a line window.
+
+**`SEC_150` Valiant Commando (first of the ~29).** "Deal 3 damage to THAT base" is the base it just
+damaged — determined. It used `OtherPlayer()`, so above two seats a bystander's base took the 3. The seat
+is now captured at TRIGGER time, not read back in the handler: the YESNO defers resolution past the end of
+the attack, so `SWU_CURRENT_DEFENDING_SEAT` is gone by then.
+
 ### STILL OPEN (small, named)
 - `SEC_133` — unpinnable by construction (its residual defect is an unreachable `?:` fallback).
 - The `SWU_DMGDBASE` base-damage stamp has no four-seat pin.
@@ -484,8 +517,8 @@ GROUPED and rewrite rows in place; do not append.
 | both implement-card / implement-set-plan skills updated | ✅ |
 | inventory re-baselined (66-card worklist, split by shape) | ✅ |
 | **`GetOpponent()` — the remaining unreached sites** | ◐ 4 more killed via the foreign-mzID sweep (LAW_106, JTL_205, SOR_223, + Vermillion's deck path); the rest still to triage with the instrument-and-run technique |
-| **66 inline `=== 1 ? 2 : 1` ternaries** (triage, don't bulk-replace). ⚠ Remaining `foreach([1,2])` loops in `SWUSim/Custom/GameLogic.php` (4) are **GrandArchive leftovers** (`myField`/`GetField`/CHAMPION/CURSE) from the original template — GA is 2-player, leave them. | ☐ |
-| **create `SWUSim/docs/leader-gaps.md`** (cited by the card skill, does not exist) | ☐ |
+| **66 inline `=== 1 ? 2 : 1` ternaries** | ✅ **TRIAGED 2026-08-27 — 31 remain, and here is every one of them.** **9 are GrandArchive leftovers** (`QueuePregameStartingChampionSetup`, `PREGAME_CHOOSE/RESOLVE_STARTING_CHAMPION*`, `DoAllyDestroyed`, `MaterialSelectionMetadata`, `BanishSelectionMetadata`) — GA is 2-player, leave them. **15 are provably safe**: `CombatLogic:504` sits in the `else` of `SeatCountForGame() > 2`; `CombatLogic:3267/3270/3271` are `$target->Controller ?? …` fallbacks that a unit in play can never reach; `KeywordEffects:181` IS `OtherPlayer`'s definition; the rest are comments or client JS. **7 ARE LIVE SWU CODE AND STILL OPEN — see the row below.** |
+| **create `SWUSim/docs/leader-gaps.md`** (cited by the card skill) | ✅ **EXISTS** — it was deleted incidentally in `46b89e5e` and restored; two skills still cite it. |
 
 ### Pass 1 — cards
 
@@ -524,26 +557,148 @@ GROUPED and rewrite rows in place; do not append.
 | **Bounty collector at 4 seats** → new `SWUBountyCollector()`, per the 2026-08-23 ruling (**the killer collects**). Applied at **FOUR** sites, not three — deferred-WhenDefeated bag, Exploit bag, innate loop, granted-bounty loop. | ✅ **mutation-verified** — pin `shd/CloneDeserter.md::TwinSuns_TheKILLERCollectsNotSeat1`. ⚠ The pin is **seat 3 killing seat 4** on purpose: with P1 as killer the old rule is right by accident (`OtherPlayer(2)==OtherPlayer(3)==1==P1`), so the obvious 4-seat section passes under the bug — which is exactly what `SHD_161`'s existing one does. |
 | `KeywordEffects.php:778`/`:1217` Galen aura → new `_SWUAnyOpponentControlsActive()` | ✅ **mutation-verified** — pin `law/GalenErso_DestroyingHisCreation.md::TwinSuns_AGalenOnANYSeatGrantsToEveryone` (revert ⇒ 1 failed, that one; all 4 two-player sections stay green) |
 | `CombatLogic.php:2897` `SWU_DMGDBASE` stamp → `SWUMzOwner($targetMzID, $player)` | ✅ code; ⚠ **no 4-seat pin yet** |
-| `AddGameLogEntry` cannot express 2-seat visibility (`GetNextTurn.php:250-253`) | ☐ |
+| ⚠ **7 live two-seat ternaries in TRIGGER-ORDERING and SELECTION paths** | ☐ **NEW, found during the 2026-08-27 reconciliation.** `GameLogic.php` `FlushEntryTriggerBag:8575`, `FlushCombatTriggerBag:8701,8711`, `SWU_TRIGGER_RESUME:12031,12055`, `SWU_TRIGGER_ORDER_CHOICE:12079` all compute `$choosingPlayer` / `$resumeOwner` / `$other` as `$activePlayer === 1 ? 2 : 1` — that is WHO ORDERS simultaneous triggers, so it is rules-relevant, not cosmetic. `SelectionMetadata:22640` gates a card highlight on "both decision queues empty" and only ever checks one other seat, so at 3+ seats a card can light up while a far seat still owes an answer. None is scan-visible as a seat bug: they name no seat helper. |
+| `AddGameLogEntry` cannot express 2-seat visibility | ✅ **CLOSED 2026-08-27.** VISIBILITY is now a COMMA-SEPARATED seat list (`ALL` / `P3` / `P1,P3`) instead of one seat, so a private look is ONE entry addressed to exactly the seats involved — `SWULogPrivateReveal` used to store the same line twice, and a team-scoped line was unexpressible. ⚠ The reader is GENERATED: the fix lives in `zzGameCodeGenerator.php`'s GameLog block, not in the gitignored `GetNextTurn.php`. Guarded by `DevTools/tests/gamelog_visibility_test.php` (reader shape + filter semantics, incl. the prefix case — `P1` must not match seat 11); mutation-verified by reverting the generator and regenerating. |
 | **`IsSeatLive` / dead-seat queues** — §5 checklist item 7 | ✅ **mutation-verified**. Two halves: (1) `_SWUEliminationCleanup` now DRAINS the eliminated seat's DecisionQueue **and TempZone** — it cleaned arenas and the base but left the queue, and nothing else ever drains it, so every "wait for everyone" gate (`AllQueuesEmpty`, TurnController `PENDING_DECISION`, ~10 `CustomInput` sites) blocked forever — **a SOFT-LOCK, not a lost trigger**; (2) new `SWUSeatAcceptsDecisions()` gates EVERY queue write from one place via `DecisionQueueController::AddDecision`, resolved by `function_exists` (not the registered-callback pattern, which only re-registers in the request that declares a winner). ⚠ Core file — verified inert for the other 9 sims (none defines the function; the guard evaluates false). Pin: `twinsuns/PendingDecisionOnASeatBeyondTwoBlocksActions.md::EliminatedSeatsPendingDecisionIsDrained_NoSoftLock`. |
-| ⚠ **over-wide pools** (Pass 0's own `their<Zone>` widening) — **TRIAGED 2026-08-23: 6 cards, not 65.** Cross-referencing SCOPED card text ("that opponent"/"they control"/"the defending player") against a board-wide pool cuts 41+24 files to six. Clean (seat derived from the chosen object): `JTL_041`, `LAW_075`. **Real: `ASH_004` ✅ fixed+mutation-verified · `JTL_125` ☐ · `SEC_233` ☐ · `TS26_29` ☐** (Ziton Moj is an unlisted LOOP card — "for each player, deal 1 to a unit that player controls"). New **`'ofSeat' => int`** on `SWUOfferUnitTarget`/`_SWUCollectUnitTargets` is the scoping tool. ⚠ `SWUOfferUnitTarget`'s forward list is a WHITELIST — a new option not added there is silently dropped. Pin: `ash/GrandAdmiralThrawn_VictoryIsMine.md::TwinSuns_Deployed_ComparesAndTargetsONLYTheDefendingSeat`. |
+| ⚠ **over-wide pools** (Pass 0's own `their<Zone>` widening) — **TRIAGED 2026-08-23: 6 cards, not 65.** Cross-referencing SCOPED card text ("that opponent"/"they control"/"the defending player") against a board-wide pool cuts 41+24 files to six. Clean (seat derived from the chosen object): `JTL_041`, `LAW_075`. **Real: `ASH_004` ✅ · `JTL_125` ✅ · `SEC_233` ✅ (both scoped with `ofSeat`) · `TS26_29` ✅ (rewritten 2026-08-24 to one simultaneous MZMULTICHOOSE over every seat) — ALL FOUR NOW CLOSED, verified 2026-08-27** (Ziton Moj is an unlisted LOOP card — "for each player, deal 1 to a unit that player controls"). New **`'ofSeat' => int`** on `SWUOfferUnitTarget`/`_SWUCollectUnitTargets` is the scoping tool. ⚠ `SWUOfferUnitTarget`'s forward list is a WHITELIST — a new option not added there is silently dropped. Pin: `ash/GrandAdmiralThrawn_VictoryIsMine.md::TwinSuns_Deployed_ComparesAndTargetsONLYTheDefendingSeat`. |
 | harness four-seat gaps | ✅ **ALL CLOSED 2026-08-24** — new `P#UNITACTIONS{EXACT,HAS,NOT}`; `PlayFromOpponentDiscard: P<seat>:<idx>`; `P{n}OnlyActions`; `WithP{n}Credits`; far-seat `…ArenaControlled` / arena upgrades / pilots / captives / base upgrades / Force; and far-seat DEPLOYED leaders now splice a real arena unit. See `_FINDINGS.md` §4. |
 
 ### Pass 2
 
 | item | status |
 |---|---|
-| 70 "neither helper" + 16 monolith cards — re-scan first, helper fixes move them | ☐ |
-| **+45 cards the text scan structurally missed** — the "defending player / that opponent / its controller" family (`_FINDINGS.md` §1b) | ☐ |
-| re-check the "31 seat-aware (considered)" bucket **per clause, not per file** (`_FINDINGS.md` §1c) | ☐ |
+| 70 "neither helper" + 16 monolith cards — re-scan first, helper fixes move them | ✅ **READ 2026-08-27** — the shape sweep was already clean, and reading the cohort with a wider net found a THIRD shape (hand-decoded initiative, `SOR_163` + `SHD_101`). See "Item 6" below. |
+| **+45 cards the text scan structurally missed** — the "defending player / that opponent / its controller" family (`_FINDINGS.md` §1b) | ✅ **CLOSED** — see the §1b row at the top of this file (33 clean, 5 real bugs, 4 tightened fallbacks, 3 false positives). |
+| re-check the "31 seat-aware (considered)" bucket **per clause, not per file** (`_FINDINGS.md` §1c) | ✅ **CLOSED** — see the §1c row at the top of this file (one live, `LAW_202`, and it was a dead seat param). |
+
+### GetMzID() AUDIT + "NEITHER HELPER" SWEEP — BOTH CLOSED (2026-08-27). Suite 9851 / 0.
+
+**`GetMzID()` audit — 29 call sites, all now safe.** `GetMzID()` builds "my…"/"their…" from the AMBIENT
+`$playerID`, so it CANNOT name a far seat: a seat-3 unit comes back as `theirGroundArena-N`, which
+resolves to SEAT 2. Verdicts: 20 are `$newCard->GetMzID()` in the acting player's own frame (safe);
+3 pin the frame first (`_SWUOnPlayerDrew`/LAW_052, the HMW_060 Rampart loop, `SWUMillTopCard`); 3 are
+GrandArchive leftovers; 2 were fixed earlier this session (`SHD_084`, `TWI_033`); and
+**`SWUCollectOwnPlayReactions` is now pinned defensively** — it walks `GetUnitsInPlay($playingPlayer)` and
+hands `$u->GetMzID()` to effects without ever setting the frame. Every current caller happens to arrive
+correct, so that one is hardening, not a measured bug.
+
+**⚠ THE "NEITHER HELPER" BUCKET IS WHERE THE SCAN-PROOF BUGS LIVE.** These cards call NO seat helper, so
+`OtherPlayer`/`GetOpponent` scans walk straight past them. Two shapes, five real bugs, ALL found by
+reading rather than grepping:
+
+| shape | what it looks like | found |
+|---|---|---|
+| literal seat integers | `SWUDealDamageToBase(1, 1); SWUDealDamageToBase(1, 2);` | `SOR_014` front Action · `SHD_160` |
+| hand-built relative mzID | `$targets[] = 'theirBase-0';` | `JTL_142` · `TWI_202` · `SOR_142` |
+
+`'theirBase-0'` is a STRING. It names seat 2 and nothing else, and there is no helper call to grep for.
+All five now use `GetLiveSeatsArray()` / `SWUAllBaseMzIDs(…, 'any')`.
+⚠ For `TWI_202` Jar Jar this also skewed a RANDOM pick — a four-seat table drew from 2 bases instead of 4,
+so the odds were wrong as well as the reach.
+
+**Sweep is now clean.** The residual hits are all deliberate: GrandArchive leftovers, UI/CSS strings,
+four documented two-player fallbacks (`if (empty($seats)) $seats = [1, 2];`), and the goldfish dev tool
+in `CustomInput.php`, whose own comment states it is 2-player by construction.
+
+⚠ **Re-run BOTH sweeps after any new card work** — the shapes are cheap to reintroduce and impossible to
+notice, since nothing about `'theirBase-0'` or `SWUDealDamageToBase(1, 2)` looks wrong in review.
+
+### PASS 2 BODY — CLOSED (2026-08-27). 25 live clauses → 3, all three deliberate.
+
+Suite **9850 / 0**, DevTools 29/29. Every clause with a live legacy seat call was read against its printed
+text (front AND `deployTextData`), classified, and converted.
+
+**The 3 that remain are correct and annotated in code — do not "fix" them:**
+- `YODA_DRAW` (SOR_045) and `SOR_016#0` (Thrawn) — their SOLE CALLER gates on `SeatCountForGame() <= 2`
+  and takes a per-seat path above that, so `OtherPlayer()` is only reachable where it is correct by
+  definition. ⚠ **The scan cannot see this: the guard lives in the CALLER, not the handler.** Expect any
+  future clause scan to re-flag them.
+- `SHD_172#0` (Krayt Dragon) — ~~a REACHABLE fallback~~ **RE-MEASURED 2026-08-27: no longer reachable.**
+  That note predated the fix to the PRODUCER. There is exactly one `AddTrigger(…'SHD_172'…)` in the repo
+  and it now appends `~{playingSeat}`; a STDERR probe on the missing-seat branch fires **zero** times
+  across all 9877 sections, and replacing the branch with a bare `return` leaves the suite fully green.
+  The branch is kept only for a payload SERIALISED INTO A LIVE GAME before the seat was threaded (triggers
+  ride the EffectStack, which persists in `Gamestate.txt`) and it no longer GUESSES: two seats keeps
+  `SWUChooseOpponent` (correct by definition there), 3+ seats drops the trigger rather than damaging the
+  wrong player's board. Deliberately UNGUARDED — no reachable state to assert, same treatment as
+  `SEC_133`. **Lesson: re-measure a "known reachable" note before building on it.**
+
+**★ NEW HELPER: `SWUQueueChoosePlayer($chooser, $handler, $tooltip, $eligible)`** (GameLogic).
+The player-scoped sibling of `SWUQueueChooseOpponent`. They are NOT interchangeable: `ChooseOpponent`
+starts from `OpponentsOf()`, which **excludes teammates** — right for "an opponent", WRONG for
+"a player" / "a different player" / "any player's deck", where a teammate is a legal pick. Three cards
+needed it (`LAW_215`, `LAW_048`, `TS26_01`) and one was already silently wrong because of it (`SOR_016`
+offered `includeSelf` over `OpponentsOf`, so Thrawn could not look at his own teammate's deck).
+
+**Shapes converted**
+| shape | cards |
+|---|---|
+| DETERMINED — read the object/mzID | `SHD_132` `LAW_170` (exchange control) · `SEC_180` · `SHD_088` · `TS26_26` · `SHD_213` · `HMW_114` (Overwhelm excess) |
+| PROMPT — an opponent / a player | `LAW_233` · `SEC_235` · `LAW_215` ×4 · `LAW_048` · `TS26_01` (choose 2 players) |
+| UNQUALIFIED — "a base" / "a leader" spans every seat | `HMW_004` (offer + handler) · `SEC_188` |
+| EXISTENTIAL / comparison | `SOR_013` (⚠ per-base, never a sum) · `ASH_108` ("the most units" = vs EVERY other player) |
+| FAN-OUT | `LOF_177` (EACH player picks — restructured into a per-seat chain) |
+| WHOLE-TABLE search | `HMW_151` · `LAW_171` (the event can be in ANY discard pile) |
+
+**⚠ Two traps this batch surfaced, both worth knowing before the next conversion:**
+1. **Converting inline work into a continuation changes WHEN the game-over check runs.** `SOR_152` broke
+   `LethalToOpponentBase_NoArrangePromptAfterTheWin` because the follow-up prompt got queued before the
+   damage landed. Queue the follow-up from INSIDE the continuation.
+2. **A lone CUSTOM queued onto an IDLE player never drains.** `LAW_215` reddened five two-seat sections
+   because the credits were deferred onto the controller's queue while the OTHER player's queue was
+   draining. Resolve inline when there is no genuine choice; only defer when a real pick exists.
+
+### ✅ HARNESS GAP FIXED (2026-08-27) — `P{n}OnlyActions` now holds the turn at 3+ seats
+
+**Was:** `P{n}OnlyActions` silences other seats by giving one of them a CLAIMED initiative, which
+`SWUSwapTurnPlayer` reads through `_SWUSeatTookCounterThisRound` to auto-pass them. The initiative counter
+can name exactly ONE claimant, so at three or four seats every other opponent kept acting: after any
+action that swaps the turn (an ATTACK being the common one) the turn walked to seat 3 and stopped, and the
+section's next `P{n}>…` line was silently rejected because it was no longer that seat's turn.
+
+That made **"attack, then act again as the same player" unwriteable at four seats**, which is a whole
+fixture SHAPE, not a quirk — and it is exactly what `ASH_039` and `SEC_144` needed.
+
+**Fix:** at 3+ seats, `applyPostSetupDirectives` also lists every other live seat in **`SWU_COUNTER_TAKEN`**
+— the PRODUCTION variable for "seats that have taken a counter this round", which
+`_SWUSeatTookCounterThisRound` already consults. No test-only hook was needed: it states, in the engine's
+own vocabulary, the thing the directive means. Untouched at two seats, so every existing
+`P1OnlyActions` section is byte-identical.
+
+⚠ **The diagnosis cost more than the fix.** Four wrong hypotheses first (resources, `handCardIds` vs
+`WithP1Hand`, `SkipPreGame`, the CommonSetup form). What isolated it was noticing the card played fine
+WITHOUT the attack — and then a two-seat control passing beside a four-seat twin that failed. When a
+4-seat fixture misbehaves, **check the harness against a 2-seat control before suspecting the card.**
+
+`ASH_039` and `SEC_144` are now both pinned and mutation-verified.
+
+### ⚠ SECOND HARNESS GAP — no far-seat LEADER directive (found 2026-08-27, NOT fixed)
+
+There is no `WithP3Leader` / `WithP4Leader`. `CommonSetup` covers seats 1-2 only (`myLeader`/`theirLeader`),
+so a section cannot put a seat-3/4 leader into a chosen state.
+
+**Blocks pinning `SEC_188` Darth Traya.** "Ready A NON-UNIT LEADER" is UNQUALIFIED, so every seat's leader
+is a candidate; the old picker was a literal You/Opponent pair from `OtherPlayer($p)` — seat 2 only — and
+the fix offers one `P{n}` option per seat holding an exhausted, undeployed leader. A DISCRIMINATING section
+needs a FAR seat to hold that leader. A section answering `P1` passes under the bug too, so it would be a
+guard that cannot fail; deliberately not written rather than banked as false coverage.
+
+Unblock by adding a per-seat leader directive, then pin "P1 readies SEAT 4's leader".
+⚠ Also note: appending an HTML comment AFTER the last section of a .md case file breaks that section —
+the runner folds trailing text into it. Put notes like this here, not in the case file.
 
 ### Known gaps (fixed code, unproven at 4 seats)
 
 - `ASH_162` Rash Action and the `'OppDiscard'` modal branch have **no 4-seat section**. Correct by
   construction and green, but nothing pins them. ASH_162 needs a granted-keyword combat fixture;
   `'OppDiscard'` needs a modal-choose one (SHD_153 Poe Dameron).
-- **Pass 0 (2026-08-23):** the `SWU_DMGDBASE` base-damage stamp has no 4-seat pin; the any-player
-  unit-action offer is **UNPINNABLE** until the harness gains a unit-action offer-list assertion.
+- ~~**Pass 0 (2026-08-23):** the `SWU_DMGDBASE` base-damage stamp has no 4-seat pin; the any-player
+  unit-action offer is UNPINNABLE until the harness gains a unit-action offer-list assertion.~~
+  ✅ **BOTH CLOSED — this note was stale on both counts (corrected 2026-08-27).** The any-player
+  unit-action offer was pinned **2026-08-24** by `P#UNITACTIONS{EXACT,HAS,NOT}` (see the row at line ~556:
+  reverting the `OpponentsOf()` loop reds 3 sections across `LAW_156`, `SHD_256`, `TS26_15`). The
+  `SWU_DMGDBASE` pin was built 2026-08-27 — see "Item 3" below, which also found three real bugs while
+  writing it. ⚠ Third stale "blocked/unpinnable" note found in one session; re-measure before believing one.
 - **Pass 1 DETERMINED — CLOSED 2026-08-23.** All 11 converted; 10 mutation-verified. Only `SEC_133`
   remains unpinned, and deliberately: its residual defect is an unreachable `?:` fallback, so there is no
   failing state to assert.
@@ -568,3 +723,250 @@ GROUPED and rewrite rows in place; do not append.
 - **Expect ~3 defects per card, not 1** — the target seat, the silent "is there anything to hit?" GATE,
   and a `?:` fallback that guesses a seat. Roughly one card in three also hides a second, unrelated bug
   (an unimplemented leader side, a rider reading the wrong pile).
+
+---
+
+## Guard pass, part 2 (2026-08-27) — the four "fiddly multi-step" conversions
+
+All four are now pinned and mutation-verified, so the unpinned list from part 1 is down to the
+unpinnable-by-construction cases.
+
+| Card | Section | Mutation that reddens it |
+|---|---|---|
+| `SOR_152` For a Cause I Believe In | `sor/ForACauseIBelieveIn.md::FourSeats_ChoosesWHICHEnemyBaseTakesTheDamage` | `SWUPickedOpponent($lastDecision)` → `OtherPlayer($player)` |
+| `TWI_017` Chancellor Palpatine | `twi/ChancellorPalpatine_PlayingBothSides.md::FourSeats_VillainyFaceHitsEVERYEnemyBase` | the `OpponentsOf()` fan-out → a single `OtherPlayer()` hit |
+| `HMW_004` Grand Moff Tarkin | `hmw/GrandMoffTarkin_TyrantOfTheOuterRim.md::FourSeats_RegroupDefeatsTheCHOSENSeatsBase` | offer → `['myBase-0','theirBase-0']` (P4 not a candidate) **and** applier → the my/their string collapse (P2 dies instead of P4) |
+| `LAW_215` Vermillion | `law/Vermillion_QirasAuctionHouse.md::FourSeats_CreditChooserIsVermillionsController` + `…::FourSeats_TeammatesDeckIsInThePoolAndMayTakeTheCredits` | chooser → `$D`; deck pool → `OpponentsOf($V)` |
+
+⚠ **`SOR_019` Security Complex is a 25-HP base, not 30.** The first HMW_004 fixture seeded `SOR_019:25`
+for P4, which had already eliminated that seat at setup — the section passed vacuously and the mutation's
+"winners [1,3]" was the tell (killing P2 wiped a team whose other seat was already gone). Re-seeded at
+`:20`. Check a base's printed HP before choosing a damage number.
+
+### Three bugs found while writing these guards
+
+1. **`LAW_215` credits chooser was the revealed DECK'S OWNER, not the Vermillion's controller.** `$D` was
+   threaded down the whole `#1 → #2 → #2P/#3/#3P` chain and handed to `SWUQueueChoosePlayer`. Identical to
+   the correct behaviour whenever you reveal your own deck; reveal an opponent's and the prompt landed on
+   THEM — and since that seat is idle at that moment, its queue never drained in the request, so the
+   Credits silently never appeared at all. `$V` is now threaded alongside `$D`.
+2. **`LAW_215`'s deck pool excluded teammates.** "Reveal the top card of **a deck**" is unqualified, so it
+   spans every live seat. It walked `OpponentsOf($V)`; with only a teammate's deck stocked the pool came
+   back empty and the entire When-Attack-Ends trigger fizzled with no reveal, no play and no Credits.
+3. **`SWUPlayerPickerLabels` / `SWUDeckPickerLabels` were opponent-scoped — a 12-call-site family.** Both
+   enumerated `OpponentsOf($caster)`, deleting your partner from every "choose a player" / "a deck" offer.
+   Every caller prints unqualified text (`SOR_171`, `SOR_156` Force Throw, `SEC_073`-adjacent
+   `SEC` Pursue the Lead / Hired Slicer / Regulations Bureaucrat, `JTL` Profundity / Sabine's Masterpiece,
+   `ASH` Reanimated Night Trooper, `LAW_018`, `LAW_125`, `LAW_215`), so both now walk
+   `GetLiveSeatsArray()`. All nine player-picker handlers already decode to a bare seat and act on it, so
+   no downstream change was needed. The two deck-picker cards' `OtherPlayer()` uses are gated behind
+   `SeatCountForGame() <= 2` and stay correct.
+
+### ⚠ OPEN — OPTIONCHOOSE answers are NOT pool-validated (blocks guarding this whole family)
+
+`SWUValidateDecisionAnswer` falls through for `OPTIONCHOOSE`, so an answer naming a seat the offer never
+contained still resolves — every decoder (`SWUDecodePlayerPick`, `SWUDecodeDeckPick`) happily reads any
+`P{n}` token out of any string. **A picker's SCOPE is therefore structurally untestable**: the `SOR_171`
+guard above pins the outcome but passes under the reverted (opponent-only) picker. This is the same hole
+that was closed for `PASSPARAMETER` and `MZMULTICHOOSE`.
+
+A 10-line patch (kept at `/tmp/optionchoose_validator.patch` during the 2026-08-27 session; trivially
+re-derived: compare the answer against `explode('&', $head->Param)`) closes it, and immediately turns up:
+
+- **1 live engine bug — `SOR_189` Leia Organa, Defiant Princess.** Its mandatory either/or is queued as
+  `AddDecision(…, "OPTIONCHOOSE", "Ready a resource&Exhaust a unit", …)`. A DecisionQueue row is
+  **space-delimited and `$param` is NOT sanitised** (`AddDecision` underscores the *tooltip* only, and says
+  so in a comment). The row therefore stores `Param="Ready"` with `Tooltip="resource&Exhaust"`: the real
+  client renders a single "Ready" button, the answer comes back as `"Ready"`, which fails the handler's
+  `=== "Ready a resource"` test and falls to the ELSE branch — **so "ready a resource" is unreachable in
+  play and Leia always exhausts a unit.** A `token_get_all()` scan of every `AddDecision()` call in
+  `SWUSim/Custom/` for a literal `$param` containing a raw space returns **exactly this one hit**; worth
+  landing as a DevTools lint next to `dontskiponpass_zero_min_test.php`.
+- **~13 existing sections whose answers were never in the offer** and only resolved because of decoder
+  leniency: `sec/PursueTheLead` (`Self` vs `[You&Opponent]`), `sec/DarthTraya_LordOfBetrayal` ×3
+  (`You`/`Opponent` vs `[P1&Pass]` / `[P1&P2&Pass]` / `[P2&Pass]`), `law/JynErso_TakeTheNextChance` ×3
+  (`Experience` vs `[GiveExperience&Exhaust]`), `law/Watchful` ×3 (`Yours`/`Theirs` vs
+  `[@-&Your_deck&Opponent's_deck]`), `law/VultSkerrissDefender_SecretProject` and
+  `twi/UnmaskingTheConspiracy` (an mzID answered to an `[@CARD&OK]` reveal prompt).
+- **1 that needs investigating before its answer is "corrected":**
+  `hmw/BactaTank::fortify_attaches_to_the_base_and_its_action_becomes_available` answers
+  `myGroundArena-0` to an `[Heal0&Heal1&Heal2&Heal3]` prompt. An mzID answered to an amount prompt is the
+  auto-resolve-artifact shape (memory: `auto-resolve-artifact-fake-engine-bug`) — the section may be
+  answering the wrong prompt and asserting an outcome two rules share.
+
+**LANDED 2026-08-27 (user go-ahead).** `SOR_189`'s labels are underscored and its handler compares the
+underscored form; all 17 sections were corrected to the label the offer actually contains
+(`Self`→`You`, `You`/`Opponent`→`P1`/`P2`, `Experience`→`GiveExperience`, `Yours`/`Theirs`→
+`Your_deck`/`Opponent's_deck`, `Top`→`Leave`, the two reveal-prompt mzIDs→`OK`, and Bacta Tank's spare
+`myGroundArena-0` deleted outright — its target auto-resolves, so the amount was always the first
+question). Suite 9871/0. New lint `SWUSim/DevTools/tests/adddecision_param_space_test.php` scans every
+`AddDecision()` call in `SWUSim/Custom/` (1570 files) for a literal `$param` holding a raw space, with
+three self-tests; it reddens on the pre-fix Leia source.
+
+**The validator immediately paid for itself twice more.** `sor/MissionBriefing::FourSeats_ChooseAPlayer
+IncludesYourTeammate` now DISCRIMINATES — reverting `SWUPlayerPickerLabels` to `OpponentsOf()` fails it
+with `OPTIONCHOOSE [You&P2&P4]`, the missing `P3` visible in the message. And `law/Watchful`'s three
+sections turned out to be answering `Top` at a prompt whose labels are `[@card&Bottom&Leave]`.
+
+---
+
+## Item 3 (2026-08-27) — `SWU_DMGDBASE`: no code bug in the stamps, three elsewhere
+
+All five stamp sites (`CombatLogic.php` 27 / 491 / 3021 / 4233, `GameLogic.php` 12961) and all three
+readers (`CombatLogic.php` 1483 / 3471, `Retaliation.php`) are already owner-qualified with a real seat —
+the open item was only the missing 4-seat pin. Writing that pin turned up three genuine bugs instead.
+
+1. **`SWUAllBaseMzIDs($p, 'any')` never included a TEAMMATE's base.** It was `'my'` + `'their'`, and
+   `'their'` is ZoneSearch's OPPONENT fan-out. `SWUAllUnits()` already carries a comment spelling this
+   out — *"once 'their' excludes a teammate, 'my' + 'their' no longer covers the table, so an unqualified
+   pool must start from 'team'"* — and it was fixed for units and left open for bases. **~35 unqualified
+   "a base" offers** were silently missing the partner's base (`IBH_006`, `LAW_058`, `LAW_208`, `SOR_010`,
+   `JTL_247`, `TS26_62`, `HMW_004`'s regroup defeat, the shared `DEAL_BASE_DAMAGE` / heal helpers, …).
+   Fixed with an explicit `SWUTeammatesOf()` branch; `SWUTeammatesOf` returns `[]` outside a team game, so
+   2-player and free-for-all Twin Suns are byte-identical.
+2. **`_SWUSec012Protected` read "an opponent's base" as "anyone's base but mine".** In Team Suns those
+   differ by exactly one seat — your partner. Pinging a teammate's base wrongly made the unit unattackable.
+   Now `OpponentsOf($ctrl)`. ⚠ This was UNREACHABLE until (1) was fixed: the two bugs masked each other.
+3. **The harness's `declareAttack` injected the attack target WITHOUT validating it** — unlike
+   `answerDecision`, which has mirrored production's check since 2026-08-14. A section could therefore
+   attack a unit the legality pool had deliberately excluded (SEC_012, Sentinel, Hidden, `LOF_211`,
+   `SOR_142`/`TWI_195` Sabine, `ASH_035`). At two seats it was mostly invisible — with one target left the
+   attack resolves INLINE with no picker, so a bogus mzID was simply ignored and the right thing happened
+   anyway — but at 3+ seats the extra bases mean a picker DOES appear and the injection went through.
+   Measured: a SEC_012-protected unit was attacked and killed.
+
+   Closing it reddened **13 Twin Suns sections** that address the defender as `theirGroundArena-0` /
+   `theirBase-0` / a bare index — forms the 3+-seat pool (and the real client) never produces. All 13
+   were rewritten to the seat-specific `P{n}G{i}` / `P{n}S{i}` / `P{n}B` syntax the runner already
+   supports: `SHD_143` Bo-Katan, `SHD_?` Wanted, `SEC_?` Arihnda Pryce, `LAW_?` Rodian Bondsman,
+   `JTL_?` CR90 Relief Runner, `SOR_?` Sabine Explosives Artist, `HMW_?` Giant Gorax ×2, `HMW_?` The
+   Chieftain, `TS26_?` Wartime Refugee ×2 / Mercenaries / Profiteer.
+
+**Guards:** `ibh/RebellionYWing.md::TeamSuns_OfferPoolIncludesTheTEAMMATESBase` (pool) and
+`sec/CassianAndor_Climb.md::TeamSuns_ATeammatesBaseIsNotANOPPONENTSBase` (scope). The second is
+mutation-verified against BOTH fixes and fails at a different step for each — at the ANSWER when the pool
+is narrowed, at the ATTACK when the opponent test is widened.
+
+---
+
+## Item 2 (2026-08-27) — the `-` decline sweep, measured rather than assumed
+
+The backlog entry said "~510 assertions still testing a decline the client can't produce". That was only
+partly right, and the cheapest way to find out was to run the experiment: copy the whole case tree,
+rewrite every `- P{n}>AnswerDecision:-` to the client's token, and diff the pass set.
+
+**Census of the 617 executed `-` answers, by the type of the decision actually pending:**
+
+| Type | n | Client's real token | Verdict |
+|---|---|---|---|
+| `MZMAYCHOOSE` | 400 | `PASS` (three `SubmitInput(… cardID=PASS)` sites) | **3 live bugs**, below; the rest equivalent |
+| `MZMULTICHOOSE` | 114 | **`-`** — `Core/MZMultiChooseUI.js:600` `serializeResult()` returns `'-'` for an empty selection, and the cancel/parse-fail paths submit `'-'` too | ✅ already correct, nothing to do |
+| `TOPDECKSEARCH` | 42 | `''` (empty join) | equivalent — 0 divergences |
+| `YESNO` | 38 | `NO` | equivalent — 0 divergences |
+| `MZSPLITASSIGN` | 7 | `PASS` | equivalent — 0 divergences |
+| *(empty queue)* | 13 | — | **dead WHEN lines**, listed below |
+| `SCRY` / `OPTIONCHOOSE` / `CUSTOM` | 1 each | — | noise |
+
+So the premise "`-` is never a client token" is FALSE for `MZMULTICHOOSE`, which is the single biggest
+reason not to have mass-rewritten these. The 400 `MZMAYCHOOSE` lines do use a token the client cannot
+send, but they are behaviourally identical under `PASS` — the `dontskiponpass_zero_min_test.php` lint
+already forces a real `PASS` twin for the shapes where it matters, so rewriting them buys nothing.
+
+### The three bugs
+
+1. **`SEC_193` Grand Admiral Thrawn.** `MZMAYCHOOSE` + unflagged `CUSTOM`. The opponent declining is a
+   real answer — "no unit is captured, so Thrawn readies" — but a sticky `PASS` skipped `SEC_193#0`
+   entirely and Thrawn stayed exhausted. The handler's own `$lastDecision !== 'PASS'` branch was
+   unreachable.
+2. **`JTL_253` Coordinated Front.** Two INDEPENDENT optional grants; the trailing `CUSTOM` that runs the
+   SPACE half was unflagged, so declining the GROUND half with `PASS` swallowed the space half too — the
+   event did half of what it says.
+3. **`SWUQueueChooseTarget(…, may: true)` — the second funnel into the whole hazard.** Its sibling
+   `SWUQueueMayChooseTarget` defaults `dontSkipOnPass` to 1; this one queued the continuation unflagged,
+   for **9 callers**. Measured on `SOR_129` Admiral Ozzel: declining the play half skipped `OZZEL_PLAY`,
+   so "each opponent may ready a unit" never happened AND the action never closed. Fixed centrally —
+   a mandatory `MZCHOOSE` cannot be passed at all (the validator refuses it), so non-`$may` callers are
+   byte-identical.
+
+### CLOSED — 9 `-` answers landed on an EMPTY queue (dead WHEN lines), all removed
+
+They resolved nothing: `PopDecision` on an empty queue, then a no-op. Harmless as they stood, but this is
+the auto-resolve-artifact shape — a spare answer that silently absorbs a real prompt the moment one
+appears, which is exactly how a phantom "Mina When-Defeated" bug was once logged. Removed 2026-08-27;
+suite 9879/0 and a re-instrumented sweep now reports **zero** remaining.
+
+| section | removed action |
+|---|---|
+| `ash/ElzarMann_HauntedByAVision::EntersReady_WithForceLeader` | #2 |
+| `ash/ElzarMann_HauntedByAVision::EntersExhausted_NoForceLeader` | #2 |
+| `ash/ElzarMann_HauntedByAVision::ZeroTokens_NoOpponentDraw` | #2 |
+| `ash/JodNaNawood_KeepingSecrets::WhenPlayed_DeclinePay` | #2 |
+| `law/VultSkerrissDefender_SecretProject::ADeckMillAlsoSatisfiesTheGate` | #2 |
+| `lof/CuriousFlock::ResourceCapped_PayMax` | #4 |
+| `lof/KyloRen_WereNotDoneYet::Deployed_PlayTwoUpgradesFromDiscard` | #4 |
+| `shd/Headhunting::MultiAttack_BountyHunterBonus` | #4 |
+| `twi/OsiSobeck_WardenOfTheCitadel::PaidSix_CapturesCostSixOrLess` | #2 |
+
+⚠ **The first census of this set was WRONG, and the way it was wrong is worth remembering.** It wrote the
+marker to STDERR and attributed each one to the next `PASS:` line on STDOUT — but the two streams buffer
+independently, so the correlation drifted: it named `law/EnfysNestsHelmet`, `law/NothingLeftToFear` and
+`lof/LuminousBeings` (none of which have a dead line) and MISSED `lof/KyloRen_WereNotDoneYet` and
+`ash/ElzarMann::EntersExhausted_NoForceLeader`. The reliable form collects the marker into a global that
+the RUNNER prints per section on the same stream, tagged with the action index from `$action['raw']`.
+**Never correlate a STDERR probe against STDOUT test output by interleaving.**
+
+---
+
+## Item 4 (2026-08-27) — `GetMzID()` fixed in the GENERATOR, not at 29 call sites
+
+`ZoneClasses.php`'s `GetMzID()` built its prefix from the ambient `$playerID`
+(`$prefix = $playerID == $this->PlayerID ? "my" : "their"`). `"their<Zone>"` names no seat, so above two
+seats a FOREIGN object's mzID resolved to whichever opponent the READER's frame happened to pick — seat 2
+for a seat-1 reader, and nothing usable for a reader at seats 3-4. Every other producer of an unqualified
+pool had already been converted to real `p{n}` mzIDs (ZoneSearch's opponent fan-out, `SWUAllUnits`,
+`SWUAllBaseMzIDs`); `GetMzID()` was the last one still speaking the two-seat dialect, and its ~29 call
+sites hand the result straight to damage / token / trigger APIs.
+
+**Fixed once, in `zzGameCodeGenerator.php`, gated on `$rootName == "SWUSim"`** — `ZoneClasses.php` is
+generated AND gitignored, so a hand-edit there has no git trace and dies at the next regen. Above two
+seats a foreign object now returns `p{owner}<Location>-{idx}`; two-player is byte-identical, which is what
+keeps the entire existing engine, client and 9877-section corpus working unchanged. Regenerate with
+`php zzGameCodeGenerator.php rootName=SWUSim`.
+
+Guarded by `SWUSim/DevTools/tests/getmzid_seat_aware_test.php` (own seat, all three foreign seats read
+from seat 1, seat 1 read from SEAT 4, and both seats at a two-player table). Mutation-verified by
+reverting the generator and regenerating: `"seat 2's unit reads as p2GroundArena-0 … got:
+theirGroundArena-0"`. ⚠ If that test fails after a pull, the fix is to REGENERATE, not to edit.
+
+---
+
+## Item 6 (2026-08-27) — a THIRD "neither helper" shape: hand-decoded initiative
+
+The shape sweep had found two seat-proof shapes (literal seat integers, hand-built relative mzIDs) and
+both were clean. Re-reading the cohort with a wider net turned up a third, which no previous scan looked
+for because it contains no seat helper, no mzID and no seat literal in an obviously-seat position:
+
+```php
+$holder = strpos((string)GetInitiativeCounter(), 'P1') === 0 ? 1 : 2;   // "not P1" => seat 2
+if ($holder === intval($player)) …
+```
+
+**Two cards decoded the initiative counter by hand, and both are wrong twice over above two seats:** a
+seat-3/4 initiative holder never satisfies the gate, AND seat 2 satisfies it on someone else's
+initiative. `PlayerHasIniative($seat)` has always existed and matches `P{seat}_CLAIMED` /
+`P{seat}_UNCLAIMED` for any seat (the engine's `Iniative` typo is load-bearing).
+
+| card | clause | guard |
+|---|---|---|
+| `SOR_163` Star Wing Scout | "When Defeated: **If you have the initiative**, draw 2 cards." | `sor/StarWingScout.md::FourSeats_AFARSeatsInitiativeCounts` |
+| `SHD_101` Adelphi Patrol Wing | "…**If you have the initiative**, it gets +2/+0 for this attack." | `shd/AdelphiPatrolWing.md::FourSeats_AFARSeatsInitiativeGrantsTheBuff` |
+
+Both mutation-verified by restoring the string decode (P3 draws 0 instead of 2; P2's base takes 2
+instead of 4). `jtl/FaceOff` also reads `GetInitiativeCounter()` but only tests `CLAIMED`/`UNCLAIMED`,
+which is seat-independent — correct as written.
+
+⚠ **Scan shapes are a floor, not a ceiling.** Both of these were invisible to the `OtherPlayer` /
+`GetOpponent` / `theirBase-0` / literal-seat scans; what found them was widening the net to "any
+expression that produces a SEAT NUMBER from something that is not a seat helper". The generalised rule
+for future sweeps: grep for the *outputs* (a variable named `$holder`/`$seat`/`$target` assigned from a
+ternary or a `strpos`), not only for the known-bad *inputs*.

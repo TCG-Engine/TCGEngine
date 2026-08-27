@@ -5,14 +5,35 @@
 
 // SEC_242 Elia Kane — Raid 1 (auto) + When Played: look at 3 enemy resources, may defeat 1; if you do,
 // its controller puts the top of their deck into play as a (ready) resource.
+// ⚠ "3 ENEMY resources" names no seat. This resolved OtherPlayer($player) — literally seat 2 — so above
+// two seats Elia Kane always looked at seat 2's resources whoever the caster meant. The caster now picks
+// WHOSE, following SHD_184 Bazine Netal (the canonical "look at an opponent's X" analogue) and matching
+// its twin SHD_114 Scanning Officer. Auto-resolves invisibly at one opponent ⇒ Premier byte-identical.
+// ⚠ FILTER to opponents holding a resource: with none there is nothing to look at and nothing to defeat.
 $whenPlayedAbilities["SEC_242:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    // Reveal 3 of the opponent's resources, picked for the active player's benefit (ready first,
-    // active-player-owned first, then random) and logged. Excludes Credit tokens.
-    $offer = SWURevealResources(intval($player), OtherPlayer(intval($player)), 3);
+    $eligible = [];
+    foreach (OpponentsOf(intval($player)) as $o) {
+        foreach (GetResources($o) as $r) { if (empty($r->removed)) { $eligible[] = $o; break; } }
+    }
+    if (empty($eligible)) return;
+    SWUQueueChooseOpponent(intval($player), 'SEC_242#PICK|' . intval($player),
+        "Choose_an_opponent_whose_resources_to_look_at", $eligible);
+};
+
+// The chosen seat is only known here, so the reveal (and the offer built from it) must happen now —
+// SWURevealResources both logs the look and decides WHICH 3 are shown, so it cannot run before the pick.
+$customDQHandlers["SEC_242#PICK"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $caster = intval($parts[0] ?? $player);
+    $playerID = $caster;
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === $caster) return;
+    $offer = SWURevealResources($caster, $opp, 3);
     if (empty($offer)) return;
     // Carry the revealed mzIDs so the handler can enforce "only a REVEALED resource may be defeated".
-    SWUQueueMayChooseTarget(intval($player), $offer, "Defeat_an_enemy_resource?", "Choose_an_enemy_resource_(of_3)", "SEC_242#0|" . OtherPlayer(intval($player)) . "|" . implode(',', $offer));
+    SWUQueueMayChooseTarget($caster, $offer, "Defeat_an_enemy_resource?", "Choose_an_enemy_resource_(of_3)",
+        "SEC_242#0|" . $opp . "|" . implode(',', $offer));
 };
 
 $customDQHandlers["SEC_242#0"] = function($player, $parts, $lastDecision) {

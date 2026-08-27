@@ -9,9 +9,30 @@
 // just reveals 3 Ready-first). Unlike SEC_242 there's no player pick (every revealed Smuggle is defeated)
 // and the replacement enters EXHAUSTED ("into play as a resource", not "ready it"). Because the reveal is
 // Ready-first, a Smuggle resource kept EXHAUSTED behind ≥3 ready ones is never revealed → protected.
+// ⚠ "3 ENEMY resources" names no single seat. At 3+ seats the caster must choose WHOSE — the Twin Suns
+// sweep premise, and the same shape as SHD_184 Bazine Netal ("look at AN OPPONENT's hand"), which is the
+// canonical analogue this follows. SWUQueueChooseOpponent auto-resolves to an invisible PASSPARAMETER at
+// one eligible opponent, so Premier is byte-identical.
+// ⚠ FILTER to opponents that actually HAVE a resource: with none there is nothing to reveal, nothing to
+// defeat and no replacement — a choice among nothing (Bazine's precedent for an empty hand).
 $whenPlayedAbilities["SHD_114:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
+    $eligible = [];
+    foreach (OpponentsOf(intval($player)) as $o) {
+        foreach (GetResources($o) as $r) { if (empty($r->removed)) { $eligible[] = $o; break; } }
+    }
+    if (empty($eligible)) return;
+    SWUQueueChooseOpponent(intval($player), 'SHD_114#0|' . intval($player),
+        "Choose_an_opponent_whose_resources_to_scan", $eligible);
+};
+
+$customDQHandlers["SHD_114#0"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $caster = intval($parts[0] ?? $player);
+    $playerID = $caster;
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp <= 0 || $opp === $caster) return;
+    $player = $caster;
     $revealed = SWURevealResources(intval($player), $opp, 3);
     // The revealed resources carrying Smuggle, by DESCENDING index so a defeat (which compacts the zone)
     // never shifts a lower-index one we still have to process.

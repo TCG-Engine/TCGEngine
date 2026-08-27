@@ -130,3 +130,41 @@ WithP2GroundArena: SOR_164:1:0
 P2GROUNDARENACOUNT:0
 P1HANDCOUNT:0
 P1RESCOUNT:2
+
+---
+
+# TwinSuns_TheYESNOGoesToTheUNITSController
+#// ⚠ TWIN SUNS SWEEP PASS 2 (2026-08-27) — §1b "its controller" family.
+#// "Return an enemy non-leader unit UNLESS ITS CONTROLLER says 'It could be worse'." The cross-player
+#// YESNO must go to the seat that actually controls the chosen unit — a DETERMINED seat the handler
+#// already holds a reference to. It used OtherPlayer($player), i.e. literally seat 2, so above two seats
+#// the prompt was sent to a bystander who was asked whether to keep a unit that is not theirs — while the
+#// real controller was never asked at all.
+#//
+#// P1 targets a unit on SEAT 4 (P1's opponents are 2 and 4; 3 is a teammate). P2 also has a unit, so the
+#// legacy answer (seat 2) is a live wrong seat rather than an empty one — sweep rule 6. P4 answers NO and
+#// its unit bounces; P2's unit is untouched. Under the old code P4 would have had no decision to answer.
+
+## GIVEN
+CommonSetup: yyk/ggw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 2
+WithP1Hand: LOF_222
+WithP2GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p4GroundArena-0
+- P4>AnswerDecision:NO
+
+## EXPECT
+SEATCOUNT:4
+P4GROUNDARENACOUNT:0
+P4HANDCOUNT:1
+P2GROUNDARENACOUNT:1

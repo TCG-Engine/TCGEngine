@@ -4,7 +4,8 @@
 // Text: Hidden (This unit can't be attacked if it was played this phase.) / When Played: Choose another friendly unit. While this unit is in play, the chosen unit gets +1/+0 and gains Saboteur.
 
 // LOF_191 BD-1 — When Played: Choose another friendly unit. While this unit is in play, the chosen unit
-// gets +1/+0 and gains Saboteur (link stored as SWU_LOF191_{src}_{tgt}; read by _SWULof191HasBuff).
+// gets +1/+0 and gains Saboteur (link stored as SWU_LOF191_{src}_{tgt}; read by _SWULof191BuffCount,
+// which scans by SOURCE UID so a COPIED BD-1 — TS26_34 Fives — is seen too, and counts so repeats stack).
 $whenPlayedAbilities["LOF_191:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $self = GetZoneObject($mzID);

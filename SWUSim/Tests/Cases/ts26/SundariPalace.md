@@ -736,3 +736,28 @@ P3RESCOUNT:2
 P3DISCARDCOUNT:1
 P1DISCARDCOUNT:0
 P1TEMPZONECOUNT:0
+
+---
+
+# ChoosingNoCards_NothingIsResourcedAndNothingIsDefeatedAtRegroup_ByConfirmingEmpty
+#// ⚠ PASS-TWIN of ChoosingNoCards_NothingIsResourcedAndNothingIsDefeatedAtRegroup — byte-for-byte except the decline.
+#// TS26_12#0 is the last of the 8 MZMAYCHOOSE continuations whose DECLINE PATH CLOSES THE ACTION
+#// (SWUAfterAction ends the offer loop). The existing PASS guard in this file covers the RESOURCE STAGE
+#// continuation, not this one — a near-miss worth naming, since it made the card look already covered.
+#// `-` and "PASS" are two different declines and the client only ever sends "PASS"; the pair must agree.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myBase:TS26_12;myLeaderDeployed:true}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1Hand: SEC_080
+
+## WHEN
+- P1>UseBaseAbility
+- P1>AnswerDecision:PASS
+- P1>Pass
+
+## EXPECT
+P1RESCOUNT:2
+P1HANDCOUNT:1

@@ -82,3 +82,38 @@ P1DISCARDUNIT:0:CARDID:SOR_163
 P2DISCARDCOUNT:1
 P2NODECISION
 P1NODECISION
+
+---
+
+# FourSeats_AFARSeatsInitiativeCounts
+#// SOR_163 "If YOU have the initiative, draw 2." The gate used to decode the counter string by hand —
+#// `strpos($ic,'P1') === 0 ? 1 : 2` — which collapses EVERY non-P1 holder onto SEAT 2. Above two seats
+#// that is two bugs at once: a seat-3/4 holder never drew, and seat 2 drew on someone else's initiative.
+#// Here SEAT 3 holds the initiative and its Scout trades with a Gladiator; only P3 may draw.
+#// PlayerHasIniative() matches "P{seat}_CLAIMED"/"P{seat}_UNCLAIMED" for any seat (engine spells it
+#// "Iniative" — a load-bearing typo). Found by re-reading the "neither helper" cohort: this shape names
+#// no seat helper at all, so every OtherPlayer/GetOpponent scan walks straight past it.
+
+## GIVEN
+CommonSetup: ggw/ggw
+SkipPreGame: true
+WithTeams: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_021:0
+WithP4Base: SOR_021:0
+WithInitiativePlayer: 3
+WithInitiativeClaimed: true
+WithActivePlayer: 3
+WithP3SpaceArena: SOR_163:1:0
+WithP2SpaceArena: SOR_086:1:0
+WithP3Deck: [SOR_128 SOR_128 SOR_128]
+WithP2Deck: [SOR_128 SOR_128 SOR_128]
+
+## WHEN
+- P3>AttackSpaceArena:0:P2S0
+
+## EXPECT
+SEATCOUNT:4
+P3SPACEARENACOUNT:0
+P3HANDCOUNT:2
+P2HANDCOUNT:0

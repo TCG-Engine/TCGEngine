@@ -14,5 +14,13 @@ $onAttackAbilities["LOF_163:0"] = function($player, $mzID) {
 
 $customDQHandlers["LOF_163#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
-    SWUDealDamageToBase(2, OtherPlayer(intval($player)));
+    // "AN enemy base" names no seat — the caster picks which. SWUQueueChooseOpponent auto-resolves to an
+    // invisible PASSPARAMETER at one eligible opponent, so Premier is byte-identical.
+    SWUQueueChooseOpponent(intval($player), 'LOF_163#BASE', "Deal_2_to_which_opponent's_base?");
+};
+
+$customDQHandlers["LOF_163#BASE"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $opp = SWUPickedOpponent($lastDecision);
+    if ($opp > 0) SWUDealDamageToBase(2, $opp);
 };

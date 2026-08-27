@@ -108,3 +108,28 @@ WithP1Hand: SEC_177
 
 ## EXPECT
 P1SELECTABLEEXACT:myGroundArena-0
+
+---
+
+# PassReadyButStillCreateSpy_ByConfirmingEmpty
+#// ⚠ PASS-TWIN of PassReadyButStillCreateSpy — byte-for-byte identical except the decline.
+#// `-` and "PASS" are two DIFFERENT declines, and the client only ever submits "PASS" (all three decline
+#// paths in Core/UILibraries*.js). Historically every decline test here answered `-`, so the path players
+#// actually take was untested. This continuation (SEC_177#0) is one that does more than apply the pick, and
+#// it now runs on a decline because SWUQueueMayChooseTarget defaults dontSkipOnPass to 1 — this twin is
+#// what covers that. If the two declines ever diverge, one of the pair goes red.
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:2}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:0:0
+WithP1Hand: SEC_177
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+## EXPECT
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:SEC_T01
+P1NODECISION
