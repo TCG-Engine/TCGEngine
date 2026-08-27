@@ -3,6 +3,7 @@
 // Whole-meta matchup grid (every leader/base vs every opponent leader/base).
 header('Content-Type: application/json');
 include_once '../Database/ConnectionManager.php';
+include_once '../AppCore/SWU/Formats.php';   // SWUStatsFormats()
 
 // Week filter (uniform across the meta-stats family). intval()'d, so safe to inline:
 //   none           -> all weeks

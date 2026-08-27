@@ -66,6 +66,11 @@ $checks['every offered format is registered'] = $unregistered === [];
 // to premier, so existing responses are byte-identical — the API change is purely additive.
 // FOUR read APIs, not two: the matchup pair lives under APIs/, not Stats/, which is exactly why a
 // survey scoped to Stats/ missed them on 2026-08-06.
+//
+// These are SOURCE-TEXT checks: they prove the call is WRITTEN, not that it RUNS. Both APIs/ files
+// passed here for weeks while fataling on every request because neither included
+// AppCore/SWU/Formats.php. Reachability is covered by test_swudeck_meta_read_apis_load.php, which
+// actually invokes each endpoint -- keep both.
 foreach ([
     'Stats/CardMetaStatsAPI', 'Stats/DeckMetaStatsAPI',
     'APIs/MetaMatchupStatsAPI', 'APIs/DeckMetaMatchupStatsAPI',

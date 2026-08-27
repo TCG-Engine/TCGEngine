@@ -4,6 +4,7 @@ header('Content-Type: application/json');
 include_once '../Database/ConnectionManager.php';
 include_once '../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
 include_once '../Core/StatsBaseRegistry.php';
+include_once '../AppCore/SWU/Formats.php';   // SWUStatsFormats()
 
 $leaderID = isset($_GET['leaderID']) ? $_GET['leaderID'] : '';
 $baseID = isset($_GET['baseID']) ? $_GET['baseID'] : '';

@@ -176,6 +176,15 @@ $forIndividual = false;
       } catch(e) {
         $('#matchupModalBody').html('<p>Error loading matchup data.</p>');
       }
+    }).fail(function(jqXHR, textStatus) {
+      // Without this the modal sits on "Loading..." forever whenever the endpoint fails. The
+      // response is served as application/json, so jQuery parses it BEFORE the success handler
+      // runs -- a PHP fatal (HTML body, still HTTP 200) lands here as a 'parsererror', never in
+      // the try/catch above. Always render something the user can act on.
+      var detail = (jqXHR && jqXHR.status ? 'HTTP ' + jqXHR.status : '') +
+                   (textStatus ? (jqXHR && jqXHR.status ? ' / ' : '') + textStatus : '');
+      $('#matchupModalBody').html('<p>Could not load matchup data' +
+        (detail ? ' (' + detail + ')' : '') + '. Please try again.</p>');
     });
   });
 
