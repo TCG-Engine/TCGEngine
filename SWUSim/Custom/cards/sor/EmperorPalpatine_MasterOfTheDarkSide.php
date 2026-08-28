@@ -11,5 +11,7 @@ $whenPlayedAbilities["SOR_135:0"] = function($player, $mzID) {
     $playerID = intval($player);
     $targets = SWUAllUnits('their');
     if (empty($targets)) return;   // no enemy units → fizzle
-    SWUOfferSplitDamage(intval($player), 6, $targets, "Divide_6_damage_among_enemy_units");
+    // CR 9.12 — a unit's ability deals its damage, so Palpatine himself is the source.
+    SWUOfferSplitDamage(intval($player), 6, $targets, "Divide_6_damage_among_enemy_units",
+        false, false, $mzID);
 };

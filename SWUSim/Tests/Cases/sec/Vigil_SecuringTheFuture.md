@@ -254,3 +254,28 @@ WithP1SpaceArenaUpgrade: 0:JTL_046
 
 ## EXPECT
 P1SPACEARENAUNIT:0:DAMAGE:1
+
+---
+
+# DividedDamage_SelfSource_NoPlusOne
+#// SEC_050 Vigil — "If damage would be dealt to this unit BY ANOTHER CARD, deal that much damage plus 1
+#// instead." The "another card" gate needs the damage SOURCE. CR 9.12: a unit's ability deals its damage,
+#// and ASH_139 Hold Them Off names Vigil as the dealer, so a share Vigil assigns to ITSELF is not dealt
+#// by another card and takes NO +1.
+#// Vigil (5 power) splits 3 onto itself and 2 onto the enemy Distant Patroller. Vigil takes exactly 3,
+#// not 4. The enemy assertion is the control — SOR_060 is a 2/1, so 2 defeats it and proves the split
+#// resolved rather than fizzling.
+
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:4;handCardIds:ASH_139}
+P1OnlyActions: true
+WithP1SpaceArena: SEC_050:1:0     # Vigil 5/9 — the only friendly unit, so the dealer choice auto-resolves
+WithP2SpaceArena: SOR_060:1:0     # Distant Patroller 2/1
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-0:3,theirSpaceArena-0:2
+
+## EXPECT
+P1SPACEARENAUNIT:0:DAMAGE:3
+P2SPACEARENACOUNT:0

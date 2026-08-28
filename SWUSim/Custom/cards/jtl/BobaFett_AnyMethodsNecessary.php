@@ -28,5 +28,11 @@ $whenPlayedAsUpgradeAbilities["JTL_009:0"] = function($player, $mzID) {
         }
     }
     if (empty($targets)) return;
-    SWUOfferSplitDamage(intval($player), 4, $targets, "Divide_up_to_4_damage_among_units", true);
+    // $mzID is the HOST unit Boba attached to, and CR 9.12 makes that unit — a leader unit while Boba
+    // is on it — the dealer of the damage its ability deals. ⚠ The competing reading is that ASH_196's
+    // "friendly Underworld CARDS" should see BOBA (Underworld) rather than the host, which would make
+    // this damage unpreventable behind a Corsair even on a non-Underworld hull. Unruled (no official
+    // ruling for ASH_196 or JTL_009), so the conservative unit-source reading is used.
+    SWUOfferSplitDamage(intval($player), 4, $targets, "Divide_up_to_4_damage_among_units", true, false,
+        $mzID);
 };

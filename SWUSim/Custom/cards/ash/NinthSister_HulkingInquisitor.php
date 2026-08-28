@@ -13,7 +13,9 @@ $whenPlayedAbilities["ASH_148:0"] = function($player, $mzID) {
     // is unchanged). Was OtherPlayer(): one seat, unreachable seats 3/4.
     $eligible = SWUOpponentsWithCards(intval($player));
     if (empty($eligible)) return;   // no card to discard anywhere → no damage
-    SWUQueueChooseOpponent(intval($player), "ASH_148#OPP|" . intval($player),
+    // Ninth Sister deals the damage her ability deals (CR 9.12); her source token rides both hops.
+    SWUQueueChooseOpponent(intval($player), "ASH_148#OPP|" . intval($player) . "|"
+        . _SWUEncodeDamageSource($mzID),
         "Which_opponent_discards_a_card?", $eligible);
 };
 
@@ -21,6 +23,7 @@ $whenPlayedAbilities["ASH_148:0"] = function($player, $mzID) {
 $customDQHandlers["ASH_148#OPP"] = function($queueOwner, $parts, $lastDecision) {
     global $playerID;
     $player = intval($parts[0] ?? $queueOwner);
+    $srcTok = (string)($parts[1] ?? '');
     $opp    = SWUPickedOpponent($lastDecision);
     if ($opp <= 0) return;
     $playerID = $player;
@@ -34,15 +37,16 @@ $customDQHandlers["ASH_148#OPP"] = function($queueOwner, $parts, $lastDecision) 
     // choice is queued on THEIR queue; queue the follow-up there too (FIFO → after the discard) so it
     // can't fire first and read an empty discard. Either way carry the controller in $parts[0].
     if ($handCount > 1)
-        DecisionQueueController::AddDecision($opp, "CUSTOM", "ASH_148#0|{$player}|{$opp}", 1);
+        DecisionQueueController::AddDecision($opp, "CUSTOM", "ASH_148#0|{$player}|{$opp}|{$srcTok}", 1);
     else
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ASH_148#0|{$player}|{$opp}", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ASH_148#0|{$player}|{$opp}|{$srcTok}", 1);
 };
 
 $customDQHandlers["ASH_148#0"] = function($queueOwner, $parts, $lastDecision) {
     $player = intval($parts[0] ?? $queueOwner);   // the ASH_148 controller (deals the damage)
     global $playerID; $playerID = $player;
     $opp = intval($parts[1] ?? 0);   // the seat that discarded — rides the param, never guessed
+    $srcMz = _SWUDecodeDamageSource((string)($parts[2] ?? ''));   // Ninth Sister, the dealer (CR 9.12)
     if ($opp <= 0) return;
     $discard = GetDiscard($opp);
     $cost = -1;
@@ -54,5 +58,5 @@ $customDQHandlers["ASH_148#0"] = function($queueOwner, $parts, $lastDecision) {
     $targets = SWUAllUnits();
     if (empty($targets)) return;
     SWUOfferSplitDamage(intval($player), intval($cost), $targets,
-        "Divide_up_to_{$cost}_damage_among_any_number_of_units", true);
+        "Divide_up_to_{$cost}_damage_among_any_number_of_units", true, false, $srcMz);
 };

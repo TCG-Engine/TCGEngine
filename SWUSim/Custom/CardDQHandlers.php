@@ -1452,7 +1452,9 @@ $customDQHandlers["ENEMY_SOURCED_DEFEAT"] = function ($chooser, $parts, $lastDec
 // Universal: deal the MZSPLITASSIGN result ($lastDecision) simultaneously (apply-all then sweep).
 // Shared by any "deal N divided among units" card (SOR_135 Palpatine, SOR_092 Overwhelming Barrage).
 $customDQHandlers["SPLIT_DAMAGE"] = function ($player, $parts, $lastDecision) {
-  SWUDealSplitDamage(intval($player), (string) $lastDecision);
+  // $parts[0] = the source token written by SWUOfferSplitDamage — the unit that DEALS the damage when
+  // the ability names one (CR 9.12). Empty for a source-less "deal N divided among enemy units".
+  SWUDealSplitDamage(intval($player), (string) $lastDecision, (string) ($parts[0] ?? ''));
 };
 
 // Goldfish ⚗ Practice menu — resolve the "defeat/bounce one of your units" MZCHOOSE. $lastDecision
@@ -1747,6 +1749,7 @@ $customDQHandlers["SPLIT_PREVENT_RESOLVE"] = function ($player, $parts, $lastDec
   $decider = intval($parts[3] ?? 0);
   $apply = _SWUDecodeHits($parts[4] ?? '');
   $offer = _SWUDecodeHits($parts[5] ?? '');
+  $srcTok = (string) ($parts[6] ?? '');   // the dealer, carried across this decision (CR 9.12)
   global $playerID;
   $playerID = $decider;
   if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS') {
@@ -1757,7 +1760,7 @@ $customDQHandlers["SPLIT_PREVENT_RESOLVE"] = function ($player, $parts, $lastDec
   } else {
     $apply[] = ['uid' => $curUid, 'amount' => $curAmt];           // declined → apply it with the rest
   }
-  _SWUSplitOfferStep($caster, $offer, $apply);
+  _SWUSplitOfferStep($caster, $offer, $apply, $srcTok);
 };
 // Prevention — COMBAT damage path. Pick → defeat friendly + set the one-shot marker SWUCombatDamage
 // consumes (skips Amidala's combat damage this attack). Decline → damage applies normally.
@@ -2933,6 +2936,32 @@ $customDQHandlers["EXPLOIT_RESOLVE"] = function ($player, $params, $lastDecision
       $o = GetZoneObject($chosen);
       if ($o !== null && empty($o->removed))
         $uidsToDefeat[] = intval($o->UniqueID ?? 0);
+    }
+    // ⚠ ABORT BEFORE DEFEATING ANYTHING if these picks do not reduce the cost far enough. An Exploit card
+    // GLOWS at its best-case reduction (CanAffordActivationReserve subtracts 2 per available fodder), so
+    // the player can legally begin the play and then confirm FEWER units than the price needs —
+    // ActivateCard then rejects the payment with "Not enough ready resources" while the fodder is already
+    // DEAD and the card is still in hand. Same half-applied play as HMW_125 The Marauder, and worse: the
+    // units are gone, not merely damaged, and their When-Defeateds have fired.
+    // The estimate is OPTIMISTIC on purpose — it prices every pick as a successful defeat, which is what
+    // the loop below is about to attempt. A pick that then fails to be defeated (an immunity acquired
+    // between the offer and the answer) still lands in the old failure mode; that residue is narrow and
+    // is not reachable by simply under-picking, which is the reported shape.
+    $optimisticDiscount = 2 * count($uidsToDefeat);
+    $probeObj = ($mzID !== '') ? GetZoneObject($mzID) : null;
+    if (($probeObj->CardID ?? '') === 'SEC_122') {
+      foreach ($uidsToDefeat as $uid) {
+        $pmz = SWUFindMzByUID($uid);
+        $po  = ($pmz !== null) ? GetZoneObject($pmz) : null;
+        if ($po !== null && HasTrait($po->CardID ?? '', 'Droid')) $optimisticDiscount++;
+      }
+    }
+    if (!empty($uidsToDefeat)
+        && !_SWUPlayIsPayableAtDiscount(intval($player), $mzID, $optimisticDiscount, $uidsToDefeat)) {
+      SetFlashMessage("Not enough resources to play this even after Exploit — nothing was defeated.");
+      $gPlayGrantedExploit = 0;
+      $playerID = $savedPID;
+      return;
     }
     $gExploitDeferTriggers = true;                // park WhenDefeated/leave-play/bounty (CR 16.d)
     foreach ($uidsToDefeat as $uid) {

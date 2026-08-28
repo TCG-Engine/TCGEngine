@@ -23,7 +23,9 @@ $customDQHandlers["SOR_092#0"] = function($player, $parts, $lastDecision) {
         $targets[] = $mz;
     }
     if (empty($targets)) return;                               // no other units → buff applied, no damage
-    SWUOfferSplitDamage(intval($player), intval($power), $targets, "Divide_damage_among_other_units");
+    // "Then, IT deals damage equal to its power" — the buffed unit is the damage SOURCE (CR 9.12).
+    SWUOfferSplitDamage(intval($player), intval($power), $targets, "Divide_damage_among_other_units",
+        false, false, $lastDecision);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

@@ -239,3 +239,31 @@ WithP2GroundArena: SOR_095:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SOR_095
 P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# DividedDamage_Unpreventable_BypassesShield
+#// ASH_196 — "Damage dealt by friendly Underworld cards is unpreventable." CR 9.12 makes a unit the
+#// dealer of damage its own ability deals, and ASH_139 Hold Them Off names its dealer explicitly
+#// ("that unit deals damage equal to its power"), so a DIVIDED share dealt by a friendly Underworld
+#// unit must ignore the target's Shield exactly as a single-target hit does.
+#// P1 controls ASH_196 (space) and SOR_247 Underworld Thug (ground, 2 power). Hold Them Off picks the
+#// Thug as the dealer and assigns its 2 to the shielded enemy SOR_095: the damage lands and the Shield
+#// is NOT spent (a Shield only absorbs damage it is allowed to prevent).
+
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:4;handCardIds:ASH_139}
+P1OnlyActions: true
+WithP1SpaceArena: ASH_196:1:0
+WithP1GroundArena: SOR_247:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0:2
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:1

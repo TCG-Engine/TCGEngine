@@ -53,6 +53,16 @@ $customDQHandlers["HMW_048#0"] = function ($player, $parts, $lastDecision) {
     $discount = intval($parts[1] ?? 0);
     $snap     = explode('~', (string)($parts[2] ?? ''), 3);
 
+    // ⚠ ABORT BEFORE THE ADDITIONAL COST IS PAID if the play cannot be afforded. Unlike Exploit and
+    // HMW_125 this additional cost does NOT reduce the price, so the picks cannot change the answer — but
+    // the cards still go to the bottom of the deck BEFORE ActivateCard's payment step, so clicking an
+    // unaffordable Vernestra would shuffle two units out of the discard for nothing. The glow is UI only
+    // and never gates the click. Same family as HMW_125's UnderChoose_StillUnaffordable_NothingHappens.
+    if (!_SWUPlayIsPayableAtDiscount(intval($player), $handMz, $discount)) {
+        SetFlashMessage("Not enough resources to play this — nothing was put on the bottom of your deck.");
+        return;
+    }
+
     $gained = [];
     if ($lastDecision !== null && $lastDecision !== '' && $lastDecision !== '-' && $lastDecision !== 'PASS') {
         // Re-validate against the SAME pool that was offered (the filter must hold on the server —

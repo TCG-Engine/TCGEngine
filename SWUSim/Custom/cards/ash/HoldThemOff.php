@@ -22,8 +22,12 @@ $customDQHandlers["ASH_139#0"] = function($player, $parts, $lastDecision) {
         }
     }
     if (empty($targets)) return;
+    // "THAT UNIT deals damage equal to its power" — the dealer is named, so it is the damage SOURCE
+    // (CR 9.12). Threading it is what lets LOF_108 Malakili prevent a Creature dealer's share to a
+    // friendly, ASH_196 make an Underworld dealer's shares unpreventable, and SEC_050 Vigil skip its
+    // "by another card" +1 on a share it assigns to itself.
     SWUOfferSplitDamage(intval($caster), intval($pow), $targets,
-        "Split_{$pow}_damage_among_units_in_the_arena");
+        "Split_{$pow}_damage_among_units_in_the_arena", false, false, $lastDecision);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

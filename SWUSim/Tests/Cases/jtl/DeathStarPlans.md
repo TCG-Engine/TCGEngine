@@ -215,3 +215,32 @@ WithP2Hand: [SOR_157 SOR_164]
 P2RESAVAILABLE:5
 P2GROUNDARENAUNIT:1:CARDID:SOR_159
 P2GROUNDARENAUNIT:1:UPGRADE:0:CARDID:JTL_260
+
+---
+
+# FailedPlayDoesNotBurnTheFirstUnitCharge
+#// ⚠ A PLAY THAT FAILS IS NOT A PLAY. Reported 2026-08-28 alongside the HMW_125 half-applied play.
+#// ActivateCard used to write its game-log entry, bump the cards-played-this-phase counter, and consume
+#// every one-shot cost charge BEFORE the payment gate — so merely CLICKING a card you cannot afford
+#// silently spent them. JTL_260's once-per-round marker is the observable one.
+#// P1 holds 4 resources and tries SOR_135 Emperor Palpatine (cost 8, and off-aspect on top): unaffordable
+#// even with the -2, so the play is rejected. The "first unit you play each round" charge must survive,
+#// so JTL_099 Veteran Fleet Officer (cost 3, on-aspect) still costs 1 → 3 ready left.
+#// A burned charge shows up as 1 ready (JTL_099 paid its full 3). ⚠ The rejected SOR_135 never leaves the
+#// hand, so the second play is PlayHand:1 — a retried PlayHand:0 would just fail again.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:4;handCardIds:SOR_135,JTL_099}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:JTL_260
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:1
+
+## EXPECT
+P1RESAVAILABLE:3
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:JTL_099
+P1HANDCOUNT:1

@@ -100,3 +100,32 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:4
 P1GROUNDARENAUNIT:1:DAMAGE:3
+
+---
+
+# PreventsDividedDamageFromFriendlyCreature
+#// LOF_108 Malakili — "If a friendly Creature unit would deal damage to a friendly unit, prevent that
+#// damage." CR 9.12: "If a unit's ability deals damage, that unit is considered to have dealt that
+#// damage" — so DIVIDED damage from an ability that names a dealer unit is dealt BY that unit, and
+#// Malakili must prevent the share assigned to a friendly.
+#// P1 plays ASH_139 Hold Them Off choosing LOF_063 Oggdo Bogdo (a Creature, power 5) as the dealer and
+#// assigns 2 to the friendly SOR_046 and 3 to the enemy SOR_046. The friendly share is prevented; the
+#// enemy share lands in full. The enemy assertion is the control: it proves the prevention is scoped to
+#// friendly targets and that the split itself resolved.
+
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:4;handCardIds:ASH_139}
+P1OnlyActions: true
+WithP1GroundArena: LOF_063:1:0    # Oggdo Bogdo — Creature, 5 power (the dealer)
+WithP1GroundArena: LOF_108:1:0    # Malakili
+WithP1GroundArena: SOR_046:1:0    # friendly 3/7 — takes 2, prevented to 0
+WithP2GroundArena: SOR_046:1:0    # enemy 3/7 — takes the full 3
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-2:2,theirGroundArena-0:3
+
+## EXPECT
+P1GROUNDARENAUNIT:2:DAMAGE:0
+P2GROUNDARENAUNIT:0:DAMAGE:3

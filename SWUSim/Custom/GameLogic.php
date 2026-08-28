@@ -8498,12 +8498,18 @@ function FlushTriggerBag($activePlayer): bool {
     $mine   = array_values(array_filter($gPendingTriggers, fn($t) => $t['player'] === intval($activePlayer)));
     $theirs = array_values(array_filter($gPendingTriggers, fn($t) => $t['player'] !== intval($activePlayer)));
 
+    // dontSkipOnPass: a COLLECTED TRIGGER is a scheduled ability, never an answer to anything, so a PASS
+    // still in flight from an unrelated decision must not swallow it. Without this, a "you may" the player
+    // declined leaves a sticky PASS and every trigger flushed behind it silently never resolves — the
+    // second link of the same chain that hid TWI_216 Fives (the observer ran, then its own dispatch was
+    // skipped). RESOLVE_TRIGGER ignores $lastDecision entirely, so entering it on a PASS is inert.
     foreach (array_merge($mine, $theirs) as $trigger) {
         DecisionQueueController::AddDecision(
             $trigger['player'],
             "CUSTOM",
             "RESOLVE_TRIGGER|{$trigger['triggerType']}|{$trigger['cardID']}|{$trigger['mzID']}",
-            $gTriggerDepth
+            $gTriggerDepth,
+            dontSkipOnPass: 1
         );
     }
 
@@ -12477,6 +12483,26 @@ function SWUFindMzByUID(int $uid): ?string {
     return null;
 }
 
+// ── Damage-SOURCE tokens ────────────────────────────────────────────────────────────────────────────
+// A damage source has to survive a request boundary whenever a funnel defers behind a decision (Ty
+// Yorrick's "+1?", the divided-damage MZSPLITASSIGN, Amidala's prevent offer). An mzID cannot be
+// carried raw: the arena reindexes on every defeat, so "myGroundArena-1" can name a different unit by
+// the time the answer comes back. Encode an arena object as its UniqueID ("U<uid>", reindex-proof) and
+// anything else — a base, an upgrade, a card outside the arenas — as its raw mzID ("M<mzID>"). An empty
+// token means "source-less", which is a real state: an ability that names no dealer (SOR_135's "deal 6
+// damage divided among enemy units") genuinely has no unit source to thread.
+function _SWUEncodeDamageSource(?string $sourceMzID): string {
+    if ($sourceMzID === null || $sourceMzID === '') return '';
+    $obj = GetZoneObject($sourceMzID);
+    $uid = ($obj !== null) ? intval($obj->UniqueID ?? 0) : 0;
+    return $uid > 0 ? ('U' . $uid) : ('M' . $sourceMzID);
+}
+function _SWUDecodeDamageSource(string $tok): ?string {
+    if ($tok === '') return null;
+    if ($tok[0] === 'U') return SWUFindMzByUID(intval(substr($tok, 1)));   // null once the source left play
+    return substr($tok, 1);
+}
+
 // The NON-INTERACTIVE damage-prevention chain, shared by the single-target ability funnel
 // (SWUDealDamageToUnit) and the divided-damage funnel (_SWUApplySplitHits) so the two cannot drift.
 // Divided damage is still card-ability damage (CR 34/35.5), so every "can't be damaged" / reduction /
@@ -12548,20 +12574,28 @@ function _SWUHmw185Accepted($lastDecision): bool {
 // there was nowhere for Ty Yorrick's +1 to hook). $upto = the MZSPLITASSIGN "assign fewer than N" mode.
 // ⚠ Nothing mutates the board between the deferred YESNO and the assignment offer, so the positional
 // target mzIDs collected by the caller stay valid across the extra decision.
+// $sourceMzID = the unit that DEALS the divided damage, when the ability names one. CR 9.12: "If a
+// unit's ability deals damage, that unit is considered to have dealt that damage" — so ASH_139 Hold Them
+// Off ("that unit deals damage equal to its power"), SOR_092 Overwhelming Barrage ("then IT deals
+// damage") and every unit-hosted "deal N divided" ability have a real source, and the three SOURCE-AWARE
+// legs of the prevention chain (ASH_196 unpreventable, LOF_108 Malakili, SEC_050 Vigil's "by another
+// card") must see it. Leave it null only for an ability with no unit dealer.
 function SWUOfferSplitDamage(int $player, int $amount, array $targets, string $tooltip,
-                             bool $upto = false, bool $skipTyOffer = false): void {
+                             bool $upto = false, bool $skipTyOffer = false,
+                             ?string $sourceMzID = null): void {
     if ($amount <= 0 || empty($targets)) return;
+    $srcTok = _SWUEncodeDamageSource($sourceMzID);
     if (!$skipTyOffer) {
         $ty = _SWUHmw185Decider(intval($player));
         if ($ty > 0) {
             _SWUHmw185Defer($ty, "HMW_185#2|{$player}|{$amount}|" . ($upto ? 1 : 0)
-                . "|{$tooltip}|" . implode('~', $targets));
+                . "|{$tooltip}|" . implode('~', $targets) . "|{$srcTok}");
             return;
         }
     }
     $param = $amount . '|' . implode('&', $targets) . ($upto ? '|UPTO' : '');
     DecisionQueueController::AddDecision(intval($player), "MZSPLITASSIGN", $param, 1, tooltip: $tooltip);
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SPLIT_DAMAGE", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SPLIT_DAMAGE|{$srcTok}", 1);
 }
 
 function _SWUNonInteractiveDamagePrevention($obj, int $amount, int $player, ?string $sourceMzID,
@@ -12598,12 +12632,7 @@ function SWUDealDamageToUnit(string $unitMzID, int $amount, int $player, ?string
         if (!$skipTyOffer && $amount > 0) {
             $tyDecider = _SWUHmw185Decider(intval($player));
             if ($tyDecider > 0) {
-                $tySrcTok = '';
-                if ($sourceMzID !== null && $sourceMzID !== '') {
-                    $tySrcObj = GetZoneObject($sourceMzID);
-                    $tySrcUID = ($tySrcObj !== null) ? intval($tySrcObj->UniqueID ?? 0) : 0;
-                    $tySrcTok = $tySrcUID > 0 ? ('U' . $tySrcUID) : ('M' . $sourceMzID);
-                }
+                $tySrcTok = _SWUEncodeDamageSource($sourceMzID);
                 _SWUHmw185Defer($tyDecider, "HMW_185#0|" . intval($unit->UniqueID ?? 0) . "|{$amount}|"
                     . intval($player) . "|{$tySrcTok}|" . ($skipPrevent ? 1 : 0));
                 $playerID = $saved;
@@ -12700,7 +12729,7 @@ function SWUDealDamageToUnit(string $unitMzID, int $amount, int $player, ?string
 // snapshotted by UniqueID and re-resolved with SWUFindMzByUID during the sweep (SWUDefeatUnit
 // cleans up and shifts indices per defeat). Source-less: damage is unattributed (matches "deal N
 // damage divided among units" cards — SOR_135). Caller need not set $playerID; saved/restored here.
-function SWUDealSplitDamage(int $player, string $assignmentStr): void {
+function SWUDealSplitDamage(int $player, string $assignmentStr, string $srcTok = ''): void {
     if ($assignmentStr === '' || $assignmentStr === '-' || $assignmentStr === 'PASS') return;
     global $playerID;
     $saved    = $playerID;
@@ -12733,20 +12762,26 @@ function SWUDealSplitDamage(int $player, string $assignmentStr): void {
         else $apply[] = $h;
     }
 
-    if (empty($offer)) { _SWUApplySplitHits(intval($player), $apply); $playerID = $saved; return; }
+    if (empty($offer)) { _SWUApplySplitHits(intval($player), $apply, $srcTok); $playerID = $saved; return; }
 
     // Interactive: carry the plain hits + remaining offers through the decision, offering each replacement
     // one at a time; the final step applies everything that survived.
-    _SWUSplitOfferStep(intval($player), $offer, $apply);
+    _SWUSplitOfferStep(intval($player), $offer, $apply, $srcTok);
     $playerID = $saved;
 }
 
 // Apply a resolved hit list SIMULTANEOUSLY: add ALL damage first (indices stay put), then sweep defeats
 // by UID (re-resolve each time, since SWUDefeatUnit cleans up and shifts indices).
-function _SWUApplySplitHits(int $player, array $hits): void {
+function _SWUApplySplitHits(int $player, array $hits, string $srcTok = ''): void {
     global $playerID; $saved = $playerID; $playerID = intval($player);
     $dealtAny = false;
     $landed   = [];   // hits that actually dealt damage — see the observer flush after the defeat sweep
+    // The dealer, re-resolved on THIS side of the request boundary (null once it left play, or when the
+    // ability names no unit dealer). ASH_196 Gorian Shard's Corsair makes damage from a friendly
+    // Underworld card unpreventable, so it is checked once for the whole simultaneous event: it is a
+    // property of the SOURCE, identical for every share.
+    $sourceMzID    = _SWUDecodeDamageSource($srcTok);
+    $unpreventable = ($sourceMzID !== null) && _SWUDamageUnpreventable(GetZoneObject($sourceMzID));
     foreach ($hits as $h) {
         $mz  = SWUFindMzByUID($h['uid']);
         if ($mz === null) continue;
@@ -12756,10 +12791,14 @@ function _SWUApplySplitHits(int $player, array $hits): void {
         if ($amount <= 0) continue;
         // Each assigned share is still card-ability damage, so it runs the SAME non-interactive
         // prevention chain as the single-target funnel: "can't be damaged" immunity (SHD_187), SEC_042's
-        // prevent-2, LOF_220/SEC_050/ASH_150 reductions, then the Shield. Source-less (divided damage is
-        // unattributed), so the source-aware LOF_108 leg does not apply here.
+        // prevent-2, LOF_220/SEC_050/ASH_150 reductions, then the Shield — now with the DEALER threaded,
+        // so LOF_108 Malakili's friendly-Creature prevention and SEC_050 Vigil's "by another card" gate
+        // read the same source a single-target hit would (CR 9.12). ASH_196 skips the chain entirely,
+        // mirroring the single-target funnel's unpreventable branch: no reductions, no Shield spent.
         $prevented = false; $shielded = false;
-        $amount = _SWUNonInteractiveDamagePrevention($obj, $amount, intval($player), null, $prevented, $shielded);
+        if (!$unpreventable) {
+            $amount = _SWUNonInteractiveDamagePrevention($obj, $amount, intval($player), $sourceMzID, $prevented, $shielded);
+        }
         if ($shielded) {
             SWUQueuePreventedAnim($mz, intval($player));
             SWUQueueShieldBreakAnim($mz, intval($player));
@@ -12837,7 +12876,7 @@ function _SWUDecodeHits(?string $s): array {
 // answer). Skips a target already gone (a prior prevent's cost) and one that can no longer pay (no trait-
 // sharing friendly → its hit just applies). When offers run out, apply everything simultaneously. $player =
 // the caster (damage dealer / attribution).
-function _SWUSplitOfferStep(int $player, array $offer, array $apply): void {
+function _SWUSplitOfferStep(int $player, array $offer, array $apply, string $srcTok = ''): void {
     global $playerID; $playerID = intval($player);
     while (!empty($offer)) {
         $cur = array_shift($offer);
@@ -12852,11 +12891,11 @@ function _SWUSplitOfferStep(int $player, array $offer, array $apply): void {
             tooltip: 'Defeat_a_trait-sharing_friendly_to_prevent_damage_to_Queen_Amidala?');
         DecisionQueueController::AddDecision($decider, 'CUSTOM',
             "SPLIT_PREVENT_RESOLVE|{$player}|" . intval($cur['uid']) . "|" . intval($cur['amount']) . "|{$decider}|"
-            . _SWUEncodeHits($apply) . "|" . _SWUEncodeHits($offer), 1);
+            . _SWUEncodeHits($apply) . "|" . _SWUEncodeHits($offer) . "|{$srcTok}", 1);
         return;   // wait on the decision; SPLIT_PREVENT_RESOLVE continues the loop
     }
     // No more offers → apply the plain + declined hits simultaneously, then sweep.
-    _SWUApplySplitHits($player, $apply);
+    _SWUApplySplitHits($player, $apply, $srcTok);
 }
 
 // "Distribute N Advantage tokens among units (divided as you choose)" — the SPLIT_DAMAGE analogue for
@@ -14733,13 +14772,46 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         $playerID = $savedPID;
         return;
     }
-    AddGameLogEntry('PLAY', 'P' . intval($player) . ' played ' . GameLogCardRef($cardID));
-    if (function_exists('SWUTelemetryBumpCard')) { SWUTelemetryBumpCard($player, $cardID, 'played'); SWUTelemetryBumpTurn($player, 'cardsUsed'); }
     $rawType       = CardType($cardID);
     // Cost (base + aspect penalty + all play-cost modifiers) — single source of
     // truth shared with the UI affordability check. See $playCostModifiers.
     // $discount (e.g. SOR_093 "It costs 1 resource less") is subtracted, floored at 0.
     $cost          = max(0, SWUComputePlayCost($player, $obj) - intval($discount));
+    $cardTypeLower = strtolower($rawType ?? '');
+    $isEvent       = strpos($cardTypeLower, 'unit') === false && strpos($cardTypeLower, 'upgrade') === false;
+
+    global $hasAlternateCostCards;
+    $hasAltCost = $isEvent
+                  && isset($hasAlternateCostCards[$cardID])
+                  && SWUCheckAlternateCost($player, $cardID);
+
+    // Upgrades check valid targets BEFORE paying cost (unlike units/events).
+    // Alt-cost events defer payment to the event branch (YESNO choice).
+    // The early resource exhaust is skipped for both; upgrades pay after target
+    // confirmation, alt-cost events pay via the SOR_199 handler.
+    if (!$ignoreCost && !$hasAltCost && strpos($cardTypeLower, 'upgrade') === false) {
+        $ok = SWUPayCost($player, $cost, $prepaid, true, $altPayOffered);
+        if (!$ok) {
+            SetFlashMessage("Not enough ready resources (need $cost).");
+            $playerID = $savedPID;
+            return;
+        }
+    }
+
+
+    // ── COMMIT POINT ───────────────────────────────────────────────────────────────────────────────
+    // Everything below this line is a SIDE EFFECT OF HAVING PLAYED THE CARD, so none of it may run for a
+    // play that fails. It all used to sit ABOVE the payment gate, which meant a rejected play still wrote
+    // a "played" line to the game log, bumped telemetry, inflated the cards-played-this-phase counter that
+    // cost modifiers read (TS26_36 Tribunal), and — worst — BURNED every one-shot discount charge the play
+    // had consumed: SOR_056 Bendu, LOF_005 Morgan, JTL_232's free copy, ASH_212 Peli's first-non-unit
+    // waiver, JTL_260 Death Star Plans, SHD_198, LAW_229, SEC_001's Plot discount. Clicking a card you
+    // could not afford silently spent them. Fixed 2026-08-28.
+    // ⚠ The three deferred-payment paths (ignoreCost / alt-cost events / upgrades) deliberately skip the
+    // gate above and fall through to here exactly as before — their payment happens later (SOR_199,
+    // ATTACH_UPGRADE), so a failure THERE still commits these. That residue is untouched and known.
+    AddGameLogEntry('PLAY', 'P' . intval($player) . ' played ' . GameLogCardRef($cardID));
+    if (function_exists('SWUTelemetryBumpCard')) { SWUTelemetryBumpCard($player, $cardID, 'played'); SWUTelemetryBumpTurn($player, 'cardsUsed'); }
     // cards-played-this-phase counter (any type). Bumped AFTER the cost is computed, so a modifier that
     // reads "for each OTHER card you played this phase" (TS26_36 Tribunal) sees the cards that came
     // before this one — the same view the UI affordability check gets, since that runs before the play.
@@ -14801,27 +14873,6 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
             && GlobalEffectCount(intval($player), 'SWU_SEC001_PLOT_DISCOUNT') > 0) {
         RemoveGlobalEffect(intval($player), 'SWU_SEC001_PLOT_DISCOUNT');
     }
-    $cardTypeLower = strtolower($rawType ?? '');
-    $isEvent       = strpos($cardTypeLower, 'unit') === false && strpos($cardTypeLower, 'upgrade') === false;
-
-    global $hasAlternateCostCards;
-    $hasAltCost = $isEvent
-                  && isset($hasAlternateCostCards[$cardID])
-                  && SWUCheckAlternateCost($player, $cardID);
-
-    // Upgrades check valid targets BEFORE paying cost (unlike units/events).
-    // Alt-cost events defer payment to the event branch (YESNO choice).
-    // The early resource exhaust is skipped for both; upgrades pay after target
-    // confirmation, alt-cost events pay via the SOR_199 handler.
-    if (!$ignoreCost && !$hasAltCost && strpos($cardTypeLower, 'upgrade') === false) {
-        $ok = SWUPayCost($player, $cost, $prepaid, true, $altPayOffered);
-        if (!$ok) {
-            SetFlashMessage("Not enough ready resources (need $cost).");
-            $playerID = $savedPID;
-            return;
-        }
-    }
-
     // LOF_012 Rey: "played a non-unit Force card this phase" — a Force EVENT commits here (cost paid).
     // Force UPGRADES set the same flag in the upgrade branch once a valid host is confirmed.
     if ($isEvent && HasTrait($cardID, 'Force')) {
@@ -15173,9 +15224,17 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         // FINISH_PLAY_CARD (block 10). resourcesPaid is already finalised at $gLastPlayResourcesPaid.
         // Skip when hasAltCost: SOR_199 may later change what was paid; documented as a known
         // limitation (the alt-cost branch resolves asynchronously via SOR_199 handler).
+        // dontSkipOnPass, for the same reason FINISH_PLAY_CARD below carries it: this observer fires on
+        // the event being PLAYED, not on the event doing anything. The event's own effects run at block 1,
+        // and DECLINING one of them ("you may play a unit from your hand" → PASS) leaves a STICKY PASS on
+        // the queue that skipped every unflagged CUSTOM behind it — so a declined clause silently erased
+        // both "when an opponent plays a card" (TWI_210 Lux Bonteri) and "when you play an event"
+        // (TWI_216 Fives, and the whole own-play reaction family) for a card that was played all the same.
+        // Measured 2026-08-28: 13 suite sections were skipping this collector, every one of them a decline.
         if (!$hasAltCost) {
             DecisionQueueController::AddDecision($player, "CUSTOM",
-                "TWI_210#0|{$player}|{$cardID}|{$resourcesPaid}|" . implode(',', $evtObserverUIDs), 5);
+                "TWI_210#0|{$player}|{$cardID}|{$resourcesPaid}|" . implode(',', $evtObserverUIDs), 5,
+                dontSkipOnPass: 1);
         }
         DecisionQueueController::AddDecision($player, "CUSTOM", "FINISH_PLAY_CARD", 10, dontSkipOnPass: 1);
         // Do NOT restore $playerID here — ExecuteStaticMethods calls MZCountChoices
@@ -15731,6 +15790,44 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
 // central SWUOfferDroidPayment to offer the Droid alt-pay step if SEC_122 is in play.
 // NOTE: the event branch of ActivateCard does NOT restore $playerID before returning, so we must
 // not restore $playerID here either — callers (SWUBeginPlayCard, EXPLOIT_RESOLVE) handle that.
+// ── The "did I reduce it enough?" gate for the additional-cost pickers ──────────────────────────────
+// Exploit, HMW_125 The Marauder and HMW_048 Vernestra Rwoh all let the player reduce a card's cost by
+// paying an additional cost FIRST (defeat units / damage units / bottom cards), and only then hand off
+// to SWUContinuePlayAfterExploit → ActivateCard, which is where payment can still FAIL. A card is
+// PLAYABLE (and glows) at its best-case reduction, so a player who under-picks reaches exactly that
+// failure — and the additional cost has already been paid. Playing a card is atomic: a play that cannot
+// be paid for did not happen, so the picker's cost must not be charged either.
+//
+// This answers "will the play go through at this total discount?" BEFORE anything is applied, so the
+// caller can abort cleanly instead of leaving a half-applied play behind.
+//
+// ⚠ It has to price through the pipeline that will CHARGE the play, or the gate and the payment
+// disagree: SWUPayCost subtracts the prepaid amount and THEN halves (JTL_105 The Starhawk), and
+// capacity is all three tiers (ready resources → Credit defeats → SEC_122 Droid exhausts), never a bare
+// ready count. Same math CanAffordActivationReserve uses for the glow, so a card that lit up green and
+// was reduced far enough is never rejected here.
+// $losingUIDs = units the additional cost is about to REMOVE from play. They still exist while this runs,
+// so a ready friendly Droid among them is still being counted as SEC_122 payment capacity that will not
+// be there at Pay Costs — subtract it. (For SEC_122 Vuutun's own play the two cancel exactly: the caller
+// adds +1 to the discount per exploited Droid, and this removes 1 from capacity. For any OTHER card there
+// is no compensation, so without this the gate would be optimistic by one per exploited ready Droid.)
+function _SWUPlayIsPayableAtDiscount(int $player, string $handMzID, int $totalDiscount,
+                                     array $losingUIDs = []): bool {
+    $obj = GetZoneObject($handMzID);
+    if (SWUObjGone($obj)) return false;
+    $cost = max(0, SWUComputePlayCost($player, $obj) - intval($totalDiscount));
+    $cost = SWUApplyCostHalving(intval($player), $cost);
+    $capacity = SWUTotalPaymentCapacity(intval($player));
+    if (!empty($losingUIDs) && SWUPlayerControlsSEC122(intval($player))) {
+        $losing = array_flip(array_map('intval', $losingUIDs));
+        foreach (SWUReadyFriendlyDroids(intval($player)) as $dmz) {
+            $d = GetZoneObject($dmz);
+            if (!SWUObjGone($d) && isset($losing[intval($d->UniqueID ?? 0)])) $capacity--;
+        }
+    }
+    return $capacity >= $cost;
+}
+
 function SWUContinuePlayAfterExploit($player, $mzID, $discount) {
     $obj  = GetZoneObject($mzID);
     // Upgrades pay their cost HOST-SIDE in ATTACH_UPGRADE (which runs its own Credit/Droid alt-pay offer),

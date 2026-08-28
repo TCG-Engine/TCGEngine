@@ -36,10 +36,7 @@ $customDQHandlers["HMW_185#0"] = function($player, $parts, $lastDecision) {
     $playerID = $dealer;
     $mz = SWUFindMzByUID($uid);
     if ($mz === null) return;                       // target left play while the question was pending
-    $srcMz = null;
-    if ($srcTok !== '') {
-        $srcMz = ($srcTok[0] === 'U') ? SWUFindMzByUID(intval(substr($srcTok, 1))) : substr($srcTok, 1);
-    }
+    $srcMz = _SWUDecodeDamageSource($srcTok);
     SWUDealDamageToUnit($mz, $amount, $dealer, $srcMz, $skipPrevent, true);
 };
 
@@ -55,17 +52,20 @@ $customDQHandlers["HMW_185#1"] = function($player, $parts, $lastDecision) {
     SWUDealIndirectDamage($controller, $amount, $damaged, $then, $srcUID, true);
 };
 
-// Resume divided damage. parts: player | amount | upto | tooltip | targets (~-joined)
+// Resume divided damage. parts: player | amount | upto | tooltip | targets (~-joined) | sourceToken
+// The source token rides through Ty's question untouched — the +1 changes the POOL, never who dealt it.
 $customDQHandlers["HMW_185#2"] = function($player, $parts, $lastDecision) {
     $dealer  = intval($parts[0] ?? 0);
     $amount  = intval($parts[1] ?? 0);
     $upto    = intval($parts[2] ?? 0) === 1;
     $tooltip = (string)($parts[3] ?? '');
     $targets = array_values(array_filter(explode('~', (string)($parts[4] ?? ''))));
+    $srcTok  = (string)($parts[5] ?? '');
     if (_SWUHmw185Accepted($lastDecision)) $amount += 1;
     if ($dealer <= 0) return;
     global $playerID; $playerID = $dealer;   // the pool's mzIDs are in the DEALER's frame
-    SWUOfferSplitDamage($dealer, $amount, $targets, $tooltip, $upto, true);
+    SWUOfferSplitDamage($dealer, $amount, $targets, $tooltip, $upto, true,
+        _SWUDecodeDamageSource($srcTok));
 };
 
 // Resume base damage. parts: dealer | amount | targetPlayer | damagerToken (U<uid> / P<seat> / N)

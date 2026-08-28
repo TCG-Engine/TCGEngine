@@ -313,3 +313,58 @@ P1SPACEARENAUNIT:0:CARDID:HMW_125
 P1GROUNDARENAUNIT:0:DAMAGE:1
 P1GROUNDARENAUNIT:1:DAMAGE:1
 P1RESAVAILABLE:2
+
+---
+
+# UnderChoose_StillUnaffordable_NothingHappens
+#// ⚠ THE HALF-APPLIED PLAY. Reported 2026-08-28. Same fixture as Glow_AffordableOnlyWithTheReduction —
+#// 5 resources, cost 7, two friendly units — so the card legitimately GLOWS: it is playable at the full
+#// 2-unit reduction. But the player may confirm just ONE pick, which prices it at 6 and the payment then
+#// fails ("Not enough ready resources").
+#// Playing a card is ATOMIC: a play that cannot be paid for did not happen, so the 1 damage the pick
+#// would have taken must not be on the board either. Every assertion here is a piece of "nothing
+#// happened" — no damage on either unit, the Marauder still in hand, and all 5 resources still ready.
+
+## GIVEN
+CommonSetup: ggw/grk/{myResources:5;handCardIds:HMW_125}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:1:DAMAGE:0
+P1SPACEARENACOUNT:0
+P1HANDCOUNT:1
+P1RESAVAILABLE:5
+
+---
+
+# ChooseEnough_ExactlyAffordable_MarauderLands
+#// ⚠ THE BOUNDARY PARTNER for UnderChoose_StillUnaffordable_NothingHappens. Identical fixture — 5
+#// resources, cost 7, two friendly units — but BOTH picks are confirmed, so the price is exactly 5 and
+#// the play goes through: each chosen unit takes its 1 damage and the Marauder reaches the space arena
+#// with 0 resources left. Without this the gate above passes for an implementation that refuses every
+#// reduced play.
+
+## GIVEN
+CommonSetup: ggw/grk/{myResources:5;handCardIds:HMW_125}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:HMW_125
+P1GROUNDARENAUNIT:0:DAMAGE:1
+P1GROUNDARENAUNIT:1:DAMAGE:1
+P1HANDCOUNT:0
+P1RESAVAILABLE:0

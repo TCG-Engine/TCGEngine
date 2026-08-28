@@ -67,6 +67,18 @@ $customDQHandlers["HMW_125#0"] = function ($player, $parts, $lastDecision) {
             $uids[] = intval($o->UniqueID ?? 0);
         }
     }
+    // ⚠ ABORT BEFORE ANYTHING IS APPLIED if the picks did not reduce the cost far enough. The card GLOWS
+    // at its best-case reduction (CanAffordActivationReserve subtracts the whole friendly pool), so a
+    // player holding 5 against a 7-cost Marauder with two friendly units may legally start the play and
+    // then confirm only ONE pick — pricing it at 6, which ActivateCard rejects with "Not enough ready
+    // resources". Playing a card is atomic, so the 1 damage that pick would have taken must not survive
+    // the failed play. Reported 2026-08-28; guarded by UnderChoose_StillUnaffordable_NothingHappens.
+    // Checked here rather than reverted later because the damage is not undoable once dealt — a pick it
+    // defeats has already fired its When-Defeated.
+    if (!_SWUPlayIsPayableAtDiscount(intval($player), $handMz, $discount + count($uids))) {
+        SetFlashMessage("Not enough resources to play this even after the reduction — nothing was chosen.");
+        return;
+    }
     // "Deal 1 damage to each of them" — one ability damaging several units, i.e. SIMULTANEOUSLY (cf. the
     // official Rancor Keeper ruling 07/21/2026). Units are re-resolved by UID because a pick killed by
     // its own 1 compacts the arena underneath the next lookup, and the batch window keeps a defeat
