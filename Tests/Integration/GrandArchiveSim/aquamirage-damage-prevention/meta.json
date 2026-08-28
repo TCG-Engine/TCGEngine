@@ -2,5 +2,15 @@
     "name": "aquamirage-damage-prevention",
     "rootName": "GrandArchiveSim",
     "createdAt": "2026-06-24T15:49:57+02:00",
-    "createdBy": "5"
+    "createdBy": "5",
+    "testedCards": [
+        "3n5x9fbkn0"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["3n5x9fbkn0"],
+        "mechanics": ["prevention", "condition"],
+        "rulesClauses": [
+            "Calming Breeze prevents damage of 3 or less that would be dealt to its controller's champion."
+        ]
+    }
 }

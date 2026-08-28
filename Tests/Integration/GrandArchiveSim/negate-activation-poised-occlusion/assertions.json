@@ -11,7 +11,9 @@
         "viewerPlayerID": 2,
         "mzId": "myHand-9",
         "property": "CardID",
-        "value": "w64layznmh"
+        "value": "w64layznmh",
+        "semantic": true,
+        "label": "Poised Occlusion remains in hand when activation is attempted outside a legal response window"
     },
     {
         "step": 1,

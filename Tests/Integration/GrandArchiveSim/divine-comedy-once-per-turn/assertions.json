@@ -1,0 +1,29 @@
+[
+  {
+    "step": 2,
+    "type": "card_property_equals",
+    "mzId": "p1Field-2",
+    "property": "Counters",
+    "value": "{\"divineComedyActivated\":1,\"cascade\":1}",
+    "semantic": true,
+    "label": "The first legal activation advances Divine Comedy's cascade exactly once"
+  },
+  {
+    "step": 3,
+    "type": "card_property_equals",
+    "mzId": "p1Field-2",
+    "property": "Counters",
+    "value": "{\"divineComedyActivated\":1,\"cascade\":1}",
+    "semantic": true,
+    "label": "A second activation attempt in the same turn does not advance the cascade or charge its repeat cost"
+  },
+  {
+    "step": 3,
+    "type": "card_property_equals",
+    "mzId": "p1Field-2",
+    "property": "TurnEffects",
+    "value": "[\"ENTERED_THIS_TURN\",\"DIVINE_COMEDY_USED_THIS_TURN\"]",
+    "semantic": true,
+    "label": "Divine Comedy retains its once-per-turn marker after rejecting the repeat activation"
+  }
+]
