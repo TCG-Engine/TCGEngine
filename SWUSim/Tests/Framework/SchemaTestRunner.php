@@ -1041,6 +1041,14 @@ class SchemaTestRunner {
                 $g->drainQueue($player);
                 break;
 
+            case 'Concede':
+                // $player concedes. Calls the SAME entry production uses — EngineActionRunner's
+                // input 10006 does exactly `TriggerGameOver($playerID)` — so this exercises the real
+                // concede outcome (2-player: opponent wins; Twin Suns: the seat is eliminated and
+                // scoring defers to the phase boundary) rather than a test-only shortcut. No args.
+                TriggerGameOver($player);
+                break;
+
             case 'SimulateRequestBoundary':
                 // Model the fresh-process boundary a real interactive decision creates: transient
                 // in-memory continuation globals reset while serialized gamestate persists. Catches
@@ -1216,6 +1224,16 @@ class SchemaTestRunner {
             } elseif ($line === 'P2WIN') {
                 if ($g->state->winner() !== 2)
                     $failures[] = "P2WIN: winner is " . var_export($g->state->winner(), true);
+
+            } elseif ($line === 'NOWINNER') {
+                // The game has NOT been decided. The positive P1WIN/P2WIN forms cannot express this,
+                // and "nobody has won yet" is exactly the property a premature game-over breaks —
+                // e.g. one seat conceding a Twin Suns game must not hand anyone the victory while
+                // other seats are still playing (bug report #985).
+                // An undecided game reports NULL here (not 0), so normalise before comparing.
+                $w = $g->state->winner();
+                if (!($w === null || intval($w) === 0))
+                    $failures[] = "NOWINNER: expected no winner, got " . var_export($w, true);
 
             } elseif (preg_match('/^TURNPLAYER:(\d+)$/', $line, $m)) {
                 // Whose action it is right now. Catches actions that fail to pass the turn —

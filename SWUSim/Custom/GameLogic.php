@@ -20777,8 +20777,27 @@ function MoveEffectStackCardToField($player, $mzCard) {
  * "You Won / You Lost" overlay on the next turn update.
  * @param int $loserPlayer  The player who lost (1 or 2).
  */
+// A player has left the game (EngineActionRunner input 10006 — Concede — is the live caller).
+//
+// ⚠ The seat-count branch is the whole point. This used to be the bare two-seat
+// `$winner = ($loserPlayer == 1) ? 2 : 1`, so in a Twin Suns game one player conceding declared the
+// OTHER player the outright winner and ended a game the remaining seats were still playing
+// (bug report #985: "conceding P1 gave P2 an auto-win, but P3 and P4 were still playing").
+//
+// Base defeat already had the correct shape one file over (CombatLogic ~500); concede simply never
+// got it. SWUEliminateSeat owns the Twin Suns rule end to end — drop the seat from LiveSeats, release
+// any counter it was holding, and flag deferred end-of-phase scoring (CR 12.7), including the
+// single-survivor short-circuit.
+//
+// $killer is null on purpose: a concession has no damager, so nobody heals 5.
 function TriggerGameOver($loserPlayer) {
-    $winner = ($loserPlayer == 1) ? 2 : 1;
+    $loser = intval($loserPlayer);
+    if (SeatCountForGame() > 2) {
+        SWUEliminateSeat($loser, null);
+        return;
+    }
+    // Two seats: conceding really is an immediate loss — there is nobody else left to play.
+    $winner = ($loser == 1) ? 2 : 1;
     SWUDeclareGameWinner($winner);
 }
 
@@ -22790,10 +22809,16 @@ function SelectionMetadata($obj) {
         return json_encode(['highlight' => false]);
     }
 
-    // Check if decision queue is empty
-    $decisionQueue = &GetDecisionQueue($turnPlayer);
-    $theirDecisionQueue = &GetDecisionQueue($turnPlayer == 1 ? 2 : 1);
-    if (count($decisionQueue) > 0 || count($theirDecisionQueue) > 0) {
+    // Nothing highlights while ANY seat still owes a decision — and this must ask the SAME authority as
+    // the server-side play gate (DecisionQueueController::AllQueuesEmpty, which loops 1..SeatCount), or
+    // the glow and the gate drift apart.
+    //
+    // They had drifted: this read only GetDecisionQueue($turnPlayer) and the hardcoded two-seat opponent
+    // `$turnPlayer == 1 ? 2 : 1`. Above two seats that inspects the acting seat and seat 1 (or seat 2)
+    // ONLY, so a decision pending on seat 3 or 4 was invisible and the hand lit up green for a play the
+    // server would then refuse. Reported on game 3608: JTL_237 TIE Bomber deals indirect damage to the
+    // defending player, and while that far seat assigned it the attacker's hand glowed as playable.
+    if (!(new DecisionQueueController())->AllQueuesEmpty()) {
         return json_encode(['highlight' => false]);
     }
 
