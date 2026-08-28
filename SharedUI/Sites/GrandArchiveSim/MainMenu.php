@@ -74,6 +74,12 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         <label for="deck-text" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste deck list (e.g. from fractalofin.site):</label>
         <textarea id="deck-text" name="deck_text" rows="12" placeholder="# Material Deck&#10;1 Lorraine, Wandering Warrior&#10;&#10;# Main Deck&#10;4 Fireball&#10;..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 13px; font-family: monospace; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
       </div>
+      <!-- Bot format only: one-click sample decks (current meta archetypes, sourced from Fan of
+           Insight) so a player can start a practice game without hunting down a decklist first. -->
+      <div id="ga-bot-sample-decks-group" style="display: none; margin-top: 10px;">
+        <div class="ga-inline-section-title" style="margin: 0 0 8px;">Or start with a sample deck</div>
+        <div id="ga-bot-sample-decks-list" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+      </div>
       <!-- Hotseat: a second deck link for Player 2. Bot: an optional deck for the bot to pilot
            (defaults to a copy of your own deck if left blank). Revealed only for those two formats. -->
       <div id="ga-deck2-group" style="display: none; margin-top: 10px;">
@@ -909,6 +915,8 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
           if (label) label.textContent = (fmt.value === 'bot')
             ? 'Bot\'s deck link (optional — defaults to a copy of your deck):'
             : 'Player 2 deck link (Hotseat):';
+          var sampleDecks = document.getElementById('ga-bot-sample-decks-group');
+          if (sampleDecks) sampleDecks.style.display = (fmt.value === 'bot') ? '' : 'none';
           var qt = document.getElementById('ga-queuetype-select');
           if (qt) { if (isMode) { qt.value = 'bo1'; qt.disabled = true; } else { qt.disabled = false; } }
         }
@@ -961,6 +969,47 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         var opt = sel.options[sel.selectedIndex];
         loadSavedDeckInput(opt ? opt.getAttribute('data-queue-input') : '');
       });
+
+      // Current-meta sample decks for the Bot format's "Or start with a sample deck" row —
+      // pulled from Fan of Insight's own "Playtest in Clarent" export (fanofin.site archetype
+      // pages), embedded here rather than fetched live so picking one works with no external
+      // dependency at request time.
+      var GA_BOT_SAMPLE_DECKS = [
+        {
+          label: 'Fire Guo Jia (Impact Hammer)',
+          text: '# Main\n4 Liminal Guide\n4 Undying Dreams\n3 Blazing Throw\n4 Creative Shock\n3 Demolition\n4 Embercrypt Burn\n4 Fiery Interference\n3 Heated Vengeance\n4 Peppered Chef\n3 Restorative Flame\n4 Rile the Abyss\n4 Searing Truth\n2 Shatter the Brittle\n3 Spark Alight\n4 Three of Hearts\n3 Vengeful Paramour\n4 Vermilion Decree\n\n# Material\n1 Spirit of Fire\n1 Guo Jia, Chosen Disciple\n1 Guo Jia, Blessed Scion\n1 Censer of Restful Peace\n1 Grand Crusader\'s Ring\n1 Portentous Tanggu\n1 Safeguard Amulet\n1 Smoke Bombs\n1 Sword of Seeking\n1 Tariff Ring\n1 Fabled Ruby Fatestone\n1 Impact Hammer\n\n# Sideboard\n1 Nullifying Mirror\n2 Crystallized Destiny\n3 Staggering Strike\n3 Fatestone of Unrelenting\n2 Flamewreath Call\n2 Under Fire'
+        },
+        {
+          label: 'Tera Silvie (Baby Silver Slime)',
+          text: '# Main\n4 Baby Gray Slime\n4 Baby Silver Slime\n4 Dungeon Guide\n4 Forest Cake\n4 Limitless Slime\n4 Disorienting Winds\n2 Dream Fairy\n4 Reclaim\n2 Slime Calling\n4 Slimeshield\n2 Song of Return\n2 Stifling Trap\n1 Aella, Zephyr\'s Hand\n4 Imperious Galebind\n4 Storm Slime\n4 Ethereal Slime\n2 Lustrous Slime\n4 Gaia\'s Songbird\n1 Tera Sight\n\n# Material\n1 Spirit of Wind\n1 Silvie, Wilds Whisperer\n1 Silvie, With the Pack\n1 Silvie, Slime Sovereign\n1 Beastbond Boots\n1 Enfeebling Orb\n1 Lost Providence\n1 Purifying Thurible\n1 Gaia\'s Blessing\n1 Horn of Beastcalling\n1 Seed of Nature\n1 Stonescale Band\n\n# Sideboard\n1 Nullifying Lantern\n1 Nullifying Mirror\n1 Viridian Protective Trinket\n1 Stifling Gyre\n2 Psychopomp\'s Gale\n3 Twilight Slime'
+        },
+        {
+          label: 'Water Diao Chan',
+          text: '# Main\n4 Burst Asunder\n1 Captivating Opulence\n4 Dissonant Fractal\n4 Fast Cure\n4 Fractal of Insight\n2 Fractal of Intrusion\n4 Fractal of Rain\n4 Fractal of Snow\n4 Fracturize\n4 Frostsworn Paladin\n4 Glimmering Refusal\n4 Lost in Thought\n4 Refracting Missile\n4 Shimmering Refraction\n1 Turbo Charge\n4 Unstable Fractal\n4 Zhang Jiao, Way of Peace\n\n# Material\n1 Spirit of Water\n1 Diao Chan, Enchantress\n1 Backup Charger\n1 Crystalline Mirror\n1 Nullifying Lantern\n1 Nullifying Mirror\n1 Portentous Tanggu\n1 Quicksilver Grail\n1 Safeguard Amulet\n1 Scepter of Fascination\n1 Wand of Frost\n1 Wind Resonance Bauble\n\n# Sideboard\n1 Art of War\n1 Captivating Opulence\n3 Chill to the Bone\n1 Staggering Strike\n1 Jianyu, Fate\'s Premonition\n1 Viridian Protective Trinket\n1 Water Resonance Bauble'
+        },
+        {
+          label: 'Wind Arisanna (Distilled Water)',
+          text: '# Main\n4 Distilled Water\n4 Floral Arrangement\n2 Obscured Offering\n3 Tend the Land\n3 Combustible Potion\n3 Soothing Potion\n2 Beseech the Winds\n3 Calming Breeze\n2 Cyclical Breeze\n2 Dream Fairy\n4 Fairy Whispers\n4 Imperial Alchemist\n4 Razorgale Calling\n4 Scout the Land\n4 Speed Potion\n2 Stifling Trap\n3 Three Visits\n3 Veiling Breeze\n4 Windmill Engineer\n\n# Material\n1 Spirit of Wind\n1 Arisanna, Herbalist Prodigy\n1 Alchemist\'s Cauldron\n1 Censer of Restful Peace\n1 Essence Crucible\n1 Grand Crusader\'s Ring\n1 Ingredient Pouch\n1 Polaris, Twinkling Cauldron\n1 Safeguard Amulet\n1 Tariff Ring\n1 Viridian Protective Trinket\n1 Purifying Thurible\n\n# Sideboard\n1 Nullifying Lantern\n1 Orb of Sealing\n1 Obscured Offering\n2 Innervate Agility\n3 Scatter Essence\n1 Stifling Trap\n2 Zephyr'
+        }
+      ];
+
+      function renderBotSampleDecks() {
+        var container = document.getElementById('ga-bot-sample-decks-list');
+        if (!container) return;
+        GA_BOT_SAMPLE_DECKS.forEach(function(deck, i) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.textContent = deck.label;
+          btn.style.cssText = 'padding: 6px 10px; font-size: 12px; background: rgba(52,152,219,0.18); color: #cfe8fb; border: 1px solid rgba(52,152,219,0.4); border-radius: 6px; cursor: pointer;';
+          btn.addEventListener('click', function() {
+            switchDeckTab('text');
+            var textEl = document.getElementById('deck-text');
+            if (textEl) textEl.value = deck.text;
+          });
+          container.appendChild(btn);
+        });
+      }
+      renderBotSampleDecks();
 
       function createPrivateGame() {
         submitQueueJoin({
