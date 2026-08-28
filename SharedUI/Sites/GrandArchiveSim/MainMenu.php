@@ -232,6 +232,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
       <label for="ga-board-background-theme" class="ga-settings-row ga-settings-row--split">
         <span>Board background</span>
         <select id="ga-board-background-theme">
+          <option value="paradise">Paradise</option>
           <option value="dawn">Dawn of Ashes</option>
           <option value="classic">Classic Blue</option>
         </select>
@@ -645,7 +646,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         },
         BoardBackgroundTheme: {
           type: 'string',
-          defaultValue: 'dawn'
+          defaultValue: 'paradise'
         }
       });
     }
@@ -668,10 +669,11 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
     }
     var boardThemeSelect = document.getElementById('ga-board-background-theme');
     if (boardThemeSelect && window.TCGSettings) {
-      var savedTheme = window.TCGSettings.get('BoardBackgroundTheme', { rootName: 'GrandArchiveSim', type: 'string', defaultValue: 'dawn' });
-      boardThemeSelect.value = (savedTheme === 'classic') ? 'classic' : 'dawn';
+      var validThemes = ['paradise', 'dawn', 'classic'];
+      var savedTheme = window.TCGSettings.get('BoardBackgroundTheme', { rootName: 'GrandArchiveSim', type: 'string', defaultValue: 'paradise' });
+      boardThemeSelect.value = (validThemes.indexOf(savedTheme) !== -1) ? savedTheme : 'paradise';
       boardThemeSelect.addEventListener('change', function() {
-        var value = boardThemeSelect.value === 'classic' ? 'classic' : 'dawn';
+        var value = (validThemes.indexOf(boardThemeSelect.value) !== -1) ? boardThemeSelect.value : 'paradise';
         window.TCGSettings.set('BoardBackgroundTheme', value, { rootName: 'GrandArchiveSim', type: 'string' });
       });
     }
