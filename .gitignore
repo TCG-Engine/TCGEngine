@@ -93,11 +93,13 @@ SharedUI/Sites/*/PrivacyPolicy.php
 SharedUI/Sites/*/Profile.php
 SharedUI/Sites/*/Signup.php
 SharedUI/Sites/*/TermsOfUse.php
+SharedUI/Sites/*/WaitingRoom.php
 # --- Root SharedUI/ pointers (render the active site) ---
 SharedUI/MainMenu.php
 SharedUI/Profile.php
 SharedUI/LoginPage.php
 SharedUI/Signup.php
+SharedUI/WaitingRoom.php
 
 # --- Local dev DB snapshot tooling (kept local for now) ---
 DevTools/snapshot-prod-db.sh

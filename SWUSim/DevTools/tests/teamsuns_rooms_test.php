@@ -111,6 +111,11 @@ check(count($b3) > 0, 'an illegal deck blocks start');
 
 $good = mkLobby(4);
 foreach (['red','blue','red','blue'] as $i => $t) SWURoomAssignTeam($good, $good->players[$i], $t);
+// Ready is part of the start gate (added with the waiting room). Loading a legal deck auto-readies a
+// seat in the live flow, so the fixture states it the same way it already states deckOk — otherwise
+// these two assertions test the ready gate instead of what they were written for: team assignment,
+// and the same leader on OPPOSING teams being legal.
+foreach ($good->players as $pl) $pl->setReady(true);
 check(SWURoomStartBlockers($good) === [], 'a full, assigned, deck-legal 2/2 room can start');
 
 // Leader conflict WITHIN a team blocks; the SAME leader on OPPOSING teams does not.

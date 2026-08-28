@@ -42,6 +42,12 @@
     'storage'  => 'account',
     'endpoint' => 'SWUSim/SavedDecks.php',
   ],
+  // Opts this sim into the shared WaitingRoom page (SharedUI/Render/WaitingRoom.php).
+  // Presence of this block IS the opt-in — the adapter supplies everything sim-specific (routing
+  // predicate, seat model, deck validation, start gate), so nothing else here needs a key.
+  'waitingRoom' => [
+    'adapter' => 'SWUSim/LobbyAdapter.php',
+  ],
   'profile' => [
     'sections'         => ['welcome+changePassword','savedDecks+blockedUsers','cosmetics','sounds'],
     'oauthAppLabel'    => 'Petranaki Arena',

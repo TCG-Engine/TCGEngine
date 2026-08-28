@@ -3,6 +3,7 @@ require_once "../../Core/NetworkingLibraries.php";
 require_once "../../Core/HTTPLibraries.php";
 require_once "./Classes/Player.php";
 require_once "./Classes/TeamRooms.php";
+require_once "./Classes/LobbyAdapter.php";
 $swuFormatsPath = __DIR__ . '/../../AppCore/SWU/Formats.php';
 if (is_file($swuFormatsPath)) require_once $swuFormatsPath;
 $swuMatchFlowPath = __DIR__ . '/../../SWUSim/MatchFlow.php';
@@ -33,7 +34,8 @@ foreach (($lobby->players ?? []) as $p) {
   if (($p instanceof Player) && $p->getPlayerID() == $hostPlayerID) { $host = $p; break; }
 }
 if (!$host || $playerID !== $hostPlayerID || $host->getAuthKey() !== $authKey) _startRoomFail($response, 'Only the host can start.');
-if (($lobby->rootName ?? '') !== 'SWUSim' || !SWUFormatIsRoomFormat($lobby->format ?? '')) {
+$startAdapter = LobbyAdapterFor(strval($lobby->rootName ?? ''));
+if ($startAdapter === null || !$startAdapter->wantsWaitingRoom($lobby)) {
   _startRoomFail($response, 'Not a multiplayer room.');
 }
 if (!empty($lobby->gameName)) _startRoomFail($response, 'Already started.');

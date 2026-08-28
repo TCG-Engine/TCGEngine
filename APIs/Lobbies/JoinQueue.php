@@ -5,6 +5,7 @@
   require_once "./Classes/Player.php";
   require_once __DIR__ . '/JoinQueue_blocklib.php';
   require_once __DIR__ . "/Classes/TeamRooms.php";   // SWURoomAutoTeamOnJoin / SWURoomAssignTeam
+  require_once __DIR__ . "/Classes/LobbyAdapter.php"; // LobbyAdapterFor — the per-sim lobby seam
 
   // Personal deck stats (Feature B): remember who created each seat so the match can attribute W/L.
   if (session_status() === PHP_SESSION_NONE) { @session_start(); }
@@ -300,19 +301,26 @@
         if (!empty($lobby->casterMode) !== $casterMode) continue;
         if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // blocked: fall through to generic "invalid/expired/full"
         if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) continue;
-        if (($lobby->rootName === 'SWUSim') && SWUFormatIsRoomFormat($lobby->format ?? '') && !empty($lobby->gameName)) continue; // already started
+        // A lobby whose match has begun cannot be joined. Was gated on SWUSim + a seat-count
+        // predicate; now on the adapter, so it holds for every sim and every private format.
+        $joinAdapter = LobbyAdapterFor(strval($lobby->rootName));
+        if ($joinAdapter !== null && $joinAdapter->wantsWaitingRoom($lobby) && !empty($lobby->gameName)) continue;
 
         $lobby->numPlayers++;
         if ($rootName === 'GrandArchiveSim') {
           $lobby->shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData) && $shareAnonymizedGameplayData;
         }
-        $isRoom = ($lobby->rootName === 'SWUSim' && SWUFormatIsRoomFormat($lobby->format ?? ''));
+        // ⚠ THE BEHAVIOUR CHANGE. Every PRIVATE lobby now waits for an explicit host Start instead of
+        // auto-readying when it fills — that is the whole point of the waiting room: players agree on
+        // decks first. Public queues are untouched ($lobby->isPrivate is false there), so fill = ready
+        // still holds for quick match. Both paths call the same SWUCreateMatchFromLobby().
+        $isRoom = $joinAdapter !== null && $joinAdapter->wantsWaitingRoom($lobby);
         if (!$isRoom && $lobby->numPlayers == $lobby->maxPlayers) {
-          $lobby->ready = true;   // 2-seat: fill = ready (unchanged)
+          $lobby->ready = true;   // public queue / non-opted sim: fill = ready (unchanged)
         }
         $playerID = $lobby->numPlayers;
         $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
-        if ($isRoom) _SWURoomApplyDeck($lobby->format, $newPlayer, $deckLink, $preconstructedDeck);
+        if ($isRoom) _SWURoomApplyDeck($lobby, $newPlayer, $deckLink, $preconstructedDeck);
         $lobby->players[] = $newPlayer;
         // Team rooms: force the joiner onto the only team with room; otherwise they pick (spec §4.3).
         // Must run AFTER the player is appended so the counts include them.
@@ -386,7 +394,11 @@
                                 // Team Suns seats move, and host must not move with them.
     $lobby->inviteCode = bin2hex(random_bytes(12));
     $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
-    if ($rootName === 'SWUSim' && SWUFormatIsRoomFormat($format)) _SWURoomApplyDeck($format, $newPlayer, $deckLink, $preconstructedDeck);
+    // $lobby->isPrivate is already true here, so this is simply "is this sim opted in, and is the
+    // format not solo/local" — which for a private lobby is every format a human plays against another.
+    $createAdapter = LobbyAdapterFor($rootName);
+    $createIsRoom  = $createAdapter !== null && $createAdapter->wantsWaitingRoom($lobby);
+    if ($createIsRoom) _SWURoomApplyDeck($lobby, $newPlayer, $deckLink, $preconstructedDeck);
     $lobby->players = array($newPlayer);
 
     apcu_store($lobbyId, $lobby, $ttl);
@@ -400,7 +412,7 @@
     $response->inviteCode = $lobby->inviteCode;
     $response->casterMode = !empty($lobby->casterMode);
     $response->maxPlayers = $lobby->maxPlayers;
-    $response->isRoom = ($rootName === 'SWUSim' && SWUFormatIsRoomFormat($format));
+    $response->isRoom = $createIsRoom;
 
     header('Content-Type: application/json');
     echo json_encode($response);
@@ -516,21 +528,31 @@
   // shows an accurate deckOk at create/join time — mirrors UpdateLobbyDeck.php's check. The leader
   // cache is what makes the team-wide leader-conflict check possible without re-resolving four
   // decks on every roster poll. Never fatal. Returns the deckOk value it just wrote.
-  function _SWURoomApplyDeck($format, $player, $deckLink, $preconstructedDeck) {
+  function _SWURoomApplyDeck($lobby, $player, $deckLink, $preconstructedDeck) {
     if (!($player instanceof Player)) return false;
-    $player->setLeaders([]);
-    if (!function_exists('SWUResolveDeckInput') || !function_exists('SWUCheckFormat')) {
-      $player->setDeckOk(false); return false;
-    }
+    $player->setDeckIdentity([], '', []);
+    // Same seam as UpdateLobbyDeck, so a seat's deck identity is built in exactly ONE place. $lobby
+    // carries the format the adapter validates against.
+    $adapter = LobbyAdapterFor(strval($lobby->rootName ?? ''));
+    if ($adapter === null) { $player->setDeckOk(false); return false; }
     $input = trim($deckLink) !== '' ? $deckLink : $preconstructedDeck;
-    if (trim((string)$input) === '') { $player->setDeckOk(false); return false; }
-    $resolved = SWUResolveDeckInput($input);
-    if (empty($resolved['success'])) { $player->setDeckOk(false); return false; }
-    $errs = SWUCheckFormat($format, $resolved['leader'] ?? '', $resolved['base'] ?? '', $resolved['mainDeck'] ?? [], $resolved['sideboard'] ?? []);
-    // 'leader' is a single CardID in standard formats and an ARRAY in Twin Suns / Team Suns.
-    $player->setLeaders((array)($resolved['leader'] ?? []));
-    $player->setDeckOk(empty($errs));
-    return empty($errs);
+    $v = $adapter->validateDeck($lobby, (string)$input);
+    $cards   = $v['ok'] ? $v['identity']['cards'] : [];
+    $leaders = [];
+    $base    = '';
+    foreach ($cards as $c) {
+      if ($c['kind'] === 'leader')                   $leaders[] = $c['id'];
+      elseif ($c['kind'] === 'base' && $base === '') $base      = $c['id'];
+    }
+    $player->setDeckIdentity($leaders, $base, $cards);
+    $player->setDeckOk($v['ok']);
+    // Joining WITH a legal deck auto-readies, exactly as loading one later does (UpdateLobbyDeck).
+    // Otherwise every seat would arrive un-ready and have to press a button to confirm the deck they
+    // just chose. Unready remains available for "hold on".
+    $player->setReady($v['ok']);
+    // Start the presence clock now: a seat that has not polled yet must not look absent.
+    $player->touch();
+    return $v['ok'];
   }
 
   function ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck, $format = 'standard', $joiningUserId = null) {

@@ -33,8 +33,8 @@ if (!$all) {
     }
 }
 
-$STANDARD_PAGES = ['Disclaimer','Header','LoginPage','MenuBar','MobileViewport','Patreons','PrivacyPolicy','Profile','Signup','TermsOfUse'];
-$ROOT_POINTERS  = ['MainMenu','Profile','LoginPage','Signup'];
+$STANDARD_PAGES = ['Disclaimer','Header','LoginPage','MenuBar','MobileViewport','Patreons','PrivacyPolicy','Profile','Signup','TermsOfUse','WaitingRoom'];
+$ROOT_POINTERS  = ['MainMenu','Profile','LoginPage','Signup','WaitingRoom'];
 
 $written = [];
 

@@ -88,6 +88,7 @@ $SAFE_CALLS = [
     'SWUPlayerPickerLabels' => 'builds underscored labels itself',
     'SWUDeckPickerLabels'   => 'builds underscored labels itself',
     '_SWUEncodeHits'        => 'encodes uid:amount pairs',
+    '_SWUEncodeDamageSource' => 'returns U<uid> / M<mzID> / empty — a UniqueID or an mzID, never prose',
     'OtherPlayer'           => 'a seat number',
     'str_replace'           => "the underscore wrapper itself — that is the FIX, so it is safe by construction",
 ];

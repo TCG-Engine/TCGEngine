@@ -10,6 +10,7 @@ require_once __DIR__ . '/Profile.php';
 require_once __DIR__ . '/Auth.php';
 require_once __DIR__ . '/Template.php';
 require_once __DIR__ . '/Misc.php';
+require_once __DIR__ . '/WaitingRoom.php';
 
 // Session bootstrap shared by every chrome/session page (extracted from the old MenuBar shim).
 function _SitePageSessionBootstrap(): void {
@@ -129,6 +130,25 @@ function RenderSitePage(string $site, string $page): void {
             echo RenderHeader($def);
             echo "\n";
             echo RenderTemplate('TermsOfUse', $def);
+            echo "\n";
+            echo RenderTemplate('Disclaimer', $def);
+            return;
+
+        // The shared lobby page. Opt-in is the SiteDef `waitingRoom` block; RenderWaitingRoom sends a
+        // redirect to MainMenu when the sim has none, so a sim that never opted in cannot land on an
+        // empty room. Chrome is rendered FIRST only when we are actually staying on the page —
+        // emitting the menu bar before a redirect would send output and break the Location header.
+        case 'WaitingRoom':
+            _SitePageSessionBootstrap();
+            if (WaitingRoomConfigFromSiteDef($def) === null) {
+                header('Location: ./MainMenu.php');
+                exit();
+            }
+            echo RenderMenuBar($def, BuildAuthContext());
+            echo "\n";
+            echo RenderHeader($def);
+            echo "\n";
+            RenderWaitingRoom($def);
             echo "\n";
             echo RenderTemplate('Disclaimer', $def);
             return;

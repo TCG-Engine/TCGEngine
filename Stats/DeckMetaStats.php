@@ -98,7 +98,7 @@ $forIndividual = false;
   <div id="matchupModalContent" style="background:var(--surface-sunken);color:var(--accent);padding:12px;border-radius:8px;max-width:900px;width:90%;max-height:85%;overflow:auto;box-shadow:0 8px 24px rgba(0,0,0,0.8);margin:48px auto;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
       <h3 style="margin:0;padding:0;color:var(--accent);">Matchup Breakout</h3>
-      <button id="closeMatchupModal" style="background:var(--check-fill);color:var(--accent);border:none;border-radius:4px;padding:6px 10px;cursor:pointer;">Close</button>
+      <button id="closeMatchupModal" style="padding:6px 10px;">Close</button>
     </div>
     <div id="matchupModalBody"> </div>
   </div>

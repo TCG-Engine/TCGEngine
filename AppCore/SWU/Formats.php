@@ -38,14 +38,14 @@ function SWUFormatDefinitions() {
 
         // ── SOLO / LOCAL MODES ────────────────────────────────────────────────
         // Not matchmade — JoinQueue creates the game immediately. Both validate decks
-        // like Open (unrestricted pool). 'mode' marks them so the menu can special-case
+        // like Open (unrestricted pool). 'localMode' marks them so the menu can special-case
         // the UI (single vs. double deck input) and skip the "logged-in" queue gate.
         'goldfish' => [
             'displayName'           => 'Goldfish (Solo)',
             'legalSets'             => '*',
             'banned'                => [],
             'ignoreGlobalCardRules' => true,
-            'mode'                  => true,
+            'localMode'             => true,
             'enabled'               => true,
         ],
         'hotseat' => [
@@ -53,7 +53,7 @@ function SWUFormatDefinitions() {
             'legalSets'             => '*',
             'banned'                => [],
             'ignoreGlobalCardRules' => true,
-            'mode'                  => true,
+            'localMode'             => true,
             'enabled'               => true,
         ],
 
@@ -184,10 +184,12 @@ function SWUGetFormat($formatId) {
         'maxCopies'         => $f['maxCopies']         ?? 3,    // default copy limit per card
         'leaderCount'       => $f['leaderCount']       ?? 1,    // leaders required in the deck
         'enabled'           => $f['enabled']           ?? true,
-        // Local/solo MODE (Goldfish, Hotseat) rather than a matchmade format. Surfaced so callers
-        // outside the menu — notably the stats gate — can tell practice play from real play.
-        // Additive: every existing consumer reads named keys, so no verdict changes.
-        'mode'              => !empty($f['mode']),
+        // Local/solo mode (Goldfish = solo; Hotseat = one human driving both seats) rather than a
+        // matchmade format. This is the WAITING-ROOM ROUTING PREDICATE — a localMode format never
+        // gets a lobby page — and it is also read by the stats gate to tell practice from results.
+        // ⚠ This array is a WHITELIST: a key present in SWUFormatDefinitions() but absent here is
+        // silently dropped, which would report localMode=false for EVERY format. Rename in both.
+        'localMode'         => !empty($f['localMode']),
         // Seat count + team markers (Twin Suns / Team Suns). Defaults keep every 2-player format
         // byte-identical: minPlayers/maxPlayers 2, no teams. SWUGetFormat returns an explicit key
         // WHITELIST, so a key added to SWUFormatDefinitions() but not listed here is silently
@@ -215,8 +217,8 @@ function SWUFormatIsRegistered($formatId) {
 //
 // Excluded: 'open' (an unrestricted anything-goes pool, so its results describe nothing) and the
 // local/solo MODES — Goldfish is one player, Hotseat is one person playing both seats. Both are
-// practice, not results. Derived from the 'mode' flag so a future local mode is covered the day it
-// is added rather than silently recording.
+// practice, not results. Derived from the 'localMode' flag so a future local mode is covered the day
+// it is added rather than silently recording.
 //
 // Preview formats ARE included: they are first-class formats separated by their own format key,
 // which is part of the PRIMARY KEY on the meta tables, so preview rows can never merge with
@@ -230,7 +232,7 @@ function SWUStatsFormats(bool $enabledOnly = true): array {
     foreach (array_keys(SWUFormatDefinitions()) as $id) {
         if ($id === 'open') continue;
         $f = SWUGetFormat($id);
-        if ($f === null || !empty($f['mode'])) continue;
+        if ($f === null || !empty($f['localMode'])) continue;
         if ($enabledOnly && empty($f['enabled'])) continue;
         $out[] = $id;
     }

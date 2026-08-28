@@ -355,7 +355,7 @@ function LoadDecks() {
       </svg>";
       $thisDeck .= "</button>";
       } else {
-        $thisDeck .= "<button title='Refresh' style='background-color: grey;' disabled onclick='event.stopPropagation();'>";
+        $thisDeck .= "<button title='Refresh' disabled onclick='event.stopPropagation();'>";
         $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-clockwise' viewBox='0 0 16 16'>
         <path fill-rule='evenodd' d='M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z'/>
         <path d='M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466'/>
@@ -1146,14 +1146,19 @@ function LoadDecks() {
 
       var jsonText = JSON.stringify(data, null, 2);
 
+      // These buttons carry NO inline background. Under the hud chamfer theme the element box is
+      // deliberately transparent and the shape is drawn by the ::before rim + ::after fill pseudos,
+      // which are clip-path'd to the cut corners; an element background is NOT clipped, so it paints
+      // a full rectangle that shows through as a solid triangle in each chamfer. Colour intent goes
+      // through the button tokens / semantic classes (.btn-danger) instead.
       var inner = document.querySelector('#cardTextJsonModal > div');
       inner.innerHTML =
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">' +
           '<span style="color:#aac8ff;font-size:15px;font-weight:bold;">' + data.length + ' unique card(s)</span>' +
           '<div style="display:flex;gap:8px;">' +
-            '<button onclick="copyCardTextJson()" style="background:#1a4a8a;color:#fff;border:none;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:13px;" onmouseover="this.style.background=\'#2a5aaa\'" onmouseout="this.style.background=\'#1a4a8a\'">Copy</button>' +
-            '<button onclick="downloadCardTextJson()" style="background:#1a4a8a;color:#fff;border:none;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:13px;" onmouseover="this.style.background=\'#2a5aaa\'" onmouseout="this.style.background=\'#1a4a8a\'">Download</button>' +
-            '<button onclick="closeCardTextJsonModal()" style="background:#5a1a1a;color:#fff;border:none;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:13px;" onmouseover="this.style.background=\'#7a2a2a\'" onmouseout="this.style.background=\'#5a1a1a\'">Close</button>' +
+            '<button onclick="copyCardTextJson()" style="padding:5px 12px;font-size:13px;">Copy</button>' +
+            '<button onclick="downloadCardTextJson()" style="padding:5px 12px;font-size:13px;">Download</button>' +
+            '<button class="btn-danger" onclick="closeCardTextJsonModal()" style="padding:5px 12px;font-size:13px;">Close</button>' +
           '</div>' +
         '</div>' +
         '<textarea id="cardTextJsonContent" readonly style="flex:1;width:100%;box-sizing:border-box;background:#000c1a;color:#cce0ff;border:1px solid #2a4b8d;border-radius:4px;padding:10px;font-family:monospace;font-size:12px;resize:none;min-height:400px;outline:none;">' +
@@ -1167,7 +1172,7 @@ function LoadDecks() {
     } catch (err) {
       var inner = document.querySelector('#cardTextJsonModal > div');
       inner.innerHTML = '<div style="color:#ff8888;text-align:center;padding:20px;">Error: ' + err.message + '</div>' +
-        '<div style="text-align:center;margin-top:10px;"><button onclick="closeCardTextJsonModal()" style="background:#5a1a1a;color:#fff;border:none;padding:5px 14px;border-radius:5px;cursor:pointer;">Close</button></div>';
+        '<div style="text-align:center;margin-top:10px;"><button class="btn-danger" onclick="closeCardTextJsonModal()" style="padding:5px 14px;">Close</button></div>';
     }
   }
 
@@ -1543,7 +1548,7 @@ function LoadDecks() {
   <div id="cardSearchOverlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); opacity: 0; transition: opacity 0.3s ease-out;" onclick="closeCardSearch()"></div>
   <div id="cardSearchContent" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5); width: 90%; height: 90%; background-color: #002249; box-shadow: 0 0 20px rgba(51, 204, 255, 0.4); border-radius: 8px; overflow: hidden; opacity: 0; transition: transform 0.2s ease-out, opacity 0.2s ease-out;">
     <div style="position: absolute; top: 10px; right: 10px; z-index: 1001;">
-      <button onclick="closeCardSearch()" style="background-color: #2a4b8d; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;">
+      <button onclick="closeCardSearch()" style="color: white; border: none; width: 30px; height: 30px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;">
         ✕
       </button>
     </div>
