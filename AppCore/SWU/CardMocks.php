@@ -307,6 +307,42 @@ When you deal 4 or more damage to a unit or a base: You may deal 1 damage to a d
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'HMW_016' => 
+  array (
+    'title' => 'Maul',
+    'subtitle' => 'Old Master',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 7,
+    'power' => 5,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Fringe',
+    ),
+    'text' => 'Action [Exhaust]: Play a unit from your hand. It costs [1 resource] less. Then, defeat it. (When Played abilities resolve after the unit is defeated.)',
+    'epicAction' => 'Epic Action: If you control 7 or more resources, deploy this leader.',
+    'deployText' => 'Shielded
+When Deployed: You may play a unit that was defeated this phase from your discard pile. It costs [5 resources] less.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/016.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/016-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_017' => 
   array (
     'title' => 'Osha',
@@ -2595,6 +2631,34 @@ Raid 1 (This unit gets +1/+0 while attacking.)',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/202.png',
     'imageUrlBack' => '',
   ),
+  'HMW_204' => 
+  array (
+    'title' => 'Nightbrother',
+    'subtitle' => 'Maul\'s Gauntlet',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 7,
+    'power' => 6,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Vehicle',
+      1 => 'Transport',
+    ),
+    'text' => 'When Played: You may play a unit from your discard pile. It costs [3 resources] less and enters play ready. At the start of the next regroup phase, defeat it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/204.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_205' => 
   array (
     'title' => 'Intelligence Agency',
@@ -2958,6 +3022,30 @@ An opponent creates a Beast token. Give a Weakness token to it.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/237.png',
     'imageUrlBack' => '',
   ),
+  'HMW_238' => 
+  array (
+    'title' => 'Exploit Confidence',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 2,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Tactic',
+    ),
+    'text' => 'Return a non-leader unit with 6 or more power to it\'s owner\'s hand.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/238.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_240' => 
   array (
     'title' => 'Sandstorm',
@@ -2981,6 +3069,32 @@ Choose an arena, Give a Weakness token to each exhausted enemy unit in that aren
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/240.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_243' => 
+  array (
+    'title' => 'Sun Fac',
+    'subtitle' => 'Poggle\'s Second',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 2,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+    ),
+    'text' => 'When Played: Give a unit Grit for this phase. (It gets +1/+0 for each damage on it.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/243.png',
     'imageUrlBack' => '',
   ),
   'HMW_255' => 
