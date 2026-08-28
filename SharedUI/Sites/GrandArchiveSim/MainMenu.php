@@ -309,6 +309,10 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
     overflow-y: auto;
     padding-right: 4px;
   }
+  .recent-games-list { margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 10px; }
+  .recent-games-heading { color: #d6b86d; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
+  .recent-game-row { display: flex; justify-content: space-between; gap: 8px; color: #c8d2df; font-size: 12px; padding: 5px 0; }
+  .recent-game-row span:last-child { color: #93a1b2; white-space: nowrap; }
   .hotkey-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #ccc; }
   .hotkey-badge {
     display: inline-block; min-width: 28px; text-align: center;
@@ -1718,7 +1722,8 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         var gameListElement = document.getElementById('active-games-list');
         if (!gameListElement) return;
         if (!games || !games.length) {
-          gameListElement.innerHTML = '<div class="active-game-empty">No active games right now. Start one or refresh again in a moment.</div>';
+          gameListElement.innerHTML = '<div class="active-game-empty">No active games right now. Start one or refresh again in a moment.</div><div id="recent-games-list" class="recent-games-list" aria-live="polite"></div>';
+          loadRecentMatches();
           return;
         }
 
@@ -1738,6 +1743,39 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
           html += '</div>';
         });
         gameListElement.innerHTML = html;
+      }
+
+      function formatRecentMatchTime(timestamp) {
+        if (!timestamp) return 'Unknown time';
+        var seconds = Math.max(0, Math.floor(Date.now() / 1000) - Number(timestamp));
+        if (seconds < 60) return 'just now';
+        if (seconds < 3600) return Math.floor(seconds / 60) + 'm ago';
+        if (seconds < 86400) return Math.floor(seconds / 3600) + 'h ago';
+        return Math.floor(seconds / 86400) + 'd ago';
+      }
+      function escapeRecentText(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, function(ch) {
+          return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+        });
+      }
+
+      function loadRecentMatches() {
+        var recent = document.getElementById('recent-games-list');
+        if (!recent) return;
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', gaAppBase() + 'APIs/Lobbies/GetRecentMatches.php?rootName=' + encodeURIComponent(rootName), true);
+        xhr.responseType = 'json';
+        xhr.onload = function() {
+          if (xhr.status < 200 || xhr.status >= 300 || !xhr.response || !Array.isArray(xhr.response.data) || !xhr.response.data.length) return;
+          var html = '<div class="recent-games-heading">Recent public games</div>';
+          xhr.response.data.forEach(function(match) {
+            var result = match.winner === 1 || match.winner === 2 ? 'Player ' + match.winner + ' won' : 'Completed';
+            var format = match.format ? match.format : 'Game';
+            html += '<div class="recent-game-row"><span><strong>' + escapeRecentText(format) + '</strong> · ' + escapeRecentText(result) + '</span><span>' + escapeRecentText(formatRecentMatchTime(match.completedAt)) + '</span></div>';
+          });
+          recent.innerHTML = html;
+        };
+        xhr.send();
       }
 
       function pollLobbyUpdates(playerID, authKey) {
