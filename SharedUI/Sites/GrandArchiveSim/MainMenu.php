@@ -80,6 +80,14 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         <div class="ga-inline-section-title" style="margin: 0 0 8px;">Or start with a sample deck</div>
         <div id="ga-bot-sample-decks-list" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
       </div>
+      <!-- Bot format only: every official preconstructed/starter product decklist, also sourced
+           from Fan of Insight, as printed (no tuning) — grouped by product release. -->
+      <div id="ga-official-decks-group" style="display: none; margin-top: 10px;">
+        <label for="ga-official-deck-select" style="display: block; margin-bottom: 8px; font-weight: 500;">Or load an official product deck:</label>
+        <select id="ga-official-deck-select" class="ga-queue-select">
+          <option value="" selected>-- Select an official deck --</option>
+        </select>
+      </div>
       <!-- Hotseat: a second deck link for Player 2. Bot: an optional deck for the bot to pilot
            (defaults to a copy of your own deck if left blank). Revealed only for those two formats. -->
       <div id="ga-deck2-group" style="display: none; margin-top: 10px;">
@@ -917,6 +925,8 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             : 'Player 2 deck link (Hotseat):';
           var sampleDecks = document.getElementById('ga-bot-sample-decks-group');
           if (sampleDecks) sampleDecks.style.display = (fmt.value === 'bot') ? '' : 'none';
+          var officialDecks = document.getElementById('ga-official-decks-group');
+          if (officialDecks) officialDecks.style.display = (fmt.value === 'bot') ? '' : 'none';
           var qt = document.getElementById('ga-queuetype-select');
           if (qt) { if (isMode) { qt.value = 'bo1'; qt.disabled = true; } else { qt.disabled = false; } }
         }
@@ -1010,6 +1020,155 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         });
       }
       renderBotSampleDecks();
+
+      // Every official preconstructed/starter product decklist, as printed — also sourced from
+      // Fan of Insight (app/src/features/official-products/decks.json), embedded statically for
+      // the same no-external-dependency reason as GA_BOT_SAMPLE_DECKS above. Verified against the
+      // live card dictionary via GrandArchiveSim/Custom/DeckTextParser.php's ParseFreeTextDeck()
+      // before embedding — every card name here resolves with zero unmatched names.
+      var GA_OFFICIAL_DECKS = [
+  {
+    "label": "Dante, Hemomancer Starter Deck",
+    "group": ".asphodel/paradise",
+    "text": "# Main\n3 Aenean Ward\n1 Eminence in Fury\n3 Heighten Spellcraft\n4 Magus Initiate\n3 Nascent Blast\n4 Shieldroid\n4 Stalwart Shieldmate\n3 Aenean Frostlance\n3 Aenean Frozen Shunt\n4 Cryogenic Ritual\n4 Frostbind\n4 Keen Tidebinder\n4 Memory Invocation\n2 Pure Cytosynth\n2 Blood Surge\n3 Elysian Aspirant\n2 Exia Sight\n4 Hemoflux Drain\n2 Spellshield: Exia\n2 Unruled Bereavement\n\n# Material\n1 Spirit of Water\n1 Dante, Prodigal Swain\n1 Dante, Aenean Initiate\n1 Dante, Hemomancer\n1 Bauble of Abundance\n1 Gencode Womb\n1 Life Essence Amulet\n1 Safeguard Amulet\n1 Shard of Empowerment\n1 Tariff Ring\n1 Crimson Vein\n1 Venous Core"
+  },
+  {
+    "label": "Lorraine, Arclight Saber Starter Deck",
+    "group": ".asphodel/paradise",
+    "text": "# Main\n3 Banner Knight\n3 Deflecting Edge\n4 Honorable Vanguard\n4 Blistering Insurgent\n4 Creative Tinder\n4 Emberslash\n2 FlameTech BladeCore\n4 Forging Heat\n4 Package Courier\n3 Stoked Slice\n4 Tindered Soldier\n3 Arcane Sight\n3 Arrest Lightning\n2 Brooch X Ultra\n1 Conductive Strike\n3 Fulgurite Coordinator\n3 Return Stroke\n2 Rumble Coordinator\n4 Surged Coordinator\n\n# Material\n1 Spirit of Fire\n1 Lorraine, Wandering Warrior\n1 Lorraine, Honed Operative\n1 Lorraine, Arclight Saber\n1 Bauble of Abundance\n1 Clarent, Sword of Peace\n1 Life Essence Amulet\n1 Safeguard Amulet\n1 Tariff Ring\n1 Fulminator, Rising Storm\n1 Jovian Hilt X Ultra"
+  },
+  {
+    "label": "Ciel, Mirage's Grave",
+    "group": "Distorted Reflections",
+    "text": "# Main\n3 Coy Bouclier\n4 Heavy Swing\n4 Idle Thoughts\n2 Lamentation's Toll\n2 Martial Guard\n2 Overpowering Defense\n3 Sablier Guard\n4 Stalwart Shieldmate\n3 Vigil Rempart\n4 Whimsy's Warden\n4 Conflagrant Sentinel\n4 Flamme Sorcel\n3 Tempered Steel\n3 Torch Marshal\n1 Devotion's Price\n2 Nocturne's Oblivion\n4 Ombreux Chevalier\n2 Reverse Affliction\n3 Sinistre Stab\n3 Umbra Sight\n\n# Material\n1 Spirit of Fire\n1 Ciel, Loyal Valet\n1 Ciel, Omenbringer\n1 Ciel, Mirage's Grave\n1 Bauble of Abundance\n1 Bulwark Sword\n1 Grande Aiguille\n1 Leporine Masque\n1 Life Essence Amulet\n1 Manxome Armoire\n1 Tariff Ring\n1 Grande Sonnerie"
+  },
+  {
+    "label": "Diana, Moonpiercer",
+    "group": "Distorted Reflections",
+    "text": "# Main\n4 Aetheric Calibration\n4 Backstep\n4 Charge the Soul\n3 Idle Thoughts\n4 Prudent Nock\n4 Reposition\n4 Stalwart Shieldmate\n3 Corsair Captain\n4 Dissuading Aether\n4 Drown in Aether\n3 Undercurrent Vantage\n3 Astra Sight\n4 Constellation's Blessing\n2 Guided Starlight\n2 Meteoric Volley\n3 Poised Occlusion\n3 Sidereal Spellshot\n2 Starbirth\n\n# Material\n1 Spirit of Water\n1 Diana, Aether Dilettante\n1 Diana, Judgment's Arrow\n1 Diana, Moonpiercer\n1 Bauble of Abundance\n1 Foresight Lens\n1 Ranger Boots\n1 Refluxal Ribbon\n1 Seeker's Aetherwing\n1 Tariff Ring\n1 Aquamirage Whisper\n1 Pleiades, Celestial Genesis"
+  },
+  {
+    "label": "Jin Starter Deck",
+    "group": "Mortal Ambition",
+    "text": "# Main\n2 Banner Knight\n4 Idle Thoughts\n4 Pierce the Heavens\n3 Regenerate\n4 Safeguard Paladin\n4 Savage Swing\n3 Trusty Steed\n3 Veteran Soldier\n4 Eminent Commander\n4 Favorable Winds\n3 Materialize Polearm\n2 Reclaim\n4 Swift Recruit\n3 Wind Cutter\n2 Bloodbond Bladesworn\n4 Enrage\n2 Exia Sight\n2 Hemorrhaging Rend\n2 Mend Flesh\n1 Relentless Outburst\n\n# Material\n1 Spirit of Wind\n1 Jin, Fate Defiant\n1 Jin, Zealous Maverick\n1 Jin, Undying Resolve\n1 Bauble of Abundance\n1 Executioner's Spear\n1 Life Essence Amulet\n1 Safeguard Amulet\n1 Slate Whetstone\n1 Steel Halberd\n1 Berserker Plate\n1 Shuang Ji of Sacrifice"
+  },
+  {
+    "label": "Kongming Starter Deck",
+    "group": "Mortal Ambition",
+    "text": "# Main\n4 Ardent Cloudstriker\n4 Formidable Youxia\n4 Harmonious Mantra\n4 Heighten Spellcraft\n2 Idle Thoughts\n4 Spirited Neophyte\n3 Wisdom's Reprise\n3 Cone of Frost\n4 Coriolis Ward\n3 Hydroguard Retainer\n3 Rising Tides\n4 Taiji of Crystal Strategems\n3 Tsunami of Nanyue\n2 Water Barrier\n4 Devoted Bloomweaver\n3 Leeching Bolt\n1 Planar Abyss\n2 Ruinous Pillars of Qidao\n3 Tera Sight\n\n# Material\n1 Spirit of Water\n1 Kongming, Wayward Maven\n1 Kongming, Ascetic Vice\n1 Kongming, Fel Eidolon\n1 Bauble of Abundance\n1 Fan of Seven Debts\n1 Life Essence Amulet\n1 Shard of Empowerment\n1 Tariff Ring\n1 Sweet Ambrosia\n1 Coronal of Rejuvenation\n1 Entrancing Filigree"
+  },
+  {
+    "label": "Arisanna Starter Deck",
+    "group": "Alchemical Revolution",
+    "text": "# Main\n3 Academy Attendant\n3 Barter Herbs\n3 Caretaker Drone\n4 Foraging Servant\n3 Potion of Healing\n3 Scry the Skies\n3 Serum of Wisdom\n4 Essence of Blizzards\n3 Flash Freeze\n3 Hypothermia\n2 Krustallan Distiller\n2 Perfect Repulsion\n2 Potion Infusion: Clarity\n3 Potion Infusion: Frostbite\n3 Stream of Consciousness\n2 Water Barrier\n3 Astra Sight\n3 Cometfall\n2 Condensed Supernova\n4 Cosmic Bolt\n1 Potion Infusion: Starlight\n1 Spellshield: Astra\n\n# Material\n1 Spirit of Water\n1 Arisanna, Herbalist Prodigy\n1 Arisanna, Master Alchemist\n1 Arisanna, Astral Zenith\n1 Cleric Robes\n1 Ingredient Pouch\n1 Life Essence Amulet\n1 Necklace of Foresight\n1 Prototype Staff\n1 Scale of Souls\n1 Synth Disrupter\n1 Cosmic Astroscope"
+  },
+  {
+    "label": "Diana Starter Deck",
+    "group": "Alchemical Revolution",
+    "text": "# Main\n4 Backstep\n4 Evasive Maneuvers\n4 Idle Thoughts\n4 Imperial Rifleman\n4 Materialize Munitions\n3 Reposition\n2 Supply Drone\n3 Take Aim\n1 Take Cover\n3 Trained Sharpshooter\n3 Airship Engineer\n3 Automaton Bomber\n2 Force Load\n4 Incendiary Shot\n2 Rocket Jump\n1 Anathema's End\n4 Creeping Torment\n3 Mindbreak Bullet\n2 Umbra Sight\n3 Umbral Tithe\n1 Violet Haze\n\n# Material\n1 Spirit of Fire\n1 Diana, Keen Huntress\n1 Diana, Deadly Duelist\n1 Diana, Duskstalker\n1 Blastshot Pump\n1 Flash Grenade\n1 Plated Bullet\n1 Prototype Pistol\n1 Quickdraw Piercer\n1 Tasershot\n1 Penetrator Round\n1 Shadow's Twin"
+  },
+  {
+    "label": "Tonoris Starter Deck",
+    "group": "Alchemical Revolution",
+    "text": "# Main\n4 Fortified Mana Shield\n4 Heavy Swing\n4 Imperial Recruit\n4 Imperial Sentry\n3 Into the Fray\n4 Martial Guard\n4 Novice Mechanist\n4 Stalwart Shieldmate\n4 Take Point\n3 Cyclonic Strike\n4 Recruitment Officer\n3 Rousing Slam\n2 Winds of Retribution\n3 Young Peacekeeper\n1 Assemble the Ancients\n3 Neos Sight\n3 Smash with Obelisk\n3 Summon Sentinels\n\n# Material\n1 Spirit of Wind\n1 Tonoris, Lone Mercenary\n1 Tonoris, Might of Humanity\n1 Tonoris, Genesis Aegis\n1 Bulwark Sword\n1 Charged Manaplate\n1 Crest of the Alliance\n1 Powercharged Shield\n1 Worn Gearblade\n1 Deployment Beacon\n1 Archon Broadsword\n1 Sentinel Fabricator"
+  },
+  {
+    "label": "Lorraine Starter Deck",
+    "group": "Dawn of Ashes",
+    "text": "# Main\n3 Banner Knight\n4 Crusader of Aesa\n3 Deflecting Edge\n4 Esteemed Knight\n2 Honorable Vanguard\n3 Inspiring Call\n3 Opening Cut\n3 Savage Slash\n2 Sudden Steel\n2 Training Session\n3 Veteran Soldier\n3 Weaponsmith\n2 Favorable Winds\n1 Hurricane Sweep\n1 Phalanx Captain\n2 Reclaim\n4 Swift Recruit\n2 Wind Cutter\n2 Crux Sight\n2 Spirit Blade: Ascension\n1 Spirit Blade: Dispersion\n3 Spirit Blade: Ghost Strike\n3 Spirit Blade: Infusion\n2 Spirit's Blessing\n\n# Material\n1 Spirit of Wind\n1 Lorraine, Wandering Warrior\n1 Lorraine, Blademaster\n1 Lorraine, Crux Knight\n1 Bauble of Abundance\n1 Clarent, Sword of Peace\n1 Fire Resonance Bauble\n1 Life Essence Amulet\n1 Ornamental Greatsword\n1 Sword of Seeking\n1 Warrior's Longsword\n1 Prismatic Edge"
+  },
+  {
+    "label": "Rai Starter Deck",
+    "group": "Dawn of Ashes",
+    "text": "# Main\n3 Barrier Servant\n2 Careful Study\n2 Idle Thoughts\n4 Library Witch\n3 Magus Disciple\n3 Peer into Mana\n4 Scry the Skies\n3 Blitz Mage\n2 Creative Shock\n2 Cremation Ritual\n1 Disintegrate\n4 Fireball\n2 Flame-Rune Swordsman\n3 Focused Flames\n4 Ignite the Soul\n2 Impassioned Tutor\n2 Purge in Flames\n2 Anger the Skies\n4 Arcane Blast\n3 Arcane Disposition\n3 Arcane Sight\n1 Power Overwhelming\n1 Spellshield: Arcane\n\n# Material\n1 Spirit of Fire\n1 Rai, Spellcrafter\n1 Rai, Archmage\n1 Rai, Storm Seer\n1 Crystal of Empowerment\n1 Endura, Scepter of Ignition\n1 Life Essence Amulet\n1 Mana Limiter\n1 Surveillance Stone\n1 Tome of Knowledge\n1 Water Resonance Bauble\n1 Arcanist's Prism"
+  },
+  {
+    "label": "Silvie Starter Deck",
+    "group": "Dawn of Ashes",
+    "text": "# Main\n4 Blissful Calling\n2 Empowering Harmony\n2 Gray Wolf\n2 Rebellious Bull\n2 Scry the Skies\n4 Smack with Flute\n3 Song of Nurturing\n2 Trusty Steed\n4 Blue Slime\n4 Deep Sea Beastbonder\n3 Dewdrop Hares\n3 Freezing Hail\n3 Giant Tortoise\n2 Give Bath\n2 Lakeside Serpent\n1 Mist Resonance\n2 Piper's Lullaby\n3 Revitalizing Cleanse\n3 Gaia's Songbird\n2 Invoke Dominance\n3 Meadowbloom Dryad\n3 Tera Sight\n1 Vertus, Gaia's Roar\n\n# Material\n1 Spirit of Water\n1 Silvie, Wilds Whisperer\n1 Silvie, With the Pack\n1 Silvie, Loved by All\n1 Beastbond Boots\n1 Beastbond Ears\n1 Beastbond Paws\n1 Flute of Taming\n1 Life Essence Amulet\n1 Melodious Flute\n1 Wind Resonance Bauble\n1 Seed of Nature"
+  },
+  {
+    "label": "Lorraine Starter Deck (Prelude)",
+    "group": "Dawn of Ashes Prelude",
+    "text": "# Main\n3 Banner Knight\n4 Crusader of Aesa\n2 Dungeon Guide\n4 Esteemed Knight\n4 Honorable Vanguard\n2 Inspiring Call\n3 Savage Slash\n4 Scry the Skies\n2 Sudden Steel\n4 Weaponsmith\n2 Disorienting Winds\n3 Dream Fairy\n3 Favorable Winds\n2 Hurricane Sweep\n3 Wind Cutter\n3 Crux Sight\n2 Spirit Blade: Ascension\n1 Spirit Blade: Dispersion\n4 Spirit Blade: Ghost Strike\n2 Spirit Blade: Infusion\n3 Spirit's Blessing\n\n# Material\n1 Spirit of Wind\n1 Lorraine, Wandering Warrior\n1 Lorraine, Blademaster\n1 Lorraine, Crux Knight\n1 Clarent, Sword of Peace\n1 Fire Resonance Bauble\n1 Life Essence Amulet\n1 Ornamental Greatsword\n1 Seer's Sword\n1 Sword of Seeking\n1 Warrior's Longsword\n1 Prismatic Edge"
+  },
+  {
+    "label": "Rai Starter Deck (Prelude)",
+    "group": "Dawn of Ashes Prelude",
+    "text": "# Main\n3 Barrier Servant\n2 Careful Study\n2 Dungeon Guide\n4 Library Witch\n3 Magus Disciple\n4 Peer into Mana\n4 Scry the Skies\n2 Blitz Mage\n4 Creative Shock\n4 Fireball\n2 Focused Flames\n4 Ignite the Soul\n3 Impassioned Tutor\n2 Purge in Flames\n2 Anger the Skies\n4 Arcane Blast\n4 Arcane Disposition\n4 Arcane Sight\n1 Power Overwhelming\n2 Spellshield: Arcane\n\n# Material\n1 Spirit of Fire\n1 Rai, Spellcrafter\n1 Rai, Archmage\n1 Rai, Storm Seer\n1 Crystal of Empowerment\n1 Endura, Scepter of Ignition\n1 Life Essence Amulet\n1 Mana Limiter\n1 Surveillance Stone\n1 Tome of Knowledge\n1 Wind Resonance Bauble\n1 Arcanist's Prism"
+  },
+  {
+    "label": "Arisanna Pantheon Starter",
+    "group": "Pantheon",
+    "text": "# Main\n1 Alpha Philterbeast\n1 Barter Herbs\n1 Battlefield Benediction\n1 Break Apart\n1 Disenchant\n1 Distilled Atrophy\n1 Distilled Water\n1 Empowering Tincture\n1 Epochal Conqueror\n1 Harvest Herbs\n1 Idle Thoughts\n1 Imperial Countermeasure\n1 Mendcall Mercy\n1 Mnemonic Charm\n1 Nascent Barrier\n1 Nascent Blast\n1 Nimble Court Assassin\n1 Pendant of Accrual\n1 Piquant Shieldbearer\n1 Potion Infusion: Animate\n1 Potion Infusion: Volatility\n1 Potion of Healing\n1 Samaritan's Reach\n1 Sanctified Paladin\n1 Scry the Skies\n1 Serum of Wisdom\n1 Shade Striker\n1 Shared Fervor\n1 Silver Soldier\n1 Stocked Outpost\n1 Tonic of Remembrance\n1 Veteran Soldier\n1 Wisdom's Reprise\n1 Aqua Vitae\n1 Buoyant Driftguard\n1 Convalescent Tonic\n1 Essence of Blizzards\n1 Flash Freeze\n1 Frostbind\n1 Krustallan Distiller\n1 Potion Infusion: Clarity\n1 Potion Infusion: Frostbite\n1 Potion Infusion: Seal\n1 Waterveil Apostle\n1 Astra Sight\n1 Astromech Attendant\n1 Celestial Navigation\n1 Cometfall\n1 Condensed Supernova\n1 Cosmic Bolt\n1 Dwarf Star's Glow\n1 Lunar Seer\n1 Meteor Strike\n1 Redirect Orbit\n1 Refracted Twilight\n1 Spellshield: Astra\n1 Starlit Apothecary\n1 Stellar Bloom\n1 Trine Recursion\n1 Twinstar Tonic\n\n# Material\n1 Spirit of Water\n1 Arisanna, Herbalist Prodigy\n1 Arisanna, Master Alchemist\n1 Arisanna, Astral Zenith\n1 Cleric Robes\n1 Equinox Hour\n1 Essence Crucible\n1 Ingredient Pouch\n1 Polaris, Twinkling Cauldron\n1 Safeguard Amulet\n1 Tariff Ring\n1 Cosmic Astroscope"
+  },
+  {
+    "label": "Kongming Pantheon Starter",
+    "group": "Pantheon",
+    "text": "# Main\n1 Ardent Cloudstriker\n1 Battlefield Benediction\n1 Break Apart\n1 Disenchant\n1 Epochal Conqueror\n1 Formidable Youxia\n1 Fractal of Mana\n1 Gentle Respite\n1 Harmonious Mantra\n1 Heighten Spellcraft\n1 Idle Thoughts\n1 Imperial Countermeasure\n1 Minister of Ceremony\n1 Mnemonic Charm\n1 Nascent Blast\n1 Nimble Court Assassin\n1 Pendant of Accrual\n1 Piquant Shieldbearer\n1 Retold Fortune\n1 Samaritan's Reach\n1 Sanctified Paladin\n1 Scry the Skies\n1 Shade Striker\n1 Shared Fervor\n1 Silver Soldier\n1 Spirited Neophyte\n1 Stalwart Shieldmate\n1 Stocked Outpost\n1 Venerable Sage\n1 Veteran Soldier\n1 Weaken Resistance\n1 Clumsy Apprentice\n1 Creative Shock\n1 Cremation Ritual\n1 Disintegrate\n1 Fireball\n1 Focused Flames\n1 Hasty Messenger\n1 Increasing Danger\n1 Purge in Flames\n1 Pyretic Prognosis\n1 Ritai Berserker\n1 Set Ablaze\n1 Shizun of the Ash\n1 Solar Pinnacle\n1 Solar Providence\n1 Spurn to Ash\n1 Tenderheart Guard\n1 Wandering Glaivier\n1 Entrenched Fortress\n1 Everlonging Thorns\n1 Flourishing Qi\n1 Leeching Bolt\n1 Meiren of Verdancy\n1 Petalfall Embrace\n1 Planar Abyss\n1 Roots of Tomorrow\n1 Ruinous Pillars of Qidao\n1 Tera Sight\n1 Verdure of Preservation\n\n# Material\n1 Spirit of Fire\n1 Kongming, Wayward Maven\n1 Kongming, Ascetic Vice\n1 Kongming, Fel Eidolon\n1 Equinox Hour\n1 Safeguard Amulet\n1 Tariff Ring\n1 Tome of Sorcery\n1 Worn Diary\n1 Gem of Searing Flame\n1 Coronal of Rejuvenation\n1 Vernal Talisman"
+  },
+  {
+    "label": "Lorraine Pantheon Starter",
+    "group": "Pantheon",
+    "text": "# Main\n1 Altruistic Blacksmith\n1 Banner Knight\n1 Besieged Slash\n1 Break Apart\n1 Crusader of Aesa\n1 Deflecting Edge\n1 Epochal Conqueror\n1 Esteemed Knight\n1 Imperial Countermeasure\n1 Inspiring Call\n1 Lurking Assailant\n1 Nimble Court Assassin\n1 Pendant of Accrual\n1 Piquant Shieldbearer\n1 Sacred Barrier\n1 Sanctified Paladin\n1 Savage Attack\n1 Savage Slash\n1 Shade Striker\n1 Shared Fervor\n1 Silver Soldier\n1 Stocked Outpost\n1 Sudden Steel\n1 Veteran Soldier\n1 Weaponsmith\n1 Aesan Protector\n1 Attune with the Winds\n1 Bolstering Tempest\n1 Cleansing Reunion\n1 Dematerialize\n1 Disorienting Winds\n1 Favorable Winds\n1 Hurricane Sweep\n1 Phalanx Captain\n1 Rally the Peasants\n1 Reclaim\n1 Scatter Essence\n1 Shred to Ribbons\n1 Swift Recruit\n1 Tactful Sergeant\n1 Unity's Gale\n1 Veiling Breeze\n1 Wind Cutter\n1 Windrider Vanguard\n1 Zephyr\n1 Beacon Knight\n1 Crux Sight\n1 Halcyon Animus\n1 Intangible Geist\n1 Iridescent Resurgence\n1 Numinous Monk\n1 Reaping Legacy\n1 Sabela, Gossamer Penance\n1 Slay the King\n1 Spirit Blade: Ascension\n1 Spirit Blade: Ghost Strike\n1 Spirit Blade: Infusion\n1 Spirit's Blessing\n1 Templar of the Eternal\n1 Wisp's Protection\n\n# Material\n1 Spirit of Wind\n1 Lorraine, Wandering Warrior\n1 Lorraine, Blademaster\n1 Lorraine, Spirit Ruler\n1 Charm of Anticipation\n1 Drawn Blade\n1 Equinox Hour\n1 Safeguard Amulet\n1 Sword of Seeking\n1 Tariff Ring\n1 Prismatic Edge\n1 Quietus Blade"
+  },
+  {
+    "label": "Zander Pantheon Starter",
+    "group": "Pantheon",
+    "text": "# Main\n1 Accepted Contract\n1 Covert Manipulator\n1 Cunning Broker\n1 Disenchant\n1 Epochal Conqueror\n1 Exploit Vulnerability\n1 Extraction Incision\n1 Gentle Respite\n1 Guerrilla Advantage\n1 Idle Thoughts\n1 Imperial Countermeasure\n1 Imperial Spy\n1 Incapacitate\n1 Juggle Knives\n1 Lurking Assailant\n1 Nimble Court Assassin\n1 Pendant of Accrual\n1 Piquant Shieldbearer\n1 Sable Remnant\n1 Sacred Barrier\n1 Sanctified Paladin\n1 Shade Striker\n1 Shared Fervor\n1 Silver Soldier\n1 Slice and Dice\n1 Stalwart Shieldmate\n1 Stocked Outpost\n1 Swerving Spring\n1 Thieving Cut\n1 Veteran Soldier\n1 Clumsy Apprentice\n1 Corhazi Arsonist\n1 Corhazi Courier\n1 Creative Shock\n1 Dazzling Courtesan\n1 Hasty Messenger\n1 Immolation Trap\n1 Increasing Danger\n1 Mark the Target\n1 Meltdown\n1 Planted Explosive\n1 Rending Flames\n1 Scorching Imperilment\n1 Spurn to Ash\n1 Tenderheart Guard\n1 Wandering Glaivier\n1 Bathe in Light\n1 Birefringence\n1 Corhazi Infiltrator\n1 Corhazi Lightblade\n1 Elucidate Plans\n1 Elyan, Lustre Loyalty\n1 Gleaming Cut\n1 Lightveil Agent\n1 Lightweaver's Assault\n1 Luminous Surge\n1 Luxem Sight\n1 Optical Control\n1 Strike of Singularity\n1 Uncover the Plot\n\n# Material\n1 Spirit of Fire\n1 Zander, Prepared Scout\n1 Zander, Deft Executor\n1 Zander, Blinding Steel\n1 Assassin's Mantle\n1 Curved Dagger\n1 Equinox Hour\n1 Orb of Choking Fumes\n1 Safeguard Amulet\n1 Tariff Ring\n1 Insignia of the Corhazi\n1 Photic Blade"
+  },
+  {
+    "label": "Diao Chan Re:Collection, Idyll Corsage",
+    "group": "Re:Collection",
+    "text": "# Main\n3 Fractal of Insight\n2 Idle Thoughts\n3 Shimmering Refraction\n3 Unstable Fractal\n3 Acquiescing Rejection\n3 Chill to the Bone\n4 Dissuading Halt\n4 Eventide Lure\n3 Fractal of Refreshment\n2 Frostbind\n3 Frostlorn Caress\n3 Frostnip Pirouette\n2 Glimmering Refusal\n2 Protective Fractal\n1 Redirect Flow\n2 Refracting Missile\n2 Torpid Fractal\n3 Bloom: Summer's Glow\n2 Bloom: Winter's Chill\n3 Blossoming Denial\n2 Ripples of Atrophy\n3 Season's End\n2 Shriveling Vines\n\n# Material\n1 Spirit of Water\n1 Diao Chan, Enchantress\n1 Diao Chan, Dreaming Wish\n1 Diao Chan, Idyll Corsage\n1 Cleric Robes\n1 Glimmer Essence Amulet\n1 Scepter of Fascination\n1 Tariff Ring\n1 Crystalline Mirror\n1 Hairpin of Transience\n1 Kaleidoscope Barrette\n1 Staff of Blossoming Will"
+  },
+  {
+    "label": "Guo Jia Re:Collection, Heaven's Favored",
+    "group": "Re:Collection",
+    "text": "# Main\n4 Companion Fatestone\n4 Craggy Fatestone\n3 Expel the Departed\n4 Fatestone of Revelations\n4 Foraging Fox\n2 Idle Thoughts\n4 Journey's Beginning\n2 Obscuring Threads\n4 Strengthen the Bonds\n4 Broken Promises\n4 Fatestone of Unrelenting\n2 Flamewreath Call\n4 Lavaplume Fatestone\n2 Shatter the Brittle\n3 Advent of the Shenju\n4 Fatestone of Heaven\n3 Light the Hunt\n3 Peacock of Prosperity\n\n# Material\n1 Spirit of Fire\n1 Guo Jia, Chosen Disciple\n1 Guo Jia, Blessed Scion\n1 Guo Jia, Heaven's Favored\n1 Fated Keepsake\n1 Life Essence Amulet\n1 Portentous Tanggu\n1 Rousing Rattle Drum\n1 Tariff Ring\n1 Band of Burning Verdict\n1 Fabled Azurite Fatestone\n1 Incandescent Reliquary"
+  },
+  {
+    "label": "Silvie Re:Collection, Slime Sovereign",
+    "group": "Re:Collection",
+    "text": "# Main\n4 Baby Gray Slime\n4 Forest Cake\n3 Idle Thoughts\n4 Limitless Slime\n3 Smack with Flute\n2 Song of Nurturing\n4 Baby Red Slime\n2 Red Slime\n3 Slime Eruption\n3 Baby Blue Slime\n2 Blue Slime\n4 Gather Slimes\n3 Baby Green Slime\n2 Green Slime\n3 Slime's Blessing\n2 Slimeshield\n2 Storm Slime\n2 Ethereal Slime\n3 Lustrous Slime\n2 Slime King\n3 Verdant Slime\n\n# Material\n1 Spirit of Slime\n1 Silvie, Wilds Whisperer\n1 Silvie, With the Pack\n1 Silvie, Slime Sovereign\n1 Bauble of Mending\n1 Beastbond Ears\n1 Beastbond Paws\n1 Key Slime Pudding\n1 Life Essence Amulet\n1 Slime Nexus\n1 Slime Totem\n1 Verdant Scepter"
+  },
+  {
+    "label": "Tristan Re:Collection, Shadowdancer",
+    "group": "Re:Collection",
+    "text": "# Main\n4 Exploit Vulnerability\n4 Idle Thoughts\n3 Incapacitate\n1 Mastermind Scheme\n4 Sable Remnant\n3 Slice and Dice\n2 Thieving Cut\n2 Arrow Trap\n4 Betraying Blade\n3 Cloaked Executioner\n4 Shimmercloak Assassin\n4 Sirocco Operative\n2 Stifling Trap\n4 Surveil the Winds\n2 Gloamspire Headhunter\n3 Grim Foreboding\n2 Haunting Demise\n3 Shadow Resonance\n3 Shadowstrike\n3 Shifting Mirage\n\n# Material\n1 Spirit of Wind\n1 Tristan, Underhanded\n1 Tristan, Hired Blade\n1 Tristan, Shadowdancer\n1 Assassin's Mantle\n1 Curved Dagger\n1 Life Essence Amulet\n1 Poisoned Dagger\n1 Gearstride Gloves\n1 Dusksoul Stone\n1 Malignant Athame\n1 Shadeblood Coating"
+  }
+];
+
+      function renderOfficialDeckSelect() {
+        var select = document.getElementById('ga-official-deck-select');
+        if (!select) return;
+        var groups = {};
+        var order = [];
+        GA_OFFICIAL_DECKS.forEach(function(deck) {
+          if (!groups[deck.group]) { groups[deck.group] = []; order.push(deck.group); }
+          groups[deck.group].push(deck);
+        });
+        order.forEach(function(groupName) {
+          var optgroup = document.createElement('optgroup');
+          optgroup.label = groupName;
+          groups[groupName].forEach(function(deck) {
+            var option = document.createElement('option');
+            option.value = GA_OFFICIAL_DECKS.indexOf(deck);
+            option.textContent = deck.label;
+            optgroup.appendChild(option);
+          });
+          select.appendChild(optgroup);
+        });
+        select.addEventListener('change', function() {
+          if (select.value === '') return;
+          var deck = GA_OFFICIAL_DECKS[parseInt(select.value, 10)];
+          if (!deck) return;
+          switchDeckTab('text');
+          var textEl = document.getElementById('deck-text');
+          if (textEl) textEl.value = deck.text;
+        });
+      }
+      renderOfficialDeckSelect();
 
       function createPrivateGame() {
         submitQueueJoin({
