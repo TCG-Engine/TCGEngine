@@ -13,13 +13,80 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016
 
 <!-- HMW_011 Darth Sidious — Done, 12/12 including Twin Suns. Carries the engine's first
      "when you deal 4+ damage" observer, wired into all five damage funnels.
      ⚠ The "Twin Suns offer pool is truncated" scare was a FIXTURE FAULT, not an engine bug: seats 3/4
      get NO BASE unless WithP3Base/WithP4Base seeds one, so ZoneSearch('theirBase') correctly returned
      only p2Base-0 and the test then answered with a base that did not exist. Fan-out was fine. -->
+
+<!-- HMW_016 Maul, Old Master — Done, 28 sections (front + deployed, each to its own floor).
+     SEC_018 DJ is the direct sibling: same Action shape, same -1, same "(When Played abilities resolve
+     after ...)" parenthetical, differing only in captures-vs-defeats. Epic deploy and Shielded need no
+     code (deploy threshold IS the printed cost; Shielded is generator-derived from deployTextData).
+     ★ RULING APPLIED (user, this session): a leader ability resolves BEFORE the abilities it sets off,
+     so the synchronous defeat lands first and the played unit's triggers resolve afterwards. Proven by
+     SEC_056 Escape Pod, whose "this unit captures a friendly unit" finds no captor and fizzles.
+     ⚠ OPEN DIVERGENCE — the same ruling says a unit with BOTH a When Played and a When Defeated puts
+     them on the stack together, resolvable in EITHER ORDER. The engine does not offer that choice: the
+     When Played is flushed from the entry bag and the When Defeated is collected later at the defeat,
+     so they land in separate batches and always go When-Played-first. MEASURED, not inferred — the
+     boards pass identically with and without an EffectStack answer (i.e. it is silently absorbed).
+     Observable on TWI_208 Favorable Delegate, where drawing first lets you discard the drawn card and
+     discarding first cannot. Batching the two windows is shared trigger plumbing and would also change
+     SEC_018, so it was left for a decision rather than changed here.
+     ⚠ The uniqueness deferral copied from SEC_018 is NOT verified load-bearing on this card — DJ's
+     second step is a CAPTURE (the copy becomes an unfindable subcard) whereas a DEFEAT compacts the
+     arena predictably. Mutation could not find a board where removing it changes anything. Kept, but
+     labelled in the card file so it is not copied onward as proven.
+     ⚠ Deploying raises TWO entry triggers (Shielded + When Deployed), so every deployed-side section
+     answers the EffectStack ordering prompt first.
+     Interactions with TWI_208 / LAW_091 / LOF_207 / ASH_167 / SOR_134 (all dual-window units) are
+     covered; note LOF_207/ASH_167/SOR_134 use the SLASH form, which is one ability firing in both
+     windows rather than two separate clauses.
+     Set state after this card: 117 of 117 mocked HMW CardIDs done. -->
+
+<!-- HMW_204 Nightbrother, Maul's Gauntlet — Done, 12 sections. TWI_189 Unnatural Life is the
+     near-exact precedent (discount + enters ready + SWU_SNEAK_DEFEAT at regroup); this one is
+     optional, unrestricted, and -3. Offer via SWUOfferDiscountPlay over myDiscard, whose
+     SWUPlayablesAtDiscount already prices candidates through SWUComputePlayCost minus the discount
+     against SWUTotalPaymentCapacity — so the fizzle-only-optional and Credits-can-pay rules come free.
+     ⚠ FOUND BY A GREEN MUTATION: 'discount' => 3 on the offer feeds ONLY the affordability filter,
+     while the continuation charges whatever IT passes to ActivateCard. Changing one and not the other
+     is silent (the first draft hardcoded 3 in both and mutating the offer's copy changed nothing). The
+     number now rides the continuation's param, so the filter and the pay path cannot disagree — and
+     mutating it reds four sections. Any card using a custom continuation with this helper has the
+     same trap.
+     ⚠ SWU_SNEAK_DEFEAT has NO $turnEffectRegistry row, which is what makes it permanent enough to
+     reach the regroup (SWUExpireTurnEffects skips unregistered bases). Cost: no Active Effects
+     provenance — a pre-existing gap shared with SOR_219/TWI_189/SHD_226.
+     ⚠ TEST-DESIGN NOTE: after a regroup, RESAVAILABLE cannot prove a play happened (the phase readies
+     every resource) and "the card is in the discard" is true whether or not it was ever played. Both
+     regroup sections use an ATTACK (P2BASEDMG:7) as the receipt instead.
+     Set state after this card: 116 of 117 mocked HMW CardIDs done; REMAINING = HMW_016 only. -->
+
+<!-- HMW_238 Exploit Confidence — Done, 8 sections. "Return a non-leader unit with 6 or more power
+     to its owner's hand" is SHD_078 Fell the Dragon's shape (nonLeader + ObjectCurrentPower >= N) with
+     BOUNCE_UNIT instead of DEFEAT_UNIT; SOR_203's "4 or LESS power" mode is the mirror precedent.
+     ⚠ THE nonLeader FILTER IS INVISIBLE TO BEHAVIOUR. SWUBounceUnit independently refuses any CardType
+     containing 'Leader', so dropping the filter leaves a deployed leader OFFERED but immobile —
+     mutation-confirmed to red the OFFER section only. Any future "return a unit" card needs its
+     non-leader gate asserted in the pool, never in the outcome.
+     Other guards: the 5-vs-6 boundary PAIR (5 fizzles, 6 returns), current-vs-printed power (a
+     printed-4 unit wearing +2/+2 is legal), and owner-vs-control (a stolen unit goes to its OWNER's
+     hand — mutating SWUBounceUnit's $owner to $obj->Controller reds exactly that section).
+     Set state after this card: 115 of 117 mocked HMW CardIDs done; REMAINING = HMW_016, HMW_204. -->
+
+<!-- HMW_243 Sun Fac, Poggle's Second — Done, 11 sections. "When Played: Give a unit Grit for this
+     phase" is a word-for-word mirror of SEC_255 Remote Escort Tank (same unqualified target), so the
+     card is a 3-line SWUOfferUnitTarget -> GRANT_PHASE_KEYWORD|GRIT^HMW_243; 'GRIT' was already a
+     GRANT_KEYWORD registry row and HasKeyword_Grit already reads turn-effect grants.
+     Coverage worth keeping: the per-damage SCALING pair (0 damage -> +0, 2 damage -> +2, so a flat
+     "+1" reading reds), power-only (HP unchanged - the TS26 port once had Grit as +1/+1), the
+     RECOMPUTE case (target gritted while undamaged, then damaged in-phase), and the expiry.
+     Set state after this card: 114 of 117 mocked HMW CardIDs done; REMAINING = HMW_016,
+     HMW_204, HMW_238 (derived from the CardMocks diff, which is the oracle - not the batches). -->
 
 <!-- HMW_019 Dune Sea = blank-text base (52 of 92 released bases are likewise vanilla).
      HMW_T02 Weakness / HMW_T03 Beast = token CARDS; the engine handles tokens generically, so they

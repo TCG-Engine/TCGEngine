@@ -1029,6 +1029,7 @@ $turnEffectRegistry = [
     'SHD_129' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Timely Intervention — the played unit gains Ambush this phase
     'SHD_215' => ['kind' => 'STAT_DEBUFF'],                                                                                   // Smuggler's Starfighter — enemy unit gets -3/-0 this phase
     'SEC_018' => ['kind' => 'MARKER',          'label' => 'DJ'],                                                               // DJ — transient findable marker on the unit just played by the leader action (captured immediately)
+    'HMW_016' => ['kind' => 'MARKER',          'label' => 'Maul'],                                                             // Maul, Old Master — same shape: findable marker on the unit the leader action just played (defeated immediately)
     'TS26_32' => ['kind' => 'MARKER',         'label' => 'Reckless Landing'],                                                 // Reckless Landing — findable marker on the unit just played by the event (dealt 4 damage)
     'SOR_138' => ['kind' => 'LOSE_ABILITIES',                        'label' => 'Loses all abilities'],                       // Force Lightning — chosen unit loses all abilities this phase
     'SOR_140' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => 'SENTINEL', 'label' => 'Loses Sentinel'],                          // SpecForce Soldier — a unit loses Sentinel this phase
