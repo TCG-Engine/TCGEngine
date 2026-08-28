@@ -1,0 +1,11 @@
+{
+  "name": "Crackling Incineration rejects a champion target",
+  "rootName": "GrandArchiveSim",
+  "baseFixture": "crackling-incineration",
+  "testedCards": ["14bepZKPlK"],
+  "semanticCoverage": {
+    "testedCards": ["14bepZKPlK"],
+    "mechanics": ["targeting"],
+    "rulesClauses": ["Crackling Incineration may choose an eligible item or weapon, not a champion."]
+  }
+}

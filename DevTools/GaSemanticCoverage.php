@@ -25,14 +25,19 @@ function GaResolveTestedCards($meta) {
     return (is_array($meta) && is_array($meta['testedCards'] ?? null)) ? $meta['testedCards'] : [];
 }
 
-function GaSemanticAssertions($assertions) {
-    return array_values(array_filter((array)$assertions, fn($a) => is_array($a) && !empty($a['semantic'])));
+function GaSemanticAssertions($assertions, $actions = []) {
+    $assertionEvidence = array_values(array_filter((array)$assertions, fn($a) => is_array($a) && !empty($a['semantic'])));
+    // A rejected illegal action is semantic evidence too: its expected
+    // failure proves a targeting, cost, or condition restriction even when
+    // there is no post-action state to assert.
+    $rejectionEvidence = array_values(array_filter((array)$actions, fn($a) => is_array($a) && !empty($a['expectFailure']) && !empty($a['semantic'])));
+    return array_merge($assertionEvidence, $rejectionEvidence);
 }
 
 // A fixture's semanticCoverage contract is complete only when it names the
 // tested cards, the mechanics under test, the printed rule clauses being
 // proved, and has at least one assertion marked as the proof.
-function GaSemanticContractIsComplete($meta, $assertions) {
+function GaSemanticContractIsComplete($meta, $assertions, $actions = []) {
     $contract = GaSemanticContract($meta);
     if ($contract === null) return false;
 
@@ -43,5 +48,5 @@ function GaSemanticContractIsComplete($meta, $assertions) {
     return is_array($testedCards) && !empty($testedCards)
         && is_array($mechanics) && !empty($mechanics)
         && is_array($clauses) && !empty($clauses)
-        && !empty(GaSemanticAssertions($assertions));
+        && !empty(GaSemanticAssertions($assertions, $actions));
 }

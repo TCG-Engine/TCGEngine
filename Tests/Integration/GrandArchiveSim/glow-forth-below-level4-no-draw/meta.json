@@ -1,0 +1,17 @@
+{
+  "name": "Glow Forth does not draw below level 4",
+  "rootName": "GrandArchiveSim",
+  "baseFixture": "glow-forth-level4-regression",
+  "initialGamestateReplacements": [
+    {
+      "from": "enxi6tshtu 2 1 0 1 raG5r85ieO - - -1",
+      "to": "enxi6tshtu 2 1 0 1 - - - -1"
+    }
+  ],
+  "testedCards": ["27jlb9h1a5"],
+  "semanticCoverage": {
+    "testedCards": ["27jlb9h1a5"],
+    "mechanics": ["condition", "draw-discard"],
+    "rulesClauses": ["The extra draw into memory occurs only while your champion is level 4 or higher."]
+  }
+}

@@ -35,11 +35,38 @@ function RunnerTempGameName($slug) {
   return 'regression_' . $slug . '_' . uniqid();
 }
 
-function RunnerPrepareTempGame($rootName, $slug, $fixtureDir) {
+function RunnerInitialFixtureDir($rootName, $fixtureDir, $meta) {
+  $baseSlug = strval($meta['baseFixture'] ?? '');
+  if ($baseSlug === '') return $fixtureDir;
+  if (!preg_match('/^[a-z0-9][a-z0-9-]*$/', $baseSlug)) {
+    throw new RuntimeException("Invalid baseFixture '{$baseSlug}'.");
+  }
+  $baseDir = RegressionFixtureDir($rootName, $baseSlug);
+  if (!is_dir($baseDir) || !is_file($baseDir . DIRECTORY_SEPARATOR . 'initial_gamestate.txt')) {
+    throw new RuntimeException("Base fixture '{$baseSlug}' has no initial gamestate.");
+  }
+  return $baseDir;
+}
+
+function RunnerInitialGamestateText($initialFixtureDir, $meta) {
+  $gamestate = file_get_contents($initialFixtureDir . DIRECTORY_SEPARATOR . 'initial_gamestate.txt');
+  foreach (($meta['initialGamestateReplacements'] ?? []) as $replacement) {
+    if (!is_array($replacement)) throw new RuntimeException('initialGamestateReplacements entries must be objects.');
+    $from = strval($replacement['from'] ?? '');
+    $to = strval($replacement['to'] ?? '');
+    if ($from === '' || substr_count($gamestate, $from) !== 1) {
+      throw new RuntimeException('An initial gamestate replacement must match exactly one location.');
+    }
+    $gamestate = str_replace($from, $to, $gamestate);
+  }
+  return $gamestate;
+}
+
+function RunnerPrepareTempGame($rootName, $slug, $initialFixtureDir, $meta) {
   $gameName = RunnerTempGameName($slug);
   $gameDir = RegressionRepoRoot() . DIRECTORY_SEPARATOR . $rootName . DIRECTORY_SEPARATOR . 'Games' . DIRECTORY_SEPARATOR . $gameName;
   RegressionEnsureDir($gameDir);
-  $initialGamestate = file_get_contents($fixtureDir . DIRECTORY_SEPARATOR . 'initial_gamestate.txt');
+  $initialGamestate = RunnerInitialGamestateText($initialFixtureDir, $meta);
   file_put_contents(
     $gameDir . DIRECTORY_SEPARATOR . 'Gamestate.txt',
     RegressionNormalizeGamestateTextForRoot($rootName, $initialGamestate)
@@ -89,17 +116,25 @@ foreach ($fixtures as $slug) {
     if ($args['test'] !== null) break;
     continue;
   }
-  if (!is_file($fixtureDir . DIRECTORY_SEPARATOR . 'initial_gamestate.txt')) {
+  $meta = RunnerLoadMeta($fixtureDir);
+  try {
+    $initialFixtureDir = RunnerInitialFixtureDir($args['root'], $fixtureDir, $meta);
+  } catch (Throwable $error) {
+    echo "[FAIL] {$slug}: " . $error->getMessage() . "\n";
+    ++$failures;
+    if ($args['test'] !== null) break;
+    continue;
+  }
+  if (!is_file($initialFixtureDir . DIRECTORY_SEPARATOR . 'initial_gamestate.txt')) {
     echo "[FAIL] {$slug}: initial_gamestate.txt is missing.\n";
     ++$failures;
     if ($args['test'] !== null) break;
     continue;
   }
 
-  [$gameName, $gameDir] = RunnerPrepareTempGame($args['root'], $slug, $fixtureDir);
+  [$gameName, $gameDir] = RunnerPrepareTempGame($args['root'], $slug, $initialFixtureDir, $meta);
   $actions = RegressionLoadActionsForFixture($fixtureDir);
   $assertions = RegressionLoadAssertionsForFixture($fixtureDir);
-  $meta = RunnerLoadMeta($fixtureDir);
   $label = $meta['name'] ?? $slug;
 
   $failed = false;
@@ -119,7 +154,13 @@ foreach ($fixtures as $slug) {
       'disableRecording' => true,
     ]);
 
-    if (!$result['success']) {
+    $expectsFailure = !empty($action['expectFailure']);
+    if ($expectsFailure && $result['success']) {
+      $failed = true;
+      $failureMessage = "Step {$stepNumber} unexpectedly succeeded; this fixture requires rejection.";
+      break;
+    }
+    if (!$expectsFailure && !$result['success']) {
       $failed = true;
       $failureMessage = "Step {$stepNumber} failed: " . ($result['message'] ?: 'engine action failed');
       break;
@@ -133,7 +174,7 @@ foreach ($fixtures as $slug) {
     }
 
     if ($args['verbose']) {
-      echo "[STEP] {$slug} #{$stepNumber} mode={$action['mode']} player={$action['playerID']}\n";
+      echo "[STEP] {$slug} #{$stepNumber} mode={$action['mode']} player={$action['playerID']}" . ($expectsFailure ? ' expected-rejection' : '') . "\n";
     }
   }
 

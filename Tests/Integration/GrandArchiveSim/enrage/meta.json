@@ -13,5 +13,13 @@
   "testedCards": [
     "wcfvrfw35s"
   ],
+  "semanticCoverage": {
+    "testedCards": ["wcfvrfw35s"],
+    "mechanics": ["damage", "combat", "condition"],
+    "rulesClauses": [
+      "Deal 4 unpreventable damage to your champion.",
+      "When the damage-counter condition is met, the champion's next attack gets the Enrage bonus."
+    ]
+  },
   "savedAt": "2026-04-26T19:56:03.925Z"
 }

@@ -58,7 +58,9 @@
         "type": "card_property_equals",
         "mzId": "p2Field-1",
         "property": "Damage",
-        "value": "3"
+        "value": "3",
+        "semantic": true,
+        "label": "First chosen ally takes exactly 3 damage"
     },
     {
         "step": 7,

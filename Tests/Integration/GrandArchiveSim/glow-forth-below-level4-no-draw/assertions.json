@@ -1,0 +1,20 @@
+[
+  {
+    "step": 4,
+    "type": "card_property_equals",
+    "mzId": "p1Field-0",
+    "property": "TurnEffects",
+    "value": "[\"vz4kc558yx-ACTION_ACTIVATED\"]",
+    "semantic": true,
+    "label": "The champion has no temporary level bonus and remains below level 4"
+  },
+  {
+    "step": 4,
+    "type": "zone_count",
+    "zone": "myMemory",
+    "viewerPlayerID": 1,
+    "value": 1,
+    "semantic": true,
+    "label": "Glow Forth does not draw into memory while the champion is level 3"
+  }
+]

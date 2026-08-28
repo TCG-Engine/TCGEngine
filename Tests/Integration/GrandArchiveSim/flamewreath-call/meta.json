@@ -16,6 +16,14 @@
     "testedCards": [
         "c8wwslgbvr"
     ],
+    "semanticCoverage": {
+        "testedCards": ["c8wwslgbvr"],
+        "mechanics": ["targeting", "damage", "cost"],
+        "rulesClauses": [
+            "Deal 3 damage to each of up to two chosen ally targets.",
+            "The class/Beast cost reduction is applied only when its condition is met."
+        ]
+    },
     "savedAt": "2026-04-26T23:38:45.650Z",
     "lastRecordedAt": "2026-04-30T16:51:21+02:00",
     "lastRecordedBy": "5"

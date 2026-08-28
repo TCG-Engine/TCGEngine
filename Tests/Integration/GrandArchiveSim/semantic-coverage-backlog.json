@@ -2,7 +2,7 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-27T23:07:50+00:00",
+    "generatedAt": "2026-08-28T12:55:35+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 22,
@@ -68,7 +68,9 @@
             "existingFixtures": [
                 "butlers-augury"
             ],
-            "semanticFixtures": [],
+            "semanticFixtures": [
+                "butlers-augury"
+            ],
             "priority": 44
         },
         {
@@ -86,7 +88,9 @@
             "existingFixtures": [
                 "crackling-incineration"
             ],
-            "semanticFixtures": [],
+            "semanticFixtures": [
+                "crackling-incineration"
+            ],
             "priority": 44
         },
         {
@@ -104,7 +108,9 @@
             "existingFixtures": [
                 "enrage"
             ],
-            "semanticFixtures": [],
+            "semanticFixtures": [
+                "enrage"
+            ],
             "priority": 44
         },
         {
@@ -122,7 +128,9 @@
             "existingFixtures": [
                 "flamewreath-call"
             ],
-            "semanticFixtures": [],
+            "semanticFixtures": [
+                "flamewreath-call"
+            ],
             "priority": 44
         },
         {
@@ -140,7 +148,9 @@
             "existingFixtures": [
                 "glow-forth-level4-regression"
             ],
-            "semanticFixtures": [],
+            "semanticFixtures": [
+                "glow-forth-level4-regression"
+            ],
             "priority": 44
         },
         {
@@ -158,7 +168,9 @@
             "existingFixtures": [
                 "harrow-the-saved-alice-curse-lineage"
             ],
-            "semanticFixtures": [],
+            "semanticFixtures": [
+                "harrow-the-saved-alice-curse-lineage"
+            ],
             "priority": 44
         },
         {

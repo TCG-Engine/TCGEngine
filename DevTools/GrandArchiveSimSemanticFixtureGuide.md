@@ -42,6 +42,24 @@ assertion fields are intentionally ignored by the runner, so this is backward co
 }
 ```
 
+For a negative path, mark the deliberately illegal action itself. The runner requires the
+engine to reject it, and that rejection counts as semantic evidence:
+
+```json
+{
+  "playerID": 1,
+  "mode": 100,
+  "cardID": "theirField-0",
+  "expectFailure": true,
+  "semantic": true,
+  "label": "Rejects a champion because the effect targets allies only"
+}
+```
+
+Negative fixtures may reuse a happy fixture's initial game state with
+`"baseFixture": "happy-fixture-slug"` in `meta.json`; only their own `actions.json`
+and `assertions.json` are then required.
+
 ## Required coverage per ability
 
 For every implemented ability, author a happy-path fixture and add a negative-path fixture

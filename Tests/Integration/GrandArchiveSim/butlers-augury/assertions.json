@@ -9,7 +9,9 @@
         "type": "card_property_equals",
         "mzId": "myField-2",
         "property": "Damage",
-        "value": "7"
+        "value": "7",
+        "semantic": true,
+        "label": "Butler's Augury applies its resolved X damage to its controller's champion"
     },
     {
         "step": 5,

@@ -44,7 +44,9 @@
         "type": "card_property_equals",
         "mzId": "p1Graveyard-3",
         "property": "CardID",
-        "value": "zyEMI5XNHt"
+        "value": "zyEMI5XNHt",
+        "semantic": true,
+        "label": "A banished non-champion Specter is moved into its controller's graveyard"
     },
     {
         "step": 6,

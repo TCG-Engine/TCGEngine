@@ -33,11 +33,14 @@ foreach (scandir($fixtureRoot) as $slug) {
     if ($slug === '.' || $slug === '..' || !is_dir($fixtureRoot . '/' . $slug)) continue;
     $metaPath = $fixtureRoot . '/' . $slug . '/meta.json';
     $assertionsPath = $fixtureRoot . '/' . $slug . '/assertions.json';
+    $actionsPath = $fixtureRoot . '/' . $slug . '/actions.json';
     if (!is_file($assertionsPath)) continue; // not a real fixture dir
     $meta = is_file($metaPath) ? json_decode(file_get_contents($metaPath), true) : [];
     $assertions = json_decode(file_get_contents($assertionsPath), true);
+    $actions = is_file($actionsPath) ? json_decode(file_get_contents($actionsPath), true) : [];
     if (!is_array($meta)) $meta = [];
     if (!is_array($assertions)) $assertions = [];
+    if (!is_array($actions)) $actions = [];
     $totals['fixtures']++;
 
     $contract = GaSemanticContract($meta);
@@ -45,11 +48,11 @@ foreach (scandir($fixtureRoot) as $slug) {
         $totals['legacy']++;
         continue;
     }
-    $semantic = GaSemanticAssertions($assertions);
+    $semantic = GaSemanticAssertions($assertions, $actions);
     $testedCards = GaResolveTestedCards($meta);
     $mechanics = $contract['mechanics'] ?? [];
     $clauses = $contract['rulesClauses'] ?? [];
-    $complete = GaSemanticContractIsComplete($meta, $assertions);
+    $complete = GaSemanticContractIsComplete($meta, $assertions, $actions);
     if (!$complete) {
         echo "[INCOMPLETE] {$slug}\n";
         $totals['incomplete']++;

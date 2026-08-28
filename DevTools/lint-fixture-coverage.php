@@ -167,7 +167,12 @@ function LintResolveAssertionCardId($assertion) {
     return $cardId;
 }
 
-function LintIsLowCoverage($assertions) {
+function LintIsLowCoverage($assertions, $actions = []) {
+    // A semantic rejected action is a real rules proof even when its fixture
+    // deliberately has no post-action state assertion.
+    foreach ($actions as $action) {
+        if (is_array($action) && !empty($action['expectFailure']) && !empty($action['semantic'])) return false;
+    }
     $nonEmpty = array_values(array_filter($assertions, fn($a) => is_array($a) && !empty($a['type'])));
     if (count($nonEmpty) === 0) return true;
     if (count($nonEmpty) === 1 && ($nonEmpty[0]['type'] ?? '') === 'decision_queue_empty') return true;
@@ -234,6 +239,9 @@ foreach ($slugs as $slug) {
 
     $assertions = json_decode(file_get_contents($assertionsPath), true);
     if (!is_array($assertions)) $assertions = [];
+    $actionsPath = $dir . '/actions.json';
+    $actions = is_file($actionsPath) ? json_decode(file_get_contents($actionsPath), true) : [];
+    if (!is_array($actions)) $actions = [];
 
     $mechanicHits = LintSlugMatchesMechanicKeywords($slug, $mechanicKeywords);
     $flaggedThisFixture = false;
@@ -280,7 +288,7 @@ foreach ($slugs as $slug) {
     }
 
     // --- Check 2: assertions.json is empty, or just decision_queue_empty. ---
-    if (LintIsLowCoverage($assertions)) {
+    if (LintIsLowCoverage($assertions, $actions)) {
         $nonEmptyCount = count(array_filter($assertions, fn($a) => is_array($a) && !empty($a['type'])));
         echo "[INFO] {$slug}: assertions.json has only {$nonEmptyCount} assertion(s) — cheap to eyeball, may be under-testing the fixture\n";
         $flaggedThisFixture = true;
@@ -289,10 +297,10 @@ foreach ($slugs as $slug) {
     // --- Check 3: semantic contracts are complete and have at least one
     // hand-authored assertion. Legacy fixtures have no contract and are
     // reported as migration work, rather than incorrectly treated as proven.
-    $semanticAssertions = GaSemanticAssertions($assertions);
+    $semanticAssertions = GaSemanticAssertions($assertions, $actions);
     if ($semanticContract !== null) {
-        if (!GaSemanticContractIsComplete($meta, $assertions)) {
-            echo "[WARN] {$slug}: semanticCoverage is incomplete — require testedCards, mechanics, rulesClauses, and a semantic assertion\n";
+        if (!GaSemanticContractIsComplete($meta, $assertions, $actions)) {
+            echo "[WARN] {$slug}: semanticCoverage is incomplete — require testedCards, mechanics, rulesClauses, and semantic assertion or rejected action\n";
             $flaggedThisFixture = true;
         }
     } elseif (!empty($semanticAssertions)) {

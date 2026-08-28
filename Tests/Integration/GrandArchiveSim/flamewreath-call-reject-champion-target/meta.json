@@ -1,0 +1,11 @@
+{
+  "name": "Flamewreath Call rejects a champion target",
+  "rootName": "GrandArchiveSim",
+  "baseFixture": "flamewreath-call",
+  "testedCards": ["c8wwslgbvr"],
+  "semanticCoverage": {
+    "testedCards": ["c8wwslgbvr"],
+    "mechanics": ["targeting"],
+    "rulesClauses": ["Flamewreath Call can target allies, not champions."]
+  }
+}

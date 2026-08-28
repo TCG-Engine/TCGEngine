@@ -51,7 +51,9 @@
         "type": "card_property_equals",
         "mzId": "p2Field-0",
         "property": "Counters",
-        "value": "{\"_champCombatDamageDealtThisTurn\":2,\"sheen\":1}"
+        "value": "{\"_champCombatDamageDealtThisTurn\":2,\"sheen\":1}",
+        "semantic": true,
+        "label": "Destroyed item's controller places exactly one sheen counter on their chosen unit"
     },
     {
         "step": 8,

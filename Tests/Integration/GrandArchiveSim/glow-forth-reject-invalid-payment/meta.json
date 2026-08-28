@@ -1,0 +1,11 @@
+{
+  "name": "Glow Forth rejects an invalid payment selection",
+  "rootName": "GrandArchiveSim",
+  "baseFixture": "glow-forth-level4-regression",
+  "testedCards": ["27jlb9h1a5"],
+  "semanticCoverage": {
+    "testedCards": ["27jlb9h1a5"],
+    "mechanics": ["cost"],
+    "rulesClauses": ["Glow Forth's payment must use a card from its offered payment pool, not an opposing object."]
+  }
+}

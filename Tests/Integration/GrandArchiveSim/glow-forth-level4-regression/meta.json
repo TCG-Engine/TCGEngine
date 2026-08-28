@@ -15,6 +15,14 @@
     "testedCards": [
         "27jlb9h1a5"
     ],
+    "semanticCoverage": {
+        "testedCards": ["27jlb9h1a5"],
+        "mechanics": ["counter", "draw-discard", "cost"],
+        "rulesClauses": [
+            "Put a buff counter on each ally you control.",
+            "At level 4 or higher, draw a card into memory."
+        ]
+    },
     "savedAt": "2026-04-26T15:04:18.802Z",
     "lastRecordedAt": "2026-04-30T17:13:50+02:00",
     "lastRecordedBy": "5"
