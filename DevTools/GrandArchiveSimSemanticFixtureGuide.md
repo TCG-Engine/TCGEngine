@@ -67,8 +67,10 @@ whenever the text has a cost, target restriction, condition, prevention/replacem
 or activation limit. Assert only observable rules outcomes: exact cost paid, legal target,
 zone membership, damage, counter/status value, created token, or timing event.
 
-Do not label generated card IDs, zone counts, or decision-queue checks as semantic unless
-they are deliberately selected to prove a printed clause.
+Do not label generated card IDs or zone counts as semantic unless they are deliberately
+selected to prove a printed clause. A `decision_queue_empty` assertion may verify that an
+interaction finished, but it never completes a positive semantic contract by itself. Pair
+it with an observable card, zone, counter, status, damage, or global-effect assertion.
 
 ## Review and migration
 
@@ -77,10 +79,12 @@ Run:
 ```bash
 php DevTools/lint-fixture-coverage.php --root=GrandArchiveSim
 php DevTools/audit-ga-semantic-coverage.php
+php DevTools/tdd-regression/test_ga_semantic_coverage_contract.php
 ```
 
 The audit separates legacy fixtures from fixtures with incomplete or complete semantic
-contracts. Export the authoritative implemented-card inventory from the GrandArchiveSim
+contracts. The focused contract test guards the classification rules themselves, including
+queue-only false positives and explicit negative-path rejections. Export the authoritative implemented-card inventory from the GrandArchiveSim
 database without exposing ability code:
 
 ```bash

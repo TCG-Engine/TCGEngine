@@ -1,0 +1,5 @@
+[
+  {"step":5,"type":"decision_queue_empty","player":"all"},
+  {"step":5,"type":"card_property_equals","mzId":"p2Field-2","property":"CardID","value":"HHtlkEeyQR","semantic":true,"label":"Elysian Aspirant is the active Elysian Aura source"},
+  {"step":5,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"3","semantic":true,"label":"Aenean Frostlance deals its base 2 damage plus 1 from Elysian Aura"}
+]

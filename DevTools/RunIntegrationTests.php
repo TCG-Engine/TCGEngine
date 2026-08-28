@@ -35,6 +35,21 @@ function RunnerTempGameName($slug) {
   return 'regression_' . $slug . '_' . uniqid();
 }
 
+function RunnerPendingDecisionSummary() {
+  if (!function_exists('GetDecisionQueue')) return '';
+  $pending = [];
+  foreach ([1, 2] as $player) {
+    foreach ((array)GetDecisionQueue($player) as $decision) {
+      if (!is_object($decision) || !empty($decision->removed)) continue;
+      $type = strval($decision->Type ?? '');
+      $param = strval($decision->Param ?? '');
+      $pending[] = "p{$player}:{$type}" . ($param === '' ? '' : "={$param}");
+      break;
+    }
+  }
+  return implode(' | ', $pending);
+}
+
 function RunnerInitialFixtureDir($rootName, $fixtureDir, $meta) {
   $baseSlug = strval($meta['baseFixture'] ?? '');
   if ($baseSlug === '') return $fixtureDir;
@@ -175,6 +190,8 @@ foreach ($fixtures as $slug) {
 
     if ($args['verbose']) {
       echo "[STEP] {$slug} #{$stepNumber} mode={$action['mode']} player={$action['playerID']}" . ($expectsFailure ? ' expected-rejection' : '') . "\n";
+      $pendingSummary = RunnerPendingDecisionSummary();
+      if ($pendingSummary !== '') echo "[QUEUE] {$pendingSummary}\n";
     }
   }
 

@@ -34,6 +34,28 @@ function GaSemanticAssertions($assertions, $actions = []) {
     return array_merge($assertionEvidence, $rejectionEvidence);
 }
 
+// A positive contract must prove an observable game-state result. A
+// queue-empty check only proves that the runner drained decisions; it does not
+// demonstrate that the card's printed effect resolved correctly. Negative
+// contracts are handled separately through explicit expected rejections.
+function GaHasObservableSemanticEvidence($assertions) {
+    foreach ((array)$assertions as $assertion) {
+        if (!is_array($assertion) || empty($assertion['semantic'])) continue;
+        $type = strval($assertion['type'] ?? '');
+        if ($type === '' || $type === 'decision_queue_empty') continue;
+        if (in_array($type, [
+            'card_property_equals',
+            'zone_count',
+            'zone_contains_card',
+            'zone_card_ids',
+            'global_effect_present',
+            'global_effect_count',
+            'flash_message_contains',
+        ], true)) return true;
+    }
+    return false;
+}
+
 // A fixture's semanticCoverage contract is complete only when it names the
 // tested cards, the mechanics under test, the printed rule clauses being
 // proved, and has at least one assertion marked as the proof.
@@ -48,5 +70,10 @@ function GaSemanticContractIsComplete($meta, $assertions, $actions = []) {
     return is_array($testedCards) && !empty($testedCards)
         && is_array($mechanics) && !empty($mechanics)
         && is_array($clauses) && !empty($clauses)
-        && !empty(GaSemanticAssertions($assertions, $actions));
+        && !empty(GaSemanticAssertions($assertions, $actions))
+        && (GaHasObservableSemanticEvidence($assertions)
+            // A negative contract is meaningful when it explicitly proves
+            // that an illegal action is rejected.
+            || !empty(array_filter((array)$actions, fn($a) => is_array($a)
+                && !empty($a['expectFailure']) && !empty($a['semantic']))));
 }

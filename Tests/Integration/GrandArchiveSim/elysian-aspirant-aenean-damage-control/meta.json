@@ -1,0 +1,16 @@
+{
+  "name": "Aenean Spell damage does not increase without Elysian Aspirant",
+  "rootName": "GrandArchiveSim",
+  "baseFixture": "siegable-on-hit",
+  "initialGamestateReplacements": [
+    {"from":"tu7jvjf2gh\nUdYcJGrJt5\n6","to":"tu7jvjf2gh\nNXGaB1dYwL\n6"},
+    {"from":"nn48ne8a05 2 2 0 2 - - WyI3NHdhNHg3ZTIyIl0= 10","to":"apVtyt48u3 2 2 0 2 - - WyJVNXJrVDBKUnpDIl0= 10"},
+    {"from":"9ewgUjy34b 2 2 0 2 - - - 11","to":"KEhmWGivJp 2 2 0 2 - - - 11"}
+  ],
+  "testedCards": ["HHtlkEeyQR"],
+  "semanticCoverage": {
+    "testedCards": ["HHtlkEeyQR"],
+    "mechanics": ["damage", "replacement", "condition", "passive"],
+    "rulesClauses": ["The extra 1 damage is applied only while Elysian Aspirant's Elysian Aura is active."]
+  }
+}
