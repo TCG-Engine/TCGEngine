@@ -61,6 +61,30 @@ function GABotChooseCombatTarget($player, array $candidates) {
     return $best ?? (reset($candidates) ?: 'PASS');
 }
 
+// A '&'-joined MZCHOOSE candidate list can mix fully-qualified mzIDs (e.g. "myField-1") with a
+// bare zone spec (e.g. "myHand"), per GameValidateDecisionAnswer's own reading of Param
+// (GrandArchiveSim/Custom/GameLogic.php:39-51): a bare zone spec means "any live object in that
+// zone is a legal answer," not that the literal zone name is itself a submittable mzID. Resolve
+// each token to a concrete, currently-live mzID (first live object in the zone for a bare spec)
+// so every returned candidate is something the engine will actually accept.
+function GABotResolveChoiceToken($player, $token) {
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = intval($player);
+    $resolved = null;
+    if (preg_match('/^(.+)-(\d+)(\.u\d+)?$/', $token)) {
+        $object = GetZoneObject($token);
+        if ($object !== null && empty($object->removed)) $resolved = $token;
+    } elseif (preg_match('/^(my|their)[A-Za-z]+$/', $token) && function_exists('GetZone')) {
+        $zone = GetZone($token);
+        foreach ((array)$zone as $i => $object) {
+            if ($object !== null && empty($object->removed)) { $resolved = $token . '-' . $i; break; }
+        }
+    }
+    $playerID = $savedPlayerID;
+    return $resolved;
+}
+
 // {playerID, kind: 'decision'|'free-play', decisionType?, actions: [{playerID, mode, cardID}]}
 function GABotLegalActions($gameName, $player) {
     $pending = GABotPendingDecisionPlayer();
@@ -75,12 +99,17 @@ function GABotLegalActions($gameName, $player) {
             $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => 'myHand-0'];
         } elseif ($type === 'MZCHOOSE' && strpos($param, '&') !== false) {
             // Required choice among several listed candidates (e.g. "Choose_attack_target":
-            // Param="theirField-0&theirField-1") — not a May-choose, so PASS is not a valid
-            // response. Pick the first listed candidate.
-            $candidates = array_filter(explode('&', $param));
+            // Param="theirField-0&theirField-1", or a mixed list like "myHand&myField-1" where a
+            // bare zone token needs resolving to a concrete card) — not a May-choose, so PASS is
+            // not a valid response. Pick the first resolvable candidate.
+            $rawCandidates = array_filter(explode('&', $param));
+            $candidates = array_values(array_filter(array_map(
+                fn($token) => GABotResolveChoiceToken($pending, $token),
+                $rawCandidates
+            )));
             $tooltip = strval($front->Tooltip ?? '');
             $choice = stripos($tooltip, 'attack_target') !== false
-                ? GABotChooseCombatTarget($pending, array_values($candidates))
+                ? GABotChooseCombatTarget($pending, $candidates)
                 : reset($candidates);
             $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $choice !== false ? $choice : 'PASS'];
         } elseif ($type === 'MZCHOOSE' && preg_match('/^(my|their)[A-Za-z]+-\d+$/', $param)) {

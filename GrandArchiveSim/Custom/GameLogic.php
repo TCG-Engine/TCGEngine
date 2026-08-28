@@ -16,6 +16,46 @@ include_once __DIR__ . '/MaterializeLogic.php';
 include_once __DIR__ . '/PotionLogic.php';
 include_once __DIR__ . '/CardDQHandlers.php';
 
+// Validate an interactive board-zone answer against the pending decision's
+// candidate pool. The browser restricts clicks to that pool, but an action
+// request is still untrusted: without this check a client could pass any mzID
+// to a CUSTOM continuation and target a champion with an ally-only effect.
+// PASS remains valid for optional MZMAYCHOOSE decisions; mandatory-choice
+// decline behavior is intentionally left unchanged for compatibility.
+function GameValidateDecisionAnswer(int $player, string $answer): bool {
+    if ($answer === 'PASS' || $answer === '-' || $answer === '') return true;
+
+    $head = null;
+    foreach (GetDecisionQueue($player) as $decision) {
+        if (empty($decision->removed)) {
+            $head = $decision;
+            break;
+        }
+    }
+    if ($head === null) return true;
+    $type = strval($head->Type ?? '');
+    if ($type !== 'MZCHOOSE' && $type !== 'MZMAYCHOOSE') return true;
+
+    foreach (explode('&', strval($head->Param ?? '')) as $rawSpec) {
+        $spec = explode(':', $rawSpec)[0];
+        if ($spec === '') continue;
+        // A bare zone spec (for example myHand — a plain zone name and nothing else) permits
+        // any live object in it. Everything else is legal exactly as offered: a plain mzID
+        // ("myField-1"), a subcard mzID ("myField-1.u2"), or a compound Opportunity-window
+        // selector ("myIntent-0@Activate-0@Omen") that picks one of several abilities on the
+        // same card — none of those end in a bare "-\d+", so they must be matched literally
+        // rather than assumed to be zone specs needing further resolution.
+        if (preg_match('/^(my|their)[A-Za-z]+$/', $spec)) {
+            if (!preg_match('/^' . preg_quote($spec, '/') . '-\\d+$/', $answer)) continue;
+            $object = GetZoneObject($answer);
+            if ($object !== null && empty($object->removed)) return true;
+            continue;
+        }
+        if ($answer === $spec) return true;
+    }
+    return false;
+}
+
 function NormalizeGoldfishPlayers($players) {
     $normalized = [];
     if(!is_array($players)) return $normalized;
