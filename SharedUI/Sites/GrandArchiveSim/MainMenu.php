@@ -74,9 +74,10 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         <label for="deck-text" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste deck list (e.g. from fractalofin.site):</label>
         <textarea id="deck-text" name="deck_text" rows="12" placeholder="# Material Deck&#10;1 Lorraine, Wandering Warrior&#10;&#10;# Main Deck&#10;4 Fireball&#10;..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 13px; font-family: monospace; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
       </div>
-      <!-- Hotseat: a second deck link for Player 2 (revealed only when the Hotseat format is selected). -->
+      <!-- Hotseat: a second deck link for Player 2. Bot: an optional deck for the bot to pilot
+           (defaults to a copy of your own deck if left blank). Revealed only for those two formats. -->
       <div id="ga-deck2-group" style="display: none; margin-top: 10px;">
-        <label for="ga-deck2-input" style="display: block; margin-bottom: 8px; font-weight: 500;">Player 2 deck link (Hotseat):</label>
+        <label for="ga-deck2-input" id="ga-deck2-label" style="display: block; margin-bottom: 8px; font-weight: 500;">Player 2 deck link (Hotseat):</label>
         <input type="text" id="ga-deck2-input" placeholder="Second deck link" style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
       </div>
       <!--
@@ -895,14 +896,19 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         }
       })();
 
-      // Hotseat needs a second deck (reveal the P2 input); mode formats (goldfish/hotseat) are Bo1-only.
+      // Hotseat needs a second deck (reveal the P2 input); Bot format shows the same input as an
+      // optional deck for the bot to pilot. Mode formats (goldfish/hotseat/bot) are Bo1-only.
       (function(){
         var fmt = document.getElementById('ga-format-select');
         if (!fmt) return;
         function applyFmt(){
-          var isMode = (fmt.value === 'goldfish' || fmt.value === 'hotseat');
+          var isMode = (fmt.value === 'goldfish' || fmt.value === 'hotseat' || fmt.value === 'bot');
           var g = document.getElementById('ga-deck2-group');
-          if (g) g.style.display = (fmt.value === 'hotseat') ? '' : 'none';
+          var label = document.getElementById('ga-deck2-label');
+          if (g) g.style.display = (fmt.value === 'hotseat' || fmt.value === 'bot') ? '' : 'none';
+          if (label) label.textContent = (fmt.value === 'bot')
+            ? 'Bot\'s deck link (optional — defaults to a copy of your deck):'
+            : 'Player 2 deck link (Hotseat):';
           var qt = document.getElementById('ga-queuetype-select');
           if (qt) { if (isMode) { qt.value = 'bo1'; qt.disabled = true; } else { qt.disabled = false; } }
         }
@@ -1042,6 +1048,10 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         params += '&queueType=' + encodeURIComponent(submission.queueType || 'bo1');
         params += '&shareAnonymizedGameplayData=' + (submission.shareAnonymizedGameplayData ? '1' : '0');
         if (submission.deckLink2) params += '&deckLink2=' + encodeURIComponent(submission.deckLink2);
+        // Bot format: the bot always pilots seat 2, leaving seat 1 (this player) under manual
+        // control. Omitting botPlayers would default the backend to both seats (self-play), which
+        // would fight the human for control of their own seat.
+        if (submission.format === 'bot') params += '&botPlayers=2';
         if (options.createPrivate) {
           params += '&createPrivate=1';
         }
