@@ -9,7 +9,9 @@
         "type": "card_property_equals",
         "mzId": "p1Field-1",
         "property": "Counters",
-        "value": "{\"static\":1}"
+        "value": "{\"static\":1}",
+        "semantic": true,
+        "label": "The chosen Arcane object receives exactly one static counter"
     },
     {
         "step": 5,
@@ -30,7 +32,9 @@
         "type": "card_property_equals",
         "mzId": "p1Hand-3",
         "property": "CardID",
-        "value": "7aZwqrfbzO"
+        "value": "7aZwqrfbzO",
+        "semantic": true,
+        "label": "Fulgurite Coordinator is banished to pay its graveyard activation cost"
     },
     {
         "step": 5,

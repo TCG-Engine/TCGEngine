@@ -3,7 +3,7 @@
 Implemented cards: **2477**
 Cards linked to an existing fixture: **24**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2466**
+Implemented cards still needing semantic coverage: **2465**
 
 ## Mechanic groups
 
@@ -29,7 +29,6 @@ Implemented cards still needing semantic coverage: **2466**
 | Hemoflux Drain (`zHhOcG9MfK`) | ACTION | 3 | cost, targeting, damage, recover, condition | Dante, Hemomancer Starter Deck | — |
 | Elysian Aspirant (`HHtlkEeyQR`) | ALLY | 1 | damage, draw-discard, trigger, condition | Dante, Hemomancer Starter Deck | elysian-aspirant-aura, elysian-aspirant-aura-passive |
 | Spellshield: Exia (`CSVtYQIz7h`) | ACTION | 3 | cost, damage, prevention, recover | Dante, Hemomancer Starter Deck | — |
-| Fulgurite Coordinator (`7aZwqrfbzO`) | ALLY | 1 | targeting, zone-movement, counter | Lorraine, Arclight Saber Starter Deck | fulgurite-coordinator-static-counter, fulgurite-enters-static-counter |
 | Dante, Aenean Initiate (`84YTQPTvar`) | CHAMPION | 1 | zone-movement, trigger | Dante, Hemomancer Starter Deck | dante-scavenge-attempt |
 | Arrest Lightning (`9e3B8EHQak`) | ACTION | 2 | targeting, damage, prevention, zone-movement, counter | Lorraine, Arclight Saber Starter Deck | — |
 | Cleric Robes (`pv4n1n3gyg`) | REGALIA,ITEM | 2 | damage, prevention, draw-discard, trigger, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2466**
 | Summon Sentinels (`5tlzsmw3rr`) | ACTION | 2 | cost, counter, token | Tonoris Starter Deck | — |
 | Tasershot (`4x7e22tk3i`) | REGALIA,ITEM | 2 | targeting, damage, trigger | Diana Starter Deck | — |
 | Tome of Sorcery (`sq0ou8vas3`) | REGALIA,ITEM | 2 | draw-discard, trigger, condition | Kongming Pantheon Starter | — |
+| Battlefield Benediction (`HcR3O8vDps`) | ACTION | 2 | cost, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |

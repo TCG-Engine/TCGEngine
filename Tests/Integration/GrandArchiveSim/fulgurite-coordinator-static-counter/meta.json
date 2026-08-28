@@ -5,5 +5,13 @@
     "createdBy": "batch-script",
     "testedCards": [
         "7aZwqrfbzO"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": ["7aZwqrfbzO"],
+        "mechanics": ["activation", "cost", "targeting", "counter", "zone-movement"],
+        "rulesClauses": [
+            "Fulgurite Coordinator's Element Bonus graveyard ability costs one reserve and banishing itself.",
+            "That ability puts a static counter on the chosen Arcane object the player controls."
+        ]
+    }
 }

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-28T14:09:34+00:00",
+    "generatedAt": "2026-08-28T14:13:04+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 24,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2466,
+        "cardsNeedingSemanticCoverage": 2465,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -89,28 +89,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 134
-        },
-        {
-            "cardId": "7aZwqrfbzO",
-            "name": "Fulgurite Coordinator",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [
-                "fulgurite-coordinator-static-counter",
-                "fulgurite-enters-static-counter"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 133
         },
         {
             "cardId": "84YTQPTvar",
@@ -43054,6 +43032,30 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 134
+        },
+        {
+            "cardId": "7aZwqrfbzO",
+            "name": "Fulgurite Coordinator",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "fulgurite-coordinator-static-counter",
+                "fulgurite-enters-static-counter"
+            ],
+            "semanticFixtures": [
+                "fulgurite-coordinator-static-counter"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
         },
         {
             "cardId": "5u5ic64930",
