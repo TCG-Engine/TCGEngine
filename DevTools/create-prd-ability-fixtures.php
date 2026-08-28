@@ -52,18 +52,21 @@ $fixtures['escharotomy-prevents-recover'] = [
 4 Windslice
 4 Windslice
 DECK,
-    // Play Escharotomy targeting opponent champion (prevents recovery)
+    // Play Escharotomy (myHand-1 with this deck/seed — verified live, see DevTools notes below)
+    // and choose "B: Opponent" on its modal target, which sets a CANT_RECOVER global effect on
+    // the opponent (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php,
+    // CIU4gT14EE:0:CardActivated-1).
     'actions' => [
-        // Drain pregame DQ prompts
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         // Free play: play Escharotomy (mode 10002 FSM)
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-2!FSM!', 'chkInput' => [], 'inputText' => ''],
-        // Pay reserve cost (1 card)
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-5', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Pay reserve cost: this is a "choose a card from myHand" MZCHOOSE, not a myField pick.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         // Pass fast action opportunities
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Modal target choice: "A: Yourself" / "B: Opponent" — pick B (opponent) so the
+        // CANT_RECOVER global effect lands on the opponent, matching the fixture's premise.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'B', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -89,24 +92,30 @@ $fixtures['tindered-soldier-discard-buff'] = [
 4 Windslice
 4 Windslice
 DECK,
-    // Play Tindered Soldier, then Scars of Old to trigger discard
+    // Play Tindered Soldier (myHand-1 with this deck/seed — verified live, see DevTools notes
+    // below), then Scars of Old (myHand-0 after Tindered Soldier leaves hand). Reserve costs are
+    // "choose a card from myHand" MZCHOOSEs, not myField picks — paying Scars of Old's second
+    // reserve point with the only FIRE card left in hand (myHand-0) is what actually discards a
+    // FIRE card and fires Tindered Soldier's discard-triggered buff counter
+    // (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php, discardCardAbilities["KEhmWGivJp:0"]
+    // requires CardElement($discardedCardID) === "FIRE"). Verified: final Counters.buff = 1.
     'actions' => [
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         // Play Tindered Soldier (2 reserve)
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-2!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-5', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-3', 'chkInput' => [], 'inputText' => ''],
         // Pass fast actions
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        // Play Scars of Old (2 reserve) - triggers draw+discard
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-2!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-5', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-4', 'chkInput' => [], 'inputText' => ''],
+        // Play Scars of Old (2 reserve) - the 2nd reserve payment discards the last FIRE card in
+        // hand, which is what actually triggers Tindered Soldier's buff counter.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         // Pass remaining prompts
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Scars of Old's own draw+discard: discard from the (now NORM-only) remaining hand.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -131,19 +140,59 @@ $fixtures['flametech-manual-cascade-activate'] = [
 4 Windslice
 4 Windslice
 DECK,
-    // Play FlameTech Manual (0 cost regalia), then try to activate cascade
+    // Cascade's activation prereq (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php,
+    // activateAbilityPrereqs["WZJxZMBAir:0"]) requires (a) a MAGE Class Bonus — no level 0
+    // starting champion has a class other than SPIRIT, so a MAGE champion is seeded directly
+    // onto the field — and (b) a FIRE card already in the graveyard, also seeded directly.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'gPKTJKqvOI'], // Rai, Spellcrafter (MAGE champion) - Class Bonus source
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'CIU4gT14EE'], // Escharotomy (FIRE) - graveyard prereq
+    ],
+    // Play FlameTech Manual (0 cost regalia; lands on myField-2 behind the two seeded objects),
+    // then activate its Cascade ability via mode 10001 CustomInput (field abilities are NOT
+    // reachable via a plain mode 10002 FSM click — that only covers materialize/attack).
     'actions' => [
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        // Play FlameTech Manual (0 cost, goes directly to field/mastery)
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-2!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Play FlameTech Manual (0 cost, goes to field)
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-3!FSM!', 'chkInput' => [], 'inputText' => ''],
         // Pass fast actions
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Activate Cascade on FlameTech Manual (now at myField-2)
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        // Cascade deals 2 damage to a target champion — hit the opponent's.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        // Pass remaining fast action opportunities
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
-// --- Static Counter: Fulgurite Coordinator enters with static counter ---
+// --- Static Counter: Fulgurite Coordinator banished from graveyard adds a static
+// counter to an arcane object you control ---
+//
+// NOTE on the fixture name/original premise: Fulgurite Coordinator (7aZwqrfbzO) IS ARCANE
+// element and DOES have a real "enters the field with a static counter on itself" ability
+// (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php, $enterAbilities["7aZwqrfbzO:0"]),
+// dispatched from FireEnterTriggeredAbility/QueueEnterTriggeredAbility in
+// GrandArchiveSim/Custom/GameLogic.php (~line 7108) as part of the materialize effect-stack
+// resolution path. The problem is reachability, not existence: ARCANE is an advanced element
+// (GetAdvancedElementNames()) that no level-0 starting champion carries, so
+// CanPlayerUseCardElement genuinely blocks materializing this card from hand for real in a
+// fresh fixture — independent of the pregame bug. And BridgeAddToZone (the test-setup helper
+// used for 'setup' below) adds objects via the raw MZAddZone/AddField/FieldAfterAdd path, which
+// does NOT invoke FireEnterTriggeredAbility — so seeding the card directly onto myField would
+// not exercise the enter ability either. Given that, this rebuild instead exercises the card's
+// other real, implemented ability — the graveyard activation at the "Fulgurite Coordinator:
+// Banish self from graveyard to add static counters." comment (~line 1365): banish this card
+// from the graveyard (1 reserve) to add a static counter to an arcane object you control. It
+// uses BridgeAddToZone test-setup helpers (the same primitive the MCP fixture tooling uses) to
+// seed the precondition state — a second arcane ally already on the field (the target) and a
+// copy of Fulgurite Coordinator already in the graveyard (the activation source) — then replays
+// the real activate-from-graveyard decision sequence (FSM click -> choose target -> pay reserve
+// -> pass) and confirms the target's Counters.static becomes 1. (Note: the sibling
+// fulgurite-coordinator-static-counter fixture, created separately via MCP tooling, was fixed
+// to exercise this same graveyard-activation ability — the two fixtures are intentionally
+// similar since it's the only ability on this card reachable by current test tooling.)
 $fixtures['fulgurite-enters-static-counter'] = [
     'testedCards' => ['7aZwqrfbzO'],
     'deck' => <<<'DECK'
@@ -164,13 +213,24 @@ $fixtures['fulgurite-enters-static-counter'] = [
 4 Windslice
 4 Windslice
 DECK,
+    // Test-setup preconditions applied via BridgeAddToZone (after pregame startup, before the
+    // initial gamestate is captured): an arcane ally already on the field to serve as the
+    // static-counter target, and a copy of Fulgurite Coordinator already in the graveyard to
+    // serve as the graveyard-activation source.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'blqryebvwj'], // Storm Slime (ARCANE ally) - counter target
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '7aZwqrfbzO'], // Fulgurite Coordinator - GY activation source
+    ],
     'actions' => [
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        // Play Fulgurite Coordinator (1 reserve)
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-2!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-5', 'chkInput' => [], 'inputText' => ''],
-        // Pass fast actions
+        // Activate Fulgurite Coordinator from the graveyard (banish self, 1 reserve) — myGraveyard-0
+        // is the copy seeded by 'setup' above.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myGraveyard-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // Choose the static-counter target: myField-1 is the Storm Slime seeded by 'setup' above
+        // (myField-0 is the starting champion).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        // Pay the 1-reserve activation cost by reserving a hand card.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Pass fast action opportunities
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
     ],
@@ -197,12 +257,21 @@ $fixtures['elysian-aspirant-aura-passive'] = [
 4 Windslice
 4 Windslice
 DECK,
+    // Elysian Aspirant's element is EXIA (an advanced element, GrandArchiveSim/Custom/GameLogic.php
+    // GetAdvancedElementNames()), and no level 0 starting champion has an advanced element (only
+    // NORM/FIRE/WATER/WIND "Spirit of X" cards exist at level 0) — so it can never legally
+    // materialize from hand at game start regardless of the pregame fix. Seed it directly onto
+    // the field instead (the same BridgeAddToZone test-setup primitive used for the fulgurite
+    // fixtures) so the fixture actually tests what the card does once in play: its passive
+    // "Elysian Aura" (GrandArchiveSim/Custom/GameLogic.php, HasElysianAura/
+    // PlayerControlsElysianAura — grants +1 damage from Aenean Spell sources) is a pure presence
+    // check with no per-turn setup, so having it on the field IS the effect being active.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'HHtlkEeyQR'], // Elysian Aspirant - Elysian Aura source
+    ],
     'actions' => [
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        // Play Elysian Aspirant (0 reserve)
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-2!FSM!', 'chkInput' => [], 'inputText' => ''],
-        // Pass fast actions
+        // Pass fast action opportunities so the fixture demonstrates a normal turn continuing
+        // with the passive active (no separate activation is needed for a static aura).
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
     ],
@@ -229,16 +298,26 @@ $fixtures['scars-of-old-draw-discard'] = [
 4 Windslice
 4 Windslice
 DECK,
+    // Scars of Old's post-discard buff (ScarsOfOldBuffDamagedAllies in
+    // GrandArchiveSim/Custom/GameLogic.php) requires (a) a WARRIOR Class Bonus — no level 0
+    // starting champion has a class other than SPIRIT — and (b) an already-damaged ally on the
+    // field to actually receive the buff counter. Both are seeded directly since neither is
+    // reachable through a fresh pregame-only board.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'LahboNoSRx'], // Nameless Champion (WARRIOR) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Damage' => 2]], // Dungeon Guide, pre-damaged - buff target
+    ],
     'actions' => [
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
-        // Play Scars of Old (2 reserve)
-        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-2!FSM!', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-5', 'chkInput' => [], 'inputText' => ''],
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-4', 'chkInput' => [], 'inputText' => ''],
+        // Play Scars of Old (2 reserve — reserve cost is a "choose a card from myHand"
+        // MZCHOOSE, not a myField pick)
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
         // Pass remaining prompts
-        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Scars of Old's draw+discard: discard a card, which then triggers the buff-damaged-
+        // allies step.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 
@@ -315,6 +394,59 @@ foreach ($fixtures as $slug => $def) {
 
         // 4. Run pregame startup
         BridgeRunRootSelfplayStartup($rootName);
+        RegressionFlushCurrentGamestate($rootName);
+
+        // 4a. Resolve the pregame starting-champion choice for both players. This is queued as
+        // an MZCHOOSE expecting a real myMaterial-N mzID (see QueuePregameStartingChampionChoice
+        // in GrandArchiveSim/Custom/GameLogic.php) — every fixture deck here has exactly one Lv 0
+        // champion in its Material section ("Spirit of Fire"), so myMaterial-0 is always the
+        // (only) legal choice for both players. Submitting "NO"/"PASS" here instead silently
+        // no-ops via the PREGAME_CHOOSE_STARTING_CHAMPION early-return, leaving hands undealt
+        // and every subsequent action operating on an empty board.
+        foreach ([1, 2] as $pregamePlayer) {
+            $pregameAction = ['playerID' => $pregamePlayer, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''];
+            $pregameResult = EngineRunAction($pregameAction, $rootName, $gameName, [
+                'updateCache' => false,
+                'disableRecording' => true,
+            ]);
+            if (!$pregameResult['success']) {
+                throw new \RuntimeException("Pregame starting-champion choice failed for player $pregamePlayer: " . ($pregameResult['message'] ?? 'unknown'));
+            }
+        }
+        echo "  Resolved pregame starting champion for both players\n";
+
+        // 4b. Apply any test-setup preconditions (e.g. seeding a graveyard/field card directly
+        // via the same BridgeAddToZone primitive the MCP fixture tooling uses) before the
+        // initial gamestate is captured, so the fixture's actions.json only has to replay the
+        // actual ability activation, not an artificial way of reaching the precondition.
+        if (!empty($def['setup'])) {
+            foreach ($def['setup'] as $setupStep) {
+                $setupResult = BridgeAddToZone(
+                    $rootName,
+                    $gameName,
+                    $setupStep['zone'],
+                    $setupStep['cardID'],
+                    $setupStep['player'] ?? 1
+                );
+                echo "  Setup: added {$setupStep['cardID']} to {$setupStep['zone']} (player {$setupStep['player']}) -> {$setupResult['mzID']}\n";
+                // Optional: directly set a property (e.g. Damage) on the freshly-seeded object —
+                // used to construct otherwise-unreachable-at-game-start preconditions like "an
+                // already-damaged ally on the field".
+                if (!empty($setupStep['setProperties'])) {
+                    EngineLoadRootRuntime($rootName);
+                    ParseGamestate('./' . $rootName . '/');
+                    $GLOBALS['playerID'] = $setupStep['player'] ?? 1;
+                    $seededObj = GetZoneObject($setupResult['mzID']);
+                    if ($seededObj !== null) {
+                        foreach ($setupStep['setProperties'] as $propName => $propValue) {
+                            $seededObj->$propName = $propValue;
+                        }
+                        WriteGamestate('./' . $rootName . '/');
+                        echo "  Setup: set " . json_encode($setupStep['setProperties']) . " on {$setupResult['mzID']}\n";
+                    }
+                }
+            }
+        }
 
         // 5. Save initial gamestate
         RegressionFlushCurrentGamestate($rootName);

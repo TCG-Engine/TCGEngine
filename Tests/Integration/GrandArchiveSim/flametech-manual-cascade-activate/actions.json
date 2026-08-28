@@ -1,9 +1,17 @@
 [
     {
         "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myHand-3!FSM!",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "NO",
+        "cardID": "PASS",
         "chkInput": [],
         "inputText": ""
     },
@@ -17,9 +25,17 @@
     },
     {
         "playerID": 1,
-        "mode": 10002,
+        "mode": 10001,
         "buttonInput": "",
-        "cardID": "myHand-2!FSM!",
+        "cardID": "myField-2!CustomInput!Activate:0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "theirField-0",
         "chkInput": [],
         "inputText": ""
     },

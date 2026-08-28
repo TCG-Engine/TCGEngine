@@ -1,19 +1,9 @@
 {
-  "name": "play-from-hand-rich-main-phase-card-1787794475921",
-  "rootName": "GrandArchiveSim",
-  "createdAt": "2026-08-27T01:34:35.922Z",
-  "createdBy": "mcp",
-  "sourceTemplate": "play-from-hand/rich-main-phase-card",
-  "draft": false,
-  "draftGameName": "103",
-  "parameters": {
-    "champion": "LMyKyVC2O9",
-    "element": "FIRE",
-    "handCard": "7aZwqrfbzO",
-    "mastery": ""
-  },
-  "testedCards": [
-    "7aZwqrfbzO"
-  ],
-  "savedAt": "2026-08-27T01:35:43.514Z"
+    "name": "fulgurite-coordinator-static-counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-27T15:04:03+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7aZwqrfbzO"
+    ]
 }
