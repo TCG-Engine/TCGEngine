@@ -43,6 +43,7 @@ if (!is_file($dictionaryPath)) {
     exit(1);
 }
 require_once $dictionaryPath;
+require_once __DIR__ . '/GaSemanticCoverage.php';
 
 function BacklogFixtureLinks($fixtureRoot) {
     $links = [];
@@ -51,8 +52,8 @@ function BacklogFixtureLinks($fixtureRoot) {
         $metaPath = $fixtureRoot . '/' . $slug . '/meta.json';
         $meta = is_file($metaPath) ? json_decode(file_get_contents($metaPath), true) : [];
         if (!is_array($meta)) continue;
-        $contract = is_array($meta['semanticCoverage'] ?? null) ? $meta['semanticCoverage'] : [];
-        $cardIds = $contract['testedCards'] ?? $meta['testedCards'] ?? [];
+        $contract = GaSemanticContract($meta);
+        $cardIds = GaResolveTestedCards($meta);
         foreach ((array)$cardIds as $cardId) {
             $cardId = strval($cardId);
             if ($cardId === '') continue;
@@ -85,6 +86,18 @@ function BacklogMechanics($effect) {
     return $tags ?: ['unclassified'];
 }
 
+// Priority weighting, in descending order of what it's worth to an author
+// deciding what to write next: reusing an existing fixture (a deterministic
+// scenario already exists, so it's cheapest to build on) outweighs a card
+// having a couple of extra abilities; ability/listener counts favor cards
+// with more surface area and more (harder-to-regress-test) listeners; the
+// mechanic-tag count is capped so a card with many loosely-matched tags
+// can't dominate ranking purely on tag breadth.
+const GA_BACKLOG_EXISTING_FIXTURE_BONUS = 20;
+const GA_BACKLOG_ABILITY_WEIGHT = 10;
+const GA_BACKLOG_LISTENER_WEIGHT = 8;
+const GA_BACKLOG_MECHANIC_TAG_CAP = 5;
+
 $fixtureRoot = $repoRoot . "/Tests/Integration/{$rootName}";
 $fixtureLinks = BacklogFixtureLinks($fixtureRoot);
 $cards = [];
@@ -96,15 +109,10 @@ foreach ($implemented as $entry) {
     $fixtures = array_values(array_unique($fixtureLinks[$cardId]['fixtures'] ?? []));
     $semanticFixtures = array_values(array_unique($fixtureLinks[$cardId]['semanticFixtures'] ?? []));
     $mechanics = BacklogMechanics($effect);
-    // Prioritize cards with multiple/listener abilities and known regression
-    // fixtures: those have the greatest leverage and lowest fixture setup cost.
-    $priority = intval($entry['abilityCount'] ?? 1) * 10
-        + intval($entry['listenerCount'] ?? 0) * 8
-        // Reusing an existing fixture is materially cheaper than building a
-        // deterministic scenario from scratch, so make those the first
-        // authoring batch even when a new card has one more ability.
-        + (!empty($fixtures) ? 20 : 0)
-        + min(5, count($mechanics));
+    $priority = intval($entry['abilityCount'] ?? 1) * GA_BACKLOG_ABILITY_WEIGHT
+        + intval($entry['listenerCount'] ?? 0) * GA_BACKLOG_LISTENER_WEIGHT
+        + (!empty($fixtures) ? GA_BACKLOG_EXISTING_FIXTURE_BONUS : 0)
+        + min(GA_BACKLOG_MECHANIC_TAG_CAP, count($mechanics));
     $cards[] = [
         'cardId' => $cardId,
         'name' => function_exists('CardName') ? strval(CardName($cardId) ?? $cardId) : $cardId,

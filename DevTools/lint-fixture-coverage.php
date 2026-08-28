@@ -31,6 +31,7 @@ foreach (array_slice($argv, 1) as $arg) {
 }
 
 require_once $repoRoot . '/Core/EngineActionRunner.php';
+require_once __DIR__ . '/GaSemanticCoverage.php';
 EngineLoadRootRuntime($rootName);
 
 // ---------------------------------------------------------------------
@@ -173,21 +174,11 @@ function LintIsLowCoverage($assertions) {
     return false;
 }
 
-function LintSemanticAssertions($assertions) {
-    return array_values(array_filter($assertions, fn($a) => is_array($a) && !empty($a['semantic'])));
-}
-
-function LintSemanticContract($meta) {
-    $contract = is_array($meta) ? ($meta['semanticCoverage'] ?? null) : null;
-    return is_array($contract) ? $contract : null;
-}
-
 // A keyword is only a heuristic, but it can still point the reviewer toward
 // the state that normally demonstrates the mechanic. This avoids demanding a
 // Counters assertion for effects such as Recover (Damage) or Stealth (Status).
-function LintExpectedPropertiesForMechanics($mechanicHits) {
-    $properties = ['Counters', 'TurnEffects'];
-    $byMechanic = [
+function LintExpectedPropertiesForMechanic($mechanic) {
+    static $byMechanic = [
         'recover' => ['Damage'],
         'stealth' => ['Status', 'TurnEffects'],
         'level' => ['Status', 'Counters', 'TurnEffects'],
@@ -198,8 +189,13 @@ function LintExpectedPropertiesForMechanics($mechanicHits) {
         'brew' => ['CardID', 'Counters'],
         'aura' => ['Status', 'TurnEffects'],
     ];
+    return array_values(array_unique(array_merge(['Counters', 'TurnEffects'], $byMechanic[$mechanic] ?? [])));
+}
+
+function LintExpectedPropertiesForMechanics($mechanicHits) {
+    $properties = [];
     foreach ($mechanicHits as $mechanic) {
-        foreach ($byMechanic[$mechanic] ?? [] as $property) $properties[] = $property;
+        $properties = array_merge($properties, LintExpectedPropertiesForMechanic($mechanic));
     }
     return array_values(array_unique($properties));
 }
@@ -233,8 +229,8 @@ foreach ($slugs as $slug) {
 
     $metaPath = $dir . '/meta.json';
     $meta = is_file($metaPath) ? json_decode(file_get_contents($metaPath), true) : [];
-    $testedCards = (is_array($meta) && is_array($meta['testedCards'] ?? null)) ? $meta['testedCards'] : [];
-    $semanticContract = LintSemanticContract($meta);
+    $testedCards = GaResolveTestedCards($meta);
+    $semanticContract = GaSemanticContract($meta);
 
     $assertions = json_decode(file_get_contents($assertionsPath), true);
     if (!is_array($assertions)) $assertions = [];
@@ -242,8 +238,11 @@ foreach ($slugs as $slug) {
     $mechanicHits = LintSlugMatchesMechanicKeywords($slug, $mechanicKeywords);
     $flaggedThisFixture = false;
 
-    // --- Check 1: slug/testedCards imply a counter-based mechanic, but no
-    //     assertion touches Counters/TurnEffects for the tested card. ---
+    // --- Check 1: slug/testedCards imply one or more mechanics, but no
+    //     assertion touches a property THAT mechanic expects for the tested
+    //     card. Each matched mechanic is checked independently — an assertion
+    //     proving one mechanic must not "pay for" a different, co-occurring
+    //     mechanic that needs a different property. ---
     if (!empty($mechanicHits)) {
         $expectedProperties = LintExpectedPropertiesForMechanics($mechanicHits);
         $candidateAssertions = array_values(array_filter($assertions, function ($a) use ($expectedProperties) {
@@ -252,34 +251,29 @@ foreach ($slugs as $slug) {
                 && in_array($a['property'] ?? '', $expectedProperties, true);
         }));
 
-        $covered = false;
-        if (!empty($candidateAssertions)) {
-            if (empty($testedCards)) {
-                // No testedCards to pin down — but SOMETHING in the fixture does
-                // check Counters/TurnEffects, so give it the benefit of the doubt.
-                $covered = true;
-            } else {
-                $gameDir = LintLoadFixtureFinalGamestate($repoRoot, $rootName, $slug, $dir);
-                if ($gameDir === null) {
-                    // Can't verify (missing expected_final_gamestate.txt) — don't
-                    // penalize the fixture for tooling gaps, same as above.
-                    $covered = true;
-                } else {
-                    foreach ($candidateAssertions as $a) {
-                        $cardId = LintResolveAssertionCardId($a);
-                        if ($cardId !== null && in_array($cardId, $testedCards, true)) {
-                            $covered = true;
-                            break;
-                        }
-                    }
-                    RegressionDeleteDirRecursive($gameDir);
-                }
+        $uncoveredMechanics = $mechanicHits;
+        $canVerify = !empty($candidateAssertions) && !empty($testedCards);
+        $gameDir = $canVerify ? LintLoadFixtureFinalGamestate($repoRoot, $rootName, $slug, $dir) : null;
+        if ($canVerify && $gameDir !== null) {
+            foreach ($candidateAssertions as $a) {
+                $cardId = LintResolveAssertionCardId($a);
+                if ($cardId === null || !in_array($cardId, $testedCards, true)) continue;
+                $property = $a['property'] ?? '';
+                $uncoveredMechanics = array_values(array_filter($uncoveredMechanics, function ($mechanic) use ($property) {
+                    return !in_array($property, LintExpectedPropertiesForMechanic($mechanic), true);
+                }));
             }
+            RegressionDeleteDirRecursive($gameDir);
+        } elseif (!empty($candidateAssertions)) {
+            // Can't verify (no testedCards to pin down, or missing
+            // expected_final_gamestate.txt) — don't penalize the fixture for a
+            // tooling gap.
+            $uncoveredMechanics = [];
         }
 
-        if (!$covered) {
+        if (!empty($uncoveredMechanics)) {
             echo "[WARN] {$slug}: likely under-tested — no assertion checks a likely observable effect"
-                . ' (matched keywords: ' . implode(', ', $mechanicHits)
+                . ' (uncovered mechanics: ' . implode(', ', $uncoveredMechanics)
                 . '; expected properties: ' . implode(', ', $expectedProperties) . ")\n";
             $flaggedThisFixture = true;
         }
@@ -295,15 +289,9 @@ foreach ($slugs as $slug) {
     // --- Check 3: semantic contracts are complete and have at least one
     // hand-authored assertion. Legacy fixtures have no contract and are
     // reported as migration work, rather than incorrectly treated as proven.
-    $semanticAssertions = LintSemanticAssertions($assertions);
+    $semanticAssertions = GaSemanticAssertions($assertions);
     if ($semanticContract !== null) {
-        $contractCards = $semanticContract['testedCards'] ?? $testedCards;
-        $mechanics = $semanticContract['mechanics'] ?? [];
-        $clauses = $semanticContract['rulesClauses'] ?? [];
-        if (!is_array($contractCards) || empty($contractCards)
-            || !is_array($mechanics) || empty($mechanics)
-            || !is_array($clauses) || empty($clauses)
-            || empty($semanticAssertions)) {
+        if (!GaSemanticContractIsComplete($meta, $assertions)) {
             echo "[WARN] {$slug}: semanticCoverage is incomplete — require testedCards, mechanics, rulesClauses, and a semantic assertion\n";
             $flaggedThisFixture = true;
         }

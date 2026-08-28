@@ -19,6 +19,8 @@ foreach (array_slice($argv, 1) as $arg) {
     elseif ($arg === '--verbose') $verbose = true;
 }
 
+require_once __DIR__ . '/GaSemanticCoverage.php';
+
 $fixtureRoot = $repoRoot . '/Tests/Integration/' . $rootName;
 if (!is_dir($fixtureRoot)) {
     fwrite(STDERR, "Fixture directory not found: {$fixtureRoot}\n");
@@ -31,25 +33,23 @@ foreach (scandir($fixtureRoot) as $slug) {
     if ($slug === '.' || $slug === '..' || !is_dir($fixtureRoot . '/' . $slug)) continue;
     $metaPath = $fixtureRoot . '/' . $slug . '/meta.json';
     $assertionsPath = $fixtureRoot . '/' . $slug . '/assertions.json';
+    if (!is_file($assertionsPath)) continue; // not a real fixture dir
     $meta = is_file($metaPath) ? json_decode(file_get_contents($metaPath), true) : [];
-    $assertions = is_file($assertionsPath) ? json_decode(file_get_contents($assertionsPath), true) : [];
+    $assertions = json_decode(file_get_contents($assertionsPath), true);
     if (!is_array($meta)) $meta = [];
     if (!is_array($assertions)) $assertions = [];
     $totals['fixtures']++;
 
-    $contract = $meta['semanticCoverage'] ?? null;
-    if (!is_array($contract)) {
+    $contract = GaSemanticContract($meta);
+    if ($contract === null) {
         $totals['legacy']++;
         continue;
     }
-    $semantic = array_values(array_filter($assertions, fn($a) => is_array($a) && !empty($a['semantic'])));
-    $testedCards = $contract['testedCards'] ?? $meta['testedCards'] ?? [];
+    $semantic = GaSemanticAssertions($assertions);
+    $testedCards = GaResolveTestedCards($meta);
     $mechanics = $contract['mechanics'] ?? [];
     $clauses = $contract['rulesClauses'] ?? [];
-    $complete = is_array($testedCards) && !empty($testedCards)
-        && is_array($mechanics) && !empty($mechanics)
-        && is_array($clauses) && !empty($clauses)
-        && !empty($semantic);
+    $complete = GaSemanticContractIsComplete($meta, $assertions);
     if (!$complete) {
         echo "[INCOMPLETE] {$slug}\n";
         $totals['incomplete']++;
