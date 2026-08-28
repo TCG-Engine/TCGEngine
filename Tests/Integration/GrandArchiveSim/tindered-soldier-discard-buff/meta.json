@@ -5,5 +5,13 @@
     "createdBy": "batch-script",
     "testedCards": [
         "KEhmWGivJp"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": ["KEhmWGivJp"],
+        "mechanics": ["trigger", "counter", "condition", "draw-discard"],
+        "rulesClauses": [
+            "When a fire element card is discarded, Tindered Soldier receives a buff counter if it does not already have one.",
+            "A buff counter grants the ally +1 power and +1 life."
+        ]
+    }
 }

@@ -37,7 +37,9 @@
         "type": "card_property_equals",
         "mzId": "p1Field-1",
         "property": "Counters",
-        "value": "{\"buff\":1}"
+        "value": "{\"buff\":1}",
+        "semantic": true,
+        "label": "Discarding Scars of Old, a Fire card, gives Tindered Soldier exactly one buff counter"
     },
     {
         "step": 10,
@@ -51,7 +53,9 @@
         "type": "card_property_equals",
         "mzId": "p1Hand-0",
         "property": "CardID",
-        "value": "lD0sK81PZT"
+        "value": "lD0sK81PZT",
+        "semantic": true,
+        "label": "The discarded Fire card is placed in the graveyard, triggering Tindered Soldier"
     },
     {
         "step": 10,
