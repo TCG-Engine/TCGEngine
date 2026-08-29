@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"HcR3O8vDps\",\"EMPOWERED\",\"EMPOWER_PLUS_4\",\"vz4kc558yx-ACTION_ACTIVATED\"]","semantic":true,"label":"With 3+ opposing units, the champion is empowered by 4 instead of the base 2"},
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":1,"semantic":true,"label":"The Class Bonus discount reduces the 2-reserve cost to 1, so only 1 reserve payment is made"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

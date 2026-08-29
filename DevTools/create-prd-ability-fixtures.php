@@ -1218,6 +1218,136 @@ DECK,
     ],
 ];
 
+// --- Tasershot: load into an unloaded Gun weapon ---
+$fixtures['tasershot-load-gun'] = [
+    'testedCards' => ['4x7e22tk3i'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Tasershot
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Tasershot's element is NORM, so no lineage patch is needed, and its memory cost is 0 so
+    // materializing via a direct FSM click is free. Framework Sidearm (a REGALIA,WEAPON with the
+    // GUN subtype and no Subcards, i.e. unloaded) is seeded onto the field as the [REST] Load
+    // ability's target, same pattern as penetrator-round-load-gun/anathemas-end-load-gun/
+    // incendiary-shot-load-gun. Only the always-available Load half is covered; the [Class Bonus]
+    // On Champion Hit level-up-punish trigger requires a real combat hit and is out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'p4lgdlx7md'], // Framework Sidearm (unloaded GUN weapon) - Load target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4x7e22tk3i'], // Tasershot, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Battlefield Benediction: Class Bonus discount + Empower scaled by opponent's board ---
+$fixtures['battlefield-benediction-empower4'] = [
+    'testedCards' => ['HcR3O8vDps'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Battlefield Benediction
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Battlefield Benediction's element is NORM, so no lineage patch is needed, but its discount
+    // requires a CLERIC or MAGE Class Bonus, which (like samaritans-reach's abandoned attempt but
+    // Class-Bonus checks scan physical field objects) needs a physically-seeded champion, so
+    // Kongming, Fel Eidolon (a MAGE CHAMPION) is seeded directly onto the field. Three Dungeon
+    // Guide allies are seeded onto the opponent's field so "an opponent controls three or more
+    // units" is true, reaching the empower-4 branch instead of the base empower-2.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7x2v4tdop1'], // Kongming, Fel Eidolon (MAGE CHAMPION) - Class Bonus source
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Opponent ally 1/3
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Opponent ally 2/3
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Opponent ally 3/3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'HcR3O8vDps'], // Battlefield Benediction, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Guerrilla Advantage: put two preparation counters on your champion ---
+$fixtures['guerrilla-advantage-prep-counters'] = [
+    'testedCards' => ['JxCzS4XJ3V'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Guerrilla Advantage
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Guerrilla Advantage's element is NORM, so no lineage patch is needed. Only the base
+    // always-available effect is covered; the discount condition (an opponent controlling 3+
+    // units) isn't reached, so the full 4-reserve cost is paid.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'JxCzS4XJ3V'], // Guerrilla Advantage, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Mnemonic Charm: On Enter draws a card into memory ---
+$fixtures['mnemonic-charm-enter-draw-memory'] = [
+    'testedCards' => ['to1pmvo54d'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Mnemonic Charm
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Mnemonic Charm's element is NORM, so no lineage patch is needed. Only the always-available
+    // On Enter draw-into-memory is covered; the [Class Bonus] Sacrifice-for-Empower ability is
+    // out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'to1pmvo54d'], // Mnemonic Charm, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

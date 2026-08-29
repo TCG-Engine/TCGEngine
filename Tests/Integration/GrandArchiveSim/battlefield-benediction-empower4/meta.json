@@ -1,0 +1,18 @@
+{
+    "name": "Battlefield Benediction's Class Bonus discount and scaled Empower",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T01:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Battlefield Benediction's element is NORM, so no lineage patch is needed, but its discount requires a CLERIC or MAGE Class Bonus, which scans physical field objects, so Kongming, Fel Eidolon (a MAGE CHAMPION) is seeded directly onto the field. Three Dungeon Guide allies are seeded onto the opponent's field so 'an opponent controls three or more units' is true, reaching the empower-4 branch instead of the base empower-2.",
+    "testedCards": [
+        "HcR3O8vDps"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["HcR3O8vDps"],
+        "mechanics": ["cost", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate.",
+            "Empower 2. If an opponent controls three or more units, empower 4 instead."
+        ]
+    }
+}

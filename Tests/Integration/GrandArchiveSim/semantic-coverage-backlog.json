@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-29T22:59:47+00:00",
+    "generatedAt": "2026-08-29T23:03:10+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 60,
+        "cardsWithExistingFixtures": 64,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2427,
+        "cardsNeedingSemanticCoverage": 2423,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -166,26 +166,6 @@
             "priority": 123
         },
         {
-            "cardId": "to1pmvo54d",
-            "name": "Mnemonic Charm",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
             "cardId": "ndnEl5mq7W",
             "name": "Potion Infusion: Volatility",
             "type": "ACTION",
@@ -224,25 +204,6 @@
             "priority": 123
         },
         {
-            "cardId": "4x7e22tk3i",
-            "name": "Tasershot",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
             "cardId": "sq0ou8vas3",
             "name": "Tome of Sorcery",
             "type": "REGALIA,ITEM",
@@ -260,25 +221,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 123
-        },
-        {
-            "cardId": "HcR3O8vDps",
-            "name": "Battlefield Benediction",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 122
         },
         {
             "cardId": "iq4d5vettc",
@@ -312,24 +254,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 122
-        },
-        {
-            "cardId": "JxCzS4XJ3V",
-            "name": "Guerrilla Advantage",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 122
@@ -43032,6 +42956,30 @@
             "priority": 143
         },
         {
+            "cardId": "to1pmvo54d",
+            "name": "Mnemonic Charm",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mnemonic-charm-enter-draw-memory"
+            ],
+            "semanticFixtures": [
+                "mnemonic-charm-enter-draw-memory"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
             "cardId": "F2wp1v0Tyk",
             "name": "Reclaim",
             "type": "ACTION",
@@ -43103,6 +43051,52 @@
             "priority": 143
         },
         {
+            "cardId": "4x7e22tk3i",
+            "name": "Tasershot",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "tasershot-load-gun"
+            ],
+            "semanticFixtures": [
+                "tasershot-load-gun"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
+            "cardId": "HcR3O8vDps",
+            "name": "Battlefield Benediction",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "battlefield-benediction-empower4"
+            ],
+            "semanticFixtures": [
+                "battlefield-benediction-empower4"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 142
+        },
+        {
             "cardId": "z0fgm3pal7",
             "name": "Frostbind",
             "type": "ACTION",
@@ -43121,6 +43115,28 @@
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 142
+        },
+        {
+            "cardId": "JxCzS4XJ3V",
+            "name": "Guerrilla Advantage",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "guerrilla-advantage-prep-counters"
+            ],
+            "semanticFixtures": [
+                "guerrilla-advantage-prep-counters"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 142

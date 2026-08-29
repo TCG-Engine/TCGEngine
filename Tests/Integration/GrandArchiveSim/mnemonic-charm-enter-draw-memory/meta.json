@@ -1,0 +1,17 @@
+{
+    "name": "Mnemonic Charm's On Enter draws a card into memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T01:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Mnemonic Charm's element is NORM, so no lineage patch is needed. Only the always-available On Enter draw-into-memory is covered; the [Class Bonus] Sacrifice-for-Empower ability is out of scope.",
+    "testedCards": [
+        "to1pmvo54d"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["to1pmvo54d"],
+        "mechanics": ["draw-discard", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: Draw a card into your memory."
+        ]
+    }
+}

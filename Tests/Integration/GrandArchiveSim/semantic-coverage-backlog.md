@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **60**
+Cards linked to an existing fixture: **64**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2427**
+Implemented cards still needing semantic coverage: **2423**
 
 ## Mechanic groups
 
@@ -33,15 +33,11 @@ Implemented cards still needing semantic coverage: **2427**
 | Empowering Tincture (`9g44vm5kt3`) | ITEM | 2 | draw-discard, trigger, condition | Arisanna Pantheon Starter | — |
 | Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
 | Lightweaver's Assault (`zxB4tzy9iy`) | ACTION | 2 | targeting, damage, trigger | Zander Pantheon Starter | — |
-| Mnemonic Charm (`to1pmvo54d`) | ITEM | 2 | draw-discard, trigger, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
 | Potion Infusion: Volatility (`ndnEl5mq7W`) | ACTION | 2 | targeting, damage, condition | Arisanna Pantheon Starter | — |
 | Rally the Peasants (`q1uwq8sdbz`) | ACTION | 2 | cost, zone-movement, condition | Lorraine Pantheon Starter | — |
-| Tasershot (`4x7e22tk3i`) | REGALIA,ITEM | 2 | targeting, damage, trigger | Diana Starter Deck | — |
 | Tome of Sorcery (`sq0ou8vas3`) | REGALIA,ITEM | 2 | draw-discard, trigger, condition | Kongming Pantheon Starter | — |
-| Battlefield Benediction (`HcR3O8vDps`) | ACTION | 2 | cost, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
 | Diana, Duskstalker (`iq4d5vettc`) | CHAMPION | 2 | status, trigger | Diana Starter Deck | — |
 | Distilled Water (`O1OU62Zx2Y`) | ITEM | 2 | draw-discard, condition | Arisanna Pantheon Starter | — |
-| Guerrilla Advantage (`JxCzS4XJ3V`) | ACTION | 2 | cost, condition | Zander Pantheon Starter | — |
 | Mindbreak Bullet (`9htu9agwj4`) | ITEM | 2 | targeting, draw-discard | Diana Starter Deck | — |
 | Necklace of Foresight (`lq2kkvoqk1`) | REGALIA,ITEM | 2 | cost, zone-movement | Arisanna Starter Deck | — |
 | Winds of Retribution (`huqj5bbae3`) | ACTION | 2 | cost, condition | Tonoris Starter Deck | — |
@@ -76,3 +72,7 @@ Implemented cards still needing semantic coverage: **2427**
 | Perfect Repulsion (`gwj4f15joh`) | ACTION | 1 | targeting, damage, prevention, draw-discard, condition | Arisanna Starter Deck | — |
 | Prismatic Edge (`FxYwR2azTt`) | REGALIA,WEAPON | 1 | targeting, damage, draw-discard, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Rending Flames (`soO3hjaVfN`) | ATTACK | 1 | damage, zone-movement, combat, trigger, condition | Zander Pantheon Starter | — |
+| Rocket Jump (`rhlq2kkvoq`) | ACTION | 1 | cost, targeting, damage, status, condition | Diana Starter Deck | — |
+| Ruinous Pillars of Qidao (`pmx99jrukm`) | DOMAIN | 1 | targeting, draw-discard, zone-movement, trigger, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |
+| Shieldroid (`qCTini03Bc`) | ALLY | 1 | cost, zone-movement, status, combat, condition | Dante, Hemomancer Starter Deck | — |
+| Stalwart Shieldmate (`eifnz0fgm3`) | ALLY | 1 | cost, zone-movement, status, combat, condition | Dante, Hemomancer Starter Deck, Tonoris Starter Deck, Kongming Pantheon Starter, Zander Pantheon Starter | — |
