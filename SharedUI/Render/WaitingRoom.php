@@ -324,8 +324,14 @@ function _WaitingRoomScript(array $cfg): string {
     // They are listed underneath instead — without that, the room's own creator sees four "open"
     // seats and no sign of themselves, which is exactly how this first shipped broken.
     if (model.teams) {
-      var myTeam = null;
-      roster.forEach(function (r) { if (r.playerID === myPlayerID) myTeam = r.team; });
+      // myDeckOk gates the team picker: you may not claim a team seat until you have brought a legal
+      // deck. A viewer who is not in the roster at all has no deck by definition, so this also covers
+      // the not-yet-joined case that the screenshot showed — four Join buttons offered to someone with
+      // nothing to play.
+      var myTeam = null, myDeckOk = false;
+      roster.forEach(function (r) {
+        if (r.playerID === myPlayerID) { myTeam = r.team; myDeckOk = !!r.deckOk; }
+      });
 
       var cols = model.teams.map(function (team, ti) {
         var slots = ti === 0 ? [1, 3] : [2, 4];
@@ -342,10 +348,17 @@ function _WaitingRoomScript(array $cfg): string {
           // button is per-team even though it is drawn per-slot.
           var full = occupied >= slots.length;
           var mine = (myTeam === team);
-          var label = (full || mine)
-            ? '<div style="font-size:13px;">Open</div>'
-            : '<button class="btn wr-join-team" type="button" data-team="' + esc(team) + '" style="font-size:12px;">Join ' +
-              team.charAt(0).toUpperCase() + team.slice(1) + '</button>';
+          var label;
+          if (full || mine) {
+            label = '<div style="font-size:13px;">Open</div>';
+          } else if (!myDeckOk) {
+            // No deck yet — say WHY there is no button rather than showing a bare "Open" the viewer
+            // cannot act on. The deck bar below is the way in; picking a team comes after.
+            label = '<div style="font-size:12px;color:#8b97a5;">Load a deck to join</div>';
+          } else {
+            label = '<button class="btn wr-join-team" type="button" data-team="' + esc(team) + '" style="font-size:12px;">Join ' +
+                    team.charAt(0).toUpperCase() + team.slice(1) + '</button>';
+          }
           return '<div class="wr-seat wr-seat-empty" data-seat="' + sn + '" style="border-color:' + accent + '55;">' +
                  emptySeat(sn, label) + '</div>';
         }).join('');

@@ -28,7 +28,18 @@ $me = null;
 foreach (($lobby->players ?? []) as $p) {
   if (($p instanceof Player) && hash_equals(strval($p->getAuthKey()), strval($authKey))) { $me = $p; break; }  // authKey is the identity; playerID is a SEAT, renumbered at start
 }
-if (!$me) _setTeamFail($response, 'Authentication failed.');
+// Two very different situations reach this point, and collapsing them into "Authentication failed."
+// misleads the common one. A viewer who has opened an invite link but not yet joined holds NO authKey
+// at all — they are not failing authentication, they are simply not in the room yet. Saying "auth
+// failed" to them reads as "you need to log in", which is wrong twice over: logged-out players may
+// join private lobbies by invite, and logging in would not have helped.
+// A non-empty authKey that matches nobody IS a real mismatch — a stale tab, or a seat reaped for
+// absence — so that one keeps the blunt message.
+if (!$me) {
+  _setTeamFail($response, $authKey === ''
+    ? 'Join the room with a deck before picking a team.'
+    : 'Authentication failed.');
+}
 
 if ($team === '') {
   SWURoomAssignTeam($lobby, $me, null);           // unassign
