@@ -23,7 +23,9 @@
         "type": "card_property_equals",
         "mzId": "p1Field-1",
         "property": "Damage",
-        "value": "4"
+        "value": "4",
+        "semantic": true,
+        "label": "Gleaming Cut deals four combat damage after receiving its two-power Luxem reveal bonus"
     },
     {
         "step": 9,
@@ -58,7 +60,9 @@
         "type": "card_property_equals",
         "mzId": "p2Field-0",
         "property": "TurnEffects",
-        "value": "[\"ENTERED_THIS_TURN\",\"qufoIF014c_POWER\"]"
+        "value": "[\"ENTERED_THIS_TURN\",\"qufoIF014c_POWER\"]",
+        "semantic": true,
+        "label": "Revealing a Luxem memory card applies Gleaming Cut's power modifier"
     },
     {
         "step": 9,
@@ -72,7 +76,9 @@
         "type": "card_property_equals",
         "mzId": "p2Graveyard-2",
         "property": "CardID",
-        "value": "qufoIF014c"
+        "value": "qufoIF014c",
+        "semantic": true,
+        "label": "Gleaming Cut completes the attack and moves to the graveyard"
     },
     {
         "step": 9,
@@ -93,7 +99,9 @@
         "type": "card_property_equals",
         "mzId": "p2Memory-1",
         "property": "CardID",
-        "value": "zxB4tzy9iy"
+        "value": "zxB4tzy9iy",
+        "semantic": true,
+        "label": "The chosen revealed memory card is Luxem element Lightweaver's Assault"
     },
     {
         "step": 9,

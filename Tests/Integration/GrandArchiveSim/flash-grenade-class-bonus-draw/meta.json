@@ -1,0 +1,15 @@
+{
+  "name":"Flash Grenade draws on enter with class bonus",
+  "rootName":"GrandArchiveSim",
+  "baseFixture":"cleric-robes-class-bonus-draw",
+  "initialGamestateReplacements":[
+    {"from":"ltv5klryvf 2 1 0 1 - - - -1\r\n","to":"7ozuj68m69 2 1 0 1 - - - -1\r\n"},
+    {"from":"pv4n1n3gyg\r\n","to":"isxy5lh23q\r\n"}
+  ],
+  "testedCards":["isxy5lh23q"],
+  "semanticCoverage":{
+    "testedCards":["isxy5lh23q"],
+    "mechanics":["materialize","class-bonus","on-enter","draw"],
+    "rulesClauses":["When its controller has Ranger class bonus, Flash Grenade draws one card as it enters."]
+  }
+}

@@ -2,5 +2,14 @@
     "name": "polaris-twinkling-cauldron-activate",
     "rootName": "GrandArchiveSim",
     "createdAt": "2026-06-03T14:47:26+02:00",
-    "createdBy": "5"
+    "createdBy": "5",
+    "testedCards": ["41t71u4bzz"],
+    "semanticCoverage": {
+        "testedCards": ["41t71u4bzz"],
+        "mechanics": ["class-bonus", "rest", "banish", "counter", "area-damage", "token-generation"],
+        "rulesClauses": [
+            "Resting and banishing Polaris uses its four age counters as X.",
+            "The activation deals X damage to every ally and permits generating up to X Cosmic Bolt cards."
+        ]
+    }
 }

@@ -1,0 +1,14 @@
+{
+  "name":"Eminence in Fury requires an Elysian ally death",
+  "rootName":"GrandArchiveSim",
+  "baseFixture":"eminence-in-fury-dante-bonus",
+  "initialGamestateReplacements":[
+    {"from":"1\r\nELYSIAN_ALLY_DIED_THIS_TURN\r\n0","to":"0\r\n0"}
+  ],
+  "testedCards":["suk5c6SJls"],
+  "semanticCoverage":{
+    "testedCards":["suk5c6SJls"],
+    "mechanics":["condition","activation-prerequisite"],
+    "rulesClauses":["Eminence in Fury cannot activate unless an Elysian ally controlled by its player died this turn."]
+  }
+}

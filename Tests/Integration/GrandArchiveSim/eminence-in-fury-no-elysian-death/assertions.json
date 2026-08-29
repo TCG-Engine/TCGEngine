@@ -1,0 +1,5 @@
+[
+  {"step":1,"type":"card_exists","zone":"myHand","viewerPlayerID":1,"cardID":"suk5c6SJls","semantic":true,"label":"Rejected activation leaves Eminence in Fury in hand"},
+  {"step":1,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":3,"semantic":true,"label":"The failed prerequisite prevents any card or cost from leaving hand"},
+  {"step":1,"type":"decision_queue_empty","player":"all"}
+]

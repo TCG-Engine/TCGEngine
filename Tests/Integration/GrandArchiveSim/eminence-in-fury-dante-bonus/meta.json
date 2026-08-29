@@ -1,0 +1,14 @@
+{
+  "name": "Eminence in Fury resolves its Dante bonus",
+  "rootName": "GrandArchiveSim",
+  "createdBy": "Codex",
+  "testedCards": ["suk5c6SJls"],
+  "semanticCoverage": {
+    "testedCards": ["suk5c6SJls"],
+    "mechanics": ["condition", "cost", "random", "banish", "level-up", "unpreventable-damage"],
+    "rulesClauses": [
+      "Eminence in Fury can activate after an Elysian ally controlled by its player died this turn.",
+      "Its Dante bonus may banish one random memory card, level Dante into a compatible material champion without paying materialization costs, and deal four unpreventable damage to the new champion."
+    ]
+  }
+}

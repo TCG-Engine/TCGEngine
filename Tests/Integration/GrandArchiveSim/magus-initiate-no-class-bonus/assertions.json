@@ -1,0 +1,5 @@
+[
+  {"step":3,"type":"decision_queue_empty","player":"all"},
+  {"step":3,"type":"card_exists","zone":"p1Field","cardID":"fZ08zyFIlz","semantic":true,"label":"Magus Initiate still enters normally without class bonus"},
+  {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"vz4kc558yx-ALLY_ACTIVATED\"]","semantic":true,"label":"A non-Cleric, non-Mage champion receives no empower effect"}
+]

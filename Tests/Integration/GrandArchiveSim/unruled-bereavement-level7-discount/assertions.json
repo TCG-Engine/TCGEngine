@@ -1,0 +1,9 @@
+[
+  {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"The level-up class bonus reduces the reserve cost from four to two"},
+  {"step":4,"type":"decision_queue_empty","player":"all"},
+  {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"cAcgxzrz6z","semantic":true,"label":"Unruled Bereavement resolves to the graveyard"},
+  {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"fZ08zyFIlz","semantic":true,"label":"The three-damage sweep destroys Magus Initiate"},
+  {"step":4,"type":"card_exists","zone":"theirGraveyard","viewerPlayerID":1,"cardID":"qCTini03Bc","semantic":true,"label":"The three-damage sweep also destroys the opposing Shieldroid"},
+  {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"cAcgxzrz6z\",\"EMPOWERED\",\"EMPOWER_PLUS_2\",\"vz4kc558yx-ACTION_ACTIVATED\"]","semantic":true,"label":"The ally deaths apply Unruled Bereavement's empower-two effect to Dante"},
+  {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":3,"semantic":true,"label":"Magus Initiate's death trigger draws one card after the sweep"}
+]

@@ -1,0 +1,5 @@
+[
+  {"step":3,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"isxy5lh23q","semantic":true,"label":"Flash Grenade still enters without class bonus"},
+  {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":0,"semantic":true,"label":"Without Ranger class bonus, Flash Grenade does not draw"},
+  {"step":3,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":1,"semantic":true,"label":"The top card remains in the deck without Ranger class bonus"}
+]

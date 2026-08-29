@@ -1,0 +1,14 @@
+{
+  "name": "Frostbind negates and banishes an activation when its controller does not pay",
+  "rootName": "GrandArchiveSim",
+  "createdBy": "Codex",
+  "testedCards": ["z0fgm3pal7"],
+  "semanticCoverage": {
+    "testedCards": ["z0fgm3pal7"],
+    "mechanics": ["fast-response", "cost", "target-activation", "negate", "conditional-payment", "banish"],
+    "rulesClauses": [
+      "Frostbind can be played as a fast response while an activation is on the effect stack and costs two reserve.",
+      "When the activation's controller does not pay two, Frostbind negates that activation and banishes its source instead of allowing it to resolve."
+    ]
+  }
+}

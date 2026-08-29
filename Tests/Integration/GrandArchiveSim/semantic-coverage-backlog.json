@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-29T02:18:18+00:00",
+    "generatedAt": "2026-08-29T18:47:50+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 26,
+        "cardsWithExistingFixtures": 35,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2461,
+        "cardsNeedingSemanticCoverage": 2452,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -27,49 +27,6 @@
     },
     "cards": [
         {
-            "cardId": "9e3B8EHQak",
-            "name": "Arrest Lightning",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
-            "cardId": "pv4n1n3gyg",
-            "name": "Cleric Robes",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
             "cardId": "g7uDOmUf2u",
             "name": "Deflecting Edge",
             "type": "ACTION",
@@ -88,29 +45,6 @@
                 "Lorraine, Arclight Saber Starter Deck",
                 "Lorraine Starter Deck",
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
-            "cardId": "isxy5lh23q",
-            "name": "Flash Grenade",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "draw-discard",
-                "zone-movement",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 125
@@ -137,28 +71,6 @@
             "priority": 125
         },
         {
-            "cardId": "qufoIF014c",
-            "name": "Gleaming Cut",
-            "type": "ATTACK",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
             "cardId": "uwnHTLG3fL",
             "name": "Luxem Sight",
             "type": "ACTION",
@@ -175,28 +87,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
-            "cardId": "41t71u4bzz",
-            "name": "Polaris, Twinkling Cauldron",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "zone-movement",
-                "counter",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 125
@@ -329,26 +219,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "suk5c6SJls",
-            "name": "Eminence in Fury",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 124
@@ -530,26 +400,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "cAcgxzrz6z",
-            "name": "Unruled Bereavement",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 124
@@ -768,25 +618,6 @@
             "priority": 123
         },
         {
-            "cardId": "fZ08zyFIlz",
-            "name": "Magus Initiate",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
             "cardId": "to1pmvo54d",
             "name": "Mnemonic Charm",
             "type": "ITEM",
@@ -991,25 +822,6 @@
             "existingFixtures": [],
             "semanticFixtures": [],
             "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 122
-        },
-        {
-            "cardId": "z0fgm3pal7",
-            "name": "Frostbind",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck",
                 "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
@@ -42956,6 +42768,166 @@
             "priority": 154
         },
         {
+            "cardId": "9e3B8EHQak",
+            "name": "Arrest Lightning",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "arrest-lightning-graveyard-static-counter"
+            ],
+            "semanticFixtures": [
+                "arrest-lightning-graveyard-static-counter"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "pv4n1n3gyg",
+            "name": "Cleric Robes",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cleric-robes-class-bonus-draw",
+                "cleric-robes-no-class-bonus"
+            ],
+            "semanticFixtures": [
+                "cleric-robes-class-bonus-draw",
+                "cleric-robes-no-class-bonus"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "isxy5lh23q",
+            "name": "Flash Grenade",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "draw-discard",
+                "zone-movement",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "flash-grenade-class-bonus-draw",
+                "flash-grenade-no-class-bonus"
+            ],
+            "semanticFixtures": [
+                "flash-grenade-class-bonus-draw",
+                "flash-grenade-no-class-bonus"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "qufoIF014c",
+            "name": "Gleaming Cut",
+            "type": "ATTACK",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gleaming-cut-lightweavers-assault"
+            ],
+            "semanticFixtures": [
+                "gleaming-cut-lightweavers-assault"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "41t71u4bzz",
+            "name": "Polaris, Twinkling Cauldron",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "zone-movement",
+                "counter",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "polaris-twinkling-cauldron-activate"
+            ],
+            "semanticFixtures": [
+                "polaris-twinkling-cauldron-activate"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "suk5c6SJls",
+            "name": "Eminence in Fury",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "eminence-in-fury-dante-bonus",
+                "eminence-in-fury-no-elysian-death"
+            ],
+            "semanticFixtures": [
+                "eminence-in-fury-dante-bonus",
+                "eminence-in-fury-no-elysian-death"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
             "cardId": "wcfvrfw35s",
             "name": "Enrage",
             "type": "ACTION",
@@ -42978,6 +42950,80 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 144
+        },
+        {
+            "cardId": "cAcgxzrz6z",
+            "name": "Unruled Bereavement",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "unruled-bereavement-level7-discount"
+            ],
+            "semanticFixtures": [
+                "unruled-bereavement-level7-discount"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "fZ08zyFIlz",
+            "name": "Magus Initiate",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "magus-initiate-class-bonus",
+                "magus-initiate-no-class-bonus",
+                "unruled-bereavement-level7-discount"
+            ],
+            "semanticFixtures": [
+                "magus-initiate-class-bonus",
+                "magus-initiate-no-class-bonus",
+                "unruled-bereavement-level7-discount"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
+            "cardId": "z0fgm3pal7",
+            "name": "Frostbind",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "frostbind-negate-banish"
+            ],
+            "semanticFixtures": [
+                "frostbind-negate-banish"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 142
         },
         {
             "cardId": "HHtlkEeyQR",

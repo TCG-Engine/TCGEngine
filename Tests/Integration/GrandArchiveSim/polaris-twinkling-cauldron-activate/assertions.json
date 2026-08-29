@@ -23,7 +23,9 @@
         "type": "card_property_equals",
         "mzId": "p1Field-1",
         "property": "Damage",
-        "value": "3"
+        "value": "3",
+        "semantic": true,
+        "label": "Polaris applies its all-allies damage to a surviving opposing ally"
     },
     {
         "step": 4,
@@ -114,14 +116,18 @@
         "type": "card_property_equals",
         "mzId": "p2Banish-6",
         "property": "CardID",
-        "value": "41t71u4bzz"
+        "value": "41t71u4bzz",
+        "semantic": true,
+        "label": "Polaris is banished as part of its activated ability cost"
     },
     {
         "step": 4,
         "type": "card_property_equals",
         "mzId": "p2Banish-6",
         "property": "Counters",
-        "value": "{\"wither\":1,\"age\":4}"
+        "value": "{\"wither\":1,\"age\":4}",
+        "semantic": true,
+        "label": "The resolved X value is backed by four age counters on Polaris"
     },
     {
         "step": 4,
@@ -142,7 +148,9 @@
         "type": "zone_count",
         "zone": "myGraveyard",
         "viewerPlayerID": 1,
-        "value": 3
+        "value": 3,
+        "semantic": true,
+        "label": "The four-damage sweep destroys all three vulnerable opposing allies"
     },
     {
         "step": 4,

@@ -1,0 +1,6 @@
+[
+  {"step":3,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"pv4n1n3gyg","semantic":true,"label":"Cleric Robes enters the field from the material deck"},
+  {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":1,"semantic":true,"label":"The Cleric class bonus draws exactly one card"},
+  {"step":3,"type":"card_exists","zone":"myHand","viewerPlayerID":1,"cardID":"fZ08zyFIlz","semantic":true,"label":"The top card of the deck is drawn into hand"},
+  {"step":3,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":0,"semantic":true,"label":"The class-bonus draw removes the only deck card"}
+]

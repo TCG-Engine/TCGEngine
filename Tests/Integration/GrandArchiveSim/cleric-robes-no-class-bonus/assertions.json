@@ -1,0 +1,5 @@
+[
+  {"step":3,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"pv4n1n3gyg","semantic":true,"label":"Cleric Robes still enters without class bonus"},
+  {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":0,"semantic":true,"label":"Without Cleric class bonus, Cleric Robes does not draw"},
+  {"step":3,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":1,"semantic":true,"label":"The top card remains in the deck without class bonus"}
+]

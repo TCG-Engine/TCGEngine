@@ -1,0 +1,16 @@
+{
+    "name": "Arrest Lightning adds a static counter from the graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdBy": "Codex",
+    "testedCards": [
+        "9e3B8EHQak"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["9e3B8EHQak"],
+        "mechanics": ["class-bonus", "element-bonus", "graveyard-activation", "cost", "banish", "targeting", "counter"],
+        "rulesClauses": [
+            "With Warrior class bonus and Arcane element bonus, Arrest Lightning can activate from the graveyard for one reserve and banishing itself.",
+            "The graveyard ability puts one static counter on the targeted Arcane object controlled by that player."
+        ]
+    }
+}

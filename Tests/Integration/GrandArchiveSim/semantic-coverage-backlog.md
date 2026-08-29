@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **26**
+Cards linked to an existing fixture: **35**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2461**
+Implemented cards still needing semantic coverage: **2452**
 
 ## Mechanic groups
 
@@ -26,21 +26,15 @@ Implemented cards still needing semantic coverage: **2461**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Arrest Lightning (`9e3B8EHQak`) | ACTION | 2 | targeting, damage, prevention, zone-movement, counter | Lorraine, Arclight Saber Starter Deck | — |
-| Cleric Robes (`pv4n1n3gyg`) | REGALIA,ITEM | 2 | damage, prevention, draw-discard, trigger, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Deflecting Edge (`g7uDOmUf2u`) | ACTION | 2 | cost, targeting, damage, prevention, condition | Lorraine, Arclight Saber Starter Deck, Lorraine Starter Deck, Lorraine Pantheon Starter | — |
-| Flash Grenade (`isxy5lh23q`) | REGALIA,ITEM | 2 | damage, prevention, draw-discard, zone-movement, status, trigger, condition | Diana Starter Deck | — |
 | Fortified Mana Shield (`5lh23qu7d6`) | ACTION | 2 | cost, targeting, damage, prevention, condition | Tonoris Starter Deck | — |
-| Gleaming Cut (`qufoIF014c`) | ATTACK | 2 | targeting, draw-discard, zone-movement, combat, trigger, condition | Zander Pantheon Starter | — |
 | Luxem Sight (`uwnHTLG3fL`) | ACTION | 2 | damage, recover, draw-discard, trigger, condition | Zander Pantheon Starter | — |
-| Polaris, Twinkling Cauldron (`41t71u4bzz`) | REGALIA,ITEM | 2 | damage, zone-movement, counter, status, trigger, condition | Arisanna Pantheon Starter | — |
 | Sabela, Gossamer Penance (`pOJ4uRuyMK`) | UNIQUE,ALLY | 2 | cost, targeting, zone-movement, counter, trigger, condition | Lorraine Pantheon Starter | — |
 | Shizun of the Ash (`pnDUy9jUbo`) | ALLY | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | Kongming Pantheon Starter | — |
 | Spirit Blade: Infusion (`CgyJxpEgzk`) | ACTION | 2 | cost, targeting, damage, draw-discard, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Stocked Outpost (`AOMXEGeSQk`) | DOMAIN | 2 | damage, draw-discard, zone-movement, trigger, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
 | Vernal Talisman (`dW5uyngvJW`) | REGALIA,ITEM | 2 | cost, recover, draw-discard, zone-movement, trigger | Kongming Pantheon Starter | — |
 | Corhazi Arsonist (`0ejcyuvuxn`) | ALLY | 2 | zone-movement, counter, status, condition | Zander Pantheon Starter | — |
-| Eminence in Fury (`suk5c6SJls`) | ACTION | 2 | cost, damage, zone-movement, condition | Dante, Hemomancer Starter Deck | — |
 | Entrancing Filigree (`vrf9n24b5a`) | REGALIA,ITEM | 2 | targeting, zone-movement, status, trigger | Kongming Starter Deck | — |
 | Luminous Surge (`KOqdA7G6by`) | ACTION | 2 | targeting, recover, combat, trigger | Zander Pantheon Starter | — |
 | Meltdown (`ht2tsn0ye3`) | ACTION | 2 | cost, targeting, zone-movement, condition | Zander Pantheon Starter | — |
@@ -50,7 +44,6 @@ Implemented cards still needing semantic coverage: **2461**
 | Samaritan's Reach (`MskPCrbv0L`) | ACTION | 2 | cost, targeting, damage, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
 | Slay the King (`6v374coy34`) | ATTACK | 2 | zone-movement, combat, trigger, condition | Lorraine Pantheon Starter | — |
 | Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
-| Unruled Bereavement (`cAcgxzrz6z`) | ACTION | 2 | cost, damage, trigger, condition | Dante, Hemomancer Starter Deck | — |
 | Worn Diary (`gmuesdu6o6`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, counter, condition | Kongming Pantheon Starter | — |
 | Anathema's End (`ii17fzcyfr`) | ITEM | 2 | targeting, damage, zone-movement | Diana Starter Deck | — |
 | Brooch X Ultra (`3Gx9ByIl9t`) | ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
@@ -62,7 +55,6 @@ Implemented cards still needing semantic coverage: **2461**
 | Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
 | Incendiary Shot (`3qu7d6sopo`) | ITEM | 2 | targeting, damage, combat | Diana Starter Deck | — |
 | Lightweaver's Assault (`zxB4tzy9iy`) | ACTION | 2 | targeting, damage, trigger | Zander Pantheon Starter | — |
-| Magus Initiate (`fZ08zyFIlz`) | ALLY | 2 | draw-discard, trigger, condition | Dante, Hemomancer Starter Deck | — |
 | Mnemonic Charm (`to1pmvo54d`) | ITEM | 2 | draw-discard, trigger, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
 | Potion Infusion: Volatility (`ndnEl5mq7W`) | ACTION | 2 | targeting, damage, condition | Arisanna Pantheon Starter | — |
 | Rally the Peasants (`q1uwq8sdbz`) | ACTION | 2 | cost, zone-movement, condition | Lorraine Pantheon Starter | — |
@@ -74,5 +66,13 @@ Implemented cards still needing semantic coverage: **2461**
 | Battlefield Benediction (`HcR3O8vDps`) | ACTION | 2 | cost, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
 | Diana, Duskstalker (`iq4d5vettc`) | CHAMPION | 2 | status, trigger | Diana Starter Deck | — |
 | Distilled Water (`O1OU62Zx2Y`) | ITEM | 2 | draw-discard, condition | Arisanna Pantheon Starter | — |
-| Frostbind (`z0fgm3pal7`) | ACTION | 2 | targeting, zone-movement | Dante, Hemomancer Starter Deck, Arisanna Pantheon Starter | — |
 | Guerrilla Advantage (`JxCzS4XJ3V`) | ACTION | 2 | cost, condition | Zander Pantheon Starter | — |
+| Mindbreak Bullet (`9htu9agwj4`) | ITEM | 2 | targeting, draw-discard | Diana Starter Deck | — |
+| Necklace of Foresight (`lq2kkvoqk1`) | REGALIA,ITEM | 2 | cost, zone-movement | Arisanna Starter Deck | — |
+| Winds of Retribution (`huqj5bbae3`) | ACTION | 2 | cost, condition | Tonoris Starter Deck | — |
+| Flute of Taming (`y8fx8G64C9`) | REGALIA,ITEM | 2 | targeting | Silvie Starter Deck | — |
+| Smash with Obelisk (`2kkvoqk1l7`) | ATTACK | 2 | cost | Tonoris Starter Deck | — |
+| Aenean Ward (`gqyWZXpxl9`) | ACTION | 1 | targeting, damage, prevention, draw-discard, condition | Dante, Hemomancer Starter Deck | — |
+| Aesan Protector (`heq49UQGvQ`) | ALLY | 1 | targeting, zone-movement, status, combat, trigger | Lorraine Pantheon Starter | — |
+| Assassin's Mantle (`3tcs0axa03`) | REGALIA,ITEM | 1 | damage, prevention, zone-movement, counter, condition | Zander Pantheon Starter | — |
+| Barrier Servant (`xW6SZSlJX6`) | ALLY | 1 | damage, prevention, status, combat, trigger | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
