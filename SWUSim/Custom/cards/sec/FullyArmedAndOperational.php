@@ -13,11 +13,9 @@ $customDQHandlers["SEC_194#0"] = function($player, $parts, $lastDecision) {
     $playedCardID = '';
     $ho = GetZoneObject($lastDecision);
     if ($ho !== null) $playedCardID = $ho->CardID ?? '';
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
     $gPlayGrantTurnEffect = 'SEC_194';                 // gains Ambush this phase (registry) + findable marker
-    ActivateCard(intval($player), $lastDecision, false, 0);
+    SWUNestedPlay(intval($player), $lastDecision, false, 0);
     $gPlayGrantTurnEffect = null;
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
     // Locate the just-played unit by the SEC_194 marker.
     $playerID = intval($player);
     $mzPlayed = '';

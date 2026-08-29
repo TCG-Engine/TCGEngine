@@ -147,11 +147,17 @@ $activeSite = function($db) use ($withEnvAndRoot) {
 // refactor changes any of these, a live site starts rendering as a different site.
 $historicalPairs = [
     'swudeck'         => 'SWUDeck',
-    'grandarchivesim' => 'GrandArchiveSim',
+    // ⚠ GrandArchiveSim's DATABASE is 'soulmastersdb', not 'grandarchivesim' — the db was renamed
+    // while the rootName stayed. This pin is about the db->site mapping, so it follows the db name;
+    // 'grandarchivesim' is not a database at all and correctly resolves to NULL (asserted below).
+    'soulmastersdb'   => 'GrandArchiveSim',
     'azukisim'        => 'AzukiSim',
     'swusim'          => 'SWUSim',
     'hellbreaksim'    => 'HellbreakSim',
 ];
+// The OLD name must stay unmapped: re-adding it would give GrandArchiveSim two databases and make
+// which one wins depend on registry order.
+$check(SiteForDatabase('grandarchivesim') === null, "'grandarchivesim' is not a database (renamed to soulmastersdb)");
 foreach($historicalPairs as $db => $expectedSite) {
     $check($activeSite($db) === $expectedSite, "ActiveSite still resolves '$db' to $expectedSite");
 }

@@ -14,7 +14,10 @@ $customDQHandlers["ASH_104#0"] = function($player, $parts, $lastDecision) {
     }
     rsort($idxs);   // descending — highest discard index first
     foreach ($idxs as $idx) {   // descending, so removing higher indices leaves lower mzIDs valid
-        ActivateCard(intval($player), "myDiscard-{$idx}", false, 99);   // free (via canonical play)
+        // Nested play: the outer EVENT's FINISH_PLAY_CARD owns this action's ending, so ActivateCard
+        // must not finalise it too (an extra action). SWUNestedPlay covers the deferred leg as well —
+        // each of the up-to-3 plays can arm an entry trigger of its own.
+        SWUNestedPlay(intval($player), "myDiscard-{$idx}", false, 99);   // free (via canonical play)
     }
 };
 

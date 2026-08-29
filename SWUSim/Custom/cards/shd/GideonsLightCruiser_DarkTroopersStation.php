@@ -35,7 +35,5 @@ $customDQHandlers["SHD_242#0"] = function($player, $parts, $lastDecision) {
     global $playerID, $gTurnPlayer; $playerID = intval($player);
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $lastDecision, true, 0);   // ignoreCost = free
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $lastDecision, true, 0);   // ignoreCost = free
 };

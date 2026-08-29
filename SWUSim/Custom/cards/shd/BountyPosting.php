@@ -38,9 +38,7 @@ $customDQHandlers["SHD_228#1"] = function($player, $parts, $lastDecision) {
     $handMz = $parts[0] ?? '';
     $o = GetZoneObject($handMz);
     if (SWUObjGone($o)) return;
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $handMz, false, 0);   // play at cost; attach flow picks the enemy host
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $handMz, false, 0);   // play at cost; attach flow picks the enemy host
 };
 
 // When Played (event) — migrated from OnPlayEvent.

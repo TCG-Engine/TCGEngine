@@ -71,14 +71,10 @@ $customDQHandlers["HMW_016#0"] = function($player, $parts, $lastDecision) {
     // The marker is how the played unit is FOUND afterwards. A positional guess would be wrong as soon
     // as the unit lands in the other arena, or the arena reindexes.
     $gPlayGrantTurnEffect = 'HMW_016';
-    // ⚠ ActivateCard runs its OWN after-action; leaving it would swap the turn a second time on top of
-    // the leader action's and hand this player a free extra action. Invisible under P1OnlyActions —
-    // only a TURNPLAYER assertion on an alternating turn can see it (measured live on HMW_204).
-    $savedTP   = $gTurnPlayer;
-    $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $handMz, false, intval($parts[0] ?? 0));
-    $gTurnPlayer = $savedTP;
-    SetSWUVar('PASS', $savedPass);
+    // Nested play: the leader Action owns this action's ending. SWUNestedPlay neutralises BOTH of
+    // ActivateCard's after-actions — the immediate one and the deferred one that a queued
+    // SWU_TRIGGER_RESUME fires when the played unit arms an entry trigger (an opponent's Trap Field).
+    SWUNestedPlay(intval($player), $handMz, false, intval($parts[0] ?? 0));
     $gPlayGrantTurnEffect = null;
 
     $newMz = null;
@@ -161,9 +157,5 @@ $customDQHandlers["HMW_016#2"] = function($player, $parts, $lastDecision) {
     $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
     if (strpos(strval($lastDecision), '-') === false) return;
-    $savedTP   = $gTurnPlayer;
-    $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), strval($lastDecision), false, intval($parts[0] ?? 0));
-    $gTurnPlayer = $savedTP;
-    SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), strval($lastDecision), false, intval($parts[0] ?? 0));
 };

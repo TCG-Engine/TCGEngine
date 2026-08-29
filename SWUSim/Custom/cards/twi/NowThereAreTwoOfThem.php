@@ -8,9 +8,7 @@
 $customDQHandlers["TWI_225#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID, $gTurnPlayer; $playerID = intval($player);
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $lastDecision, false, 5); // -5 cost
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $lastDecision, false, 5); // -5 cost
 };
 
 // When Played (event) — migrated from OnPlayEvent.

@@ -138,6 +138,14 @@ function SWUFormatDefinitions() {
             'minDeck'     => 80,
             'maxCopies'   => 1,
             'leaderCount' => 2,
+            // ⚠ REQUIRED, not optional. SWUFormatSeatRange defaults a missing min/maxPlayers to 2,
+            // and SWUFormatIsRoomFormat is `max > 2` — so omitting these did not merely mis-size the
+            // room, it took the format OUT of the room flow entirely: "Twin Suns Preview" shipped as
+            // a 2-player fill-and-go queue that still demanded a 2-leader/80-card singleton deck.
+            // A preview format mirrors its base on everything except the card pool; the parity check
+            // in DevTools/tdd-regression/test_swusim_formats_config.php now enforces that.
+            'minPlayers'  => 3,
+            'maxPlayers'  => 4,
             'enabled'     => true,
         ],
         // Eternal pool + the upcoming set's previews — the Eternal counterpart of 'preview'. Same

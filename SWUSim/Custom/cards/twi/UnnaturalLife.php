@@ -8,7 +8,7 @@
 $customDQHandlers["TWI_189#0"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || !preg_match('/myDiscard-(\d+)/', (string)$lastDecision, $m)) return;
     global $playerID; $playerID = intval($player);
-    ActivateCard(intval($player), $lastDecision, false, 2); // via canonical play
+    SWUNestedPlay(intval($player), $lastDecision, false, 2);   // nested: outer event owns the after-action // via canonical play
     $newMz = $GLOBALS['gLastPlayedMzID'];
     if ($newMz === '' || $newMz === null) return;
     $o = GetZoneObject($newMz);

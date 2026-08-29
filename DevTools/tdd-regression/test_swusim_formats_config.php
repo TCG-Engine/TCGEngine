@@ -86,5 +86,58 @@ foreach (['premier','eternal','twinsuns','open','goldfish','hotseat','preview','
 
 $checks['padawan listed'] = array_key_exists('padawan', SWUListFormats());
 
+// ── A PREVIEW FORMAT IS ITS BASE FORMAT WITH A WIDER CARD POOL — NOTHING ELSE ─────────────────
+// Every check above is a per-format spot check, and that is exactly how `twinsuns-preview` shipped
+// seating TWO players: it copied Twin Suns' deckbuilding (2 leaders, 80 cards, singleton) but simply
+// omitted minPlayers/maxPlayers, and SWUFormatSeatRange defaults those to 2. The format was live in
+// the SWUSim dropdown, so "Twin Suns Preview" was a 2-player queue demanding a Twin Suns deck —
+// SWUFormatIsRoomFormat is max > 2, so it did not even use the room flow. No spot check could catch
+// an ABSENT key; only comparing the whole pair can.
+//
+// So this is a FAMILY check, derived rather than enumerated: a preview format must differ from its
+// base on legalSets alone. Add a preview format and forget a key, and this fails by construction.
+$previewBases = [
+    'preview'          => 'premier',    // "Premier Preview" — the one whose name omits the suffix
+    'eternal-preview'  => 'eternal',
+    'padawan-preview'  => 'padawan',
+    'twinsuns-preview' => 'twinsuns',
+];
+// Keys that define HOW the format plays. legalSets is deliberately excluded — it is the entire
+// difference. displayName/enabled are presentation. Everything else must match the base exactly,
+// INCLUDING when both are absent, which is why ?? null is compared rather than isset() tested.
+$mirrored = ['minPlayers','maxPlayers','leaderCount','minDeck','maxCopies','legalRarities',
+             'teams','uniqueTeamLeaders','banned','ignoreGlobalCardRules',
+             'copyExceptions','deckSizeModifiers'];
+foreach ($previewBases as $pf => $bf) {
+    $P = SWUGetFormat($pf); $B = SWUGetFormat($bf);
+    $checks["$pf resolves"]      = $P !== null;
+    $checks["$bf resolves"]      = $B !== null;
+    if ($P === null || $B === null) continue;
+    foreach ($mirrored as $k) {
+        $checks["$pf mirrors $bf: $k"] = ($P[$k] ?? null) === ($B[$k] ?? null);
+    }
+    // The seat range is asserted through the FUNCTION the lobby actually calls, not the raw keys.
+    // A default that silently fills a missing key is the failure mode being guarded, so reading the
+    // array directly would re-introduce the blind spot the raw-key check above already covers.
+    $checks["$pf seats like $bf"] = SWUFormatSeatRange($pf) === SWUFormatSeatRange($bf);
+    $checks["$pf is a room format iff $bf is"] =
+        SWUFormatIsRoomFormat($pf) === SWUFormatIsRoomFormat($bf);
+    // The point of existing: the preview pool must add the preview sets on top of the base's pool.
+    $checks["$pf pool is a superset of $bf"] =
+        empty(array_diff(SWUFormatLegalSets($bf), SWUFormatLegalSets($pf)));
+    $checks["$pf is flagged preview"] = SWUFormatIsPreview($pf) === true;
+    $checks["$bf is NOT flagged preview"] = SWUFormatIsPreview($bf) === false;
+}
+// A map that outlives its entries rots into a check nobody is running. Every enabled preview format
+// must appear above — otherwise a newly added one is silently unguarded, which is the whole bug.
+foreach (array_keys(SWUListFormats()) as $f) {
+    if (!SWUFormatIsPreview($f)) continue;
+    $checks["preview format '$f' is covered by \$previewBases"] = isset($previewBases[$f]);
+}
+$checks['no teamsuns-preview (deliberate — Team Suns previews are not offered)'] =
+    SWUGetFormat('teamsuns-preview') === null;
+
 $fails = array_keys(array_filter($checks, fn($v) => $v !== true));
 echo empty($fails) ? "PASS (" . count($checks) . " checks)\n" : "FAIL: " . implode(', ', $fails) . "\n";
+// Exit code so a runner can gate on this without grepping for the word PASS.
+exit(empty($fails) ? 0 : 1);

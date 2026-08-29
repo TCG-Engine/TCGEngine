@@ -11,9 +11,7 @@ $customDQHandlers["LAW_264#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     $discount = SWUAspectPenalty(intval($player), $o->CardID);
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $lastDecision, false, $discount);
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $lastDecision, false, $discount);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

@@ -8,7 +8,7 @@ $customDQHandlers["JTL_121#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID;
     $playerID = intval($player);
-    ActivateCard(intval($player), $lastDecision, false, 0); // full cost via canonical play
+    SWUNestedPlay(intval($player), $lastDecision);   // nested: outer event owns the after-action // full cost via canonical play
     $newMz = $GLOBALS['gLastPlayedMzID'];
     if ($newMz === '') return;
     SWUDealDamageToUnit($newMz, 1, intval($player));

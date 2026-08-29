@@ -14,9 +14,7 @@ $customDQHandlers["SEC_245#0"] = function($player, $parts, $lastDecision) {
             AddGameLogEntry('PLAY', 'P' . intval($player) . ' plays ' . GameLogCardRef($o->CardID) . ' with Plot (When Has Become Now)');
             // Nested play from resources, guarded so the inner ActivateCard's After Action doesn't
             // double-advance SEC_245's own event action (JTL_089#1 turn/PASS save-restore).
-            $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-            ActivateCard(intval($player), $resMz, false);
-            $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+            SWUNestedPlay(intval($player), $resMz, false, 0);
             // This IS "playing a card from your resources", so observers of that event fire here just as
             // they do on the Plot-window and Smuggle routes (SEC_008 Bail Organa's deployed heal).
             _SWUSec008HealOnResourcePlay(intval($player));

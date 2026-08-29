@@ -9,11 +9,7 @@ $customDQHandlers["JTL_155#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID, $gTurnPlayer;
     $playerID  = intval($player);
-    $savedTP   = $gTurnPlayer;
-    $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $lastDecision, false, 3);
-    $gTurnPlayer = $savedTP;
-    SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $lastDecision, false, 3);
 };
 
 // JTL_155 They Hate That Ship — the CHOSEN opponent creates 2 readied TIEs, then the caster plays a Vehicle.

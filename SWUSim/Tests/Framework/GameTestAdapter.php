@@ -418,6 +418,13 @@ class GameTestAdapter {
         global $playerID;
         $saved = $playerID;
         $playerID = $player;
+                // ⚠ OPEN AN ACTION, exactly as production does. Ability actions reach the engine through
+        // CustomInput.php in the live game, and CustomInput calls SaveUndoVersion() — which is where
+        // the action-close ledger stamps a new action id. This adapter calls SWU*Action() directly, so
+        // without this the ability action INHERITS the previous action's id, its close is rejected as a
+        // duplicate, and the turn never passes. Measured on Osha: an attack and a leader ability both
+        // ran under id=1. Play/attack are unaffected — they route through ActionMap, which stamps.
+        if (function_exists('_SWUOpenAction')) _SWUOpenAction();
         ob_start();
         $leaderArr = GetLeader($player);
         $live = array_values(array_filter($leaderArr, fn($o) => !isset($o->removed) || !$o->removed));
@@ -434,6 +441,13 @@ class GameTestAdapter {
         global $playerID;
         $saved = $playerID;
         $playerID = $player;
+                // ⚠ OPEN AN ACTION, exactly as production does. Ability actions reach the engine through
+        // CustomInput.php in the live game, and CustomInput calls SaveUndoVersion() — which is where
+        // the action-close ledger stamps a new action id. This adapter calls SWU*Action() directly, so
+        // without this the ability action INHERITS the previous action's id, its close is rejected as a
+        // duplicate, and the turn never passes. Measured on Osha: an attack and a leader ability both
+        // ran under id=1. Play/attack are unaffected — they route through ActionMap, which stamps.
+        if (function_exists('_SWUOpenAction')) _SWUOpenAction();
         ob_start();
         SWUBaseAction($player);
         $this->_drainDQ($player);
@@ -446,6 +460,13 @@ class GameTestAdapter {
         global $playerID;
         $saved = $playerID;
         $playerID = $player;
+                // ⚠ OPEN AN ACTION, exactly as production does. Ability actions reach the engine through
+        // CustomInput.php in the live game, and CustomInput calls SaveUndoVersion() — which is where
+        // the action-close ledger stamps a new action id. This adapter calls SWU*Action() directly, so
+        // without this the ability action INHERITS the previous action's id, its close is rejected as a
+        // duplicate, and the turn never passes. Measured on Osha: an attack and a leader ability both
+        // ran under id=1. Play/attack are unaffected — they route through ActionMap, which stamps.
+        if (function_exists('_SWUOpenAction')) _SWUOpenAction();
         ob_start();
         SWUUnitAction($player, $mzID);
         $this->_drainDQ($player);
@@ -459,6 +480,12 @@ class GameTestAdapter {
         $saved = $playerID;
         $playerID = $player;
         ob_start();
+        // Same as the ability entry points above: production deploys a leader through
+        // CustomInput.php, which calls SaveUndoVersion() and therefore opens an action. This
+        // adapter calls SWUDeployLeader() directly, so without this the deploy inherits the
+        // previous action's id, its close is rejected as a duplicate and the turn never passes —
+        // which made the NEXT scripted action run out of turn and silently do nothing.
+        if (function_exists('_SWUOpenAction')) _SWUOpenAction();
         SWUDeployLeader($player, 'Unit', '', $leaderIndex);
         $this->_drainDQ($player);
         ob_end_clean();
@@ -471,6 +498,11 @@ class GameTestAdapter {
         $saved = $playerID;
         $playerID = $player;
         ob_start();
+        // Mirrors CustomInput.php, which calls SaveUndoVersion() (and therefore opens an action)
+        // before this. Audit of deferral #6, 2026-08-29: of the 9 engine entry points this adapter
+        // shares with production, 7 are stamped in production. Without the same stamp here the
+        // action inherits the previous one's id and its close is refused as a duplicate.
+        if (function_exists('_SWUOpenAction')) _SWUOpenAction();
         SWUTakeInitiative($player);
         $this->_drainDQ($player);
         ob_end_clean();
@@ -483,6 +515,11 @@ class GameTestAdapter {
         $saved = $playerID;
         $playerID = $player;
         ob_start();
+        // Mirrors CustomInput.php, which calls SaveUndoVersion() (and therefore opens an action)
+        // before this. Audit of deferral #6, 2026-08-29: of the 9 engine entry points this adapter
+        // shares with production, 7 are stamped in production. Without the same stamp here the
+        // action inherits the previous one's id and its close is refused as a duplicate.
+        if (function_exists('_SWUOpenAction')) _SWUOpenAction();
         SWUTakeCounter($player, $which);
         $this->_drainDQ($player);
         ob_end_clean();
@@ -548,6 +585,11 @@ class GameTestAdapter {
         $saved = $playerID;
         $playerID = $player;
         ob_start();
+        // Mirrors CustomInput.php, which calls SaveUndoVersion() (and therefore opens an action)
+        // before this. Audit of deferral #6, 2026-08-29: of the 9 engine entry points this adapter
+        // shares with production, 7 are stamped in production. Without the same stamp here the
+        // action inherits the previous one's id and its close is refused as a duplicate.
+        if (function_exists('_SWUOpenAction')) _SWUOpenAction();
         SWUSmuggleResource($player, $resourceIdx);
         $this->_drainDQ($player);
         ob_end_clean();

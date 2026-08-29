@@ -23,12 +23,21 @@ $queue = file_get_contents('./APIs/Lobbies/JoinQueue.php');
 $layout = file_get_contents('./HellbreakSim/Custom/GameLayout.php');
 $client = file_get_contents('./HellbreakSim/Tutorial/tutorial-client.js');
 
-$check(str_contains($menu, 'Learn to Play') && str_contains($menu, 'startTutorial()'),
-    'Hellbreak menu exposes a dedicated Learn to Play launch');
+// ⚠ ASSERT THE MECHANISM, NOT THE MARKETING COPY. This used to require the literal string
+// 'Learn to Play'; the button was reworded to 'First Visit' / 'Shoreline orientation' and the test
+// sat red while the feature worked perfectly. Copy is expected to change — the id, the handler and
+// the lobby values are the contract, so pin those.
+$check(str_contains($menu, 'id="start-tutorial-btn"') && str_contains($menu, 'startTutorial()'),
+    'Hellbreak menu exposes a dedicated tutorial launch button wired to startTutorial()');
 $check(str_contains($menu, "values.createTutorial = '1'") && str_contains($menu, "values.format = 'tutorial'"),
     'the tutorial launch requests the authored tutorial lobby mode');
-$check(str_contains($menu, 'Solo Rules Test') && str_contains($menu, 'Player 2 automatically passes'),
-    'the old goldfish launch is clearly distinguished from the tutorial');
+// Same rewording: 'Solo Rules Test' / 'Player 2 automatically passes' became 'Solo Patrol'. What the
+// check is really for is that the goldfish launch is a SEPARATE control from the tutorial one and
+// still requests the goldfish format — assert that, which no rewrite of the label can break.
+$check(str_contains($menu, 'id="start-fixture-match-btn"')
+    && str_contains($menu, "values.createGoldfish = '1'")
+    && str_contains($menu, "delete values.createGoldfish"),
+    'the goldfish launch is a distinct control and the tutorial path clears its flag');
 $check(str_contains($queue, "['AzukiSim', 'HellbreakSim']") && str_contains($queue, '$isHellbreakTutorial'),
     'the shared lobby creates Hellbreak tutorial games without changing Azukis mode');
 $check(str_contains($layout, 'HellbreakTutorialIsActive')

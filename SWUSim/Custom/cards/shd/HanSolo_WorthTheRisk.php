@@ -23,9 +23,7 @@ $customDQHandlers["SHD_013#play"] = function($player, $parts, $lastDecision) {
         }
     }
     $gPlayGrantTurnEffect = 'SHD_013';
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $handMz, false, 1);   // −1 discount; inner after-action neutralised
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $handMz, false, 1);   // −1 discount; inner after-action neutralised
     $gPlayGrantTurnEffect = null;
     $newMz = null;
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {

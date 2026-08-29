@@ -64,15 +64,12 @@ $customDQHandlers["HMW_204#0"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || !preg_match('/myDiscard-(\d+)/', (string) $lastDecision, $m)) return;  // '-' = declined
     global $playerID, $gTurnPlayer;
     $playerID = intval($player);
-    // ⚠ ActivateCard runs its OWN after-action, which would swap the turn a SECOND time on top of the
-    // one Nightbrother's own play already owns — handing this player a free extra action. Neutralise it
-    // with the JTL_089#1 save/restore. This is invisible under P1OnlyActions (the opponent auto-passes,
-    // so the turn comes back either way); only a TURNPLAYER assertion on an alternating turn can see it.
-    $savedTP   = $gTurnPlayer;
-    $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $lastDecision, false, intval($parts[0] ?? 0));  // discount from the offer
-    $gTurnPlayer = $savedTP;
-    SetSWUVar('PASS', $savedPass);
+    // Nested play: Nightbrother's own play already owns this action's ending, so ActivateCard must not
+    // finalise it again. SWUNestedPlay handles BOTH after-actions — the immediate one AND the deferred
+    // one a queued SWU_TRIGGER_RESUME would fire if the replayed unit arms an entry trigger (an
+    // opponent's HMW_171 Trap Field). Guarded by TrapFieldReactsToTheReplayedUnit_StillNoExtraAction;
+    // the plain TURNPLAYER sections cannot see the deferred leg, because no trigger fires in them.
+    SWUNestedPlay(intval($player), strval($lastDecision), false, intval($parts[0] ?? 0));
     $newMz = $GLOBALS['gLastPlayedMzID'] ?? '';
     if ($newMz === '' || $newMz === null) return;
     $o = GetZoneObject($newMz);

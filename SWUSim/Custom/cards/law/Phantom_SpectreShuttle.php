@@ -22,9 +22,7 @@ $customDQHandlers["LAW_144#0"] = function($player, $parts, $lastDecision) {
     global $playerID, $gTurnPlayer, $gPlayGrantExp; $playerID = intval($player);
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
     $gPlayGrantExp = 1;
-    ActivateCard(intval($player), $lastDecision, false, 0);
+    SWUNestedPlay(intval($player), $lastDecision, false, 0);
     $gPlayGrantExp = null;
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
 };

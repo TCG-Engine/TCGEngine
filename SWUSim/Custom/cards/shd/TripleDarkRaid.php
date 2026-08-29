@@ -24,12 +24,10 @@ $customDQHandlers["SHD_194#0"] = function($player, $parts, $lastDecision) {
         if (empty($hand[$i]->removed) && ($hand[$i]->CardID ?? '') === $chosenID) { $handMz = "myHand-$i"; break; }
     }
     if ($handMz === null) return;
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
     $gForceEnterReady     = true;
     $gPlayGrantTurnEffect = 'SWU_SHD194_RETURN';
-    ActivateCard(intval($player), $handMz, false, 5);     // -5 cost; enters ready; return-at-regroup marker
+    SWUNestedPlay(intval($player), $handMz, false, 5);     // -5 cost; enters ready; return-at-regroup marker
     $gForceEnterReady = false; $gPlayGrantTurnEffect = null;
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

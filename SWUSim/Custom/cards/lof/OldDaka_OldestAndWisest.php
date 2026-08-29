@@ -40,5 +40,7 @@ $customDQHandlers["LOF_036#1"] = function($player, $parts, $lastDecision) {
         $count++;
     }
     if ($liveIdx < 0) return;
-    ActivateCard(intval($player), "myDiscard-{$liveIdx}", false, 99); // free (via canonical play)
+    // Nested play: Old Daka's own When Played flush owns this action's ending — ActivateCard must not
+    // finalise it again, and the deferred leg matters too (the replayed unit can arm an entry trigger).
+    SWUNestedPlay(intval($player), "myDiscard-{$liveIdx}", false, 99); // free (via canonical play)
 };

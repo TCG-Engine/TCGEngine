@@ -504,3 +504,52 @@ if (!function_exists('SWUOfferDiscard')) {
         if ($showHand) SWUQueueShowOpponentHand(intval($player), $oppSeat ?? null);
     }
 }
+
+// ─── SWUNestedPlay — play a card as part of ANOTHER card's resolution ────────────────────────────────
+// "Play a unit from your discard pile", "play a card from your hand" and friends, WITHOUT handing the
+// acting player a free extra action.
+//
+// ActivateCard finalises the action itself, and so does the outer effect (an event's FINISH_PLAY_CARD,
+// a unit's entry-trigger flush). Two finalisations = two turn swaps = a second action off one play.
+// There are TWO after-actions to neutralise, and they need DIFFERENT guards:
+//
+//   1. the IMMEDIATE one — ActivateCard's own. The JTL_089#1 $gTurnPlayer/PASS save-restore.
+//   2. the DEFERRED one — if the played card arms an ENTRY TRIGGER, a SWU_TRIGGER_RESUME is queued and
+//      finalises LATER, after the restore has already run, so leg 1 cannot reach it. HMW_171 Trap Field
+//      makes this reachable for essentially every "play a unit" card: it reacts to ANY non-leader ground
+//      unit entering play, either player's, and is owned by the base owner. Found as bug #997.
+//
+// The leg-2 flag is set ONLY when a resume was actually queued. Setting it unconditionally leaks — with
+// no trigger nobody consumes it and it would suppress the finalisation of some LATER action — and
+// clearing it here cannot work, because the resume runs in a later drain, long after this returns.
+//
+// ⚠ DO NOT USE where the outer context DELEGATES its whole action to the play. A base Epic Action or a
+// leader Action with no trailing SWU_AFTER_ACTION (SOR_022 Energy Conversion Lab, JTL_003 Lando,
+// JTL_005 Piett, JTL_011 Vonreg, SOR_003 Chewbacca) relies on ActivateCard's after-action being the
+// action's ONLY one — suppressing it there strands the turn instead of fixing anything.
+//
+// Args mirror ActivateCard's leading parameters so migrating a call site is a rename.
+if (!function_exists('SWUNestedPlay')) {
+    function SWUNestedPlay(int $player, string $mzID, bool $ignoreCost = false, int $discount = 0, int $prepaid = 0): void {
+
+        // The play runs as a NESTED frame, so its own after-action cannot end the outer action, and
+        // the action-close stamp blocks the DEFERRED leg (a queued SWU_TRIGGER_RESUME finalising in a
+        // later request). Both legs are the gate's job now — see SWUSim/docs/action-close-ownership.md.
+        SWUWithNestedActionFrame(fn() => ActivateCard($player, $mzID, $ignoreCost, $discount, $prepaid));
+    }
+}
+
+// How many SWU_TRIGGER_RESUME entries are queued right now? Scans EVERY live seat, because the trigger that armed
+// it may belong to an OPPONENT — Trap Field is owned by the base owner, i.e. the non-active player in
+// the reported case.
+if (!function_exists('_SWUNestedPlayResumeCount')) {
+    function _SWUNestedPlayResumeCount(): int {
+        $n = 0;
+        foreach (GetLiveSeatsArray() as $s) {
+            foreach (GetDecisionQueue($s) as $entry) {
+                if (strpos(strval($entry->Param ?? ''), 'SWU_TRIGGER_RESUME') === 0) $n++;
+            }
+        }
+        return $n;
+    }
+}

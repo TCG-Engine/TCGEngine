@@ -8102,6 +8102,12 @@ function SWUPassAction($player) {
             AddGameLogEntry('PASS', 'P' . intval($player) . ' passed');
         }
         SetSWUVar('PASS', strval($consecutivePasses + 1));   // accumulate the consecutive-pass streak
+        // ⚠ A PASS / INITIATIVE CLAIM NEVER OPENS AN ACTION ID. Neither SWUPassAction nor
+        // SWUTakeInitiative goes through SaveUndoVersion, so the ledger does not model them at all —
+        // traced during the Grogu review: the gate sees id='' and short-circuits to "allow". A stamp
+        // here was dead code (it is guarded on a non-empty id) and has been removed rather than left
+        // looking load-bearing. Closing this hole means giving a pass its own action id; that is a
+        // behaviour change with real blast radius — see SWUSim/docs/action-close-deferrals.md §1.
         SWUSwapTurnPlayer();
     }
 }
@@ -8349,6 +8355,9 @@ function SWUAfterAction($player) {
         _SWUPlotAfterPlay(intval($player));
         return;
     }
+    // The single place an action ends. Everything above this line is per-action cleanup that a nested
+    // or duplicate frame still wants to run; only the SWAP is exclusive to the owning frame.
+    if (!_SWUActionCloseGate()) return;
     SWUSwapTurnPlayer();
     _SWUCheckForcedAttack(intval(GetTurnPlayer())); // SHD_144 — force the new turn player's next action to be the compelled attack
 }
@@ -8377,6 +8386,12 @@ function _SWUCheckForcedAttack(int $player): void {
     array_splice($ge, $flagIdx, 1);           // one-shot: consumed whether or not the attack happens
     if ($unitUID <= 0) return;
 
+    // ⚠ THE COMPELLED ATTACK *IS* AN ACTION — "its controller's NEXT ACTION this phase must be an
+    // attack action with that unit". It is performed programmatically rather than through ActionMap, so
+    // nothing has stamped a new action id; without this it inherits the id of the action that armed the
+    // compulsion, its own close is rejected as a duplicate, and the turn never passes back. (Contrast
+    // ASH_155 Grogu's BONUS attack, which is deliberately NOT an action and keeps SWU_SUPPRESS_AFTERACTION.)
+    _SWUOpenAction();
     $savedPID = $playerID; $playerID = $player;
     $mz = SWUFindMzByUID($unitUID);
     if ($mz === null) { $playerID = $savedPID; return; }         // unit left play (e.g. died to the 1 damage)
@@ -12023,20 +12038,6 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
             } elseif (GetSWUVar("SWU_TS26059_LOOP", "") !== "") {
                 // TS26_59 Brothers — count-capped loop; re-offer the next of up to 2 unique-unit attacks.
                 _SWUTs26059Offer($activePlayer);
-            } elseif (GetSWUVar('SWU_NESTED_PLAY_OWNS_AFTERACTION', '') === '1') {
-                // A NESTED play (one card's resolution playing another) armed an entry trigger, so a
-                // resume was queued for it — but the OUTER effect still owns this action's ending and
-                // will finalise it itself. Finalising here too swaps the turn a second time and hands
-                // the caster a free extra action (bug #997: ASH_247 replaying a unit into an opponent's
-                // HMW_171 Trap Field). Consume the flag and let the outer effect finish.
-                //
-                // ⚠ A nested play's caller can neutralise ActivateCard's IMMEDIATE after-action with the
-                // JTL_089#1 $gTurnPlayer/PASS save-restore, but NOT a DEFERRED one — the resume fires
-                // later, after that restore has already happened. This flag is the only thing that
-                // reaches it, and it is a persisted SWUVar for the same reason the combat one is: an
-                // interactive trigger ends the request, and a transient global would be gone.
-                // Mirrors SWU_COMBAT_OWNS_AFTERACTION, consumed in FINISH_PLAY_CARD.
-                SetSWUVar('SWU_NESTED_PLAY_OWNS_AFTERACTION', '');
             } else {
                 SWUAfterAction($activePlayer);
             }
@@ -12360,7 +12361,7 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
                         global $gTurnPlayer, $gPlayGrantExp;
                         $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
                         $gPlayGrantExp = 1;
-                        ActivateCard($player, $mz, true);   // free play; entry grants the Experience
+                        SWUWithNestedActionFrame(fn() => ActivateCard($player, $mz, true));   // free play; entry grants the Experience
                         $gPlayGrantExp = null;
                         $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
                         $savedPID = intval($player); // leave the collector frame after the nested play
@@ -13579,7 +13580,7 @@ function SWUPlayTopDeckCard(int $player, bool $ignoreCost = false, int $discount
         $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
         return true;
     }
-    ActivateCard($player, "myDeck-$idx", $ignoreCost, $discount);
+    SWUWithNestedActionFrame(fn() => ActivateCard($player, "myDeck-$idx", $ignoreCost, $discount));
     $gTurnPlayer = $savedTP;
     SetSWUVar('PASS', $savedPass);
     return true;
@@ -17174,7 +17175,15 @@ function _SWUPlotReoffer(int $player): void {
         SetSWUVar('SWU_PLOT_K', '0');
         SetSWUVar('SWU_PLOT_P', '0');
         SetSWUVar('SWU_PLOT_PENDING_REPLACE', '');
-        SWUSwapTurnPlayer();
+        // ⚠ ROUTE THE WINDOW'S TERMINAL SWAP THROUGH THE GATE. This is the deploy action ENDING, and
+        // it used to swap directly — bypassing the close ledger entirely, so the action was never
+        // stamped closed and a later stray close could swap again. Audit of every direct
+        // SWUSwapTurnPlayer() call (deferral §2) found exactly three: the pass (§1), SWUAfterAction's
+        // own gated one, and this. Behaviour is unchanged in the normal case — the gate grants a close
+        // that has not happened yet — but the action is now stamped, and a duplicate is refused.
+        // The redirect in SWUAfterAction stays: that one is Plot ORCHESTRATION ("this action is not
+        // over yet"), which is a different statement from "someone else owns the close".
+        if (_SWUActionCloseGate()) SWUSwapTurnPlayer();
         return;
     }
     global $playerID; $playerID = $player;   // for relative mzID resolution in MZCountChoices
@@ -17665,11 +17674,14 @@ function _SWUSmuggleFireEntry(int $player, string $cardID, string $newCardMzID, 
     if (isset($whenPlayedUsingSmuggleAbilities["{$cardID}:0"])
             && GlobalEffectCount($player, 'SWU_LOF197_REPEAT') > 0) {
         RemoveGlobalEffect($player, 'SWU_LOF197_REPEAT');
-        $ownsAA = ($triggered === 0) ? 1 : 0;
+        // ⚠ The old third param ("$ownsAA": 1 when no entry trigger fired, so the repeat owns the
+        // action's ending) is gone. The action-close gate is the single owner now — the repeat always
+        // ATTEMPTS the close and the gate grants it exactly once, whether or not a resume got there
+        // first. See SWUSim/docs/action-close-ownership.md.
         DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
             tooltip: "Use_that_When_Played_ability_again_(Qui-Gon's_Aethersprite)?");
         DecisionQueueController::AddDecision($player, "CUSTOM",
-            "LOF_197#1|{$cardID}|{$newCardMzID}|{$ownsAA}", 1);
+            "LOF_197#1|{$cardID}|{$newCardMzID}", 1);
         $repeatQueued = true;
     }
     if ($triggered === 0 && !$repeatQueued) {
@@ -17681,12 +17693,13 @@ function _SWUSmuggleFireEntry(int $player, string $cardID, string $newCardMzID, 
 // unit). $parts[2]=1 → this repeat owns the After Action (no separate entry trigger did).
 $customDQHandlers["LOF_197#1"] = function($player, $parts, $lastDecision) {
     global $playerID, $whenPlayedUsingSmuggleAbilities; $playerID = intval($player);
-    $cardID = $parts[0] ?? ''; $mzID = $parts[1] ?? ''; $ownsAA = !empty($parts[2] ?? 0);
+    $cardID = $parts[0] ?? ''; $mzID = $parts[1] ?? '';
     if ($lastDecision === 'YES' && $cardID !== '' && $mzID !== ''
             && isset($whenPlayedUsingSmuggleAbilities["{$cardID}:0"])) {
         $whenPlayedUsingSmuggleAbilities["{$cardID}:0"](intval($player), $mzID);
     }
-    if ($ownsAA) { DecisionQueueController::CleanupRemovedCards(); SWUAfterAction(intval($player)); }
+    DecisionQueueController::CleanupRemovedCards();
+    SWUAfterAction(intval($player));   // the gate decides whether this frame is the one that closes
 };
 
 // The mzID of an entry in ANOTHER player's zone, in $player's frame. $zone is the bare zone name
@@ -18074,6 +18087,9 @@ function _SWUForeignDiscardPlayAsUnit(int $player, int $actualIdx, string $cardI
     // as prepaid so $gLastPlayResourcesPaid (TWI_210) reflects it. Recomputing would re-apply the aspect
     // penalty OTPN is meant to ignore and wrongly fail the play.
     $foreignPrepaid = ($modifier === 'OTPF') ? 0 : $cost;
+    // ⚠ NOT a nested frame: playing a card from an OPPONENT'S discard is the player's own action
+    // (CustomInput drives it and has already stamped the open), so this close is the action's only
+    // one. Wrapping it suppressed the close entirely and broke the stolen-AT-Hauler family (5 tests).
     ActivateCard(intval($player), SWUForeignDiscardMzID(intval($player), $opponent, $actualIdx), 1, 0, $foreignPrepaid, $opponent);
     // EVENTS only: this input path does not auto-drain, so flush the queued block-1 effect decisions +
     // the FINISH_PLAY_CARD terminator inline (as the old event branch did). A UNIT's When Played decisions
@@ -18409,7 +18425,90 @@ function PushUndoSnapshot($actingSeat, $boundary = 'action', $name = '') {
 
 // Backward-compatible alias — the ~15 existing 'action' call sites keep working unchanged.
 function SaveUndoVersion($targetPlayerID, $name = "") {
+    _SWUOpenAction();
     PushUndoSnapshot($targetPlayerID, 'action', $name);
+}
+
+// ═══ ACTION-CLOSE LEDGER (Phase 0 — OBSERVE ONLY, changes no behaviour) ═══════════════════════
+// See SWUSim/docs/action-close-ownership.md. Nothing owns "this action has ended": the turn swap is
+// re-derived by hand in 449 card files via 495 SWUAfterAction() calls, and six different mechanisms
+// exist to suppress a duplicate. This ledger measures the damage before anything is refactored.
+//
+// The id is stamped where an action OPENS. SaveUndoVersion is the right seam because undo
+// granularity IS action granularity — it is already called at every user-initiated action (play,
+// attack, ability, deploy, take-initiative, smuggle, play-from-discard) and nowhere else that acts.
+// Over-stamping is harmless: an id that never closes is not an error, only a double CLOSE is.
+//
+// ⚠ Stored as SWUVars so it survives the REQUEST BOUNDARY. The deferred leg of this bug fires from a
+// queued SWU_TRIGGER_RESUME in a LATER request, which is precisely what defeats a transient global.
+// Verified safe for determinism: EngineDeterministicHashMaterial() takes the GetAllZones() path in a
+// real game and $gDecisionQueueVariables is not a zone, so adding vars does not move any shuffle.
+function _SWUOpenAction(): void {
+    SetSWUVar('SWU_ACTION_ID', strval(intval(GetSWUVar('SWU_ACTION_ID', '0')) + 1));
+    // A new action always starts UNNESTED. Depth is a within-request global, so anything that left it
+    // raised — a frame abandoned by an early return, or in the harness a previous test in the same
+    // process — would otherwise make every later action unclosable. Osha's sections passed alone and
+    // failed in the full suite for exactly that reason. Nothing nests before its own action opens, so
+    // clearing here is safe: ActivateCard does not call SaveUndoVersion, only ActionMap/CustomInput do.
+    $GLOBALS['gSWUActionDepth'] = 0;
+}
+
+// ── THE ACTION-CLOSE GATE ─────────────────────────────────────────────────────────────────────
+// Called from SWUAfterAction immediately before the terminal turn swap — the ONE line that actually
+// ends an action. Returns TRUE when this frame may perform the swap.
+//
+// Two independent reasons to refuse, and BOTH are needed:
+//
+//  1. NESTING (a within-request signal). A card whose resolution plays another card runs
+//     ActivateCard, whose own after-action would end the action while the OUTER effect is still
+//     resolving. The outer frame owns the close, so a nested frame never swaps.
+//     ⚠ It must be nesting, NOT "already closed": the inner close happens FIRST, so a
+//     duplicate-blocker suppresses the outer one instead — measured, 5 of 22 guard sections broke.
+//
+//  2. ALREADY CLOSED (a cross-request signal). If the played card arms an entry trigger, a
+//     SWU_TRIGGER_RESUME finalises in a LATER request where the nesting depth is long gone. The
+//     closed stamp lives in the gamestate precisely so it survives that boundary.
+function _SWUActionCloseGate(): bool {
+    // (0) AN ACTION CAN ONLY END DURING THE ACTION PHASE. Outside MAIN there is no action to close and
+    // no turn to pass — the regroup phase runs its own ordered steps. Without this the outcome depended
+    // on LEFTOVER STATE: a close attempted during regroup (a Bounty collected mid-regroup, a droid-paid
+    // trigger tax like SOR_193/JTL_192 — user ruling 2026-08-29 that droid payment spans regroup) sees
+    // an EMPTY action id in a test fixture that never opened one, and so swaps the turn; but in a real
+    // game the id carries over from the last action of the action phase, equals SWU_ACTION_CLOSED, and
+    // is refused. Same code, opposite behaviour, decided by fixture shape. Pin it to the phase instead.
+    if (function_exists('GetCurrentPhase') && GetCurrentPhase() !== 'MAIN') return false;
+
+    // (1) nested — the outer frame will close this action.
+    if (intval($GLOBALS['gSWUActionDepth'] ?? 0) > 0) return false;
+
+    $id = GetSWUVar('SWU_ACTION_ID', '');
+    if ($id === '' || $id === '0') return true;           // no action ever opened (setup, tests)
+
+    // (2) already closed — count it, then refuse. The counter is what `NOEXTRAACTION` asserts and
+    // what the regression runner reports; it must keep working after the gate goes authoritative,
+    // because a silent gate cannot be distinguished from a gate that is never reached.
+    if (GetSWUVar('SWU_ACTION_CLOSED', '') === $id) {
+        $n = intval(GetSWUVar('SWU_DOUBLE_CLOSE_N', '0')) + 1;
+        SetSWUVar('SWU_DOUBLE_CLOSE_N', strval($n));
+        // AddGameLogEntry is invisible in CLI regression output — STDERR is the only channel the
+        // suite triage can actually see.
+        if (PHP_SAPI === 'cli') {
+            $ctx = $GLOBALS['SWU_LEDGER_CTX'] ?? '?';
+            fwrite(STDERR, "[ACTION-LEDGER] BLOCKED-DOUBLE-CLOSE {$ctx}\n");
+        }
+        return false;
+    }
+    SetSWUVar('SWU_ACTION_CLOSED', $id);
+    return true;
+}
+
+// Run $fn as a NESTED action frame: anything inside it that reaches SWUAfterAction will not end the
+// outer action. Depth is a plain global on purpose — nesting is a within-request property, and a
+// request boundary genuinely does end the nesting.
+function SWUWithNestedActionFrame(callable $fn) {
+    $GLOBALS['gSWUActionDepth'] = intval($GLOBALS['gSWUActionDepth'] ?? 0) + 1;
+    try { return $fn(); }
+    finally { $GLOBALS['gSWUActionDepth'] = max(0, intval($GLOBALS['gSWUActionDepth'] ?? 1) - 1); }
 }
 
 // The ordinal Undo will restore next. NOT the same as the physical top: the log is append-only, so

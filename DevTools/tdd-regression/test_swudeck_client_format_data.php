@@ -6,10 +6,20 @@ include_once __DIR__ . '/../../SWUDeck/Custom/DeckFormats.php';
 
 $checks = [];
 
-// Premier: fixed curated set list, no bans.
+// Premier: fixed curated set list, and the bans the config actually declares.
+// ⚠ This used to assert "no bans", written when Premier had none. ASH_011 was banned deliberately
+// (commit 64fed276, "updated format bans") and the test simply never followed — so it sat red while
+// the code was right. Assert AGAINST THE CONFIG rather than a hardcoded list, so the next ban does
+// not re-break it; the eternal block below still pins its exact ids, which is what catches a payload
+// that silently drops bans on the way to the client.
 $premier = SWUDeckClientFormatData('premier');
 $checks['premier legalSets matches config'] = $premier['legalSets'] === ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'];
-$checks['premier has no banned UUIDs'] = $premier['bannedIDs'] === [];
+$premierConfigBans = SWUGetFormat('premier')['banned'];
+sort($premierConfigBans);
+$premierPayloadBans = $premier['bannedIDs'];
+sort($premierPayloadBans);
+$checks['premier banned IDs match the format config'] = $premierPayloadBans === $premierConfigBans;
+$checks['premier bans are non-empty (ASH_011 today)'] = in_array('ASH_011', $premierPayloadBans, true);
 
 // Eternal: every set legal, JTL_140 + JTL_170 banned.
 // Since 2026-08-04 the payload carries SET_NNN ids directly — no UUIDLookup round-trip.

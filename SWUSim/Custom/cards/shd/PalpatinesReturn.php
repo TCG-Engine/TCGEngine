@@ -12,7 +12,7 @@ $customDQHandlers["SHD_094#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     $discount = ($o !== null && HasTrait($o->CardID ?? '', 'Force')) ? 8 : 6;
     // EXPERIMENT: canonical ActivateCard path (full cost pipeline) vs SWUPlayDiscardUnitDiscounted.
-    ActivateCard(intval($player), $lastDecision, false, $discount);
+    SWUNestedPlay(intval($player), $lastDecision, false, $discount);   // nested: outer event owns the after-action
 };
 
 // When Played (event) — migrated from OnPlayEvent.

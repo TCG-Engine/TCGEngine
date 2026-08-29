@@ -371,6 +371,7 @@ WithP1Hand: HMW_204
 ## EXPECT
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:LOF_236
+NOEXTRAACTION
 TURNPLAYER:2
 
 ---
@@ -393,4 +394,46 @@ WithP1Hand: HMW_204
 ## EXPECT
 P1GROUNDARENACOUNT:0
 P1DISCARDCOUNT:1
+NOEXTRAACTION
+TURNPLAYER:2
+
+---
+
+# TrapFieldReactsToTheReplayedUnit_StillNoExtraAction
+#// LEG 2 of the nested-play family (plan: SWUSim/docs/action-close-ownership.md).
+#// The save/restore only neutralises ActivateCard's IMMEDIATE after-action. When the played unit arms an
+#// ENTRY TRIGGER a SWU_TRIGGER_RESUME is queued and finalises LATER, after the restore has run — a
+#// second turn swap, i.e. a free extra action. HMW_171 Trap Field is the universal way to reach it: it
+#// reacts to ANY non-leader ground unit entering play, either player's, and is owned by the base owner.
+#//
+#// The two TURNPLAYER sections above CANNOT see this — no trigger fires in their fixtures — which is
+#// exactly how it hid on this card until the sweep.
+#// P2 holds Trap Field; the replayed LOF_236 trips it, P2 accepts, and the turn must still be P2's.
+#// ⚠ P2>Drain first: P1's action leaves P2 holding an undispatched RESOLVE_TRIGGER, and answering at
+#// that point cancels the trigger instead of resolving it.
+
+## GIVEN
+CommonSetup: yyk/bbw/{myResources:12}
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP1Discard: LOF_236
+WithP1Hand: HMW_204
+WithP2BaseUpgrade: HMW_171
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myDiscard-0
+- P2>Drain
+- P2>AnswerDecision:YES
+
+#// ⚠ NO `NOEXTRAACTION` HERE, deliberately. That assertion means "no second close was ATTEMPTED",
+#// and the DEFERRED leg legitimately attempts one: the queued SWU_TRIGGER_RESUME reaches
+#// SWUAfterAction after the outer effect already closed the action, and the gate refuses it. The
+#// attempt is the mechanism working, not a bug — TURNPLAYER below is what proves no extra action
+#// actually happened. Same distinction as docs/action-close-deferrals.md §4: the ledger counts
+#// closes PREVENTED, not bugs remaining.
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LOF_236
+P1GROUNDARENAUNIT:0:DAMAGE:3
 TURNPLAYER:2

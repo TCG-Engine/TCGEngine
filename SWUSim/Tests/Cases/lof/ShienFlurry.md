@@ -76,8 +76,12 @@ P1GROUNDARENACOUNT:0
 #// LOF_220 Shien Flurry — the "prevent 2 the next time it would be dealt damage this phase" persists until a
 #// real damage instance occurs. P1 plays Shien Flurry (auto-plays lone Force unit Plo Koon, LOF_050 6/8) and
 #// Ambush-attacks a 0-power Moisture Farmer (SHD_055) — Plo takes 0 counter, so the prevention is NOT spent.
-#// Later, P2's Wampa (SOR_164, 4 power) attacks Plo Koon: 4 damage minus the prevented 2 = 2 damage. Intended: #// "prevent 2 damage the next time it would be dealt damage (no damage from ambush)". (The P1>Pass reconciles
-#// the harness's turn accounting after the nested Ambush attack so P2 can take the follow-up attack.)
+#// Later, P2's Wampa (SOR_164, 4 power) attacks Plo Koon: 4 damage minus the prevented 2 = 2 damage. Intended: #// "prevent 2 damage the next time it would be dealt damage (no damage from ambush)".
+#// ⚠ There used to be a `P1>Pass` here "to reconcile the harness's turn accounting after the nested
+#// Ambush attack". That was compensating for the nested-play DOUBLE CLOSE: the inner play ended the
+#// action a second time, so the turn came back to P1 and an extra Pass was needed to reach P2. With the
+#// action-close gate the play ends the action exactly once and the turn is already P2's, so the extra
+#// Pass handed it BACK to P1 and P2's attack never happened (Plo took 0 instead of 2).
 
 ## GIVEN
 CommonSetup: yyw/ggk/{myResources:12;handCardIds:LOF_220,LOF_050}
@@ -88,7 +92,6 @@ WithP2GroundArena: SOR_164:1:0
 - P1>PlayHand:0
 - P1>AnswerDecision:YES
 - P1>AnswerDecision:theirGroundArena-0
-- P1>Pass
 - P2>AttackGroundArena:0:theirGroundArena-0
 
 ## EXPECT

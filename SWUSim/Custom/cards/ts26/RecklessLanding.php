@@ -13,9 +13,7 @@ $customDQHandlers["TS26_32#0"] = function($player, $parts, $lastDecision) {
     $handMz = $lastDecision ?? '';
     if ($handMz === '' || !str_contains($handMz, '-')) return;
     $gPlayGrantTurnEffect = 'TS26_32';
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $handMz, false, 4);
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $handMz, false, 4);
     $gPlayGrantTurnEffect = null;
     $newMz = null;
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {

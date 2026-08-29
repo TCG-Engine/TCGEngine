@@ -35,5 +35,5 @@ $customDQHandlers["SOR_102#0"] = function($player, $parts, $lastDecision) {
     $playerID = intval($player);
     // EXPERIMENT: play the chosen discard card via the canonical ActivateCard path
     // (full cost pipeline) instead of SWUPlayDiscardUnitDiscounted (reduced cost).
-    ActivateCard(intval($player), $lastDecision, false, 3);
+    SWUNestedPlay(intval($player), $lastDecision, false, 3);   // nested: the When Played flush owns the after-action
 };

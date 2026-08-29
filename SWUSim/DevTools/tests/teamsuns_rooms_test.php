@@ -16,7 +16,12 @@ function mkLobby($n, $format = 'teamsuns') {
     $l->players = [];
     for ($i = 1; $i <= $n; $i++) {
         $p = new Player($i, 'deck' . $i, '', 100 + $i);
+        // deckOk and ready are ONE state in the live flow — loading a legal deck auto-readies the seat,
+        // and SWURoomStartBlockers gates on both. Setting only deckOk builds a lobby that cannot exist,
+        // and every blocker array then carries a phantom "not ready" entry beside the one under test.
+        // The substring assertions below survive that; a future count- or equality-based one would not.
         $p->setDeckOk(true);
+        $p->setReady(true);
         $l->players[] = $p;
     }
     $l->numPlayers = $n;
@@ -111,12 +116,28 @@ check(count($b3) > 0, 'an illegal deck blocks start');
 
 $good = mkLobby(4);
 foreach (['red','blue','red','blue'] as $i => $t) SWURoomAssignTeam($good, $good->players[$i], $t);
-// Ready is part of the start gate (added with the waiting room). Loading a legal deck auto-readies a
-// seat in the live flow, so the fixture states it the same way it already states deckOk — otherwise
-// these two assertions test the ready gate instead of what they were written for: team assignment,
-// and the same leader on OPPOSING teams being legal.
-foreach ($good->players as $pl) $pl->setReady(true);
 check(SWURoomStartBlockers($good) === [], 'a full, assigned, deck-legal 2/2 room can start');
+
+// ── Unready is its OWN gate, and it needs its own fixture now that mkLobby readies everyone ──
+// Before, every fixture was built unready, so the ready blocker was exercised only by accident —
+// riding along inside blocker arrays that were asserted with substring searches for a DIFFERENT
+// blocker. That is not coverage: it could never fail for its own reason. These two sections make it
+// deliberate, and they are the reason readying in mkLobby is safe rather than a deletion of a test.
+// Singular vs plural is asserted because the count is interpolated, so an off-by-one reads as a
+// wording bug and would otherwise never be caught.
+$oneUnready = mkLobby(4);
+foreach (['red','blue','red','blue'] as $i => $t) SWURoomAssignTeam($oneUnready, $oneUnready->players[$i], $t);
+$oneUnready->players[2]->setReady(false);          // deck still legal — this is a deliberate Unready
+$u1 = SWURoomStartBlockers($oneUnready);
+check($u1 === ['1 player is not ready.'],
+      'an otherwise-startable room is blocked by ONE deliberate Unready, and by nothing else');
+
+$twoUnready = mkLobby(4);
+foreach (['red','blue','red','blue'] as $i => $t) SWURoomAssignTeam($twoUnready, $twoUnready->players[$i], $t);
+$twoUnready->players[1]->setReady(false);
+$twoUnready->players[3]->setReady(false);
+check(SWURoomStartBlockers($twoUnready) === ['2 players are not ready.'],
+      'two Unready seats report the PLURAL wording and a single combined blocker');
 
 // Leader conflict WITHIN a team blocks; the SAME leader on OPPOSING teams does not.
 $sameTeam = SWURoomStartBlockers($good, [

@@ -18,11 +18,17 @@ function postJson($url, $data) {
         CURLOPT_HTTPHEADER=>['Content-Type: application/json'], CURLOPT_POSTFIELDS=>json_encode($data)]);
     $r = curl_exec($ch); curl_close($ch); return $r;
 }
+// ⚠ BOTH card ids in this payload were placeholders that no longer validate. Since the SET_NNN work
+// (2026-08-04) SubmitManualGameResult rejects unknown identifiers outright, so the request 400'd
+// before ever reaching SaveDeckStats and all three row assertions failed. The ENDPOINT was right;
+// the FIXTURE predated the validation. Both are now real cards, as the sibling deckstats tests use.
+//   opposingHero: 'JTL_T012' -> 'SOR_005'  (JTL tokens are T01-T04; a 3-digit token id never existed)
+//   cardResults:  'ZZCARD'   -> 'SOR_010'
 function manualPayload($deckID, $format) {
     return [
         'deckID'=>$deckID, 'won'=>true, 'rounds'=>3, 'winnerHealth'=>10, 'firstPlayer'=>true, 'format'=>$format,
-        'player'=>json_encode(['opposingHero'=>'JTL_T012','opposingBaseColor'=>'Red','opposingBaseGroup'=>'Standard',
-            'cardResults'=>[['cardID'=>'ZZCARD','played'=>1,'resourced'=>1]]]),
+        'player'=>json_encode(['opposingHero'=>'SOR_005','opposingBaseColor'=>'Red','opposingBaseGroup'=>'Standard',
+            'cardResults'=>[['cardID'=>'SOR_010','played'=>1,'resourced'=>1]]]),
     ];
 }
 function fmtRows($conn, $deckID, $format) {

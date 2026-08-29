@@ -38,9 +38,7 @@ $customDQHandlers["HMW_018#0"] = function($player, $parts, $lastDecision) {
 
     // Nested play: neutralise the inner ActivateCard's own turn advance (JTL_089#1 save/restore), so the
     // leader action advances the turn exactly once, below.
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $mz, false);   // "(paying its cost)" — no discount
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $mz, false, 0);   // "(paying its cost)" — no discount
     $gPlayGrantTurnEffect = null;
 
     SWUAfterAction(intval($player));

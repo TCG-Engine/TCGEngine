@@ -96,7 +96,11 @@ $customDQHandlers["HMW_017#0"] = function($player, $parts, $lastDecision) {
     // different request from the offer above — nothing is carried across the boundary.
     $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
     $GLOBALS['gOsha017IgnoreVillainy'] = true;
-    ActivateCard(intval($player), (string)$lastDecision, false);
+    // NESTED FRAME (2026-08-29): the inner after-action must not CLOSE this action. Before the
+    // action-close gate existed the inner close was undone by the save-restore below, but it still
+    // consumed the close — so once the gate went authoritative, Osha's own _SWUOsha017CloseAction was
+    // refused as a duplicate and the turn never passed at all.
+    SWUWithNestedActionFrame(fn() => ActivateCard(intval($player), (string)$lastDecision, false));
     $GLOBALS['gOsha017IgnoreVillainy'] = false;
     $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
     // This IS "playing a card from your resources", so the observers of that event fire (SEC_008 Bail).

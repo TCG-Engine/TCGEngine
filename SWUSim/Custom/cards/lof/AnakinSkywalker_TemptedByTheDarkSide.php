@@ -24,9 +24,7 @@ $customDQHandlers["LOF_018#0"] = function($player, $parts, $lastDecision) {
         return;
     }
     $penalty = SWUAspectPenalty(intval($player), $cid);  // discount cancels the off-aspect surcharge
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $lastDecision, false, $penalty);
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $lastDecision, false, $penalty);
     SWUAfterAction(intval($player));
 };
 

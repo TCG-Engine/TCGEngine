@@ -38,9 +38,7 @@ $customDQHandlers["LOF_016#0"] = function($player, $parts, $lastDecision) {
 $customDQHandlers["LOF_016#1"] = function($player, $parts, $lastDecision) {
     global $playerID, $gTurnPlayer; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) { SWUAfterAction(intval($player)); return; }
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $lastDecision, true, 0); // ignoreCost = true (free)
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $lastDecision, true, 0); // ignoreCost = true (free)
     SWUAfterAction(intval($player));
 };
 
@@ -79,7 +77,5 @@ $customDQHandlers["LOF_016#2"] = function($player, $parts, $lastDecision) {
 $customDQHandlers["LOF_016#3"] = function($player, $parts, $lastDecision) {
     global $playerID, $gTurnPlayer; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $lastDecision, true, 0);   // ignoreCost = true (free)
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $lastDecision, true, 0);   // ignoreCost = true (free)
 };

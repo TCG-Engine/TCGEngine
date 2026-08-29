@@ -8,7 +8,9 @@
 $customDQHandlers["TS26_57#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (!$lastDecision || strpos($lastDecision, 'myDiscard-') !== 0) return;
-    ActivateCard(intval($player), $lastDecision, false, 0);   // full cost via canonical play
+    // Nested play: the outer EVENT owns this action's ending (see SWUNestedPlay for both after-action
+    // legs — the immediate one and the deferred SWU_TRIGGER_RESUME).
+    SWUNestedPlay(intval($player), strval($lastDecision), false, 0);   // full cost via canonical play
     $mz = $GLOBALS['gLastPlayedMzID'];
     if ($mz !== '') DoGiveExperienceToken(intval($player), $mz);
 };

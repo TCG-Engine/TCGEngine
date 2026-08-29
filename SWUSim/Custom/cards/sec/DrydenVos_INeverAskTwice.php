@@ -49,9 +49,7 @@ $customDQHandlers["SEC_007#1"] = function($player, $parts, $lastDecision) {
     $o  = ($mz !== '' && str_contains($mz, '-')) ? GetZoneObject($mz) : null;
     if (SWUObjGone($o)) { SWUAfterAction(intval($player)); return; }
     $gPlayGrantTurnEffect = 'SEC_007';                         // the played unit gains Ambush this phase
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $mz, false);                // pays the unit's cost; inner swap neutralised
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $mz, false, 0);                // pays the unit's cost; inner swap neutralised
     $gPlayGrantTurnEffect = null;
     SWUAfterAction(intval($player));
 };
@@ -95,9 +93,7 @@ $customDQHandlers["SEC_007#3"] = function($player, $parts, $lastDecision) {
     $o  = ($mz !== '' && str_contains($mz, '-')) ? GetZoneObject($mz) : null;
     if (SWUObjGone($o)) { SWUAfterAction(intval($player)); return; }
     $gPlayGrantTurnEffect = 'SEC_007';                               // the played unit gains Ambush this phase
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $mz, false);
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $mz, false, 0);
     $gPlayGrantTurnEffect = null;
     SWUAfterAction(intval($player));
 };

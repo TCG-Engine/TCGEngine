@@ -22,8 +22,6 @@ $leaderAbilities["ASH_008"] = function(int $player): void {
 $customDQHandlers["ASH_008#0"] = function($player, $parts, $lastDecision) {
     global $playerID, $gTurnPlayer; $playerID = intval($player);
     if (!$lastDecision || !str_contains($lastDecision, '-')) { SWUAfterAction($player); return; }
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $lastDecision, false, 1);   // play paying cost − 1
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $lastDecision, false, 1);   // play paying cost − 1
     SWUAfterAction($player);
 };

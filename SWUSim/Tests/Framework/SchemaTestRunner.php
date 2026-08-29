@@ -52,6 +52,14 @@ class SchemaTestRunner {
      * Run a schema given its raw markdown content.
      */
     public static function runString(string $content, string $label = 'schema'): SchemaRunResult {
+        // Attribution for the action-close ledger (SWUSim/docs/action-close-ownership.md). The label is
+        // "<path>::<SectionName>", which is the granularity a triage needs — a double close is reported
+        // against the section that produced it, not just "somewhere in the suite".
+        $GLOBALS['SWU_LEDGER_CTX'] = $label;
+        // Per-section isolation for the action-nesting depth, same reason $playerID is reset:
+        // it is a process global, and a section that ends mid-frame would otherwise make every
+        // later section unable to close an action.
+        $GLOBALS['gSWUActionDepth'] = 0;
         $parsed = self::_parse($content);
         if (!$parsed['ok']) return SchemaRunResult::failure($parsed['error']);
 
@@ -1234,6 +1242,30 @@ class SchemaTestRunner {
                 $w = $g->state->winner();
                 if (!($w === null || intval($w) === 0))
                     $failures[] = "NOWINNER: expected no winner, got " . var_export($w, true);
+
+            } elseif ($line === 'NOEXTRAACTION') {
+                // The action-close ledger: no action was closed twice during this section.
+                // See SWUSim/docs/action-close-ownership.md.
+                //
+                // ⚠ STRICTLY STRONGER THAN `TURNPLAYER`, and it is the only form that works in the
+                // 1834 files using `P1OnlyActions` — that directive claims initiative so the opponent
+                // auto-passes, which makes a DOUBLE turn swap indistinguishable from a single one.
+                // TURNPLAYER therefore cannot see this bug class at all in those fixtures; this can.
+                //
+                // ⚠ It is also stronger than TURNPLAYER even in an alternating fixture, because the
+                // current nested-play fix does not PREVENT the second close, it UNDOES the extra swap
+                // ($gTurnPlayer save/restore). TURNPLAYER sees the compensated result and passes;
+                // this sees the structural double close. Measured on
+                // OneMustDestroyToCreate_NoExtraAction section 1, which passes and still reports one.
+                // ⚠ MEANS "no second close was ATTEMPTED", which is STRICTER than "no extra action
+                // happened". The DEFERRED leg (a queued SWU_TRIGGER_RESUME finalising after the outer
+                // effect already closed — an opponent's HMW_171 Trap Field is the usual way in)
+                // legitimately attempts one and the gate refuses it. Do NOT put this on a section
+                // whose whole point is that deferred leg; use TURNPLAYER there instead.
+                $n = intval(GetSWUVar('SWU_DOUBLE_CLOSE_N', '0'));
+                if ($n !== 0)
+                    $failures[] = "NOEXTRAACTION: an action was closed {$n} extra time(s) — "
+                                . "something ran SWUAfterAction's terminal swap twice for one action";
 
             } elseif (preg_match('/^TURNPLAYER:(\d+)$/', $line, $m)) {
                 // Whose action it is right now. Catches actions that fail to pass the turn —

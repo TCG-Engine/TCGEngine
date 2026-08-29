@@ -42,9 +42,7 @@ $customDQHandlers["TWI_089#1"] = function($player, $parts, $lastDecision) {
         if ($o !== null && empty($o->removed)) {
             // Free play from hand (mirror JTL_089#1: guard the nested play's turn/PASS so it doesn't
             // double-advance the outer event's action).
-            $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-            ActivateCard(intval($player), $lastDecision, true);
-            $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+            SWUNestedPlay(intval($player), $lastDecision, true, 0);
             $playerID = intval($player);
         }
     }

@@ -23,11 +23,9 @@ $customDQHandlers["ASH_002#0"] = function($player, $parts, $lastDecision) {
 $customDQHandlers["ASH_002#1"] = function($player, $parts, $lastDecision) {
     global $playerID, $gTurnPlayer, $gForceEnterReady; $playerID = intval($player);
     if (!$lastDecision || !str_contains($lastDecision, '-')) { SWUAfterAction($player); return; }
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
     $gForceEnterReady = true;
-    ActivateCard(intval($player), $lastDecision, false);   // play from hand, paying its cost
+    SWUNestedPlay(intval($player), $lastDecision, false, 0);   // play from hand, paying its cost
     $gForceEnterReady = null;
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
     SWUAfterAction($player);
 };
 

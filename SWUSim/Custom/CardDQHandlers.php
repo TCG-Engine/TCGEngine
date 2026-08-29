@@ -1529,7 +1529,7 @@ function _SWUPlayForeignResourceFree(int $caster, int $opp, string $resMz, strin
   // OWNER's ($opp) discard and a unit to Owner=$opp/Controller=$caster, and applies every play-time effect
   // (Saw Gerrera / Adi Gallia / Relentless / TWI_210 / telemetry) the old branches skipped. Do NOT
   // pre-remove $o — ActivateCard reads it via GetZoneObject.
-  ActivateCard($caster, $resMz, 1, 0, 0, $opp);
+  SWUWithNestedActionFrame(fn() => ActivateCard($caster, $resMz, 1, 0, 0, $opp));
   return true;
 }
 
@@ -1584,7 +1584,7 @@ $customDQHandlers["OZZEL_PLAY"] = function ($player, $parts, $lastDecision) {
   }
   // Play the chosen Imperial — it enters READY (Ozzel overrides the default exhausted entry).
   $gForceEnterReady = true;
-  ActivateCard(intval($player), $lastDecision, false, 0);
+  SWUWithNestedActionFrame(fn() => ActivateCard(intval($player), $lastDecision, false, 0));
   $gForceEnterReady = false;
 };
 
@@ -1620,7 +1620,7 @@ $customDQHandlers["DISCOUNT_PLAY_FROM_HAND"] = function ($player, $parts, $lastD
     return;
   }
   $discount = max(0, intval($parts[0] ?? 1));
-  ActivateCard(intval($player), $lastDecision, false, $discount);
+  SWUWithNestedActionFrame(fn() => ActivateCard(intval($player), $lastDecision, false, $discount));
 };
 // Universal: draw $parts[0] cards for the acting player.
 $customDQHandlers["DRAW_CARD"] = function ($player, $parts, $lastDecision) {
@@ -2389,7 +2389,7 @@ $customDQHandlers["LAW_COMMONBASE_PLAY"] = function ($player, $parts, $lastDecis
   $discount = min(_SWUCommonBaseWaivePenalty(intval($player), $o->CardID), SWUAspectPenalty(intval($player), $o->CardID));
   $savedTP = $gTurnPlayer;
   $savedPass = GetSWUVar('PASS', '0');
-  ActivateCard(intval($player), $lastDecision, false, $discount);
+  SWUWithNestedActionFrame(fn() => ActivateCard(intval($player), $lastDecision, false, $discount));
   $gTurnPlayer = $savedTP;
   SetSWUVar('PASS', $savedPass);
   SWUAfterAction(intval($player));

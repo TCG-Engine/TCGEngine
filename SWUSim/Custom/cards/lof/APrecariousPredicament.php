@@ -65,9 +65,7 @@ $customDQHandlers["LOF_222#2"] = function($player, $parts, $lastDecision) {
     global $playerID, $gTurnPlayer; $playerID = intval($player);
     $mz = $parts[0] ?? '';
     if ($mz === '') return;
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $mz, true, 0); // free play
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $mz, true, 0); // free play
 };
 
 // When Played (event) — migrated from OnPlayEvent.

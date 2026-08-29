@@ -13,9 +13,7 @@ $customDQHandlers["SHD_129#0"] = function($player, $parts, $lastDecision) {
     $o  = ($mz !== '' && str_contains($mz, '-')) ? GetZoneObject($mz) : null;
     if (SWUObjGone($o)) return;
     $gPlayGrantTurnEffect = 'SHD_129';   // the played unit gains Ambush this phase
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $mz, false);
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $mz, false, 0);
     $gPlayGrantTurnEffect = null;
 };
 

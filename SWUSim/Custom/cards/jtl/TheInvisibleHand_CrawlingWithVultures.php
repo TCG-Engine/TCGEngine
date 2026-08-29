@@ -47,9 +47,5 @@ $customDQHandlers["JTL_089#1"] = function($player, $parts, $lastDecision) {
     $handMz = $parts[0] ?? '';
     $o = ($handMz !== '') ? GetZoneObject($handMz) : null;
     if (SWUObjGone($o)) return;
-    $savedTP   = $gTurnPlayer;
-    $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $handMz, true);  // free play from hand
-    $gTurnPlayer = $savedTP;
-    SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $handMz, true, 0);  // free play from hand
 };

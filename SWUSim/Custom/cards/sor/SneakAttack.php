@@ -12,15 +12,11 @@ $customDQHandlers["SOR_219#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID, $gForceEnterReady, $gPlayGrantTurnEffect, $gTurnPlayer;
     $playerID = intval($player);
-    $savedTP   = $gTurnPlayer;
-    $savedPass = GetSWUVar('PASS', '0');
     $gForceEnterReady     = true;
     $gPlayGrantTurnEffect = 'SWU_SNEAK_DEFEAT';
-    ActivateCard(intval($player), $lastDecision, false, 3);
+    SWUNestedPlay(intval($player), $lastDecision, false, 3);
     $gForceEnterReady     = false;
     $gPlayGrantTurnEffect = null;
-    $gTurnPlayer = $savedTP;
-    SetSWUVar('PASS', $savedPass);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

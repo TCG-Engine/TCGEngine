@@ -32,6 +32,7 @@ WithP2Hand: [ASH_247]
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
 P2DISCARDCOUNT:1
+NOEXTRAACTION
 TURNPLAYER:1
 
 ---
@@ -58,6 +59,7 @@ WithP2Hand: [ASH_247]
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P2DISCARDCOUNT:2
+NOEXTRAACTION
 TURNPLAYER:1
 
 ---
@@ -94,6 +96,13 @@ WithP1BaseUpgrade: HMW_171
 - P1>Drain
 - P1>AnswerDecision:YES
 
+#// ⚠ NO `NOEXTRAACTION` HERE, deliberately. That assertion means "no second close was ATTEMPTED",
+#// and the DEFERRED leg legitimately attempts one: the queued SWU_TRIGGER_RESUME reaches
+#// SWUAfterAction after the outer effect already closed the action, and the gate refuses it. The
+#// attempt is the mechanism working, not a bug — TURNPLAYER below is what proves no extra action
+#// actually happened. Same distinction as docs/action-close-deferrals.md §4: the ledger counts
+#// closes PREVENTED, not bugs remaining.
+
 ## EXPECT
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
@@ -120,6 +129,13 @@ WithP1BaseUpgrade: HMW_171
 - P2>AnswerDecision:YES
 - P1>Drain
 - P1>AnswerDecision:NO
+
+#// ⚠ NO `NOEXTRAACTION` HERE, deliberately. That assertion means "no second close was ATTEMPTED",
+#// and the DEFERRED leg legitimately attempts one: the queued SWU_TRIGGER_RESUME reaches
+#// SWUAfterAction after the outer effect already closed the action, and the gate refuses it. The
+#// attempt is the mechanism working, not a bug — TURNPLAYER below is what proves no extra action
+#// actually happened. Same distinction as docs/action-close-deferrals.md §4: the ledger counts
+#// closes PREVENTED, not bugs remaining.
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:0

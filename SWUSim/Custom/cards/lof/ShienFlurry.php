@@ -16,7 +16,8 @@ $customDQHandlers["LOF_220#0"] = function($player, $parts, $lastDecision) {
     $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
     $gPlayGrantTurnEffect = 'AMBUSH';   // keyword present this phase
     $gPlayGrantPrevent2   = true;
-    ActivateCard(intval($player), $lastDecision, false, 0);
+    // NESTED FRAME (2026-08-29) — see Osha: the inner after-action must not consume this action's close.
+    SWUWithNestedActionFrame(fn() => ActivateCard(intval($player), $lastDecision, false, 0));
     $gPlayGrantTurnEffect = null;
     $gPlayGrantPrevent2   = null;
     $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);

@@ -54,9 +54,7 @@ $customDQHandlers["SEC_018#1"] = function($player, $parts, $lastDecision) {
     $handMz    = $lastDecision ?? '';
     if ($handMz === '' || !str_contains($handMz, '-')) { SWUAfterAction(intval($player)); return; }
     $gPlayGrantTurnEffect = 'SEC_018';                        // findable marker on the played unit
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $handMz, false, 1);        // −1 discount; inner after-action neutralised
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $handMz, false, 1);        // −1 discount; inner after-action neutralised
     $gPlayGrantTurnEffect = null;
     $newMz = null;
     foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {

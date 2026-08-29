@@ -40,8 +40,6 @@ $customDQHandlers["LAW_093#1"] = function($player, $parts, $lastDecision) {
     $handMz = $parts[0] ?? '';
     $o = ($handMz !== '') ? GetZoneObject($handMz) : null;
     if (SWUObjGone($o)) return;
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
     $gPlayGrantTurnEffect = 'SHIELDED';            // the replayed unit gains Shielded for this phase
-    ActivateCard(intval($player), $handMz, true);
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $handMz, true, 0);
 };

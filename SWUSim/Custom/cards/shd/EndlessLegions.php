@@ -8,9 +8,7 @@ $customDQHandlers["SHD_109#0"] = function($player, $parts, $lastDecision) {
     global $playerID, $gTurnPlayer; $playerID = intval($player);
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) { _SWUShd109OfferNext(intval($player)); return; }
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $lastDecision, true, 0);   // reveal + play for free; its When Played fires
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $lastDecision, true, 0);   // reveal + play for free; its When Played fires
     $playerID = intval($player);
     _SWUShd109OfferNext(intval($player));                    // loop: offer the next unit-resource
 };

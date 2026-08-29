@@ -29,9 +29,7 @@ $customDQHandlers["LAW_003#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) { SWUAfterAction(intval($player)); return; }
     $discount = SWUAspectPenalty(intval($player), $o->CardID);   // waive the FULL aspect penalty
-    $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $lastDecision, false, $discount);
-    $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $lastDecision, false, $discount);
     SWUAfterAction(intval($player));
 };
 

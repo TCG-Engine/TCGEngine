@@ -12,11 +12,7 @@ $customDQHandlers["SOR_235#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     $cost      = intval(CardCost($o->CardID));
-    $savedTP   = $gTurnPlayer;
-    $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $lastDecision, true);  // free play
-    $gTurnPlayer = $savedTP;
-    SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $lastDecision, true, 0);  // free play
     SWUDealDamageToBase($cost, intval($player));          // damage to YOUR base = its cost
 };
 

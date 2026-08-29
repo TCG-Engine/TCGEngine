@@ -65,7 +65,11 @@ $checks['every web-reachable writer is gated'] = count($ungated) === 0;
 // The 'full' level exists for the deck-file rewrite, and those writers touch the filesystem, not
 // SQL — so the query regex above cannot see them. Derive them separately, or a new deck-writing
 // endpoint would sail past this test while the rewrite runs underneath it.
-$fileWriteRe = '/(WriteGamestate|file_put_contents\s*\([^;]*Games\/)/i';
+// ⚠ MATCH A CALL, NOT A SUBSTRING. A bare `WriteGamestate` also matches inside longer identifiers:
+// Core/GameAuth.php's SimGameWriteGamestateCache() writes to APCu, never to a deck file, and was
+// reported as an ungated deck writer for that reason alone. The lookbehind requires a non-identifier
+// character before the name, and `\s*\(` requires it to be an actual call.
+$fileWriteRe = '/((?<![A-Za-z0-9_])WriteGamestate\s*\(|file_put_contents\s*\([^;]*Games\/)/i';
 $fileWriters = [];
 $it2 = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS));
 foreach ($it2 as $file) {

@@ -48,9 +48,5 @@ $customDQHandlers["LOF_185#2"] = function($player, $parts, $lastDecision) {
     $o = ($handMz !== '') ? GetZoneObject($handMz) : null;
     if (SWUObjGone($o)) return;
     // Mirror JTL_089#1: guard the nested play so it doesn't double-advance the outer action's turn/PASS.
-    $savedTP   = $gTurnPlayer;
-    $savedPass = GetSWUVar('PASS', '0');
-    ActivateCard(intval($player), $handMz, true);   // free play from the owner's hand
-    $gTurnPlayer = $savedTP;
-    SetSWUVar('PASS', $savedPass);
+    SWUNestedPlay(intval($player), $handMz, true, 0);   // free play from the owner's hand
 };
