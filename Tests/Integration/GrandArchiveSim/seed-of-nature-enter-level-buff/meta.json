@@ -1,0 +1,18 @@
+{
+    "name": "Seed of Nature enters rested and grants +2 level on Enter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Seed of Nature is a TERA (advanced element) REGALIA,ITEM card, so the starting champion's Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock element access. Its memory cost (0) needs no floating-payment setup. On Enter sets the dmfoA7jOjy global effect (the champion's +2 level until end of turn). Only the base On Enter is covered; the [Class Bonus] REST+banish repeat of the same buff is out of scope.",
+    "testedCards": [
+        "ybdj1Db9jz"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ybdj1Db9jz"],
+        "mechanics": ["zone-movement", "status", "trigger"],
+        "rulesClauses": [
+            "CARDNAME enters the field rested.",
+            "On Enter: Your champion gets +2 level until end of turn."
+        ]
+    }
+}

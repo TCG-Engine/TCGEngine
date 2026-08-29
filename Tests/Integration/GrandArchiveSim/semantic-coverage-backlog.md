@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **55**
+Cards linked to an existing fixture: **60**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2432**
+Implemented cards still needing semantic coverage: **2427**
 
 ## Mechanic groups
 
@@ -26,21 +26,16 @@ Implemented cards still needing semantic coverage: **2432**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Potion Infusion: Animate (`nDYInWoAnw`) | ACTION | 2 | cost, targeting, trigger, condition | Arisanna Pantheon Starter | — |
 | Samaritan's Reach (`MskPCrbv0L`) | ACTION | 2 | cost, targeting, damage, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
 | Slay the King (`6v374coy34`) | ATTACK | 2 | zone-movement, combat, trigger, condition | Lorraine Pantheon Starter | — |
 | Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
 | Brooch X Ultra (`3Gx9ByIl9t`) | ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Empowering Tincture (`9g44vm5kt3`) | ITEM | 2 | draw-discard, trigger, condition | Arisanna Pantheon Starter | — |
 | Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
-| Incendiary Shot (`3qu7d6sopo`) | ITEM | 2 | targeting, damage, combat | Diana Starter Deck | — |
 | Lightweaver's Assault (`zxB4tzy9iy`) | ACTION | 2 | targeting, damage, trigger | Zander Pantheon Starter | — |
 | Mnemonic Charm (`to1pmvo54d`) | ITEM | 2 | draw-discard, trigger, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
 | Potion Infusion: Volatility (`ndnEl5mq7W`) | ACTION | 2 | targeting, damage, condition | Arisanna Pantheon Starter | — |
 | Rally the Peasants (`q1uwq8sdbz`) | ACTION | 2 | cost, zone-movement, condition | Lorraine Pantheon Starter | — |
-| Reclaim (`F2wp1v0Tyk`) | ACTION | 2 | cost, targeting, zone-movement | Jin Starter Deck, Lorraine Starter Deck, Lorraine Pantheon Starter | — |
-| Seed of Nature (`ybdj1Db9jz`) | REGALIA,ITEM | 2 | zone-movement, status, trigger | Silvie Starter Deck | — |
-| Summon Sentinels (`5tlzsmw3rr`) | ACTION | 2 | cost, counter, token | Tonoris Starter Deck | — |
 | Tasershot (`4x7e22tk3i`) | REGALIA,ITEM | 2 | targeting, damage, trigger | Diana Starter Deck | — |
 | Tome of Sorcery (`sq0ou8vas3`) | REGALIA,ITEM | 2 | draw-discard, trigger, condition | Kongming Pantheon Starter | — |
 | Battlefield Benediction (`HcR3O8vDps`) | ACTION | 2 | cost, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
@@ -76,3 +71,8 @@ Implemented cards still needing semantic coverage: **2432**
 | Intangible Geist (`Zu53izIFTX`) | ALLY | 1 | targeting, damage, prevention, zone-movement, trigger | Lorraine Pantheon Starter | — |
 | Leeching Bolt (`hs1mzjzexc`) | ACTION | 1 | targeting, damage, recover, zone-movement, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |
 | Lorraine, Honed Operative (`UsX7t4lXfX`) | CHAMPION | 1 | draw-discard, zone-movement, counter, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
+| Martial Guard (`nsdwmxz1vd`) | ACTION | 1 | cost, targeting, damage, prevention, zone-movement | Tonoris Starter Deck | — |
+| Pendant of Accrual (`WUhbG91eRa`) | ITEM | 1 | cost, draw-discard, zone-movement, counter, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
+| Perfect Repulsion (`gwj4f15joh`) | ACTION | 1 | targeting, damage, prevention, draw-discard, condition | Arisanna Starter Deck | — |
+| Prismatic Edge (`FxYwR2azTt`) | REGALIA,WEAPON | 1 | targeting, damage, draw-discard, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
+| Rending Flames (`soO3hjaVfN`) | ATTACK | 1 | damage, zone-movement, combat, trigger, condition | Zander Pantheon Starter | — |

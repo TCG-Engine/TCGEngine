@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-29T22:34:47+00:00",
+    "generatedAt": "2026-08-29T22:59:47+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 55,
+        "cardsWithExistingFixtures": 60,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2432,
+        "cardsNeedingSemanticCoverage": 2427,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,26 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "nDYInWoAnw",
-            "name": "Potion Infusion: Animate",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
         {
             "cardId": "MskPCrbv0L",
             "name": "Samaritan's Reach",
@@ -167,25 +147,6 @@
             "priority": 123
         },
         {
-            "cardId": "3qu7d6sopo",
-            "name": "Incendiary Shot",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
             "cardId": "zxB4tzy9iy",
             "name": "Lightweaver's Assault",
             "type": "ACTION",
@@ -258,65 +219,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "F2wp1v0Tyk",
-            "name": "Reclaim",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck",
-                "Lorraine Starter Deck",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "ybdj1Db9jz",
-            "name": "Seed of Nature",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "5tlzsmw3rr",
-            "name": "Summon Sentinels",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 123
@@ -42892,6 +42794,30 @@
             "priority": 144
         },
         {
+            "cardId": "nDYInWoAnw",
+            "name": "Potion Infusion: Animate",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "potion-infusion-animate-turn-ally"
+            ],
+            "semanticFixtures": [
+                "potion-infusion-animate-turn-ally"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
             "cardId": "cAcgxzrz6z",
             "name": "Unruled Bereavement",
             "type": "ACTION",
@@ -43056,6 +42982,29 @@
             "priority": 143
         },
         {
+            "cardId": "3qu7d6sopo",
+            "name": "Incendiary Shot",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "combat"
+            ],
+            "existingFixtures": [
+                "incendiary-shot-load-gun"
+            ],
+            "semanticFixtures": [
+                "incendiary-shot-load-gun"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
             "cardId": "fZ08zyFIlz",
             "name": "Magus Initiate",
             "type": "ALLY",
@@ -43078,6 +43027,77 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
+            "cardId": "F2wp1v0Tyk",
+            "name": "Reclaim",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "reclaim-return-ally"
+            ],
+            "semanticFixtures": [
+                "reclaim-return-ally"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck",
+                "Lorraine Starter Deck",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
+            "cardId": "ybdj1Db9jz",
+            "name": "Seed of Nature",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "seed-of-nature-enter-level-buff"
+            ],
+            "semanticFixtures": [
+                "seed-of-nature-enter-level-buff"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
+            "cardId": "5tlzsmw3rr",
+            "name": "Summon Sentinels",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "token"
+            ],
+            "existingFixtures": [
+                "summon-sentinels-drone-tokens"
+            ],
+            "semanticFixtures": [
+                "summon-sentinels-drone-tokens"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 143

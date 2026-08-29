@@ -1046,6 +1046,178 @@ DECK,
     ],
 ];
 
+// --- Incendiary Shot: load into an unloaded Gun weapon ---
+$fixtures['incendiary-shot-load-gun'] = [
+    'testedCards' => ['3qu7d6sopo'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Incendiary Shot
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Incendiary Shot's element is FIRE (matching the starting champion), so no lineage patch is
+    // needed. Framework Sidearm (a REGALIA,WEAPON with the GUN subtype and no Subcards, i.e.
+    // unloaded) is seeded onto the field as the [REST] Load ability's target, same pattern as
+    // penetrator-round-load-gun/anathemas-end-load-gun. Only the always-available Load half is
+    // covered; the [Class Bonus] On Hit damage trigger requires a real combat hit and is out of
+    // scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'p4lgdlx7md'], // Framework Sidearm (unloaded GUN weapon) - Load target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '3qu7d6sopo'], // Incendiary Shot, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Seed of Nature: enters rested, On Enter grants +2 level ---
+$fixtures['seed-of-nature-enter-level-buff'] = [
+    'testedCards' => ['ybdj1Db9jz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Seed of Nature
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Seed of Nature is a TERA (advanced element) REGALIA,ITEM card, so the starting champion's
+    // Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock element
+    // access. Its memory cost (0) needs no floating-payment setup. On Enter sets the dmfoA7jOjy
+    // global effect (the champion's +2 level until end of turn). Only the base On Enter is
+    // covered; the [Class Bonus] REST+banish repeat of the same buff is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ybdj1Db9jz'], // Seed of Nature, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Summon Sentinels: summon two Automaton Drone tokens with buff counters ---
+$fixtures['summon-sentinels-drone-tokens'] = [
+    'testedCards' => ['5tlzsmw3rr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Summon Sentinels
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Summon Sentinels is a NEOS (advanced element) ACTION card, so the starting champion's
+    // Subcards are patched with a real NEOS champion. Only the base "summon two tokens" effect is
+    // covered; the [Class Bonus] per-domain discount isn't exercised (no domains are seeded),
+    // meaning the full 4-reserve cost is paid.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['n2jnltv5kl']]], // NEOS lineage/element unlock (Tonoris, Creation's Will)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '5tlzsmw3rr'], // Summon Sentinels, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Reclaim: return target friendly ally to hand ---
+$fixtures['reclaim-return-ally'] = [
+    'testedCards' => ['F2wp1v0Tyk'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Reclaim
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Reclaim's element is WIND, so the starting champion's Subcards are patched with a real WIND
+    // champion (Spirit of Wind) to unlock element access, same as deployment-beacon-summon-drone.
+    // Dungeon Guide is seeded onto our own field as the "target ally you control" target. The
+    // Floating Memory clause (banishing this card from the graveyard to help pay a later memory
+    // cost) is a passive/reusable-elsewhere property, not a triggered ability, and is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - return-to-hand target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F2wp1v0Tyk'], // Reclaim, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Potion Infusion: Animate: Arisanna Bonus discount + turn a Potion into an ally ---
+$fixtures['potion-infusion-animate-turn-ally'] = [
+    'testedCards' => ['nDYInWoAnw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Potion Infusion: Animate
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Potion Infusion: Animate's element is NORM, so no lineage patch is needed, but its discount
+    // requires the Arisanna Bonus, which (unlike the physical-presence Class Bonus checks above)
+    // is lineage-based (ChampionHasInLineage), so the starting champion's Subcards are patched
+    // with a real Arisanna champion (Arisanna, Herbalist Prodigy). Distilled Water (an ITEM,
+    // CLERIC,POTION with reserve cost 0) is seeded onto the field as the target; animating it sets
+    // Counters potion_animate/potion_animate_power/potion_animate_life (all 0, since Distilled
+    // Water's own reserve cost is 0) and adds ALLY to its effective type via
+    // ApplyPersistentOverride.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['b31x97n2jn']]], // Arisanna Bonus lineage unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'O1OU62Zx2Y'], // Distilled Water (ITEM, CLERIC,POTION) - Animate target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'nDYInWoAnw'], // Potion Infusion: Animate, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

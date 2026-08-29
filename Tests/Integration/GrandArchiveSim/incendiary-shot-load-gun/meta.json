@@ -1,0 +1,17 @@
+{
+    "name": "Incendiary Shot loads into an unloaded Gun weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Incendiary Shot's element is FIRE (matching the starting champion), so no lineage patch is needed. Framework Sidearm (a REGALIA,WEAPON with the GUN subtype and no Subcards, i.e. unloaded) is seeded onto the field as the [REST] Load ability's target, same pattern and target-resolution mechanism (LoadBulletIntoGun) as penetrator-round-load-gun/anathemas-end-load-gun. Only the always-available Load half is covered; the [Class Bonus] On Hit damage trigger requires a real combat hit and is out of scope.",
+    "testedCards": [
+        "3qu7d6sopo"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["3qu7d6sopo"],
+        "mechanics": ["targeting", "zone-movement"],
+        "rulesClauses": [
+            "[REST]: Load CARDNAME into target unloaded Gun weapon you control."
+        ]
+    }
+}

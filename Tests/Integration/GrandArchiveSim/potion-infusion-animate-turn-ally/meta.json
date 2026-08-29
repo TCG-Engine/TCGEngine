@@ -1,0 +1,18 @@
+{
+    "name": "Potion Infusion: Animate's Arisanna Bonus discount and Potion-to-ally conversion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Potion Infusion: Animate's element is NORM, so no lineage patch is needed, but its discount requires the Arisanna Bonus, which (unlike the physical-presence Class Bonus checks above) is lineage-based (ChampionHasInLineage), so the starting champion's Subcards are patched with a real Arisanna champion (Arisanna, Herbalist Prodigy). Distilled Water (an ITEM, CLERIC,POTION with reserve cost 0) is seeded onto the field as the target; animating it rests it, adds ALLY to its effective type via a persistent type override, and sets potion_animate/potion_animate_power/potion_animate_life counters (power/life both 0, matching Distilled Water's own 0 reserve cost). The 'each activated ability becomes an on-death trigger' half and the discount's exact reserve-cost math are not independently asserted beyond the memory-payment count.",
+    "testedCards": [
+        "nDYInWoAnw"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["nDYInWoAnw"],
+        "mechanics": ["cost", "targeting", "condition"],
+        "rulesClauses": [
+            "[Arisanna Bonus] This card costs 2 less to activate.",
+            "Rest target non-regalia Potion. If you do, it becomes an ally in addition to its other types with base power and life equal to its reserve cost."
+        ]
+    }
+}

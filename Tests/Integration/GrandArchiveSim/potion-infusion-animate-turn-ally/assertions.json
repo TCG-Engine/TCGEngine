@@ -1,0 +1,6 @@
+[
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-1","property":"Status","value":"1","semantic":true,"label":"Animating rests the targeted Potion"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"_overrides\":{\"type\":\"ITEM,ALLY\"},\"potion_animate\":1,\"potion_animate_power\":0,\"potion_animate_life\":0}","semantic":true,"label":"Animating adds ALLY to the Potion's effective type and sets its power/life counters equal to its 0 reserve cost"},
+    {"step":6,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"The Arisanna Bonus discount reduces the 4-reserve cost to 2, so only 2 reserve payments are made"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]
