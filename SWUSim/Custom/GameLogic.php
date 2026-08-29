@@ -12023,6 +12023,20 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
             } elseif (GetSWUVar("SWU_TS26059_LOOP", "") !== "") {
                 // TS26_59 Brothers — count-capped loop; re-offer the next of up to 2 unique-unit attacks.
                 _SWUTs26059Offer($activePlayer);
+            } elseif (GetSWUVar('SWU_NESTED_PLAY_OWNS_AFTERACTION', '') === '1') {
+                // A NESTED play (one card's resolution playing another) armed an entry trigger, so a
+                // resume was queued for it — but the OUTER effect still owns this action's ending and
+                // will finalise it itself. Finalising here too swaps the turn a second time and hands
+                // the caster a free extra action (bug #997: ASH_247 replaying a unit into an opponent's
+                // HMW_171 Trap Field). Consume the flag and let the outer effect finish.
+                //
+                // ⚠ A nested play's caller can neutralise ActivateCard's IMMEDIATE after-action with the
+                // JTL_089#1 $gTurnPlayer/PASS save-restore, but NOT a DEFERRED one — the resume fires
+                // later, after that restore has already happened. This flag is the only thing that
+                // reaches it, and it is a persisted SWUVar for the same reason the combat one is: an
+                // interactive trigger ends the request, and a transient global would be gone.
+                // Mirrors SWU_COMBAT_OWNS_AFTERACTION, consumed in FINISH_PLAY_CARD.
+                SetSWUVar('SWU_NESTED_PLAY_OWNS_AFTERACTION', '');
             } else {
                 SWUAfterAction($activePlayer);
             }
