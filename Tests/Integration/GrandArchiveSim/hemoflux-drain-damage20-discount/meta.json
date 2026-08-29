@@ -1,0 +1,18 @@
+{
+  "name": "Hemoflux Drain receives its Damage 20+ discount and drains a unit",
+  "rootName": "GrandArchiveSim",
+  "baseFixture": "siegable-on-hit",
+  "initialGamestateReplacements": [
+    {"from":"tu7jvjf2gh\nUdYcJGrJt5\n6","to":"tu7jvjf2gh\nzHhOcG9MfK\n6"},
+    {"from":"nn48ne8a05 2 2 0 2 - - WyI3NHdhNHg3ZTIyIl0= 10","to":"4FtNBFaOJp 2 2 20 2 - - WyJVNXJrVDBKUnpDIl0= 10"}
+  ],
+  "testedCards": ["zHhOcG9MfK"],
+  "semanticCoverage": {
+    "testedCards": ["zHhOcG9MfK"],
+    "mechanics": ["cost", "targeting", "damage", "recover", "condition"],
+    "rulesClauses": [
+      "With Mage class bonus and twenty or more damage counters on your champion, Hemoflux Drain costs 3 less to activate.",
+      "Hemoflux Drain deals LV damage to target unit, then recovers damage equal to the amount dealt."
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Dante, Aenean Initiate scavenges an Aenean Spell",
+  "rootName": "GrandArchiveSim",
+  "createdAt": "2026-08-29T02:11:26+00:00",
+  "createdBy": "Codex",
+  "notes": "Uses the official Dante starter material progression with a deterministic ten-card reveal.",
+  "testedCards": ["84YTQPTvar"],
+  "semanticCoverage": {
+    "testedCards": ["84YTQPTvar"],
+    "mechanics": ["materialize", "cost", "on-enter", "scavenge", "reveal", "search", "bottom-deck"],
+    "rulesClauses": [
+      "Dante, Aenean Initiate materializes over Dante, Prodigal Swain by paying two memory.",
+      "On enter, Dante scavenges the top ten cards for an Aenean Spell, puts the chosen spell into hand, and returns the other revealed cards to the bottom of the deck."
+    ]
+  }
+}

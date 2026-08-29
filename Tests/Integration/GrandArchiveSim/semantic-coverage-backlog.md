@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **24**
+Cards linked to an existing fixture: **26**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2465**
+Implemented cards still needing semantic coverage: **2461**
 
 ## Mechanic groups
 
@@ -26,10 +26,6 @@ Implemented cards still needing semantic coverage: **2465**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Hemoflux Drain (`zHhOcG9MfK`) | ACTION | 3 | cost, targeting, damage, recover, condition | Dante, Hemomancer Starter Deck | — |
-| Elysian Aspirant (`HHtlkEeyQR`) | ALLY | 1 | damage, draw-discard, trigger, condition | Dante, Hemomancer Starter Deck | elysian-aspirant-aura, elysian-aspirant-aura-passive |
-| Spellshield: Exia (`CSVtYQIz7h`) | ACTION | 3 | cost, damage, prevention, recover | Dante, Hemomancer Starter Deck | — |
-| Dante, Aenean Initiate (`84YTQPTvar`) | CHAMPION | 1 | zone-movement, trigger | Dante, Hemomancer Starter Deck | dante-scavenge-attempt |
 | Arrest Lightning (`9e3B8EHQak`) | ACTION | 2 | targeting, damage, prevention, zone-movement, counter | Lorraine, Arclight Saber Starter Deck | — |
 | Cleric Robes (`pv4n1n3gyg`) | REGALIA,ITEM | 2 | damage, prevention, draw-discard, trigger, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Deflecting Edge (`g7uDOmUf2u`) | ACTION | 2 | cost, targeting, damage, prevention, condition | Lorraine, Arclight Saber Starter Deck, Lorraine Starter Deck, Lorraine Pantheon Starter | — |
@@ -76,3 +72,7 @@ Implemented cards still needing semantic coverage: **2465**
 | Tasershot (`4x7e22tk3i`) | REGALIA,ITEM | 2 | targeting, damage, trigger | Diana Starter Deck | — |
 | Tome of Sorcery (`sq0ou8vas3`) | REGALIA,ITEM | 2 | draw-discard, trigger, condition | Kongming Pantheon Starter | — |
 | Battlefield Benediction (`HcR3O8vDps`) | ACTION | 2 | cost, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
+| Diana, Duskstalker (`iq4d5vettc`) | CHAMPION | 2 | status, trigger | Diana Starter Deck | — |
+| Distilled Water (`O1OU62Zx2Y`) | ITEM | 2 | draw-discard, condition | Arisanna Pantheon Starter | — |
+| Frostbind (`z0fgm3pal7`) | ACTION | 2 | targeting, zone-movement | Dante, Hemomancer Starter Deck, Arisanna Pantheon Starter | — |
+| Guerrilla Advantage (`JxCzS4XJ3V`) | ACTION | 2 | cost, condition | Zander Pantheon Starter | — |

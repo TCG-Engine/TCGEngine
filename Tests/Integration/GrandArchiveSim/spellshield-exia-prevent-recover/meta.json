@@ -1,0 +1,14 @@
+{
+  "name": "Spellshield Exia prevents champion damage and recovers that amount",
+  "rootName": "GrandArchiveSim",
+  "baseFixture": "aquamirage-damage-prevention",
+  "initialGamestateReplacements": [
+    {"from":"pNiyaGlIe7 2 1 0 1 COMBAT_TARGET_MARKER~WAS_ATTACKED~CALMING_BREEZE~vz4kc558yx-ACTION_ACTIVATED - - 1","to":"pNiyaGlIe7 2 1 5 1 COMBAT_TARGET_MARKER~WAS_ATTACKED~PREVENT_CHAMP_EXIA_RECOVER~vz4kc558yx-ACTION_ACTIVATED - - 1"}
+  ],
+  "testedCards": ["CSVtYQIz7h"],
+  "semanticCoverage": {
+    "testedCards": ["CSVtYQIz7h"],
+    "mechanics": ["damage", "prevention", "recover", "replacement"],
+    "rulesClauses": ["The next damage dealt to your champion is prevented, then you recover exactly the amount prevented."]
+  }
+}

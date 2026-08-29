@@ -1,0 +1,7 @@
+[
+  {"step":1,"type":"card_property_equals","mzId":"p2Field-1","property":"Damage","value":"19","label":"Control starts Dante below the Damage 20 threshold"},
+  {"step":7,"type":"decision_queue_empty","player":"all"},
+  {"step":7,"type":"zone_count","zone":"myHand","viewerPlayerID":2,"value":1,"semantic":true,"label":"Below Damage 20, Hemoflux Drain requires all five reserve payments"},
+  {"step":7,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"3","semantic":true,"label":"The full-cost control still resolves against the chosen unit"},
+  {"step":7,"type":"card_property_equals","mzId":"p2Field-1","property":"Damage","value":"16","semantic":true,"label":"The control recovers the three damage dealt after paying full cost"}
+]

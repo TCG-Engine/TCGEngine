@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-28T14:13:04+00:00",
+    "generatedAt": "2026-08-29T02:18:18+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 24,
+        "cardsWithExistingFixtures": 26,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2465,
+        "cardsNeedingSemanticCoverage": 2461,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,90 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "zHhOcG9MfK",
-            "name": "Hemoflux Drain",
-            "type": "ACTION",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "recover",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 135
-        },
-        {
-            "cardId": "HHtlkEeyQR",
-            "name": "Elysian Aspirant",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [
-                "elysian-aspirant-aura",
-                "elysian-aspirant-aura-passive"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 134
-        },
-        {
-            "cardId": "CSVtYQIz7h",
-            "name": "Spellshield: Exia",
-            "type": "ACTION",
-            "abilityCount": 3,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "prevention",
-                "recover"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 134
-        },
-        {
-            "cardId": "84YTQPTvar",
-            "name": "Dante, Aenean Initiate",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [
-                "dante-scavenge-attempt"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 132
-        },
         {
             "cardId": "9e3B8EHQak",
             "name": "Arrest Lightning",
@@ -42985,6 +42901,61 @@
             "priority": 11
         },
         {
+            "cardId": "zHhOcG9MfK",
+            "name": "Hemoflux Drain",
+            "type": "ACTION",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "recover",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hemoflux-drain-damage20-control",
+                "hemoflux-drain-damage20-discount"
+            ],
+            "semanticFixtures": [
+                "hemoflux-drain-damage20-control",
+                "hemoflux-drain-damage20-discount"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 155
+        },
+        {
+            "cardId": "CSVtYQIz7h",
+            "name": "Spellshield: Exia",
+            "type": "ACTION",
+            "abilityCount": 3,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "prevention",
+                "recover"
+            ],
+            "existingFixtures": [
+                "spellshield-exia-class-bonus",
+                "spellshield-exia-no-class-bonus",
+                "spellshield-exia-prevent-recover"
+            ],
+            "semanticFixtures": [
+                "spellshield-exia-class-bonus",
+                "spellshield-exia-no-class-bonus",
+                "spellshield-exia-prevent-recover"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 154
+        },
+        {
             "cardId": "wcfvrfw35s",
             "name": "Enrage",
             "type": "ACTION",
@@ -43007,6 +42978,34 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 144
+        },
+        {
+            "cardId": "HHtlkEeyQR",
+            "name": "Elysian Aspirant",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "elysian-aspirant-aenean-damage",
+                "elysian-aspirant-aenean-damage-control",
+                "elysian-aspirant-aura",
+                "elysian-aspirant-aura-passive"
+            ],
+            "semanticFixtures": [
+                "elysian-aspirant-aenean-damage",
+                "elysian-aspirant-aenean-damage-control"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
         },
         {
             "cardId": "KEhmWGivJp",
@@ -43056,6 +43055,29 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 133
+        },
+        {
+            "cardId": "84YTQPTvar",
+            "name": "Dante, Aenean Initiate",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "dante-aenean-initiate-scavenge",
+                "dante-scavenge-attempt"
+            ],
+            "semanticFixtures": [
+                "dante-aenean-initiate-scavenge"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
         },
         {
             "cardId": "5u5ic64930",
