@@ -1348,6 +1348,140 @@ DECK,
     ],
 ];
 
+// --- Mindbreak Bullet: load into an unloaded Gun weapon ---
+$fixtures['mindbreak-bullet-load-gun'] = [
+    'testedCards' => ['9htu9agwj4'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Mindbreak Bullet
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Mindbreak Bullet is an UMBRA (advanced element) ITEM card, so the starting champion's
+    // Subcards are patched with a real UMBRA champion (Tristan, Shadowdancer), same as
+    // anathemas-end-load-gun. Framework Sidearm is seeded onto the field as the [REST] Load
+    // ability's target. Only the always-available Load half is covered; the [Class Bonus] On
+    // Champion Hit memory-discard trigger requires a real combat hit and is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc']]], // UMBRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'p4lgdlx7md'], // Framework Sidearm (unloaded GUN weapon) - Load target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9htu9agwj4'], // Mindbreak Bullet, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Winds of Retribution: allies you control get +2 power ---
+$fixtures['winds-of-retribution-ally-buff'] = [
+    'testedCards' => ['huqj5bbae3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Winds of Retribution
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Winds of Retribution's element is WIND, so the starting champion's Subcards are patched
+    // with a real WIND champion (Spirit of Wind), same as deployment-beacon-summon-drone/
+    // reclaim-return-ally. Only the base always-available effect is covered; the [Class
+    // Bonus][Level 2+] discount condition isn't reached here, so the full 6-reserve cost is paid.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'huqj5bbae3'], // Winds of Retribution, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Flute of Taming: [REST] your champion gets +1 level ---
+$fixtures['flute-of-taming-champion-level'] = [
+    'testedCards' => ['y8fx8G64C9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Flute of Taming
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Flute of Taming's element is NORM, so no lineage patch is needed, and its memory cost is
+    // NOT exercised for the same FSM-click-bypass reason as entrancing-filigree-enter-banish.
+    // Ability 1 ([REST]: champion +1 level) is covered via the same AddGlobalEffects()-flag
+    // pattern used elsewhere; ability 0 (buff a target Animal/Beast ally) requires a subtyped
+    // ally target and is out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'y8fx8G64C9'], // Flute of Taming, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Tome of Sorcery: Class Bonus + Level 2+ On Enter draw into memory, REST Empower 1 ---
+$fixtures['tome-of-sorcery-enter-draw-empower'] = [
+    'testedCards' => ['sq0ou8vas3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Tome of Sorcery
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Tome of Sorcery's element is NORM, so no lineage patch is needed, but its On Enter requires
+    // both a MAGE Class Bonus (physical presence, so Kongming, Fel Eidolon is seeded onto the
+    // field) AND champion Level 2+ (the starting champion's Counters are patched with 2 level
+    // counters, same technique as meltdown-level2-destroy-item). Its memory cost is NOT exercised
+    // for the same FSM-click-bypass reason as entrancing-filigree-enter-banish. Both the On Enter
+    // draw and the [REST] Empower 1 activated ability are covered in sequence.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7x2v4tdop1'], // Kongming, Fel Eidolon (MAGE CHAMPION) - Class Bonus source
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 2]]], // Level 2+ condition
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'sq0ou8vas3'], // Tome of Sorcery, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-3!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

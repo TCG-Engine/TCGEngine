@@ -1,0 +1,17 @@
+{
+    "name": "Mindbreak Bullet loads into an unloaded Gun weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T02:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Mindbreak Bullet is an UMBRA (advanced element) ITEM card, so the starting champion's Subcards are patched with a real UMBRA champion (Tristan, Shadowdancer), same as anathemas-end-load-gun. Framework Sidearm is seeded onto the field as the [REST] Load ability's target. Only the always-available Load half is covered; the [Class Bonus] On Champion Hit memory-discard trigger requires a real combat hit and is out of scope.",
+    "testedCards": [
+        "9htu9agwj4"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["9htu9agwj4"],
+        "mechanics": ["targeting", "zone-movement"],
+        "rulesClauses": [
+            "[REST]: Load CARDNAME into target unloaded Gun weapon you control."
+        ]
+    }
+}

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-29T23:03:10+00:00",
+    "generatedAt": "2026-08-29T23:06:56+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 64,
+        "cardsWithExistingFixtures": 68,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2423,
+        "cardsNeedingSemanticCoverage": 2419,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -204,25 +204,6 @@
             "priority": 123
         },
         {
-            "cardId": "sq0ou8vas3",
-            "name": "Tome of Sorcery",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
             "cardId": "iq4d5vettc",
             "name": "Diana, Duskstalker",
             "type": "CHAMPION",
@@ -259,24 +240,6 @@
             "priority": 122
         },
         {
-            "cardId": "9htu9agwj4",
-            "name": "Mindbreak Bullet",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 122
-        },
-        {
             "cardId": "lq2kkvoqk1",
             "name": "Necklace of Foresight",
             "type": "REGALIA,ITEM",
@@ -293,41 +256,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 122
-        },
-        {
-            "cardId": "huqj5bbae3",
-            "name": "Winds of Retribution",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 122
-        },
-        {
-            "cardId": "y8fx8G64C9",
-            "name": "Flute of Taming",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 121
         },
         {
             "cardId": "2kkvoqk1l7",
@@ -43074,6 +43002,29 @@
             "priority": 143
         },
         {
+            "cardId": "sq0ou8vas3",
+            "name": "Tome of Sorcery",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tome-of-sorcery-enter-draw-empower"
+            ],
+            "semanticFixtures": [
+                "tome-of-sorcery-enter-draw-empower"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
             "cardId": "HcR3O8vDps",
             "name": "Battlefield Benediction",
             "type": "ACTION",
@@ -43140,6 +43091,71 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 142
+        },
+        {
+            "cardId": "9htu9agwj4",
+            "name": "Mindbreak Bullet",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "mindbreak-bullet-load-gun"
+            ],
+            "semanticFixtures": [
+                "mindbreak-bullet-load-gun"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 142
+        },
+        {
+            "cardId": "huqj5bbae3",
+            "name": "Winds of Retribution",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "winds-of-retribution-ally-buff"
+            ],
+            "semanticFixtures": [
+                "winds-of-retribution-ally-buff"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 142
+        },
+        {
+            "cardId": "y8fx8G64C9",
+            "name": "Flute of Taming",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting"
+            ],
+            "existingFixtures": [
+                "flute-of-taming-champion-level"
+            ],
+            "semanticFixtures": [
+                "flute-of-taming-champion-level"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 141
         },
         {
             "cardId": "HHtlkEeyQR",

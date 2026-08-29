@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **64**
+Cards linked to an existing fixture: **68**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2423**
+Implemented cards still needing semantic coverage: **2419**
 
 ## Mechanic groups
 
@@ -35,13 +35,9 @@ Implemented cards still needing semantic coverage: **2423**
 | Lightweaver's Assault (`zxB4tzy9iy`) | ACTION | 2 | targeting, damage, trigger | Zander Pantheon Starter | — |
 | Potion Infusion: Volatility (`ndnEl5mq7W`) | ACTION | 2 | targeting, damage, condition | Arisanna Pantheon Starter | — |
 | Rally the Peasants (`q1uwq8sdbz`) | ACTION | 2 | cost, zone-movement, condition | Lorraine Pantheon Starter | — |
-| Tome of Sorcery (`sq0ou8vas3`) | REGALIA,ITEM | 2 | draw-discard, trigger, condition | Kongming Pantheon Starter | — |
 | Diana, Duskstalker (`iq4d5vettc`) | CHAMPION | 2 | status, trigger | Diana Starter Deck | — |
 | Distilled Water (`O1OU62Zx2Y`) | ITEM | 2 | draw-discard, condition | Arisanna Pantheon Starter | — |
-| Mindbreak Bullet (`9htu9agwj4`) | ITEM | 2 | targeting, draw-discard | Diana Starter Deck | — |
 | Necklace of Foresight (`lq2kkvoqk1`) | REGALIA,ITEM | 2 | cost, zone-movement | Arisanna Starter Deck | — |
-| Winds of Retribution (`huqj5bbae3`) | ACTION | 2 | cost, condition | Tonoris Starter Deck | — |
-| Flute of Taming (`y8fx8G64C9`) | REGALIA,ITEM | 2 | targeting | Silvie Starter Deck | — |
 | Smash with Obelisk (`2kkvoqk1l7`) | ATTACK | 2 | cost | Tonoris Starter Deck | — |
 | Aenean Ward (`gqyWZXpxl9`) | ACTION | 1 | targeting, damage, prevention, draw-discard, condition | Dante, Hemomancer Starter Deck | — |
 | Aesan Protector (`heq49UQGvQ`) | ALLY | 1 | targeting, zone-movement, status, combat, trigger | Lorraine Pantheon Starter | — |
@@ -76,3 +72,7 @@ Implemented cards still needing semantic coverage: **2423**
 | Ruinous Pillars of Qidao (`pmx99jrukm`) | DOMAIN | 1 | targeting, draw-discard, zone-movement, trigger, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |
 | Shieldroid (`qCTini03Bc`) | ALLY | 1 | cost, zone-movement, status, combat, condition | Dante, Hemomancer Starter Deck | — |
 | Stalwart Shieldmate (`eifnz0fgm3`) | ALLY | 1 | cost, zone-movement, status, combat, condition | Dante, Hemomancer Starter Deck, Tonoris Starter Deck, Kongming Pantheon Starter, Zander Pantheon Starter | — |
+| Surveillance Stone (`kk46Whz7CJ`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
+| Swerving Spring (`vj6vmuuldt`) | ACTION | 1 | targeting, damage, prevention, counter, condition | Zander Pantheon Starter | — |
+| Swift Recruit (`mHd6LLyMyF`) | ALLY | 1 | cost, zone-movement, status, combat, trigger | Jin Starter Deck, Lorraine Starter Deck, Lorraine Pantheon Starter | — |
+| Taiji of Crystal Strategems (`l17uc67eaq`) | PHANTASIA | 1 | cost, targeting, damage, status, trigger | Kongming Starter Deck | — |

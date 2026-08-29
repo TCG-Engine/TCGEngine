@@ -1,0 +1,17 @@
+{
+    "name": "Flute of Taming's [REST] champion +1 level ability",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T02:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Flute of Taming's element is NORM, so no lineage patch is needed, and its memory cost is NOT exercised for the same FSM-click-bypass reason as entrancing-filigree-enter-banish. Ability 1 ([REST]: champion +1 level) is covered via the same AddGlobalEffects()-flag pattern used elsewhere; ability 0 (buff a target Animal/Beast ally) requires a subtyped ally target and is out of scope.",
+    "testedCards": [
+        "y8fx8G64C9"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["y8fx8G64C9"],
+        "mechanics": ["targeting"],
+        "rulesClauses": [
+            "[REST]: Your champion gets +1 level until end of turn."
+        ]
+    }
+}

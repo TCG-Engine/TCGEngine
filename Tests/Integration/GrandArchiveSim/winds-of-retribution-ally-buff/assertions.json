@@ -1,0 +1,5 @@
+[
+    {"step":7,"type":"card_exists","zone":"myGlobalEffects","viewerPlayerID":1,"cardID":"huqj5bbae3","semantic":true,"label":"Activating sets the ally-power-buff global effect"},
+    {"step":7,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":6,"semantic":true,"label":"Without the discount condition, the full 6-reserve cost is paid"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]
