@@ -1,0 +1,17 @@
+{
+    "name": "Elucidate Plans puts two preparation counters on your champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T23:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Elucidate Plans is a LUXEM (advanced element) ACTION card, so the starting champion's Subcards are patched with a real LUXEM champion (Zander, Blinding Steel) to unlock element access. Only the base always-available effect is covered; the [Class Bonus][Element Bonus] memory-reveal trigger is out of scope (tied to the separate memory-reveal subsystem, already documented as out of scope in luxem-sight-draw).",
+    "testedCards": [
+        "GoC1YaaCUV"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["GoC1YaaCUV"],
+        "mechanics": ["zone-movement", "counter"],
+        "rulesClauses": [
+            "Put two preparation counters on your champion."
+        ]
+    }
+}

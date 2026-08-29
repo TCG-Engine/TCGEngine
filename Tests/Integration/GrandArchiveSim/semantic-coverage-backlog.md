@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **51**
+Cards linked to an existing fixture: **55**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2436**
+Implemented cards still needing semantic coverage: **2432**
 
 ## Mechanic groups
 
@@ -30,12 +30,8 @@ Implemented cards still needing semantic coverage: **2436**
 | Samaritan's Reach (`MskPCrbv0L`) | ACTION | 2 | cost, targeting, damage, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
 | Slay the King (`6v374coy34`) | ATTACK | 2 | zone-movement, combat, trigger, condition | Lorraine Pantheon Starter | — |
 | Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
-| Anathema's End (`ii17fzcyfr`) | ITEM | 2 | targeting, damage, zone-movement | Diana Starter Deck | — |
 | Brooch X Ultra (`3Gx9ByIl9t`) | ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
-| Coronal of Rejuvenation (`uvgflagxbb`) | REGALIA,ITEM | 2 | cost, zone-movement, trigger | Kongming Starter Deck, Kongming Pantheon Starter | — |
-| Elucidate Plans (`GoC1YaaCUV`) | ACTION | 2 | zone-movement, counter, trigger | Zander Pantheon Starter | — |
 | Empowering Tincture (`9g44vm5kt3`) | ITEM | 2 | draw-discard, trigger, condition | Arisanna Pantheon Starter | — |
-| Fan of Seven Debts (`k9zhw0gbov`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, trigger | Kongming Starter Deck | — |
 | Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
 | Incendiary Shot (`3qu7d6sopo`) | ITEM | 2 | targeting, damage, combat | Diana Starter Deck | — |
 | Lightweaver's Assault (`zxB4tzy9iy`) | ACTION | 2 | targeting, damage, trigger | Zander Pantheon Starter | — |
@@ -76,3 +72,7 @@ Implemented cards still needing semantic coverage: **2436**
 | FlameTech BladeCore (`aAJliPQT3F`) | ITEM | 1 | targeting, damage, draw-discard, zone-movement, counter, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Hydroguard Retainer (`0qm7n87o4s`) | ALLY | 1 | draw-discard, status, combat, trigger, condition | Kongming Starter Deck | — |
 | Ignite the Soul (`rXHo9fLU32`) | ACTION | 1 | cost, targeting, damage, zone-movement, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
+| Imperial Countermeasure (`HRPSt74B7g`) | ACTION | 1 | targeting, damage, prevention, draw-discard, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
+| Intangible Geist (`Zu53izIFTX`) | ALLY | 1 | targeting, damage, prevention, zone-movement, trigger | Lorraine Pantheon Starter | — |
+| Leeching Bolt (`hs1mzjzexc`) | ACTION | 1 | targeting, damage, recover, zone-movement, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |
+| Lorraine, Honed Operative (`UsX7t4lXfX`) | CHAMPION | 1 | draw-discard, zone-movement, counter, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |

@@ -906,6 +906,146 @@ DECK,
     ],
 ];
 
+// --- Elucidate Plans: put two preparation counters on your champion ---
+$fixtures['elucidate-plans-prep-counters'] = [
+    'testedCards' => ['GoC1YaaCUV'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Elucidate Plans
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Elucidate Plans is a LUXEM (advanced element) ACTION card, so the starting champion's
+    // Subcards are patched with a real LUXEM champion (Zander, Blinding Steel) to unlock element
+    // access. Only the base always-available effect is covered; the [Class Bonus][Element Bonus]
+    // memory-reveal trigger is out of scope (tied to the separate memory-reveal subsystem,
+    // already documented as out of scope in luxem-sight-draw).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE']]], // LUXEM lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'GoC1YaaCUV'], // Elucidate Plans, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Anathema's End: load into an unloaded Gun weapon ---
+$fixtures['anathemas-end-load-gun'] = [
+    'testedCards' => ['ii17fzcyfr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Anathema's End
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Anathema's End is an UMBRA (advanced element) ITEM card, so the starting champion's
+    // Subcards are patched with a real UMBRA champion (Tristan, Shadowdancer) to unlock element
+    // access. Framework Sidearm (a REGALIA,WEAPON with the GUN subtype and no Subcards, i.e.
+    // unloaded) is seeded onto the field as the [REST] Load ability's target, same pattern as
+    // penetrator-round-load-gun. Only the always-available Load half is covered; the [Class
+    // Bonus] On Champion Hit curse-banishing trigger requires a real combat hit and is out of
+    // scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc']]], // UMBRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'p4lgdlx7md'], // Framework Sidearm (unloaded GUN weapon) - Load target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ii17fzcyfr'], // Anathema's End, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Coronal of Rejuvenation: On Enter banish Spell cards from graveyard ---
+$fixtures['coronal-of-rejuvenation-banish-spell'] = [
+    'testedCards' => ['uvgflagxbb'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Coronal of Rejuvenation
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Coronal of Rejuvenation is a TERA (advanced element) REGALIA,ITEM card, so the starting
+    // champion's Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock
+    // element access. Like entrancing-filigree-enter-banish, its additional materialize cost
+    // ("banish a preserved card from your material deck") is NOT exercised here for the same
+    // FSM-click-bypass reason. Luminous Surge (a SPELL card) is seeded into the graveyard as the
+    // On Enter banish target. Only the On Enter banish is covered; the [REST] "play a card
+    // banished by CARDNAME" ability is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'KOqdA7G6by'], // Luminous Surge (SPELL) - On Enter banish target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uvgflagxbb'], // Coronal of Rejuvenation, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Empowering Tincture: On Enter draws into memory if brewed ---
+// NOTE: Empowering Tincture was attempted first but abandoned for the same reason as
+// Samaritan's Reach above -- its On Enter reads the "wasBrewed" decision-queue variable
+// (normally set by the separate Brew minigame), and injecting it via dqVariables in setup
+// doesn't survive to Enter resolution (verified live: reads back NULL from the final gamestate,
+// and no card was drawn into memory). Fan of Seven Debts is a much simpler substitute with the
+// same "draw a card" shape but no hidden variable dependency.
+$fixtures['fan-of-seven-debts-enter-draw'] = [
+    'testedCards' => ['k9zhw0gbov'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Fan of Seven Debts
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Fan of Seven Debts' element is NORM, so no lineage patch is needed, and its memory cost (1)
+    // is NOT exercised for the same FSM-click-bypass reason as entrancing-filigree-enter-banish.
+    // Only the On Enter draw is covered; the [Kongming Bonus] "banish for Shifting Currents"
+    // ability is tied to a separate facing-state subsystem and is out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'k9zhw0gbov'], // Fan of Seven Debts, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-4!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

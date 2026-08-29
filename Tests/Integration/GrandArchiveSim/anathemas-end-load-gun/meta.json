@@ -1,0 +1,17 @@
+{
+    "name": "Anathema's End loads into an unloaded Gun weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T23:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Anathema's End is an UMBRA (advanced element) ITEM card, so the starting champion's Subcards are patched with a real UMBRA champion (Tristan, Shadowdancer) to unlock element access. Framework Sidearm (a REGALIA,WEAPON with the GUN subtype and no Subcards, i.e. unloaded) is seeded onto the field as the [REST] Load ability's target, same pattern and target-resolution mechanism (LoadBulletIntoGun) as penetrator-round-load-gun. Only the always-available Load half is covered; the [Class Bonus] On Champion Hit curse-banishing trigger requires a real combat hit and is out of scope.",
+    "testedCards": [
+        "ii17fzcyfr"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ii17fzcyfr"],
+        "mechanics": ["targeting", "zone-movement"],
+        "rulesClauses": [
+            "[REST]: Load CARDNAME into target unloaded Gun weapon you control."
+        ]
+    }
+}

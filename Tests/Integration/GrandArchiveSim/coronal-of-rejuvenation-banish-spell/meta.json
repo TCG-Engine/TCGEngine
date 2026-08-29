@@ -1,0 +1,17 @@
+{
+    "name": "Coronal of Rejuvenation's On Enter banishes Spell cards from the graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T23:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Coronal of Rejuvenation is a TERA (advanced element) REGALIA,ITEM card, so the starting champion's Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock element access. Like entrancing-filigree-enter-banish, its additional materialize cost (banish a preserved card from your material deck) is NOT exercised here for the same FSM-click-bypass reason. Luminous Surge (a SPELL card) is seeded into the graveyard as the On Enter banish target; the banished card is tagged with a Counters['_coronal']=1 marker. Only the On Enter banish is covered; the [REST] 'play a card banished by CARDNAME' ability is out of scope.",
+    "testedCards": [
+        "uvgflagxbb"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["uvgflagxbb"],
+        "mechanics": ["zone-movement", "trigger"],
+        "rulesClauses": [
+            "On Enter: Banish any amount of Spell cards from your graveyard."
+        ]
+    }
+}
