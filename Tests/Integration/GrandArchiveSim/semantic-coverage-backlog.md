@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **42**
+Cards linked to an existing fixture: **47**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2445**
+Implemented cards still needing semantic coverage: **2440**
 
 ## Mechanic groups
 
@@ -26,11 +26,6 @@ Implemented cards still needing semantic coverage: **2445**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Vernal Talisman (`dW5uyngvJW`) | REGALIA,ITEM | 2 | cost, recover, draw-discard, zone-movement, trigger | Kongming Pantheon Starter | — |
-| Corhazi Arsonist (`0ejcyuvuxn`) | ALLY | 2 | zone-movement, counter, status, condition | Zander Pantheon Starter | — |
-| Entrancing Filigree (`vrf9n24b5a`) | REGALIA,ITEM | 2 | targeting, zone-movement, status, trigger | Kongming Starter Deck | — |
-| Luminous Surge (`KOqdA7G6by`) | ACTION | 2 | targeting, recover, combat, trigger | Zander Pantheon Starter | — |
-| Meltdown (`ht2tsn0ye3`) | ACTION | 2 | cost, targeting, zone-movement, condition | Zander Pantheon Starter | — |
 | Mend Flesh (`ju2d98w3j0`) | ACTION | 2 | cost, damage, recover, condition | Jin Starter Deck | — |
 | Penetrator Round (`97n2jnltv5`) | REGALIA,ITEM | 2 | targeting, damage, combat, trigger | Diana Starter Deck | — |
 | Potion Infusion: Animate (`nDYInWoAnw`) | ACTION | 2 | cost, targeting, trigger, condition | Arisanna Pantheon Starter | — |
@@ -76,3 +71,8 @@ Implemented cards still needing semantic coverage: **2445**
 | Dream Fairy (`UVAb8CmjtL`) | ALLY | 1 | targeting, zone-movement, status, trigger, condition | Lorraine Starter Deck (Prelude) | — |
 | Dwarf Star's Glow (`zVubkJC3ce`) | ACTION | 1 | cost, targeting, damage, zone-movement, condition | Arisanna Pantheon Starter | — |
 | Emberslash (`0xylS3OcNa`) | ATTACK | 1 | cost, draw-discard, combat, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
+| Entrenched Fortress (`PWkXI6rMl3`) | DOMAIN | 1 | targeting, damage, status, combat, trigger, condition | Kongming Pantheon Starter | — |
+| Essence Crucible (`DF5Ffwv7DJ`) | REGALIA,ITEM | 1 | damage, draw-discard, counter, trigger, condition | Arisanna Pantheon Starter | — |
+| Essence of Blizzards (`k1l75tlzsm`) | ITEM | 1 | cost, targeting, damage, status, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
+| Evasive Maneuvers (`1n3gygojwk`) | ACTION | 1 | targeting, damage, prevention, status, condition | Diana Starter Deck | — |
+| Exploit Vulnerability (`hy83sghwfi`) | ACTION | 1 | targeting, draw-discard, zone-movement, counter, condition | Zander Pantheon Starter | — |

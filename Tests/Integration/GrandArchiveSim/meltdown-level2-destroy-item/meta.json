@@ -1,0 +1,18 @@
+{
+    "name": "Meltdown's Level 2+ discount and destroy target domain/item/weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T21:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "The starting champion is patched with 2 level counters (ObjectCurrentLevel() = CardLevel + level-counter count) to reach the [Level 2+] discount without scripting a real level-up, reducing the 4-reserve cost to 3. Clarent, Sword of Peace is seeded onto the opponent's field as the destroy target; the destroy effect (DoSacrificeFighter/DoAllyDestroyed) resolves by banishing the target into its owner's banish zone, not their graveyard.",
+    "testedCards": [
+        "ht2tsn0ye3"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ht2tsn0ye3"],
+        "mechanics": ["cost", "targeting", "zone-movement", "condition"],
+        "rulesClauses": [
+            "[Level 2+] This card costs 1 less to activate.",
+            "Destroy target domain, item, or weapon."
+        ]
+    }
+}

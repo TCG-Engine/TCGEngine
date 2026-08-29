@@ -1,0 +1,17 @@
+{
+    "name": "Corhazi Arsonist's Prepare ability grants stealth",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T21:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Corhazi Arsonist's element is FIRE (matching the starting champion), so no lineage patch is needed. The starting champion is pre-seeded with 1 preparation counter directly (normally only reachable via a separate preparation-counter-granting effect) so the Prepare activated ability's cost (remove 1 preparation counter from your champion, resolved by the ActivatedAbilityCost() switch in GameLogic.php) can actually be paid. Only the always-available 'gain stealth' half is covered; the onHit 'banish instead of die' replacement requires a real combat hit and is out of scope.",
+    "testedCards": [
+        "0ejcyuvuxn"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["0ejcyuvuxn"],
+        "mechanics": ["zone-movement", "counter", "status", "condition"],
+        "rulesClauses": [
+            "Remove a preparation counter from your champion: CARDNAME gains stealth until end of turn."
+        ]
+    }
+}

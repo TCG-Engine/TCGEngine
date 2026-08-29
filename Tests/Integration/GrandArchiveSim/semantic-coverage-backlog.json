@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-29T20:09:47+00:00",
+    "generatedAt": "2026-08-29T20:40:28+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 42,
+        "cardsWithExistingFixtures": 47,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2445,
+        "cardsNeedingSemanticCoverage": 2440,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,107 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "dW5uyngvJW",
-            "name": "Vernal Talisman",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "draw-discard",
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
-            "cardId": "0ejcyuvuxn",
-            "name": "Corhazi Arsonist",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "vrf9n24b5a",
-            "name": "Entrancing Filigree",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "KOqdA7G6by",
-            "name": "Luminous Surge",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "recover",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "ht2tsn0ye3",
-            "name": "Meltdown",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
         {
             "cardId": "ju2d98w3j0",
             "name": "Mend Flesh",
@@ -42930,6 +42829,55 @@
             "priority": 145
         },
         {
+            "cardId": "dW5uyngvJW",
+            "name": "Vernal Talisman",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "draw-discard",
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "vernal-talisman-preserve-draw"
+            ],
+            "semanticFixtures": [
+                "vernal-talisman-preserve-draw"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "0ejcyuvuxn",
+            "name": "Corhazi Arsonist",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "corhazi-arsonist-prepare-stealth"
+            ],
+            "semanticFixtures": [
+                "corhazi-arsonist-prepare-stealth"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
             "cardId": "suk5c6SJls",
             "name": "Eminence in Fury",
             "type": "ACTION",
@@ -42975,6 +42923,78 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "vrf9n24b5a",
+            "name": "Entrancing Filigree",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "entrancing-filigree-enter-banish"
+            ],
+            "semanticFixtures": [
+                "entrancing-filigree-enter-banish"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "KOqdA7G6by",
+            "name": "Luminous Surge",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "recover",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "luminous-surge-buff-recover"
+            ],
+            "semanticFixtures": [
+                "luminous-surge-buff-recover"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "ht2tsn0ye3",
+            "name": "Meltdown",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "meltdown-level2-destroy-item"
+            ],
+            "semanticFixtures": [
+                "meltdown-level2-destroy-item"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 144

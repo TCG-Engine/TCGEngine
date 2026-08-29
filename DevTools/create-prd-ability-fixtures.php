@@ -584,6 +584,188 @@ DECK,
     ],
 ];
 
+// --- Meltdown: Level 2+ activation discount + destroy target domain/item/weapon ---
+$fixtures['meltdown-level2-destroy-item'] = [
+    'testedCards' => ['ht2tsn0ye3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Meltdown
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Meltdown's element is FIRE (matching the "Spirit of Fire" starting champion), so no
+    // lineage patch is needed. The starting champion's Counters are patched directly with 2
+    // "level" counters (ObjectCurrentLevel() = CardLevel + level-counter count) to reach the
+    // [Level 2+] discount condition without scripting a real level-up sequence. Clarent, Sword of
+    // Peace is seeded onto the opponent's field as the destroy target (a legal WEAPON).
+    'setup' => [
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace (WEAPON) - destroy target
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 2]]], // Level 2+ discount condition
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ht2tsn0ye3'], // Meltdown, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Luminous Surge: buff target unit's next attack, recover 3 champion damage ---
+$fixtures['luminous-surge-buff-recover'] = [
+    'testedCards' => ['KOqdA7G6by'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Luminous Surge
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Luminous Surge is a LUXEM (advanced element) ACTION card, so — like Luxem Sight and Sabela
+    // above — the starting champion's Subcards are patched with a real LUXEM champion (Zander,
+    // Blinding Steel) to unlock element access. The starting champion is also pre-damaged (5) so
+    // the unconditional "Recover 3" half of the ability is observable as a Damage decrease, not
+    // just a no-op against 0 damage. Only the base always-available effect is covered; the
+    // [Class Bonus][Element Bonus] memory-reveal trigger is out of scope (tied to the separate
+    // memory-reveal subsystem, already documented as out of scope in luxem-sight-draw).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE'], 'Damage' => 5]], // LUXEM lineage/element unlock + pre-existing damage for the recover assertion
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'KOqdA7G6by'], // Luminous Surge, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Corhazi Arsonist: remove a preparation counter for stealth ---
+$fixtures['corhazi-arsonist-prepare-stealth'] = [
+    'testedCards' => ['0ejcyuvuxn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Corhazi Arsonist
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Corhazi Arsonist's element is FIRE (matching the starting champion), so no lineage patch is
+    // needed. The starting champion is pre-seeded with 1 preparation counter directly (normally
+    // only reachable via a separate preparation-counter-granting effect) so the "Prepare"
+    // activated ability's cost (remove 1 preparation counter from your champion, resolved by the
+    // ActivatedAbilityCost() switch in GameLogic.php) can actually be paid. Only the always-
+    // available "gain stealth" half is covered; the onHit "banish instead of die" replacement
+    // requires a real combat hit and is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 1]]], // Prepare-ability cost fuel
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '0ejcyuvuxn'], // Corhazi Arsonist, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Entrancing Filigree: On Enter banish target non-champion opponent object ---
+$fixtures['entrancing-filigree-enter-banish'] = [
+    'testedCards' => ['vrf9n24b5a'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Entrancing Filigree
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Entrancing Filigree is a TERA (advanced element) REGALIA,ITEM card, so the starting
+    // champion's Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock
+    // element access. Its memory cost (2) is NOT exercised here: materializing via a direct mode
+    // 10002 FSM click on the hand card resolves straight through DoMaterialize() without ever
+    // routing through the MATERIALIZE decision/QueueMaterializePayment cost flow (verified live —
+    // myMemory contents are unchanged after materializing), so this fixture covers only the
+    // targeting/zone-movement/On-Enter half, not the memory-cost payment mechanic. Dungeon Guide
+    // is seeded onto the opponent's field as the On Enter banish target. The On Leave "return it
+    // rested" trigger requires removing this card from the field afterward and is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - On Enter banish target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vrf9n24b5a'], // Entrancing Filigree, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-2!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Vernal Talisman: banish 2 preserved material cards to materialize, Class Bonus draw ---
+$fixtures['vernal-talisman-preserve-draw'] = [
+    'testedCards' => ['dW5uyngvJW'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Vernal Talisman
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Vernal Talisman is a TERA (advanced element) REGALIA,ITEM card with a MAGE Class Bonus On
+    // Enter, so two separate setups are needed (same split as sabela-gossamer-penance-enter):
+    // the starting champion's Subcards are patched with a real TERA champion (Kongming, Fel
+    // Eidolon) for element access, and that same champion is ALSO physically seeded onto the
+    // field so IsClassBonusActive(["MAGE"]) — which scans physical field objects, independent of
+    // the Subcards-based lineage check — is satisfied. Like entrancing-filigree-enter-banish, its
+    // additional materialize cost ("banish 2 preserved cards from your material deck") is NOT
+    // exercised: materializing via a direct mode 10002 FSM click resolves straight through
+    // DoMaterialize() without ever routing through the MATERIALIZE decision's card-specific
+    // additional-cost switch in MaterializeLogic.php (verified live — myMaterial is unchanged
+    // after materializing), so only the On Enter Class Bonus draw is covered here. The
+    // [Class Bonus][REST] Empower activated ability is separately out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7x2v4tdop1'], // Kongming, Fel Eidolon (MAGE CHAMPION), physically seeded for Class Bonus
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'dW5uyngvJW'], // Vernal Talisman, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-3!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
@@ -711,6 +893,23 @@ foreach ($fixtures as $slug => $def) {
                         WriteGamestate('./' . $rootName . '/');
                         echo "  Setup: patched {$setupStep['patchMzId']} with " . json_encode($setupStep['setProperties']) . "\n";
                     }
+                    continue;
+                }
+                // 'markPreserved': directly mark card IDs as "preserved" via the
+                // DynamicPreserveCardIDs decision-queue variable that
+                // GetPreservedMaterialChoices()/HydrateDynamicPreserveCards() read
+                // (GrandArchiveSim/Custom/GameLogic.php) — normally only reachable via a real
+                // "preserve" effect (e.g. PREVENT_CHAMP_TERA_PRESERVE). Used together with seeding
+                // cards into myMaterial to satisfy "banish N preserved cards from your material
+                // deck" additional materialize costs (e.g. Vernal Talisman) without scripting the
+                // real preserve trigger.
+                if (isset($setupStep['markPreserved'])) {
+                    EngineLoadRootRuntime($rootName);
+                    ParseGamestate('./' . $rootName . '/');
+                    $GLOBALS['playerID'] = $setupStep['player'] ?? 1;
+                    SetDynamicPreserveCardIDs(array_fill_keys($setupStep['markPreserved'], true));
+                    WriteGamestate('./' . $rootName . '/');
+                    echo "  Setup: markPreserved " . implode(',', $setupStep['markPreserved']) . "\n";
                     continue;
                 }
                 $setupResult = BridgeAddToZone(

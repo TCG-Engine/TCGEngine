@@ -1,0 +1,17 @@
+{
+    "name": "Entrancing Filigree's On Enter banish of an opponent's object",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T21:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Entrancing Filigree is a TERA (advanced element) REGALIA,ITEM card, so the starting champion's Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock element access. Its memory cost (2) is NOT exercised here: materializing via a direct mode 10002 FSM click on the hand card resolves straight through DoMaterialize() without ever routing through the MATERIALIZE decision's card-specific additional-cost switch in MaterializeLogic.php (verified live -- myMemory contents are unchanged after materializing), so this fixture covers only the targeting/zone-movement/On-Enter half, not the memory-cost payment mechanic. Dungeon Guide is seeded onto the opponent's field as the On Enter banish target, and lands in the opponent's OWN banish zone (not a shared/neutral zone). The On Leave 'return it rested' trigger requires removing this card from the field afterward and is out of scope.",
+    "testedCards": [
+        "vrf9n24b5a"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["vrf9n24b5a"],
+        "mechanics": ["targeting", "zone-movement", "status", "trigger"],
+        "rulesClauses": [
+            "On Enter: As a Spell, banish target non-champion object you don't control."
+        ]
+    }
+}
