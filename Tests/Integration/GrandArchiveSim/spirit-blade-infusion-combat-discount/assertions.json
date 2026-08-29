@@ -1,0 +1,6 @@
+[
+    {"step":1,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":7,"semantic":true,"label":"With CHAMP_DEALT_COMBAT_DMG set, the 2-reserve activation cost is discounted to 0, so no reserve card is spent"},
+    {"step":3,"type":"decision_queue_empty","player":"all"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-1","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"CgyJxpEgzk-POWER3\",\"CgyJxpEgzk-ONCHIT_DRAW\"]","semantic":true,"label":"The chosen Sword weapon gains +3 power and an On Champion Hit draw trigger until end of turn"},
+    {"step":3,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"CgyJxpEgzk","semantic":true,"label":"Spirit Blade: Infusion resolves to the graveyard after activation"}
+]

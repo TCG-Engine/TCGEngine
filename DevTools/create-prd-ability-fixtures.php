@@ -395,6 +395,195 @@ DECK,
     ],
 ];
 
+// --- Luxem Sight: Draw a card (LUXEM element access + free activation) ---
+$fixtures['luxem-sight-draw'] = [
+    'testedCards' => ['uwnHTLG3fL'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Luxem Sight
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Luxem Sight is a LUXEM (advanced element) card, and no level 0 starting champion has an
+    // advanced element (CanPlayerMeetCardElementRequirements checks GetChampionLineage(), which
+    // walks the on-field champion's Subcards) — so it's illegal to play from hand on a fresh
+    // board. Patch the starting champion's Subcards directly to include a real LUXEM champion
+    // (Zander, Blinding Steel), which is what a genuine level-up into that lineage would leave
+    // behind, without scripting the full level-up sequence. This also grants access to its
+    // "[Element Bonus] whenever you reveal this card from your memory, recover 3" reveal trigger,
+    // but that trigger is not exercised here — reveals-from-memory are tied to the separate Imbue
+    // system and are out of scope for this fixture, which only covers the base "Draw a card"
+    // effect.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['UAF6Nr7GUE']]], // Zander, Blinding Steel (LUXEM CHAMPION) - lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uwnHTLG3fL'], // Luxem Sight, seeded to a known hand slot
+    ],
+    // Play Luxem Sight (myHand-7 with this deck/seed — verified live via DevTools discovery
+    // harness). Reserve cost is 0 and the effect needs no target, so it resolves immediately: no
+    // reserve MZCHOOSE and no opponent response window appear.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Sabela, Gossamer Penance: WARRIOR Class Bonus On Enter — recur a banished Sword regalia ---
+$fixtures['sabela-gossamer-penance-enter'] = [
+    'testedCards' => ['pOJ4uRuyMK'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Sabela, Gossamer Penance
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Sabela is a CRUX (advanced element) UNIQUE ALLY, so — like Luxem Sight above — the starting
+    // champion's Subcards must be patched to unlock element access. Lorraine, Crux Knight (a real
+    // WARRIOR/CRUX champion) is used for the patch AND seeded directly onto the field, so the
+    // same card also satisfies the WARRIOR Class Bonus that Sabela's On Enter ability requires
+    // (IsClassBonusActive checks CHAMPION-type objects physically on the field, not lineage).
+    // Clarent, Sword of Peace (a real REGALIA,WEAPON with the SWORD subtype and memory cost 1) is
+    // seeded into the banishment as the card On Enter recurs onto the field. The "On Leave:
+    // sacrifice each regalia with a bond counter" half of the card is not exercised here — it
+    // requires removing Sabela from the field, which needs its own removal scaffolding — so this
+    // fixture only covers the On Enter half.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'NfbZ0nouSQ'], // Lorraine, Crux Knight (WARRIOR/CRUX champion) - Class Bonus source
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace (REGALIA,WEAPON,SWORD, memory cost 1) - On Enter target
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['NfbZ0nouSQ']]], // CRUX lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'pOJ4uRuyMK'], // Sabela, seeded to a known hand slot
+    ],
+    // Play Sabela (myHand-7 with this deck/seed — verified live via DevTools discovery harness),
+    // pay her 3-reserve cost (no discount applies), then choose the banished Clarent for the On
+    // Enter ability.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myBanish-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Shizun of the Ash: On Enter — optional discard to draw ---
+$fixtures['shizun-of-the-ash-discard-draw'] = [
+    'testedCards' => ['pnDUy9jUbo'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Shizun of the Ash
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Shizun's element is FIRE (a basic element, matching the "Spirit of Fire" starting
+    // champion), so no lineage patch is needed here. Only the always-available On Enter "you may
+    // discard a card, if you do draw a card" half is covered — the [Kongming Bonus] REST ability
+    // is gated behind a specific champion identity plus the separate "Shifting Currents" facing
+    // mechanic, which is out of scope for this fixture.
+    // Play Shizun (myHand-0 with this deck/seed — verified live via DevTools discovery harness),
+    // pay her 2-reserve cost, answer YES to the optional discard, then choose a card to discard.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Spirit Blade: Infusion: combat-damage discount + grant power/on-hit-draw to a Sword weapon ---
+$fixtures['spirit-blade-infusion-combat-discount'] = [
+    'testedCards' => ['CgyJxpEgzk'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Spirit Blade: Infusion
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Spirit Blade: Infusion is a CRUX (advanced element) ACTION card, so — like Luxem Sight and
+    // Sabela above — the starting champion's Subcards are patched with a real WARRIOR/CRUX
+    // champion (Lorraine, Crux Knight) to unlock element access; the same card's WARRIOR class
+    // isn't needed here (this card's discount is combat-based, not class-based), it's reused
+    // purely for the CRUX unlock. The discount (activationCostModifierAbilities
+    // ["CgyJxpEgzk:0"]) requires GlobalEffectCount($player, "CHAMP_DEALT_COMBAT_DMG") > 0, which
+    // is normally set by TrackChampionCombatDamage() when a champion deals real combat damage —
+    // set it directly via AddGlobalEffects() rather than scripting a full attack sequence, since
+    // this fixture is about the card's own cost/effect logic, not the combat subsystem. Clarent,
+    // Sword of Peace is seeded onto the field as the only legal Sword weapon target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace (WEAPON,SWORD) - effect target
+        ['player' => 1, 'globalEffect' => 'CHAMP_DEALT_COMBAT_DMG'], // Discount condition
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['NfbZ0nouSQ']]], // CRUX lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'CgyJxpEgzk'], // Spirit Blade: Infusion, seeded to a known hand slot
+    ],
+    // Play Spirit Blade: Infusion (myHand-7 with this deck/seed — verified live via DevTools
+    // discovery harness). With the discount active, activation costs 0 reserve: FSM play -> the
+    // player's own fast-action response window -> target choice (Clarent is the only legal Sword
+    // weapon, so no opponent response window appears).
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Stocked Outpost: On Enter — draw a card into memory ---
+$fixtures['stocked-outpost-enter-draw-memory'] = [
+    'testedCards' => ['AOMXEGeSQk'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Stocked Outpost
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Stocked Outpost is a NORM DOMAIN card (a siegeable permanent that materializes onto the
+    // field like any other permanent type — there's no separate domain zone), so no element
+    // unlock is needed. Only the always-available On Enter "draw a card into your memory" half is
+    // covered — "On Destroy: if it's an opponent's turn, that opponent draws a card into their
+    // memory" requires reducing its durability to 0 via siege combat damage, which is out of
+    // scope for this fixture.
+    // Play Stocked Outpost (myHand-2 with this deck/seed — verified live via DevTools discovery
+    // harness), pay its 2-reserve cost (each reserve payment itself moves a hand card into
+    // memory), then confirm the On Enter draw adds one more.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-2!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
@@ -495,6 +684,35 @@ foreach ($fixtures as $slug => $def) {
         // actual ability activation, not an artificial way of reaching the precondition.
         if (!empty($def['setup'])) {
             foreach ($def['setup'] as $setupStep) {
+                // 'globalEffect': directly set a per-player global effect flag that's normally
+                // only reachable by playing out a real game event (e.g. CHAMP_DEALT_COMBAT_DMG,
+                // set by TrackChampionCombatDamage() when a champion deals combat damage) — used
+                // to reach a cost-discount condition without scripting a full combat sequence.
+                if (isset($setupStep['globalEffect'])) {
+                    AddGlobalEffects($setupStep['player'] ?? 1, $setupStep['globalEffect']);
+                    WriteGamestate('./' . $rootName . '/');
+                    echo "  Setup: AddGlobalEffects(player={$setupStep['player']}, {$setupStep['globalEffect']})\n";
+                    continue;
+                }
+                // 'patchMzId': directly mutate an already-on-field object (e.g. the starting
+                // champion's Subcards) rather than a freshly-seeded one. Used to grant access to
+                // an advanced element (CanPlayerMeetCardElementRequirements reads
+                // GetChampionLineage(), which walks $obj->Subcards on the champion already on the
+                // field) without scripting a real level-up sequence.
+                if (isset($setupStep['patchMzId'])) {
+                    EngineLoadRootRuntime($rootName);
+                    ParseGamestate('./' . $rootName . '/');
+                    $GLOBALS['playerID'] = $setupStep['player'] ?? 1;
+                    $patchObj = GetZoneObject($setupStep['patchMzId']);
+                    if ($patchObj !== null) {
+                        foreach ($setupStep['setProperties'] as $propName => $propValue) {
+                            $patchObj->$propName = $propValue;
+                        }
+                        WriteGamestate('./' . $rootName . '/');
+                        echo "  Setup: patched {$setupStep['patchMzId']} with " . json_encode($setupStep['setProperties']) . "\n";
+                    }
+                    continue;
+                }
                 $setupResult = BridgeAddToZone(
                     $rootName,
                     $gameName,

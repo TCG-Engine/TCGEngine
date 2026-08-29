@@ -1,0 +1,17 @@
+{
+    "name": "Sabela, Gossamer Penance's WARRIOR Class Bonus On Enter recurs a banished Sword regalia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T20:07:36+00:00",
+    "createdBy": "Codex",
+    "notes": "Seeds a WARRIOR/CRUX champion for the Class Bonus and element access, and a Sword regalia in the banishment, then plays Sabela and confirms her On Enter ability returns the regalia to the field with a bond counter. Does not cover the On Leave sacrifice trigger, which requires removing Sabela from the field.",
+    "testedCards": [
+        "pOJ4uRuyMK"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["pOJ4uRuyMK"],
+        "mechanics": ["cost", "condition", "targeting", "zone-movement", "counter"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Choose a Sword regalia card with memory cost 1 or less from your banishment and put it onto the field. Put a bond counter on it."
+        ]
+    }
+}

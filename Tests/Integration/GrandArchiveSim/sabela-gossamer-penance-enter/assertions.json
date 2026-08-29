@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"pOJ4uRuyMK","semantic":true,"label":"Sabela resolves onto the field after paying her 3-reserve cost"},
+    {"step":5,"type":"decision_queue_empty","player":"all"},
+    {"step":5,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"m31WVJ9F04","semantic":true,"label":"On Enter recurs the banished Clarent, Sword of Peace onto the field"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-3","property":"Counters","value":"{\"durability\":2,\"bond\":1}","semantic":true,"label":"The recurred regalia gets a bond counter, marking it for the On Leave sacrifice and its +2 power bonus"}
+]

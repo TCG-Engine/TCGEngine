@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-29T19:49:38+00:00",
+    "generatedAt": "2026-08-29T20:09:47+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 37,
+        "cardsWithExistingFixtures": 42,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2450,
+        "cardsNeedingSemanticCoverage": 2445,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,118 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "uwnHTLG3fL",
-            "name": "Luxem Sight",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
-            "cardId": "pOJ4uRuyMK",
-            "name": "Sabela, Gossamer Penance",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
-            "cardId": "pnDUy9jUbo",
-            "name": "Shizun of the Ash",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
-            "cardId": "CgyJxpEgzk",
-            "name": "Spirit Blade: Infusion",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
-            "cardId": "AOMXEGeSQk",
-            "name": "Stocked Outpost",
-            "type": "DOMAIN",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
         {
             "cardId": "dW5uyngvJW",
             "name": "Vernal Talisman",
@@ -42884,6 +42772,31 @@
             "priority": 145
         },
         {
+            "cardId": "uwnHTLG3fL",
+            "name": "Luxem Sight",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "luxem-sight-draw"
+            ],
+            "semanticFixtures": [
+                "luxem-sight-draw"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
             "cardId": "41t71u4bzz",
             "name": "Polaris, Twinkling Cauldron",
             "type": "REGALIA,ITEM",
@@ -42905,6 +42818,113 @@
             ],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "pOJ4uRuyMK",
+            "name": "Sabela, Gossamer Penance",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sabela-gossamer-penance-enter"
+            ],
+            "semanticFixtures": [
+                "sabela-gossamer-penance-enter"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "pnDUy9jUbo",
+            "name": "Shizun of the Ash",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shizun-of-the-ash-discard-draw"
+            ],
+            "semanticFixtures": [
+                "shizun-of-the-ash-discard-draw"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "CgyJxpEgzk",
+            "name": "Spirit Blade: Infusion",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "spirit-blade-infusion-combat-discount"
+            ],
+            "semanticFixtures": [
+                "spirit-blade-infusion-combat-discount"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "AOMXEGeSQk",
+            "name": "Stocked Outpost",
+            "type": "DOMAIN",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "stocked-outpost-enter-draw-memory"
+            ],
+            "semanticFixtures": [
+                "stocked-outpost-enter-draw-memory"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 145

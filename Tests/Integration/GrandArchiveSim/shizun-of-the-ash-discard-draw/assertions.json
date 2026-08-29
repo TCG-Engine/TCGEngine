@@ -1,0 +1,6 @@
+[
+    {"step":3,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"pnDUy9jUbo","semantic":true,"label":"Shizun resolves onto the field after paying her 2-reserve cost"},
+    {"step":5,"type":"decision_queue_empty","player":"all"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":4,"semantic":true,"label":"Discarding a card and drawing a card leave hand size unchanged from before the discard"},
+    {"step":5,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"The optional discard actually sends a card to the graveyard"}
+]

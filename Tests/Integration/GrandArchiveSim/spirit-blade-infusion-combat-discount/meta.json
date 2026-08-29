@@ -1,0 +1,18 @@
+{
+    "name": "Spirit Blade: Infusion's combat-damage discount and Sword weapon buff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T20:07:37+00:00",
+    "createdBy": "Codex",
+    "notes": "Sets the CHAMP_DEALT_COMBAT_DMG global effect directly (normally set by a real combat hit) to reach the discount condition without scripting a full attack, then plays Spirit Blade: Infusion for 0 reserve and confirms it grants +3 power and an on-hit draw trigger to the target Sword weapon.",
+    "testedCards": [
+        "CgyJxpEgzk"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["CgyJxpEgzk"],
+        "mechanics": ["cost", "condition", "targeting", "trigger"],
+        "rulesClauses": [
+            "This card costs 2 less to activate if your champion has dealt combat damage this turn.",
+            "Until end of turn, target Sword weapon gets +3 [POWER] and \"On Champion Hit: Draw a card.\""
+        ]
+    }
+}

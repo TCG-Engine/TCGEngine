@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **37**
+Cards linked to an existing fixture: **42**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2450**
+Implemented cards still needing semantic coverage: **2445**
 
 ## Mechanic groups
 
@@ -26,11 +26,6 @@ Implemented cards still needing semantic coverage: **2450**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Luxem Sight (`uwnHTLG3fL`) | ACTION | 2 | damage, recover, draw-discard, trigger, condition | Zander Pantheon Starter | — |
-| Sabela, Gossamer Penance (`pOJ4uRuyMK`) | UNIQUE,ALLY | 2 | cost, targeting, zone-movement, counter, trigger, condition | Lorraine Pantheon Starter | — |
-| Shizun of the Ash (`pnDUy9jUbo`) | ALLY | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | Kongming Pantheon Starter | — |
-| Spirit Blade: Infusion (`CgyJxpEgzk`) | ACTION | 2 | cost, targeting, damage, draw-discard, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
-| Stocked Outpost (`AOMXEGeSQk`) | DOMAIN | 2 | damage, draw-discard, zone-movement, trigger, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
 | Vernal Talisman (`dW5uyngvJW`) | REGALIA,ITEM | 2 | cost, recover, draw-discard, zone-movement, trigger | Kongming Pantheon Starter | — |
 | Corhazi Arsonist (`0ejcyuvuxn`) | ALLY | 2 | zone-movement, counter, status, condition | Zander Pantheon Starter | — |
 | Entrancing Filigree (`vrf9n24b5a`) | REGALIA,ITEM | 2 | targeting, zone-movement, status, trigger | Kongming Starter Deck | — |
@@ -76,3 +71,8 @@ Implemented cards still needing semantic coverage: **2450**
 | Barrier Servant (`xW6SZSlJX6`) | ALLY | 1 | damage, prevention, status, combat, trigger | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Corhazi Courier (`YqQsXwEvv5`) | ALLY | 1 | targeting, damage, draw-discard, status, combat, condition | Zander Pantheon Starter | — |
 | Coriolis Ward (`cagz0393zq`) | ACTION | 1 | targeting, damage, prevention, draw-discard, condition | Kongming Starter Deck | — |
+| Cosmic Bolt (`vpmu6gvnta`) | ACTION | 1 | cost, targeting, damage, zone-movement, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
+| Creeping Torment (`zrplywc08c`) | PHANTASIA | 1 | targeting, damage, draw-discard, trigger, condition | Diana Starter Deck | — |
+| Dream Fairy (`UVAb8CmjtL`) | ALLY | 1 | targeting, zone-movement, status, trigger, condition | Lorraine Starter Deck (Prelude) | — |
+| Dwarf Star's Glow (`zVubkJC3ce`) | ACTION | 1 | cost, targeting, damage, zone-movement, condition | Arisanna Pantheon Starter | — |
+| Emberslash (`0xylS3OcNa`) | ATTACK | 1 | cost, draw-discard, combat, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
