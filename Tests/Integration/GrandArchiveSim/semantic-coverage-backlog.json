@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-29T20:40:28+00:00",
+    "generatedAt": "2026-08-29T22:29:25+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 47,
+        "cardsWithExistingFixtures": 52,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2440,
+        "cardsNeedingSemanticCoverage": 2436,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -27,44 +27,27 @@
     },
     "cards": [
         {
-            "cardId": "ju2d98w3j0",
-            "name": "Mend Flesh",
+            "cardId": "MskPCrbv0L",
+            "name": "Samaritan's Reach",
             "type": "ACTION",
             "abilityCount": 2,
             "listenerCount": 0,
             "mechanics": [
                 "cost",
-                "damage",
-                "recover",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "97n2jnltv5",
-            "name": "Penetrator Round",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
                 "targeting",
                 "damage",
-                "combat",
-                "trigger"
+                "condition"
             ],
-            "existingFixtures": [],
+            "existingFixtures": [
+                "samaritans-reach-attacker-damage"
+            ],
             "semanticFixtures": [],
             "starterDecks": [
-                "Diana Starter Deck"
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
-            "priority": 124
+            "priority": 144
         },
         {
             "cardId": "nDYInWoAnw",
@@ -82,27 +65,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "MskPCrbv0L",
-            "name": "Samaritan's Reach",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 124
@@ -143,26 +105,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "gmuesdu6o6",
-            "name": "Worn Diary",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 124
@@ -223,25 +165,6 @@
             "starterDecks": [
                 "Kongming Starter Deck",
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "klryvfq3hu",
-            "name": "Deployment Beacon",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 123
@@ -43000,6 +42923,54 @@
             "priority": 144
         },
         {
+            "cardId": "ju2d98w3j0",
+            "name": "Mend Flesh",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "recover",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mend-flesh-damage25-recover"
+            ],
+            "semanticFixtures": [
+                "mend-flesh-damage25-recover"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "97n2jnltv5",
+            "name": "Penetrator Round",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "penetrator-round-load-gun"
+            ],
+            "semanticFixtures": [
+                "penetrator-round-load-gun"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
             "cardId": "cAcgxzrz6z",
             "name": "Unruled Bereavement",
             "type": "ACTION",
@@ -43022,6 +42993,53 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 144
+        },
+        {
+            "cardId": "gmuesdu6o6",
+            "name": "Worn Diary",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "worn-diary-page-counters-draw"
+            ],
+            "semanticFixtures": [
+                "worn-diary-page-counters-draw"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
+            "cardId": "klryvfq3hu",
+            "name": "Deployment Beacon",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "deployment-beacon-summon-drone"
+            ],
+            "semanticFixtures": [
+                "deployment-beacon-summon-drone"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
         },
         {
             "cardId": "fZ08zyFIlz",

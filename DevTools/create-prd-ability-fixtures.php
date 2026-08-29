@@ -766,6 +766,146 @@ DECK,
     ],
 ];
 
+// --- Mend Flesh: Damage 25+ discount + Recover 8 ---
+$fixtures['mend-flesh-damage25-recover'] = [
+    'testedCards' => ['ju2d98w3j0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Mend Flesh
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Mend Flesh is an EXIA (advanced element) ACTION card, so the starting champion's Subcards
+    // are patched with a real EXIA champion (Dante, Hemomancer) to unlock element access. The
+    // starting champion's Damage is pre-set to 25 to both reach the [Damage 25+] discount
+    // condition (activationCostModifierAbilities, GeneratedMacroCode.php) and make the
+    // unconditional Recover 8 observable as a Damage decrease.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['4FtNBFaOJp'], 'Damage' => 25]], // EXIA lineage/element unlock + discount/recover precondition
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ju2d98w3j0'], // Mend Flesh, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Penetrator Round: load into an unloaded Gun weapon ---
+$fixtures['penetrator-round-load-gun'] = [
+    'testedCards' => ['97n2jnltv5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Penetrator Round
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Penetrator Round's element is FIRE (matching the starting champion), so no lineage patch is
+    // needed, and its memory cost is 0 so materializing via a direct FSM click is free. Framework
+    // Sidearm (a REGALIA,WEAPON with the GUN subtype and no Subcards, i.e. unloaded) is seeded
+    // onto the field as the [REST] Load ability's target. Only the always-available Load half is
+    // covered; the [Class Bonus][Level 2+] On Attack "unpreventable" trigger requires a real
+    // attack and is out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'p4lgdlx7md'], // Framework Sidearm (unloaded GUN weapon) - Load target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '97n2jnltv5'], // Penetrator Round, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Deployment Beacon: On Enter summons an Automaton Drone token ---
+// NOTE: Samaritan's Reach was attempted first but abandoned — its effect body
+// (SamaritanReachResolve) reads the CombatAttacker/CombatAttackerPlayer/CombatTarget
+// decision-queue variables, but by the time the ACTION card's effect stack finishes resolving
+// (multiple EffectStackOpportunity/EffectStackActiveResponse/EffectStackOpponentResponse
+// windows deep), those dqVariables-injected values had already been cleared (verified live: all
+// three read back NULL from the final gamestate, and the target's Damage stayed 0), so the
+// ability silently no-opped. Setting them via the setup primitive only works for effects that
+// read the variable immediately upon resolution, not ones buried behind several priority
+// windows — a real attack sequence would be needed to test this card properly. Deployment
+// Beacon's WIND element also isn't native to the "Spirit of Fire" starting champion, so — same
+// technique as the advanced-element cards above — the champion's Subcards are patched with a
+// real WIND champion (Spirit of Wind) to unlock element access, even though WIND isn't in
+// GetAdvancedElementNames(); CanPlayerMeetCardElementRequirements() gates any non-NORM element
+// the same way, not just the nine "advanced" ones.
+$fixtures['deployment-beacon-summon-drone'] = [
+    'testedCards' => ['klryvfq3hu'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Deployment Beacon
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Only the On Enter summon is covered; the [Class Bonus] On Leave second summon requires
+    // removing this card from the field afterward and is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'klryvfq3hu'], // Deployment Beacon, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Worn Diary: page counters from memory, then banish for a draw at 10+ page counters ---
+$fixtures['worn-diary-page-counters-draw'] = [
+    'testedCards' => ['gmuesdu6o6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Worn Diary
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Worn Diary's element is NORM and its memory cost is 0, so no lineage patch is needed and
+    // materializing via a direct FSM click is free. Three filler cards are pre-seeded into
+    // myMemory so ability 0 (put a page counter per card in memory) has a nonzero, predictable
+    // result. Ability 1 (REST, banish self: draw a card, only at 10+ page counters) is reached by
+    // patching the page counter directly to 10 after ability 0 resolves, rather than repeating
+    // ability 0 ten times.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'gmuesdu6o6'], // Worn Diary, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-5!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
@@ -910,6 +1050,21 @@ foreach ($fixtures as $slug => $def) {
                     SetDynamicPreserveCardIDs(array_fill_keys($setupStep['markPreserved'], true));
                     WriteGamestate('./' . $rootName . '/');
                     echo "  Setup: markPreserved " . implode(',', $setupStep['markPreserved']) . "\n";
+                    continue;
+                }
+                // 'dqVariables': directly store arbitrary DecisionQueueController variables (e.g.
+                // CombatAttacker/CombatAttackerPlayer/CombatTarget, normally only set mid-combat by
+                // CombatLogic.php) so an ability that reads combat state (e.g. Samaritan's Reach's
+                // GetCombatAttackerMZ()) can be exercised without scripting a full attack sequence.
+                if (isset($setupStep['dqVariables'])) {
+                    EngineLoadRootRuntime($rootName);
+                    ParseGamestate('./' . $rootName . '/');
+                    $GLOBALS['playerID'] = $setupStep['player'] ?? 1;
+                    foreach ($setupStep['dqVariables'] as $varName => $varValue) {
+                        DecisionQueueController::StoreVariable($varName, $varValue);
+                    }
+                    WriteGamestate('./' . $rootName . '/');
+                    echo "  Setup: dqVariables " . json_encode($setupStep['dqVariables']) . "\n";
                     continue;
                 }
                 $setupResult = BridgeAddToZone(

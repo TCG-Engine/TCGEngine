@@ -1,0 +1,5 @@
+[
+    {"step":2,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"page\":3}","semantic":true,"label":"Ability 0 puts one page counter per card currently in memory"},
+    {"step":2,"type":"card_property_equals","mzId":"p1Field-1","property":"Status","value":"1","semantic":true,"label":"Activating the ability rests Worn Diary as its cost"},
+    {"step":2,"type":"decision_queue_empty","player":"all"}
+]

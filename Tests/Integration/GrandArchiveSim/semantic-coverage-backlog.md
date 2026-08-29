@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **47**
+Cards linked to an existing fixture: **52**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2440**
+Implemented cards still needing semantic coverage: **2436**
 
 ## Mechanic groups
 
@@ -26,17 +26,13 @@ Implemented cards still needing semantic coverage: **2440**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Mend Flesh (`ju2d98w3j0`) | ACTION | 2 | cost, damage, recover, condition | Jin Starter Deck | — |
-| Penetrator Round (`97n2jnltv5`) | REGALIA,ITEM | 2 | targeting, damage, combat, trigger | Diana Starter Deck | — |
+| Samaritan's Reach (`MskPCrbv0L`) | ACTION | 2 | cost, targeting, damage, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | samaritans-reach-attacker-damage |
 | Potion Infusion: Animate (`nDYInWoAnw`) | ACTION | 2 | cost, targeting, trigger, condition | Arisanna Pantheon Starter | — |
-| Samaritan's Reach (`MskPCrbv0L`) | ACTION | 2 | cost, targeting, damage, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
 | Slay the King (`6v374coy34`) | ATTACK | 2 | zone-movement, combat, trigger, condition | Lorraine Pantheon Starter | — |
 | Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
-| Worn Diary (`gmuesdu6o6`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, counter, condition | Kongming Pantheon Starter | — |
 | Anathema's End (`ii17fzcyfr`) | ITEM | 2 | targeting, damage, zone-movement | Diana Starter Deck | — |
 | Brooch X Ultra (`3Gx9ByIl9t`) | ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Coronal of Rejuvenation (`uvgflagxbb`) | REGALIA,ITEM | 2 | cost, zone-movement, trigger | Kongming Starter Deck, Kongming Pantheon Starter | — |
-| Deployment Beacon (`klryvfq3hu`) | REGALIA,ITEM | 2 | token, trigger, condition | Tonoris Starter Deck | — |
 | Elucidate Plans (`GoC1YaaCUV`) | ACTION | 2 | zone-movement, counter, trigger | Zander Pantheon Starter | — |
 | Empowering Tincture (`9g44vm5kt3`) | ITEM | 2 | draw-discard, trigger, condition | Arisanna Pantheon Starter | — |
 | Fan of Seven Debts (`k9zhw0gbov`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, trigger | Kongming Starter Deck | — |
@@ -76,3 +72,7 @@ Implemented cards still needing semantic coverage: **2440**
 | Essence of Blizzards (`k1l75tlzsm`) | ITEM | 1 | cost, targeting, damage, status, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Evasive Maneuvers (`1n3gygojwk`) | ACTION | 1 | targeting, damage, prevention, status, condition | Diana Starter Deck | — |
 | Exploit Vulnerability (`hy83sghwfi`) | ACTION | 1 | targeting, draw-discard, zone-movement, counter, condition | Zander Pantheon Starter | — |
+| Extraction Incision (`zthwm68lgo`) | ATTACK | 1 | targeting, counter, status, combat, condition | Zander Pantheon Starter | — |
+| FlameTech BladeCore (`aAJliPQT3F`) | ITEM | 1 | targeting, damage, draw-discard, zone-movement, counter, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
+| Hydroguard Retainer (`0qm7n87o4s`) | ALLY | 1 | draw-discard, status, combat, trigger, condition | Kongming Starter Deck | — |
+| Ignite the Soul (`rXHo9fLU32`) | ACTION | 1 | cost, targeting, damage, zone-movement, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |

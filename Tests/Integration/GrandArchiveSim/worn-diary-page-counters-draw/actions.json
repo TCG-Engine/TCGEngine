@@ -1,0 +1,18 @@
+[
+    {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myHand-5!FSM!",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myField-1!CustomInput!Activate:0",
+        "chkInput": [],
+        "inputText": ""
+    }
+]
