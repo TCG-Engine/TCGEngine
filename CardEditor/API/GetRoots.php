@@ -2,13 +2,14 @@
 // Get Roots and Cards API Endpoint
 // Returns available root games and card lists from their data sources
 
-include_once('../../Database/ConnectionManager.php');
+include_once('../Database/CardAbilityRepository.php');
 
 header('Content-Type: application/json');
 
 try {
     // First, get roots from the database (from card_abilities table)
     $conn = GetLocalMySQLConnection();
+    CardAbilityDB::EnsureSchema($conn);
     
     // Check if we should hide unimplemented cards
     $hideUnimplemented = isset($_GET['hideUnimplemented']) ? (int)$_GET['hideUnimplemented'] : 0;
@@ -31,18 +32,6 @@ try {
     }
     mysqli_stmt_close($stmt);
     
-    // If no roots found in database, return error
-    if (empty($databaseRoots)) {
-        mysqli_close($conn);
-        http_response_code(400);
-        echo json_encode([
-            'success' => false,
-            'error' => 'No roots found in database. Run zzCardCodeGenerator first.',
-            'databaseRootsCount' => 0
-        ]);
-        exit;
-    }
-    
     // Ensure test_card_links table exists (created by MCP server, but guard here too)
     mysqli_query($conn, "CREATE TABLE IF NOT EXISTS test_card_links (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -56,6 +45,7 @@ try {
     // Now load cards for each root from the database
     $roots = [];
     foreach ($databaseRoots as $rootName) {
+        if (CardCodeRemoteConfigForRoot($rootName)) continue;
         // Build query based on filter
         if ($hideUnimplemented) {
             // Only get cards with is_implemented = 1
@@ -122,13 +112,38 @@ try {
             $roots[$rootName] = $cards;
         }
     }
+
+
+    // Remote roots replace any stale local copy and remain visible even when this checkout has no
+    // local card_abilities rows for them.
+    foreach (CardCodeConfiguredRemoteRoots() as $rootName) {
+        $repo = OpenCardAbilityRepository($rootName);
+        $remoteCards = [];
+        $remoteTestCounts = [];
+        $tcStmt = mysqli_prepare($conn, 'SELECT card_id, COUNT(*) AS test_count FROM test_card_links WHERE root_name = ? GROUP BY card_id');
+        if ($tcStmt) {
+            mysqli_stmt_bind_param($tcStmt, 's', $rootName);
+            mysqli_stmt_execute($tcStmt);
+            $tcResult = mysqli_stmt_get_result($tcStmt);
+            while ($tcResult && ($tcRow = mysqli_fetch_assoc($tcResult))) $remoteTestCounts[$tcRow['card_id']] = (int)$tcRow['test_count'];
+            mysqli_stmt_close($tcStmt);
+        }
+        foreach ($repo->listCards($rootName) as $card) {
+            if ($hideUnimplemented && empty($card['isImplemented'])) continue;
+            $cardId = (string)($card['cardId'] ?? '');
+            if ($cardId === '') continue;
+            $remoteCards[$cardId] = ['cardId' => $cardId, 'isImplemented' => !empty($card['isImplemented']), 'testCount' => $remoteTestCounts[$cardId] ?? 0];
+        }
+        $repo->close();
+        if ($remoteCards) $roots[$rootName] = $remoteCards;
+    }
     
     mysqli_close($conn);
     
     echo json_encode([
         'success' => true,
         'roots' => $roots,
-        'databaseRootsCount' => count($databaseRoots),
+        'databaseRootsCount' => count(array_unique(array_merge($databaseRoots, CardCodeConfiguredRemoteRoots()))),
         'loadedRootsCount' => count($roots)
     ]);
     

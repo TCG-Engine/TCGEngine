@@ -2,15 +2,11 @@
 // Load Abilities API Endpoint
 // Returns all abilities for a given card
 
-include_once('../../Database/ConnectionManager.php');
-include_once('../Database/CardAbilityDB.php');
+include_once('../Database/CardAbilityRepository.php');
 
 header('Content-Type: application/json');
 
 try {
-    $conn = GetLocalMySQLConnection();
-    $db = new CardAbilityDB($conn);
-    
     $rootName = $_GET['root'] ?? null;
     $cardId = $_GET['card'] ?? null;
     
@@ -20,15 +16,23 @@ try {
         exit;
     }
     
-    $abilities = $db->loadCardAbilities($rootName, $cardId);
+    $db = OpenCardAbilityRepository($rootName);
+    if (method_exists($db, 'loadCardWithRevision')) {
+        $loaded = $db->loadCardWithRevision($rootName, $cardId);
+        $abilities = $loaded['abilities'] ?? [];
+        $revision = (string)($loaded['revision'] ?? '');
+    } else {
+        $abilities = $db->loadCardAbilities($rootName, $cardId);
+        $revision = $db->revisionForCard($rootName, $cardId);
+    }
     
     echo json_encode([
         'success' => true,
         'abilities' => $abilities,
-        'hasAbilities' => count($abilities) > 0
+        'hasAbilities' => count($abilities) > 0,
+        'revision' => $revision
     ]);
-    
-    mysqli_close($conn);
+    $db->close();
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);

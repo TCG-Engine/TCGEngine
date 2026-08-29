@@ -1,4 +1,5 @@
 import { getPool } from "./db.js";
+import { getRemoteCardCodeConfig, remoteCardCodeRequest, remoteCardCodeRoots } from "./remoteCardCode.js";
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
@@ -11,6 +12,8 @@ const __dirname = path.dirname(__filename);
 const ENGINE_ROOT = path.resolve(__dirname, "..", "..");
 
 const execFileAsync = promisify(execFile);
+const remoteCardRevisionCache = new Map<string, string>();
+const remoteCardAbilitiesCache = new Map<string, SaveAbilityInput[]>();
 
 let prereqColumnChecked = false;
 let testCardLinksTableChecked = false;
@@ -152,12 +155,18 @@ export async function listRoots(): Promise<{
      GROUP BY root_name
      ORDER BY root_name ASC`
   );
-  return {
-    roots: (rows as any[]).map((r) => ({
+  const roots = (rows as any[]).map((r) => ({
       name: r.root_name,
       cardCount: Number(r.card_count),
-    })),
-  };
+    }));
+  for (const root of remoteCardCodeRoots()) {
+    const payload = await remoteCardCodeRequest(root, 'cards');
+    const entry = { name: root, cardCount: Array.isArray(payload.cards) ? payload.cards.length : 0 };
+    const index = roots.findIndex(r => r.name === root);
+    if (index >= 0) roots[index] = entry; else roots.push(entry);
+  }
+  roots.sort((a, b) => a.name.localeCompare(b.name));
+  return { roots };
 }
 
 // ---------------------------------------------------------------------------
@@ -180,8 +189,18 @@ export async function listCards(params: ListCardsParams): Promise<{
   limit: number;
 }> {
   const { root, offset = 0, limit = 50, hideImplemented = false, set, cardName } = params;
-  const pool = getPool();
   const dicts = getCardDictionaries(root);
+  if (getRemoteCardCodeConfig(root)) {
+    const payload = await remoteCardCodeRequest(root, 'cards');
+    let cards = (Array.isArray(payload.cards) ? payload.cards : []).map((card: any) => ({ cardId: String(card.cardId), isImplemented: Boolean(card.isImplemented), testCount: 0 }));
+    if (hideImplemented) cards = cards.filter((card: any) => !card.isImplemented);
+    if (set && dicts) cards = cards.filter((card: any) => dicts.setData[card.cardId] === set);
+    if (cardName && dicts) cards = cards.filter((card: any) => String(dicts.nameData[card.cardId] || '').toLowerCase().includes(cardName.toLowerCase()));
+    const total = cards.length;
+    cards = cards.slice(offset, offset + limit).map((card: any) => ({ ...card, ...(dicts?.nameData[card.cardId] ? { name: dicts.nameData[card.cardId] } : {}), ...(dicts?.setData[card.cardId] ? { set: dicts.setData[card.cardId] } : {}) }));
+    return { root, cards, total, offset, limit };
+  }
+  const pool = getPool();
 
   // Build WHERE clause
   let where = "WHERE root_name = ?";
@@ -319,6 +338,7 @@ export async function getCardAbilities(
 ): Promise<{
   root: string;
   cardId: string;
+  revision?: string;
   abilities: {
     id: number;
     macroName: string;
@@ -330,6 +350,24 @@ export async function getCardAbilities(
     isImplemented: boolean;
   }[];
 }> {
+  if (getRemoteCardCodeConfig(root)) {
+    const payload = await remoteCardCodeRequest(root, 'card', 'GET', { card: cardId });
+    const cacheKey = `${root}\0${cardId}`;
+    remoteCardRevisionCache.set(cacheKey, String(payload.revision || ''));
+    const mapped = (payload.abilities || []).map((r: any) => ({
+      id: Number(r.id), macroName: r.macro_name, abilityCode: r.ability_code,
+      prereqCode: r.prereq_code, abilityType: r.ability_type || 'macro',
+      listenerZones: String(r.listener_zones || '').split(',').map((z: string) => z.trim()).filter(Boolean),
+      abilityName: r.ability_name, isImplemented: Boolean(r.is_implemented),
+    }));
+    remoteCardAbilitiesCache.set(cacheKey, mapped);
+    return {
+      root,
+      cardId,
+      revision: String(payload.revision || ''),
+      abilities: mapped,
+    };
+  }
   const pool = getPool();
   await ensurePrereqColumn(pool);
   const [rows] = await pool.query<mysql.RowDataPacket[]>(
@@ -376,6 +414,7 @@ export interface SaveCardAbilitiesParams {
   abilities: SaveAbilityInput[];
   cardImplemented?: boolean;
   overwrite?: boolean;
+  baseRevision?: string;
 }
 
 export async function saveCardAbilities(
@@ -386,6 +425,34 @@ export async function saveCardAbilities(
   deletedCount: number;
 }> {
   const { root, cardId, abilities, cardImplemented = false, overwrite = false } = params;
+  if (getRemoteCardCodeConfig(root)) {
+    const cacheKey = `${root}\0${cardId}`;
+    let baseRevision = params.baseRevision ?? remoteCardRevisionCache.get(cacheKey);
+    let existing = remoteCardAbilitiesCache.get(cacheKey);
+    if (!existing) {
+      const loaded = await remoteCardCodeRequest(root, 'card', 'GET', { card: cardId });
+      baseRevision = baseRevision ?? String(loaded.revision || '');
+      existing = (loaded.abilities || []).map((r: any) => ({ id: Number(r.id), macroName: r.macro_name, abilityCode: r.ability_code, prereqCode: r.prereq_code, abilityType: r.ability_type || 'macro', listenerZones: String(r.listener_zones || '').split(',').filter(Boolean), abilityName: r.ability_name, isImplemented: Boolean(r.is_implemented) }));
+    }
+    const existingAbilities = existing ?? [];
+    let submitted: SaveAbilityInput[] = abilities;
+    if (!overwrite) {
+      submitted = [...existingAbilities];
+      for (const ability of abilities) {
+        const index = ability.id ? submitted.findIndex(row => row.id === ability.id) : -1;
+        if (index >= 0) submitted[index] = ability; else submitted.push(ability);
+      }
+    }
+    const result = await remoteCardCodeRequest(root, 'save', 'POST', { cardId, abilities: submitted, cardImplemented, baseRevision });
+    remoteCardRevisionCache.set(cacheKey, String(result.revision || ''));
+    remoteCardAbilitiesCache.delete(cacheKey);
+    try {
+      await runCodeGenerator(root);
+    } catch (err: any) {
+      logToStderr(`Warning: Code generator failed for ${root}: ${err.message}`);
+    }
+    return { success: true, savedCount: abilities.length, deletedCount: overwrite ? Math.max(0, existingAbilities.length - submitted.length) : 0 };
+  }
   const pool = getPool();
   await ensurePrereqColumn(pool);
   const conn = await pool.getConnection();
@@ -696,6 +763,21 @@ export async function getImplementedExamples(
     abilityCode: string;
   }[];
 }> {
+  if (getRemoteCardCodeConfig(root)) {
+    const payload = await remoteCardCodeRequest(root, 'snapshot');
+    const dicts = getCardDictionaries(root);
+    const examples = (payload.abilities || [])
+      .filter((r: any) => (r.ability_type || 'macro') === 'macro' && r.macro_name === macroName && r.ability_code)
+      .sort((a: any, b: any) => String(a.ability_code).length - String(b.ability_code).length)
+      .slice(0, limit)
+      .map((r: any) => ({
+        cardId: r.card_id,
+        abilityCode: r.ability_code,
+        ...(dicts?.nameData[r.card_id] ? { cardName: dicts.nameData[r.card_id] } : {}),
+        ...(dicts?.effectData[r.card_id] ? { effect: dicts.effectData[r.card_id] } : {}),
+      }));
+    return { root, macroName, examples };
+  }
   const pool = getPool();
   await ensurePrereqColumn(pool);
   const [rows] = await pool.query<mysql.RowDataPacket[]>(

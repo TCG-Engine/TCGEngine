@@ -3,12 +3,13 @@
  * Manages the UI for editing card abilities
  */
 class AbilityEditor {
-    constructor(rootName, cardId, macros, existingAbilities = [], assetPath = null, zones = []) {
+    constructor(rootName, cardId, macros, existingAbilities = [], assetPath = null, zones = [], revision = '') {
         this.rootName = rootName;
         this.cardId = cardId;
         this.macros = macros;
         this.zones = zones;
         this.assetPath = assetPath || rootName; // Default to current root if not specified
+        this.revision = revision || '';
         this.cardImplemented = false; // Track if card is marked as implemented
         this.abilities = existingAbilities.map(a => ({
             id: a.id || null,
@@ -275,7 +276,8 @@ class AbilityEditor {
                     root: this.rootName,
                     card: this.cardId,
                     abilities: validAbilities,
-                    cardImplemented: this.cardImplemented
+                    cardImplemented: this.cardImplemented,
+                    baseRevision: this.revision
                 })
             });
             
@@ -290,6 +292,7 @@ class AbilityEditor {
             const loadData = await loadResponse.json();
             
             if (loadData.success) {
+                this.revision = loadData.revision || '';
                 this.abilities = loadData.abilities.map(a => ({
                     id: a.id,
                     macroName: a.macro_name,

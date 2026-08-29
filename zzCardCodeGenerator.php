@@ -7,7 +7,7 @@ include './Core/Trie.php';
 include "./Core/HTTPLibraries.php";
 include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./Database/ConnectionManager.php";
-include_once "./CardEditor/Database/CardAbilityDB.php";
+include_once "./CardEditor/Database/CardAbilityRepository.php";
 
 // Support CLI invocation: parse arguments into $_GET if not running under HTTP (mirrors
 // zzGameCodeGenerator.php's bridge — needed so TryGET("rootName", ...) below sees CLI args
@@ -827,25 +827,27 @@ logLine("=== Phase 4: Initializing card abilities database ===");
 // Only inserts cards that don't already have entries (preserves existing custom code)
 // Uses CardDBOverride if provided, otherwise uses rootName for the database root
 try {
-  $conn = GetLocalMySQLConnection();
-  $cardAbilityDB = new CardAbilityDB($conn);
-
   // Determine which root to use for the card abilities database
   $databaseRoot = !empty($cardDBOverride) ? $cardDBOverride : $rootName;
+  $cardAbilityDB = OpenCardAbilityRepository($databaseRoot);
 
   $existingCount = 0;
-
-  foreach($allCardIds as $cardId) {
-    // Check if this card already has abilities in the database (using the appropriate database root)
-    if(!$cardAbilityDB->cardHasAbilities($databaseRoot, $cardId)) {
-      // Create placeholder entry for this card so it shows up in the editor
-      // Placeholder has empty macro_name and ability_code, ready to be filled in via CardEditor
-      $cardAbilityDB->saveAbility(null, $databaseRoot, $cardId, "", "", null);
+  if (method_exists($cardAbilityDB, 'ensureCards')) {
+    $cardAbilityDB->ensureCards($databaseRoot, $allCardIds);
+    $existingCount = count($allCardIds);
+  } else {
+    foreach($allCardIds as $cardId) {
+      // Check if this card already has abilities in the database (using the appropriate database root)
+      if(!$cardAbilityDB->cardHasAbilities($databaseRoot, $cardId)) {
+        // Create placeholder entry for this card so it shows up in the editor
+        // Placeholder has empty macro_name and ability_code, ready to be filled in via CardEditor
+        $cardAbilityDB->saveAbility(null, $databaseRoot, $cardId, "", "", null);
+      }
+      $existingCount++;
     }
-    $existingCount++;
   }
 
-  mysqli_close($conn);
+  $cardAbilityDB->close();
   logLine("Card abilities database initialized for $databaseRoot. " . count($allCardIds) . " total cards available for editing.");
 
 } catch (Exception $e) {

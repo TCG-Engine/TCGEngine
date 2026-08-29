@@ -5,7 +5,7 @@ include './Core/Trie.php';
 include "./Core/HTTPLibraries.php";
 include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./Database/ConnectionManager.php";
-include_once "./CardEditor/Database/CardAbilityDB.php";
+include_once "./CardEditor/Database/CardAbilityRepository.php";
 
 // Support CLI invocation: parse arguments if not running under HTTP
 $isHTTPRequest = php_sapi_name() !== 'cli' && !empty($_SERVER['REQUEST_METHOD']);
@@ -4634,8 +4634,7 @@ function GenerateMacroCode() {
   global $rootName;
 
   try {
-    $conn = GetLocalMySQLConnection();
-    $cardAbilityDB = new CardAbilityDB($conn);
+    $cardAbilityDB = OpenCardAbilityRepository($rootName);
 
     $rootPath = "./" . $rootName;
     $directory = $rootPath . "/GeneratedCode";
@@ -5020,11 +5019,10 @@ function GenerateMacroCode() {
 
     fwrite($handler, "?>");
     fclose($handler);
+    $cardAbilityDB->close();
 
     // Generate JavaScript macro count functions
     GenerateMacroCountJS($rootName, $abilitiesByMacro);
-
-    mysqli_close($conn);
 
     echo("Generated macro code file: $filename<BR>");
 

@@ -1,5 +1,41 @@
 # CardEditor Feature - Complete Implementation Summary
 
+## Optional hosted Card Code backend
+
+Card ability code can remain in local MySQL (the default) or use the hosted API at
+`CardEditor/API/CardCodeService.php`. The hosted database is the source of truth; generation still
+runs in each developer checkout from a remote snapshot.
+
+On the hosted server, create a scoped token:
+
+```sh
+php DevTools/CardCodeServiceToken.php --root=AzukiSim --name=alice --scopes=read,write
+```
+
+Store the displayed token in a developer-only environment variable. Configure both PHP and the MCP
+server with the same non-secret routing JSON:
+
+```text
+CARD_CODE_REMOTE_CONFIG={"AzukiSim":{"url":"https://cards.example.com/TCGEngine/CardEditor/API/CardCodeService.php","workspace":"AzukiSim","tokenEnv":"AZUKI_CARD_CODE_TOKEN"}}
+AZUKI_CARD_CODE_TOKEN=tcc_...
+```
+
+Only loopback URLs may use plain HTTP. Remote services must use HTTPS. Apps absent from
+`CARD_CODE_REMOTE_CONFIG` continue using local MySQL.
+
+Schedule the daily checkpoint command on the hosted server, preferably just after UTC midnight:
+
+```cron
+0 0 * * * php /var/www/html/TCGEngine/DevTools/CardCodeDailyCheckpoint.php
+```
+
+The first checkpoint for a workspace/date is immutable. If cron is delayed, the API creates that
+day's checkpoint immediately before the first mutation. Unchanged workspaces do not create duplicate
+payloads. A token needs `restore` (or `admin`) scope to restore a checkpoint through the API.
+
+Remote saves use the revision returned by `LoadAbilities.php` or `get_card_abilities`. A stale save
+receives HTTP 409 instead of silently overwriting another developer's changes.
+
 ## Status: ✅ COMPLETE
 
 All components of the CardEditor feature have been successfully implemented. The system is ready for integration testing.

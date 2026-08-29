@@ -119,6 +119,21 @@ Important notes and gotchas
 
 This is the canonical workflow for implementing card abilities. Follow these steps in order.
 
+### Local and hosted Card Code backends
+
+- `card_abilities` uses local MySQL unless the root is present in `CARD_CODE_REMOTE_CONFIG`.
+- For a configured remote root, CardEditor, the MCP server, and both generators must go through
+  `CardEditor/Database/CardAbilityRepository.php`; do not add new direct `card_abilities` SQL paths.
+- Remote saves use the revision returned by `get_card_abilities` / `LoadAbilities.php`. Treat an
+  HTTP 409 as a real concurrent edit: reload and reconcile rather than retrying blindly.
+- The hosted API owns schema migration, bearer-token authorization, and daily checkpoints.
+  Developer machines receive scoped API tokens, never hosted MySQL credentials.
+- Generated macro files remain local. A remote save is followed by generation in the developer's
+  checkout from a hosted snapshot.
+- Daily checkpoints are immutable per UTC date and are created only for changed workspaces. The
+  cron entry point is `DevTools/CardCodeDailyCheckpoint.php`; the hosted API also checks immediately
+  before mutation so a delayed cron does not leave the workspace unprotected.
+
 ### CRITICAL RULES
 - **NEVER manually edit `<RootName>/GeneratedCode/GeneratedMacroCode.php`** — this file is auto-generated from the database. The MCP `save_card_abilities` tool saves to the DB and triggers the code generator automatically. Any manual edits will be overwritten.
 - **NEVER manually edit `<RootName>/GeneratedCode/GeneratedMacroCount.js`** — same reason.

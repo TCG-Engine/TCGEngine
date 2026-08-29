@@ -156,6 +156,10 @@ server.tool(
       .boolean()
       .optional()
       .describe("When true, delete any existing abilities for this card that are NOT included in the abilities array. When false (default), only update/insert the provided abilities and leave others untouched."),
+    baseRevision: z
+      .string()
+      .optional()
+      .describe("Revision returned by get_card_abilities. Remote workspaces reject the save if that card changed since it was loaded."),
   },
   { destructiveHint: true },
   async (params) => {
@@ -166,6 +170,7 @@ server.tool(
         abilities: params.abilities,
         cardImplemented: params.cardImplemented,
         overwrite: params.overwrite,
+        baseRevision: params.baseRevision,
       });
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     } catch (err: any) {
