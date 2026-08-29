@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **35**
+Cards linked to an existing fixture: **37**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2452**
+Implemented cards still needing semantic coverage: **2450**
 
 ## Mechanic groups
 
@@ -26,8 +26,6 @@ Implemented cards still needing semantic coverage: **2452**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Deflecting Edge (`g7uDOmUf2u`) | ACTION | 2 | cost, targeting, damage, prevention, condition | Lorraine, Arclight Saber Starter Deck, Lorraine Starter Deck, Lorraine Pantheon Starter | — |
-| Fortified Mana Shield (`5lh23qu7d6`) | ACTION | 2 | cost, targeting, damage, prevention, condition | Tonoris Starter Deck | — |
 | Luxem Sight (`uwnHTLG3fL`) | ACTION | 2 | damage, recover, draw-discard, trigger, condition | Zander Pantheon Starter | — |
 | Sabela, Gossamer Penance (`pOJ4uRuyMK`) | UNIQUE,ALLY | 2 | cost, targeting, zone-movement, counter, trigger, condition | Lorraine Pantheon Starter | — |
 | Shizun of the Ash (`pnDUy9jUbo`) | ALLY | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | Kongming Pantheon Starter | — |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **2452**
 | Aesan Protector (`heq49UQGvQ`) | ALLY | 1 | targeting, zone-movement, status, combat, trigger | Lorraine Pantheon Starter | — |
 | Assassin's Mantle (`3tcs0axa03`) | REGALIA,ITEM | 1 | damage, prevention, zone-movement, counter, condition | Zander Pantheon Starter | — |
 | Barrier Servant (`xW6SZSlJX6`) | ALLY | 1 | damage, prevention, status, combat, trigger | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
+| Corhazi Courier (`YqQsXwEvv5`) | ALLY | 1 | targeting, damage, draw-discard, status, combat, condition | Zander Pantheon Starter | — |
+| Coriolis Ward (`cagz0393zq`) | ACTION | 1 | targeting, damage, prevention, draw-discard, condition | Kongming Starter Deck | — |

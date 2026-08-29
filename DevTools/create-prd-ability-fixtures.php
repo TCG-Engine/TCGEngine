@@ -321,6 +321,80 @@ DECK,
     ],
 ];
 
+// --- Deflecting Edge: Sword-control activation discount + prevent 3 combat damage ---
+$fixtures['deflecting-edge-sword-discount'] = [
+    'testedCards' => ['g7uDOmUf2u'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Deflecting Edge
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Deflecting Edge's discount (activationCostModifierAbilities["g7uDOmUf2u:0"] in
+    // GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php) requires a Sword weapon on the field
+    // to reduce its 1-reserve activation cost to 0 — seed Clarent, Sword of Peace (a real
+    // WEAPON,SWORD card) directly onto the field since no level 0 starting champion carries a
+    // weapon at game start.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace (WEAPON,SWORD) - discount source
+    ],
+    // Play Deflecting Edge (myHand-4 with this deck/seed — verified live via
+    // DevTools discovery harness). With the Sword discount active, the activation costs 0
+    // reserve, so play goes straight from the FSM click to the opponent's fast-action response
+    // window (no reserve MZCHOOSE appears) and then to the target choice.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-4!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Target choice: prevent the next 3 combat damage to your own champion (myField-0).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Fortified Mana Shield: Taunt-based class bonus discount + prevent 4 non-combat damage ---
+$fixtures['fortified-mana-shield-taunt-discount'] = [
+    'testedCards' => ['5lh23qu7d6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Fortified Mana Shield
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Fortified Mana Shield's Class Bonus discount (activationCostModifierAbilities
+    // ["5lh23qu7d6:0"]) requires (a) a GUARDIAN Class Bonus — no level 0 starting champion has a
+    // class other than SPIRIT — and (b) a unit with taunt anywhere on the field, to reduce its
+    // 2-reserve activation cost to 0. Seed Ciel, Loyal Valet (a real GUARDIAN champion) for the
+    // class bonus, and give Dungeon Guide the TAUNT turn effect directly (no printed-Taunt ally
+    // is in this filler deck) to satisfy the taunt-unit condition.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'nn48ne8a05'], // Ciel, Loyal Valet (GUARDIAN champion) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['TurnEffects' => ['TAUNT']]], // Dungeon Guide w/ Taunt - discount condition + effect target
+    ],
+    // Play Fortified Mana Shield (myHand-0 with this deck/seed — verified live via DevTools
+    // discovery harness). With the discount active, activation costs 0 reserve: FSM play ->
+    // player's own fast-action response window -> opponent's response window -> target choice.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Target choice: prevent the next 4 non-combat damage to the taunt unit (myField-2).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

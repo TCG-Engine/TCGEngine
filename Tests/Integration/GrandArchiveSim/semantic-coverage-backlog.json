@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-29T18:47:50+00:00",
+    "generatedAt": "2026-08-29T19:49:38+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 35,
+        "cardsWithExistingFixtures": 37,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2452,
+        "cardsNeedingSemanticCoverage": 2450,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,50 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "g7uDOmUf2u",
-            "name": "Deflecting Edge",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck",
-                "Lorraine Starter Deck",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
-        {
-            "cardId": "5lh23qu7d6",
-            "name": "Fortified Mana Shield",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 125
-        },
         {
             "cardId": "uwnHTLG3fL",
             "name": "Luxem Sight",
@@ -42821,6 +42777,33 @@
             "priority": 145
         },
         {
+            "cardId": "g7uDOmUf2u",
+            "name": "Deflecting Edge",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "deflecting-edge-sword-discount"
+            ],
+            "semanticFixtures": [
+                "deflecting-edge-sword-discount"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck",
+                "Lorraine Starter Deck",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
             "cardId": "isxy5lh23q",
             "name": "Flash Grenade",
             "type": "REGALIA,ITEM",
@@ -42845,6 +42828,31 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 145
+        },
+        {
+            "cardId": "5lh23qu7d6",
+            "name": "Fortified Mana Shield",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fortified-mana-shield-taunt-discount"
+            ],
+            "semanticFixtures": [
+                "fortified-mana-shield-taunt-discount"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 145

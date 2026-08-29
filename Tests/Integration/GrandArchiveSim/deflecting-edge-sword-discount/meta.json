@@ -1,0 +1,18 @@
+{
+    "name": "Deflecting Edge's Sword-control discount and combat damage prevention",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T19:11:57+00:00",
+    "createdBy": "Codex",
+    "notes": "Seeds Clarent, Sword of Peace onto the field to trigger the Sword-control discount, then plays Deflecting Edge for 0 reserve and confirms the prevention effect lands on the chosen unit.",
+    "testedCards": [
+        "g7uDOmUf2u"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["g7uDOmUf2u"],
+        "mechanics": ["cost", "condition", "targeting", "prevention", "damage"],
+        "rulesClauses": [
+            "This card costs 1 less to activate if you control a Sword weapon.",
+            "Prevent the next 3 combat damage that would be dealt to target unit this turn."
+        ]
+    }
+}
