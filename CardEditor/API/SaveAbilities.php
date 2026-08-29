@@ -3,9 +3,17 @@
 // Saves or updates abilities for a given card
 // Also supports marking cards as implemented without abilities
 
+include_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
 include_once('../Database/CardAbilityRepository.php');
 
 header('Content-Type: application/json');
+
+$authError = CheckLoggedInUserModStrict();
+if ($authError !== '') {
+    http_response_code(403);
+    echo json_encode(['error' => $authError]);
+    exit;
+}
 
 try {
     // Only accept POST requests

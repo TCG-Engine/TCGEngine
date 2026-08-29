@@ -31,7 +31,126 @@ final class CardCodeServiceDB
                 throw new RuntimeException('Could not initialize Card Code service schema: ' . mysqli_error($conn));
             }
         }
+        self::EnsureColumn($conn, 'card_code_api_tokens', 'token_prefix', "ALTER TABLE card_code_api_tokens ADD COLUMN token_prefix VARCHAR(16) NULL AFTER token_hash");
+        self::EnsureColumn($conn, 'card_code_api_tokens', 'role', "ALTER TABLE card_code_api_tokens ADD COLUMN role VARCHAR(32) NOT NULL DEFAULT 'reader' AFTER root_name");
+        self::EnsureColumn($conn, 'card_code_api_tokens', 'created_by_user_id', "ALTER TABLE card_code_api_tokens ADD COLUMN created_by_user_id INT NULL AFTER scopes");
+        self::EnsureColumn($conn, 'card_code_api_tokens', 'created_by_name', "ALTER TABLE card_code_api_tokens ADD COLUMN created_by_name VARCHAR(128) NULL AFTER created_by_user_id");
+        self::EnsureColumn($conn, 'card_code_api_tokens', 'expires_at', "ALTER TABLE card_code_api_tokens ADD COLUMN expires_at TIMESTAMP NULL DEFAULT NULL AFTER created_at");
+        // Tokens created before roles existed retain their original permissions in the GUI.
+        mysqli_query($conn, "UPDATE card_code_api_tokens SET role = CASE
+            WHEN scopes LIKE '%admin%' OR scopes LIKE '%restore%' THEN 'owner'
+            WHEN scopes LIKE '%checkpoint%' THEN 'maintainer'
+            WHEN scopes LIKE '%write%' THEN 'developer'
+            ELSE 'reader' END
+            WHERE token_prefix IS NULL AND role = 'reader'");
         $checked[$key] = true;
+    }
+
+    private static function EnsureColumn($conn, string $table, string $column, string $alter): void
+    {
+        $result = mysqli_query($conn, "SHOW COLUMNS FROM `$table` LIKE '" . mysqli_real_escape_string($conn, $column) . "'");
+        $exists = $result && mysqli_num_rows($result) > 0;
+        if ($result) mysqli_free_result($result);
+        if (!$exists && !mysqli_query($conn, $alter)) throw new RuntimeException("Could not add $table.$column: " . mysqli_error($conn));
+    }
+
+    public static function RoleScopes(string $role): array
+    {
+        $roles = [
+            'reader' => ['read'],
+            'developer' => ['read', 'write'],
+            'maintainer' => ['read', 'write', 'checkpoint'],
+            'owner' => ['read', 'write', 'checkpoint', 'restore', 'admin'],
+        ];
+        if (!isset($roles[$role])) throw new InvalidArgumentException('Invalid Card Code role');
+        return $roles[$role];
+    }
+
+    public function createToken(string $rootName, string $name, string $role, int $expiresDays, ?int $actorUserId, ?string $actorName): array
+    {
+        $rootName = self::NormalizeRoot($rootName);
+        $name = trim($name);
+        if ($name === '' || strlen($name) > 128) throw new InvalidArgumentException('Token name must be between 1 and 128 characters');
+        $scopes = self::RoleScopes($role);
+        if ($expiresDays < 1 || $expiresDays > 365) throw new InvalidArgumentException('Token expiration must be between 1 and 365 days');
+        $plain = 'tcc_' . rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+        $hash = hash('sha256', $plain, true);
+        $prefix = substr($plain, 0, 12);
+        $scopeText = implode(',', $scopes);
+        // Let MySQL calculate expiration so it uses the same clock/time zone as authentication.
+        $stmt = mysqli_prepare($this->conn, 'INSERT INTO card_code_api_tokens (token_name, token_hash, token_prefix, root_name, role, scopes, created_by_user_id, created_by_name, expires_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, DATE_ADD(CURRENT_TIMESTAMP, INTERVAL ? DAY))');
+        mysqli_stmt_bind_param($stmt, 'ssssssisi', $name, $hash, $prefix, $rootName, $role, $scopeText, $actorUserId, $actorName, $expiresDays);
+        if (!mysqli_stmt_execute($stmt)) throw new RuntimeException('Could not create Card Code token');
+        $id = (int)mysqli_insert_id($this->conn);
+        mysqli_stmt_close($stmt);
+        $expiresResult = mysqli_query($this->conn, 'SELECT expires_at FROM card_code_api_tokens WHERE id = ' . $id);
+        $expiresRow = $expiresResult ? mysqli_fetch_assoc($expiresResult) : null;
+        $expiresAt = (string)($expiresRow['expires_at'] ?? '');
+        if ($expiresResult) mysqli_free_result($expiresResult);
+        $this->audit($rootName, $id, 'created', $actorUserId, $actorName, ['name' => $name, 'role' => $role, 'expiresAt' => $expiresAt]);
+        return ['id' => $id, 'token' => $plain, 'prefix' => $prefix, 'name' => $name, 'root' => $rootName, 'role' => $role, 'scopes' => $scopes, 'expiresAt' => $expiresAt];
+    }
+
+    public function listTokens(string $rootName): array
+    {
+        $rootName = self::NormalizeRoot($rootName);
+        $stmt = mysqli_prepare($this->conn, "SELECT id, token_name, token_prefix, root_name, role, scopes, created_by_user_id, created_by_name, created_at, expires_at, last_used_at, revoked_at,
+            CASE WHEN revoked_at IS NOT NULL THEN 'revoked' WHEN expires_at IS NOT NULL AND expires_at <= CURRENT_TIMESTAMP THEN 'expired' ELSE 'active' END AS status
+            FROM card_code_api_tokens WHERE root_name = ? ORDER BY created_at DESC, id DESC");
+        mysqli_stmt_bind_param($stmt, 's', $rootName);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $rows = [];
+        while ($result && ($row = mysqli_fetch_assoc($result))) {
+            $row['id'] = (int)$row['id'];
+            $row['created_by_user_id'] = $row['created_by_user_id'] === null ? null : (int)$row['created_by_user_id'];
+            $rows[] = $row;
+        }
+        mysqli_stmt_close($stmt);
+        return $rows;
+    }
+
+    public function revokeToken(string $rootName, int $tokenId, ?int $actorUserId, ?string $actorName, string $action = 'revoked'): bool
+    {
+        $rootName = self::NormalizeRoot($rootName);
+        $stmt = mysqli_prepare($this->conn, 'UPDATE card_code_api_tokens SET revoked_at = CURRENT_TIMESTAMP WHERE id = ? AND root_name = ? AND revoked_at IS NULL');
+        mysqli_stmt_bind_param($stmt, 'is', $tokenId, $rootName);
+        mysqli_stmt_execute($stmt);
+        $changed = mysqli_stmt_affected_rows($stmt) === 1;
+        mysqli_stmt_close($stmt);
+        if ($changed) $this->audit($rootName, $tokenId, $action, $actorUserId, $actorName);
+        return $changed;
+    }
+
+    public function rotateToken(string $rootName, int $tokenId, int $expiresDays, ?int $actorUserId, ?string $actorName): array
+    {
+        $rootName = self::NormalizeRoot($rootName);
+        $stmt = mysqli_prepare($this->conn, 'SELECT token_name, role FROM card_code_api_tokens WHERE id = ? AND root_name = ? AND revoked_at IS NULL LIMIT 1');
+        mysqli_stmt_bind_param($stmt, 'is', $tokenId, $rootName);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $old = $result ? mysqli_fetch_assoc($result) : null;
+        mysqli_stmt_close($stmt);
+        if (!$old) throw new InvalidArgumentException('Active token not found');
+        mysqli_begin_transaction($this->conn);
+        try {
+            if (!$this->revokeToken($rootName, $tokenId, $actorUserId, $actorName, 'rotated')) throw new RuntimeException('Could not revoke old token');
+            $created = $this->createToken($rootName, (string)$old['token_name'], (string)$old['role'], $expiresDays, $actorUserId, $actorName);
+            mysqli_commit($this->conn);
+            return $created;
+        } catch (Throwable $error) {
+            mysqli_rollback($this->conn);
+            throw $error;
+        }
+    }
+
+    private function audit(string $rootName, ?int $tokenId, string $action, ?int $actorUserId, ?string $actorName, ?array $metadata = null): void
+    {
+        $json = $metadata === null ? null : json_encode($metadata, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        $stmt = mysqli_prepare($this->conn, 'INSERT INTO card_code_token_audit (root_name, token_id, action, actor_user_id, actor_name, metadata_json) VALUES (?, ?, ?, ?, ?, ?)');
+        mysqli_stmt_bind_param($stmt, 'sisiss', $rootName, $tokenId, $action, $actorUserId, $actorName, $json);
+        if (!mysqli_stmt_execute($stmt)) throw new RuntimeException('Could not write token audit record');
+        mysqli_stmt_close($stmt);
     }
 
     public static function NormalizeRoot($rootName): string
@@ -49,9 +168,9 @@ final class CardCodeServiceDB
         $rootName = self::NormalizeRoot($rootName);
         $hash = hash('sha256', $plainToken, true);
         $stmt = mysqli_prepare($this->conn, "
-            SELECT id, token_name, root_name, scopes
+            SELECT id, token_name, root_name, role, scopes, expires_at
             FROM card_code_api_tokens
-            WHERE token_hash = ? AND revoked_at IS NULL
+            WHERE token_hash = ? AND revoked_at IS NULL AND (expires_at IS NULL OR expires_at > CURRENT_TIMESTAMP)
             LIMIT 1
         ");
         mysqli_stmt_bind_param($stmt, 's', $hash);

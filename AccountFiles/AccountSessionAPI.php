@@ -25,6 +25,14 @@
   {
     if (strtolower(trim(strval(getenv('DEVENV')))) === 'true') return true;
 
+    return IsStrictLoopbackRequest();
+  }
+
+  // Unlike IsLocalDevelopmentRequest, this never trusts DEVENV. Security-sensitive admin
+  // endpoints use it so a production box accidentally carrying DEVENV=true does not become public.
+  function IsStrictLoopbackRequest()
+  {
+
     $remoteAddr = strtolower(trim(strval($_SERVER['REMOTE_ADDR'] ?? '')));
     $host = strtolower(trim(strval($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? '')));
     if (substr($host, 0, 1) === '[') {
@@ -38,6 +46,11 @@
       && in_array($host, ['localhost', '127.0.0.1', '::1', '[::1]'], true);
   }
 
+  function ApprovedModeratorUserNames()
+  {
+    return ["ninin", "OotTheMonk"];
+  }
+
   function CheckLoggedInUserMod()
   {
     if (IsLocalDevelopmentRequest()) return '';
@@ -47,13 +60,23 @@
     }
 
     $userName = LoggedInUserName();
-    $mods = ["ninin", "OotTheMonk"];
+    $mods = ApprovedModeratorUserNames();
 
     if(!in_array($userName, $mods)) {
       return "Error: You must be an approved user to use this";
     }
 
     return "";
+  }
+
+  function CheckLoggedInUserModStrict()
+  {
+    if (IsStrictLoopbackRequest()) return '';
+    if(!IsUserLoggedIn()) return "You must be logged in to use this";
+    if(!in_array(LoggedInUserName(), ApprovedModeratorUserNames(), true)) {
+      return "Error: You must be an approved user to use this";
+    }
+    return '';
   }
 
   function IsLoggedInUserPatron()

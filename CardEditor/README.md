@@ -6,10 +6,30 @@ Card ability code can remain in local MySQL (the default) or use the hosted API 
 `CardEditor/API/CardCodeService.php`. The hosted database is the source of truth; generation still
 runs in each developer checkout from a remote snapshot.
 
-On the hosted server, create a scoped token:
+An approved moderator creates tokens from the **Hosted Card Code access** panel in
+`zzCodeGeneratorMain.php`. Select the app, choose **Generate token**, then choose a role and an
+expiration (1–365 days). The secret is shown once; send it through a secure channel and store it in
+the developer's secret manager. The panel also shows use/expiration status and supports rotation and
+immediate revocation.
+
+Roles are intentionally coarse:
+
+- `reader`: read card code
+- `developer`: read and save card code
+- `maintainer`: developer access plus manual checkpoints
+- `owner`: full access, including checkpoint restore
+
+The administration endpoint requires an authenticated approved moderator on hosted requests, uses
+the Generator Workspace CSRF token, and rate-limits token creation/rotation. Local administration is
+allowed only when both the client and requested host are loopback. `DEVENV=true` does not bypass
+these token-administration checks. Tokens use 256 random bits, are stored only as SHA-256 hashes,
+expire automatically, and have creation/rotation/revocation audit records.
+
+The command line tool remains available as an emergency fallback:
 
 ```sh
-php DevTools/CardCodeServiceToken.php --root=AzukiSim --name=alice --scopes=read,write
+php DevTools/CardCodeServiceToken.php --root=AzukiSim --name=alice --role=developer --expires-days=90
+php DevTools/CardCodeServiceToken.php --root=AzukiSim --revoke=123
 ```
 
 Store the displayed token in a developer-only environment variable. Configure both PHP and the MCP
@@ -31,7 +51,7 @@ Schedule the daily checkpoint command on the hosted server, preferably just afte
 
 The first checkpoint for a workspace/date is immutable. If cron is delayed, the API creates that
 day's checkpoint immediately before the first mutation. Unchanged workspaces do not create duplicate
-payloads. A token needs `restore` (or `admin`) scope to restore a checkpoint through the API.
+payloads. Only an `owner` token can restore a checkpoint through the API.
 
 Remote saves use the revision returned by `LoadAbilities.php` or `get_card_abilities`. A stale save
 receives HTTP 409 instead of silently overwriting another developer's changes.

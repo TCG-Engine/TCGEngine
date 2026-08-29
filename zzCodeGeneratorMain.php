@@ -205,7 +205,7 @@ foreach ($apps as $app) {
         * { box-sizing: border-box; }
         [hidden] { display: none !important; }
         body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); }
-        button, input { font: inherit; }
+        button, input, select { font: inherit; }
         button { color: inherit; }
 
         .shell { min-height: 100vh; display: grid; grid-template-columns: 280px minmax(0, 1fr); }
@@ -338,6 +338,26 @@ foreach ($apps as $app) {
         .transfer-status { width: 100%; margin: -5px 0 20px; color: var(--muted); font-size: 12px; }
         .transfer-status[data-kind="success"] { color: var(--green); }
         .transfer-status[data-kind="error"] { color: var(--red); }
+        .token-panel { display: block; }
+        .token-panel-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .token-panel-head .options-title { flex: 1; min-width: 240px; }
+        .token-list { width: 100%; margin-top: 14px; display: grid; gap: 8px; }
+        .token-row { display: grid; grid-template-columns: minmax(180px, 1.4fr) minmax(150px, 1fr) minmax(130px, 1fr) auto; gap: 12px; align-items: center; padding: 11px 12px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel); }
+        .token-row strong, .token-row small { display: block; }
+        .token-row small { margin-top: 3px; color: var(--muted); font-size: 10px; }
+        .token-prefix { font-family: "Cascadia Code", Consolas, monospace; color: #b9dafb; }
+        .token-status { display: inline-flex; width: fit-content; padding: 3px 7px; border-radius: 999px; background: #1a3a2a; color: var(--green); font-size: 10px; font-weight: 800; text-transform: uppercase; }
+        .token-status[data-status="expired"], .token-status[data-status="revoked"] { background: #382326; color: #ffaaaa; }
+        .token-actions { display: flex; gap: 6px; justify-content: flex-end; }
+        .token-empty { padding: 18px; border: 1px dashed var(--line); border-radius: 9px; color: var(--muted); font-size: 12px; text-align: center; }
+        .modal-overlay { position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,.66); }
+        .modal-card { width: min(480px, 100%); padding: 20px; border: 1px solid var(--line-strong); border-radius: 12px; background: #12202f; box-shadow: var(--shadow); }
+        .modal-card h3 { margin: 0 0 7px; font-size: 18px; }
+        .modal-card > p { margin: 0 0 18px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+        .modal-field { display: grid; gap: 6px; margin: 13px 0; color: #c7d0dc; font-size: 12px; }
+        .modal-input { width: 100%; min-height: 40px; padding: 8px 10px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel-soft); color: var(--text); }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+        .token-secret { font-family: "Cascadia Code", Consolas, monospace; font-size: 12px; }
 
         .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; margin: 28px 0 12px; }
         .section-heading h3 { margin: 0; font-size: 15px; }
@@ -426,6 +446,9 @@ foreach ($apps as $app) {
             .action-controls .button { flex: 1; }
             .options { align-items: flex-start; }
             .options-title { width: 100%; }
+            .token-panel-head .options-title { width: 100%; }
+            .token-row { grid-template-columns: 1fr; }
+            .token-actions { justify-content: flex-start; }
             .section-heading { align-items: flex-start; }
             .section-heading h3 { flex: 0 0 auto; white-space: nowrap; }
         }
@@ -497,6 +520,19 @@ foreach ($apps as $app) {
                 </div>
             </section>
             <p class="transfer-status" id="database-status" role="status" aria-live="polite"></p>
+
+            <section class="options token-panel" id="card-code-token-options">
+                <div class="token-panel-head">
+                    <div class="options-title">
+                        <strong>Hosted Card Code access</strong>
+                        <small>Issue expiring credentials for developers and integrations. Secrets are shown once.</small>
+                    </div>
+                    <button type="button" class="button button-small" id="refresh-token-button">Refresh</button>
+                    <button type="button" class="button button-small button-primary" id="create-token-button">Generate token</button>
+                </div>
+                <p class="transfer-status" id="token-status" role="status" aria-live="polite"></p>
+                <div class="token-list" id="token-list" aria-live="polite"></div>
+            </section>
 
             <section class="options" id="ability-transfer-options">
                 <div class="options-title">
@@ -597,6 +633,10 @@ const importCardEditorFile = document.getElementById('import-card-editor-file');
 const cardEditorTransferStatus = document.getElementById('card-editor-transfer-status');
 const ensureDatabaseButton = document.getElementById('ensure-database-button');
 const databaseStatus = document.getElementById('database-status');
+const createTokenButton = document.getElementById('create-token-button');
+const refreshTokenButton = document.getElementById('refresh-token-button');
+const tokenStatus = document.getElementById('token-status');
+const tokenList = document.getElementById('token-list');
 const cropTesterLink = document.getElementById('crop-tester-link');
 const outputs = new Map();
 const runStates = new Map();
@@ -606,6 +646,7 @@ let pipelineRunning = false;
 let transferRunning = false;
 let importApp = null;
 let cardDataImportApp = null;
+let tokenRequestRoot = null;
 // CardEditor games are environment-level, not per-app, so they are loaded once rather than on
 // every sidebar selection. null means "not loaded yet"; [] means the database has none.
 let cardEditorGames = null;
@@ -665,6 +706,7 @@ function selectApp(rootName) {
     window.history.replaceState(null, '', url);
     try { localStorage.setItem('tcgengine:generator-admin:app', rootName); } catch (_) {}
     render();
+    loadTokens();
 }
 
 function makeStatusIcon(status) {
@@ -810,6 +852,8 @@ function render() {
     exportCardEditorButton.disabled = cardEditorGameSelect.disabled;
     importCardEditorButton.disabled = pipelineRunning || transferRunning;
     ensureDatabaseButton.disabled = pipelineRunning || transferRunning;
+    createTokenButton.disabled = pipelineRunning || transferRunning;
+    refreshTokenButton.disabled = pipelineRunning || transferRunning;
     cancelButton.hidden = !pipelineRunning;
     renderActions();
 }
@@ -853,6 +897,221 @@ function styledConfirm(message, { confirmLabel = 'Confirm', danger = false } = {
         document.body.appendChild(overlay);
         ok.focus();
     });
+}
+
+function tokenModal(title, description, fields, submitLabel) {
+    return new Promise((resolve) => {
+        const overlay = document.createElement('div');
+        overlay.className = 'modal-overlay';
+        const dialog = document.createElement('form');
+        dialog.className = 'modal-card';
+        dialog.setAttribute('role', 'dialog');
+        dialog.setAttribute('aria-modal', 'true');
+        const heading = document.createElement('h3');
+        heading.textContent = title;
+        const copy = document.createElement('p');
+        copy.textContent = description;
+        dialog.append(heading, copy);
+        const controls = {};
+        for (const field of fields) {
+            const label = document.createElement('label');
+            label.className = 'modal-field';
+            label.append(document.createTextNode(field.label));
+            const control = field.options ? document.createElement('select') : document.createElement('input');
+            control.className = 'modal-input';
+            control.name = field.name;
+            if (field.options) {
+                for (const option of field.options) {
+                    const element = document.createElement('option');
+                    element.value = option.value;
+                    element.textContent = option.label;
+                    control.append(element);
+                }
+            } else {
+                control.type = field.type || 'text';
+                if (field.min !== undefined) control.min = field.min;
+                if (field.max !== undefined) control.max = field.max;
+                if (field.maxLength !== undefined) control.maxLength = field.maxLength;
+            }
+            control.value = field.value;
+            control.required = true;
+            controls[field.name] = control;
+            label.append(control);
+            dialog.append(label);
+        }
+        const actions = document.createElement('div');
+        actions.className = 'modal-actions';
+        const cancel = document.createElement('button');
+        cancel.type = 'button'; cancel.className = 'button button-small'; cancel.textContent = 'Cancel';
+        const submit = document.createElement('button');
+        submit.type = 'submit'; submit.className = 'button button-small button-primary'; submit.textContent = submitLabel;
+        actions.append(cancel, submit); dialog.append(actions); overlay.append(dialog); document.body.append(overlay);
+        function done(value) {
+            overlay.remove();
+            document.removeEventListener('keydown', onKey);
+            resolve(value);
+        }
+        function onKey(event) { if (event.key === 'Escape') done(null); }
+        cancel.addEventListener('click', () => done(null));
+        overlay.addEventListener('click', event => { if (event.target === overlay) done(null); });
+        dialog.addEventListener('submit', event => {
+            event.preventDefault();
+            const result = {};
+            for (const [name, control] of Object.entries(controls)) result[name] = control.value;
+            done(result);
+        });
+        document.addEventListener('keydown', onKey);
+        (Object.values(controls)[0] || submit).focus();
+    });
+}
+
+function showTokenSecret(created) {
+    return new Promise((resolve) => {
+        const overlay = document.createElement('div');
+        overlay.className = 'modal-overlay';
+        const dialog = document.createElement('div');
+        dialog.className = 'modal-card'; dialog.setAttribute('role', 'dialog'); dialog.setAttribute('aria-modal', 'true');
+        const title = document.createElement('h3'); title.textContent = 'Save this token now';
+        const copy = document.createElement('p'); copy.textContent = 'This secret cannot be viewed again. Store it in the developer’s secret manager, then close this window.';
+        const input = document.createElement('input');
+        input.className = 'modal-input token-secret'; input.readOnly = true; input.value = created.token;
+        const actions = document.createElement('div'); actions.className = 'modal-actions';
+        const copyButton = document.createElement('button'); copyButton.type = 'button'; copyButton.className = 'button button-small button-primary'; copyButton.textContent = 'Copy token';
+        const doneButton = document.createElement('button'); doneButton.type = 'button'; doneButton.className = 'button button-small'; doneButton.textContent = 'Done';
+        function finish() { overlay.remove(); document.removeEventListener('keydown', onKey); resolve(); }
+        function onKey(event) { if (event.key === 'Escape') finish(); }
+        copyButton.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(created.token);
+                copyButton.textContent = 'Copied';
+            } catch (_) {
+                input.focus(); input.select();
+                copyButton.textContent = 'Select and copy';
+            }
+        });
+        doneButton.addEventListener('click', finish);
+        document.addEventListener('keydown', onKey);
+        actions.append(copyButton, doneButton); dialog.append(title, copy, input, actions); overlay.append(dialog); document.body.append(overlay);
+        input.focus(); input.select();
+    });
+}
+
+function formatTokenDate(value) {
+    if (!value) return 'Never';
+    const parsed = new Date(value.replace(' ', 'T') + 'Z');
+    return Number.isNaN(parsed.getTime()) ? value : parsed.toLocaleString();
+}
+
+function setTokenStatus(message, kind = '') {
+    tokenStatus.textContent = message;
+    tokenStatus.dataset.kind = kind;
+}
+
+function renderTokens(tokens) {
+    tokenList.replaceChildren();
+    if (!tokens.length) {
+        const empty = document.createElement('div'); empty.className = 'token-empty'; empty.textContent = 'No tokens have been issued for this app.';
+        tokenList.append(empty); return;
+    }
+    for (const token of tokens) {
+        const row = document.createElement('article'); row.className = 'token-row';
+        const identity = document.createElement('div');
+        const name = document.createElement('strong'); name.textContent = token.token_name;
+        const prefix = document.createElement('small'); prefix.className = 'token-prefix'; prefix.textContent = token.token_prefix ? `${token.token_prefix}…` : 'Legacy token';
+        identity.append(name, prefix);
+        const permission = document.createElement('div');
+        const role = document.createElement('strong'); role.textContent = token.role;
+        const creator = document.createElement('small'); creator.textContent = `Created by ${token.created_by_name || 'legacy admin'}`;
+        permission.append(role, creator);
+        const activity = document.createElement('div');
+        const badge = document.createElement('span'); badge.className = 'token-status'; badge.dataset.status = token.status; badge.textContent = token.status;
+        const timing = document.createElement('small');
+        timing.textContent = token.status === 'active' ? `Expires ${formatTokenDate(token.expires_at)}` : `${token.status === 'revoked' ? 'Revoked' : 'Expired'} ${formatTokenDate(token.revoked_at || token.expires_at)}`;
+        const used = document.createElement('small'); used.textContent = `Last used: ${formatTokenDate(token.last_used_at)}`;
+        activity.append(badge, timing, used);
+        const actions = document.createElement('div'); actions.className = 'token-actions';
+        if (token.status === 'active') {
+            const rotate = document.createElement('button'); rotate.type = 'button'; rotate.className = 'button button-small'; rotate.textContent = 'Rotate';
+            const revoke = document.createElement('button'); revoke.type = 'button'; revoke.className = 'button button-small button-danger'; revoke.textContent = 'Revoke';
+            rotate.addEventListener('click', () => rotateToken(token));
+            revoke.addEventListener('click', () => revokeToken(token));
+            actions.append(rotate, revoke);
+        }
+        row.append(identity, permission, activity, actions); tokenList.append(row);
+    }
+}
+
+async function cardCodeTokenRequest(action, body = null) {
+    const root = selectedApp && selectedApp.rootName;
+    if (!root) throw new Error('Select an app first');
+    const url = new URL('CardEditor/API/AdminCardCodeTokens.php', window.location.href);
+    if (!body) { url.searchParams.set('action', action); url.searchParams.set('root', root); }
+    const response = await fetch(url, body ? {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, root, csrf: generatorAdminCsrf, ...body })
+    } : { headers: { 'Accept': 'application/json' } });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || !payload.success) throw new Error(payload.error || `Request failed (${response.status})`);
+    return payload;
+}
+
+async function loadTokens({ quiet = false } = {}) {
+    if (!selectedApp) return;
+    const root = selectedApp.rootName;
+    tokenRequestRoot = root;
+    if (!quiet) setTokenStatus(`Loading access for ${root}…`);
+    try {
+        const payload = await cardCodeTokenRequest('list');
+        if (!selectedApp || selectedApp.rootName !== root || tokenRequestRoot !== root) return;
+        renderTokens(payload.tokens || []);
+        setTokenStatus(`${payload.tokens.length} token${payload.tokens.length === 1 ? '' : 's'} for ${root}.`, 'success');
+    } catch (error) {
+        if (selectedApp && selectedApp.rootName === root) {
+            tokenList.replaceChildren();
+            setTokenStatus(error.message, 'error');
+        }
+    }
+}
+
+async function createToken() {
+    if (!selectedApp || pipelineRunning || transferRunning) return;
+    const values = await tokenModal('Generate developer token', `Create an expiring credential for ${selectedApp.rootName}.`, [
+        { name: 'name', label: 'Developer or integration name', value: '', maxLength: 128 },
+        { name: 'role', label: 'Role', value: 'developer', options: [
+            { value: 'reader', label: 'Reader — view code only' },
+            { value: 'developer', label: 'Developer — view and edit code' },
+            { value: 'maintainer', label: 'Maintainer — edit and create checkpoints' },
+            { value: 'owner', label: 'Owner — full access, including restore' }
+        ] },
+        { name: 'expiresDays', label: 'Expires after days (1–365)', type: 'number', value: '90', min: 1, max: 365 }
+    ], 'Generate');
+    if (!values) return;
+    try {
+        setTokenStatus('Generating token…');
+        const payload = await cardCodeTokenRequest('create', { name: values.name, role: values.role, expiresDays: Number(values.expiresDays) });
+        await showTokenSecret(payload.created);
+        await loadTokens({ quiet: true });
+    } catch (error) { setTokenStatus(error.message, 'error'); }
+}
+
+async function revokeToken(token) {
+    if (!await styledConfirm(`Revoke “${token.token_name}”? The developer will immediately lose access.`, { confirmLabel: 'Revoke', danger: true })) return;
+    try {
+        await cardCodeTokenRequest('revoke', { tokenId: token.id });
+        await loadTokens({ quiet: true });
+    } catch (error) { setTokenStatus(error.message, 'error'); }
+}
+
+async function rotateToken(token) {
+    const values = await tokenModal('Rotate token', `The current token for ${token.token_name} will stop working immediately.`, [
+        { name: 'expiresDays', label: 'New token expires after days (1–365)', type: 'number', value: '90', min: 1, max: 365 }
+    ], 'Rotate');
+    if (!values) return;
+    try {
+        const payload = await cardCodeTokenRequest('rotate', { tokenId: token.id, expiresDays: Number(values.expiresDays) });
+        await showTokenSecret(payload.created);
+        await loadTokens({ quiet: true });
+    } catch (error) { setTokenStatus(error.message, 'error'); }
 }
 
 function exportAbilities() {
@@ -1269,6 +1528,8 @@ exportAbilitiesButton.addEventListener('click', exportAbilities);
 importAbilitiesButton.addEventListener('click', chooseAbilityImport);
 importAbilitiesFile.addEventListener('change', importAbilities);
 ensureDatabaseButton.addEventListener('click', ensureDatabase);
+createTokenButton.addEventListener('click', createToken);
+refreshTokenButton.addEventListener('click', () => loadTokens());
 exportCardDataButton.addEventListener('click', exportCardData);
 importCardDataButton.addEventListener('click', chooseCardDataImport);
 importCardDataFile.addEventListener('change', importCardData);
@@ -1287,6 +1548,7 @@ if (!hasRequestedApp) {
     } catch (_) {}
 }
 render();
+loadTokens();
 loadCardEditorGames({ quiet: true });
 </script>
 </body>

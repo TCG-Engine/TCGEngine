@@ -2,9 +2,17 @@
 // Get Roots and Cards API Endpoint
 // Returns available root games and card lists from their data sources
 
+include_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
 include_once('../Database/CardAbilityRepository.php');
 
 header('Content-Type: application/json');
+
+$authError = CheckLoggedInUserModStrict();
+if ($authError !== '') {
+    http_response_code(403);
+    echo json_encode(['error' => $authError]);
+    exit;
+}
 
 try {
     // First, get roots from the database (from card_abilities table)

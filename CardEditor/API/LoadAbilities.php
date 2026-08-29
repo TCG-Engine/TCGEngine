@@ -2,9 +2,17 @@
 // Load Abilities API Endpoint
 // Returns all abilities for a given card
 
+include_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
 include_once('../Database/CardAbilityRepository.php');
 
 header('Content-Type: application/json');
+
+$authError = CheckLoggedInUserModStrict();
+if ($authError !== '') {
+    http_response_code(403);
+    echo json_encode(['error' => $authError]);
+    exit;
+}
 
 try {
     $rootName = $_GET['root'] ?? null;

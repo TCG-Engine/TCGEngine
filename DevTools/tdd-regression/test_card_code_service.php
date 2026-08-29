@@ -30,6 +30,27 @@ try {
     try { $service->authenticate($plain, 'OtherSim', 'read'); $wrongRootRejected = false; } catch (RuntimeException $e) { $wrongRootRejected = true; }
     $check($wrongRootRejected, 'token cannot cross workspaces');
 
+    $createdToken = $service->createToken($root, 'GUI developer', 'developer', 30, 42, 'admin-user');
+    $check(preg_match('/^tcc_[A-Za-z0-9_-]{43}$/', $createdToken['token']) === 1, 'GUI token uses a 256-bit URL-safe random secret');
+    $service->authenticate($createdToken['token'], $root, 'write');
+    try { $service->authenticate($createdToken['token'], $root, 'restore'); $roleRejected = false; } catch (RuntimeException $e) { $roleRejected = true; }
+    $check($roleRejected, 'developer role cannot restore checkpoints');
+    $listedTokens = $service->listTokens($root);
+    $listedJson = json_encode($listedTokens);
+    $check(strpos($listedJson, $createdToken['token']) === false && strpos($listedJson, 'token_hash') === false, 'token listing never returns secrets or hashes');
+    $rotatedToken = $service->rotateToken($root, (int)$createdToken['id'], 45, 42, 'admin-user');
+    try { $service->authenticate($createdToken['token'], $root, 'read'); $oldTokenRejected = false; } catch (RuntimeException $e) { $oldTokenRejected = true; }
+    $check($oldTokenRejected && ($service->authenticate($rotatedToken['token'], $root, 'write')['token_name'] ?? '') === 'GUI developer', 'rotation revokes the old secret and preserves its role');
+    $check($service->revokeToken($root, (int)$rotatedToken['id'], 42, 'admin-user'), 'active token can be revoked');
+    try { $service->authenticate($rotatedToken['token'], $root, 'read'); $revokedRejected = false; } catch (RuntimeException $e) { $revokedRejected = true; }
+    $check($revokedRejected, 'revoked token cannot authenticate');
+    $expiringToken = $service->createToken($root, 'Expiration test', 'reader', 1, 42, 'admin-user');
+    mysqli_query($conn, 'UPDATE card_code_api_tokens SET expires_at = DATE_SUB(CURRENT_TIMESTAMP, INTERVAL 1 MINUTE) WHERE id = ' . (int)$expiringToken['id']);
+    try { $service->authenticate($expiringToken['token'], $root, 'read'); $expiredRejected = false; } catch (RuntimeException $e) { $expiredRejected = true; }
+    $check($expiredRejected, 'expired token cannot authenticate');
+    $auditResult = mysqli_query($conn, "SELECT COUNT(*) AS total FROM card_code_token_audit WHERE root_name = 'TestSim'");
+    $check((int)(mysqli_fetch_assoc($auditResult)['total'] ?? 0) >= 5, 'token creation, rotation, and revocation are audited');
+
     mysqli_query($conn, "INSERT INTO card_abilities (root_name, card_id, macro_name, ability_code, is_implemented) VALUES ('TestSim','TST_001','Enter','return 1;',1)");
     $original = $service->rows($root, 'TST_001');
     $baseRevision = CardCodeServiceDB::RevisionForRows($original);

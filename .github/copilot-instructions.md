@@ -128,6 +128,9 @@ This is the canonical workflow for implementing card abilities. Follow these ste
   HTTP 409 as a real concurrent edit: reload and reconcile rather than retrying blindly.
 - The hosted API owns schema migration, bearer-token authorization, and daily checkpoints.
   Developer machines receive scoped API tokens, never hosted MySQL credentials.
+- Issue, rotate, and revoke expiring role-based tokens from the Hosted Card Code access panel in
+  `zzCodeGeneratorMain.php`. Hosted token administration requires an approved moderator session;
+  `DEVENV=true` is deliberately not an authentication bypass for this endpoint.
 - Generated macro files remain local. A remote save is followed by generation in the developer's
   checkout from a hosted snapshot.
 - Daily checkpoints are immutable per UTC date and are created only for changed workspaces. The

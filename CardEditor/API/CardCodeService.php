@@ -39,8 +39,8 @@ try {
     $body = $method === 'POST' ? CardCodeServiceBody() : [];
     $action = (string)($_GET['action'] ?? $body['action'] ?? '');
     $root = (string)($_GET['root'] ?? $body['root'] ?? '');
-    $scope = in_array($action, ['save', 'ensure-cards', 'checkpoint'], true) ? 'write'
-        : ($action === 'restore' ? 'restore' : 'read');
+    $scope = in_array($action, ['save', 'ensure-cards'], true) ? 'write'
+        : ($action === 'checkpoint' ? 'checkpoint' : ($action === 'restore' ? 'restore' : 'read'));
 
     $conn = GetLocalMySQLConnection();
     $service = new CardCodeServiceDB($conn);
