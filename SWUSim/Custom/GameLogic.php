@@ -3650,7 +3650,24 @@ function CanAffordActivationReserve($player, $obj) {
     // SWUTotalPaymentCapacity is the one helper that knows all three tiers, and it already handles the
     // cases a raw Credit count gets wrong — a LAW_117/Galen-blanked Credit cannot be defeated to pay, so
     // it must not light the card up either.
-    return SWUTotalPaymentCapacity(intval($player)) >= $cost;
+    if (SWUTotalPaymentCapacity(intval($player)) >= $cost) return true;
+
+    // PILOTING is an ALTERNATE PLAY COST, not a reduction of the unit cost: a card with Piloting may
+    // instead be played as an upgrade on a friendly Vehicle for its own, usually cheaper, price. Every
+    // adjustment above narrows the UNIT cost, so none of them can reach this — the card was simply
+    // priced as a unit and left dark.
+    //
+    // JTL_103 Chewbacca is unit 5 / Piloting 3, so on 3 resources the unit play is out of reach while
+    // the pilot play is not. The glow said no and the play said yes (bug report #995) — the same
+    // glow-vs-gate drift as the Credits case, at a different site.
+    //
+    // Ask the SAME helper the play path asks. SWUGetPilotValidTargets prices through
+    // SWUComputePilotCost — the one chokepoint shared by pilot affordability and the actual charge in
+    // _SWUFinalizeUpgradeAttach — and filters to legal hosts, so a Piloting card with no Vehicle to
+    // attach to (or none it can afford) correctly stays dark rather than glowing for a play that does
+    // not exist.
+    return HasKeyword_Piloting($obj)
+        && !empty(SWUGetPilotValidTargets(intval($player), $obj->CardID));
 }
 
 // ── Macro ChoiceFunctions ───────────────────────────────────────────────────
@@ -14274,12 +14291,15 @@ function SWUGetPilotValidTargets(int $player, string $pilotCardID, bool $ignoreC
         $cost = SWUComputePilotCost($player, $pilotObj);
         $cost = SWUApplyCostHalving($player, $cost); // JTL_105 The Starhawk — halved targets must glow too
         $cost = max(0, $cost - max(0, $discount));   // discounted plays (You're My Only Hope -5) gate on the REAL price
-        $ready = 0;
-        foreach (GetResources($player) as $r) {
-            if (SWUIsCreditToken($r->CardID ?? '')) continue; // Credit tokens aren't resources
-            if (empty($r->removed) && intval($r->Status) === 1) $ready++;
-        }
-        if ($ready < $cost) return [];
+        // CAPACITY, not a bare ready-resource count. A Piloting cost is a PLAY cost, and play costs are
+        // payable with Credit tokens and SEC_122 Droids (CR 3.13) — SWUOfferAltPayment offers exactly
+        // that when the pilot play is finalised. Counting only real resources meant a player on 2 ready
+        // + 1 Credit was offered NO hosts for a 3-cost Piloting play they could actually afford, so the
+        // Unit/Pilot choice never appeared and the card was priced as a full-cost UNIT instead (live
+        // report, game 3608 — 5-cost Chewbacca "not showing as playable" on 3 available).
+        // Same helper CanAffordActivationReserve uses for the hand glow, so the highlight, this offer
+        // and the eventual charge all price the play the same way.
+        if (SWUTotalPaymentCapacity($player) < $cost) return [];
     }
 
     return array_values(array_filter($all, function($mz) use ($pilotCardID) {
@@ -15554,6 +15574,23 @@ function _SWUBeginPlayCardUnitPath(int $player, string $mzID, int $discount = 0)
 //   defeated (it does NOT chain into the Droid offer — a single payment uses one alt-pay source,
 //   which is sufficient for all current cards; SEC_122 + Credits in one deck would not stack).
 function SWUOfferAltPayment(int $player, int $cost, string $continuation, string $args, int $block = 1): void {
+    // ⚠ GATE BEFORE ANY TOKEN CAN BE TOUCHED. Defeating a Credit and exhausting a Droid are permanent,
+    // unconditional costs, and the continuation's own affordability check runs AFTER them — so offering
+    // a payment that cannot possibly complete DESTROYS the tokens and still leaves the card unplayed.
+    // Reported live (game 3608): 2 ready resources + 1 Credit against a 5-cost card ate the Credit and
+    // then said "you need 5 resources". Measured as general, not card-specific — any unaffordable card
+    // consumed a ticked Credit.
+    //
+    // Falling through to the bare continuation (rather than returning) keeps the OUTCOME identical to
+    // today for an unaffordable play — the continuation runs, its own check fails, the card stays in
+    // hand — minus the property damage. No caller has to learn a new failure mode.
+    //
+    // SWUTotalPaymentCapacity is the same helper the hand glow uses (CanAffordActivationReserve), so
+    // the offer and the highlight cannot disagree about what is payable.
+    if ($cost > 0 && SWUTotalPaymentCapacity($player) < $cost) {
+        SWUDispatchDroidContinuation($player, $continuation, $args, 0);
+        return;
+    }
     if ($cost > 0) {
         $credits = SWUUsableCreditTokenMzIDs($player);
         if (!empty($credits)) {

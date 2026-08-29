@@ -4526,7 +4526,7 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     if (ms) {
       var pf = document.getElementById('playerID');
       var pid = pf ? parseInt(pf.value || '', 10) : NaN;
-      var isPlayer = (pid === 1 || pid === 2);
+      var isPlayer = swuViewerIsSeatedPlayer(pid);
       ms.style.display = isPlayer ? 'block' : 'none';
       // (Re)build the collapsible Block Player widget for the current opponent.
       var bm = document.getElementById('swuSettingsBlockMount');
@@ -4550,11 +4550,28 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     StyledConfirm(message, opts || {}).then(function(ok) { if (ok && typeof onConfirm === 'function') onConfirm(); });
   }
   window.SWUConfirm = SWUConfirm;
+  // Does the viewer hold a SEAT in this game (as opposed to spectating)?
+  //
+  // ⚠ This deliberately does NOT ask "is it seat 1 or 2". A SPECTATOR is seat 0 — window.SWU_VIEWER_SEAT
+  // is 0 for 'S' — so the seat-1-or-2 test never distinguished spectators from players in the first
+  // place; it encoded "this game has two seats", which stopped being true with Twin Suns. It hid the
+  // whole gear-menu Match section from seats 3 and 4, so they had no Concede and no Return to Main Menu.
+  //
+  // SeatOrderData/LiveSeatsData are digit strings ("1234"). A game that ships neither predates Twin Suns
+  // and is two-seat, hence the fallback.
+  function swuViewerIsSeatedPlayer(pid) {
+    if (!(pid >= 1)) return false;                       // 0 / NaN = spectator
+    var order = String(window.SeatOrderData || window.LiveSeatsData || '').trim();
+    if (!order.length) return pid <= 2;
+    return order.indexOf(String(pid)) !== -1;
+  }
+  window.swuViewerIsSeatedPlayer = swuViewerIsSeatedPlayer;
+
   // Concede from the gear menu. Live Bo3 forfeits the whole match (10007); otherwise the game (10006).
   function SWUGearConcede(goHome) {
     var pf = document.getElementById('playerID');
     var pid = pf ? parseInt(pf.value || '', 10) : NaN;
-    if (pid !== 1 && pid !== 2) return; // spectators can't concede
+    if (!swuViewerIsSeatedPlayer(pid)) return; // spectators can't concede
     // 1P practice (goldfish): there is no opponent to concede to, so "Return to Main Menu" (goHome)
     // just closes the solo game and leaves — no concede confirm prompt. "Concede" (goHome=false) still
     // prompts. The server re-checks the mode, so this is inert outside goldfish.

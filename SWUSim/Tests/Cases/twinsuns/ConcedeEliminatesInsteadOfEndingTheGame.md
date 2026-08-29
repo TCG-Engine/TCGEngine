@@ -135,3 +135,39 @@ SEATLIVE:1:false
 P2BASEDMG:6
 P3BASEDMG:7
 P4BASEDMG:8
+
+---
+
+# Concede_ByAFARSeat_EliminatesThatSeatToo
+#// SEAT 3 concedes, not seat 1. The elimination path must not care which seat quit.
+#//
+#// ⚠ This was UNREACHABLE IN THE LIVE GAME until the concede gates were widened: three separate places
+#// encoded "a player is seat 1 or 2" — the gear menu's Match SECTION visibility (so seats 3/4 saw no
+#// Concede button at all), SWUGearConcede's own early return, and EngineActionRunner's input 10006.
+#// A spectator is seat 0, so none of those were really spectator checks; they were two-seat leftovers.
+#//
+#// The schema harness calls TriggerGameOver directly, so this section could always have passed — it is
+#// a GUARD on the far-seat outcome, not the RED that proved the gates. The gates themselves are client
+#// JS and an action-runner branch, neither reachable from here.
+
+## GIVEN
+CommonSetup: rrk/bbw/{theirBaseDamage:6; myLeader:IBH_053; myLeader2:SHD_011; theirLeader:SHD_007; theirLeader2:SHD_010}
+WithSeatOrder: 1234
+WithLiveSeats: 1234
+WithGamePhase: ActionPhase
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP3Base: SOR_019:7
+WithP4Base: SOR_019:8
+
+## WHEN
+- P3>Concede
+
+## EXPECT
+SEATLIVE:3:false
+SEATLIVE:1:true
+SEATLIVE:2:true
+SEATLIVE:4:true
+NOWINNER
+P2BASEDMG:6
+P4BASEDMG:8

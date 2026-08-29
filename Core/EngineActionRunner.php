@@ -726,7 +726,12 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       }
       break;
     case 10006:
-      if (($playerID === 1 || $playerID === 2) && function_exists('TriggerGameOver')) {
+      // A seated PLAYER may concede — ANY seat, not only 1 or 2. A spectator is seat 0, so the old
+      // `=== 1 || === 2` was never a spectator check: it was a two-seat assumption, and it refused
+      // Twin Suns seats 3 and 4 outright ("Concede is not available for this action").
+      // SeatCountForGame is SWU-specific, so fall back to 2 for sims that do not define it.
+      $concedeSeats = function_exists('SeatCountForGame') ? intval(SeatCountForGame()) : 2;
+      if ($playerID >= 1 && $playerID <= $concedeSeats && function_exists('TriggerGameOver')) {
         if(function_exists('GameLogEvent')) {
           GameLogEvent('concede', ['by' => 'p' . intval($playerID)]);
         }
