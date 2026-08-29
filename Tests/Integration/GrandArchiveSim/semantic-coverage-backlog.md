@@ -1,7 +1,7 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **52**
+Cards linked to an existing fixture: **51**
 Implemented cards in an official starter deck: **432**
 Implemented cards still needing semantic coverage: **2436**
 
@@ -26,8 +26,8 @@ Implemented cards still needing semantic coverage: **2436**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Samaritan's Reach (`MskPCrbv0L`) | ACTION | 2 | cost, targeting, damage, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | samaritans-reach-attacker-damage |
 | Potion Infusion: Animate (`nDYInWoAnw`) | ACTION | 2 | cost, targeting, trigger, condition | Arisanna Pantheon Starter | — |
+| Samaritan's Reach (`MskPCrbv0L`) | ACTION | 2 | cost, targeting, damage, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
 | Slay the King (`6v374coy34`) | ATTACK | 2 | zone-movement, combat, trigger, condition | Lorraine Pantheon Starter | — |
 | Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
 | Anathema's End (`ii17fzcyfr`) | ITEM | 2 | targeting, damage, zone-movement | Diana Starter Deck | — |

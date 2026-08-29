@@ -2,10 +2,10 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-29T22:29:25+00:00",
+    "generatedAt": "2026-08-29T22:29:57+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 52,
+        "cardsWithExistingFixtures": 51,
         "cardsInStarterDecks": 432,
         "cardsNeedingSemanticCoverage": 2436,
         "mechanics": {
@@ -27,29 +27,6 @@
     },
     "cards": [
         {
-            "cardId": "MskPCrbv0L",
-            "name": "Samaritan's Reach",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [
-                "samaritans-reach-attacker-damage"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 144
-        },
-        {
             "cardId": "nDYInWoAnw",
             "name": "Potion Infusion: Animate",
             "type": "ACTION",
@@ -65,6 +42,27 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": true,
+            "priority": 124
+        },
+        {
+            "cardId": "MskPCrbv0L",
+            "name": "Samaritan's Reach",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [],
+            "semanticFixtures": [],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 124
