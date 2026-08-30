@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T06:52:55+00:00",
+    "generatedAt": "2026-08-30T07:59:11+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 134,
+        "cardsWithExistingFixtures": 136,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2353,
+        "cardsNeedingSemanticCoverage": 2351,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1519,25 +1519,6 @@
             "priority": 113
         },
         {
-            "cardId": "ify06tSEVC",
-            "name": "Attune with the Winds",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "ci00l7pqcx",
             "name": "Berserker Plate",
             "type": "REGALIA,ITEM",
@@ -2109,25 +2090,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "tu9agwj4f1",
-            "name": "Into the Fray",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43312,6 +43274,29 @@
             "priority": 134
         },
         {
+            "cardId": "ify06tSEVC",
+            "name": "Attune with the Winds",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "attune-with-the-winds-buff"
+            ],
+            "semanticFixtures": [
+                "attune-with-the-winds-buff"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "sesw2ugmnm",
             "name": "Backstep",
             "type": "ACTION",
@@ -43474,6 +43459,29 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "tu9agwj4f1",
+            "name": "Into the Fray",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "into-the-fray-buff"
+            ],
+            "semanticFixtures": [
+                "into-the-fray-buff"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133

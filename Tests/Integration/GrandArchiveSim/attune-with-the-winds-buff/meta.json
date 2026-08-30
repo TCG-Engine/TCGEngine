@@ -1,0 +1,17 @@
+{
+    "name": "Attune with the Winds puts a buff counter on each ally you control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Attune with the Winds' element is WIND, so the starting champion's Subcards are patched with a real WIND champion (Spirit of Wind) to unlock element access, reused from rally-the-peasants-search-human. Without a [Class Bonus] discount, the full 3-reserve cost is paid, then both players decline the EffectStackActiveResponse opportunity window. The seeded Dungeon Guide is the only ally on the field and gets a buff counter. The [Class Bonus] Harmonize extra draw is out of scope since no Melody card was activated this turn.",
+    "testedCards": [
+        "ify06tSEVC"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ify06tSEVC"],
+        "mechanics": ["cost", "counter", "condition"],
+        "rulesClauses": [
+            "Put a buff counter on each ally you control."
+        ]
+    }
+}

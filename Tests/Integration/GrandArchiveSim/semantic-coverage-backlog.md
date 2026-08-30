@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **134**
+Cards linked to an existing fixture: **136**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2353**
+Implemented cards still needing semantic coverage: **2351**
 
 ## Mechanic groups
 
