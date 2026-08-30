@@ -1,0 +1,17 @@
+{
+    "name": "Rocket Jump makes target unit distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T07:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Rocket Jump's element is FIRE (matching the starting champion), so no lineage patch is needed. Only the base 'becomes distant' status is covered; the [Class Bonus] discount isn't reached (full 5-reserve cost paid), and the 'deal 4 damage to its attacker' clause is conditional on the target actually defending in combat, which is out of scope.",
+    "testedCards": [
+        "rhlq2kkvoq"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["rhlq2kkvoq"],
+        "mechanics": ["cost", "targeting", "damage", "status", "condition"],
+        "rulesClauses": [
+            "Target unit becomes distant."
+        ]
+    }
+}

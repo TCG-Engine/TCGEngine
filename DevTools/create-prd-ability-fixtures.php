@@ -2165,6 +2165,188 @@ DECK,
     ],
 ];
 
+// --- Potion Infusion: Volatility: rest target Potion and grant a Sacrifice trigger ---
+$fixtures['potion-infusion-volatility-rest'] = [
+    'testedCards' => ['ndnEl5mq7W'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Potion Infusion: Volatility
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Potion Infusion: Volatility's element is NORM, so no lineage patch is needed. Distilled
+    // Water (an ITEM, CLERIC,POTION) is seeded onto the field as the target. Without the
+    // [Arisanna Bonus] Efficiency discount, the full 7-reserve cost is paid. Only the immediate
+    // "rest the target and grant it the On Sacrifice trigger" half is covered; the eventual
+    // 4+D6 damage roll requires actually sacrificing the target and is out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'O1OU62Zx2Y'], // Distilled Water (ITEM, CLERIC,POTION) - rest target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ndnEl5mq7W'], // Potion Infusion: Volatility, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// NOTE: Creeping Torment was attempted first but abandoned -- its On Enter handler
+// (customDQHandlers["zrplywc08c:0:Enter-1"], GeneratedMacroCode.php) calls MZRemove(), a function
+// that doesn't exist anywhere in the codebase (verified: 7 call sites across CardDQHandlers.php
+// and GeneratedMacroCode.php, zero definitions), causing a PHP fatal "Call to undefined function"
+// error rather than a clean no-op. Flagged separately as task_bdcead88. Swapped for Charged
+// Manaplate, which has no such dependency.
+// --- Charged Manaplate: Class Bonus banish for a draw, gated on this-turn champion damage ---
+$fixtures['charged-manaplate-banish-draw'] = [
+    'testedCards' => ['jxhkurfp66'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Charged Manaplate
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Charged Manaplate's element is NORM, so no lineage patch is needed, and its memory cost (0)
+    // needs no floating-payment setup. The ability requires both a GUARDIAN Class Bonus (physical
+    // presence, so Ciel, Loyal Valet is seeded directly onto the field) and the champion having
+    // taken 4+ damage this turn, which GetChampionDamageTakenThisTurn() reads directly from a
+    // Counters["_champDamageThisTurn"] entry on the champion object -- patched in directly rather
+    // than scripting a real combat/damage sequence.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'nn48ne8a05'], // Ciel, Loyal Valet (GUARDIAN CHAMPION) - Class Bonus source
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_champDamageThisTurn' => 4]]], // This-turn damage prereq
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'jxhkurfp66'], // Charged Manaplate, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-4!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Break Apart: destroy target non-regalia item or weapon ---
+$fixtures['break-apart-destroy'] = [
+    'testedCards' => ['4ns2jbt4hq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Break Apart
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Break Apart's element is NORM, so no lineage patch is needed. Forest Cake (a plain ITEM,
+    // not REGALIA) is seeded onto the opponent's field as the target, avoiding the "costs 2 more
+    // if it targets a regalia" branch (which isn't exercised here). Destroy resolves the same way
+    // as meltdown-level2-destroy-item: the target is banished, not moved to its graveyard.
+    'setup' => [
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'bjx6yo7mm5'], // Forest Cake (plain ITEM) - destroy target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4ns2jbt4hq'], // Break Apart, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Ruinous Pillars of Qidao: Class Bonus On Enter Empower 2 + draw ---
+$fixtures['ruinous-pillars-of-qidao-enter-empower'] = [
+    'testedCards' => ['pmx99jrukm'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Ruinous Pillars of Qidao
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Ruinous Pillars of Qidao is a TERA (advanced element) DOMAIN card, so the starting
+    // champion's Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock
+    // element access, and that same champion is physically seeded onto the field so the MAGE
+    // Class Bonus (physical-presence check) is also satisfied. Only the On Enter Empower 2 + draw
+    // is covered; the Shifting-Currents-triggered sacrifice/destroy is tied to the separate facing
+    // subsystem and is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7x2v4tdop1'], // Kongming, Fel Eidolon (MAGE CHAMPION) - Class Bonus source
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'pmx99jrukm'], // Ruinous Pillars of Qidao, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Rocket Jump: target unit becomes distant ---
+$fixtures['rocket-jump-distant'] = [
+    'testedCards' => ['rhlq2kkvoq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Rocket Jump
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Rocket Jump's element is FIRE (matching the starting champion), so no lineage patch is
+    // needed. Only the base "becomes distant" status is covered; the [Class Bonus] discount isn't
+    // reached (full 5-reserve cost paid), and the "deal 4 damage to its attacker" clause is
+    // conditional on the target actually defending in combat, which is out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rhlq2kkvoq'], // Rocket Jump, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

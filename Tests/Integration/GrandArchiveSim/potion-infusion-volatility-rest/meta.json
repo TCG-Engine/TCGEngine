@@ -1,0 +1,17 @@
+{
+    "name": "Potion Infusion: Volatility rests target Potion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T07:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Potion Infusion: Volatility's element is NORM, so no lineage patch is needed. Distilled Water (an ITEM, CLERIC,POTION) is seeded onto the field as the target. Without the [Arisanna Bonus] Efficiency discount, the full 7-reserve cost is paid. Only the immediate 'rest the target and grant it the On Sacrifice trigger' half is covered; the eventual 4+D6 damage roll requires actually sacrificing the target and is out of scope.",
+    "testedCards": [
+        "ndnEl5mq7W"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ndnEl5mq7W"],
+        "mechanics": ["targeting", "condition"],
+        "rulesClauses": [
+            "Rest target Potion. If you do, it gains \"On Sacrifice: Deal 4+D6 damage to each champion you don't control\" until end of turn."
+        ]
+    }
+}

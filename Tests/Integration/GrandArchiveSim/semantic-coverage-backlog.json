@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T02:11:27+00:00",
+    "generatedAt": "2026-08-30T02:20:27+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 88,
+        "cardsWithExistingFixtures": 93,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2399,
+        "cardsNeedingSemanticCoverage": 2394,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -161,25 +161,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "ndnEl5mq7W",
-            "name": "Potion Infusion: Volatility",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 123
@@ -512,49 +493,6 @@
             "priority": 115
         },
         {
-            "cardId": "rhlq2kkvoq",
-            "name": "Rocket Jump",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "pmx99jrukm",
-            "name": "Ruinous Pillars of Qidao",
-            "type": "DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "qCTini03Bc",
             "name": "Shieldroid",
             "type": "ALLY",
@@ -865,48 +803,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "4ns2jbt4hq",
-            "name": "Break Apart",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "jxhkurfp66",
-            "name": "Charged Manaplate",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -42476,6 +42372,29 @@
             "priority": 143
         },
         {
+            "cardId": "ndnEl5mq7W",
+            "name": "Potion Infusion: Volatility",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "potion-infusion-volatility-rest"
+            ],
+            "semanticFixtures": [
+                "potion-infusion-volatility-rest"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
             "cardId": "F2wp1v0Tyk",
             "name": "Reclaim",
             "type": "ACTION",
@@ -43185,6 +43104,107 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 135
+        },
+        {
+            "cardId": "rhlq2kkvoq",
+            "name": "Rocket Jump",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rocket-jump-distant"
+            ],
+            "semanticFixtures": [
+                "rocket-jump-distant"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "pmx99jrukm",
+            "name": "Ruinous Pillars of Qidao",
+            "type": "DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ruinous-pillars-of-qidao-enter-empower"
+            ],
+            "semanticFixtures": [
+                "ruinous-pillars-of-qidao-enter-empower"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "4ns2jbt4hq",
+            "name": "Break Apart",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "break-apart-destroy"
+            ],
+            "semanticFixtures": [
+                "break-apart-destroy"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "jxhkurfp66",
+            "name": "Charged Manaplate",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "charged-manaplate-banish-draw"
+            ],
+            "semanticFixtures": [
+                "charged-manaplate-banish-draw"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
         },
         {
             "cardId": "m31WVJ9F04",

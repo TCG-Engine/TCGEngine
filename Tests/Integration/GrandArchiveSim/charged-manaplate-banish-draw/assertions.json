@@ -1,0 +1,5 @@
+[
+    {"step":2,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"jxhkurfp66","semantic":true,"label":"Activating banishes Charged Manaplate as its own cost"},
+    {"step":2,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":8,"semantic":true,"label":"Activating draws a card, reducing the deck by one"},
+    {"step":2,"type":"decision_queue_empty","player":"all"}
+]

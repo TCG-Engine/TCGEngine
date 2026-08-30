@@ -1,0 +1,17 @@
+{
+    "name": "Ruinous Pillars of Qidao's Class Bonus On Enter Empower 2 + draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T07:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Ruinous Pillars of Qidao is a TERA (advanced element) DOMAIN card, so the starting champion's Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock element access, and that same champion is physically seeded onto the field so the MAGE Class Bonus (physical-presence check) is also satisfied. Only the On Enter Empower 2 + draw is covered; the Shifting-Currents-triggered sacrifice/destroy is tied to the separate facing subsystem and is out of scope.",
+    "testedCards": [
+        "pmx99jrukm"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["pmx99jrukm"],
+        "mechanics": ["targeting", "draw-discard", "zone-movement", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Empower 2. Draw a card."
+        ]
+    }
+}
