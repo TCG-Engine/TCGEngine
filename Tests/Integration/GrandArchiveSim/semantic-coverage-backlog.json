@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T03:28:06+00:00",
+    "generatedAt": "2026-08-30T03:34:28+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 119,
+        "cardsWithExistingFixtures": 120,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2368,
+        "cardsNeedingSemanticCoverage": 2367,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -33932,22 +33932,6 @@
             "priority": 12
         },
         {
-            "cardId": "MuCOJRgMdj",
-            "name": "Otherworldly Possessions",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "rltyxefm80",
             "name": "Outrider of Waves",
             "type": "ALLY",
@@ -43667,6 +43651,26 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 33
+        },
+        {
+            "cardId": "MuCOJRgMdj",
+            "name": "Otherworldly Possessions",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter"
+            ],
+            "existingFixtures": [
+                "otherworldly-possessions-enlighten"
+            ],
+            "semanticFixtures": [
+                "otherworldly-possessions-enlighten"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
         }
     ]
 }
