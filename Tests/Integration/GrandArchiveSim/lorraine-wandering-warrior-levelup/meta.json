@@ -1,0 +1,17 @@
+{
+    "name": "Champion level-up materializes Lorraine, Wandering Warrior and preserves lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Investigated as a suspected engine bug (a prior session found champion level-up materialization getting stuck in a loop, the champion left in a broken state) but turned out to be correct behavior: that prior fixture never seeded any way to pay Lorraine's 1-memory level-up cost (no memory-zone card, no floating-memory graveyard card), so QueueMaterializePayment's own affordability check correctly failed and called AutoUndoMaterializeCostFailure(), which calls LoadVersion() to roll the whole attempt back to the pre-FSM snapshot -- not a bug, just an unpaid cost undoing the action, which then looks like a stuck loop when the same now-still-legal material choice is attempted again from the restored state. This fixture seeds a filler card directly into the memory zone as real cost fuel. Lorraine, Wandering Warrior is level 1, one level above the default level-0 starting champion (Spirit of Fire), so she is a legal level-up target; champion-swap materialization is only offered through the material-phase MZMAYCHOOSE at the start of a turn, not via a generic FSM click at arbitrary times, so both players end their first turn (P1 -> P2) to reach that prompt for P1's turn 3. Choosing her pays the 1-memory cost from the seeded memory card and completes the swap in one step, preserving Spirit of Fire in her lineage (Subcards). Only the base champion-swap mechanic is covered here; Lorraine's own On Enter ability (materialize a 0-memory weapon from material deck) did not find an eligible target among this deck's remaining material cards and is out of scope.",
+    "testedCards": [
+        "DpHDGaX2Pn"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["DpHDGaX2Pn"],
+        "mechanics": ["cost", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Champion level-up: materialize a champion card one level higher than your current champion, paying its printed memory cost, preserving the previous champion in its lineage."
+        ]
+    }
+}

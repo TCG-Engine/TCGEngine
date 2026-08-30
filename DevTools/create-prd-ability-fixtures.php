@@ -4910,6 +4910,48 @@ DECK,
     ],
 ];
 
+// --- Lorraine, Wandering Warrior: champion level-up debug probe ---
+$fixtures['lorraine-wandering-warrior-levelup'] = [
+    'testedCards' => ['DpHDGaX2Pn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Windslice
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Investigated as a suspected engine bug (a prior session found champion level-up
+    // materialization getting stuck in a loop, the champion left in a broken state) but turned
+    // out to be correct behavior: that prior fixture never seeded any way to pay Lorraine's
+    // 1-memory level-up cost (no memory-zone card, no floating-memory graveyard card), so
+    // QueueMaterializePayment's own affordability check correctly failed and called
+    // AutoUndoMaterializeCostFailure(), which calls LoadVersion() to roll the whole attempt back
+    // to the pre-FSM snapshot -- not a bug, just an unpaid cost undoing the action, which then
+    // looks like a stuck loop when the same now-still-legal material choice is attempted again
+    // from the restored state. This fixture seeds a filler card directly into the memory zone as
+    // real cost fuel. Lorraine, Wandering Warrior is level 1, one level above the default level-0
+    // starting champion (Spirit of Fire), so she is a legal level-up target; champion-swap
+    // materialization is only offered through the material-phase MZMAYCHOOSE at the start of a
+    // turn, not via a generic FSM click at arbitrary times, so both players end their first turn
+    // (P1 -> P2) to reach that prompt for P1's turn 3. Choosing her pays the 1-memory cost from
+    // the seeded memory card and completes the swap in one step, preserving Spirit of Fire in her
+    // lineage (Subcards).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay Lorraine's 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
