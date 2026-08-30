@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T13:40:26+00:00",
+    "generatedAt": "2026-08-30T14:24:52+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 141,
+        "cardsWithExistingFixtures": 143,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2346,
+        "cardsNeedingSemanticCoverage": 2344,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2189,25 +2189,6 @@
             "priority": 113
         },
         {
-            "cardId": "j4U5Tu76Lz",
-            "name": "Optical Control",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "qyQLlDYBlr",
             "name": "Ornamental Greatsword",
             "type": "REGALIA,WEAPON",
@@ -2283,26 +2264,6 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "mxz1vdxi74",
-            "name": "Potion Infusion: Frostbite",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43501,6 +43462,53 @@
                 "nascent-barrier-glimpse"
             ],
             "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "j4U5Tu76Lz",
+            "name": "Optical Control",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "optical-control-choose-type"
+            ],
+            "semanticFixtures": [
+                "optical-control-choose-type"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "mxz1vdxi74",
+            "name": "Potion Infusion: Frostbite",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "potion-infusion-frostbite-rest"
+            ],
+            "semanticFixtures": [
+                "potion-infusion-frostbite-rest"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,

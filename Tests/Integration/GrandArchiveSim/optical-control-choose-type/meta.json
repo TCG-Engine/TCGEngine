@@ -1,0 +1,17 @@
+{
+    "name": "Optical Control chooses a card type on enter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Optical Control is a LUXEM (advanced element) PHANTASIA card, so the starting champion's Subcards are patched with a real LUXEM champion (Zander, Blinding Steel) to unlock element access, reused from insignia-of-the-corhazi-prep-counter. As a PHANTASIA card it materializes onto the field via the normal ALLY/ITEM-style flow, so its enterAbilities fire correctly with no extra opportunity-window PASS needed. Without a [Class Bonus] discount, the full 3-reserve cost is paid, then a NUMBERCHOOSE decision picks the card type (answered with \"2\" for ALLY), tagging the source object with j4U5Tu76Lz-ALLY. The opponent-cost-increase and recollection-phase self-sacrifice-and-draw clauses are out of scope.",
+    "testedCards": [
+        "j4U5Tu76Lz"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["j4U5Tu76Lz"],
+        "mechanics": ["cost", "targeting", "condition"],
+        "rulesClauses": [
+            "As CARDNAME enters the field, choose a card type."
+        ]
+    }
+}
