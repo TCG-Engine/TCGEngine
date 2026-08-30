@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T14:40:21+00:00",
+    "generatedAt": "2026-08-30T14:44:39+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 154,
+        "cardsWithExistingFixtures": 155,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2333,
+        "cardsNeedingSemanticCoverage": 2332,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2536,27 +2536,6 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "qaA3sXFRFY",
-            "name": "Spirit's Blessing",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43508,6 +43487,31 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "qaA3sXFRFY",
+            "name": "Spirit's Blessing",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "spirits-blessing-wake-draw"
+            ],
+            "semanticFixtures": [
+                "spirits-blessing-wake-draw"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133

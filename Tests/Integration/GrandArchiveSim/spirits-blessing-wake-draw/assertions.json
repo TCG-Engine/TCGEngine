@@ -1,0 +1,6 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"myField-0","property":"Status","value":"2","viewerPlayerID":1,"semantic":true,"label":"Spirit's Blessing wakes up the champion"},
+    {"step":5,"type":"zone_count","zone":"myMaterial","viewerPlayerID":1,"value":5,"semantic":true,"label":"The sacrificed regalia returns to the material deck"},
+    {"step":5,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the champion remains on the field after the regalia returns to material"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]
