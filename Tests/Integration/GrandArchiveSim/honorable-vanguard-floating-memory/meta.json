@@ -1,0 +1,17 @@
+{
+    "name": "Honorable Vanguard's Floating Memory pays a champion level-up's memory cost from the graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Honorable Vanguard's only ability is the unconditional Floating Memory keyword (while paying a memory cost, you may banish this card from your graveyard to pay for 1 of that cost). This is tested by paying Lorraine, Wandering Warrior's 1-memory champion level-up cost entirely from a Honorable Vanguard seeded directly into the graveyard, with no myMemory filler seeded at all -- QueueMaterializeFloatingPaymentChoice (GrandArchiveSim/Custom/MaterializeLogic.php) detects it via GetMaterializeFloatingChoices' floatingMemoryOnly ZoneSearch and offers it as the sole payment source, an MZMULTICHOOSE (\"0|1|myGraveyard-0\"). A plain single mzId submission (myGraveyard-0) resolves it -- PAYFLOATING's own comment confirms it tolerates a single-selection response alongside the general \"&\"-delimited multi-select format. The level-up completes (myField-0 becomes Lorraine, Wandering Warrior) with the graveyard back to empty, confirming Honorable Vanguard itself was banished as the payment.",
+    "testedCards": [
+        "cWJqSwhKEQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["cWJqSwhKEQ"],
+        "mechanics": ["cost", "zone-movement"],
+        "rulesClauses": [
+            "Floating Memory (While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)"
+        ]
+    }
+}

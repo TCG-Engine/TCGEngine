@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"myField-0","property":"CardID","value":"DpHDGaX2Pn","semantic":true,"label":"The champion levels up into Lorraine, Wandering Warrior, proving the 1-memory cost was paid"},
+    {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"Honorable Vanguard is banished from the graveyard as the floating memory payment, with no other memory source seeded"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

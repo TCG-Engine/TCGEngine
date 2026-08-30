@@ -5034,6 +5034,109 @@ DECK,
     ],
 ];
 
+// --- Fulminator, Rising Storm: [Lorraine Bonus] enters with LV-2 static counters ---
+$fixtures['fulminator-rising-storm-lorraine-bonus'] = [
+    'testedCards' => ['F1JIgewvFI'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Fulminator, Rising Storm
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Fulminator's element is ARCANE and its Lorraine Bonus (IsLorraineBonusActive) requires
+    // Lorraine, Wandering Warrior (DpHDGaX2Pn) specifically in lineage. The starting champion's
+    // CardID is patched directly to Lorraine, Arclight Saber (level 3, ARCANE -- unlocks the
+    // card's element) and its Subcards are patched with Lorraine, Wandering Warrior to satisfy the
+    // Lorraine Bonus lineage check. On Enter puts max(0, LV-2) static counters on itself
+    // (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php, enterAbilities["F1JIgewvFI:0"]); at
+    // champion level 3 that's 1 static counter.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'x9sSpjpP3G', 'Subcards' => ['DpHDGaX2Pn']]],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Surged Coordinator: [Class Bonus] On Enter static counters from LV + other statics - 3 ---
+$fixtures['surged-coordinator-class-bonus-counters'] = [
+    'testedCards' => ['6eWmfzAmWr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Surged Coordinator
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Surged Coordinator's element is ARCANE and its [Class Bonus] requires a WARRIOR champion.
+    // The starting champion's CardID is patched directly to Lorraine, Arclight Saber (level 3,
+    // WARRIOR, ARCANE -- unlocks both the class bonus and the card's element) and is also given 1
+    // static counter directly so it counts as "another object with a static counter" for the
+    // ability's own count. On Enter puts max(0, LV + count - 3) static counters on itself
+    // (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php, enterAbilities["6eWmfzAmWr:0"]); at
+    // champion level 3 with count=1 (the champion itself) that's 1 static counter.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'x9sSpjpP3G', 'Counters' => ['static' => 1]]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '6eWmfzAmWr'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Honorable Vanguard: Floating Memory pays a champion level-up's memory cost from graveyard ---
+$fixtures['honorable-vanguard-floating-memory'] = [
+    'testedCards' => ['cWJqSwhKEQ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Honorable Vanguard's only ability is the unconditional Floating Memory keyword (while
+    // paying a memory cost, you may banish this card from your graveyard to pay for 1 of that
+    // cost). This is tested by paying Lorraine, Wandering Warrior's 1-memory champion level-up
+    // cost entirely from a Honorable Vanguard seeded directly into the graveyard, with no myMemory
+    // filler seeded -- QueueMaterializeFloatingPaymentChoice
+    // (GrandArchiveSim/Custom/MaterializeLogic.php) offers it as the sole payment source.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'cWJqSwhKEQ'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
