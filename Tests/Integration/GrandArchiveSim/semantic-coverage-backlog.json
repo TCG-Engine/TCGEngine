@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T06:16:02+00:00",
+    "generatedAt": "2026-08-30T06:52:55+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 132,
+        "cardsWithExistingFixtures": 134,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2355,
+        "cardsNeedingSemanticCoverage": 2353,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2055,27 +2055,6 @@
             "priority": 113
         },
         {
-            "cardId": "zejeq7rp5q",
-            "name": "Heighten Spellcraft",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck",
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "xiazfnm292",
             "name": "Hemorrhaging Rend",
             "type": "ATTACK",
@@ -2130,27 +2109,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "k71PE3clOI",
-            "name": "Inspiring Call",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43466,6 +43424,56 @@
             ],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "zejeq7rp5q",
+            "name": "Heighten Spellcraft",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "heighten-spellcraft-empower"
+            ],
+            "semanticFixtures": [
+                "heighten-spellcraft-empower"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck",
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "k71PE3clOI",
+            "name": "Inspiring Call",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "inspiring-call-buff-draw"
+            ],
+            "semanticFixtures": [
+                "inspiring-call-buff-draw"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133

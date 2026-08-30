@@ -1,0 +1,17 @@
+{
+    "name": "Inspiring Call buffs allies and draws a card into memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Inspiring Call's element is NORM, so no lineage patch is needed. The champion has not attacked, so the discount is unavailable and the full 3-reserve cost is paid; both players then decline the EffectStackActiveResponse opportunity window before the ability resolves. The +1 POWER buff is applied via a global effect (AddGlobalEffects), which isn't independently observable through the available assertion primitives (no live ally is on the field to check computed power against), so this fixture verifies the always-checkable half: drawing a card into memory.",
+    "testedCards": [
+        "k71PE3clOI"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["k71PE3clOI"],
+        "mechanics": ["cost", "draw-discard", "condition"],
+        "rulesClauses": [
+            "Draw a card into your memory."
+        ]
+    }
+}

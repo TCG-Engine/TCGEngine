@@ -1,0 +1,5 @@
+[
+    {"step":6,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":4,"semantic":true,"label":"Inspiring Call draws a card into memory"},
+    {"step":6,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"k71PE3clOI","semantic":true,"label":"Inspiring Call is discarded to the graveyard after resolving"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,17 @@
+{
+    "name": "Heighten Spellcraft empowers the champion by 3",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Heighten Spellcraft's element is NORM, so no lineage patch is needed. Without a [Class Bonus] discount, the full 1-reserve cost is paid, then both players decline the EffectStackActiveResponse opportunity window. Empower(player, 3, cardID) tags the champion's TurnEffects with the source card ID, EMPOWERED, and EMPOWER_PLUS_3 (the effective +3 level applied to the next Spell activated this turn is not independently observable without also activating a Spell, so this fixture covers the Empower application itself).",
+    "testedCards": [
+        "zejeq7rp5q"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zejeq7rp5q"],
+        "mechanics": ["cost", "status", "condition"],
+        "rulesClauses": [
+            "Empower 3."
+        ]
+    }
+}
