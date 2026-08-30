@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **164**
+Cards linked to an existing fixture: **165**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2323**
+Implemented cards still needing semantic coverage: **2322**
 
 ## Mechanic groups
 
@@ -67,7 +67,6 @@ Implemented cards still needing semantic coverage: **2323**
 | Imperial Sentry (`plywc08c9h`) | ALLY | 1 | status, combat, trigger, condition | Tonoris Starter Deck | — |
 | Insignia of the Corhazi (`52u81v4c0z`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, counter, trigger | Zander Pantheon Starter | — |
 | Jin, Fate Defiant (`zd8l14052j`) | CHAMPION | 1 | targeting, combat, trigger, condition | Jin Starter Deck | — |
-| Jovian Hilt X Ultra (`sZTH5LanyW`) | REGALIA,ITEM | 1 | targeting, counter, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Library Witch (`iD8qbpA8z5`) | ALLY | 1 | draw-discard, status, combat, trigger | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Life Essence Amulet (`1XegCUjBnY`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, trigger, condition | Dante, Hemomancer Starter Deck, Lorraine, Arclight Saber Starter Deck, Jin Starter Deck, Kongming Starter Deck, Arisanna Starter Deck, Lorraine Starter Deck, Rai Starter Deck, Silvie Starter Deck, Lorraine Starter Deck (Prelude), Rai Starter Deck (Prelude) | — |
 | Lightveil Agent (`jcaLgesx0e`) | ALLY | 1 | recover, counter, status, trigger | Zander Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2323**
 | Meadowbloom Dryad (`cVRIUJdTW5`) | ALLY | 1 | targeting, zone-movement, counter, trigger | Silvie Starter Deck | — |
 | Orb of Choking Fumes (`llQe0cg4xJ`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Zander Pantheon Starter | — |
 | Planar Abyss (`qexcwmx2ug`) | ACTION | 1 | cost, damage, zone-movement, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |
+| Plated Bullet (`l75tlzsmw3`) | REGALIA,ITEM | 1 | targeting, zone-movement, combat, condition | Diana Starter Deck | — |
