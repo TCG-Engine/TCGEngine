@@ -1,0 +1,5 @@
+[
+    {"step":7,"type":"card_exists","zone":"myHand","viewerPlayerID":1,"cardID":"acmde97dbu","semantic":true,"label":"Rally the Peasants puts the revealed Human into hand"},
+    {"step":7,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":5,"semantic":true,"label":"Hand grows by the pulled Human card"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

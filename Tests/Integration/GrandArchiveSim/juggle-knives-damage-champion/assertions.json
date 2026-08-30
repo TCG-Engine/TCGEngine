@@ -1,0 +1,5 @@
+[
+    {"step":6,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"7VxRE6HgZC","semantic":true,"label":"Juggle Knives is discarded to the graveyard after resolving"},
+    {"step":6,"type":"card_property_equals","mzId":"theirField-0","property":"Damage","value":"1","viewerPlayerID":1,"semantic":true,"label":"Juggle Knives deals 1 damage to the opposing champion"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

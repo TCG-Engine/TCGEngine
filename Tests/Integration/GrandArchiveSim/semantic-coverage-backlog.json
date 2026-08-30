@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T02:59:05+00:00",
+    "generatedAt": "2026-08-30T03:28:06+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 116,
+        "cardsWithExistingFixtures": 119,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2371,
+        "cardsNeedingSemanticCoverage": 2368,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -142,25 +142,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "q1uwq8sdbz",
-            "name": "Rally the Peasants",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 123
@@ -570,26 +551,6 @@
             "priority": 115
         },
         {
-            "cardId": "NwK5wge8wy",
-            "name": "Alpha Philterbeast",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "pyx8bd7ozu",
             "name": "Archon Broadsword",
             "type": "REGALIA,WEAPON",
@@ -953,26 +914,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "7VxRE6HgZC",
-            "name": "Juggle Knives",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -41945,6 +41886,29 @@
             "priority": 143
         },
         {
+            "cardId": "q1uwq8sdbz",
+            "name": "Rally the Peasants",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rally-the-peasants-search-human"
+            ],
+            "semanticFixtures": [
+                "rally-the-peasants-search-human"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
             "cardId": "F2wp1v0Tyk",
             "name": "Reclaim",
             "type": "ACTION",
@@ -42849,6 +42813,30 @@
             "priority": 134
         },
         {
+            "cardId": "NwK5wge8wy",
+            "name": "Alpha Philterbeast",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "alpha-philterbeast-brew-age-counters"
+            ],
+            "semanticFixtures": [
+                "alpha-philterbeast-brew-age-counters"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "zuj68m69iq",
             "name": "Astra Sight",
             "type": "ACTION",
@@ -43370,6 +43358,30 @@
             ],
             "semanticFixtures": [
                 "immolation-trap-destroy-damaged"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "7VxRE6HgZC",
+            "name": "Juggle Knives",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "juggle-knives-damage-champion"
+            ],
+            "semanticFixtures": [
+                "juggle-knives-damage-champion"
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"

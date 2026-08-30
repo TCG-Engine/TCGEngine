@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **116**
+Cards linked to an existing fixture: **119**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2371**
+Implemented cards still needing semantic coverage: **2368**
 
 ## Mechanic groups
 
@@ -32,7 +32,6 @@ Implemented cards still needing semantic coverage: **2371**
 | Brooch X Ultra (`3Gx9ByIl9t`) | ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
 | Lightweaver's Assault (`zxB4tzy9iy`) | ACTION | 2 | targeting, damage, trigger | Zander Pantheon Starter | — |
-| Rally the Peasants (`q1uwq8sdbz`) | ACTION | 2 | cost, zone-movement, condition | Lorraine Pantheon Starter | — |
 | Diana, Duskstalker (`iq4d5vettc`) | CHAMPION | 2 | status, trigger | Diana Starter Deck | — |
 | Smash with Obelisk (`2kkvoqk1l7`) | ATTACK | 2 | cost | Tonoris Starter Deck | — |
 | Assassin's Mantle (`3tcs0axa03`) | REGALIA,ITEM | 1 | damage, prevention, zone-movement, counter, condition | Zander Pantheon Starter | — |
@@ -52,7 +51,6 @@ Implemented cards still needing semantic coverage: **2371**
 | Swift Recruit (`mHd6LLyMyF`) | ALLY | 1 | cost, zone-movement, status, combat, trigger | Jin Starter Deck, Lorraine Starter Deck, Lorraine Pantheon Starter | — |
 | Taiji of Crystal Strategems (`l17uc67eaq`) | PHANTASIA | 1 | cost, targeting, damage, status, trigger | Kongming Starter Deck | — |
 | Zander, Deft Executor (`fc4ic5fmaa`) | CHAMPION | 1 | zone-movement, counter, combat, trigger, condition | Zander Pantheon Starter | — |
-| Alpha Philterbeast (`NwK5wge8wy`) | ALLY | 1 | cost, counter, trigger, condition | Arisanna Pantheon Starter | — |
 | Archon Broadsword (`pyx8bd7ozu`) | REGALIA,WEAPON | 1 | cost, token, combat, condition | Tonoris Starter Deck | — |
 | Automaton Bomber (`ygojwk0pw0`) | ALLY | 1 | cost, zone-movement, status, condition | Diana Starter Deck | — |
 | Cleansing Reunion (`xpnjvt9y59`) | ACTION | 1 | cost, targeting, status, condition | Lorraine Pantheon Starter | — |
@@ -71,8 +69,10 @@ Implemented cards still needing semantic coverage: **2371**
 | Insignia of the Corhazi (`52u81v4c0z`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, counter, trigger | Zander Pantheon Starter | — |
 | Jin, Fate Defiant (`zd8l14052j`) | CHAMPION | 1 | targeting, combat, trigger, condition | Jin Starter Deck | — |
 | Jovian Hilt X Ultra (`sZTH5LanyW`) | REGALIA,ITEM | 1 | targeting, counter, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
-| Juggle Knives (`7VxRE6HgZC`) | ACTION | 1 | targeting, damage, draw-discard, condition | Zander Pantheon Starter | — |
 | Library Witch (`iD8qbpA8z5`) | ALLY | 1 | draw-discard, status, combat, trigger | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Life Essence Amulet (`1XegCUjBnY`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, trigger, condition | Dante, Hemomancer Starter Deck, Lorraine, Arclight Saber Starter Deck, Jin Starter Deck, Kongming Starter Deck, Arisanna Starter Deck, Lorraine Starter Deck, Rai Starter Deck, Silvie Starter Deck, Lorraine Starter Deck (Prelude), Rai Starter Deck (Prelude) | — |
 | Lightveil Agent (`jcaLgesx0e`) | ALLY | 1 | recover, counter, status, trigger | Zander Pantheon Starter | — |
 | Lorraine, Spirit Ruler (`n2TKqNaODR`) | CHAMPION | 1 | cost, targeting, zone-movement, trigger | Lorraine Pantheon Starter | — |
+| Mana Limiter (`IC3OU6vCnF`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
+| Mark the Target (`LRsgl92Iqa`) | ACTION | 1 | targeting, damage, counter, condition | Zander Pantheon Starter | — |
+| Meadowbloom Dryad (`cVRIUJdTW5`) | ALLY | 1 | targeting, zone-movement, counter, trigger | Silvie Starter Deck | — |
