@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"tjmzM6t9R5_POWER\"]","semantic":true,"label":"The targeted Sword weapon gains the +1 power turn effect"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"durability\":3}","semantic":true,"label":"The targeted Sword weapon gains a durability counter"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

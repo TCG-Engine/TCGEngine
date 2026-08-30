@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **103**
+Cards linked to an existing fixture: **108**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2384**
+Implemented cards still needing semantic coverage: **2379**
 
 ## Mechanic groups
 
@@ -63,16 +63,16 @@ Implemented cards still needing semantic coverage: **2384**
 | Conductive Strike (`dDOMoeCJyK`) | ATTACK | 1 | cost, counter, combat, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Convalescent Tonic (`l8ao8bls6g`) | ITEM | 1 | cost, recover, draw-discard, zone-movement | Arisanna Pantheon Starter | — |
 | Corhazi Lightblade (`2Ch1Gp3jEL`) | ALLY | 1 | damage, combat, trigger, condition | Zander Pantheon Starter | — |
-| Creative Shock (`BqDw4Mei4C`) | ACTION | 1 | targeting, damage, draw-discard, condition | Rai Starter Deck, Rai Starter Deck (Prelude), Kongming Pantheon Starter, Zander Pantheon Starter | — |
 | Crest of the Alliance (`ojwk0pw0y6`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, trigger, condition | Tonoris Starter Deck | — |
 | Crusader of Aesa (`2Q60hBYO3i`) | ALLY | 1 | status, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
-| Disorienting Winds (`UfQh069mc3`) | ACTION | 1 | cost, targeting, draw-discard, zone-movement | Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Dungeon Guide (`em6eEh9q8y`) | ALLY | 1 | cost, zone-movement, trigger, condition | Lorraine Starter Deck (Prelude), Rai Starter Deck (Prelude) | — |
 | Elyan, Lustre Loyalty (`2jgiM0p4dt`) | UNIQUE,ALLY | 1 | recover, status, trigger, condition | Zander Pantheon Starter | — |
 | Esteemed Knight (`iabqeB0I6t`) | ALLY | 1 | status, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
-| Exia Sight (`1fy8l4pxs9`) | ACTION | 1 | cost, damage, draw-discard, condition | Dante, Hemomancer Starter Deck, Jin Starter Deck | — |
 | Flash Freeze (`w3rrii17fz`) | ACTION | 1 | cost, targeting, zone-movement, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
-| Focused Flames (`145y6KBhxe`) | ACTION | 1 | cost, targeting, damage, condition | Rai Starter Deck, Rai Starter Deck (Prelude), Kongming Pantheon Starter | — |
 | Foraging Servant (`0pw0y6isxy`) | ALLY | 1 | cost, zone-movement, token, trigger | Arisanna Starter Deck | — |
-| Forging Heat (`tjmzM6t9R5`) | ACTION | 1 | cost, targeting, zone-movement, counter | Lorraine, Arclight Saber Starter Deck | — |
 | Formidable Youxia (`acmde97dbu`) | ALLY | 1 | status, combat, trigger, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |
+| Gencode Womb (`7IVQRtJFa8`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, token, condition | Dante, Hemomancer Starter Deck | — |
+| Give Bath (`XeXek4dKav`) | ACTION | 1 | cost, targeting, damage, zone-movement | Silvie Starter Deck | — |
+| Hasty Messenger (`DsiRzt0trX`) | ALLY | 1 | draw-discard, combat, trigger, condition | Kongming Pantheon Starter, Zander Pantheon Starter | — |
+| Immolation Trap (`Uxn14UqyQg`) | ACTION | 1 | cost, targeting, zone-movement, condition | Zander Pantheon Starter | — |
+| Imperial Sentry (`plywc08c9h`) | ALLY | 1 | status, combat, trigger, condition | Tonoris Starter Deck | — |

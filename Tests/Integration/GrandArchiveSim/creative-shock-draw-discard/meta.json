@@ -1,0 +1,17 @@
+{
+    "name": "Creative Shock draws two cards, then discards one",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T10:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Creative Shock's element is FIRE (matching the starting champion), so no lineage patch is needed. Only the base 'draw 2, discard 1' is covered; the [Class Bonus] fire-discard damage clause is out of scope (no class bonus set up, and the discarded card isn't guaranteed FIRE).",
+    "testedCards": [
+        "BqDw4Mei4C"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["BqDw4Mei4C"],
+        "mechanics": ["draw-discard", "zone-movement"],
+        "rulesClauses": [
+            "Draw two cards, then discard a card."
+        ]
+    }
+}

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T02:35:46+00:00",
+    "generatedAt": "2026-08-30T02:40:59+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 103,
+        "cardsWithExistingFixtures": 108,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2384,
+        "cardsNeedingSemanticCoverage": 2379,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -786,29 +786,6 @@
             "priority": 114
         },
         {
-            "cardId": "BqDw4Mei4C",
-            "name": "Creative Shock",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)",
-                "Kongming Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "ojwk0pw0y6",
             "name": "Crest of the Alliance",
             "type": "REGALIA,ITEM",
@@ -844,27 +821,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "UfQh069mc3",
-            "name": "Disorienting Winds",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
             ],
@@ -935,27 +891,6 @@
             "priority": 114
         },
         {
-            "cardId": "1fy8l4pxs9",
-            "name": "Exia Sight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck",
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "w3rrii17fz",
             "name": "Flash Freeze",
             "type": "ACTION",
@@ -977,28 +912,6 @@
             "priority": 114
         },
         {
-            "cardId": "145y6KBhxe",
-            "name": "Focused Flames",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "0pw0y6isxy",
             "name": "Foraging Servant",
             "type": "ALLY",
@@ -1014,26 +927,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "tjmzM6t9R5",
-            "name": "Forging Heat",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -43170,6 +43063,33 @@
             "priority": 134
         },
         {
+            "cardId": "BqDw4Mei4C",
+            "name": "Creative Shock",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "creative-shock-draw-discard"
+            ],
+            "semanticFixtures": [
+                "creative-shock-draw-discard"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)",
+                "Kongming Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "P9Y1Q5cQ0F",
             "name": "Crux Sight",
             "type": "ACTION",
@@ -43216,6 +43136,31 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "UfQh069mc3",
+            "name": "Disorienting Winds",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "disorienting-winds-return-draw"
+            ],
+            "semanticFixtures": [
+                "disorienting-winds-return-draw"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -43300,6 +43245,31 @@
             "priority": 134
         },
         {
+            "cardId": "1fy8l4pxs9",
+            "name": "Exia Sight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "exia-sight-draw"
+            ],
+            "semanticFixtures": [
+                "exia-sight-draw"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck",
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "RIVahUIQVD",
             "name": "Fireball",
             "type": "ACTION",
@@ -43321,6 +43291,56 @@
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "145y6KBhxe",
+            "name": "Focused Flames",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "focused-flames-damage"
+            ],
+            "semanticFixtures": [
+                "focused-flames-damage"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "tjmzM6t9R5",
+            "name": "Forging Heat",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "forging-heat-sword-buff"
+            ],
+            "semanticFixtures": [
+                "forging-heat-sword-buff"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 134

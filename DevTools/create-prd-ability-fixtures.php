@@ -2676,6 +2676,169 @@ DECK,
     ],
 ];
 
+// --- Creative Shock: draw two cards, then discard one ---
+$fixtures['creative-shock-draw-discard'] = [
+    'testedCards' => ['BqDw4Mei4C'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Creative Shock
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Creative Shock's element is FIRE (matching the starting champion), so no lineage patch is
+    // needed. Only the base "draw 2, discard 1" is covered; the [Class Bonus] fire-discard damage
+    // clause is out of scope (no class bonus set up, and the discarded card isn't guaranteed FIRE).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'BqDw4Mei4C'], // Creative Shock, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Disorienting Winds: return target ally to hand, draw a card ---
+$fixtures['disorienting-winds-return-draw'] = [
+    'testedCards' => ['UfQh069mc3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Disorienting Winds
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Disorienting Winds' element is WIND, so the starting champion's Subcards are patched with a
+    // real WIND champion (Spirit of Wind), same as deployment-beacon-summon-drone/
+    // reclaim-return-ally. Dungeon Guide is seeded onto our own field as the return-to-hand
+    // target. Without the Efficiency discount (champion level 0), the full 5-reserve cost is paid.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - return-to-hand target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UfQh069mc3'], // Disorienting Winds, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Exia Sight: draw a card ---
+$fixtures['exia-sight-draw'] = [
+    'testedCards' => ['1fy8l4pxs9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Exia Sight
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Exia Sight is an EXIA (advanced element) ACTION card, so the starting champion's Subcards
+    // are patched with a real EXIA champion (Dante, Hemomancer, reused from
+    // mend-flesh-damage25-recover). Its reserve cost is 0, so no reserve payment decisions are
+    // needed. Only the base "Draw a card" is covered; the [Damage 20+] discount-for-next-card
+    // clause isn't reached (champion Damage is 0).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['4FtNBFaOJp']]], // EXIA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '1fy8l4pxs9'], // Exia Sight, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Focused Flames: deal 4 damage to target ally ---
+$fixtures['focused-flames-damage'] = [
+    'testedCards' => ['145y6KBhxe'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Focused Flames
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Focused Flames' element is FIRE (matching the starting champion), so no lineage patch is
+    // needed. Dungeon Guide is seeded onto the opponent's field as the required ally target
+    // (unlike most other damage cards in this backlog, this one can't target a champion). Without
+    // the [Class Bonus] discount, the full 2-reserve cost is paid.
+    'setup' => [
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - damage target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '145y6KBhxe'], // Focused Flames, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Forging Heat: put a durability counter and +1 power on target Sword weapon ---
+$fixtures['forging-heat-sword-buff'] = [
+    'testedCards' => ['tjmzM6t9R5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Forging Heat
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Forging Heat's element is FIRE (matching the starting champion), so no lineage patch is
+    // needed. Clarent, Sword of Peace is seeded onto the field as the required Sword weapon
+    // target. The Floating Memory clause is a passive/reusable-elsewhere property, not a
+    // triggered ability, and is out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace (WEAPON, SWORD) - buff target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'tjmzM6t9R5'], // Forging Heat, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

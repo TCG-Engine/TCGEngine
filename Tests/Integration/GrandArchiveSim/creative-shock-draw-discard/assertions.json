@@ -1,0 +1,5 @@
+[
+    {"step":7,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":7,"semantic":true,"label":"Drawing 2 cards reduces the deck by two"},
+    {"step":7,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":2,"semantic":true,"label":"Creative Shock's own resolution plus the discarded card leave 2 cards in the graveyard"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]
