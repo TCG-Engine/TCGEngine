@@ -1,0 +1,17 @@
+{
+    "name": "Potion Infusion: Seal rests target Potion and tags it INFUSION_SEAL",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Potion Infusion: Seal's element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water) to unlock element access. Distilled Water (a POTION-subtype ITEM) is seeded directly onto the field as the rest target, since PotionInfusionSealResolve only searches myField for ready (Status 2) POTION objects. Without a [Class Bonus] discount, the full 2-reserve cost is paid, then both players decline the EffectStackActiveResponse opportunity window before the seeded Potion is chosen. Resting it adds the INFUSION_SEAL turn-effect tag; only the base rest+tag effect is covered, not the granted On-Sacrifice-Negate ability itself (which requires actually sacrificing the Potion).",
+    "testedCards": [
+        "om2ry208kk"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["om2ry208kk"],
+        "mechanics": ["cost", "targeting", "status", "condition"],
+        "rulesClauses": [
+            "Rest target Potion. If you do, it gains \"On Sacrifice: Negate target card activation unless its controller pays (2)\" until end of turn."
+        ]
+    }
+}
