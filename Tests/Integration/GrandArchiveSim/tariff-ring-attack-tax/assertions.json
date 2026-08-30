@@ -1,0 +1,6 @@
+[
+    {"step":7,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Tariff Ring leaves the field -- only Spirit of Fire remains"},
+    {"step":7,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Banishing Tariff Ring is the activation's own cost (\"Banish CARDNAME:\")"},
+    {"step":7,"type":"zone_count","zone":"myGlobalEffects","viewerPlayerID":1,"value":1,"semantic":true,"label":"The attack-tax global effect is added, proving the ability actually resolved"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

@@ -117,7 +117,9 @@ function InferOpportunityWindowId($nextHandler, $firstPlayer = null, $nextPlayer
         case "CleaveDealDamage":
             return "COMBAT_DAMAGE";
         case "NoOp":
-            if(GetCurrentPhase() === "RECOLLECTION") return "REC_START";
+            // The REC_START window opens during BeforeRecollectionPhase(), i.e. while the phase
+            // code is "BREC" -- RecollectionPhase() ("REC") never opens a window of its own.
+            if(GetCurrentPhase() === "BREC") return "REC_START";
             if(GetCurrentPhase() === "END") return "END_START";
             return "";
         default:
@@ -1009,8 +1011,9 @@ function GetPlayableFastCards($player) {
             if(CanAffordCardActivation($player, $obj)) {
                 $fastCards[] = $mzID;
             }
-        } elseif($obj->CardID === "yrzexkW5Ej" && GetCurrentPhase() === "RECOLLECTION" && $player != GetTurnPlayer()) {
+        } elseif($obj->CardID === "yrzexkW5Ej" && GetCurrentPhase() === "BREC" && $player != GetTurnPlayer()) {
             // Sink the Mind: may be activated during an opponent's recollection phase
+            // (the REC_START window opens while the phase code is "BREC")
             if(CanAffordCardActivation($player, $obj)) {
                 $fastCards[] = $mzID;
             }

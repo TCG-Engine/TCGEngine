@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T21:15:20+00:00",
+    "generatedAt": "2026-08-30T22:10:14+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 183,
+        "cardsWithExistingFixtures": 184,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2304,
+        "cardsNeedingSemanticCoverage": 2303,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2321,31 +2321,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "xnrw8qq1uw",
-            "name": "Tariff Ring",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck",
-                "Lorraine, Arclight Saber Starter Deck",
-                "Kongming Starter Deck",
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43442,6 +43417,35 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "xnrw8qq1uw",
+            "name": "Tariff Ring",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "combat"
+            ],
+            "existingFixtures": [
+                "tariff-ring-attack-tax"
+            ],
+            "semanticFixtures": [
+                "tariff-ring-attack-tax"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck",
+                "Lorraine, Arclight Saber Starter Deck",
+                "Kongming Starter Deck",
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133

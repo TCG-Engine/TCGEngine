@@ -5294,24 +5294,55 @@ DECK,
     ],
 ];
 
-// NOTE: Tariff Ring was attempted but abandoned -- its activation prereq
-// (activateAbilityPrereqs["xnrw8qq1uw:0"], GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php)
-// checks `GetCurrentPhase() === "RECOLLECTION" && GetTurnPlayer() != player`, and the "Opportunity
-// arises at the beginning of the Recollection phase" window (BeforeRecollectionPhase(),
-// GrandArchiveSim/Custom/GameLogic.php) is granted while the engine is in the 'BREC' phase (one
-// step before the real 'REC' phase, per GrandArchiveSim/TurnStates.php's WU->MAT->BREC->REC->DRAW
-// ->MAIN sequence). But GetCurrentPhase() returns the raw short phase CODE the whole time ('BREC',
-// then 'REC') -- confirmed live by instrumenting GrandArchiveSim/TurnController.php's AutoAdvance()
-// loop (gitignored/generated, reverted after) to print every phase transition during a real replay:
-// phase never equals the literal string "RECOLLECTION" at any point turn 2 played out. Since the
-// only opportunity window offering activatable abilities during this window fires at 'BREC' (not
-// even 'REC'), and Tariff Ring's own prereq additionally requires the unreachable "RECOLLECTION"
-// string, its ability is dead code as currently generated -- there appears to be no action sequence
-// that can ever satisfy CanActivateAbility() for it. Two other GeneratedMacroCode.php call sites
-// share the identical "RECOLLECTION" string comparison (lines 67 and 120 as of this session), so
-// this may affect more than one card. This is a genuine engine-level finding, not fixed here (out
-// of scope for a fixture-authoring pass, and the affected file is generated with no local editable
-// source -- the real fix, if any, likely belongs in the schema/generator's phase-name handling).
+// --- Tariff Ring: Banish to tax attack declarations, activated during opponent's recollection ---
+$fixtures['tariff-ring-attack-tax'] = [
+    'testedCards' => ['xnrw8qq1uw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Was previously abandoned after discovering that activateAbilityPrereqs["xnrw8qq1uw:0"]
+    // (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php) compared GetCurrentPhase() against
+    // the literal "RECOLLECTION", a string the engine's real phase codes (GrandArchiveSim/
+    // TurnStates.php: WU->MAT->BREC->REC->DRAW->MAIN) never produce -- the REC_START opportunity
+    // window (where this ability is actually offered) opens while the phase code is "BREC"
+    // (GrandArchiveSim/Custom/GameLogic.php's BeforeRecollectionPhase()), not "REC" and never
+    // "RECOLLECTION". Root-caused to 4 card_abilities DB rows authored with the wrong literal
+    // (Database/migrations/12_grand_archive_recollection_phase_fix.sql) plus 3 matching
+    // hand-authored checks in GrandArchiveSim/Custom/{GameLogic,OpportunityLogic}.php. Now that
+    // both are fixed and GeneratedMacroCode.php regenerated, Tariff Ring's ability is reachable:
+    // it's seeded directly onto P1's field (an Item ability, not a hand play), P1 passes through
+    // turn 1's Main/BeforeEnd/BeforeEndOpportunity windows, and turn auto-advances into P2's turn
+    // 2 BeforeRecollection phase, where GetPlayableOpportunityChoices offers Tariff Ring to P1
+    // (the non-turn-player) as a MZMAYCHOOSE fast option. Selecting it resolves the "Banish"
+    // macro: AddGlobalEffects($player, "xnrw8qq1uw") and Tariff Ring moves from field to banish
+    // (its own activation cost, "Banish CARDNAME:"). The resulting attack-tax computation
+    // (GrandArchiveSim/Custom/CombatLogic.php's $tariffRingTax) is a combat-declaration-time
+    // computed cost with no independently stored counter beyond the global effect itself, so it's
+    // out of scope here -- the global effect's presence is the assertable, semantic proof that the
+    // ability actually fired.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'xnrw8qq1uw'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
 
 // NOTE: Lorraine, Honed Operative was attempted but abandoned -- reaching her requires two
 // sequential real champion level-ups (0 -> 1 -> 2), and while investigating an unexplained memory/

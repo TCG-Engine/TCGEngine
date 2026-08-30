@@ -2041,8 +2041,10 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($hasNonChampionObjectLink && empty(GetNonChampionObjectLinkTargets($player))) return;
 
     // Nightmare Coil (3fe3c97s71): only while your champion is distant, and only during recollection.
+    // The recollection opportunity window is open while the phase code is "BREC" (BeforeRecollection) --
+    // "REC" (RecollectionPhase()) resolves synchronously with no player-facing window.
     if($sourceObject->CardID === "3fe3c97s71") {
-        if(GetCurrentPhase() !== "RECOLLECTION") return;
+        if(GetCurrentPhase() !== "BREC") return;
         $champMZ = FindChampionMZ($player);
         if($champMZ === null) return;
         $champObj = GetZoneObject($champMZ);

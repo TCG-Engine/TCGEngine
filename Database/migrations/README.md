@@ -28,6 +28,7 @@ Apply in numeric order:
 | 08 | `08_engine_asset_versioning.sql` | Adds engine-level version aggregates and backfills existing Azuki W/L rows | Engine capability extraction |
 | 09 | `09_match_history.sql` | Creates private per-user match history with generic key-card slots | Shared simulator capability |
 | 11 | `11_discord_oauth_users.sql` | Makes `users.usersPwd` nullable + `users.discordID` unique | Discord sign-in |
+| 12 | `12_grand_archive_recollection_phase_fix.sql` | Fixes 4 `card_abilities` rows comparing a phase to the literal `"RECOLLECTION"` (never matches; real code is `"BREC"`) | GrandArchiveSim engine bug fix |
 
 The first three are **independent** of each other (disjoint tables) — the numbering is the phase order they
 were designed and tested in, and is a safe, canonical sequence. There is no cross-file dependency.
@@ -44,6 +45,10 @@ alter the SWU stats tables.
 - Migration 09 is additive and idempotent. Rows are isolated by `rootName`; each simulator may use
   up to three key-card slots and leave the rest empty. The runtime also creates the table when match
   history is first recorded or viewed.
+- Migration 12 is a **data-content** fix, not a schema change (no `ALTER TABLE`) -- it corrects
+  `card_abilities.prereq_code` text for 4 rows in the GrandArchiveSim database only. Idempotent via
+  `REPLACE()` + a `LIKE` guard; safe to re-run. After applying, regenerate GrandArchiveSim's engine
+  code so the fix reaches `GeneratedMacroCode.php`: `php zzGameCodeGenerator.php rootName=GrandArchiveSim`.
 - Migration 11 is idempotent and converges from any starting state (no `discordID` index, a
   non-unique one, or already-unique). It replaces the former standalone
   `Database/discord_oauth_migration.sql`, which lived outside this directory and so was invisible
@@ -69,3 +74,5 @@ Record where each has been applied (date / environment) as they roll out:
 - prod SWUStats DB: _pending_.
 - `swusim` local docker: 11 applied 2026-08-03.
 - petranaki.net (SWUSim): 11 _pending_ — this is what blocks Discord signup there.
+- `grandarchivesim` local docker: 12 applied 2026-08-30.
+- prod GrandArchiveSim DB: 12 _pending_.
