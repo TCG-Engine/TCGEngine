@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"myField-0","property":"TurnEffects","value":"[\"PREVENT_CHAMP_ENLIGHTEN\",\"vz4kc558yx-ACTION_ACTIVATED\"]","viewerPlayerID":1,"semantic":true,"label":"The champion is tagged with PREVENT_CHAMP_ENLIGHTEN"},
+    {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"RUqtU0Lczf","semantic":true,"label":"Spellshield: Arcane is discarded to the graveyard after resolving"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

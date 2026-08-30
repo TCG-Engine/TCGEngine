@@ -1,0 +1,17 @@
+{
+    "name": "Solar Providence draws a card, then discards a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Solar Providence's element is FIRE, matching the starting champion, so no lineage patch is needed. Without a [Class Bonus] discount, the full 2-reserve cost is paid, then both players decline the EffectStackActiveResponse opportunity window before the ability's own draw (unconditional) and discard MZCHOOSE decision resolve. The [Kongming Bonus] Shifting Currents / damage clause is out of scope.",
+    "testedCards": [
+        "gnj9hi5ult"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["gnj9hi5ult"],
+        "mechanics": ["cost", "targeting", "draw-discard"],
+        "rulesClauses": [
+            "Draw a card, then discard a card."
+        ]
+    }
+}

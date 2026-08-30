@@ -1,0 +1,17 @@
+{
+    "name": "Spellshield: Arcane tags the champion to prevent the next damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Spellshield: Arcane is an ARCANE (advanced element) ACTION card, so the starting champion's Subcards are patched with a real ARCANE champion (Lorraine, Arclight Saber) to unlock element access. Without a [Class Bonus] discount, the full 3-reserve cost is paid, and the ability's own effect (tagging the champion) resolves directly after the last reserve payment with no separate opportunity-window PASS needed. The effect is applied as a PREVENT_CHAMP_ENLIGHTEN turn-effect tag; only the tag application is covered here, not the actual prevention-plus-enlighten-gain math (which requires a subsequent damage instance to observe and is out of scope).",
+    "testedCards": [
+        "RUqtU0Lczf"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["RUqtU0Lczf"],
+        "mechanics": ["cost", "damage", "prevention"],
+        "rulesClauses": [
+            "The next time damage would be dealt to your champion this turn, prevent that damage. Put an amount of enlighten counters on your champion equal to the amount of damage prevented this way."
+        ]
+    }
+}

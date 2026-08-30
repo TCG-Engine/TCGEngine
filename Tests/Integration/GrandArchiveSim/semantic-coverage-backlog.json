@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T14:33:36+00:00",
+    "generatedAt": "2026-08-30T14:36:12+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 149,
+        "cardsWithExistingFixtures": 151,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2338,
+        "cardsNeedingSemanticCoverage": 2336,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2495,45 +2495,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "gnj9hi5ult",
-            "name": "Solar Providence",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "RUqtU0Lczf",
-            "name": "Spellshield: Arcane",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "prevention"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43534,6 +43495,53 @@
             ],
             "starterDecks": [
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "gnj9hi5ult",
+            "name": "Solar Providence",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "solar-providence-draw-discard"
+            ],
+            "semanticFixtures": [
+                "solar-providence-draw-discard"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "RUqtU0Lczf",
+            "name": "Spellshield: Arcane",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "prevention"
+            ],
+            "existingFixtures": [
+                "spellshield-arcane-prevent-tag"
+            ],
+            "semanticFixtures": [
+                "spellshield-arcane-prevent-tag"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
