@@ -1,0 +1,18 @@
+{
+    "name": "Memory Invocation banishes a floating memory card, then draws two cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Investigated as a suspected bug (a prior session found activating Memory Invocation to be a complete silent no-op) but turned out to be correct behavior: the additional cost's own precondition check (a floating-memory card must exist in the graveyard) was silently failing because that prior fixture never seeded one, hitting DoActivateCard's SetFlashMessage()+return early-out for a legitimately unmet cost -- not an engine bug. This fixture seeds Gentle Respite (ddv1au7t9m, unconditional Floating Memory, no Class-Bonus gate) directly into the graveyard as real cost fuel. Memory Invocation's element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water) to unlock element access. Materializing it opens a real MZCHOOSE for which floating-memory graveyard card to banish (mandatory, before reserve payment); after the full 3-reserve cost and a declined reactive opportunity window, the ability draws two cards.",
+    "testedCards": [
+        "io7maIjC4u"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["io7maIjC4u"],
+        "mechanics": ["cost", "zone-movement", "draw-discard"],
+        "rulesClauses": [
+            "As an additional cost to activate this card, banish a card with floating memory from your graveyard.",
+            "Draw two cards."
+        ]
+    }
+}
