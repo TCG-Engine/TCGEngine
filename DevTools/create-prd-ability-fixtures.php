@@ -4632,6 +4632,38 @@ DECK,
     ],
 ];
 
+// --- Creeping Torment: On Enter, put itself on the bottom of target champion's lineage ---
+$fixtures['creeping-torment-lineage'] = [
+    'testedCards' => ['zrplywc08c'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Creeping Torment
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Creeping Torment's element is UMBRA, so the starting champion's Subcards are patched with a
+    // real UMBRA champion (Tristan, Shadowreaver) to unlock element access. Without a [Class
+    // Bonus] discount, the full 1-reserve cost is paid, then both players decline the
+    // EffectStackActiveResponse opportunity window before the ability's own MZCHOOSE (which
+    // champion to add to the lineage) resolves, targeting our own champion.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['4upufooz13']]], // UMBRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zrplywc08c'], // Creeping Torment, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

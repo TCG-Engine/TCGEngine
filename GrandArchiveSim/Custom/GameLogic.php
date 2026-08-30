@@ -7112,6 +7112,16 @@ function OnLeaveField($player, $mzID) {
     else DecisionQueueController::StoreVariable("mzID", $previousMzID);
 }
 
+// Marks the zone object at $mzID as removed without moving it to another zone (e.g. a card
+// merging into a champion's lineage instead of going to the graveyard). Callers must invoke
+// DecisionQueueController::CleanupRemovedCards() afterward to actually prune it from its zone,
+// and call OnLeaveField() first if leave-field triggers should apply.
+function MZRemove($player, $mzID) {
+    $obj = GetZoneObject($mzID);
+    if ($obj === null) return;
+    $obj->Remove();
+}
+
 function MoveEffectStackCardToField($player, $mzCard) {
     $stackObj = GetZoneObject($mzCard);
     $cardID = $stackObj !== null ? $stackObj->CardID : "";

@@ -1,0 +1,17 @@
+{
+    "name": "Creeping Torment enters the field, then merges into target champion's lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Regression test for a fixed engine crash: Creeping Torment's On Enter ability called the previously-undefined MZRemove() function (see GrandArchiveSim/Custom/GameLogic.php), which fatally crashed the game the moment the ability tried to resolve. MZRemove() is now defined as a small helper that marks a zone object removed without moving it to another zone, matching the six call sites across GeneratedMacroCode.php and CardDQHandlers.php that already assumed it existed. Creeping Torment's element is UMBRA, so the starting champion's Subcards are patched with a real UMBRA champion (Tristan, Shadowreaver) to unlock element access. Without a [Class Bonus] discount, the full 1-reserve cost is paid; completing that reserve payment cascades directly into the ability's own MZCHOOSE (which champion to add to the lineage, targeting our own champion) with no separate opportunity-window PASS needed for this card.",
+    "testedCards": [
+        "zrplywc08c"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zrplywc08c"],
+        "mechanics": ["cost", "targeting", "zone-movement"],
+        "rulesClauses": [
+            "On Enter: Put CARDNAME on the bottom of target champion's lineage."
+        ]
+    }
+}
