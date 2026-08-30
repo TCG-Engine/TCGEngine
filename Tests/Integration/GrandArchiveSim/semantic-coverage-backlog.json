@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T14:30:05+00:00",
+    "generatedAt": "2026-08-30T14:33:36+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 148,
+        "cardsWithExistingFixtures": 149,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2339,
+        "cardsNeedingSemanticCoverage": 2338,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2341,25 +2341,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "1BkfdFqCrG",
-            "name": "Revitalizing Cleanse",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43507,6 +43488,29 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "1BkfdFqCrG",
+            "name": "Revitalizing Cleanse",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "revitalizing-cleanse-recover-draw"
+            ],
+            "semanticFixtures": [
+                "revitalizing-cleanse-recover-draw"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133

@@ -4059,6 +4059,38 @@ DECK,
     ],
 ];
 
+// --- Revitalizing Cleanse: recover X (water cards in memory), draw a card ---
+$fixtures['revitalizing-cleanse-recover-draw'] = [
+    'testedCards' => ['1BkfdFqCrG'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Revitalizing Cleanse
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF'], 'Damage' => 5]], // WATER lineage/element unlock + pre-damage so recovery is observable
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'xWJND68I8X'], // Water Barrier (WATER) - memory fuel 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'pi9ftq3sul'], // Tsunami of Nanyue (WATER) - memory fuel 2/2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '1BkfdFqCrG'], // Revitalizing Cleanse, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
