@@ -1,0 +1,17 @@
+{
+    "name": "Disintegrate destroys a target ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T09:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Disintegrate's element is FIRE (matching the starting champion), so no lineage patch is needed. Dungeon Guide (an ALLY) is seeded onto the opponent's field as the target. Without the [Class Bonus] Efficiency discount, the full 8-reserve cost is paid, which needs more fuel than a natural hand provides, so 2 extra filler cards are seeded into hand alongside Disintegrate. Being an ALLY (not an ITEM/WEAPON), the destroyed target resolves to its owner's graveyard, matching the ally-routing behavior noted in meltdown-level2-destroy-item's DoAllyDestroyed/DoSacrificeFighter chain, unlike break-apart-destroy's plain-ITEM target which also went to graveyard.",
+    "testedCards": [
+        "FhbVHkHQRb"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["FhbVHkHQRb"],
+        "mechanics": ["cost", "targeting", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Destroy target ally or regalia."
+        ]
+    }
+}

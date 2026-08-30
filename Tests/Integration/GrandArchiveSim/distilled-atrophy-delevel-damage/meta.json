@@ -1,0 +1,17 @@
+{
+    "name": "Distilled Atrophy's sacrifice delevels and damages a target champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T09:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Distilled Atrophy's element is NORM, so no lineage patch is needed. It's seeded directly onto the field with 1 age counter already present (normally only reachable via a real recollection-phase trigger) so the sacrifice ability's -X-level/damage-if-level<=0 effect is observable. The opponent's champion is level 0 by default, so -1 level brings it to -1 (<=0), triggering 1 unpreventable damage too.",
+    "testedCards": [
+        "h38lrj5221"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["h38lrj5221"],
+        "mechanics": ["targeting", "damage", "counter", "condition"],
+        "rulesClauses": [
+            "Sacrifice CARDNAME: Target champion gets -X level until end of turn. Then if that champion is level 0 or lower, deal X damage to them."
+        ]
+    }
+}

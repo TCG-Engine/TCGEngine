@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T02:26:31+00:00",
+    "generatedAt": "2026-08-30T02:35:46+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 98,
+        "cardsWithExistingFixtures": 103,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2389,
+        "cardsNeedingSemanticCoverage": 2384,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -851,49 +851,6 @@
             "priority": 114
         },
         {
-            "cardId": "P9Y1Q5cQ0F",
-            "name": "Crux Sight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "FhbVHkHQRb",
-            "name": "Disintegrate",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "UfQh069mc3",
             "name": "Disorienting Winds",
             "type": "ACTION",
@@ -910,26 +867,6 @@
             "starterDecks": [
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "h38lrj5221",
-            "name": "Distilled Atrophy",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -976,29 +913,6 @@
             "priority": 114
         },
         {
-            "cardId": "UE6g95C1nZ",
-            "name": "Equinox Hour",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "iabqeB0I6t",
             "name": "Esteemed Knight",
             "type": "ALLY",
@@ -1037,28 +951,6 @@
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck",
                 "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "RIVahUIQVD",
-            "name": "Fireball",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)",
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -43278,6 +43170,81 @@
             "priority": 134
         },
         {
+            "cardId": "P9Y1Q5cQ0F",
+            "name": "Crux Sight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "crux-sight-draw"
+            ],
+            "semanticFixtures": [
+                "crux-sight-draw"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "FhbVHkHQRb",
+            "name": "Disintegrate",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "disintegrate-destroy"
+            ],
+            "semanticFixtures": [
+                "disintegrate-destroy"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "h38lrj5221",
+            "name": "Distilled Atrophy",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "distilled-atrophy-delevel-damage"
+            ],
+            "semanticFixtures": [
+                "distilled-atrophy-delevel-damage"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "HHtlkEeyQR",
             "name": "Elysian Aspirant",
             "type": "ALLY",
@@ -43301,6 +43268,59 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "UE6g95C1nZ",
+            "name": "Equinox Hour",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "equinox-hour-banish-draw"
+            ],
+            "semanticFixtures": [
+                "equinox-hour-banish-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "RIVahUIQVD",
+            "name": "Fireball",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fireball-scaling-damage"
+            ],
+            "semanticFixtures": [
+                "fireball-scaling-damage"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)",
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 134

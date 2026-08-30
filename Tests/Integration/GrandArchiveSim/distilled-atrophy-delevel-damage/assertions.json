@@ -1,0 +1,5 @@
+[
+    {"step":2,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"1","semantic":true,"label":"Deleveling the opponent's champion to -1 (<=0) triggers 1 damage"},
+    {"step":2,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"h38lrj5221","semantic":true,"label":"Distilled Atrophy resolves to its controller's graveyard as part of its sacrifice cost"},
+    {"step":2,"type":"decision_queue_empty","player":"all"}
+]

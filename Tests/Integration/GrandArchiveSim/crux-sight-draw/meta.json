@@ -1,0 +1,17 @@
+{
+    "name": "Crux Sight draws a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T09:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Crux Sight is a CRUX (advanced element) ACTION card, so the starting champion's Subcards are patched with a real CRUX champion (Lorraine, Crux Knight). Its reserve cost is 0, so no reserve payment decisions are needed, but activating it still triggers an optional-additional-cost YESNO prompt (declined here) followed by an opportunity window. Only the always-available 'Draw a card' is covered; the optional (2) additional cost (self-banish + return a crux card from graveyard) isn't paid.",
+    "testedCards": [
+        "P9Y1Q5cQ0F"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["P9Y1Q5cQ0F"],
+        "mechanics": ["cost", "draw-discard", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Draw a card."
+        ]
+    }
+}

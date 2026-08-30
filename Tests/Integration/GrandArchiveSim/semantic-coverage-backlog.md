@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **98**
+Cards linked to an existing fixture: **103**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2389**
+Implemented cards still needing semantic coverage: **2384**
 
 ## Mechanic groups
 
@@ -66,13 +66,13 @@ Implemented cards still needing semantic coverage: **2389**
 | Creative Shock (`BqDw4Mei4C`) | ACTION | 1 | targeting, damage, draw-discard, condition | Rai Starter Deck, Rai Starter Deck (Prelude), Kongming Pantheon Starter, Zander Pantheon Starter | — |
 | Crest of the Alliance (`ojwk0pw0y6`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, trigger, condition | Tonoris Starter Deck | — |
 | Crusader of Aesa (`2Q60hBYO3i`) | ALLY | 1 | status, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
-| Crux Sight (`P9Y1Q5cQ0F`) | ACTION | 1 | cost, draw-discard, zone-movement, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
-| Disintegrate (`FhbVHkHQRb`) | ACTION | 1 | cost, targeting, zone-movement, condition | Rai Starter Deck, Kongming Pantheon Starter | — |
 | Disorienting Winds (`UfQh069mc3`) | ACTION | 1 | cost, targeting, draw-discard, zone-movement | Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
-| Distilled Atrophy (`h38lrj5221`) | ITEM | 1 | targeting, damage, counter, condition | Arisanna Pantheon Starter | — |
 | Dungeon Guide (`em6eEh9q8y`) | ALLY | 1 | cost, zone-movement, trigger, condition | Lorraine Starter Deck (Prelude), Rai Starter Deck (Prelude) | — |
 | Elyan, Lustre Loyalty (`2jgiM0p4dt`) | UNIQUE,ALLY | 1 | recover, status, trigger, condition | Zander Pantheon Starter | — |
-| Equinox Hour (`UE6g95C1nZ`) | REGALIA,ITEM | 1 | cost, targeting, draw-discard, zone-movement | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
 | Esteemed Knight (`iabqeB0I6t`) | ALLY | 1 | status, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Exia Sight (`1fy8l4pxs9`) | ACTION | 1 | cost, damage, draw-discard, condition | Dante, Hemomancer Starter Deck, Jin Starter Deck | — |
-| Fireball (`RIVahUIQVD`) | ACTION | 1 | cost, targeting, damage, condition | Rai Starter Deck, Rai Starter Deck (Prelude), Kongming Pantheon Starter | — |
+| Flash Freeze (`w3rrii17fz`) | ACTION | 1 | cost, targeting, zone-movement, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
+| Focused Flames (`145y6KBhxe`) | ACTION | 1 | cost, targeting, damage, condition | Rai Starter Deck, Rai Starter Deck (Prelude), Kongming Pantheon Starter | — |
+| Foraging Servant (`0pw0y6isxy`) | ALLY | 1 | cost, zone-movement, token, trigger | Arisanna Starter Deck | — |
+| Forging Heat (`tjmzM6t9R5`) | ACTION | 1 | cost, targeting, zone-movement, counter | Lorraine, Arclight Saber Starter Deck | — |
+| Formidable Youxia (`acmde97dbu`) | ALLY | 1 | status, combat, trigger, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |

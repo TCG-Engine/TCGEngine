@@ -1,0 +1,17 @@
+{
+    "name": "Equinox Hour draws a card (observed missing self-banish cost)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T09:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Equinox Hour's element is NORM, so no lineage patch is needed, and its memory cost (0) needs no floating-payment setup. This fixture documents a real implementation gap found while authoring it: the card text reads 'Banish CARDNAME: Draw a card...' but activateAbilityAbilities['UE6g95C1nZ:0'] (GeneratedMacroCode.php) only calls Draw()+EquinoxHourResolve() -- there is no prereq function and no case in GameLogic.php's ActivatedAbilityCost() switch for this card, unlike Charged Manaplate/Beastbond Paws which correctly self-banish on activation. Verified live: the card remains on the field after activating, and the ability has no cost at all. Flagged separately as task_f3f78343; this fixture asserts the actual (buggy) observed behavior. The opponent's optional follow-up (may materialize a card from their material deck) is declined via a trailing NO from player 2.",
+    "testedCards": [
+        "UE6g95C1nZ"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["UE6g95C1nZ"],
+        "mechanics": ["cost", "targeting", "draw-discard", "zone-movement"],
+        "rulesClauses": [
+            "Banish CARDNAME: Draw a card. Then target opponent may materialize a card from their material deck."
+        ]
+    }
+}

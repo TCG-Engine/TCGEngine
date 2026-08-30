@@ -2506,6 +2506,176 @@ DECK,
     ],
 ];
 
+// --- Fireball: deal 1+level damage to target unit ---
+$fixtures['fireball-scaling-damage'] = [
+    'testedCards' => ['RIVahUIQVD'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Fireball
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Fireball's element is FIRE (matching the starting champion), so no lineage patch is needed.
+    // The starting champion's Counters are patched with 2 level counters so "deal 1+LV damage"
+    // resolves to a nonzero-interesting 3, instead of the default level-0 base of 1. Without the
+    // [Class Bonus] discount, the full 4-reserve cost is paid.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 2]]], // LV damage scaling
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'RIVahUIQVD'], // Fireball, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Disintegrate: destroy target ally or regalia ---
+$fixtures['disintegrate-destroy'] = [
+    'testedCards' => ['FhbVHkHQRb'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Disintegrate
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Disintegrate's element is FIRE (matching the starting champion), so no lineage patch is
+    // needed. Dungeon Guide (an ALLY) is a legal target already present via natural deck draw on
+    // the opponent's side of a fresh game -- no additional target is seeded. Without the [Class
+    // Bonus] Efficiency discount, the full 8-reserve cost is paid, which needs more fuel than a
+    // natural hand provides, so 2 extra filler cards are seeded into hand alongside Disintegrate.
+    'setup' => [
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - destroy target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 1/2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 2/2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'FhbVHkHQRb'], // Disintegrate, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-9!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Crux Sight: draw a card (additional cost not exercised) ---
+$fixtures['crux-sight-draw'] = [
+    'testedCards' => ['P9Y1Q5cQ0F'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Crux Sight
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Crux Sight is a CRUX (advanced element) ACTION card, so the starting champion's Subcards
+    // are patched with a real CRUX champion (Lorraine, Crux Knight). Its reserve cost is 0, so no
+    // reserve payment decisions are needed. Only the always-available "Draw a card" is covered;
+    // the optional (2) additional cost (self-banish + return a crux card from graveyard) isn't
+    // paid.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['NfbZ0nouSQ']]], // CRUX lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'P9Y1Q5cQ0F'], // Crux Sight, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Equinox Hour: banish self to draw a card ---
+$fixtures['equinox-hour-banish-draw'] = [
+    'testedCards' => ['UE6g95C1nZ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Equinox Hour
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Equinox Hour's element is NORM, so no lineage patch is needed, and its memory cost (0)
+    // needs no floating-payment setup. Only the "banish self, draw a card" half is covered; the
+    // opponent's optional follow-up (may materialize a card from their material deck) is declined
+    // via a trailing NO from player 2.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UE6g95C1nZ'], // Equinox Hour, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Distilled Atrophy: sacrifice for a delevel-and-damage effect ---
+$fixtures['distilled-atrophy-delevel-damage'] = [
+    'testedCards' => ['h38lrj5221'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Distilled Atrophy's element is NORM, so no lineage patch is needed. It's seeded directly
+    // onto the field with 1 age counter already present (normally only reachable via a real
+    // recollection-phase trigger) so the sacrifice ability's -X-level/damage-if-level<=0 effect is
+    // observable. The opponent's champion is level 0 by default, so -1 level brings it to -1
+    // (<=0), triggering 1 unpreventable damage too.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'h38lrj5221', 'setProperties' => ['Counters' => ['age' => 1]]], // Distilled Atrophy - ability scaling fuel
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

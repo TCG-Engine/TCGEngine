@@ -1,0 +1,4 @@
+[
+    {"step":7,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"3","semantic":true,"label":"Base 1 damage plus our champion's 2 level counters = 3"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]
