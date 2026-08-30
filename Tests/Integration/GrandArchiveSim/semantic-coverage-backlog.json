@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T15:15:44+00:00",
+    "generatedAt": "2026-08-30T15:20:23+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 163,
+        "cardsWithExistingFixtures": 164,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2324,
+        "cardsNeedingSemanticCoverage": 2323,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -4756,23 +4756,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "XgnBkRQgg1",
-            "name": "Blistering Insurgent",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -43592,6 +43575,27 @@
                 "Jin Starter Deck",
                 "Kongming Starter Deck",
                 "Lorraine Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "XgnBkRQgg1",
+            "name": "Blistering Insurgent",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "blistering-insurgent-attack-buff"
+            ],
+            "semanticFixtures": [
+                "blistering-insurgent-attack-buff"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

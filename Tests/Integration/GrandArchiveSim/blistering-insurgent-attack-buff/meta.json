@@ -1,0 +1,17 @@
+{
+    "name": "Blistering Insurgent gets +1 power on the champion's first attack each turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Blistering Insurgent's element is FIRE, matched by the default starting champion (Spirit of Fire), so no lineage patch is needed. The champion has 0 printed power (it normally attacks via an equipped weapon), so its Counters are patched with a 'potion_animate_power' override to give it positive power without needing to also equip and select a weapon during the attack declaration. Per Rule 1.h the first player can't attack on turn 1, so both players end their turn once (P1 -> P2 -> P1) to reach turn 3; entering a new turn opens a material-phase MZMAYCHOOSE (whether to materialize from the material deck) that is declined with a PASS before the main phase becomes available. Blistering Insurgent is then materialized (no [Class Bonus] discount, full 2-reserve cost) and the champion declares an attack (mode 10002 FSM on myField-0) against the opposing champion; the trigger fires as soon as the attack is declared, tagging Blistering Insurgent's TurnEffects with the +1 power effect, independent of how the rest of combat resolves.",
+    "testedCards": [
+        "XgnBkRQgg1"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["XgnBkRQgg1"],
+        "mechanics": ["trigger", "status", "combat"],
+        "rulesClauses": [
+            "Whenever your champion attacks for the first time each turn, CARDNAME gets +1[POWER] until end of turn."
+        ]
+    }
+}
