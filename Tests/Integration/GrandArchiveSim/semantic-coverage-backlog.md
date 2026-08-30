@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **121**
+Cards linked to an existing fixture: **125**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2366**
+Implemented cards still needing semantic coverage: **2362**
 
 ## Mechanic groups
 
@@ -73,6 +73,6 @@ Implemented cards still needing semantic coverage: **2366**
 | Lightveil Agent (`jcaLgesx0e`) | ALLY | 1 | recover, counter, status, trigger | Zander Pantheon Starter | — |
 | Lorraine, Spirit Ruler (`n2TKqNaODR`) | CHAMPION | 1 | cost, targeting, zone-movement, trigger | Lorraine Pantheon Starter | — |
 | Mana Limiter (`IC3OU6vCnF`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
-| Mark the Target (`LRsgl92Iqa`) | ACTION | 1 | targeting, damage, counter, condition | Zander Pantheon Starter | — |
 | Meadowbloom Dryad (`cVRIUJdTW5`) | ALLY | 1 | targeting, zone-movement, counter, trigger | Silvie Starter Deck | — |
-| Meteor Strike (`dwavcoxpnj`) | ACTION | 1 | targeting, damage, zone-movement, condition | Arisanna Pantheon Starter | — |
+| Orb of Choking Fumes (`llQe0cg4xJ`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Zander Pantheon Starter | — |
+| Planar Abyss (`qexcwmx2ug`) | ACTION | 1 | cost, damage, zone-movement, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |

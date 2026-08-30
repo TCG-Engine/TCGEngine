@@ -1,0 +1,17 @@
+{
+    "name": "Meteor Strike destroys target non-champion object when not starcalled",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Meteor Strike is an ASTRA (advanced element) ACTION card, so the starting champion's Subcards are patched with a real ASTRA champion (Arisanna, Astral Zenith) to unlock element access, reused from dwarf-stars-glow-damage/cosmic-bolt-damage/cometfall-sweep-damage. Without a [Class Bonus] discount, the full 3-reserve cost is paid. Since the card is never starcalled in this fixture, the wasStarcalled DQ variable is unset/NO, so the ability's else-branch fires immediately: an MZCHOOSE target decision is queued directly after the last reserve payment (no separate opportunity-window PASS in between, unlike simpler damage cards), destroying the chosen Dungeon Guide seeded onto the opponent's field. The Starcalling (3) alternate-timing AoE-damage clause is out of scope.",
+    "testedCards": [
+        "dwavcoxpnj"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["dwavcoxpnj"],
+        "mechanics": ["cost", "targeting", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Otherwise, it has \"Destroy target non-champion object.\""
+        ]
+    }
+}

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T04:18:32+00:00",
+    "generatedAt": "2026-08-30T05:51:26+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 121,
+        "cardsWithExistingFixtures": 125,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2366,
+        "cardsNeedingSemanticCoverage": 2362,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1011,26 +1011,6 @@
             "priority": 114
         },
         {
-            "cardId": "LRsgl92Iqa",
-            "name": "Mark the Target",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "cVRIUJdTW5",
             "name": "Meadowbloom Dryad",
             "type": "ALLY",
@@ -1046,48 +1026,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "dwavcoxpnj",
-            "name": "Meteor Strike",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "vajycopxgf",
-            "name": "Nascent Blast",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck",
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -1129,26 +1067,6 @@
             "starterDecks": [
                 "Kongming Starter Deck",
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "5X5W2Uda5a",
-            "name": "Planted Explosive",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -43370,6 +43288,104 @@
             ],
             "semanticFixtures": [
                 "juggle-knives-damage-champion"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "LRsgl92Iqa",
+            "name": "Mark the Target",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mark-the-target-damage"
+            ],
+            "semanticFixtures": [
+                "mark-the-target-damage"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "dwavcoxpnj",
+            "name": "Meteor Strike",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "meteor-strike-destroy"
+            ],
+            "semanticFixtures": [
+                "meteor-strike-destroy"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "vajycopxgf",
+            "name": "Nascent Blast",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "nascent-blast-damage"
+            ],
+            "semanticFixtures": [
+                "nascent-blast-damage"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck",
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "5X5W2Uda5a",
+            "name": "Planted Explosive",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "planted-explosive-damage"
+            ],
+            "semanticFixtures": [
+                "planted-explosive-damage"
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
