@@ -5137,6 +5137,22 @@ DECK,
     ],
 ];
 
+// NOTE: Lorraine, Honed Operative was attempted but abandoned -- reaching her requires two
+// sequential real champion level-ups (0 -> 1 -> 2), and while investigating an unexplained memory/
+// hand discrepancy after the first level-up, a genuine cross-tool nondeterminism surfaced:
+// Core/DeterministicRNG.php's EngineDeterministicHashMaterial() derives its RNG stream from a hash
+// of the ENTIRE current game state, so two harnesses that reach the "same" point in a script via
+// different bootstrap paths (create-prd-ability-fixtures.php's live run vs. dump-fixture-state.php's
+// fresh replay from a saved initial_gamestate.txt snapshot) can diverge on any subsequent
+// state-hash-seeded random call -- observed live as memory going 5->0 and hand jumping +5 in one
+// tool's replay of the exact same actions.json that the other tool (and the saved
+// expected_final_gamestate.txt) shows resolving sanely. Separately, Lorraine, Honed Operative's own
+// ability (GrandArchiveSim/Custom/CardDQHandlers.php, customDQHandlers["LorraineHonedOperativeBanishMemory"])
+// uses plain PHP shuffle() rather than the engine's EngineShuffle() wrapper, so its random-card pick
+// is not even routed through the deterministic RNG at all. Both are real engine-level findings, not
+// fixed here (out of scope for a fixture-authoring pass, and the second is in a generated file with
+// no local editable source).
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
