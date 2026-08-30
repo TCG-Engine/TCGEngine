@@ -1,0 +1,17 @@
+{
+    "name": "Dwarf Star's Glow deals 2 damage to target unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T03:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Dwarf Star's Glow is an ASTRA (advanced element) ACTION card, so the starting champion's Subcards are patched with a real ASTRA champion (Arisanna, Astral Zenith) to unlock element access. Targets the opponent's champion directly for a straightforward damage assertion. The Starcalling alternate-cost clause and the 'if starcalled, put into memory' clause are tied to the separate glimpse subsystem and are out of scope (this fixture pays the normal reserve cost).",
+    "testedCards": [
+        "zVubkJC3ce"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zVubkJC3ce"],
+        "mechanics": ["cost", "targeting", "damage", "condition"],
+        "rulesClauses": [
+            "Deal 2 damage to target unit."
+        ]
+    }
+}

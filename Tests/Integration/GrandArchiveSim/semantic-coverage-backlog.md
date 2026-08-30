@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **68**
+Cards linked to an existing fixture: **73**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2419**
+Implemented cards still needing semantic coverage: **2414**
 
 ## Mechanic groups
 
@@ -39,22 +39,17 @@ Implemented cards still needing semantic coverage: **2419**
 | Distilled Water (`O1OU62Zx2Y`) | ITEM | 2 | draw-discard, condition | Arisanna Pantheon Starter | — |
 | Necklace of Foresight (`lq2kkvoqk1`) | REGALIA,ITEM | 2 | cost, zone-movement | Arisanna Starter Deck | — |
 | Smash with Obelisk (`2kkvoqk1l7`) | ATTACK | 2 | cost | Tonoris Starter Deck | — |
-| Aenean Ward (`gqyWZXpxl9`) | ACTION | 1 | targeting, damage, prevention, draw-discard, condition | Dante, Hemomancer Starter Deck | — |
-| Aesan Protector (`heq49UQGvQ`) | ALLY | 1 | targeting, zone-movement, status, combat, trigger | Lorraine Pantheon Starter | — |
 | Assassin's Mantle (`3tcs0axa03`) | REGALIA,ITEM | 1 | damage, prevention, zone-movement, counter, condition | Zander Pantheon Starter | — |
 | Barrier Servant (`xW6SZSlJX6`) | ALLY | 1 | damage, prevention, status, combat, trigger | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Corhazi Courier (`YqQsXwEvv5`) | ALLY | 1 | targeting, damage, draw-discard, status, combat, condition | Zander Pantheon Starter | — |
-| Coriolis Ward (`cagz0393zq`) | ACTION | 1 | targeting, damage, prevention, draw-discard, condition | Kongming Starter Deck | — |
 | Cosmic Bolt (`vpmu6gvnta`) | ACTION | 1 | cost, targeting, damage, zone-movement, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Creeping Torment (`zrplywc08c`) | PHANTASIA | 1 | targeting, damage, draw-discard, trigger, condition | Diana Starter Deck | — |
 | Dream Fairy (`UVAb8CmjtL`) | ALLY | 1 | targeting, zone-movement, status, trigger, condition | Lorraine Starter Deck (Prelude) | — |
-| Dwarf Star's Glow (`zVubkJC3ce`) | ACTION | 1 | cost, targeting, damage, zone-movement, condition | Arisanna Pantheon Starter | — |
 | Emberslash (`0xylS3OcNa`) | ATTACK | 1 | cost, draw-discard, combat, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Entrenched Fortress (`PWkXI6rMl3`) | DOMAIN | 1 | targeting, damage, status, combat, trigger, condition | Kongming Pantheon Starter | — |
 | Essence Crucible (`DF5Ffwv7DJ`) | REGALIA,ITEM | 1 | damage, draw-discard, counter, trigger, condition | Arisanna Pantheon Starter | — |
 | Essence of Blizzards (`k1l75tlzsm`) | ITEM | 1 | cost, targeting, damage, status, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Evasive Maneuvers (`1n3gygojwk`) | ACTION | 1 | targeting, damage, prevention, status, condition | Diana Starter Deck | — |
-| Exploit Vulnerability (`hy83sghwfi`) | ACTION | 1 | targeting, draw-discard, zone-movement, counter, condition | Zander Pantheon Starter | — |
 | Extraction Incision (`zthwm68lgo`) | ATTACK | 1 | targeting, counter, status, combat, condition | Zander Pantheon Starter | — |
 | FlameTech BladeCore (`aAJliPQT3F`) | ITEM | 1 | targeting, damage, draw-discard, zone-movement, counter, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Hydroguard Retainer (`0qm7n87o4s`) | ALLY | 1 | draw-discard, status, combat, trigger, condition | Kongming Starter Deck | — |
@@ -76,3 +71,8 @@ Implemented cards still needing semantic coverage: **2419**
 | Swerving Spring (`vj6vmuuldt`) | ACTION | 1 | targeting, damage, prevention, counter, condition | Zander Pantheon Starter | — |
 | Swift Recruit (`mHd6LLyMyF`) | ALLY | 1 | cost, zone-movement, status, combat, trigger | Jin Starter Deck, Lorraine Starter Deck, Lorraine Pantheon Starter | — |
 | Taiji of Crystal Strategems (`l17uc67eaq`) | PHANTASIA | 1 | cost, targeting, damage, status, trigger | Kongming Starter Deck | — |
+| Worn Gearblade (`r1o0qtb31x`) | REGALIA,WEAPON | 1 | targeting, damage, prevention, counter, trigger | Tonoris Starter Deck | — |
+| Zander, Deft Executor (`fc4ic5fmaa`) | CHAMPION | 1 | zone-movement, counter, combat, trigger, condition | Zander Pantheon Starter | — |
+| Aenean Frostlance (`NXGaB1dYwL`) | ACTION | 1 | targeting, damage, status, condition | Dante, Hemomancer Starter Deck | — |
+| Airship Engineer (`66pv4n1n3g`) | ALLY | 1 | draw-discard, status, trigger, condition | Diana Starter Deck | — |
+| Alpha Philterbeast (`NwK5wge8wy`) | ALLY | 1 | cost, counter, trigger, condition | Arisanna Pantheon Starter | — |

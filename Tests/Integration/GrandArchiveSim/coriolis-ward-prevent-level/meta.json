@@ -1,0 +1,17 @@
+{
+    "name": "Coriolis Ward prevents the next 1+level damage to target unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T03:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Coriolis Ward's element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water) to unlock element access. The champion is level 0 by default, so the prevention amount resolves to the base 1+0=1. The 'Shifting Currents face West' bonus draw is tied to a separate facing-state subsystem and is out of scope.",
+    "testedCards": [
+        "cagz0393zq"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["cagz0393zq"],
+        "mechanics": ["targeting", "damage", "prevention", "condition"],
+        "rulesClauses": [
+            "Prevent the next 1+LV damage that would be dealt to target unit this turn."
+        ]
+    }
+}

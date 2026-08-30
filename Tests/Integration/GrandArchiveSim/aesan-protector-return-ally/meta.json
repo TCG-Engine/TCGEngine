@@ -1,0 +1,17 @@
+{
+    "name": "Aesan Protector's On Enter returns a friendly ally to hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T03:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Aesan Protector's element is WIND, so the starting champion's Subcards are patched with a real WIND champion (Spirit of Wind), same as deployment-beacon-summon-drone/reclaim-return-ally/winds-of-retribution-ally-buff. A separate Dungeon Guide is seeded onto our own field as the On Enter return-to-hand target. Only the On Enter is covered; Intercept is a combat-redirect passive that requires a real attack and is out of scope.",
+    "testedCards": [
+        "heq49UQGvQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["heq49UQGvQ"],
+        "mechanics": ["targeting", "zone-movement", "trigger"],
+        "rulesClauses": [
+            "On Enter: Return target ally you control to its owner's hand."
+        ]
+    }
+}

@@ -1482,6 +1482,175 @@ DECK,
     ],
 ];
 
+// --- Aenean Ward: prevent the next 2 damage to target unit ---
+$fixtures['aenean-ward-prevent-2'] = [
+    'testedCards' => ['gqyWZXpxl9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Aenean Ward
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Aenean Ward's element is NORM, so no lineage patch is needed. Only the base always-available
+    // prevention is covered; the [Class Bonus][Level 3+] bonus draw isn't reached (no class bonus
+    // or level condition set up), and targets our own champion directly.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'gqyWZXpxl9'], // Aenean Ward, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Aesan Protector: On Enter return target friendly ally to hand ---
+$fixtures['aesan-protector-return-ally'] = [
+    'testedCards' => ['heq49UQGvQ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Aesan Protector
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Aesan Protector's element is WIND, so the starting champion's Subcards are patched with a
+    // real WIND champion (Spirit of Wind), same as deployment-beacon-summon-drone/
+    // reclaim-return-ally/winds-of-retribution-ally-buff. A second Dungeon Guide is seeded onto
+    // our own field as the On Enter return-to-hand target (so it's a different object from Aesan
+    // Protector itself, which is also a legal-looking ally once it enters). Only the On Enter is
+    // covered; Intercept is a combat-redirect passive that requires a real attack and is out of
+    // scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - On Enter return target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'heq49UQGvQ'], // Aesan Protector, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Coriolis Ward: prevent the next 1+level damage to target unit ---
+$fixtures['coriolis-ward-prevent-level'] = [
+    'testedCards' => ['cagz0393zq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Coriolis Ward
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Coriolis Ward's element is WATER, so the starting champion's Subcards are patched with a
+    // real WATER champion (Spirit of Water) to unlock element access. The champion is level 0 by
+    // default, so the prevention amount resolves to the base 1+0=1. The "Shifting Currents face
+    // West" bonus draw is tied to a separate facing-state subsystem and is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cagz0393zq'], // Coriolis Ward, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Dwarf Star's Glow: deal 2 damage to target unit ---
+$fixtures['dwarf-stars-glow-damage'] = [
+    'testedCards' => ['zVubkJC3ce'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dwarf Star's Glow
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Dwarf Star's Glow is an ASTRA (advanced element) ACTION card, so the starting champion's
+    // Subcards are patched with a real ASTRA champion (Arisanna, Astral Zenith) to unlock element
+    // access. Targets the opponent's champion directly for a straightforward damage assertion.
+    // The Starcalling alternate-cost clause and the "if starcalled, put into memory" clause are
+    // tied to the separate glimpse subsystem and are out of scope (this fixture pays the normal
+    // reserve cost).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], // ASTRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zVubkJC3ce'], // Dwarf Star's Glow, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Exploit Vulnerability: draw a card (Prepare 1 optional cost not exercised) ---
+$fixtures['exploit-vulnerability-draw'] = [
+    'testedCards' => ['hy83sghwfi'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Exploit Vulnerability
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Exploit Vulnerability's element is NORM, so no lineage patch is needed. The always-available
+    // "Draw a card" is covered regardless of the optional Prepare 1 cost; the Assassin On Ally Hit
+    // buff (gated behind actually paying that optional cost) is out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'hy83sghwfi'], // Exploit Vulnerability, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
