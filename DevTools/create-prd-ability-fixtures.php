@@ -5137,6 +5137,97 @@ DECK,
     ],
 ];
 
+// --- Lorraine, Arclight Saber: On Enter LV static counters + 1 per banished arcane card ---
+$fixtures['lorraine-arclight-saber-enter-counters'] = [
+    'testedCards' => ['x9sSpjpP3G'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Arclight Saber
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lorraine, Arclight Saber is level 3, one level above a level-2 champion. Rather than
+    // grinding out two real prior level-ups, the starting champion's CardID is patched directly
+    // to Lorraine, Blademaster (TJTeWcZnsQ, level 2) -- CanChampionLevelUpIntoCard only checks the
+    // CURRENT champion's own printed CardLevel, not lineage, so this satisfies the "current+1"
+    // legality gate for one real level-up into Lorraine, Arclight Saber. Her own On Enter ability
+    // (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php, enterAbilities["x9sSpjpP3G:0"]) reads
+    // PlayerLevel($player) *after* she is already the field champion, so it correctly returns her
+    // own level (3) regardless of how she got there. Two ARCANE cards are seeded directly into
+    // banishment so the ability's "for each of up to seven arcane element cards in your
+    // banishment" clause adds 2 more, for 3+2=5 total static counters. Her 3-memory level-up cost
+    // is paid from 3 filler memory-zone cards.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']], // Lorraine, Blademaster (level 2, WARRIOR) - level-up precondition
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'F1JIgewvFI'], // Fulminator, Rising Storm (ARCANE) - banished arcane card #1
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => '6eWmfzAmWr'], // Surged Coordinator (ARCANE) - banished arcane card #2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Venous Core: additional materialize cost - sacrifice an Elysian ally ---
+$fixtures['venous-core-sacrifice-cost'] = [
+    'testedCards' => ['YTO70fFsBY'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Windslice
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Venous Core's element is EXIA (Dante's advanced element), so the starting champion's CardID
+    // is patched directly to Dante, Hemomancer to unlock it. Venous Core is REGALIA, and
+    // GrandArchiveSim/Custom/GameLogic.php's HandAddReplacement() unconditionally redirects any
+    // REGALIA card added to hand into the material deck instead (this is a real engine rule --
+    // REGALIA cards can never sit in hand -- confirmed live: seeding 'zone'=>'myHand' for her
+    // silently landed her in myMaterial, not myHand), so she is played via the normal
+    // material-phase MZMAYCHOOSE rather than a hand FSM click. An Elysian Test Subject token
+    // (3DCP7WmBpx, reserve cost 0) is seeded onto the field as the sacrifice fodder for Venous
+    // Core's additional materialize cost (GrandArchiveSim/Custom/MaterializeLogic.php,
+    // "Venous Core (YTO70fFsBY): additional cost to materialize - sacrifice an Elysian ally"),
+    // which offers an MZCHOOSE among Elysian allies before paying the 1-memory printed cost from a
+    // seeded memory-zone filler card. The +5 LIFE aura and [Dante Bonus] can't-be-negated clause
+    // are pure derived-stat/state effects with no stored counter or flag to assert (consistent
+    // with the established rule that computed stat buffs aren't directly assertable in this
+    // framework) and are out of scope here -- only the sacrifice cost itself is tested.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '4FtNBFaOJp']], // become Dante, Hemomancer (EXIA unlock)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '3DCP7WmBpx'], // Elysian Test Subject token - sacrifice fodder
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'YTO70fFsBY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // NOTE: Lorraine, Honed Operative was attempted but abandoned -- reaching her requires two
 // sequential real champion level-ups (0 -> 1 -> 2), and while investigating an unexplained memory/
 // hand discrepancy after the first level-up, a genuine cross-tool nondeterminism surfaced:

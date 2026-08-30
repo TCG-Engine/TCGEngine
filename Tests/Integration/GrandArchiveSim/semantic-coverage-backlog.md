@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **174**
+Cards linked to an existing fixture: **181**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2313**
+Implemented cards still needing semantic coverage: **2307**
 
 ## Mechanic groups
 
@@ -26,6 +26,7 @@ Implemented cards still needing semantic coverage: **2313**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
+| Fulminator, Rising Storm (`F1JIgewvFI`) | REGALIA,WEAPON | 1 | damage, counter, trigger | Lorraine, Arclight Saber Starter Deck | fulminator-rising-storm-lorraine-bonus |
 | Samaritan's Reach (`MskPCrbv0L`) | ACTION | 2 | cost, targeting, damage, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
 | Slay the King (`6v374coy34`) | ATTACK | 2 | zone-movement, combat, trigger, condition | Lorraine Pantheon Starter | — |
 | Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
@@ -75,4 +76,3 @@ Implemented cards still needing semantic coverage: **2313**
 | Planar Abyss (`qexcwmx2ug`) | ACTION | 1 | cost, damage, zone-movement, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |
 | Plated Bullet (`l75tlzsmw3`) | REGALIA,ITEM | 1 | targeting, zone-movement, combat, condition | Diana Starter Deck | — |
 | Potion Infusion: Clarity (`300z2snsdw`) | ACTION | 1 | cost, targeting, draw-discard, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
-| Quickdraw Piercer (`j4f15joh30`) | REGALIA,WEAPON | 1 | draw-discard, zone-movement, combat, condition | Diana Starter Deck | — |

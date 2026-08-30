@@ -1,0 +1,17 @@
+{
+    "name": "Venous Core's additional materialize cost sacrifices an Elysian ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Venous Core's element is EXIA (Dante's advanced element), so the starting champion's CardID is patched directly to Dante, Hemomancer to unlock it. Venous Core is REGALIA, and GrandArchiveSim/Custom/GameLogic.php's HandAddReplacement() unconditionally redirects any REGALIA card added to hand into the material deck instead (a real engine rule -- REGALIA cards can never sit in hand -- confirmed live: seeding 'zone'=>'myHand' for her silently landed her in myMaterial, not myHand), so she is played via the normal material-phase MZMAYCHOOSE rather than a hand FSM click. Dante's own activated Empower ability offers an optional MZMAYCHOOSE opportunity window at the start of every phase transition, so extra PASSes are needed to decline it and reach the material-phase prompt. An Elysian Test Subject token (3DCP7WmBpx, reserve cost 0) is seeded onto the field as the sacrifice fodder for Venous Core's additional materialize cost (GrandArchiveSim/Custom/MaterializeLogic.php, 'Venous Core (YTO70fFsBY): additional cost to materialize - sacrifice an Elysian ally'), which offers an MZCHOOSE among Elysian allies before paying the 1-memory printed cost from a seeded memory-zone filler card. Because the sacrificed ally is a TOKEN, DoAllyDestroyed's attempt to move it to the graveyard is blocked by TokenCeaseBeforeAdd (tokens cease to exist rather than lingering in any zone), so the graveyard stays empty rather than gaining an entry. The +5 LIFE aura and [Dante Bonus] can't-be-negated clause are pure derived-stat/state effects with no stored counter or flag to assert (consistent with the established rule that computed stat buffs aren't directly assertable in this framework) and are out of scope here -- only the sacrifice cost itself is tested.",
+    "testedCards": [
+        "YTO70fFsBY"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["YTO70fFsBY"],
+        "mechanics": ["cost", "zone-movement"],
+        "rulesClauses": [
+            "As an additional cost to materialize this card, sacrifice an Elysian ally."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Lorraine, Arclight Saber's On Enter puts LV static counters, plus 1 per banished arcane card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Lorraine, Arclight Saber is level 3, one level above a level-2 champion. Rather than grinding out two real prior level-ups, the starting champion's CardID is patched directly to Lorraine, Blademaster (TJTeWcZnsQ, level 2) -- CanChampionLevelUpIntoCard only checks the current champion's own printed CardLevel, not lineage, so this satisfies the current+1 legality gate for one real level-up into Lorraine, Arclight Saber. Her own On Enter ability (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php, enterAbilities[\"x9sSpjpP3G:0\"]) reads PlayerLevel($player) after she is already the field champion, so it correctly returns her own level (3) regardless of how she got there. Two ARCANE cards are seeded directly into banishment so the ability's 'for each of up to seven arcane element cards in your banishment' clause adds 2 more, for 3+2=5 total static counters. Her 3-memory level-up cost is paid from 3 filler memory-zone cards, which the engine banishes as spent memory (not to the graveyard), so the final banishment count is 2 seeded arcane cards + 3 spent memory cards = 5.",
+    "testedCards": [
+        "x9sSpjpP3G"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["x9sSpjpP3G"],
+        "mechanics": ["cost", "zone-movement", "counter", "trigger"],
+        "rulesClauses": [
+            "On Enter: Put LV static counters on Lorraine. Then for each of up to seven arcane element cards in your banishment, put another static counter on Lorraine."
+        ]
+    }
+}

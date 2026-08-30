@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T16:35:47+00:00",
+    "generatedAt": "2026-08-30T18:41:38+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 174,
+        "cardsWithExistingFixtures": 181,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2313,
+        "cardsNeedingSemanticCoverage": 2307,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,6 +26,27 @@
         }
     },
     "cards": [
+        {
+            "cardId": "F1JIgewvFI",
+            "name": "Fulminator, Rising Storm",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "fulminator-rising-storm-lorraine-bonus"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": true,
+            "priority": 133
+        },
         {
             "cardId": "MskPCrbv0L",
             "name": "Samaritan's Reach",
@@ -1687,25 +1708,6 @@
             "priority": 113
         },
         {
-            "cardId": "F1JIgewvFI",
-            "name": "Fulminator, Rising Storm",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "sHzSmygjWY",
             "name": "Gaia's Songbird",
             "type": "ALLY",
@@ -1818,25 +1820,6 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "x9sSpjpP3G",
-            "name": "Lorraine, Arclight Saber",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2072,25 +2055,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "172utOanGk",
-            "name": "Pure Cytosynth",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2345,25 +2309,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "6eWmfzAmWr",
-            "name": "Surged Coordinator",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -3003,24 +2948,6 @@
             "priority": 112
         },
         {
-            "cardId": "apVtyt48u3",
-            "name": "Dante, Prodigal Swain",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "znk6g5o8ys",
             "name": "Dazzling Courtesan",
             "type": "ALLY",
@@ -3219,26 +3146,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "cWJqSwhKEQ",
-            "name": "Honorable Vanguard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck",
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -4311,24 +4218,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "YTO70fFsBY",
-            "name": "Venous Core",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -43080,6 +42969,29 @@
             "priority": 133
         },
         {
+            "cardId": "x9sSpjpP3G",
+            "name": "Lorraine, Arclight Saber",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "lorraine-arclight-saber-enter-counters"
+            ],
+            "semanticFixtures": [
+                "lorraine-arclight-saber-enter-counters"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "io7maIjC4u",
             "name": "Memory Invocation",
             "type": "ACTION",
@@ -43191,6 +43103,29 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "172utOanGk",
+            "name": "Pure Cytosynth",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pure-cytosynth-dante-bonus-empower"
+            ],
+            "semanticFixtures": [
+                "pure-cytosynth-dante-bonus-empower"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -43456,6 +43391,29 @@
             "priority": 133
         },
         {
+            "cardId": "6eWmfzAmWr",
+            "name": "Surged Coordinator",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "surged-coordinator-class-bonus-counters"
+            ],
+            "semanticFixtures": [
+                "surged-coordinator-class-bonus-counters"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "2ugmnmp5af",
             "name": "Take Cover",
             "type": "ACTION",
@@ -43524,6 +43482,52 @@
             "priority": 132
         },
         {
+            "cardId": "apVtyt48u3",
+            "name": "Dante, Prodigal Swain",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "dante-prodigal-swain-summon-token"
+            ],
+            "semanticFixtures": [
+                "dante-prodigal-swain-summon-token"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "cWJqSwhKEQ",
+            "name": "Honorable Vanguard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "honorable-vanguard-floating-memory"
+            ],
+            "semanticFixtures": [
+                "honorable-vanguard-floating-memory"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck",
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "DpHDGaX2Pn",
             "name": "Lorraine, Wandering Warrior",
             "type": "CHAMPION",
@@ -43567,6 +43571,28 @@
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck",
                 "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "YTO70fFsBY",
+            "name": "Venous Core",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage"
+            ],
+            "existingFixtures": [
+                "venous-core-sacrifice-cost"
+            ],
+            "semanticFixtures": [
+                "venous-core-sacrifice-cost"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
