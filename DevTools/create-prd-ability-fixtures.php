@@ -4266,6 +4266,103 @@ DECK,
     ],
 ];
 
+// --- Safeguard Amulet: banish self to prevent 4 non-combat damage to champion this turn ---
+$fixtures['safeguard-amulet-prevent'] = [
+    'testedCards' => ['yj2rJBREH8'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Nascent Blast
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Safeguard Amulet's element is NORM, so no lineage patch is needed. It is seeded directly
+    // onto the field (REGALIA convention). Its ability is banish-self at zero reserve cost, so
+    // one CustomInput Activate click both tags the champion with the prevent-4 turn effect and
+    // moves the amulet to myBanish. Nascent Blast (also NORM) is then played and its own MZCHOOSE
+    // target is pointed at our own champion (myField-0, "target unit" allows own side) instead of
+    // an opponent's ally, dealing 3 non-combat damage that the prevention fully absorbs. The
+    // prevention's exact 4-point ceiling isn't independently proven (3 < 4 either way), only that
+    // the 3 damage dealt is fully prevented.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'yj2rJBREH8'], // Safeguard Amulet (REGALIA)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vajycopxgf'], // Nascent Blast, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Shard of Empowerment: banish self, Empower 2 ---
+$fixtures['shard-of-empowerment-buff'] = [
+    'testedCards' => ['qqq8j5fxym'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Windslice
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Shard of Empowerment's element is NORM. Seeded directly onto the field (REGALIA
+    // convention), its ability is banish-self at zero reserve cost: one CustomInput Activate
+    // click both empowers the champion by 2 and moves the shard to myBanish. Empower() tags the
+    // champion's TurnEffects with the source card ID, EMPOWERED, and EMPOWER_PLUS_2.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'qqq8j5fxym'], // Shard of Empowerment (REGALIA)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Bauble of Abundance: banish self, each player draws a card ---
+$fixtures['bauble-of-abundance-draw'] = [
+    'testedCards' => ['Z9TCpaMJTc'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Windslice
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Bauble of Abundance's element is NORM. Seeded directly onto the field (REGALIA
+    // convention), its ability is banish-self at zero reserve cost: one CustomInput Activate
+    // click draws a card for both the activating player and the opponent, then moves the
+    // bauble to myBanish.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Z9TCpaMJTc'], // Bauble of Abundance (REGALIA)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

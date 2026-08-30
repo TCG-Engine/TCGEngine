@@ -1,0 +1,17 @@
+{
+    "name": "Safeguard Amulet banishes itself to prevent 4 non-combat damage to the champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Safeguard Amulet's element is NORM, so no lineage patch is needed; it is seeded directly onto the field (REGALIA convention). Its ability is banish-self at zero reserve cost: a single CustomInput Activate click tags the champion with a prevent-4-non-combat-damage turn effect and moves the amulet to myBanish. Activating it opens a reactive opportunity window (this particular hand draw happens to contain a reaction-speed card) that is declined with a single P1 PASS before continuing. Nascent Blast (also NORM) is then played and its own MZCHOOSE target is pointed at our own champion (myField-0 -- 'target unit' allows targeting your own side) instead of an opponent's ally, dealing 3 non-combat damage that the prevention fully absorbs. Because 3 < 4, the exact 4-point prevention ceiling isn't independently proven here, only that the 3 damage dealt is fully prevented.",
+    "testedCards": [
+        "yj2rJBREH8"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["yj2rJBREH8"],
+        "mechanics": ["cost", "prevention", "zone-movement", "damage"],
+        "rulesClauses": [
+            "Banish CARDNAME: If your champion would take non-combat damage this turn, prevent 4 of that damage."
+        ]
+    }
+}

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T14:44:39+00:00",
+    "generatedAt": "2026-08-30T15:03:21+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 155,
+        "cardsWithExistingFixtures": 158,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2332,
+        "cardsNeedingSemanticCoverage": 2329,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1168,32 +1168,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "yj2rJBREH8",
-            "name": "Safeguard Amulet",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck",
-                "Lorraine, Arclight Saber Starter Deck",
-                "Jin Starter Deck",
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -4226,25 +4200,6 @@
             "priority": 112
         },
         {
-            "cardId": "qqq8j5fxym",
-            "name": "Shard of Empowerment",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck",
-                "Kongming Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "RfPP8h16Wv",
             "name": "Silvie, Wilds Whisperer",
             "type": "CHAMPION",
@@ -4842,27 +4797,6 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "Z9TCpaMJTc",
-            "name": "Bauble of Abundance",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck",
-                "Lorraine, Arclight Saber Starter Deck",
-                "Jin Starter Deck",
-                "Kongming Starter Deck",
-                "Lorraine Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -42876,6 +42810,36 @@
             "priority": 134
         },
         {
+            "cardId": "yj2rJBREH8",
+            "name": "Safeguard Amulet",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "safeguard-amulet-prevent"
+            ],
+            "semanticFixtures": [
+                "safeguard-amulet-prevent"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck",
+                "Lorraine, Arclight Saber Starter Deck",
+                "Jin Starter Deck",
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "KEhmWGivJp",
             "name": "Tindered Soldier",
             "type": "ALLY",
@@ -43584,6 +43548,54 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 132
+        },
+        {
+            "cardId": "qqq8j5fxym",
+            "name": "Shard of Empowerment",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shard-of-empowerment-buff"
+            ],
+            "semanticFixtures": [
+                "shard-of-empowerment-buff"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck",
+                "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "Z9TCpaMJTc",
+            "name": "Bauble of Abundance",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "bauble-of-abundance-draw"
+            ],
+            "semanticFixtures": [
+                "bauble-of-abundance-draw"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck",
+                "Lorraine, Arclight Saber Starter Deck",
+                "Jin Starter Deck",
+                "Kongming Starter Deck",
+                "Lorraine Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
         },
         {
             "cardId": "5u5ic64930",

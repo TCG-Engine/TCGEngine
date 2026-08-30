@@ -1,0 +1,17 @@
+{
+    "name": "Shard of Empowerment banishes itself to empower the champion by 2",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Shard of Empowerment's element is NORM, so no lineage patch is needed; it is seeded directly onto the field (REGALIA convention). Its ability is banish-self at zero reserve cost: a single CustomInput Activate click empowers the champion by 2 and moves the shard to myBanish. Empower() tags the champion's TurnEffects with the source card ID, EMPOWERED, and EMPOWER_PLUS_2.",
+    "testedCards": [
+        "qqq8j5fxym"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["qqq8j5fxym"],
+        "mechanics": ["cost", "zone-movement", "status"],
+        "rulesClauses": [
+            "Banish CARDNAME: Empower 2."
+        ]
+    }
+}

@@ -1,0 +1,6 @@
+[
+    {"step":1,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"The activating player draws a card"},
+    {"step":1,"type":"zone_count","zone":"theirHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"The opponent also draws a card"},
+    {"step":1,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"Z9TCpaMJTc","semantic":true,"label":"Bauble of Abundance is banished as its own activation cost"},
+    {"step":1,"type":"decision_queue_empty","player":"all"}
+]
