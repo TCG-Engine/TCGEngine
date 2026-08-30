@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T03:34:28+00:00",
+    "generatedAt": "2026-08-30T04:18:32+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 120,
+        "cardsWithExistingFixtures": 121,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2367,
+        "cardsNeedingSemanticCoverage": 2366,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -118,25 +118,6 @@
                 "cost",
                 "targeting",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "zxB4tzy9iy",
-            "name": "Lightweaver's Assault",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -41791,6 +41772,29 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
+            "cardId": "zxB4tzy9iy",
+            "name": "Lightweaver's Assault",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "lightweavers-assault-split-damage"
+            ],
+            "semanticFixtures": [
+                "lightweavers-assault-split-damage"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 143

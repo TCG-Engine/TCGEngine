@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **120**
+Cards linked to an existing fixture: **121**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2367**
+Implemented cards still needing semantic coverage: **2366**
 
 ## Mechanic groups
 
@@ -31,7 +31,6 @@ Implemented cards still needing semantic coverage: **2367**
 | Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
 | Brooch X Ultra (`3Gx9ByIl9t`) | ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
-| Lightweaver's Assault (`zxB4tzy9iy`) | ACTION | 2 | targeting, damage, trigger | Zander Pantheon Starter | — |
 | Diana, Duskstalker (`iq4d5vettc`) | CHAMPION | 2 | status, trigger | Diana Starter Deck | — |
 | Smash with Obelisk (`2kkvoqk1l7`) | ATTACK | 2 | cost | Tonoris Starter Deck | — |
 | Assassin's Mantle (`3tcs0axa03`) | REGALIA,ITEM | 1 | damage, prevention, zone-movement, counter, condition | Zander Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2367**
 | Mana Limiter (`IC3OU6vCnF`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Mark the Target (`LRsgl92Iqa`) | ACTION | 1 | targeting, damage, counter, condition | Zander Pantheon Starter | — |
 | Meadowbloom Dryad (`cVRIUJdTW5`) | ALLY | 1 | targeting, zone-movement, counter, trigger | Silvie Starter Deck | — |
+| Meteor Strike (`dwavcoxpnj`) | ACTION | 1 | targeting, damage, zone-movement, condition | Arisanna Pantheon Starter | — |
