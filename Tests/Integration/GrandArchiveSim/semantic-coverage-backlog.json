@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T07:59:11+00:00",
+    "generatedAt": "2026-08-30T09:55:00+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 136,
+        "cardsWithExistingFixtures": 138,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2351,
+        "cardsNeedingSemanticCoverage": 2349,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1381,27 +1381,6 @@
             "priority": 114
         },
         {
-            "cardId": "xWJND68I8X",
-            "name": "Water Barrier",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "prevention",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "Fkpr1hCUGF",
             "name": "Aenean Frozen Shunt",
             "type": "ACTION",
@@ -2011,26 +1990,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "ddv1au7t9m",
-            "name": "Gentle Respite",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter",
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43274,6 +43233,31 @@
             "priority": 134
         },
         {
+            "cardId": "xWJND68I8X",
+            "name": "Water Barrier",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "prevention",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "water-barrier-prevent-tag"
+            ],
+            "semanticFixtures": [
+                "water-barrier-prevent-tag"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "ify06tSEVC",
             "name": "Attune with the Winds",
             "type": "ACTION",
@@ -43362,6 +43346,30 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "ddv1au7t9m",
+            "name": "Gentle Respite",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gentle-respite-draw"
+            ],
+            "semanticFixtures": [
+                "gentle-respite-draw"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter",
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133

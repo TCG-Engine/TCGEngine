@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":4,"semantic":true,"label":"Gentle Respite draws a card into memory since the opponent has more influence"},
+    {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"ddv1au7t9m","semantic":true,"label":"Gentle Respite is discarded to the graveyard after resolving"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

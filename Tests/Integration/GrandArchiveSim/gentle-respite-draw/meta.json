@@ -1,0 +1,17 @@
+{
+    "name": "Gentle Respite draws into memory when the opponent has more influence",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Gentle Respite's element is NORM, so no lineage patch is needed. Two extra Dungeon Guide copies are seeded directly into the opponent's hand so their influence (hand + memory count) exceeds ours even after our 3-reserve payment (which moves cards from hand to memory but doesn't change our total influence). The opponent is hardcoded as the target -- there is no target-player choice to make. Without a [Class Bonus] discount, the full 3-reserve cost is paid, then the condition is checked and a card is drawn into memory.",
+    "testedCards": [
+        "ddv1au7t9m"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ddv1au7t9m"],
+        "mechanics": ["cost", "targeting", "draw-discard", "condition"],
+        "rulesClauses": [
+            "If target opponent's influence is greater than yours, draw a card into your memory."
+        ]
+    }
+}
