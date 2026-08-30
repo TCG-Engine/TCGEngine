@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **78**
+Cards linked to an existing fixture: **83**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2409**
+Implemented cards still needing semantic coverage: **2404**
 
 ## Mechanic groups
 
@@ -43,15 +43,10 @@ Implemented cards still needing semantic coverage: **2409**
 | Corhazi Courier (`YqQsXwEvv5`) | ALLY | 1 | targeting, damage, draw-discard, status, combat, condition | Zander Pantheon Starter | — |
 | Creeping Torment (`zrplywc08c`) | PHANTASIA | 1 | targeting, damage, draw-discard, trigger, condition | Diana Starter Deck | — |
 | Emberslash (`0xylS3OcNa`) | ATTACK | 1 | cost, draw-discard, combat, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
-| Entrenched Fortress (`PWkXI6rMl3`) | DOMAIN | 1 | targeting, damage, status, combat, trigger, condition | Kongming Pantheon Starter | — |
 | Essence of Blizzards (`k1l75tlzsm`) | ITEM | 1 | cost, targeting, damage, status, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Extraction Incision (`zthwm68lgo`) | ATTACK | 1 | targeting, counter, status, combat, condition | Zander Pantheon Starter | — |
 | FlameTech BladeCore (`aAJliPQT3F`) | ITEM | 1 | targeting, damage, draw-discard, zone-movement, counter, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Hydroguard Retainer (`0qm7n87o4s`) | ALLY | 1 | draw-discard, status, combat, trigger, condition | Kongming Starter Deck | — |
-| Ignite the Soul (`rXHo9fLU32`) | ACTION | 1 | cost, targeting, damage, zone-movement, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
-| Imperial Countermeasure (`HRPSt74B7g`) | ACTION | 1 | targeting, damage, prevention, draw-discard, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
-| Intangible Geist (`Zu53izIFTX`) | ALLY | 1 | targeting, damage, prevention, zone-movement, trigger | Lorraine Pantheon Starter | — |
-| Leeching Bolt (`hs1mzjzexc`) | ACTION | 1 | targeting, damage, recover, zone-movement, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |
 | Lorraine, Honed Operative (`UsX7t4lXfX`) | CHAMPION | 1 | draw-discard, zone-movement, counter, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Martial Guard (`nsdwmxz1vd`) | ACTION | 1 | cost, targeting, damage, prevention, zone-movement | Tonoris Starter Deck | — |
 | Pendant of Accrual (`WUhbG91eRa`) | ITEM | 1 | cost, draw-discard, zone-movement, counter, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
@@ -76,3 +71,8 @@ Implemented cards still needing semantic coverage: **2409**
 | Automaton Bomber (`ygojwk0pw0`) | ALLY | 1 | cost, zone-movement, status, condition | Diana Starter Deck | — |
 | Beastbond Paws (`F1t18omUlx`) | REGALIA,ITEM | 1 | targeting, zone-movement, status, combat | Silvie Starter Deck | — |
 | Break Apart (`4ns2jbt4hq`) | ACTION | 1 | cost, targeting, zone-movement, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter | — |
+| Charged Manaplate (`jxhkurfp66`) | REGALIA,ITEM | 1 | damage, draw-discard, zone-movement, condition | Tonoris Starter Deck | — |
+| Clarent, Sword of Peace (`m31WVJ9F04`) | REGALIA,WEAPON | 1 | damage, prevention, counter, condition | Lorraine, Arclight Saber Starter Deck, Lorraine Starter Deck, Lorraine Starter Deck (Prelude) | — |
+| Cleansing Reunion (`xpnjvt9y59`) | ACTION | 1 | cost, targeting, status, condition | Lorraine Pantheon Starter | — |
+| Cometfall (`4d5vettczb`) | ACTION | 1 | cost, damage, zone-movement, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
+| Conductive Strike (`dDOMoeCJyK`) | ATTACK | 1 | cost, counter, combat, condition | Lorraine, Arclight Saber Starter Deck | — |

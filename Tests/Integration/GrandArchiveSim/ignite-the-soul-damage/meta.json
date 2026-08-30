@@ -1,0 +1,17 @@
+{
+    "name": "Ignite the Soul deals 1 damage to target unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T05:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Ignite the Soul's element is FIRE (matching the starting champion), so no lineage patch is needed. Its target pool is any object on the opponent's field (not filtered to ALLY/CHAMPION), so it targets the opponent's champion directly. The [Class Bonus] Floating Memory clause is a passive/reusable-elsewhere property, not a triggered ability, and is out of scope.",
+    "testedCards": [
+        "rXHo9fLU32"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["rXHo9fLU32"],
+        "mechanics": ["cost", "targeting", "damage", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Deal 1 damage to target unit."
+        ]
+    }
+}

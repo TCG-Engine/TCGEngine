@@ -1,0 +1,17 @@
+{
+    "name": "Entrenched Fortress's On Enter deals 3 damage to target unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T05:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Entrenched Fortress is a TERA (advanced element) DOMAIN card, so the starting champion's Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock element access. Like other DOMAIN cards (see stocked-outpost-enter-draw-memory), it materializes onto the field like any other permanent -- there's no separate domain zone in this schema. The target MZCHOOSE decision appears immediately after the final reserve payment with no intervening opportunity window (like dream-fairy-return-to-memory/cosmic-bolt-damage, unlike several other action cards in this batch), so no PASS actions are needed before it. Only the On Enter damage is covered; Taunt is a combat-targeting-priority passive that requires a real attack declaration and is out of scope.",
+    "testedCards": [
+        "PWkXI6rMl3"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["PWkXI6rMl3"],
+        "mechanics": ["targeting", "damage", "status", "condition"],
+        "rulesClauses": [
+            "On Enter: Deal 3 damage to target unit."
+        ]
+    }
+}

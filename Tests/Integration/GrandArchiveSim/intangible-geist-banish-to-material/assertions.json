@@ -1,0 +1,5 @@
+[
+    {"step":6,"type":"card_exists","zone":"myMaterial","viewerPlayerID":1,"cardID":"9gv4vm4kj3","semantic":true,"label":"On Enter moves the chosen regalia from banishment back into the material deck"},
+    {"step":6,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":0,"semantic":true,"label":"The banishment is empty after its only regalia card is returned"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

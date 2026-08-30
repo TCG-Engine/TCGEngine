@@ -1819,6 +1819,183 @@ DECK,
     ],
 ];
 
+// --- Ignite the Soul: deal 1 damage to target unit ---
+$fixtures['ignite-the-soul-damage'] = [
+    'testedCards' => ['rXHo9fLU32'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Ignite the Soul
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Ignite the Soul's element is FIRE (matching the starting champion), so no lineage patch is
+    // needed. Its target pool is any object on the opponent's field (not filtered to ALLY/
+    // CHAMPION), so it targets the opponent's champion directly. The [Class Bonus] Floating
+    // Memory clause is a passive/reusable-elsewhere property, not a triggered ability, and is out
+    // of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rXHo9fLU32'], // Ignite the Soul, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Imperial Countermeasure: prevent the next 4 damage to target unit + draw into memory ---
+$fixtures['imperial-countermeasure-prevent-draw'] = [
+    'testedCards' => ['HRPSt74B7g'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Imperial Countermeasure
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Imperial Countermeasure's element is EXALTED,NORM -- EXALTED auto-enables whenever any
+    // OTHER advanced element is unlocked in lineage (GetPlayerEnabledElements(), GameLogic.php),
+    // so the starting champion's Subcards are patched with a real UMBRA champion (Tristan,
+    // Shadowdancer, reused from anathemas-end-load-gun) purely to trigger that auto-enable, not
+    // because the card itself needs UMBRA. Both clauses (prevention + draw into memory) are
+    // covered in one activation.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc']]], // Any advanced element auto-enables EXALTED
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'HRPSt74B7g'], // Imperial Countermeasure, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Leeching Bolt: deal champion-level damage to target unit + Recover 2 ---
+$fixtures['leeching-bolt-damage-recover'] = [
+    'testedCards' => ['hs1mzjzexc'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Leeching Bolt
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Leeching Bolt is a TERA (advanced element) ACTION card, so the starting champion's Subcards
+    // are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock element access. The
+    // champion's Counters are also patched with 2 level counters (so "deal LV damage" resolves to
+    // a nonzero, observable 2, instead of the default level-0 no-op) and its Damage is pre-set to
+    // 5 (so Recover 2 is observable as a decrease). The damage targets the opponent's champion
+    // while Recover 2 heals our own, so the two effects are independently assertable. The [Class
+    // Bonus] empowered/preserved clause is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1'], 'Counters' => ['level' => 2], 'Damage' => 5]], // TERA lineage/element unlock + LV damage scaling + recover precondition
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'hs1mzjzexc'], // Leeching Bolt, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Entrenched Fortress: On Enter deals 3 damage to target unit ---
+$fixtures['entrenched-fortress-enter-damage'] = [
+    'testedCards' => ['PWkXI6rMl3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Entrenched Fortress
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Entrenched Fortress is a TERA (advanced element) DOMAIN card, so the starting champion's
+    // Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock element
+    // access. Like other DOMAIN cards (see stocked-outpost-enter-draw-memory), it materializes
+    // onto the field like any other permanent -- there's no separate domain zone in this schema.
+    // Only the On Enter damage is covered; Taunt is a combat-targeting-priority passive that
+    // requires a real attack declaration and is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'PWkXI6rMl3'], // Entrenched Fortress, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Intangible Geist: On Enter may return regalia from banishment to material deck ---
+$fixtures['intangible-geist-banish-to-material'] = [
+    'testedCards' => ['Zu53izIFTX'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Intangible Geist
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Intangible Geist is a CRUX (advanced element) ALLY card, so the starting champion's
+    // Subcards are patched with a real CRUX champion (Lorraine, Crux Knight, reused from
+    // sabela-gossamer-penance-enter/spirit-blade-infusion-combat-discount). Backup Charger (a
+    // REGALIA,ITEM) is seeded directly into myBanish as the On Enter's optional target. Only the
+    // On Enter is covered; the [Class Bonus] combat-damage-prevention static ability is out of
+    // scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['NfbZ0nouSQ']]], // CRUX lineage/element unlock
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => '9gv4vm4kj3'], // Backup Charger (REGALIA,ITEM) - On Enter optional target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Zu53izIFTX'], // Intangible Geist, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myBanish-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

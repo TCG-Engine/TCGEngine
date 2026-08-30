@@ -1,0 +1,18 @@
+{
+    "name": "Leeching Bolt deals champion-level damage and recovers 2",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T05:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Leeching Bolt is a TERA (advanced element) ACTION card, so the starting champion's Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) to unlock element access. The champion's Counters are also patched with 2 level counters (so 'deal LV damage' resolves to a nonzero, observable 2, instead of the default level-0 no-op) and its Damage is pre-set to 5 (so Recover 2 is observable as a decrease). The damage targets the opponent's champion while Recover 2 heals our own, so the two effects are independently assertable. The [Class Bonus] empowered/preserved clause is out of scope.",
+    "testedCards": [
+        "hs1mzjzexc"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["hs1mzjzexc"],
+        "mechanics": ["targeting", "damage", "recover", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Deal LV damage to target unit.",
+            "Recover 2."
+        ]
+    }
+}

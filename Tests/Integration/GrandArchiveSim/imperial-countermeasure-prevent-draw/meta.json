@@ -1,0 +1,18 @@
+{
+    "name": "Imperial Countermeasure prevents next 4 damage and draws into memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T05:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Imperial Countermeasure's element is EXALTED,NORM -- EXALTED auto-enables whenever any OTHER advanced element is unlocked in lineage (GetPlayerEnabledElements(), GameLogic.php), so the starting champion's Subcards are patched with a real UMBRA champion (Tristan, Shadowdancer, reused from anathemas-end-load-gun) purely to trigger that auto-enable, not because the card itself needs UMBRA. Both clauses (prevention + draw into memory) are covered in one activation.",
+    "testedCards": [
+        "HRPSt74B7g"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["HRPSt74B7g"],
+        "mechanics": ["targeting", "damage", "prevention", "draw-discard", "condition"],
+        "rulesClauses": [
+            "Prevent the next 4 damage that would be dealt to target unit this turn.",
+            "Draw a card into your memory."
+        ]
+    }
+}
