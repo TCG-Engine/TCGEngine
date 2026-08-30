@@ -1,9 +1,9 @@
 {
-    "name": "Dante, Hemomancer deals X unpreventable damage to himself and empowers by X",
+    "name": "Dante, Hemomancer deals X unpreventable damage to himself, rests, and empowers by X",
     "rootName": "GrandArchiveSim",
     "createdAt": "2026-08-30T00:00:00+00:00",
     "createdBy": "Codex",
-    "notes": "Dante, Hemomancer's own activated ability is champion-identity-gated (a card-ID switch case, not the generic element-lineage system), so the starting champion object's CardID itself is patched directly to Dante, Hemomancer rather than only patching Subcards. Activating it opens a NUMBERCHOOSE for X (answered via the plain numeric cardID '2', per this engine's NUMBERCHOOSE answer convention), then pays X reserve, then a reactive opportunity window (declined via PASS) before the ability deals X unpreventable damage to Dante and empowers him by X. Note: the printed cost is '(X), [REST]:' but the champion's Status remains 2 (awake) after activation -- the engine never rests the champion as part of paying this cost. This is asserted as observed reality (a known gap, separately flagged) rather than treated as a reason to abandon the fixture, since the (X)-cost and damage/empower effects themselves are correctly implemented and are the ability's core testable clause.",
+    "notes": "Regression test for a fixed bug: the printed cost is '(X), [REST]:' but activating the ability never rested the champion (see the case \"4FtNBFaOJp\" block in GrandArchiveSim/Custom/GameLogic.php's ActivatedAbilityCost, which now sets Status = 1 the same way the existing Bedlam Borough [REST] cost case does). Dante, Hemomancer's own activated ability is champion-identity-gated (a card-ID switch case, not the generic element-lineage system), so the starting champion object's CardID itself is patched directly to Dante, Hemomancer rather than only patching Subcards. Activating it opens a NUMBERCHOOSE for X (answered via the plain numeric cardID '2', per this engine's NUMBERCHOOSE answer convention), rests the champion, then pays X reserve, then a reactive opportunity window (declined via PASS) before the ability deals X unpreventable damage to Dante and empowers him by X.",
     "testedCards": [
         "4FtNBFaOJp"
     ],

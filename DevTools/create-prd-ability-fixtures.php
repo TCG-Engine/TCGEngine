@@ -4747,6 +4747,44 @@ DECK,
     ],
 ];
 
+// --- Cryogenic Ritual: sacrifice an ally to summon a Core Fractal token ---
+$fixtures['cryogenic-ritual-summon'] = [
+    'testedCards' => ['FWinA77xF1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Cryogenic Ritual
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Regression test for a fixed bug: activating Cryogenic Ritual never actually sacrificed the
+    // ally its own additional cost requires (see GrandArchiveSim/Custom/GameLogic.php --
+    // DoActivateCard now declares this cost the same way every other sacrifice-cost card does).
+    // Cryogenic Ritual's element is WATER, so the starting champion's Subcards are patched with a
+    // real WATER champion (Spirit of Water) to unlock element access. A Dungeon Guide (ALLY) is
+    // seeded onto the field to serve as the sacrifice target. Materializing it opens a real
+    // MZCHOOSE for the sacrifice target BEFORE reserve payment; choosing the Dungeon Guide pays
+    // the full 2-reserve cost, then the ability itself (unaffected by this fix) summons a Core
+    // Fractal token.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - sacrifice fuel
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'FWinA77xF1'], // Cryogenic Ritual, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

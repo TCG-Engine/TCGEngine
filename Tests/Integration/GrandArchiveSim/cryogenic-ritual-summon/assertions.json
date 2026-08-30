@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"em6eEh9q8y","semantic":true,"label":"The chosen ally is genuinely sacrificed (moved to the graveyard)"},
+    {"step":4,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"8hqHAU0Xj6","semantic":true,"label":"A Core Fractal token is summoned"},
+    {"step":4,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":2,"semantic":true,"label":"The sacrificed ally is gone from the field, replaced only by the champion and the new token"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

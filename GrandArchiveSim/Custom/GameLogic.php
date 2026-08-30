@@ -2434,6 +2434,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $hasMemoryInvocationCost     = false;
     $hasPiccardaStaticCost       = false;
     $hasZenaAltCost              = false;
+    $hasCryogenicRitualCost      = false;
     global $additionalActivationCosts;
     $hasAdditionalCost = false;
     if(isset($additionalActivationCosts[$obj->CardID])) {
@@ -2475,6 +2476,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $hasGoldenGambitCost = true;
             DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 100, tooltip:"Sacrifice_a_Chessman_ally");
             DecisionQueueController::AddDecision($player, "CUSTOM", "GoldenGambitActivationCost|" . $reserveCost, 100);
+        }
+    }
+
+    // 1.3 Declaring Costs - Cryogenic Ritual (FWinA77xF1): sacrifice an ally, then summon a Core
+    // Fractal token. The card's own cardActivatedAbilities body only summons the token; the
+    // "sacrifice an ally" additional cost was never actually paid anywhere, so it's declared here
+    // to match every other sacrifice-cost card in this function.
+    if($obj->CardID === "FWinA77xF1" && !$ignoreCost) {
+        $targets = ZoneSearch("myField", ["ALLY"]);
+        if(!empty($targets)) {
+            $hasCryogenicRitualCost = true;
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 100, tooltip:"Sacrifice_an_ally");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "CryogenicRitualCost|" . $reserveCost, 100);
         }
     }
 
@@ -2897,7 +2911,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -4227,6 +4241,25 @@ $customDQHandlers["GoldenGambitActivationCost"] = function($player, $parts, $las
  * Sacrifice the chosen ally, store its life stat for resolution, then pay reserve.
  * Parts: [reserveCost].
  */
+/**
+ * DQ handler: Cryogenic Ritual (FWinA77xF1) mandatory activation cost.
+ * Sacrifice the chosen ally, then pay reserve and grant opportunity. The card's own
+ * cardActivatedAbilities body (unaffected) summons the Core Fractal token once this
+ * resolves.
+ * Parts: [reserveCost].
+ */
+$customDQHandlers["CryogenicRitualCost"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0] ?? 0);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    DecisionQueueController::StoreVariable("additionalCostPaid", "YES");
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
 $customDQHandlers["DecomposeActivationCost"] = function($player, $parts, $lastDecision) {
     $reserveCost = intval($parts[0] ?? 0);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
@@ -5823,10 +5856,12 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 DecisionQueueController::CleanupRemovedCards();
             }
             break;
-        case "4FtNBFaOJp":
+        case "4FtNBFaOJp": // Dante, Hemomancer - (X), [REST]: deal X unpreventable damage and empower X
             if(intval($abilityIndex) === 0) {
                 $maxX = min(4, CountAvailableReservePayments($player));
                 if($maxX <= 0) break;
+                $sourceObj = GetZoneObject($mzCard);
+                if($sourceObj !== null) $sourceObj->Status = 1;
                 DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "1|" . $maxX, 100, tooltip:"Choose_X_for_Dante_Hemomancer");
                 DecisionQueueController::AddDecision($player, "CUSTOM", "DanteHemomancerXCost", 100);
             }
