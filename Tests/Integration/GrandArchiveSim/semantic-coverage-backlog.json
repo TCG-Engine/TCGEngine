@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T15:03:21+00:00",
+    "generatedAt": "2026-08-30T15:08:29+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 158,
+        "cardsWithExistingFixtures": 160,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2329,
+        "cardsNeedingSemanticCoverage": 2327,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -4744,25 +4744,6 @@
             "priority": 111
         },
         {
-            "cardId": "XLrHaYV9VB",
-            "name": "Arcane Sight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck",
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "IAkuSSnzYB",
             "name": "Banner Knight",
             "type": "ALLY",
@@ -4901,23 +4882,6 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "KCXN59ldAi",
-            "name": "Creative Tinder",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -43573,6 +43537,29 @@
             "priority": 132
         },
         {
+            "cardId": "XLrHaYV9VB",
+            "name": "Arcane Sight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "arcane-sight-level-draw"
+            ],
+            "semanticFixtures": [
+                "arcane-sight-level-draw"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck",
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "Z9TCpaMJTc",
             "name": "Bauble of Abundance",
             "type": "REGALIA,ITEM",
@@ -43593,6 +43580,27 @@
                 "Jin Starter Deck",
                 "Kongming Starter Deck",
                 "Lorraine Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "KCXN59ldAi",
+            "name": "Creative Tinder",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "creative-tinder-draw-discard"
+            ],
+            "semanticFixtures": [
+                "creative-tinder-draw-discard"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

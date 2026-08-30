@@ -4363,6 +4363,70 @@ DECK,
     ],
 ];
 
+// --- Arcane Sight: champion gets +1 level until end of turn, draw a card ---
+$fixtures['arcane-sight-level-draw'] = [
+    'testedCards' => ['XLrHaYV9VB'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Arcane Sight
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Arcane Sight's element is ARCANE, so the starting champion's Subcards are patched with a
+    // real ARCANE champion (Lorraine, Arclight Saber, this deck's own champion) to unlock element
+    // access. Its reserve cost is 0, so no reserve payment step is needed. The ability tags the
+    // champion's TurnEffects with its own card ID and draws a card.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]], // ARCANE lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'XLrHaYV9VB'], // Arcane Sight, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Creative Tinder: draw two cards, then discard a card ---
+$fixtures['creative-tinder-draw-discard'] = [
+    'testedCards' => ['KCXN59ldAi'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Creative Tinder
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Creative Tinder's element is FIRE, matched by the default starting champion (Spirit of
+    // Fire), so no lineage patch is needed. Without a [Class Bonus] discount, the full 3-reserve
+    // cost is paid; completing the 3rd reserve payment cascades directly into the ability itself
+    // (no separate opportunity-window PASS is needed for this card), which draws two cards and
+    // immediately opens its own MZCHOOSE asking which one to discard.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'KCXN59ldAi'], // Creative Tinder, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

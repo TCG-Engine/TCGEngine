@@ -1,0 +1,5 @@
+[
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":5,"semantic":true,"label":"Net hand change of +1 after drawing two and discarding one"},
+    {"step":5,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":2,"semantic":true,"label":"Creative Tinder and the discarded card are both in the graveyard"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

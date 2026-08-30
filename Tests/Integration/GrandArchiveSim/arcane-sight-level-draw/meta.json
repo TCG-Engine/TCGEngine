@@ -1,0 +1,17 @@
+{
+    "name": "Arcane Sight gives the champion +1 level until end of turn and draws a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Arcane Sight's element is ARCANE, so the starting champion's Subcards are patched with a real ARCANE champion (Lorraine, Arclight Saber, this deck's own champion) to unlock element access. Its reserve cost is 0, so no reserve payment step is needed; after materializing, both players decline the EffectStackActiveResponse opportunity window before the ability tags the champion's TurnEffects with its own card ID (the +1 level effect) and draws a card.",
+    "testedCards": [
+        "XLrHaYV9VB"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["XLrHaYV9VB"],
+        "mechanics": ["status", "draw-discard"],
+        "rulesClauses": [
+            "Your champion gets +1 level until end of turn. Draw a card."
+        ]
+    }
+}
