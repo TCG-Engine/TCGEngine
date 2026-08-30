@@ -91,6 +91,8 @@ services:
       MYSQL_SERVER_NAME: "grandarchivesim-mysql-server"
       MYSQL_SERVER_USER_NAME: "root"
       MYSQL_DATABASE: "grandarchivesim"
+    ports:
+      - "3306:3306"
     volumes:
       - ./Database:/docker-entrypoint-initdb.d
       - grandarchivesim-mysql-data:/var/lib/mysql

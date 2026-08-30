@@ -94,9 +94,18 @@ function GABotLegalActions($gameName, $player) {
         $param = $front !== null ? strval($front->Param ?? '') : '';
         $actions = [];
         if ($type === 'MZCHOOSE' && $param === 'myHand') {
-            // Reserve-cost payment: pay with whatever is currently first in hand (the same rule
-            // used manually throughout the telemetry-verification session).
-            $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => 'myHand-0'];
+            // Reserve-cost payment: pay with the lowest-memory-cost live card in hand, so the bot
+            // keeps its more expensive/impactful cards available to actually play rather than
+            // always feeding away whatever happens to be first in hand order.
+            $handObjs = GetHand($pending);
+            $payIndex = null;
+            $payCost = null;
+            foreach ($handObjs as $i => $obj) {
+                if ($obj === null || !empty($obj->removed)) continue;
+                $cost = function_exists('CardMemoryCost') ? intval(CardMemoryCost($obj)) : 0;
+                if ($payCost === null || $cost < $payCost) { $payCost = $cost; $payIndex = $i; }
+            }
+            $actions[] = ['playerID' => $pending, 'mode' => 100, 'cardID' => $payIndex !== null ? "myHand-$payIndex" : 'myHand-0'];
         } elseif ($type === 'MZCHOOSE' && strpos($param, '&') !== false) {
             // Required choice among several listed candidates (e.g. "Choose_attack_target":
             // Param="theirField-0&theirField-1", or a mixed list like "myHand&myField-1" where a

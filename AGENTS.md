@@ -1,40 +1,131 @@
 # TCGEngine Instructions
 
-Read `.github/copilot-instructions.md` before making substantive engine changes. It is the detailed source of truth for this repository's engine workflow, generator behavior, Decision Queue patterns, and card-implementation rules.
+## What this repo is
 
-Use this file as the compact default guidance:
+A multi-app PHP/JS monorepo for trading card game simulators. Each game lives in its own `<Root>/` directory (SWUSim, AzukiSim, GrandArchiveSim, HellbreakSim, FaBSim, etc.). Shared engine logic lives in `Core/`. Shared UI in `SharedUI/`. Per-game shared card data (SWU-specific helpers, deck validation, etc.) in `AppCore/`.
 
-- Prefer the `tcgengine-card-editor` MCP workflow for card work. Standard sequence:
-  - `get_card_info`
-  - `get_zone_schema`
-  - `get_helper_functions`
-  - `get_implemented_examples`
-  - `save_card_abilities`
-- Treat `.github/copilot-instructions.md` as canonical for await/codegen constraints. In particular:
-  - `await` is supported inside `if`/`else`, `for`, and `while` blocks.
-  - Recompute live zone objects after an `await`; only rely on serializable scalar/array locals crossing the await frame.
-  - Precompute chooser strings before `await $player.MZChoose(...)`, `await $player.MZMultiChoose(...)`, or similar calls.
-- Use the "Choosing the Right UI Interaction" matrix in `.github/copilot-instructions.md` for chooser shape: `MZChoose`/`MZMayChoose`, `MZMultiChoose`, `Modal`, `NumberChoose`, `MZSplitAssign`, `Rearrange`, and `NameCard`. Treat `OPTIONCHOOSE`/`ICONCHOICE` as deprecated for new card-authoring; prefer `Modal` for new labeled/icon choices, and add first-class await support before introducing more direct-queue-only core choices.
-- Use `await $player.MZMultiChoose($targets, $min, $max, "tooltip")` when one popup should handle selecting several cards from the same candidate set; it returns an `&`-delimited mzID string.
-- Use `TWOSIDEDSLIDER` for "choose how many become left option vs. right option" flows. Param format: `"min|max|leftSpec|rightSpec"` where each side spec is `label~Caption_text`, `card~CARDID`, or `cardlabel~CARDID~Caption_text`.
-- Do not manually edit generated files such as `<RootName>/GeneratedCode/GeneratedMacroCode.php`, `GeneratedMacroCount.js`, or generated `GeneratedUI_*.js` outputs unless the task is specifically about the generator.
-- For card implementations, prefer the MCP card editor workflow: inspect card info, inspect schema/helpers/examples, save abilities through MCP, and let the generator update derived macro code.
-- Add new non-generated helper logic under `<RootName>/Custom/` in the most appropriate file instead of patching generated code.
-- Prefer built-in macro prereqs/restrictions before adding manual activation guards in `GameLogic.php`. If a restriction is card-local and expressible as a generated prereq, implement it in the macro/prereq layer so selection, UI, and legality checks stay aligned.
-- Prefer schema/generator-backed numerical modifier macros for scalar cost adjustments. In Grand Archive this includes `MemoryCostModifier`, `ReserveCostModifier`, `PlayCostModifier`, and `ActivationCostModifier`; use the modifier framework before adding one-off cost math to manual switchboards.
-- When working in Grand Archive, use established helpers and effective runtime wrappers such as `EffectiveCardType`, `EffectiveCardSubtypes`, `EffectiveCardClasses`, and `EffectiveCardElement` rather than raw card-dictionary lookups on field objects.
-- For per-turn single-card stat changes, use `AddTurnEffect(...)` plus the corresponding `ObjectCurrentPower`, `ObjectCurrentHP`, or `ObjectCurrentLevel` switch case in `GameLogic.php`.
-- For persistent field-object overrides, use `ApplyPersistentOverride(...)`; for temporary suppression, use `AddTurnEffect($mzCard, 'NO_ABILITIES')`.
-- Field-presence passives belong in `ObjectCurrentPower`, `ObjectCurrentHP`, or `ObjectCurrentLevel`, using the established passive-deduping pattern.
-- Keep Decision Queue custom handlers short, non-interactive, and tolerant of malformed parameters. Card-local interactive flows should use the supported decision types and established inline `await` patterns described in `.github/copilot-instructions.md`.
-- Register game-specific custom Decision Queue handlers and additional activation costs in `<RootName>/Custom/GameLogic.php`, not in generated code.
-- Use the appropriate custom file for new helpers:
-  - combat helpers -> `CombatLogic.php`
-  - materialize helpers -> `MaterializeLogic.php`
-  - general runtime/game helpers -> `GameLogic.php`
-- If you change schema or generator behavior, regenerate outputs and account for the timestamped `GeneratedUI_*.js` file behavior noted in `.github/copilot-instructions.md`.
-- For generated sound-design assets, use the ElevenLabs API with the `ELEVENLABS_API_KEY` environment variable; never commit or print the key itself.
+Schema-to-codegen is the core workflow: `Schemas/<Root>/GameSchema.txt` → `zzGameCodeGenerator.php` → generated PHP + client JS. Most per-app files are generated and gitignored.
 
-Priority note:
+## Critical: never edit generated files
 
-- If this file and `.github/copilot-instructions.md` ever conflict, follow the more specific rule for the files you are editing and prefer the detailed engine guidance in `.github/copilot-instructions.md`.
+These files are produced by `zzGameCodeGenerator.php` and are **gitignored** — manual edits are overwritten on regen:
+- `<Root>/GeneratedCode/GeneratedMacroCode.php`
+- `<Root>/GeneratedCode/GeneratedMacroCount.js`
+- `<Root>/GeneratedUI_*.js` (timestamped, one per regen)
+- `<Root>/GetNextTurn.php`, `InitialLayout.php`, `NextTurnRender.php`
+- `<Root>/GamestateParser.php`, `ZoneAccessors.php`, `ZoneClasses.php`, `TurnStates.php`, `TurnController.php`
+
+If you need to change behavior, edit the schema (`Schemas/<Root>/GameSchema.txt`) or the generator (`zzGameCodeGenerator.php`), then regenerate.
+
+## After clone / fresh setup
+
+```bash
+# SharedUI site pointers (Header.php, MenuBar.php, etc.) are generated from templates
+php SharedUI/Render/GenerateSites.php
+
+# MCP server (for card editor AI workflow)
+cd McpServer && npm install && npm run build
+```
+
+## Docker dev environment
+
+`docker-compose.yml` defines per-game stacks. Each gets its own MySQL database, Redis, and PHP app server:
+
+| Game | Web port | phpMyAdmin |
+|---|---|---|
+| SWUDeck (swustats) | 3100 | 5101 |
+| GrandArchiveSim | 3200 | 5102 |
+| AzukiSim | 3300 | 5103 |
+| SWUSim | 3400 | 5104 |
+| HellbreakSim | 3500 | 5105 |
+
+MySQL creds: root/secret. Databases named after the game (e.g. `swusim`).
+
+## Running the code generator
+
+```bash
+# CLI (from repo root, requires PHP with webserver or direct CLI execution):
+php zzGameCodeGenerator.php rootName=SWUSim
+
+# Or via the web UI:
+# Open zzCodeGeneratorMain.php in your dev host and pick the root
+```
+
+After regenerating, hard-refresh the browser (the timestamped `GeneratedUI_*.js` URL changes).
+
+## Testing
+
+```bash
+# SWUSim schema-based unit tests
+php zzRunSWUSimTests.php
+
+# Integration tests (fixture-based, snapshot comparison)
+php DevTools/RunIntegrationTests.php --root=SWUSim
+php DevTools/RunIntegrationTests.php --root=AzukiSim --test=<slug> --verbose
+
+# Node tests (tiny suite, Core JS helpers)
+node --test DevTools/tests/*.test.mjs
+```
+
+## Card implementation workflow (MCP card editor)
+
+Prefer the `tcgengine-card-editor` MCP workflow for card work. Standard sequence:
+1. `get_card_info` — card metadata
+2. `get_zone_schema` — what properties exist per zone
+3. `get_helper_functions` — discover existing helpers
+4. `get_implemented_examples` — patterns for similar macros
+5. `save_card_abilities` — saves to DB + triggers codegen automatically
+
+Full details and examples: `.github/copilot-instructions.md` (canonical for all codegen, await, and Decision Queue patterns).
+
+## Await / codegen constraints
+
+Treat `.github/copilot-instructions.md` as canonical. Key rules:
+- `await` is supported inside `if`/`else`, `for`, and `while` blocks.
+- Recompute live zone objects after an `await`; only rely on serializable scalar/array locals crossing the await frame.
+- Precompute chooser strings before `await $player.MZChoose(...)`, `await $player.MZMultiChoose(...)`, or similar calls. **No function calls as await parameters.**
+
+## UI interaction chooser matrix
+
+Use the "Choosing the Right UI Interaction" table in `.github/copilot-instructions.md`. Key points:
+- `MZChoose`/`MZMayChoose`, `MZMultiChoose`, `Modal`, `NumberChoose`, `MZSplitAssign`, `Rearrange`, `NameCard` — the modern set.
+- `OPTIONCHOOSE`/`ICONCHOICE` — **deprecated** for new card-authoring; prefer `Modal`.
+- `TWOSIDEDSLIDER` — specialized numeric split; param format `"min|max|leftSpec|rightSpec"`.
+- `MZMultiChoose`: one popup for selecting several cards from one candidate set; returns `&`-delimited mzIDs.
+
+## Where to add new logic
+
+- **New helpers** → `<Root>/Custom/` by theme:
+  - Combat → `CombatLogic.php`
+  - Materialize → `MaterializeLogic.php`
+  - General runtime/game → `GameLogic.php`
+  - Card-specific complex → `CardLogic.php`
+- **Custom Decision Queue handlers** → register in `<Root>/Custom/GameLogic.php` on `$customDQHandlers`.
+- **Additional activation costs** → register in `<Root>/Custom/GameLogic.php` on `$additionalActivationCosts`.
+
+## Prefer framework hooks over manual code
+
+- **Restrictions/legality** → generated macro prereqs (`CanActivateAbility`, etc.) before manual guards.
+- **Scalar cost changes** → `MemoryCostModifier`, `ReserveCostModifier`, `PlayCostModifier`, `ActivationCostModifier` before manual cost math.
+- **Per-turn stat changes** → `AddTurnEffect(...)` + `ObjectCurrentPower`/`ObjectCurrentHP`/`ObjectCurrentLevel` switch case.
+- **Persistent overrides** → `ApplyPersistentOverride(...)`. Temporary suppression → `AddTurnEffect($mzCard, 'NO_ABILITIES')`.
+- **Field-presence passives** → `ObjectCurrentPower`/`ObjectCurrentHP`/`ObjectCurrentLevel` with `$appliedPassives` deduping.
+- **Runtime field queries** → always use `EffectiveCardType()`, `EffectiveCardSubtypes()`, `EffectiveCardClasses()`, `EffectiveCardElement()` (not raw `CardType($obj->CardID)` etc.).
+
+## Decision Queue custom handlers
+
+- Keep them short, non-interactive, tolerant of malformed parameters.
+- Card-local interactive flows → use inline `await` and supported decision types, not custom DQ handlers.
+- Handler signature: `$customDQHandlers[$name]($player, $parts, $lastDecision)`.
+
+## Cross-cutting gotchas
+
+- **WebP on prod**: prod LAMPP PHP GD is compiled without WebP support. Read WebP via Imagick (or `SWUDeck/lib/CardImageLoader.php`); hand GD a PNG blob. `imagecreatefromwebp` will fatal on prod even if it works locally.
+- **UI changes**: must work in Chromium, Firefox, AND Safari. Layout behavior diverges (e.g. `height:100%` in flex containers).
+- **Public API contracts**: `Stats/APIs.php` and public `APIs/` endpoints are contracts — changes must be additive and backward-compatible.
+- **Shared SWU card art**: both SWU apps read `AppCore/SWU/Images/` (shared corpus). SWUDeck/WebpImages/ and SWUSim/WebpImages/ are gitignored except for tracked mock preview art.
+- **ElevenLabs key**: use `ELEVENLABS_API_KEY` env var for sound assets; never commit or print the key.
+
+## Conflict resolution
+
+If this file and `.github/copilot-instructions.md` conflict, follow the more specific rule for the files you are editing and prefer the detailed engine guidance in `.github/copilot-instructions.md`.
