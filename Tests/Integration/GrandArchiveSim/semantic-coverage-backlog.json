@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T22:10:14+00:00",
+    "generatedAt": "2026-08-30T22:26:49+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 184,
+        "cardsWithExistingFixtures": 188,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2303,
+        "cardsNeedingSemanticCoverage": 2299,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -201,27 +201,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "0xylS3OcNa",
-            "name": "Emberslash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -521,26 +500,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "dDOMoeCJyK",
-            "name": "Conductive Strike",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "counter",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -1115,26 +1074,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "6wiHKD52Lw",
-            "name": "Stoked Slice",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -3503,24 +3442,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "TZym0IOInK",
-            "name": "Return Stroke",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -41137,6 +41058,31 @@
             "priority": 135
         },
         {
+            "cardId": "0xylS3OcNa",
+            "name": "Emberslash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "emberslash-discard-draw"
+            ],
+            "semanticFixtures": [
+                "emberslash-discard-draw"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "PWkXI6rMl3",
             "name": "Entrenched Fortress",
             "type": "DOMAIN",
@@ -41792,6 +41738,30 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "dDOMoeCJyK",
+            "name": "Conductive Strike",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "counter",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "conductive-strike-static-counters"
+            ],
+            "semanticFixtures": [
+                "conductive-strike-static-counters"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -42476,6 +42446,30 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "6wiHKD52Lw",
+            "name": "Stoked Slice",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "stoked-slice-rally-allies"
+            ],
+            "semanticFixtures": [
+                "stoked-slice-rally-allies"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -43562,6 +43556,28 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "TZym0IOInK",
+            "name": "Return Stroke",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "return-stroke-floating-memory"
+            ],
+            "semanticFixtures": [
+                "return-stroke-floating-memory"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

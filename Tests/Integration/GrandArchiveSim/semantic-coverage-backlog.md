@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **184**
+Cards linked to an existing fixture: **188**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2303**
+Implemented cards still needing semantic coverage: **2299**
 
 ## Mechanic groups
 
@@ -35,7 +35,6 @@ Implemented cards still needing semantic coverage: **2303**
 | Smash with Obelisk (`2kkvoqk1l7`) | ATTACK | 2 | cost | Tonoris Starter Deck | — |
 | Assassin's Mantle (`3tcs0axa03`) | REGALIA,ITEM | 1 | damage, prevention, zone-movement, counter, condition | Zander Pantheon Starter | — |
 | Corhazi Courier (`YqQsXwEvv5`) | ALLY | 1 | targeting, damage, draw-discard, status, combat, condition | Zander Pantheon Starter | — |
-| Emberslash (`0xylS3OcNa`) | ATTACK | 1 | cost, draw-discard, combat, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Essence of Blizzards (`k1l75tlzsm`) | ITEM | 1 | cost, targeting, damage, status, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Extraction Incision (`zthwm68lgo`) | ATTACK | 1 | targeting, counter, status, combat, condition | Zander Pantheon Starter | — |
 | FlameTech BladeCore (`aAJliPQT3F`) | ITEM | 1 | targeting, damage, draw-discard, zone-movement, counter, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
@@ -50,7 +49,6 @@ Implemented cards still needing semantic coverage: **2303**
 | Archon Broadsword (`pyx8bd7ozu`) | REGALIA,WEAPON | 1 | cost, token, combat, condition | Tonoris Starter Deck | — |
 | Automaton Bomber (`ygojwk0pw0`) | ALLY | 1 | cost, zone-movement, status, condition | Diana Starter Deck | — |
 | Cleansing Reunion (`xpnjvt9y59`) | ACTION | 1 | cost, targeting, status, condition | Lorraine Pantheon Starter | — |
-| Conductive Strike (`dDOMoeCJyK`) | ATTACK | 1 | cost, counter, combat, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Convalescent Tonic (`l8ao8bls6g`) | ITEM | 1 | cost, recover, draw-discard, zone-movement | Arisanna Pantheon Starter | — |
 | Corhazi Lightblade (`2Ch1Gp3jEL`) | ALLY | 1 | damage, combat, trigger, condition | Zander Pantheon Starter | — |
 | Crest of the Alliance (`ojwk0pw0y6`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, trigger, condition | Tonoris Starter Deck | — |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **2303**
 | Quickdraw Piercer (`j4f15joh30`) | REGALIA,WEAPON | 1 | draw-discard, zone-movement, combat, condition | Diana Starter Deck | — |
 | Rising Tides (`y6q4goxi8a`) | ACTION | 1 | cost, draw-discard, zone-movement, condition | Kongming Starter Deck | — |
 | Shuang Ji of Sacrifice (`y1tyo32voa`) | REGALIA,WEAPON | 1 | damage, draw-discard, trigger, condition | Jin Starter Deck | — |
+| Smack with Flute (`zpkcFs72Ah`) | ATTACK | 1 | cost, zone-movement, combat, trigger | Silvie Starter Deck | — |
+| Spirit Blade: Ghost Strike (`vcZSHNHvKX`) | ATTACK | 1 | zone-movement, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |

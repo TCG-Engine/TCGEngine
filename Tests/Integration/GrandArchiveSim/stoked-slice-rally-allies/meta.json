@@ -1,0 +1,17 @@
+{
+    "name": "Stoked Slice's Class Bonus On Attack banishes two fire cards from graveyard to rally allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Same WARRIOR Class Bonus override as emberslash-discard-draw (Counters['_overrides']['classes']). Stoked Slice is FIRE element, and the starting champion (Spirit of Fire) is already FIRE, so no Subcards lineage patch was needed (unlike conductive-strike-static-counters' ARCANE requirement). The onAttackPrereqs gate additionally requires >= 2 FIRE cards already in the graveyard, so two copies of Cell Handler (pk9xycwz9g, a plain FIRE ally) are seeded there. Stoked Slice is played from hand (2 reserve) and declared as an attack (lands for its base 2 power); the on-attack trigger then offers an MZMULTICHOOSE (min 0, max 2) over the graveyard's fire cards -- selecting both resolves MoveGraveyardSelectionToBanish, which returns 2 and adds the AddGlobalEffects($player, \"6wiHKD52Lw_ALLIES\") flag (the actual '+1 POWER until end of turn' to allies is a computed buff read off that global effect at power-calculation time, with no independently stored per-ally counter, so it's out of scope beyond the flag itself). A second global effect, CHAMP_DEALT_COMBAT_DMG, is a side effect of combat damage landing at all, not of this card's own ability -- matching the same effect already seen in the pre-existing gleaming-cut-lightweavers-assault fixture.",
+    "testedCards": [
+        "6wiHKD52Lw"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["6wiHKD52Lw"],
+        "mechanics": ["attack", "on-attack", "zone-movement", "combat-damage", "class-bonus", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may banish two fire element cards from your graveyard. If you do, allies you control get +1POWER until end of turn."
+        ]
+    }
+}

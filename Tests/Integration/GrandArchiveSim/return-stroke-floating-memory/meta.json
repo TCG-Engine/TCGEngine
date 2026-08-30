@@ -1,0 +1,17 @@
+{
+    "name": "Return Stroke's Floating Memory pays a champion level-up's memory cost from graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Return Stroke is an ATTACK card, but Floating Memory only cares about paying a memory cost from the graveyard -- unrelated to its own reserve cost or to it ever being played as an attack -- so the champion-level-up-from-graveyard shape already proven by honorable-vanguard-floating-memory / shieldroid-floating-memory / stalwart-shieldmate-floating-memory applies unchanged. Return Stroke is seeded directly into the graveyard, with no myMemory filler, and Lorraine, Wandering Warrior's 1-memory champion level-up is initiated from myMaterial-0; selecting myGraveyard-0 pays the full cost and PAYFLOATING moves the card straight to myBanish. Return Stroke's other clause, \"[Class Bonus] Return Stroke gets +LVPOWER\" (LV = your champion's level), is a computed combat-time power buff with no independently stored counter, so it's out of scope here.",
+    "testedCards": [
+        "TZym0IOInK"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["TZym0IOInK"],
+        "mechanics": ["cost", "zone-movement"],
+        "rulesClauses": [
+            "Floating Memory (While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)"
+        ]
+    }
+}

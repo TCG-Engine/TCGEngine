@@ -5344,6 +5344,157 @@ DECK,
     ],
 ];
 
+// --- Return Stroke: Floating Memory pays a champion level-up's memory cost from graveyard ---
+$fixtures['return-stroke-floating-memory'] = [
+    'testedCards' => ['TZym0IOInK'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Same Floating Memory keyword and same test shape as shieldroid-floating-memory /
+    // stalwart-shieldmate-floating-memory / honorable-vanguard-floating-memory. Return Stroke is an
+    // ATTACK card, but Floating Memory only cares about paying a memory cost from the graveyard --
+    // unrelated to its own reserve cost or to it ever being played as an attack -- so the same
+    // champion-level-up-from-graveyard shape applies unchanged. Its "[Class Bonus] +LVPOWER" static
+    // buff is a computed combat-time value with no independently stored counter, so it's out of
+    // scope here.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'TZym0IOInK'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Emberslash: On Attack, may discard a card to draw a card ---
+$fixtures['emberslash-discard-draw'] = [
+    'testedCards' => ['0xylS3OcNa'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        // Emberslash's on-attack effect is gated behind [Class Bonus] (IsClassBonusActive), which
+        // reads EffectiveCardClasses() -- CardClasses($obj->CardID) unless a Counters['_overrides']
+        // ['classes'] override is present (GrandArchiveSim/Custom/GameLogic.php:21116-21121). The
+        // fresh level-0 starting champion (Spirit of Fire) is class SPIRIT, not WARRIOR, so patch
+        // the override directly (same mechanism a real in-game class-change effect would use)
+        // rather than scripting a full champion level-up.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'WARRIOR']]]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '0xylS3OcNa'], // Emberslash, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Conductive Strike: Class Bonus On Hit, pay 2 to put static counters on arcane objects ---
+$fixtures['conductive-strike-static-counters'] = [
+    'testedCards' => ['dDOMoeCJyK'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        // Same WARRIOR class-bonus override as emberslash-discard-draw. Conductive Strike is also
+        // ARCANE element, which CanPlayerMeetCardElementRequirements checks separately via
+        // GetChampionLineage() (walks Subcards, not the Counters override) -- same technique as
+        // luxem-sight-draw -- so patch Subcards to include an ARCANE champion in the lineage. Use
+        // Lorraine, Arclight Saber (x9sSpjpP3G): WARRIOR class AND ARCANE element, the actual
+        // champion this starter deck is themed around.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'WARRIOR']], 'Subcards' => ['x9sSpjpP3G']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'blqryebvwj'], // Storm Slime (ARCANE ally) - static counter target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'dDOMoeCJyK'], // Conductive Strike, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Stoked Slice: Class Bonus On Attack, banish two fire cards from graveyard to buff allies ---
+$fixtures['stoked-slice-rally-allies'] = [
+    'testedCards' => ['6wiHKD52Lw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        // Same WARRIOR class-bonus override as emberslash-discard-draw. Stoked Slice is FIRE
+        // element, and the starting champion (Spirit of Fire) is already FIRE, so no lineage patch
+        // is needed for the element gate here (unlike conductive-strike-static-counters' ARCANE).
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'WARRIOR']]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - +1 power buff target
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'pk9xycwz9g'], // Cell Handler (FIRE ally) #1 - banish fodder
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'pk9xycwz9g'], // Cell Handler (FIRE ally) #2 - banish fodder
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '6wiHKD52Lw'], // Stoked Slice, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0&myGraveyard-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // NOTE: Lorraine, Honed Operative was attempted but abandoned -- reaching her requires two
 // sequential real champion level-ups (0 -> 1 -> 2), and while investigating an unexplained memory/
 // hand discrepancy after the first level-up, a genuine cross-tool nondeterminism surfaced:

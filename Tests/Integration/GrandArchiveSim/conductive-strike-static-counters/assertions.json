@@ -1,0 +1,6 @@
+[
+    {"step":10,"type":"card_property_equals","mzId":"theirField-0","property":"Damage","value":"1","semantic":true,"label":"Conductive Strike's attack lands for its printed 1 power"},
+    {"step":10,"type":"card_property_equals","mzId":"myField-1","property":"Counters","value":"{\"static\":1}","semantic":true,"label":"Paying 2 on hit puts a static counter on Storm Slime, the only arcane element object controlled"},
+    {"step":10,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Conductive Strike completes the attack and moves to the graveyard"},
+    {"step":10,"type":"decision_queue_empty","player":"all"}
+]
