@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T14:24:52+00:00",
+    "generatedAt": "2026-08-30T14:27:26+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 143,
+        "cardsWithExistingFixtures": 145,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2344,
+        "cardsNeedingSemanticCoverage": 2342,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1611,26 +1611,6 @@
             "priority": 113
         },
         {
-            "cardId": "LZ8JpWj27h",
-            "name": "Clumsy Apprentice",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "i7sbjy86ep",
             "name": "Cone of Frost",
             "type": "ACTION",
@@ -2204,25 +2184,6 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "kjCKx4FVrM",
-            "name": "Package Courier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43231,6 +43192,30 @@
             "priority": 133
         },
         {
+            "cardId": "LZ8JpWj27h",
+            "name": "Clumsy Apprentice",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "clumsy-apprentice-enter-damage-draw"
+            ],
+            "semanticFixtures": [
+                "clumsy-apprentice-enter-damage-draw"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "C3YucOomEM",
             "name": "Everlonging Thorns",
             "type": "ACTION",
@@ -43486,6 +43471,29 @@
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "kjCKx4FVrM",
+            "name": "Package Courier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "package-courier-discard-draw"
+            ],
+            "semanticFixtures": [
+                "package-courier-discard-draw"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
