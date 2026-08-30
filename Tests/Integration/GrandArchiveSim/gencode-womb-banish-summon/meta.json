@@ -1,0 +1,17 @@
+{
+    "name": "Gencode Womb's Dante Bonus (3), banish self: summon an Elysian Test Subject",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T11:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Gencode Womb's element is NORM, so no lineage patch is needed, and its memory cost (0) needs no floating-payment setup. Its ability requires IsDanteBonusActive() (a champion-name check, not a class/lineage check), so Dante, Hemomancer (reused from mend-flesh-damage25-recover/exia-sight-draw) is seeded directly onto the field. The ActivatedAbilityCost() switch (GameLogic.php) auto-queues 3 reserve payments and banishes Gencode Womb itself as the ability's own cost. We control no Elysian object, so the 'else' branch (summon an Elysian Test Subject token) resolves rather than the draw-into-memory branch.",
+    "testedCards": [
+        "7IVQRtJFa8"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["7IVQRtJFa8"],
+        "mechanics": ["draw-discard", "zone-movement", "token", "condition"],
+        "rulesClauses": [
+            "[Dante Bonus] (3), Banish CARDNAME: If you don't control an Elysian object, summon an Elysian Test Subject token. Otherwise, draw a card into your memory."
+        ]
+    }
+}

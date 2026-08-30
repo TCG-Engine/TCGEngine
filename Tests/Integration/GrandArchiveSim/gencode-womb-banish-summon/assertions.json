@@ -1,0 +1,6 @@
+[
+    {"step":5,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"3DCP7WmBpx","semantic":true,"label":"Activating summons an Elysian Test Subject token, since we control no Elysian object"},
+    {"step":5,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"7IVQRtJFa8","semantic":true,"label":"Gencode Womb banishes itself as its own activation cost"},
+    {"step":5,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"The (3) additional cost moves hand cards into memory, one of which is immediately consumed as a floating-memory payment"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **108**
+Cards linked to an existing fixture: **112**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2379**
+Implemented cards still needing semantic coverage: **2375**
 
 ## Mechanic groups
 
@@ -69,10 +69,10 @@ Implemented cards still needing semantic coverage: **2379**
 | Elyan, Lustre Loyalty (`2jgiM0p4dt`) | UNIQUE,ALLY | 1 | recover, status, trigger, condition | Zander Pantheon Starter | — |
 | Esteemed Knight (`iabqeB0I6t`) | ALLY | 1 | status, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Flash Freeze (`w3rrii17fz`) | ACTION | 1 | cost, targeting, zone-movement, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
-| Foraging Servant (`0pw0y6isxy`) | ALLY | 1 | cost, zone-movement, token, trigger | Arisanna Starter Deck | — |
 | Formidable Youxia (`acmde97dbu`) | ALLY | 1 | status, combat, trigger, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |
-| Gencode Womb (`7IVQRtJFa8`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, token, condition | Dante, Hemomancer Starter Deck | — |
-| Give Bath (`XeXek4dKav`) | ACTION | 1 | cost, targeting, damage, zone-movement | Silvie Starter Deck | — |
 | Hasty Messenger (`DsiRzt0trX`) | ALLY | 1 | draw-discard, combat, trigger, condition | Kongming Pantheon Starter, Zander Pantheon Starter | — |
-| Immolation Trap (`Uxn14UqyQg`) | ACTION | 1 | cost, targeting, zone-movement, condition | Zander Pantheon Starter | — |
 | Imperial Sentry (`plywc08c9h`) | ALLY | 1 | status, combat, trigger, condition | Tonoris Starter Deck | — |
+| Insignia of the Corhazi (`52u81v4c0z`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, counter, trigger | Zander Pantheon Starter | — |
+| Jin, Fate Defiant (`zd8l14052j`) | CHAMPION | 1 | targeting, combat, trigger, condition | Jin Starter Deck | — |
+| Jovian Hilt X Ultra (`sZTH5LanyW`) | REGALIA,ITEM | 1 | targeting, counter, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
+| Juggle Knives (`7VxRE6HgZC`) | ACTION | 1 | targeting, damage, draw-discard, condition | Zander Pantheon Starter | — |

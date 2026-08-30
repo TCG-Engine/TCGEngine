@@ -1,0 +1,17 @@
+{
+    "name": "Give Bath removes all temporary damage from target ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T11:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Give Bath's element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water, reused from coriolis-ward-prevent-level/perfect-repulsion-prevent-x/aenean-frostlance-damage). Dungeon Guide is seeded onto the opponent's field with 2 pre-existing Damage so the 'remove all damage' effect is observable as a decrease to 0. The [Class Bonus] Floating Memory clause is out of scope.",
+    "testedCards": [
+        "XeXek4dKav"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["XeXek4dKav"],
+        "mechanics": ["cost", "targeting", "damage", "zone-movement"],
+        "rulesClauses": [
+            "Remove all temporary damage from target ally."
+        ]
+    }
+}

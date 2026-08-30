@@ -1,0 +1,17 @@
+{
+    "name": "Foraging Servant's On Enter Gather summons a random resource token",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T11:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Foraging Servant's element is NORM, so no lineage patch is needed. Only the base 'Gather' On Enter is covered (which summons one of six possible tokens chosen at random, resolving to Blightroot with this fixture's seed); the [Class Bonus] Floating Memory clause is a passive/reusable-elsewhere property and is out of scope.",
+    "testedCards": [
+        "0pw0y6isxy"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["0pw0y6isxy"],
+        "mechanics": ["cost", "zone-movement", "token", "trigger"],
+        "rulesClauses": [
+            "On Enter: Gather."
+        ]
+    }
+}

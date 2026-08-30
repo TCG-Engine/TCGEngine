@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T02:40:59+00:00",
+    "generatedAt": "2026-08-30T02:49:57+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 108,
+        "cardsWithExistingFixtures": 112,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2379,
+        "cardsNeedingSemanticCoverage": 2375,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -912,26 +912,6 @@
             "priority": 114
         },
         {
-            "cardId": "0pw0y6isxy",
-            "name": "Foraging Servant",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "acmde97dbu",
             "name": "Formidable Youxia",
             "type": "ALLY",
@@ -953,46 +933,6 @@
             "priority": 114
         },
         {
-            "cardId": "7IVQRtJFa8",
-            "name": "Gencode Womb",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "XeXek4dKav",
-            "name": "Give Bath",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "DsiRzt0trX",
             "name": "Hasty Messenger",
             "type": "ALLY",
@@ -1008,26 +948,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "Uxn14UqyQg",
-            "name": "Immolation Trap",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
                 "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
@@ -43322,6 +43242,30 @@
             "priority": 134
         },
         {
+            "cardId": "0pw0y6isxy",
+            "name": "Foraging Servant",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "foraging-servant-enter-gather"
+            ],
+            "semanticFixtures": [
+                "foraging-servant-enter-gather"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "tjmzM6t9R5",
             "name": "Forging Heat",
             "type": "ACTION",
@@ -43341,6 +43285,78 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "7IVQRtJFa8",
+            "name": "Gencode Womb",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gencode-womb-banish-summon"
+            ],
+            "semanticFixtures": [
+                "gencode-womb-banish-summon"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "XeXek4dKav",
+            "name": "Give Bath",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "give-bath-remove-damage"
+            ],
+            "semanticFixtures": [
+                "give-bath-remove-damage"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "Uxn14UqyQg",
+            "name": "Immolation Trap",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "immolation-trap-destroy-damaged"
+            ],
+            "semanticFixtures": [
+                "immolation-trap-destroy-damaged"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 134

@@ -2839,6 +2839,140 @@ DECK,
     ],
 ];
 
+// --- Foraging Servant: On Enter Gather a random resource token ---
+$fixtures['foraging-servant-enter-gather'] = [
+    'testedCards' => ['0pw0y6isxy'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Foraging Servant
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Foraging Servant's element is NORM, so no lineage patch is needed. Only the base "Gather" On
+    // Enter is covered (which summons one of six possible tokens chosen at random); the [Class
+    // Bonus] Floating Memory clause is a passive/reusable-elsewhere property and is out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '0pw0y6isxy'], // Foraging Servant, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Give Bath: remove all temporary damage from target ally ---
+$fixtures['give-bath-remove-damage'] = [
+    'testedCards' => ['XeXek4dKav'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Give Bath
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Give Bath's element is WATER, so the starting champion's Subcards are patched with a real
+    // WATER champion (Spirit of Water, reused from coriolis-ward-prevent-level/
+    // perfect-repulsion-prevent-x/aenean-frostlance-damage). Dungeon Guide is seeded onto the
+    // opponent's field with 1 pre-existing Damage so the "remove all damage" effect is observable
+    // as a decrease to 0. The [Class Bonus] Floating Memory clause is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Damage' => 2]], // Dungeon Guide, pre-damaged - remove-damage target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'XeXek4dKav'], // Give Bath, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Immolation Trap: destroy target damaged ally ---
+$fixtures['immolation-trap-destroy-damaged'] = [
+    'testedCards' => ['Uxn14UqyQg'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Immolation Trap
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Immolation Trap's element is FIRE (matching the starting champion), so no lineage patch is
+    // needed. Dungeon Guide is seeded onto the opponent's field with 1 pre-existing Damage so it
+    // qualifies as a legal "damaged ally" target. Without the [Class Bonus] discount, the full
+    // 2-reserve cost is paid.
+    'setup' => [
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Damage' => 1]], // Dungeon Guide, pre-damaged - destroy target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Uxn14UqyQg'], // Immolation Trap, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Gencode Womb: Dante Bonus (3), banish self: summon a token (no Elysian controlled) ---
+$fixtures['gencode-womb-banish-summon'] = [
+    'testedCards' => ['7IVQRtJFa8'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Gencode Womb
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Gencode Womb's element is NORM, so no lineage patch is needed, and its memory cost (0)
+    // needs no floating-payment setup. Its ability requires IsDanteBonusActive() (a champion-name
+    // check, not a class/lineage check), so Dante, Hemomancer (reused from
+    // mend-flesh-damage25-recover/exia-sight-draw) is seeded directly onto the field. The
+    // ActivatedAbilityCost() switch (GameLogic.php) auto-queues 3 reserve payments and banishes
+    // Gencode Womb itself as the ability's own cost. We control no Elysian object, so the "else"
+    // branch (summon an Elysian Test Subject token) resolves rather than the draw-into-memory
+    // branch.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4FtNBFaOJp'], // Dante, Hemomancer (CHAMPION) - Dante Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7IVQRtJFa8'], // Gencode Womb, seeded straight onto the field (this fixture is about its activated ability, not materialize)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
