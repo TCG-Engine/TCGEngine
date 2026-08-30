@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T11:24:30+00:00",
+    "generatedAt": "2026-08-30T13:40:26+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 140,
+        "cardsWithExistingFixtures": 141,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2347,
+        "cardsNeedingSemanticCoverage": 2346,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2165,25 +2165,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "6bc3ogf0o8",
-            "name": "Nascent Barrier",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43498,6 +43479,29 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "6bc3ogf0o8",
+            "name": "Nascent Barrier",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "nascent-barrier-glimpse"
+            ],
+            "semanticFixtures": [
+                "nascent-barrier-glimpse"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133

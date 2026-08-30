@@ -1,0 +1,17 @@
+{
+    "name": "Nascent Barrier Glimpses 3 at level 3+",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Nascent Barrier's element is NORM, so no lineage patch is needed. The champion's Counters are patched with 3 level counters so the Level 3+ Glimpse 3 clause is reachable; the [Class Bonus] damage-prevention clause (CLERIC class) is out of scope since the default champion is SPIRIT class. Without a discount, the full 2-reserve cost is paid, then both players decline the EffectStackActiveResponse opportunity window before the Glimpse 3 MZREARRANGE decision appears, answered by keeping all 3 revealed cards on top in the same order.",
+    "testedCards": [
+        "6bc3ogf0o8"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["6bc3ogf0o8"],
+        "mechanics": ["cost", "zone-movement", "condition"],
+        "rulesClauses": [
+            "[Level 3+] Glimpse 3."
+        ]
+    }
+}
