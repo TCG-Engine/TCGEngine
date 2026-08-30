@@ -1,0 +1,17 @@
+{
+    "name": "Stellar Bloom gathers four random herb tokens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Stellar Bloom is an ASTRA (advanced element) ACTION card, so the starting champion's Subcards are patched with a real ASTRA champion (Arisanna, Astral Zenith) to unlock element access. Without a [Class Bonus] discount, the full 2-reserve cost is paid; the ability's own four Gather() calls resolve immediately after the last reserve payment with no opportunity-window PASS or player decision needed, each summoning a herb token chosen via the engine's deterministic RNG (seed 42). Only the base Gather-four effect is covered; the [Class Bonus] Starcalling (2) alternate-timing clause is out of scope.",
+    "testedCards": [
+        "JFdxtCqdeg"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["JFdxtCqdeg"],
+        "mechanics": ["cost", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Gather four times."
+        ]
+    }
+}

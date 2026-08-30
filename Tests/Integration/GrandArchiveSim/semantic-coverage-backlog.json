@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T14:38:01+00:00",
+    "generatedAt": "2026-08-30T14:40:21+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 152,
+        "cardsWithExistingFixtures": 154,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2335,
+        "cardsNeedingSemanticCoverage": 2333,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2602,25 +2602,6 @@
             "priority": 113
         },
         {
-            "cardId": "JFdxtCqdeg",
-            "name": "Stellar Bloom",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "AMv1u54B2s",
             "name": "Strike of Singularity",
             "type": "ATTACK",
@@ -2713,25 +2694,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "2ugmnmp5af",
-            "name": "Take Cover",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43546,6 +43508,52 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "JFdxtCqdeg",
+            "name": "Stellar Bloom",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "stellar-bloom-gather-four"
+            ],
+            "semanticFixtures": [
+                "stellar-bloom-gather-four"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "2ugmnmp5af",
+            "name": "Take Cover",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "status"
+            ],
+            "existingFixtures": [
+                "take-cover-stealth-distant"
+            ],
+            "semanticFixtures": [
+                "take-cover-stealth-distant"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
