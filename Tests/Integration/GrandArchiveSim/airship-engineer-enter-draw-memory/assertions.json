@@ -1,0 +1,4 @@
+[
+    {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"2 reserve payments plus the On Enter draw-into-memory leave 3 cards in memory"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

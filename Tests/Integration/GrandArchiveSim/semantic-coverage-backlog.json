@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T02:20:27+00:00",
+    "generatedAt": "2026-08-30T02:26:31+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 93,
+        "cardsWithExistingFixtures": 98,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2394,
+        "cardsNeedingSemanticCoverage": 2389,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -560,27 +560,6 @@
             "priority": 115
         },
         {
-            "cardId": "vj6vmuuldt",
-            "name": "Swerving Spring",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "mHd6LLyMyF",
             "name": "Swift Recruit",
             "type": "ALLY",
@@ -625,27 +604,6 @@
             "priority": 115
         },
         {
-            "cardId": "r1o0qtb31x",
-            "name": "Worn Gearblade",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "fc4ic5fmaa",
             "name": "Zander, Deft Executor",
             "type": "CHAMPION",
@@ -665,46 +623,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 115
-        },
-        {
-            "cardId": "NXGaB1dYwL",
-            "name": "Aenean Frostlance",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "66pv4n1n3g",
-            "name": "Airship Engineer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
         },
         {
             "cardId": "NwK5wge8wy",
@@ -783,26 +701,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "F1t18omUlx",
-            "name": "Beastbond Paws",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -43155,6 +43053,128 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 135
+        },
+        {
+            "cardId": "vj6vmuuldt",
+            "name": "Swerving Spring",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "swerving-spring-prevent-2"
+            ],
+            "semanticFixtures": [
+                "swerving-spring-prevent-2"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "r1o0qtb31x",
+            "name": "Worn Gearblade",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "worn-gearblade-durability-prevent"
+            ],
+            "semanticFixtures": [
+                "worn-gearblade-durability-prevent"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "NXGaB1dYwL",
+            "name": "Aenean Frostlance",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "aenean-frostlance-damage"
+            ],
+            "semanticFixtures": [
+                "aenean-frostlance-damage"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "66pv4n1n3g",
+            "name": "Airship Engineer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "airship-engineer-enter-draw-memory"
+            ],
+            "semanticFixtures": [
+                "airship-engineer-enter-draw-memory"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "F1t18omUlx",
+            "name": "Beastbond Paws",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status",
+                "combat"
+            ],
+            "existingFixtures": [
+                "beastbond-paws-buff-truesight"
+            ],
+            "semanticFixtures": [
+                "beastbond-paws-buff-truesight"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
         },
         {
             "cardId": "4ns2jbt4hq",

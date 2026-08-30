@@ -1,0 +1,17 @@
+{
+    "name": "Worn Gearblade's Class Bonus durability-counter prevention",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T08:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Worn Gearblade's own activated ability requires a GUARDIAN Class Bonus (physical presence, so Ciel, Loyal Valet is seeded directly onto the field, reused from charged-manaplate-banish-draw) and a durability counter on Worn Gearblade itself (seeded directly). Worn Gearblade is seeded straight onto the field rather than played from hand since this fixture is about its activated ability, not its materialize flow. Only the always-available prevention half is covered; the 'durability counter whenever an Automaton ally dies' trigger requires a real Automaton death and is out of scope.",
+    "testedCards": [
+        "r1o0qtb31x"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["r1o0qtb31x"],
+        "mechanics": ["targeting", "damage", "prevention", "counter"],
+        "rulesClauses": [
+            "[Class Bonus] [REST], Remove a durability counter from CARDNAME: Prevent the next 1 damage that would be dealt to target unit this turn."
+        ]
+    }
+}

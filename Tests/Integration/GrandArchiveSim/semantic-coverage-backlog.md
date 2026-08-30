@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **93**
+Cards linked to an existing fixture: **98**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2394**
+Implemented cards still needing semantic coverage: **2389**
 
 ## Mechanic groups
 
@@ -52,18 +52,13 @@ Implemented cards still needing semantic coverage: **2394**
 | Shieldroid (`qCTini03Bc`) | ALLY | 1 | cost, zone-movement, status, combat, condition | Dante, Hemomancer Starter Deck | — |
 | Stalwart Shieldmate (`eifnz0fgm3`) | ALLY | 1 | cost, zone-movement, status, combat, condition | Dante, Hemomancer Starter Deck, Tonoris Starter Deck, Kongming Pantheon Starter, Zander Pantheon Starter | — |
 | Surveillance Stone (`kk46Whz7CJ`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
-| Swerving Spring (`vj6vmuuldt`) | ACTION | 1 | targeting, damage, prevention, counter, condition | Zander Pantheon Starter | — |
 | Swift Recruit (`mHd6LLyMyF`) | ALLY | 1 | cost, zone-movement, status, combat, trigger | Jin Starter Deck, Lorraine Starter Deck, Lorraine Pantheon Starter | — |
 | Taiji of Crystal Strategems (`l17uc67eaq`) | PHANTASIA | 1 | cost, targeting, damage, status, trigger | Kongming Starter Deck | — |
-| Worn Gearblade (`r1o0qtb31x`) | REGALIA,WEAPON | 1 | targeting, damage, prevention, counter, trigger | Tonoris Starter Deck | — |
 | Zander, Deft Executor (`fc4ic5fmaa`) | CHAMPION | 1 | zone-movement, counter, combat, trigger, condition | Zander Pantheon Starter | — |
-| Aenean Frostlance (`NXGaB1dYwL`) | ACTION | 1 | targeting, damage, status, condition | Dante, Hemomancer Starter Deck | — |
-| Airship Engineer (`66pv4n1n3g`) | ALLY | 1 | draw-discard, status, trigger, condition | Diana Starter Deck | — |
 | Alpha Philterbeast (`NwK5wge8wy`) | ALLY | 1 | cost, counter, trigger, condition | Arisanna Pantheon Starter | — |
 | Archon Broadsword (`pyx8bd7ozu`) | REGALIA,WEAPON | 1 | cost, token, combat, condition | Tonoris Starter Deck | — |
 | Astra Sight (`zuj68m69iq`) | ACTION | 1 | cost, draw-discard, zone-movement, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Automaton Bomber (`ygojwk0pw0`) | ALLY | 1 | cost, zone-movement, status, condition | Diana Starter Deck | — |
-| Beastbond Paws (`F1t18omUlx`) | REGALIA,ITEM | 1 | targeting, zone-movement, status, combat | Silvie Starter Deck | — |
 | Cleansing Reunion (`xpnjvt9y59`) | ACTION | 1 | cost, targeting, status, condition | Lorraine Pantheon Starter | — |
 | Conductive Strike (`dDOMoeCJyK`) | ATTACK | 1 | cost, counter, combat, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Convalescent Tonic (`l8ao8bls6g`) | ITEM | 1 | cost, recover, draw-discard, zone-movement | Arisanna Pantheon Starter | — |
@@ -76,3 +71,8 @@ Implemented cards still needing semantic coverage: **2394**
 | Disorienting Winds (`UfQh069mc3`) | ACTION | 1 | cost, targeting, draw-discard, zone-movement | Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Distilled Atrophy (`h38lrj5221`) | ITEM | 1 | targeting, damage, counter, condition | Arisanna Pantheon Starter | — |
 | Dungeon Guide (`em6eEh9q8y`) | ALLY | 1 | cost, zone-movement, trigger, condition | Lorraine Starter Deck (Prelude), Rai Starter Deck (Prelude) | — |
+| Elyan, Lustre Loyalty (`2jgiM0p4dt`) | UNIQUE,ALLY | 1 | recover, status, trigger, condition | Zander Pantheon Starter | — |
+| Equinox Hour (`UE6g95C1nZ`) | REGALIA,ITEM | 1 | cost, targeting, draw-discard, zone-movement | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
+| Esteemed Knight (`iabqeB0I6t`) | ALLY | 1 | status, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
+| Exia Sight (`1fy8l4pxs9`) | ACTION | 1 | cost, damage, draw-discard, condition | Dante, Hemomancer Starter Deck, Jin Starter Deck | — |
+| Fireball (`RIVahUIQVD`) | ACTION | 1 | cost, targeting, damage, condition | Rai Starter Deck, Rai Starter Deck (Prelude), Kongming Pantheon Starter | — |

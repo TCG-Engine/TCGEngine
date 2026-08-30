@@ -1,0 +1,17 @@
+{
+    "name": "Airship Engineer's On Enter draws into memory when controlling a distant unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T08:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Airship Engineer's element is FIRE (matching the starting champion), so no lineage patch is needed. IsDistant() (CardLogic.php) reads the 'DISTANT' TurnEffect directly, so the starting champion's TurnEffects are patched with it directly (same tag rocket-jump-distant confirmed is applied by a real 'becomes distant' effect) rather than scripting one. Only the On Enter draw-into-memory is covered; the [Class Bonus] Ranged 2 static combat bonus is out of scope.",
+    "testedCards": [
+        "66pv4n1n3g"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["66pv4n1n3g"],
+        "mechanics": ["draw-discard", "status", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: If you control a distant unit, draw a card into your memory."
+        ]
+    }
+}

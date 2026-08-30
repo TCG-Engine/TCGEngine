@@ -2347,6 +2347,165 @@ DECK,
     ],
 ];
 
+// --- Swerving Spring: prevent the next 2 damage to target unit ---
+$fixtures['swerving-spring-prevent-2'] = [
+    'testedCards' => ['vj6vmuuldt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Swerving Spring
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Swerving Spring's element is NORM, so no lineage patch is needed. Only the base always-
+    // available prevention is covered; the [Class Bonus] preparation-counter clause isn't reached
+    // (no matching class bonus set up).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vj6vmuuldt'], // Swerving Spring, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Aenean Frostlance: deal 2 damage to target unit ---
+$fixtures['aenean-frostlance-damage'] = [
+    'testedCards' => ['NXGaB1dYwL'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Aenean Frostlance
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Aenean Frostlance's element is WATER, so the starting champion's Subcards are patched with
+    // a real WATER champion (Spirit of Water, reused from coriolis-ward-prevent-level/
+    // perfect-repulsion-prevent-x). Only the base 2-damage clause is covered; the [Class Bonus]
+    // [Level 3+]/[Level 6+] scaled-damage-to-a-rested-unit branches aren't reached.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'NXGaB1dYwL'], // Aenean Frostlance, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Worn Gearblade: Class Bonus + remove durability counter to prevent 1 damage ---
+$fixtures['worn-gearblade-durability-prevent'] = [
+    'testedCards' => ['r1o0qtb31x'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Worn Gearblade's own activated ability requires a GUARDIAN Class Bonus (physical presence,
+    // so Ciel, Loyal Valet is seeded directly onto the field, reused from
+    // charged-manaplate-banish-draw) and a durability counter on Worn Gearblade itself (seeded
+    // directly). Worn Gearblade is seeded straight onto the field rather than played from hand
+    // since this fixture is about its activated ability, not its materialize flow. Only the
+    // always-available prevention half is covered; the "durability counter whenever an Automaton
+    // ally dies" trigger requires a real Automaton death and is out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'nn48ne8a05'], // Ciel, Loyal Valet (GUARDIAN CHAMPION) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'r1o0qtb31x', 'setProperties' => ['Counters' => ['durability' => 1]]], // Worn Gearblade - ability cost fuel
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Airship Engineer: On Enter draws into memory if you control a distant unit ---
+$fixtures['airship-engineer-enter-draw-memory'] = [
+    'testedCards' => ['66pv4n1n3g'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Airship Engineer
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Airship Engineer's element is FIRE (matching the starting champion), so no lineage patch is
+    // needed. IsDistant() (CardLogic.php) reads the "DISTANT" TurnEffect directly, so the starting
+    // champion's TurnEffects are patched with it directly (same tag rocket-jump-distant confirmed
+    // is applied by a real "becomes distant" effect) rather than scripting one. Only the On Enter
+    // draw-into-memory is covered; the [Class Bonus] Ranged 2 static combat bonus is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['TurnEffects' => ['DISTANT']]], // On Enter "control a distant unit" precondition
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '66pv4n1n3g'], // Airship Engineer, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Beastbond Paws: banish self to buff a target Animal/Beast ally ---
+$fixtures['beastbond-paws-buff-truesight'] = [
+    'testedCards' => ['F1t18omUlx'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Beastbond Paws
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Beastbond Paws' element is NORM, so no lineage patch is needed, and its memory cost (0)
+    // needs no floating-payment setup. Cheerful Slime (an ALLY, TAMER,ANIMAL,SLIME) is seeded
+    // onto the field as the required Animal/Beast target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'OUqX2BBcGv'], // Cheerful Slime (ALLY, ANIMAL) - buff target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F1t18omUlx'], // Beastbond Paws, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-4!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
