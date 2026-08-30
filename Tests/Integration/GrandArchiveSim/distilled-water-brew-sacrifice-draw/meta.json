@@ -1,0 +1,18 @@
+{
+    "name": "Distilled Water brews with a Herb, then Sacrifice draws a card since it was brewed",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T11:30:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Distilled Water's element is NORM, so no lineage patch is needed. Brewing is an alternate cost declared via a YESNO decision at materialize time (sacrifice a Herb instead of paying reserve); a Blightroot (HERB token) is seeded onto the field to pay the Brew - One Herb cost. Sacrificing Distilled Water afterward checks the O1OU62Zx2Y_wasBrewed decision-queue variable set during that declare-brew flow and draws a card.",
+    "testedCards": [
+        "O1OU62Zx2Y"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["O1OU62Zx2Y"],
+        "mechanics": ["cost", "zone-movement", "draw-discard", "condition"],
+        "rulesClauses": [
+            "Brew — One Herb.",
+            "Sacrifice Distilled Water: If Distilled Water was brewed, draw a card."
+        ]
+    }
+}

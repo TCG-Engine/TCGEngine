@@ -1,0 +1,26 @@
+[
+    {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myField-1!CustomInput!Activate:0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "PASS",
+        "chkInput": [],
+        "inputText": ""
+    }
+]

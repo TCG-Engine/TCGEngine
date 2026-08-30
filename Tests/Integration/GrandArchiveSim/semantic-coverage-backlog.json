@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T02:49:57+00:00",
+    "generatedAt": "2026-08-30T02:59:05+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 112,
+        "cardsWithExistingFixtures": 116,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2375,
+        "cardsNeedingSemanticCoverage": 2371,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -109,25 +109,6 @@
             "priority": 123
         },
         {
-            "cardId": "9g44vm5kt3",
-            "name": "Empowering Tincture",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
             "cardId": "szene5o32m",
             "name": "Incapacitate",
             "type": "ACTION",
@@ -198,42 +179,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 122
-        },
-        {
-            "cardId": "O1OU62Zx2Y",
-            "name": "Distilled Water",
-            "type": "ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 122
-        },
-        {
-            "cardId": "lq2kkvoqk1",
-            "name": "Necklace of Foresight",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 122
@@ -660,27 +605,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "zuj68m69iq",
-            "name": "Astra Sight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -41878,6 +41802,29 @@
             "priority": 143
         },
         {
+            "cardId": "9g44vm5kt3",
+            "name": "Empowering Tincture",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "empowering-tincture-brew-enter-draw"
+            ],
+            "semanticFixtures": [
+                "empowering-tincture-brew-enter-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
             "cardId": "k9zhw0gbov",
             "name": "Fan of Seven Debts",
             "type": "REGALIA,ITEM",
@@ -42138,6 +42085,28 @@
             "priority": 142
         },
         {
+            "cardId": "O1OU62Zx2Y",
+            "name": "Distilled Water",
+            "type": "ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "distilled-water-brew-sacrifice-draw"
+            ],
+            "semanticFixtures": [
+                "distilled-water-brew-sacrifice-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 142
+        },
+        {
             "cardId": "z0fgm3pal7",
             "name": "Frostbind",
             "type": "ACTION",
@@ -42200,6 +42169,28 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 142
+        },
+        {
+            "cardId": "lq2kkvoqk1",
+            "name": "Necklace of Foresight",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "necklace-of-foresight-banish-glimpse"
+            ],
+            "semanticFixtures": [
+                "necklace-of-foresight-banish-glimpse"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 142
@@ -42853,6 +42844,31 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "zuj68m69iq",
+            "name": "Astra Sight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "astra-sight-glimpse-draw"
+            ],
+            "semanticFixtures": [
+                "astra-sight-glimpse-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 134

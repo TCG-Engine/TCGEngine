@@ -2973,6 +2973,140 @@ DECK,
     ],
 ];
 
+// --- Distilled Water: Brew (1 Herb), then Sacrifice draws a card since it was brewed ---
+$fixtures['distilled-water-brew-sacrifice-draw'] = [
+    'testedCards' => ['O1OU62Zx2Y'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Distilled Water
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Distilled Water's element is NORM, so no lineage patch is needed. Brewing is an alternate
+    // cost (sacrifice herbs instead of paying reserve), declared via a YESNO decision at
+    // materialize time. A single Herb-subtype token (Blightroot) is seeded onto the field to pay
+    // the Brew - One Herb cost. Sacrificing Distilled Water afterward checks the
+    // O1OU62Zx2Y_wasBrewed decision-queue variable set during that declare-brew flow.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB token) - brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'O1OU62Zx2Y'], // Distilled Water, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Empowering Tincture: Brew (Manaroot + Herb), On Enter draws into memory since brewed ---
+$fixtures['empowering-tincture-brew-enter-draw'] = [
+    'testedCards' => ['9g44vm5kt3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Empowering Tincture
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Empowering Tincture's element is NORM, so no lineage patch is needed. Brewing is an
+    // alternate cost (sacrifice herbs instead of paying reserve): its recipe requires exactly one
+    // Manaroot plus one other Herb, so both tokens are seeded onto the field. Only the On Enter
+    // "if brewed, draw into memory" half is covered; the unconditional Sacrifice: +2 level effect
+    // is out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5joh300z2s'], // Manaroot (HERB token) - required brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB token) - second brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9g44vm5kt3'], // Empowering Tincture, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Necklace of Foresight: Banish self, Glimpse 4 ---
+$fixtures['necklace-of-foresight-banish-glimpse'] = [
+    'testedCards' => ['lq2kkvoqk1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Necklace of Foresight's element is NORM, so no lineage patch is needed. As a REGALIA,ITEM
+    // (a Material-deck card type), it is seeded directly onto the field rather than played from
+    // hand, same pattern as worn-gearblade-durability-prevent -- this fixture is about its
+    // activated ability, not its materialize flow, so the memory-cost payment mechanic is out of
+    // scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'lq2kkvoqk1'], // Necklace of Foresight, seeded straight onto the field
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Astra Sight: Glimpse 1, then draw a card ---
+$fixtures['astra-sight-glimpse-draw'] = [
+    'testedCards' => ['zuj68m69iq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Astra Sight
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Astra Sight is an ASTRA (advanced element) ACTION card, so the starting champion's Subcards
+    // are patched with a real ASTRA champion (Arisanna, Astral Zenith), same as
+    // dwarf-stars-glow-damage/cosmic-bolt-damage/cometfall-sweep-damage, to unlock element access.
+    // Its reserve cost is 0, so no reserve payment is needed. Only the base Glimpse 1 + draw
+    // effect is covered; the Starcalling (0) alternate-timing clause is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], // ASTRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zuj68m69iq'], // Astra Sight, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=px60u5n1do;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
