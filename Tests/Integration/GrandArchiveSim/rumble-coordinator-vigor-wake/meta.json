@@ -1,0 +1,17 @@
+{
+    "name": "Rumble Coordinator's Vigor wakes it up at the beginning of its controller's end phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Rumble Coordinator's element is ARCANE, so the starting champion's Subcards are patched with a real ARCANE champion (Lorraine, Arclight Saber) to unlock element access. It is seeded directly onto the field and a second setup step patches its Status to 1 (rested) to construct the precondition. Ending the turn once (mode 10001 CustomInput Pass) triggers Vigor's unconditional 'wakes up at the beginning of your end phase' keyword during P1's own end phase, so Rumble Coordinator is Status 2 (awake) even as turn control passes to the opponent. Only the base Vigor keyword is covered; both [Class Bonus] clauses (+1 power per static counter, On Death draw if it had static counters) are out of scope for the default (non-matching-class) champion.",
+    "testedCards": [
+        "U5Fns5U7He"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["U5Fns5U7He"],
+        "mechanics": ["status", "trigger"],
+        "rulesClauses": [
+            "Vigor (This unit wakes up at the beginning of your end phase.)"
+        ]
+    }
+}

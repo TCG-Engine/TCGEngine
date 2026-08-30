@@ -4598,6 +4598,40 @@ DECK,
     ],
 ];
 
+// --- Rumble Coordinator: Vigor -- wakes up at the beginning of your end phase ---
+$fixtures['rumble-coordinator-vigor-wake'] = [
+    'testedCards' => ['U5Fns5U7He'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Windslice
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Rumble Coordinator's element is ARCANE, so the starting champion's Subcards are patched
+    // with a real ARCANE champion (Lorraine, Arclight Saber) to unlock element access. It is
+    // seeded directly onto the field, pre-rested (Status 1), then a second setup step patches its
+    // Status back down to confirm the rested precondition -- ending the turn once triggers Vigor's
+    // unconditional "wakes up at the beginning of your end phase" keyword, so it ends the turn
+    // already readied even though it's now the opponent's turn. Only the base Vigor keyword is
+    // covered; both [Class Bonus] clauses (+1 power per static counter, On Death draw) are out of
+    // scope for the default (non-matching-class) champion.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]], // ARCANE lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'U5Fns5U7He'], // Rumble Coordinator
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 1]], // pre-rest it so the wake-up is observable
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

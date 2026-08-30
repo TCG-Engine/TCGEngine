@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T15:23:01+00:00",
+    "generatedAt": "2026-08-30T15:35:10+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 165,
+        "cardsWithExistingFixtures": 166,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2322,
+        "cardsNeedingSemanticCoverage": 2321,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1128,26 +1128,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "U5Fns5U7He",
-            "name": "Rumble Coordinator",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -42700,6 +42680,30 @@
             ],
             "starterDecks": [
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "U5Fns5U7He",
+            "name": "Rumble Coordinator",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rumble-coordinator-vigor-wake"
+            ],
+            "semanticFixtures": [
+                "rumble-coordinator-vigor-wake"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
