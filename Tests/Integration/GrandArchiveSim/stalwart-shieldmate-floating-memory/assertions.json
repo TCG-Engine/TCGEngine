@@ -1,0 +1,7 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"myField-0","property":"CardID","value":"DpHDGaX2Pn","semantic":true,"label":"The champion level-up completes -- Lorraine, Wandering Warrior takes the field"},
+    {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"Stalwart Shieldmate leaves the graveyard, paying for the level-up's memory cost"},
+    {"step":4,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Floating Memory banishes Stalwart Shieldmate rather than tapping a myMemory card"},
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"No myMemory card was seeded or spent -- the cost was paid entirely from the graveyard"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

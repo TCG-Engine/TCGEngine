@@ -5228,6 +5228,91 @@ DECK,
     ],
 ];
 
+// --- Shieldroid: Floating Memory pays a champion level-up's memory cost from graveyard ---
+$fixtures['shieldroid-floating-memory'] = [
+    'testedCards' => ['qCTini03Bc'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Shieldroid's Floating Memory keyword (while paying a memory cost, you may banish this card
+    // from your graveyard to pay for 1 of that cost) is tested the same way as
+    // honorable-vanguard-floating-memory: pay Lorraine, Wandering Warrior's 1-memory champion
+    // level-up cost entirely from a Shieldroid seeded directly into the graveyard, with no
+    // myMemory filler seeded, so QueueMaterializeFloatingPaymentChoice
+    // (GrandArchiveSim/Custom/MaterializeLogic.php) offers it as the sole payment source. Taunt
+    // (the combat-targeting-priority half of Shieldroid's text) is a computed attack-declaration
+    // restriction with no stored counter or flag to assert and is out of scope here.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'qCTini03Bc'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Stalwart Shieldmate: Floating Memory pays a champion level-up's memory cost from graveyard ---
+$fixtures['stalwart-shieldmate-floating-memory'] = [
+    'testedCards' => ['eifnz0fgm3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Same Floating Memory keyword and same test shape as shieldroid-floating-memory and
+    // honorable-vanguard-floating-memory -- Stalwart Shieldmate shares identical printed text with
+    // Shieldroid (Taunt + Floating Memory), so this is a second, independent card exercising the
+    // same QueueMaterializeFloatingPaymentChoice payment path. Taunt is out of scope, same reason.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'eifnz0fgm3'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// NOTE: Tariff Ring was attempted but abandoned -- its activation prereq
+// (activateAbilityPrereqs["xnrw8qq1uw:0"], GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php)
+// checks `GetCurrentPhase() === "RECOLLECTION" && GetTurnPlayer() != player`, and the "Opportunity
+// arises at the beginning of the Recollection phase" window (BeforeRecollectionPhase(),
+// GrandArchiveSim/Custom/GameLogic.php) is granted while the engine is in the 'BREC' phase (one
+// step before the real 'REC' phase, per GrandArchiveSim/TurnStates.php's WU->MAT->BREC->REC->DRAW
+// ->MAIN sequence). But GetCurrentPhase() returns the raw short phase CODE the whole time ('BREC',
+// then 'REC') -- confirmed live by instrumenting GrandArchiveSim/TurnController.php's AutoAdvance()
+// loop (gitignored/generated, reverted after) to print every phase transition during a real replay:
+// phase never equals the literal string "RECOLLECTION" at any point turn 2 played out. Since the
+// only opportunity window offering activatable abilities during this window fires at 'BREC' (not
+// even 'REC'), and Tariff Ring's own prereq additionally requires the unreachable "RECOLLECTION"
+// string, its ability is dead code as currently generated -- there appears to be no action sequence
+// that can ever satisfy CanActivateAbility() for it. Two other GeneratedMacroCode.php call sites
+// share the identical "RECOLLECTION" string comparison (lines 67 and 120 as of this session), so
+// this may affect more than one card. This is a genuine engine-level finding, not fixed here (out
+// of scope for a fixture-authoring pass, and the affected file is generated with no local editable
+// source -- the real fix, if any, likely belongs in the schema/generator's phase-name handling).
+
 // NOTE: Lorraine, Honed Operative was attempted but abandoned -- reaching her requires two
 // sequential real champion level-ups (0 -> 1 -> 2), and while investigating an unexplained memory/
 // hand discrepancy after the first level-up, a genuine cross-tool nondeterminism surfaced:

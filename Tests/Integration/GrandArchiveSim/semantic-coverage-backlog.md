@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **181**
+Cards linked to an existing fixture: **183**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2307**
+Implemented cards still needing semantic coverage: **2304**
 
 ## Mechanic groups
 
@@ -26,7 +26,6 @@ Implemented cards still needing semantic coverage: **2307**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Fulminator, Rising Storm (`F1JIgewvFI`) | REGALIA,WEAPON | 1 | damage, counter, trigger | Lorraine, Arclight Saber Starter Deck | fulminator-rising-storm-lorraine-bonus |
 | Samaritan's Reach (`MskPCrbv0L`) | ACTION | 2 | cost, targeting, damage, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
 | Slay the King (`6v374coy34`) | ATTACK | 2 | zone-movement, combat, trigger, condition | Lorraine Pantheon Starter | — |
 | Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
@@ -44,8 +43,6 @@ Implemented cards still needing semantic coverage: **2307**
 | Lorraine, Honed Operative (`UsX7t4lXfX`) | CHAMPION | 1 | draw-discard, zone-movement, counter, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Prismatic Edge (`FxYwR2azTt`) | REGALIA,WEAPON | 1 | targeting, damage, draw-discard, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Rending Flames (`soO3hjaVfN`) | ATTACK | 1 | damage, zone-movement, combat, trigger, condition | Zander Pantheon Starter | — |
-| Shieldroid (`qCTini03Bc`) | ALLY | 1 | cost, zone-movement, status, combat, condition | Dante, Hemomancer Starter Deck | — |
-| Stalwart Shieldmate (`eifnz0fgm3`) | ALLY | 1 | cost, zone-movement, status, combat, condition | Dante, Hemomancer Starter Deck, Tonoris Starter Deck, Kongming Pantheon Starter, Zander Pantheon Starter | — |
 | Surveillance Stone (`kk46Whz7CJ`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Swift Recruit (`mHd6LLyMyF`) | ALLY | 1 | cost, zone-movement, status, combat, trigger | Jin Starter Deck, Lorraine Starter Deck, Lorraine Pantheon Starter | — |
 | Taiji of Crystal Strategems (`l17uc67eaq`) | PHANTASIA | 1 | cost, targeting, damage, status, trigger | Kongming Starter Deck | — |
@@ -76,3 +73,6 @@ Implemented cards still needing semantic coverage: **2307**
 | Planar Abyss (`qexcwmx2ug`) | ACTION | 1 | cost, damage, zone-movement, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |
 | Plated Bullet (`l75tlzsmw3`) | REGALIA,ITEM | 1 | targeting, zone-movement, combat, condition | Diana Starter Deck | — |
 | Potion Infusion: Clarity (`300z2snsdw`) | ACTION | 1 | cost, targeting, draw-discard, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
+| Quickdraw Piercer (`j4f15joh30`) | REGALIA,WEAPON | 1 | draw-discard, zone-movement, combat, condition | Diana Starter Deck | — |
+| Rising Tides (`y6q4goxi8a`) | ACTION | 1 | cost, draw-discard, zone-movement, condition | Kongming Starter Deck | — |
+| Shuang Ji of Sacrifice (`y1tyo32voa`) | REGALIA,WEAPON | 1 | damage, draw-discard, trigger, condition | Jin Starter Deck | — |

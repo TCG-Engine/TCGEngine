@@ -1,0 +1,17 @@
+{
+    "name": "Stalwart Shieldmate's Floating Memory pays a champion level-up's memory cost from graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Stalwart Shieldmate shares identical printed text with Shieldroid (Taunt + Floating Memory), so this fixture is the same shape as shieldroid-floating-memory, exercising QueueMaterializeFloatingPaymentChoice's graveyard-payment path for a second, independent card rather than duplicating coverage. Stalwart Shieldmate is seeded directly into the graveyard, with no myMemory filler, and Lorraine, Wandering Warrior's 1-memory champion level-up is initiated from myMaterial-0; selecting myGraveyard-0 at the MZMULTICHOOSE pays the full cost and PAYFLOATING moves the card straight to myBanish. Taunt is a computed attack-declaration restriction with no stored counter or flag to assert and is out of scope here.",
+    "testedCards": [
+        "eifnz0fgm3"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["eifnz0fgm3"],
+        "mechanics": ["cost", "zone-movement"],
+        "rulesClauses": [
+            "Floating Memory (While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)"
+        ]
+    }
+}
