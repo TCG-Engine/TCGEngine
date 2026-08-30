@@ -1996,6 +1996,175 @@ DECK,
     ],
 ];
 
+// --- Martial Guard: prevent the next 2 damage to target unit ---
+$fixtures['martial-guard-prevent-2'] = [
+    'testedCards' => ['nsdwmxz1vd'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Martial Guard
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Martial Guard's element is NORM, so no lineage patch is needed. Only the base always-
+    // available prevention is covered; the [Class Bonus][Level 2+] Floating Memory clause is a
+    // passive/reusable-elsewhere property, not a triggered ability, and is out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'nsdwmxz1vd'], // Martial Guard, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Pendant of Accrual: REST, remove 2 debt counters: draw into memory ---
+$fixtures['pendant-of-accrual-debt-draw'] = [
+    'testedCards' => ['WUhbG91eRa'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Pendant of Accrual
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Pendant of Accrual's element is NORM, so no lineage patch is needed, and its memory cost is
+    // NOT exercised for the same FSM-click-bypass reason as entrancing-filigree-enter-banish. It
+    // is seeded directly onto the field with 2 debt counters already present (normally only
+    // reachable via the opponent declining to pay at their recollection phase) so the ability's
+    // cost can actually be paid.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'WUhbG91eRa', 'setProperties' => ['Counters' => ['debt' => 2]]], // Ability cost fuel
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Perfect Repulsion: prevent the next exact-X damage to a friendly unit ---
+$fixtures['perfect-repulsion-prevent-x'] = [
+    'testedCards' => ['gwj4f15joh'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Perfect Repulsion
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Perfect Repulsion's element is WATER, so the starting champion's Subcards are patched with
+    // a real WATER champion (Spirit of Water, reused from coriolis-ward-prevent-level). X is the
+    // number of cards in memory at resolution time, which after 2 reserve payments is 2, so the
+    // shield prevents exactly 2 damage. Only the shield's creation is covered; the "draw a card if
+    // damage was prevented this way" clause is a separate deferred trigger that requires an actual
+    // damage event afterward and is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'gwj4f15joh'], // Perfect Repulsion, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Cometfall: deal 3 damage to all non-Astra units ---
+$fixtures['cometfall-sweep-damage'] = [
+    'testedCards' => ['4d5vettczb'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Cometfall
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Cometfall is an ASTRA (advanced element) ACTION card, so the starting champion's Subcards
+    // are patched with a real ASTRA champion (Arisanna, Astral Zenith) to unlock element access --
+    // note this only grants element ACCESS, it doesn't change the champion's own element (both
+    // starting champions remain FIRE, so both take the sweep damage). No targeting decision is
+    // needed since the effect hits all non-Astra units unconditionally. Without the [Class Bonus]
+    // (CLERIC), the damage is the base 3, not the boosted 4. The Starcalling alternate-cost clause
+    // is tied to the glimpse subsystem and is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], // ASTRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4d5vettczb'], // Cometfall, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Clarent, Sword of Peace: Class Bonus + remove durability counter to prevent noncombat damage ---
+$fixtures['clarent-sword-of-peace-prevent'] = [
+    'testedCards' => ['m31WVJ9F04'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Clarent, Sword of Peace's own activated ability requires a WARRIOR Class Bonus (physical
+    // presence, so Lorraine, Wandering Warrior is seeded directly onto the field) and a durability
+    // counter on Clarent itself (seeded directly, since it's normally only present via the card's
+    // own materialize-time durability allotment). Clarent is seeded straight onto the field rather
+    // than played from hand since this fixture is about its activated ability, not its
+    // materialize flow.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'DpHDGaX2Pn'], // Lorraine, Wandering Warrior (WARRIOR CHAMPION) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm31WVJ9F04', 'setProperties' => ['Counters' => ['durability' => 1]]], // Clarent, Sword of Peace - ability cost fuel
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

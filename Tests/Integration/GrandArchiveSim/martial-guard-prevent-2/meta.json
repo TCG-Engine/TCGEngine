@@ -1,0 +1,17 @@
+{
+    "name": "Martial Guard prevents the next 2 damage to target unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T06:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Martial Guard's element is NORM, so no lineage patch is needed. Only the base always-available prevention is covered; the [Class Bonus][Level 2+] Floating Memory clause is a passive/reusable-elsewhere property, not a triggered ability, and is out of scope. The applied turn effect is the shared 'EVASIVE_MANEUVERS_2' tag rather than a Martial-Guard-specific name -- the engine appears to reuse one canonical tag for identical numeric prevention effects across cards (same pattern seen with evasive-maneuvers-prevent-2).",
+    "testedCards": [
+        "nsdwmxz1vd"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["nsdwmxz1vd"],
+        "mechanics": ["cost", "targeting", "damage", "prevention", "zone-movement"],
+        "rulesClauses": [
+            "The next time target unit would be dealt damage this turn, prevent 2 of that damage."
+        ]
+    }
+}

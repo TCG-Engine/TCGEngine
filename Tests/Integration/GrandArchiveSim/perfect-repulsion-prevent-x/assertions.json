@@ -1,0 +1,4 @@
+[
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"vz4kc558yx-ACTION_ACTIVATED\",\"PREVENT_EXACT_\"]","semantic":true,"label":"BUG (task_b4e710a1): the shield tag is written with an empty numeric suffix instead of PREVENT_EXACT_2, due to an undefined $memoryCount across two PHP closures"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

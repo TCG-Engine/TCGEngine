@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T02:05:32+00:00",
+    "generatedAt": "2026-08-30T02:11:27+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 83,
+        "cardsWithExistingFixtures": 88,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2404,
+        "cardsNeedingSemanticCoverage": 2399,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -468,72 +468,6 @@
             "priority": 115
         },
         {
-            "cardId": "nsdwmxz1vd",
-            "name": "Martial Guard",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "prevention",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "WUhbG91eRa",
-            "name": "Pendant of Accrual",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "gwj4f15joh",
-            "name": "Perfect Repulsion",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "FxYwR2azTt",
             "name": "Prismatic Edge",
             "type": "REGALIA,WEAPON",
@@ -978,28 +912,6 @@
             "priority": 114
         },
         {
-            "cardId": "m31WVJ9F04",
-            "name": "Clarent, Sword of Peace",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck",
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "xpnjvt9y59",
             "name": "Cleansing Reunion",
             "type": "ACTION",
@@ -1015,27 +927,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "4d5vettczb",
-            "name": "Cometfall",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -43216,6 +43107,135 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 135
+        },
+        {
+            "cardId": "nsdwmxz1vd",
+            "name": "Martial Guard",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "prevention",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "martial-guard-prevent-2"
+            ],
+            "semanticFixtures": [
+                "martial-guard-prevent-2"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "WUhbG91eRa",
+            "name": "Pendant of Accrual",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pendant-of-accrual-debt-draw"
+            ],
+            "semanticFixtures": [
+                "pendant-of-accrual-debt-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "gwj4f15joh",
+            "name": "Perfect Repulsion",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "perfect-repulsion-prevent-x"
+            ],
+            "semanticFixtures": [
+                "perfect-repulsion-prevent-x"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "m31WVJ9F04",
+            "name": "Clarent, Sword of Peace",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "clarent-sword-of-peace-prevent"
+            ],
+            "semanticFixtures": [
+                "clarent-sword-of-peace-prevent"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck",
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "4d5vettczb",
+            "name": "Cometfall",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cometfall-sweep-damage"
+            ],
+            "semanticFixtures": [
+                "cometfall-sweep-damage"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
         },
         {
             "cardId": "HHtlkEeyQR",
