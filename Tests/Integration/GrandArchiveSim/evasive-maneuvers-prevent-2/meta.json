@@ -1,0 +1,17 @@
+{
+    "name": "Evasive Maneuvers prevents the next 2 damage to target unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T04:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Evasive Maneuvers' element is NORM, so no lineage patch is needed. Only the base prevention is covered; the target (our own champion) isn't a Ranger, so the 'becomes distant' branch isn't reached.",
+    "testedCards": [
+        "1n3gygojwk"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["1n3gygojwk"],
+        "mechanics": ["targeting", "damage", "prevention", "condition"],
+        "rulesClauses": [
+            "Prevent the next 2 damage that would be dealt to target unit this turn."
+        ]
+    }
+}

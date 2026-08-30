@@ -1651,6 +1651,174 @@ DECK,
     ],
 ];
 
+// --- Cosmic Bolt: deal 4 damage to target unit ---
+$fixtures['cosmic-bolt-damage'] = [
+    'testedCards' => ['vpmu6gvnta'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Cosmic Bolt
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Cosmic Bolt is an ASTRA (advanced element) ACTION card, so the starting champion's Subcards
+    // are patched with a real ASTRA champion (Arisanna, Astral Zenith), same as
+    // dwarf-stars-glow-damage. Targets the opponent's champion directly. With no other copies of
+    // Cosmic Bolt in the graveyard/banishment, the damage resolves to the base 4 (no +2 bonus).
+    // The Starcalling alternate-cost clause is tied to the glimpse subsystem and is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], // ASTRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vpmu6gvnta'], // Cosmic Bolt, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Dream Fairy: On Enter return target opposing ally to memory ---
+$fixtures['dream-fairy-return-to-memory'] = [
+    'testedCards' => ['UVAb8CmjtL'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dream Fairy
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Dream Fairy's element is WIND, so the starting champion's Subcards are patched with a real
+    // WIND champion (Spirit of Wind), same as deployment-beacon-summon-drone/reclaim-return-ally/
+    // aesan-protector-return-ally. Dungeon Guide is seeded onto the opponent's field as the On
+    // Enter target -- unlike aesan-protector-return-ally (return to hand), this sends the target
+    // to the OPPONENT's own memory zone, not banish or hand. The "opponents can't activate cards
+    // with that ally's name" name-lock and the passive Stealth keyword are not independently
+    // asserted here.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - On Enter return-to-memory target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UVAb8CmjtL'], // Dream Fairy, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Essence Crucible: On Enter draws a card ---
+$fixtures['essence-crucible-enter-draw'] = [
+    'testedCards' => ['DF5Ffwv7DJ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Essence Crucible
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Essence Crucible's element is NORM, so no lineage patch is needed, and its memory cost (1)
+    // is NOT exercised for the same FSM-click-bypass reason as entrancing-filigree-enter-banish.
+    // Only the On Enter draw is covered; the [Arisanna Bonus] refinement-counter trigger and the
+    // Spell-damage-boost static ability are out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'DF5Ffwv7DJ'], // Essence Crucible, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-3!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Evasive Maneuvers: prevent the next 2 damage to target unit ---
+$fixtures['evasive-maneuvers-prevent-2'] = [
+    'testedCards' => ['1n3gygojwk'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Evasive Maneuvers
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Evasive Maneuvers' element is NORM, so no lineage patch is needed. Only the base prevention
+    // is covered; the target (our own champion) isn't a Ranger, so the "becomes distant" branch
+    // isn't reached.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '1n3gygojwk'], // Evasive Maneuvers, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Barrier Servant: remove 2 enlighten counters to prevent the next damage to itself ---
+$fixtures['barrier-servant-enlighten-prevent'] = [
+    'testedCards' => ['xW6SZSlJX6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Barrier Servant
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Barrier Servant's element is NORM, so no lineage patch is needed. The starting champion's
+    // Counters are patched with 2 enlighten counters directly (normally only reachable via a
+    // separate enlighten-granting effect) so the ability's cost (remove 2 enlighten counters from
+    // your champion) can actually be paid. Only the always-available "prevent next damage to
+    // self" half is covered; Intercept is a combat-redirect passive and is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['enlighten' => 2]]], // Ability cost fuel
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'xW6SZSlJX6'], // Barrier Servant, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

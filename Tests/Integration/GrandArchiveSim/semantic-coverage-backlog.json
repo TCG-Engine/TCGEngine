@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T01:38:52+00:00",
+    "generatedAt": "2026-08-30T02:00:22+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 73,
+        "cardsWithExistingFixtures": 78,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2414,
+        "cardsNeedingSemanticCoverage": 2409,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -296,28 +296,6 @@
             "priority": 115
         },
         {
-            "cardId": "xW6SZSlJX6",
-            "name": "Barrier Servant",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "status",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "YqQsXwEvv5",
             "name": "Corhazi Courier",
             "type": "ALLY",
@@ -340,28 +318,6 @@
             "priority": 115
         },
         {
-            "cardId": "vpmu6gvnta",
-            "name": "Cosmic Bolt",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "zrplywc08c",
             "name": "Creeping Torment",
             "type": "PHANTASIA",
@@ -378,27 +334,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "UVAb8CmjtL",
-            "name": "Dream Fairy",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -447,27 +382,6 @@
             "priority": 115
         },
         {
-            "cardId": "DF5Ffwv7DJ",
-            "name": "Essence Crucible",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "k1l75tlzsm",
             "name": "Essence of Blizzards",
             "type": "ITEM",
@@ -485,27 +399,6 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "1n3gygojwk",
-            "name": "Evasive Maneuvers",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -43103,6 +42996,32 @@
             "priority": 135
         },
         {
+            "cardId": "xW6SZSlJX6",
+            "name": "Barrier Servant",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "status",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "barrier-servant-enlighten-prevent"
+            ],
+            "semanticFixtures": [
+                "barrier-servant-enlighten-prevent"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "cagz0393zq",
             "name": "Coriolis Ward",
             "type": "ACTION",
@@ -43128,6 +43047,57 @@
             "priority": 135
         },
         {
+            "cardId": "vpmu6gvnta",
+            "name": "Cosmic Bolt",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cosmic-bolt-damage"
+            ],
+            "semanticFixtures": [
+                "cosmic-bolt-damage"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "UVAb8CmjtL",
+            "name": "Dream Fairy",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dream-fairy-return-to-memory"
+            ],
+            "semanticFixtures": [
+                "dream-fairy-return-to-memory"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "zVubkJC3ce",
             "name": "Dwarf Star's Glow",
             "type": "ACTION",
@@ -43148,6 +43118,56 @@
             ],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "DF5Ffwv7DJ",
+            "name": "Essence Crucible",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "essence-crucible-enter-draw"
+            ],
+            "semanticFixtures": [
+                "essence-crucible-enter-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "1n3gygojwk",
+            "name": "Evasive Maneuvers",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "evasive-maneuvers-prevent-2"
+            ],
+            "semanticFixtures": [
+                "evasive-maneuvers-prevent-2"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 135
