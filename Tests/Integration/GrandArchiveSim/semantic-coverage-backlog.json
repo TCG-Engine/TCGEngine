@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T14:36:12+00:00",
+    "generatedAt": "2026-08-30T14:38:01+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 151,
+        "cardsWithExistingFixtures": 152,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2336,
+        "cardsNeedingSemanticCoverage": 2335,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2495,26 +2495,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "nmp5af098k",
-            "name": "Spellshield: Astra",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "prevention"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43542,6 +43522,30 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "nmp5af098k",
+            "name": "Spellshield: Astra",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "prevention"
+            ],
+            "existingFixtures": [
+                "spellshield-astra-prevent-tag"
+            ],
+            "semanticFixtures": [
+                "spellshield-astra-prevent-tag"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
