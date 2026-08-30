@@ -1,0 +1,6 @@
+[
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":5,"semantic":true,"label":"The NO_DRAW'd player's draw from Bauble of Abundance is blocked"},
+    {"step":5,"type":"zone_count","zone":"theirHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"The opponent (not affected by Blood Surge) still draws normally"},
+    {"step":5,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"Z9TCpaMJTc","semantic":true,"label":"Bauble of Abundance still pays its own banish cost even though its draw is prevented"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

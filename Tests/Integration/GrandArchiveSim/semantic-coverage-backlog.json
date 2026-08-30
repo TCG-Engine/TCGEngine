@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T15:08:29+00:00",
+    "generatedAt": "2026-08-30T15:12:11+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 160,
+        "cardsWithExistingFixtures": 162,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2327,
+        "cardsNeedingSemanticCoverage": 2325,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1642,25 +1642,6 @@
             "priority": 113
         },
         {
-            "cardId": "QwF7kvdpFz",
-            "name": "Crimson Vein",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "FWinA77xF1",
             "name": "Cryogenic Ritual",
             "type": "ACTION",
@@ -3111,24 +3092,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "yHIeIwxWde",
-            "name": "Blood Surge",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -42948,6 +42911,29 @@
             "priority": 133
         },
         {
+            "cardId": "QwF7kvdpFz",
+            "name": "Crimson Vein",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "crimson-vein-recover-counter"
+            ],
+            "semanticFixtures": [
+                "crimson-vein-recover-counter"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "C3YucOomEM",
             "name": "Everlonging Thorns",
             "type": "ACTION",
@@ -43489,6 +43475,28 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 133
+        },
+        {
+            "cardId": "yHIeIwxWde",
+            "name": "Blood Surge",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "blood-surge-no-draw"
+            ],
+            "semanticFixtures": [
+                "blood-surge-no-draw"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
         },
         {
             "cardId": "84YTQPTvar",

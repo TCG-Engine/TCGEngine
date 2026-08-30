@@ -1,0 +1,17 @@
+{
+    "name": "Crimson Vein gains a blood counter whenever the champion recovers",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Crimson Vein's element is EXIA, so the starting champion's Subcards are patched with a real EXIA champion (Dante, Hemomancer) to unlock element access. It is seeded directly onto the field (REGALIA convention) with 0 blood counters; without the [Class Bonus] discount it does not enter with any. The champion is pre-damaged to 5 so Harmonious Mantra's Recover 3 (NORM, castable regardless of champion identity) is observable; completing the 2-reserve cost cascades directly into the recover effect with no separate opportunity-window PASS needed. Only the unconditional 'whenever you recover, put a blood counter on CARDNAME' trigger is covered here; the resulting +X[LIFE] champion buff is computed dynamically from the counter count with no stored property to assert against, so it is not independently proven.",
+    "testedCards": [
+        "QwF7kvdpFz"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["QwF7kvdpFz"],
+        "mechanics": ["counter", "trigger", "recover"],
+        "rulesClauses": [
+            "Whenever you recover, put a blood counter on CARDNAME."
+        ]
+    }
+}

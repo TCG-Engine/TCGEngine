@@ -4427,6 +4427,81 @@ DECK,
     ],
 ];
 
+// --- Crimson Vein: whenever you recover, put a blood counter on it ---
+$fixtures['crimson-vein-recover-counter'] = [
+    'testedCards' => ['QwF7kvdpFz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Harmonious Mantra
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Crimson Vein's element is EXIA, so the starting champion's Subcards are patched with a real
+    // EXIA champion (Dante, Hemomancer) to unlock element access. It is seeded directly onto the
+    // field (REGALIA convention) with 0 blood counters; without the [Class Bonus] discount it does
+    // not enter with any. The champion is pre-damaged so Harmonious Mantra's Recover 3 (NORM,
+    // castable regardless of champion identity) is observable. Only the unconditional "whenever
+    // you recover, put a blood counter on CARDNAME" trigger is covered by asserting Counters; the
+    // resulting +X[LIFE] champion buff is a dynamically computed value with no stored property to
+    // assert against, so it is not independently proven here.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['4FtNBFaOJp'], 'Damage' => 5]], // EXIA lineage/element unlock, pre-damaged so recover is observable
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'QwF7kvdpFz'], // Crimson Vein (REGALIA)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'gnth142db4'], // Harmonious Mantra, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Blood Surge: until end of turn, you can't draw cards ---
+$fixtures['blood-surge-no-draw'] = [
+    'testedCards' => ['yHIeIwxWde'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Blood Surge
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Blood Surge's element is EXIA, so the starting champion's Subcards are patched with a real
+    // EXIA champion (Dante, Hemomancer) to unlock element access. Without the [Class Bonus]
+    // discount and with the champion undamaged (below the [Level 5+][Damage 10+] threshold),
+    // Blood Surge draws 0 cards itself but unconditionally applies a "can't draw cards until end
+    // of turn" global effect (ri955ygd5v_NO_DRAW) to the activating player. Bauble of Abundance
+    // (NORM, seeded directly onto the field per REGALIA convention) is then activated as a second,
+    // independent draw source: its "each player draws a card" effect is blocked for the
+    // NO_DRAW'd activating player but still resolves normally for the opponent, proving the
+    // prevention is real (not just an absence of draw sources) via the asymmetric outcome.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['4FtNBFaOJp']]], // EXIA lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Z9TCpaMJTc'], // Bauble of Abundance (REGALIA) - second draw source
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'yHIeIwxWde'], // Blood Surge, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
