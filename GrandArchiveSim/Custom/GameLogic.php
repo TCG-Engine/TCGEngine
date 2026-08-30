@@ -15513,6 +15513,14 @@ function ChampionDamageCounters($player) {
     return intval($championObj->Damage ?? 0);
 }
 
+// Alias for ChampionDamageCounters(): Relentless Outburst's generated ability code calls
+// GetChampionDamage($player), a name that was never actually defined anywhere, causing a fatal
+// crash. Every other "[Damage N+]" card uses ChampionDamageCounters() for the same "damage
+// counters currently on your champion" reading, so this just points the mistaken name at it.
+function GetChampionDamage($player) {
+    return ChampionDamageCounters($player);
+}
+
 $customDQHandlers["ScavengeChoose"] = function($player, $parts, $lastDecision) {
     $callback = $parts[0] ?? "";
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {

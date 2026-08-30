@@ -1,0 +1,6 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"myField-0","property":"Damage","value":"6","viewerPlayerID":1,"semantic":true,"label":"Our own champion is excluded from the burst (still just the pre-patched 6)"},
+    {"step":5,"type":"card_property_equals","mzId":"myField-1","property":"Damage","value":"1","viewerPlayerID":1,"semantic":true,"label":"Our ally (an 'other unit') takes 1 damage from the single burst"},
+    {"step":5,"type":"card_property_equals","mzId":"theirField-0","property":"Damage","value":"1","viewerPlayerID":1,"semantic":true,"label":"The opponent's champion (an 'other unit') takes 1 damage from the single burst"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

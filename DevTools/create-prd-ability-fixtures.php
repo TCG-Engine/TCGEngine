@@ -4704,6 +4704,49 @@ DECK,
     ],
 ];
 
+// --- Relentless Outburst: for every 6 damage counters on your champion, deal 1 damage to all other units ---
+$fixtures['relentless-outburst-damage-burst'] = [
+    'testedCards' => ['oobp8g4cpe'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Relentless Outburst
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Regression test for a fixed engine crash: activating Relentless Outburst called the
+    // previously-undefined GetChampionDamage() function (see GrandArchiveSim/Custom/GameLogic.php),
+    // which fatally crashed the game. GetChampionDamage() is now an alias for the existing
+    // ChampionDamageCounters() helper, matching every other "[Damage N+]" card's convention.
+    // Relentless Outburst's element is EXIA, so the starting champion's Subcards are patched with
+    // a real EXIA champion (Dante, Hemomancer) to unlock element access, and the champion's
+    // Damage is pre-patched to 6 so intdiv(6, 6) = exactly 1 damage burst. A Dungeon Guide (ALLY)
+    // is seeded onto our own field so the "all other units" clause has a same-side target to
+    // distinguish from our own excluded champion. Without a [Class Bonus] discount, the full
+    // 3-reserve cost is paid; completing the 3rd reserve payment cascades directly into the
+    // ability's own MZCHOOSE (which champion the [Class Bonus][Damage 35+] retaliation-buff
+    // clause would apply to, out of scope here since Class Bonus is inactive) with no separate
+    // opportunity-window PASS needed for this card.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['4FtNBFaOJp'], 'Damage' => 6]], // EXIA lineage/element unlock, 6 damage counters so 1 burst
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - same-side burst target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'oobp8g4cpe'], // Relentless Outburst, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

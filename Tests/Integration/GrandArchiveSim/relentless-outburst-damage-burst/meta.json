@@ -1,0 +1,17 @@
+{
+    "name": "Relentless Outburst deals a damage burst to all other units for every 6 damage counters on your champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Regression test for a fixed engine crash: activating Relentless Outburst called the previously-undefined GetChampionDamage() function (see GrandArchiveSim/Custom/GameLogic.php), which fatally crashed the game. GetChampionDamage() is now an alias for the existing ChampionDamageCounters() helper, matching every other '[Damage N+]' card's convention. Relentless Outburst's element is EXIA, so the starting champion's Subcards are patched with a real EXIA champion (Dante, Hemomancer) to unlock element access, and the champion's Damage is pre-patched to 6 so intdiv(6, 6) = exactly 1 damage burst. A Dungeon Guide (ALLY) is seeded onto our own field so the 'all other units' clause has a same-side target to distinguish from our own excluded champion. Without a [Class Bonus] discount, the full 3-reserve cost is paid; completing the 3rd reserve payment cascades directly into the ability's own MZCHOOSE (which champion the [Class Bonus][Damage 35+] retaliation-buff clause would apply to, out of scope here since Class Bonus is inactive) with no separate opportunity-window PASS needed for this card. The final state shows our own champion untouched (still exactly 6, excluded from the burst) while both our ally and the opponent's champion each take exactly 1 damage.",
+    "testedCards": [
+        "oobp8g4cpe"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["oobp8g4cpe"],
+        "mechanics": ["cost", "damage", "condition"],
+        "rulesClauses": [
+            "For every six damage counters on your champion, deal 1 damage to all other units."
+        ]
+    }
+}
