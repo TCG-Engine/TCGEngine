@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"Regenerate draws a card into memory"},
+    {"step":3,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"v9ngjjadj4","semantic":true,"label":"Regenerate is discarded to the graveyard after resolving"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

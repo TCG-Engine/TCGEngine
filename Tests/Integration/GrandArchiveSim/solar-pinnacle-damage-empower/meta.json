@@ -1,0 +1,17 @@
+{
+    "name": "Solar Pinnacle deals 2 damage to target unit and Empowers 2",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Solar Pinnacle's element is FIRE, matching the starting champion, so no lineage patch is needed. Without a [Class Bonus] discount, the full 2-reserve cost is paid, then the ability's own MZCHOOSE target decision appears directly after the last reserve payment with no separate opportunity-window PASS needed. Choosing the seeded Dungeon Guide deals 2 damage to it and tags the champion EMPOWERED/EMPOWER_PLUS_2. The Fast Activation (North-facing Shifting Currents) clause is out of scope.",
+    "testedCards": [
+        "zeig1e49wb"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zeig1e49wb"],
+        "mechanics": ["cost", "targeting", "damage", "condition"],
+        "rulesClauses": [
+            "Deal 2 damage to target unit. Empower 2."
+        ]
+    }
+}

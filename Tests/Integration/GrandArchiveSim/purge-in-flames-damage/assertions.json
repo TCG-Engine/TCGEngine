@@ -1,0 +1,6 @@
+[
+    {"step":9,"type":"card_property_equals","mzId":"theirField-0","property":"Damage","value":"3","viewerPlayerID":1,"semantic":true,"label":"Purge in Flames deals 3 damage to the opposing champion"},
+    {"step":9,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"em6eEh9q8y","semantic":true,"label":"Purge in Flames kills the seeded Dungeon Guide ally"},
+    {"step":9,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the champion (unaffected by its own Purge in Flames) remains on the field"},
+    {"step":9,"type":"decision_queue_empty","player":"all"}
+]

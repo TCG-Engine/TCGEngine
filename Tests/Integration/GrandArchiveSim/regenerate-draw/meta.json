@@ -1,0 +1,17 @@
+{
+    "name": "Regenerate draws a card into memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Regenerate's element is NORM, so no lineage patch is needed. Without a [Class Bonus] discount, the full 2-reserve cost is paid, then the unconditional draw effect resolves immediately with no opportunity-window PASS needed. The [Class Bonus][Damage 10+] Recover 2 clause is out of scope since the default SPIRIT-class champion doesn't match CLERIC/WARRIOR and hasn't taken 10+ damage.",
+    "testedCards": [
+        "v9ngjjadj4"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["v9ngjjadj4"],
+        "mechanics": ["cost", "draw-discard"],
+        "rulesClauses": [
+            "Draw a card into your memory."
+        ]
+    }
+}
