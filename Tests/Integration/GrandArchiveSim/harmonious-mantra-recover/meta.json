@@ -1,0 +1,17 @@
+{
+    "name": "Harmonious Mantra recovers 3 damage from the champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Harmonious Mantra's element is NORM, so no lineage patch is needed. The champion is pre-patched with 5 damage so the recover effect is observable. Without a [Class Bonus] discount, the full 2-reserve cost is paid. Shifting Currents default to a non-North direction, so the base Recover 3 applies rather than the North-facing Recover 3+LV bonus.",
+    "testedCards": [
+        "gnth142db4"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["gnth142db4"],
+        "mechanics": ["cost", "damage", "recover", "condition"],
+        "rulesClauses": [
+            "Recover 3."
+        ]
+    }
+}

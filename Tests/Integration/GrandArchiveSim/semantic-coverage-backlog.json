@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T06:13:16+00:00",
+    "generatedAt": "2026-08-30T06:16:02+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 129,
+        "cardsWithExistingFixtures": 132,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2358,
+        "cardsNeedingSemanticCoverage": 2355,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1901,25 +1901,6 @@
             "priority": 113
         },
         {
-            "cardId": "C3YucOomEM",
-            "name": "Everlonging Thorns",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "zv6yp6q7zw",
             "name": "Executioner's Spear",
             "type": "REGALIA,WEAPON",
@@ -2069,45 +2050,6 @@
             "starterDecks": [
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "gnth142db4",
-            "name": "Harmonious Mantra",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "zadf9q1wl8",
-            "name": "Harvest Herbs",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43435,6 +43377,29 @@
             "priority": 133
         },
         {
+            "cardId": "C3YucOomEM",
+            "name": "Everlonging Thorns",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "everlonging-thorns-debuff"
+            ],
+            "semanticFixtures": [
+                "everlonging-thorns-debuff"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "7aZwqrfbzO",
             "name": "Fulgurite Coordinator",
             "type": "ALLY",
@@ -43454,6 +43419,53 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "gnth142db4",
+            "name": "Harmonious Mantra",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "condition"
+            ],
+            "existingFixtures": [
+                "harmonious-mantra-recover"
+            ],
+            "semanticFixtures": [
+                "harmonious-mantra-recover"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "zadf9q1wl8",
+            "name": "Harvest Herbs",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "token"
+            ],
+            "existingFixtures": [
+                "harvest-herbs-gather"
+            ],
+            "semanticFixtures": [
+                "harvest-herbs-gather"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
