@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T09:55:00+00:00",
+    "generatedAt": "2026-08-30T11:24:30+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 138,
+        "cardsWithExistingFixtures": 140,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2349,
+        "cardsNeedingSemanticCoverage": 2347,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1361,26 +1361,6 @@
             "priority": 114
         },
         {
-            "cardId": "pi9ftq3sul",
-            "name": "Tsunami of Nanyue",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "Fkpr1hCUGF",
             "name": "Aenean Frozen Shunt",
             "type": "ACTION",
@@ -1895,25 +1875,6 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "MDu0e3tib8",
-            "name": "Flourishing Qi",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43233,6 +43194,30 @@
             "priority": 134
         },
         {
+            "cardId": "pi9ftq3sul",
+            "name": "Tsunami of Nanyue",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tsunami-of-nanyue-damage"
+            ],
+            "semanticFixtures": [
+                "tsunami-of-nanyue-damage"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "xWJND68I8X",
             "name": "Water Barrier",
             "type": "ACTION",
@@ -43319,6 +43304,29 @@
             ],
             "semanticFixtures": [
                 "everlonging-thorns-debuff"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "MDu0e3tib8",
+            "name": "Flourishing Qi",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "flourishing-qi-damage"
+            ],
+            "semanticFixtures": [
+                "flourishing-qi-damage"
             ],
             "starterDecks": [
                 "Kongming Pantheon Starter"

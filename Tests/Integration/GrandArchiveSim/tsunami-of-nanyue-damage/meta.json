@@ -1,0 +1,17 @@
+{
+    "name": "Tsunami of Nanyue deals 2 damage to all rested allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Tsunami of Nanyue's element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water) to unlock element access. Shifting Currents default to a non-South direction, so the base clause (2 damage to all rested allies on both sides) applies rather than the South-facing 3-damage-to-opponent-only clause. Without the Efficiency discount (champion is level 0), the full 5-reserve cost is paid, then both players decline the EffectStackActiveResponse opportunity window. A Dungeon Guide is seeded onto the opponent's field pre-rested (Status 1) as the sole rested ally in play.",
+    "testedCards": [
+        "pi9ftq3sul"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["pi9ftq3sul"],
+        "mechanics": ["cost", "damage", "status", "condition"],
+        "rulesClauses": [
+            "Deal 2 damage to all rested allies."
+        ]
+    }
+}

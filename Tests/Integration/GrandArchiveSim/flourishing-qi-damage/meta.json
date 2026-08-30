@@ -1,0 +1,17 @@
+{
+    "name": "Flourishing Qi deals damage equal to champion level to target unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Flourishing Qi is a TERA (advanced element) ACTION card, so the starting champion's Subcards are patched with a real TERA champion (Silvie, Slime Sovereign) to unlock element access, reused from everlonging-thorns-debuff. The champion's Counters are also patched with 2 level counters so the LV-based damage resolves to a nonzero 2, instead of the default level-0 base of 0. Without a [Class Bonus] discount, the full 4-reserve cost is paid, and the ability's own MZCHOOSE target decision appears directly after the last reserve payment with no separate opportunity-window PASS needed. Only the base LV damage is covered; the charge-counter accumulation clause (from a Shifting Currents direction change to North while this activation is on the stack) is out of scope.",
+    "testedCards": [
+        "MDu0e3tib8"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["MDu0e3tib8"],
+        "mechanics": ["cost", "targeting", "damage", "trigger"],
+        "rulesClauses": [
+            "Deal LV+X damage to target unit, where X is the amount of charge counters on this card's activation."
+        ]
+    }
+}
