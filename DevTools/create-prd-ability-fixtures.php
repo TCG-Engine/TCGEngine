@@ -4860,6 +4860,56 @@ DECK,
     ],
 ];
 
+// --- Life Essence Amulet: whenever an ally you control dies while it's not your turn, may banish to draw ---
+$fixtures['life-essence-amulet-death-draw'] = [
+    'testedCards' => ['1XegCUjBnY'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Windslice
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Regression test for a fixed bug: Life Essence Amulet's on-death offer was correctly queued
+    // (DoAllyDestroyed adds a LifeEssenceAmuletOffer CUSTOM decision) but was silently popped and
+    // discarded without ever running its handler. The decision is typically queued mid-cascade,
+    // after the player has already answered an unrelated "PASS" earlier in the same combat-damage
+    // resolution chain (e.g. declining the pre-damage Retaliate prompt); without dontSkipOnPass,
+    // the decision queue's stale $lastDecision=="PASS" from that earlier, unrelated answer caused
+    // this decision to be skipped too (see GrandArchiveSim/Custom/GameLogic.php -- the
+    // AddDecision call for LifeEssenceAmuletOffer now passes dontSkipOnPass:1).
+    // Life Essence Amulet's element is NORM, so no lineage patch is needed; it is seeded directly
+    // onto P1's field (REGALIA convention) along with a Dungeon Guide (ALLY, 3 life) that will die
+    // to trigger it. P2's champion Counters are patched with a 'potion_animate_power' override
+    // (5, exceeding the ally's 3 life) so it can deal lethal combat damage without needing to
+    // equip a weapon. P1 ends turn 1 so it becomes P2's turn (the "not your turn" condition holds
+    // for P1); P2 declines the material-phase prompt, then declares an attack with their champion
+    // against P1's Dungeon Guide (theirField-2 from P2's perspective) instead of P1's champion.
+    // P1 declines the pre-damage Retaliate window; the lethal hit destroys the ally during P2's
+    // turn, correctly triggering Life Essence Amulet's on-death offer for P1 (the non-active
+    // player) despite the stale PASS earlier in the same cascade. Answering YES banishes the
+    // amulet and draws a card.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '1XegCUjBnY'], // Life Essence Amulet (REGALIA)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY, 3 life) - death fodder
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['potion_animate_power' => 5]]], // give P2's champion lethal power
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

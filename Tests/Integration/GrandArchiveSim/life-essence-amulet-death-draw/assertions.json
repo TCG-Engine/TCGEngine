@@ -1,0 +1,5 @@
+[
+    {"step":6,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"The amulet leaves the field (banished) after the ally dies on the opponent's turn"},
+    {"step":6,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"Banishing the amulet draws a card"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

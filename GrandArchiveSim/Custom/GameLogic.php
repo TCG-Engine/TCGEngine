@@ -7576,7 +7576,13 @@ function DoAllyDestroyed($player, $mzCard) {
             for($lei = 0; $lei < count($leaField); ++$lei) {
                 if(!$leaField[$lei]->removed && $leaField[$lei]->CardID === "1XegCUjBnY" && !HasNoAbilities($leaField[$lei])) {
                     $leaUniqueID = intval($leaField[$lei]->UniqueID ?? 0);
-                    DecisionQueueController::AddDecision($controller, "CUSTOM", "LifeEssenceAmuletOffer|" . $leaUniqueID, 1);
+                    // dontSkipOnPass: this decision is often queued mid-cascade (e.g. from a
+                    // combat-damage kill) after the player has already answered an unrelated
+                    // "PASS" earlier in the same resolution chain. Without dontSkipOnPass, the
+                    // queue's stale $lastDecision=="PASS" from that earlier answer causes this
+                    // decision to be silently popped and skipped before ever reaching the
+                    // LifeEssenceAmuletOffer handler.
+                    DecisionQueueController::AddDecision($controller, "CUSTOM", "LifeEssenceAmuletOffer|" . $leaUniqueID, 1, dontSkipOnPass:1);
                     break;
                 }
             }
