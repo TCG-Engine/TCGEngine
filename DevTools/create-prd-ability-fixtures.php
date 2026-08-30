@@ -4952,6 +4952,88 @@ DECK,
     ],
 ];
 
+// --- Dante, Prodigal Swain: On Enter, summon an Elysian Test Subject token ---
+$fixtures['dante-prodigal-swain-summon-token'] = [
+    'testedCards' => ['apVtyt48u3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Dante, Prodigal Swain
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Dante, Prodigal Swain's element is NORM (always playable, no lineage patch needed) and its
+    // level (1) is exactly one above the default level-0 starting champion (Spirit of Fire), so
+    // it's a legal level-up target with no element patching. Champion-swap materialization is only
+    // offered through the material-phase MZMAYCHOOSE at the start of a turn, so both players end
+    // their first turn (P1 -> P2) to reach that prompt on P1's next turn. Its printed cost is
+    // 1 memory, so a filler card is seeded directly into myMemory as real cost fuel -- without it,
+    // QueueMaterializePayment's own affordability check silently rolls the whole attempt back via
+    // AutoUndoMaterializeCostFailure() (LoadVersion()), which looks like the choice was a no-op.
+    // Choosing Dante, Prodigal Swain completes the swap and its On Enter ability
+    // (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php, enterAbilities["apVtyt48u3:0"])
+    // unconditionally summons an Elysian Test Subject token (3DCP7WmBpx) onto the field.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay Dante, Prodigal Swain's 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Pure Cytosynth: [Dante Bonus] On Enter, mill three then empower by water cards milled ---
+$fixtures['pure-cytosynth-dante-bonus-empower'] = [
+    'testedCards' => ['172utOanGk'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Pure Cytosynth
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Pure Cytosynth's On Enter (mill 3, then empower X = water element cards in graveyard) is
+    // gated behind [Dante Bonus] (IsDanteBonusActive: champion name starts with "Dante") and its
+    // element property is "EXALTED,WATER" -- CanPlayerMeetCardElementRequirements always requires
+    // EXALTED specifically (auto-enabled only once another advanced element is enabled) plus at
+    // least one of its other listed elements (WATER here). The starting champion's CardID is
+    // patched directly to Dante, Hemomancer (element EXIA, an advanced element -- satisfies both
+    // the Dante Bonus name check and unlocks EXALTED) and its Subcards are patched with Spirit of
+    // Water (WATER) to unlock the card's other required element. X is computed from ALL water
+    // element cards in the graveyard, not just the 3 milled this turn (verified live via a
+    // temporary debug trace on the generated enterAbility closure -- with an empty graveyard, this
+    // seed/shuffle happens to mill zero water cards, so the ability's own internal
+    // Empower($player, 0, ...) call correctly no-ops per Empower()'s own `if($amount <= 0) return`
+    // guard), so Spirit of Water (a real WATER card) is seeded directly into the graveyard as a
+    // second, independent water source to make the empower amount deterministically non-zero
+    // regardless of what the mill draws.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '4FtNBFaOJp', 'Subcards' => ['tafqldAGRF']]],
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'tafqldAGRF'], // Spirit of Water (WATER), guarantees empower X >= 1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '172utOanGk'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

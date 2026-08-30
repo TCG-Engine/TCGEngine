@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **166**
+Cards linked to an existing fixture: **174**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2321**
+Implemented cards still needing semantic coverage: **2313**
 
 ## Mechanic groups
 
@@ -35,7 +35,6 @@ Implemented cards still needing semantic coverage: **2321**
 | Smash with Obelisk (`2kkvoqk1l7`) | ATTACK | 2 | cost | Tonoris Starter Deck | — |
 | Assassin's Mantle (`3tcs0axa03`) | REGALIA,ITEM | 1 | damage, prevention, zone-movement, counter, condition | Zander Pantheon Starter | — |
 | Corhazi Courier (`YqQsXwEvv5`) | ALLY | 1 | targeting, damage, draw-discard, status, combat, condition | Zander Pantheon Starter | — |
-| Creeping Torment (`zrplywc08c`) | PHANTASIA | 1 | targeting, damage, draw-discard, trigger, condition | Diana Starter Deck | — |
 | Emberslash (`0xylS3OcNa`) | ATTACK | 1 | cost, draw-discard, combat, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Essence of Blizzards (`k1l75tlzsm`) | ITEM | 1 | cost, targeting, damage, status, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Extraction Incision (`zthwm68lgo`) | ATTACK | 1 | targeting, counter, status, combat, condition | Zander Pantheon Starter | — |
@@ -68,7 +67,6 @@ Implemented cards still needing semantic coverage: **2321**
 | Insignia of the Corhazi (`52u81v4c0z`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, counter, trigger | Zander Pantheon Starter | — |
 | Jin, Fate Defiant (`zd8l14052j`) | CHAMPION | 1 | targeting, combat, trigger, condition | Jin Starter Deck | — |
 | Library Witch (`iD8qbpA8z5`) | ALLY | 1 | draw-discard, status, combat, trigger | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
-| Life Essence Amulet (`1XegCUjBnY`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, trigger, condition | Dante, Hemomancer Starter Deck, Lorraine, Arclight Saber Starter Deck, Jin Starter Deck, Kongming Starter Deck, Arisanna Starter Deck, Lorraine Starter Deck, Rai Starter Deck, Silvie Starter Deck, Lorraine Starter Deck (Prelude), Rai Starter Deck (Prelude) | — |
 | Lightveil Agent (`jcaLgesx0e`) | ALLY | 1 | recover, counter, status, trigger | Zander Pantheon Starter | — |
 | Lorraine, Spirit Ruler (`n2TKqNaODR`) | CHAMPION | 1 | cost, targeting, zone-movement, trigger | Lorraine Pantheon Starter | — |
 | Mana Limiter (`IC3OU6vCnF`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **2321**
 | Orb of Choking Fumes (`llQe0cg4xJ`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Zander Pantheon Starter | — |
 | Planar Abyss (`qexcwmx2ug`) | ACTION | 1 | cost, damage, zone-movement, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |
 | Plated Bullet (`l75tlzsmw3`) | REGALIA,ITEM | 1 | targeting, zone-movement, combat, condition | Diana Starter Deck | — |
+| Potion Infusion: Clarity (`300z2snsdw`) | ACTION | 1 | cost, targeting, draw-discard, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
+| Quickdraw Piercer (`j4f15joh30`) | REGALIA,WEAPON | 1 | draw-discard, zone-movement, combat, condition | Diana Starter Deck | — |

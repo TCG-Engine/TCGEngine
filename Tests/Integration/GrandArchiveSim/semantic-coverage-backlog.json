@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T15:35:10+00:00",
+    "generatedAt": "2026-08-30T16:35:47+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 166,
+        "cardsWithExistingFixtures": 174,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2321,
+        "cardsNeedingSemanticCoverage": 2313,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -201,27 +201,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "zrplywc08c",
-            "name": "Creeping Torment",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -901,35 +880,6 @@
             "priority": 114
         },
         {
-            "cardId": "1XegCUjBnY",
-            "name": "Life Essence Amulet",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck",
-                "Lorraine, Arclight Saber Starter Deck",
-                "Jin Starter Deck",
-                "Kongming Starter Deck",
-                "Arisanna Starter Deck",
-                "Lorraine Starter Deck",
-                "Rai Starter Deck",
-                "Silvie Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "jcaLgesx0e",
             "name": "Lightveil Agent",
             "type": "ALLY",
@@ -1545,25 +1495,6 @@
             "priority": 113
         },
         {
-            "cardId": "i7sbjy86ep",
-            "name": "Cone of Frost",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "VAFTR5taNG",
             "name": "Corhazi Infiltrator",
             "type": "ALLY",
@@ -1597,25 +1528,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "FWinA77xF1",
-            "name": "Cryogenic Ritual",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1989,25 +1901,6 @@
             "priority": 113
         },
         {
-            "cardId": "io7maIjC4u",
-            "name": "Memory Invocation",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "2RKjpzEFV6",
             "name": "Mendcall Mercy",
             "type": "ACTION",
@@ -2223,25 +2116,6 @@
             "priority": 113
         },
         {
-            "cardId": "oobp8g4cpe",
-            "name": "Relentless Outburst",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "ifmmvbm26h",
             "name": "Safeguard Paladin",
             "type": "ALLY",
@@ -2452,26 +2326,6 @@
             "starterDecks": [
                 "Kongming Starter Deck",
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "ErH0lIBq4z",
-            "name": "Spurn to Ash",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter",
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -3573,27 +3427,6 @@
             "existingFixtures": [],
             "semanticFixtures": [],
             "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "DpHDGaX2Pn",
-            "name": "Lorraine, Wandering Warrior",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck",
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
@@ -41431,6 +41264,31 @@
             "priority": 135
         },
         {
+            "cardId": "zrplywc08c",
+            "name": "Creeping Torment",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "creeping-torment-lineage"
+            ],
+            "semanticFixtures": [
+                "creeping-torment-lineage"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "UVAb8CmjtL",
             "name": "Dream Fairy",
             "type": "ALLY",
@@ -42515,6 +42373,39 @@
             "priority": 134
         },
         {
+            "cardId": "1XegCUjBnY",
+            "name": "Life Essence Amulet",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "life-essence-amulet-death-draw"
+            ],
+            "semanticFixtures": [
+                "life-essence-amulet-death-draw"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck",
+                "Lorraine, Arclight Saber Starter Deck",
+                "Jin Starter Deck",
+                "Kongming Starter Deck",
+                "Arisanna Starter Deck",
+                "Lorraine Starter Deck",
+                "Rai Starter Deck",
+                "Silvie Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "LRsgl92Iqa",
             "name": "Mark the Target",
             "type": "ACTION",
@@ -42883,6 +42774,29 @@
             "priority": 133
         },
         {
+            "cardId": "i7sbjy86ep",
+            "name": "Cone of Frost",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "cone-of-frost-level1-damage"
+            ],
+            "semanticFixtures": [
+                "cone-of-frost-level1-damage"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "QwF7kvdpFz",
             "name": "Crimson Vein",
             "type": "REGALIA,ITEM",
@@ -42898,6 +42812,29 @@
             ],
             "semanticFixtures": [
                 "crimson-vein-recover-counter"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "FWinA77xF1",
+            "name": "Cryogenic Ritual",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "token"
+            ],
+            "existingFixtures": [
+                "cryogenic-ritual-summon"
+            ],
+            "semanticFixtures": [
+                "cryogenic-ritual-summon"
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
@@ -43143,6 +43080,29 @@
             "priority": 133
         },
         {
+            "cardId": "io7maIjC4u",
+            "name": "Memory Invocation",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "memory-invocation-draw"
+            ],
+            "semanticFixtures": [
+                "memory-invocation-draw"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "6bc3ogf0o8",
             "name": "Nascent Barrier",
             "type": "ACTION",
@@ -43276,6 +43236,29 @@
             ],
             "semanticFixtures": [
                 "regenerate-draw"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "oobp8g4cpe",
+            "name": "Relentless Outburst",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "relentless-outburst-damage-burst"
+            ],
+            "semanticFixtures": [
+                "relentless-outburst-damage-burst"
             ],
             "starterDecks": [
                 "Jin Starter Deck"
@@ -43426,6 +43409,30 @@
             "priority": 133
         },
         {
+            "cardId": "ErH0lIBq4z",
+            "name": "Spurn to Ash",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "spurn-to-ash-destroy-regalia"
+            ],
+            "semanticFixtures": [
+                "spurn-to-ash-destroy-regalia"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "JFdxtCqdeg",
             "name": "Stellar Bloom",
             "type": "ACTION",
@@ -43512,6 +43519,31 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "DpHDGaX2Pn",
+            "name": "Lorraine, Wandering Warrior",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "lorraine-wandering-warrior-levelup"
+            ],
+            "semanticFixtures": [
+                "lorraine-wandering-warrior-levelup"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck",
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

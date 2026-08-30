@@ -1,0 +1,7 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"myField-0","property":"CardID","value":"apVtyt48u3","semantic":true,"label":"The champion levels up into Dante, Prodigal Swain"},
+    {"step":3,"type":"card_property_equals","mzId":"myField-0","property":"Subcards","value":"[\"LMyKyVC2O9\"]","semantic":true,"label":"The previous champion (Spirit of Fire) is preserved in the new champion's lineage"},
+    {"step":3,"type":"card_property_equals","mzId":"myField-1","property":"CardID","value":"3DCP7WmBpx","semantic":true,"label":"On Enter summons an Elysian Test Subject token onto the field"},
+    {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"The seeded memory card pays the 1-memory level-up cost"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]
