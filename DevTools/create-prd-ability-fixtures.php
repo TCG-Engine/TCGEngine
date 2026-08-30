@@ -4664,6 +4664,46 @@ DECK,
     ],
 ];
 
+// --- Cone of Frost: level-conditional multi-target damage (Level 1+ step) ---
+$fixtures['cone-of-frost-level1-damage'] = [
+    'testedCards' => ['i7sbjy86ep'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Cone of Frost
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Regression test for a fixed engine crash: activating Cone of Frost at champion level 1+
+    // called DecisionQueueController::AddDecision(..., lastDecision:"-"), a named argument that
+    // didn't exist on that method's signature, which fatally crashed every PHP 8 request that hit
+    // it. AddDecision() now accepts (and ignores) that argument. Cone of Frost's element is WATER,
+    // so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water)
+    // to unlock element access, and its Counters are patched with a level-1 counter so the
+    // [Level 1+] clause is active (only the base level-1 step is exercised here; [Level 3+] and
+    // [Level 5+] add further MZMAYCHOOSE rounds out of scope for this fixture). Without a [Class
+    // Bonus] discount, the full 3-reserve cost is paid; completing the 3rd reserve payment
+    // cascades directly into the level-1 MZMAYCHOOSE (no separate opportunity-window PASS needed
+    // for this card), which offers our own champion as an optional damage target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF'], 'Counters' => ['level' => 1]]], // WATER lineage/element unlock, level 1
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'i7sbjy86ep'], // Cone of Frost, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

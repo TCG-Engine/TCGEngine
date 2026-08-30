@@ -1,0 +1,17 @@
+{
+    "name": "Cone of Frost deals 2 damage to an optional target at champion level 1+",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Regression test for a fixed engine crash: activating Cone of Frost at champion level 1+ called DecisionQueueController::AddDecision(..., lastDecision:\"-\"), a named argument that didn't exist on that method's signature, which fatally crashed every PHP 8 request that hit it (see Core/DecisionQueueController.php -- AddDecision now accepts and ignores that argument). Cone of Frost's element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water) to unlock element access, and its Counters are patched with a level-1 counter so the [Level 1+] clause is active (only the base level-1 step is exercised here; [Level 3+] and [Level 5+] add further MZMAYCHOOSE rounds out of scope for this fixture). Without a [Class Bonus] discount, the full 3-reserve cost is paid; completing the 3rd reserve payment cascades directly into the level-1 MZMAYCHOOSE (no separate opportunity-window PASS needed for this card), which offers our own champion as an optional damage target.",
+    "testedCards": [
+        "i7sbjy86ep"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["i7sbjy86ep"],
+        "mechanics": ["cost", "targeting", "damage", "condition"],
+        "rulesClauses": [
+            "[Level 1+] Deal 2 damage to up to one target unit."
+        ]
+    }
+}
