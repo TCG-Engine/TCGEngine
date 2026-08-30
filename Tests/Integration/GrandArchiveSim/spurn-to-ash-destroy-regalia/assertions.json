@@ -1,0 +1,5 @@
+[
+    {"step":7,"type":"card_exists","zone":"theirBanish","viewerPlayerID":1,"cardID":"lq2kkvoqk1","semantic":true,"label":"The destroyed regalia lands in its owner's banish zone (REGALIA are banished instead of graveyarded)"},
+    {"step":7,"type":"zone_count","zone":"theirField","viewerPlayerID":1,"value":1,"semantic":true,"label":"The target regalia leaves the opponent's field, leaving only their champion"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

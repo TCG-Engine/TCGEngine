@@ -4817,6 +4817,49 @@ DECK,
     ],
 ];
 
+// --- Spurn to Ash: destroy target regalia with memory cost 1 or less (debug probe) ---
+$fixtures['spurn-to-ash-destroy-regalia'] = [
+    'testedCards' => ['ErH0lIBq4z'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Spurn to Ash
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Spurn to Ash's element is FIRE, matched by the default starting champion (Spirit of Fire),
+    // so no lineage patch is needed. Necklace of Foresight (memory cost 1, REGALIA) is seeded onto
+    // the opponent's field as the destroy target. Without a [Class Bonus] discount, the full
+    // 3-reserve cost is paid; the target choice then opens a reactive opponent-response window
+    // (declined via P2 PASS) before a second, real target MZCHOOSE resolves the destroy effect.
+    // The generated ability code moves the target to "theirGraveyard" (relative to the activating
+    // player), but since the target is REGALIA, GraveyardAddReplacement() transparently redirects
+    // any REGALIA graveyard-add into that same player's banish zone instead -- and MZMove()
+    // correctly resolves "that same player" as the object's actual owner (P2) throughout, not the
+    // activating player (P1), so the destroyed regalia lands in its owner's banish zone as
+    // expected. (A prior investigation reported this card's target vanishing entirely; that check
+    // only looked at both players' graveyards and fields, not banish zones -- not an engine bug.)
+    'setup' => [
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'lq2kkvoqk1'], // Necklace of Foresight (memory cost 1) - opponent's regalia target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ErH0lIBq4z'], // Spurn to Ash, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
