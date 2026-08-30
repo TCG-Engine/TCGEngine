@@ -1,0 +1,5 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"theirField-1","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"DISTANT\"]","viewerPlayerID":1,"semantic":true,"label":"The targeted unit becomes distant"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":6,"semantic":true,"label":"Backstep's draw effect adds a card to hand"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

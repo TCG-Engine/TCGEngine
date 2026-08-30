@@ -1,0 +1,17 @@
+{
+    "name": "Retold Fortune discards a Spell to draw a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Retold Fortune's element is NORM, so no lineage patch is needed. Expel the Departed (a SPELL-subtype ACTION card) is seeded into hand alongside it as discard fuel. Without a [Class Bonus] discount, the full 2-reserve cost is paid. Because the discard-fuel card is itself a legal fast response, it first shows up as an option in the generic EffectStackActiveResponse opportunity window; both players decline that (P1 PASS, then P2 PASS) before Retold Fortune's own MZMAYCHOOSE decision offers it as the card to discard. Discarding it draws a card.",
+    "testedCards": [
+        "ow8iopvc8s"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ow8iopvc8s"],
+        "mechanics": ["cost", "draw-discard", "condition"],
+        "rulesClauses": [
+            "Discard up to one Spell card. If you do, draw a card."
+        ]
+    }
+}

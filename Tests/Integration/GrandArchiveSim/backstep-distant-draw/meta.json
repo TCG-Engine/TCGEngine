@@ -1,0 +1,18 @@
+{
+    "name": "Backstep makes target unit distant, then draws a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Backstep's element is NORM, so no lineage patch is needed. Without a [Class Bonus] discount, the full 2-reserve cost is paid; after paying, control passes straight to the opponent's EffectStackOpponentResponse window (no separate active-player window this time), so a single P2 PASS resolves the stack before the ability's own MZCHOOSE target decision appears. Choosing the seeded Dungeon Guide makes it distant and draws a card.",
+    "testedCards": [
+        "sesw2ugmnm"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["sesw2ugmnm"],
+        "mechanics": ["cost", "targeting", "status", "draw-discard"],
+        "rulesClauses": [
+            "Target unit becomes distant.",
+            "Draw a card."
+        ]
+    }
+}

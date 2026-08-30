@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T05:54:23+00:00",
+    "generatedAt": "2026-08-30T06:13:16+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 127,
+        "cardsWithExistingFixtures": 129,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2360,
+        "cardsNeedingSemanticCoverage": 2358,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1133,26 +1133,6 @@
             "priority": 114
         },
         {
-            "cardId": "ow8iopvc8s",
-            "name": "Retold Fortune",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "y6q4goxi8a",
             "name": "Rising Tides",
             "type": "ACTION",
@@ -1553,25 +1533,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "sesw2ugmnm",
-            "name": "Backstep",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -43402,6 +43363,30 @@
             "priority": 134
         },
         {
+            "cardId": "ow8iopvc8s",
+            "name": "Retold Fortune",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "retold-fortune-discard-draw"
+            ],
+            "semanticFixtures": [
+                "retold-fortune-discard-draw"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "KEhmWGivJp",
             "name": "Tindered Soldier",
             "type": "ALLY",
@@ -43425,6 +43410,29 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 134
+        },
+        {
+            "cardId": "sesw2ugmnm",
+            "name": "Backstep",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "status"
+            ],
+            "existingFixtures": [
+                "backstep-distant-draw"
+            ],
+            "semanticFixtures": [
+                "backstep-distant-draw"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
         },
         {
             "cardId": "7aZwqrfbzO",
