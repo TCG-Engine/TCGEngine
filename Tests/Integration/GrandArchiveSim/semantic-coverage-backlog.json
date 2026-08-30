@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-30T15:12:11+00:00",
+    "generatedAt": "2026-08-30T15:15:44+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 162,
+        "cardsWithExistingFixtures": 163,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2325,
+        "cardsNeedingSemanticCoverage": 2324,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1651,25 +1651,6 @@
                 "cost",
                 "zone-movement",
                 "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "4FtNBFaOJp",
-            "name": "Dante, Hemomancer",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -42926,6 +42907,29 @@
             ],
             "semanticFixtures": [
                 "crimson-vein-recover-counter"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "4FtNBFaOJp",
+            "name": "Dante, Hemomancer",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "dante-hemomancer-empower"
+            ],
+            "semanticFixtures": [
+                "dante-hemomancer-empower"
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"

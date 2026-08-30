@@ -4502,6 +4502,39 @@ DECK,
     ],
 ];
 
+// --- Dante, Hemomancer: (X), [REST]: deal X unpreventable damage to Dante and empower X ---
+$fixtures['dante-hemomancer-empower'] = [
+    'testedCards' => ['4FtNBFaOJp'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Windslice
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Dante, Hemomancer's own activated ability is champion-identity-gated (a card-ID switch
+    // case, not the generic element-lineage system), so the starting champion object's CardID
+    // itself is patched directly to Dante, Hemomancer rather than only patching Subcards.
+    // Activating it opens a NUMBERCHOOSE for X (1 to CountAvailableReservePayments), then pays X
+    // reserve, then the ability deals X unpreventable damage to Dante and empowers him by X.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '4FtNBFaOJp']], // become Dante, Hemomancer
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-0!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
