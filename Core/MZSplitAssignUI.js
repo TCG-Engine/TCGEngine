@@ -336,12 +336,29 @@
 
   // ── Inject overlays onto card DOM elements ───────────────────────────
   // Called deferred (via setTimeout) so the zone render has completed first.
+  // ⚠ A TARGET'S mzID IS NOT ALWAYS A DOM id. The engine addresses a target in its own coordinates,
+  // and an app is free to render that target somewhere else — or on another screen entirely. SWUSim's
+  // Twin Suns is the case that forced this: ZoneSearch hands back seat-tagged ids (`p3GroundArena-1`)
+  // for every opponent once a game has more than two seats, but no renderer ever emits a `p{n}` DOM id
+  // — only `my…`/`their…`, and only for the two seats the current view draws. A bare getElementById
+  // therefore resolved the caster's OWN units and nothing else, so an opponent could not be given a
+  // single point of a split (bug #1022, Ninth Sister ASH_148). The app supplies the mapping; the
+  // engine keeps the plain id lookup as its default, so every other root is unaffected.
+  function resolveTargetElement(mzID) {
+    if (typeof window.MZSplitResolveTargetElement === 'function') {
+      const mapped = window.MZSplitResolveTargetElement(mzID);
+      if (mapped) return mapped;
+    }
+    return document.getElementById(mzID);
+  }
+
   function injectCardOverlays() {
     if (!splitState) return;
     for (const target of splitState.targets) {
-      // Skip if overlay already attached
+      // Skip if overlay already attached — and note that a DETACHED overlay (its host card was wiped
+      // by a zone/tile rebuild) does not match, which is exactly what lets a re-inject heal it.
       if (document.getElementById('mzsplit-overlay-' + target.mzID)) continue;
-      const cardSpan = document.getElementById(target.mzID);
+      const cardSpan = resolveTargetElement(target.mzID);
       if (!cardSpan) {
         console.warn('MZSplitAssign: could not find card element for', target.mzID);
         continue;
@@ -422,5 +439,11 @@
   window.ShowMZSplitAssignUI  = ShowMZSplitAssignUI;
   window.HideMZSplitAssignUI  = HideMZSplitAssignUI;
   window.parseSplitParam      = parseSplitParam;
+  // Re-attach the on-card controls after the HOST elements have been replaced. The setTimeout(0) in
+  // ShowMZSplitAssignUI only covers the render stack that mounted the decision; anything that rebuilds
+  // a target's container LATER (SWUSim rebuilds its preview tiles with innerHTML on every board update)
+  // takes its overlays with it, and the assignment silently loses its buttons while splitState still
+  // holds the amounts. Idempotent — the overlay-id guard makes a redundant call free.
+  window.MZSplitReinjectOverlays = injectCardOverlays;
 
 })();

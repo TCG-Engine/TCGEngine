@@ -3153,39 +3153,101 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         return target.closest('.ga-token-stack') || target.closest('.selectable-card');
       }
 
+      // ⚠ RECONCILE ON EVERY mouseover — NEVER REFERENCE-COUNT. The un-clip used to be a counter on
+      // the ancestor's dataset, incremented on mouseover and decremented on the matching mouseout.
+      // That balance is unkeepable, because the thing that owes the decrement is a CARD, and cards do
+      // not survive:
+      //   • Every board update rebuilds a BindTo zone with `slot.innerHTML = …`, destroying whatever
+      //     card the pointer was resting on. Gecko and WebKit do not fire mouseout for a node removed
+      //     from under the cursor, so the decrement never arrives. (Chromium leaks here too — measured,
+      //     not assumed: hover a card, replace the zone, move the pointer away, and the inline
+      //     `overflow: visible` is still on the ancestor in Chromium AND Firefox.)
+      //   • ClearSelectionMode() strips the `selectable-card` class in place. mouseout then fires with
+      //     e.target no longer matching getOverflowHoverRegion(), so the old handler bailed at the
+      //     `if (!hoverRegion) return` line and, again, never decremented.
+      //   • Re-entering a rebuilt card increments a SECOND time, so even a well-formed mouseout only
+      //     pays off half the debt.
+      // The stuck count pinned `overflow: visible` on the nearest clipping ancestor — for SWUSim that
+      // is `.swu-arena-col`, the fixed-position arena column that scrolls the surplus unit rows. Once
+      // pinned it stops clipping AND stops scrolling: the rows spill over the board and the wheel does
+      // nothing in either direction, permanently, until a hard refresh. That was the bug.
+      // Fix: hold ONE un-clipped ancestor in a closure variable and reconcile it against the pointer's
+      // real position on every mouseover anywhere in the document. No counter, no per-element state to
+      // desync, and a destroyed card cannot strand anything — the next mouseover restores it.
+      let overflowUnclipAnc = null;     // ancestor currently forced to overflow:visible (or null)
+      let overflowUnclipRegion = null;  // the hovered card/stack that asked for it
+
+      function restoreOverflowUnclip() {
+        if (!overflowUnclipAnc) return;
+        overflowUnclipAnc.style.overflow = overflowUnclipAnc.dataset.prevOverflow || '';
+        delete overflowUnclipAnc.dataset.prevOverflow;
+        overflowUnclipAnc = null;
+        overflowUnclipRegion = null;
+      }
+
+      // ⚠ NEVER UN-CLIP A CONTAINER THE USER STILL HAS TO SCROLL. Un-clipping is only free when the
+      // container has nothing in surplus: the moment scrollHeight exceeds clientHeight, `overflow:
+      // visible` does not just let a hover effect escape, it DELETES the scrollport — the rows spill
+      // across the board and the wheel has nothing left to move. On a flooded SWUSim arena (15 units,
+      // 12 of them a droid screen) every unit is a legal target while a decision is pending, so the
+      // pointer is almost always over a `.selectable-card` — exactly when scrolling to reach the
+      // surplus rows matters most, and exactly when the old rule took it away.
+      // Scoped to the `.selectable-card` case ONLY. `.ga-token-stack` is why this un-clip exists at all
+      // (an absolutely-positioned dropdown menu that a scroll container really would clip into
+      // uselessness), so that path keeps its old behaviour untouched. A selectable card has no such
+      // menu — all it loses is a few px of the `:hover` lift at the column edge, and the column already
+      // carries --swu-rot-bleed padding for bleed of exactly that size.
+      function overflowUnclipWouldStealScroll(region, anc) {
+        if (!region || !anc) return false;
+        if (region.matches('.ga-token-stack')) return false;   // dropdown menus keep the old behaviour
+        return anc.scrollHeight > anc.clientHeight || anc.scrollWidth > anc.clientWidth;
+      }
+
       // Manage hover delegation to avoid adding listeners to every card
       document.addEventListener('mouseover', function(e) {
         const hoverRegion = getOverflowHoverRegion(e.target);
-        if (!hoverRegion) return;
-        const anc = findOverflowingAncestor(hoverRegion);
+        let anc = hoverRegion ? findOverflowingAncestor(hoverRegion) : null;
+        // Re-measure against the LIVE ancestor, not the one we may already have un-clipped: an
+        // un-clipped element reports scrollHeight === clientHeight (it has no scrollport), so asking
+        // it whether it is scrollable would always answer "no" and the un-clip would latch itself on.
+        if (anc && anc !== overflowUnclipAnc && overflowUnclipWouldStealScroll(hoverRegion, anc)) anc = null;
+        // Same ancestor as last time: keep it un-clipped and just re-point the owning region, which is
+        // how a zone rebuild under a stationary pointer hands ownership to the replacement card.
+        if (anc && anc === overflowUnclipAnc) { overflowUnclipRegion = hoverRegion; return; }
+        // Anything else — a different ancestor, or the pointer leaving un-clippable territory entirely —
+        // means the previous un-clip is over. This is the line that heals a missed mouseout.
+        restoreOverflowUnclip();
         if (!anc) return;
-        // initialize counter if needed
-        if (!anc.dataset._overflowCount) anc.dataset._overflowCount = '0';
-        if (!anc.dataset.prevOverflow) {
-          anc.dataset.prevOverflow = anc.style.overflow || '';
-        }
-        // increment
-        anc.dataset._overflowCount = String(parseInt(anc.dataset._overflowCount || '0') + 1);
+        anc.dataset.prevOverflow = anc.style.overflow || '';
         anc.style.overflow = 'visible';
+        overflowUnclipAnc = anc;
+        overflowUnclipRegion = hoverRegion;
       });
 
       document.addEventListener('mouseout', function(e) {
         const hoverRegion = getOverflowHoverRegion(e.target);
-        if (!hoverRegion) return;
+        // Only the region that currently owns the un-clip may end it; a stray mouseout from an
+        // unrelated card must not re-clip an ancestor someone else is still hovering.
+        if (!hoverRegion || hoverRegion !== overflowUnclipRegion) return;
         // if moving to an element still inside the hovered region, do nothing
         const to = e.relatedTarget;
         if (to && hoverRegion.contains(to)) return;
-        const anc = findOverflowingAncestor(hoverRegion);
-        if (!anc) return;
-        const count = Math.max(0, parseInt(anc.dataset._overflowCount || '0') - 1);
-        anc.dataset._overflowCount = String(count);
-        if (count <= 0) {
-          // restore previous overflow
-          anc.style.overflow = anc.dataset.prevOverflow || '';
-          delete anc.dataset.prevOverflow;
-          delete anc.dataset._overflowCount;
-        }
+        restoreOverflowUnclip();
       });
+
+      // Belt and braces for the exact symptom this bug produced: the user notices the un-clip only when
+      // they try to SCROLL, and a wheel gesture on its own fires no mouseover to reconcile with. If the
+      // owning region has since been detached or de-classed, it can no longer be hovered, so the un-clip
+      // is stale by definition — drop it and let the wheel through. Passive + capture so this never
+      // delays or swallows the scroll itself.
+      document.addEventListener('wheel', function() {
+        if (!overflowUnclipAnc) return;
+        if (!overflowUnclipRegion
+            || !document.contains(overflowUnclipRegion)
+            || !overflowUnclipRegion.matches('.ga-token-stack, .selectable-card')) {
+          restoreOverflowUnclip();
+        }
+      }, { passive: true, capture: true });
 
       function handleWidgetAction(event, cardId, widgetType, action) {
         event.stopPropagation(); // Prevent the click event from bubbling up
@@ -5566,7 +5628,14 @@ function CheckAndShowDecisionQueue(decisionQueue, phase = 'all') {
           if (Number.isNaN(idx)) return false;
           const zone = parts.slice(0, -1).join('-');
           const zoneDataStr = window[zone + 'Data'];
-          if (!zoneDataStr || typeof zoneDataStr !== 'string') return false;
+          // ⚠ ONLY DROP A PICK THIS VIEW CAN ACTUALLY DISPROVE. An absent window.<zone>Data means the
+          // zone is not RENDERED here, which is not evidence the pick is stale — SWUSim's Twin Suns
+          // home view renders at most two seats, so a legitimately-chosen `p3GroundArena-1` has no
+          // binding and the old `return false` deleted it on the very next render tick. Treat an
+          // unrenderable zone as unverifiable and keep the pick; the server validates it on submit
+          // anyway. An EMPTY string still means "rendered, and now holds nothing", so that stays a drop.
+          if (typeof zoneDataStr !== 'string') return true;
+          if (!zoneDataStr) return false;
           const cards = zoneDataStr.split('<|>').filter(s => s.trim());
           return idx >= 0 && idx < cards.length;
         }).slice(0, parsed.max);

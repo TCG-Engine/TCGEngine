@@ -214,9 +214,13 @@ body.swu-spectating .swu-spectate-badge { display: block; }
     background-size: cover; background-position: center; box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
 /* LANDSCAPE, ~628:450 — the real proportions of a leader card. This was 26x36 (portrait), which is a
    unit's shape, not a leader's; the art was cropped to fit it. Keep the ratio if you retune the size. */
-.swu-mb-leader { width: 40px; height: 29px; }
+.swu-mb-leader { --swu-mb-leader-w: 40px;
+    width: var(--swu-mb-leader-w); height: calc(var(--swu-mb-leader-w) * 0.717); }
 .swu-mb-base   { width: 44px; height: 30px; display: flex; align-items: center; justify-content: center; }
-.swu-mb-unit   { width: 22px; height: 31px; }
+/* SQUARE, 1:1 — a unit thumbnail draws the concat crop (450x450), not the portrait card. See the
+   folder choice in unitHtml(). --swu-mb-unit is the single knob; the arena grid below derives its
+   track height and floor from it, so retuning the size never needs a second edit. */
+.swu-mb-unit   { width: var(--swu-mb-unit, 30px); height: var(--swu-mb-unit, 30px); }
 /* Base thumbnail corners — Force top-right, Epic-Action-Used bottom-right, matching where the full
    board puts them. Absolute, so they add no width to row 1. The centre belongs to the damage token. */
 /* Shared corner icon for ANY mini-board card — the base (Force / epic-used) and each leader
@@ -244,7 +248,45 @@ body.swu-home .swu-mb-fx { width: 26px; height: 46px; margin-left: 6px; }
 body.swu-home .swu-mb-fxrow, body.swu-home .swu-mb-fxchip { height: 13px; border-radius: 6px; }
 body.swu-home .swu-mb-fxchip { font-size: 11px; }
 .swu-mb-card.is-exhausted { transform: rotate(8deg); filter: brightness(0.55) saturate(0.6); }
-.swu-mb-leader.is-deployed { outline: 1px dashed #cc8; opacity: 0.6; }
+/* ⚠ A ROTATED SQUARE IS BIGGER THAN THE SQUARE. rotate(8deg) grows an NxN card's axis-aligned box to
+   N*(cos8+sin8) = N*1.129 — 13% wider AND taller. At the old 34px thumbnail that was 4px nobody saw;
+   on today's ~80px card it is ~10px in every direction, which is what made the enlarged tiles read as
+   overlapping (a tapped unit's corners crossed into the next row and column, on top of gaps that had
+   not grown with the cards). Scaling down by the same factor makes the ROTATED box match the card's
+   own footprint, so the tilt costs no layout space at all and the grid tracks stay honest.
+   ⚠ Units only. A leader/base thumbnail sits on row 1 with room around it and keeps the full tilt. */
+.swu-mb-unit.is-exhausted { transform: rotate(8deg) scale(0.886); }
+/* ── DEPLOYED leader: the same placeholder the full board draws ───────────────────────────────────
+   A deployed leader's real card is the UNIT in the arena; the leader slot is an empty frame. The full
+   board says so explicitly (GameLayout.php: hide the card, dotted ring, the word DEPLOYED), and the
+   preview tile said it with a 1px dashed edge and 60% opacity — which reads as "dimmed", not "not
+   here", and left the art competing with the units below it for attention.
+   ⚠ ONE BOX PER LEADER, not one around the pair. That falls out of anchoring ring + caption to each
+   leader's OWN span, which is the same fix GameLayout.php documents: put it on .swu-leader-slot-wrap
+   and a Twin Suns seat gets a single ring around both slots reading "DEPLOYED DEPLOYED", and a seat
+   with only one leader deployed makes the other look gone too.
+   ⚠ background-image needs !important — swuRenderMiniBoard writes the art as an INLINE style, which a
+   plain stylesheet declaration cannot beat. */
+.swu-mb-leader.is-deployed {
+    background-image: none !important; background-color: rgba(0,0,0,0.34);
+    outline: 2px dotted rgba(255,255,255,0.30); outline-offset: -2px;
+    display: flex; align-items: center; justify-content: center; opacity: 1;
+    /* ⚠ Undo .is-exhausted's brightness(0.55). That dim exists to grey out ART; a placeholder has no
+       art to grey, so all it did was make the caption on an exhausted deployed leader hard to read
+       against the ring. The TILT is kept — it still carries the exhaust state. */
+    filter: none; }
+.swu-mb-leader.is-deployed > * { opacity: 0; pointer-events: none; }   /* as the full board does */
+.swu-mb-leader.is-deployed::after {
+    content: "DEPLOYED"; white-space: nowrap; pointer-events: none;
+    /* SCALED, not pinned: the caption has to fit inside a box whose width changes between the compact
+       and home tiles. 0.135em-of-the-box with tight tracking puts "DEPLOYED" at ~73% of the inner
+       width at every size, so it never touches the ring. The full board can afford 0.18em tracking in
+       a much larger slot; here tracking is the first thing that overflows. */
+    font: 700 calc(var(--swu-mb-leader-w) * 0.135)/1 var(--swu-font-label, sans-serif);
+    letter-spacing: 0.06em; color: rgba(200,151,30,0.78); }
+/* The tilt is written on the span, so the caption inherits it and reads diagonally — counter-rotate,
+   exactly as GameLayout.php does for the same reason. Mini cards tilt 8deg (not the board's 9deg). */
+.swu-mb-leader.is-deployed.is-exhausted::after { transform: rotate(-8deg); }
 /* Damage counter — matches the 2-player board (schema: Damage=Image(swusim-damage.png, Position=Center,
    TextColor=White)): the damage token centered on the card with the white number over it. */
 .swu-mb-dmgcounter { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -253,7 +295,11 @@ body.swu-home .swu-mb-fxchip { font-size: 11px; }
     color: #fff; font-weight: 800; text-shadow: 0 1px 2px #000;
     width: 20px; height: 20px; font-size: 11px; }
 .swu-mb-base .swu-mb-dmgcounter { width: 24px; height: 24px; font-size: 12px; }
-body.swu-home .swu-mb-unit .swu-mb-dmgcounter { width: 26px; height: 26px; font-size: 14px; }
+/* Scaled off the card rather than pinned: the token used to be 26px on a 34px card (nearly a lid), and
+   the same 26px on today's 74px card would read as a speck. 0.42 keeps it the same fraction of the
+   card at every size the media query can produce. */
+body.swu-home .swu-mb-unit .swu-mb-dmgcounter { width: calc(var(--swu-mb-unit) * 0.42);
+    height: calc(var(--swu-mb-unit) * 0.42); font-size: calc(var(--swu-mb-unit) * 0.22); }
 body.swu-home .swu-mb-base .swu-mb-dmgcounter { width: 34px; height: 34px; font-size: 17px; }
 /* Zoom-in button (row 1, right) → opens the you-vs-P{seat} matchup. Height matches the base card in the
    preview so row 1 reads as one aligned strip. */
@@ -313,13 +359,42 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
    content, and on the short mobile tile both arenas duly shrank to 10px — padding and border, no
    cards — while looking fine on the roomy desktop tile. Leaving min-height at its `auto` default
    floors each arena at label + one card row, so the split stays even AND nothing disappears. */
-.swu-mb-row { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 2px;
-    flex: 1 1 auto; align-items: flex-start; min-height: 33px; }
-body.swu-home .swu-mb-row { min-height: 50px; }
-/* ⚠ 33 / 50 = the unit thumbnail's height PLUS its 1px border each side (.swu-mb-card is content-box,
-   so a 48px card occupies 50px). Using the bare 31/48 left an empty arena 2px shorter than a populated
-   one — invisible on desktop, where surplus height lets flex-grow even them out anyway, but plainly
-   uneven on the mobile tile where both sit on the floor. */
+/* ⚠ GRID, NOT WRAPPING FLEX. The arena fills DOWN then ACROSS: `grid-auto-flow: column` with a fixed
+   row count lays unit 0 above unit 1, then starts a new column — so --swu-mb-rows literally is "how
+   many rows this arena shows", and everything past the visible width is reached by scrolling sideways.
+   ⚠ `flex-flow: column wrap` expresses the same intent and was rejected: a column-wrap flex container
+   does not reliably grow its SCROLLABLE width in Gecko/WebKit, so the overflow columns exist but
+   cannot be scrolled to — the exact failure this layout must not have. A grid container's scroll width
+   always tracks its columns.
+   ⚠ overflow-y stays HIDDEN, not visible: `visible` on one axis forces the other to `auto` (the trap
+   documented on the arena columns in GameLayout.php), which would put a vertical scrollbar in a box
+   whose whole point is that it has exactly N rows. */
+/* ⚠ GAPS SCALE WITH THE CARD, they are not a constant. A flat 5px was invisible at the old 34px
+   thumbnail and read as "stuck together" the moment the cards tripled in size — spacing has to stay
+   the same FRACTION of the card or the grid gets denser as it gets bigger. Column gap is the larger of
+   the two because horizontal crowding is what makes a row unreadable; rows are already separated by
+   the track's own headroom. */
+.swu-mb-row { display: grid; padding-bottom: 2px; flex: 1 1 auto;
+    column-gap: calc(var(--swu-mb-unit) * 0.16); row-gap: calc(var(--swu-mb-unit) * 0.08);
+    grid-auto-flow: column; grid-auto-columns: max-content;
+    grid-template-rows: repeat(var(--swu-mb-rows, 1), calc(var(--swu-mb-unit) + 6px));
+    justify-content: start; align-content: start;
+    overflow-x: auto; overflow-y: hidden;
+    min-height: calc(var(--swu-mb-rows, 1) * (var(--swu-mb-unit) + 6px)
+                     + (var(--swu-mb-rows, 1) - 1) * var(--swu-mb-unit) * 0.08); }
+/* ⚠ The TRACK is the card's BORDER box, not --swu-mb-unit. .swu-mb-card is content-box with a 1px
+   border, so an N-px card occupies N+2; a track sized to the bare N clips 2px off every row and left
+   an empty arena shorter than a populated one. The +4 on top is headroom for .is-exhausted's
+   `rotate(8deg)`, whose axis-aligned box is taller than the card — without it a tapped unit's corners
+   are sliced off, and overflow-y cannot be opened to let them bleed (see the rule above). */
+/* ⚠ NO `--swu-mb-track` VARIABLE — the calc is inlined above ON PURPOSE. A custom property whose value
+   contains var() is substituted at COMPUTED-VALUE TIME ON THE ELEMENT THAT DECLARES IT, and the result
+   is what inherits. Declaring `--swu-mb-track: calc(var(--swu-mb-unit) + 6px)` here froze it at 36px
+   from THIS rule's 30px fallback; overriding --swu-mb-unit on body.swu-home never re-evaluated it, so
+   every grid track stayed 36px while the cards grew to ~81px and each one spilled 45px into the row
+   below. That is the overlap. Inlining the calc in .swu-mb-row resolves it against the ROW's inherited
+   --swu-mb-unit, which is the value that is actually in effect. */
+:root { --swu-mb-unit: 30px; --swu-mb-rows: 1; }
 .swu-mb-row::-webkit-scrollbar { height: 4px; }
 .swu-mb-row::-webkit-scrollbar-thumb { background: #334; border-radius: 2px; }
 /* A legal-target mini card during a decision: green glow + clickable (mirrors the main board's
@@ -328,14 +403,52 @@ body.swu-home .swu-mb-row { min-height: 50px; }
     box-shadow: 0 0 9px 3px rgba(46,204,113,0.9); filter: none; z-index: 3;
     animation: swuGoBackPulse 1.2s ease-in-out infinite; }
 .swu-mb-card.mini-selectable:hover { outline-color: #6cff9a; box-shadow: 0 0 13px 4px rgba(46,204,113,1); }
+/* An ALREADY-PICKED mini card in a multi-select. Amber, matching the main board's .selected-inline
+   (--highlight-color rgba(255,198,46,1)), so a pick reads the same whether it was made on the board
+   or from a preview tile. The pulse is dropped: a chosen target is settled, not still asking. */
+.swu-mb-card.mini-selectable.mini-selected { outline-color: rgba(255,198,46,1);
+    box-shadow: 0 0 11px 3px rgba(255,198,46,0.85); animation: none; }
+.swu-mb-card.mini-selectable.mini-selected:hover { outline-color: rgba(255,214,96,1); }
+/* ── MZSPLITASSIGN −/+ controls hosted on a PREVIEW TILE ──────────────────────────────────────────
+   The engine's overlay is sized for a full board card (26px circles + a 28px readout ≈ 82px wide).
+   A tile card is --swu-mb-unit across, which at the small end of the clamp is narrower than that, so
+   the controls are re-scaled off the SAME variable instead of being pinned: the overlay can never be
+   wider than the thing it sits on, at any viewport the media query can produce.
+   ⚠ Scoped to .swu-mb-card. The identical overlay on the real board is untouched — a tile is a
+   secondary rendering, not a replacement, and the two must not drift apart in behaviour. */
+.swu-mb-card .mzsplit-card-overlay { gap: 1px; padding: 2px 1px; border-radius: 0 0 3px 3px; }
+.swu-mb-card .mzsplit-btn { width: calc(var(--swu-mb-unit) * 0.30); height: calc(var(--swu-mb-unit) * 0.30);
+    font-size: calc(var(--swu-mb-unit) * 0.20); line-height: calc(var(--swu-mb-unit) * 0.30); }
+.swu-mb-card .mzsplit-amount { min-width: calc(var(--swu-mb-unit) * 0.26);
+    font-size: calc(var(--swu-mb-unit) * 0.24); }
+/* A tile carrying an assignment must read as "in play" even while the arena scrolls: the engine's
+   .mzsplit-target-card outline is drawn with outline-offset:-2px, which on a 3px-radius thumbnail sits
+   almost on the art. Pull it out so it reads as a ring around the card, matching .mini-selectable. */
+.swu-mb-card.mzsplit-target-card { outline-offset: 0; z-index: 3; }
 
 /* Home "replace" mode (shared bits): the preview windows take over the opponent's board region — cards
    scale up to suit the larger area. The container-fill + opponent-zone hiding are per-layout (each
    layout's own zone geometry). Only applies on the home view (body.swu-home). */
 body.swu-home .swu-home-strip { max-width: none; justify-content: center; }
-body.swu-home .swu-mb-leader { width: 61px; height: 44px; }   /* landscape, ~628:450 (see .swu-mb-leader) */
+body.swu-home .swu-mb-leader { --swu-mb-leader-w: 61px; }   /* landscape, ~628:450 (see .swu-mb-leader) */
 body.swu-home .swu-mb-base   { width: 66px; height: 46px; }
-body.swu-home .swu-mb-unit   { width: 34px; height: 48px; }
+/* The home view REPLACES the opponent's whole board region with these tiles, so the space is there to
+   be used — the old 34x48 thumbnails left most of each arena box empty (and a 15-unit board still
+   scrolled). Two rows of a much larger square crop is the same footprint spent on legibility.
+   ⚠ ROWS ARE GATED ON VIEWPORT HEIGHT, not width. What limits this is the strip region's height —
+   .swu-home-strips runs from the top of the board to the midline, i.e. ~half the viewport — and two
+   arena boxes at two rows each need ~350px of it. A 1080p screen clears that; a 768p laptop does not
+   and drops to one row rather than crushing the cards. Width is irrelevant: a wide-but-short window
+   has exactly the same problem. */
+/* ⚠ SIZE IS vh-DERIVED, NOT A CONSTANT. The arena box's height comes from the strip region, which is
+   half the viewport — so a fixed px card either leaves the box half empty on a tall screen or
+   overflows it on a short one. The coefficients are the measured fill: at 1080p a two-row ground box
+   has ~195px of interior, i.e. ~95px per track, and one row on a 768p laptop has ~117px. Both are
+   deliberately tuned a little UNDER the ideal, because slack at the bottom of the box is invisible
+   while one pixel of overflow clips a card. clamp() floors it at legible and caps it so a short-but-
+   enormous window does not produce absurd thumbnails. */
+body.swu-home { --swu-mb-unit: clamp(52px, 7.1vh, 92px); --swu-mb-rows: 2; }
+@media (max-height: 900px) { body.swu-home { --swu-mb-unit: clamp(52px, 11.0vh, 110px); --swu-mb-rows: 1; } }
 body.swu-home .swu-mb-basedmg { font-size: 18px; }
 body.swu-home .swu-mb-dmg { font-size: 10px; }
 
@@ -2303,11 +2416,91 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // swuTwRemapCardId leaves an already-seat-tagged id untouched.
     function swuPreviewTargetClick(cardEl) {
         var sm = window.SelectionMode;
-        if (!(sm && sm.active && typeof sm.callback === 'function')) return;
+        if (!(sm && sm.active)) return;
         var mz = cardEl.getAttribute('data-mz'); if (!mz) return;
+        // ⚠ A MULTI-SELECT IS ACCUMULATED, NOT SUBMITTED. OnSelectableCardClick branches on
+        // inlineMultiActive before it ever reaches SelectionMode.callback; this path used to skip
+        // straight to the callback, which is the single-target submit — and an MZMULTI_INLINE
+        // decision never assigns a callback at all (ClearSelectionMode resets it to null and the
+        // MZMULTI_INLINE branch does not set one). So on the home view every click on a highlighted
+        // preview target bailed on the very first line and did LITERALLY NOTHING: the card glowed,
+        // the "n selected / 3 max" counter never moved, and Confirm stayed disabled. That was
+        // bug #1020 — IG-2000 JTL_140 "Deal 1 damage to each of up to 3 units" could only ever
+        // reach the units rendered on your own half.
+        // ⚠ The home view is the ONLY way to pick most of these targets: it hides every opponent
+        // zone (body.swu-home), and seats past opps[0] are off-view entirely, so their units exist
+        // nowhere on the board — only as preview tiles. A single-target-only preview click makes an
+        // "up to N" effect unplayable from the view the game defaults to.
+        var inlineMultiActive = !!(Array.isArray(sm.multiSelected) && Number(sm.multiMax) > 0
+            && document.getElementById('inline-multi-confirm'));
+        if (inlineMultiActive) {
+            // Mirrors OnSelectableCardClick's inline-multi branch. data-mz is already the engine's
+            // seat-tagged mzID, which is the form Confirm submits, so nothing is remapped here.
+            var at = sm.multiSelected.indexOf(mz);
+            if (at >= 0) {
+                sm.multiSelected.splice(at, 1);
+            } else {
+                if (sm.multiSelected.length >= sm.multiMax) return;
+                if (typeof InlineMultiBlocked === 'function' && InlineMultiBlocked(mz)) return;
+                sm.multiSelected.push(mz);
+            }
+            if (typeof ApplyInlineMultiSelectionDomState === 'function') ApplyInlineMultiSelectionDomState();
+            if (typeof UpdateInlineMultiChooseMessage === 'function') UpdateInlineMultiChooseMessage();
+            swuMarkPreviewMultiSelection();
+            return;
+        }
+        if (typeof sm.callback !== 'function') return;
         var m = /^(.+)-(\d+)$/.exec(mz);
         sm.callback(m ? m[1] : mz, mz, sm.decisionIndex);
     }
+
+    // ── Split-assign (MZSPLITASSIGN) target → element ──────────────────────────────────────────
+    // Which DOM node should carry a target's −/+ overlay. Three places a target can live, tried in
+    // the order that puts the controls on the biggest, most obvious rendering of the card:
+    //   1. its own id — 2-player, and your OWN units in any format (ZoneSearch leaves those `my…`)
+    //   2. the rendered frame for this view — `p2GroundArena-0` is `theirGroundArena-0` on the
+    //      matchup view that draws seat 2
+    //   3. the home view's preview tile, which is the ONLY rendering of a seat this view does not draw
+    // ⚠ VISIBILITY IS PART OF THE TEST, not just existence. On the home view the opponent's zones are
+    // still in the DOM — body.swu-home hides them with `display: none` — so an id lookup "succeeds" and
+    // would hang the controls on an invisible card. getClientRects() is the check that catches that
+    // (and unlike offsetParent it does not lie about position:fixed ancestors, which the arena columns
+    // are). Falling through to the tile is what makes the effect answerable from the default view.
+    function swuSplitTargetIsVisible(el) {
+        return !!(el && typeof el.getClientRects === 'function' && el.getClientRects().length > 0);
+    }
+    function swuTwRenderedIdFor(mzid) {
+        var m = /^p(\d+)([A-Za-z]+)-(\d+)$/.exec(String(mzid || ''));
+        if (!m) return null;
+        var frame = swuRenderedZoneForSeat(parseInt(m[1], 10));   // 'my' | 'their' | null (off-view)
+        return frame ? (frame + m[2] + '-' + m[3]) : null;
+    }
+    window.MZSplitResolveTargetElement = function (mzID) {
+        var direct = document.getElementById(mzID);
+        if (swuSplitTargetIsVisible(direct)) return direct;
+        var framedID = swuTwRenderedIdFor(mzID);
+        if (framedID) {
+            var framed = document.getElementById(framedID);
+            if (swuSplitTargetIsVisible(framed)) return framed;
+        }
+        var tile = document.querySelector('#swuHomeStrips .swu-mb-card[data-mz="' + mzID + '"]');
+        if (swuSplitTargetIsVisible(tile)) return tile;
+        // Nothing visible anywhere — hand back the off-screen node if there is one rather than null, so
+        // the amount is still tracked and submitted even though its controls cannot be reached here.
+        return direct || null;
+    };
+
+    // Paint the picked state onto the preview tiles. ApplyInlineMultiSelectionDomState only walks
+    // `.selectable-card`, which exists on the rendered board — an off-view seat has no such element,
+    // so without this the player accumulates picks they cannot see.
+    function swuMarkPreviewMultiSelection() {
+        var sm = window.SelectionMode;
+        var picked = (sm && Array.isArray(sm.multiSelected)) ? sm.multiSelected : [];
+        document.querySelectorAll('#swuHomeStrips .swu-mb-card[data-mz]').forEach(function (el) {
+            el.classList.toggle('mini-selected', picked.indexOf(el.getAttribute('data-mz')) >= 0);
+        });
+    }
+    window.swuMarkPreviewMultiSelection = swuMarkPreviewMultiSelection;
 
     function swuInitPairSwitcher() {
         window.swuViews = swuBuildViews();
@@ -2545,8 +2738,14 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 if (String(u.Status) === '0') cls += ' is-exhausted';
                 var badge = (u.Damage > 0) ? '<span class="swu-mb-dmgcounter">' + u.Damage + '</span>' : '';
                 var urid = (typeof resolveCardImageID === 'function') ? resolveCardImageID(u.CardID) : u.CardID;
+                // concat, NOT WebpImages — the inverse of the .swu-mb-leader decision above, for the
+                // same reason: match the crop to the box. WebpImages is the whole 450x628 PORTRAIT
+                // card, so at thumbnail size the art was a third of it and the rest was an unreadable
+                // rules box; concat is the 450x450 SQUARE crop (art + title + stat boxes, no rules
+                // text), which is all a preview can legibly show. The box is square to suit it — keep
+                // the ratio if you retune .swu-mb-unit, or the crop gets cropped a second time.
                 return '<span class="' + cls + '" data-mz="p' + seat + arena + 'Arena-' + i + '" ' + swuMbHoverAttrs(urid) + ' ' +
-                    'style="background-image:url(/TCGEngine/AppCore/SWU/Images/WebpImages/' + urid + '.webp)">' + badge + '</span>';
+                    'style="background-image:url(/TCGEngine/AppCore/SWU/Images/concat/' + urid + '.webp)">' + badge + '</span>';
             };
         }
         var spaceHtml  = b.spaceUnits.map(unitHtml('Space')).join('');
@@ -2680,6 +2879,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         }
         // Rebuilding the tiles wiped any target chips — re-stamp them for an active decision.
         if (typeof swuTwRenderTargetBadges === 'function') swuTwRenderTargetBadges();
+        // Same trap as the chip re-stamp above, for a decision UI rather than a class: a live
+        // MZSPLITASSIGN hangs its −/+ controls on these very tiles, and the innerHTML above just
+        // deleted them along with everything else. splitState still holds the amounts, so without this
+        // the player watches their assignment lose its buttons on the next board update.
+        if (typeof window.MZSplitReinjectOverlays === 'function') window.MZSplitReinjectOverlays();
         swuTwHighlightActiveSeat();
         // ⚠ AFTER the innerHTML rebuild, not before: this function stamps CLASSES onto the rows, and a
         // rebuild replaces the elements that carry them. Measured — the glow was being applied and then
