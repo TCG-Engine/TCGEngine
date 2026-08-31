@@ -13,7 +13,25 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005
+
+
+<!-- HMW_005 Jar Jar Binks, Bombad General — Done, 16/16. THE SET'S LAST CARD.
+     Carries the engine's first "if you gave a token upgrade to a unit this phase" state
+     (`SWU_GAVE_TOKEN_UPGRADE`, per-seat, cleared at RegroupPhaseStart).
+     ⚠ There is NO chokepoint for giving a token upgrade — four token kinds (SOR_T01 Experience,
+     SOR_T02 Shield, HMW_T02 Weakness, ASH_T02 Advantage) and four sibling Do* givers that each append
+     their own subcard. All four are hooked via `_SWUNoteTokenUpgradeGiven`, and each has its OWN test
+     section; mutation-verified one funnel at a time (unhooking any single giver reds only that
+     funnel's sections). The offer wrappers (_SWUApplyTokenRider, CardHelpers' GiveTokenUpgrade,
+     the GIVE_* universal handlers) route into these four, so they are covered transitively.
+     ⚠ The condition is an EFFECT GATE, not a cost: an unmet condition is a SOFT PASS (leader still
+     exhausts and pays) — NOT an unavailable action. Front_NoTokenGivenThisPhase_SOFTPASS vs
+     Front_UnaffordableResource_COMPLETENoOp is the pair that pins it.
+     ⚠ The deployed side's Shielded satisfies the condition for its own On Attack the turn he deploys.
+     ⚠ TWO sections deliberately omit `P1OnlyActions` and assert `TURNPLAYER:2`. With that directive
+     the action-close is UNOBSERVABLE — the first 14 sections were all green with the closer deleted.
+     Both closers (the resolve chain and the soft-pass early return) mutation-verified independently. -->
 
 <!-- HMW_011 Darth Sidious — Done, 12/12 including Twin Suns. Carries the engine's first
      "when you deal 4+ damage" observer, wired into all five damage funnels.
@@ -482,9 +500,47 @@ covered the cards previewed when they were written, and a preview set GROWS. The
 
 ## Status
 
-**NOT card-complete — a TWELFTH preview wave landed (109 → 113 HMW CardIDs, 2026-08-27).** The four
-new cards are **HMW_125 The Marauder, HMW_169 Crosshair, HMW_211 Tech, HMW_263 Wrecker**, being worked
-one at a time via `swusim-implement-set-plan HMW --iterative`. **All four are now DONE — see the twelfth-wave note below.**
+**NOT card-complete — a THIRTEENTH preview wave landed (113 → 121 HMW CardIDs, 2026-08-31).**
+Being worked one at a time via `swusim-implement-set-plan HMW --iterative`.
+
+⚠ **THE ORACLE IS THE `### Already Done` LINE DIFFED AGAINST `CardMocks.php` — and mind how you match
+that heading.** A regex anchored on the literal text `### Already Done` matches the PROSE MENTION of it
+higher in this file first, captures only as far as the real heading, and reports ~1 card done and 120
+missing. Match the heading as a whole line. A second oracle — a quoted-CardID grep under `Custom/` —
+also mis-reports: registrations are keyed `"HMW_263:0"`, so an exact `'HMW_263'` match finds nothing and
+a finished card looks unimplemented. Use both, and reconcile them before believing either.
+
+| card | state |
+|---|---|
+| **HMW_073 Peppi Bow, Shaak Herder** | **DONE 2026-08-31** — 8 sections, suite 10199 → 10207 / 0 |
+| **HMW_100 Torrent** | **DONE 2026-08-31** — 8 sections, suite 10207 → 10215 / 0 |
+| **HMW_254 Captain Tarpals** | **DONE 2026-08-31** — Step-0 no-op, no code and no card test (see below) |
+| **HMW_005 Jar Jar Binks, Bombad General** | **DONE — 16/16, the set's last card.** New engine state `SWU_GAVE_TOKEN_UPGRADE`, per-seat, cleared at RegroupPhaseStart, stamped by `_SWUNoteTokenUpgradeGiven` from ALL FOUR token-upgrade givers (there is no chokepoint). Condition is an EFFECT gate, so an unmet one soft-passes with the cost paid. Deployed side is a "you may" whose decline abandons both halves; its own Shielded satisfies the condition on the deploy turn. Two sections drop `P1OnlyActions` to make the action-close observable. |
+
+<!-- HMW_254 Captain Tarpals, Grand Army Captain — DONE 2026-08-31, Step-0 verify-only NO-OP.
+     Text is keyword-only (Shielded + Raid 2, nothing else); $Shielded_Cards contains it and
+     $Raid_Cards gives it the value 2; both keywords already have generic tests under
+     Tests/Cases/keywords/ (Shielded_EnterWithShield, Raid_AttackBoost, +4 more). So: no code, and no
+     card-specific test — one would be GREEN on its first RED-check, which the scope rule says to drop.
+     Behaviour was still WATCHED once via a throwaway probe rather than inferred from the registries:
+     0/2 at rest, enters with a Shield, attacks for 2. The 0-PRINTED-POWER + Raid 2 statline is the
+     unusual part and is why it was worth looking at. -->
+
+<!-- HMW_100 Torrent — DONE 2026-08-31. Built on HMW_071 Ravage (same set, same HMW_T02 token, same
+     _SWUAllUnitsOnly pool) + HMW_240 Sandstorm's `_SWUControlsBaseWithTrait` for the base condition +
+     HMW_110 Palpatine's back-to-back DoGiveTokenUpgrade for "give 2". 8 sections; 4 mutations each
+     reddening only their own: additive-instead-of-replacement, seat-agnostic base check, enemy-only
+     pool, and the dropped shrink sweep.
+     ⚠ The Naboo/non-Naboo fixture pair uses two bases of the SAME aspect (HMW_020 Great Grass Plains
+     and HMW_019 Dune Sea, both Vigilance) so the base TRAIT is the only variable — a different-aspect
+     negative would also move the event's cost. -->
+
+<!-- HMW_073 Peppi Bow, Shaak Herder — DONE 2026-08-31. "While this unit is upgraded, she gets +1/+1"
+     is SHD_056 Follower of The Way's sentence word for word, so it joined that card's existing pair of
+     lines in ObjectCurrentPower/ObjectCurrentHP rather than getting its own handler. Restore 1 was
+     already auto-wired from $Restore_Cards. 8 sections; 3 mutations each reddening only their own
+     sections (power site → 4 sections, HP site → the same 4, the !$lost blank gate → 1).
+     ⚠ SHD_056 itself had ONE section and no COVERAGE ledger — the twin's coverage was not a model. -->
 
 <!-- HMW_125 The Marauder, A New Home — DONE 2026-08-27. 12 sections, suite 9923→9935/0;
      5 guards mutation-verified (chosen-vs-damaged count, friendly-vs-controlled pool, the offered-max

@@ -382,8 +382,10 @@ function ObjectCurrentPower($obj) {
     // SHD_188 4-LOM: each friendly unit named Zuckuss gets +1/+1 (Ambush granted in KeywordEffects).
     if ($controller > 0 && SWUObjectTitle($obj) === 'Zuckuss'
         && _SWUCountUnitsWithCardID($controller, 'SHD_188') > 0) $base += 1;
-    // SHD_056 Follower of The Way — "While this unit is upgraded, it gets +1/+1."
-    if (!$lost && ($obj->CardID ?? '') === 'SHD_056' && _SWUIsUpgraded($obj)) $base += 1;
+    // SHD_056 Follower of The Way / HMW_073 Peppi Bow — "While this unit is upgraded, [it/she] gets
+    // +1/+1." Same sentence word for word, so same gate. "Upgraded" is about SUBCARDS, not stat-bearing
+    // upgrades: a Shield token satisfies it and contributes no stats of its own.
+    if (!$lost && in_array(($obj->CardID ?? ''), ['SHD_056', 'HMW_073'], true) && _SWUIsUpgraded($obj)) $base += 1;
     // TWI_090 Echo — "Coordinate - This unit gets +2/+2." (the +2 power half).
     if (!$lost && ($obj->CardID ?? '') === 'TWI_090' && $controller > 0 && IsCoordinateActive($controller)) $base += 2;
     // TWI_158 Clone Heavy Gunner — "Coordinate - This unit gets +2/+0." (power only).
@@ -786,8 +788,9 @@ function ObjectCurrentHP($obj) {
         if ($c190 > 0 && SWUObjectTitle($obj) === 'Zuckuss'
             && _SWUCountUnitsWithCardID($c190, 'SHD_188') > 0) $base += 1;
     }
-    // SHD_056 Follower of The Way — "While this unit is upgraded, it gets +1/+1" (the +1 HP half).
-    if (!$lost && ($obj->CardID ?? '') === 'SHD_056' && _SWUIsUpgraded($obj)) $base += 1;
+    // SHD_056 Follower of The Way / HMW_073 Peppi Bow — the +1 HP half of "while this unit is
+    // upgraded". Combat lethality reads ObjectCurrentHP, so this point of HP genuinely keeps her alive.
+    if (!$lost && in_array(($obj->CardID ?? ''), ['SHD_056', 'HMW_073'], true) && _SWUIsUpgraded($obj)) $base += 1;
     // TWI_045 41st Elite Corps — "Coordinate - This unit gets +0/+3." (the +3 HP; power unchanged).
     if (!$lost && ($obj->CardID ?? '') === 'TWI_045' && $controller > 0 && IsCoordinateActive($controller)) $base += 3;
     // TWI_090 Echo — "Coordinate - This unit gets +2/+2." (the +2 HP half).
@@ -4220,6 +4223,25 @@ function _SWUAsh208OnUpgradeAttach(int $player, $hostObj): bool {
 // after it has been moved to a different host. Needed by any card that says "defeat THAT token" (SHD_225
 // Jetpack). Without it a grant can only be recorded as "some Shield on host UID N", which defeats the
 // wrong token once the host has more than one, and loses track entirely once the token moves.
+// ── "YOU GAVE A TOKEN UPGRADE TO A UNIT THIS PHASE" (HMW_005 Jar Jar Binks, Bombad General) ────────
+// Per-phase, per-player, and set by EVERY token-upgrade giver — there are four token upgrades
+// (SOR_T01 Experience, SOR_T02 Shield, HMW_T02 Weakness, ASH_T02 Advantage) and four sibling Do*
+// functions that each append their own subcard, with NO shared chokepoint between them. Hooking three
+// of the four would leave one whole token KIND invisible to the condition with the suite still green,
+// so all four call this. The offer wrappers (_SWUApplyTokenRider, CardHelpers' GiveTokenUpgrade and
+// the GIVE_* universal handlers) all route into these four, so they are covered transitively.
+//
+// ⚠ "to a UNIT" — the mzID must be an arena slot. Nothing gives a token upgrade to a base today, but
+// the card says unit and a future Fortify-style token would otherwise satisfy it silently.
+// ⚠ Keyed on the GIVER ($player at these call sites is the acting player, which is also who a
+// Shielded-on-entry token belongs to), so an opponent's give cannot satisfy your condition.
+// Cleared with the other per-phase flags at RegroupPhaseStart.
+function _SWUNoteTokenUpgradeGiven($player, $targetMZ): void {
+    if (intval($player) <= 0) return;
+    if (strpos((string)$targetMZ, 'Arena') === false) return;
+    AddGlobalEffects(intval($player), 'SWU_GAVE_TOKEN_UPGRADE');
+}
+
 function DoGiveShieldToken($player, $targetMZ, string $grantTag = '') {
     global $playerID;
     $savedPID = $playerID;
@@ -4238,6 +4260,7 @@ function DoGiveShieldToken($player, $targetMZ, string $grantTag = '') {
     ];
     AddGlobalEffects(intval($player), 'SWU_CREATED_TOKEN'); // LAW_016 "if you created a token this phase"
     _SWUAsh208OnUpgradeAttach(intval($player), $obj);   // a Shield is an upgrade attaching (ASH_208)
+    _SWUNoteTokenUpgradeGiven($player, $targetMZ);
     return $targetMZ;
 }
 
@@ -4284,6 +4307,7 @@ function DoGiveExperienceToken($player, $targetMZ, bool $fireAsh208 = true) {
     ];
     AddGlobalEffects(intval($player), 'SWU_CREATED_TOKEN'); // LAW_016 "if you created a token this phase"
     if ($fireAsh208) _SWUAsh208OnUpgradeAttach(intval($player), $obj);   // an Experience token is an upgrade attaching (ASH_208)
+    _SWUNoteTokenUpgradeGiven($player, $targetMZ);
     return $targetMZ;
 }
 
@@ -4305,6 +4329,7 @@ function DoGiveAdvantageToken($player, $targetMZ) {
         'IsPilot'     => false,
     ];
     AddGlobalEffects(intval($player), 'SWU_CREATED_TOKEN'); // LAW_016 "if you created a token this phase"
+    _SWUNoteTokenUpgradeGiven($player, $targetMZ);
     return $targetMZ;
 }
 
@@ -4332,6 +4357,7 @@ function DoGiveTokenUpgrade($player, $targetMZ, string $tokenCardID) {
     ];
     AddGlobalEffects(intval($player), 'SWU_CREATED_TOKEN'); // LAW_016 "if you created a token this phase"
     _SWUAsh208OnUpgradeAttach(intval($player), $obj);       // self-gates to ASH_208 Sabine hosts
+    _SWUNoteTokenUpgradeGiven($player, $targetMZ);
     return $targetMZ;
 }
 
@@ -6566,6 +6592,7 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH212_USED');               // ASH_212 Peli "first non-unit each phase ignores aspect penalty"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH006_SHIELDED_NEXT');      // ASH_006 Sabine "next unit you play gains Shielded this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_CREATED_TOKEN');      // LAW_016 The Client "if you created a token this phase"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_GAVE_TOKEN_UPGRADE'); // HMW_005 Jar Jar "if you gave a token upgrade to a unit this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH047_USED');        // ASH_047 Gar Saxon "once each round" create-Mandalorian
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH128_USED');        // ASH_128 Bothan-5 "once each round" capture-from-discard
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD137_USED');        // SHD_137 Punishing One "ready this unit once each round"

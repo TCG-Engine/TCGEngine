@@ -108,7 +108,7 @@ were all built on one of these, so a green suite of 8800 tests said nothing abou
 
 | fixture convenience | what it silently disables | build it this way instead |
 |---|---|---|
-| `P1OnlyActions: true` | **`TURNPLAYER`.** It claims initiative, so the opponent auto-passes and the turn returns either way — a DOUBLE `SWUAfterAction` is indistinguishable from a single one | any card that could run an extra After Action (reaction deploys, event-initiated attacks, Support, nested plays) gets ONE section without it asserting `TURNPLAYER:2`, **plus a decline/no-op control** — the control is what proves the second swap came from the reaction and not the play |
+| `P1OnlyActions: true` | **`TURNPLAYER`.** It claims initiative, so the opponent auto-passes and the turn returns either way — a DOUBLE `SWUAfterAction` is indistinguishable from a single one | any card that could run an extra After Action (reaction deploys, event-initiated attacks, Support, nested plays) gets ONE section without it asserting `TURNPLAYER:2`, **plus a decline/no-op control** — the control is what proves the second swap came from the reaction and not the play. Measured on HMW_005 (2026-08-31): **14 green sections stayed green with the leader Action's closer deleted**; two sections without the directive caught it immediately, and at two seats `TURNPLAYER:2` catches BOTH directions at once (no close leaves it on 1, a double close swaps back to 1). ⚠ Drive the opponent with a **REAL action** (`P2>AttackGroundArena:0:BASE`) — **`P2>Drain` only drains that seat's decision queue and does NOT swap the turn**, so the next `P1>` line runs OUT OF TURN (the harness permits it) and the whole section reads as an off-by-one close. Probe the turn player step-by-step before trusting the sequence. |
 | opponent's discard pile left EMPTY | every "if it's a unit / if it costs N" **negative** — a gate that reads the pile instead of the discarded card finds nothing and is accidentally right | seed the pile with a card of the **OPPOSITE kind**, so a stale read produces a wrong answer. Write both directions; they fail in opposite directions under mutation |
 | the observer SURVIVES the combat | the entire simultaneous-defeat family. "When an enemy unit is defeated" reactions are collected AFTER removal, so an observer that TRADED is already gone | a **trade cell**: the observer dies in the same batch. ⚠ ALSO cover the mass-defeat path (`SOR_043`) — `$leftCards` and the pre-effect snapshot are different branches of `_SWUSimulObserverCount` |
 | opponent holds 0–1 cards in hand | every cross-player queue-ordering bug. `SWUDiscardCards` resolves INLINE at/below the threshold and only QUEUES a pick above it | give them 2+ and drive the pick with a `P2>` WHEN line — the queued form puts the choice on THEIR queue, which is where the ordering bugs live |
@@ -145,6 +145,20 @@ as fully wired and produced a bare token. Nothing warned; the parameter existed 
 **Before passing a NEW value to any string-dispatched helper, read its branches and confirm yours has
 one** — and prefer giving such a helper a sane fallback (it now falls through to `DoGiveTokenUpgrade`)
 over adding an Nth `if`, so the next caller cannot land in the same hole.
+
+★★ **AND THE SIBLING-FUNCTION VARIANT: a new "did X happen this phase" flag has as many producers as
+X has implementations — hook EVERY one, and prove each independently.** HMW_005 Jar Jar's "if you gave a
+token upgrade to a unit this phase" looked like one condition; there are FOUR token upgrades (SOR_T01
+Experience, SOR_T02 Shield, HMW_T02 Weakness, ASH_T02 Advantage) and four sibling `DoGive*` functions
+that each append their own subcard, with **no chokepoint between them**. Hooking three of four leaves one
+whole token KIND silently invisible to the condition, with the suite green.
+**So: before writing a new phase/round flag, grep for every function that performs the verb**, hook them
+all through ONE `_SWUNote*` helper, and give each producer **its own test section** — then unhook them
+**one at a time** and confirm only that producer's sections red. Four independent mutations, not one.
+(Wrappers that route into the primitives — `_SWUApplyTokenRider`, CardHelpers' `GiveTokenUpgrade`, the
+`GIVE_*` universal handlers — are covered transitively; the PRIMITIVES are what must be hooked.)
+⚠ Clear the flag where its siblings clear (`RegroupPhaseStart` for "this phase"), and give it a section
+that crosses the boundary — a flag that is set once and never cleared passes every positive forever.
 
 Generalise it: **whenever you pass a predicate into a shared helper that builds an offer, find out whether
 the helper re-applies it on resolution. If it does not, re-check it in your own handler**, and name one
