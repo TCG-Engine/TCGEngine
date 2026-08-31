@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T14:08:21+00:00",
+    "generatedAt": "2026-08-31T14:13:11+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 200,
+        "cardsWithExistingFixtures": 202,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2287,
+        "cardsNeedingSemanticCoverage": 2285,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -601,27 +601,6 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "acmde97dbu",
-            "name": "Formidable Youxia",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -2354,26 +2333,6 @@
             "starterDecks": [
                 "Silvie Starter Deck",
                 "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "lvmj48fn9p",
-            "name": "Wisdom's Reprise",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -41905,6 +41864,31 @@
             "priority": 134
         },
         {
+            "cardId": "acmde97dbu",
+            "name": "Formidable Youxia",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "formidable-youxia-east-life-buff"
+            ],
+            "semanticFixtures": [
+                "formidable-youxia-east-life-buff"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "7IVQRtJFa8",
             "name": "Gencode Womb",
             "type": "REGALIA,ITEM",
@@ -43317,6 +43301,30 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "lvmj48fn9p",
+            "name": "Wisdom's Reprise",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "wisdoms-reprise-level3-draw-memory"
+            ],
+            "semanticFixtures": [
+                "wisdoms-reprise-level3-draw-memory"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133

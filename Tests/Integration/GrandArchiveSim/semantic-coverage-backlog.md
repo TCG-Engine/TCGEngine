@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **200**
+Cards linked to an existing fixture: **202**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2287**
+Implemented cards still needing semantic coverage: **2285**
 
 ## Mechanic groups
 
@@ -54,7 +54,6 @@ Implemented cards still needing semantic coverage: **2287**
 | Elyan, Lustre Loyalty (`2jgiM0p4dt`) | UNIQUE,ALLY | 1 | recover, status, trigger, condition | Zander Pantheon Starter | — |
 | Esteemed Knight (`iabqeB0I6t`) | ALLY | 1 | status, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Flash Freeze (`w3rrii17fz`) | ACTION | 1 | cost, targeting, zone-movement, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
-| Formidable Youxia (`acmde97dbu`) | ALLY | 1 | status, combat, trigger, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |
 | Hasty Messenger (`DsiRzt0trX`) | ALLY | 1 | draw-discard, combat, trigger, condition | Kongming Pantheon Starter, Zander Pantheon Starter | — |
 | Imperial Sentry (`plywc08c9h`) | ALLY | 1 | status, combat, trigger, condition | Tonoris Starter Deck | — |
 | Insignia of the Corhazi (`52u81v4c0z`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, counter, trigger | Zander Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2287**
 | Starlit Apothecary (`ShQkyQMBCT`) | UNIQUE,DOMAIN | 1 | cost, targeting, token, condition | Arisanna Pantheon Starter | — |
 | Take Aim (`vnta6qsesw`) | ACTION | 1 | targeting, status, combat, condition | Diana Starter Deck | — |
 | Templar of the Eternal (`peyG8Hfgqt`) | ALLY | 1 | damage, prevention, zone-movement, counter | Lorraine Pantheon Starter | — |
+| Tonoris, Lone Mercenary (`zb14m4c8lj`) | CHAMPION | 1 | status, combat, trigger, condition | Tonoris Starter Deck | — |

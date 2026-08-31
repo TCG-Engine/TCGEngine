@@ -5841,6 +5841,74 @@ DECK,
     ],
 ];
 
+// --- Formidable Youxia: As long as Shifting Currents face East, +2 LIFE ---
+$fixtures['formidable-youxia-east-life-buff'] = [
+    'testedCards' => ['acmde97dbu'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Purely computed at ObjectCurrentHP() read time (GrandArchiveSim/Custom/GameLogic.php:13538-
+    // 13542, ~13740), same shape as Banner Knight's power buff -- no stored flag to assert against,
+    // so a new generic computed_life_equals assertion type (Core/RegressionTestFramework.php,
+    // mirroring computed_power_equals) was added. Shifting Currents mastery is a myMastery zone card
+    // (CardID qh5mpkyl60) with a Direction property (established by
+    // kongming-wayward-maven-enter-shifting-currents), seeded directly facing EAST. Base LIFE 2 + 2
+    // = 4.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'EAST']],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'acmde97dbu'], // Formidable Youxia
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 2-reserve cost, card 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 2-reserve cost, card 2/2
+    ],
+];
+
+// --- Wisdom's Reprise: Glimpse 3. [Level 3+] Draw a card into memory. ---
+$fixtures['wisdoms-reprise-level3-draw-memory'] = [
+    'testedCards' => ['lvmj48fn9p'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // [Level 3+] gate reads PlayerLevel() directly, satisfied by the same static champion CardID
+    // patch technique as banner-knight-class-bonus-power-buff (Lorraine, Arclight Saber, level 3) --
+    // no real level-up sequence or On Enter trigger needed since this reads the champion's level,
+    // not anything about Wisdom's Reprise's own controller lineage. Glimpse 3's own MZREARRANGE
+    // decision must be answered (submitting the same "Top=...;Bottom=" param verbatim, same
+    // technique as idle-thoughts-glimpse-4) before QueueDrawIntoMemoryAfterGlimpse's queued draw can
+    // resolve -- confirmed via direct probe against this exact deck/seed.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'x9sSpjpP3G']], // Lorraine, Arclight Saber, level 3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'lvmj48fn9p'], // Wisdom's Reprise
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1-reserve cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // --- Idle Thoughts: Glimpse 4, keep original order (shared with Jin Starter Deck) ---
 $fixtures['idle-thoughts-glimpse-4'] = [
     'testedCards' => ['rWhFC8XBaH'],
