@@ -5688,6 +5688,62 @@ DECK,
     ],
 ];
 
+// --- Spirit of Fire: On Enter, draw seven cards ---
+$fixtures['spirit-of-fire-on-enter-draw'] = [
+    'testedCards' => ['LMyKyVC2O9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Spirit of Fire is the default starting champion for every fixture in this file -- its "On
+    // Enter: Draw seven cards" trigger fires during pregame setup, before any actions run, which
+    // is exactly why every other fixture's initial gamestate already shows a 7-card starting hand.
+    // This fixture makes that implicit, constantly-reconfirmed coverage explicit for the backlog
+    // tool. The assertion framework can't evaluate step 0 (RegressionEvaluateAssertion needs the
+    // full engine bootstrap an action triggers -- GetZoneObject() is undefined that early), so one
+    // harmless P1 Main-phase pass is included purely to produce an assertable step; it doesn't
+    // touch hand count.
+    'setup' => [],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Spirit of Water: On Enter, draw seven cards ---
+$fixtures['spirit-of-water-on-enter-draw'] = [
+    'testedCards' => ['tafqldAGRF'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Water
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Same trigger and same reasoning as spirit-of-fire-on-enter-draw, swapping the deck's starting
+    // champion to Spirit of Water instead of patching CardID post-hoc -- a raw property patch
+    // wouldn't retroactively fire the On Enter trigger, since it only runs at actual placement time
+    // during pregame setup, not whenever a card happens to carry that CardID.
+    'setup' => [],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // NOTE: Lorraine, Honed Operative was attempted but abandoned -- reaching her requires two
 // sequential real champion level-ups (0 -> 1 -> 2), and while investigating an unexplained memory/
 // hand discrepancy after the first level-up, a genuine cross-tool nondeterminism surfaced:

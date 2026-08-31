@@ -1,0 +1,17 @@
+{
+    "name": "Spirit of Fire's On Enter draws seven cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Spirit of Fire is the default starting champion for every fixture in this file (and every other one authored this session) -- its 'On Enter: Draw seven cards' trigger fires during pregame setup, before any scripted action runs, which is exactly why every other fixture's initial gamestate already shows a 7-card starting hand. This fixture makes that implicit, constantly-reconfirmed coverage explicit for the backlog tool rather than leaving it uncredited. RegressionEvaluateAssertion can't run against the raw step-0 snapshot (GetZoneObject() isn't defined that early -- the full engine only bootstraps once an action is processed), so one harmless P1 Main-phase pass is included purely to produce an assertable step; it cascades P1 through to P2's Main phase but never touches P1's own hand count.",
+    "testedCards": [
+        "LMyKyVC2O9"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["LMyKyVC2O9"],
+        "mechanics": ["draw-discard", "trigger"],
+        "rulesClauses": [
+            "On Enter: Draw seven cards."
+        ]
+    }
+}

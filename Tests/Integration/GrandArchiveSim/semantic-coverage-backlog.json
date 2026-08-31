@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T00:31:35+00:00",
+    "generatedAt": "2026-08-31T00:34:09+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 192,
+        "cardsWithExistingFixtures": 194,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2295,
+        "cardsNeedingSemanticCoverage": 2293,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -3642,51 +3642,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "LMyKyVC2O9",
-            "name": "Spirit of Fire",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck",
-                "Diana Starter Deck",
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)",
-                "Kongming Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "tafqldAGRF",
-            "name": "Spirit of Water",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Dante, Hemomancer Starter Deck",
-                "Kongming Starter Deck",
-                "Arisanna Starter Deck",
-                "Silvie Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -43596,6 +43551,59 @@
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck",
                 "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "LMyKyVC2O9",
+            "name": "Spirit of Fire",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirit-of-fire-on-enter-draw"
+            ],
+            "semanticFixtures": [
+                "spirit-of-fire-on-enter-draw"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck",
+                "Diana Starter Deck",
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)",
+                "Kongming Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "tafqldAGRF",
+            "name": "Spirit of Water",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirit-of-water-on-enter-draw"
+            ],
+            "semanticFixtures": [
+                "spirit-of-water-on-enter-draw"
+            ],
+            "starterDecks": [
+                "Dante, Hemomancer Starter Deck",
+                "Kongming Starter Deck",
+                "Arisanna Starter Deck",
+                "Silvie Starter Deck",
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

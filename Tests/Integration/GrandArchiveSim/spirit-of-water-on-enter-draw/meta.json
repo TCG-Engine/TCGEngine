@@ -1,0 +1,17 @@
+{
+    "name": "Spirit of Water's On Enter draws seven cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Same trigger and reasoning as spirit-of-fire-on-enter-draw, with the deck's material section swapped to lead with Spirit of Water instead of Spirit of Fire so it naturally becomes pregame's resolved starting champion -- a post-hoc CardID patch wouldn't retroactively fire the On Enter trigger, since it only runs at actual placement time during pregame setup, not whenever an object happens to carry that CardID. RegressionEvaluateAssertion can't run against the raw step-0 snapshot (GetZoneObject() isn't defined that early), so one harmless P1 Main-phase pass produces an assertable step without touching P1's own hand count.",
+    "testedCards": [
+        "tafqldAGRF"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["tafqldAGRF"],
+        "mechanics": ["draw-discard", "trigger"],
+        "rulesClauses": [
+            "On Enter: Draw seven cards."
+        ]
+    }
+}
