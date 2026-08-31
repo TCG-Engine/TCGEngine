@@ -1,0 +1,17 @@
+{
+    "name": "Spurn to Ash destroys target regalia, which lands in its owner's banish zone",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Investigated as a suspected bug (a prior session reported the target regalia vanishing from all zones) but turned out to be correct behavior: the generated ability code moves the target to 'theirGraveyard' (relative to the activating player), but since the target is REGALIA, GraveyardAddReplacement() transparently redirects any REGALIA graveyard-add into that same player's banish zone instead -- and MZMove() correctly resolves 'that same player' as the object's actual owner throughout, not the activating player. The prior check only looked at both players' graveyards and fields, not banish zones. Spurn to Ash's element is FIRE, matched by the default starting champion (Spirit of Fire), so no lineage patch is needed. Necklace of Foresight (memory cost 1, REGALIA) is seeded onto the opponent's field as the destroy target. Without a [Class Bonus] discount, the full 3-reserve cost is paid; the target choice opens a reactive opponent-response window (declined via P2 PASS) before a second, real target MZCHOOSE resolves the destroy effect, landing the regalia in the opponent's own banish zone.",
+    "testedCards": [
+        "ErH0lIBq4z"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ErH0lIBq4z"],
+        "mechanics": ["cost", "targeting", "zone-movement"],
+        "rulesClauses": [
+            "Destroy target regalia with memory cost 1 or less."
+        ]
+    }
+}

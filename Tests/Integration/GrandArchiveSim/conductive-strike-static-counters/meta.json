@@ -1,0 +1,17 @@
+{
+    "name": "Conductive Strike's Class Bonus On Hit pays 2 to put static counters on arcane objects",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Exercises the onHitAbilities macro (distinct from onAttackAbilities, used by emberslash-discard-draw -- this one fires after damage lands, not on declaration) plus a second, independent gate: Conductive Strike is ARCANE element, not NORM, and CanPlayerMeetCardElementRequirements checks GetPlayerEnabledElements() -> GetChampionLineage() (walks Subcards), a completely separate mechanism from the Counters['_overrides']['classes'] used for Class Bonus. The starting champion needs both patched: the classes override (WARRIOR, for the Class Bonus gate) and Subcards seeded with Lorraine, Arclight Saber (x9sSpjpP3G -- WARRIOR class AND ARCANE element, the deck's actual champion) for the element gate. Storm Slime (blqryebvwj, ARCANE ally) is seeded onto the field as the static-counter target. Conductive Strike is played from hand (2 reserve), declared as an attack (lands for its base 1 power -- the '+X where X = objects with static counters' dynamic buff is a computed value, correctly 0 before the trigger resolves), then the On Hit trigger offers to pay 2 more reserve; paying it calls AddStaticCountersToArcaneObjectsYouControl, asserted directly via Storm Slime's Counters.",
+    "testedCards": [
+        "dDOMoeCJyK"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["dDOMoeCJyK"],
+        "mechanics": ["attack", "on-hit", "cost", "counter", "combat-damage", "class-bonus", "element-requirement"],
+        "rulesClauses": [
+            "[Class Bonus] On Hit: You may pay (2). If you do, put a static counter on each arcane element object you control."
+        ]
+    }
+}

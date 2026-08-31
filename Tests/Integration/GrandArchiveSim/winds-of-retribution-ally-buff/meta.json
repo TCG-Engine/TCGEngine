@@ -1,0 +1,17 @@
+{
+    "name": "Winds of Retribution buffs allies you control",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T02:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Winds of Retribution's element is WIND, so the starting champion's Subcards are patched with a real WIND champion (Spirit of Wind), same as deployment-beacon-summon-drone/reclaim-return-ally. Only the base always-available effect is covered; the [Class Bonus][Level 2+] discount condition isn't reached here, so the full 6-reserve cost is paid.",
+    "testedCards": [
+        "huqj5bbae3"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["huqj5bbae3"],
+        "mechanics": ["cost", "condition"],
+        "rulesClauses": [
+            "Allies you control get +2 [POWER] until end of turn."
+        ]
+    }
+}

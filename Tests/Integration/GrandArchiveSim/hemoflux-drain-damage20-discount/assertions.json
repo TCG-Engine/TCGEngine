@@ -1,0 +1,7 @@
+[
+  {"step":1,"type":"card_property_equals","mzId":"p2Field-1","property":"Damage","value":"20","label":"Fixture starts Dante at the Damage 20 threshold"},
+  {"step":4,"type":"decision_queue_empty","player":"all"},
+  {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":2,"value":4,"semantic":true,"label":"Damage 20+ reduces the five reserve cost to two cards"},
+  {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"3","semantic":true,"label":"Hemoflux Drain deals Dante's level 3 damage to the chosen unit"},
+  {"step":4,"type":"card_property_equals","mzId":"p2Field-1","property":"Damage","value":"17","semantic":true,"label":"Dante recovers the three damage actually dealt"}
+]

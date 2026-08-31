@@ -1,1 +1,56 @@
-[]
+[
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": 2
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "CardID",
+        "value": "ntnm81369o"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-1",
+        "property": "CardID",
+        "value": "1fy8l4pxs9"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-0",
+        "property": "CardID",
+        "value": "w822tmc0yc"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-1",
+        "property": "CardID",
+        "value": "mwfrfo3wzq"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-2",
+        "property": "CardID",
+        "value": "kDCEtGnZZe"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "theirMemory",
+        "viewerPlayerID": 1,
+        "value": 3
+    }
+]

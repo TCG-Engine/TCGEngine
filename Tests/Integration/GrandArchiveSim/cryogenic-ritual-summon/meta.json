@@ -1,0 +1,18 @@
+{
+    "name": "Cryogenic Ritual sacrifices an ally as an additional cost, then summons a Core Fractal token",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Regression test for a fixed bug: activating Cryogenic Ritual never actually sacrificed the ally its own additional cost requires (DoActivateCard now declares this cost the same way every other sacrifice-cost card in that function does, via a new CryogenicRitualCost custom decision handler modeled on the existing Decompose pattern). Cryogenic Ritual's element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water) to unlock element access. A Dungeon Guide (ALLY) is seeded onto the field to serve as the sacrifice target. Materializing it opens a real MZCHOOSE for the sacrifice target before reserve payment; choosing the Dungeon Guide pays the full 2-reserve cost, then the ability itself (unaffected by this fix) summons a Core Fractal token.",
+    "testedCards": [
+        "FWinA77xF1"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["FWinA77xF1"],
+        "mechanics": ["cost", "zone-movement", "token"],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice an ally.",
+            "Summon a Core Fractal token."
+        ]
+    }
+}

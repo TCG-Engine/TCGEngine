@@ -15,6 +15,14 @@
     "testedCards": [
         "5u5ic64930"
     ],
+    "semanticCoverage": {
+        "testedCards": ["5u5ic64930"],
+        "mechanics": ["draw-discard", "damage"],
+        "rulesClauses": [
+            "Draw X cards into memory, where X is five minus influence.",
+            "Deal X damage to your champion after drawing."
+        ]
+    },
     "savedAt": "2026-04-28T17:23:54.263Z",
     "lastRecordedAt": "2026-04-30T04:48:26+02:00",
     "lastRecordedBy": "5"

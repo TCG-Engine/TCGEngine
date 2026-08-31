@@ -1,0 +1,4 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"vz4kc558yx-ACTION_ACTIVATED\",\"PREVENT_ALL_2\"]","semantic":true,"label":"The targeted champion is protected by a PREVENT_ALL_2 shield"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

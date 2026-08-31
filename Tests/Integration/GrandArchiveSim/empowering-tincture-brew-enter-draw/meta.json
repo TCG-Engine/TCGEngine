@@ -1,0 +1,18 @@
+{
+    "name": "Empowering Tincture brews with Manaroot + Herb, then On Enter draws into memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T11:30:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Empowering Tincture's element is NORM, so no lineage patch is needed. Brewing is an alternate cost declared via a YESNO decision at materialize time; its recipe requires exactly one Manaroot plus one other Herb, so both tokens are seeded onto the field and selected in that order (Manaroot first, matching the CARD-slot-before-HERB-slot ordering in FlattenBrewSlots). Only the On Enter 'if brewed, draw into memory' half is covered; the unconditional Sacrifice: +2 level effect is out of scope.",
+    "testedCards": [
+        "9g44vm5kt3"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["9g44vm5kt3"],
+        "mechanics": ["cost", "zone-movement", "draw-discard", "condition"],
+        "rulesClauses": [
+            "Brew — One Manaroot, One Herb.",
+            "On Enter: If Empowering Tincture was brewed, draw a card into your memory."
+        ]
+    }
+}

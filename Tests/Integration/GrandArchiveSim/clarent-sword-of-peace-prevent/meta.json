@@ -1,0 +1,17 @@
+{
+    "name": "Clarent, Sword of Peace's Class Bonus durability-counter prevention",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T06:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Clarent, Sword of Peace's own activated ability requires a WARRIOR Class Bonus (physical presence, so Lorraine, Wandering Warrior is seeded directly onto the field) and a durability counter on Clarent itself (seeded directly, since it's normally only present via the card's own materialize-time durability allotment). Clarent is seeded straight onto the field rather than played from hand since this fixture is about its activated ability, not its materialize flow. The prevention applies to every unit the controller controls, so both the champion and Lorraine gain the shield.",
+    "testedCards": [
+        "m31WVJ9F04"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["m31WVJ9F04"],
+        "mechanics": ["damage", "prevention", "counter", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] Remove a durability counter from Clarent: Prevent the next 1 non-combat damage that would be dealt to each unit you control this turn."
+        ]
+    }
+}

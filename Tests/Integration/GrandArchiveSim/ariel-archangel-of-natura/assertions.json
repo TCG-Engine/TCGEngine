@@ -1,1 +1,112 @@
-[]
+[
+    {
+        "step": 10,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-4",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\",\"qktid6zlyt\",\"EMPOWERED\",\"EMPOWER_PLUS_4\",\"vz4kc558yx-ALLY_ACTIVATED\"]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-7",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-7",
+        "property": "TurnEffects",
+        "value": "[\"IMBUED\",\"ENTERED_THIS_TURN\",\"FQKVzsMp3B-buff\"]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-3",
+        "property": "CardID",
+        "value": "a708z5ethq"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-3",
+        "property": "CardID",
+        "value": "FQKVzsMp3B"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "1nnpbddblx"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "alnjt7DyZL"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-2",
+        "property": "CardID",
+        "value": "alnjt7DyZL"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-9",
+        "property": "CardID",
+        "value": "1k2jb8mau1"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-9",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-9",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Material-6",
+        "property": "CardID",
+        "value": "prbwzihwyh"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 4
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 4
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3
+    }
+]

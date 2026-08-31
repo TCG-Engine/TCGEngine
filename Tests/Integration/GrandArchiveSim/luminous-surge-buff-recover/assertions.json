@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"vz4kc558yx-ACTION_ACTIVATED\",\"KOqdA7G6by_NEXT_3\"]","semantic":true,"label":"Target champion's next attack this turn gets +3 power"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"2","semantic":true,"label":"Recover 3 reduces the champion's pre-existing 5 damage down to 2"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

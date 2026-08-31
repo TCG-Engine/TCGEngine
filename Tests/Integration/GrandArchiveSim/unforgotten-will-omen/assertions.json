@@ -1,1 +1,77 @@
-[]
+[
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ALLY_ACTIVATED\",\"vz4kc558yx-ACTION_ACTIVATED\"]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-3",
+        "property": "CardID",
+        "value": "kvoqk1l75t"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-4",
+        "property": "CardID",
+        "value": "2zs1pana81"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-5",
+        "property": "CardID",
+        "value": "7cx66hjlgx"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-6",
+        "property": "CardID",
+        "value": "2zs1pana81"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "CardID",
+        "value": "Yj77WUumhk"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "Counters",
+        "value": "{\"omen\":1}"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirMemory",
+        "viewerPlayerID": 1,
+        "value": 7
+    }
+]

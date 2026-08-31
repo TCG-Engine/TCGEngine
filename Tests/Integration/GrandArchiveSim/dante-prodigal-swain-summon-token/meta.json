@@ -1,0 +1,17 @@
+{
+    "name": "Dante, Prodigal Swain levels up and summons an Elysian Test Subject token",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Dante, Prodigal Swain's element is NORM (always playable, no lineage patch needed) and its level (1) is exactly one above the default level-0 starting champion (Spirit of Fire), so it's a legal level-up target with no element patching. Champion-swap materialization is only offered through the material-phase MZMAYCHOOSE at the start of a turn, so both players end their first turn (P1 -> P2) to reach that prompt on P1's next turn. Its printed cost is 1 memory, so a filler card is seeded directly into myMemory as real cost fuel -- without it, QueueMaterializePayment's own affordability check silently rolls the whole attempt back via AutoUndoMaterializeCostFailure() (LoadVersion()), which looks like the choice was a no-op (this was confirmed live while authoring the fixture: omitting the memory fuel left the MZMAYCHOOSE decision queue and the starting champion both unchanged after submitting the choice). Choosing Dante, Prodigal Swain completes the swap, preserves Spirit of Fire in its lineage (Subcards), and its On Enter ability (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php, enterAbilities[\"apVtyt48u3:0\"]) unconditionally summons an Elysian Test Subject token (3DCP7WmBpx) onto the field.",
+    "testedCards": [
+        "apVtyt48u3"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["apVtyt48u3"],
+        "mechanics": ["cost", "zone-movement", "trigger", "token"],
+        "rulesClauses": [
+            "On Enter: Summon an Elysian Test Subject token."
+        ]
+    }
+}

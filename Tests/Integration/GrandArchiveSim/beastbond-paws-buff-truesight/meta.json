@@ -1,0 +1,17 @@
+{
+    "name": "Beastbond Paws banishes itself to buff a target Animal/Beast ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T08:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Beastbond Paws' element is NORM, so no lineage patch is needed, and its memory cost (0) needs no floating-payment setup. Cheerful Slime (an ALLY, TAMER,ANIMAL,SLIME) is seeded onto the field as the required Animal/Beast target.",
+    "testedCards": [
+        "F1t18omUlx"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["F1t18omUlx"],
+        "mechanics": ["targeting", "zone-movement", "status", "combat"],
+        "rulesClauses": [
+            "Banish CARDNAME: Target Animal or Beast ally you control gets +1 [POWER] and gains true sight until end of turn."
+        ]
+    }
+}

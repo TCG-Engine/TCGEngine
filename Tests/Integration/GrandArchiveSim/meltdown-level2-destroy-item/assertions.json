@@ -1,0 +1,6 @@
+[
+    {"step":5,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"Level 2+ discount reduces the 4-reserve cost to 3, so only 3 reserve payments (each moving a hand card into memory) are needed"},
+    {"step":5,"type":"card_exists","zone":"myBanish","viewerPlayerID":2,"cardID":"m31WVJ9F04","semantic":true,"label":"Destroy resolves by banishing the targeted WEAPON from the opponent's field, not moving it to their graveyard"},
+    {"step":5,"type":"zone_count","zone":"myField","viewerPlayerID":2,"value":1,"semantic":true,"label":"Only the opponent's champion remains on their field after the targeted weapon is destroyed"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

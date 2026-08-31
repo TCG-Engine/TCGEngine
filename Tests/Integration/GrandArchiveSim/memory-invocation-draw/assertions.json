@@ -1,0 +1,5 @@
+[
+    {"step":7,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":6,"semantic":true,"label":"Net hand change reflects paying 3 reserve then drawing 2"},
+    {"step":7,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"ddv1au7t9m","semantic":true,"label":"The floating-memory card is banished from the graveyard as the additional cost"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

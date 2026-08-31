@@ -1,0 +1,17 @@
+{
+    "name": "Nascent Blast deals 3 damage to target unit, destroying it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Nascent Blast's element is NORM, so no lineage patch is needed. Without a [Class Bonus] discount, the full 3-reserve cost is paid. After reserve payment, both players decline the EffectStackActiveResponse opportunity window (P1 PASS, then P2 PASS resolves the stack), then the seeded Dungeon Guide (3 life) is chosen as the target -- 3 damage is exactly lethal, so it is destroyed and moves to the graveyard rather than merely taking marked damage. Only the base (non-empowered) damage effect is covered; the empowered-into-memory clause is out of scope.",
+    "testedCards": [
+        "vajycopxgf"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["vajycopxgf"],
+        "mechanics": ["cost", "targeting", "damage", "zone-movement"],
+        "rulesClauses": [
+            "Deal 3 damage to target unit."
+        ]
+    }
+}

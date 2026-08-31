@@ -1,0 +1,17 @@
+{
+    "name": "Keen Tidebinder gets +2 POWER the first time you empower each turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Empower() (GrandArchiveSim/Custom/GameLogic.php:18438) is a shared engine primitive many different cards' own abilities call into -- it's not a base action every deck can trigger, so this borrows Dante, Hemomancer's own innate activated ability ('(X), REST: deal X unpreventable damage to Dante and empower X') as the trigger, by patching the starting champion's CardID directly to Dante (4FtNBFaOJp) rather than the Subcards-lineage/Counters-override tricks used elsewhere -- GetChampionLineage() always includes the champion object's own CardID first (GameLogic.php:19351-19358) and EffectiveCardClasses() reads CardClasses($obj->CardID) directly, so a direct CardID swap satisfies whatever element/class checks the champion's own card needs, with no separate override required. Keen Tidebinder only needs to be present on the field when Empower resolves (its trigger reads the field directly, GameLogic.php:18478-18483, no card_activated macro of its own), so it's seeded directly rather than played from hand -- sidestepping its own WATER element / reserve cost requirements. Dante's ability has no phase restriction, so it's offered as a fast option at every opportunity window (the same discovery aenean-frozen-shunt-end-combat made) -- declining it at turn 1's end-step windows and instead activating it during P1's own turn-2 BeforeRecollection window matters: doing it at an end-of-turn window instead let the ability resolve correctly (confirmed live via temporary debug instrumentation, reverted before commit) but the whole TurnEffects array then got wiped by the same auto-cascade into end-of-turn before the fixture's snapshot was captured, since 'until end of turn' effects don't survive a turn boundary. Triggering during BeforeRecollection instead lands on a stable Main phase (which never auto-advances without an explicit PASS) in the same turn, so the flag is still present when asserted. The '[Class Bonus] Floating Memory' clause is the same graveyard-payment mechanic already proven repeatedly elsewhere (shieldroid-floating-memory etc.) and is out of scope here to avoid duplicating that coverage.",
+    "testedCards": [
+        "ZmBQAOb9gj"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ZmBQAOb9gj"],
+        "mechanics": ["trigger", "class-bonus", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] Whenever you empower for the first time each turn, Keen Tidebinder gets +2POWER until end of turn."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Shieldroid's Floating Memory pays a champion level-up's memory cost from graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Shieldroid is seeded directly into the graveyard, with no myMemory filler, and Lorraine, Wandering Warrior's 1-memory champion level-up is initiated from myMaterial-0. QueueMaterializeFloatingPaymentChoice (GrandArchiveSim/Custom/MaterializeLogic.php) detects the floating-memory card via GetMaterializeFloatingChoices()/HasFloatingMemory() and offers an MZMULTICHOOSE to banish it in place of tapping myMemory; selecting myGraveyard-0 there pays the full cost and PAYFLOATING moves Shieldroid straight to myBanish. Mirrors the already-covered honorable-vanguard-floating-memory fixture, but exercises the same payment path for a second, independent card. Taunt (the combat-targeting-priority half of Shieldroid's text -- must be targeted before other objects during the opponent's attack declarations) is a computed attack-declaration restriction with no stored counter or flag to assert and is out of scope here.",
+    "testedCards": [
+        "qCTini03Bc"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["qCTini03Bc"],
+        "mechanics": ["cost", "zone-movement"],
+        "rulesClauses": [
+            "Floating Memory (While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)"
+        ]
+    }
+}

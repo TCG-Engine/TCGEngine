@@ -1,0 +1,17 @@
+{
+    "name": "Tariff Ring's Banish ability activates during an opponent's recollection phase and adds the attack-tax global effect",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Previously abandoned: activateAbilityPrereqs[\"xnrw8qq1uw:0\"] compared GetCurrentPhase() against the literal \"RECOLLECTION\", a string the engine's real phase codes (GrandArchiveSim/TurnStates.php: WU->MAT->BREC->REC->DRAW->MAIN) never produce -- the REC_START opportunity window (where this ability is actually offered, via GetPlayableFastAbilities in GrandArchiveSim/Custom/OpportunityLogic.php) opens while the phase code is \"BREC\" (GrandArchiveSim/Custom/GameLogic.php's BeforeRecollectionPhase()), never \"REC\" and never \"RECOLLECTION\". Root-caused to 4 card_abilities DB rows (Database/migrations/12_grand_archive_recollection_phase_fix.sql) plus 3 matching hand-authored checks in GrandArchiveSim/Custom/{GameLogic,OpportunityLogic}.php, all now fixed to compare against \"BREC\". Also confirmed empirically that Grand Archive's engine numbers turns by round (turnNumber increments only when play wraps back to player 1), and that recollection is skipped entirely on turnNumber 1 for both players (BeforeRecollectionPhase()'s `if($currentTurn === 1) return;` early-out) -- so the fixture must reach turnNumber 2 before the window exists at all. Tariff Ring is seeded directly onto P1's field (an Item ability, not a hand play); P1 passes through turn 1, declines its own turnNumber-2 materialize choice, passes Main, and P2 declines their own turnNumber-2 materialize choice, which finally reaches P2's turnNumber-2 BeforeRecollection phase -- the first point where GetTurnPlayer() (2) differs from Tariff Ring's controller (1) AND the phase code is genuinely \"BREC\". P1 is offered Tariff Ring's \"Banish\" ability there (MZMAYCHOOSE candidate `myField-1@Activate-0@Banish`, from OpportunityLogic.php's EncodeOpportunityAbilityChoice) and selecting it resolves the macro: Tariff Ring is banished (its own activation cost, \"Banish CARDNAME:\") and AddGlobalEffects($player, \"xnrw8qq1uw\") lands the attack-tax flag. The resulting attack-declaration tax computation (GrandArchiveSim/Custom/CombatLogic.php's $tariffRingTax, 2 per attack declaration until end of turn) is a combat-time computed cost with no independently stored counter beyond the global effect itself, so it's out of scope here -- the global effect's presence (asserted via the now-known-assertable myGlobalEffects zone) is the semantic proof the ability fired.",
+    "testedCards": [
+        "xnrw8qq1uw"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["xnrw8qq1uw"],
+        "mechanics": ["cost", "zone-movement", "combat", "timing"],
+        "rulesClauses": [
+            "Banish CARDNAME: Until end of turn, players can't declare attacks unless they pay (2) for each attack declaration. Activate this ability only during an opponent's recollection phase."
+        ]
+    }
+}

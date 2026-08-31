@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"myField-0","property":"Damage","value":"2","viewerPlayerID":1,"semantic":true,"label":"The champion recovers 3 of its 5 damage"},
+    {"step":3,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"gnth142db4","semantic":true,"label":"Harmonious Mantra is discarded to the graveyard after resolving"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

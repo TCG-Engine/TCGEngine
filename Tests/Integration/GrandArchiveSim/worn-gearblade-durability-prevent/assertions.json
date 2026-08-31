@@ -1,0 +1,5 @@
+[
+    {"step":2,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"PREVENT_ALL_1\"]","semantic":true,"label":"The targeted champion is protected by a PREVENT_ALL_1 shield"},
+    {"step":2,"type":"card_property_equals","mzId":"p1Field-2","property":"Counters","value":"[]","semantic":true,"label":"The durability counter is spent as the ability's cost"},
+    {"step":2,"type":"decision_queue_empty","player":"all"}
+]

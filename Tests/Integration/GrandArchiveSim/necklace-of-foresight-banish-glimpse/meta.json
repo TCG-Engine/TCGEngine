@@ -1,0 +1,17 @@
+{
+    "name": "Necklace of Foresight banishes itself to Glimpse 4",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T11:30:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Necklace of Foresight's element is NORM, so no lineage patch is needed. As a REGALIA,ITEM (a Material-deck card type), it is seeded directly onto the field rather than played from hand, same pattern as worn-gearblade-durability-prevent -- this fixture is about its activated ability, not its materialize flow, so the memory-cost payment mechanic is out of scope. Activating resolves an MZREARRANGE decision (the Glimpse 4 reorder), answered by putting all 4 revealed cards back on top in the same order.",
+    "testedCards": [
+        "lq2kkvoqk1"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["lq2kkvoqk1"],
+        "mechanics": ["zone-movement", "condition"],
+        "rulesClauses": [
+            "Banish Necklace of Foresight: Glimpse 4."
+        ]
+    }
+}

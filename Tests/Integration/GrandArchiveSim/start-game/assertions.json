@@ -1,1 +1,357 @@
-[]
+[
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "CardID",
+        "value": "pNiyaGlIe7"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "kvoqk1l75t"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "moi0a5uhjx"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "5lh23qu7d6"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-3",
+        "property": "CardID",
+        "value": "kvoqk1l75t"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-4",
+        "property": "CardID",
+        "value": "v5klryvfq3"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-5",
+        "property": "CardID",
+        "value": "eifnz0fgm3"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-6",
+        "property": "CardID",
+        "value": "5lh23qu7d6"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Material-0",
+        "property": "CardID",
+        "value": "zb14m4c8lj"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Material-1",
+        "property": "CardID",
+        "value": "yevpmu6gvn"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Material-2",
+        "property": "CardID",
+        "value": "ta6qsesw2u"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Material-3",
+        "property": "CardID",
+        "value": "8kmoi0a5uh"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Material-4",
+        "property": "CardID",
+        "value": "jxhkurfp66"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Material-5",
+        "property": "CardID",
+        "value": "ojwk0pw0y6"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Material-6",
+        "property": "CardID",
+        "value": "rrii17fzcy"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Material-7",
+        "property": "CardID",
+        "value": "r1o0qtb31x"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Material-8",
+        "property": "CardID",
+        "value": "klryvfq3hu"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Material-9",
+        "property": "CardID",
+        "value": "pyx8bd7ozu"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Material-10",
+        "property": "CardID",
+        "value": "j68m69iq4d"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "CardID",
+        "value": "pNiyaGlIe7"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-0",
+        "property": "CardID",
+        "value": "tu9agwj4f1"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-1",
+        "property": "CardID",
+        "value": "1x97n2jnlt"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-2",
+        "property": "CardID",
+        "value": "5lh23qu7d6"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-3",
+        "property": "CardID",
+        "value": "nsdwmxz1vd"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-4",
+        "property": "CardID",
+        "value": "4n1n3gygoj"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-5",
+        "property": "CardID",
+        "value": "plywc08c9h"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-6",
+        "property": "CardID",
+        "value": "4n1n3gygoj"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Material-0",
+        "property": "CardID",
+        "value": "zb14m4c8lj"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Material-1",
+        "property": "CardID",
+        "value": "yevpmu6gvn"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Material-2",
+        "property": "CardID",
+        "value": "ta6qsesw2u"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Material-3",
+        "property": "CardID",
+        "value": "8kmoi0a5uh"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Material-4",
+        "property": "CardID",
+        "value": "jxhkurfp66"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Material-5",
+        "property": "CardID",
+        "value": "ojwk0pw0y6"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Material-6",
+        "property": "CardID",
+        "value": "rrii17fzcy"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Material-7",
+        "property": "CardID",
+        "value": "r1o0qtb31x"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Material-8",
+        "property": "CardID",
+        "value": "klryvfq3hu"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Material-9",
+        "property": "CardID",
+        "value": "pyx8bd7ozu"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Material-10",
+        "property": "CardID",
+        "value": "j68m69iq4d"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 7
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 7
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 1
+    }
+]

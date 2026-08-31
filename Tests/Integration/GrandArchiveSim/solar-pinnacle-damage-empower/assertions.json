@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"theirField-1","property":"Damage","value":"2","viewerPlayerID":1,"semantic":true,"label":"Solar Pinnacle deals 2 damage to the targeted unit"},
+    {"step":4,"type":"card_property_equals","mzId":"myField-0","property":"TurnEffects","value":"[\"zeig1e49wb\",\"EMPOWERED\",\"EMPOWER_PLUS_2\",\"vz4kc558yx-ACTION_ACTIVATED\"]","viewerPlayerID":1,"semantic":true,"label":"The champion is tagged EMPOWERED with EMPOWER_PLUS_2"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

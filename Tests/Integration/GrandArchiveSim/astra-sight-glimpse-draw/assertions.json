@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"zuj68m69iq","semantic":true,"label":"Astra Sight is discarded to the graveyard after resolving"},
+    {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"Astra Sight's draw effect adds a card to hand"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,16 @@
+{
+  "name":"Unruled Bereavement receives its discount and damages all allies",
+  "rootName":"GrandArchiveSim",
+  "createdBy":"Codex",
+  "testedCards":["cAcgxzrz6z","fZ08zyFIlz"],
+  "semanticCoverage":{
+    "testedCards":["cAcgxzrz6z","fZ08zyFIlz"],
+    "mechanics":["cost","condition","level","damage","global-trigger","empower","death"],
+    "rulesClauses":[
+      "With Mage class bonus after the champion leveled up this turn, Unruled Bereavement costs two less to activate.",
+      "At level seven or greater, it deals three damage to every ally.",
+      "Until end of turn, each ally death empowers its controller's champion by two.",
+      "When Magus Initiate dies to the sweep, its on-death ability draws a card."
+    ]
+  }
+}

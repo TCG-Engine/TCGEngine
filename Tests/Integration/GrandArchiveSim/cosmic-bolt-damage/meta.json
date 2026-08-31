@@ -1,0 +1,17 @@
+{
+    "name": "Cosmic Bolt deals scaling damage to target unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T04:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Cosmic Bolt is an ASTRA (advanced element) ACTION card, so the starting champion's Subcards are patched with a real ASTRA champion (Arisanna, Astral Zenith), same as dwarf-stars-glow-damage. Targets the opponent's champion directly. Cosmic Bolt itself already sits in its controller's graveyard by the time its damage handler resolves (ACTION cards move to graveyard as part of activation, before the ability body's graveyard/banishment count runs), so the damage resolves to the base 4 plus 2 for that one copy of itself = 6, not the naive base-4 reading of the card text. The Starcalling alternate-cost clause is tied to the glimpse subsystem and is out of scope.",
+    "testedCards": [
+        "vpmu6gvnta"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["vpmu6gvnta"],
+        "mechanics": ["cost", "targeting", "damage", "condition"],
+        "rulesClauses": [
+            "Deal 4 damage to target unit plus an additional 2 for each card named CARDNAME in your graveyard and banishment."
+        ]
+    }
+}

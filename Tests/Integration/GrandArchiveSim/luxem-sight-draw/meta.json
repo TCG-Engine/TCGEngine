@@ -1,0 +1,17 @@
+{
+    "name": "Luxem Sight's LUXEM element access and free draw activation",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T20:07:35+00:00",
+    "createdBy": "Codex",
+    "notes": "Patches the starting champion's Subcards with a real LUXEM champion to unlock element access, then plays Luxem Sight for 0 reserve and confirms it draws a card and resolves to the graveyard. Does not cover the separate reveal-from-memory recover trigger, which is tied to the Imbue system.",
+    "testedCards": [
+        "uwnHTLG3fL"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["uwnHTLG3fL"],
+        "mechanics": ["cost", "condition", "draw-discard"],
+        "rulesClauses": [
+            "Draw a card."
+        ]
+    }
+}

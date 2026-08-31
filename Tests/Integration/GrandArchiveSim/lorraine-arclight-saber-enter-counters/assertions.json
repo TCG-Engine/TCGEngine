@@ -1,0 +1,6 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"myField-0","property":"CardID","value":"x9sSpjpP3G","semantic":true,"label":"The champion levels up into Lorraine, Arclight Saber"},
+    {"step":3,"type":"card_property_equals","mzId":"myField-0","property":"Counters","value":"{\"static\":5}","semantic":true,"label":"On Enter puts LV (3) static counters, plus 1 per banished arcane card (2 seeded), for 5 total"},
+    {"step":3,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":5,"semantic":true,"label":"The 2 seeded arcane cards remain banished (only counted, not consumed) alongside the 3 memory-fuel cards banished to pay the level-up's memory cost"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

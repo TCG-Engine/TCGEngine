@@ -1,0 +1,5 @@
+[
+    {"step":1,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":8,"semantic":true,"label":"Activating draws a card, reducing the deck by one"},
+    {"step":1,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"1fy8l4pxs9","semantic":true,"label":"Exia Sight resolves to its controller's graveyard"},
+    {"step":1,"type":"decision_queue_empty","player":"all"}
+]

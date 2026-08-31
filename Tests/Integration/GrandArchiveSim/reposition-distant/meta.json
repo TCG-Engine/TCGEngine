@@ -1,0 +1,17 @@
+{
+    "name": "Reposition makes target unit distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Reposition's element is NORM, so no lineage patch is needed. Without a [Class Bonus] discount, the full 1-reserve cost is paid, then both players decline the EffectStackActiveResponse opportunity window before the seeded Dungeon Guide is chosen as the target. Making it distant adds the DISTANT turn-effect tag (alongside the engine's own ENTERED_THIS_TURN tag from being freshly seeded onto the field this turn).",
+    "testedCards": [
+        "vfq3huqj5b"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["vfq3huqj5b"],
+        "mechanics": ["cost", "targeting", "status"],
+        "rulesClauses": [
+            "Target unit becomes distant."
+        ]
+    }
+}

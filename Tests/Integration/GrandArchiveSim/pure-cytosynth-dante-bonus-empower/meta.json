@@ -1,0 +1,17 @@
+{
+    "name": "Pure Cytosynth's Dante Bonus mills and empowers by water cards in the graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Pure Cytosynth's On Enter (mill 3, then empower X = water element cards in graveyard) is gated behind [Dante Bonus] (IsDanteBonusActive: champion name starts with \"Dante\") and its element property is \"EXALTED,WATER\" -- CanPlayerMeetCardElementRequirements always requires EXALTED specifically (auto-enabled only once another advanced element is enabled) plus at least one of its other listed elements (WATER here). The starting champion's CardID is patched directly to Dante, Hemomancer (element EXIA, an advanced element -- satisfies both the Dante Bonus name check and unlocks EXALTED) and its Subcards are patched with Spirit of Water (WATER) to unlock the card's other required element. DISCOVERED ENGINE BUG (not fixed here, out of scope for a fixture-authoring pass -- both the affected mill loop and MZMove() itself live in generated/DB-sourced files with no local editable source, see AGENTS.md's generated-file rule): the generated enterAbility (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php, enterAbilities[\"172utOanGk:0\"]) mills by calling MZMove($player, \"myDeck-0\", \"myGraveyard\") three times with the SAME hardcoded index, instead of incrementing (\"myDeck-0\", \"myDeck-1\", \"myDeck-2\") like the codebase's other repeated-move loops (e.g. MaterializeLogic.php's FINISHPAYMATERIALIZE). MZMove (GrandArchiveSim/ZoneAccessors.php:817, also generated) resolves \"myDeck-0\" by raw array index and soft-deletes (marks .removed, no compaction), so the second and third calls both resolve to the SAME already-removed object from the first call and silently no-op (the `if($removed->removed === true) return null;` guard). Verified live via a temporary debug trace: only the very first of the 3 intended mills actually moves a card. This fixture seeds Spirit of Water (a real WATER card) directly into the graveyard as a second, independent water source, both to make the observable empower amount deterministic (the mill's single real hit is not guaranteed to be a water card) and so the assertions reflect actual current engine behavior (one real mill, not three) rather than the printed card text.",
+    "testedCards": [
+        "172utOanGk"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["172utOanGk"],
+        "mechanics": ["condition", "zone-movement", "trigger"],
+        "rulesClauses": [
+            "[Dante Bonus] On Enter: Put the top three cards of your deck into your graveyard. Then empower X, where X is the amount of water element cards in your graveyard."
+        ]
+    }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "tcgengine-card-editor": {
+      "type": "local",
+      "command": ["node", "/Users/avery/Documents/GitHub/TCGEngine/McpServer/dist/index.js"],
+      "enabled": true,
+      "environment": {
+        "MYSQL_SERVER_NAME": "127.0.0.1",
+        "MYSQL_SERVER_USER_NAME": "root",
+        "MYSQL_ROOT_PASSWORD": "secret",
+        "MYSQL_DATABASE_NAME": "grandarchivesim"
+      }
+    }
+  }
+}

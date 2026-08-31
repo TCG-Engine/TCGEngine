@@ -1,0 +1,6 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"PREVENT_NONCOMBAT_1\"]","semantic":true,"label":"The champion is protected by the noncombat-damage shield"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-1","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"PREVENT_NONCOMBAT_1\"]","semantic":true,"label":"Lorraine (the Class Bonus source) is also protected, since the effect applies to every unit we control"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-2","property":"Counters","value":"[]","semantic":true,"label":"The durability counter is spent as the ability's cost"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

@@ -39,8 +39,9 @@ function _RenderNavItem(array $item): string {
 function _RenderNavLink(array $item): string {
     $kind = $item['kind'] ?? 'icon';
     if ($kind === 'raw') return $item['html'] ?? '';
-    $title = isset($item['title']) ? " title=\"{$item['title']}\"" : '';
-    return "<li><a target=\"_blank\" href=\"{$item['href']}\"$title><img src=\"/TCGEngine/Assets/Images/icons/{$item['icon']}\" alt=\"\" aria-hidden=\"true\"></a></li>";
+    $label = $item['title'] ?? 'External link';
+    $safeLabel = htmlspecialchars($label, ENT_QUOTES, 'UTF-8');
+    return "<li><a target=\"_blank\" href=\"{$item['href']}\" title=\"$safeLabel\" aria-label=\"$safeLabel\"><img src=\"/TCGEngine/Assets/Images/icons/{$item['icon']}\" alt=\"\" aria-hidden=\"true\"></a></li>";
 }
 
 function RenderMenuBar(array $def, array $ctx): string {

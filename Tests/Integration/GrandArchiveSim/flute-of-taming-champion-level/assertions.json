@@ -1,0 +1,4 @@
+[
+    {"step":3,"type":"card_exists","zone":"myGlobalEffects","viewerPlayerID":1,"cardID":"zpkcFs72Ah","semantic":true,"label":"Activating ability 1 sets the champion's +1 level global effect"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,6 @@
+[
+    {"step":13,"type":"card_property_equals","mzId":"theirField-0","property":"Damage","value":"0","semantic":true,"label":"Combat ends before damage resolves -- the defending champion takes none of Emberslash's power"},
+    {"step":13,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":2,"semantic":true,"label":"Both Emberslash and Aenean Frozen Shunt resolve and land in the graveyard"},
+    {"step":13,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":4,"semantic":true,"label":"3 reserve payments (1 for Emberslash, 2 for Aenean Frozen Shunt) plus 1 Class Bonus/Level 4+ memory draw"},
+    {"step":13,"type":"decision_queue_empty","player":"all"}
+]

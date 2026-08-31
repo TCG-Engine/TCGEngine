@@ -1,0 +1,17 @@
+{
+    "name": "Break Apart destroys a target non-regalia item",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T07:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Break Apart's element is NORM, so no lineage patch is needed. Forest Cake (a plain ITEM, not REGALIA) is seeded onto the opponent's field as the target, avoiding the 'costs 2 more if it targets a regalia' branch (which isn't exercised here). Unlike the WEAPON targets destroyed in meltdown-level2-destroy-item/anathemas-end-load-gun's setup props, this plain ITEM resolves to its owner's graveyard, not their banish zone.",
+    "testedCards": [
+        "4ns2jbt4hq"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["4ns2jbt4hq"],
+        "mechanics": ["cost", "targeting", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Destroy target item or weapon."
+        ]
+    }
+}

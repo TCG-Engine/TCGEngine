@@ -1,1 +1,105 @@
-[]
+[
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "CardID",
+        "value": "6ce5rzrjd9"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "CardID",
+        "value": "kl4bTg57Cj"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "CardID",
+        "value": "59ipqa91r2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "Counters",
+        "value": "{\"quest\":5}"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"vz4kc558yx-ALLY_ACTIVATED\"]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-3",
+        "property": "CardID",
+        "value": "6W5AJwF3Y3"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-3",
+        "property": "Counters",
+        "value": "{\"buff\":1}"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-0",
+        "property": "CardID",
+        "value": "bjx6yo7mm5"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-0",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-0",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 7
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1
+    }
+]

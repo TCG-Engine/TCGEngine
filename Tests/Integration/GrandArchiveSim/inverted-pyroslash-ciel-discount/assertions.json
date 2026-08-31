@@ -1,1 +1,115 @@
-[]
+[
+    {
+        "step": 7,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Damage",
+        "value": "10",
+        "semantic": true,
+        "label": "Inverted Pyroslash adds its five self-damage on attack to the champion's existing five damage"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Counters",
+        "value": "{\"_champDamageThisTurn\":5,\"_champCombatDamageDealtThisTurn\":6}"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "TurnEffects",
+        "value": "[\"DAMAGED_SINCE_LAST_TURN\"]"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "cxqf8rr452"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-2",
+        "property": "CardID",
+        "value": "X5XONoPY6Z",
+        "semantic": true,
+        "label": "The resolved attack is placed in the graveyard"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "el7cwdzin7"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p1GlobalEffects-0",
+        "property": "CardID",
+        "value": "CHAMP_DEALT_COMBAT_DMG",
+        "semantic": true,
+        "label": "Combat-damage trigger state is recorded after the attack resolves"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "6",
+        "semantic": true,
+        "label": "Inverted Pyroslash deals six combat damage to the defending champion"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"_champCombatDamageDealtThisTurn\":2,\"_champDamageThisTurn\":6}"
+    },
+    {
+        "step": 7,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"WAS_ATTACKED\",\"DAMAGED_SINCE_LAST_TURN\",\"CHAMP_DMG_BY_P1\"]"
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 7,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 1,
+        "semantic": true,
+        "label": "Two Fire omens with Ciel reduce the five-reserve cost to one card moved into memory"
+    }
+]

@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":8,"semantic":true,"label":"Activating draws a card, reducing the deck by one"},
+    {"step":4,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"UE6g95C1nZ","semantic":true,"label":"BUG (task_f3f78343): Equinox Hour remains on the field after activating -- the 'Banish CARDNAME' cost is never applied"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

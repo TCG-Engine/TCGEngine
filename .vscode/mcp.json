@@ -5,10 +5,10 @@
       "command": "node",
       "args": ["${workspaceFolder}/McpServer/dist/index.js"],
       "env": {
-        "MYSQL_SERVER_NAME": "localhost",
+        "MYSQL_SERVER_NAME": "127.0.0.1",
         "MYSQL_SERVER_USER_NAME": "root",
-        "MYSQL_ROOT_PASSWORD": "",
-        "MYSQL_DATABASE_NAME": "swuonline"
+        "MYSQL_ROOT_PASSWORD": "secret",
+        "MYSQL_DATABASE_NAME": "grandarchivesim"
       }
     }
   }

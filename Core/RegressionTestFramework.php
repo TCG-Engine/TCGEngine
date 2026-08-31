@@ -119,6 +119,41 @@ function RegressionNormalizeTransientHistoryZones($rootName, $text) {
   return implode("\n", $lines) . ($hadTrailingNewline ? "\n" : '');
 }
 
+// GrandArchiveSim gamestates serialize a batch of runtime counters/transient state after the board
+// (updateNumber, the macro/RNG/telemetry counters, the pending effect stack, the flash message, and
+// the decision-queue variable store). None of it is gameplay state, and all of it shifts between
+// runs even when the board outcome is byte-identical — so comparing it produces the "expected 217 /
+// actual 207" snapshot churn that drowns out real regressions. Mask it the same way the AzukiSim
+// history zones are masked, so the snapshot diff only ever compares board state.
+function RegressionNormalizeGrandArchiveTransientFields($rootName, $text) {
+  if ($rootName !== 'GrandArchiveSim' || !is_string($text) || $text === '') return $text;
+  $normalized = RegressionNormalizeNewlines($text);
+  $hadTrailingNewline = str_ends_with($normalized, "\n");
+  $lines = explode("\n", $normalized);
+  if ($hadTrailingNewline) array_pop($lines);
+
+  // updateNumber (line 2) is a mutation counter, not board state.
+  if (count($lines) > 1) $lines[1] = '0';
+
+  $layout = RegressionGamestateSchemaLayout($rootName);
+  if (empty($layout)) return $text;
+  $blocks = [];
+  $consumed = RegressionConsumeGamestateLayout($layout, $lines, $blocks);
+  if ($consumed < 0) return $text;
+
+  $maskNames = [
+    'FlashMessage', 'DecisionQueueVariables', 'EffectStack',
+    'MacroTurnIndex', 'UniqueIDCounter', 'MacroGameIndex', 'RandomCounter', 'Telemetry',
+  ];
+  for ($index = count($blocks) - 1; $index >= 0; --$index) {
+    $block = $blocks[$index];
+    if (!in_array($block['name'], $maskNames, true)) continue;
+    array_splice($lines, $block['start'], $block['length'], ['-']);
+  }
+
+  return implode("\n", $lines) . ($hadTrailingNewline ? "\n" : '');
+}
+
 function RegressionDiffNormalizedTexts($expectedText, $actualText, $contextLines = 2) {
   $expectedLines = explode("\n", RegressionNormalizeNewlines($expectedText));
   $actualLines = explode("\n", RegressionNormalizeNewlines($actualText));
@@ -307,6 +342,7 @@ function RegressionNormalizeMatchReplayFields($text) {
 function RegressionNormalizeGamestateTextForComparison($rootName, $text) {
   $text = RegressionNormalizeGamestateTextForRoot($rootName, $text);
   $text = RegressionNormalizeTransientHistoryZones($rootName, $text);
+  $text = RegressionNormalizeGrandArchiveTransientFields($rootName, $text);
   return RegressionNormalizeMatchReplayFields($text);
 }
 
@@ -440,6 +476,10 @@ function RegressionBuildAssertionFromInput($viewerPlayerID, $payload) {
       $assertion['mzId'] = strval($payload['mzId'] ?? '');
       $assertion['property'] = strval($payload['property'] ?? '');
       $assertion['value'] = strval($payload['value'] ?? '');
+      break;
+    case 'computed_power_equals':
+      $assertion['mzId'] = strval($payload['mzId'] ?? '');
+      $assertion['value'] = intval($payload['value'] ?? 0);
       break;
     case 'decision_queue_empty':
       $assertion['player'] = strval($payload['player'] ?? 'all');
@@ -926,6 +966,12 @@ function RegressionEvaluateAssertion($assertion) {
         $actual = is_scalar($value) ? strval($value) : json_encode($value);
       }
       return [$actual === $expected, "Expected {$mzId}.{$property} to equal '{$expected}', got '{$actual}'."];
+    case 'computed_power_equals':
+      $mzId = strval($assertion['mzId'] ?? '');
+      $expected = intval($assertion['value'] ?? 0);
+      $obj = GetZoneObject($mzId);
+      $actual = (is_object($obj) && function_exists('ObjectCurrentPower')) ? ObjectCurrentPower($obj) : null;
+      return [$actual === $expected, "Expected {$mzId} computed power to equal {$expected}, got " . var_export($actual, true) . "."];
     case 'decision_queue_empty':
       $target = strtolower(strval($assertion['player'] ?? 'all'));
       $players = $target === 'all' ? [1, 2] : [intval($target)];

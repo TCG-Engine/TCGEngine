@@ -1,0 +1,5 @@
+[
+    {"step":5,"type":"card_exists","zone":"myMemory","viewerPlayerID":2,"cardID":"em6eEh9q8y","semantic":true,"label":"On Enter returns the targeted opposing ally to its owner's memory"},
+    {"step":5,"type":"zone_count","zone":"myField","viewerPlayerID":2,"value":1,"semantic":true,"label":"Only the opponent's champion remains on their field after the target is returned"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

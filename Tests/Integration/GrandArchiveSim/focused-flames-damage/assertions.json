@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":2,"cardID":"em6eEh9q8y","semantic":true,"label":"4 damage exceeds the targeted ally's life, so it dies and moves to its owner's graveyard"},
+    {"step":4,"type":"zone_count","zone":"myField","viewerPlayerID":2,"value":1,"semantic":true,"label":"Only the opponent's champion remains on their field after the target dies"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

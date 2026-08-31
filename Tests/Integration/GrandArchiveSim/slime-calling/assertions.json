@@ -1,1 +1,161 @@
-[]
+[
+    {
+        "step": 9,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"vz4kc558yx-ACTION_ACTIVATED\",\"vz4kc558yx-ALLY_ACTIVATED\"]"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "CardID",
+        "value": "zgcxyky280"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Counters",
+        "value": "{\"buff\":3}"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "q2svd53zc9"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-3",
+        "property": "CardID",
+        "value": "F2wp1v0Tyk"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-5",
+        "property": "CardID",
+        "value": "blqryebvwj"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-1",
+        "property": "CardID",
+        "value": "dc8P58gmjR"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "kl4bTg57Cj"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "n06zlhihka"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-2",
+        "property": "CardID",
+        "value": "bro89w0ejc"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-3",
+        "property": "CardID",
+        "value": "F2wp1v0Tyk"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1TempZone-0",
+        "property": "CardID",
+        "value": "ejvddohjdu"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1TempZone-1",
+        "property": "CardID",
+        "value": "hcpetipurz"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1TempZone-2",
+        "property": "CardID",
+        "value": "YOjdZJpOO1"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1GlobalEffects-0",
+        "property": "CardID",
+        "value": "LEVELED_UP_THIS_TURN"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4
+    }
+]

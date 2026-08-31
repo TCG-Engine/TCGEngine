@@ -1,0 +1,17 @@
+{
+    "name": "Reclaim returns a target friendly ally to hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Reclaim's element is WIND, so the starting champion's Subcards are patched with a real WIND champion (Spirit of Wind) to unlock element access, same as deployment-beacon-summon-drone. Dungeon Guide is seeded onto our own field as the 'target ally you control' target. The Floating Memory clause (banishing this card from the graveyard to help pay a later memory cost) is a passive/reusable-elsewhere property, not a triggered ability, and is out of scope.",
+    "testedCards": [
+        "F2wp1v0Tyk"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["F2wp1v0Tyk"],
+        "mechanics": ["cost", "targeting", "zone-movement"],
+        "rulesClauses": [
+            "Return target ally you control to its owner's hand."
+        ]
+    }
+}

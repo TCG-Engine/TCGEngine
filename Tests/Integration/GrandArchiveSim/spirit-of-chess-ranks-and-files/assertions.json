@@ -1,1 +1,98 @@
-[]
+[
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ALLY_ACTIVATED\"]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "CardID",
+        "value": "bGmutHfgMl"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"W0WfIEDs3n\"]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-2",
+        "property": "CardID",
+        "value": "NGAy4rNwUo"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-3",
+        "property": "CardID",
+        "value": "B1EbF6jcYF"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-4",
+        "property": "CardID",
+        "value": "zuAmYGyCcL"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1GlobalEffects-0",
+        "property": "CardID",
+        "value": "W0WfIEDs3n_ALLY"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 0
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 5
+    }
+]

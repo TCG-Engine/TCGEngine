@@ -1,0 +1,6 @@
+[
+    {"step":2,"type":"card_exists","zone":"myBanish","viewerPlayerID":2,"cardID":"em6eEh9q8y","semantic":true,"label":"On Enter banishes the targeted opponent ally into their own banish zone"},
+    {"step":2,"type":"card_property_equals","mzId":"p2Banish-0","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"vrf9n24b5a|myField-1\"]","semantic":true,"label":"The banished object is tagged with a reference back to the Entrancing Filigree that banished it"},
+    {"step":2,"type":"zone_count","zone":"myField","viewerPlayerID":2,"value":1,"semantic":true,"label":"Only the opponent's champion remains on their field after the target is banished"},
+    {"step":2,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,17 @@
+{
+    "name": "Forging Heat buffs a target Sword weapon's durability and power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T10:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Forging Heat's element is FIRE (matching the starting champion), so no lineage patch is needed. Clarent, Sword of Peace is seeded onto the field as the required Sword weapon target. Its Counters['durability'] value after activation is asserted as observed (BridgeAddToZone seeds an empty Counters array, and materialize-time durability allotment plus this ability's +1 durability counter combine to the final value). The Floating Memory clause is a passive/reusable-elsewhere property, not a triggered ability, and is out of scope.",
+    "testedCards": [
+        "tjmzM6t9R5"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["tjmzM6t9R5"],
+        "mechanics": ["cost", "targeting", "zone-movement", "counter"],
+        "rulesClauses": [
+            "Put a durability counter on target Sword weapon you control. It gets +1[POWER] until end of turn."
+        ]
+    }
+}

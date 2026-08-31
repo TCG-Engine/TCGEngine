@@ -1,0 +1,17 @@
+{
+    "name": "Dream Fairy's On Enter returns a target opposing ally to memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T04:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Dream Fairy's element is WIND, so the starting champion's Subcards are patched with a real WIND champion (Spirit of Wind), same as deployment-beacon-summon-drone/reclaim-return-ally/aesan-protector-return-ally. Dungeon Guide is seeded onto the opponent's field as the On Enter target -- unlike aesan-protector-return-ally (return to hand), this sends the target to the OPPONENT's own memory zone, not banish or hand. The target MZCHOOSE decision appears immediately after the final reserve payment with no intervening opportunity window (unlike several other action cards in this batch), so no PASS actions are needed before it. The 'opponents can't activate cards with that ally's name' name-lock and the passive Stealth keyword are not independently asserted here.",
+    "testedCards": [
+        "UVAb8CmjtL"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["UVAb8CmjtL"],
+        "mechanics": ["targeting", "zone-movement", "status", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: Return target ally you don't control to its owner's memory."
+        ]
+    }
+}

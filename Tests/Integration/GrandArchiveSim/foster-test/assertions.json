@@ -1,1 +1,112 @@
-[]
+[
+    {
+        "step": 2,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"FOSTERED\"]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "CardID",
+        "value": "mu6gvnta6q"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-4",
+        "property": "CardID",
+        "value": "plywc08c9h"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-5",
+        "property": "CardID",
+        "value": "5lh23qu7d6"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-6",
+        "property": "CardID",
+        "value": "1x97n2jnlt"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 7
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 2,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 0
+    }
+]

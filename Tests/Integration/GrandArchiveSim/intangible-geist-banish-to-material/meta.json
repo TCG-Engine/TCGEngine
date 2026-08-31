@@ -1,0 +1,17 @@
+{
+    "name": "Intangible Geist's On Enter returns a regalia from banishment to material deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T05:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Intangible Geist is a CRUX (advanced element) ALLY card, so the starting champion's Subcards are patched with a real CRUX champion (Lorraine, Crux Knight, reused from sabela-gossamer-penance-enter/spirit-blade-infusion-combat-discount). Backup Charger (a REGALIA,ITEM) is seeded directly into myBanish as the On Enter's optional target. Only the On Enter is covered; the [Class Bonus] combat-damage-prevention static ability is out of scope.",
+    "testedCards": [
+        "Zu53izIFTX"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["Zu53izIFTX"],
+        "mechanics": ["targeting", "zone-movement", "trigger"],
+        "rulesClauses": [
+            "On Enter: You may choose any amount of regalia cards from your banishment and put them into your material deck."
+        ]
+    }
+}

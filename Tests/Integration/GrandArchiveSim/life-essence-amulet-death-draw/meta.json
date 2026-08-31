@@ -1,0 +1,17 @@
+{
+    "name": "Life Essence Amulet offers to banish itself for a draw when an ally dies on the opponent's turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Regression test for a fixed bug: Life Essence Amulet's on-death offer was correctly queued (DoAllyDestroyed adds a LifeEssenceAmuletOffer CUSTOM decision) but was silently popped and discarded without ever running its handler. The decision is typically queued mid-cascade, after the player has already answered an unrelated 'PASS' earlier in the same combat-damage resolution chain (here, declining the pre-damage Retaliate prompt); without dontSkipOnPass, the decision queue's stale $lastDecision==\"PASS\" from that earlier, unrelated answer caused this decision to be skipped too (see GrandArchiveSim/Custom/GameLogic.php -- the AddDecision call for LifeEssenceAmuletOffer now passes dontSkipOnPass:1). Life Essence Amulet's element is NORM, so no lineage patch is needed; it is seeded directly onto P1's field (REGALIA convention) along with a Dungeon Guide (ALLY, 3 life) that will die to trigger it. P2's champion Counters are patched with a 'potion_animate_power' override (5, exceeding the ally's 3 life) so it can deal lethal combat damage without needing to equip a weapon. P1 ends turn 1 so it becomes P2's turn (satisfying 'not your turn' for P1); P2 declines the material-phase prompt, then declares an attack against P1's Dungeon Guide (theirField-2 from P2's perspective) instead of P1's champion. P1 declines the pre-damage Retaliate window; the lethal hit destroys the ally during P2's turn, correctly triggering Life Essence Amulet's real YESNO offer for P1 despite the stale PASS earlier in the same cascade. Answering YES banishes the amulet and draws a card.",
+    "testedCards": [
+        "1XegCUjBnY"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["1XegCUjBnY"],
+        "mechanics": ["trigger", "condition", "zone-movement", "draw-discard"],
+        "rulesClauses": [
+            "Whenever an ally you control dies while it's not your turn, you may banish CARDNAME. If you do, draw a card."
+        ]
+    }
+}

@@ -1,0 +1,4 @@
+[
+    {"step":1,"type":"card_property_equals","mzId":"myField-0","property":"CardID","value":"tafqldAGRF","semantic":true,"label":"Spirit of Water is the starting champion"},
+    {"step":1,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":7,"semantic":true,"label":"On Enter drew seven cards during pregame setup"}
+]

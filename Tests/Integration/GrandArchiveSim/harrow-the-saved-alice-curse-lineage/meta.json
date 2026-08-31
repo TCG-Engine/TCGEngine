@@ -16,6 +16,14 @@
     "testedCards": [
         "mLoz5CAeSU"
     ],
+    "semanticCoverage": {
+        "testedCards": ["mLoz5CAeSU"],
+        "mechanics": ["zone-movement", "recover", "condition"],
+        "rulesClauses": [
+            "Put non-champion non-regalia Specter cards from banishment into the graveyard.",
+            "Recover for the number of cards moved this way."
+        ]
+    },
     "savedAt": "2026-04-28T20:50:09.671Z",
     "lastRecordedAt": "2026-04-30T17:12:31+02:00",
     "lastRecordedBy": "5"

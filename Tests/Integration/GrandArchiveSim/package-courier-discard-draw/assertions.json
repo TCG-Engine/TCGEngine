@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Package Courier's optional discard puts a card in the graveyard"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":5,"semantic":true,"label":"Discarding then drawing keeps hand size unchanged"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,14 @@
+{
+  "name":"Magus Initiate does not empower without class bonus",
+  "rootName":"GrandArchiveSim",
+  "baseFixture":"magus-initiate-class-bonus",
+  "initialGamestateReplacements":[
+    {"from":"4FtNBFaOJp 2 1 0 1 - - - -1\r\n","to":"tafqldAGRF 2 1 0 1 - - - -1\r\n"}
+  ],
+  "testedCards":["fZ08zyFIlz"],
+  "semanticCoverage":{
+    "testedCards":["fZ08zyFIlz"],
+    "mechanics":["class-bonus","on-enter","condition"],
+    "rulesClauses":["Magus Initiate does not empower the champion when neither Cleric nor Mage class bonus is active."]
+  }
+}

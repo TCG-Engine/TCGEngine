@@ -1,0 +1,17 @@
+{
+    "name": "Mark the Target deals 1 damage to target unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Mark the Target's element is FIRE, matching the starting champion, so no lineage patch is needed. Without the full 1-reserve cost is paid with a single hand card. The starting champion is SPIRIT class, so the [Class Bonus] preparation counter does not trigger, keeping the fixture to the base always-available damage effect. A Dungeon Guide seeded onto the opponent's field is the legal target.",
+    "testedCards": [
+        "LRsgl92Iqa"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["LRsgl92Iqa"],
+        "mechanics": ["cost", "targeting", "damage"],
+        "rulesClauses": [
+            "Deal 1 damage to target unit."
+        ]
+    }
+}

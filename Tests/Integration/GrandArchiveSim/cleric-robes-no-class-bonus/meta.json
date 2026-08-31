@@ -1,0 +1,14 @@
+{
+  "name":"Cleric Robes does not draw without class bonus",
+  "rootName":"GrandArchiveSim",
+  "baseFixture":"cleric-robes-class-bonus-draw",
+  "initialGamestateReplacements":[
+    {"from":"ltv5klryvf 2 1 0 1 - - - -1\r\n","to":"tafqldAGRF 2 1 0 1 - - - -1\r\n"}
+  ],
+  "testedCards":["pv4n1n3gyg"],
+  "semanticCoverage":{
+    "testedCards":["pv4n1n3gyg"],
+    "mechanics":["class-bonus","on-enter","condition","draw"],
+    "rulesClauses":["Cleric Robes does not draw a card when its controller lacks Cleric class bonus."]
+  }
+}

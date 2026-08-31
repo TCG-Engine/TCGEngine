@@ -1,0 +1,17 @@
+{
+    "name": "Everlonging Thorns puts 2 debuff counters on target ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Everlonging Thorns is a TERA (advanced element) ACTION card, so the starting champion's Subcards are patched with a real TERA champion (Silvie, Slime Sovereign) to unlock element access. Without a [Class Bonus] discount, the full 1-reserve cost is paid, then both players decline the EffectStackActiveResponse opportunity window before the seeded Dungeon Guide is chosen as the target ally. Shifting Currents default to a non-East/West direction, so the base 2 debuff counters apply rather than the 2+LV East/West bonus. The [Kongming Bonus] empowered-preserve clause is out of scope.",
+    "testedCards": [
+        "C3YucOomEM"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["C3YucOomEM"],
+        "mechanics": ["cost", "targeting", "counter", "condition"],
+        "rulesClauses": [
+            "Put two debuff counters on target ally."
+        ]
+    }
+}

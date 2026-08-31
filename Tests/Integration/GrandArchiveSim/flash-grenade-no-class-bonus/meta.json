@@ -1,0 +1,14 @@
+{
+  "name":"Flash Grenade does not draw without class bonus",
+  "rootName":"GrandArchiveSim",
+  "baseFixture":"cleric-robes-class-bonus-draw",
+  "initialGamestateReplacements":[
+    {"from":"pv4n1n3gyg\r\n","to":"isxy5lh23q\r\n"}
+  ],
+  "testedCards":["isxy5lh23q"],
+  "semanticCoverage":{
+    "testedCards":["isxy5lh23q"],
+    "mechanics":["class-bonus","on-enter","condition","draw"],
+    "rulesClauses":["Flash Grenade does not draw a card when its controller lacks Ranger class bonus."]
+  }
+}

@@ -45,6 +45,10 @@ if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php
           background: url("/TCGEngine/Assets/Boards/dawn-of-ashes.webp") center center / cover no-repeat;
      }
 
+     .ga-board-art.is-paradise {
+          background: url("/TCGEngine/Assets/Boards/paradise.webp") center center / cover no-repeat;
+     }
+
      .ga-board-art.is-classic-blue {
           background: linear-gradient(180deg, #3f74aa 0%, #2b5e93 48%, #1e4678 100%);
      }
@@ -2118,7 +2122,12 @@ if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php
 
           var rootName = 'GrandArchiveSim';
           var settingKey = 'BoardBackgroundTheme';
-          var defaultTheme = 'dawn';
+          var defaultTheme = 'paradise';
+          var themeClasses = {
+               dawn: 'is-dawn-of-ashes',
+               paradise: 'is-paradise',
+               classic: 'is-classic-blue'
+          };
 
           if (window.TCGSettings && typeof window.TCGSettings.registerSchema === 'function') {
                window.TCGSettings.registerSchema(rootName, {
@@ -2127,9 +2136,9 @@ if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php
           }
 
           function applyTheme(theme) {
-               var normalized = (theme === 'classic') ? 'classic' : 'dawn';
-               boardArt.classList.remove('is-dawn-of-ashes', 'is-classic-blue');
-               boardArt.classList.add(normalized === 'classic' ? 'is-classic-blue' : 'is-dawn-of-ashes');
+               var normalized = themeClasses.hasOwnProperty(theme) ? theme : defaultTheme;
+               boardArt.classList.remove('is-dawn-of-ashes', 'is-paradise', 'is-classic-blue');
+               boardArt.classList.add(themeClasses[normalized]);
                boardArt.setAttribute('data-board-theme', normalized);
                return normalized;
           }
@@ -2154,7 +2163,9 @@ if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php
                     return activeTheme;
                },
                toggle: function() {
-                    return this.set(activeTheme === 'classic' ? 'dawn' : 'classic');
+                    var order = ['paradise', 'dawn', 'classic'];
+                    var next = order[(order.indexOf(activeTheme) + 1) % order.length];
+                    return this.set(next);
                }
           };
      }

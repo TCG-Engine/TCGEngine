@@ -1,0 +1,6 @@
+[
+    {"step":2,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"KOqdA7G6by","semantic":true,"label":"On Enter banishes the chosen Spell card from the graveyard"},
+    {"step":2,"type":"card_property_equals","mzId":"p1Banish-0","property":"Counters","value":"{\"_coronal\":1}","semantic":true,"label":"The banished card is tagged so a later [REST] ability can identify cards Coronal banished"},
+    {"step":2,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"The graveyard is empty after its only Spell card is banished"},
+    {"step":2,"type":"decision_queue_empty","player":"all"}
+]

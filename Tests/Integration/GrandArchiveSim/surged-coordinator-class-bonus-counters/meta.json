@@ -1,0 +1,17 @@
+{
+    "name": "Surged Coordinator's Class Bonus adds static counters from level plus other static objects",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Surged Coordinator's element is ARCANE and its [Class Bonus] requires a WARRIOR champion. The starting champion's CardID is patched directly to Lorraine, Arclight Saber (level 3, WARRIOR, ARCANE -- unlocks both the class bonus and the card's element) and is also given 1 static counter directly so it counts as \"another object with a static counter\" for the ability's own count. On Enter puts max(0, LV + count - 3) static counters on itself (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php, enterAbilities[\"6eWmfzAmWr:0\"]); at champion level 3 with count=1 (the champion itself) that's 1 static counter, confirmed in the final Counters.",
+    "testedCards": [
+        "6eWmfzAmWr"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["6eWmfzAmWr"],
+        "mechanics": ["condition", "counter", "trigger"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Put LV+X-3 static counters on Surged Coordinator, where X is the amount of other objects you control with one or more static counters on them."
+        ]
+    }
+}

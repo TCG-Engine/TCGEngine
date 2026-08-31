@@ -1,0 +1,17 @@
+{
+    "name": "Water Barrier tags the champion to prevent all but 1 of the next damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Water Barrier's element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water) to unlock element access. Without a [Class Bonus] discount, the full 3-reserve cost is paid, then both players decline the EffectStackActiveResponse opportunity window. The effect is applied as a WATER_BARRIER turn-effect tag on the champion; only the tag application is covered here, not the actual prevention math (which requires a subsequent damage instance to observe and is out of scope).",
+    "testedCards": [
+        "xWJND68I8X"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["xWJND68I8X"],
+        "mechanics": ["cost", "damage", "prevention"],
+        "rulesClauses": [
+            "The next time damage would be dealt to your champion this turn, prevent all but 1 of that damage."
+        ]
+    }
+}

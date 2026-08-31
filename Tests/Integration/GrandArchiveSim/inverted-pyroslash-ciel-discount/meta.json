@@ -15,6 +15,14 @@
     "testedCards": [
         "X5XONoPY6Z"
     ],
+    "semanticCoverage": {
+        "testedCards": ["X5XONoPY6Z"],
+        "mechanics": ["cost", "damage", "combat", "trigger"],
+        "rulesClauses": [
+            "With Ciel's bonus active and two Fire omens, Inverted Pyroslash's reserve cost is reduced from five to one.",
+            "When Inverted Pyroslash attacks, it deals five damage to its controller's champion and deals its combat damage to the defending champion."
+        ]
+    },
     "savedAt": "2026-04-28T20:15:30.819Z",
     "lastRecordedAt": "2026-04-30T16:47:34+02:00",
     "lastRecordedBy": "5"

@@ -1,1 +1,63 @@
-[]
+[
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": 2
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "CardID",
+        "value": "jnltv5klry"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-3",
+        "property": "CardID",
+        "value": "9g44vm5kt3"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-4",
+        "property": "CardID",
+        "value": "q3huqj5bba"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-4",
+        "property": "Damage",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-3",
+        "property": "CardID",
+        "value": "4d5vettczb"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 4
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 5
+    }
+]

@@ -1,0 +1,17 @@
+{
+    "name": "Tasershot loads into an unloaded Gun weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T01:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Tasershot's element is NORM, so no lineage patch is needed, and its memory cost is 0 so materializing via a direct FSM click is free. Framework Sidearm (a REGALIA,WEAPON with the GUN subtype and no Subcards, i.e. unloaded) is seeded onto the field as the [REST] Load ability's target, same pattern as penetrator-round-load-gun/anathemas-end-load-gun/incendiary-shot-load-gun. Only the always-available Load half is covered; the [Class Bonus] On Champion Hit level-up-punish trigger requires a real combat hit and is out of scope.",
+    "testedCards": [
+        "4x7e22tk3i"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["4x7e22tk3i"],
+        "mechanics": ["targeting", "zone-movement"],
+        "rulesClauses": [
+            "Renewable [REST]: Load CARDNAME into target unloaded Gun weapon you control."
+        ]
+    }
+}

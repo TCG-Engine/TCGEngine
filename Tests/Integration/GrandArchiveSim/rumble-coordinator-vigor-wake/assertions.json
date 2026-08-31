@@ -1,0 +1,4 @@
+[
+    {"step":1,"type":"card_property_equals","mzId":"myField-1","property":"Status","value":"2","viewerPlayerID":1,"semantic":true,"label":"Rumble Coordinator wakes up at the beginning of its controller's end phase"},
+    {"step":1,"type":"decision_queue_empty","player":"all"}
+]

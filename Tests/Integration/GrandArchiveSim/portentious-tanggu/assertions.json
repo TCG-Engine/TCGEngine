@@ -1,1 +1,91 @@
-[]
+[
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "r7oifozaog"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "r7oifozaog"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-2",
+        "property": "CardID",
+        "value": "n06zlhihka"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-3",
+        "property": "CardID",
+        "value": "BqDw4Mei4C"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-4",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-5",
+        "property": "CardID",
+        "value": "0xayo7mk1w"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-1",
+        "property": "CardID",
+        "value": "mb3iqw3kc6"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 6
+    }
+]

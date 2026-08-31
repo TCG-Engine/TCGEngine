@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"myField-1","property":"CardID","value":"6eWmfzAmWr","semantic":true,"label":"Surged Coordinator is on the field"},
+    {"step":4,"type":"card_property_equals","mzId":"myField-1","property":"Counters","value":"{\"static\":1}","semantic":true,"label":"The Class Bonus grants LV+X-3 (3+1-3=1) static counters on enter, counting the champion's own static counter as X"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

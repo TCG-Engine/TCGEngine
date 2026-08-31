@@ -1,1 +1,154 @@
-[]
+[
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "CardID",
+        "value": "mb3iqw3kc6"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-0",
+        "property": "CardID",
+        "value": "BqDw4Mei4C"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-1",
+        "property": "CardID",
+        "value": "qufoIF014c"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-2",
+        "property": "CardID",
+        "value": "5X5W2Uda5a"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-3",
+        "property": "CardID",
+        "value": "aIbBhTilEN"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-4",
+        "property": "CardID",
+        "value": "hy83sghwfi"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-5",
+        "property": "CardID",
+        "value": "aIbBhTilEN"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-6",
+        "property": "CardID",
+        "value": "BqDw4Mei4C"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Material-6",
+        "property": "CardID",
+        "value": "DNbIpzVgde"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Material-7",
+        "property": "CardID",
+        "value": "wqpsErSeFn"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Material-8",
+        "property": "CardID",
+        "value": "52u81v4c0z"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Material-9",
+        "property": "CardID",
+        "value": "s23UHXgcZq"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2GlobalEffects-0",
+        "property": "CardID",
+        "value": "XUCHANG_COST_INCREASE"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 7
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "theirMemory",
+        "viewerPlayerID": 1,
+        "value": 0
+    }
+]

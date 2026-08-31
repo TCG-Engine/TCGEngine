@@ -1,0 +1,18 @@
+{
+    "name": "Disorienting Winds returns a target ally to hand and draws a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T10:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Disorienting Winds' element is WIND, so the starting champion's Subcards are patched with a real WIND champion (Spirit of Wind), same as deployment-beacon-summon-drone/reclaim-return-ally. Dungeon Guide is seeded onto our own field as the return-to-hand target. Without the Efficiency discount (champion level 0), the full 5-reserve cost is paid.",
+    "testedCards": [
+        "UfQh069mc3"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["UfQh069mc3"],
+        "mechanics": ["cost", "targeting", "draw-discard", "zone-movement"],
+        "rulesClauses": [
+            "Return target ally to its owner's hand.",
+            "Draw a card."
+        ]
+    }
+}

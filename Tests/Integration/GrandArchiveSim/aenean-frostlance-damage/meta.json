@@ -1,0 +1,17 @@
+{
+    "name": "Aenean Frostlance deals 2 damage to target unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T08:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Aenean Frostlance's element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water, reused from coriolis-ward-prevent-level/perfect-repulsion-prevent-x). Only the base 2-damage clause is covered; the [Class Bonus] [Level 3+]/[Level 6+] scaled-damage-to-a-rested-unit branches aren't reached.",
+    "testedCards": [
+        "NXGaB1dYwL"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["NXGaB1dYwL"],
+        "mechanics": ["targeting", "damage", "status", "condition"],
+        "rulesClauses": [
+            "Deal 2 damage to target unit."
+        ]
+    }
+}

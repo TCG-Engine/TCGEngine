@@ -1,0 +1,13 @@
+{
+    "name": "Cleric Robes draws on enter with class bonus",
+    "rootName": "GrandArchiveSim",
+    "createdBy": "Codex",
+    "testedCards": [
+        "pv4n1n3gyg"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["pv4n1n3gyg"],
+        "mechanics": ["materialize", "class-bonus", "on-enter", "draw"],
+        "rulesClauses": ["When its controller has Cleric class bonus, Cleric Robes draws one card as it enters."]
+    }
+}

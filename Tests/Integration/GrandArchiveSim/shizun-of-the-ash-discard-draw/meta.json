@@ -1,0 +1,17 @@
+{
+    "name": "Shizun of the Ash's On Enter optional discard-to-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T20:07:36+00:00",
+    "createdBy": "Codex",
+    "notes": "Plays Shizun (a basic FIRE ally, no element unlock needed) and confirms the optional On Enter discard-a-card-to-draw-a-card resolves correctly when answered YES. Does not cover the [Kongming Bonus] REST ability, which is gated behind a specific champion identity and the separate Shifting Currents facing mechanic.",
+    "testedCards": [
+        "pnDUy9jUbo"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["pnDUy9jUbo"],
+        "mechanics": ["cost", "draw-discard", "condition"],
+        "rulesClauses": [
+            "On Enter: You may discard a card. If you do, draw a card."
+        ]
+    }
+}

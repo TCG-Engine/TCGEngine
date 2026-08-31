@@ -1,0 +1,17 @@
+{
+    "name": "Immolation Trap destroys a target damaged ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T11:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Immolation Trap's element is FIRE (matching the starting champion), so no lineage patch is needed. Dungeon Guide is seeded onto the opponent's field with 1 pre-existing Damage so it qualifies as a legal 'damaged ally' target. Without the [Class Bonus] discount, the full 2-reserve cost is paid.",
+    "testedCards": [
+        "Uxn14UqyQg"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["Uxn14UqyQg"],
+        "mechanics": ["cost", "targeting", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Destroy target damaged ally."
+        ]
+    }
+}

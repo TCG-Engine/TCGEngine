@@ -1,0 +1,6 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"myField-0","property":"Damage","value":"2","viewerPlayerID":1,"semantic":true,"label":"Dante takes exactly X (2) unpreventable damage"},
+    {"step":5,"type":"card_property_equals","mzId":"myField-0","property":"TurnEffects","value":"[\"DAMAGED_SINCE_LAST_TURN\",\"4FtNBFaOJp\",\"EMPOWERED\",\"EMPOWER_PLUS_2\"]","viewerPlayerID":1,"semantic":true,"label":"Dante is empowered by X (2)"},
+    {"step":5,"type":"card_property_equals","mzId":"myField-0","property":"Status","value":"1","viewerPlayerID":1,"semantic":true,"label":"Dante rests as part of paying the [REST] cost"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

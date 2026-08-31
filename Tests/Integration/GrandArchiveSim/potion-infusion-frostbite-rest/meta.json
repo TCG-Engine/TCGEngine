@@ -1,0 +1,17 @@
+{
+    "name": "Potion Infusion: Frostbite rests target Potion and tags it INFUSION_FROSTBITE",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Potion Infusion: Frostbite's element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water), reused from potion-infusion-seal-rest. Distilled Water (a POTION-subtype ITEM) is seeded directly onto the field as the rest target. Without a [Class Bonus] discount, the full 1-reserve cost is paid, then both players decline the EffectStackActiveResponse opportunity window before the seeded Potion is chosen. Resting it adds the INFUSION_FROSTBITE turn-effect tag; only the base rest+tag effect is covered, not the granted On-Sacrifice ability itself (which requires actually sacrificing the Potion and dealing water damage).",
+    "testedCards": [
+        "mxz1vdxi74"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["mxz1vdxi74"],
+        "mechanics": ["cost", "targeting", "status", "condition"],
+        "rulesClauses": [
+            "Rest target Potion. If you do, it gains an On Sacrifice ability until end of turn."
+        ]
+    }
+}

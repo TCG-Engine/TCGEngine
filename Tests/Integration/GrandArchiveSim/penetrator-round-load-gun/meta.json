@@ -1,0 +1,17 @@
+{
+    "name": "Penetrator Round loads into an unloaded Gun weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T22:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Penetrator Round's element is FIRE (matching the starting champion), so no lineage patch is needed, and its memory cost is 0 so materializing via a direct FSM click is free. Framework Sidearm (a REGALIA,WEAPON with the GUN subtype and no Subcards, i.e. unloaded) is seeded onto the field as the [REST] Load ability's target; loading removes the bullet from the field entirely (LoadBulletIntoGun() sets removed=true directly, no MZMove) and appends its CardID to the gun's Subcards. Only the always-available Load half is covered; the [Class Bonus][Level 2+] On Attack \"unpreventable\" trigger requires a real attack and is out of scope.",
+    "testedCards": [
+        "97n2jnltv5"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["97n2jnltv5"],
+        "mechanics": ["targeting", "zone-movement"],
+        "rulesClauses": [
+            "Renewable [REST]: Load CARDNAME into target unloaded Gun weapon you control."
+        ]
+    }
+}

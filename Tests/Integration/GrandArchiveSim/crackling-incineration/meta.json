@@ -14,6 +14,14 @@
     "testedCards": [
         "14bepZKPlK"
     ],
+    "semanticCoverage": {
+        "testedCards": ["14bepZKPlK"],
+        "mechanics": ["targeting", "zone-movement", "counter"],
+        "rulesClauses": [
+            "Destroy the chosen eligible item or weapon.",
+            "Its controller puts one sheen counter on a unit they control."
+        ]
+    },
     "savedAt": "2026-04-26T23:27:59.757Z",
     "lastRecordedAt": "2026-04-30T16:35:20+02:00",
     "lastRecordedBy": "5"

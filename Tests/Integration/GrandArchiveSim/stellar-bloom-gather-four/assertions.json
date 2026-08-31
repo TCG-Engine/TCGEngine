@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":5,"semantic":true,"label":"The champion plus 4 gathered herb tokens are on the field"},
+    {"step":3,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"bd7ozuj68m","semantic":true,"label":"One of the four gathered herbs is Silvershine"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

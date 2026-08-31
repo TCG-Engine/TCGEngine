@@ -1,0 +1,17 @@
+{
+    "name": "Revitalizing Cleanse recovers damage based on water cards in memory and draws a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Revitalizing Cleanse's element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water) to unlock element access. The champion is pre-patched with 5 damage so the recover effect is observable, and two WATER-element cards (Water Barrier, Tsunami of Nanyue) are seeded directly into memory. Without a [Class Bonus] discount, the full 5-reserve cost is paid; paying reserve moves the spent hand cards into memory too, and the observed result (all 5 damage recovered) shows the water-card count at resolution time was at least 5, not just the 2 deliberately seeded -- RecoverChampion caps at 0 rather than going negative, so this fixture verifies recovery happened and the champion ends undamaged, without asserting an exact X value.",
+    "testedCards": [
+        "1BkfdFqCrG"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["1BkfdFqCrG"],
+        "mechanics": ["cost", "damage", "recover", "draw-discard"],
+        "rulesClauses": [
+            "Reveal all cards in your memory. Recover X where X is the amount of water element cards revealed this way. Draw a card."
+        ]
+    }
+}

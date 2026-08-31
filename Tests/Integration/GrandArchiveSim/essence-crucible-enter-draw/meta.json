@@ -1,0 +1,17 @@
+{
+    "name": "Essence Crucible's On Enter draws a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T04:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Essence Crucible's element is NORM, so no lineage patch is needed, and its memory cost (1) is NOT exercised for the same FSM-click-bypass reason as entrancing-filigree-enter-banish. Only the On Enter draw is covered; the [Arisanna Bonus] refinement-counter trigger and the Spell-damage-boost static ability are out of scope.",
+    "testedCards": [
+        "DF5Ffwv7DJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["DF5Ffwv7DJ"],
+        "mechanics": ["draw-discard", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: Draw a card."
+        ]
+    }
+}

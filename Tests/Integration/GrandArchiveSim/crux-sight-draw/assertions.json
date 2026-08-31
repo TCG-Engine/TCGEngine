@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":8,"semantic":true,"label":"Activating draws a card, reducing the deck by one"},
+    {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"P9Y1Q5cQ0F","semantic":true,"label":"Crux Sight resolves to its controller's graveyard (the optional self-banish cost was declined)"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

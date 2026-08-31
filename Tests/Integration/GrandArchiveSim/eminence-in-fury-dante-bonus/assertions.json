@@ -1,0 +1,10 @@
+[
+  {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"The two reserve payments join the existing memory before the Dante bonus"},
+  {"step":4,"type":"decision_queue_empty","player":"all"},
+  {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"4FtNBFaOJp","semantic":true,"label":"The Dante bonus levels Aenean Initiate into Dante, Hemomancer"},
+  {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"4","semantic":true,"label":"The leveled champion takes four unpreventable damage"},
+  {"step":4,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"Exactly one random memory card is banished"},
+  {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"The random banish removes one of three memory cards"},
+  {"step":4,"type":"zone_count","zone":"myMaterial","viewerPlayerID":1,"value":10,"semantic":true,"label":"Dante, Hemomancer leaves the material deck during level up"},
+  {"step":4,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"suk5c6SJls","semantic":true,"label":"Eminence in Fury resolves to the graveyard"}
+]

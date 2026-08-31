@@ -1,0 +1,17 @@
+{
+    "name": "Focused Flames deals 4 damage to target ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T10:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Focused Flames' element is FIRE (matching the starting champion), so no lineage patch is needed. Dungeon Guide is seeded onto the opponent's field as the required ally target (unlike most other damage cards in this backlog, this one can't target a champion). Without the [Class Bonus] discount, the full 2-reserve cost is paid. 4 damage exceeds Dungeon Guide's life, so it dies and moves to its owner's graveyard.",
+    "testedCards": [
+        "145y6KBhxe"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["145y6KBhxe"],
+        "mechanics": ["cost", "targeting", "damage", "condition"],
+        "rulesClauses": [
+            "Deal 4 damage to target ally."
+        ]
+    }
+}

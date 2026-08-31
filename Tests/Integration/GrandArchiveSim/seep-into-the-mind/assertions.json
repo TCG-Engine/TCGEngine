@@ -1,1 +1,91 @@
-[]
+[
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-8",
+        "property": "Counters",
+        "value": "{\"sheen\":3}"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-18",
+        "property": "CardID",
+        "value": "Rgg4dJYxnl"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-4",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\"]"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-4",
+        "property": "CardID",
+        "value": "7mHiO4YySz"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-0",
+        "property": "CardID",
+        "value": "ty0tcpdiny"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-1",
+        "property": "CardID",
+        "value": "A58xZJJMz6"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-2",
+        "property": "CardID",
+        "value": "fK1IQGsUeh"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 19
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 5
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "theirMemory",
+        "viewerPlayerID": 1,
+        "value": 3
+    }
+]

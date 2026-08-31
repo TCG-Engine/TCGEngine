@@ -1,0 +1,17 @@
+{
+    "name": "Astra Sight Glimpses 1, then draws a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T11:30:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Astra Sight is an ASTRA (advanced element) ACTION card, so the starting champion's Subcards are patched with a real ASTRA champion (Arisanna, Astral Zenith), same as dwarf-stars-glow-damage/cosmic-bolt-damage/cometfall-sweep-damage, to unlock element access. Its reserve cost is 0, so no reserve payment is needed; a PASS declines the initial fast-response opportunity window, then an MZREARRANGE decision resolves the Glimpse 1 (keeping the revealed card on top), after which the separate draw effect resolves automatically. Only the base Glimpse 1 + draw effect is covered; the Starcalling (0) alternate-timing clause is out of scope.",
+    "testedCards": [
+        "zuj68m69iq"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zuj68m69iq"],
+        "mechanics": ["cost", "draw-discard", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Glimpse 1, then draw a card."
+        ]
+    }
+}

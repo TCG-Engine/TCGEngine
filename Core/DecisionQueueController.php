@@ -181,7 +181,14 @@ class DecisionQueueController {
     }
 
     // Add a decision to a player's queue
-    public static function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '', $dontSkipOnPass = 0) {
+    // $lastDecision is accepted-but-ignored: some generated ability code mistakenly calls
+    // AddDecision(..., lastDecision:"-") assuming it seeds the initial value a chained CUSTOM
+    // handler receives as its own $lastDecision parameter (that value actually comes from
+    // whatever decision precedes this one in the queue, not from this call). Without this
+    // parameter, PHP 8's named-argument matching throws "Unknown named parameter" and crashes
+    // the whole request. Accepting and discarding it keeps that mistaken-but-harmless call
+    // pattern from being fatal.
+    public static function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '', $dontSkipOnPass = 0, $lastDecision = null) {
         if(self::$suppressNewDecisionsCheck !== null
             && (self::$suppressNewDecisionsCheck)()) return;   // result is final — queue nothing further
         // Per-SEAT gate (multiplayer): never queue onto a seat that can no longer answer. A decision on

@@ -1,0 +1,17 @@
+{
+    "name": "Otherworldly Possessions gains enlighten counters per distinct reserve cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Otherworldly Possessions' element is NORM, so no lineage patch is needed. Without a [Class Bonus] discount, the full 5-reserve cost is paid. A Dungeon Guide (reserve cost 3) is seeded onto the field and a Fairy Whispers (reserve cost 1) into the graveyard so the enlighten count reflects more than one distinct reserve cost; the observed result (3 enlighten counters) also picks up the champion's own reserve cost and Otherworldly Possessions itself landing in the graveyard after it resolves. Only the base enlighten-counting effect is covered.",
+    "testedCards": [
+        "MuCOJRgMdj"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["MuCOJRgMdj"],
+        "mechanics": ["cost", "counter", "condition"],
+        "rulesClauses": [
+            "For each different reserve cost among objects you control and cards in your graveyard, put an enlighten counter on your champion."
+        ]
+    }
+}

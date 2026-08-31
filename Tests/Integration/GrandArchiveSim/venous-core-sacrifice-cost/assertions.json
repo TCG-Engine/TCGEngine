@@ -1,0 +1,7 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"myField-1","property":"CardID","value":"YTO70fFsBY","semantic":true,"label":"Venous Core materializes onto the field"},
+    {"step":8,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":2,"semantic":true,"label":"The sacrificed Elysian ally is gone -- only the champion and Venous Core remain"},
+    {"step":8,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"The sacrificed ally was a token, so it ceases to exist rather than sitting in the graveyard"},
+    {"step":8,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"The 1-memory printed cost is paid from the seeded memory-zone filler card"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,17 @@
+{
+    "name": "Barrier Servant removes 2 enlighten counters to prevent its next damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T04:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Barrier Servant's element is NORM, so no lineage patch is needed. The starting champion's Counters are patched with 2 enlighten counters directly (normally only reachable via a separate enlighten-granting effect) so the ability's cost (remove 2 enlighten counters from your champion) can actually be paid. Only the always-available 'prevent next damage to self' half is covered; Intercept is a combat-redirect passive and is out of scope.",
+    "testedCards": [
+        "xW6SZSlJX6"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["xW6SZSlJX6"],
+        "mechanics": ["damage", "prevention", "status", "counter"],
+        "rulesClauses": [
+            "Remove two enlighten counters from your champion: The next time damage would be dealt to CARDNAME this turn, prevent that damage."
+        ]
+    }
+}

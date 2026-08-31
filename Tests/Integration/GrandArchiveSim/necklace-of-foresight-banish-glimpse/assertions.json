@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"lq2kkvoqk1","semantic":true,"label":"Necklace of Foresight banishes itself as its own activation cost"},
+    {"step":3,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the champion remains on the field after Necklace of Foresight banishes itself"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

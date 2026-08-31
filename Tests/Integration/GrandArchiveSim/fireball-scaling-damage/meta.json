@@ -1,0 +1,17 @@
+{
+    "name": "Fireball deals 1+level damage to target unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T09:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Fireball's element is FIRE (matching the starting champion), so no lineage patch is needed. The starting champion's Counters are patched with 2 level counters so 'deal 1+LV damage' resolves to a nonzero-interesting 3, instead of the default level-0 base of 1. Without the [Class Bonus] discount, the full 4-reserve cost is paid.",
+    "testedCards": [
+        "RIVahUIQVD"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["RIVahUIQVD"],
+        "mechanics": ["cost", "targeting", "damage", "condition"],
+        "rulesClauses": [
+            "Deal 1+LV damage to target unit."
+        ]
+    }
+}

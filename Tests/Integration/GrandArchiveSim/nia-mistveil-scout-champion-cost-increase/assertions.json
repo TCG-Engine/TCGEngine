@@ -1,1 +1,336 @@
-[]
+[
+    {
+        "step": 10,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "CardID",
+        "value": "PZM9uvCFai"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"PZM9uvCFai-NAME-Lorraine%2C%20Wandering%20Warrior\"]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "8qgr2drym1"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "kugriwszxr"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-2",
+        "property": "CardID",
+        "value": "8mrn8at13c"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-1",
+        "property": "CardID",
+        "value": "F9POfB5Nah"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-1",
+        "property": "Counters",
+        "value": "{\"omen\":1}"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-1",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "CardID",
+        "value": "DpHDGaX2Pn"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "CardID",
+        "value": "Dz8I0eJzaf"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "{\"durability\":2}"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-2",
+        "property": "CardID",
+        "value": "GjM8b5fxqj"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-3",
+        "property": "CardID",
+        "value": "sbalegbscx"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-4",
+        "property": "CardID",
+        "value": "soO3hjaVfN"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-5",
+        "property": "CardID",
+        "value": "iohZMWh5v5"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-6",
+        "property": "CardID",
+        "value": "DsiRzt0trX"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "CardID",
+        "value": "sbalegbscx"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-0",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-1",
+        "property": "CardID",
+        "value": "hd0sxpu7cp"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-1",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Material-0",
+        "property": "CardID",
+        "value": "0nlhgqpckq"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Material-1",
+        "property": "CardID",
+        "value": "kINobk9KQA"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Material-2",
+        "property": "CardID",
+        "value": "m31WVJ9F04"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Material-3",
+        "property": "CardID",
+        "value": "T3cx65VM3D"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Material-4",
+        "property": "CardID",
+        "value": "2gv7DC0KID"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Material-5",
+        "property": "CardID",
+        "value": "ScGcOmkoQt"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Material-6",
+        "property": "CardID",
+        "value": "r44lyrzo6o"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Material-7",
+        "property": "CardID",
+        "value": "bHGUNMFLg9"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2Material-8",
+        "property": "CardID",
+        "value": "ly4wiffei7"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p2GlobalEffects-0",
+        "property": "CardID",
+        "value": "LEVELED_UP_THIS_TURN"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 7
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "theirMemory",
+        "viewerPlayerID": 1,
+        "value": 0
+    }
+]

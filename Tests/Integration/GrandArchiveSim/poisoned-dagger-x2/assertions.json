@@ -1,1 +1,77 @@
-[]
+[
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-1",
+        "property": "CardID",
+        "value": "0D6AfZyKXh"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-1",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-2",
+        "property": "CardID",
+        "value": "0D6AfZyKXh"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-2",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-2",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "3"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"_champCombatDamageDealtThisTurn\":2,\"_champDamageThisTurn\":3}"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"DAMAGED_SINCE_LAST_TURN\",\"0D6AfZyKXh-CURSED\"]"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 4
+    }
+]

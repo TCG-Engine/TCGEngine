@@ -1,0 +1,17 @@
+{
+    "name": "Worn Diary's page counters scale with cards in memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T22:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Worn Diary's element is NORM and its memory cost is 0, so no lineage patch is needed and materializing via a direct FSM click is free. Three filler cards are pre-seeded into myMemory so ability 0 (put a page counter per card in memory) has a nonzero, predictable result. Ability 1 (REST, banish self: draw a card, only at 10+ page counters) is out of scope for this fixture -- reaching it would require repeating ability 0 ten times or directly patching the counter, and is left for a follow-up.",
+    "testedCards": [
+        "gmuesdu6o6"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["gmuesdu6o6"],
+        "mechanics": ["zone-movement", "counter", "condition"],
+        "rulesClauses": [
+            "[REST]: Put a page counter on CARDNAME for each card in your memory."
+        ]
+    }
+}

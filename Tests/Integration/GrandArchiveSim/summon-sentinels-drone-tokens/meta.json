@@ -1,0 +1,17 @@
+{
+    "name": "Summon Sentinels summons two buffed Automaton Drone tokens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Summon Sentinels is a NEOS (advanced element) ACTION card, so the starting champion's Subcards are patched with a real NEOS champion (Tonoris, Creation's Will). Only the base 'summon two tokens' effect is covered; the [Class Bonus] per-domain discount isn't exercised (no domains are seeded), so the full 4-reserve cost is paid.",
+    "testedCards": [
+        "5tlzsmw3rr"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["5tlzsmw3rr"],
+        "mechanics": ["cost", "counter", "token"],
+        "rulesClauses": [
+            "Summon two Automaton Drone tokens each with a buff counter on them."
+        ]
+    }
+}

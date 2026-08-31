@@ -1,0 +1,17 @@
+{
+    "name": "Creative Tinder draws two cards, then discards a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Creative Tinder's element is FIRE, matched by the default starting champion (Spirit of Fire), so no lineage patch is needed. Without a [Class Bonus] discount, the full 3-reserve cost is paid; completing the 3rd reserve payment cascades directly into the ability (no separate opportunity-window PASS needed for this card), which draws two cards and opens its own mandatory MZCHOOSE for which one to discard, resolved with a direct hand-card click.",
+    "testedCards": [
+        "KCXN59ldAi"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["KCXN59ldAi"],
+        "mechanics": ["cost", "draw-discard"],
+        "rulesClauses": [
+            "Draw two cards, then discard a card."
+        ]
+    }
+}

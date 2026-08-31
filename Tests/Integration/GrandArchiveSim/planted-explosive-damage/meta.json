@@ -1,0 +1,17 @@
+{
+    "name": "Planted Explosive deals 2 damage to target unit when not prepared",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Planted Explosive's element is FIRE, matching the starting champion, so no lineage patch is needed. The champion starts with no preparation counters, so the optional Prepare 1 YESNO decision never queues, and the ability resolves to its base 2-damage mode rather than the prepared 4-damage mode. Without a [Class Bonus] discount, the full 2-reserve cost is paid; both players then decline the EffectStackActiveResponse opportunity window before the seeded Dungeon Guide is chosen as the target. Only the base (non-prepared) 2-damage effect is covered.",
+    "testedCards": [
+        "5X5W2Uda5a"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["5X5W2Uda5a"],
+        "mechanics": ["cost", "targeting", "damage", "counter", "condition"],
+        "rulesClauses": [
+            "Deal 2 damage to target unit. If CARDNAME was prepared, deal 4 damage to that unit instead."
+        ]
+    }
+}

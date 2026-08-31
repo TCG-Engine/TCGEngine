@@ -1,0 +1,17 @@
+{
+    "name": "Blood Surge prevents the activating player from drawing cards until end of turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Blood Surge's element is EXIA, so the starting champion's Subcards are patched with a real EXIA champion (Dante, Hemomancer) to unlock element access. Without a [Class Bonus] discount and with the champion undamaged (below the [Level 5+][Damage 10+] thresholds), Blood Surge draws 0 cards itself but unconditionally applies a global 'can't draw cards until end of turn' effect to the activating player. The opportunity window that opens after paying the 2-reserve cost is declined (P1 PASS) so Blood Surge fully resolves on its own, rather than letting a response card resolve first out of stack order. Bauble of Abundance (NORM, seeded directly onto the field per REGALIA convention) is then activated as a second, independent draw source: its 'each player draws a card' effect is silently blocked for the NO_DRAW'd activating player (hand count unchanged) but still resolves normally for the opponent (hand count +1) and the bauble still pays its own banish cost -- the asymmetric outcome demonstrates the prevention is real rather than an absence of draw sources.",
+    "testedCards": [
+        "yHIeIwxWde"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["yHIeIwxWde"],
+        "mechanics": ["draw-discard", "prevention", "condition"],
+        "rulesClauses": [
+            "Until end of turn, you can't draw cards."
+        ]
+    }
+}

@@ -1,0 +1,7 @@
+[
+  {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"Frostbind commits exactly two reserve cards"},
+  {"step":6,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"z0fgm3pal7","semantic":true,"label":"Frostbind resolves to its controller's graveyard"},
+  {"step":6,"type":"card_exists","zone":"theirBanish","viewerPlayerID":1,"cardID":"G2XFRE8rFX","semantic":true,"label":"The unpaid activation is negated and its source is banished"},
+  {"step":6,"type":"zone_count","zone":"theirGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"The negated source does not resolve to the opponent's graveyard"},
+  {"step":8,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":2,"semantic":true,"label":"Frostbind's reserve payment remains in memory after resolution"}
+]

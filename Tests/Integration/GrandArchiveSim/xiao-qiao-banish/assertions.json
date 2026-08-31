@@ -1,1 +1,56 @@
-[]
+[
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "CardID",
+        "value": "1db8hz4prm"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Damage",
+        "value": "3"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Counters",
+        "value": "{\"cardistry_used\":1}"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "TurnEffects",
+        "value": "[\"DAMAGED_SINCE_LAST_TURN\",\"HIT_BY_3hgldrogit\"]"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1
+    }
+]

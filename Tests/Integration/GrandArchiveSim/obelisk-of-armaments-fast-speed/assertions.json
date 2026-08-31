@@ -1,1 +1,84 @@
-[]
+[
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": 1
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-6",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-7",
+        "property": "CardID",
+        "value": "hkurfp66pv"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-7",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-7",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-7",
+        "property": "Counters",
+        "value": "{\"durability\":1}"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-7",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-3",
+        "property": "CardID",
+        "value": "AsDKTmP3kp"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-4",
+        "property": "CardID",
+        "value": "8GTa6NS2RG"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 0
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "theirField",
+        "viewerPlayerID": 1,
+        "value": 8
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "theirMemory",
+        "viewerPlayerID": 1,
+        "value": 5
+    }
+]

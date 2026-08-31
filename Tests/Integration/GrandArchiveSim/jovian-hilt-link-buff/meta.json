@@ -1,0 +1,18 @@
+{
+    "name": "Jovian Hilt X Ultra enters linked to a Sword weapon and buffs it",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Jovian Hilt X Ultra's element is ARCANE, so the starting champion's Subcards are patched with a real ARCANE champion (Lorraine, Arclight Saber) to unlock element access. Clarent, Sword of Peace (a REGALIA,WEAPON,SWORD with 2 printed durability counters and 0 static counters) is seeded directly onto the field as the Sword Weapon Link target. Materializing Jovian Hilt (0 reserve cost) opens a real materialize-time MZCHOOSE for the link target, answered with the seeded weapon's field position; the whole activation resolves with no opportunity-window PASS needed. Its On Enter ability then adds a durability counter to the linked weapon (2 -> 3) and stores the reverse link (Counters.linkedToWeapon). Since the linked weapon has 0 static counters, the conditional 'put two static counters on Jovian Hilt' branch does not fire (not independently proven here since that would require a second fixture with a pre-charged weapon). The unconditional 'linked weapon gets +2[POWER]' clause is a dynamically computed bonus (via GetLinkedCards() in ObjectCurrentPower()) with no stored property to assert against, so it is not independently proven either.",
+    "testedCards": [
+        "sZTH5LanyW"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["sZTH5LanyW"],
+        "mechanics": ["targeting", "counter", "zone-movement"],
+        "rulesClauses": [
+            "Sword Weapon Link (enters the field linked to target Sword weapon).",
+            "On Enter: Put a durability counter on linked weapon."
+        ]
+    }
+}

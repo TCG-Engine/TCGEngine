@@ -1,0 +1,17 @@
+{
+    "name": "Into the Fray buffs target ally by +1 POWER per other ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Into the Fray's element is NORM, so no lineage patch is needed. Dungeon Guide (the buff target) and Formidable Youxia (an ALLY, not Fairy Whispers which is an ACTION card and doesn't count) are seeded onto the field so there is exactly 1 other ally, giving otherCount=1. Without a [Class Bonus] discount, the full 2-reserve cost is paid; the seeded discard-fuel card also shows up as a fast-response option in the generic opportunity windows, so both players decline those (P1 PASS, P2 PASS) before the ability's own MZMAYCHOOSE offers Dungeon Guide as the buff target. The applied effect is tagged as a tu9agwj4f1-1 turn-effect (the numeric suffix is the +POWER amount granted).",
+    "testedCards": [
+        "tu9agwj4f1"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["tu9agwj4f1"],
+        "mechanics": ["cost", "targeting", "status", "condition"],
+        "rulesClauses": [
+            "Up to one target ally you control gets +1 [POWER] until end of turn for each other ally you control."
+        ]
+    }
+}

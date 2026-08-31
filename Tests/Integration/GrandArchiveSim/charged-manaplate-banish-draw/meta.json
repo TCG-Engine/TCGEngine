@@ -1,0 +1,17 @@
+{
+    "name": "Charged Manaplate's Class Bonus banish-for-draw, gated on this-turn champion damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T07:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Creeping Torment was attempted first for this batch slot but abandoned -- its On Enter handler calls MZRemove(), a function that doesn't exist anywhere in the codebase (verified: 7 call sites across CardDQHandlers.php and GeneratedMacroCode.php, zero definitions), causing a PHP fatal error. Flagged separately as task_bdcead88. Charged Manaplate's element is NORM, so no lineage patch is needed, and its memory cost (0) needs no floating-payment setup. The ability requires both a GUARDIAN Class Bonus (physical presence, so Ciel, Loyal Valet is seeded directly onto the field) and the champion having taken 4+ damage this turn, which GetChampionDamageTakenThisTurn() reads directly from a Counters['_champDamageThisTurn'] entry on the champion object -- patched in directly rather than scripting a real combat/damage sequence.",
+    "testedCards": [
+        "jxhkurfp66"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["jxhkurfp66"],
+        "mechanics": ["damage", "draw-discard", "zone-movement", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] Banish CARDNAME: Draw a card. Activate this ability only if your champion has taken 4 or more damage this turn."
+        ]
+    }
+}

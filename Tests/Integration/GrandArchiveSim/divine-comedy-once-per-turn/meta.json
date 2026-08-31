@@ -1,0 +1,20 @@
+{
+  "name": "Divine Comedy activates only once per turn",
+  "rootName": "GrandArchiveSim",
+  "baseFixture": "diamond-ribbon",
+  "initialGamestateReplacements": [
+    {
+      "from": "lVvU9lpJ3M 2 1 0 1 ENTERED_THIS_TURN - - -1",
+      "to": "ts9VdtFtk1 2 1 0 1 ENTERED_THIS_TURN - - -1"
+    }
+  ],
+  "testedCards": ["ts9VdtFtk1"],
+  "semanticCoverage": {
+    "testedCards": ["ts9VdtFtk1"],
+    "mechanics": ["activation", "once-per-turn", "timing"],
+    "rulesClauses": [
+      "Divine Comedy can be activated only once per turn and only at slow speed.",
+      "A second activation attempt in the same turn does not advance its cascade or pay its repeat activation cost."
+    ]
+  }
+}

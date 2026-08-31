@@ -1,0 +1,17 @@
+{
+    "name": "Take Cover grants target unit stealth and makes it distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Take Cover's element is NORM, so no lineage patch is needed. Without a [Class Bonus] discount, the full 5-reserve cost is paid; control then passes straight to the opponent's EffectStackOpponentResponse window (no separate active-player window first), so a single P2 PASS resolves the stack before the ability's own MZCHOOSE target decision appears. Choosing the seeded Dungeon Guide tags it with both STEALTH and DISTANT.",
+    "testedCards": [
+        "2ugmnmp5af"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["2ugmnmp5af"],
+        "mechanics": ["cost", "targeting", "status"],
+        "rulesClauses": [
+            "Target unit you control gains stealth until end of turn. That unit also becomes distant."
+        ]
+    }
+}

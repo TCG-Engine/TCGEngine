@@ -1,0 +1,17 @@
+{
+    "name": "Purge in Flames deals damage to all units except your champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Purge in Flames' element is FIRE, matching the starting champion, so no lineage patch is needed. Two extra Fairy Whispers are seeded into hand as reserve-payment fuel since the full 8-reserve cost (no Efficiency discount at champion level 0) needs more fuel than a natural hand provides. The ability's own damage resolution fires directly after the last reserve payment with no separate opportunity-window PASS needed. IsClassBonusActive($player) with no class filter evaluates true for the default champion, so the observed damage is 3 (the [Class Bonus] amount) rather than the base 2 -- the seeded Dungeon Guide (3 life) is killed by it, and the opposing champion takes 3 damage too.",
+    "testedCards": [
+        "uTBsOYf15p"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["uTBsOYf15p"],
+        "mechanics": ["cost", "damage", "condition"],
+        "rulesClauses": [
+            "Deal 2 damage to all units except for your champion. Class Bonus: Deal 3 damage to those units instead."
+        ]
+    }
+}

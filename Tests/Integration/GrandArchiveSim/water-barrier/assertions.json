@@ -1,1 +1,84 @@
-[]
+[
+    {
+        "step": 11,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"_champDamageThisTurn\":1}"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"WAS_ATTACKED\",\"vz4kc558yx-ACTION_ACTIVATED\",\"DAMAGED_SINCE_LAST_TURN\"]"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-2",
+        "property": "CardID",
+        "value": "xWJND68I8X"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "300z2snsdw"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-2",
+        "property": "CardID",
+        "value": "p5af098kmo"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-3",
+        "property": "CardID",
+        "value": "urfp66pv4n"
+    },
+    {
+        "step": 11,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 11,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 4
+    }
+]

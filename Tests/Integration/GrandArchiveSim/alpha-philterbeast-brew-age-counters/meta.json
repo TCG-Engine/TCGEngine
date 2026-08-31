@@ -1,0 +1,18 @@
+{
+    "name": "Alpha Philterbeast is brewed with 3 herbs and gets age counters",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Alpha Philterbeast is an EXALTED (advanced element) ALLY card, so the starting champion's Subcards are patched with a real EXALTED champion (Mordred, Fated Luminary) to unlock element access. Three herb tokens (Blightroot, Manaroot, Fraysia) are seeded onto the field to pay the Brew - Three Herbs alternate cost. Materializing answers YES to the Brew declaration, then picks the three herb objects one at a time via the BrewSelectHerb MZCHOOSE loop; the herbs are sacrificed (tokens cease to exist rather than moving to the graveyard, so the graveyard count stays 0 while the field count drops from 4 to 2). Because the card was brewed, its On Enter effect puts two age counters on it. Only the base Brew + age-counter effect is covered; the passive reactive-age and power/life-scaling clauses are out of scope.",
+    "testedCards": [
+        "NwK5wge8wy"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["NwK5wge8wy"],
+        "mechanics": ["cost", "zone-movement", "counter", "condition"],
+        "rulesClauses": [
+            "Brew — Three Herbs.",
+            "On Enter: If CARDNAME was brewed, put two age counters on it."
+        ]
+    }
+}

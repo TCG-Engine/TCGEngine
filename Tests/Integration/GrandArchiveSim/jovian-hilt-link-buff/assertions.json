@@ -1,0 +1,5 @@
+[
+    {"step":2,"type":"card_property_equals","mzId":"myField-1","property":"Counters","value":"{\"durability\":3}","viewerPlayerID":1,"semantic":true,"label":"The linked weapon gains a durability counter (from a base of 2)"},
+    {"step":2,"type":"card_property_equals","mzId":"myField-2","property":"Counters","value":"{\"linkedToWeapon\":\"m31WVJ9F04\"}","viewerPlayerID":1,"semantic":true,"label":"Jovian Hilt enters linked to the target Sword weapon"},
+    {"step":2,"type":"decision_queue_empty","player":"all"}
+]

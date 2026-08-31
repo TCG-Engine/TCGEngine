@@ -1,0 +1,17 @@
+{
+    "name": "Banner Knight's Class Bonus static +1 POWER buff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:58:38+00:00",
+    "createdBy": "Codex",
+    "notes": "Banner Knight's field-presence buff (GrandArchiveSim/Custom/GameLogic.php:11856-11871) is purely computed at ObjectCurrentPower() read time -- no flag or counter is ever stamped on the buffed object, which is why this card was previously logged as out of scope (no stored proof to assert via card_property_equals). Unblocked by adding a new 'computed_power_equals' assertion type to Core/RegressionTestFramework.php that calls ObjectCurrentPower() directly, the same function the engine's own combat/render code paths call -- reusable for the whole family of similarly-computed static auras (Exalted Dorumegian Throne, Seasoned Shieldmaster, Atmos Armor Type-Hermes, Banner Raccoon, etc. all share this shape) rather than being Banner-Knight-specific. [Class Bonus][Level 2+] requires a WARRIOR champion at level 2+; the starting champion's CardID is patched directly to Lorraine, Arclight Saber (level 3, WARRIOR) -- the same technique used by surged-coordinator-class-bonus-counters. Dungeon Guide (base POWER 1) is seeded onto the field as the buffed ally; expected computed power is 1 + 1 = 2.",
+    "testedCards": [
+        "IAkuSSnzYB"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["IAkuSSnzYB"],
+        "mechanics": ["static-buff", "class-bonus", "computed-power"],
+        "rulesClauses": [
+            "[Class Bonus][Level 2+] Other allies and weapons you control get +1 [POWER]."
+        ]
+    }
+}

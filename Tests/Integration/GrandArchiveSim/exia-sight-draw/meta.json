@@ -1,0 +1,17 @@
+{
+    "name": "Exia Sight draws a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T10:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Exia Sight is an EXIA (advanced element) ACTION card, so the starting champion's Subcards are patched with a real EXIA champion (Dante, Hemomancer, reused from mend-flesh-damage25-recover). Its reserve cost is 0, so no reserve payment decisions are needed. Only the base 'Draw a card' is covered; the [Damage 20+] discount-for-next-card clause isn't reached (champion Damage is 0).",
+    "testedCards": [
+        "1fy8l4pxs9"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["1fy8l4pxs9"],
+        "mechanics": ["cost", "damage", "draw-discard", "condition"],
+        "rulesClauses": [
+            "Draw a card."
+        ]
+    }
+}

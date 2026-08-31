@@ -1,0 +1,14 @@
+[
+  {"step":1,"type":"card_exists","zone":"p1Field","cardID":"84YTQPTvar","semantic":true,"label":"Dante, Aenean Initiate replaces the level-one Dante champion"},
+  {"step":1,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"84YTQPTvar","semantic":true,"label":"The materialized champion is Dante, Aenean Initiate, whose on-enter scavenge is under test"},
+  {"step":1,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"Materializing Dante consumes the two available memory cards"},
+  {"step":1,"type":"zone_count","zone":"myMaterial","viewerPlayerID":1,"value":10,"semantic":true,"label":"Dante leaves the material deck after materializing"},
+  {"step":1,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":0,"semantic":true,"label":"Dante reveals all ten cards into the temporary reveal zone"},
+  {"step":2,"type":"card_exists","zone":"myHand","viewerPlayerID":1,"cardID":"zHhOcG9MfK","semantic":true,"label":"The only revealed Aenean Spell, Hemoflux Drain, is put into hand"},
+  {"step":2,"type":"card_property_equals","mzId":"p1Hand-0","property":"CardID","value":"zHhOcG9MfK","semantic":true,"label":"The card selected by scavenge is specifically Hemoflux Drain"},
+  {"step":2,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":1,"semantic":true,"label":"Scavenge adds exactly one selected card to hand"},
+  {"step":3,"type":"decision_queue_empty","player":"all"},
+  {"step":3,"type":"phase_is","value":"MAIN"},
+  {"step":3,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":8,"semantic":true,"label":"The nine non-matching revealed cards return to the deck before the normal draw"},
+  {"step":3,"type":"card_exists","zone":"myHand","viewerPlayerID":1,"cardID":"zHhOcG9MfK","semantic":true,"label":"The scavenged Aenean Spell remains in hand after resolution"}
+]

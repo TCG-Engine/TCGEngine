@@ -1,0 +1,5 @@
+[
+    {"step":6,"type":"card_exists","zone":"myHand","viewerPlayerID":1,"cardID":"em6eEh9q8y","semantic":true,"label":"The targeted ally returns to its owner's hand"},
+    {"step":6,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the champion remains on the field after the ally is returned to hand"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

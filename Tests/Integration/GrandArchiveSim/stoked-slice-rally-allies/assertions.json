@@ -1,0 +1,8 @@
+[
+    {"step":8,"type":"card_property_equals","mzId":"theirField-0","property":"Damage","value":"2","semantic":true,"label":"Stoked Slice's attack lands for its printed 2 power"},
+    {"step":8,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":2,"semantic":true,"label":"Both fire cards are banished from the graveyard, not just moved elsewhere"},
+    {"step":8,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only Stoked Slice itself remains in the graveyard after the two fire cards are banished"},
+    {"step":8,"type":"card_property_equals","mzId":"myGlobalEffects-0","property":"CardID","value":"6wiHKD52Lw_ALLIES","semantic":true,"label":"The ally-rally global effect is added, proving the ability actually resolved"},
+    {"step":8,"type":"card_property_equals","mzId":"myGlobalEffects-1","property":"CardID","value":"CHAMP_DEALT_COMBAT_DMG","label":"Combat damage itself also stamps this flag, matching the gleaming-cut-lightweavers-assault precedent"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,4 @@
+[
+    {"step":10,"type":"card_property_equals","mzId":"myField-1","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"XgnBkRQgg1_POWER\"]","viewerPlayerID":1,"semantic":true,"label":"Blistering Insurgent gets +1 power from the champion's first attack this turn"},
+    {"step":10,"type":"decision_queue_empty","player":"all"}
+]

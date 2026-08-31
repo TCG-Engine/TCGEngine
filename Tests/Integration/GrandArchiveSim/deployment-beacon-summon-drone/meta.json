@@ -1,0 +1,17 @@
+{
+    "name": "Deployment Beacon's On Enter summons an Automaton Drone token",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T22:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Deployment Beacon's WIND element isn't native to the 'Spirit of Fire' starting champion, so the champion's Subcards are patched with a real WIND champion (Spirit of Wind) to unlock element access -- WIND isn't in GetAdvancedElementNames() but CanPlayerMeetCardElementRequirements() gates any non-NORM element the same way, not just the nine 'advanced' ones. Its memory cost (1) is NOT exercised here, for the same reason documented on entrancing-filigree-enter-banish and vernal-talisman-preserve-draw: materializing via a direct FSM click bypasses the card-specific additional-cost flow. Only the On Enter summon is covered; the [Class Bonus] On Leave second summon requires removing this card from the field afterward and is out of scope.",
+    "testedCards": [
+        "klryvfq3hu"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["klryvfq3hu"],
+        "mechanics": ["token", "trigger"],
+        "rulesClauses": [
+            "On Enter: Summon an Automaton Drone token."
+        ]
+    }
+}

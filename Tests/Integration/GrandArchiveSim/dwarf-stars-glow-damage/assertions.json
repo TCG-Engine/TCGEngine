@@ -1,0 +1,4 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"2","semantic":true,"label":"The targeted opponent champion takes 2 damage"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

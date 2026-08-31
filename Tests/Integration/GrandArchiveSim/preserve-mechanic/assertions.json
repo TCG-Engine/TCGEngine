@@ -1,1 +1,21 @@
-[]
+[
+    {
+        "step": 1,
+        "type": "decision_queue_empty",
+        "player": 2
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "1nnpbddblx"
+    },
+    {
+        "step": 1,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 2
+    }
+]

@@ -1,0 +1,17 @@
+{
+    "name": "Package Courier may discard a card to draw a card on enter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Package Courier's element is FIRE, matching the starting champion, so no lineage patch is needed. Without a [Class Bonus] discount, the full 2-reserve cost is paid; the ability's own MZMAYCHOOSE discard decision appears directly after the last reserve payment with no separate opportunity-window PASS needed. Discarding a hand card draws a replacement card (net hand size unchanged, but graveyard grows and a new card is drawn from the deck).",
+    "testedCards": [
+        "kjCKx4FVrM"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["kjCKx4FVrM"],
+        "mechanics": ["cost", "draw-discard", "condition"],
+        "rulesClauses": [
+            "On Enter: You may discard a card. If you do, draw a card."
+        ]
+    }
+}

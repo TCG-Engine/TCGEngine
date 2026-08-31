@@ -1,0 +1,55 @@
+1
+8
+1
+fZ08zyFIlz
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+ltv5klryvf 2 1 0 1 - - - -1
+1
+LMyKyVC2O9 2 2 0 2 - - - 2
+0
+0
+1
+qCTini03Bc
+0
+1
+pv4n1n3gyg
+0
+0
+0
+0
+0
+0
+0
+2
+MZMAYCHOOSE myMaterial-0 1 Materialize 0
+CUSTOM MATERIALIZE 1  0
+0
+1
+0:Materialize Choice<vname>1<v0>MAT<v0>2<v0><v0><v0><v0><v0>qCTini03Bc<v1>qCTini03Bc<v1>qCTini03Bc<v1>qCTini03Bc<v1>qCTini03Bc<v1>qCTini03Bc<v1>qCTini03Bc<v1>qCTini03Bc<v1>qCTini03Bc<v1>zHhOcG9MfK<v0>MZMAYCHOOSE<v2>myMaterial-1&myMaterial-3&myMaterial-4&myMaterial-5&myMaterial-6&myMaterial-7&myMaterial-8<v2>1<v2><v2>0<v1>CUSTOM<v2>MATERIALIZE<v2>1<v2><v2>0<v0>0<v0><v0><v0>apVtyt48u3<v1>84YTQPTvar<v1>4FtNBFaOJp<v1>Z9TCpaMJTc<v1>7IVQRtJFa8<v1>1XegCUjBnY<v1>yj2rJBREH8<v1>qqq8j5fxym<v1>xnrw8qq1uw<v1>QwF7kvdpFz<v1>YTO70fFsBY<v0>apVtyt48u3<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>-1<v0><v0>HHtlkEeyQR<v1>Fkpr1hCUGF<v0><v0><v0><v0><v0><v0><v0>0<v0><v0><v0><v0>LMyKyVC2O9<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v0><v0><v0><v0>{"GameMode":"goldfish","GoldfishPlayers":[2],"BotPlayers":[],"mzID":"myField-0","isImbued":"NO","amount":1}<v0><v0>{}<v0>2<v0>{"DrawCalls":{"2":1}}<v0>0<v0>{"cards":{"1":{"HHtlkEeyQR":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"Fkpr1hCUGF":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"FWinA77xF1":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"z0fgm3pal7":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"eifnz0fgm3":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"zHhOcG9MfK":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"io7maIjC4u":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[{"seat":1,"turn":1,"cardsPlayed":0,"memorySpent":0,"reserveSpent":0,"damageDealt":0,"damageTaken":0,"healed":0,"level":0,"hp":15},{"seat":2,"turn":1,"cardsPlayed":0,"memorySpent":0,"reserveSpent":0,"damageDealt":0,"damageTaken":0,"healed":0,"level":0,"hp":1000}],"cur":{"1":[],"2":[]},"combatEvents":[]}
+0
+{"version":1,"windows":{"REC_START":false,"END_START":false,"STACK_RESPONSE":false,"ENTER_RESPONSE":true,"TRIGGER_RESPONSE":true,"ABILITY_RESPONSE":false,"COMBAT_DAMAGE":false,"COMBAT_RETALIATION":false}}
+
+2
+1
+1
+MAT
+
+Cannot pay costs for the selected material card. Action undone.
+{"GameMode":"goldfish","GoldfishPlayers":[2],"BotPlayers":[],"mzID":"myField-0","isImbued":"NO","amount":1}
+0
+{}
+2
+{"DrawCalls":{"2":1}}
+0
+MR1:H4sIAAAAAAAAA61V0ZKiOhD9FcvnaxU4zqBbU1YBC4gjoojjONctK1dBUURARHF3/n1JRoltvDsv+0AqJ93pdJ90DmV+Ek+CKh6eyLTVSvy14mR9CyN1Hcb8Uh5qKkEjLxAF4agSzxPnLjYPIfIFjBzPPa8QW2tpzrSG4b5g5G2FDdJXcm2P0UycLY6n+PR0Yj3/tO99I/VF87/GYoVRJNte4HEP0ozNrPumIYmfjw8d1nMRZaP3t/DoNzCSB6/JuK+fhCVbOy9U94mJAm3N2tx3rn7KVN0/sZmlaJXNtuFx4bKZwZiwPrjv5KycSIjDx4j1hFzf7AO3ApnIWrqjH46juUNycbO6XwuPuwaLbu4dIHg65BNyDXPZ7dePs6dB29+xDEIE84T9ArmGLEEbrB12FjwP3hGsCJ4AK4LdA3mBTHB/b+DJY02QG/lzUbPIlaDwNcmSWn1Pjq7Xxna/Z6coxqimJl1JRWY7JBQ1bDlERtsmaQn6a99K2iqqk8hvzkIerqRgTC5hVY3bkqW0iC2Kovrq0T1mG4yOQXyoRxG/P2DUP6jCOp2HKiFzbJsC56o7iUQhjHaM7CV7latm4+vySHXGu9wyzYFS2mQGSpzYQ36FK/Ely0kd5E+z7T6e7hIUJ16wmHbSKTedLdEm9LZBiQSRhwPbNEo9S9FEQ5l+BpsObNGy9a6WY9Ho6Wb3VzWPWbqilsy+9WJngTZOaXA+oSSfgz+nQb7e5J9Trjka4pFMK3i4/qhWPKd8k74egopew4j2E0a0g4it6FiMqAJgRN8E6/mnffSFYER7lM2Mvh7Wk74QjOgrwAjWTvWOtdE3yGZGNY3NDMaE9cF99O2ynpDrm33gViATVJtILoVqsujm3gGCp0M+IdcwF6qhLIMQwTxhv0CuIUvQBmuHnQXPg3cEK4InwIpg90BerpngmhdReE6rzWtdwJjHw9fqgL04cioRCAy/1ogi/nk39zlcPqrEODBVYoyoEmNElZgQXSgxRlSJSSMVSkyuslBiQkqhxBhRJcaIKjFGVIlvBer/PlAYVe17rj8nZS0XQ2Ob/6TL3yblxdafu95uOSn/k1vOoOejzIl3ucO/1R/5urRNrpZ+fFyCVYrD6axQ5fykNN+RX1++ic+jHLxgvj3gELnJUuTPS8uhi/ydkzso3e/MWo7ll6mlDHpmd6AAZ1uxrg1JvMfrtqVr2l2LKOkd3R7fCyabhiTa0++iIWp31i3FFju6aOd9dTF+fOAai78PHUZDPFYu1r/Cd8Fp5c7s+iv/BirYK8AYDAAA
+MR1:H4sIAAAAAAAAA9WSMWvDMBCFf0turQVn05ZEm2mHeigEki10uEiX2MSSjCSXhJD/XsmEbslQsnR7Ot773oHuDDvnDUWQENWe7b6zLNJbtcLz0NNJKGcMWR3EdwkFKM8UWdc5UGH1KnAuqsUaK4kv8nnxhCgRk28c9C3fXFb46yMVO2cDyM0Zch375h1kWYBxmpNALGA7xuhsY4cx0/IS5HW2gTl9phbfUS8yTLWHq2vzVUCX5ZqPU+hS3OJjeb/hg6mPrcDZ2xiiM5NptqQQ/lp4r25Zr1b/ifuID3gQPw1s0vV0UI3VfASZ2LlzS+oAckd94JxKQD8O6Tqvs8sPAgWOhQUDAAA=
+{"cards":{"1":{"HHtlkEeyQR":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"Fkpr1hCUGF":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"FWinA77xF1":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"z0fgm3pal7":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"eifnz0fgm3":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"zHhOcG9MfK":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"io7maIjC4u":{"drawn":1,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[{"seat":1,"turn":1,"cardsPlayed":0,"memorySpent":0,"reserveSpent":0,"damageDealt":0,"damageTaken":0,"healed":0,"level":0,"hp":15},{"seat":2,"turn":1,"cardsPlayed":0,"memorySpent":0,"reserveSpent":0,"damageDealt":0,"damageTaken":0,"healed":0,"level":0,"hp":1000}],"cur":{"1":[],"2":[]},"combatEvents":[]}

@@ -488,10 +488,16 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
   switch ($mode) {
     case 100:
       $dqController = new DecisionQueueController();
-      // Per-app answer validation (defined by apps that opt in, e.g. SWUSim): reject an answer that
+      // Per-app answer validation (defined by apps that opt in): reject an answer that
       // is not a candidate of the pending choice instead of letting continuations act on it.
-      if (function_exists('SWUValidateDecisionAnswer') && !SWUValidateDecisionAnswer($playerID, strval($cardID))) {
+      // The legacy SWUSim hook remains as a fallback until that root is migrated.
+      $decisionAnswerIsValid = function_exists('GameValidateDecisionAnswer')
+        ? GameValidateDecisionAnswer($playerID, strval($cardID))
+        : (!function_exists('SWUValidateDecisionAnswer') || SWUValidateDecisionAnswer($playerID, strval($cardID)));
+      if (!$decisionAnswerIsValid) {
         if (function_exists('SetFlashMessage')) SetFlashMessage("Invalid selection.");
+        $result['success'] = false;
+        $result['message'] = 'Invalid selection.';
         break;
       }
       $dqController->PopDecision($playerID);

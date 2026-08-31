@@ -1,1 +1,98 @@
-[]
+[
+    {
+        "step": 16,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "mzId": "p1Field-3",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "{\"sheen\":1}"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "TurnEffects",
+        "value": "[\"DISTANT\"]"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-0",
+        "property": "CardID",
+        "value": "sesw2ugmnm"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-2",
+        "property": "CardID",
+        "value": "cpvn96659y"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-3",
+        "property": "CardID",
+        "value": "TZxw1pPmHD"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-4",
+        "property": "CardID",
+        "value": "xicxo661ly"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-5",
+        "property": "CardID",
+        "value": "sesw2ugmnm"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-3",
+        "property": "CardID",
+        "value": "vfq3huqj5b"
+    },
+    {
+        "step": 16,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-4",
+        "property": "CardID",
+        "value": "ipl6gt7lh9"
+    },
+    {
+        "step": 16,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 5
+    }
+]

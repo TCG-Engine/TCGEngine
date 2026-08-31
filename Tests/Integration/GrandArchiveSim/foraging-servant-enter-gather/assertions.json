@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"i0a5uhjxhk","semantic":true,"label":"On Enter Gather summons a resource token onto the field"},
+    {"step":3,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":3,"semantic":true,"label":"The field now holds the champion, Foraging Servant itself, and the gathered token"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

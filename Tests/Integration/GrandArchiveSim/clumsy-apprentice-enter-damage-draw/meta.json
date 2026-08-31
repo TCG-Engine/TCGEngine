@@ -1,0 +1,17 @@
+{
+    "name": "Clumsy Apprentice deals 2 damage to your champion and draws a card on enter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Clumsy Apprentice's element is FIRE, matching the starting champion, so no lineage patch is needed. Without a [Class Bonus] discount, the full 2-reserve cost is paid, then the unconditional On Enter effect resolves immediately with no opportunity-window PASS or target choice needed.",
+    "testedCards": [
+        "LZ8JpWj27h"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["LZ8JpWj27h"],
+        "mechanics": ["cost", "damage", "draw-discard"],
+        "rulesClauses": [
+            "On Enter: Deal 2 damage to your champion. Draw a card."
+        ]
+    }
+}

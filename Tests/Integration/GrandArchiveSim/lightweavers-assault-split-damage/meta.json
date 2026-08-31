@@ -1,0 +1,17 @@
+{
+    "name": "Lightweaver's Assault splits damage equal to revealed memory across units",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Lightweaver's Assault is a LUXEM (advanced element) ACTION card, so the starting champion's Subcards are patched with a real LUXEM champion (Zander, Blinding Steel) to unlock element access. Without a [Class Bonus]/[Element Bonus] discount, the full 4-reserve cost is paid; paying a reserve cost moves the spent hand cards into memory (not a separate pool), so together with the 2 Fairy Whispers seeded directly into memory, 6 cards are in memory when the ability resolves, and MZSPLITASSIGN offers a total of 6 damage to split. The answer format is a comma-separated list of <mzID>:<amount> pairs (confirmed via the engine's own Goldfish auto-resolver, GameLogic.php's GoldfishResolveDecisionInput); this fixture assigns all 6 to the opposing champion. Only the base reveal+split-damage effect is covered; the [Class Bonus]/[Element Bonus] extra trigger (2 damage whenever CARDNAME is revealed from memory) is out of scope since it wasn't in memory at cost-payment time.",
+    "testedCards": [
+        "zxB4tzy9iy"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zxB4tzy9iy"],
+        "mechanics": ["cost", "targeting", "damage"],
+        "rulesClauses": [
+            "Reveal all cards in your memory. Choose any amount of units and deal damage equal to the amount of cards revealed this way split among them."
+        ]
+    }
+}

@@ -1,0 +1,6 @@
+[
+    {"step":2,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":1,"semantic":true,"label":"Baseline memory count after only the first reserve payment, before Stocked Outpost resolves"},
+    {"step":3,"type":"decision_queue_empty","player":"all"},
+    {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"On Enter draws one more card into memory on top of the second reserve payment, which also moves a card there"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"durability\":4}","semantic":true,"label":"Stocked Outpost enters the field as a siegeable permanent with 4 durability counters"}
+]

@@ -43,7 +43,7 @@ function GAFormatDefinitions() {
             'enabled'     => true,
         ],
         'bot' => [
-            'displayName' => 'Bot Match (self-play testing)',
+            'displayName' => 'Practice vs Bot',
             'legalSets'   => '*',
             'banned'      => [],
             'mode'        => true,   // solo/testing mode: skips structural deckbuilding rules

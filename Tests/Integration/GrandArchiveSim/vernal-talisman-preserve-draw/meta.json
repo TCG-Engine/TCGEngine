@@ -1,0 +1,17 @@
+{
+    "name": "Vernal Talisman's Class Bonus On Enter draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T21:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Vernal Talisman is a TERA (advanced element) REGALIA,ITEM card with a MAGE Class Bonus On Enter, so two separate setups are needed (same split as sabela-gossamer-penance-enter): the starting champion's Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) for element access, and that same champion is ALSO physically seeded onto the field so IsClassBonusActive(['MAGE']) -- which scans physical field objects, independent of the Subcards-based lineage check -- is satisfied. Like entrancing-filigree-enter-banish, its additional materialize cost ('banish 2 preserved cards from your material deck') is NOT exercised: materializing via a direct mode 10002 FSM click resolves straight through DoMaterialize() without ever routing through the MATERIALIZE decision's card-specific additional-cost switch in MaterializeLogic.php (verified live -- myMaterial is unchanged after materializing), so only the On Enter Class Bonus draw is covered here. The [Class Bonus][REST] Empower activated ability is separately out of scope.",
+    "testedCards": [
+        "dW5uyngvJW"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["dW5uyngvJW"],
+        "mechanics": ["zone-movement", "draw-discard", "trigger"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Draw a card."
+        ]
+    }
+}

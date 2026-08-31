@@ -1,1 +1,77 @@
-[]
+[
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"training\":1}"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-3",
+        "property": "Counters",
+        "value": "{\"durability\":1}"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-5",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-5",
+        "property": "Damage",
+        "value": "7"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-5",
+        "property": "Counters",
+        "value": "{\"sheen\":2,\"_champCombatDamageDealtThisTurn\":4}"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-5",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"XPl2UAO9se:POWER\"]"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1GlobalEffects-1",
+        "property": "CardID",
+        "value": "CHAMP_DEALT_COMBAT_DMG"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "11"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"_champCombatDamageDealtThisTurn\":3,\"merlin_amethysts_glow_used\":1,\"preparation\":1,\"_champDamageThisTurn\":7}"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"WAS_ATTACKED\",\"DAMAGED_SINCE_LAST_TURN\",\"CHAMP_DMG_BY_P1\"]"
+    }
+]

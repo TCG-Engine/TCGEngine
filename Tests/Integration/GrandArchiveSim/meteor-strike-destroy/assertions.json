@@ -1,0 +1,5 @@
+[
+    {"step":5,"type":"card_exists","zone":"theirGraveyard","viewerPlayerID":1,"cardID":"em6eEh9q8y","semantic":true,"label":"Meteor Strike destroys the targeted Dungeon Guide"},
+    {"step":5,"type":"zone_count","zone":"theirField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the opposing champion remains on the field after the destroy"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

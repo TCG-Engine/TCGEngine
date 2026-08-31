@@ -1,1 +1,84 @@
-[]
+[
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": 1
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Field-3",
+        "property": "Counters",
+        "value": "{\"_champCombatDamageDealtThisTurn\":1,\"sheen\":2,\"preparation\":1}"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "ugly4wiffe"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-3",
+        "property": "CardID",
+        "value": "szene5o32m"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-4",
+        "property": "CardID",
+        "value": "xpb20rar4k"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 5
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 5
+    }
+]

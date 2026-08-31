@@ -1,0 +1,17 @@
+{
+    "name": "Spirit's Blessing returns a regalia to material deck, wakes the champion, draws a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Spirit's Blessing's element is CRUX, so the starting champion's Subcards are patched with a real CRUX champion (Lorraine, Crux Knight) to unlock element access; the champion is also pre-rested (Status 1) so the wake-up is observable. Necklace of Foresight (a REGALIA,ITEM) is seeded directly onto the field as the additional-cost fuel returned to the material deck. Without a [Class Bonus] discount, the full 1-reserve cost is paid, then both players decline the EffectStackActiveResponse opportunity window before the ability's own MZCHOOSE (which regalia to return) resolves, waking the champion and drawing a card.",
+    "testedCards": [
+        "qaA3sXFRFY"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["qaA3sXFRFY"],
+        "mechanics": ["cost", "draw-discard", "zone-movement", "status"],
+        "rulesClauses": [
+            "As an additional cost to activate this card, return a regalia you control to your material deck. Wake up your champion. Draw a card."
+        ]
+    }
+}

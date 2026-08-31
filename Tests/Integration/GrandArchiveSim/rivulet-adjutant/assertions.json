@@ -1,1 +1,56 @@
-[]
+[
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-2",
+        "property": "CardID",
+        "value": "y547d3iixm"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-2",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-2",
+        "property": "Damage",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-2",
+        "property": "Counters",
+        "value": "{\"omen\":1}"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-2",
+        "property": "TurnEffects",
+        "value": "[\"DAMAGED_SINCE_LAST_TURN\"]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1
+    }
+]

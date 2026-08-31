@@ -1,0 +1,5 @@
+[
+  {"step":5,"type":"decision_queue_empty","player":"all"},
+  {"step":5,"type":"card_property_equals","mzId":"p2Field-2","property":"CardID","value":"KEhmWGivJp","semantic":true,"label":"The control state has no Elysian Aura source"},
+  {"step":5,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"2","semantic":true,"label":"Aenean Frostlance deals only its base damage without Elysian Aura"}
+]

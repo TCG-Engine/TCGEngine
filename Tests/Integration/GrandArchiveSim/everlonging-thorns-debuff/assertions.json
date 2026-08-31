@@ -1,0 +1,5 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"theirField-1","property":"Counters","value":"{\"debuff\":2}","viewerPlayerID":1,"semantic":true,"label":"The targeted ally gains 2 debuff counters"},
+    {"step":5,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"C3YucOomEM","semantic":true,"label":"Everlonging Thorns is discarded to the graveyard after resolving"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

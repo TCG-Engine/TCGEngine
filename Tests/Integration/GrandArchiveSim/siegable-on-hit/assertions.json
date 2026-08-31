@@ -1,1 +1,91 @@
-[]
+[
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-4",
+        "property": "Counters",
+        "value": "{\"durability\":1}"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-4",
+        "property": "TurnEffects",
+        "value": "[\"CHAMP_DMG_BY_P2\"]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "{\"_champCombatDamageDealtThisTurn\":3}"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-0",
+        "property": "CardID",
+        "value": "tu7jvjf2gh"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-1",
+        "property": "CardID",
+        "value": "1wl8ao8bls"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-2",
+        "property": "CardID",
+        "value": "UdYcJGrJt5"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-2",
+        "property": "Counters",
+        "value": "{\"omen\":1}"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2Banish-2",
+        "property": "TurnEffects",
+        "value": "[\"SERVILE_POSSESSIONS_POWER_1\"]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p2GlobalEffects-0",
+        "property": "CardID",
+        "value": "CHAMP_DEALT_COMBAT_DMG"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 4
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirMemory",
+        "viewerPlayerID": 1,
+        "value": 2
+    }
+]

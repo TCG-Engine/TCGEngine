@@ -16,6 +16,46 @@ include_once __DIR__ . '/MaterializeLogic.php';
 include_once __DIR__ . '/PotionLogic.php';
 include_once __DIR__ . '/CardDQHandlers.php';
 
+// Validate an interactive board-zone answer against the pending decision's
+// candidate pool. The browser restricts clicks to that pool, but an action
+// request is still untrusted: without this check a client could pass any mzID
+// to a CUSTOM continuation and target a champion with an ally-only effect.
+// PASS remains valid for optional MZMAYCHOOSE decisions; mandatory-choice
+// decline behavior is intentionally left unchanged for compatibility.
+function GameValidateDecisionAnswer(int $player, string $answer): bool {
+    if ($answer === 'PASS' || $answer === '-' || $answer === '') return true;
+
+    $head = null;
+    foreach (GetDecisionQueue($player) as $decision) {
+        if (empty($decision->removed)) {
+            $head = $decision;
+            break;
+        }
+    }
+    if ($head === null) return true;
+    $type = strval($head->Type ?? '');
+    if ($type !== 'MZCHOOSE' && $type !== 'MZMAYCHOOSE') return true;
+
+    foreach (explode('&', strval($head->Param ?? '')) as $rawSpec) {
+        $spec = explode(':', $rawSpec)[0];
+        if ($spec === '') continue;
+        // A bare zone spec (for example myHand — a plain zone name and nothing else) permits
+        // any live object in it. Everything else is legal exactly as offered: a plain mzID
+        // ("myField-1"), a subcard mzID ("myField-1.u2"), or a compound Opportunity-window
+        // selector ("myIntent-0@Activate-0@Omen") that picks one of several abilities on the
+        // same card — none of those end in a bare "-\d+", so they must be matched literally
+        // rather than assumed to be zone specs needing further resolution.
+        if (preg_match('/^(my|their)[A-Za-z]+$/', $spec)) {
+            if (!preg_match('/^' . preg_quote($spec, '/') . '-\\d+$/', $answer)) continue;
+            $object = GetZoneObject($answer);
+            if ($object !== null && empty($object->removed)) return true;
+            continue;
+        }
+        if ($answer === $spec) return true;
+    }
+    return false;
+}
+
 function NormalizeGoldfishPlayers($players) {
     $normalized = [];
     if(!is_array($players)) return $normalized;
@@ -2001,8 +2041,10 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($hasNonChampionObjectLink && empty(GetNonChampionObjectLinkTargets($player))) return;
 
     // Nightmare Coil (3fe3c97s71): only while your champion is distant, and only during recollection.
+    // The recollection opportunity window is open while the phase code is "BREC" (BeforeRecollection) --
+    // "REC" (RecollectionPhase()) resolves synchronously with no player-facing window.
     if($sourceObject->CardID === "3fe3c97s71") {
-        if(GetCurrentPhase() !== "RECOLLECTION") return;
+        if(GetCurrentPhase() !== "BREC") return;
         $champMZ = FindChampionMZ($player);
         if($champMZ === null) return;
         $champObj = GetZoneObject($champMZ);
@@ -2394,6 +2436,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $hasMemoryInvocationCost     = false;
     $hasPiccardaStaticCost       = false;
     $hasZenaAltCost              = false;
+    $hasCryogenicRitualCost      = false;
     global $additionalActivationCosts;
     $hasAdditionalCost = false;
     if(isset($additionalActivationCosts[$obj->CardID])) {
@@ -2435,6 +2478,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $hasGoldenGambitCost = true;
             DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 100, tooltip:"Sacrifice_a_Chessman_ally");
             DecisionQueueController::AddDecision($player, "CUSTOM", "GoldenGambitActivationCost|" . $reserveCost, 100);
+        }
+    }
+
+    // 1.3 Declaring Costs - Cryogenic Ritual (FWinA77xF1): sacrifice an ally, then summon a Core
+    // Fractal token. The card's own cardActivatedAbilities body only summons the token; the
+    // "sacrifice an ally" additional cost was never actually paid anywhere, so it's declared here
+    // to match every other sacrifice-cost card in this function.
+    if($obj->CardID === "FWinA77xF1" && !$ignoreCost) {
+        $targets = ZoneSearch("myField", ["ALLY"]);
+        if(!empty($targets)) {
+            $hasCryogenicRitualCost = true;
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 100, tooltip:"Sacrifice_an_ally");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "CryogenicRitualCost|" . $reserveCost, 100);
         }
     }
 
@@ -2857,7 +2913,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -4187,6 +4243,25 @@ $customDQHandlers["GoldenGambitActivationCost"] = function($player, $parts, $las
  * Sacrifice the chosen ally, store its life stat for resolution, then pay reserve.
  * Parts: [reserveCost].
  */
+/**
+ * DQ handler: Cryogenic Ritual (FWinA77xF1) mandatory activation cost.
+ * Sacrifice the chosen ally, then pay reserve and grant opportunity. The card's own
+ * cardActivatedAbilities body (unaffected) summons the Core Fractal token once this
+ * resolves.
+ * Parts: [reserveCost].
+ */
+$customDQHandlers["CryogenicRitualCost"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0] ?? 0);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    DecisionQueueController::StoreVariable("additionalCostPaid", "YES");
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
 $customDQHandlers["DecomposeActivationCost"] = function($player, $parts, $lastDecision) {
     $reserveCost = intval($parts[0] ?? 0);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
@@ -5783,10 +5858,12 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 DecisionQueueController::CleanupRemovedCards();
             }
             break;
-        case "4FtNBFaOJp":
+        case "4FtNBFaOJp": // Dante, Hemomancer - (X), [REST]: deal X unpreventable damage and empower X
             if(intval($abilityIndex) === 0) {
                 $maxX = min(4, CountAvailableReservePayments($player));
                 if($maxX <= 0) break;
+                $sourceObj = GetZoneObject($mzCard);
+                if($sourceObj !== null) $sourceObj->Status = 1;
                 DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "1|" . $maxX, 100, tooltip:"Choose_X_for_Dante_Hemomancer");
                 DecisionQueueController::AddDecision($player, "CUSTOM", "DanteHemomancerXCost", 100);
             }
@@ -7072,6 +7149,16 @@ function OnLeaveField($player, $mzID) {
     else DecisionQueueController::StoreVariable("mzID", $previousMzID);
 }
 
+// Marks the zone object at $mzID as removed without moving it to another zone (e.g. a card
+// merging into a champion's lineage instead of going to the graveyard). Callers must invoke
+// DecisionQueueController::CleanupRemovedCards() afterward to actually prune it from its zone,
+// and call OnLeaveField() first if leave-field triggers should apply.
+function MZRemove($player, $mzID) {
+    $obj = GetZoneObject($mzID);
+    if ($obj === null) return;
+    $obj->Remove();
+}
+
 function MoveEffectStackCardToField($player, $mzCard) {
     $stackObj = GetZoneObject($mzCard);
     $cardID = $stackObj !== null ? $stackObj->CardID : "";
@@ -7491,7 +7578,13 @@ function DoAllyDestroyed($player, $mzCard) {
             for($lei = 0; $lei < count($leaField); ++$lei) {
                 if(!$leaField[$lei]->removed && $leaField[$lei]->CardID === "1XegCUjBnY" && !HasNoAbilities($leaField[$lei])) {
                     $leaUniqueID = intval($leaField[$lei]->UniqueID ?? 0);
-                    DecisionQueueController::AddDecision($controller, "CUSTOM", "LifeEssenceAmuletOffer|" . $leaUniqueID, 1);
+                    // dontSkipOnPass: this decision is often queued mid-cascade (e.g. from a
+                    // combat-damage kill) after the player has already answered an unrelated
+                    // "PASS" earlier in the same resolution chain. Without dontSkipOnPass, the
+                    // queue's stale $lastDecision=="PASS" from that earlier answer causes this
+                    // decision to be silently popped and skipped before ever reaching the
+                    // LifeEssenceAmuletOffer handler.
+                    DecisionQueueController::AddDecision($controller, "CUSTOM", "LifeEssenceAmuletOffer|" . $leaUniqueID, 1, dontSkipOnPass:1);
                     break;
                 }
             }
@@ -15461,6 +15554,14 @@ function ChampionDamageCounters($player) {
     $championObj = GetZoneObject($championMZ);
     if($championObj === null || $championObj->removed) return 0;
     return intval($championObj->Damage ?? 0);
+}
+
+// Alias for ChampionDamageCounters(): Relentless Outburst's generated ability code calls
+// GetChampionDamage($player), a name that was never actually defined anywhere, causing a fatal
+// crash. Every other "[Damage N+]" card uses ChampionDamageCounters() for the same "damage
+// counters currently on your champion" reading, so this just points the mistaken name at it.
+function GetChampionDamage($player) {
+    return ChampionDamageCounters($player);
 }
 
 $customDQHandlers["ScavengeChoose"] = function($player, $parts, $lastDecision) {

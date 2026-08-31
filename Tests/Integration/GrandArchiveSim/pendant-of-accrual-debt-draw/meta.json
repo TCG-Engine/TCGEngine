@@ -1,0 +1,17 @@
+{
+    "name": "Pendant of Accrual's REST, remove 2 debt counters: draw into memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T06:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Pendant of Accrual's element is NORM, so no lineage patch is needed, and its memory cost is NOT exercised for the same FSM-click-bypass reason as entrancing-filigree-enter-banish. It is seeded directly onto the field with 2 debt counters already present (normally only reachable via the opponent declining to pay at their recollection phase) so the ability's cost can actually be paid. The recollection-phase debt-accrual trigger itself is out of scope.",
+    "testedCards": [
+        "WUhbG91eRa"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["WUhbG91eRa"],
+        "mechanics": ["cost", "draw-discard", "zone-movement", "counter", "condition"],
+        "rulesClauses": [
+            "[REST], Remove two debt counters from CARDNAME: Draw a card into your memory."
+        ]
+    }
+}

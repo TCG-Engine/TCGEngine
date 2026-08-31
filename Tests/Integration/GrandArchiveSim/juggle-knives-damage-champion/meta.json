@@ -1,0 +1,17 @@
+{
+    "name": "Juggle Knives deals 1 damage to target champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Juggle Knives' element is NORM, so no lineage patch is needed. Without a [Class Bonus] discount, the full 2-reserve cost is paid. The starting champion is SPIRIT class, so the [Class Bonus] extra draw does not trigger, keeping the fixture to the base always-available damage effect. After reserve payment, both players decline the EffectStackActiveResponse opportunity window (P1 PASS, then P2 PASS resolves the stack), then the opponent's champion is chosen as the sole legal target.",
+    "testedCards": [
+        "7VxRE6HgZC"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["7VxRE6HgZC"],
+        "mechanics": ["cost", "targeting", "damage"],
+        "rulesClauses": [
+            "Deal 1 damage to target champion."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Aenean Ward prevents the next 2 damage to target unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T03:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Aenean Ward's element is NORM, so no lineage patch is needed. Only the base always-available prevention is covered; the [Class Bonus][Level 3+] bonus draw isn't reached (no class bonus or level condition set up), and it targets our own champion directly.",
+    "testedCards": [
+        "gqyWZXpxl9"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["gqyWZXpxl9"],
+        "mechanics": ["targeting", "damage", "prevention", "condition"],
+        "rulesClauses": [
+            "Prevent the next 2 damage that would be dealt to target unit this turn."
+        ]
+    }
+}

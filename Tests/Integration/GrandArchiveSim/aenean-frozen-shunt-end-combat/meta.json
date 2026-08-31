@@ -1,0 +1,18 @@
+{
+    "name": "Aenean Frozen Shunt ends the combat phase as a REACTION during the COMBAT_DAMAGE window",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Aenean Frozen Shunt's macro (cardActivatedAbilities[\"Fkpr1hCUGF:0\"]) is not gated behind combat -- it's a plain REACTION-speed spell that calls EndCombat() only if IsCombatActive() happens to be true when it resolves. Its speed comes from CardSpeed()/subtype REACTION making it a candidate in every GetPlayableOpportunityChoices() call (BEOP end-step windows, materialize-phase EffectStackOpportunity rounds, and the COMBAT_DAMAGE window opened by FinalizeAttackDeclaration right before damage -- GrandArchiveSim/Custom/CombatLogic.php:2902) -- so it has to be explicitly declined at every earlier opportunity window in the fixture's action sequence before it's finally activated at the one window that matters. Setup needs three separate overrides: Subcards patched with Spirit of Water (tafqldAGRF) for the WATER element gate (CanPlayerMeetCardElementRequirements -> GetChampionLineage()); Counters['_overrides']['classes'] = 'MAGE' for the [Class Bonus] gate (IsClassBonusActive checks the card's own printed classes, CLERIC/MAGE); and a 'level' counter of 4 for the [Level 4+] gate (PlayerLevel() -> ObjectCurrentLevel() adds GetCounterCount($obj, 'level') on top of the champion's base printed level, GrandArchiveSim/Custom/GameLogic.php:12933-12936). Emberslash is used purely as a vehicle to get a real attack declared (no class-bonus override is given for its own WARRIOR-gated trigger, so it stays inert and doesn't add noise); once the attack is declared and the COMBAT_DAMAGE window opens, activating Aenean Frozen Shunt ends combat before CombatDealDamage ever fires -- asserted directly by the defending champion's Damage staying 0 despite a live attack having been declared.",
+    "testedCards": [
+        "Fkpr1hCUGF"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["Fkpr1hCUGF"],
+        "mechanics": ["reaction", "combat", "draw-discard", "condition", "class-bonus", "level-requirement", "element-requirement"],
+        "rulesClauses": [
+            "If a unit is attacking, end the combat phase.",
+            "[Class Bonus] [Level 4+] Draw a card into your memory."
+        ]
+    }
+}

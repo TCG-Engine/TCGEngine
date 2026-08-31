@@ -6,10 +6,10 @@
 // Play/Resource/Leader-Base) and there is no card-identifier translation step, since GA CardIDs
 // are already the stable UUID the external deckbuilders use.
 
-// Snapshot one seat's champion (cardId/element/classes/level/hp), or a zeroed shape if it
+// Snapshot one seat's champion (cardId/name/element/classes/level/hp), or a zeroed shape if it
 // couldn't be resolved (e.g. an early concede before any champion materialized).
 function GASnapshotChampion($seat) {
-    $out = ['championId' => '', 'element' => '', 'classes' => [], 'level' => 0, 'hp' => 0];
+    $out = ['championId' => '', 'championName' => '', 'element' => '', 'classes' => [], 'level' => 0, 'hp' => 0];
     if (!function_exists('FindChampionMZ') || !function_exists('GetZoneObject')) return $out;
     // FindChampionMZ resolves "myField" vs "theirField" relative to the ambient $playerID global,
     // NOT its own $player argument (GrandArchiveSim/Custom/CardDQHandlers.php) — same perspective
@@ -30,6 +30,7 @@ function GASnapshotChampion($seat) {
     $playerID = $savedPlayerID;
     if ($obj === null) return $out;
     $out['championId'] = strval($obj->CardID ?? '');
+    if (function_exists('CardName')) $out['championName'] = strval(CardName($out['championId']) ?? '');
     if (function_exists('EffectiveCardElement')) $out['element'] = strval(EffectiveCardElement($obj));
     if (function_exists('EffectiveCardClasses')) {
         $classes = EffectiveCardClasses($obj);
@@ -65,7 +66,7 @@ function GABuildGameResultPayload($match, $game) {
     $champions = $d['champions'] ?? ['1' => null, '2' => null];
     $buildPlayer = function($seat) use ($tel, $champions, $match) {
         $s = strval($seat);
-        $champ = $champions[$s] ?? ['championId' => '', 'element' => '', 'classes' => [], 'level' => 0, 'hp' => 0];
+        $champ = $champions[$s] ?? ['championId' => '', 'championName' => '', 'element' => '', 'classes' => [], 'level' => 0, 'hp' => 0];
         $cardStats = [];
         foreach (($tel['cards'][$s] ?? []) as $cid => $c) {
             $cardStats[strval($cid)] = [
@@ -86,7 +87,8 @@ function GABuildGameResultPayload($match, $game) {
         }
         return [
             'deckLink' => strval($match['players'][$s]['deckLink'] ?? ''),
-            'championId' => $champ['championId'], 'element' => $champ['element'], 'classes' => $champ['classes'],
+            'championId' => $champ['championId'], 'championName' => strval($champ['championName'] ?? ''),
+            'element' => $champ['element'], 'classes' => $champ['classes'],
             'endLevel' => intval($champ['level']), 'endHp' => intval($champ['hp']),
             // Cast so an empty map serializes as `{}` rather than PHP's ambiguous empty `[]`.
             'cardStats' => (object)$cardStats, 'turnStats' => $turnStats,

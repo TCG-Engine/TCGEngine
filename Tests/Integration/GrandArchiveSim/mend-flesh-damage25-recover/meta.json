@@ -1,0 +1,18 @@
+{
+    "name": "Mend Flesh's Damage 25+ discount and Recover 8",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T22:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Mend Flesh is an EXIA (advanced element) ACTION card, so the starting champion's Subcards are patched with a real EXIA champion (Dante, Hemomancer) to unlock element access. The starting champion's Damage is pre-set to 25 to both reach the [Damage 25+] discount condition and make the unconditional Recover 8 observable as a Damage decrease. The discount reduces the 2-reserve cost to 0, so no reserve payment decisions are needed.",
+    "testedCards": [
+        "ju2d98w3j0"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ju2d98w3j0"],
+        "mechanics": ["cost", "damage", "recover", "condition"],
+        "rulesClauses": [
+            "[Damage 25+] This card costs 2 less to activate.",
+            "Recover 8."
+        ]
+    }
+}

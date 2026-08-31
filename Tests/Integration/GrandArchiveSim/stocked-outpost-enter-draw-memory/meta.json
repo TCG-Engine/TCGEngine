@@ -1,0 +1,17 @@
+{
+    "name": "Stocked Outpost's On Enter draws a card into memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T20:07:37+00:00",
+    "createdBy": "Codex",
+    "notes": "Plays Stocked Outpost (a NORM siegeable domain, no element unlock needed) and confirms its On Enter ability draws a card into memory, on top of the two reserve payments that also move hand cards into memory. Does not cover the On Destroy trigger, which requires reducing its durability to 0 via siege combat damage.",
+    "testedCards": [
+        "AOMXEGeSQk"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["AOMXEGeSQk"],
+        "mechanics": ["cost", "zone-movement", "counter"],
+        "rulesClauses": [
+            "On Enter: Draw a card into your memory."
+        ]
+    }
+}

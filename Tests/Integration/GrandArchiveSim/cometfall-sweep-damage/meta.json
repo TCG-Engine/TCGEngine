@@ -1,0 +1,17 @@
+{
+    "name": "Cometfall deals 3 damage to all non-Astra units",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T06:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Cometfall is an ASTRA (advanced element) ACTION card, so the starting champion's Subcards are patched with a real ASTRA champion (Arisanna, Astral Zenith) to unlock element access -- note this only grants element ACCESS, it doesn't change the champion's own element (both starting champions remain FIRE, so both take the sweep damage). No targeting decision is needed since the effect hits all non-Astra units unconditionally. Without the [Class Bonus] (CLERIC), the damage is the base 3, not the boosted 4. The Starcalling alternate-cost clause is tied to the glimpse subsystem and is out of scope.",
+    "testedCards": [
+        "4d5vettczb"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["4d5vettczb"],
+        "mechanics": ["cost", "damage", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Deal 3 damage to all non-astra element units. Class Bonus: Deal 4 damage to those units instead."
+        ]
+    }
+}

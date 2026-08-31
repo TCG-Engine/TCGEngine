@@ -1,0 +1,17 @@
+{
+    "name": "Fulminator, Rising Storm enters with LV-2 static counters under the Lorraine Bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Fulminator's element is ARCANE and its Lorraine Bonus (IsLorraineBonusActive) requires Lorraine, Wandering Warrior (DpHDGaX2Pn) specifically in lineage, not just any Lorraine-named champion. The starting champion's CardID is patched directly to Lorraine, Arclight Saber (level 3, ARCANE -- unlocks the card's element) and its Subcards are patched with Lorraine, Wandering Warrior to satisfy the Lorraine Bonus lineage check. This deck's Main list is 4 copies of Fulminator plus 3 filler types (16 unique cards total), so the natural opening hand already contains several Fulminator copies -- no explicit hand-seed setup step is needed (an earlier attempt seeded one directly into a specific hand slot, but with this Main composition the natural draw already puts multiple copies in hand, so the seed only shifted indices and caused the fixture to accidentally play a different card by index; verified live via a hand-listing debug dump before settling on plain myHand-0). On Enter puts max(0, LV-2) static counters on itself (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php, enterAbilities[\"F1JIgewvFI:0\"]); at champion level 3 that's 1 static counter, confirmed in the final Counters (durability:3 is Fulminator's own printed weapon durability, unrelated to this ability).",
+    "testedCards": [
+        "F1JIgewvFI"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["F1JIgewvFI"],
+        "mechanics": ["condition", "counter", "trigger"],
+        "rulesClauses": [
+            "[Lorraine Bonus] Fulminator enters the field with LV-2 static counters on it."
+        ]
+    }
+}

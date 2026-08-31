@@ -1,0 +1,17 @@
+{
+    "name": "Harvest Herbs gathers a random herb token",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Harvest Herbs' element is NORM, so no lineage patch is needed. Without a [Class Bonus] discount, the full 1-reserve cost is paid with a single hand card. Gather() summons one of six herb tokens chosen via the engine's deterministic RNG (seed 42, set by the fixture harness), which resolves to Blightroot for this exact action sequence -- no player decision is involved.",
+    "testedCards": [
+        "zadf9q1wl8"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zadf9q1wl8"],
+        "mechanics": ["cost", "zone-movement", "token"],
+        "rulesClauses": [
+            "Gather. (To gather, summon a Blightroot, Manaroot, Silvershine, Fraysia, Razorvine, or Springleaf token, chosen at random.)"
+        ]
+    }
+}

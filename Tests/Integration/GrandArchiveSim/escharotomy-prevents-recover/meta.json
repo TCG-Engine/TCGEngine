@@ -1,0 +1,9 @@
+{
+    "name": "escharotomy-prevents-recover",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-27T15:04:42+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "CIU4gT14EE"
+    ]
+}

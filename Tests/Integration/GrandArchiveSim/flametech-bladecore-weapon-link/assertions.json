@@ -1,0 +1,6 @@
+[
+    {"step":7,"type":"card_property_equals","mzId":"myField-2","property":"CardID","value":"aAJliPQT3F","semantic":true,"label":"FlameTech BladeCore enters the field"},
+    {"step":7,"type":"card_property_equals","mzId":"myField-2","property":"Counters","value":"{\"linkedToWeapon\":\"m31WVJ9F04\"}","semantic":true,"label":"FlameTech BladeCore records its link target as Clarent, Sword of Peace"},
+    {"step":7,"type":"card_property_equals","mzId":"myField-1","property":"Subcards","value":"[\"aAJliPQT3F\"]","semantic":true,"label":"Clarent, Sword of Peace records FlameTech BladeCore as a linked Subcard"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

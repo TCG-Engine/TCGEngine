@@ -1,0 +1,17 @@
+{
+    "name": "Rally the Peasants looks at top 6, reveals a Human into hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Rally the Peasants' element is WIND, so the starting champion's Subcards are patched with a real WIND champion (Spirit of Wind) to unlock element access. Without the [Class Bonus] discount (opponent needs 3+ allies), the full 3-reserve cost is paid. The deck's Main section is loaded with 8 copies of Formidable Youxia (a Human ALLY) so the deterministic seed=42 shuffle reliably reveals Humans in the top 6; this run revealed all 4 remaining copies. The MZREARRANGE decision is answered with ToHand=<humanID> to pull one into hand (the rest return to the bottom of the deck, already the default). Only the base look/reveal/hand effect is covered.",
+    "testedCards": [
+        "q1uwq8sdbz"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["q1uwq8sdbz"],
+        "mechanics": ["cost", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Look at the top six cards of your deck. You may reveal a Human card from among them and put it into your hand. Put the rest on the bottom of your deck in any order."
+        ]
+    }
+}

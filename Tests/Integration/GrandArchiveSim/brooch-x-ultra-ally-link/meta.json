@@ -1,0 +1,17 @@
+{
+    "name": "Brooch X Ultra's Ally Link enters the field linked to a target ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Mirrors flametech-bladecore-weapon-link's shape for the Ally Link keyword rather than Weapon Link. Brooch X Ultra is ARCANE element, and the starting champion's Subcards is already patched with Lorraine, Arclight Saber (x9sSpjpP3G, ARCANE) for the element gate, same as conductive-strike-static-counters. Ally Link is generic engine machinery ($AllyLink_Cards, a plain boolean set at GrandArchiveSim/Custom/GameLogic.php:864) -- Brooch X Ultra has no per-card macro in GeneratedMacroCode.php at all. Dungeon Guide (em6eEh9q8y, ALLY) is seeded onto the field as the link target; activating Brooch X Ultra from hand queues an MZCHOOSE over valid allies (GameLogic.php:2203-2208), and selecting one calls CreateAllyLink, which stores the link on both sides as plain properties (GameLogic.php:22572-22587): the ally's Subcards gains the linking card's CardID, and Brooch X Ultra's own Counters gets 'linkedToAlly' => the ally's CardID. Both are asserted directly. The '+2POWER' and 'On Attack: banish a random memory card to draw' clauses read that link at computed-value/listener-dispatch time with no additional independently stored state of their own, so they're out of scope here.",
+    "testedCards": [
+        "3Gx9ByIl9t"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["3Gx9ByIl9t"],
+        "mechanics": ["targeting", "zone-movement", "condition", "element-requirement"],
+        "rulesClauses": [
+            "Ally Link"
+        ]
+    }
+}

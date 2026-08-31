@@ -1,0 +1,6 @@
+[
+    {"step":7,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"NwK5wge8wy","semantic":true,"label":"Alpha Philterbeast enters the field after being brewed"},
+    {"step":7,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":2,"semantic":true,"label":"The 3 sacrificed herb tokens leave the field, leaving only the champion and Alpha Philterbeast"},
+    {"step":7,"type":"card_property_equals","mzId":"myField-1","property":"Counters","value":"{\"age\":2}","viewerPlayerID":1,"semantic":true,"label":"Alpha Philterbeast gets 2 age counters for being brewed"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,15 @@
+{
+  "name": "Hemoflux Drain does not receive its discount below Damage 20",
+  "rootName": "GrandArchiveSim",
+  "baseFixture": "siegable-on-hit",
+  "initialGamestateReplacements": [
+    {"from":"tu7jvjf2gh\nUdYcJGrJt5\n6","to":"tu7jvjf2gh\nzHhOcG9MfK\n6"},
+    {"from":"nn48ne8a05 2 2 0 2 - - WyI3NHdhNHg3ZTIyIl0= 10","to":"4FtNBFaOJp 2 2 19 2 - - WyJVNXJrVDBKUnpDIl0= 10"}
+  ],
+  "testedCards": ["zHhOcG9MfK"],
+  "semanticCoverage": {
+    "testedCards": ["zHhOcG9MfK"],
+    "mechanics": ["cost", "condition"],
+    "rulesClauses": ["Below twenty damage counters, Hemoflux Drain retains its full reserve cost of 5."]
+  }
+}

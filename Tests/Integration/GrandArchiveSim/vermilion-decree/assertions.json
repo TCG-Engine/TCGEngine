@@ -1,1 +1,119 @@
-[]
+[
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Counters",
+        "value": "{\"quest\":1}"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"vz4kc558yx-ACTION_ACTIVATED\"]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-0",
+        "property": "CardID",
+        "value": "cUltOcPo26"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-1",
+        "property": "CardID",
+        "value": "gt2zqtgs42"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "vZH2xr4yq2"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "tjej4mcnqs"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "pfstbz0i63"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "jjGLZKfRn5"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-2",
+        "property": "CardID",
+        "value": "k2d3ca13yr"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Damage",
+        "value": "5"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"_champDamageThisTurn\":5}"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "Damage",
+        "value": "2"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "TurnEffects",
+        "value": "[\"DAMAGED_SINCE_LAST_TURN\"]"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 3
+    }
+]

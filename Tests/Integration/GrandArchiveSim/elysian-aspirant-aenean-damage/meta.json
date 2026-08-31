@@ -1,0 +1,16 @@
+{
+  "name": "Elysian Aspirant increases Aenean Spell unit damage",
+  "rootName": "GrandArchiveSim",
+  "baseFixture": "siegable-on-hit",
+  "initialGamestateReplacements": [
+    {"from":"tu7jvjf2gh\nUdYcJGrJt5\n6","to":"tu7jvjf2gh\nNXGaB1dYwL\n6"},
+    {"from":"nn48ne8a05 2 2 0 2 - - WyI3NHdhNHg3ZTIyIl0= 10","to":"apVtyt48u3 2 2 0 2 - - WyJVNXJrVDBKUnpDIl0= 10"},
+    {"from":"9ewgUjy34b 2 2 0 2 - - - 11","to":"HHtlkEeyQR 2 2 0 2 - - - 11"}
+  ],
+  "testedCards": ["HHtlkEeyQR"],
+  "semanticCoverage": {
+    "testedCards": ["HHtlkEeyQR"],
+    "mechanics": ["damage", "replacement", "condition", "passive"],
+    "rulesClauses": ["If an Aenean Spell source you control would deal damage to one or more units, it deals that much damage plus 1 to those units instead."]
+  }
+}

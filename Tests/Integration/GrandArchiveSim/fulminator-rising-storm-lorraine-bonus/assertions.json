@@ -1,0 +1,5 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"myField-1","property":"CardID","value":"F1JIgewvFI","semantic":true,"label":"Fulminator, Rising Storm is on the field"},
+    {"step":5,"type":"card_property_equals","mzId":"myField-1","property":"Counters","value":"{\"durability\":3,\"static\":1}","semantic":true,"label":"The Lorraine Bonus grants LV-2 (level 3 - 2 = 1) static counters on enter"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

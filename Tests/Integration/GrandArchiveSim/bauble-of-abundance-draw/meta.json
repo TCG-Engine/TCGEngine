@@ -1,0 +1,17 @@
+{
+    "name": "Bauble of Abundance banishes itself so each player draws a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Bauble of Abundance's element is NORM, so no lineage patch is needed; it is seeded directly onto the field (REGALIA convention). Its ability is banish-self at zero reserve cost: a single CustomInput Activate click draws a card for the activating player, draws a card for the opponent, and moves the bauble to myBanish.",
+    "testedCards": [
+        "Z9TCpaMJTc"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["Z9TCpaMJTc"],
+        "mechanics": ["cost", "zone-movement", "draw-discard"],
+        "rulesClauses": [
+            "Banish CARDNAME: Each player draws a card."
+        ]
+    }
+}

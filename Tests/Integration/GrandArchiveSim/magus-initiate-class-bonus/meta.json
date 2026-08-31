@@ -1,0 +1,11 @@
+{
+  "name":"Magus Initiate receives its class bonus",
+  "rootName":"GrandArchiveSim",
+  "createdBy":"Codex",
+  "testedCards":["fZ08zyFIlz"],
+  "semanticCoverage":{
+    "testedCards":["fZ08zyFIlz"],
+    "mechanics":["cost","class-bonus","on-enter","empower"],
+    "rulesClauses":["When its controller has Cleric or Mage class bonus, Magus Initiate empowers that player's champion by two as it enters."]
+  }
+}

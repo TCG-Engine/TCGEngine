@@ -1,0 +1,6 @@
+[
+    {"step":1,"type":"decision_queue_empty","player":"all"},
+    {"step":1,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"Playing Luxem Sight and drawing a card leave hand size unchanged: 1 card played, 1 card drawn"},
+    {"step":1,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"uwnHTLG3fL","semantic":true,"label":"Luxem Sight resolves to the graveyard after activation"},
+    {"step":1,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":8,"semantic":true,"label":"A card is actually drawn from the deck, not just left in hand unplayed"}
+]

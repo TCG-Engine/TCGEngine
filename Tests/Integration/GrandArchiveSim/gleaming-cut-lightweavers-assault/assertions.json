@@ -1,1 +1,148 @@
-[]
+[
+    {
+        "step": 9,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "2"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"DAMAGED_SINCE_LAST_TURN\"]"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "4",
+        "semantic": true,
+        "label": "Gleaming Cut deals four combat damage after receiving its two-power Luxem reveal bonus"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Counters",
+        "value": "{\"_champCombatDamageDealtThisTurn\":2,\"_champDamageThisTurn\":4}"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"WAS_ATTACKED\",\"DAMAGED_SINCE_LAST_TURN\",\"CHAMP_DMG_BY_P2\"]"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"preparation\":3,\"_champCombatDamageDealtThisTurn\":4}"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\",\"qufoIF014c_POWER\"]",
+        "semantic": true,
+        "label": "Revealing a Luxem memory card applies Gleaming Cut's power modifier"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-0",
+        "property": "CardID",
+        "value": "cnqsm3n9yv"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-2",
+        "property": "CardID",
+        "value": "qufoIF014c",
+        "semantic": true,
+        "label": "Gleaming Cut completes the attack and moves to the graveyard"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-2",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-0",
+        "property": "CardID",
+        "value": "zxB4tzy9iy"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-1",
+        "property": "CardID",
+        "value": "zxB4tzy9iy",
+        "semantic": true,
+        "label": "The chosen revealed memory card is Luxem element Lightweaver's Assault"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-2",
+        "property": "CardID",
+        "value": "uwnHTLG3fL"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-3",
+        "property": "CardID",
+        "value": "zxB4tzy9iy"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p2GlobalEffects-1",
+        "property": "CardID",
+        "value": "CHAMP_DEALT_COMBAT_DMG"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "theirMemory",
+        "viewerPlayerID": 1,
+        "value": 4
+    }
+]

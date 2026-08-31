@@ -1,0 +1,18 @@
+{
+    "name": "Fortified Mana Shield's Class Bonus taunt discount and non-combat damage prevention",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T19:12:01+00:00",
+    "createdBy": "Codex",
+    "notes": "Seeds a GUARDIAN champion (Ciel, Loyal Valet) for the Class Bonus and a Dungeon Guide flagged with TAUNT, then plays Fortified Mana Shield for 0 reserve and confirms the prevention effect lands on the chosen unit.",
+    "testedCards": [
+        "5lh23qu7d6"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["5lh23qu7d6"],
+        "mechanics": ["cost", "condition", "targeting", "prevention", "damage"],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate if its activation targets a unit with taunt.",
+            "The next time target unit would take non-combat damage this turn, prevent 4 of that damage."
+        ]
+    }
+}

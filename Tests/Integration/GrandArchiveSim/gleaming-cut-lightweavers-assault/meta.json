@@ -2,5 +2,14 @@
     "name": "gleaming-cut-lightweavers-assault",
     "rootName": "GrandArchiveSim",
     "createdAt": "2026-06-12T17:26:48+02:00",
-    "createdBy": "5"
+    "createdBy": "5",
+    "testedCards": ["qufoIF014c"],
+    "semanticCoverage": {
+        "testedCards": ["qufoIF014c"],
+        "mechanics": ["attack", "on-attack", "memory-reveal", "element-condition", "power-modifier", "combat-damage"],
+        "rulesClauses": [
+            "On attack, Gleaming Cut reveals a chosen memory card.",
+            "When the revealed card is Luxem element, Gleaming Cut gets plus two power for that attack."
+        ]
+    }
 }

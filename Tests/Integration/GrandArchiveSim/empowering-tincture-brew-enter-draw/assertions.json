@@ -1,0 +1,6 @@
+[
+    {"step":6,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"9g44vm5kt3","semantic":true,"label":"Brewing with the sacrificed herbs pays the alternate cost and Empowering Tincture enters the field"},
+    {"step":6,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":1,"semantic":true,"label":"Since Empowering Tincture was brewed, its On Enter draws a card into memory"},
+    {"step":6,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":2,"semantic":true,"label":"Both sacrificed herbs leave the field, only the champion and the brewed item remain"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

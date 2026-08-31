@@ -1,0 +1,4 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-1","property":"Damage","value":"0","semantic":true,"label":"All 2 pre-existing damage is removed from the targeted ally"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

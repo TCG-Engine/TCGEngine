@@ -1,0 +1,17 @@
+{
+    "name": "Fan of Seven Debts' On Enter draws a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-29T23:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Fan of Seven Debts' element is NORM, so no lineage patch is needed, and its memory cost (1) is NOT exercised for the same FSM-click-bypass reason as entrancing-filigree-enter-banish. Only the On Enter draw is covered; the [Kongming Bonus] 'banish for Shifting Currents' ability is tied to a separate facing-state subsystem and is out of scope.",
+    "testedCards": [
+        "k9zhw0gbov"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["k9zhw0gbov"],
+        "mechanics": ["draw-discard", "zone-movement", "trigger"],
+        "rulesClauses": [
+            "On Enter: Draw a card."
+        ]
+    }
+}

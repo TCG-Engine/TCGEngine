@@ -1,0 +1,5 @@
+[
+    {"step":6,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"5X5W2Uda5a","semantic":true,"label":"Planted Explosive is discarded to the graveyard after resolving"},
+    {"step":6,"type":"card_property_equals","mzId":"theirField-1","property":"Damage","value":"2","viewerPlayerID":1,"semantic":true,"label":"Planted Explosive deals 2 (not prepared) damage to the targeted unit"},
+    {"step":6,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,17 @@
+{
+    "name": "Emberslash's Class Bonus On Attack discards a card to draw a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "First fixture in this backlog to exercise an ATTACK-type card's on-attack trigger (onAttackAbilities, invoked from GrandArchiveSim/Custom/CombatLogic.php around line 1627, distinct from the cardActivatedAbilities macro other card types use). Emberslash's trigger is gated behind [Class Bonus] (IsClassBonusActive), which reads EffectiveCardClasses() -- CardClasses($obj->CardID) unless a Counters['_overrides']['classes'] override is present (GrandArchiveSim/Custom/GameLogic.php:21116-21121) -- so the starting level-0 champion (Spirit of Fire, class SPIRIT) is patched directly to class WARRIOR via that override, the same mechanism a real in-game class-change effect would use, rather than scripting a full champion level-up. Emberslash is seeded to a known hand slot, played from hand (pays its 1 reserve cost by resting a hand card), and declared as an attack against the opponent's champion (the only legal target on an otherwise-empty board). FirebirdTrailblazerOnAttack (shared helper, also used by other 'discard to draw' cards) queues a YES/NO decision, then an MZCHOOSE to pick the discard; answering YES and discarding myHand-0 confirms both halves of 'You may discard a card. If you do, draw a card.' Emberslash's reminder text about resting the champion as an additional attack cost is enforced automatically by the attack-declaration flow (Status goes 2 -> 1), not a separate assertable effect.",
+    "testedCards": [
+        "0xylS3OcNa"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["0xylS3OcNa"],
+        "mechanics": ["attack", "on-attack", "draw-discard", "combat-damage", "class-bonus"],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may discard a card. If you do, draw a card."
+        ]
+    }
+}

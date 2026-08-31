@@ -1,0 +1,17 @@
+{
+    "name": "Guerrilla Advantage puts two preparation counters on your champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T01:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Guerrilla Advantage's element is NORM, so no lineage patch is needed. Only the base always-available effect is covered; the discount condition (an opponent controlling 3+ units) isn't reached here, so the full 4-reserve cost is paid.",
+    "testedCards": [
+        "JxCzS4XJ3V"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["JxCzS4XJ3V"],
+        "mechanics": ["cost", "condition"],
+        "rulesClauses": [
+            "Put two preparation counters on your champion."
+        ]
+    }
+}

@@ -1,1 +1,63 @@
-[]
+[
+    {
+        "step": 3,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "W0WfIEDs3n"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 3,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 3,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1
+    }
+]

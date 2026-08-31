@@ -1,1 +1,98 @@
-[]
+[
+    {
+        "step": 6,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-6",
+        "property": "Damage",
+        "value": "29"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-6",
+        "property": "Counters",
+        "value": "{\"_champDamageThisTurn\":5}"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-6",
+        "property": "TurnEffects",
+        "value": "[\"DAMAGED_SINCE_LAST_TURN\",\"CHAMP_DMG_BY_P2\"]"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Counters",
+        "value": "{\"_champCombatDamageDealtThisTurn\":10}"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "Counters",
+        "value": "{\"durability\":1}"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-2",
+        "property": "CardID",
+        "value": "2snsdwmxz1"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-6",
+        "property": "CardID",
+        "value": "bro89w0ejc"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Material-4",
+        "property": "CardID",
+        "value": "XgzTexcCSA"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2Material-4",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p2GlobalEffects-0",
+        "property": "CardID",
+        "value": "CHAMP_DEALT_COMBAT_DMG"
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 6,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 7
+    }
+]
