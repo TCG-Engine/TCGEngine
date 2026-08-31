@@ -611,8 +611,25 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         box-sizing: border-box;
         width: calc(var(--swu-col-w) - 2 * var(--swu-arena-margin) + 2 * var(--swu-rot-bleed));
         padding: calc(var(--swu-rot-bleed) + var(--swu-arena-pad));
-        overflow: hidden; border-radius: 0;
+        /* ⚠ SCROLL THE SURPLUS ROWS, don't clip them. This column is position:fixed between the hand
+           row and the midline, so a side holding more units than fit (15 is easy: 3 bodies + a 12-droid
+           screen) wrapped into rows that were simply GONE — unreachable while choosing an attack target
+           or distributing Advantage, because there was nothing to scroll.
+           ⚠ overflow-x stays HIDDEN, not visible: a `visible` axis forces the other to `auto`, which is
+           the trap already documented for the leader/base/deck wrappers below (it would crop the wide
+           rotated card). `hidden` is byte-identical to today's behaviour horizontally and, unlike
+           `clip`, needs no Safari 16 floor. The rotation bleed still fits — it lives inside the padding. */
+        overflow-x: hidden; overflow-y: auto; border-radius: 0;
+        scrollbar-gutter: stable;        /* reserve the track so appearing/vanishing never re-wraps a row */
+        scrollbar-width: thin; scrollbar-color: rgba(150,180,210,0.45) transparent;
     }
+    .swu-arena-col::-webkit-scrollbar { width: 8px; }
+    .swu-arena-col::-webkit-scrollbar-track { background: transparent; }
+    .swu-arena-col::-webkit-scrollbar-thumb {
+        background: rgba(150,180,210,0.40); border-radius: 4px;
+        border: 2px solid transparent; background-clip: padding-box;
+    }
+    .swu-arena-col:hover::-webkit-scrollbar-thumb { background: rgba(170,200,230,0.65); background-clip: padding-box; }
     .swu-arena-col-space  { background: transparent; left: calc(var(--swu-space-left)  + var(--swu-arena-margin) - var(--swu-rot-bleed)); }
     .swu-arena-col-ground { background: transparent; left: calc(var(--swu-ground-left) + var(--swu-arena-margin) - var(--swu-rot-bleed)); }
     .swu-arena-col-top    { top: calc(var(--swu-hand-h) + var(--swu-arena-margin) - var(--swu-rot-bleed)); bottom: calc(var(--swu-midline) + 4px - var(--swu-rot-bleed)); }
@@ -652,7 +669,12 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     body.swu-home #swuTheirControlBand .swu-init-control { display: none !important; }
 
     /* Card flow inside arena cols — wrap, fill from edge nearest midline */
-    #theirSpaceArena, #theirGroundArena { flex-wrap: wrap !important; align-content: flex-end !important; }
+    /* ⚠ `safe` is load-bearing now that the column scrolls. Their arena packs rows toward the midline
+       (flex-end), and an END-aligned flex container that OVERFLOWS pushes the surplus off the START
+       edge — where scrolling cannot reach it, because scroll offsets can't go negative. `safe` tells
+       the browser to fall back to start alignment the moment it overflows, which keeps every row
+       reachable. My arena is flex-start and never had the problem. */
+    #theirSpaceArena, #theirGroundArena { flex-wrap: wrap !important; align-content: safe flex-end !important; }
     #mySpaceArena,    #myGroundArena    { flex-wrap: wrap !important; align-content: flex-start !important; }
     /* Horizontal: both arenas flow inside-out from the midline. Ground (right column) builds left→right
        from its center-facing LEFT edge (flex-start). Space (left column) mirrors it: row-reverse pins
@@ -753,6 +775,24 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-base-tab-arrest:hover, .swu-base-tab-arrest:focus-visible {
         background: rgba(218,165,32,0.9); color: #fff; outline: none; }
     .swu-base-tab-n { font-size: 11px; font-weight: 900; }
+
+    /* ── Stacked-token count badge ("x30") ──────────────────────────────────────────────────────
+       A run of 4+ of the SAME groupable token (Experience / Advantage / Weakness — NOT Shields)
+       collapses to ONE 18px sliver carrying this badge, instead of one sliver each. Helgait doubled
+       by Chimaera reaches 40 power off 34 subcards, which as individual slivers ran ~610px down the
+       board and buried the arena rows underneath.
+       Centred on the sliver: the concat crop's bottom band prints +power on the LEFT and +HP on the
+       RIGHT, so the middle is the one region with nothing behind it. Sized to stay inside an 18px
+       strip, and pointer-events:none on the wrapper so the sliver underneath keeps its hover/detail. */
+    .swu-token-stack-pill {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-width: 22px; height: 13px; padding: 0 5px; box-sizing: border-box;
+        font: 900 10px/1 var(--swu-font-label, sans-serif); letter-spacing: 0.04em;
+        color: #fff; background: rgba(10, 20, 30, 0.86);
+        border: 1px solid rgba(255, 255, 255, 0.42); border-radius: 7px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+    }
 
     /* Inner slots inside center columns are relative, not fixed */
     .swu-center-inner {

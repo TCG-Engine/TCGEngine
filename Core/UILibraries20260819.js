@@ -1896,6 +1896,40 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             // a Shield is a legal target for upgrade-targeting effects (JTL_242 et al), and two
             // Shields on one unit are distinguishable ONLY by that key. A count cannot address them.
             var shieldSubIdx = [], sliverIdx = 0, lineageCards = [];
+            // ── STACKED-TOKEN GROUPING ────────────────────────────────────────────────────────────
+            // A token that arrives in bulk (Helgait doubled by Chimaera reaches 40 power = 4 Experience
+            // + 30 Advantage) renders one 18px sliver EACH, so 34 subcards run ~610px down the board and
+            // bury the arena rows beneath. Collapse a run of the SAME token into ONE sliver carrying an
+            // "xN" badge instead.
+            //
+            // ⚠ Keyed on the token's TITLE, not its CardID: Experience has SEVEN printings
+            // (SOR_T01/SHD_T01/JTL_T03/LAW_T02/LOF_T01/SEC_T02/TS26_T03) and a unit can legitimately hold
+            // a mix of them — they are the same token and must group together.
+            // ⚠ SHIELDS ARE DELIBERATELY EXCLUDED: they already render as orbs, and two Shields on one
+            // unit are individually addressable (see shieldSubIdx below).
+            var SWU_GROUPABLE_TOKENS = { 'experience': 1, 'advantage': 1, 'weakness': 1 };
+            var SWU_TOKEN_GROUP_MIN  = 4;   // 1-3 render normally; 4+ collapse
+            function swuTokenGroupKey(id) {
+                var t = (window.titleData && window.titleData[id]) ? String(window.titleData[id]) : '';
+                t = t.trim().toLowerCase();
+                return SWU_GROUPABLE_TOKENS[t] ? t : null;
+            }
+            // Pre-pass: how many of each groupable token, and is any member individually SELECTABLE?
+            // ⚠ A collapsed group cannot be targeted per-subcard — the mzID "<zone>-<host>.uN" addresses
+            // ONE subcard, and hiding the others would make a legal target unclickable. So a group that
+            // the current decision offers stays expanded, however long it is.
+            var swuGroupCount = {}, swuGroupHasSelectable = {}, swuGroupSeen = {};
+            for (var pg = 0; pg < subcards.length; pg++) {
+                var pgc = subcards[pg];
+                if (pgc && (pgc.removed === true || pgc.removed === 'true')) continue;
+                var pgID = (typeof pgc === 'string') ? pgc : (pgc && pgc.CardID ? pgc.CardID : null);
+                if (!pgID || pgID === '-') continue;
+                var pgKey = swuTokenGroupKey(pgID);
+                if (!pgKey) continue;
+                swuGroupCount[pgKey] = (swuGroupCount[pgKey] || 0) + 1;
+                if (selectionModeActive && typeof IsSelectableSubcard === 'function'
+                        && IsSelectableSubcard(zone, i, pg)) swuGroupHasSelectable[pgKey] = true;
+            }
             var sliver = 18; // px each SWU subcard sliver shows below the unit card
             // Vertical anchor (object-position-y) for a pilot sliver — unit pilots (full portrait) and
             // leader pilots (_back side) share the same layout: the +X/+Y "while attached" band sits ~88%
@@ -1944,6 +1978,16 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
               if (scIsLeaderPilot)    lineageSrc = "./" + subFolder + "/WebpImages/" + resolveCardImageID(scID) + "_back.webp";
               else if (scIsUnitPilot) lineageSrc = "./" + subFolder + "/WebpImages/" + resolveCardImageID(scID) + ".webp";
               else                    lineageSrc = "./" + subFolder + "/concat/" + resolveCardImageID(scID) + ".webp";
+              // Collapsed group: draw the FIRST member only, then skip its siblings. The badge is
+              // appended after the img below.
+              var scGroupKey = swuTokenGroupKey(scID);
+              var scGroupN   = 0;
+              if (scGroupKey && (swuGroupCount[scGroupKey] || 0) >= SWU_TOKEN_GROUP_MIN
+                      && !swuGroupHasSelectable[scGroupKey]) {
+                  if (swuGroupSeen[scGroupKey]) continue;         // a sibling already drew this group
+                  swuGroupSeen[scGroupKey] = true;
+                  scGroupN = swuGroupCount[scGroupKey];
+              }
               var li = sliverIdx++;
               // Peek from below: bottom-most sliver of upgrade card (or top sliver of captive). Pilots
               // (unit or leader) anchor on their +X/+Y band (~88% down) rather than the very bottom (artist strip).
@@ -1965,6 +2009,16 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
                 + "border:1px solid rgba(255,255,255,0.18); z-index:" + (subSelectable ? "6" : "-" + (li + 1)) + "; "
                 + "pointer-events:auto;' "
                 + "src='" + lineageSrc + "' alt='Upgrade' />";
+              // The "xN" badge, centred on the sliver — horizontally it lands BETWEEN the +power (left)
+              // and +HP (right) boxes that the concat crop's bottom band already draws, which is the one
+              // spot on that band with no printed content behind it.
+              if (scGroupN > 1) {
+                newHTML += "<span class='swu-token-stack-n' aria-label='" + scGroupN + " copies'"
+                  + " style='position:absolute; bottom:-" + bottomOffset + "px; left:0; width:" + size + "px;"
+                  + " height:" + sliver + "px; display:flex; align-items:center; justify-content:center;"
+                  + " z-index:" + (subSelectable ? "7" : "1") + "; pointer-events:none;'>"
+                  + "<span class='swu-token-stack-pill'>x" + scGroupN + "</span></span>";
+              }
             }
             // Non-SWU "ga" lineage cards — up to 3 visible as offset images above, plus a "+N" overflow popup.
             var visibleLineageCount = Math.min(lineageCards.length, 3);

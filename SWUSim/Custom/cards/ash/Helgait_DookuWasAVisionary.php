@@ -15,6 +15,12 @@ $whenDefeatedAbilities["ASH_195:0"] = function($player, $mzID) {
     // reuse of the SAME defeat instance must keep using this correctly-captured value, not silently fall
     // back to the printed base below.
     $power = intval($gAsh195DefeatSnapshot[$mzID] ?? 0);
+    // The in-memory snapshot is gone after a request boundary (Thrawn's reuse YESNO is answered in a
+    // later request), so fall back to the PERSISTED twin before the live re-resolve below. Without
+    // this the reuse read the printed 6 instead of a buffed 10.
+    if ($power <= 0) {
+        $power = intval(GetSWUVar('SWU_ASH195_PWR_MZ_' . str_replace('-', '_', $mzID), '0'));
+    }
     if ($power <= 0) {
         // No defeat snapshot exists — either JTL_039 Chimaera activated this ability directly on a
         // LIVING Helgait (no real defeat occurred, so CollectWhenDefeatedTriggers never ran), or a
@@ -23,10 +29,19 @@ $whenDefeatedAbilities["ASH_195:0"] = function($player, $mzID) {
         // player), so — unlike the cross-player defeat case above — $mzID is safe to re-resolve live
         // here: read Helgait's CURRENT power (re-evaluating any Advantage/buffs gained since the last
         // use), not the stale printed base.
+        // ⚠ THE OBJECT AT $mzID MUST STILL BE A HELGAIT. This branch re-resolves a raw mzID, and an
+        // mzID is a SLOT, not an identity: once Helgait leaves play the arena COMPACTS and the next
+        // unit slides into that index. Without this check the fallback reads THAT unit's power and
+        // distributes it — the reported symptom, "the second trigger gets the next MZ index after
+        // Helgait dies". The snapshot above is the correct source; this is only for the live-Helgait
+        // activation path (Chimaera/Thrawn on an UNDEFEATED Helgait), where the slot really does still
+        // hold Helgait. Anything else falls to the printed power rather than a stranger's.
         $liveObj = GetZoneObject($mzID);
-        $power = ($liveObj !== null && empty($liveObj->removed))
+        $liveIsHelgait = ($liveObj !== null && empty($liveObj->removed)
+                          && ($liveObj->CardID ?? '') === 'ASH_195');
+        $power = $liveIsHelgait
             ? intval(ObjectCurrentPower($liveObj))
-            : intval(CardPower('ASH_195'));   // truly unreachable — last-resort fallback
+            : intval(CardPower('ASH_195'));   // slot no longer holds Helgait — never read a stranger
     }
     $targets = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
@@ -36,5 +51,10 @@ $whenDefeatedAbilities["ASH_195:0"] = function($player, $mzID) {
         }
     }
     if ($power <= 0 || empty($targets)) return;
-    SWUQueueDistributeAdvantage(intval($player), $power, $targets, true, "Distribute_up_to_{$power}_Advantage_among_friendly_units");
+    // ⚠ "You may … EQUAL TO this unit's power" — NOT "up to". Two different offers: "You may" makes the
+    // ABILITY optional (declining outright is legal), while "equal to" fixes the AMOUNT once you engage.
+    // ALLORNONE is exactly that pair; UPTO (what this used to pass) wrongly let a player place 2 of 40
+    // Advantage and pocket the rest. The prompt must not say "up to" either — the wording IS the offer.
+    SWUQueueDistributeAdvantage(intval($player), $power, $targets, 'ALLORNONE',
+        "Distribute_all_{$power}_Advantage_among_friendly_units_or_none");
 };

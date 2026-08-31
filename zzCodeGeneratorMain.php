@@ -59,6 +59,29 @@ foreach (glob($schemaRoot . '/*', GLOB_ONLYDIR) ?: [] as $schemaDirectory) {
 }
 sort($appRoots, SORT_NATURAL | SORT_FLAG_CASE);
 
+// Apply an app's declared `pipelineActionsOrder` (SharedUI/Sites/<app>/SiteDef.php) to the assembled
+// action list. No SiteDef, or no key, means the historical append order is kept byte-for-byte.
+function GeneratorAdminOrderActions(array $actions, string $rootName): array {
+    $defPath = __DIR__ . '/SharedUI/Sites/' . $rootName . '/SiteDef.php';
+    if (!is_file($defPath)) return $actions;
+    $def = require $defPath;
+    $order = $def['pipelineActionsOrder'] ?? null;
+    if (!is_array($order) || empty($order)) return $actions;
+
+    $byId = [];
+    foreach ($actions as $a) { $byId[$a['id']] = $a; }
+
+    $ordered = [];
+    foreach ($order as $id) {
+        // An id that this app does not have is fine and expected — every step is gated on a schema
+        // file existing, so one list can describe an app that has only some of the steps.
+        if (isset($byId[$id])) { $ordered[] = $byId[$id]; unset($byId[$id]); }
+    }
+    // Whatever the list did not name, in its original relative order.
+    foreach ($actions as $a) { if (isset($byId[$a['id']])) $ordered[] = $a; }
+    return $ordered;
+}
+
 $keywordActions = [
     'AzukiSim' => GeneratorAdminAction(
         'keywords',
@@ -148,6 +171,19 @@ foreach ($appRoots as $rootName) {
             'SharedUI/Render/GenerateSites.php'
         );
     }
+
+    // ── PIPELINE ORDER ────────────────────────────────────────────────────────────────────────────
+    // "Run Build Pipeline" executes $actions in ARRAY ORDER and stops on the first failure, so the
+    // order above (the append sequence) was the whole contract — positional, and invisible to anyone
+    // reading a SiteDef. An app can now declare it explicitly via `pipelineActionsOrder`.
+    //
+    // ⚠ The order is a DEPENDENCY CHAIN, not a preference: `cards` writes the dictionaries that
+    // `keywords` (Data/ProcessKeywords*.php) then parses, and `site` regenerates entry files over
+    // everything else. Reordering is a way to get a broken build — declare it deliberately.
+    //
+    // Actions NOT named in the list keep their relative order and run AFTER the named ones, so adding
+    // a new generator step can never be silently dropped by a stale list.
+    $actions = GeneratorAdminOrderActions($actions, $rootName);
 
     $apps[] = [
         'rootName' => $rootName,

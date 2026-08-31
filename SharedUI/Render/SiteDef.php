@@ -38,6 +38,25 @@ function ValidateSiteDef(array $def): array {
             if (!in_array($p, $known, true)) $errors[] = "profile.sections has unknown section '$p'";
         }
     }
+    // pipelineActionsOrder — the "Run Build Pipeline" step order (zzCodeGeneratorMain.php). Validated
+    // because a typo'd id is SILENT otherwise: the entry simply never matches, the step falls to the
+    // unnamed tail, and the build order quietly reverts without anything reporting it.
+    if (isset($def['pipelineActionsOrder'])) {
+        $knownActions = ['hellbreak-workbook','cards','game','turn','hellbreak-deck','keywords','site'];
+        if (!is_array($def['pipelineActionsOrder'])) {
+            $errors[] = "pipelineActionsOrder must be a list of action ids";
+        } else {
+            $seen = [];
+            foreach ($def['pipelineActionsOrder'] as $id) {
+                if (!in_array($id, $knownActions, true)) {
+                    $errors[] = "pipelineActionsOrder has unknown action id '" . (string)$id . "'"
+                              . " (known: " . implode(', ', $knownActions) . ")";
+                }
+                if (isset($seen[$id])) $errors[] = "pipelineActionsOrder lists '" . (string)$id . "' twice";
+                $seen[$id] = true;
+            }
+        }
+    }
     if (isset($def['deckLibrary'])) {
         if (!is_array($def['deckLibrary'])) {
             $errors[] = "deckLibrary must be an object";

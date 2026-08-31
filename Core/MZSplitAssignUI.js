@@ -177,13 +177,22 @@
     if (segs.length < 2) return null;
     const amount = parseInt(segs[0], 10);
     const mode = (segs[2] || '').trim().toUpperCase();
+    // Three shapes, and the card's printed wording picks which:
+    //   (default)   "distribute N"            → must assign ALL N
+    //   UPTO        "distribute up to N"      → any total 0..N
+    //   ALLORNONE   "you may distribute … equal to N"
+    //               → 0 (decline the whole optional ability) or EXACTLY N, nothing between.
+    // ⚠ ALLORNONE is NOT "UPTO with a nag": "You may" makes the ABILITY optional, while "equal to"
+    // makes the AMOUNT fixed once you engage. Treating it as up-to lets a player bank 3 of 40
+    // Advantage, which the card never offers (ASH_195 Helgait).
     const allowPartial = (mode === 'UPTO');
+    const allOrNone    = (mode === 'ALLORNONE');
     const targets = segs[1].split('&').map(s => s.trim()).filter(Boolean).map(function (spec) {
       const c = spec.indexOf(':');
       if (c === -1) return { mzID: spec, cap: amount };
       return { mzID: spec.substring(0, c), cap: parseInt(spec.substring(c + 1), 10) };
     });
-    return { amount, targets, allowPartial, mzIDs: targets.map(t => t.mzID) };
+    return { amount, targets, allowPartial, allOrNone, mzIDs: targets.map(t => t.mzID) };
   }
 
   // ── Serialize result ─────────────────────────────────────────────────
@@ -221,7 +230,14 @@
 
     const submitBtn = document.getElementById('mzsplit-submit');
     // "Up to" effects may submit with points left over; otherwise the full pool must be assigned.
-    if (submitBtn) submitBtn.disabled = splitState.allowPartial ? false : (splitState.remaining !== 0);
+    // Confirm is live when the assignment is a legal one for this mode. ALLORNONE allows the two
+    // endpoints only — untouched (decline) or complete.
+    if (submitBtn) {
+      const assignedNow = splitState.totalPool - splitState.remaining;
+      submitBtn.disabled = splitState.allowPartial ? false
+        : splitState.allOrNone ? !(assignedNow === 0 || splitState.remaining === 0)
+        : (splitState.remaining !== 0);
+    }
   }
 
   // ── Build per-card overlay ───────────────────────────────────────────
@@ -303,7 +319,10 @@
     submit.disabled = true;
     submit.addEventListener('click', function() {
       if (!splitState) return;
-      if (!splitState.allowPartial && splitState.remaining !== 0) return;
+      const assignedAtSubmit = splitState.totalPool - splitState.remaining;
+      if (splitState.allOrNone) {
+        if (assignedAtSubmit !== 0 && splitState.remaining !== 0) return;
+      } else if (!splitState.allowPartial && splitState.remaining !== 0) return;
       const result = serializeAssignments();
       const cb = splitState.callback;
       const di = splitState.decisionIndex;
@@ -362,6 +381,7 @@
       totalPool: parsed.amount,
       remaining: parsed.amount,
       allowPartial: parsed.allowPartial,
+      allOrNone: parsed.allOrNone,
       targets: parsed.targets.map(t => ({ mzID: t.mzID, cap: t.cap, amount: 0 })),
       callback: submitCallback,
       decisionIndex: decisionIndex

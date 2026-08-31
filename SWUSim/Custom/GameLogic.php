@@ -11160,7 +11160,15 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
                 global $gWDPowerSnapshot;
                 if (!isset($gWDPowerSnapshot) || !is_array($gWDPowerSnapshot)) $gWDPowerSnapshot = [];
                 $rdSelf = GetZoneObject($d['mzID']);
-                if ($rdSelf !== null) $gWDPowerSnapshot[$d['mzID']] = intval(ObjectCurrentPower($rdSelf));
+                if ($rdSelf !== null) {
+                    $rdPw = intval(ObjectCurrentPower($rdSelf));
+                    $gWDPowerSnapshot[$d['mzID']] = $rdPw;
+                    // ⚠ PERSIST IT TOO — same fix as ASH_195 Helgait. The global dies with the request
+                    // and a JTL_002 Thrawn / JTL_169 Shadow Caster replay is answered in a LATER one,
+                    // so the reuse lost the buffed power entirely (measured: a buffed 10 replayed as 1,
+                    // read off whatever unit had compacted into Raddus's vacated slot).
+                    SetSWUVar('SWU_WDPOWER_MZ_' . str_replace('-', '_', $d['mzID']), strval($rdPw));
+                }
             }
             // JTL_169 Shadow Caster — "When a friendly unit is defeated: you may use all of its
             // When Defeated abilities again." One reuse offer per controlled copy. Collected at
@@ -11263,6 +11271,11 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
                     'power' => $power,
                     'owner' => intval($defObj->Owner ?? $d['player']),
                 ];
+                // Persisted twin — see the note in cards/sec/DarthSion_LordOfPain.php. The global does
+                // not survive the request boundary a Thrawn/Shadow-Caster reuse crosses.
+                $sKey = 'SWU_SEC035_' . str_replace('-', '_', $d['mzID']);
+                SetSWUVar($sKey . '_PWR', strval(intval($gSec035DefeatSnapshot[$d['mzID']]['power'] ?? 0)));
+                SetSWUVar($sKey . '_OWN', strval(intval($gSec035DefeatSnapshot[$d['mzID']]['owner'] ?? 0)));
             }
             // ASH_195 Helgait — "When Defeated: distribute Advantage equal to THIS unit's power." Snapshot
             // its power NOW, resolved here under the active (defeating) player's frame where $d['mzID']
@@ -11270,7 +11283,18 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
             // frame-relative mzID would resolve to a different unit (see the closure in CardDQHandlers.php).
             if ($defObj !== null && ($d['cardID'] ?? '') === 'ASH_195') {
                 global $gAsh195DefeatSnapshot;
-                $gAsh195DefeatSnapshot[$d['mzID']] = intval(ObjectCurrentPower($defObj));
+                $pw = intval(ObjectCurrentPower($defObj));
+                $gAsh195DefeatSnapshot[$d['mzID']] = $pw;
+                // ⚠ ALSO PERSIST IT. The global above dies with the request, and JTL_002 Thrawn's
+                // "use that When Defeated ability again?" YESNO is answered in a LATER one — so on the
+                // reuse the lookup missed and the handler fell back to the PRINTED power. A buffed
+                // Helgait (4 Experience -> 10/8) offered 10 on the first trigger and 6 on the second.
+                // Keyed by the defeated unit's UNIQUE ID, not its mzID: an mzID is a slot, and the
+                // arena compacts the moment Helgait leaves play. Read back in the ability handler.
+                $uid = intval($defObj->UniqueID ?? 0);
+                if ($uid > 0) SetSWUVar('SWU_ASH195_PWR_' . $uid, strval($pw));
+                // The mzID key is kept too, so the same-request path is untouched.
+                SetSWUVar('SWU_ASH195_PWR_MZ_' . str_replace('-', '_', $d['mzID']), strval($pw));
             }
             // Granted custom Bounty (SHD_006 phase grant / SHD_123 upgrade grant) — snapshot the
             // reward(s) NOW while the (removed) object still carries its turn-effects + subcards, so the
@@ -12953,12 +12977,25 @@ function SWUGiveSplitAdvantage(int $player, string $assignmentStr): void {
 }
 
 // Queue a "distribute $total Advantage tokens among $targets" decision (MZSPLITASSIGN → SPLIT_ADVANTAGE).
-// $upto=true allows assigning fewer than $total (the "may / up to" wording); false requires all $total.
-function SWUQueueDistributeAdvantage(int $player, int $total, array $targets, bool $upto, string $tooltip): void {
+//
+// $mode picks the shape from the card's PRINTED WORDING — the three are genuinely different offers:
+//   'ALL'        "distribute N"                      → every token must be placed (ASH_246)
+//   'UPTO'       "distribute up to N"                → any total from 0 to N (HMW_071)
+//   'ALLORNONE'  "you may distribute … equal to N"   → 0 or EXACTLY N (ASH_195 Helgait)
+// ⚠ ALLORNONE is not a softer UPTO. "You may" makes the ABILITY optional; "equal to" fixes the
+// AMOUNT once you engage. Typing Helgait as UPTO let a player bank 3 of 40 Advantage and keep the
+// rest, which the card never offers.
+// A bool is still accepted for the old two-mode call sites (true = UPTO).
+function SWUQueueDistributeAdvantage(int $player, int $total, array $targets, $mode, string $tooltip): void {
     if ($total <= 0 || empty($targets)) return;
-    $spec = "{$total}|" . implode("&", $targets) . ($upto ? "|UPTO" : "");
+    $m = is_bool($mode) ? ($mode ? 'UPTO' : 'ALL') : strtoupper(trim((string)$mode));
+    if (!in_array($m, ['ALL', 'UPTO', 'ALLORNONE'], true)) $m = 'ALL';
+    $spec = "{$total}|" . implode("&", $targets) . ($m === 'ALL' ? '' : "|{$m}");
     DecisionQueueController::AddDecision($player, "MZSPLITASSIGN", $spec, 1, tooltip: $tooltip);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SPLIT_ADVANTAGE", 1);
+    // ⚠ The total and mode ride on the CUSTOM so the server can RE-VALIDATE the submitted assignment.
+    // The client's confirm gate is UX only — a crafted answer reaches SWUGiveSplitAdvantage directly,
+    // and the handler used to apply whatever arrived with no check on the total whatsoever.
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SPLIT_ADVANTAGE|{$total}|{$m}", 1);
 }
 
 // "Distribute N Weakness tokens among units" (HMW_071 Ravage) — the Weakness twin of the Advantage

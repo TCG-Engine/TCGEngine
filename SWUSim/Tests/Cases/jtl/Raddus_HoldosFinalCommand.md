@@ -188,3 +188,42 @@ P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1GROUNDARENACOUNT:1
 P1SELECTABLEEXACT:theirSpaceArena-0&theirGroundArena-0
+
+---
+
+# ThrawnReuse_SecondUseKeepsTheBUFFEDPower
+#// ⚠ SAME FAMILY AS ASH_195 HELGAIT (2026-08-30). $gWDPowerSnapshot is a PER-REQUEST global AND this
+#// handler `unset`s its entry after the first read — so a JTL_002 Thrawn / JTL_169 Shadow Caster
+#// replay of the SAME defeat finds nothing and falls back to the PRINTED power, losing every buff.
+#// Helgait's own code says it deliberately does NOT unset for exactly this reason; the lesson was
+#// never propagated to its two siblings.
+#//
+#// ⚠ THE FIXTURE MUST MAKE SNAPSHOT != PRINTED or it cannot fail — the mistake that hid the Helgait
+#// bug through a whole first attempt. Raddus is printed 8; two Experience tokens make him 10/8, and
+#// 5 damage leaves 3 HP so a 5-power Chimaera trades with him (his 10 kills its 6 HP back).
+#//
+#// Both uses must offer 10. The bug offers 8.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myLeader:JTL_002:1:1;myResources:6;theirResources:6}
+WithP1SpaceArena: JTL_104:1:5
+WithP1SpaceArenaUpgrade: 0:SOR_T01
+WithP1SpaceArenaUpgrade: 0:SOR_T01
+WithP2SpaceArena: JTL_039:1:0
+#// ⚠ A SECOND enemy unit that SURVIVES is required, or the replay has no legal target and returns
+#// before ever building its prompt — which reads as "the fix did nothing". The attacking Chimaera
+#// trades away, so without this the board is empty of enemies by the time Thrawn re-uses.
+WithP2GroundArena: SOR_046:1:0
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+
+## WHEN
+- P2>AttackSpaceArena:0:0
+- P1>Pass
+- P1>AnswerDecision:theirSpaceArena-0
+- P1>Pass
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1DECISIONTOOLTIP:Deal_10_damage_to_an_enemy_unit

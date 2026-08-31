@@ -2500,7 +2500,25 @@ $customDQHandlers["GIVE_EXPERIENCE"] = function ($player, $parts, $lastDecision)
 // Universal "give N Advantage tokens (ASH_T02) to the chosen unit" handler (ASH). Param: GIVE_ADVANTAGE|N
 // (default 1). No-op on a '-'/PASS decline so it composes with SWUQueueMayChooseTarget.
 // Universal handler: apply a distribute-Advantage assignment ("mz:count,…") from MZSPLITASSIGN.
+// ⚠ RE-VALIDATE THE TOTAL. The MZSPLITASSIGN client caps and gates the confirm button, but that is
+// UX: the answer arrives as a plain "mz:n,mz:n" string and this handler used to apply it unchecked.
+// $parts carries the offered total and mode (SPLIT_ADVANTAGE|total|mode); older queued decisions have
+// neither, and fall through unvalidated exactly as before.
 $customDQHandlers["SPLIT_ADVANTAGE"] = function ($player, $parts, $lastDecision) {
+  $total = isset($parts[0]) && $parts[0] !== '' ? intval($parts[0]) : -1;
+  $mode  = strtoupper(trim((string)($parts[1] ?? '')));
+  if ($total >= 0 && $mode !== '') {
+    $sum = 0;
+    foreach (explode(',', (string)$lastDecision) as $pair) {
+      $bits = explode(':', $pair);
+      if (count($bits) >= 2) $sum += max(0, intval($bits[1]));
+    }
+    // ALL → exactly the total. ALLORNONE → 0 or exactly the total. UPTO → anything through the total.
+    $ok = ($mode === 'UPTO')      ? ($sum <= $total)
+        : (($mode === 'ALLORNONE') ? ($sum === 0 || $sum === $total)
+                                   : ($sum === $total));
+    if (!$ok) return;   // illegal split — drop it rather than half-apply an offer never made
+  }
   SWUGiveSplitAdvantage(intval($player), (string) $lastDecision);
 };
 
