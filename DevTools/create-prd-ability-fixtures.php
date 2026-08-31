@@ -5779,21 +5779,67 @@ DECK,
     ],
 ];
 
-// NOTE: Lorraine, Honed Operative was attempted but abandoned -- reaching her requires two
-// sequential real champion level-ups (0 -> 1 -> 2), and while investigating an unexplained memory/
-// hand discrepancy after the first level-up, a genuine cross-tool nondeterminism surfaced:
-// Core/DeterministicRNG.php's EngineDeterministicHashMaterial() derives its RNG stream from a hash
-// of the ENTIRE current game state, so two harnesses that reach the "same" point in a script via
-// different bootstrap paths (create-prd-ability-fixtures.php's live run vs. dump-fixture-state.php's
-// fresh replay from a saved initial_gamestate.txt snapshot) can diverge on any subsequent
-// state-hash-seeded random call -- observed live as memory going 5->0 and hand jumping +5 in one
-// tool's replay of the exact same actions.json that the other tool (and the saved
-// expected_final_gamestate.txt) shows resolving sanely. Separately, Lorraine, Honed Operative's own
-// ability (GrandArchiveSim/Custom/CardDQHandlers.php, customDQHandlers["LorraineHonedOperativeBanishMemory"])
-// uses plain PHP shuffle() rather than the engine's EngineShuffle() wrapper, so its random-card pick
-// is not even routed through the deterministic RNG at all. Both are real engine-level findings, not
-// fixed here (out of scope for a fixture-authoring pass, and the second is in a generated file with
-// no local editable source).
+// --- Lorraine, Honed Operative: On Enter, banish up to 3 random memory cards and draw for each ---
+// Previously abandoned: reaching her requires two sequential real champion level-ups (0 -> 1 -> 2),
+// and investigating an "unexplained memory/hand discrepancy" after the first level-up was misread
+// as cross-tool RNG nondeterminism. The real mechanism (GrandArchiveSim/Custom/GameLogic.php,
+// RecollectionPhase(), comment "Must run BEFORE memory is returned to hand") is core game design:
+// at the start of EVERY turn but each player's own turn 1, Recollection returns the ENTIRE memory
+// zone to hand, before that turn's own Main phase. A one-time memory seed at pregame setup survives
+// to fund the first level-up (turn 2's Materialize phase, which runs BEFORE turn 2's Recollection),
+// but is fully returned to hand by turn 3's Recollection before the second level-up's Materialize
+// phase can spend it -- memory has to be rebuilt during turn 2's Main phase (after turn 2's own
+// Recollection already happened) to still be present for turn 3's Materialize phase. Harness Mana
+// (G2XFRE8rFX, 0 reserve cost, "Put any amount of cards from your hand into your memory") is used
+// as that refill: 0 reserve keeps hand math simple, and its MZMAYCHOOSE-loop shape (CardDQHandlers.php,
+// customDQHandlers["HarnessManaLoop"]) is answered by repeating a myHand-0 choice, then declining.
+// Separately, her own ability handler (CardDQHandlers.php,
+// customDQHandlers["LorraineHonedOperativeBanishMemory"]) really was using plain PHP shuffle()
+// instead of the engine's EngineShuffle() wrapper, bypassing deterministic RNG entirely -- fixed
+// directly in that tracked, hand-maintained file (it is NOT one of the generated/gitignored
+// per-app engine files) as part of landing this fixture.
+$fixtures['lorraine-honed-operative-banish-draw'] = [
+    'testedCards' => ['UsX7t4lXfX'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Lorraine, Honed Operative
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // 1 filler card seeded directly into myMemory pays Wandering Warrior's 1-memory level-up cost
+    // on turn 2 (before turn 2's own Recollection has run). Harness Mana is seeded to a known hand
+    // slot so it's available without depending on the shuffle: played during turn 2's Main phase, it
+    // converts 3 more hand cards into memory, which -- unlike the pregame seed -- survive turn 3's
+    // Recollection (already passed for turn 2) to fund Honed Operative's 2-memory level-up cost on
+    // turn 3, with 1 left over for her own On Enter to actually banish and draw.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'G2XFRE8rFX'], // Harness Mana
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Wandering Warrior
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // activate Harness Mana
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // convert hand card 1/3 to memory
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // convert hand card 2/3 to memory
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // convert hand card 3/3 to memory
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // stop the Harness Mana loop
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // P2 declines their own turn-2 materialize choice
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Honed Operative
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '1', 'chkInput' => [], 'inputText' => ''], // banish 1 (all that's available) from memory
+    ],
+];
 
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified

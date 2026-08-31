@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **195**
+Cards linked to an existing fixture: **196**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2292**
+Implemented cards still needing semantic coverage: **2291**
 
 ## Mechanic groups
 
@@ -37,7 +37,6 @@ Implemented cards still needing semantic coverage: **2292**
 | Essence of Blizzards (`k1l75tlzsm`) | ITEM | 1 | cost, targeting, damage, status, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Extraction Incision (`zthwm68lgo`) | ATTACK | 1 | targeting, counter, status, combat, condition | Zander Pantheon Starter | — |
 | Hydroguard Retainer (`0qm7n87o4s`) | ALLY | 1 | draw-discard, status, combat, trigger, condition | Kongming Starter Deck | — |
-| Lorraine, Honed Operative (`UsX7t4lXfX`) | CHAMPION | 1 | draw-discard, zone-movement, counter, trigger, condition | Lorraine, Arclight Saber Starter Deck | — |
 | Prismatic Edge (`FxYwR2azTt`) | REGALIA,WEAPON | 1 | targeting, damage, draw-discard, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Rending Flames (`soO3hjaVfN`) | ATTACK | 1 | damage, zone-movement, combat, trigger, condition | Zander Pantheon Starter | — |
 | Surveillance Stone (`kk46Whz7CJ`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2292**
 | Spirit Blade: Ghost Strike (`vcZSHNHvKX`) | ATTACK | 1 | zone-movement, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Starlit Apothecary (`ShQkyQMBCT`) | UNIQUE,DOMAIN | 1 | cost, targeting, token, condition | Arisanna Pantheon Starter | — |
 | Take Aim (`vnta6qsesw`) | ACTION | 1 | targeting, status, combat, condition | Diana Starter Deck | — |
+| Templar of the Eternal (`peyG8Hfgqt`) | ALLY | 1 | damage, prevention, zone-movement, counter | Lorraine Pantheon Starter | — |

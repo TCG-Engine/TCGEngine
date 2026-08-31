@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T00:59:33+00:00",
+    "generatedAt": "2026-08-31T02:19:20+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 195,
+        "cardsWithExistingFixtures": 196,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2292,
+        "cardsNeedingSemanticCoverage": 2291,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -244,27 +244,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "UsX7t4lXfX",
-            "name": "Lorraine, Honed Operative",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -41190,6 +41169,31 @@
             "starterDecks": [
                 "Kongming Starter Deck",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "UsX7t4lXfX",
+            "name": "Lorraine, Honed Operative",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lorraine-honed-operative-banish-draw"
+            ],
+            "semanticFixtures": [
+                "lorraine-honed-operative-banish-draw"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 135

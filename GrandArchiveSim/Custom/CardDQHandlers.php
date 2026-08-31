@@ -5503,7 +5503,7 @@ $customDQHandlers["LorraineHonedOperativeBanishMemory"] = function($player, $par
     }
     if(empty($candidates)) return;
 
-    shuffle($candidates);
+    EngineShuffle($candidates);
     $selected = array_slice($candidates, 0, min($amount, count($candidates)));
     usort($selected, function($a, $b) { return $b["idx"] <=> $a["idx"]; });
 

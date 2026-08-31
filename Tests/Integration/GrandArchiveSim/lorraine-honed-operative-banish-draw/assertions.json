@@ -1,0 +1,6 @@
+[
+    {"step":13,"type":"card_property_equals","mzId":"myField-0","property":"CardID","value":"UsX7t4lXfX","semantic":true,"label":"Second real level-up resolves into Lorraine, Honed Operative"},
+    {"step":12,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":3,"semantic":true,"label":"Banish count before her On Enter resolves (1 from leveling into Wandering Warrior + 2 paying her own memory cost)"},
+    {"step":13,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":4,"semantic":true,"label":"On Enter banishes the 1 available memory card at random, isolated from the payment banishes above"},
+    {"step":13,"type":"decision_queue_empty","player":"1","semantic":true,"label":"On Enter's draw-for-each-banished replacement and the rest of turn 3's auto-advance all resolve cleanly"}
+]
