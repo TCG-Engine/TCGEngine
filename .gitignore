@@ -20,6 +20,7 @@ Data/RB.json
 vendor
 HostFiles/
 DevTools/local/_backups/
+DevTools/local/card-code-connections.php
 # SWU card art moved to the shared AppCore/SWU/Images/ corpus (2026-08-05). SWUDeck/WebpImages/
 # survives holding ONLY the Discord legacy-URL shim, which must ship — see the "/*" note below.
 SWUDeck/UnimplementedCards

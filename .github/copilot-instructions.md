@@ -121,7 +121,8 @@ This is the canonical workflow for implementing card abilities. Follow these ste
 
 ### Local and hosted Card Code backends
 
-- `card_abilities` uses local MySQL unless the root is present in `CARD_CODE_REMOTE_CONFIG`.
+- `card_abilities` uses local MySQL unless the root is configured through Generator Workspace's
+  Developer Card Code connection panel or the legacy `CARD_CODE_REMOTE_CONFIG` environment value.
 - For a configured remote root, CardEditor, the MCP server, and both generators must go through
   `CardEditor/Database/CardAbilityRepository.php`; do not add new direct `card_abilities` SQL paths.
 - Remote saves use the revision returned by `get_card_abilities` / `LoadAbilities.php`. Treat an
@@ -131,6 +132,9 @@ This is the canonical workflow for implementing card abilities. Follow these ste
 - Issue, rotate, and revoke expiring role-based tokens from the Hosted Card Code access panel in
   `zzCodeGeneratorMain.php`. Hosted token administration requires an approved moderator session;
   `DEVENV=true` is deliberately not an authentication bypass for this endpoint.
+- Developer connection settings live in the protected, git-ignored
+  `DevTools/local/card-code-connections.php`. PHP and MCP must both read that shared file; never
+  expose the full stored token through a browser response or log.
 - Generated macro files remain local. A remote save is followed by generation in the developer's
   checkout from a hosted snapshot.
 - Daily checkpoints are immutable per UTC date and are created only for changed workspaces. The

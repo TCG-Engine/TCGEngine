@@ -44,7 +44,7 @@ em6eEh9q8y
 em6eEh9q8y
 2
 LMyKyVC2O9 2 1 0 1 - - - 1
-y8fx8G64C9 2 1 0 1 ENTERED_THIS_TURN - - 3
+y8fx8G64C9 1 1 0 1 ENTERED_THIS_TURN - - 3
 1
 LMyKyVC2O9 2 2 0 2 - - - 2
 0

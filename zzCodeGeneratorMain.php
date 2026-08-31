@@ -12,6 +12,7 @@ if (empty($_SESSION['generator_admin_csrf'])) {
     $_SESSION['generator_admin_csrf'] = bin2hex(random_bytes(32));
 }
 $generatorAdminCsrf = (string)$_SESSION['generator_admin_csrf'];
+$isStrictLoopback = IsStrictLoopbackRequest();
 
 function GeneratorAdminAppLabel($rootName)
 {
@@ -394,6 +395,11 @@ foreach ($apps as $app) {
         .modal-input { width: 100%; min-height: 40px; padding: 8px 10px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel-soft); color: var(--text); }
         .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
         .token-secret { font-family: "Cascadia Code", Consolas, monospace; font-size: 12px; }
+        .connection-summary { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+        .connection-detail { min-width: 0; padding: 10px 11px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel); }
+        .connection-detail span, .connection-detail strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .connection-detail span { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .07em; }
+        .connection-detail strong { margin-top: 4px; font-size: 12px; }
 
         .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; margin: 28px 0 12px; }
         .section-heading h3 { margin: 0; font-size: 15px; }
@@ -485,6 +491,7 @@ foreach ($apps as $app) {
             .token-panel-head .options-title { width: 100%; }
             .token-row { grid-template-columns: 1fr; }
             .token-actions { justify-content: flex-start; }
+            .connection-summary { grid-template-columns: 1fr; }
             .section-heading { align-items: flex-start; }
             .section-heading h3 { flex: 0 0 auto; white-space: nowrap; }
         }
@@ -568,6 +575,20 @@ foreach ($apps as $app) {
                 </div>
                 <p class="transfer-status" id="token-status" role="status" aria-live="polite"></p>
                 <div class="token-list" id="token-list" aria-live="polite"></div>
+            </section>
+
+            <section class="options token-panel" id="developer-connection-options"<?= $isStrictLoopback ? '' : ' hidden' ?>>
+                <div class="token-panel-head">
+                    <div class="options-title">
+                        <strong>Developer Card Code connection</strong>
+                        <small>Connect this checkout and its MCP server to a hosted Card Code workspace.</small>
+                    </div>
+                    <button type="button" class="button button-small" id="test-connection-button" hidden>Test connection</button>
+                    <button type="button" class="button button-small button-danger" id="disconnect-button" hidden>Use local database</button>
+                    <button type="button" class="button button-small button-primary" id="configure-connection-button">Configure connection</button>
+                </div>
+                <p class="transfer-status" id="connection-status" role="status" aria-live="polite"></p>
+                <div class="connection-summary" id="connection-summary"></div>
             </section>
 
             <section class="options" id="ability-transfer-options">
@@ -673,6 +694,12 @@ const createTokenButton = document.getElementById('create-token-button');
 const refreshTokenButton = document.getElementById('refresh-token-button');
 const tokenStatus = document.getElementById('token-status');
 const tokenList = document.getElementById('token-list');
+const developerConnectionOptions = document.getElementById('developer-connection-options');
+const configureConnectionButton = document.getElementById('configure-connection-button');
+const testConnectionButton = document.getElementById('test-connection-button');
+const disconnectButton = document.getElementById('disconnect-button');
+const connectionStatus = document.getElementById('connection-status');
+const connectionSummary = document.getElementById('connection-summary');
 const cropTesterLink = document.getElementById('crop-tester-link');
 const outputs = new Map();
 const runStates = new Map();
@@ -683,6 +710,8 @@ let transferRunning = false;
 let importApp = null;
 let cardDataImportApp = null;
 let tokenRequestRoot = null;
+let connectionRequestRoot = null;
+let developerConnection = null;
 // CardEditor games are environment-level, not per-app, so they are loaded once rather than on
 // every sidebar selection. null means "not loaded yet"; [] means the database has none.
 let cardEditorGames = null;
@@ -743,6 +772,7 @@ function selectApp(rootName) {
     try { localStorage.setItem('tcgengine:generator-admin:app', rootName); } catch (_) {}
     render();
     loadTokens();
+    loadDeveloperConnection();
 }
 
 function makeStatusIcon(status) {
@@ -890,6 +920,9 @@ function render() {
     ensureDatabaseButton.disabled = pipelineRunning || transferRunning;
     createTokenButton.disabled = pipelineRunning || transferRunning;
     refreshTokenButton.disabled = pipelineRunning || transferRunning;
+    configureConnectionButton.disabled = pipelineRunning || transferRunning;
+    testConnectionButton.disabled = pipelineRunning || transferRunning;
+    disconnectButton.disabled = pipelineRunning || transferRunning;
     cancelButton.hidden = !pipelineRunning;
     renderActions();
 }
@@ -970,7 +1003,7 @@ function tokenModal(title, description, fields, submitLabel) {
                 if (field.maxLength !== undefined) control.maxLength = field.maxLength;
             }
             control.value = field.value;
-            control.required = true;
+            control.required = field.required !== false;
             controls[field.name] = control;
             label.append(control);
             dialog.append(label);
@@ -1148,6 +1181,102 @@ async function rotateToken(token) {
         await showTokenSecret(payload.created);
         await loadTokens({ quiet: true });
     } catch (error) { setTokenStatus(error.message, 'error'); }
+}
+
+function setConnectionStatus(message, kind = '') {
+    connectionStatus.textContent = message;
+    connectionStatus.dataset.kind = kind;
+}
+
+function connectionDetail(label, value) {
+    const detail = document.createElement('div'); detail.className = 'connection-detail';
+    const caption = document.createElement('span'); caption.textContent = label;
+    const content = document.createElement('strong'); content.textContent = value;
+    detail.append(caption, content); return detail;
+}
+
+function renderDeveloperConnection(connection) {
+    developerConnection = connection;
+    connectionSummary.replaceChildren();
+    const configured = Boolean(connection && connection.configured);
+    testConnectionButton.hidden = !configured;
+    disconnectButton.hidden = !configured || connection.source !== 'local-file';
+    configureConnectionButton.textContent = configured ? 'Edit connection' : 'Configure connection';
+    if (!configured) {
+        connectionSummary.append(connectionDetail('Backend', 'Local MySQL'));
+        setConnectionStatus(`${selectedApp.rootName} is using this checkout’s local card ability database.`);
+        return;
+    }
+    connectionSummary.append(
+        connectionDetail('Host', connection.url),
+        connectionDetail('Workspace', connection.workspace),
+        connectionDetail('Credential', connection.tokenPrefix || 'Configured')
+    );
+    const source = connection.source === 'environment' ? 'legacy environment configuration' : 'local Generator Workspace setup';
+    setConnectionStatus(`Remote Card Code is enabled through ${source}.`, 'success');
+}
+
+async function developerConnectionRequest(action, body = null) {
+    const root = selectedApp && selectedApp.rootName;
+    if (!root) throw new Error('Select an app first');
+    const url = new URL('CardEditor/API/AdminCardCodeConnections.php', window.location.href);
+    if (!body) { url.searchParams.set('action', action); url.searchParams.set('root', root); }
+    const response = await fetch(url, body ? {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, root, csrf: generatorAdminCsrf, ...body })
+    } : { headers: { 'Accept': 'application/json' } });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || !payload.success) throw new Error(payload.error || `Request failed (${response.status})`);
+    return payload;
+}
+
+async function loadDeveloperConnection({ quiet = false } = {}) {
+    if (!selectedApp || developerConnectionOptions.hidden) return;
+    const root = selectedApp.rootName;
+    connectionRequestRoot = root;
+    if (!quiet) setConnectionStatus(`Loading connection for ${root}…`);
+    try {
+        const payload = await developerConnectionRequest('get');
+        if (!selectedApp || selectedApp.rootName !== root || connectionRequestRoot !== root) return;
+        renderDeveloperConnection(payload.connection);
+    } catch (error) {
+        if (selectedApp && selectedApp.rootName === root) setConnectionStatus(error.message, 'error');
+    }
+}
+
+async function configureDeveloperConnection() {
+    if (!selectedApp || pipelineRunning || transferRunning) return;
+    const existing = developerConnection && developerConnection.configured ? developerConnection : null;
+    const values = await tokenModal('Configure hosted Card Code', `Connect ${selectedApp.rootName} and the MCP server to a hosted workspace. The connection is verified before it is saved.`, [
+        { name: 'url', label: 'Card Code API URL', type: 'url', value: existing ? existing.url : '', maxLength: 2048 },
+        { name: 'workspace', label: 'Hosted workspace', value: existing ? existing.workspace : selectedApp.rootName, maxLength: 64 },
+        { name: 'token', label: existing ? 'API token (leave blank to keep the current token)' : 'API token', type: 'password', value: '', maxLength: 512, required: !existing }
+    ], 'Save and test');
+    if (!values) return;
+    try {
+        setConnectionStatus('Testing the hosted connection…');
+        const payload = await developerConnectionRequest('save', values);
+        renderDeveloperConnection(payload.connection);
+        setConnectionStatus(`Connected to ${payload.test.root}; ${payload.test.abilityCount} ability rows are available.`, 'success');
+    } catch (error) { setConnectionStatus(error.message, 'error'); }
+}
+
+async function testDeveloperConnection() {
+    if (!developerConnection || !developerConnection.configured) return;
+    try {
+        setConnectionStatus('Testing the hosted connection…');
+        const payload = await developerConnectionRequest('test', {});
+        setConnectionStatus(`Connection succeeded; ${payload.test.abilityCount} ability rows are available.`, 'success');
+    } catch (error) { setConnectionStatus(error.message, 'error'); }
+}
+
+async function disconnectDeveloperConnection() {
+    if (!developerConnection || developerConnection.source !== 'local-file') return;
+    if (!await styledConfirm(`Use local MySQL for ${selectedApp.rootName}? The saved hosted token will be removed from this checkout.`, { confirmLabel: 'Use local database', danger: true })) return;
+    try {
+        const payload = await developerConnectionRequest('disconnect', {});
+        renderDeveloperConnection(payload.connection);
+    } catch (error) { setConnectionStatus(error.message, 'error'); }
 }
 
 function exportAbilities() {
@@ -1566,6 +1695,9 @@ importAbilitiesFile.addEventListener('change', importAbilities);
 ensureDatabaseButton.addEventListener('click', ensureDatabase);
 createTokenButton.addEventListener('click', createToken);
 refreshTokenButton.addEventListener('click', () => loadTokens());
+configureConnectionButton.addEventListener('click', configureDeveloperConnection);
+testConnectionButton.addEventListener('click', testDeveloperConnection);
+disconnectButton.addEventListener('click', disconnectDeveloperConnection);
 exportCardDataButton.addEventListener('click', exportCardData);
 importCardDataButton.addEventListener('click', chooseCardDataImport);
 importCardDataFile.addEventListener('change', importCardData);
@@ -1585,6 +1717,7 @@ if (!hasRequestedApp) {
 }
 render();
 loadTokens();
+loadDeveloperConnection();
 loadCardEditorGames({ quiet: true });
 </script>
 </body>

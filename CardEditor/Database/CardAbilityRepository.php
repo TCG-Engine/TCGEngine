@@ -2,23 +2,21 @@
 
 include_once __DIR__ . '/../../Database/ConnectionManager.php';
 include_once __DIR__ . '/CardAbilityDB.php';
+include_once __DIR__ . '/CardCodeConnectionConfig.php';
 
 /**
  * CARD_CODE_REMOTE_CONFIG is a JSON object keyed by local root name:
  * {"AzukiSim":{"url":"https://host/TCGEngine/CardEditor/API/CardCodeService.php",
  *               "workspace":"AzukiSim","tokenEnv":"AZUKI_CARD_CODE_TOKEN"}}
- * The token itself always comes from an environment variable and is never committed.
+ * This legacy environment format remains supported. The Generator Workspace writes a protected,
+ * git-ignored local connection file which takes precedence when present.
  */
 function CardCodeRemoteConfigs(): array
 {
-    static $parsed = null;
-    if ($parsed === null) {
-        $raw = trim((string)getenv('CARD_CODE_REMOTE_CONFIG'));
-        $decoded = $raw === '' ? [] : json_decode($raw, true);
-        if (!is_array($decoded)) throw new RuntimeException('CARD_CODE_REMOTE_CONFIG must be a valid JSON object');
-        $parsed = $decoded;
-    }
-    return $parsed;
+    $raw = trim((string)getenv('CARD_CODE_REMOTE_CONFIG'));
+    $environment = $raw === '' ? [] : json_decode($raw, true);
+    if (!is_array($environment)) throw new RuntimeException('CARD_CODE_REMOTE_CONFIG must be a valid JSON object');
+    return array_replace($environment, CardCodeLoadLocalConnections());
 }
 
 function CardCodeConfiguredRemoteRoots(): array
@@ -33,7 +31,7 @@ function CardCodeRemoteConfigForRoot(string $rootName): ?array
     $url = rtrim(trim((string)($config['url'] ?? '')), '/');
     $workspace = trim((string)($config['workspace'] ?? $rootName));
     $tokenEnv = trim((string)($config['tokenEnv'] ?? 'CARD_CODE_REMOTE_TOKEN'));
-    $token = trim((string)getenv($tokenEnv));
+    $token = trim((string)($config['token'] ?? getenv($tokenEnv)));
     if ($url === '' || $workspace === '' || $token === '') {
         throw new RuntimeException("Remote Card Code backend for $rootName is missing url, workspace, or $tokenEnv");
     }

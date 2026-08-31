@@ -32,16 +32,28 @@ php DevTools/CardCodeServiceToken.php --root=AzukiSim --name=alice --role=develo
 php DevTools/CardCodeServiceToken.php --root=AzukiSim --revoke=123
 ```
 
-Store the displayed token in a developer-only environment variable. Configure both PHP and the MCP
-server with the same non-secret routing JSON:
+On each developer machine, open Generator Workspace through localhost, select the app, and use
+**Developer Card Code connection → Configure connection**. Enter the hosted
+`CardEditor/API/CardCodeService.php` URL, workspace name, and one-time token. The UI verifies the
+connection before saving it. PHP generators, CardEditor, and the MCP server all read the same local
+configuration automatically; an already-running MCP server sees changes without a restart.
+
+The secret is stored in `DevTools/local/card-code-connections.php`. That file is git-ignored, limited
+to the local OS user where supported, and begins with an executable 404 response so its JSON cannot
+be downloaded from the web root. The browser receives only the host, workspace, and a masked token
+prefix after saving. **Use local database** removes the saved connection and token for the selected
+app.
+
+The old environment-variable format remains supported as a fallback for automated deployments:
 
 ```text
 CARD_CODE_REMOTE_CONFIG={"AzukiSim":{"url":"https://cards.example.com/TCGEngine/CardEditor/API/CardCodeService.php","workspace":"AzukiSim","tokenEnv":"AZUKI_CARD_CODE_TOKEN"}}
 AZUKI_CARD_CODE_TOKEN=tcc_...
 ```
 
-Only loopback URLs may use plain HTTP. Remote services must use HTTPS. Apps absent from
-`CARD_CODE_REMOTE_CONFIG` continue using local MySQL.
+Only loopback URLs may use plain HTTP. Remote services must use HTTPS. GUI-saved connections take
+precedence over the legacy environment configuration. Apps absent from both continue using local
+MySQL.
 
 Schedule the daily checkpoint command on the hosted server, preferably just after UTC midnight:
 

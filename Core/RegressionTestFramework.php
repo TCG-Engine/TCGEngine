@@ -255,8 +255,9 @@ function RegressionReplayStatePath($rootName, $gameName) {
 }
 
 function RegressionEnsureDir($path) {
-  if (!is_dir($path)) {
-    mkdir($path, 0777, true);
+  if (is_dir($path)) return;
+  if (!@mkdir($path, 0777, true) && !is_dir($path)) {
+    throw new RuntimeException("Unable to create regression directory: {$path}");
   }
 }
 

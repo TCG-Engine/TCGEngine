@@ -1,4 +1,5 @@
 [
-    {"step":3,"type":"card_exists","zone":"myGlobalEffects","viewerPlayerID":1,"cardID":"zpkcFs72Ah","semantic":true,"label":"Activating ability 1 sets the champion's +1 level global effect"},
-    {"step":3,"type":"decision_queue_empty","player":"all"}
+    {"step":2,"type":"card_exists","zone":"myGlobalEffects","viewerPlayerID":1,"cardID":"zpkcFs72Ah","semantic":true,"label":"Activating the +Level ability sets the champion's +1 level global effect"},
+    {"step":2,"type":"card_property_equals","mzId":"p1Field-1","property":"Status","value":"1","semantic":true,"label":"Flute of Taming rests as its activation cost"},
+    {"step":2,"type":"decision_queue_empty","player":"all"}
 ]

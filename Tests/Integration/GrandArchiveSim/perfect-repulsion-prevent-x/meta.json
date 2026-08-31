@@ -1,9 +1,9 @@
 {
-    "name": "Perfect Repulsion's prevent-exact-X shield (observed implementation bug)",
+    "name": "Perfect Repulsion creates a prevent-exact-X shield",
     "rootName": "GrandArchiveSim",
     "createdAt": "2026-08-30T06:00:00+00:00",
     "createdBy": "Codex",
-    "notes": "Perfect Repulsion's element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water, reused from coriolis-ward-prevent-level). This fixture documents a real implementation bug found while authoring it: the card's second-stage handler (customDQHandlers['gwj4f15joh:0:CardActivated-1'], GeneratedMacroCode.php) references $memoryCount, a PHP local variable computed in a DIFFERENT closure (cardActivatedAbilities['gwj4f15joh:0']) that isn't shared across the two handler functions, producing an 'Undefined variable $memoryCount' warning and writing the turn effect as the malformed 'PREVENT_EXACT_' tag (empty numeric suffix) instead of the intended 'PREVENT_EXACT_2'. This fixture asserts the ACTUAL shipped (buggy) behavior rather than the intended one; a fix has been flagged separately (task_b4e710a1) and this fixture's expected values will need updating once that lands. Only the shield's creation is covered; the 'draw a card if damage was prevented this way' clause is a separate deferred trigger that requires an actual damage event afterward and is out of scope.",
+    "notes": "Perfect Repulsion's element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Spirit of Water, reused from coriolis-ward-prevent-level). The target-resolution handler recomputes X as the card resolves, so two cards in memory produce PREVENT_EXACT_2. Only the shield's creation is covered; the 'draw a card if damage was prevented this way' clause is a separate deferred trigger that requires an actual damage event afterward and is out of scope.",
     "testedCards": [
         "gwj4f15joh"
     ],

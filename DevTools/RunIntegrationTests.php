@@ -64,11 +64,11 @@ function RunnerInitialFixtureDir($rootName, $fixtureDir, $meta) {
 }
 
 function RunnerInitialGamestateText($initialFixtureDir, $meta) {
-  $gamestate = file_get_contents($initialFixtureDir . DIRECTORY_SEPARATOR . 'initial_gamestate.txt');
+  $gamestate = RegressionNormalizeNewlines(file_get_contents($initialFixtureDir . DIRECTORY_SEPARATOR . 'initial_gamestate.txt'));
   foreach (($meta['initialGamestateReplacements'] ?? []) as $replacement) {
     if (!is_array($replacement)) throw new RuntimeException('initialGamestateReplacements entries must be objects.');
-    $from = strval($replacement['from'] ?? '');
-    $to = strval($replacement['to'] ?? '');
+    $from = RegressionNormalizeNewlines(strval($replacement['from'] ?? ''));
+    $to = RegressionNormalizeNewlines(strval($replacement['to'] ?? ''));
     if ($from === '' || substr_count($gamestate, $from) !== 1) {
       throw new RuntimeException('An initial gamestate replacement must match exactly one location.');
     }
@@ -78,10 +78,10 @@ function RunnerInitialGamestateText($initialFixtureDir, $meta) {
 }
 
 function RunnerPrepareTempGame($rootName, $slug, $initialFixtureDir, $meta) {
+  $initialGamestate = RunnerInitialGamestateText($initialFixtureDir, $meta);
   $gameName = RunnerTempGameName($slug);
   $gameDir = RegressionRepoRoot() . DIRECTORY_SEPARATOR . $rootName . DIRECTORY_SEPARATOR . 'Games' . DIRECTORY_SEPARATOR . $gameName;
   RegressionEnsureDir($gameDir);
-  $initialGamestate = RunnerInitialGamestateText($initialFixtureDir, $meta);
   file_put_contents(
     $gameDir . DIRECTORY_SEPARATOR . 'Gamestate.txt',
     RegressionNormalizeGamestateTextForRoot($rootName, $initialGamestate)
@@ -147,7 +147,14 @@ foreach ($fixtures as $slug) {
     continue;
   }
 
-  [$gameName, $gameDir] = RunnerPrepareTempGame($args['root'], $slug, $initialFixtureDir, $meta);
+  try {
+    [$gameName, $gameDir] = RunnerPrepareTempGame($args['root'], $slug, $initialFixtureDir, $meta);
+  } catch (Throwable $error) {
+    echo "[FAIL] {$slug}: " . $error->getMessage() . "\n";
+    ++$failures;
+    if ($args['test'] !== null) break;
+    continue;
+  }
   $actions = RegressionLoadActionsForFixture($fixtureDir);
   $assertions = RegressionLoadAssertionsForFixture($fixtureDir);
   $label = $meta['name'] ?? $slug;

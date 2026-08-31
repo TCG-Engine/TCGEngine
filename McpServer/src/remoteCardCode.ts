@@ -1,20 +1,35 @@
+import * as fs from "fs";
+import * as path from "path";
+import { fileURLToPath } from "url";
+
 export interface RemoteCardCodeConfig {
   url: string;
   workspace: string;
   token: string;
 }
 
-let parsedConfig: Record<string, any> | null = null;
+const CONFIG_HEADER = "<?php http_response_code(404); exit; ?>\n";
+const ENGINE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
+const LOCAL_CONFIG_PATH = process.env.CARD_CODE_LOCAL_CONFIG_PATH || path.join(ENGINE_ROOT, "DevTools", "local", "card-code-connections.php");
 
 function allConfig(): Record<string, any> {
-  if (parsedConfig) return parsedConfig;
   const raw = String(process.env.CARD_CODE_REMOTE_CONFIG || '').trim();
-  if (!raw) return parsedConfig = {};
+  let environment: Record<string, any> = {};
   try {
-    const decoded = JSON.parse(raw);
-    return parsedConfig = decoded && typeof decoded === 'object' ? decoded : {};
+    const decoded = raw ? JSON.parse(raw) : {};
+    environment = decoded && typeof decoded === 'object' ? decoded : {};
   } catch {
     throw new Error('CARD_CODE_REMOTE_CONFIG must be a valid JSON object');
+  }
+  if (!fs.existsSync(LOCAL_CONFIG_PATH)) return environment;
+  const contents = fs.readFileSync(LOCAL_CONFIG_PATH, 'utf8');
+  if (!contents.startsWith(CONFIG_HEADER)) throw new Error('Local Card Code connection file is invalid');
+  try {
+    const decoded = JSON.parse(contents.slice(CONFIG_HEADER.length));
+    const local = decoded && typeof decoded === 'object' && decoded.connections && typeof decoded.connections === 'object' ? decoded.connections : {};
+    return { ...environment, ...local };
+  } catch {
+    throw new Error('Local Card Code connection file contains invalid JSON');
   }
 }
 
@@ -26,9 +41,12 @@ export function getRemoteCardCodeConfig(root: string): RemoteCardCodeConfig | nu
   const url = String(entry.url || '').replace(/\/+$/, '');
   const workspace = String(entry.workspace || root).trim();
   const tokenEnv = String(entry.tokenEnv || 'CARD_CODE_REMOTE_TOKEN').trim();
-  const token = String(process.env[tokenEnv] || '').trim();
+  const token = String(entry.token || process.env[tokenEnv] || '').trim();
   if (!url || !workspace || !token) throw new Error(`Remote Card Code backend for ${root} is missing url, workspace, or ${tokenEnv}`);
-  if (!/^https:\/\//i.test(url) && !/^http:\/\/(localhost|127\.0\.0\.1|\[::1\])(?::\d+)?\//i.test(url)) {
+  let parsedUrl: URL;
+  try { parsedUrl = new URL(url); } catch { throw new Error(`Remote Card Code URL for ${root} is invalid`); }
+  const loopback = ['localhost', '127.0.0.1', '[::1]'].includes(parsedUrl.hostname.toLowerCase());
+  if ((parsedUrl.protocol !== 'https:' && !(parsedUrl.protocol === 'http:' && loopback)) || parsedUrl.username || parsedUrl.password || parsedUrl.search || parsedUrl.hash) {
     throw new Error(`Remote Card Code URL for ${root} must use HTTPS (HTTP is allowed only for loopback)`);
   }
   return { url, workspace, token };
