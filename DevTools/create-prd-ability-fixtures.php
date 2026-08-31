@@ -5913,6 +5913,113 @@ DECK,
     ],
 ];
 
+// --- Kongming, Fel Eidolon: On Enter, Recover X (X = TERA cards in banishment) ---
+$fixtures['kongming-fel-eidolon-enter-recover-tera-banished'] = [
+    'testedCards' => ['7x2v4tdop1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Kongming, Fel Eidolon
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // A real level-up event is required to fire a champion's own On Enter (a static CardID patch
+    // does not fire triggers, per kongming-wayward-maven-enter-shifting-currents). Fel Eidolon is
+    // level 3 (3-memory cost), so the starting champion is patched to a level-2 champion first
+    // (satisfies CanChampionLevelUpIntoCard's targetLevel===currentLevel+1 gate) with Fel Eidolon's
+    // own CardID also placed in Subcards for TERA element access (GetLegalMaterializeChoices also
+    // gates champion targets on CanPlayerUseCardElement, same technique as tera-sight-preserve-draw).
+    // Pre-damaging the champion object lets Recover X be observed as a Damage reduction once the
+    // level-up completes on the same field object.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '84YTQPTvar', 'Subcards' => ['7x2v4tdop1'], 'Damage' => 5]],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // pays the 3-memory level-up cost, card 1/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 2/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 3/3
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'qktid6zlyt'], // TERA element card #1 in banishment
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'jwanjcy453'], // TERA element card #2 in banishment
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Fel Eidolon (probed below)
+    ],
+];
+
+// --- Kongming, Ascetic Vice: On Enter Empower 3 + Inherited N->S draw (Kongming Bonus, at end phase) ---
+$fixtures['kongming-ascetic-vice-enter-empower-and-inherited-draw'] = [
+    'testedCards' => ['a01pyxwo25'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Kongming, Ascetic Vice
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'apVtyt48u3']], // level-1 champion (Dante, Prodigal Swain), satisfies the level-1->2 gate
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // pays the 2-memory level-up cost, card 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 2/2
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Ascetic Vice, fires On Enter Empower 3
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // reach BeforeEndPhase -> Kongming Bonus SC "any direction" offer
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'SOUTH', 'chkInput' => [], 'inputText' => ''], // choose SOUTH to fire the Inherited N->S transition (probed below)
+    ],
+];
+
+// --- Hydroguard Retainer: Shifting Currents North->West transition draws a card ---
+$fixtures['hydroguard-retainer-north-west-draw'] = [
+    'testedCards' => ['0qm7n87o4s'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Direction-CHANGE triggers ($shiftingCurrentsTransitions in GameLogic.php, keyed "FROM->TO")
+    // only fire through ChangeShiftingCurrents(), which is reached in a controlled way by activating
+    // any Spell card while Kongming, Fel Eidolon is in the champion's lineage (its own Inherited
+    // ability queues an ICONCHOICE "adjacent direction" decision on every Spell activation, GameLogic.php
+    // ~5703-5708) -- same Subcards lineage-patch technique as tera-sight-preserve-draw, reused here
+    // purely as a trigger mechanism rather than for its own sake. ICONCHOICE's response is just the
+    // chosen direction string verbatim (goldfish default picks options[0], GameLogic.php:261-264).
+    // Shifting Currents seeded at NORTH; Tera Sight (0 reserve TERA Spell) is activated to reach the
+    // choice, which is answered "WEST" (adjacent to NORTH) to fire the NORTH->WEST transition.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock + Fel Eidolon Inherited trigger
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '0qm7n87o4s'], // Hydroguard Retainer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight, to trigger the Inherited SC choice on activation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-8!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'WEST', 'chkInput' => [], 'inputText' => ''], // choose adjacent direction WEST
+    ],
+];
+
 // --- Formidable Youxia: As long as Shifting Currents face East, +2 LIFE ---
 $fixtures['formidable-youxia-east-life-buff'] = [
     'testedCards' => ['acmde97dbu'],

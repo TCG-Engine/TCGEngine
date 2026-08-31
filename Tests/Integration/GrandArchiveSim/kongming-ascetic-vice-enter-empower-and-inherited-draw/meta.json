@@ -1,0 +1,18 @@
+{
+    "name": "Kongming, Ascetic Vice: On Enter Empower 3 + Inherited North->South draw ([Kongming Bonus], at end phase)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Covers two of Ascetic Vice's abilities in one real level-up flow: (1) its own On Enter Empower 3 (fires immediately on the real materialize event, per the champion's-own-trigger rule established in kongming-wayward-maven-enter-shifting-currents), and (2) its Inherited North->South transition draw, which is NOT reachable via Fel Eidolon's adjacent-direction mechanism (North and South are not adjacent, GetAdjacentDirections) -- instead this uses the generic 'Shifting Currents Mastery: [Kongming Bonus] At beginning of end phase, may change direction to a different direction of your choice' trigger (GameLogic.php ~10464-10468, QueueShiftingCurrentsChoice($turnPlayer,'any',true)), which is IsKongmingBonus-gated (ChampionHasInLineage of any Kongming champion -- trivially true once leveled into Ascetic Vice itself) and reached automatically when the turn player passes out of MAIN phase (confirmed via a throwaway debug harness, DevTools/debug_ascetic_vice.php, replaying the fixture and dumping GetCurrentPhase()/GetDecisionQueue() at each step -- the ICONCHOICE decision belongs to P1 even though BEND/END auto-advances turnPlayer to P2 in the interim). Starting champion is patched to a level-1 NAMED champion (apVtyt48u3, Dante Prodigal Swain) rather than a level-1 'Nameless Champion' -- the latter was tried first and turned out to carry its own base 'Draw' fast-ability opportunity that pre-empts the materialize offer in the decision queue, an unrelated complication avoided by picking a named champion instead. ICONCHOICE response is the direction string verbatim; 'SOUTH' chosen from the offered SOUTH&EAST&WEST options (excludes the current NORTH facing) to fire the North->South transition. Hand count isolates the two draw sources: 7 (start) + 1 (turn-1 draw phase) = 8 before the SC choice resolves, then + 1 more from the transition's own Draw($player,1) = 9.",
+    "testedCards": [
+        "a01pyxwo25"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["a01pyxwo25"],
+        "mechanics": ["trigger", "draw-discard", "zone-movement", "condition"],
+        "rulesClauses": [
+            "On Enter: Empower 3.",
+            "Inherited: Whenever your Shifting Currents changes from North to South, draw a card."
+        ]
+    }
+}

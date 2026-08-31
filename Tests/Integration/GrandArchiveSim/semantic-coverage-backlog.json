@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T14:20:00+00:00",
+    "generatedAt": "2026-08-31T15:04:51+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 204,
+        "cardsWithExistingFixtures": 207,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2283,
+        "cardsNeedingSemanticCoverage": 2280,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -223,27 +223,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "0qm7n87o4s",
-            "name": "Hydroguard Retainer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -2921,44 +2900,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "a01pyxwo25",
-            "name": "Kongming, Ascetic Vice",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "7x2v4tdop1",
-            "name": "Kongming, Fel Eidolon",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -40909,6 +40850,31 @@
             "priority": 135
         },
         {
+            "cardId": "0qm7n87o4s",
+            "name": "Hydroguard Retainer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hydroguard-retainer-north-west-draw"
+            ],
+            "semanticFixtures": [
+                "hydroguard-retainer-north-west-draw"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "rXHo9fLU32",
             "name": "Ignite the Soul",
             "type": "ACTION",
@@ -43450,6 +43416,52 @@
                 "Arisanna Pantheon Starter",
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "a01pyxwo25",
+            "name": "Kongming, Ascetic Vice",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "kongming-ascetic-vice-enter-empower-and-inherited-draw"
+            ],
+            "semanticFixtures": [
+                "kongming-ascetic-vice-enter-empower-and-inherited-draw"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "7x2v4tdop1",
+            "name": "Kongming, Fel Eidolon",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "kongming-fel-eidolon-enter-recover-tera-banished"
+            ],
+            "semanticFixtures": [
+                "kongming-fel-eidolon-enter-recover-tera-banished"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

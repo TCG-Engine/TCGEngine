@@ -1,0 +1,6 @@
+[
+    {"step":2,"type":"card_property_equals","mzId":"myMastery-0","property":"Direction","value":"WEST","semantic":true,"label":"Shifting Currents changes from North to West"},
+    {"step":1,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":9,"semantic":true,"label":"Tera Sight's own Draw a card resolves independently of the transition (played 1, drew 1)"},
+    {"step":2,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":10,"semantic":true,"label":"North->West transition draws an additional card once the direction actually changes"},
+    {"step":2,"type":"decision_queue_empty","player":"all"}
+]
