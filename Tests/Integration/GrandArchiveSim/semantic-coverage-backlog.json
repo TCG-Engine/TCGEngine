@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T14:06:11+00:00",
+    "generatedAt": "2026-08-31T14:08:21+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 199,
+        "cardsWithExistingFixtures": 200,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2288,
+        "cardsNeedingSemanticCoverage": 2287,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2724,24 +2724,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "yqm3l6lbns",
-            "name": "Devoted Bloomweaver",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -43402,6 +43384,28 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "yqm3l6lbns",
+            "name": "Devoted Bloomweaver",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "devoted-bloomweaver-class-bonus-empower"
+            ],
+            "semanticFixtures": [
+                "devoted-bloomweaver-class-bonus-empower"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

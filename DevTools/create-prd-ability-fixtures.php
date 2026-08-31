@@ -5871,6 +5871,38 @@ DECK,
     ],
 ];
 
+// --- Devoted Bloomweaver: [Class Bonus] On Enter, Empower 2 ---
+$fixtures['devoted-bloomweaver-class-bonus-empower'] = [
+    'testedCards' => ['yqm3l6lbns'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Devoted Bloomweaver is a TERA (advanced element) ALLY with a MAGE Class Bonus On Enter, same
+    // split as vernal-talisman-preserve-draw: the starting champion's Subcards are patched with a
+    // real TERA champion (Kongming, Fel Eidolon) for element access, and that same champion is ALSO
+    // physically seeded onto the field so IsClassBonusActive(["MAGE"]) is satisfied.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7x2v4tdop1'], // Kongming, Fel Eidolon (MAGE CHAMPION), physically seeded for Class Bonus
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'yqm3l6lbns'], // Devoted Bloomweaver, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 2-reserve cost, card 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 2-reserve cost, card 2/2
+    ],
+];
+
 // --- Sweet Ambrosia: Banish self to recover 3 damage from the champion ---
 $fixtures['sweet-ambrosia-banish-recover'] = [
     'testedCards' => ['dgyduwh84p'],
