@@ -5495,6 +5495,58 @@ DECK,
     ],
 ];
 
+// --- Aenean Frozen Shunt: end the combat phase as a REACTION during the COMBAT_DAMAGE window ---
+$fixtures['aenean-frozen-shunt-end-combat'] = [
+    'testedCards' => ['Fkpr1hCUGF'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        // Aenean Frozen Shunt is WATER element (CanPlayerMeetCardElementRequirements ->
+        // GetChampionLineage() -> Subcards, same mechanism as conductive-strike-static-counters'
+        // ARCANE patch) and its [Class Bonus][Level 4+] draw needs both a CLERIC/MAGE class match
+        // (Counters['_overrides']['classes'], same as the WARRIOR overrides elsewhere) and
+        // PlayerLevel() >= 4, which ObjectCurrentLevel computes as CardLevel + a "level" counter
+        // (GrandArchiveSim/Custom/GameLogic.php:12933-12936) -- so patch a level counter directly
+        // instead of scripting real champion level-ups.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['_overrides' => ['classes' => 'MAGE'], 'level' => 4], 'Subcards' => ['tafqldAGRF']]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '0xylS3OcNa'], // Emberslash, seeded to a known hand slot (any attack works)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Fkpr1hCUGF'], // Aenean Frozen Shunt, seeded to a known hand slot
+    ],
+    // Emberslash is played with no class-bonus override this time (only MAGE is granted), so its
+    // own on-attack trigger stays inert and doesn't add an extra decision to the sequence -- it's
+    // purely a vehicle to get combat active. Declaring the attack fires OnAttack, then
+    // FinalizeAttackDeclaration grants the COMBAT_DAMAGE opportunity window to the turn player
+    // (GrandArchiveSim/Custom/CombatLogic.php:2902) before damage resolves; Aenean Frozen Shunt
+    // (REACTION speed) is offered there as a fast hand card and, once activated, ends combat --
+    // asserted by damage never landing on the defending champion.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-6', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // NOTE: Lorraine, Honed Operative was attempted but abandoned -- reaching her requires two
 // sequential real champion level-ups (0 -> 1 -> 2), and while investigating an unexplained memory/
 // hand discrepancy after the first level-up, a genuine cross-tool nondeterminism surfaced:
