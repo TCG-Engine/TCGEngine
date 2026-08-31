@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T14:18:26+00:00",
+    "generatedAt": "2026-08-31T14:20:00+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 203,
+        "cardsWithExistingFixtures": 204,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2284,
+        "cardsNeedingSemanticCoverage": 2283,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -3614,26 +3614,6 @@
             "starterDecks": [
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "2Ojrn7buPe",
-            "name": "Tera Sight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Silvie Starter Deck",
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -43593,6 +43573,30 @@
                 "Arisanna Starter Deck",
                 "Silvie Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "2Ojrn7buPe",
+            "name": "Tera Sight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "tera-sight-preserve-draw"
+            ],
+            "semanticFixtures": [
+                "tera-sight-preserve-draw"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Silvie Starter Deck",
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

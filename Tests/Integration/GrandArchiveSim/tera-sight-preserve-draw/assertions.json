@@ -1,0 +1,6 @@
+[
+    {"step":1,"type":"card_exists","zone":"myMaterial","viewerPlayerID":1,"cardID":"2Ojrn7buPe","semantic":true,"label":"Preserve puts Tera Sight into the material deck (preserved) instead of the graveyard"},
+    {"step":1,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"Confirms it did NOT resolve to the graveyard"},
+    {"step":1,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"Draw a card replaces the played card 1-for-1 (starting 7 + seeded 1 - played 1 + drawn 1 = 8)"},
+    {"step":1,"type":"decision_queue_empty","player":"all"}
+]

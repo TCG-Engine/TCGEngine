@@ -5883,6 +5883,36 @@ DECK,
     ],
 ];
 
+// --- Tera Sight: Preserve. Draw a card. ---
+$fixtures['tera-sight-preserve-draw'] = [
+    'testedCards' => ['2Ojrn7buPe'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // TERA (advanced element), 0 reserve cost. Same Subcards element-access patch as
+    // vernal-talisman-preserve-draw/devoted-bloomweaver-class-bonus-empower (Kongming, Fel Eidolon),
+    // no physical champion needed this time since there's no Class Bonus gate. Preserve (put this
+    // card into its owner's material deck preserved as it resolves, instead of the graveyard) is a
+    // generic keyword layered on top of the card's own "Draw($player, 1)" macro.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // --- Formidable Youxia: As long as Shifting Currents face East, +2 LIFE ---
 $fixtures['formidable-youxia-east-life-buff'] = [
     'testedCards' => ['acmde97dbu'],
