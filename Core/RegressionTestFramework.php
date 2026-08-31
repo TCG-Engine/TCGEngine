@@ -477,6 +477,10 @@ function RegressionBuildAssertionFromInput($viewerPlayerID, $payload) {
       $assertion['property'] = strval($payload['property'] ?? '');
       $assertion['value'] = strval($payload['value'] ?? '');
       break;
+    case 'computed_power_equals':
+      $assertion['mzId'] = strval($payload['mzId'] ?? '');
+      $assertion['value'] = intval($payload['value'] ?? 0);
+      break;
     case 'decision_queue_empty':
       $assertion['player'] = strval($payload['player'] ?? 'all');
       break;
@@ -962,6 +966,12 @@ function RegressionEvaluateAssertion($assertion) {
         $actual = is_scalar($value) ? strval($value) : json_encode($value);
       }
       return [$actual === $expected, "Expected {$mzId}.{$property} to equal '{$expected}', got '{$actual}'."];
+    case 'computed_power_equals':
+      $mzId = strval($assertion['mzId'] ?? '');
+      $expected = intval($assertion['value'] ?? 0);
+      $obj = GetZoneObject($mzId);
+      $actual = (is_object($obj) && function_exists('ObjectCurrentPower')) ? ObjectCurrentPower($obj) : null;
+      return [$actual === $expected, "Expected {$mzId} computed power to equal {$expected}, got " . var_export($actual, true) . "."];
     case 'decision_queue_empty':
       $target = strtolower(strval($assertion['player'] ?? 'all'));
       $players = $target === 'all' ? [1, 2] : [intval($target)];

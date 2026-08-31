@@ -5744,6 +5744,41 @@ DECK,
     ],
 ];
 
+// --- Banner Knight: [Class Bonus][Level 2+] Other allies and weapons get +1 POWER ---
+$fixtures['banner-knight-class-bonus-power-buff'] = [
+    'testedCards' => ['IAkuSSnzYB'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Banner Knight's field-presence buff (GameLogic.php:11856-11871) is purely computed at
+    // ObjectCurrentPower() read time -- no flag or counter is ever stamped on the buffed object, so
+    // card_property_equals has nothing to assert against. Proven instead via a new
+    // computed_power_equals assertion type (Core/RegressionTestFramework.php) that calls
+    // ObjectCurrentPower() directly, same as the engine's own combat/render code paths do. [Class
+    // Bonus][Level 2+] requires a WARRIOR champion at level 2+; the champion's CardID is patched
+    // directly to Lorraine, Arclight Saber (level 3, WARRIOR) -- the same technique used by
+    // surged-coordinator-class-bonus-counters. Dungeon Guide (base POWER 1) is seeded onto the field
+    // as the buffed ally; expected computed power is 1 + 1 = 2.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'x9sSpjpP3G']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'IAkuSSnzYB'], // Banner Knight
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, buffed ally
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // NOTE: Lorraine, Honed Operative was attempted but abandoned -- reaching her requires two
 // sequential real champion level-ups (0 -> 1 -> 2), and while investigating an unexplained memory/
 // hand discrepancy after the first level-up, a genuine cross-tool nondeterminism surfaced:
