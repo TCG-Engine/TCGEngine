@@ -5841,6 +5841,94 @@ DECK,
     ],
 ];
 
+// --- Idle Thoughts: Glimpse 4, keep original order (shared with Jin Starter Deck) ---
+$fixtures['idle-thoughts-glimpse-4'] = [
+    'testedCards' => ['rWhFC8XBaH'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rWhFC8XBaH'], // Idle Thoughts, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1-reserve cost
+        // MZREARRANGE response: submit the same "Top=...;Bottom=" param verbatim to keep original
+        // order (same no-op default GoldfishChooseAction uses for this decision type,
+        // GrandArchiveSim/Custom/GameLogic.php:254-255) -- confirmed via direct probe against this
+        // exact deck/seed since the glimpsed card IDs depend on the deterministic shuffle.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Sweet Ambrosia: Banish self to recover 3 damage from the champion ---
+$fixtures['sweet-ambrosia-banish-recover'] = [
+    'testedCards' => ['dgyduwh84p'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Field items with an activated ability are not clickable via a plain myField-N!FSM! action
+    // (ActionMap's "myField" case only handles attack declarations, GrandArchiveSim/Custom/
+    // GameLogic.php:1289-1296) -- their ability is offered as a fast-action MZMAYCHOOSE opportunity
+    // once the turn player attempts to pass (GetPlayableOpportunityChoices/GetPlayableFastAbilities,
+    // OpportunityLogic.php), answered with the encoded "{mzID}@Activate-{abilityIndex}@{label}"
+    // choice string (same shape as tariff-ring-attack-tax's response).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'dgyduwh84p'], // Sweet Ambrosia
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 5]], // pre-damage champion
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Kongming, Wayward Maven: On Enter, gain the Shifting Currents mastery ---
+$fixtures['kongming-wayward-maven-enter-shifting-currents'] = [
+    'testedCards' => ['346vgwz3y4'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Kongming, Wayward Maven
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // pays the 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Wayward Maven
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
