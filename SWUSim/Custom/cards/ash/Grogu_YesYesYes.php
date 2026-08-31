@@ -14,12 +14,18 @@ $customDQHandlers["ASH_155#0"] = function($player, $parts, $lastDecision) {
     // USER RULING (2026-08-29): this is "an action you get from a REACTIVE TRIGGER to 'When you take
     // the initiative'" — it resolves inside the initiative action, so it must not swap the turn again.
     //
-    // ⚠ SWUWithNestedActionFrame CANNOT express that here, and this is the general limit of the depth
-    // primitive: BeginSWUAttack is ASYNCHRONOUS. It queues the attack and returns, so the frame has
-    // already exited by the time _SWUCombatFinishAction reaches the after-action — measured at depth=0.
-    // Depth is a within-request property; anything that finishes in a later drain needs a PERSISTED
-    // marker instead, which is exactly what this flag is (and why the deferred nested-play leg needs the
-    // gamestate close-stamp rather than depth). Keeping the flag.
-    SetSWUVar('SWU_SUPPRESS_AFTERACTION', '1');
+    // ⚠ NOTHING IS DONE HERE TO ENFORCE THAT, AND THAT IS THE POINT. This used to set a one-shot
+    // SWU_SUPPRESS_AFTERACTION flag consumed in SWUAfterAction, because the close ledger could not see
+    // the initiative claim's action: the claim OPENED an id but the pass swapped the turn without ever
+    // closing it, so the bonus attack's own close was granted and swapped a SECOND time (at 3+ seats
+    // that eats the next seat; at 2 it reads as a free extra action). SWUPassAction now stamps that id
+    // closed, and the PASS reset moved under the same gate, so the duplicate close is refused
+    // structurally — for every card, not just this one. Removed 2026-08-31; the four-seat sections in
+    // Tests/Cases/ash/Grogu_YesYesYes_MultiSeatTurnOrder.md are what hold it.
+    //
+    // ⚠ SWUWithNestedActionFrame still cannot express it either, and that limit is unchanged:
+    // BeginSWUAttack is ASYNCHRONOUS — it queues the attack and returns, so the frame has already
+    // exited by the time _SWUCombatFinishAction reaches the after-action (measured at depth=0). Depth
+    // is a within-request property; anything finishing in a later drain needs the PERSISTED stamp.
     BeginSWUAttack(intval($player), $lastDecision);
 };

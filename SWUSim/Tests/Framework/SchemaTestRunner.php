@@ -299,7 +299,8 @@ class SchemaTestRunner {
 
     private static function _assertKnownGivenKey(string $k): void {
         static $scalar = [
-            'CommonSetup', 'SkipPreGame', 'P1OnlyActions', 'P2OnlyActions', 'P3OnlyActions', 'P4OnlyActions',
+            'CommonSetup', 'CommonSetup2P', 'CommonSetup3P', 'CommonSetup4P',
+            'SkipPreGame', 'P1OnlyActions', 'P2OnlyActions', 'P3OnlyActions', 'P4OnlyActions',
             'P1LeaderBase', 'P2LeaderBase', 'P3LeaderBase', 'P4LeaderBase',
             'WithActivePlayer', 'WithInitiativePlayer', 'WithInitiativeClaimed', 'WithGamePhase',
             'WithSeatOrder', 'WithLiveSeats', 'WithDefeatedPlayer', 'WithPrivateGame', 'WithRound',
@@ -367,6 +368,9 @@ class SchemaTestRunner {
      */
     private static function _buildInitialState(array $givenLines, array $pregameActions): GameStateBuilder {
         $given      = self::_parseGiven($givenLines);
+        // CommonSetup2P/3P/4P are rewritten into the canonical CommonSetup directive here, and the
+        // far-seat codes handed back for the seats CommonSetup itself cannot dress.
+        $csFarSeats = self::_normalizeCommonSetupArity($given);
         $skipPre    = strtolower($given['SkipPreGame'] ?? 'false') === 'true';
         if (isset($given['CommonSetup'])) $skipPre = true;
 
@@ -507,6 +511,13 @@ class SchemaTestRunner {
                 $b->WithSpaceUnitForPlayer($seat, $cid, $ready, $dmg, 0, $te);
             }
         }
+        // CommonSetup3P/4P far seats: dress seat 3 (and 4) with a base + leader from their 3-char code.
+        // ⚠ Runs BEFORE the explicit WithP{n}Base / WithP{n}Leader loops below ON PURPOSE — the builder
+        // keys those per seat, so a directive written by hand cleanly overrides the code-derived default
+        // instead of colliding with it.
+        foreach ($csFarSeats as $seat => $code) {
+            CommonSetupFarSeat($b, $seat, $code);
+        }
         // Twin Suns seats 3/4 bases (WithP{n}Base: CARDID[:damage]) — seats 1/2 come from CommonSetup.
         foreach ([3, 4] as $seat) {
             if (!isset($given["WithP{$seat}Base"])) continue;
@@ -550,6 +561,16 @@ class SchemaTestRunner {
             if (!isset($given['WithSeatOrder'])) $b->WithSeatOrder('1234');
             if (!isset($given['WithLiveSeats'])) $b->WithLiveSeats('1234');
             $b->WithGlobalEffectForPlayer(1, 'SWU_MODE_TEAMS');   // the engine reads it off seat 1
+        }
+        // CommonSetup3P/4P implies its own seat count, exactly as WithTeams implies four. Supplying the
+        // defaults here is most of the point of the directive: a 3-seat fixture that dressed three seats
+        // but left SeatOrder at its 2-seat default would run as a 2-player game with a stranded seat 3,
+        // and every far-seat assertion in it would be quietly meaningless. An explicit WithSeatOrder /
+        // WithLiveSeats still wins — that is how an elimination fixture says "four seats, two alive".
+        if (!empty($csFarSeats)) {
+            $csOrder = implode('', range(1, count($csFarSeats) + 2));
+            if (!isset($given['WithSeatOrder'])) $b->WithSeatOrder($csOrder);
+            if (!isset($given['WithLiveSeats'])) $b->WithLiveSeats($csOrder);
         }
         if (isset($given['WithSeatOrder'])) $b->WithSeatOrder(trim($given['WithSeatOrder']));
         if (isset($given['WithLiveSeats'])) $b->WithLiveSeats(trim($given['WithLiveSeats']));
@@ -728,6 +749,63 @@ class SchemaTestRunner {
             'deployed' => isset($p[2]) && ($p[2] === '1' || $p[2] === 'true'),
             'epicUsed' => isset($p[3]) && ($p[3] === '1' || $p[3] === 'true'),
         ];
+    }
+
+    /**
+     * Rewrite CommonSetup2P/3P/4P into the canonical `CommonSetup` directive, and return the far-seat
+     * codes (seat => 3-char code) that CommonSetup itself cannot place.
+     *
+     *   CommonSetup2P: a/b[/{opts}]        — a pure ALIAS for CommonSetup. Same behaviour, but a
+     *                                        4-seat file reads better when every section states its
+     *                                        arity instead of leaving 2P as the unmarked default.
+     *   CommonSetup3P: a/b/c[/{opts}]      — also dresses seat 3, and defaults SeatOrder/LiveSeats "123"
+     *   CommonSetup4P: a/b/c/d[/{opts}]    — also dresses seat 4, and defaults them to "1234"
+     *
+     * The `{opts}` block is unchanged and still addresses seats 1-2 as my/their; a far seat is
+     * customised with the existing WithP{n}Base / WithP{n}Leader / WithP{n}Resources directives, which
+     * are applied later and therefore override the code-derived defaults.
+     *
+     * ⚠ WHY THE FAR SEATS NEED DRESSING AT ALL: a seat with no base and no leader has no aspects, pays
+     * the full aspect penalty on every card, and a play it cannot afford is a SILENT NO-OP. In a
+     * turn-order fixture that is indistinguishable from a skipped turn — it cost a real
+     * mis-investigation before these directives existed.
+     */
+    private static function _normalizeCommonSetupArity(array &$given): array {
+        $present = array_values(array_filter(
+            ['CommonSetup', 'CommonSetup2P', 'CommonSetup3P', 'CommonSetup4P'],
+            fn($k) => isset($given[$k])
+        ));
+        if (count($present) > 1) {
+            throw new InvalidArgumentException(
+                "GIVEN names " . implode(' and ', $present) . " — use exactly one. They are the same"
+                . " directive at different arities, so two of them describe two different tables.");
+        }
+        if (empty($present) || $present[0] === 'CommonSetup') return [];
+
+        $key   = $present[0];
+        $arity = intval(substr($key, strlen('CommonSetup'), 1));   // 2, 3 or 4
+        // Split off an optional trailing {opts} block first: it may itself contain '/' inside a card id
+        // or a nested value, so the arity split must not see it.
+        $raw   = trim((string)$given[$key]);
+        $opts  = '';
+        $brace = strpos($raw, '{');
+        if ($brace !== false) {
+            $opts = trim(substr($raw, $brace));
+            $raw  = rtrim(substr($raw, 0, $brace), " \t/");
+        }
+        $codes = array_map('trim', explode('/', $raw));
+        if (count($codes) !== $arity) {
+            throw new InvalidArgumentException(
+                "{$key} expects exactly {$arity} aspect codes separated by '/', got " . count($codes)
+                . " (" . implode(', ', array_map(fn($c) => "'{$c}'", $codes)) . "). One per seat, in seat"
+                . " order. Add an {opts} block after them if you need it.");
+        }
+        unset($given[$key]);
+        $given['CommonSetup'] = $codes[0] . '/' . $codes[1] . ($opts !== '' ? '/' . $opts : '');
+
+        $far = [];
+        for ($seat = 3; $seat <= $arity; $seat++) $far[$seat] = $codes[$seat - 1];
+        return $far;
     }
 
     // Parse "{key:val;key:val}" opts block from CommonSetup directive.
@@ -1354,11 +1432,22 @@ class SchemaTestRunner {
 
             } elseif (preg_match('/^P(\d+)(BLAST|PLAN)AVAIL:(0|1)$/', $line, $m)) {
                 // Twin Suns UI: does seat N's actions data report the counter as available to take?
-                // Mirror SWUComputeActionsData: available iff the seat hasn't taken a counter this round
-                // AND the counter is still AVAILABLE globally.
+                // Mirror SWUComputeActionsData: available iff THIS IS A 3+ SEAT GAME, the seat hasn't
+                // taken a counter this round, and the counter is still AVAILABLE globally.
+                // ⚠ THE SEAT-COUNT GATE IS PART OF THE MIRROR, and was missing. SWUComputeActionsData
+                // defaults blastAvailable/planAvailable to false and only computes them inside
+                // `if (SeatCountForGame() > 2)` — "Inert in premier: all false/[]" — and CustomInput
+                // refuses the action outright below three seats ("premier: no counters"). Without the
+                // gate this assertion reported AVAILABLE in a 2-player game, so it contradicted the
+                // engine it claims to mirror: a premier section asserting :0 failed, and one asserting
+                // :1 would have passed while describing a UI state that can never occur.
+                // Adding it cannot change any existing section — the only other consumer,
+                // twinsuns/PhaseC_CounterAvailability.md, runs at three seats where the gate is a no-op.
                 $seat = intval($m[1]);
                 $counter = ($m[2] === 'BLAST') ? GetBlastCounter() : GetPlanCounter();
-                $avail = (!_SWUSeatTookCounterThisRound($seat) && $counter === 'AVAILABLE') ? '1' : '0';
+                $avail = (SeatCountForGame() > 2
+                          && !_SWUSeatTookCounterThisRound($seat)
+                          && $counter === 'AVAILABLE') ? '1' : '0';
                 if ($avail !== $m[3])
                     $failures[] = "{$line}: expected {$m[3]}, got {$avail}";
 

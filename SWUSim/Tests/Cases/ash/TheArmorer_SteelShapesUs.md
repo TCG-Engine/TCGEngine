@@ -230,3 +230,69 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P1LEADER:EXHAUSTED
 P1DECKCOUNT:1
 P1HANDCOUNT:1
+
+---
+
+# LeaderAction_CreatedTokenIsAValidHost
+#// HAPPY PATH FOR THE FIX (bug #1025/#1026 family). The Armorer's Action hosts on "a unit that ENTERED
+#// PLAY this phase", and a token CREATED this phase entered play without being played — so it is an
+#// eligible host. It was invisible before: the host scan read SWU_PLAYED_UNIT_, which only ActivateCard
+#// sets, so created tokens (and deployed leaders) were skipped.
+#// P1 plays SEC_097 Beloved Orator, whose When Played creates a Spy token, so TWO units entered this
+#// phase and the host choose becomes interactive — which is the point: it proves the token is in the
+#// OFFERED POOL rather than being the last thing standing. The token (index 1) takes the upgrade.
+## GIVEN
+CommonSetup: gbw/brk/{
+  myLeader:ASH_001
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 1:SOR_120:1,13:SOR_095:1
+WithP1Hand: SEC_097
+WithP1Deck: [SOR_063]
+## WHEN
+- P1>PlayHand:0
+- P1>UseLeaderAbility
+#// index 0 is SEC_097 itself; index 1 is the Spy token it created.
+- P1>AnswerDecision:myGroundArena-1
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1LEADER:EXHAUSTED
+
+---
+
+# LeaderAction_SoftPass_TokenCreatedAPREVIOUSPhase
+#// THE CONTROL, and it is what stops the section above passing on a rule that simply offers every unit.
+#// The same Spy token, one round later: the marker clears in RegroupPhaseStart, so neither SEC_097 nor
+#// its token "entered play this phase" any more and the Action is a soft pass — The Armorer exhausts,
+#// no upgrade is played, and the deck top is not resourced.
+## GIVEN
+CommonSetup: gbw/brk/{
+  myLeader:ASH_001
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 1:SOR_120:1,13:SOR_095:1
+WithP1Hand: SEC_097
+WithP1Deck: [SOR_063 SOR_063 SOR_063 SOR_063]
+## WHEN
+- P1>PlayHand:0
+- P1>Pass
+- P2>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>UseLeaderAbility
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:0
+P1LEADER:EXHAUSTED
+
+#// ⚠ NO DEPLOYED-LEADER SECTION HERE, and it is unreachable rather than forgotten: this ability lives on
+#// The Armorer's UNDEPLOYED side ("Action [Exhaust]"), so using it requires P1's own leader to still be
+#// a leader. A player controls exactly one leader, so there is no friendly deployed leader available to
+#// host while the Action is usable. The deployed-leader leg of this fix is covered where it is reachable
+#// — Tests/Cases/keywords/Hidden_DeployedAndCreated.md and
+#// Tests/Cases/sor/BobaFett_Disintegrator.md::OnAttack_DeployedLeaderThisRound_NoDeal3.

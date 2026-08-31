@@ -38,7 +38,7 @@ The clearest evidence that the contract is unowned is how many things exist to s
 | mechanism | refs | what it is |
 |---|---|---|
 | `SWU_PLOT_IN_PROGRESS` | 8 | redirect: a nested play inside a Plot window must not end the deploy action |
-| `SWU_SUPPRESS_AFTERACTION` | 5 | one-shot: ASH_155 Grogu's initiative-triggered bonus attack |
+| ~~`SWU_SUPPRESS_AFTERACTION`~~ | 5 | one-shot: ASH_155 Grogu's initiative-triggered bonus attack — **REMOVED 2026-08-31**, replaced by the pass's own close stamp (deferrals §1) |
 | `SWU_NESTED_PLAY_OWNS_AFTERACTION` | 8 | the deferred-resume leg (added 2026-08-29) |
 | `ownsAA` decision-queue param | 4 | LOF_197 threads ownership through the queue explicitly |
 | `SWUEnforceUniqueness` early-returns | 2 sites | re-entrant: `SWUAfterAction` calls itself back after a uniqueness defeat |
@@ -174,9 +174,16 @@ stolen-AT-Hauler family. `SWUSmuggleResource` and `SWUPlayFromDiscard` are the s
 
 ### Open items
 
-`SWUSim/docs/action-close-deferrals.md` — including the one retirement that was **reverted because it
-could not be verified** (`SWU_SUPPRESS_AFTERACTION`: deleting its replacement left all 25 Grogu sections
-green, so nothing covers it), and why `SWU_PLOT_IN_PROGRESS` is not a close-ownership mechanism at all.
+`SWUSim/docs/action-close-deferrals.md` — including the one retirement that was reverted because it
+could not be verified (`SWU_SUPPRESS_AFTERACTION`: deleting its replacement left all 25 Grogu sections
+green, so nothing covered it), and why `SWU_PLOT_IN_PROGRESS` is not a close-ownership mechanism at all.
+
+> **UPDATE 2026-08-31 — `SWU_SUPPRESS_AFTERACTION` is now RETIRED, and the reason it looked
+> unverifiable was a fixture-shape artifact, not missing effort.** All 25 Grogu sections were
+> two-player, and at two seats the wrongly-allowed second swap lands on the initiative CLAIMANT, whom
+> `_SWUSeatTookCounterThisRound` auto-passes — a third swap that puts the turn back where it belonged.
+> The defect is only observable at three or more seats. Detectors now live in
+> `Tests/Cases/core/ActionClose_PassEndsTheAction.md`; deferrals §1 has the traces.
 
 ---
 
@@ -210,7 +217,7 @@ Only once the ledger is proven. Each removal is its own change with its own gree
 1. `SWU_NESTED_PLAY_OWNS_AFTERACTION` — newest, narrowest, one call site.
 2. `SWUNestedPlay`'s save/restore — the helper may collapse to a plain `ActivateCard` call.
 3. `ownsAA` (LOF_197) — an explicit param the ledger makes redundant.
-4. `SWU_SUPPRESS_AFTERACTION` (ASH_155) — verify Grogu's bonus attack still does not swap.
+4. ~~`SWU_SUPPRESS_AFTERACTION` (ASH_155)~~ — **DONE 2026-08-31.** Retired; the pass now stamps its own close and 3P/4P sections hold it.
 5. `SWU_PLOT_IN_PROGRESS` — **last.** Most entangled; a Plot window legitimately keeps one action open
    across several nested plays, so it is the real test of whether the ledger models "open" correctly.
 

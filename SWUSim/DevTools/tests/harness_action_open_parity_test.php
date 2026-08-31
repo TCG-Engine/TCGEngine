@@ -24,10 +24,16 @@ check($prod !== false && $adapter !== false, 'both routes are readable');
 
 // Production entry points that deliberately do NOT open an action.
 $NO_OPEN = [
-    // A pass / initiative claim never opens an action id in production either — SWUPassAction and
-    // SWUTakeInitiative do not go through SaveUndoVersion, so the ledger does not model them at all.
-    // Closing that hole is a real behaviour change, tracked in docs/action-close-deferrals.md §1.
-    'SWUPassAction' => 'production does not stamp a pass either — the ledger does not model passes',
+    // ⚠ THE OLD REASON HERE WAS WRONG and it hid a bug for two days: it said "a pass / initiative
+    // claim never opens an action id in production either ... the ledger does not model them at all".
+    // The CLAIM does open one — `CustomInput.php` calls SaveUndoVersion before SWUTakeInitiative, and
+    // the adapter's takeInitiative mirrors it. Only the plain Pass button skips it, which is still
+    // true and is why this entry stays. What was missing was never the OPEN, it was the CLOSE:
+    // SWUPassAction swapped the turn without stamping, so anything resolving inside a pass window got
+    // its own close granted and swapped a second time (docs/action-close-deferrals.md §1, resolved
+    // 2026-08-31). SWUPassAction now stamps via _SWUStampActionClosedForPass().
+    'SWUPassAction' => 'the plain Pass button is not routed through SaveUndoVersion in production; '
+                     . 'SWUPassAction stamps its own CLOSE instead (_SWUStampActionClosedForPass)',
 ];
 
 // An engine call in CustomInput is "production-stamped" when a SaveUndoVersion sits within the

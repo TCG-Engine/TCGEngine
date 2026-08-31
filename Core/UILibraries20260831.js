@@ -222,6 +222,128 @@ function InvalidateRenderedZoneHTMLCache(element) {
 // when the generated markup is unchanged. When only card state/highlights changed,
 // transplant matching image elements into the new markup so already-decoded card art
 // is not discarded and decoded again on every server update (especially visible in iOS Safari).
+// ── EFFECT-STACK TRIGGER LABELS ──────────────────────────────────────────────────────────────────
+// The pill under each card in the trigger-ordering stack. THE RULE, and it is the whole design:
+//
+//     The badge names the TIMING WINDOW. If a thing is not a timing window, it gets NO badge.
+//
+// The tile already shows the card's art and name, so a label repeating the card would be dead
+// weight; what the player is actually choosing between is WHICH WINDOW resolves first. Qualifiers
+// for how the ability got there — from an upgrade, via Support, granted by another card, a deployed
+// leader's side — are deliberately dropped: they do not change the window, so they would only make
+// two entries in the same window look different.
+//
+// ⚠ THIS TABLE MUST STAY EXHAUSTIVE, and a test enforces that rather than trust.
+// DevTools/tests/effect_stack_labels_test.php scans every AddTrigger()/DispatchTrigger type in
+// Custom/ and fails if one is missing here. It exists because the map that preceded it covered 13
+// of 112 types, so ~95 card reactions rendered their DATABASE KEY to the player — 'SWU_PLOT_WINDOW'
+// and 'WHENPLAYEDASUPGRADE' side by side in bug #1024's screenshot. An unmapped type now renders
+// nothing at all instead of an id, so the worst case is a missing pill rather than a leaked key.
+var SWU_EFFECT_STACK_TRIGGER_LABELS = {
+    // ── Timing windows and keywords ──
+    'WhenPlayed': 'When Played', 'WhenPlayedAsUpgrade': 'When Played',
+    'HMW048Gain': 'When Played', 'WhenDefeated': 'When Defeated',
+    'SupportWhenDefeated': 'When Defeated', 'JTL_169G': 'Reuse When Defeated',
+    'OnAttack': 'On Attack', 'OnAttackFromUpgrade': 'On Attack', 'SupportOnAttack': 'On Attack',
+    'OnAttackEnd': 'When Attack Ends', 'OnAttackEndFromUpgrade': 'When Attack Ends',
+    'SupportOnAttackEnd': 'When Attack Ends', 'OnDefense': 'On Defense',
+    'OnDefenseFromUpgrade': 'On Defense', 'OnAttackedFromUpgrade': 'On Defense',
+    'OnAttached': 'On Attached', 'Ambush': 'Ambush', 'Shielded': 'Shielded', 'Support': 'Support',
+    'AdvantageShed': 'Advantage', 'SWU_PLOT_WINDOW': 'Plot', 'LOF_017D': 'When Attack Ends',
+    'SHD_018D': 'Upgrade Played', 'TWI_018D': 'Unit Played',
+
+    // ── Card reactions, grouped by the window they resolve in ──
+    // When Attack Ends
+    'ASH_101': 'When Attack Ends', 'IC27_146': 'When Attack Ends', 'LAW_033': 'When Attack Ends',
+    'LAW_034': 'When Attack Ends', 'LAW_046': 'When Attack Ends', 'LAW_054': 'When Attack Ends',
+    'LOF_017': 'When Attack Ends', 'SEC_088': 'When Attack Ends', 'SEC_209': 'When Attack Ends',
+    'SHD_122': 'When Attack Ends', 'SHD_138': 'When Attack Ends', 'SOR_088': 'When Attack Ends',
+    'SOR_149': 'When Attack Ends',
+    // Unit Played
+    'ASH_060': 'Unit Played', 'ASH_102': 'Unit Played', 'HMW_115': 'Unit Played',
+    'HMW_124': 'Unit Played', 'LOF_087': 'Unit Played', 'SHD_014': 'Unit Played',
+    'SHD_255': 'Unit Played', 'SOR_109': 'Unit Played', 'TWI_018': 'Unit Played',
+    'TWI_080': 'Unit Played', 'TWI_101': 'Unit Played',
+    // Base Damaged
+    'LOF_166': 'Base Damaged', 'SEC_017': 'Base Damaged', 'SEC_147': 'Base Damaged',
+    'SEC_150': 'Base Damaged', 'SEC_205': 'Base Damaged', 'SHD_147': 'Base Damaged',
+    'SOR_013': 'Base Damaged', 'SOR_133': 'Base Damaged', 'TS26_73': 'Base Damaged',
+    // Upgrade Played
+    'ASH_047': 'Upgrade Played', 'JTL_202': 'Upgrade Played', 'LOF_229': 'Upgrade Played',
+    'SHD_018': 'Upgrade Played', 'SHD_067': 'Upgrade Played', 'SHD_133': 'Upgrade Played',
+    // Friendly Attack Ends
+    'ASH_005': 'Friendly Attack Ends', 'ASH_013': 'Friendly Attack Ends',
+    'ASH_016': 'Friendly Attack Ends', 'LAW_088': 'Friendly Attack Ends',
+    // Enemy Defeated
+    'SEC_051': 'Enemy Defeated', 'SOR_002': 'Enemy Defeated', 'SOR_036': 'Enemy Defeated',
+    // Friendly Defeated
+    'ASH_128': 'Friendly Defeated', 'JTL_169': 'Friendly Defeated',
+    'LAW_119': 'Friendly Defeated',
+    // Card Discarded
+    'LAW_176': 'Card Discarded', 'SHD_163': 'Card Discarded',
+    // Damages a Unit
+    'JTL_120': 'Damages a Unit', 'SOR_085': 'Damages a Unit',
+    // Event Played
+    'SOR_182': 'Event Played', 'TWI_216': 'Event Played',
+    // On Attack
+    'JTL_156': 'On Attack', 'LOF_205': 'On Attack',
+    // Opponent Plays
+    'SHD_172': 'Opponent Plays', 'TWI_210': 'Opponent Plays',
+    // Unique Unit Played
+    'ASH_018': 'Unique Unit Played', 'LOF_249': 'Unique Unit Played',
+    // When Defeated
+    'ASH_063': 'When Defeated', 'SOR_105': 'When Defeated',
+    // Aggression Played
+    'SOR_143': 'Aggression Played',
+    // Attacks Costlier Unit
+    'HMW_014': 'Attacks Costlier Unit',
+    // Bounty Attack Ends
+    'LAW_007': 'Bounty Attack Ends',
+    // Bounty Hunter Played
+    'SHD_239': 'Bounty Hunter Played',
+    // Deals Damage
+    'SOR_150': 'Deals Damage',
+    // Enemy Attacks
+    'TS26_78': 'Enemy Attacks',
+    // Enemy Leaves Play
+    'SOR_015': 'Enemy Leaves Play',
+    // Excess Damage
+    'ASH_137': 'Excess Damage',
+    // Fortification Played
+    'HMW_206': 'Fortification Played',
+    // Keyword Unit Played
+    'SHD_008': 'Keyword Unit Played',
+    // Leader Deployed
+    'JTL_191': 'Leader Deployed',
+    // Non-Unit Played
+    'SHD_217': 'Non-Unit Played',
+    // Opponent's 2nd Card
+    'TWI_064': 'Opponent\'s 2nd Card',
+    // Pilot Attached
+    'JTL_223': 'Pilot Attached',
+    // Separatist Played
+    'TWI_184': 'Separatist Played',
+    // Smuggle Played
+    'SHD_005': 'Smuggle Played',
+    // Unique Defeated
+    'SOR_115': 'Unique Defeated',
+    // Unit Entered Play
+    'HMW_171': 'Unit Entered Play',
+    // Unit Played or Created
+    'ASH_017': 'Unit Played or Created',
+    // Unit Sacrificed
+    'SEC_013': 'Unit Sacrificed',
+    // Weakness Defeated
+    'HMW_062': 'Weakness Defeated',
+
+    // ── NOT timing windows: deliberately badge-less ──
+    // ASH_184 Follow Me / LAW_205 Flash the Vents are the remainder of the EVENT'S OWN effect after a
+    // modified attack (CR 7.6.8.a — strictly later than the When Attack Ends window, so labelling
+    // them with it would state the wrong timing). ASH_062 / SEC_101 are damage REPLACEMENT effects.
+    // '' is a DECISION here, not an omission — the test above treats a missing key and a blank
+    // string differently, so these four cannot be mistaken for an unmapped type.
+    'ASH_184': '', 'LAW_205': '', 'ASH_062_PREVENT': '', 'SEC_101_PREVENT': '',
+};
 function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
   if (!zoneSlot) return false;
   if (zoneSlot.__tcgRenderedHTML === nextHTML && zoneSlot.childNodes.length > 0) return false;
@@ -1795,6 +1917,27 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         newHTML += renderCardFn(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, _epicUsed, heatmapFunction, heatmapColorMap, id, overlayTypes.join("&"), JSON.stringify(overlayDescriptors), _hasForce);
 
         try {
+          // ── THE PLOT WINDOW IS NOT A CARD ───────────────────────────────────────────────────────
+          // Its EffectStack entry carries a CardID only because the tile has to render something, and
+          // that CardID is the FIRST affordable Plot card in resources — so with two Plot cards in hand
+          // the tile showed one card's art while clicking it opened a window offering BOTH. The art
+          // promised a card; the click delivered a window. Cover it with the Plot keyword icon (the
+          // same animated Assets/Icons/plot.webp the HasPlot resource counter uses) so the tile says
+          // what it is. The square container is unchanged — only what fills it.
+          // ⚠ pointer-events:auto is load-bearing, not a default: it keeps a HOVER off the card art
+          // underneath (which would pop that card's detail and leak the very thing this hides), while
+          // the click still bubbles to the span's own OnSelectableCardClick/CardClick handler, so the
+          // tile stays pickable in the ordering MZCHOOSE.
+          if (zoneName === "EffectStack" && sharedCardData.TriggerType === 'SWU_PLOT_WINDOW') {
+            newHTML += "<div class='swu-es-plot-tile' role='img' aria-label='Plot window'>"
+                     +   "<img src='./Assets/Icons/plot.webp' alt='' draggable='false' />"
+                     + "</div>";
+          }
+        } catch (e) {
+          if (console && console.error) console.error('Effect stack Plot tile render error', e);
+        }
+
+        try {
           if (combatIndicatorText) {
             var combatIndicatorTypeClass = isCombatAttacker
               ? " combat-attacker-indicator"
@@ -1810,20 +1953,13 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
 
         try {
           if (zoneName === "EffectStack" && sharedCardData.TriggerType && sharedCardData.TriggerType !== "-") {
-            // ONE badge that names the trigger type itself (was a generic "TRIGGER" pill overlapping a
-            // separate type label — they conflicted, so merged: the pill now reads the mapped type,
-            // e.g. "On Attack"/"On Defense"/"When Played"; unknown types fall back to the raw string).
-            var _labelMap = {
-              'WhenPlayed':'When Played', 'WhenDefeated':'When Defeated',
-              'OnAttack':'On Attack', 'OnDefense':'On Defense',
-              'OnAttackEnd':'On Attack End', 'Shielded':'Shielded',
-              'Ambush':'Ambush', 'ENTER':'On Enter',
-              'Support':'Support', 'SupportOnAttack':'On Attack',
-              'SupportOnAttackEnd':'On Attack End', 'SupportWhenDefeated':'When Defeated',
-              'AdvantageShed':'Advantage',
-            };
-            var effectStackTriggerLabel = _labelMap[sharedCardData.TriggerType] || sharedCardData.TriggerType;
-            newHTML += "<div style='position:absolute; left:50%; bottom:8px; transform:translateX(-50%); z-index:1002; padding:4px 8px; border-radius:999px; background:var(--panel-scrim, rgba(16, 24, 34, 0.88)); border:1px solid rgba(244, 236, 219, 0.28); color:rgba(252, 238, 171, 0.98); font:700 10px/1.1 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif; letter-spacing:0.08em; text-transform:uppercase; box-shadow:0 8px 18px rgba(7, 14, 20, 0.35); white-space:nowrap;'>" + effectStackTriggerLabel + "</div>";
+            // ONE badge naming the TIMING WINDOW this entry resolves in — see
+            // SWU_EFFECT_STACK_TRIGGER_LABELS above for the rule and why the table is exhaustive.
+            // ⚠ NO RAW-ID FALLBACK. The old line ended `|| sharedCardData.TriggerType`, so any type the
+            // map did not know printed its database key to the player (bug #1024). An unmapped type — and
+            // the four entries deliberately mapped to '' — now render no badge at all.
+            var effectStackTriggerLabel = SWU_EFFECT_STACK_TRIGGER_LABELS[sharedCardData.TriggerType];
+            if (effectStackTriggerLabel) newHTML += "<div style='position:absolute; left:50%; bottom:8px; transform:translateX(-50%); z-index:1002; padding:4px 8px; border-radius:999px; background:var(--panel-scrim, rgba(16, 24, 34, 0.88)); border:1px solid rgba(244, 236, 219, 0.28); color:rgba(252, 238, 171, 0.98); font:700 10px/1.1 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif; letter-spacing:0.08em; text-transform:uppercase; box-shadow:0 8px 18px rgba(7, 14, 20, 0.35); white-space:nowrap;'>" + effectStackTriggerLabel + "</div>";
           }
         } catch (e) {
           if (console && console.error) console.error('Effect stack trigger badge render error', e);

@@ -94,6 +94,41 @@ When the regroup phase starts: You may defeat a base with 10 or less remaining H
     'leaderUnitArena' => 'Space',
     'leaderUnitType' => 'Unit',
   ),
+  'HMW_005' => 
+  array (
+    'title' => 'Jar Jar Binks',
+    'subtitle' => 'Bombad General',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 4,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Gungan',
+    ),
+    'text' => 'Action [1 resource, Exhaust]: If you gave a token upgrade to a unit this phase, deal 1 damage to a unit and heal 1 damage from a base.',
+    'epicAction' => 'Epic Action: If you control 6 or more resources, deploy this leader.',
+    'deployText' => 'Shielded (When you play this leader, give a Shield token to him.)
+On Attack: If you gave a token upgrade to a unit this phase, you may deal 1 damage to a unit and heal 1 damage from a base.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/005.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/005-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_007' => 
   array (
     'title' => 'Darth Vader',
@@ -1244,6 +1279,34 @@ Attached base gains: "When the regroup phase starts: Draw a card and deal 2 dama
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/071.png',
     'imageUrlBack' => '',
   ),
+  'HMW_073' => 
+  array (
+    'title' => 'Peppi Bow',
+    'subtitle' => 'Shaak Herder',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 2,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Gungan',
+    ),
+    'text' => 'Restore 1 (When this unit attacks, heal 1 damage from your base.)
+While this unit is upgraded, she gets +1/+1.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/073.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_074' => 
   array (
     'title' => 'Yord Fandar',
@@ -1465,6 +1528,30 @@ Action [defeat this upgrade]: Choose a non-Vehicle unit. It doesn\'t ready durin
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
+  ),
+  'HMW_100' => 
+  array (
+    'title' => 'Torrent',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 2,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+    ),
+    'trait' => 
+    array (
+      0 => 'Disaster',
+    ),
+    'text' => 'Give a Weakness token to a unit. If you control a Naboo base, give 2 Weakness tokens to that unit instead.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/100.png',
+    'imageUrlBack' => '',
   ),
   'HMW_102' => 
   array (
@@ -3095,6 +3182,34 @@ Choose an arena, Give a Weakness token to each exhausted enemy unit in that aren
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/243.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_254' => 
+  array (
+    'title' => 'Captain Tarpals',
+    'subtitle' => 'Grand Army Captain',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 1,
+    'power' => 0,
+    'hp' => 2,
+    'aspect' => 
+    array (
+      0 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Gungan',
+      1 => 'Trooper',
+    ),
+    'text' => 'Shielded (When you play this unit, give a Shield token to him.)
+Raid 2 (This unit gets +2/+0 while attacking.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/254.png',
     'imageUrlBack' => '',
   ),
   'HMW_255' => 

@@ -6,48 +6,87 @@ Nothing here blocks the work that shipped: suite **10054/0**, integration **157/
 
 ---
 
-## 1. `SWU_SUPPRESS_AFTERACTION` (ASH_155 Grogu) — RULED ON, and it STAYS
+## 1. `SWU_SUPPRESS_AFTERACTION` (ASH_155 Grogu) — **RESOLVED 2026-08-31, and the flag is GONE**
 
-**Your ruling (2026-08-29):** *"Grogu's attack with a unit is sort of an intercept, but not really.
-technically it's an action you get from a reactive trigger to 'When you take the initiative'."*
+**The 2026-08-29 root cause below was WRONG, and being wrong is what kept the hole open.** It read:
 
-Acted on: a reactive trigger resolves inside the action that fired it, so the bonus attack must not swap
-the turn a second time — which is what the flag already did.
+> a PASS and an INITIATIVE CLAIM never open an action id. Neither `SWUPassAction` nor
+> `SWUTakeInitiative` goes through `SaveUndoVersion`, so at the bonus attack's close the gate sees
+> `id=''` and short-circuits to "allow". The ledger does not model passes at all.
 
-**The interesting part is WHY the convergent primitive cannot replace it.** I tried
-`SWUWithNestedActionFrame(fn() => BeginSWUAttack(...))` and traced it: **depth reads 0 at the swap.**
-`BeginSWUAttack` is ASYNCHRONOUS — it queues the attack and returns, so the frame has already exited by
-the time `_SWUCombatFinishAction` reaches the after-action.
+`SWUTakeInitiative` is not reached directly. `CustomInput.php` calls `SaveUndoVersion($playerID)`
+**immediately before it**, and the same-day parity fix gave `GameTestAdapter::takeInitiative` a
+matching `_SWUOpenAction()`. So a claim opens an id on both routes. Instrumented on the four-seat
+ASH_155 fixture:
 
-> **This is the general limit of the depth primitive.** Depth is a *within-request* property. Anything
-> that finishes in a later drain — an attack, a queued trigger, an interactive decision — needs a
-> PERSISTED marker instead. It is the same reason the deferred nested-play leg needs the gamestate
-> close-stamp rather than depth, and it means "wrap it in a nested frame" is NOT a universal answer.
-> Synchronous nested play → depth. Asynchronous continuation → persisted stamp.
+```
+[TRACE] PASS p=1 id='1' closed=''                    ← the claim opened id 1; the pass swapped and
+                                                       never closed it
+[TRACE] gate phase=MAIN depth=0 id='1' closed=''     ← the bonus attack finds it still OPEN, so the
+                                                       gate ALLOWS a second swap: 2 → 3
+```
 
-**REVIEWED 2026-08-29 (second pass, clean tree, git-restored mutations, FULL suite each time):**
+The missing piece was never the OPEN. It was the **CLOSE**. That made the fix small and local, not
+the "behaviour change touching the initiative and phase-exit logic" this section had feared.
 
-| mutation | result |
+### What shipped
+
+| | before | after |
+|---|---|---|
+| the pass's stamp | none — the id stayed open | `_SWUStampActionClosedForPass()` at the top of `SWUPassAction`, both branches |
+| the turn swap | gated | unchanged, still gated |
+| `PASS = 0` | ran **above** the gate, so a REFUSED frame still wiped the streak | moved under the gate into `_SWUEndActionAndPassTurn()`, used by both gated call sites |
+| ASH_155 | one-shot `SWU_SUPPRESS_AFTERACTION` | **removed** — the card sets nothing |
+
+**Ending an action turned out to be TWO things, and only one of them was gated.** With the flag
+removed and the stamp added, the swap was correctly refused and the section still failed:
+
+```
+[ACTION-LEDGER] BLOCKED-DOUBLE-CLOSE                  ← swap refused …
+[TRACE] afterAction p=2 resets PASS from '1' turn=1   ← … streak wiped anyway
+```
+
+which leaves the phase in MAIN with `PASS=0` after the exit was already deferred to
+`SWU_RETRY_ENDPHASE` — "a fresh action sequence, letting BOTH players keep acting", exactly what
+`SWUPassAction`'s own comment warns about. Both halves are now owned by the closing frame.
+
+### The coverage claim from 2026-08-29 no longer holds
+
+That pass concluded "nothing in 10054 sections covers this interaction" after removing the flag left
+the suite green. That was true, and it was a **fixture-shape** problem, not a coverage-effort problem:
+
+```
+[T] swap -> 2 ; claimantAutoPass=no     ← the claim's own pass
+[T] swap -> 1 ; claimantAutoPass=YES    ← the wrongly-allowed second close lands on the CLAIMANT,
+[T] swap -> 2 ; claimantAutoPass=no       whom _SWUSeatTookCounterThisRound auto-passes — a THIRD
+                                          swap, straight back to where it should be
+```
+
+At two seats a correct compensation absorbs the extra swap and the board is indistinguishable. At
+three or more, step 2 lands on a seat that has not claimed, nothing auto-passes, and the turn stops
+there — the skip. **No Premier-shaped fixture could ever have caught this**, which is why the
+detectors live in `Tests/Cases/core/ActionClose_PassEndsTheAction.md` at 3 and 4 seats, with the
+2-seat section kept explicitly as a green control that documents its own blindness.
+
+Mutation-verified, each half separately:
+
+| mutation | reds |
 |---|---|
-| remove `SWU_SUPPRESS_AFTERACTION` | **10054 / 0 green** |
-| remove the pass-stamp | **10054 / 0 green** |
-| remove **both** | **10054 / 0 green** |
+| drop `_SWUStampActionClosedForPass()` | 4 sections — the 3P/4P claim sections (`expected turn player 2, got 3`) and the 3P streak section |
+| put `PASS = 0` back above the gate | 3 sections — both streak sections (`expected phase RES, got MAIN`) and `Grogu_YesYesYes.md::Interactions_P1Pass_P2Attack` |
 
-There was no contradiction earlier — I had been running only the Grogu file and misread a partial run.
-All three are green, so **nothing in 10054 sections covers this interaction.**
+Suite after: **10162 / 0**.
 
-**Root cause, traced:** a PASS and an INITIATIVE CLAIM never open an action id. Neither `SWUPassAction`
-nor `SWUTakeInitiative` goes through `SaveUndoVersion`, so at the bonus attack's close the gate sees
-`id=''` and short-circuits to "allow". The ledger does not model passes at all.
+### Still true, and still the general limit
 
-Consequences, both acted on:
-- **The pass-stamp was dead code** — guarded on a non-empty id that never exists there. **Removed.**
-- **`SWU_SUPPRESS_AFTERACTION` is the only protection and stays.** It is unverified, but it is the
-  shipping behaviour and your ruling fixed the semantics.
+`SWUWithNestedActionFrame` cannot express this. `BeginSWUAttack` is asynchronous — it queues and
+returns, so the frame has exited by the time `_SWUCombatFinishAction` reaches the after-action
+(measured at depth 0). Depth is a within-request property; anything finishing in a later drain needs
+the persisted stamp. What changed is that the stamp is now the **ledger's**, not a per-card flag's.
 
-**The real hole:** passes/claims are invisible to the action ledger. Closing it means giving a pass its
-own action id, which is a behaviour change touching the initiative and phase-exit logic — deliberately
-NOT done inside a review. That, plus a section that actually reds without the flag, is what §1 needs.
+⚠ **Do not reintroduce a per-card suppressor.** If a card needs its trigger not to end the action,
+the gate is where that belongs. A hand-placed flag is correct for exactly the card it is written on
+and silently wrong for the next one — and wrong only at 3+ seats, where no fixture was looking.
 
 ## 2. `SWU_PLOT_IN_PROGRESS` — RESOLVED, and it was half wrong
 

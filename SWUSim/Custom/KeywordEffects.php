@@ -347,7 +347,10 @@ function ObjectHasBounty($obj): int {
 // and vanishes once the phase ends and the flag clears. Self-contained (no CombatLogic dep).
 function ObjectHiddenUnattackable($obj): int {
     if ($obj === null || !HasKeyword_Hidden($obj)) return 0;
-    return GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_PLAYED_UNIT_' . intval($obj->UniqueID ?? 0)) > 0 ? 1 : 0;
+    // ⚠ MUST MATCH _SWUHiddenBlocksAttack EXACTLY — the overlay claiming protection the attack gate
+    // does not grant (or the reverse) is worse than no overlay. Same flag, same reason: CR 18.a is
+    // played/DEPLOYED/created, and SWU_PLAYED_UNIT_ only ever means played (bug #1025/#1026).
+    return GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_ENTERED_PHASE_' . intval($obj->UniqueID ?? 0)) > 0 ? 1 : 0;
 }
 
 // Thin wrapper so callers can write HasInitiative() without worrying about the

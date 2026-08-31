@@ -8,7 +8,9 @@
 // ── ASH Phase 10 leaders ──────────────────────────────────────────────────────
 // ASH_001 The Armorer — Action [Exhaust]: play an upgrade from your resources on a unit that entered play
 // this phase (paying its cost). If you do, resource the top card of your deck. Eligible hosts = units with
-// the SWU_PLAYED_UNIT_{uid} flag; resource-zone upgrades affordable + attachable to such a host.
+// the SWU_ENTERED_PHASE_{uid} flag; resource-zone upgrades affordable + attachable to such a host.
+// ⚠ ENTERED PLAY, not played (bug #1025/#1026): a leader deployed this phase is an eligible host.
+// This read SWU_PLAYED_UNIT_, which ActivateCard alone sets, so deploys and tokens were excluded.
 $leaderAbilities["ASH_001"] = function(int $player): void {
     global $playerID; $playerID = $player;
     $hosts = [];
@@ -16,7 +18,7 @@ $leaderAbilities["ASH_001"] = function(int $player): void {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed)
-                && GlobalEffectCount($player, 'SWU_PLAYED_UNIT_' . intval($o->UniqueID ?? 0)) > 0) $hosts[] = $mz;
+                && SWUUnitEnteredPlayThisPhase($o)) $hosts[] = $mz;
         }
     }
     if (empty($hosts)) { SWUAfterAction($player); return; }
@@ -55,7 +57,7 @@ $customDQHandlers["ASH_001#0"] = function($player, $parts, $lastDecision) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed)
-                && GlobalEffectCount(intval($player), 'SWU_PLAYED_UNIT_' . intval($o->UniqueID ?? 0)) > 0
+                && SWUUnitEnteredPlayThisPhase($o)
                 && in_array($mz, $validHosts, true)) $hosts[] = $mz;
         }
     }

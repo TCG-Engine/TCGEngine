@@ -89,6 +89,24 @@ if (!function_exists('SWUUnitPlayedThisPhase')) {
         return GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_PLAYED_UNIT_' . intval($obj->UniqueID ?? 0)) > 0;
     }
 }
+// ⚠ "ENTERED PLAY" IS NOT "PLAYED", and the two need different flags (bug #1025/#1026).
+// A leader that DEPLOYS enters play but is not played (CR 6.x: "considered deployed, not played"), and a
+// created token enters play without being played either. SWU_PLAYED_UNIT_ is set in exactly ONE place —
+// ActivateCard's unit-entry branch — so it answers "was PLAYED" and nothing else. SWU_ENTERED_PHASE_ is
+// set by CollectEntryTriggers (every entry, deploys included) and _SWUCreateOneToken; both clear in
+// RegroupPhaseStart, i.e. once per round, so this answers "this phase" and "this round" alike.
+//
+// Pick by the CARD TEXT:
+//     "entered play this phase" / "didn't enter play this round"  -> SWUUnitEnteredPlayThisPhase
+//     "you played this phase"   / "was played this phase"         -> SWUUnitPlayedThisPhase
+// Getting this wrong is silent: Premier fixtures almost only ever PLAY units, so a card reading the
+// wrong flag looks correct until a leader deploys or a token is created.
+if (!function_exists('SWUUnitEnteredPlayThisPhase')) {
+    function SWUUnitEnteredPlayThisPhase($obj): bool {
+        if ($obj === null) return false;
+        return GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_ENTERED_PHASE_' . intval($obj->UniqueID ?? 0)) > 0;
+    }
+}
 if (!function_exists('SWUUnitAttackedThisPhase')) {
     function SWUUnitAttackedThisPhase($obj): bool {
         if ($obj === null) return false;

@@ -919,6 +919,40 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     height: 124px !important; width: auto !important; border-radius: 5px !important;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6) !important;
 }
+/* ── The Plot window's effect-stack tile ───────────────────────────────────────
+   The CR 19 Plot window is an orderable trigger like any other (bug #1024), but it is NOT a card, and
+   its EffectStack entry only carries a CardID because a tile has to render something. That CardID is
+   the first affordable Plot card in resources, so with two Plot cards the tile showed one card's art
+   over a window that offers both. This covers the art with the animated Plot keyword icon — the same
+   Assets/Icons/plot.webp the HasPlot resource counter uses — so the tile reads as "the Plot window".
+   ⚠ THE SQUARE CONTAINER IS DELIBERATELY UNTOUCHED: inset:0 fills the tile the card render already
+   sized, so this entry keeps the exact footprint of its neighbours and the stack stays a even row.
+   ⚠ pointer-events:auto, NOT none. It has to swallow the HOVER (otherwise the card underneath pops
+   its detail popup and leaks the card this exists to hide) while the CLICK bubbles up to the span's
+   own handler, which is what makes the tile pickable in the "Choose_trigger_to_resolve" MZCHOOSE. */
+.swu-es-plot-tile {
+    position: absolute; inset: 0; z-index: 6;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 5px; overflow: hidden;
+    pointer-events: auto; cursor: pointer;
+    background:
+        radial-gradient(ellipse at 50% 42%, rgba(86, 66, 128, 0.42) 0%, rgba(16, 24, 34, 0) 62%),
+        linear-gradient(160deg, #1b2331 0%, #10161f 58%, #0b0f16 100%);
+    box-shadow: inset 0 0 0 1px rgba(244, 236, 219, 0.16),
+                inset 0 10px 26px rgba(7, 14, 20, 0.55);
+}
+.swu-es-plot-tile img {
+    /* FILL THE TILE. The asset is a circular badge inscribed in a square canvas with almost no
+       transparent margin, so contain-at-100% puts the circle edge to edge rather than floating it in
+       a field of background — which is what the first pass did at 58% and it read as an afterthought.
+       `contain` (not `cover`) because the tile is only approximately square: cover would crop the
+       badge's rim on whichever axis is shorter. */
+    width: 100%; height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 14px rgba(7, 14, 20, 0.65));
+    pointer-events: none;   /* the wrapper already owns hover+click; the img must not re-target them */
+}
+
 /* While the "Resolve whose abilities first?" prompt is up, lift the effect stack ABOVE the modal's
    dark backdrop (z 5000) and pin it just above the centered prompt, so the two trigger cards are
    bright and uncovered while the rest of the board stays dimmed. Toggled by the ShowYesNoDecisionPopup
@@ -2141,7 +2175,25 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         return String(mzid || '').replace(/^(p\d+|my|their)/, '').replace(/-\d+$/, '');
     }
     function swuRenderedZoneForSeat(seat) {
-        var v = window.swuView; if (!v) return null;
+        var v = window.swuView;
+        // ⚠ NO VIEW ≠ NO MAPPING. swuBuildViews returns [] once there are two or fewer LIVE seats, so a
+        // Twin Suns game that has narrowed by elimination renders exactly like a 2-player game and has
+        // no swuView at all. The SERVER does not narrow with it: ZoneSearch's seat-tagged fan-out is
+        // gated on SeatCountForGame(), which counts SEAT ORDER, so it keeps emitting `p3GroundArena-0`
+        // for the rest of the game. Returning null here left those specs untranslated, and
+        // IsSelectableCard compares spec.zone to the rendered zone as an EXACT string — so nothing on
+        // the board lit up and nothing could be clicked. That is bug game #4160 ("after a player was
+        // eliminated, i can't choose a target with my Cad Bane leader"), and it was never about Cad
+        // Bane: EVERY targeting decision in a narrowed Twin Suns game was unanswerable.
+        // With no view the frame is unambiguous by construction — at most two seats are live, so one is
+        // me and the other is "their". A DEAD seat still maps to nothing, which is correct: it is not
+        // rendered anywhere and must not be offered.
+        if (!v) {
+            if (seat === MY_PLAYER_ID) return 'my';
+            var liveRaw = String(window.LiveSeatsData || window.SeatOrderData || '').trim();
+            if (liveRaw && liveRaw.indexOf(String(seat)) === -1) return null;   // eliminated
+            return 'their';
+        }
         if (seat === v.viewSeat) return 'my';
         if (seat === v.oppSeat)  return 'their';
         return null; // off-view
@@ -2160,7 +2212,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // OnSelectableCardClick sends the real seat-tagged mzID. Off-view specs are held out (returned for
     // the arrow badge). 2-player (no swuViews) → identity passthrough → byte-identical.
     window.swuTwNormalizeSelection = function (parsedSpecs) {
-        if (!window.swuViews || !window.swuViews.length) return { inlineNormalized: parsedSpecs, offViewSpecs: [] };
+        // ⚠ The `if (!swuViews.length) return parsedSpecs` short-circuit that used to sit here was the
+        // other half of the narrowed-game bug: it skipped translation entirely whenever the client had
+        // no views, which is true both for a real 2-player game AND for a Twin Suns game narrowed by
+        // elimination — where the server is still sending `p{n}…`. It is also redundant for the case it
+        // was protecting: a genuine 2-player game's specs are already `my…`/`their…`, and the
+        // `!/^p\d+/` guard below passes those through untouched. So 2-player stays byte-identical and
+        // the narrowed game now gets the mapping it always needed.
         var inlineNormalized = [], offViewSpecs = [];
         (parsedSpecs || []).forEach(function (spec) {
             if (!spec || !spec.zone || spec.actionPayload) { inlineNormalized.push(spec); return; }

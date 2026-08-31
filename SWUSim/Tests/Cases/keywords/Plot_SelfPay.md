@@ -24,6 +24,14 @@ WithP1Deck: SOR_095,SOR_095
 
 ## WHEN
 - P1>DeployLeader
+#// ⚠ THE ORDERING STEP IS NEW, AND IT IS THE FIX FOR BUG #1024, NOT AN ACCOMMODATION. SEC_001
+#// Chancellor Palpatine has a When Deployed ability of his own, so his trigger and the Plot window are
+#// two simultaneous triggered abilities on cards this player controls — CR 7.6.9 gives the ordering to
+#// the player, and CR 19.a is what makes Plot a triggered ability at all. EffectStack-1 is Palpatine
+#// (the Plot window is armed first, so it is entry 0). Resolving him FIRST is what makes his "next
+#// card played using Plot costs 3 less" apply, which is exactly what the assertions below measure —
+#// they are unchanged; only the step that was previously forced is now chosen explicitly.
+- P1>AnswerDecision:EffectStack-1
 - P1>AnswerDecision:myResources-6
 
 ## EXPECT
@@ -50,6 +58,8 @@ WithP1Deck: [SOR_095 SOR_095]
 
 ## WHEN
 - P1>DeployLeader
+#// Ordering choice — see the note in PlotCardPaysTowardItsOwnCost. EffectStack-1 is the leader.
+- P1>AnswerDecision:EffectStack-1
 - P1>AnswerDecision:myResources-5
 - P1>AnswerDecision:myGroundArena-0
 
@@ -79,6 +89,8 @@ WithP1Resources: 1:LAW_039:1,1:SEC_082:1,1:ASH_048:1,1:ASH_116:1,1:SEC_082:1,1:L
 
 ## WHEN
 - P1>DeployLeader
+#// Ordering choice — see the note in PlotCardPaysTowardItsOwnCost. EffectStack-1 is the leader.
+- P1>AnswerDecision:EffectStack-1
 - P1>AnswerDecision:myResources-6
 
 ## EXPECT

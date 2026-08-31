@@ -2903,10 +2903,13 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     $defenderFirst = !$hasShootFirst
         && is_array($attacker->TurnEffects ?? null) && in_array('DEFENDER_FIRST', $attacker->TurnEffects);
     // JTL_185 Hound's Tooth: deals combat damage first while attacking an EXHAUSTED unit that DIDN'T
-    // enter play this phase (the SWU_PLAYED_UNIT_{uid} flag marks units that entered this round).
+    // enter play this phase.
+    // ⚠ ENTERED PLAY, not played (bug #1025/#1026's family). This read SWU_PLAYED_UNIT_ — set only by
+    // ActivateCard — so a leader that DEPLOYED this phase read as "didn't enter play" and Hound's Tooth
+    // wrongly got to strike first against it. A negative check fails silently in the generous direction.
     if (($attacker->CardID ?? '') === 'JTL_185' && $target !== null && empty($target->removed)
         && intval($target->Status ?? 1) === 0
-        && GlobalEffectCount(intval($target->Controller ?? 0), 'SWU_PLAYED_UNIT_' . intval($target->UniqueID ?? 0)) <= 0) {
+        && !SWUUnitEnteredPlayThisPhase($target)) {
         $hasShootFirst = true;
     }
     // "+N power for this attack" one-shot bonuses (Surprise Strike SOR_220, attack-with
@@ -3411,17 +3414,33 @@ function _SWUSabineProtected(object $sabine): bool {
     return count($aspects) >= 3;
 }
 
-// Hidden (LOF keyword) — "This unit can't be attacked if it was played this phase." True when $u has
-// Hidden AND its current in-play instance was played this phase. "Played this phase" = the
-// SWU_PLAYED_UNIT_{uid} flag (set on a real play in ActivateCard, cleared at RegroupPhaseStart). A
-// rescued or token-created instance gets a fresh UID with NO flag — so a captured-then-rescued Hidden
-// unit (even rescued the same phase) is attackable. Used to exclude it from valid attack/Ambush targets.
+// Hidden — CR 18.a: "a keyword whose effect is the same as the constant ability: 'This unit can't be
+// attacked if it was PLAYED/DEPLOYED/CREATED this phase.'" True when $u has Hidden AND its current
+// in-play instance entered play this phase by one of those three routes.
+//
+// ⚠ THE FLAG IS SWU_ENTERED_PHASE_, NOT SWU_PLAYED_UNIT_ (bug reports #1025/#1026, both HMW_011 Darth
+// Sidious: no Hidden overlay on deploy, and attackable the phase he deployed). SWU_PLAYED_UNIT_ is set
+// in exactly ONE place — ActivateCard's unit-entry branch — so it means PLAYED and nothing else.
+// SWUDeployLeader builds its arena unit directly and never goes through ActivateCard, so a deployed
+// leader never carried it and Hidden simply did not apply to any leader. The card's printed reminder
+// text ("if it was played this phase") is abbreviated and is what makes the wrong flag look right;
+// CR 6.x is explicit that a leader is "considered deployed, NOT played".
+//
+// ⚠ Do NOT "fix" this by widening SWU_PLAYED_UNIT_ to cover deploys. That flag is load-bearing for the
+// cards that really do say PLAYED — SOR_005 Luke Skywalker ("a unit you played this phase") and SEC_236
+// Undercover Operation ("a unit that was played this phase") — and widening it would silently let both
+// target a deployed leader. The two rules are different and need the two flags.
+//
+// SWU_ENTERED_PHASE_ is set by CollectEntryTriggers (every unit entering play, deploys included) and by
+// _SWUCreateOneToken (tokens), and cleared at RegroupPhaseStart. A RESCUED unit gets a fresh UID and is
+// correctly attackable: returning to play is not played/deployed/created — see the two
+// CanBeAttacked_CapturedRescued* sections in Tests/Cases/keywords/Hidden.md, which pin that.
 function _SWUHiddenBlocksAttack($u): bool {
     if ($u === null || !HasKeyword_Hidden($u)) return false;
-    // CR 757b — "If a unit has both Hidden and Sentinel, it can be attacked, as abilities can't prevent
+    // CR 18.b — "If a unit has both Hidden and Sentinel, it can be attacked, as abilities can't prevent
     // units with Sentinel from being attacked." Sentinel overrides Hidden's "can't be attacked".
     if (HasKeyword_Sentinel($u)) return false;
-    return GlobalEffectCount(intval($u->Controller ?? 0), 'SWU_PLAYED_UNIT_' . intval($u->UniqueID ?? 0)) > 0;
+    return GlobalEffectCount(intval($u->Controller ?? 0), 'SWU_ENTERED_PHASE_' . intval($u->UniqueID ?? 0)) > 0;
 }
 
 // SEC_012 Cassian Andor (leader front passive) — "Friendly units that have damaged an opponent's base

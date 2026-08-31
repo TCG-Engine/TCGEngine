@@ -8067,6 +8067,32 @@ function _SWUEndPhaseBlockingSeat(): ?int {
 // $gDecisionQueueVariables stores game-state variables as a pipe-delimited KEY=VALUE string.
 // The PASS key tracks the consecutive-pass counter: 0 = no prior pass; 1 = opponent just passed.
 function SWUPassAction($player) {
+    // ── A PASS ENDS AN ACTION, SO IT MUST STAMP THE LEDGER ────────────────────────────────────────
+    // A pass performs the terminal turn swap without going through SWUAfterAction, so it was the one
+    // action-ending site the close ledger never saw. `docs/action-close-deferrals.md` §1 assumed the
+    // ledger could not see it AT ALL ("the gate sees id='' and short-circuits to allow"); that is
+    // STALE — it predates the harness/production parity fix that added _SWUOpenAction to the adapter's
+    // takeInitiative, and it never accounted for CustomInput.php calling SaveUndoVersion before
+    // SWUTakeInitiative. Traced 2026-08-31 on the four-seat ASH_155 fixture:
+    //
+    //     [TRACE] PASS p=1 id='1' closed=''      ← the initiative claim DID open an action, and the
+    //                                              pass swapped the turn without ever closing it
+    //     [TRACE] gate phase=MAIN depth=0 id='1' closed=''
+    //                                            ← Grogu's bonus attack reaches the gate with that id
+    //                                              still OPEN, so the gate ALLOWS a second swap:
+    //                                              2 → 3, and seat 2 never gets its turn.
+    //
+    // The id was there all along; nothing ever CLOSED it. Stamping here is the structural version of
+    // the per-card SWU_SUPPRESS_AFTERACTION patch this replaces, and it protects every future
+    // "when you take the initiative" card by default instead of one card by hand.
+    //
+    // ⚠ Stamp only — the pass's OWN swap below stays unconditional. Routing it through the gate would
+    // let a refusal (the gate's phase pin, say) silently eat a legitimate pass, which is a far worse
+    // failure than the one being fixed.
+    // ⚠ Before the branch, deliberately: the phase-exit branch below can leave the phase MAIN when the
+    // exit is held by a PENDING_DECISION, and a trigger resolving in that window reaches the gate
+    // exactly like the non-exit case.
+    _SWUStampActionClosedForPass();
     $consecutivePasses = intval(GetSWUVar('PASS', '0'));
     // Twin Suns (Phase 4): the action phase ends when ALL live players pass consecutively. This pass is
     // the Nth; if the prior streak already covers every other live seat, it ends the phase. 2-player:
@@ -8147,8 +8173,9 @@ function SWUTakeInitiative($player) {
     }
     // ASH_155 Grogu — "When you take the initiative: you may attack with a unit." One offer per controlled
     // Grogu. The bonus attack is OUT of the normal action sequence — SWUPassAction below already handles
-    // this player's pass — so its terminal after-action must NOT swap the turn again; the ASH_155#0
-    // continuation sets SWU_SUPPRESS_AFTERACTION before BeginSWUAttack (consumed in SWUAfterAction).
+    // this player's pass — so its terminal after-action must NOT end the action again. That is now
+    // enforced by the close ledger rather than by a per-card flag: SWUPassAction stamps the claim's
+    // action id closed, so the attack's own close is refused as a duplicate.
     foreach (GetUnitsInPlay(intval($player)) as $gz) {
         if (!empty($gz->removed) || ($gz->CardID ?? '') !== 'ASH_155') continue;
         global $playerID; $playerID = intval($player);
@@ -8337,15 +8364,13 @@ function SWUAfterAction($player) {
     SetSWUVar('SWU_LAST_ACTION_' . intval($player), $_ba !== '' ? ('BASEATK,' . $_ba) : 'OTHER');
     // SEC_145 — mark that this player has acted this phase (gates "play only as your first action").
     if (GlobalEffectCount(intval($player), 'SWU_ACTED_PHASE') === 0) AddGlobalEffects(intval($player), 'SWU_ACTED_PHASE');
-    // ASH_155 Grogu — a bonus attack triggered by taking the initiative must NOT run the action's
-    // pass-reset/turn-swap (SWUTakeInitiative's SWUPassAction already passed). Consume the one-shot flag:
-    // the deferred-replacement flush + tracking above still run, but leave PASS + TurnPlayer untouched.
-    if (GetSWUVar('SWU_SUPPRESS_AFTERACTION', '') === '1') {
-        SetSWUVar('SWU_SUPPRESS_AFTERACTION', '');
-        DecisionQueueController::CleanupRemovedCards();
-        return;
-    }
-    SetSWUVar('PASS', '0');
+    // ⚠ SWU_SUPPRESS_AFTERACTION USED TO BE CONSUMED HERE, and its removal is the point of the
+    // ledger change below. ASH_155 Grogu's bonus attack must not re-run the action end (the initiative
+    // claim's SWUPassAction already passed), and this one-shot per-card flag was the only thing
+    // stopping it — hand-placed, so the NEXT such card would have been silently wrong. SWUPassAction
+    // now stamps the claim's action id closed and the PASS reset moved under the gate, so a duplicate
+    // close is refused for every card by construction. Do NOT reintroduce a per-card suppressor: if a
+    // card needs this, the gate is where it belongs. Removed 2026-08-31.
     DecisionQueueController::CleanupRemovedCards();
     // Plot window (CR §19): while a leader-deploy Plot window is open, a nested play's terminal
     // After Action must NOT end the deploy action. Redirect to the Plot orchestrator, which
@@ -8358,7 +8383,7 @@ function SWUAfterAction($player) {
     // The single place an action ends. Everything above this line is per-action cleanup that a nested
     // or duplicate frame still wants to run; only the SWAP is exclusive to the owning frame.
     if (!_SWUActionCloseGate()) return;
-    SWUSwapTurnPlayer();
+    _SWUEndActionAndPassTurn();
     _SWUCheckForcedAttack(intval(GetTurnPlayer())); // SHD_144 — force the new turn player's next action to be the compelled attack
 }
 
@@ -8390,7 +8415,8 @@ function _SWUCheckForcedAttack(int $player): void {
     // attack action with that unit". It is performed programmatically rather than through ActionMap, so
     // nothing has stamped a new action id; without this it inherits the id of the action that armed the
     // compulsion, its own close is rejected as a duplicate, and the turn never passes back. (Contrast
-    // ASH_155 Grogu's BONUS attack, which is deliberately NOT an action and keeps SWU_SUPPRESS_AFTERACTION.)
+    // ASH_155 Grogu's BONUS attack, which is deliberately NOT an action: it opens nothing, so the
+    // initiative claim's closed stamp refuses its close — which is exactly the behaviour wanted there.)
     _SWUOpenAction();
     $savedPID = $playerID; $playerID = $player;
     $mz = SWUFindMzByUID($unitUID);
@@ -9442,6 +9468,11 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         // through OnWhenPlayed so the LOF_197 repeat-arm sees it as a real When Played use.
         case 'HMW048Gain':          OnWhenPlayed($player, $cardID, $mzID);          break;
         case 'WhenPlayedAsUpgrade': OnWhenPlayedAsUpgrade($player, $cardID, $mzID); break;
+        // CR 19 Plot window, ordered against the deploying leader's own trigger (bug #1024). This is
+        // the ONLY thing that opens the window now; the deploy's own SWUAfterAction is unreachable
+        // while this trigger is pending (see SWUDeployLeader). _SWUPlotReoffer both makes the first
+        // offer and, on later re-entry after each Plot card is played, closes the window.
+        case 'SWU_PLOT_WINDOW': _SWUPlotReoffer(intval($player)); break;
         case 'OnAttached':          OnOnAttached($player, $cardID, $mzID);          break;
         case 'WhenDefeated':
             OnWhenDefeated($player, $cardID, $mzID);
@@ -11149,8 +11180,26 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
             AddTrigger($dctrl63, 'ASH_063', 'ASH_063', '');
             _SWUAddShadowCasterGrantedReuse($dctrl63, 'ASH_063', ''); // JTL_169 Shadow Caster reuse of this granted WD
         }
-        // SEC_046 Galen Erso — a named card that lost its abilities fires no When Defeated.
-        if (HasWhenDefeatedAbility($d['cardID']) && !_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'])) {
+        // ── A BLANKED UNIT FIRES NO WHEN DEFEATED (bug report #1027) ──────────────────────────────
+        // The gate used to be `HasWhenDefeatedAbility($cardID) && !_SWUGalenSuppressesCard(...)`: a
+        // PRINTED-CardID lookup plus one hand-written special case for SEC_046 Galen Erso. It never
+        // asked `LostAbilities()`, so every GENERIC "loses all abilities" effect left the trigger
+        // firing — LAW_132 The Tree Remembers (reported: it blanks AND defeats a cost-3 unit in one
+        // card, and JTL_162 Droid Missile Platform still dealt its 3 indirect damage), plus SOR_138,
+        // JTL_244, JTL_018, SHD_072, SEC_054 and TWI_255.
+        //
+        // ⚠ Galen being special-cased is what made this look covered. `LostAbilities()` already checks
+        // _SWUGalenSuppressesCard itself, so the object test below SUBSUMES it — but the CardID test is
+        // kept as a fallback for the case the object can no longer be resolved (a defeat path that has
+        // already cleaned the zone), where LostAbilities has nothing to read.
+        //
+        // ⚠ Read the object HERE, not later: this collection point is deliberately before
+        // CleanupRemovedCards (see the JTL_104 power-snapshot note below, which relies on the same
+        // window), so TurnEffects — where the blanking token lives — are still on the object.
+        $wdObj = !empty($d['mzID']) ? GetZoneObject($d['mzID']) : null;
+        if (HasWhenDefeatedAbility($d['cardID'])
+            && !_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'])
+            && !($wdObj !== null && LostAbilities($wdObj))) {
             AddTrigger($d['player'], 'WhenDefeated', $d['cardID'], $d['mzID']);
             // Snapshot the defeated unit's power WHILE its upgrades are still attached (they are at this
             // collection point), so a "deal damage equal to this unit's power" When-Defeated (JTL_104 Raddus)
@@ -16138,6 +16187,22 @@ function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''
         SetSWUVar('SWU_PLOT_K', strval(SWUResourceCount($player)));
         SetSWUVar('SWU_PLOT_P', '0');
         SetSWUVar('SWU_PLOT_PENDING_REPLACE', '');
+        // ── PLOT SHARES THE DEPLOY'S TIMING WINDOW (bug #1024) ────────────────────────────────────
+        // CR 19.a: Plot "resolves like the triggered ability: 'When you deploy a leader: You may play
+        // this card…'". CR 7.6.9: simultaneous triggers on cards one player controls resolve in THAT
+        // PLAYER'S chosen order. So the window belongs in the same pending-trigger bag as the leader's
+        // own When Deployed ability — exactly like JTL_191 Invincible a few lines above, which is the
+        // precedent this follows. FlushEntryTriggerBag then does the ordering for free: one trigger
+        // auto-dispatches (unchanged behaviour), two or more raise the existing
+        // "Choose_trigger_to_resolve" MZCHOOSE.
+        //
+        // ⚠ Before this, the order was fixed by ARCHITECTURE rather than by a rule — the window only
+        // opened from the deploy's SWUAfterAction, which runs after the entry triggers are already
+        // queued, so the leader's ability ALWAYS went first and the player was never asked.
+        // ⚠ This also makes the deploy's own SWUAfterAction unreachable while Plot is pending: both
+        // branches call it only `if ($triggered === 0)`, and the flush count now always counts this
+        // trigger. That is what removes the need for any double-open guard in _SWUPlotAfterPlay.
+        AddTrigger($player, 'SWU_PLOT_WINDOW', _SWUPlotWindowTriggerCardID($player), '');
     }
 
     if ($mode === 'Pilot') {
@@ -17149,6 +17214,40 @@ function PlayerHasPlotsToPlay(int $player): bool {
     return $found;
 }
 
+// A CardID for the Plot window's EffectStack entry. The tile has to render SOMETHING, so this returns
+// the first affordable Plot card in the player's resources.
+//
+// ⚠ IT IS NO LONGER WHAT THE PLAYER SEES, and must not be treated as a label. The client covers this
+// tile with the animated Plot keyword icon (.swu-es-plot-tile in GameLayoutShared.php) precisely
+// because naming one card was misleading: with two Plot cards in resources the tile showed one card's
+// art over a window that offers BOTH. Keep this returning a real, affordable CardID — the tile renders
+// beneath the cover and a bogus id would 404 — but do not add meaning to WHICH one it picks.
+//
+// ⚠ SCOPE, and it is a deliberate narrowing. Strictly, CR 19.a makes EACH Plot card its own triggered
+// ability, so with two Plot cards CR 7.6.9 would let a player interleave the leader's trigger between
+// them. This models the WINDOW as a single orderable entry instead: the player picks Plot-vs-leader
+// once, and within the window still plays their Plot cards in any order (CR 19.b). Doing it per-card
+// means re-entering the ordering choice from inside _SWUPlotReoffer's own re-offer loop, which is the
+// most entangled part of this file; the reported case (one Plot card, one leader trigger) is fully
+// correct either way. Widen this only with a fixture that actually needs the interleave.
+function _SWUPlotWindowTriggerCardID(int $player): string {
+    global $playerID, $Plot_Cards;
+    $saved = $playerID; $playerID = $player;
+    $ready = SWUTotalPaymentCapacity($player);
+    $out = 'PLOT';
+    $resources = &GetResources($player);
+    for ($i = 0; $i < count($resources); $i++) {
+        if (isset($resources[$i]->removed) && $resources[$i]->removed) continue;
+        $cardID = $resources[$i]->CardID ?? '';
+        if (!isset($Plot_Cards[$cardID])) continue;
+        if (_SWUGalenSuppressesCard($player, $cardID)) continue;
+        if (SWUCardPlayBlocked($player, $cardID)) continue;
+        if (SWUComputePlayCost($player, $resources[$i]) <= $ready) { $out = $cardID; break; }
+    }
+    $playerID = $saved;
+    return $out;
+}
+
 // Resource mzIDs (myResources-N) eligible to be played as a Plot this deploy: a Plot card,
 // affordable, and inside the original-resources window [0, K-P) so top-of-deck replacements
 // appended during this window are not re-offered (CR 19.d).
@@ -17195,6 +17294,13 @@ function _SWUPlotReplaceSlot(int $player): void {
 // Called from SWUAfterAction while a Plot window is open. If a Plot card was just played, replace its
 // slot and count it; then re-offer the next eligible Plot (or close the window).
 function _SWUPlotAfterPlay(int $player): void {
+    // ⚠ THE DEPLOY'S OWN AFTER-ACTION NO LONGER OPENS THE WINDOW (bug #1024) — and needs no guard here
+    // to stop it. Both deploy branches call SWUAfterAction only `if ($triggered === 0)`, and $triggered
+    // is FlushEntryTriggerBag's count over the whole pending bag, which now always contains the
+    // SWU_PLOT_WINDOW trigger whenever the window is armed. So this function is simply not reached
+    // during the deploy itself; it is reached only after each Plot card is actually played, exactly as
+    // before. A suppression flag was written here first and then deleted: mutation showed it could not
+    // fail, because the path it guarded is unreachable.
     if (GetSWUVar('SWU_PLOT_PENDING_REPLACE', '') === '1') {
         SetSWUVar('SWU_PLOT_PENDING_REPLACE', '');
         _SWUPlotReplaceSlot($player);
@@ -17220,7 +17326,7 @@ function _SWUPlotReoffer(int $player): void {
         // that has not happened yet — but the action is now stamped, and a duplicate is refused.
         // The redirect in SWUAfterAction stays: that one is Plot ORCHESTRATION ("this action is not
         // over yet"), which is a different statement from "someone else owns the close".
-        if (_SWUActionCloseGate()) SWUSwapTurnPlayer();
+        if (_SWUActionCloseGate()) _SWUEndActionAndPassTurn();
         return;
     }
     global $playerID; $playerID = $player;   // for relative mzID resolution in MZCountChoices
@@ -18537,6 +18643,42 @@ function _SWUActionCloseGate(): bool {
     }
     SetSWUVar('SWU_ACTION_CLOSED', $id);
     return true;
+}
+
+// Mark the action that is ending in a PASS as closed, so a later frame's close is refused as a
+// duplicate. Deliberately NOT `_SWUOpenAction()` + gate:
+//   • it must not reset $gSWUActionDepth — a pass is not a fresh nested frame, and zeroing the depth
+//     here would hand a genuinely-nested close the permission it was refused a moment ago;
+//   • it must not depend on the gate's return value — the pass's swap is unconditional (see the
+//     comment at the call site).
+// When no action was ever opened (the plain Pass button, which production does NOT route through
+// SaveUndoVersion, and any fixture that passes without acting first) an id is allocated here, so a
+// trigger resolving inside a PLAIN pass window is covered too, not only an initiative claim.
+function _SWUStampActionClosedForPass(): void {
+    $id = GetSWUVar('SWU_ACTION_ID', '');
+    if ($id === '' || $id === '0') {
+        $id = strval(intval(GetSWUVar('SWU_ACTION_ID', '0')) + 1);
+        SetSWUVar('SWU_ACTION_ID', $id);
+    }
+    SetSWUVar('SWU_ACTION_CLOSED', $id);
+}
+
+// ── ENDING AN ACTION IS TWO THINGS, AND BOTH BELONG TO THE OWNING FRAME ───────────────────────────
+// The turn swap was gated; `PASS = 0` was not — it ran ABOVE the gate in SWUAfterAction, so a frame
+// the gate REFUSED still wiped the consecutive-pass streak. That is the second half of the ASH_155
+// bug and the ledger could not see it: measured 2026-08-31 with SWU_SUPPRESS_AFTERACTION removed,
+//
+//     [ACTION-LEDGER] BLOCKED-DOUBLE-CLOSE  ← the swap was correctly refused …
+//     [TRACE] afterAction p=2 resets PASS from '1' turn=1   ← … and the streak was wiped anyway
+//
+// which leaves the phase in MAIN with PASS=0 after the exit was already deferred to
+// SWU_RETRY_ENDPHASE — "a fresh action sequence, letting BOTH players keep acting", exactly as
+// SWUPassAction's own comment warns. Keeping the two together in one function is what stops them
+// drifting apart again; both gated call sites use it.
+// ⚠ Not reaching this during REGROUP is safe: ActionPhaseStart() sets PASS = 0 itself.
+function _SWUEndActionAndPassTurn(): void {
+    SetSWUVar('PASS', '0');
+    SWUSwapTurnPlayer();
 }
 
 // Run $fn as a NESTED action frame: anything inside it that reaches SWUAfterAction will not end the

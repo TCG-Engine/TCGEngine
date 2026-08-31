@@ -159,3 +159,209 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095]
 ## EXPECT
 P1GROUNDARENAUNIT:1:CARDID:IBH_057
 P1GROUNDARENAUNIT:1:NOTKEYWORD:Hidden
+
+---
+
+# Deployed_ThisPhase_SheIsACTUALLYUnattackable
+#// THE GAP THIS FILE HAD, and the card that states the rule most plainly. LOF_010's deployed side prints
+#// "Hidden (This unit can't be attacked if she was DEPLOYED this phase.)" — the reminder text says
+#// DEPLOYED, not "played", which is the wording most Hidden cards use and the wording that produced bug
+#// reports #1025/#1026. Third Sister was broken by that same bug: `_SWUHiddenBlocksAttack` tested
+#// SWU_PLAYED_UNIT_, set only by ActivateCard, so a leader that DEPLOYED never carried it and her own
+#// printed Hidden did nothing at all.
+#// ⚠ EVERY OTHER SECTION IN THIS FILE ASSERTS `HASKEYWORD:Hidden`, which only says the keyword is
+#// PRESENT — ObjectHasHidden is 1 whenever a unit has Hidden, attackable or not. Nothing here tested
+#// that Hidden BLOCKS anything, which is exactly how the defect survived. ATTACKTARGETS does.
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:LOF_010;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 5
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>DeployLeader
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENACOUNT:1
+#// P1's base only — Third Sister is out of the pool.
+ATTACKTARGETS:2:G:0:1
+
+---
+
+# Deployed_PreviousPhase_SheIsAttackableAgain
+#// THE CONTROL for the section above. Hidden lapses with the phase: the round turns over, the
+#// entered-play marker clears in RegroupPhaseStart, and she is a legal target again — 2 targets, not 1.
+#// Without this, the section above would pass on a rule that made every deployed leader permanently
+#// unattackable.
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:LOF_010;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 5
+WithP2GroundArena: SOR_046:1:0
+WithP1Deck: SOR_046 SOR_046 SOR_046 SOR_046
+WithP2Deck: SOR_046 SOR_046 SOR_046 SOR_046
+## WHEN
+- P1>DeployLeader
+- P2>Pass
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+## EXPECT
+ATTACKTARGETS:2:G:0:2
+
+---
+
+# Front_PlayHiddenUnit_TheGrantACTUALLYBlocks
+#// The front Action's grant, tested for EFFECT rather than for the keyword being present. PlayHiddenUnit
+#// above already proves Plo Koon arrives with the keyword; this proves an opponent cannot attack him.
+#// The played unit qualifies on both counts — it was played (so it entered play this phase) AND it holds
+#// the granted Hidden — so the block is real, not merely a badge.
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:LOF_010;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 12
+WithP1Hand: LOF_050
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LOF_050
+P1GROUNDARENAUNIT:0:HASKEYWORD:Hidden
+ATTACKTARGETS:2:G:0:1
+
+---
+
+# Front_GrantedHidden_LapsesNextPhase
+#// The grant is "for this phase" and Hidden's own condition is "entered play this phase" — both expire
+#// together at the round turn, so Plo Koon becomes attackable. This is the unhappy-path twin of the
+#// section above and the thing that stops a permanent-Hidden bug hiding behind it.
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:LOF_010;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 12
+WithP1Hand: LOF_050
+WithP2GroundArena: SOR_046:1:0
+WithP1Deck: SOR_046 SOR_046 SOR_046 SOR_046
+WithP2Deck: SOR_046 SOR_046 SOR_046 SOR_046
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P2>Pass
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+## EXPECT
+ATTACKTARGETS:2:G:0:2
+
+---
+
+# DeployedOnAttack_GrantedHidden_ACTUALLYBlocks_HerOwnHiddenLapsed
+#// The On Attack grant, isolated from her OWN Hidden — which is the only way to read it cleanly.
+#// ⚠ IF SHE DEPLOYS THIS PHASE, BOTH BLOCKS APPLY AT ONCE and the pool collapses to the base for two
+#// different reasons, so the section could not tell them apart. She therefore deploys in round 1 and
+#// does nothing; by round 2 her own Hidden has lapsed and she is attackable again. Then she attacks,
+#// arming "the next unit you play this phase gains Hidden", and P1 plays Plo Koon.
+#// Expected pool for P2: Third Sister + P1's base = 2. Plo Koon is excluded, she is NOT.
+#// A pool of 3 means the grant never blocked; a pool of 1 means her lapsed Hidden is still blocking.
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:LOF_010;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 12
+WithP1Hand: LOF_050
+WithP2GroundArena: SOR_046:1:0
+WithP1Deck: SOR_046 SOR_046 SOR_046 SOR_046
+WithP2Deck: SOR_046 SOR_046 SOR_046 SOR_046
+## WHEN
+- P1>DeployLeader
+- P2>Pass
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>AttackGroundArena:0:BASE
+- P2>Pass
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:LOF_050
+P1GROUNDARENAUNIT:1:HASKEYWORD:Hidden
+ATTACKTARGETS:2:G:0:2
+
+
+---
+
+# GrantedHidden_OnASentinel_TheGrantStillApplies
+#// HALF ONE OF THE SENTINEL PAIR. Before claiming Sentinel OVERRIDES the grant, prove the grant actually
+#// happened — otherwise the override section below would pass just as well on a unit that never received
+#// Hidden at all, which is the classic way a rules-override test measures nothing.
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:LOF_010;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 14
+WithP1Hand: SHD_029
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+#// ⚠ NO `AnswerDecision:myHand-0`. One unit in hand means the offer AUTO-RESOLVES, and a spare answer is
+#// not harmless — it gets eaten by the NEXT decision. A first draft included it and reported an EMPTY
+#// arena, which reads like the play failing when the answer had simply landed somewhere else.
+- P1>UseLeaderAbility
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SHD_029
+P1GROUNDARENAUNIT:0:HASKEYWORD:Hidden
+
+---
+
+# GrantedHidden_OnASentinel_IsStillAttackable
+#// HALF TWO, and the rules claim. CR 18.b — "If a unit has both Hidden and Sentinel, it can be attacked,
+#// as abilities can't prevent units with Sentinel from being attacked." Sentinel WINS: the Pyke Sentinel
+#// carries the granted Hidden (proved directly above) and is attacked anyway. SOR_046's 3 power clears
+#// its HP, so the arena empties.
+#// ⚠ THE ASSERTION IS THE DEFEAT, NOT A TARGET COUNT, and not damage on a survivor. A Sentinel restricts
+#// the pool to itself, so "Sentinel only" and "Sentinel wrongly hidden, base only" are BOTH a count of 1
+#// and ATTACKTARGETS cannot separate them. A landed attack can: refused → the unit is still there.
+## GIVEN
+CommonSetup: brk/bbk/{
+  myLeader:LOF_010;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 14
+WithP1Hand: SHD_029
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P2>AttackGroundArena:0:theirGroundArena-0
+## EXPECT
+P1GROUNDARENACOUNT:0

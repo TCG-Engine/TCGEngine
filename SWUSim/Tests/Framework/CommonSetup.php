@@ -128,6 +128,24 @@ function CommonSetup(
     return $b;
 }
 
+// ── Far seats (3 and 4) ──────────────────────────────────────────────────────
+// Dress a seat beyond the my/their pair from the same 3-char code. Seats 1-2 keep the full CommonSetup
+// path above (deploy modes, second leaders, resource/hand/discard opts); a far seat gets the two things
+// that actually matter for it to function — a BASE and a LEADER.
+//
+// ⚠ THIS IS NOT COSMETIC. Without a base and leader a far seat has NO ASPECTS, so it pays the full
+// aspect penalty on everything it plays, and a play it cannot afford is a SILENT NO-OP — the action
+// simply does not happen, which in a turn-order fixture reads exactly like a skipped turn. That
+// mis-diagnosis is the reason CommonSetup3P/4P exist; see the DSL directives in SchemaTestRunner.
+//
+// Assignment is keyed per seat in GameStateBuilder, so an explicit WithP{n}Base / WithP{n}Leader
+// applied afterwards cleanly OVERRIDES what this wrote rather than duplicating it.
+function CommonSetupFarSeat(GameStateBuilder $b, int $seat, string $code): GameStateBuilder {
+    [$leaderID, $baseID] = _resolveLeaderBase($code);
+    return $b->WithBaseForPlayer($seat, $baseID)
+             ->WithLeaderForSeat($seat, $leaderID);
+}
+
 // ── Internal resolver ────────────────────────────────────────────────────────
 
 function _resolveLeaderBase(string $code): array {

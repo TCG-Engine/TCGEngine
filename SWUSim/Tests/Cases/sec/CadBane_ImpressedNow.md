@@ -22,6 +22,11 @@ WithP2GroundArena: SOR_095:1:1
 
 ## WHEN
 - P1>DeployLeader
+#// ⚠ ORDERING STEP (bug #1024). The leader's own When Deployed trigger and the CR 19 Plot window
+#// are two simultaneous triggered abilities, so CR 7.6.9 gives the player the order. EffectStack-0
+#// is the Plot window (armed first, in SWUDeployLeader); EffectStack-1 is the leader. Resolving the
+#// leader FIRST is the sequence this section has always measured — the step was previously forced.
+- P1>AnswerDecision:EffectStack-1
 - P1>AnswerDecision:myResources-0
 - P1>AnswerDecision:theirGroundArena-0
 
