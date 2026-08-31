@@ -5547,6 +5547,93 @@ DECK,
     ],
 ];
 
+// --- FlameTech BladeCore: Sword Weapon Link, entering the field linked to a target Sword weapon ---
+$fixtures['flametech-bladecore-weapon-link'] = [
+    'testedCards' => ['aAJliPQT3F'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // FlameTech BladeCore is EXALTED element -- CanPlayerMeetCardElementRequirements requires
+    // EXALTED to be explicitly enabled, which GetPlayerEnabledElements does automatically once any
+    // OTHER advanced element is enabled (GrandArchiveSim/Custom/GameLogic.php:19410-19419), so the
+    // same ARCANE Subcards lineage patch used by conductive-strike-static-counters unlocks it too.
+    // Its Weapon Link is generic engine machinery ($WeaponLink_Cards, GameLogic.php:914-916,
+    // 2239-2248): activating it with a valid Sword weapon on the field queues an MZCHOOSE to pick
+    // the link target, and CreateWeaponLink stores the link on BOTH sides -- the weapon's Subcards
+    // gains the linking card's CardID, and the linking object's Counters gets
+    // 'linkedToWeapon' => weapon's CardID (GameLogic.php:22718-22732) -- both are plain stored
+    // properties, directly assertable. The "+2POWER" and "put a durability counter on discard"
+    // clauses read that link at computed-value/listener-dispatch time with no additional stored
+    // state of their own, so they're out of scope here. [Lorraine Bonus] Link Shield is a distinct,
+    // narrower conditional (IsLorraineBonusActive) not exercised by this fixture.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]], // Lorraine, Arclight Saber (ARCANE) - unlocks EXALTED too
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace (WEAPON, SWORD) - link target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'aAJliPQT3F'], // FlameTech BladeCore, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Brooch X Ultra: Ally Link, entering the field linked to a target ally ---
+$fixtures['brooch-x-ultra-ally-link'] = [
+    'testedCards' => ['3Gx9ByIl9t'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Same ARCANE Subcards lineage patch as conductive-strike-static-counters. Ally Link is
+    // generic engine machinery ($AllyLink_Cards, a plain boolean set at
+    // GrandArchiveSim/Custom/GameLogic.php:864) mirroring Weapon Link's shape
+    // (flametech-bladecore-weapon-link): activating with a valid ally on the field queues an
+    // MZCHOOSE to pick the link target, and CreateAllyLink stores the link on both sides as plain
+    // properties (GameLogic.php:22572-22587) -- the ally's Subcards gains the linking card's
+    // CardID, and the linking object's Counters gets 'linkedToAlly' => the ally's CardID. The
+    // "+2POWER" and "On Attack: banish a random memory card to draw" clauses read that link at
+    // computed-value/listener-dispatch time with no additional stored state, so they're out of
+    // scope here.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]], // Lorraine, Arclight Saber (ARCANE)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - link target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '3Gx9ByIl9t'], // Brooch X Ultra, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // NOTE: Lorraine, Honed Operative was attempted but abandoned -- reaching her requires two
 // sequential real champion level-ups (0 -> 1 -> 2), and while investigating an unexplained memory/
 // hand discrepancy after the first level-up, a genuine cross-tool nondeterminism surfaced:

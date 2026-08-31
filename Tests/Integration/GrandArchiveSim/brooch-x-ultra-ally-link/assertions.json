@@ -1,0 +1,6 @@
+[
+    {"step":7,"type":"card_property_equals","mzId":"myField-2","property":"CardID","value":"3Gx9ByIl9t","semantic":true,"label":"Brooch X Ultra enters the field"},
+    {"step":7,"type":"card_property_equals","mzId":"myField-2","property":"Counters","value":"{\"linkedToAlly\":\"em6eEh9q8y\"}","semantic":true,"label":"Brooch X Ultra records its link target as Dungeon Guide"},
+    {"step":7,"type":"card_property_equals","mzId":"myField-1","property":"Subcards","value":"[\"3Gx9ByIl9t\"]","semantic":true,"label":"Dungeon Guide records Brooch X Ultra as a linked Subcard"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

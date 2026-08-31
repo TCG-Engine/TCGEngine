@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T00:20:33+00:00",
+    "generatedAt": "2026-08-31T00:23:59+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 189,
+        "cardsWithExistingFixtures": 191,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2298,
+        "cardsNeedingSemanticCoverage": 2296,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -86,27 +86,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 124
-        },
-        {
-            "cardId": "3Gx9ByIl9t",
-            "name": "Brooch X Ultra",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 1,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
         },
         {
             "cardId": "szene5o32m",
@@ -244,29 +223,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "aAJliPQT3F",
-            "name": "FlameTech BladeCore",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -40284,6 +40240,31 @@
             "priority": 143
         },
         {
+            "cardId": "3Gx9ByIl9t",
+            "name": "Brooch X Ultra",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 1,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "brooch-x-ultra-ally-link"
+            ],
+            "semanticFixtures": [
+                "brooch-x-ultra-ally-link"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
             "cardId": "uvgflagxbb",
             "name": "Coronal of Rejuvenation",
             "type": "REGALIA,ITEM",
@@ -41160,6 +41141,33 @@
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "aAJliPQT3F",
+            "name": "FlameTech BladeCore",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "flametech-bladecore-weapon-link"
+            ],
+            "semanticFixtures": [
+                "flametech-bladecore-weapon-link"
+            ],
+            "starterDecks": [
+                "Lorraine, Arclight Saber Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 135

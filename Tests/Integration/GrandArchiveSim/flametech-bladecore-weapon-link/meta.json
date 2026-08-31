@@ -1,0 +1,17 @@
+{
+    "name": "FlameTech BladeCore's Sword Weapon Link enters the field linked to a target Sword weapon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-30T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "FlameTech BladeCore is EXALTED element -- CanPlayerMeetCardElementRequirements requires EXALTED to be explicitly enabled, which GetPlayerEnabledElements does automatically once any OTHER advanced element is enabled (GrandArchiveSim/Custom/GameLogic.php:19410-19419), so the same ARCANE Subcards lineage patch used by conductive-strike-static-counters (Lorraine, Arclight Saber, x9sSpjpP3G) unlocks it too, with no need for a dedicated EXALTED-specific champion. Weapon Link itself is generic engine machinery driven by the $WeaponLink_Cards registry (GameLogic.php:914-916) rather than a per-card macro -- FlameTech BladeCore has no entry at all in GeneratedMacroCode.php. Clarent, Sword of Peace (m31WVJ9F04, WEAPON/SWORD) is seeded onto the field as the link target; activating FlameTech BladeCore from hand queues an MZCHOOSE over valid Sword weapons (GameLogic.php:2239-2248), and selecting one calls CreateWeaponLink, which stores the link on both sides as plain properties (GameLogic.php:22718-22732): the weapon's Subcards gains the linking card's CardID, and FlameTech BladeCore's own Counters gets 'linkedToWeapon' => the weapon's CardID. Both are asserted directly. The '+2POWER' and 'put a durability counter on this weapon whenever you discard a fire element card' clauses read that link at computed-value/listener-dispatch time with no additional independently stored state of their own, so they're out of scope here -- as is [Lorraine Bonus] Link Shield, a distinct, narrower conditional (IsLorraineBonusActive) not exercised by this fixture. If the link is later broken, sacrificing this object is also out of scope (would require destroying the linked weapon in a follow-up fixture).",
+    "testedCards": [
+        "aAJliPQT3F"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["aAJliPQT3F"],
+        "mechanics": ["targeting", "zone-movement", "condition", "element-requirement"],
+        "rulesClauses": [
+            "Sword Weapon Link (This object enters the field linked to target Sword weapon. If the link is broken, sacrifice this object.)"
+        ]
+    }
+}
