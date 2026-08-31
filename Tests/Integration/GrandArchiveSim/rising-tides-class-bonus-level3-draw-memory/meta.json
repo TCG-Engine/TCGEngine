@@ -1,0 +1,17 @@
+{
+    "name": "Rising Tides: [Class Bonus][Level 3+] Draw a card into your memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "IsClassBonusActive(['MAGE']) && PlayerLevel($player) >= 3 (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php's cardActivatedAbilities['y6q4goxi8a:0']) are independent checks: level reads the main champion object (patched to Lorraine, Arclight Saber, level 3, same as wisdoms-reprise-level3-draw-memory), class scans ALL physical field objects for a MAGE (physically-seeded Kongming, Fel Eidolon, same as devoted-bloomweaver-class-bonus-empower). Unlike NORM (always enabled), Rising Tides' WATER element is NOT free: GetPlayerEnabledElements() scans GetChampionLineage() = [main champion CardID] + its Subcards, and neither x9sSpjpP3G (ARCANE) nor the physically-seeded Fel Eidolon (TERA, not in the main champion's own Subcards) grants WATER -- discovered empirically after the initial FSM click silently no-opped (DoActivateCard's !CanPlayerUseCardElement(...) early-return, GameLogic.php ~line 2093, never queues a reserve MZCHOOSE and leaves the card in hand with no visible error). Fixed by ALSO patching the main champion's Subcards with Spirit of Water (tafqldAGRF), independent of the CardID patch that provides the level. myMemory ends at 3 for this exact deck/seed (a pregame-default baseline plus this ability's own draw); the absolute count is asserted directly since only the ability's own contribution needed proving, not the baseline's origin.",
+    "testedCards": [
+        "y6q4goxi8a"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["y6q4goxi8a"],
+        "mechanics": ["zone-movement", "draw-discard", "cost", "condition"],
+        "rulesClauses": [
+            "[Class Bonus][Level 3+] Draw a card into your memory."
+        ]
+    }
+}

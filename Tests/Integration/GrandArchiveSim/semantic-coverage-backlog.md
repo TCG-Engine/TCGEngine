@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **202**
+Cards linked to an existing fixture: **203**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2285**
+Implemented cards still needing semantic coverage: **2284**
 
 ## Mechanic groups
 
@@ -68,7 +68,6 @@ Implemented cards still needing semantic coverage: **2285**
 | Plated Bullet (`l75tlzsmw3`) | REGALIA,ITEM | 1 | targeting, zone-movement, combat, condition | Diana Starter Deck | — |
 | Potion Infusion: Clarity (`300z2snsdw`) | ACTION | 1 | cost, targeting, draw-discard, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Quickdraw Piercer (`j4f15joh30`) | REGALIA,WEAPON | 1 | draw-discard, zone-movement, combat, condition | Diana Starter Deck | — |
-| Rising Tides (`y6q4goxi8a`) | ACTION | 1 | cost, draw-discard, zone-movement, condition | Kongming Starter Deck | — |
 | Shuang Ji of Sacrifice (`y1tyo32voa`) | REGALIA,WEAPON | 1 | damage, draw-discard, trigger, condition | Jin Starter Deck | — |
 | Smack with Flute (`zpkcFs72Ah`) | ATTACK | 1 | cost, zone-movement, combat, trigger | Silvie Starter Deck | — |
 | Spirit Blade: Ghost Strike (`vcZSHNHvKX`) | ATTACK | 1 | zone-movement, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2285**
 | Take Aim (`vnta6qsesw`) | ACTION | 1 | targeting, status, combat, condition | Diana Starter Deck | — |
 | Templar of the Eternal (`peyG8Hfgqt`) | ALLY | 1 | damage, prevention, zone-movement, counter | Lorraine Pantheon Starter | — |
 | Tonoris, Lone Mercenary (`zb14m4c8lj`) | CHAMPION | 1 | status, combat, trigger, condition | Tonoris Starter Deck | — |
+| Altruistic Blacksmith (`Pd4hj3sveV`) | ALLY | 1 | token, combat, trigger | Lorraine Pantheon Starter | — |

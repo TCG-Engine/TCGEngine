@@ -1,0 +1,4 @@
+[
+    {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"[Class Bonus][Level 3+] draws 1 card into memory (2 pregame-default memory cards + 1 from this ability)"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

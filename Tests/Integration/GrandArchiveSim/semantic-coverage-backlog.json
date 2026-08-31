@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T14:13:11+00:00",
+    "generatedAt": "2026-08-31T14:18:26+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 202,
+        "cardsWithExistingFixtures": 203,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2285,
+        "cardsNeedingSemanticCoverage": 2284,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -886,26 +886,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "y6q4goxi8a",
-            "name": "Rising Tides",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -42207,6 +42187,30 @@
             ],
             "starterDecks": [
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "y6q4goxi8a",
+            "name": "Rising Tides",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rising-tides-class-bonus-level3-draw-memory"
+            ],
+            "semanticFixtures": [
+                "rising-tides-class-bonus-level3-draw-memory"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 134

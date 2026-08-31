@@ -5841,6 +5841,48 @@ DECK,
     ],
 ];
 
+// --- Rising Tides: [Class Bonus][Level 3+] Draw a card into your memory ---
+$fixtures['rising-tides-class-bonus-level3-draw-memory'] = [
+    'testedCards' => ['y6q4goxi8a'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // IsClassBonusActive(["MAGE"]) && PlayerLevel($player) >= 3 (GrandArchiveSim/GeneratedCode/
+    // GeneratedMacroCode.php's cardActivatedAbilities["y6q4goxi8a:0"]) are independent checks: the
+    // level check reads the main champion object (patched to Lorraine, Arclight Saber, level 3,
+    // same as wisdoms-reprise-level3-draw-memory), and the class check scans ALL physical field
+    // objects for a MAGE (same physically-seeded Kongming, Fel Eidolon as
+    // devoted-bloomweaver-class-bonus-empower/vernal-talisman-preserve-draw) -- two separate
+    // objects. Unlike NORM (always enabled, GameLogic.php's CanPlayerMeetCardElementRequirements /
+    // IsNormOnlyElementProperty), Rising Tides' WATER element is NOT free: GetPlayerEnabledElements()
+    // scans GetChampionLineage() = [main champion CardID] + its Subcards, and neither
+    // x9sSpjpP3G (ARCANE) nor the physically-seeded Fel Eidolon (TERA, not in the main champion's
+    // Subcards anyway) grants WATER -- discovered empirically after the FSM click on Rising Tides
+    // silently no-opped (DoActivateCard's !CanPlayerUseCardElement(...) early-return,
+    // GameLogic.php ~line 2093). Fixed by ALSO patching the main champion's Subcards with Spirit of
+    // Water (a WATER-elemental champion), independent of the CardID patch that provides the level.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'x9sSpjpP3G', 'Subcards' => ['tafqldAGRF']]], // Lorraine, Arclight Saber (level 3) + Spirit of Water (WATER element access) in lineage
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7x2v4tdop1'], // Kongming, Fel Eidolon (MAGE CHAMPION), physically seeded for Class Bonus
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'y6q4goxi8a'], // Rising Tides
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 2-reserve cost, card 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 2-reserve cost, card 2/2
+    ],
+];
+
 // --- Formidable Youxia: As long as Shifting Currents face East, +2 LIFE ---
 $fixtures['formidable-youxia-east-life-buff'] = [
     'testedCards' => ['acmde97dbu'],
