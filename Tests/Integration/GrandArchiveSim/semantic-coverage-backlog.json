@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T15:23:09+00:00",
+    "generatedAt": "2026-08-31T15:47:08+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 215,
+        "cardsWithExistingFixtures": 218,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2272,
+        "cardsNeedingSemanticCoverage": 2269,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1256,25 +1256,6 @@
             "priority": 113
         },
         {
-            "cardId": "iow4occyxi",
-            "name": "Eminent Commander",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "SGsDKB9CN5",
             "name": "Endura, Scepter of Ignition",
             "type": "REGALIA,ITEM",
@@ -1855,25 +1836,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "a8a0v4njrt",
-            "name": "Slate Whetstone",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2797,24 +2759,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "zc7wxgur23",
-            "name": "Materialize Polearm",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -42439,6 +42383,29 @@
             "priority": 133
         },
         {
+            "cardId": "iow4occyxi",
+            "name": "Eminent Commander",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "eminent-commander-class-bonus-combat-damage-discount"
+            ],
+            "semanticFixtures": [
+                "eminent-commander-class-bonus-combat-damage-discount"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "C3YucOomEM",
             "name": "Everlonging Thorns",
             "type": "ACTION",
@@ -42927,6 +42894,29 @@
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "a8a0v4njrt",
+            "name": "Slate Whetstone",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "slate-whetstone-banish-polearm-power-draw"
+            ],
+            "semanticFixtures": [
+                "slate-whetstone-banish-polearm-power-draw"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -43498,6 +43488,28 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "zc7wxgur23",
+            "name": "Materialize Polearm",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "materialize-polearm-from-material-deck"
+            ],
+            "semanticFixtures": [
+                "materialize-polearm-from-material-deck"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

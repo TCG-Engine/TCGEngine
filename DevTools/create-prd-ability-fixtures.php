@@ -6471,6 +6471,115 @@ DECK,
     ],
 ];
 
+// --- Slate Whetstone: Banish - up to one target Polearm weapon you control gets +1 POWER
+// until end of turn, draw a card ---
+$fixtures['slate-whetstone-banish-polearm-power-draw'] = [
+    'testedCards' => ['a8a0v4njrt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Field items with an activated ability are offered as a fast-action MZMAYCHOOSE opportunity
+    // once the turn player attempts to pass (same technique as sweet-ambrosia-banish-recover),
+    // answered with the encoded "{mzID}@Activate-{abilityIndex}@{label}" choice string. Steel
+    // Halberd (WARRIOR/POLEARM) is seeded as the buff target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'a8a0v4njrt'], // Slate Whetstone
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fvnvknj4dd'], // Steel Halberd (WARRIOR/POLEARM)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''], // choose Steel Halberd as the buff target
+    ],
+];
+
+// --- Eminent Commander: [Class Bonus] costs 3 less to activate as long as your champion has
+// dealt 3+ combat damage this turn ---
+$fixtures['eminent-commander-class-bonus-combat-damage-discount'] = [
+    'testedCards' => ['iow4occyxi'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // CountChampionCombatDamageDealtThisTurn (GameLogic.php:23297) reads the champion object's own
+    // Counters['_champCombatDamageDealtThisTurn'], directly seedable via patchMzId (no real combat
+    // needed). [Class Bonus] WARRIOR is satisfied by a physically-seeded WARRIOR champion (Jin,
+    // Fate Defiant), independent of the main champion. WIND element access via the established
+    // Subcards lineage patch (Spirit of Wind). Base reserve cost 5, -3 discount = 2: the FSM click
+    // plus 2 "myHand-0" reserve payments (each pick removes the new top-of-hand card, same as
+    // summon-sentinels-drone-tokens' 4x myHand-0 pattern) pays the full discounted cost.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7'], 'Counters' => ['_champCombatDamageDealtThisTurn' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zd8l14052j'], // Jin, Fate Defiant (WARRIOR), for Class Bonus
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'iow4occyxi'], // Eminent Commander
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // After the discounted 2-reserve cost is fully paid, a standard post-materialize opportunity
+        // window offers remaining hand fast-actions; decline it to reach a clean end state.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Materialize Polearm: materialize a Polearm card from your material deck ---
+$fixtures['materialize-polearm-from-material-deck'] = [
+    'testedCards' => ['zc7wxgur23'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // WIND element access via the established Subcards lineage patch (Spirit of Wind). Steel
+    // Halberd (WARRIOR/POLEARM) is seeded directly into the Material zone (on top of the 5 default
+    // material cards) as the choosable target; the CUSTOM handler resolves via DoMaterialize
+    // (GeneratedMacroCode.php:38036), bypassing the Polearm's own cost.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND element unlock (Spirit of Wind)
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'fvnvknj4dd'], // Steel Halberd (WARRIOR/POLEARM)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zc7wxgur23'], // Materialize Polearm
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Reserve-paid activated abilities resolve through an EffectStack opportunity, same as
+        // favorable-winds-ally-life-buff; decline it ('-') to let the target choice appear.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''], // choose Steel Halberd
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
