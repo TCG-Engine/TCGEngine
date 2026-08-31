@@ -6580,6 +6580,131 @@ DECK,
     ],
 ];
 
+// --- Trusty Steed: On Enter, target ally you control gets +2 POWER until end of turn ---
+$fixtures['trusty-steed-enter-ally-power-buff'] = [
+    'testedCards' => ['FCbKYZcbNq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // NORM (no advanced element) ALLY, so no Subcards lineage patch is needed. Dungeon Guide is
+    // seeded on the field first as the only other ally, so ZoneSearch("myField", ["ALLY"]) with the
+    // "pop self off the end" trick (GeneratedMacroCode.php:11162) leaves exactly one legal target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, buff target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'FCbKYZcbNq'], // Trusty Steed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Unlike a SPELL activation (favorable-winds-ally-life-buff), an ALLY's On Enter target
+        // choice is queued directly after the last reserve payment -- no EffectStack decline step
+        // (confirmed via a throwaway debug harness, DevTools/debug_steed.php, now deleted; an extra
+        // decline here gets consumed AS the target choice with chosen="-", silently no-opping the buff).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Dungeon Guide
+    ],
+];
+
+// --- Jin, Fate Defiant: Inherited Effect - when Jin attacks with a Polearm weapon or Polearm
+// attack card, target Horse or Human ally gets +1 POWER until end of turn ---
+$fixtures['jin-fate-defiant-polearm-attack-ally-buff'] = [
+    'testedCards' => ['zd8l14052j'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Real attack-declaration sequence, same shape as ardent-cloudstriker-west-attack-champion-buff,
+    // but the CHAMPION itself attacks (myField-0), patched directly to Jin, Fate Defiant (a static
+    // CardID patch suffices here since ChampionHasInLineage only checks lineage, not a real Enter).
+    // Steel Halberd (WARRIOR/POLEARM) is seeded on the field as the equipped weapon -- champions
+    // offer a weapon-choice decision before the attack target when a weapon is available
+    // (CombatLogic.php:1176-1180). Dungeon Guide (HUMAN) is the buff target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j', 'Status' => 2]], // Jin, Fate Defiant, awake
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (HUMAN), buff target
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fvnvknj4dd'], // Steel Halberd (WARRIOR/POLEARM), equipped weapon
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline materialize offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Jin
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''], // choose Steel Halberd as the weapon
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Dungeon Guide for +1 POWER
+    ],
+];
+
+// --- Jin, Zealous Maverick: On Enter, this champion's next attack gets +1 POWER and wakes it up ---
+$fixtures['jin-zealous-maverick-enter-next-attack-power-wake'] = [
+    'testedCards' => ['5ramr16052'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Jin, Zealous Maverick
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // A real level-up event is required to fire a champion's own On Enter (a static CardID patch
+    // does not fire triggers, per kongming-wayward-maven-enter-shifting-currents). The starting
+    // champion is patched to Jin, Fate Defiant (level 1) so the real level-up reaches Jin, Zealous
+    // Maverick (level 2, memory cost 2). On Enter tags TurnEffects with '5ramr16052'
+    // (GeneratedMacroCode.php:9805-9809); on the champion's next attack, CombatLogic.php:1796-1801
+    // consumes that flag into '5ramr16052_POWER' (+1 POWER, GameLogic.php:12244) and calls
+    // WakeupCard -- both halves are exercised end to end in a single real attack declaration.
+    // Resolving the MAT-phase choice by leveling up (unlike declining) lands directly in MAIN phase
+    // with an empty decision queue -- no extra pass is needed, confirmed via a throwaway debug
+    // harness (DevTools/debug_zealous.php, now deleted). That harness also found Zealous Maverick has
+    // 0 base POWER, so the attack is illegal without a weapon (BeginCombatPhase's power>0 gate is
+    // checked before the On Attack trigger fires and can't retroactively legalize it) -- Steel
+    // Halberd is seeded on the field as the equipped weapon, same as jin-fate-defiant-polearm-attack-
+    // ally-buff, purely to give the attack positive power. The SAME harness also found that a real
+    // level-up re-adds the champion object at the END of the field array rather than replacing it
+    // in place -- Steel Halberd (originally myField-1) becomes myField-0 and the leveled champion
+    // becomes myField-1 after the level-up action.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j']], // Jin, Fate Defiant (level 1)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // pays the 2-memory level-up cost, card 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 2/2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fvnvknj4dd'], // Steel Halberd (WEAPON), gives the attack positive power
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Zealous Maverick
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Jin (now at index 1)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // choose Steel Halberd (now at index 0) as the weapon
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

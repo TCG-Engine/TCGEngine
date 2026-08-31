@@ -1,0 +1,18 @@
+{
+    "name": "Jin, Zealous Maverick: On Enter, this champion's next attack gets +1 POWER and wakes it up",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "A real level-up event is required to fire a champion's own On Enter (a static CardID patch does not fire triggers, per kongming-wayward-maven-enter-shifting-currents). The starting champion is patched to Jin, Fate Defiant (level 1) so the real level-up reaches Jin, Zealous Maverick (level 2, memory cost 2, listed in the deck's Material section so GetLevelUpMaterialIndices finds it). On Enter tags TurnEffects with '5ramr16052' (GeneratedMacroCode.php:9805-9809); on the champion's next attack, CombatLogic.php:1796-1801 consumes that flag into '5ramr16052_POWER' (+1 POWER, GameLogic.php:12244) and calls WakeupCard. Two engine quirks discovered via a throwaway debug harness (DevTools/debug_zealous.php, now deleted): (1) resolving the MAT-phase choice by leveling up lands directly in MAIN phase with an empty decision queue, unlike declining -- no extra pass needed; (2) Zealous Maverick has 0 base POWER, so BeginCombatPhase's power>0 gate (checked before the On Attack trigger fires) makes the attack illegal without a weapon -- Steel Halberd is seeded as the equipped weapon, which ALSO re-indexes the field: the level-up re-adds the champion at the END of the field array rather than in place, so Steel Halberd becomes myField-0 and the leveled champion becomes myField-1. Final damage 3 = Steel Halberd base 1 + WARRIOR Class Bonus 1 (Jin is WARRIOR) + this ability's +1 POWER. Status stays 2 (awake) post-attack instead of resting, confirming WakeupCard fired.",
+    "testedCards": [
+        "5ramr16052"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["5ramr16052"],
+        "mechanics": ["trigger", "combat", "status"],
+        "rulesClauses": [
+            "Jin Lineage (must be leveled from a previous level Jin champion).",
+            "On Enter: this card's next attack this turn gets +1 POWER and has On Attack: Wake up this card."
+        ]
+    }
+}

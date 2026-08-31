@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T15:47:08+00:00",
+    "generatedAt": "2026-08-31T16:02:27+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 218,
+        "cardsWithExistingFixtures": 221,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2269,
+        "cardsNeedingSemanticCoverage": 2266,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -620,26 +620,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "zd8l14052j",
-            "name": "Jin, Fate Defiant",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -2708,24 +2688,6 @@
             "priority": 112
         },
         {
-            "cardId": "5ramr16052",
-            "name": "Jin, Zealous Maverick",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "TJTeWcZnsQ",
             "name": "Lorraine, Blademaster",
             "type": "CHAMPION",
@@ -3448,25 +3410,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "FCbKYZcbNq",
-            "name": "Trusty Steed",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck",
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -41698,6 +41641,30 @@
             "priority": 134
         },
         {
+            "cardId": "zd8l14052j",
+            "name": "Jin, Fate Defiant",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "jin-fate-defiant-polearm-attack-ally-buff"
+            ],
+            "semanticFixtures": [
+                "jin-fate-defiant-polearm-attack-ally-buff"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "sZTH5LanyW",
             "name": "Jovian Hilt X Ultra",
             "type": "REGALIA,ITEM",
@@ -43422,6 +43389,28 @@
             "priority": 132
         },
         {
+            "cardId": "5ramr16052",
+            "name": "Jin, Zealous Maverick",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "jin-zealous-maverick-enter-next-attack-power-wake"
+            ],
+            "semanticFixtures": [
+                "jin-zealous-maverick-enter-next-attack-power-wake"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "a01pyxwo25",
             "name": "Kongming, Ascetic Vice",
             "type": "CHAMPION",
@@ -43632,6 +43621,29 @@
                 "Kongming Starter Deck",
                 "Silvie Starter Deck",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "FCbKYZcbNq",
+            "name": "Trusty Steed",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "trusty-steed-enter-ally-power-buff"
+            ],
+            "semanticFixtures": [
+                "trusty-steed-enter-ally-power-buff"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck",
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
