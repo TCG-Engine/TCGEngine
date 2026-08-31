@@ -5952,6 +5952,147 @@ DECK,
     ],
 ];
 
+// --- Ardent Cloudstriker: +3 POWER while facing West and attacking a champion ---
+// --- Planar Abyss: Delayed - at beginning of next recollection phase, destroy all non-champion
+// objects, then if SC South, deal 10 damage to each opponent champion ---
+$fixtures['planar-abyss-delayed-destroy-south-damage'] = [
+    'testedCards' => ['qexcwmx2ug'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Planar Abyss's own activation just sets a delayed PLANAR_ABYSS_PENDING global effect
+    // (cardActivatedAbilities['qexcwmx2ug:0'], GeneratedMacroCode.php ~20854-20860); the actual
+    // destroy-all + conditional-damage resolution happens inside RecollectionPhase() (GameLogic.php
+    // ~9676-9699) the next time this player's recollection phase begins. Setting the flag directly
+    // via the 'globalEffect' setup step (same technique as blistering-insurgent's LEVELED_UP_THIS_TURN)
+    // avoids scripting the card's own 12-reserve activation, which is out of scope for this fixture.
+    // Dungeon Guide (an ALLY) is seeded onto both fields as the "non-champion object" target; SC
+    // faces South so the champion-damage half is also exercised in the same fixture.
+    'setup' => [
+        ['player' => 1, 'globalEffect' => 'PLANAR_ABYSS_PENDING'],
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'SOUTH']], // Shifting Currents facing South
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY), P1's own non-champion object to be destroyed
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY), P2's non-champion object to be destroyed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline materialize offer, continue phase advance through recollection
+    ],
+];
+
+// --- Taiji of Crystal Strategems: South->East transition, may rest to deal 3 damage to opponent's champion ---
+$fixtures['taiji-crystal-strategems-south-east-rest-damage'] = [
+    'testedCards' => ['l17uc67eaq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // South->East is adjacent (IsAdjacentDirection: SOUTH<->EAST/WEST), so this reuses the same
+    // Fel Eidolon Inherited "adjacent direction on Spell activation" trigger mechanism as
+    // hydroguard-retainer-north-west-draw, just starting from SOUTH and answering "EAST". The
+    // transition callback (GameLogic.php ~20630-20636) then queues a YES/NO "rest to deal 3
+    // damage?" decision, answered YES.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock + Fel Eidolon Inherited trigger
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'SOUTH']], // Shifting Currents facing South
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'l17uc67eaq'], // Taiji of Crystal Strategems
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight, to trigger the Inherited SC choice on activation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EAST', 'chkInput' => [], 'inputText' => ''], // choose adjacent direction EAST
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // rest Taiji to deal 3 damage
+    ],
+];
+
+// --- Spirited Neophyte: On Attack, if facing North, Empower 2 ---
+$fixtures['spirited-neophyte-north-attack-empower'] = [
+    'testedCards' => ['ekplmih8ra'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Same real attack-declaration sequence as ardent-cloudstriker-west-attack-champion-buff. Unlike
+    // Ardent Cloudstriker's transient computed-power bonus, Empower() tags the CHAMPION object with a
+    // TurnEffects entry that persists after combat resolves (it isn't cleared by the CombatAttacker/
+    // CombatTarget cleanup), so it's directly observable in the post-action snapshot.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ekplmih8ra'], // Spirited Neophyte
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline materialize offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Spirited Neophyte
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
+$fixtures['ardent-cloudstriker-west-attack-champion-buff'] = [
+    'testedCards' => ['4kpotk5hvr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Real attack-declaration sequence, same shape as blistering-insurgent-attack-buff: the 2-pass
+    // cycle (P1 pass, P2 pass) already reaches P1's global turn 3 (their own 2nd turn), past Rule
+    // 1.h's turn-1 attack lock. Ardent Cloudstriker is seeded directly onto the field (bypassing its
+    // 5-reserve cost) with Status patched awake (2) so it can declare an attack immediately.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'WEST']], // Shifting Currents facing West
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4kpotk5hvr'], // Ardent Cloudstriker
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline materialize offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Ardent Cloudstriker
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
 // --- Kongming, Ascetic Vice: On Enter Empower 3 + Inherited N->S draw (Kongming Bonus, at end phase) ---
 $fixtures['kongming-ascetic-vice-enter-empower-and-inherited-draw'] = [
     'testedCards' => ['a01pyxwo25'],

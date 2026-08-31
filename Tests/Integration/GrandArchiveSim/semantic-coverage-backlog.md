@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **207**
+Cards linked to an existing fixture: **211**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2280**
+Implemented cards still needing semantic coverage: **2276**
 
 ## Mechanic groups
 
@@ -40,7 +40,6 @@ Implemented cards still needing semantic coverage: **2280**
 | Rending Flames (`soO3hjaVfN`) | ATTACK | 1 | damage, zone-movement, combat, trigger, condition | Zander Pantheon Starter | — |
 | Surveillance Stone (`kk46Whz7CJ`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Swift Recruit (`mHd6LLyMyF`) | ALLY | 1 | cost, zone-movement, status, combat, trigger | Jin Starter Deck, Lorraine Starter Deck, Lorraine Pantheon Starter | — |
-| Taiji of Crystal Strategems (`l17uc67eaq`) | PHANTASIA | 1 | cost, targeting, damage, status, trigger | Kongming Starter Deck | — |
 | Zander, Deft Executor (`fc4ic5fmaa`) | CHAMPION | 1 | zone-movement, counter, combat, trigger, condition | Zander Pantheon Starter | — |
 | Archon Broadsword (`pyx8bd7ozu`) | REGALIA,WEAPON | 1 | cost, token, combat, condition | Tonoris Starter Deck | — |
 | Automaton Bomber (`ygojwk0pw0`) | ALLY | 1 | cost, zone-movement, status, condition | Diana Starter Deck | — |
@@ -63,7 +62,6 @@ Implemented cards still needing semantic coverage: **2280**
 | Mana Limiter (`IC3OU6vCnF`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Meadowbloom Dryad (`cVRIUJdTW5`) | ALLY | 1 | targeting, zone-movement, counter, trigger | Silvie Starter Deck | — |
 | Orb of Choking Fumes (`llQe0cg4xJ`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Zander Pantheon Starter | — |
-| Planar Abyss (`qexcwmx2ug`) | ACTION | 1 | cost, damage, zone-movement, condition | Kongming Starter Deck, Kongming Pantheon Starter | — |
 | Plated Bullet (`l75tlzsmw3`) | REGALIA,ITEM | 1 | targeting, zone-movement, combat, condition | Diana Starter Deck | — |
 | Potion Infusion: Clarity (`300z2snsdw`) | ACTION | 1 | cost, targeting, draw-discard, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Quickdraw Piercer (`j4f15joh30`) | REGALIA,WEAPON | 1 | draw-discard, zone-movement, combat, condition | Diana Starter Deck | — |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **2280**
 | Tonoris, Lone Mercenary (`zb14m4c8lj`) | CHAMPION | 1 | status, combat, trigger, condition | Tonoris Starter Deck | — |
 | Altruistic Blacksmith (`Pd4hj3sveV`) | ALLY | 1 | token, combat, trigger | Lorraine Pantheon Starter | — |
 | Aqua Vitae (`y5ttkat9hr`) | ITEM | 1 | draw-discard, counter, condition | Arisanna Pantheon Starter | — |
+| Arcane Blast (`pn9gQjV3Rb`) | ACTION | 1 | cost, targeting, damage | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
+| Arisanna, Master Alchemist (`ltv5klryvf`) | CHAMPION | 1 | draw-discard, trigger, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |

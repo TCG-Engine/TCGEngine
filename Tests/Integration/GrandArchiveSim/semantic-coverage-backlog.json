@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T15:04:51+00:00",
+    "generatedAt": "2026-08-31T15:14:55+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 207,
+        "cardsWithExistingFixtures": 211,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2280,
+        "cardsNeedingSemanticCoverage": 2276,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -312,27 +312,6 @@
                 "Jin Starter Deck",
                 "Lorraine Starter Deck",
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "l17uc67eaq",
-            "name": "Taiji of Crystal Strategems",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -788,27 +767,6 @@
             "priority": 114
         },
         {
-            "cardId": "qexcwmx2ug",
-            "name": "Planar Abyss",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "l75tlzsmw3",
             "name": "Plated Bullet",
             "type": "REGALIA,ITEM",
@@ -1065,26 +1023,6 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "4kpotk5hvr",
-            "name": "Ardent Cloudstriker",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1997,26 +1935,6 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "ekplmih8ra",
-            "name": "Spirited Neophyte",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -41212,6 +41130,31 @@
             "priority": 135
         },
         {
+            "cardId": "l17uc67eaq",
+            "name": "Taiji of Crystal Strategems",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "taiji-crystal-strategems-south-east-rest-damage"
+            ],
+            "semanticFixtures": [
+                "taiji-crystal-strategems-south-east-rest-damage"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "r1o0qtb31x",
             "name": "Worn Gearblade",
             "type": "REGALIA,WEAPON",
@@ -42042,6 +41985,31 @@
             "priority": 134
         },
         {
+            "cardId": "qexcwmx2ug",
+            "name": "Planar Abyss",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "planar-abyss-delayed-destroy-south-damage"
+            ],
+            "semanticFixtures": [
+                "planar-abyss-delayed-destroy-south-damage"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "5X5W2Uda5a",
             "name": "Planted Explosive",
             "type": "ACTION",
@@ -42332,6 +42300,30 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "4kpotk5hvr",
+            "name": "Ardent Cloudstriker",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ardent-cloudstriker-west-attack-champion-buff"
+            ],
+            "semanticFixtures": [
+                "ardent-cloudstriker-west-attack-champion-buff"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -43106,6 +43098,30 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "ekplmih8ra",
+            "name": "Spirited Neophyte",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "spirited-neophyte-north-attack-empower"
+            ],
+            "semanticFixtures": [
+                "spirited-neophyte-north-attack-empower"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133

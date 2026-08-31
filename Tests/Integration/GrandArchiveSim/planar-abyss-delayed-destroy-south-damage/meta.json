@@ -1,0 +1,17 @@
+{
+    "name": "Planar Abyss: Delayed - at beginning of next recollection phase, destroy all non-champion objects, then if South deal 10 to each opponent champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Planar Abyss's own activation (cardActivatedAbilities['qexcwmx2ug:0'], GeneratedMacroCode.php ~20854-20860) just sets a delayed PLANAR_ABYSS_PENDING global effect; the actual destroy-all + conditional-damage resolution happens inside RecollectionPhase() (GameLogic.php ~9676-9699) the next time this player's own recollection phase begins. Set the flag directly via the 'globalEffect' setup step (same technique as blistering-insurgent's LEVELED_UP_THIS_TURN) rather than scripting the card's own 12-reserve activation, which is out of scope for this fixture. Reaching this player's own next recollection phase from the initial gamestate (already past turn 1's phases) needs a full P1->P2->P1 cycle: P1 pass, P2 pass reaches P1's MAT phase (where a materialize offer is queued, confirmed via a throwaway debug harness DevTools/debug_planar.php that traced GetCurrentPhase()/GetTurnNumber() step by step -- materialize happens in the MAT phase, not MAIN as earlier fixtures assumed since they always immediately answered it); declining it ('PASS') lets the phase engine continue advancing through BREC->REC (firing Planar Abyss's delayed resolution here)->DRAW->MAIN. Dungeon Guide (an ALLY) is seeded onto both fields as the 'non-champion object' destroy target, and Shifting Currents faces South so the conditional champion-damage clause is exercised in the same fixture.",
+    "testedCards": [
+        "qexcwmx2ug"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["qexcwmx2ug"],
+        "mechanics": ["trigger", "condition", "zone-movement"],
+        "rulesClauses": [
+            "Delayed: At the beginning of your next recollection phase, destroy all non-champion objects. If your Shifting Currents face South, deal 10 damage to each champion your opponent controls."
+        ]
+    }
+}
