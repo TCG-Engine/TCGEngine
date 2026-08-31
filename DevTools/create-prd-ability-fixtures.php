@@ -5634,6 +5634,60 @@ DECK,
     ],
 ];
 
+// --- Keen Tidebinder: Class Bonus, first empower each turn gets +2 POWER until end of turn ---
+$fixtures['keen-tidebinder-first-empower'] = [
+    'testedCards' => ['ZmBQAOb9gj'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Empower() (GrandArchiveSim/Custom/GameLogic.php:18438) is a shared engine primitive many
+    // different cards' own abilities call into -- it's not a base action every deck can trigger,
+    // so this borrows Dante, Hemomancer's own innate activated ability ("(X), REST: deal X
+    // unpreventable damage to Dante and empower X") as the trigger, by patching the starting
+    // champion's CardID directly to Dante (4FtNBFaOJp) rather than the Subcards-lineage trick used
+    // elsewhere -- GetChampionLineage() always includes the champion object's own CardID first
+    // (GameLogic.php:19351-19358), so a direct CardID swap satisfies element/class checks for
+    // whatever the champion's OWN card needs, with no separate override required. Keen Tidebinder
+    // only needs to be present on the field when Empower resolves (its trigger reads the field
+    // directly, GameLogic.php:18478-18483, no card_activated macro of its own), so it's seeded
+    // directly rather than played from hand -- sidestepping its own WATER element / reserve cost
+    // requirements entirely. The ZmBQAOb9gj_POWER TurnEffect Empower() stamps is the assertable,
+    // semantic proof; the "[Class Bonus] Floating Memory" clause is the same graveyard-payment
+    // mechanic already proven repeatedly elsewhere (shieldroid-floating-memory etc.) and is out of
+    // scope here to avoid duplicating that coverage.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '4FtNBFaOJp']], // Dante, Hemomancer
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ZmBQAOb9gj'], // Keen Tidebinder (ALLY) - empower trigger target
+    ],
+    // Dante's ability has no phase restriction, so it's offered as a fast option at every
+    // opportunity window (matching aenean-frozen-shunt-end-combat's discovery) -- it's declined at
+    // turn 1's end-step windows and activated instead during P1's own turn-2 BeforeRecollection
+    // window, so that after it resolves, auto-advance continues to a stable Main phase (which never
+    // auto-advances without an explicit PASS) rather than cascading straight to end of turn, where
+    // Keen Tidebinder's "until end of turn" TurnEffect would already have expired before the
+    // fixture's final snapshot is captured.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0@Activate-0@Empower', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // NOTE: Lorraine, Honed Operative was attempted but abandoned -- reaching her requires two
 // sequential real champion level-ups (0 -> 1 -> 2), and while investigating an unexplained memory/
 // hand discrepancy after the first level-up, a genuine cross-tool nondeterminism surfaced:
