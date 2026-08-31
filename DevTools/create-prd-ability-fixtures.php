@@ -6349,6 +6349,128 @@ DECK,
     ],
 ];
 
+// --- Steel Halberd: [Class Bonus] +1 POWER ---
+$fixtures['steel-halberd-class-bonus-power'] = [
+    'testedCards' => ['fvnvknj4dd'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // [Class Bonus] scans ALL physical field objects, independent of the main champion (established
+    // technique, e.g. devoted-bloomweaver-class-bonus-empower): a physically-seeded WARRIOR champion
+    // (Jin, Fate Defiant) satisfies it. Base power 1 + 1 from the bonus.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zd8l14052j'], // Jin, Fate Defiant (WARRIOR), for Class Bonus
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fvnvknj4dd'], // Steel Halberd
+    ],
+    // A step-0 assertion can't run (the engine's game state isn't parsed into memory until the
+    // first action executes, DevTools/RunIntegrationTests.php:158 vs 150/167) -- a harmless Pass
+    // forces that load so the computed-power assertion can run at step 1.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Shuang Ji of Sacrifice: +1 POWER per five damage on your champion ---
+// (Its own On Enter -- "may deal 5 unpreventable damage to your champion to draw a card" -- turned
+// out to require a real hand-activation materialize sequence that vanishes the card instead of
+// placing it on the field for this WEAPON regalia subtype, unlike ally/item materializes elsewhere
+// in this file; that's a separate investigation and out of scope here. Only the always-on computed
+// power bonus is covered, using the same direct-field-seed technique as steel-halberd-class-bonus-power.)
+$fixtures['shuang-ji-sacrifice-champion-damage-power'] = [
+    'testedCards' => ['y1tyo32voa'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 12]], // 12 damage on champion
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'y1tyo32voa'], // Shuang Ji of Sacrifice
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Bloodbond Bladesworn: [Class Bonus] +1 POWER per 10 damage counters on champion ---
+$fixtures['bloodbond-bladesworn-class-bonus-champion-damage-power'] = [
+    'testedCards' => ['blyb6fd6vy'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zd8l14052j'], // Jin, Fate Defiant (WARRIOR), for Class Bonus
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 25]], // 25 damage on champion
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'blyb6fd6vy'], // Bloodbond Bladesworn
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Favorable Winds: Allies you control get +1 LIFE until end of turn ---
+$fixtures['favorable-winds-ally-life-buff'] = [
+    'testedCards' => ['dsAqxMezGb'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // WIND (basic element): Subcards lineage patch for element access, same technique as
+    // rising-tides/tera-sight. AddGlobalEffects('dsAqxMezGb') then applies to any ALLY-type object
+    // via $doesGlobalEffectApply['dsAqxMezGb'] (GameLogic.php:17660-17662), read back as +1 LIFE in
+    // the LIFE computation switch (~13680-13682).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND element unlock (Spirit of Wind)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY), base LIFE 3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'dsAqxMezGb'], // Favorable Winds
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1-reserve cost
+        // Reserve-paid SPELL activations resolve via an EffectStack, unlike the direct-resolution
+        // memory-cost activations used elsewhere in this file; decline the "respond?" opportunity
+        // ("-") to let it resolve (discovered via a throwaway debug harness, DevTools/debug_winds.php).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

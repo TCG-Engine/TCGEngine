@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T15:14:55+00:00",
+    "generatedAt": "2026-08-31T15:23:09+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 211,
+        "cardsWithExistingFixtures": 215,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2276,
+        "cardsNeedingSemanticCoverage": 2272,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -823,26 +823,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "y1tyo32voa",
-            "name": "Shuang Ji of Sacrifice",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -2418,24 +2398,6 @@
             "priority": 112
         },
         {
-            "cardId": "blyb6fd6vy",
-            "name": "Bloodbond Bladesworn",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "PwHub76Fw4",
             "name": "Bolstering Tempest",
             "type": "ACTION",
@@ -2616,27 +2578,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "dsAqxMezGb",
-            "name": "Favorable Winds",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck",
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -4434,23 +4375,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "fvnvknj4dd",
-            "name": "Steel Halberd",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -42184,6 +42108,30 @@
             "priority": 134
         },
         {
+            "cardId": "y1tyo32voa",
+            "name": "Shuang Ji of Sacrifice",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shuang-ji-sacrifice-champion-damage-power"
+            ],
+            "semanticFixtures": [
+                "shuang-ji-sacrifice-champion-damage-power"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "6wiHKD52Lw",
             "name": "Stoked Slice",
             "type": "ATTACK",
@@ -43318,6 +43266,28 @@
             "priority": 132
         },
         {
+            "cardId": "blyb6fd6vy",
+            "name": "Bloodbond Bladesworn",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "bloodbond-bladesworn-class-bonus-champion-damage-power"
+            ],
+            "semanticFixtures": [
+                "bloodbond-bladesworn-class-bonus-champion-damage-power"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "84YTQPTvar",
             "name": "Dante, Aenean Initiate",
             "type": "CHAMPION",
@@ -43380,6 +43350,31 @@
             ],
             "starterDecks": [
                 "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "dsAqxMezGb",
+            "name": "Favorable Winds",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "favorable-winds-ally-life-buff"
+            ],
+            "semanticFixtures": [
+                "favorable-winds-ally-life-buff"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck",
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43805,6 +43800,27 @@
             "starterDecks": [
                 "Kongming Starter Deck",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "fvnvknj4dd",
+            "name": "Steel Halberd",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "steel-halberd-class-bonus-power"
+            ],
+            "semanticFixtures": [
+                "steel-halberd-class-bonus-power"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
