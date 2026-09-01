@@ -5737,15 +5737,27 @@ function CheckAndShowDecisionQueue(decisionQueue, phase = 'all') {
       const hasPopupCards = categorized.popupCards.length > 0;
 
       if (!hasPopupCards) {
+        // Identifies THIS decision across a repaint. Index alone cannot: the queue is re-serialized
+        // every update, and the same index can be a different prompt.
+        const entrySignature = 'MZMULTICHOOSE|' + (entry.Param || '') + '|' + (entry.Tooltip || '');
         const preserveExisting =
           window.SelectionMode &&
           window.SelectionMode.active &&
           window.SelectionMode.decisionIndex === i &&
           Array.isArray(window.SelectionMode.multiSelected) &&
           Number(window.SelectionMode.multiMax) > 0;
+        // preserveExisting only ever spans the prepare→finalize pair inside ONE render — RenderUpdate()
+        // clears the selection before re-rendering, so `active` is false on every server update. The
+        // carry is what survives that clear (see CaptureInlineSelectionForRepaint), and it is adopted
+        // ONLY for a decision with the same signature.
+        const carry = window.__inlineSelectionCarry;
+        const carriedSelected = (!preserveExisting && carry && carry.signature === entrySignature
+          && Array.isArray(carry.selected)) ? carry.selected.slice() : null;
+        window.__inlineSelectionCarry = null;   // one-shot: a stash outlives exactly one repaint
         const existingSelected = preserveExisting && Array.isArray(window.SelectionMode.multiSelected)
           ? window.SelectionMode.multiSelected.slice()
-          : [];
+          : (carriedSelected || []);
+        window.SelectionMode.entrySignature = entrySignature;
         window.SelectionMode.active = true;
         window.SelectionMode.mode = 'MZMULTI_INLINE';
         window.SelectionMode.mayPass = (parsed.min === 0);
@@ -5892,6 +5904,30 @@ window.SelectionMode = {
   multiSelected: [],
   multiBudget: null   // weighted-budget multi-select: {total, label, weights{mzID:weight}} or null
 };
+
+// Stash an IN-PROGRESS inline multi-select so a repaint cannot destroy it.
+//
+// RenderUpdate() (NextTurn.php) calls ClearSelectionMode() on EVERY server update, then re-includes
+// NextTurnRender.php, which re-runs CheckAndShowDecisionQueue. A server update means "the opponent did
+// something" — so anything you had marked but not yet confirmed was wiped the moment they acted. The
+// `preserveExisting` guard in the MZMULTICHOOSE branch was written to carry picks across a re-render,
+// but it requires window.SelectionMode.active and the clear has already set that false: it can only ever
+// preserve across the prepare→finalize pair inside one render, never across an update.
+// Reported live in the PREGAME ("choose 2 cards to resource" reset when the opponent confirmed theirs),
+// but it was never pregame-specific — every inline multi-pick lost its state to the opponent's turn.
+//
+// Called immediately BEFORE the repaint's ClearSelectionMode(); re-adopted in the MZMULTICHOOSE branch
+// only when the still-pending decision has the SAME signature, and every carried mzID is then put back
+// through that branch's re-validation filter, so a pick the fresh render disproves is still dropped.
+function CaptureInlineSelectionForRepaint() {
+  const sm = window.SelectionMode;
+  window.__inlineSelectionCarry = null;
+  if (!sm || !sm.active || sm.mode !== 'MZMULTI_INLINE') return;
+  if (!Array.isArray(sm.multiSelected) || sm.multiSelected.length === 0) return;
+  if (!sm.entrySignature) return;
+  window.__inlineSelectionCarry = { signature: sm.entrySignature, selected: sm.multiSelected.slice() };
+}
+window.CaptureInlineSelectionForRepaint = CaptureInlineSelectionForRepaint;
 
 function ClearSelectionMode() {
   const previousSelection = window.SelectionMode || null;

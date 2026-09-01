@@ -1444,6 +1444,13 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         // sets this one-shot flag so an in-progress targeting decision survives the repaint and its cards
         // re-render wired to the selection handler. Default (unset) preserves today's behavior exactly.
         if (typeof ClearSelectionMode === 'function' && !(typeof window !== 'undefined' && window.__swuTwPreserveSelection)) {
+          // A repaint fires on every server update — i.e. whenever the OPPONENT acts — and this clear
+          // resets window.SelectionMode, including any picks the player has marked but not confirmed.
+          // Stash an in-progress inline multi-select first so CheckAndShowDecisionQueue can re-adopt it
+          // when the same decision is still pending (it re-validates every carried mzID against the
+          // fresh render, so nothing stale survives). Without this, the pregame "choose 2 cards to
+          // resource" step reset the moment the opponent confirmed theirs.
+          if (typeof window.CaptureInlineSelectionForRepaint === 'function') window.CaptureInlineSelectionForRepaint();
           ClearSelectionMode();
         }
         if (typeof window !== 'undefined') window.__swuTwPreserveSelection = false;
