@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-01T15:26:16+00:00",
+    "generatedAt": "2026-09-01T16:06:05+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 227,
+        "cardsWithExistingFixtures": 229,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2260,
+        "cardsNeedingSemanticCoverage": 2258,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1650,25 +1650,6 @@
             "priority": 113
         },
         {
-            "cardId": "vk56lbihtc",
-            "name": "Savage Swing",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "0z2snsdwmx",
             "name": "Scale of Souls",
             "type": "REGALIA,ITEM",
@@ -2011,28 +1992,6 @@
             "existingFixtures": [],
             "semanticFixtures": [],
             "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "TgYTZg6TaG",
-            "name": "Wind Cutter",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck",
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
@@ -42842,6 +42801,29 @@
             "priority": 133
         },
         {
+            "cardId": "vk56lbihtc",
+            "name": "Savage Swing",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "savage-swing-class-bonus-floating-memory"
+            ],
+            "semanticFixtures": [
+                "savage-swing-class-bonus-floating-memory"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "a8a0v4njrt",
             "name": "Slate Whetstone",
             "type": "REGALIA,ITEM",
@@ -43148,6 +43130,32 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "TgYTZg6TaG",
+            "name": "Wind Cutter",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "wind-cutter-class-bonus-power-attack"
+            ],
+            "semanticFixtures": [
+                "wind-cutter-class-bonus-power-attack"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck",
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133

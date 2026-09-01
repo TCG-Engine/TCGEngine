@@ -6984,6 +6984,112 @@ DECK,
     ],
 ];
 
+// --- Savage Swing: [Class Bonus] Floating Memory ---
+$fixtures['savage-swing-class-bonus-floating-memory'] = [
+    'testedCards' => ['vk56lbihtc'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Jin, Zealous Maverick
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Unlike Veteran Soldier's unconditional Floating Memory (veteran-soldier-floating-memory),
+    // Savage Swing's is gated by [Class Bonus] (its own class is WARRIOR). Two things ruled out
+    // Floating Memory's usual test shape: (1) Floating Memory only offers itself as a payment
+    // source for a MEMORY cost (a champion level-up), NOT a reserve cost -- confirmed by trying to
+    // pay 1 of Nascent Blast's reserve cast cost from the graveyard, which was rejected as "Invalid
+    // selection."; (2) patching the starting champion directly to Jin, Fate Defiant (level 1)
+    // to satisfy the Class Bonus makes leveling into another level-1 champion (Lorraine, Wandering
+    // Warrior) illegal -- level-up requires a strictly higher level than the current champion. Fix:
+    // patch the champion to Jin, Fate Defiant (level 1, WARRIOR) and level up from there into Jin,
+    // Zealous Maverick (level 2, WARRIOR, 2-memory cost) instead -- the Class Bonus condition checks
+    // the CURRENT champion (Jin, Fate Defiant, still WARRIOR) at payment time, before the level-up
+    // completes. Savage Swing pays 1 of the 2 memory via Floating Memory from the graveyard; the
+    // 2nd memory point is a filler card seeded directly into myMemory (no draw/recollection cycle
+    // needed to populate it).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j']], // Jin, Fate Defiant (WARRIOR, level 1) - Class Bonus precondition + legal level-up base
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'vk56lbihtc'], // Savage Swing
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // filler memory card, 2nd point of Jin Zealous Maverick's 2-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // select Jin, Zealous Maverick as the level-up target
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // pay 1 memory via Floating Memory
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // pay the 2nd memory point
+    ],
+];
+
+// --- Wind Cutter: [Class Bonus] +1 POWER, real single-target (non-Cleave) ATTACK-card attack ---
+$fixtures['wind-cutter-class-bonus-power-attack'] = [
+    'testedCards' => ['TgYTZg6TaG'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+8 Dungeon Guide
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // First fixture to exercise the NORMAL (non-Cleave) single-target ATTACK-card flow, now that
+    // hemorrhaging-rend-damage20-cleave proved ATTACK cards are played from hand into myIntent like
+    // any other card. Champion is patched to Jin, Fate Defiant (WARRIOR/RANGER class match for
+    // Wind Cutter's [Class Bonus] +1 POWER) with Spirit of Wind (pNiyaGlIe7) added via Subcards only
+    // (not a full CardID patch) to unlock WIND without inheriting any interfering abilities -- same
+    // technique as hemorrhaging-rend's Dante-via-Subcards fix. Unlocking WIND has a side effect
+    // specific to the OTHER Jin fixtures' shared Main list: Fairy Whispers (n8wyfG9hbY) is itself a
+    // WIND-element ACTION card, and once WIND is unlocked it becomes flash-playable, which
+    // perpetually re-triggers a "Take a fast action?" Opportunity window (and a chained materialize
+    // offer) at EVERY decision boundary -- declining it never actually clears it, and a single
+    // decline was even observed to skip all the way to the opponent's turn (GA's phase auto-advance
+    // treats an empty decision queue as "nothing left for this player," and CustomInput.php's
+    // "myHealth" Pass button is in fact the same generic mid-game turn-pass action used for the
+    // pregame mulligan, usable by whichever player's turn it currently is -- confirmed via a
+    // throwaway debug harness, now deleted). Fix: this fixture's own deck heredoc drops Fairy
+    // Whispers entirely (replaced with more Dungeon Guide to keep 16 Main cards), so unlocking WIND
+    // doesn't expose any new flash-playable card, and the action sequence reduces to the same
+    // minimal single-PASS turn-1 shape used by every other real-attack fixture.
+    // GetAttackWeaponChoices($player, $obj)
+    // (CombatLogic.php:110-148) reads GetAvailableWeapons($player), which only looks at field-based
+    // WEAPON items -- with none on the field, $availableWeapons is empty, so BeginCombatPhase
+    // (CombatLogic.php:1478-1580) skips the weapon-choice MZCHOOSE entirely (that step is
+    // conditioned on `!empty($availableWeapons)`) and queues ChooseAttackTarget directly. Wind
+    // Cutter's own printed POWER is 1; the intent card's computed power (base 1 + Class Bonus 1 = 2)
+    // is asserted directly on myIntent-0 right after paying reserve, before the attack is declared.
+    // GetTotalAttackPower then sums the champion's own power (0, Jin, Fate Defiant has none) plus
+    // the intent card's positive power (2) with no weapon, so the opponent's champion (targeted
+    // directly, theirField-0) takes exactly 2 combat damage. As with every other real-attack
+    // fixture, the defender's "Retaliate?" MZMAYCHOOSE must be explicitly declined before
+    // CombatApplyAttackerDamage actually lands the damage.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j', 'Subcards' => ['pNiyaGlIe7']]], // Jin, Fate Defiant (WARRIOR class bonus) + WIND unlock via Spirit of Wind lineage
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'TgYTZg6TaG'], // Wind Cutter
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
