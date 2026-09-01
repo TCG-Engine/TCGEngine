@@ -5168,6 +5168,46 @@ function SWUMoveUpgradeToUnit(string $hostMz, int $subIdx, ?string $targetArena 
 // UniqueID, Owner, Controller, Damage, Status, Subcards and TurnEffects are all preserved (so
 // SWU_PLAYED_UNIT_{uid}, attached upgrades and damage carry over). Returns the new owner-relative mzID
 // ('' on failure). Used by JTL_096 Blue Leader ("move this unit to the ground arena").
+// "Its Ambush triggered on play but had nothing to attack FROM THE ARENA IT ENTERED."
+//
+// Stamped per unit, scoped to the ACTION that played it (SWU_ACTION_ID), and read only by
+// SWUMoveUnitBetweenArenas below. The action scope is what keeps it honest: an unrelated relocation
+// effect later in the same phase is a different action, so it cannot resurrect an Ambush that already
+// had its window. Persisted as a global effect rather than a PHP global because the move is answered in
+// a LATER request than the play (the pay-2 prompt sits between them).
+function _SWUNoteAmbushHadNoTarget(int $player, $obj): void {
+    $uid = intval($obj->UniqueID ?? 0);
+    if ($uid <= 0) return;
+    AddGlobalEffects($player, 'SWU_AMBUSH_NOTARGET_' . $uid . '_' . GetSWUVar('SWU_ACTION_ID', '0'));
+}
+
+// Re-bag that Ambush if an arena change inside the same action has now given it a legal target. Returns
+// true when a trigger was added. Deliberately one-shot: the stamp is cleared as it fires, so a unit that
+// is bounced back and forth cannot ambush twice.
+function _SWURebagAmbushAfterMove(int $player, $obj, string $newMz): bool {
+    $uid = intval($obj->UniqueID ?? 0);
+    if ($uid <= 0) return false;
+    $flag = 'SWU_AMBUSH_NOTARGET_' . $uid . '_' . GetSWUVar('SWU_ACTION_ID', '0');
+    if (GlobalEffectCount($player, $flag) <= 0) return false;
+    if (!HasKeyword_Ambush($obj)) return false;
+    $arena = $obj->Location ?? 'GroundArena';
+    if (empty(SWUGetAllValidAmbushTargets($player, $obj, $arena))) return false;
+    SWUClearGlobalEffectsByPrefix($player, $flag);
+    // PUT IT BACK IN THE POOL, DO NOT RESOLVE IT ON THE SPOT. The entry bag was already flushed when the
+    // move's own trigger began resolving, so AddTrigger + FlushTriggerBag would dispatch the Ambush
+    // immediately — cutting ahead of any trigger the player has NOT resolved yet (ASH_102 Ravager's
+    // "when you play a unit" is the live case). Everything here triggered simultaneously on the play, so
+    // the player is entitled to order this against what remains (USER RULING 2026-08-31).
+    // Writing straight to the EffectStack is what rejoins the pool: the SWU_TRIGGER_RESUME queued at
+    // block 20 by the original flush is still pending, and it re-offers "Choose_trigger_to_resolve"
+    // whenever 2+ entries remain — or auto-dispatches when this is the only one left, so the ordinary
+    // case gains no prompt. Params is "<mzID>|<uid>", the same shape FlushEntryTriggerBag builds, so
+    // dispatch re-resolves the unit by UID exactly as it does for a normally-bagged Ambush.
+    AddEffectStack(CardID: $obj->CardID ?? '', Controller: $player, TriggerType: 'Ambush',
+                   Params: $newMz . '|' . $uid);
+    return true;
+}
+
 function SWUMoveUnitBetweenArenas(string $unitMz, string $targetArena): string {
     global $playerID;
     $u = GetZoneObject($unitMz);
@@ -5195,6 +5235,12 @@ function SWUMoveUnitBetweenArenas(string $unitMz, string $targetArena): string {
     DecisionQueueController::CleanupRemovedCards();
     // Re-resolve by UID AFTER cleanup so a compacted source arena can't stale the index.
     $newMz = SWUFindMzByUID($uid) ?? '';
+
+    // An Ambush that had no legal target from the arena this unit ENTERED gets its window back if the
+    // move (ordered against it in the same play — JTL_096 Blue Leader) has now given it one.
+    $movedObj = $newMz !== '' ? GetZoneObject($newMz) : null;
+    if ($movedObj !== null) _SWURebagAmbushAfterMove(intval($movedObj->Controller ?? $controller), $movedObj, $newMz);
+
     $playerID = $savedPID;
     return $newMz;
 }
@@ -9847,7 +9893,22 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
 
     if ($obj !== null && HasKeyword_Ambush($obj)) {
         // Ambush CR 5.9.a: "attack that enemy unit" — units only, not the base.
+        //
+        // ⚠ AMBUSH TRIGGERS ON PLAY EVEN WITH NO LEGAL TARGET — official Blue Leader ruling, 03/06/2025:
+        // "Ambush is an ability that triggers at the same time as 'When Played' abilities. If there is no
+        // enemy unit that can be attacked, the unit does not ready." Not bagging a target-less Ambush is
+        // therefore an OPTIMISATION (it would resolve to nothing and only cost the player an ordering
+        // prompt), and it is sound for every unit that stays where it entered.
+        // It is NOT sound when a SIMULTANEOUS trigger relocates the unit: JTL_096 Blue Leader's
+        // "pay 2 → move this unit to the ground arena" is ordered against its own Ambush ("…can be
+        // resolved in either order", same ruling), so against a ground-only enemy board the move hands
+        // Ambush a target it did not have on entry — and with nothing bagged there was nothing left to
+        // resolve. Reported from live play.
+        // So record the near-miss instead of widening the scan: _SWUNoteAmbushHadNoTarget stamps the
+        // unit, and SWUMoveUnitBetweenArenas re-bags the trigger if a move inside this same action gives
+        // it a target. A unit that never moves is unaffected — no spurious trigger, no extra prompt.
         $ambushTargets = SWUGetAllValidAmbushTargets($activePlayer, $obj, $targetArena); // union all opponents
+        if (empty($ambushTargets)) _SWUNoteAmbushHadNoTarget($activePlayer, $obj);
         if (!empty($ambushTargets)) {
             // Carry the unit's UID (not the target list — dispatch recomputes valid targets fresh) so a
             // preceding trigger that moves the unit between arenas (JTL_096) can be re-resolved at dispatch.

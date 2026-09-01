@@ -401,8 +401,31 @@
       allOrNone: parsed.allOrNone,
       targets: parsed.targets.map(t => ({ mzID: t.mzID, cap: t.cap, amount: 0 })),
       callback: submitCallback,
-      decisionIndex: decisionIndex
+      decisionIndex: decisionIndex,
+      signature: String(param)
     };
+
+    // RE-ADOPT AN ASSIGNMENT A REPAINT INTERRUPTED. See CaptureSplitAssignForRepaint below for why
+    // this is needed at all.
+    //
+    // ⚠ THE SIGNATURE IS THE RAW PARAM, AND THAT IS WHAT MAKES THE ADOPTION SAFE: the pool and every
+    // per-target cap are parsed out of that same string, so an exact match guarantees the carried
+    // amounts are still within cap and still sum to no more than the pool — they were bounded by
+    // identical values when they were made. A changed pool, a changed cap or a changed target list all
+    // change the Param, so the carry is dropped and the player starts from zero.
+    // A re-clamp here would therefore be unreachable code (mutation-verified: removing it changed
+    // nothing), so it is deliberately absent. If the signature is ever LOOSENED — matched on the target
+    // list alone, say — this must clamp each amount to `t.cap` and to the remaining pool again.
+    const carry = window.__splitAssignCarry;
+    window.__splitAssignCarry = null;   // one-shot: a stash outlives exactly one repaint
+    if (carry && carry.signature === splitState.signature && carry.amounts) {
+      let assigned = 0;
+      splitState.targets.forEach(function (t) {
+        t.amount = parseInt(carry.amounts[t.mzID], 10) || 0;
+        assigned += t.amount;
+      });
+      splitState.remaining = splitState.totalPool - assigned;
+    }
 
     // Show banner immediately — document.body always exists
     document.body.appendChild(createBanner(tooltip, decisionIndex));
@@ -422,6 +445,27 @@
     setTimeout(injectCardOverlays, 0);
   }
 
+  // Stash an IN-PROGRESS assignment so a repaint cannot destroy it.
+  //
+  // RenderUpdate() (NextTurn.php) repaints on every server update — i.e. whenever the OPPONENT acts —
+  // and calls ClearSelectionMode(), which calls HideMZSplitAssignUI() and nulls splitState. The
+  // decision is then re-shown from scratch with every count back at 0, so the points you had already
+  // distributed vanish and Confirm goes dead. Identical defect to the inline multi-select's
+  // (CaptureInlineSelectionForRepaint in UILibraries) and the same shape of fix.
+  //
+  // Called immediately BEFORE that clear; re-adopted in ShowMZSplitAssignUI only for the same Param.
+  function CaptureSplitAssignForRepaint() {
+    window.__splitAssignCarry = null;
+    if (!splitState || !Array.isArray(splitState.targets) || !splitState.signature) return;
+    const amounts = {};
+    let assigned = 0;
+    splitState.targets.forEach(function (t) {
+      if (t.amount > 0) { amounts[t.mzID] = t.amount; assigned += t.amount; }
+    });
+    if (assigned <= 0) return;   // nothing distributed yet: no carry, behaviour unchanged
+    window.__splitAssignCarry = { signature: splitState.signature, amounts: amounts };
+  }
+
   // ── Cleanup ──────────────────────────────────────────────────────────
   function HideMZSplitAssignUI() {
     // Remove all overlays
@@ -438,6 +482,7 @@
   // ── Export to global scope ───────────────────────────────────────────
   window.ShowMZSplitAssignUI  = ShowMZSplitAssignUI;
   window.HideMZSplitAssignUI  = HideMZSplitAssignUI;
+  window.CaptureSplitAssignForRepaint = CaptureSplitAssignForRepaint;
   window.parseSplitParam      = parseSplitParam;
   // Re-attach the on-card controls after the HOST elements have been replaced. The setTimeout(0) in
   // ShowMZSplitAssignUI only covers the render stack that mounted the decision; anything that rebuilds

@@ -1451,6 +1451,10 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           // fresh render, so nothing stale survives). Without this, the pregame "choose 2 cards to
           // resource" step reset the moment the opponent confirmed theirs.
           if (typeof window.CaptureInlineSelectionForRepaint === 'function') window.CaptureInlineSelectionForRepaint();
+          // Same defect, second UI: ClearSelectionMode() also calls HideMZSplitAssignUI(), which nulls
+          // the split state, so a half-distributed "deal N damage divided as you choose" reset to all
+          // zeroes (and Confirm went dead) whenever the opponent acted.
+          if (typeof window.CaptureSplitAssignForRepaint === 'function') window.CaptureSplitAssignForRepaint();
           ClearSelectionMode();
         }
         if (typeof window !== 'undefined') window.__swuTwPreserveSelection = false;

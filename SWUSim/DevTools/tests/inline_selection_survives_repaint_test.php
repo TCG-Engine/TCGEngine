@@ -174,4 +174,27 @@ check(preg_match('/window\.__inlineSelectionCarry\s*=\s*null;/', $uiCode) === 1,
 check(strpos($uiCode, 'existingSelected.filter(') !== false,
       'carried picks still go through the re-validation filter');
 
+// ── THE SECOND UI WITH THE SAME DEFECT: MZSPLITASSIGN ──────────────────────────────────────────────
+// ClearSelectionMode() also calls HideMZSplitAssignUI(), which nulls the module's splitState; the
+// decision is then re-shown with every per-target count back at 0 and Confirm dead. Measured: a
+// 2/1/1 distribution over three units became an unconfirmable all-zero board the moment the opponent
+// acted. Same carry shape, matched on the raw Param.
+$sa = file_get_contents($root . '/Core/MZSplitAssignUI.js');
+check($sa !== false, 'Core/MZSplitAssignUI.js is readable');
+$saCode = preg_replace('~//[^\n]*~', '', $sa);
+check(strpos($saCode, 'function CaptureSplitAssignForRepaint(') !== false,
+      'CaptureSplitAssignForRepaint() is defined');
+check(strpos($saCode, 'window.CaptureSplitAssignForRepaint = CaptureSplitAssignForRepaint;') !== false,
+      '…and exported on window');
+check(strpos($ntCode, 'window.CaptureSplitAssignForRepaint();') !== false,
+      'the repaint captures the in-progress split assignment too');
+check(preg_match('/carry\.signature\s*===\s*splitState\.signature/', $saCode) === 1,
+      'a carried assignment is adopted ONLY for the same decision Param');
+check(preg_match('/window\.__splitAssignCarry\s*=\s*null;/', $saCode) === 1,
+      'the split carry is one-shot');
+check(strpos($saCode, 'signature: String(param)') !== false,
+      'the signature IS the raw Param — which is what makes adopting the amounts safe without a re-clamp');
+check(strpos($saCode, 'if (assigned <= 0) return;') !== false,
+      'nothing distributed yet means no carry at all, so the untouched path is unchanged');
+
 echo "PASS: inline_selection_survives_repaint_test\n";

@@ -197,6 +197,12 @@ P1GROUNDARENAUNIT:0:POWER:5
 #// ASH_102 Ravager — when Blue Leader's When Played (move to the ground arena + 2 Experience) is resolved
 #// FIRST, Blue Leader is a 5-power GROUND unit by the time Ravager resolves, so Ravager deals 5 in the ground
 #// arena. Blue Leader (now 5/5) blasts the enemy SEC_080 (3/3) for 5, defeating it.
+#// ⚠ THE MOVE NOW ALSO GIVES BACK BLUE LEADER'S OWN AMBUSH. Against a ground-only enemy board its Ambush
+#// had no target from the space arena it entered, so nothing was bagged; paying to move it to the ground
+#// hands it one, and the trigger rejoins the pool to be ORDERED against Ravager's (official Blue Leader
+#// ruling 03/06/2025 — they all triggered on the play). This section is about the DELAYED RAVAGER
+#// trigger, so it deliberately resolves Ravager's first; the Ambush is then left with nothing to attack
+#// (SEC_080 is already defeated) and fizzles. jtl/BlueLeader_AmbushAfterMove.md covers the Ambush half.
 ## GIVEN
 CommonSetup: ggw/rrk/{myResources:8}
 SkipPreGame: true
@@ -208,6 +214,8 @@ WithP2GroundArena: SEC_080:1:0
 - P1>PlayHand:0
 - P1>ResolveTrigger:WhenPlayed
 - P1>AnswerDecision:YES
+#// the move re-armed Ambush, so the two remaining triggers are ordered — Ravager's first
+- P1>ResolveTrigger:ASH_102
 - P1>AnswerDecision:theirGroundArena-0
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:JTL_096
