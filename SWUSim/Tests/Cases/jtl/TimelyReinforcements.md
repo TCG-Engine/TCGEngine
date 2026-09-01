@@ -192,3 +192,39 @@ P1SPACEARENAUNIT:0:NOTKEYWORD:Sentinel
 P1SPACEARENAUNIT:1:HASKEYWORD:Sentinel
 P1SPACEARENAUNIT:2:HASKEYWORD:Sentinel
 P1SPACEARENAUNIT:3:HASKEYWORD:Sentinel
+
+---
+
+# CreditTokensAreNOTResources_TheyDoNotBuyAnXWing
+#// CR 3.13: a Credit token SITS IN the resource zone but is NOT a resource. "For every 2 resources they
+#// control" must therefore count only real resources — a raw `count()` of the zone array also counts
+#// Credit tokens (and any `removed` tombstone), which silently buys the caster extra tokens.
+#//
+#// Found while fixing the same trap on SOR_113/JTL_113 Homestead Militia (whose "while you control 6 or
+#// more resources" gate handed out an unearned Sentinel). Both of this card's call sites — the 2-player
+#// path and the Twin Suns choose-an-opponent path — carried it too. `SWUResourceCount()` is the helper
+#// that filters both, and GameLogic.php already documents the hazard for the SHD_083/SOR_081 pair.
+#//
+#// P2 holds 5 real resources + 2 Credit tokens. 5 ÷ 2 = TWO X-Wings. The bug counted 7 and made THREE —
+#// the boundary is chosen so the token count changes, not just the arithmetic: at 4+2 both readings give
+#// 2 or 3 and the section could not discriminate.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [JTL_130]
+WithP2Resources: 5
+WithP2Credits: 2
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+#// the harness agrees the zone holds 5 resources and 2 credits …
+P2RESCOUNT:5
+P2CREDITCOUNT:2
+#// … so exactly TWO X-Wings, not three.
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:0:CARDID:JTL_T02
+P1SPACEARENAUNIT:1:CARDID:JTL_T02

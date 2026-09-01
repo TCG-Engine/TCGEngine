@@ -1567,6 +1567,13 @@ class SchemaTestRunner {
             } elseif (preg_match('/^P(\d+)SEARCHPLAYABLE(HAS|NOT):(.+)$/', $line, $m)) {
                 // Assert membership in a pending TOPDECKSEARCH's *playable* set (the matchIDs field —
                 // the cards the UI lets you actually pick/play, distinct from the full revealed set).
+                // ⚠ matchIDs REFLECTS THE TYPE FILTER ONLY. _topDeckSearchBegin builds it from the
+                // filter callable; a COUNT or COMBINED-COST budget ("count:N" / "cost:N[:M]") is carried
+                // separately in TopDeckConstraint and enforced at resolve time by _topDeckResolveFromIDs.
+                // So SEARCHPLAYABLENOT:<over-budget card> reads RED against a perfectly correct engine —
+                // the card IS offered, it is the PICK that gets dropped. To assert a budget, pick the
+                // over-budget card anyway and assert the refusal in the end state (it goes back to the
+                // deck, nothing is played) — see sor/UwingReinforcement.md::CombinedCostBoundary_EightIsRefused.
                 // Param format: allIDs|matchIDs|constraint|costMap. Leave the search decision pending
                 // (don't answer it) so it can be read. Lets a test prove the offered pool is filtered
                 // (e.g. affordability) — which the harness's answer path does NOT enforce on its own.

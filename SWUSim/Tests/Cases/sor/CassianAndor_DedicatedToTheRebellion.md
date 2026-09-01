@@ -1,6 +1,12 @@
 # BaseDamage_Draw
-#// COVERAGE: offer=BaseDamage_Draw + DeclineDraw (the deployed reactive's YES/NO pair; neither side has
-#//           a target pool to assert — the draw is pool-less) · decline=DeclineDraw (deployed "you may");
+#// COVERAGE: offer=DeployedDrawOffer_IsPoollessAndOnlyTheControllerIsAsked (the reactive read while
+#//           still PENDING: the prompt names the ability, its legal-target set is EMPTY — the
+#//           executable form of "pool-less" — and P2 is never asked) +
+#//           LeaderActionIsNotOfferedOnTheDeployedBody (the clickable unit-action list, which no
+#//           answer-path section can see: the front side's leader Action must not reappear on the
+#//           deployed body, with SOR_094 Bail Organa seeded as the passing control) +
+#//           BaseDamage_Draw + DeclineDraw (the same offer answered both ways)
+#//           · decline=DeclineDraw (deployed "you may");
 #//           the front action has no decline (using it is the choice; no-op use covered by
 #//           LeaderAction_2BaseDamage_NoDraw) · boundary=LeaderAction_2BaseDamage_NoDraw (2, below) +
 #//           LeaderAction_3BaseDamage_Draw (3, at threshold) · reqboundary=LeaderAction_PhaseReset_NoDraw
@@ -535,3 +541,67 @@ WithP1Deck: SOR_128
 SEATCOUNT:4
 P4BASEDMG:3
 P1HANDCOUNT:1
+
+---
+
+# LeaderActionIsNotOfferedOnTheDeployedBody
+#// SOR_013 Cassian Andor — THE OFFER-LIST cell, which no other section in this file can see. The front
+#// side's "Action [1 resource, Exhaust]" is a LEADER action; the deployed side carries only the
+#// reactive "When you deal damage to an enemy base", so once Cassian is on the board his body must NOT
+#// appear in the clickable unit-action list. The harness's UseLeaderAbility/UseUnitAbility commands
+#// invoke their handlers directly and never consult that list, so an action wrongly registered on the
+#// deployed body (or a deployed ability wrongly dropped from it) is invisible to every assertion above.
+#// SOR_094 Bail Organa ("Action [Exhaust]: Give an Experience token to another friendly unit") is the
+#// PASSING CONTROL: the list must be exactly his mzID, which proves the list was computed rather than
+#// empty by construction. Deployed leaders seat at the END of the arena, so Bail is myGroundArena-0
+#// and the Cassian body is myGroundArena-1.
+
+## GIVEN
+CommonSetup: grw/bbk/{myLeader:SOR_013;theirBase:SOR_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1GroundArena: SOR_094:1:0
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1UNITACTIONSEXACT:myGroundArena-0
+P1GROUNDARENACOUNT:2
+P1LEADER:DEPLOYED
+P1NODECISION
+
+---
+
+# DeployedDrawOffer_IsPoollessAndOnlyTheControllerIsAsked
+#// SOR_013 Cassian Andor (deployed) — WHAT the reactive offers, read while the decision is still
+#// pending instead of answered. Cassian deploys and attacks P2's base for 4; the "When you deal damage
+#// to an enemy base: You may draw a card" reactive fires. Intended: P1 holds a pending decision whose
+#// prompt names the ability, its legal-target set is EMPTY because the draw picks nothing, and P2 is
+#// never asked — the offer belongs to the player who dealt the damage, not the player who took it.
+#// The empty-set assertion is the executable form of "this card has no target pool": a rebuild that
+#// turned the draw into a targeted choice, or that queued the prompt on the damaged seat, would be
+#// invisible to BaseDamage_Draw and DeclineDraw, which both answer the decision without inspecting it.
+
+## GIVEN
+CommonSetup: grw/bbk/{
+  myLeader:SOR_013;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1Deck: SOR_128
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Cassian Andor: draw a card?
+P1SELECTABLEEXACT:
+P2NODECISION
+P2BASEDMG:4
+P1DECKCOUNT:1

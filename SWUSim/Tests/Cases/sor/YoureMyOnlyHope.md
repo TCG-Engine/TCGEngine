@@ -4,7 +4,10 @@
 #//           decline=Decline (Leave) · boundary=PlayFree_LowBase (exactly 5 remaining HP → free) +
 #//           PlayDiscount (healthy base → −5) + EmptyDeck_NoOp (0 cards) · reqboundary=every section
 #//           answers the Play/Leave prompt in a request after the play (state crosses the boundary) ·
-#//           control=N/A (event; the look/play is seat-bound to its caster, nothing persists to steal)
+#//           control=CrossPlayer_ReadsTheCASTERSOwnDeckAndOwnBaseHp (supersedes the earlier N/A: both
+#//           "your"s are proven seat-bound to the CASTER — P2 casts it and gets P2's top card, and
+#//           the free-vs-−5 branch is decided by P2's own full base even though P1's base sits at 5
+#//           remaining HP; P1's deck is untouched)
 #// SOR_246 You're My Only Hope — decline: "you MAY play it". P1 looks at the top card (SOR_049
 #// Obi-Wan) and chooses Leave → nothing played, the card stays on top. P1 still paid 3 for the event
 #// (→ 0), and the event is in the discard.
@@ -278,3 +281,41 @@ WithP1Deck: [JTL_108 SOR_095]
 P1SPACEARENAUNIT:0:UPGRADECOUNT:1
 P1RESAVAILABLE:0
 P1DECKCOUNT:1
+
+---
+
+# CrossPlayer_ReadsTheCASTERSOwnDeckAndOwnBaseHp
+#// Intended: every "your" on this card belongs to the player who PLAYED the event — "look at the top
+#// card of YOUR deck" and "if YOUR BASE has 5 or less remaining HP". P2 casts it here, and the board
+#// is built so that a seat-1-framed read of either half is visible:
+#//   • decks differ — P1's top is SOR_056 Bendu, P2's is SOR_049 Obi-Wan. The unit that comes down
+#//     must be Obi-Wan, and P1's deck must still be 3.
+#//   • bases differ — P1's base carries 25 damage (5 remaining, the free branch) while P2's is FULL,
+#//     so P2 must pay the −5 price, not play free. P2 has 4 resources: 3 for the event, then 6 − 5 = 1
+#//     for Obi-Wan → 0 ready. A base read off seat 1 would grant the free branch and leave P2 with 1
+#//     ready resource, so RESAVAILABLE:0 is the discriminator between the two branches.
+#// (Companion in this file: PlayFree_LowBase covers the caster's OWN base being at 5.)
+
+## GIVEN
+CommonSetup: byw/byw/{myBaseDamage:25;theirResources:4}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Hand: SOR_246
+WithP2Deck: [SOR_049 SOR_189 SOR_189]
+WithP1Deck: [SOR_056 SOR_189 SOR_189]
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:Play
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_049
+P2DECKCOUNT:2
+P2RESAVAILABLE:0
+P2DISCARDCOUNT:1
+P1GROUNDARENACOUNT:0
+P1DECKCOUNT:3
+P1DECKTOPCARD:SOR_056

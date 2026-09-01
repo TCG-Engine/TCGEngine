@@ -32,8 +32,11 @@ $whenPlayedAbilities["SEC_077:0"] = function($player, $mzID = '') {
                     for ($p = 1; $p <= SeatCountForGame(); $p++) {
                         if (GlobalEffectCount($p, 'SWU_DEALT_BASEDMG_' . $uid) > 0
                             || GlobalEffectCount($p, 'SWU_UNITDMGBASE_' . $uid) > 0) return true;
-                        for ($o = 1; $o <= SeatCountForGame(); $o++) {
-                            if (GlobalEffectCount($p, 'SWU_DMGDBASE_' . $uid . '_' . $o) > 0) return true;
+                        // ⚠ $seat, NOT $o — $o is this closure's UNIT parameter, and the inner loop
+                        // used to shadow it. Harmless only because $uid is read out before the loops;
+                        // the next edit that touches $o after this point would silently get an int.
+                        for ($seat = 1; $seat <= SeatCountForGame(); $seat++) {
+                            if (GlobalEffectCount($p, 'SWU_DMGDBASE_' . $uid . '_' . $seat) > 0) return true;
                         }
                     }
                     return false;

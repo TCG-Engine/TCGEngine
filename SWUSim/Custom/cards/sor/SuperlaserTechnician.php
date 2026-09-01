@@ -9,7 +9,7 @@
 $whenDefeatedAbilities["SOR_083:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $mz = _SWUFindDiscardMzID(intval($player), 'SOR_083');
+    $mz = _SWUFindSelfInDiscardMzID(intval($player), 'SOR_083');
     if ($mz !== null) SWURampResourceReady(intval($player), $mz);
 };
 
@@ -21,6 +21,6 @@ $whenDefeatedAbilities["SOR_083:0"] = function($player, $mzID) {
 // time in practice, so the prompt was friction rather than a decision.
 $whenDefeatedAbilities["SHD_085:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $mz = _SWUFindDiscardMzID(intval($player), 'SHD_085');
+    $mz = _SWUFindSelfInDiscardMzID(intval($player), 'SHD_085');
     if ($mz !== null) SWURampResourceReady(intval($player), $mz);
 };

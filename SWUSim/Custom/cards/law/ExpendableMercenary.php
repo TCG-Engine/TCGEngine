@@ -10,11 +10,11 @@
 function _SWULaw159DiscardMz(int $player): ?string {
     global $playerID; $saved = $playerID;
     $playerID = $player;
-    $mz = _SWUFindDiscardMzID($player, 'LAW_159');
+    $mz = _SWUFindSelfInDiscardMzID($player, 'LAW_159');
     if ($mz === null) {
         $opp = OtherPlayer($player);
         $playerID = $opp;
-        $oppMz = _SWUFindDiscardMzID($opp, 'LAW_159');
+        $oppMz = _SWUFindSelfInDiscardMzID($opp, 'LAW_159');
         if ($oppMz !== null) $mz = 'theirDiscard-' . substr($oppMz, strlen('myDiscard-'));
     }
     $playerID = $saved;

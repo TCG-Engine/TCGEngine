@@ -4,16 +4,22 @@
 #// other friendly unit in play there is no Ambush prompt at all (P1NODECISION); the Skiff simply
 #// enters play exhausted and nothing is attacked.
 #//
-#// COVERAGE: offer=Ambush_WithAnotherCommandUnit_KillsTarget (two-target Ambush pick) — (historical: the
-#//           gate bug note below; the gate-ON scenarios [Ambush YES kill, decline branch, control-
-#//           change gate, ambush-target offer] must be added once fixed) · reqboundary=gate-ON
-#//           flows span PlayHand→YES→target answers — gate fixed 2026-08-13, Cunning→Command) ·
-#//           control=Ambush_ControlledEnemyOwnedCommandUnitCounts ·
-#//           boundary pair=NoAmbush_NonCommandFriendlyUnit vs the deferred gate-ON kill section ·
-#//           decline=Ambush_Declined_SkiffStaysExhausted
+#// COVERAGE: offer=Ambush_TargetOffer_EnemyGroundUnitsOnly (the exact Ambush target pool, left
+#//           pending: two legal enemy ground units plus three decoys excluded for three different
+#//           reasons — friendly/right arena, friendly/wrong arena, enemy/wrong arena) ·
+#//           reqboundary=Ambush_WithAnotherCommandUnit_KillsTarget (the gate is evaluated at play,
+#//           then the YES/NO and the target arrive as separate serialized answers) ·
+#//           control=Ambush_ControlledEnemyOwnedCommandUnitCounts (a P2-OWNED Command unit under P1's
+#//           control satisfies "another Command unit YOU control") · boundary
+#//           pair=Ambush_WithAnotherCommandUnit_KillsTarget (gate ON — a second friendly Command unit)
+#//           vs NoAmbush_NoOtherFriendlyUnit (the Skiff is Command but "ANOTHER" fails at zero) +
+#//           NoAmbush_NonCommandFriendlyUnit (another unit, wrong aspect) +
+#//           NoAmbush_EnemyCommandUnitDoesNotCount (right aspect, wrong controller) ·
+#//           decline=Ambush_Declined_SkiffStaysExhausted (NO → the Skiff stays exhausted, nothing
+#//           attacked).
 #// Intended: with another friendly COMMAND-aspect unit in play the Skiff is played with Ambush
-#// (prompt YES → ready+attack an enemy unit). The current engine keys the gate to the wrong
-#// aspect, so only the gate-OFF half is encodable green today.
+#// (prompt YES → ready+attack an enemy unit). The gate reads COMMAND — it was keyed on the wrong
+#// aspect (Cunning) until 2026-08-13, which is why the gate-OFF sections came first.
 
 ## GIVEN
 CommonSetup: ggk/bbk/{myResources:4;handCardIds:SOR_114}
@@ -162,3 +168,31 @@ WithP1Hand: SOR_114
 ## EXPECT
 P2GROUNDARENACOUNT:0
 P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# Ambush_TargetOffer_EnemyGroundUnitsOnly
+#// SOR_114 Escort Skiff — the Ambush attack's TARGET POOL, asserted rather than answered. The gate is
+#// on (friendly SOR_111 Patrolling V-Wing, a Command unit, in space), so the played Skiff gains Ambush
+#// and P1 accepts it. Intended: a GROUND unit's Ambush attack reaches only ENEMY units in its OWN
+#// arena — exactly P2's two ground units. Three decoys are seeded, each excluded for a DIFFERENT
+#// reason, so no single wrong filter passes: P1's own SOR_046 (friendly, right arena), P1's SOR_111
+#// (friendly, wrong arena) and P2's SOR_225 TIE (enemy, wrong arena) — plus the Skiff itself, which
+#// is the attacker. Two legal targets keep the choice from auto-resolving, and the decision is left
+#// PENDING so the offer can be read; Ambush_WithAnotherCommandUnit_KillsTarget resolves the same pick.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:4}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1SpaceArena: SOR_111:1:0
+WithP2GroundArena: [SOR_095:1:0 SOR_164:1:0]
+WithP2SpaceArena: SOR_225:1:0
+WithP1Hand: SOR_114
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1

@@ -1,10 +1,17 @@
 # DiscardTwo_ReorderRest
-#// COVERAGE: offer=the reveal keep/discard split prompt is exercised with real picks in
-#//           DiscardTwo_ReorderRest + FourHeroism_FourDamage (keep-order + discard destinations both
-#//           asserted); the target of the damage is always "an enemy base" (1v1: auto — no offer)
+#// COVERAGE: offer=FourSeats_EnemyBaseOffer_TeammateAndSelfAreNotOnTheMenu (the "an ENEMY base" picker
+#//           left PENDING and its label set read exactly: P2 and P4 offered, the TEAMMATE P3 and the
+#//           caster's own seat both absent — the two seats a naive "every other base" pool would add;
+#//           at 1v1 the same pick auto-resolves, so four seats is the only board that can show it) plus
+#//           the reveal keep/discard split prompt exercised with real picks in DiscardTwo_ReorderRest +
+#//           FourHeroism_FourDamage (keep-order + discard destinations both asserted)
 #//           · reqboundary=N/A (single-resolver event; reveal, damage and split resolve in one
 #//           uninterrupted resolution — no decision is answered after reading pre-decision state)
-#//           · control=N/A (nothing changes control; damage keys on "enemy base", asserted throughout)
+#//           · control=CrossPlayer_RevealsTHEIROwnDeck_AndHitsOURBase (the who-resolves-it reading:
+#//           P2 casts it with P1 also holding a stocked deck, so "your deck", "an enemy base" and the
+#//           discard the rejected reveals fall into must all resolve from the CASTER's seat — P1's deck
+#//           and discard end untouched. The owner≠controller reading is N/A: this is an event that puts
+#//           no permanent into play and moves only the caster's own cards)
 #//           · boundary=EmptyDeck_NoEffect + TwoCardDeck_RevealsRemaining (deck-size edges) and
 #//           LethalToOpponentBase_EndsGame / SawGerreraSurcharge_SelfLethal (win/loss edges)
 #//           · decline=NoHeroism_NoBaseDamage + TwoHeroism_KeepAll (discard NONE of the reveals)
@@ -266,3 +273,85 @@ SEATCOUNT:4
 P4BASEDMG:2
 P2BASEDMG:0
 P1DECKCOUNT:2
+
+---
+
+# FourSeats_EnemyBaseOffer_TeammateAndSelfAreNotOnTheMenu
+#// SOR_152 For a Cause I Believe In — OFFER axis for "deal 1 damage to AN ENEMY BASE". Answering P4, as
+#// FourSeats_ChoosesWHICHEnemyBaseTakesTheDamage does, proves the answer was honoured; it cannot prove
+#// WHO ELSE was on the menu, and the two seats that must NOT be there are exactly the ones a naive
+#// "every other base" pool would include. Teams are seat parity (1,3 vs 2,4), so P1's enemies are P2 and
+#// P4 and P3 is P1's TEAMMATE. The picker is left PENDING and its label set is read directly: P2 and P4
+#// offered, P3 (teammate — not an ENEMY base) and P1 (self) both absent. Nothing has resolved yet, so
+#// every base is still undamaged and the reveal's arrange prompt has not been queued.
+
+## GIVEN
+CommonSetup: rrw/rrw
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 3
+WithP1Hand: SOR_152
+WithP1Deck: SOR_095
+WithP1Deck: SOR_189
+WithP1Deck: SOR_128
+WithP1Deck: SOR_111
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1OPTIONHAS:P2
+P1OPTIONHAS:P4
+P1OPTIONNOT:P3
+P1OPTIONNOT:P1
+P1BASEDMG:0
+P2BASEDMG:0
+P3BASEDMG:0
+P4BASEDMG:0
+P1DECKCOUNT:4
+
+---
+
+# CrossPlayer_RevealsTHEIROwnDeck_AndHitsOURBase
+#// SOR_152 For a Cause I Believe In — CONTROL axis, the "who resolves it" reading. Every zone reference
+#// on this card is seat-relative — "the top 4 cards of YOUR deck", "AN ENEMY base", and the discard the
+#// rejected reveals fall into — and all three are resolved from the player who PLAYED the event, not
+#// from seat 1. Here P2 casts it while P1 also holds a stocked deck: the reveal must come off P2's deck
+#// (4 → 2, top SOR_111 after the reorder), the 2 [Heroism] damage must land on P1's base, the two
+#// discarded reveals plus the event must be in P2's discard, and P1's deck and discard must be
+#// untouched. A hardcoded seat-1 read would have milled P1's four Battlefield Marines and reported zero
+#// Heroism.
+
+## GIVEN
+CommonSetup: rrw/rrw/{theirResources:3}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Hand: SOR_152
+WithP2Deck: SOR_095
+WithP2Deck: SOR_189
+WithP2Deck: SOR_128
+WithP2Deck: SOR_111
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+WithP1Deck: SOR_095
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:SOR_111,SOR_128|SOR_095,SOR_189
+
+## EXPECT
+P1BASEDMG:2
+P2BASEDMG:0
+P2DECKCOUNT:2
+P2DECKTOPCARD:SOR_111
+P2DISCARDCOUNT:3
+P1DECKCOUNT:4
+P1DISCARDCOUNT:0

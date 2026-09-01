@@ -244,3 +244,45 @@ WithP2GroundArena: SOR_142:1:0
 P2BASEDMG:0
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SOR_142
+
+---
+
+# UnitThatDamagedABaseByINDIRECTDamage_IsATarget
+#// THE FOURTH ROUTE, and the only one this file did not exercise. USER RULING (2026-09-01) names three
+#// ways a unit deals damage to a base - an ATTACK, a unit ABILITY that pings it, and OVERWHELM excess -
+#// and Retaliation counts all of them, which the three sections above already pin. INDIRECT damage is a
+#// fourth: the engine attributes it to the SOURCE UNIT (CR 35.4 attributes indirect damage to the
+#// controller) and stamps SWU_DMGDBASE_{uid}_{seat} for it at its own site in SWUDealDamageToBase's
+#// indirect branch, entirely separately from the combat and ability sites. Nothing tested that.
+#//
+#// JTL_218 Guerilla Soldier is the isolating fixture BECAUSE ITS ABILITY IS A "When Played" AND IT NEVER
+#// ATTACKS. Every other indirect source in the set is an On Attack, which would also arm the ordinary
+#// attack marker and make the section pass for the wrong reason. Here the ONLY thing connecting the
+#// Soldier to P2's base is the indirect assignment.
+#// Indirect damage to a player auto-resolves onto their base when they control no units, so P2 is left
+#// empty and all 3 land there with no cross-player split to answer.
+#// SOR_095 is a bystander that did nothing at all: it must survive, which is also what keeps the pool at
+#// exactly one member so Retaliation's mandatory choose auto-resolves.
+#// ⚠ JTL_218 is Cunning and costs 3; under this Vigilance base/leader the pip is uncovered (+2), so it
+#// costs 5, and Retaliation another 5.
+
+## GIVEN
+CommonSetup: bbk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10
+WithP1Hand: [JTL_218 SEC_077]
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Opponent
+- P1>PlayHand:0
+
+## EXPECT
+P2BASEDMG:3
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1DISCARDCOUNT:2
+P1NODECISION

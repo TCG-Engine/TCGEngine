@@ -1,9 +1,13 @@
 # ReturnDefeatedThisPhase
 #// COVERAGE: offer=N/A (no choice — "each unit" is a mandatory sweep, no pool is ever offered) ·
 #//           reqboundary=DefeatedLastPhase_NotReturned (defeats, a phase cross, and the play all
-#//           arrive in separate requests) · control=MassDefeat_OpponentsWipe_ReturnsAllCasualties
-#//           (the defeats come from the OPPONENT's event; the return still keys on the owner's
-#//           pile) · boundary pair=ReturnDefeatedThisPhase vs SeededDiscardNotReturned +
+#//           arrive in separate requests) + SimulateRequestBoundary_DefeatedThisPhaseSurvives ·
+#//           control=ControlChange_StolenCasualtyLandsInItsOWNERSPile_NotReturned (a P2-OWNED unit
+#//           dying under P1's control goes to P2's pile and is NOT returned, while P1's own casualty
+#//           in the same phase IS — the self-controlling pair) +
+#//           MassDefeat_OpponentsWipe_ReturnsAllCasualties (the defeats come from the OPPONENT's
+#//           event; the return still keys on the owner's pile) ·
+#//           boundary pair=ReturnDefeatedThisPhase vs SeededDiscardNotReturned +
 #//           DefeatedLastPhase_NotReturned (the this-phase window) · decline=N/A (no "you may").
 #// The return keys on each ENTRY's defeat provenance (From='PLAY') plus the this-phase count —
 #// a copy that arrived by hand-discard never returns (fixed 2026-08-14; see
@@ -171,3 +175,39 @@ P2GROUNDARENACOUNT:0
 P1HANDCOUNT:1
 P1DISCARDCOUNT:1
 P1DISCARDUNIT:0:CARDID:SOR_091
+
+---
+
+# ControlChange_StolenCasualtyLandsInItsOWNERSPile_NotReturned
+#// SOR_091 The Emperor's Legion — "Return each unit in YOUR discard pile…". A defeated card always
+#// goes to its OWNER's discard, so a unit P1 merely CONTROLS can never land in P1's pile and can never
+#// be returned by P1's Legion — even though P1 controlled it when it died and P1 owns the Legion.
+#// P1 fields a SOR_128 of their own PLUS a second SOR_128 that P2 OWNS (the end state after a
+#// take-control effect; controlled units seat after the plain ones, so the stolen copy is index 1).
+#// Both trade with a Dark Trooper in the same phase, then P1 plays Legion. Intended: exactly ONE
+#// casualty comes back — P1's own — so P1's hand holds SOR_128 alone and P2's pile ends at 3 (two
+#// Dark Troopers plus the stolen Stormtrooper). The section is self-controlling: it contains a
+#// casualty that MUST return and an identically-named one that must not, so a controller-keyed pile
+#// lookup reads P1HANDCOUNT:2, and a pile that ignores control entirely hands P1 the enemy's card.
+
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:3;handCardIds:SOR_091}
+P1OnlyActions: true
+WithP1GroundArena: SOR_128:1:0
+WithP1GroundArenaControlled: SOR_128:2
+WithP2GroundArena: [SEC_080:1:0 SEC_080:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AttackGroundArena:0:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1HANDCARD:0:SOR_128
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:SOR_091
+P2HANDCOUNT:0
+P2DISCARDCOUNT:3

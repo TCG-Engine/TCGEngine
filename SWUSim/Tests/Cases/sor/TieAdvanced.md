@@ -4,9 +4,14 @@
 #// only other Imperial → auto-receives +2/+2 (→ 5/5).
 #// COVERAGE: offer=Offer_OtherFriendlyImperialsOnly (pending SELECTABLEEXACT: excludes self,
 #//           non-Imperial friendlies, and enemy Imperials) · decline=N/A (mandatory give, no
-#//           "you may") · control=N/A (one-shot token grant at play time; nothing to follow) ·
-#//           boundary=StacksOntoExistingExperience_ThreeTotal (token stacking edge) ·
-#//           reqboundary=N/A (resolves inside the play ceremony)
+#//           "you may") · control=Offer_OtherFriendlyImperialsOnly ("friendly" is read from the
+#//           CASTER's side — P2's Imperial is not a candidate) + NoOtherFriendlyImperial_NothingGiven
+#//           (an Imperial that only the OPPONENT controls leaves the pool empty) ·
+#//           boundary=StacksOntoExistingExperience_ThreeTotal (token stacking edge) and
+#//           NoOtherFriendlyImperial_NothingGiven (pool of 1 vs 0 → the give simply does not happen,
+#//           and the play still stands) ·
+#//           reqboundary=Offer_OtherFriendlyImperialsOnly (the play request ends with the give-pick
+#//           still pending; the pool survives into the next request)
 
 ## GIVEN
 CommonSetup: ggk/ggk/{myResources:4;handCardIds:SOR_231}
@@ -64,3 +69,33 @@ WithP2GroundArena: SOR_229:1:0
 ## EXPECT
 P1HASDECISION
 P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+
+---
+
+# NoOtherFriendlyImperial_NothingGiven
+#// SOR_231 TIE Advanced — the no-valid-target cell. P1's only other unit is a Rebel (Battlefield
+#// Marine) and the only IMPERIAL besides the TIE itself belongs to P2, so the mandatory
+#// "give 2 Experience to another friendly IMPERIAL unit" has an EMPTY pool: no prompt is raised,
+#// nothing receives a token, and the play itself still stands (the TIE seats at its printed 3/2).
+#// "Another" also excludes the TIE from bailing itself out, so it stays bare too.
+
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:4;handCardIds:SOR_231}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0    # friendly, but a Rebel — not Imperial
+WithP2GroundArena: SOR_229:1:0    # Imperial, but the OPPONENT'S
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_231
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1SPACEARENAUNIT:0:POWER:3
+P1SPACEARENAUNIT:0:HP:2
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:0:POWER:3
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:POWER:3

@@ -157,3 +157,82 @@ WithP1GroundArena: SOR_116:1:0
 P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:1:ISLEADERUNIT
 P2BASEDMG:11
+
+---
+
+# Overwhelm_ExcessSpillsToBase
+#// SOR_116 Steadfast Battalion — the OVERWHELM clause, which had no section of its own.
+#// "Overwhelm (When attacking an enemy unit, deal excess damage to the opponent's base.)"
+#// The 5/5 Battalion attacks a 3/1 Death Star Stormtrooper: 1 damage is lethal, so the other 4 spill
+#// onto P2's base. The defender still deals its own 3 back. P1's leader is NOT deployed, so the On
+#// Attack buff condition is false and the excess is computed off the printed 5 power.
+
+## GIVEN
+CommonSetup: ggw/grw
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_116:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:4
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1NODECISION
+
+---
+
+# Overwhelm_NoExcessWhenDefenderAbsorbsAll
+#// SOR_116 Steadfast Battalion — the NEGATIVE that proves the Overwhelm spill is bounded by "excess":
+#// only damage BEYOND what defeats the defender reaches the base. Consular Security Force is 3/7, so
+#// all 5 of the Battalion's damage stays on the defender (which survives at 5 damage) and P2's base
+#// takes ZERO. Boundary partner of Overwhelm_ExcessSpillsToBase (defender HP 1 → 4 spills;
+#// defender HP 7 → 0 spills).
+
+## GIVEN
+CommonSetup: ggw/grw
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_116:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:5
+P2BASEDMG:0
+P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# Overwhelm_UsesBuffedPower_BothClausesInteract
+#// SOR_116 Steadfast Battalion — the two printed clauses meet: the On Attack "+2/+2 for this phase"
+#// resolves during the attack (it is an On Attack trigger, so it lands before combat damage), and
+#// Overwhelm then spills the EXCESS of the BUFFED power, not the printed 5. P1 controls a deployed
+#// Leia (leader unit) so the condition is met; the buff is put on the Battalion itself → 7 power vs a
+#// 3/1 Stormtrooper → 1 lethal + 6 excess to P2's base.
+
+## GIVEN
+CommonSetup: ggw/grw/{
+  myLeader:SOR_009:1:1:1
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_116:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_116
+P1GROUNDARENAUNIT:0:POWER:7
+P2GROUNDARENACOUNT:0
+P2BASEDMG:6

@@ -3,9 +3,13 @@
 #// Command,Heroism unit) heals 1 from P1's base (3 → 2).
 #// COVERAGE: offer=N/A (the heal is mandatory and untargeted — no choice ever exists) ·
 #//           reqboundary=OpponentOwnedCommandUnit_PlayedByYou_Heals (attach, defeat, Bounty-collect
-#//           and heal all land across separate serialized requests) · control=
-#//           OpponentOwnedCommandUnit_PlayedByYou_Heals ("you play" follows the PLAYER, not the
-#//           card's owner) · boundary pair=CommandUnitPlayed_HealsBase + OwnPlay_HealsBase
+#//           and heal all land across separate serialized requests) · control=both readings:
+#//           OpponentOwnedCommandUnit_PlayedByYou_Heals is the PLAYED CARD changing hands ("you play"
+#//           follows the player, not the card's owner), and ControlChanged_HealsTheNewControllersBase
+#//           is YULAREN himself changing hands — a P1-owned Yularen under P2's control arms on P2's
+#//           play and heals P2's base, with P1's base untouched (its control-unchanged twin is
+#//           OpponentCommandUnit_NoHeal, so the heal is shown to MOVE, not merely to stop) ·
+#//           boundary pair=CommandUnitPlayed_HealsBase + OwnPlay_HealsBase
 #//           ("including this one") vs NonCommandUnit_NoHeal + OpponentCommandUnit_NoHeal (aspect
 #//           and seat gates) · decline=N/A (mandatory trigger, no "you may").
 #// Intended per the pilot rules: a Command PILOT played with Piloting as an UPGRADE is not
@@ -178,3 +182,34 @@ WithP1Hand: JTL_093
 ## EXPECT
 P1GROUNDARENACOUNT:2
 P1BASEDMG:1
+
+---
+
+# ControlChanged_HealsTheNewControllersBase
+#// SOR_109 Colonel Yularen — the CONTROL axis in its "who resolves it" reading. Yularen is OWNED by
+#// P1 but sits on P2's board under P2's control (the end state after a take-control effect). Both
+#// halves of the ability are then P2's: the trigger reads "when YOU play a [Command] unit", so it is
+#// P2's play that arms it, and "heal 1 damage from YOUR base" must heal P2's base — the CONTROLLER's,
+#// not the owner's. P2 plays Vanguard Infantry (a Command unit) with both bases on 3 damage: P2's
+#// base drops to 2 and P1's stays at 3. The companion OpponentCommandUnit_NoHeal is the same play
+#// with Yularen still under P1's control, where P1 heals nothing — so this section is the proof that
+#// the heal MOVED with control rather than simply not firing.
+
+## GIVEN
+CommonSetup: ggw/ggk/{
+  myBaseDamage:3;
+  theirBaseDamage:3;
+  theirResources:1;
+  theirhandCardIds:SOR_108
+}
+WithP2GroundArenaControlled: SOR_109:1
+
+## WHEN
+- P1>Pass
+- P2>PlayHand:0
+
+## EXPECT
+P1BASEDMG:3
+P2BASEDMG:2
+P2GROUNDARENACOUNT:2
+P1GROUNDARENACOUNT:0

@@ -29,6 +29,16 @@ $whenPlayedAbilities["SOR_235:0"] = function($player, $mzID = '') {
                 if (stripos(CardAspect($o->CardID) ?? '', 'Heroism') !== false) continue; // non-Heroism only
                 $targets[] = $mz;
             }
-            SWUQueueChooseTarget(intval($player), $targets, "Play_a_non-Heroism_unit_from_your_hand_for_free", "SOR_235#0");
+            // ⚠ PLAY-FROM-HAND IS ALWAYS DECLINABLE (standing ruling): the hand is a HIDDEN zone, so a
+            // player can never be forced to reveal they were holding a playable card. That holds even
+            // though this card prints no "you may". MZMAYCHOOSE, not MZCHOOSE.
+            // It is MATERIAL here, not cosmetic — the rider deals damage to YOUR OWN base equal to the
+            // unit's cost. Worse, a mandatory choose with exactly ONE legal unit in hand auto-resolves
+            // to PASSPARAMETER and raises no prompt at all, so the player was silently forced to play
+            // it and eat the damage. The continuation already handles the decline
+            // (`if (SWUDecisionDeclined(...)) return;`) — only the decision TYPE was wrong.
+            SWUQueueMayChooseTarget(intval($player), $targets,
+                "Play_a_non-Heroism_unit_from_your_hand_for_free?",
+                "Play_a_non-Heroism_unit_from_your_hand_for_free", "SOR_235#0");
             return;
 };

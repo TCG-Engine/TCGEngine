@@ -1,4 +1,20 @@
 # Play2and1CostUnits
+#// COVERAGE: offer=SearchFilter_NonVillainyPickIsREFUSED (the aspect filter holds on the SERVER, not
+#//           just in the offered list) + SearchFilter_CombinedCostBudgetIsENFORCED (the budget is a
+#//           second, independent mechanism) + ControlChange_AmbushPoolIsByCONTROLLER_NotOwner (the
+#//           Ambush target pool asserted exactly, left pending) ·
+#//           reqboundary=NestedSearcherSeesThePOSTSearchDeck_NotTheDisplayLeftovers (trigger-order
+#//           pick, search answer, the fetched unit's own scry answer and the Ambush YES/NO are four
+#//           separately serialized answers; the second search must read the deck as the first LEFT it,
+#//           and the deck count is the teeth) · control=ControlChange_AmbushPoolIsByCONTROLLER_NotOwner
+#//           (both halves of a take-control end state on the board: a P2-owned unit under P1's control
+#//           is NOT an Ambush target, a P1-owned unit under P2's control IS) · boundary
+#//           pair=Play2and1CostUnits (2+1=3, exactly AT the combined-cost budget → both play) vs
+#//           SearchFilter_CombinedCostBudgetIsENFORCED (2+2=4, one over → only one plays);
+#//           PlayThree1CostUnits pins that "any number" is not capped at two ·
+#//           decline=TakeNothing_DeckIsReturnedNotMilled ("any number" includes ZERO with legal picks
+#//           PRESENT — the honest decline, not a fizzle) + the trailing NO that declines the Ambush in
+#//           every section above, standing alone in Ambush terms.
 #// SOR_087 Darth Vader — WhenPlayed search top 10: play one 2-cost and one 1-cost Villainy unit for free.
 
 ## GIVEN
@@ -252,3 +268,39 @@ P1SPACEARENAUNIT:0:CARDID:SOR_031
 P1SPACEARENAUNIT:1:CARDID:SOR_225
 P1DECKCOUNT:10
 P1NODECISION
+
+---
+
+# ControlChange_AmbushPoolIsByCONTROLLER_NotOwner
+#// SOR_087 Darth Vader — "Ambush (…it may ready and attack an ENEMY unit)". Which units are "enemy"
+#// is decided by CONTROL, not ownership, and both halves of a take-control end state are on the board
+#// at once: P1 controls a SOR_095 that P2 OWNS, and P2 controls a SOR_128 that P1 OWNS. Intended pool:
+#// only the two units sitting in P2's arena, in P1's "their" frame — the stolen marine on P1's own
+#// side is friendly and must be absent even though the opponent owns it, and P1's own Stormtrooper
+#// under P2's control must be present even though P1 owns it. An owner-keyed enemy test inverts both,
+#// which is the same COUNT of targets, so only an exact-set assertion catches it.
+#// Flow note: with enemy units on the board Vader's When Played search and his Ambush are two live
+#// triggers, so the play opens with a trigger-order pick (EffectStack-0 = the search). The search is
+#// then declined ('-', legal picks present) so the board under test is exactly the seeded one, and
+#// the Ambush is accepted; the target decision is left PENDING so the offer can be read.
+#// P1DECKCOUNT:10 and P1GROUNDARENACOUNT:2 pin that the declined search took nothing.
+
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:9}
+P1OnlyActions: true
+WithP1Hand: SOR_087
+WithP1Deck: [SOR_225 SEC_237 SOR_171 SOR_171 SOR_171 SOR_171 SOR_171 SOR_171 SOR_171 SOR_171]
+WithP1GroundArenaControlled: SOR_095:2
+WithP2GroundArena: SEC_080:1:0
+WithP2GroundArenaControlled: SOR_128:1
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:-
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1
+P1DECKCOUNT:10
+P1GROUNDARENACOUNT:2

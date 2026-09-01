@@ -63,3 +63,39 @@ P1LEADER:DEPLOYED
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
 P1NODECISION
+
+---
+
+# Offer_UnqualifiedOtherOfficialUnits_SPANSBOTHSIDES
+#// SEC_084 Mas Amedda — "When Played: Give an Experience token to each of up to 2 **other Official
+#// units**." There is no "friendly" in that sentence, and SWU templating states "friendly" whenever it
+#// means it (SOR_094 "another FRIENDLY unit", SOR_036 "a FRIENDLY unit"). So an unqualified "other
+#// Official units" reaches the OPPONENT's Officials too — the same reading already applied to SOR_007
+#// Grand Moff Tarkin's front side and documented on SOR_019's "a non-leader unit".
+#//
+#// Giving the enemy Experience is a real if unusual choice ("up to 2" lets you take fewer), which is why
+#// the pool is what has to be asserted rather than the outcome.
+#//
+#// ⚠ THE OFFER IS THE ONLY OBSERVABLE. Answering a target proves the branch, never the pool — and with a
+#// friendly-only pool the MZMULTICHOOSE would still appear and still work, just missing a candidate.
+#// Board: P1 fields Mas Amedda plus a friendly Official (SEC_237); P2 fields an Official (SEC_237) and a
+#// NON-Official (SOR_095). Four bodies, three exclusions tested at once — Mas Amedda himself ("other"),
+#// the enemy non-Official (the trait gate), and neither leader.
+
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:8}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [SEC_084]
+WithP1GroundArena: SEC_237:1:0
+WithP2GroundArena: [SEC_237:1:0 SOR_095:1:0]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+#// The pick is left PENDING so the pool itself can be read.
+P1HASDECISION
+#// myGroundArena-0 is the friendly Official; theirGroundArena-0 is the ENEMY Official.
+#// Mas Amedda (myGroundArena-1, "other") and the enemy non-Official are both absent.
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0

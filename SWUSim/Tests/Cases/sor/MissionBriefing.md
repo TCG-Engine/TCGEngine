@@ -4,8 +4,9 @@
 #// COVERAGE: offer=both option branches exercised (Opponent in ChooseOpponent_Draws2, You in
 #//           ChooseYou_Draws2 — each asserts the OTHER player's hand/deck untouched) ·
 #//           decline=N/A (the player choice is mandatory) · control=N/A (no units involved) ·
-#//           boundary=N/A (fixed draw 2; both decks seeded well above 2, and regroup is never
-#//           crossed) · reqboundary=both sections (play and choice answer span separate requests)
+#//           boundary=DeckShorterThanTwo_UndrawnCardBurnsThreeToThatBase (deck of 1 vs the deck of 2
+#//           in ChooseOpponent_Draws2: the second, undrawable card burns 3 to the CHOSEN player's
+#//           base) · reqboundary=both draw sections (play and choice answer span separate requests)
 
 ## GIVEN
 CommonSetup: ggw/ggw/{myResources:5}
@@ -76,4 +77,30 @@ WithP3Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
 SEATCOUNT:4
 P3HANDCOUNT:2
 P3DECKCOUNT:2
+P1HANDCOUNT:0
+
+---
+
+# DeckShorterThanTwo_UndrawnCardBurnsThreeToThatBase
+#// SOR_171 Mission Briefing — the draw-2 boundary at N vs N-1. P2's deck holds exactly ONE card,
+#// so the chosen player draws it and then cannot draw the second: per CR, a card you are unable to
+#// draw deals 3 damage to YOUR OWN base instead, so the 3 lands on P2's base (the chosen player's),
+#// not on the caster's. Contrast ChooseOpponent_Draws2, where a 2-card deck draws both and no base
+#// is touched.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:5}
+P1OnlyActions: true
+WithP1Hand: SOR_171
+WithP2Deck: SOR_128
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Opponent
+
+## EXPECT
+P2HANDCOUNT:1
+P2DECKCOUNT:0
+P2BASEDMG:3
+P1BASEDMG:0
 P1HANDCOUNT:0

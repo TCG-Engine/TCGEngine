@@ -7,9 +7,11 @@
 #// 5-power attack, so the surviving Consular Security Force reindexes to 0 with 2 damage.
 #// COVERAGE: offer=Offer_DefendersArena_BothPlayersUnits (pending SELECTABLEEXACT: every unit
 #//           in the defender's arena — attacking host, friendly bystander and both enemy units)
+#//           + Attach_OfferIncludesEnemyVehicle (the ATTACH pool: both Vehicles, neither non-Vehicle)
 #//           · decline=Decline_NoExtraDamage ("you may" answered '-') ·
-#//           control=N/A (nothing moves the upgrade cross-controller; the granted
-#//           ability follows the HOST's attack and the host never changes control here) ·
+#//           control=EnemyHostedBlaster_ResolvesForTheHostsController (the unqualified "attach to a
+#//           VEHICLE unit" reaches enemy Vehicles — Attach_OfferIncludesEnemyVehicle — and the
+#//           granted ability then resolves for the HOST'S controller, not the upgrade's owner) ·
 #//           boundary=base target (AttackBase_NoTrigger, no prompt) vs unit target
 #//           (OnAttackDeals2), plus ground vs space defender arena (OnAttackDeals2 vs
 #//           SpaceDefender_HitsSpaceArena) and Vehicle vs non-Vehicle host
@@ -152,3 +154,59 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_121
 P1GROUNDARENAUNIT:1:UPGRADECOUNT:0
 P1NODECISION
+
+---
+
+# Attach_OfferIncludesEnemyVehicle
+#// SOR_121 — "Attach to a VEHICLE unit." carries NO controller word, so per CR 2.e the attach pool
+#// is EVERY Vehicle on the table, the opponent's included; only the Vehicle trait narrows it.
+#// P1 fields a Vehicle (Academy Defense Walker) and a non-Vehicle (Battlefield Marine) and P2
+#// fields a Vehicle (Alliance X-Wing) and a non-Vehicle (Consular Security Force). With two legal
+#// hosts the attach no longer auto-resolves, so the host pick is left PENDING and the offer
+#// asserted: both Vehicles, neither Trooper. (AttachesOnlyToVehicles pins the single-legal-host
+#// auto-resolve; this pins the POOL the restriction actually builds.)
+
+## GIVEN
+CommonSetup: ggk/ggk/{myResources:4}
+P1OnlyActions: true
+WithP1Hand: SOR_121
+WithP1GroundArena: SOR_037:1:0          # friendly Vehicle — legal host
+WithP1GroundArena: SOR_095:1:0          # friendly non-Vehicle — excluded
+WithP2SpaceArena: SOR_237:1:0           # ENEMY Vehicle — legal host per CR 2.e
+WithP2GroundArena: SOR_046:1:0          # enemy non-Vehicle — excluded
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&theirSpaceArena-0
+
+---
+
+# EnemyHostedBlaster_ResolvesForTheHostsController
+#// SOR_121 — the cross-controller half. Because the attach pool reaches enemy Vehicles
+#// (Attach_OfferIncludesEnemyVehicle), the blaster can end up on a Vehicle the OPPONENT controls,
+#// and the ability it grants belongs to the ATTACHED UNIT — so it resolves for the HOST'S
+#// controller, not for whoever owns the upgrade. Here P2's Academy Defense Walker wears the
+#// blaster and attacks: P2 is the one offered the "deal 2" pick and P2 aims it at P1's OTHER
+#// ground unit. The 7-power attack (5 + the blaster's +2/+0) defeats the defending Marine, so the
+#// Consular Security Force reindexes to 0 carrying the blaster's 2.
+
+## GIVEN
+CommonSetup: ggk/ggk
+P2OnlyActions: true
+WithP2GroundArena: SOR_037:1:0          # enemy-controlled Vehicle host
+WithP2GroundArenaUpgrade: 0:SOR_121
+WithP1GroundArena: SOR_095:1:0          # defender — dies to the 7-power attack
+WithP1GroundArena: SOR_046:1:0          # blaster target
+
+## WHEN
+- P2>AttackGroundArena:0:theirGroundArena-0
+- P2>AnswerDecision:theirGroundArena-1
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENAUNIT:0:DAMAGE:3

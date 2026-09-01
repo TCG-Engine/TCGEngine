@@ -3,8 +3,11 @@
 #//           events and cost-8 walker excluded) · decline=ChooseNothing_NothingPlayed (nothing
 #//           played, Epic Action spent) + NoEligibleUnits_SoftPass_EpicSpent (empty-pool soft pass)
 #//           · boundary=AmbushTrade (cost paid exactly: 2 ready resources → 0) + ObiWanAmbush
-#//           (aspect penalty still charged on the play: 8 = 6+2) · control=N/A (a base never
-#//           changes control; the played unit's ambush grant is same-seat by construction)
+#//           (aspect penalty still charged on the play: 8 = 6+2) · control=
+#//           CrossSeat_P2UsesTheLabAndAmbushesFromItsOwnHand (a base never changes control, so the
+#//           axis is read as "who resolves it": the Lab is moved onto SEAT 2's base and every "your"
+#//           — the hand the pool comes from, the arena the unit enters, the row that pays, the Epic
+#//           flag that is spent, the arena the granted Ambush reaches — must follow that seat)
 #//           · reqboundary=Offer_OnlyUnitsCostingSixOrLess (the choose pends across the boundary)
 #// SOR_022 Energy Conversion Lab: Epic Action plays BF Marine at printed cost, grants AMBUSH.
 #// P1 has exactly 2 resources (printed cost of SOR_095, no aspect penalty with SOR_014+SOR_022).
@@ -300,3 +303,45 @@ P1HANDCOUNT:2
 P1GROUNDARENACOUNT:0
 P1BASE:EPICUSED
 P1NODECISION
+
+---
+
+# CrossSeat_P2UsesTheLabAndAmbushesFromItsOwnHand
+#// Intended: "Play a unit that costs 6 resources or less from YOUR hand. Give IT Ambush for this
+#// phase" resolves entirely for the seat whose base carries the Epic Action — every zone, the payment
+#// and the Ambush grant. Every other section in this file drives the Lab from seat 1; this one moves
+#// the Lab onto SEAT 2's base and drives it from there, so any seat-1-framed step (the hand the pool
+#// is gathered from, the arena the unit enters, whose resources pay, whose Epic flag is spent, and
+#// which arena the granted Ambush attack may reach into) is visible.
+#// Mirror of AmbushTrade from the other side: P2 has exactly 2 ready resources — the printed cost of
+#// the Battlefield Marine with no aspect penalty — so the play can only be paid out of P2's row. The
+#// granted Ambush attack reaches P1's ready Marine and the two 3/3s trade, emptying both arenas.
+#// P1's Epic Action must still be AVAILABLE: only the Lab's own controller spent one.
+
+## GIVEN
+SkipPreGame: true
+CommonSetup: grw/grw/{
+  myBase:SOR_023;
+  theirBase:SOR_022
+}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Resources: 2:SOR_095
+WithP2Hand: SOR_095
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P2>UseBaseAbility
+- P2>AnswerDecision:myHand-0
+- P2>AnswerDecision:YES
+- P2>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2RESAVAILABLE:0
+P2GROUNDARENACOUNT:0
+P2DISCARDCOUNT:1
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:1
+P2BASE:EPICUSED
+P1BASE:EPICAVAILABLE

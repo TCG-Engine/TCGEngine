@@ -2,6 +2,18 @@
 #// SOR_179 Boba Fett — condition gate: the exhausted defender must NOT have entered play this round.
 #// P2 plays SOR_046 this round (enters exhausted, flagged SWU_PLAYED_UNIT). Boba attacks it → exhausted
 #// but entered-this-round → no deal 3; only combat damage (3). (SOR_046 survives at 7 HP.)
+#// COVERAGE: offer=Deal3_HitsOnlyTheDeclaredDefender_NotAnEquallyEligibleBystander (the effect has no
+#//           picker — its pool is the single declared defender, proven by an equally-eligible
+#//           bystander reading 0 alongside P1NODECISION) · decline=N/A (no "you may" anywhere on the
+#//           card; the On Attack is mandatory and fires with no prompt whenever its gate holds) ·
+#//           control=N/A (the gate reads the DEFENDER's own entered-play-this-round marker, which
+#//           lives on the unit object rather than on a seat; every section already writes that marker
+#//           from SEAT 2's action — a play, a leader deploy, a token creation — and reads it back
+#//           from SEAT 1's attack, so the seat-independence of the marker is what is under test
+#//           throughout) · boundary pair=OnAttack_DeployedLeaderThisRound_NoDeal3 (entered THIS round
+#//           → spared) vs OnAttack_LeaderDeployedAPREVIOUSRound_Deal3 (same board one round later →
+#//           hit), plus OnAttack_ExhaustedNotEntered_Deal3 vs OnAttack_ReadyDefender_NoDeal3 for the
+#//           exhausted half of the gate · reqboundary=SimulateRequestBoundary_EnteredThisRoundFlagSurvives
 
 ## GIVEN
 CommonSetup: yyk/bbw/{theirResources:4;theirHandCardIds:SOR_046}
@@ -169,3 +181,31 @@ WithP2Deck: SOR_046 SOR_046 SOR_046 SOR_046
 - P1>AttackGroundArena:0:theirGroundArena-0
 ## EXPECT
 P2GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# Deal3_HitsOnlyTheDeclaredDefender_NotAnEquallyEligibleBystander
+#// Intended: "deal 3 damage to THE DEFENDER" names one object — the unit this attack was declared
+#// against — and nothing is ever chosen. Two identical Consular Security Forces (SOR_046, 3/7,
+#// non-unique) are seeded EXHAUSTED and did not enter play this round, so BOTH satisfy every word of
+#// the gate; only the one Boba actually attacked may be hit.
+#// Index 0 takes 3 (ability) + 3 (combat) = 6; index 1, equally eligible, must read 0. P1NODECISION
+#// is the other half of the assertion: the effect raises no picker at all, so there is no pool that
+#// could have widened to the bystander.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SOR_179:1:0
+WithP2GroundArena: SOR_046:0:0    # index 0 — the declared defender
+WithP2GroundArena: SOR_046:0:0    # index 1 — equally eligible bystander, must be untouched
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:DAMAGE:6
+P2GROUNDARENAUNIT:1:DAMAGE:0
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P1NODECISION

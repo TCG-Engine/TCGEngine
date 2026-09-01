@@ -173,3 +173,71 @@ P1OPTIONHAS:P2
 P1OPTIONHAS:P3
 P1OPTIONNOT:P4
 P1OPTIONNOT:P1
+
+---
+
+# Shielded_OnPlayGivesItselfAShield
+#// SOR_185 Chimaera — the SHIELDED clause, which had no section of its own (every other section seeds
+#// Chimaera straight into the arena, where no play ever happens). "Shielded (When you play this unit,
+#// give a Shield token to it.)" P1 plays the 8-cost Chimaera on-aspect (Cunning/Villainy) and it lands
+#// in the space arena carrying exactly one Shield token (SOR_T02) as its only upgrade. Shielded is not
+#// a When Played ABILITY, so nothing is prompted and the On Attack naming decision does not fire on a
+#// play.
+#// COVERAGE (whole card, both clauses):
+#//   offer — Shielded: N/A (it names its own unit; there is no target choice). On Attack: the seat
+#//           picker's exact pool is TwinSuns_PickerPrecedesTheNAMECARD_ForATransportReason
+#//           (P2/P3 offered, the empty-handed P4 and P1 itself excluded); the NAMED CARD is a free-text
+#//           dropdown, not a board pool, and the DISCARD is auto-resolved from the named title
+#//           (OnAttack_NameDuplicate proves only ONE matching copy is taken).
+#//   decline — N/A for both clauses: Shielded is not a "you may", and the On Attack name/reveal/discard
+#//           is mandatory once the attack is declared. The nearest branch is the whiff
+#//           (OnAttack_NameMiss / OnAttack_RevealPopupOnWhiff), where the reveal still happens and
+#//           nothing is discarded.
+#//   boundary — Shielded_AbsorbsTheFirstDamageThenPops (1 shield → one damage source absorbed, then 0)
+#//           and, on the naming clause, OnAttack_NameDuplicate (2 copies named → 1 discarded) vs
+#//           OnAttack_NameDiscard (1 copy → 1) vs OnAttack_NameMiss (0 copies → 0).
+#//   control — N/A: Shielded resolves at play on the player's own unit, and the On Attack reads "AN
+#//           OPPONENT's" hand, a zone reached through the seat picker rather than a "your" word, so
+#//           there is no owner-vs-controller reading to get wrong.
+#//   reqboundary — Shielded_AbsorbsTheFirstDamageThenPops (the token is written by P1's play request
+#//           and consumed by P2's attack in the next one), plus OnAttack_SavedHandShownAfterAutoDiscard
+#//           (the saved-hand snapshot is left pending across the discard, before combat damage).
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:8;handCardIds:SOR_185}
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_185
+P1SPACEARENAUNIT:0:SHIELDCOUNT:1
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:SOR_T02
+P1NODECISION
+
+---
+
+# Shielded_AbsorbsTheFirstDamageThenPops
+#// SOR_185 Chimaera — what the Shielded token is FOR. P1 plays Chimaera (it shields itself), the turn
+#// passes, and P2's TIE/ln Fighter attacks it: the Shield absorbs all of the incoming combat damage and
+#// is then defeated, so Chimaera ends on 0 damage with 0 shields, while Chimaera's own 8 power kills the
+#// 2/1 attacker. The token is written in P1's play request and consumed in P2's attack request.
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:8;handCardIds:SOR_185;theirResources:5}
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P2>AttackSpaceArena:0:0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_185
+P1SPACEARENAUNIT:0:DAMAGE:0
+P1SPACEARENAUNIT:0:SHIELDCOUNT:0
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P2SPACEARENACOUNT:0

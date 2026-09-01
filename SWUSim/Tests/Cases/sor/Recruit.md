@@ -7,9 +7,11 @@
 #//           proven behaviorally — an event answer is rejected server-side) + MultipleUnits_PickSecond
 #//           (both legal units acceptable) · reqboundary=SearchUnitDraw (peek → pick crosses a
 #//           serialized decision boundary; the finalize resolves against the stored peek set) ·
-#//           control=N/A (own-deck search; no unit state or seat-crossing involved) · boundary pair=
-#//           DeckOfThreeCards_StillSearches (deck < 5) + EmptyDeck_PlaysToNoEffect (deck = 0) vs the
-#//           full-deck sections · decline=TakeNothing_AllFiveToBottom (find is optional; '-' bottoms
+#//           boundary pair=DeckOfThreeCards_StillSearches (deck < 5) + EmptyDeck_PlaysToNoEffect (deck = 0) vs the
+#//           full-deck sections · control=CrossPlayer_SearchesTheCASTERSOwnDeck (supersedes the
+#//           earlier N/A: "your deck"/"draw it" resolve for the seat that PLAYED the event — P2 casts
+#//           it, P2's deck is peeked and bottomed and P2 draws, while P1's distinct deck and hand are
+#//           untouched) · decline=TakeNothing_AllFiveToBottom (find is optional; '-' bottoms
 #//           all five) + NoUnitInTopFive (nothing selectable, forced decline)
 
 ## GIVEN
@@ -167,3 +169,38 @@ P1HANDCOUNT:1
 P1HANDCARD:0:SOR_229
 P1DECKCOUNT:6
 P1DECKTOPCARD:SOR_222
+
+---
+
+# CrossPlayer_SearchesTheCASTERSOwnDeck
+#// Intended: "Search the top 5 cards of YOUR deck … and draw it" is resolved by the player who PLAYED
+#// the event, and "your deck"/"draw" are that player's zones. Here P2 casts Recruit while P1 sits with
+#// a full, distinct deck of its own, so a seat-1-framed read is directly visible: it would peek and
+#// bottom P1's cards and put a Battlefield Marine into the wrong hand.
+#// P2's top five are [SOR_228 SOR_251 SOR_216 SOR_220 SOR_229]; P2 takes SOR_229 Cell Block Guard, the
+#// other four go to the bottom, and the distinct 6th card SOR_222 becomes P2's new top (deck 7 → 6).
+#// P1's deck must be untouched at 6 and P1's hand empty.
+
+## GIVEN
+CommonSetup: ggw/ggw/{theirResources:1}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2Hand: SOR_123
+WithP2Deck: [SOR_228 SOR_251 SOR_216 SOR_220 SOR_229 SOR_222 SOR_171]
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:SOR_229
+
+## EXPECT
+P2HANDCOUNT:1
+P2HANDCARD:0:SOR_229
+P2DECKCOUNT:6
+P2DECKTOPCARD:SOR_222
+P2DISCARDCOUNT:1
+P1HANDCOUNT:0
+P1DECKCOUNT:6
+P1DISCARDCOUNT:0

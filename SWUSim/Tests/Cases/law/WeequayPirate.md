@@ -15,6 +15,14 @@ WithP1Hand: LAW_231
 
 ## WHEN
 - P1>PlayHand:0
+#// ⚠ One added answer, assertions untouched. This section borrows SOR_235 Galactic Ambition as its
+#// zero-resources-paid mechanism, and SOR_235's hand-play offer is now a declinable MZMAYCHOOSE
+#// (play-from-hand is always declinable — the hand is a hidden zone; the user confirmed 2026-09-01
+#// that Galactic Ambition can legitimately be used as an expensive soft-pass). So the lone legal
+#// unit no longer AUTO-RESOLVES — the comment above still says "auto-selected", which is what
+#// this edit supersedes — and the pick must be made explicitly.
+#// ⚠ During the event's own resolution the event still occupies myHand-0, so LAW_231 is myHand-1.
+- P1>AnswerDecision:myHand-1
 
 ## EXPECT
 P1GROUNDARENACOUNT:1

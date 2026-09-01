@@ -1363,6 +1363,36 @@ While this unit is upgraded, she gets +1/+1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/077.png',
     'imageUrlBack' => '',
   ),
+  'HMW_078' => 
+  array (
+    'title' => 'Qui-Gon Jinn',
+    'subtitle' => 'We\'ll Handle This',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 2,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+      2 => 'Republic',
+    ),
+    'text' => 'Grit
+When Played: You may defeat a unit that attacked your base this phase. If it\'s a leader unit, defeat this unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/078.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_081' => 
   array (
     'title' => 'Alliance Shield Generator',
@@ -2920,6 +2950,59 @@ While a friendly Tusken unit is defending, it gets +1/+0 for each Raid it has.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/212.png',
     'imageUrlBack' => '',
   ),
+  'HMW_214' => 
+  array (
+    'title' => 'Phee Genoa',
+    'subtitle' => 'Liberator of Ancient Wonders',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 4,
+    'power' => 5,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+    ),
+    'text' => 'Hidden
+When an enemy leader deploys: Its controller may pay [2 resources]. If they don\'t, exhaust that leader.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/214.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_217' => 
+  array (
+    'title' => 'Don\'t Touch Anything',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 2,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Trick',
+    ),
+    'text' => 'Deal 3 damage to a random enemy unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/217.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_221' => 
   array (
     'title' => 'Teeka',
@@ -3263,6 +3346,33 @@ Raid 2 (This unit gets +2/+0 while attacking.)',
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/257.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_260' => 
+  array (
+    'title' => 'Queen Amidala',
+    'subtitle' => 'Retaking Theed',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 4,
+    'power' => 4,
+    'hp' => 4,
+    'aspect' => 
+    array (
+    ),
+    'trait' => 
+    array (
+      0 => 'Naboo',
+      1 => 'Official',
+    ),
+    'text' => 'If you control an upgraded base, this unit costs [2 resources] less to play.
+Restore 2',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/260.png',
     'imageUrlBack' => '',
   ),
   'HMW_263' => 

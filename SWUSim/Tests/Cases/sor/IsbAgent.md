@@ -5,7 +5,11 @@
 #// COVERAGE: offer=DamageOffer_AllUnitsIncludingSelf (pending SELECTABLEEXACT: every unit
 #//           both sides and both arenas, including the Agent itself) · reqboundary=
 #//           RevealEventDeal1 (the target answer arrives in a separate request from the play)
-#//           · control=RevealEventDeal1 (pool crosses the seat line; resolves onto an enemy)
+#//           · control=ControlChange_PoolFramesFollowCONTROL_NotOwnership (both halves of a
+#//           take-control end state at once — a P2-owned unit under P1's control and a P1-owned unit
+#//           under P2's control — proving each unit's FRAME follows its controller, an inversion that
+#//           preserves the target COUNT and so is only visible to an exact-set assertion;
+#//           RevealEventDeal1 is the plain cross-seat resolution)
 #//           · boundary pair=NoEventInHand_NoPrompt (0 events → the ability never offers) +
 #//           DamageOffer_AllUnitsIncludingSelf (1 event → it does) · decline=
 #//           DeclinesReveal_NoDamage ("you may" answered '-': nothing revealed, no damage).
@@ -89,3 +93,29 @@ P1NODECISION
 P1HANDCOUNT:1
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# ControlChange_PoolFramesFollowCONTROL_NotOwnership
+#// SOR_176 ISB Agent — "deal 1 damage to a unit" is unqualified, so the pool is every unit on the
+#// board; which FRAME each one appears in is decided by its CONTROLLER, never its owner. Both halves
+#// of a take-control end state are on the table at once: P1 controls a SOR_095 that P2 OWNS, and P2
+#// controls a SOR_128 that P1 OWNS. Intended offer: the stolen marine as myGroundArena-0, the
+#// just-played Agent as myGroundArena-1, and BOTH units in P2's arena as theirGroundArena-0/1. An
+#// owner-keyed pool swaps the two stolen units into each other's frames — the same count, so only an
+#// exact-set assertion catches it; a friendly-or-enemy narrowing drops one side outright.
+#// The decision is left PENDING so the offer can be read; RevealEventDeal1 resolves the same one.
+#// (An event is in hand, so the "you may reveal" commitment is live.)
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:1;handCardIds:SOR_176,SOR_172}
+P1OnlyActions: true
+WithP1GroundArenaControlled: SOR_095:2
+WithP2GroundArenaControlled: SOR_128:1
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&theirGroundArena-0&theirGroundArena-1

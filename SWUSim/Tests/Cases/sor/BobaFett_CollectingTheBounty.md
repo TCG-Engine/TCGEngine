@@ -2,8 +2,12 @@
 #// SOR_015 Boba Fett (deployed, 4/7) — "When this unit completes an attack: If an enemy unit left
 #// play this phase, ready up to 2 resources." Boba attacks and defeats P2's 3/1 (so an enemy left
 #// play this phase); his OnAttackEnd then readies 2 of P1's exhausted resources.
-#// COVERAGE: offer=N/A (front reaction is an always-yes auto-resolve with no target pick; deployed
-#//           "ready up to 2" auto-resolves for the full benefit, so no offer ever surfaces) ·
+#// COVERAGE: offer=EpicDeploy_FourResourcesBlocked + EpicDeploy_ExactlyFiveDeploys — the Epic Action's
+#//           availability is the only offer this card has, and it is asserted as an offer (the deploy
+#//           is refused outright below the threshold and nothing is spent). The two ABILITY clauses
+#//           have no offer to assert: the front reaction is an always-yes auto-resolve with no target
+#//           pick, and the deployed "ready up to 2" auto-resolves for the full benefit (resources are
+#//           fungible), so no target pool ever surfaces on either ·
 #//           decline=N/A (standing ruling: the "you may exhaust" is an always-yes auto-resolve; the
 #//           no-benefit skip is pinned by EnemyDefeated_FullResources_NoReady) ·
 #//           control=EnemyTakenByNoGlory_NoReady + FriendlyTakenByNoGlory_ReadyResource (front) and
@@ -11,7 +15,9 @@
 #//           (deployed) — both directions of a control-change defeat ·
 #//           boundary=EnemyDefeated_FullResources_NoReady vs EnemyDefeated_ReadyResource (0 vs 1
 #//           exhausted resource) and Deployed_DiesAttacking_NoReady vs Deployed_OnAttackEnd_Ready2
-#//           (the completes-an-attack survival gate) ·
+#//           (the completes-an-attack survival gate) and EpicDeploy_FourResourcesBlocked vs
+#//           EpicDeploy_ExactlyFiveDeploys (the Epic's "5 or more" threshold, 4 vs 5 on the same
+#//           board) ·
 #//           reqboundary=the Deployed_*NoGlory* sections carry the left-play-this-phase flag across
 #//           action boundaries into the attack end; FriendlyTakenByNoGlory_ReadyResource resolves the
 #//           cross-seat reaction through the reactor-seat drain.
@@ -335,3 +341,60 @@ P1GROUNDARENACOUNT:1
 P1DISCARDCOUNT:1
 P2DISCARDCOUNT:1
 P1RESAVAILABLE:2
+
+---
+
+# EpicDeploy_FourResourcesBlocked
+#// SOR_015 Boba Fett — the OFFER axis on the Epic Action: "If you control 5 OR MORE resources, deploy
+#// this leader." Every other section in this file either pre-seats a deployed Boba or deploys him with
+#// the threshold already met, so the gate itself is unmeasured: with exactly 4 resources the Epic is
+#// not available and the deploy is a no-op — Boba stays in the leader row, the ground arena stays
+#// empty, no resource is spent and the epic slot is not consumed. Negative half of the pair with
+#// EpicDeploy_ExactlyFiveDeploys below (identical board, one more resource).
+
+## GIVEN
+CommonSetup: ryk/brw/{
+  myLeader:SOR_015;
+  myBase:SOR_025;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1LEADER:NOTDEPLOYED
+P1GROUNDARENACOUNT:0
+P1RESCOUNT:4
+P1RESAVAILABLE:4
+
+---
+
+# EpicDeploy_ExactlyFiveDeploys
+#// SOR_015 Boba Fett — the positive half of the same threshold on the identical board plus one
+#// resource: at exactly 5 the Epic Action IS offered and Boba leaves the leader row for the ground
+#// arena as a leader unit. The pair pins the comparison at "5 or more" rather than "more than 5".
+#// The deploy itself costs nothing, so all 5 resources are still available afterwards.
+
+## GIVEN
+CommonSetup: ryk/brw/{
+  myLeader:SOR_015;
+  myBase:SOR_025;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:ISLEADERUNIT
+P1RESCOUNT:5
+P1RESAVAILABLE:5

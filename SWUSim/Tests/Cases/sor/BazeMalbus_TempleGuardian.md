@@ -7,11 +7,17 @@
 #//           ClaimTurnsSentinelOnMidPhase (gate ON narrows the pool to Baze alone: the attack
 #//           auto-resolves onto him, target answer discarded) · reqboundary=OpponentClaims_NextPhase_NoSentinel
 #//           (the gate is re-read from serialized state after a full regroup round-trip) ·
-#//           control=N/A (the gate reads the CONTROLLER's initiative and Sentinel protects the
-#//           controller's side by definition; there is no per-unit marker to strand on a control
-#//           change) · boundary pair=StartWithInitiative_SentinelForcesAttack vs
-#//           NoInitiative_EnemyAttacksBaseFreely (gate on/off) · decline=N/A (both abilities are
-#//           static — no "you may" anywhere on the card)
+#//           control=ControlTaken_GateReadsTheControllersInitiative_Off /_On — the owner-vs-
+#//           controller reading IS live and is now measured on a Baze owned by P1 and controlled by
+#//           P2: "While YOU have the initiative" resolves against the CONTROLLER, so the gate is
+#//           off when the OWNER holds the counter and on when the controller does. (The second
+#//           reading, who RESOLVES it, has no fixture: both clauses are static and raise no
+#//           decision, so there is nobody to resolve them.) · boundary
+#//           pair=StartWithInitiative_SentinelForcesAttack vs
+#//           NoInitiative_EnemyAttacksBaseFreely (gate on/off), plus the Grit ladder
+#//           Grit_NoDamage_PrintedPower (0 → 2) / Grit_OneDamage_PowerThree (1 → 3) /
+#//           Grit_AppliesWhileDefending (2 → 4) / Grit_PowerScalesWithDamage (3 → 5) ·
+#//           decline=N/A (both abilities are static — no "you may" anywhere on the card)
 
 ## GIVEN
 CommonSetup: bbw/ggk
@@ -160,3 +166,147 @@ WithP2Deck: [SOR_095 SOR_095]
 P1BASEDMG:4
 P1GROUNDARENAUNIT:0:DAMAGE:0
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+
+---
+
+# Grit_NoDamage_PrintedPower
+#// SOR_065 Baze Malbus — the zero point of the Grit ladder and the negative that proves the bonus
+#//   is damage-driven rather than a flat buff: undamaged, he reads his printed 2/5. Together with
+#//   Grit_OneDamage_PowerThree (1 → 3), Grit_AppliesWhileDefending (2 → 4) and
+#//   Grit_PowerScalesWithDamage (3 → 5) this pins the scaling at exactly +1 per damage.
+
+## GIVEN
+CommonSetup: bbw/ggk
+WithP1GroundArena: SOR_065:1:0
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+P1GROUNDARENAUNIT:0:POWER:2
+P1GROUNDARENAUNIT:0:HP:5
+P1GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# Grit_OneDamage_PowerThree
+#// SOR_065 Baze Malbus — the N vs N+1 step on Grit itself: with exactly ONE damage he is 2 + 1 = 3
+#//   power, so his base attack deals 3 (not 2, and not 5). Grit_NoDamage_PrintedPower is the N-1
+#//   half on the identical board.
+
+## GIVEN
+CommonSetup: bbw/ggk
+WithP1GroundArena: SOR_065:1:1
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:3
+P1GROUNDARENAUNIT:0:POWER:3
+
+---
+
+# Grit_CombatDamageDoesNotBoostTheSameStrike
+#// SOR_065 Baze Malbus — Intended: combat damage is dealt SIMULTANEOUSLY (CR), so the damage the
+#//   attacker puts on Baze during THIS attack cannot feed back into the power Baze strikes with in
+#//   that same attack. Undamaged Baze is attacked by a 3/3 Battlefield Marine: he deals 2, not 5.
+#//   The Marine survives on 2 damage (it would have died to a fed-back 5), Baze ends on 3 — and
+#//   only NOW does Grit read those 3, so his power afterwards is 5. P2 holds the initiative, so
+#//   Sentinel is off and the explicit unit target is picked from an open pool.
+
+## GIVEN
+CommonSetup: bbw/ggk
+WithInitiativePlayer: 2
+WithActivePlayer: 2
+WithP1GroundArena: SOR_065:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENAUNIT:0:POWER:5
+
+---
+
+# InitiativeSentinel_ForcesAttackOntoGrittedBaze
+#// SOR_065 Baze Malbus — the two clauses working together, which no existing section covers: the
+#//   initiative gate drags the attack onto Baze AND Grit decides what the attacker walks into.
+#//   P1 holds the initiative so Baze has Sentinel and P2's Battlefield Marine cannot reach the
+#//   base; Baze already carries 1 damage, so he counters at 3 (not his printed 2) and kills the
+#//   3/3 outright. He takes the Marine's 3 back (4 total, alive on 5 HP) and his power then reads
+#//   2 + 4 = 6.
+
+## GIVEN
+CommonSetup: bbw/ggk
+WithInitiativePlayer: 1
+WithActivePlayer: 2
+WithP1GroundArena: SOR_065:1:1
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:BASE
+
+## EXPECT
+P1BASEDMG:0
+P2GROUNDARENACOUNT:0
+P2DISCARDCOUNT:1
+P1GROUNDARENAUNIT:0:DAMAGE:4
+P1GROUNDARENAUNIT:0:POWER:6
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+
+---
+
+# ControlTaken_GateReadsTheControllersInitiative_Off
+#// SOR_065 Baze Malbus — the owner-vs-controller reading of "While YOU have the initiative". Baze
+#//   is OWNED by P1 but sits under P2's control (the end state after a take-control effect), and
+#//   P1 holds the initiative. "You" is the unit's CONTROLLER, so the gate is OFF: Baze has no
+#//   Sentinel and P1's Battlefield Marine walks straight past him into P2's base for 3. Reading the
+#//   OWNER's initiative instead would have switched Sentinel on and forced the attack onto Baze —
+#//   that is the whole discrimination.
+
+## GIVEN
+CommonSetup: bbw/ggk
+WithInitiativePlayer: 1
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArenaControlled: SOR_065:1
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:3
+P2GROUNDARENAUNIT:0:CARDID:SOR_065
+P2GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# ControlTaken_GateReadsTheControllersInitiative_On
+#// SOR_065 Baze Malbus — the ON half of the same control pair on the identical board with the
+#//   initiative moved to P2, the CONTROLLER. Now the gate fires for the seat that holds him: Baze
+#//   gains Sentinel, P1's Marine can no longer reach P2's base and its declared base attack is
+#//   forced onto Baze (he is the only legal target, so it auto-resolves). Baze takes 3 and counters
+#//   for his printed 2.
+
+## GIVEN
+CommonSetup: bbw/ggk
+WithInitiativePlayer: 2
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArenaControlled: SOR_065:1
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:0
+P2GROUNDARENAUNIT:0:CARDID:SOR_065
+P2GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENAUNIT:0:DAMAGE:2

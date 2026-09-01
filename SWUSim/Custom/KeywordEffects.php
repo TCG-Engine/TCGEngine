@@ -973,7 +973,12 @@ function HasConditionalKeyword_Sentinel($obj) {
         // ── C3: condition reads a CURRENT EFFECT / game state ───────────────────────────────────
         case 'SOR_113': // Homestead Militia (SOR)
         case 'JTL_113': // Homestead Militia (JTL)
-            return count(GetResources($obj->Controller)) >= 6;
+            // ⚠ SWUResourceCount, NOT count(GetResources()): a Credit token sits in the resource zone
+            // but is NOT a resource (CR 3.13), and a raw count also includes `removed` tombstones —
+            // either can push this gate over 6 and hand the unit a Sentinel it has not earned.
+            // GameLogic.php carries this exact warning for the SHD_083/SOR_081 pair; this case block
+            // (both Homestead printings) was one of three call sites that still missed it.
+            return SWUResourceCount(intval($obj->Controller)) >= 6;
         case 'SOR_065': // Baze Malbus — while you have the initiative
             return HasInitiative($obj->Controller);
         case 'LOF_196': // Jedi Sentinel — while the Force is with you

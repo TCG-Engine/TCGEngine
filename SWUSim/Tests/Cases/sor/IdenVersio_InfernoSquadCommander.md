@@ -1,7 +1,12 @@
 # Deploy_GetsShield
 #// SOR_002 Iden Versio — Deploy: Shielded keyword gives Shield token on enter.
-#// COVERAGE: offer=N/A (leader action and deployed reaction are both targetless — heal your own
-#//           base; the deploy epic action is asserted in Deploy_GetsShield) · decline=N/A (the
+#// COVERAGE: offer=TwinSuns_ANYEnemyUnitDefeatedThisPhaseCounts (leader side) +
+#//           TwinSuns_Deployed_ANYOpponentsUnitDefeatedHeals (deployed side) — nothing is ever
+#//           chosen on either side (both abilities are targetless: heal your OWN base, and the
+#//           deploy epic action has no target either — Deploy_GetsShield asserts it), so this
+#//           card's analogue of a target pool is the POOL OF UNITS whose defeat she may observe.
+#//           Both sections make that pool discriminating by putting the only defeated unit at SEAT 4
+#//           while a second opponent sits at seat 2, so a one-opponent read heals nothing · decline=N/A (the
 #//           action may be used with no effect — LeaderAction_NoHeal asserts it still exhausts —
 #//           and the deployed reaction is mandatory) · control=LeaderAction_OppStoleAndDefeatedMyUnit_Heals
 #//           + LeaderAction_ITookControlAndDefeated_NoHeal + Deployed_OppStoleAndDefeatedMyUnit_Heals
@@ -332,4 +337,38 @@ WithP4GroundArena: SOR_059:1:0
 ## EXPECT
 SEATCOUNT:4
 P4GROUNDARENACOUNT:0
+P1BASEDMG:2
+
+---
+
+# TwinSuns_Deployed_ANYOpponentsUnitDefeatedHeals
+#// Intended: the DEPLOYED side's "When AN ENEMY unit is defeated: heal 1 damage from your base" is
+#// existential over EVERY opponent, exactly like the leader-side action pinned by
+#// TwinSuns_ANYEnemyUnitDefeatedThisPhaseCounts. That section covers the leader ACTION; the deployed
+#// reaction is a separate code path (a trigger raised from the defeat collection) and had never been
+#// exercised past two seats — the pool of units whose defeat she may observe is this ability's
+#// analogue of a target pool, and it is what this section pins.
+#// Four seats, teams: deployed Iden (4/4) belongs to seat 1 and the ONLY unit she defeats belongs to
+#// SEAT 4, not to seat 2. A one-opponent read heals nothing at all (base stays on 3); the correct
+#// existential read heals 1 (3 → 2). Iden takes the Stormtrooper's 3 power back, which is the proof
+#// the combat actually resolved rather than the attack being refused.
+
+## GIVEN
+CommonSetup: bbk/grk/{myLeader:SOR_002;myBaseDamage:3;myLeaderDeployed:true}
+SkipPreGame: true
+WithTeams: true
+P1OnlyActions: true
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP4GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:p4GroundArena-0
+
+## EXPECT
+SEATCOUNT:4
+P4GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:ISLEADERUNIT
+P1GROUNDARENAUNIT:0:DAMAGE:3
 P1BASEDMG:2

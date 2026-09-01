@@ -1600,6 +1600,26 @@ function SWUValidateDecisionAnswer(int $player, string $answer): bool {
     // could name a seat the offer never contained and still resolve — which made the SCOPE of a picker
     // (does "choose a player" include your teammate?) structurally untestable. Same hole that was closed
     // for PASSPARAMETER and MZMULTICHOOSE above.
+    // SCRY — Param is the comma-joined list of PEEKED CardIDs; the answer is "top|bottom", each half a
+    // comma-list drawn from that set (top listed topmost-first). Validated for the same reason every
+    // other type is: SCRY_FINALIZE is deliberately forgiving — "any peeked card the answer fails to
+    // account for goes back on top rather than vanishing" — so a garbage answer is a silent NO-OP and a
+    // section that submits one asserts nothing while looking green. That false-green shape is exactly
+    // what the MZMULTICHOOSE gate was added to close on an earlier pass; SCRY was the remaining hole.
+    // Only MEMBERSHIP and MULTIPLICITY are checked (a duplicate CardID may legitimately be peeked twice);
+    // ORDER is the player's choice and the split between halves is free.
+    if ($type === 'SCRY') {
+        $peeked = array_values(array_filter(explode(',', (string)($head->Param ?? ''))));
+        $halves = explode('|', $answer, 2);
+        $named  = array_values(array_filter(array_merge(
+            explode(',', $halves[0] ?? ''), explode(',', $halves[1] ?? '')
+        ), fn($x) => $x !== ''));
+        $pool = array_count_values($peeked);
+        foreach (array_count_values($named) as $cid => $cnt) {
+            if (($pool[$cid] ?? 0) < $cnt) return false;   // named a card that was never peeked (or too many)
+        }
+        return true;
+    }
     if ($type === 'OPTIONCHOOSE') {
         $labels = array_map('trim', explode('&', (string)($head->Param ?? '')));
         return $labels === [''] ? true : in_array($answer, $labels, true);
@@ -2505,16 +2525,35 @@ function SWUAvoidsExhaust($obj): bool {
 // unit shifts indices and can change other units' stats (e.g. a defeated Snoke).
 function SWUCheckShrinkDefeats(): void {
     global $playerID;
+    // ⚠ REENTRANCY GUARD. This sweep calls SWUDefeatUnit, and SWUDefeatUnit now calls this sweep (an
+    // HP-granting unit leaving play can drop other units to no remaining HP). Without the guard those
+    // two mutually recurse once per chained defeat. The do/while below already re-scans until the board
+    // is stable, so a nested call has nothing to add — the OUTERMOST sweep resolves the whole cascade.
+    if (!empty($GLOBALS['gSWUInShrinkSweep'])) return;
+    $GLOBALS['gSWUInShrinkSweep'] = true;
     $saved = $playerID;
     $guard = 0;
+    // ⚠ EVERY LIVE SEAT, not `$p <= 2`. The hardcoded two-seat loop meant units at seats 3 and 4 were
+    // never state-checked for "no remaining HP" at all in Twin Suns / Team Suns.
+    $seatCount = max(2, SeatCountForGame());
     do {
         $defeated = false;
-        for ($p = 1; $p <= 2 && !$defeated; $p++) {
+        for ($p = 1; $p <= $seatCount && !$defeated; $p++) {
             $playerID = $p;
             foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
                 foreach (ZoneSearch($zone, AnyUnitFilter) as $mz) {
                     $obj = GetZoneObject($mz);
                     if (SWUObjGone($obj)) continue;
+                    // ⚠ A unit PARKED FOR A DEFEAT REPLACEMENT is not available to the state check.
+                    // JTL_049 L3-37 ("instead of being defeated, attach it to a vehicle") stages the
+                    // would-be-defeated unit in $gDeferredReplacements and resolves it at action end;
+                    // this sweep runs before that, so without the skip it defeats the very unit the
+                    // replacement was going to save.
+                    $pendingRepl = false;
+                    foreach (($GLOBALS['gDeferredReplacements'] ?? []) as $dr) {
+                        if (intval($dr['uid'] ?? 0) === intval($obj->UniqueID ?? -1)) { $pendingRepl = true; break; }
+                    }
+                    if ($pendingRepl) continue;
                     if (ObjectCurrentHP($obj) - intval($obj->Damage ?? 0) <= 0 && !SWUImmuneToHpDefeat($obj)) {
                         SWUDefeatUnit($p, $mz);
                         $defeated = true;
@@ -2527,6 +2566,7 @@ function SWUCheckShrinkDefeats(): void {
     } while ($defeated && $guard < 100);
     $playerID = $saved;
     DecisionQueueController::CleanupRemovedCards();
+    $GLOBALS['gSWUInShrinkSweep'] = false;
 }
 
 // GA initiative helper (note: intentional typo from GA codebase).
@@ -2777,6 +2817,29 @@ $playCostModifiers["IC27_022"] = function($player, $subjectObj) {
 // registration is silently wiped and the discount would simply never apply.
 $playCostModifiers["HMW_240"] = function($player, $subjectObj) {
     return _SWUControlsBaseWithTrait(intval($player), 'Tatooine') ? -1 : 0;
+};
+
+// HMW_260 Queen Amidala (Retaking Theed): "If you control an upgraded base, this unit costs
+// [2 resources] less to play." Same load-order reason as its neighbours — $playCostModifiers is
+// initialized just above, AFTER cards/_loader.php runs, so a registration in
+// cards/hmw/QueenAmidala_RetakingTheed.php would be silently wiped and the discount would never apply.
+//
+// "An upgraded base" is the Fortify interaction: a Fortify upgrade ("attach this to your base, not a
+// unit") lives in Base.Subcards exactly as a unit's upgrades live in its own, so the ordinary
+// _SWUIsUpgraded predicate answers this with nothing new built. It skips captives and removed
+// subcards, which is the behaviour we want here too.
+//
+// ⚠ "an upgraded base" is a BOOLEAN, not a count — a second Fortify upgrade must not buy a second
+// discount, which is why this returns a flat -2 rather than scaling.
+// ⚠ "if YOU control" is the CASTER's base: GetBase($player), never a scan for any upgraded base on
+// the table. Registering here rather than as a field modifier keeps it subject-keyed, so it applies
+// only to Amidala's own cost.
+// Read at cost-computation time through SWUComputePlayCost, which is the single source of truth for
+// BOTH the payment and the affordability glow — so a player holding exactly the discounted cost is
+// actually offered the play instead of being priced out of a card they can afford.
+$playCostModifiers["HMW_260"] = function($player, $subjectObj) {
+    $base = GetBase(intval($player))[0] ?? null;
+    return ($base !== null && _SWUIsUpgraded($base)) ? -2 : 0;
 };
 
 // SHD_182 Bravado: costs 2 less if you've defeated an enemy unit this phase.
@@ -4185,20 +4248,38 @@ function SWUCardPlayBlocked(int $player, string $cardID): bool {
     foreach (array_merge([$player], OpponentsOf($player)) as $pp) {
         if (GlobalEffectCount($pp, "SWU_NAMEBLOCK_PHASE|{$titleEnc}") > 0) return true;
     }
-    // A unit-sourced name-block (SWU_NAMEBLOCK|uid|titleEnc) set by ANY opponent blocks the card.
+    // A unit-sourced name-block (SWU_NAMEBLOCK|uid|titleEnc).
+    //
+    // ⚠ THE LOCK FOLLOWS THE UNIT'S CURRENT CONTROLLER, NOT THE SEAT THAT STAMPED THE FLAG.
+    // "While this unit is in play, OPPONENTS can't play the named card" is a constant ability of the
+    // UNIT, so "opponents" is read against whoever controls it right now. This used to scan only
+    // `OpponentsOf($player)`'s flags and confirm the unit via the seat-bound `_SWUUnitInPlayWithUID`,
+    // which searches ONE player's arenas. Take control of the naming unit (SOR_224 Change of Heart) and
+    // the lookup missed it in the flag-owner's arenas, concluded the unit had left play, and
+    // array_spliced the flag away PERMANENTLY — so the lock vanished for BOTH players and could not
+    // return even when control reverted at regroup. (SOR_062 Regional Governor; ASH_198 Ryder Azadi is
+    // built on this same mechanism and inherits the fix.)
+    // The correct shape: resolve the unit ANYWHERE by UID (SWUFindMzByUID is seat-agnostic), treat only
+    // a genuinely-absent unit as stale, and block $player iff the unit's CURRENT controller is not
+    // $player. Scanning every seat's flags — including $player's own — is what lets a lock the player
+    // originally created start applying TO them once an opponent steals its source.
     $prefix  = 'SWU_NAMEBLOCK|';
     $blocked = false;
-    foreach (OpponentsOf($player) as $opp) {     // 2-player: the one opponent
-        $ge = &GetGlobalEffects($opp);
+    foreach (array_merge([$player], OpponentsOf($player)) as $flagOwner) {
+        $ge = &GetGlobalEffects($flagOwner);
         for ($i = count($ge) - 1; $i >= 0; $i--) {
             $flag = (string)($ge[$i]->CardID ?? '');
             if (!str_starts_with($flag, $prefix)) continue;
             $parts = explode('|', $flag);        // [SWU_NAMEBLOCK, uid, titleEnc]
-            if (!_SWUUnitInPlayWithUID($opp, intval($parts[1] ?? 0))) {
-                array_splice($ge, $i, 1);        // naming unit left play → stale flag, drop it
+            $mz = SWUFindMzByUID(intval($parts[1] ?? 0));
+            if ($mz === null) {
+                array_splice($ge, $i, 1);        // naming unit really left play → stale flag, drop it
                 continue;
             }
-            if (($parts[2] ?? '') === $titleEnc) $blocked = true;
+            if (($parts[2] ?? '') !== $titleEnc) continue;
+            $srcObj = GetZoneObject($mz);
+            $ctrl   = intval($srcObj->Controller ?? $flagOwner);
+            if ($ctrl !== intval($player)) $blocked = true;   // its controller's opponents are locked
         }
         unset($ge);
     }
@@ -6695,6 +6776,7 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_PLAYED_FROM_HAND_'); // SHD_161/SHD_204 hand-source flag
         SWUClearGlobalEffectsByPrefix($p, 'SWU_UNIT_ATTACKED_');
         SWUClearGlobalEffectsByPrefix($p, 'SWU_DEALT_BASEDMG_');
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_MYBASE_ATTACKEDBY_');   // HMW_078 "attacked your base this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_UNITDMGBASE_');       // SEC_012 "damaged an enemy base this phase" (any source)
         SWUClearGlobalEffectsByPrefix($p, 'SWU_DMGDBASE_');          // SEC_012 owner-qualified twin (any base)
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ATTACKED_');  // clears SWU_ATTACKED_{uid} + ..._MANDALORIAN_{uid} + ..._VEHICLE
@@ -7104,6 +7186,11 @@ function SWUTakeControlOfUnit(int $newController, string $mzID): string {
     }
 
     $playerID = $savedPID;
+    // A control change can end an aura for the units it was propping up WITHOUT anything leaving play
+    // (SOR_082 Emperor's Royal Guard keeps its +1 HP only while ITS controller controls Palpatine — take
+    // Palpatine and the Guard's max HP drops). Re-run the state-based "no remaining HP" sweep, exactly
+    // as the defeat and upgrade-unattach paths do.
+    SWUCheckShrinkDefeats();
     return $newMzID;
 }
 
@@ -9619,6 +9706,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'JTL_202': JTL202UpgradeTrigger($player, $mzID);       break;
         case 'JTL_223':  JTL223AttachTrigger($player);              break;
         case 'JTL_191':  JTL191DeployTrigger($player);              break;
+        case 'HMW_214':  Hmw214EnemyDeployTrigger($player, $mzID); break;
         case 'JTL_120':  JTL120DefeatTrigger($player, $mzID);        break;
         // Upgrade-GRANTED When-Defeated abilities — the unit gained them, so JTL_002 Thrawn re-uses
         // them too (SWUCollectThrawnReuse with the granted trigger type).
@@ -12518,7 +12606,7 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
                             // its own "played from your hand" When Played does NOT flip control. A
                             // CAPTURED copy never lands in discard (capture path passes no param → 0).
                 if (intval($parts[1] ?? 0) === 1) {
-                    $mz = _SWUFindDiscardMzID(intval($player), 'SHD_161');
+                    $mz = _SWUFindSelfInDiscardMzID(intval($player), 'SHD_161');
                     if ($mz !== null) {
                         global $gTurnPlayer, $gPlayGrantExp;
                         $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
@@ -13877,7 +13965,11 @@ function DoTopDeckSearch(int $player, int $n, callable $filter, int $maxPicks): 
 
 function DoTopDeckPlay(int $player, int $n, callable $filter, int $costBudget, int $maxCount = 0): void {
     // Constraint "cost:N" (any number within budget) or "cost:N:M" (≤M picks AND within budget,
-    // e.g. SOR_104 U-Wing Reinforcement: up to 3 units, combined cost ≤7). Frontend-enforced.
+    // e.g. SOR_104 U-Wing Reinforcement: up to 3 units, combined cost ≤7).
+    // ⚠ NOT "frontend-enforced" — that comment was stale. _topDeckResolveFromIDs enforces this
+    // SERVER-SIDE (TopDeckConstraint → maxCost/maxPicks, overflow picks dropped to `remaining`), added
+    // when the top-deck filter was centralised after it turned out to be client-only. Do not add a
+    // defensive re-check in a caller on the strength of the old wording.
     $constraint = $maxCount > 0 ? "cost:$costBudget:$maxCount" : "cost:$costBudget";
     _topDeckSearchBegin($player, $n, $filter, $constraint, "SOR_087#0");
 }
@@ -16258,6 +16350,31 @@ function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''
             AddTrigger($player, 'JTL_191', 'JTL_191', '');
         }
     }
+    // HMW_214 Phee Genoa — "When an ENEMY leader deploys: Its controller may pay [2 resources]. If they
+    // don't, exhaust that leader." A mechanical mirror of the JTL_191 hook directly above, with two
+    // differences that are the whole card:
+    //   • JTL_191 says "when YOU deploy", so it scans the DEPLOYING player's own units. Phee is an
+    //     OPPONENT's unit, so the scan runs over OpponentsOf($player) — which is already team-aware, so
+    //     a TEAMMATE's Phee correctly does not tax you in a Team Suns game, and every far seat's Phee
+    //     does tax you in Twin Suns. Nothing seat-specific is hand-rolled here.
+    //   • the decision belongs to the DEPLOYING player ("its controller"), who is the active player —
+    //     so this is armed on $player's bag and rides this deploy's own flush, exactly like JTL_191.
+    // Armed once per Phee: each copy is its own ability instance, so two opponents each holding one
+    // levy two separate taxes. The trigger carries the leader INDEX (its DeployedUniqueID is not set
+    // until the mode branches below) and the REACTING seat, which the handler needs to resolve the
+    // leader's mzID in the right frame for the enemy-exhaust immunity check.
+    foreach (OpponentsOf($player) as $hmw214Seat) {
+        foreach (GetUnitsInPlay($hmw214Seat) as $u) {
+            if (empty($u->removed) && ($u->CardID ?? '') === 'HMW_214') {
+                AddTrigger($player, 'HMW_214', 'HMW_214', intval($leaderIndex) . ',' . intval($hmw214Seat));
+                // COMMA, NOT PIPE. The trigger dispatcher splits a queued trigger's params on
+                // '|' itself ($extra = array_slice($paramParts, 1)), so a pipe here would hand
+                // the handler only the leader index and drop the seat silently into $extra —
+                // the seat then reads as 0 and the exhaust never lands.
+            }
+        }
+    }
+
     // TWI_022 Droid Manufactory / TWI_025 Shadow Collective Camp (bases) — "When you deploy a leader:
     // Create 2 Battle Droid tokens / Draw a card." (Mandatory, non-interactive → resolve inline.)
     $dlBase = GetBase($player);

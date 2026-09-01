@@ -1,4 +1,18 @@
 # AltCostNo
+#// COVERAGE: offer=ControlChange_StolenUnitIsOfferedAsATarget (the exact "Exhaust a unit" pool, left
+#//           pending: it spans BOTH sides, two legal targets so nothing auto-resolves) ·
+#//           reqboundary=N/A — nothing this card writes is read by a later action: the alternate-cost
+#//           YES/NO and the target pick are separate serialized answers inside ONE action
+#//           (AltCostYes / ControlChange_UpgradeReturnsToTheUPGRADESOwner), and the exhaust+bounce
+#//           leaves no cross-action bookkeeping behind ·
+#//           control=ControlChange_UpgradeReturnsToTheUPGRADESOwner (host owned by P2, controlled by
+#//           P1, carrying a P1-owned upgrade — "its owner's hand" is the UPGRADE's owner) +
+#//           ControlChange_StolenUnitIsOfferedAsATarget (the stolen unit is offered in the
+#//           CONTROLLER's frame) · boundary pair=StripsUpgradeToHand (one real upgrade → one card to
+#//           hand) vs ExhaustsUnit (no upgrade → exhaust only) vs TokenUpgradeSetAside (a token
+#//           upgrade → set aside, neither hand nor discard) · decline=AltCostNo (the "you may discard
+#//           a Cunning card instead" is answered NO and the printed cost is paid); the exhaust and the
+#//           upgrade bounce themselves are mandatory, and NoAltCostUnplayable is the no-legal-cost half.
 #// SOR_199 Bamboozle — alternate cost offered but declined; pays normal cost
 #// P1 has 2 resources and Waylay (Cunning) in hand. Chooses NO → pays 2R normally.
 #// Waylay remains in hand; only Bamboozle goes to discard.
@@ -147,3 +161,59 @@ P1SPACEARENAUNIT:0:UPGRADECOUNT:0
 P1SPACEARENAUNIT:0:EXHAUSTED
 P1LEADER:NOTDEPLOYED
 P1LEADER:EXHAUSTED
+
+---
+
+# ControlChange_StolenUnitIsOfferedAsATarget
+#// SOR_199 Bamboozle — "Exhaust a unit" names no controller, so the pool spans BOTH sides of the
+#// board. P1 controls a SOR_095 Battlefield Marine that P2 OWNS (the end state after a take-control
+#// effect) while P2 fields a SEC_080 of their own. Intended: both are offered, the stolen marine in
+#// P1's own frame because CONTROL, not ownership, decides which side a unit is on. A pool keyed on
+#// owner shows the marine as theirGroundArena-1; a "choose an enemy unit" reading drops it entirely.
+#// Two legal targets are seeded so nothing auto-resolves; the decision is left PENDING so the exact
+#// offer can be read, and ControlChange_UpgradeReturnsToTheUPGRADESOwner resolves it.
+
+## GIVEN
+CommonSetup: ygw/grw/{myResources:2;handCardIds:SOR_199}
+P1OnlyActions: true
+WithP1GroundArenaControlled: SOR_095:2
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# ControlChange_UpgradeReturnsToTheUPGRADESOwner
+#// SOR_199 Bamboozle — "return each upgrade on it to its OWNER's hand". "Its" is the UPGRADE's owner:
+#// not the host unit's owner, and not the host's controller. P1 controls a SOR_095 that P2 OWNS, and
+#// that stolen marine carries a P1-owned Ascension Cable (LOF_215). Intended: the host is exhausted,
+#// loses the upgrade, and the Cable lands in P1's hand — P2's hand stays EMPTY even though P2 owns the
+#// unit it was attached to, and neither discard pile grows except by Bamboozle itself. Reading the
+#// host's owner sends the Cable to P2; reading the host's controller happens to agree here only
+#// because P1 owns the Cable, which is why the host and the upgrade are deliberately split-seat.
+#// StripsUpgradeToHand is the same effect with owner and controller agreeing; this is the split.
+
+## GIVEN
+CommonSetup: ygw/grw/{myResources:2;handCardIds:SOR_199}
+P1OnlyActions: true
+WithP1GroundArenaControlled: SOR_095:2
+WithP1GroundArenaUpgrade: 0:LOF_215
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1HANDCOUNT:1
+P1HANDCARD:0:LOF_215
+P2HANDCOUNT:0
+P1DISCARDCOUNT:1
+P2DISCARDCOUNT:0
+P2GROUNDARENAUNIT:0:READY

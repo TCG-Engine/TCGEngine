@@ -2,6 +2,20 @@
 #// SOR_054 Jedi Lightsaber — Upgrade (+3/+3), "Attach to a non-VEHICLE unit."
 #// P1 has a Vehicle (AT-AT idx 0) and a non-Vehicle (Battlefield Marine idx 1).
 #// The Vehicle is filtered out, so the only valid target is the Marine → auto-attach.
+#// COVERAGE: offer=AttachPool_NonVehicleOnly_BothControllersBothArenas (four units, exactly the two
+#//           non-Vehicles offered — one Vehicle excluded on EACH side, so the filter is the trait and
+#//           not a controller filter) · reqboundary=SimulateRequestBoundary_AttachTargetSurvivesFreshProcess
+#//           (the attach prompt ends the request in production, so the in-flight upgrade play is
+#//           serialized) · boundary pair=ForceHostDebuffsDefender vs NonForceHostNoDebuff (the
+#//           value-CLASS pair for the conditional grant: Force host shrinks the defender −2/−2, a
+#//           non-Force host grants nothing; the card prints no number or threshold, so there is no
+#//           N vs N±1 to pin) · control=N/A, specifically: every clause on this card is HOST-derived —
+#//           the +3/+3 and the "if attached unit is a FORCE unit" grant read the host's traits, never
+#//           a seat, and the offer section proves the host pool itself ignores controller (an enemy
+#//           unit is a legal host), so a control change has no seat-dependent branch to flip; the
+#//           upgrade simply travels with its host · decline=N/A (no "you may" anywhere on the card and
+#//           no optional cost — the host choice is mandatory once the saber is played, and the only
+#//           "decline" available is not playing it).
 #// Marine becomes 3+3 / 3+3 = 6/6 with one upgrade; the Vehicle is untouched.
 
 ## GIVEN
@@ -110,3 +124,35 @@ P1GROUNDARENAUNIT:1:POWER:6
 P1GROUNDARENAUNIT:1:HP:6
 P1GROUNDARENAUNIT:2:CARDID:SOR_046
 P1GROUNDARENAUNIT:2:UPGRADECOUNT:0
+
+---
+
+# AttachPool_NonVehicleOnly_BothControllersBothArenas
+#// SOR_054 Jedi Lightsaber — the OFFER axis for "Attach to a non-VEHICLE unit." The restriction names
+#// a TRAIT and nothing else: no controller and no arena, so the legal-host pool spans both sides and
+#// both arenas and its only exclusion is the Vehicle trait. Board: P1's Guerilla Attack Pod (Vehicle,
+#// ground) and Battlefield Marine (non-Vehicle, ground); P2's Wampa (non-Vehicle, ground) and
+#// Alliance X-Wing (Vehicle, space). Four units, and exactly the two non-Vehicles are offered — a
+#// Vehicle is excluded on each side, so the filter cannot be a controller filter in disguise. The
+#// attach decision is left PENDING (no answer): the offer itself is the assertion, so the saber is
+#// still in flight and nothing is wearing it.
+
+## GIVEN
+CommonSetup: bbw/bbw/{myResources:3;handCardIds:SOR_054}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_148:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_164:1:0
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-1&theirGroundArena-0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:0
+P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P2SPACEARENAUNIT:0:UPGRADECOUNT:0

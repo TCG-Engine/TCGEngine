@@ -13,7 +13,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214
 
 
 <!-- HMW_005 Jar Jar Binks, Bombad General — Done, 16/16. THE SET'S LAST CARD.
@@ -1426,3 +1426,163 @@ in the dictionary and keyword registries before implementation started). Suite b
      hmw/EmperorPalpatine_ConsolidatingPower.md's "If you do" failure path, which needs a
      take-control-immune unit costing 3 or less — is not unblocked by a 4-cost unit with no text.
      Still open. -->
+
+<!-- ══ THIRTEENTH PREVIEW WAVE (2026-09-01) — 4 new cards, `--iterative`, one card per pass. ══
+     Derived from the diff (`### Already Done` vs `grep -oE "'HMW_[0-9T]+'" AppCore/SWU/CardMocks.php`,
+     125 mocked vs 121 done). Order simplest -> hardest, and the ORDER IS THE RESUME POINTER:
+       1. [x] HMW_217 Don't Touch Anything      — DONE 2026-09-01, 14 sections, suite 10841/0
+       2. [x] HMW_260 Queen Amidala, Retaking Theed  — DONE 2026-09-01, 11 sections, suite 10852/0
+       3. [x] HMW_078 Qui-Gon Jinn, We'll Handle This  - DONE 2026-09-01, 15 sections, suite 10867/0
+       4. [x] HMW_214 Phee Genoa, Liberator of Ancient Wonders  - DONE 2026-09-01, 11 sections, suite 10879/0
+     ⚠ Re-run the CardMocks diff at the END of the wave as well as the start — this set has grown
+     mid-run three times before, once immediately after a diff reported it complete.
+
+     ── HMW_217 notes ──
+     "Deal 3 damage to a random enemy unit." The whole implementation is SWUAllUnits('their'): it is
+     the one helper that answers "enemy" correctly in all three formats (ZoneSearch fans `their…` out
+     across every live opponent above two seats, and 'their' already excludes a TEAMMATE in a team
+     game). No new infrastructure.
+     ⚠ ITS CLOSEST ANALOGUE IS A TRAP. TWI_202 Jar Jar reads "a random unit OR BASE" and is
+     unqualified on sides — so copying its pool would add both bases AND the caster's own board.
+     Two differences, both guarded (BasesAreNOTInThePool, FriendlyUnitsAreNOTInThePool).
+     ⚠ RANDOM TARGETS AND MUTATION TESTING. A section over a 2-member pool is a COIN FLIP, not a test.
+     The first Team Suns section was exactly that and stayed green under the discriminating mutation
+     ("every live seat that is not me"); it was replaced with a board where BOTH readings are
+     deterministic — teammate alone on the table, so the correct pool is EMPTY (fizzle) and the wrong
+     one has exactly one member (teammate takes 3). Same trick, other direction, for the randomness
+     itself: two IDENTICAL 3/3 enemies means whichever is picked dies, so ARENACOUNT 2->1 is fixed
+     while the draw stays genuinely random.
+     Mutations run, each redding only what it should: 'their'->'my' (13 red), 3->2 (11), non-leader
+     filter (1), literal seat-2 pool (1 — the Twin Suns section), not-me pool (1 — the team section).
+     A hand-rolled ZoneSearch('theirGroundArena') pool is GREEN and correctly so: ZoneSearch IS the
+     fan-out, so that shape is genuinely equivalent — Jar Jar's bug was a literal 'theirBase-0'.
+
+     ── HMW_260 notes ──
+     "If you control an upgraded base, this unit costs 2 less to play. / Restore 2."
+     Restore 2 was ALREADY auto-wired ('HMW_260' => 2 in the generated Restore registry), so clause 2
+     needed no code — three verification sections only, incl. the control-change reading ("your base"
+     under a take-control effect is the NEW CONTROLLER's, which the engine already got right).
+     "An upgraded base" is the FORTIFY interaction and needed nothing new: Fortify upgrades live in
+     Base.Subcards, so the ordinary _SWUIsUpgraded predicate answers it (and correctly skips captives
+     and removed subcards).
+     ⚠ THE MODIFIER LIVES IN GameLogic.php, NOT THE CARD FILE — $playCostModifiers is initialized at
+     ~L2804, AFTER cards/_loader.php runs at L16, so a per-card registration is silently wiped and the
+     discount would simply never apply. Registered beside HMW_240 Sandstorm, same reason.
+     ⚠ CREDITS ARE THE SHARPEST AFFORDABILITY TEST. A cost reduction must reach the OFFER
+     (CanAffordActivationReserve), not just the payment. The engine raises the Credit picker only when
+     total payment capacity actually reaches the cost, so with 1 ready resource + 1 Credit the prompt
+     APPEARING is the assertion that the gate priced her at 2 — and its absence on a bare base is the
+     control half. That pair is stronger than any resource-count assertion.
+     ⚠ PREVIEW DATA: her `aspect` array is EMPTY in CardMocks.php, so she is priced as aspectless (no
+     penalty under any leader/base). Taken from the dictionary as source of truth per the standing
+     rule, but if a later card-data regen fills the aspects in, every resource number in her test file
+     moves and those sections are where it surfaces first. FLAGGED TO THE USER.
+     Mutations, each redding only what it should: -2->0 (4 red), -2->-3 (3), per-upgrade count (1 —
+     the boolean section), any-base scoping (1 — the seat section), inverted condition (8).
+     A mutation counting REMOVED subcards is GREEN and correctly so: SWUDefeatUpgrade splices the
+     subcard out rather than flagging it, so the two readings are genuinely equivalent. The recompute
+     section is load-bearing anyway — the inverted-condition mutation reds it.
+
+     -- HMW_078 notes --
+     "Grit / When Played: You may defeat a unit that attacked your base this phase. If it's a leader
+     unit, defeat this unit." Grit was already auto-wired; one verification section only.
+
+     USER RULING (2026-09-01), and it is the whole design: THREE things count as a unit dealing damage
+     to a base - (1) an ATTACK on the base, (2) a unit ABILITY that pings it (SOR_014 Sabine deployed),
+     (3) OVERWHELM excess spilling to it. SEC_136 Retaliation counts all three; QUI-GON COUNTS ONLY (1),
+     because his text says "ATTACKED your base".
+     The engine's existing family - SWU_UNITDMGBASE_{uid} and the owner-qualified SWU_DMGDBASE_{uid}_{seat}
+     - records DAMAGE and is correctly stamped by all three routes (verified: the Overwhelm helper, the
+     SWUDealDamageToBase funnel, and the combat direct-attack site all arm it). So Retaliation is right
+     as it stands, and reusing that family for Qui-Gon would be WRONG. Hence a new marker.
+
+     NEW MARKER: SWU_MYBASE_ATTACKEDBY_{uid}, stamped in CombatLogic's base branch of SWUCombatDamage
+     (attack route only), cleared at RegroupPhaseStart beside SWU_DEALT_BASEDMG_.
+     TWO DELIBERATE DIFFERENCES FROM ITS SIBLINGS, both mutation-proven:
+       * stamped BEFORE the `$attackPower > 0` gate, because the printed word is ATTACKED - a unit
+         debuffed to 0 power still attacked the base;
+       * stored in the ATTACKED BASE OWNER's namespace, not the attacker's controller's. That makes
+         "your base" the namespace you read (correct at any seat count, no seat suffix needed) AND
+         immune to the control-change family, since nothing migrates per-unit flags on a take-control.
+         Guarded by ControlChanged_TheMarkerStillAnswers - the text says "a unit", so a base-attacker
+         you have since taken control of is still a legal target.
+
+     WARN THE $parts INDEX. A $customDQHandlers continuation reached via a choose-target handler string
+     gets the args AFTER the handler name, so a payload passed as "HMW_078#0|{uid}" is $parts[0], NOT
+     $parts[1] (same shape as SHD_045 Bossk). Reading [1] gives null -> SWUFindMzByUID(0) -> null -> the
+     rider silently does nothing. Cost one debug cycle; found with an fwrite(STDERR) probe, not by
+     reading the code.
+
+     WARN FIXTURE TRAPS HIT WHILE WRITING THIS ONE:
+       * a deployed leader chosen as the ATTACKER must have no deployed "On Attack" - SOR_010 Vader's
+         prompt PAUSES combat, so the base damage never lands and it reads as the attack not happening.
+         SHD_007 Moff Gideon is the clean base-attacker.
+       * the "attacked a UNIT, not your base" negative needs the attacker to SURVIVE the trade, or it is
+         out of the pool for a reason unrelated to what it attacked. SOR_063 (2/4) vs a 3/3 leaves both
+         alive.
+       * every action swaps the turn, so a section with two P1 plays needs a P2 action between them.
+       * at four seats the turn order is 1->2->3->4: seat 1 does NOT act straight after seat 2.
+     Mutations, each redding only what it should: delete the stamp (6 red), $parts[0]->[1] (1),
+     attacker-controller namespace (6), pool narrowed to enemy (1), never clear at regroup (1), always
+     self-defeat (4), and - the ruling test - reading SWU_DMGDBASE_ instead (3, incl. BOTH ruling
+     negatives).
+
+     -- SEC_077 RETALIATION, RE-AUDITED AGAINST THE SAME RULING (2026-09-01) --
+     WARN IT IS SEC_077, NOT SEC_136 (SEC_136 is Arihnda Pryce). "Defeat a unit that dealt damage to a
+     base this phase."
+     VERDICT: already hardened for all three routes the ruling names, and PROVEN so rather than assumed
+     - stripping its filter down to the attack-only marker reds exactly the route-2/route-3 sections:
+       attack        -> DefeatBaseDamager, DefeatEnemyBaseDamager
+       ability ping  -> UnitThatDamagedItsOWNBaseByAnAbility_IsATarget (uses SOR_142, the very card the
+                        ruling cites) and ...ByAnUPGRADEsAbilityWhileAttackingAUnit...
+       Overwhelm     -> OverwhelmSpillToBase_CountsAsDamagingABase
+     Its filter reads all three markers cross-seat by UID, so it also survives a control change.
+
+     GAP FOUND AND CLOSED: a FOURTH route the code explicitly supports had no test - INDIRECT damage,
+     stamped with the source UID at its own site in SWUDealDamageToBase's indirect branch (CR 35.4
+     attributes indirect damage to the controller). New section
+     UnitThatDamagedABaseByINDIRECTDamage_IsATarget uses JTL_218 Guerilla Soldier specifically because
+     its ability is a When Played and it NEVER ATTACKS - every other indirect source in the pool is an
+     On Attack, which would also arm the ordinary attack marker and let the section pass for the wrong
+     reason. The attack-only mutation now reds FOUR sections instead of three.
+
+     LATENT TRAP FIXED in the extraFilter: the inner seat loop used $o, SHADOWING the closure's own
+     $o unit parameter. Harmless today only because $uid is read out before the loops - the next edit
+     that touched $o after that point would have silently got an int. Renamed to $seat.
+
+     -- HMW_214 notes --
+     "Hidden / When an enemy leader deploys: Its controller may pay 2 resources. If they don't, exhaust
+     that leader." Hidden was already auto-wired; one verification section.
+
+     NOT A NEW DESIGN FORK AFTER ALL. SWUDeployLeader already carries a "when you deploy a leader"
+     observer for JTL_191 Invincible, armed into the pending-trigger bag at the deploy commit before the
+     mode branches. Phee is a mechanical mirror of it with two differences:
+       * JTL_191 says "when YOU deploy" and scans the deploying player's own units; Phee says ENEMY, so
+         the scan is over OpponentsOf($player) - which is ALREADY TEAM-AWARE, so a teammate's Phee does
+         not tax you in Team Suns and every far seat's does in Twin Suns, with nothing hand-rolled.
+       * the decision belongs to the DEPLOYING player ("its controller"), who is the active player - so
+         it rides that player's own queue and none of the non-active-player drain problems apply. This
+         is the rare cross-player-sounding card that is not a cross-player problem.
+     Armed once per Phee: each copy is its own ability instance, so two opponents each holding one levy
+     two taxes.
+     A deployed leader unit enters play READY (Status:1), so the exhaust is a real cost and the pay is a
+     real choice - had it entered exhausted the whole card would be a fizzle-only offer.
+
+     WARN THE TRIGGER PARAM IS COMMA-DELIMITED, NEVER PIPE. DispatchTrigger splits a queued trigger's
+     params on "|" itself ($extra = array_slice($paramParts, 1)) BEFORE the handler runs, so
+     "{idx}|{seat}" silently delivered only the index and the seat read as 0 - the exhaust then never
+     landed, with no error. Cost one debug cycle; found with an fwrite(STDERR) probe. (The CUSTOM
+     decision's own Param IS pipe-split into $parts, which is the opposite convention one line away.)
+     WARN AddDecision is DecisionQueueController::AddDecision - there is no bare function.
+
+     WARN A GREEN MUTATION CAUGHT A VACUOUS SECTION. The first Team Suns section had SEAT 3 deploy while
+     Phee sat on seat 1 - but THERE IS NO FAR-SEAT LEADER DIRECTIVE (no WithP3Leader) and CommonSetup
+     dresses seats 1-2 only, so seat 3 had no leader, DeployLeader was a silent no-op, and the section
+     passed because nothing happened at all. Inverted so seat 1 - which CommonSetup does equip - is the
+     deployer and the teammate holding Phee is seat 3. General rule: a far-seat section whose ACTOR is
+     seat 3 or 4 can only use capabilities the far-seat directives actually provide (arenas, bases,
+     hands, decks - not leaders).
+     Mutations, each redding only what it should: all-live-seats (1 - the own-leader section),
+     OtherPlayer two-seat hardcode (1 - the far-seat section), not-me-but-teammates (1 - the team
+     section), no capacity gate (1), ready-only capacity (1), YES does not pay (1), NO does not exhaust
+     (4). -->

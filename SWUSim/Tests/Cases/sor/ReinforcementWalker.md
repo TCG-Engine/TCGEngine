@@ -4,7 +4,10 @@
 #//           empty-deck skip is EmptyDeck_WhenPlayed_NoPrompt + EmptyDeck_OnAttack_NoPrompt)
 #//           · boundary=WhenPlayed_DiscardHeal + OnAttack_DiscardHeal (heal 5→2 with FROM:DECK
 #//           provenance) + AmbushPlay_TriggersTwice (both trigger sources on one play)
-#//           · control=N/A (own-deck, own-base effect; no control-change interaction)
+#//           · control=ControlChange_LooksAtTheCONTROLLERSDeckAndHealsTHEIRBase (a P2-OWNED Walker
+#//           attacking under P1's control: both "your"s in the printed text — the deck peeked and the
+#//           base healed — must follow the CONTROLLER, with P2's deck stocked and P2's base
+#//           pre-damaged to the same 5 so an owner-keyed read is loud rather than merely wrong)
 #//           · reqboundary=AmbushPlay_TriggersTwice (trigger-order pick, mode pick, Ambush YESNO and
 #//           second mode pick resolve across separate serialized answers)
 #// SOR_119 Reinforcement Walker — On Attack: the same look-at-top ability fires when the Walker
@@ -187,3 +190,37 @@ P2DISCARDCOUNT:1
 P1GROUNDARENAUNIT:1:CARDID:SOR_119
 P1GROUNDARENAUNIT:1:DAMAGE:3
 P1GROUNDARENAUNIT:1:EXHAUSTED
+
+---
+
+# ControlChange_LooksAtTheCONTROLLERSDeckAndHealsTHEIRBase
+#// SOR_119 Reinforcement Walker — "Look at the top card of YOUR deck … discard it and heal 3 damage
+#// from YOUR base." Under a take-control effect BOTH "your"s follow the CONTROLLER, never the owner:
+#// P1 controls a Walker that P2 OWNS and attacks P2's base with it. Intended: the On Attack trigger
+#// mills P1's top card (SOR_095) into P1's discard FROM DECK and heals P1's base 5 → 2, while P2's
+#// deck (3) and discard (0) are untouched and P2's base only takes the 6 combat damage, 5 → 11.
+#// The fixture is built so an owner-keyed read is loudly visible rather than merely wrong: P2's base
+#// starts pre-damaged at the same 5, so healing the wrong base reads P2BASEDMG:8 instead of 11, and
+#// P2's deck is stocked so a wrong-deck peek shows up as P2DECKCOUNT:2 with a card in P2's pile.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:1;myBaseDamage:5;theirBaseDamage:5}
+P1OnlyActions: true
+WithP1GroundArenaControlled: SOR_119:2
+WithP1Deck: [SOR_095 SOR_128 SOR_128]
+WithP2Deck: [SOR_046 SOR_046 SOR_046]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:Discard
+
+## EXPECT
+P1BASEDMG:2
+P2BASEDMG:11
+P1DECKCOUNT:2
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:SOR_095
+P1DISCARDUNIT:0:FROM:DECK
+P1HANDCOUNT:0
+P2DECKCOUNT:3
+P2DISCARDCOUNT:0

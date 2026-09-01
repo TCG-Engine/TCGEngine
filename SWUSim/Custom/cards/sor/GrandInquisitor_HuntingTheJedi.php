@@ -24,10 +24,19 @@ $customDQHandlers["SOR_011#0"] = function($player, $parts, $lastDecision) {
 
 // Deployed OnAttack: "You may deal 1 damage to another friendly unit with 3 or less power and
 // ready it." MZMAYCHOOSE (pick-or-pass) over the other friendly ≤3-power units.
-$onAttackAbilities["SOR_011:0"] = function($player) {
+// ⚠ THE ATTACKER ARRIVES AS THE SECOND ARGUMENT. This closure used to be declared `function($player)`
+// and read the attacker from `DecisionQueueController::GetVariable("mzID")` — a variable NOTHING in the
+// codebase ever writes (verified by grep: zero SetVariable("mzID") call sites). So `$self` was always
+// null, `$selfUID` was always 0, and the `!== $selfUID` filter below excluded NOBODY.
+// Two visible consequences, both guarded here: the deployed Inquisitor (3/6, so he passes the
+// "3 or less power" half himself) offered HIMSELF as a target for "ANOTHER friendly unit"; and with no
+// other friendly unit on the board the ability raised an offer instead of fizzling, which left the
+// MZMAYCHOOSE pending and the ATTACK NEVER COMPLETED (enemy base took 0).
+// Both dispatch sites pass the attacker: CombatLogic.php:4287 and :4300 call `($player, $mzID)`, and
+// 25 of the 30 SOR on-attack closures already take it.
+$onAttackAbilities["SOR_011:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $mzID = DecisionQueueController::GetVariable("mzID");
     $self = GetZoneObject($mzID);
     $selfUID = ($self !== null) ? intval($self->UniqueID ?? 0) : 0;
     $targets = array_values(array_filter(array_merge(

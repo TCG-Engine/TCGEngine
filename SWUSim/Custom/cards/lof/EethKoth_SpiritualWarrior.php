@@ -12,6 +12,6 @@ $customDQHandlers["LOF_097#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     UseTheForce(intval($player));
     global $playerID; $playerID = intval($player);
-    $mz = _SWUFindDiscardMzID(intval($player), 'LOF_097'); // already in discard when WhenDefeated resolves
+    $mz = _SWUFindSelfInDiscardMzID(intval($player), 'LOF_097'); // already in discard when WhenDefeated resolves
     if ($mz !== null) SWURampResourceExhausted(intval($player), $mz); // enters exhausted (no "ready" wording)
 };

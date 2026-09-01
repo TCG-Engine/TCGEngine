@@ -7,8 +7,10 @@
 #// COVERAGE: offer=N/A (the hand-unit choose is a single-candidate mandatory pick in every section,
 #//           so it auto-resolves and no pending offer exists; NoPlayableUnit_Fizzles proves the
 #//           empty-pool branch) · reqboundary=WhenPlayedAndWhenDefeated_BothFire (nested play →
-#//           trigger → phase cross, all across serialized actions) · control=N/A (the regroup-defeat
-#//           tag rides the unit itself and no section changes control; ownership is fixed) ·
+#//           trigger → phase cross, all across serialized actions) · control=
+#//           Control_TakenOverBeforeRegroup_StillDefeated_IntoItsOWNERSDiscard (supersedes the earlier
+#//           N/A: the regroup-defeat tag rides the UNIT, so a Change of Heart steal before the regroup
+#//           does not save it, and the defeated unit lands in its OWNER's discard, not the thief's) ·
 #//           boundary pair=DefeatedAtRegroup vs WaylayedAndReplayed_NotDefeated (tag consumed by
 #//           leaving play) + AlreadyDefeated_NoRegroupDoubleDefeat · decline=N/A (the play is
 #//           mandatory once the event resolves with a legal target; with none it fizzles —
@@ -186,4 +188,41 @@ PHASE:MAIN
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1DISCARDCOUNT:1
+P2DISCARDCOUNT:1
+
+---
+
+# Control_TakenOverBeforeRegroup_StillDefeated_IntoItsOWNERSDiscard
+#// Intended: "At the start of the regroup phase, defeat IT" is bound to the OBJECT, not to the seat
+#// that played the event — a per-unit marker must survive a control change (CR: taking control does
+#// not remove ongoing effects already applied to the unit). P1 Sneak-Attacks the Battlefield Marine
+#// into play, then P2 plays SOR_224 Change of Heart ("Take control of a non-leader unit") and steals
+#// it — the sole non-leader unit in play, so the pick auto-resolves. The regroup then starts.
+#// Both regroup-start clauses touch the same unit (Change of Heart also returns control to its owner
+#// at the start of the regroup phase), so the assertion is written to be order-independent: whichever
+#// arena the Marine is defeated in, it must be DEFEATED, both arenas must be empty, and it must land
+#// in its OWNER's discard — P1's, alongside the Sneak Attack event (2), while P2's discard holds only
+#// Change of Heart (1). A marker that was dropped on the steal leaves the Marine alive in an arena.
+#// Costs: P1 pays 2 for the event, then 1 for the Marine (printed 2, +2 for the uncovered Command
+#// aspect under a Cunning/Heroism leader, −3 for Sneak Attack) out of 3. P2 pays 6 for Change of
+#// Heart. Both decks are seeded so crossing the regroup does not trigger the empty-deck base damage.
+
+## GIVEN
+CommonSetup: yyw/yyk/{myResources:3;handCardIds:SOR_219,SOR_095;theirResources:6;theirhandCardIds:SOR_224}
+WithP1Deck: [SOR_171 SOR_171]
+WithP2Deck: [SOR_171 SOR_171]
+
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+- P1>Pass
+- P2>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+PHASE:MAIN
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:0
+P1DISCARDCOUNT:2
 P2DISCARDCOUNT:1

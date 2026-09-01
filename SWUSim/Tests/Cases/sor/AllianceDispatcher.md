@@ -11,8 +11,9 @@
 #//           linger onto a later normal play) · reqboundary=Decline_* (the hand pick and the
 #//           follow-up play are separate requests) · boundary pair=Action_PlaysUnitDiscounted
 #//           (affordable only via the −1, cost 2 with 1 resource) + Action_Unaffordable_NoOp
-#//           (unaffordable even with the −1 → refuses to activate) · control=N/A (the discount is a
-#//           one-shot channel on the dispatcher's own play action; no per-unit marker)
+#//           (unaffordable even with the −1 → refuses to activate) · control=
+#//           Control_StolenDispatcher_PlaysTheCONTROLLERSHand (a Dispatcher P1 controls but P2 owns
+#//           plays out of the CONTROLLER's hand into the CONTROLLER's arena; P2's hand untouched)
 
 ## GIVEN
 CommonSetup: ggw/ggw/{myResources:1;handCardIds:SOR_095}
@@ -151,4 +152,33 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P1HANDCOUNT:1
 P1RESAVAILABLE:1
+P1NODECISION
+
+---
+
+# Control_StolenDispatcher_PlaysTheCONTROLLERSHand
+#// Intended: "Play a unit from YOUR hand" resolves for the player who USES the ability — the unit's
+#// CONTROLLER — not for whoever owns the card. The Dispatcher here sits in P1's arena but is OWNED by
+#// P2 (the end state after a take-control effect). P1 uses the Action, and the offered/played unit must
+#// come out of P1's hand into P1's arena; P2's hand must be untouched.
+#// Both hands hold exactly one on-aspect unit, so an owner-framed read is directly visible: it would
+#// empty P2's hand (or find nothing at all) instead of P1's. P1 has exactly 1 ready resource, so the
+#// Marine (printed 2) is only affordable through the −1, pinning the discount on this path too.
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:1;handCardIds:SOR_095;theirhandCardIds:SOR_098}
+P1OnlyActions: true
+WithP1GroundArenaControlled: SOR_093:2    # Alliance Dispatcher — P1 controls, P2 owns
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1HANDCOUNT:0
+P2HANDCOUNT:1
+P1RESAVAILABLE:0
 P1NODECISION

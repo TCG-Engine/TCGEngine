@@ -8,7 +8,7 @@ $customDQHandlers["JTL_130#OPP"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $opp = SWUPickedOpponent($lastDecision);
     if ($opp <= 0) return;
-    $n = intdiv(count(GetResources($opp)), 2);
+    $n = intdiv(SWUResourceCount(intval($opp)), 2);   // CR 3.13: Credit tokens are NOT resources
     SWUCreateUnitTokens(intval($player), 'JTL_T02', $n, false, 'JTL_130');
 };
 
@@ -23,7 +23,7 @@ $whenPlayedAbilities["JTL_130:0"] = function($player, $mzID = '') {
                 return;
             }
             $opp = GetOpponent(intval($player));
-            $n = intdiv(count(GetResources($opp)), 2);
+            $n = intdiv(SWUResourceCount(intval($opp)), 2);   // CR 3.13: Credit tokens are NOT resources
             // X-Wing (Space, 2/2) with JTL_130 (Sentinel this phase); the marker rides the batch funnel so
             // any Moff-Jerjerrod-doubled X-Wings get it too.
             SWUCreateUnitTokens(intval($player), 'JTL_T02', $n, false, 'JTL_130');

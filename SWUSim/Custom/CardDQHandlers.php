@@ -2472,6 +2472,31 @@ $customDQHandlers["ATTACK_WITH_TRAIT_BUFF"] = function ($player, $parts, $lastDe
 // Find ANY non-removed discard entry of $cardID (raw mzID "myDiscard-N"). Caller sets $playerID.
 // "Any copy" suffices for ramp effects: simultaneous defeats each fire one handler, and MZMove
 // removes the moved copy so the next handler finds another. Returns null if none present.
+// Find the copy of a UNIT that JUST left play, in $player's discard — Clone-aware.
+//
+// ⚠ A TWI_116 CLONE COPY LEAVES PLAY AS THE REAL CARD. SWUAddToDiscard deliberately rewrites a Clone's
+// CardID back to TWI_116 on the way out (a ruling: the physical card is a Clone, not the thing it
+// copied). So a leave-play handler that re-finds ITSELF with a literal
+// `_SWUFindDiscardMzID($player, 'SOR_083')` scans for a CardID that is no longer there and silently
+// fizzles — the whole ability does nothing when the unit was a Clone copy.
+// Measured on SOR_083 Superlaser Technician: its "put this unit into play as a resource" ramp no-opped
+// for a Clone. The family is every clonable UNIT whose leave-play handler re-finds itself this way
+// (SOR_083, SHD_085, LAW_159, LOF_097, SHD_107, SHD_161). Event and leader callers are unaffected —
+// neither can be cloned — so they keep the plain literal lookup.
+//
+// Scans from the END: the body that just left play is the most recent entry, which is also what makes
+// accepting a bare TWI_116 safe (an older, unrelated Clone in the pile is never the nearer match).
+function _SWUFindSelfInDiscardMzID(int $player, string $cardID): ?string
+{
+  $discard = GetDiscard($player);
+  for ($i = count($discard) - 1; $i >= 0; $i--) {
+    if (!empty($discard[$i]->removed)) continue;
+    $cid = $discard[$i]->CardID ?? '';
+    if ($cid === $cardID || $cid === 'TWI_116') return "myDiscard-{$i}";
+  }
+  return null;
+}
+
 function _SWUFindDiscardMzID(int $player, string $cardID): ?string
 {
   $discard = GetDiscard($player);

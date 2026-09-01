@@ -21,6 +21,6 @@ $customDQHandlers["SHD_107#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
     if (!SWUDefeatResource(intval($player), $lastDecision)) return;
-    $mz = _SWUFindDiscardMzID(intval($player), 'SHD_107');
+    $mz = _SWUFindSelfInDiscardMzID(intval($player), 'SHD_107');
     if ($mz !== null) SWURampResourceExhausted(intval($player), $mz);
 };

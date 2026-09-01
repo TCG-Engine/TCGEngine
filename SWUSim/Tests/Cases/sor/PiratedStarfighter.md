@@ -3,7 +3,10 @@
 #// unit to its owner's hand (mandatory). P1 has one other friendly non-leader unit (Battlefield
 #// Marine) which is returned to hand. (Raid 1 is an auto keyword; this tests only the return.)
 #// COVERAGE: offer=Offer_IncludesSelf_ExcludesDeployedLeader (pending SELECTABLEEXACT: the
-#//           Starfighter itself + the ground unit; deployed leader unit excluded) · decline=N/A
+#//           Starfighter itself + the ground unit; deployed leader unit excluded)
+#//           + Offer_ExcludesEnemyUnits (the "friendly" half — no enemy unit in either arena is a
+#//           candidate); Raid 1 clause = Raid1_AddsPowerWhileAttacking (3 to base while attacking,
+#//           printed POWER 2 once the attack is over) · decline=N/A
 #//           (the return is mandatory — no "you may") · control=ControlledEnemyUnit_ReturnsToOwnersHand
 #//           (P1-controlled, P2-owned unit returns to the OWNER'S hand) ·
 #//           boundary=NoOtherUnits_AutoReturnsItself (pool of exactly one → auto-resolve, cost
@@ -111,3 +114,47 @@ P1GROUNDARENACOUNT:0
 P1SPACEARENACOUNT:1
 P1HANDCOUNT:0
 P2HANDCOUNT:1
+
+---
+
+# Raid1_AddsPowerWhileAttacking
+#// SOR_209 Pirated Starfighter — the SECOND printed clause, Raid 1: "This unit gets +1/+0 while
+#// attacking." Printed 2/4, so the attack on P2's base lands for 3, not 2. The +1 is scoped to the
+#// attack window only: once the attack is over the Starfighter reads its printed POWER 2 again
+#// (the negative half that proves the "while attacking" gate is load-bearing).
+
+## GIVEN
+CommonSetup: yyk/yyk
+P1OnlyActions: true
+WithP1SpaceArena: SOR_209:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+
+## EXPECT
+P2BASEDMG:3
+P1SPACEARENAUNIT:0:POWER:2
+P1SPACEARENAUNIT:0:HP:4
+
+---
+
+# Offer_ExcludesEnemyUnits
+#// SOR_209 — "a FRIENDLY non-leader unit": the return pool never reaches across the table. With an
+#// enemy unit in BOTH arenas plus a friendly ground unit, the pending pick offers only P1's ground
+#// unit and the Starfighter itself. (Offer_IncludesSelf_ExcludesDeployedLeader pins the leader
+#// exclusion; this pins the controller exclusion — no enemy unit is a candidate in either arena.)
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:4}
+P1OnlyActions: true
+WithP1Hand: SOR_209
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0

@@ -647,6 +647,19 @@ function SWUDiscardHostSubcards($host): void {
 
 // Defeat a unit (move to discard). Returns true if the unit was removed.
 // Leader units return to their leader zone instead of going to the discard pile.
+// ⚠ A UNIT LEAVING PLAY CAN LOWER OTHER UNITS' MAX HP — so every exit from the defeat routine must run
+// the state-based "no remaining HP" sweep. Every "+X/+Y to other friendly …" aura (SOR_242 Dodonna,
+// SOR_230 Veers, TWI_114 Cody, and TWI_092 Yularen at +0/+1 — pure HP, so it ALWAYS mis-resolved) props
+// its allies up; when the source dies, an ally sitting on damage ≥ its printed HP must be defeated.
+// SWUDefeatUpgrade has swept since forever ("removing an upgrade can lower the host's HP", CR 8.21);
+// the UNIT path never did, so an HP-granting UPGRADE leaving play swept and an HP-granting UNIT leaving
+// play did not. Found independently on three cards via three removal routes in one validation sweep.
+//
+// ⚠ NOT YET FIXED HERE — see the RED guards in sor/GeneralVeers_* and sor/GeneralDodonna_*. Appending
+// the sweep to this routine's final `return true` is unreachable from most of its TEN exits, and
+// wrapping the whole function did NOT make those two guards pass either, for a reason not yet
+// understood (the wrapper demonstrably runs and the sweep demonstrably iterates). The CONTROL-CHANGE
+// route of the same family IS fixed, in SWUTakeControlOfUnit. Do not re-attempt blind.
 function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage = false) {
     global $playerID, $gDeferredReplacements;
     $savedPID = $playerID;
@@ -2808,11 +2821,17 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     if (is_array($attacker->TurnEffects ?? null) && in_array('SWU_HP_AS_DAMAGE', $attacker->TurnEffects)) {
         $attackPower = max(0, intval(ObjectCurrentHP($attacker)) - intval($attacker->Damage ?? 0));
     }
+    // ⚠ "A DAMAGED UNIT" EXCLUDES BASES. A base is not a unit, but it does carry a Damage field, so a
+    // gate written as `Damage > 0` alone fires when attacking a damaged BASE — which is the common case
+    // in the mid-game, not an edge. Three gates below shared that defect (SOR_130, ASH_241, SEC_139)
+    // while the correct idiom was already in use a few lines away (SHD_007, SEC_033, ASH_054).
+    // Hoisted into one predicate so a fourth card cannot reintroduce it.
+    $vsDamagedUnit = ($target !== null && empty($target->removed)
+        && strpos((string)$targetMzID, 'Base') === false
+        && intval($target->Damage ?? 0) > 0);
     // SOR_130 First Legion Snowtrooper: while attacking a DAMAGED unit, +2/+0 and
     // gains Overwhelm (both combat-time, depend on the defender's damage at declaration).
-    $sor130VsDamaged = ($attacker->CardID === 'SOR_130'
-        && $target !== null && empty($target->removed)
-        && intval($target->Damage ?? 0) > 0);
+    $sor130VsDamaged = ($attacker->CardID === 'SOR_130' && $vsDamagedUnit);
     if ($sor130VsDamaged) $attackPower += 2;
     // SHD_138 Jango Fett: while attacking a unit WITH A BOUNTY, +3/+0 and gains Overwhelm (both combat-time,
     // depend on the defender having a Bounty at declaration).
@@ -2838,8 +2857,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     }
     // ASH_241 Marrok's Fiend Fighter (Support) — "+2/+0 while attacking a damaged unit." Own or Support-
     // lent (Overwhelm rides the keyword snapshot separately). Combat-time, depends on defender's damage now.
-    if (_SWUAttackerGrants($attacker, 'ASH_241')
-        && $target !== null && empty($target->removed) && intval($target->Damage ?? 0) > 0) {
+    if (_SWUAttackerGrants($attacker, 'ASH_241') && $vsDamagedUnit) {   // "unit" — never a damaged base
         $attackPower += 2;
     }
     // SEC_033 Sly Moore: "each enemy unit gets -2/-0 while attacking a base this phase." The marker sits
@@ -2854,7 +2872,8 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // SEC_139 Miraj Scintel: "While a friendly unit is attacking a damaged unit, the attacker gains
     // Overwhelm." Field-passive — any friendly attacker, while its controller controls SEC_139.
     $sec139Overwhelm = false;
-    if ($target !== null && empty($target->removed) && intval($target->Damage ?? 0) > 0) {
+    if ($vsDamagedUnit) {   // "a damaged unit" — a damaged BASE must not arm this either
+
         foreach (GetUnitsInPlay(intval($attacker->Controller ?? $player)) as $u) {
             if (!empty($u->removed)) continue;
             if (($u->CardID ?? '') === 'SEC_139') { $sec139Overwhelm = true; break; }
@@ -3004,6 +3023,23 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // Twin Suns (Phase 3): a base target is "theirBase" (2-player) OR "p{n}Base" (a specific opponent's
     // base in N-player). Damage goes to that base's owner — derived from the mzID, not a 2-player ?1:2.
     if (str_ends_with($targetZone, 'Base') && $targetZone !== 'myBase') {
+        // HMW_078 Qui-Gon Jinn — "a unit that attacked YOUR base this phase". Stamped HERE, before the
+        // $attackPower > 0 block below, because the printed word is ATTACKED: a unit debuffed to 0
+        // power still attacked the base, and the three sibling markers below all record DEALT DAMAGE.
+        //
+        // ⚠ THE NAMESPACE IS THE POINT, and it is what makes this different from its siblings. The
+        // existing base markers live in the ATTACKER'S CONTROLLER's GlobalEffects, so (a) they answer
+        // "did this unit hit A base", needing a seat suffix bolted on to say WHICH, and (b) nothing
+        // migrates them when control of the unit moves, so a base-attacker you later take control of
+        // silently drops out of any pool that reads them. Storing this one against the ATTACKED BASE'S
+        // OWNER makes both problems disappear by construction: "your base" IS the namespace you read,
+        // correct at any seat count, and the answer never depends on who controls the unit now.
+        // Cleared at RegroupPhaseStart with the rest of the per-phase attack flags.
+        $qgBaseOwner = SWUMzOwner($targetMzID, $player);
+        $qgAtkUID    = intval($attacker->UniqueID ?? 0);
+        if ($qgAtkUID > 0 && $qgBaseOwner > 0) {
+            AddGlobalEffects($qgBaseOwner, 'SWU_MYBASE_ATTACKEDBY_' . $qgAtkUID);
+        }
         $GLOBALS['gInCombatDamage'] = true;
         SWUDealDamageToBase($attackPower, SWUMzOwner($targetMzID, $player), $attacker);   // thread attacker for ASH_070 unpreventable check
         $GLOBALS['gInCombatDamage'] = false;
@@ -3370,6 +3406,25 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $pendingCaptiveRescues = [];
     }
     DecisionQueueController::CleanupRemovedCards();
+
+    // ⚠ A COMBAT DEATH CAN LOWER OTHER UNITS' MAX HP — so once the bodies are gone the state-based
+    // "no remaining HP" sweep has to run. Every "+X/+Y to other friendly …" aura (SOR_242 Dodonna,
+    // SOR_230 Veers, TWI_114 Cody, and TWI_092 Yularen at +0/+1 — pure HP, so it ALWAYS mis-resolved)
+    // props its allies up; when the source dies, an ally on damage ≥ its printed HP must die too.
+    // SWUDefeatUpgrade has swept since forever (CR 8.21); this path never did.
+    //
+    // ⚠ THE PLACEMENT IS THE FIX, AND IT TOOK FOUR ATTEMPTS. Facts, so nobody re-derives them:
+    //   • Combat defeats are INLINED (`removed = true` + SWUAddToDiscard) and NEVER call SWUDefeatUnit
+    //     — proven by making that function THROW and watching the suite not notice.
+    //   • The attacker-death and defender-death blocks are SEPARATE branches, so a sweep inside either
+    //     is skipped when the other unit is the one that died (the Dodonna case: attacker-only death).
+    //   • Sweeping at the branch REJOIN fixed Veers but broke three EmperorsRoyalGuard sections — it
+    //     ran before CollectCombatStep3Triggers, so the When-Defeated batch had not been collected yet.
+    // Here is the only correct point: AFTER step-3 triggers are collected AND after the compaction
+    // above (the branches only mark bodies `removed`, and the aura providers walk the raw zone array,
+    // so an uncompacted sweep still sees the dead source granting its +X/+Y), and before the action
+    // is finished below.
+    SWUCheckShrinkDefeats();
 
     // Log the attack
     if ($_logAttackerID !== '') {

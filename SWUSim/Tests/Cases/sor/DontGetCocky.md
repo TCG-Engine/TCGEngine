@@ -4,7 +4,11 @@
 #//           + Bust_NoDamage (NO = "stop revealing") · boundary=SevenCardCap_AutoStops (exactly 7 cost /
 #//           7 cards → deals) + Bust_NoDamage (8 > 7 → nothing) + EmptyDeck_DoesNothing (0 cards) ·
 #//           reqboundary=SevenCardCap_AutoStops (the reveal loop's running total crosses six answered
-#//           requests) · control=N/A (one-shot event, no persistent object to change hands)
+#//           requests) · control=ControlledEnemyOwnedUnit_IsChosenAndDamaged — the event itself is a
+#//           one-shot with no persistent object to change hands, so the reachable reading is its
+#//           TARGET's: a P2-owned unit under P1's control is in the "choose a unit" pool, is addressed
+#//           in the controller's frame (myGroundArena-0, and an out-of-pool answer would be rejected),
+#//           and takes the damage on P1's board
 #// SOR_223 Don't Get Cocky — if the combined cost exceeds 7 you "bust" and deal NOTHING. P1 reveals
 #// SOR_043 (cost 8) and stops: 8 > 7, so the chosen unit takes 0. The revealed card returns to the deck.
 
@@ -219,6 +223,43 @@ WithP1Deck: [SOR_095 SOR_063]
 - P1>AnswerDecision:NO
 
 ## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1DECKCOUNT:2
+P1DISCARDCOUNT:1
+
+---
+
+# ControlledEnemyOwnedUnit_IsChosenAndDamaged
+#// SOR_223 Don't Get Cocky — the CONTROL axis. "Choose a unit" names neither a controller nor an
+#// owner, so a unit P1 CONTROLS but P2 OWNS (the end state after a take-control effect) has to be in
+#// the pool, and it has to be addressed in the DECIDING player's frame — myGroundArena-0, not
+#// theirGroundArena-0 — because the pool is built from control, not ownership. Out-of-pool answers
+#// are rejected, so the answer being accepted is itself the proof of membership. The reveal then
+#// stops after one card (SOR_095, cost 2) and the 2 damage lands on that foreign-owned unit sitting
+#// on P1's board (3/3 → 2 damage, survives) while P2's own unit is untouched.
+
+## GIVEN
+CommonSetup: bbk/brw/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_223
+WithP1Resources: 6
+WithP1GroundArenaControlled: SOR_095:2
+WithP2GroundArena: LAW_124:1:0
+WithP1Deck: [SOR_095 SOR_063]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:NO
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:DAMAGE:2
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P1DECKCOUNT:2

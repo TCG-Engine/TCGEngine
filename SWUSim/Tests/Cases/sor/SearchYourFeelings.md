@@ -85,7 +85,11 @@ P1NODECISION
 #// off-aspect unit; the search decision is left PENDING so the playable pool is asserted
 #// directly: all four are selectable.
 #// COVERAGE: offer=this section · reqboundary=DrawsChosenCard (play and search answer are
-#//           separate serialized steps) · control=N/A (deck search, no unit targets) ·
+#//           separate serialized steps) · control=PlayedFromOpponentsResources_SearchesYourOwnDeck —
+#//           there are no unit targets and an event leaves no persistent object to change hands, so
+#//           the reachable owner-vs-controller reading is a card played by someone OTHER than its
+#//           owner: played out of the opponent's resources, "your deck" still resolves to the
+#//           PLAYER's deck and the opponent's deck is never searched ·
 #//           boundary pair=OneCardDeck_StillSearchable + EmptyDeck_NoOp (deck 1/0) ·
 #//           decline=ChooseNone. The trailing "(Then, shuffle your deck.)" is not directly
 #//           assertable — the shuffled order is random by design.
@@ -168,3 +172,43 @@ WithP1Deck: SOR_095
 ## EXPECT
 P1HANDCOUNT:1
 LASTLOGCONTAINS:Search Your Feelings
+
+---
+
+# PlayedFromOpponentsResources_SearchesYourOwnDeck
+#// SOR_042 Search Your Feelings — the CONTROL axis. An event has no persistent object to change
+#// hands, so the reachable owner-vs-controller reading is a card PLAYED by someone other than its
+#// owner: "search YOUR deck" must resolve for the player who played it. P2 has this very event in its
+#// resource row; P1 plays LAW_066 Tear This Ship Apart and plays it from there for free. The search
+#// then has to run on P1's two-card deck — the answer names a card that exists ONLY in P1's deck, and
+#// out-of-pool answers are rejected, so acceptance is the proof that P2's deck was never the one
+#// searched. P1 draws it and P1's deck drops to 1; the spent event goes to its OWNER's (P2's) discard
+#// and P2 refills the resource from its own deck.
+
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 13
+WithP1Hand: LAW_066
+WithP2Resources: 1:SOR_042:1
+WithP1Deck: [SOR_063 SOR_095]
+WithP2Deck: [SOR_220 SOR_220 SOR_220]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirResources-0
+- P1>AnswerDecision:SOR_063
+
+## EXPECT
+P1HANDCOUNT:1
+P1HANDCARD:0:SOR_063
+P1DECKCOUNT:1
+P2HANDCOUNT:0
+P2DECKCOUNT:2
+P2RESCOUNT:1
+P2DISCARDCOUNT:1

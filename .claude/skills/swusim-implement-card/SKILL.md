@@ -1487,6 +1487,118 @@ is not evidence of blast radius.
 - **A When-Defeated on a P2-side unit needs `P2>Drain`** before its effect lands (LAW_116 in a mass wipe:
   without the drain only one of the two triggers had resolved, which looks exactly like a dropped observer).
 
+### ⚠ DSL/harness facts learned on the SOR validate-port (2026-09-01)
+
+- **`P{n}GROUNDARENAUNIT:i:HP:` is CURRENT MAX HP, not remaining HP.** It is printed HP plus every
+  modifier — it does NOT subtract damage. A unit on 5 HP with 4 damage still asserts `HP:5`. To assert
+  survival you need `HP:` **and** `DAMAGE:` (or `ARENACOUNT` for the death). Every "it survived on 1"
+  section written against `HP:1` alone is asserting the wrong quantity and usually still passes.
+- **`P{n}SELECTABLEEXACT` returns `[]` for the non-mzID decision types** — OPTIONCHOOSE, TOPDECKSEARCH,
+  SCRY, NUMBERCHOOSE and MZSPLITASSIGN. An empty `SELECTABLEEXACT:` is therefore not "the pool is empty",
+  it is "wrong assertion for this decision type", and it passes vacuously. Use `P{n}DECISIONTOOLTIP` /
+  `OPTIONHAS` for those, or assert the pool BEHAVIOURALLY (below).
+- **SCRY answers are now POOL-VALIDATED** (`SWUValidateDecisionAnswer`, added 2026-09-01). The old idiom
+  "prove the peek window by answering with a card outside it and asserting nothing moved" is DEAD — it
+  only ever worked because `SCRY_FINALIZE` is deliberately forgiving. That answer is now REFUSED, which
+  a test cannot assert. **Prove a peek window positively instead**: act on the one card that IS in the
+  window and watch the never-peeked next card surface. Membership and multiplicity are validated; ORDER
+  and the top/bottom split stay free, because both are the player's choice.
+- **`P2>Drain` does NOT swap the turn.** It drains that seat's queue and nothing else, so a following
+  `P1>` line runs OUT OF TURN — which reads exactly like an off-by-one action-close bug and will send you
+  hunting a phantom. When you need the turn to actually change hands, make P2 take a real action.
+- **The action close is INVISIBLE under `P1OnlyActions: true`** — the same blindness the directive has for
+  `TURNPLAYER`. 14 sections stayed green with the closer deleted. Any card that could open or close an
+  extra action needs at least one section WITHOUT the directive, asserting `TURNPLAYER:2`.
+
+### ⚠ Engine/DSL facts from the HMW thirteenth preview wave (2026-09-01)
+
+- **★ A QUEUED TRIGGER'S PARAM IS PIPE-SPLIT BY THE DISPATCHER BEFORE YOUR HANDLER SEES IT.** The
+  drain does `$paramParts = explode('|', $params); $unitMzID = $paramParts[0]; $extra = array_slice($paramParts, 1);`
+  — so an `AddTrigger($p, 'X', 'X', "{a}|{b}")` delivers only `{a}` as `$mzID` and drops `{b}` into
+  `$extra`. Use **commas** for a multi-field trigger param. The failure is silent: the second field
+  reads as 0 and the effect simply does not happen. ⚠ Note the opposite convention one line away — a
+  **CUSTOM decision's** own Param IS pipe-split into `$parts`, which is where `|` is correct.
+- **★ A `$customDQHandlers` continuation's payload starts at `$parts[0]`, not `$parts[1]`.** `$parts`
+  holds the args AFTER the handler name, so `"CARD#0|{uid}"` puts the uid at index 0 (the shape SHD_045
+  Bossk uses). Reading `[1]` yields null → `SWUFindMzByUID(0)` → null → the continuation silently
+  no-ops. Both of these cost a debug cycle in one wave and both were found with an `fwrite(STDERR)`
+  probe rather than by reading the code.
+- **`AddDecision` is `DecisionQueueController::AddDecision`** — there is no bare function, and calling
+  one fatals the action.
+- **★ A FAR-SEAT SECTION WHOSE *ACTOR* IS SEAT 3 OR 4 CAN ONLY USE WHAT THE FAR-SEAT DIRECTIVES
+  PROVIDE.** There is `WithP3/P4GroundArena|SpaceArena|Base|Hand|Deck|Discard|…` but **no
+  `WithP3Leader`**, and `CommonSetup` dresses seats 1–2 only — so `P3>DeployLeader` (or anything else
+  needing a far seat's leader) is a SILENT NO-OP and the section passes because nothing happened.
+  Caught only by a green mutation. When the far seat must ACT, put the actor on seat 1 or 2 and the
+  far-seat role on 3/4; keep seats 3/4 for boards, not for leaders.
+- **A deployed leader used as an ATTACKER fixture must have no deployed "On Attack".** Its prompt
+  PAUSES combat, so the damage never lands and the section reads as the attack not happening. SHD_007
+  Moff Gideon (Overwhelm + a while-attacking-a-unit passive) is the clean base-attacker; SOR_010 Vader,
+  SOR_005 Luke and SOR_014 Sabine all interfere.
+- **A deployed leader unit enters play READY** (`Status:1`), so "exhaust that leader" is a real cost.
+
+### ★★ A RANDOM-TARGET CARD NEEDS BOTH READINGS DETERMINISTIC, NOT JUST THE RIGHT ONE (HMW_217, 2026-09-01)
+
+For a card that picks at random there is no decision to assert, so the pool can only be tested
+behaviourally — and the obvious board makes a section that **cannot fail reliably**: if the wrong
+implementation would draw from a 2-member pool, the section is a coin flip, and a coin flip is not a
+test. It will often pass under the very mutation written to catch it.
+
+Build boards where the CORRECT and the WRONG reading each have a fixed outcome:
+- **the wrong pool is EMPTY vs exactly one member** — e.g. put only a teammate on the table, so the
+  correct pool ("enemy") fizzles and a "not me" pool deterministically hits the teammate;
+- **two IDENTICAL bodies** — whichever is picked dies, so `ARENACOUNT` 2→1 is fixed while the draw
+  stays genuinely random (this also separates "hit one" from "hit all" and "hit none");
+- **exactly one legal target** for every ordinary positive.
+
+### ★★ "ATTACKED a base" ≠ "DEALT DAMAGE to a base" — and the engine records the second (USER RULING 2026-09-01)
+
+Three things count as a unit dealing damage to a base: **(1)** an ATTACK on it, **(2)** a unit ABILITY
+that pings it (SOR_142 Sabine's On Attack), **(3)** OVERWHELM excess spilling to it — plus **(4)**
+indirect damage the unit's controller deals. The engine's per-unit family — `SWU_UNITDMGBASE_{uid}` and
+the owner-qualified `SWU_DMGDBASE_{uid}_{seat}` — is stamped by ALL of them, so it answers "damaged",
+which is right for SEC_077 Retaliation ("a unit that dealt damage to a base") and WRONG for anything
+whose text says "attacked".
+**So read the printed verb before reaching for the marker**, and when the card says *attacked*, stamp a
+new attack-only marker rather than reusing the damage family — the reuse is the obvious implementation
+and every positive section still passes. Two negatives (Overwhelm spill, ability ping) are what catch it.
+⚠ And prefer storing such a marker in the **ATTACKED BASE OWNER's** namespace rather than the attacker's
+controller's: "your base" then IS the namespace you read (correct at any seat count, no seat suffix) and
+the answer survives a control change, which nothing migrates per-unit flags across.
+
+### ★★ A `COVERAGE:` ledger N/A is a CLAIM, and claims ROT (SOR pass, 2026-09-01)
+
+The per-file `COVERAGE:` ledger is the mechanism that makes a later axis scan exact instead of heuristic —
+keep writing it. But **19 of SOR's ledger N/As were wrong or stale** when agents were told to verify them
+rather than read them: written when the card had one clause and never revisited, or asserting "no offer to
+assert" for a card that plainly has a pool. A ledger nobody re-checks is worse than none, because it
+launders an untested cell into a documented decision.
+
+Two rules follow, and they cost nothing at write time:
+1. **An N/A must name the STRUCTURAL reason, not the situational one.** "N/A — no target selection, the
+   buff is self-referential" survives a rewrite. "N/A — only one legal target" does not: the next fixture
+   change makes it false and nothing tells you.
+2. **When you touch a card's handler or add a clause, re-read its ledger in the same edit.** It is two
+   lines up from the section you are already editing.
+
+⚠ And when you consume a ledger — an axis scan, a coverage sweep — **verify a sample before trusting the
+population**. That is how these 19 were found.
+
+### ★★ INSTRUMENT THE STATE CHANGE, NOT THE FUNCTION YOU THINK OWNS IT (SOR pass, 2026-09-01)
+
+The hardest bug of the pass (units at 0 HP surviving a shrink) took **four wrong fix placements** because
+every one was reasoned from the call graph: the end of `SWUDefeatUnit` (unreachable from most of its ten
+exits), a wrapper around `SWUDefeatUnit` (**combat defeats never call it at all** — proven by making it
+*throw* and watching the suite not notice), after the Overwhelm spill (never reached — attacker-death and
+defender-death are separate branches), and at the branch rejoin (ran before `CollectCombatStep3Triggers`
+and broke three other sections).
+
+What actually located it in one step: a `debug_backtrace()` in **`SWUAddToDiscard`** — the function where
+the state change is *observable* — printing who really calls it on each route. **When you cannot find the
+right place to hook, stop reading the call graph and instrument the moment the state changes.**
+Corollary, and the cheapest test in the toolkit: **make the function you believe is central THROW, and run
+the suite.** If nothing fails, it is not on the path you think it is.
+
 ### Test file naming & layout — the `Title_Subtitle` standard (set 2026-07-15)
 
 **One file per card, named by the card's title, holding ALL that card's tests as sections.** Path: `SWUSim/Tests/Cases/{set}/{Name}.md`.

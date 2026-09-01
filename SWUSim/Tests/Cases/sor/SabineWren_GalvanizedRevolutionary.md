@@ -6,7 +6,8 @@
 #//           pings the enemy base; no choice is ever raised) · decline=N/A (no "you may" on either
 #//           side) · boundary=Deployed_BasePingResolvesBeforeCombatDamage (ping takes the base from
 #//           29 to exactly 30 and wins mid-attack) vs Deployed_OnAttackPingsEnemyBaseOnly (non-lethal
-#//           ping + normal combat) · control=N/A (a leader unit never changes control — Traitorous
+#//           ping + normal combat), plus the Epic Action threshold pair EpicDeploy_ThreeResources_Refused
+#//           (4-1) vs EpicDeploy_FourResources_DeploysAndSpendsNothing (exactly 4) · control=N/A (a leader unit never changes control — Traitorous
 #//           and control-effects exclude leaders) · reqboundary=N/A (both abilities resolve in a
 #//           single drain with no intervening decision)
 ## GIVEN
@@ -117,3 +118,73 @@ P2BASEDMG:3
 P4BASEDMG:1
 P3BASEDMG:0
 P1BASEDMG:0
+
+---
+
+# EpicDeploy_ThreeResources_Refused
+#// SOR_014 Sabine Wren — the SECOND printed clause, "Epic Action: If you control 4 or more resources,
+#// deploy this leader", had no section at all: every deploy in this file was seeded pre-deployed via
+#// myLeaderDeployed, so the threshold itself was never exercised.
+#// This is the NEGATIVE half of the boundary that proves the gate is load-bearing. With 3 resources
+#// (one under the printed cost of 4) the Epic Action does nothing: Sabine stays on the leader zone,
+#// no unit is created, and — critically — the once-per-game Epic Action slot is NOT consumed, so the
+#// refused attempt has not cost the player their deploy.
+
+## GIVEN
+CommonSetup: grw/grw/{myResources:3}
+P1OnlyActions: true
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1LEADER:NOTDEPLOYED
+P1LEADER:EPICAVAILABLE
+P1RESCOUNT:3
+
+---
+
+# EpicDeploy_FourResources_DeploysAndSpendsNothing
+#// SOR_014 Sabine Wren — the POSITIVE half of the same boundary, one resource up: at exactly 4 the
+#// Epic Action deploys her. "If you control 4 or more resources" is a THRESHOLD, not a cost — per the
+#// printed wording nothing is paid, so all 4 resources are still there and all 4 are still READY after
+#// the deploy. The Epic Action slot is consumed (once per game) and the leader side is exhausted by
+#// having taken the action.
+
+## GIVEN
+CommonSetup: grw/grw/{myResources:4}
+P1OnlyActions: true
+
+## WHEN
+- P1>DeployLeader
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:ISLEADERUNIT
+P1LEADER:DEPLOYED
+P1LEADER:EPICUSED
+P1RESCOUNT:4
+P1RESAVAILABLE:4
+
+---
+
+# FrontAction_ExhaustedLeader_CannotPing
+#// SOR_014 Sabine Wren — "Action [exhaust]: Deal 1 damage to each base" carries an EXHAUST cost, and
+#// SabineWrenLeaderSide only ever showed the cost being PAID (leader ends exhausted). This is the
+#// negative that proves the cost is a real gate: with the leader already exhausted the action cannot
+#// be taken again, so neither base takes a second point of damage.
+#// (myLeader field 2 = ready; :0 seats Sabine already exhausted.)
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:SOR_014:0;myResources:2}
+P1OnlyActions: true
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+P1BASEDMG:0
+P2BASEDMG:0
+P1LEADER:EXHAUSTED
+P1LEADER:NOTDEPLOYED

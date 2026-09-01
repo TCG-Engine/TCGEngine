@@ -3,7 +3,9 @@
 #//           PowerStrike_EnemyPoolExcludesUniques (non-unique filter on the enemy pool)
 #//           decline=N/A ("Choose two" is mandatory; the nothing-to-do branches are the two
 #//           PowerStrike_*Fizzles* sections — empty pools silently no-op and the modal still owes its
-#//           second pick) · control=N/A (one-shot event, no marker outliving resolution)
+#//           second pick) · control=Control_StolenUnitIsTheFriendlyDealer_MyOwnedUnitIsTheEnemyTarget
+#//           (friendly/enemy follow CONTROL, not ownership — a P2-owned unit in P1's arena is the
+#//           legal dealer, a P1-owned unit in P2's arena is the legal damage target)
 #//           boundary=N/A (no duration effect) · reqboundary=all sections (each mode pick and target
 #//           answer is its own request; Resource moves the event out of the discard after it already
 #//           sat there across a request in Modal_ResourceAndReturn)
@@ -168,4 +170,49 @@ WithP2GroundArena: SEC_080:1:0
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:2
 P1DISCARDCOUNT:1
+P1NODECISION
+
+---
+
+# Control_StolenUnitIsTheFriendlyDealer_MyOwnedUnitIsTheEnemyTarget
+#// Intended: "A FRIENDLY unit deals damage equal to its power to a non-unique ENEMY unit" —
+#// friendly/enemy are decided by CONTROL, never by ownership (CR: a unit is friendly to the player
+#// who controls it). Both units here have owner and controller split, in opposite directions:
+#//   • P1's arena holds SOR_128 Death Star Stormtrooper (3/1, non-unique) OWNED BY P2 — friendly to
+#//     P1, so it is the only legal DEALER and is NOT a legal damage target.
+#//   • P2's arena holds SOR_046 Consular Security Force (3/7, non-unique) OWNED BY P1 — enemy to P1,
+#//     so it is the only legal TARGET and is NOT a legal dealer.
+#// Each pool therefore holds exactly one candidate and both picks auto-resolve; the end state IS the
+#// assertion. An ownership-framed read inverts the two roles entirely: SOR_046 would deal 3 to the
+#// 1-HP Stormtrooper and kill it, leaving P2's arena empty and P1's holding a defeated-unit hole —
+#// a completely different board from the 3 damage on a surviving 7-HP defender asserted below.
+#// Second mode is Resource (no further targets): Command moves from the discard into P1's resource
+#// row exhausted → RESCOUNT 5 with none ready after paying 4, and the discard ends empty.
+
+## GIVEN
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_107
+WithP1Resources: 4
+WithP1GroundArenaControlled: SOR_128:2    # P1 controls, P2 owns — the friendly dealer
+WithP2GroundArenaControlled: SOR_046:1    # P2 controls, P1 owns — the enemy target
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PowerStrike
+- P1>AnswerDecision:Resource
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_128
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1RESCOUNT:5
+P1RESAVAILABLE:0
+P1DISCARDCOUNT:0
 P1NODECISION

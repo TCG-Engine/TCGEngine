@@ -60,3 +60,59 @@ WithP2SpaceArenaUpgrade: 0:SOR_T02
 ## EXPECT
 P2SPACEARENAUNIT:0:SHIELDCOUNT:2
 P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+
+---
+
+# NoUnitsInPlay_EventIsStillPlayedAndPaidFor
+#// SOR_073 Moment of Peace — the NO-VALID-TARGET cell. "Give a Shield token to a unit" with no unit
+#// anywhere on the table: the ability must return without queueing a decision, and the event is still
+#// played — it lands in the discard and its resource is still spent. Per the standing ruling an action
+#// that fizzles still pays its cost, so there is deliberately no "use it anyway?" confirmation here.
+#// The three existing sections all run on boards with at least one legal target, so the empty-pool
+#// early return is unexercised by them.
+#// COVERAGE (addendum to the ledger in GivesShield): no-valid-target is covered here; the ledger's
+#// reqboundary entry names AlreadyShielded_GainsSecondShield, which resolves the pick inside a single
+#// request and does not actually cross a boundary — the real boundary case is
+#// SimulateRequestBoundary_ShieldPickSurvivesTheBoundary below.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:1;handCardIds:SOR_073}
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P1DISCARDCOUNT:1
+P1HANDCOUNT:0
+P1RESCOUNT:1
+P1RESAVAILABLE:0
+P1GROUNDARENACOUNT:0
+P1SPACEARENACOUNT:0
+
+---
+
+# SimulateRequestBoundary_ShieldPickSurvivesTheBoundary
+#// SOR_073 Moment of Peace — the REQUEST-BOUNDARY cell, done with the harness directive rather than
+#// claimed. Two units are on the table so the pick stays interactive (with one, it auto-resolves and no
+#// request ever ends), and the boundary sits between the play and the answer: in production the choose
+#// ends the request and the answer arrives in a fresh process, so anything the offer parked in memory
+#// would be gone by then and the shield would silently never land.
+#// P2's space unit is chosen and must end with exactly one Shield; P1's ground unit with none.
+
+## GIVEN
+CommonSetup: bbk/bbk/{myResources:1;handCardIds:SOR_073}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP2SpaceArena: SOR_060:1:0    # 2nd legal target, keeps the choose interactive
+
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirSpaceArena-0
+
+## EXPECT
+P2SPACEARENAUNIT:0:SHIELDCOUNT:1
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P1NODECISION
