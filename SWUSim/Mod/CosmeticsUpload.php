@@ -36,18 +36,47 @@ if ($_FILES['image']['size'] > 10*1024*1024) $fail('too_large');
 $tmp = $_FILES['image']['tmp_name'];
 if (@getimagesize($tmp) === false) $fail('not_an_image');
 
-// slugify label -> base id; ensure unique within slot (vs built-ins + uploads)
-$base = strtolower(preg_replace('/[^a-z0-9]+/i', '-', $label));
-$base = trim($base, '-'); if ($base === '') $base = 'cosmetic';
-$existing = SWUCosmeticCatalog()[$slot] ?? [];
-$id = $base; $n = 2;
-while (isset($existing[$id])) { $id = $base . '-' . $n; $n++; }
+// REPLACE an existing cosmetic's art, or ADD a new one?
+// A replace keeps the SAME id and the SAME asset path, so every saved user selection survives it —
+// players who picked this cosmetic simply see the new art. It therefore skips the slugify/uniquify
+// step entirely (re-deriving an id from a changed label would orphan those selections).
+$replaceId = trim($_POST['replaceId'] ?? '');
+$existing  = SWUCosmeticCatalog()[$slot] ?? [];
+
+if ($replaceId !== '') {
+    if (!preg_match('/^[a-z0-9]+(-[a-z0-9]+)*$/', $replaceId)) $fail('bad_replace_id');
+    if (!isset($existing[$replaceId])) $fail('replace_target_missing');
+    $id = $replaceId;
+} else {
+    // slugify label -> base id; ensure unique within slot
+    $base = strtolower(preg_replace('/[^a-z0-9]+/i', '-', $label));
+    $base = trim($base, '-'); if ($base === '') $base = 'cosmetic';
+    $id = $base; $n = 2;
+    while (isset($existing[$id])) { $id = $base . '-' . $n; $n++; }
+}
 
 $repoRoot = realpath(__DIR__ . '/../..');   // /var/www/html/TCGEngine
 $dir  = SWUCosmeticSlotDir($slot);          // slot validated above, non-null
-$abs  = $repoRoot . $dir . $id . '.webp';
 [$w,$h] = $specs[$slot];
 $vAnchor = $slot === 'playmat' ? 'top' : 'center';   // playmats crop from the top; others stay centered
+
+// A NEW cosmetic writes straight to its final path — nothing exists there to lose, and Cancel just
+// deletes it. A REPLACE writes to a STAGED sibling instead: the live asset must survive until the mod
+// confirms, or Cancel would be a lie (the old art would already be overwritten).
+if ($replaceId !== '') {
+    $abs = SWUCosmeticStagedAbs($slot, $id);
+    if ($abs === null) $fail('bad_slot_or_id');
+    if (!SWUCosmeticProcessImage($tmp, $abs, $w, $h, $vAnchor)) $fail('process_failed');
+    if ($slot === 'background') {
+        if (!SWUCosmeticProcessImage($tmp, SWUCosmeticStagedAbs($slot, $id, true), 1080, 1920)) $fail('process_failed_mobile');
+    }
+    // The preview must show the STAGED file, not the live asset that has not changed yet.
+    $asset = str_replace($repoRoot, '.', $abs);
+    echo json_encode(['success'=>true, 'slot'=>$slot, 'id'=>$id, 'label'=>$label, 'asset'=>$asset, 'replacing'=>true]);
+    exit;
+}
+
+$abs = $repoRoot . $dir . $id . '.webp';
 if (!SWUCosmeticProcessImage($tmp, $abs, $w, $h, $vAnchor)) $fail('process_failed');
 if ($slot === 'background') {   // mobile portrait variant
     if (!SWUCosmeticProcessImage($tmp, $repoRoot . $dir . $id . '-mobile.webp', 1080, 1920)) $fail('process_failed_mobile');

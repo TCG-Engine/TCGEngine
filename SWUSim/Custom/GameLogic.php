@@ -8387,6 +8387,7 @@ function SWUAfterAction($player) {
     // SWULoadBookmark re-check privacy server-side, and a crafted request is refused regardless.
     SetSWUVar('GAME_IS_PRIVATE', SWUGameIsPrivate('SWUSim', strval($GLOBALS['gameName'] ?? '')) ? 'true' : 'false');
     SetSWUVar('GAME_SEAT_COUNT', strval(SeatCountForGame()));
+    _SWUStampUndoAvailable();   // seat-independent Undo gate — see the helper for why myVersionsData cannot serve
     SetSWUVar('SWU_DMG_SRC', ''); // clear the ability-damage source context at the action boundary (TWI_016)
     // HMW_011 Darth Sidious — close his "was deployed during THIS action" observation window. It is set
     // the first time a damage instance in this action finds him deployed, and lets every LATER instance
@@ -18650,6 +18651,7 @@ function PushUndoSnapshot($actingSeat, $boundary = 'action', $name = '') {
     $record  = UndoRecordBuild($seat, (string)($gCurrentPhase ?? ''), (string)$boundary, 0, (string)$name, $payload);
     UndoStackAppend($record);          // ordinal is implicit (the array index)
     UndoCursorSet(UndoStackCount() - 1);   // the new entry is what the next Undo restores
+    _SWUStampUndoAvailable();
 
     $playerID = $savedPlayerID;
 }
@@ -18789,6 +18791,22 @@ function UndoCursor() {
     return UndoCursorGet();
 }
 
+// Publish "is there anything to undo?" as a client-visible fact.
+//
+// ⚠ THE CLIENT CANNOT WORK THIS OUT FOR ITSELF. The undo stack lives in SEAT 1's Versions zone (see
+// _SWURestoreSerializedPayload), but the board binds window.myVersionsData to the VIEWER'S OWN Versions
+// zone — so seat 2 always read an empty string and swuUpdateUndoUI hid the Undo button outright.
+// Measured in a live 2-player game (2026-08-31): seat 1 myVersionsData=9 chars → button shown, seat 2
+// myVersionsData=0 → display:none, in the same game at the same moment. Reported as "the Undo button
+// doesn't show up sometimes"; it was never sometimes, it was never-for-player-2.
+// Reading theirVersionsData instead would only move the bug: above two seats a viewer renders at most
+// two seats, so a seat-3 viewer has seat 1 in neither slot. A seat-independent flag is the fix, and it
+// rides the same GetSWUDQVar channel as GAME_IS_PRIVATE / UNDO_REQUIRES_CONSENT / UNDO_BLOCKED_<n>.
+// Stamped wherever the cursor moves, plus refreshed each action so a game already in flight self-heals.
+function _SWUStampUndoAvailable(): void {
+    SetSWUVar('UNDO_AVAILABLE', UndoCursor() >= 0 ? 'true' : 'false');
+}
+
 // Restore the exact state stored in a raw payload blob, WITHOUT touching the undo cursor. The stack
 // lives in player 1's Versions zone; to restore, append the payload as a TEMPORARY slot at the end,
 // LoadVersion from it (reusing the untouched generated 700-line restore body), then drop just that temp
@@ -18814,6 +18832,7 @@ function LoadUndoSnapshot($restoreOrdinal) {
     $rec = UndoRecordParse($line);
     _SWURestoreSerializedPayload($rec['payload']);
     UndoCursorSet($restoreOrdinal - 1);
+    _SWUStampUndoAvailable();
     return true;
 }
 
@@ -19025,6 +19044,7 @@ function SWULoadBookmark(int $seat, int $bookmarkId, string $rootName = '', stri
     _SWURestoreSerializedPayload($bm['payload']);
     _SWUReapplyUndoBlocks($blocked);
     UndoCursorSet($loadOrdinal);   // explicit: the restore must not move the cursor
+    _SWUStampUndoAvailable();
 
     // A game that had already ended is playable again. GAMEOVER_WINNER / GAMEOVER_WINNERS live in the
     // gamestate, so the restore cleared them; the only external step is undoing the RemoveActiveGame

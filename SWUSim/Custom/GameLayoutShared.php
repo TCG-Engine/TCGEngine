@@ -1127,6 +1127,38 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         });
     }
 
+    // ── Phase line ────────────────────────────────────────────────────────────
+    // USER RULING 2026-08-31: the vocabulary is START → ACTION → REGROUP → ACTION → REGROUP → … → END,
+    // and nothing finer. The community ask behind it is that players read the regroup phase as "the
+    // start of the next turn" rather than as a phase of its own, so a round reads as "turn 1, turn 2,
+    // turn 3". Naming the two phases — and letting the player watch the line flip back and forth under
+    // a Round number that only ticks once per loop — is what makes the structure legible.
+    // The regroup SUB-STEPS (Draw / Resource / Ready) are deliberately NOT shown: they are noise for
+    // this purpose, and "REGROUP PHASE · RESOURCE" did not fit the sidebar without clipping.
+    //
+    // APS/MAIN are the action phase, RGS/DRAW/RES/READY the regroup phase (TurnSchema.txt).
+    // ⚠ START IS APS AT ROUND 1. The pregame (mulligan + "choose 2 cards to resource") runs inside the
+    //   first ActionPhaseStart, which otherwise auto-advances straight to MAIN — so an APS you can
+    //   actually SEE at round 1 is the pregame. Measured live: it used to label itself "Action".
+    //   A round-1 APS held open by a start-of-round trigger would also read START; that window is the
+    //   pregame in every practical case.
+    // ⚠ END is driven by the GAMEOVER/MATCHOVER flash interception further down — the only signal the
+    //   client gets — and is sticky, because the flash itself is transient.
+    var PHASE_KIND = { APS:'action', MAIN:'action', RGS:'regroup', DRAW:'regroup', RES:'regroup', READY:'regroup' };
+    var PHASE_WORD = { start:'Start', action:'Action', regroup:'Regroup', end:'End' };
+    function updatePhaseLine() {
+        var line = document.getElementById('swuPhaseLine'); if (!line) return;
+        var name = document.getElementById('swuPhaseName');
+        var norm = normalizePhase(typeof window.CurrentPhaseData === 'string' ? window.CurrentPhaseData : '');
+        var kind = PHASE_KIND[norm] || '';
+        if (window.swuGameHasEnded) kind = 'end';
+        else if (kind === 'action' && norm === 'APS' && parseInt(window.TurnNumberData, 10) === 1) kind = 'start';
+        if (kind === '') { line.removeAttribute('data-phase-kind');
+                           if (name) name.textContent = '—'; return; }
+        line.setAttribute('data-phase-kind', kind);
+        if (name) name.textContent = PHASE_WORD[kind];
+    }
+
     // ── Round counter ─────────────────────────────────────────────────────────
     function updateRound() {
         var el = document.getElementById('swuRoundNumber'); if (!el) return;
@@ -1680,7 +1712,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     function pollGlobals() {
         syncCardSizeVar();
         swuInitPairSwitcher();   // sets window.swuSpectating BEFORE the glows read it
-        updatePhaseTrack(); updateInitiative(); updateRound(); refreshActionGlows();
+        updatePhaseTrack(); updatePhaseLine(); updateInitiative(); updateRound(); refreshActionGlows();
         swuRenderBaseTabs('my'); swuRenderBaseTabs('their');
         swuRenderHomeStrips();
         refreshResourceSelectionPanel();
@@ -3802,6 +3834,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         get: function () { return _flashInternal; },
         set: function (v) {
             if (typeof v === 'string' && (v.indexOf('MATCHOVER:') === 0 || v.indexOf('GAMEOVER:') === 0)) {
+                // Sticky, because the flash is consumed here and never seen again — the phase line has
+                // to keep reading END for the rest of the session.
+                window.swuGameHasEnded = true;
                 if (typeof SWUShowEndGameMenu === 'function') SWUShowEndGameMenu();
                 else showGameOverBanner(v.indexOf('MATCHOVER:') === 0 ? v.slice(10) : v.slice(9));
                 _flashInternal = '';
@@ -4234,7 +4269,17 @@ function swuUpdateUndoUI(myPlayerID) {
     var btn = document.getElementById('swuUndoBtn');
     if (!btn) return;
 
-    var hasVersion = typeof window.myVersionsData === 'string' && window.myVersionsData.trim() !== '';
+    // The undo stack lives in SEAT 1's Versions zone, but window.myVersionsData is the VIEWER'S OWN
+    // zone — so this used to be permanently empty for player 2 and the button was simply never drawn
+    // for them (measured live: seat 1 saw it, seat 2 got display:none, same game, same moment).
+    // UNDO_AVAILABLE is stamped server-side from the cursor, so it is seat-independent and also correct
+    // above two seats, where a viewer may render neither slot holding seat 1.
+    // The myVersionsData read stays as a FALLBACK so a game that was already in flight before this
+    // shipped still shows the button to seat 1 until its next action re-stamps the var.
+    var undoVar = GetSWUDQVar('UNDO_AVAILABLE');
+    var hasVersion = undoVar !== ''
+        ? undoVar === 'true'
+        : (typeof window.myVersionsData === 'string' && window.myVersionsData.trim() !== '');
     // Mirror the SERVER rule: the reveal flag alone does not mean consent is needed. In a private game
     // the server grants every undo outright, so labelling the button "Request Undo" there told players
     // to expect an approval step that never happens. GAME_IS_PRIVATE is stamped from SWUGameIsPrivate,
@@ -4482,6 +4527,29 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
 <!-- ── In-game Settings hub (gear menu) ─────────────────────────────────────── -->
 <style>
   .swu-header-right { display: flex; align-items: center; gap: 8px; }
+  /* ── Phase line, under the Round number ───────────────────────────────────────────────────────────
+     Community ask (2026-08-31): players read the regroup phase as "the start of the next turn" rather
+     than as a phase of its own, so the round structure — action phase ⇄ regroup phase — is invisible.
+     The Round counter stays; this names the phase you are actually in, right beneath it.
+     ⚠ NOT COLOUR-ONLY. The line always prints the phase NAME (and the regroup sub-step), so the accent
+     is reinforcement, not the signal — it reads correctly in greyscale and to a colour-blind player.
+     Sized off the existing .swu-round-label scale so it sits under the number without growing the
+     header; `white-space: nowrap` because "REGROUP PHASE · Resource" must not wrap into the Undo
+     button's row. */
+  /* ⚠ ITS OWN FULL-WIDTH ROW, NOT A THIRD LINE IN THE ROUND COLUMN. #swuSidebarHeader is a
+     space-between flex row, so a nowrap line inside its left column widens that column and shoves the
+     Undo/gear cluster off the panel — measured: at "Regroup Phase · Resource" the buttons left the
+     screen entirely and the text still clipped. On its own row the longest label fits with room spare. */
+  .swu-phase-line { display: flex; align-items: center; gap: 6px;
+    flex: 0 0 auto; padding: 7px 14px; border-bottom: 1px solid var(--swu-border);
+    font: 700 10px/1 var(--swu-font-label); letter-spacing: 0.16em; text-transform: uppercase;
+    white-space: nowrap; color: rgba(255,255,255,0.55); }
+  .swu-phase-dot { width: 6px; height: 6px; border-radius: 50%; flex: 0 0 auto;
+    background: currentColor; box-shadow: 0 0 6px currentColor; }
+  .swu-phase-line[data-phase-kind="start"]   { color: rgba(255,255,255,0.62); }
+  .swu-phase-line[data-phase-kind="action"]  { color: #d8ab34; }
+  .swu-phase-line[data-phase-kind="regroup"] { color: #6fb6e8; }
+  .swu-phase-line[data-phase-kind="end"]     { color: rgba(255,255,255,0.62); }
   .swu-gear-btn { background: transparent; border: 0; color: var(--accent); font-size: 40px;
     line-height: 1; cursor: pointer; padding: 2px 4px; filter: drop-shadow(0 0 4px var(--glow));
     transition: transform 140ms ease, color 140ms ease; }

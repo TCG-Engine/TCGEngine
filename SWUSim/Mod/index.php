@@ -21,7 +21,7 @@ if ($modErr !== '') { http_response_code(403); echo "<h2>Access denied</h2><p>".
   <div class="mod-wrap card container">
     <h1>SWUSim Mod Tools</h1>
     <ul class="mod-tools">
-      <li><a href="/TCGEngine/SWUSim/Mod/CosmeticsUploader.php">🎨 Cosmetics Uploader — add/remove backgrounds, card backs, playmats</a></li>
+      <li><a href="/TCGEngine/SWUSim/Mod/CosmeticsUploader.php">🎨 Cosmetics Uploader — add, rename, replace art for, and delete backgrounds, card backs, playmats</a></li>
     </ul>
   </div>
 </body></html>

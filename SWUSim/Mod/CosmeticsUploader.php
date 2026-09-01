@@ -44,6 +44,19 @@ $labels = ['background'=>'Background', 'cardback'=>'Card back', 'playmat'=>'Play
     .cu-preview-caption { font-size: 12px; color: #c8b080; margin-bottom: 8px; }
     .cu-preview .cu-thumb { max-width: 320px; }
     .cu-preview-actions { display: flex; gap: 10px; margin-top: 10px; }
+    .cu-tile-actions { display: flex; gap: 6px; margin-top: 6px; }
+    .cu-tile-actions button { font-size: 11px; padding: 4px 10px; border-radius: 6px; cursor: pointer;
+      background: rgba(62,44,12,0.9); color: #f0ddb0; border: 1px solid rgba(190,155,50,0.35); }
+    .cu-tile-actions button:hover { border-color: rgba(200,160,55,0.7); }
+    .cu-tile-actions .cu-danger { background: rgba(74,20,20,0.9); color: #f0c0c0;
+      border-color: rgba(190,70,70,0.4); }
+    .cu-tile-actions .cu-danger:hover { border-color: rgba(220,90,90,0.75); }
+    .cu-edit { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(170,130,40,0.25); }
+    .cu-edit[hidden] { display: none; }
+    .cu-edit label { display: block; margin-bottom: 8px; color: #e8d5a8; font-size: 12px; }
+    .cu-edit input[type=text] { width: 100%; }
+    .cu-edit-hint { font-size: 11px; color: #b39a68; margin-bottom: 8px; }
+    .cu-edit-hint code { color: #d8c290; }
   </style>
 </head><body>
   <div class="cu-wrap card container">
@@ -73,11 +86,50 @@ $labels = ['background'=>'Background', 'cardback'=>'Card back', 'playmat'=>'Play
     <?php foreach (['background','cardback','playmat'] as $slot): ?>
       <h2><?= $esc($labels[$slot]) ?></h2>
       <div class="cu-grid">
-        <?php foreach ($cat[$slot] as $id => $opt): $uploaded = !empty($opt['uploaded']); $asset = SWUCosmeticAssetUrl($opt['asset'] ?? null); ?>
-          <div class="cu-tile" data-name="<?= $esc(strtolower($opt['label'])) ?>">
+        <?php foreach ($cat[$slot] as $id => $opt):
+          $isDefault = !empty($opt['isDefault']);
+          $asset = SWUCosmeticAssetUrl($opt['asset'] ?? null);
+          // Replacing a cosmetic reuses the SAME asset path, so a plain URL would show the browser's
+          // cached copy of the OLD art. Version the thumb by the file's mtime — same trick as
+          // _VersionAsset() on the stylesheets.
+          if ($asset) {
+            $abs = realpath(__DIR__ . '/../..' . preg_replace('#^/TCGEngine#', '', $asset));
+            if ($abs && is_file($abs)) $asset .= '?v=' . filemtime($abs);
+          }
+        ?>
+          <div class="cu-tile" data-name="<?= $esc(strtolower($opt['label'])) ?>" id="cu-tile-<?= $esc($slot) ?>-<?= $esc($id) ?>">
             <div class="cu-thumb cu-thumb--<?= $esc($slot) ?>"<?= $asset ? " style=\"background-image:url('".$esc($asset)."')\"" : '' ?>><?= $asset ? '' : 'None' ?></div>
             <div class="cu-name"><?= $esc($opt['label']) ?></div>
-            <span class="cu-builtin">built-in</span>
+            <?php if ($isDefault): ?>
+              <?php /* The slot default is the fallback target for every unresolved selection
+                        (SWUCosmeticResolve), so deleting it would break that fallback. It can still be
+                        renamed — a rename touches neither the id nor the asset. */ ?>
+              <span class="cu-builtin" title="This is the slot default — it can be renamed but not deleted.">default</span>
+              <div class="cu-tile-actions">
+                <button type="button" onclick="cuEditOpen('<?= $esc($slot) ?>','<?= $esc($id) ?>')">Edit</button>
+              </div>
+            <?php else: ?>
+              <div class="cu-tile-actions">
+                <button type="button" onclick="cuEditOpen('<?= $esc($slot) ?>','<?= $esc($id) ?>')">Edit</button>
+                <button type="button" class="cu-danger" onclick="cuDelete('<?= $esc($slot) ?>','<?= $esc($id) ?>','<?= $esc($opt['label']) ?>')">Delete</button>
+              </div>
+            <?php endif; ?>
+            <form class="cu-edit" id="cu-edit-<?= $esc($slot) ?>-<?= $esc($id) ?>" hidden
+                  onsubmit="return cuEditSubmit(event,'<?= $esc($slot) ?>','<?= $esc($id) ?>')">
+              <label>Name <input type="text" name="label" maxlength="128" required
+                                 value="<?= $esc($opt['label']) ?>"></label>
+              <label>Replace image <input type="file" name="image" accept="image/*"></label>
+              <div class="cu-edit-hint">id <code><?= $esc($id) ?></code> — fixed, so anyone who already
+                picked this keeps it. Leave the file empty to rename only.</div>
+              <div class="cu-preview" hidden>
+                <div class="cu-preview-caption">New image staged — confirm to replace, or cancel to keep the current one.</div>
+                <div class="cu-thumb cu-thumb--<?= $esc($slot) ?>"></div>
+              </div>
+              <div class="cu-preview-actions">
+                <button type="submit">Save</button>
+                <button type="button" onclick="cuEditCancel('<?= $esc($slot) ?>','<?= $esc($id) ?>')">Cancel</button>
+              </div>
+            </form>
           </div>
         <?php endforeach; ?>
       </div>
@@ -121,6 +173,94 @@ $labels = ['background'=>'Background', 'cardback'=>'Card back', 'playmat'=>'Play
       x.send(fd); return false;
     }
     function cuConfirm(slot){ cuCommit(slot, 'save', function(){ location.reload(); }); }
+
+    // ── Editing an existing cosmetic ───────────────────────────────────────────────────────────────
+    // The id and the asset PATH never change — only the label and the bytes behind that path — so a
+    // player who already selected this cosmetic keeps it and simply sees the new name/art.
+    function cuEditEl(slot,id){ return document.getElementById('cu-edit-'+slot+'-'+id); }
+    var cuStaged = {};   // "slot/id" -> true when a replacement image is staged but not yet confirmed
+
+    function cuEditOpen(slot,id){
+      var f = cuEditEl(slot,id); if(!f) return;
+      f.hidden = !f.hidden;
+    }
+    function cuEditCancel(slot,id){
+      var f = cuEditEl(slot,id); if(!f) return;
+      var key = slot+'/'+id;
+      var finish = function(){
+        delete cuStaged[key];
+        f.querySelector('.cu-preview').hidden = true;
+        f.reset(); f.hidden = true;
+      };
+      // Only ask the server to clean up if something was actually staged on disk.
+      if (cuStaged[key]) cuPost('CosmeticsCommit.php',
+        'action=discard_staged&slot='+encodeURIComponent(slot)+'&id='+encodeURIComponent(id),
+        finish, 'Cancel');
+      else finish();
+    }
+
+    // Shared POST helper — the older cuCommit is kept for the add flow's pending-slot bookkeeping.
+    function cuPost(endpoint, body, onOk, what){
+      var x=new XMLHttpRequest(); x.open('POST', cuBase()+'SWUSim/Mod/'+endpoint, true);
+      x.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+      x.onload=function(){ var r={}; try{r=JSON.parse(x.responseText);}catch(_){}
+        if(r.success) onOk(r); else StyledAlert((what||'Request')+' failed: '+(r.error||'unknown')); };
+      x.send(body);
+    }
+
+    function cuEditSubmit(e, slot, id){
+      e.preventDefault();
+      var f = e.target;
+      var label = f.querySelector('input[name=label]').value.trim();
+      var file  = f.querySelector('input[type=file]').files[0];
+      var key   = slot+'/'+id;
+
+      // No new image → a pure rename.
+      if (!file && !cuStaged[key]) {
+        cuPost('CosmeticsCommit.php',
+          'action=rename&slot='+encodeURIComponent(slot)+'&id='+encodeURIComponent(id)
+            +'&label='+encodeURIComponent(label),
+          function(){ location.reload(); }, 'Rename');
+        return false;
+      }
+      // A file was chosen → stage it first, show it, and let the SAME Save button confirm.
+      if (file && !cuStaged[key]) {
+        var fd = new FormData(); fd.append('slot', slot); fd.append('label', label);
+        fd.append('replaceId', id); fd.append('image', file);
+        var x=new XMLHttpRequest(); x.open('POST', cuBase()+'SWUSim/Mod/CosmeticsUpload.php', true);
+        x.onload=function(){ var r={}; try{r=JSON.parse(x.responseText);}catch(_){}
+          if(!r.success){ StyledAlert('Upload failed: '+(r.error||'unknown')); return; }
+          cuStaged[key] = true;
+          var url = (r.asset||'').replace(/^\.\//,'/TCGEngine/') + '?t=' + Date.now();
+          var box = f.querySelector('.cu-preview');
+          box.querySelector('.cu-thumb').style.backgroundImage = "url('"+url+"')";
+          box.hidden = false;
+        };
+        x.send(fd);
+        return false;
+      }
+      // Staged already → confirm the replacement (and the label along with it).
+      cuPost('CosmeticsCommit.php',
+        'action=replace&slot='+encodeURIComponent(slot)+'&id='+encodeURIComponent(id)
+          +'&label='+encodeURIComponent(label),
+        function(){ location.reload(); }, 'Replace');
+      return false;
+    }
+
+    function cuDelete(slot, id, label){
+      // ⚠ StyledConfirm returns a PROMISE — it takes (message, opts), not a callback. Passing a
+      // function as the second argument silently makes it the OPTIONS object, so the dialog opens,
+      // the callback never fires, and Delete does nothing.
+      StyledConfirm('Delete "'+label+'"? This removes its catalog entry and its image file. '
+        + 'Anyone who had it selected falls back to the slot default.',
+        {title:'Delete cosmetic', confirmLabel:'Delete', danger:true}
+      ).then(function(okd){
+        if(!okd) return;
+        cuPost('CosmeticsCommit.php',
+          'action=delete&slot='+encodeURIComponent(slot)+'&id='+encodeURIComponent(id),
+          function(){ location.reload(); }, 'Delete');
+      });
+    }
     function cuCancel(slot){
       cuCommit(slot, 'discard', function(){
         delete cuPending[slot];

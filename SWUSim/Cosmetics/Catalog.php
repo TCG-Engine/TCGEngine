@@ -79,8 +79,6 @@ function SWUCosmeticCatalog() {
             'rva-swu'                        => ['label'=>'RVA SWU', 'asset'=>'./Assets/CardBacks/SWUSim/rva-swu.webp', 'isDefault'=>false],
             'sekrit'                         => ['label'=>'Sekrit', 'asset'=>'./Assets/CardBacks/SWUSim/sekrit.webp', 'isDefault'=>false],
             'squadriglia-taurinense'         => ['label'=>'Squadriglia Taurinense', 'asset'=>'./Assets/CardBacks/SWUSim/squadriglia-taurinense.webp', 'isDefault'=>false],
-            'star-wars-dad-dad'              => ['label'=>'Star Wars Dad Dad', 'asset'=>'./Assets/CardBacks/SWUSim/star-wars-dad-dad.webp', 'isDefault'=>false],
-            'star-wars-dad-family'           => ['label'=>'Star Wars Dad Family', 'asset'=>'./Assets/CardBacks/SWUSim/star-wars-dad-family.webp', 'isDefault'=>false],
             'swu-australia'                  => ['label'=>'SWU Australia', 'asset'=>'./Assets/CardBacks/SWUSim/swu-australia.webp', 'isDefault'=>false],
             'swu-nz'                         => ['label'=>'SWU NZ', 'asset'=>'./Assets/CardBacks/SWUSim/swu-nz.webp', 'isDefault'=>false],
             'swu-tang-clan'                  => ['label'=>'SWU Tang Clan', 'asset'=>'./Assets/CardBacks/SWUSim/swu-tang-clan.webp', 'isDefault'=>false],
@@ -98,6 +96,7 @@ function SWUCosmeticCatalog() {
             'under-the-twin-suns'            => ['label'=>'Under The Twin Suns', 'asset'=>'./Assets/CardBacks/SWUSim/under-the-twin-suns.webp', 'isDefault'=>false],
             'unplayable'                     => ['label'=>'Unplayable', 'asset'=>'./Assets/CardBacks/SWUSim/unplayable.webp', 'isDefault'=>false],
             'wasatch-wookies'                => ['label'=>'Wasatch Wookies', 'asset'=>'./Assets/CardBacks/SWUSim/wasatch-wookies.webp', 'isDefault'=>false],
+            'force-fam' => ['label'=>'Force Fam', 'asset'=>'./Assets/CardBacks/SWUSim/force-fam.webp', 'isDefault'=>false],
             //new cardbacks above this line
         ],
         'playmat' => [

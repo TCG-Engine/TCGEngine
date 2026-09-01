@@ -681,6 +681,7 @@
                 <button id="swuGearBtn" class="swu-gear-btn" title="Settings" aria-label="Settings" onclick="swuOpenSettings()">&#9881;</button>
             </div>
         </div>
+    <div id="swuPhaseLine" class="swu-phase-line"><span class="swu-phase-dot"></span><span id="swuPhaseName">—</span></div>
         <div id="swuLastPlayedSection">
             <div class="swu-sidebar-section-label">Last Played</div>
             <div id="swuLastPlayedCard">—</div>

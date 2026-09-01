@@ -1061,7 +1061,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* The Force token is rendered INSIDE the base card (top-right corner) by the
        core Card() renderer, driven by the base's HasForce virtual — same path as the
-       Epic-Action-Used token. See Core/UILibraries20260831.js. */
+       Epic-Action-Used token. See Core/UILibraries20260901.js. */
 
     /* ── Counter badges below the frame animations ───────────────────────────────
        The shared CreateCountersHTML hardcodes z-index:1100 on every counter badge,
@@ -1893,6 +1893,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
             <button id="swuGearBtn" class="swu-gear-btn" title="Settings" aria-label="Settings" onclick="swuOpenSettings()">&#9881;</button>
         </div>
     </div>
+    <div id="swuPhaseLine" class="swu-phase-line"><span class="swu-phase-dot"></span><span id="swuPhaseName">—</span></div>
     <div id="swuLastPlayedSection">
         <div class="swu-sidebar-section-label">Last Played</div>
         <div id="swuLastPlayedCard">—</div>
