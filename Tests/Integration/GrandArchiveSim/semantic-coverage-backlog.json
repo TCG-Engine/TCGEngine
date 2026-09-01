@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-01T15:11:18+00:00",
+    "generatedAt": "2026-09-01T15:26:16+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 224,
+        "cardsWithExistingFixtures": 227,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2263,
+        "cardsNeedingSemanticCoverage": 2260,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1237,25 +1237,6 @@
             "priority": 113
         },
         {
-            "cardId": "zv6yp6q7zw",
-            "name": "Executioner's Spear",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "LROrzTmh55",
             "name": "Fire Resonance Bauble",
             "type": "REGALIA,ITEM",
@@ -1328,25 +1309,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "xiazfnm292",
-            "name": "Hemorrhaging Rend",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -3831,23 +3793,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "c4yrrtv7o1",
-            "name": "Jin, Undying Resolve",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -42358,6 +42303,29 @@
             "priority": 133
         },
         {
+            "cardId": "zv6yp6q7zw",
+            "name": "Executioner's Spear",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "executioners-spear-jin-bonus-on-kill-durability"
+            ],
+            "semanticFixtures": [
+                "executioners-spear-jin-bonus-on-kill-durability"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "MDu0e3tib8",
             "name": "Flourishing Qi",
             "type": "ACTION",
@@ -42519,6 +42487,29 @@
                 "Dante, Hemomancer Starter Deck",
                 "Kongming Starter Deck",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "xiazfnm292",
+            "name": "Hemorrhaging Rend",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hemorrhaging-rend-damage20-cleave"
+            ],
+            "semanticFixtures": [
+                "hemorrhaging-rend-damage20-cleave"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -43793,6 +43784,27 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "c4yrrtv7o1",
+            "name": "Jin, Undying Resolve",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "jin-undying-resolve-immortality-survives-lethal"
+            ],
+            "semanticFixtures": [
+                "jin-undying-resolve-immortality-survives-lethal"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

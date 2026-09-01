@@ -6824,6 +6824,166 @@ DECK,
     ],
 ];
 
+// --- Jin, Undying Resolve: immortality as long as it's not your end phase ---
+$fixtures['jin-undying-resolve-immortality-survives-lethal'] = [
+    'testedCards' => ['c4yrrtv7o1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Jin, Undying Resolve
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Jin, Undying Resolve's immortality (HasImmortality, GrandArchiveSim/Custom/GameLogic.php
+    // ~23146-23157: "as long as it's not your end phase, Jin has immortality" for the card itself
+    // or ChampionHasInLineage matches) is checked inside DoAllyDestroyed
+    // (GameLogic.php:7282-7296), the general destroy handler every lethal-damage path funnels
+    // through -- confirmed by tracing OnDealDamage's non-domain path (CombatLogic.php, ends with
+    // "$targetObj->Damage += $amount; ... AllyDestroyed($player, $target);"). The starting
+    // champion's CardID is patched directly to Jin, Undying Resolve (life 28), with Damage
+    // pre-patched to 27 (one below lethal). Nascent Blast (vajycopxgf, NORM element, always
+    // castable regardless of champion element -- see safeguard-paladin-class-bonus-noncombat-
+    // prevent's note on this) deals 3 non-combat damage to target unit; targeting the champion
+    // itself (myField-0, a legal self-target since Nascent Blast's target pool is any unit on
+    // either field) pushes Damage to 30, past the 28 life threshold. Since this is MAIN phase (not
+    // the controller's end phase), immortality suppresses the destroy check and the champion stays
+    // on the field with the damage counters intact (per the card's own reminder text: "won't die
+    // for having more damage counters than their life stat"). The reciprocal half -- immortality
+    // ending and the champion actually dying at the controller's own end phase (GameLogic.php
+    // EndPhase():10069-10082, a separate state-based re-check) -- needs a full phase advance to
+    // END and is out of scope for this fixture.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'c4yrrtv7o1', 'Damage' => 27]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vajycopxgf'], // Nascent Blast
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Executioner's Spear: [Jin Bonus] On Kill, put a durability counter on itself ---
+$fixtures['executioners-spear-jin-bonus-on-kill-durability'] = [
+    'testedCards' => ['zv6yp6q7zw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Jin, Fate Defiant
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Executioner's Spear's On Kill (GeneratedMacroCode.php ~26540-26547, onKillAbilities) only
+    // fires when IsJinBonus($player) (GameLogic.php:25095-25100, champion name starts with "Jin")
+    // is true, so the starting champion's CardID is patched directly to Jin, Fate Defiant. On Kill
+    // dispatch (CombatLogic.php:2541-2578, OnKillTrigger) only fires for a real combat-damage kill,
+    // so this needs a full real attack sequence (same P1 pass / P2 pass / P1 decline-MAT-PASS
+    // shape as jin-fate-defiant-polearm-attack-ally-buff to clear the turn-1 attack lock and reach
+    // turn 2 MAIN). A setup step targeting the OPPONENT's own field must use
+    // {'player'=>2,'zone'=>'myField'}, NOT 'theirField' -- 'zone' names in a setup step are
+    // relative to the acting player, so 'theirField' with player=2 seeds player 1's field instead
+    // (hit and fixed live: Baby Gray Slime first landed on the attacker's own field). After
+    // choosing the attack target, a "Retaliate?" MZMAYCHOOSE decision is queued for the DEFENDER
+    // (player 2) that must be explicitly declined ('-') before CombatApplyAttackerDamage actually
+    // lands the damage -- omitting it leaves the kill (and the durability counter) from ever
+    // happening (confirmed via a throwaway debug harness, now deleted). Jin, Fate Defiant has no
+    // printed base POWER (0), and Executioner's Spear has no Class Bonus power boost (unlike Steel
+    // Halberd), so total attack power is exactly the weapon's printed 1 POWER -- Baby Gray Slime
+    // (0hsncz1fz2, 1 life) is the kill target. Executioner's Spear enters the field with 2
+    // durability counters; combat damage removes 1 (per its own reminder text), then On Kill adds 1
+    // back, netting durability=2.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j']], // Jin, Fate Defiant (WARRIOR) - Jin Bonus precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zv6yp6q7zw'], // Executioner's Spear
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '0hsncz1fz2'], // Baby Gray Slime (1 life) - kill target, on player 2's OWN field
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Executioner's Spear as the weapon
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Baby Gray Slime
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so CombatApplyAttackerDamage actually lands
+    ],
+];
+
+// --- Hemorrhaging Rend: [Damage 20+] Cleave, attack all units a chosen opponent controls ---
+$fixtures['hemorrhaging-rend-damage20-cleave'] = [
+    'testedCards' => ['xiazfnm292'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Hemorrhaging Rend is an ATTACK card, played as an intent card during a real attack rather
+    // than having its own cardActivatedAbilities entry (no per-card macro exists for it at all --
+    // confirmed by grep). Seeding it directly into myIntent via setup does NOT survive to the
+    // attack: the P1/P2 turn-1 pass needed to clear the turn-1 attack lock runs through EndPhase(),
+    // which calls ClearIntent() and wipes any pre-seeded intent card before turn 2 begins
+    // (confirmed via a throwaway debug harness, now deleted, showing GetIntentCards(1) === [] and
+    // BeginCombatPhase failing with "0 or less power" right when the attack was attempted). So
+    // instead it's played for real from hand during turn 2's MAIN phase, same FSM-click + reserve-
+    // payment shape as any other hand card -- ActionMap's myHand case has no special handling for
+    // ATTACK-type cards, it just calls the same ActivateCard() as a materialize/spell, whose result
+    // is entering myIntent instead of the field. Hemorrhaging Rend's element is EXIA, not unlocked
+    // by the default Spirit of Fire lineage. Patching the champion's own CardID to an EXIA champion
+    // (Dante, Hemomancer) was tried first and rejected: GetPlayerEnabledElements reads
+    // GetChampionLineage (the current champion's own elements plus its Subcards lineage), so a full
+    // CardID patch works for the element unlock but ALSO inherits Dante's own printed abilities --
+    // an Empower fast-action Opportunity window opened at the very first decision point and
+    // silently absorbed the turn-1 pass action meant to decline the turn-2 MAT-phase materialize
+    // offer, leaving turn 2 never properly reached (confirmed via a throwaway debug harness, now
+    // deleted: BeginCombatPhase kept failing with "0 or less power" and GetIntentCards(1) stayed
+    // empty even after the FSM click + reserve payments "succeeded"). Fix: unlock EXIA via Subcards
+    // lineage only (same technique as Lorraine Arclight Saber's WIND unlock via
+    // Subcards=[pNiyaGlIe7]) -- Dante's CardID goes into Subcards while Spirit of Fire (no
+    // interfering abilities) stays the active champion. Damage is patched to 20 for the
+    // [Damage 20+] condition. AttackerHasCleave (CombatLogic.php:433-443) grants Cleave once the
+    // champion has 20+ damage counters and Hemorrhaging Rend is in intent -- Cleave with no weapon
+    // available bypasses the normal target-choice MZCHOOSE entirely and queues a CleaveAttack
+    // decision directly (CombatLogic.php:1187-1188/1575-1578), making ALL of the opponent's units
+    // (their champion AND Dungeon Guide, seeded onto their own field) simultaneous defenders.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['4FtNBFaOJp'], 'Damage' => 20]], // Dante, Hemomancer in Subcards for EXIA unlock only
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'xiazfnm292'], // Hemorrhaging Rend
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, second Cleave defender
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

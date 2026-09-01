@@ -1,0 +1,17 @@
+{
+    "name": "Hemorrhaging Rend: [Damage 20+] Cleave, attack all units a chosen opponent controls",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-01T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Hemorrhaging Rend is an ATTACK card, played as an intent card during a real attack rather than having its own cardActivatedAbilities entry (no per-card macro exists for it at all -- confirmed by grep). Seeding it directly into myIntent via setup does NOT survive to the attack: the P1/P2 turn-1 pass needed to clear the turn-1 attack lock runs through EndPhase(), which calls ClearIntent() and wipes any pre-seeded intent card before turn 2 begins (confirmed via a throwaway debug harness, now deleted, showing GetIntentCards(1) === [] and BeginCombatPhase failing with \"0 or less power\" right when the attack was attempted). So instead it's played for real from hand during turn 2's MAIN phase, same FSM-click + reserve-payment shape as any other hand card -- ActionMap's myHand case has no special handling for ATTACK-type cards, it just calls the same ActivateCard() as a materialize/spell, whose result is entering myIntent instead of the field. Hemorrhaging Rend's element is EXIA, not unlocked by the default Spirit of Fire lineage. Patching the champion's own CardID to an EXIA champion (Dante, Hemomancer) was tried first and rejected: GetPlayerEnabledElements reads GetChampionLineage (the current champion's own elements plus its Subcards lineage), so a full CardID patch works for the element unlock but ALSO inherits Dante's own printed abilities -- an Empower fast-action Opportunity window opened at the very first decision point and silently absorbed the turn-1 pass action meant to decline the turn-2 MAT-phase materialize offer, leaving turn 2 never properly reached. Fix: unlock EXIA via Subcards lineage only (same technique as Lorraine Arclight Saber's WIND unlock via Subcards=[pNiyaGlIe7]) -- Dante's CardID goes into Subcards while Spirit of Fire (no interfering abilities) stays the active champion. Damage is patched to 20 for the [Damage 20+] condition. AttackerHasCleave (CombatLogic.php:433-443) grants Cleave once the champion has 20+ damage counters and Hemorrhaging Rend is in intent -- Cleave with no weapon available bypasses the normal target-choice MZCHOOSE entirely and queues a CleaveAttack decision directly (CombatLogic.php:1187-1188/1575-1578), making ALL of the opponent's units (their champion AND Dungeon Guide, seeded onto their own field) simultaneous defenders: CleaveDealDamage (CombatLogic.php:3109-3198) loops over every opponent unit dealing the same total attack power (4, from Hemorrhaging Rend's own printed power -- the champion has no base power) to each. The champion takes 4 damage and survives; Dungeon Guide (3 life) dies to the same 4 damage, proving the attack hit both simultaneously rather than a single chosen target.",
+    "testedCards": [
+        "xiazfnm292"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["xiazfnm292"],
+        "mechanics": ["condition", "combat", "targeting", "damage"],
+        "rulesClauses": [
+            "[Damage 20+] Cleave (Attack all units a chosen opponent controls. This attack can't be intercepted. Apply this effect only if there are twenty or more damage counters on your champion.)"
+        ]
+    }
+}

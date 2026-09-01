@@ -1,0 +1,4 @@
+[
+    {"step":9,"type":"card_property_equals","mzId":"theirField-0","property":"Damage","value":"4","semantic":true,"label":"Cleave hits the opponent's champion for Hemorrhaging Rend's 4 power"},
+    {"step":9,"type":"zone_count","zone":"myField","viewerPlayerID":2,"value":1,"semantic":true,"label":"Cleave simultaneously hits Dungeon Guide (3 life) for the same 4 damage, killing it -- proving the attack hit ALL of the opponent's units, not just the one chosen target"}
+]
