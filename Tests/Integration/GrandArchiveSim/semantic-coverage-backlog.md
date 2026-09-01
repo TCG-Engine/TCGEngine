@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **221**
+Cards linked to an existing fixture: **224**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2266**
+Implemented cards still needing semantic coverage: **2263**
 
 ## Mechanic groups
 
@@ -74,5 +74,5 @@ Implemented cards still needing semantic coverage: **2266**
 | Aqua Vitae (`y5ttkat9hr`) | ITEM | 1 | draw-discard, counter, condition | Arisanna Pantheon Starter | — |
 | Arcane Blast (`pn9gQjV3Rb`) | ACTION | 1 | cost, targeting, damage | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Arisanna, Master Alchemist (`ltv5klryvf`) | CHAMPION | 1 | draw-discard, trigger, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
-| Berserker Plate (`ci00l7pqcx`) | REGALIA,ITEM | 1 | damage, draw-discard, condition | Jin Starter Deck | — |
 | Blastshot Pump (`gmnmp5af09`) | REGALIA,WEAPON | 1 | damage, combat, condition | Diana Starter Deck | — |
+| Blue Slime (`1Sl4Gq2OuV`) | ALLY | 1 | damage, counter, trigger | Silvie Starter Deck | — |

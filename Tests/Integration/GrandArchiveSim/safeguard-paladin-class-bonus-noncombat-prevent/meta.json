@@ -1,0 +1,17 @@
+{
+    "name": "Safeguard Paladin: [Class Bonus] prevent 2 non-combat damage to itself",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-01T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Safeguard Paladin's Class Bonus (GrandArchiveSim/Custom/CombatLogic.php:4479-4484, inside OnDealDamage's non-combat prevention chain: \"if(!$isCombat && ... $targetObj->CardID === 'ifmmvbm26h' ...) $amount = max(0, $amount - 2)\") only fires when the champion's class matches (CLERIC or WARRIOR). The starting champion's CardID is patched directly to Jin, Fate Defiant (WARRIOR) to satisfy that condition -- but Jin's own element is NORM, not FIRE, so a FIRE-element damage spell (Focused Flames, tried first) can't be activated once the champion patch drops the default Spirit of Fire lineage's FIRE unlock (confirmed via a throwaway debug harness, now deleted, showing CanActivateCardForSelection failing on CanPlayerUseCardElement while CanActivateCard alone returned true). Nascent Blast (vajycopxgf, cardActivatedAbilities/CardActivated-1, GeneratedMacroCode.php ~22398-22410/37158-37166) is NORM element instead (always usable regardless of champion element) -- a 3-reserve ACTION spell that deals 3 non-combat damage to target unit via DealDamage -> OnDealDamage, activated from hand and targeted at Safeguard Paladin itself. The target MZCHOOSE is queued directly after the 3rd reserve payment with no EffectStack decline step (same as trusty-steed-enter-ally-power-buff's ALLY On Enter target choice, unlike ignite-the-soul-damage) -- confirmed via RunIntegrationTests --verbose after an initial attempt with an extra PASS step got silently consumed as the target choice itself. Final damage is 1 = Nascent Blast's 3 damage minus Safeguard Paladin's Class Bonus 2 prevention.",
+    "testedCards": [
+        "ifmmvbm26h"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ifmmvbm26h"],
+        "mechanics": ["condition", "damage"],
+        "rulesClauses": [
+            "[Class Bonus] If non-combat damage would be dealt to Safeguard Paladin, prevent 2 of that damage. (Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}

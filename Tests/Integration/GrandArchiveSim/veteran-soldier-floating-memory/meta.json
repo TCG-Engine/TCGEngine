@@ -1,0 +1,17 @@
+{
+    "name": "Veteran Soldier: Floating Memory pays a champion level-up's memory cost from graveyard",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-01T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Same Floating Memory keyword and same test shape as shieldroid-floating-memory / stalwart-shieldmate-floating-memory / honorable-vanguard-floating-memory / return-stroke-floating-memory -- Veteran Soldier's only ability (abilityCount=1 in the semantic backlog) is this unconditional keyword (while paying a memory cost, you may banish this card from your graveyard to pay for 1 of that cost). Pay Lorraine, Wandering Warrior's 1-memory champion level-up cost entirely from a Veteran Soldier seeded directly into the graveyard, with no myMemory filler seeded, so QueueMaterializeFloatingPaymentChoice (GrandArchiveSim/Custom/MaterializeLogic.php) offers it as the sole payment source.",
+    "testedCards": [
+        "vefcX6tBeg"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["vefcX6tBeg"],
+        "mechanics": ["cost", "zone-movement"],
+        "rulesClauses": [
+            "Floating Memory (While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost.)"
+        ]
+    }
+}

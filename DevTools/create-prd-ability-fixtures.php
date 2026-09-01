@@ -6705,6 +6705,125 @@ DECK,
     ],
 ];
 
+// --- Veteran Soldier: Floating Memory pays a champion level-up's memory cost from graveyard ---
+$fixtures['veteran-soldier-floating-memory'] = [
+    'testedCards' => ['vefcX6tBeg'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Same Floating Memory keyword and same test shape as shieldroid-floating-memory /
+    // stalwart-shieldmate-floating-memory / honorable-vanguard-floating-memory / return-stroke-
+    // floating-memory -- Veteran Soldier's only ability (abilityCount=1 in the semantic backlog) is
+    // this unconditional keyword. Pay Lorraine, Wandering Warrior's 1-memory champion level-up cost
+    // entirely from a Veteran Soldier seeded directly into the graveyard, with no myMemory filler
+    // seeded, so QueueMaterializeFloatingPaymentChoice (GrandArchiveSim/Custom/MaterializeLogic.php)
+    // offers it as the sole payment source.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'vefcX6tBeg'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Berserker Plate: recollection phase - deal 3 unpreventable to your champion, then draw ---
+$fixtures['berserker-plate-recollection-damage-draw'] = [
+    'testedCards' => ['ci00l7pqcx'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Berserker Plate's recollection-phase trigger (GameLogic.php ~9012-9022, inside the
+    // unconditional per-field-card switch in ResolveBeforeRecollectionPhaseStart) deals 3
+    // unpreventable damage to the turn player's champion, then draws a card. Reaching player 1's
+    // own recollection phase from the initial gamestate needs the same P1->P2->P1 cycle as
+    // planar-abyss-delayed-destroy-south-damage: P1 pass, P2 pass reaches P1's turn 2 MAT phase
+    // (BeforeRecollectionPhase's own currentTurn===1 early-return requires turn>1), and declining
+    // the MAT-phase materialize offer ('PASS') lets the phase engine auto-advance through
+    // BREC->REC (firing this trigger)->DRAW->MAIN. The [Class Bonus] +7 LIFE clause is a computed
+    // stat buff with no stored counter to assert and is out of scope here (consistent with the
+    // established rule for computed buffs); the recollection trigger is unconditional regardless of
+    // class bonus, so no champion class patch is needed.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ci00l7pqcx'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Safeguard Paladin: [Class Bonus] prevent 2 non-combat damage to itself ---
+$fixtures['safeguard-paladin-class-bonus-noncombat-prevent'] = [
+    'testedCards' => ['ifmmvbm26h'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Jin, Fate Defiant
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Safeguard Paladin's Class Bonus (CombatLogic.php:4479-4484, inside OnDealDamage's non-combat
+    // prevention chain: "if(!$isCombat && ... $targetObj->CardID === 'ifmmvbm26h' ...) $amount =
+    // max(0, $amount - 2)") only fires when the champion's class matches (CLERIC or WARRIOR). The
+    // starting champion's CardID is patched directly to Jin, Fate Defiant (WARRIOR) to satisfy that
+    // condition -- but Jin's own element is NORM, not FIRE, so a FIRE-element damage spell (like
+    // Focused Flames, tried first and rejected by CanPlayerUseCardElement -- confirmed via a
+    // throwaway debug harness, DevTools/debug_safeguard.php/debug_safeguard2.php, now deleted --
+    // since the champion patch drops the default Spirit of Fire lineage's FIRE unlock) can't be
+    // activated. Nascent Blast (vajycopxgf, cardActivatedAbilities/CardActivated-1,
+    // GeneratedMacroCode.php ~22398-22410/37158-37166) is NORM element instead (always usable
+    // regardless of champion element) -- a 3-reserve ACTION spell that deals 3 non-combat damage to
+    // target unit via DealDamage -> OnDealDamage, activated from hand and targeted at Safeguard
+    // Paladin itself (same action shape as ignite-the-soul-damage: FSM click, pay reserve, both
+    // players decline the EffectStack response window with PASS, then choose the target) --
+    // confirmed WRONG via RunIntegrationTests --verbose: the target MZCHOOSE is queued directly
+    // after the 3rd payment with no decline step (same as trusty-steed-enter-ally-power-buff's
+    // ALLY On Enter target choice), so an extra PASS action gets consumed as the target choice
+    // itself instead. 3 damage - 2 prevented = 1 damage actually applied.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j']], // Jin, Fate Defiant (WARRIOR) - Class Bonus precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ifmmvbm26h'], // Safeguard Paladin
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vajycopxgf'], // Nascent Blast
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

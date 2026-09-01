@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T16:02:27+00:00",
+    "generatedAt": "2026-09-01T15:11:18+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 221,
+        "cardsWithExistingFixtures": 224,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2266,
+        "cardsNeedingSemanticCoverage": 2263,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1008,25 +1008,6 @@
             "priority": 113
         },
         {
-            "cardId": "ci00l7pqcx",
-            "name": "Berserker Plate",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "gmnmp5af09",
             "name": "Blastshot Pump",
             "type": "REGALIA,WEAPON",
@@ -1681,25 +1662,6 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "ifmmvbm26h",
-            "name": "Safeguard Paladin",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -3464,29 +3426,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "vefcX6tBeg",
-            "name": "Veteran Soldier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck",
-                "Lorraine Starter Deck",
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -42234,6 +42173,29 @@
             "priority": 133
         },
         {
+            "cardId": "ci00l7pqcx",
+            "name": "Berserker Plate",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "berserker-plate-recollection-damage-draw"
+            ],
+            "semanticFixtures": [
+                "berserker-plate-recollection-damage-draw"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "LZ8JpWj27h",
             "name": "Clumsy Apprentice",
             "type": "ALLY",
@@ -42861,6 +42823,29 @@
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "ifmmvbm26h",
+            "name": "Safeguard Paladin",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "safeguard-paladin-class-bonus-noncombat-prevent"
+            ],
+            "semanticFixtures": [
+                "safeguard-paladin-class-bonus-noncombat-prevent"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -43666,6 +43651,33 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "vefcX6tBeg",
+            "name": "Veteran Soldier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "veteran-soldier-floating-memory"
+            ],
+            "semanticFixtures": [
+                "veteran-soldier-floating-memory"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck",
+                "Lorraine Starter Deck",
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
