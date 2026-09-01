@@ -7138,6 +7138,58 @@ DECK,
     ],
 ];
 
+// --- Swift Recruit: Intercept, redirect an attack on your champion to this awake ally ---
+$fixtures['swift-recruit-intercept-redirect'] = [
+    'testedCards' => ['mHd6LLyMyF'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Intercept (GetAvailableInterceptRedirectTargets, CombatLogic.php:605-624) only offers a
+    // redirect when the attack's TARGET is a CHAMPION (checked via PropertyContains(...,
+    // "CHAMPION")), so this needs the OPPONENT attacking PLAYER 1's champion, not the usual
+    // player-1-attacks pattern used by every other real-attack fixture so far. Reaching player 2's
+    // own turn (rather than staying on player 1's turn 1, as every prior fixture did) uses the
+    // CustomInput.php "myHealth" Pass button as a genuine mid-game end-turn action (not just the
+    // pregame mulligan use) -- discovered while debugging wind-cutter-class-bonus-power-attack: it's
+    // the SAME action as the pregame health-pass, gated only by "only the turn player can pass," and
+    // reusable any time it's your turn with nothing left to do. After P1 formally ends turn 1 (with
+    // nothing to do -- Swift Recruit is placed directly on the field, not played from hand), P2
+    // declines their own MAT-phase materialize offer, then P2's champion (default Spirit of Fire)
+    // attacks P1's champion directly. GetAvailableInterceptRedirectTargets then offers Swift Recruit
+    // (awake, ALLY, HasIntercept -- all satisfied by a plain field seed with no extra patches) as a
+    // redirect target, queued as a "Choose_an_interceptor" MZMAYCHOOSE for the DEFENDER (player 1,
+    // in their own myField-1 perspective). Redirecting moves the attack's target to Swift Recruit
+    // itself, so the subsequent "Retaliate?" decision (still queued for the defender, player 1) and
+    // the resulting combat damage land on Swift Recruit (1 life... its actual life is 2, dealt 1
+    // damage from the champion's own printed POWER) instead of the champion.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mHd6LLyMyF'], // Swift Recruit, awake by default
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zv6yp6q7zw'], // Executioner's Spear (1 POWER), P2's own field -- Spirit of Fire has no base POWER, so a weapon is needed for a legal attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P1 declines their own MAT-phase materialize offer first (the mid-game end-turn Pass button refuses while a decision is pending)
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // P1 formally ends turn 1 (nothing to do)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P2 declines their MAT-phase materialize offer
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // P2's champion attacks
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Executioner's Spear as the weapon
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target P1's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // redirect to Swift Recruit
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

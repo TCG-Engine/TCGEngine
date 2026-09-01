@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **230**
+Cards linked to an existing fixture: **231**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2257**
+Implemented cards still needing semantic coverage: **2256**
 
 ## Mechanic groups
 
@@ -39,7 +39,6 @@ Implemented cards still needing semantic coverage: **2257**
 | Prismatic Edge (`FxYwR2azTt`) | REGALIA,WEAPON | 1 | targeting, damage, draw-discard, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Rending Flames (`soO3hjaVfN`) | ATTACK | 1 | damage, zone-movement, combat, trigger, condition | Zander Pantheon Starter | — |
 | Surveillance Stone (`kk46Whz7CJ`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
-| Swift Recruit (`mHd6LLyMyF`) | ALLY | 1 | cost, zone-movement, status, combat, trigger | Jin Starter Deck, Lorraine Starter Deck, Lorraine Pantheon Starter | — |
 | Zander, Deft Executor (`fc4ic5fmaa`) | CHAMPION | 1 | zone-movement, counter, combat, trigger, condition | Zander Pantheon Starter | — |
 | Archon Broadsword (`pyx8bd7ozu`) | REGALIA,WEAPON | 1 | cost, token, combat, condition | Tonoris Starter Deck | — |
 | Automaton Bomber (`ygojwk0pw0`) | ALLY | 1 | cost, zone-movement, status, condition | Diana Starter Deck | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2257**
 | Arisanna, Master Alchemist (`ltv5klryvf`) | CHAMPION | 1 | draw-discard, trigger, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Blastshot Pump (`gmnmp5af09`) | REGALIA,WEAPON | 1 | damage, combat, condition | Diana Starter Deck | — |
 | Blue Slime (`1Sl4Gq2OuV`) | ALLY | 1 | damage, counter, trigger | Silvie Starter Deck | — |
+| Bulwark Sword (`8kmoi0a5uh`) | REGALIA,WEAPON | 1 | cost, combat, condition | Tonoris Starter Deck | — |

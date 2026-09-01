@@ -1,0 +1,17 @@
+{
+    "name": "Swift Recruit: Intercept, redirect an attack on your champion to this awake ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-01T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Intercept (GetAvailableInterceptRedirectTargets, CombatLogic.php:605-624) only offers a redirect when the attack's TARGET is a CHAMPION, so this needs the OPPONENT attacking PLAYER 1's champion -- the first defending-side fixture in the suite, unlike every prior real-attack fixture (all attacker-side). Reaching player 2's own turn requires TWO decisions from player 1 in sequence: first decline player 1's own MAT-phase materialize offer via the normal 'PASS' (mode=100) -- the mid-game end-turn Pass button (CustomInput.php's 'myHealth' case, the same action used for the pregame mulligan) explicitly refuses to end the turn while any decision is pending ('Cannot pass while decisions are pending') -- THEN use that Pass button for real to end turn 1 (P1 has nothing else to do; Swift Recruit is placed directly on the field, not played from hand). P2 then declines their own MAT-phase materialize offer and attacks. Spirit of Fire (the default starting champion) has no base POWER, so a weapon (Executioner's Spear, 1 POWER) is seeded onto player 2's own field to make the attack legal at all (otherwise BeginCombatPhase silently no-ops with 'Cannot attack with a unit that has 0 or less power', confirmed via a throwaway debug harness, now deleted, showing 0 damage everywhere despite every action reporting success=true). Once P2 declares the attack, chooses the weapon, and targets P1's champion directly, GetAvailableInterceptRedirectTargets offers Swift Recruit (awake, ALLY, HasIntercept -- all satisfied by a plain field seed with no extra patches) as a redirect target, queued as a 'Choose_an_interceptor' MZMAYCHOOSE for the DEFENDER (player 1, in their own myField-1 perspective). Redirecting moves the attack's target to Swift Recruit itself, so the subsequent 'Retaliate?' decision (still queued for the defender, player 1) and the resulting combat damage (Executioner's Spear's 1 printed power) land on Swift Recruit instead of the champion, which ends with 0 damage.",
+    "testedCards": [
+        "mHd6LLyMyF"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["mHd6LLyMyF"],
+        "mechanics": ["combat", "targeting"],
+        "rulesClauses": [
+            "Intercept (Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally.)"
+        ]
+    }
+}
