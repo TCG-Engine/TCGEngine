@@ -7090,6 +7090,54 @@ DECK,
     ],
 ];
 
+// --- Pierce the Heavens: [Jin Bonus] leveled up this turn -> +2 POWER, unblockable ---
+$fixtures['pierce-the-heavens-jin-bonus-leveled-up-power-unblockable'] = [
+    'testedCards' => ['yguf3aw2ct'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Jin, Fate Defiant
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Pierce the Heavens' onAttackAbilities (CombatLogic.php:592) checks
+    // strpos(CardName($champ->CardID), "Jin") === 0 AND GlobalEffectCount($player,
+    // "LEVELED_UP_THIS_TURN") > 0, adding +2 POWER and UNBLOCKABLE TurnEffects. Rather than
+    // patching the champion directly (which would need a SEPARATE later level-up to set the
+    // LEVELED_UP_THIS_TURN flag, and patching+leveling in the same turn risks the "can't level to a
+    // card of equal/lower level" issue hit in savage-swing-class-bonus-floating-memory), the
+    // champion is kept as the default Spirit of Fire (level 0) and leveled up NATURALLY into Jin,
+    // Fate Defiant (level 1, 1-memory cost) during turn 1's MAIN phase -- this single real level-up
+    // both satisfies the "champion is Jin" precondition AND sets LEVELED_UP_THIS_TURN, in the same
+    // turn Pierce the Heavens is played and attacked with. Pierce the Heavens is NORM element
+    // (always castable regardless of champion element, unlike Wind Cutter's WIND -- no Fairy
+    // Whispers Opportunity-window cascade to work around here). Total attack power = champion's own
+    // power (0, Jin Fate Defiant has none) + intent card's boosted power (base 3 + 2 = 5, no weapon).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // filler memory card, Jin Fate Defiant's 1-memory level-up cost
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'yguf3aw2ct'], // Pierce the Heavens
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up into Jin, Fate Defiant
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // pay the 1 memory
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

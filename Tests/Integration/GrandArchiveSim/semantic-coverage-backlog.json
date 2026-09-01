@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-01T16:06:05+00:00",
+    "generatedAt": "2026-09-01T16:08:34+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 229,
+        "cardsWithExistingFixtures": 230,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2258,
+        "cardsNeedingSemanticCoverage": 2257,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2716,24 +2716,6 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "yguf3aw2ct",
-            "name": "Pierce the Heavens",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -43480,6 +43462,28 @@
             ],
             "semanticFixtures": [
                 "materialize-polearm-from-material-deck"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "yguf3aw2ct",
+            "name": "Pierce the Heavens",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pierce-the-heavens-jin-bonus-leveled-up-power-unblockable"
+            ],
+            "semanticFixtures": [
+                "pierce-the-heavens-jin-bonus-leveled-up-power-unblockable"
             ],
             "starterDecks": [
                 "Jin Starter Deck"
