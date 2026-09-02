@@ -15,7 +15,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112
 
 
 <!-- HMW_005 Jar Jar Binks, Bombad General — Done, 16/16. THE SET'S LAST CARD.
@@ -1455,6 +1455,193 @@ in the dictionary and keyword registries before implementation started). Suite b
      ⚠ Kd's board (4 resources + 3 Credits, resources spent on Kelnacca himself) leaves ZERO ready
      resources but a payment CAPACITY of 3 — gating on capacity, which is the CORRECT gate for an
      ordinary "you may pay N" (JTL_096 Blue Leader), raises the prompt there and is the bug. -->
+
+<!-- FIFTEENTH WAVE, cards 1-7 of 9 — all Done 2026-09-02, suite 10963 -> 11009, 0 new failures.
+     HMW_247 Surveillance Cruiser · HMW_158 Battle-Scarred Destroyer · HMW_072 Grand Army Marine ·
+     HMW_080 Fambaa Shield Team · HMW_251 Blockade Ship · HMW_231 Dragonboat Freighter ·
+     HMW_112 Military Academy. Every guard mutation-verified; each reds only its own section.
+
+     ★★ THE THEME OF THIS WAVE: "FRIENDLY" IS NOT "YOURS", AND THE TREE HAS THREE SELF-ONLY SHAPES.
+     A teammate's unit is FRIENDLY but you do not CONTROL it, so a card printed "a friendly X" must use
+     the TEAM-wide pool. Three wrong shapes are in-tree and each looks perfectly reasonable:
+       • a hand-rolled `ZoneSearch('myGroundArena') + ZoneSearch('mySpaceArena')` — JTL_219 Rafa Martez,
+         whose printed clause ("deal 1 damage to a friendly unit") is HMW_158's word for word;
+       • `GiveTokenUpgrade(..., 'friendlyOnly' => true)` — a SHARED HELPER whose flag maps to
+         `side => 'my'`, so every caller with "friendly" wording inherits the gap;
+       • `SWUControlledUnits()` — correct for "a unit you control", wrong for "friendly".
+     The right tools are `SWUOfferUnitTarget(['side' => 'friendly'])` and `SWUFriendlyUnits($arena)`,
+     both of which map to 'team' and degrade to your own board outside a team game (Premier unchanged).
+     MEASURED: swapping HMW_158 to `side => 'my'` reds ONLY its Team Suns section — i.e. the shape
+     sitting in JTL_219 today fails a teammate-targeting test.
+     ⚠ OWED: a sweep of `friendlyOnly` callers + hand-rolled pools, triaged by PRINTED WORDING
+     ("friendly" -> team; "you control" -> self, correctly 'my'). Several will be correct as-is, so each
+     needs a passing control first — shared code shape is not a shared bug.
+
+     PER-CARD NOTES worth keeping:
+     • HMW_247 is the MIRROR of its set-mates HMW_142/234/177: they read "while YOU control a <X> base"
+       and pass _SWUControlsBaseWithTrait the CONTROLLER; this one asks about an OPPONENT's base, so the
+       helper takes each opponent's seat. The copy-paste satisfies every positive — only
+       OnlyMyOwnBaseMatches_NoDraw catches it. Four named traits = four positives; a one-trait handler
+       passes whichever positive happens to use it.
+     • HMW_158 / HMW_072 / HMW_080 are all self-targetable or self-including, because a unit's When
+       Played resolves AFTER it enters play. HMW_072 can NEVER fizzle (the Marine is itself a Gungan);
+       HMW_158 played alone is FORCED to shoot itself (mandatory + single legal target auto-resolves).
+     • HMW_080's three filters (friendly / ground / without-a-Shield) each need their own negative; the
+       without-a-Shield one is the one a careless loop drops, and it passes everything else.
+     • HMW_251's aura lives in SWUCombatDamage beside JTL_054/SEC_042/LAW_108 — "while attacking" is a
+       combat window, not a TurnEffect. Cross-arena (source in SPACE, effect on GROUND), enemy-scoped,
+       and it STACKS per copy (non-unique — the HMW_145 Shyyyo lesson applied to an aura).
+     • HMW_231's rider reads the TARGET ("if IT'S a Unique unit"), not the act: a non-unique target keeps
+       its Weakness and stays READY. Weakness first, sweep, then re-resolve by UID before exhausting —
+       -1/-1 can defeat a 1-HP target and the rider must not act on a stale slot.
+     • HMW_112's Fortify grant is base-hosted and CONTINUOUS (a live board read in
+       HasConditionalKeyword_Overwhelm), so it needs no cleanup — but "needs no cleanup by construction"
+       is a claim, and GrantDiesWithTheUpgrade (Confiscate it, keyword gone) is what tests it.
+       Non-unique, but Overwhelm is BOOLEAN so a second copy adds nothing — deliberately unlike Shyyyo.
+
+     ⚠⚠ MUTATION-HARNESS LESSONS, which cost more than any card here:
+     1. `python3 -c` with escaped \$ inside a shell command SWALLOWS the backslash-dollar and matches
+        nothing. Two mutations silently no-oped; only `assert count == 1` caught them. Use a quoted
+        heredoc (<<'PY') or pass patterns via sys.argv — never `-c` with PHP variables in the pattern.
+     2. A restore must PROPAGATE before the next run. One mutation reported a red belonging to the
+        PREVIOUS card because the restore had not reached the container yet — a false attribution that
+        reads exactly like a real cross-card interaction. Wait for the container md5 to match local
+        before EVERY suite run, the baseline included, and run a clean baseline first so a contaminated
+        harness is visible immediately.
+     3. Restore on EVERY exit path. An early `return` on a md5 mismatch skipped the restore and left a
+        mutation on disk for the next card.
+
+     ⚠ FIXTURE TRAPS HIT THIS WAVE, all "read one field, ignore the rest of the card":
+     • HMW_254 Captain Tarpals is a printed 0/2 — the ideal power-floor fixture — with RAID 2, so it
+       attacks at 2. Use TWI_T01 Battle Droid (a plain 1/1 token) for a floor test.
+     • A section that aims an attack past a SENTINEL is refused, and 0 base damage reads exactly like the
+       effect under test misfiring. HMW_251 has Sentinel itself.
+     • SOR_095 Battlefield Marine is [Command][Heroism]: on a Vigilance/Heroism board it costs 4, not 2,
+       and the follow-up play then silently fails. Only bites when a filler is PLAYED, not seeded. -->
+
+<!-- FIFTEENTH PREVIEW WAVE, 2026-09-02 — CardMocks 129 -> 146 HMW CardIDs (17 new). Landed DURING the
+     session, after a diff had just reported the set card-complete: the standing warning that a preview
+     set grows while you work, again.
+     ⚠ 13 of the 17 were ABSENT from the generated dictionary on arrival, so a triage run before the
+     regen would have read all 13 as blank-text VANILLA and marked real cards Done with no code. Regen
+     FIRST (`zzCardCodeGenerator.php rootName=SWUSim`, then `Data/ProcessKeywordsSWU.php`), always.
+     STEP-0 TRIAGE (post-regen): 8 no-ops, 9 need work.
+       NO-OP, verified against the keyword registries incl. VALUES — HMW_219 Jaxxon (truly vanilla: no
+       stub, no custom, and the MOCK's text/epicAction/deployText are all empty), HMW_069 (Sentinel+Grit),
+       HMW_075 (Sentinel), HMW_076 (Grit + Restore 1), HMW_140 (Raid 4), HMW_143 (Ambush),
+       HMW_213 (Shielded + Raid 3), HMW_226 (Sentinel).
+       NEEDS WORK, easiest first — HMW_247 (draw if an opponent controls an Endor/Kashyyyk/Naboo/Tatooine
+       base; "an opponent" => Twin Suns), HMW_158 (deal 4 to a FRIENDLY unit => Team Suns),
+       HMW_072 (Shield to a friendly Gungan), HMW_080 (Shield to EACH friendly ground unit WITHOUT one),
+       HMW_251 (Sentinel + enemy GROUND units get -1/-0 while attacking — a cross-arena aura on a SPACE
+       unit), HMW_231 (may give Weakness; if UNIQUE, exhaust it), HMW_112 (Fortify; attached base grants
+       friendly units Overwhelm), HMW_160 (Fortify; regroup-start reveal-and-ping),
+       HMW_108 (On Attack: name a Trait; enemy cards INCLUDING THOSE NOT IN PLAY lose it this phase —
+       the hard one: TraitContains is per-object and no existing suppressor reaches hand/deck/discard). -->
+
+<!-- ★★ TWO ENGINE BUGS IN SHARED PAYMENT CODE — found 2026-09-02 by stacking HMW_145 Origin Tree
+     Shyyyo × JTL_105 The Starhawk × SEC_122 Vuutun Palaa (with 5 Battle Droids). Neither is reachable
+     without the combination; both are pre-existing; both are FIXED and mutation-verified.
+     Guards live in `Tests/Cases/core/AltPaymentUnderStarhawk.md` — core/, not a card file, because
+     CREDIT TOKENS ride the same funnel and are a far commoner board than Vuutun.
+
+     ── BUG A: underpaying with an alt-payment DESTROYED the tokens (CR step 4.a) ──
+     "If any costs (including resource costs and additional costs) cannot be paid, cease this process
+     WITHOUT PAYING ANY COSTS. Return the game state to the way it was before the first step."
+     DROID_PAY exhausted the chosen Droids and CREDIT_PAY defeated the chosen Credits, and only THEN
+     dispatched the play. Pick fewer tokens than the cost with no resources for the remainder and the
+     play was refused while the tokens stayed spent — repeatable, and Credits are gone permanently.
+     Measured with AND without Starhawk, so it is the general alt-payment path.
+     FIX (both handlers, symmetric): collect and validate the picks WITHOUT spending, gate on
+     `picks + ready resources >= required`, and only then spend. Both producers now thread the REQUIRED
+     amount into the continuation param — the cap alone cannot say what the cost is when the player
+     holds fewer tokens than it. ⚠ That shifted CREDIT_PAY's indices (map -> [2], continuation -> [3],
+     args -> [4..]); getting it wrong would mis-parse every Credit payment, so it is flagged in-file.
+     Precedent one level up: SWUOfferAltPayment's "GATE BEFORE ANY TOKEN CAN BE TOUCHED" check, added
+     after live game 3608 ate a Credit on an unaffordable play. That gate catches TOTALLY unaffordable;
+     this was the PARTIAL-payment case underneath it.
+
+     ── BUG B: Starhawk's halving skipped the alt-payment ──
+     SWUPayCost computed `halve($cost - $prepaid)`, so Droids and Credits were spent at FULL face value
+     and only real resources got the discount. That made spending one strictly WORSE: a cost-4 card
+     under Starhawk is 2 resources paid normally, but 1 Droid + 2 resources = 3 if a Droid went first.
+     The same wrong order sized the OFFER — the picker was capped at the unhalved cost, inviting the
+     player to burn a Droid more than they owed.
+     FIX: `halve($cost) - $prepaid`, plus the PLAY_CARD offer sized from the halved figure.
+     ⚠ THE CORRECT PATTERN ALREADY EXISTED IN-TREE and PLAY_CARD was the lone outlier: LEADER_ACTION_PAY,
+     BASE_EPIC_PAY and UNIT_ACTION_PAY all halve BEFORE offering and then pass applyCostHalving=false.
+     When a payment path looks wrong, diff it against its siblings before designing anything.
+
+     ── THE RULE THAT TIES THE WHOLE BOARD TOGETHER ──
+     A PASSIVE IS NOT ACTIVE UNTIL ITS CARD IS IN PLAY, so a card's own passive never applies to its own
+     play. THREE cards on this board follow it: Shyyyo does not discount himself, Starhawk does not
+     halve its own play, and VUUTUN'S DROIDS CANNOT PAY FOR VUUTUN. The last one cost two wrong fixtures
+     (0 resources, play silently refused with NO prompt at all) before I recognised the pattern. It is
+     the same determine-before-pay principle the user ruled on, seen from the other side.
+
+     ⚠ PROCESS: three sections failing IDENTICALLY ("the card never entered play") looked exactly like an
+     engine bug and was, the first time, MY FIXTURE — Droid payment is an interactive MZMULTICHOOSE the
+     test must answer. Check how the EXISTING sections drive the same clause before opening a bug. -->
+
+<!-- HMW_145 × JTL_105 The Starhawk — the cost-determination ORDER, 2026-09-02.
+     ★ USER RULING, and the CR is explicit (rules step list for Play a Card): COSTS ARE DETERMINED
+     BEFORE THEY ARE PAID. Step 3 "Determine cost(s)" builds the MODIFIED cost — printed, then every
+     increase INCLUDING the aspect penalty, then every decrease, floored at 0 (CR 3.b) — and step 4
+     "Pay cost(s)" exhausts resources equal to that modified cost.
+     Shyyyo is a cost MODIFIER (step 3). Starhawk is "While PAYING costs, you pay half as many
+     resources, rounded up" (step 4). So Shyyyo settles first and Starhawk halves the settled number.
+     Engine-side: SWUComputePlayCost, then SWUApplyCostHalving at the payment/affordability sites.
+     MEASURED by direct observation, four board states, all matching:
+       ASH_083 computed=3 halved=2   3 Shyyyos + Starhawk, rung 3: 12-9=3, halved
+       ASH_083 computed=6 halved=3   Starhawk in play, rung 2: 12-6=6, halved
+       ASH_083 computed=3 halved=3   3 Shyyyos, NO Starhawk: 12-9=3, unhalved
+       JTL_105 computed=6 halved=6   Starhawk's OWN play: 9-3=6, NOT self-halved (still in hand)
+     Three sections added. Mutation-verified: halving BEFORE the modifier delta reds both of them plus
+     13 pre-existing jtl/TheStarhawk sections.
+     ⚠⚠ PROCESS LESSON THAT COST MORE THAN THE FINDING — a mutation must prove it reached the CODE
+     UNDER TEST, not merely the file on disk. Two runs of this exact mutation came back GREEN and I
+     built three wrong conclusions on them (including "SWUComputePlayCost is dead code"). The write had
+     not propagated across the Docker bind mount by the time the request started — the same race
+     already recorded here as the phantom `php -l` parse error. `REPLACEMENTS: 1` and a local grep are
+     NOT sufficient. Compare the CONTAINER's md5 against the local file after writing and before
+     curling; every run that did so behaved correctly, every run that did not was unreliable.
+     ⚠ STILL UNTESTED, and it follows directly from the ruling: CR step 3 applies INCREASES BEFORE
+     DECREASES, so an OFF-ASPECT card under Shyyyo is (printed + penalty) - discount, not
+     (printed - discount) + penalty. The engine does it in the right order (SWUComputePlayCost adds
+     SWUAspectPenalty at line ~3463, before the modifier delta), but no section pins it: every Shyyyo
+     fixture is deliberately on-aspect. A 3-cost off-aspect card with 3 Shyyyos discriminates —
+     3+2-9 -> 0 either way, so pick a cost where the floor does not hide it. -->
+
+<!-- HMW_145 Origin Tree Shyyyo — MULTI-COPY GAP CLOSED 2026-09-02 (user question, not a bug).
+     Shyyyo is NON-UNIQUE and every one of the original 14 sections seeded exactly ONE copy, so the
+     stacking case was completely untested. The behaviour is CORRECT and was measured, not inferred:
+     three Shyyyos make the first/second/third units of the round cost 3 / 6 / 9 less.
+     It works structurally rather than because the card file does anything — SWUComputePlayCost's
+     modifier loop (`foreach GetLiveSeatsArray() { foreach GetField($fp) as $fo }`, GameLogic ~3443)
+     invokes the closure once per OBJECT in play, so N copies contribute N times; and the rung ordinal
+     is a property of the PLAY (a per-round counter), not of any one Shyyyo, so every copy agrees on
+     which rung applies and all of them reduce it.
+     Three sections added: TwoShyyyos_TheDiscountStacksPerCOPY (per-copy linearity, −2 not −1),
+     ThreeShyyyos_LadderStacksToThreeSixNine (5+2+0 = 7 resources for three cost-8 units) and
+     OneShyyyo_TheSameBoardCostsEighteen (the control at 7+6+5 = 18). Mutation-verified: de-duplicating
+     the field-modifier loop by CardID reds exactly the two multi-copy sections.
+     ALL THREE RUNGS ARE PINNED EXACTLY. Rungs one and two by the AT-ACT sections (remainders of 5 and
+     2); rung three by ThreeShyyyos_ThirdRungIsExactlyMinusNine, which uses ASH_083 Summa-verminoth
+     (cost 12, single [Vigilance] so the Kashyyyk base covers it, non-unique, and its only abilities
+     are passive Sentinel + an On Attack, so playing it raises nothing): two cost-3 units burn rungs
+     one and two for free, then 12 − 9 = 3 against exactly 3 resources. Every neighbouring value fails
+     a DIFFERENT assertion — −8 strands the card in hand, −10 leaves a resource over, −3 (no stacking)
+     is unaffordable — so the section is pinned from both sides. It is also a SPACE unit, which
+     incidentally shows the ladder counts "units you play" with no arena restriction.
+     ⚠ A CLAIM I GOT WRONG, recorded so the reasoning is not repeated: I first wrote this rung off as
+     unpinnable, on the grounds that "the Command pool tops out at cost 8". That came from a query
+     filtered to non-unique AND ground AND single-Command-or-neutral, three restrictions collapsed into
+     a statement about one — and two of them were not requirements at all (uniqueness only matters with
+     two copies in play, and the ladder is arena-agnostic). There are 30 units at cost 9+. When a
+     fixture search comes back empty, re-read the FILTER before concluding the corpus lacks the card.
+     ⚠ WORTH KNOWING: that de-dupe mutation reds NOTHING ELSE in the whole 10952-section suite, so
+     these two sections are currently the ONLY guard on the per-object semantics of that shared loop.
+     Any future stacking field-cost modifier inherits its correctness from them. -->
 
 <!-- HMW_145 Origin Tree Shyyyo — Done 2026-08-26. Unit, Ground, cost 6, 4/8, [Command], Creature.
      "Restore 1 / While you control a Kashyyyk base, the first, second, and third units you play each

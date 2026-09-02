@@ -6372,6 +6372,7 @@ function RegroupPhaseStart(): void {
     _SWULawRegroupStartTriggers();         // LAW_071 (credit), LAW_073 (Exp + can't-ready) at regroup start
     _SWUHmw004RegroupBaseDefeat();         // HMW_004 (deployed) — may defeat a base at 10 or less remaining HP
     _SWUHmw070RegroupBaseTriggers();       // HMW_070 Dark Sanctum — attached base draws 1 and takes 2 (per copy)
+    _SWUHmw160RegroupBaseTriggers();       // HMW_160 Noxious Refinery — reveal top; if Aggression, 1 dmg to an enemy (per copy)
     // TWI_067 The Zillo Beast — "When the regroup phase starts: Heal 5 damage from this unit."
     for ($zp = 1; $zp <= SeatCountForGame(); $zp++) {
         foreach (GetUnitsInPlay($zp) as $zu) {
@@ -7461,8 +7462,20 @@ function SWUPayInlineAbilityCost(int $player, int $cost): bool {
 // resource; that choice survives only on the interactive paths above.
 function SWUPayCost($player, $cost, $prepaid = 0, bool $applyCostHalving = true, bool $altPayAlreadyOffered = false): bool {
     $cost    = max(0, intval($cost));
-    $resCost = max(0, $cost - intval($prepaid));
-    if ($applyCostHalving) $resCost = SWUApplyCostHalving(intval($player), $resCost); // JTL_105 The Starhawk
+    // ⚠ HALVE FIRST, THEN APPLY THE ALT-PAYMENT — not the other way round (fixed 2026-09-02, user-ruled).
+    // CR: step 3 DETERMINES the modified cost; step 4 PAYS it, and JTL_105 The Starhawk modifies the
+    // PAYMENT ("While paying costs, you pay half as many resources, rounded up"). A SEC_122 Droid is
+    // exhausted "as if it were a resource" and a Credit is defeated to pay a resource less, so both are
+    // part of WHAT YOU PAY: the halving applies to the whole modified cost, and the alt-payment then
+    // covers part of that halved figure.
+    // This used to read halve($cost - $prepaid), which spent Droids and Credits at FULL face value while
+    // discounting only real resources — so spending one under Starhawk was strictly WORSE than not:
+    // a cost-4 card is 2 resources paid normally, but 1 Droid + 2 resources = 3 if a Droid went first.
+    // Guarded by core/AltPaymentUnderStarhawk.md::StarhawkHalvingAppliesToDroidPayment.
+    // Inert for the callers that pass $applyCostHalving=false because they halved before offering
+    // (LEADER_ACTION_PAY / BASE_EPIC_PAY / UNIT_ACTION_PAY) and for every board without a Starhawk.
+    $payCost = $applyCostHalving ? SWUApplyCostHalving(intval($player), $cost) : $cost;
+    $resCost = max(0, $payCost - intval($prepaid));
     $autoPaid = 0;
     // $altPayAlreadyOffered: the caller came through SWUOfferAltPayment, so the player was SHOWN the
     // token choice and $prepaid is their answer. Auto-spending here would override an explicit refusal —
@@ -15944,7 +15957,7 @@ function SWUOfferAltPayment(int $player, int $cost, string $continuation, string
             // goes sticky and skips any following CUSTOM that is not flagged — and THIS custom both drains
             // the staged TempZone and runs $continuation, i.e. the play itself. Unflagged, confirming zero
             // left the card unplayed and two phantom staged copies behind (measured 2026-08-26).
-                "CREDIT_PAY|{$max}|{$creditMap}|{$continuation}|{$args}", $block, dontSkipOnPass: 1);
+                "CREDIT_PAY|{$max}|{$cost}|{$creditMap}|{$continuation}|{$args}", $block, dontSkipOnPass: 1);
             return; // $playerID intentionally left = $player
         }
     }
@@ -15988,7 +16001,7 @@ function SWUOfferDroidPayment(int $player, int $cost, string $continuation, stri
             // goes sticky and skips any following CUSTOM that is not flagged — and THIS custom both drains
             // the staged TempZone and runs $continuation, i.e. the play itself. Unflagged, confirming zero
             // left the card unplayed and two phantom staged copies behind (measured 2026-08-26).
-                "DROID_PAY|{$max}|{$continuation}|{$args}", $block, dontSkipOnPass: 1);
+                "DROID_PAY|{$max}|{$cost}|{$continuation}|{$args}", $block, dontSkipOnPass: 1);
             return; // $playerID intentionally left = $player
         }
     }
@@ -16192,6 +16205,12 @@ function SWUContinuePlayAfterExploit($player, $mzID, $discount) {
     $cost = ($obj !== null && empty($obj->removed))
           ? max(0, SWUComputePlayCost($player, $obj) - intval($discount))
           : 0;
+    // Offer against the amount that will actually be CHARGED. SWUOfferAltPayment uses this only for the
+    // capacity gate and the picker caps — it never pays — so handing it the halved figure simply stops
+    // the offer and the charge disagreeing under JTL_105 (the picker was capped at the UNHALVED cost,
+    // inviting the player to burn a Droid more than the cost needed). This mirrors what the leader /
+    // base-epic / unit-action paths already do: halve, then offer.
+    $cost = SWUApplyCostHalving(intval($player), $cost);
     SWUOfferAltPayment(intval($player), $cost, 'PLAY_CARD', "{$mzID}|{$discount}", 1);
 }
 

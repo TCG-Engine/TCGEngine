@@ -16,7 +16,12 @@
 #//           round" counter is written by one player ACTION and read by the next, which is exactly the
 #//           no-decision form of this cell ·
 #//           modes=2P only ("you control" / "units you play" are self-only in every format — the
-#//           documented no-extra-sections case).
+#//           documented no-extra-sections case) ·
+#//           MULTI-COPY: Shyyyo is NON-UNIQUE, so the copies stack — TwoShyyyos_TheDiscountStacksPerCOPY
+#//           and ThreeShyyyos_LadderStacksToThreeSixNine (with OneShyyyo_TheSameBoardCostsEighteen as
+#//           the control), plus ThreeShyyyos_ThirdRungIsExactlyMinusNine which pins the last rung from
+#//           both sides. Added 2026-09-02 on a user question; every section before them seeded
+#//           exactly ONE copy, so nothing tested the non-unique case at all.
 #// ⚠ PREVIEW SET: HMW is absent from card-specific-rulings.md. All three interactions below are USER
 #//   RULINGS given 2026-08-26 and are encoded verbatim.
 #//
@@ -415,3 +420,416 @@ P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:IBH_008
 P1RESAVAILABLE:0
 P1HANDCOUNT:0
+
+---
+
+# TwoShyyyos_TheDiscountStacksPerCOPY
+#// HMW_145 is NON-UNIQUE, so a player can field several — and nothing on the card says "only once".
+#// Each copy is its own continuous cost modifier, and the ordinal ("the first unit you play each
+#// round") is a property of the PLAY, not of any one Shyyyo, so every copy agrees on which rung applies
+#// and they all reduce it. Two Shyyyos therefore make the FIRST unit of the round cost 2 less, not 1.
+#//
+#// LAW_162 Beach Patrol AT-ACT is the fixture: cost 8, [Command], and its only text is the passive
+#// Overwhelm — no entry trigger to perturb the play. Under this board every pip is covered, so its
+#// effective cost is the printed 8.
+#// 6 resources is the discriminating budget: at −2 it costs exactly 6 and lands with nothing left; a
+#// non-stacking (−1) implementation prices it at 7, the play silently no-ops, and the card stays in
+#// hand. HANDCOUNT and RESAVAILABLE fail in opposite directions, so neither can pass alone.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:6;myBase:HMW_021}
+P1OnlyActions: true
+WithP1Hand: LAW_162
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:2:CARDID:LAW_162
+P1HANDCOUNT:0
+P1RESAVAILABLE:0
+
+---
+
+# ThreeShyyyos_LadderStacksToThreeSixNine
+#// HMW_145 — the extreme case: THREE Shyyyos, the whole ladder walked in one round. Each rung is
+#// multiplied by the number of copies, so the first, second and third units of the round cost 3, 6 and
+#// 9 less respectively rather than 1, 2 and 3.
+#// Three cost-8 AT-ACTs: 8−3 = 5, then 8−6 = 2, then 8−9 → 0 (floored; the ladder cannot pay you).
+#// Total 7, so seven resources land all three with nothing left — and seven is EXACT, not an upper
+#// bound: the assertions pin both that every card left hand and that every resource was spent.
+#// The single-copy control below prices the identical board at 18, which is what gives this number
+#// meaning; a non-stacking implementation would need those 18 and strand two cards in hand here.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:7;myBase:HMW_021}
+P1OnlyActions: true
+WithP1Hand: LAW_162
+WithP1Hand: LAW_162
+WithP1Hand: LAW_162
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:6
+P1HANDCOUNT:0
+P1RESAVAILABLE:0
+
+---
+
+# OneShyyyo_TheSameBoardCostsEighteen
+#// HMW_145 — the CONTROL for the section above, and the only thing that makes its 7 a measurement
+#// rather than a number. Identical board and identical plays with a SINGLE Shyyyo: 8−1 = 7, 8−2 = 6,
+#// 8−3 = 5, total 18. The two sections differ in exactly one fixture line and must disagree by 11
+#// resources; a "the discount does not stack" implementation would produce this 18 in both.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:18;myBase:HMW_021}
+P1OnlyActions: true
+WithP1Hand: LAW_162
+WithP1Hand: LAW_162
+WithP1Hand: LAW_162
+WithP1GroundArena: HMW_145:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:4
+P1HANDCOUNT:0
+P1RESAVAILABLE:0
+
+---
+
+# ThreeShyyyos_ThirdRungIsExactlyMinusNine
+#// HMW_145 — the third rung pinned EXACTLY, which the AT-ACT sections above cannot do: at cost 8 a −9
+#// floors to 0 and the last point is unreadable, so those prove only "at least −8".
+#// ASH_083 Summa-verminoth is the fixture that closes it — cost 12, single [Vigilance] (covered by the
+#// Kashyyyk base HMW_021, so no aspect penalty), non-unique, and its only abilities are passive
+#// Sentinel and an On Attack, so PLAYING it raises nothing.
+#//
+#// Two cost-3 units burn rungs one and two (3−3 = 0 and 3−6 → 0, both free), then the Verminoth takes
+#// rung three: 12 − 9 = 3. Exactly 3 resources are provided, so the arithmetic is pinned from BOTH
+#// sides and every neighbouring value fails:
+#//   −8  → it costs 4, the play silently no-ops, the card is stranded in hand (HANDCOUNT/SPACEARENACOUNT);
+#//   −10 → it costs 2 and a resource is left over (RESAVAILABLE);
+#//   −3 (no stacking) → it costs 9, unaffordable, stranded.
+#// It is also a SPACE unit, which incidentally proves the ladder counts "units you play" without an
+#// arena restriction — every other section in this file plays ground units.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:3;myBase:HMW_021}
+P1OnlyActions: true
+WithP1Hand: IBH_008
+WithP1Hand: IBH_008
+WithP1Hand: ASH_083
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:5
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:ASH_083
+P1HANDCOUNT:0
+P1RESAVAILABLE:0
+
+---
+
+# Starhawk_ThreeShyyyos_TheDiscountAppliesBEFORETheHalving
+#// ⚠ HMW_145 × JTL_105 The Starhawk — the ORDER-OF-OPERATIONS extreme case, and the one place these two
+#// cards can disagree loudly.
+#// ★ USER RULING 2026-09-02, and the CR says it outright: COSTS ARE DETERMINED BEFORE THEY ARE PAID.
+#// Playing a card is a numbered sequence — CR step 3 "Determine cost(s)" produces the MODIFIED cost
+#// (printed, then increases incl. the aspect penalty, then decreases, floored at 0 by CR 3.b), and only
+#// then does step 4 "Pay cost(s)" exhaust resources for it.
+#// Shyyyo is a COST MODIFIER, so it belongs to step 3. Starhawk says "While PAYING costs, you pay half
+#// as many resources, rounded up" — a step 4 effect. So Shyyyo settles first and Starhawk halves the
+#// settled result, never the reverse. Engine-side that is SWUComputePlayCost then SWUApplyCostHalving.
+#// This is the same trap already recorded against Starhawk once (its Smuggle cost was being halved
+#// INSIDE the cost computation instead of after).
+#//
+#// Three Shyyyos and a Starhawk in play, three units played in one round:
+#//   rung 1 — IBH_008 cost 3: 3 − 3 = 0, halved = 0
+#//   rung 2 — IBH_008 cost 3: 3 − 6 → 0 (floored), halved = 0
+#//   rung 3 — ASH_083 cost 12: 12 − 9 = 3, ceil(3/2) = 2
+#// Total 2, and exactly 2 resources are provided so the number is pinned from both sides. Each wrong
+#// answer leaves a DIFFERENT residue rather than failing to play:
+#//   halve-then-discount → ceil(12/2) = 6, 6 − 9 → 0, and all three are free: 2 resources left over;
+#//   rounded DOWN instead of up → floor(3/2) = 1: 1 resource left over;
+#//   no stacking (rung 3 = −3) → 12 − 3 = 9, ceil = 5: unaffordable, ASH_083 stranded in hand.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:2;myBase:HMW_021}
+P1OnlyActions: true
+WithP1Hand: IBH_008
+WithP1Hand: IBH_008
+WithP1Hand: ASH_083
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1SpaceArena: JTL_105:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:5
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:1:CARDID:ASH_083
+P1HANDCOUNT:0
+P1RESAVAILABLE:0
+
+---
+
+# Starhawk_DoesNotHalveItsOwnPlay_ButStillTakesARung
+#// HMW_145 × JTL_105 — the mirror of Ruling 1 (Shyyyo is the first unit played but discounts nobody,
+#// himself included). A passive does not apply until its card is IN PLAY, and Starhawk's own cost is
+#// computed while it is still in hand — so it is discounted by the Shyyyos but NOT halved by itself.
+#// Three Shyyyos out, Starhawk played as the FIRST unit of the round: 9 − 3 = 6, unhalved. Exactly 6
+#// resources, so self-halving (which would charge 3) leaves 3 over and fails RESAVAILABLE.
+#// P2 controls no units, so Starhawk's Ambush adds no entry trigger and there is nothing to answer.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:6;myBase:HMW_021}
+P1OnlyActions: true
+WithP1Hand: JTL_105
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:JTL_105
+P1HANDCOUNT:0
+P1RESAVAILABLE:0
+
+---
+
+# Starhawk_OnceInPlay_HalvesTheNextRungAndTheLadderAdvancedPastIt
+#// HMW_145 × JTL_105 — the end-to-end. Starhawk pays 6 as the first unit (see above), and by the time
+#// the SECOND unit is played it IS in play, so that one gets both halves of the interaction: it takes
+#// rung TWO (Starhawk consumed rung one — a unit is a unit) and is then halved.
+#//   ASH_083 cost 12: 12 − 6 = 6, ceil(6/2) = 3.
+#// Total 6 + 3 = 9. If Starhawk did not consume a rung, ASH_083 would take rung ONE instead: 12 − 3 = 9,
+#// ceil = 5, total 11 — unaffordable here, so it would strand in hand.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:9;myBase:HMW_021}
+P1OnlyActions: true
+WithP1Hand: JTL_105
+WithP1Hand: ASH_083
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:0:CARDID:JTL_105
+P1SPACEARENAUNIT:1:CARDID:ASH_083
+P1HANDCOUNT:0
+P1RESAVAILABLE:0
+
+---
+
+# VuutunPalaa_FullStack_CostsOneWithEverythingOn
+#// HMW_145 × JTL_105 × SEC_122 — all three cost effects at once, and they land on BOTH sides of the CR
+#// step boundary. SEC_122 Vuutun Palaa is the ideal third card because its own two clauses split across
+#// it: "costs 1 resource less for each friendly Droid unit" is a step-3 DETERMINE modifier, while
+#// "each friendly Droid unit may be exhausted to pay costs as if it were a resource" is step-4 PAY.
+#//   step 3: 9 printed − 5 (five Battle Droids) − 3 (Shyyyo rung 1 × 3 copies) = 1
+#//   step 4: Starhawk halves → ceil(1/2) = 1, paid by exhausting ONE Droid (0 ready resources)
+#// A 9-cost Capital Ship for a single resource.
+#//
+#// ⚠ AND VUUTUN CANNOT PAY FOR ITSELF. Its Droid-payment clause is a passive, so it is not active until
+#// Vuutun is IN PLAY — while you are playing it, it is still in hand and its Droids cannot be exhausted
+#// for it. That is the THIRD card in this file to follow the same rule (Shyyyo does not discount himself,
+#// Starhawk does not halve its own play), and it is why this section pays with a real resource and every
+#// Droid is still READY afterwards. Discovered the hard way: written with 0 resources first, the play was
+#// silently refused with no prompt at all.
+#// Each contributor is still separately visible: drop the Shyyyos and it is 4; drop the Droids and it is
+#// 6; both leave 1 resource unable to cover it, so the card strands in hand.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:1;myBase:HMW_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SEC_122
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1SpaceArena: JTL_105:1:0
+
+## WHEN
+#// No Droid-payment prompt appears at all: Vuutun is the card being played, so its own clause is not yet
+#// active and the single resource covers the cost outright.
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:1:CARDID:SEC_122
+P1GROUNDARENACOUNT:8
+P1HANDCOUNT:0
+P1RESAVAILABLE:0
+P1GROUNDARENAUNIT:0:READY
+P1GROUNDARENAUNIT:1:READY
+P1GROUNDARENAUNIT:2:READY
+P1GROUNDARENAUNIT:3:READY
+P1GROUNDARENAUNIT:4:READY
+
+---
+
+# VuutunPalaa_FloorAtZero_IsFreeAndBurnsNoDroid
+#// HMW_145 × JTL_105 × SEC_122 — CR 3.b, "a card's cost cannot be modified below 0", reached by TWO
+#// independent decreases stacking rather than one big one.
+#//   IBH_008 takes rung 1: 3 − 3 = 0, free.
+#//   Vuutun then takes rung 2: 9 − 5 (Droids) − 6 (rung 2 × 3 copies) = −2 → floored to 0, halved 0.
+#// So the whole board is deployed for nothing. The load-bearing assertion is that ALL FIVE Droids are
+#// still READY: a free card must not burn a payment source, and an implementation that let the cost go
+#// negative and then "paid" it, or that exhausted a Droid for a zero cost, fails right here.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:0;myBase:HMW_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: IBH_008
+WithP1Hand: SEC_122
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1SpaceArena: JTL_105:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:1:CARDID:SEC_122
+P1GROUNDARENACOUNT:9
+P1HANDCOUNT:0
+P1RESAVAILABLE:0
+P1GROUNDARENAUNIT:0:READY
+P1GROUNDARENAUNIT:1:READY
+P1GROUNDARENAUNIT:2:READY
+P1GROUNDARENAUNIT:3:READY
+P1GROUNDARENAUNIT:4:READY
+
+---
+
+# VuutunPalaa_TheDroidsThatDeterminedTheDiscountAlsoPayIt
+#// HMW_145 × JTL_105 × SEC_122 — the whole pipeline on ONE play, with the payment drawn from the very
+#// units that shaped the cost. Vuutun is already in play, so its step-4 clause is live.
+#//   two cheap units burn rungs 1 and 2 (3 − 3 = 0 and 3 − 6 → 0, both free)
+#//   ASH_083 takes rung 3: 12 − 9 = 3  →  Starhawk halves → 2  →  paid by exhausting TWO Droids
+#// Nothing here is readable from resources (there are none), so the Droid ready/exhausted split IS the
+#// measurement: exactly two of the five are spent. Under a wrong rung (−3) the cost would be 9 → halved
+#// 5 → five Droids, or unaffordable; without halving it would be 3 → three Droids.
+#// ⚠ Vuutun itself is NOT a Droid (Separatist/Vehicle/Capital Ship), so it never inflates its own count.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:0;myBase:HMW_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: IBH_008
+WithP1Hand: IBH_008
+WithP1Hand: ASH_083
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: TWI_T01:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1SpaceArena: JTL_105:1:0
+WithP1SpaceArena: SEC_122:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+- P1>PlayHand:0
+#// Only the THIRD play costs anything (the first two are free at rungs 1 and 2), so this is the single
+#// Droid-payment prompt in the section: cost 2, so exactly two of the five ready Droids are exhausted.
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1
+
+## EXPECT
+P1SPACEARENACOUNT:3
+P1SPACEARENAUNIT:2:CARDID:ASH_083
+P1HANDCOUNT:0
+P1RESAVAILABLE:0
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P1GROUNDARENAUNIT:2:READY
+P1GROUNDARENAUNIT:3:READY
+P1GROUNDARENAUNIT:4:READY
+
+---
+
+# AspectPenaltyIsAppliedBEFORETheShyyyoDiscount
+#// HMW_145 — CR 3.a, the ordering INSIDE the determine step: "start with the card's printed cost, then
+#// apply any modifiers that INCREASE the cost (including the aspect penalty) BEFORE any modifiers that
+#// DECREASE the cost." The floor at 0 (CR 3.b) is what makes the two orders observable — with an
+#// over-large discount they diverge:
+#//   correct  → (3 printed + 2 penalty) − 9 = −4 → floored to 0 → FREE
+#//   inverted → (3 − 9) floored to 0, then + 2 penalty = 2 → unaffordable at zero resources
+#// JTL_216 Contracted Hunter is a vanilla single-[Cunning] 3-cost unit; the board covers Command,
+#// Heroism and Vigilance only, so it carries a +2 penalty. Two cheap on-aspect units burn rungs 1 and 2
+#// first. No Starhawk here on purpose — halving is a step-4 effect and would only blur a step-3 test.
+
+## GIVEN
+CommonSetup: bgw/bgw/{myResources:0;myBase:HMW_021}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: IBH_008
+WithP1Hand: IBH_008
+WithP1Hand: JTL_216
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+WithP1GroundArena: HMW_145:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:6
+P1GROUNDARENAUNIT:5:CARDID:JTL_216
+P1HANDCOUNT:0
+P1RESAVAILABLE:0

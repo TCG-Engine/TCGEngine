@@ -1262,6 +1262,36 @@ For each upgrade on your base, this unit gets +1/+0 and gains Restore 1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/066.png',
     'imageUrlBack' => '',
   ),
+  'HMW_069' => 
+  array (
+    'title' => 'Imperial Venator',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 7,
+    'power' => 7,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Vehicle',
+      2 => 'Capital Ship',
+    ),
+    'text' => 'Sentinel (Enemy units in this arena must attack a Sentinel when they attack you.)
+Grit (This unit gets +1/+0 for each damage on it.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/069.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_070' => 
   array (
     'title' => 'Dark Sanctum',
@@ -1312,6 +1342,34 @@ Attached base gains: "When the regroup phase starts: Draw a card and deal 2 dama
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/071.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_072' => 
+  array (
+    'title' => 'Grand Army Marine',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 2,
+    'hp' => 2,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Gungan',
+      1 => 'Trooper',
+    ),
+    'text' => 'When Played: Give a Shield token to a friendly Gungan unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/072.png',
     'imageUrlBack' => '',
   ),
   'HMW_073' => 
@@ -1370,6 +1428,61 @@ While this unit is upgraded, she gets +1/+1.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/074.png',
     'imageUrlBack' => '',
   ),
+  'HMW_075' => 
+  array (
+    'title' => 'Wookiee Protector',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 3,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Wookiee',
+    ),
+    'text' => 'Sentinel (Enemy units in this arena must attack a Sentinel when they attack you.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/075.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_076' => 
+  array (
+    'title' => 'Yanna',
+    'subtitle' => 'Sanctuary Elder',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 3,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Wookiee',
+    ),
+    'text' => 'Grit (This unit gets +1/+0 for each damage on it.)
+Restore 1 (When this unit attacks, heal 1 damage from your base.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/076.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_077' => 
   array (
     'title' => 'Boss Nass',
@@ -1426,6 +1539,34 @@ When Played: You may defeat a unit that attacked your base this phase. If it\'s 
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/078.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_080' => 
+  array (
+    'title' => 'Fambaa Shield Team',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 7,
+    'power' => 4,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+      1 => 'Gungan',
+    ),
+    'text' => 'When Played: Give a Shield token to each friendly ground unit without a Shield token on it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/080.png',
     'imageUrlBack' => '',
   ),
   'HMW_081' => 
@@ -1671,6 +1812,34 @@ While you control another unit that costs 3 or more, this unit gets +2/+0.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/107.png',
     'imageUrlBack' => '',
   ),
+  'HMW_108' => 
+  array (
+    'title' => 'The First Legion',
+    'subtitle' => 'Vader\'s Fist',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 4,
+    'power' => 5,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Trooper',
+    ),
+    'text' => 'On Attack: Name a Trait. Enemy cards, including those not in play, lose that Trait for this phase.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/108.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_110' => 
   array (
     'title' => 'Emperor Palpatine',
@@ -1699,6 +1868,32 @@ While you control another unit that costs 3 or more, this unit gets +2/+0.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/110.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_112' => 
+  array (
+    'title' => 'Military Academy',
+    'subtitle' => '',
+    'type' => 'Upgrade',
+    'arena' => '',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 1,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Fortification',
+    ),
+    'text' => 'Fortify (Attach this to your base, not a unit.)
+Attached base gains: "Friendly units gain Overwhelm. (When attacking an enemy unit, deal excess damage to the opponent\'s base.)"',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/112.png',
     'imageUrlBack' => '',
   ),
   'HMW_113' => 
@@ -2039,6 +2234,34 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/136.png',
     'imageUrlBack' => '',
   ),
+  'HMW_140' => 
+  array (
+    'title' => 'Assault Frigate',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 2,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Command',
+    ),
+    'trait' => 
+    array (
+      0 => 'Rebel',
+      1 => 'Vehicle',
+      2 => 'Capital Ship',
+    ),
+    'text' => 'Raid 4 (This unit gets +4/+0 while attacking.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/140.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_142' => 
   array (
     'title' => 'Wookie Rangers',
@@ -2071,6 +2294,34 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
+  ),
+  'HMW_143' => 
+  array (
+    'title' => 'Banking Clan Warship',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 6,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Command',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+      1 => 'Vehicle',
+      2 => 'Capital Ship',
+    ),
+    'text' => 'Ambush (When you play this unit, it may attack an enemy unit.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/143.png',
+    'imageUrlBack' => '',
   ),
   'HMW_145' => 
   array (
@@ -2207,6 +2458,35 @@ When Played: An opponent creates a Beast token.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/154.png',
     'imageUrlBack' => '',
   ),
+  'HMW_158' => 
+  array (
+    'title' => 'Battle-Scarred Destroyer',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 7,
+    'hp' => 8,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Vehicle',
+      2 => 'Capital Ship',
+    ),
+    'text' => 'When Played: Deal 4 damage to a friendly unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/158.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_159' => 
   array (
     'title' => 'General Grievous',
@@ -2234,6 +2514,32 @@ When Played: Deal 4 damage to a base.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/159.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_160' => 
+  array (
+    'title' => 'Noxious Refinery',
+    'subtitle' => '',
+    'type' => 'Upgrade',
+    'arena' => '',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 4,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Fortification',
+    ),
+    'text' => 'Fortify (Attach this to your base, not a unit.)
+Attached base gains: "When the regroup phase starts: Reveal the top card of your deck. If it\'s Aggression, deal 1 damage to an enemy unit."',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/160.png',
     'imageUrlBack' => '',
   ),
   'HMW_161' => 
@@ -3066,6 +3372,34 @@ While a friendly Tusken unit is defending, it gets +1/+0 for each Raid it has.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/212.png',
     'imageUrlBack' => '',
   ),
+  'HMW_213' => 
+  array (
+    'title' => 'Tribubble Bongo Sub',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 1,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Vehicle',
+    ),
+    'text' => 'Shielded (When you play this unit, give a Shield token to it.)
+Raid 3 (This unit gets +3/+0 while attacking.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/213.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_214' => 
   array (
     'title' => 'Phee Genoa',
@@ -3117,6 +3451,33 @@ When an enemy leader deploys: Its controller may pay [2 resources]. If they don\
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/217.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_219' => 
+  array (
+    'title' => 'Jaxxon',
+    'subtitle' => 'I Can Hear you Breathing!',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 1,
+    'power' => 3,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/219.png',
     'imageUrlBack' => '',
   ),
   'HMW_221' => 
@@ -3229,6 +3590,33 @@ When a friendly unit with Ambush enters plays (including this one): Give it Raid
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/225.png',
     'imageUrlBack' => '',
   ),
+  'HMW_226' => 
+  array (
+    'title' => 'Gungan Battle Wagon',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 3,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+      1 => 'Gungan',
+    ),
+    'text' => 'Sentinel (Enemy units in this arena must attack a Sentinel when they attack you.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/226.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_230' => 
   array (
     'title' => 'Raiding Party',
@@ -3254,6 +3642,34 @@ When Played: If you control another Tusken unit or a Tatooine base, you may exha
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/230.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_231' => 
+  array (
+    'title' => 'Dragonboat Freighter',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 5,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+      1 => 'Vehicle',
+      2 => 'Transport',
+    ),
+    'text' => 'When Played: You may give a Weakness token to a unit. If it\'s a Unique unit, exhaust it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/231.png',
     'imageUrlBack' => '',
   ),
   'HMW_234' => 
@@ -3381,6 +3797,63 @@ Choose an arena, Give a Weakness token to each exhausted enemy unit in that aren
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/243.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_247' => 
+  array (
+    'title' => 'Surveillance Cruiser',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 4,
+    'power' => 4,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Vehicle',
+      2 => 'Capital Ship',
+    ),
+    'text' => 'When Played: If an opponent controls an Endor, Kashyyyk, Naboo, or Tatooine base, draw a card.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/247.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_251' => 
+  array (
+    'title' => 'Blockade Ship',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 8,
+    'power' => 5,
+    'hp' => 8,
+    'aspect' => 
+    array (
+      0 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+      1 => 'Vehicle',
+      2 => 'Capital Ship',
+    ),
+    'text' => 'Sentinel (Enemy units in this arena must attack a Sentinel when they attack you.)
+Enemy ground units get -1/-0 while attacking.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/251.png',
     'imageUrlBack' => '',
   ),
   'HMW_254' => 

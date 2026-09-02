@@ -725,6 +725,10 @@ function HasConditionalKeyword_Overwhelm($obj) {
         $ctrl117 = intval($obj->Controller ?? 0);
         if ($ctrl117 > 0 && SWUResourceCount($ctrl117, true) === 0) return true;
     }
+    // HMW_112 Military Academy (Fortify) — "Attached base gains: 'Friendly units gain Overwhelm.'"
+    // Base-hosted and continuous: read live from the board, so it ends the moment the upgrade leaves.
+    // "Friendly" is relative to the BASE's controller and spans the team (see the card file).
+    if (function_exists('_SWUHmw112GrantsOverwhelm') && _SWUHmw112GrantsOverwhelm($obj)) return true;
     if (_SWUUnitHasActiveUpgrade($obj, 'TWI_119')) return true;   // TWI_119 Nameless Valor — "Attached unit gains Overwhelm."
     if (_SWUUnitHasActiveUpgrade($obj, 'ASH_181')) return true;   // ASH_181 Mark My Words — "Attached unit gains Overwhelm."
     if (_SWUSEC104AuraActive($obj)) return true;   // SEC_104 aura

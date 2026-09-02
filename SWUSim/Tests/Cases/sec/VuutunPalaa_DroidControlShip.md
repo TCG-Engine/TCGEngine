@@ -512,3 +512,46 @@ P1GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:1:EXHAUSTED
 P1RESAVAILABLE:1
 P1HANDCOUNT:0
+
+---
+
+# ExhaustedDroidsSTILLCountForThePerDroidDiscount
+#// SEC_122 Vuutun Palaa — its TWO clauses are asymmetric about readiness, and only one of them says so:
+#//   "costs 1 resource less for each friendly Droid unit"      — no readiness qualifier: ALL Droids count
+#//   "each friendly Droid unit MAY BE EXHAUSTED to pay costs"  — exhausting is the act, so it needs a ready one
+#// Every existing section here seeds READY Droids (CostsLessPerDroid) or tests the PAYMENT clause
+#// against exhausted ones (ExhaustedDroidsDoNotCount_CannotPay, OnlyREADYDroidsAreOfferedAsPayment).
+#// Nothing proved the DISCOUNT ignores readiness — so a single ready-only scan would satisfy the whole
+#// file while quietly overcharging for a tapped-out Droid board. Added 2026-09-02.
+#//
+#// ⚠ Vuutun cannot pay for its OWN play: the payment clause is a passive, so it is inactive while the
+#// card is still in hand. The cost therefore has to come from real resources, which is why this seats 4.
+#// Four exhausted Battle Droids and one ready one, plus 4 ready resources:
+#//   correct    → 9 − 5 = 4, paid in full from resources. It PLAYS, and the ready Droid is untouched.
+#//   ready-only → 9 − 1 = 8 against 4 resources. It is unaffordable and stays in HAND.
+#// The two readings differ in whether the card enters play at all, which is as loud as it gets.
+
+## GIVEN
+CommonSetup: ggk/ggk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 4
+WithP1Hand: SEC_122
+WithP1GroundArena: TWI_T01:0:0
+WithP1GroundArena: TWI_T01:0:0
+WithP1GroundArena: TWI_T01:0:0
+WithP1GroundArena: TWI_T01:0:0
+WithP1GroundArena: TWI_T01:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SEC_122
+P1HANDCOUNT:0
+P1RESAVAILABLE:0
+P1GROUNDARENACOUNT:5
+#// The lone ready Droid is STILL READY — it counted toward the discount without being spent, which is
+#// the whole point: the discount reads the board, the payment clause was never even active.
+P1GROUNDARENAUNIT:4:READY

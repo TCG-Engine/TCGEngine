@@ -2901,6 +2901,24 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'JTL_054') {
         $attackPower = max(0, $attackPower - 1);
     }
+    // HMW_251 Blockade Ship: "Enemy ground units get -1/-0 while attacking."
+    // A CROSS-ARENA aura: the Blockade Ship sits in SPACE and debuffs the GROUND arena, so the source's
+    // own arena is irrelevant and only the ATTACKER's is checked. "While attacking" is unqualified, so it
+    // applies whether the target is a unit or a base — which is why this sits with the other attack-power
+    // adjustments rather than in a target-conditional branch.
+    // "ENEMY" is relative to the Blockade Ship's controller, so the debuff is owed by any attacker whose
+    // OPPONENT fields one. _SWUCountActiveUnitsWithCardID is the blanked-aware count, so a Blockade Ship
+    // that has lost its abilities correctly stops debuffing.
+    // ⚠ It STACKS: HMW_251 is non-unique and each copy is its own continuous effect, so two of them are
+    // -2/-0 (the HMW_145 Origin Tree Shyyyo lesson — count the copies, do not break on the first).
+    if ($attacker !== null && empty($attacker->removed)
+            && strpos((string)$attackerMzID, 'GroundArena') !== false) {
+        $blockade = 0;
+        foreach (OpponentsOf(intval($attacker->Controller ?? 0)) as $bsOpp) {
+            $blockade += _SWUCountActiveUnitsWithCardID(intval($bsOpp), 'HMW_251');
+        }
+        if ($blockade > 0) $attackPower = max(0, $attackPower - $blockade);
+    }
     // SEC_042 Cassian Andor: "While this unit is defending, the attacker gets -2/-0."
     if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'SEC_042') {
         $attackPower = max(0, $attackPower - 2);

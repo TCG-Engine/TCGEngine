@@ -3083,11 +3083,12 @@ $customDQHandlers["DROID_PAY"] = function ($player, $parts, $lastDecision) {
   // says a player exhausts resources EQUAL TO the cost, and CR 8.1.4 forbids exhausting one when not
   // paying a cost — so an over-long answer must not burn the extra Droids.
   $cap = intval($parts[0] ?? 0);
-  $continuation = $parts[1] ?? '';
-  $args = implode('|', array_slice($parts, 2)); // rejoin remaining parts as args
+  $required = intval($parts[1] ?? 0);
+  $continuation = $parts[2] ?? '';
+  $args = implode('|', array_slice($parts, 3)); // rejoin remaining parts as args
 
-  // Validate the player's Droid picks against the live ready set.
-  $prepaid = 0;
+  // Validate the player's Droid picks against the live ready set — WITHOUT spending anything yet.
+  $chosenMZs = [];
   if ($lastDecision !== null && $lastDecision !== '-' && $lastDecision !== '') {
     $fodderSet = array_flip(SWUReadyFriendlyDroids(intval($player)));
     $maxExhaust = min(count($fodderSet), max(0, $cap)); // cannot exceed the ready set OR the cost
@@ -3096,17 +3097,36 @@ $customDQHandlers["DROID_PAY"] = function ($player, $parts, $lastDecision) {
         continue;
       if (!isset($fodderSet[$chosen]))
         continue;      // not in offered set / no longer ready
-      if ($prepaid >= $maxExhaust)
+      if (count($chosenMZs) >= $maxExhaust)
         break;             // cap reached
       $o = GetZoneObject($chosen);
       if (SWUObjGone($o))
         continue;
       if (intval($o->Status) !== 1)
         continue;         // redundant safety check
-      OnExhaustCard(intval($player), $chosen);
-      $prepaid++;
+      $chosenMZs[] = $chosen;
     }
   }
+
+  // ⚠ CR 4.a — "If any costs (including resource costs and additional costs) cannot be paid, cease this
+  // process WITHOUT PAYING ANY COSTS. Return the game state to the way it was before the first step."
+  // Spending happens BELOW this gate, never above it. The handler used to spend first and dispatch
+  // second, so a player who picked FEWER tokens than the cost lost them and still did not play the card
+  // (measured 2026-09-02: 2 Droids against a cost of 3 with no resources — card stranded in hand, both
+  // Droids exhausted, repeatable). SWUOfferAltPayment's own gate only refuses a TOTALLY unaffordable
+  // play; this is the partial-payment case one level down.
+  // $required is the amount this offer was raised for (already halved under JTL_105 where applicable).
+  // Guarded by core/AltPaymentUnderStarhawk.md::UnderpayingWithDroidsSpendsNothing.
+  $shortfall = $required - count($chosenMZs);
+  if ($shortfall > 0 && SWUResourceCount(intval($player), readyOnly: true) < $shortfall) {
+    SetFlashMessage("Not enough to pay the cost — nothing was spent.");
+    SWUDispatchDroidContinuation(intval($player), $continuation, $args, 0);
+    $playerID = $savedPID;
+    return;
+  }
+
+  $prepaid = 0;
+  foreach ($chosenMZs as $chosen) { OnExhaustCard(intval($player), $chosen); $prepaid++; }
 
   // Dispatch to the named continuation with the exhaustion count.
   // PLAY_CARD: ActivateCard's event branch does not restore $playerID, so $savedPID
@@ -3149,18 +3169,25 @@ $customDQHandlers["CREDIT_PAY"] = function ($player, $parts, $lastDecision) {
   // $parts[0] = the cap (min(usable Credits, cost)) — see the DROID_PAY note: the MZMULTICHOOSE bound
   // is client-side only, so the CR 1.7.2 "equal to the cost" limit is re-applied here.
   $cap = intval($parts[0] ?? 0);
+  // ⚠ INDEX SHIFT (2026-09-02): the producer now threads the REQUIRED cost at index 1 so the CR 4.a
+  // gate below can tell whether the player's picks can actually complete the payment. Every field
+  // after it moved one to the right — the credit MAP is now [2], the continuation [3], args [4..].
+  $required = intval($parts[1] ?? 0);
   $map = [];
-  foreach (explode(',', (string)($parts[1] ?? '')) as $slot) {
+  foreach (explode(',', (string)($parts[2] ?? '')) as $slot) {
     if ($slot !== '') $map[] = intval($slot);
   }
-  $continuation = $parts[2] ?? '';
-  $args = implode('|', array_slice($parts, 3));
+  $continuation = $parts[3] ?? '';
+  $args = implode('|', array_slice($parts, 4));
 
-  $prepaid = 0;
+  // Collect the valid picks WITHOUT defeating anything yet — see the CR 4.a note in DROID_PAY. A Credit
+  // is defeated permanently, so a partial payment that cannot complete used to destroy the tokens and
+  // leave the card in hand (the same shape as the live game-3608 report one level up).
+  $chosenSlots = [];
   if ($lastDecision !== null && $lastDecision !== '-' && $lastDecision !== '') {
     $usable = array_flip(SWUUsableCreditTokenMzIDs(intval($player))); // live, validated set
     foreach (explode('&', $lastDecision) as $chosen) {
-      if ($prepaid >= max(0, $cap))
+      if (count($chosenSlots) >= max(0, $cap))
         break;
       // Translate the staged pick back to the resource slot it stands for. Anything that is not a
       // recognised TempZone index is dropped rather than guessed at — a mismatched map must fail to
@@ -3178,8 +3205,28 @@ $customDQHandlers["CREDIT_PAY"] = function ($player, $parts, $lastDecision) {
         continue;
       if (!SWUIsCreditToken($o->CardID ?? ''))
         continue;
-      $o->removed = true; // mark all first; cleanup once below to avoid mid-loop reindex
-      $prepaid++;
+      $chosenSlots[] = $mzID;
+    }
+  }
+
+  // CR 4.a gate — nothing is defeated unless the whole cost can be met.
+  $shortfall = $required - count($chosenSlots);
+  if ($shortfall > 0 && SWUResourceCount(intval($player), readyOnly: true) < $shortfall) {
+    SetFlashMessage("Not enough to pay the cost — nothing was spent.");
+    SWUDispatchDroidContinuation(intval($player), $continuation, $args, 0);
+    $playerID = $savedPID;
+    return;
+  }
+
+  $prepaid = 0;
+  {
+    {
+      foreach ($chosenSlots as $mzID) {
+        $o = GetZoneObject($mzID);
+        if (SWUObjGone($o)) continue;
+        $o->removed = true; // mark all first; cleanup once below to avoid mid-loop reindex
+        $prepaid++;
+      }
     }
     if ($prepaid > 0) {
       AddGameLogEntry('TOKEN', 'P' . intval($player) . ' defeated ' . $prepaid
