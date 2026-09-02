@@ -1,4 +1,14 @@
 # FirstUpgrade_CostReduced
+#// COVERAGE: offer=N/A - STRUCTURAL: a play-cost modifier selects nothing.
+#//           decline=N/A - STRUCTURAL: nothing optional.
+#//           boundary=FirstUpgrade_CostReduced / SecondUpgrade_FullCost (the "first each round" charge
+#//           IS the threshold, written as a pair) + ZeroCostUpgrade_ChargeNotWasted
+#//           control=N/A - STRUCTURAL: the discount is scoped to upgrades played ON THIS UNIT by its
+#//           controller; no owner-scoped zone is named.
+#//           reqboundary=N/A - ⚠ SITUATIONAL: the once-per-round charge is phase/round state read on a
+#//           later action. SecondUpgrade_FullCost crosses two ACTIONS and so exercises the persistence
+#//           in practice, but no explicit boundary section exists. Open cell.
+#//           modes=2P only - "you play on this unit" is self-scoped in every format.
 #// SOR_061 Guardian of the Whills (Unit 2/2, Vigilance) — "The first upgrade you play on this unit each
 #// round costs 1 less." The Guardian is the only friendly unit, so SOR_069 Resilient (+0/+3, Vigilance,
 #// cost 1) auto-attaches to it and the discount makes it cost 0: 3 ready resources → 3 left. The host

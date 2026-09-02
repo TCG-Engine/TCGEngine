@@ -8,6 +8,8 @@ SWUMaintenanceRequire('SWUDeck', 'deck');
 
   include_once './SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
   include_once './Database/ConnectionManager.php';
+  include_once './SWUDeck/Custom/DeckFormats.php';        // SWUDeckSetReprintUniverse
+  include_once './AppCore/SWU/CardStatHeatmap.php';       // SWUBuildCardStatHeatmaps
 
   //Set up the list of cards to choose from
   $p1Leaders = [];
@@ -49,12 +51,23 @@ SWUMaintenanceRequire('SWUDeck', 'deck');
   $result = $stmt->get_result();
   $stmt->close();
   $conn->close();
+  // ⚠ The stats rows are keyed by the EARLIEST printing (CardIDOverride is the write-side normaliser)
+  // while GetNextTurn.php renders the LATEST (SWUDisplayCardID) — the two halves of the invariant
+  // documented in AppCore/SWU/CardDisplayID.php. Emitting a case per STORED id therefore left every
+  // reprinted card showing "No Data" (reported 2026-09-01 on Viper Probe Droid: stats under SOR_228,
+  // rendered as SEC_239). SWUBuildCardStatHeatmaps aggregates by canonical id and expands each result
+  // across the whole reprint group, so the switch answers for whichever printing is on screen.
+  SWUDeckSetReprintUniverse();   // SWUReprintGroup needs SWUDeck's SET_NNN universe; idempotent
+  $statRows = [];
+  while ($row = $result->fetch_assoc()) $statRows[] = $row;
+  $heatmaps = SWUBuildCardStatHeatmaps($statRows);
   $playWinRate = "";
   $resourceRatio = "";
-  
-  while ($row = $result->fetch_assoc()) {
-    $playWinRate .= "    case '" . $row["cardID"] . "': return " . ($row["timesPlayed"] > 0 ? round($row["timesPlayedInWins"] / $row["timesPlayed"], 4) : -1) . ";\r\n";
-    $resourceRatio .= "    case '" . $row["cardID"] . "': return " . ($row["timesResourced"] + $row["timesPlayed"] > 0 ? round($row["timesResourced"] / ($row["timesResourced"] + $row["timesPlayed"]), 4) : -1) . ";\r\n";
+  foreach ($heatmaps["play"] as $heatCardID => $heatRate) {
+    $playWinRate .= "    case '" . $heatCardID . "': return " . $heatRate . ";\r\n";
+  }
+  foreach ($heatmaps["resource"] as $heatCardID => $heatRate) {
+    $resourceRatio .= "    case '" . $heatCardID . "': return " . $heatRate . ";\r\n";
   }
 
   echo("<script>\r\n");

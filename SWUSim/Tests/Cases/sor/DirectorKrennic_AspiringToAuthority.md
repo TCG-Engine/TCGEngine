@@ -1,4 +1,13 @@
 # DeployedPassive_ActiveWhenDeployed
+#// COVERAGE: offer=N/A - STRUCTURAL: both sides are continuous auras plus the Restore keyword; nothing
+#//           is ever chosen, so there is no pool to assert.
+#//           decline=N/A - STRUCTURAL: nothing optional.
+#//           boundary=Front_DamageBoundary_ZeroUnbuffedOneBuffed (0 vs 1 damage IS the threshold) +
+#//           EpicDeploy_FourResourcesIsOneTooFew / EpicDeploy_FiveResourcesIsEnough
+#//           control=StolenDamagedUnit_BuffedByItsNewController
+#//           reqboundary=DeployedAuraSurvivesRequestBoundary
+#//           modes=2P; ⚠ TeamSuns NOT covered - "each FRIENDLY damaged unit" is team-wide, so a
+#//           teammate's damaged unit should gain +1/+0. Open cell.
 #// Krennic's passive is active on both leader and leader-unit side.
 #// When Krennic is deployed in the arena, another friendly damaged unit still gets +1/+0.
 #// COVERAGE (leader — both sides): FRONT = the +1/+0 aura + the Epic Action; DEPLOYED = Restore 2 +

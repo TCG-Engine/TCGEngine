@@ -368,3 +368,58 @@ P1GROUNDARENAUNIT:0:DAMAGE:1
 P1GROUNDARENAUNIT:1:DAMAGE:1
 P1HANDCOUNT:0
 P1RESAVAILABLE:0
+
+---
+
+# Ruling_TheInFlightMarauderIsNOTInPlay_AndIsNotInItsOwnPool
+#// JUDGE Q&A (2026-09-01): "Can the Marauder hit itself to reduce the cost by 1?" NO. "While playing
+#// this unit" places the whole choose-and-damage in the DETERMINE COSTS / PAY COSTS step, at which
+#// point the card is still in HAND and is not a unit in play - so it is not one of the "any number of
+#// friendly units" it may choose.
+#//
+#// The pool gets this right structurally: it is built from SWUAllUnits, which walks ARENAS only, so a
+#// card in hand can never appear in it. But that is a property of a shared helper rather than a guarded
+#// behaviour of this card, and the offer section above excludes the in-flight copy only INCIDENTALLY -
+#// its subject is friendly-vs-enemy. This section exists to state the ruling and fail if it changes.
+#//
+#// ⚠ THE STRONGER FORM IS NO LONGER WRITEABLE, and that is a good thing. Submitting the Marauder's own
+#// hand slot as an answer is now REFUSED engine-wide by SWUValidateDecisionAnswer before the handler
+#// ever sees it ("'myHand-0' is not a candidate ... [0|2|myGroundArena-0&myGroundArena-1]"), and a
+#// refusal cannot be expressed as an assertion. So the ruling is pinned POSITIVELY instead: two
+#// friendly units in play and TWO cards in hand - the Marauder plus a second card, so that both hand
+#// slots exist and a pool that leaked hand entries would have somewhere visible to leak to.
+#// The offered pool must be exactly the two arena units.
+## GIVEN
+CommonSetup: ggw/grk/{myResources:7}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1Hand: HMW_125
+WithP1Hand: SOR_251
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+P1HANDCOUNT:2
+
+---
+
+# Ruling_ADIFFERENTCopyALREADYInPlayISSelectable
+#// THE OTHER HALF OF THE RULING, and the section that pins WHY the in-flight copy is excluded.
+#// It is excluded because it is not in play - NOT because of what card it is. A different copy of The
+#// Marauder that is already on the board is an ordinary friendly unit and is a perfectly legal pick.
+#// This is the discriminating case for the obvious wrong implementation: filtering the pool by CardID
+#// ("never offer HMW_125") looks identical on every other section in this file and fails only here.
+#// The decision is left PENDING and the pool asserted, so nothing depends on how the uniqueness rule
+#// resolves the two copies afterwards.
+#// P1's only friendly unit is the in-play Marauder, so the offered pool is exactly it.
+## GIVEN
+CommonSetup: ggw/grk/{myResources:14;handCardIds:HMW_125}
+P1OnlyActions: true
+WithP1SpaceArena: HMW_125:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:mySpaceArena-0

@@ -1,4 +1,15 @@
 # Passive_DamagedUnitGetsBoost
+#// COVERAGE: offer=N/A - STRUCTURAL: a continuous aura selects nothing; there is no decision anywhere.
+#//           decline=N/A - STRUCTURAL: nothing optional.
+#//           boundary=Passive_DamagedUnitGetsBoost / Passive_UndamagedUnitNoBoost (0 vs 1 damage IS the
+#//           threshold, written as a pair) · control=N/A here - covered by
+#//           DirectorKrennic_AspiringToAuthority::StolenDamagedUnit_BuffedByItsNewController
+#//           reqboundary=N/A here - the aura is recomputed on every stat read, and the boundary cell is
+#//           DirectorKrennic_AspiringToAuthority::DeployedAuraSurvivesRequestBoundary
+#//           modes=2P; ⚠ TeamSuns NOT covered - "each FRIENDLY damaged unit" is team-wide, so a
+#//           teammate's damaged unit should be buffed and no section proves it. Open cell.
+#// ⚠ FILING NOTE: SOR_095 Battlefield Marine is VANILLA and needs no tests of its own. This file holds
+#// cross-card aura guards that happen to use the Marine as the buffed body.
 #// Krennic leader passive: friendly damaged unit gets +1/+0.
 #// SOR_095 has base power 3. With 1 damage, Krennic's passive gives it +1 -> power 4.
 

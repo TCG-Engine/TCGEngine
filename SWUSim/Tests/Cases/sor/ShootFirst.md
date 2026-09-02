@@ -1,4 +1,12 @@
 # BuffAndDealFirst_ExpireAfterAttack
+#// COVERAGE: offer=N/A - ⚠ SITUATIONAL GAP: "attack with a unit" offers the caster's ready units and
+#//           no section asserts that pool. Open cell.
+#//           decline=N/A - STRUCTURAL: printed mandatory.
+#//           boundary=KillDefender_NoCounterDamage / SurvivedDefender_CounterDamage (the deal-first
+#//           ordering only matters when the defender dies, so the pair straddles lethality)
+#//           control=N/A - STRUCTURAL: an Event with a fixed caster and no owner-scoped zone.
+#//           reqboundary=SimulateRequestBoundary_DealFirstAndBuffSurvive
+#//           modes=2P only - no player reference, no friendly/enemy wording.
 #// SOR_217 Shoot First — "It gets +1/+0 for this attack and deals its combat damage before the
 #// defender." Both halves are ATTACK-duration registry effects (the SOR_217 +1/+0 STAT_BUFF and the
 #// SHOOT_FIRST deal-first marker), dropped by SWUExpireTurnEffects('attack') when combat resolves.

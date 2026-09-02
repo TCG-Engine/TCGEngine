@@ -1,4 +1,15 @@
 # AttachedUnitLosesAbilities
+#// COVERAGE: offer=Sentinel_NarrowsTheOFFEREDAttackPool_NotJustItsSize +
+#//           TwoSentinels_BothStayInThePool_TheRestStayOut (the attack pool IS the offer here)
+#//           decline=N/A - STRUCTURAL: Sentinel is a restriction, not an optional ability.
+#//           boundary=N/A - no numeric threshold.
+#//           control=N/A - STRUCTURAL: no owner-scoped zone; Sentinel is evaluated per arena from the
+#//           attacker's side and follows control implicitly.
+#//           reqboundary=N/A - STRUCTURAL: a continuous attack-legality restriction re-evaluated on
+#//           every attack declaration; nothing is written across a decision.
+#//           modes=2P only - no player reference, no friendly/enemy wording.
+#// ⚠ FILING NOTE: this file also carries the SHD_072 Imprisoned blanking guards, since Imprisoned is
+#// the sharpest way to prove Sentinel is an ABILITY and not a printed property.
 #// SHD_072 (upgrade: "Attach to a non-leader unit. Attached unit loses its current abilities and can't
 #// gain abilities.") A debuff played onto the ENEMY SOR_063 Cloud City Wing Guard (Sentinel): the host
 #// carries the upgrade (UPGRADECOUNT:1) but no longer counts as having Sentinel.

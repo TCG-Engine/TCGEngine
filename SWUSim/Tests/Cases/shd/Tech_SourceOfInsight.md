@@ -354,3 +354,92 @@ P1GROUNDARENACOUNT:0
 P1RESCOUNT:7
 P1RESAVAILABLE:6
 P1NODECISION
+
+---
+
+# SmuggledUnit_ExploitForkIsOffered_CONTROL_FromHandItIs
+#// THE PASSING CONTROL for the section below. TWI_037 Droideka Security has Exploit 2, and playing it
+#// from HAND raises "Defeat_up_to_2_units_(Exploit)" before the cost is paid. Without this control the
+#// RED section below would only prove "no prompt appeared", which is equally consistent with the fixture
+#// being wrong about Exploit existing at all.
+## GIVEN
+CommonSetup: bbk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10
+WithP1Hand: [TWI_037]
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Defeat_up_to_2_units_(Exploit)
+
+---
+
+# SmuggledUnit_ExploitForkIsOffered
+#// ⚠⚠ KNOWN ENGINE BUG — THIS SECTION IS EXPECTED TO BE RED. Restored 2026-09-01 from the SHD worklist,
+#// where it had existed only as PROSE since 2026-08-15 because the old practice deleted failing sections
+#// to keep the file green. It asserts the CORRECT behaviour.
+#//
+#// SHD_248 Tech grants Smuggle to every friendly resource ("the gained Smuggle cost is that card's cost
+#// plus 2 resources and its aspect icons"), which is what makes this reachable at all — no printed card
+#// carries both Smuggle and Exploit. TWI_037 Droideka Security is cost 6, so its Tech-granted Smuggle
+#// cost is 8, and both its aspects are covered by this board.
+#//
+#// EXPECTED: smuggling an Exploit unit offers the same Exploit fork the hand path offers (the control
+#// above) — Exploit is part of PLAYING the card, not of playing it from hand.
+#// ACTUAL:   no decision is raised at all; the unit simply enters play at full price.
+#// ROOT CAUSE: SWUSmuggleResource places units INLINE via AddGroundArena/AddSpaceArena and only
+#// DELEGATES for the Upgrade and Event branches. The Exploit fork lives in the
+#// SWUBeginPlayCard/ActivateCard hand path, which the unit branch never enters.
+#// SHARES ONE ROOT with Clone.md::SmuggledClone_CopyForkIsOffered — fixing the delegation fixes both.
+## GIVEN
+CommonSetup: bbk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10:SOR_046:1,1:TWI_037:1
+WithP1GroundArena: SHD_248:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: SOR_046:1:0
+## WHEN
+- P1>SmuggleResource:10
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Defeat_up_to_2_units_(Exploit)
+
+---
+
+# SmuggledUnit_StillGetsPassiveEntryGrants
+#// A unit played via Smuggle is a unit you PLAY, so a grant that fires as a unit ENTERS must reach it.
+#// Found 2026-09-01 while refactoring the smuggle placement: SWUApplyPassiveEntryGrants is called by
+#// ActivateCard's unit branch and by the own-discard play path, and by NEITHER smuggle branch.
+#//
+#// ⚠ THIS SECTION WAS RE-TARGETED. Its first form used SOR_100 Wedge ("each friendly Vehicle gains
+#// Ambush") and PASSED WITHOUT THE FIX — because Wedge is a CONTINUOUS AURA read through the keyword
+#// layer, so a smuggled Vehicle gets Ambush whether or not the entry grant ran. The entry-grant call
+#// only adds a provenance token there. A section that cannot fail is documentation, so it was pointed at
+#// the one consumer that genuinely depends on the call:
+#// ASH_006 Sabine Wren — "the next unit you play this phase gains Shielded" — which CONSUMES a one-shot
+#// flag and gives the Shield at entry. Nothing else grants it, so the Shield is present only if the
+#// smuggle placement runs the entry grants.
+#// The flag is armed directly here rather than by driving Sabine's leader Action, because that Action
+#// requires an opponent to accept 2 Advantage tokens first and that cross-player branch is not what this
+#// section is about.
+
+## GIVEN
+CommonSetup: ggw/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6:SOR_046:1,1:SOR_237:1
+WithP1GroundArena: SHD_248:1:0
+WithP1GlobalEffect: SWU_ASH006_SHIELDED_NEXT
+
+## WHEN
+- P1>SmuggleResource:6
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_237
+P1SPACEARENAUNIT:0:SHIELDCOUNT:1

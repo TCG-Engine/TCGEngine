@@ -1,4 +1,14 @@
 # BuffThenSplit
+#// COVERAGE: offer=N/A - ⚠ SITUATIONAL GAP: the dealer pick ("a friendly unit") and the split's target
+#//           set ("any number of OTHER units") are both pools and neither is asserted; ChooseDealer
+#//           drives the first but does not inspect it. Open cell - the "other" self-exclusion is the
+#//           interesting half.
+#//           decline=N/A - STRUCTURAL: printed mandatory; the split's amount choice is the flexibility.
+#//           boundary=BuffThenSplit / DelayedDefeatWithoutBuff (the +2/+2 is what keeps the dealer alive
+#//           past the phase, so the pair straddles the buff's expiry)
+#//           control=N/A - STRUCTURAL: an Event with a fixed caster and no owner-scoped zone.
+#//           reqboundary=SimulateRequestBoundary_DealerCarriesToSplit
+#//           modes=2P,TeamSuns applicable ("a FRIENDLY unit" is team-wide); ⚠ TeamSuns NOT covered.
 #// SOR_092 Overwhelming Barrage (Event, cost 5) — give a friendly unit +2/+2 this phase, then it
 #// deals damage equal to its (BUFFED) power divided among any number of OTHER units. P1's only
 #// friendly is a 3/3 → buffed to 5/5 → deals 5, split 3 to one enemy + 2 to another. Proves the

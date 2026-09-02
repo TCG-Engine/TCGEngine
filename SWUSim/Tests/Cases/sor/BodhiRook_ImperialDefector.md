@@ -1,4 +1,14 @@
 # DiscardNonUnit
+#// COVERAGE: offer=N/A - STRUCTURAL: the discard is chosen from an OPPONENT'S HAND, a hidden zone
+#//           rendered through the look-at-hand reveal rather than a selectable board pool; the scope is
+#//           asserted behaviourally by OnlyUnits_NoDiscard (a hand of units yields nothing).
+#//           decline=N/A - STRUCTURAL: printed mandatory, no "you may".
+#//           boundary=N/A - no numeric threshold in the text.
+#//           control=N/A - STRUCTURAL: a When Played on a unit, so it resolves once for whoever played
+#//           it; there is no later re-resolution for control to change.
+#//           reqboundary=SavedHandShownAfterAutoDiscard (the saved hand must survive to the reveal)
+#//           modes=2P; ⚠ TwinSuns NOT covered - "an opponent's hand" is a PROMPT above two seats and no
+#//           far-seat section exists. Open cell.
 #// SOR_201 Bodhi Rook (Unit, cost 3, Cunning) — "When Played: Look at an opponent's hand and discard
 #// a NON-UNIT card from it." P2's hand is a unit (SOR_095) + an event (SOR_171). Only the event is a
 #// valid target, so the discard auto-resolves on it (single legal target). Because there's no

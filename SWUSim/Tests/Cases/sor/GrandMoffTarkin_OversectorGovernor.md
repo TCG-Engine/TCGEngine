@@ -1,4 +1,13 @@
 # Deployed_OnAttack_ExpToImperial
+#// COVERAGE: offer=LeaderAction_Offer_ImperialUnitsOnly_NonImperialFriendlyExcluded +
+#//           LeaderAction_Offer_UnqualifiedImperialSpansBothSides +
+#//           Deployed_OnAttack_Offer_AnotherImperialUnit_TarkinAndNonImperialExcluded
+#//           decline=Deployed_OnAttack_Declined_NoExperienceIsGiven
+#//           boundary=EpicAction_ExactlyFiveResources_Deploys / EpicAction_FourResources_DoesNotDeploy
+#//           control=ControlChange_AStolenImperialUnitIsAValidRecipient
+#//           reqboundary=LeaderAction_RequestBoundary_ExperienceLandsAcrossTheBoundary
+#//           modes=2P only - "an Imperial unit" is a trait pool with no controller word and no player
+#//           reference, so all three formats share one path.
 #// SOR_007 Grand Moff Tarkin — deployed leader unit (2/7) On Attack: You may give an Experience
 #// token to ANOTHER Imperial unit. Deployed Tarkin (the only ground unit) attacks the base; on
 #// YES the only other Imperial unit — SOR_225 (2/3, space) — auto-receives +1/+1 (→ 3/4). The

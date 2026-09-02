@@ -1,4 +1,12 @@
 # DefeatNo
+#// COVERAGE: offer=N/A - ⚠ SITUATIONAL GAP: "an upgrade" is unqualified and MultiUpgradeChoice does
+#//           drive a multi-candidate pick, but no section asserts the POOL itself. Open cell.
+#//           decline=DefeatNo ("you may defeat an upgrade")
+#//           boundary=N/A - no numeric threshold.
+#//           control=N/A - STRUCTURAL: a When Played on a unit; no owner-scoped zone in the text.
+#//           reqboundary=N/A - STRUCTURAL: one decision resolved in the step that raises it.
+#//           modes=2P only - no player reference, no friendly/enemy wording (OwnUpgrade proves the pool
+#//           is unqualified rather than enemy-only).
 #// SOR_162 Disabling Fang Fighter — DefeatNo
 #// Player declines — upgrade remains.
 

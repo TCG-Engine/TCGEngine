@@ -1,4 +1,14 @@
 # ExhaustEnemyUnit
+#// COVERAGE: offer=N/A - ⚠ SITUATIONAL GAP: "exhaust a unit" is unqualified and ExhaustEnemyUnit +
+#//           ExhaustOwnUnit prove the both-sides reading behaviourally, but no section asserts the POOL.
+#//           Open cell.
+#//           decline=N/A - STRUCTURAL: "EITHER ready a resource OR exhaust a unit" is a mandatory modal
+#//           choice, not a declinable one; both branches are covered (ReadyResource / ExhaustEnemyUnit).
+#//           boundary=N/A - no numeric threshold.
+#//           control=N/A - STRUCTURAL: "a resource" resolves for the controller and a When Played does
+#//           not re-resolve later, so owner and controller cannot diverge.
+#//           reqboundary=N/A - STRUCTURAL: the modal choice and its effect resolve in one step.
+#//           modes=2P only - no player reference, no friendly/enemy wording.
 #// SOR_189 Leia Organa — NO: 2 enemy ready units → MZCHOOSE → exhausts chosen one
 
 ## GIVEN

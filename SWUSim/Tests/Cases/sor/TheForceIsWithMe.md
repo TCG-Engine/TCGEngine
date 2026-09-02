@@ -1,4 +1,13 @@
 # DeclineAttack
+#// COVERAGE: offer=N/A - ⚠ SITUATIONAL GAP: "a friendly unit" is a pool and no section asserts it.
+#//           Open cell.
+#//           decline=DeclineAttack ("you may attack with the chosen unit")
+#//           boundary=ForceUnit_ExpShieldAttack / NoForceUnit_ExpAndAttackNoShield (the "if you control
+#//           a FORCE unit" gate, as a pair)
+#//           control=N/A - STRUCTURAL: an Event with a fixed caster and no owner-scoped zone.
+#//           reqboundary=N/A - ⚠ SITUATIONAL: the CHOSEN unit is carried from the token grant to the
+#//           optional attack, which is exactly the carry the cell exists for. Open cell.
+#//           modes=2P,TeamSuns applicable ("a FRIENDLY unit"); ⚠ TeamSuns NOT covered.
 #// SOR_055 The Force Is With Me — the attack is optional ("You may attack"). With a Force unit present,
 #// Obi-Wan still gets +2 Experience and a Shield, but P1 DECLINES the attack: he stays ready and the
 #// enemy base is untouched.

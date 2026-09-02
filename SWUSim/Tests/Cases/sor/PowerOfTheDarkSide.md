@@ -1,4 +1,13 @@
 # NoUnits_NoOp
+#// COVERAGE: offer=LeaderUnitOfferedAlongsideRegularUnit (the pool is the OPPONENT's, and it includes
+#//           their deployed leader unit - the text says "a unit they control", not "non-leader")
+#//           decline=N/A - STRUCTURAL: printed mandatory; the opponent must choose.
+#//           boundary=N/A - no numeric threshold.
+#//           control=N/A - STRUCTURAL: "a unit THEY control" is resolved from control by definition, so
+#//           there is no owner-vs-controller split left to test.
+#//           reqboundary=N/A - STRUCTURAL: the opponent's choice and the defeat resolve in one step.
+#//           modes=2P; ⚠ TwinSuns NOT covered - "an opponent" is a PROMPT above two seats and no
+#//           far-seat section exists. Open cell.
 #// SOR_041 Power of the Dark Side — when the opponent controls no units the event fizzles cleanly: it
 #// resolves to P1's discard and nothing is defeated (no dangling decision).
 

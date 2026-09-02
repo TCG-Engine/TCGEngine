@@ -1,4 +1,15 @@
 # Falcon_Combo
+#// COVERAGE: offer=LeaderAction_Offer_EveryHandCardIsALegalChoice
+#//           decline=N/A - STRUCTURAL: printed mandatory on both sides. ⚠ Note the standing ruling that
+#//           a play FROM HAND is always declinable does NOT reach this card: it RESOURCES a card rather
+#//           than playing it, so nothing hidden is revealed by the requirement.
+#//           boundary=Boundary_EpicAction_FiveResources_CannotDeploy /
+#//           Boundary_EpicAction_SixResources_Deploys
+#//           control=ControlChange_ADefeatedForeignOwnedResourceGoesToItsOWNERSDiscard
+#//           reqboundary=LeaderAction_PendingDefeatNextActionPhase +
+#//           Deployed_PendingDefeatFiresAtTheStartOfTheNextActionPhase (the delayed defeat is armed in
+#//           one action and consumed in a later PHASE, which is the boundary this card actually needs)
+#//           modes=2P only - "your hand"/"your deck"/"a resource you control" are all self-scoped.
 #// SOR_017 Han Solo "Audacious Smuggler" (Leader, cost 6, [Cunning][Heroism], Underworld, UNIQUE,
 #// 4/6). FRONT: "Action [exhaust]: Put a card from your hand into play as a resource and ready it. At
 #// the start of the next action phase, defeat a resource you control. / Epic Action: If you control 6

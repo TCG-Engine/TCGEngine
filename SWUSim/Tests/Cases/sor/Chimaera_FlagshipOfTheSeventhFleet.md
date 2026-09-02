@@ -1,4 +1,13 @@
 # OnAttack_NameDiscard
+#// COVERAGE: offer=N/A - STRUCTURAL: the pick is a NAMECARD (a free-text card title), not a board pool,
+#//           so there is no selectable set; the scope is asserted by OnAttack_NameMiss (a name that is
+#//           not in hand discards nothing) and OnAttack_NameDuplicate.
+#//           decline=N/A - STRUCTURAL: printed mandatory on both clauses.
+#//           boundary=N/A - no numeric threshold.
+#//           control=N/A - STRUCTURAL: On Attack resolves for the attacking unit's controller and the
+#//           only zone named is the OPPONENT's hand, which has no owner-vs-controller split.
+#//           reqboundary=OnAttack_SavedHandShownAfterAutoDiscard
+#//           modes=2P,TwinSuns=TwinSuns_PickerPrecedesTheNAMECARD_ForATransportReason
 #// SOR_185 Chimaera (Space Unit 8/7, cost 8, Cunning/Villainy, Shielded) — "On Attack: Name a card.
 #// An opponent reveals their hand and discards a card with that name from it." Chimaera (in play,
 #// ready) attacks P2's base; the On Attack trigger fires first: P1 names "Mission Briefing"

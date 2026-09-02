@@ -202,3 +202,57 @@ P1GROUNDARENAUNIT:2:CARDID:SHD_160
 P1BASEDMG:1
 P2BASEDMG:1
 P1RESAVAILABLE:0
+
+---
+
+# CapturedPilotingCard_UnitVsPilotForkIsOffered_CONTROL_FromHandItIs
+#// THE PASSING CONTROL for the section below. JTL_045 Hera Syndulla has Piloting, so playing her from
+#// HAND with a friendly Vehicle in play raises "Play_as_Unit_or_Pilot?". Without this control the RED
+#// section would only prove "no prompt appeared", which is equally consistent with the fixture having no
+#// eligible Vehicle host.
+## GIVEN
+CommonSetup: bbw/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1Hand: [JTL_045]
+WithP1SpaceArena: SOR_237:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Play_as_Unit_or_Pilot?
+
+---
+
+# CapturedPilotingCard_UnitVsPilotForkIsOffered
+#// ⚠⚠ KNOWN ENGINE BUG — THIS SECTION IS EXPECTED TO BE RED. Restored 2026-09-01 from the SHD worklist,
+#// where it had existed only as PROSE since 2026-08-15 because the old practice deleted failing sections
+#// to keep the file green. It asserts the CORRECT behaviour.
+#//
+#// SHD_192 Dryden Vos: "Choose a captured card guarded by a unit you control. You may play it for free
+#// under your control." A captured card WITH PILOTING is still a card being played, so it must offer the
+#// same Unit-vs-Pilot choice every other play path offers — a friendly Vehicle is in play to host it.
+#// EXPECTED: after the captive is chosen, "Play_as_Unit_or_Pilot?" is raised.
+#// ACTUAL:   no decision at all — Hera is placed straight into the ground arena as a unit.
+#// ROOT CAUSE: the capture path has no Unit-vs-Pilot fork. It is the same hole SWUPlayFromDiscard had
+#// before it was fixed, but harder: the captive is DETACHED into a local before placement, so it has no
+#// source mzID for SWUQueuePilotVehiclePick to move from. The fix needs a source-zone route first.
+#// ⚠ Dryden has BOTH Shielded and a When Played, so two entry triggers raise the ordering choice first
+#// (EffectStack-0 = the When Played); the captive is then staged into TempZone as myTempZone-0.
+## GIVEN
+CommonSetup: yyk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 9
+WithP1Hand: [SHD_192]
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaCaptive: 0:JTL_045
+WithP1SpaceArena: SOR_237:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myTempZone-0
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Play_as_Unit_or_Pilot?

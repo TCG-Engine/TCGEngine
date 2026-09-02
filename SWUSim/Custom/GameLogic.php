@@ -15742,6 +15742,36 @@ function _SWUCloneCopyTargets(int $player): array {
 // TWI_116 Clone — resolve the copy choice: stash the chosen card's printed CardID in $gCloneCopyCardID
 // (null if declined / target gone), then continue the normal unit-play path. ActivateCard reads the
 // global at placement time. $playerID is intentionally left = $player (the unit-path convention).
+// SMUGGLE_CLONE_PLACE — the TWI_116 Clone copy choice on the SMUGGLE path. The hand path's twin is
+// CLONE_COPY_CHOICE just below, which stashes $gCloneCopyCardID for ActivateCard to read; the smuggle
+// path never reaches ActivateCard (it places inline), so the chosen card is handed straight to the
+// placement helper instead.
+// $parts = cardID | deferHandler-or-empty | addCostDmg — all SCALARS, because this decision arrives in a
+// fresh process in production and nothing may be held in memory across it.
+// ⚠ The additional-cost TARGETS are recomputed rather than carried: they are arena mzIDs and can reindex
+// across the boundary. TWI_116 has no Smuggle additional cost of its own so $addCostDmg is 0 in practice,
+// but this is written to stay correct if that ever changes.
+$customDQHandlers["SMUGGLE_CLONE_PLACE"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $playerID = intval($player);
+    $cardID       = $parts[0] ?? 'TWI_116';
+    $deferHandler = (($parts[1] ?? '') !== '') ? $parts[1] : null;
+    $addCostDmg   = intval($parts[2] ?? 0);
+    $cloneCopyID  = null;
+    if ($lastDecision !== null && $lastDecision !== '' && $lastDecision !== '-' && $lastDecision !== 'PASS') {
+        $chosen = GetZoneObject($lastDecision);
+        if ($chosen !== null && empty($chosen->removed)) {
+            // Only PRINTED attributes are copied, so copying a Clone copy copies the real TWI_116 —
+            // i.e. it yields a plain Clone, which is the same as declining.
+            $pick = !empty($chosen->IsClone) ? 'TWI_116' : ($chosen->CardID ?? null);
+            if ($pick !== null && $pick !== 'TWI_116') $cloneCopyID = $pick;
+        }
+    }
+    $addCostTargets = ($addCostDmg > 0) ? SWUFriendlyUnits() : [];
+    _SWUSmugglePlaceUnit(intval($player), $cardID, $cloneCopyID, $addCostDmg, $addCostTargets, $deferHandler);
+    // $playerID intentionally left = $player (mirrors the other smuggle continuations)
+};
+
 $customDQHandlers["CLONE_COPY_CHOICE"] = function($player, $parts, $lastDecision) {
     global $playerID, $gCloneCopyCardID;
     $playerID = intval($player);
@@ -17946,16 +17976,59 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
         break;
     }
 
+    // TWI_116 Clone — "You may have this unit enter play as a copy of a non-leader, non-Vehicle unit in
+    // play." Smuggle is the card's OWN alternate cost, so the player is PLAYING the Clone and the copy
+    // choice belongs here exactly as it does on the hand path (SWUBeginPlayCard raises it there). Before
+    // this, a smuggled Clone entered as the printed 0/0 and was defeated on entry by the HP sweep.
+    // ⚠ Raised AFTER the resource removal and the CR 8.22.g slot replacement, and BEFORE placement — the
+    // same ordering the EVENT branch uses, so the replacement cannot be influenced by anything the copy
+    // choice does, and the copy is applied "as it enters play".
+    // ⚠ NO COST COUPLING: the Clone's price is its own ("SWUComputePlayCost still reads TWI_116"), and
+    // the Smuggle cost is already fully paid above — so unlike Exploit this fork changes no arithmetic
+    // and can be raised after payment without making the choice a fizzle-only offer.
+    // The continuation carries only SCALARS across the request boundary.
+    if ($cardID === 'TWI_116') {
+        $cloneTargets = _SWUCloneCopyTargets(intval($player));
+        if (!empty($cloneTargets)) {
+            SWUQueueMayChooseTarget(intval($player), $cloneTargets,
+                "Copy_a_unit_in_play?", "Choose_a_unit_to_copy",
+                'SMUGGLE_CLONE_PLACE|' . $cardID . '|' . (string)($deferHandler ?? '') . '|' . intval($addCostDmg));
+            return;   // $playerID intentionally left = $player for the queued choice's validation
+        }
+        // No eligible unit to copy — fall through and place the plain 0/0 Clone (the HP sweep defeats it).
+    }
+
+    _SWUSmugglePlaceUnit($player, $cardID, null, $addCostDmg, $addCostTargets, $deferHandler);
+    $playerID = $savedPID;
+}
+
+// Place a SMUGGLED unit and run everything that follows placement: the SHD_017 Lando defer, the Smuggle
+// ADDITIONAL cost (SHD_036) and the entry-trigger fire. Extracted 2026-09-01 so the TWI_116 Clone copy
+// fork can be raised BEFORE placement and then re-enter here with the chosen card.
+// $cloneCopyID: the printed CardID the Clone is entering play AS, or null for an ordinary smuggled unit.
+// The caller has already removed the resource and done the CR 8.22.g slot replacement.
+function _SWUSmugglePlaceUnit(int $player, string $cardID, ?string $cloneCopyID,
+                              int $addCostDmg, array $addCostTargets, ?string $deferHandler): void {
+    global $playerID;
+    $playerID = intval($player);
+
+    // The ENTERING unit becomes the copy; $cardID stays TWI_116 for cost/played-card bookkeeping and for
+    // the entry-trigger dispatch, exactly as ActivateCard's unit branch does it.
+    $effectiveCardID = $cloneCopyID ?? $cardID;
+
     // CR 8.22.f: unit enters play exhausted.
-    $targetArena = CardTargetArena($cardID);
+    $targetArena = CardTargetArena($effectiveCardID);
     $uid = NextUniqueID();
     if ($targetArena === 'SpaceArena') {
-        $newCard = AddSpaceArena($player, CardID:$cardID, Status:0,
+        $newCard = AddSpaceArena($player, CardID:$effectiveCardID, Status:0,
             Owner:$player, Damage:0, Controller:$player, UniqueID:$uid);
     } else {
-        $newCard = AddGroundArena($player, CardID:$cardID, Status:0,
+        $newCard = AddGroundArena($player, CardID:$effectiveCardID, Status:0,
             Owner:$player, Damage:0, Controller:$player, UniqueID:$uid);
     }
+    // A Clone copy is NOT unique and leaves play as the real TWI_116 — the flag is what every consumer
+    // reads for both (SWUEnforceUniqueness, SWUAddToDiscard, capture, the unit-slot reads).
+    if ($cloneCopyID !== null) $newCard->IsClone = true;
 
     // CR 8.22.f: WhenPlayed and other entry triggers fire just as for normal play.
     $newCardMzID = $newCard->GetMzID();
@@ -17973,8 +18046,7 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
         // because an arena mzID can reindex before the continuation runs.
         DecisionQueueController::AddDecision($player, 'CUSTOM',
             $deferHandler . '|' . intval($player) . '|' . $cardID . '|' . intval($uid) . '|' . $targetArena, 1);
-        $playerID = $savedPID;
-        return;
+        return;   // the caller owns the $playerID restore
     }
 
     // Pay the Smuggle ADDITIONAL cost (SHD_036: "deal 4 damage to a friendly unit"). Queued against the
@@ -17986,8 +18058,19 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
             "Deal_{$addCostDmg}_damage_to_a_friendly_unit_(Smuggle_cost)", "DEAL_UNIT_DAMAGE|{$addCostDmg}");
     }
 
+    // Grants that fire as a unit ENTERS play. A unit played via Smuggle is a unit you PLAY, so ASH_006
+    // Sabine's one-shot "the next unit you play this phase gains Shielded" must be consumed and paid out
+    // here too. ActivateCard's unit branch and the own-discard play path both call this; neither smuggle
+    // branch did.
+    SWUApplyPassiveEntryGrants($player, $effectiveCardID, $newCardMzID);
+
+    // A unit entering play can change the board's continuous shrinks — and can itself be defeated on
+    // entry (SHD_037 Snoke, or a TWI_116 Clone that declined its copy and enters as a printed 0/0).
+    // ActivateCard's unit branch runs this sweep right after placement; the smuggle path never did, so
+    // a smuggled unit at 0 remaining HP illegally survived. Same call, same point in the sequence.
+    SWUCheckShrinkDefeats();
+
     _SWUSmuggleFireEntry($player, $cardID, $newCardMzID, $targetArena);
-    $playerID = $savedPID;
 }
 
 // Fire a Smuggled unit's entry triggers — the "When played using Smuggle" closure (SHD_113/148/174/213),

@@ -69,6 +69,15 @@ A prose matrix does not produce coverage; a number you can fail does. Baseline m
 | 4+ clauses | 7.4 / 7 | **12** |
 | leader (two sides) | — | **floor per SIDE, summed** |
 
+⚠ **TWO WAYS TO MEASURE THIS WRONG, both of which INVENT a backlog you then pad against (SOR, 2026-09-01):**
+1. **Do not count `Epic Action:` as a clause.** A leader's Epic deploy is generic engine behaviour with
+   no per-leader wiring and needs no per-leader tests, so it must not raise the floor. (The LAW pass
+   already recorded the sibling error — counting connectives like "If you do" / "Then".)
+2. **A leader's floor is PER SIDE, SUMMED — never one combined floor over both sides' text.** A leader
+   with 1 front clause and 2 deployed clauses is 4 + 7 = 11, not "3 clauses → 10".
+   Getting these wrong reported SOR as 6 files / 10 sections short when the honest answer was **2 files /
+   3 sections** — three of the five "short" leaders were exactly AT floor.
+
 **42% of JTL/LOF files have ≤2 sections**, and 49 of them have ≤2 sections for a card with ≥2 clauses. Both sets have since needed a validate-port that found ~8 engine bugs apiece — the thin coverage is *why*, not a coincidence. Cards written to the current bar land at 6–15 (HMW_064 Scorch, 1 clause → 6; HMW_003 Doctor Hemlock, leader → 15).
 
 The floor is a **trip-wire, not a target**. Under it you have almost certainly skipped a matrix cell — go find which one. Over it with cells still unwalked is equally not Done. Do not pad to reach a number; add the missing *cell*.
@@ -1583,6 +1592,31 @@ Two rules follow, and they cost nothing at write time:
 
 ⚠ And when you consume a ledger — an axis scan, a coverage sweep — **verify a sample before trusting the
 population**. That is how these 19 were found.
+
+### ★★ WRITING THE LEDGER IS WHAT FINDS THE BACKLOG — it is not documentation (SOR, 2026-09-01)
+
+Retrofitting `COVERAGE:` ledgers to SOR's last 25 ledger-less files was expected to be a paperwork task
+on a set already reading 0% missing on five axes. It produced **19 OPEN CELLS across 16 files** that no
+instrument had reported.
+
+**Why the scan cannot see them:** the axis scan asks whether a file mentions an assertion FAMILY
+(`SELECTABLEEXACT`, `SimulateRequestBoundary`, …) anywhere. Writing the ledger asks, per CLAUSE, whether
+*this specific cell* is walked — and forces you to justify every N/A as STRUCTURAL rather than
+situational. That second question is strictly stronger, and it is the one that surfaces
+"the pool exists, two sections drive it, and nobody ever asserted it".
+
+So: **write the ledger while the card is in your head, and when you retrofit one, treat every
+`⚠ SITUATIONAL` you are tempted to write as a finding rather than a footnote.** The shape of SOR's 19:
+8 unasserted offer pools, 4 situational request boundaries, 4 uncovered Team Suns "friendly" readings,
+2 uncovered Twin Suns "an opponent" prompts.
+
+### ⚠ A NEIGHBOURING CARD'S CODE IN THE SAME FILE WILL FAKE A BUG (SOR, 2026-09-01)
+
+Grepping for LOF_264 It's Worse ("defeat a NON-LEADER unit" — unqualified, so both sides) landed on an
+enemy-only `ZoneSearch("theirGroundArena")` in the same file and looked like a clear scoping bug. That
+pool belongs to **LOF_222 A Precarious Predicament**, whose text genuinely says "an ENEMY non-leader
+unit". Per-card files hold reprints and closely-related cards, so a line number is not attribution:
+**read the handler's own registration key and the text of the card that owns it before opening a bug.**
 
 ### ★★ INSTRUMENT THE STATE CHANGE, NOT THE FUNCTION YOU THINK OWNS IT (SOR pass, 2026-09-01)
 

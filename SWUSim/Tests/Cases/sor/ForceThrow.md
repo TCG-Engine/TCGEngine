@@ -1,4 +1,16 @@
 # ChooseOpponent_DeclineDamage
+#// COVERAGE: offer=N/A - STRUCTURAL: the discard is from the CHOSEN PLAYER's hand (a hidden zone), and
+#//           the damage target is unqualified "a unit"; scope is asserted behaviourally by the
+#//           ChooseSelf/ChooseOpponent pair, which proves the player pick actually routes the discard.
+#//           decline=ChooseOpponent_DeclineDamage ("you may deal damage")
+#//           boundary=N/A - the damage equals the discarded card's cost, a computed amount rather than
+#//           a threshold; the amount is asserted in ChooseOpponent_TwoCards_DealsDamage.
+#//           control=N/A - STRUCTURAL: an Event with a fixed caster; "their hand" is resolved from the
+#//           chosen player, so owner and controller cannot diverge.
+#//           reqboundary=N/A - ⚠ SITUATIONAL: the discarded card's COST is read after the discard
+#//           decision to size the damage. No boundary section exists. Open cell.
+#//           modes=2P; ⚠ TwinSuns NOT covered - "choose a player" is a PROMPT above two seats and no
+#//           far-seat section exists. Open cell.
 #// SOR_167 Force Throw — the "may deal damage" half is OPTIONAL: caster controls a Force unit (SOR_051)
 #// and the discarded card has cost > 0, so the damage is OFFERED, but the caster DECLINES it (AnswerDecision:-).
 #// Opponent holds 1 card (SOR_128) so the discard auto-resolves; nothing takes damage.

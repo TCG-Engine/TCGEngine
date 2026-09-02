@@ -1,4 +1,14 @@
 # AlreadyExhaustedTarget_StaysExhausted
+#// COVERAGE: offer=N/A - ⚠ SITUATIONAL GAP: "exhaust a unit" is unqualified and no section asserts the
+#//           pool (AlreadyExhaustedTarget_StaysExhausted proves an exhausted unit is still legal, which
+#//           is the sharpest single fact about it). Open cell.
+#//           decline=N/A - STRUCTURAL: printed mandatory.
+#//           boundary=N/A - no numeric threshold; the duration edge is the round boundary and is
+#//           covered by DookuRemainsExhaustedNextRound_P2FirstAction.
+#//           control=N/A - STRUCTURAL: the can't-ready flag is keyed to the UNIT by UniqueID, not to a
+#//           seat-owned zone.
+#//           reqboundary=SimulateRequestBoundary_ExhaustTargetAndCantReadyFlag
+#//           modes=2P only - no player reference, no friendly/enemy wording.
 #// SOR_186 No Good to Me Dead — you may target an ALREADY-exhausted unit just to stop it readying.
 #// SOR_046 starts exhausted; the exhaust is a no-op but the can't-ready flag still applies, so it stays
 #// EXHAUSTED through regroup while the control SEC_080 readies.

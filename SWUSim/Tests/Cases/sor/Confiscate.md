@@ -1,4 +1,14 @@
 # DefeatsEnemyUpgrade
+#// COVERAGE: offer=N/A - STRUCTURAL: "an upgrade" is wholly unqualified, so every upgrade in play is
+#//           legal and there is no exclusion to assert; the both-sides reading is proven behaviourally
+#//           by DefeatsEnemyUpgrade + DefeatsOwnUpgrade, and MultipleUpgrades proves the pool is a real
+#//           multi-candidate choose rather than an auto-resolve.
+#//           decline=N/A - STRUCTURAL: printed mandatory.
+#//           boundary=N/A - no threshold. · control=N/A - STRUCTURAL: an Event, fixed caster, and the
+#//           text names no owner-scoped zone.
+#//           reqboundary=N/A - STRUCTURAL: single decision, resolved in the same step it is raised;
+#//           nothing is written before it and read behind it.
+#//           modes=2P only - no player reference, no friendly/enemy wording.
 #// SOR_251 Confiscate — defeat upgrade on enemy unit (auto-resolve)
 #// Single upgraded unit → no choice needed; upgrade goes to P2's discard.
 

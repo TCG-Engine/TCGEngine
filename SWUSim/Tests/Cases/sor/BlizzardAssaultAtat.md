@@ -1,4 +1,11 @@
 # AttackDefeats_DealExcess
+#// COVERAGE: offer=ExcessOffer_EnemyGroundUnitsOnly · decline=AttackDefeats_DeclineExcess
+#//           boundary=N/A - STRUCTURAL: "the excess damage" is a computed amount, not a threshold to
+#//           straddle; the amount itself is asserted in AttackDefeats_DealExcess.
+#//           control=N/A - STRUCTURAL: no owner-scoped zone in the text (no hand/deck/discard/base
+#//           reference) and the trigger is self-referential ("this unit attacks and defeats").
+#//           reqboundary=SimulateRequestBoundary_ExcessAmountSurvives
+#//           modes=2P only - no player reference; "an enemy ground unit" is a pool, not a seat choice.
 #// COVERAGE (this file holds SOR_088 Blizzard Assault AT-AT and the SOR_012 IG-88 leader sections):
 #//           offer=ExcessOffer_EnemyGroundUnitsOnly (the excess prompt left PENDING and its whole legal
 #//           pool read with SELECTABLEEXACT — two surviving enemy ground bodies so it cannot

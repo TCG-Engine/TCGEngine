@@ -1,4 +1,12 @@
 # Deployed_RaidAndAttackAnother
+#// COVERAGE: offer=LeaderAction_Offer_ReadyRebelsOnly +
+#//           LeaderAction_SecondOffer_ExcludesTheFirstAttacker
+#//           decline=LeaderAction_DeclineSecond ("you may attack with another")
+#//           boundary=EpicDeploy_FourResourcesIsOneTooFew / EpicDeploy_FiveResourcesIsEnough
+#//           control=LeaderAction_StolenRebelIsALegalAttacker
+#//           reqboundary=LeaderActionChain_SurvivesRequestBoundary
+#//           modes=2P only - "a Rebel unit" is a trait pool with no controller word or player
+#//           reference; the deployed Raid rider is self-scoped.
 #// SOR_009 Leia Organa — Deployed: Raid 1 + "When this unit completes an attack: you may attack
 #// with another Rebel unit." Deployed Leia (3/6, Rebel) attacks the base for 3+1(Raid)=4, then her
 #// OnAttackEnd lets a second Rebel attack the base for 3 → 7 total base damage.

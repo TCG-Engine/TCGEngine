@@ -1,4 +1,13 @@
 # Deployed_OnAttack_DamageReadyAnother
+#// COVERAGE: offer=LeaderAction_Offer_PowerThreeIsInPowerFourIsOut +
+#//           Deployed_OnAttack_Offer_ExcludesHimselfAndHighPower
+#//           decline=Deployed_OnAttack_Decline
+#//           boundary=LeaderAction_Offer_PowerThreeIsInPowerFourIsOut (3-or-less, as a pair inside one
+#//           pool assertion) + EpicDeploy_FiveResourcesIsOneTooFew / EpicDeploy_SixResourcesIsEnough
+#//           control=LeaderAction_StolenUnitCountsAsFriendly
+#//           reqboundary=LeaderActionPickSurvivesRequestBoundary
+#//           modes=2P only - "a friendly unit" with no player reference; the friendly/enemy axis is
+#//           self-scoped on both sides.
 #// SOR_011 Grand Inquisitor — Deployed: On Attack you MAY deal 1 damage to another friendly
 #// unit with 3 or less power and ready it. GI (idx 1) attacks the base; the only other friendly
 #// (a 3/3 at idx 0, exhausted) is chosen → takes 1 damage and is readied. Base takes GI's power 3.

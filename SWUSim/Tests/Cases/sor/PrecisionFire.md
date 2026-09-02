@@ -1,4 +1,12 @@
 # GrantedSaboteurBreaksShield
+#// COVERAGE: offer=N/A - ⚠ SITUATIONAL GAP: "attack with a unit" offers the caster's ready units and
+#//           no section asserts that pool. Open cell.
+#//           decline=N/A - STRUCTURAL: printed mandatory (an event that attacks; the attacker choice is
+#//           the effect, not an optional rider).
+#//           boundary=TrooperAttacker_Buff / NonTrooper_NoBuff (the Trooper gate as a pair)
+#//           control=N/A - STRUCTURAL: an Event with a fixed caster and no owner-scoped zone.
+#//           reqboundary=SimulateRequestBoundary_GrantsSurviveTargetPick
+#//           modes=2P only - no player reference, no friendly/enemy wording.
 #// SOR_168 Precision Fire — the chosen attacker GAINS Saboteur for this attack (it isn't innately a
 #// Saboteur). SOR_095 (Trooper, 3/3, no innate Saboteur) gets +2/+0 → 5 power and the granted Saboteur
 #// breaks the defender's Shield before combat, so the shielded LAW_124 (4/7) takes the full 5 (DAMAGE:5,

@@ -160,3 +160,98 @@ WithP2SpaceArena: SOR_099:1:0
 P1GROUNDARENACOUNT:0
 P1DISCARDUNIT:0:CARDID:TWI_116
 P1NODECISION
+
+---
+
+# SmuggledClone_CopyForkIsOffered_CONTROL_FromHandItIs
+#// THE PASSING CONTROL for the section below. Playing TWI_116 Clone from HAND raises
+#// "Choose_a_unit_to_copy" before it enters. Without this control the RED section would only prove "no
+#// prompt appeared", which is equally consistent with the fixture having no copyable unit on the board.
+## GIVEN
+CommonSetup: ggk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 9
+WithP1Hand: [TWI_116]
+WithP1GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Choose_a_unit_to_copy
+
+---
+
+# SmuggledClone_CopyForkIsOffered
+#// ⚠⚠ KNOWN ENGINE BUG — THIS SECTION IS EXPECTED TO BE RED. Restored 2026-09-01 from the SHD worklist,
+#// where it had existed only as PROSE since 2026-08-15 because the old practice deleted failing sections
+#// to keep the file green. It asserts the CORRECT behaviour.
+#//
+#// SHD_248 Tech grants Smuggle to every friendly resource, which is what makes this reachable — the
+#// Clone has no printed Smuggle. Its Tech-granted cost is its own cost plus 2 (7 + 2 = 9), aspect
+#// Command, covered by this board.
+#// EXPECTED: the copy fork is offered exactly as it is from hand (the control above) — "enter play as a
+#// copy" is part of PLAYING the Clone, not of playing it from hand.
+#// ACTUAL:   no decision at all; it enters as the printed 0/0 Clone.
+#// ROOT CAUSE: SWUSmuggleResource places units INLINE via AddGroundArena/AddSpaceArena and only
+#// DELEGATES for the Upgrade and Event branches, so the copy fork in the SWUBeginPlayCard/ActivateCard
+#// hand path is never reached. _SWUSmuggleFireEntry then keys the smuggle trigger on TWI_116 itself
+#// rather than on the copied card.
+#// SHARES ONE ROOT with shd/Tech_SourceOfInsight.md::SmuggledUnit_ExploitForkIsOffered.
+## GIVEN
+CommonSetup: ggk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 12:SOR_046:1,1:TWI_116:1
+WithP1GroundArena: SHD_248:1:0
+WithP1GroundArena: SOR_046:1:0
+## WHEN
+- P1>SmuggleResource:12
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Choose_a_unit_to_copy
+
+---
+
+# SmuggledClone_AnsweringTheForkActuallyCopies
+#// The prompt alone is not the fix — a fork that leads nowhere would leave the card in limbo. This
+#// answers it and proves the Clone ENTERED PLAY AS the copied card: SOR_046 Consular Security Force is a
+#// 3/7, so the smuggled Clone must read CARDID SOR_046 with those stats rather than the printed 0/0.
+#// A plain 0/0 Clone is defeated on entry by the no-remaining-HP sweep, so the arena COUNT distinguishes
+#// the two readings as well — both are asserted.
+## GIVEN
+CommonSetup: ggk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 12:SOR_046:1,1:TWI_116:1
+WithP1GroundArena: SHD_248:1:0
+WithP1GroundArena: SOR_046:1:0
+## WHEN
+- P1>SmuggleResource:12
+- P1>AnswerDecision:myGroundArena-1
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:2:CARDID:SOR_046
+P1GROUNDARENAUNIT:2:POWER:3
+P1GROUNDARENAUNIT:2:HP:7
+P1GROUNDARENAUNIT:2:EXHAUSTED
+
+---
+
+# SmuggledClone_DecliningTheFork_EntersAsAPlainClone
+#// THE DECLINE BRANCH, and it is what proves the copy is genuinely optional rather than automatic.
+#// A plain 0/0 Clone is defeated on entry by the no-remaining-HP sweep, so the arena keeps only the two
+#// units that were already there and the Clone goes to the discard.
+## GIVEN
+CommonSetup: ggk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 12:SOR_046:1,1:TWI_116:1
+WithP1GroundArena: SHD_248:1:0
+WithP1GroundArena: SOR_046:1:0
+## WHEN
+- P1>SmuggleResource:12
+- P1>AnswerDecision:-
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1DISCARDCOUNT:1

@@ -1585,4 +1585,30 @@ in the dictionary and keyword registries before implementation started). Suite b
      Mutations, each redding only what it should: all-live-seats (1 - the own-leader section),
      OtherPlayer two-seat hardcode (1 - the far-seat section), not-me-but-teammates (1 - the team
      section), no capacity gate (1), ready-only capacity (1), YES does not pay (1), NO does not exhaust
-     (4). -->
+     (4).
+
+     -- HMW_125 THE MARAUDER, AUDITED AGAINST A JUDGE Q&A (2026-09-01) --
+     Q: "Can the Marauder hit itself to reduce the cost by 1?" A: NO. "While playing this unit" puts the
+     choose-and-damage in the DETERMINE COSTS / PAY COSTS step, so the card is still in HAND and is not
+     a friendly unit in play.
+     VERDICT: the implementation was already correct, and correct STRUCTURALLY rather than by a special
+     case - _SWUHmw125LegalPicks is built from SWUAllUnits, which walks ARENAS only, so a hand card can
+     never enter the pool. Better still, that one function is THE gate for all three consumers (the
+     affordability GLOW in CanAffordActivationReserve, the offer in _SWUBeginPlayCardUnitPath, and the
+     server-side re-validation in HMW_125#0), so the offer and the resolution cannot disagree.
+     WHAT WAS MISSING WAS THE GUARD, not the behaviour: the only offer section was about
+     friendly-vs-enemy and excluded the in-flight copy incidentally. Two sections added:
+       Ruling_TheInFlightMarauderIsNOTInPlay_AndIsNotInItsOwnPool - pool asserted with the Marauder AND
+         a second card in hand, so a hand-leaking pool has somewhere visible to leak to.
+       Ruling_ADIFFERENTCopyALREADYInPlayISSelectable - the other half of the ruling and the sharper
+         one: the in-flight copy is excluded because it is NOT IN PLAY, not because of what card it is,
+         so a second Marauder already on the board is an ordinary legal pick. This is the discriminator
+         against the obvious wrong fix (filter the pool by CardID), which looks identical everywhere
+         else.
+     WARN THE STRONGER FORM IS NO LONGER WRITEABLE. Answering with the Marauder's own hand slot is now
+     refused engine-wide by SWUValidateDecisionAnswer before the handler sees it, and a refusal cannot
+     be asserted - so the ruling is pinned POSITIVELY via the offered pool. Same situation as the SCRY
+     re-encode earlier in this session.
+     Mutations: exclude-by-CardID reds ONLY the second-copy section; letting hand entries into the pool
+     reds the in-flight section AND both glow sections - the glow prices the best-case reduction from
+     the same pool, so this ruling governs whether the card lights up at all, not just what it may hit. -->

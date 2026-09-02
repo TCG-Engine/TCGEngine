@@ -186,3 +186,45 @@ WithP2GroundArena: SOR_046:1:0
 
 ## EXPECT
 P1SELECTABLEEXACT:myGroundArena-1&theirGroundArena-0
+
+---
+
+# MultiTargetAttacker_TWODefenderBranch_ExhaustsBOTH
+#// ⚠⚠ KNOWN ENGINE BUG — THIS SECTION IS EXPECTED TO BE RED. Restored 2026-09-01 from the SHD worklist,
+#// where it had existed only as PROSE since 2026-08-15 because the old practice deleted failing sections
+#// to keep the file green. It asserts the CORRECT behaviour.
+#//
+#// The section directly above (MultiTargetAttacker_SingleDefenderBranch_StillExhausts) is the CONTROL:
+#// the same Maul + Grappleshot board taking ONE defender exhausts it correctly. This is the TWO-defender
+#// branch of the same action, and the granted "On Attack: Exhaust the defender" reaches NEITHER of them.
+#//
+#// Maul (5/6) wears the Grappleshot for 7/8 and attacks both TWI_054 Duchess's Champions (1/8): each
+#// takes 7 and survives, and their combined 2 comes back at Maul. Both were defenders, so both must end
+#// EXHAUSTED.
+#// EXPECTED: both exhausted. ACTUAL: both READY — the trigger reads an empty defender and returns.
+#// ROOT CAUSE: _SWUMaulBeginDoubleAttack (CombatLogic.php ~3662) never writes SWU_CURRENT_DEFENDER /
+#// SWU_CURRENT_DEFENDER_UID, which ExecuteSWUAttack sets at ~2165/2171 — so ANY "the defender"-targeting
+#// On Attack reads empty on this path. Blast radius is the whole family (SOR_054 Jedi Lightsaber, …).
+#// ⚠ NOT a one-liner: the attacker-side trigger must run ONCE PER DEFENDER, but the attacker-side pass
+#// currently runs only on the lead defender, and naively looping it would DOUBLE-FIRE attacker-side On
+#// Attacks that are not defender-targeting ("deal 2 to a base"). Needs a deliberate design pass.
+
+## GIVEN
+CommonSetup: rrk/bbw
+P1OnlyActions: true
+WithP1GroundArena: TWI_135:1:0
+WithP1GroundArenaUpgrade: 0:SHD_074
+WithP2GroundArena: [TWI_054:1:0 TWI_054:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:Units
+- P1>AnswerDecision:theirGroundArena-0&theirGroundArena-1
+
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P2GROUNDARENAUNIT:1:EXHAUSTED
+P2GROUNDARENAUNIT:0:DAMAGE:7
+P2GROUNDARENAUNIT:1:DAMAGE:7
+P1GROUNDARENAUNIT:0:DAMAGE:2

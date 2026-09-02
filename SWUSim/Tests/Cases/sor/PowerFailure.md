@@ -1,4 +1,14 @@
 # DefeatsAllUpgrades
+#// COVERAGE: offer=N/A - ⚠ SITUATIONAL GAP: "any number of upgrades ON A UNIT" is a two-stage pool (a
+#//           host, then its upgrades) and neither stage is asserted; MultipleUnits and
+#//           MultipleUpgrades drive both. Open cell.
+#//           decline=SoftPass ("any number" includes none)
+#//           boundary=PartialDefeat / DefeatsAllUpgrades (choosing a subset vs all)
+#//           control=N/A - STRUCTURAL: an Event with a fixed caster; a defeated non-token upgrade goes
+#//           to its OWNER's discard, which TokenUpgradeSetAside covers for the token case.
+#//           reqboundary=N/A - STRUCTURAL: host pick and upgrade pick resolve in one chain with nothing
+#//           read behind them.
+#//           modes=2P only - no player reference, no friendly/enemy wording.
 #// SOR_170 Power Failure — defeats all upgrades on chosen unit
 #// P2 unit has two non-token upgrades; Select All (both staged picks) defeats both,
 #// they go to P2's discard.

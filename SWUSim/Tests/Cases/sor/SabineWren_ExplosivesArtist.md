@@ -1,4 +1,16 @@
 # BelowThreshold_CanBeAttacked
+#// COVERAGE: offer=N/A - ⚠ SITUATIONAL GAP: the On Attack picks "the defender OR a base", a two-kind
+#//           pool that no section asserts; OnAttack_PingDefender / OnAttack_PingBase drive both branches
+#//           behaviourally. Open cell.
+#//           decline=OnAttack_DeclinePing
+#//           boundary=BelowThreshold_CanBeAttacked / Protected_CantBeAttacked (the 3-aspects threshold,
+#//           as a pair)
+#//           control=N/A - STRUCTURAL: "other friendly units" is a live board count and the protection
+#//           is evaluated per attack; no owner-scoped zone is named.
+#//           reqboundary=N/A - ⚠ SITUATIONAL: the can't-be-attacked condition is recomputed at every
+#//           attack declaration rather than written across a decision, so the risk is low - but the
+#//           On Attack's defender-or-base pick does span a decision. Open cell.
+#//           modes=2P,TwinSuns=TwinSuns_CanPingAFarSeatsBase
 #// SOR_142 Sabine Wren — boundary: with only 2 aspects among other friendly units (Heroism + Villainy),
 #// the protection is OFF and Sabine can be attacked normally. P2's SEC_080 (3 power) attacks and
 #// defeats her (2/3).

@@ -1,4 +1,12 @@
 # Deploy_OnAttack_DealDamage
+#// COVERAGE: offer=Deployed_OnAttack_Offer_SpansBOTHSidesAndIncludesHimself (unqualified "a unit")
+#//           decline=Deploy_OnAttack_Decline · boundary=LeaderAction_NoVillainyCard /
+#//           LeaderAction_VillainyPlayed (the played-a-Villainy-card gate, as a pair)
+#//           control=N/A - STRUCTURAL: neither side names an owner-scoped zone, and a leader cannot be
+#//           taken control of, so there is no owner-vs-controller reading to test.
+#//           reqboundary=SimulateRequestBoundary_MidAttackTriggerTarget
+#//           modes=2P,TwinSuns=TwinSuns_MayPickYOUROWNBase + TwinSuns_CanPickAFarSeatsBase
+#//           ("deal 1 damage to A BASE" is unqualified, so it spans every seat's base)
 #// SOR_010 Darth Vader — Deployed: OnAttack YES → deal 2 damage to a unit.
 
 ## GIVEN
@@ -168,3 +176,56 @@ SEATCOUNT:4
 P4BASEDMG:1
 P2BASEDMG:0
 P1BASEDMG:0
+
+---
+
+# Deployed_OnAttack_Offer_SpansBOTHSidesAndIncludesHimself
+#// THE OFFER CELL for the deployed side, which had only take/decline sections — both of which prove the
+#// BRANCH and neither the POOL.
+#// "You may deal 2 damage to A UNIT" carries no controller word and no "another", so the pool is every
+#// unit on the board: P1's own Marine, the enemy, AND VADER HIMSELF. Pointing it at your own board is a
+#// legal if unusual play, and self-targeting is legal because the text does not say "another".
+#// A pool narrowed to enemies (the obvious reading of a Villainy leader's ping) satisfies both existing
+#// deployed sections, since both aim at the enemy.
+#// A deployed leader is appended LAST to the ground arena, so P1 reads [SOR_095, Vader].
+
+## GIVEN
+CommonSetup: rrk/grw/{myResources:7}
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:1:BASE
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&theirGroundArena-0
+
+---
+
+# Deployed_OnAttack_KillsTheDefender_AttackThenDealsNothing
+#// THE TIMING CELL. The On Attack window resolves BEFORE combat damage, so 2 damage aimed at the
+#// declared defender can remove it before the attack lands — and an attack whose defender has left play
+#// deals no damage and takes no counter-damage.
+#// Vader (5/8) attacks SOR_128 Death Star Stormtrooper (3/1); the ping kills it outright. If the order
+#// were reversed, combat would kill it first, the enemy would still be gone, and the 3-power counter
+#// would have put 3 damage on Vader — so DAMAGE:0 on Vader is what separates the two orderings.
+#// Neither existing deployed section can see this: both attack the BASE, where nothing can die first.
+## GIVEN
+CommonSetup: rrk/grw/{myResources:7}
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP2GroundArena: SOR_128:1:0
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_010
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2BASEDMG:0
