@@ -342,6 +342,41 @@ When you deal 4 or more damage to a unit or a base: You may deal 1 damage to a d
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'HMW_015' => 
+  array (
+    'title' => 'Bossk',
+    'subtitle' => 'Cruel Hunter',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 4,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+      1 => 'Bounty Hunter',
+    ),
+    'text' => 'Action [Exhaust]: Heal 1 damage from a damaged enemy unit and give a Weakness token to it.',
+    'epicAction' => 'Epic Action: If you control 5 or more resources, deploy this leader.',
+    'deployText' => 'On Attack: You may deal 2 damage to a unit with a token upgrade on it. (Shield and Weakness tokens are token upgrades.)',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/015.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/015-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_016' => 
   array (
     'title' => 'Maul',
@@ -2661,6 +2696,33 @@ If you control an Endor base , you may attack with a unit. It gets +2/+0 for thi
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/196.png',
     'imageUrlBack' => '',
   ),
+  'HMW_197' => 
+  array (
+    'title' => 'Cid Scaleback',
+    'subtitle' => 'Can\'t Be Trusted',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 2,
+    'hp' => 2,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+    ),
+    'text' => 'When Played: An opponent chooses a unit they control. Give a Weakness token to it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/197.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_200' => 
   array (
     'title' => 'Rish Loo',
@@ -2746,6 +2808,35 @@ Raid 1 (This unit gets +1/+0 while attacking.)',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/202.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_203' => 
+  array (
+    'title' => 'Victor Squadron',
+    'subtitle' => 'In Attack Formation',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 5,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Imperial',
+      1 => 'Vehicle',
+      2 => 'Fighter',
+    ),
+    'text' => 'This unit enters play ready.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/203.png',
     'imageUrlBack' => '',
   ),
   'HMW_204' => 
@@ -2836,6 +2927,31 @@ When Played: If you control Grand Moff Tarkin, give an enemy unit -3/-0 for this
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
+  ),
+  'HMW_207' => 
+  array (
+    'title' => 'Maim',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 1,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Tactic',
+    ),
+    'text' => 'Deal 1 damage to a unit and exhaust it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/207.png',
+    'imageUrlBack' => '',
   ),
   'HMW_208' => 
   array (

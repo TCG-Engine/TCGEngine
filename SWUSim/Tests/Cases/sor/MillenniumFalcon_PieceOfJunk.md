@@ -180,3 +180,39 @@ P1SPACEARENAUNIT:0:CARDID:SOR_193
 P1CREDITCOUNT:0
 P1RESCOUNT:2
 P1RESAVAILABLE:2
+
+---
+
+# PlayedFromOwnDiscardViaTPF_EntersReady
+#// SOR_193 Millennium Falcon — the SECOND discard route, and a REGRESSION GUARD for an engine bug fixed
+#// 2026-09-02. PlayedFromDiscard_EntersReady above goes through SHD_094 Palpatine's Return, i.e. through
+#// ActivateCard. This one goes through `SWUPlayFromDiscard` — the TPF/TPP "you may play it from your
+#// discard this phase" ACTION — which returns events and upgrades to ActivateCard but places a UNIT at
+#// its own inline arena site. That site hardcoded `Status:0` and never consulted
+#// `_SWUCardEntersReadyFor`, so the Falcon (and SEC_170 / LAW_210 / LAW_223 / ASH_224 / HMW_208 /
+#// HMW_203) came back EXHAUSTED off this path while coming back ready off every other one.
+#// Found while walking HMW_203 Victor Squadron's entry paths; the "alternate route into a zone skips the
+#// canonical ceremony" family. The sibling section in hmw/VictorSquadron_InAttackFormation.md covers the
+#// same fix; this one lives on the canonical released victim so the guard outlives any preview card.
+#//
+#// SHD_053 Second Chance grants "When Defeated: for this phase, this unit's owner may play it from their
+#// discard pile for free", which is what stamps TPF. The Falcon (3/4) is seeded with 3 damage so the
+#// 2-power TIE trades with it; the discard then holds SHD_053 at 0 and SOR_193 (TPF) at 1, and P1
+#// replays it for free with no resources at all.
+
+## GIVEN
+CommonSetup: gyw/rrk
+WithP1SpaceArena: SOR_193:1:3
+WithP1SpaceArenaUpgrade: 0:SHD_053
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>Pass
+- P2>AttackSpaceArena:0:0
+- P1>PlayFromDiscard:1
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:CARDID:SOR_193
+P1SPACEARENAUNIT:0:READY
+P1RESAVAILABLE:0

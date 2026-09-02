@@ -1,8 +1,10 @@
 # HMW — Card Implementation Plan
 
-**⚠ PREVIEW SET.** 109 cards exist (107 numbered + 2 tokens) of ~262 printed — count re-derived from
-`AppCore/SWU/CardMocks.php` on 2026-08-27; the last import wave was 2026-08-26 (three separate rewrites
-that session: 103 → 108 → 109). Earlier waves: 2026-08-26 (HMW_175 / HMW_208 / HMW_225 / HMW_237), and the wave imported
+**⚠ PREVIEW SET.** 129 cards exist (127 numbered + 2 tokens) of ~262 printed — count re-derived from
+`AppCore/SWU/CardMocks.php` on 2026-09-02. The 2026-09-02 wave added **HMW_015 / HMW_197 / HMW_203 /
+HMW_207**; of those only HMW_207 Maim is implemented so far, so this set is **NOT card-complete**
+(HMW_015 Bossk, HMW_197 Cid Scaleback and HMW_203 Victor Squadron are outstanding). Earlier waves: the
+last import before this one was 2026-08-26 (three separate rewrites that session: 103 → 108 → 109); 2026-08-26 (HMW_175 / HMW_208 / HMW_225 / HMW_237), and the wave imported
 2026-08-24 (HMW_018 / HMW_180 / HMW_212 / HMW_221 / HMW_222 / HMW_230 / HMW_240 / HMW_268 landed
 then) — as mock entries in `AppCore/SWU/CardMocks.php`. Regenerate this plan (`swusim-generate-set-implement-doc HMW`) as more
 previews land — the phases below cover only what was previewed when each was written.
@@ -13,7 +15,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015
 
 
 <!-- HMW_005 Jar Jar Binks, Bombad General — Done, 16/16. THE SET'S LAST CARD.
@@ -32,6 +34,114 @@ HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121,
      ⚠ TWO sections deliberately omit `P1OnlyActions` and assert `TURNPLAYER:2`. With that directive
      the action-close is UNOBSERVABLE — the first 14 sections were all green with the closer deleted.
      Both closers (the resolve chain and the soft-pass early return) mutation-verified independently. -->
+
+<!-- HMW_015 Bossk, Cruel Hunter — Done, 16/16 (front + deployed, each past its own floor).
+     Template is the set-mate HMW_003 Doctor Hemlock: same two-sided leader shape, same Weakness token,
+     same tight-front / loose-deployed asymmetry. Epic deploy needs no code (threshold IS the printed
+     cost, 5) and is guarded by the Epic_DeployAtFiveResources / Epic_BlockedAtFourResources pair.
+     FRONT is [Exhaust] only — NO $leaderActionResourceCosts row. Both printed restrictions live in the
+     OFFER: "enemy" => side 'their' (team-aware via OpponentsOf, so a Team Suns teammate's damaged unit
+     is correctly not offered), "damaged" => an extraFilter on Damage > 0. NO SWULeaderActionAffordable
+     gate — an unmet target condition is a SOFT PASS (leader still exhausts), per TS26_02 Anakin and
+     HMW_005 Jar Jar.
+     ★ NEW SHARED HELPER `_SWUHasTokenUpgrade($obj)` in CardHelpers.php — the rules CATEGORY read off
+     CardType 'Token Upgrade', NOT a CardID list.
+     ⚠ PREVIEW-SET JUDGEMENT CALL: the deployed reminder "(Shield and Weakness tokens are token
+     upgrades.)" is a REMINDER restating the category with two examples, not a narrowing. Experience
+     (SOR_T01) and Advantage (ASH_T02) are token upgrades too, so a unit wearing only an Experience
+     token IS a legal target. Narrowing the helper to ['SOR_T02','HMW_T02'] reds EXACTLY ONE section
+     (Deployed_ExperienceIsATokenUpgradeToo) — that is the one to change if it is ever errata'd.
+     ⚠⚠ A CLAIM I GOT WRONG, recorded so it is not re-derived: I first wrote the front's two effects as
+     an ORDERING cell ("heal first or the shrink sweep kills a 2/2 on 1 damage"). BOTH mutations came
+     back GREEN. The arithmetic is why: a legal target is 1 <= D < H, and afterwards it is on max(0,D-1)
+     damage with H-1 HP, lethal only when D >= H — a contradiction. So the front can NEVER defeat its
+     target, the order is unobservable, and no shrink sweep is reachable. The sweep that the shared
+     GIVE_WEAKNESS continuation runs is therefore DELIBERATELY ABSENT from HMW_015#0 rather than copied
+     in as dead code; do not "restore" it without a board that reaches it.
+     ⚠ THE ACTION-CLOSE CELL WAS A REAL GAP, found by mutation: deleting the front's SWU_AFTER_ACTION
+     closer left all 14 then-existing sections GREEN, because every one used `P1OnlyActions` and that
+     directive makes the close unobservable. Two sections were added WITHOUT it —
+     Front_TheActionCLOSES_TurnPassesExactlyOnce (effect path) and Front_SoftPassAlsoCLOSESTheAction
+     (the soft-pass path, which is where a closer written inside the continuation instead of beside the
+     offer would strand the turn). Re-running the mutation now reds both. Any leader Action written
+     from this file's shape needs that pair.
+     Other mutations, each isolating one section: side 'their'->'any' reds 3 (offer, soft pass, Team
+     Suns); dropping the damaged filter reds 2; deployed may:false reds the decline; deployed
+     side 'any'->'their' reds the offer; dropping the token filter reds 2. -->
+
+<!-- HMW_197 Cid Scaleback, Can't Be Trusted — Done, 11/11 including Twin Suns AND Team Suns.
+     The structural twin is LAW_216 Jabba's Rancor ("An opponent chooses a ground unit they control"),
+     and this follows its two-queue shape: the CASTER names an opponent via SWUQueueChooseOpponent, an
+     intermediate #0 CUSTOM (DispatchTrigger restores $playerID, so the cross-player work cannot be
+     queued inline from the When Played closure) hands the unit choice to that seat via
+     SWUOpponentChoosesOwnUnit(..., $opp), and the shared GIVE_WEAKNESS handler attaches HMW_T02 in the
+     CHOOSER's frame and runs the shrink sweep.
+     ⚠ JUDGEMENT CALL — ELIGIBILITY IS A REAL FILTER. Per the three-shape doctrine, the chosen player
+     ACTS ON THEIR OWN BOARD here, so an opponent controlling no units would be choosing among nothing
+     and is kept off the menu (LAW_216's rule). Contrast TS26_43/TWI_222, where something is done TO the
+     opponent and an unaffectable seat must stay eligible. The counter-argument is real and is recorded
+     in the test file: in a free-for-all, naming a unit-less opponent would be a way to decline an effect
+     the card gives no "you may" for. TwinSuns_OpponentWithNoUnitsIsNotOffered is the ONE section that
+     changes if this is ever ruled the other way.
+     ⚠ DO NOT COPY LAW_216'S GROUND-ONLY POOL. Cid says plain "a unit", so both arenas count for BOTH
+     the eligibility scan and the opponent's own pool — and every ground-fixture section stays green
+     under a ground-only scan. SpaceOnlyOpponentIsEligible_AndTheirSpaceUnitIsChosen is the only thing
+     that catches it; it was added after a mutation exposed the gap.
+     Mutations, each isolating exactly one section: dropping the chosen seat (OtherPlayer fallback) reds
+     the far-seat section; dropping the eligibility list reds the no-units-menu section; nonLeader:true
+     reds the deployed-leader section; a ground-only scan reds the space section.
+     ⚠ MEASURED, so nobody mis-reads the file: the card's own `OpponentsOf` is NOT what keeps a Team Suns
+     TEAMMATE off the menu — SWUQueueChooseOpponent intersects with its own OpponentsOf($chooser), so
+     widening the card's loop leaves the suite green. TeamSuns_TeammateIsNotOnTheMenu guards the SHARED
+     helper. Likewise NoOpponentControlsAUnit_NoPromptAtAll is defended by the helpers' own empty-pool
+     early returns rather than by anything in this file. -->
+
+<!-- HMW_203 Victor Squadron, In Attack Formation — Done, 7/7. NO CARD CODE: its whole text box is
+     "This unit enters play ready.", which is exactly the phrase `SWUUnitEntersReady()` substring-matches,
+     so it resolves through the UNCONDITIONAL fallback at the end of `_SWUCardEntersReadyFor()` with no
+     per-card branch. Verify-only, so all 7 sections were GREEN on the first run — mutation-verified
+     instead: forcing HMW_203 to enter exhausted reds all 7, and wrongly gating it on round 1 (the
+     HMW_208 misreading) reds EXACTLY the round-5 section, which is why that section exists.
+     ⚠ HMW_203 is the UNCONDITIONAL mirror of its own set-mate HMW_208 Luke Skywalker, whose identical
+     phrase sits inside "While it's the first round of the game". Do not sweep HMW_203 into the
+     conditional list — LaterRound_StillEntersReady_UnlikeTheConditionalCards is the tripwire.
+
+     ★ ENGINE BUG FOUND AND FIXED HERE (shared code, 7 cards, not an HMW_203 bug):
+     `SWUPlayFromDiscard` returns EVENTS and UPGRADES to ActivateCard but places a UNIT at its own
+     inline arena site, and that site hardcoded `Status:0` — it never consulted `_SWUCardEntersReadyFor`.
+     So every "enters play ready" card came back EXHAUSTED off a TPF/TPP play-from-your-own-discard
+     while coming back ready off every other route: SOR_193 Millennium Falcon, SEC_170 Corellian Hounds,
+     LAW_210, LAW_223, ASH_224, HMW_208 and HMW_203. Reproduced by measurement (SHD_053 Second Chance
+     stamps the TPF), fixed with one line, and guarded TWICE — once here and once on SOR_193, the
+     canonical released victim, so the guard outlives this preview card. Reverting the fix reds exactly
+     those two sections and nothing else. The "alternate route into a zone skips the canonical ceremony"
+     family again.
+     ⚠ TWO SIBLING HOLES LEFT OPEN ON PURPOSE — read from the code, NOT measured, so treat each as a
+     CLAIM to re-reproduce before writing anything against it:
+       (a) `_SWUSmugglePlaceUnit` (GameLogic ~18018) also hardcodes `Status:0`. No card has both Smuggle
+           and an enters-ready clause today, so the card's-own-replacement half has no victim — but
+           ASH_248 Neel's "the NEXT unit you play this phase with 1 or less power enters play ready"
+           arguably should apply to a smuggled unit, and would not.
+       (b) The fix deliberately folds in ONLY the card's own replacement, not the two play-SOURCE
+           overrides ActivateCard also honours (`$gForceEnterReady`, ASH_248 Neel's flag). Nothing can
+           reach them on the discard path today, and an unverified guard in a shared entry point is the
+           code nobody dares touch later. -->
+
+<!-- HMW_207 Maim — Done, 11/11. The direct sibling is JTL_230 Electromagnetic Pulse (same
+     "Deal N damage to a unit and exhaust it" sentence shape); Maim differs only in the amount and in
+     having an UNQUALIFIED target set, so the pool is `SWUAllUnits()` with no args — both controllers,
+     both arenas, token units and deployed leader units. Mutation-verified one guard at a time:
+     narrowing the pool to 'their' reds 3 sections, narrowing the type filter to ['Unit'] reds 3,
+     amount 1→2 reds 7, deleting the exhaust reds 7.
+     ⚠ PREVIEW-SET ASSUMPTION (HMW is absent from card-specific-rulings.md): the halves are joined by
+     "and", NOT "If you do", so the exhaust is UNCONDITIONAL — a Shield that absorbs the whole 1 damage
+     does not stop it. Reasoned from HMW_202 Inferno Squad's "damage AND give a token". Gating the
+     exhaust on the damage landing reds EXACTLY ONE section
+     (ShieldedTarget_DamagePrevented_StillExhausted), so that section is the whole load-bearing
+     record of the reading — if the ruling lands the other way, it is the only thing to change.
+     ⚠ A local `if (empty($targets)) return;` guard was written and then DELETED: SWUQueueChooseTarget
+     already returns on an empty pool (GameLogic.php:1546), so removing the local one changed nothing
+     in the suite. Kept as an honest comment rather than a no-op with a false justification attached. -->
 
 <!-- HMW_011 Darth Sidious — Done, 12/12 including Twin Suns. Carries the engine's first
      "when you deal 4+ damage" observer, wired into all five damage funnels.
@@ -500,8 +610,18 @@ covered the cards previewed when they were written, and a preview set GROWS. The
 
 ## Status
 
-**NOT card-complete — a THIRTEENTH preview wave landed (113 → 121 HMW CardIDs, 2026-08-31).**
-Being worked one at a time via `swusim-implement-set-plan HMW --iterative`.
+**NOT card-complete — a FOURTEENTH preview wave landed (125 → 129 HMW CardIDs, 2026-09-02),**
+adding HMW_015 Bossk (Leader, BOTH sides), HMW_197 Cid Scaleback, HMW_203 Victor Squadron and
+HMW_207 Maim — **all four are now done (2026-09-02)**, so the set is card-complete AS OF the diff run
+at the end of that session: `### Already Done` vs the HMW CardIDs in `AppCore/SWU/CardMocks.php`
+(129 = 127 numbered + 2 tokens) leaves nothing. ⚠ True only until the next preview wave lands, and
+`CardMocks.php` grew three times inside a single session once — re-derive the diff, never trust this
+line.
+Being worked one card at a time via `swusim-implement-set-plan HMW`.
+
+All four cards of the 2026-09-02 wave are done: HMW_207 Maim, HMW_203 Victor Squadron (verify-only,
+and it found + fixed a shared play-from-discard entry bug affecting 7 cards), HMW_197 Cid Scaleback
+(Twin Suns "an opponent") and HMW_015 Bossk (two-sided leader). See their comment blocks above.
 
 ⚠ **THE ORACLE IS THE `### Already Done` LINE DIFFED AGAINST `CardMocks.php` — and mind how you match
 that heading.** A regex anchored on the literal text `### Already Done` matches the PROSE MENTION of it

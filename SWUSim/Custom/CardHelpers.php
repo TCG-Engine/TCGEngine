@@ -55,6 +55,23 @@ if (!function_exists('SWUObjGone')) {
 // SWUAllUnits(null,'Ground') == array_merge(teamGround, theirGround); etc.
 // Outside a team game 'team' degrades to the caller's own zone, so all of these are byte-identical
 // to the pre-Team-Suns behaviour at two seats.
+// ─── "does this unit have a TOKEN UPGRADE on it?" ────────────────────────────
+// The rules CATEGORY, read off the card data (CardType 'Token Upgrade'), NOT a hand-kept CardID list.
+// That is the whole point: HMW_015 Bossk's reminder text says "(Shield and Weakness tokens are token
+// upgrades.)", which restates the category with two examples rather than narrowing it — Experience
+// (SOR_T01), Advantage (ASH_T02) and every reprint of them are token upgrades too, and a
+// Shield-and-Weakness-only list would silently make those units untargetable.
+// Captives and removed subcards are already excluded by GetUpgradesOnUnit.
+if (!function_exists('_SWUHasTokenUpgrade')) {
+    function _SWUHasTokenUpgrade($obj): bool {
+        if ($obj === null) return false;
+        foreach (GetUpgradesOnUnit($obj) as $sub) {
+            if (CardType($sub->CardID ?? '') === 'Token Upgrade') return true;
+        }
+        return false;
+    }
+}
+
 if (!function_exists('SWUAllUnits')) {
     function SWUAllUnits(?string $of = null, ?string $arena = null, $filter = null): array {
         // $filter: a ZoneSearch card-type filter (AnyUnitFilter default, NonLeaderUnitFilter, …).

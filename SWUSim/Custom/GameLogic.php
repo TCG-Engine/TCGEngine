@@ -18357,11 +18357,23 @@ function _SWUOwnDiscardPlayAsUnit(int $player, int $actualIdx, string $cardID, s
     $entry->removed = true;
     $targetArena = CardTargetArena($cardID);
     $uid = NextUniqueID();
+    // CR 8.22.f: a unit enters play exhausted UNLESS its own text replaces that. This branch is the
+    // inline arena placement for a UNIT played from your own discard (events and upgrades returned
+    // above, through ActivateCard) — a SECOND placement site, so it has to consult the shared resolver
+    // itself. It did not, and hardcoded Status:0: every "this unit enters play ready" card came back
+    // EXHAUSTED off a TPF/TPP discard play (SOR_193 Millennium Falcon, SEC_170, LAW_210, LAW_223,
+    // ASH_224, HMW_208, HMW_203). Found 2026-09-02 while walking HMW_203's entry paths; the "alternate
+    // route into a zone skips the canonical ceremony" family again.
+    // ⚠ Deliberately ONLY the card's own replacement. The two play-SOURCE overrides ActivateCard also
+    // folds in here — $gForceEnterReady and ASH_248 Neel's armed flag — are left alone: no test can
+    // reach them on this path today, and an unverified guard in a shared entry point is exactly the
+    // code nobody dares touch later. Logged as a named worklist item instead (see hmw-implement.md).
+    $entryStatus = _SWUCardEntersReadyFor(intval($player), $cardID) ? 1 : 0;
     if ($targetArena === 'SpaceArena') {
-        $newCard = AddSpaceArena($player, CardID:$cardID, Status:0,
+        $newCard = AddSpaceArena($player, CardID:$cardID, Status:$entryStatus,
             Owner:$player, Damage:0, Controller:$player, UniqueID:$uid);
     } else {
-        $newCard = AddGroundArena($player, CardID:$cardID, Status:0,
+        $newCard = AddGroundArena($player, CardID:$cardID, Status:$entryStatus,
             Owner:$player, Damage:0, Controller:$player, UniqueID:$uid);
     }
     $newCardMzID = $newCard->GetMzID();
