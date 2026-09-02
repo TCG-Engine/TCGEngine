@@ -1593,6 +1593,22 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     if (_SWULeaderDeployed($activePlayer, 'ASH_005')) {
         AddTrigger($activePlayer, 'ASH_005#1', 'ASH_005#1', $attackerMzID);
     }
+    // SHD_143 Ruthlessness (granted upgrade) — "When this unit attacks and defeats a unit: Deal 2 damage
+    // to the defending player's base." The attacker bears the upgrade; the defending player is the owner
+    // of the just-defeated defender (Twin Suns: derived from the defender mzID, not merely OtherPlayer).
+    // ⚠ ABOVE the survival early-return, and that placement IS the fix (2026-09-02). CR 16.c: an
+    // attack-end ability fires by DEFAULT even when its own unit is defeated by the combat damage;
+    // requiring survival is a per-card OPT-IN, and SHD_143 is correctly absent from the
+    // _SWUAttackEndRequiresSurvival roster — so it must still pay out on a TRADE. Below the return it was
+    // survival-gated, the exact inverse of the rule. Same placement, same reason, as the LAW_007 Boba /
+    // LAW_252 Fett's Firespray / ASH_005 Luke hooks already sitting above it.
+    // ⚠ $defenderMzID is only STRING-PARSED for the seat (SWUMzOwner), never dereferenced, so a defender
+    // that died in this same combat — and whose arena slot has since been re-indexed — cannot mis-target.
+    if (!empty($combatCtx['defenderDefeated']) && $attacker !== null
+            && _SWUUnitHasUpgrade($attacker, 'SHD_143')) {
+        SWUDealDamageToBase(2, SWUMzOwner($defenderMzID, $activePlayer));
+    }
+
     if (SWUObjGone($attacker)) return; // attacker defeated → its OWN triggers don't fire
     if (LostAbilities($attacker)) return; // SEC_046 Galen — a named attacker fires no "deals combat damage" trigger
     $cardID = $attacker->CardID ?? '';
@@ -1710,13 +1726,6 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
                 if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'LAW_054', 'LAW_054', $attackerMzID);
                 break;
         }
-    }
-
-    // SHD_143 Ruthlessness (granted upgrade) — "When this unit attacks and defeats a unit: Deal 2 damage
-    // to the defending player's base." The attacker bears the upgrade; the defending player is the owner
-    // of the just-defeated defender (Twin Suns: derived from the defender mzID, not merely OtherPlayer).
-    if (!empty($combatCtx['defenderDefeated']) && _SWUUnitHasUpgrade($attacker, 'SHD_143')) {
-        SWUDealDamageToBase(2, SWUMzOwner($defenderMzID, $activePlayer));
     }
 
     // LAW_056 Cassian Andor (field passive) — "When a friendly unit's attack ends: if the defending unit
@@ -2428,6 +2437,10 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // into the stale mzID slot.
     $_defObj = (strpos($targetMzID, 'Arena') !== false) ? GetZoneObject($targetMzID) : null;
     SetSWUVar('SWU_CURRENT_DEFENDER_UID', strval($_defObj !== null ? intval($_defObj->UniqueID ?? 0) : 0));
+    // …and the DEFENDER SET. An ordinary attack has exactly one defender, so this is the same unit again —
+    // written unconditionally so SWUCurrentDefenderMzIDs() is uniform across both attack paths AND so a
+    // preceding TWI_135 Maul two-defender attack can never leak its PAIR into this one.
+    SetSWUVar('SWU_CURRENT_DEFENDER_UIDS', strval($_defObj !== null ? intval($_defObj->UniqueID ?? 0) : 0));
     SetSWUVar('SWU_DEFENDER_DEFEATED_IN_ATTACK', ''); // per-attack; set if the defender dies mid-attack
     // SEC_194 per-action base-attack tracking: a transient recording that THIS action attacks a base
     // (and whose). SWUAfterAction reads it to finalize SWU_LAST_ACTION. The base attacked is the
@@ -4097,6 +4110,25 @@ function _SWUMaulBeginDoubleAttack(int $player, string $attackerMzID, string $de
     // Per-attack tally of defenders killed by a step-1 trigger, before combat damage (see SWUDefeatUnit).
     SetSWUVar('SWU_MAUL_DEF_UIDS', "{$u1},{$u2}");
     SetSWUVar('SWU_MAUL_DEF_PREKILLED', '0');
+
+    // ⚠ PUBLISH THE DEFENDER, which this path never did — ExecuteSWUAttack writes these and Maul's
+    // two-defender attack bypasses it entirely, so EVERY "the defender"-targeting On Attack read an
+    // empty string here and silently no-opped (reported via SHD_074 Vambrace Grappleshot; the family is
+    // 12 cards deep — SOR_054 Jedi Lightsaber, JTL_034 Bossk, SHD_183 Kintan Intimidator, …).
+    // OFFICIAL RULING, Darth Maul - Revenge At Last (10/31/2024): "If Darth Maul attacks two units
+    // instead of one, BOTH UNITS ARE CONSIDERED DEFENDERS OF ONE ATTACK. Each step of the attack and any
+    // triggered abilities only occur ONCE, as usual." So this is emphatically NOT "run the attacker-side
+    // trigger once per defender" — the trigger fires once and "the defender" simply denotes BOTH units.
+    // Hence a defender SET (SWU_CURRENT_DEFENDER_UIDS) rather than a second trigger pass: no
+    // attacker-side On Attack can double-fire, including the ones that never mention the defender
+    // ("deal 2 damage to a base").
+    // SWU_CURRENT_DEFENDER / _UID keep the LEAD defender so every existing single-defender reader keeps
+    // working unchanged; readers that should apply to both go through SWUCurrentDefenderMzIDs().
+    SetSWUVar('SWU_CURRENT_DEFENDER', $fullMz);
+    $_leadObj = GetZoneObject($fullMz);
+    SetSWUVar('SWU_CURRENT_DEFENDER_UID', strval($_leadObj !== null ? intval($_leadObj->UniqueID ?? 0) : 0));
+    SetSWUVar('SWU_CURRENT_DEFENDING_SEAT', strval(SWUMzOwner($fullMz, intval($player))));
+    SetSWUVar('SWU_CURRENT_DEFENDER_UIDS', implode(',', array_filter([$u1, $u2])));
     $triggered = FlushCombatTriggerBag($player, $attackerMzID, $def1Mz, "MAULCOMBAT|{$atkUID}|{$u1}|{$u2}");
     if ($triggered === 0) {
         _SWUQueueOrchestration($player, "SWUMaulCombatDamage|{$atkUID}|{$u1}|{$u2}|{$player}", 1);

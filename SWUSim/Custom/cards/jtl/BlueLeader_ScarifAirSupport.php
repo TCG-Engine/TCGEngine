@@ -15,8 +15,14 @@ $whenPlayedAbilities["JTL_096:0"] = function($player, $mzID) {
     // holding 1 ready resource + 1 Credit CAN pay the 2 and must be offered the move.
     if (SWUTotalPaymentCapacity(intval($player)) < 2) return; // can't pay → no offer
     $uid = intval($o->UniqueID ?? 0);
+    // ⚠ NAME THE UNIT THAT IS ACTUALLY MOVING, not this card. "This unit" is whoever holds the ability,
+    // and it is not always Blue Leader: HMW_048 Vernestra Rwoh GAINS his When Played as an additional
+    // cost, so the prompt fires on HER. Hardcoding "Blue Leader" showed the donor's name while a
+    // different unit moved — right unit, wrong name. The regression cannot see prompt text (it renders
+    // no client), so this is verified through TestSchemaStep's pending array instead.
+    $whoTitle = str_replace(' ', '_', CardTitle($o->CardID ?? '') ?: 'this_unit');
     DecisionQueueController::AddDecision($player, 'YESNO', '-', 1,
-        tooltip: "Pay_2_to_move_Blue_Leader_to_the_ground_arena_with_2_Experience?");
+        tooltip: "Pay_2_to_move_{$whoTitle}_to_the_ground_arena_with_2_Experience?");
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'JTL_096#0|' . $uid, 1);
 };
 

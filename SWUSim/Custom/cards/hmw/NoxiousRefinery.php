@@ -47,7 +47,7 @@ function _SWUHmw160RegroupBaseTriggers(): void {
             $topID = $top->CardID ?? '';
             AddGameLogEntry('REVEAL', 'P' . $p . ' revealed ' . CardTitle($topID)
                 . ' from the top of their deck (Noxious Refinery)', 0);
-            if ((CardAspect($topID) ?? '') !== 'Aggression') continue;   // MUTATION: equality
+            if (strpos(CardAspect($topID) ?? '', 'Aggression') === false) continue;
             // "an ENEMY unit" — relative to the base's controller. Mandatory, so a plain choose; it
             // fizzles cleanly when that seat's opponents control nothing.
             SWUOfferUnitTarget($p, '', [

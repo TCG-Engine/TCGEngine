@@ -215,7 +215,13 @@ function GetUpgradesOnUnit($obj): array {
 }
 
 function IsLeaderUnit($obj): bool {
-    $type = CardType($obj->CardID ?? '');
+    // ⚠ `?? ''` is load-bearing, not defensive noise. CardType() returns NULL for any id that is not
+    // in $typeData — which includes the literal 'CardBack' entries an OPPONENT's hidden zones are
+    // serialized as. strpos(null, ...) is deprecated in PHP 8, and because this runs during zone
+    // rendering the warning was emitted straight INTO the response payload: an opponent's Hand zone
+    // arrived as "<b>Deprecated</b>: strpos()…CardBack 0 -<|>…", i.e. the wire string a client parser
+    // has to read. Observed on a live 3-seat board while adding the Hand counter.
+    $type = CardType($obj->CardID ?? '') ?? '';
     // "Leader Unit" covers future API entries that distinguish the two sides.
     // "Leader" cards in an arena zone are deployed leaders acting as units.
     if (strpos($type, 'Leader Unit') !== false) return true;
@@ -338,6 +344,23 @@ function ObjectHasAmbush($obj): int {
 // the Bounty keyword (printed, granted by an upgrade, or granted by an effect). Returns 1/0.
 function ObjectHasBounty($obj): int {
     return ($obj !== null && isset($obj->CardID) && HasKeyword_Bounty($obj)) ? 1 : 0;
+}
+
+// Per-unit Raid indicator for the card counter (schema Virtual: HasRaid). 1 when the unit has the
+// Raid keyword (printed or granted; CR — gets +X power while attacking). Raid is a VALUED keyword,
+// but the badge is presence-only like Exploit's: the icon says "this unit has Raid", and the live
+// power bonus is already visible in the CurrentPower counter while attacking. Returns 1/0
+// (ShowZero=false hides 0). HasKeyword_Raid routes through SWUKeywordSuppressed, so a blanked unit
+// (LostAbilities) correctly shows nothing.
+function ObjectHasRaid($obj): int {
+    return ($obj !== null && isset($obj->CardID) && HasKeyword_Raid($obj)) ? 1 : 0;
+}
+
+// Per-unit Restore indicator for the card counter (schema Virtual: HasRestore). 1 when the unit has
+// the Restore keyword (printed or granted; CR — heals X damage from its controller's base on
+// attack). Presence-only for the same reason as Raid above. Returns 1/0 (ShowZero=false hides 0).
+function ObjectHasRestore($obj): int {
+    return ($obj !== null && isset($obj->CardID) && HasKeyword_Restore($obj)) ? 1 : 0;
 }
 
 // Smoke-overlay flag (schema Virtual: HiddenUnattackable + Overlay rule). 1 while a unit is

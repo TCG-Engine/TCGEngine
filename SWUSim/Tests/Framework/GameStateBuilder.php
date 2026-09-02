@@ -265,7 +265,15 @@ class GameStateBuilder {
     }
 
     public function WithUpgradesOnSpaceUnitForPlayer(int $player, int $unitIndex, array $upgrades): self {
-        $this->_spaceUnits[$player][$unitIndex]['upgrades'] = $upgrades;
+        // ⚠ MERGE, not assign — matching the ground helper above. SchemaTestRunner applies arena
+        // subcards in THREE separate passes (…ArenaUpgrade, then …ArenaPilot, then …ArenaCaptive), each
+        // calling this method for the same unit. Under a plain assignment the later pass silently wiped
+        // the earlier one, so a space unit given both upgrades and a pilot ended up holding ONLY the
+        // pilot — no error, just a quietly smaller fixture, and ground behaved the OPPOSITE way because
+        // it already merged. Found while seeding a space unit with 2 upgrades + a pilot leader: the
+        // board showed 1 attached card instead of 3.
+        $this->_spaceUnits[$player][$unitIndex]['upgrades'] =
+            array_merge($this->_spaceUnits[$player][$unitIndex]['upgrades'] ?? [], $upgrades);
         return $this;
     }
 

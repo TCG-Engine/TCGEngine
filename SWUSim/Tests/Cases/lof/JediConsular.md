@@ -85,3 +85,37 @@ WithP1GroundArena: LOF_094:1:0
 - P1>UseUnitAbility:myGroundArena-0
 ## EXPECT
 P1SELECTABLEEXACT:myHand-0&myHand-1
+
+---
+
+# CR17c_PilotingCardPlayedAsUnitOnly_NoPilotFork
+#// CR 17.c / CR 525.a: "If a player is instructed to 'play a unit,' they cannot choose to play a unit
+#// with Piloting as an upgrade." LOF_094's Action says "play a UNIT from your hand", so JTL_203 Han Solo
+#// (ground 5, Piloting 2) must land in the GROUND ARENA at the discounted unit cost and must never be
+#// offered the unit-vs-pilot fork — even with a friendly Vehicle sitting in space with no pilot on it.
+#// GUARD, added 2026-09-02: when the shared DISCOUNT_PLAY_FROM_HAND continuation was moved onto the full
+#// play ceremony (to reach the ADDITIONAL COST step it had been skipping — see HMW_048), the ceremony
+#// also handed out the Piloting fork, which this CR clause forbids. The fix passes unitOnly. Answering
+#// only the two lines below and asserting NODECISION is what pins it: if the fork returns, the pilot
+#// OPTIONCHOOSE is left pending and the Turncoat is a legal vehicle for it.
+#// SOR_093 Alliance Dispatcher's PilotableUnit_PlaysAsGroundUnit_NotAsPilot is the sibling on the other
+#// caller of the same continuation.
+
+## GIVEN
+CommonSetup: yyw/yyw/{myResources:4}
+P1OnlyActions: true
+WithP1Force: true
+WithP1Hand: JTL_203
+WithP1GroundArena: LOF_094:1:0
+WithP1SpaceArena: SHD_195:1:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:JTL_203
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1RESAVAILABLE:1
+P1NODECISION

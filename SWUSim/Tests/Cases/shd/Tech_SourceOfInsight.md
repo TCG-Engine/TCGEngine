@@ -394,7 +394,12 @@ P1DECISIONTOOLTIP:Defeat_up_to_2_units_(Exploit)
 #// ROOT CAUSE: SWUSmuggleResource places units INLINE via AddGroundArena/AddSpaceArena and only
 #// DELEGATES for the Upgrade and Event branches. The Exploit fork lives in the
 #// SWUBeginPlayCard/ActivateCard hand path, which the unit branch never enters.
-#// SHARES ONE ROOT with Clone.md::SmuggledClone_CopyForkIsOffered — fixing the delegation fixes both.
+#// FIXED 2026-09-02. Exploit is not delegated but raised in place, during the Smuggle path's own
+#// Determine-cost step (CR 14.c makes Smuggle a modified "Play a Card" action, CR 14.i keeps the card's
+#// while-playing abilities active, CR 16.a/16.c make Exploit a -2-per-unit modifier used in step 3).
+#// The ANSWER is resolved by _SWUResolveExploitPicks, shared with the hand path's EXPLOIT_RESOLVE, so
+#// the validation, the CR 4.a pre-defeat payability abort and the CR 16.d trigger deferral cannot drift.
+#// (The Clone sibling this note used to share a root with was already fixed separately on 2026-09-01.)
 ## GIVEN
 CommonSetup: bbk/rrk
 SkipPreGame: true
@@ -443,3 +448,94 @@ WithP1GlobalEffect: SWU_ASH006_SHIELDED_NEXT
 P1SPACEARENACOUNT:1
 P1SPACEARENAUNIT:0:CARDID:SOR_237
 P1SPACEARENAUNIT:0:SHIELDCOUNT:1
+
+
+---
+
+# SmuggledExploit_ReducesTheSmuggleCostBy2PerUnit
+#// THE POINT OF THE FORK, and what the offer-only section above cannot see. CR 16.a: "for each unit
+#// defeated this way, this card costs 2 less" — and CR 16.c puts that in Step 3, Determine cost(s), so it
+#// reduces the SMUGGLE cost, not the printed one. Exploit is a cost MODIFIER, not a cost REPLACEMENT, so
+#// it stacks with Smuggle's replaced cost (contrast CR 8.46.e, where Bamboozle cannot re-replace it).
+#// TWI_037 Droideka Security is cost 6, so the Tech-granted Smuggle cost is 8. Exploiting the two
+#// SOR_095/SOR_046 fillers is -4, leaving 4. 11 resources - 4 = 7 ready, and the two fodder units are gone
+#// (only Tech and the Droideka remain in the ground arena).
+#// ⚠ QUANTITY DISCRIMINATION: 2 units defeated must cost 4, not 2 — a per-play reduction rather than a
+#// per-unit one passes any single-unit test.
+
+## GIVEN
+CommonSetup: bbk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10:SOR_046:1,1:TWI_037:1
+WithP1GroundArena: SHD_248:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>SmuggleResource:10
+- P1>AnswerDecision:myGroundArena-1&myGroundArena-2
+
+## EXPECT
+P1RESAVAILABLE:7
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:SHD_248
+P1GROUNDARENAUNIT:1:CARDID:TWI_037
+P1NODECISION
+
+---
+
+# SmuggledExploit_DeclinedPaysTheFullSmuggleCost
+#// NEGATIVE / DECLINE cell. Exploit is "you MAY defeat up to X" — declining the picker must leave every
+#// friendly unit alive and charge the undiscounted Smuggle cost of 8: 11 - 8 = 3 ready.
+#// Paired with the section above this is the boundary that proves the discount comes from the DEFEATS and
+#// not from merely having Exploit on the card.
+
+## GIVEN
+CommonSetup: bbk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10:SOR_046:1,1:TWI_037:1
+WithP1GroundArena: SHD_248:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>SmuggleResource:10
+- P1>AnswerDecision:-
+
+## EXPECT
+P1RESAVAILABLE:3
+P1GROUNDARENACOUNT:4
+P1GROUNDARENAUNIT:3:CARDID:TWI_037
+P1NODECISION
+
+---
+
+# SmuggledExploit_MayEatTECHITSELF_TheCostIsAlreadyDetermined
+#// ⚠ THE SHARP CASE, and the one that pins the cost being LOCKED across the Exploit decision.
+#// Tech is the only reason this card has Smuggle at all — and Tech is an ordinary friendly unit, so it is
+#// legal Exploit fodder. "Determine cost(s)" is ONE step (CR 6.2 step 3 / CR 8.16): the Smuggle cost is
+#// determined with Tech alive, and Exploit's defeats happen INSIDE that step. Recomputing the cost after
+#// the defeats finds a card that no longer has Smuggle and aborts the play with the fodder already dead.
+#// Exploiting Tech + one filler is -4 off the determined 8, so the Droideka still enters for 4 (11 - 4 = 7)
+#// and the ground arena is left holding ONLY the Droideka.
+#// This is the same "Determine Cost is ONE step" invariant as the Vuutun/Exploit Droid ruling.
+
+## GIVEN
+CommonSetup: bbk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10:SOR_046:1,1:TWI_037:1
+WithP1GroundArena: SHD_248:1:0
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>SmuggleResource:10
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1
+
+## EXPECT
+P1RESAVAILABLE:7
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:TWI_037
+P1NODECISION

@@ -168,10 +168,15 @@ function _SWUControlsUnitBearingUpgrade(int $player, string $upgradeCardID): boo
 }
 
 // ── SWU-only virtual properties (not defined in GA code) ────────────────────
-
-function GetExperienceTokenCount($obj) { return 0; }
-function GetShieldTokenCount($obj)     { return 0; }
-function HandCardCostDifference($obj)  { return null; }
+// GetExperienceTokenCount / GetShieldTokenCount / HandCardCostDifference were removed 2026-09-03.
+// They were inherited GrandArchive scaffolding that returned 0 / 0 / null unconditionally, and their
+// schema Counters all carried ShowZero=false (ShowNegative=false for the cost badge) — so they could
+// NEVER render, by construction. Verified live: a board with shields, Experience tokens AND hand cards
+// produced zero DOM elements for all three. Their Virtual: and Counters: schema lines went with them,
+// so nothing calls these names any more.
+// ⚠ Shields and Experience DO render — via entirely separate paths: shields as corner orbs built in
+// Core/UILibraries (the shieldSubIdx loop, space-shield.svg), Experience as a normal subcard sliver
+// off its concat art. Counting helpers for real game logic live below (_SWUCountShieldSubcards).
 
 // FieldSelectionMetadata: highlight arena units when they can act (ready, your turn, DQ empty).
 // Overrides the GA-template version which calls PrideAmount() — a GA-only function.
@@ -226,7 +231,8 @@ function _CountExperienceSubcards($obj): int {
     return $count;
 }
 
-// Count SOR_T02 (Shield) subcards on a unit. (GetShieldTokenCount is a dead GA stub returning 0.)
+// Count SOR_T02 (Shield) subcards on a unit. THIS is the real shield count used by game logic —
+// the old GetShieldTokenCount() GA stub (always 0) was deleted 2026-09-03 along with its schema wiring.
 function _SWUCountShieldSubcards($obj): int {
     if ($obj === null || !is_array($obj->Subcards ?? null)) return 0;
     $count = 0;
@@ -7953,6 +7959,39 @@ function SWUMzOwner(string $mzID, int $actingPlayer): int {
 // $fallbackPlayer is returned only when no attack is in flight (the var is unset/stale) — callers that
 // are genuinely inside an attack will never see it. Do NOT default it to OtherPlayer(): that is the
 // bug this replaces.
+// Every live DEFENDER of the attack in flight, as mzIDs in the ATTACKER's frame.
+//
+// Normally one unit — and then this is exactly the old GetSWUVar('SWU_CURRENT_DEFENDER') value, so a
+// consumer converted to this behaves identically on every ordinary attack. It returns TWO only for
+// TWI_135 Darth Maul's "attack 2 units instead of 1", where the official ruling (Darth Maul - Revenge At
+// Last, 10/31/2024) is that "both units are considered defenders of one attack" while "any triggered
+// abilities only occur once". So a card that says "the defender" fires ONCE and applies to each unit in
+// this list — it must NOT be implemented by running the trigger twice.
+//
+// A base target yields an EMPTY list (a base is not a defending unit), which is the same no-op every
+// consumer already gets from its own "strpos($def,'Arena') === false" guard.
+// Resolved by UniqueID, so a mid-attack defeat that re-indexes an arena cannot silently retarget.
+function SWUCurrentDefenderMzIDs(): array {
+    $out = [];
+    $uids = (string)GetSWUVar('SWU_CURRENT_DEFENDER_UIDS', '');
+    if ($uids !== '') {
+        foreach (explode(',', $uids) as $u) {
+            $u = intval($u);
+            if ($u <= 0) continue;                       // 0 = the target was a base
+            $mz = SWUFindMzByUID($u);
+            if ($mz === null || strpos($mz, 'Arena') === false) continue;
+            $o = GetZoneObject($mz);
+            if (!SWUObjGone($o)) $out[] = $mz;
+        }
+        return $out;
+    }
+    // Fallback for any path that publishes only the legacy single var.
+    $mz = (string)GetSWUVar('SWU_CURRENT_DEFENDER', '');
+    if ($mz === '' || strpos($mz, 'Arena') === false) return [];
+    $o = GetZoneObject($mz);
+    return SWUObjGone($o) ? [] : [$mz];
+}
+
 function SWUCurrentDefendingSeat(int $fallbackPlayer): int {
     $seat = intval(GetSWUVar('SWU_CURRENT_DEFENDING_SEAT', '0'));
     if ($seat > 0 && IsSeatLive($seat)) return $seat;
@@ -15650,7 +15689,10 @@ function SWUPlayerControlsSEC122(int $player): bool {
 // Play-from-hand entry point. Chains optional interactive cost steps (Exploit, then later the
 // Droid alt-pay step) before the actual play. If neither applies, plays immediately via
 // ActivateCard. Routing here must be fully transparent to non-Exploit plays.
-function SWUBeginPlayCard($player, $mzID, $discount = 0) {
+// $unitOnly — the play was granted by an effect that says "play a UNIT" (CR 17.c / CR 525.a: a card
+// with Piloting played through such an effect CANNOT be played as an upgrade, so the unit-vs-pilot
+// fork must not be offered at all). Every other pre-payment step still runs.
+function SWUBeginPlayCard($player, $mzID, $discount = 0, $unitOnly = false) {
     global $playerID, $gPlayGrantedExploit;
     $savedPID = $playerID;
     $playerID = intval($player);
@@ -15695,7 +15737,7 @@ function SWUBeginPlayCard($player, $mzID, $discount = 0) {
     // applies on the unit-play branch, which re-enters after this block).
     // SEC_046 Galen Erso — a named card has lost Piloting; it can only be played as a unit (the hand
     // object's Owner isn't reliably set, so gate on $player explicitly rather than HasKeyword_Piloting).
-    if (HasKeyword_Piloting($obj) && !_SWUGalenSuppressesCard(intval($player), $obj->CardID ?? '')) {
+    if (!$unitOnly && HasKeyword_Piloting($obj) && !_SWUGalenSuppressesCard(intval($player), $obj->CardID ?? '')) {
         // Pre-apply any play discount to the pilot cost (SWUComputePilotCost / the affordability-gated
         // SWUGetPilotValidTargets read SWU_PILOT_DISCOUNT). Removed again on any non-pilot exit below so it
         // never leaks to a later play. Used by top-deck plays that grant a discount (LOF_188 As I Have
@@ -16060,13 +16102,18 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
         }
         case 'SMUGGLE_PAY': {
             // Re-enter SWUSmuggleResource with the alt-payment settled. args =
-            // "{resourceIdx}|{discount}|{deferHandler}" — all scalars, so this survives the request
-            // boundary on the decision's own Param (nothing is parked in an in-memory global).
-            $argParts = explode('|', $args, 3);
+            // "{resourceIdx}|{discount}|{deferHandler}|{exploitDiscount}" — all scalars, so this survives
+            // the request boundary on the decision's own Param (nothing is parked in an in-memory global).
+            // ⚠ $exploitDiscount MUST ride along: the Exploit fork is offered BEFORE this alt-payment
+            // offer, so re-entering with the default -1 would re-raise the picker and let the player
+            // defeat a second wave of fodder for a discount they already bought.
+            $argParts = explode('|', $args, 5);
             $idx      = intval($argParts[0] ?? 0);
             $disc     = intval($argParts[1] ?? 0);
             $defer    = ($argParts[2] ?? '') === '' ? null : $argParts[2];
-            SWUSmuggleResource($player, $idx, $disc, $defer, $prepaid);
+            $expDisc  = ($argParts[3] ?? '') === '' ? -1 : intval($argParts[3]);
+            $detCost  = ($argParts[4] ?? '') === '' ? -1 : intval($argParts[4]);
+            SWUSmuggleResource($player, $idx, $disc, $defer, $prepaid, $expDisc, $detCost);
             break;
         }
         case 'UNIT_ACTION_PAY': {
@@ -16189,6 +16236,105 @@ function _SWUPlayIsPayableAtDiscount(int $player, string $handMzID, int $totalDi
         }
     }
     return $capacity >= $cost;
+}
+
+// ── _SWUResolveExploitPicks — the ONE resolver for an answered Exploit picker ─────────────────
+// Shared by EXPLOIT_RESOLVE (the from-hand / nested-play path) and SMUGGLE_EXPLOIT (playing an Exploit
+// unit out of the RESOURCE zone, reachable because SHD_248 Tech grants Smuggle to every friendly
+// resource). Both raise the identical picker over SWUExploitFodder, so both must validate and defeat
+// identically — two copy-pasted defeat loops is exactly how one of them silently stops honouring
+// CR 16.d, and the SHD test that reported this gap says so in as many words.
+//
+// Validates the answer against the LIVE fodder set, caps it at $maxDefeats, ABORTS before defeating
+// anything when the picks cannot make the play payable, then defeats with the When-Defeated /
+// leave-play / bounty triggers parked (CR 16.d: they resolve only after the Play a Card action has
+// finished, alongside the played unit's own When Played).
+//
+// $isPayable(int $optimisticDiscount, array $losingUIDs): bool — each caller prices its OWN cost path
+//   (the hand path prices the printed cost; Smuggle prices the replaced Smuggle cost), which is the
+//   only thing that legitimately differs between them.
+// Returns the resource discount — 2 per unit defeated (CR 16.a), plus the SEC_122 Vuutun Palaa Droid
+// compensation — or NULL when it aborted having defeated nothing.
+// $compensateDroids: TRUE for a caller that RECOMPUTES the cost after the defeats (the hand path, via
+//   ActivateCard) and therefore loses SEC_122's per-Droid reduction for the Droids Exploit just ate.
+//   FALSE for a caller that LOCKED the cost before the defeats (Smuggle) — there the reduction is still
+//   in the locked figure, so adding it back would double-count it.
+function _SWUResolveExploitPicks(int $player, string $playedCardID, ?string $lastDecision,
+                                 int $maxDefeats, callable $isPayable,
+                                 bool $compensateDroids = true): ?int {
+    global $gExploitDeferTriggers, $gLastExploitedPowers;
+    $gLastExploitedPowers = [];   // record each defeated fodder unit's power (TWI_138 Count Dooku reads it)
+    $count = 0;
+    $droidsExploited = 0;
+
+    if ($lastDecision !== null && $lastDecision !== '-' && $lastDecision !== '') {
+        // Validate against the SAME friendly-fodder set that was offered, and cap at the effective
+        // Exploit X. A non-conforming client must not defeat non-friendly units or exceed the cap.
+        // Snapshot each chosen unit's UniqueID BEFORE any defeat mutates arena indices — SWUDefeatUnit
+        // -> CleanupRemovedCards() splices/re-indexes the arena after each defeat, so a stale mzID would
+        // point at the wrong/null slot. Precedent: SWUDealSplitDamage.
+        $fodderSet = array_flip(SWUExploitFodder($player));
+        $uidsToDefeat = [];
+        foreach (explode("&", $lastDecision) as $chosen) {
+            if ($chosen === '') continue;
+            if (!isset($fodderSet[$chosen])) continue;     // ignore non-fodder / non-friendly picks
+            if (count($uidsToDefeat) >= $maxDefeats) break; // cap at effective Exploit X
+            $o = GetZoneObject($chosen);
+            if ($o !== null && empty($o->removed)) $uidsToDefeat[] = intval($o->UniqueID ?? 0);
+        }
+        // ⚠ ABORT BEFORE DEFEATING ANYTHING if these picks do not reduce the cost far enough. An Exploit
+        // card GLOWS at its best-case reduction (CanAffordActivationReserve subtracts 2 per available
+        // fodder), so the player can legally begin the play and then confirm FEWER units than the price
+        // needs — payment is then rejected while the fodder is already DEAD and the card unplayed. Same
+        // half-applied play as HMW_125 The Marauder, and worse: the units are gone, not merely damaged,
+        // and their When-Defeateds have fired.
+        // The estimate is OPTIMISTIC on purpose — it prices every pick as a successful defeat, which is
+        // what the loop below is about to attempt. A pick that then fails to be defeated (an immunity
+        // acquired between the offer and the answer) still lands in the old failure mode; that residue is
+        // narrow and is not reachable by simply under-picking, which is the reported shape.
+        $optimisticDiscount = 2 * count($uidsToDefeat);
+        if ($compensateDroids && $playedCardID === 'SEC_122') {
+            foreach ($uidsToDefeat as $uid) {
+                $pmz = SWUFindMzByUID($uid);
+                $po  = ($pmz !== null) ? GetZoneObject($pmz) : null;
+                if ($po !== null && HasTrait($po->CardID ?? '', 'Droid')) $optimisticDiscount++;
+            }
+        }
+        if (!empty($uidsToDefeat) && !$isPayable($optimisticDiscount, $uidsToDefeat)) {
+            return null;
+        }
+        $gExploitDeferTriggers = true;                // park WhenDefeated/leave-play/bounty (CR 16.d)
+        foreach ($uidsToDefeat as $uid) {
+            // Re-resolve current mzID by UID so prior defeats' index shifts don't matter.
+            $currentMz = SWUFindMzByUID($uid);
+            if ($currentMz === null) continue;
+            // Capture the power BEFORE defeating (TWI_138 deals damage = each exploited unit's power).
+            $fo  = GetZoneObject($currentMz);
+            $pwr = ($fo !== null) ? intval(ObjectCurrentPower($fo)) : 0;
+            // Only count units actually defeated — a unit already removed before this runs must not
+            // inflate the Exploit discount (CR 16.a: 2 less per unit DEFEATED).
+            $wasDroid = ($fo !== null) && HasTrait($fo->CardID ?? '', 'Droid');
+            if (SWUDefeatUnit(intval($player), $currentMz)) {
+                $count++;
+                $gLastExploitedPowers[] = $pwr;
+                if ($wasDroid) $droidsExploited++;
+            }
+        }
+        $gExploitDeferTriggers = false;
+    }
+
+    // ── Determine Cost is ONE step: every reduction is settled against the SAME board state, and the
+    // player may order the reductions within it. Exploit's defeats happen in that step, BEFORE Pay Costs
+    // — so a Droid defeated by Exploit must still count for SEC_122 Vuutun Palaa's "costs 1 less for each
+    // friendly Droid unit" (take the per-Droid reduction first, then Exploit). The cost is recomputed
+    // AFTER the defeats, when those Droids are gone, so add back 1 per exploited Droid.
+    // Judge ruling (2026-08-08): 3 Droids + Exploit 1 on Vuutun = 9 - 3 - 2 = 4, not 5.
+    // Only Vuutun's OWN play has a per-friendly-Droid cost modifier, so this compensation is scoped to
+    // it; the Droids it loses here are also genuinely gone for the later Pay Costs step (they can no
+    // longer be exhausted as payment), which is the other half of the same ruling.
+    $exploitDiscount = 2 * $count;
+    if ($compensateDroids && $droidsExploited > 0 && $playedCardID === 'SEC_122') $exploitDiscount += $droidsExploited;
+    return $exploitDiscount;
 }
 
 function SWUContinuePlayAfterExploit($player, $mzID, $discount) {
@@ -17789,8 +17935,22 @@ $customDQHandlers["DISCLOSE_RESOLVE"] = function($player, $parts, $lastDecision)
 // SENTINEL -1 means "the alt-payment offer has not been made yet" — on that first entry, once the cost
 // is known, this queues the offer and re-enters through SMUGGLE_PAY with the real prepaid amount.
 // Everything before the first mutation is pure cost computation, so re-entering recomputes identically.
-function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?string $deferHandler = null, int $prepaid = -1): void {
-    global $playerID;
+// $exploitDiscount: -1 = the Exploit fork has not been offered yet on this play; >=0 = the resource
+// reduction bought by SMUGGLE_EXPLOIT's defeats (2 per unit defeated, CR 16.a).
+// $determinedCost: the Smuggle cost ALREADY DETERMINED on the first entry (aspect penalty, Lando -2 and
+//   the shared delta applied; the JTL_105 halving NOT yet). -1 = determine it here.
+//   ⚠ LOAD-BEARING, not an optimisation. "Determine cost(s)" is ONE step (CR 8.16 / CR 6.2 step 3): every
+//   reduction settles against the SAME board state. Exploit's defeats happen INSIDE that step, so
+//   recomputing the cost afterwards prices the play against a board the player already paid to change.
+//   For Smuggle that is not merely an arithmetic slip: this whole path is reachable only via SHD_248
+//   Tech granting Smuggle to every resource, and Tech is itself legal Exploit fodder — so a recompute
+//   after exploiting Tech finds the card no longer HAS Smuggle and aborts the play outright, with the
+//   fodder already dead. Locking the cost is what makes exploiting your own Tech legal, as it must be.
+//   It is also why the SEC_122 Vuutun Droid compensation is NOT applied on this path: the determined
+//   cost still carries the full per-Droid reduction from before the defeats, so adding it back would
+//   double-count it (the hand path recomputes, so there it is required).
+function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?string $deferHandler = null, int $prepaid = -1, int $exploitDiscount = -1, int $determinedCost = -1): void {
+    global $playerID, $gLastExploitedPowers, $gPlayGrantedExploit;
     $savedPID = $playerID;
     $playerID = $player;
 
@@ -17828,6 +17988,10 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
         return;
     }
     // Determine effective cost: min(native Smuggle path, Tech path), factoring in aspect penalties.
+    // Skipped entirely on an Exploit re-entry — the cost was determined before the defeats (see the
+    // $determinedCost note on the signature).
+    $totalCost = $determinedCost;
+    if ($determinedCost < 0) {
     $totalCost = GetEffectiveSmuggleCost($player, $cardID);
     if ($totalCost < 0) {
         SetFlashMessage("That card doesn't have Smuggle.");
@@ -17843,9 +18007,46 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
     // picks its host AFTER payment), so pass null → best-case host-conditional discount, as on the
     // normal-play affordability path. Charges consumed AFTER the play commits, below.
     $totalCost = max(0, $totalCost + _SWUPlayCostModifierDelta($player, $resourceObj, null, true));
+    }   // end of the determine-cost block
+    // EXPLOIT on the Smuggle path (CR 14.c: playing via Smuggle is a modified "Play a Card" action;
+    // CR 14.i: the card's abilities that are active while playing it become active as usual; CR 16.a:
+    // Exploit is "While playing this card, you may defeat up to X friendly units. For each unit defeated
+    // this way, this card costs 2 less"; CR 16.c: it is used during Step 3, Determine cost(s)).
+    // Exploit is a cost MODIFIER, not a cost REPLACEMENT, so it stacks with Smuggle's replaced cost
+    // (contrast CR 8.46.e, where Bamboozle's replacement cannot re-replace the Smuggle cost).
+    // ⚠ Raised HERE — before payment — and not after placement like the TWI_116 Clone fork below,
+    // precisely because it changes the arithmetic: asking after the cost was charged would make the
+    // choice a fizzle-only offer. This is the "no printed card carries both Smuggle and Exploit" case,
+    // reachable only because SHD_248 Tech grants Smuggle to every friendly resource.
+    // The picker is the SAME offer the hand path raises in _SWUBeginPlayCardUnitPath, and its answer is
+    // resolved by the SAME defeat/validate/defer code (_SWUResolveExploitPicks), so the two paths cannot
+    // drift. Only scalars cross the request boundary.
+    if ($exploitDiscount < 0) {
+        $exploitDiscount = 0;
+        if (_SWUObjIsUnit($resourceObj)) {
+            $gLastExploitedPowers = [];   // fresh per play (TWI_138 Count Dooku reads it in When Played)
+            $exploitX = SWUEffectivePlayExploit($resourceObj);
+            $grant    = intval($gPlayGrantedExploit ?? 0);   // capture before reset, as the hand path does
+            $fodder   = SWUExploitFodder($player);
+            if ($exploitX > 0 && !empty($fodder)) {
+                $gPlayGrantedExploit = 0;   // don't let the grant leak to a later unrelated play
+                $maxE = min($exploitX, count($fodder));
+                // $totalCost rides the param PRE-HALVING: the affordability probe in the handler must
+                // reduce first and halve second, exactly as the lines here do.
+                SWUQueueMultiChoose($player, 0, $maxE, $fodder,
+                    "Defeat_up_to_{$maxE}_units_(Exploit)",
+                    "SMUGGLE_EXPLOIT|{$resourceIdx}|{$discount}|" . ($deferHandler ?? '')
+                        . "|{$grant}|{$exploitX}|{$totalCost}");
+                return;   // $playerID intentionally left = $player for the queued picker
+            }
+        }
+    }
+    // CR 16.a: 2 less per unit defeated. Applied as a Determine-cost reduction, so BEFORE the halving.
+    $totalCost = max(0, $totalCost - $exploitDiscount);
+
     // JTL_105 The Starhawk — "While paying costs, you pay half as many resources, rounded up." Smuggle is a
     // cost paid to play a card, so it halves too — applied AFTER all reductions (aspect penalty, Lando -2,
-    // shared delta).
+    // shared delta, Exploit).
     $totalCost = SWUApplyCostHalving($player, $totalCost);
 
     // A smuggled UPGRADE (SHD_174 / SHD_175) needs a valid host BEFORE anything is paid — an
@@ -17900,7 +18101,7 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
         if ($remaining > 0 && (!empty(SWUUsableCreditTokenMzIDs($player)) || SWUPlayerControlsSEC122($player))) {
             $resourceObj->Status = 1; // undo the self-payment; the re-entry redoes it
             SWUOfferAltPayment($player, $remaining, 'SMUGGLE_PAY',
-                "{$resourceIdx}|{$discount}|" . ($deferHandler ?? ''), 1);
+                "{$resourceIdx}|{$discount}|" . ($deferHandler ?? '') . "|{$exploitDiscount}|{$determinedCost}", 1);
             return; // $playerID intentionally left = $player when the funnel queued a decision
         }
     }

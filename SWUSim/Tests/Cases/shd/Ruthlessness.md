@@ -84,3 +84,31 @@ WithP2GroundArena: SOR_046:1:4
 P1GROUNDARENACOUNT:0
 P2GROUNDARENACOUNT:0
 P2BASEDMG:2
+
+---
+
+# AttackerTradesButDefenderSURVIVES_NoBaseDamage
+#// THE NEGATIVE that keeps the CR 16.c fix honest. Moving SHD_143 above the attacker-survival gate makes
+#// it fire on a trade — but the ability is still conditional ("attacks AND DEFEATS a unit"), so an
+#// attacker that dies WITHOUT defeating its defender must deal NOTHING. Without this section, a fix that
+#// simply dropped the defenderDefeated check would pass the trade section and go unnoticed.
+#// SOR_095 (3/3) wears Ruthlessness for 5/3 and is pre-damaged to 2, so it has 1 remaining HP. It attacks
+#// TWI_054 Duchess's Champion (1/8) SEEDED AT 0: the host's 5 leaves it on 5 of 8 — alive — while the
+#// Champion's 1 counter-damage finishes the host. Attacker dead, defender alive, base untouched.
+#// Pairs with AttacksAndDefeats_FiresWhenTheATTACKERTradesAndDies (same death, defender DOES die → 2).
+
+## GIVEN
+CommonSetup: rrk/rrk
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:2
+WithP1GroundArenaUpgrade: 0:SHD_143
+WithP2GroundArena: TWI_054:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:DAMAGE:5
+P2BASEDMG:0

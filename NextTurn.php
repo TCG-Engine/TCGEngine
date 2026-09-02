@@ -452,6 +452,10 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         <?php } else { ?>
         // SWUDeck's desktop deck editor shows larger cards (smaller divisor => bigger card,
         // fewer per row); other sims keep the historical /16 sizing.
+        // ⚠ SWUSim's +33% is NOT applied here. It is height-aware and lives in CalculateCardSize()
+        // below, because this function only sees WIDTH — and a flat width-side boost is exactly what
+        // broke 1920x1080 (cards 33% larger in a viewport with no spare height: upgrade rows spilled
+        // out of the arena and the whole board read as cramped).
         return window.innerWidth / <?php echo (in_array($folderPath, ['SWUDeck', 'AzukiDeck'], true) ? '13.5' : '16'); ?>;
         <?php } ?>
       }
@@ -485,7 +489,30 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         // Every common resolution stays width-bound and therefore unchanged (1920x1080 -> 120,
         // 1366x768 -> 85.4, 1280x800 -> 80, 1024x640 -> 64), and 780x438 comes back up to the
         // width-derived 48.75 rather than the 39.3 the stacked lane forced.
-        size = Math.max(38, Math.min(size, (window.innerHeight - 157) / 4.95));
+        // ── HD boost: bigger cards, but only where the viewport actually has the height ────────
+        // User request 2026-09-02: on a 2030x1275 board the cards and badges read too small — make
+        // them 33% bigger. Applied as a HEIGHT-BUDGETED boost, not a flat width multiplier.
+        //
+        // WHY NOT A FLAT +33%: it was tried (divisor 16 -> 12) and it is wrong on short viewports.
+        // The board is height-bound, not width-bound: the bottom half has to hold the hand band
+        // (1.10 * cs), the bottom gap, the arena margin, the initiative/pass cluster AND an arena row
+        // whose cards carry upgrade strips below them. At 1920x1080 a flat boost gave cs=160 and the
+        // upgrade rows spilled straight out of the arena bracket. 1275px of height affords the full
+        // 33%; 1080px does not.
+        //
+        // The budget line cs <= (H - 250) / 6.0 is solved from the two ends we care about: it clears
+        // the full 4/3 boost at 1275 tall (170.8 >= 169.2) and lands 1920x1080 at ~138, which fits.
+        //
+        // ⚠ THE OUTER Math.max IS A NO-SHRINK GUARANTEE. `size` here is the historical width-derived
+        // value, so no viewport can ever come out SMALLER than it is today — the boost can only add.
+        // That is what keeps short/narrow boards (1366x768, 1024x640) and the <=1000px mobile grid
+        // byte-identical instead of being dragged down by the height budget.
+        size = Math.max(size, Math.min(size * (4 / 3), (window.innerHeight - 250) / 6.0));
+
+        // Absolute safety clamp (pre-existing, 157 -> 193 for the new --swu-hand-bottom-gap: the
+        // bottom band now reserves a few px so the hand is not flush against the viewport edge).
+        // It bounds the mobile-grid branch and very short viewports, which the boost above does not.
+        size = Math.max(38, Math.min(size, (window.innerHeight - 193) / 4.95));
 <?php   }
       } ?>
         return size;

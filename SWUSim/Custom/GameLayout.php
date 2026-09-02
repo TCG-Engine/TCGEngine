@@ -44,7 +44,23 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            118px is the historical fixed value and 1.475 the measured ratio (118px at cardSize
            80), so this is exactly "never larger than today, shrink when the cards shrink".
            CalculateCardSize() in NextTurn.php makes --swu-cardsize height-aware. */
-        --swu-hand-h:       min(118px, calc(var(--swu-cardsize, 80px) * 1.475));
+        /* ⚠ The min() alone FROZE the band at 118px for every cardSize above 80, while the cards
+           kept growing with the viewport — so on any large desktop board the hand overflowed its
+           own band (measured: 6.4px past the viewport bottom at 2030x1275, cardSize 126.9, card
+           box 130.9 in a 118px band). A hand card's box is cardSize + ~4px of image border, so the
+           band has to be at least ~1.04 * cardSize; 1.10 leaves a little breathing room.
+           max() rather than replacing the min(): below cardSize ~107 the old expression is still
+           the larger value, so every small/medium board keeps EXACTLY today's band (cardSize 80 ->
+           118px, 50 -> 73.75px) and only the sizes the cap was starving change. */
+        --swu-hand-h:       max(min(118px, calc(var(--swu-cardsize, 80px) * 1.475)),
+                                calc(var(--swu-cardsize, 80px) * 1.10));
+        /* Clearance between the hand and the viewport's bottom edge, so the hand never sits flush
+           on it (user request 2026-09-02). Card-size-scaled so it stays visually proportionate from
+           a 36px phone card to a 4K board, with a 10px floor so small boards still get a real gap.
+           --swu-hand-band-h is what BOTTOM-anchored elements clear; --swu-hand-h remains the band's
+           own height and is what the TOP hand (which is not affected) and both hand panels use. */
+        --swu-hand-bottom-gap: max(10px, calc(var(--swu-cardsize, 80px) * 0.08));
+        --swu-hand-band-h:     calc(var(--swu-hand-h) + var(--swu-hand-bottom-gap));
         /* Hover "pop" for a card in MY hand, and the headroom reserved above the band for it.
            The card RISES IN PLACE — a pure translate, deliberately NO scale. The engine default
            (.selectable-card:hover = translateY(-4px) scale(1.04)) zooms the card as it lifts, which
@@ -85,7 +101,14 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         /* Ratio of the current card size to the 80px reference the engine's counter sizes
            (Schemas/SWUSim/GameSchema.txt "Size=") were chosen against. Never above 1, so
            normal boards are untouched. --swu-cardsize-n is set by GameLayoutShared JS. */
-        --swu-counter-scale: min(1, calc(var(--swu-cardsize-n, 80) / 80));
+        /* Cap raised 1 -> 1.33 (user request 2026-09-02): the counters are sized in the schema
+           against an 80px reference card, so capping the ratio at 1 froze every badge at its
+           reference size while the cards kept growing — on a 2030x1275 board the cards rendered at
+           130.9px and the badges were still 26px. 1.33 matches the 33% card increase exactly, so
+           badges and cards grow together and the board keeps its proportions. Still a cap, not a
+           free ratio: unbounded, a 4K board would blow the counters up to ~2.7x and they would
+           swamp the art. Boards at or below the 80px reference are untouched (ratio <= 1). */
+        --swu-counter-scale: min(1.80, calc(var(--swu-cardsize-n, 80) / 80));
         /* Width the deck+discard pile rows occupy on the right (2 piles + gap +
            breathing room). Hand panels stop before this so they never bleed
            under the piles. */
@@ -427,7 +450,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            taller, so anchored higher (was +48px) its top butted into the leader/base column
            — which reaches down near the hand on wide/4K screens. Drop it toward the hand so
            the top clears the leader; --swu-pass-gap is the clearance above the hand. */
-        bottom: calc(var(--swu-hand-h) + var(--swu-pass-gap, 10px));
+        bottom: calc(var(--swu-hand-band-h) + var(--swu-pass-gap, 10px));
         display: flex; flex-direction: column; align-items: center; gap: 4px;
         pointer-events: none;                  /* the button opts back in */
         transition: opacity 150ms;
@@ -504,7 +527,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         position: fixed; z-index: 29; pointer-events: none;
         width: calc(var(--swu-col-w) - 2 * var(--swu-arena-margin));
         top: calc(var(--swu-hand-h) + var(--swu-arena-margin));
-        bottom: calc(var(--swu-hand-h) + var(--swu-arena-margin));
+        bottom: calc(var(--swu-hand-band-h) + var(--swu-arena-margin));
         /* Dark scrim on the arena surface. Was transparent, which let the playmat art run at full
            brightness right up under the cards and flattened both — the cards had nothing to sit
            against and the art had nothing to contrast with. The gradient is slightly deeper at the
@@ -542,8 +565,18 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-arena-bg::before {
         content: ''; position: absolute; inset: -1px; z-index: 1; pointer-events: none;
         --c:   var(--accent-strong);   /* bracket color (theme accent) */
-        --len: 26px;                     /* arm length    */
-        --th:  3px;                      /* arm thickness */
+        /* ⚠ SCALES WITH THE BOARD, not fixed px — same fixed-px-on-a-growing-container bug as the
+           subcard sliver / shield orb / corner tokens fixed earlier this session (reported 2026-09-03:
+           the bracket read as a hairline on a large desktop/UHD board). .swu-arena-bg's width is
+           --swu-col-w, which DERIVES FROM --swu-cardsize, so the box this decorates genuinely grows
+           with the board — unlike the MOBILE bracket below, whose box (.swu-m-arena-col) is a fixed
+           flex:1/200px-tall container independent of cardSize, so it was correctly left alone.
+           26/80 = 0.325 and 3/80 = 0.0375 are the ratios the CURRENT values were tuned at, matching
+           --swu-cardsize's own 80px fallback used throughout this file. max() is a no-shrink floor:
+           every board at or below the 80px reference renders BYTE-IDENTICAL 26px/3px arms; only boards
+           above it grow. */
+        --len: max(26px, calc(var(--swu-cardsize, 80px) * 0.325));   /* arm length    */
+        --th:  max(3px,  calc(var(--swu-cardsize, 80px) * 0.0375)); /* arm thickness */
         filter: drop-shadow(0 0 4px rgba(var(--accent-rgb),0.75));   /* light glow on the brackets */
         animation: swuArenaBracketPulse 3.2s ease-in-out infinite;
         background:
@@ -633,7 +666,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-arena-col-space  { background: transparent; left: calc(var(--swu-space-left)  + var(--swu-arena-margin) - var(--swu-rot-bleed)); }
     .swu-arena-col-ground { background: transparent; left: calc(var(--swu-ground-left) + var(--swu-arena-margin) - var(--swu-rot-bleed)); }
     .swu-arena-col-top    { top: calc(var(--swu-hand-h) + var(--swu-arena-margin) - var(--swu-rot-bleed)); bottom: calc(var(--swu-midline) + 4px - var(--swu-rot-bleed)); }
-    .swu-arena-col-bot    { top: calc(var(--swu-midline) + 4px - var(--swu-rot-bleed)); bottom: calc(var(--swu-hand-h) + var(--swu-arena-margin) - var(--swu-rot-bleed)); }
+    .swu-arena-col-bot    { top: calc(var(--swu-midline) + 4px - var(--swu-rot-bleed)); bottom: calc(var(--swu-hand-band-h) + var(--swu-arena-margin) - var(--swu-rot-bleed)); }
 
     /* Twin Suns home "replace" mode — the preview windows take over the opponent's whole board region:
        hide every opponent (top-half) zone and expand the strip grid to fill from the hand row to the
@@ -714,7 +747,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            the column lays its children out flex-start, so on a tall board they never reach
            the bottom edge and reserving there would change nothing anyway. */
         top: calc(var(--swu-midline) + 4px);
-        bottom: calc(var(--swu-hand-h) + var(--swu-pass-reserve, 0px));
+        bottom: calc(var(--swu-hand-band-h) + var(--swu-pass-reserve, 0px));
         display: flex; flex-direction: column; align-items: center;
         justify-content: flex-start; /* P1: Leader → Base → piles */
         gap: 6px; padding: 8px 6px;
@@ -819,7 +852,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         display: flex; gap: 6px; align-items: center;
         right: calc(var(--swu-sidebar-w) + var(--swu-play-margin-r));
     }
-    #myPileRow    { bottom: 0; height: var(--swu-hand-h); }
+    #myPileRow    { bottom: var(--swu-hand-bottom-gap); height: var(--swu-hand-h); }
     #theirPileRow { top: 0;    height: var(--swu-hand-h); }
 
     /* Engine-drawn overlays carry INLINE px sizes from the schema (Core/CounterRendering.js
@@ -1118,11 +1151,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         backdrop-filter: blur(14px);
     }
     /* Opens upward from the resources slot in the hand band. */
-    #myResourcesSlot { bottom: var(--swu-hand-h); }
+    #myResourcesSlot { bottom: var(--swu-hand-band-h); }
 
     /* Lift the bottom-anchored selection prompt above the hand so it doesn't overlap cards */
     #selection-message {
-        bottom: calc(var(--swu-hand-h) + 12px) !important;
+        bottom: calc(var(--swu-hand-band-h) + 12px) !important;
     }
     /* …but the inline MultiChoose panel is CENTERED (Core sets top:50%; bottom:auto).
        The lift above would override that bottom:auto and stretch the panel tall, so
@@ -1160,7 +1193,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
        stops level with the Pass cluster (--swu-pass-gap), which is z-index 38 over the hand's 36 and
        so stays clickable regardless. The cards do not move: the wrapper's padding-top puts them back
        in the bottom --swu-hand-h of the panel. */
-    #myHandSlot    { bottom: 0; border-radius: 8px 8px 0 0;
+    #myHandSlot    { bottom: var(--swu-hand-bottom-gap); border-radius: 8px 8px 0 0;
                      height: calc(var(--swu-hand-h) + var(--swu-hand-lift)); }
 
     /* Card wrapper (rendered by NextTurnRender) = the horizontal scroll viewport.
@@ -1301,6 +1334,49 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         justify-content: space-between; padding: 12px 14px 10px;
         border-bottom: 1px solid var(--swu-border);
     }
+    /* #swuSidebarHeader now holds only ONE child (Round moved out — see the markup comment above).
+       Undo pinned LEFT, gear pinned RIGHT (user request 2026-09-03; the two used to just sit bunched
+       together via the shared .swu-header-right's own gap:8px, pushed right as a pair). flex:1 makes
+       .swu-header-right consume the header's full width instead of hugging one side, and
+       justify-content:space-between then spreads Undo/gear to its own two edges — taking over the
+       job #swuSidebarHeader's OWN space-between used to do across two children (Round vs this group)
+       before Round moved out. */
+    #swuSidebarHeader .swu-header-right { flex: 1 1 auto; justify-content: space-between; }
+    /* Was 22px (measured to match Undo's 25px box height, after an earlier report that read as
+       "misaligned" but was actually a SIZE mismatch — see the mobile override for the same fix).
+       Bumped to 44px on explicit request (2026-09-03) — this deliberately re-introduces that size
+       gap against Undo (44px vs 25px); still perfectly CENTERED (cy-matched), just visibly larger
+       again. Only one #swuGearBtn exists on desktop, so scoping directly here is safe. */
+    #swuSidebarHeader .swu-gear-btn { font-size: 44px; }
+    /* ⚠ "Centered" (matching BOUNDING-BOX centers) is not the same thing as "middled on a shared
+       baseline" (matching the VISIBLE GLYPH's own optical center) — user clarification 2026-09-03.
+       Measured with real pixel data (a cropped screenshot + a per-row ink/background scan), not
+       CSS geometry: with both boxes' cy already identical (36.00 == 36.00), the gear glyph's actual
+       drawn shape still sits 1.5px below ITS box-center while "UNDO"'s text sits only 0.4px below
+       its own — an intrinsic glyph-metrics asymmetry (⚙ U+2699 is a dingbat character; its drawn
+       shape within its own em-square is not symmetric the way cap-height Latin text roughly is),
+       not anything a bounding-box-based align-items:center can see or fix. `top`, not `transform`,
+       so it composes cleanly with the existing :hover{transform:rotate(40deg)} instead of the two
+       overwriting each other. Re-measure (the pixel-diff method above, not eyeballing) before ever
+       changing the gear's font-size or line-height again — this offset is glyph-specific and a
+       different size could shift it by a different amount, not just scale it proportionally. */
+    #swuSidebarHeader .swu-gear-btn { position: relative; top: -1.1px; }
+    /* Round + Phase, one row, midline-aligned, Round on the left with a clear gap before the phase
+       dot+text (user request 2026-09-03: "Round N      · Phase"). Takes over the padded/bordered
+       "own full-width row" box .swu-phase-line used to provide for itself alone — stripped back out
+       of .swu-phase-line below so the border doesn't double up. */
+    /* ⚠ flex-wrap:wrap, not nowrap — measured, not assumed. Just above the 1100px breakpoint (where
+       the 220px sidebar override drops away and clamp(160px,14vw,200px) takes over), the sidebar
+       narrows to ~161px and "Round 99  Regroup" (worst case, ~156px) no longer fits its ~133px
+       content width — reproduced identically in Chromium/Firefox/WebKit. Wrapping degrades this to
+       two lines ONLY in that narrow band (Round on one line, Phase below it) instead of silently
+       clipping the phase text off the sidebar's edge everywhere else stays one line, unaffected. */
+    .swu-round-phase-row {
+        display: flex; align-items: center; flex-wrap: wrap; gap: 4px 18px;
+        padding: 7px 14px; border-bottom: 1px solid var(--swu-border);
+    }
+    .swu-round-phase-row .swu-phase-line { padding: 0; border-bottom: 0; }
+    .swu-round-inline { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
     #swuUndoBtn {
         display: none;
         font: 600 11px/1 var(--swu-font-label);
@@ -1354,8 +1430,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-round-label {
         font: 700 9px/1 var(--swu-font-label); letter-spacing: 0.18em;
         text-transform: uppercase; color: rgba(255,255,255,0.40); }
+    /* 20px -> 15px: sized for when this was the single dominant element in its own stacked block;
+       now sharing a slim 7px-14px-padded row with the phase dot+text (10px), 20px visibly outgrew
+       the row and looked mismatched next to it. */
     #swuRoundNumber {
-        font: 700 20px/1 var(--swu-font-label); color: rgba(255,255,255,0.90); }
+        font: 700 15px/1 var(--swu-font-label); color: rgba(255,255,255,0.90); }
     #swuLastPlayedSection {
         flex: 0 0 auto; padding: 8px 14px; border-bottom: 1px solid var(--swu-border); }
     .swu-sidebar-section-label {
@@ -1627,7 +1706,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     @media (min-height: 681px) {
         :root {
             --swu-center-w: min(var(--swu-center-w-raw), calc(
-                (50vh - var(--swu-hand-h) - var(--swu-pass-reserve-h, 94px) - 26px) * 0.72));
+                (50vh - var(--swu-hand-band-h) - var(--swu-pass-reserve-h, 94px) - 26px) * 0.72));
         }
     }
 </style>
@@ -1875,11 +1954,14 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
 <!-- ═══════════════════ RIGHT SIDEBAR ══════════════════════════════════════════ -->
 <div id="swuSidebar">
+    <!-- Round condensed into the Phase row, LEFT of the dot+phase-text (user request 2026-09-03;
+         was its own stacked label+number block up here beside Undo/gear — mirrors the mobile
+         condense done earlier the same day). #swuRoundNumber is the SAME id GameLayoutShared's JS
+         already writes a bare number into (`el.textContent = n`) — only its DOM position moved, the
+         writer needed no change. .swu-header-right now needs margin-left:auto of its own (below):
+         #swuSidebarHeader's justify-content:space-between has nothing to "space between" once it
+         holds only one child, and would otherwise silently shove Undo/gear to the LEFT edge. -->
     <div id="swuSidebarHeader">
-        <div>
-            <div class="swu-round-label">Round</div>
-            <div id="swuRoundNumber">—</div>
-        </div>
         <div class="swu-header-right">
             <span id="swuUndoSplit">
                 <button id="swuUndoBtn" onclick="SubmitInput(10004, '')">Undo</button>
@@ -1893,7 +1975,10 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
             <button id="swuGearBtn" class="swu-gear-btn" title="Settings" aria-label="Settings" onclick="swuOpenSettings()">&#9881;</button>
         </div>
     </div>
-    <div id="swuPhaseLine" class="swu-phase-line"><span class="swu-phase-dot"></span><span id="swuPhaseName">—</span></div>
+    <div class="swu-round-phase-row">
+        <span class="swu-round-inline"><span class="swu-round-label">Round</span> <span id="swuRoundNumber">—</span></span>
+        <div id="swuPhaseLine" class="swu-phase-line"><span class="swu-phase-dot"></span><span id="swuPhaseName">—</span></div>
+    </div>
     <div id="swuLastPlayedSection">
         <div class="swu-sidebar-section-label">Last Played</div>
         <div id="swuLastPlayedCard">—</div>

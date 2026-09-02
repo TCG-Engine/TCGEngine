@@ -631,8 +631,53 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           //$restrictionName = CardName($restriction);
           rv += "<img title='Restricted by: " + restriction + "' style='position:absolute; z-index:100; top:26px; left:26px;' src='./Images/restricted.png' />";
         }
-        if (epicActionUsed == 1) rv += "<img title='Epic Action Used' style='position:absolute; z-index:100; bottom:4px; right:4px; height:22px; width:22px; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7)); opacity:0.92;' src='./Assets/Icons/action-used.svg' />";
-        if (hasForce == 1) rv += "<img title='The Force is with you' style='position:absolute; z-index:100; top:4px; right:4px; height:22px; width:22px; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));' src='./Assets/Icons/force-token.webp' />";
+        // ⚠ PERCENTAGE, not a fixed 22px. These two corner tokens were hardcoded, so their share of the
+        // card swung with the board: on a 2030x1275 desktop base (268.8px art) 22px was 8.2% and read as
+        // a speck, while on mobile (85.2px art) the SAME 22px was 25.8% and crowded the corner — both
+        // reported 2026-09-03 ("way too small" on desktop, "a little too big" on mobile).
+        // A % of the card is better than scaling from window.cardSize here: the base art's width is NOT
+        // a fixed multiple of cardSize across layouts (desktop 1.59x, mobile 1.78x), so a cardSize-derived
+        // px value still drifts between desktop and mobile. A percentage tracks whatever the card
+        // actually rendered at, so ONE number holds everywhere. aspect-ratio keeps them square.
+        // 20% sits between the two reported ends (8.2% too small, 25.8% slightly too big).
+        // The 4px insets become 2% for the same reason.
+        // ⚠ SCALED PX, from window.cardSize. These two corner tokens were a hardcoded 22px, so their
+        // share of the card swung with the board: on a 2030x1275 desktop base (268.8px art) 22px was
+        // 8.2% and read as a speck, while on mobile (85.2px art) the SAME 22px was 25.8% and crowded the
+        // corner — both reported 2026-09-03 ("way too small" desktop, "a little too big" mobile).
+        // ⚠ A PERCENTAGE DOES NOT WORK HERE, though it looks like the obvious answer. The token's
+        // containing block is the card's <a>, which is SHRINK-TO-FIT on mobile — so a % width has no
+        // definite basis, falls back to the image's intrinsic size (75px), and then widens the anchor
+        // it was measured against. Measured: desktop resolved to a correct 18%, mobile blew up to 88.6%.
+        // 0.30 * cardSize lands ~17-19% of the base art at every size. The base art is not a fixed
+        // multiple of cardSize across layouts (desktop 1.59x, mobile 1.78x), but that ~12% spread is
+        // well inside tolerance, so one factor covers desktop, UHD and mobile.
+        // The 12px floor keeps the token tappable on the smallest phones.
+        // Force is intentionally the LARGER of the two corner tokens (user request 2026-09-03) — it's
+        // the rarer, game-defining state (only one player ever has it), where Epic Action Used is a
+        // per-side once-per-game flag that's comparatively routine. 1.15x reads as "slightly larger"
+        // without the two looking mismatched when both are showing at once (top-right vs bottom-right).
+        // ⚠ HORIZONTAL CENTERS aligned, not right edges. A shared right INSET (tried first) puts equal-
+        // width tokens' right edges on the same line, but Force is now wider than Epic, so equal insets
+        // left Force's right edge flush with Epic's while Force's extra width bulged out to the LEFT —
+        // the pair still read as off-center (reported 2026-09-03, screenshot showed Force's midpoint
+        // sitting left of Epic's). `right: X` positions an edge, not a center, so aligning centers needs
+        // each token's OWN inset derived from one shared center point.
+        // Epic's inset (0.18 * its own size) is the anchor — Epic's position is UNCHANGED from before
+        // either fix. Force's inset is solved so its center lands on the same vertical line:
+        //   centerFromRightEdge = epicInset + epicPx/2   (constant, Epic's own geometry)
+        //   forceInset = centerFromRightEdge - forcePx/2  (smaller than epic's, since forcePx > epicPx —
+        //                                                  Force sits closer to the card's right edge so
+        //                                                  its extra width grows outward on BOTH sides)
+        var _epicPx = Math.max(12, Math.round((window.cardSize || 96) * 0.30));
+        var _forcePx = Math.max(14, Math.round(_epicPx * 1.15));
+        var _epicInsetN = Math.max(3, Math.round(_epicPx * 0.18));
+        var _centerFromEdge = _epicInsetN + _epicPx / 2;
+        var _forceInsetN = _centerFromEdge - _forcePx / 2;
+        var _epicInset = _epicInsetN + "px";
+        var _forceInset = _forceInsetN + "px";
+        if (epicActionUsed == 1) rv += "<img title='Epic Action Used' style='position:absolute; z-index:100; bottom:" + _epicInset + "; right:" + _epicInset + "; width:" + _epicPx + "px; height:" + _epicPx + "px; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7)); opacity:0.92;' src='./Assets/Icons/action-used.svg' />";
+        if (hasForce == 1) rv += "<img title='The Force is with you' style='position:absolute; z-index:100; top:" + _forceInset + "; right:" + _forceInset + "; width:" + _forcePx + "px; height:" + _forcePx + "px; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));' src='./Assets/Icons/force-token.webp' />";
         rv += "</a>";
         /*
         if (gem != 0) {
@@ -2066,7 +2111,28 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
                 if (selectionModeActive && typeof IsSelectableSubcard === 'function'
                         && IsSelectableSubcard(zone, i, pg)) swuGroupHasSelectable[pgKey] = true;
             }
-            var sliver = 18; // px each SWU subcard sliver shows below the unit card
+            // px each SWU subcard sliver shows below the unit card.
+            // ⚠ PROPORTIONAL TO cardSize, not a fixed 18. The sliver is a fixed-height WINDOW onto a
+            // 450x450 concat image drawn with object-fit:cover / object-position:50% 100%, so `cover`
+            // scales the art by (cardWidth / 450) and the window then reveals the bottom
+            // (sliver / cardWidth) FRACTION of it. A constant 18px therefore shows a band that SHRINKS
+            // as the board grows: at cardSize 80 it revealed the bottom 107px of the source art, but at
+            // cardSize 169 only the bottom 53px — which sliced the "EXPERIENCE" label in half and clipped
+            // the +1/+1 stat boxes (reported 2026-09-03 on a 4x-Experience Helgait).
+            // Scaling by cardSize keeps the revealed FRACTION constant at every board size, which is what
+            // the old comment below already anticipated ("the exact sweet spot drifts with zoom").
+            // Reference 96 = the historical default card size (see NextTurn.php).
+            // ⚠ NO FLAT FLOOR. This was Math.max(18, …) — a "never shrink below today" guard — and on
+            // MOBILE that was exactly backwards: mobile cardSize is ~48, so the floor pinned an 18px
+            // window onto a 50px card and revealed 40% of it, versus ~19.5% on desktop (reported
+            // 2026-09-03: "subcard sliver too low, showing too much card"). The whole point is to hold
+            // the revealed FRACTION constant, so the height has to fall as well as rise.
+            // 18/96 = 0.1875 — the ratio the desktop values were tuned to, kept exactly.
+            // The 10px floor is legibility only (a sub-10px strip shows no readable band at all) and
+            // binds only below cardSize ~53, i.e. the smallest phones.
+            // Only SWU arenas reach here — this whole branch is gated on subcardFlow === 'Below', and
+            // SWUSim's GameSchema is the only schema that declares it.
+            var sliver = Math.max(10, Math.round((window.cardSize || 96) * 0.1875));
             // Vertical anchor (object-position-y) for a pilot sliver — unit pilots (full portrait) and
             // leader pilots (_back side) share the same layout: the +X/+Y "while attached" band sits ~88%
             // down, with an artist strip below it and the PILOTING/ability text box above it, so we bias
@@ -2187,6 +2253,14 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             // carries that entry's raw key and becomes individually clickable when an upgrade-targeting
             // effect offers it (a Shield IS a token upgrade). Non-selectable orbs stay pointer-events:none
             // decorations exactly as before.
+            // ⚠ SIZE SCALES WITH cardSize, like the subcard sliver above. The orb used to be a hard
+            // 20px (and a hard 20px stride between orbs), so it SHRANK relative to the card as the board
+            // grew: 23.8% of an 84px card at cardSize 80, but only 11.5% of a 173px card at cardSize 169.
+            // Reference 96 = the historical default card size (see NextTurn.php); Math.max keeps every
+            // board at or below the reference exactly as it is today. The inset and the per-orb stride
+            // derive from the size so a row of orbs stays proportionally spaced at any zoom.
+            var shOrb    = Math.max(20, Math.round(20 * ((window.cardSize || 96) / 96)));
+            var shInset  = Math.max(4, Math.round(shOrb * 0.2));
             for (var shi = 0; shi < shieldSubIdx.length; shi++) {
               var shSub = shieldSubIdx[shi];
               var shMzID = zone + "-" + i + ".u" + shSub;
@@ -2199,7 +2273,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
               newHTML += "<img class='counter-image-icon" + (shSelectable ? " selectable-subcard" : "") + "'"
                 + " data-mzid='" + shMzID + "'"
                 + (shSelectable ? " id='" + shMzID + "' onclick='event.stopPropagation(); OnSelectableCardClick(\"" + zone + "\", \"" + shMzID + "\");'" : "")
-                + " title='Shield' loading='lazy' style='position:absolute; top:4px; right:" + (4 + shi * 20) + "px; width:20px; height:20px; z-index:" + (shSelectable ? "7" : "5") + "; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.6)); pointer-events:" + (shSelectable ? "auto" : "none") + ";' src='./Assets/Icons/space-shield.svg' />";
+                + " title='Shield' loading='lazy' style='position:absolute; top:" + shInset + "px; right:" + (shInset + shi * shOrb) + "px; width:" + shOrb + "px; height:" + shOrb + "px; z-index:" + (shSelectable ? "7" : "5") + "; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.6)); pointer-events:" + (shSelectable ? "auto" : "none") + ";' src='./Assets/Icons/space-shield.svg' />";
             }
           }
         } catch (e) {
@@ -2397,10 +2471,21 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           for (var i = 0; i < payload.subcards.length; ++i) {
             var cardId = payload.subcards[i];
             if (!cardId) continue;
-            var subSrc = "./" + payload.folder + "/concat/" + resolveCardImageID(cardId) + ".webp";
+            // OPTIONAL per-entry image override, parallel to payload.subcards. Added so a caller that
+            // already knows a subcard is a PILOT can hand over the right face — a leader flown as a
+            // pilot must show its _back (unit) side, not its leader front, and a unit pilot shows the
+            // full portrait rather than the square concat crop. Callers that pass no `srcs` keep the
+            // original concat derivation byte-for-byte, so the base-Fortify chip and GrandArchive's
+            // champion lineage are unaffected.
+            var subSrc = (Array.isArray(payload.srcs) && payload.srcs[i])
+              ? payload.srcs[i]
+              : ("./" + payload.folder + "/concat/" + resolveCardImageID(cardId) + ".webp");
+            // object-fit:contain is a NO-OP for the square concat art every existing caller passes
+            // (450x450 into a square box). It is what stops a NON-SQUARE entry — a pilot's full card
+            // face is 450x628 portrait — from being squashed into that same square box.
             html += "<span class='ga-lineage-popup-card' data-lineage-order='" + (i + 1) + "'>"
               + "<img data-subcard-id='" + cardId + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()'"
-              + " loading='lazy' src='" + subSrc + "' alt='Lineage card' style='height:" + payload.size + "px; width:" + payload.size + "px;' />"
+              + " loading='lazy' src='" + subSrc + "' alt='Lineage card' style='height:" + payload.size + "px; width:" + payload.size + "px; object-fit:contain;' />"
               + "</span>";
           }
           html += "</div></div>";

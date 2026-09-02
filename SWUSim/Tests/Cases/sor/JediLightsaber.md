@@ -156,3 +156,37 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P1GROUNDARENAUNIT:1:UPGRADECOUNT:0
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2SPACEARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# MaulTwoDefenders_BOTHAreShrunk
+#// FAMILY GENERALIZATION of the SHD_074 Vambrace Grappleshot fix, and the second card proving the
+#// defender-SET seam is not a one-card special case.
+#// OFFICIAL RULING (Darth Maul - Revenge At Last, 10/31/2024): under TWI_135 Maul's "attack 2 units
+#// instead of 1", "both units are considered defenders of one attack" and "any triggered abilities only
+#// occur once". So this ONE On Attack firing gives -2/-2 to BOTH defenders.
+#// Maul is a FORCE unit (traits Force, Sith), which is what switches the Lightsaber's grant on.
+#// Maul 5/6 + the Lightsaber's +3/+3 = 8/9. Each TWI_054 Duchess's Champion is 1/8; -2/-2 makes it
+#// -1/6, so its power floors at 0 and Maul takes NO counter-damage, while 8 damage still defeats both.
+#// ⚠ THE COUNTER-DAMAGE IS A 3-WAY DISCRIMINATOR, which a stat assertion on the defenders could not be
+#// (they die either way): 0 damage on Maul = both shrunk · 1 = only the lead shrunk (the half-fix where
+#// SWU_CURRENT_DEFENDER is published but the defender SET is not) · 2 = neither (the original bug, where
+#// the Maul path published no defender at all and the ability silently no-opped).
+
+## GIVEN
+CommonSetup: rrk/bbw
+P1OnlyActions: true
+WithP1GroundArena: TWI_135:1:0
+WithP1GroundArenaUpgrade: 0:SOR_054
+WithP2GroundArena: [TWI_054:1:0 TWI_054:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:Units
+- P1>AnswerDecision:theirGroundArena-0&theirGroundArena-1
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:TWI_135
+P1GROUNDARENAUNIT:0:DAMAGE:0

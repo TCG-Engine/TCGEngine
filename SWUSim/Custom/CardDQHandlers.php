@@ -1620,7 +1620,23 @@ $customDQHandlers["DISCOUNT_PLAY_FROM_HAND"] = function ($player, $parts, $lastD
     return;
   }
   $discount = max(0, intval($parts[0] ?? 1));
-  SWUWithNestedActionFrame(fn() => ActivateCard(intval($player), $lastDecision, false, $discount));
+  // ⚠ SWUBeginPlayCard, NOT ActivateCard. Playing a card from hand has to go through the FULL play
+  // ceremony, and ActivateCard is only its second half — SWUBeginPlayCard is what owns the pre-payment
+  // steps: ADDITIONAL COSTS (Exploit, HMW_048 Vernestra Rwoh's discard-bottoming, HMW_125 The
+  // Marauder's damage picks) and TWI_116 Clone's copy choice.
+  // $unitOnly = TRUE: every caller of this shared continuation grants a "play a UNIT" (or an EVENT),
+  // never a bare "play a card" — and per CR 17.c / CR 525.a a Piloting card played through a "play a
+  // unit" effect cannot be played as an upgrade. So the unit-vs-pilot fork stays suppressed here, as it
+  // was under ActivateCard (ASH_108 Crix Madine + SOR_093 Alliance Dispatcher both assert this).
+  // Routing here through ActivateCard silently SKIPPED all of them, so a card played by another card's
+  // ability (LOF_094 Jedi Consular, and every other "play a unit from your hand" effect that lands on
+  // this shared continuation) paid no additional cost and gained nothing from it. Per CR step 3.c an
+  // additional cost is determined and paid on EVERY play, however the play was initiated.
+  // Reported 2026-09-02 via Jedi Consular -> Vernestra Rwoh: her donors were never offered, so she
+  // entered as a plain 5/5 having bottomed nothing.
+  // SWUBeginPlayCard falls through to SWUContinuePlayAfterExploit synchronously when no picker applies,
+  // so the no-additional-cost case is byte-identical to the old behaviour.
+  SWUWithNestedActionFrame(fn() => SWUBeginPlayCard(intval($player), $lastDecision, $discount, unitOnly: true));
 };
 // Universal: draw $parts[0] cards for the acting player.
 $customDQHandlers["DRAW_CARD"] = function ($player, $parts, $lastDecision) {
@@ -2950,97 +2966,29 @@ function _SWUFalconKeepOrBounce(int $player, string $falconMz, bool $paidOk): vo
 // $params: [ mzID-of-card-being-played, grantedExploit-count ].
 // $lastDecision: '&'-joined mzIDs of chosen friendly units to defeat, or '-' / '' if none.
 $customDQHandlers["EXPLOIT_RESOLVE"] = function ($player, $params, $lastDecision) {
-  global $gExploitDeferTriggers, $gPlayGrantedExploit, $playerID, $gLastExploitedPowers;
+  global $gPlayGrantedExploit, $playerID;
   $savedPID = $playerID;
   $playerID = intval($player);
-  $gLastExploitedPowers = [];   // record each defeated fodder unit's power (TWI_138 Count Dooku reads it)
 
   $mzID = $params[0] ?? '';
   $gPlayGrantedExploit = intval($params[1] ?? 0);   // restore across the request boundary
-  $maxDefeats = intval($params[2] ?? 0);   // effective Exploit X (cap on units defeated)
+  $maxDefeats = intval($params[2] ?? 0);            // effective Exploit X (cap on units defeated)
 
-  $count = 0;
-  $droidsExploited = 0;   // Droids defeated here — see the SEC_122 compensation note below
-  if ($lastDecision !== null && $lastDecision !== '-' && $lastDecision !== '') {
-    // Validate the answer against the SAME friendly-fodder set that was offered, and cap at
-    // the effective Exploit X. A non-conforming client must not defeat non-friendly units or
-    // exceed the cap. Snapshot each chosen unit's UniqueID BEFORE any defeat mutates arena
-    // indices — SWUDefeatUnit → CleanupRemovedCards() splices/re-indexes the arena after each
-    // defeat, so a stale mzID would point to the wrong/null slot. Precedent: SWUDealSplitDamage.
-    $fodderSet = array_flip(SWUExploitFodder($player));
-    $uidsToDefeat = [];
-    foreach (explode("&", $lastDecision) as $chosen) {
-      if ($chosen === '')
-        continue;
-      if (!isset($fodderSet[$chosen]))
-        continue;          // ignore non-fodder / non-friendly picks
-      if (count($uidsToDefeat) >= $maxDefeats)
-        break;     // cap at effective Exploit X
-      $o = GetZoneObject($chosen);
-      if ($o !== null && empty($o->removed))
-        $uidsToDefeat[] = intval($o->UniqueID ?? 0);
-    }
-    // ⚠ ABORT BEFORE DEFEATING ANYTHING if these picks do not reduce the cost far enough. An Exploit card
-    // GLOWS at its best-case reduction (CanAffordActivationReserve subtracts 2 per available fodder), so
-    // the player can legally begin the play and then confirm FEWER units than the price needs —
-    // ActivateCard then rejects the payment with "Not enough ready resources" while the fodder is already
-    // DEAD and the card is still in hand. Same half-applied play as HMW_125 The Marauder, and worse: the
-    // units are gone, not merely damaged, and their When-Defeateds have fired.
-    // The estimate is OPTIMISTIC on purpose — it prices every pick as a successful defeat, which is what
-    // the loop below is about to attempt. A pick that then fails to be defeated (an immunity acquired
-    // between the offer and the answer) still lands in the old failure mode; that residue is narrow and
-    // is not reachable by simply under-picking, which is the reported shape.
-    $optimisticDiscount = 2 * count($uidsToDefeat);
-    $probeObj = ($mzID !== '') ? GetZoneObject($mzID) : null;
-    if (($probeObj->CardID ?? '') === 'SEC_122') {
-      foreach ($uidsToDefeat as $uid) {
-        $pmz = SWUFindMzByUID($uid);
-        $po  = ($pmz !== null) ? GetZoneObject($pmz) : null;
-        if ($po !== null && HasTrait($po->CardID ?? '', 'Droid')) $optimisticDiscount++;
-      }
-    }
-    if (!empty($uidsToDefeat)
-        && !_SWUPlayIsPayableAtDiscount(intval($player), $mzID, $optimisticDiscount, $uidsToDefeat)) {
-      SetFlashMessage("Not enough resources to play this even after Exploit — nothing was defeated.");
-      $gPlayGrantedExploit = 0;
-      $playerID = $savedPID;
-      return;
-    }
-    $gExploitDeferTriggers = true;                // park WhenDefeated/leave-play/bounty (CR 16.d)
-    foreach ($uidsToDefeat as $uid) {
-      // Re-resolve current mzID by UID so prior defeats' index shifts don't matter.
-      $currentMz = SWUFindMzByUID($uid);
-      if ($currentMz === null)
-        continue;
-      // Capture the unit's power BEFORE defeating it (TWI_138 deals damage = each exploited unit's power).
-      $fo = GetZoneObject($currentMz);
-      $pwr = ($fo !== null) ? intval(ObjectCurrentPower($fo)) : 0;
-      // Only count units actually defeated — a unit already removed before this
-      // handler runs must not inflate the Exploit discount (CR: 2 less per unit defeated).
-      $wasDroid = ($fo !== null) && HasTrait($fo->CardID ?? '', 'Droid');
-      if (SWUDefeatUnit(intval($player), $currentMz)) {
-        $count++;
-        $gLastExploitedPowers[] = $pwr;
-        if ($wasDroid) $droidsExploited++;
-      }
-    }
-    $gExploitDeferTriggers = false;
+  // Validation, the payability abort, the deferred-trigger defeat loop and the SEC_122 compensation all
+  // live in _SWUResolveExploitPicks, shared with SMUGGLE_EXPLOIT so the two play paths cannot drift.
+  // This path prices the card's PRINTED cost.
+  $probeObj = ($mzID !== '') ? GetZoneObject($mzID) : null;
+  $exploitDiscount = _SWUResolveExploitPicks(intval($player), $probeObj->CardID ?? '', $lastDecision,
+      $maxDefeats,
+      fn(int $optDisc, array $losing) => _SWUPlayIsPayableAtDiscount(intval($player), $mzID, $optDisc, $losing));
+
+  if ($exploitDiscount === null) {
+    SetFlashMessage("Not enough resources to play this even after Exploit — nothing was defeated.");
+    $gPlayGrantedExploit = 0;
+    $playerID = $savedPID;
+    return;
   }
 
-  // ── Determine Cost is ONE step: every reduction is settled against the SAME board state, and the
-  // player may order the reductions within it. Exploit's defeats happen in that step, BEFORE Pay Costs —
-  // so a Droid defeated by Exploit must still count for SEC_122 Vuutun Palaa's "costs 1 less for each
-  // friendly Droid unit" (take the per-Droid reduction first, then Exploit). ActivateCard recomputes the
-  // cost AFTER the defeats, when those Droids are gone, so add back 1 per exploited Droid.
-  // Judge ruling (2026-08-08): 3 Droids + Exploit 1 on Vuutun = 9 − 3 − 2 = 4, not 5.
-  // Only Vuutun's OWN play has a per-friendly-Droid cost modifier, so this compensation is scoped to it;
-  // the Droids it loses here are also genuinely gone for the later Pay Costs step (they can no longer be
-  // exhausted as payment), which is the other half of the same ruling.
-  $exploitDiscount = 2 * $count;
-  $playedObj = ($mzID !== '') ? GetZoneObject($mzID) : null;
-  if ($droidsExploited > 0 && ($playedObj->CardID ?? '') === 'SEC_122') {
-    $exploitDiscount += $droidsExploited;
-  }
   // SWUContinuePlayAfterExploit → ActivateCard.
   // The event branch of ActivateCard does NOT restore $playerID, so we must not
   // restore it here either — SWUContinuePlayAfterExploit returns with $playerID
@@ -3051,6 +2999,79 @@ $customDQHandlers["EXPLOIT_RESOLVE"] = function ($player, $params, $lastDecision
   // next harness section — inherits a phantom Exploit X and raises a bogus defeat offer
   // (surfaced by the SOR_214 attach-pool guard running after a Dooku-grant section).
   $gPlayGrantedExploit = 0;
+  $playerID = $savedPID;
+};
+
+// ── SMUGGLE_EXPLOIT — the Exploit picker answered on the SMUGGLE play path ──────────────────
+// Reachable because SHD_248 Tech grants Smuggle to every friendly resource: no printed card carries
+// both Smuggle and Exploit. Playing via Smuggle is a modified "Play a Card" action (CR 14.c) and the
+// card's while-playing abilities stay active (CR 14.i), so Exploit applies and is used during Step 3,
+// Determine cost(s) (CR 16.c) — reducing the SMUGGLE cost by 2 per unit defeated (CR 16.a).
+// Params: {resourceIdx}|{discount}|{deferHandler}|{grant}|{exploitX}|{preExploitCost}. All scalars, so
+// this survives the request boundary on the decision's own Param.
+// $preExploitCost is the Smuggle cost after the aspect penalty, Lando -2 and the shared delta but
+// BEFORE the JTL_105 halving — so the probe below must reduce first and halve second, matching
+// SWUSmuggleResource exactly.
+$customDQHandlers["SMUGGLE_EXPLOIT"] = function ($player, $params, $lastDecision) {
+  global $gPlayGrantedExploit, $playerID;
+  $savedPID = $playerID;
+  $playerID = intval($player);
+
+  $resourceIdx    = intval($params[0] ?? 0);
+  $discount       = intval($params[1] ?? 0);
+  $defer          = ($params[2] ?? '') === '' ? null : $params[2];
+  $gPlayGrantedExploit = intval($params[3] ?? 0);   // restore across the request boundary
+  $maxDefeats     = intval($params[4] ?? 0);
+  $preExploitCost = intval($params[5] ?? 0);
+
+  // Re-locate the smuggled resource by the SAME logical index the offer used (defeating friendly units
+  // does not touch the resource zone, so the index is still valid).
+  // Only the CardID is needed here (for the SEC_122 probe); the play itself re-locates the resource by
+  // the same logical index. CR 14.e's self-payment needs no special handling in the probe below: the
+  // smuggled card is still a ready resource, so SWUTotalPaymentCapacity already counts it.
+  $cardID = '';
+  $resources = &GetResources(intval($player));
+  $seen = 0;
+  for ($i = 0; $i < count($resources); $i++) {
+    if (isset($resources[$i]->removed) && $resources[$i]->removed) continue;
+    if (SWUIsCreditToken($resources[$i]->CardID ?? '')) continue;
+    if ($seen === $resourceIdx) { $cardID = $resources[$i]->CardID ?? ''; break; }
+    $seen++;
+  }
+
+  $exploitDiscount = _SWUResolveExploitPicks(intval($player), $cardID, $lastDecision, $maxDefeats,
+      function (int $optDisc, array $losing) use ($player, $preExploitCost): bool {
+        // Price the SMUGGLE cost, not the printed cost: reduce, then halve (JTL_105), exactly as
+        // SWUSmuggleResource does. Capacity loses any Droid this Exploit is about to defeat, since it
+        // can no longer be exhausted for payment.
+        $cost = SWUApplyCostHalving(intval($player), max(0, $preExploitCost - $optDisc));
+        $capacity = SWUTotalPaymentCapacity(intval($player));
+        if (!empty($losing) && SWUPlayerControlsSEC122(intval($player))) {
+          $lose = array_flip(array_map('intval', $losing));
+          foreach (SWUReadyFriendlyDroids(intval($player)) as $dmz) {
+            $d = GetZoneObject($dmz);
+            if (!SWUObjGone($d) && isset($lose[intval($d->UniqueID ?? 0)])) $capacity--;
+          }
+        }
+        return $capacity >= $cost;
+      },
+      compensateDroids: false);   // the cost is LOCKED, so it still carries the pre-defeat Droid reduction
+
+  if ($exploitDiscount === null) {
+    SetFlashMessage("Not enough resources to smuggle this even after Exploit — nothing was defeated.");
+    $gPlayGrantedExploit = 0;
+    $playerID = $savedPID;
+    return;
+  }
+
+  // Re-enter the Smuggle play with the discount settled. Passing it (>= 0) is what stops the picker
+  // being raised a second time.
+  // $preExploitCost is handed straight back as the LOCKED determined cost — see the $determinedCost
+  // note on SWUSmuggleResource for why it must not be recomputed after the defeats.
+  SWUSmuggleResource(intval($player), $resourceIdx, $discount, $defer, -1, $exploitDiscount, $preExploitCost);
+  $gPlayGrantedExploit = 0;
+  // SWUSmuggleResource deliberately leaves $playerID = $player when it queued a decision, mirroring
+  // EXPLOIT_RESOLVE's no-op restore.
   $playerID = $savedPID;
 };
 
@@ -3338,6 +3359,25 @@ function _SWUStageFriendlyCaptives(int $player): array
     $tempMZs[] = "myTempZone-" . $k;
   return [$tempMZs, $entries];
 }
+// _SWUPeekCaptiveByEntry — resolve "captorUID:subIdx" and read the captive WITHOUT detaching it, as
+// [CardID, Owner] (['' ,0] when it is gone). Needed because a play that has to ask a question first
+// (SHD_192's Unit-vs-Pilot fork) must not strand a detached card across a request boundary: the entry
+// string is a scalar and re-resolves safely, a floating subcard object would not.
+function _SWUPeekCaptiveByEntry(string $entry): array
+{
+  [$captorUID, $subIdx] = array_map('intval', explode(':', $entry));
+  $captorMz = SWUFindMzByUID($captorUID);
+  if ($captorMz === null) return ['', 0];
+  $captor = GetZoneObject($captorMz);
+  if ($captor === null || !is_array($captor->Subcards ?? null) || !isset($captor->Subcards[$subIdx]))
+    return ['', 0];
+  $sub = $captor->Subcards[$subIdx];
+  return [
+    is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? ''),
+    is_array($sub) ? intval($sub['Owner'] ?? 0) : intval($sub->Owner ?? 0),
+  ];
+}
+
 // _SWUDetachCaptiveByEntry — resolve "captorUID:subIdx", detach the captive, return the subcard (or null).
 function _SWUDetachCaptiveByEntry(string $entry)
 {

@@ -15,7 +15,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112, HMW_160, HMW_046
 
 
 <!-- HMW_005 Jar Jar Binks, Bombad General — Done, 16/16. THE SET'S LAST CARD.
@@ -610,7 +610,10 @@ covered the cards previewed when they were written, and a preview set GROWS. The
 
 ## Status
 
-**NOT card-complete — a FOURTEENTH preview wave landed (125 → 129 HMW CardIDs, 2026-09-02),**
+**NOT card-complete — 145 of 146 done as of 2026-09-02; the ONE outstanding card is HMW_108 The First
+Legion, DEFERRED by user decision (see its comment block below — it needs a shared-predicate design
+choice, not a card handler).** A FIFTEENTH wave landed mid-session (129 → 146 CardIDs); 16 of its 17
+cards are done. Earlier that day a FOURTEENTH wave landed (125 → 129 HMW CardIDs),
 adding HMW_015 Bossk (Leader, BOTH sides), HMW_197 Cid Scaleback, HMW_203 Victor Squadron and
 HMW_207 Maim — **all four are now done (2026-09-02)**, so the set is card-complete AS OF the diff run
 at the end of that session: `### Already Done` vs the HMW CardIDs in `AppCore/SWU/CardMocks.php`
@@ -618,6 +621,24 @@ at the end of that session: `### Already Done` vs the HMW CardIDs in `AppCore/SW
 `CardMocks.php` grew three times inside a single session once — re-derive the diff, never trust this
 line.
 Being worked one card at a time via `swusim-implement-set-plan HMW`.
+
+## ⚠ SIXTEENTH WAVE — 2026-09-03 (146 → 150 CardIDs)
+`AppCore/SWU/CardMocks.php` grew again in the working tree: **HMW_044, HMW_046, HMW_172, HMW_215** are
+new, and the diff also surfaced **HMW_108**, which has been in the mocks since an earlier wave and was
+never implemented (the batch checkboxes said the set was complete; the diff is the only oracle).
+The dictionary was regenerated first (`zzCardCodeGenerator.php rootName=SWUSim`, then
+`Data/ProcessKeywordsSWU.php`) — the four new cards were absent from `GeneratedCardDictionaries.php`
+until then, which reads exactly like a blank text box. Baseline suite after the regen: **11036 / 0**.
+
+Order for the `--iterative` run (simplest first): HMW_046 → HMW_044 → HMW_172 → HMW_215 → HMW_108.
+
+| card | state |
+|---|---|
+| **HMW_046 Krrsantan, Santo** | **DONE 2026-09-03** — 12 sections, suite 11036 → 11048 / 0. "Resources you control" is the TOTAL (ready + exhausted): paying his own cost of 4 exhausts four of them, so a ready-only reading computes a negative amount on every play. An amount of 0 or less raises NO prompt (fizzle-only optional). "A ground unit" is unqualified — friendly, enemy, leader units and Krrsantan himself are all legal; space is not. Five mutations, each reddening only its own sections. |
+| **HMW_044 Ima-Gun Di, Holding Out For Resupply** | not started |
+| **HMW_172 Heavy Ion Cannon** | not started |
+| **HMW_215 L3-37, We're Programmed to Learn** | not started |
+| **HMW_108 The First Legion, Vader's Fist** | not started (was silently missed by earlier waves) |
 
 All four cards of the 2026-09-02 wave are done: HMW_207 Maim, HMW_203 Victor Squadron (verify-only,
 and it found + fixed a shared play-from-discard entry bug affecting 7 cards), HMW_197 Cid Scaleback
@@ -1456,6 +1477,46 @@ in the dictionary and keyword registries before implementation started). Suite b
      resources but a payment CAPACITY of 3 — gating on capacity, which is the CORRECT gate for an
      ordinary "you may pay N" (JTL_096 Blue Leader), raises the prompt there and is the bug. -->
 
+<!-- ★ HMW_048 Vernestra Rwoh × JTL_096 Blue Leader — "DO AS MUCH AS YOU CAN", 2026-09-02.
+     ★ USER RULING: Blue Leader's gained "You may pay 2 resources. If you do, move this unit to the
+     ground arena and give 2 Experience tokens to it" is gated on PAYING THE 2 and nothing else. When
+     Vernestra gains it she is ALREADY a ground unit, so the move half does nothing and the Experience
+     half still resolves in full. An ability resolves as much of itself as it can.
+     MEASURED, and the engine already agreed: 8 resources -> 0 ready (6 for her + 2 for the ability),
+     she stays in the ground arena, and ends a 7/7 carrying two SOR_T01. Both sections added to her file
+     (accept AND decline), because only the pair pins the gate to the PAYMENT rather than to the move.
+     ⚠ IT PASSES BY A HAIR, which is why the sections exist. JTL_096_MOVE_PAY reads:
+         if (!$paidOk) break;                       // correct — the "if you do" is the payment
+         $newMz = SWUMoveUnitBetweenArenas($mz, 'GroundArena');
+         if ($newMz === '') break;                  // would SWALLOW both Experience tokens
+     It only works because SWUMoveUnitBetweenArenas treats a SAME-ARENA target as a remove-and-re-add
+     rather than an impossible move, so it returns a live mzID. Short-circuit that helper on "already
+     there" — a perfectly reasonable optimisation — and the tokens vanish while every other section of
+     BOTH cards still passes.
+     ⚠ COSMETIC BUG FIXED: the prompt hardcoded "Pay 2 to move BLUE LEADER..." even when the ability had
+     been GAINED and a different unit was moving. Now built from the holder's own CardTitle. Verified
+     BOTH ways through TestSchemaStep's pending array (gained -> "Vernestra_Rwoh", played normally ->
+     "Blue Leader") — the regression renders no client, so prompt text is one of the few things a
+     section genuinely cannot cover. JTL_197 Anakin's similar hardcoded name was checked and is CORRECT
+     (a Piloting upgrade returning itself, and an attack-end trigger, so it is not gainable). -->
+
+<!-- ⛔ HMW_108 The First Legion — DEFERRED 2026-09-02, user decision. The ONLY unimplemented HMW card.
+     "On Attack: Name a Trait. Enemy cards, INCLUDING THOSE NOT IN PLAY, lose that Trait for this phase."
+     WHY IT IS NOT A NORMAL CARD: trait suppression in this engine is a per-OBJECT TurnEffect —
+     `TraitContains($obj,$trait)` returns false when the object carries `NO_TRAIT_<X>` — and the standing
+     rule is that "units lose X this phase" affects only the units IN PLAY when it resolves. This card
+     explicitly overrides both: cards in HAND, DECK and DISCARD are not arena objects and carry no turn
+     effects, so there is no existing seam that reaches them. The bare-CardID readers (`HasTrait($cardID,
+     …)`) used for hand/deck/discard cards are deliberately NOT object-aware, which is what makes trait
+     LOSS in-play-only by design.
+     SHAPE OF THE FORK (for whoever picks it up — this is a DESIGN CHOICE on a shared predicate, not a
+     card handler): a per-seat, phase-scoped "named trait" flag that both TraitContains AND the
+     bare-CardID HasTrait readers consult, versus something narrower scoped to the consumers that
+     actually matter. The blast radius is every trait check in the game, so it wants its own session.
+     ⚠ NOT investigated yet beyond reading the text — the "no existing seam" claim above is READ FROM
+     THE CODE, not measured. Re-verify before designing: grep for any card that already suppresses a
+     trait outside the arenas, and confirm what the hand/deck/discard trait consumers actually call. -->
+
 <!-- FIFTEENTH WAVE, cards 1-7 of 9 — all Done 2026-09-02, suite 10963 -> 11009, 0 new failures.
      HMW_247 Surveillance Cruiser · HMW_158 Battle-Scarred Destroyer · HMW_072 Grand Army Marine ·
      HMW_080 Fambaa Shield Team · HMW_251 Blockade Ship · HMW_231 Dragonboat Freighter ·
@@ -1919,3 +1980,106 @@ in the dictionary and keyword registries before implementation started). Suite b
      Mutations: exclude-by-CardID reds ONLY the second-copy section; letting hand entries into the pool
      reds the in-flight section AND both glow sections - the glow prices the best-case reduction from
      the same pool, so this ruling governs whether the card lights up at all, not just what it may hit. -->
+### ENGINE BUG (2026-09-02) — a card played by ANOTHER card's ability skipped the ADDITIONAL COST step
+
+**Reported via:** Jedi Consular (LOF_094) → Vernestra Rwoh (HMW_048), with JTL_096 Blue Leader and
+LAW_067 Jyn Erso in the discard. Expected: both donors bottomed, both gained When-Played abilities on
+the stack to be ordered, 0R left, Vernestra 8/8. Measured before the fix: no additional-cost prompt at
+all, `Subcards:[]`, discard untouched, 2R left — a plain 5/5.
+
+**Root cause.** The shared `DISCOUNT_PLAY_FROM_HAND` continuation (the landing pad for *every* "play a
+unit from your hand at a discount" grant) called `ActivateCard`, which is only the SECOND HALF of the
+play ceremony. `SWUBeginPlayCard` owns the pre-payment steps: **additional costs** (Exploit, HMW_048's
+discard-bottoming, HMW_125 The Marauder's damage picks), the Piloting fork, and TWI_116 Clone's copy
+choice. All of them were silently skipped. Per **CR step 3.c** an additional cost is determined and paid
+on EVERY play, however the play was initiated.
+
+**Fix.** `Custom/CardDQHandlers.php` routes through `SWUBeginPlayCard(..., unitOnly: true)`.
+
+**⚠ The `unitOnly` half is the load-bearing subtlety, and the naive fix is WRONG.** Swapping in the full
+ceremony also handed out the Piloting unit-vs-upgrade fork — which **CR 17.c** and **CR 525.a** forbid:
+*"If a player is instructed to 'play a unit,' they cannot choose to play a unit with Piloting as an
+upgrade."* The broad version broke 4 existing, deliberately-written tests (3× ASH_108 Crix Madine on
+JTL_103 Chewbacca, and SOR_093 Alliance Dispatcher's `PilotableUnit_PlaysAsGroundUnit_NotAsPilot`,
+whose comment states the intent outright). So `SWUBeginPlayCard` gained a `$unitOnly` parameter that
+skips ONLY the Piloting block. Every current caller of this continuation is `types => ['Unit']` or
+`['Event']` — **not one means a bare "play a card"** — so unit-only is correct for the whole shared
+path today, and it reproduces the old ActivateCard behaviour exactly on that axis.
+
+**Coverage.** `hmw/VernestraRwoh_WeShouldHandleThisOurselves.md` §PlayedByAnotherCardsAbility_
+AdditionalCostStillApplies (+ its decline control, which proves the "up to 2" cost is still declinable
+and the play is not gated on the discard) and `lof/JediConsular.md` §CR17c_PilotingCardPlayedAsUnitOnly_
+NoPilotFork. Mutation-verified: reverting to `ActivateCard` reds the additional-cost section; dropping
+`unitOnly` reds the CR-17.c guard plus all 4 pre-existing sections above.
+
+**Blast radius to watch:** the wider seam (`SWUNestedPlay`) is still on `ActivateCard`; widening it needs
+`$ignoreCost`/`$prepaid` threaded through `SWUBeginPlayCard` and `SWUContinuePlayAfterExploit` and
+touches 20+ callers. NOT done here.
+
+## SHD red-test sweep (2026-09-02) — all 4 long-standing reds CLOSED
+
+The four `⚠⚠ KNOWN ENGINE BUG` sections restored from the SHD worklist on 2026-09-01 are all green, and
+the suite is at **11036 passed / 0 failed** for the first time. Each was a real engine bug with a passing
+control already written beside it. Two of the four root-cause notes were WRONG in a way that mattered.
+
+### 1. SHD_248 Tech — a SMUGGLED unit never got its Exploit fork
+No printed card has both Smuggle and Exploit; Tech granting Smuggle to every resource makes it reachable.
+`SWUSmuggleResource` places units inline and only delegated the Upgrade/Event branches, so the Exploit
+fork (which lives on the hand path) was never reached. CR 14.c makes Smuggle a modified "Play a Card"
+action, CR 14.i keeps while-playing abilities active, CR 16.a/16.c make Exploit a −2-per-unit modifier
+applied in Step 3 — and it is a cost MODIFIER, not a REPLACEMENT, so it stacks with Smuggle's replaced
+cost (contrast CR 8.46.e). Raised in place during the Smuggle path's own determine-cost step.
+- ⚠ **The cost must be LOCKED across the Exploit decision** (`$determinedCost`). Tech is itself legal
+  Exploit fodder, so a recompute after the defeats finds a card that no longer HAS Smuggle and aborts the
+  play with the fodder already dead. Same "Determine Cost is ONE step" invariant as the Vuutun ruling —
+  and because the cost is locked, the SEC_122 Droid compensation must NOT be applied here (the locked
+  figure still carries the pre-defeat per-Droid reduction), hence `_SWUResolveExploitPicks`'
+  `$compensateDroids` switch.
+- The answer is resolved by **`_SWUResolveExploitPicks`, extracted and now shared with the hand path's
+  `EXPLOIT_RESOLVE`**, so the validation, the CR 4.a pre-defeat payability abort and the CR 16.d trigger
+  deferral cannot drift between the two play paths.
+
+### 2. SHD_192 Dryden Vos — a captured PILOTING card got no Unit-vs-Pilot fork
+"You may play it for free" is a bare card play, so CR 17.c permits the upgrade branch (contrast the
+`DISCOUNT_PLAY_FROM_HAND` family, whose grants all say "play a UNIT" and must suppress it).
+- The note said this "needs a source-zone route first". **It does not.** `_SWUFinalizeUpgradeAttach`
+  already tolerates an EMPTY source mzID (it uses it only to remove the card from a zone, and a detached
+  captive has no zone) and already carries an `$owner` for foreign plays (SEC_205's milled Pilot).
+- New `_SWUPeekCaptiveByEntry` reads the captive WITHOUT detaching, so the fork is raised before the
+  detach and only the scalar "captorUID:subIdx" crosses the request boundary.
+
+### 3. SHD_074 Vambrace Grappleshot — "the defender" read EMPTY under Maul's two-defender attack
+`_SWUMaulBeginDoubleAttack` never published `SWU_CURRENT_DEFENDER`, so all 12 cards in the
+"the defender"-targeting family silently no-opped on that path.
+- ⚠ **The note's "must run ONCE PER DEFENDER" is WRONG**, and that error is what created the "would
+  double-fire a 'deal 2 to a base' On Attack" blocker. OFFICIAL RULING (Darth Maul - Revenge At Last,
+  10/31/2024): *"both units are considered defenders of one attack. Each step of the attack and any
+  triggered abilities only occur once, as usual."* The trigger fires ONCE; "the defender" DENOTES BOTH.
+- So the fix is a defender **SET** — `SWU_CURRENT_DEFENDER_UIDS` + a `SWUCurrentDefenderMzIDs()` accessor
+  — not a second trigger pass. The accessor returns ONE mzID on every ordinary attack (byte-identical)
+  and an empty list for a base target (replacing each consumer's own `'Arena'` guard).
+- ⚠ Ordinary attacks must publish the set too, or a preceding Maul pair LEAKS into the next attack and
+  the next attacker's "the defender" resolves to Maul's victims. Mutation-proven invisible until the
+  dedicated leak section was written.
+- **FAMILY STATUS — 2 of 12 converted, each with a Maul-path test** (SHD_074, SOR_054 Jedi Lightsaber).
+  The other 10 now read the LEAD defender (published for the first time) instead of nothing — strictly
+  better than broken, and no untested behaviour change. Their taxonomy, for whoever finishes the sweep:
+  - *Direct "the defender" target → should loop* (6 left): SHD_183 Kintan Intimidator, JTL_034 Bossk,
+    Fennec Shand, Migs Mayfeld, ASH R5-D4, SOR Boba Fett Disintegrator.
+  - *Boolean gate only, must NOT loop*: LAW_062 Defiant Hammerhead (the defender is a condition; the
+    buff lands on the attacker) — already correct as-is.
+  - *Builds a target POOL — add each defender as an option, don't loop the effect*: ASH_012 Vane,
+    SOR Sabine Wren. Currently they offer only the lead defender.
+  - *Uses the defender only to pick an ARENA*: SOR Hardpoint Heavy Blaster — both defenders share an
+    arena, so no change is needed.
+
+### 4. SHD_143 Ruthlessness — survival-gated, the inverse of CR 16.c
+"When this unit attacks and defeats a unit" sat BELOW `SWUCollectCombatHitTriggers`' attacker-survival
+early return, so it paid nothing on a trade. CR 16.c: firing on a dead attacker is the DEFAULT and
+survival is a per-card opt-in — and SHD_143 is correctly absent from `_SWUAttackEndRequiresSurvival`.
+- The note called this "NOT a one-liner ... every case needs a per-case audit". It **is** essentially a
+  one-liner: the function already has an established pattern of hooks placed ABOVE that return for
+  exactly this reason (LAW_007 Boba, LAW_252 Fett's Firespray, ASH_005 Luke), and no switch had to move.
+- The defeated attacker's object is still readable (flagged `removed`, Subcards intact), so
+  `_SWUUnitHasUpgrade` works; `$defenderMzID` is only STRING-parsed for the seat, never dereferenced, so
+  a re-indexed arena slot cannot mis-target.

@@ -301,6 +301,121 @@ body.swu-home .swu-mb-fxchip { font-size: 11px; }
 body.swu-home .swu-mb-unit .swu-mb-dmgcounter { width: calc(var(--swu-mb-unit) * 0.42);
     height: calc(var(--swu-mb-unit) * 0.42); font-size: calc(var(--swu-mb-unit) * 0.22); }
 body.swu-home .swu-mb-base .swu-mb-dmgcounter { width: 34px; height: 34px; font-size: 17px; }
+/* ── Live power / HP on a mini unit ──────────────────────────────────────────────────────────────
+   Sits ON the printed pair in the concat crop's bottom corners, using the board's own token art so the
+   preview and the zoomed board read alike.
+   ⚠ These REPLACE misleading information rather than adding clutter: the art's printed numbers are
+   wrong for any upgraded unit, and the tile has no other way to say so.
+   ⚠ Scaled off --swu-mb-unit like everything else on this card; a px size tuned at one card size is a
+   speck or a lid at another. */
+.swu-mb-pw, .swu-mb-hp { position: absolute; z-index: 5; pointer-events: none;
+    /* ⚠ NEGATIVE insets on purpose — the tokens sit PROUD of the card's bottom corners, pushed out and
+       down so they clear the centre line where the damage token and the keyword badge strip live. The
+       spill is what .swu-mb-row's padding-inline / padding-bottom exist to hold: without that padding
+       the grid clips (overflow-x:auto forces overflow-y) and the outer half of each token is sliced
+       clean off. If you push these further out, grow that padding to match. */
+    bottom: calc(var(--swu-mb-unit) * -0.02);
+    width: calc(var(--swu-mb-unit) * 0.30); height: calc(var(--swu-mb-unit) * 0.30);
+    display: flex; align-items: center; justify-content: center;
+    background-position: center; background-size: contain; background-repeat: no-repeat;
+    color: #fff; text-shadow: 0 1px 2px #000, 0 0 3px #000;
+    font: 800 calc(var(--swu-mb-unit) * 0.155)/1 var(--swu-font-label, sans-serif); }
+.swu-mb-pw { left:  calc(var(--swu-mb-unit) * -0.07);
+    background-image: url('./Assets/Icons/swusim-power_v2.png'); }
+.swu-mb-hp { right: calc(var(--swu-mb-unit) * -0.07);
+    background-image: url('./Assets/Icons/swusim-hp_v2.png'); }
+/* ── Keyword badges + overlays on a mini unit thumbnail ───────────────────────────────────────────
+   The preview's stand-in for the schema's `Counters: Has*=Image(...,Position=Bottom)` and
+   `Overlay: HiddenUnattackable/HasSentinel`, which a background-image span never receives.
+   ⚠ Both are sized off --swu-mb-unit, never in fixed px. Every other fixed-px value on these cards
+   has already had to be rewritten once when the tiles grew (see the damage-token and grid-track
+   warnings above) — a 12px icon that reads fine on a 30px thumbnail is a speck on a 110px one. */
+/* ⚠ SIZE AND OVERHANG ARE THE FULL BOARD'S OWN PROPORTIONS, measured off a live board rather than
+   guessed: the badge is 0.221 of the card's width and hangs 0.13 of it BELOW the card's bottom edge
+   (so a bit over half the icon sits off the card). Matching the fractions is what makes a preview
+   thumbnail and the card you get from "Zoom in" read as the same object at two sizes. */
+.swu-mb-kw { position: absolute; left: 0; right: 0; z-index: 5;
+    bottom: calc(var(--swu-mb-unit) * -0.13);
+    display: flex; justify-content: center; align-items: flex-end;
+    gap: calc(var(--swu-mb-unit) * 0.02); pointer-events: none; }
+/* ⚠ The width is a min() of "the size I want" and "the share that actually fits", because a unit can
+   carry several keywords at once (Grit + Bounty, Hidden + Restore, and Coordinate on top). At a fixed
+   size four badges overflow the card and collide with the neighbouring thumbnail in the arena grid;
+   dividing by --swu-mb-nb (written per-card by swuMbUnitBadges) lets a busy unit shrink its own strip
+   instead. A single-badge unit is unaffected — the first term wins. */
+.swu-mb-kw img { display: block; height: auto;
+    width: min(calc(var(--swu-mb-unit) * 0.221),
+               calc(var(--swu-mb-unit) * 0.92 / var(--swu-mb-nb, 1)));
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.9)); }
+/* ── Active turn-effect badge ────────────────────────────────────────────────────────────────────
+   TOP-LEFT, purple — the same corner and colour the full board uses for DisplayEffects, so the two
+   views agree. Geometry deliberately matches the upgrade badge on the opposite corner: the two are
+   read as a pair ("what is on this unit" / "what is happening to it"), and a mismatched size would
+   make one look more important than the other.
+   ⚠ Top-left is the LAST free corner on a mini unit — top-right is the upgrade badge, the centre is
+   the damage token, the bottom corners are live power/HP and the bottom edge is the keyword strip.
+   Anything added after this has to share. */
+.swu-mb-fxbadge { position: absolute; z-index: 6; cursor: pointer; box-sizing: border-box;
+    top: calc(var(--swu-mb-unit) * 0.03); left: calc(var(--swu-mb-unit) * 0.035);
+    min-width: calc(var(--swu-mb-unit) * 0.26); height: calc(var(--swu-mb-unit) * 0.235);
+    padding: 0 calc(var(--swu-mb-unit) * 0.04);
+    border-radius: calc(var(--swu-mb-unit) * 0.12);
+    display: flex; align-items: center; justify-content: center;
+    background: #6b3fa0; color: #fff;
+    border: 1px solid rgba(0,0,0,0.75);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    font: 800 calc(var(--swu-mb-unit) * 0.155)/1 var(--swu-font-label, sans-serif); }
+.swu-mb-fxbadge:hover { background: #7d4cbb; border-color: var(--accent-strong, #f0c040); }
+/* ── Attached-upgrade count badge ────────────────────────────────────────────────────────────────
+   White pill, black digit, top-right of the unit. Deliberately the INVERSE of every other marker on a
+   mini card (the damage token is red, the keyword badges are dark art icons, the effect chips are
+   grey/gold) so it reads as a count rather than as another status icon, and stays legible over any
+   card art underneath it.
+   ⚠ Top-right is the one free corner: the damage token owns the centre, the keyword badges own the
+   bottom edge, and the title band owns the top. Placed anywhere else it covers information.
+   ⚠ Sized off --swu-mb-unit, never px — a badge tuned at one card size is a speck or a lid at another.
+   ⚠ Costs NO height: it sits inside the card box, so the arena grid's tight vertical budget (see the
+   min-height note) is untouched. */
+.swu-mb-upgcount { position: absolute; z-index: 6; cursor: pointer; box-sizing: border-box;
+    /* ⚠ HEIGHT IS BOUNDED BY THE DAMAGE TOKEN, which is centred and 0.42 of a card tall — its top edge
+       therefore sits at ~0.29 of the card. top(0.03) + height(0.235) = 0.265 leaves real clearance;
+       at 0.035 + 0.26 = 0.295 the two rectangles measurably touched. min-width stays wider than the
+       height so a two-digit count still reads as a pill rather than being squeezed. */
+    top: calc(var(--swu-mb-unit) * 0.03); right: calc(var(--swu-mb-unit) * 0.035);
+    min-width: calc(var(--swu-mb-unit) * 0.26); height: calc(var(--swu-mb-unit) * 0.235);
+    padding: 0 calc(var(--swu-mb-unit) * 0.04);
+    border-radius: calc(var(--swu-mb-unit) * 0.12);
+    display: flex; align-items: center; justify-content: center;
+    background: #f4f4f4; color: #10151f;
+    border: 1px solid rgba(0,0,0,0.75);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    font: 800 calc(var(--swu-mb-unit) * 0.155)/1 var(--swu-font-label, sans-serif); }
+.swu-mb-upgcount:hover { background: #fff; border-color: var(--accent-strong, #f0c040); }
+/* Full-card overlays. inset:0 rather than width/height:100% so they track the card's border box
+   whatever --swu-mb-unit is, and they sit BELOW the damage token and badge strip by DOM order. */
+.swu-mb-ov { position: absolute; inset: 0; z-index: 2; pointer-events: none; border-radius: 3px;
+    background-position: center; background-size: cover; background-repeat: no-repeat; }
+.swu-mb-ov-hidden { background-image: url('./Assets/Overlays/smoke-overlay.webp'); }
+/* Sentinel keeps the schema's opacity (0.71) and scale (1.15), but NOT its -4px offset — the wall
+   has to sit lower here than the schema's number produces.
+   ⚠ WHY THE SCHEMA'S GEOMETRY DOES NOT TRANSFER. tech-wall.webp is SQUARE (413x405). The full board
+   draws it over a PORTRAIT card, where `cover` crops the sides and the wall's bars land near the card
+   edges; a thumbnail is SQUARE, so `cover` fits it exactly and the same numbers put the wall's emblem
+   over the title and its bottom bar well short of the card's bottom. Reproducing the board's box
+   geometry exactly (measured: overlay bottom 2.2% below the card) gives the WRONG picture here.
+   ⚠ MOVED VIA background-position, NOT transform. A transform big enough to place the wall correctly
+   pushed the element 17.5% of a card below its own box — measured at 5px INTO the thumbnail on the
+   next grid row, whose gap is only 8% of a card. A background is clipped to the padding box, so the
+   art moves and nothing can ever bleed into the row below. Keep it that way if you retune this. */
+.swu-mb-ov-sentinel { background-image: url('./Assets/Overlays/tech-wall.webp'); opacity: 0.71;
+    background-size: 115% 115%;
+    /* ⚠ THE ONE KNOB. Tuned against both failure directions on a live board: the schema's own offset
+       put the wall's emblem over the title and its bottom bar well short of the card's bottom ("too
+       high"), and +0.025 dropped the bar past the trait strip ("too low"). -0.09 is where the wall's
+       OPENING lines up with the card's art window and its top bar clears the title, which is the
+       alignment to judge this by — not the schema's numbers, and not the midpoint of the two misses
+       (-0.05, which still laid the top bar across the title). Nudge this number, nothing else. */
+    background-position: center calc(var(--swu-mb-unit) * -0.09); }
 /* Zoom-in button (row 1, right) → opens the you-vs-P{seat} matchup. Height matches the base card in the
    preview so row 1 reads as one aligned strip. */
 .swu-mb-zoom { flex: 0 0 auto; cursor: pointer; white-space: nowrap; box-sizing: border-box;
@@ -374,14 +489,32 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
    the same FRACTION of the card or the grid gets denser as it gets bigger. Column gap is the larger of
    the two because horizontal crowding is what makes a row unreadable; rows are already separated by
    the track's own headroom. */
-.swu-mb-row { display: grid; padding-bottom: 2px; flex: 1 1 auto;
-    column-gap: calc(var(--swu-mb-unit) * 0.16); row-gap: calc(var(--swu-mb-unit) * 0.08);
+/* ⚠ padding-bottom and row-gap BOTH carry the badge overhang (0.13 of a card, above). This grid
+   CLIPS — `overflow-x: auto` forces overflow-y to a non-visible value, so a badge hanging past the
+   card CANNOT bleed out of the row box and simply gets sliced. padding-bottom is what keeps the LAST
+   row's badges whole; row-gap (was 0.08, which is under the overhang) is what stops a badge landing
+   on top of the card in the row below. If you retune the overhang, retune all three together — and
+   the min-height below, which has to account for both or the arena box shrinks under its content. */
+/* ⚠ padding-inline exists so the power/HP counters can sit PROUD of the card's side corners without
+   being sliced. This grid clips (overflow-x:auto forces overflow-y), and a counter hanging past the
+   first or last card in a row was cut off flat at the container edge — the token lost its outer half.
+   Keep this at least as large as the counters' negative left/right inset. */
+.swu-mb-row { display: grid; padding-bottom: calc(var(--swu-mb-unit) * 0.14); flex: 1 1 auto;
+    padding-left: calc(var(--swu-mb-unit) * 0.09); padding-right: calc(var(--swu-mb-unit) * 0.09);
+    column-gap: calc(var(--swu-mb-unit) * 0.16); row-gap: calc(var(--swu-mb-unit) * 0.16);
     grid-auto-flow: column; grid-auto-columns: max-content;
     grid-template-rows: repeat(var(--swu-mb-rows, 1), calc(var(--swu-mb-unit) + 6px));
     justify-content: start; align-content: start;
     overflow-x: auto; overflow-y: hidden;
+    /* ⚠ CONTENT-BOX: this min-height is the CONTENT height and padding is added on top of it, so the
+       badge overhang's padding-bottom must NOT also be added here. It was, briefly, and the double
+       count made each arena ~0.14 of a card too tall; the tile's height is fixed (the strips box is
+       pinned between the top of the view and the midline), so the surplus had nowhere to go and the
+       tile — which is `overflow: visible` — spilled its first row above its own rounded border and
+       its last arena below it. Reported as "it is falling out of the container". Row-gap DOES belong
+       here (it is content), padding does not. */
     min-height: calc(var(--swu-mb-rows, 1) * (var(--swu-mb-unit) + 6px)
-                     + (var(--swu-mb-rows, 1) - 1) * var(--swu-mb-unit) * 0.08); }
+                     + (var(--swu-mb-rows, 1) - 1) * var(--swu-mb-unit) * 0.16); }
 /* ⚠ The TRACK is the card's BORDER box, not --swu-mb-unit. .swu-mb-card is content-box with a 1px
    border, so an N-px card occupies N+2; a track sized to the bare N clips 2px off every row and left
    an empty arena shorter than a populated one. The +4 on top is headroom for .is-exhausted's
@@ -2632,8 +2765,18 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if (strips && !strips._swuWired) { strips._swuWired = 1; strips.addEventListener('click', function (e) {
             var t = e.target;
             // Zoom-in button → open that opponent's you-vs-1 matchup.
-            var zoom = t.closest && t.closest('.swu-mb-zoom');
-            if (zoom) { var tile = zoom.closest('.swu-home-strip'); if (tile) swuSetView(parseInt(tile.getAttribute('data-view'), 10)); return; }
+            // ⚠ BOTH zoom classes, and the tile is found by [data-view] rather than by .swu-home-strip.
+            // Desktop renders .swu-mb-zoom inside .swu-home-strip; MOBILE renders .swu-sr-zoom inside
+            // .swu-seat-row, which matched neither half of the old selector pair — so the mobile Zoom
+            // button was inert from the day the mobile rows were introduced. Keying on the data
+            // attribute the handler actually consumes means a future third row shape only has to carry
+            // data-view to work, instead of also having to be added to a class list here.
+            var zoom = t.closest && t.closest('.swu-mb-zoom, .swu-sr-zoom');
+            if (zoom) {
+                var tile = zoom.closest('[data-view]');
+                if (tile) swuSetView(parseInt(tile.getAttribute('data-view'), 10));
+                return;
+            }
             // Discard chip → open that seat's discard pile.
             var zoneBtn = t.closest && t.closest('#swuHomeStrips [data-zone]');
             if (zoneBtn) {
@@ -2648,6 +2791,186 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         swuRenderPairNav();
     }
 
+    // ── Keyword badges + overlays for a mini-board unit ──────────────────────────────────────────
+    // A home-strip thumbnail is a background-image SPAN, not a Card() render, so nothing the schema
+    // declares under `Counters:` / `Overlay:` reaches it — it has to be emitted here explicitly, the
+    // same reason the leader tile emits its own Epic-Action-used icon.
+    //
+    // ⚠ This needs NO new server data. The flags below are the arena zones' schema Virtuals, and they
+    // are already on the wire for EVERY seat, 3 and 4 included (verified against a live 3-seat payload:
+    // each p{n}GroundArena/p{n}SpaceArena entry carries HasSaboteur…HasRestore + HiddenUnattackable).
+    // So Twin Suns and Team Suns are one code path here — swuRenderMiniBoard renders any seat, and the
+    // Team Suns home view deliberately keeps the TEAMMATE's tile too (see the `opps` guard above).
+    //
+    // ⚠ ORDER MATCHES THE SCHEMA's Counters: block, so a unit's badges read left-to-right the same in
+    // the preview as on the full board you get when you zoom in. Keep the two in step.
+    // HasSentinel is deliberately absent — it is an Overlay in the schema, not a Counter, and is
+    // rendered as one below.
+    var SWU_MB_BADGES = [
+        ['CoordinateActive',   'coordinate_active.webp',   'Coordinate (active)'],
+        ['CoordinateInactive', 'coordinate_inactive.webp', 'Coordinate (not active)'],
+        ['HasSaboteur',        'saboteur.webp',            'Saboteur'],
+        ['HasOverwhelm',       'overwhelm.webp',           'Overwhelm'],
+        ['HasGrit',            'grit.webp',                'Grit'],
+        ['HasHidden',          'hidden.webp',              'Hidden'],
+        ['HasAmbush',          'ambush.webp',              'Ambush'],
+        ['HasBounty',          'bounty.webp',              'Bounty'],
+        ['HasRaid',            'raid.webp',                'Raid'],
+        ['HasRestore',         'restore.webp',             'Restore']
+    ];
+    // Full-card overlays, in the schema's own DrawOrder. Both sit UNDER the badges and under the
+    // damage token, which is why they are emitted FIRST in unitHtml rather than z-index-juggled.
+    var SWU_MB_OVERLAYS = [
+        ['HiddenUnattackable', 'swu-mb-ov-hidden',   'Hidden \u2014 cannot be attacked yet'],
+        ['HasSentinel',        'swu-mb-ov-sentinel', 'Sentinel']
+    ];
+    function swuMbTruthy(v) { return v === true || v === 'true' || v === 1 || v === '1'; }
+
+    // The bottom badge strip. The icons SHRINK as a unit gains more of them: --swu-mb-nb is the count,
+    // and the CSS divides the card's width by it, so a 4-keyword unit still fits inside its own
+    // thumbnail instead of spilling into its neighbours in the arena grid.
+    function swuMbUnitBadges(u) {
+        var html = '', n = 0;
+        for (var i = 0; i < SWU_MB_BADGES.length; i++) {
+            var k = SWU_MB_BADGES[i];
+            if (!swuMbTruthy(u[k[0]])) continue;
+            n++;
+            html += "<img src='./Assets/Icons/" + k[1] + "' title='" + k[2] + "' alt='' />";
+        }
+        if (!n) return '';
+        return "<span class='swu-mb-kw' style='--swu-mb-nb:" + n + "'>" + html + "</span>";
+    }
+
+    // Active turn effects — the tile's echo of the full board's purple TopLeft badge
+    // (schema: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)).
+    //
+    // ⚠ WITHOUT THIS THE TILE IS ACTIVELY MISLEADING, not merely incomplete. A debuff moves the live
+    // power/HP counters and a granted keyword adds a keyword badge, so an effect's CONSEQUENCES were
+    // already showing on the tile with no indication of where they came from or that they are
+    // temporary — a Battlefield Marine under Make an Opening reads a flat 1/1, exactly like a printed
+    // 1/1 unit that will still be 1/1 next phase.
+    //
+    // ⚠ TOKEN SHAPE. DisplayEffects is a COMMA-delimited list, each entry a source CardID plus
+    // optional params and an "@attack|@phase|@perm" duration ("SOR_076-2-2@phase"). The count is
+    // DISTINCT SOURCE CARDS, not raw tokens — one card firing two effects is one source, which is what
+    // Core/CounterRendering's CardIDs mode does and what the zoomed board will show.
+    // ⚠ And the usual transport trap: the ids arrive space-delimited ("SOR 076-2-2@phase"), so the
+    // underscore has to go back BEFORE resolving — resolveEffectSourceCardId matches on SET_NNN and
+    // silently falls through to its legacy branch otherwise.
+    function swuMbUnitEffects(u) {
+        var raw = String((u && u.DisplayEffects) || '').trim();
+        if (!raw) return '';
+        var seen = {}, ids = [];
+        raw.split(',').forEach(function (tok) {
+            tok = tok.trim().replace(/ /g, '_');
+            if (!tok) return;
+            var src = (typeof resolveEffectSourceCardId === 'function')
+                ? resolveEffectSourceCardId(tok)
+                : (function () {                       // same rule, in case the helper is not loaded
+                    var caret = tok.indexOf('^');
+                    if (caret >= 0) return tok.slice(caret + 1);
+                    var m = tok.match(/^[A-Z0-9]{2,5}_\d{3}/);
+                    return m ? m[0] : tok.replace(/[#@].*$/, '').replace(/-[^-]+$/, '');
+                  }());
+            if (!src || seen[src]) return;
+            seen[src] = 1; ids.push(src);
+        });
+        if (!ids.length) return '';
+        var payload = encodeURIComponent(JSON.stringify({
+            subcards: ids, folder: swuBaseArtRoot(), size: 150, title: 'Active Effects'
+        }));
+        return "<span class='swu-mb-fxbadge' data-lineage-subcards='" + payload + "' tabindex='0'" +
+               " title='" + ids.length + " active effect" + (ids.length === 1 ? '' : 's') + " \u2014 click to view'" +
+               " onclick='event.stopPropagation(); swuClickPanel(this);'>" + ids.length + "</span>";
+    }
+
+    // Live power / HP, drawn OVER the printed pair in the concat art's bottom corners — same corners
+    // and same tokens the full board uses (schema: CurrentPower BottomLeft, CurrentHP BottomRight).
+    // ⚠ ALWAYS rendered, even when the live values equal the printed ones. Showing the overlay only on
+    // modified units would mean an unmodified unit and a modified one are read two different ways, and
+    // "no overlay" would be indistinguishable from "not loaded yet" — the number has to be trustworthy
+    // without the viewer first working out whether the unit is upgraded.
+    // ⚠ ShowNegative is not a concern here the way it is in the schema: a debuffed unit can reach 0 and
+    // that is a real, meaningful number on an opponent's board, so 0 prints.
+    function swuMbUnitStats(u) {
+        var pw = parseInt(u.CurrentPower, 10), hp = parseInt(u.CurrentHP, 10);
+        var html = '';
+        if (isFinite(pw)) html += "<span class='swu-mb-pw'>" + pw + "</span>";
+        if (isFinite(hp)) html += "<span class='swu-mb-hp'>" + hp + "</span>";
+        return html;
+    }
+
+    // ── Attached-upgrade badge ───────────────────────────────────────────────────────────────────
+    // ONE count badge per unit; clicking it opens the full list.
+    //
+    // ⚠ THIS REPLACED A PER-UPGRADE RAIL (a vertical strip of art chips down the card's right edge).
+    // The rail worked and was fully tested, and it still looked bad: at ~17px a concat crop is not
+    // recognisable, so the chips read as visual noise stacked on the art rather than as upgrades. The
+    // badge says the one thing a glance view can actually deliver — HOW MANY — and defers the detail
+    // to the panel, which has room to show real card art. Don't reinstate per-upgrade art at thumbnail
+    // size without solving the legibility problem first; the space is the easy part.
+    //
+    // ⚠ Peek-from-below slivers (what the FULL board does) were never an option here: one sliver at the
+    // board's proportion is ~17px and the space below a mini card is ~3.7px between grid rows, with the
+    // tile itself pinned to zero free height. Measured — see the notes on the arena grid's min-height.
+    //
+    // ⚠ SUBCARD CardIDs ARRIVE SPACE-DELIMITED. swuParseZoneCard rewrites every '_' in the zone JSON to
+    // a space, so "SOR_T01" reaches us as "SOR T01" and every popup image 404s unless the underscore is
+    // put back — the same trap the base's FORTIFIED payload documents.
+    function swuMbUnitUpgrades(u) {
+        var subs = (u && Array.isArray(u.Subcards)) ? u.Subcards : [];
+        if (!subs.length) return '';
+        var ids = [];
+        for (var i = 0; i < subs.length; i++) {
+            var sc = subs[i];
+            if (sc && (sc.removed === true || sc.removed === 'true')) continue;
+            var id = (typeof sc === 'string') ? sc : (sc && sc.CardID ? sc.CardID : null);
+            if (!id || id === '-') continue;
+            ids.push(String(id).replace(/ /g, '_'));      // ⚠ underscores back, see above
+        }
+        if (!ids.length) return '';
+        // EVERY attached card counts and is listed — real upgrades, token upgrades (Experience, Shield,
+        // Weakness…), captives, unit PILOTS and pilot LEADERS. A pilot is attached as an upgrade and is
+        // exactly what an opponent needs to see, so nothing is filtered out and nothing is collapsed:
+        // the number is the honest total of what is on that unit.
+        //
+        // ⚠ A PILOT DOES NOT SHOW ITS CONCAT FACE. Mirrors Core/UILibraries' board rule exactly:
+        //   leader flown as a pilot -> WebpImages/<id>_back.webp  (its UNIT side; the leader front is
+        //                                                          the wrong card — that side is not
+        //                                                          what is attached to the vehicle)
+        //   unit pilot              -> WebpImages/<id>.webp       (full portrait, not the square crop)
+        //   everything else         -> concat/<id>.webp
+        // Detected the same way the board detects it: the 'pilot' TRAIT plus a 'Leader' TYPE. Both
+        // dictionaries are published to the client; if either is missing we fall through to concat
+        // rather than guessing a filename that would 404.
+        var folder = swuBaseArtRoot();
+        var srcs = ids.map(function (id) {
+            var rid = (typeof resolveCardImageID === 'function') ? resolveCardImageID(id) : id;
+            var ty = (window.typeData  && window.typeData[id])  ? String(window.typeData[id])  : '';
+            var tr = (window.traitData && window.traitData[id]) ? String(window.traitData[id]) : '';
+            var isPilot = tr.toLowerCase().indexOf('pilot') !== -1;
+            if (isPilot && ty.indexOf('Leader') !== -1) return './' + folder + '/WebpImages/' + rid + '_back.webp';
+            if (isPilot && ty.indexOf('Unit')   !== -1) return './' + folder + '/WebpImages/' + rid + '.webp';
+            return './' + folder + '/concat/' + rid + '.webp';
+        });
+        var payload = encodeURIComponent(JSON.stringify({
+            subcards: ids, srcs: srcs, folder: folder, size: 150, title: 'Attached Upgrades'
+        }));
+        return "<span class='swu-mb-upgcount' data-lineage-subcards='" + payload + "' tabindex='0'" +
+               " title='" + ids.length + " attached \u2014 click to view'" +
+               " onclick='event.stopPropagation(); swuClickPanel(this);'>" + ids.length + "</span>";
+    }
+
+    function swuMbUnitOverlays(u) {
+        var html = '';
+        for (var i = 0; i < SWU_MB_OVERLAYS.length; i++) {
+            var k = SWU_MB_OVERLAYS[i];
+            if (!swuMbTruthy(u[k[0]])) continue;
+            html += "<span class='swu-mb-ov " + k[1] + "' title='" + k[2] + "'></span>";
+        }
+        return html;
+    }
+
     // Read a seat's zones from the cached responseArr (stride-31 blocks). Offsets: Leader=5, Base=6,
     // GroundArena=7, SpaceArena=8 (per NextTurnRender's window.*Data bindings). Units are parsed to
     // {CardID, Status, Damage} so the mini-board can render art + exhaust + damage; counts derive from
@@ -2660,11 +2983,27 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             if (!s.length) return [];
             return s.split('<|>').map(function (p) {
                 var o = swuParseZoneCard(p) || {};
-                return {
+                var u = {
                     CardID: String(p).trim().split(' ')[0],   // raw part keeps the underscore (SOR_032)
                     Status: o.Status,
                     Damage: parseInt(o.Damage, 10) || 0
                 };
+                // Keyword badge + overlay flags, copied straight off the wire. Previously this parser
+                // threw the whole rest of the object away, so the preview could not have drawn them
+                // even though the server had already sent them for every seat.
+                for (var bi = 0; bi < SWU_MB_BADGES.length; bi++) u[SWU_MB_BADGES[bi][0]] = o[SWU_MB_BADGES[bi][0]];
+                for (var oi = 0; oi < SWU_MB_OVERLAYS.length; oi++) u[SWU_MB_OVERLAYS[oi][0]] = o[SWU_MB_OVERLAYS[oi][0]];
+                // Attached upgrades / captives / pilots / tokens, for the upgrade rail. Already on the
+                // wire for every seat (3 and 4 included) — no new server data.
+                u.Subcards = Array.isArray(o.Subcards) ? o.Subcards : [];
+                // LIVE power/HP. ⚠ These are NOT decoration: the thumbnail's art is the concat crop,
+                // whose bottom corners show the card's PRINTED stats, and an upgraded unit's real
+                // numbers can be far from them — a Devastator wearing one pilot reads 10/10 in the art
+                // and is actually 16/14. Without this overlay the tile confidently shows a wrong number.
+                u.CurrentPower = o.CurrentPower;
+                u.CurrentHP    = o.CurrentHP;
+                u.DisplayEffects = o.DisplayEffects;   // active turn effects (schema Virtual)
+                return u;
             });
         }
         var leaderData = zone(5);
@@ -2672,7 +3011,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // Offsets, for the next person counting on their fingers: the payload's first field is the
         // update number, so a seat's zones start at 1 — 1 Deck, 2 Hand, 3 Discard, 4 Resources,
         // 5 Leader, 6 Base, 7 GroundArena, 8 SpaceArena.
-        var deckRaw = zone(1), discardRaw = zone(3);
+        var deckRaw = zone(1), discardRaw = zone(3), handRaw = zone(2);
         return {
             baseObj: swuParseZoneCard(zone(6)),
             leaders: leaderData.length ? leaderData.split('<|>') : [],
@@ -2697,7 +3036,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             }()),
             // The discard is PUBLIC, so every card is listed — count the entries.
             discardCount: discardRaw
-                ? discardRaw.split('<|>').filter(function (x) { return x.trim().length; }).length : 0
+                ? discardRaw.split('<|>').filter(function (x) { return x.trim().length; }).length : 0,
+            // ⚠ HAND COUNTS LIKE THE DISCARD, **NOT** LIKE THE DECK — despite both Hand and Deck being
+            // hidden zones. The deck collapses to ONE "CardBack <count>" entry, so its count is field 1
+            // of a single entry; the hand serializes ONE "CardBack 0 -" entry PER CARD, so its count is
+            // the number of entries. Copying the deckCount idiom here parses the `0` out of the first
+            // CardBack and reports every opponent as holding 0 cards — verified on the wire before
+            // writing this (a 3-card hand arrives as three <|>-joined CardBack entries).
+            handCount: handRaw
+                ? handRaw.split('<|>').filter(function (x) { return x.trim().length; }).length : 0
         };
     }
 
@@ -2834,8 +3181,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 // rules box; concat is the 450x450 SQUARE crop (art + title + stat boxes, no rules
                 // text), which is all a preview can legibly show. The box is square to suit it — keep
                 // the ratio if you retune .swu-mb-unit, or the crop gets cropped a second time.
+                // Stacking order is DOM order, deliberately, so it cannot drift out of step with the
+                // schema's DrawOrder: full-card overlays underneath, then the centred damage token,
+                // then the keyword badge strip on top along the bottom edge.
                 return '<span class="' + cls + '" data-mz="p' + seat + arena + 'Arena-' + i + '" ' + swuMbHoverAttrs(urid) + ' ' +
-                    'style="background-image:url(/TCGEngine/AppCore/SWU/Images/concat/' + urid + '.webp)">' + badge + '</span>';
+                    'style="background-image:url(/TCGEngine/AppCore/SWU/Images/concat/' + urid + '.webp)">' +
+                    swuMbUnitOverlays(u) + badge + swuMbUnitStats(u) + swuMbUnitBadges(u) +
+                    swuMbUnitUpgrades(u) + swuMbUnitEffects(u) + '</span>';
             };
         }
         var spaceHtml  = b.spaceUnits.map(unitHtml('Space')).join('');
@@ -2858,6 +3210,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     (b.res.credits > 0 ? '<span class="swu-mb-statcred">+' + b.res.credits + '</span>' : '') +
                     '</span>' +
                 '</span>' +
+                // Hand sits between Res and Deck: it is the stat a Twin Suns player most wants off an
+                // opponent's tile and, unlike Deck/Discard, it is the one they cannot infer from the
+                // board. NOT clickable — the hand is a hidden zone (contrast the Discard chip below,
+                // which opens because the discard is public).
+                '<span class="swu-mb-stat"><span class="swu-mb-statlbl">Hand</span>' + b.handCount + '</span>' +
                 '<span class="swu-mb-stat"><span class="swu-mb-statlbl">Deck</span>' + b.deckCount + '</span>' +
                 // Clickable: opens that seat's discard pile, the same popup the full board opens from
                 // its discard counter. Safe for ANY seat because the Discard is a PUBLIC zone — this
@@ -2889,7 +3246,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // unreadable, and a card small enough to fit is too small to tap. Targeting drills in instead
     // (spec D1/D2). Reads the SAME seat block the desktop tiles read, so the two views cannot
     // disagree about what a seat holds.
-    function swuRenderSeatRow(seat) {
+    function swuRenderSeatRow(seat, viewIndex) {
         var b = swuReadSeatBlock(seat) || {leaders:[], baseObj:null, groundCount:0, spaceCount:0,
                                            res:{ready:0,total:0,credits:0}, deckCount:0, discardCount:0};
         var lead = b.leaders.map(function (ld) {
@@ -2917,20 +3274,39 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         //   B: the counts, as LABELLED chips — res · deck · discard · ground · space
         // Labelled beats the compact glyph form: at this width the row is a scoreboard, and "GROUND 2"
         // cannot be misread the way an unlabelled icon can.
-        return "<div class='swu-seat-row' data-seat='" + seat + "'>" +
+        // ⚠ data-view is what the Zoom button's click delegate reads to know which matchup to open —
+        // the same contract the desktop tile carries. A row without it renders fine and its Zoom
+        // button silently does nothing.
+        return "<div class='swu-seat-row' data-seat='" + seat + "' data-view='" + (parseInt(viewIndex, 10) || 0) + "'>" +
                  "<div class='swu-sr-a'>" +
                    "<span class='swu-sr-seat'>P" + seat + "</span>" + lead + base +
                    swuMbFxColumn(b.baseObj) +
+                   // Ground/Space moved up here from row B, stacked, so row B holds only the four
+                   // ZONE counts (Res/Hand/Deck/Discard) and this row holds what is ON the board. Row B
+                   // had grown to six chips and wrapped at phone width; splitting it by KIND rather
+                   // than trimming keeps every number and stops the wrap.
+                   // ⚠ BEFORE .swu-sr-pills, deliberately. The pills span carries `margin-left:auto`,
+                   // so everything after it is flushed to the right edge — putting the arena counts
+                   // there parked them against the Zoom button with a wide gap behind. Sitting them
+                   // ahead of the auto margin clusters them with the base's fortify/arrest bubbles,
+                   // which is the reading order that matches what they describe: the board, not a
+                   // pile count. The gap now falls between them and the zoom button.
+                   "<span class='swu-sr-arenas'>" +
+                     "<span class='swu-sr-stat'><span class='swu-sr-lbl'>Ground</span>" + b.groundCount + "</span>" +
+                     "<span class='swu-sr-stat'><span class='swu-sr-lbl'>Space</span>" + b.spaceCount + "</span>" +
+                   "</span>" +
                    "<span class='swu-sr-pills'></span>" +
                    "<button type='button' class='swu-sr-zoom' title='Open the you-vs-P" + seat + " board'>&#128269;</button>" +
                  "</div>" +
+                 // Row B is now the ZONE counts only — Ground/Space moved up to row A above.
                  "<div class='swu-sr-b'>" +
                    res +
+                   "<span class='swu-sr-stat'><span class='swu-sr-lbl'>Hand</span>" + b.handCount + "</span>" +
                    "<span class='swu-sr-stat'><span class='swu-sr-lbl'>Deck</span>" + b.deckCount + "</span>" +
                    "<span class='swu-sr-stat swu-mb-stat-btn' role='button' tabindex='0'" +
-                     " data-zone='p" + seat + "Discard'><span class='swu-sr-lbl'>Disc</span>" + b.discardCount + "</span>" +
-                   "<span class='swu-sr-stat'><span class='swu-sr-lbl'>Ground</span>" + b.groundCount + "</span>" +
-                   "<span class='swu-sr-stat'><span class='swu-sr-lbl'>Space</span>" + b.spaceCount + "</span>" +
+                     // "Discard", not the old abbreviated "Disc": moving Ground/Space up to row A
+                     // freed the width, and the row now matches the desktop tile's wording.
+                     " data-zone='p" + seat + "Discard'><span class='swu-sr-lbl'>Discard</span>" + b.discardCount + "</span>" +
                  "</div>" +
                "</div>";
     }
@@ -2955,7 +3331,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // class in place rather than re-rendering, so a turn change never wipes the target chips.
             // Mobile gets stacked summary ROWS; desktop keeps the side-by-side tiles unchanged.
             html += (window.SWU_MOBILE_LAYOUT === true)
-                ? swuRenderSeatRow(opp)
+                ? swuRenderSeatRow(opp, mi)
                 : ('<div class="swu-home-strip" data-seat="' + opp + '" data-view="' + mi + '">' + swuRenderMiniBoard(opp) + '</div>');
         });
         box.innerHTML = html;

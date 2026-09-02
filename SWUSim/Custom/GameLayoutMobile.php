@@ -59,10 +59,21 @@
         min-height: 132px; padding: 2px;
         scrollbar-width: thin; scrollbar-color: var(--glow) transparent;
     }
-    /* Opponent's hand is face-down — give it a shorter row to save vertical space. */
-    #theirHandSlot.swu-m-scroll { min-height: 74px; }
+    /* ⚠ SCALES WITH THE BOARD, not fixed px — same fixed-px-on-a-variable-container bug fixed
+       elsewhere this session (sliver / orb / corner tokens / arena bracket). Mobile cardSize is a
+       function of viewport WIDTH (~(width-52)/7, see CalculateCardSizeByWidth in NextTurn.php), so a
+       flat 104px/74px was tuned generously against some reference width and left a huge dead band
+       around every hand card at other widths (reported 2026-09-03: at cardSize 48 a 52px-tall hand
+       card sat centered in a 108px box — 28px of empty space above AND below it, every board, every
+       time — the "wasted space in the hand zone").
+       card box height = cardSize + ~4px image border (mine) / +2px (their face-down concat crop) —
+       measured, not assumed. The added constant is breathing room only (a hand card has no hover-lift
+       reserve on mobile, unlike desktop), not a floor to protect any pre-existing reference size: this
+       value was ALWAYS oversized, so unlike the other HD-scaling fixes there is no "don't shrink below
+       today" floor here — shrinking IS the fix. */
+    #theirHandSlot.swu-m-scroll { min-height: calc(var(--swu-cardsize, 80px) + 8px); }
     /* My hand sits in the sticky footer; keep it compact too. */
-    #myHandSlot.swu-m-scroll { min-height: 104px; }
+    #myHandSlot.swu-m-scroll { min-height: calc(var(--swu-cardsize, 80px) + 12px); }
     .swu-m-scroll::-webkit-scrollbar { height: 6px; width: 6px; }
     .swu-m-scroll::-webkit-scrollbar-thumb { background: var(--glow); border-radius: 99px; }
     /* Arenas: cards fill left→right, then wrap to the next line (row-major). The slot
@@ -111,6 +122,21 @@
        transform beats a stylesheet one — so scale() was silently ignored. `zoom` is a
        separate property, so it composes with the inline translate instead of fighting it. */
     #swuMobileRoot [data-counter-field] { zoom: 0.64; }
+    /* Power/HP get a LARGER share than the rest of the counters on mobile. They are the two numbers a
+       player reads constantly, and on a ~52px card the shared 0.64 left them at 14px — legible but
+       cramped (reported 2026-09-03). 0.75 puts them back to ~16.5px, which is where they sat before
+       their desktop Size= was reduced 26 -> 22, while Damage and the keyword icons stay at 0.64 (both
+       confirmed good at that size). Keep this as a RATIO on the mobile zoom rather than a bigger
+       schema Size=, so desktop — signed off at 22 — is untouched. */
+    #swuMobileRoot [data-counter-field="CurrentPower"],
+    #swuMobileRoot [data-counter-field="CurrentHP"] { zoom: 0.75; }
+    /* The BASE damage total is the single most-read number on the board (it is the win condition), and
+       at the shared 0.64 it sat at ~31px on mobile — legible but undersized for what it is (reported
+       2026-09-03). 0.78 puts it at ~37px. Scoped to the base slots so UNIT damage, confirmed good at
+       0.64, is untouched — both share the counter field name "Damage", so the slot is what separates
+       them. Kept as a mobile zoom rather than a bigger schema Size=, which would also move desktop. */
+    #swuMobileRoot #myBaseSlot    [data-counter-field="Damage"],
+    #swuMobileRoot #theirBaseSlot [data-counter-field="Damage"] { zoom: 0.78; }
     #swuMobileRoot img.counter-image-icon[title="Shield"] { zoom: 0.64; }
 
     /* ── Side-by-side arena row (Space | Ground) ─────────────────────────────── */
@@ -151,7 +177,14 @@
        50vh. A fixed fraction left whatever the rows did not use as dead space between them and the
        board — ~157px with three 84px rows — and pushed the board low enough to need scrolling. */
     body.swu-home #swuMobileRoot { padding-top: var(--swu-m-rows-h, 300px); }
+    /* ⚠ pointer-events:auto is REQUIRED, not decorative. The shared .swu-home-strips container is
+       `pointer-events: none` so the fixed band does not swallow clicks meant for the board beneath it,
+       and DESKTOP re-enables them on .swu-home-strip. The mobile row is a different element and was
+       never given the same treatment, so every control inside it was click-dead — the Zoom button did
+       nothing (reported), and so did the Discard chip. Anything interactive added to this row inherits
+       the container's `none` unless this line keeps standing. */
     .swu-seat-row {
+        pointer-events: auto;
         display: flex; flex-direction: column; justify-content: center; gap: 5px;
         width: 100%; box-sizing: border-box; min-height: 84px; padding: 8px; border-radius: 8px;
         background: var(--swu-surface, rgba(10,20,30,0.85));
@@ -179,6 +212,16 @@
     .swu-sr-a, .swu-sr-b { display: flex; align-items: center; gap: 6px; width: 100%; }
     .swu-sr-b { gap: 5px; }
     .swu-sr-pills { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; flex: 0 0 auto; }
+    /* Ground/Space, stacked, pinned to the left of the Zoom button on row A. Two short chips in a
+       column are the same height as the leader/base thumbnails beside them, so they cost the row NO
+       extra height — laid out side by side they would have pushed the zoom button off a narrow phone.
+       ⚠ margin-left is NOT set here, and this group sits BEFORE .swu-sr-pills in the DOM. The pills
+       span carries `margin-left:auto`, so it is what pushes itself and the zoom button to the right
+       edge; these chips stay left of that margin and so cluster with the base's fortify/arrest
+       bubbles. Adding an auto margin here, or moving this after the pills, flings them back to the
+       right edge against the zoom button. */
+    .swu-sr-arenas { display: inline-flex; flex-direction: column; gap: 2px; flex: 0 0 auto; }
+    .swu-sr-arenas .swu-sr-stat { padding: 1px 5px; }
     .swu-sr-zoom  { flex: 0 0 auto; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; padding: 0;
                     background: var(--swu-surface, rgba(10,20,30,0.9));
                     border: 1px solid var(--swu-border, #2a3a4a); color: var(--accent-strong, #f0c040); }
@@ -273,7 +316,7 @@
 
     /* ── Control bands (their header / my footer) ────────────────────────────── */
     .swu-m-band {
-        display: flex; align-items: center; gap: 6px;
+        display: flex; align-items: center; gap: 12px;   /* was 6px (user request 2026-09-03) */
         padding: 3px 8px; min-height: 54px;
         background: rgba(8,12,18,0.75);
         border-top: 1px solid var(--swu-border); border-bottom: 1px solid var(--swu-border);
@@ -331,6 +374,56 @@
     #swuMobileRoot .swu-m-pile .counter-bubble {
         transform: translate(-50%, calc(-50% - 8px)) scale(0.6) !important;
     }
+
+    /* ── Collapsed opponent-hand pile (user request 2026-09-03) ──────────────────────────────
+       Visually a THIRD .swu-m-pile beside Deck/Discard, so it inherits their box sizing and image
+       clamp above for free. Its own bits: */
+    /* Pushes Deck+Discard to the far right of the band, leaving the requested gap after the hand
+       pile. margin-left:auto on a flex child eats all remaining space on the main axis and shoves
+       it (and every later sibling in the same flex line) to the end. */
+    .swu-m-piles-right { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+    /* No onclick is ever wired to this pile (unlike Deck/Discard, which the engine makes
+       clickable) — this is a summary, not a zone popup trigger. Make that legible at a glance. */
+    .swu-m-hand-pile { cursor: default; }
+    .swu-m-hand-pile-slot { position: relative; }
+    /* Deliberately NOT the engine's .counter-bubble convention — that class carries no styling of
+       its own (every discard/deck bubble's look is baked as an inline style string generated
+       per-instance by Core/UILibraries' Card(), which this element never passes through). A small
+       self-contained class is simpler than reproducing that generator's inline-style skeleton for
+       one badge, and is visually matched to it by eye (dark radial fill, theme-accent ring).
+       ⚠ Positioned INSIDE the slot's box (bottom/right: 1px, not a negative overhang) — the slot
+       inherits `overflow:hidden` from the shared pile-slot rule above, and a negative inset here
+       would be silently clipped exactly the way the comment above this block had to compensate for
+       on the real .counter-bubble ("lift it 8px ... so it stays within the frame"). */
+    /* Matched to the ENGINE's real .counter-bubble (Deck/Discard's stack-count, e.g. Discard's "2")
+       — measured live, not eyeballed: background gradient, 3px #1a1a1a border (not a theme-accent
+       ring), Orbitron/700 text with a dark double text-shadow instead of a box-shadow, and ~20px on
+       a 42-44px pile thumbnail (their ratio, not an arbitrary round number). Positioned bottom:4px —
+       measured gap from the real bubble's bottom edge to its own card image's bottom edge on Discard
+       (4.4px) — horizontally centered via translateX only, so it sits "just above the bottom of the
+       card" the same way Discard's count does, not dead-center (user request 2026-09-03; centering
+       was the prior iteration, corrected here). */
+    .swu-m-hand-count {
+        position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+        min-width: 20px; height: 20px; padding: 0 2px; box-sizing: border-box;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(64,64,64,1) 40%, rgba(142,142,142,1) 100%);
+        border: 3px solid #1a1a1a;
+        color: #ededed; font: 700 12px/1 Orbitron, sans-serif;
+        text-shadow: 0 0 5px #1a1a1a, 0 0 10px #1a1a1a;
+        pointer-events: none;
+    }
+    /* ⚠ Without this, the JS `count.hidden = true` on a 0-card hand did NOTHING — [hidden]{display:
+       none} is a UA-stylesheet rule at (0,1,0) specificity, identical to this class selector, and
+       author CSS beats the UA stylesheet at a tie regardless of which was "declared later" in intent;
+       the explicit `display:flex` above wins and the "0" badge stayed visible (measured: a 0-card
+       fixture rendered a bare "0" circle with no card image, screenshot-caught 2026-09-03). */
+    .swu-m-hand-count[hidden] { display: none; }
+    /* The whole "Their Hand" row is now fully represented by the pile above — hidden, not
+       removed: the generated NextTurnRender.php still writes into #theirHandSlot by ID on every
+       render (see the markup comment), and the observer driving the pile badge reads from it. */
+    #theirHandSection { display: none; }
 
     /* ── Initiative hex (reused id; mobile-sized) ────────────────────────────── */
     .swu-init-control { flex: 0 0 auto; pointer-events: none; }
@@ -445,9 +538,45 @@
         background: rgba(8,12,18,0.85); padding: 8px 10px;
     }
     #swuSidebarHeader { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    /* Round + Phase, one line, midline-aligned with each other AND with Undo/Gear via
+       #swuSidebarHeader's own align-items:center above (user request 2026-09-03). */
+    .swu-round-phase-group { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    /* ⚠ display:flex + align-items:center — NOT plain inline text flow — is load-bearing here.
+       "Round" (8px) and the number (16px) are two differently-sized inline spans; default
+       inline layout aligns SIBLINGS BY BASELINE, not by visual center, so the small "Round"
+       text sat 3px off the shared midline with everything else in the header (measured live:
+       cy 766 vs 763 for the number/phase-dot/Undo/gear — reported 2026-09-03). Flex here
+       centers the two spans against EACH OTHER, matching how .swu-phase-line already
+       aligns its own dot+text pair, so the whole row reads on one true midline. */
+    .swu-round-condensed {
+        display: flex; align-items: center; gap: 4px;
+        flex: 0 0 auto; white-space: nowrap;
+    }
     .swu-round-label { font: 700 8px/1 var(--swu-font-label); letter-spacing: 0.14em;
         text-transform: uppercase; color: rgba(255,255,255,0.45); }
     #swuRoundNumber { font: 700 16px/1 var(--swu-font-ui); }
+    /* Re-shape the SHARED .swu-phase-line rule (GameLayoutShared.php) from its own bordered,
+       padded full-width row into a compact inline chip that fits beside Round. Scoped to this
+       group only — GameLayoutShared's base rule, and desktop's separate own-row usage of the same
+       class, are both untouched. */
+    .swu-round-phase-group .swu-phase-line {
+        flex: 0 0 auto; padding: 0; border-bottom: 0; white-space: nowrap;
+    }
+    /* Was 22px — a SIZE fix (not alignment; every element's vertical CENTER already agreed exactly)
+       for the gear's 40px SHARED glyph (.swu-gear-btn, GameLayoutShared.php) dwarfing the 25px Undo
+       button and 16px Round/Phase text once Round moved out of the taller stacked header that used
+       to make the row tall enough to absorb it (reported 2026-09-03). Bumped to 44px on explicit
+       request the same day — deliberately un-does that size match again; the row (and desktop's,
+       identically) grows back to accommodate it. Mobile-only override either way — desktop has its
+       own separate #swuSidebarHeader .swu-gear-btn rule (GameLayout.php), not this shared one. */
+    #swuMobileRoot .swu-gear-btn { font-size: 44px; }
+    /* Checked for the same ink-vs-box-center offset desktop had (see GameLayout.php's identical
+       .swu-gear-btn rule) using the same pixel-diff method — mobile's measured gap (0.5px) was too
+       small to trust: a 0.5px correction moved the re-measured gap by 1.5px, a non-physical 3x
+       response (desktop's larger, clearly real 1.125px gap responded cleanly 1:1 to its correction).
+       That means mobile's original reading was already at the measurement's own noise floor, not a
+       real offset — so no nudge here. If a real gap ever needs fixing, re-measure with the same
+       method rather than trusting a sub-1px result on its own. */
     #swuUndoBtn {
         padding: 6px 14px; border: 1px solid var(--swu-border-hi); border-radius: 7px;
         background: var(--panel-scrim); color: #fff; font: 700 11px/1 var(--swu-font-label);
@@ -566,7 +695,15 @@
 </script>
 <div id="swuMobileRoot">
 
-    <!-- ════════ THEIR control band: init (when they hold it) · resources · piles ════════ -->
+    <!-- ════════ THEIR control band: init (when they hold it) · resources · collapsed hand · piles ═══
+         Layout: [init][resources][hand pile+count] ......... [deck][discard]  (user request 2026-09-03)
+         The full-width horizontal-scroll hand ROW below is HIDDEN (#theirHandSection, display:none),
+         not removed — the generated NextTurnRender.php still targets #theirHandSlot by ID every render
+         (guarded `if(_bt_theirHand){...}`, so a missing element is also safe, but keeping it lets a
+         MutationObserver mirror its live count + cosmetic card-back into the pile below with zero new
+         server/schema plumbing: Hand's schema Display (Mode=All) is shared between "my" and "their"
+         bindings, so it cannot be made Single(Stacked) for the opponent only without also collapsing
+         the player's OWN hand — this stays entirely presentation-layer instead. ═══ -->
     <div id="swuTheirControlBand" class="swu-m-band is-theirs">
         <!-- Reserved init-token slot; collapses when they actually hold the token -->
         <div class="swu-init-placeholder" aria-hidden="true"></div>
@@ -576,12 +713,27 @@
                 <span id="swuTheirResCount">0/0</span>
             </div>
         </div>
-        <div class="swu-m-pile"><div class="swu-m-pile-label">Deck</div><div id="theirDeckSlot"></div></div>
-        <div class="swu-m-pile"><div class="swu-m-pile-label">Discard</div><div id="theirDiscardSlot"></div></div>
+        <!-- Collapsed hand pile: ONE face-down card (their live cosmetic back, mirrored from
+             #theirHandSlot below) + a count badge. Deliberately NOT clickable — no onclick, no
+             is-clickable class — this is a summary, not an interactive zone. -->
+        <div class="swu-m-pile swu-m-hand-pile" id="swuTheirHandPile" title="Opponent hand size">
+            <div class="swu-m-pile-label">Hand</div>
+            <div class="swu-m-hand-pile-slot">
+                <img id="swuTheirHandPileImg" alt="" draggable="false" hidden>
+                <span id="swuTheirHandPileCount" class="swu-m-hand-count" hidden>0</span>
+            </div>
+        </div>
+        <!-- Pushed to the far right of the band via margin-left:auto on this wrapper. -->
+        <div class="swu-m-piles-right">
+            <div class="swu-m-pile"><div class="swu-m-pile-label">Deck</div><div id="theirDeckSlot"></div></div>
+            <div class="swu-m-pile"><div class="swu-m-pile-label">Discard</div><div id="theirDiscardSlot"></div></div>
+        </div>
     </div>
 
-    <!-- ════════ THEIR hand / arenas ════════ -->
-    <div class="swu-m-section is-theirs"><div class="swu-m-label">Their Hand</div>
+    <!-- ════════ THEIR hand / arenas ════════
+         #theirHandSection is hidden (see the control-band comment above) — engine-populated,
+         zero visual footprint, read by the observer that drives the pile badge above. -->
+    <div class="swu-m-section is-theirs" id="theirHandSection"><div class="swu-m-label">Their Hand</div>
         <div id="theirHandSlot" class="swu-m-scroll"></div></div>
     <div class="swu-m-arena-row is-theirs">
         <div class="swu-m-arena-col"><div class="swu-m-label">Their Space</div>
@@ -663,10 +815,19 @@
 
     <!-- ════════ Log / chat drawer ════════ -->
     <div id="swuSidebar">
+        <!-- Condensed header row (user request 2026-09-03): Round + Phase share ONE line, midline-
+             aligned with Undo/Gear. Desktop's #swuSidebar (GameLayout.php) is untouched — this markup
+             and the CSS below are both scoped to #swuMobileRoot only.
+             ⚠ The shared .swu-phase-line rule (GameLayoutShared.php) is deliberately its OWN full-width
+             row there, per a comment warning that a nowrap label inside the Round column once pushed
+             Undo/gear off-screen at a since-changed longer label ("Regroup Phase · Resource"). The
+             CURRENT PHASE_WORD values are just Start/Action/Regroup/End (max 7 chars) — measured, not
+             assumed — so it fits; the mobile-only override below re-shapes it from a bordered full row
+             into a compact inline chip for exactly that reason. -->
         <div id="swuSidebarHeader">
-            <div>
-                <div class="swu-round-label">Round</div>
-                <div id="swuRoundNumber">—</div>
+            <div class="swu-round-phase-group">
+                <div class="swu-round-condensed"><span class="swu-round-label">Round</span><span id="swuRoundNumber">—</span></div>
+                <div id="swuPhaseLine" class="swu-phase-line"><span class="swu-phase-dot"></span><span id="swuPhaseName">—</span></div>
             </div>
             <div class="swu-header-right">
                 <span id="swuUndoSplit">
@@ -681,7 +842,6 @@
                 <button id="swuGearBtn" class="swu-gear-btn" title="Settings" aria-label="Settings" onclick="swuOpenSettings()">&#9881;</button>
             </div>
         </div>
-    <div id="swuPhaseLine" class="swu-phase-line"><span class="swu-phase-dot"></span><span id="swuPhaseName">—</span></div>
         <div id="swuLastPlayedSection">
             <div class="swu-sidebar-section-label">Last Played</div>
             <div id="swuLastPlayedCard">—</div>
@@ -692,5 +852,56 @@
     </div>
 
 </div>
+
+<script>
+  // ── Collapsed opponent-hand pile: mirror #theirHandSlot's live count + cosmetic card-back ──
+  // (user request 2026-09-03). #theirHandSlot is hidden (#theirHandSection, display:none in the
+  // <style> above) but stays fully engine-populated — the generated NextTurnRender.php writes into
+  // it by element ID on every render regardless of whether anything is watching it. This runs
+  // AFTER #swuMobileRoot's closing tag, so every element it references already exists (no
+  // DOMContentLoaded wait needed — the browser has already parsed them by the time this executes).
+  (function () {
+    var slot  = document.getElementById('theirHandSlot');
+    var img   = document.getElementById('swuTheirHandPileImg');
+    var count = document.getElementById('swuTheirHandPileCount');
+    if (!slot || !img || !count) return;   // markup drifted — fail quiet, not loud
+    function syncHandPile() {
+      // The engine's own PopulateZone renders one <img> per card (Hand's schema Display is
+      // Mode=All — see the markup comment); an empty hand renders a plain text <span> with none.
+      // So counting <img> tags is exactly "how many cards are in their hand", no separate data
+      // source needed.
+      var cards = slot.querySelectorAll('img');
+      var n = cards.length;
+      if (n > 0) {
+        // data-cos-back carries the SAME cosmetic-resolved back path the real hand cards use
+        // (falls back to .src, which is identical, if a future engine version drops the
+        // attribute) — this is what "still using their cosmetic card back" means: read it from
+        // the engine's own output rather than guessing/hardcoding a path.
+        var back = cards[0].getAttribute('data-cos-back') || cards[0].src;
+        if (img.src !== back) img.src = back;
+        img.hidden = false;
+        count.textContent = String(n);
+        count.hidden = false;
+      } else {
+        img.hidden = true;
+        count.hidden = true;
+      }
+    }
+    syncHandPile();
+    // ⚠ BOTH childList AND attributes are load-bearing, not one-or-the-other. The engine's initial
+    // paint replaces theirHandSlot's whole subtree with generic '/concat/CardBack.webp' images
+    // (childList mutation) — but GameLayoutShared's ApplyCosmeticCardBacks() then rewrites each
+    // face-down <img>'s src IN PLACE to the viewer's real cosmetic back (an attribute mutation on
+    // the SAME node, run on every board update per its own comment). childList-only missed that
+    // second step entirely: measured, the pile stayed frozen on the generic CardBack.webp forever
+    // while the real hand cards correctly showed the resolved cosmetic path. attributeFilter keeps
+    // this from firing on unrelated churn (e.g. a selection-highlight class toggling) elsewhere in
+    // the subtree; ApplyCosmeticCardBacks' own `data-cos-back !== back` guard stops any feedback
+    // loop from this observer's reads triggering more of the writes it is watching for.
+    new MutationObserver(syncHandPile).observe(slot, {
+      childList: true, subtree: true, attributes: true, attributeFilter: ['src', 'data-cos-back']
+    });
+  })();
+</script>
 
 <?php include __DIR__ . '/GameLayoutShared.php'; ?>

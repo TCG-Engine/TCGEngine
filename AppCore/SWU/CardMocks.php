@@ -943,6 +943,36 @@ When Played: Search the top 8 cards of your deck for up to 2 units that each cos
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/043.png',
     'imageUrlBack' => '',
   ),
+  'HMW_044' => 
+  array (
+    'title' => 'Ima-Gun Di',
+    'subtitle' => 'Holding Out For Resupply',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 5,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Aggression',
+      2 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+      2 => 'Republic',
+    ),
+    'text' => 'When Defeated: If you control fewer resources than an opponent, you may resource a card from your hand. If you do, resource the top card of your deck.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/044.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_045' => 
   array (
     'title' => 'Logray',
@@ -968,6 +998,34 @@ When Played: Search the top 8 cards of your deck for up to 2 units that each cos
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/045.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_046' => 
+  array (
+    'title' => 'Krrsantan',
+    'subtitle' => 'Santo',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 4,
+    'power' => 4,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+      1 => 'Wookiee',
+    ),
+    'text' => 'When Played: You may deal damage equal to the number of resources you control minus 3 to a ground unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/046.png',
     'imageUrlBack' => '',
   ),
   'HMW_048' => 
@@ -2761,6 +2819,33 @@ When a non-leader ground unit enters play (including token units): You may defea
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/171.png',
     'imageUrlBack' => '',
   ),
+  'HMW_172' => 
+  array (
+    'title' => 'Heavy Ion Cannon',
+    'subtitle' => '',
+    'type' => 'Upgrade',
+    'arena' => '',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 3,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Fortification',
+    ),
+    'text' => 'Fortify (Attach this to your base, not a unit.)
+When Played: Draw a card.
+Attached base gains: "Action [discard a card from your hand]: Deal 2 damage to a unit. Use this ability only once each phase."',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/172.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_174' => 
   array (
     'title' => 'Maul',
@@ -3426,6 +3511,34 @@ When an enemy leader deploys: Its controller may pay [2 resources]. If they don\
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/214.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_215' => 
+  array (
+    'title' => 'L3-37',
+    'subtitle' => 'We\'re Programmed to Learn',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 5,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+      1 => 'Droid',
+    ),
+    'text' => 'When you play an event that costs 3 or less: You may play it again from your discard pile for free. Use this ability only once each phase.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/215.png',
     'imageUrlBack' => '',
   ),
   'HMW_217' => 

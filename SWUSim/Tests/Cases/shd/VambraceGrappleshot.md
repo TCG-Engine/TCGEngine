@@ -205,9 +205,14 @@ P1SELECTABLEEXACT:myGroundArena-1&theirGroundArena-0
 #// ROOT CAUSE: _SWUMaulBeginDoubleAttack (CombatLogic.php ~3662) never writes SWU_CURRENT_DEFENDER /
 #// SWU_CURRENT_DEFENDER_UID, which ExecuteSWUAttack sets at ~2165/2171 — so ANY "the defender"-targeting
 #// On Attack reads empty on this path. Blast radius is the whole family (SOR_054 Jedi Lightsaber, …).
-#// ⚠ NOT a one-liner: the attacker-side trigger must run ONCE PER DEFENDER, but the attacker-side pass
-#// currently runs only on the lead defender, and naively looping it would DOUBLE-FIRE attacker-side On
-#// Attacks that are not defender-targeting ("deal 2 to a base"). Needs a deliberate design pass.
+#// FIXED 2026-09-02 — and the "NOT a one-liner" note above was WRONG about the shape, which is why the
+#// double-fire worry evaporated. OFFICIAL RULING, Darth Maul - Revenge At Last (10/31/2024): "If Darth
+#// Maul attacks two units instead of one, BOTH UNITS ARE CONSIDERED DEFENDERS OF ONE ATTACK. Each step of
+#// the attack and any triggered abilities only occur ONCE, as usual." So the trigger does NOT run once per
+#// defender — it runs once, and "the defender" simply DENOTES BOTH. The fix is therefore a defender SET
+#// (SWU_CURRENT_DEFENDER_UIDS + the SWUCurrentDefenderMzIDs() accessor), not a second trigger pass, so an
+#// attacker-side On Attack that never mentions the defender ("deal 2 to a base") still fires exactly once.
+#// The accessor returns ONE mzID on every ordinary attack, so converted cards are byte-identical there.
 
 ## GIVEN
 CommonSetup: rrk/bbw
@@ -228,3 +233,38 @@ P2GROUNDARENAUNIT:1:EXHAUSTED
 P2GROUNDARENAUNIT:0:DAMAGE:7
 P2GROUNDARENAUNIT:1:DAMAGE:7
 P1GROUNDARENAUNIT:0:DAMAGE:2
+
+
+---
+
+# MaulDefenderSet_DoesNotLEAKIntoTheNextAttack
+#// ⚠ THE LEAK GUARD, and it is invisible without this section (mutation-proven: deleting the normal
+#// attack's defender-set publish left the whole suite green).
+#// SWU_CURRENT_DEFENDER_UIDS is a persisted gamestate var. If an ordinary attack did not overwrite it,
+#// the PAIR from a preceding TWI_135 Maul two-defender attack would still be sitting there, and the next
+#// attacker's "the defender" would resolve to Maul's two victims instead of its own defender.
+#// Maul carries NO Grappleshot here, so his double attack exhausts nobody — it exists only to publish the
+#// stale pair. Then SOR_095 (3/3, +2/+2 from the Grappleshot = 5/5) attacks the THIRD Champion.
+#// EXPECTED (guarded): only Champion 2 — the one actually attacked — is exhausted.
+#// UNDER THE LEAK: Champions 0 and 1 exhaust and Champion 2 stays READY, which is why all three READY/
+#// EXHAUSTED assertions are needed rather than just the one.
+#// TWI_054 Duchess's Champion is 1/8, so nothing dies and the arena never re-indexes.
+
+## GIVEN
+CommonSetup: rrk/bbw
+P1OnlyActions: true
+WithP1GroundArena: [TWI_135:1:0 SOR_095:1:0]
+WithP1GroundArenaUpgrade: 1:SHD_074
+WithP2GroundArena: [TWI_054:1:0 TWI_054:1:0 TWI_054:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:Units
+- P1>AnswerDecision:theirGroundArena-0&theirGroundArena-1
+- P1>AttackGroundArena:1:2
+
+## EXPECT
+P2GROUNDARENACOUNT:3
+P2GROUNDARENAUNIT:2:EXHAUSTED
+P2GROUNDARENAUNIT:0:READY
+P2GROUNDARENAUNIT:1:READY

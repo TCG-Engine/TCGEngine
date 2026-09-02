@@ -237,7 +237,12 @@ P1DECISIONTOOLTIP:Play_as_Unit_or_Pilot?
 #// ACTUAL:   no decision at all — Hera is placed straight into the ground arena as a unit.
 #// ROOT CAUSE: the capture path has no Unit-vs-Pilot fork. It is the same hole SWUPlayFromDiscard had
 #// before it was fixed, but harder: the captive is DETACHED into a local before placement, so it has no
-#// source mzID for SWUQueuePilotVehiclePick to move from. The fix needs a source-zone route first.
+#// source mzID for SWUQueuePilotVehiclePick to move from.
+#// FIXED 2026-09-02. No source-zone route was needed after all: _SWUFinalizeUpgradeAttach already
+#// tolerates an EMPTY source mzID (it uses it only to remove the card from a zone, and a detached
+#// captive has no zone) and already carries an $owner for foreign plays (SEC_205's milled Pilot). The
+#// fork is raised BEFORE the detach — a new _SWUPeekCaptiveByEntry reads the captive in place — so
+#// nothing but the scalar "captorUID:subIdx" entry crosses the request boundary.
 #// ⚠ Dryden has BOTH Shielded and a When Played, so two entry triggers raise the ordering choice first
 #// (EffectStack-0 = the When Played); the captive is then staged into TempZone as myTempZone-0.
 ## GIVEN
@@ -256,3 +261,121 @@ WithP1SpaceArena: SOR_237:1:0
 ## EXPECT
 P1HASDECISION
 P1DECISIONTOOLTIP:Play_as_Unit_or_Pilot?
+
+
+---
+
+# CapturedPilotingCard_PilotBranch_AttachesToTheVehicle
+#// The PILOT half of the fork actually resolving — what the offer-only section above cannot see.
+#// Answering "Pilot" attaches JTL_045 Hera Syndulla to the sole friendly Vehicle (SOR_237) as a Pilot
+#// upgrade instead of putting her in the ground arena. She is no longer a captive of SOR_046, the ground
+#// arena holds only SOR_046 and Dryden himself, and the Vehicle carries exactly one upgrade.
+#// ⚠ The sole legal Vehicle still has to be ANSWERED — a 1-option MZCHOOSE is not auto-resolved on this
+#// path (measured), unlike the hand path's SWUQueuePilotVehiclePick which short-circuits at count 1.
+#// The upgrade keeps Owner = the opponent (she is still their card) while Controller is the caster, the
+#// same split SEC_205's milled Pilot uses, so she returns to THEIR discard when the Vehicle dies.
+
+## GIVEN
+CommonSetup: yyk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 9
+WithP1Hand: [SHD_192]
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaCaptive: 0:JTL_045
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:mySpaceArena-0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1SPACEARENAUNIT:0:UPGRADECOUNT:1
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_045
+P1GROUNDARENACOUNT:2
+P1NODECISION
+
+---
+
+# CapturedPilotingCard_UnitBranch_StillEntersTheGroundArena
+#// The NEGATIVE half of the same fork: answering "Unit" must behave exactly as the card did before the
+#// fork existed — Hera enters the GROUND arena as a unit and the Vehicle gains nothing. Without this the
+#// section above would also pass if the fork always took the pilot branch.
+
+## GIVEN
+CommonSetup: yyk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 9
+WithP1Hand: [SHD_192]
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaCaptive: 0:JTL_045
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myTempZone-0
+- P1>AnswerDecision:Unit
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION
+
+---
+
+# CapturedPilotingCard_NoFriendlyVehicle_NoForkAtAll
+#// SCOPE / no-valid-target cell: Piloting attaches only to a friendly VEHICLE without a Pilot on it, so
+#// with no Vehicle in play there is no choice to make and the captive must go straight into the ground
+#// arena with NO prompt. This is what stops the fork being raised as a dead-end question.
+#// Same board as the sections above minus the space Vehicle.
+
+## GIVEN
+CommonSetup: yyk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 9
+WithP1Hand: [SHD_192]
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaCaptive: 0:JTL_045
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myTempZone-0
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1NODECISION
+
+---
+
+# CapturedNonPilotingCard_NoForkAtAll
+#// The other half of the same gate: a captive WITHOUT Piloting must never be offered the choice even
+#// with a friendly Vehicle sitting in space. SOR_046 Consular Security Force has no Pilot trait.
+#// Paired with the offer section, this pins the fork to the CARD's Piloting rather than to the board.
+
+## GIVEN
+CommonSetup: yyk/rrk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 9
+WithP1Hand: [SHD_192]
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaCaptive: 0:SOR_046
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:myTempZone-0
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION
