@@ -1,0 +1,17 @@
+{
+    "name": "Idle Thoughts: Glimpse 4 (look at the top four cards, put back in any order)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Shared between the Kongming and Jin Starter Decks. Glimpse() (GrandArchiveSim/Custom/GameLogic.php:15040) queues an MZREARRANGE decision with the exact param format 'Top=<cardIDs>;Bottom=<cardIDs>' -- the response is that same string submitted verbatim (same no-op default GoldfishChooseAction uses for MZREARRANGE, GameLogic.php:254-255), which keeps the glimpsed cards on top in their original order. The specific card IDs in the response are deck-shuffle-dependent, so they were confirmed via a direct probe against this exact deck/seed before being hardcoded into the action. Deck count is unaffected (glimpse only looks/reorders, no cards leave the deck); Idle Thoughts itself resolves to the graveyard as a normal Action card.",
+    "testedCards": [
+        "rWhFC8XBaH"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["rWhFC8XBaH"],
+        "mechanics": ["zone-movement", "cost"],
+        "rulesClauses": [
+            "Look at the top four cards of your deck and then put them back in any order."
+        ]
+    }
+}

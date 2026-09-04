@@ -1,0 +1,17 @@
+{
+    "name": "Steel Halberd: [Class Bonus] +1 POWER",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "[Class Bonus] scans ALL physical field objects independent of the main champion (established technique, e.g. devoted-bloomweaver-class-bonus-empower): a physically-seeded WARRIOR champion (Jin, Fate Defiant) satisfies IsClassBonusActive(['WARRIOR']). A harmless Pass action is included because a step-0 assertion can't run -- the engine's game state isn't parsed into memory until the first action executes (DevTools/RunIntegrationTests.php:158 runs before RunnerPrepareTempGame's first EngineRunAction at :167) -- so the assertion runs at step 1 instead. Base POWER 1 + 1 from the bonus = 2.",
+    "testedCards": [
+        "fvnvknj4dd"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["fvnvknj4dd"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "[Class Bonus] This weapon gets +1 POWER."
+        ]
+    }
+}

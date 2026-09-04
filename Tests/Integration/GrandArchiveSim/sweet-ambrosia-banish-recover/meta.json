@@ -1,0 +1,17 @@
+{
+    "name": "Sweet Ambrosia: Banish self to recover 3 damage from the champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Field items with an activated ability are NOT reachable via a plain myField-N!FSM! click -- ActionMap's \"myField\" case (GrandArchiveSim/Custom/GameLogic.php:1289-1296) only handles attack declarations (BeginCombatPhase) for ALLY/CHAMPION objects, and silently no-ops for anything else (confirmed empirically: the click reported success but left the object un-banished and the champion's Damage unchanged). Sweet Ambrosia's own ability is instead offered as a fast-action MZMAYCHOOSE opportunity the moment the turn player attempts to pass (GetPlayableOpportunityChoices -> GetPlayableFastAbilities, GrandArchiveSim/Custom/OpportunityLogic.php), answered with the encoded \"{mzID}@Activate-{abilityIndex}@{label}\" choice string -- same shape as tariff-ring-attack-tax's response, but reachable immediately on P1's own turn 1 pass since Sweet Ambrosia has no phase restriction (unlike Tariff Ring's opponent-recollection-only timing).",
+    "testedCards": [
+        "dgyduwh84p"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["dgyduwh84p"],
+        "mechanics": ["damage", "recover", "zone-movement"],
+        "rulesClauses": [
+            "Banish CARDNAME: Recover 3."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Favorable Winds: Allies you control get +1 LIFE until end of turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "WIND is a basic element, unlocked via the established Subcards lineage-patch technique (Spirit of Wind, same shape as rising-tides/tera-sight). Activating this reserve-cost SPELL resolves through an EffectStack rather than the direct-resolution flow used by memory-cost activations elsewhere in this file -- after paying the 1-reserve cost, it queues an EffectStackActiveResponse 'respond?' opportunity (MZMAYCHOOSE); declining it ('-') lets it resolve (discovered via a throwaway debug harness, DevTools/debug_winds.php, that traced GlobalEffectCount step by step). AddGlobalEffects($player,'dsAqxMezGb') then applies to any ALLY-type object via $doesGlobalEffectApply['dsAqxMezGb'] (GameLogic.php:17660-17662), read back as +1 LIFE in the LIFE computation switch (~13680-13682). Base LIFE 3 (Dungeon Guide) + 1 = 4.",
+    "testedCards": [
+        "dsAqxMezGb"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["dsAqxMezGb"],
+        "mechanics": ["condition", "cost"],
+        "rulesClauses": [
+            "Allies you control get +1 LIFE until end of turn."
+        ]
+    }
+}

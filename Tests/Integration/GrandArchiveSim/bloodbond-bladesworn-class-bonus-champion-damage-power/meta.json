@@ -1,0 +1,17 @@
+{
+    "name": "Bloodbond Bladesworn: [Class Bonus] +1 POWER per 10 damage counters on champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Same technique as steel-halberd-class-bonus-power / shuang-ji-sacrifice-champion-damage-power: [Class Bonus] scans all physical field objects (a physically-seeded WARRIOR champion, Jin, Fate Defiant, satisfies it independent of the main champion), and the damage-scaling bonus reads the real champion's Damage property directly (GameLogic.php ~11514-11524, ZoneSearch for the CHAMPION then intdiv($champObj->Damage, 10)). Champion Damage patched to 25: base POWER 3 + intdiv(25, 10) = 3 + 2 = 5. This card's other ability ('When dealt damage, deal the same amount to your champion', dealDamageAbilities['blyb6fd6vy:0']) requires a real combat/damage-dealing event and is out of scope here.",
+    "testedCards": [
+        "blyb6fd6vy"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["blyb6fd6vy"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "[Class Bonus] This ally gets +1 POWER for every 10 damage counters on your champion."
+        ]
+    }
+}

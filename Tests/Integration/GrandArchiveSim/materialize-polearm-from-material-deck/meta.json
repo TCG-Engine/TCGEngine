@@ -1,0 +1,17 @@
+{
+    "name": "Materialize Polearm: materialize a Polearm card from your material deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "WIND element access via the established Subcards lineage patch (Spirit of Wind). Steel Halberd (WARRIOR/POLEARM) is seeded directly into the Material zone (on top of the 5 default material cards, landing at myMaterial-4) as the choosable target. Full 4-reserve cost is paid (4x myHand-0, same pattern as summon-sentinels-drone-tokens), then a reserve-paid activated ability resolves through an EffectStack opportunity (same as favorable-winds-ally-life-buff) that must be declined ('-') before the MZMAYCHOOSE target-choice decisions appear. The CUSTOM handler resolves via DoMaterialize (GeneratedMacroCode.php:38036), bypassing Steel Halberd's own cost -- confirmed by myField-1.CardID = 'fvnvknj4dd' and myMaterial shrinking from 5 to 4.",
+    "testedCards": [
+        "zc7wxgur23"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zc7wxgur23"],
+        "mechanics": ["cost", "zone-movement"],
+        "rulesClauses": [
+            "Materialize a Polearm card from your material deck."
+        ]
+    }
+}

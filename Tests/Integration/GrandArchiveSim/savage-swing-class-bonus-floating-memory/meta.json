@@ -1,0 +1,17 @@
+{
+    "name": "Savage Swing: [Class Bonus] Floating Memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-01T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Unlike Veteran Soldier's unconditional Floating Memory (veteran-soldier-floating-memory), Savage Swing's is gated by [Class Bonus] (its own class is WARRIOR). Two things ruled out Floating Memory's usual test shape: (1) Floating Memory only offers itself as a payment source for a MEMORY cost (a champion level-up), NOT a reserve cost -- confirmed by trying to pay 1 of Nascent Blast's reserve cast cost from the graveyard, which was rejected as \"Invalid selection.\"; (2) patching the starting champion directly to Jin, Fate Defiant (level 1) to satisfy the Class Bonus makes leveling into another level-1 champion (Lorraine, Wandering Warrior) illegal -- level-up requires a strictly higher level than the current champion. Fix: patch the champion to Jin, Fate Defiant (level 1, WARRIOR) and level up from there into Jin, Zealous Maverick (level 2, WARRIOR, 2-memory cost) instead -- the Class Bonus condition checks the CURRENT champion (Jin, Fate Defiant, still WARRIOR) at payment time, before the level-up completes. Savage Swing pays 1 of the 2 memory via Floating Memory from the graveyard; the 2nd memory point is a filler card seeded directly into myMemory. myBanish ends at 2 because leveling up also banishes the outgoing champion (Jin, Fate Defiant) alongside Savage Swing.",
+    "testedCards": [
+        "vk56lbihtc"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["vk56lbihtc"],
+        "mechanics": ["cost", "zone-movement", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] Floating Memory (While paying for a memory cost, you may banish this card from your graveyard to pay for 1 of that cost. Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}

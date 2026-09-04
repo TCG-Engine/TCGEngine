@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"myField-2","property":"CardID","value":"iow4occyxi","semantic":true,"label":"Eminent Commander materializes onto the field"},
+    {"step":4,"type":"zone_count","zone":"myHand","player":1,"value":5,"semantic":true,"label":"Discounted 2-reserve cost paid (not the full 5): hand 7 -> 5"},
+    {"step":4,"type":"decision_queue_empty","player":1,"semantic":false,"label":"no pending decisions for player 1"}
+]

@@ -1,0 +1,17 @@
+{
+    "name": "Eminent Commander: [Class Bonus] costs 3 less to activate as long as your champion has dealt 3 or more combat damage this turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "CountChampionCombatDamageDealtThisTurn (GameLogic.php:23297) reads the champion object's own Counters['_champCombatDamageDealtThisTurn'], directly seedable via patchMzId (no real combat needed). [Class Bonus] WARRIOR is satisfied by a physically-seeded WARRIOR champion (Jin, Fate Defiant), independent of the main champion (established technique). WIND element access via the established Subcards lineage patch (Spirit of Wind). The discount is applied inside CalculateActivationReserveCost -> ApplyGeneratedReserveLikeCostModifiers(mode='activate') -> EvaluateActivationCostModifier -> activationCostModifierAbilities['iow4occyxi:0'] (GeneratedMacroCode.php:8599), returning -3. Verified by paying reserve exactly twice (each 'myHand-0' MZCHOOSE pick pays one reserve point, same pattern as summon-sentinels-drone-tokens' 4x myHand-0 for its undiscounted cost) and observing Eminent Commander successfully lands on the field (base cost 5 would have required 5 payments) with hand going from 7 -> 5, not 7 -> 2.",
+    "testedCards": [
+        "iow4occyxi"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["iow4occyxi"],
+        "mechanics": ["condition", "cost"],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 3 less to activate as long as your champion has dealt 3 or more combat damage this turn."
+        ]
+    }
+}

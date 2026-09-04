@@ -1,0 +1,17 @@
+{
+    "name": "Ardent Cloudstriker: +3 POWER while facing West and attacking a champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "First real attack-declaration fixture for the Kongming batch, adapted from the pre-existing blistering-insurgent-attack-buff pattern: the 2-pass cycle (P1 pass, P2 pass) already reaches P1's global turn 3 (their own 2nd turn), clearing Rule 1.h's turn-1 attack lock (GrandArchiveSim/Custom/CombatLogic.php:1319-1325). Declining the materialize offer uses the literal string 'PASS' (not '-', which is used elsewhere for MZMAYCHOOSE opportunity declines -- confirmed empirically that both tokens are accepted by different decision types in this engine). Ardent Cloudstriker is seeded directly onto the field (bypassing its 5-reserve cost) with Status patched to 2 (awake) so it can declare an attack immediately. The card's +3 POWER is a purely computed, transient bonus (GameLogic.php ~11484-11492, gated on GetShiftingCurrents()===WEST plus the live CombatAttacker/CombatTarget decision-queue variables matching this object and a CHAMPION-type target) -- critically, this single target-selection action (mode=100, cardID=theirField-0) resolves the ENTIRE attack synchronously within itself (AttackTargetChosen handler fires OnAttack, deals damage, then clears CombatAttacker/CombatTarget), so a computed_power_equals assertion taken from the POST-action snapshot reads a clean base power of 3 (no bonus) since the transient state is already gone by the time the snapshot is read -- confirmed via a throwaway debug harness (DevTools/debug_ardent2.php) that traced CombatAttacker/CombatTarget and the defender's Damage property step by step. The correct way to observe a transient combat-computed bonus is the DAMAGE IT ACTUALLY DEALT, not a post-hoc recompute: the opponent's champion's Damage property ends at 6 (base 3 + the 3 bonus), proving the bonus was live at the moment combat actually resolved.",
+    "testedCards": [
+        "4kpotk5hvr"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["4kpotk5hvr"],
+        "mechanics": ["condition", "combat"],
+        "rulesClauses": [
+            "While your Shifting Currents face West and this unit is attacking a champion, this unit gets +3 POWER."
+        ]
+    }
+}

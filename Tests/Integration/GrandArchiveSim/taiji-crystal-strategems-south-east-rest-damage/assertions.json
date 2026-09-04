@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"myField-1","property":"Status","value":"1","semantic":true,"label":"Taiji of Crystal Strategems rests itself as the ability's cost"},
+    {"step":3,"type":"card_property_equals","mzId":"theirField-0","property":"Damage","value":"3","semantic":true,"label":"South->East transition, resting Taiji deals 3 damage to opponent's champion"},
+    {"step":3,"type":"decision_queue_empty","player":1}
+]

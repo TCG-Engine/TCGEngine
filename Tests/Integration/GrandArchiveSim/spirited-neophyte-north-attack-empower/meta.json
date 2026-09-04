@@ -1,0 +1,17 @@
+{
+    "name": "Spirited Neophyte: On Attack, if facing North, Empower 2",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Same real attack-declaration sequence as ardent-cloudstriker-west-attack-champion-buff (2-pass cycle to clear Rule 1.h's turn-1 lock, seed directly onto the field with Status patched awake to skip the 3-reserve cost). Unlike Ardent Cloudstriker's transient computed-power bonus (which reads back as base value once CombatAttacker/CombatTarget are cleared post-resolution), Empower() (GameLogic.php:18438) tags the CHAMPION field object's own TurnEffects array, which is NOT cleared by combat cleanup -- directly observable in the post-action snapshot, same assertion shape as devoted-bloomweaver-class-bonus-empower and kongming-ascetic-vice's On Enter Empower 3.",
+    "testedCards": [
+        "ekplmih8ra"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ekplmih8ra"],
+        "mechanics": ["trigger", "condition", "combat"],
+        "rulesClauses": [
+            "On Attack: If your Shifting Currents face North, Empower 2."
+        ]
+    }
+}

@@ -1,0 +1,4 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"theirField-0","property":"Damage","value":"6","semantic":true,"label":"Base 3 POWER + 3 (facing West, attacking a champion) deals 6 combat damage"},
+    {"step":5,"type":"decision_queue_empty","player":1}
+]

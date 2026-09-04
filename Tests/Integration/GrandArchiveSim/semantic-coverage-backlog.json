@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-08-31T02:19:20+00:00",
+    "generatedAt": "2026-09-01T16:14:15+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 196,
+        "cardsWithExistingFixtures": 231,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2291,
+        "cardsNeedingSemanticCoverage": 2256,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -228,27 +228,6 @@
             "priority": 115
         },
         {
-            "cardId": "0qm7n87o4s",
-            "name": "Hydroguard Retainer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "FxYwR2azTt",
             "name": "Prismatic Edge",
             "type": "REGALIA,WEAPON",
@@ -310,50 +289,6 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "mHd6LLyMyF",
-            "name": "Swift Recruit",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck",
-                "Lorraine Starter Deck",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "l17uc67eaq",
-            "name": "Taiji of Crystal Strategems",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -606,27 +541,6 @@
             "priority": 114
         },
         {
-            "cardId": "acmde97dbu",
-            "name": "Formidable Youxia",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "DsiRzt0trX",
             "name": "Hasty Messenger",
             "type": "ALLY",
@@ -683,26 +597,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "zd8l14052j",
-            "name": "Jin, Fate Defiant",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -830,27 +724,6 @@
             "priority": 114
         },
         {
-            "cardId": "qexcwmx2ug",
-            "name": "Planar Abyss",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "l75tlzsmw3",
             "name": "Plated Bullet",
             "type": "REGALIA,ITEM",
@@ -907,46 +780,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "y6q4goxi8a",
-            "name": "Rising Tides",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "y1tyo32voa",
-            "name": "Shuang Ji of Sacrifice",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -1132,26 +965,6 @@
             "priority": 113
         },
         {
-            "cardId": "4kpotk5hvr",
-            "name": "Ardent Cloudstriker",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "ltv5klryvf",
             "name": "Arisanna, Master Alchemist",
             "type": "CHAMPION",
@@ -1167,25 +980,6 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "ci00l7pqcx",
-            "name": "Berserker Plate",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1400,25 +1194,6 @@
             "priority": 113
         },
         {
-            "cardId": "iow4occyxi",
-            "name": "Eminent Commander",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "SGsDKB9CN5",
             "name": "Endura, Scepter of Ignition",
             "type": "REGALIA,ITEM",
@@ -1434,25 +1209,6 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "zv6yp6q7zw",
-            "name": "Executioner's Spear",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1530,25 +1286,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "xiazfnm292",
-            "name": "Hemorrhaging Rend",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1869,25 +1606,6 @@
             "priority": 113
         },
         {
-            "cardId": "ifmmvbm26h",
-            "name": "Safeguard Paladin",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "4a7QLLouGk",
             "name": "Savage Slash",
             "type": "ATTACK",
@@ -1904,25 +1622,6 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "vk56lbihtc",
-            "name": "Savage Swing",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2004,25 +1703,6 @@
             "priority": 113
         },
         {
-            "cardId": "a8a0v4njrt",
-            "name": "Slate Whetstone",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "N0ipz8UWwf",
             "name": "Spirit Blade: Ascension",
             "type": "ACTION",
@@ -2064,26 +1744,6 @@
             "priority": 113
         },
         {
-            "cardId": "ekplmih8ra",
-            "name": "Spirited Neophyte",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "AMv1u54B2s",
             "name": "Strike of Singularity",
             "type": "ATTACK",
@@ -2098,25 +1758,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "dgyduwh84p",
-            "name": "Sweet Ambrosia",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2336,28 +1977,6 @@
             "priority": 113
         },
         {
-            "cardId": "TgYTZg6TaG",
-            "name": "Wind Cutter",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck",
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "bHGUNMFLg9",
             "name": "Wind Resonance Bauble",
             "type": "REGALIA,ITEM",
@@ -2373,26 +1992,6 @@
             "starterDecks": [
                 "Silvie Starter Deck",
                 "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "lvmj48fn9p",
-            "name": "Wisdom's Reprise",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2601,24 +2200,6 @@
             "priority": 112
         },
         {
-            "cardId": "blyb6fd6vy",
-            "name": "Bloodbond Bladesworn",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "PwHub76Fw4",
             "name": "Bolstering Tempest",
             "type": "ACTION",
@@ -2748,24 +2329,6 @@
             "priority": 112
         },
         {
-            "cardId": "yqm3l6lbns",
-            "name": "Devoted Bloomweaver",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "7ozuj68m69",
             "name": "Diana, Deadly Duelist",
             "type": "CHAMPION",
@@ -2817,27 +2380,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "dsAqxMezGb",
-            "name": "Favorable Winds",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck",
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -2933,30 +2475,6 @@
             "priority": 112
         },
         {
-            "cardId": "rWhFC8XBaH",
-            "name": "Idle Thoughts",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck",
-                "Kongming Starter Deck",
-                "Diana Starter Deck",
-                "Rai Starter Deck",
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "MECS7RHRZ8",
             "name": "Impassioned Tutor",
             "type": "ALLY",
@@ -3030,62 +2548,6 @@
             "priority": 112
         },
         {
-            "cardId": "5ramr16052",
-            "name": "Jin, Zealous Maverick",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "a01pyxwo25",
-            "name": "Kongming, Ascetic Vice",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "7x2v4tdop1",
-            "name": "Kongming, Fel Eidolon",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "TJTeWcZnsQ",
             "name": "Lorraine, Blademaster",
             "type": "CHAMPION",
@@ -3119,24 +2581,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "zc7wxgur23",
-            "name": "Materialize Polearm",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -3249,24 +2693,6 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "yguf3aw2ct",
-            "name": "Pierce the Heavens",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -3741,26 +3167,6 @@
             "priority": 112
         },
         {
-            "cardId": "2Ojrn7buPe",
-            "name": "Tera Sight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Silvie Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "ta6qsesw2u",
             "name": "Tonoris, Genesis Aegis",
             "type": "CHAMPION",
@@ -3851,25 +3257,6 @@
             "priority": 112
         },
         {
-            "cardId": "FCbKYZcbNq",
-            "name": "Trusty Steed",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck",
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "f15joh300z",
             "name": "Umbra Sight",
             "type": "ACTION",
@@ -3919,29 +3306,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "vefcX6tBeg",
-            "name": "Veteran Soldier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck",
-                "Lorraine Starter Deck",
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -4352,41 +3716,6 @@
             "priority": 111
         },
         {
-            "cardId": "c4yrrtv7o1",
-            "name": "Jin, Undying Resolve",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "346vgwz3y4",
-            "name": "Kongming, Wayward Maven",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "krgjMyVHRd",
             "name": "Lakeside Serpent",
             "type": "ALLY",
@@ -4735,23 +4064,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "fvnvknj4dd",
-            "name": "Steel Halberd",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -41069,6 +40381,31 @@
             "priority": 135
         },
         {
+            "cardId": "0qm7n87o4s",
+            "name": "Hydroguard Retainer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hydroguard-retainer-north-west-draw"
+            ],
+            "semanticFixtures": [
+                "hydroguard-retainer-north-west-draw"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "rXHo9fLU32",
             "name": "Ignite the Soul",
             "type": "ACTION",
@@ -41401,6 +40738,58 @@
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "mHd6LLyMyF",
+            "name": "Swift Recruit",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "swift-recruit-intercept-redirect"
+            ],
+            "semanticFixtures": [
+                "swift-recruit-intercept-redirect"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck",
+                "Lorraine Starter Deck",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "l17uc67eaq",
+            "name": "Taiji of Crystal Strategems",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "taiji-crystal-strategems-south-east-rest-damage"
+            ],
+            "semanticFixtures": [
+                "taiji-crystal-strategems-south-east-rest-damage"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 135
@@ -41984,6 +41373,31 @@
             "priority": 134
         },
         {
+            "cardId": "acmde97dbu",
+            "name": "Formidable Youxia",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "formidable-youxia-east-life-buff"
+            ],
+            "semanticFixtures": [
+                "formidable-youxia-east-life-buff"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "7IVQRtJFa8",
             "name": "Gencode Womb",
             "type": "REGALIA,ITEM",
@@ -42051,6 +41465,30 @@
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "zd8l14052j",
+            "name": "Jin, Fate Defiant",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "jin-fate-defiant-polearm-attack-ally-buff"
+            ],
+            "semanticFixtures": [
+                "jin-fate-defiant-polearm-attack-ally-buff"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -42211,6 +41649,31 @@
             "priority": 134
         },
         {
+            "cardId": "qexcwmx2ug",
+            "name": "Planar Abyss",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "planar-abyss-delayed-destroy-south-damage"
+            ],
+            "semanticFixtures": [
+                "planar-abyss-delayed-destroy-south-damage"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "5X5W2Uda5a",
             "name": "Planted Explosive",
             "type": "ACTION",
@@ -42307,6 +41770,30 @@
             "priority": 134
         },
         {
+            "cardId": "y6q4goxi8a",
+            "name": "Rising Tides",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rising-tides-class-bonus-level3-draw-memory"
+            ],
+            "semanticFixtures": [
+                "rising-tides-class-bonus-level3-draw-memory"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "U5Fns5U7He",
             "name": "Rumble Coordinator",
             "type": "ALLY",
@@ -42356,6 +41843,30 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "y1tyo32voa",
+            "name": "Shuang Ji of Sacrifice",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "shuang-ji-sacrifice-champion-damage-power"
+            ],
+            "semanticFixtures": [
+                "shuang-ji-sacrifice-champion-damage-power"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -42482,6 +41993,30 @@
             "priority": 133
         },
         {
+            "cardId": "4kpotk5hvr",
+            "name": "Ardent Cloudstriker",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ardent-cloudstriker-west-attack-champion-buff"
+            ],
+            "semanticFixtures": [
+                "ardent-cloudstriker-west-attack-champion-buff"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "ify06tSEVC",
             "name": "Attune with the Winds",
             "type": "ACTION",
@@ -42523,6 +42058,29 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "ci00l7pqcx",
+            "name": "Berserker Plate",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "berserker-plate-recollection-damage-draw"
+            ],
+            "semanticFixtures": [
+                "berserker-plate-recollection-damage-draw"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42644,6 +42202,29 @@
             "priority": 133
         },
         {
+            "cardId": "iow4occyxi",
+            "name": "Eminent Commander",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "eminent-commander-class-bonus-combat-damage-discount"
+            ],
+            "semanticFixtures": [
+                "eminent-commander-class-bonus-combat-damage-discount"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "C3YucOomEM",
             "name": "Everlonging Thorns",
             "type": "ACTION",
@@ -42662,6 +42243,29 @@
             ],
             "starterDecks": [
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "zv6yp6q7zw",
+            "name": "Executioner's Spear",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "executioners-spear-jin-bonus-on-kill-durability"
+            ],
+            "semanticFixtures": [
+                "executioners-spear-jin-bonus-on-kill-durability"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42828,6 +42432,29 @@
                 "Dante, Hemomancer Starter Deck",
                 "Kongming Starter Deck",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "xiazfnm292",
+            "name": "Hemorrhaging Rend",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hemorrhaging-rend-damage20-cleave"
+            ],
+            "semanticFixtures": [
+                "hemorrhaging-rend-damage20-cleave"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -43137,6 +42764,75 @@
             "priority": 133
         },
         {
+            "cardId": "ifmmvbm26h",
+            "name": "Safeguard Paladin",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "safeguard-paladin-class-bonus-noncombat-prevent"
+            ],
+            "semanticFixtures": [
+                "safeguard-paladin-class-bonus-noncombat-prevent"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "vk56lbihtc",
+            "name": "Savage Swing",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "savage-swing-class-bonus-floating-memory"
+            ],
+            "semanticFixtures": [
+                "savage-swing-class-bonus-floating-memory"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "a8a0v4njrt",
+            "name": "Slate Whetstone",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "slate-whetstone-banish-polearm-power-draw"
+            ],
+            "semanticFixtures": [
+                "slate-whetstone-banish-polearm-power-draw"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "zeig1e49wb",
             "name": "Solar Pinnacle",
             "type": "ACTION",
@@ -43256,6 +42952,30 @@
             "priority": 133
         },
         {
+            "cardId": "ekplmih8ra",
+            "name": "Spirited Neophyte",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "spirited-neophyte-north-attack-empower"
+            ],
+            "semanticFixtures": [
+                "spirited-neophyte-north-attack-empower"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "ErH0lIBq4z",
             "name": "Spurn to Ash",
             "type": "ACTION",
@@ -43326,6 +43046,29 @@
             "priority": 133
         },
         {
+            "cardId": "dgyduwh84p",
+            "name": "Sweet Ambrosia",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "sweet-ambrosia-banish-recover"
+            ],
+            "semanticFixtures": [
+                "sweet-ambrosia-banish-recover"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "2ugmnmp5af",
             "name": "Take Cover",
             "type": "ACTION",
@@ -43378,6 +43121,56 @@
             "priority": 133
         },
         {
+            "cardId": "TgYTZg6TaG",
+            "name": "Wind Cutter",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "wind-cutter-class-bonus-power-attack"
+            ],
+            "semanticFixtures": [
+                "wind-cutter-class-bonus-power-attack"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck",
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "lvmj48fn9p",
+            "name": "Wisdom's Reprise",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "wisdoms-reprise-level3-draw-memory"
+            ],
+            "semanticFixtures": [
+                "wisdoms-reprise-level3-draw-memory"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "yHIeIwxWde",
             "name": "Blood Surge",
             "type": "ACTION",
@@ -43395,6 +43188,28 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "blyb6fd6vy",
+            "name": "Bloodbond Bladesworn",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "bloodbond-bladesworn-class-bonus-champion-damage-power"
+            ],
+            "semanticFixtures": [
+                "bloodbond-bladesworn-class-bonus-champion-damage-power"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43445,6 +43260,53 @@
             "priority": 132
         },
         {
+            "cardId": "yqm3l6lbns",
+            "name": "Devoted Bloomweaver",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "devoted-bloomweaver-class-bonus-empower"
+            ],
+            "semanticFixtures": [
+                "devoted-bloomweaver-class-bonus-empower"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "dsAqxMezGb",
+            "name": "Favorable Winds",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "favorable-winds-ally-life-buff"
+            ],
+            "semanticFixtures": [
+                "favorable-winds-ally-life-buff"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck",
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "cWJqSwhKEQ",
             "name": "Honorable Vanguard",
             "type": "ALLY",
@@ -43464,6 +43326,102 @@
                 "Lorraine, Arclight Saber Starter Deck",
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "rWhFC8XBaH",
+            "name": "Idle Thoughts",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "idle-thoughts-glimpse-4"
+            ],
+            "semanticFixtures": [
+                "idle-thoughts-glimpse-4"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck",
+                "Kongming Starter Deck",
+                "Diana Starter Deck",
+                "Rai Starter Deck",
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "5ramr16052",
+            "name": "Jin, Zealous Maverick",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "jin-zealous-maverick-enter-next-attack-power-wake"
+            ],
+            "semanticFixtures": [
+                "jin-zealous-maverick-enter-next-attack-power-wake"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "a01pyxwo25",
+            "name": "Kongming, Ascetic Vice",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "kongming-ascetic-vice-enter-empower-and-inherited-draw"
+            ],
+            "semanticFixtures": [
+                "kongming-ascetic-vice-enter-empower-and-inherited-draw"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "7x2v4tdop1",
+            "name": "Kongming, Fel Eidolon",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "kongming-fel-eidolon-enter-recover-tera-banished"
+            ],
+            "semanticFixtures": [
+                "kongming-fel-eidolon-enter-recover-tera-banished"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43489,6 +43447,50 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "zc7wxgur23",
+            "name": "Materialize Polearm",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "materialize-polearm-from-material-deck"
+            ],
+            "semanticFixtures": [
+                "materialize-polearm-from-material-deck"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "yguf3aw2ct",
+            "name": "Pierce the Heavens",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pierce-the-heavens-jin-bonus-leveled-up-power-unblockable"
+            ],
+            "semanticFixtures": [
+                "pierce-the-heavens-jin-bonus-leveled-up-power-unblockable"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43592,6 +43594,53 @@
             "priority": 132
         },
         {
+            "cardId": "2Ojrn7buPe",
+            "name": "Tera Sight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "tera-sight-preserve-draw"
+            ],
+            "semanticFixtures": [
+                "tera-sight-preserve-draw"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Silvie Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "FCbKYZcbNq",
+            "name": "Trusty Steed",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "trusty-steed-enter-ally-power-buff"
+            ],
+            "semanticFixtures": [
+                "trusty-steed-enter-ally-power-buff"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck",
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "YTO70fFsBY",
             "name": "Venous Core",
             "type": "REGALIA,ITEM",
@@ -43609,6 +43658,33 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "vefcX6tBeg",
+            "name": "Veteran Soldier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "veteran-soldier-floating-memory"
+            ],
+            "semanticFixtures": [
+                "veteran-soldier-floating-memory"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck",
+                "Lorraine Starter Deck",
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43729,6 +43805,27 @@
             "priority": 131
         },
         {
+            "cardId": "c4yrrtv7o1",
+            "name": "Jin, Undying Resolve",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "jin-undying-resolve-immortality-survives-lethal"
+            ],
+            "semanticFixtures": [
+                "jin-undying-resolve-immortality-survives-lethal"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "ZmBQAOb9gj",
             "name": "Keen Tidebinder",
             "type": "ALLY",
@@ -43745,6 +43842,49 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "346vgwz3y4",
+            "name": "Kongming, Wayward Maven",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "kongming-wayward-maven-enter-shifting-currents"
+            ],
+            "semanticFixtures": [
+                "kongming-wayward-maven-enter-shifting-currents"
+            ],
+            "starterDecks": [
+                "Kongming Starter Deck",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "fvnvknj4dd",
+            "name": "Steel Halberd",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "steel-halberd-class-bonus-power"
+            ],
+            "semanticFixtures": [
+                "steel-halberd-class-bonus-power"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"computed_life_equals","mzId":"myField-1","value":4,"semantic":true,"label":"Base LIFE 2 + 2 while Shifting Currents face East"},
+    {"step":3,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"acmde97dbu","semantic":true,"label":"Formidable Youxia materializes onto the field"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

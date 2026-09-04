@@ -1,0 +1,17 @@
+{
+    "name": "Formidable Youxia: As long as Shifting Currents face East, +2 LIFE",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Purely computed at ObjectCurrentHP() read time (GrandArchiveSim/Custom/GameLogic.php:13538-13542, ~13740), same shape as Banner Knight's power buff -- no stored flag to assert against, so a new generic computed_life_equals assertion type (Core/RegressionTestFramework.php, mirroring computed_power_equals) was added; reusable for other purely-computed LIFE auras. Shifting Currents mastery is a myMastery zone card (CardID qh5mpkyl60) with a Direction property (established by kongming-wayward-maven-enter-shifting-currents), seeded directly facing EAST. Base LIFE 2 + 2 = 4. The Intercept keyword is a separate, out-of-scope passive.",
+    "testedCards": [
+        "acmde97dbu"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["acmde97dbu"],
+        "mechanics": ["status", "condition"],
+        "rulesClauses": [
+            "As long as your Shifting Currents face East, CARDNAME gets +2 [LIFE]."
+        ]
+    }
+}

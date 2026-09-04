@@ -1,0 +1,17 @@
+{
+    "name": "Executioner's Spear: [Jin Bonus] On Kill, put a durability counter on itself",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-01T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Executioner's Spear's On Kill (GeneratedMacroCode.php ~26540-26547, onKillAbilities) only fires when IsJinBonus($player) (GameLogic.php:25095-25100, champion name starts with \"Jin\") is true, so the starting champion's CardID is patched directly to Jin, Fate Defiant. On Kill dispatch (CombatLogic.php:2541-2578, OnKillTrigger) only fires for a real combat-damage kill, so this needs a full real attack sequence (same P1 pass / P2 pass / P1 decline-MAT-PASS shape as jin-fate-defiant-polearm-attack-ally-buff to clear the turn-1 attack lock and reach turn 2 MAIN). A setup step targeting the OPPONENT's own field must use {'player'=>2, 'zone'=>'myField'} not 'theirField' -- 'zone' names are relative to the acting player in the setup step, so 'theirField' with player=2 actually seeds player 1's field (a real bug hit and fixed this fixture: Baby Gray Slime landed on the attacker's own field on the first attempt). After choosing the attack target, an unblockable-by-default combat mechanic queues a 'Retaliate?' MZMAYCHOOSE decision for the DEFENDER (player 2) that must be explicitly declined ('-') before CombatApplyAttackerDamage actually lands the damage -- omitting this leaves the attack's damage application dangling and both the kill and the durability counter never happen (confirmed via a throwaway debug harness, now deleted). Jin, Fate Defiant has no printed base POWER (0), and Executioner's Spear has no Class Bonus power boost (unlike Steel Halberd), so total attack power is exactly the weapon's printed 1 POWER -- Baby Gray Slime (0hsncz1fz2, 1 life) is the kill target. Executioner's Spear enters the field with 2 durability counters; combat damage resolution removes 1 (per its own reminder text: \"a durability counter is removed on the resolution of the damage step\"), then On Kill adds 1 back, netting durability=2 (started 2, -1 combat use, +1 On Kill).",
+    "testedCards": [
+        "zv6yp6q7zw"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zv6yp6q7zw"],
+        "mechanics": ["trigger", "combat", "condition", "counter"],
+        "rulesClauses": [
+            "[Jin Bonus] On Kill: Put a durability counter on Executioner's Spear. (Apply this effect only if your champion is Jin.)"
+        ]
+    }
+}

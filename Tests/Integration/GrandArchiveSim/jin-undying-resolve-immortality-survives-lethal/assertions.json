@@ -1,0 +1,5 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"myField-0","property":"CardID","value":"c4yrrtv7o1","semantic":true,"label":"Jin, Undying Resolve stays on the field despite lethal damage"},
+    {"step":5,"type":"card_property_equals","mzId":"myField-0","property":"Damage","value":"30","semantic":true,"label":"Damage (30) exceeds life (28) but immortality prevents destruction"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]
