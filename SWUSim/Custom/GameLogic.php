@@ -2757,8 +2757,21 @@ function _SWUSec008HealOnResourcePlay(int $player): void {
 // printed type is Unit. Passed only by SWUComputePilotCost — the single pilot-cost chokepoint, used by
 // BOTH the affordability check and the charge — so the offer and the payment cannot disagree.
 function SWUAspectPenalty($player, $cardID, bool $asPilot = false): int {
-    $raw = CardAspect($cardID);
-    if ($raw === null || $raw === '') return 0;
+    // CR 8.19.a — paying a Piloting cost "follows all normal rules for paying costs, including
+    // accounting for any aspect penalties that modify this cost", and the cost being paid is the one in
+    // the Piloting bracket, which carries its OWN aspect icons. So a pilot play is priced against
+    // CardPilotingAspects, not the unit side's CardAspect. This read used the unit side unconditionally,
+    // which left CardPilotingAspects a GENERATED DICTIONARY WITH NO CONSUMER. Only one card in the pool
+    // has differing sides — JTL_210 The Mandalorian, unit [Cunning,Cunning] vs pilot [Cunning] — and it
+    // was charged 4 for a 2-cost pilot play on a deck providing one Cunning (live bug report 2026-09-03).
+    // Falls back to the unit side when a pilot has no bracket aspects recorded.
+    $raw = $asPilot ? CardPilotingAspects($cardID) : CardAspect($cardID);
+    if (is_array($raw)) $raw = implode(',', $raw);
+    if ($raw === null || $raw === '') {
+        if (!$asPilot) return 0;
+        $raw = CardAspect($cardID);           // no bracket aspects recorded → price the printed side
+        if ($raw === null || $raw === '') return 0;
+    }
 
     // TWI_040 A Fine Addition — "play an upgrade ... ignoring its aspect penalty." A one-shot flag set
     // around the affordability check + the actual attach payment for the single upgrade being played this
@@ -18681,7 +18694,7 @@ function SWUPlayFromDiscard(int $player, int $discardIdx): void {
     $entryObjForPilot = (object) ['CardID' => $cardID, 'TurnEffects' => []];
     if (HasKeyword_Piloting($entryObjForPilot) && !_SWUGalenSuppressesCard(intval($player), $cardID)) {
         $freeWaiver = ($modifier === 'TPF')
-            ? max(0, intval(CardPilotingCost($cardID))) + SWUAspectPenalty($player, $cardID) : 0;
+            ? max(0, intval(CardPilotingCost($cardID))) + SWUAspectPenalty($player, $cardID, true) : 0;
         for ($k = 0; $k < $freeWaiver; $k++) AddGlobalEffects(intval($player), 'SWU_PILOT_DISCOUNT');
         $vehicles = SWUGetPilotValidTargets(intval($player), $cardID);
         if (!empty($vehicles)) {

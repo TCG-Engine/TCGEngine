@@ -5178,8 +5178,21 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     </div>
     <div class="swu-settings-section" id="swuSettingsMatchSection" style="display:none; border-top:1px solid var(--border);">
       <div class="swu-settings-section-title">Match</div>
-      <button class="btn btn-danger swu-settings-action" onclick="SWUGearConcede(false)">Concede</button>
+      <button class="btn btn-danger swu-settings-action" onclick="SWUGearConcede(false)">Concede Game</button>
+      <!-- Bo3 only. Hidden by default and revealed by swuOpenSettings once EndGameInfo confirms a LIVE
+           best-of-3, so a Bo1 player never sees a control that cannot apply to them. Conceding the
+           series is a separate, explicitly-labelled button rather than a hidden escalation of
+           "Concede": before this, ANY concede in a live Bo3 forfeited the whole match with no way to
+           give up just the current game. -->
+      <button class="btn btn-danger swu-settings-action" id="swuGearForfeitMatch" style="display:none;"
+              onclick="SWUGearForfeitMatch()">Forfeit Match</button>
       <button class="btn btn-primary swu-settings-action" onclick="SWUGearConcede(true)">Return to Main Menu</button>
+      <!-- The floating utility bar has carried a Copy Spectator Link button for a while, but nobody
+           finds it there — the gear menu is where players look for "share this game". Same handler,
+           so there is one implementation and one link format. Hidden for spectators (a spectator
+           must not be able to mint links into a private game) and revealed by swuOpenSettings. -->
+      <button class="btn swu-settings-action" id="swuGearCopySpectate" style="display:none;"
+              onclick="SWUGearCopySpectatorLink()">Copy Spectator Link</button>
       <div id="swuSettingsBlockMount"></div>
     </div>
     <div class="swu-settings-section" style="border-top:1px solid var(--border);">
@@ -5234,6 +5247,38 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
       var pid = pf ? parseInt(pf.value || '', 10) : NaN;
       var isPlayer = swuViewerIsSeatedPlayer(pid);
       ms.style.display = isPlayer ? 'block' : 'none';
+      // Copy Spectator Link: seated players only. A PRIVATE game needs the per-game spectator key to
+      // exist (it rides in the link); a PUBLIC game needs no key, so the button is simply available.
+      var cs = document.getElementById('swuGearCopySpectate');
+      if (cs) {
+        var keyEl = document.getElementById('spectatorAuthKey');
+        var privEl = document.getElementById('privateSpectatorAuthRequired');
+        var isPriv = !!(privEl && privEl.value === '1');
+        var hasKey = !!(keyEl && keyEl.value);
+        cs.style.display = (isPlayer && (isPriv ? hasKey : true)) ? '' : 'none';
+      }
+      // Reveal "Forfeit Match" only in a LIVE best-of-3. Asked here rather than trusted from a global:
+      // ⚠ window.SWU_MATCH_BESTOF is READ below for the Block widget but is never SET anywhere in the
+      // codebase — a consumer with no producer, so that liveBo3 flag is permanently false. This fetch
+      // is the only real source, so it also populates the global (correct from the next open onward).
+      var fm = document.getElementById('swuGearForfeitMatch');
+      if (fm) {
+        fm.style.display = 'none';
+        if (isPlayer) {
+          var gnEl2 = document.getElementById('gameName'), akEl2 = document.getElementById('authKey');
+          fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gnEl2 ? gnEl2.value : '')
+                + '&playerID=' + encodeURIComponent(pid)
+                + '&authKey=' + encodeURIComponent(akEl2 ? akEl2.value : ''))
+            .then(function(r){ return r.json(); })
+            .then(function(info){
+              if (info && info.bestOf) window.SWU_MATCH_BESTOF = info.bestOf;
+              if (info && info.isMatch && info.bestOf === 3 && info.matchState !== 'complete') {
+                fm.style.display = '';
+              }
+            })
+            .catch(function(){ /* leave it hidden — never offer an action we could not confirm */ });
+        }
+      }
       // (Re)build the collapsible Block Player widget for the current opponent.
       var bm = document.getElementById('swuSettingsBlockMount');
       if (bm) {
@@ -5301,12 +5346,52 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
         if (goHome && typeof SWUGoMainMenu === 'function') SWUGoMainMenu();
       }, { confirmLabel: 'Concede', danger: true });
     }
+    // ⚠ "Concede" IS NOW ALWAYS THE CURRENT GAME. This used to derive liveBo3 from EndGameInfo and
+    // silently escalate to a whole-match forfeit (10007) in any live Bo3 — so a player who wanted to
+    // give up one game had no way to do it, and the only concede available forfeited the series.
+    // Forfeiting the series is now its own explicitly-labelled button (SWUGearForfeitMatch).
+    // "Return to Main Menu" (goHome) still asks first, because LEAVING a live series is a forfeit —
+    // that path keeps the original behaviour and its own confirm wording.
+    if (!goHome) { act(false); return; }
     fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak))
       .then(function(r){ return r.json(); })
       .then(function(info){ act(!!(info && info.isMatch && info.bestOf === 3 && info.matchState !== 'complete')); })
       .catch(function(){ act(false); }); // fall back to single-game concede on any error
   }
   window.SWUGearConcede = SWUGearConcede;
+
+  // Forfeit the whole series (10007). Only reachable from the Bo3-only button that swuOpenSettings
+  // reveals, and it re-confirms against EndGameInfo before sending — a stale button must never be able
+  // to forfeit a match that has already finished, and on any error we degrade to doing NOTHING rather
+  // than to the destructive action.
+  function SWUGearForfeitMatch() {
+    var pf = document.getElementById('playerID');
+    var pid = pf ? parseInt(pf.value || '', 10) : NaN;
+    if (!swuViewerIsSeatedPlayer(pid)) return;
+    var gnEl = document.getElementById('gameName'), akEl = document.getElementById('authKey');
+    var gn = gnEl ? gnEl.value : '', ak = akEl ? akEl.value : '';
+    fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak))
+      .then(function(r){ return r.json(); })
+      .then(function(info){
+        if (!(info && info.isMatch && info.bestOf === 3 && info.matchState !== 'complete')) return;
+        SWUConfirm('Concede the whole match? This forfeits the entire series.', function() {
+          SubmitInput('10007', '');
+          swuCloseSettings();
+        }, { confirmLabel: 'Forfeit Match', danger: true });
+      })
+      .catch(function(){ /* no confirmation of a live series -> do nothing */ });
+  }
+  window.SWUGearForfeitMatch = SWUGearForfeitMatch;
+
+  // Delegates to the shared UILibraries implementation so the link format lives in exactly one place.
+  // The copy must happen in the CLICK's own turn — WebKit drops clipboard permission across an await —
+  // so this calls straight through rather than fetching anything first.
+  function SWUGearCopySpectatorLink() {
+    if (typeof copySpectateLink === 'function') { copySpectateLink(); swuCloseSettings(); return; }
+    if (typeof window.copySpectateLink === 'function') { window.copySpectateLink(); swuCloseSettings(); return; }
+    if (typeof showFlashMessage === 'function') showFlashMessage('Spectator link is unavailable on this page.', 4000);
+  }
+  window.SWUGearCopySpectatorLink = SWUGearCopySpectatorLink;
   document.addEventListener('change', function (e) {
     if (e.target && e.target.id === 'swuSetMuteSounds') {
       // Writes BOTH layers: this browser always, and the account too when signed in, so the gear

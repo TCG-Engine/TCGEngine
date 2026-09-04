@@ -31,11 +31,17 @@ $leaderAbilities["ASH_001"] = function(int $player): void {
         $here = $pos; $pos++;
         $cid = $resources[$i]->CardID ?? '';
         if (strpos(CardType($cid) ?? '', 'Upgrade') === false) continue;
-        // The upgrade leaves the zone, so it can't pay for itself — but only a READY resource ever
-        // contributed to $ready. Bug #955: an EXHAUSTED upgrade (it helped pay for the unit it now
-        // wants to attach to) was wrongly priced as if removing it cost a ready resource.
-        $selfReady = intval($resources[$i]->Status ?? 0) === 1 ? 1 : 0;
-        if (SWUComputePlayCost($player, $resources[$i]) > $ready - $selfReady) continue;
+        // A card played OUT OF the resource zone may exhaust ITSELF toward its own cost: CR 6.2 pays at
+        // step 4 and puts the card into play at step 5, and CR 8.22.e states it outright for Smuggle
+        // ("As the card is still in the resource zone while paying costs..."). So its own ready slot is
+        // part of the payable pool and nothing is subtracted here. This used to read
+        // `$cost > $ready - $selfReady`, which for a READY upgrade is `$cost >= $ready` — an upgrade
+        // costing EXACTLY the capacity was silently dropped from the offer and the Action soft-passed
+        // (live report 2026-09-03: Armor of Fortune SEC_070 "not allowed" on an eligible host). Same
+        // defect HMW_017 Osha carried (bug #976), which inherited the line from here. An EXHAUSTED
+        // candidate needs no special case: it never contributed to $ready, so it cannot self-pay and
+        // correctly needs the full cost from elsewhere (bug #955 stays fixed).
+        if (SWUComputePlayCost($player, $resources[$i]) > $ready) continue;
         $validHosts = SWUGetUpgradeValidTargets($player, $cid);
         $ok = false;
         foreach ($hosts as $h) { if (in_array($h, $validHosts, true)) { $ok = true; break; } }
@@ -73,7 +79,14 @@ $customDQHandlers["ASH_001#1"] = function($player, $parts, $lastDecision) {
     if ($cardID === '' || !$hostMz || !str_contains($hostMz, '-')) { SWUAfterAction($player); return; }
     $host = GetZoneObject($hostMz);
     if (SWUObjGone($host)) { SWUAfterAction($player); return; }
-    // Move the upgrade OUT of resources into hand first (so it can't pay for itself), then attach paying cost.
+    // CR 8.22.e — the card is STILL A RESOURCE while its cost is paid, so a READY upgrade exhausts
+    // itself toward its own cost and only the REMAINDER comes out of the other resources. Routing it
+    // through hand is a staging detail (_SWUFinalizeUpgradeAttach attaches from hand); it must not cost
+    // the player an extra resource. Captured BEFORE the move, spent as $prepaid on the attach below.
+    // Without this the player paid the full cost out of other resources AND lost the upgrade's slot —
+    // a cost-3 upgrade cost 4 resources (live report 2026-09-03, Whistling Birds ASH_183).
+    $resNow    = GetZoneObject($resMz);
+    $selfPay   = (is_object($resNow) && intval($resNow->Status ?? 0) === 1) ? 1 : 0;
     $newHandMz = MZMove(intval($player), $resMz, "myHand");
     if ($newHandMz === null || $newHandMz === '-') { SWUAfterAction($player); return; }
     $handMz = '';
@@ -82,7 +95,7 @@ $customDQHandlers["ASH_001#1"] = function($player, $parts, $lastDecision) {
         if ($h !== null && empty($h->removed) && ($h->CardID ?? '') === $cardID) $handMz = $mz;
     }
     if ($handMz === '') { SWUAfterAction($player); return; }
-    _SWUFinalizeUpgradeAttach(intval($player), $cardID, $handMz, $hostMz, 0, false, false, true);
+    _SWUFinalizeUpgradeAttach(intval($player), $cardID, $handMz, $hostMz, $selfPay, false, false, true);
     // "If you do, resource the top card of your deck." Verify the upgrade actually landed on the host by
     // scanning its upgrades — the attach return is the TRIGGER count (0 for a vanilla upgrade), NOT a success
     // flag, so gating the ramp on it wrongly skipped the deck-resource (the deployed side already does this).
@@ -118,10 +131,9 @@ $onAttackEndAbilities["ASH_001:0"] = function($player, $mzID) {
         $here = $pos; $pos++;
         $cid = $resources[$i]->CardID ?? '';
         if (strpos(CardType($cid) ?? '', 'Upgrade') === false) continue;
-        // Same gate as the front side: only a READY upgrade resource reduces the payable pool by
-        // leaving the zone; an exhausted one plays for cost <= ready (bug #955).
-        $selfReady = intval($resources[$i]->Status ?? 0) === 1 ? 1 : 0;
-        if (SWUComputePlayCost(intval($player), $resources[$i]) > $ready - $selfReady) continue;
+        // Same gate as the front side: the upgrade's own ready slot pays toward its own cost (CR 8.22.e),
+        // so nothing is subtracted from the capacity here.
+        if (SWUComputePlayCost(intval($player), $resources[$i]) > $ready) continue;
         $validHosts = SWUGetUpgradeValidTargets(intval($player), $cid);
         $ok = false;
         foreach ($hosts as $h) { if (in_array($h, $validHosts, true)) { $ok = true; break; } }
@@ -155,6 +167,9 @@ $customDQHandlers["ASH_001#3"] = function($player, $parts, $lastDecision) {
     if ($cardID === '' || !$hostMz || !str_contains($hostMz, '-')) return;
     $host = GetZoneObject($hostMz);
     if (SWUObjGone($host)) return;
+    // See the front side: the resource pays 1 of its own cost (CR 8.22.e).
+    $resNow    = GetZoneObject($resMz);
+    $selfPay   = (is_object($resNow) && intval($resNow->Status ?? 0) === 1) ? 1 : 0;
     $newHandMz = MZMove(intval($player), $resMz, "myHand");
     if ($newHandMz === null || $newHandMz === '-') return;
     $handMz = '';
@@ -163,7 +178,7 @@ $customDQHandlers["ASH_001#3"] = function($player, $parts, $lastDecision) {
         if ($h !== null && empty($h->removed) && ($h->CardID ?? '') === $cardID) $handMz = $mz;
     }
     if ($handMz === '') return;
-    _SWUFinalizeUpgradeAttach(intval($player), $cardID, $handMz, $hostMz, 0, false, false, true);
+    _SWUFinalizeUpgradeAttach(intval($player), $cardID, $handMz, $hostMz, $selfPay, false, false, true);
     // "If you do, resource the top card of your deck." Gate on the upgrade actually landing on the
     // host (the attach return is the trigger count, which is 0 for a vanilla upgrade — not a success flag).
     $host2 = GetZoneObject($hostMz);

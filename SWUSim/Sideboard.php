@@ -9,7 +9,11 @@ $matchId = preg_replace('/[^A-Za-z0-9_]/','', $_GET['matchId'] ?? '');
 $seat    = intval($_GET['playerID'] ?? 0);
 $m = SWUReadMatch($matchId);
 if (!is_array($m) || ($seat!==1 && $seat!==2)) { http_response_code(404); echo 'No such match/seat.'; exit; }
-$deck = $m['players'][strval($seat)]['originalDeck'] ?? ['leader'=>'','base'=>'','mainDeck'=>[],'sideboard'=>[]];
+// Seed from the deck this seat MOST RECENTLY PLAYED, falling back to the match-start list for the
+// first sideboard of the match. Reading 'originalDeck' unconditionally meant the game-3 menu showed
+// the game-1 configuration and discarded everything the player did before game 2.
+$__p  = $m['players'][strval($seat)] ?? [];
+$deck = $__p['currentDeck'] ?? $__p['originalDeck'] ?? ['leader'=>'','base'=>'','mainDeck'=>[],'sideboard'=>[]];
 
 $mainCounts = array_count_values($deck['mainDeck'] ?? []);
 $sideCounts = array_count_values($deck['sideboard'] ?? []);

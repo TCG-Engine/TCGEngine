@@ -111,3 +111,32 @@ WithP2SpaceArena: SOR_225:1:0
 ## EXPECT
 P1HASDECISION
 P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&theirGroundArena-0
+
+---
+
+# AsPilot_AspectPenaltyUsesThePilotingBracket
+#// JTL_210's UNIT side is [Cunning,Cunning]; its Piloting bracket is [2 resources, Cunning] — ONE pip.
+#// The deck provides exactly one Cunning (Administrator's Tower base + a Vigilance/Heroism leader), so a
+#// PILOT play is fully on-aspect and costs 2. It used to cost 4: SWUAspectPenalty priced every play off
+#// CardAspect (the unit side), leaving CardPilotingAspects a generated dictionary with no consumer, and
+#// the doubled Cunning charged a +2 penalty that the bracket never asks for. CR 8.19.a — paying the
+#// Piloting cost accounts for the aspect penalties that modify THAT cost. JTL_210 is the only card in
+#// the pool whose two sides carry different aspect sets, so it is the only card this can be seen on.
+
+## GIVEN
+CommonSetup: ybw/bbk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 8:SOR_046:1
+WithP1Hand: JTL_210
+WithP1GroundArena: SOR_232:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1RESAVAILABLE:6

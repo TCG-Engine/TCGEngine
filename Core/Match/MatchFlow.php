@@ -245,8 +245,19 @@ function MatchMaybeSpawnAfterSideboard($rootName, $matchId) {
     $decks = [1 => $m['sideboard']['1']['deck'], 2 => $m['sideboard']['2']['deck']];
     $next = MatchSpawnNextGameWithDecks($rootName, $matchId, $first, $prior, $decks);
 
-    MatchWithLock($rootName, $matchId, function (&$mm) {
+    MatchWithLock($rootName, $matchId, function (&$mm) use ($decks) {
         $mm['state'] = 'in_progress';
+        // ⚠ REMEMBER WHAT WAS ACTUALLY PLAYED, because the unset below throws the submitted decks away.
+        // Sideboard.php seeds its editor from the player's deck, and with nothing but 'originalDeck' to
+        // read that is always the list registered at MATCH START — so the game-3 menu showed the game-1
+        // configuration and every change made before game 2 had to be redone by hand.
+        // 'originalDeck' is deliberately left untouched (other readers depend on it meaning exactly
+        // that); this is an additive per-seat record of the most recent submitted list.
+        foreach (['1', '2'] as $s) {
+            if (!empty($decks[intval($s)]) && isset($mm['players'][$s])) {
+                $mm['players'][$s]['currentDeck'] = $decks[intval($s)];
+            }
+        }
         unset($mm['sideboard'], $mm['sideboardDeadline'], $mm['pendingFirstPlayer'], $mm['spawnClaimedAt']);
     });
     return $next;

@@ -4273,11 +4273,23 @@ Aspect filtering (key: "aspect", alias "c")
         document.body.appendChild(utilityButtonBar);
 
         const playerIdValue = parseInt(document.getElementById('playerID').value || '', 10);
+        // ⚠ NOT "is it seat 1 or 2". A SPECTATOR's playerID is 'S', so parseInt gives NaN and the seat
+        // test never distinguished spectators from players — it encoded "this game has two seats",
+        // which stopped being true with Twin Suns. Seats 3 and 4 were denied the whole utility bar:
+        // no Copy Spectator Link and no Concede. SWUSim ships a seat-order-aware answer; every other
+        // sim is 2-seat, where >=1 is the same thing.
+        const viewerIsSeatedPlayer = (typeof window.swuViewerIsSeatedPlayer === 'function')
+          ? window.swuViewerIsSeatedPlayer(playerIdValue)
+          : (Number.isInteger(playerIdValue) && playerIdValue >= 1);
         const spectatorAuthKeyField = document.getElementById('spectatorAuthKey');
         const privateSpectatorAuthField = document.getElementById('privateSpectatorAuthRequired');
         const privateSpectatorAuthRequired = !!(privateSpectatorAuthField && privateSpectatorAuthField.value === '1');
         const spectatorAuthKey = spectatorAuthKeyField ? spectatorAuthKeyField.value : '';
-        const shouldShowCopySpectateButton = (playerIdValue === 1 || playerIdValue === 2) && privateSpectatorAuthRequired && !!spectatorAuthKey;
+        // A PRIVATE game needs the per-game spectator key in the link; a PUBLIC game needs no key at all
+        // (SimGameValidateSpectatorAuth lets any signed-in account watch via SimGameSpectatorIsLoggedIn),
+        // so the link is simply shorter. Gating on the key hid the button on every public game.
+        const shouldShowCopySpectateButton = viewerIsSeatedPlayer
+          && (privateSpectatorAuthRequired ? !!spectatorAuthKey : true);
 
         const bugReportButton = createGrandArchiveUtilityButton({
           id: 'bug-report-button',
@@ -4288,15 +4300,15 @@ Aspect filtering (key: "aspect", alias "c")
         });
         if (bugReportButton) utilityButtonBar.appendChild(bugReportButton);
 
-        if (playerIdValue === 1 || playerIdValue === 2) {
+        if (viewerIsSeatedPlayer) {
           if (shouldShowCopySpectateButton) {
             const copySpectateButton = createGrandArchiveUtilityButton({
               id: 'copy-spectate-link-button',
-              text: 'Copy Spectate Link',
+              text: 'Copy Spectator Link',
               border: '1px solid #3e6ba0',
               background: 'rgba(17, 39, 66, 0.96)',
               boxShadow: '0 0 15px rgba(80, 132, 196, 0.38)',
-              onclick: copyPrivateSpectateLink
+              onclick: copySpectateLink
             });
             if (copySpectateButton) utilityButtonBar.appendChild(copySpectateButton);
           }
@@ -4313,33 +4325,44 @@ Aspect filtering (key: "aspect", alias "c")
         }
       }
 
-      function copyPrivateSpectateLink() {
+      function copySpectateLink() {
         const gameNameField = document.getElementById('gameName');
         const rootField = document.getElementById('folderPath');
         const spectatorAuthField = document.getElementById('spectatorAuthKey');
+        const privateField = document.getElementById('privateSpectatorAuthRequired');
         const playerField = document.getElementById('playerID');
-        if (!gameNameField || !rootField || !spectatorAuthField || !playerField) return;
-        const spectatorAuthKey = spectatorAuthField.value || '';
-        if (!spectatorAuthKey) {
-          if (typeof showFlashMessage === 'function') showFlashMessage('This game does not have a private spectator link.', 4000);
+        if (!gameNameField || !rootField || !playerField) return;
+        const spectatorAuthKey = spectatorAuthField ? (spectatorAuthField.value || '') : '';
+        const isPrivate = !!(privateField && privateField.value === '1');
+        // Only a PRIVATE game needs a credential in the link. Refusing to build one without a key meant
+        // public games got no link at all, even though the server is happy to let a signed-in account watch.
+        if (isPrivate && !spectatorAuthKey) {
+          if (typeof showFlashMessage === 'function') showFlashMessage('This game does not have a spectator link.', 4000);
           return;
         }
 
+        // Perspective defaults to the SHARER's own seat, so the recipient opens the board oriented the
+        // way you were describing it. Previously pinned to 1/2, so a seat-3 or seat-4 sharer handed out
+        // somebody else's view of the table.
         const currentPlayerId = parseInt(playerField.value || '', 10);
-        const defaultPerspective = currentPlayerId === 2 ? '2' : '1';
+        const defaultPerspective = (Number.isInteger(currentPlayerId) && currentPlayerId >= 1)
+          ? String(currentPlayerId) : '1';
         const spectateUrl = new URL('./NextTurn.php', window.location.href);
         spectateUrl.searchParams.set('playerID', 'S');
         spectateUrl.searchParams.set('viewerPerspective', defaultPerspective);
         spectateUrl.searchParams.set('gameName', gameNameField.value || '');
         spectateUrl.searchParams.set('folderPath', rootField.value || '');
-        spectateUrl.searchParams.set('authKey', spectatorAuthKey);
+        if (spectatorAuthKey) spectateUrl.searchParams.set('authKey', spectatorAuthKey);
 
         const finish = function(success) {
           if (typeof showFlashMessage !== 'function') return;
+          // A public game carries no key, so the server asks the VIEWER to be signed in instead — say so,
+          // or the recipient's 403 reads as a broken link.
+          const note = isPrivate ? '' : ' They will need to be signed in to watch.';
           showFlashMessage(
             success
-              ? 'Private spectate link copied to clipboard.'
-              : 'Unable to copy automatically. The private spectate link is ready in the address bar console fallback.',
+              ? 'Spectator link copied to clipboard.' + note
+              : 'Unable to copy automatically — the spectator link is shown above.',
             5000
           );
         };
@@ -4348,26 +4371,36 @@ Aspect filtering (key: "aspect", alias "c")
           navigator.clipboard.writeText(spectateUrl.toString()).then(function() {
             finish(true);
           }).catch(function() {
-            StyledPrompt('Copy this private spectate link:', {title: 'Spectate link', initial: spectateUrl.toString(), confirmLabel: 'Done'});
+            StyledPrompt('Copy this spectator link:', {title: 'Spectator link', initial: spectateUrl.toString(), confirmLabel: 'Done'});
             finish(false);
           });
           return;
         }
 
-        StyledPrompt('Copy this private spectate link:', {title: 'Spectate link', initial: spectateUrl.toString(), confirmLabel: 'Done'});
+        StyledPrompt('Copy this spectator link:', {title: 'Spectator link', initial: spectateUrl.toString(), confirmLabel: 'Done'});
         finish(false);
       }
+      // ⚠ EXPORT REQUIRED. This is declared inside the utility-bar closure, but the SWUSim gear menu
+      // calls it from an inline onclick in a LATER top-level <script> — which resolves against GLOBAL
+      // scope. Without this the button silently does nothing (the same trap GameLayoutShared documents
+      // for SWUGoMainMenu / SWUReportBug). The bar's own button binds the reference directly and would
+      // have kept working, so this failure would only have shown up in the gear menu.
+      window.copySpectateLink = copySpectateLink;
 
       async function confirmConcedeGame() {
         const playerIdField = document.getElementById('playerID');
         if (!playerIdField) return;
         const playerIdValue = parseInt(playerIdField.value || '', 10);
-        if (playerIdValue !== 1 && playerIdValue !== 2) return;
+        // Seated players only — but ALL seats. Twin Suns seats 3/4 previously could not concede.
+        if (!(Number.isInteger(playerIdValue) && playerIdValue >= 1)) return;
         if (!(await StyledConfirm('Concede this game? This will immediately count as a loss for you.', {title: 'Concede game', danger: true, confirmLabel: 'Concede'}))) return;
         SubmitInput('10006', '');
       }
 
       // Bo3: concede the whole match (forfeit the series). No-op in non-match games server-side.
+      // ⚠ The 1/2 seat check here and in confirmConvertToBo3 is CORRECT, not the Twin Suns hardcode:
+      // a Bo3 match is two-player by construction (MatchCreateFromLobby seats 1 and 2, and
+      // MatchSubmitSideboardDeck rejects any other seat), so there is no seat 3/4 match to forfeit.
       async function confirmConcedeMatch() {
         const pid = parseInt((document.getElementById('playerID') || {}).value || '', 10);
         if (pid !== 1 && pid !== 2) return;

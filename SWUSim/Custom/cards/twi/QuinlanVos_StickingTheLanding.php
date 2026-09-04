@@ -11,9 +11,17 @@ $customDQHandlers["TWI_018#0"] = function ($player, $parts, $lastDecision) {
   global $playerID;
   $playerID = intval($player);
   // Exhaust the leader (the front-side cost) then deal 1.
-  $leaderArr = &GetLeader(intval($player));
-  if (!empty($leaderArr) && !empty($leaderArr[0]))
-    $leaderArr[0]->Ready = false;
+  // ⚠ "THIS leader" is the Quinlan instance, NOT `GetLeader($player)[0]`. In a Twin Suns seat with
+  // Quinlan in the second slot the old index-0 write taxed the OTHER leader and left Quinlan ready, so
+  // the ability re-armed on the next unit played. The trigger gate was already CardID-keyed
+  // (_SWULeaderReadyUndeployed in GameLogic), so the offer was correct and only the bill went astray.
+  // Leader CardIDs are unique per seat (CR 12.3 forbids copies), which is what makes the CardID the
+  // instance key here — same reasoning as SWUFindLeaderByCardID.
+  // Re-checked at RESOLUTION, not just at the offer: "IF YOU DO" — a leader that was exhausted or
+  // deployed between the trigger and the answer can no longer pay, and then no damage is dealt.
+  if (!_SWULeaderReadyUndeployed(intval($player), 'TWI_018'))
+    return;
+  _SWUExhaustUndeployedLeader(intval($player), 'TWI_018');
   SWUDealDamageToUnit($lastDecision, 1, intval($player));
 };
 

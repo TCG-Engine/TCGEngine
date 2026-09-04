@@ -296,3 +296,77 @@ P1LEADER:EXHAUSTED
 #// host while the Action is usable. The deployed-leader leg of this fix is covered where it is reachable
 #// — Tests/Cases/keywords/Hidden_DeployedAndCreated.md and
 #// Tests/Cases/sor/BobaFett_Disintegrator.md::OnAttack_DeployedLeaderThisRound_NoDeal3.
+
+---
+
+# Deployed_AttackEnd_ResourcePaysPartOfItsOwnCost
+#// CR 6.2 pays a card's cost at step 4 and puts it into play at step 5, so a card played OUT OF the
+#// resource row is still a resource while paying — CR 8.22.e says so outright for Smuggle, and
+#// SWUSmuggleResource implements it. The Armorer's play-from-resources did not: it moved the upgrade to
+#// hand FIRST, so the full cost came out of OTHER resources and the player lost the slot on top of it —
+#// a cost-3 upgrade cost 4 resources (live report 2026-09-03, Whistling Birds ASH_183). Here 4 ready
+#// resources, one of them the cost-2 Academy Training: it pays 1 of its own cost, ONE other resource
+#// exhausts, and 2 stay ready. (The deck's replacement card enters exhausted, CR 1.7.7.)
+## GIVEN
+CommonSetup: gbw/brk/{myLeader:ASH_001:1:1:1}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1Resources: 3:SOR_046:1,1:SOR_120:1
+WithP1Deck: SOR_237
+## WHEN
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:myResources-3
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_120
+P1RESAVAILABLE:2
+
+---
+
+# LeaderAction_ExactlyAffordableViaSelfPayment
+#// The same rule on the affordability side. Battlefield Marine costs 4 here (ASH_001 provides no
+#// Heroism), leaving exactly 2 ready resources — one generic and the cost-2 Academy Training itself.
+#// Academy Training pays 1 of its own cost + 1 generic, so it IS playable. The gate used to read
+#// `cost > capacity - selfReady`, which for a READY upgrade is `cost >= capacity`: an upgrade costing
+#// exactly the capacity was dropped from the offer and the Action silently soft-passed, reported live as
+#// "The Armorer won't let me play Armor of Fortune". Same defect HMW_017 Osha carried (bug #976), which
+#// inherited the line from here. Bug #955's EXHAUSTED case still holds — see
+#// LeaderAction_ExhaustedUpgradeResource_StillPlayable.
+## GIVEN
+CommonSetup: gbw/brk/{myLeader:ASH_001}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 5:SOR_046:1,1:SOR_120:1
+WithP1Hand: SOR_095
+WithP1Deck: [SOR_063]
+## WHEN
+- P1>PlayHand:0
+- P1>UseLeaderAbility
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SOR_120
+P1RESAVAILABLE:0
+P1LEADER:EXHAUSTED
+
+---
+
+# LeaderAction_PlotUpgradeFromResources_ArmorOfFortune
+#// The card the live report named: SEC_070 Armor of Fortune is a PLOT upgrade sitting in the resource
+#// row. Plot is not a second cause — with resources to spare it plays onto the unit that entered this
+#// phase exactly like any other upgrade. Kept as the control that pins the affordability gate above as
+#// the ONLY defect on this path.
+## GIVEN
+CommonSetup: gbw/brk/{myLeader:ASH_001}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 8:SOR_046:1,1:SEC_070:1
+WithP1Hand: SOR_095
+WithP1Deck: [SOR_063]
+## WHEN
+- P1>PlayHand:0
+- P1>UseLeaderAbility
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADE:0:CARDID:SEC_070

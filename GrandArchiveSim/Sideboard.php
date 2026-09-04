@@ -14,7 +14,10 @@ if (!is_array($m) || ($seat !== 1 && $seat !== 2)
     || !hash_equals(strval($m['players'][strval($seat)]['authKey'] ?? ''), $authKey)) {
     http_response_code(404); echo 'Invalid match / seat / auth.'; exit;
 }
-$deck = $m['players'][strval($seat)]['originalDeck'] ?? ['material' => [], 'mainDeck' => [], 'sideboard' => []];
+// Seed from the deck this seat MOST RECENTLY PLAYED, falling back to the match-start list for the
+// first sideboard of the match (same fix as SWUSim/Sideboard.php — MatchFlow now records it).
+$__p  = $m['players'][strval($seat)] ?? [];
+$deck = $__p['currentDeck'] ?? $__p['originalDeck'] ?? ['material' => [], 'mainDeck' => [], 'sideboard' => []];
 
 $matCounts  = array_count_values($deck['material']  ?? []);
 $mainCounts = array_count_values($deck['mainDeck']  ?? []);
