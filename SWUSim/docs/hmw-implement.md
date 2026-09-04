@@ -1,5 +1,8 @@
 # HMW — Card Implementation Plan
 
+> **▶ 2026-09-03: card-complete 150/150, suite 11109/0, tree uncommitted. Next-session plan and
+> open TODOs are at the BOTTOM of this file under "NEXT SESSION STARTS HERE".**
+
 **⚠ PREVIEW SET.** 129 cards exist (127 numbered + 2 tokens) of ~262 printed — count re-derived from
 `AppCore/SWU/CardMocks.php` on 2026-09-02. The 2026-09-02 wave added **HMW_015 / HMW_197 / HMW_203 /
 HMW_207**; of those only HMW_207 Maim is implemented so far, so this set is **NOT card-complete**
@@ -15,7 +18,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112, HMW_160, HMW_046
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112, HMW_160, HMW_046, HMW_044, HMW_172, HMW_215, HMW_108
 
 
 <!-- HMW_005 Jar Jar Binks, Bombad General — Done, 16/16. THE SET'S LAST CARD.
@@ -2083,3 +2086,233 @@ survival is a per-card opt-in — and SHD_143 is correctly absent from `_SWUAtta
 - The defeated attacker's object is still readable (flagged `removed`, Subcards intact), so
   `_SWUUnitHasUpgrade` works; `$defenderMzID` is only STRING-parsed for the seat, never dereferenced, so
   a re-indexed arena slot cannot mis-target.
+
+## ⚠ SIXTEENTH WAVE — 2026-09-03 (146 → 150 CardIDs)
+`AppCore/SWU/CardMocks.php` grew again in the working tree: **HMW_044, HMW_046, HMW_172, HMW_215** are
+new, and the diff also surfaced **HMW_108**, which has been in the mocks since an earlier wave and was
+never implemented (the batch checkboxes said the set was complete; the diff is the only oracle).
+The dictionary was regenerated first (`zzCardCodeGenerator.php rootName=SWUSim`, then
+`Data/ProcessKeywordsSWU.php`) — the four new cards were absent from `GeneratedCardDictionaries.php`
+until then, which reads exactly like a blank text box. Baseline suite after the regen: **11036 / 0**.
+
+Order for the `--iterative` run (simplest first): HMW_046 → HMW_044 → HMW_172 → HMW_215 → HMW_108.
+
+### Per-card outcome
+
+| card | state |
+|---|---|
+| **HMW_046 Krrsantan, Santo** | **DONE** — 12 sections, 11036 → 11048 / 0. "Resources you control" is the TOTAL (ready + exhausted): paying his own cost of 4 exhausts four, so a ready-only reading computes a negative amount every time. Amount <= 0 raises NO prompt. "A ground unit" is unqualified — friendly, enemy, leader units and Krrsantan himself; space excluded. 5 mutations. |
+| **HMW_044 Ima-Gun Di, Holding Out For Resupply** | **DONE** — 12 sections, 11048 → 11060 / 0. "An opponent" is an EXISTENTIAL CONDITION, not a target, so no seat prompt; LAW_083 Broken Horn prints the identical sentence and supplied the `OpponentsOf()` shape. "Fewer" is strict; both resourced cards enter EXHAUSTED; "If you do" gates the top-deck rider on the hand card actually moving, and an empty hand is a different branch from a decline. 6 mutations. ⚠ Two guards measured NOT load-bearing: the empty-hand early return was DELETED as dead code (`SWUQueueMayChooseTarget` already returns on an empty pool); the empty-deck guard was kept with its comment corrected. |
+| **HMW_172 Heavy Ion Cannon** | **DONE** — 13 sections, 11060 → 11073 / 0. Fortify is generator-wired. The granted base Action rides `$baseUpgradeAbilities`; its once-each-phase allowance is COUNTED against the number of attached copies, because the card is non-unique, base subcards carry no UniqueID, AND `SWUExpireTurnEffects` never walks a base or its subcards (a marker parked there would be permanent). **Shared change:** new `$baseUpgradeActionAvailable` registry — an optional per-upgrade availability gate for the provider list, absent = always available, so only RESTRICTIONS are registered (mirrors `$baseActionRepeatable`). 6 mutations. ⚠ One green mutation was a real coverage gap: the empty-hand section asserted only that nothing visible happened, which is ALSO true when the Action is wrongly offered and self-aborts — it now drops `P1OnlyActions` and asserts `TURNPLAYER:1`. |
+| **HMW_215 L3-37, We're Programmed to Learn** | **DONE** — 18 sections, 11073 → 11094 / 0. A reactive observer (no stub): registered in `SWUCollectOwnPlayReactions` beside SOR_182 Bossk, dispatched via a `DispatchTrigger` case, replayed with `SWUNestedPlay(..., ignoreCost: true)` on the discard entry. Cost is the PRINTED cost. **The once-each-phase flag is keyed PER COPY** (`SWU_HMW215_USED_{uid}`, CR 885) and is also the recursion guard — it must be set BEFORE the replay. 7 mutations + 3 real-play scenarios (Aggressive Negotiations attacking with a second unit; an off-aspect Power of the Dark Side defeating two of seat 3's deployed leaders at FOUR seats; Open Fire twice for 8 on one body) + the A New Adventure / Lady Proxima loop. ⚠ `NOEXTRAACTION` fires on the replay sections BY DESIGN — a nested EVENT queues its own `FINISH_PLAY_CARD`, which finalises after the nested frame exits and attempts a close the gate refuses; the cost-4 no-replay section carries `NOEXTRAACTION` cleanly, so use TURNPLAYER on replay sections. |
+| **HMW_108 The First Legion, Vader's Fist** | **DONE** — 15 sections, 11094 → 11109 / 0. The SEC_046 Galen shape one axis over (a named TRAIT, not a named card). New `_SWUHmw108TraitSuppressed($cardOwner,$trait)` hooked into BOTH chokepoints: `TraitContains` (in play) and `_SWUCardHasTrait` (OUT of play — hand/deck/discard/resources, which carry no object to mark). Phase-scoped GlobalEffect on the naming seat, cleared at RegroupPhaseStart; the duration is "this phase", NOT "while this unit is in play". "Enemy" resolves per seat via `SWUTeamOf`, so Twin Suns strips from every opponent and Team Suns spares the namer's teammate. New `SWUAllTraits()` derives the trait universe from the dictionaries and validates the answer. New `NAMETRAIT` decision + `Core/NameTraitUI.js` (sibling of NameCardUI), wired at the 3 UILibraries points + the NextTurn include and smoke-tested on the wire. 4 mutations. |
+
+### Durable gotchas from this wave
+
+⚠⚠ **MUTATION PROBES ON THIS BOX MUST VERIFY THE CONTAINER SAW THE EDIT BEFORE RUNNING THE SUITE.**
+The repo is bind-mounted into `otmtcge-swusim-web-server-1`, and a write followed immediately by a
+regression request can be served the **pre-edit** file — which comes back GREEN and reads exactly like
+"this guard is not load-bearing", the inverse of a useful result. It cost a wrong conclusion on HMW_044's
+Twin Suns cell (green first, red on a verified re-run of the identical mutation). The same race produces
+the phantom `php -l` "Unclosed '{'" immediately after a scripted write — re-lint before believing it.
+**Probe shape that works:** write → `docker exec … cat` and assert the new text is present AND the old is
+gone (poll ~0.5s) → run the suite → restore → re-verify. A RED result is always trustworthy; only GREEN
+needs this.
+
+⚠ **A LITERAL GREP CANNOT FIND AN ASSERTION NAME THE RUNNER ASSEMBLES FROM AN ALTERNATION.**
+`P1BASEUPGRADECOUNT` appears ZERO times in `SchemaTestRunner.php` (confirmed by grep AND python) yet is a
+live assertion — the pattern is BASE(UPGRADE|CAPTIVE)COUNT. A zero-result grep nearly got a tracked test
+file reported as carrying dead assertions. To ask "is this assertion real?", mutate its VALUE and confirm
+it reds, or extract every preg_match pattern and test the literal against them.
+
+⚠ **A SECTION THAT BUNDLES TWO PROPERTIES CAN FAIL TO FALSIFY EITHER.** HMW_215's decline section also
+proved "the use is not spent", so it played TWO events — and with two in flight the end state coincides
+whether or not the first was replayed, so deleting the decline branch left it GREEN. Splitting out a
+one-event `Decline_EventResolvesExactlyOnce` made the same mutation red. When a section name contains
+"and", check each half is independently falsifiable.
+
+⚠ **A TOP-DECK SEARCH SECTION THAT ANSWERS BLANK PROVES NOTHING ABOUT THE FILTER.** Nothing is drawn
+either way, so it passes with the filter deleted (measured on HMW_108's Mon Mothma case). The filter IS
+enforced server-side (`_topDeckSearchBegin` stores `TopDeckLegalIDs`), so the discriminating cell answers
+with a card that IS among the peeked cards and WOULD be legal but for the effect under test, and asserts
+the engine REFUSES it — strictly stronger than inspecting the client's match list.
+
+⚠ **`AttackGroundArena:idx:BASE` IS AMBIGUOUS ABOVE TWO SEATS** — the harness offers
+`p2Base-0&p3Base-0&p4Base-0` and refuses the attack. Name the seat: `P2B` (and `P<seat>G<idx>` /
+`P<seat>S<idx>` for units).
+
+⚠ **STRIPPING A TRAIT WIDENS "non-X" POOLS, including the SOURCE's own.** HMW_108 naming Vehicle makes
+every non-Vehicle upgrade legal on a former Vehicle — and The First Legion is itself a non-Vehicle unit,
+so an attach that would have auto-resolved becomes a real host CHOICE. Expect answer counts to move in
+both directions when a trait goes away.
+
+⚠ **NEVER EDIT A DOC WITH A SLICE-TO-END-OF-FILE REPLACEMENT.** Doing exactly that here deleted 1452
+lines of this file (recovered from HEAD). Use anchored replacements with a uniqueness assertion, or append.
+
+## ✅ FIXED (2026-09-03) — an own-play observer that LEAVES PLAY during the event kept its trigger
+
+**Status: FIXED and green** — suite **11094 / 0**. The engine bug below was real; it is now closed.
+
+**The rules.** CR 778.3: *"For a triggered ability to resolve, the card with the ability must be in play
+when the triggering condition occurs … the triggered ability must resolve once triggered, **even if the
+card with the ability leaves play before the triggered ability resolves**."* CR 319.6: for a
+"When you play an event" trigger, *"the event ability must be resolved as completely as possible before
+resolving the triggered ability."* CR 885: a card that leaves and re-enters play is a **new copy**.
+
+**The engine.** `ActivateCard`'s event branch snapshots the observer set as a UID list BEFORE the event's
+effects (`$evtObserverUIDs`, the Bossk verdict), and the block-5 collector `SWUCollectOwnPlayReactions`
+re-scans the post-effect board and INTERSECTS. So an observer that was in play when the event was played
+but left during its resolution is dropped — it is in the snapshot but not in `GetUnitsInPlay`.
+
+**Where it bites (the double-yellow Han loop, Eternal).** L3-37 (HMW_215) + Lady Proxima (SHD_255) under
+a Cunning base and Han Solo. A New Adventure (SHD_207) bounces L3-37 and replays her free; Proxima pings
+a base off that Underworld play; L3-37's already-triggered ability should then replay A New Adventure,
+bouncing her again as a NEW COPY with a fresh once-each-phase use — pinging the opponent's base to death
+from 0. Measured live: steps 1-3 work (the base takes its first ping and L3-37 is back in play); only the
+step-4 offer is missing.
+
+**The fix (applied).** The event-play snapshot now carries **`uid:cardID:seat`** instead of a bare uid
+(`$evtObserverUIDs`), and `SWUCollectOwnPlayReactions` builds its observer list FROM THAT SNAPSHOT rather
+than from the post-effect board: a member still in play contributes its real object, a member that has
+LEFT play contributes a stand-in carrying the identity the observer switch reads. Both directions of the
+Bossk verdict survive — a unit the event SEATED is not in the snapshot and still does not observe its own
+arrival; a unit that left is no longer silently dropped.
+⚠ The parse site must NOT `intval()` the snapshot entries any more — doing so collapses each to a bare
+uid and silently drops the ENTIRE observer set (measured: 25 failures across Bossk, FFF, Fives, Kallus
+and Tobias Beckett before that half landed).
+⚠ `SHD_096` Maz Kanata is the only branch that needs the observer's board position (`$u->GetMzID()`); it
+is now gated on a `$observerInPlay` flag. Unreachable for a departed observer today — the departed path
+exists only on the event path, where `$isUnitPlay` is false — but the guard makes that explicit rather
+than load-bearing by accident.
+
+**Coverage.** New shared file `Tests/Cases/core/OwnPlayObserverThatLeftPlayStillTriggers.md` (3 sections:
+the bounced observer still triggers · bounced-and-replayed triggers EXACTLY ONCE · the ordinary in-play
+case is undisturbed), plus two combo sections on L3-37. Four mutations, each reddening only its own
+sections: dropping departed observers reds the three new-behaviour sections; ignoring the snapshot reds
+the departed test AND `sor/Bossk_DeadlyStalker :: PlayedByOwnEvent_NoSelfTrigger`; a consistent two-sided
+per-PLAYER key reds ONLY `Combo_SecondIteration_TheNewCopyHasAFreshUse`.
+⚠ A one-sided mutation of the per-copy key is NOT a valid probe — it breaks the setter/checker pairing
+and reds 8 sections for the wrong reason. Mutate both the check and the set together.
+
+**Fixture gotchas found while covering this.** Bossk has AMBUSH, so REPLAYING him raises an
+"Ambush attack?" YESNO before his event trigger is reached — without an answer for it the Ambush prompt
+eats the damage target and the section reads as the trigger never firing. And in the L3-37 loop the two
+simultaneous triggers (Proxima's ping, L3-37's replay offer) are NOT ordered consistently between
+iterations, so a long answer chain is brittle; stop the section where the ordering is still deterministic.
+
+**Also fixed as part of this (shipped, green):** HMW_215's once-each-phase limit was keyed per PLAYER and
+is now keyed per COPY (`SWU_HMW215_USED_{uid}`), per CR 885 — a per-player key would have killed the
+combo even after the observer fix, and it still guards the direct self-replay because that is the same
+object. The trigger param is comma-delimited (the dispatcher pipe-splits its own param).
+
+---
+
+# ▶▶ NEXT SESSION STARTS HERE (written 2026-09-03)
+
+HMW is **card-complete, 150 / 150** (`### Already Done` diffed against `AppCore/SWU/CardMocks.php`,
+re-derived at the end of the session). Suite **11109 / 0**. Tree UNCOMMITTED.
+
+## 1. FIRST THING — pin the nested-play trigger ORDER (judge ruling in hand)
+
+**USER-SUPPLIED JUDGE RULING, 2026-09-03.** The question was how Bossk's pending "when you play an
+event" ability orders against the Ambush of a Bossk that the same event bounced and replayed
+(SHD_207 A New Adventure × SOR_182 Bossk):
+
+> "Event is played, Bossk triggers (but waits to resolve), Bossk is bounced and replayed. He may
+> Ambush if he'd like but does not trigger his ability since he was not in play to see ANA be played,
+> then lastly the OG Bossk's ability resolves and deals 2 damage to something."
+
+> Q: "so because the event specifies the played, he must choose to Ambush (being a nested trigger of
+> ANA) before the OG Bossk ping. is that right?"
+> A: "Yes. **ANA creates a 'modified play a card action.' When that happens, any abilities that
+> trigger during that modified action must resolve before any pending abilities that triggered during
+> the initial action.**"
+
+**THE GENERAL RULE, worth stating beyond this card pair:** triggers raised *inside* a nested/modified
+play action resolve BEFORE the outer action's already-pending triggers. Nested window first, outer
+window last — LIFO, not FIFO.
+
+**THE ENGINE IS ALREADY CORRECT — verified live 2026-09-03 (game 4309):**
+
+```
+P1>PlayHand (ANA)             -> MZCHOOSE  "Return a non-leader unit (cost 6 or less)"
+P1>AnswerDecision:myGround-0  -> YESNO     "Play the returned unit for free?"
+P1>AnswerDecision:YES         -> YESNO     "Ambush attack?"        <- nested action's trigger, FIRST
+P1>AnswerDecision:YES         -> MZMAYCHOOSE "Deal 2 damage to a unit"  <- OG Bossk, LAST
+```
+
+Both halves hold: the replayed Bossk does NOT trigger off ANA (exactly ONE damage offer appears, which
+`core/OwnPlayObserverThatLeftPlayStillTriggers.md :: BouncedThenReplayed_TriggersExactlyOnce` already
+pins at 2 damage, not 4), and Ambush resolves before the pending outer trigger.
+
+**SO THIS IS A TEST GAP, NOT A BUG.** No section asserts the ORDER — the existing one merely *answers*
+in that order, so a flipped ordering would fail confusingly rather than fail *for the right reason*.
+**The work:** add a section to `core/OwnPlayObserverThatLeftPlayStillTriggers.md` that leaves each
+decision PENDING and asserts which one it is, via `P{n}DECISIONTOOLTIP` — the assertion the harness
+has for exactly this:
+
+- after the free-replay YES → `P1DECISIONTOOLTIP:Ambush_attack?`
+- after answering the Ambush → `P1DECISIONTOOLTIP:Deal_2_damage_to_a_unit`
+
+Then mutate: force the outer trigger to flush before the nested entry triggers and confirm only that
+new section reds. Budget: small, ~1 section plus the mutation.
+
+⚠ Fixture note already learned here: Bossk has Ambush, so the replay ALWAYS raises that prompt first —
+a section that forgets to answer it has its next answer silently eaten and reads as "the trigger never
+fired".
+
+## 2. TODO — the `HasTrait` -> `TraitContains` sweep (171 sites)
+
+`TraitContains($obj, $trait)` is the object-aware trait read: it honours per-instance trait LOSS
+(LOF_033 Nameless Terror's "each enemy unit loses <Trait> this phase", HMW_108 The First Legion's named
+-trait strip) and grants. **171 call sites still read `HasTrait($obj->CardID, …)` on an IN-PLAY object**
+and are therefore blind to both:
+
+```
+  46  SWUSim/Custom/GameLogic.php          17  SWUSim/Custom/KeywordEffects.php
+   4  SWUSim/Custom/CardDQHandlers.php      3  SWUSim/Custom/CombatLogic.php
+ ~100 spread across SWUSim/Custom/cards/**  (GeneralTagge, Bb8, FocusFire, ElectromagneticPulse,
+                                             RoseTico, PantoranStarshipThief, PrisonerOfWar, …)
+```
+
+This is PRE-EXISTING — it blinds LOF_033 today, independently of HMW_108. Only the sites the HMW_108
+cases named were converted this session (`SWUPilotCanAttach`, `SWUGetLeaderPilotVehicles`, the
+`SWUGetUpgradeValidTargets` Vehicle/non-Vehicle groups, SOR_139 Force Choke, SOR_096 Mon Mothma).
+
+⚠ **Do NOT blind-`replace_all`.** The conversion is only valid for reads on an IN-PLAY object. A
+bare-CardID read on a hand/deck/discard card must NOT become `TraitContains` (it would
+`GetZoneObject(a CardID string)` → null → always false). For an out-of-play card with a known owner the
+correct target is `_SWUCardHasTrait($owner, $cardID, $trait)`, which also carries the HMW_108 strip.
+Triage per site: in play → `TraitContains`; out of play with an owner → `_SWUCardHasTrait`; out of play
+with no owner → leave as `HasTrait`.
+
+Suggested shape: convert in file-sized batches, full suite green between batches, and mutate one
+converted site per batch to prove the new read is load-bearing.
+
+## 3. TODO — dev-box environment (both need a decision, both have a one-liner)
+
+- **Xdebug step-debug is ON** — `DevTools/xdebug/xdebug.ini` has `xdebug.mode=develop,debug` with
+  `start_with_request=yes`. Measured **7.5x** on real PHP work in-container (0.993s vs 0.133s on
+  identical work). Not a leak, not new. `./DevTools/perf/dev-box-perf.sh xdebug off` flips it and
+  gracefully reloads Apache. ⚠ That ini is mounted into EVERY sim container, not just SWUSim — hence
+  left for a human decision.
+- **5.0 GB in the swustats container's `/tmp`** — `/tmp/rbroot/SWUDeck` (2.5G), `/tmp/ProdGames/Games`
+  (2.5G), `/tmp/rbbk/swudeck-gamestates.tar.gz` + `.sha256` (86M), all dated 2026-08-06. Prod-derived
+  SWUDeck rollback artifacts, NOT scratch — deliberately untouched. They vanish on a container restart
+  anyway. `tmp-clean` is scoped to `swusim_request_boundary_*` and cannot reach them.
+
+New tool: **`DevTools/perf/dev-box-perf.sh`** (`status` / `firefox-tune` / `firefox-revert` /
+`xdebug on|off` / `tmp-clean` / `all`). `status` changes nothing and reports host load, Firefox
+process+profile state, xdebug mode and per-container scratch-dir counts.
+
+## Session-close context
+
+⚠ Two corrections from this session that must not be re-learned the hard way:
+1. **A suite-time "regression" was misattributed to a code change.** Adding a hook to `TraitContains`
+   coincided with 51s → 253s on an unchanged test set; the control run (feature fully disabled) came
+   back SLOWER (231s vs 97s). It was host CPU contention (load ~12 on 12 cores, Firefox + WindowServer).
+   **On this box, wall-clock is not evidence about code** unless the host is quiet — check `uptime`
+   first. The memo added to `_SWUHmw108TraitSuppressed` is still correct on its merits and fixed a real
+   cross-game staleness bug (function static + one-process suite), but it bought no measured speedup.
+2. **A slice-to-end-of-file doc edit deleted 1452 lines of this file** (recovered from HEAD). Anchored
+   replacements with a uniqueness assertion, or append — never `s[s.index(marker):]`.

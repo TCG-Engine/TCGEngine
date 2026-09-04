@@ -141,7 +141,86 @@ function HasTrait(string $cardID, string $trait): bool {
 // Underworld trait" — while its owner controls a Malakili in play. $owner is the card's owner (for an
 // at-play check, the player who played it). Use this at trait-check sites that read a bare CardID, where
 // _SWUUnitHasTrait's in-play object isn't available.
+// ── HMW_108 The First Legion — "On Attack: Name a Trait. Enemy cards, INCLUDING THOSE NOT IN PLAY,
+// lose that Trait for this phase." ───────────────────────────────────────────────────────────────
+// Stored as a phase-scoped GlobalEffect on the NAMING seat: "SWU_HMW108|<TRAIT>" (upper-cased and
+// space-free — GlobalEffects explode(" ") on read). Cleared at RegroupPhaseStart.
+//
+// ⚠ The duration is THIS PHASE, not "while this unit is in play" — so unlike SEC_046 Galen there is no
+// source-still-alive check. Defeating The First Legion does not give the trait back.
+//
+// ⚠ "ENEMY" IS RESOLVED PER SEAT, NOT VIA OtherPlayer(). A card is affected when its owner is an
+// opponent of a naming seat: at 3-4 seats that is EVERY opponent of the namer, and in Team Suns a
+// TEAMMATE of the namer is never an enemy (SWUTeamOf collapses to the seat itself outside a team game,
+// so two-player play is byte-identical). Galen's own _SWUGalenNames still uses OtherPlayer() and is a
+// known member of that family; this one is built correctly from the start.
+//
+// $cardOwner is the seat that OWNS the card being tested — which is why this works for cards that are
+// not in play at all (hand, deck, discard, resources), where there is no object to carry a TurnEffect.
+// ⚠⚠ THIS IS READ FROM TraitContains, WHICH IS ONE OF THE HOTTEST FUNCTIONS IN THE ENGINE — every
+// keyword check, target pool and aura read goes through it. The first version scanned every live seat's
+// GlobalEffects on EVERY call and made the full suite 4x slower (51s -> 215s on an unchanged set of
+// tests). The flag is set by exactly ONE card and changes at most twice a phase, so the active set is
+// memoised per request and the overwhelmingly common "nobody has named anything" case costs one
+// empty-array check.
+// Invalidated at its only three mutation points: the naming handler, the RegroupPhaseStart clear, and
+// the harness's request-boundary re-parse. A stale cache here would be a correctness bug, so those are
+// deliberately explicit rather than inferred — and the ExpiresAtTheEndOfThePhase and
+// RequestBoundary_TheNamedTraitSurvives sections are what prove the invalidation actually happens.
+function _SWUHmw108ActiveFlags(bool $invalidate = false): array {
+    static $cache = null;
+    if ($invalidate) { $cache = null; return []; }
+    if ($cache !== null) return $cache;
+    $cache = [];
+    foreach (GetLiveSeatsArray() as $namer) {
+        foreach (GetGlobalEffects($namer) as $e) {
+            $flag = (string)($e->CardID ?? '');
+            if (strncmp($flag, 'SWU_HMW108|', 11) === 0) $cache[] = [$namer, substr($flag, 11)];
+        }
+    }
+    return $cache;
+}
+
+function _SWUHmw108TraitSuppressed(int $cardOwner, string $trait): bool {
+    if ($cardOwner <= 0 || $trait === '') return false;
+    $active = _SWUHmw108ActiveFlags();
+    if (empty($active)) return false;   // the common case, and the whole point of the memo
+    $needle = strtoupper(str_replace(' ', '_', $trait));
+    foreach ($active as [$namer, $named]) {
+        if ($named !== $needle) continue;
+        if ($namer === $cardOwner) continue;                        // your own cards are never "enemy"
+        if (SWUTeamOf($namer) === SWUTeamOf($cardOwner)) continue;  // Team Suns: a teammate is not an enemy
+        return true;
+    }
+    return false;
+}
+
+// Every trait printed on any card, for the "Name a Trait" picker's validation. Derived from the
+// generated dictionaries rather than hand-listed, so a new set's traits appear without a code change —
+// the same relationship NameCardUI has to the card-name dictionary. Deployed leader sides print their
+// own trait line, so leaderUnitTraitData is folded in too.
+function SWUAllTraits(): array {
+    static $cache = null;
+    if ($cache !== null) return $cache;
+    global $traitData, $leaderUnitTraitData;
+    $seen = [];
+    foreach ([$traitData ?? [], $leaderUnitTraitData ?? []] as $src) {
+        foreach ($src as $csv) {
+            foreach (explode(',', (string)$csv) as $t) {
+                $t = trim($t);
+                if ($t !== '') $seen[strtoupper($t)] = $t;
+            }
+        }
+    }
+    ksort($seen);
+    $cache = array_values($seen);
+    return $cache;
+}
+
 function _SWUCardHasTrait(int $owner, string $cardID, string $trait): bool {
+    // HMW_108 — an ENEMY card loses the named trait even while it is out of play (in hand, deck,
+    // discard or resources). This is the whole reason the helper takes an owner.
+    if (_SWUHmw108TraitSuppressed($owner, $trait)) return false;
     if (HasTrait($cardID, $trait)) return true;
     if (strtoupper($trait) === 'UNDERWORLD' && HasTrait($cardID, 'Creature')
         && $owner > 0 && _SWUCountUnitsWithCardID($owner, 'LAW_212') > 0) return true;
@@ -6727,6 +6806,10 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH006_SHIELDED_NEXT');      // ASH_006 Sabine "next unit you play gains Shielded this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_CREATED_TOKEN');      // LAW_016 The Client "if you created a token this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_GAVE_TOKEN_UPGRADE'); // HMW_005 Jar Jar "if you gave a token upgrade to a unit this phase"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_HMW172_USED');        // HMW_172 Heavy Ion Cannon "use this ability only once each phase"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_HMW215_USED');        // HMW_215 L3-37 "use this ability only once each phase"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_HMW108');             // HMW_108 The First Legion "lose that Trait for this phase"
+        _SWUHmw108ActiveFlags(true);                                 // ...and drop the memo of it
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH047_USED');        // ASH_047 Gar Saxon "once each round" create-Mandalorian
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH128_USED');        // ASH_128 Bothan-5 "once each round" capture-from-discard
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD137_USED');        // SHD_137 Punishing One "ready this unit once each round"
@@ -8722,6 +8805,17 @@ $gDeferEntryTriggers = $gDeferEntryTriggers ?? false;
 global $baseUpgradeAbilities;
 $baseUpgradeAbilities = $baseUpgradeAbilities ?? [];
 
+// OPTIONAL availability gate for one of those Actions, keyed by the same UPGRADE CardID:
+//   $baseUpgradeActionAvailable[$upgradeCardID] = fn(int $player, int $upgradeIndex, $base): bool
+// Absent = always available, which is the rules-correct DEFAULT for an Action with no cost and no
+// limit (HMW_037 Bacta Tank, HMW_095 Carbonite Chamber both rely on it). Register one only to express
+// a RESTRICTION — an unpayable bracketed cost, or a spent once-each-phase use — so that an Action which
+// could only fizzle is never offered at all (the LAW_023 / LAW_019 rule for a base's own Action, and the
+// fizzle-only-optional family generally). Mirrors $baseActionRepeatable / $baseActionNumUses for the
+// 'own' branch; the ?? [] keeps it registerable from a per-card file loaded above.
+global $baseUpgradeActionAvailable;
+$baseUpgradeActionAvailable = $baseUpgradeActionAvailable ?? [];
+
 global $gDeferredReplacements, $gSec035DefeatSnapshot, $gAsh195DefeatSnapshot, $gCombatDefeatByMz;
 // ⚠ $gDeferredReplacements is filled and drained WITHIN one request (park at defeat → flush at the end of
 // the action / trigger drain). Nothing may read it after an interactive decision — the replacement's own
@@ -9921,6 +10015,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             break;
         }
         case 'SOR_182':        BosskPlayEventReaction($player);        break;
+        case 'HMW_215':        Hmw215ReplayEventReaction($player, $mzID);  break;
         case 'SOR_143':     FFFPlayAggressionReaction($player);     break;
         case 'SOR_109':           YularenHealReaction($player);           break;
         case 'Shielded':
@@ -11071,13 +11166,42 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
     $isUpgradePlay = $isUpgrade || $playedAsUpgrade; // ...and IS an upgrade play (CR 17.c)
     $isCommandUnit = $isUnitPlay
                   && (strpos(CardAspect($playedCardID) ?? '', 'Command') !== false);
-    foreach (GetUnitsInPlay($playingPlayer) as $u) {
+    // WHO OBSERVES. Without a snapshot (unit / upgrade plays) the collector runs at entry with nothing
+    // resolving in between, so the live board IS the observer set.
+    // With a snapshot (the EVENT path) two CR rules apply together: 319.6 makes this collection happen
+    // only after the event has resolved as completely as possible, and 778.3 says a triggered ability
+    // "must resolve once triggered, even if the card with the ability leaves play before the triggered
+    // ability resolves". So the observer set is the SNAPSHOT, not the post-effect board:
+    //   • still in play → its real object;
+    //   • LEFT PLAY during the event's resolution → a stand-in carrying the identity the switch reads.
+    // Both directions of the Bossk verdict survive: a unit the event SEATED is not in the snapshot and
+    // still does not observe its own arrival, and a unit that left is no longer silently dropped.
+    // This is what makes the A New Adventure loop turn (L3-37 is bounced by the very event she observed).
+    $swuRxObservers = [];
+    if ($allowedUIDs === null) {
+        foreach (GetUnitsInPlay($playingPlayer) as $u0) $swuRxObservers[] = [$u0, true];
+    } else {
+        $swuRxLive = [];
+        foreach (GetUnitsInPlay($playingPlayer) as $u0) $swuRxLive[intval($u0->UniqueID ?? 0)] = $u0;
+        foreach ($allowedUIDs as $snapEntry) {
+            $bits   = explode(':', (string)$snapEntry);
+            $snapU  = intval($bits[0] ?? 0);
+            $snapC  = (string)($bits[1] ?? '');
+            $snapS  = intval($bits[2] ?? 0);
+            if ($snapU <= 0 || $snapS !== intval($playingPlayer)) continue;   // only this player's observers
+            if (isset($swuRxLive[$snapU])) { $swuRxObservers[] = [$swuRxLive[$snapU], true]; continue; }
+            // Departed: a stand-in with the fields the switch reads. TurnEffects/Subcards are empty on
+            // purpose — an out-of-play card carries no live modifiers, and LostAbilities() reads both.
+            $swuRxObservers[] = [(object)[
+                'CardID' => $snapC, 'UniqueID' => $snapU, 'Controller' => $snapS, 'Owner' => $snapS,
+                'removed' => false, 'TurnEffects' => [], 'Subcards' => [],
+            ], false];
+        }
+    }
+    foreach ($swuRxObservers as [$u, $observerInPlay]) {
         if (!empty($u->removed) || LostAbilities($u)) continue;   // SEC_046 Galen — a named observer doesn't react
         $cid = $u->CardID ?? '';
         $uid = intval($u->UniqueID ?? 0);
-        // Event-play observer snapshot (the Bossk verdict): with an allowlist supplied, a unit that
-        // was NOT in play when the event was played is no observer of it.
-        if ($allowedUIDs !== null && !in_array($uid, $allowedUIDs, true)) continue;
         // HMW_115 Leia Organa, These Are My Friends: "When you play ANOTHER unit that costs 3 or less:
         // Heal 1 damage from your base." COST is always the PRINTED cost (never a discounted or
         // aspect-inflated one). Self-exclusion is by UniqueID, so her own arrival — she is cost 1 —
@@ -11094,6 +11218,27 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
         // SOR_182 Bossk: "When you play an event: you may deal 2 damage to a unit."
         if ($cid === 'SOR_182' && $isEvent) {
             AddTrigger($playingPlayer, 'SOR_182', 'SOR_182', '');
+        }
+        // HMW_215 L3-37: "When you play an event that costs 3 or less: You may play it again from your
+        // discard pile for free. Use this ability only once each phase."
+        // COST is the PRINTED cost (the HMW_115 reading), never what was actually paid — an off-aspect
+        // cost-3 event is billed 5 and still qualifies.
+        // The once-each-phase flag is checked HERE as well as consumed in the handler, and that is what
+        // makes the replay non-recursive: the replayed copy is itself an event you played that costs 3
+        // or less, so without the flag already set it would observe itself forever.
+        // The played event's CardID rides the mzID slot — FlushTriggerBag drops extraParams (the LAW_141
+        // / LAW_201 pattern) — so the handler can find the right copy in the discard.
+        // ⚠ THE LIMIT IS PER COPY, NOT PER PLAYER (CR 885: "whenever a card leaves and later re-enters
+        // play, it is considered a NEW COPY of that card for the purposes of game rules"). So the flag is
+        // keyed by this L3-37's UniqueID: a bounced-and-replayed L3-37 is a different object and brings a
+        // fresh use with it. That is load-bearing for the real A New Adventure / Lady Proxima loop, where
+        // each iteration seats a NEW L3-37 — a per-player flag would stop the combo dead after one pass.
+        // It still guards the DIRECT self-replay, which is the same object and therefore the same key.
+        // ⚠ Comma-delimited: the trigger dispatcher PIPE-splits its param, so a "|" here would silently
+        // drop the second field.
+        if ($cid === 'HMW_215' && $isEvent && intval(CardCost($playedCardID)) <= 3
+            && GlobalEffectCount($playingPlayer, 'SWU_HMW215_USED_' . $uid) <= 0) {
+            AddTrigger($playingPlayer, 'HMW_215', 'HMW_215', $playedCardID . ',' . $uid);
         }
         // TWI_184 Tactical Droid Commander: "When you play another Separatist unit: you may exhaust a
         // unit that costs the same as or less than the played unit." Carries the played unit's cost.
@@ -11155,7 +11300,11 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
         }
         // SHD_096 Maz Kanata: "When you play ANOTHER unit: give an Experience token to this unit."
         // Mandatory, targets self → resolve immediately.
-        if ($cid === 'SHD_096' && $isUnitPlay && $uid !== $playedUID) {
+        // ⚠ $observerInPlay: this is the only branch that needs the observer's BOARD position, and a
+        // departed stand-in has none (no GetMzID). Unreachable for a departed observer today — the
+        // departed path only exists on the event path, where $isUnitPlay is false — but the guard makes
+        // that explicit instead of load-bearing-by-accident.
+        if ($cid === 'SHD_096' && $isUnitPlay && $observerInPlay && $uid !== $playedUID) {
             DoGiveExperienceToken($playingPlayer, $u->GetMzID());
         }
         // SHD_239 Toro Calican: "When you play ANOTHER Bounty Hunter unit: you may deal 1 damage to it. If
@@ -12104,8 +12253,11 @@ $customDQHandlers["TWI_210#0"] = function($player, $parts, $lastDecision) {
     // are excluded from own-play reactions. '' = nothing was in play; an ABSENT 4th part (legacy
     // callers) = no filtering. (The opponent-side collectors are count-based, not per-unit, and an
     // event seating a unit under the OPPONENT's control is not a real scenario today — unfiltered.)
+    // ⚠ Entries are "uid:cardID:seat" STRINGS — do not intval them. SWUCollectOwnPlayReactions needs the
+    // CardID and seat to fire an observer that has since left play (CR 778.3); an intval here collapses
+    // every entry to a bare uid and silently drops the whole observer set.
     $allowedUIDs = array_key_exists(3, $parts)
-        ? array_map('intval', array_values(array_filter(explode(',', $parts[3]), 'strlen')))
+        ? array_values(array_filter(explode(',', $parts[3]), 'strlen'))
         : null;
     SWUCollectOpponentPlayReactions($playingPlayer, $playedCardID, $resourcesPaid);
     // Batch E.1 — own-play reactions on event plays (Bossk's "when you play an event"; FFF on an Aggression event).
@@ -14314,7 +14466,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
             if ($cardID === 'SHD_251') {
                 $all = array_values(array_filter($all, function($mz) {
                     $o = GetZoneObject($mz);
-                    return !SWUObjGone($o) && !HasTrait($o->CardID ?? '', 'Vehicle');
+                    return !SWUObjGone($o) && !TraitContains($o, 'Vehicle');
                 }));
             }
             $playerID = $savedPID;
@@ -14387,7 +14539,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
             // abilities, the attached unit's controller resolves them). Rebuild from all four arenas, then
             // filter out Vehicles (mirrors the "Vehicle unit" group below).
             $playerID = $player;
-            $all = array_values(array_filter(SWUAllUnits(), fn($mz) => !HasTrait(GetZoneObject($mz)->CardID ?? '', 'Vehicle')));
+            $all = array_values(array_filter(SWUAllUnits(), fn($mz) => !TraitContains(GetZoneObject($mz), 'Vehicle')));
             $playerID = $savedPID;
             break;
         // "Attach to a unit that costs 4 or less."
@@ -14442,7 +14594,7 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'SEC_227': // Special Modifications — was a friendly-only filter (group reconciliation
                         // 2026-08-13); same unqualified "Attach to a Vehicle unit" as the rest.
             $playerID = $player;
-            $all = array_values(array_filter(SWUAllUnits(), fn($mz) => HasTrait(GetZoneObject($mz)->CardID ?? '', 'Vehicle')));
+            $all = array_values(array_filter(SWUAllUnits(), fn($mz) => TraitContains(GetZoneObject($mz), 'Vehicle')));
             $playerID = $savedPID;
             break;
         // "Attach to a Capital Ship or Transport unit." (JTL_227 Superheavy Ion Cannon)
@@ -14591,7 +14743,10 @@ function SWUVehiclePilotCapacity($host): int {
 function SWUPilotCanAttach(string $pilotCardID, $host, string $context = 'piloting'): bool {
     if (SWUObjGone($host)) return false;
     $hostID = $host->CardID ?? '';
-    if (!HasTrait($hostID, 'Vehicle')) return false;
+    // Object-aware: the host is IN PLAY, so a trait it has lost must count as lost. HMW_108 naming
+    // "Vehicle" therefore leaves an enemy's pilots with no legal host at all — and equally strips the
+    // hosts a PILOT LEADER could deploy onto, since SWUDeployLeader's upgrade branch routes here too.
+    if (!TraitContains($host, 'Vehicle')) return false;
 
     // R2-D2 (JTL_245): may attach to a Vehicle WITH a Pilot already on it.
     // This override applies regardless of context.
@@ -14654,7 +14809,9 @@ function SWUGetLeaderPilotVehicles(int $player): array {
     return array_values(array_filter($all, function($mz) {
         $hostObj = GetZoneObject($mz);
         if (SWUObjGone($hostObj)) return false;
-        if (!HasTrait($hostObj->CardID ?? '', 'Vehicle')) return false;
+        // Object-aware (HMW_108 / LOF_033): a host that has LOST the Vehicle trait is no longer a legal
+        // landing spot for a pilot leader.
+        if (!TraitContains($hostObj, 'Vehicle')) return false;
         return SWUVehiclePilotCount($hostObj) < SWUVehiclePilotCapacity($hostObj);
     }));
 }
@@ -15562,10 +15719,17 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         // the moment the event is PLAYED — a unit the event itself seats (Sneak Attack × Bossk) must
         // not observe its own arrival. The block-5 collector below re-scans the post-effect board, so
         // it filters against this UID snapshot.
+        // ⚠ Each entry is "uid:cardID:seat", not a bare uid. CR 778.3 requires an observer that was in
+        // play when the event was PLAYED to resolve its trigger even if it has left play by the time the
+        // collector runs (CR 319.6 puts that collection after the event fully resolves) — so the snapshot
+        // has to carry enough identity to fire an observer the live board no longer contains.
+        // No spaces, no "|": this rides a DecisionQueue param, which is space-delimited and pipe-split.
         $evtObserverUIDs = [];
         foreach (GetLiveSeatsArray() as $sp) {
             foreach (GetUnitsInPlay($sp) as $u0) {
-                if (empty($u0->removed) && intval($u0->UniqueID ?? 0) > 0) $evtObserverUIDs[] = intval($u0->UniqueID);
+                if (empty($u0->removed) && intval($u0->UniqueID ?? 0) > 0) {
+                    $evtObserverUIDs[] = intval($u0->UniqueID) . ':' . ($u0->CardID ?? '') . ':' . intval($sp);
+                }
             }
         }
         // The event's OWN When-Played effect — suppressed when the event has lost all abilities (Relentless
@@ -16979,7 +17143,8 @@ function _SWUBaseActionUsesLeft($base, string $cardID): int {
 // Labels are single-token (DecisionQueue params split on spaces) and are re-derived, not stored — the
 // board cannot change between the OPTIONCHOOSE and the CUSTOM that reads its answer.
 function _SWUBaseActionProviders(int $player): array {
-    global $baseAbilities, $baseActionNumUses, $baseActionRepeatable, $baseUpgradeAbilities;
+    global $baseAbilities, $baseActionNumUses, $baseActionRepeatable, $baseUpgradeAbilities,
+           $baseUpgradeActionAvailable;
     $baseArr = GetBase($player);
     $base = null;
     foreach ($baseArr as $b) { if (empty($b->removed)) { $base = $b; break; } }
@@ -17019,7 +17184,9 @@ function _SWUBaseActionProviders(int $player): array {
     $idx = 0;
     foreach (GetUpgradesOnUnit($base) as $sub) {
         $ucid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
-        if ($ucid !== '' && isset($baseUpgradeAbilities[$ucid])) {
+        $gate = $baseUpgradeActionAvailable[$ucid] ?? null;
+        if ($ucid !== '' && isset($baseUpgradeAbilities[$ucid])
+            && (!is_callable($gate) || $gate($player, $idx, $base))) {
             $label = preg_replace('/[^A-Za-z0-9]/', '', (string)CardTitle($ucid));
             if ($label === '') $label = str_replace('_', '', $ucid);
             foreach ($out as $o) { if ($o['label'] === $label) { $label .= ($idx + 1); break; } }
@@ -23407,6 +23574,10 @@ function TraitContains($obj, $trait): bool {
     if ($obj === null || !is_object($obj)) return false;
     $te = $obj->TurnEffects ?? null;
     if (is_array($te) && in_array('NO_TRAIT_' . strtoupper($trait), $te, true)) return false;
+    // HMW_108 The First Legion. Checked BEFORE the grant clauses below on purpose: "loses that Trait"
+    // is absolute, so a unit that would otherwise GAIN the trait from an upgrade or an aura (LOF_073's
+    // Mandalorian, SEC_156's Rebel, ASH_135's Darksaber …) still does not have it.
+    if (_SWUHmw108TraitSuppressed(intval($obj->Controller ?? 0), $trait)) return false;
     if (strtoupper($trait) === 'CLONE' && !empty($obj->IsClone)) return true;
     if (strtoupper($trait) === 'FORCE' && _SWUUnitHasUpgrade($obj, 'SEC_054')) return false;
     if (strtoupper($trait) === 'JEDI' && _SWUUnitHasUpgrade($obj, 'TS26_37')) return false;

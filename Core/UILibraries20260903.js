@@ -5036,7 +5036,7 @@ const DELAYED_DECISION_UNDO_TYPES = new Set([
   'TOPDECKSEARCH', 'SCRY', 'REVEALARRANGE', 'YESNO', 'CHOOSEZONE',
   'MZCHOOSE', 'MZMAYCHOOSE', 'MZREARRANGE', 'MZMODAL', 'MZMULTICHOOSE',
   'MZSPLITASSIGN', 'NUMBERCHOOSE', 'OPTIONCHOOSE', 'TWOSIDEDSLIDER',
-  'NAMECARD', 'ICONCHOICE'
+  'NAMECARD', 'NAMETRAIT', 'ICONCHOICE'
 ]);
 
 window.DelayedDecisionUndoState = window.DelayedDecisionUndoState || {
@@ -5951,6 +5951,19 @@ function CheckAndShowDecisionQueue(decisionQueue, phase = 'all') {
         });
       } else {
         console.error('NameCardUI.js not loaded - ShowNameCardUI function not found');
+      }
+      break;
+    } else if (entry && entry.Type === 'NAMETRAIT' && !entry.removed) {
+      // HMW_108 The First Legion — "Name a Trait." Sibling of NAMECARD; the picker offers every trait
+      // printed on any card, derived from the generated trait dictionaries.
+      var traitTip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Name a Trait';
+
+      if (typeof ShowNameTraitUI === 'function') {
+        ShowNameTraitUI(entry.Param, traitTip, i, function(selectedTrait, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(selectedTrait));
+        });
+      } else {
+        console.error('NameTraitUI.js not loaded - ShowNameTraitUI function not found');
       }
       break;
     } else if (entry && entry.Type === 'ICONCHOICE' && !entry.removed) {
@@ -7468,6 +7481,7 @@ function _describeDecisionType(type) {
     case 'NUMBERCHOOSE': return 'choose a number';
     case 'TWOSIDEDSLIDER': return 'choose a split';
     case 'NAMECARD': return 'name a card';
+    case 'NAMETRAIT': return 'name a trait';
     case 'ICONCHOICE': return 'choose a direction';
     default: return 'take an action';
   }

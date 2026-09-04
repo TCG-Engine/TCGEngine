@@ -1094,7 +1094,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* The Force token is rendered INSIDE the base card (top-right corner) by the
        core Card() renderer, driven by the base's HasForce virtual — same path as the
-       Epic-Action-Used token. See Core/UILibraries20260901.js. */
+       Epic-Action-Used token. See Core/UILibraries20260903.js. */
 
     /* ── Counter badges below the frame animations ───────────────────────────────
        The shared CreateCountersHTML hardcodes z-index:1100 on every counter badge,

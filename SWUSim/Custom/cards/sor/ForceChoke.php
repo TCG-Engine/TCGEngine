@@ -26,7 +26,8 @@ $whenPlayedAbilities["SOR_139:0"] = function($player, $mzID = '') {
             foreach (SWUAllUnits() as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
-                if (HasTrait($o->CardID, 'Vehicle')) continue;
+                if (TraitContains($o, 'Vehicle')) continue;   // object-aware: honours granted AND stripped traits
+                                                             // (LOF_033 per-unit, HMW_108 named-trait)
                 $targets[] = $mz;
             }
             SWUQueueChooseTarget(intval($player), $targets, "Deal_5_damage_to_a_non-Vehicle_unit", "SOR_139#0");

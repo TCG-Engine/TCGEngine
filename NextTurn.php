@@ -17,7 +17,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
       crossorigin="anonymous"></script>
     <script src="./Core/StyledDialog.js?v=<?php echo filemtime('./Core/StyledDialog.js'); ?>"></script>
-    <script src="./Core/UILibraries20260901.js?v=<?php echo filemtime('./Core/UILibraries20260901.js'); ?>"></script>
+    <script src="./Core/UILibraries20260903.js?v=<?php echo filemtime('./Core/UILibraries20260903.js'); ?>"></script>
     <script src="./Core/CounterRendering.js?v=<?php echo filemtime('./Core/CounterRendering.js'); ?>"></script>
     <script src="./Core/MZRearrangePopup.js?v=<?php echo filemtime('./Core/MZRearrangePopup.js'); ?>"></script>
     <script src="./Core/MZSplitAssignUI.js?v=<?php echo filemtime('./Core/MZSplitAssignUI.js'); ?>"></script>
@@ -27,6 +27,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <script src="./Core/IconChoiceUI.js?v=<?php echo filemtime('./Core/IconChoiceUI.js'); ?>"></script>
     <script src="./Core/NumberChooseUI.js?v=<?php echo filemtime('./Core/NumberChooseUI.js'); ?>"></script>
     <script src="./Core/NameCardUI.js?v=<?php echo filemtime('./Core/NameCardUI.js'); ?>"></script>
+    <script src="./Core/NameTraitUI.js?v=<?php echo filemtime('./Core/NameTraitUI.js'); ?>"></script>
     <script src="./Core/MatchReplayClient.js?v=<?php echo filemtime('./Core/MatchReplayClient.js'); ?>"></script>
     <script src="./Core/OptionChooseUI.js?v=<?php echo filemtime('./Core/OptionChooseUI.js'); ?>"></script>
     <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css?v=<?php echo filemtime('./Core/Styles/ScreenAnimations.css'); ?>">

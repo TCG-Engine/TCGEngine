@@ -305,6 +305,12 @@ class GameStateBuilder {
     // ── Build ─────────────────────────────────────────────────────
 
     public function Build(): self {
+        // ⚠ Drop HMW_108's active-trait memo. It is a function STATIC, and the whole regression runs in
+        // ONE php process — so without this the flag named by an earlier section would still read as
+        // active in every later game. Production never needs it (a fresh request = a fresh process);
+        // this is the harness paying for its own long-lived process, like simulateRequestBoundary's
+        // transient-global reset list.
+        if (function_exists('_SWUHmw108ActiveFlags')) _SWUHmw108ActiveFlags(true);
         $this->_applyToGlobals();
         return $this;
     }

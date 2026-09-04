@@ -722,6 +722,23 @@ class GameTestAdapter {
         $base = rtrim(sys_get_temp_dir(), '/') . '/swusim_request_boundary_' . $uid . '_' . $pid . '/';
         $dir  = $base . "Games/{$gameName}";
         if (!is_dir($dir)) { @mkdir($dir, 0777, true); @chmod($dir, 0777); }
+        // ⚠ SWEEP OUR OWN DROPPINGS. The path is scoped per PID, and an Apache worker's PID is gone the
+        // moment it retires — so every worker that ever ran a boundary section used to leave a directory
+        // behind forever. Measured 2026-09-03: 2158 of them, 2146 belonging to dead PIDs, ~35MB and
+        // growing every run. That is the documented ENOSPC hazard building up quietly.
+        // Cheap and self-limiting: once per call, drop sibling dirs whose PID no longer exists. Only
+        // /proc-visible PIDs are treated as live, so this is a no-op on a host without /proc rather than
+        // a mass delete. Never touches the directory we are about to write.
+        static $sweptOnce = false;
+        if (!$sweptOnce) {
+            $sweptOnce = true;
+            foreach (glob(rtrim(sys_get_temp_dir(), '/') . '/swusim_request_boundary_*') ?: [] as $old) {
+                if ($old === rtrim($base, '/') || !is_dir($old)) continue;
+                $oldPid = (int)substr($old, strrpos($old, '_') + 1);
+                if ($oldPid <= 0 || is_dir("/proc/{$oldPid}")) continue;   // live (or unknowable) → keep
+                @exec('rm -rf ' . escapeshellarg($old));
+            }
+        }
         if (!is_dir($dir) || !is_writable($dir)) {
             // Fail LOUDLY rather than silently degrading into a fake state-loss bug.
             throw new RuntimeException("SimulateRequestBoundary: scratch dir '$dir' is not writable "
@@ -752,6 +769,9 @@ class GameTestAdapter {
         // a stale snapshot is exactly the half-cleared shape the JTL_094 leak had. Reset for faithfulness.
         unset($GLOBALS['gSimulDefeatUnits']);
         $GLOBALS['gTwi040IgnoreAspect']     = false;
+        // HMW_108's active-trait memo is a function static, so it survives an in-process re-parse the way
+        // a real fresh process would not. Drop it here or a boundary section reads a pre-boundary answer.
+        if (function_exists('_SWUHmw108ActiveFlags')) _SWUHmw108ActiveFlags(true);
         unset($GLOBALS['gSimulDefeatSidious']);
         $gShootFirstPending    = null;
         $gDeferredReplacements = [];
