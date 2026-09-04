@@ -109,6 +109,63 @@ Measured on HMW_263 Wrecker (2026-08-27): the window was invisible to 12 green s
 written in the discriminating order. Corollary: if you add a batch window, mutate it out and name the
 section that reds — an unverified one is the "belt and braces nobody dares touch later" shape.
 
+### ⚠ A GREEN mutation is often a BROKEN PROBE — prove the mutated line is REACHED (HMW wave 17, 2026-09-04)
+
+The "three causes" list above needs a FOURTH, and it was the most expensive one of this run: **the
+mutation never ran, or never ran on the path the section takes.** Two forms, both of which produced a
+confident-looking green:
+
+1. **The file was half-flushed.** The documented phantom-`php -l` race is not limited to lints — a
+   scripted write followed immediately by a SUITE RUN executes against a truncated file (the tail
+   zero-filled, so PHP reports `unexpected character 0x00`). The run then prints no summary line, which
+   reads as "nothing failed". **Gate every mutation on a passing `php -l` before running the suite, and
+   treat a missing `N passed / N failed` line as VOID, never as a result.** Retry the lint up to ~3
+   times; it passed on attempt 2 twice in one session.
+2. **The mutated code is not on the section's path.** Shedding `_SWUDefeatAllAdvantageTokens($defenderMzID)`
+   changed nothing because the unit under test was the ATTACKER; switching to `$attackerMzID` changed
+   nothing either, because that helper no-ops on an already-REMOVED unit. Both greens said "this guard
+   is not load-bearing"; both were wrong about the probe, not about the code. **Before believing a green
+   mutation, name the line the section executes and confirm your edit is on it** — mutate what the
+   section ASSERTS (there: "does an Advantage subcard contribute power at defeat", which reds cleanly).
+
+★ And the finding that falls out of it: **when a behaviour holds STRUCTURALLY rather than by a guard,
+say so in the section comment.** A defeated host's Advantage tokens are never shed by the attack-ends
+path at all, so "the When Defeated resolves before the attack-ends window" is true by construction — it
+has no guard and a future "tidy-up" of the shed order would not be caught. Recording that is worth more
+than a guard that cannot exist.
+
+### ⚠ "HAD N power" — the ATTACKING section cannot discriminate; write the DEFENDING one (HMW_109)
+
+The power-at-defeat family (SEC_035, ASH_195, JTL_104, HMW_109) reads
+`max(ObjectCurrentPower, the attacker's stashed ATTACK power)`. For an ATTACKER the stash is taken at
+damage time, before anything is stripped or shed — so an attacking section answers the same number
+whether or not subcards are counted, and every "do the tokens still count?" mutation comes back green.
+**A DEFENDER has no stash**, so its power is read from the live object alone; that is the only section
+that pins "the snapshot sees the subcards". Write both, and expect only the defending one to red.
+
+⚠ The stash is now taken for EVERY attacker (`$gAttackPowerAtDefeat`), not per-CardID. It was a
+two-name allowlist, and its default — stash nothing — is wrong for any card that asks the question, so
+a new family member added without editing CombatLogic silently read its printed power.
+
+### ⚠ Far seats CAN act — `WithP{n}ResourceControlled` is the missing half (2026-09-04)
+
+Seats 3/4 have no `Hand`/`Deck`/`Resources` directive, which reads as "a far seat cannot take an action"
+— and the older note that there is no `WithP{n}Leader` is now STALE (it exists, deployed forms included).
+**`WithP{n}ResourceControlled: CARD:seat` seeds a READY resource**, so repeating it N times funds a far
+seat's Epic deploy, and `P{n}>DeployLeader` is then a real far-seat ACTION. That is what makes a Team
+Suns section possible when the teammate has to DO something (a unit entering play under them, say)
+rather than merely sit on the board. Keep the general rule — put the actor on seat 1/2 where you can —
+but this is the escape hatch when the far seat must act.
+
+⚠ **A 1-of-1 mandatory `MZMULTICHOOSE` does NOT auto-resolve.** Unlike a single-target `MZCHOOSE` (which
+short-circuits through `PASSPARAMETER`), a multi-select with `min=max=1` still prompts. A section that
+omits the pick asserts against an unresolved decision and reads exactly like the ability doing nothing.
+
+⚠ **The prose-mention trap has a second form.** Writing CardIDs into prose placed AFTER the
+`### Already Done` heading breaks any completeness diff that scans "everything after the heading" — the
+note naming what is LEFT gets counted as DONE. Derive the done-set from the `### Already Done` LINE
+(`lines[index('### Already Done') + 1]`), never from the heading onward.
+
 ### ⚠ Fixture idioms that make a whole assertion class UNOBSERVABLE (live bug-report batch, 2026-08-17)
 
 The cells above go missing because nobody writes them. These go missing for a worse reason: the section

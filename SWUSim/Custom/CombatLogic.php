@@ -2973,15 +2973,20 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         }
         $attacker->TurnEffects = $keptTE;
     }
-    // SEC_035 Darth Sion — "When Defeated: if this unit HAD 7+ power, return to hand." His power AT DEFEAT
-    // includes any "for this attack" bonus (Surprise Strike +3), but that SWU_ATK_POWER bonus is consumed
-    // here (before the defeat/collection point), so stash his buffed attack power now for the When-Defeated
-    // snapshot to read. Keyed by UniqueID; cleared after the snapshot consumes it.
-    if (($attacker->CardID ?? '') === 'SEC_035') {
-        global $gSec035AttackPower;
-        if (!isset($gSec035AttackPower) || !is_array($gSec035AttackPower)) $gSec035AttackPower = [];
-        $gSec035AttackPower[intval($attacker->UniqueID ?? 0)] = intval($attackPower);
-    }
+    // "HAD N power" — the power-at-defeat family (SEC_035 Darth Sion "7+", HMW_109 Tireless Magnaguard
+    // "5+"). An attacker's power at the moment it is defeated includes everything folded into its ATTACK
+    // power and nothing of that survives to the defeat-collection point: RAID (CR 8.8.c — the bonus lasts
+    // for the attack and is lost when the attack ends), the "for this attack" SWU_ATK_POWER one-shots
+    // (consumed a few lines above), and the while-attacking riders. So stash the finished attack power
+    // here, keyed by UniqueID, for CollectWhenDefeatedTriggers to read.
+    //
+    // ⚠ Stashed for EVERY attacker, deliberately. This was a two-CardID allowlist and that is the shape
+    // the SWUGetUpgradeValidTargets lesson names: the DEFAULT (stash nothing) is wrong for any card that
+    // asks the question, so a card added to the family without being added here reads its printed power
+    // and silently answers "no". One int per attack per request; the readers self-gate by CardID.
+    global $gAttackPowerAtDefeat;
+    if (!isset($gAttackPowerAtDefeat) || !is_array($gAttackPowerAtDefeat)) $gAttackPowerAtDefeat = [];
+    $gAttackPowerAtDefeat[intval($attacker->UniqueID ?? 0)] = intval($attackPower);
     // Jyn Erso (SOR_018): "the defender gets -1/-0" — reduces the power the defender deals back.
     // Two sources: a one-shot SWU_DEF_DEBUFF_N from her leader action ("for this attack", consumed
     // here), and her deployed passive (-1 while any friendly unit of the attacker's controller is

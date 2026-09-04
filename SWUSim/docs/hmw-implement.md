@@ -18,7 +18,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112, HMW_160, HMW_046, HMW_044, HMW_172, HMW_215, HMW_108
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112, HMW_160, HMW_046, HMW_044, HMW_172, HMW_215, HMW_108, HMW_103, HMW_109, HMW_105, HMW_008
 
 
 <!-- HMW_005 Jar Jar Binks, Bombad General — Done, 16/16. THE SET'S LAST CARD.
@@ -2209,8 +2209,35 @@ object. The trigger param is comma-delimited (the dispatcher pipe-splits its own
 
 # ▶▶ NEXT SESSION STARTS HERE (written 2026-09-03)
 
-HMW is **card-complete, 150 / 150** (`### Already Done` diffed against `AppCore/SWU/CardMocks.php`,
-re-derived at the end of the session). Suite **11109 / 0**. Tree UNCOMMITTED.
+⚠ **SUPERSEDED 2026-09-04 — HMW IS NO LONGER CARD-COMPLETE.** A new preview wave landed (4 cards:
+**HMW_008** General Grievous - Separatist Warlord (Leader), **HMW_103** Disposable B1, **HMW_105** Nute
+Gunray - Perfectly Legal, **HMW_109** Tireless Magnaguard), taking `CardMocks.php` from 150 to 154. This
+is the documented "a preview set GROWS after the plan doc is written" case — the batch checkboxes below
+were never the card list. **HMW_103 is DONE** (7 sections, all three guards mutation-verified); the
+`--iterative` run order for the rest is **HMW_109 → HMW_105 → HMW_008** (simplest first; the leader is
+last and needs BOTH sides). **ALL FOUR ARE DONE** — HMW_103, HMW_109, HMW_105, HMW_008.
+HMW is CARD-COMPLETE AGAIN at 154 / 154 as of this diff. Suite **11161 / 0**. Re-derive what is left with the diff — and take it from the `### Already Done`
+LINE, not from everything after the heading: this very paragraph names CardIDs and a heading-anchored
+scan swallows them (the documented prose-mention trap, hit again on 2026-09-04).
+
+⚠ **Two things HMW_105 left UNPINNED, both stated rather than papered over.** (1) Its damage is applied
+SEQUENTIALLY with no `SWUSimulDefeatBegin/End` window, matching JTL_174 and the rest of the engine's
+multi-target damage; whether this family should be simultaneous is a FAMILY decision. The natural
+co-victim fixture, **ASH_127 The Twins, still reads `_SWUCountActiveUnitsWithCardID` rather than
+`_SWUSimulObserverCount`** — i.e. it looks like an unconverted member of the documented
+simultaneous-observer family, worth a look on its own. (2) The per-dealer damage SOURCE is passed
+(CR 9.12) but is **unobservable**: replacing it with null leaves the entire suite green, because no
+source-sensitive card in the pool can currently be reached by a 1-damage enemy-only ping.
+
+⚠ **HMW_109 generalised a shared seam.** The attacker's finished ATTACK power is now stashed for EVERY
+attacker (`$gAttackPowerAtDefeat`, CombatLogic) instead of only for SEC_035 — that was a two-CardID
+allowlist whose default was wrong for any card asking "had N power". SEC_035 reads the same map now.
+⚠ And a note for whoever touches the Advantage shed: a defeated host's Advantage tokens are never shed
+by the attack-ends path (`_SWUDefeatAllAdvantageTokens` no-ops on a removed unit), so "the When Defeated
+resolves before the attack-ends window" holds STRUCTURALLY, not by a guard.
+
+(historical) HMW was **card-complete, 150 / 150** (`### Already Done` diffed against
+`AppCore/SWU/CardMocks.php`, re-derived at the end of the session). Suite **11109 / 0**.
 
 ## 1. FIRST THING — pin the nested-play trigger ORDER (judge ruling in hand)
 

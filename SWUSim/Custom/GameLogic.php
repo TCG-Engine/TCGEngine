@@ -777,6 +777,16 @@ function ObjectCurrentPower($obj) {
     // SHD_037 Supreme Leader Snoke — "Each enemy non-leader unit gets –2/–2."
     $base -= 2 * SWUEnemySnokeCount($obj);
 
+    // HMW_008 General Grievous (DEPLOYED side) — "While you control more units than an opponent, this
+    // unit gets +3/+0." Power ONLY, so there is deliberately no twin in ObjectCurrentHP. Self-only
+    // ("you control", never the team), EXISTENTIAL over opponents ("AN opponent" — more than ONE of
+    // them is enough, which only shows above two seats), and recomputed on every read so it lifts the
+    // moment the counts level. See cards/hmw/GeneralGrievous_SeparatistWarlord.php.
+    if (($obj->CardID ?? '') === 'HMW_008' && IsLeaderUnit($obj)
+            && _SWUHmw008HasUnitAdvantage($controller)) {
+        $base += 3;
+    }
+
     // "For this phase" stat changes (STAT_BUFF minus STAT_DEBUFF), e.g. SOR_124 Tactical Advantage,
     // SOR_106 Attack Pattern Delta, SOR_216 Disarm, SOR_076 Make an Opening, SOR_054 Jedi Lightsaber.
     $base += SWUTurnEffectStatBonus($obj, 'power');
@@ -6826,6 +6836,7 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH047_USED');        // ASH_047 Gar Saxon "once each round" create-Mandalorian
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH128_USED');        // ASH_128 Bothan-5 "once each round" capture-from-discard
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD137_USED');        // SHD_137 Punishing One "ready this unit once each round"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_HMW109_WEAKEN');      // HMW_109 "for this phase" replay charge (twin of SWUClearDiscardModifiers' TPF)
         SWUClearGlobalEffectsByPrefix($p, 'SWU_HMW062_USED');        // HMW_062 Nuvo Vindi "give a Weakness once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD163_USED');        // SHD_163 Migs Mayfeld "deal 2 on any hand-discard once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD217_USED');        // SHD_217 Tobias Beckett "exhaust a ≤cost unit once each round"
@@ -11697,15 +11708,15 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
             // runs after they're stripped, so it reads base power without this. Keyed by mzID (the
             // same string the closure receives).
             if ($defObj !== null && ($d['cardID'] ?? '') === 'SEC_035') {
-                global $gSec035DefeatSnapshot, $gSec035AttackPower;
+                global $gSec035DefeatSnapshot, $gAttackPowerAtDefeat;
                 // "had 7 or more power" reads his power AT THE MOMENT OF DEFEAT. If he was defeated while
                 // ATTACKING, that includes any "for this attack" bonus (e.g. Surprise Strike +3), which was
                 // stashed at combat-power time (the SWU_ATK_POWER bonus is consumed before this point).
                 $power = intval(ObjectCurrentPower($defObj));
                 $uid035 = intval($defObj->UniqueID ?? 0);
-                if (is_array($gSec035AttackPower ?? null) && isset($gSec035AttackPower[$uid035])) {
-                    $power = max($power, intval($gSec035AttackPower[$uid035]));
-                    unset($gSec035AttackPower[$uid035]);
+                if (is_array($gAttackPowerAtDefeat ?? null) && isset($gAttackPowerAtDefeat[$uid035])) {
+                    $power = max($power, intval($gAttackPowerAtDefeat[$uid035]));
+                    unset($gAttackPowerAtDefeat[$uid035]);
                 }
                 $gSec035DefeatSnapshot[$d['mzID']] = [
                     'power' => $power,
@@ -11716,6 +11727,36 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
                 $sKey = 'SWU_SEC035_' . str_replace('-', '_', $d['mzID']);
                 SetSWUVar($sKey . '_PWR', strval(intval($gSec035DefeatSnapshot[$d['mzID']]['power'] ?? 0)));
                 SetSWUVar($sKey . '_OWN', strval(intval($gSec035DefeatSnapshot[$d['mzID']]['owner'] ?? 0)));
+            }
+            // HMW_109 Tireless Magnaguard — "When Defeated: if this unit had 5 or more power, for this
+            // phase you may play this unit from your discard pile for free…". Same power-at-defeat family
+            // as SEC_035 above, and snapshotted at the SAME point for the same two reasons:
+            //   • subcards are still attached here, so Weakness (-1/-1) AND Advantage (+1/+0) both count.
+            //     ⚠ That is load-bearing, not incidental: an Advantage token's own "when the attached
+            //     unit's attack or defense ends: defeat this upgrade" fires in the ATTACK-ENDS window,
+            //     which CollectCombatStep3Triggers runs AFTER this collection — so the tokens are still
+            //     on the unit when its power is measured (USER RULING 2026-09-04).
+            //   • RAID is not a stat modifier and is gone by now, so the attacker stash supplies it.
+            // Stores the CONTROLLER (the ability resolves for them and the text says "YOUR discard pile"),
+            // unlike SEC_035 which stores the owner because its text says "his OWNER's hand".
+            if ($defObj !== null && ($d['cardID'] ?? '') === 'HMW_109') {
+                global $gHmw109DefeatSnapshot, $gAttackPowerAtDefeat;
+                if (!is_array($gHmw109DefeatSnapshot ?? null)) $gHmw109DefeatSnapshot = [];
+                $pw109  = intval(ObjectCurrentPower($defObj));
+                $uid109 = intval($defObj->UniqueID ?? 0);
+                if (is_array($gAttackPowerAtDefeat ?? null) && isset($gAttackPowerAtDefeat[$uid109])) {
+                    $pw109 = max($pw109, intval($gAttackPowerAtDefeat[$uid109]));
+                    unset($gAttackPowerAtDefeat[$uid109]);
+                }
+                $ctrl109 = intval($defObj->Controller ?? $d['player']);
+                $gHmw109DefeatSnapshot[$d['mzID']] = ['power' => $pw109, 'controller' => $ctrl109];
+                // Persisted twin — the fourth member of the SEC_035 / ASH_195 / JTL_104 family. The global
+                // dies with the request; a JTL_002 Thrawn / JTL_169 Shadow Caster reuse answers its YESNO
+                // in a LATER one, where the lookup would miss and the permission would silently not be
+                // granted. Cleared with the rest of the phase state at RegroupPhaseStart.
+                $k109 = 'SWU_HMW109_' . str_replace('-', '_', $d['mzID']);
+                SetSWUVar($k109 . '_PWR', strval($pw109));
+                SetSWUVar($k109 . '_CTL', strval($ctrl109));
             }
             // ASH_195 Helgait — "When Defeated: distribute Advantage equal to THIS unit's power." Snapshot
             // its power NOW, resolved here under the active (defeating) player's frame where $d['mzID']
@@ -18784,6 +18825,17 @@ function _SWUOwnDiscardPlayAsUnit(int $player, int $actualIdx, string $cardID, s
             AddTurnEffect($newCardMzID, $effect);
         }
         unset($gPendingEntryEffects[$uid]);
+    }
+
+    // HMW_109 Tireless Magnaguard — "…play this unit from your discard pile for free AND GIVE 2 WEAKNESS
+    // TOKENS TO IT." The tokens ride the PERMISSION, not the card: a Magnaguard played from hand, or a
+    // second copy played off someone else's effect, gets none. The armed charge is consumed here so one
+    // granted permission can only ever weaken one replay. Given BEFORE the entry triggers so anything
+    // that reads the entering unit's stats sees the -2/-2 it actually entered with.
+    if ($cardID === 'HMW_109' && GlobalEffectCount(intval($player), 'SWU_HMW109_WEAKEN') > 0) {
+        RemoveGlobalEffect(intval($player), 'SWU_HMW109_WEAKEN');
+        DoGiveTokenUpgrade(intval($player), $newCardMzID, 'HMW_T02');
+        DoGiveTokenUpgrade(intval($player), $newCardMzID, 'HMW_T02');
     }
 
     SWUApplyPassiveEntryGrants($player, $cardID, $newCardMzID);
