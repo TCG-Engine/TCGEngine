@@ -672,8 +672,17 @@ WITHOUT the attack — and then a two-seat control passing beside a four-seat tw
 
 `ASH_039` and `SEC_144` are now both pinned and mutation-verified.
 
-### ⚠ SECOND HARNESS GAP — no far-seat LEADER directive (found 2026-08-27, NOT fixed)
+### ✅ SECOND HARNESS GAP — far-seat LEADER directive: CLOSED (note corrected 2026-09-06)
 
+⚠ **This entry was STALE and it cost a wrong assumption.** `WithP{n}Leader` and `WithP{n}Leader2` BOTH
+exist (SchemaTestRunner ~line 530), deployed forms included — `CARDID[:ready[:deployed[:epicUsed]]]`.
+What is still missing for seats 3/4 is `Hand` / `Deck` / `Resources`, which is a different gap and does
+NOT stop a far seat ACTING: `WithP{n}ResourceControlled: CARD:seat` seeds a READY resource, so repeating
+it funds an Epic deploy and `P{n}>DeployLeader` is a real far-seat action (used by
+`hmw/DisposableB1.md::TeamSuns_ATeammatesEntrantIsFRIENDLY`, where the teammate has to make a unit
+ENTER PLAY rather than merely sit on the board).
+
+The original note, for the record:
 There is no `WithP3Leader` / `WithP4Leader`. `CommonSetup` covers seats 1-2 only (`myLeader`/`theirLeader`),
 so a section cannot put a seat-3/4 leader into a chosen state.
 

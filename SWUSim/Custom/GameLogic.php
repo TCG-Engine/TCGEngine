@@ -384,6 +384,42 @@ function _SWUSizeOverride($obj, int $controller): ?int {
     return null;
 }
 
+// ★ THE CARD IDENTITIES WHOSE STATIC ABILITIES THIS OBJECT CURRENTLY HAS (2026-09-06).
+//
+// Its own CardID, plus any card whose abilities it has been LENT for this attack. Both lenders ride the
+// same SUPPORT_GRANT marker: the SUPPORT keyword ("it gains this unit's other abilities for this attack")
+// and ASH_230 Improvised Identity ("this unit gains the discarded unit's abilities").
+//
+// ⚠ Why this exists. That marker was resolved ONLY at the trigger sites (On Attack / On Attack End) plus
+// an explicit keyword-by-keyword transplant. A CONSTANT stat ability is neither — the ~36 per-CardID
+// cases in ObjectCurrentPower and the self-conditional block in ObjectCurrentHP are all keyed on
+// `$obj->CardID`, which is the HOST's, so a lent copy was structurally invisible and every one of those
+// cards lent nothing. Reported live 2026-09-06: LOF_062 Axe Woves ("+1/+1 for each upgrade on him")
+// discarding a SECOND Axe Woves through Improvised Identity swung for 3 instead of 4.
+//
+// ⚠ A LIST, NOT A SET — the duplicate is the point. Being lent a copy of an ability you already have
+// applies it TWICE: a constant ability is not a keyword, so CR 8.7.4's no-stacking rule does not reach
+// it (USER RULING 2026-09-06). Guard: ash/ImprovisedIdentity.md::GainedStaticAbilityStacks_*.
+//
+// ⚠ The case BODIES stay host-scoped on purpose. "This unit gets +1/+1 for each upgrade on him" lent to
+// a host means the HOST's upgrades — $obj is still the right object to read; only the identity changes.
+function _SWUStatIdentities($obj): array {
+    $out = [(string)($obj->CardID ?? '')];
+    if (function_exists('_SWUSupportGrant')) {
+        $sg = _SWUSupportGrant($obj);
+        if ($sg !== null && (string)($sg['cardID'] ?? '') !== '') $out[] = (string)$sg['cardID'];
+    }
+    return $out;
+}
+
+// How many of $obj's identities are $cardID (0, 1 or 2). The count-aware sibling of _SWUAttackerGrants,
+// for the self-conditional stat blocks that must STACK per identity rather than answer a bare yes/no.
+function _SWUStatIdentityCount($obj, string $cardID): int {
+    $n = 0;
+    foreach (_SWUStatIdentities($obj) as $id) if ($id === $cardID) $n++;
+    return $n;
+}
+
 function ObjectCurrentPower($obj) {
     $base = intval(CardPower($obj->CardID));
     if ($base < 0) $base = 0;
@@ -431,21 +467,23 @@ function ObjectCurrentPower($obj) {
 
     // SHD_015 Doctor Aphra (deployed): "While there are 5 or more different costs among cards in your
     // discard pile, this unit gets +3/+0." (Self passive on the deployed leader unit; power only.)
-    if (!$lost && ($obj->CardID ?? '') === 'SHD_015' && IsLeaderUnit($obj) && $controller > 0) {
+    $__n = _SWUStatIdentityCount($obj, 'SHD_015');
+    if (!$lost && $__n > 0 && IsLeaderUnit($obj) && $controller > 0) {
         $aphraCosts = [];
         foreach (GetDiscard($controller) as $dc) {
             if (!empty($dc->removed)) continue;
             $aphraCosts[intval(CardCost($dc->CardID ?? ''))] = true;
         }
-        if (count($aphraCosts) >= 5) $base += 3;
+        if (count($aphraCosts) >= 5) $base += $__n * (3);
     }
 
     // SEC_212 Libertine: gets +1/+0 for each captured card it's guarding.
-    if (!$lost && ($obj->CardID ?? '') === 'SEC_212' && is_array($obj->Subcards ?? null)) {
+    $__n = _SWUStatIdentityCount($obj, 'SEC_212');
+    if (!$lost && $__n > 0 && is_array($obj->Subcards ?? null)) {
         foreach ($obj->Subcards as $sub) {
             $isCaptive = is_array($sub) ? !empty($sub['IsCaptive']) : !empty($sub->IsCaptive);
             $isRemoved = is_array($sub) ? !empty($sub['removed'])   : !empty($sub->removed);
-            if ($isCaptive && !$isRemoved) $base += 1;
+            if ($isCaptive && !$isRemoved) $base += $__n * (1);
         }
     }
 
@@ -470,53 +508,66 @@ function ObjectCurrentPower($obj) {
     // SHD_056 Follower of The Way / HMW_073 Peppi Bow — "While this unit is upgraded, [it/she] gets
     // +1/+1." Same sentence word for word, so same gate. "Upgraded" is about SUBCARDS, not stat-bearing
     // upgrades: a Shield token satisfies it and contributes no stats of its own.
-    if (!$lost && in_array(($obj->CardID ?? ''), ['SHD_056', 'HMW_073'], true) && _SWUIsUpgraded($obj)) $base += 1;
+    $__n = _SWUStatIdentityCount($obj, 'SHD_056') + _SWUStatIdentityCount($obj, 'HMW_073');
+    if (!$lost && $__n > 0 && _SWUIsUpgraded($obj)) $base += $__n * (1);
     // TWI_090 Echo — "Coordinate - This unit gets +2/+2." (the +2 power half).
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_090' && $controller > 0 && IsCoordinateActive($controller)) $base += 2;
+    $__n = _SWUStatIdentityCount($obj, 'TWI_090');
+    if (!$lost && $__n > 0 && $controller > 0 && IsCoordinateActive($controller)) $base += $__n * (2);
     // TWI_158 Clone Heavy Gunner — "Coordinate - This unit gets +2/+0." (power only).
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_158' && $controller > 0 && IsCoordinateActive($controller)) $base += 2;
+    $__n = _SWUStatIdentityCount($obj, 'TWI_158');
+    if (!$lost && $__n > 0 && $controller > 0 && IsCoordinateActive($controller)) $base += $__n * (2);
     // TWI_163 Relentless Rocket Droid — "While you control another Trooper unit, this unit gets +2/+0."
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_163' && $controller > 0
+    $__n = _SWUStatIdentityCount($obj, 'TWI_163');
+    if (!$lost && $__n > 0 && $controller > 0
         && PlayerHasUnitWithTraitInPlay($controller, 'Trooper', $obj->UniqueID ?? null)) $base += 2;
     // HMW_107 Stormtrooper Patrol — "While you control another unit that costs 3 or more, this unit
     // gets +2/+0." (Power only.) Cost is the PRINTED cost, "another" excludes self by UniqueID, and
     // "you control" scopes to the controller's arenas — see cards/hmw/StormtrooperPatrol.php.
-    if (!$lost && ($obj->CardID ?? '') === 'HMW_107' && $controller > 0
+    $__n = _SWUStatIdentityCount($obj, 'HMW_107');
+    if (!$lost && $__n > 0 && $controller > 0
         && _SWUHmw107HasCostlyAlly($controller, $obj->UniqueID ?? null)) $base += 2;
     // TWI_142 Anakin's Interceptor — "While your base has 15 or more damage on it, this unit gets +2/+0."
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_142' && $controller > 0) {
+    $__n = _SWUStatIdentityCount($obj, 'TWI_142');
+    if (!$lost && $__n > 0 && $controller > 0) {
         $b142 = GetBase($controller);
-        if (!empty($b142) && isset($b142[0]) && intval($b142[0]->Damage ?? 0) >= 15) $base += 2;
+        if (!empty($b142) && isset($b142[0]) && intval($b142[0]->Damage ?? 0) >= 15) $base += $__n * (2);
     }
     // HMW_066 Carrion Spike — "For each upgrade on your base, this unit gets +1/+0 and gains Restore 1."
     // POWER ONLY (+1/+0), and it SCALES: the leading "For each" scopes the whole predicate, so the
     // Restore half scales identically — see GetConditionalKeyword_Restore_Value. Recomputed on every
     // read from the base's live Subcards, so removing an upgrade drops the bonus with no cleanup hook.
     // "YOUR base" is the CONTROLLER's (deliberately not HMW_074 Yord Fandar's unqualified "a base").
-    if (!$lost && ($obj->CardID ?? '') === 'HMW_066' && $controller > 0) {
-        $base += SWUBaseUpgradeCount($controller);
+    $__n = _SWUStatIdentityCount($obj, 'HMW_066');
+    if (!$lost && $__n > 0 && $controller > 0) {
+        $base += $__n * (SWUBaseUpgradeCount($controller));
     }
     // TWI_130 Bo-Katan Kryze — "While you control another Trooper unit, this unit gets +1/+0."
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_130' && $controller > 0
+    $__n = _SWUStatIdentityCount($obj, 'TWI_130');
+    if (!$lost && $__n > 0 && $controller > 0
         && PlayerHasUnitWithTraitInPlay($controller, 'Trooper', $obj->UniqueID ?? null)) $base += 1;
     // TWI_143 Jyn Erso — "While an enemy unit has been defeated this phase, this unit gets +1/+0."
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_143' && $controller > 0
+    $__n = _SWUStatIdentityCount($obj, 'TWI_143');
+    if (!$lost && $__n > 0 && $controller > 0
         && GlobalEffectCount($controller, 'SWU_ENEMY_DEFEATED') > 0) $base += 1;
     // TWI_240 332nd Stalwart — "Coordinate - This unit gets +1/+1." (power half).
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_240' && $controller > 0 && IsCoordinateActive($controller)) $base += 1;
+    $__n = _SWUStatIdentityCount($obj, 'TWI_240');
+    if (!$lost && $__n > 0 && $controller > 0 && IsCoordinateActive($controller)) $base += $__n * (1);
     // TWI_028 Petranaki Arena (base) — "Each leader unit you control gets +1/+0."
     if (IsLeaderUnit($obj) && $controller > 0) {
         $b28 = GetBase($controller);
         if (!empty($b28) && isset($b28[0]) && ($b28[0]->CardID ?? '') === 'TWI_028') $base += 1;
     }
     // TWI_010 Pre Vizsla (deployed) — "While you have 6 or more cards in your hand, this unit gets +2/+0."
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_010' && $controller > 0 && count(GetHand($controller)) >= 6) $base += 2;
+    $__n = _SWUStatIdentityCount($obj, 'TWI_010');
+    if (!$lost && $__n > 0 && $controller > 0 && count(GetHand($controller)) >= 6) $base += $__n * (2);
     // TWI_011 Ahsoka Tano (deployed) — "Coordinate - This unit gets +2/+0."
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_011' && $controller > 0 && IsCoordinateActive($controller)) $base += 2;
+    $__n = _SWUStatIdentityCount($obj, 'TWI_011');
+    if (!$lost && $__n > 0 && $controller > 0 && IsCoordinateActive($controller)) $base += $__n * (2);
     // TWI_012 Anakin Skywalker (deployed) — "This unit gets +1/+0 for every 5 damage on your base."
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_012' && $controller > 0) {
+    $__n = _SWUStatIdentityCount($obj, 'TWI_012');
+    if (!$lost && $__n > 0 && $controller > 0) {
         $b012 = GetBase($controller);
-        if (!empty($b012) && isset($b012[0])) $base += intdiv(intval($b012[0]->Damage ?? 0), 5);
+        if (!empty($b012) && isset($b012[0])) $base += $__n * (intdiv(intval($b012[0]->Damage ?? 0), 5));
     }
     // TWI_114 Clone Commander Cody — "Coordinate - Each OTHER friendly unit gets +1/+1." (power half).
     $base += _SWUTwi114Bonus($obj);
@@ -524,7 +575,8 @@ function ObjectCurrentPower($obj) {
     if ($controller > 0 && is_array($obj->TurnEffects ?? null) && in_array('SWU_HEALED_PHASE', $obj->TurnEffects, true)
         && _SWUCountUnitsWithCardID($controller, 'TWI_042') > 0) $base += 1;
     // TWI_058 Padawan Starfighter — "While you control a Force unit or a Force upgrade, +1/+1." (power half).
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_058' && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += 1;
+    $__n = _SWUStatIdentityCount($obj, 'TWI_058');
+    if (!$lost && $__n > 0 && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += $__n * (1);
     // TWI_094 Shaak Ti — "Each friendly token unit gets +1/+0." (power only; +1 per Shaak Ti in play).
     if ($controller > 0 && strpos(CardType($obj->CardID ?? '') ?? '', 'Token') !== false) {
         $base += _SWUCountUnitsWithCardID($controller, 'TWI_094');
@@ -539,7 +591,9 @@ function ObjectCurrentPower($obj) {
     }
     // Self-conditional buffs (the unit's OWN printed stat abilities) — suppressed while it has lost all
     // abilities.
-    if (!$lost) switch ($obj->CardID) {
+    // Once per identity — see _SWUStatIdentities. `break` inside still binds to the switch, and no case
+    // body uses a bare `continue`, so the loop cannot capture one.
+    if (!$lost) foreach (_SWUStatIdentities($obj) as $__idCard) switch ($__idCard) {
         case 'LOF_004': // Kanan Jarrus (deployed): while you control ANOTHER Creature or Spectre unit, +2/+2.
             if ($controller > 0) {
                 $selfUid = intval($obj->UniqueID ?? 0);
@@ -730,7 +784,8 @@ function ObjectCurrentPower($obj) {
     $base += SWUTraitCommanderBonus($obj, 'SOR_242', 'Rebel');    // General Dodonna
     $base += SWUTraitCommanderBonus($obj, 'TS26_13', 'Separatist'); // Darth Sidious (other friendly Separatist +1/+0, power only)
     // TS26_07 Asajj Ventress (deployed) — "While you've attacked with a token unit this phase, +2/+0."
-    if (!$lost && ($obj->CardID ?? '') === 'TS26_07' && $controller > 0
+    $__n = _SWUStatIdentityCount($obj, 'TS26_07');
+    if (!$lost && $__n > 0 && $controller > 0
             && GlobalEffectCount($controller, 'SWU_ATTACKED_TOKEN') > 0) {
         $base += 2;
     }
@@ -742,10 +797,11 @@ function ObjectCurrentPower($obj) {
     $base += 6 * SWUTraitCommanderBonus($obj, 'LOF_089', 'Vehicle'); // Supremacy (other friendly Vehicles +6/+6)
     $base += _SWUTheSonBonus($obj);                              // LOF_237 The Son (+2/+0 while you have the Force)
     // SEC_011 Governor Pryce (deployed) — "+1/+0 for each ready friendly token unit."
-    if (!$lost && ($obj->CardID ?? '') === 'SEC_011') {
+    $__n = _SWUStatIdentityCount($obj, 'SEC_011');
+    if (!$lost && $__n > 0) {
         foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $tu) {
             if (empty($tu->removed) && intval($tu->Status ?? 0) === 1
-                && EffectiveCardType($tu) === 'Token Unit') $base += 1;
+                && EffectiveCardType($tu) === 'Token Unit') $base += $__n * (1);
         }
     }
     $base += _SWULof191BuffCount($obj);                          // LOF_191 BD-1: chosen unit +1/+0 per instance while the source is in play
@@ -885,15 +941,19 @@ function ObjectCurrentHP($obj) {
     }
     // SHD_056 Follower of The Way / HMW_073 Peppi Bow — the +1 HP half of "while this unit is
     // upgraded". Combat lethality reads ObjectCurrentHP, so this point of HP genuinely keeps her alive.
-    if (!$lost && in_array(($obj->CardID ?? ''), ['SHD_056', 'HMW_073'], true) && _SWUIsUpgraded($obj)) $base += 1;
+    $__n = _SWUStatIdentityCount($obj, 'SHD_056') + _SWUStatIdentityCount($obj, 'HMW_073');
+    if (!$lost && $__n > 0 && _SWUIsUpgraded($obj)) $base += $__n * (1);
     // TWI_045 41st Elite Corps — "Coordinate - This unit gets +0/+3." (the +3 HP; power unchanged).
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_045' && $controller > 0 && IsCoordinateActive($controller)) $base += 3;
+    $__n = _SWUStatIdentityCount($obj, 'TWI_045');
+    if (!$lost && $__n > 0 && $controller > 0 && IsCoordinateActive($controller)) $base += $__n * (3);
     // TWI_090 Echo — "Coordinate - This unit gets +2/+2." (the +2 HP half).
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_090' && $controller > 0 && IsCoordinateActive($controller)) $base += 2;
+    $__n = _SWUStatIdentityCount($obj, 'TWI_090');
+    if (!$lost && $__n > 0 && $controller > 0 && IsCoordinateActive($controller)) $base += $__n * (2);
     // TWI_114 Clone Commander Cody — "Coordinate - Each OTHER friendly unit gets +1/+1." (HP half).
     $base += _SWUTwi114Bonus($obj);
     // TWI_058 Padawan Starfighter — "While you control a Force unit or a Force upgrade, +1/+1." (HP half).
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_058' && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += 1;
+    $__n = _SWUStatIdentityCount($obj, 'TWI_058');
+    if (!$lost && $__n > 0 && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += $__n * (1);
     // TWI_110 Huyang — chosen unit gets +2/+2 while Huyang is in play. (HP half).
     $base += 2 * _SWUTwi110BuffCount($obj);
     // TWI_122 Squad Support — "Attached unit gets +1/+1 for each Trooper unit you control." (HP half).
@@ -911,19 +971,22 @@ function ObjectCurrentHP($obj) {
         }
     }
     // TWI_240 332nd Stalwart — "Coordinate - This unit gets +1/+1." (HP half).
-    if (!$lost && ($obj->CardID ?? '') === 'TWI_240' && $controller > 0 && IsCoordinateActive($controller)) $base += 1;
+    $__n = _SWUStatIdentityCount($obj, 'TWI_240');
+    if (!$lost && $__n > 0 && $controller > 0 && IsCoordinateActive($controller)) $base += $__n * (1);
     // JTL_150 Biggs Darklighter (pilot): if the attached unit is a Transport, +0/+1.
     if (_SWUUnitHasUpgrade($obj, 'JTL_150') && HasTrait($obj->CardID ?? '', 'Transport')) $base += 1;
     // JTL_050 Phantom II attached to The Ghost — "Attached unit gets +3/+3" (the +3 HP half).
     if (_SWUUnitHasUpgrade($obj, 'JTL_050')) $base += 3;
     // JTL_247 Resistance X-Wing: while it has a Pilot on it, +1/+1 (the +1 HP half).
-    if (!$lost && ($obj->CardID ?? '') === 'JTL_247' && _SWUHasPilotOnIt($obj)) $base += 1;
+    $__n = _SWUStatIdentityCount($obj, 'JTL_247');
+    if (!$lost && $__n > 0 && _SWUHasPilotOnIt($obj)) $base += $__n * (1);
 
     // SOR_082 Emperor's Royal Guard: +0/+1 while you control Emperor Palpatine — "(as a leader or
     // unit)". Matched by TITLE (the Qi'ra precedent), never by one printing's CardID: the leader can
     // be SOR_006 or ASH_015 (the leader-zone entry is present whether deployed or not), and the UNIT
     // printing SOR_135 counts too.
-    if (!$lost && $obj->CardID === 'SOR_082' && $controller > 0) {
+    $__n = _SWUStatIdentityCount($obj, 'SOR_082');
+    if (!$lost && $__n > 0 && $controller > 0) {
         $palp = false;
         foreach (GetLeader($controller) as $l) {
             if (!empty($l->removed)) continue;
@@ -934,21 +997,25 @@ function ObjectCurrentHP($obj) {
                 if (empty($u->removed) && CardTitle($u->CardID ?? '') === 'Emperor Palpatine') { $palp = true; break; }
             }
         }
-        if ($palp) $base += 1;
+        if ($palp) $base += $__n * (1);
     }
 
     // SOR_118 97th Legion / TS26_50 General Grievous: +1/+1 for each resource you control.
-    if (!$lost && in_array($obj->CardID ?? '', ['SOR_118', 'TS26_50'], true) && $controller > 0) $base += SWUResourceCount($controller);
+    $__n = _SWUStatIdentityCount($obj, 'SOR_118') + _SWUStatIdentityCount($obj, 'TS26_50');
+    if (!$lost && $__n > 0 && $controller > 0) $base += $__n * (SWUResourceCount($controller));
     // LOF_060 Padawan Starfighter: while you control a Force unit or upgrade, +1/+1 (the +1 HP half).
-    if (!$lost && ($obj->CardID ?? '') === 'LOF_060' && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += 1;
+    $__n = _SWUStatIdentityCount($obj, 'LOF_060');
+    if (!$lost && $__n > 0 && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += $__n * (1);
     // LOF_062 Axe Woves: +1/+1 for each upgrade on him (the +1 HP half, on top of each upgrade's own HP).
-    if (!$lost && ($obj->CardID ?? '') === 'LOF_062') $base += count(GetUpgradesOnUnit($obj));
+    $__n = _SWUStatIdentityCount($obj, 'LOF_062');
+    if (!$lost && $__n > 0) $base += $__n * (count(GetUpgradesOnUnit($obj)));
     // LOF_004 Kanan Jarrus (deployed): while you control ANOTHER Creature or Spectre unit, +2/+2 (the +2 HP half).
-    if (!$lost && ($obj->CardID ?? '') === 'LOF_004' && $controller > 0) {
+    $__n = _SWUStatIdentityCount($obj, 'LOF_004');
+    if (!$lost && $__n > 0 && $controller > 0) {
         $selfUid = intval($obj->UniqueID ?? 0);
         foreach (GetUnitsInPlay($controller) as $u) {
             if (empty($u->removed) && intval($u->UniqueID ?? -1) !== $selfUid
-                && (TraitContains($u, 'Creature') || TraitContains($u, 'Spectre'))) { $base += 2; break; }
+                && (TraitContains($u, 'Creature') || TraitContains($u, 'Spectre'))) { $base += $__n * (2); break; }
         }
     }
 
@@ -6843,7 +6910,6 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD239_USED');        // SHD_239 Toro Calican "deal 1 + ready once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD010_USED');        // SHD_010 Bossk (deployed) "collect a bounty again once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD017_USED');        // SHD_017 Lando (deployed) "smuggle -2 + defeat a resource once each round"
-        SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH230_USED');        // ASH_230 Improvised Identity "once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_BASE_ATTACKED');      // ASH_119 Greef Karga "if your base was attacked this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ATTACKER_DEFEATED');  // SEC_158 "friendly defeated while attacking this phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_FRIENDLY_LEFT_PLAY');  // LOF_216 phase flag
@@ -11960,12 +12026,22 @@ function SWUConsumeUse($obj): void {
 // with a per-GAME budget ($baseActionNumUses, e.g. LOF_022) are EXEMPT — their NumUses must persist
 // across rounds, so they are not refilled here.
 function SWUResetAllNumUses(): void {
-    global $baseActionNumUses;
+    global $baseActionNumUses, $unitActionSubcardNumUses;
     for ($p = 1; $p <= SeatCountForGame(); $p++) {
         foreach ([GetLeader($p) ?? [], GetGroundArena($p) ?? [], GetSpaceArena($p) ?? [], GetBase($p) ?? []] as $zone) {
             for ($i = 0; $i < count($zone); $i++) {
-                if (empty($zone[$i]->removed) && !isset($baseActionNumUses[$zone[$i]->CardID ?? ''])) {
+                if (!empty($zone[$i]->removed)) continue;
+                if (!isset($baseActionNumUses[$zone[$i]->CardID ?? ''])) {
                     $zone[$i]->NumUses = 1;
+                }
+                // A per-COPY upgrade Action budget lives on the SUBCARD, so the card-level loop above
+                // cannot see it — an unrefilled copy would be permanently spent after its first round.
+                if (!is_array($zone[$i]->Subcards ?? null)) continue;
+                foreach ($zone[$i]->Subcards as $k => $sub) {
+                    $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+                    if (!isset($unitActionSubcardNumUses[$cid])) continue;
+                    if (is_array($sub)) $zone[$i]->Subcards[$k]['NumUses'] = intval($unitActionSubcardNumUses[$cid]);
+                    else                $zone[$i]->Subcards[$k]->NumUses  = intval($unitActionSubcardNumUses[$cid]);
                 }
             }
         }
@@ -12282,6 +12358,18 @@ $customDQHandlers["SHADOW_CASTER_REUSE"] = function($player, $parts, $lastDecisi
 // DQ handler: cleanup + swap turn player after all When Played triggers fully resolve.
 $customDQHandlers["FINISH_PLAY_CARD"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::CleanupRemovedCards();
+    // The play is not over while another seat still owes a decision the played card asked of them.
+    // Closing here swaps the turn mid-resolution. $parts[0] carries the CASTER across the hop; every
+    // existing queue site passes no params, so it falls back to $player and is byte-identical.
+    $caster = intval($parts[0] ?? $player);
+    $owing  = _SWUSeatOwingCrossPlayerDecision($caster, intval($player));
+    if ($owing > 0) {
+        // Block 21: one AFTER the hopped reaction collection below, so the caster's tail keeps its
+        // original 5-then-10 order once both have moved onto the other seat's queue.
+        DecisionQueueController::AddDecision($owing, "CUSTOM", "FINISH_PLAY_CARD|{$caster}", 21, '', 1);
+        return;
+    }
+    $player = $caster;
     // An "Attack with a unit" event / Support-unit play whose combat already owns the after-action
     // (SWUCombatDamage at the end of the attack calls SWUAfterAction). Skip the duplicate turn pass.
     // The flag is a PERSISTED SWUVar so it survives the request boundary an interactive mid-attack
@@ -12303,6 +12391,16 @@ $customDQHandlers["TWI_210#0"] = function($player, $parts, $lastDecision) {
     $playedCardID  = $parts[1] ?? '';
     $resourcesPaid = intval($parts[2] ?? 0);
     if ($playedCardID === '') return;
+    // Same wait as FINISH_PLAY_CARD: a "when you play a card" observer is a TRIGGERED ability and
+    // resolves only after the played card's own ability has finished — which is not true while another
+    // seat still owes that ability a decision. Re-queued verbatim (a trailing empty 4th part survives
+    // explode, so the allowedUIDs snapshot is preserved exactly, including "no observers").
+    $owing = _SWUSeatOwingCrossPlayerDecision($playingPlayer, intval($player));
+    if ($owing > 0) {
+        DecisionQueueController::AddDecision($owing, "CUSTOM",
+            "TWI_210#0|" . implode('|', $parts), 20, '', 1);
+        return;
+    }
     // Observer snapshot taken at event-play time (the Bossk verdict): units the event itself seated
     // are excluded from own-play reactions. '' = nothing was in play; an ABSENT 4th part (legacy
     // callers) = no filtering. (The opponent-side collectors are count-based, not per-unit, and an
@@ -12385,6 +12483,39 @@ function _SWUPlayerHasPendingWork(int $player): bool {
         return true;
     }
     return false;
+}
+
+// ★ CROSS-QUEUE ORDERING FOR A PLAY (2026-09-05). The seat, if any, that still owes an interactive
+// decision from the ability currently resolving — so the ACTING player's tail can wait for it.
+//
+// Why this exists: `Block` orders entries only WITHIN one player's queue. An ability that hands a
+// decision to another seat (POTDS "an opponent chooses a unit they control", Avenger's When Played, a
+// forced discard) leaves NOTHING on the caster's queue to wait behind, so the caster's tail — the
+// own-play/opponent-play reactions at block 5, FINISH_PLAY_CARD at block 10, and the bare entry-trigger
+// resume for a unit play — all ran while the opponent was still deciding. Reported live: L3-37 offered
+// "play Power of the Dark Side again?" before the opponent had chosen anything.
+//
+// This is the COMBAT PAUSE generalised. That mechanism (see the COMBAT branch of SWU_TRIGGER_RESUME)
+// already hops its resume onto the seat that owes a decision, and its own comment recorded the gap this
+// closes: "scoped to COMBAT so non-combat plays that queue an opponent decision … still finalize
+// normally". They no longer do.
+//
+// ⚠ _SWUPlayerHasBlockingDecision, not _SWUPlayerHasPendingWork: only a real INTERACTIVE decision is a
+// safe thing to wait on. A seat holding nothing but a static CUSTOM may never be drained at all (a lone
+// CUSTOM on a player who is not otherwise acting is a known non-drainer), so waiting on that would hang
+// the action rather than order it.
+// ⚠ Never hop onto the queue we are ALREADY draining ($currentSeat) — that is a self-requeue, and
+// ExecuteStaticMethods is an uncapped per-seat loop.
+// ⚠ EVERY other live seat, not OpponentsOf(): in Team Suns a TEAMMATE owing a decision must be waited
+// for exactly like an opponent. The question is "is anyone else still deciding", not which side.
+function _SWUSeatOwingCrossPlayerDecision(int $actingPlayer, int $currentSeat): int {
+    foreach (GetLiveSeatsArray() as $other) {
+        $other = intval($other);
+        if ($other === intval($actingPlayer) || $other === intval($currentSeat)) continue;
+        if (!_SWUPlayerHasBlockingDecision($other)) continue;
+        return $other;
+    }
+    return 0;
 }
 
 // Uniqueness rule (CR 29.3): defeat the copy the player chose, then continue the paused action.
@@ -12496,6 +12627,15 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
                     : "SWUCombatDamage|{$aMz}|{$tMz}|{$uid}|{$activePlayer}", 1);
             }
         } else {
+            // Cross-queue wait, the unit-play twin of the COMBAT hop above: a unit's When Played can hand
+            // a decision to another seat (SOR_040 Avenger), and this bare resume is what finalises the
+            // action. Without the wait the turn passed while that seat was still choosing.
+            $owingSeat = _SWUSeatOwingCrossPlayerDecision($activePlayer, intval($player));
+            if ($owingSeat > 0) {
+                _SWUQueueOrchestration($owingSeat, "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
+                $playerID = $savedPID;
+                return;
+            }
             // A BARE resume must not finalise while a COMBAT continuation is still queued: that resume
             // carries the pending SWUCombatDamage, whose own terminal runs the After Action once damage
             // resolves. Finalising here swaps the turn, then combat swaps it again — with two seats that
@@ -17409,25 +17549,73 @@ function _SWUSatineInPlay(): bool {
     return false;
 }
 
-function SWUGetUnitActionProvider($obj): string {
-    global $unitAbilities;
-    if (SWUObjGone($obj)) return '';
-    if (isset($unitAbilities[$obj->CardID])) return $obj->CardID;
-    foreach (GetUpgradesOnUnit($obj) as $u) {
-        $uid = is_array($u) ? ($u['CardID'] ?? '') : ($u->CardID ?? '');
-        if ($uid !== '' && isset($unitAbilities[$uid])) return $uid;
+// Per-COPY once-each-round budget for an upgrade-granted Action, read off the SUBCARD.
+// $unitActionSubcardNumUses[upgradeCardID] is the per-round budget; an absent/negative NumUses on the
+// subcard is the "untouched" sentinel and means the full budget (so an upgrade needs no seeding when it
+// attaches, and a mid-round attach correctly arrives with its use available). Returns 0 for a subcard
+// index that is not a registered per-copy provider.
+function _SWUUnitActionSubcardUsesLeft($obj, int $subIndex): int {
+    global $unitActionSubcardNumUses;
+    if ($obj === null || $subIndex < 0 || !is_array($obj->Subcards ?? null)) return 0;
+    if (!isset($obj->Subcards[$subIndex])) return 0;
+    $sub = $obj->Subcards[$subIndex];
+    $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+    if (!isset($unitActionSubcardNumUses[$cid])) return 0;
+    $n = is_array($sub) ? intval($sub['NumUses'] ?? -1) : intval($sub->NumUses ?? -1);
+    return ($n < 0) ? intval($unitActionSubcardNumUses[$cid]) : $n;
+}
+
+// Spend one use of a per-copy upgrade-granted Action. Writes through $obj->Subcards by INDEX — never
+// through GetUpgradesOnUnit(), which casts an array subcard to a fresh object and hands back a COPY, so
+// a write there is silently discarded. Subcards serialize as JSON, so the extra key round-trips.
+function SWUConsumeUnitActionSubcardUse($obj, int $subIndex): void {
+    $left = _SWUUnitActionSubcardUsesLeft($obj, $subIndex);
+    if ($left <= 0) return;
+    if (is_array($obj->Subcards[$subIndex])) $obj->Subcards[$subIndex]['NumUses'] = $left - 1;
+    else                                     $obj->Subcards[$subIndex]->NumUses  = $left - 1;
+}
+
+// Which card provides this unit's Action, and — for an upgrade — WHICH attached copy.
+// Returns ['cardID' => …, 'subIndex' => int] with subIndex -1 for the unit's own ability (or Satine's
+// field-wide grant). A unit still surfaces ONE action; the choice among identical copies is made here so
+// that a spent copy does not shadow a fresh one (bug #1031's same-unit half: two Improvised Identities on
+// one unit are two separate grants, so they are two separate "once each round" budgets).
+function _SWUUnitActionProviderPick($obj): array {
+    global $unitAbilities, $unitActionSubcardNumUses;
+    $none = ['cardID' => '', 'subIndex' => -1];
+    if (SWUObjGone($obj)) return $none;
+    if (isset($unitAbilities[$obj->CardID])) return ['cardID' => $obj->CardID, 'subIndex' => -1];
+    $subs  = is_array($obj->Subcards ?? null) ? $obj->Subcards : [];
+    $spent = $none; // a registered provider with no use left — the fallback, so the AFFORDABILITY gate
+                    // (not this lookup) is what refuses the click, exactly as before per-copy budgets
+    foreach ($subs as $i => $sub) {
+        $cid  = is_array($sub) ? ($sub['CardID'] ?? '')     : ($sub->CardID ?? '');
+        $capt = is_array($sub) ? !empty($sub['IsCaptive'])  : !empty($sub->IsCaptive);
+        $gone = is_array($sub) ? !empty($sub['removed'])    : !empty($sub->removed);
+        if ($cid === '' || $capt || $gone) continue;
+        if (!isset($unitAbilities[$cid])) continue;
+        if (isset($unitActionSubcardNumUses[$cid]) && _SWUUnitActionSubcardUsesLeft($obj, $i) <= 0) {
+            if ($spent['cardID'] === '') $spent = ['cardID' => $cid, 'subIndex' => $i];
+            continue;
+        }
+        return ['cardID' => $cid, 'subIndex' => $i];
     }
+    if ($spent['cardID'] !== '') return $spent;
     // TWI_047 Satine Kryze — "Each unit (including enemy units) gains: Action [Exhaust]: …" A field-wide
     // granted Action: any unit without its own provider gets Satine's while a Satine is in play. (A unit
     // with its own Action keeps it — the single-provider model surfaces only one, a documented edge.)
-    if (_SWUSatineInPlay()) return 'TWI_047';
-    return '';
+    if (_SWUSatineInPlay()) return ['cardID' => 'TWI_047', 'subIndex' => -1];
+    return $none;
+}
+
+function SWUGetUnitActionProvider($obj): string {
+    return _SWUUnitActionProviderPick($obj)['cardID'];
 }
 
 // Affordability for a unit action: resource cost (rare) + per-card additional costs.
 // The Exhaust cost is checked separately by SWUUnitAction (the unit must be ready).
 function SWUUnitActionAffordable(int $player, string $mzID, string $providerCardID): bool {
-    global $playerID, $unitActionResourceCosts;
+    global $playerID, $unitActionResourceCosts, $unitActionSubcardNumUses;
     $cost = $unitActionResourceCosts[$providerCardID] ?? 0;
     $cost = SWUApplyCostHalving($player, $cost); // JTL_105 The Starhawk — halves activation costs too
     // Total payment capacity, not bare ready resources — Credit tokens (CR 3.13) and SEC_122 Droids pay
@@ -17441,6 +17629,15 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
     // A unit that has lost its abilities can't use its activated ("Action [Exhaust]:") ability.
     $actor = GetZoneObject($mzID);
     if ($actor !== null && LostAbilities($actor)) { $playerID = $savedPID; return false; }
+    // "Use this ability only once each round" on an UPGRADE-granted Action is per COPY: the budget lives
+    // on the subcard, and _SWUUnitActionProviderPick already prefers an unspent copy — so if the copy it
+    // picked is spent, every copy on this unit is spent.
+    if (isset($unitActionSubcardNumUses[$providerCardID])) {
+        $pick = _SWUUnitActionProviderPick($actor);
+        if ($pick['cardID'] !== $providerCardID || _SWUUnitActionSubcardUsesLeft($actor, $pick['subIndex']) <= 0) {
+            $playerID = $savedPID; return false;
+        }
+    }
     switch ($providerCardID) {
         case 'TS26_15': { // C-3P0 — "Only opponents may use this ability."
             // ⚠ USER RULING 2026-08-24: "opponents" means opponents of the unit's CURRENT CONTROLLER, not
@@ -17509,9 +17706,6 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
                         // (the +1/+0 action) OR the unit is ready (the Exhaust deal-power action).
             if (!(($actor !== null && intval($actor->Status ?? 0) === 1)
                     || SWUTotalPaymentCapacity($player) >= 2)) $ok = false;
-            break;
-        case 'ASH_230': // Improvised Identity (granted): once each round.
-            if (GlobalEffectCount($player, 'SWU_ASH230_USED') > 0) $ok = false;
             break;
         case 'SHD_017': // Lando (deployed): once each round, and needs a smugglable unit affordable at -2.
             if (GlobalEffectCount($player, 'SWU_SHD017_USED') > 0) $ok = false;

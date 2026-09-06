@@ -6,7 +6,7 @@
 global $whenPlayedUsingSmuggleAbilities, $whenPlayedAsUpgradeAbilities;
 global $whenPlayedAbilities, $whenDefeatedAbilities;
 global $onAttackAbilities, $onDefenseAbilities, $onAttackEndAbilities, $onAttackEndFromUpgradeAbilities, $onAttackedFromUpgradeAbilities, $onDefenseFromUpgradeAbilities;
-global $unitAbilities, $unitActionResourceCosts, $unitActionCostKind;
+global $unitAbilities, $unitActionResourceCosts, $unitActionCostKind, $unitActionSubcardNumUses;
 global $onAttachedAbilities;
 
 $whenPlayedUsingSmuggleAbilities = [];
@@ -1484,6 +1484,11 @@ $unitActionResourceCosts = [];
 // Base cost-kind per provider: 'exhaust' (default — requires ready, exhausts the unit) or
 // 'defeat' (no ready requirement; the unit is defeated to pay, e.g. SOR_110 Frontline Shuttle).
 $unitActionCostKind = [];
+// Upgrade-granted Actions whose "Use this ability only once each round" belongs to the COPY that grants
+// it rather than to the player or the host (ASH_230 Improvised Identity). Keyed by the UPGRADE's CardID
+// => uses per round; the remaining budget is tracked as NumUses on the SUBCARD itself, so a unit wearing
+// two copies genuinely has two uses. Refilled by SWUResetAllNumUses at RegroupPhaseStart.
+$unitActionSubcardNumUses = [];
 // Any-player-usable unit actions (LAW_156 Hunter For Hire: "Any player may use this ability."). Surfaced
 // on the OPPONENT's units too (SWUComputeActionsData); SWUUnitAction has no controller gate.
 $anyPlayerUnitActions = [];

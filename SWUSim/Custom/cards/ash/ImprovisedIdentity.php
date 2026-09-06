@@ -9,11 +9,20 @@
 // SUPPORT_GRANT marker ([discarded CardID, uid 0]) — combat fires that CardID's On Attack / keywords / On
 // Attack End at each combat site. Cost kind 'none' (the host must stay ready to attack); gated once/round.
 $unitActionCostKind["ASH_230"] = 'none';
+// "Use this ability only once each round" belongs to the ability THIS COPY grants (CR 8.8.5 — the same
+// per-copy reading HMW_215 L3-37 is built on), not to the player and not to the host. ASH_230 is not
+// unique, so one unit may legally wear two and a player may have copies on several units; each is its own
+// grant with its own use. Tracked as NumUses on the upgrade SUBCARD (bug #1031).
+$unitActionSubcardNumUses["ASH_230"] = 1;
 
 $unitAbilities["ASH_230"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $host    = GetZoneObject($mzID);
     $hostUID = SWUObjUID($host, 0);
+    // Spend the use HERE, at activation, not after the search resolves: declining the search still
+    // spends the ability (the pre-existing OncePerRound_NoSecondUse control asserts exactly that), and
+    // the copy that _SWUUnitActionProviderPick surfaced is the one that must be charged.
+    SWUConsumeUnitActionSubcardUse($host, _SWUUnitActionProviderPick($host)['subIndex']);
     _topDeckSearchBegin(intval($player), 3,
         fn($cid) => strpos(CardType($cid) ?? '', 'Unit') !== false && CardArena($cid) === 'Ground',
         "count:1", "ASH_230#0|{$hostUID}");
@@ -26,7 +35,6 @@ $customDQHandlers["ASH_230#0"] = function($player, $parts, $lastDecision) {
     $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
     $chosen   = $resolved['drawn'];
     _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
-    AddGlobalEffects(intval($player), 'SWU_ASH230_USED');   // once each round (the ability was used)
     // "Then, you may attack with this unit" is UNCONDITIONAL (offered even when no ground unit was in the top 3
     // or the search was declined — just with no ability grant). Only the discard-and-grant is conditional.
     $discardedID = empty($chosen) ? '' : $chosen[0];

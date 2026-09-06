@@ -295,3 +295,31 @@ WithP4GroundArena: SOR_046:1:0
 SEATCOUNT:4
 P1GROUNDARENAUNIT:0:CARDID:HMW_008
 P1GROUNDARENAUNIT:0:POWER:3
+
+---
+
+# Front_DeclineWithPASS_TheActionStillCloses
+#// `-` and `PASS` are TWO DIFFERENT DECLINES, and PASS is the one the CLIENT actually sends for an
+#// MZMAYCHOOSE. A sticky PASS also SKIPS any unflagged CUSTOM behind it, so an action-closing
+#// continuation reached that way can silently never run — the action then never closes and the turn
+#// never passes. The sibling decline sections above answer `-`; this one answers what a real player
+#// sends, and asserts the close by watching the turn actually swap.
+#//
+#// ⚠ Deliberately NO P1OnlyActions: that directive claims initiative so the opponent auto-passes, which
+#// makes TURNPLAYER unobservable — exactly how this bug class stays green in a section that already
+#// answers PASS. (Caught by DevTools/tests/dontskiponpass_zero_min_test.php.)
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:8;myLeader:HMW_008:1}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: SEC_080
+WithP1Hand: SEC_080
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:PASS
+## EXPECT
+TURNPLAYER:2
+P1GROUNDARENACOUNT:0
+P1HANDCOUNT:2
+P1RESAVAILABLE:8
+P1LEADER:EXHAUSTED

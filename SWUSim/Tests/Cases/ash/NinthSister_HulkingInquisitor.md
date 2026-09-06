@@ -23,6 +23,15 @@ P1NODECISION
 
 # DiscardChoiceThenSplitDamage
 #// PROBE C: after P1 plays ASH_148 (P2 holds 2 cards), is P2's discard decision present and whose turn?
+#//
+#// ⚠ TURNPLAYER CORRECTED 2026-09-06, from 2 to 1. This probe was recording an ENGINE BUG as if it were
+#// the spec: FINISH_PLAY_CARD sat at block 10 on the CASTER's queue, and `Block` orders entries only
+#// WITHIN one queue — so with P2's discard choice on THEIR queue there was nothing for the caster's tail
+#// to wait behind, and the action closed (swapping the turn) mid-resolution. The play is not over while
+#// another seat still owes it a decision, so the turn is still P1's here. Ninth Sister's own logic was
+#// always right — she is the house precedent for cross-player queueing; only this observation was wrong.
+#// The fix is the cross-queue play pause (_SWUSeatOwingCrossPlayerDecision); guarded by
+#// core/CrossPlayerDecisionPausesThePlay.md.
 ## GIVEN
 CommonSetup: rrk/rrk/{
   myResources:7;
@@ -37,7 +46,7 @@ WithActivePlayer: 1
 ## EXPECT
 P2HASDECISION
 P1NODECISION
-TURNPLAYER:2
+TURNPLAYER:1
 
 ---
 

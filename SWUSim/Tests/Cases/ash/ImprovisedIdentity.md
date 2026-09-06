@@ -5,7 +5,10 @@
 #//                 AttachGroundOnly_SpaceNotSelectable ·
 #//           decline=DeclineSearch_TakeNothing + DiscardThenDeclineAttack ·
 #//           boundary=NoGroundInTop3_NothingDiscarded + OncePerRound_NoSecondUse +
-#//                 GainedAbilitiesExpire_TheHostIsPlainOnItsNEXTAttack (this attack vs the next) ·
+#//                 GainedAbilitiesExpire_TheHostIsPlainOnItsNEXTAttack (this attack vs the next) +
+#//                 the PER-COPY once-each-round set: SecondCopyOnAnotherUnit_* (two hosts),
+#//                 TwoCopiesOnOneUnit_* (one host, exhausted vs readied between the two uses) and
+#//                 CopyRearmsInTheNextRound (the subcard budget refills at the round boundary) ·
 #//           control=N/A (the upgrade attaches to a FRIENDLY ground unit and the granted action is used by
 #//                 its controller; there is no owner-scoped zone and no take-control interaction) ·
 #//           reqboundary=N/A (the grant lives on the combat's SUPPORT_GRANT carrier and is consumed inside
@@ -703,3 +706,247 @@ P1DISCARDCOUNT:1
 P2GROUNDARENACOUNT:2
 P2BASEDMG:0
 P1NODECISION
+
+---
+
+# GainedStaticAbilityStacks_DiscardAnotherAxeWoves
+#// ⚠⚠ RED ON PURPOSE — THIS PINS AN ENGINE BUG (reported 2026-09-06, left failing per the standing rule
+#// that a test exposing a real defect stays RED rather than being softened to the current behaviour).
+#//
+#// LOF_062 Axe Woves - Accomplished Warrior (Ground 2/2) is "Shielded | This unit gets +1/+1 for each
+#// upgrade on him." Improvised Identity discards a SECOND Axe Woves from the top 3, so for this attack
+#// he gains a second copy of that same static ability. A constant ability is NOT a keyword, so CR 8.7.4's
+#// no-stacking rule does not apply — both copies apply, exactly as two separate +1/+1 sources would.
+#//
+#// Arithmetic: printed 2/2, +0/+3 from Improvised Identity = 2/5. ONE upgrade on him, so his own ability
+#// gives +1/+1 (3/6) and the gained copy another +1/+1 (4/7). He attacks the base for 4.
+#// MEASURED: 3. The gained copy contributes nothing.
+#//
+#// ROOT CAUSE, and it is NOT specific to this card: the grant rides the SUPPORT_GRANT marker, which
+#// combat resolves at the TRIGGER sites (On Attack / On Attack End) plus an explicit keyword-by-keyword
+#// transplant in ASH_230#1. A CONSTANT stat ability is neither — the 36 per-CardID cases in
+#// ObjectCurrentPower are all keyed on `$obj->CardID`, which is the HOST's, so a granted copy is
+#// invisible to them. The same carrier backs the SUPPORT keyword (CombatLogic ~1198), so "it gains this
+#// unit's other abilities for this attack" has the identical hole.
+#//
+#// The deck is seeded with two SPACE units behind the Axe Woves so the ground-unit filter has exactly
+#// one match and the search cannot pick something else.
+## GIVEN
+CommonSetup: ybw/rrk/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LOF_062:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [LOF_062 SOR_237 SOR_237]
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:LOF_062
+- P1>AnswerDecision:YES
+## EXPECT
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:LOF_062
+P2BASEDMG:4
+
+---
+
+# GainedStaticAbilityStacks_BothHalvesReadDirectly
+#// The sibling above measures the POWER half through damage dealt; this one reads BOTH halves off the
+#// unit while the grant is still live. They live in different functions — the per-CardID switch in
+#// ObjectCurrentPower and the self-conditional block in ObjectCurrentHP — and had to be fixed
+#// separately, so a power-only assertion would let Axe Woves end up +2 power but +1 HP.
+#//
+#// 2/2 printed, +0/+3 from Improvised Identity = 2/5; his own "+1/+1 for each upgrade on him" (one
+#// upgrade) makes him 3/6, and the lent copy makes him 4/7.
+#//
+#// ⚠ The attack target is deliberately LEFT PENDING. The grant is attack-duration, so it is only
+#// readable inside its own window: answering the target resolves combat, which expires the marker before
+#// EXPECT runs. With an enemy unit AND the base both legal there are two targets, so the choose does not
+#// auto-resolve and the board sits mid-attack — exactly where the lent stats are observable.
+#//
+#// ⚠ USER RULING 2026-09-06: the ability grant lasts ONLY FOR THE ATTACK — Improvised Identity and the
+#// SUPPORT keyword alike. So do not file a bug on what this section's first draft tried to assert:
+#// Axe Woves at a lent 4/7 who attacks a 6/7 and takes 6 back IS DEFEATED, even though ObjectCurrentHP
+#// reads 7 outside combat. The lent +HP does not carry him through the very attack that granted it.
+#// (Measured: answering the target here leaves his arena empty.) Anyone "fixing" that is removing
+#// intended behaviour.
+## GIVEN
+CommonSetup: ybw/rrk/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LOF_062:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [LOF_062 SOR_237 SOR_237]
+WithP2GroundArena: SOR_232:1:0
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:LOF_062
+- P1>AnswerDecision:YES
+## EXPECT
+P1HASDECISION
+P1GROUNDARENAUNIT:0:CARDID:LOF_062
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:0:HP:7
+
+---
+
+# SecondCopyOnAnotherUnit_HasItsOwnUse
+#// BUG REPORT #1031 (game 4506). ASH_230 is NOT unique, so two copies on two different units is a legal
+#// board — the reported one had Improvised Identity on both Toydarian Technician (LAW_090) and Axe Woves
+#// (LOF_062). Using the ability with Axe Woves left the Technician's copy unusable: clicking it just
+#// attacked, with no ability offered.
+#//
+#// "Use this ability only once each round" belongs to the COPY that grants it, not to the PLAYER
+#// (CR 8.8.5 — the same per-copy reading HMW_215 L3-37 is built on). Each attached Improvised Identity
+#// grants its own instance of the action, so each has its own use.
+#//
+#// Both halves are asserted: the OFFER (the second unit's action is still listed after the first is
+#// spent) and the EFFECT (two searches, so two cards end up in the discard).
+#//
+#// ⚠ The limit is NARROWED, not removed — OncePerRound_NoSecondUse is the control that proves the
+#// same copy still cannot go twice, and its `P1NODECISION` is what actually discriminates that (a
+#// UNITACTIONS/discard-count assertion does NOT: with the limit gone the second use merely leaves a
+#// search prompt pending, so both of those still read the same. A first draft of this file added
+#// exactly that non-discriminating section and it was deleted rather than kept as false coverage).
+## GIVEN
+CommonSetup: ybw/rrk/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LOF_062:1:0
+WithP1GroundArena: LAW_090:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1GroundArenaUpgrade: 1:ASH_230
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SOR_095
+- P1>AnswerDecision:NO
+## EXPECT
+P1UNITACTIONSHAS:myGroundArena-1
+P1DISCARDCOUNT:1
+
+---
+
+# SecondCopyOnAnotherUnit_ActuallyResolves
+#// The effect half of #1031: after Axe Woves has spent HIS copy, the Technician's copy still searches and
+#// discards, so two cards reach the discard pile. A per-player flag stops at one.
+## GIVEN
+CommonSetup: ybw/rrk/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LOF_062:1:0
+WithP1GroundArena: LAW_090:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1GroundArenaUpgrade: 1:ASH_230
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SOR_095
+- P1>AnswerDecision:NO
+- P1>UseUnitAbility:myGroundArena-1
+- P1>AnswerDecision:SOR_095
+- P1>AnswerDecision:NO
+## EXPECT
+P1DISCARDCOUNT:2
+
+
+---
+
+# TwoCopiesOnOneUnit_SecondDiscardsButCannotAttack
+#// ASH_230 is not unique, so ONE unit may wear two copies — each grants its own instance of the action
+#// and therefore its own "once each round" use (same per-copy reading as SecondCopyOnAnotherUnit_*).
+#//
+#// The attack clause is NOT free of the ready requirement. The card says "then you may attack with this
+#// unit" and does NOT say "even if it's exhausted" — that permission is always printed explicitly (and
+#// never as parenthetical reminder text) when a card grants it. So a host exhausted by the FIRST copy's
+#// attack still resolves the second copy's search and discard, and then simply gets no attack.
+#//
+#// P1's Consular Security Force (3/7, +0/+3 twice = 3/13) uses copy #1: discards a Battlefield Marine and
+#// attacks P2's base for 3, exhausting itself. Copy #2 is then used: the search and discard happen (2 in
+#// the pile), no attack follows (base still at 3), and no decision is left pending.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SOR_095
+- P1>AnswerDecision:YES
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SOR_095
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1DISCARDCOUNT:2
+P2BASEDMG:3
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1NODECISION
+
+---
+
+# TwoCopiesOnOneUnit_ReadiedBetween_SecondCopyAttacks
+#// The other half of the ready requirement: readying the host between the two uses restores the attack.
+#// Same board as TwoCopiesOnOneUnit_SecondDiscardsButCannotAttack, plus SHD_182 Bravado ("Ready a unit",
+#// 5 with no enemy unit defeated this phase) in hand and an Aggression leader/base so it is not taxed.
+#//
+#// Copy #1 discards + attacks for 3 (host now exhausted); Bravado readies the host; copy #2 discards +
+#// attacks for another 3. Discard pile holds both Marines AND the spent Bravado.
+#//
+#// ⚠ Bravado's "Ready a unit" is unqualified, so it spans BOTH sides — with P2's ground arena empty the
+#// host is the only legal target and it auto-resolves. Do not add an answer line for it: a spare answer
+#// is eaten by the NEXT prompt and fakes an engine bug.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:6; myhandCardIds:SHD_182}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SOR_095
+- P1>AnswerDecision:YES
+- P1>PlayHand:0
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SOR_095
+- P1>AnswerDecision:YES
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1DISCARDCOUNT:3
+P2BASEDMG:6
+P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# CopyRearmsInTheNextRound
+#// The per-COPY use is a ROUND budget, so it has to be refilled at the round boundary. It now lives as
+#// NumUses on the upgrade SUBCARD, which the card-level refill loop cannot see — an unrefilled copy would
+#// be spent for the rest of the game after its first use.
+#//
+#// P1 spends the copy in round one (search declined, no attack), the game crosses the regroup phase, and
+#// the same copy searches and discards again in round two.
+## GIVEN
+CommonSetup: rrk/rrk/{myResources:6}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArenaUpgrade: 0:ASH_230
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:-
+- P1>AnswerDecision:NO
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+- P1>UseUnitAbility:myGroundArena-0
+- P1>AnswerDecision:SOR_095
+- P1>AnswerDecision:NO
+## EXPECT
+P1DISCARDCOUNT:1
+P1GROUNDARENAUNIT:0:READY

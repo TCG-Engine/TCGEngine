@@ -444,6 +444,12 @@ P1NODECISION
 #// ⚠ The second resolution's unit pick still PROMPTS even though P3 is down to one unit by then — the
 #// pool is built before the first defeat has compacted out of P3's arena. Measured, not assumed: without
 #// the second P3 answer only ONE leader falls and the section reds on P3GROUNDARENACOUNT.
+#//
+#// ⚠ THE `P1>Drain` IS LOAD-BEARING (added 2026-09-06 with the cross-queue play pause). L3-37's reaction
+#// is a TRIGGERED ability, so it now waits until P3 has actually chosen — the offer is queued only once
+#// P3's decision drains, and P1's queue has to be drained to surface it. Before that pause both prompts
+#// were pending AT THE SAME TIME, so this section's answers happened to be absorbed in a workable order
+#// and it passed while testing nothing about the ordering it describes.
 
 ## GIVEN
 CommonSetup: yyw/rrk/{myResources:8}
@@ -465,6 +471,7 @@ WithP4Base: SOR_024
 - P1>PlayHand:0
 - P1>AnswerDecision:P3
 - P3>AnswerDecision:myGroundArena-0
+- P1>Drain
 - P1>AnswerDecision:YES
 - P1>AnswerDecision:P3
 - P3>AnswerDecision:myGroundArena-0
