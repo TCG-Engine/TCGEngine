@@ -1,0 +1,18 @@
+{
+    "name": "Tera Sight: Preserve. Draw a card.",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "TERA (advanced element), 0 reserve cost. Same Subcards element-access patch as vernal-talisman-preserve-draw/devoted-bloomweaver-class-bonus-empower (Kongming, Fel Eidolon) -- no physical champion needed this time since there's no Class Bonus gate. Preserve (put this card into its owner's material deck preserved as it resolves, instead of the graveyard) is a generic keyword layered on top of the card's own Draw($player, 1) macro -- confirmed the card lands in myMaterial (not myGraveyard) and the hand count nets back to its starting size (1 card played, 1 drawn).",
+    "testedCards": [
+        "2Ojrn7buPe"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["2Ojrn7buPe"],
+        "mechanics": ["draw-discard", "zone-movement"],
+        "rulesClauses": [
+            "Preserve (Put this card into its owner's material deck preserved as it resolves.)",
+            "Draw a card."
+        ]
+    }
+}

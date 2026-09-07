@@ -1,0 +1,17 @@
+{
+    "name": "Jin, Undying Resolve: immortality as long as it's not your end phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-01T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Jin, Undying Resolve's immortality (HasImmortality, GrandArchiveSim/Custom/GameLogic.php ~23146-23157: \"as long as it's not your end phase, Jin has immortality\" for the card itself or ChampionHasInLineage matches) is checked inside DoAllyDestroyed (GameLogic.php:7282-7296), the general destroy handler every lethal-damage path funnels through -- confirmed by tracing OnDealDamage's non-domain path (CombatLogic.php, ends with \"$targetObj->Damage += $amount; ... AllyDestroyed($player, $target);\"). The starting champion's CardID is patched directly to Jin, Undying Resolve (life 28), with Damage pre-patched to 27 (one below lethal). Nascent Blast (vajycopxgf, NORM element, always castable regardless of champion element -- see safeguard-paladin-class-bonus-noncombat-prevent's note on this) deals 3 non-combat damage to target unit; targeting the champion itself (myField-0, a legal self-target since Nascent Blast's target pool is any unit on either field) pushes Damage to 30, past the 28 life threshold. Since this is MAIN phase (not the controller's end phase), immortality suppresses the destroy check and the champion stays on the field with the damage counters intact (per the card's own reminder text: \"won't die for having more damage counters than their life stat\"). The reciprocal half -- immortality ending and the champion actually dying at the controller's own end phase (GameLogic.php EndPhase():10069-10082, a separate state-based re-check) -- needs a full phase advance to END and is out of scope for this fixture.",
+    "testedCards": [
+        "c4yrrtv7o1"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["c4yrrtv7o1"],
+        "mechanics": ["condition", "damage"],
+        "rulesClauses": [
+            "Jin Lineage. As long as it's not your end phase, Jin has immortality. (A unit with immortality can't die.)"
+        ]
+    }
+}

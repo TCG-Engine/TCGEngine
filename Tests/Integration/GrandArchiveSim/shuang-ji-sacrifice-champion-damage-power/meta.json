@@ -1,0 +1,17 @@
+{
+    "name": "Shuang Ji of Sacrifice: +1 POWER per five damage on your champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Only the always-on computed power bonus is covered (GameLogic.php ~10933-10938: $power += intdiv($champion->Damage, 5)), using the same direct-field-seed technique as steel-halberd-class-bonus-power. Its own On Enter ability ('may deal 5 unpreventable damage to your champion to draw a card', enterAbilities['y1tyo32voa:0']) was attempted via a real hand-activation materialize sequence but the card vanished from all zones (hand/field/graveyard/memory/deck) instead of landing on the field, unlike ally/item materializes elsewhere in this file (a throwaway debug harness confirmed the disappearance) -- this WEAPON regalia subtype's real materialize flow needs separate investigation and is out of scope here. Champion Damage patched to 12: base POWER 1 + intdiv(12, 5) = 1 + 2 = 3.",
+    "testedCards": [
+        "y1tyo32voa"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["y1tyo32voa"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "This weapon gets +1 POWER for every five damage on your champion."
+        ]
+    }
+}

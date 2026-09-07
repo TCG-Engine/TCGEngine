@@ -1,0 +1,17 @@
+{
+    "name": "Jin, Fate Defiant: Inherited Effect - when Jin attacks with a Polearm weapon or Polearm attack card, target Horse or Human ally gets +1 POWER until end of turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Real attack-declaration sequence, same shape as ardent-cloudstriker-west-attack-champion-buff, but the CHAMPION itself attacks (myField-0), patched directly to Jin, Fate Defiant (a static CardID patch suffices here since ChampionHasInLineage only checks lineage, not a real Enter -- CombatLogic.php:1906-1907). Steel Halberd (WARRIOR/POLEARM) is seeded on the field as the equipped weapon; champions offer a weapon-choice decision before the attack target when a weapon is available (CombatLogic.php:1176-1180), and GetCombatWeapon() (line 162) reads back the chosen weapon's Subtypes to detect the Polearm condition (line 1915). Dungeon Guide (HUMAN) is the buff target, tagged via AddTurnEffect (CombatLogic.php:1933-1934) -- unlike a transient computed-power bonus, this TurnEffects tag persists post-combat and is directly observable. Base POWER 1 + 1 = 2.",
+    "testedCards": [
+        "zd8l14052j"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zd8l14052j"],
+        "mechanics": ["condition", "trigger", "combat"],
+        "rulesClauses": [
+            "Inherited Effect: When Jin attacks with a Polearm weapon or Polearm attack card, target Horse or Human ally gets +1 POWER until end of turn."
+        ]
+    }
+}

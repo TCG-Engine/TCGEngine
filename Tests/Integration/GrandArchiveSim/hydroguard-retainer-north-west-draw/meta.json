@@ -1,0 +1,17 @@
+{
+    "name": "Hydroguard Retainer: Shifting Currents North -> West transition draws a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Direction-CHANGE triggers ($shiftingCurrentsTransitions in GameLogic.php, keyed \"FROM->TO\", fired centrally from ChangeShiftingCurrents()) are distinct from a static-facing check -- reaching one in a controlled fixture setting requires an actual call to ChangeShiftingCurrents(). Kongming, Fel Eidolon's own Inherited ability (GameLogic.php ~5703-5708) queues an ICONCHOICE 'adjacent direction' decision on every Spell activation while it's in the champion's lineage, so patching Fel Eidolon's CardID into Subcards (same lineage-patch technique as tera-sight-preserve-draw, reused here purely as a trigger mechanism) plus activating any Spell (Tera Sight, 0 reserve) reaches the choice under full fixture control. ICONCHOICE's response is just the chosen direction string verbatim (goldfish default picks options[0], GameLogic.php:261-264) -- answered 'WEST' (adjacent to the seeded NORTH facing) to fire Hydroguard Retainer's NORTH->WEST transition. Hand count: starts at 9 with this deck/patch, unchanged after Tera Sight resolves (played 1, its own 'Draw a card' replaces it), then +1 more once the WEST decision actually changes the direction and the transition's Draw($player,1) fires -- isolating the transition's own draw from Tera Sight's.",
+    "testedCards": [
+        "0qm7n87o4s"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["0qm7n87o4s"],
+        "mechanics": ["trigger", "draw-discard", "condition"],
+        "rulesClauses": [
+            "Whenever your Shifting Currents changes from North to West, draw a card."
+        ]
+    }
+}

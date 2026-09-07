@@ -1,0 +1,17 @@
+{
+    "name": "Berserker Plate: at the beginning of your recollection phase, deal 3 unpreventable damage to your champion then draw a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-01T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Berserker Plate's recollection-phase trigger (GrandArchiveSim/Custom/GameLogic.php ~9012-9022, inside the unconditional per-field-card switch in ResolveBeforeRecollectionPhaseStart) deals 3 unpreventable damage to the turn player's champion, then draws a card. Reaching player 1's own recollection phase from the initial gamestate needs the same P1->P2->P1 cycle as planar-abyss-delayed-destroy-south-damage: P1 pass, P2 pass reaches P1's turn 2 MAT phase (BeforeRecollectionPhase's own currentTurn===1 early-return requires turn>1), and declining the MAT-phase materialize offer ('PASS') lets the phase engine auto-advance through BREC->REC (firing this trigger)->DRAW (a second, ordinary card draw)->MAIN with an empty decision queue. Final hand count is 9 = starting hand 7 + Berserker Plate's recollection draw 1 + the normal turn-2 draw-phase draw 1 (confirmed via placeholder-probe assertions). The [Class Bonus] +7 LIFE clause is a computed stat buff with no stored counter to assert and is out of scope here (consistent with the established rule for computed buffs); the recollection trigger itself is unconditional regardless of class bonus, so no champion class patch was needed.",
+    "testedCards": [
+        "ci00l7pqcx"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ci00l7pqcx"],
+        "mechanics": ["trigger", "damage", "draw-discard", "condition"],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, deal 3 unpreventable damage to your champion then draw a card."
+        ]
+    }
+}

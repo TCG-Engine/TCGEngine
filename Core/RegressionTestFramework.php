@@ -482,6 +482,10 @@ function RegressionBuildAssertionFromInput($viewerPlayerID, $payload) {
       $assertion['mzId'] = strval($payload['mzId'] ?? '');
       $assertion['value'] = intval($payload['value'] ?? 0);
       break;
+    case 'computed_life_equals':
+      $assertion['mzId'] = strval($payload['mzId'] ?? '');
+      $assertion['value'] = intval($payload['value'] ?? 0);
+      break;
     case 'decision_queue_empty':
       $assertion['player'] = strval($payload['player'] ?? 'all');
       break;
@@ -973,6 +977,12 @@ function RegressionEvaluateAssertion($assertion) {
       $obj = GetZoneObject($mzId);
       $actual = (is_object($obj) && function_exists('ObjectCurrentPower')) ? ObjectCurrentPower($obj) : null;
       return [$actual === $expected, "Expected {$mzId} computed power to equal {$expected}, got " . var_export($actual, true) . "."];
+    case 'computed_life_equals':
+      $mzId = strval($assertion['mzId'] ?? '');
+      $expected = intval($assertion['value'] ?? 0);
+      $obj = GetZoneObject($mzId);
+      $actual = (is_object($obj) && function_exists('ObjectCurrentHP')) ? ObjectCurrentHP($obj) : null;
+      return [$actual === $expected, "Expected {$mzId} computed life to equal {$expected}, got " . var_export($actual, true) . "."];
     case 'decision_queue_empty':
       $target = strtolower(strval($assertion['player'] ?? 'all'));
       $players = $target === 'all' ? [1, 2] : [intval($target)];

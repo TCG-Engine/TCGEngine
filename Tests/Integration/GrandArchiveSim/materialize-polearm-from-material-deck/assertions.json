@@ -1,0 +1,4 @@
+[
+    {"step":7,"type":"card_property_equals","mzId":"myField-1","property":"CardID","value":"fvnvknj4dd","semantic":true,"label":"Materialize Polearm puts Steel Halberd from the Material zone onto the field"},
+    {"step":7,"type":"zone_count","zone":"myMaterial","player":1,"value":4,"semantic":true,"label":"Steel Halberd leaves the Material zone (5 -> 4)"}
+]

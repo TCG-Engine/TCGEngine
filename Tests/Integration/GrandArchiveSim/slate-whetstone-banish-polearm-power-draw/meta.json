@@ -1,0 +1,17 @@
+{
+    "name": "Slate Whetstone: Banish - up to one target Polearm weapon you control gets +1 POWER until end of turn, draw a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Field items with an activated ability are offered as a fast-action MZMAYCHOOSE opportunity once the turn player attempts to pass (same technique as sweet-ambrosia-banish-recover), answered with the encoded '{mzID}@Activate-{abilityIndex}@{label}' choice string, then a second MZMAYCHOOSE to pick the Polearm target (Steel Halberd, seeded on field). The buff applies via AddTurnEffect(target, 'a8a0v4njrt') and the computed-power switch case (GameLogic.php ~12452): Steel Halberd base POWER 1 + 1 = 2. Draw(1) confirmed via hand count 7 -> 8. NOTE: this implementation never actually pays the card's own 'Banish CARDNAME' self-cost -- Slate Whetstone stays on the field afterward (never moves to myBanish) and keeps re-offering its own opportunity window on every subsequent priority check (confirmed via a throwaway debug harness, DevTools/debug_whetstone.php, now deleted). This fixture therefore ends at step 3 without a decision_queue_empty assertion, since the opportunity legitimately re-offers indefinitely as a consequence of that gap -- a real engine bug, out of scope to fix here.",
+    "testedCards": [
+        "a8a0v4njrt"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["a8a0v4njrt"],
+        "mechanics": ["condition", "cost"],
+        "rulesClauses": [
+            "Banish CARDNAME: Up to one target Polearm weapon you control gets +1 POWER until end of turn. Draw a card."
+        ]
+    }
+}

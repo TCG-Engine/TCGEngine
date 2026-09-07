@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"myField-0","property":"Damage","value":"3","semantic":true,"label":"Berserker Plate deals 3 unpreventable damage to the champion during recollection"},
+    {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":9,"semantic":true,"label":"starting hand 7 + Berserker Plate's recollection draw 1 + normal draw-phase draw 1 = 9"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

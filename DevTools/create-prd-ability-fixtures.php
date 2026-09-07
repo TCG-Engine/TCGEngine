@@ -5841,6 +5841,1355 @@ DECK,
     ],
 ];
 
+// --- Rising Tides: [Class Bonus][Level 3+] Draw a card into your memory ---
+$fixtures['rising-tides-class-bonus-level3-draw-memory'] = [
+    'testedCards' => ['y6q4goxi8a'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // IsClassBonusActive(["MAGE"]) && PlayerLevel($player) >= 3 (GrandArchiveSim/GeneratedCode/
+    // GeneratedMacroCode.php's cardActivatedAbilities["y6q4goxi8a:0"]) are independent checks: the
+    // level check reads the main champion object (patched to Lorraine, Arclight Saber, level 3,
+    // same as wisdoms-reprise-level3-draw-memory), and the class check scans ALL physical field
+    // objects for a MAGE (same physically-seeded Kongming, Fel Eidolon as
+    // devoted-bloomweaver-class-bonus-empower/vernal-talisman-preserve-draw) -- two separate
+    // objects. Unlike NORM (always enabled, GameLogic.php's CanPlayerMeetCardElementRequirements /
+    // IsNormOnlyElementProperty), Rising Tides' WATER element is NOT free: GetPlayerEnabledElements()
+    // scans GetChampionLineage() = [main champion CardID] + its Subcards, and neither
+    // x9sSpjpP3G (ARCANE) nor the physically-seeded Fel Eidolon (TERA, not in the main champion's
+    // Subcards anyway) grants WATER -- discovered empirically after the FSM click on Rising Tides
+    // silently no-opped (DoActivateCard's !CanPlayerUseCardElement(...) early-return,
+    // GameLogic.php ~line 2093). Fixed by ALSO patching the main champion's Subcards with Spirit of
+    // Water (a WATER-elemental champion), independent of the CardID patch that provides the level.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'x9sSpjpP3G', 'Subcards' => ['tafqldAGRF']]], // Lorraine, Arclight Saber (level 3) + Spirit of Water (WATER element access) in lineage
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7x2v4tdop1'], // Kongming, Fel Eidolon (MAGE CHAMPION), physically seeded for Class Bonus
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'y6q4goxi8a'], // Rising Tides
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 2-reserve cost, card 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 2-reserve cost, card 2/2
+    ],
+];
+
+// --- Tera Sight: Preserve. Draw a card. ---
+$fixtures['tera-sight-preserve-draw'] = [
+    'testedCards' => ['2Ojrn7buPe'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // TERA (advanced element), 0 reserve cost. Same Subcards element-access patch as
+    // vernal-talisman-preserve-draw/devoted-bloomweaver-class-bonus-empower (Kongming, Fel Eidolon),
+    // no physical champion needed this time since there's no Class Bonus gate. Preserve (put this
+    // card into its owner's material deck preserved as it resolves, instead of the graveyard) is a
+    // generic keyword layered on top of the card's own "Draw($player, 1)" macro.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Kongming, Fel Eidolon: On Enter, Recover X (X = TERA cards in banishment) ---
+$fixtures['kongming-fel-eidolon-enter-recover-tera-banished'] = [
+    'testedCards' => ['7x2v4tdop1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Kongming, Fel Eidolon
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // A real level-up event is required to fire a champion's own On Enter (a static CardID patch
+    // does not fire triggers, per kongming-wayward-maven-enter-shifting-currents). Fel Eidolon is
+    // level 3 (3-memory cost), so the starting champion is patched to a level-2 champion first
+    // (satisfies CanChampionLevelUpIntoCard's targetLevel===currentLevel+1 gate) with Fel Eidolon's
+    // own CardID also placed in Subcards for TERA element access (GetLegalMaterializeChoices also
+    // gates champion targets on CanPlayerUseCardElement, same technique as tera-sight-preserve-draw).
+    // Pre-damaging the champion object lets Recover X be observed as a Damage reduction once the
+    // level-up completes on the same field object.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '84YTQPTvar', 'Subcards' => ['7x2v4tdop1'], 'Damage' => 5]],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // pays the 3-memory level-up cost, card 1/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 2/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 3/3
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'qktid6zlyt'], // TERA element card #1 in banishment
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'jwanjcy453'], // TERA element card #2 in banishment
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Fel Eidolon (probed below)
+    ],
+];
+
+// --- Ardent Cloudstriker: +3 POWER while facing West and attacking a champion ---
+// --- Planar Abyss: Delayed - at beginning of next recollection phase, destroy all non-champion
+// objects, then if SC South, deal 10 damage to each opponent champion ---
+$fixtures['planar-abyss-delayed-destroy-south-damage'] = [
+    'testedCards' => ['qexcwmx2ug'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Planar Abyss's own activation just sets a delayed PLANAR_ABYSS_PENDING global effect
+    // (cardActivatedAbilities['qexcwmx2ug:0'], GeneratedMacroCode.php ~20854-20860); the actual
+    // destroy-all + conditional-damage resolution happens inside RecollectionPhase() (GameLogic.php
+    // ~9676-9699) the next time this player's recollection phase begins. Setting the flag directly
+    // via the 'globalEffect' setup step (same technique as blistering-insurgent's LEVELED_UP_THIS_TURN)
+    // avoids scripting the card's own 12-reserve activation, which is out of scope for this fixture.
+    // Dungeon Guide (an ALLY) is seeded onto both fields as the "non-champion object" target; SC
+    // faces South so the champion-damage half is also exercised in the same fixture.
+    'setup' => [
+        ['player' => 1, 'globalEffect' => 'PLANAR_ABYSS_PENDING'],
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'SOUTH']], // Shifting Currents facing South
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY), P1's own non-champion object to be destroyed
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY), P2's non-champion object to be destroyed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline materialize offer, continue phase advance through recollection
+    ],
+];
+
+// --- Taiji of Crystal Strategems: South->East transition, may rest to deal 3 damage to opponent's champion ---
+$fixtures['taiji-crystal-strategems-south-east-rest-damage'] = [
+    'testedCards' => ['l17uc67eaq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // South->East is adjacent (IsAdjacentDirection: SOUTH<->EAST/WEST), so this reuses the same
+    // Fel Eidolon Inherited "adjacent direction on Spell activation" trigger mechanism as
+    // hydroguard-retainer-north-west-draw, just starting from SOUTH and answering "EAST". The
+    // transition callback (GameLogic.php ~20630-20636) then queues a YES/NO "rest to deal 3
+    // damage?" decision, answered YES.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock + Fel Eidolon Inherited trigger
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'SOUTH']], // Shifting Currents facing South
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'l17uc67eaq'], // Taiji of Crystal Strategems
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight, to trigger the Inherited SC choice on activation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EAST', 'chkInput' => [], 'inputText' => ''], // choose adjacent direction EAST
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // rest Taiji to deal 3 damage
+    ],
+];
+
+// --- Spirited Neophyte: On Attack, if facing North, Empower 2 ---
+$fixtures['spirited-neophyte-north-attack-empower'] = [
+    'testedCards' => ['ekplmih8ra'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Same real attack-declaration sequence as ardent-cloudstriker-west-attack-champion-buff. Unlike
+    // Ardent Cloudstriker's transient computed-power bonus, Empower() tags the CHAMPION object with a
+    // TurnEffects entry that persists after combat resolves (it isn't cleared by the CombatAttacker/
+    // CombatTarget cleanup), so it's directly observable in the post-action snapshot.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ekplmih8ra'], // Spirited Neophyte
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline materialize offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Spirited Neophyte
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
+$fixtures['ardent-cloudstriker-west-attack-champion-buff'] = [
+    'testedCards' => ['4kpotk5hvr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Real attack-declaration sequence, same shape as blistering-insurgent-attack-buff: the 2-pass
+    // cycle (P1 pass, P2 pass) already reaches P1's global turn 3 (their own 2nd turn), past Rule
+    // 1.h's turn-1 attack lock. Ardent Cloudstriker is seeded directly onto the field (bypassing its
+    // 5-reserve cost) with Status patched awake (2) so it can declare an attack immediately.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'WEST']], // Shifting Currents facing West
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4kpotk5hvr'], // Ardent Cloudstriker
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline materialize offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Ardent Cloudstriker
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
+// --- Kongming, Ascetic Vice: On Enter Empower 3 + Inherited N->S draw (Kongming Bonus, at end phase) ---
+$fixtures['kongming-ascetic-vice-enter-empower-and-inherited-draw'] = [
+    'testedCards' => ['a01pyxwo25'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Kongming, Ascetic Vice
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'apVtyt48u3']], // level-1 champion (Dante, Prodigal Swain), satisfies the level-1->2 gate
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // pays the 2-memory level-up cost, card 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 2/2
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Ascetic Vice, fires On Enter Empower 3
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // reach BeforeEndPhase -> Kongming Bonus SC "any direction" offer
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'SOUTH', 'chkInput' => [], 'inputText' => ''], // choose SOUTH to fire the Inherited N->S transition (probed below)
+    ],
+];
+
+// --- Hydroguard Retainer: Shifting Currents North->West transition draws a card ---
+$fixtures['hydroguard-retainer-north-west-draw'] = [
+    'testedCards' => ['0qm7n87o4s'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Direction-CHANGE triggers ($shiftingCurrentsTransitions in GameLogic.php, keyed "FROM->TO")
+    // only fire through ChangeShiftingCurrents(), which is reached in a controlled way by activating
+    // any Spell card while Kongming, Fel Eidolon is in the champion's lineage (its own Inherited
+    // ability queues an ICONCHOICE "adjacent direction" decision on every Spell activation, GameLogic.php
+    // ~5703-5708) -- same Subcards lineage-patch technique as tera-sight-preserve-draw, reused here
+    // purely as a trigger mechanism rather than for its own sake. ICONCHOICE's response is just the
+    // chosen direction string verbatim (goldfish default picks options[0], GameLogic.php:261-264).
+    // Shifting Currents seeded at NORTH; Tera Sight (0 reserve TERA Spell) is activated to reach the
+    // choice, which is answered "WEST" (adjacent to NORTH) to fire the NORTH->WEST transition.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock + Fel Eidolon Inherited trigger
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '0qm7n87o4s'], // Hydroguard Retainer
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight, to trigger the Inherited SC choice on activation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-8!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'WEST', 'chkInput' => [], 'inputText' => ''], // choose adjacent direction WEST
+    ],
+];
+
+// --- Formidable Youxia: As long as Shifting Currents face East, +2 LIFE ---
+$fixtures['formidable-youxia-east-life-buff'] = [
+    'testedCards' => ['acmde97dbu'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Purely computed at ObjectCurrentHP() read time (GrandArchiveSim/Custom/GameLogic.php:13538-
+    // 13542, ~13740), same shape as Banner Knight's power buff -- no stored flag to assert against,
+    // so a new generic computed_life_equals assertion type (Core/RegressionTestFramework.php,
+    // mirroring computed_power_equals) was added. Shifting Currents mastery is a myMastery zone card
+    // (CardID qh5mpkyl60) with a Direction property (established by
+    // kongming-wayward-maven-enter-shifting-currents), seeded directly facing EAST. Base LIFE 2 + 2
+    // = 4.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'EAST']],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'acmde97dbu'], // Formidable Youxia
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 2-reserve cost, card 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 2-reserve cost, card 2/2
+    ],
+];
+
+// --- Wisdom's Reprise: Glimpse 3. [Level 3+] Draw a card into memory. ---
+$fixtures['wisdoms-reprise-level3-draw-memory'] = [
+    'testedCards' => ['lvmj48fn9p'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // [Level 3+] gate reads PlayerLevel() directly, satisfied by the same static champion CardID
+    // patch technique as banner-knight-class-bonus-power-buff (Lorraine, Arclight Saber, level 3) --
+    // no real level-up sequence or On Enter trigger needed since this reads the champion's level,
+    // not anything about Wisdom's Reprise's own controller lineage. Glimpse 3's own MZREARRANGE
+    // decision must be answered (submitting the same "Top=...;Bottom=" param verbatim, same
+    // technique as idle-thoughts-glimpse-4) before QueueDrawIntoMemoryAfterGlimpse's queued draw can
+    // resolve -- confirmed via direct probe against this exact deck/seed.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'x9sSpjpP3G']], // Lorraine, Arclight Saber, level 3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'lvmj48fn9p'], // Wisdom's Reprise
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1-reserve cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Idle Thoughts: Glimpse 4, keep original order (shared with Jin Starter Deck) ---
+$fixtures['idle-thoughts-glimpse-4'] = [
+    'testedCards' => ['rWhFC8XBaH'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rWhFC8XBaH'], // Idle Thoughts, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1-reserve cost
+        // MZREARRANGE response: submit the same "Top=...;Bottom=" param verbatim to keep original
+        // order (same no-op default GoldfishChooseAction uses for this decision type,
+        // GrandArchiveSim/Custom/GameLogic.php:254-255) -- confirmed via direct probe against this
+        // exact deck/seed since the glimpsed card IDs depend on the deterministic shuffle.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Devoted Bloomweaver: [Class Bonus] On Enter, Empower 2 ---
+$fixtures['devoted-bloomweaver-class-bonus-empower'] = [
+    'testedCards' => ['yqm3l6lbns'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Devoted Bloomweaver is a TERA (advanced element) ALLY with a MAGE Class Bonus On Enter, same
+    // split as vernal-talisman-preserve-draw: the starting champion's Subcards are patched with a
+    // real TERA champion (Kongming, Fel Eidolon) for element access, and that same champion is ALSO
+    // physically seeded onto the field so IsClassBonusActive(["MAGE"]) is satisfied.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7x2v4tdop1'], // Kongming, Fel Eidolon (MAGE CHAMPION), physically seeded for Class Bonus
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'yqm3l6lbns'], // Devoted Bloomweaver, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 2-reserve cost, card 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 2-reserve cost, card 2/2
+    ],
+];
+
+// --- Sweet Ambrosia: Banish self to recover 3 damage from the champion ---
+$fixtures['sweet-ambrosia-banish-recover'] = [
+    'testedCards' => ['dgyduwh84p'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Field items with an activated ability are not clickable via a plain myField-N!FSM! action
+    // (ActionMap's "myField" case only handles attack declarations, GrandArchiveSim/Custom/
+    // GameLogic.php:1289-1296) -- their ability is offered as a fast-action MZMAYCHOOSE opportunity
+    // once the turn player attempts to pass (GetPlayableOpportunityChoices/GetPlayableFastAbilities,
+    // OpportunityLogic.php), answered with the encoded "{mzID}@Activate-{abilityIndex}@{label}"
+    // choice string (same shape as tariff-ring-attack-tax's response).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'dgyduwh84p'], // Sweet Ambrosia
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 5]], // pre-damage champion
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Kongming, Wayward Maven: On Enter, gain the Shifting Currents mastery ---
+$fixtures['kongming-wayward-maven-enter-shifting-currents'] = [
+    'testedCards' => ['346vgwz3y4'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Kongming, Wayward Maven
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // pays the 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Wayward Maven
+    ],
+];
+
+// --- Steel Halberd: [Class Bonus] +1 POWER ---
+$fixtures['steel-halberd-class-bonus-power'] = [
+    'testedCards' => ['fvnvknj4dd'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // [Class Bonus] scans ALL physical field objects, independent of the main champion (established
+    // technique, e.g. devoted-bloomweaver-class-bonus-empower): a physically-seeded WARRIOR champion
+    // (Jin, Fate Defiant) satisfies it. Base power 1 + 1 from the bonus.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zd8l14052j'], // Jin, Fate Defiant (WARRIOR), for Class Bonus
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fvnvknj4dd'], // Steel Halberd
+    ],
+    // A step-0 assertion can't run (the engine's game state isn't parsed into memory until the
+    // first action executes, DevTools/RunIntegrationTests.php:158 vs 150/167) -- a harmless Pass
+    // forces that load so the computed-power assertion can run at step 1.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Shuang Ji of Sacrifice: +1 POWER per five damage on your champion ---
+// (Its own On Enter -- "may deal 5 unpreventable damage to your champion to draw a card" -- turned
+// out to require a real hand-activation materialize sequence that vanishes the card instead of
+// placing it on the field for this WEAPON regalia subtype, unlike ally/item materializes elsewhere
+// in this file; that's a separate investigation and out of scope here. Only the always-on computed
+// power bonus is covered, using the same direct-field-seed technique as steel-halberd-class-bonus-power.)
+$fixtures['shuang-ji-sacrifice-champion-damage-power'] = [
+    'testedCards' => ['y1tyo32voa'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 12]], // 12 damage on champion
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'y1tyo32voa'], // Shuang Ji of Sacrifice
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Bloodbond Bladesworn: [Class Bonus] +1 POWER per 10 damage counters on champion ---
+$fixtures['bloodbond-bladesworn-class-bonus-champion-damage-power'] = [
+    'testedCards' => ['blyb6fd6vy'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zd8l14052j'], // Jin, Fate Defiant (WARRIOR), for Class Bonus
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 25]], // 25 damage on champion
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'blyb6fd6vy'], // Bloodbond Bladesworn
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Favorable Winds: Allies you control get +1 LIFE until end of turn ---
+$fixtures['favorable-winds-ally-life-buff'] = [
+    'testedCards' => ['dsAqxMezGb'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // WIND (basic element): Subcards lineage patch for element access, same technique as
+    // rising-tides/tera-sight. AddGlobalEffects('dsAqxMezGb') then applies to any ALLY-type object
+    // via $doesGlobalEffectApply['dsAqxMezGb'] (GameLogic.php:17660-17662), read back as +1 LIFE in
+    // the LIFE computation switch (~13680-13682).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND element unlock (Spirit of Wind)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY), base LIFE 3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'dsAqxMezGb'], // Favorable Winds
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1-reserve cost
+        // Reserve-paid SPELL activations resolve via an EffectStack, unlike the direct-resolution
+        // memory-cost activations used elsewhere in this file; decline the "respond?" opportunity
+        // ("-") to let it resolve (discovered via a throwaway debug harness, DevTools/debug_winds.php).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Slate Whetstone: Banish - up to one target Polearm weapon you control gets +1 POWER
+// until end of turn, draw a card ---
+$fixtures['slate-whetstone-banish-polearm-power-draw'] = [
+    'testedCards' => ['a8a0v4njrt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Field items with an activated ability are offered as a fast-action MZMAYCHOOSE opportunity
+    // once the turn player attempts to pass (same technique as sweet-ambrosia-banish-recover),
+    // answered with the encoded "{mzID}@Activate-{abilityIndex}@{label}" choice string. Steel
+    // Halberd (WARRIOR/POLEARM) is seeded as the buff target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'a8a0v4njrt'], // Slate Whetstone
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fvnvknj4dd'], // Steel Halberd (WARRIOR/POLEARM)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''], // choose Steel Halberd as the buff target
+    ],
+];
+
+// --- Eminent Commander: [Class Bonus] costs 3 less to activate as long as your champion has
+// dealt 3+ combat damage this turn ---
+$fixtures['eminent-commander-class-bonus-combat-damage-discount'] = [
+    'testedCards' => ['iow4occyxi'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // CountChampionCombatDamageDealtThisTurn (GameLogic.php:23297) reads the champion object's own
+    // Counters['_champCombatDamageDealtThisTurn'], directly seedable via patchMzId (no real combat
+    // needed). [Class Bonus] WARRIOR is satisfied by a physically-seeded WARRIOR champion (Jin,
+    // Fate Defiant), independent of the main champion. WIND element access via the established
+    // Subcards lineage patch (Spirit of Wind). Base reserve cost 5, -3 discount = 2: the FSM click
+    // plus 2 "myHand-0" reserve payments (each pick removes the new top-of-hand card, same as
+    // summon-sentinels-drone-tokens' 4x myHand-0 pattern) pays the full discounted cost.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7'], 'Counters' => ['_champCombatDamageDealtThisTurn' => 3]]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zd8l14052j'], // Jin, Fate Defiant (WARRIOR), for Class Bonus
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'iow4occyxi'], // Eminent Commander
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // After the discounted 2-reserve cost is fully paid, a standard post-materialize opportunity
+        // window offers remaining hand fast-actions; decline it to reach a clean end state.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Materialize Polearm: materialize a Polearm card from your material deck ---
+$fixtures['materialize-polearm-from-material-deck'] = [
+    'testedCards' => ['zc7wxgur23'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // WIND element access via the established Subcards lineage patch (Spirit of Wind). Steel
+    // Halberd (WARRIOR/POLEARM) is seeded directly into the Material zone (on top of the 5 default
+    // material cards) as the choosable target; the CUSTOM handler resolves via DoMaterialize
+    // (GeneratedMacroCode.php:38036), bypassing the Polearm's own cost.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND element unlock (Spirit of Wind)
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'fvnvknj4dd'], // Steel Halberd (WARRIOR/POLEARM)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zc7wxgur23'], // Materialize Polearm
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Reserve-paid activated abilities resolve through an EffectStack opportunity, same as
+        // favorable-winds-ally-life-buff; decline it ('-') to let the target choice appear.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''], // choose Steel Halberd
+    ],
+];
+
+// --- Trusty Steed: On Enter, target ally you control gets +2 POWER until end of turn ---
+$fixtures['trusty-steed-enter-ally-power-buff'] = [
+    'testedCards' => ['FCbKYZcbNq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // NORM (no advanced element) ALLY, so no Subcards lineage patch is needed. Dungeon Guide is
+    // seeded on the field first as the only other ally, so ZoneSearch("myField", ["ALLY"]) with the
+    // "pop self off the end" trick (GeneratedMacroCode.php:11162) leaves exactly one legal target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, buff target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'FCbKYZcbNq'], // Trusty Steed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Unlike a SPELL activation (favorable-winds-ally-life-buff), an ALLY's On Enter target
+        // choice is queued directly after the last reserve payment -- no EffectStack decline step
+        // (confirmed via a throwaway debug harness, DevTools/debug_steed.php, now deleted; an extra
+        // decline here gets consumed AS the target choice with chosen="-", silently no-opping the buff).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Dungeon Guide
+    ],
+];
+
+// --- Jin, Fate Defiant: Inherited Effect - when Jin attacks with a Polearm weapon or Polearm
+// attack card, target Horse or Human ally gets +1 POWER until end of turn ---
+$fixtures['jin-fate-defiant-polearm-attack-ally-buff'] = [
+    'testedCards' => ['zd8l14052j'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Real attack-declaration sequence, same shape as ardent-cloudstriker-west-attack-champion-buff,
+    // but the CHAMPION itself attacks (myField-0), patched directly to Jin, Fate Defiant (a static
+    // CardID patch suffices here since ChampionHasInLineage only checks lineage, not a real Enter).
+    // Steel Halberd (WARRIOR/POLEARM) is seeded on the field as the equipped weapon -- champions
+    // offer a weapon-choice decision before the attack target when a weapon is available
+    // (CombatLogic.php:1176-1180). Dungeon Guide (HUMAN) is the buff target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j', 'Status' => 2]], // Jin, Fate Defiant, awake
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (HUMAN), buff target
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fvnvknj4dd'], // Steel Halberd (WARRIOR/POLEARM), equipped weapon
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline materialize offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Jin
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''], // choose Steel Halberd as the weapon
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Dungeon Guide for +1 POWER
+    ],
+];
+
+// --- Jin, Zealous Maverick: On Enter, this champion's next attack gets +1 POWER and wakes it up ---
+$fixtures['jin-zealous-maverick-enter-next-attack-power-wake'] = [
+    'testedCards' => ['5ramr16052'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Jin, Zealous Maverick
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // A real level-up event is required to fire a champion's own On Enter (a static CardID patch
+    // does not fire triggers, per kongming-wayward-maven-enter-shifting-currents). The starting
+    // champion is patched to Jin, Fate Defiant (level 1) so the real level-up reaches Jin, Zealous
+    // Maverick (level 2, memory cost 2). On Enter tags TurnEffects with '5ramr16052'
+    // (GeneratedMacroCode.php:9805-9809); on the champion's next attack, CombatLogic.php:1796-1801
+    // consumes that flag into '5ramr16052_POWER' (+1 POWER, GameLogic.php:12244) and calls
+    // WakeupCard -- both halves are exercised end to end in a single real attack declaration.
+    // Resolving the MAT-phase choice by leveling up (unlike declining) lands directly in MAIN phase
+    // with an empty decision queue -- no extra pass is needed, confirmed via a throwaway debug
+    // harness (DevTools/debug_zealous.php, now deleted). That harness also found Zealous Maverick has
+    // 0 base POWER, so the attack is illegal without a weapon (BeginCombatPhase's power>0 gate is
+    // checked before the On Attack trigger fires and can't retroactively legalize it) -- Steel
+    // Halberd is seeded on the field as the equipped weapon, same as jin-fate-defiant-polearm-attack-
+    // ally-buff, purely to give the attack positive power. The SAME harness also found that a real
+    // level-up re-adds the champion object at the END of the field array rather than replacing it
+    // in place -- Steel Halberd (originally myField-1) becomes myField-0 and the leveled champion
+    // becomes myField-1 after the level-up action.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j']], // Jin, Fate Defiant (level 1)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // pays the 2-memory level-up cost, card 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 2/2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'fvnvknj4dd'], // Steel Halberd (WEAPON), gives the attack positive power
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Zealous Maverick
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Jin (now at index 1)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // choose Steel Halberd (now at index 0) as the weapon
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
+// --- Veteran Soldier: Floating Memory pays a champion level-up's memory cost from graveyard ---
+$fixtures['veteran-soldier-floating-memory'] = [
+    'testedCards' => ['vefcX6tBeg'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Same Floating Memory keyword and same test shape as shieldroid-floating-memory /
+    // stalwart-shieldmate-floating-memory / honorable-vanguard-floating-memory / return-stroke-
+    // floating-memory -- Veteran Soldier's only ability (abilityCount=1 in the semantic backlog) is
+    // this unconditional keyword. Pay Lorraine, Wandering Warrior's 1-memory champion level-up cost
+    // entirely from a Veteran Soldier seeded directly into the graveyard, with no myMemory filler
+    // seeded, so QueueMaterializeFloatingPaymentChoice (GrandArchiveSim/Custom/MaterializeLogic.php)
+    // offers it as the sole payment source.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'vefcX6tBeg'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Berserker Plate: recollection phase - deal 3 unpreventable to your champion, then draw ---
+$fixtures['berserker-plate-recollection-damage-draw'] = [
+    'testedCards' => ['ci00l7pqcx'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Berserker Plate's recollection-phase trigger (GameLogic.php ~9012-9022, inside the
+    // unconditional per-field-card switch in ResolveBeforeRecollectionPhaseStart) deals 3
+    // unpreventable damage to the turn player's champion, then draws a card. Reaching player 1's
+    // own recollection phase from the initial gamestate needs the same P1->P2->P1 cycle as
+    // planar-abyss-delayed-destroy-south-damage: P1 pass, P2 pass reaches P1's turn 2 MAT phase
+    // (BeforeRecollectionPhase's own currentTurn===1 early-return requires turn>1), and declining
+    // the MAT-phase materialize offer ('PASS') lets the phase engine auto-advance through
+    // BREC->REC (firing this trigger)->DRAW->MAIN. The [Class Bonus] +7 LIFE clause is a computed
+    // stat buff with no stored counter to assert and is out of scope here (consistent with the
+    // established rule for computed buffs); the recollection trigger is unconditional regardless of
+    // class bonus, so no champion class patch is needed.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ci00l7pqcx'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Safeguard Paladin: [Class Bonus] prevent 2 non-combat damage to itself ---
+$fixtures['safeguard-paladin-class-bonus-noncombat-prevent'] = [
+    'testedCards' => ['ifmmvbm26h'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Jin, Fate Defiant
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Safeguard Paladin's Class Bonus (CombatLogic.php:4479-4484, inside OnDealDamage's non-combat
+    // prevention chain: "if(!$isCombat && ... $targetObj->CardID === 'ifmmvbm26h' ...) $amount =
+    // max(0, $amount - 2)") only fires when the champion's class matches (CLERIC or WARRIOR). The
+    // starting champion's CardID is patched directly to Jin, Fate Defiant (WARRIOR) to satisfy that
+    // condition -- but Jin's own element is NORM, not FIRE, so a FIRE-element damage spell (like
+    // Focused Flames, tried first and rejected by CanPlayerUseCardElement -- confirmed via a
+    // throwaway debug harness, DevTools/debug_safeguard.php/debug_safeguard2.php, now deleted --
+    // since the champion patch drops the default Spirit of Fire lineage's FIRE unlock) can't be
+    // activated. Nascent Blast (vajycopxgf, cardActivatedAbilities/CardActivated-1,
+    // GeneratedMacroCode.php ~22398-22410/37158-37166) is NORM element instead (always usable
+    // regardless of champion element) -- a 3-reserve ACTION spell that deals 3 non-combat damage to
+    // target unit via DealDamage -> OnDealDamage, activated from hand and targeted at Safeguard
+    // Paladin itself (same action shape as ignite-the-soul-damage: FSM click, pay reserve, both
+    // players decline the EffectStack response window with PASS, then choose the target) --
+    // confirmed WRONG via RunIntegrationTests --verbose: the target MZCHOOSE is queued directly
+    // after the 3rd payment with no decline step (same as trusty-steed-enter-ally-power-buff's
+    // ALLY On Enter target choice), so an extra PASS action gets consumed as the target choice
+    // itself instead. 3 damage - 2 prevented = 1 damage actually applied.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j']], // Jin, Fate Defiant (WARRIOR) - Class Bonus precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ifmmvbm26h'], // Safeguard Paladin
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vajycopxgf'], // Nascent Blast
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Jin, Undying Resolve: immortality as long as it's not your end phase ---
+$fixtures['jin-undying-resolve-immortality-survives-lethal'] = [
+    'testedCards' => ['c4yrrtv7o1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Jin, Undying Resolve
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Jin, Undying Resolve's immortality (HasImmortality, GrandArchiveSim/Custom/GameLogic.php
+    // ~23146-23157: "as long as it's not your end phase, Jin has immortality" for the card itself
+    // or ChampionHasInLineage matches) is checked inside DoAllyDestroyed
+    // (GameLogic.php:7282-7296), the general destroy handler every lethal-damage path funnels
+    // through -- confirmed by tracing OnDealDamage's non-domain path (CombatLogic.php, ends with
+    // "$targetObj->Damage += $amount; ... AllyDestroyed($player, $target);"). The starting
+    // champion's CardID is patched directly to Jin, Undying Resolve (life 28), with Damage
+    // pre-patched to 27 (one below lethal). Nascent Blast (vajycopxgf, NORM element, always
+    // castable regardless of champion element -- see safeguard-paladin-class-bonus-noncombat-
+    // prevent's note on this) deals 3 non-combat damage to target unit; targeting the champion
+    // itself (myField-0, a legal self-target since Nascent Blast's target pool is any unit on
+    // either field) pushes Damage to 30, past the 28 life threshold. Since this is MAIN phase (not
+    // the controller's end phase), immortality suppresses the destroy check and the champion stays
+    // on the field with the damage counters intact (per the card's own reminder text: "won't die
+    // for having more damage counters than their life stat"). The reciprocal half -- immortality
+    // ending and the champion actually dying at the controller's own end phase (GameLogic.php
+    // EndPhase():10069-10082, a separate state-based re-check) -- needs a full phase advance to
+    // END and is out of scope for this fixture.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'c4yrrtv7o1', 'Damage' => 27]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vajycopxgf'], // Nascent Blast
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Executioner's Spear: [Jin Bonus] On Kill, put a durability counter on itself ---
+$fixtures['executioners-spear-jin-bonus-on-kill-durability'] = [
+    'testedCards' => ['zv6yp6q7zw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Jin, Fate Defiant
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Executioner's Spear's On Kill (GeneratedMacroCode.php ~26540-26547, onKillAbilities) only
+    // fires when IsJinBonus($player) (GameLogic.php:25095-25100, champion name starts with "Jin")
+    // is true, so the starting champion's CardID is patched directly to Jin, Fate Defiant. On Kill
+    // dispatch (CombatLogic.php:2541-2578, OnKillTrigger) only fires for a real combat-damage kill,
+    // so this needs a full real attack sequence (same P1 pass / P2 pass / P1 decline-MAT-PASS
+    // shape as jin-fate-defiant-polearm-attack-ally-buff to clear the turn-1 attack lock and reach
+    // turn 2 MAIN). A setup step targeting the OPPONENT's own field must use
+    // {'player'=>2,'zone'=>'myField'}, NOT 'theirField' -- 'zone' names in a setup step are
+    // relative to the acting player, so 'theirField' with player=2 seeds player 1's field instead
+    // (hit and fixed live: Baby Gray Slime first landed on the attacker's own field). After
+    // choosing the attack target, a "Retaliate?" MZMAYCHOOSE decision is queued for the DEFENDER
+    // (player 2) that must be explicitly declined ('-') before CombatApplyAttackerDamage actually
+    // lands the damage -- omitting it leaves the kill (and the durability counter) from ever
+    // happening (confirmed via a throwaway debug harness, now deleted). Jin, Fate Defiant has no
+    // printed base POWER (0), and Executioner's Spear has no Class Bonus power boost (unlike Steel
+    // Halberd), so total attack power is exactly the weapon's printed 1 POWER -- Baby Gray Slime
+    // (0hsncz1fz2, 1 life) is the kill target. Executioner's Spear enters the field with 2
+    // durability counters; combat damage removes 1 (per its own reminder text), then On Kill adds 1
+    // back, netting durability=2.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j']], // Jin, Fate Defiant (WARRIOR) - Jin Bonus precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zv6yp6q7zw'], // Executioner's Spear
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '0hsncz1fz2'], // Baby Gray Slime (1 life) - kill target, on player 2's OWN field
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Executioner's Spear as the weapon
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Baby Gray Slime
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so CombatApplyAttackerDamage actually lands
+    ],
+];
+
+// --- Hemorrhaging Rend: [Damage 20+] Cleave, attack all units a chosen opponent controls ---
+$fixtures['hemorrhaging-rend-damage20-cleave'] = [
+    'testedCards' => ['xiazfnm292'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Hemorrhaging Rend is an ATTACK card, played as an intent card during a real attack rather
+    // than having its own cardActivatedAbilities entry (no per-card macro exists for it at all --
+    // confirmed by grep). Seeding it directly into myIntent via setup does NOT survive to the
+    // attack: the P1/P2 turn-1 pass needed to clear the turn-1 attack lock runs through EndPhase(),
+    // which calls ClearIntent() and wipes any pre-seeded intent card before turn 2 begins
+    // (confirmed via a throwaway debug harness, now deleted, showing GetIntentCards(1) === [] and
+    // BeginCombatPhase failing with "0 or less power" right when the attack was attempted). So
+    // instead it's played for real from hand during turn 2's MAIN phase, same FSM-click + reserve-
+    // payment shape as any other hand card -- ActionMap's myHand case has no special handling for
+    // ATTACK-type cards, it just calls the same ActivateCard() as a materialize/spell, whose result
+    // is entering myIntent instead of the field. Hemorrhaging Rend's element is EXIA, not unlocked
+    // by the default Spirit of Fire lineage. Patching the champion's own CardID to an EXIA champion
+    // (Dante, Hemomancer) was tried first and rejected: GetPlayerEnabledElements reads
+    // GetChampionLineage (the current champion's own elements plus its Subcards lineage), so a full
+    // CardID patch works for the element unlock but ALSO inherits Dante's own printed abilities --
+    // an Empower fast-action Opportunity window opened at the very first decision point and
+    // silently absorbed the turn-1 pass action meant to decline the turn-2 MAT-phase materialize
+    // offer, leaving turn 2 never properly reached (confirmed via a throwaway debug harness, now
+    // deleted: BeginCombatPhase kept failing with "0 or less power" and GetIntentCards(1) stayed
+    // empty even after the FSM click + reserve payments "succeeded"). Fix: unlock EXIA via Subcards
+    // lineage only (same technique as Lorraine Arclight Saber's WIND unlock via
+    // Subcards=[pNiyaGlIe7]) -- Dante's CardID goes into Subcards while Spirit of Fire (no
+    // interfering abilities) stays the active champion. Damage is patched to 20 for the
+    // [Damage 20+] condition. AttackerHasCleave (CombatLogic.php:433-443) grants Cleave once the
+    // champion has 20+ damage counters and Hemorrhaging Rend is in intent -- Cleave with no weapon
+    // available bypasses the normal target-choice MZCHOOSE entirely and queues a CleaveAttack
+    // decision directly (CombatLogic.php:1187-1188/1575-1578), making ALL of the opponent's units
+    // (their champion AND Dungeon Guide, seeded onto their own field) simultaneous defenders.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['4FtNBFaOJp'], 'Damage' => 20]], // Dante, Hemomancer in Subcards for EXIA unlock only
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'xiazfnm292'], // Hemorrhaging Rend
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, second Cleave defender
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Savage Swing: [Class Bonus] Floating Memory ---
+$fixtures['savage-swing-class-bonus-floating-memory'] = [
+    'testedCards' => ['vk56lbihtc'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Jin, Zealous Maverick
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Unlike Veteran Soldier's unconditional Floating Memory (veteran-soldier-floating-memory),
+    // Savage Swing's is gated by [Class Bonus] (its own class is WARRIOR). Two things ruled out
+    // Floating Memory's usual test shape: (1) Floating Memory only offers itself as a payment
+    // source for a MEMORY cost (a champion level-up), NOT a reserve cost -- confirmed by trying to
+    // pay 1 of Nascent Blast's reserve cast cost from the graveyard, which was rejected as "Invalid
+    // selection."; (2) patching the starting champion directly to Jin, Fate Defiant (level 1)
+    // to satisfy the Class Bonus makes leveling into another level-1 champion (Lorraine, Wandering
+    // Warrior) illegal -- level-up requires a strictly higher level than the current champion. Fix:
+    // patch the champion to Jin, Fate Defiant (level 1, WARRIOR) and level up from there into Jin,
+    // Zealous Maverick (level 2, WARRIOR, 2-memory cost) instead -- the Class Bonus condition checks
+    // the CURRENT champion (Jin, Fate Defiant, still WARRIOR) at payment time, before the level-up
+    // completes. Savage Swing pays 1 of the 2 memory via Floating Memory from the graveyard; the
+    // 2nd memory point is a filler card seeded directly into myMemory (no draw/recollection cycle
+    // needed to populate it).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j']], // Jin, Fate Defiant (WARRIOR, level 1) - Class Bonus precondition + legal level-up base
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'vk56lbihtc'], // Savage Swing
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // filler memory card, 2nd point of Jin Zealous Maverick's 2-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // select Jin, Zealous Maverick as the level-up target
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // pay 1 memory via Floating Memory
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // pay the 2nd memory point
+    ],
+];
+
+// --- Wind Cutter: [Class Bonus] +1 POWER, real single-target (non-Cleave) ATTACK-card attack ---
+$fixtures['wind-cutter-class-bonus-power-attack'] = [
+    'testedCards' => ['TgYTZg6TaG'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+8 Dungeon Guide
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // First fixture to exercise the NORMAL (non-Cleave) single-target ATTACK-card flow, now that
+    // hemorrhaging-rend-damage20-cleave proved ATTACK cards are played from hand into myIntent like
+    // any other card. Champion is patched to Jin, Fate Defiant (WARRIOR/RANGER class match for
+    // Wind Cutter's [Class Bonus] +1 POWER) with Spirit of Wind (pNiyaGlIe7) added via Subcards only
+    // (not a full CardID patch) to unlock WIND without inheriting any interfering abilities -- same
+    // technique as hemorrhaging-rend's Dante-via-Subcards fix. Unlocking WIND has a side effect
+    // specific to the OTHER Jin fixtures' shared Main list: Fairy Whispers (n8wyfG9hbY) is itself a
+    // WIND-element ACTION card, and once WIND is unlocked it becomes flash-playable, which
+    // perpetually re-triggers a "Take a fast action?" Opportunity window (and a chained materialize
+    // offer) at EVERY decision boundary -- declining it never actually clears it, and a single
+    // decline was even observed to skip all the way to the opponent's turn (GA's phase auto-advance
+    // treats an empty decision queue as "nothing left for this player," and CustomInput.php's
+    // "myHealth" Pass button is in fact the same generic mid-game turn-pass action used for the
+    // pregame mulligan, usable by whichever player's turn it currently is -- confirmed via a
+    // throwaway debug harness, now deleted). Fix: this fixture's own deck heredoc drops Fairy
+    // Whispers entirely (replaced with more Dungeon Guide to keep 16 Main cards), so unlocking WIND
+    // doesn't expose any new flash-playable card, and the action sequence reduces to the same
+    // minimal single-PASS turn-1 shape used by every other real-attack fixture.
+    // GetAttackWeaponChoices($player, $obj)
+    // (CombatLogic.php:110-148) reads GetAvailableWeapons($player), which only looks at field-based
+    // WEAPON items -- with none on the field, $availableWeapons is empty, so BeginCombatPhase
+    // (CombatLogic.php:1478-1580) skips the weapon-choice MZCHOOSE entirely (that step is
+    // conditioned on `!empty($availableWeapons)`) and queues ChooseAttackTarget directly. Wind
+    // Cutter's own printed POWER is 1; the intent card's computed power (base 1 + Class Bonus 1 = 2)
+    // is asserted directly on myIntent-0 right after paying reserve, before the attack is declared.
+    // GetTotalAttackPower then sums the champion's own power (0, Jin, Fate Defiant has none) plus
+    // the intent card's positive power (2) with no weapon, so the opponent's champion (targeted
+    // directly, theirField-0) takes exactly 2 combat damage. As with every other real-attack
+    // fixture, the defender's "Retaliate?" MZMAYCHOOSE must be explicitly declined before
+    // CombatApplyAttackerDamage actually lands the damage.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zd8l14052j', 'Subcards' => ['pNiyaGlIe7']]], // Jin, Fate Defiant (WARRIOR class bonus) + WIND unlock via Spirit of Wind lineage
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'TgYTZg6TaG'], // Wind Cutter
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate
+    ],
+];
+
+// --- Pierce the Heavens: [Jin Bonus] leveled up this turn -> +2 POWER, unblockable ---
+$fixtures['pierce-the-heavens-jin-bonus-leveled-up-power-unblockable'] = [
+    'testedCards' => ['yguf3aw2ct'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Jin, Fate Defiant
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Pierce the Heavens' onAttackAbilities (CombatLogic.php:592) checks
+    // strpos(CardName($champ->CardID), "Jin") === 0 AND GlobalEffectCount($player,
+    // "LEVELED_UP_THIS_TURN") > 0, adding +2 POWER and UNBLOCKABLE TurnEffects. Rather than
+    // patching the champion directly (which would need a SEPARATE later level-up to set the
+    // LEVELED_UP_THIS_TURN flag, and patching+leveling in the same turn risks the "can't level to a
+    // card of equal/lower level" issue hit in savage-swing-class-bonus-floating-memory), the
+    // champion is kept as the default Spirit of Fire (level 0) and leveled up NATURALLY into Jin,
+    // Fate Defiant (level 1, 1-memory cost) during turn 1's MAIN phase -- this single real level-up
+    // both satisfies the "champion is Jin" precondition AND sets LEVELED_UP_THIS_TURN, in the same
+    // turn Pierce the Heavens is played and attacked with. Pierce the Heavens is NORM element
+    // (always castable regardless of champion element, unlike Wind Cutter's WIND -- no Fairy
+    // Whispers Opportunity-window cascade to work around here). Total attack power = champion's own
+    // power (0, Jin Fate Defiant has none) + intent card's boosted power (base 3 + 2 = 5, no weapon).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // filler memory card, Jin Fate Defiant's 1-memory level-up cost
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'yguf3aw2ct'], // Pierce the Heavens
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up into Jin, Fate Defiant
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // pay the 1 memory
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate
+    ],
+];
+
+// --- Swift Recruit: Intercept, redirect an attack on your champion to this awake ally ---
+$fixtures['swift-recruit-intercept-redirect'] = [
+    'testedCards' => ['mHd6LLyMyF'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Intercept (GetAvailableInterceptRedirectTargets, CombatLogic.php:605-624) only offers a
+    // redirect when the attack's TARGET is a CHAMPION (checked via PropertyContains(...,
+    // "CHAMPION")), so this needs the OPPONENT attacking PLAYER 1's champion, not the usual
+    // player-1-attacks pattern used by every other real-attack fixture so far. Reaching player 2's
+    // own turn (rather than staying on player 1's turn 1, as every prior fixture did) uses the
+    // CustomInput.php "myHealth" Pass button as a genuine mid-game end-turn action (not just the
+    // pregame mulligan use) -- discovered while debugging wind-cutter-class-bonus-power-attack: it's
+    // the SAME action as the pregame health-pass, gated only by "only the turn player can pass," and
+    // reusable any time it's your turn with nothing left to do. After P1 formally ends turn 1 (with
+    // nothing to do -- Swift Recruit is placed directly on the field, not played from hand), P2
+    // declines their own MAT-phase materialize offer, then P2's champion (default Spirit of Fire)
+    // attacks P1's champion directly. GetAvailableInterceptRedirectTargets then offers Swift Recruit
+    // (awake, ALLY, HasIntercept -- all satisfied by a plain field seed with no extra patches) as a
+    // redirect target, queued as a "Choose_an_interceptor" MZMAYCHOOSE for the DEFENDER (player 1,
+    // in their own myField-1 perspective). Redirecting moves the attack's target to Swift Recruit
+    // itself, so the subsequent "Retaliate?" decision (still queued for the defender, player 1) and
+    // the resulting combat damage land on Swift Recruit (1 life... its actual life is 2, dealt 1
+    // damage from the champion's own printed POWER) instead of the champion.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mHd6LLyMyF'], // Swift Recruit, awake by default
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zv6yp6q7zw'], // Executioner's Spear (1 POWER), P2's own field -- Spirit of Fire has no base POWER, so a weapon is needed for a legal attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P1 declines their own MAT-phase materialize offer first (the mid-game end-turn Pass button refuses while a decision is pending)
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // P1 formally ends turn 1 (nothing to do)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P2 declines their MAT-phase materialize offer
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // P2's champion attacks
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Executioner's Spear as the weapon
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target P1's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // redirect to Swift Recruit
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

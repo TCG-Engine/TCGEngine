@@ -1,0 +1,17 @@
+{
+    "name": "Wisdom's Reprise: Glimpse 3. [Level 3+] Draw a card into memory.",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "[Level 3+] reads PlayerLevel() directly (GrandArchiveSim/GeneratedCode/GeneratedMacroCode.php's cardActivatedAbilities['lvmj48fn9p:0']), satisfied by the same static champion CardID patch technique as banner-knight-class-bonus-power-buff (Lorraine, Arclight Saber, level 3) -- no real level-up sequence needed since this reads the champion's own level, not anything about Wisdom's Reprise's controller lineage. Glimpse 3's own MZREARRANGE decision (same mechanism as idle-thoughts-glimpse-4) must be answered before QueueDrawIntoMemoryAfterGlimpse's queued draw resolves; confirmed via direct probe that myMemory goes from 1 (standard pregame startup) to 2 only after the rearrange response is submitted, proving the draw is gated on Glimpse fully resolving first.",
+    "testedCards": [
+        "lvmj48fn9p"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["lvmj48fn9p"],
+        "mechanics": ["zone-movement", "draw-discard", "cost"],
+        "rulesClauses": [
+            "[Level 3+] Draw a card into your memory."
+        ]
+    }
+}

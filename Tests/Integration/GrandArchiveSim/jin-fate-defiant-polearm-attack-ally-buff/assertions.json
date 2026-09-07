@@ -1,0 +1,5 @@
+[
+    {"step":7,"type":"card_property_equals","mzId":"myField-1","property":"TurnEffects","value":"[\"zd8l14052j\"]","semantic":true,"label":"Jin's Polearm-attack Inherited Effect tags Dungeon Guide with +1 POWER"},
+    {"step":7,"type":"computed_power_equals","mzId":"myField-1","value":2,"semantic":true,"label":"Dungeon Guide base POWER 1 + 1 = 2"},
+    {"step":7,"type":"decision_queue_empty","player":1,"semantic":false,"label":"no pending decisions for player 1"}
+]

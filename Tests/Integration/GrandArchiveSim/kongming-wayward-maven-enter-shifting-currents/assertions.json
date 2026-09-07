@@ -1,0 +1,6 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"myField-0","property":"CardID","value":"346vgwz3y4","semantic":true,"label":"Real level-up resolves into Kongming, Wayward Maven"},
+    {"step":3,"type":"card_property_equals","mzId":"myMastery-0","property":"CardID","value":"qh5mpkyl60","semantic":true,"label":"On Enter grants the Shifting Currents mastery"},
+    {"step":3,"type":"card_property_equals","mzId":"myMastery-0","property":"Direction","value":"NORTH","semantic":true,"label":"Shifting Currents starts facing North"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

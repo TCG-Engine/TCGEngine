@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"Glimpse 4 only looks and reorders -- deck count is unchanged"},
+    {"step":3,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":1,"semantic":true,"label":"Idle Thoughts itself resolves to the graveyard"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

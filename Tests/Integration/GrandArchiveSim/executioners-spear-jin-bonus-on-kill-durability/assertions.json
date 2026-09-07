@@ -1,0 +1,6 @@
+[
+    {"step":7,"type":"card_property_equals","mzId":"myField-1","property":"CardID","value":"zv6yp6q7zw","semantic":true,"label":"probe"},
+    {"step":7,"type":"card_property_equals","mzId":"myField-1","property":"Counters","value":"{\"durability\":2}","semantic":true,"label":"probe-durability-2"},
+    {"step":7,"type":"zone_count","zone":"myField","viewerPlayerID":2,"value":1,"semantic":true,"label":"Baby Gray Slime dies to the lethal combat damage, leaving only the champion"},
+    {"step":7,"type":"decision_queue_empty","player":"all"}
+]

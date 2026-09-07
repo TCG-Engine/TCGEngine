@@ -1,0 +1,7 @@
+[
+    {"step":3,"type":"card_property_equals","mzId":"myField-0","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"a01pyxwo25\",\"EMPOWERED\",\"EMPOWER_PLUS_3\"]","semantic":true,"label":"Real level-up resolves into Kongming, Ascetic Vice and On Enter Empower 3 tags the champion EMPOWERED/EMPOWER_PLUS_3"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"Hand count before the Shifting Currents choice resolves (post level-up, post turn-1 draw)"},
+    {"step":5,"type":"card_property_equals","mzId":"myMastery-0","property":"Direction","value":"SOUTH","semantic":true,"label":"[Kongming Bonus] At beginning of end phase, Shifting Currents changes to the chosen direction (South)"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":9,"semantic":true,"label":"Inherited North->South transition draws a card once the direction actually changes"},
+    {"step":5,"type":"decision_queue_empty","player":1}
+]

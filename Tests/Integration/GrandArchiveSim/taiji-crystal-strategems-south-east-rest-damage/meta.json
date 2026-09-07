@@ -1,0 +1,17 @@
+{
+    "name": "Taiji of Crystal Strategems: South->East transition, may rest to deal 3 damage to opponent's champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "South->East is adjacent (IsAdjacentDirection: SOUTH<->EAST/WEST, GameLogic.php:19859-19867), so this reuses the same Fel Eidolon Inherited 'adjacent direction on Spell activation' trigger mechanism as hydroguard-retainer-north-west-draw (Subcards lineage patch + activate Tera Sight), just starting from SOUTH and answering 'EAST'. The transition callback ($shiftingCurrentsTransitions['SOUTH->EAST']['l17uc67eaq'], GameLogic.php ~20630-20636) requires the card to be awake (Status==2, seeded via patchMzId) and queues a YES/NO 'rest to deal 3 damage?' decision; answering YES rests Taiji (Status -> 1) and deals 3 unconditional damage to the opponent's champion via DealChampionDamage.",
+    "testedCards": [
+        "l17uc67eaq"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["l17uc67eaq"],
+        "mechanics": ["trigger", "cost", "combat"],
+        "rulesClauses": [
+            "Whenever your Shifting Currents changes from South to East, you may rest CARDNAME. If you do, deal 3 damage to target champion you don't control."
+        ]
+    }
+}

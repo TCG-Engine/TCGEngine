@@ -1,0 +1,17 @@
+{
+    "name": "Trusty Steed: On Enter, target ally you control gets +2 POWER until end of turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "NORM (no advanced element) ALLY, so no Subcards lineage patch is needed. Dungeon Guide is seeded on the field first as the only other ally, so ZoneSearch('myField', ['ALLY']) with the 'pop self off the end' trick (GeneratedMacroCode.php:11162) leaves exactly one legal target. Unlike a SPELL activation (favorable-winds-ally-life-buff), this ALLY's On Enter target choice is queued directly after the last reserve payment -- there is no EffectStack decline step here (confirmed via a throwaway debug harness, DevTools/debug_steed.php, now deleted, using EngineRunAction to reload gamestate between each step for reliability). Sending an extra decline ('-') would get consumed AS the target choice itself, with chosen='-' silently skipping the AddTurnEffects call (GeneratedMacroCode.php:30146-30157). Base POWER 1 + 2 = 3, confirmed via computed_power_equals.",
+    "testedCards": [
+        "FCbKYZcbNq"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["FCbKYZcbNq"],
+        "mechanics": ["condition", "trigger"],
+        "rulesClauses": [
+            "On Enter, target ally you control gets +2 POWER until end of turn."
+        ]
+    }
+}

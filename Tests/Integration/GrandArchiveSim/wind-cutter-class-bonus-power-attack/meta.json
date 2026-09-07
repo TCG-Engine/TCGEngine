@@ -1,0 +1,17 @@
+{
+    "name": "Wind Cutter: [Class Bonus] +1 POWER, real single-target (non-Cleave) ATTACK-card attack",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-01T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "First fixture to exercise the NORMAL (non-Cleave) single-target ATTACK-card flow, now that hemorrhaging-rend-damage20-cleave proved ATTACK cards are played from hand into myIntent like any other card. Champion is patched to Jin, Fate Defiant (WARRIOR/RANGER class match for Wind Cutter's [Class Bonus] +1 POWER) with Spirit of Wind (pNiyaGlIe7) added via Subcards only (not a full CardID patch) to unlock WIND without inheriting any interfering abilities -- same technique as hemorrhaging-rend's Dante-via-Subcards fix. Unlocking WIND has a side effect specific to THIS deck's default Main list: Fairy Whispers (n8wyfG9hbY) is itself a WIND-element ACTION card, and once WIND is unlocked it becomes flash-playable, which perpetually re-triggers a 'Take a fast action?' Opportunity window (and a chained materialize offer) at every decision boundary -- declining it over and over never actually clears it (confirmed via a throwaway debug harness, now deleted, that traced turnPlayer/phase/decision-queue state action-by-action: a single decline was even observed to skip all the way to the OPPONENT's turn, since GA's phase auto-advance treats an empty decision queue as 'nothing left for this player to do' and rolls forward to the next player who might have priority -- the CustomInput.php 'myHealth' Pass button, GrandArchiveSim/Custom/CustomInput.php, is in fact the SAME generic mid-game turn-pass action used for the initial pregame mulligan pass, usable by whichever player's turn it currently is). Fix: this fixture's own deck heredoc drops Fairy Whispers entirely (replaced with more Dungeon Guide, both NORM ALLY, to keep the Main deck at 16 cards) so unlocking WIND doesn't expose any new flash-playable card, and the fixture reduces to the same minimal single-PASS turn-1 sequence used by every other real-attack fixture. GetAttackWeaponChoices($player, $obj) (CombatLogic.php:110-148) reads GetAvailableWeapons($player), which only looks at field-based WEAPON items -- with none on the field, $availableWeapons is empty, so BeginCombatPhase (CombatLogic.php:1478-1580) skips the weapon-choice MZCHOOSE entirely (that step is conditioned on `!empty($availableWeapons)`) and queues ChooseAttackTarget directly. Wind Cutter's own printed POWER is 1; the intent card's computed power (base 1 + Class Bonus 1 = 2) is asserted directly on myIntent-0 right after paying reserve, before the attack is declared. GetTotalAttackPower then sums the champion's own power (0, Jin, Fate Defiant has none) plus the intent card's positive power (2) with no weapon, so the opponent's champion (targeted directly, theirField-0) takes exactly 2 combat damage. As with every other real-attack fixture, the defender's 'Retaliate?' MZMAYCHOOSE must be explicitly declined before CombatApplyAttackerDamage actually lands the damage.",
+    "testedCards": [
+        "TgYTZg6TaG"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["TgYTZg6TaG"],
+        "mechanics": ["zone-movement", "combat", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] Wind Cutter gets +1 POWER. (Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}

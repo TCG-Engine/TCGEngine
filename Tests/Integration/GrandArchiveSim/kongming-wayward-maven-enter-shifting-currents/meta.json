@@ -1,0 +1,17 @@
+{
+    "name": "Kongming, Wayward Maven: On Enter, gain the Shifting Currents mastery",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "A level-1 champion's own On Enter only fires from a real materialize/level-up event (established by the earlier lorraine-honed-operative-banish-draw investigation -- a static CardID patch does not fire triggers), so the level-up is reached the same way: 1 memory filler seeded pregame pays the level-0-to-1 champion's 1-memory level-up cost, and both players pass turn 1 to reach P1's own myMaterial MZMAYCHOOSE window. Shifting Currents (GrandArchiveSim/Custom/GameLogic.php's GainShiftingCurrents()) is a myMastery zone card (CardID qh5mpkyl60) with a Direction property, initialized to NORTH -- asserted directly rather than via a computed read, since GetShiftingCurrents()/HasShiftingCurrents() just read this object back.",
+    "testedCards": [
+        "346vgwz3y4"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["346vgwz3y4"],
+        "mechanics": ["trigger", "zone-movement"],
+        "rulesClauses": [
+            "On Enter: You gain the Shifting Currents mastery."
+        ]
+    }
+}

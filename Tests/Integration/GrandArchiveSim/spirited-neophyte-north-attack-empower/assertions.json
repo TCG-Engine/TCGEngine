@@ -1,0 +1,4 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"myField-0","property":"TurnEffects","value":"[\"ekplmih8ra\",\"EMPOWERED\",\"EMPOWER_PLUS_2\"]","semantic":true,"label":"On Attack, while facing North, Empower 2 tags the champion EMPOWERED/EMPOWER_PLUS_2"},
+    {"step":5,"type":"decision_queue_empty","player":1}
+]

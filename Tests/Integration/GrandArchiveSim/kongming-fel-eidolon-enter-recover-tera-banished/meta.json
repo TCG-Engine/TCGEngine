@@ -1,0 +1,17 @@
+{
+    "name": "Kongming, Fel Eidolon: On Enter, Recover X (X = TERA cards in banishment)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Real level-up required to fire a champion's own On Enter (per kongming-wayward-maven-enter-shifting-currents). Fel Eidolon is level 3 (3-memory cost), so the starting champion is patched to a level-2 champion (84YTQPTvar, satisfies CanChampionLevelUpIntoCard's targetLevel===currentLevel+1 gate) with Fel Eidolon's own CardID also placed in Subcards for TERA element access (GetLegalMaterializeChoices gates champion targets on CanPlayerUseCardElement too, same technique as tera-sight-preserve-draw). RecoverChampion($player, $recoverAmount) reduces the champion field object's own Damage property (GameLogic.php:18386-18390) -- pre-damaging the champion to 5 before the level-up and seeding 2 TERA-element cards (qktid6zlyt, jwanjcy453) in myBanish let the enterAbilities['7x2v4tdop1:0'] macro's ZoneSearch(\"myBanish\", cardElements:[\"TERA\"]) count be observed directly as Damage 5 -> 3.",
+    "testedCards": [
+        "7x2v4tdop1"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["7x2v4tdop1"],
+        "mechanics": ["trigger", "zone-movement", "condition"],
+        "rulesClauses": [
+            "On Enter: Recover X. X is equal to the number of Tera cards in your banishment."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Devoted Bloomweaver: [Class Bonus] On Enter, Empower 2",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-08-31T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Devoted Bloomweaver is a TERA (advanced element) ALLY with a MAGE Class Bonus On Enter, same split as vernal-talisman-preserve-draw: the starting champion's Subcards are patched with a real TERA champion (Kongming, Fel Eidolon) for element access, and that same champion is ALSO physically seeded onto the field so IsClassBonusActive(['MAGE']) -- which scans physical field objects, independent of the Subcards-based lineage check -- is satisfied. Empower() (GrandArchiveSim/Custom/GameLogic.php:18438) has no stored counter of its own; it tags the champion's TurnEffects with the source card ID plus EMPOWERED/EMPOWER_PLUS_N, which is what's asserted here. The Preserve keyword (dies -> material deck preserved) is a separate, out-of-scope passive.",
+    "testedCards": [
+        "yqm3l6lbns"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["yqm3l6lbns"],
+        "mechanics": ["zone-movement", "trigger"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Empower 2."
+        ]
+    }
+}

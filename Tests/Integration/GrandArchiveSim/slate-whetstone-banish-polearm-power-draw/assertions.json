@@ -1,0 +1,4 @@
+[
+    {"step":3,"type":"computed_power_equals","mzId":"myField-2","value":2,"semantic":true,"label":"Slate Whetstone: Steel Halberd base POWER 1 + 1 = 2"},
+    {"step":3,"type":"zone_count","zone":"myHand","player":1,"value":8,"semantic":true,"label":"Draw a card: hand 7 -> 8"}
+]

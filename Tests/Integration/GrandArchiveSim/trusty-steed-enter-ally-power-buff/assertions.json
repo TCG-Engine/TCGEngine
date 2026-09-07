@@ -1,0 +1,4 @@
+[
+    {"step":6,"type":"computed_power_equals","mzId":"myField-1","value":3,"semantic":true,"label":"On Enter: Dungeon Guide base POWER 1 + 2 = 3"},
+    {"step":6,"type":"decision_queue_empty","player":1,"semantic":false,"label":"no pending decisions for player 1"}
+]
