@@ -284,7 +284,7 @@ var SWU_EFFECT_STACK_TRIGGER_LABELS = {
     // Damages a Unit
     'JTL_120': 'Damages a Unit', 'SOR_085': 'Damages a Unit',
     // Event Played
-    'SOR_182': 'Event Played', 'TWI_216': 'Event Played',
+    'SOR_182': 'Event Played', 'TWI_216': 'Event Played', 'HMW_215': 'Event Played',
     // On Attack
     'JTL_156': 'On Attack', 'LOF_205': 'On Attack',
     // Opponent Plays
@@ -314,7 +314,7 @@ var SWU_EFFECT_STACK_TRIGGER_LABELS = {
     // Keyword Unit Played
     'SHD_008': 'Keyword Unit Played',
     // Leader Deployed
-    'JTL_191': 'Leader Deployed',
+    'JTL_191': 'Leader Deployed', 'HMW_214': 'Leader Deployed',
     // Non-Unit Played
     'SHD_217': 'Non-Unit Played',
     // Opponent's 2nd Card

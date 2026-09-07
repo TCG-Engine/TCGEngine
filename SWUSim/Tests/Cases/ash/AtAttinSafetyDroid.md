@@ -90,3 +90,26 @@ WithActivePlayer: 2
 - P2>AnswerDecision:-
 ## EXPECT
 P1BASEDMG:6
+
+---
+
+# RegroupDeckOut_TheWholeSixIsCappedToFour
+#// KNOCK-ON of the 2026-09-07 USER RULING that failing to draw N cards is ONE event of 3N, not N events
+#// of 3 (see hmw/AllianceShieldGenerator.md::RegroupDeckOut_*). The cap is per DAMAGE EVENT, so the
+#// regroup's failed two-card draw arrives as a single 6 and is capped to 4 — where two separate 3s were
+#// each under the threshold and dealt 6 in total.
+#// P1 starts on 10 damage with an empty deck and an At Attin Safety Droid in play, and ends on 14.
+#// This behaviour CHANGED with the ruling and nothing else in the suite covered it.
+## GIVEN
+CommonSetup: bbw/bbw/{myBaseDamage:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: ASH_070:1:0
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+## EXPECT
+P1BASEDMG:14

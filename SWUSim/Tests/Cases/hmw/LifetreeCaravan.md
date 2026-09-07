@@ -5,6 +5,10 @@
 #// deck's top card into the resource row: deck 3 -> 2, resources +1.
 #// It enters EXHAUSTED — the text has no "and ready it" rider — so RESAVAILABLE is unchanged from the
 #// 3 left ready after paying the Caravan's own cost of 3.
+#// COVERAGE: control=N/A — STRUCTURAL: the only ability is a WHEN PLAYED. It fires once, during the play,
+#//           for the player who played it; there is no later re-read that a control change could
+#//           re-point, and "your deck" is that same player's. A stolen Lifetree Caravan has no ability
+#//           left to resolve.
 
 ## GIVEN
 CommonSetup: ggw/bgw/{myResources:6}

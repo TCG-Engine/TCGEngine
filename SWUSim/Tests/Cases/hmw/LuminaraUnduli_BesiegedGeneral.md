@@ -284,3 +284,26 @@ WithP1Hand: SOR_095
 P1NODECISION
 P2BASEDMG:0
 P1GROUNDARENAUNIT:0:READY
+
+---
+
+# RequestBoundary_TheAttackOfferSurvives
+#// The request-boundary cell. The reaction is armed when a unit is played and the attacker choose is
+#// answered afterwards, so the "+2/+0 for this attack" rider has to be carried in the queued decision
+#// rather than held in memory between the two.
+#// Same GIVEN and EXPECT as PlayingAUnitOffersAnAttackWithPlusTwo, with one boundary before the answer.
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:10}
+P1OnlyActions: true
+WithP1GroundArena: HMW_124:1:0
+WithP1Hand: SOR_095
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P2BASEDMG:9
+P1GROUNDARENAUNIT:0:POWER:7
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENACOUNT:2
+P1NODECISION

@@ -167,3 +167,30 @@ WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:HMW_T03
 P1DISCARDCOUNT:1
+
+---
+
+# RequestBoundary_TheDiscardAndTheBeastSurvive
+#// The request-boundary cell. The granted ability fires at the START of the action phase, asks which card
+#// to discard, and only then creates the token — so the "if you do" link between the two halves crosses a
+#// request. A handler holding that link in memory produces the worst possible outcome here: the card is
+#// discarded and no Beast arrives.
+#// Same board and same drive as ActionPhaseStart_DiscardsThenCreatesABeast, with one boundary inserted
+#// before the pick.
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:3}
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_147
+WithP1Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
+## WHEN
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>Drain
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myHand-0
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:HMW_T03
+P1DISCARDCOUNT:1

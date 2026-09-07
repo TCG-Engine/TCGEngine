@@ -113,3 +113,50 @@ WithP2GroundArena: SOR_063:1:0
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:DAMAGE:3
 P1NODECISION
+
+---
+
+# Front_AttackerOfferIncludesEXHAUSTEDUnits_AndOnlyFriendlyOnes
+#// THE OFFER ITSELF, and the clause that makes it unusual. "Attack with a unit, EVEN IF IT'S EXHAUSTED"
+#// deliberately overrides the ready requirement that gates every ordinary attacker pool — so the pool
+#// must contain exhausted friendly units, which no other section here reads directly (they answer it and
+#// assert the attack happened, which a pool missing one of the two would still satisfy).
+#// It also must NOT contain enemy units: "a unit" here is the attacker, resolved from the acting
+#// player's own arenas.
+#// Board: one READY and one EXHAUSTED friendly unit plus an enemy to attack — both friendlies come back,
+#// the enemy does not.
+## GIVEN
+CommonSetup: ggw/ggw/{myLeader:HMW_009:1;myResources:3}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [SOR_095:1:0 SOR_046:0:0]
+WithP2GroundArena: SOR_063:1:0
+## WHEN
+- P1>UseLeaderAbility
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+
+---
+
+# RequestBoundary_TheAttackerChoiceSurvives
+#// The request-boundary cell. The leader Action pays 2 resources and exhausts the leader, then queues the
+#// attacker choose — so the paid cost AND the "can't attack bases for this attack" marker both have to
+#// survive a fresh request before the attack resolves. A marker held in memory is empty next request and
+#// the usual symptom is a bases-attack that should have been refused.
+#// Two eligible attackers keep the choose interactive; the exhausted one is picked, exercising the
+#// "even if it's exhausted" clause across the boundary too.
+## GIVEN
+CommonSetup: ggw/ggw/{myLeader:HMW_009:1;myResources:3}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [SOR_095:1:0 SOR_046:0:0]
+WithP2GroundArena: SOR_063:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-1
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENAUNIT:1:DAMAGE:2
+P2BASEDMG:0
+P1LEADER:EXHAUSTED

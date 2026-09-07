@@ -981,7 +981,7 @@ function HasConditionalKeyword_Sentinel($obj) {
                 if (empty($u->removed) && !IsLeaderUnit($u) && intval($u->UniqueID ?? 0) !== $self) return false;
             }
             return true;
-        case 'HMW_142': // Wookie Rangers — while you control another Wookiee unit OR a Kashyyyk base
+        case 'HMW_142': // Wookiee Rangers — while you control another Wookiee unit OR a Kashyyyk base
             foreach (GetUnitsInPlay($ctrl) as $u) {
                 if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $self && TraitContains($u, 'Wookiee')) return true;
             }
@@ -1238,6 +1238,10 @@ function HasConditionalKeyword_Support($obj) {
 
 function GetConditionalKeyword_Raid_Value($obj) {
     $amount = 0;
+    // HMW_001 Asajj Ventress — "for this attack replace any Raid it has or gains with Restore, or
+    // vice versa". The delta is computed against the UNSWAPPED values of both keywords, so adding it
+    // here turns the final value into the other keyword's. See the card file for the re-entrancy note.
+    if (function_exists('_SWUHmw001SwapDelta')) $amount += _SWUHmw001SwapDelta($obj, 'RAID');
     $amount += _SWUGhostSharesKeywordValue($obj, 'RAID');   // JTL_053 The Ghost keyword share (additive)
     // TWI_169 Clone Cohort (upgrade) — "Attached unit gains Raid 2."
     if (_SWUUnitHasActiveUpgrade($obj, 'TWI_169')) $amount += 2;
@@ -1460,6 +1464,10 @@ function GetConditionalKeyword_Raid_Value($obj) {
 
 function GetConditionalKeyword_Restore_Value($obj) {
     $amount = 0;
+    // HMW_001 Asajj Ventress — "for this attack replace any Raid it has or gains with Restore, or
+    // vice versa". The delta is computed against the UNSWAPPED values of both keywords, so adding it
+    // here turns the final value into the other keyword's. See the card file for the re-entrancy note.
+    if (function_exists('_SWUHmw001SwapDelta')) $amount += _SWUHmw001SwapDelta($obj, 'RESTORE');
     $amount += _SWUGhostSharesKeywordValue($obj, 'RESTORE');   // JTL_053 The Ghost keyword share (additive)
     // ASH_114 Sabine's Lightsaber (upgrade) — "If attached unit is Sabine Wren or a Force unit, it gains Restore 2."
     if (_SWUUnitHasActiveUpgrade($obj, 'ASH_114')
@@ -1488,6 +1496,11 @@ function GetConditionalKeyword_Restore_Value($obj) {
     }
     if (_SWUYularenGrants($obj, 'RESTORE')) $amount += 1;   // JTL_047 Yularen (Restore 1 to Vehicles)
     if (_SWUSEC104AuraActive($obj)) $amount += 1;           // SEC_104 aura — Restore 1
+    // HMW_039 Mother Talzin — "Each other friendly unit gains Restore 1." Checked here rather than
+    // as a case in the friendly-unit loop below because that loop is SELF-ONLY
+    // (GetUnitsInPlay($obj->Controller)) and "friendly" spans the TEAM. See the card file's family
+    // note: the textually identical SEC_047 / SOR_102 / TS26_40 are still self-only.
+    if (function_exists('_SWUHmw039GrantsRestore') && _SWUHmw039GrantsRestore($obj)) $amount += 1;
     // LOF_105 Oppo Rancisis — "gains Restore 2 while another friendly unit has Restore."
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'RESTORE')) $amount += 2;
     switch ($obj->CardID) {

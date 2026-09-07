@@ -2,6 +2,11 @@
 #// HMW_115 Leia Organa, These Are My Friends (2/3, Rebel/Official) — "When you play another unit that
 #// costs 3 or less: Heal 1 damage from your base."
 #// P1's base starts on 5 damage; playing SOR_095 Battlefield Marine (printed cost 2) heals it to 4.
+#// COVERAGE: offer=N/A — STRUCTURAL: neither half selects anything. The trigger is "when you play
+#//           another unit that costs 3 or less" (an observed event, not a choice) and the heal is fixed
+#//           on your own base. ·
+#//           decline=N/A (mandatory, no cost) · reqboundary=N/A (nothing written across a decision) ·
+#//           modes=2P ONLY ("you play" / "your base" are both self-scoped).
 
 ## GIVEN
 CommonSetup: ggw/bgw/{

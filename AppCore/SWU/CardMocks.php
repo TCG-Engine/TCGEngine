@@ -20,6 +20,42 @@
 //   imageUrl, imageUrlBack,
 //   leaderUnitTitle, leaderUnitSubtitle, leaderUnitTrait[], leaderUnitArena, leaderUnitType
 return array (
+  'HMW_001' =>
+  array (
+    'title' => 'Asajj Ventress',
+    'subtitle' => 'No Time For Regret',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 3,
+    'hp' => 6,
+    'aspect' =>
+    array (
+      0 => 'Vigilance',
+      1 => 'Aggression',
+    ),
+    'trait' =>
+    array (
+      0 => 'Force',
+      1 => 'Night',
+    ),
+    'text' => 'Action [Exhaust]: Attack with a unit. For this attack replace any Raid it has or gains with Restore, or vice versa.',
+    'epicAction' => 'Epic Action: If you control 5 or more resources, deploy this leader.',
+    'deployText' => 'Restore 2.
+Action: Attack with a unit. For this attack, replace any Raid it has or gains with Restore, or vice versa.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/001.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/001-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' =>
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_003' =>
   array (
     'title' => 'Doctor Hemlock',
@@ -945,6 +981,95 @@ Action [defeat this upgrade]: Put a non-Vehicle unit from your discard pile on t
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/038.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_039' =>
+  array (
+    'title' => 'Mother Talzin',
+    'subtitle' => 'Pledged to the Sisterhood',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 3,
+    'hp' => 4,
+    'aspect' =>
+    array (
+      0 => 'Vigilance',
+      1 => 'Aggression',
+    ),
+    'trait' =>
+    array (
+      0 => 'Force',
+      1 => 'Night',
+    ),
+    'text' => 'Raid 1
+Each other friendly unit gains Restore 1.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/039.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_040' =>
+  array (
+    'title' => 'Talzin\'s Shuttle',
+    'subtitle' => 'Mysterious Arrival',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 2,
+    'hp' => 4,
+    'aspect' =>
+    array (
+      0 => 'Vigilance',
+      1 => 'Aggression',
+    ),
+    'trait' =>
+    array (
+      0 => 'Night',
+      1 => 'Vehicle',
+      2 => 'Transport',
+    ),
+    'text' => 'Raid 1 (This unit gets +1/+0 while attacking.)
+When Played: If an opponent played 2 or more cards this phase, you may give 2 Weakness tokens to a unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/040.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_041' =>
+  array (
+    'title' => 'Keeper of Skara Nal',
+    'subtitle' => 'Awoken',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 5,
+    'hp' => 8,
+    'aspect' =>
+    array (
+      0 => 'Aggression',
+      1 => 'Vigilance',
+    ),
+    'trait' =>
+    array (
+      0 => 'Droid',
+      1 => 'Vehicle',
+      2 => 'Walker',
+    ),
+    'text' => 'Restore 2
+On Attack: You may discard 2 cards named Keeper of Skara Nal from your hand. If you do, this unit gets +15/+0 and gains Overwhelm for this attack.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/041.png',
     'imageUrlBack' => '',
   ),
   'HMW_043' =>
@@ -2442,7 +2567,7 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
   ),
   'HMW_142' =>
   array (
-    'title' => 'Wookie Rangers',
+    'title' => 'Wookiee Rangers',
     'subtitle' => '',
     'type' => 'Unit',
     'arena' => 'Ground',

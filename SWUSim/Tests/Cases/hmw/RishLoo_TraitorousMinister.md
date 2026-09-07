@@ -133,3 +133,30 @@ P1GROUNDARENACOUNT:1
 P2GROUNDARENACOUNT:0
 P2DISCARDCOUNT:1
 P1DISCARDCOUNT:1
+
+---
+
+# Offer_ExcludesAPILOTMADELeaderUnit
+#// THE OTHER WAY A UNIT BECOMES A LEADER UNIT, and the one the offer above cannot see.
+#// Offer_OnlyWeakenedEnemyNONLeaderUnits excludes a DEPLOYED LEADER, whose printed CardType already
+#// says Leader. Here the excluded body is an ordinary Vehicle that became a leader unit only because an
+#// enemy leader deployed onto it AS A PILOT — its printed type is still "Unit", so a filter written
+#// against CardType offers it while a filter reading the LIVE object (IsLeaderUnit) does not.
+#// That is a known bug family in this engine, and nothing else in this file walks it.
+#// P2's SOR_237 Alliance X-Wing carries a Weakness (so it clears the "weakened" gate) AND JTL_012 as a
+#// pilot; P2's two weakened ground units are the only legal targets left.
+#// ⚠ TWO legal targets on purpose: with one the choose AUTO-RESOLVES and there is no offer left to
+#// assert — the section then fails with "no pending decision" and says nothing about the exclusion.
+## GIVEN
+CommonSetup: yyk/rrw/{myResources:4;theirLeader:JTL_012;theirLeaderDeployedPilot:true}
+P1OnlyActions: true
+WithP1Hand: HMW_200
+WithP2SpaceArena: SOR_237:1:0
+WithP2SpaceArenaUpgrade: 0:HMW_T02
+WithP2GroundArena: [SEC_080:1:0 SOR_095:1:0]
+WithP2GroundArenaUpgrade: 0:HMW_T02
+WithP2GroundArenaUpgrade: 1:HMW_T02
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1SELECTABLEEXACT:theirGroundArena-1&theirSpaceArena-0

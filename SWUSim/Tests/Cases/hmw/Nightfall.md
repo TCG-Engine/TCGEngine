@@ -179,3 +179,32 @@ WithP1GroundArena: [SOR_095:1:0 SOR_046:0:0]
 ## EXPECT
 P1DECISIONTOOLTIP:Choose_a_unit_to_attack_with
 P1SELECTABLEEXACT:myGroundArena-0
+
+---
+
+# RequestBoundary_TheAttackAndItsBonusSurvive
+#// The request-boundary cell. Nightfall deals its damage, then queues an attacker choose, then an attack
+#// target — and the "+2/+0 for this attack" rider has to survive both hops. Anything the event holds in
+#// memory between them is empty in the next request, and the usual symptom is an attack that resolves at
+#// printed power.
+#// Same GIVEN and EXPECT as EndorBase_MayAttackWithPlusTwo, with a boundary before each answer; the base
+#// taking 5 (3 power + 2) is what proves the rider crossed.
+## GIVEN
+CommonSetup: rrw/bgw/{
+  myBase:JTL_020;
+  myResources:8
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: HMW_193
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:myGroundArena-0
+- P1>SimulateRequestBoundary
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P2BASEDMG:5

@@ -72,3 +72,28 @@ P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:0:CARDID:ASH_047
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:ASH_T01
+
+---
+
+# DECLINING_DoesNotSpendTheRound
+#// ⚠ USER RULING 2026-09-07 — the partner to OncePerRound_SecondUpgradeNoToken above, and the branch
+#// that section cannot see. "Use this ability only once each round" is spent by USING the ability; a
+#// triggered "you may" whose entire effect is the optional part was never used if it was declined, so a
+#// later trigger the same round still offers. (Contrast an ACTION like ASH_230 Improvised Identity,
+#// where the player already paid an activation and refusing a sub-choice cannot refund it.)
+#// Same board as OncePerRound: two upgrades onto Gar in one round. Here the FIRST prompt is declined,
+#// so the second upgrade must still offer — and the token created from it is the proof.
+## GIVEN
+CommonSetup: brk/rrk/{myResources:6;handCardIds:SOR_120,SOR_166}
+WithP1GroundArena: ASH_047:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:NO
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:ASH_047
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:ASH_T01

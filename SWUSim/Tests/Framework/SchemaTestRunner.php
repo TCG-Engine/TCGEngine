@@ -193,6 +193,8 @@ class SchemaTestRunner {
                              'WithP3BaseCaptive',         'WithP4BaseCaptive',
                              'WithP1GroundArenaUpgrade',  'WithP2GroundArenaUpgrade',
                              'WithP3GroundArenaUpgrade',  'WithP4GroundArenaUpgrade',
+                             'WithP1GlobalEffect',        'WithP2GlobalEffect',
+                             'WithP3GlobalEffect',        'WithP4GlobalEffect',
                              'WithP3SpaceArenaUpgrade',   'WithP4SpaceArenaUpgrade',
                              'WithP3GroundArenaPilot',    'WithP4GroundArenaPilot',
                              'WithP3SpaceArenaPilot',     'WithP4SpaceArenaPilot',
@@ -227,6 +229,8 @@ class SchemaTestRunner {
                             'WithP3BaseCaptive', 'WithP4BaseCaptive',
                             'WithP1GroundArenaUpgrade', 'WithP2GroundArenaUpgrade',
                             'WithP3GroundArenaUpgrade', 'WithP4GroundArenaUpgrade',
+                            'WithP1GlobalEffect', 'WithP2GlobalEffect',
+                            'WithP3GlobalEffect', 'WithP4GlobalEffect',
                             'WithP1SpaceArenaUpgrade', 'WithP2SpaceArenaUpgrade',
                             'WithP3SpaceArenaUpgrade', 'WithP4SpaceArenaUpgrade',
                             'WithP1GroundArenaPilot', 'WithP2GroundArenaPilot',
@@ -546,9 +550,18 @@ class SchemaTestRunner {
             $b->WithControlledGroundUnitForPlayer($seat, trim($ccid), intval($cown));
         }
         // Twin Suns Phase 5: seed a GlobalEffects flag on a seat. WithP{n}GlobalEffect: CARDID
+        // ⚠ Repeatable: GlobalEffectCount() is a COUNT, not a boolean, and several engine flags are
+        // read as one (SWU_CARDS_PLAYED = "cards played this phase"). Seeding a count of 2 therefore
+        // needs the flag listed twice — as two lines or as "[X X]". Before this was a multi-key the
+        // second line silently OVERWROTE the first and the seat was left on a count of 1, which reads
+        // exactly like the card under test ignoring its own threshold.
         foreach ([1, 2, 3, 4] as $seat) {
             if (!isset($given["WithP{$seat}GlobalEffect"])) continue;
-            $b->WithGlobalEffectForPlayer($seat, trim($given["WithP{$seat}GlobalEffect"]));
+            $flags = $given["WithP{$seat}GlobalEffect"];
+            foreach ((is_array($flags) ? $flags : [$flags]) as $flag) {
+                $flag = trim((string)$flag);
+                if ($flag !== '') $b->WithGlobalEffectForPlayer($seat, $flag);
+            }
         }
         // Twin Suns seat lists (single-digit concatenations, e.g. "123"). SeatOrder = clockwise turn
         // order; LiveSeats = non-eliminated subset (defaults to SeatOrder).

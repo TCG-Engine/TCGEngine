@@ -82,3 +82,25 @@ WithP1GroundArena: HMW_168:1:0
 ## EXPECT
 P1BASEDMG:0
 P1GROUNDARENACOUNT:1
+
+---
+
+# StolenEzra_DamagesTheNEWControllersBase
+#// THE CONTROL-CHANGE CELL. "When YOU take the initiative: you may deal 3 damage to YOUR base" resolves
+#// for whoever CONTROLS Ezra, and hits THAT player's base. Every existing section leaves him on his
+#// owner's board, where the two readings are indistinguishable.
+#// P1 controls an Ezra that P2 still OWNS. P1 claims initiative, accepts, and it is P1's base that takes
+#// the 3 — with P2's left clean, so an owner-scoped implementation is visible in both numbers at once.
+#// The Beast token also arrives on P1's board, not P2's.
+## GIVEN
+CommonSetup: rrw/bbk
+WithActivePlayer: 1
+WithP1GroundArenaControlled: HMW_168:2
+## WHEN
+- P1>Claim
+- P1>AnswerDecision:YES
+## EXPECT
+P1BASEDMG:3
+P2BASEDMG:0
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:HMW_T03

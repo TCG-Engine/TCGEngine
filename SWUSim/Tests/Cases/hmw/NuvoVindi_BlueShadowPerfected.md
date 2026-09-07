@@ -267,3 +267,39 @@ P1GROUNDARENACOUNT:1
 P2GROUNDARENACOUNT:0
 P1HASDECISION
 P1SELECTABLEEXACT:myGroundArena-0
+
+---
+
+# Reaction_DECLINING_DoesNotSpendTheRound
+#// ⚠ DIVERGENCE UNDER REVIEW — this section asserts the reading that DECLINING the optional effect does
+#// NOT consume "Use this ability only once each round", so a second qualifying defeat in the same round
+#// still offers. Our engine currently consumes the limit at COLLECT time, so it does not.
+#//
+#// The argument for the reading asserted here: the limit governs USING the ability, and a "you may" that
+#// is refused was never used — nothing was given, no state changed, and the player got no value. Compare
+#// ASH_230 Improvised Identity, where declining DOES spend the use: there the player took an ACTION
+#// (paying its activation), and refusing a sub-choice inside it cannot refund the action. This is a
+#// triggered ability whose ENTIRE effect is the optional part, which is a different shape.
+#//
+#// Same board as Reaction_OnlyOnceEachRound — that section proves the limit still bites when the ability
+#// is actually USED, and this one is its partner for the refused branch. Keeping both is what makes the
+#// distinction testable in either direction.
+
+## GIVEN
+CommonSetup: bbk/grw/{myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: [HMW_062:1:0 SEC_080:1:0]
+WithP2GroundArena: [SOR_128:1:0 SOR_095:1:0]
+WithP2GroundArenaUpgrade: 0:HMW_T02
+WithP2GroundArenaUpgrade: 1:HMW_T02
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:-
+- P1>AttackGroundArena:1:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:CARDID:HMW_062
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1

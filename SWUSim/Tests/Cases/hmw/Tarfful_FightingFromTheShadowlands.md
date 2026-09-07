@@ -14,6 +14,9 @@
 #// ⚠ The discard is a COST, not an effect: it must be payable for the action to be legal at all, which
 #// is what the two "unavailable" sections pin.
 #// P1 starts with 3 resources: 2 are spent, so RESAVAILABLE 1 proves the cost was actually charged.
+#// COVERAGE: control=N/A — STRUCTURAL: this is a LEADER. A leader cannot change control, so "your hand"
+#//           and the deployed side's "pay 1 resource" always resolve for its own player. The axis has no
+#//           reachable case here.
 
 ## GIVEN
 CommonSetup: ggw/bgw/{myLeader:HMW_010;myResources:3}

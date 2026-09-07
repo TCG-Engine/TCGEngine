@@ -329,3 +329,45 @@ WithP2SpaceArena: JTL_069:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:DAMAGE:2
 P2SPACEARENAUNIT:0:DAMAGE:2
+
+---
+
+# Deployed_DECLINING_DoesNotSpendTheRound
+#// ⚠ USER RULING 2026-09-07 — the partner to Deployed_OnceEachRound_SecondDamageEventDoesNotReact
+#// above, and the branch that section cannot see. "Use this ability only once each round" is spent by
+#// USING the ability; a triggered "you may" whose entire effect is the optional part was never used if
+#// it was declined, so a later qualifying event the same round still offers. (Contrast an ACTION, where
+#// the player already paid an activation and refusing a sub-choice cannot refund it.)
+#// Two Consular Security Forces (3/7) each attack one of two Massassi Group Marines (4/7). Every unit
+#// survives both combats: the attacker deals 3 and takes 4. The FIRST reaction is declined; the second
+#// must therefore still be offered, and its 4 finishes the first Marine (3 + 4 on 7 HP).
+#// That Marine being GONE is the whole assertion — without the ruling there is no second offer and both
+#// Marines end the round alive on 3.
+#// ⚠ Board notes, both learned the hard way here: no unit may DIE before the offer is minted (the pool
+#// is built pre-cleanup, so a death shifts the survivor's positional mzID between the offer and the
+#// continuation), and no enemy may have SENTINEL — a Sentinel defender forces BOTH attacks onto itself,
+#// which silently turns this into a different combat whose wrong-amount offer reads exactly like the
+#// ruling not having landed.
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_002:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: LAW_124:1:0
+WithP2GroundArena: LAW_124:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:-
+- P1>AttackGroundArena:1:1
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:LAW_124
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENAUNIT:0:DAMAGE:4
+P1GROUNDARENAUNIT:1:DAMAGE:4

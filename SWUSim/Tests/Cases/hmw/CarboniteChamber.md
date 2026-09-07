@@ -137,3 +137,26 @@ P1BASE:UPGRADECOUNT:1
 P1BASE:EPICUSED
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
+
+---
+
+# Action_OfferExcludesVehicles_AndSpansBOTHSides
+#// THE OFFER ITSELF. Action_OnlyNonVehicleUnitsAreOffered above asserts the OUTCOME — the Vehicle was
+#// still ready after the regroup — which proves the Vehicle was not CHOSEN but not that it was never
+#// OFFERED: with the pool auto-resolving to the one non-Vehicle, a pool that wrongly contained the
+#// Vehicle passes it unchanged.
+#// This section leaves the choose pending and reads the pool. "Choose a NON-VEHICLE unit" carries no
+#// controller word, so friendly units are legal too (CR 2.e) — the pool is both sides minus Vehicles.
+#// Board: a friendly non-Vehicle, a friendly Vehicle, an enemy non-Vehicle and an enemy Vehicle. Exactly
+#// the two non-Vehicles come back.
+## GIVEN
+CommonSetup: bbw/bbw/{myResources:3}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_095
+WithP1GroundArena: [SOR_095:1:0 SEC_214:1:0]
+WithP2GroundArena: [SOR_046:1:0 SEC_214:1:0]
+## WHEN
+- P1>UseBaseAbility
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0

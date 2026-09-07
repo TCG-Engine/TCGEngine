@@ -2232,16 +2232,28 @@ function _SWUSec002CheckObserve($obj, int $amount): void
   }
   if (empty($targets))
     return;                  // no enemy unit → ability does nothing (use not spent)
-  AddGlobalEffects($ctrl, 'SWU_SEC002_USED');   // once-per-round consumed when the ability triggers
+  // ⚠ The round is spent in SEC002_DEAL below, on an accepted target — NOT here. USER RULING
+  // 2026-09-07: a triggered "you may" whose whole effect is the optional part is not USED by declining
+  // it, so a later trigger the same round still offers.
   SWUQueueMayChooseTarget(
     $ctrl,
     $targets,
     "Deal_{$amount}_damage_to_an_enemy_unit?",
     "Deal_{$amount}_damage_to_an_enemy_unit",
-    "DEAL_UNIT_DAMAGE|{$amount}"
+    "SEC002_DEAL|{$amount}"
   );
 }
 // Drained post-cleanup (see the queue site in _SWUOnUnitDamaged) so the pool's mzIDs are live.
+// SEC_002 Jabba the Hutt (deployed) — deal the damage AND spend the once-per-round budget together,
+// so a decline spends neither. Delegates the damage itself to the shared amount-taking handler.
+$customDQHandlers["SEC002_DEAL"] = function($player, $parts, $lastDecision) {
+  global $customDQHandlers, $playerID;
+  if (SWUDecisionDeclined($lastDecision)) return;   // declined → the round is NOT spent
+  $playerID = intval($player);
+  AddGlobalEffects(intval($player), 'SWU_SEC002_USED');
+  ($customDQHandlers["DEAL_UNIT_DAMAGE"])($player, $parts, $lastDecision);
+};
+
 $customDQHandlers["SEC143_OFFER"] = function($player, $parts, $lastDecision) {
   _SWUSec143Offer(intval($player), intval($parts[0] ?? 0));
 };
@@ -2592,12 +2604,22 @@ $customDQHandlers["GIVE_SHIELD"] = function ($player, $parts, $lastDecision) {
 // Universal: attach a Weakness token (HMW_T02, -1/-1) to the chosen unit (HMW_059 Clone X Assassin). No-op
 // on a '-'/PASS decline (composes with SWUQueueMayChooseTarget). The -1 HP can drop the host's remaining HP
 // to 0, which has no state-based defeat of its own — so run a shrink-defeat sweep after attaching.
+//
+// Accepts an optional COUNT as "GIVE_WEAKNESS|N" for cards that give more than one token to a single
+// unit (HMW_040 Talzin's Shuttle gives 2). ⚠ Pass the count IN THE CONTINUATION STRING, not as
+// SWUOfferUnitTarget's 'amount' — GIVE_WEAKNESS is deliberately NOT in that helper's $amountTaking
+// list, so an 'amount' => 2 there is silently DROPPED and exactly one token is attached. An explicit
+// pipe passes through untouched. Absent (every pre-existing caller) means 1, so their behaviour is
+// unchanged. The sweep runs ONCE after the whole batch: the tokens arrive together, and a host taken
+// to 0 HP by the second of them is defeated by that single sweep.
 $customDQHandlers["GIVE_WEAKNESS"] = function ($player, $parts, $lastDecision) {
   if (SWUDecisionDeclined($lastDecision))
     return;
   global $playerID;
   $playerID = intval($player);
-  DoGiveTokenUpgrade(intval($player), $lastDecision, 'HMW_T02');
+  $n = max(1, intval($parts[0] ?? 1));
+  for ($i = 0; $i < $n; $i++)
+    DoGiveTokenUpgrade(intval($player), $lastDecision, 'HMW_T02');
   SWUCheckShrinkDefeats();
 };// Universal: discard the chosen card ($lastDecision = "theirHand-N") from the opponent's hand to
 // the opponent's discard (From=HAND). Used by the "look at an opponent's hand and discard a card

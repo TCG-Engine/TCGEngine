@@ -64,3 +64,27 @@ WithP1GroundArena: SEC_214:1:0
 P1HANDCOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SEC_214
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# AttachPool_ExcludesVehicles_AndIncludesENEMYNonVehicles
+#// THE OFFER ITSELF. CannotAttachToAVehicle above puts a Vehicle on the board ALONE and shows the play
+#// does nothing — which proves the Vehicle is refused, but says nothing about the pool when legal and
+#// illegal hosts are both present, and nothing at all about whose units are eligible.
+#// "Attach to a NON-VEHICLE unit" names no controller, so an ENEMY non-Vehicle is a legal host
+#// (CR 2.e — the default is any unit, and only a printed restriction narrows it). Bowcaster is a pure
+#// drawback on an enemy body only in the sense that its When Played checks the host, so the enemy host
+#// is printed-legal and must appear.
+#// Board: friendly non-Vehicle + friendly Vehicle + enemy non-Vehicle + enemy Vehicle → exactly the two
+#// non-Vehicles.
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: HMW_127
+WithP1GroundArena: [SOR_095:1:0 SEC_214:1:0]
+WithP2GroundArena: [SOR_046:1:0 SEC_214:1:0]
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0

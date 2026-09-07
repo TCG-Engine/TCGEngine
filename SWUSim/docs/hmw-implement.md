@@ -18,7 +18,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112, HMW_160, HMW_046, HMW_044, HMW_172, HMW_215, HMW_108, HMW_103, HMW_109, HMW_105, HMW_008
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112, HMW_160, HMW_046, HMW_044, HMW_172, HMW_215, HMW_108, HMW_103, HMW_109, HMW_105, HMW_008, HMW_040, HMW_041, HMW_039, HMW_001
 
 
 <!-- HMW_005 Jar Jar Binks, Bombad General — Done, 16/16. THE SET'S LAST CARD.
@@ -477,7 +477,7 @@ round-trip `Subcards` decode as associative ARRAYS; direct property reads return
 - [x] **Batch 3.1 — HMW_142, HMW_234, HMW_257** — done, 8 cases, suite 6023/0.
   - Shared helper `_SWUControlsBaseWithTrait($player, $trait)` (GameLogic.php) — `HasTrait` resolves base
     traits (CardTraitSupplement backfill), verified against JTL_030 Mos Eisley (Tatooine).
-  - HMW_142 Wookie Rangers: `HasConditionalKeyword_Sentinel` case — another Wookiee unit (`TraitContains`,
+  - HMW_142 Wookiee Rangers: `HasConditionalKeyword_Sentinel` case — another Wookiee unit (`TraitContains`,
     self-excluded by UID) OR a Kashyyyk base. ⚠ **No Kashyyyk base is previewed in any set**, so that
     branch is currently unexercisable; it reuses the base-trait helper covered by HMW_234/HMW_177.
   - HMW_234 Ritual Dragon: Saboteur (auto-wired) + `_SWURitualDragonEntersReady` hooked in BOTH entry
@@ -624,6 +624,79 @@ at the end of that session: `### Already Done` vs the HMW CardIDs in `AppCore/SW
 `CardMocks.php` grew three times inside a single session once — re-derive the diff, never trust this
 line.
 Being worked one card at a time via `swusim-implement-set-plan HMW`.
+
+**SIXTEENTH WAVE (2026-09-07): 154 → 158 CardIDs**, adding HMW_001 Asajj Ventress (Leader, BOTH
+sides), HMW_039 Mother Talzin, HMW_040 Talzin's Shuttle and HMW_041 Keeper of Skara Nal. Ordered
+simplest-first: 040 → 041 → 039 → 001. ⚠ Both generated dictionaries had to be regenerated before any
+of them could even be built (`zzCardCodeGenerator.php rootName=SWUDeck` AND `rootName=SWUSim`) — the
+SWUSim one is what the engine reads, and until it ran all four returned `title=NULL, cost=NULL`.
+- [x] **HMW_040 Talzin's Shuttle, Mysterious Arrival** — done 2026-09-07, 11 sections, suite
+  11175 → 11186 · 0 failed. "If an opponent played 2 or more cards this phase" is an EXISTENTIAL over
+  `OpponentsOf()` (per-opponent, team-aware), read off the engine's `SWU_CARDS_PLAYED` counter; two
+  opponents on one card each do NOT satisfy it. Shared infra: `GIVE_WEAKNESS` now accepts an optional
+  count as `GIVE_WEAKNESS|N` (it is NOT in `SWUOfferUnitTarget`'s `$amountTaking`, so an `amount => 2`
+  there is silently dropped — a one-token bug that reads plausibly on any body with more than 2 HP).
+  Test-framework fix alongside: `WithP{n}GlobalEffect` is now a multi-key, because `GlobalEffectCount`
+  is a COUNT and a second line used to silently overwrite the first.
+- [x] **HMW_041 Keeper of Skara Nal, Awoken** — done 2026-09-07, 10 sections, suite 11186 → 11196 ·
+  0 failed. Direct analogue is ASH_172 Razor Crest (optional hand-discard cost inside On Attack, "if
+  you do" → +X/+0 for this attack); this one differs by paying TWO cards matched BY TITLE
+  (`CardTitle(...) === 'Keeper of Skara Nal'`, the IC27_078 convention) and by also granting Overwhelm
+  (`SWUMakeTurnEffect('OVERWHELM', [], SWU_DUR_ATTACK, 'HMW_041')`). Two measured findings worth
+  keeping: (a) a DECLINE branch on a card whose only rider is attack-duration power is INVISIBLE
+  against a small defender — the buff has expired by the time any POWER assertion is read and without
+  Overwhelm the excess is discarded anyway, so a buff-on-decline bug passed the obvious decline
+  section and needed a defender with more HP than the printed power; (b) hand mzIDs are STABLE within
+  one handler (MZMove only flags `removed`; compaction waits for CleanupRemovedCards), so
+  discard-descending is genuinely redundant here and was removed rather than kept as cargo cult.
+- [x] **HMW_039 Mother Talzin, Pledged to the Sisterhood** — done 2026-09-07, 8 sections, suite
+  11196 → 11204 · 0 failed. A CONSTANT aura ("Each other friendly unit gains Restore 1"), so it lives
+  in `GetConditionalKeyword_Restore_Value` and recomputes from the live board — the textual twins are
+  SEC_047 Coronet and SOR_102 Home One. "OTHER" is excluded by UniqueID, not CardID, because
+  uniqueness is per PLAYER: in Team Suns a teammate may control a second Talzin and each grants to the
+  other.
+  ⚠ **OPEN FAMILY QUESTION, RAISED NOT SWEPT.** HMW_039 is implemented TEAM-AWARE ("friendly" spans the
+  team, unlike "you control"). SEC_047, SOR_102 and TS26_40 print the same word and are SELF-ONLY —
+  they are cases inside `foreach (GetUnitsInPlay($obj->Controller) as $u)` in KeywordEffects, which
+  never looks at a teammate's board, and the same shape recurs in the Overwhelm/Raid grant loops
+  (e.g. SEC_099 "each friendly leader unit"). If the team reading is right here it is right for them
+  too, but widening that shared loop touches every case in it — including ones whose text says "you
+  control" — so it is a family-wide call for the user, not a mid-card sweep.
+- [x] **HMW_001 Asajj Ventress, No Time For Regret (Leader — BOTH sides)** — done 2026-09-07, 13
+  sections, suite 11204 → 11217 · 0 failed. New engine mechanic: a bidirectional Raid<->Restore
+  EXCHANGE for one attack. ⚠ The public `GetKeyword_{Raid,Restore}_Value` are GENERATED, so the swap
+  lands as an additive delta in the hand-written `GetConditionalKeyword_*_Value` seam — adding
+  (other - this) makes the final value equal the other keyword's, and it reaches all seven consumers
+  (combat power, the Restore heal, the Support lend, the effects popup) at once. A static `$busy` latch
+  breaks the mutual recursion and is what makes the inner reads UNSWAPPED, which is what the delta must
+  be computed against; removing it hangs the suite. "Has or GAINS" needs no code because Raid/Restore
+  are already recomputed live — a snapshot at declaration would miss exactly that case.
+  Front vs deployed asymmetry, deliberate: the front's [Exhaust] is state-changing so per CR 6.4.587.c
+  it stays usable and fizzles with no eligible attacker, while the deployed Action is FREE (costKind
+  'none') and is therefore gated in `SWUUnitActionAffordable` — the same split HMW_009 Chewbacca uses.
+  ⚠ Measured: a duration test that crosses a ROUND boundary cannot tell SWU_DUR_ATTACK from
+  SWU_DUR_PHASE (both expire there). The phase mutation was green until a same-phase section was added
+  (Bravado readies the attacker between two attacks).
+  ⚠ TO CONFIRM WHEN HMW LEAVES PREVIEW: the mock text gives the deployed Action no [Exhaust] where the
+  front has one. That matches the engine's deployed-leader convention, but it is the one transcription
+  worth checking against the printed card; if it is wrong the fix is one line
+  ($unitActionCostKind["HMW_001"]).
+  **+6 sections 2026-09-07 (user request), suite 11217 → 11223.** LAW_050 Honnah (Raid 2 / Restore 2)
+  is the symmetric CONTROL — the exchange maps each value onto an identical one, so the attack is
+  byte-identical to an unaided one. Measured: it is the ONLY section that reds when the delta is
+  written as `+= other` instead of `other - this`, and it correctly stays green when the swap is
+  removed altogether. ⚠ NO printed card has an ASYMMETRIC Raid/Restore pair (every printed pair is 1/1
+  or 2/2), so the sharpest shape has to be BUILT: LAW_090 Toydarian Technician (Raid 1 / Restore 1)
+  plus HMW_039 Mother Talzin's aura = Raid 1 / Restore 2, and plus SEC_140 Hondo Ohnaka's aura =
+  Raid 2 / Restore 1. Each has an unaided baseline on the identical board, so the swapped numbers are
+  anchored rather than asserted, and the baselines double as the pin that the aura actually applied.
+  **+2 more sections (suite 11223 → 11225):** the same Raid 1 / Restore 2 shape with the gained half
+  from an UPGRADE — SOR_070 Devotion on TWI_141 Soldier of the 501st — which walks the
+  GetUpgradesOnUnit loop rather than the friendly-unit loop, the only sections in the file that do.
+  ⚠ Devotion is +1/+1 ON TOP of its Restore 2 grant (CardUpgradePower/CardUpgradeHP = 1) although its
+  printed text mentions only the grant; a first draft read the text alone and both sections went red
+  against a correct engine. The host's POWER/HP are now asserted so that arithmetic cannot drift.
+
 
 ## ⚠ SIXTEENTH WAVE — 2026-09-03 (146 → 150 CardIDs)
 `AppCore/SWU/CardMocks.php` grew again in the working tree: **HMW_044, HMW_046, HMW_172, HMW_215** are

@@ -46,3 +46,47 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:HMW_121
 P1GROUNDARENAUNIT:0:READY
+
+---
+
+# Overwhelm_ExcessSpillsToTheBase
+#// The keyword half, untested until now. A 7/7 Overwhelm attacker into a 3/3 kills it and spills the
+#// other 4 into the base — without Overwhelm the excess is simply lost, so the two readings differ by
+#// the whole base hit.
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: HMW_121:1:0
+WithP2GroundArena: SOR_095:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:4
+
+---
+
+# RequestBoundary_TheNoReadyFlagSurvives
+#// The request-boundary cell, in the form a no-decision card needs it: the When Played writes a flag that
+#// is not read until the NEXT regroup phase — many requests later. A flag held anywhere but the
+#// gamestate is gone by then, and the unit quietly readies as normal.
+#// Same shape as WhenPlayed_DoesntReadyDuringNextRegroup, with a boundary inserted between the play and
+#// the regroup that reads it.
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: HMW_121
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>PlayHand:0
+- P1>SimulateRequestBoundary
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:HMW_121
+P1GROUNDARENAUNIT:0:EXHAUSTED

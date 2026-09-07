@@ -870,9 +870,114 @@ resources", but only some of those are REACHABLE. Triage before writing, and rec
 - **★ An optional offer must NOT auto-resolve a lone target.** `SWUQueueChooseTarget` short-circuits a single target through `PASSPARAMETER`, which is right for a mandatory effect (there is no decision to make) and wrong for an optional one — it silently resolves the thing the player was entitled to decline, and it makes a card's optionality depend on the board: declinable with two legal targets, forced with one. Passing `may: true` (or `'may' => true` to the shared offer helpers) now skips the shortcut. When you build an optional effect, write the **decline-with-exactly-one-legal-target** section; it was unreachable across ~11 cards until 2026-08-14 and every one of them then gained a real branch. ⚠ A card with a MANDATORY step and an OPTIONAL step only changes on the optional one — LOF_125's stale answer for its still-auto-resolving first step started landing on its second step's new prompt.
 - **★★ "Up to N" — USER RULING (2026-08-14): the TARGET choice is MANDATORY and the soft pass is an AMOUNT of ZERO.** Never make the target declinable to express "the player wants no effect"; offer the amount, always including 0. The same wording had produced four different shapes across the set — a `NUMBERCHOOSE 0|5` (right), a declinable target (wrong lever), an amount choice that SKIPPED itself when only 1 point was healable so the effect was *forced* on the player, and no amount choice at all. All four are now: mandatory `MZCHOOSE` target + `Heal0..HealN`. Watch for an unconditional rider — TS26_47 Take Cover's Shield is given regardless, which makes Heal0 a genuine play (keep the damage, take the token), so the rider must not be gated on the amount.
 - **⚠ A MANDATORY single-target choose STILL auto-resolves — so flipping an offer's optionality changes the ANSWER COUNT in both directions.** Making Satine's target mandatory again made its lone damaged unit auto-resolve, so the unit answer added hours earlier became spare, was eaten by the amount OPTIONCHOOSE, and that took an unrecognised value and silently resolved as Heal1 where the test asserted Heal2 — a wrong-value pass, not an error. Whenever you change `may`/mandatory on an offer, re-count prompts against answers in every section of that card.
-- **"Any number of X" is a 0..N PICK, not "all of them".** LOF_205 Force Speed returned every non-unique upgrade with no offer, so neither "none" nor a subset existed. Stage the candidates into TempZone and raise `MZMULTICHOOSE "0|N|…"` (ASH_199 There Is No Conflict is the reference implementation) — and carry the host/defender across the decision by **UniqueID**, since the answer arrives in a later request and the arena can reindex.
+- **"Any number of X" is a 0..N PICK, not "all of them".** LOF_205 Force Speed returned every non-unique upgrade with no offer, so neither "none" nor a subset existed. Stage the candidates into TempZone and raise `MZMULTICHOOSE "0|N|…"` (ASH_199 There Is No Conflict is the canonical in-repo implementation) — and carry the host/defender across the decision by **UniqueID**, since the answer arrives in a later request and the arena can reindex.
 - **⚠ A `-` answer with no earlier answer to consume is how a section goes spuriously green.** `ForceSpeed::ReturnZeroUpgrades_AnyNumberIncludesNone` meant to decline an upgrade-return; with no attack-target answer before it, the `-` landed on the ATTACK TARGET choose and abandoned the attack — and an attack that never happens also returns no upgrades, so both assertions held for the wrong reason. It also hid a real gap (the card's "return any number" is implemented as "return ALL", with no offer). Count prompts against answers, and make a decline section assert something the abandoned-flow CANNOT produce (here: the attack's damage).
 - **Fixture facts:** `WithP{n}GroundArenaControlled:` units sort AFTER every plain `WithP{n}GroundArena:` unit (same rule as a deployed leader) — a wrong upgrade index produces a convincing fake bug. **But a unit PLAYED during the WHEN is appended after both**, so a board of one seeded + one controlled + one played unit indexes seeded / controlled / played. ⚠ **When a section's whole premise is WHICH participant acted, a wrong index does not fail — it passes while testing nothing.** HMW_035's take-control section answered with the newly played unit instead of the stolen one and every behavioural assertion still held (the enemy died, the base took 0, the Shield landed). Anchor such a section with an IDENTITY-bearing pair at the acting index — `…UNIT:<i>:CARDID:<id>` **and** `…UNIT:<i>:DAMAGE:<n>` — so the participant, not just the outcome, is pinned. The positive keyword assertion is `HASKEYWORD:` (`KEYWORD:` is not an assertion name). Hand mzIDs are positionally STABLE across sequential picks — after `myHand-0` is discarded the next offer is still `myHand-1..3`.
+
+### More recurring bug shapes (HMW validate-port, 2026-09-07) — the ONCE-EACH-ROUND decline family, entry-wide rules, and offers minted pre-cleanup
+
+Five engine bugs, one family, plus a set of fixture traps that each produced a convincing phantom bug.
+
+- **★★★ "USE THIS ABILITY ONLY ONCE EACH ROUND" IS SPENT BY *USING* IT — A DECLINE SPENDS NOTHING.**
+  USER RULING 2026-09-07. For a **triggered "you may" whose entire effect is the optional part**,
+  declining never used the ability: nothing was given, no state changed, so a later qualifying trigger
+  the same round must still offer. Consume the budget **in the continuation, on the accepted answer**,
+  never at collect/offer time.
+  - The contrast that defines the boundary: an **ACTION** (ASH_230 Improvised Identity) already charged
+    an activation, so refusing a sub-choice inside it cannot refund the action — those keep charging up
+    front. Same for an auto-resolving "always-yes" reaction with no decline branch (SHD_137 Punishing
+    One), which correctly consumes only when there IS a benefit.
+  - Five cards were charging at collect time and are fixed: HMW_062 Nuvo Vindi, ASH_047 Gar Saxon,
+    SEC_002 Jabba (deployed), SOR_115 Agent Kallus, SOR_013 Cassian (deployed, TWO arm sites).
+  - ⚠ **When you sweep this family, scan `deployTextData` as well as `textData`.** Reading card text
+    alone found 17 cards; adding the deployed side found **27**, and the extra ten were most of the
+    family (Bossk, Cad Bane, Thrawn, Enfys Nest, Cassian, Jabba, Shin Hati). Most once-per-round
+    reactions live on a leader's deployed side.
+  - ⚠ **A PER-UNIT budget must thread its UniqueID through the trigger param.** Kallus's limit is
+    `NumUses` on the unit, not a player flag; moving the charge into the continuation means the
+    continuation has to be told WHICH copy owes it, or with two copies one draws twice and the other
+    never.
+  - The guard is always the same pair: `OncePerRound` (used → the second is blocked) and
+    `DECLINING_DoesNotSpendTheRound` (declined → the second still offers). Neither alone is coverage.
+- **★★ AN "ENTER PLAY" RULE IS ENTRY-WIDE — WALK EVERY ROUTE, NOT JUST THE PLAY.** HMW_234 Ritual
+  Dragon's "friendly units enter play ready" had three sections, all reaching the arena by PLAYING from
+  hand. A **created token** never passes through the play ceremony at all, and a **rescued** captive is a
+  third path that reads nothing like "entering play". Any rule phrased "enters play" needs one section
+  per route: played · token-created · rescued · returned/relocated.
+- **★★ AN OFFER POOL IS MINTED *BEFORE* CLEANUP, SO A DEATH IN THE SAME EVENT SHIFTS ITS mzIDs.** If the
+  unit whose damage triggered the offer also DEFEATED something, the survivor is still at its
+  pre-compaction index in the pool and has slid down by the time the continuation resolves — the answer
+  then lands on nothing and the ability silently does nothing. Either re-resolve by UniqueID in the
+  continuation, or build the fixture so nothing dies before the answer. (Found on SEC_002 Jabba; the
+  fix there is NOT landed — see the worklist.)
+- **★ FIXTURE TRAPS THAT EACH FAKED AN ENGINE BUG IN THIS PORT** — check these before writing engine code:
+  - **A cross-player reaction needs `P{n}>Drain`.** An offer that lands on the NON-acting player's queue
+    is not drained inside the acting player's action; without the drain the answer has nothing to land
+    on and the section reads exactly like "the trigger never fired".
+  - **A SENTINEL defender forces every attack onto itself.** Seating one silently turns the combat under
+    test into a different combat, and the resulting wrong-amount offer looks like the rule not working.
+  - **`theirLeaderDeployedPilot:true` attaches to the FIRST friendly unit (ground index 0)**, not the
+    host you had in mind. Seat the intended host there.
+  - **A one-target offer AUTO-RESOLVES**, so `SELECTABLEEXACT` reports "no pending decision" and proves
+    nothing about the exclusion under test. Seed two legal targets.
+- **★ AN OUTCOME ASSERTION IS NOT AN OFFER ASSERTION.** Repeatedly in this port a card's pool was
+  "covered" by answering it and checking the result — which passes unchanged if the pool wrongly
+  CONTAINS an extra card, because the engine happened to pick the right one (or the pool auto-resolved).
+  If the clause names an exclusion ("a non-Vehicle unit", "an ENEMY unit", "even if it's exhausted"),
+  one section must leave the choose pending and read `SELECTABLEEXACT` on a board holding both the
+  legal and the illegal bodies.
+- **★ A `COVERAGE:` N/A must be STRUCTURAL, and that distinction is what lets an axis honestly read 0%.**
+  "N/A — a continuous keyword grant, nothing is selected anywhere on the card" survives any rewrite;
+  "N/A — only one legal target here" is falsified by the next fixture change. Eighteen ledger entries
+  were written or verified across this port, and they are what turned an axis scan from a heuristic into
+  an exact query.
+
+### More recurring bug shapes (HMW sixteenth preview wave, 2026-09-07) — DURATION and DECLINE cells that cannot fail, and a silently-dropped `amount`
+
+Four cards. Every lesson here is a section that LOOKED like it covered a cell and provably did not —
+each was caught by a green mutation, none by reading.
+
+- **★★ A DURATION TEST THAT CROSSES A ROUND BOUNDARY CANNOT TELL `SWU_DUR_ATTACK` FROM
+  `SWU_DUR_PHASE`.** Both expire there, so "attack once, cross the regroup, attack again" is green
+  under either. Mutating HMW_001 Asajj Ventress's marker from ATTACK to PHASE left that section
+  passing. **The discriminating shape is a SECOND ATTACK IN THE SAME PHASE** — ready the attacker
+  mid-phase (SHD_182 Bravado "Ready a unit" is the cheap way) and assert the effect is gone. Write
+  that one whenever a card says "for this attack"; the round-crossing version is a weaker duplicate.
+- **★★ A DECLINE BRANCH WHOSE ONLY RIDER IS ATTACK-DURATION POWER IS INVISIBLE ON A SMALL DEFENDER.**
+  The buff has already expired by the time any `POWER:` assertion is read, and without Overwhelm the
+  excess over the defender is discarded — so "declined" and "applied anyway" produce an identical
+  board. HMW_041 Keeper of Skara Nal's obvious decline section (vs a 2/2) passed a mutation that
+  applied its +15/+0 on a refusal. **The decline needs a defender with MORE HP than the unit's printed
+  power**, so the damage dealt reads the power back. Same trap for any "if you do, this unit gets
+  +X/+0 for this attack" card — the whole ASH_172 Razor Crest family.
+- **★ `SWUOfferUnitTarget`'s `'amount'` is SILENTLY DROPPED for any continuation not in its
+  `$amountTaking` list** (`GIVE_WEAKNESS` is not in it; `GIVE_EXPERIENCE`/`GIVE_ADVANTAGE`/
+  `DEAL_*`/`HEAL_TARGET` are). `'amount' => 2` there gives ONE token and every `UPGRADECOUNT`/stat
+  assertion on a normal body still reads plausibly. Put the count IN THE CONTINUATION STRING
+  (`'GIVE_WEAKNESS|2'`) — an explicit pipe passes through untouched — and prove the count with a body
+  that DIES at N and survives at N-1 (a vanilla 2/2 for two -1/-1 tokens), never with a count assertion.
+- **★ A GENERATED public entry point still has a hand-written seam.** `GetKeyword_Raid_Value` /
+  `GetKeyword_Restore_Value` are generated and must not be edited, but they add
+  `GetConditionalKeyword_*_Value`, which is hand-written — so a card that has to change a FINAL keyword
+  value contributes an additive delta there (`other - this` turns the value into the other keyword's)
+  and reaches all seven consumers at once instead of patching each call site. A helper that reads both
+  keywords to compute one of them needs a `static $busy` latch, and the latch is not defensive: it is
+  what makes the inner reads UNSWAPPED, which is the value the delta must be computed against.
+- **★ "Has or GAINS" needs NO code when the underlying value is already recomputed live** — but it
+  forbids a snapshot taken at declaration, which is the obvious implementation and misses exactly the
+  case those two words exist to cover. Cover the "gains" half with an AURA-granted instance, not a
+  printed one.
+- **A leader's front and deployed Actions can differ on CR 6.4.587.c.** A front `Action [Exhaust]` has a
+  state-changing cost, so it stays usable with no legal target and fizzles; a deployed `Action:` with
+  NO cost must be gated out of the offer entirely (`SWUUnitActionAffordable`). Same card, opposite
+  answers — HMW_009 Chewbacca and HMW_001 Asajj Ventress both split this way.
+- **Process:** a `php -l` that reports a syntax error immediately after a scripted write is usually the
+  BIND-MOUNT FLUSH RACE, not your edit — three mutation probes were wrongly written off as broken
+  before a retry loop on the lint made all three apply cleanly. Retry before believing it.
+- **Fixture:** `WithP{n}GlobalEffect` used to be a single-value key while `GlobalEffectCount` is a
+  COUNT, so a second line silently overwrote the first and left the seat on 1 — indistinguishable from
+  the card ignoring its own threshold. It is now a multi-key (repeat the line, or `[X X]`). Whenever a
+  fixture seeds a counter, assert the seed.
 
 ### More recurring bug shapes (HMW ninth–eleventh preview waves, 2026-08-26) — fixtures that trip the WRONG gate, and re-entrant funnels
 
@@ -1415,7 +1520,7 @@ One engine bug plus the cells that found it. Add these whenever a card matches:
   behind it) never runs, and the section fails looking exactly like a missing implementation. Sections
   that happen to end on a further `P1>AnswerDecision` drain by accident, which is why this hides.
 - **★ "This branch is currently unexercisable" is a WORKLIST ITEM keyed to DATA, not a permanent state.**
-  HMW_142 Wookie Rangers' "or a Kashyyyk base" clause was correct for weeks but untested because no
+  HMW_142 Wookiee Rangers' "or a Kashyyyk base" clause was correct for weeks but untested because no
   Kashyyyk base existed in any set; the next preview wave shipped four. **Whenever a set's card pool
   grows, grep your own comments for "unexercisable"/"not previewed"/"no fixture exists" and re-check
   each** — this is the data-side twin of "a logged bug is a CLAIM, re-reproduce it". Pair the new
@@ -2078,7 +2183,7 @@ Debugging rules learned the hard way:
   - **Attack-duration LOSE_ABILITIES** (SEC_038 self while attacking, SEC_157 the defender for this attack) — register the CardID with `['kind'=>'LOSE_ABILITIES','duration'=>SWU_DUR_ATTACK]`; since that equals the registry default, `SWUMakeTurnEffect` emits a BARE `'CARDID'` token → `LostAbilities`'s raw `in_array` detects it AND `SWUExpireTurnEffects('attack')` drops it at attack-end. Set it in `BeginSWUAttack` (own, pre-target so line-492 own-OnAttack is suppressed) or in `CollectCombatStep1Triggers` (defender, before the OnDefense collection). The OnDefense collection now gates on `!LostAbilities($defender)`.
   - **⚠ VALUE keywords don't honor suppression** — `GetKeyword_Raid_Value`/`Restore` read the registry directly (no `SWUKeywordSuppressed`). For a lose-abilities unit, guard the COMBAT reads: `$raidVal = LostAbilities($attacker) ? null : GetKeyword_Raid_Value($attacker)` (SWUCombatDamage ~905, Restore ~827). Combat is the only place Raid/Restore matter, so this is complete.
   - **Multi-attack loop** (SEC_103 "any number of other units, even if exhausted") — `SWU_MONMOTHMA_LOOP` var holds the exclude-UID CSV; `_SWUMonMothmaOffer` MAY-offers the remaining OTHER units (ready or exhausted) → `BeginSWUAttack(noBases=true)`. Rides the chained-attack hooks: `CollectAfterAttackTriggers` queues a resume while the var is set; the SWU_TRIGGER_RESUME stack-empty branch re-offers after each attack. NO `SWUAfterAction` (the play's FINISH_PLAY_CARD finalizes — mirror SEC_172).
-  - **"When damage is dealt to this unit" reaction** (SEC_143) — POST-damage, no pause. `_SWUOnUnitDamaged($obj)` dispatcher fired from `CollectCombatStep3Triggers` (capture `$combatCtx['attackerTookDmg']` at the counter-damage points; defender via `dealtToUnit`; each gated on survived + >0) AND from `SWUDealDamageToUnit` (survived). 
+  - **"When damage is dealt to this unit" reaction** (SEC_143) — POST-damage, no pause. `_SWUOnUnitDamaged($obj)` dispatcher fired from `CollectCombatStep3Triggers` (capture `$combatCtx['attackerTookDmg']` at the counter-damage points; defender via `dealtToUnit`; each gated on survived + >0) AND from `SWUDealDamageToUnit` (survived).
   - **Granted On-Defense via a per-unit marker** (SEC_231) — a non-interactive reaction (e.g. create a Spy) just checks the marker on the defender in `CollectCombatStep1Triggers` and acts directly (no trigger/pause). One token can double as a GRANT_KEYWORD (Sentinel) AND the On-Defense signal.
   - **⚠⚠ Interactive pre-damage prevention** (SEC_101, first one) — **combat path MUST go through `AddTrigger` (a synthetic trigger type), NOT a direct decision**: a plain queued decision leaves `FlushCombatTriggerBag`=0, so `ExecuteSWUAttack` queues `SWUCombatDamage` directly and combat commits with NO pause (the offer never resolves first). The trigger forces the SWU_TRIGGER_RESUME/combat-pause path; the handler sets a one-shot marker `SWUCombatDamage` consumes before each of its **6** unit-damage points (the 3 combat-ordering branches — Shoot First, LAW_086 defender-first, normal-simultaneous — × the attacker + target chains). ⚠ **It's 6, not 4** — the defender-first branch added two; any "prevent / bypass / modify combat damage to a unit" card must touch ALL 6 (ASH_062 The Mandalorian prevent via `_SWUConsumeAsh062Prevent`, ASH_196 Gorian Shard's Corsair unpreventable-bypass via `_SWUDamageUnpreventable` — both prepend their branch to all six chains). Grep `_SWUConsumeAmidalaPrevent` in CombatLogic to enumerate the live set before editing. **Ability path:** add `$skipPrevent` to `SWUDealDamageToUnit`, defer + offer, re-apply (skipPrevent) on decline. **Indirect is exempt for free** — it writes `Damage` directly, never through `SWUDealDamageToUnit` or `SWUCombatDamage`'s unit path.
 

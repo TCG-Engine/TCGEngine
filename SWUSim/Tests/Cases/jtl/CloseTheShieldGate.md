@@ -159,3 +159,27 @@ WithP1SpaceArena: SOR_237:1:0
 
 ## EXPECT
 P2BASEDMG:2
+
+---
+
+# DeckOut_TheOneShotEatsTheWholeSix
+#// KNOCK-ON of the 2026-09-07 USER RULING that failing to draw N cards is ONE event of 3N, not N events
+#// of 3 (see hmw/AllianceShieldGenerator.md::RegroupDeckOut_*). This shield is a ONE-SHOT on the next
+#// damage event, so the SHAPE of the event decides how much it saves: a single draw-2 instruction on an
+#// empty deck is one 6 and the shield eats all of it, where two separate 3s would have spent the shield
+#// on the first and let the second land for 3.
+#// ⚠ The shield is cleared at regroup, so this cannot use the regroup draw — it has to be armed and
+#// consumed inside the SAME action phase. SOR_171 Mission Briefing ("Choose a player. They draw 2
+#// cards.") is the draw-2 instruction, aimed at P1, whose deck is empty.
+## GIVEN
+CommonSetup: bbw/bbw/{myResources:8; myhandCardIds:JTL_074,SOR_171}
+SkipPreGame: true
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myBase-0
+- P1>PlayHand:0
+- P1>AnswerDecision:You
+## EXPECT
+P1BASEDMG:0
+P1HANDCOUNT:0

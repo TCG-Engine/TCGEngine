@@ -202,3 +202,37 @@ P2HANDCOUNT:1
 P2DECKCOUNT:1
 P1HANDCOUNT:0
 P1DECKCOUNT:2
+
+---
+
+# DECLINING_DoesNotSpendTheRound
+#// ⚠ USER RULING 2026-09-07 — the partner to OncePerRound above. Declining a triggered "you may" whose
+#// entire effect is the optional part never USED the ability, so the round is not spent and a later
+#// qualifying defeat still offers.
+#// Same board as OncePerRound: two enemy unique units defeated in one round. The first offer is
+#// declined (NO), so the second defeat must still offer — and P1 ends up having drawn exactly once.
+#// ⚠ Kallus's budget is PER UNIT (NumUses on the unit, not a player-wide flag), so the offer has to
+#// hand its continuation the UniqueID of the Kallus that armed it; with two copies in play a
+#// player-wide charge would let one draw twice and the other never.
+#// ⚠ The mutation that proves this section is the one that restores the consume to the ARM SITE (the
+#// collector in GameLogic), not one that consumes inside this continuation. The pre-fix code charged
+#// before the offer was even queued, so re-arming had already been decided by the time the handler
+#// saw the decline — a handler-side probe comes back GREEN and proves nothing.
+## GIVEN
+CommonSetup: ggw/rrk
+P1OnlyActions: true
+WithP1GroundArena: SOR_115:1:0
+WithP1GroundArena: LAW_124:1:0
+WithP2GroundArena: SOR_079:1:0
+WithP2GroundArena: SOR_109:1:0
+WithP1Deck: SOR_128
+WithP1Deck: SOR_237
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:NO
+- P1>AttackGroundArena:1:0
+- P1>AnswerDecision:YES
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1DECKCOUNT:1
+P1HANDCOUNT:1

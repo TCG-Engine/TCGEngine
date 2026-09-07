@@ -1307,6 +1307,7 @@ $turnEffectRegistry = [
     'ASH_136' => ['kind' => 'STAT_BUFF', 'label' => '+{0}/+{1}'],   // Display of Strength (+3/+3 for this phase)
     'ASH_137' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'May deal excess damage to another unit'],   // Wipe Them Out
     'ASH_162' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'On base hit: opponent discards'],   // Rash Action
+    'HMW_001' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'Raid and Restore swapped'],   // Asajj Ventress, No Time For Regret
     'ASH_186' => ['kind' => 'MARKER', 'label' => 'On Attack: deal 2 to this unit'],   // Treacherous Minefield (phase)
     'SWU_DAMAGED_PHASE' => ['kind' => 'MARKER', 'label' => 'Damaged this phase'],   // ASH_188 Galvanized Leap ("ready a unit damaged this phase")
     'SWU_AMBUSH_ATTACK' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'Attacking using Ambush'],   // ASH_207 Heroic Purrgil
@@ -3939,17 +3940,24 @@ function DoDrawCard($player, $amount) {
         for ($j = 0; $j < count($deck); $j++) {
             if (!isset($deck[$j]->removed) || !$deck[$j]->removed) { $topIdx = $j; break; }
         }
-        // Empty deck (CR §6.1): you can't draw, so instead deal 3 damage to your base for EACH card
-        // you would have drawn (the remaining $amount - $i), then stop. Per-card damage events (matching
-        // the "3 damage … for each card" wording) so per-event caps/prevention (ASH_070, Shield Gate)
-        // apply per card. Goldfish P2 (the practice-mode dummy) is exempt — it must never lose to deck-out.
+        // Empty deck (CR §6.1): you can't draw, so instead deal 3 damage to your base for EACH card you
+        // would have drawn (the remaining $amount - $i), then stop.
+        // ⚠ USER RULING 2026-09-07: that is ONE damage event of 3 x undrawn, NOT one event per card.
+        // "3 damage for each card you can't draw" scales a single instance, the same way every other
+        // "for each" damage clause in the game does. Failing the regroup's two-card draw is therefore a
+        // single 6, which a 5-or-more prevention SEES — HMW_081 Alliance Shield Generator keeps a base on
+        // 4 remaining HP alive, where two separate 3s slipped under every threshold in the game.
+        // The scope is per DRAW INSTRUCTION, not per phase: three separate "draw a card" instructions on
+        // an empty deck remain three events of 3 (LAW_222 Tobias Beckett's deployed side depends on that,
+        // and each is its own DoDrawCard call, so this loop never merges them).
+        // This code previously split per card and carried a comment justifying it as matching the
+        // wording; the ruling above supersedes that reading. Guarded by
+        // hmw/AllianceShieldGenerator.md::RegroupDeckOut_* plus its SeparateDrawInstructions control.
+        // Goldfish P2 (the practice-mode dummy) is exempt — it must never lose to deck-out.
         if ($topIdx === null) {
             $undrawn = intval($amount) - $i;
             if ($undrawn > 0 && !(SWUGameMode() === 'goldfish' && intval($player) === 2)) {
-                for ($k = 0; $k < $undrawn; $k++) {
-                    if (SWUGetGameWinner() !== 0) break;   // base defeated mid-deck-out → stop
-                    SWUDealDamageToBase(3, intval($player));
-                }
+                SWUDealDamageToBase(3 * $undrawn, intval($player));
             }
             break;
         }
@@ -9387,12 +9395,13 @@ function Ash184GiveAdvTrigger($player): void {
 }
 
 // SOR_115 Agent Kallus — "When another unique unit is defeated: you may draw a card." The
-// once-per-round gate was consumed at collect time, so this just offers the optional draw.
-function KallusDrawTrigger($player): void {
+// $uid names the Kallus whose PER-UNIT budget this offer belongs to; it is spent in SOR_115#0 on the
+// accepted YES (USER RULING 2026-09-07 — declining never used the ability).
+function KallusDrawTrigger($player, int $uid = 0): void {
     global $playerID;
     $playerID = intval($player);
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip:"Agent_Kallus:_draw_a_card?");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SOR_115#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SOR_115#0|{$uid}", 1);
 }
 
 // SOR_013 Cassian Andor (deployed) — "When you deal damage to an enemy base: you may draw a card."
@@ -10058,7 +10067,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             SWUQueueDefeatUpgrade(intval($player), "Defeat_an_upgrade_costing_2_or_less", may: true, max: 1, filter: 'cost<=2', min: 0);
             break;
         case 'ASH_137':    Ash137ExcessTrigger($player, $mzID, intval($extra[0] ?? 0)); break;   // Wipe Them Out — excess to another unit in the arena
-        case 'SOR_115':        KallusDrawTrigger($player);                   break;
+        case 'SOR_115':        KallusDrawTrigger($player, intval($extra[0] ?? 0)); break;
         case 'SOR_013':       CassianDrawTrigger($player);                  break;
         case 'TWI_210': CunningOpponentPlayedReaction($player); break;
         case 'TWI_064': KiAdiMundiDrawReaction($player); break;   // Ki-Adi-Mundi — opponent's 2nd card → may draw 2
@@ -11085,13 +11094,17 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // $d['weakened'] is captured at the defeat sites while the subcards are still intact — by the
             // time this collection runs the dying unit's upgrades are already stripped, so the token
             // cannot be read off the unit here.
-            // The once/round flag is consumed HERE, at collect time, so a DECLINED offer still spends the
-            // round (the ability triggered) — same convention as SHD_137 above.
+            // ⚠ The once/round flag is NOT consumed here. USER RULING 2026-09-07: for a TRIGGERED "you
+            // may" whose entire effect is the optional part, DECLINING does not spend the round — nothing
+            // was given, no state changed, so the ability was never used. It is consumed in the
+            // HMW_062#give continuation, on an accepted answer only. (Contrast an ACTION like ASH_230,
+            // where the player paid an activation and refusing a sub-choice cannot refund it; and
+            // SHD_137 above, which has no decline branch at all — it auto-resolves and consumes only
+            // when there is a real benefit.)
             // ⚠ Counted through the batch-aware helper for the same reason as Chimaera/Iden above: a Vindi
             // that TRADED with the weakened enemy was in play when it was defeated, so he still observes it.
             if (!empty($d['weakened']) && GlobalEffectCount($opp, 'SWU_HMW062_USED') <= 0
                 && _SWUSimulObserverCount($opp, 'HMW_062', $leftCards) > 0) {
-                AddGlobalEffects($opp, 'SWU_HMW062_USED');
                 AddTrigger($opp, 'HMW_062', 'HMW_062', '');
             }
             // ASH_052 Chimaera (controlled by $opp): "When an enemy unit is defeated: heal 2 damage from
@@ -11162,8 +11175,10 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
                     // Per-instance once-per-round via each Kallus unit's NumUses budget.
                     foreach (array_merge(GetGroundArena($kp) ?? [], GetSpaceArena($kp) ?? []) as $ku) {
                         if (empty($ku->removed) && ($ku->CardID ?? '') === 'SOR_115' && SWUHasUseAvailable($ku)) {
-                            AddTrigger($kp, 'SOR_115', 'SOR_115', '');
-                            SWUConsumeUse($ku);
+                            // ⚠ The budget is spent in SOR_115#0 on the accepted YES, NOT here (USER
+                            // RULING 2026-09-07). It is PER KALLUS UNIT, so the UniqueID rides the
+                            // trigger param — the continuation cannot otherwise tell which copy owes it.
+                            AddTrigger($kp, 'SOR_115', 'SOR_115', strval(intval($ku->UniqueID ?? 0)));
                         }
                     }
                 }
@@ -17669,6 +17684,14 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
                           // cost changes game state, so per CR 6.4.587.c it stays available and fizzles.)
             if (!SWUHasUseAvailable($actor)) { $ok = false; break; }
             if (empty(_SWUHmw009Attackers($player))) $ok = false;
+            break;
+        }
+        case 'HMW_001': { // Asajj Ventress (deployed): "Action: Attack with a unit." The deployed side has
+                          // NO cost at all (no exhaust, no resources), so it must not be offerable when
+                          // it could do nothing — CR 6.4.587.c only keeps a STATE-CHANGING cost usable.
+                          // The front side, whose cost is [Exhaust], deliberately stays usable and
+                          // fizzles. Same split as HMW_009 Chewbacca in this set.
+            if (empty(_SWUHmw001EligibleAttackers($player))) $ok = false;
             break;
         }
         case 'ASH_119': // Greef Karga: only useful if your base was attacked this phase.

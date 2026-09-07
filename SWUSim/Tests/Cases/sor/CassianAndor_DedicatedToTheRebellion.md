@@ -605,3 +605,35 @@ P1SELECTABLEEXACT:
 P2NODECISION
 P2BASEDMG:4
 P1DECKCOUNT:1
+
+---
+
+# DECLINING_DoesNotSpendTheRound
+#// ⚠ USER RULING 2026-09-07 — the partner to OncePerRound above. Declining a triggered "you may" whose
+#// entire effect is the optional part never USED the ability, so the round is not spent.
+#// Same board as OncePerRound: two enemy-base hits in one round. The first draw is declined, so the
+#// X-Wing's hit must still offer — P1 ends up having drawn exactly once, and the base still took 4+2.
+#// ⚠ Cassian's deployed trigger is armed from TWO sites (the combat attack-end collection and the
+#// non-combat base-damage funnel); both had to stop charging at collect time or this section reds on
+#// whichever route the fixture happens to take.
+## GIVEN
+CommonSetup: grw/bbk/{
+  myLeader:SOR_013;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 6
+WithP1SpaceArena: SOR_237:1:0
+WithP1Deck: SOR_128
+WithP1Deck: SOR_237
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:NO
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:YES
+## EXPECT
+P2BASEDMG:6
+P1HANDCOUNT:1
+P1DECKCOUNT:1

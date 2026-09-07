@@ -5,12 +5,15 @@
 // DeployText: Saboteur (When this unit attacks, ignore Sentinel and defeat the defender's Shields.) / When you deal damage to an enemy base: You may draw a card. Use this ability only once each round.
 // Epic Action: If you control 6 or more resources, deploy this leader.
 
-// SOR_013 Cassian Andor (deployed) — optional draw on the once-per-round base-damage trigger. The
-// round's use was consumed at collect time, so declining (NO) just draws nothing.
+// SOR_013 Cassian Andor (deployed) — optional draw on the once-per-round base-damage trigger.
+// ⚠ The round's use is spent HERE, on the accepted YES. USER RULING 2026-09-07: declining a triggered
+// "you may" whose whole effect is the optional part never used the ability, so a second base hit the
+// same round still offers.
 $customDQHandlers["SOR_013#0"] = function($player, $parts, $lastDecision) {
-    if ($lastDecision !== 'YES') return;
+    if ($lastDecision !== 'YES') return;   // declined → the round is NOT spent
     global $playerID;
     $playerID = intval($player);
+    SWUConsumeUse(SWUGetLeader(intval($player)));   // once/round via leader NumUses
     DoDrawCard(intval($player), 1);
 };
 

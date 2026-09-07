@@ -162,3 +162,29 @@ WithP1GroundArena: HMW_060:1:0
 ## EXPECT
 P1BASE:UPGRADECOUNT:0
 P1GROUNDARENAUNIT:0:CARDID:HMW_060
+
+---
+
+# StolenRampart_ProtectsTheNEWControllersBaseUpgrade
+#// THE CONTROL-CHANGE CELL. "If an upgrade on YOUR base would be defeated, you may defeat this unit
+#// instead" — "your base" is the base of whoever CONTROLS Rampart. Every other section here leaves him
+#// on his owner's board, where the owner and the controller are the same player and the two readings
+#// cannot be told apart.
+#// P1 controls a Rampart that P2 still OWNS, and it is P1's base carrying the Alliance Shield Generator.
+#// The replacement fires for P1, saving P1's upgrade and defeating Rampart — and because P2 OWNS him,
+#// the defeated Rampart goes to P2's discard, which is the second half of the same rule.
+## GIVEN
+CommonSetup: bbk/rrk
+WithActivePlayer: 2
+WithP1BaseUpgrade: HMW_081
+WithP1GroundArenaControlled: HMW_060:2
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2GroundArena: HMW_121:1:0
+## WHEN
+- P2>AttackGroundArena:0:BASE
+- P1>AnswerDecision:YES
+## EXPECT
+P1BASE:UPGRADECOUNT:1
+P1BASEDMG:0
+P1GROUNDARENACOUNT:0
+P2DISCARDCOUNT:1

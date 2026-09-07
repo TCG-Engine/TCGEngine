@@ -451,8 +451,9 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
                 if (empty($GLOBALS['gInCombatDamage']) && intval($damage) > 0
                         && _SWUCountUnitsWithCardID($damager, 'SOR_013') > 0
                         && SWUHasUseAvailable(SWUGetLeader($damager))) {
+                    // ⚠ The round is spent in SOR_013#0 on the accepted YES, not here (USER RULING
+                    // 2026-09-07: declining a triggered "you may" never used the ability).
                     AddTrigger($damager, 'SOR_013', 'SOR_013', '');
-                    SWUConsumeUse(SWUGetLeader($damager)); // once/round via leader NumUses
                     // Flush immediately: this funnel can run inside the OPPONENT's drain (indirect
                     // damage is assigned by the defender), after the damager's own play ceremony
                     // already flushed — a bagged trigger here would otherwise never surface.
@@ -1898,12 +1899,12 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // SOR_013 Cassian Andor (deployed Leader Unit) — "When you deal damage to an enemy base: You may
     // draw a card. Use this ability only once each round." Controller-based (any friendly unit's
     // base hit counts, not just Cassian's own attack), so it rides this collection point after the
-    // attacker switch. Once-per-round flag set at collect time; cleared at RegroupPhaseStart.
+    // attacker switch. ⚠ The once/round budget is spent in SOR_013#0 on the accepted YES, NOT at
+    // collect time (USER RULING 2026-09-07); cleared at RegroupPhaseStart.
     if (!empty($combatCtx['dealtToBase'])
         && _SWUCountUnitsWithCardID(intval($activePlayer), 'SOR_013') > 0
         && SWUHasUseAvailable(SWUGetLeader(intval($activePlayer)))) {
         AddTrigger($activePlayer, 'SOR_013', 'SOR_013', '');
-        SWUConsumeUse(SWUGetLeader(intval($activePlayer))); // once/round draw via leader NumUses
     }
 }
 

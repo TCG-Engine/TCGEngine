@@ -364,3 +364,168 @@ SEATCOUNT:4
 P3BASEDMG:1
 P1LEADER0:EXHAUSTED
 P3GROUNDARENAUNIT:0:DAMAGE:4
+
+---
+
+# Overkill_KillingAOneHpUnitStillDealsFour
+#// DAMAGE DEALT, NOT DAMAGE ABSORBED. A 4-power attacker into a 1-HP body still DEALS 4, so the trigger
+#// fires even though only 1 of it mattered. An implementation that read the victim's damage counter (or
+#// its remaining HP) after the fact would see 1 and never offer — and every other section in this file
+#// uses a target big enough to soak the whole hit, so none of them can tell the two readings apart.
+#// LAW_146 Massassi Group Marines (4/4) into SOR_128 Death Star Stormtrooper (3/1): the Stormtrooper is
+#// defeated, the Marines take 3 back, and the deployed (free) Sidious pings P2's base for 1.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:HMW_011; myLeaderDeployed:true}
+WithActivePlayer: 1
+WithP1GroundArena: LAW_146:1:0
+WithP2GroundArena: SOR_128:1:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P2BASEDMG:1
+
+---
+
+# DefendingFriendlyUnitDealsFourBack_TRIGGERS
+#// "WHEN **YOU** DEAL 4 OR MORE DAMAGE" is about the DEALER, not about whose turn it is and not about
+#// who is attacking. A friendly unit striking back while DEFENDING dealt that damage, so Sidious fires
+#// on the OPPONENT'S turn.
+#// P2's Cantina Bouncer (3/5) attacks P1's Wampa (4/5). The Wampa deals 4 to the attacker; P1's deployed
+#// Sidious is offered and pings P2's base. Note the Bouncer's own 3 is under the threshold, so this
+#// section has exactly ONE qualifying instance and cannot pass by accident.
+#// Pairs with EnemyDefenderDealsFourBackToMyAttacker_NoTrigger, which is the same combat with the seats
+#// swapped — together they isolate the DEALER from every other variable.
+#// ⚠ Wampa's Overwhelm is an ATTACKING keyword, so it contributes nothing here; the 4 stays on the unit.
+#// ⚠ `P1>Drain` is load-bearing and is NOT optional bookkeeping: the offer lands on P1's queue while P2
+#// is the acting player, and it is not drained inside P2's own action. Without it the answer below has
+#// no decision to land on and the section reads exactly like "the trigger never fired" — which is what
+#// it looked like on the first encoding.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:HMW_011; myLeaderDeployed:true}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1GroundArena: SOR_164:1:0
+WithP2GroundArena: SOR_202:1:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P2>AttackGroundArena:0:0
+- P1>Drain
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P2GROUNDARENAUNIT:0:DAMAGE:4
+P2BASEDMG:1
+
+---
+
+# DefendingTrigger_OfferExcludesTheAttackerItJustDamaged
+#// The OFFER on the defending path, left pending so it can be read. "A DIFFERENT unit or base" excludes
+#// the object that took the qualifying damage — here the enemy attacker — while everything else on the
+#// table stays legal, including the deployed Sidious himself and BOTH bases.
+#// The attacking path's equivalent is Front_OfferExcludesTheUnitThatWasDamaged; this is the same rule
+#// reached through the defender's return strike, which is a different funnel.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:HMW_011; myLeaderDeployed:true}
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1GroundArena: SOR_164:1:0
+WithP2GroundArena: SOR_202:1:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P2>AttackGroundArena:0:0
+- P1>Drain
+
+## EXPECT
+P1DECISIONTOOLTIP:Deal_1_damage_to_a_different_unit_or_base
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&myBase-0&theirBase-0
+
+---
+
+# EnemyDefenderDealsFourBackToMyAttacker_NoTrigger
+#// THE NEGATIVE HALF, and the one that makes the trigger's ownership load-bearing. Identical combat to
+#// the section above with the seats swapped: P1's Cantina Bouncer attacks P2's Wampa, and the Wampa
+#// deals 4 back. That 4 was dealt by an ENEMY unit, so P1's Sidious must not fire — even though the
+#// damage lands during P1's own turn, on P1's own board, at exactly the threshold.
+#// An observer keyed on "4 damage happened while I was the active player" passes the positive above and
+#// fails only here.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:HMW_011; myLeaderDeployed:true}
+WithActivePlayer: 1
+WithP1GroundArena: SOR_202:1:0
+WithP2GroundArena: SOR_164:1:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:DAMAGE:4
+P2GROUNDARENAUNIT:0:DAMAGE:3
+P1BASEDMG:0
+P2BASEDMG:0
+
+---
+
+# BaseHitOfExactlyFour_Triggers
+#// The BASE side of the threshold, reached by plain combat rather than by Overwhelm excess. The existing
+#// base coverage in this file all arrives through the Overwhelm spill, which is a different funnel — a
+#// straight 4-power attack into an undefended base is the ordinary route and had none.
+#// LAW_146 Massassi Group Marines (4 power) hits P2's base for 4; the ping then has to land somewhere
+#// other than the base it just damaged, so it goes to P1's own.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:HMW_011; myLeaderDeployed:true}
+WithActivePlayer: 1
+WithP1GroundArena: LAW_146:1:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:myBase-0
+
+## EXPECT
+P2BASEDMG:4
+P1BASEDMG:1
+
+---
+
+# BaseHitOfThree_DoesNotTrigger
+#// The boundary partner: one under the threshold on the SAME funnel. SOR_095 Battlefield Marine (3
+#// power) hits the base for 3 and nothing is offered. Without this, "4 to a base triggers" is compatible
+#// with an implementation that fires on ANY base damage.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:HMW_011; myLeaderDeployed:true}
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:3
+P1BASEDMG:0
+P1NODECISION

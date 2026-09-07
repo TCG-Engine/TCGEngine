@@ -60,3 +60,24 @@ WithP2GroundArena: SEC_080:0:0
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
 P2GROUNDARENAUNIT:0:POWER:3
+
+---
+
+# WhenDefeated_OfferSpansBOTHSides
+#// "You may give a Weakness token to A UNIT" — unqualified, so FRIENDLY units are legal targets too and
+#// the pool is the whole table. Every existing section here answers an enemy, which a pool narrowed to
+#// enemies satisfies identically.
+#// The Assassin is defeated in combat; the surviving friendly and the enemy attacker are both offered.
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:6}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1GroundArena: [HMW_059:1:0 SOR_046:1:0]
+WithP2GroundArena: SOR_164:1:0
+## WHEN
+- P2>AttackGroundArena:0:0
+- P1>Drain
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0

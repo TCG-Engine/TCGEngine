@@ -173,6 +173,27 @@ Everything else is yours to handle: a wrong EXPECT, a fixture's aspect cost, a m
 
 When the scope is complete, report **start → end regression counts**, the phases/batches done, the retros folded, and **the remaining deferral backlog** (the parked Hard/ambiguous cards + why) so the user knows exactly what's left and why. The set is **not** card-complete while the backlog is non-empty — say so plainly. Remind the user the tree is **uncommitted** (they commit manually). If they're wrapping up the session, invoke **`swusim-session-close`** to update project memory.
 
+## ★ A RULE THAT HOLDS FOR ONE CARD USUALLY HOLDS FOR A FAMILY — scan `deployTextData` too, then AUDIT before sweeping (2026-09-07)
+
+A single card's ruling is almost never a single card's fix. When one lands mid-run:
+
+1. **Build the family list from BOTH text sources.** `textData` alone found 17 cards carrying
+   "use this ability only once each round"; adding `deployTextData` found **27**, and the ten extra were
+   most of the family — leaders carry these reactions on their DEPLOYED side, which is invisible to a
+   front-text grep. The same blind spot applies to any family scan (keyword grants, reactions,
+   once-per-phase limits).
+2. **AUDIT each member before changing it — a shared shape is not a shared bug.** Of the 27, only
+   **five** were actually wrong; ten were already correct and twelve were out of scope (Actions or
+   non-optional abilities, where the rule legitimately differs). Sweeping the list blindly would have
+   broken the ten and the twelve.
+3. **Find the member that is already RIGHT and use it as the model.** Here the user named it (SHD_010
+   Bossk, whose comment already read "consumed on actual re-collect"); reading it first gave the exact
+   shape to copy into the other four instead of inventing one per card.
+4. **Every fixed member needs its own guard, and the guard is a PAIR** — the limit still biting when the
+   ability IS used, and the limit NOT biting when it is declined. One without the other is not coverage.
+5. **State the three buckets separately when you report**: fixed / already-correct / out-of-scope. A bare
+   "27 cards in the family" tells the user nothing about what you changed.
+
 ## Common mistakes
 
 | Mistake | Fix |

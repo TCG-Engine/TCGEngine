@@ -1,7 +1,10 @@
 # Sentinel_WhileControllingAnotherWookieeUnit
-#// HMW_142 Wookie Rangers (5/6, Command, cost 5, Wookiee) — "While you control another Wookiee unit or a
+#// HMW_142 Wookiee Rangers (5/6, Command, cost 5, Wookiee) — "While you control another Wookiee unit or a
 #// Kashyyyk base, this unit gains Sentinel." Two copies each see the OTHER Wookiee, so both gain Sentinel —
 #// which also proves the "another" self-exclusion (a lone copy does not count itself; see the negative).
+#// COVERAGE: offer=N/A — STRUCTURAL: a continuous keyword grant with no selection anywhere on the card. ·
+#//           decline=N/A (nothing optional) · reqboundary=N/A (recomputed from the board on every read) ·
+#//           modes=2P ONLY ("you control a Kashyyyk base" / "another Wookiee unit" are self-scoped).
 
 ## GIVEN
 CommonSetup: ggw/rrk
@@ -16,7 +19,7 @@ P1GROUNDARENAUNIT:1:HASKEYWORD:Sentinel
 ---
 
 # NoSentinel_LoneCopy_NoOtherWookieeNoKashyyykBase
-#// A single Wookie Rangers with no other Wookiee unit and no Kashyyyk base does NOT gain Sentinel — the
+#// A single Wookiee Rangers with no other Wookiee unit and no Kashyyyk base does NOT gain Sentinel — the
 #// clause is "ANOTHER Wookiee unit", so it never satisfies itself. (The Kashyyyk-base branch is exercised
 #// below now that HMW_021/024/030/031 are previewed; it shares _SWUControlsBaseWithTrait with HMW_234/177.)
 
@@ -32,7 +35,7 @@ P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
 ---
 
 # Sentinel_WhileControllingAKashyyykBase_NoOtherWookiee
-#// The SECOND gate branch, unexercisable until HMW previewed a Kashyyyk base: a LONE Wookie Rangers (no
+#// The SECOND gate branch, unexercisable until HMW previewed a Kashyyyk base: a LONE Wookiee Rangers (no
 #// other Wookiee unit anywhere) still gains Sentinel while you control a Kashyyyk base — HMW_021 Kashirho,
 #// a vanilla 30-HP Vigilance/Kashyyyk base. Contrast the section directly above: identical board, ordinary
 #// base, no Sentinel — so the base is the only thing carrying this.

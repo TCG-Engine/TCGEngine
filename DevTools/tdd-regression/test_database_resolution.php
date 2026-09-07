@@ -147,17 +147,20 @@ $activeSite = function($db) use ($withEnvAndRoot) {
 // refactor changes any of these, a live site starts rendering as a different site.
 $historicalPairs = [
     'swudeck'         => 'SWUDeck',
-    // ⚠ GrandArchiveSim's DATABASE is 'soulmastersdb', not 'grandarchivesim' — the db was renamed
-    // while the rootName stayed. This pin is about the db->site mapping, so it follows the db name;
-    // 'grandarchivesim' is not a database at all and correctly resolves to NULL (asserted below).
-    'soulmastersdb'   => 'GrandArchiveSim',
+    // ⚠ GrandArchiveSim's DATABASE has been renamed TWICE. It was 'grandarchivesim', became
+    // 'soulmastersdb', and was renamed BACK to 'grandarchivesim' on 2026-08-30 (commit a8440796,
+    // across SiteRegistry + docker-compose + the local MCP configs). This pin is about the db->site
+    // mapping, so it follows the db name; 'soulmastersdb' is not a database any more and correctly
+    // resolves to NULL (asserted below). Both directions are pinned deliberately — a half-applied
+    // rename is exactly the drift this file exists to catch, and it caught this one.
+    'grandarchivesim' => 'GrandArchiveSim',
     'azukisim'        => 'AzukiSim',
     'swusim'          => 'SWUSim',
     'hellbreaksim'    => 'HellbreakSim',
 ];
 // The OLD name must stay unmapped: re-adding it would give GrandArchiveSim two databases and make
 // which one wins depend on registry order.
-$check(SiteForDatabase('grandarchivesim') === null, "'grandarchivesim' is not a database (renamed to soulmastersdb)");
+$check(SiteForDatabase('soulmastersdb') === null, "'soulmastersdb' is not a database (renamed back to grandarchivesim)");
 foreach($historicalPairs as $db => $expectedSite) {
     $check($activeSite($db) === $expectedSite, "ActiveSite still resolves '$db' to $expectedSite");
 }
