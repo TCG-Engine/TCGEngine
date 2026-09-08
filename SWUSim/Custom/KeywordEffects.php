@@ -1239,8 +1239,8 @@ function HasConditionalKeyword_Support($obj) {
 function GetConditionalKeyword_Raid_Value($obj) {
     $amount = 0;
     // HMW_001 Asajj Ventress — "for this attack replace any Raid it has or gains with Restore, or
-    // vice versa". The delta is computed against the UNSWAPPED values of both keywords, so adding it
-    // here turns the final value into the other keyword's. See the card file for the re-entrancy note.
+    // vice versa". The PLAYER CHOOSES the direction (user ruling 2026-09-08); the delta subtracts the
+    // replaced keyword and adds that much of the other. See the card file for the re-entrancy note.
     if (function_exists('_SWUHmw001SwapDelta')) $amount += _SWUHmw001SwapDelta($obj, 'RAID');
     $amount += _SWUGhostSharesKeywordValue($obj, 'RAID');   // JTL_053 The Ghost keyword share (additive)
     // TWI_169 Clone Cohort (upgrade) — "Attached unit gains Raid 2."
@@ -1465,8 +1465,8 @@ function GetConditionalKeyword_Raid_Value($obj) {
 function GetConditionalKeyword_Restore_Value($obj) {
     $amount = 0;
     // HMW_001 Asajj Ventress — "for this attack replace any Raid it has or gains with Restore, or
-    // vice versa". The delta is computed against the UNSWAPPED values of both keywords, so adding it
-    // here turns the final value into the other keyword's. See the card file for the re-entrancy note.
+    // vice versa". The PLAYER CHOOSES the direction (user ruling 2026-09-08); the delta subtracts the
+    // replaced keyword and adds that much of the other. See the card file for the re-entrancy note.
     if (function_exists('_SWUHmw001SwapDelta')) $amount += _SWUHmw001SwapDelta($obj, 'RESTORE');
     $amount += _SWUGhostSharesKeywordValue($obj, 'RESTORE');   // JTL_053 The Ghost keyword share (additive)
     // ASH_114 Sabine's Lightsaber (upgrade) — "If attached unit is Sabine Wren or a Force unit, it gains Restore 2."

@@ -7,22 +7,28 @@
 #// DEPLOY: Restore 2. / Action: Attack with a unit. For this attack, replace any Raid it has or gains
 #//         with Restore, or vice versa.
 #// COVERAGE (per SIDE, summed — floor 4 + 7 = 11):
-#//   FRONT   offer=NoEligibleAttacker_ActionStillFizzles (the pool, and the CR 6.4.587.c call) ·
-#//           decline=N/A — no "you may" on either side; the Action itself is the only choice ·
-#//           boundary=Front_RaidBecomesRestore + Front_RestoreBecomesRaid (BOTH directions — "or vice
-#//                 versa") + the ASYMMETRIC pairs, each with an unaided baseline on the identical
-#//                 board: Asymmetric_RaidOneRestoreTwo_* and its mirror Asymmetric_RaidTwoRestoreOne_*
-#//                 (both values non-zero AND different, so the exchange must move them in OPPOSITE
-#//                 directions — the only shape that separates an exchange from a one-way conversion) +
-#//                 Front_BothKeywordsExchange (the same Raid 2 / Restore 1 total reached the other way
-#//                 round — Raid PRINTED and Restore GRANTED, where the asymmetric mirror has Raid
-#//                 part-granted and Restore printed) +
-#//                 UpgradeGranted_RaidOneRestoreTwo_* (the same asymmetric shape with the gained half
-#//                 coming from an UPGRADE instead of a unit aura — a different loop inside the same
-#//                 conditional function, and the only sections here that walk it) +
-#//                 Control_SymmetricKeywords_* (Raid 2 / Restore 2 -> unchanged; see its note — it is
-#//                 the ONLY section that reds when the delta is written as `+= other` rather than as an
-#//                 exchange, and correctly stays green when the swap is removed entirely) +
+#//   FRONT   offer=NoEligibleAttacker_ActionStillFizzles (the attacker pool, and the CR 6.4.587.c
+#//                 call) + Honnah_BothKeywords_TheDirectionChoiceIsOffered (the DIRECTION menu, left
+#//                 pending — both options present and nothing else) + the P1NODECISION on
+#//                 Front_RaidBecomesRestore (a one-keyword unit must NOT be asked) ·
+#//           decline=N/A — no "you may" on either side; neither the Action nor the direction is
+#//                 declinable once taken ·
+#//           boundary=Front_RaidBecomesRestore + Front_RestoreBecomesRaid (the two AUTO-RESOLVED
+#//                 directions, on units carrying only one of the keywords) +
+#//                 Honnah_BothKeywords_ReplaceRaidWithRestore_Restore4 /
+#//                 Honnah_BothKeywords_ReplaceRestoreWithRaid_Raid4 / _UnaidedBaseline — the THREE
+#//                 outcomes available on one symmetric unit (Restore 4 / Raid 4 / unchanged), which is
+#//                 the whole content of the 2026-09-08 ruling and the only shape that separates a
+#//                 CHOICE from an exchange +
+#//                 the ASYMMETRIC pair, each with an unaided baseline on the identical board and each
+#//                 taking the direction that replaces its GRANTED half:
+#//                 Asymmetric_RaidOneRestoreTwo_ReplaceRestore_* (grant on the Restore side) and its
+#//                 mirror Asymmetric_RaidTwoRestoreOne_ReplaceRaid_* (grant on the Raid side) +
+#//                 Front_GainedRestoreIsReplacedToo (the "or GAINS" half: the replaced keyword is one
+#//                 the unit never printed) +
+#//                 UpgradeGranted_RaidOneRestoreTwo_ReplaceRestore_* (the same shape with the gained
+#//                 half coming from an UPGRADE instead of a unit aura — a different loop inside the
+#//                 same conditional function, and the only sections here that walk it) +
 #//                 SwapExpires_WithinTheSamePhase (the duration cell that DISCRIMINATES — see its
 #//                 note; Front_SwapExpires_TheNextAttackIsNormal crosses a round boundary and so
 #//                 cannot tell "this attack" from "this phase") ·
@@ -38,18 +44,28 @@
 #//                 "a unit" is resolved from the acting player's own arenas — so Premier, Twin Suns and
 #//                 Team Suns share one code path and a far-seat section could never fail.
 #//
-#// ⚠ PREVIEW SET — HMW is absent from card-specific-rulings.md. Readings taken from the CR + analogues:
-#//   • "replace ... or vice versa" is a bidirectional EXCHANGE, not a one-way conversion. A unit with
-#//     both keywords swaps both values.
-#//   • "has or GAINS" is why the swap is a live recomputation rather than a snapshot: a Raid or Restore
-#//     acquired after the attack begins is swapped too. Front_BothKeywordsExchange covers the "gains"
-#//     half — the Restore there comes from Mother Talzin's aura, not from print.
+#// ⚠ PREVIEW SET — HMW is absent from card-specific-rulings.md. Readings taken from the CR + analogues,
+#// except the first, which is a user ruling:
+#//   • ★ USER RULING 2026-09-08: "replace ... or vice versa" is a CHOICE OF DIRECTION, not a
+#//     simultaneous exchange. The player picks which keyword is replaced. This file previously encoded
+#//     the exchange reading, under which LAW_050 Honnah (printed Raid 2 AND Restore 2) came out
+#//     UNCHANGED and the Action did nothing at all on her — a section named
+#//     Control_SymmetricKeywords_SwapIsANoOp asserted exactly that, and is now deleted, superseded by
+#//     the four Honnah_BothKeywords_* sections.
+#//   • "has or GAINS" is why the replacement is a live recomputation rather than a snapshot: a Raid or
+#//     Restore acquired after the attack begins is replaced too. Front_GainedRestoreIsReplacedToo
+#//     covers the "gains" half — the Restore there comes from Mother Talzin's aura, not from print.
+#//   • With NEITHER keyword there is no direction to choose, so no prompt is raised and a keyword gained
+#//     later in that attack is not replaced. Flagged in the card file as the one open question.
 #//   • The deployed Action has NO printed [Exhaust] where the front side does. That matches the
 #//     engine's existing deployed-leader convention (costKind 'none'), but it is the one thing on this
 #//     card worth checking against the printed card when HMW leaves preview.
 #//
 #// THE POSITIVE, RAID -> RESTORE. Mother Talzin is a 3/4 with printed Raid 1. Attacking normally she
 #// hits the base for 4 and heals nothing; under Ventress's Action she hits for 3 and heals 1.
+#// ⚠ P1NODECISION IS THE OTHER HALF OF THE RULING. She has Raid and no Restore, so there is only one
+#// direction that does anything and the direction prompt must NOT appear — the house rule bans a
+#// one-answer question. The Honnah_* sections below assert the opposite on a unit with both keywords.
 ## GIVEN
 CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:5}
 SkipPreGame: true
@@ -62,6 +78,7 @@ WithP1GroundArena: HMW_039:1:0
 P2BASEDMG:3
 P1BASEDMG:4
 P1LEADER:EXHAUSTED
+P1NODECISION
 
 ---
 
@@ -83,12 +100,16 @@ P1BASEDMG:5
 
 ---
 
-# Front_BothKeywordsExchange
-#// THE EXCHANGE, and the "or GAINS" half. SOR_157 Cantina Braggart is a 0/3 with printed Raid 2;
-#// Mother Talzin standing beside it GRANTS it Restore 1 (an acquired keyword, not a printed one). So it
-#// attacks as Raid 2 / Restore 1 normally — 2 damage, heal 1 — and under Ventress as Raid 1 /
-#// Restore 2: 1 damage, heal 2. Both numbers move, in opposite directions, which no one-way conversion
-#// and no snapshot-at-declaration can reproduce.
+# Front_GainedRestoreIsReplacedToo
+#// THE "or GAINS" HALF. SOR_157 Cantina Braggart is a 0/3 with printed Raid 2 and no printed Restore;
+#// Mother Talzin standing beside it GRANTS it Restore 1 (an acquired keyword, not a printed one), so it
+#// attacks as Raid 2 / Restore 1.
+#// Replace Restore With Raid: the GRANTED Restore 1 is what gets replaced, giving Raid 2 + 1 = 3 and no
+#// Restore. It deals power 0 + Raid 3 = 3 and heals nothing.
+#// ⚠ THE DISCRIMINATION IS THE DAMAGE. An implementation that replaced only PRINTED keywords would
+#// leave the granted Restore alone: Raid 2, Restore 1 — 2 damage and a heal. The heal difference alone
+#// would not separate them (this direction heals 0 either way once Restore is spent), so P2BASEDMG is
+#// the number that carries this section.
 ## GIVEN
 CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:5}
 SkipPreGame: true
@@ -97,65 +118,23 @@ WithP1GroundArena: [SOR_157:1:0 HMW_039:1:0]
 ## WHEN
 - P1>UseLeaderAbility
 - P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:Replace_Restore_With_Raid
 ## EXPECT
-P2BASEDMG:1
-P1BASEDMG:3
+P2BASEDMG:3
+P1BASEDMG:5
 
 ---
 
-# Control_SymmetricKeywords_SwapIsANoOp
-#// THE CONTROL. LAW_050 Honnah, OINK! SQUEE! is a 3/5 with printed Raid 2 AND Restore 2, so the
-#// exchange maps each value onto an identical one and the attack is byte-for-byte the same as an
-#// unaided one: 3 + Raid 2 = 5 to the enemy base, Restore 2 off P1's.
-#// Its job is the INVERSE of every other swap section here. Those catch a swap that fails to happen;
-#// this catches one that happens WRONG — a delta written as `+= other` instead of `other - this` turns
-#// Honnah into Raid 4 / Restore 4 and is invisible on every asymmetric board, because on a unit with
-#// only one of the two keywords the additive and the exchange readings agree.
-#// The partner section below runs the identical board WITHOUT the Action, so the two numbers are pinned
-#// as genuinely unchanged rather than merely asserted.
-#// MEASURED: of the four deltas mutated in (additive / one-way / sign-inverted / removed), the additive
-#// one is the ONLY one this section catches, and it is the only section that catches it. Removing the
-#// swap entirely correctly leaves it GREEN — that is the property being asserted, not a weakness.
-## GIVEN
-CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:5}
-SkipPreGame: true
-P1OnlyActions: true
-WithP1GroundArena: LAW_050:1:0
-## WHEN
-- P1>UseLeaderAbility
-- P1>AnswerDecision:myGroundArena-0
-## EXPECT
-P2BASEDMG:5
-P1BASEDMG:3
-P1LEADER:EXHAUSTED
-
----
-
-# Control_SymmetricKeywords_UnaidedBaseline
-#// The baseline half of the control: the same Honnah attacking with no Action taken. Identical numbers
-#// to the section above — which is what makes "the swap was a no-op" a measurement rather than a claim.
-## GIVEN
-CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:5}
-SkipPreGame: true
-P1OnlyActions: true
-WithP1GroundArena: LAW_050:1:0
-## WHEN
-- P1>AttackGroundArena:0:BASE
-## EXPECT
-P2BASEDMG:5
-P1BASEDMG:3
-P1LEADER:READY
-
----
-
-# Asymmetric_RaidOneRestoreTwo_BecomesRaidTwoRestoreOne
-#// THE SHARPEST SHAPE ON THIS CARD: both values are non-zero AND different, so the exchange has to move
-#// them in OPPOSITE directions in a single attack. No printed card carries an asymmetric Raid/Restore
-#// pair — every printed one is 1/1 or 2/2 — so the board builds it: LAW_090 Toydarian Technician prints
-#// Raid 1 / Restore 1, and Mother Talzin standing beside it GRANTS a second Restore, making it
-#// Raid 1 / Restore 2. That also exercises "has or GAINS" on the half that is gained, not printed.
-#// Unaided the Technician deals 2 + 1 = 3 and heals 2. Under Ventress it is Raid 2 / Restore 1: it
-#// deals 4 and heals 1. Both numbers move, in opposite directions.
+# Asymmetric_RaidOneRestoreTwo_ReplaceRestore_BecomesRaidThree
+#// AN ASYMMETRIC BOARD, replacing the side the GRANT is on. No printed card carries an asymmetric
+#// Raid/Restore pair — every printed one is 1/1 or 2/2 — so the board builds it: LAW_090 Toydarian
+#// Technician (2/3) prints Raid 1 / Restore 1 and Mother Talzin GRANTS it a second Restore, making it
+#// Raid 1 / Restore 2.
+#// Replace Restore With Raid: Raid 1 + 2 = 3, no Restore. It deals 2 + 3 = 5 and heals nothing.
+#// ⚠ Its mirror below (Asymmetric_RaidTwoRestoreOne_*) takes the OTHER direction on a board whose grant
+#// sits on the RAID side, so between them each direction is exercised against a granted value — and
+#// neither direction can be the one that happens to be right by accident.
+#// DISCRIMINATION: ignoring the granted Restore would give Raid 2 and 4 damage, not 5.
 ## GIVEN
 CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:5}
 SkipPreGame: true
@@ -164,9 +143,10 @@ WithP1GroundArena: [LAW_090:1:0 HMW_039:1:0]
 ## WHEN
 - P1>UseLeaderAbility
 - P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:Replace_Restore_With_Raid
 ## EXPECT
-P2BASEDMG:4
-P1BASEDMG:4
+P2BASEDMG:5
+P1BASEDMG:5
 
 ---
 
@@ -187,15 +167,16 @@ P1BASEDMG:3
 
 ---
 
-# UpgradeGranted_RaidOneRestoreTwo_BecomesRaidTwoRestoreOne
+# UpgradeGranted_RaidOneRestoreTwo_ReplaceRestore_BecomesRaidThree
 #// THE THIRD DISPATCH PATH for the gained half. The asymmetric pairs above build their extra keyword
 #// from a UNIT AURA (Mother Talzin / Hondo Ohnaka), which is the friendly-unit loop in
 #// GetConditionalKeyword_Restore_Value; this one builds it from an UPGRADE, which is a different loop
 #// in the same function (GetUpgradesOnUnit). The swap is computed from the FINAL value, so it must not
 #// care which loop contributed it — and nothing else in this file walks the upgrade path.
 #// TWI_141 Soldier of the 501st is a 1/3 with printed Raid 1 and no Restore; SOR_070 Devotion attached
-#// to it grants Restore 2, making it Raid 1 / Restore 2. Under Ventress that becomes Raid 2 /
-#// Restore 1: it deals 2 + 2 = 4 to the enemy base and heals 1 instead of 2.
+#// to it grants Restore 2, making it Raid 1 / Restore 2. Replace Restore With Raid turns that into
+#// Raid 1 + 2 = 3 with no Restore: it deals 2 + 3 = 5 to the enemy base and heals nothing.
+#// DISCRIMINATION: ignoring the upgrade-granted Restore would give Raid 1 and 3 damage, not 5.
 #// ⚠ DEVOTION IS ALSO +1/+1. Its printed text only mentions the Restore grant, but the card carries
 #// upgrade power/HP of 1 (CardUpgradePower/CardUpgradeHP), so the host attacks as a 2/4, not a 1/3 —
 #// asserted below so the arithmetic here can't silently drift. A first draft of this pair read the
@@ -212,13 +193,14 @@ WithP1GroundArenaUpgrade: 0:SOR_070
 ## WHEN
 - P1>UseLeaderAbility
 - P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:Replace_Restore_With_Raid
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:TWI_141
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:POWER:2
 P1GROUNDARENAUNIT:0:HP:4
-P2BASEDMG:4
-P1BASEDMG:4
+P2BASEDMG:5
+P1BASEDMG:5
 
 ---
 
@@ -240,13 +222,13 @@ P1BASEDMG:3
 
 ---
 
-# Asymmetric_RaidTwoRestoreOne_BecomesRaidOneRestoreTwo
+# Asymmetric_RaidTwoRestoreOne_ReplaceRaid_BecomesRestoreThree
 #// THE MIRROR, so neither direction can be the accidental one. Same Toydarian Technician
 #// (Raid 1 / Restore 1), but the extra point is on the RAID side this time: SEC_140 Hondo Ohnaka grants
 #// "each other friendly unit Raid 1", making it Raid 2 / Restore 1.
-#// Unaided it deals 2 + 2 = 4 and heals 1. Under Ventress it is Raid 1 / Restore 2: it deals 3 and
-#// heals 2 — the exact numbers the previous pair produces with the roles reversed, which is what an
-#// exchange (rather than any one-way rule) predicts.
+#// Replace Raid With Restore: no Raid at all, Restore 1 + 2 = 3. It deals its bare power 2 and heals 3.
+#// DISCRIMINATION: ignoring Hondo's granted Raid would leave Raid 1 (3 damage) and Restore 2 (heal 2),
+#// so both numbers separate the readings.
 ## GIVEN
 CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:5}
 SkipPreGame: true
@@ -255,9 +237,10 @@ WithP1GroundArena: [LAW_090:1:0 SEC_140:1:0]
 ## WHEN
 - P1>UseLeaderAbility
 - P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:Replace_Raid_With_Restore
 ## EXPECT
-P2BASEDMG:3
-P1BASEDMG:3
+P2BASEDMG:2
+P1BASEDMG:2
 
 ---
 
@@ -456,3 +439,94 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:0
 P1LEADER:NOTDEPLOYED
 P1LEADER:EPICAVAILABLE
+
+---
+
+# Honnah_BothKeywords_ReplaceRestoreWithRaid_Raid4
+#// ★ THE CARD THAT SETTLES THE READING. LAW_050 Honnah, OINK! SQUEE! is a 3/5 ground unit printed with
+#// BOTH Raid 2 AND Restore 2 — the only shape where "replace any Raid it has or gains with Restore, or
+#// vice versa" has to mean something other than an exchange.
+#//
+#// USER RULING 2026-09-08: it is a CHOICE OF DIRECTION, not a simultaneous exchange. You pick ONE
+#// keyword and replace it with the other for this attack. So Honnah is either Raid 4 (her Restore 2
+#// becomes Raid) or Restore 4 (her Raid 2 becomes Restore) — never unchanged.
+#//
+#// This direction: Replace Restore With Raid. Raid 2 + the 2 that used to be Restore = Raid 4, and no
+#// Restore at all. She hits the base for power 3 + Raid 4 = 7 and heals NOTHING, so P1's base stays on
+#// the 6 damage it started with.
+## GIVEN
+CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LAW_050:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:Replace_Restore_With_Raid
+## EXPECT
+P2BASEDMG:7
+P1BASEDMG:6
+P1LEADER:EXHAUSTED
+
+---
+
+# Honnah_BothKeywords_ReplaceRaidWithRestore_Restore4
+#// The OTHER direction on the identical board — this pair is the whole point of the ruling. Replace
+#// Raid With Restore: Restore 2 + the 2 that used to be Raid = Restore 4, and no Raid. She hits for her
+#// bare power 3 and heals 4, taking P1's base from 6 damage to 2.
+#//
+#// Both sections attack the SAME board with the SAME unit and differ ONLY in the answer, so each of the
+#// four numbers here separates this direction from the other one — and both separate it from the
+#// unaided baseline below (5 / 4).
+## GIVEN
+CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LAW_050:1:0
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:Replace_Raid_With_Restore
+## EXPECT
+P2BASEDMG:3
+P1BASEDMG:2
+P1LEADER:EXHAUSTED
+
+---
+
+# Honnah_BothKeywords_UnaidedBaseline
+#// THE CONTROL, on the identical board. Without Ventress's Action, Honnah attacks with both keywords
+#// intact: power 3 + Raid 2 = 5 to the enemy base, Restore 2 healing P1's base from 6 to 4.
+#//
+#// ⚠ This is the section that used to say the swap was a NO-OP on a symmetric unit (it asserted these
+#// same numbers THROUGH the Action). Under the ruling those two boards must now differ, which is why
+#// the baseline had to become a plain attack.
+## GIVEN
+CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LAW_050:1:0
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P2BASEDMG:5
+P1BASEDMG:4
+P1LEADER:READY
+
+---
+
+# Honnah_BothKeywords_TheDirectionChoiceIsOffered
+#// THE OFFER, not the branch. Answering a direction proves the branch resolves; only leaving the
+#// decision pending proves BOTH directions are on the menu and that nothing else is. A card with one
+#// keyword must never see this prompt (Front_RaidBecomesRestore / Front_RestoreBecomesRaid both assert
+#// P1NODECISION for exactly that), so the two options existing together is the whole ruling.
+## GIVEN
+CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: LAW_050:1:0
+## WHEN
+- P1>UseLeaderAbility
+## EXPECT
+P1HASDECISION
+P1OPTIONHAS:Replace_Raid_With_Restore
+P1OPTIONHAS:Replace_Restore_With_Raid
+P2BASEDMG:0

@@ -153,6 +153,11 @@
    * always defined (an empty object when nobody is logged in).
    */
   function optionDisplayLabel(opt) {
+    // Underscores are a TRANSPORT artifact, not typography: DecisionQueue's Param is space-delimited,
+    // so a multi-word option label has to be written "Replace_Raid_With_Restore" server-side. Render it
+    // as words. Display only — the button still SUBMITS the untouched string (see the note below), and
+    // no option label uses an underscore for any other purpose.
+    opt = String(opt).replace(/_/g, ' ');
     if (!window.SWU_SEAT_USERNAMES) return opt;
     const m = /^P(\d+)$/.exec(String(opt));
     if (!m) return opt;                       // "You", "Opponent", "Ground", … pass through untouched
