@@ -10,13 +10,15 @@
 // ⚠ MUTATES the deck (the editor autosaves). Back up SWUDeck/Games/<id>/Gamestate.txt first and
 // restore it after — this harness does not clean up after itself.
 //
-// Usage: node vulture-copy-limit.mjs [gameName] [engine]
+// Usage: node vulture-copy-limit.mjs [gameName] [engine] [copies] [SET_NNN] [pane filter text]
 import { chromium, firefox, webkit } from 'playwright';
 
 const BASE = 'http://localhost:3100/TCGEngine';
 const GAME = process.argv[2] || '100431';
 const ENGINE = process.argv[3] || 'chromium';
-const ADDS = 5;
+const ADDS = parseInt(process.argv[4] || '5', 10);
+const CARD = process.argv[5] || 'JTL_256';   // default: Swarming Vulture Droid
+const CARD_NAME = process.argv[6] || 'Swarming Vulture';
 
 setTimeout(() => { console.log('TIMEOUT'); process.exit(9); }, 180000).unref();
 
@@ -42,18 +44,18 @@ try {
   const cardsTab = tabs.findIndex(t => /^Cards$/i.test(t));
   if (cardsTab < 0) throw new Error(`no Cards tab among ${JSON.stringify(tabs)}`);
   await page.click(`#myCardPaneSlot [onclick*='PaneTabClick("my", "CardPane", "${cardsTab}")']`);
-  await page.fill('#myCardPaneFilterText', 'Swarming Vulture');
+  await page.fill('#myCardPaneFilterText', CARD_NAME);
   await page.waitForTimeout(1500);
 
-  const mzid = await page.evaluate(() => {
-    const i = String(window.myCardsData || '').split('<|>').findIndex(e => e.startsWith('JTL_256 '));
+  const mzid = await page.evaluate((c) => {
+    const i = String(window.myCardsData || '').split('<|>').findIndex(e => e.startsWith(c + ' '));
     return i < 0 ? null : 'myCards-' + i;
-  });
-  if (!mzid) throw new Error('JTL_256 not found in the Cards pane');
+  }, CARD);
+  if (!mzid) throw new Error(CARD + ' not found in the Cards pane');
   if (!(await page.isVisible('#' + mzid))) throw new Error(`${mzid} is not visible after filtering`);
 
   const start = await count();
-  console.log(`${ENGINE.padEnd(9)} deck ${GAME}: starting at ${start} cards, adding ${ADDS}x JTL_256 via ${mzid}`);
+  console.log(`${ENGINE.padEnd(9)} deck ${GAME}: starting at ${start} cards, adding ${ADDS}x ${CARD} via ${mzid}`);
 
   for (let n = 1; n <= ADDS; n++) {
     const before = await count();

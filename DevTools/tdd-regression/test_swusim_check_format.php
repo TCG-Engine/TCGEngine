@@ -227,6 +227,35 @@ $vultureDeck = array_merge($vultureDeck, array_slice(_padawanMain(), 0, 35));   
 $checks['padawan allows 15x vulture droid'] =
     SWUCheckFormat('padawan', $pLeader, $pBase, $vultureDeck, []) === [];
 
+// 10b. A copy exception is CARD TEXT, so it survives Twin Suns' highlander rule (1 copy of
+// everything else). USER RULING 2026-09-08.
+$vultureTwin = [];
+for ($i = 0; $i < 15; $i++) $vultureTwin[] = 'JTL_256';
+$checks['twinsuns keeps the 15-copy exception'] =
+    (SWUGetFormat('twinsuns')['copyExceptions']['JTL_256'] ?? null) === 15;
+
+// 10c. UNRESTRICTED FORMATS enforce NOTHING — USER RULING 2026-09-08: "Open format should allow any
+// and all lists. so no deck min or max. no copies min or max. no leader limit", and a Twin Suns list
+// must load in Goldfish/Hotseat. Each case below is REJECTED by premier, so the passes are real.
+$pile        = array_merge(array_fill(0, 12, 'JTL_100'), array_slice(_legalMain(), 0, 8));  // 20 cards, 12-of
+$twinSunsList = array_slice(_legalMain(), 0, 50);
+$twoLeaders  = ['SOR_005', 'SOR_010'];   // Luke + Vader: Heroism + Villainy, illegal to pair in Twin Suns
+foreach (['open', 'goldfish', 'hotseat'] as $u) {
+    $checks["$u accepts a 20-card 12-of pile"]        = SWUCheckFormat($u, $leader, $base, $pile, []) === [];
+    $checks["$u accepts a two-leader Twin Suns list"] = SWUCheckFormat($u, $twoLeaders, $base, $twinSunsList, []) === [];
+    $checks["$u accepts 15x vulture droid"]           =
+        SWUCheckFormat($u, $leader, $base, array_merge($vultureTwin, array_slice(_legalMain(), 0, 35)), []) === [];
+    $checks["$u accepts a deck with no leader"]       = SWUCheckFormat($u, '', $base, $twinSunsList, []) === [];
+}
+// ...and premier still rejects every one of them, so the checks above are not vacuous.
+$checks['premier rejects the 20-card pile']  = !empty(SWUCheckFormat('premier', $leader, $base, $pile, []));
+$checks['premier rejects a 12-of card']      =
+    !empty(SWUCheckFormat('premier', $leader, $base, array_merge(array_fill(0, 12, 'JTL_100'), array_slice(_legalMain(), 0, 40)), []));
+$checks['premier ALLOWS 15x vulture']        =
+    SWUCheckFormat('premier', $leader, $base, array_merge($vultureTwin, array_slice(_legalMain(), 0, 35)), []) === [];
+$checks['twinsuns rejects Heroism+Villainy'] =
+    !empty(SWUCheckFormat('twinsuns', $twoLeaders, $base, array_slice(_legalMain(), 0, 80), []));
+
 // 11. Error message is SPECIFIC — a wrong-rarity card must not be reported as "not legal in".
 $rarityErr = SWUCheckFormat('padawan', $pLeader, $pBase, $rareDeck, []);
 $checks['rarity error names the rarity'] = _errHas($rarityErr, 'Common printing');

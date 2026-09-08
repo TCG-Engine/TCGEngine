@@ -14,8 +14,9 @@ function SWUFormatDefinitions() {
     $eternalBans = ['JTL_140', 'JTL_170'];
     return [
         // NOTE: JTL_256 (Vulture Droid) copy-exception and JTL_024/025 deck-size modifiers are
-        // GLOBAL card-intrinsic rules (see SWUGlobal*() below) — applied to every format EXCEPT
-        // Open. Do NOT re-list them per format.
+        // GLOBAL card-intrinsic rules (see SWUGlobal*() below). Do NOT re-list them per format.
+        // The copy exception applies EVERYWHERE (printed card text); the deck-size modifiers apply
+        // everywhere except the 'unrestricted' formats, which enforce nothing at all.
         'premier' => [
             'displayName' => 'Premier',
             'legalSets'   => $premierSets,
@@ -28,33 +29,39 @@ function SWUFormatDefinitions() {
             'banned'      => $eternalBans,
             'enabled'     => true,
         ],
+        // Open enforces NOTHING — USER RULING 2026-09-08: "Open format should allow any and all
+        // lists. so no deck min or max. no copies min or max. no leader limit." 'unrestricted' makes
+        // SWUCheckFormat accept every list outright, so a 20-card pile, 12 copies of a card, or a
+        // two-leader Twin Suns list all load. SWUDeck's BUILDER still offers one leader slot for an
+        // Open deck (the identity banner has one slot); that is leaderCount, below, and deliberate.
         'open' => [
-            'displayName'           => 'Open',
-            'legalSets'             => '*',
-            'banned'                => [],                        // no bans, ever
-            'ignoreGlobalCardRules' => true,                     // unrestricted pool: no copy-exceptions / deck-size mods
-            'enabled'               => true,
+            'displayName'   => 'Open',
+            'legalSets'     => '*',
+            'banned'        => [],                        // no bans, ever
+            'unrestricted'  => true,
+            'enabled'       => true,
         ],
 
         // ── SOLO / LOCAL MODES ────────────────────────────────────────────────
         // Not matchmade — JoinQueue creates the game immediately. Both validate decks
-        // like Open (unrestricted pool). 'localMode' marks them so the menu can special-case
+        // like Open: 'unrestricted', so a Twin Suns list (two leaders, 80 singleton cards) loads
+        // into either of them unchanged. 'localMode' marks them so the menu can special-case
         // the UI (single vs. double deck input) and skip the "logged-in" queue gate.
         'goldfish' => [
-            'displayName'           => 'Goldfish (Solo)',
-            'legalSets'             => '*',
-            'banned'                => [],
-            'ignoreGlobalCardRules' => true,
-            'localMode'             => true,
-            'enabled'               => true,
+            'displayName'   => 'Goldfish (Solo)',
+            'legalSets'     => '*',
+            'banned'        => [],
+            'unrestricted'  => true,
+            'localMode'     => true,
+            'enabled'       => true,
         ],
         'hotseat' => [
-            'displayName'           => 'Hotseat (2P local)',
-            'legalSets'             => '*',
-            'banned'                => [],
-            'ignoreGlobalCardRules' => true,
-            'localMode'             => true,
-            'enabled'               => true,
+            'displayName'   => 'Hotseat (2P local)',
+            'legalSets'     => '*',
+            'banned'        => [],
+            'unrestricted'  => true,
+            'localMode'     => true,
+            'enabled'       => true,
         ],
 
         // ── TWIN SUNS / TEAM SUNS (multiplayer rooms) ────────────────────────
@@ -104,8 +111,8 @@ function SWUFormatDefinitions() {
         //   • "no ECL/TT/DV" — SOR_022 / SOR_025 / JTL_024 are all Rare bases
         //   • Eternal's bans  — JTL_140 is Rare, JTL_170 is Uncommon
         //   • deck size is always 50 — both deck-size-modifier bases (JTL_024, JTL_025) are Rare
-        // JTL_256 Swarming Vulture Droid IS Common, so this must NOT set 'ignoreGlobalCardRules'
-        // — its 15-copy exception stays live.
+        // JTL_256 Swarming Vulture Droid IS Common, and its 15-copy exception is printed card text,
+        // so it stays live here (as it does in every format).
         'padawan' => [
             'displayName'   => 'Padawan',
             'legalSets'     => $eternalSets,
@@ -160,9 +167,16 @@ function SWUFormatDefinitions() {
     ];
 }
 
-// Global card-intrinsic deckbuilding rules — the card text itself sets these, so they hold in every
-// constructed format EXCEPT Open (unrestricted pool; opts out via 'ignoreGlobalCardRules' => true).
-// Merged into each format's copy-exceptions / deck-size modifiers by SWUGetFormat().
+// Global card-intrinsic deckbuilding rules — the card text itself sets these.
+//
+// ⚠ The two halves are NOT symmetric, and the asymmetry is the point:
+//   • A copy exception is a PERMISSION printed on the card ("a deck can have up to 15 copies of this
+//     card"). **Card text always beats game rules — USER RULING 2026-09-08** — so it applies in EVERY
+//     format with no opt-out, Open and the solo modes included, and it overrides a format's own
+//     maxCopies (Twin Suns is highlander at 1, and still takes 15 Vulture Droids).
+//   • A deck-size modifier is a REQUIREMENT the card imposes on the rest of the deck, so it is moot
+//     in an 'unrestricted' format — those enforce no deck size at all.
+// Merged into each format by SWUGetFormat().
 function SWUGlobalCopyExceptions()    { return ['JTL_256' => 15]; }                     // Vulture Droid
 function SWUGlobalDeckSizeModifiers() { return ['JTL_024' => +10, 'JTL_025' => -5]; }   // deck-size bases
 
@@ -170,14 +184,16 @@ function SWUGetFormat($formatId) {
     $defs = SWUFormatDefinitions();
     if (!isset($defs[$formatId])) return null;
     $f = $defs[$formatId];
-    // Layer the global card-intrinsic rules on top of any format-specific entries, unless the format
-    // opts out (Open). `+` = format-specific entry wins on a key clash.
-    $copyExceptions    = $f['copyExceptions']    ?? [];
-    $deckSizeModifiers = $f['deckSizeModifiers'] ?? [];
-    if (empty($f['ignoreGlobalCardRules'])) {
-        $copyExceptions    = $copyExceptions    + SWUGlobalCopyExceptions();
-        $deckSizeModifiers = $deckSizeModifiers + SWUGlobalDeckSizeModifiers();
-    }
+    $unrestricted = !empty($f['unrestricted']);
+    // Layer the global card-intrinsic rules on top of any format-specific entries. `+` = the
+    // format-specific entry wins on a key clash.
+    //
+    // Copy exceptions have NO opt-out: they are printed card text, which beats format rules
+    // (see SWUGlobalCopyExceptions). Before 2026-09-08 the unrestricted formats suppressed them,
+    // which made Open the ONLY format that capped Swarming Vulture Droid at 3 — stricter than
+    // Premier, the exact opposite of what "unrestricted" means.
+    $copyExceptions    = ($f['copyExceptions'] ?? []) + SWUGlobalCopyExceptions();
+    $deckSizeModifiers = $unrestricted ? [] : (($f['deckSizeModifiers'] ?? []) + SWUGlobalDeckSizeModifiers());
     return [
         'id'                => $formatId,
         'displayName'       => $f['displayName']       ?? $formatId,
@@ -188,8 +204,13 @@ function SWUGetFormat($formatId) {
         'legalRarities'     => $f['legalRarities']     ?? null,
         'copyExceptions'    => $copyExceptions,
         'deckSizeModifiers' => $deckSizeModifiers,
-        'minDeck'           => $f['minDeck']           ?? 50,   // min "other cards" (units/events/upgrades)
-        'maxCopies'         => $f['maxCopies']         ?? 3,    // default copy limit per card
+        // An unrestricted format has no floor and no ceiling. These sentinels are what a consumer
+        // that reads the numbers directly (SWUDeck's add gate) sees; SWUCheckFormat short-circuits
+        // on 'unrestricted' before it looks at either.
+        'minDeck'           => $unrestricted ? 0 : ($f['minDeck'] ?? 50),   // min "other cards"
+        'maxCopies'         => $unrestricted ? PHP_INT_MAX : ($f['maxCopies'] ?? 3),
+        // Enforce nothing: every list is legal. Set on Open and the local solo modes.
+        'unrestricted'      => $unrestricted,
         'leaderCount'       => $f['leaderCount']       ?? 1,    // leaders required in the deck
         'enabled'           => $f['enabled']           ?? true,
         // Local/solo mode (Goldfish = solo; Hotseat = one human driving both seats) rather than a

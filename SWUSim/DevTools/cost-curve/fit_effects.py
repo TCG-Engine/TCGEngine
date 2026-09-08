@@ -11,7 +11,7 @@ UNITS ONLY.  Events carry no stat line and would have to enter on a shared cost-
 fitting that produced an event cost slope of ~0 and dragged the unit terms with it, so events
 are left to Phase 3.  See SWUSim/docs/cost-curve.md.
 """
-import sys, collections
+import re, sys, collections
 import numpy as np
 from fit import load, clean_pool, terms, ols, NON_PREMIER, ALPHA, DIRTY
 from effects import classify_card
@@ -19,7 +19,12 @@ from effects import classify_card
 # Families whose value scales with the printed N; everything else is binary.
 SCALED = {"dmg_unit", "dmg_unit_arena", "dmg_base", "dmg_friendly", "draw", "heal_unit",
           "heal_base", "discard_choose", "discard_random", "give_exp", "give_shield",
-          "give_advantage", "give_weakness"}
+          "give_advantage", "give_weakness",
+          # stat riders: n is the SUM of the printed pair, so the coefficient is per stat
+          "self_buff", "other_buff", "other_debuff"}
+# These carry n as "KEYWORD:N"; the regressor value is that keyword's own Phase 1 price x N, so
+# the fitted coefficient reads as a FRACTION of list price for a granted/conditional keyword.
+KEYWORD_SCALED = {"gains_keyword", "gains_keyword_other"}
 # Printed body of each created token, for the structural check: is a token worth its stats?
 TOKEN_BODY = {                       # (power, hp, arena, extra keyword points)
     "create_battle_droid":  (1, 1, "Ground", 0.0),
@@ -43,6 +48,10 @@ def effect_units(rows):
             continue
         if any(k in r["kw"] for k in DIRTY):
             continue
+        if r["power"] == 0 and r["hp"] == 0:
+            continue          # a 0/0 printed line carries no information about anything
+        if re.search(r"costs? \d+ resources? less to play", r["resid"]):
+            continue          # a self-discount moves effective cost; see Exploit
         cl = classify_card(r["resid"])
         if cl:
             r["clauses"] = cl
@@ -50,11 +59,22 @@ def effect_units(rows):
     return out
 
 
-def build_terms(pool, families):
+def build_terms(pool, families, kw_price=None):
     t = terms()
+    kw_price = kw_price or {}
     def amount(r, fam):
-        return sum(c["n"] if fam in SCALED or fam.startswith("create_") else 1
-                   for c in r.get("clauses", []) if c["family"] == fam)
+        tot = 0
+        for c in r.get("clauses", []):
+            if c["family"] != fam:
+                continue
+            if fam in KEYWORD_SCALED:
+                name, _, n = str(c["n"]).partition(":")
+                tot += kw_price.get(name, 1.0) * int(n or 1)
+            elif fam in SCALED or fam.startswith("create_"):
+                tot += c["n"]
+            else:
+                tot += 1
+        return tot
     for f in families:
         t["E:" + f] = (lambda f: (lambda r: amount(r, f)))(f)
     # per-clause modifiers, WhenPlayed / mandatory / unconditional as the reference level
@@ -63,11 +83,12 @@ def build_terms(pool, families):
                                                     if c["trigger"] == tr)))(trig)
     t["M:optional"] = lambda r: sum(1 for c in r.get("clauses", []) if c["optional"])
     t["M:conditional"] = lambda r: sum(1 for c in r.get("clauses", []) if c["conditional"])
+    t["M:dual_trigger"] = lambda r: sum(1 for c in r.get("clauses", []) if c.get("dual"))
     return t
 
 
-def run(pool, families, label):
-    t = build_terms(pool, families)
+def run(pool, families, label, kw_price=None):
+    t = build_terms(pool, families, kw_price)
     w = lambda r: (ALPHA * r["power"] + r["hp"]) / ((ALPHA + 1) / 2)
     b, se, res, r2 = ols(pool, t, w)
     print(f"\n=== {label}   n={len(pool)}  R^2={r2:.4f}  residual sd={res.std():.3f} ===")
@@ -104,12 +125,20 @@ def main(path):
     rows = load(path)
     _, base = clean_pool(rows)
     eu = effect_units(rows)
+    # Phase 1 keyword prices, needed to weight the "gains <keyword>" families.
+    kb, _, _, _ = ols(base, terms(), lambda r: (ALPHA * r["power"] + r["hp"]) / ((ALPHA + 1) / 2))
+    kw_price = {k: -v for k, v in zip(terms(), kb) if k in
+                ("Sentinel", "Ambush", "Overwhelm", "Shielded", "Grit", "Hidden", "Saboteur")}
+    kw_price["Raid"] = -dict(zip(terms(), kb))["Raid_N"]
+    kw_price["Restore"] = -dict(zip(terms(), kb))["Restore_N"]
     fams = sorted({c["family"] for r in eu for c in r["clauses"]})
     print(f"baseline (keyword-only) units: {len(base)}")
     print(f"classified ability units:      {len(eu)}")
     print(f"effect families:               {len(fams)}")
     print("\nNOTE: 'points' is what the effect COSTS the card in stats. Higher = more valuable.")
-    coefs, ses, res, base_only = run(base + eu, fams, "EFFECT PRICES (units only)")
+    print("\nPhase 1 keyword prices used to weight the 'gains <keyword>' families: "
+          + ", ".join(f"{k} {v:.2f}" for k, v in sorted(kw_price.items())))
+    coefs, ses, res, base_only = run(base + eu, fams, "EFFECT PRICES (units only)", kw_price)
     token_check(coefs, ses, base_only)
     print(f"\nresidual sd, keyword-only units: {np.std([e for r, e in zip(base+eu, res) if r in base]):.3f}")
     print(f"residual sd, ability units:      {np.std([e for r, e in zip(base+eu, res) if r not in base]):.3f}")

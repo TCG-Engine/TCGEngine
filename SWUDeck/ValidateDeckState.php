@@ -104,9 +104,11 @@ foreach ($sideArr as $c) { if (!$c->Removed()) $sideboard[] = $norm($c->CardID);
 // games 2-3. $base may be '' when no base is set; SWUDeckRequiredTokens tolerates blanks.
 $tokens = SWUDeckRequiredTokens(array_merge($leaders, [$base], $mainDeck, $sideboard));
 
-// Open decks are unconstrained — nothing to validate, badge hidden — but they still get tokens.
-if ($format === 'open') {
-  echo json_encode(['applicable' => false, 'format' => 'open', 'tokens' => $tokens]);
+// An unrestricted format (Open) is unconstrained — nothing to validate, badge hidden — but the deck
+// still gets tokens. Derived from the format config rather than a hardcoded 'open' so a second
+// anything-goes format cannot ship with a legality badge that always reads "legal".
+if (!empty(SWUGetFormat($format)['unrestricted'])) {
+  echo json_encode(['applicable' => false, 'format' => $format, 'tokens' => $tokens]);
   exit;
 }
 

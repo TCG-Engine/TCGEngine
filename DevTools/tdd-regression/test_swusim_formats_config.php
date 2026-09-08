@@ -35,7 +35,23 @@ $checks['eternal gains global copyEx'] = ($eternal['copyExceptions']['JTL_256'] 
 $checks['eternal gains global deckSize'] = ($eternal['deckSizeModifiers']['JTL_024'] ?? null) === 10;
 $checks['twinsuns gains global rules'] = ($twin['copyExceptions']['JTL_256'] ?? null) === 15
                                       && ($twin['deckSizeModifiers']['JTL_025'] ?? null) === -5;
-$checks['open ignores global copyEx'] = $open['copyExceptions'] === [];
+// USER RULING 2026-09-08: a copy exception is printed CARD TEXT, and card text beats format rules,
+// so it survives even 'ignoreGlobalCardRules'. Open keeps the exception; it only drops deck-size mods.
+$checks['open KEEPS global copyEx'] = ($open['copyExceptions']['JTL_256'] ?? null) === 15;
+$checks['open still drops deck-size mods'] = $open['deckSizeModifiers'] === [];
+
+// USER RULING 2026-09-08: Open (and the local solo modes) enforce NOTHING — no deck min/max, no
+// copy min/max, no leader limit. 'unrestricted' is the single switch; SWUCheckFormat short-circuits
+// on it, and the numeric sentinels are what a consumer reading the array directly must see.
+foreach (['open','goldfish','hotseat'] as $u) {
+    $U = SWUGetFormat($u);
+    $checks["$u is unrestricted"]   = $U['unrestricted'] === true;
+    $checks["$u has no deck floor"] = $U['minDeck'] === 0;
+    $checks["$u has no copy cap"]   = $U['maxCopies'] === PHP_INT_MAX;
+}
+foreach (['premier','eternal','twinsuns','padawan','preview'] as $r) {
+    $checks["$r is NOT unrestricted"] = SWUGetFormat($r)['unrestricted'] === false;
+}
 
 // Disable-not-delete: preview is disabled by default.
 $listed = SWUListFormats();
@@ -106,7 +122,7 @@ $previewBases = [
 // difference. displayName/enabled are presentation. Everything else must match the base exactly,
 // INCLUDING when both are absent, which is why ?? null is compared rather than isset() tested.
 $mirrored = ['minPlayers','maxPlayers','leaderCount','minDeck','maxCopies','legalRarities',
-             'teams','uniqueTeamLeaders','banned','ignoreGlobalCardRules',
+             'teams','uniqueTeamLeaders','banned','unrestricted',
              'copyExceptions','deckSizeModifiers'];
 foreach ($previewBases as $pf => $bf) {
     $P = SWUGetFormat($pf); $B = SWUGetFormat($bf);

@@ -166,6 +166,13 @@ function SWUCheckFormat($formatId, $leader, $base, array $mainDeck, array $sideb
         return ["Unknown format: $formatId"];
     }
 
+    // An UNRESTRICTED format (Open, Goldfish, Hotseat) enforces nothing — USER RULING 2026-09-08:
+    // "Open format should allow any and all lists. so no deck min or max. no copies min or max. no
+    // leader limit." That includes loading a Twin Suns list (two leaders, 80 singleton cards) into
+    // Goldfish or Hotseat unchanged. Short-circuit rather than zeroing each rule in turn: a rule
+    // added below would otherwise silently start applying to these formats.
+    if (!empty($fmt['unrestricted'])) return [];
+
     $errors    = [];
     $legalSets = SWUFormatLegalSets($formatId);
 

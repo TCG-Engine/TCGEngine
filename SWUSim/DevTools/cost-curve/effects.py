@@ -61,21 +61,48 @@ PATTERNS = [
     ("give_shield",    r"^give (\d+|a|an|one|two|three) shield tokens? to (?:an?|another|each|this)\b[^.]*$", 1),
     ("give_advantage", r"^give (\d+|a|an|one|two|three) advantage tokens? to (?:an?|another|each|this)\b[^.]*$", 1),
     ("give_weakness",  r"^give (\d+|a|an|one|two|three) weakness tokens? to (?:an?|another|each|this)\b[^.]*$", 1),
+    # --- stat riders.  N is the SUM of the two numbers, so +2/+2 scores 4 and +2/+0 scores 2;
+    #     the fitted coefficient is then a price per printed stat, comparable to everything else.
+    ("self_buff",      r"^(?:this unit|it|he|she) gets \+(\d+)/\+(\d+)\b(?!.*for each).*$", "SUM+"),
+    ("other_buff",     r"^give (?:an?|another|each|the) [^.]*?\+(\d+)/\+(\d+)\b.*$", "SUM+"),
+    ("other_debuff",   r"^give (?:an?|another|each|the) [^.]*?-(\d+)/-(\d+)\b.*$", "SUM-"),
+    # --- readying / exhausting ---
+    ("ready_self",     r"^ready (?:this unit|him|her|it)$", None),
+    ("enters_ready",   r"^this unit enters play ready$", None),
+    ("exhaust_enemy",  r"^exhaust an? (?:enemy )?(?:ground |space )?unit$", None),
+    # NOTE: "this unit costs N less to play" is deliberately NOT a family.  Like Exploit it moves
+    # the card's EFFECTIVE COST, and fitting it as a stat rider mis-specifies the card --
+    # TWI_098 Republic Defense Carrier (11 cost, 6/7) reads 6.3 points off on its own.
 ]
+# "<this unit|it> gains <Keyword N>" -- priced as a FRACTION of that keyword's own Phase 1 value,
+# so the coefficient reads directly as "what a conditional grant costs against list price".
+GAINS = re.compile(r"^(?:this unit|it|he|she) gains ([A-Z][a-z]+)(?:\s+(\d+))?\b\s*$")
+GAINS_OTHER = re.compile(r"^(?:each other friendly|another friendly|other friendly|each friendly)[^.]*? gains ([A-Z][a-z]+)(?:\s+(\d+))?\b\s*$")
 # create N <name> token(s) -- must be the whole clause
 CREATE = re.compile(r"^create (\d+|a|an|one|two|three) (" + "|".join(
     re.escape(t) for t in sorted(set(TOKENS), key=len, reverse=True)) + r") tokens?$", re.I)
 
 
 def split_trigger(clause):
-    """-> (trigger, optional, conditional, body)"""
+    """-> (trigger, optional, conditional, body, dual)
+
+    `dual` marks a compound trigger ("When Played/On Attack:") -- the ability fires on either
+    window, which is strictly better than one of them, and there are 73 such clauses.  Without
+    this the whole clause fails to parse and the card is dropped.
+    """
     c = clause.strip()
     trigger = "Constant"
-    for name, pat in TRIGGERS:
-        m = re.match(r"^(?:%s)\s*:\s*" % pat, c, re.I)
-        if m:
-            trigger, c = name, c[m.end():]
-            break
+    dual = False
+    m = re.match(r"^(When Played|On Attack|When [Pp]layed as a unit)\s*/\s*([^:]{1,44})\s*:\s*", c)
+    if m:
+        dual, c = True, c[m.end():]
+        trigger = "WhenPlayed" if m.group(1).lower().startswith("when p") else "OnAttack"
+    else:
+        for name, pat in TRIGGERS:
+            m = re.match(r"^(?:%s)\s*:\s*" % pat, c, re.I)
+            if m:
+                trigger, c = name, c[m.end():]
+                break
     conditional = False
     # a leading "If ...," / "While ...," gate, or a trailing "if you do"-style rider
     m = re.match(r"^(?:if|while)\b[^,]{0,90},\s*", c, re.I)
@@ -87,27 +114,43 @@ def split_trigger(clause):
     m = re.match(r"^you may\s+", c, re.I)
     if m:
         optional, c = True, c[m.end():]
-    return trigger, optional, conditional, c.strip()
+    return trigger, optional, conditional, c.strip(), dual
+
+
+KEYWORDS_GRANTABLE = {"Sentinel", "Ambush", "Overwhelm", "Shielded", "Grit", "Hidden",
+                      "Saboteur", "Raid", "Restore"}
 
 
 def classify(clause):
-    """-> dict(family, n, trigger, optional, conditional) or None if unrecognised."""
-    trigger, optional, conditional, body = split_trigger(clause)
+    """-> dict(family, n, trigger, optional, conditional, dual) or None if unrecognised."""
+    trigger, optional, conditional, body, dual = split_trigger(clause)
     body = re.sub(r"\s*\([^)]*\)", "", body).strip().rstrip(".").strip()
     if not body:
         return None
+    # A rider that scales with a board count is unbounded and its printed line is meaningless
+    # (SOR_118 97th Legion is a 7-cost 0/0 whose whole body comes from the rider).  Not a family.
+    if re.search(r"for each\b", body, re.I):
+        return None
+    out = lambda fam, n: dict(family=fam, n=n, trigger=trigger, optional=optional,
+                              conditional=conditional, dual=dual)
     low = body.lower()
     m = CREATE.match(body)
     if m:
-        fam = "create_" + m.group(2).lower().replace(" ", "_").replace("-", "_")
-        return dict(family=fam, n=_n(m.group(1)), trigger=trigger,
-                    optional=optional, conditional=conditional)
+        return out("create_" + m.group(2).lower().replace(" ", "_").replace("-", "_"),
+                   _n(m.group(1)))
+    for rx, fam in ((GAINS, "gains_keyword"), (GAINS_OTHER, "gains_keyword_other")):
+        m = rx.match(body)
+        if m and m.group(1) in KEYWORDS_GRANTABLE:
+            # n carries "KEYWORD:N" so the caller can weight by that keyword's own price
+            return out(fam, f"{m.group(1)}:{int(m.group(2)) if m.group(2) else 1}")
     for fam, pat, grp in PATTERNS:
         m = re.match(pat, low)
         if m:
-            n = _n(m.group(grp)) if grp else 1
-            return dict(family=fam, n=n, trigger=trigger,
-                        optional=optional, conditional=conditional)
+            if grp in ("SUM+", "SUM-"):
+                n = int(m.group(1)) + int(m.group(2))
+            else:
+                n = _n(m.group(grp)) if grp else 1
+            return out(fam, n)
     return None
 
 

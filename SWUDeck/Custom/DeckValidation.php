@@ -21,8 +21,12 @@ function SWUDeckMaxLeaders($formatId) {
 // validator happily accepted 15. Deriving the limit from the format config means it cannot drift
 // again: a new copy-exception or a highlander format is picked up here for free.
 function SWUDeckMaxCopies($cardID, $formatId) {
-    $fmt = SWUGetFormat($formatId);
-    if ($fmt === null) return 3;   // unknown format: the standard limit
+    // An unrecognised format falls back to PREMIER's rules rather than a bare 3 — a legacy or
+    // mis-cased value in ownership.format must not silently strip a card's printed copy exception.
+    $fmt = SWUGetFormat($formatId) ?? SWUGetFormat('premier');
+    // Unrestricted formats (Open) have no copy ceiling at all, and that beats the card's own
+    // exception — 20 Vulture Droids is a legal Open list, 15 is not the cap there.
+    if (!empty($fmt['unrestricted'])) return PHP_INT_MAX;
     return $fmt['copyExceptions'][SWUDeckCanonicalCardID($cardID)] ?? $fmt['maxCopies'];
 }
 

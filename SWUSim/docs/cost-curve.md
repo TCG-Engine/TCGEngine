@@ -119,6 +119,55 @@ A space unit gets **~0.87 fewer points than a ground unit of the same cost**, an
 11.3 at cost 5). `JTL_095` Phoenix Squadron A-Wing and `SEC_161` Contraband Starhopper both land
 there. It over-states aspect-free space, which is closer to `2 × cost`.
 
+### Did space get power-crept when JTL landed?
+
+Not in the stat lines, and not in the ability budgets either — but the curve is measuring the wrong
+thing to answer the question, so read this as "the printed rate did not move", not "nothing changed".
+
+**Stat lines.** Adding a `Space x post-JTL` interaction gives **+0.15 (t = 1.15)** and moves R^2 by
+0.0001. Space's normalised stat lines pre-JTL (SOR/SHD/TWI) versus JTL-and-later, per cost:
+
+| cost | pre n | pre | JTL+ n | JTL+ | diff | | ground diff (control) |
+|---:|---:|---:|---:|---:|---:|---|---:|
+| 1 | 3 | 2.78 | 6 | 2.94 | +0.16 | | −0.04 |
+| 2 | 6 | 4.49 | 14 | 4.13 | −0.36 | | +0.06 |
+| 3 | 5 | 5.83 | 11 | 5.76 | −0.08 | | +0.07 |
+| 4 | 2 | 7.44 | 5 | 7.88 | +0.45 | | +0.41 |
+| 5 | 4 | 9.44 | 8 | 9.80 | +0.37 | | +0.36 |
+
+**Ground moved the same way, and at 6 cost it moved more (+0.79).** Whatever drift there is after
+TWI is the general set drift documented under [Set drift](#set-drift) — TWI is the stingiest set in
+the pool at −0.32 — not something that happened to space.
+
+**Ability budgets.** Same test on the 1,119 Premier ability units, regressing text budget on cost,
+arena, era and their interaction: `Space x post-JTL` = **−0.075 (t = −0.34)**. Both arenas' budgets
+fell slightly after TWI (ground −0.31, space −0.28). No space-specific generosity there either.
+
+**What JTL actually changed was volume.**
+
+| set | ground | space | space share | space avg cost | ground avg cost |
+|---|---:|---:|---:|---:|---:|
+| SOR | 110 | 38 | 26% | 4.11 | 3.63 |
+| SHD | 124 | 36 | 22% | 4.00 | 3.57 |
+| TWI | 118 | 32 | 21% | 4.22 | 3.99 |
+| **JTL** | **76** | **91** | **54%** | 4.18 | **2.99** |
+| LOF | 129 | 37 | 22% | 4.38 | 3.68 |
+| SEC | 129 | 42 | 25% | 4.12 | 3.69 |
+| LAW | 143 | 39 | 21% | 4.90 | 3.66 |
+| ASH | 126 | 53 | 30% | 4.36 | 3.59 |
+
+Three sets had produced about 106 space units between them; **JTL added 91 on its own** and is the
+only set that is majority space. Its ground cards are also unusually cheap — a 2.99 average against
+3.5–4.0 everywhere else — which reads as cheap ground support for a space deck rather than competing
+ground threats.
+
+⚠ **Two blind spots make this a partial answer.** The model cannot see **depth** — it measures the
+rate at which cost buys stats on a card, never how many playable cards a deck has access to, and
+"space was weak" is mostly a claim about the latter. And it cannot see **Piloting**, a JTL mechanic
+that makes space units better without touching a printed stat; Piloting is one of the two keywords
+still excluded from every pool. If JTL improved space through its printed numbers, this analysis
+would have found it. It did not, so the mechanism was somewhere the analysis cannot reach.
+
 ## Aspect locks
 
 | pip | points bought | t |
@@ -261,31 +310,52 @@ range.
 
 # Phase 2 — effect prices
 
-Same regression, extended: the 273 keyword-only units keep the curve identified, and **148 units
-whose ability text classifies completely** carry the effect coefficients. An ability, like a
-keyword, is paid for in stats.
+Same regression, extended: the 273 keyword-only units keep the curve identified, and **286 units
+whose ability text classifies completely** carry the effect coefficients.
 
 ```
-n = 421    R² = 0.921
-residual sd:  0.52 on keyword-only units   ·   1.12 on ability units
+n = 559    R² = 0.935
+residual sd:  0.53 on keyword-only units   ·   0.88 on ability units
 ```
 
-**That gap is the headline.** Abilities are priced roughly **twice as loosely as stats**. Every
-number below carries about a full point of noise, so treat them as a ranking with rough magnitudes,
-not as a lookup table.
+Abilities are still priced more loosely than stats — 0.88 against 0.53 — but the gap has closed a
+lot since the classifier was widened (it was 1.11 against 0.52 at 146 units). Treat the numbers
+below as a ranking with magnitudes, not a lookup table.
 
 ## Coverage, and what it costs
 
-Only **146 of 1,131** Premier ability units (13%) classify. A clause must match a known family
-**for its entire length** — a prefix match is a trap. `SOR_033` Death Trooper reads *"Deal 2 damage
-to a friendly ground unit and 2 damage to an enemy ground unit"*; an earlier unanchored version
-matched the friendly half, discarded the enemy half, and drove `deal N damage to a unit` to a
-price of **0.04 points**. Anchoring every pattern and splitting friendly-target damage into its own
-family fixed it. Any clause the classifier does not fully recognise disqualifies the whole card.
+**286 of 1,080** Premier ability units (26%) classify, covering **28% of all printed clauses**. A
+clause must match a known family **for its entire length** — a prefix match is a trap. `SOR_033`
+Death Trooper reads *"Deal 2 damage to a friendly ground unit and 2 damage to an enemy ground
+unit"*; an earlier unanchored version matched the friendly half, discarded the enemy half, and drove
+`deal N damage to a unit` to a price of **0.04 points**. Anchoring every pattern and splitting
+friendly-target damage into its own family fixed it. Any clause the classifier does not fully
+recognise disqualifies the whole card.
 
-**Five of the requested families have no clean unit at all** and are unpriced: `capture a unit`,
-`capture a unit (arena-locked)`, `Strike True / power strike` (both forms), and
-`discard N at random`. Every printed instance is bundled with other text.
+Three things are deliberately *not* families, each for a reason the model learned the hard way:
+
+- **`for each` riders.** `SOR_118` 97th Legion is a 7-cost **0/0** whose entire body comes from
+  *"+1/+1 for each …"*. Its printed line carries no information, and including it put a −12.8
+  residual into the fit. Any clause containing "for each" is unclassified, and any printed 0/0 line
+  is dropped outright.
+- **`this unit costs N resources less to play`.** A self-discount moves the card's **effective
+  cost**, exactly like Exploit, so fitting it as a stat rider mis-specifies the card — `TWI_098`
+  Republic Defense Carrier (11 cost, 6/7) read 6.3 points off on its own.
+- **Five of the originally requested families have no clean unit at all** and stay unpriced:
+  `capture a unit` (both forms), `Strike True / power strike` (both forms), and
+  `discard N at random`. Every printed instance is bundled with other text.
+
+### What widening the classifier bought
+
+| | units | clauses | effect families | ability-side sd |
+|---|---:|---:|---:|---:|
+| first pass | 146 | 14% | 21 | 1.11 |
+| **after widening** | **286** | **28%** | **28** | **0.88** |
+
+The sample nearly doubled **and** the fit got tighter, which is the outcome that says the new
+families were real structure rather than noise. The single largest gain was not a family at all: 73
+clauses use a **compound trigger** (`When Played/On Attack:`, `When Played/When Defeated:`) that the
+parser simply could not read, so those cards were being thrown away for a punctuation mark.
 
 ## Prices
 
@@ -294,36 +364,51 @@ the number of clauses carrying it.
 
 | effect | points | n | | effect | points | n |
 |---|---:|---:|---|---|---:|---:|
-| create X-Wing token | 3.14 | 2 | | give Shield token | **1.60** | 16 |
-| bounce (return unit to hand) | **2.60** | 3 | | deal N damage to a base | **0.96** | 7 |
-| create Credit token | 2.41 | 6 | | give Weakness token | 0.99 | 2 |
-| create Mandalorian token | 2.38 | 6 | | deal N damage to a unit (arena) | **0.87** | 16 |
-| create Spy token | 2.23 | 6 | | deal N damage to a unit | 0.71 | 4 |
-| create Battle Droid token | **2.17** | 5 | | heal N damage from your base | **0.51** | 7 |
-| create TIE Fighter token | 2.07 | 2 | | give Advantage token | 0.40 | 6 |
-| create Clone Trooper token | 2.06 | 3 | | look at an opponent's hand | 0.21 | 3 |
-| draw N cards | **1.85** | 14 | | heal N damage from a unit | 0.10 | 2 |
-| give N Experience tokens | **1.82** | 26 | | *deal N damage to a friendly unit* | *−0.23* | 12 |
-| peek + discard | 1.82 | 2 | | | | |
+| create X-Wing token | 3.47 | 3 | | give Weakness token | 0.99 | 2 |
+| **bounce (return unit to hand)** | **2.66** | 3 | | create TIE Fighter token | 0.95 | 4 |
+| **create Battle Droid token** | **2.31** | 7 | | **deal N damage to a base** | **0.78** | 7 |
+| create Credit token | 2.28 | 6 | | **conditional +N/+N on itself**, per stat | **0.72** | 27 |
+| **this unit enters play ready** | **2.26** | 4 | | **deal N damage to a unit (arena)** | **0.69** | 17 |
+| **create Mandalorian token** | **2.22** | 7 | | **gains a keyword**, per point of list price | **0.68** | 58 |
+| create Clone Trooper token | 2.19 | 4 | | deal N damage to a unit | 0.66 | 5 |
+| **create Spy token** | **2.07** | 6 | | **heal N damage from your base** | **0.50** | 8 |
+| peek + discard | 1.75 | 2 | | give Advantage token | 0.35 | 7 |
+| ready this unit | 1.71 | 4 | | **−N/−N on an enemy**, per stat | **0.25** | 11 |
+| **draw N cards** | **1.61** | 14 | | **+N/+N on another unit**, per stat | **0.24** | 16 |
+| **give N Experience tokens** | **1.54** | 28 | | look at an opponent's hand | 0.13 | 3 |
+| **give N Shield tokens** | **1.52** | 17 | | heal N damage from a unit | −0.15 | 2 |
+| **exhaust an enemy unit** | **1.32** | 11 | | *deal N damage to a friendly unit* | *−0.24* | 13 |
 
-Bold = `n ≥ 5` and stable under leave-one-set-out. Everything else is directional only.
+Bold = `n ≥ 5` and stable under leave-one-set-out.
 
 Two internal consistency checks land well:
 
-- **An Experience token is +1/+1 = 2.00 weighted points, and it prices at 1.82.** The model has no
-  idea what an Experience token does; it recovered its body value from the stat lines of the cards
-  that hand them out.
-- **Dealing damage to your own unit prices negative** (−0.23 per damage, t = −1.9). The sign is
-  right without being told which direction is good.
+- **An Experience token is +1/+1 = 2.00 weighted points, and it prices at 1.54.** The model has no
+  idea what an Experience token does; it recovered roughly its body value from the stat lines of the
+  cards that hand them out.
+- **Dealing damage to your own unit prices negative** (−0.24 per damage, t = −2.1). The sign is right
+  without being told which direction is good.
 
-Where the ranking is interesting:
+### The two new structural families
 
-- **A card is worth ~1.85 points** — roughly one full cost step at the bottom of the curve.
-- **Base damage (0.96) is worth about twice base healing (0.51)** per point.
-- Arena-locked and unrestricted unit damage (0.87 vs 0.71) are **not distinguishable** — the
-  unrestricted family has only 4 clean units. Do not read the ordering.
-- Shield (1.60) and Experience (1.82) are near-equals; **Advantage (0.40) is priced far below
-  both**, and Weakness (0.99) between.
+**A granted keyword costs 68% of its printed price.** `gains_keyword` is fit against each keyword's
+own Phase 1 value, so the coefficient reads directly as a fraction of list. At **0.68 (t = 5.9,
+n = 58)**, a *"while X, this unit gains Sentinel"* costs 0.68 × 1.55 ≈ **1.05** where printed
+Sentinel costs 1.55. That corroborates the `LOF_096` Obi-Wan reading from Phase 1 (his conditional
+Sentinel priced at ~61% of list) on 58 clauses instead of one card. Note the family is **100%
+conditional** by construction — an unconditional grant would just be printed as the keyword.
+
+**A stat rider is cheap, and much cheaper on someone else.** Per point of printed stat granted:
+
+| rider | points per stat | n |
+|---|---:|---:|
+| conditional `+N/+N` on itself, continuous | **0.72** | 27 |
+| `−N/−N` on an enemy, for the phase | **0.25** | 11 |
+| `+N/+N` on another unit, for the phase | **0.24** | 16 |
+
+A permanent-while-true buff on itself is worth roughly three times a one-phase buff handed to
+another unit, and buffing a friend costs the same as debuffing an enemy — a clean symmetry the model
+was not told to expect.
 
 ## Trigger and rider modifiers
 
@@ -331,68 +416,107 @@ Additive, per clause, relative to a mandatory unconditional **When Played**:
 
 | modifier | points | t |
 |---|---:|---:|
-| **On Attack** | **−0.67** | −2.9 |
-| **When Defeated** | **−0.84** | −4.0 |
-| Action | +0.03 | 0.1 |
-| **optional ("you may")** | **+0.38** | 2.0 |
-| **conditional ("if …", "while …", "for each")** | **−0.50** | −2.8 |
+| **dual trigger** (`When Played/On Attack`) | **+0.63** | +2.8 |
+| optional ("you may") | +0.26 | +1.8 |
+| Action | +0.14 | +0.6 |
+| On Attack | −0.11 | −0.7 |
+| **When Defeated** | **−0.56** | −3.3 |
+| **conditional** ("if …", "while …") | **−0.57** | −4.3 |
 
 Negative = the card pays less for the same effect.
 
-- **When Played is the premium trigger.** On Attack costs 0.67 less and When Defeated 0.84 less for
-  identical text. On Attack repeats every turn, so this is not about raw frequency — it is that
-  When Played is *guaranteed and immediate*, while both alternatives need the unit to survive into
-  a window the opponent partly controls.
-- **"You may" costs 0.38 more than mandatory.** Optionality is a real premium: you can decline the
-  bad half. That squares with `ASH_259` and `LOF_259` (the optional and mandatory versions of
-  "1 damage to a ground unit") pricing within 0.3 of each other on cards four costs apart.
-- **A condition refunds 0.50** — about half of one damage.
+- **A compound trigger costs 0.63 more than a single one.** Firing on *either* window is worth about
+  two thirds of a stat, which is the first thing measured about the 73 clauses that used to be
+  unreadable.
+- **When Defeated is the discount trigger** at −0.56 — delayed, and the opponent picks the moment.
+- **On Attack is no longer distinguishable from When Played** (−0.11, t = −0.7). In the first pass it
+  read −0.67; the dual-trigger term absorbed it, because most compound triggers are precisely
+  `When Played/On Attack`. That earlier number was an artifact of the parser gap.
+- **A condition refunds 0.57** — about three quarters of one point of arena damage.
+- **"You may" costs 0.26 more than mandatory.** Optionality is a real premium: you can decline the
+  bad half.
 
 These are main effects, not interactions. A big On-Attack effect probably discounts by more than a
 small one, but there is not enough data to fit that.
 
-## Created tokens — the unit fit says flat, the events say otherwise
+## Created tokens: a flat fee plus a sixth of the body
 
-Pooled over the 24 token-creating clauses on units, replacing the seven per-token coefficients with
-a flat amount plus a slope on the token's own printed body value gives:
+Replacing the seven per-token coefficients with a flat amount per token plus a slope on the token's
+own printed body value now gives:
 
 ```
-flat        +2.01 points per token   (t = 4.3)
-body slope  +0.068                   (se 0.113, t = 0.6)     n = 24 clauses
+flat        +1.45 points per token   (t = 4.6)
+body slope  +0.168                   (se 0.080, t = 2.1)
 ```
 
-The body value here is the token's stat line **plus its keywords, priced at this fit's own keyword
-coefficients** — the Mandalorian's Shielded and the Spy's Raid 2 are both counted:
+Under the first, narrower classifier the slope was 0.068 (t = 0.6) and the honest reading was
+"flat". With the better specification the slope is **significant but tiny**: a token is priced at a
+flat ~1.45 points **plus about one sixth of the body it puts on the table**. It is still nowhere
+near 1.0 — you can rule out full body pricing at roughly ten standard errors — so the conclusion
+holds in a softer form: **the bigger the token, the better the deal.**
 
-| token | body | stat pts | + keywords | total value | unit-fit price |
-|---|---|---:|---:|---:|---:|
-| Battle Droid | G 1/1 | 2.00 | — | 2.00 | 2.17 |
-| TIE Fighter | S 1/1 | 2.00 | — | 2.00 | 2.07 |
-| Spy | G 0/2 | 1.72 | +1.36 (Raid 2) | 3.08 | 2.23 |
-| X-Wing | S 2/2 | 4.00 | — | 4.00 | 3.14 |
-| Clone Trooper | G 2/2 | 4.00 | — | 4.00 | 2.06 |
-| Mandalorian | G 2/2 | 4.00 | +1.41 (Shielded) | 5.41 | 2.38 |
-| Beast | G 3/3 | 6.00 | — | 6.00 | *(no clean unit)* |
+| token | body | body value | fitted price |
+|---|---|---:|---:|
+| Battle Droid | G 1/1 | 2.00 | 2.31 |
+| TIE Fighter | S 1/1 | 2.00 | 0.95 |
+| Spy | G 0/2 + Raid 2 | 3.08 | 2.07 |
+| X-Wing | S 2/2 | 4.00 | 3.47 |
+| Clone Trooper | G 2/2 | 4.00 | 2.19 |
+| Mandalorian | G 2/2 + Shielded | 5.41 | 2.22 |
+| Beast | G 3/3 | 6.00 | *(no clean unit)* |
 
-Set dummies do not explain it — each token type is printed by essentially one set (Battle Droid and
-Clone Trooper are TWI, Mandalorian ASH, Spy SEC, TIE Fighter and X-Wing JTL), but adding set
-controls moves every coefficient by less than 0.3.
+The body value counts the token's **keywords** at this fit's own coefficients — the Mandalorian's
+Shielded (1.65) and the Spy's Raid 2 (1.70) are both in there. The Mandalorian is still the largest
+single mispricing in the analysis: 2.22 points to put down a 2/2 that arrives with a Shield.
 
-⚠ **Do not read the flat slope as a design rule.** The per-card residuals behind it range from
-**0.28 to 7.59 points for the same effect** (`TWI_247` AT-TE Vanguard gives up 0.28 for two Clone
-Troopers; `ASH_111` Children of the Watch gives up 7.59 for two Mandalorians). With that spread the
-unit side simply cannot resolve token size, and the regression's tight standard error is
-overconfident. The mean stat given up per token barely moves with body: Battle Droid 1.71
-(body 2.00), TIE Fighter 2.04 (2.00), Spy 2.24 (3.08), Clone Trooper 2.28 (4.00), Mandalorian 2.38
-(5.41), X-Wing 3.42 (4.00).
+⚠ Each token type is printed by essentially one set (Battle Droid and Clone Trooper are TWI,
+Mandalorian ASH, Spy SEC, TIE Fighter and X-Wing JTL), so `create_<token>` is nearly collinear with
+set. Adding set dummies moves every coefficient by less than 0.3, so this is not a set effect
+wearing a token's name — but the two sets that print **two token sizes each** still disagree about
+whether size matters, and with 2–7 clauses per token that disagreement cannot be resolved here.
 
-**The events settle it, and they say tokens are priced at full body value.** See the next section.
-
+**The events settle it far more cleanly than the units do** — see [Phase 3](#phase-3--the-event-line-and-a-validation-of-the-whole-scale),
+where a token-making event pays for its tokens at full body value, linearly, to within 0.04 points.
 The residual asymmetry that survives is worth stating carefully: on an **event**, where the token is
-the whole card, the token is paid for in full. On a **unit**, where the token rides along with a
-body, the stat tax is roughly flat and very noisy — so a unit that makes a big token is getting more
-for the same tax than a unit that makes a small one. That is a claim about how units are taxed for
-having text at all, not about what a token is worth.
+the whole card, it is paid for in full; on a **unit**, where it rides along with a body, the stat tax
+is mostly flat. That is a claim about how units are taxed for carrying text, not about what a token
+is worth.
+
+## Robustness
+
+Leave-one-set-out on every family with enough data. Each row refits nine times, dropping one set:
+
+| family | n | full fit | LOSO range |
+|---|---:|---:|---|
+| gains a keyword | 58 | 0.68 | [0.64, 0.77] |
+| conditional self `+N/+N` | 27 | 0.72 | [0.69, 0.76] |
+| give Experience | 28 | 1.54 | [1.49, 1.65] |
+| give Shield | 17 | 1.52 | [1.31, 1.80] |
+| deal damage (arena) | 17 | 0.69 | [0.60, 0.86] |
+| `+N/+N` on another unit | 16 | 0.24 | [0.23, 0.27] |
+| draw | 14 | 1.61 | [1.52, 1.73] |
+| `−N/−N` on an enemy | 11 | 0.25 | [0.21, 0.33] |
+| exhaust an enemy unit | 11 | 1.32 | [1.22, 1.44] |
+| heal base | 8 | 0.50 | [0.48, 0.56] |
+| deal damage to base | 7 | 0.78 | [0.73, 0.83] |
+
+No single set drives any of the eleven, and the ranges are tighter than they were on the smaller
+pool.
+
+## What Phase 2 does *not* support
+
+- **Events are not in this regression.** Putting them in on a cost→value curve shared with units
+  gave an event cost slope of ~0 (`event × cost` = −1.14 against a unit `cost` of +1.17, t = −10.7)
+  and dragged the unit terms with it — `pip_basic` fell from 0.77 to 0.32. Events get their own
+  baseline in Phase 3 instead.
+- **The five unpriced families above**, plus `for each` riders and self-discounts, which are
+  excluded for cause rather than for lack of data.
+- **Passive-downside families.** The eight cards in [Drawbacks](#drawbacks) are read individually,
+  not fit; there are not enough of any one shape to make a family.
+- **Any interaction** between effect size and trigger, or between effects on the same card.
+- **72% of printed clauses.** The biggest remaining unpriced groups are removal (`defeat a unit
+  with N or less remaining HP`), tutoring (`search the top N cards …`), discard-pile recursion, and
+  the ability words (Coordinate, Disclose, Piloting).
 
 ## Flexibility keywords: Plot and Smuggle
 
@@ -585,6 +709,67 @@ die anyway.
 
 (`TWI_118` Gor's 1.17 is partly the flat-keyword problem noted below, not pure weakness — the model
 over-charges him for Sentinel + Ambush + Overwhelm on a 7/7.)
+
+### Worked example: `TWI_039` Malevolence, and when a bigger sacrifice pays
+
+9 cost, space, 7/7, Vigilance + Villainy, **Exploit 4** (the highest in the set), Restore 2, and
+*"When Played: Give an enemy unit −4/−0 for this phase. It can't attack for this phase."*
+
+Weighted printed stats **14.00**; the curve at 9 cost with Restore 2 charged says **19.27**. So the
+card pre-paid **5.27 points** for the keyword — before any exploiting, and whether or not you
+exploit.
+
+Because the curve is convex, the exploits are not worth the same amount. Each one walks two steps
+down a curve that flattens as it descends, so the **first exploit is the valuable one**:
+
+| exploit | cost step | curve there | marginal saving | fodder that step alone justifies |
+|---:|---|---:|---:|---|
+| 1st | 9 → 7 | 14.47 | **4.80** | a Clone Trooper 2/2 (4.00) ✓ · Mandalorian (5.41) ✗ |
+| 2nd | 7 → 5 | 10.18 | **4.29** | a Clone Trooper 2/2 (4.00) ✓ |
+| 3rd | 5 → 3 | 6.40 | **3.78** | a Spy 0/2 + Raid 2 (3.08) ✓ · Clone Trooper ✗ |
+| 4th | 3 → 1 | 3.12 | **3.28** | a Spy (3.08) ✓ |
+
+Total at full Exploit 4: **16.15 points** of cost saved, averaging 4.04 per exploit, and the last
+exploit is worth **32% less** than the first.
+
+**But the 5.27 it pre-paid has to come out of that.** Netting it against the total gives the real
+break-even fodder price:
+
+| exploits used | effective cost | curve there | budget for k bodies | **F per body** |
+|---:|---:|---:|---:|---:|
+| 1 | 7 | 14.47 | **−0.47** | **negative** |
+| 2 | 5 | 10.18 | 3.82 | **1.91** |
+| 3 | 3 | 6.40 | 7.60 | **2.53** |
+| 4 | 1 | 3.12 | 10.88 | **2.72** |
+
+So there are two honest answers depending on which question you are asking:
+
+- **"Should I run it, and what can I feed it?"** — Malevolence needs **at least two exploits to be
+  worth its printed line at all** (one exploit is a loss even with free fodder), and its fodder
+  budget tops out at **2.72 points at full Exploit 4**. That is a Spy token, not a Clone Trooper.
+  On this scale, sacrificing a real unit to Malevolence is never right.
+- **"I am casting it anyway — which sacrifices are worth it?"** — with the 5.27 already sunk, the
+  **first two exploits each justify a 2/2 body**, and the third and fourth only justify a 1/1 with a
+  keyword. If your only fodder is Clone Troopers, exploit exactly twice.
+
+⚠ Both figures are a **floor**: the *"−4/−0 and can't attack this phase"* clause is real value the
+model does not price (stat debuffs are one of the unpriced families), so the true fodder budget is
+higher than 2.72 by whatever that clause is worth.
+
+**The general rule, across the set:** the first exploit is always the most valuable one, and its
+value is set by the card's printed cost.
+
+| card | printed cost | 1st exploit saves | last exploit saves |
+|---|---:|---:|---:|
+| `TWI_118` Gor | 12 | **5.42** | 4.41 |
+| `TWI_039` Malevolence | 9 | 4.80 | 3.28 |
+| `TWI_087` Separatist Super Tank | 9 | 4.67 | 3.65 |
+| `TWI_136` Squadron of Vultures | 6 | 4.04 | 3.03 |
+| `TWI_115` Osi Sobeck | 6 | 3.91 | 2.89 |
+
+**`TWI_118` Gor's first exploit is the only one in the game that justifies a Mandalorian token**
+(5.42 against the Mandalorian's 5.41), and that is purely because he is a 12-drop. Nothing cheaper
+ever reaches a 2/2-plus-keyword body.
 
 ### The condition the model cannot see
 
