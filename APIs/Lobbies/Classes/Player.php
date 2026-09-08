@@ -16,10 +16,12 @@
                            // re-resolves four decks on every roster poll.
     private $base = '';    // Resolved base CardID. DISPLAY ONLY (no rule reads it), cached beside the
                            // leaders so the room roster can show each seat's identity before start.
-    private $lastSeen = 0;  // Unix ts of this seat's last poll. A seat that stops polling has closed its
-                           // browser (or crashed, or lost the network) and is reaped — see
-                           // SWUReapAbsentSeats. Set at JOIN too, or a seat that has not polled yet
-                           // would be reaped the instant it sat down.
+    private $lastSeen = 0;  // Unix ts of this seat's last poll. A seat that stops polling is shown as
+                           // AWAY — see SWUSeatIsAway. It is NOT removed: a hidden tab is throttled to
+                           // ~1/minute and a locked phone stops polling entirely, so the reaper this
+                           // replaced deleted people who were still sitting in the room. Removal from a
+                           // private room is always a human act (Leave, or the host's Remove control).
+                           // Set at JOIN too, so a seat that has not polled yet does not read as away.
     private $ready = false; // Seat has pressed Ready. CLEARED whenever the seat's deck changes — a
                            // deck swapped after readying is not the deck anyone agreed to.
     private $identityCards = []; // [['id','name','url','kind'], …] — the roster's identity strip, built

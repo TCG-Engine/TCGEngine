@@ -87,42 +87,22 @@ check(_wordingFor('teamsuns') === 'Need 4 players to start.',          'teamsuns
 check(_wordingFor('twinsuns') === 'Need at least 3 players to start.', 'twinsuns says AT LEAST 3 (seats 3-4)');
 check(strpos(_wordingFor('premier'), 'currently') === false,           'the live count is not repeated in the blocker');
 
-// ── Presence reaping ─────────────────────────────────────────────────────────────────────────────
-// The poll is the heartbeat. A seat that stops polling has closed its browser (or lost the network)
-// and is reaped, so it stops holding a slot and stops blocking the host's Start.
-// ⚠ There is deliberately NO unload beacon: a refresh fires unload, so a beacon would release the
-// seat and destroy the survive-a-refresh property the whole page exists for.
+// ── A removed seat hands the room on ─────────────────────────────────────────────────────────────
+// Presence used to REAP: any seat that had not polled for ten seconds was deleted, and this section
+// asserted that behaviour. It is gone — a hidden tab is throttled to ~1/minute and a locked phone
+// stops polling entirely, so the reaper reliably removed people who were still sitting in the room.
+// Absence is now a DISPLAY state (SWUSim/DevTools/tests/lobby_presence_test.php covers the away
+// predicates and the 5-minute host migration), and a seat leaves only by explicit Leave or a host
+// kick (SWUSim/DevTools/tests/lobby_room_flow_test.php covers both endpoints).
+//
+// What survives from that section is the rule underneath it: however a seat goes, if it was the
+// host, the room must be handed to somebody who is still in it.
 $now = 1000000;
-$r = mk([1, 2, 3]);
-foreach ($r->players as $pl) $pl->touch($now);
-check(SWUReapAbsentSeats($r, $now + 5, 10) === 0, 'seats polling recently are kept');
-check(count($r->players) === 3,                   'nothing was removed');
-
-$r->players[1]->touch($now - 60);   // seat 2 went away a minute ago
-check(SWUReapAbsentSeats($r, $now, 10) === 1, 'a silent seat is reaped');
-check(count($r->players) === 2,               'the lobby shrank');
-check($r->numPlayers === 2,                   'numPlayers follows the reap');
-check($r->players[0]->getPlayerID() === 1 && $r->players[1]->getPlayerID() === 3, 'the right seat went');
-
-// Exactly at the timeout is still present — the reap is strictly greater-than, so a seat is never
-// dropped on the very tick its heartbeat is due.
-$edge = mk([1]); $edge->players[0]->touch($now - 10);
-check(SWUReapAbsentSeats($edge, $now, 10) === 0, 'a seat exactly at the timeout survives');
-$edge->players[0]->touch($now - 11);
-check(SWUReapAbsentSeats($edge, $now, 10) === 1, 'one second past the timeout is reaped');
-
-// A seat that has NEVER polled has just joined. Reaping it instantly would evict people the moment
-// they sit down, which is far worse than an empty seat lingering for ten seconds.
-$fresh = mk([1, 2]);
-check($fresh->players[0]->getLastSeen() === 0, 'a brand-new seat has no heartbeat yet');
-check(SWUReapAbsentSeats($fresh, $now, 10) === 0, 'a seat that has never polled is NOT reaped');
-
-// Reaping the host must hand the room to someone who is still in it.
 $hostGone = mk([1, 2]);
 foreach ($hostGone->players as $pl) $pl->touch($now);
-$hostGone->players[0]->touch($now - 60);
-check(SWUReapAbsentSeats($hostGone, $now, 10) === 1, 'the absent host is reaped');
+array_splice($hostGone->players, 0, 1);   // the host left, or the host was kicked
+$hostGone->numPlayers = count($hostGone->players);
 SWUMigrateHostIfNeeded($hostGone);
-check($hostGone->hostPlayerID === 2, 'the room is handed to the remaining seat');
+check($hostGone->hostPlayerID === 2, 'a removed host hands the room to the remaining seat');
 
 echo "PASS\n";

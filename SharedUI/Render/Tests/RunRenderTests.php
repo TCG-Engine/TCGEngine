@@ -342,7 +342,7 @@ checkContains('the panel is wide', $wrHtml, 'max-width: min(1600px, 96vw)');
 // text showing through) once a second. Re-render only when something the roster shows has changed.
 checkContains('roster re-renders only on change', $wrHtml, 'if (sig !== lastSig) { lastSig = sig; render(r); }');
 checkContains('the signature covers what the roster draws', $wrHtml,
-              'JSON.stringify([r.roster, r.seatModel, r.blockers, r.numPlayers, r.inviteCode, myPlayerID])');
+              'JSON.stringify([r.roster, r.seatModel, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed])');
 
 // Identity rings carry the card's aspect colours. ONE colour = a smooth ring (a single-aspect leader,
 // an aspect-less base, or DJ's Cunning,Cunning which the adapter dedupes); several = equal hard-stop
@@ -478,7 +478,9 @@ check('the deck bar does not rely on flex-stretch', strpos($wrHtml, '.wr-deckbar
 // ⚠ The ring is an INSET box-shadow, not a border or background: the team columns set both of those
 // inline (red/blue accents), so anything else would be overridden in Team Suns or fight the tint.
 checkContains('seat labels are Title Case',  $wrHtml, '<div class="wr-seat-label">Seat ');
-checkContains('empty seats read Title Case', $wrHtml, "emptySeat(i, 'Waiting…')");
+// i + 1 because the flat roster is POSITIONAL now: seat ids are unique but not dense, so the loop
+// counts tiles rather than indexing the roster by playerID.
+checkContains('empty seats read Title Case', $wrHtml, "emptySeat(i + 1, 'Waiting…')");
 checkContains('team open seats read Title Case', $wrHtml, '>Open</div>');
 checkContains('seat labels are larger',      $wrHtml, '.wr-seat-label { font-size: 14px;');
 checkContains('your own seat is ringed',     $wrHtml, '.wr-seat-mine { box-shadow: inset 0 0 0 2px var(--success');
@@ -492,6 +494,50 @@ check('own-seat tagging exists in both roster renderers',
 check('seat tiles do not label you in text',
       strpos($wrHtml, "(entry.playerID === myPlayerID ? ' (you)' : '')") === false);
 checkContains('the unassigned line still identifies you', $wrHtml, "(r.playerID === myPlayerID ? ' (you)' : '')");
+
+// ── Presence, removal and the host's Remove control ──────────────────────────────────────────────
+// Presence is a DISPLAY state now: the page must be able to DRAW an away seat, and the host must be
+// able to remove one, because nothing removes anybody automatically any more.
+checkContains('roster can draw an AWAY pill',        $wrHtml, 'wr-pill-away');
+checkContains('an away tile is dimmed',              $wrHtml, 'wr-seat-away');
+checkContains('the away class is driven by row.away',$wrHtml, "(e.away ? ' wr-seat-away' : '')");
+checkContains('host-only Remove control exists',     $wrHtml, 'data-kick=');
+checkContains('Remove posts to KickSeat',            $wrHtml, 'APIs/Lobbies/KickSeat.php');
+// You may not remove yourself (that is Leave), and a non-host must not be offered the control at all.
+checkContains('Remove is host-only and never self',  $wrHtml, "iAmHost && entry.playerID !== myPlayerID");
+
+// Removal is ANNOUNCED. Silently swapping the button back to "Join with this deck" is exactly how
+// the original reports read: people could see they had dropped out, but not why.
+checkContains('page has a removal banner',           $wrHtml, 'id="wr-removed"');
+checkContains('the banner is driven by r.removed',   $wrHtml, "r.removed ? '' : 'none'");
+
+// ⚠ THE REGRESSION GUARD THAT MATTERS. The seat key used to expire on a fixed 15-minute clock from
+// the moment of joining; after that the page polled with no authKey, could not be stamped, and the
+// player was deleted while watching. `ts` must slide on every recognised poll.
+checkContains('the seat key is restamped on every recognised poll', $wrHtml, 'if (live) saveKey(lobbyID, live);');
+// ⚠ Assert the CODE, not the literal: the comment above that constant quotes the old 900000 on
+// purpose, so needling the number would match the prose explaining the bug rather than the fix.
+checkContains('the key backstop is a day, not 15 minutes', $wrHtml, 'LOBBY_KEY_BACKSTOP_MS = 86400000');
+check('the old 15-minute key lifetime is gone', strpos($wrHtml, 'LOBBY_TTL_MS') === false);
+
+// A hidden tab is throttled to ~1/minute, so returning to it must re-register immediately rather
+// than wait out the throttled timer.
+checkContains('the page re-polls when the tab becomes visible', $wrHtml, "addEventListener('visibilitychange'");
+
+// Every rejoin used to start a SECOND poll loop in the same tab, compounding the request rate.
+// ⚠ Match the COMMENT, not the clearTimeout line: doLeave has contained that same line since day one,
+// so needling it would pass whether or not doJoin was fixed. A check that cannot fail is not a check.
+checkContains('joining cancels the pending poll first', $wrHtml, 'or every rejoin doubles the poll rate');
+
+// The flat roster is POSITIONAL. Seat ids are unique but not dense (a room that lost seat 2 and
+// gained a joiner holds 1, 3, 4), so indexing by playerID drops anyone whose id exceeds maxPlayers.
+check('the flat roster no longer indexes seats by playerID', strpos($wrHtml, 'var e = byId[i];') === false);
+checkContains('the flat roster sorts entries positionally', $wrHtml, 'roster.slice().sort(');
+
+// ⚠ REJOIN GUARD. inviteCode is read from ?invite= at boot, but rewriteUrl() swaps the URL to
+// ?lobby=<id> as soon as you join — so without adopting it from the poll payload, a player who lost
+// their seat pressed "Join with this deck" and was sent to the PUBLIC queue instead of back here.
+checkContains('the page adopts the invite code from the poll', $wrHtml, 'if (r.inviteCode) inviteCode = r.inviteCode;');
 
 // (later tasks append their checks above this line)
 

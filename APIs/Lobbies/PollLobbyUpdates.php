@@ -7,6 +7,7 @@ if (is_file($swuFormatsPath)) require_once $swuFormatsPath;
 require_once "../../Core/HTTPLibraries.php";
 require_once "./Classes/Player.php";
 require_once "./Classes/LobbyAdapter.php";
+require_once "./Classes/LobbyStore.php";
 
 $response = new stdClass();
 
@@ -35,18 +36,10 @@ $rootName = $_POST['rootName'];
 // bases are public the moment the game starts anyway). Joining still goes through JoinQueue.
 if (($lobbyID === '' || $lobbyID === 'invite') && isset($_POST['inviteCode']) && $_POST['inviteCode'] !== '') {
   $wantCode = strval($_POST['inviteCode']);
-  $ci = function_exists('apcu_cache_info') ? apcu_cache_info() : null;
-  if (is_array($ci) && isset($ci['cache_list']) && is_array($ci['cache_list'])) {
-    foreach ($ci['cache_list'] as $e) {
-      if (!isset($e['info']) || !is_string($e['info']) || $e['info'] === '') continue;
-      $cand = apcu_fetch($e['info']);
-      if ($cand === false || !is_object($cand)) continue;
-      if (strval($cand->rootName ?? '') !== $rootName) continue;
-      if (empty($cand->isPrivate)) continue;
-      if (strval($cand->inviteCode ?? '') !== $wantCode) continue;
-      $lobbyID = strval($cand->id ?? '');
-      break;
-    }
+  $found = LobbyKeyForInvite($wantCode, $rootName);
+  if ($found !== null) {
+    $cand = apcu_fetch($found);
+    if (is_object($cand) && !empty($cand->isPrivate)) $lobbyID = strval($cand->id ?? '');
   }
   if ($lobbyID === '' || $lobbyID === 'invite') {
     $response->success = false;
@@ -72,24 +65,28 @@ while (true) {
   $pollAdapter = ($lobby && is_object($lobby)) ? LobbyAdapterFor(strval($lobby->rootName ?? '')) : null;
   $isRoom = $pollAdapter !== null && $pollAdapter->wantsWaitingRoom($lobby);
   if ($isRoom) {
-    // PRESENCE. The poll IS the heartbeat: stamp the caller, then drop anyone who has stopped
-    // polling. Someone is always polling while anyone is in the room, so the sweep always runs.
-    // ⚠ There is deliberately NO unload beacon. A refresh fires unload, so a beacon would release
-    // the seat and destroy the whole survive-a-refresh property this page exists for — the reaper
-    // handles a closed browser instead, a few seconds later.
-    $meSeat = SWURoomFindPlayerByAuthKey($lobby, $authKey);
-    if ($meSeat !== null) $meSeat->touch();
-    $reaped = SWUReapAbsentSeats($lobby);
-    if ($reaped > 0) {
-      if ($lobby->numPlayers <= 0) {
-        apcu_delete($lobbyID);          // last seat gone — nothing left to come back to
-      } else {
-        SWUMigrateHostIfNeeded($lobby); // the reaped seat may have been the host
-        apcu_store($lobbyID, $lobby, 900);
-      }
-    } elseif ($meSeat !== null) {
-      apcu_store($lobbyID, $lobby, 900);   // persist the heartbeat
-    }
+    // PRESENCE. The poll IS the heartbeat: stamp the caller, then let the roster SHOW who has gone
+    // quiet. Nothing here removes anybody.
+    //
+    // ⚠ This used to delete any seat that had not polled in 10 seconds, and that is the bug this
+    // block exists to not have. The 10s budget was measured against the 1.5s poll interval, but the
+    // thing that actually breaks a heartbeat is the BROWSER: a hidden tab is throttled to ~1/minute,
+    // a locked phone stops entirely, and the client's own localStorage key used to expire 15 minutes
+    // after joining — after which it polled with no authKey and could not be stamped at all. All
+    // three deleted people who were still sitting in the room.
+    //
+    // ⚠ There is still deliberately NO unload beacon. A refresh fires unload, so a beacon would
+    // release the seat and destroy the survive-a-refresh property this page exists for.
+    $meSeat = null;
+    $lobbyAfter = LobbyMutate($lobbyID, function ($l) use ($authKey, &$meSeat) {
+      $meSeat = SWURoomFindPlayerByAuthKey($l, $authKey);
+      if ($meSeat !== null) $meSeat->touch();
+      $migrated = SWUMigrateHostIfAway($l);
+      return ($meSeat !== null || $migrated);   // false = nothing changed, skip the write
+    });
+    // A busy or vanished lobby must not blank the roster: fall back to the unlocked read we already
+    // have. The heartbeat is idempotent and the next poll is 1.5s away.
+    if ($lobbyAfter !== null) $lobby = $lobbyAfter;
 
     $roster = [];
     foreach (($lobby->players ?? []) as $p) {
@@ -100,6 +97,9 @@ while (true) {
         'team'     => $p->getTeam(),
         'deckOk'   => $p->getDeckOk(),
         'ready'    => $p->getReady(),
+        // Presence, for display only. An away seat keeps its seat and does NOT block Start — the
+        // host reads this and decides whether to use Remove.
+        'away'     => SWUSeatIsAway($p),
         // The seat's deck identity, cached at deck-validation time. The lobby table shows it so a
         // within-team leader conflict is visible BEFORE anyone tries to start, and so everyone can see
         // what each seat is bringing and swap decks first. Leaders and bases are public information the
@@ -136,6 +136,11 @@ while (true) {
     // where every seat except the host's failed).
     $meRoom = SWURoomFindPlayerByAuthKey($lobby, $authKey);
     if ($meRoom !== null) $response->playerID = $meRoom->getPlayerID();
+    // Presenting a key the room does not know means this browser HELD a seat and no longer does —
+    // the host removed it, or it left from another tab. Say so. Sending no key at all is a viewer
+    // who has not joined yet, which is not the same thing and keeps the plain not-seated state.
+    // (SetTeam.php draws exactly this distinction in its error copy.)
+    $response->removed = ($authKey !== '' && $meRoom === null);
     if (!empty($lobby->gameName)) { $response->started = true; $response->gameName = $lobby->gameName; }
     header('Content-Type: application/json');
     echo json_encode($response);

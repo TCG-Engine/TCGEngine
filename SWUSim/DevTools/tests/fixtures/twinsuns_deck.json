@@ -1,0 +1,341 @@
+{
+    "metadata": {
+        "name": "Jabba Qi'Ra Slow Defense",
+        "author": "ninin"
+    },
+    "leader": {
+        "id": "SEC_002",
+        "count": 1
+    },
+    "secondleader": {
+        "id": "SHD_002",
+        "count": 1
+    },
+    "base": {
+        "id": "SHD_026",
+        "count": 1
+    },
+    "deck": [
+        {
+            "id": "JTL_037",
+            "count": 1
+        },
+        {
+            "id": "SEC_058",
+            "count": 1
+        },
+        {
+            "id": "JTL_078",
+            "count": 1
+        },
+        {
+            "id": "TWI_187",
+            "count": 1
+        },
+        {
+            "id": "SEC_040",
+            "count": 1
+        },
+        {
+            "id": "SOR_207",
+            "count": 1
+        },
+        {
+            "id": "LAW_119",
+            "count": 1
+        },
+        {
+            "id": "LAW_217",
+            "count": 1
+        },
+        {
+            "id": "SEC_031",
+            "count": 1
+        },
+        {
+            "id": "LAW_133",
+            "count": 1
+        },
+        {
+            "id": "LOF_055",
+            "count": 1
+        },
+        {
+            "id": "SHD_052",
+            "count": 1
+        },
+        {
+            "id": "SHD_191",
+            "count": 1
+        },
+        {
+            "id": "TWI_231",
+            "count": 1
+        },
+        {
+            "id": "SHD_058",
+            "count": 1
+        },
+        {
+            "id": "LAW_090",
+            "count": 1
+        },
+        {
+            "id": "LAW_232",
+            "count": 1
+        },
+        {
+            "id": "SOR_179",
+            "count": 1
+        },
+        {
+            "id": "SOR_032",
+            "count": 1
+        },
+        {
+            "id": "SEC_054",
+            "count": 1
+        },
+        {
+            "id": "SOR_182",
+            "count": 1
+        },
+        {
+            "id": "JTL_184",
+            "count": 1
+        },
+        {
+            "id": "LAW_241",
+            "count": 1
+        },
+        {
+            "id": "SHD_220",
+            "count": 1
+        },
+        {
+            "id": "SHD_184",
+            "count": 1
+        },
+        {
+            "id": "SOR_078",
+            "count": 1
+        },
+        {
+            "id": "SOR_211",
+            "count": 1
+        },
+        {
+            "id": "SOR_058",
+            "count": 1
+        },
+        {
+            "id": "JTL_183",
+            "count": 1
+        },
+        {
+            "id": "SHD_059",
+            "count": 1
+        },
+        {
+            "id": "SHD_079",
+            "count": 1
+        },
+        {
+            "id": "LAW_240",
+            "count": 1
+        },
+        {
+            "id": "LOF_232",
+            "count": 1
+        },
+        {
+            "id": "TWI_226",
+            "count": 1
+        },
+        {
+            "id": "SOR_056",
+            "count": 1
+        },
+        {
+            "id": "JTL_056",
+            "count": 1
+        },
+        {
+            "id": "JTL_217",
+            "count": 1
+        },
+        {
+            "id": "SOR_077",
+            "count": 1
+        },
+        {
+            "id": "LOF_179",
+            "count": 1
+        },
+        {
+            "id": "LAW_209",
+            "count": 1
+        },
+        {
+            "id": "SHD_036",
+            "count": 1
+        },
+        {
+            "id": "SHD_185",
+            "count": 1
+        },
+        {
+            "id": "SHD_229",
+            "count": 1
+        },
+        {
+            "id": "SEC_057",
+            "count": 1
+        },
+        {
+            "id": "LAW_095",
+            "count": 1
+        },
+        {
+            "id": "SEC_070",
+            "count": 1
+        },
+        {
+            "id": "LAW_093",
+            "count": 1
+        },
+        {
+            "id": "JTL_186",
+            "count": 1
+        },
+        {
+            "id": "TWI_054",
+            "count": 1
+        },
+        {
+            "id": "JTL_043",
+            "count": 1
+        },
+        {
+            "id": "SHD_029",
+            "count": 1
+        },
+        {
+            "id": "SOR_177",
+            "count": 1
+        },
+        {
+            "id": "SOR_067",
+            "count": 1
+        },
+        {
+            "id": "TWI_185",
+            "count": 1
+        },
+        {
+            "id": "LAW_118",
+            "count": 1
+        },
+        {
+            "id": "SHD_192",
+            "count": 1
+        },
+        {
+            "id": "SOR_038",
+            "count": 1
+        },
+        {
+            "id": "SOR_181",
+            "count": 1
+        },
+        {
+            "id": "SHD_032",
+            "count": 1
+        },
+        {
+            "id": "LAW_237",
+            "count": 1
+        },
+        {
+            "id": "SOR_213",
+            "count": 1
+        },
+        {
+            "id": "SOR_178",
+            "count": 1
+        },
+        {
+            "id": "TWI_036",
+            "count": 1
+        },
+        {
+            "id": "SEC_189",
+            "count": 1
+        },
+        {
+            "id": "SHD_061",
+            "count": 1
+        },
+        {
+            "id": "SHD_027",
+            "count": 1
+        },
+        {
+            "id": "SHD_190",
+            "count": 1
+        },
+        {
+            "id": "LOF_077",
+            "count": 1
+        },
+        {
+            "id": "SOR_183",
+            "count": 1
+        },
+        {
+            "id": "TWI_238",
+            "count": 1
+        },
+        {
+            "id": "LAW_097",
+            "count": 1
+        },
+        {
+            "id": "SOR_219",
+            "count": 1
+        },
+        {
+            "id": "TWI_055",
+            "count": 1
+        },
+        {
+            "id": "SHD_188",
+            "count": 1
+        },
+        {
+            "id": "SEC_077",
+            "count": 1
+        },
+        {
+            "id": "LAW_210",
+            "count": 1
+        },
+        {
+            "id": "SOR_057",
+            "count": 1
+        },
+        {
+            "id": "SOR_041",
+            "count": 1
+        },
+        {
+            "id": "SHD_078",
+            "count": 1
+        },
+        {
+            "id": "SOR_065",
+            "count": 1
+        }
+    ],
+    "sideboard": []
+}

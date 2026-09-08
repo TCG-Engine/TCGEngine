@@ -6,6 +6,7 @@
   require_once __DIR__ . '/JoinQueue_blocklib.php';
   require_once __DIR__ . "/Classes/TeamRooms.php";   // SWURoomAutoTeamOnJoin / SWURoomAssignTeam
   require_once __DIR__ . "/Classes/LobbyAdapter.php"; // LobbyAdapterFor — the per-sim lobby seam
+  require_once __DIR__ . "/Classes/LobbyStore.php";  // LobbyMutate — the ONE locked lobby write
 
   // Personal deck stats (Feature B): remember who created each seat so the match can attribute W/L.
   if (session_status() === PHP_SESSION_NONE) { @session_start(); }
@@ -109,20 +110,12 @@
   // validated below, which must check the deck against the format the game will actually be played in.
   // Read-only pre-pass: it only learns the settings; the authoritative join (capacity, blocks, caster
   // mode, seat assignment) still happens in the invite branch further down.
-  if ($privateInviteCode !== '' && function_exists('apcu_cache_info')) {
-    $inviteInfo = apcu_cache_info();
-    if (isset($inviteInfo['cache_list'])) {
-      foreach ($inviteInfo['cache_list'] as $inviteEntry) {
-        if (!isset($inviteEntry['info'])) continue;
-        $inviteLobby = apcu_fetch($inviteEntry['info']);
-        if ($inviteLobby === false || !is_object($inviteLobby)) continue;
-        if (($inviteLobby->rootName ?? '') !== $rootName) continue;
-        if (empty($inviteLobby->isPrivate)) continue;
-        if (!isset($inviteLobby->inviteCode) || strval($inviteLobby->inviteCode) !== $privateInviteCode) continue;
-        $format    = strtolower(strval($inviteLobby->format ?? $format));
-        $queueType = strtolower(strval($inviteLobby->queueType ?? $queueType));
-        break;
-      }
+  if ($privateInviteCode !== '') {
+    $inviteKey   = LobbyKeyForInvite($privateInviteCode, $rootName);
+    $inviteLobby = $inviteKey !== null ? apcu_fetch($inviteKey) : false;
+    if (is_object($inviteLobby) && !empty($inviteLobby->isPrivate)) {
+      $format    = strtolower(strval($inviteLobby->format ?? $format));
+      $queueType = strtolower(strval($inviteLobby->queueType ?? $queueType));
     }
   }
 
@@ -284,87 +277,123 @@
 
   // Join a specific private lobby by invite code.
   if ($privateInviteCode !== '') {
-    if (isset($cacheInfo['cache_list'])) {
-      foreach ($cacheInfo['cache_list'] as $entry) {
-        if (!isset($entry['info'])) continue;
-        $lobby = apcu_fetch($entry['info']);
-        if ($lobby === false || !is_object($lobby)) continue;
-        if (!isset($lobby->id, $lobby->numPlayers, $lobby->maxPlayers, $lobby->rootName)) continue;
-        if ($lobby->rootName !== $rootName) continue;
-        // NOTE: deliberately NOT filtered by format/queueType. The invite code alone identifies the
-        // lobby, and the pre-pass above already adopted this lobby's settings into $format/$queueType.
-        // Re-filtering on them here would reintroduce the original bug the moment the two disagree
-        // (e.g. the pre-pass found nothing because the lobby expired between the two scans) — the join
-        // would fail with a confusing "invalid or expired invite" instead of the real reason.
-        if (!isset($lobby->isPrivate) || !$lobby->isPrivate) continue;
-        if (!isset($lobby->inviteCode) || strval($lobby->inviteCode) !== $privateInviteCode) continue;
-        if (!empty($lobby->casterMode) !== $casterMode) continue;
-        if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // blocked: fall through to generic "invalid/expired/full"
-        if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) continue;
-        // A lobby whose match has begun cannot be joined. Was gated on SWUSim + a seat-count
-        // predicate; now on the adapter, so it holds for every sim and every private format.
-        $joinAdapter = LobbyAdapterFor(strval($lobby->rootName));
-        if ($joinAdapter !== null && $joinAdapter->wantsWaitingRoom($lobby) && !empty($lobby->gameName)) continue;
+    // O(1) invite lookup (LobbyKeyForInvite keeps the full-cache scan as a fallback for lobbies
+    // created before the index existed). Deliberately still a LOOP: every eligibility `continue`
+    // below falls through to the shared "invalid, expired, or already full" response, and rewriting
+    // them as a flat condition would change which failure each one reports.
+    $inviteKey  = LobbyKeyForInvite($privateInviteCode, $rootName);
+    $candidates = $inviteKey !== null ? [['info' => $inviteKey]] : [];
+    foreach ($candidates as $entry) {
+      if (!isset($entry['info'])) continue;
+      $lobby = apcu_fetch($entry['info']);
+      if ($lobby === false || !is_object($lobby)) continue;
+      if (!isset($lobby->id, $lobby->numPlayers, $lobby->maxPlayers, $lobby->rootName)) continue;
+      if ($lobby->rootName !== $rootName) continue;
+      // NOTE: deliberately NOT filtered by format/queueType. The invite code alone identifies the
+      // lobby, and the pre-pass above already adopted this lobby's settings into $format/$queueType.
+      // Re-filtering on them here would reintroduce the original bug the moment the two disagree
+      // (e.g. the pre-pass found nothing because the lobby expired between the two scans) — the join
+      // would fail with a confusing "invalid or expired invite" instead of the real reason.
+      if (!isset($lobby->isPrivate) || !$lobby->isPrivate) continue;
+      if (!isset($lobby->inviteCode) || strval($lobby->inviteCode) !== $privateInviteCode) continue;
+      if (!empty($lobby->casterMode) !== $casterMode) continue;
+      if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // blocked: fall through to generic "invalid/expired/full"
+      if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) continue;
+      // A lobby whose match has begun cannot be joined. Was gated on SWUSim + a seat-count
+      // predicate; now on the adapter, so it holds for every sim and every private format.
+      $joinAdapter = LobbyAdapterFor(strval($lobby->rootName));
+      if ($joinAdapter !== null && $joinAdapter->wantsWaitingRoom($lobby) && !empty($lobby->gameName)) continue;
 
+      // The scan above is a LOOKUP, not a claim: it tells us which key to mutate. Every eligibility
+      // condition is re-checked inside the mutation, because the room can fill or start while the
+      // deck below is resolving.
+      $targetKey = $entry['info'];
+      $snapshot  = $lobby;
+
+      // ⚠ NETWORK I/O, DELIBERATELY BEFORE THE LOCK. This used to run inside the fetch→store
+      // window as _SWURoomApplyDeck(): swudb takes 0.4s cold and 3.2-4.2s once it throttles, and
+      // the whole lobby was written back afterwards from a snapshot that old — reverting every
+      // heartbeat committed meanwhile, which is what made "the 4th joined and someone else
+      // dropped" a real causal chain. It also collapses the SECOND resolution of the same deck
+      // link: ValidateDeckSubmissionForQueue at the top of this file already fetched it once.
+      $isRoom   = $joinAdapter !== null && $joinAdapter->wantsWaitingRoom($snapshot);
+      $resolved = $isRoom ? _SWURoomResolveDeck($snapshot, $deckLink, $preconstructedDeck)
+                          : ['ok' => true, 'leaders' => [], 'base' => '', 'cards' => []];
+
+      $joinErr = null; $newPlayer = null; $playerID = 0;
+      $stored = LobbyMutate($targetKey, function ($lobby) use (
+          $isRoom, $resolved, $deckLink, $preconstructedDeck, $joiningUserId, $rootName,
+          $shareAnonymizedGameplayData, &$joinErr, &$newPlayer, &$playerID) {
+        if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) { $joinErr = 'full'; return false; }
+        if ($isRoom && !empty($lobby->gameName))                      { $joinErr = 'started'; return false; }
         $lobby->numPlayers++;
         if ($rootName === 'GrandArchiveSim') {
           $lobby->shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData) && $shareAnonymizedGameplayData;
         }
-        // ⚠ THE BEHAVIOUR CHANGE. Every PRIVATE lobby now waits for an explicit host Start instead of
-        // auto-readying when it fills — that is the whole point of the waiting room: players agree on
-        // decks first. Public queues are untouched ($lobby->isPrivate is false there), so fill = ready
-        // still holds for quick match. Both paths call the same SWUCreateMatchFromLobby().
-        $isRoom = $joinAdapter !== null && $joinAdapter->wantsWaitingRoom($lobby);
-        if (!$isRoom && $lobby->numPlayers == $lobby->maxPlayers) {
-          $lobby->ready = true;   // public queue / non-opted sim: fill = ready (unchanged)
-        }
-        $playerID = $lobby->numPlayers;
+        // ⚠ THE BEHAVIOUR CHANGE. Every PRIVATE lobby waits for an explicit host Start instead of
+        // auto-readying when it fills — that is the whole point of the waiting room: players agree
+        // on decks first. Public queues are untouched, so fill = ready still holds for quick match.
+        if (!$isRoom && $lobby->numPlayers == $lobby->maxPlayers) $lobby->ready = true;
+        $playerID  = _SWUNextPlayerID($lobby);
         $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
-        if ($isRoom) _SWURoomApplyDeck($lobby, $newPlayer, $deckLink, $preconstructedDeck);
+        if ($isRoom) _SWURoomApplyResolvedDeck($newPlayer, $resolved);
         $lobby->players[] = $newPlayer;
         // Team rooms: force the joiner onto the only team with room; otherwise they pick (spec §4.3).
         // Must run AFTER the player is appended so the counts include them.
         $autoTeam = SWURoomAutoTeamOnJoin($lobby);
         if ($autoTeam !== null) SWURoomAssignTeam($lobby, $newPlayer, $autoTeam);
+        return true;
+      });
 
-        if ($lobby->ready) {
-          if ($rootName === 'SWUSim' && empty($lobby->isGoldfish) && function_exists('SWUCreateMatchFromLobby')) {
-            SWUCreateMatchFromLobby($lobby); // sets $lobby->gameName to game 1
-          } else if ($rootName === 'GrandArchiveSim' && empty($lobby->isGoldfish) && function_exists('MatchCreateFromLobby')) {
-            MatchCreateFromLobby('GrandArchiveSim', $lobby); // creates the Match + game 1, sets $lobby->gameName
-          } else if ($rootName === 'AzukiSim' && empty($lobby->isGoldfish) && function_exists('MatchCreateFromLobby')) {
-            MatchCreateFromLobby('AzukiSim', $lobby); // creates the Match + game 1, sets $lobby->gameName
-          } else if ($rootName === 'AzukiSim' && function_exists('AzukiSetupGame')) {
-            AzukiSetupGame($lobby);
-          } else {
-            include_once '../../' . $rootName . '/CreateGame.php';
-          }
-        }
-        if ($lobby->ready && isset($lobby->gameName) && $lobby->gameName !== '') {
-          RegisterActiveGame($rootName, strval($lobby->gameName), true);
-          $lobby->state = 'matched';
-          apcu_store($entry['info'], $lobby, $matchedTtl);
-        } else {
-          apcu_store($entry['info'], $lobby, $ttl);
-        }
-
-        $response->success = true;
-        $response->message = "Successfully joined private game.";
-        $response->ready = $lobby->ready;
-        $response->playerID = $playerID;
-        $response->authKey = $newPlayer->getAuthKey();
-        $response->lobbyID = $lobby->id;
-        $response->maxPlayers = $lobby->maxPlayers;
-        $response->isRoom = $isRoom;
-        $response->team   = $newPlayer->getTeam();
-        $response->seat   = $newPlayer->getSeat();
-        $response->inviteCode = $lobby->inviteCode;
-        $response->casterMode = !empty($lobby->casterMode);
-        if (isset($lobby->gameName) && $lobby->gameName) $response->gameName = $lobby->gameName;
+      if ($joinErr !== null) continue;   // full or started: keep the generic "invalid/expired/full"
+      if ($stored === null) {
+        $response->success = false;
+        $response->message = "That room is busy right now — try again.";
         header('Content-Type: application/json');
         echo json_encode($response);
         exit;
       }
+      $lobby = $stored;
+
+      // Game creation stays OUTSIDE the mutation: it writes files and rows, which is exactly the
+      // I/O the lock must not span. Only a non-room private lobby reaches it here (a room waits
+      // for the host's Start), and a second short mutation commits the gameName it produces.
+      if ($lobby->ready) {
+        if ($rootName === 'SWUSim' && empty($lobby->isGoldfish) && function_exists('SWUCreateMatchFromLobby')) {
+          SWUCreateMatchFromLobby($lobby); // sets $lobby->gameName to game 1
+        } else if ($rootName === 'GrandArchiveSim' && empty($lobby->isGoldfish) && function_exists('MatchCreateFromLobby')) {
+          MatchCreateFromLobby('GrandArchiveSim', $lobby); // creates the Match + game 1, sets $lobby->gameName
+        } else if ($rootName === 'AzukiSim' && empty($lobby->isGoldfish) && function_exists('MatchCreateFromLobby')) {
+          MatchCreateFromLobby('AzukiSim', $lobby); // creates the Match + game 1, sets $lobby->gameName
+        } else if ($rootName === 'AzukiSim' && function_exists('AzukiSetupGame')) {
+          AzukiSetupGame($lobby);
+        } else {
+          include_once '../../' . $rootName . '/CreateGame.php';
+        }
+        if (isset($lobby->gameName) && $lobby->gameName !== '') {
+          RegisterActiveGame($rootName, strval($lobby->gameName), true);
+          // $matchedTtl: keep a matched lobby alive just long enough for the pollers already
+          // waiting on it to receive the ready state.
+          $lobby = LobbyCommitGameCreation($targetKey, $lobby, 'matched', $matchedTtl) ?? $lobby;
+        }
+      }
+
+      $response->success = true;
+      $response->message = "Successfully joined private game.";
+      $response->ready = $lobby->ready;
+      $response->playerID = $playerID;
+      $response->authKey = $newPlayer->getAuthKey();
+      $response->lobbyID = $lobby->id;
+      $response->maxPlayers = $lobby->maxPlayers;
+      $response->isRoom = $isRoom;
+      $response->team   = $newPlayer->getTeam();
+      $response->seat   = $newPlayer->getSeat();
+      $response->inviteCode = $lobby->inviteCode;
+      $response->casterMode = !empty($lobby->casterMode);
+      if (isset($lobby->gameName) && $lobby->gameName) $response->gameName = $lobby->gameName;
+      header('Content-Type: application/json');
+      echo json_encode($response);
+      exit;
     }
 
     $response->success = false;
@@ -398,10 +427,14 @@
     // format not solo/local" — which for a private lobby is every format a human plays against another.
     $createAdapter = LobbyAdapterFor($rootName);
     $createIsRoom  = $createAdapter !== null && $createAdapter->wantsWaitingRoom($lobby);
-    if ($createIsRoom) _SWURoomApplyDeck($lobby, $newPlayer, $deckLink, $preconstructedDeck);
+    if ($createIsRoom) _SWURoomApplyResolvedDeck($newPlayer, _SWURoomResolveDeck($lobby, $deckLink, $preconstructedDeck));
     $lobby->players = array($newPlayer);
 
     apcu_store($lobbyId, $lobby, $ttl);
+    // O(1) invite lookup. Three call sites used to walk the WHOLE apcu cache — which also holds
+    // gamestates — and apcu_fetch every entry just to match one code. Same TTL as the lobby, so the
+    // index cannot outlive what it points at.
+    apcu_store('invite:' . $lobby->inviteCode, $lobbyId, $ttl);
 
     $response->success = true;
     $response->message = "Successfully created private lobby.";
@@ -446,16 +479,32 @@
             intval($lobby->numPlayers) < intval($lobby->maxPlayers)
           ) {
               if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // skip blocked host, keep scanning
-              $lobby->numPlayers++;
-              if ($rootName === 'GrandArchiveSim') {
-                $lobby->shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData) && $shareAnonymizedGameplayData;
-              }
-              if($lobby->numPlayers == $lobby->maxPlayers) {
-                  $lobby->ready = true;
-              }
-              $playerID = $lobby->numPlayers;
-              $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
-              $lobby->players[] = $newPlayer;
+              // No deck resolution happens here, so nothing needs hoisting — but the seat-ID
+              // allocation and the capacity re-check are the same bugs as the private path.
+              $targetKey = $entry['info'];
+              $joinErr = null; $newPlayer = null; $playerID = 0;
+              $stored = LobbyMutate($targetKey, function ($lobby) use (
+                  $deckLink, $preconstructedDeck, $joiningUserId, $rootName,
+                  $shareAnonymizedGameplayData, &$joinErr, &$newPlayer, &$playerID) {
+                // Re-checked under the lock: two people can reach a one-seat queue at once, and the
+                // loser must fall through to the next lobby rather than overfill this one.
+                if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) { $joinErr = 'full'; return false; }
+                $lobby->numPlayers++;
+                if ($rootName === 'GrandArchiveSim') {
+                  $lobby->shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData) && $shareAnonymizedGameplayData;
+                }
+                if ($lobby->numPlayers == $lobby->maxPlayers) $lobby->ready = true;
+                $playerID  = _SWUNextPlayerID($lobby);
+                $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
+                $lobby->players[] = $newPlayer;
+                return true;
+              });
+              if ($joinErr !== null) continue;   // full: keep scanning for another lobby
+              if ($stored === null) continue;    // busy or vanished: same treatment
+              $lobby = $stored;
+
+              // Game creation writes files and rows — I/O, deliberately outside the lock. A second
+              // short mutation commits the gameName it produces.
               if($lobby->ready) {
                 if ($rootName === 'SWUSim' && empty($lobby->isGoldfish) && function_exists('SWUCreateMatchFromLobby')) {
                   SWUCreateMatchFromLobby($lobby); // sets $lobby->gameName to game 1
@@ -468,13 +517,10 @@
                 } else {
                   include_once '../../' . $rootName . '/CreateGame.php';
                 }
-              }
-              if ($lobby->ready && isset($lobby->gameName) && $lobby->gameName !== '') {
-                RegisterActiveGame($rootName, strval($lobby->gameName), false);
-                $lobby->state = 'matched';
-                apcu_store($entry['info'], $lobby, $matchedTtl);
-              } else {
-                apcu_store($entry['info'], $lobby, $ttl); // Update the lobby in the cache
+                if (isset($lobby->gameName) && $lobby->gameName !== '') {
+                  RegisterActiveGame($rootName, strval($lobby->gameName), false);
+                  $lobby = LobbyCommitGameCreation($targetKey, $lobby, 'matched', $matchedTtl) ?? $lobby;
+                }
               }
 
               $response->success = true;
@@ -528,31 +574,56 @@
   // shows an accurate deckOk at create/join time — mirrors UpdateLobbyDeck.php's check. The leader
   // cache is what makes the team-wide leader-conflict check possible without re-resolving four
   // decks on every roster poll. Never fatal. Returns the deckOk value it just wrote.
-  function _SWURoomApplyDeck($lobby, $player, $deckLink, $preconstructedDeck) {
-    if (!($player instanceof Player)) return false;
-    $player->setDeckIdentity([], '', []);
-    // Same seam as UpdateLobbyDeck, so a seat's deck identity is built in exactly ONE place. $lobby
-    // carries the format the adapter validates against.
+  // Resolve a seat's deck and build the roster's identity strip. DOES NETWORK I/O — a swudb link is
+  // a remote fetch. Call it BEFORE entering LobbyMutate, never inside: this is the multi-second
+  // critical section that used to revert other players' heartbeats.
+  //
+  // $lobby is only read for its format, which is fixed for the life of the room, so an unlocked
+  // snapshot is a safe thing to validate against.
+  function _SWURoomResolveDeck($lobby, $deckLink, $preconstructedDeck) {
+    $empty = ['ok' => false, 'leaders' => [], 'base' => '', 'cards' => []];
     $adapter = LobbyAdapterFor(strval($lobby->rootName ?? ''));
-    if ($adapter === null) { $player->setDeckOk(false); return false; }
+    if ($adapter === null) return $empty;
     $input = trim($deckLink) !== '' ? $deckLink : $preconstructedDeck;
     $v = $adapter->validateDeck($lobby, (string)$input);
-    $cards   = $v['ok'] ? $v['identity']['cards'] : [];
-    $leaders = [];
-    $base    = '';
-    foreach ($cards as $c) {
+    if (empty($v['ok'])) return $empty;
+    $leaders = []; $base = '';
+    foreach ($v['identity']['cards'] as $c) {
       if ($c['kind'] === 'leader')                   $leaders[] = $c['id'];
       elseif ($c['kind'] === 'base' && $base === '') $base      = $c['id'];
     }
-    $player->setDeckIdentity($leaders, $base, $cards);
-    $player->setDeckOk($v['ok']);
+    return ['ok' => true, 'leaders' => $leaders, 'base' => $base, 'cards' => $v['identity']['cards']];
+  }
+
+  // Stamp a resolved deck onto a seat. PURE — safe inside LobbyMutate.
+  // ⚠ Every failure path writes EMPTIES through setDeckIdentity(), which is one call so leaders, base
+  // and cards can never drift: a seat showing last deck's base under this deck's leaders is worse
+  // than showing nothing.
+  function _SWURoomApplyResolvedDeck($player, array $resolved) {
+    if (!($player instanceof Player)) return false;
+    $player->setDeckIdentity($resolved['leaders'], $resolved['base'], $resolved['cards']);
+    $player->setDeckOk($resolved['ok']);
     // Joining WITH a legal deck auto-readies, exactly as loading one later does (UpdateLobbyDeck).
     // Otherwise every seat would arrive un-ready and have to press a button to confirm the deck they
     // just chose. Unready remains available for "hold on".
-    $player->setReady($v['ok']);
+    $player->setReady($resolved['ok']);
     // Start the presence clock now: a seat that has not polled yet must not look absent.
     $player->touch();
-    return $v['ok'];
+    return $resolved['ok'];
+  }
+
+  // The next free seat id: one above the highest in use, never the seat COUNT.
+  //
+  // ⚠ This used to be `$lobby->numPlayers`, which collides the moment anybody has left — LeaveQueue
+  // splices without renumbering, so a 3-seat room that lost seat 1 hands the next joiner id 3, which
+  // seat 3 is still holding. Two tiles then render with the same id and StartRoom's host lookup
+  // matches only the first of them.
+  function _SWUNextPlayerID($lobby): int {
+    $max = 0;
+    foreach (($lobby->players ?? []) as $p) {
+      if ($p instanceof Player) $max = max($max, intval($p->getPlayerID()));
+    }
+    return $max + 1;
   }
 
   function ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck, $format = 'standard', $joiningUserId = null) {

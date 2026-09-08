@@ -195,37 +195,55 @@ function SWUMigrateHostIfNeeded(object $lobby): void {
     $lobby->hostPlayerID = $ids[0];
 }
 
-// How long a seat may go without polling before it is reaped. The waiting room polls every 1.5s, so
-// this is ~6 missed polls.
-// ⚠ Deliberately generous relative to that interval, because browsers THROTTLE timers in hidden tabs
-// — a player who tabs away to copy a deck link is still present, and reaping them would be worse than
-// the empty seat this exists to clear. Raise it if that ever bites.
-if (!defined('SWU_LOBBY_PRESENCE_TIMEOUT')) define('SWU_LOBBY_PRESENCE_TIMEOUT', 10);
+// How long a seat may go without polling before the ROSTER SHOWS IT AS AWAY.
+//
+// ⚠ This number is sized against the BROWSER, not against the poll interval. Chrome throttles a
+// hidden tab's timers to roughly once a minute after five minutes, and a locked phone stops them
+// altogether; the old 10s reap budget (six missed 1.5s polls) was therefore guaranteed to fire on
+// anybody who tabbed away to copy a deck link. At 90s a throttled tab still beats comfortably, so
+// "away" means "actually gone" — which is the only reading a host can act on.
+//
+// Away is a DISPLAY state. Nothing here removes a seat: removal from a private room is always a
+// human act (explicit Leave, or the host's Remove control).
+if (!defined('SWU_LOBBY_AWAY_AFTER')) define('SWU_LOBBY_AWAY_AFTER', 90);
 
-// Remove seats that have stopped polling, i.e. whoever closed their browser or lost the network.
-// Returns the number of seats removed.
-//
-// A seat with lastSeen === 0 has never polled. That is a seat which JUST joined (JoinQueue touches it,
-// but an older cached lobby may predate that), so it is treated as present rather than reaped — the
-// cost of being wrong there is an empty seat for 10s, versus evicting someone the moment they sit down.
-//
-// The caller is responsible for migrating the host and storing the lobby afterwards; this function is
-// pure so it stays unit-testable alongside the rest of the room rules.
-function SWUReapAbsentSeats($lobby, ?int $now = null, ?int $timeout = null): int {
+// How long the HOST may be away before the room is handed to somebody who is still in it. Longer
+// than the away threshold on purpose: a coffee break should not cost you your own room, but a closed
+// laptop must not leave a room nobody can kick from and nobody can start.
+if (!defined('SWU_LOBBY_HOST_AWAY_AFTER')) define('SWU_LOBBY_HOST_AWAY_AFTER', 300);
+
+// Has this seat stopped polling? A seat with lastSeen === 0 has never polled — it JUST joined, so it
+// counts as present (same reasoning the reaper used).
+function SWUSeatIsAway($player, ?int $now = null, ?int $timeout = null): bool {
+    if (!($player instanceof Player)) return false;
     $now     = $now     ?? time();
-    $timeout = $timeout ?? SWU_LOBBY_PRESENCE_TIMEOUT;
-    $kept = [];
-    $removed = 0;
-    foreach (($lobby->players ?? []) as $p) {
-        if (!($p instanceof Player)) { $kept[] = $p; continue; }
-        $seen = $p->getLastSeen();
-        if ($seen > 0 && ($now - $seen) > $timeout) { $removed++; continue; }
-        $kept[] = $p;
-    }
-    if ($removed > 0) {
-        $lobby->players    = array_values($kept);
-        $lobby->numPlayers = count($lobby->players);
-    }
-    return $removed;
+    $timeout = $timeout ?? SWU_LOBBY_AWAY_AFTER;
+    $seen    = $player->getLastSeen();
+    if ($seen <= 0) return false;
+    return ($now - $seen) > $timeout;
 }
 
+// Hand the room to the lowest-numbered PRESENT seat when the host has been away past
+// SWU_LOBBY_HOST_AWAY_AFTER. Returns whether it moved.
+//
+// Distinct from SWUMigrateHostIfNeeded(), which handles a host who is no longer in the array at all
+// (they left, or were kicked). This one handles a host who still holds a seat but is not there.
+// Migration does NOT reverse when the original host comes back: the new host may already have acted.
+function SWUMigrateHostIfAway(object $lobby, ?int $now = null): bool {
+    $now    = $now ?? time();
+    $hostID = intval($lobby->hostPlayerID ?? 0);
+    $host   = null;
+    $present = [];
+    foreach (($lobby->players ?? []) as $p) {
+        if (!($p instanceof Player)) continue;
+        $id = intval($p->getPlayerID());
+        if ($id === $hostID) { $host = $p; continue; }
+        if (!SWUSeatIsAway($p, $now)) $present[] = $id;   // the 90s reading, not the 300s one
+    }
+    if ($host === null) return false;                                        // not seated: not our case
+    if (!SWUSeatIsAway($host, $now, SWU_LOBBY_HOST_AWAY_AFTER)) return false;
+    if (empty($present)) return false;                                       // nobody to hand it to
+    sort($present);
+    $lobby->hostPlayerID = $present[0];
+    return true;
+}

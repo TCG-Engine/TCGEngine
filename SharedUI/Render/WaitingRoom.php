@@ -86,6 +86,11 @@ function _WaitingRoomStyles(): string {
 .wr-pill-ready    { color: #6fcf97; }
 .wr-pill-notready { color: #d9a441; }
 .wr-pill-baddeck  { color: #ff6b6b; }
+/* Presence, not status: a seat nobody is watching. Grey rather than red because being away is not a
+   fault — it is information the host reads before deciding whether to Remove. */
+.wr-pill-away     { color: #8b97a5; }
+.wr-seat-away     { opacity: .62; }
+.wr-kick { margin-left: 6px; font-size: 11px; padding: 1px 6px; line-height: 1.6; }
 .wr-seat-foot { display: flex; align-items: center; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
 /* An EXPLICIT shared height, not align-items:stretch. The input and the button have different
    intrinsic heights (the input carries a 1px border; the button carries none and draws its edge with
@@ -184,6 +189,10 @@ function _WaitingRoomMarkup(array $cfg): string {
       <div id="wr-roster" style="margin-bottom:16px;"></div>
       <div class="wr-actions">
         <div class="wr-actions-main">
+      <div id="wr-removed" style="display:none;margin:8px 0;padding:8px 10px;border-radius:6px;
+           background:rgba(255,107,107,.12);color:#ff6b6b;font-size:13px;">
+        You are no longer in this room. Load a deck below to rejoin.
+      </div>
       <div id="wr-deck" style="display:none;">
         {$libBlock}
         <div class="wr-deckbar">
@@ -224,11 +233,20 @@ function _WaitingRoomScript(array $cfg): string {
   // a POST body, so a cookie buys nothing and costs CSRF surface). localStorage survives tab close,
   // which "only Leave releases the seat" requires.
   var KEY_PREFIX = 'tcg:lobbyAuth:';
-  var LOBBY_TTL_MS = 900000;          // matches the apcu TTL the lobby is stored with
+  // A BACKSTOP, not a lifetime. This used to be 900000 "to match the apcu TTL", and loadKey deleted
+  // the key the moment it was exceeded — but the server RENEWS the lobby's TTL on every poll while
+  // the client's ts was written once, at join. Fifteen minutes after joining, the page therefore
+  // started polling with no authKey, the server could no longer stamp the seat, and the ten-second
+  // reaper deleted a player who was sitting right there watching it happen. `ts` now slides on every
+  // recognised poll; this number only stops dead keys accumulating in localStorage forever.
+  var LOBBY_KEY_BACKSTOP_MS = 86400000;   // 24h
   var POLL_MS = 1500;
 
   var ROOT = window.WR_ROOT_NAME;
   var lobbyID = '', inviteCode = '', myPlayerID = 0, pollTimer = null, navigating = false;
+  // Whether WE hold the host seat. Only the host is offered the Remove control, and removal is the
+  // only way a seat leaves a private room now.
+  var iAmHost = false;
   // Signature of what the roster last DREW. The poll fires every 1.5s and rendering rebuilds
   // #wr-roster with innerHTML, which destroys and recreates every <img> — so an idle lobby flickered
   // its card art once a second as the fresh elements repainted. Re-render only when something the
@@ -244,7 +262,7 @@ function _WaitingRoomScript(array $cfg): string {
     try {
       var v = JSON.parse(localStorage.getItem(KEY_PREFIX + l) || 'null');
       if (!v || !v.authKey) return '';
-      if (Date.now() - (v.ts || 0) > LOBBY_TTL_MS) { clearKey(l); return ''; }
+      if (Date.now() - (v.ts || 0) > LOBBY_KEY_BACKSTOP_MS) { clearKey(l); return ''; }
       return v.authKey;
     } catch (e) { return ''; }
   }
@@ -296,16 +314,20 @@ function _WaitingRoomScript(array $cfg): string {
     // was two signals for one fact. It IS kept in the unassigned holding line below, where there is
     // no tile and therefore no ring to read it from.
     var who = 'P' + entry.playerID + (entry.isHost ? ' (host)' : '');
-    // deckOk and ready are DIFFERENT facts: a legal deck you are still swapping is not a deck you are
-    // ready to play. Showing one pill for both would hide exactly the state this room exists to carry.
+    // deckOk, ready and away are THREE different facts. A legal deck you are still swapping is not a
+    // deck you are ready to play, and a ready deck whose owner has closed their browser is not a
+    // player. Away NEVER blocks Start — it is what the host reads before deciding to Remove.
     var pill = !entry.deckOk ? '<span class="wr-pill wr-pill-baddeck">NO DECK</span>'
              : entry.ready   ? '<span class="wr-pill wr-pill-ready">READY</span>'
                              : '<span class="wr-pill wr-pill-notready">NOT READY</span>';
+    var away = entry.away ? '<span class="wr-pill wr-pill-away">AWAY</span>' : '';
     var deck = entry.deckOk ? '<span style="color:#6fcf97;font-size:12px;">deck ✓</span>'
                             : '<span style="color:#ff6b6b;font-size:12px;">deck missing/invalid</span>';
+    var kick = (iAmHost && entry.playerID !== myPlayerID)
+      ? '<button type="button" class="btn wr-kick" data-kick="' + entry.playerID + '">Remove</button>' : '';
     return '<div class="wr-seat-label">Seat ' + seatNo + '</div>' +
-           '<div class="wr-seat-who">' + esc(who) + '</div>' + strip(entry) +
-           '<div class="wr-seat-foot">' + pill + deck + '</div>';
+           '<div class="wr-seat-who">' + esc(who) + kick + '</div>' + strip(entry) +
+           '<div class="wr-seat-foot">' + pill + away + deck + '</div>';
   }
   function emptySeat(sn, inner) {
     return '<div class="wr-seat-label">Seat ' + sn + '</div><div style="font-size:13px;">' + inner + '</div>';
@@ -341,6 +363,7 @@ function _WaitingRoomScript(array $cfg): string {
           var e = bySeat[sn];
           if (e) {
             return '<div class="wr-seat' + (e.playerID === myPlayerID ? ' wr-seat-mine' : '') +
+                   (e.away ? ' wr-seat-away' : '') +
                    '" data-seat="' + sn + '" style="border-color:' + accent +
                    '55;background:' + accent + '18;">' + seatBody(e, sn) + '</div>';
           }
@@ -378,6 +401,7 @@ function _WaitingRoomScript(array $cfg): string {
       Array.prototype.forEach.call(host.querySelectorAll('.wr-join-team'), function (btn) {
         btn.onclick = function () { doSetTeam(btn.getAttribute('data-team')); };
       });
+      bindKicks(host);
       return;
     }
 
@@ -385,14 +409,21 @@ function _WaitingRoomScript(array $cfg): string {
     // the team headers and the picker. Geometry is .wr-grid in the stylesheet — an explicit 2-track
     // grid, so a wide panel cannot turn a 4-seat room into 1x4.
     // Match on playerID — .seat is null outside team games.
+    // Positional, not indexed by playerID. Seat ids are unique but NOT dense — a room that lost seat
+    // 2 and gained a joiner holds ids 1, 3, 4 — so indexing by id silently drops anyone whose id
+    // exceeds maxPlayers, and used to collapse two players onto one tile when ids collided.
+    var entries = roster.slice().sort(function (a, b) { return a.playerID - b.playerID; });
     var rows = [];
-    for (var i = 1; i <= (model.maxPlayers || 2); i++) {
-      var e = byId[i];
-      rows.push('<div class="wr-seat' + (e ? (e.playerID === myPlayerID ? ' wr-seat-mine' : '') : ' wr-seat-empty') +
-                '" data-seat="' + i + '">' +
-                (e ? seatBody(e, i) : emptySeat(i, 'Waiting…')) + '</div>');
+    for (var i = 0; i < (model.maxPlayers || 2); i++) {
+      var e = entries[i];
+      rows.push('<div class="wr-seat' +
+                (e ? ((e.playerID === myPlayerID ? ' wr-seat-mine' : '') + (e.away ? ' wr-seat-away' : ''))
+                   : ' wr-seat-empty') +
+                '" data-seat="' + (i + 1) + '">' +
+                (e ? seatBody(e, i + 1) : emptySeat(i + 1, 'Waiting…')) + '</div>');
     }
     host.innerHTML = '<div class="wr-grid">' + rows.join('') + '</div>';
+    bindKicks(host);
   }
 
   function renderInvite(d) {
@@ -482,6 +513,7 @@ function _WaitingRoomScript(array $cfg): string {
 
   function render(d) {
     var seated = !!(myPlayerID && (d.roster || []).some(function (r) { return r.playerID === myPlayerID; }));
+    iAmHost = (d.roster || []).some(function (r) { return r.isHost && r.playerID === myPlayerID; });
     setState(seated ? 'seated' : 'notseated');
     el('wr-title').textContent = (d.seatModel && d.seatModel.teams) ? 'Team Room'
                                : (((d.seatModel && d.seatModel.maxPlayers) || 2) > 2 ? 'Room' : 'Private Lobby');
@@ -553,6 +585,7 @@ function _WaitingRoomScript(array $cfg): string {
         myPlayerID = r.playerID || 0;
         if (r.authKey) saveKey(lobbyID, r.authKey);
         rewriteUrl();
+        if (pollTimer) { clearTimeout(pollTimer); pollTimer = null; }   // or every rejoin doubles the poll rate
         poll();
       });
   }
@@ -605,6 +638,23 @@ function _WaitingRoomScript(array $cfg): string {
       });
   }
 
+  // Remove a seat. Host-only and always deliberate: nothing removes a player automatically any more,
+  // because the automatic version removed people who were still sitting in the room.
+  function bindKicks(host) {
+    Array.prototype.forEach.call(host.querySelectorAll('.wr-kick'), function (b) {
+      b.onclick = function () {
+        b.disabled = true;
+        post('APIs/Lobbies/KickSeat.php',
+          'lobbyID=' + encodeURIComponent(lobbyID) + '&authKey=' + encodeURIComponent(loadKey(lobbyID)) +
+          '&targetPlayerID=' + encodeURIComponent(b.getAttribute('data-kick')),
+          function (r) {
+            if (!r.success) { el('wr-hint').textContent = r.message || 'Could not remove that player.'; b.disabled = false; }
+            lastSig = '';   // the roster just changed; force a redraw
+          });
+      };
+    });
+  }
+
   function doChangeDeck() {
     var deck = chosenDeck();
     if (!deck) return;
@@ -638,6 +688,13 @@ function _WaitingRoomScript(array $cfg): string {
       if (r.gone) { renderGone(r.message); return; }
 
       if (r.lobbyID && r.lobbyID !== lobbyID) { lobbyID = r.lobbyID; rewriteUrl(); }
+      // ADOPT the room's invite code from the payload. It is only ever read from ?invite= at boot,
+      // but rewriteUrl() replaces that with ?lobby=<id> the moment you join — so every seat's page
+      // ends up with an EMPTY inviteCode, and doJoin then posts an empty privateInviteCode, which
+      // sends the request down JoinQueue's PUBLIC matchmaking path instead of back into this room.
+      // Anyone who lost their seat and pressed "Join with this deck" was silently dumped into the
+      // quick-match queue. The code is public information the page already renders in the invite box.
+      if (r.inviteCode) inviteCode = r.inviteCode;
 
       if (r.started && r.gameName) {
         // No match-found countdown: that popup celebrates an UNEXPECTED queue pairing. Here the host
@@ -664,9 +721,18 @@ function _WaitingRoomScript(array $cfg): string {
         // seat), so a captured playerID goes stale and the game rejects the browser as
         // "not authenticated as player N" — which is exactly what broke every non-host seat once.
         if (r.playerID) myPlayerID = r.playerID;
+        // The server recognised this seat, so the key is live — restamp it. Without this the key
+        // ages out on a fixed clock from the moment of joining, which is the whole bug: the page
+        // then polls with no authKey and the server cannot tell it is still there.
+        var live = loadKey(lobbyID);
+        if (live) saveKey(lobbyID, live);
+        // Being told you no longer hold a seat is information the page owes you. Silently swapping
+        // the button back to "Join with this deck" is how the original reports read: people could
+        // see they had dropped out but not why, so they rejoined and the cycle continued.
+        el('wr-removed').style.display = r.removed ? '' : 'none';
         // Only the fields the roster renders go into the signature; myPlayerID is in it because
         // the own-seat ring and the Join/Start controls depend on which seat we are.
-        var sig = JSON.stringify([r.roster, r.seatModel, r.blockers, r.numPlayers, r.inviteCode, myPlayerID]);
+        var sig = JSON.stringify([r.roster, r.seatModel, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed]);
         if (sig !== lastSig) { lastSig = sig; render(r); }
       }
       pollTimer = setTimeout(poll, POLL_MS);
@@ -681,6 +747,13 @@ function _WaitingRoomScript(array $cfg): string {
     var btn = el('wr-deck-btn');
     if (btn) btn.onclick = function () { if (el('wr-root').getAttribute('data-state') === 'seated') doChangeDeck(); else doJoin(); };
     if (lobbyID) rewriteUrl();
+    // A hidden tab's timers are throttled to about once a minute (and a locked phone's stop dead),
+    // so the first thing to do on returning is re-register rather than wait out the throttled timer.
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden || navigating) return;
+      if (pollTimer) { clearTimeout(pollTimer); pollTimer = null; }
+      poll();
+    });
     poll();
   }
 
