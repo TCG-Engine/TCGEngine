@@ -1,6 +1,7 @@
 <?php
 
 include_once __DIR__ . '/../../AppCore/SWU/Formats.php'; // SWUGetFormat
+include_once __DIR__ . '/../../AppCore/SWU/Overrides.php'; // CardIDOverride — reprint → earliest printing
 
 // Pure: how many leaders a format allows (1 for every format except Twin Suns). Extracted from
 // ValidateLeaderAddition so the capacity rule is testable without a live gamestate.
@@ -9,21 +10,51 @@ function SWUDeckMaxLeaders($formatId) {
     return $fmt['leaderCount'] ?? 1;
 }
 
+// Pure: how many copies of $cardID the format allows — its maxCopies, overridden by any
+// copyException (e.g. Swarming Vulture Droid's "a deck can have up to 15 copies of this card").
+// Same rule SWUCheckFormat applies at save time (AppCore/SWU/DeckValidation.php), keyed the same
+// way: by CANONICAL printing, so every reprint shares one limit.
+//
+// This used to be a hardcoded `3` plus `if($cardID == "2177194044") $cardMax = 15;` — the Vulture
+// Droid's pre-migration FFG UUID. The 2026-08-06 SET_NNN migration re-keyed every card ("JTL_256"),
+// so that comparison could never be true again and the builder capped the card at 3 while the
+// validator happily accepted 15. Deriving the limit from the format config means it cannot drift
+// again: a new copy-exception or a highlander format is picked up here for free.
+function SWUDeckMaxCopies($cardID, $formatId) {
+    $fmt = SWUGetFormat($formatId);
+    if ($fmt === null) return 3;   // unknown format: the standard limit
+    return $fmt['copyExceptions'][SWUDeckCanonicalCardID($cardID)] ?? $fmt['maxCopies'];
+}
+
+// The identity two copies are "the same card" under: the earliest printing (CR 8.36), expressed as
+// a SET_NNN id. Deck files written before the 2026-08-06 migration still hold FFG UUIDs — and a
+// single deck can hold both, since cards added after the migration are stored as SET_NNN — so the
+// stored id must be normalized before the reprint map can canonicalize it. Compare raw ids and the
+// same card counts twice under two spellings, which lets a 4th copy past the gate.
+function SWUDeckCanonicalCardID($cardID) {
+    $id = function_exists('SWUNormalizeDictionaryKey') ? SWUNormalizeDictionaryKey($cardID) : $cardID;
+    return CardIDOverride($id);
+}
+
 function ValidateMainDeckAddition($cardID) {
-    $deck = &GetMainDeck(1);
+    global $gameName;
+    $format = LoadAssetData(1, $gameName)['format'] ?? 'premier';
+    $cardMax = SWUDeckMaxCopies($cardID, $format);
+
+    // Count by canonical printing across BOTH zones: the copy limit spans the sideboard (cards swap
+    // 1-for-1 between games) and reprints share a limit — matching SWUCheckFormat exactly, so the
+    // builder never accepts a deck the save-time validator will reject.
+    $canonical = SWUDeckCanonicalCardID($cardID);
     $numCard = 0;
-    $cardMax = 3;
-    if($cardID == "2177194044") {
-        $cardMax = 15;
-    }
+    $deck = &GetMainDeck(1);
     foreach($deck as $card) {
-        if($card->CardID == $cardID && !$card->Removed()) {
+        if(SWUDeckCanonicalCardID($card->CardID) == $canonical && !$card->Removed()) {
             $numCard++;
         }
     }
     $sideboard = &GetSideboard(1);
     foreach($sideboard as $card) {
-        if($card->CardID == $cardID && !$card->Removed()) {
+        if(SWUDeckCanonicalCardID($card->CardID) == $canonical && !$card->Removed()) {
             $numCard++;
         }
     }
