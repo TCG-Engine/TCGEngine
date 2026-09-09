@@ -44,15 +44,35 @@ function SWUSetupGame($lobby, $opts = []) {
     $mode = '';
     if (isset($lobby->format)) {
         $f = strtolower((string)$lobby->format);
-        if ($f === 'goldfish' || $f === 'hotseat') $mode = $f;
+        if ($f === 'goldfish' || $f === 'hotseat' || $f === 'botpractice') $mode = $f;
     }
-    if ($mode === 'goldfish') AddGlobalEffects(1, 'SWU_MODE_GOLDFISH');
-    if ($mode === 'hotseat')  AddGlobalEffects(1, 'SWU_MODE_HOTSEAT');
+    if ($mode === 'goldfish')    AddGlobalEffects(1, 'SWU_MODE_GOLDFISH');
+    if ($mode === 'hotseat')     AddGlobalEffects(1, 'SWU_MODE_HOTSEAT');
+    if ($mode === 'botpractice') AddGlobalEffects(1, 'SWU_MODE_BOTPRACTICE');
+
+    // Which seats the bot drives. Seat 2 by default; the lobby may override.
+    if ($mode === 'botpractice') {
+        $botSeats = [];
+        if (isset($lobby->botPlayers) && is_array($lobby->botPlayers)) {
+            foreach ($lobby->botPlayers as $seat) {
+                $seat = intval($seat);
+                if ($seat > 0) $botSeats[] = $seat;
+            }
+        }
+        SetSWUBotPlayers(empty($botSeats) ? [2] : $botSeats);
+    }
     // Team Suns (2v2). A separate never-cleared flag rather than a value of $mode, because it is
     // orthogonal: SWUGameMode() answers "goldfish/hotseat/normal" and must keep returning '' here.
     if (isset($lobby->format) && strtolower((string)$lobby->format) === 'teamsuns') {
         AddGlobalEffects(1, 'SWU_MODE_TEAMS');
     }
+
+    // Optional fixed per-game RNG seed. Normally LoadPlayerDeck() mints one from random_bytes() the
+    // first time it runs, which makes every game's shuffle unpredictable (the point) but also makes a
+    // headless self-play run unreproducible — a bot stall found on one run could not be re-entered to
+    // diagnose it. Setting it here, before the first LoadPlayerDeck() call, wins that function's
+    // `if (GetSWUVar('RNG_SEED','') === '')` guard. Opt-in only: absent this option nothing changes.
+    if (!empty($opts['rngSeed'])) SetSWUVar('RNG_SEED', strval($opts['rngSeed']));
 
     $resolvedDecks = isset($opts['resolvedDecks']) && is_array($opts['resolvedDecks']) ? $opts['resolvedDecks'] : [];
 
@@ -103,6 +123,12 @@ function SWUSetupGame($lobby, $opts = []) {
     if (in_array($forced, $seatArr, true)) {
         $firstPlayer = $forced;
     } else {
+        // random_int() and NOT EngineRandomInt() — deliberately, and this is the ONLY live unseeded
+        // random call left in SWUSim. The rest of the engine must use Core/DeterministicRNG.php so undo
+        // and replay reproduce a random outcome, but this pick happens ONCE at game creation, before any
+        // undo stack exists, and its result is written straight into gamestate ($firstPlayer) — which undo
+        // then restores like any other zone. So there is nothing here for a deterministic stream to protect,
+        // and true entropy is what you want for the coin flip that decides who opens.
         $firstPlayer = $seatArr[random_int(0, count($seatArr) - 1)];
     }
 

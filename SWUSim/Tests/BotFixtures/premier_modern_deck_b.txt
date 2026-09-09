@@ -1,0 +1,86 @@
+# Bot Practice self-play fixture B2 — "SEC Plot / capture / Disclose + LAW-ASH exhaust actions"
+#
+# The counterpart to premier_modern_deck_a.txt (see its header for the construction rules). A
+# different aspect pair and a different shape so the two seats do not mirror each other, and a
+# different set of unreachable-from-SOR mechanics.
+#
+# Leader SEC_001 Chancellor Palpatine — "Action [1 resource, Exhaust]: Search the top 5 cards of your
+#   deck for a card with Plot…". A leader Action with a COMPOSITE cost (resource + exhaust) that
+#   resolves into a TOPDECKSEARCH every round, so the search encoder is driven repeatedly rather
+#   than once. Epic-Action deploy at 7 resources = the Plot window (below).
+# Base LAW_020 Daimyo's Palace — "Epic Action: Play a card from your hand, ignoring 1 of its
+#   Vigilance/Command/Aggression/Cunning aspect penalties." A base action that raises an aspect
+#   OPTIONCHOOSE and then a play-from-hand; SOR's Epic bases (SOR_022/SOR_025) do neither.
+#
+# Plot (SEC — the mechanic is "when you deploy a leader, you may play this card FROM YOUR RESOURCES,
+# paying its cost"; i.e. a play whose source zone is the resource row, which no SOR card does and
+# which the free-play enumerator deliberately does not offer):
+#   SEC_070 (2), SEC_226 (2), SEC_176 (3), SEC_123 (4) — the four Plot upgrades named in the Phase 2
+#     brief; a spread of costs so at least one is affordable at the moment the leader deploys.
+#   SEC_245 When Has Become Now (1, event) — "Play a card with Plot from your resources." This is
+#     the ONLY way to reach the play-from-resources path WITHOUT waiting for the 7-resource leader
+#     deploy, so it is the reliable early raiser.
+#   SEC_186 Garindan / SEC_046 Galen Erso — Plot units that ALSO name a card (see NAMECARD below).
+#
+# Capture / rescue (CR 8.34 — predicted Phase 2 gap; no SOR fixture card captures):
+#   SEC_253 Covert Operative — When Played, captures an enemy unit costing 2 or less.
+#   SEC_195 Arrest — your BASE captures, and the owner RESCUES at the start of the regroup phase,
+#     so the rescue half fires in a different phase from the capture half.
+#   SEC_056 Escape Pod — captures a FRIENDLY unit (the opposite polarity).
+#   SEC_212 Libertine — capture chosen by two picks (an enemy and a friendly).
+#
+# Disclose (SEC): SEC_062, SEC_074, SEC_127 — "reveal cards from your hand with these aspect icons
+#   among them", which is MZMULTICHOOSE carrying the ~REQ~ tooltip side-channel. SEC_127 chains
+#   disclose into a capture.
+#
+# NAMECARD (no bridge case exists for this type at all — 12 emitters repo-wide):
+#   SEC_260 Inspector's Shuttle (2, space), ASH_077 Ryder Azadi (3, ground), plus the two Plot units
+#   above. Four different producers so the type is raised from four different trigger windows.
+#
+# Exhaust-cost and additional-cost unit Actions (LAW/ASH):
+#   LAW_235 Lady Proxima — Action [Exhaust]: create a Credit token, i.e. it feeds the CREDIT
+#     payment tier that CanAffordActivationReserve reads but no SOR fixture ever populates.
+#   ASH_142 Mortar Trooper — Action [Exhaust]: "up to 3 ground units" => MZMULTICHOOSE from a
+#     unit action rather than from a play.
+#   ASH_217 Mayor's Majordomo — Action [Exhaust, DISCARD A CARD FROM YOUR HAND]: an ADDITIONAL cost
+#     on a unit action (the "additional costs are paid before payment can fail" family).
+#   ASH_118 8D8 — Hidden, plus Action [Exhaust] into a deck search.
+#   ASH_123 Lang — Action [Exhaust] that deals damage equal to power.
+#   IBH_016 Ion Cannon — a GROUND unit whose Action [Exhaust] deals damage to a SPACE unit, so the
+#     unit-action target pool crosses arenas.
+#   ASH_246 Exploit Advantage — "Defeat a friendly upgrade" as a play cost.
+#
+# Both arenas (SEC/ASH ground core, SEC/JTL space), events, upgrades, 1-4 cost curve.
+
+Leader
+1 SEC_001
+
+Base
+1 LAW_020
+
+Deck
+3 SEC_070
+2 SEC_226
+2 SEC_176
+2 SEC_123
+2 SEC_245
+2 SEC_186
+2 SEC_046
+2 SEC_253
+2 SEC_195
+2 SEC_056
+2 SEC_212
+2 SEC_062
+2 SEC_074
+2 SEC_127
+2 SEC_260
+2 ASH_077
+2 LAW_235
+2 ASH_142
+2 ASH_217
+2 ASH_118
+2 ASH_123
+2 ASH_246
+1 JTL_033
+2 IBH_016
+2 JTL_032

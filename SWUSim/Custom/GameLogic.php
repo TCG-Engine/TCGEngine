@@ -16,6 +16,15 @@ include_once __DIR__ . '/BaseAbilities.php';
 include_once __DIR__ . '/cards/_loader.php'; // per-card ability files (cards/<set>/*.php); coexists with the monoliths during rollout
 include_once __DIR__ . '/SmuggleCost.php';
 
+// Bot Practice (format 'botpractice'). Mirrors GrandArchiveSim/Custom/GameLogic.php, which loads
+// its three bot files here for the same reason: Core/EngineActionRunner.php's mode-10017 transport
+// and Core/BotController.php's client-state builder both dispatch through function_exists() on
+// ProcessBotControllerStep() / GameBotControllerMode(), and nothing else in SWUSim's include graph
+// pulls these in. Without this line every bot poll silently answers "Bot step is not available."
+include_once __DIR__ . '/../BotLegalActions.php';
+include_once __DIR__ . '/../BotHeuristic.php';
+include_once __DIR__ . '/../BotController.php';
+
 // ═══════════════════════════════════════════════════════════════════════════
 // SWU Core Game Logic — zone hooks, macro ChoiceFunctions, pregame DQ handlers
 // ═══════════════════════════════════════════════════════════════════════════
@@ -201,7 +210,7 @@ function _SWUHmw108TraitSuppressed(int $cardOwner, string $trait): bool {
 // own trait line, so leaderUnitTraitData is folded in too.
 function SWUAllTraits(): array {
     static $cache = null;
-    if ($cache !== null) return $cache;
+    if ($cache) return $cache;
     global $traitData, $leaderUnitTraitData;
     $seen = [];
     foreach ([$traitData ?? [], $leaderUnitTraitData ?? []] as $src) {
@@ -1191,6 +1200,7 @@ $turnEffectRegistry = [
     'SHD_031' => ['kind' => 'GRANT_KEYWORD',  'value' => 'BOUNTY',   'label' => 'Bounty'],                                    // The Client — chosen unit gains "Bounty — Heal 5 damage from a base" this phase (reward in SWUCollectBounty)
     'SHD_097' => ['kind' => 'STAT_BUFF'],                                                                                     // Freetown Backup — On Attack: another friendly unit gets +2/+2 this phase
     'IC27_079' => ['kind' => 'STAT_BUFF'],                                                                                    // Qui-Gon Jinn — When Played: another friendly unit gets +2/+2 this phase
+    'HMW_052' => ['kind' => 'STAT_BUFF'],                                                                                     // A'Koba, Restless Raider — When Played: a unit (either side, self included) gets +2/+2 this phase
     'SHD_129' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Timely Intervention — the played unit gains Ambush this phase
     'SHD_215' => ['kind' => 'STAT_DEBUFF'],                                                                                   // Smuggler's Starfighter — enemy unit gets -3/-0 this phase
     'SEC_018' => ['kind' => 'MARKER',          'label' => 'DJ'],                                                               // DJ — transient findable marker on the unit just played by the leader action (captured immediately)
@@ -1729,6 +1739,48 @@ function SWUQueueChooseTarget(int $player, array $targets, string $tooltip, stri
 // production's answer entry point (EngineActionRunner mode=100, gated by function_exists so other
 // sims are untouched) and by the test harness's answerDecision (which throws on an invalid answer
 // so a mis-encoded test fails loudly instead of silently acting out of pool).
+// Comparison key for a NAMECARD answer / card title: trimmed and case-folded.
+//
+// ⚠ mbstring is GUARDED, not assumed. This repo has already been bitten by exactly this shape once —
+// prod LAMPP's PHP is compiled without an extension the dev/Docker PHP has (see the GD/WebP rule in
+// CLAUDE.md), so the code passes locally and fatals in production. Every other mb_* call in Core/,
+// AppCore/ and SWUSim/ is wrapped this way (Core/AssetPlaybookService.php, AssetVersioningEndpoint.php,
+// AssetVersioningService.php, AssetVersioningCapability.php); this one must be too, because an
+// undefined-function fatal on every "Name a card" answer would be strictly worse than the stall the
+// NAMECARD arm was added to fix.
+//
+// mb_ is worth having when it is there: of the ~1,963 distinct titles exactly one, `Chirrut Îmwe`,
+// case-folds differently under strtolower() (which leaves the Î alone). The degraded path therefore
+// costs at most a case-variant of that single title — it still accepts the printed form.
+function _SWUNameCardKey(string $value): string {
+    $value = trim($value);
+    return function_exists('mb_strtolower') ? mb_strtolower($value) : strtolower($value);
+}
+
+// The membership/multiplicity check shared by the SCRY and REVEALARRANGE validator arms. Both types
+// carry a comma-joined pool of CardIDs in their Param and take an answer that partitions that pool
+// into two comma-lists split on a single '|' — "top|bottom" for SCRY, "kept|discarded" for
+// REVEALARRANGE. The two halves mean different things but the LEGALITY question is the same one, and
+// the answer to it is the same in both: every named CardID must have been offered, and no CardID may
+// be named more times than it was offered (a duplicate may legitimately be peeked/revealed twice).
+//
+// ORDER and the SPLIT are the player's free choice, so neither is checked; naming FEWER cards than
+// were offered is legal too, because both finalizers put the unaccounted-for remainder back on top.
+// The explode limit of 2 is deliberate: a third '|' section is malformed, and leaving it inside the
+// second half makes it fail the membership check rather than be silently ignored.
+function _SWUValidateTwoListPartition(string $param, string $answer): bool {
+    $offered = array_values(array_filter(explode(',', $param)));
+    $halves  = explode('|', $answer, 2);
+    $named   = array_values(array_filter(array_merge(
+        explode(',', $halves[0] ?? ''), explode(',', $halves[1] ?? '')
+    ), fn($x) => $x !== ''));
+    $pool = array_count_values($offered);
+    foreach (array_count_values($named) as $cid => $cnt) {
+        if (($pool[$cid] ?? 0) < $cnt) return false;   // never offered, or named too many times
+    }
+    return true;
+}
+
 function SWUValidateDecisionAnswer(int $player, string $answer): bool {
     $head = null;
     foreach (GetDecisionQueue($player) as $d) {
@@ -1771,21 +1823,116 @@ function SWUValidateDecisionAnswer(int $player, string $answer): bool {
     // what the MZMULTICHOOSE gate was added to close on an earlier pass; SCRY was the remaining hole.
     // Only MEMBERSHIP and MULTIPLICITY are checked (a duplicate CardID may legitimately be peeked twice);
     // ORDER is the player's choice and the split between halves is free.
-    if ($type === 'SCRY') {
-        $peeked = array_values(array_filter(explode(',', (string)($head->Param ?? ''))));
-        $halves = explode('|', $answer, 2);
-        $named  = array_values(array_filter(array_merge(
-            explode(',', $halves[0] ?? ''), explode(',', $halves[1] ?? '')
-        ), fn($x) => $x !== ''));
-        $pool = array_count_values($peeked);
-        foreach (array_count_values($named) as $cid => $cnt) {
-            if (($pool[$cid] ?? 0) < $cnt) return false;   // named a card that was never peeked (or too many)
+    // REVEALARRANGE — SOR_152 For a Cause I Believe In, the only emitter repo-wide. IDENTICAL GRAMMAR
+    // to SCRY (Param = the comma-joined revealed CardIDs, answer = two comma-lists split on '|') but
+    // the halves MEAN something else: "kept|DISCARDED", where kept go back on top first-listed-on-top
+    // and discarded go to the discard pile. REVEALARRANGE_FINALIZE has the same forgiving tail as
+    // SCRY_FINALIZE — an unaccounted revealed card goes back on top rather than vanishing — so an
+    // answer naming a card that was never revealed is a SILENT NO-OP that looks green, which is the
+    // same false-green shape the MZMULTICHOOSE / SCRY / NAMECARD arms were each added to close.
+    // Because the grammar is shared, so is the check — see _SWUValidateTwoListPartition.
+    if ($type === 'SCRY' || $type === 'REVEALARRANGE') {
+        return _SWUValidateTwoListPartition((string)($head->Param ?? ''), $answer);
+    }
+    // NAMETRAIT — "Name a Trait." One emitter repo-wide: HMW_108 The First Legion, in the HMW preview
+    // set. The Param is the EMPTY STRING, so like NAMECARD there is no offered pool and the check has
+    // to be built from the card data: SWUAllTraits() is the universe, derived from the generated trait
+    // dictionaries, and it is the same source the client's picker (Core/NameTraitUI.js) renders from.
+    //
+    // ⚠ HMW_108 ALREADY VALIDATES ITS OWN ANSWER (its handler walks SWUAllTraits() with strcasecmp and
+    // returns on no match), so unlike the other arms this one is not what stands between a garbage
+    // answer and a wrong board state today. It is here for the two reasons that survive that: a second
+    // NAMETRAIT emitter would inherit the check rather than have to re-implement it, and the bot
+    // bridge's NAMETRAIT arm needs a server-side contract to be tested against — an encoder whose
+    // answers are only ever checked by the one card that consumes them is untestable in isolation.
+    //
+    // Case-INSENSITIVE, matching the consumer's strcasecmp exactly, and trimmed because it trims.
+    // Traits are ASCII in every printed set, so plain strtoupper() is the fold — deliberately NOT the
+    // mbstring variant: prod LAMPP's PHP is built without extensions the dev container has (see
+    // CLAUDE.md's GD/WebP rule and _SWUNameCardKey's note above, which has to guard its fold because
+    // one card title needs it), and an undefined-function fatal on every "Name a Trait" answer would
+    // be strictly worse than no arm at all. Nothing here needs mbstring, so nothing here calls it.
+    if ($type === 'NAMETRAIT') {
+        static $nameTraitKeys = null;
+        if (!$nameTraitKeys) {
+            // ⚠ Only CACHE a non-empty result, for the reason NAMECARD's cache spells out: `static`
+            // outlives the request in a long-lived process, so one call landing before the card
+            // dictionaries were loaded would otherwise freeze an empty set in place and refuse every
+            // trait for the life of that process. `!$nameTraitKeys` retries on both null and [].
+            // SWUAllTraits() itself now applies the identical `if ($cache) return $cache;` guard one
+            // layer down, so this layer's empty-freeze protection is now belt-and-suspenders rather
+            // than the only thing standing between a long-lived process and a frozen []. It still earns
+            // its keep independently: it caches this arm's own uppercased/trimmed key map, which is a
+            // distinct transform from SWUAllTraits()'s return value and would otherwise be redone on
+            // every NAMETRAIT answer.
+            $keys = [];
+            foreach (SWUAllTraits() as $trait) {
+                $key = strtoupper(trim((string)$trait));
+                if ($key !== '') $keys[$key] = true;
+            }
+            if (!$keys) return true;   // dictionaries not loaded — stay permissive rather than refuse a
+                                       // legal answer, and try again on the next call.
+            $nameTraitKeys = $keys;
         }
-        return true;
+        return isset($nameTraitKeys[strtoupper(trim($answer))]);
     }
     if ($type === 'OPTIONCHOOSE') {
         $labels = array_map('trim', explode('&', (string)($head->Param ?? '')));
         return $labels === [''] ? true : in_array($answer, $labels, true);
+    }
+    // NAMECARD — "Name a card." The Param is the EMPTY STRING at every one of the 10 emitters
+    // (SOR_062 Regional Governor, SOR_185 Chimaera, ASH_077 Ryder Azadi, LAW_243 Transmission Jamming,
+    // LOF_204 Zuckuss, SEC_046 Galen Erso, SEC_186 Garindan, SEC_210 Stolen Starpath Unit,
+    // SEC_260 Inspector's Shuttle, and the Foresight regroup grant above), so unlike every other arm
+    // there is no offered pool to check against: the pool is the whole TITLE universe and the check has
+    // to be built from the card dictionaries.
+    //
+    // Validated for the same reason SCRY and MZMULTICHOOSE are. Every consumer resolves the answer by
+    // TITLE COMPARISON — `SWUObjectTitle($c) === $named` / `CardTitle($topCid) === $named` — and simply
+    // finds nothing when the name matches nothing. So a garbage answer is not an error, it is a silent
+    // NO-OP: Chimaera reveals a hand and discards nothing, Garindan looks and takes nothing, Galen
+    // suppresses nothing, and a section (or a bot) that submits one asserts nothing while looking green.
+    // That is exactly the false-green shape the MZMULTICHOOSE gate was added to close.
+    //
+    // ⚠ THE ANSWER IS A TITLE WITH ITS SPACES INTACT, never the underscored form. This cuts against the
+    // repo's usual "underscores are transport" convention, and deliberately: a DecisionQueue *Param* is
+    // space-delimited, so the consumers that need to stash the name in one (SOR_062/ASH_077's
+    // SWU_NAMEBLOCK, LAW_243's SWU_NAMEBLOCK_PHASE, SEC_046's SWU_GALEN) do the
+    // `str_replace(' ', '_', trim($lastDecision))` THEMSELVES on arrival. Pre-underscoring here would
+    // therefore whiff at every one of them, so 'Luke_Skywalker' is refused and 'Luke Skywalker' is not.
+    //
+    // Trimmed because every consumer opens with trim($lastDecision), and matched case-INSENSITIVELY
+    // because the client's own picker resolves names that way (Core/NameCardUI.js normalizeName()).
+    // ⚠ Case-insensitive ACCEPTANCE is not case-insensitive MATCHING: the consumers' === comparisons are
+    // case-sensitive and the client submits the raw text of its input box rather than the canonical
+    // title, so 'vanquish' is a legal answer that still matches no card. Narrowing that is a client
+    // change (submit the resolved title), not a validator change; encoders on this side — the bot bridge
+    // included — must emit CardTitle()'s exact casing.
+    //
+    // Declines never reach here: PASS/'-'/'' are accepted above (NAMECARD is not MZCHOOSE), which is
+    // right — every consumer opens with `if (SWUDecisionDeclined($lastDecision)) return;`.
+    if ($type === 'NAMECARD') {
+        static $nameCardTitles = null;
+        if (!$nameCardTitles) {
+            // ⚠ Only CACHE a non-empty result. `static` outlives the request in a long-lived process (the
+            // bridge daemon, the RL trainer), so a single call that landed before the card dictionaries
+            // were loaded would otherwise freeze an empty set in place and refuse every name for the
+            // life of that process. `!$nameCardTitles` retries on both null and [].
+            $titles = [];
+            // A deployed leader matches on its DEPLOYED-SIDE name (SWUObjectTitle -> CardLeaderUnitTitle,
+            // e.g. deployed HMW_004 is "The Death Star"), which is a separate dictionary from $titleData,
+            // so naming one has to be legal too.
+            foreach ([$GLOBALS['titleData'] ?? [], $GLOBALS['leaderUnitTitleData'] ?? []] as $dictionary) {
+                foreach ($dictionary as $title) {
+                    $key = _SWUNameCardKey((string)$title);
+                    if ($key !== '') $titles[$key] = true;
+                }
+            }
+            if (!$titles) return true;   // dictionaries not loaded — fall back to the old permissive behaviour
+                                         // rather than refusing a legal answer, and try again next call.
+            $nameCardTitles = $titles;
+        }
+        return isset($nameCardTitles[_SWUNameCardKey($answer)]);
     }
     if ($type !== 'MZCHOOSE' && $type !== 'MZMAYCHOOSE' && $type !== 'MZMULTICHOOSE'
             && $type !== 'MZSPLITASSIGN') return true;
@@ -3884,6 +4031,17 @@ function CanAffordActivationReserve($player, $obj) {
         $marauderPool = count(_SWUHmw125LegalPicks(intval($player)));
         if ($marauderPool > 0) $cost = max(0, $cost - $marauderPool);
     }
+    // HMW_049 Greater Sarlacc — "defeat any number of ready resources you control; 3 less each".
+    // ⚠ NOT The Marauder's formula. There the picks cost nothing that could have paid, so subtracting
+    // the whole pool is right; here every pick REMOVES A PAYER, so the outlay is k + max(0, cost - 3k)
+    // and the best k is an interior minimum (at cost 9 it is THREE, outlay 3 — not "defeat as many as
+    // possible"). Copying HMW_125's line would light the card up on two ready resources, where no k is
+    // affordable. Guarded as a PAIR: Glow_AffordableOnlyWithTheReduction /
+    // Glow_UnaffordableEvenAtMaxReduction.
+    if (($obj->CardID ?? '') === 'HMW_049') {
+        $cost = _SWUHmw049MinOutlay(intval($player), SWUComputePlayCost($player, $obj),
+                                    count(_SWUHmw049LegalPicks(intval($player))));
+    }
     // Capacity, NOT a bare ready-resource count. Paying a cost routes through SWUOfferAltPayment, which
     // accepts ready resources, then Credit-token defeats (CR 3.13), then SEC_122 Droid exhausts — so a
     // card payable with a Credit was fully playable while this returned false and SelectionMetadata
@@ -4327,7 +4485,11 @@ function SWURevealResources(int $activePlayer, int $ownerPlayer, int $count): ar
             'mz'    => $mz,
             'ready' => (intval($o->Status ?? 0) === 1) ? 1 : 0,
             'own'   => (intval($o->Owner ?? 0) === intval($activePlayer)) ? 1 : 0,
-            'rand'  => mt_rand(),
+            // ⚠ EngineRandomInt(), never mt_rand(). This tiebreak decides WHICH resource is revealed —
+            // and revealed resources get defeated (SHD_114, SEC_242), so it is gameplay-visible (aspects
+            // and ready state change). mt_rand() is unseeded, outside $gRandomCounter and outside the
+            // undo snapshot, so undo→redo across the reveal picked a different resource.
+            'rand'  => EngineRandomInt(0, 0x7FFFFFFF),
         ];
     }
     usort($pool, function($a, $b) {
@@ -6874,6 +7036,11 @@ function RegroupPhaseStart(): void {
     // A "for this phase" +HP buff that kept a damaged unit alive has now expired — defeat any unit
     // whose damage meets/exceeds its (un-buffed) current HP. (Same state-based sweep as shrinks.)
     SWUCheckShrinkDefeats();
+    // HMW_054 Seismic Detonation — "At the start of the next regroup phase, deal 3 damage to each enemy
+    // unit in that arena." One marker per copy played, consumed here. Placed AFTER the phase-effect
+    // expiry and the shrink sweep (same slot as LAW_245's one-shot just below) so the damage lands
+    // against real HP rather than a buff belonging to the phase that has already ended.
+    _SWUHmw054RegroupDetonations();
     for ($p = 1; $p <= SeatCountForGame(); $p++) {
         // LAW_245 Salvaged Materials — "At the start of the next regroup phase, defeat it." Defeat each
         // upgrade flagged SWU_LAW245_DEFEAT|{hostUID}|{cardID}, then clear the flag (one-shot).
@@ -14444,8 +14611,21 @@ function _topDeckResolveFromIDs(array $allIDs, string $lastDecision): array {
 }
 
 // Shuffle remaining card IDs and push new Deck objects to the bottom of the deck.
+// ⚠ EngineShuffle(), never PHP's shuffle(). PHP's Mt19937 is auto-seeded per process from the OS: it
+// derives from neither the gamestate nor RNG_SEED, does not advance $gRandomCounter, and is therefore
+// NOT restored by an undo snapshot — so undoing past a deck search and redoing it dealt a DIFFERENT
+// bottom-of-deck order, which is exactly the defect the Versions-zone exclusion in
+// EngineDeterministicIgnoredStateNames() exists to prevent one layer up. It also made any seeded
+// self-play sweep that reaches a wide TOPDECKSEARCH non-reproducible. EngineShuffle() derives from
+// gamestate + the per-game secret RNG_SEED, so the order stays unpredictable to players AND
+// reproducible on undo/replay.
 function _topDeckPutRemainingToBottom(int $player, array $remainingIDs): void {
-    shuffle($remainingIDs);
+    // EngineShuffle() indexes $array[$i] positionally (unlike the shuffle() this replaced, which
+    // accepted any array) — a key-preserving caller (e.g. array_filter() without array_values())
+    // would silently push nulls into the deck with no error. All 44 call sites pass genuine lists
+    // today; this makes the contract explicit rather than assumed.
+    $remainingIDs = array_values($remainingIDs);
+    EngineShuffle($remainingIDs);
     $deck = &GetDeck($player);
     foreach ($remainingIDs as $cardID) {
         $obj          = new Deck($cardID, 'Deck', $player);
@@ -16280,6 +16460,27 @@ function _SWUBeginPlayCardUnitPath(int $player, string $mzID, int $discount = 0)
         }
     }
 
+    // HMW_049 Greater Sarlacc — "While playing this unit, you may defeat any number of ready resources
+    // you control. For each resource defeated this way, this unit costs 3 resources less to play."
+    // Exploit's shape and Exploit's scope (see the HMW_048 note below). "ANY NUMBER" means the cap is
+    // the READY POOL, not a printed X and not the cost — over-defeating is legal, and the cost floors
+    // at 0 in SWUContinuePlayAfterExploit.
+    // ⚠ Via SWUQueueMultiChoose, NOT a raw AddDecision pair: this continuation is what PLAYS THE CARD,
+    // and a 0-minimum picker confirmed with nothing selected submits the sticky literal "PASS". The
+    // helper derives dontSkipOnPass from min <= 0 so the card cannot vanish.
+    if (($obj->CardID ?? '') === 'HMW_049') {
+        $picks049 = _SWUHmw049LegalPicks($player);
+        if (!empty($picks049)) {
+            $snap049 = (!empty($GLOBALS['gForceEnterReady']) ? '1' : '0')
+                     . '~' . (string)($GLOBALS['gPlayGrantTurnEffect'] ?? '')
+                     . '~' . intval($GLOBALS['gPlayGrantShield'] ?? 0);
+            SWUQueueMultiChoose($player, 0, count($picks049), $picks049,
+                "Defeat_any_number_of_ready_resources_for_3_resources_less_each",
+                "HMW_049#0|{$mzID}|" . intval($discount) . "|{$snap049}|" . count($picks049));
+            return;
+        }
+    }
+
     if (($obj->CardID ?? '') === 'HMW_048') {
         $picks048 = _SWUHmw048LegalPicks($player);
         if (!empty($picks048)) {
@@ -16594,13 +16795,18 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
 // be there at Pay Costs — subtract it. (For SEC_122 Vuutun's own play the two cancel exactly: the caller
 // adds +1 to the discount per exploited Droid, and this removes 1 from capacity. For any OTHER card there
 // is no compensation, so without this the gate would be optimistic by one per exploited ready Droid.)
+// $capacityLoss = READY RESOURCES the additional cost is about to defeat (HMW_049 Greater Sarlacc,
+// whose fodder IS the currency). $losingUIDs cannot express this: it only discounts SEC_122 Droids,
+// while a defeated ready resource is plain payment capacity that will not be there at Pay Costs. Every
+// other member of this family spends something no cost could have been paid with, so it passes 0.
 function _SWUPlayIsPayableAtDiscount(int $player, string $handMzID, int $totalDiscount,
-                                     array $losingUIDs = []): bool {
+                                     array $losingUIDs = [], int $capacityLoss = 0): bool {
     $obj = GetZoneObject($handMzID);
     if (SWUObjGone($obj)) return false;
     $cost = max(0, SWUComputePlayCost($player, $obj) - intval($totalDiscount));
     $cost = SWUApplyCostHalving(intval($player), $cost);
     $capacity = SWUTotalPaymentCapacity(intval($player));
+    $capacity -= max(0, intval($capacityLoss));
     if (!empty($losingUIDs) && SWUPlayerControlsSEC122(intval($player))) {
         $losing = array_flip(array_map('intval', $losingUIDs));
         foreach (SWUReadyFriendlyDroids(intval($player)) as $dmz) {
@@ -19783,18 +19989,26 @@ function SWUComputeUndoTarget(string $kind): int {
 // Record ord_i stores the PRE-state of action i+1 and that action's metadata (seat/revealed/boundary), so
 // reverting to $targetOrdinal undoes actions whose records are exactly [targetOrdinal .. top].
 // Is this a ONE-PLAYER mode? Goldfish's seat 2 is a passive bot; Hotseat is one person playing both
-// seats. Either way there is no second decision-maker to coordinate with.
+// seats; Bot Practice's seat 2 is driven by Core/BotController.php. Either way there is no second
+// HUMAN decision-maker to coordinate with.
 // Matched explicitly rather than "mode is non-empty" so a future non-solo mode cannot silently inherit
 // solo privileges.
+//
+// ⚠ botpractice belongs here even though its seat 2 is a REAL seat (real deck, real mulligan, losable
+// base — see AppCore/SWU/Formats.php). "Solo" here means "only one seat can ANSWER A PROMPT", and the
+// bot cannot: the undo-consent popup is driven by a SWU var read in GameLayoutShared.php, not by a
+// DecisionQueue entry, so the bot has no path to it. Omitting botpractice made SWUUndoNeedsConsent()
+// route the approval to seat 2 and hang the undo forever — not immediately, but as soon as
+// SimGameIsPrivateGame()'s APCu record expired (1h TTL, no disk fallback; see below).
 function SWUIsSoloMode(): bool {
     $m = SWUGameMode();
-    return $m === 'goldfish' || $m === 'hotseat';
+    return $m === 'goldfish' || $m === 'hotseat' || $m === 'botpractice';
 }
 
 // SWUSim's privacy check — use this, NOT SimGameIsPrivateGame, anywhere in SWUSim that asks "is this
 // game private?".
 //
-// A one-player mode IS a private game: goldfish and hotseat lobbies are created with isPrivate=true
+// A one-player mode IS a private game: goldfish, hotseat and botpractice lobbies are created with isPrivate=true
 // (APIs/Lobbies/JoinQueue.php) and there is no opponent to expose anything to. They are re-derived here
 // rather than trusted to the flag because that flag lives ONLY in APCu with a one-hour TTL
 // (SIM_GAME_RECORD_CACHE_TTL) and has no disk fallback: once it expires — or PHP restarts —
@@ -25374,7 +25588,36 @@ function GlobalEffectCount($player, $effectID) {
 function SWUGameMode(): string {
     if (GlobalEffectCount(1, 'SWU_MODE_GOLDFISH') > 0) return 'goldfish';
     if (GlobalEffectCount(1, 'SWU_MODE_HOTSEAT')  > 0) return 'hotseat';
+    if (GlobalEffectCount(1, 'SWU_MODE_BOTPRACTICE') > 0) return 'botpractice';
     return '';
+}
+
+// ─── Bot Practice seat bookkeeping ───────────────────────────────────────────
+// Which seats the bot drives. Stored as a DQ variable, so it travels with the gamestate and
+// rewinds correctly on undo. Seat-generic on purpose (see Global Constraints) even though
+// Phase 1 only ever writes [2].
+function SetSWUBotPlayers(array $seats): void {
+    $normalized = [];
+    foreach ($seats as $seat) {
+        $seat = intval($seat);
+        if ($seat < 1 || in_array($seat, $normalized, true)) continue;
+        $normalized[] = $seat;
+    }
+    sort($normalized);
+    DecisionQueueController::StoreVariable('SWUBotPlayers', implode(',', $normalized));
+}
+
+function GetSWUBotPlayers(): array {
+    if (SWUGameMode() !== 'botpractice') return [];
+    $raw = DecisionQueueController::GetVariable('SWUBotPlayers');
+    if (!is_string($raw) || $raw === '') return [];
+    $seats = [];
+    foreach (explode(',', $raw) as $seat) {
+        $seat = intval(trim($seat));
+        if ($seat >= 1 && !in_array($seat, $seats, true)) $seats[] = $seat;
+    }
+    sort($seats);
+    return $seats;
 }
 
 // ─── Team Suns (2v2) seat primitives ─────────────────────────────────────────
@@ -27533,6 +27776,11 @@ function DomainRevealMemoryUpkeep($player, $fieldIndex, $allowedElements, $domai
         return;
     }
     // Pick a random memory card and reveal it
+    // ⚠ DEAD IN SWUSim — deliberately left on PHP's array_rand(). This whole function is Grand Archive
+    // residue: SWU has no Memory zone (GetMemory() is defined ONLY in GrandArchiveSim/ZoneAccessors.php,
+    // so reaching this line here would fatal), CardElement() is a null-returning stub at GameLogic.php:304,
+    // and the only callers switch on the Grand Archive CardIDs "4coy34bro8"/"9w0ejcyuvu", which no SWU
+    // card can ever carry. Converting it to EngineRandomInt() would only make dead code look live.
     $randomIdx = array_rand($memory);
     $memObj = $memory[$randomIdx];
     $memMZ = "myMemory-" . $randomIdx;

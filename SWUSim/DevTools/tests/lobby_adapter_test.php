@@ -34,6 +34,12 @@ $expectPrivate = [
     'eternal-preview' => true, 'twinsuns' => true, 'teamsuns' => true,
     'goldfish' => false,   // solo
     'hotseat'  => false,   // one human driving both seats
+    // Bot Practice: one human at seat 1, Core/BotController.php at seat 2. No remote opponent ever
+    // arrives, so there is nothing for a waiting room to wait FOR. This must agree with
+    // SWUIsSoloMode() in SWUSim/Custom/GameLogic.php, which counts botpractice as solo for exactly
+    // the same reason (the bot cannot answer a prompt aimed at a human) — if one of the two ever
+    // says "botpractice has a second decision-maker" and the other does not, one of them is wrong.
+    'botpractice' => false,
 ];
 foreach ($expectPrivate as $fmt => $want) {
     $got = $a->wantsWaitingRoom(lobby($fmt, true));
@@ -45,7 +51,12 @@ foreach (array_keys($expectPrivate) as $fmt) {
 
 // Every format in the registry is covered above — otherwise a newly added format silently gets no
 // assertion at all and inherits whatever the predicate happens to do.
-$missing = array_diff(array_keys(SWUListFormats()), array_keys($expectPrivate));
+//
+// ⚠ SWUFormatDefinitions(), NOT SWUListFormats(): the latter hides DISABLED formats, and a format
+// can be registered and routable while still hidden from the menu (botpractice is, until Phase 5
+// wires MainMenu). Diffing the visible list would let such a format skip this coverage guard
+// entirely and then re-break the test on the day someone flips 'enabled'.
+$missing = array_diff(array_keys(SWUFormatDefinitions()), array_keys($expectPrivate));
 check(empty($missing), 'every registered format is in the truth table (missing: ' . implode(',', $missing) . ')');
 
 // isPrivate is the AUTHORITY on privacy. An inviteCode alone must not imply it.

@@ -32,7 +32,9 @@ $customDQHandlers["TWI_222#0"] = function($player, $parts, $lastDecision) {
         $playerID = $opp;
         $hand = ZoneSearch('myHand', null);
         if (!empty($hand)) {
-            $pick = $hand[array_rand($hand)];
+            // ⚠ EngineRandomInt(), never array_rand() — see Core/DeterministicRNG.php. array_rand()
+            // is unseeded and outside the undo snapshot, so undo→redo discarded a DIFFERENT card.
+            $pick = $hand[EngineRandomInt(0, count($hand) - 1)];
             DoDiscardCard($opp, $pick);
         } else {
             SWUCreateUnitTokens($caster, 'TWI_T01', 2); // no card to discard → they "don't" → droids

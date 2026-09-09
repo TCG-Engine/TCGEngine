@@ -41,13 +41,27 @@ function RegressionGamestateSchemaLayout($rootName) {
   return $cache[$rootName] = $layout;
 }
 
-function RegressionConsumeGamestateLayout($layout, $lines, &$blocks = null) {
+// How many copies of each per-player zone a root's GENERATED WriteGamestate emits. This mirrors
+// zzGameCodeGenerator.php:43 (`$maxSeats = in_array($rootName, ['SWUSim','FaBSim'], true) ? 4 : 2;`),
+// which is the authority — SWUSim serializes p1..p4 for every per-player zone (Twin Suns) even in a
+// two-player game, while GrandArchiveSim/AzukiSim serialize p1..p2.
+//
+// Getting this wrong does NOT fail loudly. RegressionConsumeGamestateLayout sizes each object zone
+// by reading its own count line, so an undercount makes the cursor land mid-file and every
+// subsequent block name is attached to the wrong lines — callers then mask/exclude content that has
+// nothing to do with the block they named, with no error anywhere.
+function RegressionGamestateSeatCount($rootName) {
+  return in_array($rootName, ['SWUSim', 'FaBSim'], true) ? 4 : 2;
+}
+
+function RegressionConsumeGamestateLayout($layout, $lines, &$blocks = null, $playerCopies = 2) {
   // Every generated gamestate begins with currentPlayer and updateNumber before
   // the schema-declared zones.
   $cursor = 2;
   $blocks = [];
+  $playerCopies = max(1, intval($playerCopies));
   foreach ($layout as $zone) {
-    $copies = $zone['global'] ? 1 : 2;
+    $copies = $zone['global'] ? 1 : $playerCopies;
     for ($copy = 0; $copy < $copies; ++$copy) {
       $start = $cursor;
       if ($zone['object']) {

@@ -396,6 +396,11 @@ function BridgePlayableZonesForRoot($root) {
   switch ($root) {
     case 'AzukiSim':
       return ['myHand', 'myGarden', 'myAlley', 'myGate'];
+    case 'SWUSim':
+      // SWU is a two-arena game: ground and space are separate attack/target spaces and must
+      // never be conflated. Resources and Discard are here because SWU has real play-from-zone
+      // permissions (Plot, and per-card discard plays), not just play-from-hand.
+      return ['myHand', 'myGroundArena', 'mySpaceArena', 'myResources', 'myLeader', 'myBase', 'myDiscard'];
     case 'GrandArchiveSim':
     default:
       return ['myHand', 'myField', 'myMemory', 'myMaterial', 'myGraveyard', 'myBanish'];
@@ -598,6 +603,179 @@ function BridgeWithPlayerPerspective($player, $callback) {
   }
 }
 
+// Bound on how many TOPDECKSEARCH pick-combinations are enumerated. A ten-card peek with an
+// "any number" constraint has 1,023 subsets; the bot only needs a legal, representative set, and an
+// unbounded list would dominate every other candidate in the action space.
+function BridgeTopDeckSearchActionCap() { return 40; }
+
+// Bound on how many card NAMES a NAMECARD decision offers. Same reasoning as the search cap: a SWU
+// deck holds 50 cards, so an uncapped list would swamp every other candidate in the action space.
+function BridgeNameCardActionCap() { return 40; }
+
+// Distinct card TITLES in ONE SEAT'S OWN hand, discard and deck — sorted, then capped at $limit.
+//
+// NAMECARD's Param carries no candidate pool (see the enumerator's case), so the candidate list has to
+// be synthesised. This is the set a real player unambiguously knows — their own decklist — and it is
+// the strategically relevant one for the denial cards that raise the decision.
+//
+// ⚠ THE SEAT IS THE WHOLE POINT. Reading any zone but $player's would hand the bot information the
+// player does not have — a cheating bot, which is a worse failure than the stall this replaced and an
+// invisible one, since a peeked title validates and resolves exactly like a legitimate one. The
+// accessors are seat-indexed rather than perspective-relative for precisely that reason; there is no
+// `my`/`their` framing here to get wrong.
+//
+// ⚠ SORTED BEFORE CAPPING, deliberately. Collected in zone order the list is in DECK ORDER, which the
+// player has not seen — so once the cap binds, *which* titles get offered would depend on hidden
+// information. You know your decklist; you do not know how it is shuffled. Sorting makes the offered
+// set a pure function of the decklist, and deterministic across runs.
+//
+// Titles keep their SPACES: the answer is compared with CardTitle()/SWUObjectTitle() downstream and
+// each consumer underscores the name itself when it needs to stash it in a space-delimited flag.
+// Casing is CardTitle()'s exactly, because those comparisons are case-sensitive.
+//
+// SWUSim-only by construction: it needs CardTitle() plus the SWU hand/discard/deck accessors, and is
+// only ever called from `case 'NAMECARD':`, which no other root that loads this file can reach.
+function BridgeSWUOwnCardTitles($player, $limit) {
+  if (!function_exists('CardTitle')) return [];
+  $titles = [];
+  foreach (['GetHand', 'GetDiscard', 'GetDeck'] as $accessor) {
+    if (!function_exists($accessor)) continue;
+    // The generated accessors return the raw zone global by reference, which is NULL until a gamestate
+    // has been parsed — so guard rather than assume a loaded game (this file is also loaded library-only).
+    $zone = $accessor(intval($player));
+    if (!is_array($zone)) continue;
+    foreach ($zone as $card) {
+      if (!is_object($card) || !empty($card->removed)) continue;
+      $title = trim(strval(CardTitle(strval($card->CardID ?? '')) ?? ''));
+      if ($title === '' || isset($titles[$title])) continue;
+      $titles[$title] = true;
+    }
+  }
+  $titles = array_keys($titles);
+  sort($titles, SORT_STRING);
+  return array_slice($titles, 0, max(0, intval($limit)));
+}
+
+// Bound on how many SCRY top/bottom arrangements are enumerated. Both live DoScry() callers peek 1
+// (SOR_236 R2-D2) or 2 (SOR_031 Inferno Four) cards, which is 2 and 6 arrangements — verified by
+// repo-wide grep, so this cap does NOT bind today and the enumeration is exhaustive as the contract
+// requires. It exists so a future DoScry($n) with a larger $n degrades to a truncated-but-legal list
+// instead of a factorial explosion: the space is n!*(n+1), so n=4 is 120 and n=5 would be 720.
+function BridgeScryActionCap() { return 120; }
+
+// Bound on how many TRAITS a NAMETRAIT decision offers. The candidate set is already narrow (the
+// traits actually on enemy cards in play — a full board rarely shows more than a dozen of the 117
+// printed traits), so like the NAMECARD cap this is a ceiling, not a working limit.
+function BridgeNameTraitActionCap() { return 40; }
+
+// Every permutation of the indices 0..$count-1, IDENTITY FIRST, stopping after $limit of them
+// (0 = no limit). Used by the SCRY arm, whose answer space is "some ordering of the peeked cards,
+// cut at some point into a top half and a bottom half".
+//
+// ⚠ $limit BOUNDS THE BUILD, not just the result. n is 1 or 2 at both live DoScry() callers, but this
+// returns a materialised list of n! arrays, so truncating downstream would still have MATERIALISED
+// 3.6M arrays for a hypothetical n=10 caller before the cap could bite. The caller passes the number
+// of permutations its action cap can actually consume.
+function BridgeIndexPermutations($count, $limit = 0) {
+  if ($count <= 0) return [[]];
+  $limit   = max(0, intval($limit));
+  $results = [];
+  $walk = function(array $prefix, array $remaining) use (&$walk, &$results, $limit) {
+    if ($limit > 0 && count($results) >= $limit) return;
+    if (!$remaining) { $results[] = $prefix; return; }
+    foreach ($remaining as $position => $value) {
+      $rest = $remaining;
+      unset($rest[$position]);
+      $walk(array_merge($prefix, [$value]), array_values($rest));
+      if ($limit > 0 && count($results) >= $limit) return;
+    }
+  };
+  $walk([], range(0, $count - 1));
+  return $results;
+}
+
+// Distinct TRAITS carried by the ENEMY cards in play, from $player's seat — sorted, then capped.
+//
+// NAMETRAIT's Param is the empty string (HMW_108 The First Legion is the only emitter repo-wide and
+// queues it with ''), so like NAMECARD the candidate list has to be synthesised. The trait UNIVERSE
+// (SWUAllTraits(), 117 entries) is the validator's pool but a terrible action list: naming a trait
+// nobody has is legal and does exactly nothing, so 100+ of those candidates are pure noise.
+//
+// ⚠ THE INFORMATION BOUNDARY HERE IS "IN PLAY", not "the seat's own zones" — the opposite framing to
+// BridgeSWUOwnCardTitles(). HMW_108 strips the named trait from enemy cards *including those not in
+// play*, so it is tempting to derive candidates from the enemy hand/deck/discard as well. That would
+// be a CHEATING bot: a real player cannot see an opponent's hand or deck, and an answer sourced from
+// one validates and resolves exactly like a legitimate one, so the cheat is invisible. Only the
+// arenas, leader and base — the public board — are read.
+//
+// ⚠ ENEMY is by TEAM and by CONTROLLER, not by "the other seat". Twin Suns has 3-4 seats and Team
+// Suns pairs them, and HMW_108's own read side (_SWUHmw108TraitSuppressed) spares a teammate through
+// SWUTeamOf, so the candidate list has to agree with it or the bot names traits its own effect will
+// not strip. A unit an enemy OWNS but you now CONTROL is your card and is skipped; the reverse is
+// included. Objects are classified by ->Controller, defaulting to the seat whose zone holds them.
+//
+// TraitContains() is the object-aware chokepoint (per-instance NO_TRAIT_ markers, upgrade grants,
+// deployed-leader trait overrides, and HMW_108's own suppression), so the set is what the board
+// ACTUALLY shows rather than what the cards print. That is why this loops the universe against each
+// object instead of reading $traitData: a granted trait (LOF_073's Mandalorian, SEC_156's Rebel)
+// appears on no printed trait line.
+//
+// SWUSim-only by construction — it needs SWUAllTraits()/TraitContains() and is only ever called from
+// `case 'NAMETRAIT':`, which no other root that loads this file can reach.
+function BridgeSWUEnemyInPlayTraits($player, $limit) {
+  if (!function_exists('SWUAllTraits') || !function_exists('TraitContains')) return [];
+  $me    = intval($player);
+  $seats = function_exists('GetLiveSeatsArray') ? GetLiveSeatsArray() : [1, 2];
+  $team  = function_exists('SWUTeamOf') ? fn($seat) => SWUTeamOf(intval($seat)) : fn($seat) => intval($seat);
+  $enemyObjects = [];
+  foreach ($seats as $seat) {
+    $seat = intval($seat);
+    foreach (['GetGroundArena', 'GetSpaceArena', 'GetLeader', 'GetBase'] as $accessor) {
+      if (!function_exists($accessor)) continue;
+      // The generated accessors return the raw zone global by reference, which is NULL until a
+      // gamestate has been parsed — so guard rather than assume a loaded game.
+      $zone = $accessor($seat);
+      if (!is_array($zone)) continue;
+      foreach ($zone as $card) {
+        if (!is_object($card) || !empty($card->removed)) continue;
+        // ENEMY is by TEAM, resolved on the CONTROLLER rather than on whose zone holds the card.
+        // One test covers both cases: SWUTeamOf() returns the seat itself outside a team game, so
+        // this rejects your own cards (same seat) and, in Team Suns, your teammate's as well.
+        if ($team(intval($card->Controller ?? $seat)) === $team($me)) continue;
+        $enemyObjects[] = $card;
+      }
+    }
+  }
+  if (!$enemyObjects) return [];
+  $traits = [];
+  foreach (SWUAllTraits() as $trait) {
+    foreach ($enemyObjects as $object) {
+      if (TraitContains($object, $trait)) { $traits[] = $trait; break; }
+    }
+  }
+  // Traits keep their SPACES ('Bounty Hunter', 'Capital Ship' — 14 of the 117 are multi-word), for
+  // the same reason NAMECARD titles do: the answer travels in $lastDecision, and HMW_108's handler
+  // runs the str_replace(' ','_') itself when it stashes the name in a space-delimited flag.
+  sort($traits, SORT_STRING);
+  return array_slice($traits, 0, max(0, intval($limit)));
+}
+
+// All ascending index combinations of $size drawn from 0..$count-1.
+function BridgeIndexCombinations($count, $size) {
+  $results = [];
+  if ($size <= 0 || $size > $count) return $results;
+  $indices = range(0, $size - 1);
+  while (true) {
+    $results[] = $indices;
+    $position = $size - 1;
+    while ($position >= 0 && $indices[$position] === $count - $size + $position) --$position;
+    if ($position < 0) break;
+    ++$indices[$position];
+    for ($next = $position + 1; $next < $size; ++$next) $indices[$next] = $indices[$next - 1] + 1;
+  }
+  return $results;
+}
+
 function BridgeEnumerateDecisionActions($decision, $player) {
   return BridgeWithPlayerPerspective($player, function() use ($decision, $player) {
     $actions = [];
@@ -681,6 +859,10 @@ function BridgeEnumerateDecisionActions($decision, $player) {
         }
         break;
       case 'TWOSIDEDSLIDER':
+        // Zero AddDecision emitters anywhere in the current tree (verified Phase 2a Task 6, not
+        // just "untested here" — no root, including GrandArchiveSim/AzukiSim, actually raises this
+        // type today). It survives only as a generic decision-type primitive the schema generator
+        // and a couple of goldfish/bot resolvers know how to answer if something ever emits it.
         foreach (BridgeEnumerateTwoSidedSliderResults(strval($decision->Param ?? '')) as $resultStr) {
           $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $resultStr, 'chkInput' => [], 'inputText' => ''];
         }
@@ -701,17 +883,312 @@ function BridgeEnumerateDecisionActions($decision, $player) {
         }
         break;
       case 'CHOOSEZONE':
+        // Zero AddDecision emitters in SWUSim (verified Phase 2a Task 6). Live emitter is AzukiSim
+        // only — GrandArchiveSim's Custom/GameLogic.php has a generic dispatch/goldfish-resolve arm
+        // for this type but no actual AddDecision call raising it, so it does not emit it either.
         $choices = array_values(array_filter(explode('&', strval($decision->Param ?? '')), fn($value) => $value !== ''));
         foreach ($choices as $choice) {
           $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $choice, 'chkInput' => [], 'inputText' => ''];
         }
         break;
+      case 'TOPDECKSEARCH':
+        // SWUSim's peek-and-take picker (SOR_123 Recruit, SOR_042 Search Your Feelings, SOR_104
+        // U-Wing Reinforcement, …). Param is "allIDs|matchingIDs|constraint|costMap" and the answer
+        // is a COMMA-separated list of chosen CardIDs drawn from the peeked cards — see
+        // SWUSim/Custom/GameLogic.php's _topDeckSearchBegin() ("Finalize answer format:
+        // comma-separated chosen CardIDs (empty = choose none)") and _topDeckResolveFromIDs().
+        //
+        // Constraint forms: "count:N" (at most N picks), "cost:N" (any number, combined cost <= N),
+        // "cost:N:M" (at most M picks AND combined cost <= N). The engine ENFORCES all of these
+        // server-side and silently drops overflow picks, so an over-budget answer would be a partial
+        // no-op rather than an error — enumerate only answers that satisfy the constraint, so the
+        // action the bot picks is the action that happens.
+        //
+        // Found by DevTools/SWUSimBotSelfPlayTest.php: with no case here every deck-search card
+        // stalled the game outright.
+        {
+          $parts = explode('|', strval($decision->Param ?? ''));
+          $matchIDs = array_values(array_filter(explode(',', strval($parts[1] ?? '')), fn($v) => $v !== ''));
+          $constraint = strval($parts[2] ?? '');
+          $costs = [];
+          foreach (explode(',', strval($parts[3] ?? '')) as $pair) {
+            $bits = explode(':', $pair);
+            if (count($bits) === 2 && $bits[0] !== '') $costs[$bits[0]] = intval($bits[1]);
+          }
+          $maxPicks = count($matchIDs);
+          $maxCost = null;
+          if (str_starts_with($constraint, 'count:')) {
+            $maxPicks = max(0, intval(substr($constraint, 6)));
+          } else if (str_starts_with($constraint, 'cost:')) {
+            $costBits = explode(':', $constraint);
+            $maxCost = intval($costBits[1] ?? 0);
+            if (isset($costBits[2]) && $costBits[2] !== '') $maxPicks = max(0, intval($costBits[2]));
+          }
+          $maxPicks = min($maxPicks, count($matchIDs));
+
+          // Subsets by INDEX, because the peeked cards can legitimately contain duplicates and the
+          // resolver de-duplicates positionally. Bounded by BridgeTopDeckSearchActionCap() so a wide
+          // search (10 peeked, "any number") cannot produce a combinatorial action list.
+          $emitted = 0;
+          $cap = BridgeTopDeckSearchActionCap();
+          for ($size = 1; $size <= $maxPicks && $emitted < $cap; ++$size) {
+            foreach (BridgeIndexCombinations(count($matchIDs), $size) as $combo) {
+              if ($emitted >= $cap) break;
+              $picked = [];
+              $total = 0;
+              foreach ($combo as $index) {
+                $picked[] = $matchIDs[$index];
+                $total += intval($costs[$matchIDs[$index]] ?? 0);
+              }
+              if ($maxCost !== null && $total > $maxCost) continue;
+              $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '',
+                            'cardID' => implode(',', $picked), 'chkInput' => [], 'inputText' => ''];
+              ++$emitted;
+            }
+          }
+          // Taking nothing is always legal (the validator accepts '' for every non-MZCHOOSE type),
+          // and it is the answer of last resort — listed last so a chooser that scans in order only
+          // reaches it when no real pick is available.
+          $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => '', 'chkInput' => [], 'inputText' => ''];
+        }
+        break;
+      case 'OPTIONCHOOSE':
+        // SWUSim's fixed-label picker: Param is an '&'-joined label list ("You&Opponent",
+        // "Ready&Exhaust", "P2&P3", "@-&Your_deck&P2_deck") and the answer is ONE of those labels
+        // verbatim — see SWUSim/Custom/GameLogic.php's SWUValidateDecisionAnswer(), whose
+        // OPTIONCHOOSE arm is exactly `in_array($answer, $labels, true)`. The labels are the whole
+        // candidate set, so no expansion or de-duplication applies: an underscore inside a label
+        // ("Your_deck") is TRANSPORT, not display text, and must be submitted as-is.
+        //
+        // Found by DevTools/SWUSimBotSelfPlayTest.php: with no case here the decision fell through
+        // to `default`, the enumerator returned zero actions, SWUBotLegalActions recorded an
+        // unrecognized-decision gap, and the game stalled the moment any card asked "choose a
+        // player" (SOR_167 Force Throw was the first). GA/Azuki never produce this type, which is
+        // why the bridge had no case for it.
+        //
+        // ⚠ A segment beginning with '@' is a UI DIRECTIVE, NOT AN OPTION. "@{$topID}" renders that
+        // card's art above the buttons and "@-" renders a placeholder; Core/OptionChooseUI.js splits
+        // the Param exactly this way and never offers an '@' segment as a button. The Param always
+        // leads with it when present ("@SOR_246&Play&Leave", "@-&Your_deck&P2_deck").
+        //
+        // It must be filtered HERE because SWUValidateDecisionAnswer's OPTIONCHOOSE arm is
+        // `in_array($answer, $labels, true)` against the UN-stripped list, so it ACCEPTS the
+        // directive — the answer passes validation and then no downstream handler has a matching
+        // label. With 'first-legal' the bot picks $actions[0], which is precisely that token, on
+        // every one of the 9+ producers that use the prefix (SOR_246 You're My Only Hope,
+        // SOR_051 Ezra Bridger, SOR_147 C-3PO, SOR_236 Reinforcement Walker, LAW AllianceOutpost,
+        // LAW Watchful, TS26 Ahsoka, and SWUSim/Custom/GameLogic.php's multi-Action base picker).
+        foreach (array_map('trim', explode('&', strval($decision->Param ?? ''))) as $label) {
+          if ($label === '') continue;
+          if ($label[0] === '@') continue;   // UI directive (card art), never a legal answer
+          $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $label, 'chkInput' => [], 'inputText' => ''];
+        }
+        break;
+      case 'NAMECARD':
+        // SWUSim's "Name a card" free-text picker (SOR_062 Regional Governor, SOR_185 Chimaera,
+        // ASH_077 Ryder Azadi, LAW_243 Transmission Jamming, LOF_204 Zuckuss, SEC_046 Galen Erso,
+        // SEC_186 Garindan, SEC_210 Stolen Starpath Unit, SEC_260 Inspector's Shuttle, plus the
+        // Foresight regroup grant). The answer is a card TITLE — the consumers all resolve it with
+        // `SWUObjectTitle($c) === $named` / `CardTitle($topCid) === $named`.
+        //
+        // ⚠ SPACES STAY. This is the one decision type where the repo's "underscores are transport"
+        // rule does NOT apply to the answer: the name travels in $lastDecision, not in a
+        // space-delimited Param, and the consumers that do need it in a flag
+        // (SWU_NAMEBLOCK / SWU_NAMEBLOCK_PHASE / SWU_GALEN) run the str_replace(' ','_') themselves on
+        // arrival. Pre-underscoring here would pass validation-by-accident nowhere and whiff everywhere
+        // — SWUValidateDecisionAnswer's NAMECARD arm now refuses the underscored form outright.
+        //
+        // ⚠ THE PARAM IS EMPTY at all ten emitters, so unlike every other case here there is nothing to
+        // enumerate. The candidate list is synthesised from the deciding seat's OWN hand/discard/deck —
+        // information a real player has, bounded, always legal, and the set that matters for the denial
+        // cards (ASH_077, LAW_243) that raise the decision most often.
+        //
+        // Found by DevTools/SWUSimBotSelfPlayTest.php: with no case here NAMECARD fell through to
+        // `default`, the enumerator returned zero actions, SWUBotLegalActions recorded a gap, and the
+        // game STALLED — 20 of 24 modern-Premier games died on it. GA also emits NAMECARD (with a
+        // non-empty Param, unlike SWUSim's ten emitters) but no GA source file requires this bridge —
+        // the ONLY path that loads it under root=GrandArchiveSim is DevTools/rl/train_selfplay_php.php,
+        // and there this arm is inert rather than absent: BridgeSWUOwnCardTitles() opens with
+        // `if (!function_exists('CardTitle')) return [];`, GA has no CardTitle(), so it yields only the
+        // decline. That is an accident of a missing function, not a guarantee — do not rely on it for
+        // the next arm added here. AzukiSim, which does load this file at runtime, never queues the type.
+        {
+          foreach (BridgeSWUOwnCardTitles($player, BridgeNameCardActionCap()) as $title) {
+            $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '',
+                          'cardID' => $title, 'chkInput' => [], 'inputText' => ''];
+          }
+          // Declining is genuinely legal — every consumer opens with
+          // `if (SWUDecisionDeclined($lastDecision)) return;` — and '-' is the token this decision's
+          // validator accepts ('NO' is the YESNO button's literal and is refused). Listed LAST so the
+          // bot's 'first-legal' chooser only reaches it when the seat has no card to name at all, which
+          // also makes it the guarantee that this case never returns zero actions (zero = the stall).
+          $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '',
+                        'cardID' => '-', 'chkInput' => [], 'inputText' => ''];
+        }
+        break;
+      case 'NAMETRAIT':
+        // SWUSim's "Name a Trait" free-text picker. ONE emitter repo-wide: HMW_108 The First Legion
+        // ("On Attack: Name a Trait. Enemy cards, including those not in play, lose that Trait for
+        // this phase"), which is in the HMW preview set — so this arm is dormant in Premier and goes
+        // live the moment HMW rotates in. The answer is the trait STRING, and HMW_108's own handler
+        // resolves it with strcasecmp against SWUAllTraits().
+        //
+        // ⚠ SPACES STAY, exactly as in NAMECARD: 14 of the 117 printed traits are multi-word
+        // ('Bounty Hunter', 'Capital Ship'), the answer travels in $lastDecision rather than in a
+        // space-delimited Param, and the handler does its own str_replace(' ','_') on arrival when it
+        // arms the SWU_HMW108 flag. Pre-underscoring here would be refused by the validator and would
+        // match nothing downstream even if it were not.
+        //
+        // ⚠ THE PARAM IS EMPTY, so there is nothing to enumerate — see BridgeSWUEnemyInPlayTraits()
+        // for where the candidate list comes from and why it is the PUBLIC BOARD rather than the full
+        // trait universe or the enemy's hidden zones.
+        //
+        // Found by DevTools/SWUSimBotSelfPlayTest.php: with no case here NAMETRAIT fell through to
+        // `default`, the enumerator returned zero actions, SWUBotLegalActions recorded a gap and the
+        // game STALLED — 3 of 12 games in the discovery report's NAMETRAIT isolation probe. No other
+        // root that loads this file queues the type.
+        {
+          foreach (BridgeSWUEnemyInPlayTraits($player, BridgeNameTraitActionCap()) as $trait) {
+            $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '',
+                          'cardID' => $trait, 'chkInput' => [], 'inputText' => ''];
+          }
+          // Declining is legal at the transport level (NAMETRAIT is not MZCHOOSE, so the validator's
+          // decline gate passes '-' through, and HMW_108#0 opens by returning on '-'/''/'PASS').
+          // Listed LAST so the 'first-legal' chooser only reaches it when the enemy board is empty —
+          // which is also the guarantee that this case never returns zero actions, i.e. never stalls.
+          $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '',
+                        'cardID' => '-', 'chkInput' => [], 'inputText' => ''];
+        }
+        break;
+      case 'SCRY':
+        // SWUSim's look-at-top-N picker. Param is the comma-joined list of PEEKED CardIDs, topmost
+        // first, and the answer is "topIDs|bottomIDs" — each half a comma-list drawn from that set,
+        // top listed topmost-first (SCRY_FINALIZE, SWUSim/Custom/GameLogic.php). The answer space is
+        // therefore "some ordering of the peeked cards, cut into a top run and a bottom run":
+        // n!*(n+1) arrangements.
+        //
+        // EXHAUSTIVE, and correctly so: DoScry() has exactly two callers repo-wide — SOR_236 R2-D2
+        // (n=1, 2 answers) and SOR_031 Inferno Four (n=2, 6 answers) — verified by grep, not assumed.
+        // BridgeScryActionCap() is a ceiling for a hypothetical third caller, not a working limit.
+        //
+        // ⚠ SCRY_FINALIZE IS DELIBERATELY FORGIVING: "any peeked card the answer fails to account for
+        // goes back on top rather than vanishing". So a malformed answer is a SILENT NO-OP, not an
+        // error — which is exactly why an unverified encoder here would be worse than the stall it
+        // replaces, and why every answer this arm emits is round-tripped through
+        // SWUValidateDecisionAnswer's SCRY arm in DevTools/tdd-regression/test_swusim_decision_validators.php.
+        //
+        // Found by DevTools/SWUSimBotSelfPlayTest.php: 22 of 24 probe-deck games stalled here.
+        {
+          $peeked = array_values(array_filter(explode(',', strval($decision->Param ?? '')), fn($v) => $v !== ''));
+          $count  = count($peeked);
+          if ($count === 0) {
+            // Unreachable in practice (DoScry returns early on an empty deck) but a case that can
+            // return zero actions is a stall, so keep the floor: '' is the forgiving all-back-on-top.
+            $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => '', 'chkInput' => [], 'inputText' => ''];
+            break;
+          }
+          // Keyed by the answer STRING, which also de-duplicates: when the same CardID is peeked
+          // twice, distinct index arrangements collapse to the same answer and the engine's
+          // multiplicity check treats them as interchangeable.
+          $answers = [];
+          $addAnswer = function(array $topIdx, array $bottomIdx) use (&$answers, $peeked) {
+            $answers[implode(',', array_map(fn($i) => $peeked[$i], $topIdx))
+                     . '|' . implode(',', array_map(fn($i) => $peeked[$i], $bottomIdx))] = true;
+          };
+          // The two EXTREMES first, in the peeked order, so they survive any truncation: keep the
+          // whole peek on top (the no-change answer) and bury the whole peek.
+          $all = range(0, $count - 1);
+          $addAnswer($all, []);
+          $addAnswer([], $all);
+          // Each permutation yields ($count + 1) answers (one per cut point), so this is the most
+          // permutations the cap can consume — see BridgeIndexPermutations' note on why the LIMIT has
+          // to reach the generator rather than be applied to its result.
+          $cap = BridgeScryActionCap();
+          foreach (BridgeIndexPermutations($count, intdiv($cap, $count + 1) + 1) as $perm) {
+            for ($split = 0; $split <= $count; ++$split) {
+              if (count($answers) >= $cap) break 2;
+              $addAnswer(array_slice($perm, 0, $split), array_slice($perm, $split));
+            }
+          }
+          foreach (array_keys($answers) as $answer) {
+            $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $answer, 'chkInput' => [], 'inputText' => ''];
+          }
+        }
+        break;
+      case 'REVEALARRANGE':
+        // SWUSim's reveal-N / discard-any / reorder-the-rest picker. ONE emitter repo-wide: SOR_152
+        // For a Cause I Believe In. Param is the comma-joined list of revealed CardIDs and the answer
+        // is "keptIDs|discardIDs" (REVEALARRANGE_FINALIZE, SWUSim/Custom/GameLogic.php) — kept go back
+        // on top with the FIRST LISTED ENDING UP ON TOP, discarded go to the discard pile From='DECK'.
+        //
+        // ⚠ THE GRAMMAR RESEMBLES SCRY'S BUT THE SECOND HALF MEANS SOMETHING ELSE. "top|bottom" there,
+        // "kept|DISCARDED" here: an answer copied from the SCRY arm would mill the cards it meant to
+        // bury. Read the finalizer, not the sibling case.
+        //
+        // ⚠ Same forgiving tail as SCRY — an unaccounted revealed card goes back on top — so a
+        // malformed answer is a silent no-op. That is what SWUValidateDecisionAnswer's REVEALARRANGE
+        // arm (added alongside this case) exists to refuse.
+        //
+        // BOUNDED BY SUBSET, NOT BY PERMUTATION. The kept half's order is a real choice, but with 4
+        // revealed the ordered space is Σ C(4,k)·k! = 65 and a cap-truncated slice of a factorial list
+        // would make *which* orders are offered an artifact of the enumeration order. So this
+        // enumerates the 2^n keep/discard SPLITS with the kept half left in the revealed order, capped
+        // by BridgeTopDeckSearchActionCap() (40) — a different, smaller cap than SCRY's 120; the two
+        // are not interchangeable and neither is the 65 above equal to either cap. Every answer it
+        // emits is legal and distinct; re-ordering the kept half is deliberately left to a later
+        // chooser that can actually evaluate one order against another.
+        //
+        // Found by DevTools/SWUSimBotSelfPlayTest.php: 2 of 24 probe-deck games stalled here.
+        {
+          $revealed = array_values(array_filter(explode(',', strval($decision->Param ?? '')), fn($v) => $v !== ''));
+          $count    = count($revealed);
+          if ($count === 0) {
+            $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => '', 'chkInput' => [], 'inputText' => ''];
+            break;
+          }
+          $answers = [];
+          $addAnswer = function(array $kept, array $discarded) use (&$answers) {
+            // Keyed by string, so duplicate revealed CardIDs collapse to one answer.
+            $answers[implode(',', $kept) . '|' . implode(',', $discarded)] = true;
+          };
+          // Bit i set = revealed[i] is DISCARDED.
+          $cap   = BridgeTopDeckSearchActionCap();
+          $total = 1 << min($count, 20);   // guard the shift; n is 4 at the only emitter
+          // The two EXTREMES first, exactly like SCRY, so each survives any truncation: mask 0 (keep
+          // everything, order unchanged) is the no-op answer, and mask (total-1) (discard everything)
+          // is its counterpart. Before this fix the loop below walked masks ascending from 0, so
+          // discard-all was always the LAST mask generated — inert at SOR_152's own n=4 (16 < the cap
+          // of 40) but at n>=6 the cap binds before reaching it, silently dropping discard-all along
+          // with every other high-discard answer. That is exactly the failure SCRY's two-extremes-first
+          // ordering exists to prevent.
+          $order = [0];
+          if ($total > 1) $order[] = $total - 1;
+          for ($m = 1; $m < $total - 1; ++$m) $order[] = $m;
+          foreach ($order as $mask) {
+            if (count($answers) >= $cap) break;
+            $kept = $discarded = [];
+            for ($i = 0; $i < $count; ++$i) {
+              if ($mask & (1 << $i)) $discarded[] = $revealed[$i];
+              else                   $kept[] = $revealed[$i];
+            }
+            $addAnswer($kept, $discarded);
+          }
+          foreach (array_keys($answers) as $answer) {
+            $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $answer, 'chkInput' => [], 'inputText' => ''];
+          }
+        }
+        break;
       case 'MZREARRANGE':
+        // Zero AddDecision emitters in SWUSim (verified Phase 2a Task 6). Live emitters: GrandArchiveSim
+        // (Custom/GameLogic.php + Custom/CardDQHandlers.php), AzukiSim (Custom/GameLogic.php), AND
+        // HellbreakSim (Custom/CombatLogic.php) — three roots, not just the two GA/Azuki usually cited.
         foreach (BridgeEnumerateRearrangeResults(strval($decision->Param ?? '')) as $resultStr) {
           $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $resultStr, 'chkInput' => [], 'inputText' => ''];
         }
         break;
       case 'MZMODAL':
+        // Zero AddDecision emitters in SWUSim (verified Phase 2a Task 6). Live emitters: GrandArchiveSim,
+        // AzukiSim, HellbreakSim, AND FaBSim — four roots use this type, not just GA/Azuki.
         foreach (BridgeEnumerateModalResults(strval($decision->Param ?? '')) as $resultStr) {
           $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $resultStr, 'chkInput' => [], 'inputText' => ''];
         }
@@ -944,7 +1421,12 @@ function BridgeEnumeratePlayableActions($player, $root = '') {
 }
 
 function BridgePassActionForRoot($root, $player) {
-  $cardID = ($root === 'AzukiSim') ? 'myLeaderHealthSlot!CustomInput!Pass' : 'myHealth-0!CustomInput!PASS';
+  // Verified against the real client: SWUSim's Pass button submits 'myHealth-0!CustomInput!Pass'
+  // (see SWUSim/Custom/GameLayoutShared.php window.swuPassAction, dispatched to CustomWidgetInput's
+  // "myHealth" case in SWUSim/Custom/CustomInput.php). Same mzID as the GA default, different verb case.
+  if ($root === 'AzukiSim')      $cardID = 'myLeaderHealthSlot!CustomInput!Pass';
+  else if ($root === 'SWUSim')   $cardID = 'myHealth-0!CustomInput!Pass';
+  else                           $cardID = 'myHealth-0!CustomInput!PASS';
   return [
     'playerID' => intval($player),
     'mode' => 10001,
@@ -1899,7 +2381,34 @@ function BridgeAzukiLeaderSummary($playerID) {
   return $empty;
 }
 
+// GA has a champion, Azuki has a leader. SWU seats carry TWO persistent objects — a leader and a
+// base — and the base is the loss condition, so a single-avatar summary loses the thing that
+// decides the game.
+function BridgeSWUAvatarSummary($playerID) {
+  $summary = ['leader' => null, 'base' => null];
+  if (function_exists('GetLeader')) {
+    $leaders = GetLeader(intval($playerID));
+    if (is_array($leaders) && isset($leaders[0]) && $leaders[0] !== null) {
+      $summary['leader'] = [
+        'cardID' => strval($leaders[0]->CardID ?? ''),
+        'damage' => intval($leaders[0]->Damage ?? 0),
+      ];
+    }
+  }
+  if (function_exists('GetBase')) {
+    $bases = GetBase(intval($playerID));
+    if (is_array($bases) && isset($bases[0]) && $bases[0] !== null) {
+      $summary['base'] = [
+        'cardID' => strval($bases[0]->CardID ?? ''),
+        'damage' => intval($bases[0]->Damage ?? 0),
+      ];
+    }
+  }
+  return $summary;
+}
+
 function BridgePrimaryAvatarSummary($root, $playerID) {
+  if ($root === 'SWUSim') return BridgeSWUAvatarSummary($playerID);
   if ($root === 'AzukiSim') return BridgeAzukiLeaderSummary($playerID);
   return BridgeChampionSummary($playerID);
 }

@@ -1,0 +1,86 @@
+# Bot Practice self-play fixture A2 — "LOF Force / Hidden + JTL Piloting" (modern Premier pool)
+#
+# Phase 2 gating-discovery fixture. Same construction rules as premier_deck_a.txt (SET_NNN ids only,
+# built straight from SWUSim/GeneratedCode/GeneratedCardDictionaries.php, no network), but drawn from
+# the MODERN Premier pool (JTL/LOF/SEC/IBH/LAW/ASH) instead of SOR, because the SOR pair's green sweep
+# only proves "the bridge covers what SOR raises". Every notable card below is here to raise a
+# decision shape SOR cannot.
+#
+# Leader LOF_008 Obi-Wan Kenobi — "Action [Exhaust, use the Force (lose your Force token)]".
+#   The ONLY leader-ability cost kind SOR has no analogue for: a cost paid with the Force token
+#   rather than resources. Exercises SWUComputeActionsData's leaderAbilityByIndex gate against a
+#   token cost, then MZCHOOSE for the Experience target. Epic-Action deploy at 5 resources.
+# Base LOF_022 Mystic Monastery — "Action: The Force is with you … no more than 3 times each game."
+#   Deterministically hands the seat a Force token via the base EpicAction verb the free-play
+#   enumerator already emits, so the leader's Force-cost ability is reachable without relying on a
+#   draw. Also the first USE-LIMITED base action the bot has met (baseEpic must go false after 3).
+#
+# Force (LOF, "use the Force" as a cost — ~23 cards in the pool use it):
+#   LOF_123 Directed by the Force — create the token, then "you may play a unit from your hand":
+#           a NESTED play-from-hand inside an event resolution.
+#   LOF_094 Jedi Consular — unit Action whose cost is [Exhaust, use the Force]; the unit-action
+#           analogue of the leader ability above.
+#   LOF_102 Yoda's Lightsaber — an UPGRADE whose When Played offers the Force (YESNO + rider).
+#   LOF_097 Eeth Koth / LOF_115 Dagoyan Master — When Defeated "may use the Force" (a decision
+#           raised from the DEFEAT window, not the play window), Dagoyan into a deck search.
+#   LOF_099 Paladin Training Corvette — "up to 3 Force units" => MZMULTICHOOSE with a real 0..3 range.
+#   LOF_103 Following the Path — search top 8 for up to 2 units, "put them on top in any order":
+#           the ordering-decision candidate (MZREARRANGE / REVEALARRANGE prediction).
+#
+# Hidden (LOF): LOF_107 / LOF_245 / LOF_246. Hidden units cannot be attacked the phase they are
+#   played, so _SWUUnitCanAttackNow()'s legal-target set shrinks — this is the first fixture where a
+#   ready unit can face a board with NO legal attack target for keyword reasons.
+#   LOF_246 Grogu additionally carries "Action [Exhaust]: Heal up to 2 … then deal that much".
+#
+# Piloting (JTL, ~38 cards — a unit played as an UPGRADE, a separate dispatch path in
+# SWUBeginPlayCard that SOR cannot reach):
+#   JTL_093 (1/1), JTL_098 (3/2), JTL_100 (4/2), JTL_103 (5/3) — chosen so the unit cost and the
+#   pilot cost STRADDLE the early-game resource count. When both are affordable SWUBeginPlayCard
+#   raises OPTIONCHOOSE "Unit&Pilot"; when only the pilot cost is affordable it goes straight to
+#   SWUQueuePilotVehiclePick. Both branches need exercising, hence the spread.
+#   JTL_245 R2-D2 "Artooooooooo!" — pilot cost 0 and the only pilot that may attach to a Vehicle
+#   that ALREADY has a Pilot.
+#   JTL_095 / JTL_096 / JTL_101 / JTL_102 / JTL_112 are the space Vehicles the pilots attach to —
+#   without a Pilot-less Vehicle on board SWUGetPilotValidTargets is empty and the whole branch is
+#   unreachable, so the deck must carry hosts as well as pilots.
+#
+# IBH_023 General Rieekan — "Action [Exhaust]: Attack with another Heroism unit": a unit activated
+#   ability that GRANTS AN ATTACK, i.e. the unit-Activate free-play arm feeding into the attack path.
+#
+# LAW_243 Transmission Jamming — "Name a card." NAMECARD is emitted 12 times across SWUSim and the
+#   TestAutomationBridge has no case for it; a 1-cost event is the cheapest way to raise it.
+#
+# Both arenas (ground LOF core, space JTL vehicles), events, upgrades, and a 1-5 cost curve.
+
+Leader
+1 LOF_008
+
+Base
+1 LOF_022
+
+Deck
+3 LOF_123
+2 LOF_094
+2 LOF_102
+2 LOF_097
+2 LOF_115
+2 LOF_099
+2 LOF_103
+2 LOF_243
+2 LOF_096
+2 LOF_107
+2 LOF_245
+2 LOF_246
+2 LOF_124
+2 IBH_023
+2 JTL_093
+2 JTL_098
+2 JTL_100
+2 JTL_103
+1 JTL_245
+2 JTL_095
+2 JTL_096
+2 JTL_101
+2 JTL_102
+2 JTL_112
+2 LAW_243

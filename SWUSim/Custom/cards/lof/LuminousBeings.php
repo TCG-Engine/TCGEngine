@@ -18,7 +18,12 @@ $customDQHandlers["LOF_104#0"] = function($player, $parts, $lastDecision) {
         $o->removed = true;
     }
     DecisionQueueController::CleanupRemovedCards();
-    shuffle($cardIDs);
+    // ⚠ EngineShuffle(), never PHP's shuffle() — unseeded Mt19937 put these on the bottom of the deck in
+    // an order that undo could not restore, so undo→redo dealt a different deck.
+    // EngineShuffle() indexes $array[$i] positionally; array_values() makes that contract explicit
+    // rather than assumed (this list is already sequential today, built via array push above).
+    $cardIDs = array_values($cardIDs);
+    EngineShuffle($cardIDs);
     $deck = &GetDeck(intval($player));
     foreach ($cardIDs as $cid) { $obj = new Deck($cid, 'Deck', intval($player)); $obj->mzIndex = count($deck); array_push($deck, $obj); }
     foreach ($deck as $i => $card) { $card->mzIndex = $i; }

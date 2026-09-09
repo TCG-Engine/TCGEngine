@@ -1,0 +1,53 @@
+# Bot Practice self-play fixture — "unbridged decision-type probe"
+#
+# NOT a Premier-pool deck and not meant to be one. This is a deliberate PROBE list whose only job is
+# to raise the four SWUSim decision types that the modern Premier pool CANNOT raise, so the Phase 2
+# discovery report can confirm or refute them empirically instead of by source reading alone.
+#
+# Why the probe has to leave the Premier pool: a repo-wide sweep of DecisionQueueController::
+# AddDecision call sites shows exactly which cards emit each exotic type, and for three of them every
+# emitter is outside JTL/LOF/SEC/IBH/LAW/ASH:
+#
+#   SCRY          — DoScry() (SWUSim/Custom/GameLogic.php:14145) has exactly TWO callers repo-wide,
+#                   SOR_031 Inferno Four and SOR_236 R2-D2. Nothing in the modern Premier pool scrys.
+#                   SOR_236 is the cheap, repeatable raiser: 1 cost, and its trigger is
+#                   "When Played/On Attack", so it fires again on every attack.
+#   REVEALARRANGE — one emitter repo-wide: SOR_152 For a Cause I Believe In.
+#   NAMETRAIT     — one emitter repo-wide: HMW_108 The First Legion (a PREVIEW set, so it is not in
+#                   Premier either). On Attack, so it repeats.
+#
+# The leader/base/filler are lifted from the already-green premier_deck_a.txt skeleton (SOR_009 /
+# SOR_022 and its cheap Heroism core) precisely so that any failure this fixture produces is
+# attributable to the four probe cards and not to an untested shell.
+#
+# NAMECARD is deliberately ABSENT here even though it is also unbridged: it is raised by the modern
+# fixtures (LAW_243 / SEC_260 / ASH_077 / SEC_186 / SEC_046), and one unanswerable decision ends a
+# game, so putting a cheap NAMECARD event in this list would mask the types this probe exists for.
+
+Leader
+1 SOR_009
+
+Base
+1 SOR_022
+
+Deck
+3 SOR_236
+3 SOR_031
+3 SOR_152
+3 HMW_108
+3 SOR_095
+3 SOR_098
+2 SOR_240
+2 SOR_243
+2 SOR_116
+2 SOR_113
+2 SOR_108
+3 SOR_237
+2 SOR_111
+2 SOR_112
+2 SOR_250
+3 SOR_124
+2 SOR_103
+3 SOR_120
+2 SOR_121
+2 SOR_127

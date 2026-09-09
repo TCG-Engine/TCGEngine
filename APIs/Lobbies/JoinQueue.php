@@ -76,13 +76,17 @@
   // both seats (full self-play, e.g. for automated regression matches); pass a single seat for a
   // human-vs-bot game instead.
   $createBot = isset($_POST['createBot']) && ($_POST['createBot'] === '1' || strtolower($_POST['createBot']) === 'true');
-  $gaBotPlayers = [];
+  // The RAW request, before any per-mode default is layered on. GA self-play defaults to BOTH seats;
+  // SWUSim Bot Practice defaults to seat 2 ONLY (seat 1 is the human). Keeping the unmodified parse
+  // here is what lets the two defaults differ without either mode reading the other's fallback.
+  $requestedBotPlayers = [];
   if (isset($_POST['botPlayers'])) {
     foreach (explode(',', strval($_POST['botPlayers'])) as $seatStr) {
       $seat = intval(trim($seatStr));
-      if ($seat === 1 || $seat === 2) $gaBotPlayers[] = $seat;
+      if ($seat === 1 || $seat === 2) $requestedBotPlayers[] = $seat;
     }
   }
+  $gaBotPlayers = $requestedBotPlayers;
   if (empty($gaBotPlayers)) $gaBotPlayers = [1, 2];
   $createTutorial = isset($_POST['createTutorial']) && ($_POST['createTutorial'] === '1' || strtolower($_POST['createTutorial']) === 'true');
   $casterMode = isset($_POST['casterMode']) && ($_POST['casterMode'] === '1' || strtolower($_POST['casterMode']) === 'true');
@@ -122,7 +126,7 @@
   // Solo/local modes are created immediately (no matchmaking). 'goldfish' = 1 deck (empty P2);
   // 'hotseat' = 2 decks, shared authKey.
   $isModeFormat =
-      ($rootName === 'SWUSim'         && ($format === 'goldfish' || $format === 'hotseat')) ||
+      ($rootName === 'SWUSim'         && ($format === 'goldfish' || $format === 'hotseat' || $format === 'botpractice')) ||
       ($rootName === 'GrandArchiveSim' && ($format === 'goldfish' || $format === 'hotseat' || $format === 'bot')) ||
       ($rootName === 'AzukiSim'        && ($format === 'rlbot' || $format === 'tutorial')) ||
       ($rootName === 'HellbreakSim'    && $format === 'tutorial');
@@ -192,6 +196,9 @@
     if ($createTutorial && in_array($rootName, ['AzukiSim', 'HellbreakSim'], true)) $format = 'tutorial';
     $isHotseat = ($format === 'hotseat');
     $isGABot = ($rootName === 'GrandArchiveSim' && $format === 'bot');
+    // SWUSim Bot Practice: ONE human at seat 1, a bot at seat 2. Unlike goldfish, seat 2 is a REAL
+    // seat — it needs a real deck, takes its own mulligan, and can lose its base.
+    $isBotPractice = ($rootName === 'SWUSim' && $format === 'botpractice');
     $isAzukiRlBot = ($rootName === 'AzukiSim' && $format === 'rlbot');
     $isAzukiTutorial = ($rootName === 'AzukiSim' && $format === 'tutorial');
     $isHellbreakTutorial = ($rootName === 'HellbreakSim' && $format === 'tutorial');
@@ -222,6 +229,18 @@
       // pilot, unlike goldfish's empty dummy) — default to the same deck as P1 if none was supplied,
       // so a single decklist can be tested against itself with one request.
       $secondPlayer = new Player(2, $deckLink2 !== '' ? $deckLink2 : $deckLink, '', $joiningUserId);
+    } else if ($isBotPractice) {
+      // Bot Practice: seat 2 is the BOT's seat and it plays a real list, exactly like hotseat's
+      // second seat — NOT goldfish's empty sponge. Falling through to the goldfish `else` below is
+      // what made every game created through this endpoint dead on arrival: seat 2's deck load
+      // failed, SWUSim/CreateGame.php's $deckLoadOk went false (there is no goldfish exemption for
+      // this mode, correctly), QueuePregameSetup() never ran, and the game sat in phase APS with no
+      // hands, no mulligan and no base while the bot polled "no action pending" forever.
+      //
+      // deckLink2 is the bot's list. It falls back to the host's own list (as GA self-play above
+      // does) rather than to '' so a request that omits it produces a playable mirror match instead
+      // of re-creating that dead seat — the menu that would enforce a second deck is Phase 5.
+      $secondPlayer = new Player(2, $deckLink2 !== '' ? $deckLink2 : $deckLink, '', $joiningUserId);
     } else {
       // Goldfish: P2 is an empty passive seat (SWUSetupGame no longer gates pregame on it).
       $secondPlayer = new Player(2, '', '');
@@ -231,7 +250,7 @@
     $lobby->numPlayers = 2;
     $lobby->maxPlayers = 2;
     $lobby->ready = true;
-    $lobby->id = uniqid($isTutorial ? 'tutorial_' : ($isAzukiRlBot ? 'rlbot_' : ($isHotseat ? 'hotseat_' : ($isGABot ? 'bot_' : 'goldfish_'))), true);
+    $lobby->id = uniqid($isTutorial ? 'tutorial_' : ($isAzukiRlBot ? 'rlbot_' : ($isHotseat ? 'hotseat_' : ($isGABot ? 'bot_' : ($isBotPractice ? 'botpractice_' : 'goldfish_')))), true);
     $lobby->rootName = $rootName;
     $lobby->format = $format;
     $lobby->queueType = $queueType;
@@ -239,8 +258,16 @@
     if ($rootName === 'GrandArchiveSim') $lobby->shareAnonymizedGameplayData = $shareAnonymizedGameplayData;
     $lobby->casterMode = $casterMode;
     $lobby->isGoldfish = true;            // reuse the "skip matchmaking / skip Bo3 match" plumbing
-    $lobby->goldfishPlayers = ($isHotseat || $isGABot) ? [] : [2];
-    $lobby->botPlayers = $isGABot ? $gaBotPlayers : [];
+    // Seat 2 is a passive empty sponge ONLY in goldfish. Hotseat, GA self-play and Bot Practice all
+    // give it a real deck, so none of them may declare it goldfish. (Inert for SWUSim's CreateGame,
+    // which never reads this field — but it is the recorded INTENT, and FaB/Hellbreak/GA do read it.)
+    $lobby->goldfishPlayers = ($isHotseat || $isGABot || $isBotPractice) ? [] : [2];
+    // Which seats a bot drives. GA self-play defaults to both seats; Bot Practice defaults to seat 2
+    // (seat 1 is the human) and honours an explicit botPlayers request — until now this line dropped
+    // that field for SWUSim outright and only worked via SWUSim/CreateGame.php's own [2] fallback.
+    $lobby->botPlayers = $isGABot
+      ? $gaBotPlayers
+      : ($isBotPractice ? (empty($requestedBotPlayers) ? [2] : $requestedBotPlayers) : []);
     $lobby->azukiRlBotPlayers = $isAzukiRlBot ? [2] : [];
     $lobby->azukiRlBotProfile = $isAzukiRlBot ? $azukiRlBotProfile : '';
     $lobby->players = [$hostPlayer, $secondPlayer];

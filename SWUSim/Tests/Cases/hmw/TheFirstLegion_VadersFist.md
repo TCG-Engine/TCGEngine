@@ -5,8 +5,11 @@
 #//        this phase."
 #//
 #// COVERAGE: offer=N/A (structural: NAMETRAIT is a free-text pick over the whole printed trait universe,
-#//             not a target pool — the server validates the answer against SWUAllTraits, which
-#//             UnrecognisedTraitNamed_NothingHappens pins) ·
+#//             not a target pool — the server validates the answer against SWUAllTraits in
+#//             SWUValidateDecisionAnswer's NAMETRAIT arm, which now refuses an unrecognised string
+#//             before this card's own handler ever runs; AbsentTraitNamed_NothingHappens pins the
+#//             surviving "recognised trait, no matching cards" branch — see its note for why the
+#//             garbage-input branch is gone) ·
 #//           decline=N/A (structural: no "may" — naming is mandatory once the attack begins) ·
 #//           boundary=N/A (no threshold) ·
 #//           control=N/A (structural: the flag is stamped on the NAMING seat and read against each
@@ -378,10 +381,29 @@ P2SPACEARENAUNIT:0:HASTRAIT:Vehicle
 
 ---
 
-# UnrecognisedTraitNamed_NothingHappens
-#// The answer is validated against the real trait universe (SWUAllTraits, derived from the card
-#// dictionaries rather than hand-listed). A string that is not a printed trait arms nothing — it must
-#// not stamp a flag that later matches everything, or nothing.
+# AbsentTraitNamed_NothingHappens
+#// Was UnrecognisedTraitNamed_NothingHappens, answering with the garbage string "NotARealTrait". That
+#// no longer reaches HMW_108#0 at all: SWUValidateDecisionAnswer's NAMETRAIT arm (GameLogic.php) now
+#// validates the answer against SWUAllTraits BEFORE AnswerDecision resolves, so an unrecognised string
+#// is rejected as illegal input, never handed to the card. HMW_108#0's own strcasecmp-against-
+#// SWUAllTraits early return (TheFirstLegion_VadersFist.php:32-38) — written for exactly that
+#// garbage-input case — is therefore dead code from production's point of view: unreachable, but left
+#// in place as defense in depth.
+#// ⚠ COVERAGE NOTE: this means the "garbage/unrecognised trait string" branch through HMW_108's own
+#// handler is no longer exercised by any section in this file. That is the correct state of the world
+#// today (the validator is the enforcement point now), but if SWUValidateDecisionAnswer's NAMETRAIT
+#// arm is ever relaxed back to permissive (or removed), that branch becomes reachable from production
+#// again and this file needs a garbage-string section restored alongside this one.
+#//
+#// What this section tests instead: a REAL, recognised trait that simply matches no card anywhere on
+#// this board — "Droid". It passes both the validator and HMW_108#0's own check, so AddGlobalEffects
+#// does fire (unlike the old garbage-input case, where the handler returned before ever calling it),
+#// but the read side (_SWUCardHasTrait / TraitContains) finds nothing carrying that trait to strip.
+#// Board traits, confirmed against the generated trait dictionary: P1 base SOR_024 = Hoth; P1 leader
+#// SOR_007 (Tarkin) = Imperial,Official; P1's own HMW_108 = Imperial,Trooper; P2 base SOR_026 = Jedha;
+#// P2 leader SOR_010 (Vader) = Force,Imperial,Sith; P2's SOR_237 (X-Wing) = Rebel,Vehicle,Fighter. No
+#// card on either side carries Droid, so the end state is observably identical to the old section's —
+#// nothing visibly changes — reached via "recognised trait, zero matches" rather than "invalid input".
 
 ## GIVEN
 CommonSetup: grk/rrk/{myResources:4}
@@ -392,7 +414,7 @@ WithP2SpaceArena: SOR_237:1:0
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:NotARealTrait
+- P1>AnswerDecision:Droid
 
 ## EXPECT
 P2SPACEARENAUNIT:0:HASTRAIT:Vehicle

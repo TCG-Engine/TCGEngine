@@ -1247,7 +1247,11 @@ function _SWUPlayerDiscardRandom(int $targetPlayer): void
   }
   if (empty($liveIdx))
     return;
-  $pick = $liveIdx[array_rand($liveIdx)];
+  // ⚠ EngineRandomInt(), never array_rand(). array_rand() draws from PHP's unseeded Mt19937: it is
+  // outside $gRandomCounter and outside the undo snapshot, so undo→redo across a random discard
+  // discarded a DIFFERENT card. EngineRandomInt() derives from gamestate + the per-game secret
+  // RNG_SEED, so the pick stays unpredictable to players AND reproducible on undo/replay.
+  $pick = $liveIdx[EngineRandomInt(0, count($liveIdx) - 1)];
   $cid = $hand[$pick]->CardID;
   $hand[$pick]->Remove();
   SWUAddToDiscard($targetPlayer, $cid, 'HAND');
@@ -1269,7 +1273,11 @@ function _SWUOpponentDiscardRandom(int $player): void
   }
   if (empty($liveIdx))
     return;
-  $pick = $liveIdx[array_rand($liveIdx)];
+  // ⚠ EngineRandomInt(), never array_rand(). array_rand() draws from PHP's unseeded Mt19937: it is
+  // outside $gRandomCounter and outside the undo snapshot, so undo→redo across a random discard
+  // discarded a DIFFERENT card. EngineRandomInt() derives from gamestate + the per-game secret
+  // RNG_SEED, so the pick stays unpredictable to players AND reproducible on undo/replay.
+  $pick = $liveIdx[EngineRandomInt(0, count($liveIdx) - 1)];
   $cid = $hand[$pick]->CardID;
   $hand[$pick]->Remove();
   SWUAddToDiscard($opp, $cid, 'HAND');

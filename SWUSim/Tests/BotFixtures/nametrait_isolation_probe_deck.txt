@@ -1,0 +1,48 @@
+# Bot Practice self-play fixture — "NAMETRAIT isolation probe"
+#
+# Built for Phase 2a Tasks 2/3/4 to isolate the NAMETRAIT decision type from SCRY/REVEALARRANGE,
+# which share the "unbridged decision-type probe" deck (decision_type_probe_deck.txt) in the same
+# directory. That shared probe raises all three types at once, so a NAMETRAIT-specific failure
+# there is hard to distinguish from a SCRY/REVEALARRANGE one. This deck is the same shell with the
+# SCRY (SOR_236/SOR_031) and REVEALARRANGE (SOR_152) emitters removed, leaving HMW_108 as the only
+# non-baseline card.
+#
+# NAMETRAIT has exactly one emitter repo-wide: HMW_108 The First Legion (On Attack — repeats every
+# attack), and it is a PREVIEW-set card, so it is deliberately OUT OF Premier and will never appear
+# in premier_deck_a/b.txt or premier_modern_deck_a/b.txt. This fixture is the only reproducible way
+# to exercise the NAMETRAIT bridge/validator arms from the tree — do not delete it once its sweep
+# is green, per the same lesson Phase 1 had to learn about its own uncommitted sweep fixture (see
+# .superpowers/sdd/2026-09-09-swusim-bot-practice-phase2a/task-2-3-4-report.md and
+# .superpowers/sdd/2026-09-09-swusim-bot-practice-phase1/ for that precedent).
+#
+# The leader/base/filler are lifted from the already-green premier_deck_a.txt skeleton (SOR_009 /
+# SOR_022 and its cheap Heroism core), same rationale as decision_type_probe_deck.txt: any failure
+# this fixture produces is attributable to HMW_108, not to an untested shell.
+#
+# Baseline (Phase 2a discovery): 9/12 pass, 3 NAMETRAIT gaps, before the bridge/validator arms
+# existed. After Tasks 2-4 landed: 12/12 pass, gaps=0.
+
+Leader
+1 SOR_009
+
+Base
+1 SOR_022
+
+Deck
+3 HMW_108
+9 SOR_095
+6 SOR_098
+2 SOR_240
+2 SOR_243
+2 SOR_116
+2 SOR_113
+2 SOR_108
+3 SOR_237
+2 SOR_111
+2 SOR_112
+2 SOR_250
+3 SOR_124
+2 SOR_103
+3 SOR_120
+2 SOR_121
+2 SOR_127

@@ -3794,6 +3794,28 @@ function _SWUUnitCanAttackNow(int $player, $unit, string $arenaName): bool {
 
 // Like SWUGetValidAttackTargets but Ambush-specific: units only, never the base (CR 5.9.a). $targetSeat
 // pins a specific opponent (p{seat}<Zone>) for the N-player union; null → "their" (2-player, byte-identical).
+// HMW_053 Fett's Firespray, Settling the Score — "Friendly units can attack bases while using Ambush."
+//
+// Ambush is units-only by CR 5.9.a ("attack that enemy unit"), so the base is simply never added to
+// SWUGetValidAmbushTargets' pool. Firespray is a PERMISSION that widens that pool — it has no trigger
+// and writes nothing to the ambushing unit, so it is read live at target-collection time and ends the
+// moment Firespray leaves play.
+//
+// ⚠ "FRIENDLY" IS A TEAM RELATION, NOT A CONTROLLER CHECK. In Team Suns a teammate's unit is friendly
+// but you do not control it, so a teammate's Firespray must grant this. SWUTeamOf collapses to the seat
+// itself outside a team game, so Premier and Twin Suns walk the same loop and find only the attacker's
+// own controller — byte-identical. (Same shape as HMW_014 Wicket's friendly-attack reactor.)
+function _SWUHmw053AllowsAmbushBases($attackerObj): bool {
+    if ($attackerObj === null) return false;
+    $ctrl = intval($attackerObj->Controller ?? 0);
+    if ($ctrl <= 0) return false;
+    foreach (GetLiveSeatsArray() as $seat) {
+        if (SWUTeamOf($seat) !== SWUTeamOf($ctrl)) continue;
+        if (_SWUCountActiveUnitsWithCardID($seat, 'HMW_053') > 0) return true;
+    }
+    return false;
+}
+
 function SWUGetValidAmbushTargets(int $opponent, $attackerObj, string $arenaName, ?int $targetSeat = null): array {
     $tp          = $targetSeat === null ? 'their' : "p{$targetSeat}";
     $opArenaZone = "{$tp}{$arenaName}";
@@ -3813,7 +3835,19 @@ function SWUGetValidAmbushTargets(int $opponent, $attackerObj, string $arenaName
     }
 
     $hasSentinelRestriction = !empty($sentinels) && !HasKeyword_Saboteur($attackerObj);
-    return $hasSentinelRestriction ? $sentinels : $oppUnits;
+    if ($hasSentinelRestriction) return $sentinels;
+
+    // HMW_053 Fett's Firespray widens the pool to include the defending base. Deliberately AFTER the
+    // Sentinel return: Sentinel is a RESTRICTION on what may be attacked and Firespray is a PERMISSION
+    // to attack bases, so the restriction wins and a base must not be offered while a Sentinel stands.
+    if (_SWUHmw053AllowsAmbushBases($attackerObj)) {
+        $oppBase = GetZone("{$tp}Base");
+        for ($i = 0; $i < count($oppBase); $i++) {
+            if (SWUObjGone($oppBase[$i])) continue;
+            $oppUnits[] = "{$tp}Base-{$i}";
+        }
+    }
+    return $oppUnits;
 }
 
 // Twin Suns (Phase 3): Ambush targets unioned across ALL live opponents (per-opponent Sentinel), mirroring

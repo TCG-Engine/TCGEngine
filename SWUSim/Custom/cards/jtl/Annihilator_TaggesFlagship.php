@@ -59,7 +59,13 @@ $customDQHandlers["JTL_041#0"] = function($player, $parts, $lastDecision) {
     $deck = &GetDeck($controller);
     $matchIdx = [];
     foreach ($deck as $i => $c) { if (empty($c->removed) && SWUObjectTitle($c) === $name) $matchIdx[] = $i; }
-    if (empty($matchIdx)) { DecisionQueueController::CleanupRemovedCards(); $d0 = &GetDeck($controller); EngineShuffle($d0, true); return; }
+    if (empty($matchIdx)) { DecisionQueueController::CleanupRemovedCards(); $d0 = &GetDeck($controller); EngineShuffle($d0, false); return; }
+    // ⚠ $useStrongEntropy=false. `true` routes EngineShuffle through random_int(), which is unseeded:
+    // it bypasses $gRandomCounter and the undo snapshot, so undo→redo past this deck hunt dealt a
+    // DIFFERENT deck. The deterministic path is already unpredictable to players — it mixes the
+    // per-game secret RNG_SEED (Core/DeterministicRNG.php:94-101) — so strong entropy bought nothing
+    // here and cost reproducibility. This card sits on the same path as _topDeckPutRemainingToBottom(),
+    // fixed in the same pass; leaving one of the two unseeded would have left JTL_041 broken anyway.
     rsort($matchIdx); // splice high→low so earlier indices stay valid
     $matchIDs = [];
     foreach ($matchIdx as $i) { $matchIDs[] = $deck[$i]->CardID; array_splice($deck, $i, 1); }
@@ -86,5 +92,5 @@ $customDQHandlers["JTL_041#1"] = function ($player, $parts, $lastDecision) {
     SWUAddToDiscard($deckOwner, $cardID, 'DECK'); // chosen → discard
   _topDeckPutRemainingToBottom($deckOwner, $resolved['remaining']);                      // kept matches returned (shuffled)
   $deck = &GetDeck($deckOwner);
-  EngineShuffle($deck, true);                                                            // reshuffle the whole deck
+  EngineShuffle($deck, false);                                                           // reshuffle the whole deck (deterministic — see the note above)
 };

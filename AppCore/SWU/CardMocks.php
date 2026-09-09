@@ -56,6 +56,41 @@ Action: Attack with a unit. For this attack, replace any Raid it has or gains wi
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'HMW_002' => 
+  array (
+    'title' => 'Maz Kanata',
+    'subtitle' => 'Eclectic Pirate Queen',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 4,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+    ),
+    'text' => 'Action [Exhaust]: Play a Fringe or Underworld unit from your hand. If costs [1 resource] less. Give a Weakness token to it.',
+    'epicAction' => 'Epic Action: If you control 6 or more resources, deploy this leader.',
+    'deployText' => 'Hidden (This unit can\'t be attacked if she was deployed this phase.)
+Action: Play a Fringe or Underworld unit form your hand. It costs [1 resource] less. Give a Weakness token to it.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/002.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/002-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_003' => 
   array (
     'title' => 'Doctor Hemlock',
@@ -1188,6 +1223,35 @@ When Played: Search the top 8 cards of your deck for up to 2 units that each cos
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/046.png',
     'imageUrlBack' => '',
   ),
+  'HMW_047' => 
+  array (
+    'title' => 'Eravana',
+    'subtitle' => 'Hauling Rathtars',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 1,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+      1 => 'Vehicle',
+      2 => 'Transport',
+    ),
+    'text' => 'On Attack: Create a Beast token and ready it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/047.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_048' => 
   array (
     'title' => 'Vernestra Rwoh',
@@ -1215,6 +1279,59 @@ As an additional cost to play this unit, put up to 2 units that each cost 5 or l
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/048.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_049' => 
+  array (
+    'title' => 'Greater Sarlacc',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 9,
+    'power' => 9,
+    'hp' => 8,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+    ),
+    'text' => 'Overwhelm
+While playing this unit, you may defeat any number of ready resources you control. For each resource defeated this way, this unit costs [3 resources] less to play.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/049.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_050' => 
+  array (
+    'title' => 'Low Altitude Combat',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 2,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Tactic',
+    ),
+    'text' => 'Move a space unit to the ground arena (it\'s now a ground unit). If you do, you may attack with a ground unit. It gets +2/+0 for this attack.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/050.png',
     'imageUrlBack' => '',
   ),
   'HMW_051' => 
@@ -1892,6 +2009,33 @@ If attached base would be dealt 5 or more damage, prevent that damage. If you do
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/081.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_082' => 
+  array (
+    'title' => 'Nala Se',
+    'subtitle' => 'Silent Survivor',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 1,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Vigilance',
+    ),
+    'trait' => 
+    array (
+      0 => 'Kaminoan',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/082.png',
     'imageUrlBack' => '',
   ),
   'HMW_084' => 

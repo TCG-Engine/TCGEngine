@@ -1,0 +1,44 @@
+# Bot Practice self-play fixture B — "Aggression/Villainy Imperial aggro"
+# Same construction rules as fixture A (see its header). Deliberately a different aspect pair and a
+# different shape so the two seats do not mirror each other:
+#   * cheaper, wider ground curve + Overwhelm/Raid so the game actually closes out a 25 HP base
+#   * an Action [exhaust] unit (SOR_129) and an Epic Action base (SOR_025) for the two CustomInput
+#     free-play verbs
+#   * SOR_233 "I Am Your Father" puts a decision on the OPPONENT's queue, which is the one shape a
+#     single-seat enumerator gets wrong (it exercises SWUBotPendingDecisionSeat's seat-generic loop)
+#   * upgrades (SOR_136 / SOR_137 / SOR_166) so play-from-hand is not units-and-events only
+
+Leader
+1 SOR_010
+
+Base
+1 SOR_025
+
+Deck
+3 SOR_128
+3 SOR_130
+2 SOR_227
+2 SOR_228
+2 SOR_229
+2 SOR_161
+2 SOR_164
+2 SOR_165
+2 SOR_232
+1 SOR_230
+1 SOR_131
+1 SOR_133
+1 SOR_129
+2 SOR_159
+1 SOR_160
+3 SOR_225
+2 SOR_231
+2 SOR_132
+2 SOR_163
+1 SOR_134
+2 SOR_172
+2 SOR_139
+2 SOR_167
+1 SOR_233
+3 SOR_166
+2 SOR_137
+1 SOR_136

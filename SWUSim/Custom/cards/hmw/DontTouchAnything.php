@@ -16,10 +16,13 @@
 // also says neither "non-leader" nor an arena, so AnyUnitFilter across both arenas is exactly right:
 // a deployed enemy leader unit and an enemy space unit are legal targets.
 //
-// The pick is genuinely random (no decision is raised), so it follows TWI_202 in using array_rand over
-// the engine's seeded RNG state rather than a decision. The tests make the OUTCOME deterministic
-// without constraining the choice — either exactly one legal target, or two identical bodies where
-// whichever is picked dies.
+// The pick is genuinely random (no decision is raised), so it draws from the engine's seeded RNG state
+// (EngineRandomInt) rather than raising a decision. ⚠ This comment used to say the opposite — that the
+// card "follows TWI_202 in using array_rand over the engine's seeded RNG state". That convention was
+// itself the bug: array_rand()/shuffle() use PHP's unseeded Mt19937, which is outside $gRandomCounter and
+// outside the undo snapshot, so undo→redo across this event hit a DIFFERENT unit. TWI_202 was converted
+// in the same pass. The tests make the OUTCOME deterministic without constraining the choice — either
+// exactly one legal target, or two identical bodies where whichever is picked dies.
 //
 // Damage goes through the ordinary SWUDealDamageToUnit funnel rather than writing Damage directly, so
 // Shields, prevention and the state-based defeat sweep all apply for free.
@@ -27,7 +30,7 @@ $whenPlayedAbilities["HMW_217:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
     $targets = SWUAllUnits('their');
     if (empty($targets)) return;   // no enemy units: clean fizzle, no prompt, no base as a consolation
-    $pick = $targets[array_rand($targets)];
+    $pick = $targets[EngineRandomInt(0, count($targets) - 1)];
     // The target is random, so the log line is the only way a player can see what was hit.
     AddGameLogEntry('ABILITY', 'HMW217_HIT ' . CardTitle(GetZoneObject($pick)->CardID ?? ''), 'ALL');
     SWUDealDamageToUnit($pick, 3, intval($player));

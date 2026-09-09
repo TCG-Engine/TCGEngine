@@ -112,7 +112,7 @@ section that reds — an unverified one is the "belt and braces nobody dares tou
 ### ⚠ A GREEN mutation is often a BROKEN PROBE — prove the mutated line is REACHED (HMW wave 17, 2026-09-04)
 
 The "three causes" list above needs a FOURTH, and it was the most expensive one of this run: **the
-mutation never ran, or never ran on the path the section takes.** Two forms, both of which produced a
+mutation never ran, or never ran on the path the section takes.** Four forms, each of which produced a
 confident-looking green:
 
 1. **The file was half-flushed.** The documented phantom-`php -l` race is not limited to lints — a
@@ -127,12 +127,49 @@ confident-looking green:
    is not load-bearing"; both were wrong about the probe, not about the code. **Before believing a green
    mutation, name the line the section executes and confirm your edit is on it** — mutate what the
    section ASSERTS (there: "does an Advantage subcard contribute power at defeat", which reds cleanly).
+3. **The section never reached the state it asserts about.** A section that has to get to a LATER PHASE
+   or ROUND lands somewhere you did not intend, and then asserts the unchanged board. Measured twice in
+   one card (HMW_054, 2026-09-09): "fires at the NEXT regroup, not every regroup" stayed green with the
+   one-shot consume DELETED, because a second `Pass` does nothing — it sits on the regroup's own
+   "play a resource" prompt. The round is `Pass` → phase **RES** → `ResourcePass` ×2 → phase **MAIN** →
+   `Pass, Pass` → the next regroup. ⚠ And `P1OnlyActions` auto-passes the opponent in round ONE only, so
+   the closing step needs BOTH seats. **Before trusting a multi-phase section, probe where it actually
+   lands** (a throwaway section asserting `PHASE:ZZZ` prints the real phase in the failure message).
+4. **An engine-wide invariant absorbs the mutation — and that green is CORRECT.** `_SWUActionCloseGate()`
+   refuses a duplicate action close for every card by construction, so "call `SWUAfterAction` from this
+   card too" is green everywhere (measured on HMW_050). Do not chase it and do not delete the section:
+   **write the invariant into the section comment** and say what the section still buys (there: that the
+   card participates in the contract at all, and that it is the only section running without
+   `P1OnlyActions`). Same move as the ★ note below.
 
 ★ And the finding that falls out of it: **when a behaviour holds STRUCTURALLY rather than by a guard,
 say so in the section comment.** A defeated host's Advantage tokens are never shed by the attack-ends
 path at all, so "the When Defeated resolves before the attack-ends window" is true by construction — it
 has no guard and a future "tidy-up" of the shed order would not be caught. Recording that is worth more
 than a guard that cannot exist.
+
+### ⚠ Three card SHAPES whose bug is invisible to every single-use / single-board section (HMW, 2026-09-09)
+
+1. **A leader whose DEPLOYED face is a bare `Action:` (no `[Exhaust]`).** `$unitActionCostKind` defaults
+   to `'exhaust'`, so the deployed side silently inherits the FRONT side's cost and becomes once-per-turn
+   instead of repeatable. Two cards shipped with this (SHD_013 Han Solo, SHD_016 Fennec Shand). Set
+   `$unitActionCostKind["<CardID>"] = 'none'` — and **the guard is a REPEATABILITY section** (use the
+   ability twice in one phase). No single-use section can see it. Read both faces off the printed card,
+   not the text dump: the cost bracket is exactly what a transcription drops.
+2. **"…then do X to the unit you just played."** Marking the unit as it enters play and searching for the
+   marker is WRONG on any repeatable ability: the marker is a turn effect and lasts the whole PHASE, so
+   the second use finds the FIRST unit played this phase. Snapshot the in-play UIDs BEFORE the nested
+   play and require both — the snapshot answers "new at all", the marker answers "which of the new ones
+   was PLAYED" (a played unit whose When Played creates a token adds two). Guard = two identical units
+   played by two uses; the bug puts both riders on the first one.
+3. **An additional cost that also SPENDS PAYMENT CAPACITY** ("defeat any number of ready resources you
+   control; N less each" — HMW_049). Every other member of the cost-reducer family spends something that
+   could not have paid the bill, so they subtract the whole pool; here each pick removes a payer and the
+   outlay is `k + max(0, cost − N·k)`, an INTERIOR minimum. The affordability glow must minimise over k,
+   and `_SWUPlayIsPayableAtDiscount` needs its `$capacityLoss` argument or the gate counts each pick
+   twice. ⚠ **Only capacity that is NOT fodder separates the correct formula from the naive one** — at
+   every all-resources board the two agree. The discriminating fixture is a **Credit token** (capacity,
+   never fodder, CR 3.13); measured on HMW_049, the naive formula left the whole rest of the file green.
 
 ### ⚠ "HAD N power" — the ATTACKING section cannot discriminate; write the DEFENDING one (HMW_109)
 

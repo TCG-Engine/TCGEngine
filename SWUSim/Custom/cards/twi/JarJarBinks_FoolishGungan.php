@@ -22,7 +22,11 @@ $onAttackAbilities["TWI_202:0"] = function($player, $mzID) {
     // For Jar Jar this also skews the RANDOM pick: with only two bases in the pool a four-seat table
     // was drawing from 2 bases instead of 4, so every base's odds were wrong as well as unreachable.
     foreach (SWUAllBaseMzIDs(intval($player), 'any') as $bmz) $pool[] = $bmz;
-    $pick = $pool[array_rand($pool)];
+    // ⚠ EngineRandomInt(), never array_rand(). array_rand() draws from PHP's unseeded Mt19937 — it does
+    // not advance $gRandomCounter and is not restored by an undo snapshot, so undo→redo across this
+    // attack hit a DIFFERENT target. EngineRandomInt() is seeded from gamestate + the per-game secret
+    // RNG_SEED: still unpredictable to players, but reproducible on undo/replay.
+    $pick = $pool[EngineRandomInt(0, count($pool) - 1)];
     if (strpos($pick, 'Base') !== false) {
         // The random pick already names the seat — read it out of the mzID rather than assuming seat 2.
         SWUDealDamageToBase(2, SWUMzOwner($pick, intval($player)), intval($player));

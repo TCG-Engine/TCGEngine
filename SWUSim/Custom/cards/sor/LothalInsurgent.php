@@ -18,7 +18,9 @@ $whenPlayedAbilities["SOR_190:0"] = function($player, $mzID) {
         $liveIdx = [];
         foreach ($hand as $i => $c) { if (empty($c->removed)) $liveIdx[] = $i; }
         if (empty($liveIdx)) { unset($hand); continue; }
-        $pick = $liveIdx[array_rand($liveIdx)];
+        // ⚠ EngineRandomInt(), never array_rand() — unseeded and outside the undo snapshot, so
+        // undo→redo made each opponent discard a DIFFERENT card.
+        $pick = $liveIdx[EngineRandomInt(0, count($liveIdx) - 1)];
         $cid  = $hand[$pick]->CardID;
         $hand[$pick]->Remove();
         unset($hand);

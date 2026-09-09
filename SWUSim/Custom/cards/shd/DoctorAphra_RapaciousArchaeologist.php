@@ -31,5 +31,7 @@ $customDQHandlers["SHD_015#0"] = function($player, $parts, $lastDecision) {
     $picked = ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS' && $lastDecision !== '')
         ? explode('&', $lastDecision) : [];
     if (count($picked) < 3) return;                    // must choose 3
-    SWUReturnFromDiscardToHand(intval($player), $picked[array_rand($picked)]); // return 1 of the 3 at random
+    // ⚠ EngineRandomInt(), never array_rand() — the latter is PHP's unseeded Mt19937, outside
+    // $gRandomCounter and the undo snapshot, so undo→redo returned a DIFFERENT one of the 3.
+    SWUReturnFromDiscardToHand(intval($player), $picked[EngineRandomInt(0, count($picked) - 1)]); // return 1 of the 3 at random
 };

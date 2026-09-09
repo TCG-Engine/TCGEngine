@@ -63,6 +63,31 @@ function SWUFormatDefinitions() {
             'localMode'     => true,
             'enabled'       => true,
         ],
+        // Bot Practice: the human loads their own list plus a list for the bot, which occupies
+        // seat 2 and answers its own prompts through Core/BotController.php. Unlike goldfish,
+        // seat 2 is a REAL seat — real deck, real mulligan, losable base, equal shot at the die
+        // roll — so none of the goldfish passive-seat gates may match it.
+        //
+        // ⚠ DISABLED ON PURPOSE — PHASE 5 FLIPS THIS. 'enabled' => false hides the format from
+        // SWUListFormats(), which is what SharedUI/Sites/SWUSim/MainMenu.php builds its dropdown
+        // from. The menu is NOT wired for it yet: MainMenu's applyFormatUI() `isMode` predicate is
+        // still `goldfish || hotseat`, so an enabled Bot Practice would be selectable while hiding
+        // the deck-2 field and the Start button and offering Join Queue instead — a dead menu entry.
+        // Wiring that menu is Phase 5 (it needs a SWUSim/Tests/Visual/ case and a cross-browser
+        // pass); flip this to true in the SAME change that wires it, never before.
+        //
+        // Disabled ≠ unreachable: SWUGetFormat('botpractice') still resolves (see the file header),
+        // so APIs/Lobbies/JoinQueue.php still accepts format=botpractice, the deck check still runs
+        // unrestricted, and SWUSim/CreateGame.php still stamps SWU_MODE_BOTPRACTICE. Phase 1 is
+        // reachable programmatically and by the headless harness; it is only absent from the menu.
+        'botpractice' => [
+            'displayName'   => 'Bot Practice',
+            'legalSets'     => '*',
+            'banned'        => [],
+            'unrestricted'  => true,
+            'localMode'     => true,
+            'enabled'       => false,   // Phase 5: flip to true when MainMenu is wired (see above)
+        ],
 
         // ── TWIN SUNS / TEAM SUNS (multiplayer rooms) ────────────────────────
         // CR §12: 4-player formats with UNIQUE deckbuilding — two leaders and a singleton
