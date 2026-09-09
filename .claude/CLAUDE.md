@@ -11,14 +11,25 @@ general context
 To be used for deck validation flows and loading decks for games. strategy summary included after pipe symbol |
 ### SWUSim
 Premier (as of 2026-07-15):
-https://swudb.com/deck/eeFFtweXI|Midrange go wide
-https://swudb.com/deck/HeEAAQjVtrhee|Midrange go tall
-https://swudb.com/deck/prozLLKSsRS|Tempo control with damage
-https://swudb.com/deck/aICaKTGaQd|Hero midrange "tank and heal" with Bo-Katan SEC_051 finisher
-https://swudb.com/deck/LImIrpIS|Burn aggro with Cinta Kaz pilot flip plot combo
-https://swudb.com/deck/PCQRTCWTgMLr|soft aggro with heavy draw and Aggressive Negotations finisher
-https://swudb.com/deck/ljPCdDElmsEF|space aggro with minimal ground support
-https://swudb.com/deck/rYBmXPaxDUaSY|pure space aggro with some tempo tools
+https://swudb.com/deck/eeFFtweXI | Midrange go wide
+https://swudb.com/deck/HeEAAQjVtrhee | Midrange go tall
+https://swudb.com/deck/prozLLKSsRS | Tempo control with damage
+https://swudb.com/deck/aICaKTGaQd | Hero midrange "tank and heal" with Bo-Katan SEC_051 finisher
+https://swudb.com/deck/LImIrpIS | Burn aggro with Cinta Kaz pilot flip plot combo
+https://swudb.com/deck/PCQRTCWTgMLr | soft aggro with heavy draw and Aggressive Negotations finisher
+https://swudb.com/deck/ljPCdDElmsEF | space aggro with minimal ground support
+https://swudb.com/deck/rYBmXPaxDUaSY | pure space aggro with some tempo tools
+
+Premier Competitive (as of 2026-09-09):
+https://melee.gg/Decklist/View/73b660ce-7055-4a3b-bef4-b4bd00482ebd | Krennic blue soft control/midrange control. self sacs for Credit ramp
+https://melee.gg/Decklist/View/8b67d9aa-9654-42c3-8a26-b4bd00d518ba | Vader yellow space aggro
+https://melee.gg/Decklist/View/41f78077-05e8-4d61-971f-b4bd003946a5 | Darth Maul blue Force tempo aggro midrange
+https://melee.gg/Decklist/View/af94dfb6-2132-4b0f-bca8-b4bc01574c37 | Ahsoka blue aggro go wide plus combos
+https://melee.gg/Decklist/View/8b2d5c40-77c0-4454-b4b1-b4bc00df5b5f | Leia blue aggro go tall
+https://melee.gg/Decklist/View/ef250fc5-56ff-4194-98c8-b4bc007dcf85 | Mando Colossus hard control with late game bombs
+https://melee.gg/Decklist/View/be414b4b-c4f9-4b90-8c23-b4bc0038748b | Luke pilot Data Vault space midrange pilot deck
+
+
 
 Twin Suns:
 https://swudb.com/deck/kWzBQPfCopFMV|combo control deck. relies on flipping Jabba first, then flipping Qi'ra to deal at least 4 damage to anything already softened

@@ -91,31 +91,58 @@ function FindCard($cardName) {
         return [ $id ];
     }
     else {
-        $cardName = strtolower(CardNicknames($cardName));
-        // $titleData is SET_NNN-keyed since 2026-08-04 (it was UUID-keyed before), so these loop
-        // variables are card ids, not uuids. Logic is unchanged — only the names, so the next
-        // reader is not misled about which scheme is coming back.
-        global $titleData;
-        $matches = [];
-        foreach ($titleData as $id => $title) {
-            if (stripos($title, $cardName) !== false) {
-                $matches[] = $id;
-            }
-        }
-
-        // If no matches found, try normalizing further - removing apostrophes, etc.
-        if(count($matches) == 0) {
-            $normalizedCardName = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($cardName));
-            foreach ($titleData as $id => $title) {
-                $normalizedTitle = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($title));
-                if (stripos($normalizedTitle, $normalizedCardName) !== false) {
-                    $matches[] = $id;
-                }
-            }
-        }
-        
-        return $matches;
+        // Exact titles first, substring hits after — see RankCardTitleMatches.
+        return RankCardTitleMatches($cardName);
     }
+}
+
+/**
+ * Every $titleData entry matching $cardName, best match FIRST.
+ *
+ * Callers universally take [0], and before 2026-09-09 the only test here was stripos() — a
+ * SUBSTRING test — so [0] was simply whichever card the generated dictionary happened to list
+ * earliest. A card whose ENTIRE title is a substring of some earlier-listed title was therefore
+ * unreachable by name: melee.gg import resolved "A-Wing" to SOR_141 'Green Squadron A-Wing'
+ * (dictionary line 121) rather than SEC_213 'A-Wing' (line 1636). A sweep of $titleData found
+ * 49 titles shadowed this way — 'Vigil' behind 'Vigilance', 'Enoch' behind 'Captain Enoch',
+ * 'Max Rebo' behind 'The Max Rebo Band' — so ordering, not the substring test, was the defect.
+ *
+ * Tiers, in order; dictionary order is preserved WITHIN each tier:
+ *   1. exact title, case-insensitive
+ *   2. exact title once non-alphanumerics are stripped ("Chewbacca's" ≡ "Chewbaccas")
+ *   3. substring of the title
+ *   4. substring of the stripped title
+ *
+ * Tiers 3 and 4 stay separate, and in that order, because FindCard() previously consulted the
+ * stripped form ONLY when the plain form matched nothing. Merging them would let a stripped hit
+ * that sits earlier in the dictionary outrank a plain hit and silently move [0] for names that
+ * have no exact match at all.
+ *
+ * Ranking is not filtering: every id that matched before still comes back, just later.
+ *
+ * @param string $cardName
+ * @return array SET_NNN ids, best first ($titleData is SET_NNN-keyed — the key IS the set code)
+ */
+function RankCardTitleMatches($cardName) {
+    global $titleData;
+    if (!is_array($titleData)) return [];
+
+    $needle = strtolower(trim(CardNicknames(strtolower(trim((string)$cardName)))));
+    if ($needle === '') return [];
+    $needleStripped = preg_replace('/[^a-zA-Z0-9]/', '', $needle);
+
+    $exact = $exactStripped = $partial = $partialStripped = [];
+    foreach ($titleData as $cardID => $title) {
+        $t = strtolower(trim((string)$title));
+        if ($t === $needle)                                          { $exact[] = $cardID;           continue; }
+        $tStripped = preg_replace('/[^a-zA-Z0-9]/', '', $t);
+        if ($needleStripped !== '' && $tStripped === $needleStripped) { $exactStripped[] = $cardID;   continue; }
+        if (strpos($t, $needle) !== false)                           { $partial[] = $cardID;         continue; }
+        if ($needleStripped !== '' && strpos($tStripped, $needleStripped) !== false) {
+            $partialStripped[] = $cardID;
+        }
+    }
+    return array_merge($exact, $exactStripped, $partial, $partialStripped);
 }
 
 /**
@@ -188,17 +215,12 @@ function FindCardSetCode($cardName) {
         }
     }
     
-    // Still not found, try more aggressive normalization
-    $normalizedCardName = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($cardName));
-    global $titleData;
-    foreach ($titleData as $cardID => $title) {
-        $normalizedTitle = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($title));
-        if (stripos($normalizedTitle, $normalizedCardName) !== false) {
-            return $cardID; // $titleData is SET_NNN-keyed — the key IS the set code
-        }
-    }
-
-    return null;
+    // Still not found. RankCardTitleMatches already folds the stripped-title comparison in as its
+    // last two tiers, so this is now only reachable for the pipe branch above (which retries on
+    // the character name alone, not the raw "Title | Subtitle" string). Kept as the safety net it
+    // has always been, routed through the same ranking so it cannot disagree with the tiers above.
+    $ranked = RankCardTitleMatches($cardName);
+    return $ranked[0] ?? null;
 }
 
 /**
@@ -208,15 +230,8 @@ function FindCardSetCode($cardName) {
  * @return array Array of matching card set codes
  */
 function FindCardMatches($cardName) {
-    $cardName = strtolower(CardNicknames($cardName));
-    global $titleData;
-    $matches = [];
-    foreach ($titleData as $cardID => $title) {
-        if (stripos(strtolower($title), $cardName) !== false) {
-            $matches[] = $cardID; // $titleData is SET_NNN-keyed — the key IS the set code
-        }
-    }
-    return $matches;
+    // Exact titles first, substring hits after — see RankCardTitleMatches.
+    return RankCardTitleMatches($cardName);
 }
 
 /**

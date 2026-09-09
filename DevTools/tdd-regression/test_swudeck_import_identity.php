@@ -49,6 +49,32 @@ $checks['FindCard resolves a set code']      = FindCard('SOR_033') === ['SOR_033
 $vanquish = FindCardSetCode('Vanquish');
 $checks['reprinted name resolves']           = $isSetNnn($vanquish) && ($titleData[$vanquish] ?? '') === 'Vanquish';
 
+// ── Regression 3: an EXACT title must beat a longer title that merely CONTAINS it ────────
+// FindCardMatches/FindCardSetCode/FindCard match with stripos() — a substring test — and every
+// caller takes $matches[0], which is $titleData insertion order. So a card whose whole title is
+// a substring of an earlier-listed card's title was unreachable by name: melee.gg import
+// resolved "A-Wing" to SOR_141 'Green Squadron A-Wing' (dictionary line 121) instead of
+// SEC_213 'A-Wing' (line 1636). A dictionary sweep found 49 titles with this collision, so this
+// is a family, not one card. Exact (case-insensitive) hits must be ranked ahead of substring
+// hits; substring matching is still the fallback when nothing matches exactly.
+$exactBeatsSubstring = [
+    'A-Wing'   => 'SEC_213',   // was SOR_141 Green Squadron A-Wing  ← the reported bug
+    'Vigil'    => 'SEC_050',   // was SOR_058 Vigilance
+    'Max Rebo' => 'LAW_072',   // was LAW_071 The Max Rebo Band
+    'Enoch'    => 'ASH_027',   // was LOF_083 Captain Enoch
+];
+foreach ($exactBeatsSubstring as $name => $expected) {
+    $checks["FindCardSetCode('$name') is $expected"]   = FindCardSetCode($name) === $expected;
+    $checks["FindCardMatches('$name')[0] is $expected"] = (FindCardMatches($name)[0] ?? null) === $expected;
+    $checks["FindCard('$name')[0] is $expected"]        = (FindCard($name)[0] ?? null) === $expected;
+}
+// Ranking must not become filtering: the longer titles are still legitimate matches, just later.
+$checks['substring hits are kept, not dropped'] = in_array('SOR_141', FindCardMatches('A-Wing'), true);
+// ...and a genuine partial name, matching NO title exactly, still resolves via substring.
+$checks['substring fallback still resolves']    = FindCardSetCode('Administrator') === 'SOR_029';
+// The melee pipe format must be unaffected.
+$checks['pipe format still resolves']           = FindCardSetCode('Luke Skywalker | Faithful Friend') === 'SOR_005';
+
 // ── Regression 1: leader/base helpers ───────────────────────────────────────
 // Exact "Title, Subtitle" is Method 1, so this is deterministic.
 $checks['GetLeaderCardID exact match']       = GetLeaderCardID('Luke Skywalker, Faithful Friend') === 'SOR_005';
