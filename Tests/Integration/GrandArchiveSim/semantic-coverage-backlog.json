@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-10T15:44:33+00:00",
+    "generatedAt": "2026-09-10T18:21:17+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 233,
+        "cardsWithExistingFixtures": 238,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2254,
+        "cardsNeedingSemanticCoverage": 2249,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -330,26 +330,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "ygojwk0pw0",
-            "name": "Automaton Bomber",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -1292,25 +1272,6 @@
             "priority": 113
         },
         {
-            "cardId": "17fzcyfrzr",
-            "name": "Imperial Rifleman",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "c08c9htu9a",
             "name": "Krustallan Distiller",
             "type": "ALLY",
@@ -1523,25 +1484,6 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "frzrplywc0",
-            "name": "Prototype Pistol",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -3165,24 +3107,6 @@
             "priority": 112
         },
         {
-            "cardId": "uhjxhkurfp",
-            "name": "Trained Sharpshooter",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "G42RDwb3Ko",
             "name": "Training Session",
             "type": "ACTION",
@@ -3268,24 +3192,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "vdxi74wa4x",
-            "name": "Violet Haze",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -40879,6 +40785,30 @@
             "priority": 134
         },
         {
+            "cardId": "ygojwk0pw0",
+            "name": "Automaton Bomber",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "automaton-bomber-ranged-attack"
+            ],
+            "semanticFixtures": [
+                "automaton-bomber-ranged-attack"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "F1t18omUlx",
             "name": "Beastbond Paws",
             "type": "REGALIA,ITEM",
@@ -42446,6 +42376,29 @@
             "priority": 133
         },
         {
+            "cardId": "17fzcyfrzr",
+            "name": "Imperial Rifleman",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "imperial-rifleman-class-bonus-enter-distant"
+            ],
+            "semanticFixtures": [
+                "imperial-rifleman-class-bonus-enter-distant"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "k71PE3clOI",
             "name": "Inspiring Call",
             "type": "ACTION",
@@ -42628,6 +42581,29 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "frzrplywc0",
+            "name": "Prototype Pistol",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "prototype-pistol-class-bonus-enter-power"
+            ],
+            "semanticFixtures": [
+                "prototype-pistol-class-bonus-enter-power"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -43626,6 +43602,28 @@
             "priority": 132
         },
         {
+            "cardId": "uhjxhkurfp",
+            "name": "Trained Sharpshooter",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "trained-sharpshooter-class-bonus-ranged-attack"
+            ],
+            "semanticFixtures": [
+                "trained-sharpshooter-class-bonus-ranged-attack"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "FCbKYZcbNq",
             "name": "Trusty Steed",
             "type": "ALLY",
@@ -43693,6 +43691,28 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "vdxi74wa4x",
+            "name": "Violet Haze",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status"
+            ],
+            "existingFixtures": [
+                "violet-haze-distant-lineage"
+            ],
+            "semanticFixtures": [
+                "violet-haze-distant-lineage"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

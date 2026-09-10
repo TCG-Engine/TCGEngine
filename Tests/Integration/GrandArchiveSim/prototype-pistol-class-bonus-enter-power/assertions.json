@@ -1,0 +1,6 @@
+[
+    {"step":2,"type":"decision_queue_empty","player":"all"},
+    {"step":2,"type":"card_property_equals","mzId":"p2Field-2","property":"CardID","value":"frzrplywc0","semantic":true,"label":"Prototype Pistol materializes to the field"},
+    {"step":2,"type":"card_property_equals","mzId":"p2Field-2","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"frzrplywc0\"]","semantic":true,"label":"[Class Bonus] On Enter: Prototype Pistol gets +1 POWER until end of turn"},
+    {"step":2,"type":"computed_power_equals","mzId":"p2Field-2","value":2,"semantic":true,"label":"1 base POWER + 1 [Class Bonus] On Enter buff"}
+]
