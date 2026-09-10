@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"decision_queue_empty","player":"all"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-2","property":"CardID","value":"17fzcyfrzr","semantic":true,"label":"Imperial Rifleman is at p1Field-2"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-2","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"DISTANT\"]","semantic":true,"label":"[Class Bonus] On Enter: Imperial Rifleman becomes distant"}
+]

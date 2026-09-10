@@ -7218,6 +7218,178 @@ DECK,
 ];
 
 
+// --- Automaton Bomber: Ranged 4 (unconditional -- no Class Bonus needed) ---
+$fixtures['automaton-bomber-ranged-attack'] = [
+    'testedCards' => ['ygojwk0pw0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Automaton Bomber
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Seed Automaton Bomber directly onto player 2's field (awake, Distant) so player 2 can
+    // legally attack on turn 2 (Rule 1.h only blocks the opening player's own turn 1). DISTANT
+    // is on the persistent-turn-effects allowlist and is only cleared in EndPhase for the
+    // *controller's own* ending turn, so seeding it before turn 1 ends (player 1's turn, not
+    // player 2's) survives into player 2's turn untouched. Player 1 ends turn 1 with a single
+    // CustomInput Pass (there's no pending decision to decline here, so this action itself ends
+    // the turn -- confirmed by directly instrumenting the phase machine this session), then
+    // player 2 attacks with Ranged 4 active (1 base + 4 = 5 POWER).
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'ygojwk0pw0', 'setProperties' => ['TurnEffects' => ['DISTANT'], 'Status' => 2]], // Automaton Bomber, awake and Distant
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (no pending decision to decline)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Trained Sharpshooter: [Class Bonus] Ranged 2 ---
+$fixtures['trained-sharpshooter-class-bonus-ranged-attack'] = [
+    'testedCards' => ['uhjxhkurfp'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Trained Sharpshooter
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Same turn-cycle approach as automaton-bomber-ranged-attack (Rule 1.h blocks player 1's own
+    // turn-1 attack), but Trained Sharpshooter's Ranged 2 needs a RANGER Class Bonus
+    // (IsClassBonusActive scans the whole field for any champion-type object of the right class),
+    // so also seed a real RANGER champion (Diana, Keen Huntress) onto player 2's field.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'uhjxhkurfp', 'setProperties' => ['TurnEffects' => ['DISTANT'], 'Status' => 2]], // Trained Sharpshooter, awake and Distant
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-2!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Imperial Rifleman: [Class Bonus] On Enter: becomes distant ---
+$fixtures['imperial-rifleman-class-bonus-enter-distant'] = [
+    'testedCards' => ['17fzcyfrzr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Imperial Rifleman
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Imperial Rifleman's On Enter trigger only fires on a REAL materialize (BridgeAddToZone
+    // seeds silently, no Enter trigger), so it must be played from hand while a RANGER Class
+    // Bonus is already active. Seed the RANGER champion first, then Imperial Rifleman into a
+    // known hand slot; its 3-reserve cost needs 3 reps of the myHand-0 reserve-payment decision.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '17fzcyfrzr'], // Imperial Rifleman, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Prototype Pistol: [Class Bonus] On Enter: +1 POWER until end of turn ---
+$fixtures['prototype-pistol-class-bonus-enter-power'] = [
+    'testedCards' => ['frzrplywc0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Prototype Pistol
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Prototype Pistol is a REGALIA card. HandAddReplacement (GameLogic.php) silently redirects
+    // a REGALIA card into the material zone whenever it's added to hand via the BridgeAddToZone
+    // test-setup primitive -- but that hook only fires for that kind of explicit single-card
+    // add, not the normal bulk initial deal, so a REGALIA copy drawn into a real opening hand
+    // stays there normally. Player 2's natural 7-card opening hand happens to include one
+    // (confirmed at theirHand-0 from player 1's perspective, i.e. player 2's own myHand-0), so it
+    // can be played for real via the ordinary hand FSM flow once player 2 reaches their turn.
+    // Rule 1.h only blocks the opening player's own turn 1, so player 1 ends turn 1 with a single
+    // CustomInput Pass (no decision is pending, so this action itself ends the turn) and player 2
+    // plays it on turn 2, with a RANGER Class Bonus champion already seeded onto their field.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Violet Haze: all your units become distant; put on bottom of target champion's lineage ---
+$fixtures['violet-haze-distant-lineage'] = [
+    'testedCards' => ['vdxi74wa4x'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Violet Haze
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Violet Haze is UMBRA (advanced element), so the starting champion's Subcards are patched
+    // with a real UMBRA champion (Tristan, Shadowdancer) to unlock element access -- the same
+    // pattern already used for other UMBRA cards elsewhere in this file. It's a 2-reserve action
+    // played for real (no On Enter/no field presence to fake via test-setup). Seed an extra ally
+    // on the field to confirm "all units you control" isn't limited to the champion, then play
+    // the card from hand and target the champion with the lineage placement.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc']]], // UMBRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide - confirms "all units" isn't champion-only
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vdxi74wa4x'], // Violet Haze, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

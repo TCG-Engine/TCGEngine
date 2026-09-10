@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **233**
+Cards linked to an existing fixture: **238**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2254**
+Implemented cards still needing semantic coverage: **2249**
 
 ## Mechanic groups
 
@@ -41,7 +41,6 @@ Implemented cards still needing semantic coverage: **2254**
 | Surveillance Stone (`kk46Whz7CJ`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Zander, Deft Executor (`fc4ic5fmaa`) | CHAMPION | 1 | zone-movement, counter, combat, trigger, condition | Zander Pantheon Starter | — |
 | Archon Broadsword (`pyx8bd7ozu`) | REGALIA,WEAPON | 1 | cost, token, combat, condition | Tonoris Starter Deck | — |
-| Automaton Bomber (`ygojwk0pw0`) | ALLY | 1 | cost, zone-movement, status, condition | Diana Starter Deck | — |
 | Cleansing Reunion (`xpnjvt9y59`) | ACTION | 1 | cost, targeting, status, condition | Lorraine Pantheon Starter | — |
 | Convalescent Tonic (`l8ao8bls6g`) | ITEM | 1 | cost, recover, draw-discard, zone-movement | Arisanna Pantheon Starter | — |
 | Corhazi Lightblade (`2Ch1Gp3jEL`) | ALLY | 1 | damage, combat, trigger, condition | Zander Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2254**
 | Blue Slime (`1Sl4Gq2OuV`) | ALLY | 1 | damage, counter, trigger | Silvie Starter Deck | — |
 | Bulwark Sword (`8kmoi0a5uh`) | REGALIA,WEAPON | 1 | cost, combat, condition | Tonoris Starter Deck | — |
 | Buoyant Driftguard (`TrK2lroxkz`) | ALLY | 1 | targeting, trigger, condition | Arisanna Pantheon Starter | — |
+| Caretaker Drone (`urfp66pv4n`) | ALLY | 1 | status, combat, trigger | Arisanna Starter Deck | — |

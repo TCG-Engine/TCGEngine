@@ -1,0 +1,18 @@
+[
+    {
+        "playerID": 1,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myHealth-0!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myHand-0!FSM!",
+        "chkInput": [],
+        "inputText": ""
+    }
+]
