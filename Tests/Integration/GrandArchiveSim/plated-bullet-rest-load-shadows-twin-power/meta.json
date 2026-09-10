@@ -1,0 +1,19 @@
+{
+    "name": "Plated Bullet [REST]: load into a Gun; Shadow's Twin: +2 POWER whenever loaded",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-10T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Both cards' abilities are triggered by the single shared LoadBulletIntoGun() function in CardDQHandlers.php, so one fixture covers both: Plated Bullet's own [REST]-cost activated ability ('Load Plated Bullet into target unloaded Gun weapon you control') is activated via the CustomInput 'Activate:0' pattern (mode=10001, cardID='myField-N!CustomInput!Activate:0'), then the resulting MZCHOOSE picks the unloaded Gun target (Shadow's Twin). LoadBulletIntoGun() removes the bullet from the field silently (no LeaveField triggers, matching the 'loading is a cost' rule text) and, as a hardcoded side effect for this specific CardID, applies Shadow's Twin's own 'Whenever this becomes loaded, +2 POWER until end of turn' TurnEffect. No prior turn-ending Pass is needed before activating a field ability on turn 1 -- unlike hand plays, activating an ability from the field goes straight through once any pending MAT-phase materialize offer is declined.",
+    "testedCards": [
+        "l75tlzsmw3",
+        "5vettczb14"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["l75tlzsmw3", "5vettczb14"],
+        "mechanics": ["cost", "targeting", "zone-movement", "combat"],
+        "rulesClauses": [
+            "Plated Bullet -- [REST]: Load CARDNAME into target unloaded Gun weapon you control.",
+            "Shadow's Twin -- Whenever CARDNAME becomes loaded, it gets +2 [POWER] until end of turn."
+        ]
+    }
+}

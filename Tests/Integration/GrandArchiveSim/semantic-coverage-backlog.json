@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-01T16:14:15+00:00",
+    "generatedAt": "2026-09-10T15:44:33+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 231,
+        "cardsWithExistingFixtures": 233,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2256,
+        "cardsNeedingSemanticCoverage": 2254,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -719,26 +719,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "l75tlzsmw3",
-            "name": "Plated Bullet",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -2993,24 +2973,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "5vettczb14",
-            "name": "Shadow's Twin",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -41698,6 +41660,30 @@
             "priority": 134
         },
         {
+            "cardId": "l75tlzsmw3",
+            "name": "Plated Bullet",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "plated-bullet-rest-load-shadows-twin-power"
+            ],
+            "semanticFixtures": [
+                "plated-bullet-rest-load-shadows-twin-power"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "om2ry208kk",
             "name": "Potion Infusion: Seal",
             "type": "ACTION",
@@ -43513,6 +43499,28 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "5vettczb14",
+            "name": "Shadow's Twin",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "plated-bullet-rest-load-shadows-twin-power"
+            ],
+            "semanticFixtures": [
+                "plated-bullet-rest-load-shadows-twin-power"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
