@@ -857,6 +857,8 @@ function HasConditionalKeyword_Saboteur($obj) {
             return IsCoordinateActive($obj->Controller);
         case 'TWI_130': // Bo-Katan Kryze — while you have another Mandalorian unit
             return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Mandalorian', $obj->UniqueID);
+        case 'IC27_103': // Grand Inquisitor — while this unit is damaged (the Raid 3 half is in GetConditionalKeyword_Raid_Value)
+            return function_exists('_SWUIc27103Active') && _SWUIc27103Active($obj);
     }
 
     return false;
@@ -1379,6 +1381,9 @@ function GetConditionalKeyword_Raid_Value($obj) {
             break;
         case 'SOR_131': // Fifth Brother — Raid equal to damage taken
             $amount += intval(isset($obj->Damage) ? $obj->Damage : 0);
+            break;
+        case 'IC27_103': // Grand Inquisitor — Raid 3 while this unit is damaged (Saboteur half: HasConditionalKeyword_Saboteur)
+            if (function_exists('_SWUIc27103Active') && _SWUIc27103Active($obj)) $amount += 3;
             break;
         case 'LOF_162': // Hunting Nexu — Raid 2 while you control another Aggression unit
             if (PlayerHasUnitWithAspectInPlay($obj->Controller, 'Aggression', $obj->UniqueID)) $amount += 2;

@@ -9,7 +9,7 @@ Verify a set is genuinely **card complete** and surface any gaps. "In the Done l
 
 **Input:** one set abbreviation (e.g. `JTL`, `SOR`, `LOF`). **Output:** a completeness verdict + a classified gap list. This is **read-only** — it does not implement anything. Hand confirmed gaps to `swusim-implement-card`.
 
-Run from the repo root: `/Users/mariotorresjr/Documents/GitHub/Karabast-SWU/SWUStats`. Set `SET=JTL` (uppercase) below.
+Run from the repo root: `/Users/mt/Documents/GitHub/Karabast-SWU/SWUStats`. Set `SET=JTL` (uppercase) below.
 
 > **⚠ Card code layout (since the session-95 split).** Per-card ability/DQ registrations now live in **`SWUSim/Custom/cards/<set>/<TitleSubtitle>.php`** (one file per card; reprints consolidated into the earliest printing's file), loaded by `cards/_loader.php`. The monoliths (`CardDQHandlers.php`, `LeaderAbilities.php`, `BaseAbilities.php`) keep only shared helper families, engine glue, and a few load-order-coupled cards. **Every scan/grep below therefore recurses the whole `SWUSim/Custom/` tree** (`glob('…/**/*.php', recursive=True)` / `grep -r … SWUSim/Custom/`) — a non-recursive `SWUSim/Custom/*.php` misses every split card and would falsely flag all of them as unwired. To resolve a CardID→file, grep the registration key (`grep -rln "'<CID>'" SWUSim/Custom/cards/`) or consult `cards/_index.generated.php` (regen it with `php SWUSim/DevTools/regen-card-index.php` if it looks stale — the loader doesn't depend on it, so it can lag).
 

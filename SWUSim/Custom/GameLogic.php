@@ -6340,7 +6340,12 @@ function DrawPhase() {
     // Draw is a step WITHIN the Regroup phase (not a separate phase in the log) — only the
     // "— Regroup Phase —" banner is emitted (by RegroupPhaseStart).
     // CR 5.4.b: each player draws 2 cards. Twin Suns: EVERY live seat draws, not just seats 1-2.
-    foreach (GetLiveSeatsArray() as $p) DoDrawCard($p, 2);
+    // "Draw N more card(s) during the regroup phase" (IC27_038 Admiral Holdo) folds into the SAME
+    // instruction, so a deck-out stays one 3×undrawn event — see _SWURegroupExtraDraws.
+    foreach (GetLiveSeatsArray() as $p) {
+        $extra = function_exists('_SWURegroupExtraDraws') ? _SWURegroupExtraDraws(intval($p)) : 0;
+        DoDrawCard($p, 2 + $extra);
+    }
 }
 
 function ResourcePhase() {

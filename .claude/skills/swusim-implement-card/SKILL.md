@@ -1333,6 +1333,41 @@ fixture-blind-spot table above for *why* that coverage could not see them.
 - **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
   base explicitly — `AttackGroundArena:0:p2Base-0`.
 
+### ★ IC27 second wave 2026-09-10 — attack pools, clauses that must wait, and telling ONE event from two
+
+- **★★ THE ATTACK-TARGET POOL IS ASSERTABLE — through the harness's own answer validation.** There is no way
+  to leave the attack-target MZCHOOSE pending (`AttackGroundArena` always injects its target), so a
+  `SELECTABLEEXACT` over attack targets is impossible. But `declareAttack` VALIDATES the injected target
+  against the pool and THROWS on an out-of-pool one — so "attack the non-Sentinel unit, it takes the damage"
+  is a pool-MEMBERSHIP proof (IC27_103 Grand Inquisitor's granted Saboteur). The negative is the
+  single-legal-target case: with the Sentinel the only legal target, the attack resolves inline against it
+  and the named target is ignored — assert the named unit untouched and the Sentinel damaged. Use this pair
+  for any Saboteur / Sentinel / Hidden / "can't be attacked" card.
+- **★★ "DO X. DO Y." — QUEUE Y AS ITS OWN CUSTOM BEHIND X, don't build its pool up front.** For two
+  independent clauses where X can change Y's pool (IC27_166: return a unit, then Shield a friendly unit),
+  `SWUOfferUnitTarget` for X, then `AddDecision($p,'CUSTOM','CARD#0',1)` on the SAME block — it drains after
+  X's continuation, builds Y's pool from the post-X board, and still runs when X had no target at all.
+  The discriminating OFFER section returns one of YOUR units while two friendlies remain: a pool built at
+  play time would still list the stale index. Mutating "offer Y at play time" reds exactly that section.
+- **★ TO PROVE ONE EVENT vs SEVERAL, USE A CAP, NOT A THRESHOLD.** A threshold prevention ("5 or more",
+  HMW_081) only separates the readings at sizes that straddle it. A cap (ASH_070 At Attin Safety Droid:
+  "prevent all but 4") separates ANY split: IC27_038 Admiral Holdo's regroup deck-out is one 9 → 4, whereas
+  a separate draw instruction would be 6 → 4 plus 3 = 7. It was the ONLY section that distinguished the two
+  readings — every other section passed under both.
+- **Regroup draw modifiers go in `_SWURegroupExtraDraws($p)`** (called by `DrawPhase` into the SAME
+  `DoDrawCard($p, 2 + N)`), counting only what the seat CONTROLS with abilities active. A "for this phase"
+  blank (SOR_138 marker) has expired by the regroup draw — a cheap duration-edge section.
+- **One condition feeding N keyword readers → ONE predicate.** "While damaged, gains Raid 3 and Saboteur"
+  is two edits in two functions (`GetConditionalKeyword_Raid_Value`, `HasConditionalKeyword_Saboteur`); both
+  call `_SWUIc27103Active`, so the halves cannot drift. The blank is FREE (the generated readers check
+  `SWUKeywordSuppressed` first) — prove it by mutating that line in `GeneratedKeywordCode.php`, one reader at
+  a time, and check the restore with `grep -F` (ugrep ate a plain grep's `$`).
+- **A keyword-only card with one unusual PROPERTY** (IC27_041 Captain Rex: NO aspects, so no penalty under any
+  leader) is still a Step-0 no-op. Verify the property with a THROWAWAY probe in the scratchpad (play at
+  printed cost / one short), not a committed section — it cannot fail for this card specifically.
+- **Fixture: SOR_111 Patrolling V-Wing is a SPACE unit** — the go-to "When Played: draw a card" fixture lands
+  in `SPACEARENACOUNT`, not ground. Read the arena from the dictionary like every other stat.
+
 ### ⚠ DSL + design traps (HMW preview completion, 2026-08-26)
 
 - **★ `WithTeams: true` is the whole Team Suns setup** — it turns on `SWU_MODE_TEAMS` and defaults seat
@@ -2353,7 +2388,7 @@ Debugging rules learned the hard way:
 - **Official rulings can POST-DATE the set's CR** (Maul/Clone are TWI; the bundled CR is v7.0). When the CR can't settle a timing/interaction, surface the specific ruling question — the user supplied the official rulings mid-implementation (Maul: base+unit forbidden, Sentinel forces ALL defenders, Overwhelm combined-excess; Clone: capture→rescue re-choose). Don't guess a novel interaction as if the CR covers it.
 
 **TS26 Phase 1-15 lessons (autonomous set, all 78 cards were mechanical mirrors of existing seams; folded at the autonomous→pair-programmed retro):**
-- **⚠ This branch (main / `OTMTCGE`) has NO Twin Suns N-player helpers.** `OpponentsOf($p)` / `SWUChooseOpponent` / `NextLiveSeat` etc. are UNDEFINED here (they live only on the twin-suns branch) — calling one is a **fatal** that kills the action. Use `OtherPlayer($p)` for the single 2-player opponent. "each opponent" / "an opponent" / "each player" all collapse to `$player` + `OtherPlayer($player)`. (Cost a fatal on TS26_19 Coleman Trebor.)
+- **~~This branch has NO Twin Suns N-player helpers~~ — SUPERSEDED (Twin Suns merged; marked stale 2026-09-10).** At the TS26 port `OpponentsOf` & co. were undefined on main, so this note said to use `OtherPlayer()`. That advice is now WRONG: `OpponentsOf` / `GetLiveSeatsArray` / `SWUQueueChooseOpponent` exist and are REQUIRED, and `OtherPlayer()` as "the other side" is the two-seat bug. Follow "★★ TWIN SUNS — every card with a player reference is a 3–4 seat card" above.
 - **⚠ When a nested play silently no-ops, suspect OFF-ASPECT COST first, not a code bug.** `SWUPlayTopDeckCard` / `DISCOUNT_PLAY_FROM_HAND|N` / `SWUPlayDiscardUnitDiscounted` / a nested `ActivateCard` all no-op when the effective cost exceeds ready resources — and a Villainy/off-side unit under a non-matching base/leader is **+2 per unmatched pip** (SEC_080 played "for 2" under a Villainy leader but costs **4** under a Cunning/Vigilance one). An UNDEPLOYED leader contributes NO aspects; a DEPLOYED leader unit DOES. When a "play the top card / play from hand" test shows an empty arena, bump `myResources` generously (or match aspects) before touching the handler. (Cost 2 debug cycles: Dooku's Palace, Ahsoka front.)
 - **"Entered play this phase (incl. tokens and leaders)" = the new `SWU_ENTERED_PHASE_{uid}` flag** (TS26_02 Anakin / TS26_04 Padmé). Set it at **`CollectEntryTriggers`** (the universal PLAYED-unit funnel — the deploy path calls it too, so deployed leaders are covered) AND at **`_SWUCreateOneToken`** (tokens do NOT go through CollectEntryTriggers). Cleared at RGS. Distinct from `SWU_PLAYED_UNIT_{uid}` (hand-plays only; Luke SOR_005 semantics — don't extend that one to tokens/leaders). Read: `GlobalEffectCount($ctrl, 'SWU_ENTERED_PHASE_'.$uid) > 0`.
 - **Two-sided / multi-window leaders: a shared handler needs a close-flag param** so the FRONT Action closes via `SWUAfterAction` while the DEPLOYED On-Attack / When-Attack-Ends lets combat own it. Pattern: `"CARD#0|{arg}|{close}"`, and in the handler `if ($close === 1) SWUAfterAction(...)`. Used by Maul TS26_03 (front+WhenDeployed+OnAttack) and Rex TS26_06 (front+OnAttack). Front-side leader passives ("while you control this undeployed leader, …") gate on `GetLeader($ctrl)` CardID + `empty($l->Deployed)`; deployed-side on `_SWULeaderDeployed`; the two are mutually exclusive so both clauses can live in the same `HasConditionalKeyword_*`.
@@ -2370,7 +2405,7 @@ Debugging rules learned the hard way:
 - **⚠ A relative-mzID universal handler must set `$playerID = intval($player)` (the decider) before resolving `$lastDecision`** — `APPLY_PHASE_BUFF/DEBUFF/BOUNCE` already do; **`DEAL_UNIT_DAMAGE` did NOT** (fixed), so a non-active decider's `theirGroundArena-N` target resolved under the wrong frame and hit the wrong unit (cost the C-3P0 TS26_15 ping debug). When a **non-active** player deals unit damage / buffs / bounces via a queued choice, confirm the handler re-sets the frame; if you write a new relative-mzID universal handler, set `$playerID` at the top.
 - **A non-leader unit's activated Action usable by a NON-OWNER** (C-3P0 TS26_15 "only opponents may use"): register `$unitAbilities["CARD"]` (default `'exhaust'` cost kind — SWUUnitAction pays the exhaust; don't re-exhaust in the closure) and gate the restriction in **`SWUUnitActionAffordable`** (owner-block: `intval($player) === intval($actor->Owner ?? $player) → false`), which covers BOTH the clickable-action list and the activation. Permanent control transfer = `SWUTakeControlOfUnit(OtherPlayer($player), $mzID)` in the `$whenPlayedAbilities["CARD:0"]` handler (it strips `TEMPORARY_STEAL` → permanent; preserves `Owner` so the gate still identifies the original owner).
 - **⚠ Played units enter EXHAUSTED in this engine** (not ready) — you CANNOT test a just-played unit's `Action [Exhaust]` the same round; advance a round so the ready phase readies it: `…play… , P2>Pass, P1>Pass, P1>ResourcePass, P2>ResourcePass, <now the unit is ready>`. Also: the unit-spec DSL is `cid:ready:damage:turnEffects` with **no controller override**, and `WithGroundUnitForPlayer` places a controlled unit in the OWNER's arena (not the controller's), so it does NOT model a transferred unit — drive a real play+transfer when you need owner≠controller.
-- **Twin Suns multiplayer-politics cards degrade to a 2P reading on this branch** — "an opponent takes control" (choose WHICH) / "only opponents may use" (any of several) assume 3-4 players; with no N-player helpers here, implement the single-opponent degenerate reading and FLAG it inline for the user rather than halting (C-3P0 TS26_15).
+- **~~Twin Suns politics cards degrade to a 2P reading~~ — SUPERSEDED (marked stale 2026-09-10).** Written when main had no N-player helpers. "An opponent takes control" / "only opponents may use" now get the real N-player reading (`SWUQueueChooseOpponent`, `OpponentsOf`) plus a far-seat section — see the Twin Suns policy above.
 
 **UI smoke test.** The regression suite runs in a single PHP process and is blind to the transport layer: persistence, wire pieces, `window.*Data` assignment, glow flags. For any card whose behavior surfaces in the UI (logs, reveals, glows, decision menus), verify the real request roundtrip headlessly:
 

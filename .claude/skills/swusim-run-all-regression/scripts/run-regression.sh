@@ -9,7 +9,7 @@
 # Flags: --skip-unit --only-unit --only-integration --only-render --list --quiet --baseline <file>
 set -uo pipefail
 
-REPO="${REPO:-/Users/mariotorresjr/Documents/GitHub/Karabast-SWU/OTMTCGE}"
+REPO="${REPO:-/Users/mt/Documents/GitHub/Karabast-SWU/OTMTCGE}"
 CONTAINER="${CONTAINER:-otmtcge-swusim-web-server-1}"
 WEBROOT=/var/www/html/TCGEngine
 SWUSIM_PORT="${SWUSIM_PORT:-3400}"

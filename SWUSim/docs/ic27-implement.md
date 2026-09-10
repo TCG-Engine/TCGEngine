@@ -1,6 +1,6 @@
 # IC27 — Card Implementation Plan
 
-**⚠ PREVIEW SET.** All 15 cards are mock entries in `AppCore/SWU/CardMocks.php` (imported via
+**⚠ PREVIEW SET.** All 19 cards (as of 2026-09-10; the first 15 below, 4 more in Phase 8) are mock entries in `AppCore/SWU/CardMocks.php` (imported via
 `zzPreviewTool.php`), not official-API data. Icons 2027 Edition releases **2026-11-20**. The card
 list GROWS as previews land — re-run `swusim-generate-set-implement-doc IC27` after each import;
 the `### Already Done` line survives regeneration.
@@ -10,7 +10,7 @@ the `### Already Done` line survives regeneration.
 character with a real ability, which is what an "Icons" marquee set looks like.
 
 ### Already Done
-IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001
+IC27_067, IC27_071, IC27_104, IC27_187, IC27_146, IC27_158, IC27_079, IC27_167, IC27_022, IC27_026, IC27_024, IC27_168, IC27_078, IC27_008, IC27_001, IC27_041, IC27_103, IC27_166, IC27_038
 
 ## Foundations already built — do not re-do
 
@@ -192,6 +192,49 @@ Both sides of each leader, plus the Epic deploy threshold. Left for last so Phas
   - Also: "another friendly unit" excludes the deployed leader itself; the heal is capped by damage
     actually on your base (which chains into IC27_026).
 
+## Phase 8 — Second preview wave, 2026-09-10 (15 → 19 CardIDs; `--iterative`)
+
+Four cards landed after the plan above was written. Derived from the `### Already Done` vs
+`CardMocks.php` diff, ordered simplest first. None had any code under `Custom/`.
+
+- [x] **IC27_041 Captain Rex (Staunch Advocate)** — keyword-only no-op (Sentinel, Shielded, Restore 3),
+  verified 2026-09-10: all three registries carry it (`$Restore_Cards` value 3), no ability stub, and
+  each keyword has generic coverage under `Tests/Cases/keywords/`. Rex has NO aspects, so he plays at
+  printed 7 under any leader/base — confirmed with a throwaway probe (7 resources → in play with a
+  Shield, Sentinel and Restore 3, 0 left; 6 → stays in hand; Restore heals 3 on attack). No test file:
+  every section would be green on first run (the Step-0 scope rule).
+- [x] **IC27_103 Grand Inquisitor (How The Mighty Will Fall)** — done 2026-09-10, 14 sections, suite
+  11485 → 11499/0. "While this unit is damaged, he gains Raid 3 and Saboteur." One `case` in each of
+  `GetConditionalKeyword_Raid_Value` and `HasConditionalKeyword_Saboteur`'s self-conditional switch,
+  both calling `_SWUIc27103Active` (card file) so the condition cannot drift between the halves. Read
+  live (healed to 0 → both gone; damaged on the opponent's turn → both on his next attack). Raid 3
+  SUMS with other Raid (user ruling 2026-09-10 — a granted Raid 2 makes him Raid 5). A blanked unit
+  gains neither: the generated readers check `SWUKeywordSuppressed` first — both blank sections red
+  when that check is removed. Attack-target pool asserted through `declareAttack`'s answer validation
+  (Saboteur lets him attack a non-Sentinel unit; without it the Sentinel takes the attack).
+  7 mutations, each red on its own sections.
+- [x] **IC27_166 I've Got A Bad Feeling** — done 2026-09-10, 16 sections, suite 11499 → 11515/0.
+  Clause 1 is SOR_222 Waylay verbatim (`SWUOfferUnitTarget` nonLeader → `BOUNCE_UNIT`: any side, any
+  arena, teammate and far seats included; owner's hand; a token ceases). Clause 2 is a queued
+  `IC27_166#0` on the same block that builds the `'side' => 'friendly'` (team-wide) Shield pool AFTER
+  the return drains — so a just-returned unit is never offered, and it still runs when clause 1 had no
+  target or was refused (JTL_103 Chewbacca). Leader units are legal Shield recipients. 5 mutations
+  (self-only pool, any-unit pool, leaders in the return pool, pool built at play time, Shield gated on
+  a return target), each red.
+- [x] **IC27_038 Admiral Holdo (We Are The Spark)** — done 2026-09-10, 13 sections, suite 11515 →
+  11528/0 (both runners). "Draw 1 more card during the regroup phase." No precedent in any set:
+  `DrawPhase()` now calls `DoDrawCard($p, 2 + _SWURegroupExtraDraws($p))` for every live seat, the
+  helper (card file) counting ability-active Holdos the seat CONTROLS (`_SWUCountActiveUnitsWithCardID`
+  — a Clone copy would add its own card). ⚠ PREVIEW ASSUMPTION: the extra card rides the SAME draw
+  instruction, so a deck-out is one 3×undrawn event (empty deck = one 9, capped to 4 by ASH_070; a
+  separate instruction would be 7 — the only section that separates the two readings). A "for this
+  phase" blank has expired by the regroup draw; Imprisoned blanks her. 5 mutations, each red.
+  Any future "draw N more/fewer during the regroup phase" card belongs in `_SWURegroupExtraDraws`.
+
 ## Status
 
-**✅ ALL 15 CURRENTLY-PREVIEWED IC27 CARDS ARE IMPLEMENTED** (2026-08-04). Suite 6082 -> **6179/0** (+97 sections). Zero deferrals.
+**✅ IC27 IS CARD-COMPLETE AT 19 / 19 CardIDs** (2026-09-10 — re-derived at the END of the run: the
+`### Already Done` line diffed against the IC27 IDs in `AppCore/SWU/CardMocks.php` is empty). True only
+until the next preview import. Second wave (Phase 8): suite 11485 → **11528/0** (+43 sections), zero
+deferrals; one preview assumption flagged (IC27_038's single-instruction deck-out).
+Prior: all 15 cards of the first preview wave implemented 2026-08-04, suite 6082 -> 6179/0, zero deferrals.

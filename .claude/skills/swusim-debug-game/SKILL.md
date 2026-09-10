@@ -9,7 +9,7 @@ Reproduce a live SWUSim game bug from its saved gamestate, root-cause it, and la
 
 **This skill drives `superpowers:systematic-debugging`.** It supplies the SWUSim-specific mechanics (how to snapshot a game, where tests live, how to run them reliably); systematic-debugging supplies the discipline (root cause before fix, one hypothesis at a time).
 
-Run everything from the repo root: `/Users/mariotorresjr/Documents/GitHub/Karabast-SWU/SWUStats`.
+Run everything from the repo root: `/Users/mt/Documents/GitHub/Karabast-SWU/SWUStats`.
 
 ---
 
