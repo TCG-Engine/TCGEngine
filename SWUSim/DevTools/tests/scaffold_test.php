@@ -18,11 +18,18 @@ $kw = ['Raid', 'Sentinel', 'Restore', 'Ambush'];
 check(scaffold_text_residue('Sentinel', $kw) === '', 'lone keyword -> empty');
 check(scaffold_text_residue('Raid 2 (While this unit is attacking...)', $kw) === '', 'keyword+value+reminder -> empty');
 check(scaffold_text_residue('When Played: Deal 2 damage to a unit.', $kw) !== '', 'ability text -> non-empty');
+// "This unit enters play ready." is engine-generic (SWUUnitEntersReady text-match) — auto-wired, like a
+// keyword. Its CONDITIONAL forms keep the condition as residue and still need per-card code.
+check(scaffold_text_residue('This unit enters play ready.', $kw) === '', 'plain enters-ready -> empty');
+check(scaffold_text_residue("Ambush (reminder)\nThis unit enters play ready.", $kw) === '', 'keyword + enters-ready -> empty');
+check(scaffold_text_residue('If you control a Trooper, this unit enters play ready.', $kw) !== '', 'conditional enters-ready -> non-empty');
 
 // --- classifier against real dictionary cards ---
 $allKw = scaffold_keyword_names(__DIR__ . '/../../GeneratedCode/GeneratedKeywordCode.php');
 check(scaffold_is_non_vanilla('SOR_005', $allKw), 'Luke Skywalker (Leader) is non-vanilla');   // Leader
 check(scaffold_is_non_vanilla('SOR_033', $allKw), 'Death Trooper (When Played) is non-vanilla'); // trigger stub
+check(!scaffold_is_non_vanilla('HMW_203', $allKw), 'Victor Squadron (only "This unit enters play ready.") is auto-wired');
+check(scaffold_is_non_vanilla('HMW_208', $allKw), 'Luke (enters ready only in the first round) still needs code');
 
 // --- stub body: header + marker, registers nothing ---
 $body = scaffold_stub_body('SOR_033');

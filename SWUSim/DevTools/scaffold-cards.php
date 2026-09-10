@@ -45,10 +45,22 @@ function scaffold_set_card_ids(string $set): array {
 // Text with parenthetical reminders, [bracketed] costs, recognized keyword tokens (and
 // any trailing value number, e.g. "Raid 2") + punctuation removed. Empty residue ==
 // keyword-only (e.g. a pure "Piloting [2 resources Command] (reminder)" unit).
+// Whole sentences the ENGINE resolves generically from card text, exactly like a keyword — so a card
+// whose text is nothing but these (plus keywords) needs no per-card code and is auto-wired.
+//   'this unit enters play ready' — SWUUnitEntersReady() text-matches it for every card, and
+//     _SWUCardEntersReadyFor() falls back to that match (HMW_203 Victor Squadron has no card file).
+// Only the phrase itself is stripped, so a CONDITIONAL form ("If you control X, this unit enters play
+// ready" / "…ready while it's the first round") leaves its condition behind as residue and is still
+// flagged as needing code — which it does (_SWUCardEntersReadyFor's per-card cases).
+const SCAFFOLD_ENGINE_GENERIC_PHRASES = ['this unit enters play ready'];
+
 function scaffold_text_residue(string $text, array $keywords): string {
     if (trim($text) === '') return '';
     $t = preg_replace('/\([^)]*\)/', ' ', $text);        // reminder text
     $t = preg_replace('/\[[^\]]*\]/', ' ', $t);          // [bracketed] costs (Piloting/Smuggle/…)
+    foreach (SCAFFOLD_ENGINE_GENERIC_PHRASES as $phrase) {
+        $t = preg_replace('/\b' . preg_quote($phrase, '/') . '\b/i', ' ', $t);
+    }
     foreach ($keywords as $k) {
         $t = preg_replace('/\b' . preg_quote($k, '/') . '\b(\s+\d+)?/i', ' ', $t);
     }
