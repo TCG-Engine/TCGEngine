@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI:
-//   docker exec -w /var/www/html/TCGEngine otmtcge-swustats-web-server-1 php DevTools/tdd-regression/test_swudeck_preview_cards.php
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swudeck-web-server-1 php DevTools/tdd-regression/test_swudeck_preview_cards.php
 //
 // Preview (mock) cards must reach SWUDeck's dictionary and browse catalog, or the deckbuilder
 // cannot search, validate or render an HMW/IC27 deck. A mock has no upstream UUID, so it keys as

@@ -34,7 +34,7 @@ If the user named a game (id like `2619`), use it. **If they did not, ASK** — 
 Confirm it exists before snapshotting:
 
 ```bash
-docker exec -w /var/www/html/TCGEngine swustats-swusim-web-server-1 \
+docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 \
   sh -c 'test -f ./SWUSim/Games/<id>/Gamestate.txt && echo EXISTS || echo MISSING'
 ```
 
@@ -45,7 +45,7 @@ docker exec -w /var/www/html/TCGEngine swustats-swusim-web-server-1 \
 `DevTools/swusim-snapshot-test.php` reconstructs the exact board from the live `Gamestate.txt` into a GIVEN-only DSL `.md`. Write it under `SWUSim/Tests/Snapshots/`:
 
 ```bash
-docker exec -w /var/www/html/TCGEngine swustats-swusim-web-server-1 \
+docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 \
   php -d xdebug.mode=off DevTools/swusim-snapshot-test.php <id> \
   > SWUSim/Tests/Snapshots/<id>.md
 ```
@@ -130,7 +130,7 @@ Use `superpowers:test-driven-development`. Tests are GIVEN/WHEN/EXPECT `.md` sch
 **RED — write the failing test first.** Recreate the minimal board that triggers the bug (the snapshot is your reference; strip it to the essentials). Assert the *correct* behavior. Run ONLY that file and watch it fail:
 
 ```bash
-docker exec -w /var/www/html/TCGEngine swustats-swusim-web-server-1 \
+docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 \
   php -d xdebug.mode=off .claude/skills/swusim-debug-game/scripts/run-schema-tests.php \
   SWUSim/Tests/Cases/<set>/<YourTest>.md
 ```
@@ -142,7 +142,7 @@ A red result must fail for the RIGHT reason (the assertion tied to the bug), not
 **Regression — run the FULL suite** and confirm no other test broke (and that your new one is counted):
 
 ```bash
-docker exec -w /var/www/html/TCGEngine swustats-swusim-web-server-1 \
+docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 \
   php -d xdebug.mode=off .claude/skills/swusim-debug-game/scripts/run-schema-tests.php \
   2>/dev/null | sed 's/<[^>]*>//g' | grep -E 'passed|✗'
 ```
@@ -229,7 +229,7 @@ Handy assertions seen in cases: `P1NODECISION` (no pending decision — proves a
 
 ## Environment quick reference
 
-- **Container:** `swustats-swusim-web-server-1`, web root `/var/www/html/TCGEngine` (the repo is mounted there, `.claude/` included).
+- **Container:** `otmtcge-swusim-web-server-1`, web root `/var/www/html/TCGEngine` (the repo is mounted there, `.claude/` included).
 - **Games:** `SWUSim/Games/<id>/Gamestate.txt`. **Snapshots:** `SWUSim/Tests/Snapshots/`. **Tests:** `SWUSim/Tests/Cases/<set>/*.md`.
 - **Handlers:** `SWUSim/Custom/` (edit these) — per-card logic in `cards/<set>/<TitleSubtitle>.php`, shared families/glue in the monoliths. **Generated (never edit):** `SWUSim/GeneratedCode/*`, `GamestateParser.php`, `ZoneAccessors.php`, `ZoneClasses.php`.
 - Add `-d xdebug.mode=off` to every `php` call to skip the Xdebug connect delay.

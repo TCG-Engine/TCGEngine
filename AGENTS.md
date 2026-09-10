@@ -29,17 +29,40 @@ cd McpServer && npm install && npm run build
 
 ## Docker dev environment
 
-`docker-compose.yml` defines per-game stacks. Each gets its own MySQL database, Redis, and PHP app server:
+Each game has its own stack file under `docker-compose-files/`, and each runs as its own
+compose project (`otmtcge-<app>`) with its own MySQL database, Redis, and PHP app server.
+Start only the ones you need:
 
-| Game | Web port | phpMyAdmin |
-|---|---|---|
-| SWUDeck (swustats) | 3100 | 5101 |
-| GrandArchiveSim | 3200 | 5102 |
-| AzukiSim | 3300 | 5103 |
-| SWUSim | 3400 | 5104 |
-| HellbreakSim | 3500 | 5105 |
+```bash
+./docker-start.sh swusim              # one app
+./docker-start.sh swudeck swusim      # several
+./docker-start.sh all                 # everything
+./docker-start.sh --list              # apps + ports
+./docker-start.sh --help              # all flags (--prod, --build, --down, --logs, --ps, ...)
+```
+
+| Game | App name | Web port | phpMyAdmin | Redis |
+|---|---|---|---|---|
+| SWUDeck | `swudeck` | 3100 | 5101 | 6482 |
+| GrandArchiveSim | `grandarchivesim` | 3200 | 5102 | 6483 |
+| AzukiSim | `azukisim` | 3300 | 5103 | 6484 |
+| SWUSim | `swusim` | 3400 | 5104 | 6485 |
+| HellbreakSim | `hellbreaksim` | 3500 | 5105 | 6486 |
 
 MySQL creds: root/secret. Databases named after the game (e.g. `swusim`).
+
+Layout and conventions:
+
+- `docker-compose-files/<app>.yml` — the stack: `web-server`, `mysql-server`, `phpmyadmin`, `redis`.
+- `docker-compose-files/<app>.dev.yml` — xdebug overlay, applied unless you pass `--prod`.
+- Services use short names, so container names are `otmtcge-<app>-web-server-1`,
+  `otmtcge-<app>-mysql-server-1`, and `<app>_app_redis`.
+- There is deliberately **no root `docker-compose.yml`**. It used to hold every game at once,
+  and disabling a game meant commenting out a service block — commenting the service *key*
+  while leaving its body behind silently folded those keys into the previous service and
+  produced duplicate-key YAML errors. Per-app files make that impossible.
+- SWUDeck's local/container/database name is `swudeck`. **`swustats.net` is still the public
+  domain** — only the local Docker identifiers were renamed.
 
 ## Running the code generator
 

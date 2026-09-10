@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI:
-//   docker exec -w /var/www/html/TCGEngine otmtcge-swustats-web-server-1 \
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swudeck-web-server-1 \
 //     php -d xdebug.mode=off DevTools/tdd-regression/test_swudeck_profile_layout.php
 //
 // The profile page's panes are laid out by `.core-wrapper`, which menuStyles.css defines as

@@ -1,0 +1,15 @@
+# Debug overlay for swusim: xdebug + verbose error reporting.
+# Merged on top of swusim.yml by ./docker-start.sh unless --prod is passed.
+# (Replaces the old shared docker-compose.override.yml.)
+
+services:
+  web-server:
+    build:
+      target: dev
+    volumes:
+      - "../DevTools/xdebug/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:Z"
+      - "../DevTools/xdebug/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini:Z"
+    environment:
+      XDEBUG_MODE: debug
+      XDEBUG_CONFIG: client_host=host.docker.internal client_port=9003
+      DEVENV: "true"

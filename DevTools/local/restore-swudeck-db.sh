@@ -3,7 +3,7 @@
 # Restore the local SWUDeck MySQL database into its Docker container.
 #
 # Partner to backup-swudeck-db.sh. Feeds a gzipped dump produced by that
-# script back into the swustats-mysql-server container. The dumps use
+# script back into the swudeck mysql-server container. The dumps use
 # `--databases swudeck`, so they carry their own CREATE DATABASE / USE
 # statements — no target DB needs to be specified here.
 #
@@ -16,7 +16,7 @@
 #   Accepts either a .sql.gz or a plain .sql file.
 #
 # Env overrides:
-#   CONTAINER  container name   (default: otmtcge-swustats-mysql-server-1)
+#   CONTAINER  container name   (default: otmtcge-swudeck-mysql-server-1)
 #   DB_USER    mysql user       (default: root)
 #   DB_PASS    mysql password   (default: secret)
 #   FORCE      skip confirmation prompt when set to 1
@@ -25,7 +25,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-CONTAINER="${CONTAINER:-otmtcge-swustats-mysql-server-1}"
+CONTAINER="${CONTAINER:-otmtcge-swudeck-mysql-server-1}"
 DB_USER="${DB_USER:-root}"
 DB_PASS="${DB_PASS:-secret}"
 BACKUP_DIR="${SCRIPT_DIR}/_backups"

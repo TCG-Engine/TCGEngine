@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI:
-//   docker exec otmtcge-swustats-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_meta_read_apis_load.php
+//   docker exec otmtcge-swudeck-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_meta_read_apis_load.php
 //
 // The FOUR meta read APIs must actually EXECUTE and return JSON.
 //

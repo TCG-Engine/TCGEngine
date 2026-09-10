@@ -1,5 +1,5 @@
 <?php
-// docker exec otmtcge-swustats-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_main_deck_copy_limit.php
+// docker exec otmtcge-swudeck-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_main_deck_copy_limit.php
 //
 // SWUDeck's main-deck ADD gate must enforce the same copy limit the SAVE-time validator
 // (AppCore/SWU/DeckValidation.php's SWUCheckFormat) enforces: the deck's format maxCopies,

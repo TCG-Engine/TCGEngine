@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI:
-//   docker exec -w /var/www/html/TCGEngine otmtcge-swustats-web-server-1 php DevTools/tdd-regression/test_swudeck_format_stats_policy_e2e.php
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swudeck-web-server-1 php DevTools/tdd-regression/test_swudeck_format_stats_policy_e2e.php
 //
 // END-TO-END proof of the three-tier format policy, exercised through BOTH submission endpoints:
 //

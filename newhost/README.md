@@ -213,7 +213,8 @@ conf is still live. Exactly one mechanism decides the DB.
 `Host` matches none, so `httpd-vhost-000-default.conf` (which denies before PHP runs) is Included by its
 own explicit line *before* the `httpd-vhost-1*.conf` glob. Don't reorder those two lines.
 
-Known gap: `docker-compose.yml` stays one container per sim with its own `MYSQL_DATABASE_NAME`, so
+Known gap: the `docker-compose-files/` stacks stay one container per sim, each with its own
+`MYSQL_DATABASE_NAME`, so
 **local dev does not exercise vhost routing, cookie scoping, or the catch-all** — first real test is on a
 box. Verify with the `curl -H 'Host: ...'` checks the script prints.
 

@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI:
-//   docker exec -w /var/www/html/TCGEngine otmtcge-swustats-web-server-1 php DevTools/tdd-regression/test_swu_stats_ingress.php
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swudeck-web-server-1 php DevTools/tdd-regression/test_swu_stats_ingress.php
 //
 // Stats ingress translates every incoming card identifier to SET_NNN before anything is written.
 // Karabast sends FFG UIDs by contract and the tables are SET_NNN-keyed, so without this each

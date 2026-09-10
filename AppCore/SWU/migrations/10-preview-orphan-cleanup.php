@@ -2,7 +2,7 @@
 // 10-preview-orphan-cleanup.php — delete stat rows that reference a mock card deleted at release.
 //
 // RUN:
-//   docker exec -w /var/www/html/TCGEngine otmtcge-swustats-web-server-1 \
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swudeck-web-server-1 \
 //     php AppCore/SWU/migrations/10-preview-orphan-cleanup.php            # dry run
 //     php AppCore/SWU/migrations/10-preview-orphan-cleanup.php --apply    # write
 //

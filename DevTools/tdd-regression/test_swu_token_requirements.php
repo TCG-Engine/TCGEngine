@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI:
-//   docker exec -w /var/www/html/TCGEngine otmtcge-swustats-web-server-1 \
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swudeck-web-server-1 \
 //     php -d xdebug.mode=off DevTools/tdd-regression/test_swu_token_requirements.php
 //
 // Pins every detection rule behind the deckbuilder's "Needs Tokens" line. Each case below is a bug

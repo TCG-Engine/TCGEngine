@@ -2,15 +2,15 @@
 #
 # Backup the local SWUDeck MySQL database from its Docker container.
 #
-# The `swudeck` database runs inside the swustats-mysql-server container
-# (see docker-compose.yml). This dumps it to a timestamped, gzipped .sql
+# The `swudeck` database runs inside the swudeck mysql-server container
+# (see docker-compose-files/swudeck.yml). This dumps it to a timestamped, gzipped .sql
 # file under DevTools/local/_backups/ (gitignored).
 #
 # Usage:
 #   ./DevTools/backup-swudeck-db.sh [output-dir]
 #
 # Env overrides:
-#   CONTAINER  container name        (default: otmtcge-swustats-mysql-server-1)
+#   CONTAINER  container name        (default: otmtcge-swudeck-mysql-server-1)
 #   DB         database name         (default: swudeck)
 #   DB_USER    mysql user            (default: root)
 #   DB_PASS    mysql password        (default: secret)
@@ -20,7 +20,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-CONTAINER="${CONTAINER:-otmtcge-swustats-mysql-server-1}"
+CONTAINER="${CONTAINER:-otmtcge-swudeck-mysql-server-1}"
 DB="${DB:-swudeck}"
 DB_USER="${DB_USER:-root}"
 DB_PASS="${DB_PASS:-secret}"

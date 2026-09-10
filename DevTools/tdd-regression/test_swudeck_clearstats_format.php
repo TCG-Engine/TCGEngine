@@ -2,7 +2,7 @@
 // RUN VIA CLI (ClearStats.php needs a logged-in owner, which CLI can't provide; so this test seeds
 // two formats and runs the same per-format DELETE/UPDATE statements ClearStats.php uses, proving the
 // per-format scoping so a future regression is caught):
-//   docker exec otmtcge-swustats-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_clearstats_format.php
+//   docker exec otmtcge-swudeck-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_clearstats_format.php
 header('Content-Type: text/plain');
 include_once __DIR__ . '/../../Database/ConnectionManager.php';
 $conn = GetLocalMySQLConnection();

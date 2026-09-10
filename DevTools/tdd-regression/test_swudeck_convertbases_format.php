@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI:
-//   docker exec otmtcge-swustats-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_convertbases_format.php
+//   docker exec otmtcge-swudeck-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_convertbases_format.php
 //
 // Proves the per-format scoping of ConvertBasesToCanonical's deckmetastats merge: a premier row under
 // a non-canonical base and an eternal row under the canonical base for the SAME (leader, week) must

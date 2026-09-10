@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI:
-//   docker exec otmtcge-swustats-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_metastats_api_format.php
+//   docker exec otmtcge-swudeck-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_metastats_api_format.php
 header('Content-Type: text/plain');
 include_once __DIR__ . '/../../Database/ConnectionManager.php';
 $conn = GetLocalMySQLConnection();

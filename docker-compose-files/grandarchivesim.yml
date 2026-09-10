@@ -1,0 +1,82 @@
+# GrandArchiveSim local stack.
+#
+# Start with: ./docker-start.sh grandarchivesim
+name: otmtcge-grandarchivesim
+
+services:
+  web-server:
+    build:
+      dockerfile: Dockerfile
+      # Build context / bind mounts are relative to this file's directory,
+      # so '..' is the repo root.
+      context: ..
+    restart: always
+    volumes:
+      - "../:/var/www/html/TCGEngine:Z"
+    command: bash "/var/www/html/TCGEngine/docker-entrypoint.sh"
+    ports:
+      - "3200:80"
+    depends_on:
+      - redis
+      - mysql-server
+    environment:
+      PHP_FPM_CLEAR_ENV: "no"
+      MYSQL_ROOT_PASSWORD: "secret"
+      # Service names are the in-network hostnames; each app is its own compose
+      # project with its own network, so the short names never collide.
+      MYSQL_SERVER_NAME: "mysql-server"
+      MYSQL_SERVER_USER_NAME: "root"
+      MYSQL_DATABASE: "grandarchivesim"
+      MYSQL_DATABASE_NAME: "grandarchivesim"
+      REDIS_HOST: "redis"
+      REDIS_ENABLED: true
+      DOMAIN: "${DOMAIN:-localhost}"
+      STAGE: "${STAGE:-prod}"
+    user: "${DOCKER_USER:-}"
+
+  mysql-server:
+    image: mysql:latest
+    restart: always
+    environment:
+      PHP_FPM_CLEAR_ENV: "no"
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_SERVER_NAME: "mysql-server"
+      MYSQL_SERVER_USER_NAME: "root"
+      MYSQL_DATABASE: "grandarchivesim"
+    ports:
+      # Only this app publishes MySQL on the host; conflicts with a local mysqld on 3306.
+      - "3306:3306"
+    volumes:
+      # Mount the bootstrap schemas INDIVIDUALLY and in order, rather than the whole
+      # ../Database directory. That directory also holds historical prod migrations
+      # (ownership_*_migration.sql) whose columns database.sql already contains, so on a
+      # FRESH volume the first of them alphabetically fails with
+      #   ERROR 1060 Duplicate column name 'format'
+      # which aborts the entrypoint's init run. `restart: always` then re-runs the same
+      # container, which trips over the temp server's leftover socket lock in
+      # /var/run/mysqld and crash-loops forever (a restart cannot clear it -- only
+      # recreating the container can). Add new bootstrap schemas here explicitly.
+      - ../Database/database.sql:/docker-entrypoint-initdb.d/01-database.sql:ro
+      - ../Database/card_abilities_schema.sql:/docker-entrypoint-initdb.d/02-card_abilities_schema.sql:ro
+      - ../Database/card_code_service_schema.sql:/docker-entrypoint-initdb.d/03-card_code_service_schema.sql:ro
+      - mysql-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: mysql-server
+      PMA_USER: root
+      PMA_PASSWORD: "secret"
+    ports:
+      - "5102:80"
+
+  redis:
+    image: redis:7.0
+    # Explicit name kept for the `<app>_app_redis` convention referenced in docs/skills.
+    container_name: grandarchivesim_app_redis
+    ports:
+      - "6483:6379"
+
+volumes:
+  mysql-data:

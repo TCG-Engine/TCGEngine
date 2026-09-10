@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI:
-//   docker exec -w /var/www/html/TCGEngine otmtcge-swustats-web-server-1 php DevTools/tdd-regression/test_swudeck_setnnn_dictionary.php
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swudeck-web-server-1 php DevTools/tdd-regression/test_swudeck_setnnn_dictionary.php
 //
 // SWUDeck's dictionaries are keyed by SET_NNN, matching SWUSim and the deck-JSON interchange
 // format. UUIDs remain as a BOUNDARY translation table (UUIDLookup/CardIDLookup) and every

@@ -1,7 +1,7 @@
 <?php
 // RUN VIA CLI (this test makes a loopback HTTP POST to SubmitGameResult.php; serving it over HTTP too
 // can deadlock/stall the apache worker pool on docker-for-mac). Invoke:
-//   docker exec otmtcge-swustats-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_completedgame_format.php
+//   docker exec otmtcge-swudeck-web-server-1 php /var/www/html/TCGEngine/DevTools/tdd-regression/test_swudeck_completedgame_format.php
 //
 // completedgame is large (prod data copy), and WinningHero is unindexed. To stay fast we snapshot
 // MAX(GameID) (instant on the PK) before each POST and only inspect rows created after it — every

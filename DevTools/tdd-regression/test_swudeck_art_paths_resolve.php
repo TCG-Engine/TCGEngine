@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI:
-//   docker exec -w /var/www/html/TCGEngine otmtcge-swustats-web-server-1 php DevTools/tdd-regression/test_swudeck_art_paths_resolve.php
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swudeck-web-server-1 php DevTools/tdd-regression/test_swudeck_art_paths_resolve.php
 //
 // Every image path SWUDeck builds must resolve to a file that EXISTS, for every id scheme that can
 // reach it. This test exists because the SET_NNN re-key (2026-08-04) shipped with a fully green

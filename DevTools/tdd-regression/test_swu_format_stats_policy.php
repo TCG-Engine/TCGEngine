@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI:
-//   docker exec -w /var/www/html/TCGEngine otmtcge-swustats-web-server-1 php DevTools/tdd-regression/test_swu_format_stats_policy.php
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swudeck-web-server-1 php DevTools/tdd-regression/test_swu_format_stats_policy.php
 //
 // AppCore/SWU/Formats.php is the SINGLE authority on which formats produce statistics. Before
 // 2026-08-06 the list ['premier','eternal','twinsuns','padawan'] was retyped in eight places and had

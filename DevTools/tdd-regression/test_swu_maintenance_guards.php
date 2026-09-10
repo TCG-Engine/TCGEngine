@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI:
-//   docker exec -w /var/www/html/TCGEngine otmtcge-swustats-web-server-1 php DevTools/tdd-regression/test_swu_maintenance_guards.php
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swudeck-web-server-1 php DevTools/tdd-regression/test_swu_maintenance_guards.php
 //
 // Every web-reachable path that writes a SET_NNN-migration target table must sit behind
 // SWUMaintenanceRequire(), or maintenance mode is a sign on a door that does not lock.

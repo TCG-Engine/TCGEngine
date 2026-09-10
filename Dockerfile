@@ -1,5 +1,26 @@
 FROM php:8.2.1-apache as base
 
+# Debian bullseye (this image's base) is archived, which broke every build in 2026-09:
+#   E: Release file for .../debian-security/dists/bullseye-security/InRelease is expired
+# and the security pool then 404s on libkrb5-dev / libssl-dev / libxslt1-dev. Fixes that do
+# NOT work: `-o Acquire::Check-Valid-Until=false` alone (clears the expiry error, packages
+# still 404), and pointing the security suite at archive.debian.org (it has no
+# debian-security for bullseye -- verified 404).
+#
+# So: serve main + updates from archive.debian.org and drop the security suite, which has no
+# archived counterpart. Archived Release files are permanently expired by design, hence
+# Check-Valid-Until off. Trade-off: package versions are the release/updates ones rather than
+# the last security builds -- acceptable for a local dev image.
+#
+# Staying on bullseye rather than bumping to a bookworm-based php tag is deliberate: bookworm
+# dropped libc-client-dev, which `docker-php-ext-install imap` below needs.
+RUN set -eux; \
+    printf '%s\n' \
+      'deb http://archive.debian.org/debian bullseye main' \
+      'deb http://archive.debian.org/debian bullseye-updates main' \
+      > /etc/apt/sources.list; \
+    printf 'Acquire::Check-Valid-Until "false";\n' > /etc/apt/apt.conf.d/99archive-expired
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libbz2-dev \
     libc-client-dev \

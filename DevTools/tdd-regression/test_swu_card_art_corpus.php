@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI, from either box (the corpus is shared, so one run covers both apps):
-//   docker exec -w /var/www/html/TCGEngine otmtcge-swustats-web-server-1 php DevTools/tdd-regression/test_swu_card_art_corpus.php
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swudeck-web-server-1 php DevTools/tdd-regression/test_swu_card_art_corpus.php
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1   php DevTools/tdd-regression/test_swu_card_art_corpus.php
 //
 // Sweeps AppCore/SWU/Images/WebpImages/ and asserts every file sits on its class's deterministic

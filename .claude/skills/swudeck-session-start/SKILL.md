@@ -39,13 +39,13 @@ Call out anything that directly changes today's approach.
 
 SWUDeck runs in Docker, served at `http://localhost:3100/TCGEngine`. Verify:
 
-- Containers running: `docker ps | grep swustats` — expect the web server, mysql, and redis
-  (`otmtcge-swustats-web-server-1`, `-mysql-server-1`, `swustats_app_redis`; names may vary).
+- Containers running: `docker ps | grep swudeck` — expect the web server, mysql, and redis
+  (`otmtcge-swudeck-web-server-1`, `-mysql-server-1`, `swudeck_app_redis`; names may vary).
 - App responds: `curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3100/TCGEngine/SharedUI/LoginPage.php` → `200`.
-- DB reachable (only if you'll touch data): `docker exec otmtcge-swustats-mysql-server-1 mysql -u root -psecret -D swudeck -e "SELECT 1"`.
+- DB reachable (only if you'll touch data): `docker exec otmtcge-swudeck-mysql-server-1 mysql -u root -psecret -D swudeck -e "SELECT 1"`.
 
-If something's down, tell the user and offer to start it (`docker compose up -d`) — don't guess
-around a broken environment.
+If something's down, tell the user and offer to start it (`./docker-start.sh swudeck`) — don't
+guess around a broken environment.
 
 ### 3. Ready the cross-browser verification tooling
 

@@ -1,6 +1,6 @@
 <?php
 // RUN VIA CLI:
-//   docker exec -w /var/www/html/TCGEngine otmtcge-swustats-web-server-1 php DevTools/tdd-regression/test_swudeck_import_identity.php
+//   docker exec -w /var/www/html/TCGEngine otmtcge-swudeck-web-server-1 php DevTools/tdd-regression/test_swudeck_import_identity.php
 //
 // Guards the identity contract of SWUDeck/Custom/CardIdentifiers.php and the deck import paths:
 // everything speaks SET_NNN, and nothing converts back to an FFG UID.
