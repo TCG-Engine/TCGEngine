@@ -7190,6 +7190,34 @@ DECK,
     ],
 ];
 
+$fixtures['plated-bullet-rest-load-shadows-twin-power'] = [
+    'testedCards' => ['l75tlzsmw3', '5vettczb14'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+8 Dungeon Guide
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5vettczb14'], // Shadow's Twin, unloaded Gun, myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'l75tlzsmw3'], // Plated Bullet, awake, myField-2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline own MAT-phase materialize offer
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // Plated Bullet's [REST] ability
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Shadow's Twin as the unloaded Gun to load into
+    ],
+];
+
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
