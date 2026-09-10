@@ -423,3 +423,133 @@ WithP1SpaceArena: HMW_125:1:0
 ## EXPECT
 P1HASDECISION
 P1SELECTABLEEXACT:mySpaceArena-0
+
+---
+
+# Combo_AckbarLukeXWing_ThenRoundTwoCrix_MarauderForFree
+#// A user-requested line, played across the regroup into ROUND 2:
+#//   Round 1 (2 resources): play HMW_208 Luke (1) — it's the first round, so he enters READY — then JTL_016
+#//     Ackbar's leader Action [1, Exhaust] exhausts him ("if you do") → P1 creates an X-Wing token (JTL_T02).
+#//   Regroup: draw 2, resource a card → 3 resources, everything readies.
+#//   Round 2: play ASH_108 Crix Madine (3 of 3). His When Played plays a Heroism unit from hand at −2 for
+#//     each arena where you control THE MOST units: ground Luke+Crix 2 vs the opponent's lone unit 1, space
+#//     X-Wing 1 vs 0 → both → −4. The Marauder is 7 − 4 = 3, and choosing Luke, Crix and the X-Wing for 1
+#//     damage each takes off the last 3 → FREE with 0 resources left.
+#// It reaches the Marauder's pick only because DISCOUNT_PLAY_FROM_HAND routes through SWUBeginPlayCard
+#// (2026-09-02); a direct ActivateCard would skip the additional-cost step and the play would be refused.
+#// Alternating turns (no P1OnlyActions) so TURNPLAYER can see the action close: P2 passes each time, and
+#// P1 holds the (unclaimed) initiative, so P1 leads round 2.
+#// ⚠ Not NOEXTRAACTION: the nested play attempts a second close that _SWUActionCloseGate refuses by
+#// construction (the same blocked close Crix's own decline sections log) — the turn landing on P2 exactly
+#// once, plus the mid-resolution section below, is the check that matters.
+
+## GIVEN
+CommonSetup: gyw/rrk/{myLeader:JTL_016;myResources:2}
+WithActivePlayer: 1
+WithP1Hand: [HMW_208 ASH_108 HMW_125 SOR_095]
+WithP1Deck: [SEC_080 SEC_080 SEC_080 SEC_080]
+WithP2Deck: [SEC_080 SEC_080 SEC_080 SEC_080]
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P2>Pass
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+- P2>Pass
+- P1>Pass
+- P1>ResourceHand:2
+- P2>ResourcePass
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1&mySpaceArena-0
+
+## EXPECT
+P1RESCOUNT:3
+P1RESAVAILABLE:0
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:0:CARDID:JTL_T02
+P1SPACEARENAUNIT:0:DAMAGE:1
+P1SPACEARENAUNIT:1:CARDID:HMW_125
+P1SPACEARENAUNIT:1:DAMAGE:0
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:HMW_208
+P1GROUNDARENAUNIT:0:DAMAGE:1
+P1GROUNDARENAUNIT:1:CARDID:ASH_108
+P1GROUNDARENAUNIT:1:DAMAGE:1
+P1HANDCOUNT:2
+P1LEADER:READY
+TURNPLAYER:2
+P1NODECISION
+
+---
+
+# Combo_MidResolution_StillP1sTurnWhileTheDamagePickIsOpen
+#// The same line, stopped with the Marauder's damage pick pending (Crix's play → the nested Marauder play
+#// → its additional-cost picker). The action must NOT have closed yet: a close here would hand P2 the turn
+#// in the middle of P1's resolution, and the end state above could not tell.
+
+## GIVEN
+CommonSetup: gyw/rrk/{myLeader:JTL_016;myResources:2}
+WithActivePlayer: 1
+WithP1Hand: [HMW_208 ASH_108 HMW_125 SOR_095]
+WithP1Deck: [SEC_080 SEC_080 SEC_080 SEC_080]
+WithP2Deck: [SEC_080 SEC_080 SEC_080 SEC_080]
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P2>Pass
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+- P2>Pass
+- P1>Pass
+- P1>ResourceHand:2
+- P2>ResourcePass
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+TURNPLAYER:1
+P1DECISIONTOOLTIP:Choose_any_number_of_friendly_units_to_damage_for_1_resource_less_each
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&mySpaceArena-0
+
+---
+
+# Combo_Control_OpponentTiesTheGround_OnlyMinusTwo_MarauderStaysInHand
+#// Why "the opponent has only a ground unit" is load-bearing: with a SECOND enemy ground unit the ground is
+#// TIED (2 vs 2), and a tie is not "the most", so Crix gives only −2 (space). 7 − 2 − 3 picks = 2 against 0
+#// ready resources → the Marauder's pick aborts before anything is applied (UnderChoose_StillUnaffordable):
+#// no damage is dealt, the Marauder stays in hand, and Crix's action still closes normally.
+
+## GIVEN
+CommonSetup: gyw/rrk/{myLeader:JTL_016;myResources:2}
+WithActivePlayer: 1
+WithP1Hand: [HMW_208 ASH_108 HMW_125 SOR_095]
+WithP1Deck: [SEC_080 SEC_080 SEC_080 SEC_080]
+WithP2Deck: [SEC_080 SEC_080 SEC_080 SEC_080]
+WithP2GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P2>Pass
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+- P2>Pass
+- P1>Pass
+- P1>ResourceHand:2
+- P2>ResourcePass
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-0&myGroundArena-1&mySpaceArena-0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1HANDCOUNT:3
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:1:DAMAGE:0
+P1SPACEARENAUNIT:0:DAMAGE:0
+P1RESAVAILABLE:0
+TURNPLAYER:2
+P1NODECISION
