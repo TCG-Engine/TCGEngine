@@ -18,6 +18,7 @@ function _SWUHmw147ActionPhaseTriggers(): void {
     for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $zone = GetBase($p);
         if (empty($zone) || !isset($zone[0]) || !empty($zone[0]->removed)) continue;
+        if (_SWUFortifyBlanked($p, 'HMW_147')) continue;   // SEC_046 naming it or the base
         $copies = 0;
         foreach (GetUpgradesOnUnit($zone[0]) as $sub) {
             if (($sub->CardID ?? '') === 'HMW_147') $copies++;

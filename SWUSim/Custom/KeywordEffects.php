@@ -157,14 +157,19 @@ function _SWUGalenSuppressesCard(int $owner, string $cardID): bool {
 
 // True if an OPPONENT of $targetOwner controls a Galen (still in play) that named $titleEnc (the encoded
 // card title). Stale flags (Galen left play) are skipped lazily.
+// ⚠ EVERY opponent, not OtherPlayer(): official ruling "Galen's ability affects each card owned by each
+// opponent". OtherPlayer() answers 1 for every seat but seat 1, so at 3+ seats a seat-2 Galen never saw
+// a seat-3 card. OpponentsOf() is [OtherPlayer] at two seats, so Premier is byte-identical.
 function _SWUGalenNames(int $targetOwner, string $titleEnc): bool {
-    $opp = OtherPlayer($targetOwner);                 // 2-player: the one opponent (= Galen's controller)
-    foreach (GetGlobalEffects($opp) as $e) {
-        $flag = (string)($e->CardID ?? '');
-        if (strpos($flag, 'SWU_GALEN|') !== 0) continue;
-        $parts = explode('|', $flag);
-        if (!_SWUUnitInPlayWithUID($opp, intval($parts[1] ?? 0))) continue;   // Galen gone → ignore
-        if (($parts[2] ?? '') === $titleEnc) return true;
+    foreach (OpponentsOf($targetOwner) as $opp) {
+        $opp = intval($opp);
+        foreach (GetGlobalEffects($opp) as $e) {
+            $flag = (string)($e->CardID ?? '');
+            if (strpos($flag, 'SWU_GALEN|') !== 0) continue;
+            $parts = explode('|', $flag);
+            if (!_SWUUnitInPlayWithUID($opp, intval($parts[1] ?? 0))) continue;   // Galen gone → ignore
+            if (($parts[2] ?? '') === $titleEnc) return true;
+        }
     }
     return false;
 }
@@ -1193,6 +1198,8 @@ function HasConditionalKeyword_Hidden($obj) {
     switch ($obj->CardID) {
         case 'HMW_176': // Village Troublemaker — while you control an ENDOR base
             return _SWUControlsBaseWithTrait(intval($obj->Controller ?? 0), 'Endor');
+        case 'HMW_104': // Garnac — while an opponent controls a Unique unit (see the card file)
+            return function_exists('_SWUHmw104OpponentControlsUnique') && _SWUHmw104OpponentControlsUnique($obj);
     }
 
     return false;
@@ -1243,8 +1250,8 @@ function GetConditionalKeyword_Raid_Value($obj) {
     // replaced keyword and adds that much of the other. See the card file for the re-entrancy note.
     if (function_exists('_SWUHmw001SwapDelta')) $amount += _SWUHmw001SwapDelta($obj, 'RAID');
     $amount += _SWUGhostSharesKeywordValue($obj, 'RAID');   // JTL_053 The Ghost keyword share (additive)
-    // TWI_169 Clone Cohort (upgrade) — "Attached unit gains Raid 2."
-    if (_SWUUnitHasActiveUpgrade($obj, 'TWI_169')) $amount += 2;
+    // TWI_169 Clone Cohort (upgrade) — "Attached unit gains Raid 2." Lives in the per-upgrade loop below,
+    // which counts each attached copy (non-unique: two Cohorts = Raid 4, CR 7.5.8.b) and skips a blanked one.
     // TWI_164 Hevy — "Coordinate - Raid 2."
     if (($obj->CardID ?? '') === 'TWI_164' && IsCoordinateActive(intval($obj->Controller ?? 0))) $amount += 2;
     // TWI_196 Plo Koon — "Coordinate - Raid 3."
@@ -1279,9 +1286,17 @@ function GetConditionalKeyword_Raid_Value($obj) {
         }
     }
     if (_SWUSEC104AuraActive($obj)) $amount += 1;   // SEC_104 aura — Raid 1
-    // LAW_233 Galen Erso — "Enemy units gain Raid 1 and Saboteur." (Raid half.) Boolean, not a count:
-    // the grant is "Raid 1", so two enemy Galens still grant Raid 1, not Raid 2.
-    if (_SWUAnyOpponentControlsActive(intval($obj->Controller ?? 0), 'LAW_233')) $amount += 1;
+    // HMW_126 Verdant Fortress (Fortify) — "Attached base gains: 'Friendly units gain Raid 1.'"
+    // Base-hosted and continuous, read live. Numeric, so EACH copy on each friendly base (own + team)
+    // adds its own Raid 1 (CR 7.5.8.b) — the difference from HMW_112's boolean Overwhelm. See the card file.
+    if (function_exists('_SWUHmw126RaidGrant')) $amount += _SWUHmw126RaidGrant($obj);
+    // LAW_233 Galen Erso — "Enemy units gain Raid 1 and Saboteur." (Raid half.) Each Galen is its own
+    // source, so Raid STACKS (CR 7.5.8.b, user ruling 2026-09-10 — this used to be deliberately boolean).
+    // Unique, so one per player: two only arise from two OPPONENTS (Twin Suns), where it is Raid 2.
+    // The Saboteur half stays boolean — Saboteur does not stack.
+    foreach (OpponentsOf(intval($obj->Controller ?? 0)) as $opp233) {
+        $amount += _SWUCountActiveUnitsWithCardID(intval($opp233), 'LAW_233');
+    }
     // SEC_140 Hondo Ohnaka — each OTHER friendly unit gains Raid 1.
     // SEC_099 Naboo Royal Starship — each friendly LEADER unit gains Raid 2.
     foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
@@ -1417,15 +1432,20 @@ function GetConditionalKeyword_Raid_Value($obj) {
             case 'JTL_211': // Independent Smuggler (pilot) — "Attached unit gains Raid 1."
                 $amount += 1;
                 break;
+            case 'TWI_169': // Clone Cohort — "Attached unit gains Raid 2." (per copy)
+                $amount += 2;
+                break;
             case 'LOF_261': // Constructed Lightsaber — "If attached unit is a Villainy unit, it gains Raid 2."
                 if (strpos(CardAspect($obj->CardID) ?? '', 'Villainy') !== false) $amount += 2;
                 break;
         }
     }
     // LOF_169 Invasion Control Ship: "Friendly Droid units gain Raid 2." (field-source grant.)
-    if (HasTrait($obj->CardID ?? '', 'Droid')
-        && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'LOF_169') > 0) {
-        $amount += 2;
+    // NON-unique, so each ship is its own source and Raid stacks (CR 7.5.8.b, user ruling 2026-09-10):
+    // two ships = Raid 4. Counted over ACTIVE copies, so a blanked ship (SEC_046 Galen, LOF_202) grants
+    // nothing — the rule the friendly-unit grant loop above already applies.
+    if (HasTrait($obj->CardID ?? '', 'Droid')) {
+        $amount += 2 * _SWUCountActiveUnitsWithCardID(intval($obj->Controller ?? 0), 'LOF_169');
     }
     // HMW_007 Darth Vader, Might of the Empire — FRONT: "Friendly units that cost 3 or more gain
     // Raid 1." DEPLOYED: "OTHER friendly units that cost 3 or more gain Raid 1."
@@ -1446,13 +1466,15 @@ function GetConditionalKeyword_Raid_Value($obj) {
         }
     }
     // LOF_186 Marchion Ro — "Each friendly unit's Raid is doubled." Doubles the GRAND total. The generated
-    // GetKeyword_Raid_Value computes base_max (printed/TE/granted) then adds this conditional amount, so to
-    // make the final value 2×(base_max + amount) the conditional must contribute (base_max + amount) extra.
+    // GetKeyword_Raid_Value computes base (printed + every TE grant + granted) then adds this conditional
+    // amount, so to make the final value 2×(base + amount) the conditional must contribute (base + amount)
+    // extra. ⚠ This MUST mirror the generated base exactly — it is ADDITIVE since the 2026-09-10 Raid
+    // stacking ruling (it was max() before), and a stale max() here would under-double every stacked unit.
     if (_SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'LOF_186') > 0) {
         global $Raid_Cards;
         $base = intval($Raid_Cards[$obj->CardID] ?? 0);
-        $base = max($base, SWUTurnEffectKeywordValue($obj, 'RAID'));
-        if (HasGrantedKeyword($obj, 'RAID')) $base = max($base, 1);
+        $base += SWUTurnEffectKeywordValueSum($obj, 'RAID');
+        if (HasGrantedKeyword($obj, 'RAID')) $base += 1;
         if ($base + $amount > 0) $amount += $base + $amount;
     }
     return $amount;

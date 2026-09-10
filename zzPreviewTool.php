@@ -208,6 +208,17 @@ if ($action !== '') {
     }
 
     if ($action === 'regen') {
+        // The generators run as CLI CHILD processes, which have no browser session — so their own
+        // CheckLoggedInUserMod() can only pass via DEVENV=true. Authorise HERE, in the web request that
+        // does carry the session (an approved moderator, or local dev), and hand that authority to the
+        // children explicitly. Without this the dictionary step printed "You must be logged in", exited
+        // 0, and the tool reported success on any container started without the .dev.yml overlay.
+        require_once __DIR__ . '/AccountFiles/AccountSessionAPI.php';
+        $authErr = CheckLoggedInUserMod();
+        if ($authErr !== '') {
+            echo json_encode(['ok' => false, 'error' => $authErr]);
+            exit;
+        }
         // The same chain zzSWUSimRefresh.php orchestrates: dictionaries -> keywords. Ability stubs
         // are written by the dictionary generator itself.
         $php  = preview_tool_php_cli();
@@ -223,13 +234,17 @@ if ($action !== '') {
             'keywords'     => escapeshellarg($php) . ' -d xdebug.mode=off '
                 . escapeshellarg($root . '/Data/ProcessKeywordsSWU.php'),
         ];
+        // A generator that refuses prints {"error":…} and still exits 0, so the exit code alone is not
+        // a result: also require each step's own completion marker.
+        $doneMarkers = ['dictionaries' => 'Generator complete', 'keywords' => 'TOTAL'];
         $log = [];
         foreach ($steps as $label => $cmd) {
             $out = []; $code = 0;
-            exec('cd ' . escapeshellarg($root) . ' && ' . $cmd . ' 2>&1', $out, $code);
+            exec('cd ' . escapeshellarg($root) . ' && DEVENV=true ' . $cmd . ' 2>&1', $out, $code);
             $log[] = '=== ' . $label . ' (exit ' . $code . ') ===';
             $log[] = implode("\n", array_slice($out, -20));
-            if ($code !== 0) {
+            $finished = strpos(implode("\n", $out), $doneMarkers[$label]) !== false;
+            if ($code !== 0 || !$finished) {
                 echo json_encode(['ok' => false, 'error' => 'Step "' . $label . '" failed.',
                                   'log' => implode("\n", $log)]);
                 exit;

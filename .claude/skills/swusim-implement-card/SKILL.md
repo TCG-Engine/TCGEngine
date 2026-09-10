@@ -1266,6 +1266,73 @@ fixture-blind-spot table above for *why* that coverage could not see them.
    `PlayHand` routes through that same `ActionMap`, so "can the opponent interrupt my triggers?" is a
    normal `Cases/` test, not a manual check.
 
+### ★ HMW wave 2026-09-10 — value-keyword STACKING, Galen × FORTIFY, and a pick hidden behind regroup
+
+- **★★ A PREVIEW IMPORT NEEDS THREE REGENS, and the third one is silent when skipped.** After
+  `CardMocks.php` grows: `zzCardCodeGenerator.php rootName=SWUSim` (the engine's dictionary),
+  `rootName=SWUDeck`, **and `Data/ProcessKeywordsSWU.php`**. Skipping the keyword regen left HMW_126 out of
+  `$Fortify_Cards`, so PLAYING it attached it to a UNIT like any upgrade — reads as a card bug. All three
+  exit "You must be logged in" from the CLI unless run as `docker exec -e DEVENV=true …`.
+- **★★ USER RULING — RAID STACKS: every instance is SUMMED (CR 7.5.8.b).** Printed + every grant; the
+  generator's Raid template is now additive (it was `max()`). For any NEW Raid grant: a NON-unique source
+  must COUNT copies (`_SWUCountActiveUnitsWithCardID`, `_SWUCountBaseUpgrades`, the per-upgrade loop in
+  `GetConditionalKeyword_Raid_Value`) — never a boolean — and the guard is a two-copy section. ⚠ Before
+  "fixing" an existing `break`/boolean, check the source's UNIQUENESS: a unique source read off one
+  controller's board can never have two copies, so its `break` is inert (SEC_140 / SEC_099 / SEC_155 /
+  SEC_104 were false alarms). Code that RE-DERIVES the generated base (LOF_186 Marchion Ro's doubler)
+  must change in lockstep. Restore has the identical CR text and is NOT yet ruled — ask.
+- **★★ USER RULING — SEC_046 GALEN vs FORTIFY.** Naming a Fortify UPGRADE blanks all its abilities;
+  naming the BASE blanks only its "Attached base gains …" abilities (the upgrade's own printed abilities
+  survive). Every Fortify read site calls `_SWUFortifyBlanked($baseController, $cardID)`; a new "Attached
+  base gains" card goes into `_SWUFortifyGrantsToBase()` too. Guard pair per card in
+  `keywords/Fortify_GalenErso.md`: upgrade named → off, and base named → off (granted) or STILL ON (own).
+- **★ A MANDATORY multi-target pick queued at REGROUP sits behind the regroup "Resource up to 1 card"
+  prompt, so a "nothing happened" section passes whether or not your gate exists** — and `P1NODECISION`
+  can't be asserted there at all (the resource prompt is always pending). Build the board so the pick
+  AUTO-RESOLVES onto one target (its effect then lands before the assertion), or assert the pending
+  decision's `P{n}DECISIONTOOLTIP`. Caught only by asking why a gated section was green.
+- **An exclusion that no board can reach: prove it, then record it.** The existing rule is "construct a
+  board where the excluded case CAN arise". When a search finds none (HMW_104 Garnac's "another unit": Begin
+  attack always exhausts the attacker and the offer is ready-only), mutate the exclusion away, confirm the
+  green, and write that structural reason in the `COVERAGE:` ledger. Don't fake a section.
+- **DSL: `…UNIT:i:KEYWORDVALUE:<Kw>:<N>`** asserts a value keyword's stacked TOTAL (`GetKeyword_<Kw>_Value`)
+  — use it where the damage dealt can't isolate the number (a far-seat board, an ambiguous attack target).
+- **CR numbering: keyword rules are CR 7.5.N (Raid 7.5.8, Restore 7.5.9, Hidden 7.5.18) and "When Attack
+  Ends" is CR 7.6.16** — not "8.N" / "16.c". Grep the CR file before citing any number.
+
+### ★ HMW second wave 2026-09-10 — decisions handed BACK, sweeps hidden by combat, team-dropping pools
+
+- **★★ A CROSS-SEAT CHAIN CAN HAND THE DECISION BACK TO THE CASTER — assert the turn MID-resolution.** "A
+  player chooses a unit they control. You may defeat that unit" (HMW_058): the other seat picks, THEN the
+  caster decides. The play pause (`FINISH_PLAY_CARD` → `_SWUSeatOwingCrossPlayerDecision`) waited for the
+  other seat but always skipped the acting player, so once it had hopped onto the other seat's queue it
+  closed the action — turn passed — while the caster's prompt was still pending. The END state was right,
+  so only a section that stops after the other seat's pick and asserts `TURNPLAYER:1` + the pending
+  tooltip could see it. Fixed with the opt-in `$includeActor` (FINISH_PLAY_CARD only). For any card whose
+  decisions alternate seats, write that mid-state section.
+  ⚠ When one fix touches several call sites, MUTATE EACH ALONE: the same flag on the block-5 reaction
+  collector was green under mutation (queue order already covered it) and was reverted, not kept.
+- **★ A STATE CHECK YOUR HANDLER DOES CAN BE MASKED BY A LATER ENGINE SWEEP ON ONE DISPATCH PATH.** Giving a
+  Weakness can drop its host to 0 HP, so the giver runs `SWUCheckShrinkDefeats()`. Tested through On Attack
+  the sweep was green under deletion, because the attack's own resolution sweeps afterwards; through When
+  Played (nothing follows) it reds. Put the 0-HP / defeat-by-shrink section on the path with NOTHING after
+  the effect.
+- **★ POOLS AND PICKERS THAT SILENTLY DROP A TEAMMATE.** "A player" → `SWUQueueChoosePlayer` (every live
+  seat, self and teammate included), never `SWUQueueChooseOpponent(..., includeSelf: true)`, which starts
+  from `OpponentsOf` and so drops the teammate. An unqualified "a unit / another unit" pool →
+  `SWUAllUnits()` (team + their), never a `my` + `their` scan, which in a team game skips the teammate
+  (JTL_242's `SWUQueueMoveUpgrade` still does). One Team Suns section catches both.
+- **TOKEN UPGRADES ARE KINDS, NOT CardIDs.** Every set reprints them (16 CardIDs: SHD_T02 / LOF_T02 / … are
+  Shields). "Give another one of those tokens" dispatches by TITLE to the primitive (`DoGiveShieldToken` /
+  `DoGiveExperienceToken` / `DoGiveAdvantageToken` / else `DoGiveTokenUpgrade`), and the guard seeds a
+  REPRINT token.
+- **"THIS CARD FROM YOUR DISCARD" ON A STOLEN UNIT:** the card goes to its OWNER's discard while the
+  CONTROLLER resolves, so nothing happens — but the controller's discard may hold an OLDER copy of their
+  own. Gate on the owner-keyed `SWU_DEFEATED_CARD_<CardID>` multiset (stamped on every defeat path) before
+  searching the resolver's pile, and seed that older copy in the control section.
+- **Fixture: at 3+ seats `AttackGroundArena:0:BASE` is invalid** (it maps to `theirBase-0`); name the seat's
+  base explicitly — `AttackGroundArena:0:p2Base-0`.
+
 ### ⚠ DSL + design traps (HMW preview completion, 2026-08-26)
 
 - **★ `WithTeams: true` is the whole Team Suns setup** — it turns on `SWU_MODE_TEAMS` and defaults seat
@@ -1606,7 +1673,7 @@ One engine bug plus the cells that found it. Add these whenever a card matches:
   plays Jerjerrod.
 
 ### ★★★ NEVER derive a rules set from CARD TEXT — use the authoritative per-card list (TS26, 2026-08-09)
-CR 16.c: a **"When Attack Ends" ability fires by DEFAULT when its own unit is defeated by combat damage**;
+CR 7.6.16.c: a **"When Attack Ends" ability fires by DEFAULT when its own unit is defeated by combat damage**;
 requiring survival is a per-card OPT-IN. SWUSim had this inverted for every attack-end card.
 
 The trap is in the fix, not the bug. Classifying by phrasing — "Attack Ends" fires on death, bare
@@ -1904,7 +1971,7 @@ P1BASE:EPICUSED
 **EXPECT assertions cheat sheet** (the runner is the source of truth — when in doubt, re-derive with `grep -oE "preg_match\('[^']+'" SWUSim/Tests/Framework/SchemaTestRunner.php`):
 - `P1BASEDMG:N` / `P2BASEDMG:N`
 - `P1GROUNDARENACOUNT:N` / `P1SPACEARENACOUNT:N`
-- `P1GROUNDARENAUNIT:idx:CARDID:X` / `:SHIELDCOUNT:N` / `:DAMAGE:N` / `:POWER:N` / `:HP:N` / `:READY` / `:EXHAUSTED` / `:UPGRADECOUNT:N` / `:UPGRADE:n:CARDID:X` / `:HASKEYWORD:Kw` / `:NOTKEYWORD:Kw`
+- `P1GROUNDARENAUNIT:idx:CARDID:X` / `:SHIELDCOUNT:N` / `:DAMAGE:N` / `:POWER:N` / `:HP:N` / `:READY` / `:EXHAUSTED` / `:UPGRADECOUNT:N` / `:UPGRADE:n:CARDID:X` / `:HASKEYWORD:Kw` / `:NOTKEYWORD:Kw` / `:KEYWORDVALUE:Kw:N` (stacked Raid/Restore/Exploit total)
   - **`UPGRADECOUNT` counts ALL subcards — Shield (`SOR_T02`) and Experience (`SOR_T01`) tokens too**, not just "real" upgrades. A unit with a Lightsaber + a Shield is `UPGRADECOUNT:2`. To assert upgrades on a unit that also has tokens, use `SHIELDCOUNT` (filters `SOR_T02`) and/or a specific `UPGRADE:idx:CARDID`. `HASKEYWORD`/`NOTKEYWORD` dispatch to the real `HasKeyword_<Kw>($obj)` (incl. suppression/grant/conditional layers).
 - `P1SPACEARENAUNIT:idx:...` — same fields
 - `P1LEADER:READY` / `:EXHAUSTED` / `:DEPLOYED` / `:NOTDEPLOYED` / `:EPICUSED` / `:EPICAVAILABLE`

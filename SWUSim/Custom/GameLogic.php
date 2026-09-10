@@ -7963,7 +7963,7 @@ function _SWUControlsBaseWithTrait(int $player, string $trait): bool {
 function _SWUCanSeeOwnTopCard(int $player): bool {
     if ($player <= 0) return false;
     if (_SWUCountActiveUnitsWithCardID($player, 'LAW_094') > 0) return true;
-    if (_SWUBaseHasUpgrade($player, 'HMW_205')) return true;
+    if (_SWUBaseHasUpgrade($player, 'HMW_205') && !_SWUFortifyBlanked($player, 'HMW_205')) return true;   // SEC_046 blanks it
     return false;
 }
 
@@ -7988,6 +7988,35 @@ function _SWUCountBaseUpgrades(int $player, string $cardID): int {
         if (!$rem && $cid === $cardID) $n++;
     }
     return $n;
+}
+
+// SEC_046 Galen Erso vs FORTIFY — USER RULING 2026-09-10. Galen can blank a Fortify ability two ways:
+//   • naming the UPGRADE — it loses ALL its abilities: its own (HMW_081's prevention, HMW_171's reaction,
+//     a printed "Action [defeat this upgrade]") AND every "Attached base gains: …" clause it grants;
+//   • naming the BASE — the base loses all abilities and "can't gain abilities" (Galen's official
+//     ruling), so every "Attached base gains: …" clause on it is ineffective. The upgrade's OWN
+//     abilities are untouched by this, which is the whole point of the per-card list below.
+// All copies of an upgrade share one title, so the answer is all-or-nothing per base. When Played is
+// NOT routed here — CollectWhenPlayedAsUpgradeTriggers already gates it on the upgrade's name.
+// ⚠ The list is AUTHORITATIVE and per-card, not derived from card text: a card that grants the base an
+// ability AND has its own When Played (HMW_172 / 205 / 206) still belongs here, because every caller of
+// this helper is reading the base-granted half. Add new "Attached base gains" Fortify cards here.
+function _SWUFortifyGrantsToBase(string $cardID): bool {
+    return in_array($cardID, ['HMW_070', 'HMW_112', 'HMW_113', 'HMW_126', 'HMW_147', 'HMW_160',
+                              'HMW_172', 'HMW_205', 'HMW_206'], true);
+}
+
+// True if $player's copies of the base-attached upgrade $cardID currently have no effect because of
+// SEC_046 Galen Erso (see above). $player is the base's controller, who is also the Fortify upgrade's
+// owner (Fortify attaches only to YOUR base, and bases never change hands).
+function _SWUFortifyBlanked(int $player, string $cardID): bool {
+    if ($player <= 0 || $cardID === '') return false;
+    if (_SWUGalenSuppressesCard($player, $cardID)) return true;
+    if (_SWUFortifyGrantsToBase($cardID)) {
+        $base = GetBase($player)[0] ?? null;
+        if ($base !== null && _SWUGalenSuppressesCard($player, $base->CardID ?? '')) return true;
+    }
+    return false;
 }
 
 // The SWUDefeatUpgrade-style index (non-captive, non-removed order) of the base-attached upgrade carrying
@@ -10514,7 +10543,7 @@ function SWUCollectTrapFieldReactions(string $enteredMzID): int {
             $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
             if ($cid === 'HMW_171') $n++;
         }
-        if ($n > 0) {
+        if ($n > 0 && !_SWUFortifyBlanked(intval($bp), 'HMW_171')) {   // SEC_046: a named Trap Field reacts to nothing
             // ONE trigger carrying the count (not N identical triggers — two identical reactive triggers
             // hang the EffectStack flush, per SHD_172). The handler loops up to $n sequential may-defeats.
             AddTrigger($bp, 'HMW_171', 'HMW_171', (string)$enteredUID, (string)$n);
@@ -10590,7 +10619,9 @@ function CollectWhenPlayedAsUpgradeTriggers(int $player, string $cardID, string 
     // HMW_206 The Tarkin Doctrine — "Attached base gains: 'When you play a Fortification upgrade: Exhaust an
     // enemy unit.'" Fires when a Fortification-TRAIT upgrade is played while HMW_206 is attached to the
     // player's base. HMW_206 is itself trait 'Law' (not Fortification), so playing it never self-triggers.
-    if (HasTrait($cardID, 'Fortification') && _SWUBaseHasUpgrade(intval($player), 'HMW_206')) {
+    // SEC_046 Galen naming the Doctrine OR the base switches the granted reaction off.
+    if (HasTrait($cardID, 'Fortification') && _SWUBaseHasUpgrade(intval($player), 'HMW_206')
+        && !_SWUFortifyBlanked(intval($player), 'HMW_206')) {
         AddTrigger($player, 'HMW_206', 'HMW_206', '');
     }
     return FlushEntryTriggerBag($player);
@@ -11325,7 +11356,8 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // DEFEATED unit's controller, which is exactly "friendly" from that base's point of view.
             // Non-interactive, so it resolves inline rather than through a trigger. NOT unique: each
             // attached copy grants its own ability, hence the count.
-            $memorials = _SWUCountBaseUpgrades($controller, 'HMW_113');
+            // SEC_046 Galen naming the Memorial OR the base switches the granted heal off.
+            $memorials = _SWUFortifyBlanked(intval($controller), 'HMW_113') ? 0 : _SWUCountBaseUpgrades($controller, 'HMW_113');
             for ($i = 0; $i < $memorials; $i++) OnHealBase($controller, $controller, 1);
             // SOR_105 General Krell (controlled by $controller): grants "When Defeated: you may draw
             // a card" to each OTHER friendly unit. The leaving unit qualifies if it isn't Krell.
@@ -12544,7 +12576,7 @@ $customDQHandlers["FINISH_PLAY_CARD"] = function($player, $parts, $lastDecision)
     // Closing here swaps the turn mid-resolution. $parts[0] carries the CASTER across the hop; every
     // existing queue site passes no params, so it falls back to $player and is byte-identical.
     $caster = intval($parts[0] ?? $player);
-    $owing  = _SWUSeatOwingCrossPlayerDecision($caster, intval($player));
+    $owing  = _SWUSeatOwingCrossPlayerDecision($caster, intval($player), true);
     if ($owing > 0) {
         // Block 21: one AFTER the hopped reaction collection below, so the caster's tail keeps its
         // original 5-then-10 order once both have moved onto the other seat's queue.
@@ -12690,10 +12722,20 @@ function _SWUPlayerHasPendingWork(int $player): bool {
 // ExecuteStaticMethods is an uncapped per-seat loop.
 // ⚠ EVERY other live seat, not OpponentsOf(): in Team Suns a TEAMMATE owing a decision must be waited
 // for exactly like an opponent. The question is "is anyone else still deciding", not which side.
-function _SWUSeatOwingCrossPlayerDecision(int $actingPlayer, int $currentSeat): int {
+// ⚠ $includeActor — the HOP-BACK (2026-09-10, HMW_058 Mysterious Disappearance). A cross-seat chain can
+// hand the decision BACK: the other seat picks, then the CASTER decides ("a player chooses a unit … you
+// may defeat that unit"). Once the play tail has hopped onto the other seat's queue it can no longer see
+// the caster's queue, so with the actor always skipped it closed the action — turn passed — while the
+// caster's prompt was still pending. With $includeActor the actor counts too, but only when the tail is
+// NOT already on the actor's own queue (there, the queue's own block order already puts it behind).
+// Opt-in, and only FINISH_PLAY_CARD passes true. The block-5 reaction collector (TWI_210#0) was tried and
+// measured REDUNDANT: the other seat's continuation queues the caster's prompt BEFORE the collector runs,
+// so the reaction lands behind it in the caster's own queue anyway. The COMBAT resume has its own hop-back.
+function _SWUSeatOwingCrossPlayerDecision(int $actingPlayer, int $currentSeat, bool $includeActor = false): int {
     foreach (GetLiveSeatsArray() as $other) {
         $other = intval($other);
-        if ($other === intval($actingPlayer) || $other === intval($currentSeat)) continue;
+        if ($other === intval($currentSeat)) continue;
+        if ($other === intval($actingPlayer) && !$includeActor) continue;
         if (!_SWUPlayerHasBlockingDecision($other)) continue;
         return $other;
     }
@@ -17600,7 +17642,9 @@ function _SWUBaseActionProviders(int $player): array {
     foreach (GetUpgradesOnUnit($base) as $sub) {
         $ucid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
         $gate = $baseUpgradeActionAvailable[$ucid] ?? null;
-        if ($ucid !== '' && isset($baseUpgradeAbilities[$ucid])
+        // SEC_046 Galen Erso: a named upgrade has no Action; a named BASE loses only the Actions it was
+        // GRANTED (HMW_172), not an upgrade's own printed Action (HMW_037 / HMW_095).
+        if ($ucid !== '' && isset($baseUpgradeAbilities[$ucid]) && !_SWUFortifyBlanked($player, $ucid)
             && (!is_callable($gate) || $gate($player, $idx, $base))) {
             $label = preg_replace('/[^A-Za-z0-9]/', '', (string)CardTitle($ucid));
             if ($label === '') $label = str_replace('_', '', $ucid);

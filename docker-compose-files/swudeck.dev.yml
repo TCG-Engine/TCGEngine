@@ -10,5 +10,5 @@ services:
       - "../DevTools/xdebug/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:Z"
       - "../DevTools/xdebug/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini:Z"
     environment:
-      XDEBUG_MODE: debug
+      XDEBUG_MODE: "${DEV_XDEBUG_MODE:-debug}"   # ./docker-start.sh --no-xdebug sets off
       XDEBUG_CONFIG: client_host=host.docker.internal client_port=9003

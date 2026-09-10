@@ -19,6 +19,12 @@
 #   docker-compose-files/<app>.yml       base stack (web, mysql, phpmyadmin, redis)
 #   docker-compose-files/<app>.dev.yml   xdebug overlay, applied unless --prod
 #
+# The dev overlay carries MORE than xdebug (DEVENV=true, verbose error reporting), so
+# --prod is the wrong way to get a fast dev box: it drops DEVENV too, and every tool
+# that shells out to a generator then fails its auth check. --no-xdebug keeps the
+# overlay and just sets XDEBUG_MODE=off in the container (Xdebug 3 gives that env var
+# precedence over xdebug.ini, which is why editing the ini alone does not stick).
+#
 set -euo pipefail
 
 REPO_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
@@ -52,7 +58,13 @@ Apps:
 $(known_apps | sed 's/^/  /')
 
 Options:
-  --prod           Skip the .dev.yml xdebug overlay (mirrors the live config).
+  --prod           Skip the .dev.yml overlay entirely (mirrors the live config:
+                   no xdebug, but also NO DEVENV).
+  --no-xdebug      Keep the dev overlay (DEVENV etc.) but turn xdebug off.
+                   Changing it later needs --recreate to take effect.
+                   ⚠ Switching to/from --prod also needs --build: both targets share
+                   one image tag, so a prod-built image (no xdebug extension) is
+                   otherwise reused under the dev overlay.
   --build          Force an image rebuild before starting.
   --recreate       Force-recreate containers even if config is unchanged.
   --down           Stop and remove the app's containers (keeps its volumes).
@@ -72,10 +84,14 @@ ACTION="up"
 USE_DEV=1
 BUILD=0
 RECREATE=0
+# Read by the .dev.yml overlays as XDEBUG_MODE: "${DEV_XDEBUG_MODE:-debug}". A dedicated
+# name, so an XDEBUG_MODE exported in your shell for something else can't leak in.
+export DEV_XDEBUG_MODE="debug"
 
 while [ $# -gt 0 ]; do
     case "$1" in
         --prod)         USE_DEV=0 ;;
+        --no-xdebug)    DEV_XDEBUG_MODE="off" ;;
         --build)        BUILD=1 ;;
         --recreate)     RECREATE=1 ;;
         --down)         ACTION="down" ;;
@@ -130,6 +146,7 @@ for app in "${APPS[@]}"; do
     mode="dev"
     if [ "$USE_DEV" -eq 1 ] && [ -f "$COMPOSE_DIR/$app.dev.yml" ]; then
         files+=(-f "$COMPOSE_DIR/$app.dev.yml")
+        [ "$DEV_XDEBUG_MODE" = "off" ] && mode="dev, xdebug off"
     else
         mode="prod"
     fi

@@ -23,9 +23,10 @@ if (!function_exists('_SWUHmw112GrantsOverwhelm')) {
     function _SWUHmw112GrantsOverwhelm($obj): bool {
         $ctrl = intval($obj->Controller ?? 0);
         if ($ctrl <= 0) return false;
-        if (_SWUBaseHasUpgrade($ctrl, 'HMW_112')) return true;
+        // SEC_046 Galen naming the Academy OR the base carrying it switches that base's grant off.
+        if (_SWUBaseHasUpgrade($ctrl, 'HMW_112') && !_SWUFortifyBlanked($ctrl, 'HMW_112')) return true;
         foreach (SWUTeammatesOf($ctrl) as $mate) {
-            if (_SWUBaseHasUpgrade(intval($mate), 'HMW_112')) return true;
+            if (_SWUBaseHasUpgrade(intval($mate), 'HMW_112') && !_SWUFortifyBlanked(intval($mate), 'HMW_112')) return true;
         }
         return false;
     }

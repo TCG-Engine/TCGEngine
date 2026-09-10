@@ -29,7 +29,7 @@ function _SWUHmw070RegroupBaseTriggers(): void {
             $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
             if ($cid === 'HMW_070') $copies++;
         }
-        if ($copies <= 0) continue;
+        if ($copies <= 0 || _SWUFortifyBlanked($p, 'HMW_070')) continue;   // SEC_046 naming it or the base
         $playerID = $p;
         for ($i = 0; $i < $copies; $i++) {
             DoDrawCard($p, 1);

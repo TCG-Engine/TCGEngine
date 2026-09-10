@@ -191,6 +191,9 @@ cmd_xdebug() {
       && c_grn "  reloaded apache in $c" || c_ylw "  could not reload $c — restart it to apply"
   done
   c_ylw "  NOTE: this ini is shared by every sim container, not just SWUSim."
+  c_ylw "  NOTE: the .dev.yml overlays set XDEBUG_MODE in the container env, which Xdebug 3 ranks ABOVE"
+  c_ylw "        this ini — so this edit may not stick. The reliable switch is:"
+  c_ylw "        ./docker-start.sh --no-xdebug --recreate <app>"
 }
 
 cmd_tmp_clean() {

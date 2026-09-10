@@ -1947,6 +1947,12 @@ class SchemaTestRunner {
                     if ($unit->hasKeyword($am[1]))
                         $failures[] = "{$line}: expected unit to NOT have keyword {$am[1]}";
 
+                // KEYWORDVALUE:Raid:3 — the stacked total of a VALUE keyword (Raid/Restore/Exploit).
+                } elseif (preg_match('/^KEYWORDVALUE:(\w+):(\d+)$/', $assert, $am)) {
+                    $kv = $unit->keywordValue($am[1]);
+                    if ($kv !== intval($am[2]))
+                        $failures[] = "{$line}: expected {$am[1]} value {$am[2]}, got {$kv}";
+
                 } elseif ($assert === 'ISLEADERUNIT') {
                     if (!$unit->isLeaderUnit())
                         $failures[] = "{$line}: expected unit to be a Leader Unit, but it is not";

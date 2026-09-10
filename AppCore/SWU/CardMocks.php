@@ -1107,6 +1107,36 @@ On Attack: You may discard 2 cards named Keeper of Skara Nal from your hand. If 
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/041.png',
     'imageUrlBack' => '',
   ),
+  'HMW_042' => 
+  array (
+    'title' => 'Dooku',
+    'subtitle' => 'Corruption Must Be Eradicated',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 8,
+    'power' => 8,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Jedi',
+      2 => 'Republic',
+    ),
+    'text' => 'Overwhelm
+When Played: You may ready another unit. If you do, heal damage from a base equal to that unit\'s cost.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/042.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_043' => 
   array (
     'title' => 'Darth Vader',
@@ -1476,6 +1506,90 @@ Grit',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/055.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_056' => 
+  array (
+    'title' => 'Yoda',
+    'subtitle' => 'Trickster In Exile',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 4,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Vigilance',
+      2 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Fringe',
+      2 => 'Jedi',
+    ),
+    'text' => 'Hidden
+When Defeated: You may put this card from your discard pile on top of your deck. If you do, heal 2 damage from your base.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/056.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_057' => 
+  array (
+    'title' => 'Boss Lyonie',
+    'subtitle' => 'Hypnotized',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 5,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Vigilance',
+    ),
+    'trait' => 
+    array (
+      0 => 'Gungan',
+      1 => 'Official',
+    ),
+    'text' => 'When Played/On Attack: You may choose a token upgrade attached to another unit. Give another one of those tokens to that unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/057.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_058' => 
+  array (
+    'title' => 'Mysterious Disappearance',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 2,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Vigilance',
+    ),
+    'trait' => 
+    array (
+      0 => 'Trick',
+    ),
+    'text' => 'A player chooses a non-leader uni they control. You may defeat that unit. If you do, that player creates a Beast token.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/058.png',
     'imageUrlBack' => '',
   ),
   'HMW_059' => 
@@ -2256,6 +2370,34 @@ Action [defeat this upgrade]: Choose a non-Vehicle unit. It doesn\'t ready durin
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/103.png',
     'imageUrlBack' => '',
   ),
+  'HMW_104' => 
+  array (
+    'title' => 'Garnac',
+    'subtitle' => 'Let the Hunt Begin!',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 1,
+    'power' => 3,
+    'hp' => 1,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Underworld',
+    ),
+    'text' => 'While an opponent controls a Unique unit, this unit gains Hidden.
+When Attack Ends: You may attack with another unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/104.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_105' => 
   array (
     'title' => 'Nute Gunray',
@@ -2699,6 +2841,32 @@ When Played: This unit doesn\'t ready during the next regroup phase.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/125.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_126' => 
+  array (
+    'title' => 'Verdant Fortress',
+    'subtitle' => '',
+    'type' => 'Upgrade',
+    'arena' => '',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 2,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Fortification',
+    ),
+    'text' => 'Fortify (Attach this to your base, not a unit.)
+Attached base gains: "Friendly units gain Raid 1 (They get +1/+0 while attacking.)"',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/126.png',
     'imageUrlBack' => '',
   ),
   'HMW_127' => 
@@ -4229,6 +4397,32 @@ When a friendly unit with Ambush enters plays (including this one): Give it Raid
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/226.png',
     'imageUrlBack' => '',
   ),
+  'HMW_229' => 
+  array (
+    'title' => 'Lurking Wampa',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 6,
+    'hp' => 5,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+    ),
+    'text' => 'Hidden (This unit can\'t be attacked if it was played this phase.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/229.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_230' => 
   array (
     'title' => 'Raiding Party',
@@ -4885,6 +5079,63 @@ When you heal damage from your base: Deal that much damage to an enemy unit.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/026.png',
     'imageUrlBack' => '',
   ),
+  'IC27_038' => 
+  array (
+    'title' => 'Admiral Holdo',
+    'subtitle' => 'We Are The Spark',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 5,
+    'power' => 3,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Resistance',
+      1 => 'Official',
+    ),
+    'text' => 'Draw 1 more card during the regroup phase.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/038.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_041' => 
+  array (
+    'title' => 'Captain Rex',
+    'subtitle' => 'Staunch Advocate',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 7,
+    'power' => 7,
+    'hp' => 5,
+    'aspect' => 
+    array (
+    ),
+    'trait' => 
+    array (
+      0 => 'Republic',
+      1 => 'Clone',
+      2 => 'Trooper',
+    ),
+    'text' => 'Sentinel
+Shielded
+Restore 3',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/041.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_067' => 
   array (
     'title' => 'Darth Vader',
@@ -5005,6 +5256,35 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/079.png',
     'imageUrlBack' => '',
   ),
+  'IC27_103' => 
+  array (
+    'title' => 'Grand Inquisitor',
+    'subtitle' => 'How The Mighty Will Fall',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'IC27',
+    'cost' => 4,
+    'power' => 3,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Force',
+      1 => 'Imperial',
+      2 => 'Inquisitor',
+    ),
+    'text' => 'While this unit is damaged, he gains Raid 3 and Saboteur.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/103.png',
+    'imageUrlBack' => '',
+  ),
   'IC27_104' => 
   array (
     'title' => 'The Inquisitor\'s TIE',
@@ -5090,6 +5370,32 @@ When Played: Give another friendly unit +2/+2 for this phase.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/158.png',
+    'imageUrlBack' => '',
+  ),
+  'IC27_166' => 
+  array (
+    'title' => 'I\'ve Got A Bad Feeling',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Uncommon',
+    'set' => 'IC27',
+    'cost' => 4,
+    'aspect' => 
+    array (
+      0 => 'Cunning',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Innate',
+    ),
+    'text' => 'Return a non-leader unit to its owner\'s hand.
+Give a Shield token to a friendly unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/166.png',
     'imageUrlBack' => '',
   ),
   'IC27_167' => 

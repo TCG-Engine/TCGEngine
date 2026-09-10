@@ -165,9 +165,12 @@ function HasKeyword_{$kwKey}(\$obj) {
 
 PHP;
 
-        if ($kw === 'Exploit') {
-            // Exploit stacks additively — CR rule 16.b: multiple Exploit instances add together.
-            // Other value keywords (Raid, Restore) use max() and keep the shared template below.
+        if ($kw === 'Exploit' || $kw === 'Raid') {
+            // Exploit and Raid stack additively — multiple instances add together (Exploit CR 7.5.16.b;
+            // Raid CR 7.5.8.b, USER RULING 2026-09-10: "Raid does stack … summed as part of the Raid amount
+            // calculation"). Printed Raid 1 + Rallying Cry's Raid 2 is Raid 3, not 2.
+            // Restore still uses max() in the shared template below — its CR text (7.5.9.b) is identical,
+            // so it is the same question, pending its own ruling.
             $php .= <<<PHP
 function GetKeyword_{$kwKey}_Value(\$obj) {
     global \${$kwKey}_Cards;
@@ -175,7 +178,7 @@ function GetKeyword_{$kwKey}_Value(\$obj) {
     // granted, or conditional — mirroring the boolean-keyword path (LOF_202 Mind Trick blanks Raid).
     if (SWUKeywordSuppressed(\$obj, '{$teKey}')) return null;
     \$val = \${$kwKey}_Cards[\$obj->CardID] ?? 0;
-    \$val += SWUTurnEffectKeywordValueSum(\$obj, '{$teKey}');   // TurnEffect grants, additive (CR 16.b)
+    \$val += SWUTurnEffectKeywordValueSum(\$obj, '{$teKey}');   // TurnEffect grants, additive (stacking)
     if (function_exists('HasGrantedKeyword') && HasGrantedKeyword(\$obj, '{$teKey}')) \$val += 1;
     \$val += GetConditionalKeyword_{$kwKey}_Value(\$obj);
     return \$val > 0 ? \$val : null;

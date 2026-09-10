@@ -87,6 +87,22 @@ class UnitAccessor {
         return (bool)$v;
     }
 
+    // Dispatch to the generated GetKeyword_<Keyword>_Value($obj) for a VALUE keyword (Raid, Restore,
+    // Exploit): the full stacked total — printed + every grant + conditional. 0 when the unit has none
+    // (the generated function returns null there).
+    public function keywordValue(string $keyword): int {
+        global $playerID;
+        $fn = 'GetKeyword_' . $keyword . '_Value';
+        if (!function_exists($fn)) {
+            throw new RuntimeException("UnitAccessor: no value-keyword function '$fn'");
+        }
+        $saved = $playerID;
+        $playerID = intval($this->obj->PlayerID);
+        $v = $fn($this->obj);
+        $playerID = $saved;
+        return intval($v ?? 0);
+    }
+
     // Object-aware trait check (dispatches to TraitContains so granted traits — e.g. the
     // Clone trait a TWI_116 copy gains via its IsClone flag — are honored, not just printed traits).
     public function hasTrait(string $trait): bool {

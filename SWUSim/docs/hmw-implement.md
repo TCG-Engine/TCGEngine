@@ -1,7 +1,10 @@
 # HMW — Card Implementation Plan
 
-> **▶ 2026-09-03: card-complete 150/150, suite 11109/0, tree uncommitted. Next-session plan and
-> open TODOs are at the BOTTOM of this file under "NEXT SESSION STARTS HERE".**
+> **▶ 2026-09-10 (latest): card-complete 174/174 HMW CardIDs (third wave that day: HMW_042 Dooku), suite
+> 11485 / 0, tree uncommitted. ⚠ True only as of that day's `CardMocks.php`
+> diff — re-derive it. See "SECOND WAVE (2026-09-10)" under `## Status`. The earlier
+> wave's open item is still the Restore-stacking ruling.**
+> Older next-session plan and open TODOs are at the BOTTOM of this file under "NEXT SESSION STARTS HERE".**
 
 **⚠ PREVIEW SET.** 129 cards exist (127 numbered + 2 tokens) of ~262 printed — count re-derived from
 `AppCore/SWU/CardMocks.php` on 2026-09-02. The 2026-09-02 wave added **HMW_015 / HMW_197 / HMW_203 /
@@ -18,7 +21,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112, HMW_160, HMW_046, HMW_044, HMW_172, HMW_215, HMW_108, HMW_103, HMW_109, HMW_105, HMW_008, HMW_040, HMW_041, HMW_039, HMW_001, HMW_082, HMW_128, HMW_047, HMW_052, HMW_053, HMW_049, HMW_054, HMW_050, HMW_002
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112, HMW_160, HMW_046, HMW_044, HMW_172, HMW_215, HMW_108, HMW_103, HMW_109, HMW_105, HMW_008, HMW_040, HMW_041, HMW_039, HMW_001, HMW_082, HMW_128, HMW_047, HMW_052, HMW_053, HMW_049, HMW_054, HMW_050, HMW_002, HMW_126, HMW_104, HMW_229, HMW_056, HMW_058, HMW_057, HMW_042
 
 
 <!-- HMW_005 Jar Jar Binks, Bombad General — Done, 16/16. THE SET'S LAST CARD.
@@ -696,6 +699,114 @@ SWUSim one is what the engine reads, and until it ran all four returned `title=N
   ⚠ Devotion is +1/+1 ON TOP of its Restore 2 grant (CardUpgradePower/CardUpgradeHP = 1) although its
   printed text mentions only the grant; a first draft read the text alone and both sections went red
   against a correct engine. The host's POWER/HP are now asserted so that arithmetic cannot drift.
+
+**LATEST WAVE (2026-09-10): 167 → 169 HMW CardIDs**, adding HMW_104 Garnac and HMW_126 Verdant Fortress
+(the same `CardMocks.php` rewrite also added IC27_038 / 041 / 103 / 166 — out of scope for the HMW run).
+Before either could be built, THREE regens were needed: `zzCardCodeGenerator.php rootName=SWUSim` (the
+engine's dictionary — both cards read absent until it ran), `rootName=SWUDeck`, and
+`Data/ProcessKeywordsSWU.php` — without the last, HMW_126 was missing from `$Fortify_Cards` and PLAYING
+it attached it to a UNIT instead of the base. All three need `DEVENV=true` in the CLI env
+(`docker exec -e DEVENV=true …`), or the generator exits "You must be logged in". Baseline 11351 / 0.
+Order for the `--iterative` run (simplest first): HMW_126 → HMW_104.
+- [x] **HMW_126 Verdant Fortress** — done 2026-09-10, 15 sections (14 + the Galen-names-the-BASE section
+  added after the ruling below), suite 11351 → 11365 · 0 failed.
+  The exact twin of HMW_112 Military Academy (base-hosted, continuous, team-aware "friendly"), with one
+  real difference: Raid is NUMERIC, so per CR 7.5.8.b every copy on every friendly base adds its own Raid 1
+  (`_SWUCountBaseUpgrades`, not the Academy's boolean read) and it ADDS to printed Raid (Tarpals 2 → 3).
+  Hooked into `GetConditionalKeyword_Raid_Value`, so a blanked unit is excluded centrally by
+  `SWUKeywordSuppressed`. Gated on SEC_046 Galen Erso naming it (`_SWUGalenSuppressesCard`).
+  Seven mutations, each reddening only its own section(s): boolean read, self-only, no Galen gate,
+  Owner-for-Controller, every-unit, no-stacking-with-printed, no central suppression.
+  **Both family questions it raised were RULED by the user the same day and swept (suite → 11402 / 0):**
+  - **★ USER RULING — SEC_046 Galen Erso vs FORTIFY.** Naming a Fortify UPGRADE makes it lose all its
+    abilities; naming the BASE makes every "Attached base gains …" clause on it ineffective (the base
+    can't gain abilities). The upgrade's OWN printed abilities survive a base-naming. One predicate,
+    `_SWUFortifyBlanked()` + the explicit list `_SWUFortifyGrantsToBase()` (GameLogic, beside
+    `_SWUCountBaseUpgrades`), gated at every read site: the Fortify-upgrade Action loop (HMW_037/095/172),
+    HMW_070, 081, 112, 113, 126, 147, 160, 171, 205, 206. When Played was already gated on the upgrade
+    name. Guards: `keywords/Fortify_GalenErso.md` (28 sections — the "base named → STILL ON" sections for
+    HMW_037/081/095/171 and the HMW_172 When Played are what prove the split). ⚠ A new "Attached base
+    gains" Fortify card must be added to `_SWUFortifyGrantsToBase` and gated at its read site.
+    Found on the way: `_SWUGalenNames` scanned only `OtherPlayer()`, so at 3+ seats a seat-2 Galen missed
+    seat-3 cards, and in Team Suns a seat-1 Galen blanked its own TEAMMATE's cards. Now `OpponentsOf()`
+    (byte-identical at 2P); two seat sections pin it.
+  - **★ USER RULING — RAID STACKS, summed in the Raid calculation.** The generator
+    (`Data/ProcessKeywordsSWU.php`) now puts Raid on Exploit's additive branch: printed + EVERY TurnEffect
+    grant (it was max of both). LOF_186 Marchion Ro's re-derived base follows it. Real undercounts fixed:
+    LOF_169 Invasion Control Ship and TWI_169 Clone Cohort (non-unique, were booleans) and LAW_233 Galen
+    Erso (two opponents in Twin Suns). ⚠ SEC_140 / SEC_099 / SEC_155 / SEC_104 `break`/boolean reads are
+    INERT — their sources are unique and read one controller's board — so they were left alone (my earlier
+    SEC_140 flag was wrong). Guards: `keywords/Raid_Stacking.md` (8 sections). New DSL unit assertion
+    `KEYWORDVALUE:<Kw>:<N>` (the stacked total from `GetKeyword_<Kw>_Value`).
+  - ⚠ **STILL OPEN:** Restore uses the same `max()` template and CR 7.5.9.b's stacking text is identical to
+    Raid's — pending its own ruling.
+- [x] **HMW_104 Garnac, Let the Hunt Begin!** — done 2026-09-10, 21 sections, suite 11402 → 11423 · 0 failed.
+  Clause 1 ("while an opponent controls a Unique unit, gains Hidden") is a `case` in the self-conditional
+  switch of `HasConditionalKeyword_Hidden` (the HMW_176 slot), read live via
+  `_SWUHmw104OpponentControlsUnique`: existential over `OpponentsOf()` of Garnac's CONTROLLER (team-aware),
+  over units those opponents CONTROL, unique = `CardUnique` and not a TWI_116 Clone copy (the
+  `SWUEnforceUniqueness` rule). Garnac's own uniqueness never counts. Clause 2 is `SWUQueueAnotherAttack`
+  (ready friendly units, MAY, excluding Garnac by UID) from `$onAttackEndAbilities["HMW_104:0"]`; not on
+  the survival roster, so it fires when Garnac trades (CR 7.6.16.c + the TS26_04 Padmé ruling on the same
+  clause). Ten mutations, each reddening only its own sections. ⚠ The "another" self-exclusion is
+  structurally unobservable (Begin attack always exhausts the attacker; the offer is ready-only) and a
+  mutation dropping it stays green — recorded in the file's COVERAGE ledger rather than faked.
+
+**SECOND WAVE (2026-09-10): 169 → 173 HMW CardIDs** — HMW_056 Yoda, HMW_057 Boss Lyonie, HMW_058 Mysterious
+Disappearance, HMW_229 Lurking Wampa. Imported and regenerated through the zzPreviewTool Regenerate button
+(fixed this session: it now authorises on the moderator session and hands `DEVENV=true` to the generator
+children, and fails loudly on a refused step). Baseline 11423 / 0. `--iterative` order: 229 → 056 → 058 → 057.
+⚠ The mock text of HMW_058 reads "non-leader uni" (a transcription typo for "unit") — harmless to the
+engine, worth fixing in `CardMocks.php` when convenient.
+- [x] **HMW_229 Lurking Wampa** — done 2026-09-10, Step-0 verify-only NO-OP. Text is `Hidden` + reminder
+  only; in `$Hidden_Cards`; generic coverage in `keywords/Hidden.md`. No code and no card test (it would be
+  green on its first RED-check). Watched once via a throwaway probe: played this phase it is a 6/5 with
+  Hidden and the opponent's only legal target is the base; seeded (not played this phase) it is attackable.
+- [x] **HMW_056 Yoda, Trickster In Exile** — done 2026-09-10, 13 sections, suite 11423 → 11436 · 0 failed.
+  Hidden free from `$Hidden_Cards`. When Defeated = YESNO → `HMW_056#0` (move to deck TOP, index 0, the
+  Bacta Tank pattern; heal 2 only if the card actually moved). ⚠ OWNER vs CONTROLLER: a stolen Yoda goes to
+  its OWNER's discard while its CONTROLLER resolves, so nothing happens — gated on the OWNER-keyed
+  `SWU_DEFEATED_CARD_HMW_056` multiset so that an OLDER Yoda in the resolver's own discard is never
+  mistaken for "this card" (the section seeds exactly that). `_SWUFindSelfInDiscardMzID` makes a TWI_116
+  Clone copy put the CLONE card on top. Tested on all three defeat routes (attacker self-defeat, defender,
+  Vanquish). Six mutations, each reddening only its own sections. Untested by construction: the card
+  leaving the discard between the offer and the answer (the continuation re-finds it and skips the heal).
+- [x] **HMW_058 Mysterious Disappearance** — done 2026-09-10, 18 sections, suite 11436 → 11454 · 0 failed.
+  Caster picks "a player" with `SWUQueueChoosePlayer` (a player, NOT an opponent — self and a teammate are
+  legal), eligible = live seats controlling a non-leader unit (WHO ACTS); that seat picks its own unit via
+  `SWUOpponentChoosesOwnUnit(..., $chosen)`; the caster's YESNO; defeat AS THE CASTER (so enemy-ability
+  immunity applies) and the Beast (HMW_T03) only when `SWUDefeatUnit` returns true, to the CHOOSER.
+  ★ ENGINE FIX — the play pause's HOP-BACK. `_SWUSeatOwingCrossPlayerDecision` always skipped the acting
+  player, so once `FINISH_PLAY_CARD` had hopped onto the other seat's queue it could not see a decision
+  that seat's pick handed BACK to the caster: the action closed and the turn passed while the caster's
+  "defeat it?" was still pending (end state was right, which is why only a mid-state TURNPLAYER:1 assertion
+  saw it). New opt-in `$includeActor`, passed only by `FINISH_PLAY_CARD` — the mirror of the combat
+  hop-back HMW_188 Giant Gorax needed. The same flag on the block-5 reaction collector was measured
+  REDUNDANT (queue order already puts a "when you play an event" reaction behind the caster's prompt) and
+  reverted. The action-close ledger is identical with and without the fix (154 pre-existing blocked
+  double-closes, none new). Nine mutations, each reddening only its own sections.
+- [x] **HMW_057 Boss Lyonie, Hypnotized** — done 2026-09-10, 15 sections, suite 11454 → 11469 · 0 failed.
+  One closure on When Played + On Attack. The pick is the TOKEN, offered as "<host>.u<sub>" (JTL_242's
+  subcard address) in an MZMAYCHOOSE over every OTHER unit (excluded by UID) — built from `SWUAllUnits()`,
+  NOT JTL_242's my + their scan, which in a team game skips the teammate. "Another one of those tokens" is
+  dispatched by TITLE to the matching primitive (Shield / Experience / Advantage / else
+  `DoGiveTokenUpgrade`) — 16 token CardIDs exist because of reprints (SHD_T02, LOF_T02 … are Shields). All
+  four primitives stamp `SWU_GAVE_TOKEN_UPGRADE` (HMW_005). A Weakness can drop the host to 0 HP, so the
+  give is followed by `SWUCheckShrinkDefeats()` — ⚠ measured load-bearing only on the WHEN PLAYED path; on
+  On Attack the combat resolution sweeps anyway, so the On Attack defeat section cannot see it.
+  ⚠ Possible follow-up, NOT changed: JTL_242 Shuttle ST-149's `SWUQueueMoveUpgrade` scans my + their, so in
+  Team Suns it cannot take a TEAMMATE's token ("a token upgrade on a unit" is unqualified).
+
+**THIRD WAVE (2026-09-10): 173 → 174 HMW CardIDs** — HMW_042 Dooku, imported via the preview tool.
+- [x] **HMW_042 Dooku, Corruption Must Be Eradicated** — done 2026-09-10, 16 sections, suite 11469 → 11485 ·
+  0 failed. ★ USER RULING: "ready another unit" = ANY unit other than Dooku, ENEMY units included (ready a
+  high-cost, low-power enemy to heal more than it swings for). Overwhelm free. Pool = EXHAUSTED units from
+  `SWUAllUnits()` minus Dooku by UID (he enters exhausted, so "another" is observable) — the SHD_189 shape.
+  "If you do" measures exhausted-before AND ready-after, so a can't-ready unit (SHD_193 et al.) may be
+  chosen and heals nothing; the can't-ready gates are deliberately NOT re-derived in the offer (they live
+  in OnReadyCard). Heal = the PRINTED cost (token 0, deployed leader its leader cost) onto "a base" — any
+  DAMAGED base on any seat (`SWUAllBaseMzIDs 'any'`), auto-resolved when only one is damaged, skipped when
+  none is or the cost is 0. Eight mutations, each reddening only its own sections.
 
 
 ## ⚠ SIXTEENTH WAVE — 2026-09-03 (146 → 150 CardIDs)

@@ -355,7 +355,9 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
         // fixed order matches the choice that player would make (CR lets them order their own effects).
         if (intval($damage) >= 5 && !$baseDmgUnpreventable) {
             $genIdx = SWUFindUpgradeIndex($base[$i], 'HMW_081');
-            if ($genIdx >= 0) {
+            // SEC_046 Galen naming the GENERATOR blanks it. Naming the BASE does not: the prevention is
+            // the upgrade's own printed ability, not one it grants the base (user ruling 2026-09-10).
+            if ($genIdx >= 0 && !_SWUFortifyBlanked(intval($targetPlayer), 'HMW_081')) {
                 SWUQueuePreventedAnim("myBase-0", intval($targetPlayer));
                 SWUDefeatUpgrade(intval($targetPlayer), 'myBase-0', $genIdx);
                 DoDrawCard(intval($targetPlayer), 1);
