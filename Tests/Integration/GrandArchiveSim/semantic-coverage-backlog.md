@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **262**
+Cards linked to an existing fixture: **265**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2225**
+Implemented cards still needing semantic coverage: **2222**
 
 ## Mechanic groups
 
@@ -61,7 +61,6 @@ Implemented cards still needing semantic coverage: **2225**
 | Spirit Blade: Ghost Strike (`vcZSHNHvKX`) | ATTACK | 1 | zone-movement, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Starlit Apothecary (`ShQkyQMBCT`) | UNIQUE,DOMAIN | 1 | cost, targeting, token, condition | Arisanna Pantheon Starter | — |
 | Templar of the Eternal (`peyG8Hfgqt`) | ALLY | 1 | damage, prevention, zone-movement, counter | Lorraine Pantheon Starter | — |
-| Tonoris, Lone Mercenary (`zb14m4c8lj`) | CHAMPION | 1 | status, combat, trigger, condition | Tonoris Starter Deck | — |
 | Altruistic Blacksmith (`Pd4hj3sveV`) | ALLY | 1 | token, combat, trigger | Lorraine Pantheon Starter | — |
 | Aqua Vitae (`y5ttkat9hr`) | ITEM | 1 | draw-discard, counter, condition | Arisanna Pantheon Starter | — |
 | Arcane Blast (`pn9gQjV3Rb`) | ACTION | 1 | cost, targeting, damage | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2225**
 | Dewdrop Hares (`fxwy3haEXU`) | ALLY | 1 | cost, zone-movement, condition | Silvie Starter Deck | — |
 | Drawn Blade (`eSAIP7mx9z`) | REGALIA,WEAPON | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
 | Endura, Scepter of Ignition (`SGsDKB9CN5`) | REGALIA,ITEM | 1 | targeting, damage, counter | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
+| Fire Resonance Bauble (`LROrzTmh55`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude) | — |

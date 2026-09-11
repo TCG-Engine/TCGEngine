@@ -1,0 +1,17 @@
+{
+    "name": "Spirit of Wind's On Enter: Draw seven cards",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Spirit of Wind is a level-0 champion used as the pregame starting-champion Material choice in place of the usual Spirit of Fire. Its On Enter ability fires synchronously inside pregame resolution (PREGAME_CHOOSE_STARTING_CHAMPION's unconditional Enter() call, GameLogic.php ~1190-1200), confirmed via a standalone debug script tracing hand count through the exact pregame sequence: hand goes from 0 to 7 the instant Enter() fires, before initial_gamestate.txt is even captured. Spirit of Fire (used by every other fixture's Material section) carries the IDENTICAL 'On Enter: Draw seven cards' text, so there is no separate baseline opening-hand mechanic to diff against -- every other fixture in this suite already exercises this exact ability text via Spirit of Fire. This fixture exists to record dedicated semantic coverage against pNiyaGlIe7's own card ID; the zone_count(myHand)==7 assertion is the correct and only meaningful check here, since a failure to fire would leave the hand at 0.",
+    "testedCards": [
+        "pNiyaGlIe7"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["pNiyaGlIe7"],
+        "mechanics": ["trigger", "draw"],
+        "rulesClauses": [
+            "On Enter: Draw seven cards."
+        ]
+    }
+}
