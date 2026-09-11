@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-11T14:07:28+00:00",
+    "generatedAt": "2026-09-11T14:15:10+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 246,
+        "cardsWithExistingFixtures": 247,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2241,
+        "cardsNeedingSemanticCoverage": 2240,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2915,24 +2915,6 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "ljyevpmu6g",
-            "name": "Supply Drone",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -43540,6 +43522,28 @@
                 "Arisanna Starter Deck",
                 "Silvie Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "ljyevpmu6g",
+            "name": "Supply Drone",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "supply-drone-class-bonus-recollection-materialize"
+            ],
+            "semanticFixtures": [
+                "supply-drone-class-bonus-recollection-materialize"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

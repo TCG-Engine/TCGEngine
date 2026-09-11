@@ -7682,6 +7682,47 @@ DECK,
     ],
 ];
 
+// --- Supply Drone: [Class Bonus] at recollection phase, materialize a 0-cost Bullet ---
+$fixtures['supply-drone-class-bonus-recollection-materialize'] = [
+    'testedCards' => ['ljyevpmu6g'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Supply Drone
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // The global turn counter only increments when play cycles back to the first player (EndPhase:
+    // "$turnPlayer = ($turnPlayer==1)?2:1; if($turnPlayer==$firstPlayer) ++$currentTurn;"), so
+    // "$currentTurn===1" actually covers BOTH player 1's AND player 2's first turns -- player 2's
+    // first turn does NOT unblock RecollectionPhase/BeforeRecollectionPhase (confirmed by directly
+    // instrumenting the turn/phase state this session). Reaching a real recollection phase for
+    // player 2 needs a full cycle back to player 2's own SECOND turn: P1 ends turn 1, P2 ends
+    // their (still turn-1) turn, P1 declines their own MAT-phase materialize offer and ends their
+    // turn 2 (this crosses back to player 1, incrementing the global counter to 2), then P2
+    // declines their own materialize offer before BREC's per-card recollection check queues
+    // Supply Drone's materialize choice.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'ljyevpmu6g'], // Supply Drone
+        ['player' => 2, 'zone' => 'myMaterial', 'cardID' => 'l75tlzsmw3'], // Plated Bullet - 0-cost Bullet source
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends player 2's turn (still global turn 1)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline player 1's own MAT-phase materialize offer
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends player 1's turn 2 (crosses back to player 1 -> global turn increments to 2)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline player 2's own MAT-phase materialize offer -> reaches BREC
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
