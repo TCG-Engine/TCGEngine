@@ -1,0 +1,17 @@
+{
+    "name": "Heavy Swing's [Class Bonus] reserve discount",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Heavy Swing is an ATTACK card (its printed 6 POWER becomes the intent-loaded attack bonus, out of scope here) with a straightforward [Class Bonus] reserve discount: 6 - 2 = 4. CanActivateAttackCardNow (GameLogic.php ~1246) applies Rule 1.h to activating ANY ATTACK-type card, not just declaring a real attack, so playing it also needs player 2's turn (Rule 1.h only locks the opening player's own turn 1); the discount is confirmed by needing only 4 reps of the myHand-0 reserve-payment decision, not 6. Playing an ATTACK card from hand also requires an immediate target selection, resolved with theirField-0.",
+    "testedCards": [
+        "kvoqk1l75t"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["kvoqk1l75t"],
+        "mechanics": ["cost", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 2 less to activate. (Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}

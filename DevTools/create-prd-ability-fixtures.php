@@ -8087,6 +8087,118 @@ DECK,
     ],
 ];
 
+// --- Bulwark Sword: [Class Bonus] +1 POWER; additional attack cost pay (2) ---
+$fixtures['bulwark-sword-class-bonus-attack-cost'] = [
+    'testedCards' => ['8kmoi0a5uh'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Bulwark Sword
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Weapons need a "durability" counter to be considered available to attack with
+    // (GetAvailableWeapons in CombatLogic.php); SWORD weapons (unlike GUN/BOW/AETHERWING) don't
+    // need to be "loaded". Same turn-cycle approach as automaton-bomber-ranged-attack (Rule 1.h
+    // blocks player 1's own turn-1 attack): player 1 ends turn 1, then player 2's champion
+    // attacks using Bulwark Sword (with a GUARDIAN Class Bonus champion also on their field),
+    // paying the weapon's own additional 2-reserve attack cost.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zb14m4c8lj'], // Tonoris, Lone Mercenary (GUARDIAN champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '8kmoi0a5uh', 'setProperties' => ['Counters' => ['durability' => 1]]], // Bulwark Sword, usable
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Archon Broadsword: additional attack cost pay (2); [Class Bonus] +1 POWER per token ---
+$fixtures['archon-broadsword-class-bonus-token-power'] = [
+    'testedCards' => ['pyx8bd7ozu'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Archon Broadsword
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Same turn-cycle/durability-counter approach as bulwark-sword-class-bonus-attack-cost.
+    // Two Automaton Drone tokens are seeded onto player 2's field (alongside a GUARDIAN Class
+    // Bonus champion) so the "+1 POWER for each token you control" clause has something to count.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zb14m4c8lj'], // Tonoris, Lone Mercenary (GUARDIAN champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'mu6gvnta6q'], // Automaton Drone token #1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'mu6gvnta6q'], // Automaton Drone token #2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'pyx8bd7ozu', 'setProperties' => ['Counters' => ['durability' => 1]]], // Archon Broadsword, usable
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Heavy Swing: [Class Bonus] costs 2 less to activate ---
+$fixtures['heavy-swing-class-bonus-discount'] = [
+    'testedCards' => ['kvoqk1l75t'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Heavy Swing
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Heavy Swing is an ATTACK card (its printed 6 POWER becomes the intent-loaded attack bonus,
+    // out of scope here) with a straightforward [Class Bonus] reserve discount: 6 - 2 = 4.
+    // CanActivateAttackCardNow (GameLogic.php ~1246) applies Rule 1.h to activating ANY ATTACK-
+    // type card, not just declaring a real attack, so playing it also needs player 2's turn (Rule
+    // 1.h only locks the opening player's own turn 1); the discount is confirmed by needing only
+    // 4 reps of the myHand-0 reserve-payment decision, not 6.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zb14m4c8lj'], // Tonoris, Lone Mercenary (GUARDIAN champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'kvoqk1l75t'], // Heavy Swing, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-11T18:12:20+00:00",
+    "generatedAt": "2026-09-11T18:18:55+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 258,
+        "cardsWithExistingFixtures": 261,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2229,
+        "cardsNeedingSemanticCoverage": 2226,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -295,26 +295,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 115
-        },
-        {
-            "cardId": "pyx8bd7ozu",
-            "name": "Archon Broadsword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "token",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
         },
         {
             "cardId": "xpnjvt9y59",
@@ -881,25 +861,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "8kmoi0a5uh",
-            "name": "Bulwark Sword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2184,24 +2145,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "kvoqk1l75t",
-            "name": "Heavy Swing",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -40414,6 +40357,30 @@
             "priority": 134
         },
         {
+            "cardId": "pyx8bd7ozu",
+            "name": "Archon Broadsword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "token",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "archon-broadsword-class-bonus-token-power"
+            ],
+            "semanticFixtures": [
+                "archon-broadsword-class-bonus-token-power"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "zuj68m69iq",
             "name": "Astra Sight",
             "type": "ACTION",
@@ -41746,6 +41713,29 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "8kmoi0a5uh",
+            "name": "Bulwark Sword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "bulwark-sword-class-bonus-attack-cost"
+            ],
+            "semanticFixtures": [
+                "bulwark-sword-class-bonus-attack-cost"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -43104,6 +43094,28 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "kvoqk1l75t",
+            "name": "Heavy Swing",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "heavy-swing-class-bonus-discount"
+            ],
+            "semanticFixtures": [
+                "heavy-swing-class-bonus-discount"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
