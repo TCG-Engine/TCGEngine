@@ -8354,6 +8354,135 @@ DECK,
     ],
 ];
 
+// --- Tonoris, Genesis Aegis: at recollection, choose an Obelisk token not yet chosen ---
+$fixtures['tonoris-genesis-aegis-recollection-obelisk'] = [
+    'testedCards' => ['ta6qsesw2u'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Genesis Aegis's recollection trigger is a plain CardID switch-case inside
+    // ResolveBeforeRecollectionPhaseStart (GameLogic.php ~9089, same dispatcher used for Foster
+    // processing) rather than a materialized-Enter/activateAbility macro, so the starting champion
+    // is patched directly to ta6qsesw2u -- no real level-up/lineage/element unlock needed, since
+    // this switch only reads the already-on-field object's CardID, not how it got there (same
+    // reasoning as the Foster class-bonus champion patches this session). Reaching player 1's own
+    // recollection phase just needs the established 3-action shortcut: player 1 ends turn 1,
+    // player 2 ends their turn (still global turn 1), then player 1 declines their own MAT-phase
+    // materialize offer, auto-advancing into player 1's own BREC. TonorisRecollection()
+    // (CardDQHandlers.php ~2350) finds no obelisks in Counters['tonoris_chosen'] yet, so it queues
+    // an MZCHOOSE over all three myTempZone Obelisk choices; choosing myTempZone-0 (Obelisk of
+    // Armaments, wk0pw0y6is) summons it onto the field via TonorisChooseObelisk and records the
+    // choice.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'ta6qsesw2u']], // Tonoris, Genesis Aegis
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends player 2's turn (still global turn 1)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline player 1's own MAT-phase materialize offer -> reaches BREC/Tonoris recollection processing
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-0', 'chkInput' => [], 'inputText' => ''], // choose Obelisk of Armaments
+    ],
+];
+
+// --- Assemble the Ancients: sacrifice domains, summon that many buffed Automaton Drone tokens ---
+$fixtures['assemble-the-ancients-domain-sacrifice-tokens'] = [
+    'testedCards' => ['moi0a5uhjx'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Assemble the Ancients is NEOS (advanced element), so the starting champion's Subcards are
+    // patched with a real NEOS champion (Tonoris, Creation's Will) to unlock element access. Two
+    // Palatial Concourse domains (a plain DOMAIN with only an unrelated recollection-phase
+    // trigger, chosen to avoid any On Enter interference from the summoned tokens) are seeded onto
+    // the field so AssembleAncientsSacrifice (CardDQHandlers.php ~2026) has something to offer.
+    // Its own MZMAYCHOOSE loop is repeated twice (sacrificing both domains via DoSacrificeFighter)
+    // then declined, which calls AssembleAncientsFinalize(player, 2): summons 2 Automaton Drone
+    // tokens, each entering rested (Status=1) with 2 buff counters and a VIGOR_EOT turn effect.
+    // Its printed cost is 3 reserve, paid from three more hand cards.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['n2jnltv5kl']]], // NEOS lineage/element unlock (Tonoris, Creation's Will)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'c7wklzjmwu'], // Palatial Concourse (DOMAIN) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'c7wklzjmwu'], // Palatial Concourse (DOMAIN) #2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'moi0a5uhjx'], // Assemble the Ancients, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice domain #1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice domain #2 (reindexed after #1's removal)
+    ],
+];
+
+// --- Imperial Sentry: [Class Bonus] Intercept redirect ---
+$fixtures['imperial-sentry-class-bonus-intercept'] = [
+    'testedCards' => ['plywc08c9h'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Same shape as swift-recruit-intercept-redirect, except Imperial Sentry's Intercept is
+    // [Class Bonus]-gated (HasKeyword_Intercept, GeneratedKeywordCode.php ~487, checks
+    // IsClassBonusActive($player, CardClasses($cardId))), so player 1 (the defender)'s champion is
+    // patched to a GUARDIAN champion (Tonoris, Lone Mercenary) to satisfy it -- unlike Swift
+    // Recruit's unconditional Intercept, a plain field seed alone is not enough here.
+    // GetAvailableInterceptRedirectTargets (CombatLogic.php:605-624) only offers a redirect when
+    // the attack's TARGET is a CHAMPION, so this needs the opponent (P2) attacking P1's champion.
+    // P1 ends turn 1 (nothing to do), P2 declines their MAT-phase offer, then P2's champion attacks
+    // P1's champion using a weapon (Spirit of Fire has no base POWER). The resulting
+    // "Choose_an_interceptor" MZMAYCHOOSE for P1 offers Imperial Sentry (awake, ALLY, HasIntercept
+    // now satisfied); redirecting moves the attack's target to it, and the following "Retaliate?"
+    // decision is declined so the resulting combat damage lands on Imperial Sentry instead of the
+    // champion.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zb14m4c8lj']], // Tonoris, Lone Mercenary (GUARDIAN) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'plywc08c9h'], // Imperial Sentry, awake by default
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zv6yp6q7zw'], // Executioner's Spear (1 POWER), P2's own field -- Spirit of Fire has no base POWER, so a weapon is needed for a legal attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P1 declines their own MAT-phase materialize offer first
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // P1 formally ends turn 1 (nothing to do)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P2 declines their MAT-phase materialize offer
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // P2's champion attacks
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Executioner's Spear as the weapon
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target P1's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // redirect to Imperial Sentry
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

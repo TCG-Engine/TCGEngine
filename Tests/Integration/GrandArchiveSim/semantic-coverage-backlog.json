@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-11T18:45:25+00:00",
+    "generatedAt": "2026-09-11T18:55:41+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 265,
+        "cardsWithExistingFixtures": 268,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2222,
+        "cardsNeedingSemanticCoverage": 2219,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -479,26 +479,6 @@
             "starterDecks": [
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "plywc08c9h",
-            "name": "Imperial Sentry",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -1801,24 +1781,6 @@
             "priority": 112
         },
         {
-            "cardId": "moi0a5uhjx",
-            "name": "Assemble the Ancients",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "mloejozihs",
             "name": "Astromech Attendant",
             "type": "ALLY",
@@ -2669,24 +2631,6 @@
             "starterDecks": [
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "ta6qsesw2u",
-            "name": "Tonoris, Genesis Aegis",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -40929,6 +40873,30 @@
             "priority": 134
         },
         {
+            "cardId": "plywc08c9h",
+            "name": "Imperial Sentry",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "imperial-sentry-class-bonus-intercept"
+            ],
+            "semanticFixtures": [
+                "imperial-sentry-class-bonus-intercept"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "zd8l14052j",
             "name": "Jin, Fate Defiant",
             "type": "CHAMPION",
@@ -42887,6 +42855,28 @@
             "priority": 133
         },
         {
+            "cardId": "moi0a5uhjx",
+            "name": "Assemble the Ancients",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "token"
+            ],
+            "existingFixtures": [
+                "assemble-the-ancients-domain-sacrifice-tokens"
+            ],
+            "semanticFixtures": [
+                "assemble-the-ancients-domain-sacrifice-tokens"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "yHIeIwxWde",
             "name": "Blood Surge",
             "type": "ACTION",
@@ -43575,6 +43565,28 @@
                 "Kongming Starter Deck",
                 "Silvie Starter Deck",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "ta6qsesw2u",
+            "name": "Tonoris, Genesis Aegis",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "token"
+            ],
+            "existingFixtures": [
+                "tonoris-genesis-aegis-recollection-obelisk"
+            ],
+            "semanticFixtures": [
+                "tonoris-genesis-aegis-recollection-obelisk"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
