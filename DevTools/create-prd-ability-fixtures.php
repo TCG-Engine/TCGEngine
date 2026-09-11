@@ -8241,6 +8241,119 @@ DECK,
     ],
 ];
 
+// --- Spirit of Wind: On Enter -- Draw seven cards ---
+$fixtures['spirit-of-wind-enter-draw-seven'] = [
+    'testedCards' => ['pNiyaGlIe7'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Wind
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Spirit of Wind is a level-0 champion used as the pregame starting-champion material choice
+    // in place of the usual Spirit of Fire. Its On Enter ability ("Draw seven cards") fires
+    // synchronously during pregame resolution (PREGAME_CHOOSE_STARTING_CHAMPION's unconditional
+    // Enter() call, GameLogic.php ~1190-1200) -- confirmed via a standalone debug script tracing
+    // hand count through the exact pregame sequence: hand goes from 0 to 7 the instant Enter()
+    // fires, BEFORE initial_gamestate.txt is even captured. Note Spirit of Fire (used by every
+    // other fixture's Material section) has the IDENTICAL "On Enter: Draw seven cards" text, so
+    // there is no separate/default opening-hand mechanic to diff against -- every single fixture
+    // in this suite already exercises this exact ability text via Spirit of Fire; this fixture
+    // exists purely to record dedicated coverage against pNiyaGlIe7's own card ID. A zone_count
+    // assertion of 7 on myHand (the deck has 0 other draw effects before this point) is therefore
+    // the correct and only meaningful check: if the On Enter ability failed to fire, hand would
+    // be 0, not 7.
+    'setup' => [],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // harmless no-op click
+    ],
+];
+
+// --- Tonoris, Lone Mercenary: On Enter, gain taunt until beginning of next turn ---
+$fixtures['tonoris-lone-mercenary-on-enter-taunt'] = [
+    'testedCards' => ['zb14m4c8lj'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Tonoris, Lone Mercenary
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Tonoris, Lone Mercenary is level 1, one level above the default level-0 starting champion
+    // (Spirit of Fire), so no lineage/element patch is needed -- 0+1 is already a legal level-up
+    // (same shape as dante-prodigal-swain-summon-token/lorraine-wandering-warrior-levelup). Its
+    // NORM element is always playable. Champion-swap materialization is only offered through the
+    // material-phase MZMAYCHOOSE at the start of a turn, so both players end their first turn
+    // (P1 -> P2) to reach that prompt on P1's next turn. Its printed cost is 1 memory, paid from a
+    // filler card seeded directly into myMemory. Choosing it completes the swap and its On Enter
+    // ability (GeneratedMacroCode.php enterAbilities["zb14m4c8lj:0"]) calls
+    // AddTurnEffect($mzID, "TAUNT_NEXT_TURN") on the champion itself.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay Tonoris, Lone Mercenary's 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Tonoris, Might of Humanity: On Enter, next attack this turn gets +3 POWER ---
+$fixtures['tonoris-might-of-humanity-on-enter-next-attack-power'] = [
+    'testedCards' => ['yevpmu6gvn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Tonoris, Might of Humanity
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Tonoris, Might of Humanity is level 2 (Tonoris Lineage), but CanChampionLevelUpIntoCard only
+    // checks $targetLevel === $currentLevel + 1 (GameLogic.php ~19487-19501) -- lineage text is not
+    // enforced by the level-up gate itself (same bypass used for rousing-slam-class-bonus and the
+    // Diana champion-lineage fixtures this session). The starting champion is patched directly to
+    // Tonoris, Lone Mercenary (zb14m4c8lj, level 1) so a REAL level-up into Might of Humanity is
+    // legal; patching the CardID (rather than leveling up twice) is fine here since we don't care
+    // about Lone Mercenary's own On Enter firing, only Might of Humanity's. NORM element needs no
+    // lineage/Subcards patch to be playable. Champion-swap materialization is only offered through
+    // the material-phase MZMAYCHOOSE at the start of a turn, so both players end their first turn
+    // (P1 -> P2) to reach that prompt on P1's next turn; its 2-memory cost is paid from two filler
+    // cards seeded directly into myMemory. Choosing it completes the swap and its On Enter ability
+    // (GeneratedMacroCode.php enterAbilities["yevpmu6gvn:0"]) calls
+    // AddTurnEffect($mzID, "yevpmu6gvn") on the champion itself -- CombatLogic.php ~1688 reads and
+    // consumes that exact marker to grant +3 POWER on the champion's next attack, so asserting the
+    // marker is present directly confirms the On Enter ability fired.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zb14m4c8lj']], // Tonoris, Lone Mercenary (level 1) - level-up precondition
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card 1/2 in memory to pay Might of Humanity's 2-memory level-up cost
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card 2/2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

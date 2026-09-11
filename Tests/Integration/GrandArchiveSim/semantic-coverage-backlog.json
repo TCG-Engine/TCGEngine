@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-11T18:24:54+00:00",
+    "generatedAt": "2026-09-11T18:45:25+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 262,
+        "cardsWithExistingFixtures": 265,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2225,
+        "cardsNeedingSemanticCoverage": 2222,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -744,26 +744,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "zb14m4c8lj",
-            "name": "Tonoris, Lone Mercenary",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -2619,28 +2599,6 @@
             "priority": 112
         },
         {
-            "cardId": "pNiyaGlIe7",
-            "name": "Spirit of Wind",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck",
-                "Tonoris Starter Deck",
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "wa4x7e22tk",
             "name": "Stream of Consciousness",
             "type": "ACTION",
@@ -2724,24 +2682,6 @@
             "mechanics": [
                 "targeting",
                 "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "yevpmu6gvn",
-            "name": "Tonoris, Might of Humanity",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -41512,6 +41452,30 @@
             "priority": 134
         },
         {
+            "cardId": "zb14m4c8lj",
+            "name": "Tonoris, Lone Mercenary",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tonoris-lone-mercenary-on-enter-taunt"
+            ],
+            "semanticFixtures": [
+                "tonoris-lone-mercenary-on-enter-taunt"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "pi9ftq3sul",
             "name": "Tsunami of Nanyue",
             "type": "ACTION",
@@ -43544,6 +43508,32 @@
             "priority": 132
         },
         {
+            "cardId": "pNiyaGlIe7",
+            "name": "Spirit of Wind",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirit-of-wind-enter-draw-seven"
+            ],
+            "semanticFixtures": [
+                "spirit-of-wind-enter-draw-seven"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck",
+                "Tonoris Starter Deck",
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "ljyevpmu6g",
             "name": "Supply Drone",
             "type": "ALLY",
@@ -43585,6 +43575,28 @@
                 "Kongming Starter Deck",
                 "Silvie Starter Deck",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "yevpmu6gvn",
+            "name": "Tonoris, Might of Humanity",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "tonoris-might-of-humanity-on-enter-next-attack-power"
+            ],
+            "semanticFixtures": [
+                "tonoris-might-of-humanity-on-enter-next-attack-power"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
