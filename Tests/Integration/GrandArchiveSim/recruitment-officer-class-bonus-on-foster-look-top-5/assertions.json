@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"decision_queue_empty","player":"all"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":9,"semantic":true,"label":"the revealed ally is put into hand"},
+    {"step":4,"type":"card_property_equals","mzId":"myHand-8","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"the ally found in the top 5 is Dungeon Guide"},
+    {"step":4,"type":"zone_count","zone":"myTempZone","viewerPlayerID":1,"value":0,"semantic":true,"label":"the remaining looked-at cards are put on the bottom of the deck"}
+]

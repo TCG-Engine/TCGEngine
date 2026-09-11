@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-11T14:24:13+00:00",
+    "generatedAt": "2026-09-11T17:56:45+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 249,
+        "cardsWithExistingFixtures": 254,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2238,
+        "cardsNeedingSemanticCoverage": 2233,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1293,25 +1293,6 @@
             "priority": 113
         },
         {
-            "cardId": "22tk3ir1o0",
-            "name": "Novice Mechanist",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "qyQLlDYBlr",
             "name": "Ornamental Greatsword",
             "type": "REGALIA,WEAPON",
@@ -2302,24 +2283,6 @@
             "priority": 112
         },
         {
-            "cardId": "lzsmw3rrii",
-            "name": "Imperial Recruit",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "l6gt7lh9v2",
             "name": "Imperial Spy",
             "type": "ALLY",
@@ -2425,24 +2388,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "4n1n3gygoj",
-            "name": "Neos Sight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -3011,24 +2956,6 @@
             "priority": 112
         },
         {
-            "cardId": "z4pyx8bd7o",
-            "name": "Young Peacekeeper",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "idaRe7y3In",
             "name": "Zephyr",
             "type": "ACTION",
@@ -3567,23 +3494,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "1x97n2jnlt",
-            "name": "Recruitment Officer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -42429,6 +42339,29 @@
             "priority": 133
         },
         {
+            "cardId": "22tk3ir1o0",
+            "name": "Novice Mechanist",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "novice-mechanist-on-foster-summon-drone"
+            ],
+            "semanticFixtures": [
+                "novice-mechanist-on-foster-summon-drone"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "j4U5Tu76Lz",
             "name": "Optical Control",
             "type": "PHANTASIA",
@@ -43256,6 +43189,28 @@
             "priority": 132
         },
         {
+            "cardId": "lzsmw3rrii",
+            "name": "Imperial Recruit",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "imperial-recruit-fostered-power"
+            ],
+            "semanticFixtures": [
+                "imperial-recruit-fostered-power"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "5ramr16052",
             "name": "Jin, Zealous Maverick",
             "type": "CHAMPION",
@@ -43388,6 +43343,28 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "4n1n3gygoj",
+            "name": "Neos Sight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "neos-sight-eight-objects-memory-draw"
+            ],
+            "semanticFixtures": [
+                "neos-sight-eight-objects-memory-draw"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43741,6 +43718,28 @@
             "priority": 132
         },
         {
+            "cardId": "z4pyx8bd7o",
+            "name": "Young Peacekeeper",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "young-peacekeeper-fostered-power-life"
+            ],
+            "semanticFixtures": [
+                "young-peacekeeper-fostered-power-life"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "XLrHaYV9VB",
             "name": "Arcane Sight",
             "type": "ACTION",
@@ -43936,6 +43935,27 @@
             "starterDecks": [
                 "Kongming Starter Deck",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "1x97n2jnlt",
+            "name": "Recruitment Officer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "recruitment-officer-class-bonus-on-foster-look-top-5"
+            ],
+            "semanticFixtures": [
+                "recruitment-officer-class-bonus-on-foster-look-top-5"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

@@ -1,0 +1,18 @@
+{
+    "name": "Novice Mechanist: Foster; On Foster: Summon an Automaton Drone token",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Foster is checked at the beginning of the controller's recollection phase: 'if this ally hasn't been dealt damage since the end of your previous turn, it becomes fostered' (GameLogic.php ~9501, inside ResolveBeforeRecollectionPhaseStart). A freshly-seeded object has no DAMAGED_SINCE_LAST_TURN tag, so it qualifies immediately. Reaching player 1's own recollection phase just needs: player 1 ends turn 1, player 2 ends their turn (still global turn 1), then player 1 declines their own MAT-phase materialize offer -- that single Pass auto-advances into player 1's own BeforeRecollectionPhase, which is where Foster processing (and this card's On Foster trigger) runs.",
+    "testedCards": [
+        "22tk3ir1o0"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["22tk3ir1o0"],
+        "mechanics": ["condition", "trigger", "zone-movement", "token"],
+        "rulesClauses": [
+            "Foster (At the beginning of your recollection phase, if this ally hasn't been dealt damage since the end of your previous turn, it becomes fostered.)",
+            "On Foster: Summon an Automaton Drone token."
+        ]
+    }
+}
