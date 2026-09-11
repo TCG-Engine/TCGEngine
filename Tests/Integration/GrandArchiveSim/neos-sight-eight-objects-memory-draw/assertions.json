@@ -1,0 +1,4 @@
+[
+    {"step":2,"type":"decision_queue_empty","player":"all"},
+    {"step":2,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":1,"semantic":true,"label":"controlling 8+ objects also draws a card into memory"}
+]

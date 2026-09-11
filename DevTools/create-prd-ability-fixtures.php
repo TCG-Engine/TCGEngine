@@ -7799,6 +7799,167 @@ DECK,
     ],
 ];
 
+// --- Novice Mechanist: Foster; On Foster: Summon an Automaton Drone token ---
+$fixtures['novice-mechanist-on-foster-summon-drone'] = [
+    'testedCards' => ['22tk3ir1o0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Novice Mechanist
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Foster is checked at the beginning of the controller's recollection phase: "if this ally
+    // hasn't been dealt damage since the end of your previous turn, it becomes fostered"
+    // (GameLogic.php ~9501, inside ResolveBeforeRecollectionPhaseStart). A freshly-seeded object
+    // has no DAMAGED_SINCE_LAST_TURN tag, so it qualifies immediately. Reaching player 1's own
+    // recollection phase just needs: player 1 ends turn 1, player 2 ends their turn (still global
+    // turn 1), then player 1 declines their own MAT-phase materialize offer -- that single Pass
+    // auto-advances into player 1's own BREC, which is where Foster processing (and this card's
+    // On Foster trigger) runs.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '22tk3ir1o0'], // Novice Mechanist
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends player 2's turn (still global turn 1)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline player 1's own MAT-phase materialize offer -> reaches BREC/Foster processing
+    ],
+];
+
+// --- Recruitment Officer: [Class Bonus] Foster; On Foster: look top 5, may take an ally ---
+$fixtures['recruitment-officer-class-bonus-on-foster-look-top-5'] = [
+    'testedCards' => ['1x97n2jnlt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Recruitment Officer
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Recruitment Officer's Foster is [Class Bonus]-gated (HasFoster's $fosterCBCards table,
+    // CardLogic.php), so a GUARDIAN champion (Tonoris, Lone Mercenary) is seeded for the bonus.
+    // Same 3-action approach as novice-mechanist-on-foster-summon-drone to reach player 1's own
+    // recollection phase, where Foster processing (and this card's On Foster trigger) runs.
+    // Deck-shuffle seed 1 (not the usual default 42) is used so the revealed top 5 of the deck
+    // actually contains an ally card, exercising the "may reveal an ally" branch instead of the
+    // no-op "no ally found" one.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zb14m4c8lj'], // Tonoris, Lone Mercenary (GUARDIAN champion) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '1x97n2jnlt'], // Recruitment Officer
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends player 2's turn (still global turn 1)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline player 1's own MAT-phase materialize offer -> reaches BREC/Foster processing
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-0', 'chkInput' => [], 'inputText' => ''], // reveal the ally found in the top 5 and put it into hand
+    ],
+];
+
+// --- Imperial Recruit: Foster; gets +1 POWER as long as it's fostered ---
+$fixtures['imperial-recruit-fostered-power'] = [
+    'testedCards' => ['lzsmw3rrii'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Imperial Recruit
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // "Fostered" is a plain (persistent) TurnEffect (IsFostered() in CardLogic.php just checks
+    // for the tag), so the static +1 POWER while fostered can be tested directly by patching
+    // TurnEffects at setup, without needing a real recollection-phase Foster transition.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'lzsmw3rrii', 'setProperties' => ['TurnEffects' => ['FOSTERED']]], // Imperial Recruit, fostered
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // harmless no-op click
+    ],
+];
+
+// --- Young Peacekeeper: Foster; gets +1 POWER and +1 LIFE as long as it's fostered ---
+$fixtures['young-peacekeeper-fostered-power-life'] = [
+    'testedCards' => ['z4pyx8bd7o'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Young Peacekeeper
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Same reasoning as imperial-recruit-fostered-power: "Fostered" is a plain persistent
+    // TurnEffect, so the static +1 POWER/+1 LIFE while fostered can be tested directly by
+    // patching TurnEffects at setup.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'z4pyx8bd7o', 'setProperties' => ['TurnEffects' => ['FOSTERED']]], // Young Peacekeeper, fostered
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // harmless no-op click
+    ],
+];
+
+// --- Neos Sight: Draw a card; if you control 8+ objects, draw into memory too ---
+$fixtures['neos-sight-eight-objects-memory-draw'] = [
+    'testedCards' => ['4n1n3gygoj'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Neos Sight
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Neos Sight is NEOS (advanced element), so the starting champion's Subcards are patched
+    // with a real NEOS champion (Tonoris, Creation's Will) to unlock element access. Its reserve
+    // cost is a real printed 0, so no reserve-payment decision is ever queued. Seven allies are
+    // seeded onto the field alongside the champion (8 objects total) to satisfy the "eight or
+    // more objects" clause.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['n2jnltv5kl']]], // NEOS lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4n1n3gygoj'], // Neos Sight, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
