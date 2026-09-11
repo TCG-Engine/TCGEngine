@@ -7723,6 +7723,82 @@ DECK,
     ],
 ];
 
+// --- Diana, Deadly Duelist: On Enter -- materialize a Bullet from material deck (level-up) ---
+$fixtures['diana-deadly-duelist-enter-materialize-bullet'] = [
+    'testedCards' => ['7ozuj68m69'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Diana, Deadly Duelist requires Diana Lineage (leveled from a level-1 Diana champion), but
+    // CanChampionLevelUpIntoCard only checks the CURRENT champion's own printed CardLevel, not
+    // lineage (same pattern already used for lorraine-arclight-saber-static-counters), so the
+    // starting champion's CardID is patched directly to Diana, Keen Huntress (level 1) as the
+    // level-up precondition. Her On Enter ability filters the material zone specifically for the
+    // BULLET subtype (GeneratedMacroCode.php enterAbilities["7ozuj68m69:0"]), so a real Bullet
+    // (Plated Bullet, NORM/0-memory) -- not a Gun -- is seeded into the material zone as her
+    // materialize target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'e3z4pyx8bd']], // Diana, Keen Huntress (level 1) - level-up precondition
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => '7ozuj68m69'], // Diana, Deadly Duelist (level 2) - level-up target
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'l75tlzsmw3'], // Plated Bullet (NORM Bullet, 0 memory) - On Enter materialize target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Diana, Duskstalker: On Enter -- becomes distant (level-up) ---
+$fixtures['diana-duskstalker-enter-distant'] = [
+    'testedCards' => ['iq4d5vettc'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Same level-up-bypass approach as diana-deadly-duelist-enter-materialize-bullet:
+    // CanChampionLevelUpIntoCard only checks the CURRENT champion's own printed CardLevel, not
+    // lineage, so the starting champion's CardID is patched directly to Diana, Deadly Duelist
+    // (level 2) as the level-up precondition, then a real level-up (via the standard
+    // MaterializeChoice flow) into Diana, Duskstalker (level 3) fires her On Enter naturally.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7ozuj68m69']], // Diana, Deadly Duelist (level 2) - level-up precondition
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'iq4d5vettc'], // Diana, Duskstalker (level 3) - level-up target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

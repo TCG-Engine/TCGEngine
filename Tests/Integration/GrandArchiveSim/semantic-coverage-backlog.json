@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-11T14:15:10+00:00",
+    "generatedAt": "2026-09-11T14:24:13+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 247,
+        "cardsWithExistingFixtures": 249,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2240,
+        "cardsNeedingSemanticCoverage": 2238,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -105,24 +105,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 123
-        },
-        {
-            "cardId": "iq4d5vettc",
-            "name": "Diana, Duskstalker",
-            "type": "CHAMPION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 122
         },
         {
             "cardId": "2kkvoqk1l7",
@@ -2168,24 +2150,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "7ozuj68m69",
-            "name": "Diana, Deadly Duelist",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -39573,6 +39537,28 @@
             "priority": 142
         },
         {
+            "cardId": "iq4d5vettc",
+            "name": "Diana, Duskstalker",
+            "type": "CHAMPION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "diana-duskstalker-enter-distant"
+            ],
+            "semanticFixtures": [
+                "diana-duskstalker-enter-distant"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 142
+        },
+        {
             "cardId": "O1OU62Zx2Y",
             "name": "Distilled Water",
             "type": "ITEM",
@@ -43166,6 +43152,28 @@
             ],
             "starterDecks": [
                 "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "7ozuj68m69",
+            "name": "Diana, Deadly Duelist",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "diana-deadly-duelist-enter-materialize-bullet"
+            ],
+            "semanticFixtures": [
+                "diana-deadly-duelist-enter-materialize-bullet"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
