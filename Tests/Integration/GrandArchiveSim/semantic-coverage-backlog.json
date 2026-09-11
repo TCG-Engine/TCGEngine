@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-11T13:55:54+00:00",
+    "generatedAt": "2026-09-11T14:07:28+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 244,
+        "cardsWithExistingFixtures": 246,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2243,
+        "cardsNeedingSemanticCoverage": 2241,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -725,26 +725,6 @@
             "priority": 114
         },
         {
-            "cardId": "j4f15joh30",
-            "name": "Quickdraw Piercer",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "zpkcFs72Ah",
             "name": "Smack with Flute",
             "type": "ATTACK",
@@ -920,25 +900,6 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "gmnmp5af09",
-            "name": "Blastshot Pump",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -41528,6 +41489,30 @@
             "priority": 134
         },
         {
+            "cardId": "j4f15joh30",
+            "name": "Quickdraw Piercer",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "quickdraw-piercer-class-bonus-on-banish-draw"
+            ],
+            "semanticFixtures": [
+                "quickdraw-piercer-class-bonus-on-banish-draw"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "vfq3huqj5b",
             "name": "Reposition",
             "type": "ACTION",
@@ -41911,6 +41896,29 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "gmnmp5af09",
+            "name": "Blastshot Pump",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blastshot-pump-class-bonus-redirect-damage"
+            ],
+            "semanticFixtures": [
+                "blastshot-pump-class-bonus-redirect-damage"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133

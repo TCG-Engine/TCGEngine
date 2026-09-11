@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"decision_queue_empty","player":"all"},
+    {"step":4,"type":"card_exists","zone":"myBanish","cardID":"j4f15joh30","semantic":true,"label":"Quickdraw Piercer is banished (Blazing Throw's sacrifice-a-weapon cost)"},
+    {"step":4,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":7,"semantic":true,"label":"[Class Bonus] On Banish drew a card"}
+]
