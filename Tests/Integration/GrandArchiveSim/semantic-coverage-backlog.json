@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-11T18:18:55+00:00",
+    "generatedAt": "2026-09-11T18:24:54+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 261,
+        "cardsWithExistingFixtures": 262,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2226,
+        "cardsNeedingSemanticCoverage": 2225,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2423,24 +2423,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "v5klryvfq3",
-            "name": "Rousing Slam",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -43415,6 +43397,28 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "v5klryvfq3",
+            "name": "Rousing Slam",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "rousing-slam-class-bonus-level-2-on-attack-vigor-taunt"
+            ],
+            "semanticFixtures": [
+                "rousing-slam-class-bonus-level-2-on-attack-vigor-taunt"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
