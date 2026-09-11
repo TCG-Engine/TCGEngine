@@ -491,7 +491,9 @@ function LoadDecks() {
       flashMessage.style.padding = "10px 24px";
       flashMessage.style.borderRadius = "8px";
       flashMessage.style.boxShadow = "0 0 10px rgba(0,0,0,0.5)";
-      flashMessage.style.zIndex = 3000;
+      // Above every overlay that can raise one — the deck-image modal and the loading overlay sit at
+      // 5000, and at the old 3000 the modal's "Deck image copied!" / "Link copied!" rendered BEHIND it.
+      flashMessage.style.zIndex = 6000;
       flashMessage.style.fontSize = "18px";
       flashMessage.style.opacity = "0.97";
 
@@ -501,9 +503,11 @@ function LoadDecks() {
         flashMessage.style.left = "50%";
         flashMessage.style.transform = "translate(-50%, -50%)";
       } else if (event && event.target) {
+        // getBoundingClientRect is VIEWPORT-relative, which is exactly what position:fixed wants. Adding
+        // the scroll offset pushed the flash off-screen once the deck list had been scrolled.
         var rect = event.target.getBoundingClientRect();
-        flashMessage.style.top = rect.top - 35 + window.scrollY + "px";
-        flashMessage.style.left = rect.left + 30 + window.scrollX + "px";
+        flashMessage.style.top = Math.max(4, rect.top - 35) + "px";
+        flashMessage.style.left = rect.left + 30 + "px";
       } else {
         flashMessage.style.top = "20px";
         flashMessage.style.left = "50%";
@@ -833,12 +837,20 @@ function LoadDecks() {
       };
 
       const btnRow = document.createElement("div");
-      btnRow.style.cssText = "display:flex;gap:12px;";
+      btnRow.style.cssText = "display:flex;gap:12px;flex-wrap:wrap;justify-content:center;";
 
       const copyBtn = document.createElement("button");
       copyBtn.innerText = "Copy Image";
       copyBtn.style.cssText = "padding:8px 18px;cursor:pointer;";
       copyBtn.onclick = function(e) { e.stopPropagation(); copyDeckImageBlob(currentBlob, e); };
+
+      // Copy Link — the SAME friendly link the deck list menu's "Copy Link" copies (/deck/<code>, or the
+      // NextTurn fallback for a deck with no code yet), so a share can carry both the image and the link.
+      // CopyDeckLink copies synchronously, inside the click, which is what WebKit/iOS requires.
+      const copyLinkBtn = document.createElement("button");
+      copyLinkBtn.innerText = "Copy Link";
+      copyLinkBtn.style.cssText = "padding:8px 18px;cursor:pointer;";
+      copyLinkBtn.onclick = function(e) { e.stopPropagation(); CopyDeckLink(deckID, e); };
 
       const closeBtn = document.createElement("button");
       closeBtn.innerText = "Close";
@@ -858,6 +870,7 @@ function LoadDecks() {
       controls.appendChild(sortSelect);
       controls.appendChild(regenBtn);
       btnRow.appendChild(copyBtn);
+      btnRow.appendChild(copyLinkBtn);
       btnRow.appendChild(closeBtn);
       panel.appendChild(img);
       panel.appendChild(controls);
