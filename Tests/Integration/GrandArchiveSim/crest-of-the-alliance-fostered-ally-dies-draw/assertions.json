@@ -1,0 +1,5 @@
+[
+    {"step":5,"type":"decision_queue_empty","player":"all"},
+    {"step":5,"type":"card_exists","zone":"myBanish","cardID":"ojwk0pw0y6","semantic":true,"label":"Crest of the Alliance is banished"},
+    {"step":5,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8,"semantic":true,"label":"banishing Crest draws a card"}
+]

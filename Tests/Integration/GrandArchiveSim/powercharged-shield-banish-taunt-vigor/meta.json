@@ -1,0 +1,17 @@
+{
+    "name": "Powercharged Shield: banish this -- target unit with taunt gains vigor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Powercharged Shield's own activated ability requires a unit with taunt already on the field (activateAbilityPrereqs['rrii17fzcy:0']), so a Dungeon Guide is patched with TAUNT directly via test-setup rather than scripting a real taunt-granting effect.",
+    "testedCards": [
+        "rrii17fzcy"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["rrii17fzcy"],
+        "mechanics": ["targeting", "zone-movement"],
+        "rulesClauses": [
+            "Banish Powercharged Shield: Target unit with taunt gains vigor until end of turn."
+        ]
+    }
+}

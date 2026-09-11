@@ -1,0 +1,17 @@
+{
+    "name": "Sentinel Fabricator: (3), REST: Summon a buffed Automaton Drone token",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "The activated ability's prereq requires Status==2 (awake), so it's patched explicitly. The 3-reserve cost queues 3 reps of the myHand-0 reserve-payment decision before summoning the token; an unrelated post-resolution opportunity to activate the ability again is declined with PASS.",
+    "testedCards": [
+        "j68m69iq4d"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["j68m69iq4d"],
+        "mechanics": ["counter", "token"],
+        "rulesClauses": [
+            "(3), REST: Summon an Automaton Drone token with a buff counter on it."
+        ]
+    }
+}

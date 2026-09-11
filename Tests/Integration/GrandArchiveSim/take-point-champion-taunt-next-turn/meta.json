@@ -1,0 +1,17 @@
+{
+    "name": "Take Point: champion gains taunt until the beginning of next turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Take Point applies 'TAUNT_NEXT_TURN' (a delayed grant, converted to real TAUNT at the beginning of the caster's next turn), not TAUNT directly, so it's tested at the point the tag is applied rather than trying to advance all the way to the conversion. Its [Class Bonus] Floating Memory clause is a passive resource-access ability with no directly observable state change, so it's out of scope here.",
+    "testedCards": [
+        "098kmoi0a5"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["098kmoi0a5"],
+        "mechanics": ["status", "combat", "condition"],
+        "rulesClauses": [
+            "Your champion gains taunt until the beginning of your next turn."
+        ]
+    }
+}
