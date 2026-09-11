@@ -1,0 +1,18 @@
+{
+    "name": "Diana, Deadly Duelist's On Enter: materialize a Bullet from material deck (level-up)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Diana, Deadly Duelist requires Diana Lineage (leveled from a level-1 Diana champion), but CanChampionLevelUpIntoCard only checks the CURRENT champion's own printed CardLevel, not lineage (same pattern already used for lorraine-arclight-saber-static-counters), so the starting champion's CardID is patched directly to Diana, Keen Huntress (level 1) as the level-up precondition. A real level-up is then performed via the standard MaterializeChoice flow (level-ups are offered as material-zone choices, same MZMAYCHOOSE list as any other materialize), which fires her On Enter trigger naturally. That ability specifically filters the material zone for the BULLET subtype (GeneratedMacroCode.php enterAbilities['7ozuj68m69:0']), so a real Bullet (Plated Bullet) -- not a Gun -- is seeded there as the materialize target. Removing the level-up target from the material array reindexes the remaining entries, so the Bullet's chooseable index shifts down by one once the champion card leaves material.",
+    "testedCards": [
+        "7ozuj68m69"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["7ozuj68m69"],
+        "mechanics": ["zone-movement", "condition"],
+        "rulesClauses": [
+            "Diana Lineage (Diana, Deadly Duelist must be leveled from a previous level \"Diana\" champion.)",
+            "On Enter: Materialize a Bullet card from your material deck. (You still pay its costs.)"
+        ]
+    }
+}

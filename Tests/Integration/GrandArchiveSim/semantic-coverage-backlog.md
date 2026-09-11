@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **247**
+Cards linked to an existing fixture: **249**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2240**
+Implemented cards still needing semantic coverage: **2238**
 
 ## Mechanic groups
 
@@ -30,7 +30,6 @@ Implemented cards still needing semantic coverage: **2240**
 | Slay the King (`6v374coy34`) | ATTACK | 2 | zone-movement, combat, trigger, condition | Lorraine Pantheon Starter | — |
 | Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
 | Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
-| Diana, Duskstalker (`iq4d5vettc`) | CHAMPION | 2 | status, trigger | Diana Starter Deck | — |
 | Smash with Obelisk (`2kkvoqk1l7`) | ATTACK | 2 | cost | Tonoris Starter Deck | — |
 | Assassin's Mantle (`3tcs0axa03`) | REGALIA,ITEM | 1 | damage, prevention, zone-movement, counter, condition | Zander Pantheon Starter | — |
 | Corhazi Courier (`YqQsXwEvv5`) | ALLY | 1 | targeting, damage, draw-discard, status, combat, condition | Zander Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2240**
 | Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
 | Corhazi Infiltrator (`VAFTR5taNG`) | ALLY | 1 | zone-movement, status, trigger | Zander Pantheon Starter | — |
 | Covert Manipulator (`A1jfgrWpiN`) | ALLY | 1 | targeting, trigger, condition | Zander Pantheon Starter | — |
+| Deep Sea Beastbonder (`qxbdXU7H4Z`) | ALLY | 1 | cost, zone-movement, condition | Silvie Starter Deck | — |

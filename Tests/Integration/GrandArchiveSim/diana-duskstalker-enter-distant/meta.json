@@ -1,0 +1,18 @@
+{
+    "name": "Diana, Duskstalker's On Enter: becomes distant (level-up)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Same level-up-bypass approach as diana-deadly-duelist-enter-materialize-bullet: CanChampionLevelUpIntoCard only checks the CURRENT champion's own printed CardLevel, not lineage, so the starting champion's CardID is patched directly to Diana, Deadly Duelist (level 2) as the level-up precondition, then a real level-up (via the standard MaterializeChoice flow, offered as one of the usual material-zone choices) into Diana, Duskstalker (level 3) fires her On Enter trigger naturally (BecomeDistant($player, $mzID), GeneratedMacroCode.php enterAbilities['iq4d5vettc:0']). Only the On Enter half is covered; her On Champion Hit trigger (generating a Creeping Torment curse card) requires a real combat hit and is out of scope.",
+    "testedCards": [
+        "iq4d5vettc"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["iq4d5vettc"],
+        "mechanics": ["condition", "zone-movement"],
+        "rulesClauses": [
+            "Diana Lineage",
+            "On Enter: Diana becomes distant."
+        ]
+    }
+}
