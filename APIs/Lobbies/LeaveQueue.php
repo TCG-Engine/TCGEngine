@@ -42,6 +42,7 @@ $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, &$left) {
       array_splice($lobby->players, $index, 1);
       $lobby->numPlayers--;
       $left = true;
+      if (!array_filter($lobby->players, fn($p) => $p instanceof Player && $p->getBotProfile() === '')) return 'delete';
       if ($lobby->numPlayers <= 0) return 'delete';   // last seat gone — nothing left to come back to
       // The host may be the one who just left. Migrate BEFORE the store, or the lobby is written
       // back with a hostPlayerID naming a seat nobody holds and StartRoom rejects every attempt to

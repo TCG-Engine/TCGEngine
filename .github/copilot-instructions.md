@@ -55,6 +55,8 @@ Important notes and gotchas
 
 ## Turn controller / generator notes
 - The generator (`zzGameCodeGenerator.php`) outputs a number of server files and a key client JS file (`GeneratedUI_<timestamp>.js`). Important generator behaviours:
+  - Games with multiplayer card listeners can define `GameMacroListenerSeats()` to return their active seat IDs. Unqualified listener zones then expand to those seats, and listener references remain absolute `pNZone-index` IDs. FaBSim uses this hook for UPF; roots without the hook retain their existing listener expansion.
+  - FaBSim saved abilities use await frames even for straight-line choices, preserving serializable locals across requests. Use braced `if`/`else` blocks and move nontrivial `foreach` processing into a helper; validate the generated PHP and run `DevTools/FaB/wtr_test.php` after changing saved choice code.
   - It emits `OverlayRules` and `CounterRules` as `const` JS objects in the generated JS. Client code reads these constants for overlays/counters.
   - It emits zone metadata accessible by `GetZoneData(zoneName)` on the client.
   - `Display: Mode=Single(Stacked)` opts a single-card zone into visual card-depth layers instead of the numeric zone-count badge. Plain `Mode=Single` keeps the count badge.

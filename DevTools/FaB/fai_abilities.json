@@ -1,0 +1,220 @@
+[
+  {
+    "cardId": "fai",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$targets = FaBFaiFlames($player);\nif ($targets !== '') {\n $chosen = await $player.MZChoose($targets, \"Return_a_Phoenix_Flame\");\n FaBFaiReturnFlame($player, $chosen);\n}",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "stubby_hammerers",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "FaBWTRAddEffect($player, 'STUBBY', 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "art_of_war_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$modes = await $player.Modal(2, 2, \"Attack_and_defense_+1&Next_attack_go_again&Defend_from_arsenal&Banish_attack_draw_two\", \"Choose_Art_of_War_modes\");\n$selected = explode(',', $modes);\nif (in_array('0', $selected, true)) { FaBWTRAddEffect($player, 'AOW_STATS', 1); }\nif (in_array('1', $selected, true)) { FaBWTRAddEffect($player, 'AOW_NEXT', 1); }\nif (in_array('2', $selected, true)) { FaBWTRAddEffect($player, 'AOW_ARSENAL', 1); }\nif (in_array('3', $selected, true)) {\n $targets = FaBFaiHandAttacks($player);\n if ($targets !== '') {\n  $chosen = await $player.MZMayChoose($targets, \"Banish_an_attack_to_draw_two\");\n  if (FaBFaiBanishAttack($player, $chosen)) { DoDrawCard($player, 2); }\n }\n}",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "brand_with_cinderclaw_red",
+    "abilities": [
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "FaBWTRAddEffect($player, 'FAI_BRAND', 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "lava_vein_loyalty_red",
+    "abilities": [
+      {
+        "macroName": "GoAgainModifier",
+        "abilityCode": "return FaBFaiChainCount($player) >= 2 ? 1 : 0;",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "brand_with_cinderclaw_yellow",
+    "abilities": [
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "FaBWTRAddEffect($player, 'FAI_BRAND', 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "lava_vein_loyalty_yellow",
+    "abilities": [
+      {
+        "macroName": "GoAgainModifier",
+        "abilityCode": "return FaBFaiChainCount($player) >= 2 ? 1 : 0;",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "brand_with_cinderclaw_blue",
+    "abilities": [
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "FaBWTRAddEffect($player, 'FAI_BRAND', 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "lava_vein_loyalty_blue",
+    "abilities": [
+      {
+        "macroName": "GoAgainModifier",
+        "abilityCode": "return FaBFaiChainCount($player) >= 2 ? 1 : 0;",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "blaze_headlong_red",
+    "abilities": []
+  },
+  {
+    "cardId": "breaking_point_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBFaiBreakArsenal();",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "double_strike_red",
+    "abilities": [
+      {
+        "macroName": "ChainLinkResolved",
+        "abilityCode": "FaBFaiDoubleStrike($player, $mzID);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "phoenix_flame_red",
+    "abilities": [
+      {
+        "macroName": "AttackPowerModifier",
+        "abilityCode": "return FaBFaiChainCount($player) >= 2 ? 1 : 0;",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "phoenix_form_red",
+    "abilities": [
+      {
+        "macroName": "AttackPowerModifier",
+        "abilityCode": "return FaBFaiChainCount($player, 'Phoenix Flame') >= 2 ? 2 : 0;",
+        "isImplemented": true
+      },
+      {
+        "macroName": "GoAgainModifier",
+        "abilityCode": "return FaBFaiChainCount($player, 'Phoenix Flame') >= 1 ? 1 : 0;",
+        "isImplemented": true
+      },
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit() && FaBFaiChainCount($player, 'Phoenix Flame') >= 3) { DoDrawCard($player, 3); }",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "promise_of_plenty_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBFaiPromise();",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "red_hot_red",
+    "abilities": [
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "if (intval(FaBGetState()['chainLink']) >= 4) {\n$amount = FaBFaiRedHot($player);\nif ($amount > 0) {\n $targets = FaBFaiDamageTargets();\n $chosen = await $player.MZChoose($targets, \"Choose_a_target_for_Red_Hot\");\n FaBFaiRedHotDamage($player, $chosen, $amount);\n}\nFaBShuffleDeck($player);\n}",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "rise_from_the_ashes_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'FAI_RISE', 3);\n$targets = FaBFaiFlames($player);\nif ($targets !== '') {\n $chosen = await $player.MZMayChoose($targets, \"Return_a_Phoenix_Flame\");\n FaBFaiReturnFlame($player, $chosen);\n}",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "rising_resentment_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "$targets = FaBFaiHandAttacks($player, true);\nif ($targets !== '') {\n $chosen = await $player.MZMayChoose($targets, \"Banish_an_attack_to_play_this_turn\");\n FaBFaiBanishAttack($player, $chosen, true);\n}",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "ronin_renegade_red",
+    "abilities": []
+  },
+  {
+    "cardId": "stab_wound_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit()) { FaBFaiLoseLife(intval(FaBGetState()['defender']), intval(FaBGetState()['daggerHits'] ?? 0)); }",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "salt_the_wound_yellow",
+    "abilities": [
+      {
+        "macroName": "AttackPowerModifier",
+        "abilityCode": "return intval(FaBGetState()['chainHits'] ?? 0);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "tenacity_yellow",
+    "abilities": [
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "FaBTagUID(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'WTR_POWER:' . FaBFaiDefendingCount());",
+        "isImplemented": true
+      }
+    ]
+  }
+]

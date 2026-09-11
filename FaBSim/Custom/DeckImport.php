@@ -1,10 +1,43 @@
 <?php
 
-function FaBValidateDeckForQueue($deckLink, $preconstructedDeck = '', $userID = null) {
+function FaBValidateDeckForQueue($deckLink, $preconstructedDeck = '', $userID = null, $format = '') {
     $source = trim((string)$deckLink);
     if ($source === '') return ['success' => false, 'message' => 'Paste a Fabrary/FaBDB link, deck JSON, or a text deck list.'];
     $resolved = FaBResolveDeckInput($source, $userID);
+    if (!empty($resolved['success']) && $format === 'upf') {
+        $errors = FaBUPFDeckErrors($resolved);
+        return ['success' => !$errors, 'message' => implode(' ', $errors)];
+    }
     return ['success' => !empty($resolved['success']), 'message' => $resolved['message'] ?? ''];
+}
+
+function FaBUPFDeckErrors(array $deck): array {
+    $errors = [];
+    if (!in_array('Young', (array)CardTypes($deck['hero'] ?? ''), true)) $errors[] = 'UPF requires a young hero.';
+    if (count($deck['mainDeck'] ?? []) !== 40) $errors[] = 'UPF requires exactly 40 cards in the starting deck.';
+    $pool = array_merge($deck['weapons'] ?? [], $deck['equipment'] ?? [], $deck['mainDeck'] ?? [], $deck['inventory'] ?? []);
+    if (count($pool) > 52) $errors[] = 'UPF allows at most 52 cards besides the hero.';
+    foreach (array_count_values($pool) as $id => $count) {
+        if ($count > 2) $errors[] = 'UPF allows two copies per pitch: ' . CardName($id) . '.';
+        if ($count > 1 && in_array('Legendary', (array)CardCard_keywords($id), true)) $errors[] = 'Legendary allows one copy: ' . CardName($id) . '.';
+        $types = (array)CardTypes($id);
+        foreach(['Rhinar','Bravo','Katsu','Dorinthea']as$heroName){
+            if(str_contains((string)CardFunctional_text_plain($id),$heroName.' Specialization') && !str_starts_with((string)CardName($deck['hero']??''),$heroName))$errors[]=CardName($id).' requires '.$heroName.'.';
+        }
+        foreach (['Brute','Guardian','Ninja','Warrior'] as $class) {
+            if (in_array($class, $types, true) && !in_array($class, (array)CardTypes($deck['hero'] ?? ''), true)) $errors[] = CardName($id) . ' does not match your hero class.';
+        }
+    }
+    foreach($deck['mainDeck']??[]as$id)if(array_intersect((array)CardTypes($id),['Hero','Weapon','Equipment','Token']))$errors[]=CardName($id).' cannot start in your deck.';
+    $hands = 0;
+    foreach ($deck['weapons'] ?? [] as $id) $hands += in_array('2H', (array)CardTypes($id), true) ? 2 : 1;
+    if ($hands > 2) $errors[] = 'Your starting weapons require more than two hands.';
+    foreach (['Head','Chest','Arms','Legs'] as $slot) {
+        $equipped = array_filter($deck['equipment'] ?? [], fn($id) => in_array($slot, (array)CardTypes($id), true));
+        if (count($equipped) > 1) $errors[] = 'Choose one starting equipment for ' . strtolower($slot) . '.';
+    }
+    if (!empty($deck['unresolved'])) $errors[] = 'Resolve every unrecognized card before joining.';
+    return $errors;
 }
 
 function FaBEmptyResolvedDeck($message = '') {
@@ -127,8 +160,9 @@ function FaBResolveCardReference($value, $pitch = null) {
     if ($value === '') return '';
     $lookup = FaBCardLookup();
     $key = str_replace('-', '_', strtolower($value));
-    if (isset($lookup[$key])) return $lookup[$key];
     $pitchNumber = is_numeric($pitch) ? intval($pitch) : match(strtolower((string)$pitch)) {'red' => 1, 'yellow' => 2, 'blue' => 3, default => 0};
+    if ($pitchNumber > 0 && isset($lookup[$key . '|' . $pitchNumber])) return $lookup[$key . '|' . $pitchNumber];
+    if (isset($lookup[$key])) return $lookup[$key];
     return $lookup[$key . '|' . $pitchNumber] ?? '';
 }
 

@@ -82,7 +82,8 @@ while (true) {
       $meSeat = SWURoomFindPlayerByAuthKey($l, $authKey);
       if ($meSeat !== null) $meSeat->touch();
       $migrated = SWUMigrateHostIfAway($l);
-      return ($meSeat !== null || $migrated);   // false = nothing changed, skip the write
+      $assigned = LobbyEnsureFixedSeats($l);
+      return ($meSeat !== null || $migrated || $assigned);   // false = nothing changed, skip the write
     });
     // A busy or vanished lobby must not blank the roster: fall back to the unlocked read we already
     // have. The heartbeat is idempotent and the next poll is 1.5s away.
@@ -97,6 +98,7 @@ while (true) {
         'team'     => $p->getTeam(),
         'deckOk'   => $p->getDeckOk(),
         'ready'    => $p->getReady(),
+        'botProfile' => $p->getBotProfile(),
         // Presence, for display only. An away seat keeps its seat and does NOT block Start — the
         // host reads this and decides whether to use Remove.
         'away'     => SWUSeatIsAway($p),
@@ -119,6 +121,7 @@ while (true) {
     $response->isRoom = true;
     $response->isTeamRoom = SWURoomIsTeamLobby($lobby);
     $response->roster = $roster;
+    $response->botProfiles = $pollAdapter instanceof LobbyBotAdapter ? $pollAdapter->botProfiles($lobby) : (object)[];
     $response->blockers = $pollAdapter->startBlockers($lobby);
     // How many seats to DRAW and whether they split into teams — the rendering question, kept
     // separate from the routing one above. Carries queueType for Spec 2's per-match choice.

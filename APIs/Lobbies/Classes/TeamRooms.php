@@ -9,6 +9,26 @@
 // silently shuffle the whole table whenever anybody dropped.
 
 require_once __DIR__ . '/Player.php';
+
+function LobbyUsesFixedSeats(object $lobby): bool {
+    return ($lobby->rootName ?? '') === 'FaBSim' && ($lobby->format ?? '') === 'upf';
+}
+
+// Upgrade older UPF rooms using their displayed order, then keep holes when seats leave.
+function LobbyEnsureFixedSeats(object $lobby): bool {
+    if (!LobbyUsesFixedSeats($lobby)) return false;
+    $players = array_values(array_filter($lobby->players ?? [], fn($p) => $p instanceof Player));
+    usort($players, fn($a, $b) => $a->getPlayerID() <=> $b->getPlayerID());
+    $taken = []; $changed = false;
+    foreach ($players as $p) if ($p->getSeat() !== null) $taken[] = $p->getSeat();
+    foreach ($players as $p) {
+        if ($p->getSeat() !== null) continue;
+        foreach (range(1, 4) as $seat) if (!in_array($seat, $taken, true)) {
+            $p->setSeat($seat); $taken[] = $seat; $changed = true; break;
+        }
+    }
+    return $changed;
+}
 $_swuFormatsPath = __DIR__ . '/../../../AppCore/SWU/Formats.php';
 if (is_file($_swuFormatsPath)) require_once $_swuFormatsPath;
 $_swuDeckValidationPath = __DIR__ . '/../../../AppCore/SWU/DeckValidation.php';
@@ -187,7 +207,7 @@ function SWURoomStartBlockers($lobby, array $leaderSets = []) {
 function SWUMigrateHostIfNeeded(object $lobby): void {
     $ids = [];
     foreach (($lobby->players ?? []) as $p) {
-        if ($p instanceof Player) $ids[] = intval($p->getPlayerID());
+        if ($p instanceof Player && $p->getBotProfile() === '') $ids[] = intval($p->getPlayerID());
     }
     if (empty($ids)) return;                                              // empty lobby: LeaveQueue deletes it
     if (in_array(intval($lobby->hostPlayerID ?? 0), $ids, true)) return;  // host still seated
@@ -216,6 +236,7 @@ if (!defined('SWU_LOBBY_HOST_AWAY_AFTER')) define('SWU_LOBBY_HOST_AWAY_AFTER', 3
 // counts as present (same reasoning the reaper used).
 function SWUSeatIsAway($player, ?int $now = null, ?int $timeout = null): bool {
     if (!($player instanceof Player)) return false;
+    if ($player->getBotProfile() !== '') return false;
     $now     = $now     ?? time();
     $timeout = $timeout ?? SWU_LOBBY_AWAY_AFTER;
     $seen    = $player->getLastSeen();
@@ -237,6 +258,7 @@ function SWUMigrateHostIfAway(object $lobby, ?int $now = null): bool {
     foreach (($lobby->players ?? []) as $p) {
         if (!($p instanceof Player)) continue;
         $id = intval($p->getPlayerID());
+        if ($p->getBotProfile() !== '') continue;
         if ($id === $hostID) { $host = $p; continue; }
         if (!SWUSeatIsAway($p, $now)) $present[] = $id;   // the 90s reading, not the 300s one
     }

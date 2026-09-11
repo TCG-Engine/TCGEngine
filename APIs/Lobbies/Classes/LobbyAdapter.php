@@ -12,6 +12,13 @@
 //
 // A sim opts in by adding a `waitingRoom` block to its SiteDef. No block = no waiting room; the page
 // exists for every sim but redirects to MainMenu when the config resolves to null.
+// Optional capability: existing adapters need not support lobby bots.
+interface LobbyBotAdapter {
+    // Map stable profile IDs to public name/description metadata.
+    public function botProfiles(object $lobby): array;
+    public function configureBot(object $lobby, Player $player, string $profile): void;
+}
+
 interface LobbyAdapter {
     // ROUTING. True iff this lobby gets a WaitingRoom page: private, and not a local/solo format.
     public function wantsWaitingRoom(object $lobby): bool;

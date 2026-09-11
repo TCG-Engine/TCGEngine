@@ -29,7 +29,7 @@ if ($lobbyID === '' || $authKey === '' || $targetID <= 0) _kickFail($response, '
 
 $err = null; $removedName = '';
 $lobby = LobbyMutate($lobbyID, function ($lobby) use ($authKey, $targetID, &$err, &$removedName) {
-  if (!empty($lobby->gameName) || ($lobby->state ?? '') === 'started') { $err = 'Game already started.'; return false; }
+  if (!empty($lobby->gameName) || in_array($lobby->state ?? '', ['starting', 'started'], true)) { $err = 'Game already starting or started.'; return false; }
 
   // Host is an IDENTITY (hostPlayerID) authenticated by authKey — never "playerID === 1", and never
   // the caller's self-reported playerID, which is a public seat number.

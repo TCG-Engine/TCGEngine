@@ -14,7 +14,7 @@ function NormalizeBotControllerPlayers($players) {
   $normalized = [];
   foreach ($players as $player) {
     $player = intval($player);
-    if (($player !== 1 && $player !== 2) || in_array($player, $normalized, true)) continue;
+    if ($player < 1 || $player > 4 || in_array($player, $normalized, true)) continue;
     $normalized[] = $player;
   }
   sort($normalized);

@@ -1,3 +1,5 @@
+<?php include __DIR__ . '/GameOver.php'; include __DIR__ . '/MultiplayerLayout.php'; ?>
+<div id="fab-duel-layout">
 <style>
 :root{
   --fab-gold:#d6aa4d;
@@ -233,7 +235,7 @@ var FaBEquipmentSlotByCardID = <?php echo json_encode($fabEquipmentSlotByCardID,
 Object.assign(FaBEquipmentSlotByCardID, {
   mask_of_momentum:'head', helm_of_isens_peak:'head', arcanite_skullcap:'head', ironrot_helm:'head', hope_merchants_hood:'head',
   barkbone_strapping:'chest', tectonic_plating:'chest', courage_of_bladehold:'chest', fyendals_spring_tunic:'chest', ironrot_plate:'chest',
-  breaking_scales:'arms', crater_fist:'arms', braveforge_bracers:'arms', goliath_gauntlet:'arms', ironrot_gauntlet:'arms',
+  breaking_scales:'arms', crater_fist:'arms', braveforge_bracers:'arms', goliath_gauntlet:'arms', ironrot_gauntlet:'arms', stubby_hammerers:'arms',
   scabskin_leathers:'legs', refraction_bolters:'legs', snapdragon_scalers:'legs', ironrot_legs:'legs', mage_master_boots:'legs'
 });
 
@@ -273,6 +275,29 @@ function FaBRefreshLifeTotals() {
 function FaBRefreshLungeVisibility() {
   document.body.classList.toggle('fab-lunge-active', !!document.querySelector('.tcg-card-lunge-clone'));
 }
+
+// Reuse the engine's selection-view hooks for the duel's my/their zone aliases.
+// UPF renders absolute seat zones directly and needs no translation.
+window.swuTwNormalizeSelection = function(specs) {
+  var seats = String(window.SeatOrderData || '12').match(/[1-4]/g) || [];
+  var input = document.getElementById('playerID');
+  var viewer = input ? String(input.value) : '';
+  if (seats.length !== 2 || !seats.includes(viewer)) return {inlineNormalized: specs, offViewSpecs: []};
+  return {inlineNormalized: specs.map(function(spec) {
+    var match = spec.zone && spec.zone.match(/^p([1-4])(.+)$/);
+    if (!match || !seats.includes(match[1])) return spec;
+    return Object.assign({}, spec, {zone: (match[1] === viewer ? 'my' : 'their') + match[2]});
+  }), offViewSpecs: []};
+};
+window.swuTwRemapCardId = function(cardId) {
+  var seats = String(window.SeatOrderData || '12').match(/[1-4]/g) || [];
+  var input = document.getElementById('playerID');
+  var viewer = input ? String(input.value) : '';
+  if (seats.length !== 2 || !seats.includes(viewer)) return cardId;
+  return cardId.replace(/^(my|their)/, function(prefix) {
+    return 'p' + (prefix === 'my' ? viewer : seats.find(function(seat) { return seat !== viewer; }));
+  });
+};
 
 function FaBToggleWindow(id, forceOpen) {
   var panel = document.getElementById(id);
@@ -349,10 +374,20 @@ function FaBRefreshCombatProgress() {
 window.RenderFaBLayers = function(html, count) {
   var layers = document.getElementById('fabLayers');
   var badge = document.getElementById('fabLayersCount');
+  var panel = document.getElementById('fabLayersWindow');
+  var combatWindow = document.getElementById('fabCombatWindow');
   var layerCount = Math.max(0, Number(count) || 0);
   if (layers) layers.innerHTML = html || '<div><strong>No active layers</strong>Instants, triggers, and resolving abilities appear here.</div>';
   if (badge) badge.textContent = String(layerCount);
-  FaBToggleWindow('fabLayersWindow', layerCount > 0);
+  if (!panel) return;
+  var oldCount = Number(panel.dataset.cardCount || 0);
+  panel.dataset.cardCount = String(layerCount);
+  // Auto-open only for a new stack, without taking over an open combat chain.
+  // Subsequent renders must also respect a player's choice to close the popup.
+  if (layerCount > 0 && oldCount === 0 && (!combatWindow || combatWindow.hidden)) {
+    FaBToggleWindow('fabLayersWindow', true);
+  }
+  if (layerCount === 0) FaBToggleWindow('fabLayersWindow', false);
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -378,3 +413,4 @@ document.addEventListener('DOMContentLoaded', function() {
   FaBRefreshLungeVisibility();
 });
 </script>
+</div>

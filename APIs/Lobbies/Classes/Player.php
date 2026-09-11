@@ -1,6 +1,9 @@
 <?php
 
   class Player implements JsonSerializable {
+    private $botProfile = ''; // Stable adapter-defined ID; travels with this identity through seat compaction.
+    public function getBotProfile(): string { return $this->botProfile ?? ''; }
+    public function setBotProfile(string $profile): void { $this->botProfile = $profile; }
     private $playerID;
     private $deckLink;
     private $preconstructedDeck;

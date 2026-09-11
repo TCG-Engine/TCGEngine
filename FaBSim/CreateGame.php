@@ -5,6 +5,7 @@ include_once __DIR__ . '/ZoneAccessors.php';
 include_once __DIR__ . '/ZoneClasses.php';
 include_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/Custom/DeckImport.php';
+include_once __DIR__ . '/BotDeck.php';
 include_once __DIR__ . '/Custom/GameLogic.php';
 include_once __DIR__ . '/TurnController.php';
 include_once __DIR__ . '/../Core/CoreZoneModifiers.php';
@@ -13,8 +14,14 @@ include_once __DIR__ . '/../FaBDeck/DeckService.php';
 
 $gameName = GetGameCounter(__DIR__ . '/Games');
 InitializeGamestate();
+if (($lobby->format ?? '') === 'upf' && count($lobby->players) !== 4) throw new RuntimeException('UPF requires four players.');
+if (count($lobby->players) < 2 || count($lobby->players) > 4) throw new RuntimeException('FaBSim requires two to four players.');
+// Identity lookup during opening draws must already know every seat.
+SetSeatOrder(implode('', range(1, count($lobby->players))));
+SetLiveSeats(GetSeatOrder());
 $playerNumber = 1;
 $passiveSeats = [];
+$botProfiles = [];
 foreach ($lobby->players as $player) {
     if ($playerNumber > 4) throw new RuntimeException('FaBSim supports a maximum of four seats.');
     $player->setGamePlayerID($playerNumber);
@@ -23,15 +30,19 @@ foreach ($lobby->players as $player) {
         && in_array($playerNumber, $lobby->goldfishPlayers, true)
         && trim((string)$player->getDeckLink()) === ''
         && trim((string)$player->getPreconstructedDeck()) === '';
-    if ($isPassiveGoldfishSeat) {
+    if (!in_array($player->getBotProfile(), ['', 'goldfish', 'fai'], true)) throw new RuntimeException('Unsupported FaB bot profile.');
+    if ($isPassiveGoldfishSeat || $player->getBotProfile() === 'goldfish') {
         $passiveSeats[] = $playerNumber;
         FaBEnsureGoldfishOpponent($playerNumber);
         ++$playerNumber;
         continue;
     }
-    $resolved = FaBResolveDeckInput($player->getDeckLink(), method_exists($player, 'getUserId') ? $player->getUserId() : null);
+    $isFaiBot=$player->getBotProfile()==='fai';
+    if($isFaiBot)$botProfiles[$playerNumber]='fai';
+    $resolved = $isFaiBot ? FaBFaiBotDeck() : FaBResolveDeckInput($player->getDeckLink(), method_exists($player, 'getUserId') ? $player->getUserId() : null);
     if (empty($resolved['success'])) throw new RuntimeException($resolved['message'] ?? 'Unable to load FaB deck.');
-    FaBLoadPlayer($playerNumber, $resolved);
+    if (($lobby->format ?? '') === 'upf' && ($errors = FaBUPFDeckErrors($resolved))) throw new RuntimeException(implode(' ', $errors));
+    FaBLoadPlayer($playerNumber, $resolved, $isFaiBot);
     ++$playerNumber;
 }
 if ($playerNumber <= 2) throw new RuntimeException('FaBSim requires at least two seats.');
@@ -44,11 +55,14 @@ SetTurnPlayer(1);
 SetTurnNumber(1);
 SetCurrentPhase('SOT');
 SetPhaseParameters('');
-StartOfTurnPhase();
 $initialState = FaBGetState();
 $initialState['passiveSeats'] = $passiveSeats;
-$initialState['gameMode'] = empty($passiveSeats) ? '' : 'GOLDFISH';
+$initialState['botProfiles'] = $botProfiles;
+$initialState['gameMode'] = ($lobby->format ?? '') === 'upf' ? 'UPF'
+    : (empty($passiveSeats) ? strtoupper((string)($lobby->format ?? '')) : 'GOLDFISH');
 FaBSetState($initialState);
+if (FaBIsPassiveSeat(1)) SetTurnPlayer(FaBNextInteractiveSeat(1));
+StartOfTurnPhase();
 SetCurrentPhase('MAIN');
 SetWinner(0);
 SaveUndoVersion(1, 'Start of game');
@@ -57,7 +71,7 @@ WriteGamestate(__DIR__ . '/');
 $lobby->gameName = $gameName;
 if (!SimGameWriteAuthKeysFromLobby('FaBSim', $gameName, $lobby)) throw new RuntimeException('Unable to store FaBSim authentication metadata.');
 
-function FaBLoadPlayer($playerID, $resolved) {
+function FaBLoadPlayer($playerID, $resolved, bool $bot = false) {
     $heroObj = AddHero($playerID, CardID:$resolved['hero'], Owner:$playerID, Controller:$playerID, Status:2);
     foreach ($resolved['weapons'] as $cardID) {
         AddWeapons($playerID, CardID:$cardID, Owner:$playerID, Controller:$playerID, Status:2);
@@ -74,7 +88,13 @@ function FaBLoadPlayer($playerID, $resolved) {
     $health = max(1, intval(CardHealth($resolved['hero'])) ?: 20);
     $resources = 0;
     $actionPoints = 1;
-    DoDrawCard($playerID, max(1, intval(CardIntelligence($resolved['hero'])) ?: 4));
+    if($resolved['hero']==='fai'&&in_array('phoenix_flame_red',$resolved['mainDeck'],true)){
+        if($bot)FaBFaiSetup($playerID,true);
+        else {
+            DecisionQueueController::AddDecision($playerID,'MZMODAL','1|1|Start_with_Phoenix_Flame_in_graveyard&Keep_it_in_deck',1,'Fai_setup');
+            DecisionQueueController::AddDecision($playerID,'CUSTOM','FAB_FAI_SETUP',1);
+        }
+    }else DoDrawCard($playerID, max(1, intval(CardIntelligence($resolved['hero'])) ?: 4));
 }
 
 ?>

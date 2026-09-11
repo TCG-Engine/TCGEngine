@@ -1,0 +1,198 @@
+/* The legacy FaB table silhouette: equipment left, hero/weapon center, piles right.
+   Absolute positioning is local to a seat, so the same surface works when inspecting an opponent. */
+#fab-upf-sidebar { display:none; }
+/* Card art has an inline transparent border; retain the engine's action/choice colors. */
+.fab-upf-active .selectable-card img:not(.counter-image-icon) {
+  border-color:var(--highlight-color)!important;
+}
+.fab-upf-active #fab-upf-board { inset:38px 234px 0 0; padding:8px 12px 12px; gap:8px; background:#202224; }
+.fab-upf-bar { min-height:30px; flex:0 0 auto; }
+.fab-upf-status { color:#ddd5c6; }
+.fab-upf-opponents { min-height:0!important; flex:0 0 32%; gap:8px; }
+#fab-upf-own { display:flex; flex:1 0 auto; min-height:52%; }
+.fab-upf-seat { position:relative; border-radius:7px; border:1px solid #ffffff12; box-shadow:none; background:radial-gradient(ellipse at 70% 0,#52707a77,transparent 75%),linear-gradient(150deg,#243b49,#192833 80%); }
+.fab-upf-seat.is-mine { display:flex; flex-direction:column; flex:1; min-height:0; height:auto; padding:0; border-top:1px solid #a67754; background:radial-gradient(ellipse at 65% 5%,#b34f2d55,transparent 75%),linear-gradient(135deg,#4f342f,#292629 75%); }
+.fab-upf-seat.has-priority { box-shadow:inset 0 0 0 1px #d4b16b88; border-color:#d4b16b77; }
+.fab-upf-seat:not(.is-summary) { min-height:390px; }
+.fab-upf-seat:not(.is-summary) .fab-upf-seat-header { position:absolute; bottom:4px; left:8px; right:8px; z-index:4; margin:0; pointer-events:none; }
+.fab-upf-seat:not(.is-summary) .fab-upf-seat-header button { pointer-events:auto; }
+.fab-upf-seat:not(.is-summary) h2 { font:600 12px system-ui; background:#242527cc; padding:7px 12px; border:1px solid #ffffff20; border-radius:3px; }
+.fab-upf-seat:not(.is-summary) .fab-upf-badges,.fab-upf-seat:not(.is-summary) .fab-upf-summary { display:none; }
+.fab-upf-seat:not(.is-summary) .fab-upf-zones { display:block; position:relative; height:100%; min-height:390px; }
+.fab-upf-seat:not(.is-summary) .fab-upf-zone { position:absolute; margin:0; padding:0; border:0; border-radius:5px; background:none; width:var(--fab-table-card); min-width:0; overflow:visible; }
+.fab-upf-seat:not(.is-summary) .fab-upf-zone>div { overflow:visible; max-width:none; }
+.fab-upf-seat:not(.is-summary) .fab-upf-zone h3 { display:none; }
+.fab-upf-seat:not(.is-summary) .fab-upf-zone[data-empty=true] { height:var(--fab-table-card); background:#121a2438; }
+.fab-upf-seat:not(.is-summary) .fab-upf-zone[data-empty=true] h3 { display:grid; place-items:center; height:100%; margin:0; font:500 10px system-ui; color:#e0e0df; text-transform:none; letter-spacing:0; }
+.fab-upf-seat:not(.is-summary) [data-zone=Equipment] { left:12px; top:12px; width:calc(var(--fab-table-card)*2 + 10px); height:calc(var(--fab-table-card)*3 + 18px); }
+.fab-upf-seat:not(.is-summary) [data-zone=Equipment]>div { max-width:none; margin:0; }
+.fab-upf-seat:not(.is-summary) [id$=Equipment] { display:block!important; position:relative; height:calc(var(--fab-table-card)*3 + 18px); }
+.fab-upf-seat:not(.is-summary) [id$=Equipment]>[data-mzid] { position:absolute!important; margin:0!important; }
+.fab-upf-seat:not(.is-summary) [data-equipment-slot=head] { left:0; top:0; }
+.fab-upf-seat:not(.is-summary) [data-equipment-slot=chest] { left:0; top:calc(var(--fab-table-card) + 9px); }
+.fab-upf-seat:not(.is-summary) [data-equipment-slot=arms] { left:calc(var(--fab-table-card) + 9px); top:calc(var(--fab-table-card) + 9px); }
+.fab-upf-seat:not(.is-summary) [data-equipment-slot=legs] { left:0; top:calc(var(--fab-table-card)*2 + 18px); }
+.fab-upf-seat:not(.is-summary) [data-zone=Hero] { left:calc(50% - var(--fab-table-card)/2); top:34%; z-index:2; }
+.fab-upf-seat:not(.is-summary) [data-zone=Weapons] { left:calc(50% - var(--fab-table-card)*1.6); top:34%; width:calc(var(--fab-table-card)*3.2); }
+.fab-upf-seat:not(.is-summary) [id$=Weapons] { justify-content:space-between!important; }
+.fab-upf-seat:not(.is-summary) [data-zone=Arsenal] { left:calc(50% - var(--fab-table-card)/2); top:calc(34% + var(--fab-table-card) + 10px); }
+.fab-upf-seat:not(.is-summary) [data-zone=Arena] { left:24%; top:9%; width:45%; max-height:22%; }
+.fab-upf-seat:not(.is-summary) [data-zone=Arena][data-empty=true] { display:none; }
+.fab-upf-seat:not(.is-summary) [data-zone=Weapons][data-empty=true],.fab-upf-seat:not(.is-summary) [data-zone=Equipment][data-empty=true],.fab-upf-seat:not(.is-summary) [data-zone=Hand][data-empty=true] { display:none; }
+.fab-upf-seat:not(.is-summary):not(.is-mine) [data-zone=Arsenal] { top:12px; }
+/* Grow inside the seat's borders instead of nesting percentage heights. */
+.fab-upf-seat.is-mine .fab-upf-zones { flex:1; height:auto; min-height:calc(var(--fab-table-card)*4 + 70px); }
+.fab-upf-seat.is-mine [data-zone=Hero],.fab-upf-seat.is-mine [data-zone=Weapons] { top:calc(var(--fab-table-card) + 26px); }
+.fab-upf-seat.is-mine [data-zone=Arsenal] { top:calc(var(--fab-table-card)*2 + 36px); }
+.fab-upf-seat:not(.is-summary) [data-zone=Deck] { right:12px; top:calc(var(--fab-table-card) + 20px); }
+.fab-upf-seat:not(.is-summary) [data-zone=Graveyard] { right:12px; top:12px; }
+.fab-upf-seat:not(.is-summary) [data-zone=Banish] { right:12px; top:calc(var(--fab-table-card)*2 + 30px); }
+.fab-upf-seat:not(.is-summary) [data-zone=Pitch] { right:calc(var(--fab-table-card) + 24px); top:calc(var(--fab-table-card) + 20px); }
+.fab-upf-seat:not(.is-summary) [data-zone=Health],.fab-upf-seat:not(.is-summary) [data-zone=Resources],.fab-upf-seat:not(.is-summary) [data-zone=ActionPoints] { width:62px; height:auto; padding:6px; text-align:center; background:#15171dcc; border:1px solid #ffffff24; z-index:5; box-sizing:border-box; }
+.fab-upf-seat:not(.is-summary) [data-zone=Health] { right:calc(var(--fab-table-card) + 25px); top:12px; font-size:22px; }
+.fab-upf-seat:not(.is-summary) [data-zone=Resources] { right:calc(var(--fab-table-card)*2 + 35px); top:calc(var(--fab-table-card) + 20px); font-size:20px; }
+.fab-upf-seat:not(.is-summary) [data-zone=ActionPoints] { right:calc(var(--fab-table-card) + 25px); top:calc(var(--fab-table-card)*2 + 30px); width:102px; font-size:16px; }
+.fab-upf-seat:not(.is-summary) [data-zone=Health] h3,.fab-upf-seat:not(.is-summary) [data-zone=Resources] h3,.fab-upf-seat:not(.is-summary) [data-zone=ActionPoints] h3 { display:block; font:500 9px system-ui; margin:0 0 3px; color:#c5b99f; }
+.fab-upf-seat:not(.is-summary) [data-zone=Hand] { left:25%; right:25%; bottom:20px; width:auto; height:auto; background:none; padding:0; border:0; z-index:6; }
+.fab-upf-seat:not(.is-summary) [id$=Hand] { flex-wrap:nowrap!important; }
+.fab-upf-seat:not(.is-summary) [data-zone=Temp] { left:22%; right:22%; top:0; width:auto; z-index:8; background:#20252af5; padding:8px; }
+.fab-upf-opponents.is-focused { min-height:390px!important; }
+.fab-upf-opponents.is-focused .fab-upf-seat { padding:0; }
+.fab-upf-seat.is-summary { overflow:auto; padding:10px; }
+.fab-upf-seat.is-summary h2 { font-size:12px; }
+.fab-upf-seat.is-summary .fab-upf-summary { color:#d2d7d9; }
+.fab-upf-seat.is-summary .fab-upf-zone h3 { display:none; }
+.fab-upf-seat.is-summary .fab-upf-zones { justify-content:center; gap:10px; margin-top:18px; }
+@media(min-width:700px) {
+  .fab-upf-seat.is-summary { display:flex; flex-direction:column; min-height:0; padding:8px; overflow:hidden; }
+  .fab-upf-seat.is-summary[hidden] { display:none; }
+  .fab-upf-seat.is-summary .fab-upf-seat-header { flex:0 0 auto; margin:0 0 4px; }
+  .fab-upf-seat.is-summary .fab-upf-seat-header button { padding:4px 8px!important; font-size:11px!important; }
+  .fab-upf-seat.is-summary .fab-upf-badges { display:none; }
+  .fab-upf-seat.is-summary .fab-upf-summary { flex:0 0 auto; margin:0 0 5px; font-size:10px; line-height:1.4; }
+  .fab-upf-seat.is-summary .fab-upf-zones { display:block; position:relative; flex:1; min-height:0; margin:0; }
+  .fab-upf-seat.is-summary .fab-upf-zone { display:none!important; position:absolute; width:var(--fab-table-card); min-width:0; max-width:none; margin:0; padding:0; overflow:visible; }
+  .fab-upf-seat.is-summary .fab-upf-zone>div { overflow:visible; max-width:none; }
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Hero],
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Weapons],
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Equipment],
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Arsenal],
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Deck],
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Graveyard],
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Pitch],
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Banish],
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Arena] { display:block!important; }
+  .fab-upf-seat.is-summary .fab-upf-zone[data-empty=true] { height:var(--fab-table-card); background:#121a2438; border-radius:4px; }
+  .fab-upf-seat.is-summary .fab-upf-zone[data-empty=true] h3 { display:grid; place-items:center; height:100%; margin:0; font:500 8px system-ui; text-transform:none; letter-spacing:0; color:#bac8ce; }
+  .fab-upf-seat.is-summary [data-zone=Equipment] { left:0; top:0; width:calc(var(--fab-table-card)*2 + 4px); }
+  .fab-upf-seat.is-summary [id$=Equipment] { display:block!important; position:relative; }
+  .fab-upf-seat.is-summary [id$=Equipment]>[data-mzid] { position:absolute!important; margin:0!important; }
+  .fab-upf-seat.is-summary [data-equipment-slot=head] { left:0; top:0; }
+  .fab-upf-seat.is-summary [data-equipment-slot=chest] { left:0; top:calc(var(--fab-table-card) + 4px); }
+  .fab-upf-seat.is-summary [data-equipment-slot=arms] { left:calc(var(--fab-table-card) + 4px); top:calc(var(--fab-table-card) + 4px); }
+  .fab-upf-seat.is-summary [data-equipment-slot=legs] { left:0; top:calc(var(--fab-table-card)*2 + 8px); }
+  .fab-upf-seat.is-summary [data-zone=Hero] { left:calc(50% - var(--fab-table-card)/2); top:calc(var(--fab-table-card) + 4px); z-index:2; }
+  .fab-upf-seat.is-summary [data-zone=Weapons] { left:calc(50% - var(--fab-table-card)*1.6); top:calc(var(--fab-table-card) + 4px); width:calc(var(--fab-table-card)*3.2); }
+  .fab-upf-seat.is-summary [id$=Weapons] { justify-content:space-between!important; flex-wrap:nowrap!important; }
+  .fab-upf-seat.is-summary [data-zone=Arsenal] { left:calc(50% - var(--fab-table-card)/2); top:0; }
+  .fab-upf-seat.is-summary [data-zone=Graveyard] { right:0; top:0; }
+  .fab-upf-seat.is-summary [data-zone=Deck] { right:0; top:calc(var(--fab-table-card) + 4px); }
+  .fab-upf-seat.is-summary [data-zone=Pitch] { right:calc(var(--fab-table-card) + 4px); top:calc(var(--fab-table-card) + 4px); }
+  .fab-upf-seat.is-summary [data-zone=Banish] { right:0; top:calc(var(--fab-table-card)*2 + 8px); max-height:var(--fab-table-card); overflow:auto; }
+  .fab-upf-seat.is-summary [data-zone=Arena] { left:calc(50% - var(--fab-table-card)*1.6); top:calc(var(--fab-table-card)*2 + 8px); width:calc(var(--fab-table-card)*3.2); max-height:var(--fab-table-card); overflow:auto; }
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Arena][data-empty=true],
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Weapons][data-empty=true],
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Equipment][data-empty=true] { display:none!important; }
+}
+.fab-upf-active #fab-upf-sidebar { display:flex; flex-direction:column; position:fixed; top:0; right:0; bottom:0; width:222px; z-index:100; background:#292929; color:#ddd; padding:12px 8px; box-sizing:border-box; gap:12px; border-left:1px solid #ffffff16; font:12px system-ui; }
+#fab-upf-sidebar header small { color:#9b9b9b; font-size:9px; letter-spacing:.08em; }
+.fab-upf-seat.is-summary [data-zone=Arsenal] .counter-bubble { display:none; }
+.fab-upf-seat:not(.is-summary) .fab-upf-zone[data-zone=Health],
+.fab-upf-seat:not(.is-summary) .fab-upf-zone[data-zone=Resources] { display:none; }
+.fab-upf-seat:not(.is-summary) [data-zone=Hero] .fab-upf-summary-counter { width:36px; height:36px; font-size:22px; bottom:-5px; }
+.fab-upf-seat:not(.is-summary) [data-zone=Pitch] .fab-upf-summary-counter { width:28px; height:28px; font-size:17px; top:-6px; right:-6px; }
+.fab-upf-seat:not(.is-summary) .fab-upf-zone[data-zone=ActionPoints] { width:154px; padding:5px; border-radius:28px; border:1px solid #d4b16b44; background:#171d23e8; box-shadow:0 4px 12px #0003; }
+.fab-upf-seat:not(.is-summary) [data-zone=ActionPoints] h3 { display:none; }
+.fab-upf-seat:not(.is-summary) [id$=ActionPoints] { display:flex!important; align-items:center; flex-wrap:nowrap!important; gap:8px; }
+.fab-upf-seat:not(.is-summary) [id$=ActionPoints]>span { padding:0!important; margin:0!important; gap:3px; min-width:38px; justify-content:center; color:#f6e1b4; font:700 20px system-ui; }
+.fab-upf-seat:not(.is-summary) [id$=ActionPoints]>span::after { content:'AP'; font:600 9px system-ui; color:#b7ac96; }
+.fab-upf-seat:not(.is-summary) [id$=ActionPoints]>div { padding:0!important; font-size:0; flex:1; }
+#fab-upf-board .fab-upf-seat .widget-button-pass { width:100%; min-width:0; margin:0; padding:9px 17px; border:1px solid #e5c980; border-radius:22px; background:#c9a755; color:#192127; font:700 12px system-ui; text-transform:none; letter-spacing:.02em; box-shadow:none; }
+#fab-upf-board .fab-upf-seat .widget-button-pass:hover { background:#e5c980; }
+#fab-upf-board .fab-upf-seat .widget-button-pass:disabled { opacity:.45; cursor:default; }
+.fab-upf-summary { display:none; }
+.fab-upf-hand-count,.fab-upf-summary-counter { display:none; }
+.fab-upf-seat.is-summary .fab-upf-identity { display:flex; align-items:center; gap:8px; min-width:0; flex-wrap:wrap; }
+.fab-upf-seat.is-summary .fab-upf-hand-count { display:flex; align-items:center; padding-right:5px; font:600 10px system-ui; }
+.fab-upf-hand-count img { width:12px; height:18px; object-fit:cover; border:1px solid #8a9ea8; border-radius:2px; margin-right:-4px; }
+.fab-upf-hand-count span { margin-left:8px; }
+.fab-upf-seat .fab-upf-summary-counter { display:grid; place-items:center; position:absolute; z-index:5; bottom:-2px; left:50%; transform:translateX(-50%); min-width:24px; height:24px; padding:0 3px; box-sizing:border-box; border:1px solid #f4e5bd; border-radius:50%; color:#fff5dc; background:#19232eef; font:700 15px system-ui; pointer-events:none; box-shadow:0 1px 4px #000a; }
+.fab-upf-seat [data-zone=Pitch] .fab-upf-summary-counter { color:#ffe0a0; border-color:#c79640; background:#392b15ef; width:20px; min-width:20px; height:20px; font-size:12px; bottom:auto; top:-3px; left:auto; right:-3px; transform:none; }
+@media(min-width:700px) {
+  .fab-upf-seat.is-summary [data-zone=Hero] { width:var(--fab-summary-combat-card); left:calc(50% - var(--fab-summary-combat-card)/2); }
+  .fab-upf-seat.is-summary [data-zone=Weapons] { width:calc(var(--fab-summary-combat-card)*3.2); left:calc(50% - var(--fab-summary-combat-card)*1.6); }
+  .fab-upf-seat.is-summary [data-zone=Arena] { top:calc(var(--fab-table-card) + var(--fab-summary-combat-card) + 8px); }
+}
+#fab-upf-sidebar h2 { font-size:16px; margin:8px 0; } #fab-upf-sidebar p { font-size:11px; color:#bbb; margin:0; } #fab-upf-sidebar h3 { font-size:12px; margin:0 0 6px; }
+#fab-upf-events-mount { min-height:0; flex:1; overflow:auto; }
+#fab-upf-chat-mount { flex:0 0 auto; min-height:0; }
+body.fab-upf-active #fab-upf-sidebar #macro-card-toast-host { position:static!important; display:flex; width:100%; gap:8px; pointer-events:auto; }
+body.fab-upf-active #fab-upf-sidebar #macro-card-toast-toggle { position:static; box-shadow:none; width:100%; }
+body.fab-upf-active #fab-upf-sidebar #macro-card-toast-log { display:flex!important; flex-direction:column; width:auto; max-height:none; padding:4px; box-shadow:none; border:0; background:#333; }
+#fab-upf-sidebar .macro-card-toast { display:none; }
+#fab-upf-sidebar .macro-card-toast-log-entry:first-child { flex-direction:column; align-items:flex-start; padding:8px; }
+#fab-upf-sidebar .macro-card-toast-log-entry:first-child img { width:92px; height:128px; align-self:center; }
+body.fab-upf-active #fab-upf-sidebar #chatWidget { position:static!important; width:100%!important; max-width:none!important; }
+#fab-upf-sidebar #chatExpanded { display:flex!important; }
+#fab-upf-sidebar #chatLog { height:130px!important; }
+#fab-upf-sidebar #chatWidgetControls { flex-wrap:wrap; }
+#fab-upf-sidebar #chatComposer { flex:1 0 100%; }
+#fab-upf-sidebar #chatToggleBtn { display:none; }
+#fab-upf-sidebar #cardMotionToggleBtn { margin-top:6px!important; }
+.fab-upf-active #fab-shortcut-dock { right:238px; }
+@media(min-width:900px) {
+  /* Both fields share the available board height, including in inspection mode. */
+  .fab-upf-opponents { flex:.48 1 0; min-height:0!important; }
+  .fab-upf-opponents.is-focused { flex:.85 1 0; min-height:0!important; }
+  #fab-upf-own { flex:1 1 0; min-height:0; }
+  .fab-upf-seat:not(.is-summary) { display:flex; flex-direction:column; min-height:0; overflow:auto; }
+  .fab-upf-seat:not(.is-summary) .fab-upf-zones { flex:1; height:auto; min-height:0; }
+}
+@media(max-width:899px) {
+  .fab-upf-active #fab-upf-board { right:0; padding:8px; inset-block-start:38px; }
+  .fab-upf-active #fab-upf-sidebar { position:relative; width:auto; margin-top:0; min-height:420px; flex:0 0 auto; }
+  .fab-upf-active #fab-upf-board { position:fixed; inset:38px 0 0; margin-top:0; overflow:auto; }
+  .fab-upf-opponents { min-height:180px!important; }
+  .fab-upf-seat:not(.is-summary) { min-height:420px; }
+  .fab-upf-seat:not(.is-summary) .fab-upf-zones { min-height:420px; }
+  .fab-upf-seat:not(.is-summary) [data-zone=Equipment] { left:5px; }
+  .fab-upf-seat:not(.is-summary) [data-zone=Hero],.fab-upf-seat:not(.is-summary) [data-zone=Weapons] { top:38%; }
+  .fab-upf-seat:not(.is-summary) [data-zone=Arsenal] { top:calc(38% + var(--fab-table-card) + 8px); }
+  .fab-upf-seat:not(.is-summary) [data-zone=Hand] { left:15%; right:15%; bottom:30px; }
+  .fab-upf-active #fab-shortcut-dock { right:8px; }
+}
+@media(max-width:599px) {
+  .fab-upf-seat.is-mine { height:auto; }
+  .fab-upf-seat:not(.is-summary) { padding:10px; }
+  .fab-upf-seat:not(.is-summary) .fab-upf-zones { display:flex; flex-wrap:wrap; gap:12px; padding-bottom:38px; min-height:0; }
+  .fab-upf-seat:not(.is-summary) .fab-upf-zone { position:relative; inset:auto!important; width:var(--fab-table-card); height:auto; padding:0; }
+  .fab-upf-seat:not(.is-summary) [data-zone=Equipment] { width:100%; height:auto; order:-1; }
+  .fab-upf-seat:not(.is-summary) [id$=Equipment] { display:flex!important; flex-wrap:wrap; height:auto; justify-content:flex-start!important; }
+  .fab-upf-seat:not(.is-summary) [id$=Equipment]>[data-mzid] { position:relative!important; inset:auto!important; margin:0 3px 0 0!important; }
+  .fab-upf-seat:not(.is-summary) [data-zone=Weapons] { width:calc(var(--fab-table-card)*2 + 8px); }
+  .fab-upf-seat:not(.is-summary) [data-zone=Hand],.fab-upf-seat:not(.is-summary) [data-zone=Temp] { width:100%; }
+  .fab-upf-seat:not(.is-summary) [data-zone=Hand] { order:20; }
+  .fab-upf-seat:not(.is-summary) [data-zone=ActionPoints] { width:110px; }
+  .fab-upf-seat:not(.is-summary) [id$=Hand] { flex-wrap:wrap!important; }
+}
+@media(max-width:699px) {
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Hero],.fab-upf-seat.is-summary .fab-upf-zone[data-zone=Pitch] { position:relative; }
+  .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Pitch] { display:block!important; width:40px; min-height:40px; }
+  .fab-upf-seat.is-summary [data-zone=Pitch] h3 { display:block; font:500 8px system-ui; margin:22px 0 0; }
+  .fab-upf-seat.is-summary { padding:6px; }
+  .fab-upf-seat.is-summary .fab-upf-seat-header { margin-bottom:3px; gap:4px; }
+  .fab-upf-seat.is-summary h2 { font-size:10px; }
+  .fab-upf-seat.is-summary .fab-upf-seat-header button { padding:4px!important; font-size:10px!important; }
+  .fab-upf-seat.is-summary .fab-upf-summary { font-size:9px; line-height:1.4; margin-bottom:0; }
+  .fab-upf-seat.is-summary .fab-upf-zones { margin-top:4px; }
+}

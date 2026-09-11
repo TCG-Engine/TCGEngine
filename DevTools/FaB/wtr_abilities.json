@@ -1,0 +1,1466 @@
+[
+    {
+        "cardId": "alpha_rampage_red",
+        "abilities": []
+    },
+    {
+        "cardId": "ancestral_empowerment_red",
+        "abilities": []
+    },
+    {
+        "cardId": "anothos",
+        "abilities": []
+    },
+    {
+        "cardId": "awakening_bellow_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "awakening_bellow_red",
+        "abilities": []
+    },
+    {
+        "cardId": "awakening_bellow_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "barkbone_strapping",
+        "abilities": []
+    },
+    {
+        "cardId": "barraging_beatdown_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "barraging_beatdown_red",
+        "abilities": []
+    },
+    {
+        "cardId": "barraging_beatdown_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "barraging_brawnhide_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "barraging_brawnhide_red",
+        "abilities": []
+    },
+    {
+        "cardId": "barraging_brawnhide_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "biting_blade_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "biting_blade_red",
+        "abilities": []
+    },
+    {
+        "cardId": "biting_blade_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "blackout_kick_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "blackout_kick_red",
+        "abilities": []
+    },
+    {
+        "cardId": "blackout_kick_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "blessing_of_deliverance_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "blessing_of_deliverance_red",
+        "abilities": []
+    },
+    {
+        "cardId": "blessing_of_deliverance_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "bloodrush_bellow_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "bone_head_barrier_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "braveforge_bracers",
+        "abilities": []
+    },
+    {
+        "cardId": "bravo",
+        "abilities": []
+    },
+    {
+        "cardId": "bravo_showstopper",
+        "abilities": []
+    },
+    {
+        "cardId": "breaking_scales",
+        "abilities": []
+    },
+    {
+        "cardId": "breakneck_battery_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "breakneck_battery_red",
+        "abilities": []
+    },
+    {
+        "cardId": "breakneck_battery_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "buckling_blow_blue",
+        "abilities": [
+            {
+                "macroName": "Hit",
+                "abilityCode": "$defender = intval(FaBGetState()['defender']);\n$targets = FaBEquipmentChoices($defender);\nif ($targets !== '') {\n    $chosen = await $player.MZChoose($targets, \"Put_a_minus_one_defense_counter_on_equipment\");\n    FaBWeakenEquipment($chosen);\n}",
+                "prereqCode": "return intval($amount) >= 4;",
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "buckling_blow_red",
+        "abilities": [
+            {
+                "macroName": "Hit",
+                "abilityCode": "$defender = intval(FaBGetState()['defender']);\n$targets = FaBEquipmentChoices($defender);\nif ($targets !== '') {\n    $chosen = await $player.MZChoose($targets, \"Put_a_minus_one_defense_counter_on_equipment\");\n    FaBWeakenEquipment($chosen);\n}",
+                "prereqCode": "return intval($amount) >= 4;",
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "buckling_blow_yellow",
+        "abilities": [
+            {
+                "macroName": "Hit",
+                "abilityCode": "$defender = intval(FaBGetState()['defender']);\n$targets = FaBEquipmentChoices($defender);\nif ($targets !== '') {\n    $chosen = await $player.MZChoose($targets, \"Put_a_minus_one_defense_counter_on_equipment\");\n    FaBWeakenEquipment($chosen);\n}",
+                "prereqCode": "return intval($amount) >= 4;",
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "cartilage_crush_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "cartilage_crush_red",
+        "abilities": []
+    },
+    {
+        "cardId": "cartilage_crush_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "cracked_bauble_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "cranial_crush_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "crazy_brew_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "crippling_crush_red",
+        "abilities": [
+            {
+                "macroName": "Hit",
+                "abilityCode": "$state = FaBGetState();\nFaBDiscardRandom(intval($state['defender']), 2);",
+                "prereqCode": "return intval($amount) >= 4;",
+                "abilityName": "Crippling Crush",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "crush_confidence_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "crush_confidence_red",
+        "abilities": []
+    },
+    {
+        "cardId": "crush_confidence_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "dawnblade",
+        "abilities": []
+    },
+    {
+        "cardId": "debilitate_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "debilitate_red",
+        "abilities": []
+    },
+    {
+        "cardId": "debilitate_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "demolition_crew_blue",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Hand', ['minCost'=>2]));\n$chosen = await $player.MZChoose($targets, \"Reveal_a_card_for_the_additional_cost\");\nFaBRevealChoices($player, $chosen);\nFaBFinishPreparedCard($uid);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "demolition_crew_red",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Hand', ['minCost'=>2]));\n$chosen = await $player.MZChoose($targets, \"Reveal_a_card_for_the_additional_cost\");\nFaBRevealChoices($player, $chosen);\nFaBFinishPreparedCard($uid);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "demolition_crew_yellow",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Hand', ['minCost'=>2]));\n$chosen = await $player.MZChoose($targets, \"Reveal_a_card_for_the_additional_cost\");\nFaBRevealChoices($player, $chosen);\nFaBFinishPreparedCard($uid);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "disable_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "disable_red",
+        "abilities": []
+    },
+    {
+        "cardId": "disable_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "dorinthea",
+        "abilities": []
+    },
+    {
+        "cardId": "dorinthea_ironsong",
+        "abilities": []
+    },
+    {
+        "cardId": "driving_blade_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "driving_blade_red",
+        "abilities": []
+    },
+    {
+        "cardId": "driving_blade_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "drone_of_brutality_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "drone_of_brutality_red",
+        "abilities": []
+    },
+    {
+        "cardId": "drone_of_brutality_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "emerging_power_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "emerging_power_red",
+        "abilities": []
+    },
+    {
+        "cardId": "emerging_power_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "energy_potion_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "enlightened_strike_red",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n$chosen = await $player.MZChoose($targets, \"Put_a_card_on_the_bottom_of_your_deck\");\nFaBMoveChoice($player, $chosen, 'Hand', 'Deck');\n$mode = await $player.Modal(1, 1, \"Draw_a_card&Gain_2_power&Go_again\", \"Choose_Enlightened_Strike_mode\");\nFaBSetPreparedMode($uid, intval($mode));\nFaBFinishPreparedCard($uid);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "flic_flak_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "flic_flak_red",
+        "abilities": []
+    },
+    {
+        "cardId": "flic_flak_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "flock_of_the_feather_walkers_blue",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Hand', ['maxCost'=>1]));\n$chosen = await $player.MZChoose($targets, \"Reveal_a_card_for_the_additional_cost\");\nFaBRevealChoices($player, $chosen);\nFaBFinishPreparedCard($uid);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "flock_of_the_feather_walkers_red",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Hand', ['maxCost'=>1]));\n$chosen = await $player.MZChoose($targets, \"Reveal_a_card_for_the_additional_cost\");\nFaBRevealChoices($player, $chosen);\nFaBFinishPreparedCard($uid);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "flock_of_the_feather_walkers_yellow",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Hand', ['maxCost'=>1]));\n$chosen = await $player.MZChoose($targets, \"Reveal_a_card_for_the_additional_cost\");\nFaBRevealChoices($player, $chosen);\nFaBFinishPreparedCard($uid);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "fluster_fist_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "fluster_fist_red",
+        "abilities": []
+    },
+    {
+        "cardId": "fluster_fist_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "forged_for_war_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "fyendals_spring_tunic",
+        "abilities": [
+            {
+                "macroName": "StartTurn",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$choice = await $player.Modal(1, 1, \"Add_energy_counter&Decline\", \"Fyendals_Spring_Tunic\");\nif ($choice === '0') {\n    FaBAddEnergyCounter($uid);\n}",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "glint_the_quicksilver_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "goliath_gauntlet",
+        "abilities": []
+    },
+    {
+        "cardId": "harmonized_kodachi",
+        "abilities": []
+    },
+    {
+        "cardId": "head_jab_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "head_jab_red",
+        "abilities": []
+    },
+    {
+        "cardId": "head_jab_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "heart_of_fyendal_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "heartened_cross_strap",
+        "abilities": []
+    },
+    {
+        "cardId": "helm_of_isens_peak",
+        "abilities": []
+    },
+    {
+        "cardId": "hope_merchants_hood",
+        "abilities": [
+            {
+                "macroName": "ResolveAbility",
+                "abilityCode": "$targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n$maximum = FaBHandCount($player);\nif ($targets !== '') {\n    $chosen = await $player.MZMultiChoose($targets, 0, $maximum, \"Shuffle_any_number_of_cards_into_your_deck\");\n    $count = FaBMoveChoices($player, $chosen, 'Hand', 'Deck');\n    FaBShuffleDeck($player);\n    DoDrawCard($player, $count);\n}",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "hurricane_technique_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "ironrot_gauntlet",
+        "abilities": []
+    },
+    {
+        "cardId": "ironrot_helm",
+        "abilities": []
+    },
+    {
+        "cardId": "ironrot_legs",
+        "abilities": []
+    },
+    {
+        "cardId": "ironrot_plate",
+        "abilities": []
+    },
+    {
+        "cardId": "ironsong_determination_yellow",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$targets = implode('&', FaBChoiceRefs($player, 'Weapons'));\nif ($targets !== '') {\n    $chosen = await $player.MZChoose($targets, \"Choose_a_weapon\");\n    $weaponUID = intval(FaBIdentityFromMZ($chosen)['object']->UniqueID ?? 0);\n    FaBTagUID($weaponUID, 'WTR_POWER:1');\n    FaBTagUID($weaponUID, 'DOMINATE');\n}",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "ironsong_response_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "ironsong_response_red",
+        "abilities": []
+    },
+    {
+        "cardId": "ironsong_response_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "katsu",
+        "abilities": [
+            {
+                "macroName": "Hit",
+                "abilityCode": "$targets = implode('&', FaBChoiceRefs($player, 'Hand', ['cost'=>0]));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_discard_a_zero_cost_card_for_Katsu\");\n    $discarded = FaBDiscardChoice($player, $chosen);\n    if ($discarded) {\n        $search = FaBStageSearch($player, ['keyword'=>'Combo']);\n        if ($search !== '') {\n            $card = await $player.MZMayChoose($search, \"Search_for_a_combo_card\");\n            FaBGrantBanishPlay($player, $card);\n        }\n        FaBFinishSearch($player);\n    }\n}",
+                "prereqCode": "return intval($eventPlayer) === $player && FaBWTRHeroActive($player) && FaBHitIsAttackAction($event_mzID) && intval(FaBGetState()['attackActionHits'][(string)$player] ?? 0) === 1;",
+                "abilityName": null,
+                "abilityType": "listener",
+                "listenerZones": [
+                    "Hero"
+                ],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "katsu_the_wanderer",
+        "abilities": [
+            {
+                "macroName": "Hit",
+                "abilityCode": "$targets = implode('&', FaBChoiceRefs($player, 'Hand', ['cost'=>0]));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_discard_a_zero_cost_card_for_Katsu\");\n    $discarded = FaBDiscardChoice($player, $chosen);\n    if ($discarded) {\n        $search = FaBStageSearch($player, ['keyword'=>'Combo']);\n        if ($search !== '') {\n            $card = await $player.MZMayChoose($search, \"Search_for_a_combo_card\");\n            FaBGrantBanishPlay($player, $card);\n        }\n        FaBFinishSearch($player);\n    }\n}",
+                "prereqCode": "return intval($eventPlayer) === $player && FaBWTRHeroActive($player) && FaBHitIsAttackAction($event_mzID) && intval(FaBGetState()['attackActionHits'][(string)$player] ?? 0) === 1;",
+                "abilityName": null,
+                "abilityType": "listener",
+                "listenerZones": [
+                    "Hero"
+                ],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "last_ditch_effort_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "leg_tap_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "leg_tap_red",
+        "abilities": []
+    },
+    {
+        "cardId": "leg_tap_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "lord_of_wind_blue",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$extra = 0;\nif (FaBPreviousAttackBase() === 'mugenshi_release') {\n    $targets = implode('&', FaBChoiceRefs($player, 'Graveyard', ['bases'=>['surging_strike','whelming_gustwave','mugenshi_release']]));\n    $maximum = max(0, FaBAvailablePitch($player) - intval(FaBGetState()['pendingPayment']['cost']));\n    if ($targets !== '' && $maximum > 0) {\n        $chosen = await $player.MZMultiChoose($targets, 0, $maximum, \"Pay_one_resource_per_card_to_shuffle_back\");\n        $extra = FaBMoveChoices($player, $chosen, 'Graveyard', 'Deck');\n        FaBShuffleDeck($player);\n        FaBTagUID($uid, 'WTR_POWER:'.$extra);\n    }\n}\nFaBFinishPreparedCard($uid, $extra);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "mask_of_momentum",
+        "abilities": []
+    },
+    {
+        "cardId": "mugenshi_release_yellow",
+        "abilities": [
+            {
+                "macroName": "Hit",
+                "abilityCode": "$targets = FaBStageSearch($player, ['base'=>'lord_of_wind']);\nif ($targets !== '') {\n    $maximum = count(FaBChoiceRefs($player, 'Temp'));\n    $chosen = await $player.MZMultiChoose($targets, 0, $maximum, \"Choose_Lord_of_Wind_cards\");\n    FaBRevealChoices($player, $chosen);\n    FaBMoveChoices($player, $chosen, 'Temp', 'Hand');\n}\nFaBFinishSearch($player);",
+                "prereqCode": "return FaBWTRBase((string)FaBGetState()['previousAttackCardID']) === 'whelming_gustwave';",
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "natures_path_pilgrimage_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "natures_path_pilgrimage_red",
+        "abilities": []
+    },
+    {
+        "cardId": "natures_path_pilgrimage_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "nimble_strike_blue",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Graveyard', ['base'=>'nimblism']));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_banish_nimblism\");\n    $moved = FaBMoveChoice($player, $chosen, 'Graveyard', 'Banish');\n    if ($moved !== null) {\n        FaBTagUID($uid, 'WTR_NIMBLE_PAID');\n    }\n}\nFaBFinishPreparedCard($uid);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "nimble_strike_red",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Graveyard', ['base'=>'nimblism']));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_banish_nimblism\");\n    $moved = FaBMoveChoice($player, $chosen, 'Graveyard', 'Banish');\n    if ($moved !== null) {\n        FaBTagUID($uid, 'WTR_NIMBLE_PAID');\n    }\n}\nFaBFinishPreparedCard($uid);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "nimble_strike_yellow",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Graveyard', ['base'=>'nimblism']));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_banish_nimblism\");\n    $moved = FaBMoveChoice($player, $chosen, 'Graveyard', 'Banish');\n    if ($moved !== null) {\n        FaBTagUID($uid, 'WTR_NIMBLE_PAID');\n    }\n}\nFaBFinishPreparedCard($uid);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "nimblism_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "nimblism_red",
+        "abilities": []
+    },
+    {
+        "cardId": "nimblism_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "open_the_center_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "open_the_center_red",
+        "abilities": []
+    },
+    {
+        "cardId": "open_the_center_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "overpower_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "overpower_red",
+        "abilities": []
+    },
+    {
+        "cardId": "overpower_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "pack_hunt_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "pack_hunt_red",
+        "abilities": []
+    },
+    {
+        "cardId": "pack_hunt_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "potion_of_strength_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "pounding_gale_red",
+        "abilities": []
+    },
+    {
+        "cardId": "primeval_bellow_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "primeval_bellow_red",
+        "abilities": []
+    },
+    {
+        "cardId": "primeval_bellow_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "pummel_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "pummel_red",
+        "abilities": [
+            {
+                "macroName": "Hit",
+                "abilityCode": "$defender = intval(FaBGetState()['defender']);\n$targets = implode('&', FaBChoiceRefs($defender, 'Hand'));\nif ($targets !== '') {\n    $chosen = await $defender.MZChoose($targets, \"Choose_a_card_to_discard\");\n    FaBDiscardChoice($defender, $chosen);\n}",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "pummel_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "quicken",
+        "abilities": []
+    },
+    {
+        "cardId": "raging_onslaught_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "raging_onslaught_red",
+        "abilities": []
+    },
+    {
+        "cardId": "raging_onslaught_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "razor_reflex_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "razor_reflex_red",
+        "abilities": []
+    },
+    {
+        "cardId": "razor_reflex_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "reckless_swing_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "refraction_bolters",
+        "abilities": [
+            {
+                "macroName": "Hit",
+                "abilityCode": "$sourceUID = intval(FaBIdentityFromMZ($listenerMZ)['object']->UniqueID);\n$attackUID = intval(FaBIdentityFromMZ($event_mzID)['object']->UniqueID);\n$choice = await $player.Modal(1, 1, \"Keep_equipment&Destroy_for_go_again\", \"Refraction_Bolters\");\nif ($choice === '1') {\n    FaBMoveUID($sourceUID, 'Graveyard', $player);\n    FaBTagUID($attackUID, 'GO_AGAIN');\n}",
+                "prereqCode": "return intval($eventPlayer) === $player && FaBHitIsWeapon($event_mzID);",
+                "abilityName": null,
+                "abilityType": "listener",
+                "listenerZones": [
+                    "Equipment"
+                ],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "regurgitating_slog_blue",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Graveyard', ['base'=>'sloggism']));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_banish_sloggism\");\n    $moved = FaBMoveChoice($player, $chosen, 'Graveyard', 'Banish');\n    if ($moved !== null) {\n        FaBTagUID($uid, 'WTR_SLOG_PAID');\n    }\n}\nFaBFinishPreparedCard($uid);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "regurgitating_slog_red",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Graveyard', ['base'=>'sloggism']));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_banish_sloggism\");\n    $moved = FaBMoveChoice($player, $chosen, 'Graveyard', 'Banish');\n    if ($moved !== null) {\n        FaBTagUID($uid, 'WTR_SLOG_PAID');\n    }\n}\nFaBFinishPreparedCard($uid);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "regurgitating_slog_yellow",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = implode('&', FaBChoiceRefs($player, 'Graveyard', ['base'=>'sloggism']));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_banish_sloggism\");\n    $moved = FaBMoveChoice($player, $chosen, 'Graveyard', 'Banish');\n    if ($moved !== null) {\n        FaBTagUID($uid, 'WTR_SLOG_PAID');\n    }\n}\nFaBFinishPreparedCard($uid);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "remembrance_yellow",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$selfUID = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID ?? 0);\n$targets = FaBActionGraveChoices($player, $selfUID);\nif ($targets !== '') {\n    $selected = await $player.MZMultiChoose($targets, 0, 3, \"Shuffle_up_to_three_action_cards_into_your_deck\");\n    FaBMoveChoices($player, $selected, 'Graveyard', 'Deck');\n}\nFaBShuffleDeck($player);\nFaBMoveUID($selfUID, 'Banish', $player);",
+                "prereqCode": null,
+                "abilityName": "Choose actions to shuffle back",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "rhinar",
+        "abilities": []
+    },
+    {
+        "cardId": "rhinar_reckless_rampage",
+        "abilities": []
+    },
+    {
+        "cardId": "rising_knee_thrust_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "rising_knee_thrust_red",
+        "abilities": []
+    },
+    {
+        "cardId": "rising_knee_thrust_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "romping_club",
+        "abilities": []
+    },
+    {
+        "cardId": "rout_red",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$attackUID = intval(FaBGetState()['attackUID']);\nFaBTagUID($attackUID, 'WTR_POWER:3');\nif (FaBWTRDefendedFromHand(FaBGetState())) {\n    $defender = intval(FaBGetState()['defender']);\n    $targets = FaBDefendingChoices($defender);\n    if ($targets !== '') {\n        $chosen = await $player.MZMayChoose($targets, \"Return_a_defending_card_to_hand\");\n        FaBMoveChoice($defender, $chosen, 'CombatChain', 'Hand');\n    }\n}",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "sand_sketched_plan_blue",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$targets = FaBStageSearch($player);\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"Search_for_a_card\");\n    FaBMoveChoice($player, $chosen, 'Temp', 'Hand');\n}\n$discarded = FaBDiscardRandom($player, 1);\n$power = 0;\nif (!empty($discarded)) {\n    $found = FaBFindUID(intval($discarded[0]));\n    $power = intval(CardPower($found['object']->CardID ?? ''));\n}\nFaBFinishSearch($player);\nif ($power >= 6) {\n    AddActionPoints($player, intval(GetActionPoints($player)) + 2);\n}",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "savage_feast_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "savage_feast_red",
+        "abilities": []
+    },
+    {
+        "cardId": "savage_feast_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "savage_swing_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "savage_swing_red",
+        "abilities": []
+    },
+    {
+        "cardId": "savage_swing_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "scabskin_leathers",
+        "abilities": []
+    },
+    {
+        "cardId": "scar_for_a_scar_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "scar_for_a_scar_red",
+        "abilities": []
+    },
+    {
+        "cardId": "scar_for_a_scar_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "scour_the_battlescape_blue",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$source = FaBIdentityFromMZ($mzID);\n$sourceUID = intval($source['object']->UniqueID ?? 0);\n$fromArsenal = DecisionQueueController::GetVariable('fabSourceZone') === 'Arsenal';\n$choices = implode('&', FaBChoiceRefs($player, 'Hand'));\nif ($choices !== '') {\n    $chosen = await $player.MZMayChoose($choices, \"Put_a_card_on_the_bottom_of_your_deck\");\n    if ($chosen !== '-' && $chosen !== '' && $chosen !== 'PASS') {\n        if (FaBMoveChoice($player, $chosen, 'Hand', 'Deck') !== null) {\n            DoDrawCard($player, 1);\n        }\n    }\n}\nif ($fromArsenal) {\n    $live = FaBFindUID($sourceUID);\n    if ($live !== null) {\n        FaBWTRTag($live['object'], 'GO_AGAIN');\n    }\n}",
+                "prereqCode": null,
+                "abilityName": "Optional hand exchange",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "scour_the_battlescape_red",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$source = FaBIdentityFromMZ($mzID);\n$sourceUID = intval($source['object']->UniqueID ?? 0);\n$fromArsenal = DecisionQueueController::GetVariable('fabSourceZone') === 'Arsenal';\n$choices = implode('&', FaBChoiceRefs($player, 'Hand'));\nif ($choices !== '') {\n    $chosen = await $player.MZMayChoose($choices, \"Put_a_card_on_the_bottom_of_your_deck\");\n    if ($chosen !== '-' && $chosen !== '' && $chosen !== 'PASS') {\n        if (FaBMoveChoice($player, $chosen, 'Hand', 'Deck') !== null) {\n            DoDrawCard($player, 1);\n        }\n    }\n}\nif ($fromArsenal) {\n    $live = FaBFindUID($sourceUID);\n    if ($live !== null) {\n        FaBWTRTag($live['object'], 'GO_AGAIN');\n    }\n}",
+                "prereqCode": null,
+                "abilityName": "Optional hand exchange",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "scour_the_battlescape_yellow",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$source = FaBIdentityFromMZ($mzID);\n$sourceUID = intval($source['object']->UniqueID ?? 0);\n$fromArsenal = DecisionQueueController::GetVariable('fabSourceZone') === 'Arsenal';\n$choices = implode('&', FaBChoiceRefs($player, 'Hand'));\nif ($choices !== '') {\n    $chosen = await $player.MZMayChoose($choices, \"Put_a_card_on_the_bottom_of_your_deck\");\n    if ($chosen !== '-' && $chosen !== '' && $chosen !== 'PASS') {\n        if (FaBMoveChoice($player, $chosen, 'Hand', 'Deck') !== null) {\n            DoDrawCard($player, 1);\n        }\n    }\n}\nif ($fromArsenal) {\n    $live = FaBFindUID($sourceUID);\n    if ($live !== null) {\n        FaBWTRTag($live['object'], 'GO_AGAIN');\n    }\n}",
+                "prereqCode": null,
+                "abilityName": "Optional hand exchange",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "seismic_surge",
+        "abilities": []
+    },
+    {
+        "cardId": "sharpen_steel_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "sharpen_steel_red",
+        "abilities": []
+    },
+    {
+        "cardId": "sharpen_steel_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "show_time_blue",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$targets = FaBStageSearch($player, ['type'=>'Guardian', 'attackAction'=>true]);\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"Search_for_a_Guardian_attack\");\n    FaBMoveChoice($player, $chosen, 'Temp', 'Hand');\n}\nFaBFinishSearch($player);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "sigil_of_solace_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "sigil_of_solace_red",
+        "abilities": []
+    },
+    {
+        "cardId": "sigil_of_solace_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "singing_steelblade_yellow",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$attackUID = intval(FaBGetState()['attackUID']);\nFaBTagUID($attackUID, 'WTR_POWER:1');\nif (FaBWTRDefendedFromHand(FaBGetState())) {\n    $link = intval(FaBGetState()['chainLink']);\n    $targets = FaBStageSearch($player, ['type'=>'Attack Reaction']);\n    if ($targets !== '') {\n        $chosen = await $player.MZMayChoose($targets, \"Search_for_an_attack_reaction\");\n        FaBGrantBanishPlay($player, $chosen, $link);\n    }\n    FaBFinishSearch($player);\n}",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "sink_below_blue",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$source = FaBIdentityFromMZ($mzID);\n$sourceUID = intval($source['object']->UniqueID ?? 0);\n$fromArsenal = DecisionQueueController::GetVariable('fabSourceZone') === 'Arsenal';\n$choices = implode('&', FaBChoiceRefs($player, 'Hand'));\nif ($choices !== '') {\n    $chosen = await $player.MZMayChoose($choices, \"Put_a_card_on_the_bottom_of_your_deck\");\n    if ($chosen !== '-' && $chosen !== '' && $chosen !== 'PASS') {\n        if (FaBMoveChoice($player, $chosen, 'Hand', 'Deck') !== null) {\n            DoDrawCard($player, 1);\n        }\n    }\n}\n",
+                "prereqCode": null,
+                "abilityName": "Optional hand exchange",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "sink_below_red",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$source = FaBIdentityFromMZ($mzID);\n$sourceUID = intval($source['object']->UniqueID ?? 0);\n$fromArsenal = DecisionQueueController::GetVariable('fabSourceZone') === 'Arsenal';\n$choices = implode('&', FaBChoiceRefs($player, 'Hand'));\nif ($choices !== '') {\n    $chosen = await $player.MZMayChoose($choices, \"Put_a_card_on_the_bottom_of_your_deck\");\n    if ($chosen !== '-' && $chosen !== '' && $chosen !== 'PASS') {\n        if (FaBMoveChoice($player, $chosen, 'Hand', 'Deck') !== null) {\n            DoDrawCard($player, 1);\n        }\n    }\n}\n",
+                "prereqCode": null,
+                "abilityName": "Optional hand exchange",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "sink_below_yellow",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$source = FaBIdentityFromMZ($mzID);\n$sourceUID = intval($source['object']->UniqueID ?? 0);\n$fromArsenal = DecisionQueueController::GetVariable('fabSourceZone') === 'Arsenal';\n$choices = implode('&', FaBChoiceRefs($player, 'Hand'));\nif ($choices !== '') {\n    $chosen = await $player.MZMayChoose($choices, \"Put_a_card_on_the_bottom_of_your_deck\");\n    if ($chosen !== '-' && $chosen !== '' && $chosen !== 'PASS') {\n        if (FaBMoveChoice($player, $chosen, 'Hand', 'Deck') !== null) {\n            DoDrawCard($player, 1);\n        }\n    }\n}\n",
+                "prereqCode": null,
+                "abilityName": "Optional hand exchange",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "sloggism_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "sloggism_red",
+        "abilities": []
+    },
+    {
+        "cardId": "sloggism_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "smash_instinct_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "smash_instinct_red",
+        "abilities": []
+    },
+    {
+        "cardId": "smash_instinct_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "snapdragon_scalers",
+        "abilities": []
+    },
+    {
+        "cardId": "snatch_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "snatch_red",
+        "abilities": []
+    },
+    {
+        "cardId": "snatch_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "spinal_crush_red",
+        "abilities": []
+    },
+    {
+        "cardId": "staunch_response_blue",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$extra = 0;\n$cost = intval(FaBGetState()['pendingPayment']['cost']);\nif (FaBAvailablePitch($player) >= $cost + 4) {\n    $mode = await $player.Modal(1, 1, \"Base_defense&Pay_4_for_3_more_defense\", \"Choose_additional_cost\");\n    if ($mode === '1') {\n        $extra = 4;\n        FaBTagUID($uid, 'WTR_DEFENSE:3');\n    }\n}\nFaBFinishPreparedCard($uid, $extra);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "staunch_response_red",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$extra = 0;\n$cost = intval(FaBGetState()['pendingPayment']['cost']);\nif (FaBAvailablePitch($player) >= $cost + 4) {\n    $mode = await $player.Modal(1, 1, \"Base_defense&Pay_4_for_3_more_defense\", \"Choose_additional_cost\");\n    if ($mode === '1') {\n        $extra = 4;\n        FaBTagUID($uid, 'WTR_DEFENSE:3');\n    }\n}\nFaBFinishPreparedCard($uid, $extra);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "staunch_response_yellow",
+        "abilities": [
+            {
+                "macroName": "PrepareCard",
+                "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$extra = 0;\n$cost = intval(FaBGetState()['pendingPayment']['cost']);\nif (FaBAvailablePitch($player) >= $cost + 4) {\n    $mode = await $player.Modal(1, 1, \"Base_defense&Pay_4_for_3_more_defense\", \"Choose_additional_cost\");\n    if ($mode === '1') {\n        $extra = 4;\n        FaBTagUID($uid, 'WTR_DEFENSE:3');\n    }\n}\nFaBFinishPreparedCard($uid, $extra);",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "steelblade_shunt_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "steelblade_shunt_red",
+        "abilities": []
+    },
+    {
+        "cardId": "steelblade_shunt_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "steelblade_supremacy_red",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$targets = implode('&', FaBChoiceRefs($player, 'Weapons'));\nif ($targets !== '') {\n    $chosen = await $player.MZChoose($targets, \"Choose_a_weapon\");\n    $weaponUID = intval(FaBIdentityFromMZ($chosen)['object']->UniqueID ?? 0);\n    FaBTagUID($weaponUID, 'WTR_POWER:2');\n    FaBTagUID($weaponUID, 'WTR_DRAW_HIT');\n}",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "stonewall_confidence_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "stonewall_confidence_red",
+        "abilities": []
+    },
+    {
+        "cardId": "stonewall_confidence_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "stroke_of_foresight_blue",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$attackUID = intval(FaBGetState()['attackUID']);\n$power = FaBWTRPitchValue('stroke_of_foresight_blue', [3,2,1]);\nFaBTagUID($attackUID, 'WTR_POWER:'.$power);\nif (FaBWTRDefendedFromHand(FaBGetState())) {\n    DoDrawCard($player, 1);\n    $targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n    if ($targets !== '') {\n        $chosen = await $player.MZChoose($targets, \"Choose_a_card_to_put_back\");\n        $position = await $player.Modal(1, 1, \"Top&Bottom\", \"Choose_deck_position\");\n        FaBPlaceChosenOnDeck($player, $chosen, $position === '0');\n    }\n}",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "stroke_of_foresight_red",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$attackUID = intval(FaBGetState()['attackUID']);\n$power = FaBWTRPitchValue('stroke_of_foresight_red', [3,2,1]);\nFaBTagUID($attackUID, 'WTR_POWER:'.$power);\nif (FaBWTRDefendedFromHand(FaBGetState())) {\n    DoDrawCard($player, 1);\n    $targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n    if ($targets !== '') {\n        $chosen = await $player.MZChoose($targets, \"Choose_a_card_to_put_back\");\n        $position = await $player.Modal(1, 1, \"Top&Bottom\", \"Choose_deck_position\");\n        FaBPlaceChosenOnDeck($player, $chosen, $position === '0');\n    }\n}",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "stroke_of_foresight_yellow",
+        "abilities": [
+            {
+                "macroName": "ResolveCard",
+                "abilityCode": "$attackUID = intval(FaBGetState()['attackUID']);\n$power = FaBWTRPitchValue('stroke_of_foresight_yellow', [3,2,1]);\nFaBTagUID($attackUID, 'WTR_POWER:'.$power);\nif (FaBWTRDefendedFromHand(FaBGetState())) {\n    DoDrawCard($player, 1);\n    $targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n    if ($targets !== '') {\n        $chosen = await $player.MZChoose($targets, \"Choose_a_card_to_put_back\");\n        $position = await $player.Modal(1, 1, \"Top&Bottom\", \"Choose_deck_position\");\n        FaBPlaceChosenOnDeck($player, $chosen, $position === '0');\n    }\n}",
+                "prereqCode": null,
+                "abilityName": null,
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "surging_strike_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "surging_strike_red",
+        "abilities": []
+    },
+    {
+        "cardId": "surging_strike_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "tectonic_plating",
+        "abilities": []
+    },
+    {
+        "cardId": "timesnap_potion_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "tome_of_fyendal_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "unmovable_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "unmovable_red",
+        "abilities": []
+    },
+    {
+        "cardId": "unmovable_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "warriors_valor_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "warriors_valor_red",
+        "abilities": []
+    },
+    {
+        "cardId": "warriors_valor_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "whelming_gustwave_blue",
+        "abilities": [
+            {
+                "macroName": "AttackPowerModifier",
+                "abilityCode": "return 1;",
+                "prereqCode": "$state = FaBGetState();\nreturn FaBComboActive($state, 'surging_strike_red') || FaBComboActive($state, 'surging_strike_yellow') || FaBComboActive($state, 'surging_strike_blue');",
+                "abilityName": "Whelming Gustwave combo power",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            },
+            {
+                "macroName": "GoAgainModifier",
+                "abilityCode": "return 1;",
+                "prereqCode": "$state = FaBGetState();\nreturn FaBComboActive($state, 'surging_strike_red') || FaBComboActive($state, 'surging_strike_yellow') || FaBComboActive($state, 'surging_strike_blue');",
+                "abilityName": "Whelming Gustwave combo go again",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            },
+            {
+                "macroName": "Hit",
+                "abilityCode": "DoDrawCard($player, 1);",
+                "prereqCode": "$state = FaBGetState();\nreturn FaBComboActive($state, 'surging_strike_red') || FaBComboActive($state, 'surging_strike_yellow') || FaBComboActive($state, 'surging_strike_blue');",
+                "abilityName": "Whelming Gustwave combo draw",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "whelming_gustwave_red",
+        "abilities": [
+            {
+                "macroName": "AttackPowerModifier",
+                "abilityCode": "return 1;",
+                "prereqCode": "$state = FaBGetState();\nreturn FaBComboActive($state, 'surging_strike_red') || FaBComboActive($state, 'surging_strike_yellow') || FaBComboActive($state, 'surging_strike_blue');",
+                "abilityName": "Whelming Gustwave combo power",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            },
+            {
+                "macroName": "GoAgainModifier",
+                "abilityCode": "return 1;",
+                "prereqCode": "$state = FaBGetState();\nreturn FaBComboActive($state, 'surging_strike_red') || FaBComboActive($state, 'surging_strike_yellow') || FaBComboActive($state, 'surging_strike_blue');",
+                "abilityName": "Whelming Gustwave combo go again",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            },
+            {
+                "macroName": "Hit",
+                "abilityCode": "DoDrawCard($player, 1);",
+                "prereqCode": "$state = FaBGetState();\nreturn FaBComboActive($state, 'surging_strike_red') || FaBComboActive($state, 'surging_strike_yellow') || FaBComboActive($state, 'surging_strike_blue');",
+                "abilityName": "Whelming Gustwave combo draw",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "whelming_gustwave_yellow",
+        "abilities": [
+            {
+                "macroName": "AttackPowerModifier",
+                "abilityCode": "return 1;",
+                "prereqCode": "$state = FaBGetState();\nreturn FaBComboActive($state, 'surging_strike_red') || FaBComboActive($state, 'surging_strike_yellow') || FaBComboActive($state, 'surging_strike_blue');",
+                "abilityName": "Whelming Gustwave combo power",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            },
+            {
+                "macroName": "GoAgainModifier",
+                "abilityCode": "return 1;",
+                "prereqCode": "$state = FaBGetState();\nreturn FaBComboActive($state, 'surging_strike_red') || FaBComboActive($state, 'surging_strike_yellow') || FaBComboActive($state, 'surging_strike_blue');",
+                "abilityName": "Whelming Gustwave combo go again",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            },
+            {
+                "macroName": "Hit",
+                "abilityCode": "DoDrawCard($player, 1);",
+                "prereqCode": "$state = FaBGetState();\nreturn FaBComboActive($state, 'surging_strike_red') || FaBComboActive($state, 'surging_strike_yellow') || FaBComboActive($state, 'surging_strike_blue');",
+                "abilityName": "Whelming Gustwave combo draw",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "wounded_bull_blue",
+        "abilities": [
+            {
+                "macroName": "AttackPowerModifier",
+                "abilityCode": "return 1;",
+                "prereqCode": "return in_array('WTR_WOUNDED_BULL', (array)($subjectObj->TurnEffects ?? []), true);",
+                "abilityName": "Wounded Bull power bonus",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "wounded_bull_red",
+        "abilities": [
+            {
+                "macroName": "AttackPowerModifier",
+                "abilityCode": "return 1;",
+                "prereqCode": "return in_array('WTR_WOUNDED_BULL', (array)($subjectObj->TurnEffects ?? []), true);",
+                "abilityName": "Wounded Bull power bonus",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "wounded_bull_yellow",
+        "abilities": [
+            {
+                "macroName": "AttackPowerModifier",
+                "abilityCode": "return 1;",
+                "prereqCode": "return in_array('WTR_WOUNDED_BULL', (array)($subjectObj->TurnEffects ?? []), true);",
+                "abilityName": "Wounded Bull power bonus",
+                "abilityType": "macro",
+                "listenerZones": [],
+                "isImplemented": true
+            }
+        ]
+    },
+    {
+        "cardId": "wounding_blow_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "wounding_blow_red",
+        "abilities": []
+    },
+    {
+        "cardId": "wounding_blow_yellow",
+        "abilities": []
+    },
+    {
+        "cardId": "wrecker_romp_blue",
+        "abilities": []
+    },
+    {
+        "cardId": "wrecker_romp_red",
+        "abilities": []
+    },
+    {
+        "cardId": "wrecker_romp_yellow",
+        "abilities": []
+    }
+]

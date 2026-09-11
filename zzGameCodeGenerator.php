@@ -2388,7 +2388,7 @@ function AddGetNextTurnForPlayer($player) {
     // a uniform 31 wide so the stride is correct for all seats. The client still reads globals
     // from seat-1's fixed indices (13-31); the repeats in later blocks are inert. Non-SWU sims
     // keep the skip → byte-identical.
-    if ($scope == 'global' && $player > 1 && $rootName !== 'SWUSim') continue;
+    if ($scope == 'global' && $player > 1 && !in_array($rootName, ['SWUSim', 'FaBSim'], true)) continue;
 
     $zoneName = ($scope == 'global') ? "g" . $zone->Name : "p" . $player . $zone->Name;
     echo($zoneName . "<BR>");
@@ -2500,7 +2500,12 @@ function AddGetNextTurnForPlayer($player) {
           ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
           : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         }
-        $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        if ($rootName === 'FaBSim' && $zone->Name === 'Banish') {
+          $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1) echo(ClientRenderedCard('CardBack'));\r\n";
+          $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        } else {
+          $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        }
       } else if($zone->Visibility == "Private") {
         $getNextTurn .= "    echo(ClientRenderedCard(\"CardBack\"));\r\n";
       } else if ($zone->Visibility == "Self") {
@@ -2633,6 +2638,16 @@ function AddNextTurn() {
       $header .= "echo(\"window.their" . $zone->Name . "Panes = [];\");\r\n";
       $footer .= "echo(\"RenderPanes('" . $zone->Name . "', window.my" . $zone->Name . "Panes, window.their" . $zone->Name . "Panes);\");\r\n";
     }
+  }
+  if ($rootName === 'FaBSim') {
+    $renderZones = [];
+    foreach ($zones as $i => $zone) {
+      if (strtolower($zone->Scope ?? 'Player') !== 'global' && $zone->BindTo && $zone->Visibility !== 'None') {
+        $renderZones[] = ['name' => $zone->Name, 'index' => $i + $startPiece, 'mode' => $zone->DisplayMode];
+      }
+    }
+    $renderCall = "if (typeof RenderFaBMultiplayer === 'function') RenderFaBMultiplayer(responseArr, " . count($zones) . ", " . json_encode($renderZones) . ", cardSize, currentPlayerIndex);";
+    $footer .= 'echo(' . var_export($renderCall, true) . ");\r\n";
   }
   if ($hasDecisionQueue) {
     // Selection state is prepared before zone HTML is built. Mount prompts and DOM-dependent
@@ -2905,6 +2920,7 @@ function AddGeneratedUI() {
 
   //Client dictionary of zone widgets and their actions
   $rv .= "function GetZoneWidgets(zoneName) {\r\n";
+  $rv .= "  zoneName = zoneName.replace(/^p[1-4]/, '');\r\n";
   $rv .= "  switch(zoneName) {\r\n";
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
@@ -2932,6 +2948,7 @@ function AddGeneratedUI() {
 
   //Client dictionary of zone click actions
   $rv .= "function GetZoneClickActions(zoneName) {\r\n";
+  $rv .= "  zoneName = zoneName.replace(/^p[1-4]/, '');\r\n";
   $rv .= "  switch(zoneName) {\r\n";
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
@@ -3016,6 +3033,7 @@ function AddGeneratedUI() {
 
   //Client dictionary of all zone data
   $rv .= "function GetZoneData(zoneName) {\r\n";
+  $rv .= "  zoneName = zoneName.replace(/^p[1-4]/, '');\r\n";
   $rv .= "  switch(zoneName) {\r\n";
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
@@ -4502,7 +4520,8 @@ function WriteMacroListenerCode($handler, $listenerAbilitiesByMacro, $macrosByNa
   fwrite($handler, "function ExpandMacroListenerZoneName(\$zoneName) {\r\n");
   fwrite($handler, "  \$zoneName = trim(strval(\$zoneName));\r\n");
   fwrite($handler, "  if(\$zoneName === '') return [];\r\n");
-  fwrite($handler, "  if(preg_match('/^(my|their|p1|p2)/', \$zoneName)) return [\$zoneName];\r\n");
+  fwrite($handler, "  if(preg_match('/^(my|their|p[1-4])/', \$zoneName)) return [\$zoneName];\r\n");
+  fwrite($handler, "  if(function_exists('GameMacroListenerSeats')) return array_map(fn(\$seat) => 'p' . intval(\$seat) . \$zoneName, GameMacroListenerSeats());\r\n");
   fwrite($handler, "  return array_values(array_unique(['p1' . \$zoneName, 'p2' . \$zoneName, \$zoneName]));\r\n");
   fwrite($handler, "}\r\n\r\n");
 
@@ -4522,7 +4541,7 @@ function WriteMacroListenerCode($handler, $listenerAbilitiesByMacro, $macrosByNa
   fwrite($handler, "}\r\n\r\n");
 
   fwrite($handler, "function MacroListenerPlayerForZoneObject(\$zoneName, \$obj, \$eventPlayer) {\r\n");
-  fwrite($handler, "  if(preg_match('/^p([12])/', strval(\$zoneName), \$matches)) return intval(\$matches[1]);\r\n");
+  fwrite($handler, "  if(preg_match('/^p([1-4])/', strval(\$zoneName), \$matches)) return intval(\$matches[1]);\r\n");
   fwrite($handler, "  if(is_object(\$obj) && isset(\$obj->Controller) && intval(\$obj->Controller) > 0) return intval(\$obj->Controller);\r\n");
   fwrite($handler, "  if(is_object(\$obj) && isset(\$obj->Owner) && intval(\$obj->Owner) > 0) return intval(\$obj->Owner);\r\n");
   fwrite($handler, "  return intval(\$eventPlayer);\r\n");
@@ -4530,6 +4549,7 @@ function WriteMacroListenerCode($handler, $listenerAbilitiesByMacro, $macrosByNa
 
   fwrite($handler, "function MacroListenerRelativeMzID(\$zoneName, \$index, \$listenerPlayer, \$resolverPlayer) {\r\n");
   fwrite($handler, "  \$zoneName = strval(\$zoneName);\r\n");
+  fwrite($handler, "  if(function_exists('GameMacroListenerSeats') && preg_match('/^p[1-4]/', \$zoneName)) return \$zoneName . '-' . intval(\$index);\r\n");
   fwrite($handler, "  \$listenerPlayer = intval(\$listenerPlayer);\r\n");
   fwrite($handler, "  \$resolverPlayer = intval(\$resolverPlayer);\r\n");
   fwrite($handler, "  if(\$resolverPlayer !== 1 && \$resolverPlayer !== 2) \$resolverPlayer = \$listenerPlayer;\r\n");
@@ -4795,7 +4815,10 @@ function GenerateMacroCode() {
             // Use abilityKey:macroName as handlerPrefix so generated resume handler names are unique
             // even when the same card has abilities for multiple macros (e.g. OnAttack + Reveal).
             $handlerPrefix = $abilityKey . ":" . $macroName;
-            $transformedCode = TransformAwaitCode($code, $handlerPrefix, $name, $continuationHandlers, $macroParams);
+            // FaB choices keep scalar identity/payment locals across even a flat
+            // sequence of awaits. The legacy flat compiler only restores params.
+            $forceAwaitFrame = $rootName === 'FaBSim' && stripos($code, 'await') !== false;
+            $transformedCode = TransformAwaitCode($code, $handlerPrefix, $name, $continuationHandlers, $macroParams, $forceAwaitFrame);
 
             // Merge generated resume handlers into global collection
             $allContinuationHandlers = array_merge($allContinuationHandlers, $continuationHandlers);

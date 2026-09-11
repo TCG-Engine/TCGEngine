@@ -309,11 +309,13 @@ function _WaitingRoomScript(array $cfg): string {
     if (!cards.length) return '';
     return '<div class="wr-strip">' + cards.map(thumb).join('') + '</div>';
   }
+  var botProfiles = {};
   function seatBody(entry, seatNo) {
     // No "(you)" here — the green ring on your own tile already says it, and repeating it in text
     // was two signals for one fact. It IS kept in the unassigned holding line below, where there is
     // no tile and therefore no ring to read it from.
     var who = 'P' + entry.playerID + (entry.isHost ? ' (host)' : '');
+    if (entry.botProfile) who += ' · ' + ((botProfiles[entry.botProfile] || {}).name || 'Bot');
     // deckOk, ready and away are THREE different facts. A legal deck you are still swapping is not a
     // deck you are ready to play, and a ready deck whose owner has closed their browser is not a
     // player. Away NEVER blocks Start — it is what the host reads before deciding to Remove.
@@ -325,6 +327,7 @@ function _WaitingRoomScript(array $cfg): string {
                             : '<span style="color:#ff6b6b;font-size:12px;">deck missing/invalid</span>';
     var kick = (iAmHost && entry.playerID !== myPlayerID)
       ? '<button type="button" class="btn wr-kick" data-kick="' + entry.playerID + '">Remove</button>' : '';
+    if (entry.botProfile) deck = '<span style="font-size:12px;">' + esc((botProfiles[entry.botProfile] || {}).description || '') + '</span>';
     return '<div class="wr-seat-label">Seat ' + seatNo + '</div>' +
            '<div class="wr-seat-who">' + esc(who) + kick + '</div>' + strip(entry) +
            '<div class="wr-seat-foot">' + pill + away + deck + '</div>';
@@ -334,6 +337,7 @@ function _WaitingRoomScript(array $cfg): string {
   }
 
   function renderRoster(d) {
+    botProfiles = d.botProfiles || {};
     var host = el('wr-roster'); if (!host) return;
     var roster = d.roster || [];
     var model = d.seatModel || { maxPlayers: d.maxPlayers || 2, teams: null };
@@ -415,21 +419,42 @@ function _WaitingRoomScript(array $cfg): string {
     var entries = roster.slice().sort(function (a, b) { return a.playerID - b.playerID; });
     var rows = [];
     for (var i = 0; i < (model.maxPlayers || 2); i++) {
-      var e = entries[i];
+      var e = model.fixedSeats ? bySeat[i + 1] : entries[i];
       rows.push('<div class="wr-seat' +
                 (e ? ((e.playerID === myPlayerID ? ' wr-seat-mine' : '') + (e.away ? ' wr-seat-away' : ''))
                    : ' wr-seat-empty') +
                 '" data-seat="' + (i + 1) + '">' +
-                (e ? seatBody(e, i + 1) : emptySeat(i + 1, 'Waiting…')) + '</div>');
+                (e ? seatBody(e, i + 1) : emptySeat(i + 1, botPicker(d, i + 1))) + '</div>');
     }
     host.innerHTML = '<div class="wr-grid">' + rows.join('') + '</div>';
     bindKicks(host);
+    Array.prototype.forEach.call(host.querySelectorAll('.wr-add-bot'), function (button) {
+      button.onclick = function () {
+        var profile = button.parentNode.querySelector('select').value;
+        button.disabled = true;
+        post('APIs/Lobbies/AddBot.php', 'lobbyID=' + encodeURIComponent(lobbyID) +
+          '&authKey=' + encodeURIComponent(loadKey(lobbyID)) + '&botProfile=' + encodeURIComponent(profile) +
+          '&seat=' + encodeURIComponent(button.getAttribute('data-bot-seat')), function (r) {
+            if (!r.success) el('wr-hint').textContent = r.message || 'Could not add bot.';
+            button.disabled = false;
+            lastSig = '';
+          });
+      };
+    });
+  }
+
+  function botPicker(d, seat) {
+    var profiles = Object.keys(botProfiles);
+    if (!iAmHost || d.state !== 'open' || !profiles.length) return 'Waiting…';
+    return '<label>Bot <select aria-label="Bot type">' + profiles.map(function (id) {
+      return '<option value="' + esc(id) + '">' + esc(botProfiles[id].name) + '</option>';
+    }).join('') + '</select></label> <button type="button" class="btn wr-add-bot" data-bot-seat="' + seat + '">Add bot</button>';
   }
 
   function renderInvite(d) {
     var host = el('wr-invite'); if (!host) return;
     if (!d.inviteCode) { host.innerHTML = ''; return; }
-    var link = location.origin + appBase() + 'SharedUI/WaitingRoom.php?invite=' + encodeURIComponent(d.inviteCode);
+    var link = location.origin + appBase() + 'SharedUI/Sites/' + encodeURIComponent(ROOT) + '/WaitingRoom.php?invite=' + encodeURIComponent(d.inviteCode);
     host.innerHTML = 'Invite: <strong>' + esc(d.inviteCode) + '</strong> ' +
                      '<button id="wr-copy" type="button" class="btn" style="margin-left:8px;">Copy Invite Link</button>';
     el('wr-copy').onclick = function () {
@@ -732,7 +757,7 @@ function _WaitingRoomScript(array $cfg): string {
         el('wr-removed').style.display = r.removed ? '' : 'none';
         // Only the fields the roster renders go into the signature; myPlayerID is in it because
         // the own-seat ring and the Join/Start controls depend on which seat we are.
-        var sig = JSON.stringify([r.roster, r.seatModel, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed]);
+        var sig = JSON.stringify([r.roster, r.seatModel, r.botProfiles, r.state, r.blockers, r.numPlayers, r.inviteCode, myPlayerID, !!r.removed]);
         if (sig !== lastSig) { lastSig = sig; render(r); }
       }
       pollTimer = setTimeout(poll, POLL_MS);

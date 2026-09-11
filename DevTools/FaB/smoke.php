@@ -171,9 +171,10 @@ SetSeatOrder('1234');
 SetLiveSeats('1234');
 $seat3Card = AddHand(3, CardID:'scar_for_a_scar_red');
 $seat4Card = AddHand(4, CardID:'sink_below_red');
-$woundedBull = AddHand(3, CardID:'wounded_bull_blue');
+$woundedBull = AddStack(CardID:'wounded_bull_blue',Controller:3,Kind:'ATTACK',SourceZone:'Hand');
 AddResources(3, 2);
 AddHealth(3, 10);
+FaBWTRCardPlayed(3,'Stack-'.intval($woundedBull->mzIndex),'wounded_bull_blue','Hand');
 $check(EvaluateAttackPowerModifier('wounded_bull_blue', 3, $woundedBull, 5, $woundedBull) === 1,
     'Generated Wounded Bull macro did not see a higher-life opposing hero.');
 $check(FaBSeatCount() === 4, 'Four-seat game state was not recognized.');
@@ -222,8 +223,9 @@ $attackablePermanent=AddArena(2,CardID:'quicken',Owner:2,Controller:2,Status:2);
 $multiTargets=FaBLegalAttackTargets(1);$targetUIDs=array_map(fn($target)=>intval($target['uid']),$multiTargets);
 $check(count($multiTargets)===3&&in_array(intval(GetHero(2)[0]->UniqueID),$targetUIDs,true)&&in_array(intval(GetHero(3)[0]->UniqueID),$targetUIDs,true)&&in_array(intval($attackablePermanent->UniqueID),$targetUIDs,true),'Attack target discovery did not scale across heroes, additional players, and attackable permanents.');
 AddHealth(1,20);AddHealth(2,20);AddHealth(3,20);AddResources(1,0);AddActionPoints(1,1);$targetedAttack=AddHand(1,CardID:'wounding_blow_red');$targetedAttackUID=intval($targetedAttack->UniqueID);
-$check(DoPlayCard(1,'p1Hand-0')&&count(GetDecisionQueue(1))>=2&&FaBFindUID($targetedAttackUID)['zone']==='Hand','Multiple attack targets did not pause announcement for target selection.');
-$customDQHandlers['FAB_ATTACK_TARGET'](1,[$targetedAttackUID,'PLAY'],'p3Hero-0');$targetedLayer=FaBStackTop();
+PlayCard(1,'p1Hand-0');
+$check(count(GetDecisionQueue(1))>=2&&FaBFindUID($targetedAttackUID)['zone']==='Hand','Multiple attack targets did not pause announcement for target selection.');
+$targetDQ=new DecisionQueueController();$targetDQ->PopDecision(1);$targetDQ->ExecuteStaticMethods(1,'p3Hero-0');$targetedLayer=FaBStackTop();
 $check(intval($targetedLayer->Params['attackTarget']['uid']??0)===intval(GetHero(3)[0]->UniqueID),'Chosen multiplayer attack target was not persisted by stable hero identity.');
 
 InitializeGamestate();

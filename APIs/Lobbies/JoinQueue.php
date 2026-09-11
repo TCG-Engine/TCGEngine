@@ -126,6 +126,7 @@
   // Solo/local modes are created immediately (no matchmaking). 'goldfish' = 1 deck (empty P2);
   // 'hotseat' = 2 decks, shared authKey.
   $isModeFormat =
+      ($rootName === 'FaBSim' && $format === 'bot') ||
       ($rootName === 'SWUSim'         && ($format === 'goldfish' || $format === 'hotseat' || $format === 'botpractice')) ||
       ($rootName === 'GrandArchiveSim' && ($format === 'goldfish' || $format === 'hotseat' || $format === 'bot')) ||
       ($rootName === 'AzukiSim'        && ($format === 'rlbot' || $format === 'tutorial')) ||
@@ -196,6 +197,7 @@
     if ($createTutorial && in_array($rootName, ['AzukiSim', 'HellbreakSim'], true)) $format = 'tutorial';
     $isHotseat = ($format === 'hotseat');
     $isGABot = ($rootName === 'GrandArchiveSim' && $format === 'bot');
+    $isFaBBot = ($rootName === 'FaBSim' && $format === 'bot');
     // SWUSim Bot Practice: ONE human at seat 1, a bot at seat 2. Unlike goldfish, seat 2 is a REAL
     // seat — it needs a real deck, takes its own mulligan, and can lose its base.
     $isBotPractice = ($rootName === 'SWUSim' && $format === 'botpractice');
@@ -212,7 +214,12 @@
       : ($isHellbreakTutorial
         ? new Player(1, '', 'HellbreakFixture', $joiningUserId)
         : new Player(1, $deckLink, $preconstructedDeck, $joiningUserId));
-    if ($isAzukiRlBot) {
+    if ($isFaBBot) {
+      $secondPlayer = new Player(2, '', '');
+      $secondPlayer->setBotProfile('fai');
+      $secondPlayer->setDeckOk(true);
+      $secondPlayer->setReady(true);
+    } else if ($isAzukiRlBot) {
       $botProfile = function_exists('GetAzukiRlBotProfile')
         ? GetAzukiRlBotProfile($azukiRlBotProfile)
         : ['deck' => 'Raizan'];
@@ -261,7 +268,7 @@
     // Seat 2 is a passive empty sponge ONLY in goldfish. Hotseat, GA self-play and Bot Practice all
     // give it a real deck, so none of them may declare it goldfish. (Inert for SWUSim's CreateGame,
     // which never reads this field — but it is the recorded INTENT, and FaB/Hellbreak/GA do read it.)
-    $lobby->goldfishPlayers = ($isHotseat || $isGABot || $isBotPractice) ? [] : [2];
+    $lobby->goldfishPlayers = ($isHotseat || $isGABot || $isBotPractice || $isFaBBot) ? [] : [2];
     // Which seats a bot drives. GA self-play defaults to both seats; Bot Practice defaults to seat 2
     // (seat 1 is the human) and honours an explicit botPlayers request — until now this line dropped
     // that field for SWUSim outright and only worked via SWUSim/CreateGame.php's own [2] fallback.
@@ -365,6 +372,7 @@
         $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
         if ($isRoom) _SWURoomApplyResolvedDeck($newPlayer, $resolved);
         $lobby->players[] = $newPlayer;
+        LobbyEnsureFixedSeats($lobby);
         // Team rooms: force the joiner onto the only team with room; otherwise they pick (spec §4.3).
         // Must run AFTER the player is appended so the counts include them.
         $autoTeam = SWURoomAutoTeamOnJoin($lobby);
@@ -436,6 +444,7 @@
     $lobby = new stdClass();
     $lobby->numPlayers = 1;
     [, $lobbyMaxPlayers] = ($rootName === 'SWUSim') ? SWUFormatSeatRange($format) : [2, 2];
+    if ($rootName === 'FaBSim' && $format === 'upf') $lobbyMaxPlayers = 4;
     $lobby->maxPlayers = $lobbyMaxPlayers;
     $lobby->ready = false;
     $lobby->id = $lobbyId;
@@ -450,6 +459,7 @@
                                 // Team Suns seats move, and host must not move with them.
     $lobby->inviteCode = bin2hex(random_bytes(12));
     $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
+    if (LobbyUsesFixedSeats($lobby)) $newPlayer->setSeat(1);
     // $lobby->isPrivate is already true here, so this is simply "is this sim opted in, and is the
     // format not solo/local" — which for a private lobby is every format a human plays against another.
     $createAdapter = LobbyAdapterFor($rootName);
@@ -524,6 +534,7 @@
                 $playerID  = _SWUNextPlayerID($lobby);
                 $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
                 $lobby->players[] = $newPlayer;
+                LobbyEnsureFixedSeats($lobby);
                 return true;
               });
               if ($joinErr !== null) continue;   // full: keep scanning for another lobby
@@ -732,7 +743,7 @@
     if($rootName === 'FaBSim') {
       if(!function_exists('FaBValidateDeckForQueue')) return ['success'=>false,'message'=>'FaB deck validation is temporarily unavailable.'];
       try {
-        return FaBValidateDeckForQueue($deckLink, $preconstructedDeck, $joiningUserId);
+        return FaBValidateDeckForQueue($deckLink, $preconstructedDeck, $joiningUserId, $format);
       } catch (Throwable $e) {
         error_log('FaBSim queue deck validation failed: ' . $e->getMessage());
         return ['success'=>false,'message'=>'Could not validate the FaB deck. Please try again.'];

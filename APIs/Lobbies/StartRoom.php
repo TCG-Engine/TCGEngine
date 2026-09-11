@@ -8,7 +8,7 @@ require_once "./Classes/LobbyStore.php";
 $swuFormatsPath = __DIR__ . '/../../AppCore/SWU/Formats.php';
 if (is_file($swuFormatsPath)) require_once $swuFormatsPath;
 $swuMatchFlowPath = __DIR__ . '/../../SWUSim/MatchFlow.php';
-if (is_file($swuMatchFlowPath)) require_once $swuMatchFlowPath;
+if (($_POST['rootName'] ?? '') === 'SWUSim' && is_file($swuMatchFlowPath)) require_once $swuMatchFlowPath;
 
 $response = new stdClass();
 function _startRoomFail($response, $m) {
@@ -26,6 +26,7 @@ $authKey  = $_POST['authKey'] ?? '';
 
 $snapshot = $lobbyID ? apcu_fetch($lobbyID) : null;
 if (!$snapshot) _startRoomFail($response, 'Room not found.');
+if (($snapshot->rootName ?? '') !== $rootName) _startRoomFail($response, 'Room does not belong to this game.');
 
 // Only the HOST may start, authenticated by authKey. Host is an IDENTITY (hostPlayerID), not a
 // seat — Team Suns reassigns seats on every team pick and host must not migrate with them.
@@ -43,9 +44,10 @@ if (!empty($snapshot->gameName)) _startRoomFail($response, 'Already started.');
 
 $startErr = null;
 $prepared = LobbyMutate($lobbyID, function ($lobby) use (&$startErr) {
-  if (!empty($lobby->gameName)) { $startErr = 'Already started.'; return false; }
+  if (!empty($lobby->gameName) || ($lobby->state ?? '') === 'starting') { $startErr = 'Already starting or started.'; return false; }
   // Pass the cached leader sets, or the team leader-conflict check never runs in the live path.
-  $blockers = SWURoomStartBlockers($lobby, SWURoomLeaderSets($lobby));
+  $adapter = LobbyAdapterFor(strval($lobby->rootName ?? ''));
+  $blockers = $adapter ? $adapter->startBlockers($lobby) : ['Waiting room unavailable.'];
   if (!empty($blockers)) { $startErr = implode(' ', array_slice($blockers, 0, 3)); return false; }
 
   // Compact seats to 1..N in TABLE order so a mid-room leave doesn't leave a gap.
@@ -54,21 +56,37 @@ $prepared = LobbyMutate($lobbyID, function ($lobby) use (&$startErr) {
   // the entire handoff; MatchHooks.php needs no change. Twin Suns sets no $seat, so the sort is a
   // no-op there and the original compaction order is preserved byte-for-byte.
   $lobby->players = array_values($lobby->players);
-  if (SWURoomIsTeamLobby($lobby)) {
+  LobbyEnsureFixedSeats($lobby);
+  if (SWURoomIsTeamLobby($lobby) || LobbyUsesFixedSeats($lobby)) {
     usort($lobby->players, fn($a, $b) => intval($a->getSeat() ?? 99) <=> intval($b->getSeat() ?? 99));
   }
   $seat = 1;
+  $host = null;
+  foreach ($lobby->players as $p) if (intval($p->getPlayerID()) === intval($lobby->hostPlayerID ?? 0)) $host = $p;
   foreach ($lobby->players as $p) { $p->setPlayerID($seat); ++$seat; }
+  if ($host !== null) $lobby->hostPlayerID = $host->getPlayerID();
   $lobby->numPlayers = count($lobby->players);
   $lobby->ready = true;
+  $lobby->state = 'starting';
   return true;
 });
 if ($startErr !== null)  _startRoomFail($response, $startErr);
 if ($prepared === null)  _startRoomFail($response, 'Room is busy — try again.');
 
-if (!function_exists('SWUCreateMatchFromLobby')) _startRoomFail($response, 'Match framework unavailable.');
-SWUCreateMatchFromLobby($prepared);   // writes the game — I/O, deliberately outside the lock
-if (empty($prepared->gameName)) _startRoomFail($response, 'Failed to create game — check deck legality.');
+try {
+  if ($rootName === 'FaBSim') {
+    $lobby = $prepared;
+    include __DIR__ . '/../../FaBSim/CreateGame.php';
+  } else {
+    if (!function_exists('SWUCreateMatchFromLobby')) throw new RuntimeException('Match framework unavailable.');
+    SWUCreateMatchFromLobby($prepared);
+  }
+  if (empty($prepared->gameName)) throw new RuntimeException('Game creation returned no game.');
+} catch (Throwable $e) {
+  LobbyMutate($lobbyID, function ($l) { $l->state = 'open'; $l->ready = false; return true; });
+  error_log('StartRoom failed: ' . $e->getMessage());
+  _startRoomFail($response, 'Unable to create game. Check decks and try again.');
+}
 if (function_exists('RegisterActiveGame')) RegisterActiveGame($rootName, strval($prepared->gameName), false);
 
 $gameName = $prepared->gameName;

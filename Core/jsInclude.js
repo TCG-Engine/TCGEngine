@@ -1005,7 +1005,7 @@ function SetBotControllerState(state) {
   var players = Array.isArray(state.players) ? state.players.map(function(player) {
     return parseInt(player, 10);
   }).filter(function(player, index, allPlayers) {
-    return (player === 1 || player === 2) && allPlayers.indexOf(player) === index;
+    return player >= 1 && player <= 4 && allPlayers.indexOf(player) === index;
   }) : [];
   var pendingPlayer = parseInt(state.pendingPlayer || 0, 10);
   if (players.indexOf(pendingPlayer) === -1) pendingPlayer = 0;
@@ -1058,7 +1058,7 @@ function MaybeRunBotControllerStep() {
   var botPlayers = Array.isArray(controller.players) ? controller.players.map(function(player) {
     return parseInt(player, 10);
   }).filter(function(player) {
-    return player === 1 || player === 2;
+    return player >= 1 && player <= 4;
   }) : [];
   if (botPlayers.length === 0) return;
 

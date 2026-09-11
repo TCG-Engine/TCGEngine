@@ -1403,7 +1403,8 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           var dragProps = (mode != "Panel" && IsDragDropEnabled()) ? "ondragover='dragOver(event)' ondrop='drop(event)' " : "";
           var newHTML = "<span id='" + zone + "' " + dragProps + "style='display: flex; flex-wrap: wrap; justify-content: center;'>";
           var zoneArr = (zoneData.length == 0 ? [] : zoneData.split("<|>"));
-          var zoneName = zone.replace("my", "").replace("their", "");
+          // Schema rules use unqualified names; retain `zone` for absolute card IDs.
+          var zoneName = zone.replace(/^(?:my|their|p[1-4])/, "");
 
           // Handle Single display mode - only render one card (first or last based on Reverse/Latest)
           if(mode == 'Single' && zoneArr.length > 0) {
