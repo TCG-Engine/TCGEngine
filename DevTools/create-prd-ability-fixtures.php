@@ -8483,6 +8483,71 @@ DECK,
     ],
 ];
 
+// --- Smash with Obelisk (2kkvoqk1l7): mandatory domain sacrifice as additional cost; gets +X
+// POWER where X is the sacrificed domain's reserve cost. Engine gap: the "Play prereq" (requires a
+// domain on field, see activateCardPrereqs["2kkvoqk1l7:0"]) was wired via the schema/generator, but
+// DoActivateCard's hand-written cost-declaration switch (GrandArchiveSim/Custom/GameLogic.php) never
+// queued the pre-existing SmashWithObeliskSacrifice DQ handler, so playing the card skipped the
+// sacrifice entirely and the ability macro's "smashObeliskBonus" read (GeneratedMacroCode.php) always
+// saw an unset variable, resolving as +0 POWER. Fixed by wiring $hasSmashObeliskCost the same way as
+// the other mandatory-sacrifice additional-cost cards (Undeniable Truth, Blazing Throw).
+$fixtures['smash-with-obelisk-domain-sacrifice-bonus'] = [
+    'testedCards' => ['2kkvoqk1l7'],
+    'deck' => <<<'DECK'
+# Main
+4 Recruitment Officer
+4 Recruitment Officer
+4 Recruitment Officer
+4 Recruitment Officer
+4 Recruitment Officer
+# Material
+1 Spirit of Wind
+DECK,
+    // Grant NEOS element access (Smash with Obelisk's element) by patching the starting champion's
+    // Subcards with a NEOS lineage card -- the harness's documented technique for reaching an
+    // advanced element without scripting a real level-up sequence (GetChampionLineage() walks
+    // $obj->Subcards; see GrandArchiveSim/Custom/GameLogic.php ~19370-19446). Then seed a plain,
+    // rules-text-free DOMAIN (Wool Brook, reserve cost 4) onto the field to sacrifice, and seed
+    // Smash with Obelisk plus 3 reserve-payment fodder cards directly into hand so the fixture only
+    // has to replay the actual activation, not deck/draw setup. Everything is seeded for PLAYER 2:
+    // CanActivateAttackCardNow()/IsFirstTurnAttackLocked() (GrandArchiveSim/Custom/GameLogic.php)
+    // forbid the true first player from playing an ATTACK card on turn 1, so player 1's turn is
+    // passed through first (below) and player 2 -- never "the first player" -- plays the card on
+    // their own first turn instead. The starting champion is always the first (and here, only)
+    // object placed on a fresh field, so it lands at myField-0.
+    'setup' => [
+        ['patchMzId' => 'myField-0', 'player' => 2, 'setProperties' => ['Subcards' => ['n2jnltv5kl']]], // Tonoris, Creation's Will (NEOS)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'lcCGyyNGuM'], // Wool Brook (DOMAIN, reserve cost 4, no rules text)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '2kkvoqk1l7'], // Smash with Obelisk
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '1x97n2jnlt'], // Recruitment Officer (reserve fodder)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '1x97n2jnlt'], // Recruitment Officer (reserve fodder)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '1x97n2jnlt'], // Recruitment Officer (reserve fodder)
+    ],
+    // myHand-7 confirmed from the "Setup: added ..." mzID log (opening hand under seed=42 is
+    // myHand-0..6, so Smash with Obelisk lands at myHand-7 and the 3 fodder cards follow it).
+    'actions' => [
+        // Pass through player 1's turn 1 (nothing to do), matching the pattern verified in
+        // wind-cutter-class-bonus-power-attack for reaching player 2's own turn.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P1 declines their own MAT-phase materialize offer
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // P1 formally ends turn 1
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P2 declines their MAT-phase materialize offer
+        // Free play: P2 plays Smash with Obelisk
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: sacrifice the domain (Wool Brook)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        // Pay reserve cost (3x, one MZCHOOSE per reserve payment). Each payment removes a card and
+        // reindexes the hand zone, so the next fodder card always shifts down into myHand-8.
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-8', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-8', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-8', 'chkInput' => [], 'inputText' => ''],
+        // Pass fast action opportunities
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
