@@ -1,0 +1,18 @@
+{
+    "name": "Bulwark Sword's [Class Bonus] +1 POWER and additional attack cost",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Weapons need a 'durability' counter to be considered available to attack with (GetAvailableWeapons in CombatLogic.php); SWORD weapons (unlike GUN/BOW/AETHERWING) don't need to be 'loaded'. Same turn-cycle approach as automaton-bomber-ranged-attack (Rule 1.h blocks player 1's own turn-1 attack): player 1 ends turn 1, then player 2's champion attacks using Bulwark Sword (with a GUARDIAN Class Bonus champion also on their field), paying the weapon's own additional 2-reserve attack cost (queued during weapon selection, CombatLogic.php ~2672).",
+    "testedCards": [
+        "8kmoi0a5uh"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["8kmoi0a5uh"],
+        "mechanics": ["cost", "combat", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] Bulwark Sword gets +1 POWER. (Apply this effect only if your champion's class matches this card's class.)",
+            "As an additional cost to use this weapon for an attack, pay (2)."
+        ]
+    }
+}

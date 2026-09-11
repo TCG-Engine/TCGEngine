@@ -1,0 +1,18 @@
+{
+    "name": "Archon Broadsword's additional attack cost and [Class Bonus] token-count POWER",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Same turn-cycle/durability-counter approach as bulwark-sword-class-bonus-attack-cost. Two Automaton Drone tokens are seeded onto player 2's field (alongside a GUARDIAN Class Bonus champion) so the '+1 POWER for each token you control' clause has something to count.",
+    "testedCards": [
+        "pyx8bd7ozu"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["pyx8bd7ozu"],
+        "mechanics": ["cost", "token", "combat", "condition"],
+        "rulesClauses": [
+            "As an additional cost to use this weapon for an attack, pay (2).",
+            "[Class Bonus] Archon Broadsword gets +1 POWER for each token you control. (Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}
