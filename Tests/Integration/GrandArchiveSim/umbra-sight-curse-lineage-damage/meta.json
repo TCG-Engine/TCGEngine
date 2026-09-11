@@ -1,0 +1,18 @@
+{
+    "name": "Umbra Sight's optional draw-into-memory + curse-lineage damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Umbra Sight is UMBRA (advanced element), so the starting champion's Subcards are patched with a real UMBRA champion (Tristan, Shadowdancer) to unlock element access, matching the pattern used elsewhere in this file for other UMBRA cards. Its printed reserve cost is a real 0 (not the '-1 = no reserve type' sentinel), so no reserve-payment decision is ever queued. After the unconditional draw and an unrelated optional MZMAYCHOOSE (declined with PASS), the card's own YESNO offers the optional draw-into-memory + curse-lineage effect; choosing YES adds it to the champion's lineage and deals 2 unpreventable damage per curse already in that lineage (2, counting itself).",
+    "testedCards": [
+        "f15joh300z"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["f15joh300z"],
+        "mechanics": ["draw-discard", "zone-movement", "damage", "condition"],
+        "rulesClauses": [
+            "Draw a card.",
+            "You may draw a card into your memory and put Umbra Sight on the bottom of your champion's lineage. When you do, deal 2 unpreventable damage to your champion for each Curse card in your champion's lineage."
+        ]
+    }
+}

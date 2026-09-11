@@ -1,0 +1,17 @@
+{
+    "name": "Take Aim's +2 POWER on next attack, plus [Class Bonus] Ranged 2",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Same turn-cycle approach as automaton-bomber-ranged-attack (Rule 1.h blocks player 1's own turn-1 attack): player 1 ends turn 1 with a single CustomInput Pass, then player 2 plays Take Aim targeting their own ally (already Distant and awake) with a RANGER Class Bonus champion on their field, then attacks. AddTurnEffect('vnta6qsesw'/'RANGED_2') only turns into actual POWER once the target's attack is declared (CombatLogic.php converts vnta6qsesw -> vnta6qsesw_POWER at that point via ObjectCurrentPower's TurnEffects switch), and the CB-granted generic 'RANGED_2' tag only contributes via GetRangedValue's TurnEffect-based grants while the unit is Distant on its controller's turn.",
+    "testedCards": [
+        "vnta6qsesw"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["vnta6qsesw"],
+        "mechanics": ["targeting", "condition", "combat", "damage"],
+        "rulesClauses": [
+            "Target unit's next attack this turn gets +2 POWER. Class Bonus: That unit also gains ranged 2 until end of turn."
+        ]
+    }
+}

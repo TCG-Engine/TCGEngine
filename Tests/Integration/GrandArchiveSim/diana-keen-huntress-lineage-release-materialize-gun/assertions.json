@@ -1,0 +1,6 @@
+[
+    {"step":2,"type":"decision_queue_empty","player":"all"},
+    {"step":2,"type":"card_property_equals","mzId":"p1Field-0","property":"Subcards","value":"[]","semantic":true,"label":"Diana, Keen Huntress is banished from the champion's inner lineage as the LR cost"},
+    {"step":2,"type":"card_exists","zone":"myBanish","cardID":"e3z4pyx8bd","semantic":true,"label":"Diana, Keen Huntress ends up in the banish zone"},
+    {"step":2,"type":"card_exists","zone":"myField","cardID":"p4lgdlx7md","semantic":true,"label":"Framework Sidearm (Gun) materializes to the field"}
+]

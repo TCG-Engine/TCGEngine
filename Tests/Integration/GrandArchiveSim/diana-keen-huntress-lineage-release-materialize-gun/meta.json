@@ -1,0 +1,17 @@
+{
+    "name": "Diana, Keen Huntress's Lineage Release: materialize a Gun from material deck",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Diana, Keen Huntress's Lineage Release ('LR: Materialize Gun') only becomes an activatable dynamic ability when she sits as a subcard of the current champion's inner lineage (not just present on the field), patched directly via the champion's Subcards. A real 0-memory NORM Gun card (Framework Sidearm) is seeded into the material zone as the LR effect's target -- MaterializeLogic.php's generic MATERIALIZE handler element-checks the chosen card (CanPlayerUseCardElement) before placing it, so an UMBRA Gun like Shadow's Twin would need its own lineage patch too; NORM needs none. Activating a champion's dynamic ability uses the same CustomInput Activate:N pattern as a field object's own activated ability, with N = staticAbilityCount (0, since the starting champion has no static abilities) for the first eligible LR subcard. Activating it banishes the subcard from the champion's inner lineage and runs the registered effect.",
+    "testedCards": [
+        "e3z4pyx8bd"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["e3z4pyx8bd"],
+        "mechanics": ["cost", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Lineage Release — Materialize a Gun card from your material deck. (Activate this ability by banishing this card from your champion's inner lineage.)"
+        ]
+    }
+}
