@@ -1,0 +1,17 @@
+{
+    "name": "Tonoris, Genesis Aegis's recollection-phase Obelisk summon",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Genesis Aegis's recollection trigger is a plain CardID switch-case inside ResolveBeforeRecollectionPhaseStart (GameLogic.php ~9089, the same dispatcher used for Foster processing) rather than a materialized-Enter/activateAbility macro, so the starting champion is patched directly to ta6qsesw2u -- no real level-up/lineage/element unlock needed, since the switch only reads the already-on-field object's CardID. Reaching player 1's own recollection phase uses the established 3-action shortcut: player 1 ends turn 1, player 2 ends their turn (still global turn 1), then player 1 declines their own MAT-phase materialize offer, auto-advancing into player 1's own BREC. TonorisRecollection() (CardDQHandlers.php ~2350) finds no obelisks chosen yet and queues an MZCHOOSE over all three myTempZone Obelisk options; choosing myTempZone-0 summons Obelisk of Armaments (wk0pw0y6is) onto the field via TonorisChooseObelisk and records the choice in Counters['tonoris_chosen'] (repeat choices across future recollection phases, and the other two Obelisk types, are out of scope for this fixture).",
+    "testedCards": [
+        "ta6qsesw2u"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ta6qsesw2u"],
+        "mechanics": ["trigger", "token", "condition"],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, choose one that hasn't been chosen— Summon an Obelisk of Armaments token. • Summon an Obelisk of Fabrication token. • Summon an Obelisk of Protection token."
+        ]
+    }
+}

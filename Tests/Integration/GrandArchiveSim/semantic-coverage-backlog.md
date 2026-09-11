@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **265**
+Cards linked to an existing fixture: **268**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2222**
+Implemented cards still needing semantic coverage: **2219**
 
 ## Mechanic groups
 
@@ -48,7 +48,6 @@ Implemented cards still needing semantic coverage: **2222**
 | Esteemed Knight (`iabqeB0I6t`) | ALLY | 1 | status, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Flash Freeze (`w3rrii17fz`) | ACTION | 1 | cost, targeting, zone-movement, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Hasty Messenger (`DsiRzt0trX`) | ALLY | 1 | draw-discard, combat, trigger, condition | Kongming Pantheon Starter, Zander Pantheon Starter | — |
-| Imperial Sentry (`plywc08c9h`) | ALLY | 1 | status, combat, trigger, condition | Tonoris Starter Deck | — |
 | Insignia of the Corhazi (`52u81v4c0z`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, counter, trigger | Zander Pantheon Starter | — |
 | Library Witch (`iD8qbpA8z5`) | ALLY | 1 | draw-discard, status, combat, trigger | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Lightveil Agent (`jcaLgesx0e`) | ALLY | 1 | recover, counter, status, trigger | Zander Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2222**
 | Drawn Blade (`eSAIP7mx9z`) | REGALIA,WEAPON | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
 | Endura, Scepter of Ignition (`SGsDKB9CN5`) | REGALIA,ITEM | 1 | targeting, damage, counter | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Fire Resonance Bauble (`LROrzTmh55`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude) | — |
+| Gaia's Songbird (`sHzSmygjWY`) | ALLY | 1 | zone-movement, trigger, condition | Silvie Starter Deck | — |
