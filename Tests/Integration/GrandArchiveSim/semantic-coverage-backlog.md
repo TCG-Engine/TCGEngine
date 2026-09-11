@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **244**
+Cards linked to an existing fixture: **246**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2243**
+Implemented cards still needing semantic coverage: **2241**
 
 ## Mechanic groups
 
@@ -60,7 +60,6 @@ Implemented cards still needing semantic coverage: **2243**
 | Meadowbloom Dryad (`cVRIUJdTW5`) | ALLY | 1 | targeting, zone-movement, counter, trigger | Silvie Starter Deck | — |
 | Orb of Choking Fumes (`llQe0cg4xJ`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Zander Pantheon Starter | — |
 | Potion Infusion: Clarity (`300z2snsdw`) | ACTION | 1 | cost, targeting, draw-discard, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
-| Quickdraw Piercer (`j4f15joh30`) | REGALIA,WEAPON | 1 | draw-discard, zone-movement, combat, condition | Diana Starter Deck | — |
 | Smack with Flute (`zpkcFs72Ah`) | ATTACK | 1 | cost, zone-movement, combat, trigger | Silvie Starter Deck | — |
 | Spirit Blade: Ghost Strike (`vcZSHNHvKX`) | ATTACK | 1 | zone-movement, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Starlit Apothecary (`ShQkyQMBCT`) | UNIQUE,DOMAIN | 1 | cost, targeting, token, condition | Arisanna Pantheon Starter | — |
@@ -70,9 +69,10 @@ Implemented cards still needing semantic coverage: **2243**
 | Aqua Vitae (`y5ttkat9hr`) | ITEM | 1 | draw-discard, counter, condition | Arisanna Pantheon Starter | — |
 | Arcane Blast (`pn9gQjV3Rb`) | ACTION | 1 | cost, targeting, damage | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Arisanna, Master Alchemist (`ltv5klryvf`) | CHAMPION | 1 | draw-discard, trigger, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
-| Blastshot Pump (`gmnmp5af09`) | REGALIA,WEAPON | 1 | damage, combat, condition | Diana Starter Deck | — |
 | Blue Slime (`1Sl4Gq2OuV`) | ALLY | 1 | damage, counter, trigger | Silvie Starter Deck | — |
 | Bulwark Sword (`8kmoi0a5uh`) | REGALIA,WEAPON | 1 | cost, combat, condition | Tonoris Starter Deck | — |
 | Buoyant Driftguard (`TrK2lroxkz`) | ALLY | 1 | targeting, trigger, condition | Arisanna Pantheon Starter | — |
 | Caretaker Drone (`urfp66pv4n`) | ALLY | 1 | status, combat, trigger | Arisanna Starter Deck | — |
 | Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
+| Corhazi Infiltrator (`VAFTR5taNG`) | ALLY | 1 | zone-movement, status, trigger | Zander Pantheon Starter | — |
+| Covert Manipulator (`A1jfgrWpiN`) | ALLY | 1 | targeting, trigger, condition | Zander Pantheon Starter | — |

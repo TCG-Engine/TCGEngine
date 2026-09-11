@@ -7608,6 +7608,80 @@ DECK,
     ],
 ];
 
+// --- Quickdraw Piercer: [Class Bonus] On Banish: Draw a card ---
+$fixtures['quickdraw-piercer-class-bonus-on-banish-draw'] = [
+    'testedCards' => ['j4f15joh30'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Quickdraw Piercer
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Quickdraw Piercer has no activated ability of its own -- its only ability is the generic
+    // OnLeaveField hook (fired whenever it leaves the field for any reason, not just a genuine
+    // rules "banish"). Blazing Throw's own mandatory "sacrifice a weapon" additional cost is the
+    // simplest real in-game path to remove it from the field, so it's played (FIRE element, needs
+    // the same lineage-patch pattern as UMBRA cards) targeting Quickdraw Piercer as the sacrifice.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['LMyKyVC2O9']]], // FIRE lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'j4f15joh30'], // Quickdraw Piercer - sacrifice target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'iohZMWh5v5'], // Blazing Throw, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Blastshot Pump: [Class Bonus] redirect combat damage to an additional unit ---
+$fixtures['blastshot-pump-class-bonus-redirect-damage'] = [
+    'testedCards' => ['gmnmp5af09'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Blastshot Pump
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Weapons need a "durability" counter to even be considered available to attack with
+    // (GetAvailableWeapons in CombatLogic.php), and functional weapons (GUN/BOW/AETHERWING) must
+    // already be loaded (non-empty Subcards). Same turn-cycle approach as automaton-bomber-
+    // ranged-attack (Rule 1.h blocks player 1's own turn-1 attack): player 1 ends turn 1, then
+    // player 2's champion attacks using Blastshot Pump (with a RANGER Class Bonus champion also
+    // on their field) against one of player 1's two units, redirecting some of the hit damage to
+    // the other.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'gmnmp5af09', 'setProperties' => ['Counters' => ['durability' => 1], 'Subcards' => ['l75tlzsmw3']]], // Blastshot Pump, loaded and usable
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide - primary attack target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
