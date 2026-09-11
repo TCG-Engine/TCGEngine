@@ -8199,6 +8199,48 @@ DECK,
     ],
 ];
 
+// --- Rousing Slam: [Class Bonus] [Level 2+] On Attack: attacker gains vigor and taunt ---
+$fixtures['rousing-slam-class-bonus-level-2-on-attack-vigor-taunt'] = [
+    'testedCards' => ['v5klryvfq3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Rousing Slam
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // PlayerLevel($player) >= 2 is checked against the CHAMPION's own level, so patching the
+    // champion directly to Tonoris, Might of Humanity (level 2, GUARDIAN) satisfies both the
+    // [Class Bonus] and [Level 2+] gates in one step (same CardID-patch bypass used for the Diana
+    // champion-lineage fixtures -- CanChampionLevelUpIntoCard-style level requirements only check
+    // current state, not lineage). Rousing Slam is WIND (advanced element), so the champion's
+    // Subcards also carry a WIND lineage unlock. Rule 1.h applies to activating any ATTACK-type
+    // card, so it's played on player 2's turn (after player 1 ends turn 1), then the champion
+    // declares a real attack for OnAttack to fire.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'yevpmu6gvn', 'Subcards' => ['pNiyaGlIe7']]], // Tonoris, Might of Humanity (level 2, GUARDIAN) + WIND lineage unlock
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'v5klryvfq3'], // Rousing Slam, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline an ambient fast-opportunity window
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the active-response opportunity for the spell on the stack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target player 1's champion -- Rousing Slam's own effect IS the attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline a post-resolution opportunity window
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
