@@ -28,11 +28,13 @@ $customDQHandlers["SOR_197#0"] = function($player, $parts, $lastDecision) {
         $m = trim($m);
         if ($m === '' || $m === '-' || $m === 'PASS') continue;
         $o = GetZoneObject($m);
-        if ($o !== null && empty($o->removed)) $chosen[] = $o;
+        if ($o !== null && empty($o->removed)) $chosen[] = [$o, $m];
     }
-    foreach ($chosen as $o) {
+    foreach ($chosen as [$o, $m]) {
+        // Unset Owner → the seat NAMED BY THE mzID (SWUReturnResourceToHand's rule), never the acting player.
         $owner = intval($o->Owner ?? 0);
-        if ($owner <= 0) $owner = intval($player); // unset Owner → the controller (friendly)
+        if ($owner <= 0) $owner = intval(SWUMzOwner($m, intval($player)));
+        if ($owner <= 0) $owner = intval($player);
         $o->removed = true;
         AddHand($owner, CardID:$o->CardID);
         SWULogResourceToHand($owner);   // game log: face down — never named

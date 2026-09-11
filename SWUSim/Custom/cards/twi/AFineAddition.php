@@ -29,8 +29,10 @@ $customDQHandlers["TWI_040#1"] = function($player, $parts, $lastDecision) {
     $isPilot = ($pilotFlag === '1');
     // Owner for CR-correct discard routing: a card played from the OPPONENT's discard is still owned by
     // the opponent (it returns to their discard when it leaves play).
+    // A DISCARD object carries no Owner — `->Owner ?? $player` always answered the caster, so this fix never
+    // ran. SWUObjSeat finds the seat whose discard (or hand) holds it (SSOT #6).
     $srcObj = GetZoneObject($upMz);
-    $origOwner = ($srcObj !== null) ? intval($srcObj->Owner ?? $player) : intval($player);
+    $origOwner = ($srcObj !== null) ? SWUObjSeat($srcObj, true) : intval($player);
     if ($origOwner <= 0) $origOwner = intval($player);
     $GLOBALS['gTwi040IgnoreAspect'] = true;
     _SWUFinalizeUpgradeAttach(intval($player), $cid, $upMz, $lastDecision, 0, false, $isPilot, true);

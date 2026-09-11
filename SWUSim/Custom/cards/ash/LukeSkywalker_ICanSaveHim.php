@@ -9,7 +9,7 @@ $customDQHandlers["ASH_005#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (($lastDecision ?? '') !== 'YES') return;   // declined → leader stays ready, no heal
     $leaderArr = &GetLeader(intval($player));
-    foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'ASH_005' && empty($l->removed)) { $l->Ready = false; break; } }
+    foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'ASH_005' && empty($l->removed)) { $l->Ready = false; SWULogLeaderExhaustCost(intval($player), 'ASH_005'); break; } }
     unset($l);
     $mz = $parts[0] ?? '';
     if ($mz !== '' && str_contains($mz, '-')) {

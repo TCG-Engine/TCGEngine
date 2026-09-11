@@ -169,6 +169,46 @@ signature. **Assert the mutation landed** (`grep` the mutated line and read it b
 run, and re-assert the restore afterwards — a `grep -c` that returns 0 is usually your own pattern
 quoting, so verify with a direct `sed -n '<line>p'`.
 
+### Mutation and probe traps from the 2026-09-11 SSOT pass
+
+**Many sites at once.** When a refactor converts N call sites, mutate each one ON ITS OWN and check that
+only its own section fails. A scripted loop is fine if it does exact-string replacement from a
+quoted-heredoc Python script (nothing interpolates) and restores in a `finally`:
+- **Skip any needle that isn't unique.** A site's line can be a substring of another's; that happened with
+  two Smuggle refills.
+- **A single-section test file prints `FAIL: <file>` with no `::Section`.** A regex that collects
+  `::(\w+)` reports "nothing failed" for it. That false green nearly passed for Following the Path;
+  re-run any empty result by hand.
+
+**Scratch probes.** Never leave them in `SWUSim/DevTools/tests/`: the integration runner executes every file
+there, so a probe `.php` becomes a "new failure". The session scratchpad is not mounted in the container, so
+a probe the container must read goes in `SWUSim/DevTools/` (not `tests/`). Delete it the moment you're done.
+
+**`LOGCOUNT` / `LOGCONTAINS` match the entry TEXT, never its `TYPE|` prefix.** `LOGCOUNT:0:DAMAGE|` is
+always 0, so a guard written that way can never fail. Match a phrase from the line itself.
+
+**In a DevTools test, judge "wrote no log line" by CONTENT, not by entry count.** `$gGameLog` starts as a
+placeholder (`'0'`), and the FIRST write REPLACES it rather than appending. So "count before === count
+after" holds even when a line WAS written; a mutation caught it in `gamelog_private_helpers_test.php`.
+
+**A deferred effect that stores an mzID must store it in the frame it will be RESOLVED in.** HMW_060
+Rampart's deferred offer saved the base as `theirBase-0` (the defeater's frame) and resolved it as the
+base's controller, where that is the defeater's own base. The offer was silently dropped. Store a UID, or
+a seat's own `myBase-0`. Every existing section had one player on both sides, so cover the cross-seat case.
+
+**A change to how an action CLOSES needs more than "0 failed".** The close gate refuses a duplicate close
+silently in the result counts and only prints `[ACTION-LEDGER] BLOCKED-DOUBLE-CLOSE` on stderr:
+1. Save the full-suite output with the change and with it neutralised.
+2. `diff` the sorted notice lines. An identical set means you added no duplicate close.
+3. Assert `NOEXTRAACTION` (+ `TURNPLAYER` without `P1OnlyActions`) in the new sections.
+A close or marker queued on a seat that isn't draining never runs, so cover the cross-seat case where the
+work runs on the OPPONENT's queue.
+
+**Counting the sites to fix: grep the VERB in the card text, not the helper name.** Both SSOT counts that
+session started ~5× low (4 "refill loops" were ~20; 4 "custom finalizers" were 9 draw paths), because the
+hand-rolled callers of an existing helper are the same pattern. Match the full card text, DeployText
+included.
+
 ### Fixture idioms that make a whole assertion class UNOBSERVABLE
 
 These are not sloppy tests — they are conveniences that silently disable an entire family. When a card

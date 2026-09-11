@@ -51,6 +51,37 @@ P1GROUNDARENACOUNT:0
 
 ---
 
+# TwinSuns_DefeatedUnderFarSeatControl_FoundInTheOwnersPile
+#// The owner's-pile search looked in exactly ONE other pile — OtherPlayer(), seat 2 — so at four seats a
+#// mercenary OWNED by seat 4 and defeated while seat 1 controlled it went to seat 4's discard, where the
+#// search never looked, and the When Defeated silently did nothing. Seat 1 plays No Glory, Only Results
+#// on seat 4's mercenary: it lands in seat 4's discard and is resourced into seat 1's row from there.
+#// (Found 2026-09-12 by the post-sweep legacy-call re-scan.)
+
+## GIVEN
+CommonSetup: rrk/bbk
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 10
+WithP1Hand: JTL_043
+WithP4GroundArena: LAW_159:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1DISCARDCOUNT:1
+P4GROUNDARENACOUNT:0
+P4DISCARDCOUNT:0
+P1RESCOUNT:11
+
+---
+
 # AnotherEffectResourcesItFirst_NoDoubleResource
 #// The ability resources the card FROM the discard, so it can only fire if the card is still there.
 #// P2 plays SHD_230 Swoop Down to let SHD_122 Arquitens Assault Cruiser (7/8) attack the ground and

@@ -86,3 +86,50 @@ P1OnlyActions: true
 ## EXPECT
 P1BASEDMG:5
 P2BASEDMG:3
+
+---
+
+# TwinSuns_AnyNumberOfBasesOffersEveryBase
+#// "Any number of bases" is UNQUALIFIED — every seat's base, the teammate's included. The offer was the
+#// hand-built literal "myBase-0&theirBase-0", so at four seats (teams 1+3 vs 2+4) the teammate's and
+#// seat 4's bases were never offered, and the pick was capped at 2. Left pending to read the pool.
+#// (Found 2026-09-12 — the sweep's scan looked for a quoted 'theirBase-0', not an &-joined literal.)
+## GIVEN
+CommonSetup: ggk/rrk
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 1
+WithP1Hand: TS26_53
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+SEATCOUNT:4
+P1SELECTABLEEXACT:myBase-0&p2Base-0&p3Base-0&p4Base-0
+
+---
+
+# TwinSuns_HealsAFarSeatsBaseAndMoreThanTwo
+#// The applier half: three bases chosen at once (the old cap was 2), one of them seat 4's.
+## GIVEN
+CommonSetup: ggk/rrk/{myBaseDamage:5;theirBaseDamage:5}
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:5
+WithP4Base: SOR_019:5
+WithP1Resources: 1
+WithP1Hand: TS26_53
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myBase-0&p3Base-0&p4Base-0
+## EXPECT
+SEATCOUNT:4
+P1BASEDMG:3
+P3BASEDMG:3
+P4BASEDMG:3
+P2BASEDMG:5

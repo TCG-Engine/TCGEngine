@@ -9,6 +9,8 @@
 // BEFORE combat damage, so it's applied synchronously in ExecuteSWUAttack (CombatLogic); this stub-handler
 // is a deliberate no-op (the deferred OnAttack window would fire after SWUCombatDamage reads the marker).
 $onAttackAbilities["LOF_014:0"] = function($player, $mzID) { /* effect applied synchronously in ExecuteSWUAttack */ };
+global $swuLogEffectAppliedElsewhere;   // game log: an empty stub is not "had no effect" (see SWULogNoEffectCheck)
+$swuLogEffectAppliedElsewhere['LOF_014'] = true;
 
 // LOF_014 Grand Inquisitor — Action [Exhaust, use the Force]: Attack with a friendly unit. The defender
 // gets -2/-0 for this attack (one-shot SWU_DEF_DEBUFF_2 on the attacker, read by SWUCombatDamage).

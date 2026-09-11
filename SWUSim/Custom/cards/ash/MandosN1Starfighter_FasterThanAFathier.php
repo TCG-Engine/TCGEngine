@@ -59,6 +59,7 @@ function _SWUAsh203ExhaustLeader(int $player, string $tok): bool {
         $l = SWUGetLeaderByIndex($player, intval(substr($tok, 1)));
         if ($l === null || !empty($l->removed) || empty($l->Ready)) return false;
         $l->Ready = false;
+        SWULogLeaderExhaustCost($player, (string)($l->CardID ?? ''));   // game log — a leader paid as the cost
         return true;
     }
     $u = GetZoneObject($tok);

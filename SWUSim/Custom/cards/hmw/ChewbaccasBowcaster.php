@@ -12,7 +12,6 @@ $whenPlayedAbilities["HMW_127:0"] = function($player, $mzID = '') {
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
     if (CardTitle($host->CardID ?? '') !== 'Chewbacca') return;   // matches ANY Chewbacca (title, not CardID)
-    if (count(GetDeck($player)) === 0) return;                    // empty deck → nothing to resource
     // "resource the top card of your deck (It enters play exhausted.)" — the default ramp entry status.
-    SWURampResourceExhausted($player, 'myDeck-0');
+    SWUResourceTopOfDeck(intval($player));                           // empty deck → nothing to resource
 };

@@ -48,6 +48,5 @@ $customDQHandlers["SEC_242#0"] = function($player, $parts, $lastDecision) {
     $oppMz = preg_replace('/^their/', 'my', (string)$lastDecision);
     $playerID = $opp;
     SWUDefeatResource($opp, $oppMz);
-    $deck = ZoneSearch("myDeck", null);
-    if (!empty($deck)) SWURampResourceReady($opp, $deck[0]);   // controller replaces from deck, readied
+    SWUResourceTopOfDeck($opp, true);   // controller replaces from their deck, readied
 };

@@ -97,3 +97,22 @@ P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:0:CARDID:ASH_047
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:ASH_T01
+
+---
+
+# OncePerRound_SecondUpgradeRaisesNoPrompt
+#// OncePerRound_SecondUpgradeNoToken above counts tokens only — a second offer left PENDING also leaves one
+#// token, so it could not see a missing round check. Same board; after the second upgrade attaches there is
+#// no Gar prompt waiting at all.
+## GIVEN
+CommonSetup: brk/rrk/{myResources:6;handCardIds:SOR_120,SOR_166}
+WithP1GroundArena: ASH_047:1:0
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P1NODECISION
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2

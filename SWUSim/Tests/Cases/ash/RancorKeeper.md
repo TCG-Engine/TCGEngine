@@ -110,3 +110,71 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:1:DAMAGE:4
 P2BASEDMG:1
+
+---
+
+# TwinSuns_AnyNumberOfBasesOffersEveryBase
+#// "Any number of bases" spans every seat. The offer was the literal "myBase-0&theirBase-0", so at four
+#// seats (teams 1+3 vs 2+4) the teammate's and seat 4's bases were missing. Rancor attacks SEC_080 on
+#// seat 2 and survives the counter; the pick is left pending to read the pool.
+## GIVEN
+CommonSetup: grk/grk
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1GroundArena: ASH_032:1:0
+WithP2GroundArena: SEC_080:1:0
+## WHEN
+- P1>AttackGroundArena:0:p2GroundArena-0
+## EXPECT
+SEATCOUNT:4
+P1SELECTABLEEXACT:myBase-0&p2Base-0&p3Base-0&p4Base-0
+
+---
+
+# TwoCopies_EachKeeperHasItsOwnRound
+#// "Use this ability only once each round" limits the ability each COPY has, not the player (CR 8.8.5;
+#// USER RULING 2026-09-07, bug #1031's shape). Rancor Keeper is NOT unique, so with two in play one
+#// friendly unit surviving damage triggers BOTH: each deals 1 to the chosen base. A per-player flag let
+#// only the first fire — P2's base would end on 1.
+## GIVEN
+CommonSetup: grk/grk
+WithP1GroundArena: ASH_032:1:0
+WithP1GroundArena: ASH_032:1:0
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:theirBase-0
+- P1>AnswerDecision:theirBase-0
+## EXPECT
+P2BASEDMG:2
+P1BASEDMG:0
+P1NODECISION
+
+---
+
+# TwoCopies_ASpentKeeperStaysSpent
+#// The other side of per-copy: each copy fires ONCE. The two Keepers fire on the first survival (1 + 1
+#// to P2's base); a second friendly survival the same round (Daring Raid on the Consular Security Force)
+#// fires neither. P2's base ends on 2, never 4.
+## GIVEN
+CommonSetup: grk/grk/{myResources:3;handCardIds:TWI_170}
+WithP1GroundArena: ASH_032:1:0
+WithP1GroundArena: ASH_032:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SEC_080:1:0
+P1OnlyActions: true
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:theirBase-0
+- P1>AnswerDecision:theirBase-0
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-2
+## EXPECT
+P1GROUNDARENAUNIT:2:DAMAGE:2
+P2BASEDMG:2
+P1NODECISION

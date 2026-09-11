@@ -238,3 +238,21 @@ WithP1Hand: JTL_244
 ## EXPECT
 P1GROUNDARENACOUNT:3
 P1DECKCOUNT:0
+
+---
+
+# ActionOnceEachRound_EvenWhenASecondPlayIsAffordable
+#// ActionOnceEachRound above cannot see the limit: after its first play only 1 resource is left, so the
+#// second use is refused as UNAFFORDABLE either way. Here 20 resources (the Marine costs 6 with its aspect
+#// penalty) keep the second play affordable, so only the once-each-round limit can refuse it — deck 3 → 2.
+## GIVEN
+CommonSetup: byk/bgw/{myResources:20}
+P1OnlyActions: true
+WithP1GroundArena: LAW_094:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+- P1>UseUnitAbility:myGroundArena-0
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1DECKCOUNT:2

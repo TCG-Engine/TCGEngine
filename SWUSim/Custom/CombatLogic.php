@@ -68,7 +68,29 @@ function _SWUAttackerDealsDamageFirst($attacker): bool {
 // make the token indestructible. So a card that DEFEATS a Shield token outright (HMW_077 Boss Nass,
 // "defeat a Shield token on a friendly Gungan unit") passes false and is unaffected by Galen, while
 // the combat/damage callers keep the default true and correctly decline to prevent.
-function SWUConsumeShieldToken($unit, bool $forPrevention = true): bool {
+// ── SHIELD INTENT — two named functions (SSOT #7, gamelog-updates, 2026-09-12) ─────────────────────────────
+// The old SWUConsumeShieldToken($unit, $forPrevention = true) defaulted to PREVENTION, so a caller that meant
+// "defeat a Shield" and forgot the flag got the prevention path — which SEC_046 Galen naming "Shield" blanks.
+// That is how SHD_045 Rose Tico and ASH_062 The Mandalorian failed to defeat a Galen-named Shield. Each call
+// now states its intent:
+//   SWUPreventWithShield — the Shield PREVENTS damage (spent absorbing a hit). Galen naming "Shield" blanks it.
+//   SWUDefeatShieldToken — an effect or cost DEFEATS a Shield (Rose Tico, Boss Nass, The Mandalorian's
+//                          prevention cost). Galen does not stop that: a blanked token is still a token upgrade.
+// Both remove ONE Shield (a granted "defeat that token later" one first) and fire the upgrade-defeated
+// observers. Returns true if a Shield was removed.
+function SWUPreventWithShield($unit): bool { return _SWUConsumeShieldToken($unit, true); }
+function SWUDefeatShieldToken($unit): bool { return _SWUConsumeShieldToken($unit, false); }
+
+// A Shield token on $unit was DEFEATED (spent preventing damage, defeated by an effect, or by Saboteur): fire
+// the "a friendly upgrade was defeated" observers (ASH_039 Baylan's phase flag / ASH_161 Zeb's deal-1) for its
+// controller. Token upgrades count. Every path that removes a Shield calls this — Saboteur's loop skipped it.
+function _SWUShieldDefeatedObservers($unit): void {
+    $shCtrl  = intval($unit->Controller ?? $unit->Owner ?? 0);
+    $shOwner = intval($unit->Owner ?? $shCtrl);
+    if ($shCtrl > 0) _SWUOnUpgradeDefeated($shCtrl, 'SOR_T02', $unit, $shOwner);
+}
+
+function _SWUConsumeShieldToken($unit, bool $forPrevention): bool {
     if ($unit === null || !is_array($unit->Subcards ?? null)) return false;
     // SEC_046 Galen Erso — if the enemy Galen named "Shield", the owner's Shield tokens have lost their
     // damage-prevention ability: don't consume/prevent (the token stays attached but does nothing).
@@ -97,11 +119,8 @@ function SWUConsumeShieldToken($unit, bool $forPrevention = true): bool {
     }
     if ($shieldKey !== null) {
         array_splice($unit->Subcards, $shieldKey, 1);
-        // CR: a Shield token consumed to prevent damage is DEFEATED — fire the "a friendly upgrade was
-        // defeated this phase" observers (ASH_039 Baylan flag / ASH_161 Zeb deal-1). Token upgrades count.
-        $shCtrl  = intval($unit->Controller ?? $unit->Owner ?? 0);
-        $shOwner = intval($unit->Owner ?? $shCtrl);
-        if ($shCtrl > 0) _SWUOnUpgradeDefeated($shCtrl, 'SOR_T02', $unit, $shOwner);
+        // CR: a Shield token consumed to prevent damage is DEFEATED too.
+        _SWUShieldDefeatedObservers($unit);
         return true;
     }
     return false;
@@ -264,13 +283,14 @@ function _SWUTwi166ReadyOnBaseAttack(int $baseOwner): void {
     }
 }
 
+// ASH_160 Kachirho Militia — "When an enemy ground unit attacks your base: Ready this unit. Use this
+// ability only once each round." Once each round PER COPY: NumUses on the unit (refilled at regroup).
 function _SWUAsh160ReadyOnBaseAttack(int $baseOwner): void {
     if ($baseOwner <= 0) return;
     foreach (GetUnitsInPlay($baseOwner) as $u) {
         if (empty($u->removed) && ($u->CardID ?? '') === 'ASH_160') {
-            $uid = intval($u->UniqueID ?? 0);
-            if (GlobalEffectCount($baseOwner, 'SWU_ASH160_USED_' . $uid) > 0) continue;   // once each round
-            AddGlobalEffects($baseOwner, 'SWU_ASH160_USED_' . $uid);
+            if (!SWUHasUseAvailable($u)) continue;   // once each round
+            SWUConsumeUse($u);
             _SWUReadyInline($baseOwner, 'ASH_160', $u);   // ready this unit
         }
     }
@@ -640,7 +660,7 @@ function SWUDiscardHostSubcards($host): void {
         // A token upgrade is SET ASIDE rather than discarded (CR 3.2) — but it is still DEFEATED, so the
         // observers below must fire for it. This used to `continue` here, which skipped the observer too:
         // a host dying with a Shield / Experience / Advantage still attached fired nothing, while the very
-        // same Shield consumed by damage DID fire (SWUConsumeShieldToken). One rule, opposite answers.
+        // same Shield consumed by damage DID fire (SWUPreventWithShield). One rule, opposite answers.
         $subIsToken = strpos(strtolower(CardType($subCardID) ?? ''), 'token') !== false;
         $subOwner = is_array($sub) ? intval($sub['Owner'] ?? $savedPID) : intval($sub->Owner ?? $savedPID);
         // TWI_069 Roger Roger — re-attach to a friendly Battle Droid token instead of discarding (if any).
@@ -929,26 +949,32 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
     // this branch. Deferred to action end (JTL_094 timing, user-specified) so the base controller chooses;
     // the upgrade stays on the base until then, stamped a UID so the flush can re-find it. HMW CR unreleased.
     if (!$skipReplacement && !$bounce && strpos($hostMzID, 'Base') !== false) {
-        $baseCtrl = intval($host->Controller ?? $player);
-        if ($baseCtrl <= 0) $baseCtrl = intval($player);
+        // The BASE's controller — a base carries no Controller, and falling back to the DEFEATING player asked
+        // whether an opponent (not the base's controller) controls Rampart (SSOT #6, SWUObjSeat).
+        $baseCtrl = SWUObjSeat($host);
+        if ($baseCtrl <= 0) $baseCtrl = SWUMzOwner($hostMzID, intval($player));
         if (_SWUControlsCardInPlay($baseCtrl, 'HMW_060')) {
             if (intval($foundUID) <= 0) {
                 $foundUID = NextUniqueID();
                 if (is_array($host->Subcards[$foundKey])) $host->Subcards[$foundKey]['UniqueID'] = $foundUID;
                 elseif (is_object($host->Subcards[$foundKey])) $host->Subcards[$foundKey]->UniqueID = $foundUID;
             }
+            // hostMz in the BASE CONTROLLER's frame — the flush resolves it as $baseCtrl, and $hostMzID is in the
+            // DEFEATING player's frame ("theirBase-0" when an opponent defeats it, which in the controller's
+            // frame is the defeater's own base → the upgrade was not found and the offer silently dropped). A
+            // seat's own base is always 'myBase-0' in its own frame.
             $gDeferredReplacements[] = ['kind' => 'rampart_save', 'controller' => $baseCtrl,
-                'hostMz' => $hostMzID, 'uid' => intval($foundUID), 'cardID' => $foundCardID];
+                'hostMz' => 'myBase-0', 'uid' => intval($foundUID), 'cardID' => $foundCardID];
             $playerID = $savedPID;
             return true;   // handled via the replacement — the base upgrade stays for now
         }
     }
 
     // Game log — committed (immunity, Willrow and the Rampart replacement returned above). A BOUNCE says
-    // "returned"; a Shield token spent absorbing damage never reaches here (SWUConsumeShieldToken).
+    // "returned"; a Shield token spent absorbing damage never reaches here (SWUPreventWithShield).
     if (function_exists('SWULogEffect') && $foundCardID !== '') {
-        // A base host carries no Owner — name the seat from the mzID ("on P2's base", not "on base").
-        $lsHost = SWULogObjRef($host, strpos($hostMzID, 'Base') !== false ? intval(SWUMzOwner($hostMzID, intval($player))) : 0);
+        // A base host carries no Owner — SWULogObjRef names its seat ("on P2's base", not "on base").
+        $lsHost = SWULogObjRef($host);
         $lsUpg  = GameLogCardRef($foundCardID) . ' on ' . $lsHost;
         // An upgrade defeating ITSELF (HMW_081 Alliance Shield Generator: "… defeat this upgrade") reads
         // "defeated itself", not "Alliance Shield Generator defeated Alliance Shield Generator".
@@ -1113,7 +1139,7 @@ function _SWUShieldOrReduceCombat($obj, string $mzID, int $amount, int $animPlay
         SWUQueuePreventedAnim($mzID, $animPlayer);
         return 0;
     }
-    if (SWUConsumeShieldToken($obj)) {                            // shield absorbs the whole hit (marker kept)
+    if (SWUPreventWithShield($obj)) {                            // shield absorbs the whole hit (marker kept)
         SWULogShieldPrevented($obj);                              // game log (a note on the ATTACK line)
         SWUQueuePreventedAnim($mzID, $animPlayer);
         SWUQueueShieldBreakAnim($mzID, $animPlayer);
@@ -1258,7 +1284,8 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID,
     }
 
     if (!$defenderOnly && $attacker !== null && !isset($attacker->removed) && HasOnAttackAbility($attacker->CardID)
-        && !LostAbilities($attacker)) {
+        && !LostAbilities($attacker)
+        && _SWUOnAttackAbilityActive((string)$attacker->CardID, $attacker, intval($attacker->Controller ?? $activePlayer))) {
         AddTrigger($activePlayer, 'OnAttack', $attacker->CardID, $attackerMzID);
     }
     // TS26_78 Barriss Offee — "When an enemy unit attacks: you may give an Experience token to that unit."
@@ -1384,6 +1411,8 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID,
                 if (($upgrade->CardID ?? '') !== 'SEC_038') continue;   // other grants suppressed
                 if ($condemnCount !== 1) continue;                       // multiple Condemns cancel out
             }
+            // A conditional grant ("if attached unit is a Force unit / a Fighter …") doesn't exist otherwise.
+            if (!_SWUOnAttackAbilityActive((string)($upgrade->CardID ?? ''), $attacker, intval($attacker->Controller ?? $activePlayer))) continue;
             AddTrigger($activePlayer, 'OnAttackFromUpgrade', $upgrade->CardID, $attackerMzID);
         }
     }
@@ -2295,6 +2324,9 @@ function _SWUSaboteurDefeatDefenderShields($attacker, string $targetMzID, int $p
         $shieldSlot++;
     }
     unset($sub);
+    // Each Shield Saboteur defeats is a defeated friendly upgrade for the DEFENDER — the observers every other
+    // Shield defeat fires (SSOT #7; this loop skipped them).
+    for ($i = 0; $i < $shieldSlot; $i++) _SWUShieldDefeatedObservers($target);
     // Game log — a keyword, not an ability, so no source: "P1's X defeated 1 Shield token on P2's Y (Saboteur)".
     if ($shieldSlot > 0) {
         AddGameLogEntry('DEFEAT', 'P' . intval($attacker->Controller ?? $player) . "'s " . GameLogCardRef((string)($attacker->CardID ?? ''))
@@ -3214,7 +3246,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                     SWUQueuePreventedAnim($attackerMzID, intval($player));   // SEC_101 Queen Amidala prevention
                 } elseif (_SWUConsumeAsh062Prevent($attacker)) {
                     SWUQueuePreventedAnim($attackerMzID, intval($player));   // ASH_062 The Mandalorian prevention
-                } elseif (!SWUConsumeShieldToken($attacker)) {
+                } elseif (!SWUPreventWithShield($attacker)) {
                     $attacker->Damage = intval($attacker->Damage) + $defendPower;
                     $combatCtx['attackerTookDmg'] = ($defendPower > 0);
                     $combatCtx['attackerDmgAmt']  = $defendPower;   // SEC_002 "deal that much"

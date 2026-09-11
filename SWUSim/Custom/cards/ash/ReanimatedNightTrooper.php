@@ -16,7 +16,10 @@ $customDQHandlers["ASH_045#0"] = function($player, $parts, $lastDecision) {
     $deck = GetDeck($target);
     if (empty($deck) || empty($deck[0]) || !empty($deck[0]->removed)) return;
     $topCid = $deck[0]->CardID ?? '';
-    AddGameLogEntry('ABILITY', 'P' . intval($player) . ' looked at the top of a deck', 'P' . intval($player));
+    // ★ USER DECISION 2026-09-11: the LOOK is public (whose deck), the CARD only to the trooper's controller.
+    AddGameLogEntry('REVEAL', 'P' . intval($player) . ' looked at the top card of '
+        . ($target === intval($player) ? 'their' : "P{$target}'s") . ' deck' . SWULogSourceSuffix());
+    SWULogPrivate(intval($player), 'REVEAL', 'You saw ' . GameLogCardRef($topCid));
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Discard_" . str_replace(' ', '_', CardTitle($topCid)) . "?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_045#1|{$target}", 1);
 };

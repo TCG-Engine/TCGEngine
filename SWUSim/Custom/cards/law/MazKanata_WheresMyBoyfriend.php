@@ -30,10 +30,8 @@ $customDQHandlers["LAW_074#0"] = function($player, $parts, $lastDecision) {
     if (empty($chosen)) return;       // declined / none found
     $cardID = $chosen[0];
     // Put the chosen card on top of the deck so SWUPlayTopDeckCard plays IT.
-    $deck = &GetDeck(intval($player));
-    $topObj = new Deck($cardID, 'Deck', intval($player));
-    array_unshift($deck, $topObj);
-    foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+    SWUPutCardsOnDeck(intval($player), [$cardID], 'top', '');   // staged, not a logged placement
+    $topObj = GetDeck(intval($player))[0];
     // Affordability after the -4 discount; if the player can't pay, it isn't played → send it to the bottom.
     $eff = max(0, SWUComputePlayCost(intval($player), $topObj) - 4);
     if (SWUTotalPaymentCapacity(intval($player)) < $eff) {

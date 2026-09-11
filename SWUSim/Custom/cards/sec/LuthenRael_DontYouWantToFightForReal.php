@@ -11,7 +11,7 @@ $customDQHandlers["SEC_013#0"] = function($player, $parts, $lastDecision) {
     if (($lastDecision ?? '') !== 'YES') return;
     $leaderArr = &GetLeader(intval($player));
     foreach ($leaderArr as &$l) {
-        if (($l->CardID ?? '') === 'SEC_013' && empty($l->removed)) { $l->Ready = false; break; }
+        if (($l->CardID ?? '') === 'SEC_013' && empty($l->removed)) { $l->Ready = false; SWULogLeaderExhaustCost(intval($player), 'SEC_013'); break; }
     }
     unset($l);
     SWUOfferUnitTarget($player, '', [

@@ -27,7 +27,9 @@ $customDQHandlers["SHD_045#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    if (!SWUConsumeShieldToken($o)) return;                 // defeat one Shield token
+    // DEFEAT, not prevention ($forPrevention = false): Galen naming "Shield" blanks the token's abilities,
+    // but a blanked token is still a token that can be defeated (SEC_046 ruling; HMW_077 Boss Nass).
+    if (!SWUDefeatShieldToken($o)) return;          // defeat one Shield token
     SWULogShieldDefeated($o);
     DoGiveExperienceToken(intval($player), $lastDecision);
     DoGiveExperienceToken(intval($player), $lastDecision);

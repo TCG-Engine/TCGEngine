@@ -6,16 +6,20 @@
 // Locate this card in the pile it actually landed in, as an mzID in $player's frame. Normally that is
 // the controller's own discard, but when the unit is defeated while an OPPONENT controls it (JTL_043
 // No Glory, Only Results takes control and then defeats) the card goes to its OWNER's discard while the
-// When Defeated belongs to the controller at the time of defeat — so both piles have to be checked.
+// When Defeated belongs to the controller at the time of defeat — so the other piles have to be checked
+// too. Every other seat, not just OtherPlayer(): at four seats the owner can be any of them, and a
+// far-seat owner's pile is named with its absolute `p<seat>Discard-N` mzID.
 function _SWULaw159DiscardMz(int $player): ?string {
     global $playerID; $saved = $playerID;
     $playerID = $player;
     $mz = _SWUFindSelfInDiscardMzID($player, 'LAW_159');
     if ($mz === null) {
-        $opp = OtherPlayer($player);
-        $playerID = $opp;
-        $oppMz = _SWUFindSelfInDiscardMzID($opp, 'LAW_159');
-        if ($oppMz !== null) $mz = 'theirDiscard-' . substr($oppMz, strlen('myDiscard-'));
+        foreach (GetSeatOrderArray() as $seat) {
+            if (intval($seat) === $player) continue;
+            $playerID = intval($seat);
+            $seatMz = _SWUFindSelfInDiscardMzID(intval($seat), 'LAW_159');
+            if ($seatMz !== null) { $mz = "p{$seat}Discard-" . substr($seatMz, strlen('myDiscard-')); break; }
+        }
     }
     $playerID = $saved;
     return $mz;
@@ -37,7 +41,7 @@ $whenDefeatedAbilities["LAW_159:0"] = function($player, $mzID) {
     $r = MZMove(intval($player), $dmz, "myResources");
     if ($r !== null) { $r->Status = 0; $r->Owner = intval($player); $r->Controller = intval($player); SWUKeepCreditTokensLast(intval($player)); }
     if ($r !== null) {   // game log: the resource is face down, so "this unit", not its name
-        $pile = (strpos($dmz, 'theirDiscard') === 0) ? ('P' . OtherPlayer(intval($player)) . "'s discard pile") : 'their discard pile';
+        $pile = preg_match('/^p(\d+)Discard-/', $dmz, $m) ? ("P{$m[1]}'s discard pile") : 'their discard pile';
         SWULogResourced(intval($player), "this unit from {$pile}");
     }
 };

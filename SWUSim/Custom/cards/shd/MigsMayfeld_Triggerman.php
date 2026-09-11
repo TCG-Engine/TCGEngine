@@ -20,5 +20,5 @@ $customDQHandlers["SHD_163#0"] = function($player, $parts, $lastDecision) {
         if (SWUObjGone($o)) return;
         SWUDealDamageToUnit($lastDecision, 2, intval($player));
     }
-    AddGlobalEffects(intval($player), 'SWU_SHD163_USED');   // once each round — consumed on actual use
+    SWUSpendUnitRoundUse(intval($parts[0] ?? 0));   // once each round, THIS copy — consumed on actual use
 };

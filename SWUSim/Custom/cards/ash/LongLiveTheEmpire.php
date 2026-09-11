@@ -9,8 +9,7 @@ $customDQHandlers["ASH_103#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;
     SWUDefeatUnit(intval($player), $lastDecision);
-    $deck = GetDeck(intval($player));
-    if (!empty($deck) && !empty($deck[0]) && empty($deck[0]->removed)) SWURampResourceExhausted(intval($player), 'myDeck-0');
+    SWUResourceTopOfDeck(intval($player));
 };
 
 // When Played (event) — migrated from OnPlayEvent.

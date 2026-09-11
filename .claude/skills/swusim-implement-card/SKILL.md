@@ -773,8 +773,11 @@ one performs.** Enumerate the paths before writing the card, not after.
   it") fired NO when-you-draw observers at all — LOF_148 Rey never triggered off SOR_123 Recruit, while a
   plain draw worked. For any "when you draw / when this enters / when this is discarded" card, test the
   card's window through **every** route into that zone (normal draw · search-and-draw · put-into-hand ·
-  bounce), not just the common one. The fix pattern: capture the new slots and call the same observer the
-  canonical mover calls (`_SWUOnPlayerDrew` + the per-card hook), rather than duplicating logic.
+  bounce), not just the common one. **UPDATED 2026-09-11 (SSOT #4):** don't call the observers by hand any
+  more — a DRAW goes through a funnel that runs all of it (observers, the `SWU_DREW_PHASE` counter,
+  telemetry, undo consent, and the CR 7.6.8 / 7.6.11 trigger timing): `SWUFinishTopDeckSearch` for "search
+  … and draw it", `SWUDrawTopCardFront` for "look at the top card … draw it", `_SWUAfterCardsDrawn` for any
+  other draw. See the §3c table and "Game-log & SSOT pass (2026-09-11)" below.
 - **★★ Two implementations of one event can ORDER their steps differently — and only one is right.** A
   captured unit must not observe the defeat that FREES it. `SWUDefeatUnit` (effect path) collected the
   defeat triggers first and was correct; the COMBAT defender branch called `SWURescueCaptivesOf` before
@@ -1367,6 +1370,52 @@ fixture-blind-spot table above for *why* that coverage could not see them.
   printed cost / one short), not a committed section — it cannot fail for this card specifically.
 - **Fixture: SOR_111 Patrolling V-Wing is a SPACE unit** — the go-to "When Played: draw a card" fixture lands
   in `SPACEARENACOUNT`, not ground. Read the arena from the dictionary like every other stat.
+
+### ★★ Game-log & SSOT pass (2026-09-11) — trigger TIMING, the drawn COPY, and counting the parallels
+The helper rows are in the §3c table ("ONE FUNNEL PER GAME EVENT"). The lessons behind them:
+- **★★ Triggers never interrupt the ability that raised them — ★ USER RULINGS 2026-09-11 (CR 7.6.8 /
+  7.6.11).** "Leader abilities and events must fully resolve first" and "Rey triggers, but won't resolve
+  til after." The engine now enforces this for DRAW triggers in two holds:
+  - **Inside an EVENT or an ACTION ability** (leader / unit / base), they wait for the whole action and are
+    released by `SWUAfterAction`, which re-closes the action behind them on the queue they landed on.
+  - **Inside a TRIGGERED ability** (When Played / When Defeated / On Attack), they are NESTED: a block-2
+    marker on the queue that is running (`DecisionQueueController::ExecutingSeat()`) releases them right
+    after that ability's block-1 chain, ahead of its sibling triggers.
+  - **Test it:** a card that draws and then has MORE instructions ("draw a card, THEN put a card from your
+    hand on top") needs a section asserting the NEXT pending prompt is the ability's own, not the drawn
+    card's trigger (`lof/Rey_DrawnByYoda_…`, `lof/Rey_DrawnByVaughn_…`).
+  - **Cross-seat case:** also cover a draw that runs on the OPPONENT's queue (Watto's "an opponent
+    chooses … you draw"). A bookkeeping CUSTOM left on a seat that isn't draining never runs, and the
+    combat hop-back waits on it forever.
+- **★★ The trigger belongs to the DRAWN copy.** Yoda / Leia: put the drawn Rey back → no trigger, even with
+  another Rey in hand; put the OTHER Rey back → the drawn one triggers once.
+  - Hand rows carry no UniqueID, so the drawn copy is a hand POSITION.
+  - Write the mirrored pair; the "no trigger" half passes by coincidence when positions aren't tracked, and
+    only the "old Rey back → triggers" half discriminates.
+- **★★ Count the parallel sites by the VERB in the card text, never by a helper name.** Both SSOT counts
+  started ~5× low:
+  - "4 refill loops" was ~20, because the ramp helper's hand-rolled CALLERS were the same pattern.
+  - "4 custom finalizers" was 9 draw paths.
+  - Grep the card texts for the verb ("resource the top card", "draw it", "put … on the top/bottom of your
+    deck"), then read each file that moves that zone raw.
+  - Match the FULL text, DeployText included: a header-line scan missed Admiral Trench's "Draw 1 of the
+    remaining cards".
+- **★ A genuine-looking "had no effect" line is worth reading.** The game log prints "P1's X had no effect"
+  when an ability closure changed nothing.
+  - Triaging all 560 cards found over-triggers (Coordinate / Force-host / unit-only abilities collected when
+    their condition can't hold — gate them at COLLECTION: `_SWUOnAttackAbilityActive`,
+    `_SWUWhenPlayedAbilityActive`, `_SWUWhenPlayedIsUnitOnly`) and no-op stubs (register them in
+    `$swuLogEffectAppliedElsewhere`).
+  - It also found two real bugs: SEC_013 Luthen firing TWICE on an effect self-defeat, and IC27_024
+    Thrawn's When Defeated excluding the survivor that had SHIFTED into his positional slot.
+- **★ A positional self-exclusion in a When Defeated goes stale.** By dispatch time the defeated card may be
+  cleaned up and a survivor shifted into its mzID. Exclude the slot only if it still holds THIS card
+  (`CardID === 'X'`), the SEC_202 Rebel Propagandist idiom. Excluding whatever sits there excludes the
+  survivor.
+- **★ An event that delegates to ActivateCard is already committed.** Smuggle's event branch, a play from
+  an opponent's discard and Plot all hand the card to ActivateCard, so they must not bump the counter,
+  spend charges or log a play line themselves. Vanguard Ace ("for each other card you played this phase")
+  is the cheapest discriminating observer: 2 tokens instead of 1 is a double commit.
 
 ### ⚠ DSL + design traps (HMW preview completion, 2026-08-26)
 
@@ -2117,6 +2166,16 @@ Only add what the tests actually require.
 |---|---|
 | **A card that PLAYS another card** ("play a unit from your discard", "play a card from your hand") | **`SWUNestedPlay($player, $mzID, $ignoreCost, $discount)`** in `CardHelpers.php` — NEVER a bare `ActivateCard`. ActivateCard finalises the action itself, and so does the outer effect (an event's `FINISH_PLAY_CARD`, a unit's entry-trigger flush), so the turn swaps twice and the player gets a FREE EXTRA ACTION. There are TWO after-actions and they need different guards: the IMMEDIATE one (the `$gTurnPlayer`/`PASS` save-restore) and the DEFERRED one — if the played card arms an ENTRY TRIGGER a `SWU_TRIGGER_RESUME` is queued and finalises LATER, after the restore. The helper does both. ⚠ This produced FIVE bugs in one week because each fix was invented locally; `DevTools/tests/nested_play_guard_test.php` now fails on any raw `ActivateCard` in a card file. ⚠ EXCEPTION: a leader/base Action that DELEGATES its whole action to the play must call `ActivateCard` directly — there its after-action is the action's only one and the helper strands the turn. ⚠ TESTING: a double after-action is INVISIBLE under `P1OnlyActions` — assert `TURNPLAYER` on an ALTERNATING turn, and for the deferred leg give an opponent HMW_171 Trap Field (it reacts to ANY non-leader ground unit entering play). ⚠ A "play up to N" card HIDES the bug at EVEN counts (the swaps cancel) — test with an ODD number of plays. |
 | **Assert `NOEXTRAACTION` on any card that plays another card, attacks from an ability, or runs a reactive trigger** | It asserts no action was closed twice. **It is the only form that works in the ~1834 files using `P1OnlyActions`** — that directive claims initiative so the opponent auto-passes, making a DOUBLE turn swap indistinguishable from a single one, so `TURNPLAYER` is blind there. It is also stronger than `TURNPLAYER` in an alternating fixture, because it sees a STRUCTURAL double close even when the turn ends up correct. ⚠ It means "no second close was ATTEMPTED", which is stricter than "no extra action happened": the DEFERRED leg (a queued `SWU_TRIGGER_RESUME`, typically via an opponent's HMW_171 Trap Field) legitimately attempts one and the gate refuses it — use `TURNPLAYER` on those sections instead. See `SWUSim/docs/action-close-ownership.md`. |
+| **★ ONE FUNNEL PER GAME EVENT (SSOT pass, 2026-09-11)** — each was re-implemented at ~20 sites, and every copy drifted | Use these; never the raw zone write they replace. They carry the log line, the observers, the counters and the trigger timing, so a hand-rolled copy is a bug even when its test passes. |
+| **Committing a PLAY** (any path that plays a card) | **`SWUCommitPlay($player, $cardID, $logSuffix, $as, $chargeObj)`** — the play line, telemetry, `SWU_CARDS_PLAYED`, one-shot charges, the "first unit / non-unit / Clone / Gambit" flags. ⚠ A path that DELEGATES to ActivateCard must NOT also commit (a smuggled event and every opponent-discard play were counted TWICE); a hand Pilot commits with `$logSuffix = null` (its attach writes the line). Pass `$chargeObj` only if this path's cost APPLIED the charges. |
+| **DRAWING a card** ("draw it", "draw a card") | **`DoDrawCard`** · **`SWUFinishTopDeckSearch($player, $peekedIDs, $pick, 'bottom'\|'discard', $revealed)`** for "search … and draw it" (returns `[cardID, handMz]` pairs for the rider) · **`SWUDrawTopCardFront($player, $revealed)`** for "look at the top card … draw it" · else **`_SWUAfterCardsDrawn($player, $drawnMz)`** right after your own move. NEVER a bare `AddHand` for a draw: 9 paths skipped the observers (Axe Woves, JTL_111, LOF_148 Rey) and the counter (LAW_051). ⚠ "Put it into your hand" / "return to hand" is NOT a draw. |
+| **Top card of a deck → resource** ("resource the top card of your deck") | **`SWUResourceTopOfDeck($player, $ready = false, $reason = '')`** — first LIVE card, slide animation, "resourced the top card of their deck (source)". ⚠ `'myDeck-0'` is NOT the top card — after an uncleaned removal it is a dead slot (Outlaw Corona's bounty once silently did nothing). `$reason` only for rule refills ("Smuggle slot refill"). |
+| **A card INTO a deck** (top / bottom / random bottom / shuffled in) | **`SWUMoveCardToDeck($player, $mzID, $where)`** (from hand / discard / deck, to its OWNER's deck, logged by zone) · **`SWUPutCardsOnDeck($owner, $cardIDs, 'top'\|'bottom'\|'bottomRandom'\|'shuffle', $from)`** for cards already out of their zone (`$from` = `hand`/`deck` hidden count, `discard`/`play`/`revealed` named, `''` = internal staging, no line) · **`SWUMoveChosenHandCardToDeck`** for "then put a card from your hand on the top or bottom" (see the next row). NEVER `new Deck(...)` + unshift. |
+| **"…then put a card from your hand back"** (Yoda TWI_004, Leia IC27_008, Vaughn TS26_39) | Carry the chosen hand **POSITION** from the picker, not just the CardID, and move exactly that copy (`SWUMoveChosenHandCardToDeck`). Hand rows have no UniqueID; with two copies in hand the choice matters — a drawn LOF_148 Rey's trigger belongs to the DRAWN copy (★ USER RULING 2026-09-11). Any code that moves a hand card out while draw triggers wait must report it: `_SWUDeferredDrawNoteHandRemoval($player, $ordinal)`. |
+| **Starting an Action ability** (leader / unit / base / Epic) | **`SWUBeginActionAbility($player, $cardID, $kind)`** at the dispatch site — it opens the CR 7.6.8 draw-trigger hold and writes "P1 used X's Action". |
+| **A PLAYED unit entering play by a path other than ActivateCard** (inline placements: own-discard play, Smuggle) | **`_SWUPlayedUnitEntry($player, $cardID, $newCardMzID, $uid, $fromMz, $resourcesPaid)`** right after placement — the "next unit you play" charges (LOF_180 Ambush, LOF_010 Hidden), the played flags (`SWU_PLAYED_UNIT_<uid>`, `SWU_UNITS_PLAYED_ROUND`, Villainy / FO / Force / Bounty Hunter / Pilot), play-source grants, the paid stamp, pending entry effects. Then `SWUCheckShrinkDefeats()` and a defeated-on-entry check before collecting entry triggers (a unit replayed under SHD_037 Snoke survived at -1 HP). |
+| **Whose is this object?** (owner / controller of a card that may not carry the field) | **`SWUObjSeat($obj, $owner = false)`** — the field if > 0, else the seat whose zone holds the object (by identity, no frame). ⚠ `ZoneClasses.php`: Discard / Hand / Deck / Leader / Base carry NO Owner or Controller, and Resources default both to -1, so `intval($o->Owner ?? $player)` on them answers the ACTING player: HMW_060 Rampart asked the defeater, TWI_040 A Fine Addition took an opponent's discard card as the caster's. Arena units always carry both, so `->Controller` is fine there. |
+| **A game-log line only some seats may see** ("You drew X") | **`SWULogPrivate($seat, $type, $text)`** / **`SWULogSeats($seats, …)`** — never a hand-built `'P' . $seat` visibility (a seat of 0 writes a line nobody can see; `gamelog_visibility_arg_test.php` fails any computed visibility outside the helpers). A public line is plain `AddGameLogEntry($type, $text)`. Resource lines: `SWULogResourced` ("P1 resourced … (Source)"). |
 | Base Epic Action | `$baseAbilities["CARD_ID"]` closure (in the card's `cards/<set>/<Title>.php`; shared `BaseAbilities.php` holds only families/glue) |
 | Leader ability | `SWUSim/Custom/LeaderAbilities.php` — `$leaderAbilities["CARD_ID"]` closure. **For the leader (undeployed, front) side ability, prefer the bare base CardID as the key** — `$leaderAbilities["JTL_011"]`, no `:0` suffix. The *deployed* (unit) side's abilities register in the normal `whenPlayed`/`onAttack`/`whenDefeated` registries under `CardID:0` — so the same base CardID cleanly distinguishes the two sides across namespaces (front side = `$leaderAbilities["X"]`, unit side = `$onAttackAbilities["X:0"]`). |
 | Timed-ability window — When Played / When Deployed, On Attack, On Defense, When Defeated, On Attack-End, etc. | `SWUSim/Custom/CardDQHandlers.php` — the matching registry (`$whenPlayedAbilities` / `$onAttackAbilities` / `$onDefenseAbilities` / `$whenDefeatedAbilities` / …) keyed **`CardID:0`**. **Every one of these windows uses the `:N` window-index suffix** (`:0` for the card's first/only such window, `:1` for a second window of the same kind). This is the *one* exception to "bare CardID" — the trigger windows are the `:` namespace; leader-front-side abilities and continuation/reactive handlers are bare-CardID/`#N`. |

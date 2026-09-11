@@ -133,9 +133,10 @@ $customDQHandlers["JTL_014#3"] = function($player, $parts, $lastDecision) {
     $remaining = ($parts[1] ?? '') !== '' ? explode(",", $parts[1]) : [];
     $drawIdx = -1;
     if (preg_match('/myTempZone-(\d+)/', trim((string)$lastDecision), $m)) $drawIdx = intval($m[1]);
+    $drawnObj = null;
     foreach ($remaining as $k => $cid) {
         if ($k === $drawIdx) {
-            AddHand($owner, CardID: $cid);
+            $drawnObj = AddHand($owner, CardID: $cid);
             AddGameLogEntry('DRAW', 'P' . $owner . ' drew a card');
         } else {
             SWUAddToDiscard($owner, $cid, 'DECK');
@@ -144,6 +145,13 @@ $customDQHandlers["JTL_014#3"] = function($player, $parts, $lastDecision) {
     $tmpOwn = &GetTempZone($owner);
     while (count($tmpOwn) > 0) array_pop($tmpOwn);
     DecisionQueueController::CleanupRemovedCards();
+    // A DRAW — the observers, the drawn-this-phase counter, telemetry and undo consent (SSOT #4). The hand
+    // slot is found by object identity, after the cleanup above re-indexed the hand.
+    if ($drawnObj !== null) {
+        foreach (GetHand($owner) as $i => $h) {
+            if ($h === $drawnObj) { _SWUAfterCardsDrawn($owner, ["myHand-{$i}"]); break; }
+        }
+    }
 };
 
 // JTL_014 Admiral Trench — Leader Action [Exhaust]: Discard a card that costs 3 or more from your hand.

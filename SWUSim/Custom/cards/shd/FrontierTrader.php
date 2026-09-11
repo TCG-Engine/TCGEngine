@@ -31,13 +31,6 @@ $customDQHandlers["SHD_214#0"] = function($player, $parts, $lastDecision) {
 $customDQHandlers["SHD_214#1"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID; $playerID = intval($player);
-    $deck = &GetDeck(intval($player));
-    for ($i = 0; $i < count($deck); $i++) {
-        if (isset($deck[$i]->removed) && $deck[$i]->removed) continue;
-        $top = $deck[$i]->CardID; $deck[$i]->Remove();
-        AddResources(intval($player), $top, 0, intval($player), intval($player)); // Status 0 = exhausted
-        AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' put a card into play as a resource');
-        break;
-    }
+    SWUResourceTopOfDeck(intval($player));   // the top card of the deck, exhausted (SSOT #3 funnel)
     DecisionQueueController::CleanupRemovedCards();
 };

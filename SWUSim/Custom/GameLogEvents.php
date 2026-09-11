@@ -124,13 +124,18 @@ function _SWULogSrcQueueSet(int $player, array $l): void {
     if (GetSWUVar('SWU_LOG_SRCQ_' . $player, '') !== $v) SetSWUVar('SWU_LOG_SRCQ_' . $player, $v);
 }
 // Keep only stamps whose continuation is still queued (a multiset match on the param, oldest first).
-function _SWULogSrcQueueReconcile(int $player, array $l): array {
+// $unstamped: a param whose decision is ALREADY in the queue but not yet stamped — GameOnDecisionAdded runs
+// after AddDecision spliced it in, so without discounting it a skipped continuation's stale stamp survived
+// (the new decision "paid" for it) and the new one then resolved with the OLD card's source. Caught by
+// SWUSim/DevTools/tests/gamelog_queued_source_test.php.
+function _SWULogSrcQueueReconcile(int $player, array $l, string $unstamped = ''): array {
     $live = [];
     foreach (GetDecisionQueue($player) as $d) {
         if (!empty($d->removed) || (string)($d->Type ?? '') !== 'CUSTOM') continue;
         $p = (string)($d->Param ?? '');
         $live[$p] = ($live[$p] ?? 0) + 1;
     }
+    if ($unstamped !== '' && isset($live[$unstamped])) $live[$unstamped]--;
     $counts = [];
     foreach ($l as $e) $counts[$e['p']] = ($counts[$e['p']] ?? 0) + 1;
     $out = [];
@@ -146,7 +151,7 @@ function GameOnDecisionAdded(int $player, string $type, string $param): void {
     $handler = explode('|', $param, 2)[0];
     if (_SWULogCardFromHandler($handler) !== '') return;        // card-named: GameBeforeCustomHandler sets it
     $src = GetSWUVar('SWU_LOG_SRC', '');
-    $l = _SWULogSrcQueueReconcile($player, _SWULogSrcQueueGet($player));
+    $l = _SWULogSrcQueueReconcile($player, _SWULogSrcQueueGet($player), $param);
     if ($src !== '') $l[] = ['p' => $param, 's' => $src];
     _SWULogSrcQueueSet($player, $l);
 }
@@ -198,18 +203,15 @@ function GameOnDecisionAnswered(int $player, string $answer): void {
 // sweep). COMBAT damage is NOT logged here: the ATTACK summary line carries the combat numbers, and a
 // per-hit line would print BEFORE it (the summary is written after combat resolves).
 
-// "P2's [[SOR_095|Battlefield Marine]]" for a unit, "P2's base" for a base.
-// $baseOwner: a base object carries no Owner, so callers holding its mzID pass SWUMzOwner(...) — which is
-// also what makes the label right at 3-4 seats.
-function SWULogObjRef($obj, int $baseOwner = 0): string {
+// "P2's [[SOR_095|Battlefield Marine]]" for a unit, "P2's base" for a base. The seat comes from SWUObjSeat
+// (SSOT #6): a base or an undeployed leader carries no Owner / Controller, so it is the seat whose zone holds
+// the object — callers no longer derive it from an mzID. $seat: an explicit override, for a detached copy.
+function SWULogObjRef($obj, int $seat = 0): string {
     if ($obj === null) return 'a unit';
     $cid  = (string)($obj->CardID ?? '');
-    $ctrl = intval($obj->Controller ?? ($obj->Owner ?? 0));
-    if (CardType($cid) === 'Base') {
-        $owner = $baseOwner > 0 ? $baseOwner : intval($obj->Owner ?? 0);
-        return ($owner > 0 ? 'P' . $owner . "'s " : '') . 'base';
-    }
-    return ($ctrl > 0 ? 'P' . $ctrl . "'s " : '') . GameLogCardRef($cid);
+    $who  = $seat > 0 ? $seat : SWUObjSeat($obj, CardType($cid) === 'Base');
+    if (CardType($cid) === 'Base') return ($who > 0 ? 'P' . $who . "'s " : '') . 'base';
+    return ($who > 0 ? 'P' . $who . "'s " : '') . GameLogCardRef($cid);
 }
 
 // Resolve a frame-relative mzID in $perspective's frame (the frame it was minted in) without disturbing
@@ -221,11 +223,6 @@ function _SWULogResolve(string $relMzID, int $perspective) {
     $obj = GetZoneObject($relMzID);
     $playerID = $saved;
     return $obj;
-}
-
-// The seat owning a base mzID (0 for anything that is not a base).
-function _SWULogBaseOwner(string $relMzID, int $perspective): int {
-    return (strpos($relMzID, 'Base') !== false && function_exists('SWUMzOwner')) ? intval(SWUMzOwner($relMzID, $perspective)) : 0;
 }
 
 // Write an effect line: "<source> <active>" while an ability resolves, "<passive>" otherwise.
@@ -244,7 +241,7 @@ function _SWULogInCombatDamage(): bool {
 function SWULogDamageEvent(string $relMzID, int $amount, int $perspective): void {
     if ($amount <= 0 || _SWULogInCombatDamage()) return;
     $o   = _SWULogResolve($relMzID, $perspective);
-    $ref = SWULogObjRef($o, _SWULogBaseOwner($relMzID, $perspective));
+    $ref = SWULogObjRef($o);
     SWULogEffect('DAMAGE', 'dealt ' . $amount . ' damage to ' . _SWULogActiveRef($o, $ref), "{$ref} took {$amount} damage");
 }
 
@@ -252,7 +249,7 @@ function SWULogDamageEvent(string $relMzID, int $amount, int $perspective): void
 function SWULogHealEvent(string $relMzID, int $healed, int $perspective): void {
     if ($healed <= 0) return;
     $o   = _SWULogResolve($relMzID, $perspective);
-    $ref = SWULogObjRef($o, _SWULogBaseOwner($relMzID, $perspective));
+    $ref = SWULogObjRef($o);
     SWULogEffect('HEAL', 'healed ' . $healed . ' damage from ' . _SWULogActiveRef($o, $ref), "{$ref} healed {$healed} damage");
 }
 
@@ -292,7 +289,7 @@ function SWULogDraw(int $player, array $drawnMz): void {
         $o = _SWULogResolve((string)$mz, $player);
         if ($o !== null && ($o->CardID ?? '') !== '') $refs[] = GameLogCardRef((string)$o->CardID);
     }
-    if (!empty($refs)) AddGameLogEntry('DRAW', 'You drew ' . implode(', ', $refs), 'P' . $player);
+    if (!empty($refs)) SWULogPrivate($player, 'DRAW', 'You drew ' . implode(', ', $refs));
 }
 
 // Several single-card draws that read as ONE event (an opening hand, a mulligan's redraw — each draws one
@@ -307,7 +304,7 @@ function SWULogDrawBatch(int $player, string $what, callable $fn): void {
     $n = count($ids);
     if ($n <= 0) return;
     AddGameLogEntry('DRAW', "P{$player} {$what} of {$n} card" . ($n === 1 ? '' : 's'), 'ALL');
-    AddGameLogEntry('DRAW', 'You drew ' . implode(', ', array_map('GameLogCardRef', $ids)), 'P' . $player);
+    SWULogPrivate($player, 'DRAW', 'You drew ' . implode(', ', array_map('GameLogCardRef', $ids)));
 }
 
 // DISCARDS (from a hand, or from a deck — a mill). Called from SWUAddToDiscard for 'HAND' and 'DECK' (the
@@ -445,7 +442,7 @@ function SWULogSearchedToHand(int $player, array $cardIDs, bool $revealed): void
         return;
     }
     AddGameLogEntry('DRAW', "P{$player} drew " . ($n === 1 ? 'a card' : "{$n} cards") . SWULogSourceSuffix(), 'ALL');
-    AddGameLogEntry('DRAW', "You drew {$refs}", 'P' . $player);
+    SWULogPrivate($player, 'DRAW', "You drew {$refs}");
 }
 
 // A card returned from a DISCARD PILE to its owner's hand (public) — SWUReturnFromDiscardToHand's wording.
@@ -470,12 +467,33 @@ function SWULogToDeck(int $owner, array $cardIDs, string $from, string $where): 
     // A HIDDEN card (from hand) is a numeral count in SWULogDeckPlacement's style — "P1 put 1 card on the top
     // of their deck (Yoda)" — so the top and bottom halves of one choice read alike (gamelog-updates #5).
     // A face-up card (discard pile / play) is named, with where it came from.
-    $what = ($from === 'hand') ? "{$n} card" . ($n === 1 ? '' : 's') : implode(', ', array_map('GameLogCardRef', $cardIDs));
+    // Hidden: from a hand, or straight from the deck (a search's rest). Named: a discard pile, play, or
+    // cards the ability REVEALED (LOF_103 Following the Path).
+    $hidden = in_array($from, ['hand', 'deck'], true);
+    $what = $hidden ? "{$n} card" . ($n === 1 ? '' : 's') : implode(', ', array_map('GameLogCardRef', $cardIDs));
     $zone = ['discard' => ' from their discard pile'][$from] ?? '';
     $text = ($where === 'shuffle')
         ? "P{$owner} shuffled {$what}{$zone} into their deck"
         : "P{$owner} put {$what}{$zone} on the " . ($where === 'top' ? 'top' : 'bottom') . ' of their deck';
     AddGameLogEntry('DECK', $text . SWULogSourceSuffix(), 'ALL');
+}
+
+// ── WHO SEES A LOG LINE — SSOT #8 (gamelog-updates, 2026-09-11) ──────────────────────────────────────────
+// A RESTRICTED line (one only some seats may see — "You drew X", "You saw X, Y") is written through these two
+// and nothing else. AddGameLogEntry's raw visibility string is how two lines ended up shown to NOBODY (HMW_160
+// passed 0, HMW_108 passed 1), and a hand-built 'P' . $seat with a seat of 0 does the same silently. These
+// build the tag themselves and refuse to write a line no one could see. A PUBLIC line needs neither:
+// AddGameLogEntry($type, $text) defaults to 'ALL'. Enforced by DevTools/tests/gamelog_visibility_arg_test.php —
+// a computed visibility anywhere outside these helpers fails it.
+function SWULogPrivate(int $seat, string $type, string $text): void {
+    SWULogSeats([$seat], $type, $text);
+}
+
+function SWULogSeats(array $seats, string $type, string $text): void {
+    $tags = [];
+    foreach ($seats as $s) { $s = intval($s); if ($s > 0) $tags['P' . $s] = true; }
+    if (empty($tags)) return;
+    AddGameLogEntry($type, $text, implode(',', array_keys($tags)));
 }
 
 // A card put into play as a RESOURCE outside DoResourceCard / SWURampResource* (smuggle and Plot slot
@@ -484,6 +502,17 @@ function SWULogToDeck(int $owner, array $cardIDs, string $from, string $where): 
 function SWULogResourced(int $player, string $what = 'a card'): void {
     if ($player <= 0) return;
     AddGameLogEntry('RESOURCE', "P{$player} resourced {$what}" . SWULogSourceSuffix(), 'ALL');
+}
+
+// A leader exhausted as the COST of its "you may exhaust this leader" reaction (Wicket, Hondo, Boba Daimyo,
+// Cad Bane, …). User decision 2026-09-11: logged (an Action's own [Exhaust] cost stays covered by "P1 used
+// X's Action"). The leader is usually the resolving source already; name another source when it isn't
+// (ASH_203 Mando's N1 Starfighter paying with a friendly leader).
+function SWULogLeaderExhaustCost(int $player, string $leaderCardID): void {
+    if ($player <= 0 || $leaderCardID === '') return;
+    [, $src] = SWULogSource();
+    AddGameLogEntry('EXHAUST', "P{$player} exhausted " . GameLogCardRef($leaderCardID)
+        . (($src !== '' && $src !== $leaderCardID) ? SWULogSourceSuffix() : ''), 'ALL');
 }
 
 // ─── Plays ─────────────────────────────────────────────────────────────────────────────────────────────
@@ -506,9 +535,9 @@ function SWULogPlay(int $player, string $cardID, string $how = ''): void {
 // Otherwise — a Pilot played from HAND never reaches ActivateCard's commit point, and neither do the
 // "play an upgrade from X" card effects — this IS the play line. A leader deployed as a Pilot, or an
 // upgrade MOVED from another unit, comes from no playable zone: host only.
-function SWULogAttach(int $player, string $cardID, string $fromMz, $host, int $hostOwner, bool $isPilot, ?int $owner = null): void {
+function SWULogAttach(int $player, string $cardID, string $fromMz, $host, bool $isPilot, ?int $owner = null): void {
     if ($host === null || $cardID === '') return;
-    $hostRef = SWULogObjRef($host, $hostOwner);
+    $hostRef = SWULogObjRef($host);
     $played  = GetSWUVar('SWU_LOG_LASTPLAY', '') === $cardID;
     if ($played) SetSWUVar('SWU_LOG_LASTPLAY', '');
     $fromPlayableZone = (bool)preg_match('/Hand|Discard|Deck|Resources|TempZone/', $fromMz);
@@ -570,8 +599,16 @@ function SWULogTakeDefeatNote(): string {
 function SWULogNoEffectProbe(): string {
     return class_exists('Versions') ? md5(Versions::GetSerializedZones()) : '';
 }
+// An ability whose dispatched closure is an intentional EMPTY STUB because its effect is applied elsewhere
+// (IBH_010 Han Solo / LOF_014 Grand Inquisitor / SHD_216 Chain Code Collector: the defender's -N/-0 is set
+// synchronously in ExecuteSWUAttack). The closure never changes anything, so without this every use would
+// log a false "had no effect". Registered at the stub itself:
+//     $swuLogEffectAppliedElsewhere['IBH_010'] = true;
+// Guarded by SWUSim/DevTools/tests/gamelog_noeffect_stub_test.php (every empty ability closure registered).
 function SWULogNoEffectCheck(string $probe, int $player, string $cardID): void {
+    global $swuLogEffectAppliedElsewhere;
     if ($probe === '' || $player <= 0 || $cardID === '') return;
+    if (!empty($swuLogEffectAppliedElsewhere[$cardID])) return;
     if (SWULogNoEffectProbe() !== $probe) return;
     AddGameLogEntry('EFFECT', "P{$player}'s " . GameLogCardRef($cardID) . ' had no effect', 'ALL');
 }
@@ -740,7 +777,7 @@ function SWULogPeek(int $player, string $verb, array $cardIDs): void {
         return;
     }
     AddGameLogEntry('REVEAL', 'P' . $player . " {$verb} the top {$n} card" . ($n === 1 ? '' : 's') . ' of their deck' . SWULogSourceSuffix(), 'ALL');
-    AddGameLogEntry('REVEAL', 'You saw ' . implode(', ', array_map('GameLogCardRef', $cardIDs)), 'P' . $player);
+    SWULogPrivate($player, 'REVEAL', 'You saw ' . implode(', ', array_map('GameLogCardRef', $cardIDs)));
 }
 
 // Cards put on the bottom / kept on top of a deck — face down, so a public COUNT only.

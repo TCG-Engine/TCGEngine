@@ -652,6 +652,10 @@
     .swu-log-CHAT.chatMsg-p3 > span:first-child { color: #7fd88f; }
     .swu-log-CHAT.chatMsg-p4 > span:first-child { color: #d79bff; }
 
+    /* An undone line — struck through + dimmed. Mirrors the desktop rule (this layout does not load
+       GameLayout's CSS). */
+    .swu-log-UNDONE { opacity: 0.45; text-decoration: line-through; text-decoration-thickness: 1px; }
+
     /* Chat — only the COMPOSER lives in the drawer now; the messages go into the log above.
        mountChat() (shared) reparents #chatWidget into #swuChatMount; these overrides un-float it.
        ⚠ Killing #chatToggleBtn is load-bearing beyond looks: TCGChatMessageSink treats a VISIBLE

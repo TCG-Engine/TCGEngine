@@ -24,14 +24,7 @@ $customDQHandlers["SEC_008#0"] = function($player, $parts, $lastDecision) {
     if (!SWUReturnResourceToHand(intval($player), $mz)) { SWUAfterAction(intval($player)); return; }
     DecisionQueueController::CleanupRemovedCards();
     // "If you do, put the top card of your deck into play as a resource." (enters exhausted)
-    $deck = &GetDeck(intval($player));
-    for ($i = 0; $i < count($deck); $i++) {
-        if (isset($deck[$i]->removed) && $deck[$i]->removed) continue;
-        $top = $deck[$i]->CardID; $deck[$i]->Remove();
-        AddResources(intval($player), $top, 0, intval($player), intval($player)); // Status 0 = exhausted
-        AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' put a card into play as a resource');
-        break;
-    }
+    SWUResourceTopOfDeck(intval($player));   // the top card of the deck, exhausted (SSOT #3 funnel)
     DecisionQueueController::CleanupRemovedCards();
     SWUAfterAction(intval($player));
 };

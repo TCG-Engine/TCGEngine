@@ -18,17 +18,8 @@ $customDQHandlers["LOF_104#0"] = function($player, $parts, $lastDecision) {
         $o->removed = true;
     }
     DecisionQueueController::CleanupRemovedCards();
-    // ⚠ EngineShuffle(), never PHP's shuffle() — unseeded Mt19937 put these on the bottom of the deck in
-    // an order that undo could not restore, so undo→redo dealt a different deck.
-    // EngineShuffle() indexes $array[$i] positionally; array_values() makes that contract explicit
-    // rather than assumed (this list is already sequential today, built via array push above).
-    $cardIDs = array_values($cardIDs);
-    // Game log BEFORE the shuffle — naming them in shuffled order would leak the random bottom order.
-    SWULogToDeck(intval($player), $cardIDs, 'discard', 'bottom');
-    EngineShuffle($cardIDs);
-    $deck = &GetDeck(intval($player));
-    foreach ($cardIDs as $cid) { $obj = new Deck($cid, 'Deck', intval($player)); $obj->mzIndex = count($deck); array_push($deck, $obj); }
-    foreach ($deck as $i => $card) { $card->mzIndex = $i; }
+    // To the bottom in a random order (EngineShuffle — undo-safe), named in the log BEFORE the shuffle.
+    SWUPutCardsOnDeck(intval($player), $cardIDs, 'bottomRandom', 'discard');
     $n = count($cardIDs);
     if ($n === 0) return;
     $units = SWUAllUnits();

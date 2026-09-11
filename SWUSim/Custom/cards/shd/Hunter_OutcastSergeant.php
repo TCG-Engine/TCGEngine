@@ -53,13 +53,6 @@ function HunterOutcastSergeantResolve(int $player, string $resMz): void {
     if (!$match) return;   // reveal only; no name-match with a friendly unique unit → nothing happens
     if (!SWUReturnResourceToHand($player, $resMz)) return;
     DecisionQueueController::CleanupRemovedCards();
-    $deck = &GetDeck($player);
-    for ($i = 0; $i < count($deck); $i++) {
-        if (!empty($deck[$i]->removed)) continue;
-        $top = $deck[$i]->CardID; $deck[$i]->Remove();
-        AddResources($player, $top, 0, $player, $player);   // enters exhausted
-        AddGameLogEntry('RESOURCE', 'P' . $player . ' put a card into play as a resource');
-        break;
-    }
+    SWUResourceTopOfDeck($player);   // the top card of the deck, exhausted (SSOT #3 funnel)
     DecisionQueueController::CleanupRemovedCards();
 }

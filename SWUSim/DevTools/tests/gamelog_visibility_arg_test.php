@@ -60,6 +60,50 @@ function glv_scan(string $src): array {
     return $hits;
 }
 
+// SSOT #8 (2026-09-11): a COMPUTED visibility ("'P' . $seat", a variable, an implode) may appear only inside the
+// log helpers that build it safely — SWULogPrivate / SWULogSeats (refuse seat 0), and the functions that pass a
+// visibility through unchanged (SWULogEffect's $vis parameter, the undo carry re-adding stored visibilities).
+// Everywhere else a restricted line goes through SWULogPrivate / SWULogSeats.
+const GLV_ALLOWED_COMPUTED = ['SWULogPrivate', 'SWULogSeats', 'SWULogEffect', 'SWULogCarryUndone', 'AddGameLogEntry'];
+function glv_scan_computed(string $src): array {
+    $hits = [];
+    $toks = token_get_all($src);
+    $n = count($toks);
+    $fn = '';   // the enclosing NAMED function (closures keep the outer name; top level = '')
+    for ($i = 0; $i < $n; $i++) {
+        $t = $toks[$i];
+        if (is_array($t) && $t[0] === T_FUNCTION) {
+            $j = $i + 1;
+            while ($j < $n && is_array($toks[$j]) && $toks[$j][0] === T_WHITESPACE) $j++;
+            if ($j < $n && is_array($toks[$j]) && $toks[$j][0] === T_STRING) $fn = $toks[$j][1];
+            continue;
+        }
+        if (!is_array($t) || $t[0] !== T_STRING || $t[1] !== 'AddGameLogEntry') continue;
+        $j = $i + 1;
+        while ($j < $n && is_array($toks[$j]) && $toks[$j][0] === T_WHITESPACE) $j++;
+        if ($j >= $n || $toks[$j] !== '(') continue;
+        $p = $i - 1;
+        while ($p >= 0 && is_array($toks[$p]) && $toks[$p][0] === T_WHITESPACE) $p--;
+        if ($p >= 0 && is_array($toks[$p]) && $toks[$p][0] === T_FUNCTION) continue;
+        $depth = 0; $arg = 0; $third = [];
+        for ($k = $j; $k < $n; $k++) {
+            $tk = $toks[$k];
+            if ($tk === '(' || $tk === '[') { $depth++; if ($depth === 1) continue; }
+            if ($tk === ')' || $tk === ']') { $depth--; if ($depth === 0) break; }
+            if ($tk === ',' && $depth === 1) { $arg++; continue; }
+            if ($arg === 2) {
+                if (is_array($tk) && in_array($tk[0], [T_WHITESPACE, T_COMMENT], true)) continue;
+                $third[] = $tk;
+            }
+        }
+        if (empty($third)) continue;                                                   // default 'ALL'
+        if (count($third) === 1 && is_array($third[0]) && $third[0][0] === T_CONSTANT_ENCAPSED_STRING) continue;  // literal (judged above)
+        if (in_array($fn, GLV_ALLOWED_COMPUTED, true)) continue;
+        $hits[] = "line {$t[2]}: computed visibility in " . ($fn !== '' ? "{$fn}()" : 'top-level code') . ' — use SWULogPrivate / SWULogSeats';
+    }
+    return $hits;
+}
+
 // Self-test: the scanner must catch the two shapes that shipped, and pass the valid ones.
 check(count(glv_scan("<?php AddGameLogEntry('R', 'x', 0);")) === 1, 'scanner flags an int visibility');
 check(count(glv_scan("<?php AddGameLogEntry('R', 'x', 'p1');")) === 1, 'scanner flags a malformed tag');
@@ -72,4 +116,13 @@ foreach ($files as $f) {
     foreach (glv_scan(file_get_contents($f)) as $h) $bad[] = str_replace($root . '/', '', $f) . ' ' . $h;
 }
 check(empty($bad), 'every literal game-log visibility is ALL or a seat list' . (empty($bad) ? '' : ":\n    " . implode("\n    ", $bad)));
+
+check(count(glv_scan_computed("<?php function F() { AddGameLogEntry('R', 'x', 'P' . \$p); }")) === 1, 'computed scanner flags a hand-built tag outside the helpers');
+check(count(glv_scan_computed("<?php function SWULogSeats() { AddGameLogEntry('R', 'x', implode(',', \$t)); } AddGameLogEntry('R', 'x', 'ALL'); AddGameLogEntry('R', 'x');")) === 0,
+    'computed scanner passes the helpers, literals and the default');
+$comp = [];
+foreach ($files as $f) {
+    foreach (glv_scan_computed(file_get_contents($f)) as $h) $comp[] = str_replace($root . '/', '', $f) . ' ' . $h;
+}
+check(empty($comp), 'every restricted (computed-visibility) line goes through SWULogPrivate / SWULogSeats' . (empty($comp) ? '' : ":\n    " . implode("\n    ", $comp)));
 echo "PASS\n";

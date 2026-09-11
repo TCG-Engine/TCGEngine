@@ -201,3 +201,110 @@ P2BASEDMG:4
 P2GROUNDARENAUNIT:0:DAMAGE:4
 P1SPACEARENACOUNT:0
 P1DISCARDCOUNT:1
+
+---
+
+# TwinSuns_WhenPlayed_CasterPicksWhichEnemyBase
+#// SOR_134 Ruthless Raider — "AN enemy base" names no seat, so the controller picks (the sweep's premise:
+#// "if there are multiple opponents, the controlling player chooses"). It dealt to GetOpponent() — seat 2
+#// — with no choice at all. P1 picks seat 4: seat 4 takes 2 and seat 2 takes NOTHING, so the base
+#// assertions swap under the old code. The menu offers both opponents and never the teammate (seat 3).
+#// Found 2026-09-12 by a post-sweep re-scan: the file predates the pass-2 clause index.
+## GIVEN
+CommonSetup: rrk/bbw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 6
+WithP1Hand: SOR_134
+## WHEN
+- P1>PlayHand:0
+## EXPECT
+SEATCOUNT:4
+P1OPTIONHAS:P2
+P1OPTIONHAS:P4
+P1OPTIONNOT:P3
+P2BASEDMG:0
+
+---
+
+# TwinSuns_WhenPlayed_TheChosenSeatTakesTheTwo
+#// The applier half of the section above: answering P4 lands the 2 on seat 4's base, seat 2 stays clean.
+## GIVEN
+CommonSetup: rrk/bbw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 6
+WithP1Hand: SOR_134
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:P4
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:2
+P2BASEDMG:0
+P3BASEDMG:0
+P1NODECISION
+
+---
+
+# TwinSuns_WhenDefeated_FarSeatControllerPicks
+#// The When Defeated half from a FAR seat, where GetOpponent(3) is NULL — the legacy call dealt the 2 to
+#// no base at all. The Raider is seat 3's; P2 kills it with Rival's Fall and seat 3 then picks seat 4.
+#// Seat 3's opponents are seats 2 and 4 (teams 1+3 vs 2+4), so both are offered and seat 1 never is.
+## GIVEN
+CommonSetup: rrk/bbk
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 2
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP2Resources: 6
+WithP2Hand: SHD_079
+WithP3SpaceArena: SOR_134:1:0
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:p3SpaceArena-0
+- P3>Drain
+## EXPECT
+SEATCOUNT:4
+P3SPACEARENACOUNT:0
+P3OPTIONHAS:P2
+P3OPTIONHAS:P4
+P3OPTIONNOT:P1
+
+---
+
+# TwinSuns_WhenDefeated_FarSeatChosenBaseTakesTheTwo
+#// The applier half of the far-seat section: seat 3 answers P4, so seat 4's base takes the 2. Under the
+#// legacy GetOpponent(3) (NULL) no base took anything, and a "the opponent who defeated it" misreading
+#// would hit seat 2 instead.
+## GIVEN
+CommonSetup: rrk/bbk
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 2
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP2Resources: 6
+WithP2Hand: SHD_079
+WithP3SpaceArena: SOR_134:1:0
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:p3SpaceArena-0
+- P3>Drain
+- P3>AnswerDecision:P4
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:2
+P2BASEDMG:0
+P1BASEDMG:0

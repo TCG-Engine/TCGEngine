@@ -11,7 +11,7 @@ $customDQHandlers["ASH_128#0"] = function($player, $parts, $lastDecision) {
     $captorMz  = SWUFindMzByUID($captorUID);
     if ($captorMz === null) return;
     $captor = GetZoneObject($captorMz);
-    if (SWUObjGone($captor)) return;
+    if (SWUObjGone($captor) || !SWUHasUseAvailable($captor)) return;   // spent by an earlier capture this round
     // find the just-defeated card in the controller's discard (most recent copy)
     $disc = &GetDiscard(intval($player));
     $idx = -1;
@@ -28,6 +28,6 @@ $customDQHandlers["ASH_128#0"] = function($player, $parts, $lastDecision) {
         'CardID' => $cardID, 'Owner' => $owner, 'Controller' => intval($player),
         'TurnEffects' => [], 'IsPilot' => false, 'IsCaptive' => true,
     ];
-    AddGlobalEffects(intval($player), 'SWU_ASH128_USED');   // once each round
+    SWUConsumeUse($captor);   // once each round — THIS Bothan-5's round (NumUses)
     AddGameLogEntry('CAPTURE', 'P' . intval($player) . ' captured ' . GameLogCardRef($cardID) . ' from discard with Bothan-5');
 };

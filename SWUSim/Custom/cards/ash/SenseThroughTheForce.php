@@ -17,14 +17,11 @@ $customDQHandlers["ASH_235#1"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $num      = intval($parts[0] ?? -1);
     $allIDs   = array_values(array_filter(explode(',', $parts[1] ?? '')));
-    $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
     $drawnCost = null;
-    SWULogSearchedToHand(intval($player), $resolved['drawn'], true);   // game log: "reveal it, and draw it" → public
-    foreach ($resolved['drawn'] as $cardID) {
-        AddHand(intval($player), CardID: $cardID);
+    // "reveal it, and draw it" → a public draw (observers fire inside); the rest to the bottom.
+    foreach (SWUFinishTopDeckSearch(intval($player), $allIDs, $lastDecision, 'bottom', true) as [$cardID]) {
         $drawnCost = intval(CardCost($cardID));
     }
-    _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
     if ($drawnCost === null || $drawnCost !== $num) return;   // cost must equal the chosen number
     GiveTokenUpgrade($player, '', [
         'token' => 'ADVANTAGE', 'amount' => 3, 'may' => true, 'traits' => ['Force'], 'friendlyOnly' => false,

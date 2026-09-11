@@ -25,7 +25,11 @@ $customDQHandlers["LAW_140#0"] = function($player, $parts, $lastDecision) {
         if ($mz === '' || $mz === '-' || $mz === 'PASS') continue;
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
-        $owner = intval($o->Owner ?? $player); if ($owner <= 0) $owner = intval($player);
+        // Unset Owner → the seat NAMED BY THE mzID (a Team Suns teammate's resource is friendly), exactly as
+        // SWUReturnResourceToHand does — never the acting player.
+        $owner = intval($o->Owner ?? 0);
+        if ($owner <= 0) $owner = intval(SWUMzOwner($mz, intval($player)));
+        if ($owner <= 0) $owner = intval($player);
         $toReturn[] = ['owner' => $owner, 'cardID' => $o->CardID];
         $o->removed = true;
     }

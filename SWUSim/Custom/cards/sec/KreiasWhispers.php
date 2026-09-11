@@ -35,22 +35,7 @@ function KreiasWhispersMoveHandToDeck(int $player, string $mzID, bool $toTop): v
 {
   global $playerID;
   $playerID = intval($player);
-  $o = GetZoneObject($mzID);
-  if (SWUObjGone($o))
-    return;
-  $cid = $o->CardID;
-  $owner = intval($o->Owner ?? $player);
-  $o->Remove();
-  $deck = &GetDeck($owner);
-  $d = new Deck($cid, 'Deck', $owner);
-  if ($toTop)
-    array_unshift($deck, $d);
-  else
-    array_push($deck, $d);
-  foreach ($deck as $i => $c) {
-    $c->mzIndex = $i;
-  }
-  SWULogToDeck($owner, [$cid], 'hand', $toTop ? 'top' : 'bottom');   // game log: hidden, a count
+  SWUMoveCardToDeck(intval($player), $mzID, $toTop ? 'top' : 'bottom');   // to its OWNER's deck; hidden, a count
 }
 
 // When Played (event) — migrated from OnPlayEvent.

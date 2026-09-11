@@ -148,3 +148,49 @@ P1DECKCOUNT:1
 P2DECKCOUNT:1
 P1DISCARDCOUNT:2
 P2DISCARDCOUNT:1
+
+---
+
+# Log_TheLookIsPublic_TheCardOnlyToTheController
+#// ★ USER DECISION 2026-09-11 (gamelog-updates SSOT #8 follow-up): the LOOK is public — "P1 looked at the top
+#// card of P2's deck" — but the card itself is shown only to the Night Trooper's controller. It used to be one
+#// line visible to P1 alone ("P1 looked at the top of a deck"), so the opponent never learned their deck had
+#// been looked at. Asserted with the discard question still pending (a discard would make the card public).
+
+## GIVEN
+CommonSetup: bbk/bbk
+WithP1GroundArena: ASH_045:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2Deck: [SEC_080 SOR_095]
+P1OnlyActions: true
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:Opponent
+
+## EXPECT
+P2LOGSEES:P1 looked at the top card of P2's deck ([[ASH_045|Reanimated Night Trooper]])
+P1LOGSEES:You saw [[SEC_080|
+P2LOGNOTSEES:[[SEC_080
+LOGCOUNT:0:looked at the top of a deck
+
+---
+
+# Log_OwnDeck_ReadsTheirDeck
+#// The same look at the controller's OWN deck reads "their deck"; the card is still P1's alone.
+
+## GIVEN
+CommonSetup: bbk/bbk
+WithP1GroundArena: ASH_045:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP1Deck: [SEC_080 SOR_095]
+P1OnlyActions: true
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:You
+
+## EXPECT
+P2LOGSEES:P1 looked at the top card of their deck ([[ASH_045|Reanimated Night Trooper]])
+P1LOGSEES:You saw [[SEC_080|
+P2LOGNOTSEES:[[SEC_080

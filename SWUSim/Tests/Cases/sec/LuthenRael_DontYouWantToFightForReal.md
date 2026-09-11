@@ -240,3 +240,87 @@ WithP1GroundArena: SEC_150:1:0
 P2BASEDMG:7
 P1GROUNDARENACOUNT:0
 P1LEADER:EXHAUSTED
+
+---
+
+# Deployed_HeroicSacrificeSelfDefeat_TriggersOnce
+#// Game-log triage (2026-09-11): an EFFECT self-defeat of the attacker fired Luthen TWICE — SWUDefeatUnit's
+#// "defeated while attacking" check (the live attacker UID) AND HeroicSacrificeDefeatTrigger's own copy. The
+#// front side hid it (the 2nd copy found him exhausted → "had no effect"); the deployed side ("You may deal
+#// 2 damage") offered a second full deal-2. SOR_150 Heroic Sacrifice: SOR_095 (3/3 → 5/3) hits the base for
+#// 5 and self-defeats; Luthen deals 2 → 7 — and there is no second offer.
+
+## GIVEN
+CommonSetup: brw/bbk/{
+  myLeader:SEC_013:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021;
+  myResources:8
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: SOR_237
+WithP1Hand: SOR_150
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:7
+P1GROUNDARENACOUNT:1
+P1NODECISION
+
+---
+
+# Deployed_FlashTheVentsSelfDefeat_TriggersOnce
+#// Same shape through LAW_205 Flash the Vents ("After completing this attack, if that unit damaged a base,
+#// defeat that unit") — it reuses the Heroic Sacrifice dispatcher. SEC_080 (3 → 5) hits the base for 5 and
+#// self-defeats; Luthen deals 2 → 7, once.
+
+## GIVEN
+CommonSetup: rrw/bgw/{
+  myLeader:SEC_013:1:1:1;
+  myResources:1
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1Hand: LAW_205
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:7
+P1NODECISION
+
+---
+
+# Deployed_DefiantHammerheadSelfDefeat_TriggersOnce
+#// And through LAW_062 Defiant Hammerhead's own "+4/+0, then defeat this unit after the attack" (also the
+#// shared dispatcher). It kills SOR_237 and self-defeats; Luthen deals 2 to the base, once.
+
+## GIVEN
+CommonSetup: brw/bgw/{
+  myLeader:SEC_013:1:1:1
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: LAW_062:1:0
+WithP2SpaceArena: SOR_237:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P2SPACEARENACOUNT:0
+P2BASEDMG:2
+P1NODECISION

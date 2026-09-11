@@ -8,17 +8,7 @@
 $customDQHandlers["LOF_125#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = intval($player);
-    $o = GetZoneObject($lastDecision);
-    if (SWUObjGone($o)) return;
-    $cardID = $o->CardID;
-    $o->removed = true;
-    DecisionQueueController::CleanupRemovedCards();
-    $deck = &GetDeck(intval($player));
-    $obj = new Deck($cardID, 'Deck', intval($player));
-    $obj->mzIndex = count($deck);
-    array_push($deck, $obj);
-    foreach ($deck as $i => $c) { $c->mzIndex = $i; }
-    SWULogToDeck(intval($player), [$cardID], 'discard', 'bottom');   // game log: from a public zone, named
+    if (SWUMoveCardToDeck(intval($player), (string)$lastDecision, 'bottom') === null) return;   // public zone, named
     // "If you do" → play a unit from hand and give it 2 Experience tokens.
     $hand = SWUHandPlayablesAtDiscount(intval($player), ['Unit'], 0);
     $targets = [];

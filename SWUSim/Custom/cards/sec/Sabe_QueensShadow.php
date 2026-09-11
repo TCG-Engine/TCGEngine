@@ -29,7 +29,7 @@ $customDQHandlers["SEC_017#3"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (($lastDecision ?? '') !== 'YES') return;
     $leaderArr = &GetLeader(intval($player));
-    foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'SEC_017' && empty($l->removed)) { $l->Ready = false; break; } }
+    foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'SEC_017' && empty($l->removed)) { $l->Ready = false; SWULogLeaderExhaustCost(intval($player), 'SEC_017'); break; } }
     unset($l);
     // "the top 2 cards of THE DEFENDING PLAYER's deck" — the seat is named by the board, never chosen,
     // so this must NOT prompt. OtherPlayer() named one seat: above two seats Sabé milled a player who

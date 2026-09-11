@@ -9,7 +9,7 @@ $customDQHandlers["ASH_017#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (($lastDecision ?? '') !== 'YES') return;
     $leaderArr = &GetLeader(intval($player));
-    foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'ASH_017' && empty($l->removed)) { $l->Ready = false; break; } }
+    foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'ASH_017' && empty($l->removed)) { $l->Ready = false; SWULogLeaderExhaustCost(intval($player), 'ASH_017'); break; } }
     unset($l);
     $mz = SWUFindMzByUID(intval($parts[0] ?? 0));
     if ($mz !== null) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) DoGiveAdvantageToken(intval($player), $mz); }

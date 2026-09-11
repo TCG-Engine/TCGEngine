@@ -10,5 +10,5 @@ $customDQHandlers["SHD_217#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     SWUExhaustUnitObj(intval($player), $o, $lastDecision);   // exhaust the chosen unit
-    AddGlobalEffects(intval($player), 'SWU_SHD217_USED');   // once each round — consumed on actual use
+    SWUSpendUnitRoundUse(intval($parts[0] ?? 0));   // once each round, THIS Tobias — consumed on actual use
 };

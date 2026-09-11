@@ -67,10 +67,7 @@ $customDQHandlers["HMW_043#0"] = function ($player, $parts, $lastDecision) {
             _topDeckPutRemainingToBottom(intval($player), [$cardID]);
             continue;
         }
-        $deck = &GetDeck(intval($player));
-        $obj  = new Deck($cardID, 'Deck', intval($player));
-        array_unshift($deck, $obj);
-        foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+        SWUPutCardsOnDeck(intval($player), [$cardID], 'top', '');   // staged on top only to be played from there
         SWUPlayTopDeckCard(intval($player), true);
         // Placement is synchronous inside the call; its trigger DECISIONS are queued, not yet resolved.
         // Newest (highest-UID) friendly arena object with this CardID = the one just played.
