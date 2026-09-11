@@ -35,6 +35,7 @@ $customDQHandlers["SOR_197#0"] = function($player, $parts, $lastDecision) {
         if ($owner <= 0) $owner = intval($player); // unset Owner → the controller (friendly)
         $o->removed = true;
         AddHand($owner, CardID:$o->CardID);
+        SWULogResourceToHand($owner);   // game log: face down — never named
     }
     DecisionQueueController::CleanupRemovedCards();
 };

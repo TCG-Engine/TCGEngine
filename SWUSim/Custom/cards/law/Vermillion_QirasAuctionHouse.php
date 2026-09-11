@@ -96,7 +96,7 @@ $customDQHandlers["LAW_215#3P"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = $P;
     AddGlobalEffects($P, 'SWU_CARDS_PLAYED');
-    AddGameLogEntry('PLAY', 'P' . $P . ' played ' . GameLogCardRef($cardID) . ' as a Pilot for free');
+    SWULogPlay($P, $cardID, ' as a pilot for free');
     _SWUFinalizeUpgradeAttach($P, $cardID, $deckMz, $lastDecision, 0, true, true, true); // ignoreCost, isPilot, suppress after-action
     _SWULaw215Credits($V, $P, $cardID);
 };
@@ -106,7 +106,7 @@ $customDQHandlers["LAW_215#3"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = $P;
     AddGlobalEffects($P, 'SWU_CARDS_PLAYED');
-    AddGameLogEntry('PLAY', 'P' . $P . ' played ' . GameLogCardRef($cardID) . ' for free');
+    SWULogPlay($P, $cardID, ' for free');
     _SWUFinalizeUpgradeAttach($P, $cardID, $deckMz, $lastDecision, 0, true, false, true); // ignoreCost, suppress after-action
     _SWULaw215Credits($V, $P, $cardID); // "a different player" (null-safe)
 };

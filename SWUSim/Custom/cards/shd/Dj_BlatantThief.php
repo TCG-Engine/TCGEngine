@@ -37,5 +37,7 @@ $customDQHandlers["SHD_213#0"] = function($player, $parts, $lastDecision) {
     $o->Remove();
     DecisionQueueController::CleanupRemovedCards();
     AddResources(intval($player), $cardID, $status, $owner, intval($player));
+    // Game log: a control change of a FACE-DOWN card — never named.
+    AddGameLogEntry('RESOURCE', 'P' . intval($player) . " took control of P{$opp}'s resource" . SWULogSourceSuffix(), 'ALL');
     AddGlobalEffects(intval($player), "SWU_SHD213|{$djUID}|{$cardID}|{$owner}");
 };

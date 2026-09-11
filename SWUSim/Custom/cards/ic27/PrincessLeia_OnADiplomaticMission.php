@@ -66,6 +66,7 @@ $customDQHandlers["IC27_008#1"] = function($player, $parts, $lastDecision) {
             $obj  = new Deck($cid, 'Deck', intval($player));
             array_unshift($deck, $obj);
             foreach ($deck as $i => $card) { $card->mzIndex = $i; }
+            SWULogToDeck(intval($player), [$cid], 'hand', 'top');   // game log (the bottom path logs in _topDeckPutRemainingToBottom)
         } else {
             _topDeckPutRemainingToBottom(intval($player), [$cid]);
         }

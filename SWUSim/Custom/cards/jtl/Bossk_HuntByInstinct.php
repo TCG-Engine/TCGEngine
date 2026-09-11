@@ -12,6 +12,6 @@ $onAttackAbilities["JTL_187:0"] = function($player, $mzID) {
     if ($defMz === '' || strpos($defMz, 'Base') !== false) return;   // defender must be a unit
     $def = GetZoneObject($defMz);
     if (SWUObjGone($def)) return;
-    $def->Status = 0;                                  // exhaust the defender
+    SWUExhaustUnitObj(intval($player), $def, $defMz);  // exhaust the defender
     SWUDealDamageToUnit($defMz, 1, intval($player));   // deal 1 damage to it
 };

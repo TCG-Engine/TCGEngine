@@ -18,6 +18,7 @@ $customDQHandlers["LOF_125#0"] = function($player, $parts, $lastDecision) {
     $obj->mzIndex = count($deck);
     array_push($deck, $obj);
     foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+    SWULogToDeck(intval($player), [$cardID], 'discard', 'bottom');   // game log: from a public zone, named
     // "If you do" → play a unit from hand and give it 2 Experience tokens.
     $hand = SWUHandPlayablesAtDiscount(intval($player), ['Unit'], 0);
     $targets = [];

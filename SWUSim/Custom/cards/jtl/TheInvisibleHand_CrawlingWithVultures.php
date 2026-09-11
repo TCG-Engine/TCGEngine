@@ -25,6 +25,7 @@ $customDQHandlers["JTL_089#0"] = function($player, $parts, $lastDecision) {
     $allIDs   = array_values(array_filter(explode(',', $parts[0] ?? '')));
     $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
     $freeMz   = null;  // hand mzID of a drawn Droid eligible for the free-play rider
+    SWULogSearchedToHand(intval($player), $resolved['drawn'], true);   // game log: "reveal it, and draw it" → public
     foreach ($resolved['drawn'] as $cardID) {
         $handObj = AddHand(intval($player), CardID: $cardID);
         if ($handObj !== null && intval(CardCost($cardID)) <= 2) {

@@ -36,7 +36,7 @@ $customDQHandlers["LAW_066#1"] = function($player, $parts, $lastDecision) {
     $cardID = $parts[2] ?? '';
     if (SWUDecisionDeclined($lastDecision)) return;
     AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');
-    AddGameLogEntry('PLAY', 'P' . intval($player) . ' played ' . GameLogCardRef($cardID) . " from P{$opp}'s resources for free");
+    SWULogPlay(intval($player), $cardID, " from P{$opp}'s resources for free");
     // Attach the foreign upgrade to the chosen host for free (suppress the After Action — the LAW_066 event owns it).
     _SWUFinalizeUpgradeAttach(intval($player), $cardID, $resMz, $lastDecision, 0, true, false, true);
     TearThisShipApartRefill($opp);

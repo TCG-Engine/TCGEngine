@@ -38,6 +38,7 @@ $customDQHandlers["ASH_133#1"] = function($player, $parts, $lastDecision) {
         $deck = &GetDeck(intval($player));
         $deck[] = new Deck($cardID, 'Deck', intval($player));
         foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+        SWULogToDeck(intval($player), [$cardID], 'discard', 'bottom');   // game log: public zone, named
         OnHealBase(intval($player), intval($player), 3);
     }
 };

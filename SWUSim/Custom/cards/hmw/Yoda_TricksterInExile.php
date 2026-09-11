@@ -41,5 +41,6 @@ $customDQHandlers["HMW_056#0"] = function($player, $parts, $lastDecision) {
     $deck = &GetDeck(intval($player));
     array_unshift($deck, new Deck($cid, 'Deck', intval($player)));
     foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+    SWULogToDeck(intval($player), [$cid], 'discard', 'top');   // game log: public zone, named
     OnHealBase(intval($player), intval($player), 2);
 };

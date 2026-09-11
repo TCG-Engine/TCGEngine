@@ -48,6 +48,7 @@ function HanSoloIGotaReallyGoodFeelingDefeatOption(int $player, string $opt): bo
     if ($opt === 'Force') {
         if (!PlayerHasTheForce($player)) return false;
         RemoveGlobalEffect($player, 'SWU_HAS_FORCE'); // the Force token is defeated (set aside), not "used"
+        AddGameLogEntry('FORCE', 'P' . $player . ' defeated their Force token' . SWULogSourceSuffix(), 'ALL'); // game log
         return true;
     }
     if (strncmp($opt, 'Credit', 6) === 0) {            // any usable credit (all interchangeable)

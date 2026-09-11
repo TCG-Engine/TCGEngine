@@ -40,7 +40,12 @@ $whenPlayedAbilities["SHD_002:0"] = function($player, $mzID) {
     foreach (GetLiveSeatsArray() as $p) {
         foreach (array_merge(GetGroundArena($p) ?? [], GetSpaceArena($p) ?? []) as $u) {
             if (!empty($u->removed)) continue;
+            $healed = intval($u->Damage ?? 0);
             $u->Damage = 0;   // heal all damage from each unit
+            if ($healed > 0) {   // game log (the raw write bypasses OnHealUnit's heal line)
+                $ref = SWULogObjRef($u);
+                SWULogEffect('HEAL', "healed {$healed} damage from {$ref}", "{$ref} healed {$healed} damage");
+            }
         }
     }
     foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {

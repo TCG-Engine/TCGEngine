@@ -19,6 +19,7 @@ $customDQHandlers["ASH_235#1"] = function($player, $parts, $lastDecision) {
     $allIDs   = array_values(array_filter(explode(',', $parts[1] ?? '')));
     $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
     $drawnCost = null;
+    SWULogSearchedToHand(intval($player), $resolved['drawn'], true);   // game log: "reveal it, and draw it" → public
     foreach ($resolved['drawn'] as $cardID) {
         AddHand(intval($player), CardID: $cardID);
         $drawnCost = intval(CardCost($cardID));

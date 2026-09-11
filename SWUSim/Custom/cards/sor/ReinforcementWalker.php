@@ -22,7 +22,8 @@ $customDQHandlers["SOR_119#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
     if ($lastDecision === 'Draw') {
-        SWUDrawTopCardFront(intval($player));
+        $drawn = SWUDrawTopCardFront(intval($player));
+        if ($drawn !== null) SWULogSearchedToHand(intval($player), [$drawn], false);   // game log: a hidden draw
     } else {
         // "Discard and heal 3"
         SWUMillTopCard(intval($player));

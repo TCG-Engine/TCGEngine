@@ -46,6 +46,7 @@ $customDQHandlers["HMW_108#0"] = function($player, $parts, $lastDecision) {
     AddGlobalEffects(intval($player), 'SWU_HMW108|' . strtoupper(str_replace(' ', '_', $match)));
     _SWUHmw108ActiveFlags(true);   // the read side memoises the active set; this is one of its three
                                    // invalidation points (see the helper's note in GameLogic).
+    // ⚠ Visibility was the int 1 — no seat tag is "1" and it is not 'ALL', so nobody ever saw this line.
     AddGameLogEntry('ABILITY', 'P' . intval($player) . ' named the ' . $match
-        . ' trait; enemy cards lose it this phase', 1);
+        . ' trait; enemy cards lose it this phase' . SWULogSourceSuffix(), 'ALL');
 };

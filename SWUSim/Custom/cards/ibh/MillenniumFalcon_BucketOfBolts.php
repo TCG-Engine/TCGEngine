@@ -19,7 +19,6 @@ $whenPlayedAbilities["IBH_031:0"] = function($player, $mzID) {
     $myDmg  = (count($myBase) > 0 && empty($myBase[0]->removed))   ? intval($myBase[0]->Damage ?? 0)  : 0;
     $oppDmg = ($oppDmgMin === null) ? 0 : $oppDmgMin;
     if ($myDmg > $oppDmg) {
-        $obj = GetZoneObject($mzID);
-        if ($obj !== null && empty($obj->removed)) $obj->Status = 1; // ready it
+        OnReadyCard(intval($player), $mzID); // ready it (can't-ready checks, when-readies taxes, game log)
     }
 };

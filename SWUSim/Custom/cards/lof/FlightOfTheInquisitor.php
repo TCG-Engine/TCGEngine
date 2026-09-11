@@ -25,6 +25,7 @@ $customDQHandlers["LOF_240#1"] = function($player, $parts, $lastDecision) {
         if ($o !== null && empty($o->removed)) {
             $cardID = $o->CardID; $o->removed = true;
             AddHand(intval($player), CardID: $cardID);
+            SWULogDiscardToHand(intval($player), (string)$cardID);   // game log (a discard pile is public)
             DecisionQueueController::CleanupRemovedCards();
         }
     }
@@ -38,6 +39,7 @@ $customDQHandlers["LOF_240#3"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($o)) return;
     $cardID = $o->CardID; $o->removed = true;
     AddHand(intval($player), CardID: $cardID);
+    SWULogDiscardToHand(intval($player), (string)$cardID);   // game log (a discard pile is public) — saber
     DecisionQueueController::CleanupRemovedCards();
 };
 

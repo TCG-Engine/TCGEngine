@@ -32,6 +32,7 @@ $customDQHandlers["LAW_103#0"] = function($player, $parts, $lastDecision) {
         $newRes->Owner      = $owner;
         $newRes->Controller = $controller;
         SWUKeepCreditTokensLast($controller);
+        SWULogResourced($controller, 'the defeated unit');   // game log: face down, never named
     }
 };
 

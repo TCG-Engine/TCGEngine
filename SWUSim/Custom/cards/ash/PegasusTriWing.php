@@ -32,6 +32,5 @@ $customDQHandlers["ASH_171#0"] = function($player, $parts, $lastDecision) {
     if ($uid <= 0) return;
     $mz = SWUFindMzByUID($uid);
     if ($mz === null) return;
-    $o = GetZoneObject($mz);
-    if ($o !== null && empty($o->removed)) $o->Status = 1;   // ready this unit
+    OnReadyCard(intval($player), $mz);   // ready this unit
 };

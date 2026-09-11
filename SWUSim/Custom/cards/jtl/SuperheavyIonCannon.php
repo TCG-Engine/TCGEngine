@@ -34,7 +34,9 @@ $customDQHandlers["JTL_227#0"] = function($player, $parts, $lastDecision) {
     $obj = GetZoneObject($lastDecision);
     if (SWUObjGone($obj)) return;
     $pow = max(0, intval(ObjectCurrentPower($obj)));
-    $obj->Status = 0;   // exhaust the enemy unit
+    // Exhaust the enemy unit. "If you do" — an exhaust-immune unit (LOF_040 / LOF_073) is not exhausted,
+    // so no indirect damage follows.
+    if (!SWUExhaustUnitObj(intval($player), $obj, $lastDecision)) return;
     // "…to THAT player" = the defending player, i.e. the controller of the unit just exhausted — never
     // OtherPlayer(), which above two seats named a bystander (and seat 1 for any far-seat attacker).
     // Resolve from the exhausted unit's own mzID so the two halves cannot disagree.

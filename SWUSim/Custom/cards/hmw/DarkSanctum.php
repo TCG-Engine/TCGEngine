@@ -32,8 +32,11 @@ function _SWUHmw070RegroupBaseTriggers(): void {
         if ($copies <= 0 || _SWUFortifyBlanked($p, 'HMW_070')) continue;   // SEC_046 naming it or the base
         $playerID = $p;
         for ($i = 0; $i < $copies; $i++) {
-            DoDrawCard($p, 1);
-            SWUDealDamageToBase(2, $p);
+            // Resolved inline at regroup start (no trigger dispatch) — name the card as the log source.
+            SWULogWithSource($p, 'HMW_070', function () use ($p) {
+                DoDrawCard($p, 1);
+                SWUDealDamageToBase(2, $p);
+            });
         }
     }
     $playerID = $saved;

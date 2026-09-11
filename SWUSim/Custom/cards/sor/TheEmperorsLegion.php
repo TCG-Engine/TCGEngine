@@ -33,6 +33,7 @@ $whenPlayedAbilities["SOR_091:0"] = function($player, $mzID = '') {
             foreach ($toReturn as $o) {
                 $o->removed = true;
                 AddHand(intval($player), CardID:$o->CardID);
+                SWULogDiscardToHand(intval($player), (string)$o->CardID);   // game log (a discard pile is public)
             }
             DecisionQueueController::CleanupRemovedCards();
             return;

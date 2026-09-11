@@ -29,6 +29,7 @@ $whenPlayedAbilities["LAW_083:0"] = function($player, $mzID) {
         if (!empty($deck)) {
             $r = MZMove(intval($player), $deck[0], "myResources");
             if ($r !== null) { $r->Status = 0; $r->Owner = intval($player); $r->Controller = intval($player); }
+            if ($r !== null) SWULogResourced(intval($player), 'the top card of their deck');   // game log: face down
             SWUKeepCreditTokensLast(intval($player));
         }
     }

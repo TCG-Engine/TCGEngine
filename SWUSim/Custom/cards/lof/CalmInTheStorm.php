@@ -9,7 +9,7 @@ $customDQHandlers["LOF_054#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    $o->Status = 0; // exhaust
+    SWUExhaustUnitObj(intval($player), $o, $lastDecision); // exhaust
     DoGiveShieldToken(intval($player), $lastDecision);
     DoGiveExperienceToken(intval($player), $lastDecision);
     DoGiveExperienceToken(intval($player), $lastDecision);

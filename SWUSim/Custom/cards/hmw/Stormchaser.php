@@ -71,7 +71,7 @@ $customDQHandlers["HMW_180#0"] = function($player, $parts, $lastDecision) {
         return;
     }
 
-    DoRevealCard(intval($player), $lastDecision);
+    DoRevealCard(intval($player), $lastDecision, false);   // its own reveal line follows
     // A reveal is PUBLIC information, and DoRevealCard only sets a client flash message for the
     // current request — nothing durable the opponent can scroll back to. Log it like every other
     // public reveal (SHD RicketyQuadjumper / SEC CikatroVizago).

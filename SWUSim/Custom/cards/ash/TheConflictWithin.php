@@ -12,6 +12,6 @@ $customDQHandlers["ASH_088#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision === 'YES' && SWUTotalPaymentCapacity(intval($player)) >= 3) {
         SWUPayCost(intval($player), 3, 0, false);   // pay 3 ready resources to keep it ready (effect cost, not halved by JTL_105)
     } else {
-        $obj->Status = 0;                    // exhaust it
+        SWUExhaustUnitObj(intval($player), $obj, $mz);   // exhaust it
     }
 };

@@ -38,6 +38,7 @@ $customDQHandlers["TWI_086#0"] = function($player, $parts, $lastDecision) {
         if (SWUObjGone($o)) continue;
         $o->removed = true;
         AddHand(intval($player), CardID: $o->CardID);
+        SWULogDiscardToHand(intval($player), (string)$o->CardID);   // game log (a discard pile is public)
         $any = true;
     }
     if ($any) DecisionQueueController::CleanupRemovedCards();

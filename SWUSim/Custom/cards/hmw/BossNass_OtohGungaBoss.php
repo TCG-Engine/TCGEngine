@@ -49,5 +49,6 @@ $customDQHandlers["HMW_077#0"] = function ($player, $parts, $lastDecision) {
     $unit = GetZoneObject($lastDecision);
     if (SWUObjGone($unit)) return;
     if (!SWUConsumeShieldToken($unit, false)) return;      // "If you do" — nothing defeated, no Beast
+    SWULogShieldDefeated($unit);
     SWUCreateUnitTokens(intval($player), 'HMW_T03', 1, false, '', 'SHIELD');
 };

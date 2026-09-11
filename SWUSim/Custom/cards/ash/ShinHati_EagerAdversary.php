@@ -10,7 +10,7 @@ $customDQHandlers["ASH_016#1"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;   // declined → use NOT consumed
     $o = GetZoneObject($lastDecision);
     if ($o !== null && empty($o->removed)) {
-        $o->Status = 0;                                          // exhaust the cheaper unit
+        SWUExhaustUnitObj(intval($player), $o, $lastDecision);   // exhaust the cheaper unit
         SWUConsumeUse(SWUGetLeader(intval($player)));            // consume the once-per-round use
     }
 };

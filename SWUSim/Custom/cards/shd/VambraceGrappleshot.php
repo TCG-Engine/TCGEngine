@@ -14,6 +14,6 @@ $onAttackAbilities["SHD_074:0"] = function($player, $mzID) {
     foreach (SWUCurrentDefenderMzIDs() as $defMz) {
         $def = GetZoneObject($defMz);
         if (SWUObjGone($def)) continue;
-        $def->Status = 0;   // exhaust the defender
+        SWUExhaustUnitObj(intval($player), $def, $defMz);   // exhaust the defender
     }
 };

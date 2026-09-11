@@ -130,6 +130,7 @@ $customDQHandlers["HMW_017#1"] = function($player, $parts, $lastDecision) {
         // Status 0 = EXHAUSTED. "Resource a card" with no "and ready it" rider is the ordinary regroup
         // resourcing (contrast TS26_12 Sundari Palace, which says "and ready it" explicitly).
         if ($r !== null) { $r->Status = 0; SWUKeepCreditTokensLast(intval($player)); }
+        if ($r !== null) SWULogResourced(intval($player), 'a card from their hand');   // game log: hidden, never named
     }
     _SWUOsha017CloseAction(intval($player));
 };

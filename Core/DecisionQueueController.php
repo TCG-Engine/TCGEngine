@@ -126,7 +126,7 @@ class DecisionQueueController {
                         $handlerName = array_shift($parts);
                         // Optional per-game hook (SWUSim: the game-log source context — a card-named
                         // continuation re-establishes which ability is resolving). Absent elsewhere.
-                        if (function_exists('GameBeforeCustomHandler')) GameBeforeCustomHandler(intval($player), (string)$handlerName);
+                        if (function_exists('GameBeforeCustomHandler')) GameBeforeCustomHandler(intval($player), (string)$handlerName, (string)$decision->Param);
                         $customDQHandlers[$handlerName]($player, $parts, $lastDecision);
                         break;
                     case "SYSTEM":
@@ -221,6 +221,9 @@ class DecisionQueueController {
         }
         if(self::$debugMode) echo("Adding decision to player " . $player . " queue: " . $type . " " . $param . " Block: " . $block . " at index " . $insertIndex . "<BR>");
         array_splice($playerQueue, $insertIndex, 0, [new DecisionQueue($type . " " . $param . " " . $block . " " . $tooltip . " " . $dontSkipOnPass)]);
+        // Optional per-game hook (SWUSim: stamps the game-log source onto a queued continuation so it is
+        // restored when that continuation runs, however much later). Absent elsewhere.
+        if (function_exists('GameOnDecisionAdded')) GameOnDecisionAdded(intval($player), (string)$type, (string)$param);
     }
 
     private function MZZoneArray($zoneStr) {

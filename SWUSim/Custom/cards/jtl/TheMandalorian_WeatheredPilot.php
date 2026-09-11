@@ -23,7 +23,7 @@ $customDQHandlers["JTL_210#0"] = function($player, $parts, $lastDecision) {
     foreach (explode("&", $lastDecision) as $mz) {
         if ($mz === '' || $mz === '-' || $mz === 'PASS') continue;
         $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed)) $o->Status = 0;
+        SWUExhaustUnitObj(intval($player), $o, $mz);
     }
 };
 

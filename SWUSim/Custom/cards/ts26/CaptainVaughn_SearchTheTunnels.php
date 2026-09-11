@@ -27,6 +27,7 @@ $customDQHandlers["TS26_39#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $allIDs = array_values(array_filter(explode(',', $parts[0] ?? '')));
     $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
+    SWULogSearchedToHand(intval($player), $resolved['drawn'], false);  // game log: no "reveal" → hidden draw
     foreach ($resolved['drawn'] as $cid) AddHand(intval($player), CardID: $cid);
     _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
     _SWUTs26039OfferPutOnTop(intval($player));
@@ -44,4 +45,5 @@ $customDQHandlers["TS26_39#1"] = function($player, $parts, $lastDecision) {
     $topObj = new Deck($cid, 'Deck', intval($player));
     array_unshift($deck, $topObj);
     foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+    SWULogToDeck(intval($player), [$cid], 'hand', 'top');   // game log: hidden, a count
 };

@@ -40,6 +40,6 @@ $customDQHandlers["IBH_052#0"] = function($player, $parts, $lastDecision) {
         $o = GetZoneObject($mz);
         if ($o === null || !empty($o->removed)) continue;
         if ($chosenUID > 0 && intval($o->UniqueID ?? 0) === $chosenUID) continue;   // "each OTHER"
-        $o->Status = 0;
+        SWUExhaustUnitObj(intval($player), $o, $mz);
     }
 };

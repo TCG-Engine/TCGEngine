@@ -23,6 +23,8 @@ $customDQHandlers["LOF_104#0"] = function($player, $parts, $lastDecision) {
     // EngineShuffle() indexes $array[$i] positionally; array_values() makes that contract explicit
     // rather than assumed (this list is already sequential today, built via array push above).
     $cardIDs = array_values($cardIDs);
+    // Game log BEFORE the shuffle — naming them in shuffled order would leak the random bottom order.
+    SWULogToDeck(intval($player), $cardIDs, 'discard', 'bottom');
     EngineShuffle($cardIDs);
     $deck = &GetDeck(intval($player));
     foreach ($cardIDs as $cid) { $obj = new Deck($cid, 'Deck', intval($player)); $obj->mzIndex = count($deck); array_push($deck, $obj); }

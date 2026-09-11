@@ -69,14 +69,12 @@ $customDQHandlers["LOF_015#3"] = function ($player, $parts, $lastDecision) {
     return;
   }
   if (count($units) === 1) {
-    $o = GetZoneObject($units[0]);
-    if ($o !== null && empty($o->removed))
-      $o->Status = 0;
+    SWUExhaustUnitObj($caster, GetZoneObject($units[0]), $units[0]);   // the CASTER's ability (immunity + log)
     $playerID = $caster;
     return;
   }
   DecisionQueueController::AddDecision($opp, "MZCHOOSE", implode('&', $units), 1, tooltip: "Choose_a_ready_unit_to_exhaust");
-  DecisionQueueController::AddDecision($opp, "CUSTOM", "LOF_015#1", 1);
+  DecisionQueueController::AddDecision($opp, "CUSTOM", "LOF_015#1|{$caster}", 1);   // the caster: whose ability exhausts
 };
 
 $customDQHandlers["LOF_015#1"] = function ($player, $parts, $lastDecision) {
@@ -84,9 +82,7 @@ $customDQHandlers["LOF_015#1"] = function ($player, $parts, $lastDecision) {
     return;
   global $playerID;
   $playerID = intval($player);
-  $o = GetZoneObject($lastDecision);
-  if ($o !== null && empty($o->removed))
-    $o->Status = 0;
+  SWUExhaustUnitObj(intval($parts[0] ?? 0) ?: intval($player), GetZoneObject($lastDecision), $lastDecision);
 };
 
 $customDQHandlers["LOF_015#2"] = function($player, $parts, $lastDecision) {
@@ -103,8 +99,7 @@ $customDQHandlers["LOF_015#2"] = function($player, $parts, $lastDecision) {
     }
     if (empty($units)) { $playerID = $caster; SWUAfterAction($caster); return; }
     if (count($units) === 1) {
-        $o = GetZoneObject($units[0]);
-        if ($o !== null && empty($o->removed)) $o->Status = 0; // exhaust
+        SWUExhaustUnitObj($caster, GetZoneObject($units[0]), $units[0]); // exhaust (the caster's ability)
         $playerID = $caster; SWUAfterAction($caster); return;
     }
     DecisionQueueController::AddDecision($opp, "MZCHOOSE", implode('&', $units), 1, tooltip: "Choose_a_ready_unit_to_exhaust");
@@ -117,8 +112,7 @@ $customDQHandlers["LOF_015#0"] = function($player, $parts, $lastDecision) {
     $caster = intval($parts[0] ?? $player);
     if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS') {
         $playerID = intval($player); // opponent frame to resolve their relative mzID
-        $o = GetZoneObject($lastDecision);
-        if ($o !== null && empty($o->removed)) $o->Status = 0; // exhaust
+        SWUExhaustUnitObj($caster, GetZoneObject($lastDecision), $lastDecision); // exhaust (the caster's ability)
     }
     $playerID = $caster;
     SWUAfterAction($caster);

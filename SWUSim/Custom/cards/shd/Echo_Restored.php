@@ -23,7 +23,9 @@ $customDQHandlers["SHD_099#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     $name = SWUObjectTitle($o);
-    MZMove(intval($player), $lastDecision, "myDiscard");
+    $discardedID = (string)($o->CardID ?? '');
+    $moved = MZMove(intval($player), $lastDecision, "myDiscard");
+    if ($moved !== null) SWULogDiscard(intval($player), $discardedID, 'HAND');   // game log: a discarded card is revealed
     DecisionQueueController::CleanupRemovedCards();
     $targets = [];
     foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {

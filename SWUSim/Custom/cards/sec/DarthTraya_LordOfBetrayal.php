@@ -41,6 +41,10 @@ $customDQHandlers["SEC_188#0"] = function($player, $parts, $lastDecision) {
     for ($i = 0; $i < count($leader); $i++) {
         if (empty($leader[$i]->removed) && empty($leader[$i]->Deployed) && empty($leader[$i]->Ready)) {
             $leader[$i]->Ready = true;
+            if (function_exists('SWULogExhaustReady')) {   // game log — a leader-zone object carries no Controller
+                $logObj = clone $leader[$i]; $logObj->Controller = $target;
+                SWULogExhaustReady($logObj, 'myLeader', true);
+            }
             break;
         }
     }

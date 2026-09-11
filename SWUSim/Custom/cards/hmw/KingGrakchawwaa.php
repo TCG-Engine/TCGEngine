@@ -35,6 +35,7 @@ $whenPlayedAbilities["HMW_123:0"] = function($player, $mzID = '') {
     // that actually bit LAW_171 Stockpile), but do not describe it as load-bearing.
     // Status 1 = READY, which is the whole point of the rider: a normal "resource a card" enters
     // EXHAUSTED (Status 0), as in LAW_083 Broken Horn.
+    $done = 0;   // game log: one batched line for the whole effect
     for ($i = 0; $i < $n; $i++) {
         DecisionQueueController::CleanupRemovedCards();
         $playerID = $me;
@@ -45,6 +46,8 @@ $whenPlayedAbilities["HMW_123:0"] = function($player, $mzID = '') {
         $r->Status     = 1;    // "Ready each card resourced this way"
         $r->Owner      = $me;
         $r->Controller = $me;
+        $done++;
     }
+    if ($done > 0) SWULogResourced($me, ($done === 1 ? 'the top card of their deck and readied it' : "the top {$done} cards of their deck and readied them"));
     SWUKeepCreditTokensLast($me);
 };

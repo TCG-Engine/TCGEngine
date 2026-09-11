@@ -10,5 +10,5 @@ $whenPlayedAbilities["SHD_193:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $host = GetZoneObject($mzID);
     if (SWUObjGone($host)) return;
-    $host->Status = 0;   // exhaust attached unit
+    SWUExhaustUnitObj(intval($player), $host, $mzID);   // exhaust attached unit
 };

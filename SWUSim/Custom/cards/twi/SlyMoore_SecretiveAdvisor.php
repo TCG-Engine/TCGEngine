@@ -31,7 +31,6 @@ $customDQHandlers["TWI_211#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $newMz = SWUTakeControlOfUnit(intval($player), $lastDecision);
     if ($newMz === '' || $newMz === null) return;
-    $o = GetZoneObject($newMz);
-    if ($o !== null) { $o->Status = 1; } // ready it
+    OnReadyCard(intval($player), $newMz); // ready it
     AddTurnEffect($newMz, 'TEMPORARY_STEAL'); // owner regains control at regroup
 };

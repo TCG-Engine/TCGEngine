@@ -45,17 +45,21 @@ function _SWUHmw160RegroupBaseTriggers(): void {
             foreach ($deck as $d) { if (empty($d->removed)) { $top = $d; break; } }
             if ($top === null) continue;                       // empty deck — nothing to reveal
             $topID = $top->CardID ?? '';
-            AddGameLogEntry('REVEAL', 'P' . $p . ' revealed ' . CardTitle($topID)
-                . ' from the top of their deck (Noxious Refinery)', 0);
+            // ⚠ Was written with visibility 0 — which matches NO seat tag and is not 'ALL', so nobody (not
+            // even the revealing player) ever saw it. A reveal is public.
+            AddGameLogEntry('REVEAL', 'P' . $p . ' revealed ' . GameLogCardRef($topID)
+                . ' from the top of their deck (' . GameLogCardRef('HMW_160') . ')', 'ALL');
             if (strpos(CardAspect($topID) ?? '', 'Aggression') === false) continue;
             // "an ENEMY unit" — relative to the base's controller. Mandatory, so a plain choose; it
             // fizzles cleanly when that seat's opponents control nothing.
-            SWUOfferUnitTarget($p, '', [
+            // Queued with HMW_160 as the log source, so the damage line names it when the choice resolves
+            // (the queued-source stamp — see GameOnDecisionAdded).
+            SWULogWithSource($p, 'HMW_160', fn() => SWUOfferUnitTarget($p, '', [
                 'continuation' => 'DEAL_UNIT_DAMAGE',
                 'amount'       => 1,
                 'side'         => 'their',
                 'prompt'       => 'Deal_1_damage_to_an_enemy_unit_(Noxious_Refinery)',
-            ]);
+            ]));
         }
     }
     $playerID = $saved;

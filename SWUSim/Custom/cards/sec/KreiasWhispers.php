@@ -50,6 +50,7 @@ function KreiasWhispersMoveHandToDeck(int $player, string $mzID, bool $toTop): v
   foreach ($deck as $i => $c) {
     $c->mzIndex = $i;
   }
+  SWULogToDeck($owner, [$cid], 'hand', $toTop ? 'top' : 'bottom');   // game log: hidden, a count
 }
 
 // When Played (event) — migrated from OnPlayEvent.

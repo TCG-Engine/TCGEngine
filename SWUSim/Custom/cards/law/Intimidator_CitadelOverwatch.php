@@ -30,6 +30,9 @@ $customDQHandlers["LAW_140#0"] = function($player, $parts, $lastDecision) {
         $o->removed = true;
     }
     DecisionQueueController::CleanupRemovedCards();
-    foreach ($toReturn as $r) AddHand($r['owner'], CardID: $r['cardID']);
+    foreach ($toReturn as $r) {
+        AddHand($r['owner'], CardID: $r['cardID']);
+        SWULogResourceToHand($r['owner']);   // game log: face down — never named
+    }
     for ($i = 0; $i < count($toReturn); $i++) SWUCreateCreditToken(intval($player), 1);
 };

@@ -9,7 +9,7 @@ $customDQHandlers["LOF_223#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    $o->Status = 0; // exhaust the enemy unit
+    SWUExhaustUnitObj(intval($player), $o, $lastDecision); // exhaust the enemy unit (immunity + log)
     SWUOfferUnitTarget($player, '', ['continuation'=>'GRANT_PHASE_KEYWORD|SENTINEL^LOF_223', 'side'=>'friendly', 'prompt'=>"Give_a_friendly_unit_Sentinel_this_phase"]);
 };
 

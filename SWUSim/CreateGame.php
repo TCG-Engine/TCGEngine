@@ -286,7 +286,9 @@ function QueuePregameSetup($firstPlayer) {
     $seats = GetSeatOrderArray();
     foreach ($seats as $seat) {
         $n = $handSize($seat);
-        for ($i = 0; $i < $n; ++$i) DoDrawCard($seat, 1);
+        // One "drew an opening hand of 6 cards" game-log line, not six "drew 1 card" lines.
+        $draw = function () use ($seat, $n) { for ($i = 0; $i < $n; ++$i) DoDrawCard($seat, 1); };
+        if (function_exists('SWULogDrawBatch')) SWULogDrawBatch($seat, 'drew an opening hand', $draw); else $draw();
     }
 
     // Decision order is clockwise starting from the first player (initiative holder decides first).

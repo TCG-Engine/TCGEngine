@@ -21,6 +21,7 @@ $whenPlayedAsUpgradeAbilities["JTL_215:0"] = function($player, $mzID) {
         if ((intval(CardCost($cid)) % 2) === 1) {                 // odd → return from discard to hand
             if ($entry !== null) $entry->removed = true;
             AddHand(intval($player), CardID: $cid);
+            SWULogDiscardToHand(intval($player), (string)$cid);   // game log (it was just discarded face up)
         }
     }
     DecisionQueueController::CleanupRemovedCards();

@@ -102,7 +102,7 @@ $customDQHandlers["SWU_BUDGET_EXHAUST"] = function ($player, $parts, $lastDecisi
     $o = GetZoneObject($mz);
     if (SWUObjGone($o))
       continue;
-    $o->Status = 0; // exhaust
+    SWUExhaustUnitObj(intval($player), $o, $mz); // exhaust (immunity + game log)
     if ($loseAbil && PlayerHasUnitWithTraitInPlay(intval($player), 'Force', -1)) {
       AddTurnEffect($mz, 'SOR_138'); // loses all abilities this phase (registry LOSE_ABILITIES)
     }
@@ -285,7 +285,12 @@ $customDQHandlers["DEFEAT_REPLACE_ATTACH"] = function ($player, $parts, $lastDec
   $mz = SWUFindMzByUID($uid);
   if ($mz === null)
     return;
+  $logUnit = GetZoneObject($mz);
+  $logHost = GetZoneObject($lastDecision);
   SWUMoveUnitToUpgrade($mz, $lastDecision, true);
+  // Game log — a replacement, not a defeat: nothing else says where the unit went.
+  if ($logUnit !== null && $logHost !== null)
+    AddGameLogEntry('EFFECT', SWULogObjRef($logUnit) . ' was attached to ' . SWULogObjRef($logHost) . ' as a pilot instead of being defeated', 'ALL');
 };
 
 // JTL_094 Luke (pilot UPGRADE defeat-replacement): YES → rebuild him as an exhausted ground unit from
@@ -302,8 +307,11 @@ $customDQHandlers["DEFEAT_REPLACE_UPG"] = function ($player, $parts, $lastDecisi
   $owner = intval($e['owner'] ?? $player);
   if ($lastDecision !== "YES") {
     SWUAddToDiscard($owner, $cardID, 'PLAY');
+    AddGameLogEntry('DEFEAT', "P{$owner}'s " . GameLogCardRef($cardID) . ' (a pilot upgrade) was defeated', 'ALL');   // game log
     return;
   }
+  AddGameLogEntry('EFFECT', 'P' . intval($e['controller'] ?? $owner) . "'s " . GameLogCardRef($cardID)
+    . ' moved to the ground arena instead of being defeated', 'ALL');   // game log — the replacement
   $caps = is_array($e['captives'] ?? null) ? array_values($e['captives']) : [];
   $saved = $playerID;
   $playerID = $owner;
@@ -342,7 +350,9 @@ $customDQHandlers["RAMPART_SAVE"] = function ($player, $parts, $lastDecision) {
   }
 
   if (!SWUDecisionDeclined($lastDecision) && $rampartMz !== null) {
-    SWUDefeatUnit($ctrl, $rampartMz);           // "defeat this unit instead" — the base upgrade is saved
+    // "defeat this unit instead" — the base upgrade is saved. The line says so (and names the upgrade).
+    $rampartNote = 'instead of ' . GameLogCardRef((string)($e['cardID'] ?? '')) . " on P{$ctrl}'s base";
+    SWULogWithDefeatNote($rampartNote, fn() => SWUDefeatUnit($ctrl, $rampartMz));
   } elseif ($idx >= 0) {
     SWUDefeatUpgrade($ctrl, $hostMz, $idx, false, true);  // declined (or no Rampart) → defeat the upgrade
   }
@@ -645,6 +655,11 @@ function _SWUFinalizeUpgradeAttach(
   if (!$isPilot && $cardID === 'LOF_056')
     $pilotSub->UniqueID = NextUniqueID();
   $hostObj->Subcards[] = $pilotSub;
+  // Game log: WHERE it went. The play line ("P1 played X") is written when the play commits, BEFORE the
+  // host is chosen — so neither an upgrade's nor a Pilot's host was ever named. A base host carries no
+  // Owner, so its seat comes from the mzID.
+  $logHostOwner = (strpos($hostMz, 'Base') !== false) ? intval(SWUMzOwner($hostMz, intval($player))) : 0;
+  SWULogAttach(intval($player), $cardID, $upgradeMz, $hostObj, $logHostOwner, $isPilot, $owner);
 
   // CR 8.19.1.b / 29.3 — uniqueness for upgrades: if this player already controlled a copy of this
   // unique upgrade, auto-defeat the older copy now (immediately, before the just-played copy's
@@ -900,6 +915,7 @@ $customDQHandlers["FOREIGN_PILOT_PLAY_CHOICE"] = function ($player, $parts, $las
     $vehicles = SWUGetPilotValidTargets(intval($player), $cardID);
     if (!empty($vehicles)) {
       AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');
+      SWULogPlay(intval($player), $cardID, " from P{$opponent}'s discard pile as a pilot");
       // Seat-correct pile mzID: the sibling site in SWUPlayFromOpponentDiscard was fixed the same way.
       // A literal "theirDiscard-N" resolves to SEAT 2 above two seats, so the Pilot branch of the fork
       // would attach a completely different card than the Unit branch of the same prompt.
@@ -932,6 +948,7 @@ $customDQHandlers["OWN_DISCARD_PILOT_CHOICE"] = function ($player, $parts, $last
     $vehicles = SWUGetPilotValidTargets(intval($player), $cardID);
     if (!empty($vehicles)) {
       AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');
+      SWULogPlay(intval($player), $cardID, ' from their discard pile as a pilot');
       SWUQueuePilotVehiclePick(intval($player), "myDiscard-{$discardIdx}", $cardID, $vehicles);
       return;
     }
@@ -1764,9 +1781,12 @@ $customDQHandlers["AMIDALA_PREVENT_ABILITY"] = function ($player, $parts, $lastD
       SWUDealDamageToUnit($srcAmz, $amount, $src, null, true);
     return;
   }
-  SWUDefeatUnit(intval($player), $lastDecision);                 // defeat the chosen friendly → prevent
-  if ($amz !== null)
+  // Amidala's ability does this — not the card whose damage it stops (which is still the log source).
+  SWULogWithSource(intval($player), 'SEC_101', fn() => SWUDefeatUnit(intval($player), $lastDecision)); // defeat the chosen friendly → prevent
+  if ($amz !== null) {
     SWUQueuePreventedAnim($amz, intval($player));
+    SWULogDamagePrevented(GetZoneObject($amz), 'SEC_101');
+  }
 };
 // Prevention — SPLIT/divided damage path (SWUDealSplitDamage). One offer per SEC_101 target in the split;
 // all carry-state rides the PARAM (DQ variables don't survive the request boundary). $parts = [casterPlayer,
@@ -1784,10 +1804,12 @@ $customDQHandlers["SPLIT_PREVENT_RESOLVE"] = function ($player, $parts, $lastDec
   global $playerID;
   $playerID = $decider;
   if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS') {
-    SWUDefeatUnit($decider, $lastDecision);                       // pay the cost → prevent this hit
+    SWULogWithSource($decider, 'SEC_101', fn() => SWUDefeatUnit($decider, $lastDecision)); // pay the cost → prevent this hit
     $amz = SWUFindMzByUID($curUid);
-    if ($amz !== null)
+    if ($amz !== null) {
       SWUQueuePreventedAnim($amz, $decider);
+      SWULogDamagePrevented(GetZoneObject($amz), 'SEC_101');
+    }
   } else {
     $apply[] = ['uid' => $curUid, 'amount' => $curAmt];           // declined → apply it with the rest
   }
@@ -1800,7 +1822,7 @@ $customDQHandlers["AMIDALA_PREVENT_COMBAT"] = function ($player, $parts, $lastDe
   $playerID = intval($player);
   if (SWUDecisionDeclined($lastDecision))
     return;
-  SWUDefeatUnit(intval($player), $lastDecision);
+  SWULogWithSource(intval($player), 'SEC_101', fn() => SWUDefeatUnit(intval($player), $lastDecision));
   AddGlobalEffects(intval($player), 'SWU_AMIDALA_PREVENT_' . intval($parts[0] ?? 0));
 };
 // ASH_062 The Mandalorian — ABILITY/effect damage prevention (deferred from SWUDealDamageToUnit). Decline
@@ -1836,8 +1858,11 @@ $customDQHandlers["ASH062_PREVENT_ABILITY"] = function ($player, $parts, $lastDe
     $applyDeferred();                                         // couldn't pay → apply now
     return;
   }
-  if ($pmz !== null)
+  SWULogWithSource(intval($player), 'ASH_062', fn() => SWULogShieldDefeated($provider));
+  if ($pmz !== null) {
     SWUQueuePreventedAnim($pmz, intval($player));             // paid → prevented
+    SWULogDamagePrevented(GetZoneObject($pmz), 'ASH_062');
+  }
 };
 // ASH_062 — COMBAT damage prevention. Accept → defeat a Shield on a friendly ASH_062 + set the one-shot
 // marker SWUCombatDamage consumes (keyed on the PROTECTED unit's UID). Decline / no Shield → damage normal.
@@ -1852,6 +1877,7 @@ $customDQHandlers["ASH062_PREVENT_COMBAT"] = function ($player, $parts, $lastDec
   $provider = $unit !== null ? _SWUAsh062Provider($unit) : null;
   if ($provider === null || !SWUConsumeShieldToken($provider))
     return;        // couldn't pay → no prevent
+  SWULogWithSource(intval($player), 'ASH_062', fn() => SWULogShieldDefeated($provider));
   AddGlobalEffects(intval($player), 'SWU_ASH062_PREVENT_' . $uid);
 };
 
@@ -2410,6 +2436,7 @@ $customDQHandlers["IBH_TOPDECK_DISCARD_FINALIZE"] = function ($player, $parts, $
   $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
   foreach ($resolved['drawn'] as $cardID)
     AddHand(intval($player), CardID: $cardID);
+  SWULogSearchedToHand(intval($player), $resolved['drawn'], true);   // game log — "Draw a unit REVEALED this way"
   foreach ($resolved['remaining'] as $cardID)
     SWUAddToDiscard(intval($player), $cardID, 'DECK');
   DecisionQueueController::CleanupRemovedCards();
@@ -3357,11 +3384,13 @@ $customDQHandlers["SMUGGLE_ATTACH"] = function ($player, $parts, $lastDecision) 
     $topCardID = $deck[$i]->CardID;
     $deck[$i]->Remove();
     AddResources(intval($player), $topCardID, 0, intval($player), intval($player));
+    SWULogWithoutSource(fn() => SWULogResourced(intval($player), 'the top card of their deck (Smuggle slot refill)'));   // game log — face down
     break;
   }
   global $whenPlayedUsingSmuggleAbilities;
   if (isset($whenPlayedUsingSmuggleAbilities["{$cardID}:0"])) {
     $hostMz = SWUFindMzByUID($hostUID) ?? $lastDecision;
+    SWULogSetSource(intval($player), $cardID);   // game log: fired directly, never through OnWhenPlayed
     $whenPlayedUsingSmuggleAbilities["{$cardID}:0"](intval($player), $hostMz);   // owns the close
     return;
   }
@@ -3535,8 +3564,12 @@ function _SWURevertShd213Steals(): void
         $status = intval($o->Status ?? 0);
         $o->Remove();
         DecisionQueueController::CleanupRemovedCards();
-        if ($owner > 0)
+        if ($owner > 0) {
           AddResources($owner, $cardID, $status, $owner, $owner);
+          // Game log — the steal logged "took control of P2's resource"; the return is a rule firing when
+          // DJ leaves play, so no source (face down: never named).
+          AddGameLogEntry('RESOURCE', "P{$owner} regained control of their resource (" . GameLogCardRef('SHD_213') . ' left play)', 'ALL');
+        }
         break;
       }
       $playerID = $savedPID;

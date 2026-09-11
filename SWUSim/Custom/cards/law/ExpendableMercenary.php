@@ -36,4 +36,8 @@ $whenDefeatedAbilities["LAW_159:0"] = function($player, $mzID) {
     if ($dmz === null) return;   // already moved on (e.g. SHD_122 Arquitens got there first)
     $r = MZMove(intval($player), $dmz, "myResources");
     if ($r !== null) { $r->Status = 0; $r->Owner = intval($player); $r->Controller = intval($player); SWUKeepCreditTokensLast(intval($player)); }
+    if ($r !== null) {   // game log: the resource is face down, so "this unit", not its name
+        $pile = (strpos($dmz, 'theirDiscard') === 0) ? ('P' . OtherPlayer(intval($player)) . "'s discard pile") : 'their discard pile';
+        SWULogResourced(intval($player), "this unit from {$pile}");
+    }
 };

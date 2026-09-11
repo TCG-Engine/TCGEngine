@@ -30,6 +30,6 @@ $customDQHandlers["SOR_244#0"] = function($player, $parts, $lastDecision) {
     $saved = $playerID;
     $playerID = intval($player);
     $u = GetZoneObject($lastDecision);
-    if ($u !== null && !($u->removed ?? false)) $u->Status = 0;
+    SWUExhaustUnitObj(intval($player), $u, $lastDecision);
     $playerID = $saved;
 };

@@ -83,5 +83,6 @@ $whenPlayedAbilities["HMW_151:0"] = function($player, $mzID = '') {
         $r->Owner      = $owner;
         $r->Controller = $me;
         SWUKeepCreditTokensLast($me);
+        SWULogResourced($me, 'this card');   // game log: face down, never named
     }
 };

@@ -52,6 +52,12 @@ $whenPlayedAbilities["LAW_171:0"] = function($player, $mzID = '') {
                 $r2 = MZMove(intval($player), $deck[0], "myResources");
                 if ($r2 !== null) { $r2->Status = 0; $r2->Owner = intval($player); $r2->Controller = intval($player); }
             }
+            // Game log: ONE line for the whole effect; resources are face down, so the deck card is never named.
+            $what = array_values(array_filter([
+                (isset($r) && $r !== null) ? 'this event' : '',
+                (isset($r2) && $r2 !== null) ? 'the top card of their deck' : '',
+            ]));
+            if (!empty($what)) SWULogResourced(intval($player), implode(' and ', $what));
             SWUKeepCreditTokensLast(intval($player));
             return;
 };

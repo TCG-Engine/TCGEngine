@@ -17,6 +17,7 @@ $customDQHandlers["LAW_026#0"] = function($player, $parts, $lastDecision) {
     $newTop = new Deck($cid, 'Deck', intval($player));
     array_unshift($deck, $newTop);
     foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+    SWULogToDeck(intval($player), [$cid], 'discard', 'top');   // game log: public zone, named
 };
 
 // LAW_026 Shipbreaking Yard — Epic Action: Discard 3 cards from your deck. You may return a card

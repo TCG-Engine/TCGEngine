@@ -87,7 +87,7 @@ function _SWUThrawnReveal(int $player, int $deckOwner, string $context): void {
     // Reveal top card (cosmetic flash message).
     $savedPID = $playerID;
     $playerID = $deckOwner;
-    DoRevealCard($deckOwner, "myDeck-" . $topIdx);
+    DoRevealCard($deckOwner, "myDeck-" . $topIdx, false);   // Thrawn writes its own reveal line below
     $playerID = $savedPID;
     AddGameLogEntry(
         'REVEAL',

@@ -260,7 +260,7 @@ function _SWUShd241ShieldOnBaseAttack(int $baseOwner, string $attackerArena): vo
 function _SWUTwi166ReadyOnBaseAttack(int $baseOwner): void {
     if ($baseOwner <= 0) return;
     foreach (GetUnitsInPlay($baseOwner) as $u) {
-        if (empty($u->removed) && ($u->CardID ?? '') === 'TWI_166') $u->Status = 1; // ready this unit
+        if (empty($u->removed) && ($u->CardID ?? '') === 'TWI_166') _SWUReadyInline($baseOwner, 'TWI_166', $u); // ready this unit
     }
 }
 
@@ -271,7 +271,7 @@ function _SWUAsh160ReadyOnBaseAttack(int $baseOwner): void {
             $uid = intval($u->UniqueID ?? 0);
             if (GlobalEffectCount($baseOwner, 'SWU_ASH160_USED_' . $uid) > 0) continue;   // once each round
             AddGlobalEffects($baseOwner, 'SWU_ASH160_USED_' . $uid);
-            $u->Status = 1;   // ready this unit
+            _SWUReadyInline($baseOwner, 'ASH_160', $u);   // ready this unit
         }
     }
 }
@@ -345,6 +345,7 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
             RemoveGlobalEffect(intval($targetPlayer), 'SWU_SHIELD_GATE');
             if (!$baseDmgUnpreventable) {
                 SetFlashMessage("Damage to the base was prevented (Close the Shield Gate).");
+                SWULogBaseDamagePrevented(intval($targetPlayer), intval($damage), 'JTL_074');   // game log
                 $playerID = $savedPID;
                 return;
             }
@@ -363,8 +364,13 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
             // the upgrade's own printed ability, not one it grants the base (user ruling 2026-09-10).
             if ($genIdx >= 0 && !_SWUFortifyBlanked(intval($targetPlayer), 'HMW_081')) {
                 SWUQueuePreventedAnim("myBase-0", intval($targetPlayer));
-                SWUDefeatUpgrade(intval($targetPlayer), 'myBase-0', $genIdx);
-                DoDrawCard(intval($targetPlayer), 1);
+                SWULogBaseDamagePrevented(intval($targetPlayer), intval($damage), 'HMW_081');   // game log
+                // The Generator's own "defeat this upgrade and draw a card" — its lines name IT, not the
+                // ability/attack whose damage it stopped.
+                SWULogWithSource(intval($targetPlayer), 'HMW_081', function () use ($targetPlayer, $genIdx) {
+                    SWUDefeatUpgrade(intval($targetPlayer), 'myBase-0', $genIdx);
+                    DoDrawCard(intval($targetPlayer), 1);
+                });
                 SetFlashMessage("Damage to the base was prevented (Alliance Shield Generator).");
                 $playerID = $savedPID;
                 return;
@@ -375,6 +381,7 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
         // damage ($isIndirect) or damage from a source whose damage is unpreventable (ASH_196 Gorian's friendly
         // Underworld cards). Those land in full.
         if (intval($damage) > 4 && !$baseDmgUnpreventable && _SWUControlsCardInPlay(intval($targetPlayer), 'ASH_070')) {
+            SWULogBaseDamagePrevented(intval($targetPlayer), intval($damage) - 4, 'ASH_070');   // game log
             $damage = 4;
             SetFlashMessage("At Attin Safety Droid: base damage reduced to 4.");
         }
@@ -509,7 +516,7 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
                 SWUEliminateSeat(intval($targetPlayer), ($damage > 0 ? intval($damager) : null));
             } else {
                 $winner = $targetPlayer === 1 ? 2 : 1;
-                SWUDeclareGameWinner($winner, "GAMEOVER:Player {$targetPlayer}'s base has been defeated! Player {$winner} wins!");
+                SWUDeclareGameWinner($winner, "GAMEOVER:Player {$targetPlayer}'s base has been defeated! Player {$winner} wins!", "P{$targetPlayer}'s base was defeated");
             }
         }
         break;
@@ -680,6 +687,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     // Only blocks a DIRECT defeat effect from an opponent — NOT state-based "no remaining HP" defeat
     // ($fromDamage, governed by SWUImmuneToHpDefeat), NOT combat, NOT the controller's own abilities.
     if (!$fromDamage && intval($player) !== intval($obj->Controller ?? $player) && SWUAvoidsDefeat($obj)) {
+        SWULogRefusal($obj, 'defeat');   // game log: the refused defeat says so (the defeat line below never runs)
         $playerID = $savedPID;
         return false;
     }
@@ -743,7 +751,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     }
     // Game log — the defeat is committed here (immunity and defeat-replacement were checked above, so a
     // refused or replaced defeat never logs). Combat defeats don't come through here; the ATTACK line has them.
-    if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('DEFEAT', $obj, 'defeated {U}', '{U} was defeated');
+    if (function_exists('SWULogUnitEvent')) { $lsNote = SWULogTakeDefeatNote(); SWULogUnitEvent('DEFEAT', $obj, 'defeated {U}' . $lsNote, '{U} was defeated' . $lsNote); }
     // Fire the defeated unit's WhenDefeated ability AND the leave-play reactions (Gideon/Krell/Boba)
     // for ANY effect-defeat routed through here — direct "defeat target unit" (Takedown/Vanquish),
     // sacrifice, shrink sweep, Rukh, etc. Combat-defeats mark units removed directly (not via this
@@ -895,6 +903,7 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
 
     // SEC_061 Willrow Hood — an enemy ability can't defeat (or bounce) the lone friendly upgrade on him.
     if (_SWUWillrowProtectsUpgrade($host, intval($foundCtrl), intval($player))) {
+        SWULogUpgradeRefusal($host, (string)$foundCardID, $bounce ? 'return' : 'defeat');   // game log
         $playerID = $savedPID;
         return false;
     }
@@ -905,6 +914,7 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
     // pilot — a leader pilot goes back to the leader zone, not hand), and a FRIENDLY ability (e.g. Power
     // Failure) can still defeat it.
     if (!$bounce && _SWUUpgradeImmuneToEnemyDefeat($foundCardID) && intval($player) !== intval($foundCtrl)) {
+        SWULogUpgradeRefusal($host, (string)$foundCardID, 'defeat');   // game log
         $playerID = $savedPID;
         return false;
     }
@@ -937,9 +947,15 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
     // Game log — committed (immunity, Willrow and the Rampart replacement returned above). A BOUNCE says
     // "returned"; a Shield token spent absorbing damage never reaches here (SWUConsumeShieldToken).
     if (function_exists('SWULogEffect') && $foundCardID !== '') {
-        $lsUpg = GameLogCardRef($foundCardID) . ' on ' . SWULogObjRef($host);
-        if ($bounce) SWULogEffect('BOUNCE', "returned {$lsUpg} to its owner's hand", "{$lsUpg} returned to its owner's hand");
-        else         SWULogEffect('DEFEAT', "defeated {$lsUpg}", "{$lsUpg} was defeated");
+        // A base host carries no Owner — name the seat from the mzID ("on P2's base", not "on base").
+        $lsHost = SWULogObjRef($host, strpos($hostMzID, 'Base') !== false ? intval(SWUMzOwner($hostMzID, intval($player))) : 0);
+        $lsUpg  = GameLogCardRef($foundCardID) . ' on ' . $lsHost;
+        // An upgrade defeating ITSELF (HMW_081 Alliance Shield Generator: "… defeat this upgrade") reads
+        // "defeated itself", not "Alliance Shield Generator defeated Alliance Shield Generator".
+        [, $lsSrc] = SWULogSource();
+        $lsWhat = ($lsSrc === (string)$foundCardID) ? "itself (on {$lsHost})" : $lsUpg;
+        if ($bounce) SWULogEffect('BOUNCE', "returned {$lsWhat} to its owner's hand", "{$lsUpg} returned to its owner's hand");
+        else         SWULogEffect('DEFEAT', "defeated {$lsWhat}", "{$lsUpg} was defeated");
     }
     // Rebuild Subcards without the defeated upgrade (explicit reassignment ensures the
     // property on the live zone object is updated even when $host was obtained without &).
@@ -1098,6 +1114,7 @@ function _SWUShieldOrReduceCombat($obj, string $mzID, int $amount, int $animPlay
         return 0;
     }
     if (SWUConsumeShieldToken($obj)) {                            // shield absorbs the whole hit (marker kept)
+        SWULogShieldPrevented($obj);                              // game log (a note on the ATTACK line)
         SWUQueuePreventedAnim($mzID, $animPlayer);
         SWUQueueShieldBreakAnim($mzID, $animPlayer);
         return 0;
@@ -2278,6 +2295,11 @@ function _SWUSaboteurDefeatDefenderShields($attacker, string $targetMzID, int $p
         $shieldSlot++;
     }
     unset($sub);
+    // Game log — a keyword, not an ability, so no source: "P1's X defeated 1 Shield token on P2's Y (Saboteur)".
+    if ($shieldSlot > 0) {
+        AddGameLogEntry('DEFEAT', 'P' . intval($attacker->Controller ?? $player) . "'s " . GameLogCardRef((string)($attacker->CardID ?? ''))
+            . " defeated {$shieldSlot} Shield token" . ($shieldSlot === 1 ? '' : 's') . ' on ' . SWULogObjRef($target) . ' (Saboteur)', 'ALL');
+    }
 }
 
 function _SWUApplyCondemnSuppression($attacker, string $attackerMzID): void {
@@ -3198,6 +3220,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                     $combatCtx['attackerDmgAmt']  = $defendPower;   // SEC_002 "deal that much"
                     SWUQueueDamageAnim($attackerMzID, $defendPower, intval($player));
                 } else {
+                    if ($defendPower > 0) SWULogShieldPrevented($attacker);   // game log (ATTACK-line note)
                     SWUQueuePreventedAnim($attackerMzID, intval($player));
                     SWUQueueShieldBreakAnim($attackerMzID, intval($player));
                 }
@@ -3508,13 +3531,14 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             $defeatSuffix .= ' — ' . GameLogCardRef($d['cardID']) . ' defeated';
         }
         AddGameLogEntry('ATTACK',
-            'P' . $_logPlayer . '\'s ' . $atkRef . ' attacked ' . $targetLabel . $defeatSuffix);
+            'P' . $_logPlayer . '\'s ' . $atkRef . ' attacked ' . $targetLabel . SWULogCombatNotes() . $defeatSuffix);
     }
     // Overwhelm spill is logged AFTER the attack line so the log reads in event order
     // (attack/defeat first, then the excess damage to the base).
     if ($_logOverwhelm > 0) {
         AddGameLogEntry('OVERWHELM', 'Overwhelm: ' . $_logOverwhelm . ' damage to P' . SWUMzOwner($_logTargetZone, $_logPlayer) . '\'s base');
     }
+    SWULogFlushGameEndLines();   // a base killed by this combat: its WIN line goes after the ATTACK line
 
     $playerID = $savedPID;
     _SWUCombatFinishAction($player);
@@ -4352,6 +4376,15 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
     if (!$d1Gone && is_array($def1->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $def1->TurnEffects, true)) $D1 = 0;
     if (!$d2Gone && is_array($def2->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $def2->TurnEffects, true)) $D2 = 0;
 
+    // Game log: like the single-defender resolver, the hits are carried by the ATTACK summary (with the
+    // numbers), not by per-hit DAMAGE lines printed ABOVE it. Measured as damage actually added.
+    $_logD1Before  = $d1Gone ? 0 : intval($def1->Damage ?? 0);
+    $_logD2Before  = $d2Gone ? 0 : intval($def2->Damage ?? 0);
+    $_logAtkBefore = intval($attacker->Damage ?? 0);
+    $_logD1Ref = $d1Gone ? '' : SWULogObjRef($def1);
+    $_logD2Ref = $d2Gone ? '' : SWULogObjRef($def2);
+    $GLOBALS['gSWULogCombatStep'] = true;
+
     // Maul → each defender (his full power to each, not split).
     _SWUMaulDealCombat($attacker, $def1, $def1Mz, $P, $player);
     _SWUMaulDealCombat($attacker, $def2, $def2Mz, $P, $player);
@@ -4370,6 +4403,12 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
             _SWUShieldOrReduceCombat($attacker, $attackerMzID, $counter, $player);
         }
     }
+    $GLOBALS['gSWULogCombatStep'] = false;
+    $_logHits = [];
+    if ($_logD1Ref !== '') $_logHits[] = max(0, intval($def1->Damage ?? 0) - $_logD1Before) . ' to ' . $_logD1Ref;
+    if ($_logD2Ref !== '') $_logHits[] = max(0, intval($def2->Damage ?? 0) - $_logD2Before) . ' to ' . $_logD2Ref;
+    $_logNumbers = (empty($_logHits) ? '' : ' — dealt ' . implode(' and ', $_logHits))
+                 . ', took ' . max(0, intval($attacker->Damage ?? 0) - $_logAtkBefore);
 
     // Resolve all defeats simultaneously (damage already applied; a defeat doesn't change another's HP).
     $defeatedCards = [];
@@ -4445,8 +4484,9 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
     if ($atkID !== '') {
         $suffix = '';
         foreach ($defeatedCards as $d) $suffix .= ' — ' . GameLogCardRef($d['cardID']) . ' defeated';
-        AddGameLogEntry('ATTACK', 'P' . $player . '\'s ' . GameLogCardRef($atkID) . ' attacked 2 units' . $suffix);
+        AddGameLogEntry('ATTACK', 'P' . $player . '\'s ' . GameLogCardRef($atkID) . ' attacked 2 units' . $_logNumbers . SWULogCombatNotes() . $suffix);
     }
+    SWULogFlushGameEndLines();
 
     $playerID = $savedPID;
     _SWUCombatFinishAction($player);
@@ -4462,7 +4502,7 @@ function OnAttackTrigger($player, $mzID): void {
         _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — the attacker is the source of its On Attack ability damage
         SWULogSetSource(intval($player), (string)$obj->CardID); // game log: effect lines name this ability
         $key = $obj->CardID . ':0';
-        if (isset($onAttackAbilities[$key])) $onAttackAbilities[$key]($player, $mzID);
+        if (isset($onAttackAbilities[$key])) SWULogNoEffectRun(intval($player), (string)$obj->CardID, fn() => $onAttackAbilities[$key]($player, $mzID));
     }
     $playerID = $savedPID;
 }
@@ -4476,7 +4516,7 @@ function OnAttackFromUpgradeTrigger(int $player, string $upgradeCardID, string $
     $playerID = $player;
     $key = $upgradeCardID . ':0';
     SWULogSetSource($player, $upgradeCardID); // game log: the UPGRADE's granted On Attack is the source
-    if (isset($onAttackAbilities[$key])) $onAttackAbilities[$key]($player, $unitMzID);
+    if (isset($onAttackAbilities[$key])) SWULogNoEffectRun($player, $upgradeCardID, fn() => $onAttackAbilities[$key]($player, $unitMzID));
     $playerID = $savedPID;
 }
 

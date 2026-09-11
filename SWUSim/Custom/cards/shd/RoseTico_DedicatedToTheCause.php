@@ -28,6 +28,7 @@ $customDQHandlers["SHD_045#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
     if (!SWUConsumeShieldToken($o)) return;                 // defeat one Shield token
+    SWULogShieldDefeated($o);
     DoGiveExperienceToken(intval($player), $lastDecision);
     DoGiveExperienceToken(intval($player), $lastDecision);
 };
