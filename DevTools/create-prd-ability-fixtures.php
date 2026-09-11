@@ -7390,6 +7390,224 @@ DECK,
     ],
 ];
 
+// --- Umbra Sight: Draw a card; may draw into memory + curse lineage for damage ---
+$fixtures['umbra-sight-curse-lineage-damage'] = [
+    'testedCards' => ['f15joh300z'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Umbra Sight
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Umbra Sight is UMBRA (advanced element), so the starting champion's Subcards are patched
+    // with a real UMBRA champion (Tristan, Shadowdancer) to unlock element access. Its reserve
+    // cost is a real printed 0 (not the "-1 = no reserve type" sentinel), so no reserve-payment
+    // decision is queued at all -- straight into the unconditional draw, then a YESNO for the
+    // optional draw-into-memory + curse-lineage effect. Choosing YES adds it to the champion's
+    // lineage and deals 2 unpreventable damage per curse in lineage (2, counting itself).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc']]], // UMBRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'f15joh300z'], // Umbra Sight, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Umbral Tithe: each player draws 2 into memory, then damage to high-memory champions ---
+$fixtures['umbral-tithe-memory-damage'] = [
+    'testedCards' => ['2snsdwmxz1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Umbral Tithe
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Umbral Tithe is UMBRA (advanced element); same lineage patch as Umbra Sight. Its 5-reserve
+    // cost is discounted 1 per Curse in either champion's lineage -- with none seeded here the
+    // full 5 reps of the myHand-0 reserve-payment decision are needed. Player 1's memory is
+    // pre-seeded with 4 cards so the two drawn by this effect push them to 6+, triggering the
+    // 4-damage clause; player 2 starts at 0 and stays under the threshold.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc']]], // UMBRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2snsdwmxz1'], // Umbral Tithe, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Take Aim: target unit's next attack gets +2 POWER; [Class Bonus] also gains Ranged 2 ---
+$fixtures['take-aim-class-bonus-ranged-attack'] = [
+    'testedCards' => ['vnta6qsesw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Take Aim
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Same turn-cycle approach as automaton-bomber-ranged-attack (Rule 1.h blocks player 1's own
+    // turn-1 attack): player 1 ends turn 1 with a single CustomInput Pass, then player 2 plays
+    // Take Aim targeting their own ally (already Distant and awake) with a RANGER Class Bonus
+    // active, then attacks. AddTurnEffect("vnta6qsesw"/"RANGED_2") only turns into actual POWER
+    // once the target's attack is declared (CombatLogic.php converts vnta6qsesw ->
+    // vnta6qsesw_POWER at that point), and the CB-granted "RANGED_2" only contributes via
+    // GetRangedValue while the unit is Distant on its controller's turn.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['TurnEffects' => ['DISTANT'], 'Status' => 2]], // Dungeon Guide, awake and Distant - Take Aim's target
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'vnta6qsesw'], // Take Aim, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-2!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Force Load: choose a fire/norm 0-cost Bullet from material deck, load into target Gun ---
+$fixtures['force-load-bullet-into-gun'] = [
+    'testedCards' => ['y6isxy5lh2'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Force Load
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Force Load reads the material zone directly (not the standard "myMaterial" section of this
+    // fixture's own deck list, which has no Bullet cards), so a real 0-memory-cost NORM Bullet
+    // (Plated Bullet) is seeded there via test-setup. Shadow's Twin is seeded unloaded onto the
+    // field as the target Gun -- LoadBulletIntoGun() is the same shared function used by Plated
+    // Bullet's own [REST] ability, so loading via Force Load also triggers Shadow's Twin's
+    // "whenever this becomes loaded, +2 POWER" trigger.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5vettczb14'], // Shadow's Twin, unloaded Gun - Force Load's target
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'l75tlzsmw3'], // Plated Bullet - 0-memory NORM Bullet source
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'y6isxy5lh2'], // Force Load, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Materialize Munitions: [Class Bonus] discount; materialize a Bullet from material deck ---
+$fixtures['materialize-munitions-class-bonus-discount'] = [
+    'testedCards' => ['xi74wa4x7e'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Materialize Munitions
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Seeds a RANGER champion for the Class Bonus (discounting the 3-reserve activation cost to
+    // 2) and a real 0-memory-cost Bullet (Plated Bullet) into the material zone -- this fixture's
+    // own deck's Material section has no Bullet cards. Materializing the chosen bullet still
+    // routes through the normal CUSTOM "MATERIALIZE" handler and pays its own (0) memory cost.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'l75tlzsmw3'], // Plated Bullet - 0-memory Bullet source
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'xi74wa4x7e'], // Materialize Munitions, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Diana, Keen Huntress: Lineage Release -- materialize a Gun from material deck ---
+$fixtures['diana-keen-huntress-lineage-release-materialize-gun'] = [
+    'testedCards' => ['e3z4pyx8bd'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Diana, Keen Huntress's Lineage Release ("LR: Materialize Gun") only becomes an activatable
+    // dynamic ability when she sits as a subcard of the CURRENT champion's inner lineage (not
+    // just present on the field), patched directly via the champion's Subcards. A real 0-memory
+    // NORM Gun card (Framework Sidearm) is seeded into the material zone as the LR effect's
+    // target -- MaterializeLogic.php's generic MATERIALIZE handler element-checks the chosen
+    // card (CanPlayerUseCardElement) before placing it, so an UMBRA Gun like Shadow's Twin would
+    // need its own lineage patch too; NORM needs none. Activating a champion's dynamic ability
+    // uses the same CustomInput Activate:N pattern as a field object's own activated ability,
+    // with N = staticAbilityCount (0, since the starting champion has no static abilities) for
+    // the first eligible LR subcard.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['e3z4pyx8bd']]], // Diana, Keen Huntress in the champion's inner lineage
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'p4lgdlx7md'], // Framework Sidearm (NORM Gun, 0 memory) - LR materialize target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-0!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

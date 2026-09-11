@@ -1,0 +1,18 @@
+{
+    "name": "Materialize Munitions' [Class Bonus] discount and material-deck Bullet materialize",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Seeds a RANGER champion for the Class Bonus, discounting the printed 3-reserve activation cost to 2 (confirmed by needing only 2 reps of the myHand-0 reserve-payment decision, not 3), and a real 0-memory-cost Bullet (Plated Bullet) into the material zone -- this fixture's own deck's Material section has no Bullet cards. Materializing the chosen bullet routes through the normal CUSTOM 'MATERIALIZE' handler shared with the MAT-phase flow and pays its own (0) memory cost automatically.",
+    "testedCards": [
+        "xi74wa4x7e"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["xi74wa4x7e"],
+        "mechanics": ["cost", "condition", "zone-movement"],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate.",
+            "Materialize a Bullet card from your material deck. (You still pay its costs.)"
+        ]
+    }
+}

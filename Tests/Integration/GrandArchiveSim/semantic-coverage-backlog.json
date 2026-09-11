@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-10T18:21:17+00:00",
+    "generatedAt": "2026-09-11T13:55:54+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 238,
+        "cardsWithExistingFixtures": 244,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2249,
+        "cardsNeedingSemanticCoverage": 2243,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -807,26 +807,6 @@
             "priority": 114
         },
         {
-            "cardId": "vnta6qsesw",
-            "name": "Take Aim",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "peyG8Hfgqt",
             "name": "Templar of the Eternal",
             "type": "ALLY",
@@ -1189,25 +1169,6 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "y6isxy5lh2",
-            "name": "Force Load",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2490,24 +2451,6 @@
             "priority": 112
         },
         {
-            "cardId": "xi74wa4x7e",
-            "name": "Materialize Munitions",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "y46R5C190v",
             "name": "Meiren of Verdancy",
             "type": "ALLY",
@@ -3143,42 +3086,6 @@
             "priority": 112
         },
         {
-            "cardId": "f15joh300z",
-            "name": "Umbra Sight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "2snsdwmxz1",
-            "name": "Umbral Tithe",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "uUWsgLmyTk",
             "name": "Unity's Gale",
             "type": "ACTION",
@@ -3438,23 +3345,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "e3z4pyx8bd",
-            "name": "Diana, Keen Huntress",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -41812,6 +41702,30 @@
             "priority": 134
         },
         {
+            "cardId": "vnta6qsesw",
+            "name": "Take Aim",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "take-aim-class-bonus-ranged-attack"
+            ],
+            "semanticFixtures": [
+                "take-aim-class-bonus-ranged-attack"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "KEhmWGivJp",
             "name": "Tindered Soldier",
             "type": "ALLY",
@@ -42205,6 +42119,29 @@
             ],
             "starterDecks": [
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "y6isxy5lh2",
+            "name": "Force Load",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "combat"
+            ],
+            "existingFixtures": [
+                "force-load-bullet-into-gun"
+            ],
+            "semanticFixtures": [
+                "force-load-bullet-into-gun"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -43414,6 +43351,28 @@
             "priority": 132
         },
         {
+            "cardId": "xi74wa4x7e",
+            "name": "Materialize Munitions",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "materialize-munitions-class-bonus-discount"
+            ],
+            "semanticFixtures": [
+                "materialize-munitions-class-bonus-discount"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "zc7wxgur23",
             "name": "Materialize Polearm",
             "type": "ACTION",
@@ -43647,6 +43606,50 @@
             "priority": 132
         },
         {
+            "cardId": "f15joh300z",
+            "name": "Umbra Sight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "umbra-sight-curse-lineage-damage"
+            ],
+            "semanticFixtures": [
+                "umbra-sight-curse-lineage-damage"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "2snsdwmxz1",
+            "name": "Umbral Tithe",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage"
+            ],
+            "existingFixtures": [
+                "umbral-tithe-memory-damage"
+            ],
+            "semanticFixtures": [
+                "umbral-tithe-memory-damage"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "YTO70fFsBY",
             "name": "Venous Core",
             "type": "REGALIA,ITEM",
@@ -43828,6 +43831,27 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "e3z4pyx8bd",
+            "name": "Diana, Keen Huntress",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "diana-keen-huntress-lineage-release-materialize-gun"
+            ],
+            "semanticFixtures": [
+                "diana-keen-huntress-lineage-release-materialize-gun"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
