@@ -7960,6 +7960,133 @@ DECK,
     ],
 ];
 
+// --- Take Point: your champion gains taunt until the beginning of your next turn ---
+$fixtures['take-point-champion-taunt-next-turn'] = [
+    'testedCards' => ['098kmoi0a5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Take Point
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Take Point applies "TAUNT_NEXT_TURN" (a delayed grant, converted to real TAUNT at the
+    // beginning of the caster's next turn), not TAUNT directly, so it's tested at the point the
+    // tag is applied rather than trying to advance all the way to the conversion.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '098kmoi0a5'], // Take Point, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Powercharged Shield: Banish this -- target unit with taunt gains vigor ---
+$fixtures['powercharged-shield-banish-taunt-vigor'] = [
+    'testedCards' => ['rrii17fzcy'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Powercharged Shield
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Powercharged Shield's own activated ability requires a unit with taunt already on the
+    // field (activateAbilityPrereqs["rrii17fzcy:0"]), so a Dungeon Guide is patched with TAUNT
+    // directly via test-setup rather than scripting a real taunt-granting effect.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['TurnEffects' => ['TAUNT']]], // Dungeon Guide w/ Taunt - ability target
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'rrii17fzcy'], // Powercharged Shield
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Sentinel Fabricator: (3), REST: Summon an Automaton Drone token with a buff counter ---
+$fixtures['sentinel-fabricator-summon-buffed-drone'] = [
+    'testedCards' => ['j68m69iq4d'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Sentinel Fabricator
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // The activated ability's prereq requires Status==2 (awake), so it's patched explicitly.
+    // The 3-reserve cost queues 3 reps of the myHand-0 reserve-payment decision before summoning
+    // the token.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'j68m69iq4d', 'setProperties' => ['Status' => 2]], // Sentinel Fabricator, awake
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Crest of the Alliance: whenever a fostered ally dies, may banish this to draw ---
+$fixtures['crest-of-the-alliance-fostered-ally-dies-draw'] = [
+    'testedCards' => ['ojwk0pw0y6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Crest of the Alliance
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Combat damage strips FOSTERED from the target immediately, in the same DealDamage call that
+    // applies the lethal hit (CombatLogic.php ~4964-4968: "Foster tracking: mark that this unit
+    // received damage and remove fostered state"), so by the time DoAllyDestroyed's IsFostered()
+    // check runs, a combat-killed ally is never still fostered. Undeniable Truth's own "mandatory
+    // sacrifice of an ally" additional cost (GameLogic.php's DoActivateCard cost-declaration
+    // switch, $hasUndeniableTruthCost) removes the ally via DoSacrificeFighter -> DoAllyDestroyed
+    // directly, with no intervening damage, so the FOSTERED tag is still present when the "does a
+    // fostered ally you control die" check runs.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ojwk0pw0y6'], // Crest of the Alliance (added first, so sacrificing the ally below it doesn't shift its own index)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['TurnEffects' => ['FOSTERED']]], // Dungeon Guide, fostered
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UaUfw7yFTW'], // Undeniable Truth, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-11T17:56:45+00:00",
+    "generatedAt": "2026-09-11T18:12:20+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 254,
+        "cardsWithExistingFixtures": 258,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2233,
+        "cardsNeedingSemanticCoverage": 2229,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -372,26 +372,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "ojwk0pw0y6",
-            "name": "Crest of the Alliance",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -1610,25 +1590,6 @@
             "priority": 113
         },
         {
-            "cardId": "098kmoi0a5",
-            "name": "Take Point",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "yDARN8eV6B",
             "name": "Tome of Knowledge",
             "type": "REGALIA,ITEM",
@@ -2469,24 +2430,6 @@
             "priority": 112
         },
         {
-            "cardId": "rrii17fzcy",
-            "name": "Powercharged Shield",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "gPKTJKqvOI",
             "name": "Rai, Spellcrafter",
             "type": "CHAMPION",
@@ -2673,24 +2616,6 @@
                 "Rai Starter Deck (Prelude)",
                 "Arisanna Pantheon Starter",
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "j68m69iq4d",
-            "name": "Sentinel Fabricator",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -40714,6 +40639,30 @@
             "priority": 134
         },
         {
+            "cardId": "ojwk0pw0y6",
+            "name": "Crest of the Alliance",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "crest-of-the-alliance-fostered-ally-dies-draw"
+            ],
+            "semanticFixtures": [
+                "crest-of-the-alliance-fostered-ally-dies-draw"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "P9Y1Q5cQ0F",
             "name": "Crux Sight",
             "type": "ACTION",
@@ -42900,6 +42849,29 @@
             "priority": 133
         },
         {
+            "cardId": "098kmoi0a5",
+            "name": "Take Point",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "take-point-champion-taunt-next-turn"
+            ],
+            "semanticFixtures": [
+                "take-point-champion-taunt-next-turn"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "xnrw8qq1uw",
             "name": "Tariff Ring",
             "type": "REGALIA,ITEM",
@@ -43392,6 +43364,28 @@
             "priority": 132
         },
         {
+            "cardId": "rrii17fzcy",
+            "name": "Powercharged Shield",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "powercharged-shield-banish-taunt-vigor"
+            ],
+            "semanticFixtures": [
+                "powercharged-shield-banish-taunt-vigor"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "TZym0IOInK",
             "name": "Return Stroke",
             "type": "ATTACK",
@@ -43409,6 +43403,28 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "j68m69iq4d",
+            "name": "Sentinel Fabricator",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "token"
+            ],
+            "existingFixtures": [
+                "sentinel-fabricator-summon-buffed-drone"
+            ],
+            "semanticFixtures": [
+                "sentinel-fabricator-summon-buffed-drone"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
