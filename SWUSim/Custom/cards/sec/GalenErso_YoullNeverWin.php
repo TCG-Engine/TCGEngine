@@ -22,5 +22,5 @@ $customDQHandlers["SEC_046#0"] = function($player, $parts, $lastDecision) {
     $name    = trim($lastDecision);
     $encName = str_replace(' ', '_', $name);
     AddGlobalEffects(intval($player), "SWU_GALEN|{$uid}|{$encName}");
-    AddGameLogEntry('NAMECARD', 'P' . intval($player) . ' named ' . $name . ' (Galen Erso — loses all abilities)', 'ALL');
+    // The name is logged centrally when the NAMECARD answer is applied (GameOnDecisionAnswered).
 };

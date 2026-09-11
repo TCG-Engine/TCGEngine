@@ -441,7 +441,7 @@ function ShowSubcardDetail(e, imgEl, options) {
 function SwuCardArtSrc(cardID) {
   if (!cardID) return '';
   var base = window.assetImageFolder || ((window.rootPath || '.') + '/concat');
-  return String(base).replace(/\/$/, '') + '/' + cardID + '.webp';
+  return String(base).replace(/\/$/, '') + '/' + resolveCardImageID(cardID) + '.webp';   // mock_ prefix for preview cards
 }
 
 // Blow up a card preview from a CardID alone, for anything drawn as a CSS background-image rather than

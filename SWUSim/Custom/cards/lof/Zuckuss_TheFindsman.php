@@ -26,7 +26,7 @@ $customDQHandlers["LOF_204#0"] = function($player, $parts, $lastDecision) {
     array_shift($deck);
     foreach ($deck as $i => $c) { $c->mzIndex = $i; }
     SWUAddToDiscard($opp, $topCid, 'DECK');
-    AddGameLogEntry('DISCARD', "P{$opp} discarded the top of their deck: " . GameLogCardRef($topCid), 'ALL');
+    // Logged centrally by SWUAddToDiscard (game-log sweep, 2026-09-11).
     if (CardTitle($topCid) === $named) {
         $mz = SWUFindMzByUID($uid);
         if ($mz !== null && $mz !== '') SWUAddAttackPowerBonus($mz, 4); // +4/+0 for this attack

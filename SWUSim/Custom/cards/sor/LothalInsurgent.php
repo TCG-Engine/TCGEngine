@@ -24,8 +24,9 @@ $whenPlayedAbilities["SOR_190:0"] = function($player, $mzID) {
         $cid  = $hand[$pick]->CardID;
         $hand[$pick]->Remove();
         unset($hand);
+        $GLOBALS['gSWULogDiscardNote'] = 'at random'; // the central discard log line appends it
         SWUAddToDiscard($opp, $cid, 'HAND');
         DecisionQueueController::CleanupRemovedCards();
-        AddGameLogEntry('DISCARD', "P{$opp} drew a card and discarded " . GameLogCardRef($cid) . ' at random');
+        // Logged centrally by SWUAddToDiscard (game-log sweep, 2026-09-11).
     }
 };

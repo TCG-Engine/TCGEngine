@@ -53,7 +53,7 @@ $customDQHandlers["TS26_80#0"] = function($player, $parts, $lastDecision) {
             $obj->Remove();
             SWUAddToDiscard($owner, $cardID, 'HAND');
             DecisionQueueController::CleanupRemovedCards();
-            AddGameLogEntry('DISCARD', 'P' . intval($player) . ' discarded ' . GameLogCardRef($cardID) . " from P{$owner}'s hand");
+            // Logged centrally by SWUAddToDiscard (game-log sweep, 2026-09-11).
         }
     }
     _SWUTs26_80Ask(intval($player), $remaining);

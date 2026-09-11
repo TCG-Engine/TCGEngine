@@ -32,7 +32,7 @@ $customDQHandlers["TS26_26#0"] = function($player, $parts, $lastDecision) {
     $obj->Remove();
     SWUAddToDiscard($opp, $cardID, 'HAND');
     DecisionQueueController::CleanupRemovedCards();
-    AddGameLogEntry('DISCARD', 'P' . intval($player) . ' discarded ' . GameLogCardRef($cardID) . " from P{$opp}'s hand");
+    // Logged centrally by SWUAddToDiscard (game-log sweep, 2026-09-11).
     DoDrawCard($opp, 1);   // "If you do, they draw a card."
     // "If the discarded card is a unit, for this phase you may play it from their discard, ignoring aspect penalties."
     if (CardType($cardID) === 'Unit') {

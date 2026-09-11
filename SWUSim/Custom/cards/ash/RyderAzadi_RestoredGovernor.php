@@ -20,5 +20,5 @@ $customDQHandlers["ASH_077#0"] = function($player, $parts, $lastDecision) {
     if ($uid === 0) return;
     $encName = str_replace(' ', '_', trim($lastDecision));
     AddGlobalEffects(intval($player), "SWU_NAMEBLOCK|{$uid}|{$encName}");
-    AddGameLogEntry('NAMECARD', 'P' . intval($player) . ' named ' . trim($lastDecision) . " (opponents can't play it)", 'ALL');
+    // The name is logged centrally when the NAMECARD answer is applied (GameOnDecisionAnswered).
 };

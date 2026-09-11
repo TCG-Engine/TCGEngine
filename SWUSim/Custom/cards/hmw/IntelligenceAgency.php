@@ -69,8 +69,7 @@ $customDQHandlers["HMW_205#0"] = function($player, $parts, $lastDecision) {
     // when-discarded observers gate on).
     SWUAddToDiscard($opp, $cardID, 'HAND');
     DecisionQueueController::CleanupRemovedCards();
-    AddGameLogEntry('DISCARD',
-        'P' . intval($player) . ' discarded ' . GameLogCardRef($cardID) . " from P{$opp}'s hand");
+    // Logged centrally by SWUAddToDiscard (game-log sweep, 2026-09-11).
     // "If you do, THEY draw a card" — gated on the discard above actually having happened, and it is the
     // opponent who draws. On an empty deck this resolves as the CR 6.1 deck-out penalty, not a no-op.
     DoDrawCard($opp, 1);

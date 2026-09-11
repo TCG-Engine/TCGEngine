@@ -31,7 +31,8 @@ $whenPlayedAbilities["HMW_217:0"] = function($player, $mzID = '') {
     $targets = SWUAllUnits('their');
     if (empty($targets)) return;   // no enemy units: clean fizzle, no prompt, no base as a consolation
     $pick = $targets[EngineRandomInt(0, count($targets) - 1)];
-    // The target is random, so the log line is the only way a player can see what was hit.
-    AddGameLogEntry('ABILITY', 'HMW217_HIT ' . CardTitle(GetZoneObject($pick)->CardID ?? ''), 'ALL');
+    // The target is random, so the log is the only way a player can see what was hit: the damage funnel
+    // writes "P1's Don't Touch Anything dealt 3 damage to P2's X" (game-log sweep, 2026-09-11 — this used to
+    // be a raw 'HMW217_HIT <title>' test tag printed in the live log).
     SWUDealDamageToUnit($pick, 3, intval($player));
 };

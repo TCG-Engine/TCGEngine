@@ -13,5 +13,7 @@ WithP1GroundArena: TWI_202:1:0
 - P1>AttackGroundArena:0:BASE
 
 ## EXPECT
-LOGCONTAINS:TWI202_HIT
+#// User-approved 2026-09-11: asserts the real damage line (whichever random target was hit) instead of the
+#// old 'TWI202_HIT' tag, which printed in the live game log.
+LOGCONTAINS:P1's [[TWI_202|Jar Jar Binks]] dealt 2 damage to
 P1GROUNDARENAUNIT:0:EXHAUSTED

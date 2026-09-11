@@ -5,6 +5,7 @@ $customDQHandlers = [];
 $_computingPowerLifeSwap = false;
 
 include_once __DIR__ . '/Constants.php';
+include_once __DIR__ . '/GameLogEvents.php';  // game-log source context + logged player choices
 include_once __DIR__ . '/UndoStack.php';      // per-game multi-step undo log (player 1's Versions zone)
 include_once __DIR__ . '/BookmarkStore.php';  // gamestate bookmarks + the undo cursor (player 2's Versions zone)
 include_once __DIR__ . '/CardHelpers.php';
@@ -94,6 +95,7 @@ function SWUAddToDiscard(int $player, string $cardID, string $from, string $modi
     OnCardDiscarded($player, $cardID, $entry, $sourceObject);
     // SHD_163 Migs Mayfeld observes FORCED hand-discards (SWUDiscardCards / DISCARD_FROM_OWN_HAND route
     // through here with from='HAND'; self-chosen discards go through DoDiscardCard's MZMove instead).
+    if ($from === 'DECK' && function_exists('SWULogDiscard')) SWULogDiscard(intval($player), $cardID, 'DECK'); // game log: a mill
     if ($from === 'HAND') {
         // Per-card hand-discard counters (LAW_179 "1 less per card discarded from your hand this phase";
         // LAW_076 boolean gate). Every forced-discard path lands here, so counting centrally covers them
@@ -109,6 +111,7 @@ function SWUAddToDiscard(int $player, string $cardID, string $from, string $modi
         // Accepted narrow edge (shared with LAW_206): if an effect discards a card with the SAME CardID as
         // the event currently resolving, that discard is skipped here.
         if (($GLOBALS['gPlayingEventCardID'] ?? '') !== $cardID) {
+            if (function_exists('SWULogDiscard')) SWULogDiscard(intval($player), $cardID, 'HAND'); // game log (never an event's own play — same guard)
             AddGlobalEffects($player, 'SWU_DISCARDED_HAND');
             AddGlobalEffects($player, 'SWU_DISCARDED_PHASE');
             if (function_exists('_SWUShd163React')) _SWUShd163React();
@@ -3860,6 +3863,13 @@ function _SWUCreateOneToken(int $player, string $tokenID, bool $ready = false): 
         $newCard = AddGroundArena($player, CardID: $tokenID, Status: $status, Owner: $player,
             Damage: 0, Controller: $player, UniqueID: $uid);
     }
+    // Game log — one line per created token unit (every creation path, Jerjerrod's doubling included).
+    if ($newCard !== null && function_exists('SWULogEffect')) {
+        [$lsP] = SWULogSource();
+        $lsTok = _SWULogTokenPhrase($tokenID);
+        SWULogEffect('TOKEN', 'created ' . $lsTok . ($lsP !== intval($player) ? ' for P' . intval($player) : ''),
+            'P' . intval($player) . ' created ' . $lsTok);
+    }
     // Shielded (e.g. ASH_T01 Mandalorian token, or a Vehicle token while JTL_047 Yularen grants Shielded)
     // applies when the unit enters play, including by being created — give it a Shield token now. Creation
     // is NOT "playing", so WhenPlayed entry triggers deliberately don't fire here.
@@ -4141,6 +4151,7 @@ function DoDrawCard($player, $amount) {
     // A draw reveals a hidden card to the drawing player; undoing back through it un-reveals that info,
     // so this action's snapshot needs opponent consent to undo in a public game (undo redesign).
     if (!empty($drawn)) MarkUndoRequiresConsent();
+    if (!empty($drawn) && function_exists('SWULogDraw')) SWULogDraw(intval($player), $drawn); // game log: count public, cards private
     // Per-phase "cards you've drawn this phase" counter (LAW_051 Beilert Valance). Action phase only;
     // cleared at RegroupPhaseStart.
     if (!empty($drawn) && GetCurrentPhase() === 'MAIN') {
@@ -4227,6 +4238,9 @@ function DoDiscardCard($player, $mzID) {
             $newObj->From = $fromHand ? 'HAND' : (strpos($mzID, 'Deck') !== false ? 'DECK' : 'PLAY');
         }
         OnCardDiscarded(intval($player), $newObj->CardID ?? '', $newObj);
+        // Game log: a self-chosen discard from hand or deck (an in-play card here is a defeat, logged elsewhere).
+        $lsFrom = (string)($newObj->From ?? '');
+        if (($lsFrom === 'HAND' || $lsFrom === 'DECK') && function_exists('SWULogDiscard')) SWULogDiscard(intval($player), (string)($newObj->CardID ?? ''), $lsFrom);
     }
     $playerID = $savedPID;
     // Per-phase counter of cards discarded from a player's hand (LAW_179 cost reduction). Cleared at
@@ -4270,6 +4284,11 @@ function SWUReturnFromDiscardToHand($player, $discardMzID) {
     $savedPID = $playerID;
     $playerID = intval($player);
     $newObj   = MZMove($player, $discardMzID, "myHand");
+    // Game log: a card returned from a discard pile is public (it was face up).
+    if ($newObj !== null && function_exists('SWULogEffect')) {
+        $lsRef = GameLogCardRef((string)($newObj->CardID ?? ''));
+        SWULogEffect('RETURN', "returned {$lsRef} from P" . intval($player) . "'s discard pile to their hand", 'P' . intval($player) . " returned {$lsRef} from their discard pile to their hand");
+    }
     $playerID = $savedPID;
     return $newObj !== null;
 }
@@ -4306,6 +4325,8 @@ function SWUReturnResourceToHand(int $player, string $resourceMzID): bool {
     if ($owner <= 0) $owner = intval($player);
     $obj->removed = true;
     AddHand($owner, CardID:$obj->CardID);
+    // Game log: resources are FACE DOWN — never name the card, only that one went back.
+    if (function_exists('AddGameLogEntry')) AddGameLogEntry('RESOURCE', 'P' . $owner . ' returned a resource to their hand' . (function_exists('SWULogSourceSuffix') ? SWULogSourceSuffix() : ''), 'ALL');
     $playerID = $saved;
     return true;
 }
@@ -4676,6 +4697,7 @@ function DoGiveShieldToken($player, $targetMZ, string $grantTag = '') {
     $playerID = $savedPID;
     if ($obj === null || (isset($obj->removed) && $obj->removed)) return "-";
     if (!is_array($obj->Subcards)) $obj->Subcards = [];
+    if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('TOKEN', $obj, 'gave ' . _SWULogTokenPhrase('SOR_T02') . ' to {U}', '{U} gained ' . _SWULogTokenPhrase('SOR_T02')); // game log
     $obj->Subcards[] = (object)[
         'CardID'      => 'SOR_T02',
         'Owner'       => $player,
@@ -4724,6 +4746,7 @@ function DoGiveExperienceToken($player, $targetMZ, bool $fireAsh208 = true) {
     $playerID = $savedPID;
     if ($obj === null || (isset($obj->removed) && $obj->removed)) return "-";
     if (!is_array($obj->Subcards)) $obj->Subcards = [];
+    if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('TOKEN', $obj, 'gave ' . _SWULogTokenPhrase('SOR_T01') . ' to {U}', '{U} gained ' . _SWULogTokenPhrase('SOR_T01')); // game log
     $obj->Subcards[] = (object)[
         'CardID'      => 'SOR_T01',
         'Owner'       => $player,
@@ -4747,6 +4770,7 @@ function DoGiveAdvantageToken($player, $targetMZ) {
     $playerID = $savedPID;
     if ($obj === null || (isset($obj->removed) && $obj->removed)) return "-";
     if (!is_array($obj->Subcards)) $obj->Subcards = [];
+    if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('TOKEN', $obj, 'gave ' . _SWULogTokenPhrase('ASH_T02') . ' to {U}', '{U} gained ' . _SWULogTokenPhrase('ASH_T02')); // game log
     $obj->Subcards[] = (object)[
         'CardID'      => 'ASH_T02',
         'Owner'       => $player,
@@ -4774,6 +4798,7 @@ function DoGiveTokenUpgrade($player, $targetMZ, string $tokenCardID) {
     if ($obj === null || (isset($obj->removed) && $obj->removed)) return "-";
     if (!is_array($obj->Subcards)) $obj->Subcards = [];
     $hostCtrl = intval($obj->Controller ?? $player);
+    if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('TOKEN', $obj, 'gave ' . _SWULogTokenPhrase($tokenCardID) . ' to {U}', '{U} gained ' . _SWULogTokenPhrase($tokenCardID)); // game log
     $obj->Subcards[] = (object)[
         'CardID'      => $tokenCardID,
         'Owner'       => $hostCtrl,
@@ -4991,6 +5016,12 @@ function DoCaptureUnit($player, $capturingMZ, $capturedMZ) {
     if (strpos(strtolower(CardType($captive->CardID) ?? ''), 'token') !== false) {
         _SWUCeaseTokenUnit(intval($player), $capturedMZ);
         return "-";
+    }
+    // Game log — the capture is committed (immunity and the token case returned above).
+    if (function_exists('SWULogObjRef')) {
+        [, $lsCard] = SWULogSource();
+        AddGameLogEntry('CAPTURE', SWULogObjRef($captor) . ' captured ' . SWULogObjRef($captive)
+            . (($lsCard !== '' && $lsCard !== ($captor->CardID ?? '')) ? SWULogSourceSuffix() : ''));
     }
 
     // Record the captured unit's identity before we remove it.
@@ -5353,6 +5384,7 @@ function DoRescueUnit($captiveSubcard, $hostObj): void {
         $playerID = $savedPID;
         return;
     }
+    if (function_exists('AddGameLogEntry')) AddGameLogEntry('RESCUE', 'P' . $owner . "'s " . GameLogCardRef($cardID) . ' was rescued' . (function_exists('SWULogSourceSuffix') ? SWULogSourceSuffix() : ''), 'ALL'); // game log
 
     // Add the rescued unit directly to the arena as the owner/controller, exhausted (Status:0).
     // Status:0 is the exhausted value used in ActivateCard's $entryStatus default path (CR 8.22.f).
@@ -5648,6 +5680,7 @@ function SWUMoveUnitBetweenArenas(string $unitMz, string $targetArena): string {
     $subs        = is_array($u->Subcards ?? null)    ? array_values($u->Subcards)    : [];
     $turnEffects = is_array($u->TurnEffects ?? null) ? array_values($u->TurnEffects) : [];
 
+    if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('MOVE', $u, 'moved {U} to the ' . ($targetArena === 'SpaceArena' ? 'space' : 'ground') . ' arena', '{U} moved to the ' . ($targetArena === 'SpaceArena' ? 'space' : 'ground') . ' arena'); // game log
     $savedPID = $playerID;
     $playerID = $owner;
     $u->removed = true;
@@ -6093,7 +6126,9 @@ function OnExhaustCard($player, $mzID) {
         // "Can't be exhausted by enemy card abilities" (LOF_040 / LOF_073). Self-exhaust (attacking,
         // cost payment — actor == controller) is always allowed; only an opponent's exhaust is blocked.
         if (intval($player) === intval($obj->Controller ?? $player) || !SWUAvoidsExhaust($obj)) {
+            $lsWasReady = intval($obj->Status ?? 0) === 1;
             $obj->Status = 0;
+            if ($lsWasReady && function_exists('SWULogExhaustReady')) SWULogExhaustReady($obj, (string)$mzID, false); // game log
         }
     }
     $playerID = $savedPID;
@@ -6144,7 +6179,9 @@ function OnReadyCard($player, $mzID) {
         }
         // SEC_037 locked-while-source-in-play / LAW_077 / SHD_193 — see _SWUUnitCantReadyNow.
         if (_SWUUnitCantReadyNow($obj)) { $playerID = $savedPID; return $mzID; }
+        $lsWasExhausted = intval($obj->Status ?? 1) !== 1;
         $obj->Status = 1;
+        if ($lsWasExhausted && function_exists('SWULogExhaustReady')) SWULogExhaustReady($obj, (string)$mzID, true); // game log
         _SWUTs26063OnEnemyReady($obj);   // Rex's DC-17s — ready its host when an enemy unit readies (action phase)
         // JTL_192 In Debt to Crimson Dawn — "When attached unit readies: exhaust it unless its controller
         // pays 2 resources." Fires for ANY ready, not just the regroup ready step (which is handled directly
@@ -6337,6 +6374,10 @@ function MainPhase() {
 }
 
 function DrawPhase() {
+    // Game log: regroup-START triggers (a Sneak Attack defeat's When Defeated, Motti's ready…) set a source
+    // AFTER RegroupPhaseStart cleared it — so each regroup STEP clears again, or the draw reads
+    // "P1 drew 2 cards (Admiral Motti)".
+    SWULogClearSource();
     // Draw is a step WITHIN the Regroup phase (not a separate phase in the log) — only the
     // "— Regroup Phase —" banner is emitted (by RegroupPhaseStart).
     // CR 5.4.b: each player draws 2 cards. Twin Suns: EVERY live seat draws, not just seats 1-2.
@@ -6349,6 +6390,7 @@ function DrawPhase() {
 }
 
 function ResourcePhase() {
+    SWULogClearSource(); // game log: a regroup step boundary (see DrawPhase)
     // Resource is a step WITHIN the Regroup phase (not a separate phase in the log).
     // CR 5.4.c: starting with the active player (initiative holder), each player
     // may resource 1 card from hand. Player selects a card or declines with "-".
@@ -6382,6 +6424,7 @@ function ResourcePhase() {
 }
 
 function ReadyPhase() {
+    SWULogClearSource(); // game log: a regroup step boundary (see DrawPhase)
     // CR 5.4.d: ready all exhausted cards for both players (units, resources, leader).
     // Leader.EpicActionUsed is NOT reset — that flag persists the whole game.
     for ($p = 1; $p <= SeatCountForGame(); $p++) {
@@ -6703,6 +6746,7 @@ function _SWUAsh159RegroupStart(): void {
 }
 
 function RegroupPhaseStart(): void {
+    SWULogClearSource(); // phase boundary — a regroup draw/ready is never attributed to the last ability
     // Twin Suns (CR §12.7): if the action phase that just ended contained the first elimination,
     // the game ends now by highest remaining base HP. No-op for 2-player / no elimination.
     _SWUScoreTwinSunsEndOfPhase();
@@ -7254,6 +7298,7 @@ function _SWUQueueEyeOfAldhaniResolution(int $target, int $count): void {
 }
 
 function ActionPhaseStart() {
+    SWULogClearSource(); // phase boundary
     // Twin Suns (CR §12.7): if the phase that just ended contained the first elimination, score now.
     _SWUScoreTwinSunsEndOfPhase();
     if (SWUGetGameWinner() !== 0) return;
@@ -7491,6 +7536,15 @@ function SWUTakeControlOfUnit(int $newController, string $mzID): string {
         return '';
     }
 
+    // Game log — the change is committed (every refusal returned above). $unit still shows the OLD
+    // controller, which is what the line should name. The subject is the source only when it is the NEW
+    // controller's own ability; "an opponent takes control" (TS26_15) reads "P3 took control of … (C-3PO)".
+    if (function_exists('SWULogObjRef')) {
+        [$lsP] = SWULogSource();
+        $lsRef = SWULogObjRef($unit);
+        if ($lsP === intval($newController)) SWULogEffect('CONTROL', "took control of {$lsRef}", '');
+        else AddGameLogEntry('CONTROL', 'P' . intval($newController) . " took control of {$lsRef}" . SWULogSourceSuffix());
+    }
     $cardID      = $unit->CardID ?? '';
     $owner       = intval($unit->Owner ?? $newController);
     $damage      = intval($unit->Damage ?? 0);
@@ -8910,6 +8964,7 @@ function SWUAfterAction($player) {
     SetSWUVar('GAME_SEAT_COUNT', strval(SeatCountForGame()));
     _SWUStampUndoAvailable();   // seat-independent Undo gate — see the helper for why myVersionsData cannot serve
     SetSWUVar('SWU_DMG_SRC', ''); // clear the ability-damage source context at the action boundary (TWI_016)
+    SWULogClearSource();          // …and the game-log source: nothing is resolving between actions
     // HMW_011 Darth Sidious — close his "was deployed during THIS action" observation window. It is set
     // the first time a damage instance in this action finds him deployed, and lets every LATER instance
     // in the same batch still see him after that batch has defeated him (ASH_151 Operation Cinder deals
@@ -9421,6 +9476,7 @@ function _SWUEffectStackTargetsForPlayer($player): string {
 function OnWhenPlayed($player, $cardID, $mzID): void {
     global $whenPlayedAbilities;
     _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — the played unit is the damage source for its own When Played
+    SWULogSetSource(intval($player), (string)$cardID); // game log: effect lines name this ability
     $fired = false;
     for ($w = 0; isset($whenPlayedAbilities["{$cardID}:{$w}"]); $w++) {
         $whenPlayedAbilities["{$cardID}:{$w}"]($player, $mzID);
@@ -9459,6 +9515,7 @@ $customDQHandlers["LOF_197#0"] = function($player, $parts, $lastDecision) {
 function OnWhenDefeated($player, $cardID, $mzID): void {
     global $whenDefeatedAbilities;
     _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — the defeated unit is the source for its own When Defeated damage
+    SWULogSetSource(intval($player), (string)$cardID); // game log: effect lines name this ability
     $key = $cardID . ':0';
     if (isset($whenDefeatedAbilities[$key])) $whenDefeatedAbilities[$key]($player, $mzID);
 }
@@ -9467,6 +9524,7 @@ function OnWhenDefeated($player, $cardID, $mzID): void {
 function OnDefenseTrigger($player, $cardID, $mzID): void {
     global $onDefenseAbilities;
     _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — the defending unit is the source for its On Defense damage
+    SWULogSetSource(intval($player), (string)$cardID); // game log: effect lines name this ability
     $key = $cardID . ':0';
     if (isset($onDefenseAbilities[$key])) {
         $onDefenseAbilities[$key]($player, $mzID);
@@ -9481,6 +9539,7 @@ function OnDefenseTrigger($player, $cardID, $mzID): void {
 function OnAttackEndTrigger($player, $cardID, $mzID): void {
     global $onAttackEndAbilities;
     _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — the attacker is the source for its On Attack End damage
+    SWULogSetSource(intval($player), (string)$cardID); // game log: effect lines name this ability
     $key = $cardID . ':0';
     if (isset($onAttackEndAbilities[$key])) $onAttackEndAbilities[$key]($player, $mzID);
 }
@@ -10645,6 +10704,7 @@ function CollectOnAttachedTriggers(int $player, string $cardID, string $targetMz
 // otherwise delegates to OnWhenPlayed for cards that share that window.
 function OnWhenPlayedAsUpgrade(int $player, string $cardID, string $mzID): void {
     global $whenPlayedAsUpgradeAbilities;
+    SWULogSetSource($player, $cardID); // game log: effect lines name this ability
     $key = $cardID . ':0';
     if (isset($whenPlayedAsUpgradeAbilities[$key])) {
         $whenPlayedAsUpgradeAbilities[$key]($player, $mzID);
@@ -14354,6 +14414,7 @@ function DoScry($player, $n) {
     if ($n === 0) return;
     $cardIDs = implode(',', array_map(fn($c) => $c->CardID, array_slice($deck, 0, $n)));
     DecisionQueueController::AddDecision($player, "SCRY", $cardIDs, 1, tooltip:"Look_at_top_cards");
+    if (function_exists('SWULogPeek')) SWULogPeek(intval($player), 'looked at', explode(',', $cardIDs)); // game log
     DecisionQueueController::AddDecision($player, "CUSTOM", "SCRY_FINALIZE|{$n}", 1);
     MarkUndoRequiresConsent();
 }
@@ -14379,6 +14440,8 @@ $customDQHandlers["SCRY_FINALIZE"] = function($player, $parts, $lastDecision) {
     }
     foreach ($byID as $list) { foreach ($list as $c) { array_unshift($deck, $c); } }
     foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+    // Game log: face down, so a public COUNT (everything not sent to the bottom stayed on top).
+    if (function_exists('SWULogDeckPlacement')) SWULogDeckPlacement(intval($player), count($bottomIDs), $n - count($bottomIDs));
 };
 
 // ── Reveal-top-N → discard-any + reorder-rest ─────────────────────────────────
@@ -14579,6 +14642,7 @@ function _topDeckSearchBegin(int $player, int $n, callable $filter, string $cons
     DecisionQueueController::StoreVariable("TopDeckConstraint", $constraint);
     $param = $allIDs . '|' . $matchIDs . '|' . $constraint . '|' . $costMap;
     DecisionQueueController::AddDecision($player, "TOPDECKSEARCH", $param, 1, tooltip: "Search_top_cards");
+    if (function_exists('SWULogPeek')) SWULogPeek(intval($player), 'searched', array_values(array_filter(explode(',', (string)$allIDs)))); // game log
     // Embed allIDs in the finalize param — survives the HTTP request boundary. dontSkipOnPass: when the search
     // has NO valid pick it auto-skips (a PASS), which would otherwise skip this finalize too — leaving the
     // peeked cards (already array_spliced off the deck) milled instead of returned to the bottom (ASH_224).
@@ -14672,6 +14736,7 @@ function _topDeckPutRemainingToBottom(int $player, array $remainingIDs): void {
     // would silently push nulls into the deck with no error. All 44 call sites pass genuine lists
     // today; this makes the contract explicit rather than assumed.
     $remainingIDs = array_values($remainingIDs);
+    if (function_exists('SWULogDeckPlacement')) SWULogDeckPlacement($player, count($remainingIDs)); // game log (face down: a count)
     EngineShuffle($remainingIDs);
     $deck = &GetDeck($player);
     foreach ($remainingIDs as $cardID) {
@@ -14694,6 +14759,19 @@ $customDQHandlers["TOPDECKSEARCH_FINALIZE"] = function($player, $parts, $lastDec
     // (SOR_123 Recruit, SOR_084, …). Capture the new hand slots to hand the observers real mzIDs.
     $handBefore = count(GetHand(intval($player)));
     foreach ($resolved['drawn'] as $cardID) {
+        // Game log. "Search …, REVEAL it, and draw it" (Recruit) is public; a search that just DRAWS (SOR_042
+        // Search Your Feelings) stays hidden — a public count and a line only the drawer sees. Decided from
+        // the searching card's own text; with no known source, stay hidden (never leak by default).
+        if (function_exists('SWULogSource')) {
+            [, $lsSrc] = SWULogSource();
+            $lsSfx = SWULogSourceSuffix();
+            if ($lsSrc !== '' && stripos((string)(CardText($lsSrc) ?? ''), 'reveal') !== false) {
+                AddGameLogEntry('REVEAL', 'P' . intval($player) . ' revealed and drew ' . GameLogCardRef($cardID) . $lsSfx, 'ALL');
+            } else {
+                AddGameLogEntry('DRAW', 'P' . intval($player) . ' drew a card' . $lsSfx, 'ALL');
+                AddGameLogEntry('DRAW', 'You drew ' . GameLogCardRef($cardID), 'P' . intval($player));
+            }
+        }
         AddHand(intval($player), CardID: $cardID);
     }
     $drawnMz = [];
@@ -15559,6 +15637,8 @@ function SWUBounceUnit(int $player, string $mzID): bool {
     // only exists while in play.
     $cardID = !empty($obj->IsClone) ? 'TWI_116' : $obj->CardID;
     $owner  = intval($obj->Owner);
+    // Game log — every refusal (immunity, leader unit) returned above, so the bounce is committed.
+    if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('BOUNCE', $obj, "returned {U} to its owner's hand", "{U} returned to its owner's hand");
 
     // Return any leader-pilot subcards to the leader zone (exhausted) FIRST — a leader pilot can't go to
     // hand or discard; losing its host defeats it as a STATE-BASED consequence (CR), not a direct
@@ -15639,6 +15719,7 @@ function SWUUnitToBottomOfDeck(int $player, string $mzID, bool $toTop = false): 
     }
     $cardID = $obj->CardID;
     $owner  = intval($obj->Owner);
+    if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('MOVE', $obj, 'put {U} on the ' . ($toTop ? 'top' : 'bottom') . " of its owner's deck", '{U} was put on the ' . ($toTop ? 'top' : 'bottom') . " of its owner's deck"); // game log
 
     // Defeat all attached non-token upgrades (CR 9.3)
     if (!empty($obj->Subcards) && is_array($obj->Subcards)) {
@@ -16173,6 +16254,7 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         // the same array unit When-Played handlers use; an event has no board object so $mzID is ''.
         if (!$eventBlanked && !_SWUGalenSuppressesCard(intval($player), $cardID)) {
             global $whenPlayedAbilities;
+            SWULogSetSource(intval($player), (string)$cardID); // game log: the event is the source of its effect lines
             if (isset($whenPlayedAbilities["{$cardID}:0"])) $whenPlayedAbilities["{$cardID}:0"]($player, '');
         }
         // Task 5.1 — TWI_210 Cunning observer: fire after event effects (block 1) but before
@@ -16750,7 +16832,7 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             $playerID = $player; // $mzID is a relative mzID in this player's frame
             if (!SWUPayCost($player, $cost, $prepaid, false, true)) { SWUAfterAction($player); break; }
             if (isset($unitAbilities[$provider]) && is_callable($unitAbilities[$provider])) {
-                ($unitAbilities[$provider])($player, $mzID); // handler owns its SWUAfterAction
+                SWULogBeginAction(intval($player), (string)$provider, 'Action'); ($unitAbilities[$provider])($player, $mzID); // handler owns its SWUAfterAction
             } else {
                 SWUAfterAction($player);
             }
@@ -16767,7 +16849,7 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             $playerID = $player;
             if (!SWUPayCost($player, $cost, $prepaid, false, true)) { SWUAfterAction($player); break; }
             if (isset($baseAbilities[$cardID]) && is_callable($baseAbilities[$cardID])) {
-                ($baseAbilities[$cardID])($player);
+                SWULogBeginAction(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
             } else {
                 SWUAfterAction($player);
             }
@@ -16784,7 +16866,7 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             $playerID = $player; // handlers below resolve relative mzIDs
             if (!SWUPayCost($player, $cost, $prepaid, false, true)) { SWUAfterAction($player); break; }
             if (isset($leaderAbilities[$cardID]) && is_callable($leaderAbilities[$cardID])) {
-                ($leaderAbilities[$cardID])($player); // handler owns its SWUAfterAction
+                SWULogBeginAction(intval($player), (string)$cardID, 'Action'); ($leaderAbilities[$cardID])($player); // handler owns its SWUAfterAction
             } else {
                 SWUAfterAction($player);
             }
@@ -17574,7 +17656,7 @@ function SWULeaderAction(int $player, string $cardID, int $leaderIndex = 0): voi
     }
 
     if (isset($leaderAbilities[$cardID]) && is_callable($leaderAbilities[$cardID])) {
-        ($leaderAbilities[$cardID])($player);
+        SWULogBeginAction(intval($player), (string)$cardID, 'Action'); ($leaderAbilities[$cardID])($player);
         // Ability handlers are responsible for calling SWUAfterAction
     } else {
         SWUAfterAction($player);
@@ -17723,7 +17805,7 @@ function _SWUBaseOwnAction(int $player): void {
     // ability closure pays its own cost. Does NOT consume EpicActionUsed or a NumUses budget.
     if (isset($baseActionRepeatable[$cardID])) {
         if (isset($baseAbilities[$cardID]) && is_callable($baseAbilities[$cardID])) {
-            ($baseAbilities[$cardID])($player);
+            SWULogBeginAction(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
         } else {
             SWUAfterAction($player);
         }
@@ -17742,7 +17824,7 @@ function _SWUBaseOwnAction(int $player): void {
         }
         $base->NumUses = $left - 1; // lazily seed + consume in one step
         if (isset($baseAbilities[$cardID]) && is_callable($baseAbilities[$cardID])) {
-            ($baseAbilities[$cardID])($player);
+            SWULogBeginAction(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
         } else {
             SWUAfterAction($player);
         }
@@ -17796,7 +17878,7 @@ function _SWUBaseOwnAction(int $player): void {
     }
 
     if (isset($baseAbilities[$cardID]) && is_callable($baseAbilities[$cardID])) {
-        ($baseAbilities[$cardID])($player);
+        SWULogBeginAction(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
     } else {
         SWUAfterAction($player);
     }
@@ -18271,7 +18353,7 @@ function SWUUnitAction(int $player, string $mzID): void {
     }
 
     if (isset($unitAbilities[$provider]) && is_callable($unitAbilities[$provider])) {
-        ($unitAbilities[$provider])($player, $mzID);
+        SWULogBeginAction(intval($player), (string)$provider, 'Action'); ($unitAbilities[$provider])($player, $mzID);
         // Ability handlers are responsible for calling SWUAfterAction.
     } else {
         SWUAfterAction($player);
@@ -24941,6 +25023,7 @@ function AddTurnEffect($mzCard, $effectID) {
     }
     if(!in_array($effectID, $obj->TurnEffects)) {
         array_push($obj->TurnEffects, $effectID);
+        if (function_exists('SWULogTurnEffect')) SWULogTurnEffect($obj, (string)$effectID); // game log: grants / buffs / blanks
     }
 }
 
@@ -25820,6 +25903,7 @@ function SWUBaseIsUpgraded(int $player): bool {
 function TheForceIsWithYou(int $player): void {
     if (!PlayerHasTheForce($player)) {
         AddGlobalEffects($player, 'SWU_HAS_FORCE');
+        if (function_exists('SWULogForce')) SWULogForce($player, true); // game log
         AddGlobalEffects($player, 'SWU_CREATED_TOKEN'); // the Force token counts as a token created (LAW_016 The Client)
     }
 }
@@ -25831,6 +25915,7 @@ function UseTheForce(int $player): void {
     if (PlayerHasTheForce($player)) {
         RemoveGlobalEffect($player, 'SWU_HAS_FORCE');
         AddGlobalEffects($player, 'SWU_FORCE_USED_THIS_PHASE');
+        if (function_exists('SWULogForce')) SWULogForce($player, false); // game log
         _SWUQueueUseForceReactions($player);
     }
 }

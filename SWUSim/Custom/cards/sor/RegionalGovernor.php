@@ -23,5 +23,5 @@ $customDQHandlers["SOR_062#0"] = function($player, $parts, $lastDecision) {
     $name    = trim($lastDecision);
     $encName = str_replace(' ', '_', $name);     // GlobalEffects flags are space-delimited
     AddGlobalEffects(intval($player), "SWU_NAMEBLOCK|{$uid}|{$encName}");
-    AddGameLogEntry('NAMECARD', 'P' . intval($player) . ' named ' . $name . " (opponents can't play it)", 'ALL');
+    // The name is logged centrally when the NAMECARD answer is applied (GameOnDecisionAnswered).
 };

@@ -124,6 +124,9 @@ class DecisionQueueController {
                         global $customDQHandlers;
                         $parts = explode("|", $decision->Param);
                         $handlerName = array_shift($parts);
+                        // Optional per-game hook (SWUSim: the game-log source context — a card-named
+                        // continuation re-establishes which ability is resolving). Absent elsewhere.
+                        if (function_exists('GameBeforeCustomHandler')) GameBeforeCustomHandler(intval($player), (string)$handlerName);
                         $customDQHandlers[$handlerName]($player, $parts, $lastDecision);
                         break;
                     case "SYSTEM":

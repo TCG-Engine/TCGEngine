@@ -21,7 +21,7 @@ $customDQHandlers["SEC_017#2"] = function($player, $parts, $lastDecision) {
     $obj->Remove();
     SWUAddToDiscard($opp, $cardID, 'HAND');
     DecisionQueueController::CleanupRemovedCards();
-    AddGameLogEntry('DISCARD', 'P' . intval($player) . ' discarded ' . GameLogCardRef($cardID) . " from P{$opp}'s hand");
+    // Logged centrally by SWUAddToDiscard (game-log sweep, 2026-09-11).
     DoDrawCard($opp, 1);   // "If you do, that player draws a card."
 };
 
@@ -68,5 +68,5 @@ $customDQHandlers["SEC_017#4"] = function($player, $parts, $lastDecision) {
         }
     }
     DecisionQueueController::CleanupRemovedCards();
-    AddGameLogEntry('DISCARD', 'P' . intval($player) . " discarded " . GameLogCardRef($chosen) . " from P{$opp}'s deck");
+    // Logged centrally by SWUAddToDiscard (game-log sweep, 2026-09-11).
 };

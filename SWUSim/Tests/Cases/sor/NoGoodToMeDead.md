@@ -133,7 +133,8 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095]
 P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SOR_038
 P2GROUNDARENAUNIT:0:EXHAUSTED
-LASTLOGCONTAINS:can't ready this round
+#// LOGCONTAINS, not LASTLOGCONTAINS (user-approved 2026-09-11): the regroup DRAW is now logged after this line.
+LOGCONTAINS:can't ready this round
 
 ---
 

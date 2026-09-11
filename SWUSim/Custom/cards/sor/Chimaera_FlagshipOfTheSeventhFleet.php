@@ -40,7 +40,7 @@ $customDQHandlers["SOR_185#0"] = function($player, $parts, $lastDecision) {
     $refs = [];
     foreach ($oppHand as $card) { if (empty($card->removed)) $refs[] = GameLogCardRef($card->CardID); }
     AddGameLogEntry('REVEAL', "P{$opp} revealed their hand: " . (empty($refs) ? '(empty)' : implode(', ', $refs)), 'ALL');
-    AddGameLogEntry('NAMECARD', 'P' . intval($player) . ' named ' . $namedName, 'ALL');
+    // The name is logged centrally when the NAMECARD answer is applied (GameOnDecisionAnswered).
 
     // Show the opponent's hand to the player as an acknowledge popup (SOR_201 Bodhi Rook style).
     // Queue it BEFORE the inline discard so the snapshot captures the PRE-discard hand; the popup
@@ -56,7 +56,7 @@ $customDQHandlers["SOR_185#0"] = function($player, $parts, $lastDecision) {
             $card->Remove();
             SWUAddToDiscard($opp, $cid, 'HAND');
             DecisionQueueController::CleanupRemovedCards();
-            AddGameLogEntry('DISCARD', 'P' . intval($player) . ' discarded ' . GameLogCardRef($cid) . " from P{$opp}'s hand", 'ALL');
+            // Logged centrally by SWUAddToDiscard (game-log sweep, 2026-09-11).
             break;
         }
     }

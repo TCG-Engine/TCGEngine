@@ -33,6 +33,7 @@ $onAttackAbilities["TWI_202:0"] = function($player, $mzID) {
     } else {
         SWUDealDamageToUnit($pick, 2, intval($player));
     }
-    AddGameLogEntry('ABILITY', 'TWI202_HIT', 'ALL'); // regression tag (random target isn't scriptable)
+    // The damage funnel logs the random hit ("P1's Jar Jar Binks dealt 2 damage to …"); this used to be a
+    // raw 'TWI202_HIT' test tag printed in the live game log (game-log sweep, 2026-09-11).
     // Combat owns the after-action.
 };

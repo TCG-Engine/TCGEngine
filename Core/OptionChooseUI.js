@@ -106,7 +106,8 @@
       cardIDs.forEach(function(cid) {
         const img = document.createElement('img');
         img.className = 'optchoose-card';
-        img.src = imgBase + cid + '.webp';
+        // Preview (mock) cards are stored as mock_<CardID>.webp — resolve, never use the raw CardID.
+        img.src = imgBase + (typeof resolveCardImageID === 'function' ? resolveCardImageID(cid) : cid) + '.webp';
         img.alt = cid;
         cardsWrap.appendChild(img);
       });

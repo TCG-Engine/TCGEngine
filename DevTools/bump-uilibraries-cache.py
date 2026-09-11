@@ -20,6 +20,9 @@ Usage:
     python3 DevTools/bump-uilibraries-cache.py --stamp 20260815
     python3 DevTools/bump-uilibraries-cache.py --dry-run  # show changes, write nothing
 """
+# Keeps `Path | None` annotations valid on macOS's system Python 3.9 (PEP 604 syntax is 3.10+).
+from __future__ import annotations
+
 import argparse
 import datetime
 import re

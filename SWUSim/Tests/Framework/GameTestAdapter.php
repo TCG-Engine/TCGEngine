@@ -663,6 +663,9 @@ class GameTestAdapter {
                 "AnswerDecision '{$value}' is not a candidate of P{$player}'s pending decision: {$headDesc}");
         }
         ob_start();
+        // Mirror Core/EngineActionRunner exactly: the per-game answer hook runs BEFORE the pop, while the
+        // answered decision is still the head (SWUSim logs named cards / option picks from it).
+        if (function_exists('GameOnDecisionAnswered')) GameOnDecisionAnswered(intval($player), (string)$value);
         $dq = new DecisionQueueController();
         $dq->PopDecision($player);
         $dq->ExecuteStaticMethods($player, $value);

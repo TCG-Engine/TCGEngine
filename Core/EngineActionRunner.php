@@ -500,6 +500,9 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         $result['message'] = 'Invalid selection.';
         break;
       }
+      // Optional per-game hook, called while the answered decision is still at the head of the queue
+      // (SWUSim: logs player CHOICES — named cards, option/opponent picks). Absent elsewhere.
+      if (function_exists('GameOnDecisionAnswered')) GameOnDecisionAnswered(intval($playerID), strval($cardID));
       $dqController->PopDecision($playerID);
       $dqController->ExecuteStaticMethods($playerID, $cardID);
       break;

@@ -1050,7 +1050,7 @@ function _SWUForceThrowDiscard(int $discarder, int $caster, string $mz): void
   $o->Remove();
   SWUAddToDiscard($discarder, $cardID, 'HAND');
   DecisionQueueController::CleanupRemovedCards();
-  AddGameLogEntry('DISCARD', "P{$discarder} discarded " . GameLogCardRef($cardID));
+  // Logged centrally by SWUAddToDiscard (game-log sweep, 2026-09-11).
   if ($cost > 0 && _SWUControlsForceUnit($caster)) {
     SWUOfferUnitTarget($caster, '', ['continuation'=>'DEAL_UNIT_DAMAGE','amount'=>$cost,'may'=>true,
         'question'=>"You_may_deal_{$cost}_damage_to_a_unit",'prompt'=>"Deal_{$cost}_damage_to_a_unit"]);
@@ -1254,9 +1254,10 @@ function _SWUPlayerDiscardRandom(int $targetPlayer): void
   $pick = $liveIdx[EngineRandomInt(0, count($liveIdx) - 1)];
   $cid = $hand[$pick]->CardID;
   $hand[$pick]->Remove();
+  $GLOBALS['gSWULogDiscardNote'] = 'at random'; // the central discard log line appends it
   SWUAddToDiscard($targetPlayer, $cid, 'HAND');
   DecisionQueueController::CleanupRemovedCards();
-  AddGameLogEntry('DISCARD', "P{$targetPlayer} discarded " . GameLogCardRef($cid) . ' at random');
+  // Logged centrally by SWUAddToDiscard (game-log sweep, 2026-09-11).
 }
 
 // "$player's opponent discards one random card from hand" (SOR_203 mode; mirrors SOR_190).
@@ -1280,9 +1281,10 @@ function _SWUOpponentDiscardRandom(int $player): void
   $pick = $liveIdx[EngineRandomInt(0, count($liveIdx) - 1)];
   $cid = $hand[$pick]->CardID;
   $hand[$pick]->Remove();
+  $GLOBALS['gSWULogDiscardNote'] = 'at random'; // the central discard log line appends it
   SWUAddToDiscard($opp, $cid, 'HAND');
   DecisionQueueController::CleanupRemovedCards();
-  AddGameLogEntry('DISCARD', "P{$opp} discarded " . GameLogCardRef($cid) . ' at random');
+  // Logged centrally by SWUAddToDiscard (game-log sweep, 2026-09-11).
 }
 
 // Universal: return the chosen discard-pile unit to its owner's hand.
@@ -2648,7 +2650,7 @@ $customDQHandlers["DISCARD_FROM_OPP_HAND"] = function ($player, $parts, $lastDec
   $obj->Remove();
   SWUAddToDiscard($opp, $cardID, 'HAND');
   DecisionQueueController::CleanupRemovedCards();
-  AddGameLogEntry('DISCARD', 'P' . intval($player) . ' discarded ' . GameLogCardRef($cardID) . " from P{$opp}'s hand");
+  // Logged centrally by SWUAddToDiscard (game-log sweep, 2026-09-11).
 };
 
 // Universal no-op acknowledge handler (the "OK" button on an information-only popup).

@@ -8,7 +8,7 @@ $customDQHandlers["LAW_243#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     $encName = str_replace(' ', '_', trim($lastDecision));
     AddGlobalEffects(intval($player), "SWU_NAMEBLOCK_PHASE|{$encName}");
-    AddGameLogEntry('NAMECARD', 'P' . intval($player) . ' named ' . trim($lastDecision) . " (can't be played this phase)", 'ALL');
+    // The name is logged centrally when the NAMECARD answer is applied (GameOnDecisionAnswered).
 };
 
 // When Played (event) — migrated from OnPlayEvent.

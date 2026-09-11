@@ -5364,7 +5364,7 @@ function ShowScryPanel(entry, decisionIndex, onSubmit) {
       cardWrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;';
 
       const img = document.createElement('img');
-      img.src = imgBase + cardID + '.webp';
+      img.src = imgBase + resolveCardImageID(cardID) + '.webp'; // preview (mock) cards are stored as mock_<CardID>.webp
       img.style.cssText = 'height:200px;border-radius:8px;border:1px solid #555;display:block;';
       cardWrap.appendChild(img);
 
@@ -5446,7 +5446,7 @@ function ShowRevealArrangePanel(entry, decisionIndex, onSubmit) {
       cardWrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;';
 
       const img = document.createElement('img');
-      img.src = imgBase + cardID + '.webp';
+      img.src = imgBase + resolveCardImageID(cardID) + '.webp'; // preview (mock) cards are stored as mock_<CardID>.webp
       img.style.cssText = 'height:200px;border-radius:8px;border:1px solid #555;display:block;';
       cardWrap.appendChild(img);
 
@@ -5550,7 +5550,7 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
       cardWrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;';
 
       var img = document.createElement('img');
-      img.src = imgBase + cardID + '.webp';
+      img.src = imgBase + resolveCardImageID(cardID) + '.webp'; // preview (mock) cards are stored as mock_<CardID>.webp
       img.style.cssText = 'height:180px;border-radius:8px;display:block;';
       if (thisSelected) {
         img.style.border = '3px solid #27ae60';

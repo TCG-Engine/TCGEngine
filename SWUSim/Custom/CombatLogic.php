@@ -115,6 +115,9 @@ function SWUConsumeShieldToken($unit, bool $forPrevention = true): bool {
 
 function SWUQueueDamageAnim(string $relMzID, int $amount, int $perspective): void {
     if ($amount <= 0) return;
+    // Game log (sweep 2026-09-11): one DAMAGE line per non-combat damage event. BEFORE the absolute-mzID
+    // early return below — the headless harness stubs ConvertMzIDToAbsolute to ''.
+    if (function_exists('SWULogDamageEvent')) SWULogDamageEvent($relMzID, $amount, intval($perspective));
     $abs = ConvertMzIDToAbsolute($relMzID, intval($perspective));
     if ($abs === '') return;
     QueueDamageAnimation($abs, intval($amount));
@@ -145,6 +148,7 @@ function SWUQueueExhaustAnim(string $relMzID, int $perspective, ?int $uniqueID =
 
 function SWUQueueHealAnim(string $relMzID, int $actualHealed, int $perspective): void {
     if ($actualHealed <= 0) return;
+    if (function_exists('SWULogHealEvent')) SWULogHealEvent($relMzID, $actualHealed, intval($perspective)); // game log
     $abs = ConvertMzIDToAbsolute($relMzID, intval($perspective));
     if ($abs === '') return;
     QueueRestoreAnimation($abs, intval($actualHealed));
@@ -737,6 +741,9 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
             }
         }
     }
+    // Game log — the defeat is committed here (immunity and defeat-replacement were checked above, so a
+    // refused or replaced defeat never logs). Combat defeats don't come through here; the ATTACK line has them.
+    if (function_exists('SWULogUnitEvent')) SWULogUnitEvent('DEFEAT', $obj, 'defeated {U}', '{U} was defeated');
     // Fire the defeated unit's WhenDefeated ability AND the leave-play reactions (Gideon/Krell/Boba)
     // for ANY effect-defeat routed through here — direct "defeat target unit" (Takedown/Vanquish),
     // sacrifice, shrink sweep, Rukh, etc. Combat-defeats mark units removed directly (not via this
@@ -927,6 +934,13 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
         }
     }
 
+    // Game log — committed (immunity, Willrow and the Rampart replacement returned above). A BOUNCE says
+    // "returned"; a Shield token spent absorbing damage never reaches here (SWUConsumeShieldToken).
+    if (function_exists('SWULogEffect') && $foundCardID !== '') {
+        $lsUpg = GameLogCardRef($foundCardID) . ' on ' . SWULogObjRef($host);
+        if ($bounce) SWULogEffect('BOUNCE', "returned {$lsUpg} to its owner's hand", "{$lsUpg} returned to its owner's hand");
+        else         SWULogEffect('DEFEAT', "defeated {$lsUpg}", "{$lsUpg} was defeated");
+    }
     // Rebuild Subcards without the defeated upgrade (explicit reassignment ensures the
     // property on the live zone object is updated even when $host was obtained without &).
     $newSubcards = [];
@@ -2695,6 +2709,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     $_logTargetZone = $targetMzID;
     $_logPlayer     = intval($player);
     $_logOverwhelm  = 0;  // Overwhelm spill amount, logged AFTER the attack line (see below)
+    $_logBaseDealt  = null; // combat damage that actually LANDED on an attacked base (after prevention/caps)
 
     if ($attacker === null || (isset($attacker->removed) && $attacker->removed)) {
         $playerID = $savedPID;
@@ -2805,7 +2820,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                     $fizzCtx['excess'] = $spilled;
                     if ($spilled > 0) {
                         AddGameLogEntry('OVERWHELM', 'Overwhelm: ' . $spilled . ' damage to P'
-                            . (3 - intval($player)) . '\'s base');
+                            . SWUMzOwner($targetMzID, intval($player)) . '\'s base');
                     }
                 }
                 // The defender can die to an ON ATTACK ABILITY before combat damage ever resolves, and
@@ -3079,9 +3094,12 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         if ($qgAtkUID > 0 && $qgBaseOwner > 0) {
             AddGlobalEffects($qgBaseOwner, 'SWU_MYBASE_ATTACKEDBY_' . $qgAtkUID);
         }
+        $_logBaseOwner = SWUMzOwner($targetMzID, $player);
+        $_logBaseBefore = intval((GetBase($_logBaseOwner)[0] ?? null)->Damage ?? 0);
         $GLOBALS['gInCombatDamage'] = true;
         SWUDealDamageToBase($attackPower, SWUMzOwner($targetMzID, $player), $attacker);   // thread attacker for ASH_070 unpreventable check
         $GLOBALS['gInCombatDamage'] = false;
+        $_logBaseDealt = max(0, intval((GetBase($_logBaseOwner)[0] ?? null)->Damage ?? 0) - $_logBaseBefore);
         $combatCtx['dealtToBase'] = ($attackPower > 0);
         if ($attackPower > 0) $combatCtx['baseDmgOwner'] = SWUMzOwner($targetMzID, $player);   // see the note at the overwhelm site
         // SEC_077 Retaliation — mark a unit that dealt damage to a base this phase (per-unit, cleared at
@@ -3137,6 +3155,9 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
 
         // SHD_090 Maul — resolve the counter-damage redirect target (if any) for this attack.
         $redirectMz = _SWUCombatRedirectTarget($attacker);
+        // Game log: the combat hits below are carried by the ATTACK summary, not per-hit DAMAGE lines. The
+        // block has no early return, so the flag is always cleared right after it.
+        $GLOBALS['gSWULogCombatStep'] = true;
 
         if ($hasShootFirst) {
             // Shoot First (SOR_217): attacker deals damage before defender.
@@ -3263,6 +3284,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             }
         }
 
+        $GLOBALS['gSWULogCombatStep'] = false;
         // Lethality uses CURRENT HP (printed + upgrades + "for this phase" buffs − debuffs), not
         // printed HP — so a +HP buff/upgrade keeps a unit alive in combat. When such a buff expires
         // at RegroupPhaseStart, the now-over-damaged unit is defeated by the sweep there.
@@ -3468,10 +3490,18 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // Log the attack
     if ($_logAttackerID !== '') {
         $atkRef = GameLogCardRef($_logAttackerID);
-        if (str_starts_with($_logTargetZone, 'theirBase')) {
-            $targetLabel = 'P' . (3 - $_logPlayer) . '\'s base';
+        // ⚠ The base's OWNER comes from the attacked mzID (SWUMzOwner). This used to be
+        // 'P' . (3 - attacker) — a two-seat shortcut that named P2's base when seat 3's was attacked.
+        if (strpos($_logTargetZone, 'Base') !== false) {
+            $targetLabel = 'P' . SWUMzOwner($_logTargetZone, $_logPlayer) . '\'s base';
+            if ($_logBaseDealt !== null) $targetLabel .= ' for ' . $_logBaseDealt . ' damage';
         } else {
             $targetLabel = $_logTargetID !== '' ? GameLogCardRef($_logTargetID) : 'a unit';
+            if ($_logTargetID !== '') $targetLabel = 'P' . SWUMzOwner($_logTargetZone, $_logPlayer) . '\'s ' . $targetLabel;
+            // What each side actually took (after Shields and preventions) — the ATTACK line carries the
+            // combat numbers, so no separate per-hit DAMAGE line is written for them.
+            $targetLabel .= ' — dealt ' . intval($combatCtx['defenderDmgAmt'] ?? 0)
+                          . ', took ' . intval($combatCtx['attackerDmgAmt'] ?? 0);
         }
         $defeatSuffix = '';
         foreach ($defeatedCards as $d) {
@@ -3483,7 +3513,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // Overwhelm spill is logged AFTER the attack line so the log reads in event order
     // (attack/defeat first, then the excess damage to the base).
     if ($_logOverwhelm > 0) {
-        AddGameLogEntry('OVERWHELM', 'Overwhelm: ' . $_logOverwhelm . ' damage to P' . (3 - $_logPlayer) . '\'s base');
+        AddGameLogEntry('OVERWHELM', 'Overwhelm: ' . $_logOverwhelm . ' damage to P' . SWUMzOwner($_logTargetZone, $_logPlayer) . '\'s base');
     }
 
     $playerID = $savedPID;
@@ -4430,6 +4460,7 @@ function OnAttackTrigger($player, $mzID): void {
     $obj = GetZoneObject($mzID);
     if ($obj !== null && !empty($obj->CardID)) {
         _SWURecordDamageSource(intval($player), $mzID); // TWI_016 — the attacker is the source of its On Attack ability damage
+        SWULogSetSource(intval($player), (string)$obj->CardID); // game log: effect lines name this ability
         $key = $obj->CardID . ':0';
         if (isset($onAttackAbilities[$key])) $onAttackAbilities[$key]($player, $mzID);
     }
@@ -4444,6 +4475,7 @@ function OnAttackFromUpgradeTrigger(int $player, string $upgradeCardID, string $
     $savedPID = $playerID;
     $playerID = $player;
     $key = $upgradeCardID . ':0';
+    SWULogSetSource($player, $upgradeCardID); // game log: the UPGRADE's granted On Attack is the source
     if (isset($onAttackAbilities[$key])) $onAttackAbilities[$key]($player, $unitMzID);
     $playerID = $savedPID;
 }

@@ -2106,6 +2106,42 @@ class SchemaTestRunner {
                 if (!$found)
                     $failures[] = "{$line}: no log entry whose text contains '{$needle}'";
 
+            // LOGCOUNT:<n>:<text> — exactly N log entries whose text contains <text>. The duplicate guard
+            // for the game-log sweep: a central log line plus a leftover per-card one reads fine under
+            // LOGCONTAINS and shows the player the same event twice.
+            } elseif (preg_match('/^LOGCOUNT:(\d+):(.+)$/', $line, $m)) {
+                $want    = intval($m[1]);
+                $needle  = trim($m[2]);
+                $rawLog  = $g->state->gameLog();
+                $entries = $rawLog !== '' ? explode('<NL>', $rawLog) : [];
+                $n = 0;
+                foreach ($entries as $entry) {
+                    $parts = explode('|', $entry, 3);
+                    if (str_contains($parts[2] ?? '', $needle)) $n++;
+                }
+                if ($n !== $want)
+                    $failures[] = "{$line}: expected {$want} log entr" . ($want === 1 ? 'y' : 'ies') . " containing '{$needle}', found {$n}";
+
+            // P<n>LOGSEES:<text> / P<n>LOGNOTSEES:<text> — what seat <n> can SEE in the log, by the same rule
+            // GetNextTurn.php applies per viewer: an entry is visible when its visibility is ALL or lists the
+            // seat tag. The hidden-information half of the sweep (draws, scry) is only testable this way.
+            } elseif (preg_match('/^P(\d+)LOG(SEES|NOTSEES):(.+)$/', $line, $m)) {
+                $seat    = 'P' . intval($m[1]);
+                $needle  = trim($m[3]);
+                $rawLog  = $g->state->gameLog();
+                $entries = $rawLog !== '' ? explode('<NL>', $rawLog) : [];
+                $sees = false;
+                foreach ($entries as $entry) {
+                    $parts = explode('|', $entry, 3);
+                    $vis   = $parts[1] ?? 'ALL';
+                    $ok    = $vis === 'ALL' || in_array($seat, array_map('trim', explode(',', $vis)), true);
+                    if ($ok && str_contains($parts[2] ?? '', $needle)) { $sees = true; break; }
+                }
+                if ($m[2] === 'SEES' && !$sees)
+                    $failures[] = "{$line}: {$seat} cannot see any log entry containing '{$needle}'";
+                if ($m[2] === 'NOTSEES' && $sees)
+                    $failures[] = "{$line}: {$seat} CAN see a log entry containing '{$needle}'";
+
             } elseif (preg_match('/^LASTLOGCONTAINS:(.+)$/', $line, $m)) {
                 $needle  = trim($m[1]);
                 $rawLog  = $g->state->gameLog();

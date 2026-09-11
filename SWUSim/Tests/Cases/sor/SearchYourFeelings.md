@@ -171,7 +171,10 @@ WithP1Deck: SOR_095
 
 ## EXPECT
 P1HANDCOUNT:1
-LASTLOGCONTAINS:Search Your Feelings
+#// User-approved 2026-09-11: assert the intent directly — the OPPONENT's view of the log never names the
+#// searched card. (Was LASTLOGCONTAINS:Search Your Feelings; the game-log sweep now logs a public search
+#// count, "drew a card" and the bottom placement after the play line, none of which name the card.)
+P2LOGNOTSEES:[[SOR_063
 
 ---
 
