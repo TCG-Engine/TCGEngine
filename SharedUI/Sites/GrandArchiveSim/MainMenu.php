@@ -1338,7 +1338,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
             }
             autoSaveCurrentDeckLink(submission);
             clearQueueInlineError();
-            if(response.ready) {
+            if(response.success && response.ready && response.gameName) {
               DisplayMatchFoundPopup(response.playerID, response.gameName, response.authKey);
             } else {
               _lobby_id = response.lobbyID;
@@ -1788,7 +1788,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         xhr.onload = function() {
           if (xhr.status >= 200 && xhr.status < 300) {
             var response = JSON.parse(xhr.responseText);
-            if (response.ready) {
+            if (response.success && response.ready && response.gameName) {
               playPlayerJoinedSound();
               // Close waiting popup and show match found popup
               var waitingPopup = document.getElementById('waiting-popup');

@@ -151,8 +151,9 @@ while (true) {
   }
 
   if ($lobby) {
-    // Check if the lobby is ready
-    if (isset($lobby->ready) && $lobby->ready) {
+    // Joining fills the lobby before game creation runs outside the lobby lock.
+    // Wait for its committed game name before telling polling players to navigate.
+    if (!empty($lobby->ready) && !empty($lobby->gameName)) {
       $response->success = true;
       $response->ready = true;
 
