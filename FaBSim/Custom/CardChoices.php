@@ -73,7 +73,7 @@ function FaBSetPreparedMode(int $uid, int $mode): void {
     $source = FaBFindUID($uid);
     if ($source === null) return;
     $source['object']->Params['estrikeMode'] = $mode;
-    if ($mode === 1) FaBWTRTag($source['object'],'WTR_POWER:2');
+    if ($mode === 1) FaBCRUSelfTag($source['object'],'WTR_POWER:2');
     if ($mode === 2) FaBWTRTag($source['object'],'GO_AGAIN');
 }
 
@@ -85,7 +85,10 @@ function FaBFinishPreparedCard(int $uid, int $extraCost = 0): void {
 }
 
 function FaBTagUID(int $uid, string $tag): void {
-    $found=FaBFindUID($uid); if ($found !== null) FaBWTRTag($found['object'],$tag);
+    $found=FaBFindUID($uid); if ($found === null) return;
+    $source=FaBIdentityFromMZ((string)DecisionQueueController::GetVariable('mzID'));
+    if($source!==null&&FaBHasType($source['object'],'Attack Reaction'))FaBCRUSelfTag($found['object'],$tag);
+    else FaBWTRTag($found['object'],$tag);
 }
 
 function FaBPreviousAttackBase(): string {

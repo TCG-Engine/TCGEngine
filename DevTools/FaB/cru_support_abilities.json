@@ -1,0 +1,42 @@
+[
+  {
+    "cardId": "scabskin_leathers",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$roller = $player;\n\n$roll = EngineRandomInt(1, 6);\n\n$seats = FaBLiveSeats();\n\n$cruSeq1 = $seats;\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $seat = $cruSeq1[$cruIdx1];\n\n $gloves = FaBCRUEquipment($seat, 'gamblers_gloves');\n\n $cruSeq2 = $gloves;\n\nfor ($cruIdx2 = 0; $cruIdx2 < count($cruSeq2); ++$cruIdx2) {\n\n $glove = $cruSeq2[$cruIdx2];\n\n  $gloveUID = intval(FaBIdentityFromMZ($glove)['object']->UniqueID);\n\n  $tip = 'Player_' . $roller . '_rolled_' . $roll;\n\n  $reroll = await $seat.Modal(1, 1, \"Keep_roll&Destroy_gloves_and_reroll\", $tip);\n\n  if ($reroll === '1') {\n FaBMoveUID($gloveUID, 'Graveyard', $seat);\n $roll = EngineRandomInt(1, 6);\n \n}\n\n \n}\n\n\n}\n\n$player = $roller;\n\nFaBCRULegacyRoll($player, 'scabskin_leathers', $roll);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "barkbone_strapping",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$roller = $player;\n\n$roll = EngineRandomInt(1, 6);\n\n$seats = FaBLiveSeats();\n\n$cruSeq1 = $seats;\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $seat = $cruSeq1[$cruIdx1];\n\n $gloves = FaBCRUEquipment($seat, 'gamblers_gloves');\n\n $cruSeq2 = $gloves;\n\nfor ($cruIdx2 = 0; $cruIdx2 < count($cruSeq2); ++$cruIdx2) {\n\n $glove = $cruSeq2[$cruIdx2];\n\n  $gloveUID = intval(FaBIdentityFromMZ($glove)['object']->UniqueID);\n\n  $tip = 'Player_' . $roller . '_rolled_' . $roll;\n\n  $reroll = await $seat.Modal(1, 1, \"Keep_roll&Destroy_gloves_and_reroll\", $tip);\n\n  if ($reroll === '1') {\n FaBMoveUID($gloveUID, 'Graveyard', $seat);\n $roll = EngineRandomInt(1, 6);\n \n}\n\n \n}\n\n\n}\n\n$player = $roller;\n\nFaBCRULegacyRoll($player, 'barkbone_strapping', $roll);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "crazy_brew_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$roller = $player;\n\n$roll = EngineRandomInt(1, 6);\n\n$seats = FaBLiveSeats();\n\n$cruSeq1 = $seats;\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $seat = $cruSeq1[$cruIdx1];\n\n $gloves = FaBCRUEquipment($seat, 'gamblers_gloves');\n\n $cruSeq2 = $gloves;\n\nfor ($cruIdx2 = 0; $cruIdx2 < count($cruSeq2); ++$cruIdx2) {\n\n $glove = $cruSeq2[$cruIdx2];\n\n  $gloveUID = intval(FaBIdentityFromMZ($glove)['object']->UniqueID);\n\n  $tip = 'Player_' . $roller . '_rolled_' . $roll;\n\n  $reroll = await $seat.Modal(1, 1, \"Keep_roll&Destroy_gloves_and_reroll\", $tip);\n\n  if ($reroll === '1') {\n FaBMoveUID($gloveUID, 'Graveyard', $seat);\n $roll = EngineRandomInt(1, 6);\n \n}\n\n \n}\n\n\n}\n\n$player = $roller;\n\nFaBCRULegacyRoll($player, 'crazy_brew_blue', $roll);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "bone_head_barrier_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$roller = $player;\n\n$roll = EngineRandomInt(1, 6);\n\n$seats = FaBLiveSeats();\n\n$cruSeq1 = $seats;\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $seat = $cruSeq1[$cruIdx1];\n\n $gloves = FaBCRUEquipment($seat, 'gamblers_gloves');\n\n $cruSeq2 = $gloves;\n\nfor ($cruIdx2 = 0; $cruIdx2 < count($cruSeq2); ++$cruIdx2) {\n\n $glove = $cruSeq2[$cruIdx2];\n\n  $gloveUID = intval(FaBIdentityFromMZ($glove)['object']->UniqueID);\n\n  $tip = 'Player_' . $roller . '_rolled_' . $roll;\n\n  $reroll = await $seat.Modal(1, 1, \"Keep_roll&Destroy_gloves_and_reroll\", $tip);\n\n  if ($reroll === '1') {\n FaBMoveUID($gloveUID, 'Graveyard', $seat);\n $roll = EngineRandomInt(1, 6);\n \n}\n\n \n}\n\n\n}\n\n$player = $roller;\n\nFaBCRULegacyRoll($player, 'bone_head_barrier_yellow', $roll);\n",
+        "isImplemented": true
+      }
+    ]
+  }
+]

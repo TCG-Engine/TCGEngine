@@ -253,3 +253,34 @@ Blaster upgrades, Firewall, Under Loop, Apocalypse's targeting and independent
 defense reactions, and complete seeded duel/mirror/mixed bot matches. HTTP checks
 exercise per-slot lobby selection and the duel profile route. Browser checks
 cover the menu selector and playing/pitching/equipping an Evo.
+
+## Crucible of War
+
+`cru_catalog.json` covers CRU000–CRU197: 198 printing numbers mapped to 194
+distinct card identities, including pitch variants and reprints. The reproducible
+builder reuses existing card bodies and fails if an identity is unhandled.
+`CRUCards.php` supplies shared continuous rules; interactive choices are saved in
+CardEditor. `cru_support_abilities.json` adds Gambler's Gloves rerolls to the four
+existing WTR dice effects. Import these after WTR/ARC/Fai/Professor:
+
+```powershell
+python DevTools/FaB/build_cru_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline' # Use this installation's configured database.
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/cru_abilities.json
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/cru_support_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/cru_test.php
+```
+
+The suite exercises 320 card continuations across duels and UPF, targeted rules
+regressions, and complete seeded CRU hero/weapon/attack bot matches in both formats.
+It covers all-opponent arcane damage, cross-seat barrier/trap payment, private
+opponent-deck inspection, alternative Copper costs, dice rerolls, equipment
+requirements, prevention, hero copying, Snag timing and per-chain versus per-turn
+effects. It also runs the existing WTR and ARC checks.
+
+Rules references: [CRU release notes](https://dhhim4ltzu1pj.cloudfront.net/media/documents/CRU_Release_Notes_v2.1.pdf)
+and [current Foreboding Bolt text](https://cards.fabtcg.com/card/foreboding-bolt-3/CRU170-RF/).
+The current card reference corrects the original printing's omitted “arcane”.
+After regeneration, hard-refresh the game to load the updated combat-chain
+equipment activation/highlighting bindings.

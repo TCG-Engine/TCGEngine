@@ -1,0 +1,1710 @@
+[
+  {
+    "cardId": "absorption_dome_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBARCEnterItem($player, FaBIdentityFromMZ($mzID)['object']);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "aether_conduit",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$caster = $player;\n\n$targets = FaBARCHeroTargets($caster, false);\n\n$chosen = await $caster.MZChoose($targets, \"Choose_arcane_damage_target\");\n\n$target = FaBARCTargetSeat($caster, $chosen, false);\n\n$damage = 2;\n\n$dealt = 0;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "aetherize_blue",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$targets = FaBCRUTargets($player, 'negate');\n\n$chosen = await $player.MZChoose($targets, \"Negate_target_instant_cost_one_or_less\");\n\nFaBARCSetCard($uid, 'negateUID', intval(FaBIdentityFromMZ($chosen)['object']->UniqueID ?? 0));\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$f = FaBFindUID(intval(FaBARCCard($uid, 'negateUID')));\n\nif ($f !== null && $f['zone'] === 'Stack' && FaBHasType($f['object'], 'Instant') && intval(CardCost($f['object']->CardID)) <= 1) {\n FaBMoveStackUID(intval($f['object']->UniqueID), 'Graveyard', intval($f['object']->Controller));\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "anothos",
+    "abilities": []
+  },
+  {
+    "cardId": "argh_smash_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$roller = $player;\n\n$roll = EngineRandomInt(1, 6);\n\n$seats = FaBLiveSeats();\n\n$cruSeq1 = $seats;\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $seat = $cruSeq1[$cruIdx1];\n\n $gloves = FaBCRUEquipment($seat, 'gamblers_gloves');\n\n $cruSeq2 = $gloves;\n\nfor ($cruIdx2 = 0; $cruIdx2 < count($cruSeq2); ++$cruIdx2) {\n\n $glove = $cruSeq2[$cruIdx2];\n\n  $gloveUID = intval(FaBIdentityFromMZ($glove)['object']->UniqueID);\n\n  $tip = 'Player_' . $roller . '_rolled_' . $roll;\n\n  $reroll = await $seat.Modal(1, 1, \"Keep_roll&Destroy_gloves_and_reroll\", $tip);\n\n  if ($reroll === '1') {\n FaBMoveUID($gloveUID, 'Graveyard', $seat);\n $roll = EngineRandomInt(1, 6);\n \n}\n\n \n}\n\n\n}\n\n$player = $roller;\n\n$targets = FaBCRUTargets($player, 'items');\n\n$maximum = min(intdiv($roll, 2), count(explode('&', $targets)));\n\nif ($targets !== '' && $maximum > 0) {\n\n $chosen = await $player.MZMultiChoose($targets, 0, $maximum, \"Destroy_up_to_rolled_items\");\n\n $cruSeq3 = explode('&', $chosen);\n\nfor ($cruIdx3 = 0; $cruIdx3 < count($cruSeq3); ++$cruIdx3) {\n\n $ref = $cruSeq3[$cruIdx3];\n $f = FaBIdentityFromMZ($ref);\n if ($f !== null) {\n FaBMoveUID(intval($f['object']->UniqueID), 'Graveyard', $f['player']);\n \n}\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "arknight_shard_blue",
+    "abilities": [
+      {
+        "macroName": "CardPitched",
+        "abilityCode": "FaBARCCreateRunes($player, 1);\n\nFaBTryCompletePayment();\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "azalea_ace_in_the_hole",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$targets = FaBARCSelect($player, 'Arsenal');\nif ($targets !== '') {\n $chosen = await $player.MZChoose($targets, \"Put_an_arsenal_card_on_the_bottom\");\n FaBARCAzalea($player, $chosen);\n}",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "barraging_big_horn_red",
+    "abilities": []
+  },
+  {
+    "cardId": "barraging_big_horn_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "barraging_big_horn_blue",
+    "abilities": []
+  },
+  {
+    "cardId": "beast_within_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "benji_the_piercing_wind",
+    "abilities": []
+  },
+  {
+    "cardId": "bittering_thorns_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBWTRAddEffect($player, 'NEXT_ATTACK', 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "blessing_of_serenity_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCRUAdd($player, 'SERENITY', 3);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "blessing_of_serenity_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCRUAdd($player, 'SERENITY', 2);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "blessing_of_serenity_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCRUAdd($player, 'SERENITY', 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "bloodsheath_skeleta",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "FaBCRUAdd($player, 'SKELETA_AA');\n\nFaBCRUAdd($player, 'SKELETA_NAA');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "bravo_showstopper",
+    "abilities": []
+  },
+  {
+    "cardId": "breeze_rider_boots",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$choice = await $player.Modal(1, 1, \"Keep_boots&Destroy_boots_for_combo_go_again\", \"Breeze_Rider_Boots\");\n\nif ($choice === '1') {\n FaBMoveUID($uid, 'Graveyard', $player);\n FaBCRUAdd($player, 'BREEZE');\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "brutal_assault_red",
+    "abilities": []
+  },
+  {
+    "cardId": "brutal_assault_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "brutal_assault_blue",
+    "abilities": []
+  },
+  {
+    "cardId": "cash_in_yellow",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$options = FaBCRUCashOptions($player);\n\nif ($options !== 'Pay_resources') {\n\n $choice = await $player.Modal(1, 1, $options, \"Cash_In_payment\");\n\n FaBCRUCashPay($player, $uid, $options, $choice);\n\n\n}\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "DoDrawCard($player, 2);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "chain_lightning_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$caster = $player;\n\nFaBWTRAddEffect($caster, 'ARC_NEXT_WIZARD_INSTANT', 1);\n\n$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\nif (FaBCRUWizardPlayed($caster, 'chain_lightning_yellow')) {\n\n $victims = FaBOpponents($caster);\n\n $cruSeq1 = $victims;\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $target = $cruSeq1[$cruIdx1];\n\n  $damage = FaBARCArcaneAmount($caster, $uid, 3, $target);\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "chokeslam_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit() && $amount >= 4) {\n $target = intval(FaBGetState()['defender']);\n FaBWTRAddEffect($target, 'CRU_CHOKESLAM', 1, ['expiresAfterTurnOf'=>$target], true);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "chokeslam_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit() && $amount >= 4) {\n $target = intval(FaBGetState()['defender']);\n FaBWTRAddEffect($target, 'CRU_CHOKESLAM', 1, ['expiresAfterTurnOf'=>$target], true);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "chokeslam_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit() && $amount >= 4) {\n $target = intval(FaBGetState()['defender']);\n FaBWTRAddEffect($target, 'CRU_CHOKESLAM', 1, ['expiresAfterTurnOf'=>$target], true);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "cindering_foresight_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'ARC_NEXT_ARCANE', 1);\n\n$optUIDs = FaBARCStageTop($player, 3);\n\nif (count($optUIDs) > 0) {\n\n $orderParam = FaBARCOrderParam($optUIDs);\n\n $order = await $player.Rearrange($orderParam);\n\n FaBARCFinishOrder($player, $optUIDs, $order);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "cindering_foresight_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'ARC_NEXT_ARCANE', 1);\n\n$optUIDs = FaBARCStageTop($player, 2);\n\nif (count($optUIDs) > 0) {\n\n $orderParam = FaBARCOrderParam($optUIDs);\n\n $order = await $player.Rearrange($orderParam);\n\n FaBARCFinishOrder($player, $optUIDs, $order);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "cindering_foresight_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'ARC_NEXT_ARCANE', 1);\n\n$optUIDs = FaBARCStageTop($player, 1);\n\nif (count($optUIDs) > 0) {\n\n $orderParam = FaBARCOrderParam($optUIDs);\n\n $order = await $player.Rearrange($orderParam);\n\n FaBARCFinishOrder($player, $optUIDs, $order);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "cintari_saber",
+    "abilities": []
+  },
+  {
+    "cardId": "coax_a_commotion_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "$choice = await $player.Modal(0, 3, \"Each_hero_creates_Quicken&Each_hero_draws&Each_hero_gains_life\", \"Choose_any_number\");\n\nFaBCRUCoax($choice);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "combustible_courier_red",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\nif (count(FaBChoiceRefs($player, 'Deck')) > 0) {\n\n $boost = await $player.Modal(1, 1, \"Boost&Do_not_boost\", \"Banish_top_card_to_boost\");\n\n if ($boost === '0') {\n FaBARCBoost($player, $uid);\n \n}\n\n\n}\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBCRUAdd($player, 'COURIER', 3);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "combustible_courier_yellow",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\nif (count(FaBChoiceRefs($player, 'Deck')) > 0) {\n\n $boost = await $player.Modal(1, 1, \"Boost&Do_not_boost\", \"Banish_top_card_to_boost\");\n\n if ($boost === '0') {\n FaBARCBoost($player, $uid);\n \n}\n\n\n}\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBCRUAdd($player, 'COURIER', 3);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "combustible_courier_blue",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\nif (count(FaBChoiceRefs($player, 'Deck')) > 0) {\n\n $boost = await $player.Modal(1, 1, \"Boost&Do_not_boost\", \"Banish_top_card_to_boost\");\n\n if ($boost === '0') {\n FaBARCBoost($player, $uid);\n \n}\n\n\n}\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBCRUAdd($player, 'COURIER', 3);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "consuming_volition_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit() && in_array('CRU_DISCARD_HIT', (array)FaBIdentityFromMZ($mzID)['object']->TurnEffects, true)) {\n\n $defender = intval(FaBGetState()['defender']);\n\n $targets = implode('&', FaBChoiceRefs($defender, 'Hand'));\n\n if ($targets !== '') {\n\n  $chosen = await $defender.MZChoose($targets, \"Choose_a_card_to_discard\");\n\n  FaBDiscardChoice($defender, $chosen);\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "consuming_volition_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit() && in_array('CRU_DISCARD_HIT', (array)FaBIdentityFromMZ($mzID)['object']->TurnEffects, true)) {\n\n $defender = intval(FaBGetState()['defender']);\n\n $targets = implode('&', FaBChoiceRefs($defender, 'Hand'));\n\n if ($targets !== '') {\n\n  $chosen = await $defender.MZChoose($targets, \"Choose_a_card_to_discard\");\n\n  FaBDiscardChoice($defender, $chosen);\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "consuming_volition_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit() && in_array('CRU_DISCARD_HIT', (array)FaBIdentityFromMZ($mzID)['object']->TurnEffects, true)) {\n\n $defender = intval(FaBGetState()['defender']);\n\n $targets = implode('&', FaBChoiceRefs($defender, 'Hand'));\n\n if ($targets !== '') {\n\n  $chosen = await $defender.MZChoose($targets, \"Choose_a_card_to_discard\");\n\n  FaBDiscardChoice($defender, $chosen);\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "copper",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "DoDrawCard($player, 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "courage_of_bladehold",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "FaBCRUAdd($player, 'COURAGE');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "cracked_bauble_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "crane_dance_red",
+    "abilities": []
+  },
+  {
+    "cardId": "crane_dance_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "crane_dance_blue",
+    "abilities": []
+  },
+  {
+    "cardId": "crater_fist",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "FaBCRUAdd($player, 'CRATER');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "crucible_of_aetherweave",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "FaBWTRAddEffect($player, 'ARC_NEXT_ARCANE', 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "crush_the_weak_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit() && $amount >= 4) {\n $target = intval(FaBGetState()['defender']);\n FaBWTRAddEffect($target, 'CRU_CRUSH_WEAK', 1, ['expiresAfterTurnOf'=>$target], true);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "crush_the_weak_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit() && $amount >= 4) {\n $target = intval(FaBGetState()['defender']);\n FaBWTRAddEffect($target, 'CRU_CRUSH_WEAK', 1, ['expiresAfterTurnOf'=>$target], true);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "crush_the_weak_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit() && $amount >= 4) {\n $target = intval(FaBGetState()['defender']);\n FaBWTRAddEffect($target, 'CRU_CRUSH_WEAK', 1, ['expiresAfterTurnOf'=>$target], true);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "dash_inventor_extraordinaire",
+    "abilities": [
+      {
+        "macroName": "StartTurn",
+        "abilityCode": "$searchRefs = FaBARCSelect($player, 'Deck', 'Mechanologist', 'Item', 2);\n$searchUIDs = FaBARCStageRefs($player, $searchRefs);\n$targets = FaBARCSelect($player, 'Temp');\nif ($targets !== '') {\n $chosen = await $player.MZMayChoose($targets, \"Start_with_a_Mechanologist_item\");\n FaBARCPutItem($player, $chosen, 'Temp');\n}\nFaBFinishSearch($player);\nDoDrawCard($player, 4);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "data_doll_mkii",
+    "abilities": []
+  },
+  {
+    "cardId": "dauntless_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'NEXT_WEAPON', 3, ['goAgain'=>false]);\n\nFaBCRUAdd($player, 'DAUNTLESS_PENDING');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "dauntless_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'NEXT_WEAPON', 2, ['goAgain'=>false]);\n\nFaBCRUAdd($player, 'DAUNTLESS_PENDING');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "dauntless_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'NEXT_WEAPON', 1, ['goAgain'=>false]);\n\nFaBCRUAdd($player, 'DAUNTLESS_PENDING');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "dawnblade",
+    "abilities": []
+  },
+  {
+    "cardId": "death_dealer",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "if (count(FaBChoiceRefs($player, 'Arsenal')) === 0) {\n $targets = FaBARCSelect($player, 'Hand', '', 'Arrow');\n if ($targets !== '') {\n  $chosen = await $player.MZMayChoose($targets, \"Load_an_arrow_face_up\");\n  if (FaBARCLoadArsenal($player, $chosen, true)) { DoDrawCard($player, 1); }\n }\n}",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "dorinthea_ironsong",
+    "abilities": []
+  },
+  {
+    "cardId": "dread_triptych_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBARCCreateRunes($player, 1);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "if (count(FaBARCPlayed($player, true)) > 0) {\n FaBARCCreateRunes($player, 1);\n \n}\n\nif (FaBCRUArcane($player) > 0) {\n FaBARCCreateRunes($player, 1);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "edge_of_autumn",
+    "abilities": []
+  },
+  {
+    "cardId": "emerging_dominance_red",
+    "abilities": []
+  },
+  {
+    "cardId": "emerging_dominance_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "emerging_dominance_blue",
+    "abilities": []
+  },
+  {
+    "cardId": "feign_death_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCRUAdd($player, 'FEIGN', 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "find_center_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBPreviousAttackBase() === 'crane_dance') {\n $o = FaBWTRCreateArena($player, 'zen_state');\n FaBSetObjectCounter($o, 'BALANCE', 1);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "flood_of_force_yellow",
+    "abilities": [
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "if (in_array(FaBPreviousAttackBase(), ['rushing_river', 'flood_of_force'], true)) {\n\n $ref = FaBChoiceRefs($player, 'Deck')[0] ?? '';\n\n FaBRevealChoices($player, $ref);\n\n $f = FaBIdentityFromMZ($ref);\n\n if ($f !== null && FaBHasKeyword($f['object'], 'Combo')) {\n\n  FaBMoveUID(intval($f['object']->UniqueID), 'Hand', $player);\n\n  $o = FaBIdentityFromMZ($mzID)['object'];\n FaBCRUSelfTag($o, 'WTR_POWER:3');\n FaBCRUSelfTag($o, 'GO_AGAIN');\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "flying_kick_red",
+    "abilities": []
+  },
+  {
+    "cardId": "flying_kick_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "flying_kick_blue",
+    "abilities": []
+  },
+  {
+    "cardId": "foreboding_bolt_red",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$targets = FaBARCHeroTargets($player, false, false);\n\n$chosen = await $player.MZChoose($targets, \"Choose_arcane_damage_target\");\n\n$target = FaBARCTargetSeat($player, $chosen, false, false);\n\nFaBARCSetCard($uid, 'target', $target);\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$caster = $player;\n\n$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$target = intval(FaBARCCard($uid, 'target'));\n\n$damage = FaBARCArcaneAmount($caster, $uid, 3, $target);\n\n$dealt = 0;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$optUIDs = FaBARCStageTop($caster, 1);\n\nif (count($optUIDs) > 0) {\n\n $orderParam = FaBARCOrderParam($optUIDs);\n\n $order = await $caster.Rearrange($orderParam);\n\n FaBARCFinishOrder($caster, $optUIDs, $order);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "foreboding_bolt_yellow",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$targets = FaBARCHeroTargets($player, false, false);\n\n$chosen = await $player.MZChoose($targets, \"Choose_arcane_damage_target\");\n\n$target = FaBARCTargetSeat($player, $chosen, false, false);\n\nFaBARCSetCard($uid, 'target', $target);\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$caster = $player;\n\n$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$target = intval(FaBARCCard($uid, 'target'));\n\n$damage = FaBARCArcaneAmount($caster, $uid, 2, $target);\n\n$dealt = 0;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$optUIDs = FaBARCStageTop($caster, 1);\n\nif (count($optUIDs) > 0) {\n\n $orderParam = FaBARCOrderParam($optUIDs);\n\n $order = await $caster.Rearrange($orderParam);\n\n FaBARCFinishOrder($caster, $optUIDs, $order);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "foreboding_bolt_blue",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$targets = FaBARCHeroTargets($player, false, false);\n\n$chosen = await $player.MZChoose($targets, \"Choose_arcane_damage_target\");\n\n$target = FaBARCTargetSeat($player, $chosen, false, false);\n\nFaBARCSetCard($uid, 'target', $target);\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$caster = $player;\n\n$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$target = intval(FaBARCCard($uid, 'target'));\n\n$damage = FaBARCArcaneAmount($caster, $uid, 1, $target);\n\n$dealt = 0;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\n$optUIDs = FaBARCStageTop($caster, 1);\n\nif (count($optUIDs) > 0) {\n\n $orderParam = FaBARCOrderParam($optUIDs);\n\n $order = await $caster.Rearrange($orderParam);\n\n FaBARCFinishOrder($caster, $optUIDs, $order);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "fyendals_spring_tunic",
+    "abilities": [
+      {
+        "macroName": "StartTurn",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$choice = await $player.Modal(1, 1, \"Add_energy_counter&Decline\", \"Fyendals_Spring_Tunic\");\nif ($choice === '0') {\n    FaBAddEnergyCounter($uid);\n}",
+        "prereqCode": null,
+        "abilityName": null,
+        "abilityType": "macro",
+        "listenerZones": [],
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "gamblers_gloves",
+    "abilities": []
+  },
+  {
+    "cardId": "gaze_the_ages_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$optUIDs = FaBARCStageTop($player, 2);\n\nif (count($optUIDs) > 0) {\n\n $orderParam = FaBARCOrderParam($optUIDs);\n\n $order = await $player.Rearrange($orderParam);\n\n FaBARCFinishOrder($player, $optUIDs, $order);\n\n\n}\n\nif (FaBCRUWizardPlayed($player, 'gaze_the_ages_blue')) {\n FaBMoveUID($uid, 'Hand', $player);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "gorganian_tome",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$n = 0;\n\n$cruSeq1 = FaBLiveSeats();\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $seat = $cruSeq1[$cruIdx1];\n $n += count(FaBChoiceRefs($seat, 'Graveyard', ['base'=>'gorganian_tome']));\n \n}\n\nDoDrawCard($player, $n);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "harmonized_kodachi",
+    "abilities": []
+  },
+  {
+    "cardId": "herons_flight_red",
+    "abilities": [
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "if (FaBPreviousAttackBase() === 'crane_dance') {\n\n $uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n FaBCRUSelfTagUID($uid, 'WTR_POWER:2');\n\n $choice = await $player.Modal(1, 1, \"Only_attack_actions&Only_non_attack_actions\", \"Choose_allowed_defenders\");\n\n FaBCRUSelfTagUID($uid, $choice === '0' ? 'CRU_HERON_AA' : 'CRU_HERON_NAA');\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "high_speed_impact_red",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\nif (count(FaBChoiceRefs($player, 'Deck')) > 0) {\n\n $boost = await $player.Modal(1, 1, \"Boost&Do_not_boost\", \"Banish_top_card_to_boost\");\n\n if ($boost === '0') {\n FaBARCBoost($player, $uid);\n \n}\n\n\n}\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBCRUAdd($player, 'IMPACT', 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "high_speed_impact_yellow",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\nif (count(FaBChoiceRefs($player, 'Deck')) > 0) {\n\n $boost = await $player.Modal(1, 1, \"Boost&Do_not_boost\", \"Banish_top_card_to_boost\");\n\n if ($boost === '0') {\n FaBARCBoost($player, $uid);\n \n}\n\n\n}\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBCRUAdd($player, 'IMPACT', 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "high_speed_impact_blue",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\nif (count(FaBChoiceRefs($player, 'Deck')) > 0) {\n\n $boost = await $player.Modal(1, 1, \"Boost&Do_not_boost\", \"Banish_top_card_to_boost\");\n\n if ($boost === '0') {\n FaBARCBoost($player, $uid);\n \n}\n\n\n}\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBCRUAdd($player, 'IMPACT', 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "hit_and_run_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'NEXT_WEAPON', 0, ['goAgain'=>true]);\n\nif (FaBCRUCount($player, 'WEAPONS') > 0) {\n FaBWTRAddEffect($player, 'NEXT_ATTACK', 3);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "hit_and_run_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'NEXT_WEAPON', 0, ['goAgain'=>true]);\n\nif (FaBCRUCount($player, 'WEAPONS') > 0) {\n FaBWTRAddEffect($player, 'NEXT_ATTACK', 2);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "hit_and_run_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'NEXT_WEAPON', 0, ['goAgain'=>true]);\n\nif (FaBCRUCount($player, 'WEAPONS') > 0) {\n FaBWTRAddEffect($player, 'NEXT_ATTACK', 1);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "increase_the_tension_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCRUAdd($player, 'TENSION', 3);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "increase_the_tension_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCRUAdd($player, 'TENSION', 2);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "increase_the_tension_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCRUAdd($player, 'TENSION', 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "ira_crimson_haze",
+    "abilities": []
+  },
+  {
+    "cardId": "kano_dracai_of_aether",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$lookUIDs = FaBARCStageTop($player, 1);\n$targets = FaBARCSelect($player, 'Temp', '', 'NAA');\nif ($targets !== '') {\n $chosen = await $player.MZMayChoose($targets, \"Banish_to_play_as_an_instant\");\n FaBARCBanishInstant($player, $chosen, 'Temp');\n}\nFaBARCFinishOrder($player, $lookUIDs, '');",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "kassai_cintari_sellsword",
+    "abilities": []
+  },
+  {
+    "cardId": "katsu_the_wanderer",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "$targets = implode('&', FaBChoiceRefs($player, 'Hand', ['cost'=>0]));\nif ($targets !== '') {\n    $chosen = await $player.MZMayChoose($targets, \"You_may_discard_a_zero_cost_card_for_Katsu\");\n    $discarded = FaBDiscardChoice($player, $chosen);\n    if ($discarded) {\n        $search = FaBStageSearch($player, ['keyword'=>'Combo']);\n        if ($search !== '') {\n            $card = await $player.MZMayChoose($search, \"Search_for_a_combo_card\");\n            FaBGrantBanishPlay($player, $card);\n        }\n        FaBFinishSearch($player);\n    }\n}",
+        "prereqCode": "return intval($eventPlayer) === $player && FaBWTRHeroActive($player) && FaBHitIsAttackAction($event_mzID) && intval(FaBGetState()['attackActionHits'][(string)$player] ?? 0) === 1;",
+        "abilityName": null,
+        "abilityType": "listener",
+        "listenerZones": [
+          "Hero"
+        ],
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "kavdaen_trader_of_skins",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "FaBCRUKavdaen();\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "kayo_berserker_runt",
+    "abilities": [
+      {
+        "macroName": "CardPlayed",
+        "abilityCode": "$attackUID = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$roller = $player;\n\n$roll = EngineRandomInt(1, 6);\n\n$seats = FaBLiveSeats();\n\n$cruSeq1 = $seats;\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $seat = $cruSeq1[$cruIdx1];\n\n $gloves = FaBCRUEquipment($seat, 'gamblers_gloves');\n\n $cruSeq2 = $gloves;\n\nfor ($cruIdx2 = 0; $cruIdx2 < count($cruSeq2); ++$cruIdx2) {\n\n $glove = $cruSeq2[$cruIdx2];\n\n  $gloveUID = intval(FaBIdentityFromMZ($glove)['object']->UniqueID);\n\n  $tip = 'Player_' . $roller . '_rolled_' . $roll;\n\n  $reroll = await $seat.Modal(1, 1, \"Keep_roll&Destroy_gloves_and_reroll\", $tip);\n\n  if ($reroll === '1') {\n FaBMoveUID($gloveUID, 'Graveyard', $seat);\n $roll = EngineRandomInt(1, 6);\n \n}\n\n \n}\n\n\n}\n\n$player = $roller;\n\nFaBARCSetCard($attackUID, 'kayo', $roll);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "lunging_press_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBTagUID(intval(FaBGetState()['attackUID']), 'CRU_REACTION_POWER:1');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "mandible_claw",
+    "abilities": []
+  },
+  {
+    "cardId": "mangle_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if ($amount >= 4 && FaBFaiHeroHit()) {\n\n $target = intval(FaBGetState()['defender']);\n\n $targets = FaBCRUTargets($player, 'damagedEquipment', $target);\n\n if ($targets !== '') {\n\n  $chosen = await $player.MZChoose($targets, \"Destroy_equipment_with_minus_defense_counter\");\n\n  $f = FaBIdentityFromMZ($chosen);\n\n  if ($f !== null) {\n FaBMoveUID(intval($f['object']->UniqueID), 'Graveyard', $target);\n \n}\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "massacre_red",
+    "abilities": []
+  },
+  {
+    "cardId": "mauvrion_skies_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCRUAdd($player, 'MAUVRION', 3);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "mauvrion_skies_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCRUAdd($player, 'MAUVRION', 2);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "mauvrion_skies_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCRUAdd($player, 'MAUVRION', 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "meat_and_greet_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBARCCreateRunes($player, 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "meat_and_greet_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBARCCreateRunes($player, 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "meat_and_greet_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBARCCreateRunes($player, 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "meganetic_shockwave_blue",
+    "abilities": []
+  },
+  {
+    "cardId": "metacarpus_node",
+    "abilities": [
+      {
+        "macroName": "CardPlayed",
+        "abilityCode": "$caster = $player;\n\n$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\nif (FaBAvailablePitch($caster) >= 1) {\n\n $choice = await $caster.Modal(1, 1, \"Decline&Pay_one_for_extra_arcane_damage\", \"Metacarpus_Node\");\n\n if ($choice === '1') {\n\n  while (intval(GetResources($caster)) < 1) {\n\n   $targets = FaBARCPitchChoices($caster);\n\n   $chosen = await $caster.MZChoose($targets, \"Pitch_for_Metacarpus_Node\");\n\n   FaBARCPitchForEffect($caster, $chosen);\n\n  \n}\n\n  AddResources($caster, intval(GetResources($caster)) - 1);\n\n  FaBARCSetCard($uid, 'arcaneBonus', intval(FaBARCCard($uid, 'arcaneBonus')) + 1);\n\n  $cruSeq1 = FaBCRUEquipment($caster, 'metacarpus_node');\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $ref = $cruSeq1[$cruIdx1];\n FaBWTRTag(FaBIdentityFromMZ($ref)['object'], 'CRU_NODE_USED');\n \n}\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "nebula_blade",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBARCCreateRunes($player, 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "out_for_blood_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBTagUID(intval(FaBGetState()['attackUID']), 'CRU_REACTION_POWER:3');\n\nif (FaBWTRDefendedFromHand(FaBGetState())) {\n FaBWTRAddEffect($player, 'NEXT_ATTACK', 1);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "out_for_blood_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBTagUID(intval(FaBGetState()['attackUID']), 'CRU_REACTION_POWER:2');\n\nif (FaBWTRDefendedFromHand(FaBGetState())) {\n FaBWTRAddEffect($player, 'NEXT_ATTACK', 1);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "out_for_blood_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBTagUID(intval(FaBGetState()['attackUID']), 'CRU_REACTION_POWER:1');\n\nif (FaBWTRDefendedFromHand(FaBGetState())) {\n FaBWTRAddEffect($player, 'NEXT_ATTACK', 1);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "overblast_red",
+    "abilities": []
+  },
+  {
+    "cardId": "overblast_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "overblast_blue",
+    "abilities": []
+  },
+  {
+    "cardId": "pathing_helix_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (count(FaBChoiceRefs($player, 'Arsenal')) === 0) {\n\n $targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n\n if ($targets !== '') {\n\n  $chosen = await $player.MZMayChoose($targets, \"Reload_face_down\");\n\n  FaBARCLoadArsenal($player, $chosen, false);\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "pathing_helix_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (count(FaBChoiceRefs($player, 'Arsenal')) === 0) {\n\n $targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n\n if ($targets !== '') {\n\n  $chosen = await $player.MZMayChoose($targets, \"Reload_face_down\");\n\n  FaBARCLoadArsenal($player, $chosen, false);\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "pathing_helix_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (count(FaBChoiceRefs($player, 'Arsenal')) === 0) {\n\n $targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n\n if ($targets !== '') {\n\n  $chosen = await $player.MZMayChoose($targets, \"Reload_face_down\");\n\n  FaBARCLoadArsenal($player, $chosen, false);\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "perch_grapplers",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "FaBCRUAdd($player, 'PERCH', 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "pitfall_trap_yellow",
+    "abilities": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "$caster = $player;\n\n$attacker = intval(FaBGetState()['attacker']);\n\n$attackUID = intval(FaBGetState()['attackUID']);\n\n$paid = false;\n\nif (FaBAvailablePitch($attacker) >= 1) {\n\n $choice = await $attacker.Modal(1, 1, \"Decline&Pay_one_resource\", \"Pay_to_avoid_trap\");\n\n if ($choice === '1') {\n\n  while (intval(GetResources($attacker)) < 1) {\n\n   $refs = FaBARCPitchChoices($attacker);\n\n   $pitched = await $attacker.MZChoose($refs, \"Pitch_to_pay\");\n\n   FaBARCPitchForEffect($attacker, $pitched);\n\n  \n}\n\n  AddResources($attacker, intval(GetResources($attacker)) - 1);\n\n  $paid = true;\n\n \n}\n\n\n}\n\nif (!$paid) {\n DoDamage($caster, '', $attacker, 2, 'PHYSICAL');\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "plasma_barrel_shot",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "FaBARCCharge($mzID);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "plasma_purifier_red",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "if (intval(DecisionQueueController::GetVariable('arcAbilityIndex')) === 0) {\n\n FaBARCCharge($mzID);\n\n\n}\n else {\n\n $targets = implode('&', FaBChoiceRefs($player, 'Weapons', ['type'=>'Pistol']));\n\n if ($targets !== '') {\n\n  $chosen = await $player.MZChoose($targets, \"Pistol_gains_one_power_this_turn\");\n\n  $o = FaBIdentityFromMZ($chosen);\n\n  if ($o !== null) {\n FaBWTRTag($o['object'], 'WTR_POWER:1');\n \n}\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "poison_the_tips_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCRUAdd($player, 'POISON', 1);\n\nif (count(FaBChoiceRefs($player, 'Arsenal')) === 0) {\n $targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n if ($targets !== '') {\n  $chosen = await $player.MZMayChoose($targets, \"Reload_face_down\");\n  FaBARCLoadArsenal($player, $chosen, false);\n }\n}",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "predatory_assault_red",
+    "abilities": []
+  },
+  {
+    "cardId": "predatory_assault_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "predatory_assault_blue",
+    "abilities": []
+  },
+  {
+    "cardId": "promise_of_plenty_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBFaiPromise();",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "promise_of_plenty_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBFaiPromise();\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "promise_of_plenty_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBFaiPromise();\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "push_forward_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'NEXT_WEAPON', 3, ['goAgain'=>false]);\n\nif (FaBCRUCount($player, 'WEAPONS') > 0) {\n FaBWTRAddEffect($player, 'NEXT_ATTACK', 0, ['dominate'=>true]);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "push_forward_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'NEXT_WEAPON', 2, ['goAgain'=>false]);\n\nif (FaBCRUCount($player, 'WEAPONS') > 0) {\n FaBWTRAddEffect($player, 'NEXT_ATTACK', 0, ['dominate'=>true]);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "push_forward_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'NEXT_WEAPON', 1, ['goAgain'=>false]);\n\nif (FaBCRUCount($player, 'WEAPONS') > 0) {\n FaBWTRAddEffect($player, 'NEXT_ATTACK', 0, ['dominate'=>true]);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "quicken",
+    "abilities": []
+  },
+  {
+    "cardId": "rattle_bones_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$targets = FaBARCSelect($player, 'Graveyard', 'Runeblade', 'AA');\n\nif ($targets !== '') {\n\n $chosen = await $player.MZChoose($targets, \"Banish_attack_to_play_this_turn\");\n\n $o = FaBMoveChoice($player, $chosen, 'Graveyard', 'Banish');\n\n if ($o !== null) {\n $o->PlayableFromBanish = 1;\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "reaping_blade",
+    "abilities": []
+  },
+  {
+    "cardId": "red_liner",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "if (count(FaBChoiceRefs($player, 'Arsenal')) === 0) {\n\n $targets = FaBARCSelect($player, 'Hand', '', 'Arrow');\n\n if ($targets !== '') {\n\n  $chosen = await $player.MZChoose($targets, \"Load_arrow_face_up\");\n\n  FaBARCLoadArsenal($player, $chosen, true);\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "reinforce_the_line_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$targets = FaBCRUTargets($player, 'defendingAA');\n\nif ($targets !== '') {\n\n $chosen = await $player.MZChoose($targets, \"Defending_attack_action_gains_defense\");\n\n $o = FaBIdentityFromMZ($chosen);\n\n if ($o !== null) {\n FaBWTRTag($o['object'], 'WTR_DEFENSE:4');\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "reinforce_the_line_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$targets = FaBCRUTargets($player, 'defendingAA');\n\nif ($targets !== '') {\n\n $chosen = await $player.MZChoose($targets, \"Defending_attack_action_gains_defense\");\n\n $o = FaBIdentityFromMZ($chosen);\n\n if ($o !== null) {\n FaBWTRTag($o['object'], 'WTR_DEFENSE:3');\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "reinforce_the_line_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$targets = FaBCRUTargets($player, 'defendingAA');\n\nif ($targets !== '') {\n\n $chosen = await $player.MZChoose($targets, \"Defending_attack_action_gains_defense\");\n\n $o = FaBIdentityFromMZ($chosen);\n\n if ($o !== null) {\n FaBWTRTag($o['object'], 'WTR_DEFENSE:2');\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "remorseless_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit()) {\n $target = intval(FaBGetState()['defender']);\n FaBWTRAddEffect($target, 'CRU_REMORSELESS', 1, ['expiresAfterTurnOf'=>$target], false);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "rhinar_reckless_rampage",
+    "abilities": []
+  },
+  {
+    "cardId": "righteous_cleansing_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if ($amount >= 4 && FaBFaiHeroHit()) {\n\n $caster = $player;\n\n $target = intval(FaBGetState()['defender']);\n\n $uids = FaBCRUStageOther($caster, $target, 5);\n\n $targets = implode('&', FaBChoiceRefs($caster, 'Temp'));\n\n if ($targets !== '') {\n\n  $chosen = await $caster.MZChoose($targets, \"Choose_a_name_to_banish\");\n\n  $name = CardName(FaBIdentityFromMZ($chosen)['object']->CardID);\n\n  $firstUID = intval(FaBIdentityFromMZ($chosen)['object']->UniqueID);\n\n  FaBMoveUID($firstUID, 'Banish', $target);\n\n  $same = [];\n\n  $cruSeq1 = $uids;\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $uid = $cruSeq1[$cruIdx1];\n $f = FaBFindUID($uid);\n if ($f !== null && $f['zone'] === 'Temp' && CardName($f['object']->CardID) === $name) {\n $same[] = $f['mzID'];\n \n}\n \n}\n\n  $targets = implode('&', $same);\n\n  $maximum = count($same);\n\n  if ($maximum > 0) {\n\n   $more = await $caster.MZMultiChoose($targets, 0, $maximum, \"Banish_more_with_the_same_name\");\n\n   $cruSeq2 = explode('&', $more);\n\nfor ($cruIdx2 = 0; $cruIdx2 < count($cruSeq2); ++$cruIdx2) {\n\n $ref = $cruSeq2[$cruIdx2];\n $f = FaBIdentityFromMZ($ref);\n if ($f !== null) {\n FaBMoveUID(intval($f['object']->UniqueID), 'Banish', $target);\n \n}\n \n}\n\n  \n}\n\n  $remaining = [];\n\n  $cruSeq3 = $uids;\n\nfor ($cruIdx3 = 0; $cruIdx3 < count($cruSeq3); ++$cruIdx3) {\n\n $uid = $cruSeq3[$cruIdx3];\n $f = FaBFindUID($uid);\n if ($f !== null && $f['zone'] === 'Temp') {\n $remaining[] = $uid;\n \n}\n \n}\n\n  if (count($remaining) > 0) {\n\n   $param = FaBARCOrderParam($remaining, 'Top');\n\n   $order = await $caster.Rearrange($param);\n\n   FaBCRURestoreOther($caster, $target, $remaining, $order);\n\n  \n}\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "riled_up_red",
+    "abilities": []
+  },
+  {
+    "cardId": "riled_up_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "riled_up_blue",
+    "abilities": []
+  },
+  {
+    "cardId": "rockslide_trap_blue",
+    "abilities": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "$caster = $player;\n\n$attacker = intval(FaBGetState()['attacker']);\n\n$attackUID = intval(FaBGetState()['attackUID']);\n\n$paid = false;\n\nif (FaBAvailablePitch($attacker) >= 1) {\n\n $choice = await $attacker.Modal(1, 1, \"Decline&Pay_one_resource\", \"Pay_to_avoid_trap\");\n\n if ($choice === '1') {\n\n  while (intval(GetResources($attacker)) < 1) {\n\n   $refs = FaBARCPitchChoices($attacker);\n\n   $pitched = await $attacker.MZChoose($refs, \"Pitch_to_pay\");\n\n   FaBARCPitchForEffect($attacker, $pitched);\n\n  \n}\n\n  AddResources($attacker, intval(GetResources($attacker)) - 1);\n\n  $paid = true;\n\n \n}\n\n\n}\n\nif (!$paid) {\n FaBTagUID($attackUID, 'WTR_POWER:-2');\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "romping_club",
+    "abilities": []
+  },
+  {
+    "cardId": "rousing_aether_red",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$targets = FaBARCHeroTargets($player, false, false);\n\n$chosen = await $player.MZChoose($targets, \"Choose_arcane_damage_target\");\n\n$target = FaBARCTargetSeat($player, $chosen, false, false);\n\nFaBARCSetCard($uid, 'target', $target);\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$caster = $player;\n\n$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$target = intval(FaBARCCard($uid, 'target'));\n\n$damage = FaBARCArcaneAmount($caster, $uid, 4, $target);\n\n$dealt = 0;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\nFaBWTRAddEffect($caster, 'ARC_NEXT_ARCANE', 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "rousing_aether_yellow",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$targets = FaBARCHeroTargets($player, false, false);\n\n$chosen = await $player.MZChoose($targets, \"Choose_arcane_damage_target\");\n\n$target = FaBARCTargetSeat($player, $chosen, false, false);\n\nFaBARCSetCard($uid, 'target', $target);\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$caster = $player;\n\n$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$target = intval(FaBARCCard($uid, 'target'));\n\n$damage = FaBARCArcaneAmount($caster, $uid, 3, $target);\n\n$dealt = 0;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\nFaBWTRAddEffect($caster, 'ARC_NEXT_ARCANE', 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "rousing_aether_blue",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$targets = FaBARCHeroTargets($player, false, false);\n\n$chosen = await $player.MZChoose($targets, \"Choose_arcane_damage_target\");\n\n$target = FaBARCTargetSeat($player, $chosen, false, false);\n\nFaBARCSetCard($uid, 'target', $target);\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$caster = $player;\n\n$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$target = intval(FaBARCCard($uid, 'target'));\n\n$damage = FaBARCArcaneAmount($caster, $uid, 2, $target);\n\n$dealt = 0;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n\nFaBWTRAddEffect($caster, 'ARC_NEXT_ARCANE', 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "runeblood_barrier_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBARCCreateRunes($player, 4);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "runechant",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = FaBARCHeroTargets($player);\n$chosen = await $player.MZChoose($targets, \"Choose_Runechant_target\");\n$target = FaBARCTargetSeat($player, $chosen);\nFaBARCSetCard($uid, 'target', $target);",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$caster = $player;\n$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$target = intval(FaBARCCard($uid, 'target'));\n$damage = 1;\n$dealt = 0;\n$payment = 0;\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n $options = FaBARCBarrierOptions($target, $damage);\n if ($options !== 'Take_damage') {\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n  while (intval(GetResources($target)) < $payment) {\n   $pitchRefs = FaBARCPitchChoices($target);\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n   FaBARCPitchForEffect($target, $pitched);\n  }\n }\n $dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n}",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "rushing_river_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBPreviousAttackBase() === 'torrent_of_tempo') {\n\n $n = intval(FaBGetState()['chainHits']);\n\n DoDrawCard($player, $n);\n\n $targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n\n $n = min($n, FaBHandCount($player));\n\n if ($n > 0) {\n\n  $chosen = await $player.MZMultiChoose($targets, $n, $n, \"Put_drawn_count_back_on_deck\");\n\n  $uids = [];\n\n  $cruSeq1 = explode('&', $chosen);\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $ref = $cruSeq1[$cruIdx1];\n $uid = intval(FaBIdentityFromMZ($ref)['object']->UniqueID);\n FaBMoveUID($uid, 'Temp', $player);\n $uids[] = $uid;\n \n}\n\n  $param = FaBARCOrderParam($uids, 'Top');\n\n  $order = await $player.Rearrange($param);\n\n  FaBARCFinishOrder($player, $uids, $order);\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "rushing_river_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBPreviousAttackBase() === 'torrent_of_tempo') {\n\n $n = intval(FaBGetState()['chainHits']);\n\n DoDrawCard($player, $n);\n\n $targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n\n $n = min($n, FaBHandCount($player));\n\n if ($n > 0) {\n\n  $chosen = await $player.MZMultiChoose($targets, $n, $n, \"Put_drawn_count_back_on_deck\");\n\n  $uids = [];\n\n  $cruSeq1 = explode('&', $chosen);\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $ref = $cruSeq1[$cruIdx1];\n $uid = intval(FaBIdentityFromMZ($ref)['object']->UniqueID);\n FaBMoveUID($uid, 'Temp', $player);\n $uids[] = $uid;\n \n}\n\n  $param = FaBARCOrderParam($uids, 'Top');\n\n  $order = await $player.Rearrange($param);\n\n  FaBARCFinishOrder($player, $uids, $order);\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "rushing_river_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBPreviousAttackBase() === 'torrent_of_tempo') {\n\n $n = intval(FaBGetState()['chainHits']);\n\n DoDrawCard($player, $n);\n\n $targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n\n $n = min($n, FaBHandCount($player));\n\n if ($n > 0) {\n\n  $chosen = await $player.MZMultiChoose($targets, $n, $n, \"Put_drawn_count_back_on_deck\");\n\n  $uids = [];\n\n  $cruSeq1 = explode('&', $chosen);\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $ref = $cruSeq1[$cruIdx1];\n $uid = intval(FaBIdentityFromMZ($ref)['object']->UniqueID);\n FaBMoveUID($uid, 'Temp', $player);\n $uids[] = $uid;\n \n}\n\n  $param = FaBARCOrderParam($uids, 'Top');\n\n  $order = await $player.Rearrange($param);\n\n  FaBARCFinishOrder($player, $uids, $order);\n\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "salt_the_wound_yellow",
+    "abilities": [
+      {
+        "macroName": "AttackPowerModifier",
+        "abilityCode": "return intval(FaBGetState()['chainHits'] ?? 0);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "seismic_surge",
+    "abilities": []
+  },
+  {
+    "cardId": "shiyana_diamond_gemini",
+    "abilities": [
+      {
+        "macroName": "StartTurn",
+        "abilityCode": "$targets = FaBCRUTargets($player, 'hero');\n\nif ($targets !== '') {\n\n $chosen = await $player.MZChoose($targets, \"Copy_target_hero_until_your_next_turn\");\n\n FaBCRUCopyHero($player, $chosen);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "skullhorn",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "DoDrawCard($player, 1);\n\nFaBDiscardRandom($player, 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "sledge_of_anvilheim",
+    "abilities": []
+  },
+  {
+    "cardId": "sleep_dart_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit()) {\n $target = intval(FaBGetState()['defender']);\n FaBWTRAddEffect($target, 'NO_HERO_ABILITY', 1, ['expiresAfterTurnOf'=>$target], false);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "sleep_dart_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit()) {\n $target = intval(FaBGetState()['defender']);\n FaBWTRAddEffect($target, 'NO_HERO_ABILITY', 1, ['expiresAfterTurnOf'=>$target], false);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "sleep_dart_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (FaBFaiHeroHit()) {\n $target = intval(FaBGetState()['defender']);\n FaBWTRAddEffect($target, 'NO_HERO_ABILITY', 1, ['expiresAfterTurnOf'=>$target], false);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "snag_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCRUApplySnag();\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "snapback_red",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$targets = FaBARCHeroTargets($player, false, false);\n\n$chosen = await $player.MZChoose($targets, \"Choose_arcane_damage_target\");\n\n$target = FaBARCTargetSeat($player, $chosen, false, false);\n\nFaBARCSetCard($uid, 'target', $target);\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$caster = $player;\n\n$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$target = intval(FaBARCCard($uid, 'target'));\n\n$damage = FaBARCArcaneAmount($caster, $uid, 3, $target);\n\n$dealt = 0;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "snapback_yellow",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$targets = FaBARCHeroTargets($player, false, false);\n\n$chosen = await $player.MZChoose($targets, \"Choose_arcane_damage_target\");\n\n$target = FaBARCTargetSeat($player, $chosen, false, false);\n\nFaBARCSetCard($uid, 'target', $target);\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$caster = $player;\n\n$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$target = intval(FaBARCCard($uid, 'target'));\n\n$damage = FaBARCArcaneAmount($caster, $uid, 2, $target);\n\n$dealt = 0;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "snapback_blue",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$targets = FaBARCHeroTargets($player, false, false);\n\n$chosen = await $player.MZChoose($targets, \"Choose_arcane_damage_target\");\n\n$target = FaBARCTargetSeat($player, $chosen, false, false);\n\nFaBARCSetCard($uid, 'target', $target);\n\nFaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$caster = $player;\n\n$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$target = intval(FaBARCCard($uid, 'target'));\n\n$damage = FaBARCArcaneAmount($caster, $uid, 1, $target);\n\n$dealt = 0;\n\n$payment = 0;\n\nif ($target > 0 && $damage > 0 && FaBSeatIsLive($target)) {\n\n $options = FaBARCBarrierOptions($target, $damage);\n\n if ($options !== 'Take_damage') {\n\n  $choice = await $target.Modal(1, 1, $options, \"Arcane_barrier_prevention\");\n\n  $payment = FaBARCBarrierCost($target, $damage, $choice);\n\n  while (intval(GetResources($target)) < $payment) {\n\n   $pitchRefs = FaBARCPitchChoices($target);\n\n   $pitched = await $target.MZChoose($pitchRefs, \"Pitch_to_pay_for_arcane_barrier\");\n\n   FaBARCPitchForEffect($target, $pitched);\n\n  \n}\n\n \n}\n\n $dealt = FaBARCDealArcane($caster, $target, $damage, $payment);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "soulbead_strike_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBTagUID(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'GO_AGAIN');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "soulbead_strike_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBTagUID(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'GO_AGAIN');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "soulbead_strike_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBTagUID(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'GO_AGAIN');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "spoils_of_war_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'NEXT_WEAPON', 2, ['goAgain'=>true]);\n\nFaBCRUAdd($player, 'SPOILS');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "springboard_somersault_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "stamp_authority_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "if (count(FaBChoiceRefs($player, 'Pitch', ['minCost'=>3])) >= 2) {\n FaBWTRAddEffect($player, 'INTELLECT', 1);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "sutcliffes_research_notes_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$uids = FaBARCStageTop($player, 3);\n\n$refs = implode('&', FaBChoiceRefs($player, 'Temp'));\n\nFaBRevealChoices($player, $refs);\n\n$n = count(explode('&', FaBARCSelect($player, 'Temp', 'Runeblade', 'AA')));\n\nif (FaBARCSelect($player, 'Temp', 'Runeblade', 'AA') !== '') {\n FaBARCCreateRunes($player, $n);\n \n}\n\nif (count($uids) > 0) {\n\n $param = FaBARCOrderParam($uids, 'Top');\n\n $order = await $player.Rearrange($param);\n\n FaBARCFinishOrder($player, $uids, $order);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "sutcliffes_research_notes_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$uids = FaBARCStageTop($player, 3);\n\n$refs = implode('&', FaBChoiceRefs($player, 'Temp'));\n\nFaBRevealChoices($player, $refs);\n\n$n = count(explode('&', FaBARCSelect($player, 'Temp', 'Runeblade', 'AA')));\n\nif (FaBARCSelect($player, 'Temp', 'Runeblade', 'AA') !== '') {\n FaBARCCreateRunes($player, $n);\n \n}\n\nif (count($uids) > 0) {\n\n $param = FaBARCOrderParam($uids, 'Top');\n\n $order = await $player.Rearrange($param);\n\n FaBARCFinishOrder($player, $uids, $order);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "sutcliffes_research_notes_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$uids = FaBARCStageTop($player, 3);\n\n$refs = implode('&', FaBChoiceRefs($player, 'Temp'));\n\nFaBRevealChoices($player, $refs);\n\n$n = count(explode('&', FaBARCSelect($player, 'Temp', 'Runeblade', 'AA')));\n\nif (FaBARCSelect($player, 'Temp', 'Runeblade', 'AA') !== '') {\n FaBARCCreateRunes($player, $n);\n \n}\n\nif (count($uids) > 0) {\n\n $param = FaBARCOrderParam($uids, 'Top');\n\n $order = await $player.Rearrange($param);\n\n FaBARCFinishOrder($player, $uids, $order);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "swing_fist_think_later_red",
+    "abilities": []
+  },
+  {
+    "cardId": "swing_fist_think_later_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "swing_fist_think_later_blue",
+    "abilities": []
+  },
+  {
+    "cardId": "talishar_the_lost_prince",
+    "abilities": []
+  },
+  {
+    "cardId": "teklo_plasma_pistol",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$index = intval(DecisionQueueController::GetVariable('arcAbilityIndex'));\nif ($index === 0) { FaBARCCharge($mzID); }\nelse {\n}",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "teklovossens_workshop_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$optUIDs = FaBARCStageTop($player, FaBARCEffect($player, 'ARC_BOOSTED'));\n\nif (count($optUIDs) > 0) {\n\n $orderParam = FaBARCOrderParam($optUIDs);\n\n $order = await $player.Rearrange($orderParam);\n\n FaBARCFinishOrder($player, $optUIDs, $order);\n\n\n}\n\n$ref = FaBChoiceRefs($player, 'Deck')[0] ?? '';\n\nFaBRevealChoices($player, $ref);\n\n$o = FaBIdentityFromMZ($ref);\n\nif ($o !== null && FaBHasType($o['object'], 'Mechanologist') && FaBHasType($o['object'], 'Item') && intval(CardCost($o['object']->CardID)) <= 2) {\n FaBARCPutItem($player, $ref, 'Deck');\n \n}\n\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "teklovossens_workshop_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$optUIDs = FaBARCStageTop($player, FaBARCEffect($player, 'ARC_BOOSTED'));\n\nif (count($optUIDs) > 0) {\n\n $orderParam = FaBARCOrderParam($optUIDs);\n\n $order = await $player.Rearrange($orderParam);\n\n FaBARCFinishOrder($player, $optUIDs, $order);\n\n\n}\n\n$ref = FaBChoiceRefs($player, 'Deck')[0] ?? '';\n\nFaBRevealChoices($player, $ref);\n\n$o = FaBIdentityFromMZ($ref);\n\nif ($o !== null && FaBHasType($o['object'], 'Mechanologist') && FaBHasType($o['object'], 'Item') && intval(CardCost($o['object']->CardID)) <= 2) {\n FaBARCPutItem($player, $ref, 'Deck');\n \n}\n\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "teklovossens_workshop_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$optUIDs = FaBARCStageTop($player, FaBARCEffect($player, 'ARC_BOOSTED'));\n\nif (count($optUIDs) > 0) {\n\n $orderParam = FaBARCOrderParam($optUIDs);\n\n $order = await $player.Rearrange($orderParam);\n\n FaBARCFinishOrder($player, $optUIDs, $order);\n\n\n}\n\n$ref = FaBChoiceRefs($player, 'Deck')[0] ?? '';\n\nFaBRevealChoices($player, $ref);\n\n$o = FaBIdentityFromMZ($ref);\n\nif ($o !== null && FaBHasType($o['object'], 'Mechanologist') && FaBHasType($o['object'], 'Item') && intval(CardCost($o['object']->CardID)) <= 2) {\n FaBARCPutItem($player, $ref, 'Deck');\n \n}\n\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "torrent_of_tempo_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBTagUID(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'GO_AGAIN');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "torrent_of_tempo_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBTagUID(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'GO_AGAIN');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "torrent_of_tempo_blue",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBTagUID(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), 'GO_AGAIN');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "towering_titan_red",
+    "abilities": []
+  },
+  {
+    "cardId": "towering_titan_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "towering_titan_blue",
+    "abilities": []
+  },
+  {
+    "cardId": "tripwire_trap_red",
+    "abilities": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "$caster = $player;\n\n$attacker = intval(FaBGetState()['attacker']);\n\n$attackUID = intval(FaBGetState()['attackUID']);\n\n$paid = false;\n\nif (FaBAvailablePitch($attacker) >= 1) {\n\n $choice = await $attacker.Modal(1, 1, \"Decline&Pay_one_resource\", \"Pay_to_avoid_trap\");\n\n if ($choice === '1') {\n\n  while (intval(GetResources($attacker)) < 1) {\n\n   $refs = FaBARCPitchChoices($attacker);\n\n   $pitched = await $attacker.MZChoose($refs, \"Pitch_to_pay\");\n\n   FaBARCPitchForEffect($attacker, $pitched);\n\n  \n}\n\n  AddResources($attacker, intval(GetResources($attacker)) - 1);\n\n  $paid = true;\n\n \n}\n\n\n}\n\nif (!$paid) {\n FaBTagUID($attackUID, 'CRU_NO_HIT');\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "twinning_blade_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$targets = implode('&', FaBChoiceRefs($player, 'Weapons', ['type'=>'Sword']));\n\nif ($targets !== '') {\n\n $chosen = await $player.MZChoose($targets, \"Sword_may_attack_an_additional_time\");\n\n $o = FaBIdentityFromMZ($chosen);\n\n if ($o !== null) {\n FaBWTRTag($o['object'], 'CRU_EXTRA_ATTACK');\n \n}\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "unified_decree_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBTagUID(intval(FaBGetState()['attackUID']), 'CRU_REACTION_POWER:3');\n\nif (FaBWTRDefendedFromHand(FaBGetState())) {\n\n $uids = FaBARCStageTop($player, 1);\n\n $targets = FaBARCSelect($player, 'Temp', '', 'AR');\n\n if ($targets !== '') {\n\n  $chosen = await $player.MZMayChoose($targets, \"Banish_attack_reaction_to_play_this_chain\");\n\n  $o = FaBMoveChoice($player, $chosen, 'Temp', 'Banish');\n\n  if ($o !== null) {\n $o->PlayableFromBanish = 1;\n FaBARCSetCard(intval($o->UniqueID), 'untilChainCloses', true);\n \n}\n\n \n}\n\n FaBARCFinishOrder($player, $uids, '');\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "viserai_rune_blood",
+    "abilities": []
+  },
+  {
+    "cardId": "viziertronic_model_i",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "FaBCRUAdd($player, 'VIZIER', 1);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "CardPlayed",
+        "abilityCode": "DoDrawCard($player, 1);\n\n$targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n\nif ($targets !== '') {\n\n $chosen = await $player.MZChoose($targets, \"Put_a_card_on_top_of_deck\");\n\n FaBPlaceChosenOnDeck($player, $chosen, true);\n\n\n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "whirling_mist_blossom_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "if (intval(FaBGetState()['consecutiveHits'] ?? 0) >= 2) {\n DoDrawCard($player, 2);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "zen_state",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBSetObjectCounter(FaBIdentityFromMZ($mzID)['object'], 'BALANCE', 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "zephyr_needle",
+    "abilities": []
+  }
+]

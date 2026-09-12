@@ -21,6 +21,7 @@ function FaBUPFDeckErrors(array $deck): array {
         if ($count > 2) $errors[] = 'UPF allows two copies per pitch: ' . CardName($id) . '.';
         if ($count > 1 && in_array('Legendary', (array)CardCard_keywords($id), true)) $errors[] = 'Legendary allows one copy: ' . CardName($id) . '.';
         $types = (array)CardTypes($id);
+        if(($deck['hero']??'')==='shiyana_diamond_gemini'&&str_contains((string)CardFunctional_text_plain($id),'Specialization'))continue;
         foreach(['Rhinar','Bravo','Katsu','Dorinthea','Dash','Azalea','Viserai','Kano']as$heroName){
             if(str_contains((string)CardFunctional_text_plain($id),$heroName.' Specialization') && !str_starts_with((string)CardName($deck['hero']??''),$heroName))$errors[]=CardName($id).' requires '.$heroName.'.';
         }

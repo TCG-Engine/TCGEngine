@@ -174,7 +174,7 @@ FaBFinishPreparedCard($uid);''')
     if base=='plunder_run':
         handled=True;add('ResolveCard',effect('ARC_PLUNDER',1)+f"\nif (DecisionQueueController::GetVariable('fabSourceZone') === 'Arsenal') {{ FaBWTRAddEffect($player, 'ARC_NEXT_AA', {v}); }}")
     if base=='sun_kiss':
-        handled=True;add('ResolveCard',f"AddHealth($player, intval(GetHealth($player)) + {v});\nif (count(array_filter(FaBARCPlayed($player), fn($id) => FaBWTRBase($id) === 'moon_wish')) > 0) {{ DoDrawCard($player, 1); AddActionPoints($player, intval(GetActionPoints($player)) + 1); }}")
+        handled=True;add('ResolveCard',f"FaBCRUGainLife($player, {v});\nif (count(array_filter(FaBARCPlayed($player), fn($id) => FaBWTRBase($id) === 'moon_wish')) > 0) {{ DoDrawCard($player, 1); AddActionPoints($player, intval(GetActionPoints($player)) + 1); }}")
     if base=='tome_of_aetherwind':
         handled=True
         add('ResolveCard', '''for ($i = 0; $i < 2; ++$i) {

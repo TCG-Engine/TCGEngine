@@ -103,7 +103,7 @@ function FaBWTRResolveAbility(int $player, object $stack): void {
         case 'crazy_brew_blue':
             $roll=EngineRandomInt(1,6);
             if($roll<=2){AddHealth($player,max(0,intval(GetHealth($player))-2));if(intval(GetHealth($player))===0)FaBEliminateSeat($player);}
-            elseif($roll<=4)AddHealth($player,intval(GetHealth($player))+2);
+            elseif($roll<=4)FaBCRUGainLife($player,2);
             else{AddResources($player,intval(GetResources($player))+2);AddActionPoints($player,intval(GetActionPoints($player))+2);FaBWTRAddEffect($player,'NEXT_ATTACK',2);}
             if($roll<=4&&FaBWTRMayGoAgain($player))AddActionPoints($player,intval(GetActionPoints($player))+1);
             break;

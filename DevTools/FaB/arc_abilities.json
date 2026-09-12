@@ -1748,7 +1748,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "AddHealth($player, intval(GetHealth($player)) + 3);\nif (count(array_filter(FaBARCPlayed($player), fn($id) => FaBWTRBase($id) === 'moon_wish')) > 0) { DoDrawCard($player, 1); AddActionPoints($player, intval(GetActionPoints($player)) + 1); }",
+        "abilityCode": "FaBCRUGainLife($player, 3);\nif (count(array_filter(FaBARCPlayed($player), fn($id) => FaBWTRBase($id) === 'moon_wish')) > 0) { DoDrawCard($player, 1); AddActionPoints($player, intval(GetActionPoints($player)) + 1); }",
         "isImplemented": true
       }
     ]
@@ -1758,7 +1758,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "AddHealth($player, intval(GetHealth($player)) + 2);\nif (count(array_filter(FaBARCPlayed($player), fn($id) => FaBWTRBase($id) === 'moon_wish')) > 0) { DoDrawCard($player, 1); AddActionPoints($player, intval(GetActionPoints($player)) + 1); }",
+        "abilityCode": "FaBCRUGainLife($player, 2);\nif (count(array_filter(FaBARCPlayed($player), fn($id) => FaBWTRBase($id) === 'moon_wish')) > 0) { DoDrawCard($player, 1); AddActionPoints($player, intval(GetActionPoints($player)) + 1); }",
         "isImplemented": true
       }
     ]
@@ -1768,7 +1768,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "AddHealth($player, intval(GetHealth($player)) + 1);\nif (count(array_filter(FaBARCPlayed($player), fn($id) => FaBWTRBase($id) === 'moon_wish')) > 0) { DoDrawCard($player, 1); AddActionPoints($player, intval(GetActionPoints($player)) + 1); }",
+        "abilityCode": "FaBCRUGainLife($player, 1);\nif (count(array_filter(FaBARCPlayed($player), fn($id) => FaBWTRBase($id) === 'moon_wish')) > 0) { DoDrawCard($player, 1); AddActionPoints($player, intval(GetActionPoints($player)) + 1); }",
         "isImplemented": true
       }
     ]

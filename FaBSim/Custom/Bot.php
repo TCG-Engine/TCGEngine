@@ -55,6 +55,7 @@ function FaBBotAct(int $p): bool {
         $o=FaBIdentityFromMZ($ref)['object'];$keep=FaBBotKeepValue($o,$p);
         if(CanPitchCard($p,$ref))$candidates[]=[100+intval(CardPitch($o->CardID))*5-$keep,'PITCH',$ref];
         if(FaBCanBlock($p,$ref)){
+            if($z==='Equipment'&&FaBCRUMustEquip($p))$candidates[]=[1000-$keep,'BLOCK',$ref];
             $remaining=FaBAttackPower($s)-FaBDefenseValue($s,$p);
             $defense=FaBCurrentDefense($o,$p);
             // Preserve attack fuel unless damage is significant or threatens lethal.

@@ -3,6 +3,18 @@
 function FaBARCAbilitySpecs(string $id): array {
     // timing, resources, destroy, go again, once per turn, steam removed, label
     $rows=[
+        'aether_conduit'=>[['ACTION',2,false,false,true,0,'Deal two arcane damage']],
+        'bloodsheath_skeleta'=>[['INSTANT',0,true,false,false,0,'Reduce action costs']],
+        'courage_of_bladehold'=>[['ACTION',0,true,true,false,0,'Sword attacks cost less']],
+        'crater_fist'=>[['ACTION',3,true,true,false,0,'Crush attacks gain power']],
+        'copper'=>[['ACTION',4,true,true,false,0,'Draw a card']],
+        'kavdaen_trader_of_skins'=>[['ACTION',3,false,true,true,0,'Trade life for Copper']],
+        'perch_grapplers'=>[['ACTION',2,true,true,false,0,'Face-up arrows gain go again']],
+        'red_liner'=>[['ACTION',0,false,true,true,0,'Load arrow']],
+        'skullhorn'=>[['ACTION',0,true,true,false,0,'Draw then discard']],
+        'viziertronic_model_i'=>[['ACTION',0,true,true,false,0,'Draw and reorder when boosting']],
+        'plasma_barrel_shot'=>[['ACTION',2,false,true,false,0,'Load gun']],
+        'plasma_purifier_red'=>[['ACTION',1,false,true,false,0,'Add steam counter'],['ACTION',0,false,true,true,1,'Empower pistol']],
         'kano'=>[['INSTANT',3,false,false,false,0,'Look at top card']],
         'kano_dracai_of_aether'=>[['INSTANT',3,false,false,false,0,'Look at top card']],
         'azalea'=>[['ACTION',0,false,true,true,0,'Replace arsenal']],
@@ -32,7 +44,8 @@ function FaBARCAbilitySpecs(string $id): array {
 }
 function FaBARCAbilityLegal(int $player,array $f,array $spec): bool {
     $o=$f['object'];$id=$o->CardID;$s=FaBGetState();
-    if(!in_array($f['zone'],['Equipment','Weapons','Hero','Arena'],true))return false;
+    $equipped=$f['zone']==='CombatChain'&&($o->FromZone??'')==='Equipment';
+    if((!$equipped&&!in_array($f['zone'],['Equipment','Weapons','Hero','Arena'],true))||HasNoAbilities($o))return false;
     if($f['zone']==='Hero'&&!FaBWTRHeroActive($player))return false;
     if($spec['once']&&intval(FaBObjectCounters($o)['ARC_USED_'.$spec['index']]??0)===intval(GetTurnNumber()))return false;
     if($spec['steam']>intval(FaBObjectCounters($o)['STEAM']??0))return false;
@@ -46,7 +59,7 @@ function FaBARCAbilityLegal(int $player,array $f,array $spec): bool {
         if($id==='cognition_nodes_blue'&&!FaBWTRIsAttackAction($a['object']))return false;
     }
     if(in_array($id,['achilles_accelerator','teklo_foundry_heart'],true)&&FaBARCEffect($player,'ARC_BOOSTED')===0)return false;
-    if(in_array($id,['aether_sink_yellow','induction_chamber_red','cognition_nodes_blue','teklo_plasma_pistol'],true)&&$spec['index']===0&&intval(FaBObjectCounters($o)['STEAM']??0)>0)return false;
+    if(in_array($id,['aether_sink_yellow','induction_chamber_red','cognition_nodes_blue','teklo_plasma_pistol','plasma_barrel_shot','plasma_purifier_red'],true)&&$spec['index']===0&&intval(FaBObjectCounters($o)['STEAM']??0)>0)return false;
     if($id==='skullbone_crosswrap'&&!array_filter(GetArsenal($player),fn($a)=>is_object($a)&&empty($a->removed)&&intval($a->FaceDown??1)===1))return false;
     if($id==='crown_of_dichotomy'&&(FaBARCSelect($player,'Graveyard','Runeblade','AA')===''||FaBARCSelect($player,'Graveyard','Runeblade','NAA')===''))return false;
     if($id==='grasp_of_the_arknight')$spec['cost']+=FaBARCRunechants($player);
@@ -84,9 +97,10 @@ function FaBARCResolveAbility(int $player,object $stack): void {
 }
 function FaBARCSteam(object $o,int $change): void {
     $n=max(0,intval(FaBObjectCounters($o)['STEAM']??0)+$change);FaBSetObjectCounter($o,'STEAM',$n);
-    if($n===0&&in_array($o->CardID,['convection_amplifier_red','optekal_monocle_blue','hyper_driver_red','teklo_core_blue'],true))FaBMoveUID(intval($o->UniqueID),'Graveyard');
+    if($n===0&&in_array($o->CardID,['convection_amplifier_red','optekal_monocle_blue','hyper_driver_red','teklo_core_blue','absorption_dome_yellow'],true))FaBMoveUID(intval($o->UniqueID),'Graveyard');
 }
 function FaBARCEnterItem(int $player,object $o): void {
+    FaBCRUItemEntered($player,$o);
     $n=['aether_sink_yellow'=>1,'convection_amplifier_red'=>2,'dissipation_shield_yellow'=>4,'hyper_driver_red'=>3,'optekal_monocle_blue'=>5,'teklo_core_blue'=>2][$o->CardID]??0;
     if($n)FaBSetObjectCounter($o,'STEAM',$n);
 }
@@ -96,6 +110,7 @@ function FaBARCBoost(int $player,int $uid): void {
     FaBMoveUID(intval($f['object']->UniqueID),'Banish',$player);
     if($mech)FaBTagUID($uid,'GO_AGAIN');
     FaBWTRAddEffect($player,'ARC_BOOSTED',1);
+    FaBCRUBoost($player,$uid);
     $ap=FaBARCEffect($player,'ARC_OCTANE');if($ap)AddActionPoints($player,intval(GetActionPoints($player))+$ap);
     foreach(GetArena($player) as $o)if(is_object($o)&&empty($o->removed)&&$o->CardID==='hyper_driver_red'&&intval(FaBObjectCounters($o)['ARC_DRIVER_TURN']??0)!==intval(GetTurnNumber())){
         FaBSetObjectCounter($o,'ARC_DRIVER_TURN',intval(GetTurnNumber()));FaBARCSteam($o,-1);AddResources($player,intval(GetResources($player))+1);

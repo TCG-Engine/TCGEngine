@@ -87,6 +87,9 @@ Click: FSM()
 CombatChain - CardID:string, Status:number=2, Owner:number=0, Controller:number=0, Damage:number=0, UniqueID:number=0, TurnEffects:array[string], Counters:json, Role:string="", ChainLink:number=0, FromZone:string=""
 Display: Visibility=Public, Mode=All, BindTo=CombatChainSlot
 Virtual: CombatPower=FaBDisplayCombatPower(), CombatDefense=FaBDisplayCombatDefense()
+Virtual: SelectionMetadata=FaBSelectionMetadata()
+Highlight: SelectionMetadata
+Click: FSM()
 Counters: CombatPower=Badge(Color=Green,Position=BottomLeft,ShowZero=true,ShowNegative=false)
 Counters: CombatDefense=Badge(Color=Blue,Position=BottomRight,ShowZero=true,ShowNegative=false)
 

@@ -1,0 +1,3661 @@
+[
+  {
+    "id": "absorption_dome_yellow",
+    "name": "Absorption Dome",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Item"
+    ],
+    "card_keywords": [],
+    "functional_text": "Absorption Dome enters the arena with steam counters on it equal to the number of times you have **boosted** this turn.\n\nIf your hero would be dealt damage, remove that many steam counters from Absorption Dome instead, then prevent damage equal to the number of steam counters removed this way.\n\nWhen Absorption Dome has no steam counters on it, destroy it.",
+    "cru_printings": [
+      "CRU104"
+    ]
+  },
+  {
+    "id": "aether_conduit",
+    "name": "Aether Conduit",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Wizard",
+      "Weapon",
+      "Staff",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - {r}{r}: Deal 2 arcane damage to target hero.",
+    "cru_printings": [
+      "CRU160"
+    ]
+  },
+  {
+    "id": "aetherize_blue",
+    "name": "Aetherize",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Wizard",
+      "Instant"
+    ],
+    "card_keywords": [
+      "Negate"
+    ],
+    "functional_text": "**Negate** target instant card with cost {r} or less.",
+    "cru_printings": [
+      "CRU164"
+    ]
+  },
+  {
+    "id": "anothos",
+    "name": "Anothos",
+    "pitch": "",
+    "cost": "",
+    "power": "4",
+    "defense": "",
+    "types": [
+      "Guardian",
+      "Weapon",
+      "Hammer",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per turn Action** - {r}{r}{r}: **Attack**\n\nWhile there are 2 or more cards with cost 3 or greater in your pitch zone, Anothos has +2{p}.",
+    "cru_printings": [
+      "CRU023"
+    ]
+  },
+  {
+    "id": "argh_smash_yellow",
+    "name": "Argh... Smash!",
+    "pitch": "2",
+    "cost": "3",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Roll a 6 sided die. Destroy up to X items, where X is half the number rolled, rounded down.\n\n**Go again**",
+    "cru_printings": [
+      "CRU009"
+    ]
+  },
+  {
+    "id": "arknight_shard_blue",
+    "name": "Arknight Shard",
+    "pitch": "3",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Runeblade",
+      "Resource",
+      "Gem"
+    ],
+    "card_keywords": [
+      "Legendary",
+      "Viserai Specialization"
+    ],
+    "functional_text": "**Legendary Viserai Specialization**\n\nWhen you pitch Arknight Shard, create a Runechant token.",
+    "cru_printings": [
+      "CRU000"
+    ]
+  },
+  {
+    "id": "azalea_ace_in_the_hole",
+    "name": "Azalea, Ace in the Hole",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Ranger",
+      "Hero"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - 0: Put a card from your arsenal on the bottom of your deck. If you do, put the top card of your deck face up into your arsenal. If it's an arrow card, it gains **dominate** until end of turn. **Go again**",
+    "cru_printings": [
+      "CRU119"
+    ]
+  },
+  {
+    "id": "barraging_big_horn_red",
+    "name": "Barraging Big Horn",
+    "pitch": "1",
+    "cost": "2",
+    "power": "7",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "As an additional cost to play Barraging Big Horn, discard a random card.\n\nWhile Barraging Big Horn is defended by less than 2 non-equipment cards, it has **go again**.",
+    "cru_printings": [
+      "CRU010"
+    ]
+  },
+  {
+    "id": "barraging_big_horn_yellow",
+    "name": "Barraging Big Horn",
+    "pitch": "2",
+    "cost": "2",
+    "power": "6",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "As an additional cost to play Barraging Big Horn, discard a random card.\n\nWhile Barraging Big Horn is defended by less than 2 non-equipment cards, it has **go again**.",
+    "cru_printings": [
+      "CRU011"
+    ]
+  },
+  {
+    "id": "barraging_big_horn_blue",
+    "name": "Barraging Big Horn",
+    "pitch": "3",
+    "cost": "2",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "As an additional cost to play Barraging Big Horn, discard a random card.\n\nWhile Barraging Big Horn is defended by less than 2 non-equipment cards, it has **go again**.",
+    "cru_printings": [
+      "CRU012"
+    ]
+  },
+  {
+    "id": "beast_within_yellow",
+    "name": "Beast Within",
+    "pitch": "2",
+    "cost": "3",
+    "power": "6",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If Beast Within is put into a graveyard from anywhere other than the combat chain, banish the top card of your deck and lose 1{h}. If it has 6 or more {p}, put it into your hand, otherwise, repeat this process.",
+    "cru_printings": [
+      "CRU007"
+    ]
+  },
+  {
+    "id": "benji_the_piercing_wind",
+    "name": "Benji, the Piercing Wind",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Ninja",
+      "Hero",
+      "Young"
+    ],
+    "card_keywords": [],
+    "functional_text": "Your attack action cards with 2 or less {p} can't be defended by cards from hand.\n\nThe first time an attack action card you control hits each turn, your next attack gains +1{p}.",
+    "cru_printings": [
+      "CRU047"
+    ]
+  },
+  {
+    "id": "bittering_thorns_yellow",
+    "name": "Bittering Thorns",
+    "pitch": "2",
+    "cost": "1",
+    "power": "3",
+    "defense": "2",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "When this hits, your next attack this turn gets +1{p}.\n\n**Go again**",
+    "cru_printings": [
+      "CRU072"
+    ]
+  },
+  {
+    "id": "blessing_of_serenity_red",
+    "name": "Blessing of Serenity",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Guardian",
+      "Instant"
+    ],
+    "card_keywords": [],
+    "functional_text": "The next time your hero would be dealt {p} damage this turn, prevent 3 damage that source would deal.",
+    "cru_printings": [
+      "CRU041"
+    ]
+  },
+  {
+    "id": "blessing_of_serenity_yellow",
+    "name": "Blessing of Serenity",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Guardian",
+      "Instant"
+    ],
+    "card_keywords": [],
+    "functional_text": "The next time your hero would be dealt {p} damage this turn, prevent 2 damage that source would deal.",
+    "cru_printings": [
+      "CRU042"
+    ]
+  },
+  {
+    "id": "blessing_of_serenity_blue",
+    "name": "Blessing of Serenity",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Guardian",
+      "Instant"
+    ],
+    "card_keywords": [],
+    "functional_text": "The next time your hero would be dealt {p} damage this turn, prevent 1 damage that source would deal.",
+    "cru_printings": [
+      "CRU043"
+    ]
+  },
+  {
+    "id": "bloodsheath_skeleta",
+    "name": "Bloodsheath Skeleta",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Equipment",
+      "Chest"
+    ],
+    "card_keywords": [
+      "Temper"
+    ],
+    "functional_text": "**Instant** - Destroy this: The next attack action card and non-attack action card you play this turn get \"This card costs {r} less to play for each Runechant you control.\"\n\n**Temper**",
+    "cru_printings": [
+      "CRU141"
+    ]
+  },
+  {
+    "id": "bravo_showstopper",
+    "name": "Bravo, Showstopper",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Guardian",
+      "Hero"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Action** - {r}{r}: Until end of turn, your attack action cards with cost 3 or greater gains **dominate**. **Go again**",
+    "cru_printings": [
+      "CRU022"
+    ]
+  },
+  {
+    "id": "breeze_rider_boots",
+    "name": "Breeze Rider Boots",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "1",
+    "types": [
+      "Ninja",
+      "Equipment",
+      "Legs"
+    ],
+    "card_keywords": [
+      "Battleworn"
+    ],
+    "functional_text": "When a Ninja attack action card you control hits, you may destroy Breeze Rider Boots. If you do, attack action cards with **combo** gain **go again** this turn.\n\n**Battleworn**",
+    "cru_printings": [
+      "CRU053"
+    ]
+  },
+  {
+    "id": "brutal_assault_red",
+    "name": "Brutal Assault",
+    "pitch": "1",
+    "cost": "2",
+    "power": "6",
+    "defense": "3",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "",
+    "cru_printings": [
+      "CRU192"
+    ]
+  },
+  {
+    "id": "brutal_assault_yellow",
+    "name": "Brutal Assault",
+    "pitch": "2",
+    "cost": "2",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "",
+    "cru_printings": [
+      "CRU193"
+    ]
+  },
+  {
+    "id": "brutal_assault_blue",
+    "name": "Brutal Assault",
+    "pitch": "3",
+    "cost": "2",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "",
+    "cru_printings": [
+      "CRU194"
+    ]
+  },
+  {
+    "id": "cash_in_yellow",
+    "name": "Cash In",
+    "pitch": "2",
+    "cost": "4",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "You may destroy 4 Coppers, 2 Silvers, or 1 Gold you control rather than pay Cash In's {r} cost.\n\nDraw 2 cards.\n\n**Go again**",
+    "cru_printings": [
+      "CRU188"
+    ]
+  },
+  {
+    "id": "chain_lightning_yellow",
+    "name": "Chain Lightning",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text": "You may play your next Wizard 'non-attack' action card this turn as though it were an instant.\n\nIf you have played another Wizard 'non-attack' action card this turn, deal 3 arcane damage to each opposing hero.",
+    "cru_printings": [
+      "CRU162"
+    ]
+  },
+  {
+    "id": "chokeslam_red",
+    "name": "Chokeslam",
+    "pitch": "1",
+    "cost": "4",
+    "power": "8",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Crush"
+    ],
+    "functional_text": "**Crush** - When this deals 4 or more damage to a hero, attack action cards they control can't gain {p} during their next action phase.",
+    "cru_printings": [
+      "CRU035"
+    ]
+  },
+  {
+    "id": "chokeslam_yellow",
+    "name": "Chokeslam",
+    "pitch": "2",
+    "cost": "4",
+    "power": "7",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Crush"
+    ],
+    "functional_text": "**Crush** - When this deals 4 or more damage to a hero, attack action cards they control can't gain {p} during their next action phase.",
+    "cru_printings": [
+      "CRU036"
+    ]
+  },
+  {
+    "id": "chokeslam_blue",
+    "name": "Chokeslam",
+    "pitch": "3",
+    "cost": "4",
+    "power": "6",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Crush"
+    ],
+    "functional_text": "**Crush** - When this deals 4 or more damage to a hero, attack action cards they control can't gain {p} during their next action phase.",
+    "cru_printings": [
+      "CRU037"
+    ]
+  },
+  {
+    "id": "cindering_foresight_red",
+    "name": "Cindering Foresight",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 3"
+    ],
+    "functional_text": "If it's not your turn, you may play Cindering Foresight as though it were an instant.\n\nThe next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus 1.\n\n**Opt 3**",
+    "cru_printings": [
+      "CRU165"
+    ]
+  },
+  {
+    "id": "cindering_foresight_yellow",
+    "name": "Cindering Foresight",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 2"
+    ],
+    "functional_text": "If it's not your turn, you may play Cindering Foresight as though it were an instant.\n\nThe next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus 1.\n\n**Opt 2**",
+    "cru_printings": [
+      "CRU166"
+    ]
+  },
+  {
+    "id": "cindering_foresight_blue",
+    "name": "Cindering Foresight",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 1"
+    ],
+    "functional_text": "If it's not your turn, you may play Cindering Foresight as though it were an instant.\n\nThe next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus 1.\n\n**Opt 1**",
+    "cru_printings": [
+      "CRU167"
+    ]
+  },
+  {
+    "id": "cintari_saber",
+    "name": "Cintari Saber",
+    "pitch": "",
+    "cost": "",
+    "power": "2",
+    "defense": "",
+    "types": [
+      "Warrior",
+      "Weapon",
+      "Sword",
+      "1H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - {r}: **Attack**\n\nWhenever Cintari Saber is defended by 1 or more attack action cards, it gains +1{p} until end of turn.",
+    "cru_printings": [
+      "CRU079",
+      "CRU080"
+    ]
+  },
+  {
+    "id": "coax_a_commotion_red",
+    "name": "Coax a Commotion",
+    "pitch": "1",
+    "cost": "0",
+    "power": "4",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "When this hits, choose any number:\n\n- Each hero creates a Quicken token.\n- Each hero draws a card.\n- Each hero gains 1{h}.",
+    "cru_printings": [
+      "CRU180"
+    ]
+  },
+  {
+    "id": "combustible_courier_red",
+    "name": "Combustible Courier",
+    "pitch": "1",
+    "cost": "2",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text": "If Combustible Courier hits, the next attack you **boost** this combat chain gains +3{p}.\n\n**Boost**",
+    "cru_printings": [
+      "CRU109"
+    ]
+  },
+  {
+    "id": "combustible_courier_yellow",
+    "name": "Combustible Courier",
+    "pitch": "2",
+    "cost": "2",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text": "If Combustible Courier hits, the next attack you **boost** this combat chain gains +3{p}.\n\n**Boost**",
+    "cru_printings": [
+      "CRU110"
+    ]
+  },
+  {
+    "id": "combustible_courier_blue",
+    "name": "Combustible Courier",
+    "pitch": "3",
+    "cost": "2",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text": "If Combustible Courier hits, the next attack you **boost** this combat chain gains +3{p}.\n\n**Boost**",
+    "cru_printings": [
+      "CRU111"
+    ]
+  },
+  {
+    "id": "consuming_volition_red",
+    "name": "Consuming Volition",
+    "pitch": "1",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If you've dealt arcane damage this turn, this gets \"When this hits a hero, they discard a card.\"",
+    "cru_printings": [
+      "CRU148"
+    ]
+  },
+  {
+    "id": "consuming_volition_yellow",
+    "name": "Consuming Volition",
+    "pitch": "2",
+    "cost": "1",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If you've dealt arcane damage this turn, this gets \"When this hits a hero, they discard a card.\"",
+    "cru_printings": [
+      "CRU149"
+    ]
+  },
+  {
+    "id": "consuming_volition_blue",
+    "name": "Consuming Volition",
+    "pitch": "3",
+    "cost": "1",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If you've dealt arcane damage this turn, this gets \"When this hits a hero, they discard a card.\"",
+    "cru_printings": [
+      "CRU150"
+    ]
+  },
+  {
+    "id": "copper",
+    "name": "Copper",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Token",
+      "Item"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Action** - {r}{r}{r}{r}, destroy this: Draw a card. **Go again**",
+    "cru_printings": [
+      "CRU197"
+    ]
+  },
+  {
+    "id": "courage_of_bladehold",
+    "name": "Courage of Bladehold",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Warrior",
+      "Equipment",
+      "Chest"
+    ],
+    "card_keywords": [
+      "Temper"
+    ],
+    "functional_text": "**Action** - Destroy Courage of Bladehold: Your sword attacks cost {r} less this turn. **Go again**\n\n**Temper**",
+    "cru_printings": [
+      "CRU081"
+    ]
+  },
+  {
+    "id": "cracked_bauble_yellow",
+    "name": "Cracked Bauble",
+    "pitch": "2",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Resource"
+    ],
+    "card_keywords": [],
+    "functional_text": "*(A player may add any number of Cracked Baubles to their card-pool in sealed deck or booster draft formats.)*",
+    "cru_printings": [
+      "CRU195"
+    ]
+  },
+  {
+    "id": "crane_dance_red",
+    "name": "Crane Dance",
+    "pitch": "1",
+    "cost": "0",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Combo"
+    ],
+    "functional_text": "**Combo** - If Soulbead Strike was the last attack this combat chain, Crane Dance gains +1{p}, **go again**, and it can't be defended by attack action cards with base {p} greater than the number of chain links you control.",
+    "cru_printings": [
+      "CRU057"
+    ]
+  },
+  {
+    "id": "crane_dance_yellow",
+    "name": "Crane Dance",
+    "pitch": "2",
+    "cost": "0",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Combo"
+    ],
+    "functional_text": "**Combo** - If Soulbead Strike was the last attack this combat chain, Crane Dance gains +1{p}, **go again**, and it can't be defended by attack action cards with base {p} greater than the number of chain links you control.",
+    "cru_printings": [
+      "CRU058"
+    ]
+  },
+  {
+    "id": "crane_dance_blue",
+    "name": "Crane Dance",
+    "pitch": "3",
+    "cost": "0",
+    "power": "1",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Combo"
+    ],
+    "functional_text": "**Combo** - If Soulbead Strike was the last attack this combat chain, Crane Dance gains +1{p}, **go again**, and it can't be defended by attack action cards with base {p} greater than the number of chain links you control.",
+    "cru_printings": [
+      "CRU059"
+    ]
+  },
+  {
+    "id": "crater_fist",
+    "name": "Crater Fist",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Guardian",
+      "Equipment",
+      "Arms"
+    ],
+    "card_keywords": [
+      "Temper"
+    ],
+    "functional_text": "**Action** - {r}{r}{r}, destroy Crater Fist: Your attacks with **crush** gain +2{p} this turn. **Go again**\n\n**Temper**",
+    "cru_printings": [
+      "CRU025"
+    ]
+  },
+  {
+    "id": "crucible_of_aetherweave",
+    "name": "Crucible of Aetherweave",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Wizard",
+      "Weapon",
+      "Staff",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Instant** - {r}: The next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus 1.",
+    "cru_printings": [
+      "CRU159"
+    ]
+  },
+  {
+    "id": "crush_the_weak_red",
+    "name": "Crush the Weak",
+    "pitch": "1",
+    "cost": "3",
+    "power": "7",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Crush"
+    ],
+    "functional_text": "**Crush** - When this deals 4 or more damage to a hero, they can't play attack action cards with 3 or less base {p} during their next action phase.",
+    "cru_printings": [
+      "CRU032"
+    ]
+  },
+  {
+    "id": "crush_the_weak_yellow",
+    "name": "Crush the Weak",
+    "pitch": "2",
+    "cost": "3",
+    "power": "6",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Crush"
+    ],
+    "functional_text": "**Crush** - When this deals 4 or more damage to a hero, they can't play attack action cards with 3 or less base {p} during their next action phase.",
+    "cru_printings": [
+      "CRU033"
+    ]
+  },
+  {
+    "id": "crush_the_weak_blue",
+    "name": "Crush the Weak",
+    "pitch": "3",
+    "cost": "3",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Crush"
+    ],
+    "functional_text": "**Crush** - When this deals 4 or more damage to a hero, they can't play attack action cards with 3 or less base {p} during their next action phase.",
+    "cru_printings": [
+      "CRU034"
+    ]
+  },
+  {
+    "id": "dash_inventor_extraordinaire",
+    "name": "Dash, Inventor Extraordinaire",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Hero"
+    ],
+    "card_keywords": [],
+    "functional_text": "You may start the game with a Mechanologist item with cost 2 or less in the arena.",
+    "cru_printings": [
+      "CRU098"
+    ]
+  },
+  {
+    "id": "data_doll_mkii",
+    "name": "Data Doll MKII",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Hero",
+      "Young"
+    ],
+    "card_keywords": [],
+    "functional_text": "Whenever a Mechanologist item with cost 2 or less is put into your banished zone from your deck, put it into the arena.",
+    "cru_printings": [
+      "CRU099"
+    ]
+  },
+  {
+    "id": "dauntless_red",
+    "name": "Dauntless",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Your next weapon attack this turn gains +3{p}.\n\nThe next defense reaction card the defending hero plays this turn costs an additional {r} to play.\n\n**Go again**",
+    "cru_printings": [
+      "CRU085"
+    ]
+  },
+  {
+    "id": "dauntless_yellow",
+    "name": "Dauntless",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Your next weapon attack this turn gains +2{p}.\n\nThe next defense reaction card the defending hero plays this turn costs an additional {r} to play.\n\n**Go again**",
+    "cru_printings": [
+      "CRU086"
+    ]
+  },
+  {
+    "id": "dauntless_blue",
+    "name": "Dauntless",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Your next weapon attack this turn gains +1{p}.\n\nThe next defense reaction card the defending hero plays this turn costs an additional {r} to play.\n\n**Go again**",
+    "cru_printings": [
+      "CRU087"
+    ]
+  },
+  {
+    "id": "dawnblade",
+    "name": "Dawnblade",
+    "pitch": "",
+    "cost": "",
+    "power": "3",
+    "defense": "",
+    "types": [
+      "Warrior",
+      "Weapon",
+      "Sword",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - {r}: **Attack**\n\nThe second time this hits each turn, put a +1{p} counter on it.\n\nAt the beginning of your end phase, if this hasn't hit this turn, remove all +1{p} counters from it.",
+    "cru_printings": [
+      "CRU078"
+    ]
+  },
+  {
+    "id": "death_dealer",
+    "name": "Death Dealer",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Ranger",
+      "Weapon",
+      "Bow",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - {r}: If you have no cards in your arsenal, you may put an arrow card from your hand face up into your arsenal. If you do, draw a card. **Go again**",
+    "cru_printings": [
+      "CRU120"
+    ]
+  },
+  {
+    "id": "dorinthea_ironsong",
+    "name": "Dorinthea Ironsong",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Warrior",
+      "Hero"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per turn Effect** - When a weapon you control hits, you may attack an additional time with that weapon this turn.",
+    "cru_printings": [
+      "CRU076"
+    ]
+  },
+  {
+    "id": "dread_triptych_blue",
+    "name": "Dread Triptych",
+    "pitch": "3",
+    "cost": "3",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "When you attack with Dread Triptych, if you've played a 'non-attack' action card this turn, create a Runechant token.\n\nWhen you attack with Dread Triptych, if you've dealt arcane damage this turn, create a Runechant token.\n\nIf Dread Triptych hits, create a Runechant token.",
+    "cru_printings": [
+      "CRU142"
+    ]
+  },
+  {
+    "id": "edge_of_autumn",
+    "name": "Edge of Autumn",
+    "pitch": "",
+    "cost": "",
+    "power": "1",
+    "defense": "",
+    "types": [
+      "Ninja",
+      "Weapon",
+      "Sword",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - {r}: **Attack**. **Go again**",
+    "cru_printings": [
+      "CRU050"
+    ]
+  },
+  {
+    "id": "emerging_dominance_red",
+    "name": "Emerging Dominance",
+    "pitch": "1",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "At the beginning of your action phase, destroy Emerging Dominance then the next Guardian attack action card you play this turn gains +3{p} and **dominate**.",
+    "cru_printings": [
+      "CRU038"
+    ]
+  },
+  {
+    "id": "emerging_dominance_yellow",
+    "name": "Emerging Dominance",
+    "pitch": "2",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "At the beginning of your action phase, destroy Emerging Dominance then the next Guardian attack action card you play this turn gains +2{p} and **dominate**.",
+    "cru_printings": [
+      "CRU039"
+    ]
+  },
+  {
+    "id": "emerging_dominance_blue",
+    "name": "Emerging Dominance",
+    "pitch": "3",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "At the beginning of your action phase, destroy Emerging Dominance then the next Guardian attack action card you play this turn gains +1{p} and **dominate**.",
+    "cru_printings": [
+      "CRU040"
+    ]
+  },
+  {
+    "id": "feign_death_yellow",
+    "name": "Feign Death",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Ranger",
+      "Instant"
+    ],
+    "card_keywords": [],
+    "functional_text": "Play Feign Death only if your hero has been dealt damage this turn.\n\nThe next time your hero would be dealt damage this turn, prevent it.",
+    "cru_printings": [
+      "CRU125"
+    ]
+  },
+  {
+    "id": "find_center_blue",
+    "name": "Find Center",
+    "pitch": "3",
+    "cost": "0",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Combo"
+    ],
+    "functional_text": "**Combo** - If Crane Dance was the last attack this combat chain, Find Center can't be defended by cards with {r} cost less than the number of chain links you control, and it gains \"If this hits, create a Zen State token.\"",
+    "cru_printings": [
+      "CRU054"
+    ]
+  },
+  {
+    "id": "flood_of_force_yellow",
+    "name": "Flood of Force",
+    "pitch": "2",
+    "cost": "0",
+    "power": "1",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Combo",
+      "Go again"
+    ],
+    "functional_text": "**Combo** - If Rushing River or Flood of Force was the last attack this combat chain, when you attack with Flood of Force, reveal the top card of your deck. If it's a card with **combo,** put it into your hand then Flood of Force gains +3{p} and **go again**.",
+    "cru_printings": [
+      "CRU055"
+    ]
+  },
+  {
+    "id": "flying_kick_red",
+    "name": "Flying Kick",
+    "pitch": "1",
+    "cost": "2",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If this was played as chain link 3 or higher, it gets +2{p}.",
+    "cru_printings": [
+      "CRU063"
+    ]
+  },
+  {
+    "id": "flying_kick_yellow",
+    "name": "Flying Kick",
+    "pitch": "2",
+    "cost": "2",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If this was played as chain link 3 or higher, it gets +2{p}.",
+    "cru_printings": [
+      "CRU064"
+    ]
+  },
+  {
+    "id": "flying_kick_blue",
+    "name": "Flying Kick",
+    "pitch": "3",
+    "cost": "2",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If this was played as chain link 3 or higher, it gets +2{p}.",
+    "cru_printings": [
+      "CRU065"
+    ]
+  },
+  {
+    "id": "foreboding_bolt_red",
+    "name": "Foreboding Bolt",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 1"
+    ],
+    "functional_text": "Deal 3 damage to target hero.\n\n**Opt 1**",
+    "cru_printings": [
+      "CRU168"
+    ]
+  },
+  {
+    "id": "foreboding_bolt_yellow",
+    "name": "Foreboding Bolt",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 1"
+    ],
+    "functional_text": "Deal 2 damage to target hero.\n\n**Opt 1**",
+    "cru_printings": [
+      "CRU169"
+    ]
+  },
+  {
+    "id": "foreboding_bolt_blue",
+    "name": "Foreboding Bolt",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 1"
+    ],
+    "functional_text": "Deal 1 damage to target hero.\n\n**Opt 1**",
+    "cru_printings": [
+      "CRU170"
+    ]
+  },
+  {
+    "id": "fyendals_spring_tunic",
+    "name": "Fyendal's Spring Tunic",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "1",
+    "types": [
+      "Generic",
+      "Equipment",
+      "Chest"
+    ],
+    "card_keywords": [
+      "Blade Break"
+    ],
+    "functional_text": "At the start of your turn, if this has fewer than 3 energy counters, you may put an energy counter on it.\n\n**Instant** - Remove 3 energy counters from this: Gain {r}\n\n**Blade Break**",
+    "cru_printings": [
+      "CRU178"
+    ]
+  },
+  {
+    "id": "gamblers_gloves",
+    "name": "Gambler's Gloves",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Generic",
+      "Equipment",
+      "Arms"
+    ],
+    "card_keywords": [],
+    "functional_text": "If a hero would roll one or more 6 sided dice, instead after the roll you may destroy Gambler's Gloves. If you do, that hero rerolls all 6 sided dice rolled this way.",
+    "cru_printings": [
+      "CRU179"
+    ]
+  },
+  {
+    "id": "gaze_the_ages_blue",
+    "name": "Gaze the Ages",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 2"
+    ],
+    "functional_text": "**Opt 2**\n\nIf you've played another Wizard non-attack action card this turn, put this into its owner's hand.",
+    "cru_printings": [
+      "CRU163"
+    ]
+  },
+  {
+    "id": "gorganian_tome",
+    "name": "Gorganian Tome",
+    "pitch": "",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Legendary",
+      "Go again"
+    ],
+    "functional_text": "**Legendary**\n\nDraw X cards, where X is 1 plus the number of Gorganian Tomes in all graveyards.\n\n**Go again**",
+    "cru_printings": [
+      "CRU181"
+    ]
+  },
+  {
+    "id": "harmonized_kodachi",
+    "name": "Harmonized Kodachi",
+    "pitch": "",
+    "cost": "",
+    "power": "1",
+    "defense": "",
+    "types": [
+      "Ninja",
+      "Weapon",
+      "Dagger",
+      "1H"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "**Once per Turn Action** - {r}: **Attack**\n\nIf you have a card in your pitch zone with cost 0, this card's attacks get **go again**.",
+    "cru_printings": [
+      "CRU048",
+      "CRU049"
+    ]
+  },
+  {
+    "id": "herons_flight_red",
+    "name": "Heron's Flight",
+    "pitch": "1",
+    "cost": "0",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Combo"
+    ],
+    "functional_text": "**Combo** - If Crane Dance was the last attack this combat chain, when you attack with Heron's Flight, it gains +2{p} and you choose 1;\n\n- Heron's flight can only be defended by attack action cards.\n- Heron's flight can only be defended by 'non-attack' action cards.",
+    "cru_printings": [
+      "CRU056"
+    ]
+  },
+  {
+    "id": "high_speed_impact_red",
+    "name": "High Speed Impact",
+    "pitch": "1",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text": "If High Speed Impact hits, the next attack you boost this combat chain gains **dominate**.\n\n**Boost**",
+    "cru_printings": [
+      "CRU106"
+    ]
+  },
+  {
+    "id": "high_speed_impact_yellow",
+    "name": "High Speed Impact",
+    "pitch": "2",
+    "cost": "1",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text": "If High Speed Impact hits, the next attack you boost this combat chain gains **dominate**.\n\n**Boost**",
+    "cru_printings": [
+      "CRU107"
+    ]
+  },
+  {
+    "id": "high_speed_impact_blue",
+    "name": "High Speed Impact",
+    "pitch": "3",
+    "cost": "1",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text": "If High Speed Impact hits, the next attack you boost this combat chain gains **dominate**.\n\n**Boost**",
+    "cru_printings": [
+      "CRU108"
+    ]
+  },
+  {
+    "id": "hit_and_run_red",
+    "name": "Hit and Run",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Your next weapon attack this turn gets **go again**.\n\nIf you've attacked with a weapon this turn, your next attack this turn gets +3{p}.\n\n**Go again**",
+    "cru_printings": [
+      "CRU091"
+    ]
+  },
+  {
+    "id": "hit_and_run_yellow",
+    "name": "Hit and Run",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Your next weapon attack this turn gets **go again**.\n\nIf you've attacked with a weapon this turn, your next attack this turn gets +2{p}.\n\n**Go again**",
+    "cru_printings": [
+      "CRU092"
+    ]
+  },
+  {
+    "id": "hit_and_run_blue",
+    "name": "Hit and Run",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Your next weapon attack this turn gets **go again**.\n\nIf you've attacked with a weapon this turn, your next attack this turn gets +1{p}.\n\n**Go again**",
+    "cru_printings": [
+      "CRU093"
+    ]
+  },
+  {
+    "id": "increase_the_tension_red",
+    "name": "Increase the Tension",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Your next arrow attack this turn gains +3{p} and \"Defense reactions can't be played from hand this chain link.\"\n\n**Go again**",
+    "cru_printings": [
+      "CRU135"
+    ]
+  },
+  {
+    "id": "increase_the_tension_yellow",
+    "name": "Increase the Tension",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Your next arrow attack this turn gains +2{p} and \"Defense reactions can't be played from hand this chain link.\"\n\n**Go again**",
+    "cru_printings": [
+      "CRU136"
+    ]
+  },
+  {
+    "id": "increase_the_tension_blue",
+    "name": "Increase the Tension",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Your next arrow attack this turn gains +1{p} and \"Defense reactions can't be played from hand this chain link.\"\n\n**Go again**",
+    "cru_printings": [
+      "CRU137"
+    ]
+  },
+  {
+    "id": "ira_crimson_haze",
+    "name": "Ira, Crimson Haze",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Ninja",
+      "Hero",
+      "Young"
+    ],
+    "card_keywords": [],
+    "functional_text": "Your second attack each turn gets +1{p}.",
+    "cru_printings": [
+      "CRU046"
+    ]
+  },
+  {
+    "id": "kano_dracai_of_aether",
+    "name": "Kano, Dracai of Aether",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Wizard",
+      "Hero"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Instant** - {r}{r}{r}: Look at the top card of your deck. If it's a 'non-attack' action card, you may banish it. If you do, you may play it this turn as though it were an instant.",
+    "cru_printings": [
+      "CRU158"
+    ]
+  },
+  {
+    "id": "kassai_cintari_sellsword",
+    "name": "Kassai, Cintari Sellsword",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Warrior",
+      "Hero",
+      "Young"
+    ],
+    "card_keywords": [],
+    "functional_text": "Your second sword attack each turn costs {r} less.\n\nAt the beginning of your end phase, if you have attacked 2 or more times with weapons this turn, create a Copper token for each weapon attack that hit.",
+    "cru_printings": [
+      "CRU077"
+    ]
+  },
+  {
+    "id": "katsu_the_wanderer",
+    "name": "Katsu, the Wanderer",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Ninja",
+      "Hero"
+    ],
+    "card_keywords": [],
+    "functional_text": "The first time an attack action card you control hits each turn, you may discard a card with cost 0. If you do, search your deck for a card with **combo**, banish it face up, then shuffle your deck. You may play it this turn.",
+    "cru_printings": [
+      "CRU045"
+    ]
+  },
+  {
+    "id": "kavdaen_trader_of_skins",
+    "name": "Kavdaen, Trader of Skins",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Merchant",
+      "Hero",
+      "Young"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - {r}{r}{r}: If a hero has more {h} than all other hero's, they lose 1{h} and create a Copper token. Then if a hero has less {h} than all other hero's, they gain 1{h}. **Go again**",
+    "cru_printings": [
+      "CRU118"
+    ]
+  },
+  {
+    "id": "kayo_berserker_runt",
+    "name": "Kayo, Berserker Runt",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Brute",
+      "Hero",
+      "Young"
+    ],
+    "card_keywords": [],
+    "functional_text": "Whenever you play an attack action card with base power 6 or more {p}, roll a 6 sided die. On;\n\n- 1 to 4 - Halve the attack's base {p}, rounded down.\n\n- 5 to 6 - Double the attack's base {p}.",
+    "cru_printings": [
+      "CRU002"
+    ]
+  },
+  {
+    "id": "lunging_press_blue",
+    "name": "Lunging Press",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Attack Reaction"
+    ],
+    "card_keywords": [],
+    "functional_text": "Target attack action card gains +1{p}.",
+    "cru_printings": [
+      "CRU186"
+    ]
+  },
+  {
+    "id": "mandible_claw",
+    "name": "Mandible Claw",
+    "pitch": "",
+    "cost": "",
+    "power": "3",
+    "defense": "",
+    "types": [
+      "Brute",
+      "Weapon",
+      "Claw",
+      "1H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - {r}{r}: **Attack**\n\nIf you have discarded a card with 6 or more {p} this turn, this card's attacks **go again**.",
+    "cru_printings": [
+      "CRU004",
+      "CRU005"
+    ]
+  },
+  {
+    "id": "mangle_red",
+    "name": "Mangle",
+    "pitch": "1",
+    "cost": "4",
+    "power": "8",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Crush"
+    ],
+    "functional_text": "**Crush** - When this deals 4 or more damage to a hero, destroy target equipment they control with a -1{d} counter.",
+    "cru_printings": [
+      "CRU026"
+    ]
+  },
+  {
+    "id": "massacre_red",
+    "name": "Massacre",
+    "pitch": "1",
+    "cost": "3",
+    "power": "6",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Intimidate"
+    ],
+    "functional_text": "When you attack with Massacre, if you have discarded a card with 6 or more {p} this turn, Massacre gains +2{p} and **intimidate**.\n\nIf Massacre is discarded to pay the cost of a Brute attack action card, **intimidate**.",
+    "cru_printings": [
+      "CRU008"
+    ]
+  },
+  {
+    "id": "mauvrion_skies_red",
+    "name": "Mauvrion Skies",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "The next runeblade attack action card you play this turn gains **go again** and \"If this hits, create 3 Runechant tokens.\"\n\n**Go again**",
+    "cru_printings": [
+      "CRU145"
+    ]
+  },
+  {
+    "id": "mauvrion_skies_yellow",
+    "name": "Mauvrion Skies",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "The next runeblade attack action card you play this turn gains **go again** and \"If this hits, create 2 Runechant tokens.\"\n\n**Go again**",
+    "cru_printings": [
+      "CRU146"
+    ]
+  },
+  {
+    "id": "mauvrion_skies_blue",
+    "name": "Mauvrion Skies",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "The next Runeblade attack action card you play this turn gets **go again** and \"When this hits, create a Runechant token.\"\n\n**Go again**",
+    "cru_printings": [
+      "CRU147"
+    ]
+  },
+  {
+    "id": "meat_and_greet_red",
+    "name": "Meat and Greet",
+    "pitch": "1",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "When this hits, create a Runechant token.\n\nIf you've dealt arcane damage to an opposing hero this turn, this gets **go again**.",
+    "cru_printings": [
+      "CRU151"
+    ]
+  },
+  {
+    "id": "meat_and_greet_yellow",
+    "name": "Meat and Greet",
+    "pitch": "2",
+    "cost": "1",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "When this hits, create a Runechant token.\n\nIf you've dealt arcane damage to an opposing hero this turn, this gets **go again**.",
+    "cru_printings": [
+      "CRU152"
+    ]
+  },
+  {
+    "id": "meat_and_greet_blue",
+    "name": "Meat and Greet",
+    "pitch": "3",
+    "cost": "1",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "When this hits, create a Runechant token.\n\nIf you've dealt arcane damage to an opposing hero this turn, this gets **go again**.",
+    "cru_printings": [
+      "CRU153"
+    ]
+  },
+  {
+    "id": "meganetic_shockwave_blue",
+    "name": "Meganetic Shockwave",
+    "pitch": "3",
+    "cost": "2",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "The defending hero must defend Meganetic Shockwave with X equipment they control, where X is the number of times you have **boosted** this combat chain.",
+    "cru_printings": [
+      "CRU103"
+    ]
+  },
+  {
+    "id": "metacarpus_node",
+    "name": "Metacarpus Node",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Wizard",
+      "Equipment",
+      "Arms"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 1"
+    ],
+    "functional_text": "Whenever you play a card with an effect that deals arcane damage, you may pay {r}. If you do, instead it deals that much arcane damage plus 1, and destroy Metacarpus Node at the beginning of the end phase.\n\n**Arcane Barrier 1**",
+    "cru_printings": [
+      "CRU161"
+    ]
+  },
+  {
+    "id": "nebula_blade",
+    "name": "Nebula Blade",
+    "pitch": "",
+    "cost": "",
+    "power": "1",
+    "defense": "",
+    "types": [
+      "Runeblade",
+      "Weapon",
+      "Sword",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - {r}{r}: **Attack**\n\nWhen this hits, create a Runechant token.\n\nIf you've played a non-attack action card this turn, this gets +3{p}.",
+    "cru_printings": [
+      "CRU139"
+    ]
+  },
+  {
+    "id": "out_for_blood_red",
+    "name": "Out for Blood",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Attack Reaction"
+    ],
+    "card_keywords": [
+      "Reprise"
+    ],
+    "functional_text": "Target weapon attack gains +3{p}.\n\n**Reprise** - If the defending hero has defended with a card from their hand this chain link, your next attack this turn gains +1{p}.",
+    "cru_printings": [
+      "CRU088"
+    ]
+  },
+  {
+    "id": "out_for_blood_yellow",
+    "name": "Out for Blood",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Attack Reaction"
+    ],
+    "card_keywords": [
+      "Reprise"
+    ],
+    "functional_text": "Target weapon attack gains +2{p}.\n\n**Reprise** - If the defending hero has defended with a card from their hand this chain link, your next attack this turn gains +1{p}.",
+    "cru_printings": [
+      "CRU089"
+    ]
+  },
+  {
+    "id": "out_for_blood_blue",
+    "name": "Out for Blood",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Attack Reaction"
+    ],
+    "card_keywords": [
+      "Reprise"
+    ],
+    "functional_text": "Target weapon attack gains +1{p}.\n\n**Reprise** - If the defending hero has defended with a card from their hand this chain link, your next attack this turn gains +1{p}.",
+    "cru_printings": [
+      "CRU090"
+    ]
+  },
+  {
+    "id": "overblast_red",
+    "name": "Overblast",
+    "pitch": "1",
+    "cost": "2",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "Overblast gains +X{p}, where X is the number of times you have **boosted** this combat chain.",
+    "cru_printings": [
+      "CRU112"
+    ]
+  },
+  {
+    "id": "overblast_yellow",
+    "name": "Overblast",
+    "pitch": "2",
+    "cost": "2",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "Overblast gains +X{p}, where X is the number of times you have **boosted** this combat chain.",
+    "cru_printings": [
+      "CRU113"
+    ]
+  },
+  {
+    "id": "overblast_blue",
+    "name": "Overblast",
+    "pitch": "3",
+    "cost": "2",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "Overblast gains +X{p}, where X is the number of times you have **boosted** this combat chain.",
+    "cru_printings": [
+      "CRU114"
+    ]
+  },
+  {
+    "id": "pathing_helix_red",
+    "name": "Pathing Helix",
+    "pitch": "1",
+    "cost": "0",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If Pathing Helix hits and you have no cards in your arsenal, you may put a card from your hand face down into your arsenal.",
+    "cru_printings": [
+      "CRU129"
+    ]
+  },
+  {
+    "id": "pathing_helix_yellow",
+    "name": "Pathing Helix",
+    "pitch": "2",
+    "cost": "0",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If Pathing Helix hits and you have no cards in your arsenal, you may put a card from your hand face down into your arsenal.",
+    "cru_printings": [
+      "CRU130"
+    ]
+  },
+  {
+    "id": "pathing_helix_blue",
+    "name": "Pathing Helix",
+    "pitch": "3",
+    "cost": "0",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If Pathing Helix hits and you have no cards in your arsenal, you may put a card from your hand face down into your arsenal.",
+    "cru_printings": [
+      "CRU131"
+    ]
+  },
+  {
+    "id": "perch_grapplers",
+    "name": "Perch Grapplers",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Equipment",
+      "Legs"
+    ],
+    "card_keywords": [
+      "Blade Break"
+    ],
+    "functional_text": "**Action** - {r}{r}, destroy Perch Grapplers: Until end of turn, face up arrow cards played from arsenal gain **go again**. **Go again**\n\n**Blade Break**",
+    "cru_printings": [
+      "CRU122"
+    ]
+  },
+  {
+    "id": "pitfall_trap_yellow",
+    "name": "Pitfall Trap",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Defense Reaction",
+      "Trap"
+    ],
+    "card_keywords": [],
+    "functional_text": "Pitfall Trap can only be played from arsenal.\n\nWhen this defends, deal 2 damage to the attacking hero unless they pay {r}.",
+    "cru_printings": [
+      "CRU127"
+    ]
+  },
+  {
+    "id": "plasma_barrel_shot",
+    "name": "Plasma Barrel Shot",
+    "pitch": "",
+    "cost": "",
+    "power": "X",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Weapon",
+      "Gun",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - Remove a steam counter from Plasma Barrel Shot: **Attack**\n\n**Action** - {r}{r}: If there are no steam counters on Plasma Barrel Shot, put a steam counter on it. **Go again**\n\nX is equal to 1 plus the number of times you have **boosted** this combat chain.",
+    "cru_printings": [
+      "CRU101"
+    ]
+  },
+  {
+    "id": "plasma_purifier_red",
+    "name": "Plasma Purifier",
+    "pitch": "1",
+    "cost": "2",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Item"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Action** - {r}: If there are no steam counters on Plasma Purifier, put a steam counter on it. **Go again**\n\n**Once per Turn Action** - Remove a steam counter from Plasma Purifier: Target Mechanologist pistol you control gains +1{p} until end of turn. **Go again**",
+    "cru_printings": [
+      "CRU105"
+    ]
+  },
+  {
+    "id": "poison_the_tips_yellow",
+    "name": "Poison the Tips",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Action"
+    ],
+    "card_keywords": [
+      "Reload",
+      "Go again"
+    ],
+    "functional_text": "Until end of turn, arrows you control gain \"If this hits a hero, they discard a card.\"\n\n**Reload**\n\n**Go again**",
+    "cru_printings": [
+      "CRU124"
+    ]
+  },
+  {
+    "id": "predatory_assault_red",
+    "name": "Predatory Assault",
+    "pitch": "1",
+    "cost": "2",
+    "power": "6",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Dominate"
+    ],
+    "functional_text": "If you have discarded a card with 6 or more {p} this turn, Predatory Assault gains **dominate**.",
+    "cru_printings": [
+      "CRU013"
+    ]
+  },
+  {
+    "id": "predatory_assault_yellow",
+    "name": "Predatory Assault",
+    "pitch": "2",
+    "cost": "2",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Dominate"
+    ],
+    "functional_text": "If you have discarded a card with 6 or more {p} this turn, Predatory Assault gains **dominate**.",
+    "cru_printings": [
+      "CRU014"
+    ]
+  },
+  {
+    "id": "predatory_assault_blue",
+    "name": "Predatory Assault",
+    "pitch": "3",
+    "cost": "2",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Dominate"
+    ],
+    "functional_text": "If you have discarded a card with 6 or more {p} this turn, Predatory Assault gains **dominate**.",
+    "cru_printings": [
+      "CRU015"
+    ]
+  },
+  {
+    "id": "promise_of_plenty_red",
+    "name": "Promise of Plenty",
+    "pitch": "1",
+    "cost": "0",
+    "power": "3",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "If Promise of Plenty hits, each hero who doesn't have a card in their arsenal puts the top card of their deck face down into their arsenal.\n\nIf Promise of Plenty is played from arsenal, it gains **go again**.",
+    "cru_printings": [
+      "CRU183"
+    ]
+  },
+  {
+    "id": "promise_of_plenty_yellow",
+    "name": "Promise of Plenty",
+    "pitch": "2",
+    "cost": "0",
+    "power": "2",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "If Promise of Plenty hits, each hero who doesn't have a card in their arsenal puts the top card of their deck face down into their arsenal.\n\nIf Promise of Plenty is played from arsenal, it gains **go again**.",
+    "cru_printings": [
+      "CRU184"
+    ]
+  },
+  {
+    "id": "promise_of_plenty_blue",
+    "name": "Promise of Plenty",
+    "pitch": "3",
+    "cost": "0",
+    "power": "1",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "If Promise of Plenty hits, each hero who doesn't have a card in their arsenal puts the top card of their deck face down into their arsenal.\n\nIf Promise of Plenty is played from arsenal, it gains **go again**.",
+    "cru_printings": [
+      "CRU185"
+    ]
+  },
+  {
+    "id": "push_forward_red",
+    "name": "Push Forward",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Your next weapon attack this turn gets +3{p}.\n\nIf you've attacked with a weapon this turn, your next attack this turn gets **dominate**.\n\n**Go again**",
+    "cru_printings": [
+      "CRU094"
+    ]
+  },
+  {
+    "id": "push_forward_yellow",
+    "name": "Push Forward",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Your next weapon attack this turn gets +2{p}.\n\nIf you've attacked with a weapon this turn, your next attack this turn gets **dominate**.\n\n**Go again**",
+    "cru_printings": [
+      "CRU095"
+    ]
+  },
+  {
+    "id": "push_forward_blue",
+    "name": "Push Forward",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Your next weapon attack this turn gets +1{p}.\n\nIf you've attacked with a weapon this turn, your next attack this turn gets **dominate**.\n\n**Go again**",
+    "cru_printings": [
+      "CRU096"
+    ]
+  },
+  {
+    "id": "quicken",
+    "name": "Quicken",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Token",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "When you play an attack action card or activate a weapon attack, destroy this and the attack gains **go again**.",
+    "cru_printings": [
+      "CRU196"
+    ]
+  },
+  {
+    "id": "rattle_bones_red",
+    "name": "Rattle Bones",
+    "pitch": "1",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Banish target Runeblade attack action card from your graveyard. You may play it this turn.\n\nIf you have dealt arcane damage to an opposing hero this turn, you may play Rattle Bones as though it were an instant.\n\n**Go again**",
+    "cru_printings": [
+      "CRU143"
+    ]
+  },
+  {
+    "id": "reaping_blade",
+    "name": "Reaping Blade",
+    "pitch": "",
+    "cost": "",
+    "power": "3",
+    "defense": "",
+    "types": [
+      "Runeblade",
+      "Weapon",
+      "Sword",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - {r}: **Attack**\n\nIf a hero has more {h} than any other hero, they can't gain {h}.",
+    "cru_printings": [
+      "CRU140"
+    ]
+  },
+  {
+    "id": "red_liner",
+    "name": "Red Liner",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Ranger",
+      "Weapon",
+      "Bow",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - 0: If you have no cards in your arsenal, put an arrow card from your hand face up into your arsenal. **Go again**",
+    "cru_printings": [
+      "CRU121"
+    ]
+  },
+  {
+    "id": "reinforce_the_line_red",
+    "name": "Reinforce the Line",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Instant"
+    ],
+    "card_keywords": [],
+    "functional_text": "Target defending attack action card gains +4{d}.",
+    "cru_printings": [
+      "CRU189"
+    ]
+  },
+  {
+    "id": "reinforce_the_line_yellow",
+    "name": "Reinforce the Line",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Instant"
+    ],
+    "card_keywords": [],
+    "functional_text": "Target defending attack action card gains +3{d}.",
+    "cru_printings": [
+      "CRU190"
+    ]
+  },
+  {
+    "id": "reinforce_the_line_blue",
+    "name": "Reinforce the Line",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Instant"
+    ],
+    "card_keywords": [],
+    "functional_text": "Target defending attack action card gets +2{d}.",
+    "cru_printings": [
+      "CRU191"
+    ]
+  },
+  {
+    "id": "remorseless_red",
+    "name": "Remorseless",
+    "pitch": "1",
+    "cost": "1",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If Remorseless is put into your arsenal face up, until end of turn it gains \"Defense reaction cards can't be played from arsenal to Remoreseless's chain link.\"\n\nIf Remorseless hits a hero, until the end of their next turn, whenever they play an action card, they lose 1{h}.",
+    "cru_printings": [
+      "CRU123"
+    ]
+  },
+  {
+    "id": "rhinar_reckless_rampage",
+    "name": "Rhinar, Reckless Rampage",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Brute",
+      "Hero"
+    ],
+    "card_keywords": [
+      "Intimidate"
+    ],
+    "functional_text": "Whenever you discard a card with 6 or more {p} during your action phase, **intimidate**.",
+    "cru_printings": [
+      "CRU001"
+    ]
+  },
+  {
+    "id": "righteous_cleansing_yellow",
+    "name": "Righteous Cleansing",
+    "pitch": "2",
+    "cost": "7",
+    "power": "10",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Crush"
+    ],
+    "functional_text": "**Crush** - If Righteous Cleansing deals 4 or more damage to a hero, look at the top 5 cards of their deck. Banish 1 or more cards with the same name from among them, then put the rest on top of their deck in any order.",
+    "cru_printings": [
+      "CRU027"
+    ]
+  },
+  {
+    "id": "riled_up_red",
+    "name": "Riled Up",
+    "pitch": "1",
+    "cost": "3",
+    "power": "7",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If you've discarded a card with 6 or more {p} this turn, this gets +1{p}.",
+    "cru_printings": [
+      "CRU016"
+    ]
+  },
+  {
+    "id": "riled_up_yellow",
+    "name": "Riled Up",
+    "pitch": "2",
+    "cost": "3",
+    "power": "6",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If you've discarded a card with 6 or more {p} this turn, this gets +1{p}.",
+    "cru_printings": [
+      "CRU017"
+    ]
+  },
+  {
+    "id": "riled_up_blue",
+    "name": "Riled Up",
+    "pitch": "3",
+    "cost": "3",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If you've discarded a card with 6 or more {p} this turn, this gets +1{p}.",
+    "cru_printings": [
+      "CRU018"
+    ]
+  },
+  {
+    "id": "rockslide_trap_blue",
+    "name": "Rockslide Trap",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Defense Reaction",
+      "Trap"
+    ],
+    "card_keywords": [],
+    "functional_text": "Rockslide Trap can only be played from arsenal.\n\nWhen this defends, target attack gets -2{p}, unless the attacking hero pays {r}.",
+    "cru_printings": [
+      "CRU128"
+    ]
+  },
+  {
+    "id": "romping_club",
+    "name": "Romping Club",
+    "pitch": "",
+    "cost": "",
+    "power": "4",
+    "defense": "",
+    "types": [
+      "Brute",
+      "Weapon",
+      "Club",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - {r}{r}: **Attack**\n\n**Once per Turn Effect** - When you discard a card with 6 or more {p}, Romping Club gains +1{p} until end of turn.",
+    "cru_printings": [
+      "CRU003"
+    ]
+  },
+  {
+    "id": "rousing_aether_red",
+    "name": "Rousing Aether",
+    "pitch": "1",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text": "Deal 4 arcane damage to target hero.\n\nThe next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus 1.",
+    "cru_printings": [
+      "CRU171"
+    ]
+  },
+  {
+    "id": "rousing_aether_yellow",
+    "name": "Rousing Aether",
+    "pitch": "2",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text": "Deal 3 arcane damage to target hero.\n\nThe next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus 1.",
+    "cru_printings": [
+      "CRU172"
+    ]
+  },
+  {
+    "id": "rousing_aether_blue",
+    "name": "Rousing Aether",
+    "pitch": "3",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text": "Deal 2 arcane damage to target hero.\n\nThe next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus 1.",
+    "cru_printings": [
+      "CRU173"
+    ]
+  },
+  {
+    "id": "runeblood_barrier_yellow",
+    "name": "Runeblood Barrier",
+    "pitch": "2",
+    "cost": "3",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "When this enters the arena, create 4 Runechant tokens.\n\nIf your hero would be dealt damage, instead destroy that many Runechant tokens you control and prevent 1 damage for each Runechant token destroyed this way.\n\nAt the beginning of your action phase, destroy this.",
+    "cru_printings": [
+      "CRU144"
+    ]
+  },
+  {
+    "id": "runechant",
+    "name": "Runechant",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Runeblade",
+      "Token",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "When you play an attack action card or activate a weapon attack, destroy this and deal 1 arcane damage to target opposing hero.",
+    "cru_printings": [
+      "CRU157"
+    ]
+  },
+  {
+    "id": "rushing_river_red",
+    "name": "Rushing River",
+    "pitch": "1",
+    "cost": "0",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Combo",
+      "Go again"
+    ],
+    "functional_text": "**Combo** - If Torrent of Tempo was the last attack this combat chain, Rushing River gains +1{p}, **go again**, and \"If Rushing River hits, draw X cards then put X cards from your hand on top of your deck in any order, where X is the number of attacks that have hit this combat chain.\"",
+    "cru_printings": [
+      "CRU060"
+    ]
+  },
+  {
+    "id": "rushing_river_yellow",
+    "name": "Rushing River",
+    "pitch": "2",
+    "cost": "0",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Combo",
+      "Go again"
+    ],
+    "functional_text": "**Combo** - If Torrent of Tempo was the last attack this combat chain, Rushing River gains +1{p}, **go again**, and \"If Rushing River hits, draw X cards then put X cards from your hand on top of your deck in any order, where X is the number of attacks that have hit this combat chain.\"",
+    "cru_printings": [
+      "CRU061"
+    ]
+  },
+  {
+    "id": "rushing_river_blue",
+    "name": "Rushing River",
+    "pitch": "3",
+    "cost": "0",
+    "power": "1",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Combo",
+      "Go again"
+    ],
+    "functional_text": "**Combo** - If Torrent of Tempo was the last attack this combat chain, Rushing River gains +1{p}, **go again**, and \"If Rushing River hits, draw X cards then put X cards from your hand on top of your deck in any order, where X is the number of attacks that have hit this combat chain.\"",
+    "cru_printings": [
+      "CRU062"
+    ]
+  },
+  {
+    "id": "salt_the_wound_yellow",
+    "name": "Salt the Wound",
+    "pitch": "2",
+    "cost": "0",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "This gets +1{p} for each attack that has hit this combat chain.",
+    "cru_printings": [
+      "CRU073"
+    ]
+  },
+  {
+    "id": "seismic_surge",
+    "name": "Seismic Surge",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Guardian",
+      "Token",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "At the beginning of your action phase, destroy this, then the next Guardian attack action card you play this turn costs {r} less to play.",
+    "cru_printings": [
+      "CRU044"
+    ]
+  },
+  {
+    "id": "shiyana_diamond_gemini",
+    "name": "Shiyana, Diamond Gemini",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Shapeshifter",
+      "Hero",
+      "Young"
+    ],
+    "card_keywords": [],
+    "functional_text": "You may have **specialization** cards of any hero in your deck.\n\nAt the beginning of your action phase, Shiyana becomes a copy of target hero until the start of your next turn, and gains \"Cards you own are the class of your hero in addition to their other class types.\"",
+    "cru_printings": [
+      "CRU097"
+    ]
+  },
+  {
+    "id": "skullhorn",
+    "name": "Skullhorn",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Brute",
+      "Equipment",
+      "Head"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 2"
+    ],
+    "functional_text": "**Action** - Destroy Skullhorn: Draw a card then discard a random card. **Go again**\n\n**Arcane Barrier 2**",
+    "cru_printings": [
+      "CRU006"
+    ]
+  },
+  {
+    "id": "sledge_of_anvilheim",
+    "name": "Sledge of Anvilheim",
+    "pitch": "",
+    "cost": "",
+    "power": "6",
+    "defense": "",
+    "types": [
+      "Guardian",
+      "Weapon",
+      "Hammer",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Action** - {r}{r}{r}{r}: **Attack**",
+    "cru_printings": [
+      "CRU024"
+    ]
+  },
+  {
+    "id": "sleep_dart_red",
+    "name": "Sleep Dart",
+    "pitch": "1",
+    "cost": "1",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If Sleep Dart hits a hero, they lose all hero card effects and activated abilities until the end of their next turn.",
+    "cru_printings": [
+      "CRU132"
+    ]
+  },
+  {
+    "id": "sleep_dart_yellow",
+    "name": "Sleep Dart",
+    "pitch": "2",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If Sleep Dart hits a hero, they lose all hero card effects and activated abilities until the end of their next turn.",
+    "cru_printings": [
+      "CRU133"
+    ]
+  },
+  {
+    "id": "sleep_dart_blue",
+    "name": "Sleep Dart",
+    "pitch": "3",
+    "cost": "1",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text": "If Sleep Dart hits a hero, they lose all hero card effects and activated abilities until the end of their next turn.",
+    "cru_printings": [
+      "CRU134"
+    ]
+  },
+  {
+    "id": "snag_blue",
+    "name": "Snag",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Instant"
+    ],
+    "card_keywords": [],
+    "functional_text": "Attack action cards can't gain {p} from their own effects, or the effects of attack reaction cards this turn.",
+    "cru_printings": [
+      "CRU182"
+    ]
+  },
+  {
+    "id": "snapback_red",
+    "name": "Snapback",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text": "Deal 3 arcane damage to target hero.\n\nIf you have played another Wizard 'non-attack' action card this turn, you may play Snapback as though it were an instant.",
+    "cru_printings": [
+      "CRU174"
+    ]
+  },
+  {
+    "id": "snapback_yellow",
+    "name": "Snapback",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text": "Deal 2 arcane damage to target hero.\n\nIf you have played another Wizard 'non-attack' action card this turn, you may play Snapback as though it were an instant.",
+    "cru_printings": [
+      "CRU175"
+    ]
+  },
+  {
+    "id": "snapback_blue",
+    "name": "Snapback",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text": "Deal 1 arcane damage to target hero.\n\nIf you have played another Wizard 'non-attack' action card this turn, you may play Snapback as though it were an instant.",
+    "cru_printings": [
+      "CRU176"
+    ]
+  },
+  {
+    "id": "soulbead_strike_red",
+    "name": "Soulbead Strike",
+    "pitch": "1",
+    "cost": "0",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "When this hits, it gets **go again**.",
+    "cru_printings": [
+      "CRU066"
+    ]
+  },
+  {
+    "id": "soulbead_strike_yellow",
+    "name": "Soulbead Strike",
+    "pitch": "2",
+    "cost": "0",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "When this hits, it gets **go again**.",
+    "cru_printings": [
+      "CRU067"
+    ]
+  },
+  {
+    "id": "soulbead_strike_blue",
+    "name": "Soulbead Strike",
+    "pitch": "3",
+    "cost": "0",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "When this hits, it gets **go again**.",
+    "cru_printings": [
+      "CRU068"
+    ]
+  },
+  {
+    "id": "spoils_of_war_red",
+    "name": "Spoils of War",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Your next weapon attack this turn gains +2{p} and **go again**.\n\nWhenever a weapon you control hits this turn, create 2 Copper tokens.\n\n**Go again**",
+    "cru_printings": [
+      "CRU084"
+    ]
+  },
+  {
+    "id": "springboard_somersault_yellow",
+    "name": "Springboard Somersault",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Defense Reaction"
+    ],
+    "card_keywords": [],
+    "functional_text": "If Springboard Somersault is played from arsenal, it gains +2{d}.",
+    "cru_printings": [
+      "CRU187"
+    ]
+  },
+  {
+    "id": "stamp_authority_blue",
+    "name": "Stamp Authority",
+    "pitch": "3",
+    "cost": "3",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "When Stamp Authority enters the arena, if you have 2 or more cards in your pitch zone with cost 3 or greater, your hero gains +1{i} until end of turn.\n\nWhile Stamp Authority is in the arena, attack action card effects do not trigger when they hit.\n\nAt the beginning of your action phase, destroy Stamp Authority.",
+    "cru_printings": [
+      "CRU028"
+    ]
+  },
+  {
+    "id": "sutcliffes_research_notes_red",
+    "name": "Sutcliffe's Research Notes",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Reveal the top 3 cards of your deck. Create a Runechant token for each Runeblade attack action card revealed this way, then put the cards on top of your deck in any order.\n\n**Go again**",
+    "cru_printings": [
+      "CRU154"
+    ]
+  },
+  {
+    "id": "sutcliffes_research_notes_yellow",
+    "name": "Sutcliffe's Research Notes",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Reveal the top 2 cards of your deck. Create a Runechant token for each Runeblade attack action card revealed this way, then put the cards on top of your deck in any order.\n\n**Go again**",
+    "cru_printings": [
+      "CRU155"
+    ]
+  },
+  {
+    "id": "sutcliffes_research_notes_blue",
+    "name": "Sutcliffe's Research Notes",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Reveal the top card of your deck. Create a Runechant token for each Runeblade attack action card revealed this way, then put the cards on top of your deck in any order.\n\n**Go again**",
+    "cru_printings": [
+      "CRU156"
+    ]
+  },
+  {
+    "id": "swing_fist_think_later_red",
+    "name": "Swing Fist, Think Later",
+    "pitch": "1",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "As an additional cost to play Swing Fist, Think Later, discard a random card.\n\n**Go again**",
+    "cru_printings": [
+      "CRU019"
+    ]
+  },
+  {
+    "id": "swing_fist_think_later_yellow",
+    "name": "Swing Fist, Think Later",
+    "pitch": "2",
+    "cost": "1",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "As an additional cost to play Swing Fist, Think Later, discard a random card.\n\n**Go again**",
+    "cru_printings": [
+      "CRU020"
+    ]
+  },
+  {
+    "id": "swing_fist_think_later_blue",
+    "name": "Swing Fist, Think Later",
+    "pitch": "3",
+    "cost": "1",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Brute",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "As an additional cost to play Swing Fist, Think Later, discard a random card.\n\n**Go again**",
+    "cru_printings": [
+      "CRU021"
+    ]
+  },
+  {
+    "id": "talishar_the_lost_prince",
+    "name": "Talishar, the Lost Prince",
+    "pitch": "",
+    "cost": "",
+    "power": "4",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Weapon",
+      "Sword",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - {r}{r}, put a rust counter on Talishar, the Lost Prince: **Attack**\n\nAt the beginning of your end phase, if Talishar, the Lost Prince has 3 or more rust counters on it, destroy it.",
+    "cru_printings": [
+      "CRU177"
+    ]
+  },
+  {
+    "id": "teklo_plasma_pistol",
+    "name": "Teklo Plasma Pistol",
+    "pitch": "",
+    "cost": "",
+    "power": "2",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Weapon",
+      "Pistol",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Action** - Remove a steam counter from Teklo Plasma Pistol: **Attack**\n\n**Action** - {r}: If there are no steam counters on Teklo Plasma Pistol, put a steam counter on it. **Go again**",
+    "cru_printings": [
+      "CRU100"
+    ]
+  },
+  {
+    "id": "teklovossens_workshop_red",
+    "name": "Teklovossen's Workshop",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt X"
+    ],
+    "functional_text": "**Opt X**, where X is the number of times you have **boosted** this turn.\n\nReveal the top card of your deck. If it's a Mechanologist item card with cost 2 or less, put it into the arena.",
+    "cru_printings": [
+      "CRU115"
+    ]
+  },
+  {
+    "id": "teklovossens_workshop_yellow",
+    "name": "Teklovossen's Workshop",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt X"
+    ],
+    "functional_text": "**Opt X**, where X is the number of times you have **boosted** this turn.\n\nReveal the top card of your deck. If it's a Mechanologist item card with cost 1 or less, put it into the arena.",
+    "cru_printings": [
+      "CRU116"
+    ]
+  },
+  {
+    "id": "teklovossens_workshop_blue",
+    "name": "Teklovossen's Workshop",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt X"
+    ],
+    "functional_text": "**Opt X**, where X is the number of times you have **boosted** this turn.\n\nReveal the top card of your deck. If it's a Mechanologist item card with cost 0, put it into the arena.",
+    "cru_printings": [
+      "CRU117"
+    ]
+  },
+  {
+    "id": "torrent_of_tempo_red",
+    "name": "Torrent of Tempo",
+    "pitch": "1",
+    "cost": "1",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "When this hits, it gets **go again**.",
+    "cru_printings": [
+      "CRU069"
+    ]
+  },
+  {
+    "id": "torrent_of_tempo_yellow",
+    "name": "Torrent of Tempo",
+    "pitch": "2",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "When this hits, it gets **go again**.",
+    "cru_printings": [
+      "CRU070"
+    ]
+  },
+  {
+    "id": "torrent_of_tempo_blue",
+    "name": "Torrent of Tempo",
+    "pitch": "3",
+    "cost": "1",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "When this hits, it gets **go again**.",
+    "cru_printings": [
+      "CRU071"
+    ]
+  },
+  {
+    "id": "towering_titan_red",
+    "name": "Towering Titan",
+    "pitch": "1",
+    "cost": "9",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "At the beginning of your action phase, destroy Towering Titan then the next Guardian attack action card you play this turn gains +10{p}.",
+    "cru_printings": [
+      "CRU029"
+    ]
+  },
+  {
+    "id": "towering_titan_yellow",
+    "name": "Towering Titan",
+    "pitch": "2",
+    "cost": "9",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "At the beginning of your action phase, destroy Towering Titan then the next Guardian attack action card you play this turn gains +9{p}.",
+    "cru_printings": [
+      "CRU030"
+    ]
+  },
+  {
+    "id": "towering_titan_blue",
+    "name": "Towering Titan",
+    "pitch": "3",
+    "cost": "9",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Guardian",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "At the beginning of your action phase, destroy Towering Titan then the next Guardian attack action card you play this turn gains +8{p}.",
+    "cru_printings": [
+      "CRU031"
+    ]
+  },
+  {
+    "id": "tripwire_trap_red",
+    "name": "Tripwire Trap",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "4",
+    "types": [
+      "Ranger",
+      "Defense Reaction",
+      "Trap"
+    ],
+    "card_keywords": [],
+    "functional_text": "Tripwire Trap can only be played from arsenal.\n\nWhen this defends, effects don't trigger when an attack hits this chain link unless the attacking hero pays {r}.",
+    "cru_printings": [
+      "CRU126"
+    ]
+  },
+  {
+    "id": "twinning_blade_yellow",
+    "name": "Twinning Blade",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Attack Reaction"
+    ],
+    "card_keywords": [],
+    "functional_text": "You may attack an additional time with target sword this turn.",
+    "cru_printings": [
+      "CRU082"
+    ]
+  },
+  {
+    "id": "unified_decree_yellow",
+    "name": "Unified Decree",
+    "pitch": "2",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Attack Reaction"
+    ],
+    "card_keywords": [
+      "Reprise"
+    ],
+    "functional_text": "Target weapon attack gains +3{p}.\n\n**Reprise** - If the defending hero has defended with a card from their hand this chain link, look at the top card of your deck. If it's an attack reaction card, you may banish it. If you do, you may play it this combat chain.",
+    "cru_printings": [
+      "CRU083"
+    ]
+  },
+  {
+    "id": "viserai_rune_blood",
+    "name": "Viserai, Rune Blood",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Runeblade",
+      "Hero"
+    ],
+    "card_keywords": [],
+    "functional_text": "Whenever you play a Runeblade card, if you've played another non-attack action card this turn, create a Runechant token.",
+    "cru_printings": [
+      "CRU138"
+    ]
+  },
+  {
+    "id": "viziertronic_model_i",
+    "name": "Viziertronic Model i",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Mechanologist",
+      "Equipment",
+      "Head"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 2"
+    ],
+    "functional_text": "**Action** - destroy Vizertronic Model i: Whenever you **boost** this turn, draw a card then put a card from your hand on top of your deck. **Go again**\n\n**Arcane Barrier 2**",
+    "cru_printings": [
+      "CRU102"
+    ]
+  },
+  {
+    "id": "whirling_mist_blossom_yellow",
+    "name": "Whirling Mist Blossom",
+    "pitch": "2",
+    "cost": "1",
+    "power": "2",
+    "defense": "2",
+    "types": [
+      "Ninja",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Ira Specialization",
+      "Go again"
+    ],
+    "functional_text": "**Ira Specialization**\n\nWhen this hits and it's the second or higher chain link in a row to hit, draw 2 cards.\n\n**Go again**",
+    "cru_printings": [
+      "CRU074"
+    ]
+  },
+  {
+    "id": "zen_state",
+    "name": "Zen State",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Ninja",
+      "Token",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "This enters the arena with a balance counter. At the beginning of your action phase, destroy this unless you remove a balance counter from it.\n\nIf you would be dealt damage, prevent 1 of that damage.",
+    "cru_printings": [
+      "CRU075"
+    ]
+  },
+  {
+    "id": "zephyr_needle",
+    "name": "Zephyr Needle",
+    "pitch": "",
+    "cost": "",
+    "power": "2",
+    "defense": "",
+    "types": [
+      "Ninja",
+      "Weapon",
+      "Dagger",
+      "1H"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Once per Turn Action** - {r}: **Attack**. **Go again**\n\nWhen this is defended by a card with {d} greater than this weapon attack's {p}, destroy this when the combat chain closes.",
+    "cru_printings": [
+      "CRU051",
+      "CRU052"
+    ]
+  }
+]

@@ -62,7 +62,7 @@ function FaBWTRDefendedFromHand(array $state): bool { return !empty($state['hand
 
 function FaBWTRCanPlay(int $player, array $found, array $state): bool {
     $id = (string)$found['object']->CardID; $base = FaBWTRBase($id);
-    $mandatoryDiscard = ['alpha_rampage','bloodrush_bellow','breakneck_battery','primeval_bellow','reckless_swing','savage_feast','savage_swing','wrecker_romp'];
+    $mandatoryDiscard = ['alpha_rampage','bloodrush_bellow','breakneck_battery','primeval_bellow','reckless_swing','savage_feast','savage_swing','wrecker_romp','barraging_big_horn','swing_fist_think_later'];
     $otherHand = FaBHandCount($player) - ($found['zone'] === 'Hand' ? 1 : 0);
     if (in_array($base, $mandatoryDiscard, true) && $otherHand < 1) return false;
     if (FaBWTRNeedsDiscard($id)) {
@@ -82,6 +82,8 @@ function FaBWTRCanPlay(int $player, array $found, array $state): bool {
         $attack = FaBFindUID(intval($state['attackUID']));
         if ($attack === null || intval($state['attacker']) !== $player) return false;
         $obj = $attack['object'];
+        if ($base === 'lunging_press') return FaBWTRIsAttackAction($obj);
+        if ($base === 'twinning_blade') return count(FaBChoiceRefs($player,'Weapons',['type'=>'Sword']))>0;
         if ($base === 'ancestral_empowerment') return FaBWTRIsAttackAction($obj) && FaBHasType($obj, 'Ninja');
         if ($base === 'pummel') return (FaBWTRIsWeapon($obj) && (FaBHasType($obj,'Club') || FaBHasType($obj,'Hammer'))) || (FaBWTRIsAttackAction($obj) && intval(CardCost($obj->CardID)) >= 2);
         if ($base === 'razor_reflex') return (FaBWTRIsWeapon($obj) && (FaBHasType($obj,'Dagger') || FaBHasType($obj,'Sword'))) || (FaBWTRIsAttackAction($obj) && intval(CardCost($obj->CardID)) <= 1);
@@ -95,6 +97,7 @@ function FaBWTRCanPlay(int $player, array $found, array $state): bool {
 
 function FaBWTRCardDiscarded(int $player, string $cardID): void {
     if (intval(CardPower($cardID)) < 6) return;
+    FaBCRUAdd($player,'DISCARD_SIX');
     $hero = GetHero($player); $heroID = (string)($hero[0]->CardID ?? '');
     if (FaBWTRHeroActive($player) && in_array($heroID, ['rhinar','rhinar_reckless_rampage'], true) && intval(GetTurnPlayer()) === $player && GetCurrentPhase()==='MAIN') {
         FaBRequestIntimidate($player);
@@ -106,7 +109,7 @@ function FaBWTRCardDiscarded(int $player, string $cardID): void {
 
 function FaBWTRCardPitched(int $player, string $cardID): void {
     if ($cardID !== 'heart_of_fyendal_blue') return;
-    foreach (FaBOpponents($player) as $opponent) if (intval(GetHealth($player)) < intval(GetHealth($opponent))) { AddHealth($player, intval(GetHealth($player)) + 1); break; }
+    foreach (FaBOpponents($player) as $opponent) if (intval(GetHealth($player)) < intval(GetHealth($opponent))) { FaBCRUGainLife($player,1); break; }
 }
 
 function FaBWTRPreventDamage(int $player, int $amount, string $damageType): int {
@@ -115,9 +118,10 @@ function FaBWTRPreventDamage(int $player, int $amount, string $damageType): int 
 }
 
 function FaBWTRPayAdditionalCosts(int $player, object $stackObj): void {
-    $base = FaBWTRBase($stackObj->CardID); $mandatory = ['alpha_rampage','bloodrush_bellow','breakneck_battery','primeval_bellow','reckless_swing','savage_feast','savage_swing','wrecker_romp'];
+    $base = FaBWTRBase($stackObj->CardID); $mandatory = ['alpha_rampage','bloodrush_bellow','breakneck_battery','primeval_bellow','reckless_swing','savage_feast','savage_swing','wrecker_romp','barraging_big_horn','swing_fist_think_later'];
     if (in_array($base, $mandatory, true)) {
         $uids = FaBDiscardRandom($player, 1); $discard = empty($uids) ? null : FaBFindUID($uids[0]);
+        if($discard!==null&&$discard['object']->CardID==='massacre_red'&&FaBWTRIsAttackAction($stackObj)&&FaBHasType($stackObj,'Brute'))FaBRequestIntimidate($player);
         $stackObj->Params = array_merge((array)$stackObj->Params, ['discardedPower' => intval(CardPower($discard['object']->CardID ?? ''))]);
     }
 }
@@ -150,6 +154,7 @@ function FaBWTRCardPlayed(int $player, string $mzID, string $cardID, string $fro
     FaBWTRSetEffects($player, $remaining);
 
     FaBFaiCardPlayed($player,$obj);
+    FaBCRUCardPlayed($player,$obj,$fromZone);
     FaBARCCardPlayed($player,$obj,$fromZone);
 
     if (FaBWTRIsAttackAction($obj) || FaBWTRIsWeapon($obj)) {
@@ -170,8 +175,8 @@ function FaBWTRCardPlayed(int $player, string $mzID, string $cardID, string $fro
     if ($base === 'wounded_bull') foreach (FaBOpponents($player) as $opponent) if (intval(GetHealth($player)) < intval(GetHealth($opponent))) {
         FaBWTRTag($obj, 'WTR_WOUNDED_BULL'); break;
     }
-    if ($cardID === 'last_ditch_effort_blue' && count(FaBChoiceRefs($player,'Deck')) === 0) { FaBWTRTag($obj, 'WTR_POWER:4'); FaBWTRTag($obj, 'GO_AGAIN'); }
-    if (in_array('WTR_NIMBLE_PAID',(array)($obj->TurnEffects??[]),true)){FaBWTRTag($obj,'WTR_POWER:1');FaBWTRTag($obj,'GO_AGAIN');}
+    if ($cardID === 'last_ditch_effort_blue' && count(FaBChoiceRefs($player,'Deck')) === 0) { FaBCRUSelfTag($obj, 'WTR_POWER:4'); FaBWTRTag($obj, 'GO_AGAIN'); }
+    if (in_array('WTR_NIMBLE_PAID',(array)($obj->TurnEffects??[]),true)){FaBCRUSelfTag($obj,'WTR_POWER:1');FaBWTRTag($obj,'GO_AGAIN');}
     if (in_array('WTR_SLOG_PAID',(array)($obj->TurnEffects??[]),true))FaBWTRTag($obj,'DOMINATE');
     if ($base === 'unmovable' && $fromZone === 'Arsenal') FaBWTRTag($obj, 'WTR_DEFENSE:1');
 }
@@ -195,8 +200,8 @@ function FaBWTRResolveCard(int $player, object $source, ?object $resolved): void
         if (in_array($base, ['awakening_bellow','barraging_beatdown'], true)) FaBRequestIntimidate($player);
         return;
     }
-    if ($base === 'sigil_of_solace') { AddHealth($player, intval(GetHealth($player)) + FaBWTRPitchValue($id,[3,2,1])); return; }
-    if ($id === 'tome_of_fyendal_yellow') { DoDrawCard($player,2); if(($source->SourceZone??'')==='Arsenal') AddHealth($player,intval(GetHealth($player))+FaBHandCount($player)); return; }
+    if ($base === 'sigil_of_solace') { FaBCRUGainLife($player,FaBWTRPitchValue($id,[3,2,1])); return; }
+    if ($id === 'tome_of_fyendal_yellow') { DoDrawCard($player,2); if(($source->SourceZone??'')==='Arsenal') FaBCRUGainLife($player,FaBHandCount($player)); return; }
     if ($id === 'bloodrush_bellow_yellow') { FaBWTRAddEffect($player,'BRUTE_TURN',2); if(intval($params['discardedPower']??0)>=6){DoDrawCard($player,2);if(FaBWTRMayGoAgain($player))AddActionPoints($player,intval(GetActionPoints($player))+1);} return; }
     if ($base === 'breakneck_battery' && intval($params['discardedPower']??0)>=6 && $resolved) { FaBWTRTag($resolved,'GO_AGAIN'); return; }
     if ($base === 'savage_feast' && intval($params['discardedPower']??0)>=6) { DoDrawCard($player,1); return; }
@@ -218,7 +223,7 @@ function FaBWTRResolveReaction(int $player, object $source): void {
     if($base==='overpower' && FaBWTRDefendedFromHand($state)) $amount+=2;
     if($base==='ironsong_response' && !FaBWTRDefendedFromHand($state)) $amount=0;
     if($base==='rout')$amount=3; if($base==='ancestral_empowerment')$amount=1; if($base==='glint_the_quicksilver')FaBWTRTag($attack['object'],'GO_AGAIN');
-    if($amount)FaBWTRTag($attack['object'],'WTR_POWER:'.$amount);
+    if($amount)FaBCRUSelfTag($attack['object'],'WTR_POWER:'.$amount);
     if($base==='ancestral_empowerment')DoDrawCard($player,1);
     if($base==='glint_the_quicksilver' && FaBWTRDefendedFromHand($state))DoDrawCard($player,1);
     if($base==='pummel'&&FaBWTRIsAttackAction($attack['object']))FaBWTRTag($attack['object'],'WTR_PUMMEL_HIT');
@@ -234,7 +239,7 @@ function FaBWTRAttackDeclared(int $player, object $attack, int $defender): void 
       'open_the_center'=>['head_jab',1,true,true],
       'hurricane_technique'=>['rising_knee_thrust',1,true,false], 'mugenshi_release'=>['whelming_gustwave',1,true,false],
     ];
-    if(isset($combo[$base])){[$required,$power,$go,$dom]=$combo[$base];if(FaBWTRBase((string)$state['previousAttackCardID'])===$required){if($power)FaBWTRTag($attack,'WTR_POWER:'.$power);if($go)FaBWTRTag($attack,'GO_AGAIN');if($dom)FaBWTRTag($attack,'DOMINATE');if($base==='hurricane_technique')FaBWTRTag($attack,'WTR_RETURN_HAND');}}
+    if(isset($combo[$base])){[$required,$power,$go,$dom]=$combo[$base];if(FaBWTRBase((string)$state['previousAttackCardID'])===$required){if($power)FaBCRUSelfTag($attack,'WTR_POWER:'.$power);if($go)FaBWTRTag($attack,'GO_AGAIN');if($dom)FaBWTRTag($attack,'DOMINATE');if($base==='hurricane_technique')FaBWTRTag($attack,'WTR_RETURN_HAND');}}
     if($base==='pounding_gale'&&FaBWTRBase((string)$state['previousAttackCardID'])==='open_the_center')FaBWTRTag($attack,'WTR_DOUBLE_DAMAGE');
     if($base==='flock_of_the_feather_walkers')FaBWTRCreateArena($player,'quicken');
     foreach(FaBWTREffects($player)as$effect)if(($effect['type']??'')==='WEAPON_TURN'&&FaBWTRIsWeapon($attack)){FaBWTRTag($attack,'WTR_POWER:'.intval($effect['amount']));if(!empty($effect['dominate']))FaBWTRTag($attack,'DOMINATE');if(!empty($effect['drawOnHit']))FaBWTRTag($attack,'WTR_DRAW_HIT');}
@@ -248,8 +253,8 @@ function FaBWTRAttackPowerModifier(int $player, object $attack, array $state): i
     $delta=0;foreach((array)($attack->TurnEffects??[]) as $effect){if(str_starts_with((string)$effect,'WTR_POWER:'))$delta+=intval(substr($effect,10));if(str_starts_with((string)$effect,'WTR_LESS_THAN_TWO_BLOCKS:')&&FaBWTRNonEquipmentBlockCount($state)<2)$delta+=intval(substr($effect,25));}
     $delta+=FaBFaiPower($player,$attack);
     $base=FaBWTRBase($attack->CardID);
-    if($base==='barraging_brawnhide'&&FaBWTRNonEquipmentBlockCount($state)<2)$delta++;
-    if($base==='fluster_fist'&&FaBWTRBase((string)$state['previousAttackCardID'])==='open_the_center')$delta+=intval($state['chainHits']??0);
+    if(!FaBCRUCount($player,'SNAG')&&$base==='barraging_brawnhide'&&FaBWTRNonEquipmentBlockCount($state)<2)$delta++;
+    if(!FaBCRUCount($player,'SNAG')&&$base==='fluster_fist'&&FaBWTRBase((string)$state['previousAttackCardID'])==='open_the_center')$delta+=intval($state['chainHits']??0);
     foreach(FaBWTREffects($player)as$effect)if(($effect['type']??'')==='BRUTE_TURN'&&FaBHasType($attack,'Brute'))$delta+=intval($effect['amount']);
     if(FaBWTRIsWeapon($attack)){
         $source=FaBFindUID(intval(FaBObjectCounters($attack)['WEAPON_UID']??0));
@@ -261,6 +266,7 @@ function FaBWTRAttackPowerModifier(int $player, object $attack, array $state): i
 
 function FaBWTRAttackHasGoAgain(array $state, object $attack): bool {
     foreach(FaBWTREffects(intval($state['attacker']))as$effect)if(($effect['type']??'')==='NO_GO_AGAIN')return false;
+    if(FaBCRUGoAgain(intval($state['attacker']),$attack,$state))return true;
     if(in_array('WTR_HIT_GO_AGAIN',(array)($attack->TurnEffects??[]),true)&&!empty($state['attackHit']))return true;
     if($attack->CardID==='harmonized_kodachi')foreach(GetPitch(intval($state['attacker']))as$o)if(is_object($o)&&empty($o->removed)&&is_numeric(CardCost($o->CardID))&&intval(CardCost($o->CardID))===0)return true;
     return false;
@@ -311,6 +317,8 @@ function FaBWTRHit(int $player, object $attack, int $amount): void {
     $weaponUID=intval(FaBObjectCounters($attack)['WEAPON_UID']??0);
     if($weaponUID>0)$state['weaponHits'][(string)$weaponUID]=intval($state['weaponHits'][(string)$weaponUID]??0)+1;
     FaBSetState($state);
+    if(FaBCRUHitSuppressed($attack,true))return;
+    if(!FaBCRUHitSuppressed($attack)){
     $base=FaBWTRBase($attack->CardID);
     if($base==='snatch')DoDrawCard($player,1);
     if(in_array('WTR_DRAW_HIT',(array)$attack->TurnEffects,true))DoDrawCard($player,1);
@@ -322,6 +330,7 @@ function FaBWTRHit(int $player, object $attack, int $amount): void {
         if($top!==null&&FaBHasType($top['object'],'Action'))FaBMoveUID(intval($top['object']->UniqueID),'Arsenal',$player);
     }
     if($amount>=4)FaBWTRCrush($player,intval($state['defender']),$attack);
+    }
     $hero=GetHero($player);$heroObj=$hero[0]??null;$heroID=$heroObj->CardID??'';
     if(FaBWTRHeroActive($player)&&in_array($heroID,['dorinthea','dorinthea_ironsong'],true)&&$weaponUID>0&&intval(FaBObjectCounters($heroObj)['USED_TURN']??0)!==intval(GetTurnNumber())){
         $weapon=FaBFindUID($weaponUID);
@@ -338,7 +347,7 @@ function FaBWTRHit(int $player, object $attack, int $amount): void {
 }
 
 function FaBWTRNeedsDiscard(string $id): bool {
-    return in_array(FaBWTRBase($id),['alpha_rampage','bloodrush_bellow','breakneck_battery','primeval_bellow','reckless_swing','savage_feast','savage_swing','wrecker_romp'],true);
+    return in_array(FaBWTRBase($id),['alpha_rampage','bloodrush_bellow','breakneck_battery','primeval_bellow','reckless_swing','savage_feast','savage_swing','wrecker_romp','barraging_big_horn','swing_fist_think_later'],true);
 }
 function FaBWTRCanDraw(int $player):bool{foreach(FaBWTREffects($player)as$effect)if(($effect['type']??'')==='NO_DRAW_ACTION_PHASE'&&GetCurrentPhase()==='MAIN')return false;return true;}
 function FaBWTRIntellectModifier(int $player):int{foreach(FaBWTREffects($player)as$effect)if(($effect['type']??'')==='INTELLECT')return intval($effect['amount']);return 0;}
@@ -355,7 +364,7 @@ function FaBWTRCrush(int $player,int $defender,object $attack):void{
 
 function FaBWTRDefended(int $player,object $card):void { if(FaBWTRBase($card->CardID)==='steelblade_shunt'){ $s=FaBGetState();$a=FaBFindUID(intval($s['attackUID']??0));if($a!==null&&FaBWTRIsWeapon($a['object']))DoDamage($player,'',intval($s['attacker']),1,'PHYSICAL'); } }
 
-function FaBWTRCreateArena(int $player,string $cardID):?object { return AddArena($player,CardID:$cardID,Owner:$player,Controller:$player,Status:2); }
+function FaBWTRCreateArena(int $player,string $cardID):?object { $o=AddArena($player,CardID:$cardID,Owner:$player,Controller:$player,Status:2);if($o!==null&&$cardID==='zen_state')FaBSetObjectCounter($o,'BALANCE',1);return $o; }
 
 function FaBWTRCanActivate(int $player,string $mzID):bool {
     if(!FaBSeatIsLive($player)||intval(GetWinner())!==0||intval(GetPriorityPlayer())!==$player||FaBHasPendingDecision())return false;
@@ -363,11 +372,11 @@ function FaBWTRCanActivate(int $player,string $mzID):bool {
     $state=FaBGetState();if($state['pendingPayment']!==null)return false;
     $id=$f['object']->CardID;
     if(FaBARCAbilityActions($player,$f))return true;
-    $weapons=['anothos'=>3,'romping_club'=>2,'dawnblade'=>1,'harmonized_kodachi'=>1,'nebula_blade'=>2,'teklo_plasma_pistol'=>0,'teklo_blaster'=>FaBTekloBlasterCost($player)];
+    $weapons=['anothos'=>3,'romping_club'=>2,'dawnblade'=>1,'harmonized_kodachi'=>1,'nebula_blade'=>2,'teklo_plasma_pistol'=>0,'teklo_blaster'=>FaBTekloBlasterCost($player),'cintari_saber'=>1,'edge_of_autumn'=>1,'zephyr_needle'=>1,'mandible_claw'=>2,'reaping_blade'=>1,'talishar_the_lost_prince'=>2,'sledge_of_anvilheim'=>4,'plasma_barrel_shot'=>0];
     if(isset($weapons[$id])){
         if(FaBARCEffect($player,'ARC_LEDGER')&&FaBARCEffect($player,'ARC_ACTIONS')>=1)return false;
-        $spec=['timing'=>'ACTION','cost'=>$weapons[$id]+FaBARCEffect($player,'ARC_FIRST_ATTACK_COST')];
-        return $f['zone']==='Weapons'&&intval(GetTurnPlayer())===$player&&($id==='teklo_plasma_pistol'?intval(FaBObjectCounters($f['object'])['STEAM']??0)>0:intval($f['object']->Status??2)===2)&&in_array($state['window'],['ACTION','RESOLUTION'],true)&&intval(GetActionPoints($player))>0&&FaBAvailablePitch($player)>=FaBWTRAbilityCost($player,$spec);
+        $spec=['timing'=>'ACTION','cost'=>$weapons[$id]+FaBARCEffect($player,'ARC_FIRST_ATTACK_COST')+FaBCRUWeaponCost($player,$id)];
+        return $f['zone']==='Weapons'&&intval(GetTurnPlayer())===$player&&($id==='teklo_plasma_pistol'?intval(FaBObjectCounters($f['object'])['STEAM']??0)>0:($id==='sledge_of_anvilheim'||(FaBCRUWeaponReady($f['object'])&&($id!=='plasma_barrel_shot'||intval(FaBObjectCounters($f['object'])['STEAM']??0)>0))))&&in_array($state['window'],['ACTION','RESOLUTION'],true)&&intval(GetActionPoints($player))>0&&FaBAvailablePitch($player)>=FaBWTRAbilityCost($player,$spec);
     }
     $spec=FaBWTRAbilitySpec($id);
     return $spec!==null&&FaBWTRAbilityLegal($player,$f,$spec);
@@ -378,14 +387,14 @@ function FaBWTRActivate(int $player,string $mzID,int $index=0):bool {
     $f=FaBIdentityFromMZ($mzID);$o=$f['object'];$id=$o->CardID;
     if(isset(FaBARCAbilityActions($player,$f)[$index]))return FaBARCActivate($player,$f,$index);
     SaveUndoVersion($player,'Before activating '.(CardName($id)?:$id));
-    $weapons=['anothos'=>3,'romping_club'=>2,'dawnblade'=>1,'harmonized_kodachi'=>1,'nebula_blade'=>2,'teklo_plasma_pistol'=>0,'teklo_blaster'=>FaBTekloBlasterCost($player)];
+    $weapons=['anothos'=>3,'romping_club'=>2,'dawnblade'=>1,'harmonized_kodachi'=>1,'nebula_blade'=>2,'teklo_plasma_pistol'=>0,'teklo_blaster'=>FaBTekloBlasterCost($player),'cintari_saber'=>1,'edge_of_autumn'=>1,'zephyr_needle'=>1,'mandible_claw'=>2,'reaping_blade'=>1,'talishar_the_lost_prince'=>2,'sledge_of_anvilheim'=>4,'plasma_barrel_shot'=>0];
     if(isset($weapons[$id])){
         $weaponUID=intval($o->UniqueID);
         $target=FaBClaimOrRequestAttackTarget($player,$weaponUID,'ACTIVATE');
         if($target===null)return true;
         if($target===false)return false;
         $stack=AddStack(CardID:$id,Controller:$player,Kind:'ATTACK',SourceZone:'Weapons',SourceUniqueID:$weaponUID,Params:['attackTarget'=>$target]);
-        $cost=FaBWTRAbilityCost($player,['timing'=>'ACTION','cost'=>$weapons[$id]+FaBARCEffect($player,'ARC_FIRST_ATTACK_COST')]);
+        $cost=FaBWTRAbilityCost($player,['timing'=>'ACTION','cost'=>$weapons[$id]+FaBARCEffect($player,'ARC_FIRST_ATTACK_COST')+FaBCRUWeaponCost($player,$id)]);
         $s=FaBGetState();
         $s['pendingPayment']=['player'=>$player,'uid'=>intval($stack->UniqueID),'weaponUID'=>$weaponUID,'cost'=>$cost,'fromZone'=>'Weapons','kind'=>'ATTACK','isWeaponAttack'=>true,'returnWindow'=>$s['window'],'returnCombatStep'=>$s['combatStep']];
         $s['window']='PITCH';FaBSetState($s);SetConsecutivePasses(0);
@@ -408,7 +417,7 @@ function FaBWTRStartTurn(int $player):void {
             $refs=array_slice(FaBChoiceRefs($player,'Deck'),0,FaBWTRPitchValue($id,[3,2,1]));$gain=0;
             FaBRevealChoices($player,implode('&',$refs));
             foreach($refs as$ref){$card=FaBIdentityFromMZ($ref);if(intval(CardCost($card['object']->CardID))>=3)++$gain;}
-            AddHealth($player,intval(GetHealth($player))+$gain);
+            FaBCRUGainLife($player,$gain);
         }
         elseif($base==='show_time'){FaBMoveUID(intval($o->UniqueID),'Graveyard',$player);DoDrawCard($player,1);}
         elseif(in_array($base,['stonewall_confidence','forged_for_war'],true))FaBMoveUID(intval($o->UniqueID),'Graveyard',$player);
