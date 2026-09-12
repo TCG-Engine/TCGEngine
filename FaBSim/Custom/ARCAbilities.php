@@ -3,6 +3,10 @@
 function FaBARCAbilitySpecs(string $id): array {
     // timing, resources, destroy, go again, once per turn, steam removed, label
     $rows=[
+        'blood_scent'=>[['INSTANT',0,true,false,false,0,'Gain one resource']],
+        'mask_of_three_tails'=>[['INSTANT',0,true,false,false,0,'Draw a card']],
+        'pouncing_paws'=>[['INSTANT',0,true,false,false,0,'Create Crouching Tiger']],
+        'tearing_shuko'=>[['INSTANT',0,true,false,false,0,'Empower next Crouching Tiger']],
         'aether_conduit'=>[['ACTION',2,false,false,true,0,'Deal two arcane damage']],
         'bloodsheath_skeleta'=>[['INSTANT',0,true,false,false,0,'Reduce action costs']],
         'courage_of_bladehold'=>[['ACTION',0,true,true,false,0,'Sword attacks cost less']],
@@ -47,6 +51,8 @@ function FaBARCAbilityLegal(int $player,array $f,array $spec): bool {
     $equipped=$f['zone']==='CombatChain'&&($o->FromZone??'')==='Equipment';
     if((!$equipped&&!in_array($f['zone'],['Equipment','Weapons','Hero','Arena'],true))||HasNoAbilities($o))return false;
     if($f['zone']==='Hero'&&!FaBWTRHeroActive($player))return false;
+    if($id==='blood_scent'&&!FaBARCEffect($player,'IRA_ATTACKED_TIGER'))return false;
+    if($id==='mask_of_three_tails'&&(intval($s['attacker'])!==$player||intval($s['chainHits']??0)<3))return false;
     if($spec['once']&&intval(FaBObjectCounters($o)['ARC_USED_'.$spec['index']]??0)===intval(GetTurnNumber()))return false;
     if($spec['steam']>intval(FaBObjectCounters($o)['STEAM']??0))return false;
     if(in_array($s['window'],['PITCH','DEFEND_DECLARE'],true))return false;

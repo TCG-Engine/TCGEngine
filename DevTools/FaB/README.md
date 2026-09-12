@@ -284,3 +284,38 @@ and [current Foreboding Bolt text](https://cards.fabtcg.com/card/foreboding-bolt
 The current card reference corrects the original printing's omitted “arcane”.
 After regeneration, hard-refresh the game to load the updated combat-chain
 equipment activation/highlighting bindings.
+
+## Ira Crouching Tiger bot
+
+`ira_source.json` pins Fabrary deck `01HAXKZMTRN4FR7CFTQA11A70N` (Round the
+Table Ira). `FaBSim/IraDeck.json` contains its exact 40-card main deck, Edge of
+Autumn, and four equipment. Select **Ira** in the main-menu bot selector or an
+empty UPF lobby slot.
+
+`ira_abilities.json` adds 19 identities, including Crouching Tiger, to the existing
+WTR/CRU card implementations. `IraCards.php` handles Tiger creation, next-turn
+banish permissions and combo effects; Ambush and Ephemeral use shared zone rules.
+Unplayed Tigers remain banished after their play permission expires.
+
+The heuristic uses its own hand and public information: generate Tigers before
+attacking, buff them with Growl/Shuko, follow Tigers with Qi combos, favor cheap
+go-again attacks, pitch lower-value blue cards, and use equipment to extend turns.
+It uses the shared legal-target, blocking and priority logic in both formats.
+This is a greedy heuristic, without game-tree search or learned policy.
+
+```powershell
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/ira_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/ira_test.php
+powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/ira_lobby_test.ps1
+```
+
+Tests cover every added ability, exact deck import, combo prerequisites, equipment
+costs/conditions, arsenal Ambush, next-turn permission through other UPF turns,
+Ephemeral, and completed duel/mirror/mixed bot games. The HTTP test creates a
+four-seat room with bots assigned out of order and a main-menu duel.
+
+Rules references: [Round the Table release notes](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/bright-lights-round-the-table/),
+[Tiger Eye Reflex](https://cards.fabtcg.com/card/tiger-eye-reflex-3/TCC102/), and
+[Comprehensive Rules](https://rules.fabtcg.com/pdf/en-fab-cr.pdf).

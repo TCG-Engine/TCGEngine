@@ -1,0 +1,619 @@
+{
+    "cards": [
+        {
+            "identifier": "bittering-thorns-red",
+            "image": "https://content.fabrary.net/cards/ASR007.webp",
+            "name": "Bittering Thorns",
+            "setIdentifiers": [
+                "ASR007",
+                "LGS445",
+                "TCC083"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "bittering-thorns-yellow",
+            "image": "https://content.fabrary.net/cards/TCC092.webp",
+            "name": "Bittering Thorns",
+            "setIdentifiers": [
+                "1HP134",
+                "CRU072",
+                "IRA005",
+                "TCC092"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "blessing-of-qi-blue",
+            "image": "https://content.fabrary.net/cards/MST172.webp",
+            "name": "Blessing of Qi",
+            "setIdentifiers": [
+                "DYN055",
+                "MST172",
+                "TCC100"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "aura",
+            "subtypes": [
+                "Aura",
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "blessing-of-qi-red",
+            "image": "https://content.fabrary.net/cards/MST170.webp",
+            "name": "Blessing of Qi",
+            "setIdentifiers": [
+                "DYN053",
+                "MST170",
+                "TCC091"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "aura",
+            "subtypes": [
+                "Aura",
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "blood-scent",
+            "image": "https://content.fabrary.net/cards/SFA006.webp",
+            "name": "Blood Scent",
+            "setIdentifiers": [
+                "LGS259",
+                "SFA006",
+                "TCC080"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "chest",
+            "subtypes": [
+                "Chest"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "edge-of-autumn",
+            "image": "https://content.fabrary.net/cards/ASR002.webp",
+            "name": "Edge of Autumn",
+            "setIdentifiers": [
+                "1HP090",
+                "ASR002",
+                "CRU050",
+                "FAB362",
+                "IRA002",
+                "TCC078"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "2h",
+            "subtypes": [
+                "2H",
+                "Sword"
+            ],
+            "total": 1,
+            "type": "weapon",
+            "types": [
+                "Weapon"
+            ]
+        },
+        {
+            "identifier": "flex-claws-red",
+            "image": "https://content.fabrary.net/cards/MST179.webp",
+            "name": "Flex Claws",
+            "setIdentifiers": [
+                "DYN050",
+                "MST179",
+                "TCC084",
+                "ZEN009"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "flex-claws-yellow",
+            "image": "https://content.fabrary.net/cards/MST180.webp",
+            "name": "Flex Claws",
+            "setIdentifiers": [
+                "DYN051",
+                "MST180",
+                "TCC093"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "flying-kick-blue",
+            "image": "https://content.fabrary.net/cards/ASR021.webp",
+            "name": "Flying Kick",
+            "setIdentifiers": [
+                "ASR021",
+                "CRU065",
+                "TCC099"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "flying-kick-red",
+            "image": "https://content.fabrary.net/cards/ASR009.webp",
+            "name": "Flying Kick",
+            "setIdentifiers": [
+                "ASR009",
+                "CRU063",
+                "IRA007",
+                "TCC085"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "growl-red",
+            "image": "https://content.fabrary.net/cards/TCC086.webp",
+            "name": "Growl",
+            "setIdentifiers": [
+                "TCC086"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "growl-yellow",
+            "image": "https://content.fabrary.net/cards/TCC094.webp",
+            "name": "Growl",
+            "setIdentifiers": [
+                "TCC094"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "leg-tap-red",
+            "image": "https://content.fabrary.net/cards/TCC087.webp",
+            "name": "Leg Tap",
+            "setIdentifiers": [
+                "1HP116",
+                "KSU012",
+                "TCC087",
+                "WTR101"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "leg-tap-yellow",
+            "image": "https://content.fabrary.net/cards/TCC095.webp",
+            "name": "Leg Tap",
+            "setIdentifiers": [
+                "1HP117",
+                "KSU018",
+                "TCC095",
+                "WTR102"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "mask-of-three-tails",
+            "image": "https://content.fabrary.net/cards/TCC079.webp",
+            "name": "Mask of Three Tails",
+            "setIdentifiers": [
+                "LGS258",
+                "TCC079"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "head",
+            "subtypes": [
+                "Head"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "mauling-qi-red",
+            "image": "https://content.fabrary.net/cards/TCC088.webp",
+            "name": "Mauling Qi",
+            "setIdentifiers": [
+                "TCC088"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "pouncing-paws",
+            "image": "https://content.fabrary.net/cards/SFA009.webp",
+            "name": "Pouncing Paws",
+            "setIdentifiers": [
+                "FAB367",
+                "SFA009",
+                "TCC082"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "legs",
+            "subtypes": [
+                "Legs"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "pouncing-qi-red",
+            "image": "https://content.fabrary.net/cards/MST182.webp",
+            "name": "Pouncing Qi",
+            "setIdentifiers": [
+                "DYN056",
+                "MST182",
+                "TCC089",
+                "ZEN011"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "predatory-streak-blue",
+            "image": "https://content.fabrary.net/cards/TCC101.webp",
+            "name": "Predatory Streak",
+            "setIdentifiers": [
+                "DYN064",
+                "LGS124",
+                "TCC101"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "predatory-streak-yellow",
+            "image": "https://content.fabrary.net/cards/TCC097.webp",
+            "name": "Predatory Streak",
+            "setIdentifiers": [
+                "DYN063",
+                "LGS123",
+                "TCC097"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "qi-unleashed-red",
+            "image": "https://content.fabrary.net/cards/MST167.webp",
+            "name": "Qi Unleashed",
+            "setIdentifiers": [
+                "DYN059",
+                "MST167",
+                "TCC090",
+                "ZEN012"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "salt-the-wound-yellow",
+            "image": "https://content.fabrary.net/cards/SFA030.webp",
+            "name": "Salt the Wound",
+            "setIdentifiers": [
+                "1HP135",
+                "BEN020",
+                "CRU073",
+                "IRA004",
+                "SFA030",
+                "TCC096"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "tearing-shuko",
+            "image": "https://content.fabrary.net/cards/SFA008.webp",
+            "name": "Tearing Shuko",
+            "setIdentifiers": [
+                "DYN046",
+                "SFA008",
+                "TCC081"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "arms",
+            "subtypes": [
+                "Arms"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "tiger-eye-reflex-blue",
+            "image": "https://content.fabrary.net/cards/TCC102.webp",
+            "name": "Tiger Eye Reflex",
+            "setIdentifiers": [
+                "TCC102"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "block",
+            "types": [
+                "Block"
+            ]
+        },
+        {
+            "identifier": "tiger-eye-reflex-yellow",
+            "image": "https://content.fabrary.net/cards/TCC098.webp",
+            "name": "Tiger Eye Reflex",
+            "setIdentifiers": [
+                "TCC098"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "block",
+            "types": [
+                "Block"
+            ]
+        },
+        {
+            "identifier": "ira-crimson-haze",
+            "image": "https://content.fabrary.net/cards/TCC077-RF.webp",
+            "name": "Ira, Crimson Haze",
+            "setIdentifiers": [
+                "1HP089",
+                "CRU046",
+                "HER000",
+                "IRA001",
+                "TCC077"
+            ],
+            "sideboardTotal": 0,
+            "subType": "young",
+            "subtypes": [
+                "Young"
+            ],
+            "total": 1,
+            "type": "hero",
+            "types": [
+                "Hero"
+            ]
+        }
+    ],
+    "format": "ultimate pit fight",
+    "hero": {
+        "identifier": "ira-crimson-haze",
+        "image": "https://content.fabrary.net/cards/TCC077-RF.webp",
+        "name": "Ira, Crimson Haze",
+        "setIdentifiers": [
+            "1HP089",
+            "CRU046",
+            "HER000",
+            "IRA001",
+            "TCC077"
+        ],
+        "sideboardTotal": 0,
+        "subType": "young",
+        "subtypes": [
+            "Young"
+        ],
+        "total": 1,
+        "type": "hero",
+        "types": [
+            "Hero"
+        ]
+    },
+    "name": "Round the Table",
+    "matchups": [],
+    "preferredTurnOrder": "NoPreference",
+    "slug": "01HAXKZMTRN4FR7CFTQA11A70N"
+}

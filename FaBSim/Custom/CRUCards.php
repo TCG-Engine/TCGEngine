@@ -224,7 +224,7 @@ function FaBCRUEnd(int $p): void {
 }
 function FaBCRUClose(): void {
     foreach(FaBLiveSeats() as $p){
-        FaBWTRSetEffects($p,array_values(array_filter(FaBWTREffects($p),fn($e)=>!in_array($e['type']??'',['CRU_CHAIN_BOOST','CRU_COURIER','CRU_IMPACT'],true))));
+        FaBWTRSetEffects($p,array_values(array_filter(FaBWTREffects($p),fn($e)=>!in_array($e['type']??'',['CRU_CHAIN_BOOST','CRU_COURIER','CRU_IMPACT','IRA_CHAIN_TIGER'],true))));
         foreach(FaBChoiceRefs($p,'Weapons') as $ref){$o=FaBIdentityFromMZ($ref)['object'];if(in_array('CRU_BREAK_CHAIN',(array)$o->TurnEffects,true))FaBMoveUID(intval($o->UniqueID),'Graveyard',$p);}
         foreach(FaBChoiceRefs($p,'Banish') as $ref){$o=FaBIdentityFromMZ($ref)['object'];if(FaBARCCard(intval($o->UniqueID),'untilChainCloses'))$o->PlayableFromBanish=0;}
     }

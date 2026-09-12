@@ -12,6 +12,8 @@ include_once __DIR__ . '/ARCAbilities.php';
 include_once __DIR__ . '/ProfessorCards.php';
 include_once __DIR__ . '/MultiTargetCombat.php';
 include_once __DIR__ . '/ProfessorBot.php';
+include_once __DIR__ . '/IraCards.php';
+include_once __DIR__ . '/IraBot.php';
 include_once __DIR__ . '/Bot.php';
 
 $customDQHandlers = [];
@@ -518,6 +520,7 @@ function FaBMoveUID(int $uid, string $toZone, ?int $targetPlayer = null, bool $a
     }
     if(!in_array($toZone,['Equipment','CombatChain'],true)&&!empty(FaBObjectCounters($source)['SUBCARDS'])){foreach(FaBObjectCounters($source)['SUBCARDS'] as $under)AddGraveyard($targetPlayer,CardID:$under);unset($source->Counters['SUBCARDS']);}
     $source->removed = true;
+    if($toZone==='Graveyard'&&FaBHasKeyword($source,'Ephemeral'))return null;
     $newObj = FaBAddToZone($toZone, $targetPlayer, $source);
     if ($newObj !== null && $animate && function_exists('QueueZoneMoveAnimation')) {
         $newIndex = intval($newObj->mzIndex ?? 0);
@@ -534,6 +537,7 @@ function FaBMoveStackUID(int $uid, string $toZone, int $targetPlayer, bool $anim
     if($toZone==='Graveyard'&&FaBWTRBase($source->CardID)==='drone_of_brutality')$toZone='Deck';
     if(!in_array($toZone,['Equipment','CombatChain'],true)&&!empty(FaBObjectCounters($source)['SUBCARDS'])){foreach(FaBObjectCounters($source)['SUBCARDS'] as $under)AddGraveyard($targetPlayer,CardID:$under);unset($source->Counters['SUBCARDS']);}
     $source->removed = true;
+    if($toZone==='Graveyard'&&FaBHasKeyword($source,'Ephemeral'))return null;
     $newObj = FaBAddToZone($toZone, $targetPlayer, $source);
     if ($newObj !== null && $animate && function_exists('QueueZoneMoveAnimation')) {
         QueueZoneMoveAnimation($found['mzID'], 'p' . $targetPlayer . $toZone . '-' . intval($newObj->mzIndex ?? 0), 360, true, $uid, $uid);
@@ -885,7 +889,7 @@ function FaBCanBlock(int $player, string $mzID): bool {
     if (($state['attackTarget']['type'] ?? 'HERO') !== 'HERO') return false;
     $found = FaBIdentityFromMZ($mzID);
     if ($found === null || $found['player'] !== $player) return false;
-    if (!in_array($found['zone'], ['Hand', 'Equipment'], true) && !($found['zone']==='Arsenal'&&FaBFaiEffect($player,'AOW_ARSENAL')>0&&FaBWTRIsAttackAction($found['object']))) return false;
+    if (!in_array($found['zone'], ['Hand', 'Equipment'], true) && !($found['zone']==='Arsenal'&&(FaBHasKeyword($found['object'],'Ambush')||(FaBFaiEffect($player,'AOW_ARSENAL')>0&&FaBWTRIsAttackAction($found['object']))))) return false;
     if (!is_numeric(CardDefense($found['object']->CardID))) return false;
     if (FaBARCNamedProhibited($found['object']->CardID) || !FaBCRUBlockLegal($player,$found)) return false;
     if ($found['zone']==='Hand' && FaBHasType($found['object'],'Defense Reaction')) return false;
@@ -1297,6 +1301,7 @@ function StartOfTurnPhase() {
     if (function_exists('FaBWTRStartTurn')) FaBWTRStartTurn($player);
     FaBARCStartTurn($player);
     FaBCRUStart($player);
+    FaBIraStartTurn($player);
     SetPriorityPlayer($player); SetConsecutivePasses(0);
 }
 

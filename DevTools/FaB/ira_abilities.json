@@ -1,0 +1,202 @@
+[
+  {
+    "cardId": "bittering_thorns_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBWTRAddEffect($player, 'NEXT_ATTACK', 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "blessing_of_qi_blue",
+    "abilities": [
+      {
+        "macroName": "StartTurn",
+        "abilityCode": "FaBIraBlessing($player, $mzID);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "blessing_of_qi_red",
+    "abilities": [
+      {
+        "macroName": "StartTurn",
+        "abilityCode": "FaBIraBlessing($player, $mzID);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "blood_scent",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "AddResources($player, intval(GetResources($player)) + 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "crouching_tiger",
+    "abilities": [
+      {
+        "macroName": "CardPlayed",
+        "abilityCode": "FaBIraTigerPlayed($player, $mzID);",
+        "isImplemented": true
+      },
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "FaBWTRAddEffect($player, 'IRA_ATTACKED_TIGER', 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "flex_claws_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBCreateTigers($player);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "flex_claws_yellow",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBCreateTigers($player);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "growl_red",
+    "abilities": [
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "FaBWTRAddEffect($player, 'IRA_CHAIN_TIGER', 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "growl_yellow",
+    "abilities": [
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "FaBWTRAddEffect($player, 'IRA_CHAIN_TIGER', 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "mask_of_three_tails",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "DoDrawCard($player, 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "mauling_qi_red",
+    "abilities": [
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "FaBIraCombo($mzID, 0);",
+        "isImplemented": true
+      },
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBIraMauling($player, $mzID);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "pouncing_paws",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "FaBCreateTigers($player);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "pouncing_qi_red",
+    "abilities": [
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "FaBIraCombo($mzID, 1, true);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "predatory_streak_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCreateTigers($player, 1);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "predatory_streak_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBCreateTigers($player, 2);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "qi_unleashed_red",
+    "abilities": [
+      {
+        "macroName": "AttackDeclared",
+        "abilityCode": "FaBIraCombo($mzID, 4);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "tearing_shuko",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "FaBWTRAddEffect($player, 'IRA_NEXT_TIGER', 2);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "tiger_eye_reflex_blue",
+    "abilities": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "FaBCreateTigers($player, 1, 0, true);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "tiger_eye_reflex_yellow",
+    "abilities": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "FaBCreateTigers($player, 1, 0, true);",
+        "isImplemented": true
+      }
+    ]
+  }
+]

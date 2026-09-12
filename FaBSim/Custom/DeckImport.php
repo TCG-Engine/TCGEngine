@@ -250,6 +250,13 @@ function FaBNormalizeTalisharDeckPayload($payload) {
 }
 
 function FaBFinalizeResolvedDeck($result) {
+    foreach(array_merge($result['mainDeck']??[],$result['inventory']??[]) as $id){
+        if(in_array('Ephemeral',(array)CardCard_keywords($id),true)){
+            $result['success']=false;
+            $result['message']=CardName($id).' cannot start in your deck or inventory (Ephemeral).';
+            return $result;
+        }
+    }
     if ($result['hero'] === '' || empty($result['mainDeck'])) {
         $result['message'] = 'The deck needs a recognized hero and at least one main-deck card.';
         return $result;

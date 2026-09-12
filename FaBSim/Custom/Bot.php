@@ -9,6 +9,7 @@ function BotControllerPendingPlayerForClient(){
     $p=intval(GetPriorityPlayer());return in_array($p,$bots,true)?$p:0;
 }
 function FaBBotKeepValue(object $o,int $p): float {
+    if(FaBIsIraBot($p))return FaBIraKeepValue($o,$p);
     if(FaBIsProfessorBot($p))return FaBProfessorKeepValue($o,$p);
     $v=floatval(CardPower($o->CardID))-floatval(CardCost($o->CardID));
     if(FaBPrintedKeywordIsActive($o->CardID,'Go again'))$v+=2;
@@ -76,6 +77,7 @@ function FaBBotAct(int $p): bool {
             }elseif($o->CardID==='art_of_war_yellow')$v=($p===intval(GetTurnPlayer())&&FaBHandCount($p)>=3&&$s['window']==='ACTION')?20:-100;
             elseif($o->CardID==='rise_from_the_ashes_red')$v=FaBHandCount($p)>1?14:-100;
             if(FaBIsProfessorBot($p))$v=FaBProfessorPlayScore($p,$o,$z);
+            if(FaBIsIraBot($p))$v=FaBIraPlayScore($p,$o,$z);
             $candidates[]=[$v,'PLAY',$ref];
         }
         if(FaBWTRCanActivate($p,$ref)){
@@ -86,6 +88,7 @@ function FaBBotAct(int $p): bool {
             if($o->CardID==='fyendals_spring_tunic'&&$p===intval(GetTurnPlayer())&&intval(GetResources($p))<1)$v=17;
             if($o->CardID==='stubby_hammerers'&&FaBHandCount($p)>=3)$v=18;
             if($o->CardID==='snapdragon_scalers'&&FaBHandCount($p)>0){$attack=FaBFindUID(intval($s['attackUID']));if($attack&&!FaBAttackHasGoAgain($s,$attack['object']))$v=15;}
+            if(FaBIsIraBot($p))$v=FaBIraAbilityScore($p,$o,$v);
             $candidates[]=[$v,'ACTIVATE',$ref];
         }
         if(FaBCanArsenal($p,$ref)){
