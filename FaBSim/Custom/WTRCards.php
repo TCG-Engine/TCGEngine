@@ -88,8 +88,8 @@ function FaBWTRCanPlay(int $player, array $found, array $state): bool {
         if ($base === 'ironsong_response' && !FaBWTRDefendedFromHand($state)) return false;
         return FaBWTRIsWeapon($obj);
     }
-    if (FaBHasType($id, 'Defense Reaction') && $found['zone'] === 'Hand' && FaBCurrentAttackHasKeyword($state,'Dominate') && FaBHandDefendingCount($state) >= 1) return false;
-    if (FaBHasType($id, 'Defense Reaction') && $state['window'] === 'REACTION') return intval($state['defender']) === $player;
+    if (FaBHasType($id, 'Defense Reaction') && $found['zone'] === 'Hand' && FaBCurrentAttackHasKeyword($state,'Dominate') && FaBHandDefendingCount($state,$player) >= 1) return false;
+    if (FaBHasType($id, 'Defense Reaction') && $state['window'] === 'REACTION') return FaBIsDefendingHero($player,$state);
     return true;
 }
 
@@ -150,6 +150,7 @@ function FaBWTRCardPlayed(int $player, string $mzID, string $cardID, string $fro
     FaBWTRSetEffects($player, $remaining);
 
     FaBFaiCardPlayed($player,$obj);
+    FaBARCCardPlayed($player,$obj,$fromZone);
 
     if (FaBWTRIsAttackAction($obj) || FaBWTRIsWeapon($obj)) {
         foreach(GetArena($player)as$aura)if(is_object($aura)&&empty($aura->removed)&&$aura->CardID==='quicken'){
@@ -361,10 +362,12 @@ function FaBWTRCanActivate(int $player,string $mzID):bool {
     $f=FaBIdentityFromMZ($mzID);if($f===null||$f['player']!==$player)return false;
     $state=FaBGetState();if($state['pendingPayment']!==null)return false;
     $id=$f['object']->CardID;
-    $weapons=['anothos'=>3,'romping_club'=>2,'dawnblade'=>1,'harmonized_kodachi'=>1];
+    if(FaBARCAbilityActions($player,$f))return true;
+    $weapons=['anothos'=>3,'romping_club'=>2,'dawnblade'=>1,'harmonized_kodachi'=>1,'nebula_blade'=>2,'teklo_plasma_pistol'=>0,'teklo_blaster'=>FaBTekloBlasterCost($player)];
     if(isset($weapons[$id])){
-        $spec=['timing'=>'ACTION','cost'=>$weapons[$id]];
-        return $f['zone']==='Weapons'&&intval(GetTurnPlayer())===$player&&intval($f['object']->Status??2)===2&&in_array($state['window'],['ACTION','RESOLUTION'],true)&&intval(GetActionPoints($player))>0&&FaBAvailablePitch($player)>=FaBWTRAbilityCost($player,$spec);
+        if(FaBARCEffect($player,'ARC_LEDGER')&&FaBARCEffect($player,'ARC_ACTIONS')>=1)return false;
+        $spec=['timing'=>'ACTION','cost'=>$weapons[$id]+FaBARCEffect($player,'ARC_FIRST_ATTACK_COST')];
+        return $f['zone']==='Weapons'&&intval(GetTurnPlayer())===$player&&($id==='teklo_plasma_pistol'?intval(FaBObjectCounters($f['object'])['STEAM']??0)>0:intval($f['object']->Status??2)===2)&&in_array($state['window'],['ACTION','RESOLUTION'],true)&&intval(GetActionPoints($player))>0&&FaBAvailablePitch($player)>=FaBWTRAbilityCost($player,$spec);
     }
     $spec=FaBWTRAbilitySpec($id);
     return $spec!==null&&FaBWTRAbilityLegal($player,$f,$spec);
@@ -373,15 +376,16 @@ function FaBWTRCanActivate(int $player,string $mzID):bool {
 function FaBWTRActivate(int $player,string $mzID,int $index=0):bool {
     if(!FaBWTRCanActivate($player,$mzID))return false;
     $f=FaBIdentityFromMZ($mzID);$o=$f['object'];$id=$o->CardID;
+    if(isset(FaBARCAbilityActions($player,$f)[$index]))return FaBARCActivate($player,$f,$index);
     SaveUndoVersion($player,'Before activating '.(CardName($id)?:$id));
-    $weapons=['anothos'=>3,'romping_club'=>2,'dawnblade'=>1,'harmonized_kodachi'=>1];
+    $weapons=['anothos'=>3,'romping_club'=>2,'dawnblade'=>1,'harmonized_kodachi'=>1,'nebula_blade'=>2,'teklo_plasma_pistol'=>0,'teklo_blaster'=>FaBTekloBlasterCost($player)];
     if(isset($weapons[$id])){
         $weaponUID=intval($o->UniqueID);
         $target=FaBClaimOrRequestAttackTarget($player,$weaponUID,'ACTIVATE');
         if($target===null)return true;
         if($target===false)return false;
         $stack=AddStack(CardID:$id,Controller:$player,Kind:'ATTACK',SourceZone:'Weapons',SourceUniqueID:$weaponUID,Params:['attackTarget'=>$target]);
-        $cost=FaBWTRAbilityCost($player,['timing'=>'ACTION','cost'=>$weapons[$id]]);
+        $cost=FaBWTRAbilityCost($player,['timing'=>'ACTION','cost'=>$weapons[$id]+FaBARCEffect($player,'ARC_FIRST_ATTACK_COST')]);
         $s=FaBGetState();
         $s['pendingPayment']=['player'=>$player,'uid'=>intval($stack->UniqueID),'weaponUID'=>$weaponUID,'cost'=>$cost,'fromZone'=>'Weapons','kind'=>'ATTACK','isWeaponAttack'=>true,'returnWindow'=>$s['window'],'returnCombatStep'=>$s['combatStep']];
         $s['window']='PITCH';FaBSetState($s);SetConsecutivePasses(0);

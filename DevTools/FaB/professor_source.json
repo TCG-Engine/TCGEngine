@@ -1,0 +1,631 @@
+{
+    "cards": [
+        {
+            "identifier": "apocalypse-automaton-red",
+            "image": "https:\/\/content.fabrary.net\/cards\/TCC011.webp",
+            "name": "Apocalypse Automaton",
+            "setIdentifiers": [
+                "FAB175",
+                "TCC011"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "evo-energy-matrix-blue",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO039-CF.webp",
+            "name": "Evo Energy Matrix",
+            "setIdentifiers": [
+                "EVO039",
+                "TCC008"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "chest",
+            "subtypes": [
+                "Chest",
+                "Evo",
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action",
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "evo-rapid-fire-blue",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO041-CF.webp",
+            "name": "Evo Rapid Fire",
+            "setIdentifiers": [
+                "EVO041",
+                "TCC010"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "evo",
+            "subtypes": [
+                "Evo",
+                "Legs",
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action",
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "evo-scatter-shot-blue",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO040-CF.webp",
+            "name": "Evo Scatter Shot",
+            "setIdentifiers": [
+                "EVO040",
+                "TCC009"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "arms",
+            "subtypes": [
+                "Arms",
+                "Evo",
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action",
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "evo-tekloscope-blue",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO038-CF.webp",
+            "name": "Evo Tekloscope",
+            "setIdentifiers": [
+                "EVO038",
+                "TCC007"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "evo",
+            "subtypes": [
+                "Evo",
+                "Head",
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action",
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "firewall-blue",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO161.webp",
+            "name": "Firewall",
+            "setIdentifiers": [
+                "EVO161",
+                "TCC026"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "block",
+            "types": [
+                "Block"
+            ]
+        },
+        {
+            "identifier": "firewall-red",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO159.webp",
+            "name": "Firewall",
+            "setIdentifiers": [
+                "EVO159",
+                "TCC019"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "block",
+            "types": [
+                "Block"
+            ]
+        },
+        {
+            "identifier": "firewall-yellow",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO160.webp",
+            "name": "Firewall",
+            "setIdentifiers": [
+                "EVO160",
+                "TCC022"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "block",
+            "types": [
+                "Block"
+            ]
+        },
+        {
+            "identifier": "liquid-cooled-mayhem-blue",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO066.webp",
+            "name": "Liquid-Cooled Mayhem",
+            "setIdentifiers": [
+                "EVO066",
+                "LGS200",
+                "TCC023"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "liquid-cooled-mayhem-red",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO064.webp",
+            "name": "Liquid-Cooled Mayhem",
+            "setIdentifiers": [
+                "EVO064",
+                "LGS198",
+                "TCC012"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "mechanical-strength-blue",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO069.webp",
+            "name": "Mechanical Strength",
+            "setIdentifiers": [
+                "EVO069",
+                "LGS226",
+                "TCC024"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "mechanical-strength-red",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO067.webp",
+            "name": "Mechanical Strength",
+            "setIdentifiers": [
+                "EVO067",
+                "LGS224",
+                "TCC013"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "over-loop-red",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO219.webp",
+            "name": "Over Loop",
+            "setIdentifiers": [
+                "1HP205",
+                "ARC020",
+                "EVO219",
+                "LGS013",
+                "LGS032",
+                "TCC014"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "proto-base-arms",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO024.webp",
+            "name": "Proto Base Arms",
+            "setIdentifiers": [
+                "EVO024",
+                "LGS184",
+                "TCC005"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "arms",
+            "subtypes": [
+                "Arms",
+                "Base"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "proto-base-chest",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO023.webp",
+            "name": "Proto Base Chest",
+            "setIdentifiers": [
+                "EVO023",
+                "LGS183",
+                "TCC004"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "base",
+            "subtypes": [
+                "Base",
+                "Chest"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "proto-base-head",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO022.webp",
+            "name": "Proto Base Head",
+            "setIdentifiers": [
+                "EVO022",
+                "LGS182",
+                "TCC003"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "base",
+            "subtypes": [
+                "Base",
+                "Head"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "proto-base-legs",
+            "image": "https:\/\/content.fabrary.net\/cards\/EVO025.webp",
+            "name": "Proto Base Legs",
+            "setIdentifiers": [
+                "EVO025",
+                "LGS185",
+                "TCC006"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "base",
+            "subtypes": [
+                "Base",
+                "Legs"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "teklo-blaster",
+            "image": "https:\/\/content.fabrary.net\/cards\/TCC002-CF.webp",
+            "name": "Teklo Blaster",
+            "setIdentifiers": [
+                "TCC002"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "2h",
+            "subtypes": [
+                "2H",
+                "Gun"
+            ],
+            "total": 1,
+            "type": "weapon",
+            "types": [
+                "Weapon"
+            ]
+        },
+        {
+            "identifier": "throttle-blue",
+            "image": "https:\/\/content.fabrary.net\/cards\/SDA032.webp",
+            "name": "Throttle",
+            "setIdentifiers": [
+                "1HP210",
+                "ARC025",
+                "SDA032",
+                "TCC025"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "throttle-red",
+            "image": "https:\/\/content.fabrary.net\/cards\/SDA018.webp",
+            "name": "Throttle",
+            "setIdentifiers": [
+                "1HP208",
+                "AIO011",
+                "AMX014",
+                "ARC023",
+                "SDA018",
+                "TCC015"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "throttle-yellow",
+            "image": "https:\/\/content.fabrary.net\/cards\/TCC020.webp",
+            "name": "Throttle",
+            "setIdentifiers": [
+                "1HP209",
+                "ARC024",
+                "TCC020"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "under-loop-red",
+            "image": "https:\/\/content.fabrary.net\/cards\/SDA019.webp",
+            "name": "Under Loop",
+            "setIdentifiers": [
+                "EVO216",
+                "SDA019",
+                "TCC016"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "zero-to-sixty-red",
+            "image": "https:\/\/content.fabrary.net\/cards\/SDA020.webp",
+            "name": "Zero to Sixty",
+            "setIdentifiers": [
+                "1HP211",
+                "AIO012",
+                "AMX016",
+                "ARC026",
+                "FAB177",
+                "SDA020",
+                "TCC017"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "zipper-hit-red",
+            "image": "https:\/\/content.fabrary.net\/cards\/SDA021.webp",
+            "name": "Zipper Hit",
+            "setIdentifiers": [
+                "1HP214",
+                "AIO013",
+                "AMX017",
+                "ARC029",
+                "SDA021",
+                "TCC018",
+                "TNP028"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "zipper-hit-yellow",
+            "image": "https:\/\/content.fabrary.net\/cards\/SDA027.webp",
+            "name": "Zipper Hit",
+            "setIdentifiers": [
+                "1HP215",
+                "AIO019",
+                "ARC030",
+                "SDA027",
+                "TCC021",
+                "TNP029"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "professor-teklovossen",
+            "image": "https:\/\/content.fabrary.net\/cards\/TCC001-RF.webp",
+            "name": "Professor Teklovossen",
+            "setIdentifiers": [
+                "HER104",
+                "TCC001"
+            ],
+            "sideboardTotal": 0,
+            "subType": "young",
+            "subtypes": [
+                "Young"
+            ],
+            "total": 1,
+            "type": "hero",
+            "types": [
+                "Hero"
+            ]
+        }
+    ],
+    "format": "ultimate pit fight",
+    "hero": {
+        "identifier": "professor-teklovossen",
+        "image": "https:\/\/content.fabrary.net\/cards\/TCC001-RF.webp",
+        "name": "Professor Teklovossen",
+        "setIdentifiers": [
+            "HER104",
+            "TCC001"
+        ],
+        "sideboardTotal": 0,
+        "subType": "young",
+        "subtypes": [
+            "Young"
+        ],
+        "total": 1,
+        "type": "hero",
+        "types": [
+            "Hero"
+        ]
+    },
+    "name": "Round the Table",
+    "matchups": [],
+    "preferredTurnOrder": "NoPreference",
+    "slug": "01HAXKX6GY6J85NXAQ1FTCFX77"
+}

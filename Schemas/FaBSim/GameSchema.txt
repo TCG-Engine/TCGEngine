@@ -21,6 +21,8 @@ Macro: Name=PlayCard(mzID); ChoiceFunction=DoPlayCard; PrereqFunction=CanPlayCar
 Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
 Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
 Macro: Name=PitchCard(mzID); ChoiceFunction=DoPitchCard; PrereqFunction=CanPitchCard; SourceParam=mzID; Action={}
+Macro: Name=CardPitched(mzID); SourceParam=mzID; Action={}
+Macro: Name=RevealCard(mzID); SourceParam=mzID; Toast=Card; ToastCardParam=mzID; ToastLabel=Revealed; Action={}
 Macro: Name=ResolveCard(mzID); ChoiceFunction=DoResolveCard; SourceParam=mzID; Action={}
 Macro: Name=PrepareCard(mzID); SourceParam=mzID; Action={}
 Macro: Name=ResolveAbility(mzID); SourceParam=mzID; Action={}
@@ -51,6 +53,8 @@ Weapons - CardID:string, Status:number=2, Owner:number=0, Controller:number=0, D
 Display: Visibility=Public, Mode=All, BindTo=WeaponsSlot
 Virtual: SelectionMetadata=FaBSelectionMetadata()
 Virtual: PowerCounters=FaBPowerCounters()
+Virtual: SteamCounters=FaBSteamCounters()
+Counters: SteamCounters=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
 Counters: PowerCounters=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
 Highlight: SelectionMetadata
 Overlay: Status=1:exhausted
@@ -72,6 +76,8 @@ Click: FSM()
 Arena - CardID:string, Status:number=2, Owner:number=0, Controller:number=0, Damage:number=0, UniqueID:number=0, TurnEffects:array[string], Counters:json
 Display: Visibility=Public, Mode=All, BindTo=ArenaSlot
 Virtual: SelectionMetadata=FaBSelectionMetadata()
+Virtual: SteamCounters=FaBSteamCounters()
+Counters: SteamCounters=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
 Highlight: SelectionMetadata
 Overlay: Status=1:exhausted
 Rotation: Status=1:9
@@ -92,7 +98,7 @@ Display: Visibility=Self, Mode=All, BindTo=HandSlot
 Virtual: SelectionMetadata=FaBSelectionMetadata()
 Highlight: SelectionMetadata
 Click: FSM()
-Arsenal - CardID:string, UniqueID:number=0
+Arsenal - CardID:string, UniqueID:number=0, FaceDown:number=1, TurnEffects:array[string], Counters:json
 Display: Visibility=Self, Mode=Single, BindTo=ArsenalSlot
 Virtual: SelectionMetadata=FaBSelectionMetadata()
 Highlight: SelectionMetadata
@@ -100,7 +106,7 @@ Click: FSM()
 Graveyard - CardID:string, UniqueID:number=0
 Display: Visibility=Public, Mode=Single, BindTo=GraveyardSlot
 Banish - CardID:string, UniqueID:number=0, FaceDown:number=0, ReturnAtEndTurn:number=0, PlayableFromBanish:number=0, PlayableChainLink:number=0, Counters:json, TurnEffects:array[string]
-Display: Visibility=Public, Mode=All, BindTo=BanishSlot
+Display: Visibility=Public, Mode=Single, BindTo=BanishSlot
 Virtual: SelectionMetadata=FaBSelectionMetadata()
 Highlight: SelectionMetadata
 Click: FSM()

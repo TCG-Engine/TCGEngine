@@ -9,6 +9,7 @@ function BotControllerPendingPlayerForClient(){
     $p=intval(GetPriorityPlayer());return in_array($p,$bots,true)?$p:0;
 }
 function FaBBotKeepValue(object $o,int $p): float {
+    if(FaBIsProfessorBot($p))return FaBProfessorKeepValue($o,$p);
     $v=floatval(CardPower($o->CardID))-floatval(CardCost($o->CardID));
     if(FaBPrintedKeywordIsActive($o->CardID,'Go again'))$v+=2;
     if($o->CardID==='art_of_war_yellow')$v+=4;
@@ -17,8 +18,13 @@ function FaBBotKeepValue(object $o,int $p): float {
     return $v;
 }
 function FaBBotChoice(int $p,object $d): ?string {
+    if($d->Type==='MZMULTICHOOSE'){
+        $parts=explode('|',$d->Param,3);$refs=array_values(array_filter(explode('&',$parts[2]??''),fn($ref)=>FaBIdentityFromMZ($ref)!==null));
+        return implode('&',array_slice($refs,0,intval($parts[1]??0)));
+    }
     if($d->Type==='MZREARRANGE')return $d->Param;
     if($d->Type==='MZMODAL'){
+        if(FaBIsProfessorBot($p)&&str_contains($d->Tooltip,'Banish_top_card_to_boost'))return FaBProfessorBoostChoice($p);
         $parts=explode('|',$d->Param,3);$n=intval($parts[0]);
         // Art of War: pump the whole chain and exchange an attack for two cards.
         if(str_contains($d->Tooltip,'Art_of_War'))return '0,3';
@@ -49,7 +55,7 @@ function FaBBotAct(int $p): bool {
         $o=FaBIdentityFromMZ($ref)['object'];$keep=FaBBotKeepValue($o,$p);
         if(CanPitchCard($p,$ref))$candidates[]=[100+intval(CardPitch($o->CardID))*5-$keep,'PITCH',$ref];
         if(FaBCanBlock($p,$ref)){
-            $remaining=FaBAttackPower($s)-FaBDefenseValue($s);
+            $remaining=FaBAttackPower($s)-FaBDefenseValue($s,$p);
             $defense=FaBCurrentDefense($o,$p);
             // Preserve attack fuel unless damage is significant or threatens lethal.
             $lethal=$remaining>=intval(GetHealth($p));
@@ -68,18 +74,24 @@ function FaBBotAct(int $p): bool {
                 if(!$go&&FaBHandCount($p)>2)$v-=3;
             }elseif($o->CardID==='art_of_war_yellow')$v=($p===intval(GetTurnPlayer())&&FaBHandCount($p)>=3&&$s['window']==='ACTION')?20:-100;
             elseif($o->CardID==='rise_from_the_ashes_red')$v=FaBHandCount($p)>1?14:-100;
+            if(FaBIsProfessorBot($p))$v=FaBProfessorPlayScore($p,$o,$z);
             $candidates[]=[$v,'PLAY',$ref];
         }
         if(FaBWTRCanActivate($p,$ref)){
             $v=-100;
             if($z==='Weapons')$v=FaBAttackHasGoAgain(array_replace($s,['attacker'=>$p]),$o)?12:1;
+            if($o->CardID==='teklo_blaster')$v=FaBAttackHasGoAgain(array_replace($s,['attacker'=>$p]),$o)?24:6+FaBProfessorPower($p,$o)-FaBTekloBlasterCost($p);
             if($o->CardID==='fai'&&$p===intval(GetTurnPlayer())&&FaBFaiFlames($p)!==''&&FaBFaiChainCount($p)>=3)$v=18;
             if($o->CardID==='fyendals_spring_tunic'&&$p===intval(GetTurnPlayer())&&intval(GetResources($p))<1)$v=17;
             if($o->CardID==='stubby_hammerers'&&FaBHandCount($p)>=3)$v=18;
             if($o->CardID==='snapdragon_scalers'&&FaBHandCount($p)>0){$attack=FaBFindUID(intval($s['attackUID']));if($attack&&!FaBAttackHasGoAgain($s,$attack['object']))$v=15;}
             $candidates[]=[$v,'ACTIVATE',$ref];
         }
-        if(FaBCanArsenal($p,$ref))$candidates[]=[$keep+10,'ARSENAL',$ref];
+        if(FaBCanArsenal($p,$ref)){
+            $savePitch=FaBIsProfessorBot($p)&&count(FaBChoiceRefs($p,'Deck'))<4&&intval(CardPitch($o->CardID))===3;
+            $uselessEvo=FaBIsProfessorBot($p)&&FaBHasType($o,'Evo')&&FaBEvoBase($p,$o)===null;
+            if(!$savePitch&&!$uselessEvo)$candidates[]=[$keep+10,'ARSENAL',$ref];
+        }
     }
     usort($candidates,fn($a,$b)=>$b[0]<=>$a[0]);
     foreach($candidates as [$score,$verb,$ref]){

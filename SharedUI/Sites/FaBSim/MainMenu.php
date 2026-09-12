@@ -58,8 +58,9 @@ body{background:radial-gradient(ellipse at 85% 0,rgba(136,77,35,.18),transparent
     </section>
     <section class="fab-panel" aria-labelledby="fab-play-title">
       <h2 id="fab-play-title">Choose a game</h2><p>Use your deck to start playing.</p>
+      <label for="fab-bot-profile">Bot opponent</label><select id="fab-bot-profile" style="width:100%;padding:8px;margin:6px 0 10px;background:#172428;color:#eee;border:1px solid #56605a;border-radius:6px"><option value="fai">Fai</option><option value="professor">Professor Teklovossen</option></select>
       <div class="fab-modes">
-        <button class="fab-mode featured" onclick="fabJoin(false,false,true)"><span class="fab-mode-icon" aria-hidden="true">F</span><span><strong>Challenge Fai</strong><small>1v1 against the Fai bot. Play at your pace.</small></span><span class="fab-mode-arrow" aria-hidden="true">→</span></button>
+        <button class="fab-mode featured" onclick="fabJoin(false,false,document.getElementById('fab-bot-profile').value)"><span class="fab-mode-icon" aria-hidden="true">B</span><span><strong>Challenge a bot</strong><small>1v1 with your selected opponent.</small></span><span class="fab-mode-arrow" aria-hidden="true">→</span></button>
         <button class="fab-mode" onclick="fabJoin(false)"><span class="fab-mode-icon" aria-hidden="true">2</span><span><strong>Find a match</strong><small>Queue for a 1v1 game against another player.</small></span><span class="fab-mode-arrow" aria-hidden="true">→</span></button>
         <button class="fab-mode" onclick="fabJoin(false,true)"><span class="fab-mode-icon" aria-hidden="true">4</span><span><strong>Ultimate Pit Fight</strong><small>Host a four-player table with friends or bots.</small></span><span class="fab-mode-arrow" aria-hidden="true">→</span></button>
         <button class="fab-mode" onclick="fabJoin(true)"><span class="fab-mode-icon" aria-hidden="true">1</span><span><strong>Goldfish</strong><small>Practice your deck against a passive opponent.</small></span><span class="fab-mode-arrow" aria-hidden="true">→</span></button>
@@ -75,12 +76,12 @@ body{background:radial-gradient(ellipse at 85% 0,rgba(136,77,35,.18),transparent
 </main>
 <script>
 const fabRoot='FaBSim'; let fabLobby='';
-function fabJoin(goldfish,upf=false,faiBot=false){
+function fabJoin(goldfish,upf=false,botProfile=false){
   const deck=document.getElementById('deck-input').value.trim();
   if(!deck){StyledAlert('Paste a deck first.');return;}
   const body=new URLSearchParams({rootName:fabRoot,deckLink:deck,game_type:'casual'});
   if(goldfish) body.set('createGoldfish','1');
-  if(faiBot) body.set('format','bot');
+  if(botProfile){body.set('format','bot');body.set('botProfile',botProfile===true?'fai':botProfile);}
   if(upf){body.set('createPrivate','1');body.set('format','upf');}
   fetch('/TCGEngine/APIs/Lobbies/JoinQueue.php',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body})
     .then(r=>r.json()).then(data=>{if(data.error||data.success===false)throw new Error(data.error||data.message);fabLobby=data.lobbyID||'';if(upf){localStorage.setItem('tcg:lobbyAuth:'+fabLobby,JSON.stringify({authKey:data.authKey,ts:Date.now()}));location.href='/TCGEngine/SharedUI/Sites/FaBSim/WaitingRoom.php?lobby='+encodeURIComponent(fabLobby);return;}if(data.ready)fabOpen(data);else fabPoll(data.playerID,data.authKey);})

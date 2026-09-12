@@ -1,0 +1,466 @@
+[
+  {
+    "id": "apocalypse_automaton_red",
+    "name": "Apocalypse Automaton",
+    "pitch": "1",
+    "cost": "3",
+    "power": "6",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Evo Upgrade"
+    ],
+    "functional_text_plain": "Play this only if you have 1 or more Evos equipped.\nEvo Upgrade - This attacks up to X target opposing heroes, where X is the number of Evos you have equipped."
+  },
+  {
+    "id": "evo_energy_matrix_blue",
+    "name": "Evo Energy Matrix",
+    "pitch": "3",
+    "cost": "3",
+    "power": "",
+    "defense": "2",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Equipment",
+      "Evo",
+      "Chest"
+    ],
+    "card_keywords": [
+      "Transform",
+      "Battleworn"
+    ],
+    "functional_text_plain": "If you have a base chest equipped, transform it into this, then equip this.\nYour Teklo Blaster costs {r} less to activate for each opposing hero.\nBattleworn"
+  },
+  {
+    "id": "evo_rapid_fire_blue",
+    "name": "Evo Rapid Fire",
+    "pitch": "3",
+    "cost": "3",
+    "power": "",
+    "defense": "2",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Equipment",
+      "Evo",
+      "Legs"
+    ],
+    "card_keywords": [
+      "Transform",
+      "Battleworn"
+    ],
+    "functional_text_plain": "If you have a base legs equipped, transform it into this, then equip this.\nYour Teklo Blaster attacks get go again.\nBattleworn"
+  },
+  {
+    "id": "evo_scatter_shot_blue",
+    "name": "Evo Scatter Shot",
+    "pitch": "3",
+    "cost": "3",
+    "power": "",
+    "defense": "2",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Equipment",
+      "Evo",
+      "Arms"
+    ],
+    "card_keywords": [
+      "Transform",
+      "Battleworn"
+    ],
+    "functional_text_plain": "If you have a base arms equipped, transform it into this, then equip this.\nYour Teklo Blaster gets +1{p} for each opposing hero.\nBattleworn"
+  },
+  {
+    "id": "evo_tekloscope_blue",
+    "name": "Evo Tekloscope",
+    "pitch": "3",
+    "cost": "3",
+    "power": "",
+    "defense": "2",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Equipment",
+      "Evo",
+      "Head"
+    ],
+    "card_keywords": [
+      "Transform",
+      "Battleworn"
+    ],
+    "functional_text_plain": "If you have a base head equipped, transform it into this, then equip this.\nYour Teklo Blaster attacks can target any opposing hero.\nBattleworn"
+  },
+  {
+    "id": "firewall_red",
+    "name": "Firewall",
+    "pitch": "1",
+    "cost": "",
+    "power": "",
+    "defense": "4",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Block"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When this defends, reveal the top card of your deck. If it's an Evo, put it on top of your deck. Otherwise, put it on the bottom."
+  },
+  {
+    "id": "firewall_yellow",
+    "name": "Firewall",
+    "pitch": "2",
+    "cost": "",
+    "power": "",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Block"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When this defends, reveal the top card of your deck. If it's an Evo, put it on top of your deck. Otherwise, put it on the bottom."
+  },
+  {
+    "id": "firewall_blue",
+    "name": "Firewall",
+    "pitch": "3",
+    "cost": "",
+    "power": "",
+    "defense": "2",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Block"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When this defends, reveal the top card of your deck. If it's an Evo, put it on top of your deck. Otherwise, put it on the bottom."
+  },
+  {
+    "id": "liquid_cooled_mayhem_red",
+    "name": "Liquid-Cooled Mayhem",
+    "pitch": "1",
+    "cost": "4",
+    "power": "6",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Evo Upgrade"
+    ],
+    "functional_text_plain": "Evo Upgrade - This costs {r} less to play for each Evo you have equipped."
+  },
+  {
+    "id": "liquid_cooled_mayhem_blue",
+    "name": "Liquid-Cooled Mayhem",
+    "pitch": "3",
+    "cost": "4",
+    "power": "4",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Evo Upgrade"
+    ],
+    "functional_text_plain": "Evo Upgrade - This costs {r} less to play for each Evo you have equipped."
+  },
+  {
+    "id": "mechanical_strength_red",
+    "name": "Mechanical Strength",
+    "pitch": "1",
+    "cost": "3",
+    "power": "5",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Evo Upgrade"
+    ],
+    "functional_text_plain": "Evo Upgrade - This gets +X{p}, where X is the number of Evos you have equipped."
+  },
+  {
+    "id": "mechanical_strength_blue",
+    "name": "Mechanical Strength",
+    "pitch": "3",
+    "cost": "3",
+    "power": "3",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Evo Upgrade"
+    ],
+    "functional_text_plain": "Evo Upgrade - This gets +X{p}, where X is the number of Evos you have equipped."
+  },
+  {
+    "id": "over_loop_red",
+    "name": "Over Loop",
+    "pitch": "1",
+    "cost": "2",
+    "power": "5",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost\nWhen this hits, put it on the bottom of its owner's deck."
+  },
+  {
+    "id": "professor_teklovossen",
+    "name": "Professor Teklovossen",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "health": "20",
+    "types": [
+      "Mechanologist",
+      "Hero",
+      "Young"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Evos cost {r} less to play for each opposing hero.\nYou may play Evos from your banished zone."
+  },
+  {
+    "id": "proto_base_arms",
+    "name": "Proto Base Arms",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Equipment",
+      "Base",
+      "Arms"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": ""
+  },
+  {
+    "id": "proto_base_chest",
+    "name": "Proto Base Chest",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Equipment",
+      "Base",
+      "Chest"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": ""
+  },
+  {
+    "id": "proto_base_head",
+    "name": "Proto Base Head",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Equipment",
+      "Base",
+      "Head"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": ""
+  },
+  {
+    "id": "proto_base_legs",
+    "name": "Proto Base Legs",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Equipment",
+      "Base",
+      "Legs"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": ""
+  },
+  {
+    "id": "teklo_blaster",
+    "name": "Teklo Blaster",
+    "pitch": "",
+    "cost": "",
+    "power": "2",
+    "defense": "",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Weapon",
+      "Gun",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Once per Turn Action - {r}{r}{r}: Attack"
+  },
+  {
+    "id": "throttle_red",
+    "name": "Throttle",
+    "pitch": "1",
+    "cost": "2",
+    "power": "6",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  },
+  {
+    "id": "throttle_yellow",
+    "name": "Throttle",
+    "pitch": "2",
+    "cost": "2",
+    "power": "5",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  },
+  {
+    "id": "throttle_blue",
+    "name": "Throttle",
+    "pitch": "3",
+    "cost": "2",
+    "power": "4",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  },
+  {
+    "id": "under_loop_red",
+    "name": "Under Loop",
+    "pitch": "1",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost\nWhen this hits, put it on the bottom of its owner's deck."
+  },
+  {
+    "id": "zero_to_sixty_red",
+    "name": "Zero to Sixty",
+    "pitch": "1",
+    "cost": "0",
+    "power": "4",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  },
+  {
+    "id": "zipper_hit_red",
+    "name": "Zipper Hit",
+    "pitch": "1",
+    "cost": "1",
+    "power": "5",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  },
+  {
+    "id": "zipper_hit_yellow",
+    "name": "Zipper Hit",
+    "pitch": "2",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "health": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  }
+]

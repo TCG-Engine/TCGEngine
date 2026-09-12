@@ -14,6 +14,7 @@ class FaBLobbyAdapter implements LobbyAdapter, LobbyBotAdapter {
         return $this->wantsWaitingRoom($lobby) ? [
             'goldfish' => ['name' => 'Goldfish bot', 'description' => '20 health; passes priority and skips its turns.'],
             'fai' => ['name' => 'Fai · Heuristic bot', 'description' => 'Draconic Ninja: attacks, blocks, pitches, and builds combat chains.'],
+            'professor' => ['name' => 'Professor Teklovossen · Heuristic bot', 'description' => 'Round the Table: upgrades Evos, boosts attacks, and fires Teklo Blaster.'],
         ] : [];
     }
 

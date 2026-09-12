@@ -1,0 +1,137 @@
+[
+  {
+    "cardId": "apocalypse_automaton_red",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$targets = FaBAutomatonTargets($player);\n$maximum = min(FaBEvoCount($player), count(FaBOpponents($player)));\n$chosen = await $player.MZMultiChoose($targets, 0, $maximum, \"Choose_heroes_for_Apocalypse_Automaton\");\nFaBAutomatonPrepare($player, $uid, $chosen);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "evo_energy_matrix_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBEvoEquip($player, $mzID);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "evo_rapid_fire_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBEvoEquip($player, $mzID);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "evo_scatter_shot_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBEvoEquip($player, $mzID);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "evo_tekloscope_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBEvoEquip($player, $mzID);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "firewall_blue",
+    "abilities": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "FaBFirewall($player);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "firewall_red",
+    "abilities": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "FaBFirewall($player);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "firewall_yellow",
+    "abilities": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "FaBFirewall($player);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "liquid_cooled_mayhem_blue",
+    "abilities": []
+  },
+  {
+    "cardId": "liquid_cooled_mayhem_red",
+    "abilities": []
+  },
+  {
+    "cardId": "mechanical_strength_blue",
+    "abilities": []
+  },
+  {
+    "cardId": "mechanical_strength_red",
+    "abilities": []
+  },
+  {
+    "cardId": "proto_base_arms",
+    "abilities": []
+  },
+  {
+    "cardId": "proto_base_chest",
+    "abilities": []
+  },
+  {
+    "cardId": "proto_base_head",
+    "abilities": []
+  },
+  {
+    "cardId": "proto_base_legs",
+    "abilities": []
+  },
+  {
+    "cardId": "teklo_blaster",
+    "abilities": []
+  },
+  {
+    "cardId": "under_loop_red",
+    "abilities": [
+      {
+        "macroName": "Hit",
+        "abilityCode": "FaBARCToDeck($player, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), false);",
+        "isImplemented": true
+      },
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nif (count(FaBChoiceRefs($player, 'Deck')) > 0) {\n $boost = await $player.Modal(1, 1, \"Boost&Do_not_boost\", \"Banish_top_card_to_boost\");\n if ($boost === '0') { FaBARCBoost($player, $uid); }\n}\nFaBFinishPreparedCard($uid);",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "professor_teklovossen",
+    "abilities": []
+  }
+]

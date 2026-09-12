@@ -216,7 +216,9 @@
         : new Player(1, $deckLink, $preconstructedDeck, $joiningUserId));
     if ($isFaBBot) {
       $secondPlayer = new Player(2, '', '');
-      $secondPlayer->setBotProfile('fai');
+      $faBBotProfile=strval($_POST['botProfile']??'fai');
+      if(!in_array($faBBotProfile,['fai','professor'],true))throw new InvalidArgumentException('Unknown FaB bot profile.');
+      $secondPlayer->setBotProfile($faBBotProfile);
       $secondPlayer->setDeckOk(true);
       $secondPlayer->setReady(true);
     } else if ($isAzukiRlBot) {

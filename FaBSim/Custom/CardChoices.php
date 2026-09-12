@@ -61,12 +61,12 @@ function FaBActionGraveChoices(int $player, int $excludedUID): string {
 }
 
 function FaBRevealChoices(int $player, string $choices): void {
-    $names = [];
     foreach (explode('&',$choices) as $ref) {
         $found = FaBIdentityFromMZ($ref);
-        if ($found !== null) $names[] = CardName($found['object']->CardID).' ('.CardPitch($found['object']->CardID).')';
+        // Publish through the shared Events feed without starting a decision or
+        // replacing the source parameters of the card currently resolving.
+        if ($found !== null) IncrementMacroGameIndexCard('RevealCard', $player, $found['object']->CardID);
     }
-    $state = FaBGetState(); $state['reveal'] = $names ? 'Player '.$player.' revealed: '.implode(', ',$names) : ''; FaBSetState($state);
 }
 
 function FaBSetPreparedMode(int $uid, int $mode): void {
@@ -143,8 +143,8 @@ function FaBAddEnergyCounter(int $uid): void {
     if($f!==null){$n=intval(FaBObjectCounters($f['object'])['ENERGY']??0);if($n<3)FaBSetObjectCounter($f['object'],'ENERGY',$n+1);}
 }
 
-function FaBHandDefendingCount(array $state): int {
+function FaBHandDefendingCount(array $state, ?int $defender=null): int {
     $count=0;
-    foreach(GetCombatChain(intval($state['defender']))as$obj)if(is_object($obj)&&empty($obj->removed)&&intval($obj->ChainLink)===intval($state['chainLink'])&&$obj->FromZone==='Hand'&&in_array($obj->Role,['DEFENSE','DEFENSE_REACTION'],true))++$count;
+    foreach(GetCombatChain($defender??intval($state['defender']))as$obj)if(is_object($obj)&&empty($obj->removed)&&intval($obj->ChainLink)===intval($state['chainLink'])&&$obj->FromZone==='Hand'&&in_array($obj->Role,['DEFENSE','DEFENSE_REACTION'],true))++$count;
     return $count;
 }

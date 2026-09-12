@@ -40,6 +40,7 @@ function FaBWTRAbilityLegal(int $player, array $found, array $spec): bool {
     if($found['zone']==='Hero'&&!FaBWTRHeroActive($player))return false;
     if($spec['once']&&intval(FaBObjectCounters($obj)['ACTIVATED_TURN']??0)===intval(GetTurnNumber()))return false;
     if($spec['timing']==='ACTION'&&($player!==intval(GetTurnPlayer())||$state['window']!=='ACTION'||intval(GetActionPoints($player))<1))return false;
+    if($spec['timing']==='ACTION'&&FaBARCEffect($player,'ARC_LEDGER')&&FaBARCEffect($player,'ARC_ACTIONS')>=1)return false;
     if($spec['timing']==='REACTION'){
         if($state['window']!=='REACTION'||intval($state['attacker'])!==$player)return false;
         $attack=FaBFindUID(intval($state['attackUID']));
@@ -67,8 +68,10 @@ function FaBWTRAnnounceAbility(int $player, array $found, array $spec): bool {
 }
 
 function FaBWTRPayAbilityCosts(int $player, object $stack): void {
+    if(isset($stack->Params['arcSpec'])){FaBARCPayAbility($player,$stack);return;}
     $spec=FaBWTRAbilitySpec($stack->CardID);$found=FaBFindUID(intval($stack->SourceUniqueID));
     if($spec===null||$found===null)return;
+    if($spec['timing']==='ACTION')FaBARCRecordAction($player);
     $obj=$found['object'];
     if($spec['once'])FaBSetObjectCounter($obj,'ACTIVATED_TURN',intval(GetTurnNumber()));
     if($stack->CardID==='fyendals_spring_tunic')FaBSetObjectCounter($obj,'ENERGY',intval(FaBObjectCounters($obj)['ENERGY']??0)-3);
@@ -77,6 +80,7 @@ function FaBWTRPayAbilityCosts(int $player, object $stack): void {
 }
 
 function FaBWTRResolveAbility(int $player, object $stack): void {
+    if(isset($stack->Params['arcSpec'])){FaBARCResolveAbility($player,$stack);return;}
     $id=$stack->CardID;$spec=FaBWTRAbilitySpec($id);
     if($spec===null)return;
     $source=FaBFindUID(intval($stack->SourceUniqueID));

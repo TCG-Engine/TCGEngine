@@ -1,11 +1,11 @@
 <?php
 
-// Max seats a sim supports. Twin Suns (SWUSim) runs up to 4 seats; every other sim is 2-player.
+// Max seats a sim supports. Twin Suns (SWUSim) and UPF (FaBSim) run up to 4 seats.
 // Callers pass this into the viewer helpers so a real seat 3/4 is recognized as a player instead of
 // falling through to the legacy "3 = spectator" convention (see NormalizeViewerIdentity).
 function SimGameMaxSeats($rootName)
 {
-  return (strval($rootName) === 'SWUSim') ? 4 : 2;
+  return in_array(strval($rootName), ['SWUSim', 'FaBSim'], true) ? 4 : 2;
 }
 
 function NormalizeViewerIdentity($rawPlayerID, $maxSeats = 2)

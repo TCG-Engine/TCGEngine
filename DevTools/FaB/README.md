@@ -158,3 +158,98 @@ Checks cover new card mechanics, generated await continuations, all-seat lobby
 configuration, human-decision gating, and a full four-bot match. Browser checks
 confirmed Fai setup, bot transport, equipment activation, and attack announcement.
 Chain-link last-known properties follow [CR 7.0.3c](https://rules.fabtcg.com/en/cr/07-combat/).
+
+## Arcane Rising (ARC)
+
+`arc_catalog.json` contains all 219 ARC printing identities, including pitch
+variants, heroes, equipment and tokens. It was extracted from the local FaB card
+source cache by `printings[].set_id == "ARC"`, rather than the card's first set.
+`build_arc_abilities.py` produces the complete, reviewable CardEditor snapshot
+`arc_abilities.json` and fails if any identity lacks an implementation. Existing
+Art of War code is reused from the Fai snapshot. Shared keyword and cost mechanics
+also implement cards that need no individual macro body.
+
+The implementation covers Mechanologist boost/items/steam and Dash setup;
+Ranger face-up arsenal, arrows, reload and Azalea; Runeblade Runechants and
+Viserai; Wizard instant permissions, arcane damage and barrier payments; and the
+set's generic cards and equipment. Custom runtime helpers live in `ARCCards.php`
+and `ARCAbilities.php`; interactive choices live in generated card continuations.
+Arsenal visibility and steam counters are defined through schema/code generation.
+
+Targeting uses absolute seat references in both duel and UPF. Spell targeting
+respects UPF adjacency independently of combat focus, with the multiple-hero
+exception for Forked Lightning. Runechants choose targets before priority resumes.
+Cross-player prevention choices retain the original spell controller. Face-down
+arsenal and private opt/search choices remain hidden from other seats.
+
+Rules references: [ARC release notes](https://fabtcg.com/rules-and-policy-center/release-notes/arcane-rising/),
+[UPF targeting](https://rules.fabtcg.com/en/trp/09-special-formats/), and
+[Forked Lightning errata](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/errata-bulletins/errata-bulletin-5/).
+
+Use the card-code database configured for the installation, then run:
+
+```powershell
+python DevTools/FaB/build_arc_abilities.py
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/arc_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/arc_test.php
+php DevTools/FaB/fai_bot_test.php
+./DevTools/FaB/arc_lobby_test.ps1
+```
+
+The importer refuses to overwrite different existing authored code; merge those
+cards through CardEditor before retrying. Hard-refresh after regeneration.
+
+ARC tests cover all 218 authored continuations from seat four plus targeted
+assertions for duel/UPF spells, barrier, Forked Lightning, boost, Runechants,
+Kano, Dash, arsenal, search, pitch/opt and hit effects. HTTP tests exercise a
+four-hero lobby, seat-four setup and private-zone visibility, then Dash setup
+through the main-menu duel route against Fai. These are regression and coverage
+checks, not exhaustive proofs of every combination across sets. The existing
+Fai bot remains the bot opponent; ARC-specific bot profiles are not added here.
+
+## Professor Teklovossen bot — Round the Table
+
+The `professor` profile uses the exact 40-card main deck and five starting weapon/
+equipment cards from [Fabrary 01HAXKX6GY6J85NXAQ1FTCFX77](https://fabrary.net/decks/01HAXKX6GY6J85NXAQ1FTCFX77).
+`professor_source.json` pins the public export; `FaBSim/ProfessorDeck.json` pins
+its normalized deck. `professor_catalog.json` records the 26 card identities and
+their rules text. Seven identities reuse ARC implementations; the additive
+`professor_abilities.json` snapshot covers the remaining 19.
+
+The shared bot transport now supports both `fai` and `professor`. The Professor
+is selectable per UPF slot and through the main-menu bot selector for 1v1.
+Existing duel requests without `botProfile` continue selecting Fai.
+
+The Professor prioritizes missing Evo upgrades (especially Matrix and Rapid Fire),
+plays eligible Evos from banish, retains useful blue pitch cards, uses equipment
+and low-value cards to block, and boosts when its known resources support a
+follow-up. It uses upgraded Blaster before other attacks when it grants go again,
+and targets multiple legal heroes with Apocalypse Automaton. It does not inspect
+opponents' hands or its deck order. These are greedy heuristics, not a search bot;
+UPF-scaled Professor cards are naturally less efficient in a duel.
+
+Evos are deck cards rather than starting equipment. Transformation stores base
+cards as public subcards, clears their old counters/effects, and equips the Evo;
+cards blocked from hand do not count as equipped Evos. Equipment on the combat
+chain continues supplying equipped effects. Apocalypse Automaton supports zero
+through X targets, clockwise defense declaration, a shared reaction step,
+separate defense/damage totals, and elimination during multi-target damage.
+The combat popup displays each target's damage separately.
+
+Rules follow the [Bright Lights / Round the Table release notes](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/bright-lights-round-the-table/).
+
+After importing ARC, use the installation's configured card-code database:
+
+```powershell
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/professor_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/professor_test.php
+./DevTools/FaB/professor_lobby_test.ps1
+```
+
+Tests cover exact deck import, 1v1/UPF cost scaling, transformation/subcards,
+Blaster upgrades, Firewall, Under Loop, Apocalypse's targeting and independent
+defense reactions, and complete seeded duel/mirror/mixed bot matches. HTTP checks
+exercise per-slot lobby selection and the duel profile route. Browser checks
+cover the menu selector and playing/pitching/equipping an Evo.

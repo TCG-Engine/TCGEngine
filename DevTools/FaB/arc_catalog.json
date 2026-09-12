@@ -1,0 +1,3465 @@
+[
+  {
+    "id": "absorb_in_aether_red",
+    "name": "Absorb in Aether",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "4",
+    "types": [
+      "Wizard",
+      "Defense Reaction"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "The next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus 2."
+  },
+  {
+    "id": "absorb_in_aether_yellow",
+    "name": "Absorb in Aether",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Defense Reaction"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "The next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus 2."
+  },
+  {
+    "id": "absorb_in_aether_blue",
+    "name": "Absorb in Aether",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Wizard",
+      "Defense Reaction"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "The next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus 2."
+  },
+  {
+    "id": "achilles_accelerator",
+    "name": "Achilles Accelerator",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Mechanologist",
+      "Equipment",
+      "Legs"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 1"
+    ],
+    "functional_text_plain": "Instant - Destroy Achilles Accelerator: Gain 1 action point. Activate this ability only if you have boosted this turn.\nArcane Barrier 1"
+  },
+  {
+    "id": "aether_flare_red",
+    "name": "Aether Flare",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 3 arcane damage to target opposing hero.\nThe next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus X, where X is the damage dealt by Aether Flare."
+  },
+  {
+    "id": "aether_flare_yellow",
+    "name": "Aether Flare",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 2 arcane damage to target opposing hero.\nThe next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus X, where X is the damage dealt by Aether Flare."
+  },
+  {
+    "id": "aether_flare_blue",
+    "name": "Aether Flare",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 1 arcane damage to target opposing hero.\nThe next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus X, where X is the damage dealt by Aether Flare."
+  },
+  {
+    "id": "aether_sink_yellow",
+    "name": "Aether Sink",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Item"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Aether Sink enters the arena with a steam counter on it.\nAction - {r}: If there are no steam counters on Aether Sink, put a steam counter on it. Go again\nInstant - Remove a steam counter from Aether Sink: Aether Sink gains Arcane Barrier 2 until end of turn."
+  },
+  {
+    "id": "aether_spindle_red",
+    "name": "Aether Spindle",
+    "pitch": "1",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt X"
+    ],
+    "functional_text_plain": "Deal 4 arcane damage to target opposing hero.\nOpt X, where X is the damage dealt by Aether Spindle."
+  },
+  {
+    "id": "aether_spindle_yellow",
+    "name": "Aether Spindle",
+    "pitch": "2",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt X"
+    ],
+    "functional_text_plain": "Deal 3 arcane damage to target opposing hero.\nOpt X, where X is the damage dealt by Aether Spindle."
+  },
+  {
+    "id": "aether_spindle_blue",
+    "name": "Aether Spindle",
+    "pitch": "3",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt X"
+    ],
+    "functional_text_plain": "Deal 2 arcane damage to target opposing hero.\nOpt X, where X is the damage dealt by Aether Spindle."
+  },
+  {
+    "id": "amplify_the_arknight_red",
+    "name": "Amplify the Arknight",
+    "pitch": "1",
+    "cost": "3",
+    "power": "6",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "This costs {r} less to play for each Runechant you control."
+  },
+  {
+    "id": "amplify_the_arknight_yellow",
+    "name": "Amplify the Arknight",
+    "pitch": "2",
+    "cost": "3",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Amplify the Arknight costs {r} less to play for each Runechant you control."
+  },
+  {
+    "id": "amplify_the_arknight_blue",
+    "name": "Amplify the Arknight",
+    "pitch": "3",
+    "cost": "3",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "This costs {r} less to play for each Runechant you control."
+  },
+  {
+    "id": "arcanite_skullcap",
+    "name": "Arcanite Skullcap",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "1",
+    "types": [
+      "Generic",
+      "Equipment",
+      "Head"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 3",
+      "Battleworn"
+    ],
+    "functional_text_plain": "If you have less {h} than your opponent, Arcanite Skullcap gains +1{d} and Arcane Barrier 3.\nBattleworn"
+  },
+  {
+    "id": "arknight_ascendancy_red",
+    "name": "Arknight Ascendancy",
+    "pitch": "1",
+    "cost": "6",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Viserai Specialization",
+      "Dominate"
+    ],
+    "functional_text_plain": "Viserai Specialization\nThis costs {r} less to play for each Runechant you control.\nWhen this hits, create Runechant tokens equal to the damage dealt this way.\nDominate"
+  },
+  {
+    "id": "art_of_war_yellow",
+    "name": "Art of War",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Instant"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Choose 2;\n\nAttack action cards you control gain +1{p} and +1{d} this turn.\nThe next attack action card you play this turn gains go again.\nUntil end of turn, you may defend with attack action cards from arsenal.\nYou may banish an attack action card from your hand. If you do, draw 2 cards."
+  },
+  {
+    "id": "azalea",
+    "name": "Azalea",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Ranger",
+      "Hero",
+      "Young"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Once per Turn Action - 0: Put a card from your arsenal on the bottom of your deck. If you do, put the top card of your deck face up into your arsenal. If it's an arrow card, it gains dominate until end of turn. Go again"
+  },
+  {
+    "id": "azalea_ace_in_the_hole",
+    "name": "Azalea, Ace in the Hole",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Ranger",
+      "Hero"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Once per Turn Action - 0: Put a card from your arsenal on the bottom of your deck. If you do, put the top card of your deck face up into your arsenal. If it's an arrow card, it gains dominate until end of turn. Go again"
+  },
+  {
+    "id": "back_alley_breakline_red",
+    "name": "Back Alley Breakline",
+    "pitch": "1",
+    "cost": "1",
+    "power": "5",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If an activated ability or action card effect puts Back Alley Breakline face up into a zone from your deck, gain 1 action point."
+  },
+  {
+    "id": "back_alley_breakline_yellow",
+    "name": "Back Alley Breakline",
+    "pitch": "2",
+    "cost": "1",
+    "power": "4",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If an activated ability or action card effect puts Back Alley Breakline face up into a zone from your deck, gain 1 action point."
+  },
+  {
+    "id": "back_alley_breakline_blue",
+    "name": "Back Alley Breakline",
+    "pitch": "3",
+    "cost": "1",
+    "power": "3",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If an activated ability or action card effect puts Back Alley Breakline face up into a zone from your deck, gain 1 action point."
+  },
+  {
+    "id": "become_the_arknight_blue",
+    "name": "Become the Arknight",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [
+      "Viserai Specialization",
+      "Go again"
+    ],
+    "functional_text_plain": "Viserai Specialization\nYou may discard an action card. If you discard an attack action card this way, search your deck for a Runeblade non-attack action card, reveal it, and put it into your hand. If you discard a non-attack action card this way, search your deck for a Runeblade attack action card, reveal it, and put it into your hand. Shuffle. Go again"
+  },
+  {
+    "id": "blazing_aether_red",
+    "name": "Blazing Aether",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [
+      "Kano Specialization"
+    ],
+    "functional_text_plain": "Kano Specialization\nDeal X arcane damage to target hero, where X is the amount of arcane damage you have dealt to that hero this turn."
+  },
+  {
+    "id": "bloodspill_invocation_red",
+    "name": "Bloodspill Invocation",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Go again\nWhen an attack action card you control hits, destroy Bloodspill Invocation then create 3 Runechant tokens.\nWhen your hero is dealt damage, destroy Bloodspill Invocation."
+  },
+  {
+    "id": "bloodspill_invocation_yellow",
+    "name": "Bloodspill Invocation",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Go again\nWhen an attack action card you control hits, destroy Bloodspill Invocation then create 2 Runechant tokens.\nWhen your hero is dealt damage, destroy Bloodspill Invocation."
+  },
+  {
+    "id": "bloodspill_invocation_blue",
+    "name": "Bloodspill Invocation",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Go again\nWhen an attack action card you control hits, destroy Bloodspill Invocation then create a Runechant token.\nWhen your hero is dealt damage, destroy Bloodspill Invocation."
+  },
+  {
+    "id": "bracers_of_belief",
+    "name": "Bracers of Belief",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Generic",
+      "Equipment",
+      "Arms"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Action - Destroy Bracers of Belief: Reveal the top card of your deck. If you do, the next attack action card you play this turn, gains +X{p}, where X is 3 minus the pitch value of the card revealed this way. Go again"
+  },
+  {
+    "id": "bulls_eye_bracers",
+    "name": "Bull's Eye Bracers",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Ranger",
+      "Equipment",
+      "Arms"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 1"
+    ],
+    "functional_text_plain": "Action - Destroy Bull's Eye Bracers: If you have no cards in your arsenal, you may put an arrow card from your hand face up into your arsenal. It gains +1{p} until end of turn. Go again\nArcane Barrier 1"
+  },
+  {
+    "id": "cadaverous_contraband_red",
+    "name": "Cadaverous Contraband",
+    "pitch": "1",
+    "cost": "2",
+    "power": "6",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If Cadaverous Contraband hits, you may put a 'non-attack' action card from your graveyard on top of your deck."
+  },
+  {
+    "id": "cadaverous_contraband_yellow",
+    "name": "Cadaverous Contraband",
+    "pitch": "2",
+    "cost": "2",
+    "power": "5",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If Cadaverous Contraband hits, you may put a 'non-attack' action card from your graveyard on top of your deck."
+  },
+  {
+    "id": "cadaverous_contraband_blue",
+    "name": "Cadaverous Contraband",
+    "pitch": "3",
+    "cost": "2",
+    "power": "4",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If Cadaverous Contraband hits, you may put a 'non-attack' action card from your graveyard on top of your deck."
+  },
+  {
+    "id": "chains_of_eminence_red",
+    "name": "Chains of Eminence",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Go again\nWhen Chains of Eminence enters the arena, name a card. The named card can't be pitched, played or used to defend while Chains of Eminence is in the arena.\nAt the beginning of your action phase, destroy Chains of Eminence"
+  },
+  {
+    "id": "cognition_nodes_blue",
+    "name": "Cognition Nodes",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Item"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Action - {r}: If there are no steam counters on Cognition Nodes, put a steam counter on it. Go again\nOnce per Turn Attack Reaction - Remove a steam counter from Cognition Nodes: Target attack action card gains \"When this hits, put it on the bottom of its owner's deck.\""
+  },
+  {
+    "id": "come_to_fight_red",
+    "name": "Come to Fight",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "The next attack action card you play this turn gains +3{p}.\nGo again"
+  },
+  {
+    "id": "come_to_fight_yellow",
+    "name": "Come to Fight",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "The next attack action card you play this turn gains +2{p}.\nGo again"
+  },
+  {
+    "id": "come_to_fight_blue",
+    "name": "Come to Fight",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "The next attack action card you play this turn gains +1{p}.\nGo again"
+  },
+  {
+    "id": "command_and_conquer_red",
+    "name": "Command and Conquer",
+    "pitch": "1",
+    "cost": "2",
+    "power": "6",
+    "defense": "3",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Defense reaction cards can't be played this chain link. When this hits a hero, destroy all cards in their arsenal."
+  },
+  {
+    "id": "convection_amplifier_red",
+    "name": "Convection Amplifier",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Item"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Convection Amplifier enters the arena with 2 steam counters on it. When Convection Amplifier has no steam counters on it, destroy it.\nAction - Remove a steam counter from Convection Amplifier: The next attack action card you play this turn gains dominate. Go again"
+  },
+  {
+    "id": "cracked_bauble_yellow",
+    "name": "Cracked Bauble",
+    "pitch": "2",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Resource"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "(A player may add any number of Cracked Baubles to their card-pool in sealed deck or booster draft formats.)"
+  },
+  {
+    "id": "crown_of_dichotomy",
+    "name": "Crown of Dichotomy",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Runeblade",
+      "Equipment",
+      "Head"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 1"
+    ],
+    "functional_text_plain": "Action - {r}, destroy Crown of Dichotomy: Put target Runeblade attack action card and target Runeblade 'non-attack' action card from your graveyard on top of your deck in any order.\nArcane Barrier 1"
+  },
+  {
+    "id": "crucible_of_aetherweave",
+    "name": "Crucible of Aetherweave",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Wizard",
+      "Weapon",
+      "Staff",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Once per Turn Instant - {r}: The next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus 1."
+  },
+  {
+    "id": "dash",
+    "name": "Dash",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Hero",
+      "Young"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "You may start the game with a Mechanologist item with cost 2 or less in the arena."
+  },
+  {
+    "id": "dash_inventor_extraordinaire",
+    "name": "Dash, Inventor Extraordinaire",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Hero"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "You may start the game with a Mechanologist item with cost 2 or less in the arena."
+  },
+  {
+    "id": "death_dealer",
+    "name": "Death Dealer",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Ranger",
+      "Weapon",
+      "Bow",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Once per Turn Action - {r}: If you have no cards in your arsenal, you may put an arrow card from your hand face up into your arsenal. If you do, draw a card. Go again"
+  },
+  {
+    "id": "dissipation_shield_yellow",
+    "name": "Dissipation Shield",
+    "pitch": "2",
+    "cost": "2",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Item"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Dissipation Shield enters the arena with 4 steam counters on it.\nAt the beginning of your action phase, destroy Dissipation Shield unless you remove a steam counter from it.\nInstant - Destroy Dissipation Shield: The next time your hero would be dealt damage this turn, prevent X damage, where X is the number of steam counters on Dissipation Shield."
+  },
+  {
+    "id": "drawn_to_the_dark_dimension_red",
+    "name": "Drawn to the Dark Dimension",
+    "pitch": "1",
+    "cost": "2",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "This costs {r} less to play for each Runechant you control.\nWhen this attacks, draw a card."
+  },
+  {
+    "id": "drawn_to_the_dark_dimension_yellow",
+    "name": "Drawn to the Dark Dimension",
+    "pitch": "2",
+    "cost": "2",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Drawn to the Dark Dimension costs {r} less to play for each Runechant you control.\nDraw a card."
+  },
+  {
+    "id": "drawn_to_the_dark_dimension_blue",
+    "name": "Drawn to the Dark Dimension",
+    "pitch": "3",
+    "cost": "2",
+    "power": "1",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Drawn to the Dark Dimension costs {r} less to play for each Runechant you control.\nDraw a card."
+  },
+  {
+    "id": "eirinas_prayer_red",
+    "name": "Eirina's Prayer",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Instant"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Reveal the top card of your deck. Prevent the next X arcane damage that would be dealt to your hero this turn, where X is 6 minus the pitch value of the card revealed this way."
+  },
+  {
+    "id": "eirinas_prayer_yellow",
+    "name": "Eirina's Prayer",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Instant"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Reveal the top card of your deck. Prevent the next X arcane damage that would be dealt to your hero this turn, where X is 5 minus the pitch value of the card revealed this way."
+  },
+  {
+    "id": "eirinas_prayer_blue",
+    "name": "Eirina's Prayer",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Instant"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Reveal the top card of your deck. Prevent the next X arcane damage that would be dealt to your hero this turn, where X is 4 minus the pitch value of the card revealed this way."
+  },
+  {
+    "id": "enchanting_melody_red",
+    "name": "Enchanting Melody",
+    "pitch": "1",
+    "cost": "2",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Go again\nIf your hero would be dealt damage, instead destroy Enchanting Melody and prevent 4 damage that source would deal.\nAt the beginning of your end phase, destroy Enchanting Melody unless you have played a 'non-attack' action card this turn."
+  },
+  {
+    "id": "enchanting_melody_yellow",
+    "name": "Enchanting Melody",
+    "pitch": "2",
+    "cost": "2",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Go again\nIf your hero would be dealt damage, instead destroy Enchanting Melody and prevent 3 damage that source would deal.\nAt the beginning of your end phase, destroy Enchanting Melody unless you have played a 'non-attack' action card this turn."
+  },
+  {
+    "id": "enchanting_melody_blue",
+    "name": "Enchanting Melody",
+    "pitch": "3",
+    "cost": "2",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Aura"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Go again\nIf your hero would be dealt damage, instead destroy Enchanting Melody and prevent 2 damage that source would deal.\nAt the beginning of your end phase, destroy Enchanting Melody unless you have played a 'non-attack' action card this turn."
+  },
+  {
+    "id": "endless_arrow_red",
+    "name": "Endless Arrow",
+    "pitch": "1",
+    "cost": "0",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When this hits, put it into its owner's hand."
+  },
+  {
+    "id": "eye_of_ophidia_blue",
+    "name": "Eye of Ophidia",
+    "pitch": "3",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Resource",
+      "Gem"
+    ],
+    "card_keywords": [
+      "Legendary",
+      "Opt 2"
+    ],
+    "functional_text_plain": "Legendary\nWhen you pitch Eye of Ophidia, opt 2."
+  },
+  {
+    "id": "fate_foreseen_red",
+    "name": "Fate Foreseen",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "4",
+    "types": [
+      "Generic",
+      "Defense Reaction"
+    ],
+    "card_keywords": [
+      "Opt 1"
+    ],
+    "functional_text_plain": "Opt 1"
+  },
+  {
+    "id": "fate_foreseen_yellow",
+    "name": "Fate Foreseen",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Generic",
+      "Defense Reaction"
+    ],
+    "card_keywords": [
+      "Opt 1"
+    ],
+    "functional_text_plain": "Opt 1"
+  },
+  {
+    "id": "fate_foreseen_blue",
+    "name": "Fate Foreseen",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Defense Reaction"
+    ],
+    "card_keywords": [
+      "Opt 1"
+    ],
+    "functional_text_plain": "Opt 1"
+  },
+  {
+    "id": "fervent_forerunner_red",
+    "name": "Fervent Forerunner",
+    "pitch": "1",
+    "cost": "0",
+    "power": "3",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Opt 2",
+      "Go again"
+    ],
+    "functional_text_plain": "If Fervent Forerunner hits, opt 2.\nIf Fervent Forerunner is played from arsenal, it gains go again."
+  },
+  {
+    "id": "fervent_forerunner_yellow",
+    "name": "Fervent Forerunner",
+    "pitch": "2",
+    "cost": "0",
+    "power": "2",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Opt 2",
+      "Go again"
+    ],
+    "functional_text_plain": "If Fervent Forerunner hits, opt 2.\nIf Fervent Forerunner is played from arsenal, it gains go again."
+  },
+  {
+    "id": "fervent_forerunner_blue",
+    "name": "Fervent Forerunner",
+    "pitch": "3",
+    "cost": "0",
+    "power": "1",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Opt 2",
+      "Go again"
+    ],
+    "functional_text_plain": "If Fervent Forerunner hits, opt 2.\nIf Fervent Forerunner is played from arsenal, it gains go again."
+  },
+  {
+    "id": "force_sight_red",
+    "name": "Force Sight",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 2",
+      "Go again"
+    ],
+    "functional_text_plain": "The next attack action card you play this turn gains +3{p}.\nIf Force Sight is played from arsenal, opt 2.\nGo again"
+  },
+  {
+    "id": "force_sight_yellow",
+    "name": "Force Sight",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 2",
+      "Go again"
+    ],
+    "functional_text_plain": "The next attack action card you play this turn gains +2{p}.\nIf Force Sight is played from arsenal, opt 2.\nGo again"
+  },
+  {
+    "id": "force_sight_blue",
+    "name": "Force Sight",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 2",
+      "Go again"
+    ],
+    "functional_text_plain": "The next attack action card you play this turn gains +1{p}.\nIf Force Sight is played from arsenal, opt 2.\nGo again"
+  },
+  {
+    "id": "forked_lightning_red",
+    "name": "Forked Lightning",
+    "pitch": "1",
+    "cost": "3",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 2 arcane damage to two target heroes. You may target the same hero twice."
+  },
+  {
+    "id": "grasp_of_the_arknight",
+    "name": "Grasp of the Arknight",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Equipment",
+      "Arms"
+    ],
+    "card_keywords": [
+      "Battleworn"
+    ],
+    "functional_text_plain": "Once per Turn Action - {r}{r}: Create a Runechant token. This ability costs an additional {r} to activate for each Runechant you control. Go again\nBattleworn"
+  },
+  {
+    "id": "hamstring_shot_red",
+    "name": "Hamstring Shot",
+    "pitch": "1",
+    "cost": "1",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If Hamstring Shot hits a hero, their first attack during their next turn costs an additional {r}."
+  },
+  {
+    "id": "hamstring_shot_yellow",
+    "name": "Hamstring Shot",
+    "pitch": "2",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If Hamstring Shot hits a hero, their first attack during their next turn costs an additional {r}."
+  },
+  {
+    "id": "hamstring_shot_blue",
+    "name": "Hamstring Shot",
+    "pitch": "3",
+    "cost": "1",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If Hamstring Shot hits a hero, their first attack during their next turn costs an additional {r}."
+  },
+  {
+    "id": "head_shot_red",
+    "name": "Head Shot",
+    "pitch": "1",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When this is put into your arsenal face up, it gains +2{p} until end of turn."
+  },
+  {
+    "id": "head_shot_yellow",
+    "name": "Head Shot",
+    "pitch": "2",
+    "cost": "1",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When this is put into your arsenal face up, it gains +2{p} until end of turn."
+  },
+  {
+    "id": "head_shot_blue",
+    "name": "Head Shot",
+    "pitch": "3",
+    "cost": "1",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When this is put into your arsenal face up, it gains +2{p} until end of turn."
+  },
+  {
+    "id": "high_octane_red",
+    "name": "High Octane",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Whenever you boost a card this turn, gain 1 action point.\nDraw a card.\nGo again"
+  },
+  {
+    "id": "hyper_driver_red",
+    "name": "Hyper Driver",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Item"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "This enters the arena with 3 steam counters. When it has none, destroy it.\nOnce per turn, when you boost a card, remove a steam counter from this and gain {r}."
+  },
+  {
+    "id": "index_red",
+    "name": "Index",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Look at the top 5 cards of your deck. Put 1 card from among them on top of your deck, and the rest on the bottom of your deck in any order."
+  },
+  {
+    "id": "index_yellow",
+    "name": "Index",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Look at the top 4 cards of your deck. Put 1 card from among them on top of your deck, and the rest on the bottom of your deck in any order."
+  },
+  {
+    "id": "index_blue",
+    "name": "Index",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Look at the top 3 cards of your deck. Put 1 card from among them on top of your deck, and the rest on the bottom of your deck in any order."
+  },
+  {
+    "id": "induction_chamber_red",
+    "name": "Induction Chamber",
+    "pitch": "1",
+    "cost": "2",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Item"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Action - {r}: If there are no steam counters on Induction Chamber, put a steam counter on it. Go again\nOnce per Turn Attack Reaction - Remove a steam counter from Induction Chamber: Target Mechanologist pistol attack gains go again."
+  },
+  {
+    "id": "kano",
+    "name": "Kano",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Wizard",
+      "Hero",
+      "Young"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Instant - {r}{r}{r}: Look at the top card of your deck. If it's a 'non-attack' action card, you may banish it. If you do, you may play it this turn as though it were an instant."
+  },
+  {
+    "id": "kano_dracai_of_aether",
+    "name": "Kano, Dracai of Aether",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Wizard",
+      "Hero"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Instant - {r}{r}{r}: Look at the top card of your deck. If it's a 'non-attack' action card, you may banish it. If you do, you may play it this turn as though it were an instant."
+  },
+  {
+    "id": "lead_the_charge_red",
+    "name": "Lead the Charge",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "The next time you play an action card with cost 0 or greater this turn, gain 1 action point.\nGo again"
+  },
+  {
+    "id": "lead_the_charge_yellow",
+    "name": "Lead the Charge",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "The next time you play an action card with cost 1 or greater this turn, gain 1 action point.\nGo again"
+  },
+  {
+    "id": "lead_the_charge_blue",
+    "name": "Lead the Charge",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "The next time you play an action card with cost 2 or greater this turn, gain 1 action point.\nGo again"
+  },
+  {
+    "id": "lesson_in_lava_yellow",
+    "name": "Lesson in Lava",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [
+      "Kano Specialization"
+    ],
+    "functional_text_plain": "Kano Specialization\nDeal 3 arcane damage to target opposing hero.\nIf Lesson in Lava deals damage, you may search your deck for a Wizard card with {r} cost equal to or less than the damage dealt by Lesson in Lava, reveal it, then shuffle your deck and put it on top of your deck."
+  },
+  {
+    "id": "life_for_a_life_red",
+    "name": "Life for a Life",
+    "pitch": "1",
+    "cost": "1",
+    "power": "4",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "When this is played, if you have less {h} than an opposing hero, it gets go again.\nWhen this hits, gain 1{h}."
+  },
+  {
+    "id": "life_for_a_life_yellow",
+    "name": "Life for a Life",
+    "pitch": "2",
+    "cost": "1",
+    "power": "3",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "When this is played, if you have less {h} than an opposing hero, it gets go again.\nWhen this hits, gain 1{h}."
+  },
+  {
+    "id": "life_for_a_life_blue",
+    "name": "Life for a Life",
+    "pitch": "3",
+    "cost": "1",
+    "power": "2",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "When this is played, if you have less {h} than an opposing hero, it gets go again.\nWhen this hits, gain 1{h}."
+  },
+  {
+    "id": "locked_and_loaded_red",
+    "name": "Locked and Loaded",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 1",
+      "Go again"
+    ],
+    "functional_text_plain": "The next Mechanologist attack action card you play this turn gains +3{p}.\nIf you have boosted this turn, opt 1.\nGo again"
+  },
+  {
+    "id": "locked_and_loaded_yellow",
+    "name": "Locked and Loaded",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 1",
+      "Go again"
+    ],
+    "functional_text_plain": "The next Mechanologist attack action card you play this turn gains +2{p}.\nIf you have boosted this turn, opt 1.\nGo again"
+  },
+  {
+    "id": "locked_and_loaded_blue",
+    "name": "Locked and Loaded",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 1",
+      "Go again"
+    ],
+    "functional_text_plain": "The next Mechanologist attack action card you play this turn gains +1{p}.\nIf you have boosted this turn, opt 1.\nGo again"
+  },
+  {
+    "id": "mage_master_boots",
+    "name": "Mage Master Boots",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Generic",
+      "Equipment",
+      "Legs"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Action - {r}, destroy this: The next non-attack action card you play this turn gets go again. Go again"
+  },
+  {
+    "id": "maximum_velocity_red",
+    "name": "Maximum Velocity",
+    "pitch": "1",
+    "cost": "2",
+    "power": "10",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Play this only if you've boosted 3 or more times this turn."
+  },
+  {
+    "id": "moon_wish_red",
+    "name": "Moon Wish",
+    "pitch": "1",
+    "cost": "2",
+    "power": "5",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "You may put a card from your hand on top of your deck rather than pay Moon Wish's {r} cost.\nIf Moon Wish hits, search your deck for a card named Sun Kiss, reveal it, put it into your hand, then shuffle your deck."
+  },
+  {
+    "id": "moon_wish_yellow",
+    "name": "Moon Wish",
+    "pitch": "2",
+    "cost": "2",
+    "power": "4",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "You may put a card from your hand on top of your deck rather than pay Moon Wish's {r} cost.\nIf Moon Wish hits, search your deck for a card named Sun Kiss, reveal it, put it into your hand, then shuffle your deck."
+  },
+  {
+    "id": "moon_wish_blue",
+    "name": "Moon Wish",
+    "pitch": "3",
+    "cost": "2",
+    "power": "3",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "You may put a card from your hand on top of your deck rather than pay Moon Wish's {r} cost.\nIf Moon Wish hits, search your deck for a card named Sun Kiss, reveal it, put it into your hand, then shuffle your deck."
+  },
+  {
+    "id": "mordred_tide_red",
+    "name": "Mordred Tide",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Until end of turn, if you would create one or more Runechant tokens, instead create that many plus 1.\nGo again"
+  },
+  {
+    "id": "nebula_blade",
+    "name": "Nebula Blade",
+    "pitch": "",
+    "cost": "",
+    "power": "1",
+    "defense": "",
+    "types": [
+      "Runeblade",
+      "Weapon",
+      "Sword",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Once per Turn Action - {r}{r}: Attack\nWhen this hits, create a Runechant token.\nIf you've played a non-attack action card this turn, this gets +3{p}."
+  },
+  {
+    "id": "ninth_blade_of_the_blood_oath_yellow",
+    "name": "Ninth Blade of the Blood Oath",
+    "pitch": "2",
+    "cost": "9",
+    "power": "9",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "This costs {r} less to play for each Runechant you control."
+  },
+  {
+    "id": "nock_the_deathwhistle_blue",
+    "name": "Nock the Deathwhistle",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action"
+    ],
+    "card_keywords": [
+      "Azalea Specialization",
+      "Reload",
+      "Go again"
+    ],
+    "functional_text_plain": "Azalea Specialization\nSearch your deck for an arrow card, reveal it, then shuffle your deck and put it on top of your deck.\nReload\nGo again"
+  },
+  {
+    "id": "nullrune_boots",
+    "name": "Nullrune Boots",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Generic",
+      "Equipment",
+      "Legs"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 1"
+    ],
+    "functional_text_plain": "Arcane Barrier 1"
+  },
+  {
+    "id": "nullrune_gloves",
+    "name": "Nullrune Gloves",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Generic",
+      "Equipment",
+      "Arms"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 1"
+    ],
+    "functional_text_plain": "Arcane Barrier 1"
+  },
+  {
+    "id": "nullrune_hood",
+    "name": "Nullrune Hood",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Generic",
+      "Equipment",
+      "Head"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 1"
+    ],
+    "functional_text_plain": "Arcane Barrier 1"
+  },
+  {
+    "id": "nullrune_robe",
+    "name": "Nullrune Robe",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Generic",
+      "Equipment",
+      "Chest"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 1"
+    ],
+    "functional_text_plain": "Arcane Barrier 1"
+  },
+  {
+    "id": "oath_of_the_arknight_red",
+    "name": "Oath of the Arknight",
+    "pitch": "1",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Your next Runeblade attack this turn gains +3{p}.\nCreate a Runechant token.\nGo again"
+  },
+  {
+    "id": "oath_of_the_arknight_yellow",
+    "name": "Oath of the Arknight",
+    "pitch": "2",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Your next Runeblade attack this turn gains +2{p}.\nCreate a Runechant token.\nGo again"
+  },
+  {
+    "id": "oath_of_the_arknight_blue",
+    "name": "Oath of the Arknight",
+    "pitch": "3",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Your next Runeblade attack this turn gains +1{p}.\nCreate a Runechant token.\nGo again"
+  },
+  {
+    "id": "optekal_monocle_blue",
+    "name": "Optekal Monocle",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Item"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Optekal Monocle enters the arena with 5 steam counters on it. When Optekal Monocle has no steam counters on it, destroy it.\nAction - Remove a steam counter from Optekal Monocle: Opt 1. Go again"
+  },
+  {
+    "id": "over_loop_red",
+    "name": "Over Loop",
+    "pitch": "1",
+    "cost": "2",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost\nWhen this hits, put it on the bottom of its owner's deck."
+  },
+  {
+    "id": "over_loop_yellow",
+    "name": "Over Loop",
+    "pitch": "2",
+    "cost": "2",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost\nWhen this hits, put it on the bottom of its owner's deck."
+  },
+  {
+    "id": "over_loop_blue",
+    "name": "Over Loop",
+    "pitch": "3",
+    "cost": "2",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost\nWhen this hits, put it on the bottom of its owner's deck."
+  },
+  {
+    "id": "pedal_to_the_metal_red",
+    "name": "Pedal to the Metal",
+    "pitch": "1",
+    "cost": "2",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "If Pedal to the Metal hits, your next attack this turn gains dominate.\nBoost"
+  },
+  {
+    "id": "pedal_to_the_metal_yellow",
+    "name": "Pedal to the Metal",
+    "pitch": "2",
+    "cost": "2",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "If Pedal to the Metal hits, your next attack this turn gains dominate.\nBoost"
+  },
+  {
+    "id": "pedal_to_the_metal_blue",
+    "name": "Pedal to the Metal",
+    "pitch": "3",
+    "cost": "2",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "If Pedal to the Metal hits, your next attack this turn gains dominate.\nBoost"
+  },
+  {
+    "id": "plunder_run_red",
+    "name": "Plunder Run",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "The next time an attack action card you control hits this turn, draw a card.\nIf Plunder Run is played from arsenal, the next attack action card you play this turn gains +3{p}.\nGo again"
+  },
+  {
+    "id": "plunder_run_yellow",
+    "name": "Plunder Run",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "The next time an attack action card you control hits this turn, draw a card.\nIf Plunder Run is played from arsenal, the next attack action card you play this turn gains +2{p}.\nGo again"
+  },
+  {
+    "id": "plunder_run_blue",
+    "name": "Plunder Run",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "The next time an attack action card you control hits this turn, draw a card.\nIf Plunder Run is played from arsenal, the next attack action card you play this turn gains +1{p}.\nGo again"
+  },
+  {
+    "id": "pour_the_mold_red",
+    "name": "Pour the Mold",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Put a Mechanologist item with cost 2 or less from your hand into the arena.\nIf you have boosted this turn, put a steam counter on it.\nGo again"
+  },
+  {
+    "id": "pour_the_mold_yellow",
+    "name": "Pour the Mold",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Put a Mechanologist item with cost 1 or less from your hand into the arena.\nIf you have boosted this turn, put a steam counter on it.\nGo again"
+  },
+  {
+    "id": "pour_the_mold_blue",
+    "name": "Pour the Mold",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Put a Mechanologist item with cost 0 from your hand into the arena.\nIf you have boosted this turn, put a steam counter on it.\nGo again"
+  },
+  {
+    "id": "pursuit_of_knowledge_blue",
+    "name": "Pursuit of Knowledge",
+    "pitch": "3",
+    "cost": "2",
+    "power": "4",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When this hits, your hero gets +1{i} until end of turn."
+  },
+  {
+    "id": "push_the_point_red",
+    "name": "Push the Point",
+    "pitch": "1",
+    "cost": "1",
+    "power": "4",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If the last attack on this combat chain hit, Push the Point gains +2{p}."
+  },
+  {
+    "id": "push_the_point_yellow",
+    "name": "Push the Point",
+    "pitch": "2",
+    "cost": "1",
+    "power": "3",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If the last attack on this combat chain hit, Push the Point gains +2{p}."
+  },
+  {
+    "id": "push_the_point_blue",
+    "name": "Push the Point",
+    "pitch": "3",
+    "cost": "1",
+    "power": "2",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If the last attack on this combat chain hit, Push the Point gains +2{p}."
+  },
+  {
+    "id": "rapid_fire_yellow",
+    "name": "Rapid Fire",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Action"
+    ],
+    "card_keywords": [
+      "Reload"
+    ],
+    "functional_text_plain": "Until end of turn, arrows you control gain go again.\nReload\nGo again"
+  },
+  {
+    "id": "ravenous_rabble_red",
+    "name": "Ravenous Rabble",
+    "pitch": "1",
+    "cost": "0",
+    "power": "5",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "When this attacks, reveal the top card of your deck. This gets -X{p}, where X is the pitch value of the card revealed this way.\nGo again"
+  },
+  {
+    "id": "ravenous_rabble_yellow",
+    "name": "Ravenous Rabble",
+    "pitch": "2",
+    "cost": "0",
+    "power": "4",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "When this attacks, reveal the top card of your deck. This gets -X{p}, where X is the pitch value of the card revealed this way.\nGo again"
+  },
+  {
+    "id": "ravenous_rabble_blue",
+    "name": "Ravenous Rabble",
+    "pitch": "3",
+    "cost": "0",
+    "power": "3",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "When this attacks, reveal the top card of your deck. This gets -X{p}, where X is the pitch value of the card revealed this way.\nGo again"
+  },
+  {
+    "id": "read_the_runes_red",
+    "name": "Read the Runes",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Create 3 Runechant tokens."
+  },
+  {
+    "id": "read_the_runes_yellow",
+    "name": "Read the Runes",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Create 2 Runechant tokens."
+  },
+  {
+    "id": "read_the_runes_blue",
+    "name": "Read the Runes",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Create a Runechant token."
+  },
+  {
+    "id": "red_in_the_ledger_red",
+    "name": "Red in the Ledger",
+    "pitch": "1",
+    "cost": "1",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Azalea Specialization"
+    ],
+    "functional_text_plain": "Azalea Specialization\nIf Red in the Ledger hits a hero, they can't play or activate more than 1 action during their next turn."
+  },
+  {
+    "id": "reduce_to_runechant_red",
+    "name": "Reduce to Runechant",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "4",
+    "types": [
+      "Runeblade",
+      "Defense Reaction"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Reduce to Runechant costs {r} less to play for each Runechant you control.\nCreate a Runechant token."
+  },
+  {
+    "id": "reduce_to_runechant_yellow",
+    "name": "Reduce to Runechant",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Defense Reaction"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Reduce to Runechant costs {r} less to play for each Runechant you control.\nCreate a Runechant token."
+  },
+  {
+    "id": "reduce_to_runechant_blue",
+    "name": "Reduce to Runechant",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Defense Reaction"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Reduce to Runechant costs {r} less to play for each Runechant you control.\nCreate a Runechant token."
+  },
+  {
+    "id": "reverberate_red",
+    "name": "Reverberate",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 3 arcane damage to target opposing hero.\nIf Reverberate deals damage, you may banish a Wizard 'non-attack' action card from your hand with {r} cost less than or equal to the damage dealt by Reverberate. If you do, you may play it this turn as though it were an instant."
+  },
+  {
+    "id": "reverberate_yellow",
+    "name": "Reverberate",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 2 arcane damage to target opposing hero.\nIf Reverberate deals damage, you may banish a Wizard 'non-attack' action card from your hand with {r} cost less than or equal to the damage dealt by Reverberate. If you do, you may play it this turn as though it were an instant."
+  },
+  {
+    "id": "reverberate_blue",
+    "name": "Reverberate",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 1 arcane damage to target opposing hero.\nIf Reverberate deals damage, you may banish a Wizard 'non-attack' action card from your hand with {r} cost less than or equal to the damage dealt by Reverberate. If you do, you may play it this turn as though it were an instant."
+  },
+  {
+    "id": "ridge_rider_shot_red",
+    "name": "Ridge Rider Shot",
+    "pitch": "1",
+    "cost": "0",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Opt 1"
+    ],
+    "functional_text_plain": "If Ridge Rider Shot is put into your arsenal face up, opt 1."
+  },
+  {
+    "id": "ridge_rider_shot_yellow",
+    "name": "Ridge Rider Shot",
+    "pitch": "2",
+    "cost": "0",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Opt 1"
+    ],
+    "functional_text_plain": "If Ridge Rider Shot is put into your arsenal face up, opt 1."
+  },
+  {
+    "id": "ridge_rider_shot_blue",
+    "name": "Ridge Rider Shot",
+    "pitch": "3",
+    "cost": "0",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Opt 1"
+    ],
+    "functional_text_plain": "If Ridge Rider Shot is put into your arsenal face up, opt 1."
+  },
+  {
+    "id": "rifting_red",
+    "name": "Rifting",
+    "pitch": "1",
+    "cost": "2",
+    "power": "6",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If Rifting hits, you may play your next 'non-attack' action card this turn as though it were an instant."
+  },
+  {
+    "id": "rifting_yellow",
+    "name": "Rifting",
+    "pitch": "2",
+    "cost": "2",
+    "power": "5",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If Rifting hits, you may play your next 'non-attack' action card this turn as though it were an instant."
+  },
+  {
+    "id": "rifting_blue",
+    "name": "Rifting",
+    "pitch": "3",
+    "cost": "2",
+    "power": "4",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If Rifting hits, you may play your next 'non-attack' action card this turn as though it were an instant."
+  },
+  {
+    "id": "robe_of_rapture",
+    "name": "Robe of Rapture",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Wizard",
+      "Equipment",
+      "Chest"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 1"
+    ],
+    "functional_text_plain": "Action - Destroy Robe of Rapture: Gain {r}{r}{r}.\nArcane Barrier 1"
+  },
+  {
+    "id": "rune_flash_red",
+    "name": "Rune Flash",
+    "pitch": "1",
+    "cost": "3",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "This costs {r} less to play for each Runechant token you control.\nGo again"
+  },
+  {
+    "id": "rune_flash_yellow",
+    "name": "Rune Flash",
+    "pitch": "2",
+    "cost": "3",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Rune Flash costs {r} less to play for each Runechant you control.\nGo again"
+  },
+  {
+    "id": "rune_flash_blue",
+    "name": "Rune Flash",
+    "pitch": "3",
+    "cost": "3",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "This costs {r} less to play for each Runechant token you control.\nGo again"
+  },
+  {
+    "id": "runechant",
+    "name": "Runechant",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Runeblade",
+      "Token",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When you play an attack action card or activate a weapon attack, destroy this and deal 1 arcane damage to target opposing hero."
+  },
+  {
+    "id": "rusted_relic_blue",
+    "name": "Rusted Relic",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Action",
+      "Item"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 1"
+    ],
+    "functional_text_plain": "Arcane Barrier 1"
+  },
+  {
+    "id": "salvage_shot_red",
+    "name": "Salvage Shot",
+    "pitch": "1",
+    "cost": "1",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When this hits, put it on the bottom of its owner's deck."
+  },
+  {
+    "id": "salvage_shot_yellow",
+    "name": "Salvage Shot",
+    "pitch": "2",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When this hits, put it on the bottom of its owner's deck."
+  },
+  {
+    "id": "salvage_shot_blue",
+    "name": "Salvage Shot",
+    "pitch": "3",
+    "cost": "1",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When this hits, put it on the bottom of its owner's deck."
+  },
+  {
+    "id": "scalding_rain_red",
+    "name": "Scalding Rain",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 4 arcane damage to target hero."
+  },
+  {
+    "id": "scalding_rain_yellow",
+    "name": "Scalding Rain",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 3 arcane damage to target hero."
+  },
+  {
+    "id": "scalding_rain_blue",
+    "name": "Scalding Rain",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 2 arcane damage to target hero."
+  },
+  {
+    "id": "searing_shot_red",
+    "name": "Searing Shot",
+    "pitch": "1",
+    "cost": "0",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If Searing Shot hits a hero, they lose 1{h}."
+  },
+  {
+    "id": "searing_shot_yellow",
+    "name": "Searing Shot",
+    "pitch": "2",
+    "cost": "0",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If Searing Shot hits a hero, they lose 1{h}."
+  },
+  {
+    "id": "searing_shot_blue",
+    "name": "Searing Shot",
+    "pitch": "3",
+    "cost": "0",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "If Searing Shot hits a hero, they lose 1{h}."
+  },
+  {
+    "id": "sic_em_shot_red",
+    "name": "Sic 'Em Shot",
+    "pitch": "1",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Go again"
+  },
+  {
+    "id": "sic_em_shot_yellow",
+    "name": "Sic 'Em Shot",
+    "pitch": "2",
+    "cost": "1",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Go again"
+  },
+  {
+    "id": "sic_em_shot_blue",
+    "name": "Sic 'Em Shot",
+    "pitch": "3",
+    "cost": "1",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Action",
+      "Arrow",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Go again"
+  },
+  {
+    "id": "silver_the_tip_red",
+    "name": "Silver the Tip",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "If you have no cards in your arsenal, look at the top 4 cards of your deck. You may put an arrow card from among them face up into your arsenal, then put the rest on the bottom of your deck in any order.\nGo again"
+  },
+  {
+    "id": "silver_the_tip_yellow",
+    "name": "Silver the Tip",
+    "pitch": "2",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "If you have no cards in your arsenal, look at the top 3 cards of your deck. You may put an arrow card from among them face up into your arsenal, then put the rest on the bottom of your deck in any order.\nGo again"
+  },
+  {
+    "id": "silver_the_tip_blue",
+    "name": "Silver the Tip",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "If you have no cards in your arsenal, look at the top 2 cards of your deck. You may put an arrow card from among them face up into your arsenal, then put the rest on the bottom of your deck in any order.\nGo again"
+  },
+  {
+    "id": "skullbone_crosswrap",
+    "name": "Skullbone Crosswrap",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "1",
+    "types": [
+      "Ranger",
+      "Equipment",
+      "Head"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 1",
+      "Blade Break"
+    ],
+    "functional_text_plain": "Once per Turn Action - Turn a face down card in your arsenal face up: Opt 1. Go again\nArcane Barrier 1\nBlade Break"
+  },
+  {
+    "id": "sonic_boom_yellow",
+    "name": "Sonic Boom",
+    "pitch": "2",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 3 arcane damage to target opposing hero.\nIf Sonic Boom deals damage, look at the top card of your deck. If it's a Wizard 'non-attack' action card, you may banish it. If you do, you may play it this turn as though it were an instant and it costs X resource points less to play, where X is the damage dealt by Sonic Boom."
+  },
+  {
+    "id": "spark_of_genius_yellow",
+    "name": "Spark of Genius",
+    "pitch": "2",
+    "cost": "XX",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action"
+    ],
+    "card_keywords": [
+      "Dash Specialization"
+    ],
+    "functional_text_plain": "Dash Specialization\nSearch your deck for a Mechanologist item card with cost X, put it into the arena, then shuffle your deck.\nIf you have boosted this turn, draw a card."
+  },
+  {
+    "id": "spellblade_assault_red",
+    "name": "Spellblade Assault",
+    "pitch": "1",
+    "cost": "2",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When you attack with Spellblade Assault, create 2 Runechant tokens."
+  },
+  {
+    "id": "spellblade_assault_yellow",
+    "name": "Spellblade Assault",
+    "pitch": "2",
+    "cost": "2",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When you attack with Spellblade Assault, create 2 Runechant tokens."
+  },
+  {
+    "id": "spellblade_assault_blue",
+    "name": "Spellblade Assault",
+    "pitch": "3",
+    "cost": "2",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When you attack with Spellblade Assault, create 2 Runechant tokens."
+  },
+  {
+    "id": "spellblade_strike_red",
+    "name": "Spellblade Strike",
+    "pitch": "1",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Create a Runechant token."
+  },
+  {
+    "id": "spellblade_strike_yellow",
+    "name": "Spellblade Strike",
+    "pitch": "2",
+    "cost": "1",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Create a Runechant token."
+  },
+  {
+    "id": "spellblade_strike_blue",
+    "name": "Spellblade Strike",
+    "pitch": "3",
+    "cost": "1",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Runeblade",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Create a Runechant token."
+  },
+  {
+    "id": "stir_the_aetherwinds_red",
+    "name": "Stir the Aetherwinds",
+    "pitch": "1",
+    "cost": "2",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "You may play your next Wizard 'non-attack' action card this turn as though it were an instant and if it has an effect that deals arcane damage, instead that effect deals that much arcane damage plus 3."
+  },
+  {
+    "id": "stir_the_aetherwinds_yellow",
+    "name": "Stir the Aetherwinds",
+    "pitch": "2",
+    "cost": "2",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "You may play your next Wizard 'non-attack' action card this turn as though it were an instant and if it has an effect that deals arcane damage, instead that effect deals that much arcane damage plus 2."
+  },
+  {
+    "id": "stir_the_aetherwinds_blue",
+    "name": "Stir the Aetherwinds",
+    "pitch": "3",
+    "cost": "2",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "You may play your next Wizard 'non-attack' action card this turn as though it were an instant and if it has an effect that deals arcane damage, instead that effect deals that much arcane damage plus 1."
+  },
+  {
+    "id": "storm_striders",
+    "name": "Storm Striders",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Wizard",
+      "Equipment",
+      "Legs"
+    ],
+    "card_keywords": [
+      "Arcane Barrier 2"
+    ],
+    "functional_text_plain": "Instant - {r}, destroy Storm Striders: You may play your next Wizard 'non-attack' action card this turn as though it were an instant.\nArcane Barrier 2"
+  },
+  {
+    "id": "sun_kiss_red",
+    "name": "Sun Kiss",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Gain 3{h}.\nIf you have played a card named Moon Wish this turn, draw a card and Sun Kiss gains go again."
+  },
+  {
+    "id": "sun_kiss_yellow",
+    "name": "Sun Kiss",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Gain 2{h}.\nIf you have played a card named Moon Wish this turn, draw a card and Sun Kiss gains go again."
+  },
+  {
+    "id": "sun_kiss_blue",
+    "name": "Sun Kiss",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Gain 1{h}.\nIf you have played a card named Moon Wish this turn, draw a card and Sun Kiss gains go again."
+  },
+  {
+    "id": "take_aim_red",
+    "name": "Take Aim",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Action"
+    ],
+    "card_keywords": [
+      "Reload",
+      "Go again"
+    ],
+    "functional_text_plain": "The next Ranger attack action card you play this turn, gains +3{p}.\nReload\nGo again"
+  },
+  {
+    "id": "take_aim_yellow",
+    "name": "Take Aim",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Action"
+    ],
+    "card_keywords": [
+      "Reload",
+      "Go again"
+    ],
+    "functional_text_plain": "The next Ranger attack action card you play this turn, gains +2{p}.\nReload\nGo again"
+  },
+  {
+    "id": "take_aim_blue",
+    "name": "Take Aim",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Action"
+    ],
+    "card_keywords": [
+      "Reload",
+      "Go again"
+    ],
+    "functional_text_plain": "The next Ranger attack action card you play this turn, gains +1{p}.\nReload\nGo again"
+  },
+  {
+    "id": "take_cover_red",
+    "name": "Take Cover",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "4",
+    "types": [
+      "Ranger",
+      "Defense Reaction"
+    ],
+    "card_keywords": [
+      "Reload"
+    ],
+    "functional_text_plain": "Reload"
+  },
+  {
+    "id": "take_cover_yellow",
+    "name": "Take Cover",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Ranger",
+      "Defense Reaction"
+    ],
+    "card_keywords": [
+      "Reload"
+    ],
+    "functional_text_plain": "Reload"
+  },
+  {
+    "id": "take_cover_blue",
+    "name": "Take Cover",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Defense Reaction"
+    ],
+    "card_keywords": [
+      "Reload"
+    ],
+    "functional_text_plain": "Reload"
+  },
+  {
+    "id": "talismanic_lens",
+    "name": "Talismanic Lens",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Generic",
+      "Equipment",
+      "Head"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Instant - Destroy Talismanic Lens: Opt 2"
+  },
+  {
+    "id": "teklo_core_blue",
+    "name": "Teklo Core",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Item"
+    ],
+    "card_keywords": [
+      "Dash Specialization"
+    ],
+    "functional_text_plain": "Dash Specialization\nTeklo Core enters the arena with 2 steam counters on it. When Teklo Core has no steam counters on it, destroy it.\nAt the beginning of your action phase, remove a steam counter from Teklo Core and gain {r}{r}."
+  },
+  {
+    "id": "teklo_foundry_heart",
+    "name": "Teklo Foundry Heart",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Mechanologist",
+      "Equipment",
+      "Chest"
+    ],
+    "card_keywords": [
+      "Battleworn"
+    ],
+    "functional_text_plain": "Once per Turn Action - {r}: Banish the top 2 cards of your deck. Gain {r} for each Mechanologist card banished this way. Activate this ability only if you've boosted this turn. Go again\nBattleworn"
+  },
+  {
+    "id": "teklo_plasma_pistol",
+    "name": "Teklo Plasma Pistol",
+    "pitch": "",
+    "cost": "",
+    "power": "2",
+    "defense": "",
+    "types": [
+      "Mechanologist",
+      "Weapon",
+      "Pistol",
+      "2H"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Action - Remove a steam counter from Teklo Plasma Pistol: Attack\nAction - {r}: If there are no steam counters on Teklo Plasma Pistol, put a steam counter on it. Go again"
+  },
+  {
+    "id": "three_of_a_kind_red",
+    "name": "Three of a Kind",
+    "pitch": "1",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Ranger",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Draw 3 cards. Until end of turn, you may only play cards from arsenal.\nGo again"
+  },
+  {
+    "id": "throttle_red",
+    "name": "Throttle",
+    "pitch": "1",
+    "cost": "2",
+    "power": "6",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  },
+  {
+    "id": "throttle_yellow",
+    "name": "Throttle",
+    "pitch": "2",
+    "cost": "2",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  },
+  {
+    "id": "throttle_blue",
+    "name": "Throttle",
+    "pitch": "3",
+    "cost": "2",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  },
+  {
+    "id": "tome_of_aetherwind_red",
+    "name": "Tome of Aetherwind",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Choose 2. You may choose the same mode more than once;\n\nThe next card you play this turn with an effect that deals arcane damage, instead deals that much arcane damage plus 1.\nDraw a card."
+  },
+  {
+    "id": "tome_of_the_arknight_blue",
+    "name": "Tome of the Arknight",
+    "pitch": "3",
+    "cost": "1",
+    "power": "",
+    "defense": "2",
+    "types": [
+      "Runeblade",
+      "Action"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "Reveal the top 2 cards of your deck. If you reveal an attack action card and a non-attack action card this way, put them into your hand.\nGo again"
+  },
+  {
+    "id": "vest_of_the_first_fist",
+    "name": "Vest of the First Fist",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Generic",
+      "Equipment",
+      "Chest"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "When an attack action card you control hits, you may destroy Vest of the First Fist. If you do, gain {r}{r}."
+  },
+  {
+    "id": "vigor_rush_red",
+    "name": "Vigor Rush",
+    "pitch": "1",
+    "cost": "1",
+    "power": "4",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "If you have played a 'non-attack' action card this turn, Vigor Rush gains go again."
+  },
+  {
+    "id": "vigor_rush_yellow",
+    "name": "Vigor Rush",
+    "pitch": "2",
+    "cost": "1",
+    "power": "3",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "If you have played a 'non-attack' action card this turn, Vigor Rush gains go again."
+  },
+  {
+    "id": "vigor_rush_blue",
+    "name": "Vigor Rush",
+    "pitch": "3",
+    "cost": "1",
+    "power": "2",
+    "defense": "2",
+    "types": [
+      "Generic",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text_plain": "If you have played a 'non-attack' action card this turn, Vigor Rush gains go again."
+  },
+  {
+    "id": "viserai",
+    "name": "Viserai",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Runeblade",
+      "Hero",
+      "Young"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Whenever you play a Runeblade card, if you have played another 'non-attack' action card this turn, create a Runechant token."
+  },
+  {
+    "id": "viserai_rune_blood",
+    "name": "Viserai, Rune Blood",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Runeblade",
+      "Hero"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Whenever you play a Runeblade card, if you've played another non-attack action card this turn, create a Runechant token."
+  },
+  {
+    "id": "voltic_bolt_red",
+    "name": "Voltic Bolt",
+    "pitch": "1",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 5 arcane damage to target hero."
+  },
+  {
+    "id": "voltic_bolt_yellow",
+    "name": "Voltic Bolt",
+    "pitch": "2",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 4 arcane damage to target hero."
+  },
+  {
+    "id": "voltic_bolt_blue",
+    "name": "Voltic Bolt",
+    "pitch": "3",
+    "cost": "2",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 3 arcane damage to target hero."
+  },
+  {
+    "id": "whisper_of_the_oracle_red",
+    "name": "Whisper of the Oracle",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 4",
+      "Go again"
+    ],
+    "functional_text_plain": "Opt 4\nGo again"
+  },
+  {
+    "id": "whisper_of_the_oracle_yellow",
+    "name": "Whisper of the Oracle",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 3",
+      "Go again"
+    ],
+    "functional_text_plain": "Opt 3\nGo again"
+  },
+  {
+    "id": "whisper_of_the_oracle_blue",
+    "name": "Whisper of the Oracle",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Generic",
+      "Action"
+    ],
+    "card_keywords": [
+      "Opt 2",
+      "Go again"
+    ],
+    "functional_text_plain": "Opt 2\nGo again"
+  },
+  {
+    "id": "zap_red",
+    "name": "Zap",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 3 arcane damage to target hero."
+  },
+  {
+    "id": "zap_yellow",
+    "name": "Zap",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 2 arcane damage to target hero."
+  },
+  {
+    "id": "zap_blue",
+    "name": "Zap",
+    "pitch": "3",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "card_keywords": [],
+    "functional_text_plain": "Deal 1 arcane damage to target hero."
+  },
+  {
+    "id": "zero_to_sixty_red",
+    "name": "Zero to Sixty",
+    "pitch": "1",
+    "cost": "0",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  },
+  {
+    "id": "zero_to_sixty_yellow",
+    "name": "Zero to Sixty",
+    "pitch": "2",
+    "cost": "0",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  },
+  {
+    "id": "zero_to_sixty_blue",
+    "name": "Zero to Sixty",
+    "pitch": "3",
+    "cost": "0",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  },
+  {
+    "id": "zipper_hit_red",
+    "name": "Zipper Hit",
+    "pitch": "1",
+    "cost": "1",
+    "power": "5",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  },
+  {
+    "id": "zipper_hit_yellow",
+    "name": "Zipper Hit",
+    "pitch": "2",
+    "cost": "1",
+    "power": "4",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  },
+  {
+    "id": "zipper_hit_blue",
+    "name": "Zipper Hit",
+    "pitch": "3",
+    "cost": "1",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Mechanologist",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Boost"
+    ],
+    "functional_text_plain": "Boost"
+  }
+]

@@ -208,6 +208,10 @@ foreach ($zones as $zone => $label) {
 </section>
 
 <?php
+// NextTurn renders this layout before any game-state endpoint loads card data.
+// Slot placement must use card types, not the equipment array order, which changes
+// when bases transform into Evos or equipment returns from the combat chain.
+require_once __DIR__ . '/../GeneratedCode/GeneratedCardDictionaries.php';
 $fabEquipmentSlotByPrinting = [];
 $fabEquipmentSlotByCardID = [];
 if (function_exists('GetAllCardIds') && function_exists('CardTypes')) {
@@ -366,6 +370,14 @@ function FaBRefreshCombatProgress() {
     RESOLUTION: 'Chain link ' + Number(state.chainLink || 0) + ' resolved. Play another attack or pass to close the chain.',
     CLOSE: 'The combat chain is closing and remaining cards are returning to their rules-defined zones.'
   };
+  if (Array.isArray(state.attackTargets) && state.attackTargets.length > 1) {
+    var targetNames = state.attackTargets.map(function(t) { return 'P' + Number(t.player); }).join(', ');
+    messages.ATTACK = '<strong>' + attackName + '</strong> attacks ' + targetNames + '. Player ' + player + ' has priority.';
+    if (windowName !== 'DEFEND_DECLARE') messages.DEFEND = 'Defenders for ' + targetNames + ' are locked in. Player ' + player + ' has priority.';
+    messages.DAMAGE = Object.entries(state.targetDamage || {}).map(function(entry) {
+      var d = entry[1]; return 'P' + Number(entry[0]) + ': ' + Number(d.power) + ' attack − ' + Number(d.defense) + ' defense = <strong>' + Number(d.damage) + ' damage</strong>';
+    }).join(' · ');
+  }
   status.innerHTML = messages[active] || 'Waiting for an attack.';
   var panel = document.getElementById('fabCombatWindow');
   if (panel) panel.dataset.combatStep = active;

@@ -1,4 +1,8 @@
 <?php
+function FaBProfessorBotDeck(): array {return json_decode(file_get_contents(__DIR__.'/ProfessorDeck.json'),true,512,JSON_THROW_ON_ERROR);}
+function FaBBotDeck(string $profile): array {
+    return match($profile){'fai'=>FaBFaiBotDeck(),'professor'=>FaBProfessorBotDeck(),default=>throw new InvalidArgumentException('Unknown FaB bot profile.')};
+}
 // Pinned Fabrary 01HXDKBQNQB7TF0GNJN0MQ7CWC export; Salt the Wound fills its 39-card main.
 function FaBFaiBotDeck(): array {
     $pairs=['ancestral_empowerment_red','art_of_war_yellow','blaze_headlong_red','brand_with_cinderclaw_blue','brand_with_cinderclaw_red','brand_with_cinderclaw_yellow','breaking_point_red','double_strike_red','lava_vein_loyalty_blue','lava_vein_loyalty_red','phoenix_flame_red','phoenix_form_red','promise_of_plenty_red','red_hot_red','rise_from_the_ashes_red','rising_resentment_red','ronin_renegade_red','scar_for_a_scar_red','stab_wound_blue'];

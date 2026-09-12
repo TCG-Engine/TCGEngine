@@ -21,14 +21,15 @@ function FaBUPFDeckErrors(array $deck): array {
         if ($count > 2) $errors[] = 'UPF allows two copies per pitch: ' . CardName($id) . '.';
         if ($count > 1 && in_array('Legendary', (array)CardCard_keywords($id), true)) $errors[] = 'Legendary allows one copy: ' . CardName($id) . '.';
         $types = (array)CardTypes($id);
-        foreach(['Rhinar','Bravo','Katsu','Dorinthea']as$heroName){
+        foreach(['Rhinar','Bravo','Katsu','Dorinthea','Dash','Azalea','Viserai','Kano']as$heroName){
             if(str_contains((string)CardFunctional_text_plain($id),$heroName.' Specialization') && !str_starts_with((string)CardName($deck['hero']??''),$heroName))$errors[]=CardName($id).' requires '.$heroName.'.';
         }
-        foreach (['Brute','Guardian','Ninja','Warrior'] as $class) {
+        foreach (['Brute','Guardian','Ninja','Warrior','Mechanologist','Ranger','Runeblade','Wizard'] as $class) {
             if (in_array($class, $types, true) && !in_array($class, (array)CardTypes($deck['hero'] ?? ''), true)) $errors[] = CardName($id) . ' does not match your hero class.';
         }
     }
-    foreach($deck['mainDeck']??[]as$id)if(array_intersect((array)CardTypes($id),['Hero','Weapon','Equipment','Token']))$errors[]=CardName($id).' cannot start in your deck.';
+    foreach($deck['mainDeck']??[]as$id)if(array_intersect((array)CardTypes($id),['Hero','Weapon','Token'])||(in_array('Equipment',(array)CardTypes($id),true)&&!in_array('Evo',(array)CardTypes($id),true)))$errors[]=CardName($id).' cannot start in your deck.';
+    foreach($deck['equipment']??[] as $id)if(in_array('Evo',(array)CardTypes($id),true))$errors[]='Evos must start in the deck, not equipped.';
     $hands = 0;
     foreach ($deck['weapons'] ?? [] as $id) $hands += in_array('2H', (array)CardTypes($id), true) ? 2 : 1;
     if ($hands > 2) $errors[] = 'Your starting weapons require more than two hands.';
@@ -236,7 +237,7 @@ function FaBNormalizeTalisharDeckPayload($payload) {
         } elseif (in_array('Weapon', $types, true)) {
             for ($i = 0; $i < $main; ++$i) $result['weapons'][] = $cardID;
             for ($i = 0; $i < $sideboard; ++$i) $result['inventory'][] = $cardID;
-        } elseif (in_array('Equipment', $types, true)) {
+        } elseif ((in_array('Equipment', $types, true)&&!in_array('Evo',$types,true))) {
             for ($i = 0; $i < $main; ++$i) $result['equipment'][] = $cardID;
             for ($i = 0; $i < $sideboard; ++$i) $result['inventory'][] = $cardID;
         } else {

@@ -33,7 +33,7 @@
       <button type="button" data-fab-panel="chain" aria-controls="fab-upf-chain-panel" aria-expanded="false">Combat chain <span id="fab-upf-chain-count">0</span></button>
     </nav>
   </div>
-  <p id="fab-upf-reveal" aria-live="polite" hidden></p><div class="fab-upf-opponents" id="fab-upf-opponents"></div><div id="fab-upf-own"></div>
+  <div class="fab-upf-opponents" id="fab-upf-opponents"></div><div id="fab-upf-own"></div>
 </main>
 <aside id="fab-upf-sidebar" aria-label="Game activity">
   <header><small>ULTIMATE PIT FIGHT</small><h2 id="fab-upf-turn-label"></h2><p id="fab-upf-priority-label"></p></header>
@@ -168,7 +168,6 @@
     let state={};try{state=JSON.parse(window.GameStateData||'{}');}catch(_){}
     document.getElementById('fab-upf-turn-label').textContent=Number(window.WinnerData)>0?'Player '+window.WinnerData+' wins':"Player "+window.TurnPlayerData+"'s turn";
     document.getElementById('fab-upf-priority-label').textContent='Priority: Player '+window.PriorityPlayerData+' · '+String(state.window||'').replaceAll('_',' ');
-    const reveal=document.getElementById('fab-upf-reveal');reveal.textContent=state.reveal||'';reveal.hidden=!state.reveal;
     document.getElementById('fab-upf-status').textContent=Number(window.WinnerData)>0?'Player '+window.WinnerData+' wins!':'UPF · Turn P'+window.TurnPlayerData+' · Priority P'+window.PriorityPlayerData+' · '+String(state.window||'').replaceAll('_',' ');
     document.getElementById('fab-upf-chain-status').textContent=state.combatOpen?'Player '+state.attacker+' → Player '+state.defender+' · '+String(state.combatStep||'')+
       (['DAMAGE','RESOLUTION'].includes(state.combatStep)?' · Attack '+(state.attackPower||0)+' / Defense '+(state.defenseValue||0):''):'No active combat chain.';

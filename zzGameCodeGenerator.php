@@ -2460,7 +2460,8 @@ function AddGetNextTurnForPlayer($player) {
           $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
         }
         $selfFlag = ($zone->Name == "Hand") ? "canSeeHandPlayer" : "canSeePrivatePlayer";
-        $getNextTurn .= "  if(\$" . $selfFlag . $player . ") {\r\n";
+        $faceUpArsenal = $rootName === 'FaBSim' && $zone->Name === 'Arsenal';
+        $getNextTurn .= "  if(\$" . $selfFlag . $player . ($faceUpArsenal ? ' || true' : '') . ") {\r\n";
         $getNextTurn .= "    for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
         $getNextTurn .= "      if(!isset(\$arr[\$i])) continue;\r\n";
         $getNextTurn .= "      if(\$i > 0) echo(\"<|>\");\r\n";
@@ -2471,7 +2472,10 @@ function AddGetNextTurnForPlayer($player) {
         $getNextTurn .= $swuCardApp
           ? "      \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
           : "      \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
-        $getNextTurn .= "      echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        if($faceUpArsenal) {
+          $getNextTurn .= "      if(\$" . $selfFlag . $player . " || intval(\$obj->FaceDown ?? 1) === 0) echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+          $getNextTurn .= "      else echo(ClientRenderedCard('CardBack'));\r\n";
+        } else $getNextTurn .= "      echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         $getNextTurn .= "    }\r\n";
         $getNextTurn .= "  } else {\r\n";
         $getNextTurn .= "    if(count(\$arr) > 0) echo(ClientRenderedCard(\"CardBack\", counters:count(\$arr)));\r\n";
@@ -2523,6 +2527,7 @@ function AddGetNextTurnForPlayer($player) {
         // so they render face-up even to the opponent; real resources stay Self-only (CardBack).
         $creditClause = ($rootName == "SWUSim" && $zone->Name == "Resources")
             ? " || SWUIsCreditToken(\$obj->CardID ?? '')" : "";
+        if($rootName === 'FaBSim' && $zone->Name === 'Arsenal') $creditClause = " || intval(\$obj->FaceDown ?? 1) === 0";
         $getNextTurn .= "    if(\$" . $selfFlag . $player . $creditClause . ") echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         // A masked card normally sends NO payload — its identity is the secret. SWUSim Resources are the
         // exception: whether a resource is EXHAUSTED is public (the physical card is visibly rotated, and

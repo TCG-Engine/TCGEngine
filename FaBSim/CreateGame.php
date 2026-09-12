@@ -30,19 +30,19 @@ foreach ($lobby->players as $player) {
         && in_array($playerNumber, $lobby->goldfishPlayers, true)
         && trim((string)$player->getDeckLink()) === ''
         && trim((string)$player->getPreconstructedDeck()) === '';
-    if (!in_array($player->getBotProfile(), ['', 'goldfish', 'fai'], true)) throw new RuntimeException('Unsupported FaB bot profile.');
+    if (!in_array($player->getBotProfile(), ['', 'goldfish', 'fai', 'professor'], true)) throw new RuntimeException('Unsupported FaB bot profile.');
     if ($isPassiveGoldfishSeat || $player->getBotProfile() === 'goldfish') {
         $passiveSeats[] = $playerNumber;
         FaBEnsureGoldfishOpponent($playerNumber);
         ++$playerNumber;
         continue;
     }
-    $isFaiBot=$player->getBotProfile()==='fai';
-    if($isFaiBot)$botProfiles[$playerNumber]='fai';
-    $resolved = $isFaiBot ? FaBFaiBotDeck() : FaBResolveDeckInput($player->getDeckLink(), method_exists($player, 'getUserId') ? $player->getUserId() : null);
+    $isDeckBot=in_array($player->getBotProfile(),['fai','professor'],true);
+    if($isDeckBot)$botProfiles[$playerNumber]=$player->getBotProfile();
+    $resolved = $isDeckBot ? FaBBotDeck($player->getBotProfile()) : FaBResolveDeckInput($player->getDeckLink(), method_exists($player, 'getUserId') ? $player->getUserId() : null);
     if (empty($resolved['success'])) throw new RuntimeException($resolved['message'] ?? 'Unable to load FaB deck.');
     if (($lobby->format ?? '') === 'upf' && ($errors = FaBUPFDeckErrors($resolved))) throw new RuntimeException(implode(' ', $errors));
-    FaBLoadPlayer($playerNumber, $resolved, $isFaiBot);
+    FaBLoadPlayer($playerNumber, $resolved, $isDeckBot);
     ++$playerNumber;
 }
 if ($playerNumber <= 2) throw new RuntimeException('FaBSim requires at least two seats.');
@@ -61,6 +61,10 @@ $initialState['botProfiles'] = $botProfiles;
 $initialState['gameMode'] = ($lobby->format ?? '') === 'upf' ? 'UPF'
     : (empty($passiveSeats) ? strtoupper((string)($lobby->format ?? '')) : 'GOLDFISH');
 FaBSetState($initialState);
+// Run setup continuations only after every seat exists, before normal turn play.
+DecisionQueueController::SuspendAutoAdvance();
+try { foreach(FaBSeatOrder() as $setupSeat) (new DecisionQueueController())->ExecuteStaticMethods($setupSeat); }
+finally { DecisionQueueController::ResumeAutoAdvance(); }
 if (FaBIsPassiveSeat(1)) SetTurnPlayer(FaBNextInteractiveSeat(1));
 StartOfTurnPhase();
 SetCurrentPhase('MAIN');
@@ -94,6 +98,8 @@ function FaBLoadPlayer($playerID, $resolved, bool $bot = false) {
             DecisionQueueController::AddDecision($playerID,'MZMODAL','1|1|Start_with_Phoenix_Flame_in_graveyard&Keep_it_in_deck',1,'Fai_setup');
             DecisionQueueController::AddDecision($playerID,'CUSTOM','FAB_FAI_SETUP',1);
         }
+    }elseif(in_array($resolved['hero'],['dash','dash_inventor_extraordinaire'],true)){
+        DecisionQueueController::AddDecision($playerID,'CUSTOM','FAB_ARC_SETUP',1);
     }else DoDrawCard($playerID, max(1, intval(CardIntelligence($resolved['hero'])) ?: 4));
 }
 
