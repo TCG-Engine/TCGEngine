@@ -539,6 +539,9 @@ function _SWULaw017FinishDeployed(int $player): void {
 function Ash017Trigger($player, $uid): void {
     global $playerID; $playerID = intval($player);
     if ($uid <= 0 || SWUFindMzByUID($uid) === null) return;
+    // Checked HERE, at resolution: a second Greef trigger bagged while he was ready (two units from one
+    // play, or a unit played inside another's When Played) must not offer an exhaust he can no longer pay.
+    if (!_SWULeaderReadyUndeployed(intval($player), 'ASH_017')) return;
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Exhaust_Greef_to_give_that_unit_an_Advantage_token?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_017#0|{$uid}", 1);
 }

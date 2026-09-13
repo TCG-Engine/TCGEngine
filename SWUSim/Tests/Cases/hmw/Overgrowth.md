@@ -240,3 +240,81 @@ WithP1Hand: HMW_151
 
 ## EXPECT
 P1DECISIONTOOLTIP:Choose_an_enemy_unit_for_Battlefield_Marine_to_deal_4_damage_to
+
+---
+
+# ZeroPowerDealer_IsInTheOfferPool
+#// HMW_151 — "a friendly unit deals damage equal to its power" puts no power floor on the DEALER, so a
+#// 0-power unit is still a legal pick. SHD_055 Moisture Farmer (0/4) sits beside SOR_095 (3/3); the
+#// pending dealer pool must hold BOTH. Left unanswered so the pool is the assertion.
+#// PREVIEW SET — no official ruling; a 0-power unit is still "a friendly unit", and dealing 0 simply
+#// deals no damage (by analogy with CR 30.3: dealing 0 damage is not considered dealing any damage).
+
+## GIVEN
+CommonSetup: ggw/bgw/{myBase:HMW_021;myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: [SHD_055:1:0 SOR_095:1:0]
+WithP2GroundArena: LAW_124:1:0
+WithP1Hand: HMW_151
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+
+---
+
+# ZeroPowerDealer_DealsNothing_EventStillResourced
+#// HMW_151 — the resolution of the cell above. Choosing the 0-power Moisture Farmer is accepted (an
+#// out-of-pool answer would throw), the lone enemy target auto-resolves, and LAW_124 takes NOTHING —
+#// not the 3 the Marine beside it would have dealt. "Resource this card" is unaffected: the event is
+#// in the resource zone (6 total, all exhausted) and not in the discard.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myBase:HMW_021;myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: [SHD_055:1:0 SOR_095:1:0]
+WithP2GroundArena: LAW_124:1:0
+WithP1Hand: HMW_151
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:LAW_124
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1RESCOUNT:6
+P1RESAVAILABLE:0
+P1DISCARDCOUNT:0
+P1NODECISION
+
+---
+
+# AllFriendliesZeroPower_StrikeSkipped_StillResourced
+#// HMW_151 — every friendly unit has 0 power (SHD_055 Moisture Farmer 0/4, TS26_53 Coruscanti Spy 0/2), with
+#// enemies in both arenas. ★ USER RULING 2026-09-14: the strike can only deal 0, so it is SKIPPED — no dealer
+#// or target prompt at all — and the event is still resourced. (A 0-power unit stays a legal dealer when
+#// another friendly unit has power: ZeroPowerDealer_IsInTheOfferPool.)
+
+## GIVEN
+CommonSetup: ggw/bgw/{myBase:HMW_021;myResources:5}
+P1OnlyActions: true
+WithP1GroundArena: [SHD_055:1:0 TS26_53:1:0]
+WithP2GroundArena: LAW_124:1:0
+WithP2SpaceArena: SEC_213:1:0
+WithP1Hand: HMW_151
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1NODECISION
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2SPACEARENAUNIT:0:DAMAGE:0
+P1RESCOUNT:6
+P1RESAVAILABLE:0
+P1DISCARDCOUNT:0

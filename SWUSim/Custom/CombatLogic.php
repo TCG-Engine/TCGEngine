@@ -1442,43 +1442,10 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID,
             }
         }
     }
-    // SEC_101 Queen Amidala — interactive combat-damage prevention. Routed through AddTrigger (NOT a
-    // direct decision) so FlushCombatTriggerBag reports a trigger and combat goes through the SWU_TRIGGER_
-    // RESUME path — which is what lets the offer resolve BEFORE SWUCombatDamage (the combat-pause for the
-    // defender; the pre-resume step-1 resolution for the attacker). SEC101PreventTrigger queues the offer
-    // and sets SWU_PENDING_DEF_REACTION. The host mzID is passed in the TRIGGER OWNER's (controller's) frame.
-    // Attacker side fires ONLY when combat damage would actually be dealt back to her — i.e. she is
-    // attacking a UNIT (not a base — bases deal no counter-damage) that has power to counter. Without this,
-    // attacking a base wrongly prompted "prevent combat damage" and wasted the sacrifice on nothing.
-    if (!$defenderOnly && $attacker !== null && !isset($attacker->removed) && ($attacker->CardID ?? '') === 'SEC_101'
-        && $defender !== null && empty($defender->removed) && strpos($defenderMzID, 'Base') === false
-        && intval(ObjectCurrentPower($defender)) > 0
-        && !empty(_SWUAmidalaPreventTargets($attacker))) {
-        AddTrigger($activePlayer, 'SEC_101_PREVENT', 'SEC_101', $attackerMzID); // attacker frame = active player's "my…"
-    }
-    if ($defender !== null && !isset($defender->removed) && ($defender->CardID ?? '') === 'SEC_101'
-        && !empty(_SWUAmidalaPreventTargets($defender))) {
-        $defCtrl = intval($defender->Controller ?? GetOpponent($activePlayer));
-        AddTrigger($defCtrl, 'SEC_101_PREVENT', 'SEC_101', preg_replace('/^their/', 'my', $defenderMzID));
-    }
-    // ASH_062 The Mandalorian — interactive prevention of combat damage to ANOTHER friendly unit. Same
-    // AddTrigger→combat-pause routing as SEC_101, but the protected unit is the attacker/defender (NOT
-    // ASH_062) and its controller defeats a Shield on their ASH_062 to prevent. The trigger host mzID is
-    // the PROTECTED unit (in its controller's frame). Skip when the combatant IS an ASH_062 (its own
-    // Shielded handles that — "another friendly unit" doesn't apply).
-    // Same "only if counter-damage would occur" gate as SEC_101 above: a unit attacking a base takes no
-    // counter, so don't offer to defeat a Shield on ASH_062 to prevent nothing.
-    if (!$defenderOnly && $attacker !== null && !isset($attacker->removed) && ($attacker->CardID ?? '') !== 'ASH_062'
-        && $defender !== null && empty($defender->removed) && strpos($defenderMzID, 'Base') === false
-        && intval(ObjectCurrentPower($defender)) > 0
-        && _SWUAsh062Provider($attacker) !== null) {
-        AddTrigger($activePlayer, 'ASH_062_PREVENT', 'ASH_062', $attackerMzID); // attacker frame = active player's "my…"
-    }
-    if ($defender !== null && !isset($defender->removed) && ($defender->CardID ?? '') !== 'ASH_062'
-        && _SWUAsh062Provider($defender) !== null) {
-        $defCtrl062 = intval($defender->Controller ?? GetOpponent($activePlayer));
-        AddTrigger($defCtrl062, 'ASH_062_PREVENT', 'ASH_062', preg_replace('/^their/', 'my', $defenderMzID));
-    }
+    // SEC_101 Queen Amidala / ASH_062 The Mandalorian — combat-damage prevention is NOT bagged here any more.
+    // OWNER RULING 2026-09-13: the On Attack triggers resolve first; the combat prevention is offered after
+    // them, still before combat damage (_SWUOfferCombatPreventions, called at the combat commit). It used to
+    // ride this bag as an orderable trigger, which let a Shield be spent before an On Attack changed the board.
     // SEC_231 Implicate — granted "When this unit is attacked: create a Spy token" (via the per-unit
     // SEC_231 phase marker). Non-interactive, so create the Spy directly for the DEFENDER's controller;
     // no combat-pause needed.
@@ -2552,6 +2519,7 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // …and its UniqueID, so a mid-attack defeat of the ATTACKER ITSELF (its own ability killing it, e.g.
     // SEC_150 Valiant Commando's sacrifice) can still be recognised as "defeated while attacking".
     SetSWUVar('SWU_CURRENT_ATTACKER_UID', strval(intval($attacker->UniqueID ?? 0)));
+    SetSWUVar('SWU_COMBAT_PREVENT_OFFERED', '');   // _SWUOfferCombatPreventions: once per attack
     _SWUApplyCondemnSuppression($attacker, $attackerMzID);   // CR 3.3 — "while attacking" starts HERE
 
     // ASH_186 Treacherous Minefield — granted "On Attack: deal 2 damage to this unit" (phase). Applied
@@ -2682,7 +2650,14 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     $triggered = FlushCombatTriggerBag($player, $attackerMzID, $targetMzID);
     if ($triggered === 0) {
         $attackerUID = intval($attacker->UniqueID ?? 0);
-        _SWUQueueOrchestration($player, "SWUCombatDamage|{$attackerMzID}|{$targetMzID}|{$attackerUID}", 1);
+        if (_SWUOfferCombatPreventions(intval($player))) {
+            // A prevention offer is pending (maybe on the defender's queue): commit through a COMBAT resume, whose
+            // cross-seat wait holds the damage until it is answered.
+            $bs = count(GetEffectStack());
+            _SWUQueueOrchestration($player, "SWU_TRIGGER_RESUME|{$player}|COMBAT|{$attackerMzID}|{$targetMzID}|{$attackerUID}|{$bs}", 20);
+        } else {
+            _SWUQueueOrchestration($player, "SWUCombatDamage|{$attackerMzID}|{$targetMzID}|{$attackerUID}", 1);
+        }
     }
     // $triggered >= 1: the COMBAT continuation in SWU_TRIGGER_RESUME queues SWUCombatDamage.
 
@@ -2718,7 +2693,29 @@ function _SWUCombatFinishAction($player): void {
     $skip = _SWUInTriggerResumeMode();
     if (GetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', '') === '1') $skip = true;
     SetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', '');   // consume regardless of which combat terminal is reached
-    if (!$skip) SWUAfterAction($player);
+    if ($skip) return;
+    // The combat's own defeats flushed their When Defeated triggers through FlushTriggerBag, which queues a
+    // RESOLVE_TRIGGER per trigger and NO finalising resume. Closing here ran the action end — the turn swap —
+    // before those triggers resolved, so an attacker that died to the counter asked its controller "search your
+    // deck?" / "use the Force?" after the turn had already passed (the house rule: the turn stays with the actor
+    // until everything its action set off has resolved). When such triggers sit on the ACTING player's own
+    // queue, end the action BEHIND them instead (block 20, after anything they queue at lower blocks).
+    // Scoped to the actor's own queue: that queue is the one being drained, so the close cannot strand, unlike
+    // a lone CUSTOM parked on a seat that is not otherwise acting.
+    if (intval($player) === intval(GetTurnPlayer()) && _SWUHasQueuedTriggerResolution(intval($player))) {
+        SWUQueueAfterAction(intval($player), 20);
+        return;
+    }
+    SWUAfterAction($player);
+}
+
+// True if $player's queue still holds a collected trigger waiting to resolve (RESOLVE_TRIGGER|…).
+function _SWUHasQueuedTriggerResolution(int $player): bool {
+    foreach (GetDecisionQueue($player) as $e) {
+        if (!empty($e->removed)) continue;
+        if (str_starts_with((string)($e->Param ?? ''), 'RESOLVE_TRIGGER|')) return true;
+    }
+    return false;
 }
 
 // DQ handler: resolve combat damage after Step 1 triggers have fully resolved.
@@ -3175,29 +3172,9 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         // (Restore now fires once per attack in ExecuteSWUAttack — for unit AND base targets.)
     } elseif ($target !== null && !isset($target->removed)) {
         $defendPower = max(0, intval(ObjectCurrentPower($target)) - $defenderPowerDebuff);
-        // LOF_049 Jedi Guardian: "While this unit is defending, it gets +2/+0." (counter-damage only.)
-        if (($target->CardID ?? '') === 'LOF_049') $defendPower += 2;
-        // SHD_042 Concord Dawn Interceptors: "This unit gets +2/+0 while defending." (counter-damage only.)
-        if (($target->CardID ?? '') === 'SHD_042') $defendPower += 2;
-        // ASH_073 Palace Chef Droid: "This unit gets +2/+0 while defending." (counter-damage only.)
-        if (($target->CardID ?? '') === 'ASH_073') $defendPower += 2;
-        // ASH_018 Grogu (deployed): "While ANOTHER friendly unit is defending, it gets +1/+0." (counter-damage only.)
-        if (($target->CardID ?? '') !== 'ASH_018' && _SWULeaderDeployed(intval($target->Controller ?? 0), 'ASH_018')) $defendPower += 1;
-        // HMW_212 The Chieftain — "While a friendly Tusken unit is defending, it gets +1/+0 for each Raid
-        // it has." (counter-damage only, like its neighbours above.) Three things this reads carefully:
-        //   • the DEFENDER's own Raid value, not the Chieftain's — "for each Raid IT has";
-        //   • the Raid VALUE (Raid 2 → +2), not one per Raid keyword. HMW is a preview set with no
-        //     ruling on file, so this reading is flagged in the test file; a Raid 6 body is what makes
-        //     the two readings visibly different;
-        //   • NO "other" — she is a friendly Tusken unit herself, so she gets it while defending too.
-        // Gated on an ability-ACTIVE Chieftain (_SWUCountActiveUnitsWithCardID), so one that has lost
-        // its abilities stops granting. GetKeyword_Raid_Value does not honour suppression on its own,
-        // hence the explicit LostAbilities guard on the defender: a blanked unit has no Raid to read.
-        if ($target !== null && empty($target->removed) && TraitContains($target, 'Tusken')
-            && !LostAbilities($target)
-            && _SWUCountActiveUnitsWithCardID(intval($target->Controller ?? 0), 'HMW_212') > 0) {
-            $defendPower += max(0, intval(GetKeyword_Raid_Value($target)));
-        }
+        // Every "while defending, +X/+0" (LOF_049, SHD_042, ASH_073, HMW_083, ASH_018, HMW_212) — the one
+        // helper TWI_135 Darth Maul's two-defender path uses as well.
+        $defendPower += _SWUWhileDefendingPowerBonus($target);
         // "Can't deal combat damage this phase" (LAW_130) on the defender → it deals no counter-damage.
         if (is_array($target->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $target->TurnEffects, true)) {
             $defendPower = 0;
@@ -4209,6 +4186,7 @@ function _SWUMaulBeginDoubleAttack(int $player, string $attackerMzID, string $de
     // resolved to whichever opponent sat at that index above two seats.
     SetSWUVar('SWU_CURRENT_ATTACKER_SEAT', strval(intval($player)));
     SetSWUVar('SWU_CURRENT_ATTACKER_UID', strval($atkUID));
+    SetSWUVar('SWU_COMBAT_PREVENT_OFFERED', '');   // _SWUOfferCombatPreventions: once per attack
     _SWUApplyCondemnSuppression($attacker, $attackerMzID);
     // Saboteur's Begin-attack shield-defeat (CR 3.3), for BOTH defenders — this path never routes
     // through ExecuteSWUAttack. Maul has no printed Saboteur, but it can be granted (SOR_166
@@ -4259,7 +4237,12 @@ function _SWUMaulBeginDoubleAttack(int $player, string $attackerMzID, string $de
     SetSWUVar('SWU_CURRENT_DEFENDER_UIDS', implode(',', array_filter([$u1, $u2])));
     $triggered = FlushCombatTriggerBag($player, $attackerMzID, $def1Mz, "MAULCOMBAT|{$atkUID}|{$u1}|{$u2}");
     if ($triggered === 0) {
-        _SWUQueueOrchestration($player, "SWUMaulCombatDamage|{$atkUID}|{$u1}|{$u2}|{$player}", 1);
+        if (_SWUOfferCombatPreventions(intval($player))) {
+            $bs = count(GetEffectStack());
+            _SWUQueueOrchestration($player, "SWU_TRIGGER_RESUME|{$player}|MAULCOMBAT|{$atkUID}|{$u1}|{$u2}|{$bs}", 20);
+        } else {
+            _SWUQueueOrchestration($player, "SWUMaulCombatDamage|{$atkUID}|{$u1}|{$u2}|{$player}", 1);
+        }
     }
 
     $playerID = $savedPID;
@@ -4346,6 +4329,43 @@ function _SWUMaulCombatDefeat($obj, string $mzID, int $player, bool $isAttacker,
 // counter-damage (CR simultaneity). Pragmatic scope: reuses power/HP, Shield tokens, standard damage
 // prevention (Amidala/Mandalorian), defeats, and the batched When Defeated pass; it does NOT run the
 // mid-combat On Attack / On Defense pause windows or Overwhelm (Maul has neither).
+// ── "+X/+0 WHILE DEFENDING" — THE ONE PLACE A DEFENDER'S COUNTER-POWER BONUS IS DECIDED ──────────────────
+// Counter-damage only, the house reading of these cards: the bonus is added to what the defender deals
+// back, not to ObjectCurrentPower (so a POWER read after the attack shows the printed value again).
+// Called by BOTH combat resolvers — the single-defender branch of SWUCombatDamage and TWI_135 Darth Maul's
+// two-defender _SWUMaulDoubleCombat. These bonuses were once written inline in the first and never copied
+// to the second, so a unit Maul attacked counter-attacked at printed power (found 2026-09-14 with HMW_083).
+//
+// A self-printed bonus is an ABILITY of the defender, so a defender that has lost its abilities (SOR_138
+// Force Lightning, SHD_072, Galen's naming) gets none — the inline versions never checked.
+function _SWUWhileDefendingPowerBonus($defender): int {
+    if (SWUObjGone($defender)) return 0;
+    $cid  = (string)($defender->CardID ?? '');
+    $ctrl = intval($defender->Controller ?? 0);
+    $bonus = 0;
+    // "This unit gets +N/+0 while defending." / "While this unit is defending, it gets +N/+0."
+    //   LOF_049 Jedi Guardian +2 · SHD_042 Concord Dawn Interceptors +2 · ASH_073 Palace Chef Droid +2 ·
+    //   HMW_083 Batcher +1
+    static $selfPrinted = ['LOF_049' => 2, 'SHD_042' => 2, 'ASH_073' => 2, 'HMW_083' => 1];
+    if (isset($selfPrinted[$cid]) && !LostAbilities($defender)) $bonus += $selfPrinted[$cid];
+    // ASH_018 Grogu (deployed): "While ANOTHER friendly unit is defending, it gets +1/+0."
+    if ($cid !== 'ASH_018' && _SWULeaderDeployed($ctrl, 'ASH_018')) $bonus += 1;
+    // HMW_212 The Chieftain — "While a friendly Tusken unit is defending, it gets +1/+0 for each Raid it
+    // has." Three things this reads carefully:
+    //   • the DEFENDER's own Raid value, not the Chieftain's — "for each Raid IT has";
+    //   • the Raid VALUE (Raid 2 → +2), not one per Raid keyword. HMW is a preview set with no ruling on
+    //     file, so this reading is flagged in the test file; a Raid 6 body makes the readings differ;
+    //   • NO "other" — she is a friendly Tusken unit herself, so she gets it while defending too.
+    // Gated on an ability-ACTIVE Chieftain (_SWUCountActiveUnitsWithCardID), so one that has lost its
+    // abilities stops granting. GetKeyword_Raid_Value does not honour suppression on its own, hence the
+    // explicit LostAbilities guard on the defender: a blanked unit has no Raid to read.
+    if (TraitContains($defender, 'Tusken') && !LostAbilities($defender)
+            && _SWUCountActiveUnitsWithCardID($ctrl, 'HMW_212') > 0) {
+        $bonus += max(0, intval(GetKeyword_Raid_Value($defender)));
+    }
+    return $bonus;
+}
+
 function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz, string $def2Mz): void {
     global $playerID, $gDeferredReplacements;
     $savedPID = $playerID;
@@ -4378,8 +4398,8 @@ function _SWUMaulDoubleCombat(int $player, string $attackerMzID, string $def1Mz,
 
     // Snapshot all powers BEFORE any damage (simultaneity).
     $P  = intval(ObjectCurrentPower($attacker));
-    $D1 = $d1Gone ? 0 : intval(ObjectCurrentPower($def1));
-    $D2 = $d2Gone ? 0 : intval(ObjectCurrentPower($def2));
+    $D1 = $d1Gone ? 0 : intval(ObjectCurrentPower($def1)) + _SWUWhileDefendingPowerBonus($def1);
+    $D2 = $d2Gone ? 0 : intval(ObjectCurrentPower($def2)) + _SWUWhileDefendingPowerBonus($def2);
     // SEC_139 Miraj Scintel — "While a friendly unit is attacking a DAMAGED unit, the attacker gains
     // Overwhelm." In a 2-defender attack the attacker is attacking a damaged unit if EITHER defender was
     // already damaged before this attack; capture that here (pre-combat) for the Overwhelm check below.
@@ -4593,10 +4613,79 @@ function OnDefenseFromUpgradeTrigger(int $player, string $upgradeCardID, string 
 // to prevent?" offer for $player (Amidala's controller) and sets the combat-pause flag so it resolves
 // before SWUCombatDamage. $mzID is Amidala in $player's frame. On accept, AMIDALA_PREVENT_COMBAT sets a
 // one-shot marker that SWUCombatDamage consumes (skipping her damage this attack).
+// ★ OWNER RULING 2026-09-13 — "whenever the unit is damaged, it fires. If an On Attack triggers first, then it must
+// resolve before combat damage. However, if an On Attack damages those units, they must resolve it before combat
+// damage as well." So the COMBAT-damage prevention of SEC_101 Queen Amidala and ASH_062 The Mandalorian is offered
+// here, ONCE per attack, at the commit — after every Step-1 trigger (On Attack, On Defense) has resolved and
+// before SWUCombatDamage. (Damage an On Attack deals is offered at that damage, by the ability-damage path.)
+// Same gates the old bag-time triggers had; the dispatchers below re-check that combat damage can still arrive.
+// Returns true when it queued an offer, so the caller waits for it before committing.
+function _SWUOfferCombatPreventions(int $activePlayer): bool {
+    if (GetSWUVar('SWU_COMBAT_PREVENT_OFFERED', '') === '1') return false;
+    SetSWUVar('SWU_COMBAT_PREVENT_OFFERED', '1');
+    global $playerID; $saved = $playerID;
+    $before = array_sum(_SWUPendingDecisionsBySeat());
+    // The attacker, protected from counter-damage (in the active player's frame).
+    $atkUID = intval(GetSWUVar('SWU_CURRENT_ATTACKER_UID', '0'));
+    $playerID = $activePlayer;
+    $aMz = $atkUID > 0 ? SWUFindMzByUID($atkUID) : null;
+    $a   = $aMz !== null ? GetZoneObject($aMz) : null;
+    if (!SWUObjGone($a)) {
+        if (($a->CardID ?? '') === 'SEC_101') SEC101PreventTrigger($activePlayer, $aMz);
+        if (($a->CardID ?? '') !== 'ASH_062' && _SWUAsh062Provider($a) !== null) Ash062PreventTrigger($activePlayer, $aMz);
+    }
+    // Each defending unit, protected from the attacker's damage (in its controller's frame).
+    $defs = array_values(array_filter(explode(',', GetSWUVar('SWU_CURRENT_DEFENDER_UIDS', '')), fn($x) => intval($x) > 0));
+    if (empty($defs) && intval(GetSWUVar('SWU_CURRENT_DEFENDER_UID', '0')) > 0) $defs = [GetSWUVar('SWU_CURRENT_DEFENDER_UID', '0')];
+    foreach ($defs as $d) {
+        $playerID = $activePlayer;
+        $mz0 = SWUFindMzByUID(intval($d));
+        $o   = $mz0 !== null ? GetZoneObject($mz0) : null;
+        if (SWUObjGone($o)) continue;
+        $ctrl = intval($o->Controller ?? 0);
+        if ($ctrl <= 0) continue;
+        $playerID = $ctrl;
+        $dMz = SWUFindMzByUID(intval($d));
+        if ($dMz === null) continue;
+        if (($o->CardID ?? '') === 'SEC_101') SEC101PreventTrigger($ctrl, $dMz);
+        if (($o->CardID ?? '') !== 'ASH_062' && _SWUAsh062Provider($o) !== null) Ash062PreventTrigger($ctrl, $dMz);
+    }
+    $playerID = $saved;
+    return array_sum(_SWUPendingDecisionsBySeat()) > $before;
+}
+
+// Would COMBAT damage still reach $protected in the current attack? Both prevention offers below are bagged at
+// Begin attack, beside the On Attack triggers, and an On Attack resolved first can remove the damage they were
+// raised for (defeat the defender → no counter-damage; defeat the attacker → nothing hits the defender). They
+// are re-checked here, when they RESOLVE, so a Shield or a sacrifice is never spent on damage that cannot come.
+function _SWUCombatDamageStillReaches($protected): bool {
+    $uid    = intval($protected->UniqueID ?? 0);
+    $atkUID = intval(GetSWUVar('SWU_CURRENT_ATTACKER_UID', '0'));
+    if ($uid > 0 && $uid === $atkUID) {
+        // Counter-damage to the attacker needs a defending UNIT still in play with power.
+        $defs = array_values(array_filter(explode(',', GetSWUVar('SWU_CURRENT_DEFENDER_UIDS', '')), fn($x) => intval($x) > 0));
+        if (empty($defs) && intval(GetSWUVar('SWU_CURRENT_DEFENDER_UID', '0')) > 0) $defs = [GetSWUVar('SWU_CURRENT_DEFENDER_UID', '0')];
+        foreach ($defs as $d) {
+            $mz = SWUFindMzByUID(intval($d));
+            if ($mz === null) continue;
+            $o = GetZoneObject($mz);
+            if (!SWUObjGone($o) && intval(ObjectCurrentPower($o)) > 0) return true;
+        }
+        return false;
+    }
+    // The defender takes the attacker's damage: the attacker must still be in play with power.
+    if ($atkUID <= 0) return true;                       // no attack frame recorded: keep the bag-time answer
+    $mz = SWUFindMzByUID($atkUID);
+    if ($mz === null) return false;
+    $a = GetZoneObject($mz);
+    return !SWUObjGone($a) && intval(ObjectCurrentPowerInAttack($a)) > 0;
+}
+
 function SEC101PreventTrigger($player, $mzID): void {
     global $playerID; $playerID = intval($player);
     $u = GetZoneObject($mzID);
     if (SWUObjGone($u) || ($u->CardID ?? '') !== 'SEC_101') return;
+    if (!_SWUCombatDamageStillReaches($u)) return;
     $tg = _SWUAmidalaPreventTargets($u);
     if (empty($tg)) return;
     $uid = intval($u->UniqueID ?? 0);
@@ -4614,6 +4703,7 @@ function Ash062PreventTrigger($player, $mzID): void {
     global $playerID; $playerID = intval($player);
     $u = GetZoneObject($mzID);
     if (SWUObjGone($u)) return;
+    if (!_SWUCombatDamageStillReaches($u)) return;
     if (_SWUAsh062Provider($u) === null) return;
     $uid = intval($u->UniqueID ?? 0);
     DecisionQueueController::AddDecision(intval($player), 'YESNO', '-', 1,

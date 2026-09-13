@@ -1,33 +1,31 @@
-# CORE — while ANY seat owes a decision, EVERY kind of action is refused, from EVERY seat.
-#
-# `DecisionQueueController::AllQueuesEmpty()` is the table-wide interlock: nobody acts while anybody
-# still owes an answer. It is asked at roughly ten separate sites — six `AllQueuesEmpty` guards in
-# `CustomInput.php` (initiative, blast/plan counter, base action, resource smuggle, leader ability,
-# unit ability), `ActionMap`'s own check for plays and attacks, and TurnController's PENDING_DECISION.
-#
-# ⚠⚠ ONLY THE `ActionMap` GATE IS TESTABLE FROM A FIXTURE, AND THAT IS A HARNESS LIMIT, NOT A CHOICE.
-# GameTestAdapter routes playHand() and attack() through `ActionMap(...)` — "the same path as a real
-# click" — so those two really do exercise the production guard. But claimInitiative, takeCounter,
-# useUnitAbility and useLeaderAbility call `SWUTakeInitiative` / `SWUTakeCounter` / `SWUUnitAction` /
-# `SWULeaderAction` DIRECTLY, skipping CustomInput.php and therefore skipping its `AllQueuesEmpty`
-# guard. Measured: with seat 3 mid-decision, `P1>Claim` claims, `P1>TakeCounter:blast` takes, and
-# `P1>UseUnitAbility` fires — all of which a real client is refused. The whole adapter file contains
-# exactly ONE reference to AllQueuesEmpty.
-#
-# So the six CustomInput-layer interlocks (initiative, blast/plan counter, base action, resource
-# smuggle, leader ability, unit ability) have NO fixture coverage and CANNOT be given any through this
-# harness. Sections asserting them were written, failed, and were removed rather than left describing
-# the harness instead of the engine — see the session notes. Closing this needs either the guard pushed
-# down into the engine functions, or the adapter taught to mirror CustomInput; it is the same parity
-# class `DevTools/tests/harness_action_open_parity_test.php` already polices for `_SWUOpenAction`.
-#
-# THE SETUP, borrowed from the hand-glow file because it is the only one that leaves a far seat
-# deciding while the phase is still MAIN: JTL_237 TIE Bomber's "On Attack: deal 3 indirect damage to the
-# defending player" hands SEAT 3 an assignment. The turn correctly stays with seat 1 (it never advances
-# while a seat owes a decision), so seat 1 is the acting player and every attempt below must bounce.
-
----
-
+#// CORE — while ANY seat owes a decision, EVERY kind of action is refused, from EVERY seat.
+#//
+#// `DecisionQueueController::AllQueuesEmpty()` is the table-wide interlock: nobody acts while anybody
+#// still owes an answer. It is asked at roughly ten separate sites — six `AllQueuesEmpty` guards in
+#// `CustomInput.php` (initiative, blast/plan counter, base action, resource smuggle, leader ability,
+#// unit ability), `ActionMap`'s own check for plays and attacks, and TurnController's PENDING_DECISION.
+#//
+#// ⚠⚠ ONLY THE `ActionMap` GATE IS TESTABLE FROM A FIXTURE, AND THAT IS A HARNESS LIMIT, NOT A CHOICE.
+#// GameTestAdapter routes playHand() and attack() through `ActionMap(...)` — "the same path as a real
+#// click" — so those two really do exercise the production guard. But claimInitiative, takeCounter,
+#// useUnitAbility and useLeaderAbility call `SWUTakeInitiative` / `SWUTakeCounter` / `SWUUnitAction` /
+#// `SWULeaderAction` DIRECTLY, skipping CustomInput.php and therefore skipping its `AllQueuesEmpty`
+#// guard. Measured: with seat 3 mid-decision, `P1>Claim` claims, `P1>TakeCounter:blast` takes, and
+#// `P1>UseUnitAbility` fires — all of which a real client is refused. The whole adapter file contains
+#// exactly ONE reference to AllQueuesEmpty.
+#//
+#// So the six CustomInput-layer interlocks (initiative, blast/plan counter, base action, resource
+#// smuggle, leader ability, unit ability) have NO fixture coverage and CANNOT be given any through this
+#// harness. Sections asserting them were written, failed, and were removed rather than left describing
+#// the harness instead of the engine — see the session notes. Closing this needs either the guard pushed
+#// down into the engine functions, or the adapter taught to mirror CustomInput; it is the same parity
+#// class `DevTools/tests/harness_action_open_parity_test.php` already polices for `_SWUOpenAction`.
+#//
+#// THE SETUP, borrowed from the hand-glow file because it is the only one that leaves a far seat
+#// deciding while the phase is still MAIN: JTL_237 TIE Bomber's "On Attack: deal 3 indirect damage to the
+#// defending player" hands SEAT 3 an assignment. The turn correctly stays with seat 1 (it never advances
+#// while a seat owes a decision), so seat 1 is the acting player and every attempt below must bounce.
+#//
 # Baseline_TheFarSeatReallyIsDeciding
 #// Establishes the fixture before anything is asserted about refusals: seat 3 owes the indirect
 #// assignment, the phase is still MAIN, and the turn has stayed with seat 1. If this section ever

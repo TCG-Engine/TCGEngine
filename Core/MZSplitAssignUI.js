@@ -168,6 +168,7 @@
   // ── Parse param string ───────────────────────────────────────────────
   // Param: "amount|mzID1&mzID2&mzID3"                              (full assignment, cap = pool)
   //   or:  "amount|mzID1:cap1&mzID2:cap2|UPTO"                     (per-target caps; partial OK)
+  //   or:  "amount|mzID1&mzID2|ALL|4"                              (STEP 4: amounts move in 4s)
   // The optional trailing "|UPTO" segment lets the player submit with points unassigned
   // ("up to N" effects — SOR_052 Redemption). Per-target ":cap" limits each target's amount
   // (e.g. a heal can't exceed a target's current damage). Backward compatible: no ":cap" → cap is
@@ -187,12 +188,16 @@
     // Advantage, which the card never offers (ASH_195 Helgait).
     const allowPartial = (mode === 'UPTO');
     const allOrNone    = (mode === 'ALLORNONE');
+    // Optional 4th segment = STEP: each −/+ moves this many points, and every amount stays a multiple of it
+    // ("total|targets|ALL|4" — SWUSim HMW_036 Kelnacca assigns strikes of its power). Absent → 1.
+    const stepRaw = parseInt(segs[3], 10);
+    const step = (isFinite(stepRaw) && stepRaw > 1) ? stepRaw : 1;
     const targets = segs[1].split('&').map(s => s.trim()).filter(Boolean).map(function (spec) {
       const c = spec.indexOf(':');
       if (c === -1) return { mzID: spec, cap: amount };
       return { mzID: spec.substring(0, c), cap: parseInt(spec.substring(c + 1), 10) };
     });
-    return { amount, targets, allowPartial, allOrNone, mzIDs: targets.map(t => t.mzID) };
+    return { amount, targets, allowPartial, allOrNone, step, mzIDs: targets.map(t => t.mzID) };
   }
 
   // ── Serialize result ─────────────────────────────────────────────────
@@ -220,8 +225,9 @@
       const plusBtn  = document.getElementById('mzsplit-plus-'  + target.mzID);
       if (amountEl) amountEl.textContent = target.amount;
       if (minusBtn) minusBtn.disabled = target.amount <= 0;
-      // Plus is capped by both the remaining pool AND this target's own cap (e.g. its damage).
-      if (plusBtn)  plusBtn.disabled  = (splitState.remaining <= 0) || (target.amount >= target.cap);
+      // Plus is capped by both the remaining pool AND this target's own cap (e.g. its damage), a whole STEP at a time.
+      const st = splitState.step || 1;
+      if (plusBtn)  plusBtn.disabled  = (splitState.remaining < st) || (target.amount + st > target.cap);
     }
 
     // Banner
@@ -255,8 +261,9 @@
     minus.addEventListener('click', function(e) {
       e.stopPropagation();
       e.preventDefault();
-      if (target.amount > 0) {
-        target.amount--;
+      const st = (splitState && splitState.step) || 1;
+      if (target.amount >= st) {
+        target.amount -= st;
         refreshUI();
       }
     });
@@ -275,8 +282,9 @@
     plus.addEventListener('click', function(e) {
       e.stopPropagation();
       e.preventDefault();
-      if (splitState.remaining > 0 && target.amount < target.cap) {
-        target.amount++;
+      const st = splitState.step || 1;
+      if (splitState.remaining >= st && target.amount + st <= target.cap) {
+        target.amount += st;
         refreshUI();
       }
     });
@@ -399,6 +407,7 @@
       remaining: parsed.amount,
       allowPartial: parsed.allowPartial,
       allOrNone: parsed.allOrNone,
+      step: parsed.step,
       targets: parsed.targets.map(t => ({ mzID: t.mzID, cap: t.cap, amount: 0 })),
       callback: submitCallback,
       decisionIndex: decisionIndex,

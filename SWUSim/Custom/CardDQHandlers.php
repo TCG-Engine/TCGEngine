@@ -2082,6 +2082,14 @@ function _SWUOnUnitDamaged($obj, int $amount = 0, bool $isCombat = false, bool $
   global $playerID;
   if ($obj === null)
     return;
+  // ★ JUDGE RULING 2026-09-14 (CR 8.9 / 20.1): damage that was PREVENTED — by a Shield, a prevention
+  // effect, or a reduction that takes it to 0 — was never DEALT, so no "when … is dealt damage" /
+  // "when a unit deals damage" reaction fires (TWI_016 Jango Fett is the user's example). It still
+  // satisfies an "If you do" in the ability that dealt it; that is a different question, answered in
+  // the dealing card, never here. Every caller already passes the post-prevention amount and skips 0;
+  // this makes the rule hold for any future caller too.
+  if ($amount <= 0)
+    return;
   // SEC_143 The Elite Squad — "When damage is dealt to this unit: you may deal 2 to another unique unit."
   // NO "and survives" clause, so it fires even when this damage DEFEATS Elite Squad (the target is ANOTHER
   // unit, so Elite Squad being gone is fine). Handled before the $survived gate below.
@@ -2147,6 +2155,9 @@ function _SWUOnUnitDamaged($obj, int $amount = 0, bool $isCombat = false, bool $
   // card." Same self-observer shape as HMW_211 above; its SECOND clause ("when an opponent draws…") is a
   // field observer on _SWUOnPlayerDrew, and the draws made here are what feed it.
   _SWUHmw169CheckObserve($obj, $amount);
+  // HMW_156 Arena Acklay — "When THIS unit is dealt damage and survives: Deal 2 damage to each enemy
+  // base." The same self-observer shape as Crosshair just above. See cards/hmw/ArenaAcklay_ScreamingPredator.php.
+  _SWUHmw156CheckObserve($obj, $amount);
   // TWI_016 Jango Fett — "When a FRIENDLY unit deals damage to an ENEMY unit: ..." $obj is the damaged
   // unit (the potential enemy). For combat the source is definitionally the opposing unit, so the source
   // controller is OtherPlayer($obj->Controller). For ability/effect damage read the recorded source-unit
@@ -2478,12 +2489,22 @@ $customDQHandlers["LAW_COMMONBASE_PLAY"] = function ($player, $parts, $lastDecis
     return;
   }
   $discount = min(_SWUCommonBaseWaivePenalty(intval($player), $o->CardID), SWUAspectPenalty(intval($player), $o->CardID));
-  $savedTP = $gTurnPlayer;
-  $savedPass = GetSWUVar('PASS', '0');
-  SWUWithNestedActionFrame(fn() => ActivateCard(intval($player), $lastDecision, false, $discount));
-  $gTurnPlayer = $savedTP;
-  SetSWUVar('PASS', $savedPass);
-  SWUAfterAction(intval($player));
+  // The Epic Action DELEGATES its whole action to the play (the SOR_022 Energy Conversion Lab shape), so the
+  // PLAY owns the close — an event's FINISH_PLAY_CARD, a unit's entry flush, an upgrade's attach. This used to
+  // run the play in a nested frame and then call SWUAfterAction at once, which compacted the hand BEFORE an
+  // event's queued follow-up drained: SOR_219 Sneak Attack offered "myHand-1" for the unit, the hand
+  // collapsed under it, and the unit was never played (found 2026-09-14,
+  // interactions/DeathStar_RegroupDefeat_vsSneakAttackRuthlessRaider.md).
+  // Safety net: a play REFUSED before it starts (the card is still in hand, untouched) closes nothing on its
+  // own, so the base closes the action itself.
+  $uid = intval($o->UniqueID ?? 0);
+  ActivateCard(intval($player), $lastDecision, false, $discount);
+  $playerID = intval($player);
+  $still = GetZoneObject($lastDecision);
+  if (!SWUObjGone($still) && intval($still->UniqueID ?? 0) === $uid && $uid > 0
+      && (new DecisionQueueController())->AllQueuesEmpty()) {
+    SWUAfterAction(intval($player));
+  }
 };// ── Batch 4.4: exhaust / ready / bounce ─────────────────────────────────────
 
 // Universal: tag the chosen unit ($lastDecision) with grant token $parts[0] — a source CardID
@@ -3048,7 +3069,7 @@ function _SWUFalconKeepOrBounce(int $player, string $falconMz, bool $paidOk): vo
 }
 // ── Task 1.3: Exploit pre-step resolver ─────────────────────────────────────
 // Called after MZMULTICHOOSE "defeat up to X friendly units" for an Exploit card.
-// $params: [ mzID-of-card-being-played, grantedExploit-count ].
+// $params: [ mzID-of-card-being-played, grantedExploit-count, exploitX, playDiscount ].
 // $lastDecision: '&'-joined mzIDs of chosen friendly units to defeat, or '-' / '' if none.
 $customDQHandlers["EXPLOIT_RESOLVE"] = function ($player, $params, $lastDecision) {
   global $gPlayGrantedExploit, $playerID;
@@ -3058,14 +3079,17 @@ $customDQHandlers["EXPLOIT_RESOLVE"] = function ($player, $params, $lastDecision
   $mzID = $params[0] ?? '';
   $gPlayGrantedExploit = intval($params[1] ?? 0);   // restore across the request boundary
   $maxDefeats = intval($params[2] ?? 0);            // effective Exploit X (cap on units defeated)
+  // The discount the PLAY was begun with ("it costs 3 less"), on top of whatever Exploit takes off.
+  // Both the affordability gate and the charge must see it — see _SWUBeginPlayCardUnitPath.
+  $playDiscount = intval($params[3] ?? 0);
 
   // Validation, the payability abort, the deferred-trigger defeat loop and the SEC_122 compensation all
   // live in _SWUResolveExploitPicks, shared with SMUGGLE_EXPLOIT so the two play paths cannot drift.
-  // This path prices the card's PRINTED cost.
+  // This path prices the card's PRINTED cost, less the play's own discount.
   $probeObj = ($mzID !== '') ? GetZoneObject($mzID) : null;
   $exploitDiscount = _SWUResolveExploitPicks(intval($player), $probeObj->CardID ?? '', $lastDecision,
       $maxDefeats,
-      fn(int $optDisc, array $losing) => _SWUPlayIsPayableAtDiscount(intval($player), $mzID, $optDisc, $losing));
+      fn(int $optDisc, array $losing) => _SWUPlayIsPayableAtDiscount(intval($player), $mzID, $optDisc + $playDiscount, $losing));
 
   if ($exploitDiscount === null) {
     SetFlashMessage("Not enough resources to play this even after Exploit — nothing was defeated.");
@@ -3078,7 +3102,7 @@ $customDQHandlers["EXPLOIT_RESOLVE"] = function ($player, $params, $lastDecision
   // The event branch of ActivateCard does NOT restore $playerID, so we must not
   // restore it here either — SWUContinuePlayAfterExploit returns with $playerID
   // still set to $player (same as $savedPID), so the restore below is a safe no-op.
-  SWUContinuePlayAfterExploit(intval($player), $mzID, $exploitDiscount);
+  SWUContinuePlayAfterExploit(intval($player), $mzID, $exploitDiscount + $playDiscount);
   // CONSUME the restored grant now that the play has fully continued (the call above is
   // synchronous). Without this, the next play in the same request — a nested play, or the
   // next harness section — inherits a phantom Exploit X and raises a bogus defeat offer

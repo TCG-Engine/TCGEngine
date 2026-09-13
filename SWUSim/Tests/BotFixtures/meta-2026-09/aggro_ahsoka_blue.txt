@@ -1,0 +1,34 @@
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - City in the Clouds
+# Source: melee.gg 437735, #1 of 53 (7-0-2)
+#   https://melee.gg/Decklist/View/af94dfb6-2132-4b0f-bca8-b4bc01574c37 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (36 entries).
+# Archetype (owner's label): Ground-heavy combo aggro
+# Style: aggro
+# Flavours: ground, combo
+
+Leader
+1 ASH_009
+
+Base
+1 JTL_019
+
+Deck
+3 SEC_046
+3 LOF_093
+3 LAW_037
+3 SEC_111
+3 ASH_079
+3 LAW_039
+3 LAW_038
+3 ASH_248
+3 SEC_101
+3 ASH_062
+2 ASH_056
+2 LOF_096
+2 ASH_077
+3 SEC_099
+3 JTL_095
+3 JTL_250
+2 LAW_041
+1 SEC_179
+2 LAW_127

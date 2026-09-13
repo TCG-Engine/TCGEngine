@@ -9,7 +9,9 @@
 $onAttackAbilities["ASH_009:0"] = function($player, $mzID) {
     $self = GetZoneObject($mzID);
     if ($self === null) return;
-    $selfPow = intval(ObjectCurrentPower($self));
+    // In-attack power (Raid, "+N for this attack"): ruling 07/21/2026, "abilities that refer to a card's power
+    // include temporary modifiers". Also covers the Support attacker that gains this ability.
+    $selfPow = intval(ObjectCurrentPowerInAttack($self));
     SWUOfferUnitTarget($player, $mzID, [
         'continuation' => 'APPLY_PHASE_BUFF|2|0|ASH_009', 'side' => 'any', 'may' => true,
         'extraFilter' => fn($o) => intval(ObjectCurrentPower($o)) < $selfPow,

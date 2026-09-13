@@ -57,11 +57,14 @@ P2HANDCOUNT:0
 
 ---
 
-# NoDrawWhenTheDamageIsPrevented
+# DamageIsPrevented_TheControllerStillDraws
 #// TS26_62 R2-D2 — "deal 2 damage to a base. IF YOU DO, that base's controller draws a card." P2 plays
 #// Close the Shield Gate (JTL_074) on their own base first, so R2-D2's 2 damage is prevented: their base
-#// stays on 0 and they do NOT draw, leaving their hand empty.
-#// Discriminating: the draw used to fire on the attempt, handing the opponent a free card.
+#// stays on 0 — and they STILL draw (their hand goes 0 → 1).
+#// ★ JUDGE RULING 2026-09-14: prevented damage satisfies "If you do" — "you still tried to damage it"
+#// (CR 9.2; the Malakili ruling). This section was flipped that day: it used to be
+#// NoDrawWhenTheDamageIsPrevented and assert the opposite, on a "measure the outcome" reading that the
+#// ruling overturned.
 
 ## GIVEN
 CommonSetup: rrw/bbw/{myResources:2;handCardIds:TS26_62;theirResources:3}
@@ -79,4 +82,4 @@ WithP2Deck: [SEC_080 SOR_095]
 
 ## EXPECT
 P2BASEDMG:0
-P2HANDCOUNT:0
+P2HANDCOUNT:1

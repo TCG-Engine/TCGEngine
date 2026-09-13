@@ -1,23 +1,21 @@
-# "Every exhaust effect skips the next player's turn" — bug report #1023, game 4161 (3 seats).
-#
-# The report generalises #1021 (JTL_210 The Mandalorian) to the whole family. There are THREE distinct
-# ways the engine exhausts something, and a defect in any one of them would present identically to a
-# player, so all three are pinned here:
-#   1. the shared EXHAUST_UNIT continuation  (IBH_018 Go for the Legs — a pure exhaust event)
-#   2. exhaust as an ability's COST          (ASH_011 Cad Bane, "Action [Exhaust]: …")
-#   3. an inline $obj->Status = 0            (JTL_210, which never touches EXHAUST_UNIT)
-#
-# ⚠ WHY THREE SEATS AND NOT TWO. SWUSwapTurnPlayer() advances via NextLiveSeat(), which at two seats is
-# an INVOLUTION — a double swap returns to the acting player, so it reads as "I got an extra action",
-# and any compensation that swaps back is indistinguishable from correct behaviour. At three seats the
-# same double swap ADVANCES TWICE and the middle seat never acts. Game 4161 is a 3-seat table, so
-# TURNPLAYER must be pinned to the EXACT next seat; "not me" is not an assertion here.
-#
-# ⚠ NO `P1OnlyActions`. That directive claims initiative so the opponents auto-pass, which makes a
-# double swap indistinguishable from a single one and would render every section below vacuous.
-
----
-
+#// "Every exhaust effect skips the next player's turn" — bug report #1023, game 4161 (3 seats).
+#//
+#// The report generalises #1021 (JTL_210 The Mandalorian) to the whole family. There are THREE distinct
+#// ways the engine exhausts something, and a defect in any one of them would present identically to a
+#// player, so all three are pinned here:
+#//   1. the shared EXHAUST_UNIT continuation  (IBH_018 Go for the Legs — a pure exhaust event)
+#//   2. exhaust as an ability's COST          (ASH_011 Cad Bane, "Action [Exhaust]: …")
+#//   3. an inline $obj->Status = 0            (JTL_210, which never touches EXHAUST_UNIT)
+#//
+#// ⚠ WHY THREE SEATS AND NOT TWO. SWUSwapTurnPlayer() advances via NextLiveSeat(), which at two seats is
+#// an INVOLUTION — a double swap returns to the acting player, so it reads as "I got an extra action",
+#// and any compensation that swaps back is indistinguishable from correct behaviour. At three seats the
+#// same double swap ADVANCES TWICE and the middle seat never acts. Game 4161 is a 3-seat table, so
+#// TURNPLAYER must be pinned to the EXACT next seat; "not me" is not an assertion here.
+#//
+#// ⚠ NO `P1OnlyActions`. That directive claims initiative so the opponents auto-pass, which makes a
+#// double swap indistinguishable from a single one and would render every section below vacuous.
+#//
 # ThreeSeat_ExhaustEvent_SharedContinuation
 #// IBH_018 Go for the Legs (cost 1 event): "Exhaust an enemy ground unit." Routes through the shared
 #// EXHAUST_UNIT continuation. Exactly ONE enemy ground unit exists, so the target auto-resolves and no

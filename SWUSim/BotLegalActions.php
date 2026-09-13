@@ -48,6 +48,120 @@ function SWUBotRecordUnrecognizedDecision($type, $param, $seat) {
     error_log("SWUBot: unrecognized decision type '$type' (param='$param') for seat $seat.");
 }
 
+// Capped, flag-less split prompts — "pool|mz:cap&mz:cap&…" — are INDIRECT DAMAGE (SWUDealIndirectDamage,
+// GameLogic.php): the damaged side's units capped at their remaining HP, the base LAST with cap = pool, and the
+// pool is assigned in full (CR 35.3). The bridge reads ":cap" as a zone filter and drops every target, leaving
+// "-" as the only candidate — so in self-play, indirect damage with 2+ targets never landed (diagnosis 2026-09-14:
+// 186 prompts in 39 Boba games, 0 damage). Enumerate full assignments instead. Each target but the last takes
+// 0, cap-1 (survives), cap (defeated) or all that is left — the amounts that change what happens — and the last
+// target takes the remainder. Deterministic; at most SWU_BOT_SPLIT_MAX candidates.
+const SWU_BOT_SPLIT_MAX = 300;
+function _SWUBotCappedSplits(array $targets, int $pool): array {
+    $out = [];
+    $n = count($targets);
+    $walk = function (int $i, int $left, array $picked) use (&$walk, &$out, $targets, $n) {
+        if (count($out) >= SWU_BOT_SPLIT_MAX) return;
+        [$mz, $cap] = $targets[$i];
+        if ($i === $n - 1) {
+            if ($left > $cap) return;
+            if ($left > 0) $picked[] = "$mz:$left";
+            if (!empty($picked)) $out[] = implode(',', $picked);
+            return;
+        }
+        $amounts = array_values(array_unique(array_filter([0, $cap - 1, $cap, $left], fn($a) => $a >= 0 && $a <= min($cap, $left))));
+        sort($amounts);
+        foreach ($amounts as $a) $walk($i + 1, $left - $a, $a > 0 ? array_merge($picked, ["$mz:$a"]) : $picked);
+    };
+    if ($n > 0 && $pool > 0) $walk(0, $pool, []);
+    return array_values(array_unique($out));
+}
+
+// SWUSim-side corrections to the shared bridge's answer encoding. DevTools/TestAutomationBridge.php is shared
+// with the other sims and stays untouched by bot work (RL bots spec, Section 1), so its SWUSim-specific slips
+// are corrected here, after it returns. Both were found by the real-deck self-play sweep (2026-09-13), where
+// EVERY candidate the bridge built was refused by the engine:
+//  1. MZSPLITASSIGN "total|spec&spec|FLAG" (FLAG = UPTO, "assign fewer than the total"). The bridge splits only
+//     the FIRST '|', so the flag stuck to the last target ("mySpaceArena-0|UPTO") and every assignment naming
+//     that target was invalid. 34 of 18,200 games stalled (Boba's Pilot split, Talzin's Advantage spread, …).
+//  2. Subcard targets ("theirGroundArena-1.u0" — an upgrade on its host, see the subcard mzID addressing). The
+//     bridge expands them like zone specs into "theirGroundArena-1.u0-0 … -N", none of which exist, so System
+//     Shock-style prompts stalled or burned retries (~420 games: Boba, Piett, Luke, Ahsoka). Keep them verbatim.
+//  3. Capped, flag-less splits (indirect damage) — see _SWUBotCappedSplits.
+// If the bridge ever fixes these, they become no-ops.
+function _SWUBotCorrectBridgeAnswers(string $type, string $param, array $actions, int $seat): array {
+    if ($type === 'MZSPLITASSIGN' && preg_match('/^(\d+)\|([^|]*:\d+[^|]*)$/', $param, $m)) {
+        $targets = [];
+        foreach (array_filter(explode('&', $m[2]), fn($v) => $v !== '') as $spec) {
+            $bits = explode(':', $spec);
+            if (count($bits) === 2 && ctype_digit($bits[1])) $targets[] = [$bits[0], intval($bits[1])];
+        }
+        $splits = count($targets) >= 2 ? _SWUBotCappedSplits($targets, intval($m[1])) : [];
+        if (!empty($splits)) {
+            return array_map(fn($r) => ['playerID' => $seat, 'mode' => 100, 'buttonInput' => '', 'cardID' => $r, 'chkInput' => [], 'inputText' => ''], $splits);
+        }
+    }
+    // A STEPPED split ("total|targets|MODE|STEP" — HMW_036 Kelnacca's strikes of its power, 2026-09-14): every
+    // amount must be a multiple of STEP or the engine refuses it. Enumerate in STEPS (total/step points) through
+    // the bridge's helpers, then scale each amount back up.
+    if ($type === 'MZSPLITASSIGN' && preg_match('/^(\d+)\|(.*)\|([A-Za-z_]*)\|(\d+)$/', $param, $m) && intval($m[4]) > 1) {
+        if (!function_exists('BridgeEnumerateSplitAssignResults') || !function_exists('BridgeExpandDecisionSpecChoices')) return $actions;
+        $step = intval($m[4]);
+        $build = function () use ($m, $step) {
+            $choices = [];
+            foreach (array_filter(explode('&', $m[2]), fn($v) => $v !== '') as $spec) {
+                foreach (BridgeExpandDecisionSpecChoices(explode(':', $spec)[0]) as $c) $choices[] = $c;
+            }
+            return BridgeEnumerateSplitAssignResults(array_values(array_unique($choices)), intdiv(intval($m[1]), $step));
+        };
+        $results = function_exists('BridgeWithPlayerPerspective') ? BridgeWithPlayerPerspective($seat, $build) : $build();
+        $scaled = [];
+        foreach ((array)$results as $r) {
+            $parts = [];
+            foreach (explode(',', strval($r)) as $pair) {
+                $b = explode(':', $pair);
+                if (count($b) === 2) $parts[] = $b[0] . ':' . (intval($b[1]) * $step);
+            }
+            if (!empty($parts)) $scaled[] = implode(',', $parts);
+        }
+        return array_map(fn($r) => ['playerID' => $seat, 'mode' => 100, 'buttonInput' => '', 'cardID' => $r, 'chkInput' => [], 'inputText' => ''], $scaled);
+    }
+    if ($type === 'MZSPLITASSIGN') {
+        // Rebuild from the prompt WITHOUT the flag, through the bridge's own public helpers, so only the input is
+        // corrected and the enumeration stays the bridge's. (Patching the answers would not do: the bridge also
+        // treats "spec|UPTO" as a zone and appends an index, yielding "theirSpaceArena-0|UPTO-0".)
+        if (!preg_match('/^(\d+)\|(.*)\|([A-Za-z_]+)$/', $param, $m)) return $actions;
+        if (!function_exists('BridgeEnumerateSplitAssignResults') || !function_exists('BridgeExpandDecisionSpecChoices')) return $actions;
+        $build = function () use ($m) {
+            $choices = [];
+            foreach (array_filter(explode('&', $m[2]), fn($v) => $v !== '') as $spec) {
+                foreach (BridgeExpandDecisionSpecChoices($spec) as $c) $choices[] = $c;
+            }
+            return BridgeEnumerateSplitAssignResults(array_values(array_unique($choices)), intval($m[1]));
+        };
+        $results = function_exists('BridgeWithPlayerPerspective') ? BridgeWithPlayerPerspective($seat, $build) : $build();
+        return array_map(fn($r) => ['playerID' => $seat, 'mode' => 100, 'buttonInput' => '', 'cardID' => $r, 'chkInput' => [], 'inputText' => ''], (array)$results);
+    }
+    if ($type !== 'MZCHOOSE' && $type !== 'MZMAYCHOOSE') return $actions;
+    $subcards = [];
+    foreach (explode('&', $param) as $spec) {
+        $spec = explode(':', $spec)[0];
+        if (preg_match('/^(my|their)[A-Za-z]+-\d+\.u\d+$/', $spec)) $subcards[] = $spec;
+    }
+    if (empty($subcards)) return $actions;
+    $out = []; $pass = null; $have = [];
+    foreach ($actions as $a) {
+        $c = strval($a['cardID'] ?? '');
+        if (preg_match('/^(.+\.u\d+)-\d+$/', $c, $m) && in_array($m[1], $subcards, true)) continue;   // an invented id
+        if ($c === 'PASS') { $pass = $a; continue; }
+        $have[$c] = true; $out[] = $a;
+    }
+    foreach ($subcards as $sc) {
+        if (!isset($have[$sc])) $out[] = ['playerID' => $seat, 'mode' => 100, 'buttonInput' => '', 'cardID' => $sc, 'chkInput' => [], 'inputText' => ''];
+    }
+    if ($pass !== null) $out[] = $pass;   // PASS stays last, as the bridge orders it
+    return $out;
+}
+
 function SWUBotLegalActions($gameName, $seat) {
     $seat = intval($seat);
     $decisionSeat = SWUBotPendingDecisionSeat();
@@ -62,6 +176,7 @@ function SWUBotLegalActions($gameName, $seat) {
         }
         $legal = BridgeEnumerateLegalActionsLoaded('SWUSim', strval($gameName));
         $actions = is_array($legal['actions'] ?? null) ? $legal['actions'] : [];
+        $actions = _SWUBotCorrectBridgeAnswers(strval($legal['decisionType'] ?? ''), strval($legal['decisionParam'] ?? ''), $actions, $seat);
         if (empty($actions)) {
             $front = null;
             foreach (GetDecisionQueue($seat) as $entry) {
@@ -69,11 +184,29 @@ function SWUBotLegalActions($gameName, $seat) {
             }
             SWUBotRecordUnrecognizedDecision($front->Type ?? '', $front->Param ?? '', $seat);
         }
+        // Decision CONTEXT for the choosers (RL bots Phase 1a, Task 2). Without it a chooser sees only
+        // bare answers and cannot tell an attack-target prompt from an Ambush YES/NO, or know which unit
+        // is attacking. decisionTooltip is the RAW underscored form ("Choose_an_attack_target") so rules
+        // can match it exactly. 'following' = the params of up to 3 live entries queued BEHIND the head —
+        // the continuation usually carries the context the prompt itself lacks
+        // ("SWUResolveAttack|<attackerMz>", "SWUAmbushAnswer|<mz>|<targets>", "CREDIT_PAY|<max>|<cost>|…").
+        $following = [];
+        $seenHead = false;
+        foreach (GetDecisionQueue($seat) as $entry) {
+            if ($entry === null || !empty($entry->removed)) continue;
+            if (!$seenHead) { $seenHead = true; continue; }        // the head is the decision itself
+            $following[] = strval($entry->Param ?? '');
+            if (count($following) >= 3) break;
+        }
         return [
-            'success'  => true,
-            'kind'     => 'decision',
-            'playerID' => $seat,
-            'actions'  => $actions,
+            'success'         => true,
+            'kind'            => 'decision',
+            'playerID'        => $seat,
+            'actions'         => $actions,
+            'decisionType'    => strval($legal['decisionType'] ?? ''),
+            'decisionParam'   => strval($legal['decisionParam'] ?? ''),
+            'decisionTooltip' => strval($legal['decisionTooltipRaw'] ?? ''),
+            'following'       => $following,
         ];
     }
 
@@ -170,8 +303,9 @@ function SWUBotLegalActions($gameName, $seat) {
 //    All four use mode 10001, matching BridgePassActionForRoot's own mode for the same
 //    "<mzID>!CustomInput!<verb>" shape.
 //    Deliberately OUT of scope (Phase 2): Smuggle-from-resources (myResources-N), play-from-
-//    discard, hand-activated abilities (myHand-N!CustomInput!Activate:K), and the initiative /
-//    blast / plan counters.
+//    discard, hand-activated abilities (myHand-N!CustomInput!Activate:K), and the blast / plan
+//    counters (Twin Suns). The initiative counter was added by RL bots Phase 1a (see "Take the
+//    initiative" below).
 // An UPGRADE with no legal host is affordable but unplayable, and — uniquely among the doomed plays
 // the enumerator can emit — attempting it is NOT a no-op.
 //
@@ -352,6 +486,20 @@ function SWUBotFreePlayActions($gameName, $seat) {
                 $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => "$zoneName-$i!CustomInput!Activate"];
             }
         }
+    }
+
+    // ── Take the initiative ──────────────────────────────────────────────────
+    // Deferred by Phase 1 (header note above); added for the RL bots spec's layer-2 rules 3 ("take the
+    // initiative for guaranteed lethal next round") and 9 ("nothing left to do → take the initiative"),
+    // which cannot fire while the bot has no way to take it. Wire form = the client's own
+    // (SWUSim/Custom/GameLayoutShared.php:1418); handler = CustomWidgetInput's "InitiativeCounter" case
+    // (SWUSim/Custom/CustomInput.php:28), which re-checks turn player, empty queues and MAIN. Only one
+    // player may take it per round, recorded as GetInitiativeCounter() ending in "_CLAIMED"
+    // (SWUTakeInitiative). Placed immediately BEFORE Pass so Pass stays the last, always-legal candidate
+    // the retry loop relies on — and so 'first-legal' still prefers every real action to it.
+    $initiativeCounter = strval(GetInitiativeCounter() ?? '');
+    if (!str_ends_with($initiativeCounter, '_CLAIMED')) {
+        $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'InitiativeCounter-0!CustomInput!TakeInitiative'];
     }
 
     // ── Pass / end action ────────────────────────────────────────────────────

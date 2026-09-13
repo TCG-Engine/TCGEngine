@@ -1,48 +1,46 @@
-# CORE — a PASS ends an action, so the close ledger has to own it.
-#
-# WHAT THIS FILE PINS. Ending an action is TWO things: the turn swap, and `PASS = 0` (dropping the
-# consecutive-pass streak that ends the phase). Both used to be reachable by a frame that did not own
-# the close, and each one produces a different, separately-visible bug:
-#
-#   the SWAP   — swapped twice. At 2 seats NextLiveSeat is an INVOLUTION so it lands back on the actor
-#                and reads as "I got a free extra action"; at 3+ it advances twice and THE SEAT IN
-#                BETWEEN NEVER ACTS. Same defect, two symptoms, and only the 3+ shape can name it.
-#   the STREAK — reset by a refused frame. The phase exit had already been deferred to
-#                SWU_RETRY_ENDPHASE, so with PASS back at 0 the retry does nothing, the phase stays
-#                MAIN, and (in SWUPassAction's own words) "BOTH players keep acting".
-#
-# ⚠ THE HOLE WAS NOT THAT THE LEDGER COULD NOT SEE A PASS — that is what
-# `docs/action-close-deferrals.md` §1 claimed, and it is STALE. An initiative claim genuinely DOES open
-# an action id (`CustomInput.php` calls SaveUndoVersion before SWUTakeInitiative; GameTestAdapter
-# mirrors it with `_SWUOpenAction`). Traced 2026-08-31 on the four-seat ASH_155 fixture:
-#
-#     [TRACE] PASS p=1 id='1' closed=''                    ← claim opened id 1; the pass swapped and
-#                                                            never closed it
-#     [TRACE] gate phase=MAIN depth=0 id='1' closed=''     ← the bonus attack finds it still OPEN, so
-#                                                            the gate ALLOWS a second swap (2 → 3)
-#
-# The id was always there; nothing ever CLOSED it. `SWUPassAction` now stamps it, and the `PASS = 0`
-# reset moved under the same gate into `_SWUEndActionAndPassTurn()`.
-#
-# ⚠ WHY THIS REPLACED A PER-CARD FLAG. ASH_155 Grogu used to set a one-shot `SWU_SUPPRESS_AFTERACTION`
-# consumed in SWUAfterAction. That worked for Grogu and for nothing else: the next "when you take the
-# initiative" card whose trigger reaches an after-action would have been silently wrong, at 3+ seats
-# only, in a way no 2-player fixture can show. The sections below are written against the MECHANISM so
-# they keep holding when that card is added.
-#
-# ⚠ NO `NOEXTRAACTION` ANYWHERE HERE, deliberately. It means "no second close was ATTEMPTED", and the
-# whole point of this fix is that the second close IS attempted and REFUSED — every Grogu section now
-# reports one. `TURNPLAYER` and `PHASE` are what distinguish refused from allowed.
-#
-# ⚠ NO `P{n}OnlyActions` EITHER: it claims initiative and marks every other seat SWU_COUNTER_TAKEN so
-# they auto-pass, which is exactly the rotation being measured.
-#
-# ASH_155 Grogu ("When you take the initiative: you may attack with a unit") is the only card in the
-# corpus whose trigger reaches SWUAfterAction from inside a pass window, so it is the probe. What is
-# under test is the ledger, not the card — Tests/Cases/ash/Grogu_YesYesYes*.md cover the card itself.
-
----
-
+#// CORE — a PASS ends an action, so the close ledger has to own it.
+#//
+#// WHAT THIS FILE PINS. Ending an action is TWO things: the turn swap, and `PASS = 0` (dropping the
+#// consecutive-pass streak that ends the phase). Both used to be reachable by a frame that did not own
+#// the close, and each one produces a different, separately-visible bug:
+#//
+#//   the SWAP   — swapped twice. At 2 seats NextLiveSeat is an INVOLUTION so it lands back on the actor
+#//                and reads as "I got a free extra action"; at 3+ it advances twice and THE SEAT IN
+#//                BETWEEN NEVER ACTS. Same defect, two symptoms, and only the 3+ shape can name it.
+#//   the STREAK — reset by a refused frame. The phase exit had already been deferred to
+#//                SWU_RETRY_ENDPHASE, so with PASS back at 0 the retry does nothing, the phase stays
+#//                MAIN, and (in SWUPassAction's own words) "BOTH players keep acting".
+#//
+#// ⚠ THE HOLE WAS NOT THAT THE LEDGER COULD NOT SEE A PASS — that is what
+#// `docs/action-close-deferrals.md` §1 claimed, and it is STALE. An initiative claim genuinely DOES open
+#// an action id (`CustomInput.php` calls SaveUndoVersion before SWUTakeInitiative; GameTestAdapter
+#// mirrors it with `_SWUOpenAction`). Traced 2026-08-31 on the four-seat ASH_155 fixture:
+#//
+#//     [TRACE] PASS p=1 id='1' closed=''                    ← claim opened id 1; the pass swapped and
+#//                                                            never closed it
+#//     [TRACE] gate phase=MAIN depth=0 id='1' closed=''     ← the bonus attack finds it still OPEN, so
+#//                                                            the gate ALLOWS a second swap (2 → 3)
+#//
+#// The id was always there; nothing ever CLOSED it. `SWUPassAction` now stamps it, and the `PASS = 0`
+#// reset moved under the same gate into `_SWUEndActionAndPassTurn()`.
+#//
+#// ⚠ WHY THIS REPLACED A PER-CARD FLAG. ASH_155 Grogu used to set a one-shot `SWU_SUPPRESS_AFTERACTION`
+#// consumed in SWUAfterAction. That worked for Grogu and for nothing else: the next "when you take the
+#// initiative" card whose trigger reaches an after-action would have been silently wrong, at 3+ seats
+#// only, in a way no 2-player fixture can show. The sections below are written against the MECHANISM so
+#// they keep holding when that card is added.
+#//
+#// ⚠ NO `NOEXTRAACTION` ANYWHERE HERE, deliberately. It means "no second close was ATTEMPTED", and the
+#// whole point of this fix is that the second close IS attempted and REFUSED — every Grogu section now
+#// reports one. `TURNPLAYER` and `PHASE` are what distinguish refused from allowed.
+#//
+#// ⚠ NO `P{n}OnlyActions` EITHER: it claims initiative and marks every other seat SWU_COUNTER_TAKEN so
+#// they auto-pass, which is exactly the rotation being measured.
+#//
+#// ASH_155 Grogu ("When you take the initiative: you may attack with a unit") is the only card in the
+#// corpus whose trigger reaches SWUAfterAction from inside a pass window, so it is the probe. What is
+#// under test is the ledger, not the card — Tests/Cases/ash/Grogu_YesYesYes*.md cover the card itself.
+#//
 # Control_PlainPass_MovesTheTurnExactlyOneSeat
 #// The floor. Nothing triggers, so this measures the pass rotation alone. If it ever reds, every
 #// section below is reporting a rotation defect rather than a close-ownership one.

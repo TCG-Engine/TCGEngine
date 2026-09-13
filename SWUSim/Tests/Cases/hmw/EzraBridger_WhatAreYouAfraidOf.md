@@ -37,9 +37,11 @@ P1GROUNDARENACOUNT:1
 
 ---
 
-# TakeInitiative_DamagePrevented_NoBeast
-#// "If you do" is gated on the damage landing: with the self-base-damage prevented (Close the Shield Gate
-#// armed on P1's own base), the 3 is prevented and no Beast is created. Decks are seeded so the round-end
+# TakeInitiative_DamagePrevented_StillCreatesTheBeast
+#// ★ JUDGE RULING 2026-09-14: prevented damage satisfies "If you do" — "you still tried to damage it"
+#// (CR 9.2; the Malakili ruling). With Close the Shield Gate armed on P1's own base, the 3 is prevented
+#// (base stays on 0) and the Beast is STILL created. Flipped that day: this section used to be
+#// TakeInitiative_DamagePrevented_NoBeast and assert the opposite. Decks are seeded so the round-end
 #// regroup draw (Claim ends the round) doesn't add the empty-deck base penalty and mask the assertion.
 
 ## GIVEN
@@ -59,7 +61,8 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 
 ## EXPECT
 P1BASEDMG:0
-P1GROUNDARENACOUNT:1
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:HMW_T03
 
 ---
 

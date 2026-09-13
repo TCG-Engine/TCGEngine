@@ -84,6 +84,9 @@ P1GROUNDARENAUNIT:1:READY
 #// token, 3 damage, and is STILL exhausted, while the untouched SEC_080 (and P1's Patient Hunter, the
 #// friendly control) readied normally. Flow: exp target -> bounty YES -> search pick -> Ambush YES ->
 #// Ambush target -> both resource passes.
+#// ⚠ Since the regroup-start trigger window (2026-09-14, CR 7.10): P1's Patient Hunter and P2's Fireball
+#// trigger together, so the initiative holder (P2) is asked which PLAYER resolves first — NO = P1 first, the
+#// order this section was written for.
 
 ## GIVEN
 CommonSetup: gyk/bgw/{}
@@ -97,6 +100,7 @@ WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
 
 ## WHEN
 - P1>Pass
+- P2>AnswerDecision:NO
 - P1>AnswerDecision:theirGroundArena-0
 - P1>AnswerDecision:YES
 - P1>AnswerDecision:SHD_210

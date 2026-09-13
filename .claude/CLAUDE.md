@@ -28,7 +28,7 @@ https://melee.gg/Decklist/View/af94dfb6-2132-4b0f-bca8-b4bc01574c37 | Ahsoka blu
 https://melee.gg/Decklist/View/8b2d5c40-77c0-4454-b4b1-b4bc00df5b5f | Leia blue aggro go tall
 https://melee.gg/Decklist/View/ef250fc5-56ff-4194-98c8-b4bc007dcf85 | Mando Colossus hard control with late game bombs
 https://melee.gg/Decklist/View/be414b4b-c4f9-4b90-8c23-b4bc0038748b | Luke pilot Data Vault space midrange pilot deck
-
+https://melee.gg/Decklist/View/a8cf1f9c-221d-4b4a-8dbf-b4c300d076c3 | Lando blue midrange Credit tempo engine with early bombs
 
 
 Twin Suns:

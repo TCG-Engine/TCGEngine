@@ -311,3 +311,30 @@ WithP3GroundArena: SOR_046:1:0
 SEATCOUNT:4
 P3GROUNDARENAUNIT:0:DAMAGE:3
 P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# Defending_AlsoAppliesToDarthMaulsTwoDefenderAttack
+#// TWI_135 Darth Maul resolves "attack 2 units" through a separate two-defender path, which read each
+#// defender's printed power and skipped every "while defending" bonus (fixed 2026-09-14 with the shared
+#// while-defending helper). Maul (5/6) attacks LOF_209 Tusken Tracker (2/4, Raid 2) and a TWI_T01 Battle
+#// Droid token (1/1, not a Tusken) while the Chieftain watches: the counter is (2 + 2) + 1 = 5, not 3.
+#// The Droid gets nothing — it is not a Tusken. Both defenders die; the Chieftain stays.
+
+## GIVEN
+CommonSetup: rrk/yyw
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: TWI_135:1:0
+WithP2GroundArena: [HMW_212:1:0 LOF_209:1:0 TWI_T01:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:1
+- P1>AnswerDecision:Units
+- P1>AnswerDecision:theirGroundArena-1&theirGroundArena-2
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:TWI_135
+P1GROUNDARENAUNIT:0:DAMAGE:5
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:HMW_212

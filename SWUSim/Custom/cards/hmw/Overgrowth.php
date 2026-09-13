@@ -43,7 +43,15 @@ $whenPlayedAbilities["HMW_151:0"] = function($player, $mzID = '') {
     if (_SWUControlsBaseWithTrait($me, 'Kashyyyk')) {
         $friendly = SWUAllUnits('my');
         $enemy    = SWUAllUnits('their');
-        if (!empty($friendly) && !empty($enemy)) {
+        // USER RULING 2026-09-14: when EVERY friendly unit has 0 power the strike can only deal 0, so it is
+        // skipped outright (no dealer / target prompts). A 0-power unit is still a legal dealer when another
+        // friendly unit has power — the pool itself is unfiltered (ZeroPowerDealer_IsInTheOfferPool).
+        $anyPower = false;
+        foreach ($friendly as $fmz) {
+            $fo = GetZoneObject($fmz);
+            if (!SWUObjGone($fo) && intval(ObjectCurrentPower($fo)) > 0) { $anyPower = true; break; }
+        }
+        if (!empty($friendly) && !empty($enemy) && $anyPower) {
             SWUQueueChooseTarget($me, $friendly, "Choose_your_unit_to_deal_damage", "HMW_151#0");
         }
     }

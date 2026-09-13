@@ -7,7 +7,7 @@
 $onAttackAbilities["LOF_163:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $self = GetZoneObject($mzID);
-    if ($self === null || intval(ObjectCurrentPower($self)) < 6) return;
+    if ($self === null || intval(ObjectCurrentPowerInAttack($self)) < 6) return;   // counts Raid / "+N for this attack"
     DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip: "Deal_2_to_an_enemy_base?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_163#0", 1);
 };

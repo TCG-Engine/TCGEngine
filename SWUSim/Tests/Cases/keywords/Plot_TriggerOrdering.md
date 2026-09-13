@@ -1,40 +1,40 @@
-# Plot shares a timing window with the deployed leader's OWN trigger — the player orders them.
-#
-# Bug report #1024 (game 4161): "Deploying Boba JTL does not let me choose order of Plot Cinta Kaz and
-# Boba's When attached as Pilot trigger. These are both supposed to be in the same timing window."
-#
-# THE RULES, and they are unambiguous:
-#   CR 19.a — "'Plot' is a keyword that resolves like the triggered ability: **'When you deploy a
-#              leader: You may play this card from your resource zone…'**"
-#   CR 7.6.9 — "If a player must resolve multiple triggered abilities on cards they control at the same
-#              time, **that player chooses the order** in which to resolve those abilities."
-# JTL_009 Boba Fett's "When deployed as an upgrade: Deal up to 4 damage…" triggers on the same deploy,
-# for the same player. Two simultaneous triggers → the controller orders them. Compare CR 7.6.13.b,
-# which says exactly this for the other keyword-that-resolves-like-a-trigger family: "'When Played'
-# abilities, Ambush, and Shielded all resolve in the same timing window, in the order that the card's
-# controller chooses."
-#
-# WHAT WAS WRONG. The order was fixed by ARCHITECTURE, not by a rule. `SWUDeployLeader` armed the Plot
-# window but the window only OPENED from the deploy's `SWUAfterAction`, which runs after the leader's
-# own entry triggers have already been queued. Traced on the reported board — one request, three calls:
-#
-#     [P] FlushEntryTriggerBag     ← Boba's damage queued first …
-#     [P] SWUAfterAction
-#     [P] _SWUPlotAfterPlay
-#     [P] _SWUPlotReoffer          ← … Plot queued behind it, always
-#
-# and the observed prompts were `OPTIONCHOOSE [Unit&Pilot]` → `MZSPLITASSIGN [4|…]` → `MZMAYCHOOSE
-# [myResources-0]`, with no ordering step anywhere. The Plot window is now added to the SAME pending
-# trigger bag as every other "when you deploy a leader" trigger (JTL_191 Invincible already rode it),
-# so `FlushEntryTriggerBag` orders it with the existing `Choose_trigger_to_resolve` MZCHOOSE.
-#
-# ⚠ SCOPE, stated plainly: the Plot WINDOW is one entry in that ordering, not one entry per Plot card.
-# With two Plot cards you may still play them in any order within the window (CR 19.b), but you cannot
-# interleave the leader's trigger between them. That is a narrower reading than CR 7.6.9 strictly
-# allows; it is called out in `_SWUPlotWindowTriggerCardID`'s comment rather than left silent.
-
----
-
+#// Plot shares a timing window with the deployed leader's OWN trigger — the player orders them.
+#//
+#// Bug report #1024 (game 4161): "Deploying Boba JTL does not let me choose order of Plot Cinta Kaz and
+#// Boba's When attached as Pilot trigger. These are both supposed to be in the same timing window."
+#//
+#// THE RULES, and they are unambiguous:
+#//   CR 19.a — "'Plot' is a keyword that resolves like the triggered ability: **'When you deploy a
+#//              leader: You may play this card from your resource zone…'**"
+#//   CR 7.6.9 — "If a player must resolve multiple triggered abilities on cards they control at the same
+#//              time, **that player chooses the order** in which to resolve those abilities."
+#// JTL_009 Boba Fett's "When deployed as an upgrade: Deal up to 4 damage…" triggers on the same deploy,
+#// for the same player. Two simultaneous triggers → the controller orders them. Compare CR 7.6.13.b,
+#// which says exactly this for the other keyword-that-resolves-like-a-trigger family: "'When Played'
+#// abilities, Ambush, and Shielded all resolve in the same timing window, in the order that the card's
+#// controller chooses."
+#//
+#// WHAT WAS WRONG. The order was fixed by ARCHITECTURE, not by a rule. `SWUDeployLeader` armed the Plot
+#// window but the window only OPENED from the deploy's `SWUAfterAction`, which runs after the leader's
+#// own entry triggers have already been queued. Traced on the reported board — one request, three calls:
+#//
+#//     [P] FlushEntryTriggerBag     ← Boba's damage queued first …
+#//     [P] SWUAfterAction
+#//     [P] _SWUPlotAfterPlay
+#//     [P] _SWUPlotReoffer          ← … Plot queued behind it, always
+#//
+#// and the observed prompts were `OPTIONCHOOSE [Unit&Pilot]` → `MZSPLITASSIGN [4|…]` → `MZMAYCHOOSE
+#// [myResources-0]`, with no ordering step anywhere. The Plot window is now added to the SAME pending
+#// trigger bag as every other "when you deploy a leader" trigger (JTL_191 Invincible already rode it),
+#// so `FlushEntryTriggerBag` orders it with the existing `Choose_trigger_to_resolve` MZCHOOSE.
+#//
+#// SCOPE (OWNER RULING 2026-09-13, "Plot and When Deployed share a window, so those should be orderable"):
+#// each Plot card is its own trigger. The window opens as one entry; once a Plot card has been played and
+#// its own abilities resolved, the window goes back into the pool and the player orders the NEXT Plot card
+#// against the leader's still-pending trigger (CR 7.6.9). Pinned in
+#// interactions/VaderPilotDeploy_PlotWindow_GarindanPalpatineSnub.md::TwoPlots_*. (This replaces an earlier
+#// "one entry, no interleaving" narrowing that the engine never actually followed.)
+#//
 # BothTriggersPresent_ThePlayerIsASKEDWhichResolvesFirst
 #// THE BUG. P2's board is game 4161's: Boba Fett (JTL_009) deploying as a Pilot onto SEC_171 Punishing
 #// One, with SEC_172 Cinta Kaz sitting in the resources as the Plot card. Both triggers belong to P2 and

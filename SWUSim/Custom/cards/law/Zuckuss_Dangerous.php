@@ -16,7 +16,7 @@ $onAttackAbilities["LAW_064:0"] = function($player, $mzID) {
         if (HasTrait($u->CardID ?? '', 'Bounty Hunter')) { $hasBH = true; break; }
     }
     if (!$hasBH) return;
-    $power = intval(ObjectCurrentPower($self));
+    $power = intval(ObjectCurrentPowerInAttack($self));   // counts Raid / "+N for this attack"
     if ($power <= 0) return;
     SWUOfferUnitTarget(intval($player), $mzID, [
         'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $power, 'arena' => 'Ground', 'may' => true,

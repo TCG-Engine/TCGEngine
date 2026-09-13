@@ -161,3 +161,122 @@ WithP2GroundArena: SOR_095:1:0
 - P1>AttackGroundArena:0:0
 ## EXPECT
 P1BASE:UPGRADECOUNT:1
+
+---
+
+# OverwhelmExcess_OfFive_IsPrevented_TheDefenderStillDies
+#// Overwhelm's excess is its own damage instance to the base. LAW_177 Son-tuul Berserkers (8/5, Overwhelm)
+#// attacks SOR_095 (3/3): 3 kills the Marine and 5 spills onto P2's base — exactly the threshold, so it is
+#// prevented; the generator is defeated and P2 draws. The defender still takes its share and dies.
+
+## GIVEN
+CommonSetup: bbw/bbw/{myResources:3}
+P1OnlyActions: true
+WithP2BaseUpgrade: HMW_081
+WithP1GroundArena: LAW_177:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:0
+P2BASE:UPGRADECOUNT:0
+P2HANDCOUNT:1
+
+---
+
+# OverwhelmExcess_BelowFive_Lands
+#// The same Berserkers into SOR_164 Wampa (4/5): 3 excess reaches the base — under the threshold, so it
+#// lands and the generator stays.
+
+## GIVEN
+CommonSetup: bbw/bbw/{myResources:3}
+P1OnlyActions: true
+WithP2BaseUpgrade: HMW_081
+WithP1GroundArena: LAW_177:1:0
+WithP2GroundArena: SOR_164:1:0
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:3
+P2BASE:UPGRADECOUNT:1
+P2HANDCOUNT:0
+
+---
+
+# OverwhelmDirect_DefenderDiesBeforeCombatDamage_AllOfItIsPrevented
+#// SOR_135 Emperor Palpatine (Overwhelm, a Force unit) carries SOR_137 Fallen Lightsaber: "On Attack: Deal 1
+#// damage to each ground unit the defending player controls." That kills the 1-HP SOR_128 defender before
+#// combat damage, so ALL of Palpatine's combat damage goes to the base as one instance — prevented.
+
+## GIVEN
+CommonSetup: bbw/bbw/{myResources:3}
+P1OnlyActions: true
+WithP2BaseUpgrade: HMW_081
+WithP1GroundArena: SOR_135:1:0
+WithP1GroundArenaUpgrade: 0:SOR_137
+WithP2GroundArena: SOR_128:1:0
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:0
+P2BASE:UPGRADECOUNT:0
+P2HANDCOUNT:1
+
+---
+
+# TwoSubFiveInstancesInOneAttack_TotalFive_NotPrevented
+#// The threshold is PER INSTANCE. ASH_253 Yellow Aces Bomber with an Experience token (3/5) attacks P2's
+#// base; its On Attack ("If this unit is upgraded, deal 2 damage to a base") pings P2's base for 2 and the
+#// combat damage is 3 — 5 in total, but no single instance reaches 5. All of it lands; the generator stays.
+
+## GIVEN
+CommonSetup: bbw/bbw/{myResources:3}
+P1OnlyActions: true
+WithP2BaseUpgrade: HMW_081
+WithP1SpaceArena: ASH_253:1:0
+WithP1SpaceArenaUpgrade: 0:SOR_T01
+WithP2Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackSpaceArena:0:BASE
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:5
+P2BASE:UPGRADECOUNT:1
+P2HANDCOUNT:0
+
+---
+
+# EmptyDeck_TheDrawFails_ThreeDamageLands
+#// "If you do, defeat this upgrade and draw a card." The prevention and the self-defeat happen; the draw
+#// on an EMPTY deck deals 3 to P2's base instead — a separate, smaller instance, and the generator is
+#// already gone, so it lands.
+
+## GIVEN
+CommonSetup: bbw/bbw/{myResources:3}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2BaseUpgrade: HMW_081
+WithP1GroundArena: ASH_061:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P2BASEDMG:3
+P2BASE:UPGRADECOUNT:0
+P2DISCARDCOUNT:1
+P2HANDCOUNT:0

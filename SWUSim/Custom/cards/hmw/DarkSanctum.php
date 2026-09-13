@@ -7,9 +7,8 @@
 // The Fortify half needs no code: the keyword generator registers HMW_070 in $Fortify_Cards from the
 // card text, and SWUGetUpgradeValidTargets' Fortify branch already returns ['myBase-0'].
 //
-// The granted ability is a BASE-hosted phase trigger, so it hangs off RegroupPhaseStart rather than any
-// unit registry (a base has no ability registry of its own — this mirrors _SWUHmw004RegroupBaseDefeat).
-// The call site is in RegroupPhaseStart; the body lives here with the rest of the card.
+// The granted ability is a BASE-hosted phase trigger, so it is collected by RegroupPhaseStart's regroup-start
+// trigger window rather than any unit registry (a base has no ability registry of its own).
 //
 // "Draw a card AND deal 2" is joined by "and", so both halves are unconditional — neither is gated on
 // the other. Dealing 2 to your OWN base can defeat it; SWUDealDamageToBase owns that loss check, so
@@ -18,26 +17,6 @@
 // Fires once PER ATTACHED COPY: the card is non-unique, and each copy grants its own instance of the
 // ability. Counting copies (rather than testing a boolean "is one attached?") is what makes two copies
 // deal 4 instead of 2.
-function _SWUHmw070RegroupBaseTriggers(): void {
-    global $playerID;
-    $saved = $playerID;
-    for ($p = 1; $p <= SeatCountForGame(); $p++) {
-        $zone = GetBase($p);
-        if (empty($zone) || !isset($zone[0]) || !empty($zone[0]->removed)) continue;
-        $copies = 0;
-        foreach (GetUpgradesOnUnit($zone[0]) as $sub) {
-            $cid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
-            if ($cid === 'HMW_070') $copies++;
-        }
-        if ($copies <= 0 || _SWUFortifyBlanked($p, 'HMW_070')) continue;   // SEC_046 naming it or the base
-        $playerID = $p;
-        for ($i = 0; $i < $copies; $i++) {
-            // Resolved inline at regroup start (no trigger dispatch) — name the card as the log source.
-            SWULogWithSource($p, 'HMW_070', function () use ($p) {
-                DoDrawCard($p, 1);
-                SWUDealDamageToBase(2, $p);
-            });
-        }
-    }
-    $playerID = $saved;
-}
+// Resolved by the regroup-start trigger window, one item per attached copy (GameLogic
+// _SWURegroupStartTriggerItems / _SWURegroupStartResolve 'HMW070') so it can be ordered against other
+// regroup-start triggers.

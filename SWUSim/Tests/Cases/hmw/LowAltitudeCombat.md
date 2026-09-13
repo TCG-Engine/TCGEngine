@@ -396,3 +396,148 @@ WithP3SpaceArena: SOR_225:1:0
 SEATCOUNT:3
 P1HASDECISION
 P1SELECTABLEEXACT:mySpaceArena-0&p2SpaceArena-0&p3SpaceArena-0
+
+---
+
+# ReportedBoard_PilotedBomberMovesDown_8D8StillGetsToAttackWithPlusTwo
+#// ── REPORTED AGAINST ANOTHER ENGINE (2026-09-14) ────────────────────────────────────────────────────
+#// "I played Low Altitude Combat to move my Yellow Aces to the ground, and planned to choose 8D8 to
+#//  attack, but after I moved the unit, it skipped my action and passed. … even after moving a ready
+#//  unit, it also skipped my decision to choose a unit to attack with the +2 buff."
+#// The reporter's board: JTL_016 Admiral Ackbar leader (undeployed), two ASH_253 Yellow Aces Bombers in
+#// space — one carrying JTL_203 Han Solo as a PILOT (a non-leader Piloting unit: 2/4 -> 4/7, 1 damage)
+#// — and a ready ASH_118 8D8 on the ground. The piloted Bomber is moved down; the attacker choice must
+#// STILL be offered (8D8 and the moved Bomber are both ready ground units), and 8D8 swings with +2.
+#// 8D8 is 1/4: into SOR_046 (3/7) it deals 1 + 2 = 3 and takes 3 back. The bonus is gone afterwards.
+#// No P1OnlyActions: the turn must pass once, AFTER the attack — not instead of it.
+
+## GIVEN
+CommonSetup: gyw/rrk/{myResources:2;myLeader:JTL_016;myBase:JTL_023}
+WithActivePlayer: 1
+WithP1Hand: HMW_050
+WithP1SpaceArena: ASH_253:1:0
+WithP1SpaceArena: ASH_253:1:1
+WithP1SpaceArenaPilot: 1:JTL_203
+WithP1GroundArena: ASH_118:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-1
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1SPACEARENACOUNT:1
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:ASH_118
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENAUNIT:0:POWER:1
+P1GROUNDARENAUNIT:1:CARDID:ASH_253
+P1GROUNDARENAUNIT:1:READY
+P1GROUNDARENAUNIT:1:DAMAGE:1
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:1:UPGRADE:0:CARDID:JTL_203
+P1GROUNDARENAUNIT:1:POWER:4
+P1GROUNDARENAUNIT:1:HP:7
+P2GROUNDARENAUNIT:0:DAMAGE:3
+TURNPLAYER:2
+
+---
+
+# ReportedBoard_PilotedBomber_TheAttackPoolIsOffered
+#// The pool itself, left pending — the reported symptom was that this decision never appeared. Both
+#// ready friendly ground units are in it, INCLUDING the piloted Bomber that just came down.
+
+## GIVEN
+CommonSetup: gyw/rrk/{myResources:2;myLeader:JTL_016;myBase:JTL_023}
+WithActivePlayer: 1
+WithP1Hand: HMW_050
+WithP1SpaceArena: ASH_253:1:0
+WithP1SpaceArena: ASH_253:1:1
+WithP1SpaceArenaPilot: 1:JTL_203
+WithP1GroundArena: ASH_118:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:mySpaceArena-1
+
+## EXPECT
+P1DECISIONTOOLTIP:Choose_a_ground_unit_to_attack_with
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1
+TURNPLAYER:1
+
+---
+
+# LeaderPilotedUnitMovesDown_StaysALeaderUnit_8D8StillAttacks
+#// The suspicion raised alongside the report: "the issue was because there was a pilot LEADER on it".
+#// JTL_017 Han Solo is deployed for real as a Pilot onto the Bomber (2/4 -> 5/?, "Attached unit is a
+#// leader unit"), then Low Altitude Combat moves it down. Moving a leader unit is still a move — the
+#// leader stays deployed on it, it stays a leader unit, and the attack is still offered. 8D8 swings.
+
+## GIVEN
+CommonSetup: gyw/rrk/{myResources:8;myLeader:JTL_017;myBase:JTL_023}
+P1OnlyActions: true
+WithP1Hand: HMW_050
+WithP1SpaceArena: ASH_253:1:0
+WithP1GroundArena: ASH_118:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:Pilot
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1LEADER:DEPLOYED
+P1SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:ASH_118
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:1:CARDID:ASH_253
+P1GROUNDARENAUNIT:1:ISLEADERUNIT
+P1GROUNDARENAUNIT:1:POWER:5
+P1GROUNDARENAUNIT:1:READY
+P2GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# LeaderPilotedUnitMovesDown_AndItselfAttacks_ItsOnAttackStillFires
+#// The other attacker choice on the same board: the leader-piloted Bomber that just came down swings
+#// ITSELF. 5 power + 2 = 7 kills SOR_046 (3/7) exactly (at 5 it would survive on 2); SOR_046 hits back
+#// for 3. The Bomber is upgraded (Han is its pilot), so its On Attack "If this unit is upgraded, deal 2
+#// damage to a base" fires — pinned to the enemy base. After the attack it reads 5 again and Han is
+#// still deployed on it.
+
+## GIVEN
+CommonSetup: gyw/rrk/{myResources:8;myLeader:JTL_017;myBase:JTL_023}
+P1OnlyActions: true
+WithP1Hand: HMW_050
+WithP1SpaceArena: ASH_253:1:0
+WithP1GroundArena: ASH_118:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AnswerDecision:Pilot
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-1
+- P1>AnswerDecision:theirGroundArena-0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P1LEADER:DEPLOYED
+P2GROUNDARENACOUNT:0
+P2BASEDMG:2
+P1GROUNDARENAUNIT:1:CARDID:ASH_253
+P1GROUNDARENAUNIT:1:ISLEADERUNIT
+P1GROUNDARENAUNIT:1:EXHAUSTED
+P1GROUNDARENAUNIT:1:DAMAGE:3
+P1GROUNDARENAUNIT:1:POWER:5
+P1GROUNDARENAUNIT:0:CARDID:ASH_118
+P1GROUNDARENAUNIT:0:READY
+P1NODECISION

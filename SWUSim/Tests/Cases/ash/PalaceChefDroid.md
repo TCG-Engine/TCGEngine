@@ -15,3 +15,25 @@ WithInitiativeClaimed: true
 P1GROUNDARENACOUNT:0
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
 P2GROUNDARENAUNIT:0:DAMAGE:2
+
+---
+
+# LostAllAbilities_NoDefendingBonus
+#// The +2/+0 is an ABILITY: under SOR_138 Force Lightning the 0/3 Droid counters for nothing, so the
+#// attacking SEC_080 takes 0 instead of 2. Added 2026-09-14 with the shared while-defending helper.
+
+## GIVEN
+CommonSetup: bbw/bbk
+WithP1GroundArena: ASH_073:1:0:SOR_138
+WithP2GroundArena: SEC_080:1:0
+WithActivePlayer: 2
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+
+## WHEN
+- P2>AttackGroundArena:0:0
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P2GROUNDARENAUNIT:0:CARDID:SEC_080
+P2GROUNDARENAUNIT:0:DAMAGE:0

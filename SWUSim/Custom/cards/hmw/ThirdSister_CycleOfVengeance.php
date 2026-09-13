@@ -22,43 +22,18 @@
 // remaining amounts travel as a comma list ("2,3,4" → "3,4" → "4"), which also makes the whole ability
 // one handler instead of three near-copies. Pinned by FullChain_AcrossTheRequestBoundary.
 //
-// "IF YOU DO" IS MEASURED, NEVER ASSUMED. Choosing a target is not dealing damage: a Shield token
-// prevents the instance (the shield is defeated instead), and prevention/reduction effects can zero it
-// out. In those cases no damage was dealt, so the next link does NOT happen — the documented
-// attempt-vs-outcome family. _SWUHmw051DealAndReport samples the target's Damage before and after and
-// re-resolves it BY UID afterwards, because the applier may re-index the arena or remove the unit.
-// ⚠ A target the damage DEFEATS still counts as damaged and still hands its controller the next link,
-//   which is why the controller is captured BEFORE the damage — after it, the object is gone.
-//
-// ⚠ KNOWN GAP, deliberately not papered over: SEC_101 Queen Amidala and ASH_062 The Mandalorian make
-//   damage prevention INTERACTIVE — SWUDealDamageToUnit queues a prompt and returns before applying
-//   anything. Measured at that instant the damage has not landed, so this chain stops even if the
-//   prevention is later declined and the damage does land. Reachable only when the chosen target is
-//   one of those two cards with its prevention condition available. Fixing it needs the chain
-//   continuation to run AFTER the deferred prevention resolves, which is a cross-queue ordering
-//   problem rather than a card-level one. Raised at review rather than silently shipped.
-
-// Deal $amount to $targetMz on behalf of $actor and report whether damage ACTUALLY landed.
-// Re-resolves the target BY UID after the applier runs: a defeat (or any re-index) invalidates the
-// mzID, and a decider-framed mzID handed back to a source-framed reader is the documented way this
-// class of effect vanishes cross-player.
-if (!function_exists('_SWUHmw051DealAndReport')) {
-    function _SWUHmw051DealAndReport(int $actor, string $targetMz, int $amount): bool {
-        global $playerID;
-        $playerID = $actor;
-        $obj = GetZoneObject($targetMz);
-        if ($obj === null || !empty($obj->removed)) return false;
-        $uid    = intval($obj->UniqueID ?? 0);
-        $before = intval($obj->Damage ?? 0);
-        SWUDealDamageToUnit($targetMz, $amount, $actor);
-        $playerID = $actor;                      // the applier may have moved the frame
-        $after = SWUFindMzByUID($uid);
-        if ($after === null) return true;        // gone from every arena: the damage defeated it
-        $o2 = GetZoneObject($after);
-        if ($o2 === null || !empty($o2->removed)) return true;
-        return intval($o2->Damage ?? 0) > $before;
-    }
-}
+// ★ "IF YOU DO" IS THE CHOICE, NOT THE DAMAGE LANDING — JUDGE RULING 2026-09-14. "If the damage is
+// prevented, you still tried to damage it" (CR 9.2; the Malakili ruling). So a link aimed at a SHIELDED
+// unit (the Shield takes the hit) or at one whose damage is prevented/reduced to 0 still hands that unit's
+// controller the next link. Each link is gated only on the actor ACCEPTING it — a decline ends the chain.
+// This file used to measure the target's damage before and after and stop the chain on a prevented hit;
+// that was the overturned "measure the outcome" reading. (The prevented damage still fires no "when dealt
+// damage" reaction — CR 8.9, enforced centrally in _SWUOnUnitDamaged.)
+// ⚠ A target the damage DEFEATS still hands its controller the next link, which is why the controller is
+//   captured BEFORE the damage — after it, the object is gone.
+// Dropping the measurement also closed the old gap with SEC_101 Queen Amidala / ASH_062 The Mandalorian:
+// their INTERACTIVE prevention defers the damage behind a prompt, which a same-instant measurement read as
+// "no damage" and stopped the chain. The next link is now queued behind that prompt (same block, later).
 
 // Offer ONE link to $actor: "you may deal <head> damage to a unit", carrying the rest of the chain.
 // "A unit" is unqualified — every unit in play on EVERY side and in BOTH arenas, Third Sister included
@@ -80,7 +55,7 @@ if (!function_exists('_SWUHmw051OfferLink')) {
 }
 
 // One handler for all three links. $parts[0] is the remaining chain ("2,3,4" on the first call); the
-// head is dealt now and the tail — if the damage landed — is offered to the damaged unit's controller.
+// head is dealt now and the tail is offered to the targeted unit's controller — prevented or not.
 $customDQHandlers["HMW_051#LINK"] = function ($player, $parts, $lastDecision) {
     global $playerID;
     $actor    = intval($player);
@@ -98,8 +73,9 @@ $customDQHandlers["HMW_051#LINK"] = function ($player, $parts, $lastDecision) {
     // next actor when it does.
     $nextActor = intval($obj->Controller ?? 0);
 
-    if (!_SWUHmw051DealAndReport($actor, $target, $amount)) return;   // prevented → "if you do" fails
-    if (empty($chain) || $nextActor <= 0) return;                     // last link, or no owner to pass to
+    SWUDealDamageToUnit($target, $amount, $actor);   // prevented or not, "If you do" is satisfied
+    $playerID = $actor;                               // the applier may have moved the frame
+    if (empty($chain) || $nextActor <= 0) return;     // last link, or no owner to pass to
     if (!IsSeatLive($nextActor)) return;                              // eliminated seat cannot act
     _SWUHmw051OfferLink($nextActor, $chain);
 };

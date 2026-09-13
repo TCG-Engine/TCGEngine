@@ -1,27 +1,25 @@
-# JTL_210 The Mandalorian — Weathered Pilot: playing it must pass the turn to the NEXT SEAT, once.
-#
-# WHY THIS FILE EXISTS — bug report #1021, game 4161: "pilot mandalorian was played on the ground to
-# exhaust 2 units, it skipped the next players turn."
-#
-# CONFIRMED FROM THE GAME LOG, not from the reporter's description. Game 4161 is a 4-seat game with
-# SeatOrder [1,2,3,4] and P4 holding initiative, so round 5's order is P4 → P1 → P2 → P3 → P4. The log
-# records, consecutively and with NO pass by P3 anywhere in the round:
-#     115: P4 played Ki-Adi-Mundi
-#     116: P1's Chio Fain attacked
-#     117: P2 played JTL_210 The Mandalorian
-#     118: P4 deployed Director Krennic     <-- P3 never acted
-#     119: P1 played Ninth Sister
-# One action, two seats advanced.
-#
-# ⚠ WHY THE EXISTING JTL_210 FILE COULD NOT CATCH THIS. TheMandalorian_WeatheredPilot.md uses
-# `P1OnlyActions: true`, which claims initiative so the opponent auto-passes — making a DOUBLE turn
-# swap indistinguishable from a single one. TURNPLAYER is structurally blind in those fixtures (see the
-# assertion's own note in SchemaTestRunner). Every section here therefore OMITS that directive, and
-# pairs TURNPLAYER with NOEXTRAACTION, which reads the action-close ledger directly and is strictly
-# stronger — it sees a second close even when a compensating swap hides the symptom.
-
----
-
+#// JTL_210 The Mandalorian — Weathered Pilot: playing it must pass the turn to the NEXT SEAT, once.
+#//
+#// WHY THIS FILE EXISTS — bug report #1021, game 4161: "pilot mandalorian was played on the ground to
+#// exhaust 2 units, it skipped the next players turn."
+#//
+#// CONFIRMED FROM THE GAME LOG, not from the reporter's description. Game 4161 is a 4-seat game with
+#// SeatOrder [1,2,3,4] and P4 holding initiative, so round 5's order is P4 → P1 → P2 → P3 → P4. The log
+#// records, consecutively and with NO pass by P3 anywhere in the round:
+#//     115: P4 played Ki-Adi-Mundi
+#//     116: P1's Chio Fain attacked
+#//     117: P2 played JTL_210 The Mandalorian
+#//     118: P4 deployed Director Krennic     <-- P3 never acted
+#//     119: P1 played Ninth Sister
+#// One action, two seats advanced.
+#//
+#// ⚠ WHY THE EXISTING JTL_210 FILE COULD NOT CATCH THIS. TheMandalorian_WeatheredPilot.md uses
+#// `P1OnlyActions: true`, which claims initiative so the opponent auto-passes — making a DOUBLE turn
+#// swap indistinguishable from a single one. TURNPLAYER is structurally blind in those fixtures (see the
+#// assertion's own note in SchemaTestRunner). Every section here therefore OMITS that directive, and
+#// pairs TURNPLAYER with NOEXTRAACTION, which reads the action-close ledger directly and is strictly
+#// stronger — it sees a second close even when a compensating swap hides the symptom.
+#//
 # TwoPlayer_PlayedAsUnit_PassesOnce
 #// The simplest shape: 2 seats, no pilot host in play so the card plays as a unit with no
 #// unit-vs-upgrade prompt. If the double-close is generic to this card's when-played chain, it shows

@@ -1,0 +1,32 @@
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Chopper Base
+# Source: melee.gg 445115, #5 of 180 (7-1-0)
+#   https://melee.gg/Decklist/View/ba42bfd1-1070-45e6-b55b-b4bd002da48a — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (5 entries).
+# Archetype (owner's label): Aggro — mixed arenas, mostly space
+# Style: aggro
+# Flavours: mixed-space
+
+Leader
+1 ASH_009
+
+Base
+1 SOR_030
+
+Deck
+3 ASH_110
+3 LOF_191
+3 JTL_203
+3 SEC_111
+3 ASH_248
+2 JTL_103
+3 SEC_213
+3 SEC_204
+3 JTL_096
+3 SEC_215
+3 ASH_203
+3 JTL_249
+3 SEC_099
+3 ASH_201
+3 JTL_212
+3 JTL_102
+3 JTL_221

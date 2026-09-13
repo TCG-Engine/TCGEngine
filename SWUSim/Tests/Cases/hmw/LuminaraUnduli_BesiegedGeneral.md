@@ -307,3 +307,114 @@ P1GROUNDARENAUNIT:0:POWER:7
 P1GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENACOUNT:2
 P1NODECISION
+
+---
+
+# MaulPlaysAndDefeatsLuminara_HerTriggerStillOffers
+#// HMW_016 Maul (front): "Play a unit from your hand. It costs 1 less. Then, defeat it." Maul plays
+#// Luminara (7 + 2 Heroism penalty − 1 = 8 of 8) and defeats her — but she WAS played, so her "When you
+#// play a unit (including this one)" still resolves, after Maul's ability finishes. She is gone, so the
+#// attack pool is the Marine and the Cartel Spacer. Left pending.
+
+## GIVEN
+CommonSetup: gyk/rrk/{myLeader:HMW_016;myResources:8}
+P1OnlyActions: true
+WithP1Hand: HMW_124
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_178:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+
+## EXPECT
+P1DISCARDUNIT:0:CARDID:HMW_124
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0
+
+---
+
+# MaulPlaysAndDefeatsLuminara_TheMarineAttacksForFive
+#// …taking it: the Marine swings for 3 + 2 = 5, and the bonus is gone after the attack.
+
+## GIVEN
+CommonSetup: gyk/rrk/{myLeader:HMW_016;myResources:8}
+P1OnlyActions: true
+WithP1Hand: HMW_124
+WithP1GroundArena: SOR_095:1:0
+WithP1SpaceArena: SOR_178:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2BASEDMG:5
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1NODECISION
+
+---
+
+# LuminaraInPlay_MaulPlaysAndDefeatsAnotherUnit_StillTriggers
+#// A unit Maul plays and immediately defeats was still PLAYED: SOR_164 Wampa (4 + 2 − 1 = 5) enters and
+#// dies, and Luminara offers the attack. She takes it herself: 7 + 2 = 9.
+
+## GIVEN
+CommonSetup: gyk/rrk/{myLeader:HMW_016;myResources:5}
+P1OnlyActions: true
+WithP1Hand: SOR_164
+WithP1GroundArena: [HMW_124:1:0 SOR_095:1:0]
+WithP1SpaceArena: SOR_178:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1DISCARDUNIT:0:CARDID:SOR_164
+P2BASEDMG:9
+P1GROUNDARENAUNIT:0:POWER:7
+
+---
+
+# CreatingTokensDoesNotTrigger
+#// Tokens are CREATED, not played. ASH_140 Stronger Together creates two Mandalorian tokens — no offer,
+#// no attack. (The event itself is not a unit either.)
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:4;myhandCardIds:ASH_140}
+P1OnlyActions: true
+WithP1GroundArena: HMW_124:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:0:READY
+P2BASEDMG:0
+P1NODECISION
+
+---
+
+# MaulPlaysAndDefeatsLuminara_TheTurnPassesOnce
+#// The nested play (Maul's Action) + Luminara's granted attack each try to end the action; the action-close
+#// gate refuses the second (it shows in the ledger as a blocked double close). No P1OnlyActions here, which
+#// would hide a double turn swap: after the attack the turn is P2's.
+
+## GIVEN
+CommonSetup: gyk/rrk/{myLeader:HMW_016;myResources:8}
+WithP1Hand: HMW_124
+WithP1GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2BASEDMG:5
+TURNPLAYER:2

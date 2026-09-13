@@ -1,0 +1,35 @@
+# Real-deck self-play fixture — Aurra Sing, Assassin - Dragonsnake Bog
+# Source: melee.gg 445115, #7 of 180 (6-1-1)
+#   https://melee.gg/Decklist/View/a3780a4f-ca0c-4e31-8cb4-b4bd005265d9 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (3 entries).
+# Archetype (owner's label): Hard control
+# Style: control
+# Flavours: hard
+
+Leader
+1 LAW_004
+
+Base
+1 ASH_024
+
+Deck
+3 ASH_030
+3 ASH_053
+2 ASH_048
+3 SEC_037
+3 ASH_052
+3 JTL_143
+2 JTL_041
+2 JTL_033
+3 LOF_077
+3 SEC_180
+3 LAW_133
+3 JTL_043
+3 JTL_181
+3 LAW_044
+3 LAW_132
+2 LAW_131
+2 SEC_075
+1 JTL_144
+3 SEC_038
+1 SEC_176

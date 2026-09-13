@@ -254,3 +254,104 @@ SEATLIVE:4:false
 SEATLIVE:2:true
 SEATLIVE:1:true
 NOGAMEWINNER
+
+---
+
+# Deployed_IsTheDeathStar_TheTarkinDoctrineNoLongerSeesATarkin
+#// The deployed face is titled "The Death Star", not "Grand Moff Tarkin". HMW_206 The Tarkin Doctrine's
+#// "If you control Grand Moff Tarkin" is therefore FALSE once he has deployed: no -3/-0 on the enemy.
+#// (The undeployed case is TheTarkinDoctrine.md::WhenPlayed_WithTarkin_GivesEnemyMinus3_NoSelfExhaust.)
+#// Leader zone objects stay in the leader zone after a deploy, so a title check that reads the leader row
+#// must read the DEPLOYED face.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myLeader:HMW_004;myLeaderDeployed:true;myResources:1}
+P1OnlyActions: true
+WithP1Hand: HMW_206
+WithP2GroundArena: SOR_164:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1BASE:UPGRADECOUNT:1
+P2GROUNDARENAUNIT:0:POWER:4
+P1NODECISION
+
+---
+
+# Undeployed_ProvidesVigilanceAndVillainy
+#// The leader's aspects cover a card: SOR_033 Death Trooper (Vigilance/Villainy, 3) under a no-aspect base
+#// (JTL_031 Lake Country) costs exactly 3 — no penalty. (Its When Played hits the only friendly ground unit,
+#// itself, for 2; there is no enemy ground unit.)
+
+## GIVEN
+CommonSetup: nbk/rrk/{myLeader:HMW_004;myResources:3;myhandCardIds:SOR_033}
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_033
+P1RESAVAILABLE:0
+
+---
+
+# Deployed_StillProvidesVigilanceAndVillainy
+#// …and the deployed Death Star still provides them.
+
+## GIVEN
+CommonSetup: nbk/rrk/{myLeader:HMW_004;myLeaderDeployed:true;myResources:3;myhandCardIds:SOR_033}
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_033
+P1RESAVAILABLE:0
+
+---
+
+# Undeployed_LeaderTraits_C3PO_ImperialOrOfficialOnly
+#// LAW_152 C-3PO: "On Attack: You may give an Experience token to another non-leader unit that shares a
+#// Trait with a friendly leader." The undeployed Tarkin is Imperial/Official:
+#//   myGroundArena-1 SOR_128 Imperial Trooper      → in
+#//   myGroundArena-2 TS26_53 Official              → in
+#//   myGroundArena-3 LAW_228 Vehicle Speeder       → out
+#//   myGroundArena-4 SOR_164 Creature              → out
+#//   mySpaceArena-0  JTL_251 Vehicle Capital Ship  → out
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:HMW_004}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_152:1:0 SOR_128:1:0 TS26_53:1:0 LAW_228:1:0 SOR_164:1:0]
+WithP1SpaceArena: JTL_251:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-1&myGroundArena-2
+
+---
+
+# Deployed_LeaderTraits_C3PO_ImperialVehicleOrCapitalShip
+#// Deployed, the friendly leader is The Death Star — Imperial/Vehicle/Capital Ship. The Official-only unit
+#// drops out; the Vehicle and the Capital Ship come in. The Death Star itself is a LEADER unit, so it is
+#// never a pick ("non-leader").
+
+## GIVEN
+CommonSetup: grw/grw/{myLeader:HMW_004;myLeaderDeployed:true}
+P1OnlyActions: true
+WithP1GroundArena: [LAW_152:1:0 SOR_128:1:0 TS26_53:1:0 LAW_228:1:0 SOR_164:1:0]
+WithP1SpaceArena: JTL_251:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-1&myGroundArena-3&mySpaceArena-0

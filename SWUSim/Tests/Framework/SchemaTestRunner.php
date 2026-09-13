@@ -969,6 +969,13 @@ class SchemaTestRunner {
     // (OPTIONCHOOSE labels, YESNO, TOPDECKSEARCH) return [] — SELECTABLE asserts don't apply to them.
     private static function _selectableTargets(object $pending): array {
         $type  = strtoupper((string)($pending->Type ?? ''));
+        // MZSPLITASSIGN ("total|target[:cap]&…|MODE|STEP"): its assignable targets are the pool. Added
+        // 2026-09-14 so a divided/stepped assignment's pool can be asserted like any other offer.
+        if ($type === 'MZSPLITASSIGN') {
+            $segs = explode('|', (string)($pending->Param ?? ''));
+            return array_values(array_filter(array_map(fn($s) => trim(explode(':', $s)[0]),
+                explode('&', $segs[1] ?? '')), fn($s) => $s !== '' && $s !== '-'));
+        }
         if (!in_array($type, ['MZCHOOSE', 'MZMAYCHOOSE', 'MZMULTICHOOSE'], true)) return [];
         $param = (string)($pending->Param ?? '');
         if ($type === 'MZMULTICHOOSE' && preg_match('/^\d+\|\d+\|(.*)$/s', $param, $mm)) $param = $mm[1];
@@ -1520,6 +1527,23 @@ class SchemaTestRunner {
                         $failures[] = "{$line}: expected hand card {$idx} (" . ($hand[$idx]->CardID ?? '?')
                             . ") to " . ($wantGlow ? 'GLOW' : 'NOT glow') . ", got " . json_encode($meta);
                 }
+
+            } elseif (preg_match('/^P(\d+)DISCARDPLAYABLE(NOT)?:(\d+)$/', $line, $m)) {
+                // Is the discard entry at VISIBLE index N offered as a play-from-discard (the client's
+                // "Play" glow)? Reads the real transport value, SWUComputeActionsData()['playableDiscards'],
+                // which the client renders from. The play action itself (PlayFromDiscard) does not consult
+                // it, so a glow that disagrees with the charge is invisible to every section that just plays
+                // the card — the Credits / Exploit drift the hand glow already had (P#HANDGLOW).
+                // ⚠ Like P#HANDGLOW, the list only exists while the seat is active in MAIN with both
+                // decision queues empty — leave no decision pending in a section using this.
+                $p = intval($m[1]); $wantGlow = ($m[2] !== 'NOT'); $idx = intval($m[3]);
+                $entries = function_exists('SWUComputeActionsData')
+                    ? (SWUComputeActionsData($p)['playableDiscards'] ?? []) : [];
+                $glows = false;
+                foreach ($entries as $e) if (intval($e['idx'] ?? -1) === $idx) { $glows = true; break; }
+                if ($glows !== $wantGlow)
+                    $failures[] = "{$line}: expected discard entry {$idx} to be " . ($wantGlow ? '' : 'NOT ')
+                        . "playable, got " . json_encode($entries);
 
             } elseif (preg_match('/^P(\d+)TEMPZONECOUNT:(\d+)$/', $line, $m)) {
                 // TempZone is the scratch staging zone (SWUQueueDefeatUpgrade, the Credit-payment

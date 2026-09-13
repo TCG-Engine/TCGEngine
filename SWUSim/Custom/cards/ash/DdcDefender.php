@@ -20,7 +20,8 @@ $customDQHandlers["ASH_210#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
+    $uid = intval($o->UniqueID ?? 0);
     SWUDealDamageToUnit($lastDecision, 1, intval($player));
-    $still = GetZoneObject($lastDecision);
-    if ($still !== null && empty($still->removed)) OnExhaustCard(intval($player), $lastDecision);
+    $mz = SWUFindMzByUID($uid);          // by UID: a defeated unit's old mzID names the unit behind it
+    if ($mz !== null) OnExhaustCard(intval($player), $mz);
 };

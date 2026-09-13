@@ -1,22 +1,20 @@
-# CORE — Team Suns scope: who is an opponent, and which zones "their"/"team" reach.
-#
-# Teams are SEAT PARITY: seats 1+3 are one team, 2+4 the other (`SWUTeamOf` = `$seat % 2`). Outside a
-# team game every helper is inert — `SWUTeamOf` returns the seat itself, so each player is their own
-# team and Twin Suns / Premier degenerate to current behaviour.
-#
-# `OpponentsOf()` is the single cascade point the engine documents: `SWUGetAllValidAttackTargets`,
-# ZoneSearch's `their<Zone>` fan-out, "each opponent" effects, `SWUQueueChooseOpponent`'s eligible pool,
-# `SWUOpponentsWithCards` and the blast counter all read it. So a teammate leaking into that one list
-# leaks everywhere at once — which is why this file asserts the list DIRECTLY rather than through a
-# card, and pairs every team assertion with the SAME BOARD in non-team Twin Suns.
-#
-# The three zone scopes, from seat 1's view, are deliberately different sizes so no two can be confused:
-#   my<Zone>    → seat 1 only               (self, in every format)
-#   team<Zone>  → seats 1 + 3               (self + live teammates)
-#   their<Zone> → seats 2 + 4               (live opponents, teammate EXCLUDED)
-
----
-
+#// CORE — Team Suns scope: who is an opponent, and which zones "their"/"team" reach.
+#//
+#// Teams are SEAT PARITY: seats 1+3 are one team, 2+4 the other (`SWUTeamOf` = `$seat % 2`). Outside a
+#// team game every helper is inert — `SWUTeamOf` returns the seat itself, so each player is their own
+#// team and Twin Suns / Premier degenerate to current behaviour.
+#//
+#// `OpponentsOf()` is the single cascade point the engine documents: `SWUGetAllValidAttackTargets`,
+#// ZoneSearch's `their<Zone>` fan-out, "each opponent" effects, `SWUQueueChooseOpponent`'s eligible pool,
+#// `SWUOpponentsWithCards` and the blast counter all read it. So a teammate leaking into that one list
+#// leaks everywhere at once — which is why this file asserts the list DIRECTLY rather than through a
+#// card, and pairs every team assertion with the SAME BOARD in non-team Twin Suns.
+#//
+#// The three zone scopes, from seat 1's view, are deliberately different sizes so no two can be confused:
+#//   my<Zone>    → seat 1 only               (self, in every format)
+#//   team<Zone>  → seats 1 + 3               (self + live teammates)
+#//   their<Zone> → seats 2 + 4               (live opponents, teammate EXCLUDED)
+#//
 # TeamsAreSeatParity_OpponentsExcludeTheTeammate
 #// The core claim, asserted on the list itself. Seat 1's opponents are 2 and 4 — never 3.
 ## GIVEN

@@ -7,9 +7,12 @@
 $customDQHandlers["TS26_69#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;
+    $uid = intval(GetZoneObject($lastDecision)->UniqueID ?? 0);
     SWUDealDamageToUnit($lastDecision, 2, intval($player));
-    $o = GetZoneObject($lastDecision);   // survives → index unchanged; defeated → skip ready
-    if ($o !== null && empty($o->removed) && TraitContains($o, 'Clone')) OnReadyCard(intval($player), $lastDecision);
+    // Re-find it by UID: a defeated unit is removed at once, so the old mzID would name the unit behind it.
+    $mz = $uid > 0 ? SWUFindMzByUID($uid) : null;
+    $o = $mz !== null ? GetZoneObject($mz) : null;
+    if ($o !== null && empty($o->removed) && TraitContains($o, 'Clone')) OnReadyCard(intval($player), $mz);
 };
 
 // When Played (event) — migrated from OnPlayEvent.

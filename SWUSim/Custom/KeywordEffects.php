@@ -666,6 +666,9 @@ function HasConditionalKeyword_Grit($obj) {
     if (_SWUUnitHasActiveUpgrade($obj, 'JTL_150') && HasTrait($obj->CardID ?? '', 'Speeder')) return true;
     // LOF_238 Darth Revan's Lightsabers: "If attached unit is a Sith, it gains Grit."
     if (_SWUUnitHasActiveUpgrade($obj, 'LOF_238') && HasTrait($obj->CardID ?? '', 'Sith')) return true;
+    // HMW_006 Omega (deployed): "Other friendly Heroism units gain Grit." Team-wide, live, Omega-active —
+    // see cards/hmw/Omega_CloseYourEyesAndFocus.php.
+    if (function_exists('_SWUHmw006GrantsGrit') && _SWUHmw006GrantsGrit($obj)) return true;
 
     foreach (GetUnitsInPlay($obj->Controller) as $u) {
         if ($u->UniqueID === $obj->UniqueID) continue;

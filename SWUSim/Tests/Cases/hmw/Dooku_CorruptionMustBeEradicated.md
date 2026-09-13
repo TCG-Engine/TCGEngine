@@ -372,3 +372,75 @@ WithP3GroundArena: LAW_124:0:0
 SEATCOUNT:4
 P3GROUNDARENAUNIT:0:READY
 P1BASEDMG:2
+
+---
+
+# CantReady_FrozenInCarbonite_TheRefusalIsLogged
+#// ★ USER RULING (2026-09-14): a unit that can't ready IS selectable; the ready is refused with a game-log
+#// line, and "If you do" is NOT satisfied — no heal. Same board as IfYouDo_ACantReadyUnitStaysExhausted_NoHeal,
+#// asserting the log line the player sees.
+
+## GIVEN
+CommonSetup: brk/rrk/{myResources:8;myBaseDamage:10}
+WithActivePlayer: 1
+WithP1Hand: HMW_042
+WithP2GroundArena: LAW_124:0:0
+WithP2GroundArenaUpgrade: 0:SHD_193
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+LOGCONTAINS:couldn't ready
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P1BASEDMG:10
+
+---
+
+# CantReadyThisRound_NoGoodToMeDead_IsStillOffered
+#// ★ USER RULING (2026-09-14), the other can't-ready path: SOR_186 No Good to Me Dead ("that unit can't
+#// ready this round"). P1 casts it on their own Consular Security Force, then plays Dooku. The offer holds
+#// BOTH exhausted units — the can't-ready friendly one included — not just the enemy Industrious Team.
+
+## GIVEN
+CommonSetup: brk/rrk/{myResources:12;myBaseDamage:10}
+P1OnlyActions: true
+WithP1Hand: [SOR_186 HMW_042]
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: LAW_124:0:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0
+
+---
+
+# CantReadyThisRound_NoGoodToMeDead_RefusedAndLogged_NoHeal
+#// …and choosing it: the ready is refused ("can't ready this round"), it stays exhausted, and — "If you do"
+#// unsatisfied — P1's base is not healed.
+
+## GIVEN
+CommonSetup: brk/rrk/{myResources:12;myBaseDamage:10}
+P1OnlyActions: true
+WithP1Hand: [SOR_186 HMW_042]
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: LAW_124:0:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+LOGCONTAINS:can't ready this round
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1BASEDMG:10
+P1NODECISION

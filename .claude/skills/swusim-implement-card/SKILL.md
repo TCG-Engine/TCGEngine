@@ -112,7 +112,7 @@ section that reds — an unverified one is the "belt and braces nobody dares tou
 ### ⚠ A GREEN mutation is often a BROKEN PROBE — prove the mutated line is REACHED (HMW wave 17, 2026-09-04)
 
 The "three causes" list above needs a FOURTH, and it was the most expensive one of this run: **the
-mutation never ran, or never ran on the path the section takes.** Four forms, each of which produced a
+mutation never ran, or never ran on the path the section takes.** Six forms, each of which produced a
 confident-looking green:
 
 1. **The file was half-flushed.** The documented phantom-`php -l` race is not limited to lints — a
@@ -141,6 +141,16 @@ confident-looking green:
    **write the invariant into the section comment** and say what the section still buys (there: that the
    card participates in the contract at all, and that it is the only section running without
    `P1OnlyActions`). Same move as the ★ note below.
+5. **The mutation is valid PHP that changes nothing — an OPTION KEY the helper does not read.** Adding
+   `'exclude' => [$mzID]` to `_SWUCollectUnitTargets` (HMW_182, 2026-09-14) was green across 11 sections;
+   the helper's key is `excludeUID`, and it ignores unknown keys silently. With the real key, 8 sections
+   red. **Before a mutation that ADDS an option, grep the helper for the key it actually reads.**
+6. **The guard is redundant on the simple case and load-bearing on another.** HMW_122 Boga's up-front
+   affordability gate on the discard play stayed green: for a plain unit, ActivateCard pays before it
+   commits, so an unaffordable play was refused cleanly without it. It matters where the pipeline opens a
+   picker BEFORE the charge — an Exploit unit unaffordable even at maximum Exploit would ask which units to
+   defeat, then abort. The section that reds it is that board. **A green guard is a question — "which
+   board needs this?" — not a verdict; write that board, or delete the guard.**
 
 ★ And the finding that falls out of it: **when a behaviour holds STRUCTURALLY rather than by a guard,
 say so in the section comment.** A defeated host's Advantage tokens are never shed by the attack-ends
@@ -590,6 +600,7 @@ awk '/\$upgradeHpData = array \(/,/^\);/'    SWUSim/GeneratedCode/GeneratedCardD
 
 **Set-validation gap-fix lessons (folded card-by-card while clearing the LOF deferral backlog):**
 - **A leader's DEPLOYED side has its own abilities in `$deployTextData` — Method-B catches these as "stub w/o handler" even when the leader-side Action is done.** The deployed unit's On Attack just needs `$onAttackAbilities["LEADER:0"]` (same registry as any unit; the deployed leader's CardID is the key). Use **`MZMAYCHOOSE`** for multi-target picks (the OnAttack mandatory-MZCHOOSE skip), and combat owns the after-action (no `SWUAfterAction`). Test by `P1>DeployLeader` (free — threshold only, resources persist) then `P1>AttackGroundArena`, with `WithInitiativePlayer:2` + `WithInitiativeClaimed:true` so P1 acts freely. ⚠ A deployed "**defender gets −X/−0**" (LOF_014) must add `SWU_DEF_DEBUFF_N` **synchronously in `ExecuteSWUAttack`** (like SOR_212), NOT via the deferred OnAttack trigger — `SWUCombatDamage` reads/consumes the marker before the trigger fires. ⚠ A deployed leader with **Shielded** masks its own counter-damage observably (the shield absorbs the whole counter regardless of size — `SWUConsumeShieldToken` has no `>0` guard), so a −X/−0 debuff is unobservable on it; verify via the leader-side/SOR_212 test instead.
+- **"For this phase, you may play it from your discard [, it costs N less]" — the modifier encodes the whole grant (HMW_122 Boga, 2026-09-14).** `TPP<N>[U]`: at cost, N less, `U` = UNIT-ONLY. Use `U` whenever the text says "play that **unit**" — a Pilot played by a "play a unit" ability may only be played as a unit (official Piloting ruling, 03/06/2025), and without `U` the Unit/Pilot fork is offered. Decode ONLY through `SWUParseDiscardModifier` (the own-discard path used to match the literal `'TPP2'`, so any other amount was "cannot be played"). An at-cost own-discard UNIT play runs the hand pipeline (`SWUBeginPlayCard(unitOnly)`), so reducers, Exploit and Credits apply — test each (a second reducer like SEC_110, an Exploit unit with its one-short twin, a Credit), and pin the glow with **`P#DISCARDPLAYABLE[NOT]:N`**: the play action never reads the glow, so only that assertion sees a glow/charge drift. When stamping, **never downgrade** a better permission already on the entry (a `TPF` from Cobb Vanth / Second Chance).
 - **"Play those from your discard for FREE this phase" is NOT Hard — it already exists.** Discard the card with the `TPF` modifier: `SWUAddToDiscard($p, $cid, 'DECK'|'PLAY', 'TPF')`. `TPF` = "this-phase free play-from-discard" (cleared by `SWUClearDiscardModifiers` at the phase turn; `TPP` = play-at-cost; `OTPF`/`OTPP` = from an *opponent's* discard). The player then uses the existing **`PlayFromDiscard`** action (DSL: `P{n}>PlayFromDiscard:liveIdx`). Combined-cost search = `_topDeckSearchBegin($p, $n, $filter, "cost:N", $finalize)`; the finalize can server-side-validate the budget (greedy keep-while-`runningCost ≤ N`) before discarding the kept and `_topDeckPutRemainingToBottom` for the rest. (LOF_117 Sifo-Dyas: was deferred "Hard"; the whole thing is ~15 lines.) **Lesson: before deferring a card as Hard, grep for the affordance — `TPF`/`Modifier`, `PlayFromDiscard`, `SWUPlayDiscardUnitDiscounted`, `_topDeckSearchBegin` — the seam is often already built.**
   **★ And grep the printed SENTENCE, not only the mechanic.** SWU reuses whole clauses verbatim across sets, so a distinctive sentence is a searchable key straight into a finished implementation. HMW_035 Hunter's second mode — *"Attack with a unit, even if it's exhausted. It can't attack bases for this attack."* — is SOR_110 Frontline Shuttle's text word for word, and SOR_110 already carried BOTH halves that make it non-trivial: `SWUUnitsWithNonBaseAttackTarget()` (which doubles as the LAW_065 fizzle guard, and deliberately does not filter by readiness) and `BeginSWUAttack(noBases: true)`. A card flagged as the hard one in its batch became a 10-line handler. Search `SWUSim/Custom/cards/` and the dictionary's `$textData` for the most distinctive 4–6 words of each clause BEFORE designing anything.
 - **Per-source/per-target continuous aura (LOF_191 "chosen unit gets +1/+0 + Saboteur while this in play"):** link source→target with a global effect `SWU_<CARD>_{srcUID}_{tgtUID}` (mirror JTL_047's `SWU_YULAREN_{uid}_{kw}`). A `_SWU…HasBuff($obj)` helper loops the controller's in-play SOURCE cards and checks the link to `$obj`'s UID — so the buff ends automatically when the source leaves play (loop finds no source); no leave-play cleanup needed (UIDs never repeat). Hook it in `ObjectCurrentPower` (stat) and the relevant `HasConditionalKeyword_X` (keyword).
@@ -1615,16 +1626,24 @@ One engine bug in a small reprint-heavy set, plus the gap shapes that dominated 
 The largest single-set haul so far: **22 engine bugs across 78 cards.** Three shapes repeated; the rest
 are one-offs worth the checklist line.
 
-- **★★★ A clause gated on an earlier one must measure the OUTCOME, not assume the attempt worked.**
-  THREE bugs in one set. "Deal 1 damage to each enemy base. Heal 1 **for each damage dealt this way**"
-  (TS26_19 Coleman Trebor) healed even when JTL_074 Close the Shield Gate prevented the damage.
-  "Deal 2 damage to a base. **If you do**, that base's controller draws" (TS26_62 R2-D2) drew off the
-  same prevented damage. Fix in both: sample the target BEFORE and AFTER and act on the delta.
+- **★★★ A clause gated on an earlier one: decide from the WORDING whether it measures the OUTCOME.**
+  ⚠ **CORRECTED 2026-09-14 by a JUDGE RULING — prevented DAMAGE still satisfies "If you do".** "If the
+  damage is prevented, you still tried to damage it"; the prevention satisfies the "If you do" but fires
+  no "when dealt damage" triggers (CR 9.2 + the Malakili ruling; CR 8.9 governs the triggers only). This
+  entry used to cite TS26_62 R2-D2 as a bug for drawing off prevented damage — that was the CORRECT
+  behaviour, and the "fix" (plus the same shape on HMW_168 Ezra and HMW_051 Third Sister) was wrong.
+  So, by wording:
+  - **"deal N damage … If you do"** → gate on the ACCEPTED CHOICE. Never sample the damage.
+  - **"for each damage dealt this way"** → MEASURE it: prevented damage is not dealt (CR 8.9). TS26_19
+    Coleman Trebor healed off prevented damage; that fix stands.
+  - **"Ready/exhaust X. If you do"** → MEASURE it: CR 1.e says readying an already-ready card is NOT
+    "readied" for "If you do" (TS26_31 Chaotic Diversion, below).
+  - "if it is defeated" / "if it survives" → measure; those name an outcome, not an attempt.
   **Checklist item: for every "if you do" / "for each … this way" / "if it is defeated", ask what
-  PREVENTS the first half** — base-damage prevention (JTL_074), no-heal locks (SOR_160 Wolffe,
-  TWI_132 Confederate Tri-Fighter), can't-be-defeated/returned/captured, Shields, can't-ready
-  (SHD_193 Frozen in Carbonite). Those cards are what make attempt-vs-outcome observable, and they are
-  the fixture you need. Same family, mirrored: TS26_31 Chaotic Diversion ("Ready an enemy unit. **If you
+  PREVENTS the first half, then ask which of the shapes above the sentence is** — base-damage
+  prevention (JTL_074), no-heal locks (SOR_160 Wolffe, TWI_132 Confederate Tri-Fighter),
+  can't-be-defeated/returned/captured, Shields, can't-ready (SHD_193 Frozen in Carbonite) are the
+  fixtures that make the difference observable, whichever way the card reads. Same family, mirrored: TS26_31 Chaotic Diversion ("Ready an enemy unit. **If you
   do**, it can't attack…") stamped the restriction on whoever was CHOSEN, so an already-ready target or
   one under Frozen in Carbonite was silenced by a ready that never happened — gate on
   exhausted-before AND ready-after.
@@ -2164,7 +2183,7 @@ Only add what the tests actually require.
 
 | Ability type | Where to add it |
 |---|---|
-| **A card that PLAYS another card** ("play a unit from your discard", "play a card from your hand") | **`SWUNestedPlay($player, $mzID, $ignoreCost, $discount)`** in `CardHelpers.php` — NEVER a bare `ActivateCard`. ActivateCard finalises the action itself, and so does the outer effect (an event's `FINISH_PLAY_CARD`, a unit's entry-trigger flush), so the turn swaps twice and the player gets a FREE EXTRA ACTION. There are TWO after-actions and they need different guards: the IMMEDIATE one (the `$gTurnPlayer`/`PASS` save-restore) and the DEFERRED one — if the played card arms an ENTRY TRIGGER a `SWU_TRIGGER_RESUME` is queued and finalises LATER, after the restore. The helper does both. ⚠ This produced FIVE bugs in one week because each fix was invented locally; `DevTools/tests/nested_play_guard_test.php` now fails on any raw `ActivateCard` in a card file. ⚠ EXCEPTION: a leader/base Action that DELEGATES its whole action to the play must call `ActivateCard` directly — there its after-action is the action's only one and the helper strands the turn. ⚠ TESTING: a double after-action is INVISIBLE under `P1OnlyActions` — assert `TURNPLAYER` on an ALTERNATING turn, and for the deferred leg give an opponent HMW_171 Trap Field (it reacts to ANY non-leader ground unit entering play). ⚠ A "play up to N" card HIDES the bug at EVEN counts (the swaps cancel) — test with an ODD number of plays. |
+| **A card that PLAYS another card** ("play a unit from your discard", "play a card from your hand") | **`SWUNestedPlay($player, $mzID, $ignoreCost, $discount)`** in `CardHelpers.php` — NEVER a bare `ActivateCard`. ActivateCard finalises the action itself, and so does the outer effect (an event's `FINISH_PLAY_CARD`, a unit's entry-trigger flush), so the turn swaps twice and the player gets a FREE EXTRA ACTION. There are TWO after-actions and they need different guards: the IMMEDIATE one (the `$gTurnPlayer`/`PASS` save-restore) and the DEFERRED one — if the played card arms an ENTRY TRIGGER a `SWU_TRIGGER_RESUME` is queued and finalises LATER, after the restore. The helper does both. ⚠ This produced FIVE bugs in one week because each fix was invented locally; `DevTools/tests/nested_play_guard_test.php` now fails on any raw `ActivateCard` in a card file. ⚠ EXCEPTION: a leader/base Action that DELEGATES its whole action to the play must call `ActivateCard` directly — there its after-action is the action's only one and the helper strands the turn. ⚠ TESTING: a double after-action is INVISIBLE under `P1OnlyActions` — assert `TURNPLAYER` on an ALTERNATING turn, and for the deferred leg give an opponent HMW_171 Trap Field (it reacts to ANY non-leader ground unit entering play). ⚠ A "play up to N" card HIDES the bug at EVEN counts (the swaps cancel) — test with an ODD number of plays. ⚠ **`SWUNestedPlay` enters at ActivateCard and SKIPS ADDITIONAL COSTS** (Exploit, HMW_048 Vernestra, HMW_125, HMW_049) and the Clone copy choice. For a nested "play a UNIT" use **`SWUNestedPlayUnit($player, $mz, $discount, $grants)`** — the full `SWUBeginPlayCard(unitOnly)` ceremony in a nested frame, with play grants (`enterReady`, `turnEffect`, `shield`, `then`) that survive a deferred play (HMW_204 Nightbrother → Vernestra from the discard, 2026-09-14). Anything done to the played unit AFTER the call returns must move into a grant or `then`, because a cost picker defers the play past the return. |
 | **Assert `NOEXTRAACTION` on any card that plays another card, attacks from an ability, or runs a reactive trigger** | It asserts no action was closed twice. **It is the only form that works in the ~1834 files using `P1OnlyActions`** — that directive claims initiative so the opponent auto-passes, making a DOUBLE turn swap indistinguishable from a single one, so `TURNPLAYER` is blind there. It is also stronger than `TURNPLAYER` in an alternating fixture, because it sees a STRUCTURAL double close even when the turn ends up correct. ⚠ It means "no second close was ATTEMPTED", which is stricter than "no extra action happened": the DEFERRED leg (a queued `SWU_TRIGGER_RESUME`, typically via an opponent's HMW_171 Trap Field) legitimately attempts one and the gate refuses it — use `TURNPLAYER` on those sections instead. See `SWUSim/docs/action-close-ownership.md`. |
 | **★ ONE FUNNEL PER GAME EVENT (SSOT pass, 2026-09-11)** — each was re-implemented at ~20 sites, and every copy drifted | Use these; never the raw zone write they replace. They carry the log line, the observers, the counters and the trigger timing, so a hand-rolled copy is a bug even when its test passes. |
 | **Committing a PLAY** (any path that plays a card) | **`SWUCommitPlay($player, $cardID, $logSuffix, $as, $chargeObj)`** — the play line, telemetry, `SWU_CARDS_PLAYED`, one-shot charges, the "first unit / non-unit / Clone / Gambit" flags. ⚠ A path that DELEGATES to ActivateCard must NOT also commit (a smuggled event and every opponent-discard play were counted TWICE); a hand Pilot commits with `$logSuffix = null` (its attach writes the line). Pass `$chargeObj` only if this path's cost APPLIED the charges. |

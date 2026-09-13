@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Director Krennic, Amidst My Achievement - Daimyo's Palace
+# Source: melee.gg 445115, #1 of 180 (7-0-1)
+#   https://melee.gg/Decklist/View/73b660ce-7055-4a3b-bef4-b4bd00482ebd — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (8 entries).
+# Archetype (owner's label): Credit ramp control (soft / midrange control)
+# Style: control
+# Flavours: credit-ramp
+
+Leader
+1 LAW_008
+
+Base
+1 LAW_020
+
+Deck
+3 ASH_118
+3 ASH_116
+3 JTL_032
+3 LAW_159
+3 LAW_097
+3 ASH_079
+3 ASH_097
+3 LOF_059
+3 ASH_053
+2 SEC_087
+2 ASH_048
+2 LAW_039
+2 ASH_133
+1 SEC_068
+1 LAW_149
+3 ASH_052
+2 LAW_101
+1 JTL_041
+3 JTL_043
+3 LAW_044
+1 SEC_078
+1 JTL_121
+2 LOF_091

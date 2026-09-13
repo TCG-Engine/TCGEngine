@@ -1,21 +1,19 @@
-# CORE — initiative claims and the Twin Suns blast/plan counters, and the turns they legitimately skip.
-#
-# ⚠ THIS FILE EXISTS PARTLY TO DOCUMENT A NON-BUG. Claiming the initiative, and taking a blast or plan
-# counter, both mean "I am done for the rest of this round" (CR §12.5.3). The engine implements that by
-# auto-passing such a seat every time the turn reaches it — inside `SWUSwapTurnPlayer` itself. So a seat
-# that has claimed or taken a counter IS skipped for the rest of the round, and that is CORRECT. Three
-# separate "it skipped the next player's turn" reports have come in against 3- and 4-seat tables; these
-# sections pin the legitimate skips so the real ones stand out against them.
-#
-# ⚠ An initiative claimant's auto-passes are deliberately NOT written to the game log (only their claim
-# is), so the log shows a seat vanishing from the rotation with no PASS entry. That is expected, and it
-# is why the log cannot be used to diagnose turn order.
-#
-# ⚠ NO `P{n}OnlyActions`: that directive IS a claimed initiative plus SWU_COUNTER_TAKEN on every other
-# seat, i.e. exactly the machinery under test.
-
----
-
+#// CORE — initiative claims and the Twin Suns blast/plan counters, and the turns they legitimately skip.
+#//
+#// ⚠ THIS FILE EXISTS PARTLY TO DOCUMENT A NON-BUG. Claiming the initiative, and taking a blast or plan
+#// counter, both mean "I am done for the rest of this round" (CR §12.5.3). The engine implements that by
+#// auto-passing such a seat every time the turn reaches it — inside `SWUSwapTurnPlayer` itself. So a seat
+#// that has claimed or taken a counter IS skipped for the rest of the round, and that is CORRECT. Three
+#// separate "it skipped the next player's turn" reports have come in against 3- and 4-seat tables; these
+#// sections pin the legitimate skips so the real ones stand out against them.
+#//
+#// ⚠ An initiative claimant's auto-passes are deliberately NOT written to the game log (only their claim
+#// is), so the log shows a seat vanishing from the rotation with no PASS entry. That is expected, and it
+#// is why the log cannot be used to diagnose turn order.
+#//
+#// ⚠ NO `P{n}OnlyActions`: that directive IS a claimed initiative plus SWU_COUNTER_TAKEN on every other
+#// seat, i.e. exactly the machinery under test.
+#//
 # ThreeSeat_ClaimingInitiativeMovesTheTurnOneSeat
 #// A claim is a pass, so it advances the turn exactly one seat — not two, and not zero.
 ## GIVEN

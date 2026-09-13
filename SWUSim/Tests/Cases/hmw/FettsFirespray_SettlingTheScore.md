@@ -167,3 +167,154 @@ WithP4Base: SOR_024
 ## EXPECT
 P1HASDECISION
 P1SELECTABLEEXACT:p2Base-0&p4Base-0
+
+---
+
+# AmbushAttacksTheEnemyUnitInstead_BaseUntouched
+#// EXECUTE CELL for the offer above. Offer_BaseAndEnemyUnitBothOffered proves the unit is still in the
+#// pool; this section proves choosing it RESOLVES as an ordinary Ambush attack — the permission widens the
+#// pool, it does not redirect the attack onto the base.
+#// JTL_214 X-34 Landspeeder (2/3, Ambush) attacks P2's TWI_T01 Battle Droid (1/1): the droid dies, the
+#// Landspeeder takes 1 back, and the base is untouched. The Battle Droid + P2's base make two targets, so
+#// the choose genuinely prompts and the unit answer is load-bearing.
+
+## GIVEN
+CommonSetup: ryk/rrk/{myResources:2;myhandCardIds:JTL_214}
+P1OnlyActions: true
+WithP1SpaceArena: HMW_053:1:0
+WithP2GroundArena: TWI_T01:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2BASEDMG:0
+P1GROUNDARENAUNIT:0:CARDID:JTL_214
+P1GROUNDARENAUNIT:0:DAMAGE:1
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1NODECISION
+
+---
+
+# AUnitWithoutAmbush_GetsNoAttack
+#// NEGATIVE on "while using AMBUSH". The permission only widens an Ambush attack's targets; it grants no
+#// attack of its own. P1 plays SEC_080 Imperial Dark Trooper (vanilla 3/3, no Ambush — cost 2 +2 off-aspect
+#// Command = 4) with Firespray in play and an empty enemy board: the unit enters exhausted, nothing is
+#// offered, the base is untouched, and the action closes to P2.
+
+## GIVEN
+CommonSetup: ryk/rrk/{myResources:4;myhandCardIds:SEC_080}
+WithActivePlayer: 1
+WithP1SpaceArena: HMW_053:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SEC_080
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2BASEDMG:0
+P1NODECISION
+TURNPLAYER:2
+
+---
+
+# FiresprayItself_GainsAmbushFromWedge_HitsTheBase
+#// SELF CELL. "Friendly units" includes Fett's Firespray itself. SOR_100 Wedge Antilles ("Each friendly
+#// VEHICLE unit gets +1/+1 and gains Ambush") is seated; P1 plays Firespray (a Vehicle, cost 6, on-aspect
+#// for ryk). Firespray gains Ambush and, with an empty enemy board, its OWN permission makes P2's base the
+#// only target — so the Ambush is offered and lands for Firespray's buffed 7.
+#// Without the self-application the pool is empty and nothing is offered (WithoutFirespray_AmbushCannot
+#// HitTheBase is the no-permission shape).
+
+## GIVEN
+CommonSetup: ryk/rrk/{myResources:6;myhandCardIds:HMW_053}
+P1OnlyActions: true
+WithP1GroundArena: SOR_100:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:HMW_053
+P1SPACEARENAUNIT:0:POWER:7
+P1SPACEARENAUNIT:0:EXHAUSTED
+P2BASEDMG:7
+
+---
+
+# PermissionEndsWhenFiresprayLeavesPlay
+#// TRANSITION CELL. The permission is a continuous effect of Firespray being in play, so it ends the moment
+#// Firespray leaves — not merely "absent from the start" (WithoutFirespray_AmbushCannotHitTheBase).
+#// P1 passes; P2 plays JTL_078 Direct Hit ("Defeat a non-leader Vehicle unit") on Firespray, the only
+#// Vehicle in play. Back on P1's turn, SHD_210 Cloud-Rider's Ambush has no enemy unit and no base
+#// permission, so nothing is offered and the base is untouched. The board is otherwise identical to
+#// AmbushCanHitTheBase_WhileFirespraysPermissionApplies, which is the control.
+
+## GIVEN
+CommonSetup: ryk/bbk/{myResources:4;theirResources:4;myhandCardIds:SHD_210;theirhandCardIds:JTL_078}
+WithActivePlayer: 1
+WithP1SpaceArena: HMW_053:1:0
+
+## WHEN
+- P1>Pass
+- P2>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1DISCARDUNIT:0:CARDID:HMW_053
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SHD_210
+P2BASEDMG:0
+P1NODECISION
+TURNPLAYER:2
+
+---
+
+# EnemyAmbush_UnitPoolDoesNotGainTheBase
+#// NEGATIVE on "FRIENDLY", the non-empty-pool shape. EnemyAmbush_DoesNotGainThePermission pins the empty
+#// pool (no trigger at all); here P2's HMW_143 Banking Clan Warship (space, Ambush) has two legal enemy
+#// units — Firespray and SOR_237 Alliance X-Wing — so the Ambush IS offered, and the pool must be exactly
+#// those two units with P1's base NOT appended. A permission leaking to the opponent adds the base here.
+
+## GIVEN
+CommonSetup: ryk/ggk/{theirResources:6;theirhandCardIds:HMW_143}
+WithActivePlayer: 2
+WithP1SpaceArena: HMW_053:1:0
+WithP1SpaceArena: SOR_237:1:0
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:YES
+
+## EXPECT
+P2HASDECISION
+P2SELECTABLEEXACT:theirSpaceArena-0&theirSpaceArena-1
+
+---
+
+# EnemySentinels_PoolIsTheSentinelsOnly
+#// RULES-INTERACTION, pool shape. EnemySentinel_StillForcesTheAmbushOntoItself pins a lone Sentinel
+#// (auto-fired). With TWO SOR_063 Cloud City Wing Guards (Sentinel) and a non-Sentinel SEC_080 on P2's
+#// board, the choose prompts and its pool must be exactly the two Sentinels — neither the base the
+#// permission would add nor the non-Sentinel unit. The restriction overrides the permission.
+
+## GIVEN
+CommonSetup: ryk/rrk/{myResources:4;myhandCardIds:SHD_210}
+P1OnlyActions: true
+WithP1SpaceArena: HMW_053:1:0
+WithP2GroundArena: [SOR_063:1:0 SOR_063:1:0 SEC_080:1:0]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1

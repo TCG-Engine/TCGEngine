@@ -529,3 +529,129 @@ WithP2Deck: [SOR_095 SOR_046 SEC_080]
 P2BASEDMG:3
 P1BASEDMG:0
 P1NODECISION
+
+---
+
+# FearAndDeadMen_TwoEnemyUnitsHitForFour_TwoSeparateOffers
+#// THE "EACH ENEMY GROUND UNIT" FUNNEL. LAW_179 Fear and Dead Men: "Deal 4 damage to each enemy ground
+#// unit." With a DEPLOYED Sidious and two enemy ground units that is TWO qualifying instances (ruling 2:
+#// per instance, "a unit" singular), both dealt by P1 — so the deployed (free) Sidious is offered TWICE.
+#// ⚠ Not a duplicate of OperationCinder_ManyTriggers: Cinder kills Sidious mid-resolution and mixes a base
+#//   hit in; here Sidious survives (the event only hits ENEMY ground units — he takes nothing) and the two
+#//   instances are both UNIT hits from one loop. An observer that coalesced same-loop unit hits into one
+#//   offer passes Cinder's base+unit mix and fails only here.
+#// P2: SOR_164 Wampa (4/5) + SOR_202 Cantina Bouncer (3/5) — both survive the 4, so neither offer is
+#// cleaned up by a defeat. Both pings go to P2's base: 2 total.
+#// ⚠ FIXTURE: LAW_179 costs 7 (Aggression/Villainy); rrk + HMW_011 covers both aspects, 7 resources.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:HMW_011; myLeaderDeployed:true; myResources:7}
+WithActivePlayer: 1
+WithP1Hand: LAW_179
+WithP2GroundArena: [SOR_164:1:0 SOR_202:1:0]
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:4
+P2GROUNDARENAUNIT:1:DAMAGE:4
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P2BASEDMG:2
+P1BASEDMG:0
+P1NODECISION
+
+---
+
+# FearAndDeadMen_FirstOffer_ExcludesOnlyTheFirstUnitHit
+#// The FIRST of the two offers, left pending so its pool can be read. "A DIFFERENT unit or base" is per
+#// instance: the first offer excludes the unit THAT instance hit (Wampa, theirGroundArena-0) but keeps
+#// the OTHER enemy unit (Cantina Bouncer) legal — it was hit by a different instance. An implementation
+#// that excluded every unit the event damaged would drop theirGroundArena-1 here.
+#// Pool: the deployed Sidious, the Bouncer, both bases.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:HMW_011; myLeaderDeployed:true; myResources:7}
+WithActivePlayer: 1
+WithP1Hand: LAW_179
+WithP2GroundArena: [SOR_164:1:0 SOR_202:1:0]
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Deal_1_damage_to_a_different_unit_or_base
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-1&myBase-0&theirBase-0
+
+---
+
+# FearAndDeadMen_SecondOffer_ExcludesTheSecondUnitHit
+#// The SECOND offer, after the first is answered into P2's base. Its excluded object is the Cantina Bouncer
+#// (theirGroundArena-1) — and the Wampa, excluded from the first offer, is legal again. This pins that
+#// the excluded target rides on EACH trigger's own param rather than on a shared "last damaged" slot (a
+#// shared slot would exclude the same unit twice, or the wrong one).
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:HMW_011; myLeaderDeployed:true; myResources:7}
+WithActivePlayer: 1
+WithP1Hand: LAW_179
+WithP2GroundArena: [SOR_164:1:0 SOR_202:1:0]
+WithP1Deck: [SOR_095 SOR_046 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2BASEDMG:1
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0&myBase-0&theirBase-0
+
+---
+
+# Front_AbilityDamage_OpenFireFourToAnEnemyUnit_Triggers
+#// The FRONT side from ABILITY damage (every other front section is combat): SOR_172 Open Fire deals 4 to
+#// P2's Consular Security Force (the only unit, so the target auto-resolves). P1 exhausts Sidious and
+#// pings P2's base for 1.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:HMW_011;myResources:3;myhandCardIds:SOR_172}
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:4
+P2BASEDMG:1
+P1LEADER:EXHAUSTED
+
+---
+
+# Front_AbilityDamage_FourToYourOwnUnit_Triggers
+#// "When YOU deal 4 or more damage to a unit" names no controller for the unit: Open Fire into P1's OWN
+#// Consular Security Force still triggers it.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myLeader:HMW_011;myResources:3;myhandCardIds:SOR_172}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:4
+P2BASEDMG:1
+P1LEADER:EXHAUSTED

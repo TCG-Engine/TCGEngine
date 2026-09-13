@@ -29,9 +29,11 @@ $customDQHandlers["SHD_002#0"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
+    // Re-find "it" by UID after the damage: a lethal 2 removes it, and its old mzID would name the next unit.
+    $uid = intval($o->UniqueID ?? 0);
     SWUDealDamageToUnit($lastDecision, 2, intval($player));
-    $after = GetZoneObject($lastDecision);          // shield only if it survived the 2 damage
-    if ($after !== null && empty($after->removed)) DoGiveShieldToken(intval($player), $lastDecision);
+    $mz = SWUFindMzByUID($uid);                      // shield only if it survived the 2 damage
+    if ($mz !== null) DoGiveShieldToken(intval($player), $mz);
 };
 
 // When Deployed (deployed side): heal all, then deal each unit floor(remaining HP / 2).

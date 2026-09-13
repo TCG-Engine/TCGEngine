@@ -57,8 +57,8 @@ P1NODECISION
 ---
 
 # PaySix_TwoSeparateInstances
-#// HMW_036 — "for EVERY 3" is a repeating step, and each instance picks its own target. P1 pays 6 in
-#// two goes and splits the damage across two different enemy units, 4 each. Paying six and dealing 8
+#// HMW_036 — "for EVERY 3" is a repeating step, and each strike has its own target. P1 pays 6 and assigns
+#// the two strikes (one divided assignment, steps of 4) across two different enemy units, 4 each. Paying six and dealing 8
 #// to one target would also be legal (SameEnemyUnitTwice_IsAllowed) — the point here is that the two
 #// instances are independent choices, not one doubled hit.
 
@@ -72,8 +72,7 @@ WithP2GroundArena: LOF_168:1:0
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:6
-- P1>AnswerDecision:theirGroundArena-0
-- P1>AnswerDecision:theirGroundArena-1
+- P1>AnswerDecision:theirGroundArena-0:4,theirGroundArena-1:4
 
 ## EXPECT
 P2GROUNDARENACOUNT:2
@@ -218,7 +217,7 @@ WithP2GroundArena: LOF_168:1:0
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:3
-- P1>AnswerDecision:theirGroundArena-1
+- P1>AnswerDecision:theirGroundArena-1:2
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:HMW_036
@@ -270,7 +269,7 @@ WithP2GroundArena: LOF_168:1:0
 - P1>SimulateRequestBoundary
 - P1>AnswerDecision:3
 - P1>SimulateRequestBoundary
-- P1>AnswerDecision:theirGroundArena-1
+- P1>AnswerDecision:theirGroundArena-1:4
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
@@ -364,3 +363,208 @@ P2GROUNDARENAUNIT:0:CARDID:LOF_168
 P2GROUNDARENAUNIT:0:DAMAGE:4
 P1RESAVAILABLE:0
 P1NODECISION
+
+---
+
+# SameShieldedUnitTwice_OneShieldPreventsBoth
+#// HMW_036 — "For every 3 resources paid this way, deal damage …" is a FOR-EACH shape: per CR 34.1 the
+#// instances are all determined first and then resolved SIMULTANEOUSLY, and per CR 34.1.a damage from
+#// such an ability "is calculated and dealt as one instance of damage". So when both instances are aimed
+#// at the SAME unit they land as a single 8-damage hit, and a single Shield prevents ALL of it.
+#// PREVIEW SET — no official ruling; reasoned from CR 34 (Calculated Lethality is the CR's own example).
+#// Intended: the Shield is gone and SOR_046 (3/7) has 0 damage. A resolver that deals the instances one
+#// after another pops the Shield on the first and lets the second 4 through.
+#// ⚠ ONE enemy unit, so both target picks AUTO-RESOLVE — nothing is answered after the payment.
+
+## GIVEN
+CommonSetup: gbw/gbw/{myResources:10}
+P1OnlyActions: true
+WithP1Hand: HMW_036
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:6
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1RESAVAILABLE:0
+P1NODECISION
+
+---
+
+# ThreeInstancesIntoOneShield_OnlyTheShieldIsRemoved
+#// HMW_036 — the same CR 34.1 / 34.1.a rule past two instances. Paying 9 buys intdiv(9,3) = THREE
+#// instances, all forced onto the only enemy unit, SOR_095 Battlefield Marine (3/3) wearing one Shield.
+#// Dealt as one 12-damage instance, the Shield prevents it all: the Marine survives, unshielded and
+#// undamaged. Its 3 HP is below a single 4-damage instance, so if even one instance leaked past the
+#// Shield it would be defeated — the arena count turns on that.
+#// PREVIEW SET — no official ruling; reasoned from CR 34.
+
+## GIVEN
+CommonSetup: gbw/gbw/{myResources:13}
+P1OnlyActions: true
+WithP1Hand: HMW_036
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:9
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_095
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2DISCARDCOUNT:0
+P1RESAVAILABLE:0
+P1NODECISION
+
+---
+
+# DeployedEnemyLeaderUnit_IsALegalTarget
+#// HMW_036 — "an enemy UNIT" includes a deployed leader unit (CR: a Leader Unit is a unit in play).
+#// P2's leader is deployed and seats at the END of the ground arena, after the plain SOR_046; two enemy
+#// units means the choose really prompts. The pool must hold both, and Kelnacca's 4 lands on the leader.
+#// Offer and resolution are pinned together: the pick is only accepted if the leader is in the pool
+#// (an out-of-pool answer throws).
+
+## GIVEN
+CommonSetup: gbw/gbw/{myResources:7;theirLeaderDeployed:true}
+P1OnlyActions: true
+WithP1Hand: HMW_036
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:3
+- P1>AnswerDecision:theirGroundArena-1:4
+
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:1:ISLEADERUNIT
+P2GROUNDARENAUNIT:1:DAMAGE:4
+P1RESAVAILABLE:0
+P1NODECISION
+
+---
+
+# DeployedEnemyLeaderUnit_OfferedAlongsideThePlainUnit
+#// HMW_036 — the OFFER cell for the leader-unit target: left pending so the pool itself is asserted.
+#// Pool = exactly the two enemy units, the deployed leader included.
+
+## GIVEN
+CommonSetup: gbw/gbw/{myResources:7;theirLeaderDeployed:true}
+P1OnlyActions: true
+WithP1Hand: HMW_036
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:3
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1
+
+---
+
+# Control_OneInstanceIntoAShield_ShieldPopsNoDamage
+#// HMW_036 — FIXTURE CONTROL for SameShieldedUnitTwice_OneShieldPreventsBoth: the identical board with
+#// a payment of 3 (one instance). The Shield seats on SOR_046 and prevents the single 4, proving the
+#// seeding, the auto-resolved pick and the Shield replacement all work — so any damage in the two-
+#// instance section comes from the instances being dealt one after another, not from the fixture.
+
+## GIVEN
+CommonSetup: gbw/gbw/{myResources:10}
+P1OnlyActions: true
+WithP1Hand: HMW_036
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:3
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1RESAVAILABLE:3
+P1NODECISION
+
+---
+
+# TwoTargets_BothStrikesStackedOnOne_EightInOneHit
+#// ★ USER DECISION 2026-09-14: the strikes are ONE divided assignment in steps of Kelnacca's power (4), and a
+#// unit may take several. With two enemy units offered, P1 puts both strikes (8) on the Consular Security
+#// Force (3/7) — one 8-damage instance kills it; the Ravenous Rathtar is untouched.
+
+## GIVEN
+CommonSetup: gbw/gbw/{myResources:10}
+P1OnlyActions: true
+WithP1Hand: HMW_036
+WithP2GroundArena: [SOR_046:1:0 LOF_168:1:0]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:6
+- P1>AnswerDecision:theirGroundArena-0:8
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:LOF_168
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1RESAVAILABLE:0
+
+---
+
+# Assignment_Offer_StepsOfItsPower
+#// The assignment itself, left pending: pool = 2 strikes × 4, over every enemy unit.
+
+## GIVEN
+CommonSetup: gbw/gbw/{myResources:10}
+P1OnlyActions: true
+WithP1Hand: HMW_036
+WithP2GroundArena: [SOR_046:1:0 LOF_168:1:0]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:6
+
+## EXPECT
+P1DECISIONTOOLTIP:Assign_2_strikes_of_4_damage_among_enemy_units
+P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1
+
+---
+
+# ShieldedAndUnshielded_OneAssignment_BothResolveTogether
+#// One strike into a Shielded Consular Security Force and one into the Ravenous Rathtar (8/5): the Shield
+#// absorbs its 4 (popped, 0 damage) and the Rathtar takes its 4 — same assignment, dealt simultaneously.
+
+## GIVEN
+CommonSetup: gbw/gbw/{myResources:10}
+P1OnlyActions: true
+WithP1Hand: HMW_036
+WithP2GroundArena: [SOR_046:1:0 LOF_168:1:0]
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:6
+- P1>AnswerDecision:theirGroundArena-0:4,theirGroundArena-1:4
+
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:1:CARDID:LOF_168
+P2GROUNDARENAUNIT:1:DAMAGE:4
