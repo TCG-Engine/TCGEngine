@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-11T18:55:41+00:00",
+    "generatedAt": "2026-09-13T23:29:18+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 268,
+        "cardsWithExistingFixtures": 269,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2219,
+        "cardsNeedingSemanticCoverage": 2218,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -105,23 +105,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 123
-        },
-        {
-            "cardId": "2kkvoqk1l7",
-            "name": "Smash with Obelisk",
-            "type": "ATTACK",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 121
         },
         {
             "cardId": "3tcs0axa03",
@@ -39352,6 +39335,27 @@
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 141
+        },
+        {
+            "cardId": "2kkvoqk1l7",
+            "name": "Smash with Obelisk",
+            "type": "ATTACK",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "smash-with-obelisk-domain-sacrifice-bonus"
+            ],
+            "semanticFixtures": [
+                "smash-with-obelisk-domain-sacrifice-bonus"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 141

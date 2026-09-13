@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **268**
+Cards linked to an existing fixture: **269**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2219**
+Implemented cards still needing semantic coverage: **2218**
 
 ## Mechanic groups
 
@@ -30,7 +30,6 @@ Implemented cards still needing semantic coverage: **2219**
 | Slay the King (`6v374coy34`) | ATTACK | 2 | zone-movement, combat, trigger, condition | Lorraine Pantheon Starter | — |
 | Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
 | Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
-| Smash with Obelisk (`2kkvoqk1l7`) | ATTACK | 2 | cost | Tonoris Starter Deck | — |
 | Assassin's Mantle (`3tcs0axa03`) | REGALIA,ITEM | 1 | damage, prevention, zone-movement, counter, condition | Zander Pantheon Starter | — |
 | Corhazi Courier (`YqQsXwEvv5`) | ALLY | 1 | targeting, damage, draw-discard, status, combat, condition | Zander Pantheon Starter | — |
 | Essence of Blizzards (`k1l75tlzsm`) | ITEM | 1 | cost, targeting, damage, status, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2219**
 | Endura, Scepter of Ignition (`SGsDKB9CN5`) | REGALIA,ITEM | 1 | targeting, damage, counter | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Fire Resonance Bauble (`LROrzTmh55`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude) | — |
 | Gaia's Songbird (`sHzSmygjWY`) | ALLY | 1 | zone-movement, trigger, condition | Silvie Starter Deck | — |
+| Gem of Searing Flame (`v1jaidvvz2`) | REGALIA,ITEM | 1 | targeting, damage, trigger | Kongming Pantheon Starter | — |
