@@ -9560,6 +9560,108 @@ DECK,
     ],
 ];
 
+// --- Gray Wolf: Pride 2 (won't attack unless champion is level 2+) ---
+$fixtures['gray-wolf-pride-2-attack-rejected'] = [
+    'testedCards' => ['hJ2xh9lNMR'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Gray Wolf is NORM, vanilla besides Pride 2. Pride is enforced only in combat
+    // (CombatLogic.php ~619/2836, GameLogic.php ~16695: PlayerLevel($controller) < PrideAmount($obj)),
+    // there is no side-effect-free "can attack" predicate -- BeginCombatPhase() is simultaneously the
+    // check and the action. Seeded directly onto the field (already awake, so no materialize/summoning
+    // sickness concern). At the default champion level (0), attempting to declare it as an attacker is
+    // rejected outright (expectFailure) since 0 < 2.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Rebellious Bull: enters the field rested (Pride 3) ---
+$fixtures['rebellious-bull-enters-rested'] = [
+    'testedCards' => ['GXeEa0pe3B'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Rebellious Bull is NORM. Its "enters the field rested" clause is directly observable via
+    // Status after a normal FSM materialize -- Pride 3 (a combat-only restriction, same mechanic
+    // as gray-wolf-pride-2-attack-rejected) is not separately re-tested here.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'GXeEa0pe3B'], // Rebellious Bull, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Freezing Hail + Blue Slime: deal 2 damage, [Class Bonus] Blue Slime gets a buff counter ---
+$fixtures['freezing-hail-blue-slime-class-bonus-buff'] = [
+    'testedCards' => ['SrBA7h2a1N', '1Sl4Gq2OuV'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Both cards are WATER -- the starting champion's CardID is patched directly to Silvie, With
+    // the Pack (TAMER, also satisfies Blue Slime's [Class Bonus] class-match) and its Subcards are
+    // ALSO patched with a real WATER champion (Nico, Rapture's Embrace) purely for the element/
+    // lineage unlock (Silvie's own champions are NORM/TERA, not WATER). Blue Slime (Pride 4) is
+    // seeded directly onto the field so its Pride doesn't need to be re-satisfied for a
+    // materialize (Pride only gates attacking, already covered by gray-wolf-pride-2-attack-
+    // rejected). Freezing Hail's dealDamageAbilities trigger for Blue Slime fires reactively off
+    // DealDamage regardless of source, so targeting Blue Slime with our own Freezing Hail is a
+    // valid, simple way to trigger both cards' effects in one fixture: Freezing Hail's own "deal 2
+    // damage, skip next wake up" and Blue Slime's own "[Class Bonus] whenever dealt damage, buff
+    // counter" trigger simultaneously.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT', 'Subcards' => ['29lqrve8fz']]], // Silvie, With the Pack (TAMER) + Nico (WATER unlock)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '1Sl4Gq2OuV'], // Blue Slime
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'SrBA7h2a1N'], // Freezing Hail, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // target Blue Slime
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
