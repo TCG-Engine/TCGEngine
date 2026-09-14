@@ -1,0 +1,17 @@
+{
+    "name": "Rai, Storm Seer: +1 level for each arcane element Mage Spell card in your banishment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Rai, Storm Seer's level bonus (GameLogic.php ~13279-13288) is a continuous computed check (+1 level per qualifying banished card) with no stored counter to assert directly -- the champion is patched directly to Rai, Storm Seer (the check reads $obj->CardID literally, not lineage, so a direct patch is sufficient), and Shock Therapy (tyj2s3572j, an ARCANE MAGE SPELL action card) is seeded into myBanish. Same indirect Glimpse-LV proof technique as beastbond-ears-level-while-animal-beast: at the default level 0, Scry the Skies' Glimpse LV would be an invisible no-op, but with the +1 level bonus active (1 qualifying banished card), Glimpse LV surfaces a real 1-card MZREARRANGE decision that must be explicitly answered -- the fixture's own action sequence only completes if that decision genuinely appears, which is itself the proof.",
+    "testedCards": [
+        "g92bHLtTNl"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["g92bHLtTNl"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "Rai, Storm Seer gets +1 level for each arcane element Mage Spell card in your banishment."
+        ]
+    }
+}

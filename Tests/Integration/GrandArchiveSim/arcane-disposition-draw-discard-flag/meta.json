@@ -1,0 +1,18 @@
+{
+    "name": "Arcane Disposition: draw 2 (3 with Class Bonus), discard hand at next end phase",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Arcane Disposition is ARCANE, so the starting champion's Subcards are patched with a real ARCANE champion (Lorraine, Arclight Saber) to unlock element access -- this grants a lineage-inherited 'Enlighten' fast-action opportunity once reserve is paid (same side effect as arcane-sight-level-draw); both players decline. Draws 2 (the [Class Bonus] 3rd draw is out of scope), then sets a delayed-discard flag (blq7qXGvWH_DISCARD_NEXT_END, GameLogic.php ~10454-10463) that fires at the next end phase -- directly observable via card_exists in myGlobalEffects without needing to reach that end phase.",
+    "testedCards": [
+        "blq7qXGvWH"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["blq7qXGvWH"],
+        "mechanics": ["draw-discard"],
+        "rulesClauses": [
+            "Draw 2 cards.",
+            "At the beginning of the next end phase, discard your hand."
+        ]
+    }
+}

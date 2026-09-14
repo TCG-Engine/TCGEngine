@@ -1,0 +1,17 @@
+{
+    "name": "Crystal of Empowerment: Banish -- champion gets +2 level until end of turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Crystal of Empowerment is REGALIA -- seeded directly onto myField (hand-add redirect). Its 'until end of turn' TurnEffect is at risk of the same 'attempt to pass ends the turn' bug documented for Beastbond Boots earlier this session, so Scry the Skies is played first (a same-turn warm-up action) and the ability is reached via a direct Activate:0 click instead of the pass-trick (same fix as beastbond-boots-banish-spellshroud). The champion's TurnEffects then directly shows 'dmfoA7jOjy', proving the +2 level effect applied; a residual decision from Scry the Skies' own Glimpse/memory-draw resolution is left pending for player 1 at the end (harmless and unrelated to Crystal's own effect, so decision_queue_empty is asserted for player 2 only).",
+    "testedCards": [
+        "dmfoA7jOjy"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["dmfoA7jOjy"],
+        "mechanics": ["zone-movement"],
+        "rulesClauses": [
+            "Banish Crystal of Empowerment: Your champion gets +2 level until end of turn."
+        ]
+    }
+}

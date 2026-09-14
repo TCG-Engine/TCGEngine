@@ -1,0 +1,17 @@
+{
+    "name": "Impassioned Tutor: On Attack: champion +1 level until end of turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Impassioned Tutor is FIRE (matching the default Spirit of Fire champion, no lineage patch needed). Same real attack-declaration sequence as ardent-cloudstriker-west-attack-champion-buff: seeded directly onto the field (bypassing its reserve cost) with Status patched awake so it can declare an attack immediately. Its On Attack fires as soon as the attack is declared (AddGlobalEffects 'MECS7RHRZ8', GeneratedMacroCode.php ~24673-24677), before damage resolves.",
+    "testedCards": [
+        "MECS7RHRZ8"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["MECS7RHRZ8"],
+        "mechanics": ["combat", "trigger"],
+        "rulesClauses": [
+            "On Attack: Your champion gets +1 level until end of turn."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Blitz Mage: vanilla stats (3 POWER / 1 LIFE, no ability)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Blitz Mage is FIRE and vanilla (no printed ability). The default starting champion (Spirit of Fire) is already FIRE, so no lineage/Subcards patch is needed to unlock element access.",
+    "testedCards": [
+        "u8m6LuUSSu"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["u8m6LuUSSu"],
+        "mechanics": ["unclassified"],
+        "rulesClauses": [
+            "Blitz Mage has no printed ability (3 POWER / 1 LIFE vanilla ally)."
+        ]
+    }
+}

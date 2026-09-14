@@ -1,0 +1,17 @@
+{
+    "name": "Surveillance Stone: opponent's 3rd attack each turn, may banish to draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Surveillance Stone is REGALIA -- seeded directly onto myField (P1's side). Its trigger (CombatLogic.php ~2742-2751) fires when the OPPONENT's OnAttackCallCount reaches exactly 3 for their turn, offering the owner (P1) a YESNO to banish it and draw. 3 separate Dungeon Guide allies are seeded onto P2's field (each patched awake) so P2 can declare 3 real attacks in a single turn, same real attack-declaration sequence (P1 pass, P2 pass, P1 formally ends turn 1 via the mid-game Pass button, P2 declines their MAT offer) as swift-recruit-intercept-redirect for reaching P2's own attacking turn. After the 3rd attack, P1 answers YES and the card lands in myBanish.",
+    "testedCards": [
+        "kk46Whz7CJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["kk46Whz7CJ"],
+        "mechanics": ["draw-discard", "zone-movement", "combat", "trigger", "condition"],
+        "rulesClauses": [
+            "Whenever an opponent declares an attack with a unit for the third time each turn, you may banish Surveillance Stone. If you do, draw a card."
+        ]
+    }
+}
