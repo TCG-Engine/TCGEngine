@@ -9248,6 +9248,52 @@ DECK,
     ],
 ];
 
+// --- Arisanna, Astral Zenith: Once per turn, pay (0) rather than a card's starcalling costs ---
+$fixtures['arisanna-astral-zenith-free-starcalling'] = [
+    'testedCards' => ['q3huqj5bba'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // The starting champion's CardID is patched directly to Arisanna, Astral Zenith (q3huqj5bba) --
+    // ChampionHasInLineage() checks [champion's own CardID, ...Subcards], so this trivially
+    // satisfies "Arisanna Lineage" and also unlocks ASTRA (its own element) for Cometfall's
+    // Starcalling. Its level is patched to 1 so Scry the Skies' "Glimpse LV" (0 by default) reveals
+    // exactly one card. The deck's top card (myDeck-0) is patched directly to Cometfall
+    // (4d5vettczb, Starcalling -- (2)) so that single glimpsed card is a starcalling candidate.
+    // GetStarcallingCost() internally calls EnsureArisannaFreeStarcallingEligibility() on every
+    // call (including the candidate pre-check during Glimpse), so the cost is already forced to 0
+    // before the player is even offered the choice -- no reserve payment is queued when starcalled.
+    // Confirmed via Cometfall's own effect resolving (3 damage to all non-astra units) with zero
+    // reserve spent, and the once-per-turn "ArisannaFreeStarcallingUsed" flag being set afterward
+    // (GameLogic.php's MarkArisannaFreeStarcallingUsed/HasUsedArisannaFreeStarcalling) -- not
+    // independently re-testable within one fixture, so only the single use is exercised.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba', 'Counters' => ['level' => 1]]],
+        ['player' => 1, 'patchMzId' => 'myDeck-0', 'setProperties' => ['CardID' => '4d5vettczb']], // Cometfall on top of deck
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Starcall Cometfall from the glimpse popup instead of returning it to the deck.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-0', 'chkInput' => [], 'inputText' => ''],
+        // Scry the Skies' own "draw a card into memory" clause then runs its own glimpse-driven
+        // draw (the same multi-card multiplier documented in stream-of-consciousness-draw-into-
+        // memory / scry-the-skies-glimpse-lv-draw); accept the offered bottom order verbatim.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Bottom=em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // --- Prototype Staff: [Level 4+] REST: put a hand card on bottom of deck, draw into memory ---
 $fixtures['prototype-staff-rest-bottom-draw'] = [
     'testedCards' => ['8c9htu9agw'],

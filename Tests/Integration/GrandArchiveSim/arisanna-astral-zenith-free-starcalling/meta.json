@@ -1,0 +1,18 @@
+{
+    "name": "Arisanna, Astral Zenith: Once per turn, pay (0) rather than a card's starcalling costs",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "The starting champion's CardID is patched directly to Arisanna, Astral Zenith (q3huqj5bba) -- ChampionHasInLineage() checks [champion's own CardID, ...Subcards], so this trivially satisfies 'Arisanna Lineage' and also unlocks ASTRA (its own element) for Cometfall's Starcalling, without a real level-up sequence. Its level is patched to 1 so Scry the Skies' 'Glimpse LV' (0 by default, an invisible no-op) reveals exactly one card. The deck's top card (myDeck-0) is patched directly to Cometfall (4d5vettczb, Starcalling -- (2)) so that single glimpsed card is a starcalling candidate. GetStarcallingCost() internally calls EnsureArisannaFreeStarcallingEligibility() on every call, including the candidate pre-check during Glimpse (GameLogic.php ~15125), so the cost is already forced to 0 before the player is even offered the choice -- no reserve payment is ever queued when Cometfall is starcalled, unlike its printed (2) cost. Confirmed via Cometfall's own effect fully resolving for free: since the champion's CLERIC class matches Cometfall's CLERIC class, its Class Bonus applies (4 damage, not the base 3) to the opposing champion, while the Astral Zenith champion itself is exempt (ASTRA is excluded from 'non-astra element units'). Scry the Skies' own trailing 'draw a card into memory' clause still runs afterward with its usual multi-card-to-bottom quirk (same as scry-the-skies-glimpse-lv-draw), accepted as-is. The once-per-turn 'ArisannaFreeStarcallingUsed' flag being consumed is implied by the code path (MarkArisannaFreeStarcallingUsed) but not independently re-tested with a second starcall in this fixture.",
+    "testedCards": [
+        "q3huqj5bba"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["q3huqj5bba"],
+        "mechanics": ["cost", "condition"],
+        "rulesClauses": [
+            "Arisanna Lineage",
+            "Once per turn, you may pay (0) rather than pay a card's starcalling costs."
+        ]
+    }
+}
