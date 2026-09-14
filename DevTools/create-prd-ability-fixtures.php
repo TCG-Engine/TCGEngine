@@ -8970,6 +8970,84 @@ DECK,
     ],
 ];
 
+// --- Krustallan Distiller: [Class Bonus] On Enter, if brewed a Potion this turn, draw into memory ---
+$fixtures['krustallan-distiller-class-bonus-brewed-draw'] = [
+    'testedCards' => ['c08c9htu9a'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Krustallan Distiller is WATER, so the starting champion's Subcards are patched with a real
+    // WATER champion (Nico, Rapture's Embrace) for element access; that same champion's CardID is
+    // ALSO patched directly onto the field so IsClassBonusActive(["CLERIC"]) is NOT satisfied by
+    // it -- Nico is GUARDIAN, so instead the champion is patched to Arisanna, Master Alchemist
+    // (CLERIC) directly for the Class Bonus, with Subcards left carrying the WATER unlock. The
+    // "brewed a Potion this turn" condition is reached via the BREWED_POTION global effect
+    // (normally set by the real Brew-declaration flow) seeded directly at setup, matching the
+    // harness's documented technique for reaching an otherwise-unreachable-at-game-start
+    // precondition without scripting a full brew sequence.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'ltv5klryvf', 'Subcards' => ['29lqrve8fz']]], // Arisanna, Master Alchemist (CLERIC) + WATER lineage unlock
+        ['player' => 1, 'globalEffect' => 'BREWED_POTION'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'c08c9htu9a'], // Krustallan Distiller, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Caretaker Drone: [Class Bonus] On Death: Glimpse 4 ---
+$fixtures['caretaker-drone-class-bonus-death-glimpse'] = [
+    'testedCards' => ['urfp66pv4n'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Caretaker Drone is NORM (no lineage patch needed). Its [Class Bonus] On Death is coded as
+    // IsClassBonusActive($player) with NO class argument (GameLogic.php's IsClassBonusActive
+    // treats a null $classes as "any champion present," GameLogic.php ~18079-18104), so it fires
+    // unconditionally as long as a champion exists -- no champion patch needed at all. Only Intercept
+    // (a shared static ability tested elsewhere) is out of scope. Undeniable Truth's own "mandatory
+    // sacrifice of an ally" additional cost (GameLogic.php's DoActivateCard cost-declaration switch,
+    // $hasUndeniableTruthCost) is borrowed to kill Caretaker Drone via a non-combat removal path
+    // (same technique as crest-of-the-alliance-fostered-ally-dies-draw), which triggers On Death
+    // reliably.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'urfp66pv4n'], // Caretaker Drone
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UaUfw7yFTW'], // Undeniable Truth, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Caretaker Drone as the mandatory cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order (same no-op default as idle-thoughts-glimpse-4).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

@@ -1,0 +1,17 @@
+{
+    "name": "Caretaker Drone's [Class Bonus] On Death: Glimpse 4",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Caretaker Drone is NORM (no lineage patch needed). Its [Class Bonus] On Death is coded as IsClassBonusActive($player) with NO class argument (GameLogic.php's IsClassBonusActive treats a null $classes as 'any champion present,' GameLogic.php ~18079-18104), so it fires unconditionally as long as a champion exists -- no champion patch needed at all. Only Intercept (a shared static ability tested elsewhere) is out of scope. Undeniable Truth's own 'mandatory sacrifice of an ally' additional cost (GameLogic.php's DoActivateCard cost-declaration switch, $hasUndeniableTruthCost) is borrowed to kill Caretaker Drone via a non-combat removal path (same technique as crest-of-the-alliance-fostered-ally-dies-draw), which triggers On Death reliably and surfaces the resulting Glimpse-4 MZREARRANGE decision (resolved keeping original order) earlier in the action sequence than the reserve payment -- the whole chain still resolves cleanly to an empty decision queue with Caretaker Drone confirmed in the graveyard.",
+    "testedCards": [
+        "urfp66pv4n"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["urfp66pv4n"],
+        "mechanics": ["trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Death: Glimpse 4."
+        ]
+    }
+}
