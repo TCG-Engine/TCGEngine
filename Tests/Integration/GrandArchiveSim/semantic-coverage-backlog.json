@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-13T23:29:18+00:00",
+    "generatedAt": "2026-09-14T01:11:40+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 269,
+        "cardsWithExistingFixtures": 273,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2218,
+        "cardsNeedingSemanticCoverage": 2214,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1891,25 +1891,6 @@
             "priority": 112
         },
         {
-            "cardId": "qj5bbae3z4",
-            "name": "Cosmic Astroscope",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "Pr48kXnasw",
             "name": "Cremation Ritual",
             "type": "ACTION",
@@ -2582,24 +2563,6 @@
             "priority": 112
         },
         {
-            "cardId": "z1vdxi74wa",
-            "name": "Synth Disrupter",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "0ZWcrEsFHA",
             "name": "Tenderheart Guard",
             "type": "ALLY",
@@ -2689,23 +2652,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 112
-        },
-        {
-            "cardId": "m4c8ljyevp",
-            "name": "Academy Attendant",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
         },
         {
             "cardId": "uZCyXDNJ6I",
@@ -2985,24 +2931,6 @@
             "starterDecks": [
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "u7d6soporh",
-            "name": "Ingredient Pouch",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -42925,6 +42853,29 @@
             "priority": 132
         },
         {
+            "cardId": "qj5bbae3z4",
+            "name": "Cosmic Astroscope",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cosmic-astroscope-rest-glimpse"
+            ],
+            "semanticFixtures": [
+                "cosmic-astroscope-rest-glimpse"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "84YTQPTvar",
             "name": "Dante, Aenean Initiate",
             "type": "CHAMPION",
@@ -43550,6 +43501,28 @@
             "priority": 132
         },
         {
+            "cardId": "z1vdxi74wa",
+            "name": "Synth Disrupter",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "synth-disrupter-banish-automaton-rested"
+            ],
+            "semanticFixtures": [
+                "synth-disrupter-banish-automaton-rested"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "2Ojrn7buPe",
             "name": "Tera Sight",
             "type": "ACTION",
@@ -43800,6 +43773,27 @@
             "priority": 132
         },
         {
+            "cardId": "m4c8ljyevp",
+            "name": "Academy Attendant",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "academy-attendant-class-bonus-memory-power"
+            ],
+            "semanticFixtures": [
+                "academy-attendant-class-bonus-memory-power"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "XLrHaYV9VB",
             "name": "Arcane Sight",
             "type": "ACTION",
@@ -43931,6 +43925,28 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "u7d6soporh",
+            "name": "Ingredient Pouch",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token"
+            ],
+            "existingFixtures": [
+                "ingredient-pouch-rest-gather"
+            ],
+            "semanticFixtures": [
+                "ingredient-pouch-rest-gather"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

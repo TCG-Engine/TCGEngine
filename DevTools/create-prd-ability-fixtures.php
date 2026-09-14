@@ -8548,6 +8548,179 @@ DECK,
     ],
 ];
 
+// --- Academy Attendant: [Class Bonus][Memory 4+] +1 POWER ---
+$fixtures['academy-attendant-class-bonus-memory-power'] = [
+    'testedCards' => ['m4c8ljyevp'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Academy Attendant's static +1 POWER (GameLogic.php ~11255) is a plain
+    // IsClassBonusActive(["CLERIC"]) + "4+ cards in memory" check with no turn-cycle needed at all
+    // -- the champion is patched directly to Arisanna, Master Alchemist (CLERIC) and 4 filler cards
+    // are seeded into myMemory. Verified via computed_power_equals (base 2 + 1 = 3) rather than a
+    // real combat sequence.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'ltv5klryvf']], // Arisanna, Master Alchemist (CLERIC)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm4c8ljyevp'], // Academy Attendant
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // harmless no-op click
+    ],
+];
+
+// --- Synth Disrupter: banish, Automaton allies enter the field rested until end of turn ---
+$fixtures['synth-disrupter-banish-automaton-rested'] = [
+    'testedCards' => ['z1vdxi74wa'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Synth Disrupter's banish ability just sets a global effect flag (z1vdxi74wa_RESTED,
+    // GeneratedMacroCode.php); the actual effect (Automaton allies enter the field rested) is
+    // checked in FieldAfterAdd (GameLogic.php ~8256). ENGINE BUG FOUND AND FIXED: Synth Disrupter's
+    // "Banish [self]:" cost was missing from the hardcoded "always banish self" fallthrough switch
+    // in ActivatedAbilityCost (GameLogic.php ~6142-6194, alongside ~50 other banish-self cards) --
+    // selecting its fast-action opportunity choice fired the ability's effect but never actually
+    // removed the card, so it stayed on the field and kept re-offering itself. Fixed by adding
+    // z1vdxi74wa (and bHGUNMFLg9, Wind Resonance Bauble, found missing the same way) to that list.
+    // Materializing Automaton Beastkeeper (a plain AUTOMATON ally with an optional Class Bonus On
+    // Enter, out of scope) queues its own reserve payment then an EffectStackOpportunity BEFORE it
+    // actually resolves onto the field -- answering that opportunity with Synth Disrupter's banish
+    // choice (instead of declining) lets the global effect apply in time for Beastkeeper's own
+    // FieldAfterAdd check, confirmed by its Status landing rested (1) instead of the default awake
+    // (2). (Using "attempt to pass" to reach the opportunity instead would end player 1's turn
+    // outright once nothing else responds -- it only works standalone, as in sweet-ambrosia-banish-
+    // recover, not when a same-turn follow-up action is still needed.)
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'z1vdxi74wa'], // Synth Disrupter
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'i5jnsl7ddc'], // Automaton Beastkeeper, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // materialize Automaton Beastkeeper
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''], // banish Synth Disrupter during the pre-resolution opportunity
+    ],
+];
+
+// --- Ingredient Pouch: (1), REST: Gather ---
+$fixtures['ingredient-pouch-rest-gather'] = [
+    'testedCards' => ['u7d6soporh'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Ingredient Pouch's REST ability pays 1 reserve then Gathers (summons one of six possible
+    // resource tokens at random -- resolves to Blightroot with this fixture's seed, same as
+    // foraging-servant-enter-gather). Field items with an activated ability are not clickable via a
+    // plain myField-N!FSM! action -- their ability is offered as a fast-action MZMAYCHOOSE
+    // opportunity once the turn player attempts to pass, answered with the encoded
+    // "{mzID}@Activate-{abilityIndex}@{label}" choice string (same shape as sweet-ambrosia-banish-
+    // recover). Blightroot itself carries a fast "Sacrifice:" ability, so the AbilityOpportunity
+    // window that opens after Gather resolves re-offers it once more even after the first decline
+    // (a fresh priority round re-checks the still-available fast ability) -- a second explicit
+    // decline is needed to fully close out and leave the decision queue empty.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'u7d6soporh'], // Ingredient Pouch
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // attempt to pass -> offers the fast-action opportunity
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Gather', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the gathered Blightroot's own fast Sacrifice ability (1/2)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline again -- the same fast ability is re-offered in the next priority round (2/2)
+    ],
+];
+
+// --- Cosmic Astroscope: REST: Glimpse 3 ---
+$fixtures['cosmic-astroscope-rest-glimpse'] = [
+    'testedCards' => ['qj5bbae3z4'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Cosmic Astroscope's REST ability is a plain, free (memory cost 0) Glimpse 3 -- no reserve
+    // payment queued. Only the base Glimpse is covered; the [Class Bonus] "opponent glimpses 3
+    // instead" replacement effect is a passive/reusable-elsewhere property and out of scope. Field
+    // items with an activated ability are not clickable via a plain myField-N!FSM! action -- their
+    // ability is offered as a fast-action MZMAYCHOOSE opportunity once the turn player attempts to
+    // pass, answered with the encoded "{mzID}@Activate-{abilityIndex}@{label}" choice string.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'qj5bbae3z4'], // Cosmic Astroscope
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // attempt to pass -> offers the fast-action opportunity
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Glimpse', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: submit the same "Top=...;Bottom=" param verbatim to keep original
+        // order (same no-op default GoldfishChooseAction uses for this decision type) -- confirmed
+        // via direct probe against this exact deck/seed since the glimpsed card IDs depend on the
+        // deterministic shuffle.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Scale of Souls: (2), REST: Return a card from your memory to your hand ---
+// DEFERRED -- confirmed engine gap: Scale of Souls' "(2), REST: ..." ability is registered in
+// $cardActivatedAbilities (GeneratedMacroCode.php, the same dictionary used for reserve-cost
+// cards played from hand/material via DoActivateCard/ActivateCard), NOT in
+// $activateAbilityAbilities (the free/memory-cost-0 dictionary field items like Ingredient Pouch
+// and Cosmic Astroscope use, invoked via ActivateAbility/DoActivatedAbility). But
+// GrandArchiveSim/Custom/CustomInput.php's "myField"/"myIntent" case only ever calls
+// ActivateAbility() for a field-resident object's activate click -- it never checks
+// CardCardActivatedCount()/routes to ActivateCard() the way "myHand" does. Confirmed via direct
+// function calls: ActivateAbility(1, 'myField-1', 0) silently does nothing (DoActivatedAbility's
+// $staticAbilityCount is 0 for this card, so ability index 0 falls through the "dynamic ability"
+// branch and matches nothing), while ActivateCard(1, 'myField-1', false) works correctly and
+// queues the real MZCHOOSE=myMemory-0 decision -- but there is no client-reachable action that
+// calls ActivateCard on a myField mzID. This appears to affect every field-resident REGALIA/ITEM
+// with a reserve-cost repeatable ability (Scale of Souls is just the one this session hit first).
+// Fixing CustomInput.php's routing is out of scope for a single-card fixture pass (touches the
+// shared input-routing file every other "myField@Activate" fixture in this suite depends on) --
+// left for a dedicated follow-up.
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
