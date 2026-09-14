@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **310**
+Cards linked to an existing fixture: **312**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2177**
+Implemented cards still needing semantic coverage: **2175**
 
 ## Mechanic groups
 
@@ -65,7 +65,6 @@ Implemented cards still needing semantic coverage: **2177**
 | Drawn Blade (`eSAIP7mx9z`) | REGALIA,WEAPON | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
 | Endura, Scepter of Ignition (`SGsDKB9CN5`) | REGALIA,ITEM | 1 | targeting, damage, counter | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Fire Resonance Bauble (`LROrzTmh55`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude) | — |
-| Gaia's Songbird (`sHzSmygjWY`) | ALLY | 1 | zone-movement, trigger, condition | Silvie Starter Deck | — |
 | Gem of Searing Flame (`v1jaidvvz2`) | REGALIA,ITEM | 1 | targeting, damage, trigger | Kongming Pantheon Starter | — |
 | Hurricane Sweep (`4V6qKuM7xs`) | ATTACK | 1 | cost, combat, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Lunar Seer (`qjt0ooffy4`) | ALLY | 1 | cost, zone-movement, condition | Arisanna Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2177**
 | Ornamental Greatsword (`qyQLlDYBlr`) | REGALIA,WEAPON | 1 | targeting, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude) | — |
 | Photic Blade (`NRBO0nVMdl`) | REGALIA,WEAPON | 1 | recover, counter, trigger | Zander Pantheon Starter | — |
 | Piquant Shieldbearer (`Cvvvxlf0hi`) | ALLY | 1 | status, combat, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
+| Rai, Archmage (`zdIhSL5RhK`) | CHAMPION | 1 | counter, trigger, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
