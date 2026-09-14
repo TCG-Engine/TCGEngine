@@ -1,7 +1,7 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **283**
+Cards linked to an existing fixture: **284**
 Implemented cards in an official starter deck: **432**
 Implemented cards still needing semantic coverage: **2204**
 
@@ -26,6 +26,7 @@ Implemented cards still needing semantic coverage: **2204**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
+| Scale of Souls (`0z2snsdwmx`) | REGALIA,ITEM | 1 | recover, zone-movement, condition | Arisanna Starter Deck | scale-of-souls-rest-return-memory |
 | Samaritan's Reach (`MskPCrbv0L`) | ACTION | 2 | cost, targeting, damage, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
 | Slay the King (`6v374coy34`) | ATTACK | 2 | zone-movement, combat, trigger, condition | Lorraine Pantheon Starter | — |
 | Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
@@ -75,4 +76,3 @@ Implemented cards still needing semantic coverage: **2204**
 | Gaia's Songbird (`sHzSmygjWY`) | ALLY | 1 | zone-movement, trigger, condition | Silvie Starter Deck | — |
 | Gem of Searing Flame (`v1jaidvvz2`) | REGALIA,ITEM | 1 | targeting, damage, trigger | Kongming Pantheon Starter | — |
 | Hurricane Sweep (`4V6qKuM7xs`) | ATTACK | 1 | cost, combat, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
-| Lunar Seer (`qjt0ooffy4`) | ALLY | 1 | cost, zone-movement, condition | Arisanna Pantheon Starter | — |
