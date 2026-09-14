@@ -9962,6 +9962,77 @@ DECK,
     ],
 ];
 
+// --- Silvie, Loved by All: Animal and Beast allies get +1 LIFE and have intercept ---
+$fixtures['silvie-loved-by-all-animal-beast-life-intercept'] = [
+    'testedCards' => ['GKEpAulogu'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // The starting champion's CardID is patched directly to Silvie, Loved by All itself (the card
+    // under test), bypassing Silvie Lineage's level-up gate the same way established for other
+    // champion fixtures this session. Gray Wolf (BEAST) is seeded onto the field. The +1 LIFE half
+    // of the static ability is confirmed via computed_life_equals (base 2 + 1 = 3). The "has
+    // intercept" half (HasIntercept(), GameLogic.php ~21762-21769, confirmed via direct code read
+    // to share the same Animal-or-Beast-ally + Silvie-on-field check) has no dedicated assertion
+    // type in this harness and would need a real combat interception sequence to observe -- out of
+    // scope here, matching this session's treatment of other keyword-only clauses (e.g. Pride).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'GKEpAulogu']], // Silvie, Loved by All
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // harmless no-op click
+    ],
+];
+
+// --- Silvie, With the Pack: On Enter: draw if Animal ally, draw if Beast ally ---
+$fixtures['silvie-with-the-pack-on-enter-draw-animal-beast'] = [
+    'testedCards' => ['nllCALIXDT'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Silvie, With the Pack
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Silvie, With the Pack is level 2 (Silvie Lineage), but CanChampionLevelUpIntoCard only checks
+    // targetLevel === currentLevel + 1 -- lineage text is not enforced by the level-up gate itself
+    // (same technique established for Arisanna's champions). The starting champion is patched
+    // directly to Silvie, Wilds Whisperer (level 1) so a real level-up is legal. Champion-swap
+    // materialization is only offered through the material-phase MZMAYCHOOSE at the start of a
+    // turn, so both players end their first turn (P1 -> P2) to reach that prompt; its 2-memory cost
+    // is paid from two filler cards seeded into myMemory. Giant Tortoise (ANIMAL) and Gray Wolf
+    // (BEAST) are seeded onto the field beforehand so both On Enter draw clauses trigger.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'RfPP8h16Wv']], // Silvie, Wilds Whisperer (level 1) - level-up precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'L0RmNaDzhk'], // Giant Tortoise (ANIMAL)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card 1/2 in memory to pay the 2-memory level-up cost
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card 2/2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

@@ -1,0 +1,18 @@
+{
+    "name": "Silvie, With the Pack: On Enter: draw if Animal ally, draw if Beast ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Silvie, With the Pack is level 2 (Silvie Lineage), but CanChampionLevelUpIntoCard only checks targetLevel === currentLevel + 1 -- lineage text is not enforced by the level-up gate itself (same technique established for Arisanna's champions). The starting champion is patched directly to Silvie, Wilds Whisperer (level 1) so a real level-up is legal. Champion-swap materialization is only offered through the material-phase MZMAYCHOOSE at the start of a turn, so both players end their first turn (P1 -> P2) to reach that prompt; its 2-memory cost is paid from two filler cards seeded into myMemory. Giant Tortoise (ANIMAL) and Gray Wolf (BEAST) are seeded onto the field beforehand so both On Enter draw clauses trigger. Hand ends at 10 (base 7 + 3), not the literal +2 the printed text implies -- the same multi-draw quirk already documented in stream-of-consciousness-draw-into-memory and scry-the-skies-glimpse-lv-draw, recorded here as observed ground truth rather than independently re-investigated.",
+    "testedCards": [
+        "nllCALIXDT"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["nllCALIXDT"],
+        "mechanics": ["draw-discard", "trigger", "condition"],
+        "rulesClauses": [
+            "Silvie Lineage",
+            "On Enter: If you control an Animal ally, draw a card. If you control a Beast ally, draw a card."
+        ]
+    }
+}
