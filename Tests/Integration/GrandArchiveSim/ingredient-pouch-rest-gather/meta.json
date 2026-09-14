@@ -1,0 +1,17 @@
+{
+    "name": "Ingredient Pouch's REST: Gather",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Ingredient Pouch's REST ability pays 1 reserve then Gathers (summons one of six possible resource tokens at random -- resolves to Blightroot with this fixture's seed, same as foraging-servant-enter-gather). Field items with an activated ability are not clickable via a plain myField-N!FSM! action -- their ability is offered as a fast-action MZMAYCHOOSE opportunity once the turn player attempts to pass, answered with the encoded '{mzID}@Activate-{abilityIndex}@{label}' choice string (same shape as sweet-ambrosia-banish-recover). Blightroot itself carries a fast 'Sacrifice:' ability, so the AbilityOpportunity window that opens after Gather resolves re-offers it once more even after the first decline (a fresh priority round re-checks the still-available fast ability) -- a second explicit decline is needed to fully close out and leave the decision queue empty.",
+    "testedCards": [
+        "u7d6soporh"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["u7d6soporh"],
+        "mechanics": ["cost", "zone-movement", "token"],
+        "rulesClauses": [
+            "(1), REST: Gather."
+        ]
+    }
+}

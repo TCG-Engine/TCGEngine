@@ -6191,6 +6191,8 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "czvy67nbin": // Prismatic Codex â€” banish self
         case "yxk7e8opr6": // Spectral Beacon â€” banish self
         case "df594Qoszn": // Apotheosis Rite â€” banish self
+        case "z1vdxi74wa": // Synth Disrupter â€” banish self
+        case "bHGUNMFLg9": // Wind Resonance Bauble â€” banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
