@@ -1,0 +1,17 @@
+{
+    "name": "Potion Infusion: Clarity: Rest target Potion, grant \"On Sacrifice: Draw two cards\"",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Potion Infusion: Clarity is WATER -- the starting champion's Subcards are patched with a real WATER champion (Nico, Rapture's Embrace) to unlock element access. [Class Bonus] costs 2 less is out of scope (base 7-reserve cost paid in full). A Potion of Healing is first brewed onto the field (same two-Blightroot brew flow as potion-of-healing-brew-sacrifice-recover, ending at myField-1) as the Infusion's only legal target -- its ZoneSearch is myField-only, so it can only target your own Potions. Once Infusion is played and its reserve is paid, it sits pending on the effect stack (a normal-speed SPELL, unlike Flash Freeze), opening a fast-opportunity window that offers the brewed Potion's own standing Sacrifice ability early; that offer must be declined (PASS) so Infusion resolves FIRST and grants the bonus before the Potion is sacrificed, matching the card's own reminder text ('This trigger would resolve before the Potion's ability'). Targeting the Potion (ExhaustCard + AddTurnEffect 'INFUSION_CLARITY') is confirmed by then activating the Potion's own Sacrifice ability directly (mode=10001, works since earlier actions already happened this turn) and observing BOTH effects: ProcessPotionInfusionTriggers's granted Draw 2 (hand ends at 2, having been fully spent paying for Infusion) alongside Potion of Healing's own unconditional Sacrifice: Recover 5 (champion pre-damaged by 6, ends at 1 remaining).",
+    "testedCards": [
+        "300z2snsdw"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["300z2snsdw"],
+        "mechanics": ["cost", "targeting", "draw-discard", "condition"],
+        "rulesClauses": [
+            "Rest target Potion. If you do, it gains \"On Sacrifice: Draw two cards\" until end of turn."
+        ]
+    }
+}

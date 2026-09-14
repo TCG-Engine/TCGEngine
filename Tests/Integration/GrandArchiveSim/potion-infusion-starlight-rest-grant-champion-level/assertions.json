@@ -1,0 +1,5 @@
+[
+    {"step":13,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the champion remains -- the Potion was sacrificed"},
+    {"step":13,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"vz4kc558yx-ACTION_ACTIVATED\",\"INFUSION_STARLIGHT\"]","semantic":true,"label":"The champion carries the granted On Sacrifice bonus (+4 level until end of turn)"},
+    {"step":13,"type":"decision_queue_empty","player":"all"}
+]

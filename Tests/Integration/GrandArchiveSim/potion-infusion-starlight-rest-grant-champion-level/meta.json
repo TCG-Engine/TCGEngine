@@ -1,0 +1,17 @@
+{
+    "name": "Potion Infusion: Starlight: Rest target Potion, grant \"On Sacrifice: champion +4 level\"",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Potion Infusion: Starlight is ASTRA -- the starting champion's Subcards are patched with Arisanna, Astral Zenith (used purely as a real ASTRA card for the lineage/element check, not for its own ability) to unlock element access. [Class Bonus] Starcalling -- (1) is out of scope (a full starcalling reveal-and-choose flow, not otherwise scripted this session; base 3-reserve cost paid in full instead). Same brew-then-infuse-then-sacrifice shape as potion-infusion-clarity-rest-grant-draw-two: a Potion of Healing is brewed onto the field as the only legal (myField-only) target, the resulting standing Sacrifice-ability fast-opportunity is declined so Infusion resolves first, then the Potion's own Sacrifice ability is activated directly. There is no 'computed level' assertion type in this harness (only computed_power_equals/computed_life_equals), so the grant is confirmed via the champion's own TurnEffects list carrying 'INFUSION_STARLIGHT' (GameLogic.php's effective-level calculation applies +4 for this flag) rather than a numeric level readout; a pre-existing 'vz4kc558yx-ACTION_ACTIVATED' turn effect from unrelated base game setup is also present and asserted as-is.",
+    "testedCards": [
+        "6qsesw2ugm"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["6qsesw2ugm"],
+        "mechanics": ["targeting", "condition"],
+        "rulesClauses": [
+            "Rest target Potion. If you do, it gains \"On Sacrifice: Until end of turn, your champion gets +4 level\" until end of turn."
+        ]
+    }
+}

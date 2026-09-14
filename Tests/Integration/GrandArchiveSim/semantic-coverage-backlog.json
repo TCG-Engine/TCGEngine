@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T13:06:08+00:00",
+    "generatedAt": "2026-09-14T13:10:55+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 288,
+        "cardsWithExistingFixtures": 290,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2199,
+        "cardsNeedingSemanticCoverage": 2197,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -561,27 +561,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "300z2snsdw",
-            "name": "Potion Infusion: Clarity",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -2059,24 +2038,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "6qsesw2ugm",
-            "name": "Potion Infusion: Starlight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -40838,6 +40799,31 @@
             "priority": 134
         },
         {
+            "cardId": "300z2snsdw",
+            "name": "Potion Infusion: Clarity",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "potion-infusion-clarity-rest-grant-draw-two"
+            ],
+            "semanticFixtures": [
+                "potion-infusion-clarity-rest-grant-draw-two"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "om2ry208kk",
             "name": "Potion Infusion: Seal",
             "type": "ACTION",
@@ -43205,6 +43191,28 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "6qsesw2ugm",
+            "name": "Potion Infusion: Starlight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "potion-infusion-starlight-rest-grant-champion-level"
+            ],
+            "semanticFixtures": [
+                "potion-infusion-starlight-rest-grant-champion-level"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
