@@ -1,0 +1,17 @@
+{
+    "name": "Giant Tortoise: vanilla stat check",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Giant Tortoise is WATER and has no printed ability -- the starting champion's Subcards are patched with a real WATER champion (Nico, Rapture's Embrace) to unlock element access. Base power/life are confirmed unmodified via computed_power_equals/computed_life_equals.",
+    "testedCards": [
+        "L0RmNaDzhk"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["L0RmNaDzhk"],
+        "mechanics": ["unclassified"],
+        "rulesClauses": [
+            "(vanilla, no printed ability)"
+        ]
+    }
+}

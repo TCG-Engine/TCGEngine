@@ -9446,6 +9446,120 @@ DECK,
     ],
 ];
 
+// --- Giant Tortoise: vanilla stat check ---
+$fixtures['giant-tortoise-vanilla-stats'] = [
+    'testedCards' => ['L0RmNaDzhk'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Giant Tortoise is WATER and vanilla (no printed ability). The starting champion's Subcards
+    // are patched with a real WATER champion (Nico, Rapture's Embrace) to unlock element access.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // Nico, Rapture's Embrace -- unlocks WATER
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'L0RmNaDzhk'], // Giant Tortoise, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Wind Resonance Bauble: Banish -- draw a card (only if opponent controls a wind champion) ---
+$fixtures['wind-resonance-bauble-banish-draw'] = [
+    'testedCards' => ['bHGUNMFLg9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Wind Resonance Bauble is REGALIA -- adding it to 'myHand' via setup gets silently redirected
+    // to the Material zone instead (HandAddReplacement, GameLogic.php ~17282: any REGALIA CardID
+    // added to hand is rerouted to AddMaterial), matching every other REGALIA item fixture this
+    // session (Synth Disrupter, Ingredient Pouch, etc.) -- it must be seeded directly onto myField.
+    // Its prereq (IsPlayerElementEnabled) reads the OPPONENT's own element lineage, so P2's starting
+    // champion's Subcards are patched with a real WIND champion. Field items with an activated
+    // ability are not clickable via a plain myField-N!FSM! action as the very first action of a
+    // fresh turn -- offered as a fast-action MZMAYCHOOSE opportunity once the turn player attempts
+    // to pass, answered with the encoded "{mzID}@Activate-{abilityIndex}@{label}" choice string
+    // (same shape as ingredient-pouch-rest-gather).
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock for P2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'bHGUNMFLg9'], // Wind Resonance Bauble
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // attempt to pass -> offers the fast-action opportunity
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline P2's own resulting fast-action opportunity (1/2)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline again -- same fast opportunity re-offered in the next priority round (2/2)
+    ],
+];
+
+// --- Beastbond Boots: Banish -- champion gains spellshroud (only if you control an Animal/Beast ally) ---
+$fixtures['beastbond-boots-banish-spellshroud'] = [
+    'testedCards' => ['xjuCkODVRx'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Beastbond Boots is REGALIA -- adding it to 'myHand' via setup gets silently redirected to the
+    // Material zone instead (HandAddReplacement, GameLogic.php ~17282), matching every other
+    // REGALIA item fixture this session -- it must be seeded directly onto myField. Gray Wolf (a
+    // BEAST ally, also from this deck) is seeded alongside it so the prereq (control an Animal or
+    // Beast ally) is already satisfied.
+    // ENGINE BEHAVIOR CONFIRMED (traced via temporary error_log instrumentation, since reverted):
+    // using the "attempt to pass" trick as the ONLY action to reach a field-resident item's
+    // ability is NOT safe when the granted effect is "until end of turn" -- if nothing else
+    // responds after the ability resolves, the original pass attempt itself completes and the turn
+    // actually ends, running end-of-turn cleanup that clears the just-granted SPELLSHROUD before it
+    // can ever be observed (confirmed: AddTurnEffect correctly applies it, and it is still present
+    // through the entire AbilityOpportunity/GrantOpportunityWindow resolution chain, but is gone by
+    // the time the action's final gamestate is written). This is the same class of issue documented
+    // in synth-disrupter-banish-automaton-rested's notes ("attempt to pass ends the turn if nothing
+    // else responds -- cannot be used mid-sequence"). Fixed the same way: play a real card first
+    // (Scry the Skies, NORM, reserve 1) so a same-turn action has already happened, then reach the
+    // Boots' ability via a direct Activate:0 click instead of the pass-trick.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST) -- satisfies "control an Animal or Beast ally"
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'xjuCkODVRx'], // Beastbond Boots
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- a same-turn warm-up action so "attempt to pass" isn't needed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Scry the Skies' 1 reserve
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

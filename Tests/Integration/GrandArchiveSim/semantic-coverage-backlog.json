@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T13:15:32+00:00",
+    "generatedAt": "2026-09-14T18:36:49+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 291,
+        "cardsWithExistingFixtures": 294,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2196,
+        "cardsNeedingSemanticCoverage": 2193,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1468,26 +1468,6 @@
             "priority": 113
         },
         {
-            "cardId": "bHGUNMFLg9",
-            "name": "Wind Resonance Bauble",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "OmWFVRUr8I",
             "name": "Wisp's Protection",
             "type": "ACTION",
@@ -1594,24 +1574,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "xjuCkODVRx",
-            "name": "Beastbond Boots",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -2510,23 +2472,6 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "L0RmNaDzhk",
-            "name": "Giant Tortoise",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -42628,6 +42573,30 @@
             "priority": 133
         },
         {
+            "cardId": "bHGUNMFLg9",
+            "name": "Wind Resonance Bauble",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "wind-resonance-bauble-banish-draw"
+            ],
+            "semanticFixtures": [
+                "wind-resonance-bauble-banish-draw"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "lvmj48fn9p",
             "name": "Wisdom's Reprise",
             "type": "ACTION",
@@ -42715,6 +42684,28 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "xjuCkODVRx",
+            "name": "Beastbond Boots",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "beastbond-boots-banish-spellshroud"
+            ],
+            "semanticFixtures": [
+                "beastbond-boots-banish-spellshroud"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43997,6 +43988,27 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "L0RmNaDzhk",
+            "name": "Giant Tortoise",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "giant-tortoise-vanilla-stats"
+            ],
+            "semanticFixtures": [
+                "giant-tortoise-vanilla-stats"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
