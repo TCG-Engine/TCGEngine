@@ -136,6 +136,10 @@ function GetBotControllerPlayers() {
 // otherwise, if the free-play turn player is bot-controlled, that seat is pending.
 function BotControllerPendingPlayerForClient() {
     if (SWUGameMode() !== 'botpractice') return 0;
+    // The game is over: the bot owes nothing, so the client stops polling and a stray poll does nothing. Without
+    // this the winning action's close passed the turn to the bot seat and the bot played on after the win (owner
+    // report 2026-09-14, game 183227). SWUSim/DevTools/tests/bot_practice_game_over_test.php.
+    if (function_exists('SWUGetGameWinner') && SWUGetGameWinner() !== 0) return 0;
     $botPlayers = GetSWUBotPlayers();
     if (empty($botPlayers)) return 0;
 

@@ -46,6 +46,8 @@ function _SWUBotPlayCanImproveAttack(int $seat, array $action): bool {
             || CardPilotingCost($cid) !== null;
     }
     if (str_contains($type, 'Upgrade')) return true;
+    // A Force event without the Force does nothing, so it cannot improve the attack (feature 'force').
+    if (SWUBotFeatureOn('force') && function_exists('PlayerHasTheForce') && !PlayerHasTheForce($seat) && _SWUBotNeedsTheForce($cid)) return false;
     return !empty(array_intersect(SWUBotCardTags($cid), ['buff', 'removal', 'damage', 'exhaust', 'wipe']));
 }
 

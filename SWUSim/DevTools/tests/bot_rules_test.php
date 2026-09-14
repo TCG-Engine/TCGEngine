@@ -66,7 +66,12 @@ $build(function ($b) use ($quietLeader) {
 });
 $raiseAttack(1, 'myGroundArena-0');
 $c = $botCtx('control');
+// Owner ruling 2026-09-14 (feature 'baserace'): this board is a race Control wins, so its filter now keeps the base
+// too. The premise below is about the unit-only filter, so it is pinned to @no-baserace.
+SWUBotSetDisabledFeatures(['baserace']);
 $check($ids(SWUBotStyleFilter($c)) === ['theirGroundArena-0'], 'fixture: Control\'s filter alone would drop the base');
+SWUBotSetDisabledFeatures([]);
+$check(in_array('theirBase-0', $ids(SWUBotStyleFilter($c)), true), 'baserace: racing, Control\'s filter keeps the base');
 $check($rule('lethal-now', 'control') === 'theirBase-0', 'rule 2 (target prompt): the exhausted attacker\'s 4 still counts → the base');
 $build(function ($b) use ($quietLeader) {
     $quietLeader($b); $b->TheirBase('SOR_020', 22);
@@ -191,8 +196,29 @@ $build($wipeBoard(true));
 $check(SWUBotClock(2, 1) === 4 && in_array('myHand-0!FSM!', $ids($botCtx('control')['actions']), true), 'fixture: their clock is 4, LAW_044 is playable');
 $check($stack('control') === ['myHand-0!FSM!', ['rule:control-wipe']], 'rule 5: defeating all three (one ours) takes their clock 4 → none → play the wipe');
 $check($rule('control-wipe', 'normal') === null, 'rule 5 is Control only');
+// Owner ruling 2026-09-14: a wipe qualifies when the enemy loses at least as much VALUE as Control does (unless
+// Control is facing lethal soon); "at least one of Control's own units" is gone — one-sided sweeps qualify.
 $build($wipeBoard(false));
-$check($rule('control-wipe', 'control') === null, 'rule 5 abstains when Control loses nothing: a one-sided sweep is removal, left to the fallback');
+$check($rule('control-wipe', 'control') === 'myHand-0!FSM!', 'rule 5: a one-sided sweep (theirs only) qualifies');
+SWUBotSetDisabledFeatures(['wipegate']);
+$check($rule('control-wipe', 'control') === null, '@no-wipegate: the old definition — Control must lose a unit');
+SWUBotSetDisabledFeatures([]);
+// A wipe that costs more than it removes: my two Wampas (8) for their two Marines (4). Their clock on me is 5.
+$costly = function (int $baseDamage) use ($quietLeader) {
+    return function ($b) use ($quietLeader, $baseDamage) {
+        $quietLeader($b); $b->MyBase('SOR_024', $baseDamage); $b->FillResourcesForPlayer(1, 'SOR_095', 12); $b->WithCardInHandForPlayer(1, 'LAW_044');
+        $b->WithGroundUnitForPlayer(1, 'SOR_164', true); $b->WithGroundUnitForPlayer(1, 'SOR_164', true);
+        $b->WithGroundUnitForPlayer(2, 'SOR_095', true); $b->WithGroundUnitForPlayer(2, 'SOR_095', true);
+    };
+};
+$build($costly(0));
+$check(SWUBotClock(2, 1) === 5 && $rule('control-wipe', 'control') === null, 'rule 5 abstains when the wipe costs Control more value than the enemy');
+SWUBotSetDisabledFeatures(['wipegate']);
+$check($rule('control-wipe', 'control') === 'myHand-0!FSM!', '@no-wipegate: the old rule fired on it (own units lost, stabilises)');
+SWUBotSetDisabledFeatures([]);
+// …unless Control is facing lethal soon: 12 left against 6 power is a 2-round clock.
+$build($costly(18));
+$check(SWUBotClock(2, 1) === 2 && $rule('control-wipe', 'control') === 'myHand-0!FSM!', 'under pressure (their clock 2) the costly wipe qualifies');
 // A wipe with a CHOICE: Bombing Run's arena. 12 left; Wampa 4 (ground, survives 3) + TIE 2 + X-Wing 2 (space)
 // → clock 2. Space: our X-Wing, their TIE and X-Wing die → clock 3 (stabilises). Ground: nothing dies.
 $bomb = function (int $theirGroundExtra) use ($quietLeader) {

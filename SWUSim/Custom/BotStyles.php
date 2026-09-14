@@ -7,7 +7,8 @@
 // to attack is left to later layers. Lethal (layer-2 rule 2) runs BEFORE this filter — a Control bot must
 // still take a winning base attack (plan ruling, recorded in the spec).
 //   Aggro   — the enemy base, or a unit its attacker defeats with Overwhelm (the excess still hits the base)
-//   Control — an enemy unit whenever one is legal; never the base while a unit is available
+//   Control — an enemy unit whenever one is legal; never the base while a unit is available — unless it is racing
+//             (SWUBotIsRacing), when it takes Aggro's rule (feature 'baserace'; owner ruling 2026-09-14)
 //   Normal  — racing (SWUBotIsRacing): Aggro's rule; otherwise favourable trades only, if any exist
 
 function SWUBotActionMz(array $action): string {
@@ -66,6 +67,8 @@ function SWUBotAllowedTargets(array $ctx, array $att): array {
     $t = SWUBotAttackTargets(intval($ctx['seat']), $att);
     $style = $ctx['style'];
     if ($style === 'normal') $style = SWUBotIsRacing(intval($ctx['seat']), intval($ctx['opp'])) ? 'aggro' : 'normal-trade';
+    // Control races like Aggro when it is ahead (feature 'baserace'; owner ruling 2026-09-14).
+    if ($style === 'control' && SWUBotFeatureOn('baserace') && SWUBotIsRacing(intval($ctx['seat']), intval($ctx['opp']))) $style = 'aggro';
     $all = [];
     if ($t['base']) $all[] = ['base', null];
     foreach ($t['units'] as $u) $all[] = ['unit', $u];

@@ -6685,6 +6685,9 @@ $customDQHandlers["SWUApplyRegroupResource"] = function($player, $parts, $lastDe
 
 function MainPhase() {
     // TODO: consecutive-pass tracking and TurnPlayer swap
+    // Entered once per round, when the action phase's start (and, in round 1, SETUP) has drained — the only
+    // round-1 "first action phase starts" hook, since ActionPhaseStart() does not run for round 1.
+    _SWUNabatFirstActionPhase();
 }
 
 function DrawPhase() {
@@ -7738,11 +7741,28 @@ function ActionPhaseStart() {
     // resolves, so the ambient frame must not be left pointing at whichever opponent happened to be last.
     $playerID = $eyeSavedPID;
 
-    // JTL_028 Nabat Village — "At the start of the FIRST action phase, put 3 cards from your hand on the
-    // bottom of your deck." (The +3 starting hand + no-mulligan halves live in the pregame setup —
-    // SWUStartingHandModifier / SWUBaseSuppressesMulligan.) Fires exactly once per game, guarded by the
-    // per-player SWU_NABAT_BOTTOM_DONE flag. Interactive: the base's controller chooses which 3 (an
-    // MZMULTICHOOSE over their hand → JTL_028#0 moves them to the bottom, mirroring TWI_257).
+    // JTL_028 Nabat Village — normally already resolved when setup ended (MainPhase); this is the fallback
+    // for a game that never ran setup (a SkipPreGame fixture loads straight into MAIN). Once per game.
+    _SWUNabatFirstActionPhase();
+
+    $playerID = $savedPID;
+}
+
+// JTL_028 Nabat Village — "When the first action phase starts: Put 3 cards from your hand on the bottom of your
+// deck in any order." (The +3 starting hand + no-mulligan halves live in the pregame setup —
+// SWUStartingHandModifier / SWUBaseSuppressesMulligan.) Official ruling (03/06/2025): "resolved at the start of
+// the first action phase, after setup but before the player with initiative has taken their first action."
+// Fires exactly once per game, guarded by the per-player SWU_NABAT_BOTTOM_DONE flag. Interactive: the base's
+// controller chooses which 3 (an MZMULTICHOOSE over their hand → JTL_028#0 moves them to the bottom, mirroring
+// TWI_257).
+// ⚠ WHERE IT FIRES. SWUSim/CreateGame.php puts a new game straight into APS and runs setup there, so
+// ActionPhaseStart() never runs for round 1 — its first call is round 2's. Living only there, this resolved a
+// whole round late in every game (found 2026-09-14, Bot Practice). MainPhase() — entered once when setup ends —
+// is the real first-action-phase hook; ActionPhaseStart() keeps the call as the fallback for games that never
+// ran setup. SWUSim/Tests/Cases/jtl/NabatVillage_FirstActionPhaseTiming.md.
+function _SWUNabatFirstActionPhase(): void {
+    global $playerID;
+    $savedPID = $playerID;
     for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $nabatBase = GetBase($p);
         $hasNabat  = false;
@@ -7759,9 +7779,7 @@ function ActionPhaseStart() {
         DecisionQueueController::AddDecision($p, "MZMULTICHOOSE", "{$n}|{$n}|" . implode('&', $hand), 1,
             tooltip:"Put_3_cards_from_your_hand_on_the_bottom_of_your_deck_(Nabat_Village)");
         DecisionQueueController::AddDecision($p, "CUSTOM", "JTL_028#0", 1);
-        // leave $playerID = $p so MZCountChoices validates the myHand-* relative mzIDs
     }
-
     $playerID = $savedPID;
 }
 
@@ -9896,14 +9914,19 @@ function FlushCombatTriggerBag(int $activePlayer, string $attackerMzID, string $
         : intval($activePlayer);
     _SWUQueueOrchestration($resumeOwner, "SWU_TRIGGER_RESUME|{$activePlayer}|{$cont}", 20);
 
+    // The FIRST ordering prompt is scoped to this attack's batch too, not just the resume's (bug #976d): a
+    // Support or Ambush attack starts WHILE its own batch's siblings are pending (the deploy's Plot window,
+    // Blue Leader's Ambush), and CR 7.5 Support e. / Ambush f. hold those "until after the attack … and any
+    // abilities triggered during the attack are resolved". Found by the RL-bot sweep (run 5, 2026-09-14): the
+    // Plot window was offered beside a Support attack's On Attacks and Plot cards were played MID-ATTACK.
     if (!empty($mine) && !empty($theirs)) {
         DecisionQueueController::AddDecision(intval($activePlayer), "YESNO", "-", $gTriggerDepth,
             tooltip:"Resolve_Which_Player_First?");
         _SWUQueueOrchestration(intval($activePlayer),
-            "SWU_TRIGGER_ORDER_CHOICE|{$activePlayer}", $gTriggerDepth);
+            "SWU_TRIGGER_ORDER_CHOICE|{$activePlayer}|{$batchStart}", $gTriggerDepth);
     } else {
         $choosingPlayer = !empty($mine) ? intval($activePlayer) : (intval($activePlayer) === 1 ? 2 : 1);
-        $targetStr = _SWUEffectStackTargetsForPlayer($choosingPlayer);
+        $targetStr = _SWUEffectStackTargetsForPlayer($choosingPlayer, $batchStart);
         DecisionQueueController::AddDecision($choosingPlayer, "MZCHOOSE", $targetStr, $gTriggerDepth,
             tooltip:"Choose_trigger_to_resolve");
         _SWUQueueOrchestration($choosingPlayer,
@@ -9914,13 +9937,16 @@ function FlushCombatTriggerBag(int $activePlayer, string $attackerMzID, string $
 }
 
 // Returns a &-delimited mzID string of non-removed EffectStack entries for the given player.
-function _SWUEffectStackTargetsForPlayer($player): string {
+// $batchStart — a COMBAT batch's boundary (bug #976d, FlushCombatTriggerBag): only entries at or after it are
+// this attack's triggers. 0 (every non-combat caller) = no floor, byte-identical.
+function _SWUEffectStackTargetsForPlayer($player, int $batchStart = 0): string {
     $stack = GetEffectStack();
     $mzIDs = [];
     $top = array_flip(_SWUEsTopLayerIndices());   // CR 7.6.11 — only the innermost layer may be chosen
     foreach ($stack as $i => $e) {
         if (!empty($e->removed)) continue;
         if (!isset($top[$i])) continue;
+        if ($i < $batchStart) continue;
         if (intval($e->Controller) === intval($player)) $mzIDs[] = "EffectStack-{$i}";
     }
     return implode('&', $mzIDs);
@@ -12951,6 +12977,7 @@ function _SWUAddShadowCasterGrantedReuse(int $owner, string $grantedType, string
 // Processes RESOLVE_TRIGGER and other CUSTOM/SYSTEM entries until a
 // non-static decision (MZCHOOSE, YESNO, etc.) blocks further progress.
 function ProcessGoldfishAutomation(): bool {
+    global $playerID;
     $madeProgress = false;
     $dqController = new DecisionQueueController();
     // Drain EVERY live seat's static queue after each action, not just seats 1/2 — otherwise a
@@ -12959,10 +12986,22 @@ function ProcessGoldfishAutomation(): bool {
     // 2-player games have no SeatOrder → fall back to [1,2] (byte-identical drain).
     $seats = GetLiveSeatsArray();
     if (empty($seats)) $seats = [1, 2];
+    // ⚠ Each seat is drained IN ITS OWN FRAME. ExecuteStaticMethods re-checks an MZCHOOSE at the head of
+    // the queue with MZCountChoices(), which resolves "my…" zones against $playerID. Drained in the
+    // REQUESTER's frame, another seat's "mySpaceArena-0&mySpaceArena-1" was counted on the requester's
+    // side, came to 0 when the requester had no space units, and was auto-PASSed — the continuation behind
+    // it skipped. Found 2026-09-14 in Bot Practice (the bot's step arrives as the human's request): Darth
+    // Vader's "Choose a Vehicle" vanished and the bot re-deployed forever. SWUSim/DevTools/tests/
+    // queue_drain_seat_frame_test.php. The requester's frame is restored after every pass.
+    $requester = $playerID;
     for ($cycle = 0; $cycle < 64; ++$cycle) {
         $before = [];
         foreach ($seats as $s) $before[$s] = count(GetDecisionQueue($s));
-        foreach ($seats as $s) $dqController->ExecuteStaticMethods($s);
+        try {
+            foreach ($seats as $s) { $playerID = $s; $dqController->ExecuteStaticMethods($s); }
+        } finally {
+            $playerID = $requester;
+        }
         // A defeat resolved INSIDE this drain (e.g. a non-active player's When Defeated that defeats a
         // unit) parks any "if this would be defeated, you may instead …" replacement. SWUAfterAction
         // already flushed before this drain began, and it is the only other flush point — so without
@@ -13649,7 +13688,8 @@ $customDQHandlers["SWU_TRIGGER_ORDER_CHOICE"] = function($player, $parts, $lastD
 
     $mineFirst = ($lastDecision === 'YES' || $lastDecision === '1');
     $first  = $mineFirst ? $activePlayer : (intval($activePlayer) === 1 ? 2 : 1);
-    $ids = array_values(array_filter(explode('&', _SWUEffectStackTargetsForPlayer($first))));
+    // parts[1] = a combat batch's boundary (FlushCombatTriggerBag); absent for entry batches → 0, no floor.
+    $ids = array_values(array_filter(explode('&', _SWUEffectStackTargetsForPlayer($first, intval($parts[1] ?? 0)))));
 
     if (count($ids) === 1) {
         // The chosen side has exactly ONE trigger — no order to pick, so skip the single-option
@@ -20888,7 +20928,7 @@ function _SWUReapplyUndoBlocks(array $blockedSeats): void {
 //             entries above the most recent non-action boundary ('resource'/'pregame-step'). Restoring
 //             it lands at the action-phase start; the pop then leaves the top at that boundary, so a
 //             following 'step' Undo crosses into it (the regroup RES step).
-function SWUComputeUndoTarget(string $kind): int {
+function SWUComputeUndoTarget(string $kind, int $requester = 0): int {
     global $gRandomCounter;
     $top = UndoCursor();
     // Skip "no-op" snapshots at the top of the stack: a snapshot whose stored payload equals the CURRENT
@@ -20904,7 +20944,7 @@ function SWUComputeUndoTarget(string $kind): int {
         if (UndoRecordParse($line)['payload'] !== $cur) break;
         $top--;
     }
-    if ($kind !== 'phase') return $top;
+    if ($kind !== 'phase') return _SWUBotPracticeUndoTarget($top, $requester);
     // Walk down through contiguous 'action' entries, stopping at any other boundary. 'load' is one of
     // them: it marks the pre-state of a bookmark load, so Undo Phase lands at the start of the CURRENT
     // line instead of wandering into the branch that was abandoned by that load.
@@ -20916,6 +20956,22 @@ function SWUComputeUndoTarget(string $kind): int {
         $target = $i;                                                  // lowest 'action' seen so far
     }
     return $target;
+}
+
+// Bot Practice (owner ruling 2026-09-14): a step Undo by the human rewinds past the BOT's moves to just before the
+// human's OWN last action. Record ord_i holds the pre-state of action i+1 and that action's seat, so the target is
+// the highest ordinal at or below $top whose seat is the requester. Reverting only the bot's reply was useless: the
+// bot then owed the move again and replayed it within ~100 ms ("the bot moves too fast for me to roll it back to my
+// action"). Other modes, and a requester with no record of their own, keep the one-step target.
+// SWUSim/Tests/Cases/undo/BotPracticeUndoSkipsTheBotsMoves.md.
+function _SWUBotPracticeUndoTarget(int $top, int $requester): int {
+    if ($requester <= 0 || SWUGameMode() !== 'botpractice') return $top;
+    for ($i = $top; $i >= 0; $i--) {
+        $line = UndoStackRead($i);
+        if ($line === null) break;
+        if (intval(UndoRecordParse($line)['seat']) === $requester) return $i;
+    }
+    return $top;
 }
 
 // Does an undo TO $targetOrdinal by $requesterSeat need opponent consent (a public-queue request)?
@@ -20983,7 +21039,7 @@ function SWUUndoNeedsConsent(int $requesterSeat, int $targetOrdinal, string $kin
 }
 
 function SWUDoUndo(int $playerID, string $kind = 'step', string $rootName = '', string $gameName = ''): void {
-    $target = SWUComputeUndoTarget($kind);
+    $target = SWUComputeUndoTarget($kind, intval($playerID));
     if (!SWUUndoNeedsConsent($playerID, $target, $kind, $rootName, $gameName)) {
         $blocked = _SWUCaptureUndoBlocks();
         $logBefore = SWULogEntries();   // game log: the restore rewinds the log — keep what it erases

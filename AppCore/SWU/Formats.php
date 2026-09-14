@@ -68,13 +68,13 @@ function SWUFormatDefinitions() {
         // seat 2 is a REAL seat — real deck, real mulligan, losable base, equal shot at the die
         // roll — so none of the goldfish passive-seat gates may match it.
         //
-        // ⚠ DISABLED ON PURPOSE — PHASE 5 FLIPS THIS. 'enabled' => false hides the format from
-        // SWUListFormats(), which is what SharedUI/Sites/SWUSim/MainMenu.php builds its dropdown
-        // from. The menu is NOT wired for it yet: MainMenu's applyFormatUI() `isMode` predicate is
-        // still `goldfish || hotseat`, so an enabled Bot Practice would be selectable while hiding
-        // the deck-2 field and the Start button and offering Join Queue instead — a dead menu entry.
-        // Wiring that menu is Phase 5 (it needs a SWUSim/Tests/Visual/ case and a cross-browser
-        // pass); flip this to true in the SAME change that wires it, never before.
+        // ⚠ DISABLED ON PURPOSE — ADMIN-ONLY IN THE MENU. 'enabled' => false hides the format from
+        // SWUListFormats(), so ordinary players' menus never list it. The SWUSim menu IS wired for it
+        // (2026-09-14: applyFormatUI() shows the bot deck link and Play Style select, and the Start
+        // button) and adds the entry itself when SWUBotPracticeAllowed() — local dev, or an approved
+        // moderator (owner, 2026-09-15: admins try it and give feedback); JoinQueue enforces the same
+        // gate. To ship it to players, flip this to true AND drop MainMenu's gated insert and
+        // JoinQueue's check (and the two "disabled / hidden" checks in test_swusim_botpractice_mode.php).
         //
         // Disabled ≠ unreachable: SWUGetFormat('botpractice') still resolves (see the file header),
         // so APIs/Lobbies/JoinQueue.php still accepts format=botpractice, the deck check still runs
@@ -86,7 +86,7 @@ function SWUFormatDefinitions() {
             'banned'        => [],
             'unrestricted'  => true,
             'localMode'     => true,
-            'enabled'       => false,   // Phase 5: flip to true when MainMenu is wired (see above)
+            'enabled'       => false,   // admin-only via MainMenu's own insert (see above); true = shipped
         ],
 
         // ── TWIN SUNS / TEAM SUNS (multiplayer rooms) ────────────────────────

@@ -11,7 +11,10 @@
 # the two mirrored games are the same game, so the new side wins exactly half.
 set -u
 cd /var/www/html/TCGEngine
-NEW=${1:-}; OLD=${2:-base}; SEEDS=${3:-10}; WORKERS=${4:-8}; OUT=${5:-/tmp/strength}; DIR=${6:-SWUSim/Tests/BotFixtures/meta-2026-09}
+# OLD defaults to 'base' only when the argument is MISSING: an explicit "" means the full stack (no variant).
+# (It was ${2:-base}, which also turned "" into @base — the 2026-09-15 learned-policy evaluation compared against
+# the pre-part-2 stack by mistake.)
+NEW=${1:-}; OLD=${2-base}; SEEDS=${3:-10}; WORKERS=${4:-8}; OUT=${5:-/tmp/strength}; DIR=${6:-SWUSim/Tests/BotFixtures/meta-2026-09}
 mkdir -p "$OUT/games"
 export NEW OLD DIR OUT
 decks=${DECKS:-$(ls "$DIR"/*.txt | xargs -n1 basename | sed 's/\.txt$//')}

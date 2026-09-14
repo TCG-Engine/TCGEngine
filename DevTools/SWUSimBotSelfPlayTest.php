@@ -142,12 +142,14 @@ require_once __DIR__ . '/../SWUSim/CreateGame.php';
 $swuDir = __DIR__ . '/../SWUSim/';
 
 function SWUBotTestParseArgs($argv) {
-  $args = ['deck' => null, 'deck2' => null, 'maxSteps' => 3000, 'verbose' => false, 'firstPlayer' => 1,
+  $args = ['deck' => null, 'deck2' => null, 'maxSteps' => 3000, 'maxRounds' => 0, 'verbose' => false, 'firstPlayer' => 1,
            'seed' => 'swusimbotselfplay00000000000000', 'games' => 1, 'chooser' => 'first-legal', 'chooser2' => null];
   foreach (array_slice($argv, 1) as $arg) {
     if (str_starts_with($arg, '--deck=')) $args['deck'] = substr($arg, 7);
     elseif (str_starts_with($arg, '--deck2=')) $args['deck2'] = substr($arg, 8);
     elseif (str_starts_with($arg, '--max-steps=')) $args['maxSteps'] = intval(substr($arg, 12));
+    // RL training's round cap (spec Section 4: 1.5x the top of the pairing's range). 0 = no cap.
+    elseif (str_starts_with($arg, '--max-rounds=')) $args['maxRounds'] = max(0, intval(substr($arg, 13)));
     elseif (str_starts_with($arg, '--first-player=')) $args['firstPlayer'] = intval(substr($arg, 15));
     // A FIXED seed by default, so a stall this harness finds can be re-entered and diagnosed instead
     // of vanishing on the next run. --seed=random asks for a fresh unpredictable game.
@@ -310,7 +312,8 @@ function SWUBotTestRunSweep(array $args, $selfPath) {
       . ' --games=1'
       . ' --seed=' . escapeshellarg($seed)
       . ' --first-player=' . intval($firstPlayer)
-      . ' --max-steps=' . intval($args['maxSteps']);
+      . ' --max-steps=' . intval($args['maxSteps'])
+      . ' --max-rounds=' . intval($args['maxRounds']);
     if ($args['deck']  !== null) $cmd .= ' --deck='  . escapeshellarg($args['deck']);
     if ($args['deck2'] !== null) $cmd .= ' --deck2=' . escapeshellarg($args['deck2']);
     // Forwarded the same way --deck/--deck2 are: the sweep's children are separate PHP processes
@@ -548,6 +551,7 @@ $steps = 0;
 $consecutiveNoOps = 0;
 $stalled = false;
 $gameOver = false;
+$capped = false;   // --max-rounds reached (RL training scores it -0.25; not a stall)
 $winner = 0;
 $maxRetriesInOneStep = 0;
 $maxRetriesStepDetail = '';
@@ -566,6 +570,7 @@ for (; $steps < $args['maxSteps']; $steps++) {
 
   $winner = function_exists('SWUGetGameWinner') ? intval(SWUGetGameWinner()) : 0;
   if ($winner !== 0) { $gameOver = true; break; }
+  if ($args['maxRounds'] > 0 && intval(GetTurnNumber()) > $args['maxRounds']) { $capped = true; break; }
 
   $GLOBALS['SWUBotTestChoiceLog'] = [];
   $result = ProcessBotControllerStep(0, 'SWUSim', $gameName);
@@ -641,8 +646,9 @@ $swuBotMetrics = [
   'baseDamageDealt' => [1 => intval(GetBase(2)[0]->Damage ?? 0), 2 => intval(GetBase(1)[0]->Damage ?? 0)],
   'coverage'        => [1 => $GLOBALS['SWUBotCoverage'][1] ?? (object)[], 2 => $GLOBALS['SWUBotCoverage'][2] ?? (object)[]],
   'chooser'         => [1 => $swuBotChooserProfile, 2 => $swuBotChooserProfile2],
+  'capped'          => $capped,
 ];
-if (!$gameOver) SWUBotTestStallDiagnostic($swuDir, $gameName, $stalled ? 'stall' : ($stepError !== '' ? 'error' : 'timeout'));
+if (!$gameOver && !$capped) SWUBotTestStallDiagnostic($swuDir, $gameName, $stalled ? 'stall' : ($stepError !== '' ? 'error' : 'timeout'));
 
 // ── 2. NO ENUMERATION GAPS ───────────────────────────────────────────────────────────────────────
 $gaps = $GLOBALS['SWUBotUnrecognizedDecisions'] ?? [];

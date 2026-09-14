@@ -126,9 +126,19 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 $obj = GetHand($seat)[$i] ?? null;
                 if ($obj === null) return 0.0;
                 $cid = strval($obj->CardID ?? '');
+                // An effect event that would change nothing, or too little, on the enemy side is held (feature 'dudgate').
+                if (SWUBotFeatureOn('dudgate') && _SWUBotIsEffectEvent($cid) && _SWUBotEventIsDud($seat, $action, $cid, $W)) return -0.5;
                 $v = _SWUBotPlayValue($seat, $cid, $W);
+                // A Force card without the Force: its effect cannot happen — only the body counts (feature 'force').
+                if (SWUBotFeatureOn('force') && function_exists('PlayerHasTheForce') && !PlayerHasTheForce($seat) && _SWUBotNeedsTheForce($cid)) {
+                    $v = $W['develop'] * intval(CardCost($cid)) + (str_contains(strval(CardType($cid)), 'Unit') ? $W['unitPlay'] : 0.0);
+                }
                 // A second copy of a unique unit I control defeats one (the uniqueness rule) — feature 'picks'.
                 if (SWUBotFeatureOn('picks') && _SWUBotUniqueClash($seat, $cid)) $v -= $W['develop'] * intval(CardCost($cid)) + 1.0;
+                // …and over an UNDAMAGED copy it gains nothing: held (feature 'unique'; owner report 2026-09-14, Bot
+                // Practice game 183227 — Sabine's Masterpiece played over a healthy one). A damaged copy is a heal.
+                // A refinement of 'picks', so it needs 'picks' on too (bot_picks_test compares picks on/off).
+                if (SWUBotFeatureOn('picks') && SWUBotFeatureOn('unique') && _SWUBotUniqueClash($seat, $cid) && _SWUBotUniqueCopyHealthy($seat, $cid)) return -0.5;
                 $guides = $ctx['_guides'] ?? _SWUBotGuides($ctx);
                 if ($guides['maxUnits'] === strval($action['cardID'] ?? '')) $v += $W['maxUnits'];
                 return $v;
@@ -140,8 +150,9 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     $type = strval($ctx['type'] ?? '');
     $head = _SWUBotContinuationHead($ctx);
     $debuff = $head === 'APPLY_PHASE_DEBUFF' && SWUBotFeatureOn('targeting');
+    $buff = $head === 'APPLY_PHASE_BUFF' && SWUBotFeatureOn('buffs');   // "+N/+N for this phase" helps its target
     $effect = (in_array($head, SWU_BOT_HOSTILE_CONTINUATIONS, true) || $debuff) ? 'hostile'
-            : (in_array($head, SWU_BOT_BENEFICIAL_CONTINUATIONS, true) ? 'beneficial' : _SWUBotTooltipEffect($tip));
+            : ((in_array($head, SWU_BOT_BENEFICIAL_CONTINUATIONS, true) || $buff) ? 'beneficial' : _SWUBotTooltipEffect($tip));
     // A neutral prompt behind a card's own continuation ("ASH_052#0"): read that card's text. Picking a friendly unit
     // for a card that defeats is a sacrifice — ASH_052 Chimaera, "You may choose a friendly unit and an enemy
     // non-leader unit. If you do, defeat those units." A card that deals N damage or gives -N/-N is hostile.
@@ -159,6 +170,11 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     // Split damage and the indirect player pick (feature 'splits'). A heal split is not damage.
     if ($type === 'MZSPLITASSIGN' && stripos($tip, 'damage') !== false && stripos($tip, 'heal') === false && SWUBotFeatureOn('splits')) {
         return _SWUBotSplitScore($seat, $c, $W, stripos($tip, 'indirect') !== false);
+    }
+    // A Weakness-token split (HMW_071 Ravage) is -1/-1 per token: scored as unpreventable damage, so the tokens go on
+    // enemy units and never on mine (owner report 2026-09-15, Bot Practice game 189011 — Ravage defeated its own 0-0-0).
+    if ($type === 'MZSPLITASSIGN' && stripos($tip, 'Weakness') !== false && SWUBotFeatureOn('splits')) {
+        return _SWUBotSplitScore($seat, $c, $W, true);
     }
     if ($type === 'OPTIONCHOOSE' && $tip === 'Choose_a_player_to_deal_indirect_damage' && SWUBotFeatureOn('splits')) {
         return $c === 'You' ? -1.0 : $W['base'];
@@ -196,7 +212,16 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         if (str_starts_with($tip, 'Take_a_mulligan')) return $c === 'NO' ? 0.1 : 0.0;
         // An optional draw that would deck me out first is declined (the deck-out guard).
         if (stripos($tip, 'draw') !== false && SWUBotDrawMultiplier($seat) < 0) return $c === 'NO' ? 0.1 : 0.0;
+        // "Use the Force to …" something hostile with no enemy unit to hit: keep the Force (feature 'force').
+        if (SWUBotFeatureOn('force') && stripos($tip, 'Use_the_Force') !== false && preg_match('/-\d+\/-\d+|deal|defeat/i', $tip)
+            && empty(array_filter(SWUBotUnits(SWUBotOpponent($seat)), fn($v) => !$v['isLeader']))) return $c === 'NO' ? 0.1 : 0.0;
         return $c === 'YES' ? 0.1 : 0.0;
+    }
+    // A card's own modal choice (its continuation "CARD#n"): judged by what each option does (feature 'modes').
+    if ($type === 'OPTIONCHOOSE' && SWUBotFeatureOn('modes') && strval($ctx['param'] ?? '') !== 'Unit&Pilot'
+        && $tip !== 'Choose_a_player_to_deal_indirect_damage' && preg_match('/^[A-Z0-9]+_[A-Z0-9]+#/', $head)) {
+        $s = _SWUBotOptionDelta($ctx, $action, $W);
+        if ($s !== null) return $s - $index * 1e-6;
     }
     if ($type === 'OPTIONCHOOSE' && strval($ctx['param'] ?? '') === 'Unit&Pilot') {
         // Guide: a Pilot goes on a ready Vehicle.
@@ -230,14 +255,25 @@ function _SWUBotTooltipEffect(string $tooltip): string {
 // continuation "APPLY_PHASE_DEBUFF|P|N|src". 0 = no amount (exhaust, bounce, defeat, capture, or unknown).
 function _SWUBotEffectAmount(string $tip, string $next): int {
     if (preg_match('/deal_(\d+)_damage/i', $tip, $m)) return intval($m[1]);
+    if (SWUBotFeatureOn('targeting2') && preg_match('/deal_(\d+)_to_/i', $tip, $m)) return intval($m[1]);   // "Deal_3_to_a_unit"
     if (preg_match('/-\d+\/-(\d+)/', $tip, $m)) return intval($m[1]);
     $p = explode('|', $next);
     return ($p[0] ?? '') === 'APPLY_PHASE_DEBUFF' ? intval($p[2] ?? 0) : 0;
 }
 
+// "If it costs N or less, defeat it" on the continuation's card (The Tree Remembers): N, else null. Feature 'targeting2'.
+function _SWUBotDefeatIfCostAtMost(string $head): ?int {
+    if (!preg_match('/^([A-Z0-9]+_[A-Z0-9]+)#/', $head, $m)) return null;
+    return preg_match('/if it costs (\d+) or less, defeat it/i', strval(CardText($m[1])), $c) ? intval($c[1]) : null;
+}
+
 // A neutral prompt ("Choose_a_unit") behind a card's own continuation: its printed text decides.
 function _SWUBotCardTextEffect(string $cardID): string {
-    return preg_match('/deal \d+ damage to (a|an|another|that) (\w+ )?unit|-\d+\/-\d+/i', strval(CardText($cardID))) ? 'hostile' : '';
+    $text = strval(CardText($cardID));
+    if (preg_match('/deal \d+ damage to (a|an|another|that) (\w+ )?unit|-\d+\/-\d+/i', $text)) return 'hostile';
+    // targeting2: "…If it costs N or less, defeat it." / "loses all abilities" are hostile too.
+    if (SWUBotFeatureOn('targeting2') && preg_match('/\bdefeat it\b|loses all abilities/i', $text)) return 'hostile';
+    return '';
 }
 
 // One on-board pick. An enemy unit hurt by a KNOWN amount: a defeat is worth the whole unit and more; a hit that
@@ -249,10 +285,16 @@ function _SWUBotTargetScore(int $seat, string $mz, bool $hostile, int $amount, s
     $v = SWUBotViewForMz($seat, $mz);
     if ($v === null) return null;
     $score = $good ? SWUBotUnitValue($v) : -SWUBotUnitValue($v);
+    // "If it costs N or less, defeat it": a unit it defeats is a kill; any other gets only the rider (feature 'targeting2').
+    if ($hostile && $enemy && SWUBotFeatureOn('targeting2') && ($n = _SWUBotDefeatIfCostAtMost($head)) !== null) {
+        return intval($v['cost']) <= $n ? SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0 : 0.1 * SWUBotUnitValue($v);
+    }
     if ($hostile && $enemy && $amount > 0 && SWUBotFeatureOn('targeting')) {
         $blocked = !str_starts_with($head, 'APPLY_PHASE_DEBUFF') && $v['shields'] > 0;
         if ($blocked) $score = 0.0;
         elseif ($amount >= $v['remaining']) $score = SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0;
+        elseif (SWUBotFeatureOn('setup') && !$v['isLeader'] && $v['remaining'] - $amount <= _SWUBotFinisherHP($seat))
+            $score = 0.8 * (SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0);   // my finisher defeats it next
         else $score = SWUBotUnitValue($v) * $W['chip'] * $amount / max(1, $v['hp']);
     }
     // Exhaust a READY enemy; buffs go on units that attack this round (a ready friendly unit).
@@ -350,7 +392,8 @@ function _SWUBotAttachScore(int $seat, string $mz, string $upgradeID, array $W):
     $v = SWUBotViewForMz($seat, $mz);
     if ($v === null) return null;
     $harmful = intval(CardUpgradePower($upgradeID)) < 0 || intval(CardUpgradeHp($upgradeID)) < 0
-        || preg_match("/attached unit (can't|cannot|loses)/i", strval(CardText($upgradeID)));
+        || preg_match("/attached unit (can't|cannot|loses)/i", strval(CardText($upgradeID)))
+        || (SWUBotFeatureOn('targeting2') && preg_match('/loses all (other )?abilities|gets -\d+\/-\d+/i', strval(CardText($upgradeID))));
     $enemy = str_starts_with($mz, 'their');
     if ($harmful) return $enemy ? SWUBotUnitValue($v) : -SWUBotUnitValue($v);
     if ($enemy) return -SWUBotUnitValue($v);
@@ -371,6 +414,123 @@ function _SWUBotUniqueClash(int $seat, string $cid): bool {
         if (CardTitle($v['cardID']) === CardTitle($cid) && strval(CardSubtitle($v['cardID'])) === strval(CardSubtitle($cid))) return true;
     }
     return false;
+}
+
+// The copy of unique $cid I already control is at full HP (nothing to refresh). Feature 'unique'.
+function _SWUBotUniqueCopyHealthy(int $seat, string $cid): bool {
+    foreach (SWUBotUnits($seat) as $v) {
+        if (CardTitle($v['cardID']) === CardTitle($cid) && strval(CardSubtitle($v['cardID'])) === strval(CardSubtitle($cid)))
+            return $v['remaining'] >= $v['hp'];
+    }
+    return false;
+}
+
+// What an effect can change, as numbers (Phase 1b part 3). A side's value: each unit's SWUBotUnitValue scaled by the
+// share of its PRINTED HP it has left (so a -2/-2 that leaves a 4/5 at 3 HP counts — the current HP drops with it),
+// 0.8 when exhausted, plus a tenth of its power (a -N/-0 counts a little).
+function _SWUBotSideValue(int $p): float {
+    $v = 0.0;
+    foreach (SWUBotUnits($p) as $u) {
+        $hp = max(1, intval(CardHp($u['cardID'])));
+        $v += SWUBotUnitValue($u) * min(1.0, max(0, $u['remaining']) / $hp) * ($u['ready'] ? 1.0 : 0.8) + 0.1 * max(0, $u['power']);
+    }
+    return $v;
+}
+
+// 'owed' = the opponent must answer next (an indirect-damage assignment, a discard): the effect is still landing.
+function _SWUBotBoardRead(int $seat): array {
+    $opp = SWUBotOpponent($seat);
+    return ['theirs' => _SWUBotSideValue($opp), 'mine' => _SWUBotSideValue($seat), 'theirBase' => SWUBaseRemainingHp($opp),
+            'owed' => (function_exists('SWUBotPendingDecisionSeat') && SWUBotPendingDecisionSeat() === $opp) ? 1 : 0];
+}
+
+// Enemy value removed + base damage − my value lost; an effect the opponent still has to resolve counts 1.
+function _SWUBotBoardDelta(array $before, array $after, array $W): float {
+    return ($before['theirs'] - $after['theirs']) + $W['base'] * ($before['theirBase'] - $after['theirBase'])
+         - ($before['mine'] - $after['mine']) + floatval($after['owed'] ?? 0);
+}
+
+// Events whose whole value is what they do to the board (tags v2) — and events that attack ("Attack with a unit…",
+// SEC_179 Aggressive Negotiations: untagged, and cast with no ready unit it does nothing; owner report 2026-09-14).
+function _SWUBotIsEffectEvent(string $cid): bool {
+    if (!str_contains(strval(CardType($cid)), 'Event')) return false;
+    $tags = SWUBotCardTags($cid);
+    if (!empty(array_intersect($tags, ['removal', 'wipe', 'damage', 'exhaust', 'bounce', 'burn']))) return true;
+    // An attack or Weakness event whose whole value is that effect. One that also draws (SOR_150 Heroic Sacrifice,
+    // "Draw a card, then attack with a unit") is worth its draw even with no attack, so it stays out.
+    return !in_array('draw', $tags, true)
+        && preg_match('/\bAttack with an? (\w+ )?unit\b|\bWeakness tokens?\b/i', strval(CardText($cid))) === 1;
+}
+
+// The dud gate (feature 'dudgate'): play the event in the lookahead (its targets chosen for the best board change).
+// A dud — held — when it changes nothing on the enemy side; when it is removal taking less than half its printed cost
+// in enemy value; or when it is a wipe costing me more than it takes. Under pressure (the opponent's clock on me is 2
+// or less) only the first test applies.
+function _SWUBotEventIsDud(int $seat, array $action, string $cid, array $W): bool {
+    if (!function_exists('SWUBotLookaheadBest')) return false;
+    $before = _SWUBotBoardRead($seat);
+    $line = SWUBotLookaheadBest($seat, $action, fn() => _SWUBotBoardRead($seat),
+        fn(array $r) => _SWUBotBoardDelta($before, $r, $W), SWU_BOT_LOOKAHEAD_DEPTH, 12);
+    if ($line === null) return false;
+    $enemyChanged = ($before['theirs'] - $line['theirs']) > 1e-6 || $line['theirBase'] < $before['theirBase'] || !empty($line['owed']);
+    if (!$enemyChanged) return true;
+    if (SWUBotClock(SWUBotOpponent($seat), $seat) <= 2) return false;
+    $tags = SWUBotCardTags($cid);
+    $d = floatval($line['_score']);
+    if (in_array('wipe', $tags, true)) return $d < 0.0;
+    if (in_array('removal', $tags, true)) return $d < 0.5 * intval(CardCost($cid));
+    return false;
+}
+
+// A card's modal option ("Choose one", an arena): play the answer in the lookahead and score the board change.
+// Feature 'modes'. null when it cannot be judged.
+function _SWUBotOptionDelta(array $ctx, array $action, array $W): ?float {
+    if (!function_exists('SWUBotLookaheadBest')) return null;
+    $seat = intval($ctx['seat']);
+    $before = _SWUBotBoardRead($seat);
+    $line = SWUBotLookaheadBest($seat, $action, fn() => _SWUBotBoardRead($seat),
+        fn(array $r) => _SWUBotBoardDelta($before, $r, $W), SWU_BOT_LOOKAHEAD_DEPTH, 12);
+    return $line === null ? null : floatval($line['_score']);
+}
+
+// The Force (feature 'force'). A card NEEDS it when its effect is gated on spending it: "(You may) use the Force
+// (lose your Force token). If you do, …". Not "the Force is with you" (that CREATES the token), not a "Choose one"
+// with a Force-free mode (Shatterpoint), not "If you do either" / "If you do not" (they do something anyway).
+function _SWUBotNeedsTheForce(string $cid): bool {
+    $t = strval(CardText($cid));
+    return (bool)preg_match('/use the Force \(lose your Force token\)\. If you do(?! either)/i', $t)
+        && stripos($t, 'Choose one') === false && stripos($t, 'If you do not') === false;
+}
+
+// Another card (in hand or a non-leader unit in play) that needs the Force.
+function _SWUBotHasOtherForceUse(int $seat): bool {
+    foreach (GetHand($seat) as $o) { if ($o !== null && empty($o->removed) && _SWUBotNeedsTheForce(strval($o->CardID ?? ''))) return true; }
+    foreach (SWUBotUnits($seat) as $v) { if (!$v['isLeader'] && _SWUBotNeedsTheForce($v['cardID'])) return true; }
+    return false;
+}
+
+// The printed text behind a leader or unit Action (the leader's front side while undeployed).
+function _SWUBotActionSourceText(int $seat, array $action): string {
+    $k = SWUBotActionKind($action);
+    if ($k === 'leader-ability') { $l = GetLeader($seat)[0] ?? null; return $l !== null ? strval(CardText(strval($l->CardID ?? ''))) : ''; }
+    if ($k === 'unit-action') { $v = SWUBotViewForMz($seat, SWUBotActionMz($action)); return $v !== null ? strval(CardText($v['cardID'])) : ''; }
+    return '';
+}
+
+// My finisher this round (feature 'setup'): the largest N among ready "Action [Exhaust]: Defeat a non-leader unit
+// with N or less remaining HP" sources — the ready undeployed leader's front side (Aurra Sing) or a ready unit.
+function _SWUBotFinisherHP(int $seat): int {
+    $re = '/Action \[Exhaust\]: Defeat a non-leader unit with (\d+) or less remaining HP/i';
+    $n = 0;
+    foreach (GetLeader($seat) as $l) {
+        if ($l === null || !empty($l->removed)) continue;
+        $cid = strval($l->CardID ?? '');
+        if (_SWULeaderReadyUndeployed($seat, $cid) && preg_match($re, strval(CardText($cid)), $m)) $n = max($n, intval($m[1]));
+    }
+    foreach (SWUBotUnits($seat) as $v) {
+        if ($v['ready'] && preg_match($re, strval(CardText($v['cardID'])), $m)) $n = max($n, intval($m[1]));
+    }
+    return $n;
 }
 
 // A compact view of the board for judging what an ability did (see _SWUBotAbilityValue).
@@ -395,18 +555,37 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     $before = _SWUBotBoardSignature($seat);
     $handIDs = fn() => array_values(array_map(fn($o) => strval($o->CardID), array_filter(GetHand($seat), fn($o) => $o !== null && empty($o->removed))));
     $handBefore = $handIDs();
+    $readBefore = _SWUBotBoardRead($seat);
     $after = SWUBotLookahead($seat, $action, function () use ($seat, $handIDs) {
         $d = null;
-        foreach (GetDecisionQueue($seat) as $e) {
-            if ($e !== null && empty($e->removed)) { $d = ['tooltip' => strval($e->Tooltip ?? ''), 'param' => strval($e->Param ?? '')]; break; }
-        }
-        return ['sig' => _SWUBotBoardSignature($seat), 'decision' => $d, 'hand' => $handIDs()];
+        $live = array_values(array_filter(GetDecisionQueue($seat), fn($e) => $e !== null && empty($e->removed)));
+        if (!empty($live)) $d = ['tooltip' => strval($live[0]->Tooltip ?? ''), 'param' => strval($live[0]->Param ?? ''),
+                                 'type' => strval($live[0]->Type ?? ''), 'next' => strval(($live[1] ?? null)->Param ?? '')];
+        return ['sig' => _SWUBotBoardSignature($seat), 'decision' => $d, 'hand' => $handIDs(), 'read' => _SWUBotBoardRead($seat)];
     });
     if ($after === null) return $W['ability'];
     if ($after['decision'] === null && $after['sig'] == $before) return -0.5;
     $lost = 0.0;
     foreach (SWUBotUnits($seat) as $v) { if (!isset($after['sig']['mine'][$v['uid']])) $lost += SWUBotSacrificeCost($v); }
     $d = $after['decision'];
+    // The Action resolved on its own (a single legal target skips the prompt) and all it did was make the enemy
+    // side stronger — nothing gained on mine, no card drawn (feature 'buffs').
+    if ($d === null && SWUBotFeatureOn('buffs') && isset($after['read'])) {
+        $r0 = $readBefore; $r1 = $after['read'];
+        if ($r1['theirs'] - $r0['theirs'] > 1e-6 && $r1['mine'] - $r0['mine'] <= 1e-6 && $after['hand'] == $handBefore) return -0.5;
+    }
+    // The Action's target prompt can only help the enemy (a buff whose every candidate is theirs) or only hurt
+    // me (a hostile effect whose every candidate is mine): don't use it (feature 'buffs'; owner report
+    // 2026-09-14, Bot Practice game 183227 — Ahsoka Tano ASH_009 buffing the player's unit).
+    if ($d !== null && SWUBotFeatureOn('buffs') && ($d['type'] ?? '') === 'MZCHOOSE') {
+        $head = explode('|', strval($d['next'] ?? ''))[0];
+        $cands = array_values(array_filter(explode('&', strval($d['param'])), fn($m) => preg_match('/^(my|their)\w*Arena-\d+$/', $m)));
+        $helps = $head === 'APPLY_PHASE_BUFF' || in_array($head, SWU_BOT_BENEFICIAL_CONTINUATIONS, true);
+        $hurts = $head === 'APPLY_PHASE_DEBUFF' || in_array($head, SWU_BOT_HOSTILE_CONTINUATIONS, true);
+        $allTheirs = !empty($cands) && count(array_filter($cands, fn($m) => str_starts_with($m, 'their'))) === count($cands);
+        $allMine = !empty($cands) && count(array_filter($cands, fn($m) => str_starts_with($m, 'my'))) === count($cands);
+        if (($helps && $allTheirs) || ($hurts && $allMine)) return -0.5;
+    }
     if ($d !== null && _SWUBotTooltipEffect($d['tooltip']) === 'sacrifice') {
         $cheapest = null;
         foreach (array_filter(explode('&', $d['param'])) as $mz) {
@@ -417,6 +596,16 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     }
     $value = $W['ability'];
     if (SWUBotFeatureOn('enablers')) $value = max($value, _SWUBotEnabledPlayValue($seat, $handBefore, $after, $W));
+    // An Action that costs the Force (Talzin's -1/-1): never onto an empty enemy board, and held when its -N/-N kills
+    // nothing while another card needs the Force (feature 'force').
+    $text = _SWUBotActionSourceText($seat, $action);
+    if (SWUBotFeatureOn('force') && preg_match('/Action \[[^\]]*use the Force/i', $text)) {
+        $enemies = array_values(array_filter(SWUBotUnits(SWUBotOpponent($seat)), fn($v) => !$v['isLeader']));
+        if (empty($enemies)) return -0.5;
+        $n = preg_match('/-\d+\/-(\d+)/', $text, $m) ? intval($m[1]) : 0;
+        $kills = count(array_filter($enemies, fn($v) => $v['remaining'] <= $n)) > 0;
+        if (!$kills && _SWUBotHasOtherForceUse($seat)) $value = min($value, 0.02);   // below the initiative (0.05)
+    }
     return $value - max(0.0, $lost - 1.0);
 }
 

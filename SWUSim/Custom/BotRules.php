@@ -104,26 +104,34 @@ function SWUBotRuleBreakLethal(array $ctx): ?array {
 }
 
 // Rule 5 — Control plays board wipes that stabilise, even at the cost of its own good units. A WIPE is a play
-// that defeats two or more units, at least one of them Control's own; it STABILISES when the opponent's clock
-// afterwards is at least 3 rounds and longer than before (SWUBotStabilises). Judged by the sequence lookahead,
-// so a wipe with a choice (Bombing Run's arena) is judged by its best answer, which the plan then follows.
-// Candidates are the hand plays tagged 'wipe' (Rl/CardTags.php), which keeps lookaheads rare. A one-sided sweep
-// (Control has no unit to lose) is not a wipe by this definition — that is plain removal, left to the fallback.
-// Prefers the longest clock left to them, then the fewest own units lost.
+// that defeats two or more units; it STABILISES when the opponent's clock afterwards is at least 3 rounds and
+// longer than before (SWUBotStabilises). Judged by the sequence lookahead, so a wipe with a choice (Bombing Run's
+// arena) is judged by its best answer, which the plan then follows. Candidates are the hand plays tagged 'wipe'
+// (Rl/CardTags.php), which keeps lookaheads rare.
+// Owner ruling 2026-09-14 (feature 'wipegate'): a wipe must cost the enemy at least as much unit value as it costs
+// Control — unless the opponent's clock on Control is 2 or less. "At least one of Control's own" is gone, so the
+// planner never picks its own units to qualify (Pre Vizsla had defeated six Annihilators that way) and a one-sided
+// sweep qualifies. Prefers the longest clock left to them, then the most value gained.
 function SWUBotRuleControlWipe(array $ctx): ?array {
     if (($ctx['style'] ?? '') !== 'control' || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
     if (!function_exists('SWUBotLookaheadBest')) return null;
     $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
+    $byValue = SWUBotFeatureOn('wipegate');
     $uids = fn(int $p) => array_map(fn($v) => $v['uid'], SWUBotUnits($p));
+    $valueOf = fn(int $p) => array_sum(array_map(fn($v) => SWUBotUnitValue($v), SWUBotUnits($p)));
     $mineBefore = $uids($seat); $theirsBefore = $uids($opp);
-    if (empty($mineBefore)) return null;
+    if (!$byValue && empty($mineBefore)) return null;
+    $vMine = $valueOf($seat); $vTheirs = $valueOf($opp);
     $clockBefore = SWUBotClock($opp, $seat);
-    $read = function () use ($seat, $opp, $uids, $mineBefore, $theirsBefore) {
+    $read = function () use ($seat, $opp, $uids, $valueOf, $mineBefore, $theirsBefore, $vMine, $vTheirs) {
         $own = count(array_diff($mineBefore, $uids($seat)));
-        return ['ownLost' => $own, 'defeated' => $own + count(array_diff($theirsBefore, $uids($opp))), 'oppClock' => SWUBotClock($opp, $seat)];
+        return ['ownLost' => $own, 'defeated' => $own + count(array_diff($theirsBefore, $uids($opp))),
+                'net' => ($vTheirs - $valueOf($opp)) - ($vMine - $valueOf($seat)), 'oppClock' => SWUBotClock($opp, $seat)];
     };
-    $qualifies = fn(array $r) => $r['defeated'] >= 2 && $r['ownLost'] >= 1 && SWUBotStabilises($clockBefore, $r['oppClock']);
-    $score = fn(array $r) => $qualifies($r) ? 1000.0 + $r['oppClock'] * 10 - $r['ownLost'] : -1.0;
+    $qualifies = $byValue
+        ? fn(array $r) => $r['defeated'] >= 2 && SWUBotStabilises($clockBefore, $r['oppClock']) && ($r['net'] >= 0 || $clockBefore <= 2)
+        : fn(array $r) => $r['defeated'] >= 2 && $r['ownLost'] >= 1 && SWUBotStabilises($clockBefore, $r['oppClock']);
+    $score = fn(array $r) => $qualifies($r) ? 1000.0 + $r['oppClock'] * 10 + ($byValue ? $r['net'] : -$r['ownLost']) : -1.0;
     $isWipe = function (array $a) use ($seat) {
         if (SWUBotActionKind($a) !== 'play') return false;
         $o = _SWUBotHandObject($seat, $a);

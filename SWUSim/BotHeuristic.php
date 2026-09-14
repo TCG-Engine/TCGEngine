@@ -21,6 +21,8 @@ require_once __DIR__ . '/Custom/BotGuides.php';
 require_once __DIR__ . '/Custom/BotFallback.php';
 require_once __DIR__ . '/Custom/BotRules.php';
 require_once __DIR__ . '/Custom/BotLookahead.php';   // the fallback judges Actions by applying them (BotFallback.php)
+require_once __DIR__ . '/Rl/SwuKeys.php';            // RL Phase 3: swu-v1 state and move keys
+require_once __DIR__ . '/Rl/SwuPolicy.php';          // RL Phase 3: the learned layer ('@rl' variant)
 
 if (!isset($GLOBALS['SWUBotChoosers'])) $GLOBALS['SWUBotChoosers'] = [];
 
@@ -144,12 +146,15 @@ SWUBotRegisterChooser('random', function (array $actions, array $legal) {
 // so code outside a decision always sees everything on. $GLOBALS['SWUBotLastDecisionDisabled'] records the set used.
 function SWUBotHeuristicChoose(string $style, array $actions, array $legal, string $variant = ''): ?array {
     $prev = $GLOBALS['SWUBotDisabledFeatures'] ?? [];
+    $prevRl = $GLOBALS['SWURlOn'] ?? false;
     SWUBotSetDisabledFeatures(SWUBotVariantDisabled($variant) ?? []);
     $GLOBALS['SWUBotLastDecisionDisabled'] = $GLOBALS['SWUBotDisabledFeatures'];
+    $GLOBALS['SWURlOn'] = ($variant === 'rl');   // the learned layer (SWUSim/Rl/SwuPolicy.php), fallback decisions only
     try {
         return _SWUBotHeuristicChooseStack($style, $actions, $legal);
     } finally {
         SWUBotSetDisabledFeatures($prev);
+        $GLOBALS['SWURlOn'] = $prevRl;
     }
 }
 
@@ -184,6 +189,8 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
     if (($p = $run(array_merge(SWUBotRulesAfterFilter(), $GLOBALS['SWUBotTestExtraRules'] ?? []))) !== null) return SWUBotTrace($ctx, $all, $p, 'rule');
     SWUBotRecordCoverage($seat, 'fallback');
     $pick = SWUBotFallbackChoose($ctx);
+    // Layer 3 — the learned layer replaces ONLY the fallback's choice (spec Section 2).
+    if (!empty($GLOBALS['SWURlOn'])) $pick = SWURlChoose($ctx, $pick);
     // Which guide (BotGuides.php) favoured the pick, if any — so sweeps can report how often each one decides.
     $g = _SWUBotGuides($ctx); $pc = strval($pick['cardID'] ?? '');
     if (in_array($pc, $g['attackFirst'], true)) SWUBotRecordCoverage($seat, 'guide:attack-first');
@@ -248,4 +255,6 @@ foreach (['aggro', 'normal', 'control'] as $style) {
     foreach (SWUBotVariants() as $v) {
         SWUBotRegisterChooser("heuristic-$style@$v", fn(array $actions, array $legal) => SWUBotHeuristicChoose($style, $actions, $legal, $v));
     }
+    // The learned layer (RL Phase 3): "heuristic-<style>@rl", configured by SWU_RL_* (SWUSim/Rl/SwuPolicy.php).
+    SWUBotRegisterChooser("heuristic-$style@rl", fn(array $actions, array $legal) => SWUBotHeuristicChoose($style, $actions, $legal, 'rl'));
 }
