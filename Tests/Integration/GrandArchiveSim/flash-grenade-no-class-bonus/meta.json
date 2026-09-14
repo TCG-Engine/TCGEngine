@@ -3,7 +3,7 @@
   "rootName":"GrandArchiveSim",
   "baseFixture":"cleric-robes-class-bonus-draw",
   "initialGamestateReplacements":[
-    {"from":"pv4n1n3gyg\r\n","to":"isxy5lh23q\r\n"}
+    {"from":"pv4n1n3gyg\n","to":"isxy5lh23q\n"}
   ],
   "testedCards":["isxy5lh23q"],
   "semanticCoverage":{

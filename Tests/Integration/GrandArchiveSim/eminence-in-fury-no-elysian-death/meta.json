@@ -3,7 +3,7 @@
   "rootName":"GrandArchiveSim",
   "baseFixture":"eminence-in-fury-dante-bonus",
   "initialGamestateReplacements":[
-    {"from":"1\r\nELYSIAN_ALLY_DIED_THIS_TURN\r\n0","to":"0\r\n0"}
+    {"from":"1\nELYSIAN_ALLY_DIED_THIS_TURN\n0","to":"0\n0"}
   ],
   "testedCards":["suk5c6SJls"],
   "semanticCoverage":{
