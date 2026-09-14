@@ -1,0 +1,6 @@
+[
+    {"step":3,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"The Boots banish themselves as their own cost"},
+    {"step":3,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"xjuCkODVRx","semantic":true,"label":"Beastbond Boots is the banished card"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"SPELLSHROUD\",\"vz4kc558yx-ACTION_ACTIVATED\"]","semantic":true,"label":"The champion gains spellshroud until end of turn"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

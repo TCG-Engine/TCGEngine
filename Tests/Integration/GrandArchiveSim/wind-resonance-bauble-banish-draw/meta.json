@@ -1,0 +1,17 @@
+{
+    "name": "Wind Resonance Bauble: Banish -- draw a card (only if opponent controls a wind champion)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Wind Resonance Bauble is REGALIA -- adding it to 'myHand' via setup gets silently redirected to the Material zone instead (HandAddReplacement, GameLogic.php ~17282), matching every other REGALIA item fixture this session -- it must be seeded directly onto myField. Its prereq (IsPlayerElementEnabled) reads the OPPONENT's own element lineage, so P2's starting champion's Subcards are patched with a real WIND champion. Field items with an activated ability are not clickable via a plain myField-N!FSM! action as the very first action of a fresh turn -- offered as a fast-action MZMAYCHOOSE opportunity once the turn player attempts to pass (same shape as ingredient-pouch-rest-gather); unlike Beastbond Boots, this card's effect (Draw a card) is permanent, not 'until end of turn', so it is unaffected by the pass-trick's turn-ending side effect. A resulting fast-opportunity offer to P2 needs two explicit declines to fully resolve (the same still-available standing option is re-offered once more in the next priority round, matching the pattern documented in ingredient-pouch-rest-gather).",
+    "testedCards": [
+        "bHGUNMFLg9"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["bHGUNMFLg9"],
+        "mechanics": ["draw-discard", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Banish CARDNAME: Draw a card. Activate this ability only if an opponent controls a wind element champion."
+        ]
+    }
+}
