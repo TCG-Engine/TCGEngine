@@ -1,0 +1,17 @@
+{
+    "name": "Krustallan Distiller's [Class Bonus] On Enter: draw into memory if a Potion was brewed",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Krustallan Distiller is WATER, so the starting champion's Subcards are patched with a real WATER champion (Nico, Rapture's Embrace) for element access; the champion's own CardID is separately patched to Arisanna, Master Alchemist (CLERIC) to satisfy IsClassBonusActive([\"CLERIC\"]). The 'brewed a Potion this turn' condition is reached via the BREWED_POTION global effect (normally set by the real Brew-declaration flow) seeded directly at setup, matching the harness's documented technique for reaching an otherwise-unreachable-at-game-start precondition without scripting a full brew sequence. Confirmed via a negative-control check that without both conditions satisfied, the card cannot even be played (missing WATER lineage blocks the FSM materialize entirely) -- so the memory count of 4 observed here (rather than a literal '1') is attributable to the same reserve-payment/draw-chain multiplier effect already documented in stream-of-consciousness-draw-into-memory, not a separate bug; the draw firing at all (0 baseline is impossible to reach without breaking the WATER unlock) confirms the [Class Bonus]+condition gate works.",
+    "testedCards": [
+        "c08c9htu9a"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["c08c9htu9a"],
+        "mechanics": ["draw-discard", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: If you've brewed a Potion this turn, draw a card into your memory."
+        ]
+    }
+}

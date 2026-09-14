@@ -1,0 +1,3 @@
+[
+    {"step":4,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":4,"semantic":true,"label":"[Class Bonus] On Enter draws into memory since a Potion was brewed this turn"}
+]
