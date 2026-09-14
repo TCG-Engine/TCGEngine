@@ -8703,23 +8703,53 @@ DECK,
 ];
 
 // --- Scale of Souls: (2), REST: Return a card from your memory to your hand ---
-// DEFERRED -- confirmed engine gap: Scale of Souls' "(2), REST: ..." ability is registered in
-// $cardActivatedAbilities (GeneratedMacroCode.php, the same dictionary used for reserve-cost
-// cards played from hand/material via DoActivateCard/ActivateCard), NOT in
-// $activateAbilityAbilities (the free/memory-cost-0 dictionary field items like Ingredient Pouch
-// and Cosmic Astroscope use, invoked via ActivateAbility/DoActivatedAbility). But
-// GrandArchiveSim/Custom/CustomInput.php's "myField"/"myIntent" case only ever calls
-// ActivateAbility() for a field-resident object's activate click -- it never checks
-// CardCardActivatedCount()/routes to ActivateCard() the way "myHand" does. Confirmed via direct
-// function calls: ActivateAbility(1, 'myField-1', 0) silently does nothing (DoActivatedAbility's
-// $staticAbilityCount is 0 for this card, so ability index 0 falls through the "dynamic ability"
-// branch and matches nothing), while ActivateCard(1, 'myField-1', false) works correctly and
-// queues the real MZCHOOSE=myMemory-0 decision -- but there is no client-reachable action that
-// calls ActivateCard on a myField mzID. This appears to affect every field-resident REGALIA/ITEM
-// with a reserve-cost repeatable ability (Scale of Souls is just the one this session hit first).
-// Fixing CustomInput.php's routing is out of scope for a single-card fixture pass (touches the
-// shared input-routing file every other "myField@Activate" fixture in this suite depends on) --
-// left for a dedicated follow-up.
+// ENGINE BUG FOUND AND FIXED: Scale of Souls' ability is registered in $cardActivatedAbilities
+// (GeneratedMacroCode.php, the same dictionary used for reserve-cost cards played from
+// hand/material via DoActivateCard/ActivateCard), NOT in $activateAbilityAbilities (the
+// free/memory-cost-0 dictionary field items like Ingredient Pouch and Cosmic Astroscope use, invoked
+// via ActivateAbility/DoActivatedAbility). But GrandArchiveSim/Custom/CustomInput.php's
+// "myField"/"myIntent" case only ever called ActivateAbility() for a field-resident object's direct
+// activate click -- DoActivatedAbility's $staticAbilityCount came back 0 for this card (it has no
+// $activateAbilityAbilities entry), so ability index 0 was misclassified as a "dynamic" ability that
+// matched nothing and the whole activation silently no-opped. Fixed by having CustomInput.php route
+// to ActivateCard() instead whenever CardActivateAbilityCount() is 0 but CardCardActivatedCount() is
+// nonzero for the target's CardID -- this affects every field-resident REGALIA/ITEM with a
+// repeatable ability only reachable this way (not via the fast-opportunity MZMAYCHOOSE path the
+// other myField@Activate fixtures in this suite use), so this fixture drives the direct,
+// non-opportunity mode=10001 CustomInput click that was previously dead.
+// SEPARATE, NOT-YET-FIXED GAP FOUND: the card's own "(2)" reserve cost is not wired up --
+// CardCost_reserve('0z2snsdwmx') returns -1 (unset) in the CardEditor card-ability database, so
+// CalculateActivationReserveCost() computes no reserve cost and DoActivateCard() charges nothing.
+// This is a card-data gap in the CardEditor database (separate from the CustomInput.php routing
+// fix), out of scope here -- this fixture reflects the ability's actual current (free) cost rather
+// than fabricating a reserve payment that doesn't really happen; no myHand-N cost-payment action is
+// needed before the MZCHOOSE.
+$fixtures['scale-of-souls-rest-return-memory'] = [
+    'testedCards' => ['0z2snsdwmx'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '0z2snsdwmx'], // Scale of Souls
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // Fairy Whispers, filler card to return from memory
+    ],
+    'actions' => [
+        // Direct field click via the normal client action path (not the fast-opportunity
+        // workaround) -- only reachable now that CustomInput.php routes this to ActivateCard().
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // choose the filler card to return to hand
+    ],
+];
 
 // --- Barter Herbs: sacrifice up to two Herbs, summon that many chosen replacement Herb tokens ---
 $fixtures['barter-herbs-sacrifice-summon'] = [
