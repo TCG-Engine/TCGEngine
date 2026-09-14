@@ -8796,6 +8796,129 @@ DECK,
     ],
 ];
 
+// --- Potion of Healing: Brew (Two Herbs); Sacrifice: Recover 5 ---
+$fixtures['potion-of-healing-brew-sacrifice-recover'] = [
+    'testedCards' => ['qtb31x97n2'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Potion of Healing's element is NORM, so no lineage patch is needed. Brewing is an alternate
+    // cost (sacrifice two Herb-subtype objects instead of paying reserve); two Blightroot tokens
+    // are seeded onto the field to pay it. Sacrifice: Recover 5 is unconditional (no "if brewed"
+    // gate, unlike Distilled Water), so it's testable via a direct follow-up Activate:0 click once
+    // the brewed Potion has resolved onto the field (same shape as distilled-water-brew-sacrifice-
+    // draw's own trailing step). The champion is pre-damaged by 6 so Recover 5 leaves 1 damage
+    // remaining, distinguishing "recovered" from "already at full life."
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 6]], // pre-damage champion
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #1 - brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #2 - brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qtb31x97n2'], // Potion of Healing, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Serum of Wisdom: Brew (Three Herbs); Sacrifice: Glimpse 3, draw a card into memory ---
+$fixtures['serum-of-wisdom-brew-sacrifice-glimpse-draw'] = [
+    'testedCards' => ['bae3z4pyx8'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Serum of Wisdom's element is NORM. Brewing sacrifices three Herb-subtype objects instead of
+    // paying reserve; three Blightroot tokens are seeded onto the field to pay it. Sacrifice:
+    // Glimpse 3 (an MZREARRANGE decision, resolved keeping original order, same no-op default used
+    // in idle-thoughts-glimpse-4) then queues a draw into memory.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #1 - brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #2 - brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #3 - brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'bae3z4pyx8'], // Serum of Wisdom, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-3', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order (same no-op default as idle-thoughts-glimpse-4).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Essence of Blizzards: Brew (One Adjuvant, One Catalyst); Sacrifice: deal 1 damage ---
+$fixtures['essence-of-blizzards-brew-sacrifice-damage'] = [
+    'testedCards' => ['k1l75tlzsm'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Essence of Blizzards' element is WATER, so the starting champion's Subcards are patched with
+    // a real WATER champion (Nico, Rapture's Embrace) for element access. Brewing sacrifices one
+    // ADJUVANT-subtype and one CATALYST-subtype object instead of paying reserve; Manaroot
+    // (ADJUVANT) and Blightroot (CATALYST) are seeded to pay it. Unlike the HERB-count brews, its
+    // own self-move-to-graveyard is baked directly into the ability macro (CardDQHandlers-style
+    // handler, GeneratedMacroCode.php) rather than the generic ActivatedAbilityCost switch, so no
+    // engine-gap risk there. Only the base "deal 1 damage" case against an awake target is covered;
+    // the "if rested, deal 1+LV instead" and "allies enter rested until EOT" clauses are out of
+    // scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // WATER lineage/element unlock (Nico, Rapture's Embrace)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5joh300z2s'], // Manaroot (ADJUVANT) - brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (CATALYST) - brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'k1l75tlzsm'], // Essence of Blizzards, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

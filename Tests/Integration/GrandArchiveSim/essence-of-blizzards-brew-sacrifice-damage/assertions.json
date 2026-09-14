@@ -1,0 +1,4 @@
+[
+    {"step":8,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"k1l75tlzsm","semantic":true,"label":"Sacrifice moves the brewed Essence of Blizzards to the graveyard"},
+    {"step":8,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"1","semantic":true,"label":"Sacrifice deals 1 damage to an awake target"}
+]
