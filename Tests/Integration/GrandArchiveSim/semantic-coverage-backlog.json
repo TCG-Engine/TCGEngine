@@ -2,10 +2,10 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T01:47:46+00:00",
+    "generatedAt": "2026-09-14T01:48:52+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 283,
+        "cardsWithExistingFixtures": 284,
         "cardsInStarterDecks": 432,
         "cardsNeedingSemanticCoverage": 2204,
         "mechanics": {
@@ -26,6 +26,27 @@
         }
     },
     "cards": [
+        {
+            "cardId": "0z2snsdwmx",
+            "name": "Scale of Souls",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "scale-of-souls-rest-return-memory"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": true,
+            "priority": 133
+        },
         {
             "cardId": "MskPCrbv0L",
             "name": "Samaritan's Reach",
@@ -1213,25 +1234,6 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "0z2snsdwmx",
-            "name": "Scale of Souls",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
