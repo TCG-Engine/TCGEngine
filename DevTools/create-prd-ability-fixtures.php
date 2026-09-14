@@ -9145,6 +9145,109 @@ DECK,
     ],
 ];
 
+// --- Potion Infusion: Clarity: Rest target Potion, grant "On Sacrifice: Draw two cards" ---
+$fixtures['potion-infusion-clarity-rest-grant-draw-two'] = [
+    'testedCards' => ['300z2snsdw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // Nico, Rapture's Embrace -- unlocks WATER for Potion Infusion: Clarity
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 6]], // pre-damage champion so Recover 5 (Potion of Healing's own Sacrifice) is observable
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #1 - brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #2 - brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qtb31x97n2'], // Potion of Healing, seeded to a known hand slot -- brewed onto the field as the Infusion's target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '300z2snsdw'], // Potion Infusion: Clarity
+    ],
+    'actions' => [
+        // Brew Potion of Healing (sacrifice both Blightroot tokens instead of paying reserve).
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Play Potion Infusion: Clarity, paying its full 7 reserve (no Class Bonus).
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the standing fast-opportunity to Sacrifice the brewed Potion early -- Infusion
+        // must resolve first so the granted "On Sacrifice: Draw two" bonus is in place.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Target the brewed Potion of Healing (myField-1) to rest it and grant the bonus.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        // Activate the Potion's own Sacrifice ability -- triggers the granted "draw two" before it.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Potion Infusion: Starlight: Rest target Potion, grant "On Sacrifice: champion +4 level" ---
+$fixtures['potion-infusion-starlight-rest-grant-champion-level'] = [
+    'testedCards' => ['6qsesw2ugm'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Only the base ability (Rest target Potion, grant "On Sacrifice: champion +4 level") is
+    // covered; [Class Bonus] Starcalling -- (1) needs a full starcalling reveal-and-choose flow
+    // (a mechanic not otherwise scripted this session) and is out of scope. No "computed level"
+    // assertion type exists in this harness (only computed_power_equals/computed_life_equals), so
+    // the grant is confirmed via the champion's own TurnEffects list carrying "INFUSION_STARLIGHT"
+    // after the Potion's Sacrifice ability resolves, rather than a numeric level readout.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], // Arisanna, Astral Zenith -- unlocks ASTRA for Potion Infusion: Starlight
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #1 - brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #2 - brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qtb31x97n2'], // Potion of Healing, seeded to a known hand slot -- brewed onto the field as the Infusion's target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '6qsesw2ugm'], // Potion Infusion: Starlight
+    ],
+    'actions' => [
+        // Brew Potion of Healing (sacrifice both Blightroot tokens instead of paying reserve).
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Play Potion Infusion: Starlight, paying its full 3 reserve (no Class Bonus).
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the standing fast-opportunity to Sacrifice the brewed Potion early -- Infusion
+        // must resolve first so the granted "On Sacrifice: champion +4 level" bonus is in place.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Target the brewed Potion of Healing (myField-1) to rest it and grant the bonus.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        // Activate the Potion's own Sacrifice ability -- triggers the granted "+4 level" before it.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // --- Prototype Staff: [Level 4+] REST: put a hand card on bottom of deck, draw into memory ---
 $fixtures['prototype-staff-rest-bottom-draw'] = [
     'testedCards' => ['8c9htu9agw'],

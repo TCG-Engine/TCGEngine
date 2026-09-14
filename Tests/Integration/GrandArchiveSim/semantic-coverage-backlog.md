@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **288**
+Cards linked to an existing fixture: **290**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2199**
+Implemented cards still needing semantic coverage: **2197**
 
 ## Mechanic groups
 
@@ -52,7 +52,6 @@ Implemented cards still needing semantic coverage: **2199**
 | Mana Limiter (`IC3OU6vCnF`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Meadowbloom Dryad (`cVRIUJdTW5`) | ALLY | 1 | targeting, zone-movement, counter, trigger | Silvie Starter Deck | — |
 | Orb of Choking Fumes (`llQe0cg4xJ`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Zander Pantheon Starter | — |
-| Potion Infusion: Clarity (`300z2snsdw`) | ACTION | 1 | cost, targeting, draw-discard, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Smack with Flute (`zpkcFs72Ah`) | ATTACK | 1 | cost, zone-movement, combat, trigger | Silvie Starter Deck | — |
 | Spirit Blade: Ghost Strike (`vcZSHNHvKX`) | ATTACK | 1 | zone-movement, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Starlit Apothecary (`ShQkyQMBCT`) | UNIQUE,DOMAIN | 1 | cost, targeting, token, condition | Arisanna Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2199**
 | Lunar Seer (`qjt0ooffy4`) | ALLY | 1 | cost, zone-movement, condition | Arisanna Pantheon Starter | — |
 | Lurking Assailant (`uq2r6v374c`) | ALLY | 1 | status, combat, condition | Lorraine Pantheon Starter, Zander Pantheon Starter | — |
 | Magus Disciple (`pnDhApDNvR`) | ALLY | 1 | draw-discard, trigger, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
+| Mendcall Mercy (`2RKjpzEFV6`) | ACTION | 1 | cost, targeting, condition | Arisanna Pantheon Starter | — |
