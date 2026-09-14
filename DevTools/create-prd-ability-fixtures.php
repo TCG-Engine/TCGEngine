@@ -9224,6 +9224,43 @@ DECK,
     ],
 ];
 
+// --- Hypothermia: target rested ally gets -4 LIFE until end of turn ---
+$fixtures['hypothermia-target-rested-ally-life'] = [
+    'testedCards' => ['cyfrzrplyw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Hypothermia
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Regression fixture for Database/migrations/14_grand_archive_hypothermia_rested_target_fix.sql:
+    // Hypothermia's stored ability_code filtered its ally target list on $obj->Status == 2 (AWAKE,
+    // GrandArchiveSim/Custom/GameLogic.php:10156) instead of == 1 (RESTED), the opposite of its
+    // printed "Target rested ally gets -4 [LIFE] until end of turn." text -- a rested-only field
+    // would silently no-op. Hypothermia's element is WATER (unlike the FIRE-aligned starting
+    // champion used by most fixtures in this file), so the same WATER lineage/element-unlock patch
+    // used by tsunami-of-nanyue-damage is reused. Dungeon Guide is seeded onto the opponent's field
+    // and explicitly rested (Status=1) as the target; after the fix it's the only legal target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Status' => 1]], // rested Dungeon Guide - the only legal target after the fix
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cyfrzrplyw'], // Hypothermia, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

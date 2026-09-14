@@ -1,0 +1,17 @@
+{
+    "name": "Hypothermia: target rested ally gets -4 LIFE until end of turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T01:50:33+00:00",
+    "createdBy": "Claude",
+    "notes": "Regression fixture for Database/migrations/14_grand_archive_hypothermia_rested_target_fix.sql: Hypothermia's stored ability_code filtered its ally target list on $obj->Status == 2 (AWAKE, GrandArchiveSim/Custom/GameLogic.php:10156) instead of == 1 (RESTED), the opposite of its printed text -- if only rested allies existed on the field, the target list was empty and the ability silently no-opped. Hypothermia's element is WATER (unlike the FIRE-aligned starting champion used by most fixtures in this file), so the same WATER lineage/element-unlock patch used by tsunami-of-nanyue-damage (Subcards=['tafqldAGRF']) is reused. Dungeon Guide is seeded onto the opponent's field and explicitly rested (Status=1) as the only legal target after the fix; base LIFE 3 - 4 = -1.",
+    "testedCards": [
+        "cyfrzrplyw"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["cyfrzrplyw"],
+        "mechanics": ["cost", "targeting", "status"],
+        "rulesClauses": [
+            "Target rested ally gets -4 [LIFE] until end of turn."
+        ]
+    }
+}
