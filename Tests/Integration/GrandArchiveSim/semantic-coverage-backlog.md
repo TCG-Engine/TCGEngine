@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **287**
+Cards linked to an existing fixture: **288**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2200**
+Implemented cards still needing semantic coverage: **2199**
 
 ## Mechanic groups
 
@@ -44,7 +44,6 @@ Implemented cards still needing semantic coverage: **2200**
 | Dungeon Guide (`em6eEh9q8y`) | ALLY | 1 | cost, zone-movement, trigger, condition | Lorraine Starter Deck (Prelude), Rai Starter Deck (Prelude) | — |
 | Elyan, Lustre Loyalty (`2jgiM0p4dt`) | UNIQUE,ALLY | 1 | recover, status, trigger, condition | Zander Pantheon Starter | — |
 | Esteemed Knight (`iabqeB0I6t`) | ALLY | 1 | status, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
-| Flash Freeze (`w3rrii17fz`) | ACTION | 1 | cost, targeting, zone-movement, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Hasty Messenger (`DsiRzt0trX`) | ALLY | 1 | draw-discard, combat, trigger, condition | Kongming Pantheon Starter, Zander Pantheon Starter | — |
 | Insignia of the Corhazi (`52u81v4c0z`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, counter, trigger | Zander Pantheon Starter | — |
 | Library Witch (`iD8qbpA8z5`) | ALLY | 1 | draw-discard, status, combat, trigger | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2200**
 | Hurricane Sweep (`4V6qKuM7xs`) | ATTACK | 1 | cost, combat, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Lunar Seer (`qjt0ooffy4`) | ALLY | 1 | cost, zone-movement, condition | Arisanna Pantheon Starter | — |
 | Lurking Assailant (`uq2r6v374c`) | ALLY | 1 | status, combat, condition | Lorraine Pantheon Starter, Zander Pantheon Starter | — |
+| Magus Disciple (`pnDhApDNvR`) | ALLY | 1 | draw-discard, trigger, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
