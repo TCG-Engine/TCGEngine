@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"4","semantic":true,"label":"Cometfall's Class Bonus (4 damage) resolved despite paying (0) instead of its printed Starcalling (2) cost"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"0","semantic":true,"label":"The Astral Zenith champion itself is ASTRA and exempt from Cometfall's non-astra damage"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]
