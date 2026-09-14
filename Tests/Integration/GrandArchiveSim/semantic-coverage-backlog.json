@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T01:11:40+00:00",
+    "generatedAt": "2026-09-14T01:21:14+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 273,
+        "cardsWithExistingFixtures": 275,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2214,
+        "cardsNeedingSemanticCoverage": 2212,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2525,24 +2525,6 @@
             "priority": 112
         },
         {
-            "cardId": "wa4x7e22tk",
-            "name": "Stream of Consciousness",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "SSu2eQZFJV",
             "name": "Sudden Steel",
             "type": "ATTACK",
@@ -2702,24 +2684,6 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "p5af098kmo",
-            "name": "Barter Herbs",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -43479,6 +43443,28 @@
             "priority": 132
         },
         {
+            "cardId": "wa4x7e22tk",
+            "name": "Stream of Consciousness",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "stream-of-consciousness-draw-into-memory"
+            ],
+            "semanticFixtures": [
+                "stream-of-consciousness-draw-into-memory"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "ljyevpmu6g",
             "name": "Supply Drone",
             "type": "ALLY",
@@ -43837,6 +43823,28 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "p5af098kmo",
+            "name": "Barter Herbs",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token"
+            ],
+            "existingFixtures": [
+                "barter-herbs-sacrifice-summon"
+            ],
+            "semanticFixtures": [
+                "barter-herbs-sacrifice-summon"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

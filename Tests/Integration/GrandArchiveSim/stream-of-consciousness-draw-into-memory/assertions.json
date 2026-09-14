@@ -1,0 +1,3 @@
+[
+    {"step":3,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"Draw a card into your memory (base case, no Class Bonus)"}
+]
