@@ -1,0 +1,17 @@
+{
+    "name": "Smack with Flute: On Attack: champion +1 level until end of turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Smack with Flute is NORM, no lineage patch needed; its On Attack level bonus is unconditional ([Class Bonus] Floating Memory is a separate, unrelated ability on the same card, out of scope). Same real single-target ATTACK-card flow as wind-cutter-class-bonus-power-attack: the card is played from hand into myIntent, then the champion attacks with no weapon available (GetAttackWeaponChoices returns empty, so BeginCombatPhase skips straight to ChooseAttackTarget). On Attack fires as soon as the attack is declared, before damage resolves, so its effect (AddGlobalEffects \"zpkcFs72Ah\") is confirmed present in myGlobalEffects right after choosing the target -- the fixture stops there rather than resolving full combat damage, since the level bonus itself is the tested clause.",
+    "testedCards": [
+        "zpkcFs72Ah"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zpkcFs72Ah"],
+        "mechanics": ["cost", "zone-movement", "combat", "trigger"],
+        "rulesClauses": [
+            "On Attack: Your champion gets +1 level until end of turn."
+        ]
+    }
+}

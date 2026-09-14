@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T18:55:08+00:00",
+    "generatedAt": "2026-09-14T19:01:27+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 312,
+        "cardsWithExistingFixtures": 316,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2175,
+        "cardsNeedingSemanticCoverage": 2171,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -541,26 +541,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "zpkcFs72Ah",
-            "name": "Smack with Flute",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -1612,24 +1592,6 @@
             "priority": 112
         },
         {
-            "cardId": "Kc5Bktw0yK",
-            "name": "Empowering Harmony",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "VV6ADdMrr5",
             "name": "Flame-Rune Swordsman",
             "type": "ALLY",
@@ -1794,24 +1756,6 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "raG5r85ieO",
-            "name": "Piper's Lullaby",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -2286,23 +2230,6 @@
             "starterDecks": [
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "PLljzdiMmq",
-            "name": "Invoke Dominance",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -40649,6 +40576,30 @@
             "priority": 134
         },
         {
+            "cardId": "zpkcFs72Ah",
+            "name": "Smack with Flute",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "smack-with-flute-on-attack-level"
+            ],
+            "semanticFixtures": [
+                "smack-with-flute-on-attack-level"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "6wiHKD52Lw",
             "name": "Stoked Slice",
             "type": "ATTACK",
@@ -42683,6 +42634,28 @@
             "priority": 132
         },
         {
+            "cardId": "Kc5Bktw0yK",
+            "name": "Empowering Harmony",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "empowering-harmony-level"
+            ],
+            "semanticFixtures": [
+                "empowering-harmony-level"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "dsAqxMezGb",
             "name": "Favorable Winds",
             "type": "ACTION",
@@ -43068,6 +43041,28 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "raG5r85ieO",
+            "name": "Piper's Lullaby",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pipers-lullaby-class-bonus-level-rest"
+            ],
+            "semanticFixtures": [
+                "pipers-lullaby-class-bonus-level-rest"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43998,6 +43993,27 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "PLljzdiMmq",
+            "name": "Invoke Dominance",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "invoke-dominance-level-lock-non-ally"
+            ],
+            "semanticFixtures": [
+                "invoke-dominance-level-lock-non-ally"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **312**
+Cards linked to an existing fixture: **316**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2175**
+Implemented cards still needing semantic coverage: **2171**
 
 ## Mechanic groups
 
@@ -51,7 +51,6 @@ Implemented cards still needing semantic coverage: **2175**
 | Lorraine, Spirit Ruler (`n2TKqNaODR`) | CHAMPION | 1 | cost, targeting, zone-movement, trigger | Lorraine Pantheon Starter | — |
 | Mana Limiter (`IC3OU6vCnF`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Orb of Choking Fumes (`llQe0cg4xJ`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Zander Pantheon Starter | — |
-| Smack with Flute (`zpkcFs72Ah`) | ATTACK | 1 | cost, zone-movement, combat, trigger | Silvie Starter Deck | — |
 | Spirit Blade: Ghost Strike (`vcZSHNHvKX`) | ATTACK | 1 | zone-movement, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Starlit Apothecary (`ShQkyQMBCT`) | UNIQUE,DOMAIN | 1 | cost, targeting, token, condition | Arisanna Pantheon Starter | — |
 | Templar of the Eternal (`peyG8Hfgqt`) | ALLY | 1 | damage, prevention, zone-movement, counter | Lorraine Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2175**
 | Photic Blade (`NRBO0nVMdl`) | REGALIA,WEAPON | 1 | recover, counter, trigger | Zander Pantheon Starter | — |
 | Piquant Shieldbearer (`Cvvvxlf0hi`) | ALLY | 1 | status, combat, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
 | Rai, Archmage (`zdIhSL5RhK`) | CHAMPION | 1 | counter, trigger, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
+| Savage Slash (`4a7QLLouGk`) | ATTACK | 1 | cost, zone-movement, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
