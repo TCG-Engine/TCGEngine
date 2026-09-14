@@ -1,0 +1,17 @@
+{
+    "name": "Blissful Calling: look at top 5, may reveal an Animal or Beast card to hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Blissful Calling is NORM, no lineage patch needed. The deck's top card (myDeck-0) is patched directly to Gray Wolf (a BEAST ally) so it is among the top 5 looked at; a second Animal/Beast card also turned up naturally among the remaining 4 (myTempZone-4), so both were offered and Gray Wolf (myTempZone-0) was chosen. Confirmed via Gray Wolf ending up in hand.",
+    "testedCards": [
+        "YOjdZJpOO1"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["YOjdZJpOO1"],
+        "mechanics": ["zone-movement"],
+        "rulesClauses": [
+            "Look at the top five cards of your deck. You may reveal an Animal or Beast card from among them and put it into your hand. Put the rest on the bottom of your deck in any order."
+        ]
+    }
+}

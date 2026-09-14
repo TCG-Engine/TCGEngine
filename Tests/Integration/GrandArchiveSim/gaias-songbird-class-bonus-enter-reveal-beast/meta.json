@@ -1,0 +1,17 @@
+{
+    "name": "Gaia's Songbird: [Class Bonus] On Enter: reveal until a Beast ally is found, put it in hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Gaia's Songbird is TERA -- the starting champion's Subcards are patched with a real TERA champion (Silvie, Loved by All) to unlock element access. Its Class Bonus is checked via IsClassBonusActive($player) with NO $classes argument, which (per this session's established finding) degrades to 'does any champion exist' -- always true -- so no class-match patch is needed. The deck's top card (myDeck-0) is patched directly to Gray Wolf (a BEAST ally) so the reveal finds it on the very first card (0 cards put on the bottom), confirmed by Gray Wolf ending up in hand rather than in the deck.",
+    "testedCards": [
+        "sHzSmygjWY"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["sHzSmygjWY"],
+        "mechanics": ["zone-movement", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Reveal cards from the top of your deck until you reveal a Beast ally card. Put that card into your hand and the rest on the bottom of your deck in a random order."
+        ]
+    }
+}

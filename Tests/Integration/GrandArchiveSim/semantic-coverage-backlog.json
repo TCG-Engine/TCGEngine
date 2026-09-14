@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T18:53:28+00:00",
+    "generatedAt": "2026-09-14T18:55:08+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 310,
+        "cardsWithExistingFixtures": 312,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2177,
+        "cardsNeedingSemanticCoverage": 2175,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -816,25 +816,6 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "sHzSmygjWY",
-            "name": "Gaia's Songbird",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2180,23 +2161,6 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "YOjdZJpOO1",
-            "name": "Blissful Calling",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -41387,6 +41351,29 @@
             "priority": 133
         },
         {
+            "cardId": "sHzSmygjWY",
+            "name": "Gaia's Songbird",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gaias-songbird-class-bonus-enter-reveal-beast"
+            ],
+            "semanticFixtures": [
+                "gaias-songbird-class-bonus-enter-reveal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "ddv1au7t9m",
             "name": "Gentle Respite",
             "type": "ACTION",
@@ -43838,6 +43825,27 @@
             ],
             "semanticFixtures": [
                 "beastbond-ears-level-while-animal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "YOjdZJpOO1",
+            "name": "Blissful Calling",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "blissful-calling-look-5-reveal-animal-beast"
+            ],
+            "semanticFixtures": [
+                "blissful-calling-look-5-reveal-animal-beast"
             ],
             "starterDecks": [
                 "Silvie Starter Deck"

@@ -10110,6 +10110,70 @@ DECK,
     ],
 ];
 
+// --- Gaia's Songbird: [Class Bonus] On Enter: reveal until a Beast ally is found, put it in hand ---
+$fixtures['gaias-songbird-class-bonus-enter-reveal-beast'] = [
+    'testedCards' => ['sHzSmygjWY'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Gaia's Songbird is TERA -- the starting champion's Subcards are patched with a real TERA
+    // champion (Silvie, Loved by All) to unlock element access. Its Class Bonus is checked via
+    // IsClassBonusActive($player) with NO $classes argument, which (per this session's established
+    // finding) degrades to "does any champion exist" -- always true -- so no class-match patch is
+    // needed. The deck's top card (myDeck-0) is patched directly to Gray Wolf (a BEAST ally) so the
+    // reveal finds it on the very first card, confirmed by Gray Wolf ending up in hand rather than
+    // in the deck.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['GKEpAulogu']]], // Silvie, Loved by All -- unlocks TERA
+        ['player' => 1, 'patchMzId' => 'myDeck-0', 'setProperties' => ['CardID' => 'hJ2xh9lNMR']], // Gray Wolf on top of deck
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'sHzSmygjWY'], // Gaia's Songbird, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Blissful Calling: look at top 5, may reveal an Animal or Beast card to hand ---
+$fixtures['blissful-calling-look-5-reveal-animal-beast'] = [
+    'testedCards' => ['YOjdZJpOO1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Blissful Calling is NORM, no lineage patch needed. The deck's top card (myDeck-0) is patched
+    // directly to Gray Wolf (a BEAST ally) so it is among the top 5 looked at and offered as the
+    // sole qualifying candidate.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myDeck-0', 'setProperties' => ['CardID' => 'hJ2xh9lNMR']], // Gray Wolf on top of deck
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'YOjdZJpOO1'], // Blissful Calling, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-0', 'chkInput' => [], 'inputText' => ''], // choose Gray Wolf
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
