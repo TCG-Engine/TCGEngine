@@ -1,0 +1,18 @@
+{
+    "name": "Lakeside Serpent: [Class Bonus] +1 POWER per water card in graveyard (Pride 6)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Lakeside Serpent is WATER -- the starting champion's CardID is patched directly to Silvie, With the Pack (TAMER, satisfies the Class Bonus) and its Subcards are ALSO patched with a real WATER champion (Nico, Rapture's Embrace) for element/lineage unlock. Two Freezing Hail copies (WATER) are seeded directly into the graveyard. Confirmed via computed_power_equals (base 3 + 2 water cards = 5). Pride 6 (a combat-only restriction, same mechanic already covered generically in gray-wolf-pride-2-attack-rejected) is not separately re-tested here.",
+    "testedCards": [
+        "krgjMyVHRd"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["krgjMyVHRd"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1 POWER for each water element card in your graveyard.",
+            "Pride 6 (This ally won't obey you unless your champion is level 6 or higher.)"
+        ]
+    }
+}

@@ -9662,6 +9662,79 @@ DECK,
     ],
 ];
 
+// --- Lakeside Serpent: [Class Bonus] +1 POWER per water card in graveyard (Pride 6) ---
+$fixtures['lakeside-serpent-class-bonus-water-graveyard-power'] = [
+    'testedCards' => ['krgjMyVHRd'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lakeside Serpent is WATER -- the starting champion's CardID is patched directly to Silvie,
+    // With the Pack (TAMER, satisfies the Class Bonus) and its Subcards are ALSO patched with a
+    // real WATER champion (Nico, Rapture's Embrace) for element/lineage unlock. Two Freezing Hail
+    // copies (WATER) are seeded directly into the graveyard. Pride 6 (a combat-only restriction,
+    // same mechanic already covered generically in gray-wolf-pride-2-attack-rejected) is not
+    // separately re-tested here; Lakeside Serpent is seeded directly onto the field.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT', 'Subcards' => ['29lqrve8fz']]], // Silvie, With the Pack (TAMER) + Nico (WATER unlock)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'SrBA7h2a1N'], // Freezing Hail (WATER) #1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'SrBA7h2a1N'], // Freezing Hail (WATER) #2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'krgjMyVHRd'], // Lakeside Serpent
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // harmless no-op click
+    ],
+];
+
+// --- Vertus, Gaia's Roar: [Class Bonus] On Enter: allies +1 POWER per Animal/Beast in graveyard (Pride 10) ---
+$fixtures['vertus-gaias-roar-class-bonus-enter-power-buff'] = [
+    'testedCards' => ['dZ960Hnkzv'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Vertus is TERA -- the starting champion's CardID is patched directly to Silvie, With the
+    // Pack (TAMER, satisfies the Class Bonus) and its Subcards are ALSO patched with a real TERA
+    // champion (Arisanna, Astral Zenith is ASTRA -- use Gaia's Songbird's own Silvie Loved by All
+    // instead, a real TERA champion) for element/lineage unlock. Two Gray Wolf copies (BEAST) are
+    // seeded into the graveyard, and Gray Wolf itself is also seeded onto the field as the target
+    // ally to observe the buff on. Pride 10 (combat-only) is not separately re-tested here; Vertus
+    // is materialized via a real FSM play (paying its 4 reserve) so its On Enter ability actually
+    // fires, since seeding directly onto myField would bypass enterAbilities entirely.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT', 'Subcards' => ['GKEpAulogu']]], // Silvie, With the Pack (TAMER) + Silvie, Loved by All (TERA unlock)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST) #1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST) #2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf -- the ally that receives the buff
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'dZ960Hnkzv'], // Vertus, Gaia's Roar, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
