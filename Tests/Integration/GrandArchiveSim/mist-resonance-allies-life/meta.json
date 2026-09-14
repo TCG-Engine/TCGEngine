@@ -1,0 +1,17 @@
+{
+    "name": "Mist Resonance: allies +1 LIFE until end of turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Mist Resonance is WATER -- the starting champion's Subcards are patched with a real WATER champion (Nico, Rapture's Embrace) to unlock element access. Only the base ability (allies +1 LIFE) is covered; the [Class Bonus] Harmonize clause (allies assign damage with life instead of power) is confirmed NOT IMPLEMENTED at all by the engine's own code comment (GeneratedMacroCode.php: 'Note: Harmonize class bonus ... is not implemented') and is out of scope. Gray Wolf is seeded onto the field as the ally that receives the buff. Confirmed via computed_life_equals (base 2 + 1 = 3).",
+    "testedCards": [
+        "hw8dxKAnMX"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["hw8dxKAnMX"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "Allies you control get +1 [LIFE] until end of turn."
+        ]
+    }
+}

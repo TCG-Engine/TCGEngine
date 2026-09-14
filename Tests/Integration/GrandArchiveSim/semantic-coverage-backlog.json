@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T18:42:16+00:00",
+    "generatedAt": "2026-09-14T18:44:49+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 300,
+        "cardsWithExistingFixtures": 303,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2187,
+        "cardsNeedingSemanticCoverage": 2184,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -521,26 +521,6 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "cVRIUJdTW5",
-            "name": "Meadowbloom Dryad",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -1873,24 +1853,6 @@
             "priority": 112
         },
         {
-            "cardId": "hw8dxKAnMX",
-            "name": "Mist Resonance",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "i2vPUpbPEl",
             "name": "Nimble Court Assassin",
             "type": "ALLY",
@@ -2767,23 +2729,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "4hbA9FT56L",
-            "name": "Song of Nurturing",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -40497,6 +40442,30 @@
             "priority": 134
         },
         {
+            "cardId": "cVRIUJdTW5",
+            "name": "Meadowbloom Dryad",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "meadowbloom-dryad-class-bonus-enter-buff"
+            ],
+            "semanticFixtures": [
+                "meadowbloom-dryad-class-bonus-enter-buff"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "dwavcoxpnj",
             "name": "Meteor Strike",
             "type": "ACTION",
@@ -43087,6 +43056,28 @@
             "priority": 132
         },
         {
+            "cardId": "hw8dxKAnMX",
+            "name": "Mist Resonance",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mist-resonance-allies-life"
+            ],
+            "semanticFixtures": [
+                "mist-resonance-allies-life"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "4n1n3gygoj",
             "name": "Neos Sight",
             "type": "ACTION",
@@ -44119,6 +44110,27 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "4hbA9FT56L",
+            "name": "Song of Nurturing",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "song-of-nurturing-class-bonus-life-power"
+            ],
+            "semanticFixtures": [
+                "song-of-nurturing-class-bonus-life-power"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

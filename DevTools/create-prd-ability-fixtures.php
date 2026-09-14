@@ -9735,6 +9735,112 @@ DECK,
     ],
 ];
 
+// --- Song of Nurturing: allies +2 LIFE, [Class Bonus] also +1 POWER, until end of turn ---
+$fixtures['song-of-nurturing-class-bonus-life-power'] = [
+    'testedCards' => ['4hbA9FT56L'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Song of Nurturing is NORM. The starting champion's CardID is patched directly to Silvie,
+    // With the Pack (TAMER) so the Class Bonus applies. Gray Wolf is seeded onto the field as the
+    // ally that receives the buff. Confirmed via computed_life_equals (base 2 + 2 = 4) and
+    // computed_power_equals (base 2 + 1 Class Bonus = 3).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT']], // Silvie, With the Pack (TAMER)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf -- the ally that receives the buff
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4hbA9FT56L'], // Song of Nurturing, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Mist Resonance: allies +1 LIFE until end of turn ---
+$fixtures['mist-resonance-allies-life'] = [
+    'testedCards' => ['hw8dxKAnMX'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Mist Resonance is WATER -- the starting champion's Subcards are patched with a real WATER
+    // champion (Nico, Rapture's Embrace) to unlock element access. Only the base ability (allies +1
+    // LIFE) is covered; the [Class Bonus] Harmonize clause (allies assign damage with life instead
+    // of power) is confirmed NOT IMPLEMENTED at all by the engine's own code comment
+    // (GeneratedMacroCode.php: "Note: Harmonize class bonus ... is not implemented") and is out of
+    // scope. Gray Wolf is seeded onto the field as the ally that receives the buff. Confirmed via
+    // computed_life_equals (base 2 + 1 = 3).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // Nico, Rapture's Embrace -- unlocks WATER
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf -- the ally that receives the buff
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'hw8dxKAnMX'], // Mist Resonance, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Meadowbloom Dryad: [Class Bonus] whenever an ally enters, buff counter on target ally ---
+$fixtures['meadowbloom-dryad-class-bonus-enter-buff'] = [
+    'testedCards' => ['cVRIUJdTW5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Meadowbloom Dryad is TERA. The starting champion's CardID is patched directly to Silvie,
+    // Loved by All -- both TAMER (satisfies the Class Bonus) and TERA (unlocks element access) at
+    // once. The trigger (FieldAfterAdd, GameLogic.php ~8126) fires for ANY ally entering, including
+    // Meadowbloom Dryad itself: when it resolves as the very first ally on either field, it is the
+    // only entry in the target-ally search, so the engine auto-applies the buff counter without a
+    // choice decision (count($allyTargets) === 1 skips the MZCHOOSE branch) -- a simpler and
+    // equally valid way to exercise the trigger than materializing a second ally afterward. Only
+    // the Class Bonus trigger is covered; Preserve (returning from the material deck on
+    // materialize) is a separate, out-of-scope mechanic.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'GKEpAulogu']], // Silvie, Loved by All (TAMER + TERA)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cVRIUJdTW5'], // Meadowbloom Dryad, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
