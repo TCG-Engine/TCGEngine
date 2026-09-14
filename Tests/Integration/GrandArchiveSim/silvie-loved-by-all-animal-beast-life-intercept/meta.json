@@ -1,0 +1,18 @@
+{
+    "name": "Silvie, Loved by All: Animal and Beast allies get +1 LIFE and have intercept",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "The starting champion's CardID is patched directly to Silvie, Loved by All itself (the card under test), bypassing Silvie Lineage's level-up gate the same way established for other champion fixtures this session. Gray Wolf (BEAST) is seeded onto the field. The +1 LIFE half of the static ability is confirmed via computed_life_equals (base 2 + 1 = 3). The 'has intercept' half (HasIntercept(), GameLogic.php ~21762-21769, confirmed via direct code read to share the same Animal-or-Beast-ally + Silvie-on-field check) has no dedicated assertion type in this harness and would need a real combat interception sequence to observe -- out of scope here, matching this session's treatment of other keyword-only clauses (e.g. Pride).",
+    "testedCards": [
+        "GKEpAulogu"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["GKEpAulogu"],
+        "mechanics": ["combat"],
+        "rulesClauses": [
+            "Silvie Lineage",
+            "Animal and Beast allies you control get +1 [LIFE] and have intercept."
+        ]
+    }
+}

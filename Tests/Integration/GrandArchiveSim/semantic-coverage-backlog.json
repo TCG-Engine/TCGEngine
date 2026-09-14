@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T18:48:32+00:00",
+    "generatedAt": "2026-09-14T18:51:09+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 306,
+        "cardsWithExistingFixtures": 308,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2181,
+        "cardsNeedingSemanticCoverage": 2179,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1131,25 +1131,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "nllCALIXDT",
-            "name": "Silvie, With the Pack",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2663,23 +2644,6 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "GKEpAulogu",
-            "name": "Silvie, Loved by All",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -42069,6 +42033,29 @@
             "priority": 133
         },
         {
+            "cardId": "nllCALIXDT",
+            "name": "Silvie, With the Pack",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "silvie-with-the-pack-on-enter-draw-animal-beast"
+            ],
+            "semanticFixtures": [
+                "silvie-with-the-pack-on-enter-draw-animal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "a8a0v4njrt",
             "name": "Slate Whetstone",
             "type": "REGALIA,ITEM",
@@ -44122,6 +44109,27 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "GKEpAulogu",
+            "name": "Silvie, Loved by All",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "silvie-loved-by-all-animal-beast-life-intercept"
+            ],
+            "semanticFixtures": [
+                "silvie-loved-by-all-animal-beast-life-intercept"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
