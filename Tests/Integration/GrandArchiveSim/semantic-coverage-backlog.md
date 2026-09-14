@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **276**
+Cards linked to an existing fixture: **282**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2212**
+Implemented cards still needing semantic coverage: **2206**
 
 ## Mechanic groups
 
@@ -33,7 +33,6 @@ Implemented cards still needing semantic coverage: **2212**
 | Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
 | Assassin's Mantle (`3tcs0axa03`) | REGALIA,ITEM | 1 | damage, prevention, zone-movement, counter, condition | Zander Pantheon Starter | — |
 | Corhazi Courier (`YqQsXwEvv5`) | ALLY | 1 | targeting, damage, draw-discard, status, combat, condition | Zander Pantheon Starter | — |
-| Essence of Blizzards (`k1l75tlzsm`) | ITEM | 1 | cost, targeting, damage, status, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Extraction Incision (`zthwm68lgo`) | ATTACK | 1 | targeting, counter, status, combat, condition | Zander Pantheon Starter | — |
 | Prismatic Edge (`FxYwR2azTt`) | REGALIA,WEAPON | 1 | targeting, damage, draw-discard, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Rending Flames (`soO3hjaVfN`) | ATTACK | 1 | damage, zone-movement, combat, trigger, condition | Zander Pantheon Starter | — |
@@ -66,7 +65,6 @@ Implemented cards still needing semantic coverage: **2212**
 | Arisanna, Master Alchemist (`ltv5klryvf`) | CHAMPION | 1 | draw-discard, trigger, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Blue Slime (`1Sl4Gq2OuV`) | ALLY | 1 | damage, counter, trigger | Silvie Starter Deck | — |
 | Buoyant Driftguard (`TrK2lroxkz`) | ALLY | 1 | targeting, trigger, condition | Arisanna Pantheon Starter | — |
-| Caretaker Drone (`urfp66pv4n`) | ALLY | 1 | status, combat, trigger | Arisanna Starter Deck | — |
 | Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
 | Corhazi Infiltrator (`VAFTR5taNG`) | ALLY | 1 | zone-movement, status, trigger | Zander Pantheon Starter | — |
 | Covert Manipulator (`A1jfgrWpiN`) | ALLY | 1 | targeting, trigger, condition | Zander Pantheon Starter | — |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **2212**
 | Endura, Scepter of Ignition (`SGsDKB9CN5`) | REGALIA,ITEM | 1 | targeting, damage, counter | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Fire Resonance Bauble (`LROrzTmh55`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude) | — |
 | Gaia's Songbird (`sHzSmygjWY`) | ALLY | 1 | zone-movement, trigger, condition | Silvie Starter Deck | — |
+| Gem of Searing Flame (`v1jaidvvz2`) | REGALIA,ITEM | 1 | targeting, damage, trigger | Kongming Pantheon Starter | — |
+| Hurricane Sweep (`4V6qKuM7xs`) | ATTACK | 1 | cost, combat, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
