@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"2","semantic":true,"label":"Freezing Hail deals 2 damage to Blue Slime"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"DAMAGED_SINCE_LAST_TURN\",\"SKIP_WAKEUP\"]","semantic":true,"label":"Blue Slime won't wake up during the controller's next wake up phase"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"Counters","value":"{\"buff\":1}","semantic":true,"label":"[Class Bonus] Blue Slime gets a buff counter when dealt damage"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

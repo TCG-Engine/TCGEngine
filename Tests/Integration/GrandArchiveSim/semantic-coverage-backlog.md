@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **294**
+Cards linked to an existing fixture: **298**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2193**
+Implemented cards still needing semantic coverage: **2189**
 
 ## Mechanic groups
 
@@ -59,7 +59,6 @@ Implemented cards still needing semantic coverage: **2193**
 | Altruistic Blacksmith (`Pd4hj3sveV`) | ALLY | 1 | token, combat, trigger | Lorraine Pantheon Starter | — |
 | Aqua Vitae (`y5ttkat9hr`) | ITEM | 1 | draw-discard, counter, condition | Arisanna Pantheon Starter | — |
 | Arcane Blast (`pn9gQjV3Rb`) | ACTION | 1 | cost, targeting, damage | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
-| Blue Slime (`1Sl4Gq2OuV`) | ALLY | 1 | damage, counter, trigger | Silvie Starter Deck | — |
 | Buoyant Driftguard (`TrK2lroxkz`) | ALLY | 1 | targeting, trigger, condition | Arisanna Pantheon Starter | — |
 | Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
 | Corhazi Infiltrator (`VAFTR5taNG`) | ALLY | 1 | zone-movement, status, trigger | Zander Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2193**
 | Lurking Assailant (`uq2r6v374c`) | ALLY | 1 | status, combat, condition | Lorraine Pantheon Starter, Zander Pantheon Starter | — |
 | Magus Disciple (`pnDhApDNvR`) | ALLY | 1 | draw-discard, trigger, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Mendcall Mercy (`2RKjpzEFV6`) | ACTION | 1 | cost, targeting, condition | Arisanna Pantheon Starter | — |
+| Minister of Ceremony (`7gz0j8p4sx`) | ALLY | 1 | targeting, damage, condition | Kongming Pantheon Starter | — |

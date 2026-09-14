@@ -1,0 +1,17 @@
+{
+    "name": "Gray Wolf: Pride 2 (won't attack unless champion is level 2+)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Gray Wolf is NORM, vanilla besides Pride 2. Pride is enforced only in combat (CombatLogic.php ~619/2836, GameLogic.php ~16695: PlayerLevel($controller) < PrideAmount($obj)) -- there is no side-effect-free 'can attack' predicate, BeginCombatPhase() is simultaneously the check and the action, and it fails closed (early return, no state mutation) rather than surfacing as an engine-level rejection the harness's expectFailure flag would catch: the FSM attack-declare action itself still reports success=true, but internally no attack is actually declared. Confirmed via Gray Wolf's own Status staying awake (2, never rested) after attempting to declare it as an attacker at the default champion level (0 < 2). The success case (attacking once level 2+ is reached) is out of scope -- it would need a full multi-step combat resolution (target selection, damage, cleanup) on top of the level-up itself and isn't the card's own distinguishing rules text.",
+    "testedCards": [
+        "hJ2xh9lNMR"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["hJ2xh9lNMR"],
+        "mechanics": ["unclassified"],
+        "rulesClauses": [
+            "Pride 2 (This ally won't obey you unless your champion is level 2 or higher.)"
+        ]
+    }
+}

@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T18:36:49+00:00",
+    "generatedAt": "2026-09-14T18:40:25+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 294,
+        "cardsWithExistingFixtures": 298,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2193,
+        "cardsNeedingSemanticCoverage": 2189,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -701,25 +701,6 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "1Sl4Gq2OuV",
-            "name": "Blue Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1781,24 +1762,6 @@
             "priority": 112
         },
         {
-            "cardId": "SrBA7h2a1N",
-            "name": "Freezing Hail",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "MECS7RHRZ8",
             "name": "Impassioned Tutor",
             "type": "ALLY",
@@ -2477,23 +2440,6 @@
             "priority": 111
         },
         {
-            "cardId": "hJ2xh9lNMR",
-            "name": "Gray Wolf",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "uvopjFSUj0",
             "name": "Halcyon Animus",
             "type": "ACTION",
@@ -2715,23 +2661,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "GXeEa0pe3B",
-            "name": "Rebellious Bull",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -41257,6 +41186,29 @@
             "priority": 133
         },
         {
+            "cardId": "1Sl4Gq2OuV",
+            "name": "Blue Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "freezing-hail-blue-slime-class-bonus-buff"
+            ],
+            "semanticFixtures": [
+                "freezing-hail-blue-slime-class-bonus-buff"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "8kmoi0a5uh",
             "name": "Bulwark Sword",
             "type": "REGALIA,WEAPON",
@@ -42892,6 +42844,28 @@
             "priority": 132
         },
         {
+            "cardId": "SrBA7h2a1N",
+            "name": "Freezing Hail",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "freezing-hail-blue-slime-class-bonus-buff"
+            ],
+            "semanticFixtures": [
+                "freezing-hail-blue-slime-class-bonus-buff"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "kvoqk1l75t",
             "name": "Heavy Swing",
             "type": "ATTACK",
@@ -44014,6 +43988,27 @@
             "priority": 131
         },
         {
+            "cardId": "hJ2xh9lNMR",
+            "name": "Gray Wolf",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "gray-wolf-pride-2-attack-rejected"
+            ],
+            "semanticFixtures": [
+                "gray-wolf-pride-2-attack-rejected"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "u7d6soporh",
             "name": "Ingredient Pouch",
             "type": "REGALIA,ITEM",
@@ -44095,6 +44090,27 @@
             "starterDecks": [
                 "Kongming Starter Deck",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "GXeEa0pe3B",
+            "name": "Rebellious Bull",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status"
+            ],
+            "existingFixtures": [
+                "rebellious-bull-enters-rested"
+            ],
+            "semanticFixtures": [
+                "rebellious-bull-enters-rested"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
