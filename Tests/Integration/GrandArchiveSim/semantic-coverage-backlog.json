@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T01:51:09+00:00",
+    "generatedAt": "2026-09-14T01:56:08+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 284,
+        "cardsWithExistingFixtures": 286,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2203,
+        "cardsNeedingSemanticCoverage": 2201,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -743,26 +743,6 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "ltv5klryvf",
-            "name": "Arisanna, Master Alchemist",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1615,25 +1595,6 @@
             "mechanics": [
                 "cost",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "b31x97n2jn",
-            "name": "Arisanna, Herbalist Prodigy",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "trigger"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -41282,6 +41243,30 @@
             "priority": 133
         },
         {
+            "cardId": "ltv5klryvf",
+            "name": "Arisanna, Master Alchemist",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "arisanna-master-alchemist-on-enter-gather-twice"
+            ],
+            "semanticFixtures": [
+                "arisanna-master-alchemist-on-enter-gather-twice"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "ify06tSEVC",
             "name": "Attune with the Winds",
             "type": "ACTION",
@@ -42712,6 +42697,29 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 133
+        },
+        {
+            "cardId": "b31x97n2jn",
+            "name": "Arisanna, Herbalist Prodigy",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "arisanna-herbalist-prodigy-on-enter-gather-twice"
+            ],
+            "semanticFixtures": [
+                "arisanna-herbalist-prodigy-on-enter-gather-twice"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
         },
         {
             "cardId": "moi0a5uhjx",
