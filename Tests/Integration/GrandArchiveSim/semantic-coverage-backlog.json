@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T01:57:15+00:00",
+    "generatedAt": "2026-09-14T13:06:08+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 287,
+        "cardsWithExistingFixtures": 288,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2200,
+        "cardsNeedingSemanticCoverage": 2199,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -398,27 +398,6 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "w3rrii17fz",
-            "name": "Flash Freeze",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -40382,6 +40361,31 @@
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "w3rrii17fz",
+            "name": "Flash Freeze",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "flash-freeze-negate-target-card-activation"
+            ],
+            "semanticFixtures": [
+                "flash-freeze-negate-target-card-activation"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 134

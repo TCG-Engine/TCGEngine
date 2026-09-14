@@ -9109,6 +9109,42 @@ DECK,
     ],
 ];
 
+// --- Flash Freeze: Negate target card activation, banish the negated card ---
+$fixtures['flash-freeze-negate-target-card-activation'] = [
+    'testedCards' => ['w3rrii17fz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // Nico, Rapture's Embrace -- unlocks WATER for Flash Freeze
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- the card whose activation gets negated
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'w3rrii17fz'], // Flash Freeze
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Fast-opportunity window offers Flash Freeze in response, before Scry the Skies resolves.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-6', 'chkInput' => [], 'inputText' => ''],
+        // Pay Flash Freeze's 4-reserve cost (no Class Bonus -- default champion isn't CLERIC).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Choose Scry the Skies (EffectStack-0) as the activation to negate.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // --- Prototype Staff: [Level 4+] REST: put a hand card on bottom of deck, draw into memory ---
 $fixtures['prototype-staff-rest-bottom-draw'] = [
     'testedCards' => ['8c9htu9agw'],
