@@ -10174,6 +10174,151 @@ DECK,
     ],
 ];
 
+// --- Invoke Dominance: champion +3 level, can't activate non-ally cards this turn ---
+$fixtures['invoke-dominance-level-lock-non-ally'] = [
+    'testedCards' => ['PLljzdiMmq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Invoke Dominance is TERA -- the starting champion's Subcards are patched with a real TERA
+    // champion (Silvie, Loved by All) to unlock element access. Unlike the "+1 level while Animal/
+    // Beast ally" static clauses tested indirectly via Glimpse LV elsewhere this session, this +3
+    // level is applied via a direct AddTurnEffect("PLljzdiMmq") on the champion (GeneratedMacroCode.
+    // php ~20641-20652), so it is directly observable via TurnEffects without needing the indirect
+    // proof technique. The "can't activate non-ally cards this turn" restriction is a silent no-op
+    // check embedded inside DoActivateCard itself (GameLogic.php ~2008-2014), not a legality
+    // rejection CanActivateCard/expectFailure would catch -- confirmed instead via the global effect
+    // flag it sets (AddGlobalEffects "PLljzdiMmq_NO_NONALLY") being present in myGlobalEffects.
+    // Preserve (this card returning to the material deck as it resolves, rather than the graveyard)
+    // is a separate, out-of-scope mechanic.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['GKEpAulogu']]], // Silvie, Loved by All -- unlocks TERA
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'PLljzdiMmq'], // Invoke Dominance, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Piper's Lullaby: champion +1 level while Animal/Beast ally, [Class Bonus] rest target ally ---
+$fixtures['pipers-lullaby-class-bonus-level-rest'] = [
+    'testedCards' => ['raG5r85ieO'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Piper's Lullaby is WATER -- the starting champion's CardID is patched directly to Silvie,
+    // With the Pack (TAMER, satisfies the Class Bonus) and its Subcards are ALSO patched with a
+    // real WATER champion (Nico, Rapture's Embrace) for element/lineage unlock. Unlike the "+1
+    // level while Animal/Beast ally" STATIC clauses tested indirectly via Glimpse LV elsewhere this
+    // session, this one is a one-shot AddTurnEffect("raG5r85ieO") applied when the card resolves
+    // (GeneratedMacroCode.php ~21186-21203), so it is directly observable via TurnEffects. Gray
+    // Wolf is seeded onto the field, satisfying the Animal/Beast condition and also serving as the
+    // Class Bonus's rest target, confirmed via Status.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT', 'Subcards' => ['29lqrve8fz']]], // Silvie, With the Pack (TAMER) + Nico (WATER unlock)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST) -- satisfies the level condition and is the rest target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'raG5r85ieO'], // Piper's Lullaby, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // [Class Bonus] rest Gray Wolf
+    ],
+];
+
+// --- Empowering Harmony: champion +2 level until end of turn ---
+$fixtures['empowering-harmony-level'] = [
+    'testedCards' => ['Kc5Bktw0yK'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Empowering Harmony is NORM, no lineage patch needed. The +2 level is unconditional (no Class
+    // Bonus gate); it is applied via AddGlobalEffects("Kc5Bktw0yK") (GeneratedMacroCode.php ~19347-
+    // 19352), checked in the level-computation switch (GameLogic.php ~12964) -- directly observable
+    // via card_exists in myGlobalEffects, without needing the indirect Glimpse-LV proof technique
+    // used for the continuous "+1 level while Animal/Beast ally" static clauses elsewhere this
+    // session. [Class Bonus] Harmonize -- draw a card (gated on both TAMER class match AND having
+    // activated a Melody card this turn) is a separate, out-of-scope mechanic.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Kc5Bktw0yK'], // Empowering Harmony, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Smack with Flute: On Attack: champion +1 level until end of turn ---
+$fixtures['smack-with-flute-on-attack-level'] = [
+    'testedCards' => ['zpkcFs72Ah'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Smack with Flute is NORM, no lineage patch needed; its On Attack level bonus is unconditional
+    // ([Class Bonus] Floating Memory is a separate, unrelated ability on the same card, out of
+    // scope). Same real single-target ATTACK-card flow as wind-cutter-class-bonus-power-attack: the
+    // card is played from hand into myIntent, then the champion attacks with no weapon available
+    // (GetAttackWeaponChoices returns empty, so BeginCombatPhase skips straight to
+    // ChooseAttackTarget). On Attack fires as soon as the attack is declared, before damage
+    // resolves, so its effect (AddGlobalEffects "zpkcFs72Ah") is asserted right after choosing the
+    // target, before the defender's Retaliate response.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zpkcFs72Ah'], // Smack with Flute
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

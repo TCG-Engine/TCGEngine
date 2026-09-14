@@ -1,0 +1,5 @@
+[
+    {"step":2,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"PLljzdiMmq\",\"vz4kc558yx-ACTION_ACTIVATED\"]","semantic":true,"label":"The champion gets +3 level until end of turn"},
+    {"step":2,"type":"card_exists","zone":"myGlobalEffects","viewerPlayerID":1,"cardID":"PLljzdiMmq_NO_NONALLY","semantic":true,"label":"The player can't activate non-ally cards this turn"},
+    {"step":2,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,17 @@
+{
+    "name": "Empowering Harmony: champion +2 level until end of turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Empowering Harmony is NORM, no lineage patch needed. The +2 level is unconditional (no Class Bonus gate); it is applied via AddGlobalEffects(\"Kc5Bktw0yK\") (GeneratedMacroCode.php ~19347-19352), checked in the level-computation switch (GameLogic.php ~12964) -- directly observable via card_exists in myGlobalEffects, without needing the indirect Glimpse-LV proof technique used for the continuous '+1 level while Animal/Beast ally' static clauses elsewhere this session. [Class Bonus] Harmonize -- draw a card (gated on both TAMER class match AND having activated a Melody card this turn) is a separate, out-of-scope mechanic.",
+    "testedCards": [
+        "Kc5Bktw0yK"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["Kc5Bktw0yK"],
+        "mechanics": ["draw-discard", "condition"],
+        "rulesClauses": [
+            "Your champion gets +2 level until end of turn."
+        ]
+    }
+}

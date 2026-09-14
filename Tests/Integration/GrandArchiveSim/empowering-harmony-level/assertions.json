@@ -1,0 +1,4 @@
+[
+    {"step":3,"type":"card_exists","zone":"myGlobalEffects","viewerPlayerID":1,"cardID":"Kc5Bktw0yK","semantic":true,"label":"The champion +2 level until end of turn flag is set"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]
