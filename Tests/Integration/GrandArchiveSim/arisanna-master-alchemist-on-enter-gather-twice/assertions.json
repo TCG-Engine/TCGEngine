@@ -1,0 +1,4 @@
+[
+    {"step":4,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":3,"semantic":true,"label":"The field now holds the champion and two gathered tokens"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

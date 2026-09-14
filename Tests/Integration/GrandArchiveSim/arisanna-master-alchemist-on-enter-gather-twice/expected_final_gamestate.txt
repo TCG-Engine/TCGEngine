@@ -1,0 +1,86 @@
+1
+0
+4
+px60u5n1do
+n8wyfG9hbY
+em6eEh9q8y
+n8wyfG9hbY
+4
+px60u5n1do
+n8wyfG9hbY
+em6eEh9q8y
+px60u5n1do
+2
+n8wyfG9hbY - -
+n8wyfG9hbY - -
+0
+0
+0
+1
+LEVELED_UP_THIS_TURN
+0
+8
+em6eEh9q8y
+px60u5n1do
+em6eEh9q8y
+px60u5n1do
+px60u5n1do
+n8wyfG9hbY
+n8wyfG9hbY
+em6eEh9q8y
+8
+px60u5n1do
+em6eEh9q8y
+n8wyfG9hbY
+n8wyfG9hbY
+px60u5n1do
+em6eEh9q8y
+n8wyfG9hbY
+em6eEh9q8y
+3
+ltv5klryvf 2 1 0 1 ENTERED_THIS_TURN - WyJiMzF4OTduMmpuIl0= 3
+jnltv5klry 2 1 0 1 ENTERED_THIS_TURN - - 4
+i0a5uhjxhk 2 1 0 1 ENTERED_THIS_TURN - - 5
+1
+LMyKyVC2O9 2 2 0 2 - - - 2
+0
+0
+0
+0
+3
+m31WVJ9F04
+9gv4vm4kj3
+LeyUk5auEP
+4
+ltv5klryvf
+m31WVJ9F04
+9gv4vm4kj3
+LeyUk5auEP
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0:Materialize Choice<vname>1<v0>MAT<v0>2<v0><v0>em6eEh9q8y<v1>px60u5n1do<v1>em6eEh9q8y<v1>px60u5n1do<v1>px60u5n1do<v1>n8wyfG9hbY<v1>n8wyfG9hbY<v0><v0><v0>em6eEh9q8y<v1>px60u5n1do<v1>n8wyfG9hbY<v1>em6eEh9q8y<v1>n8wyfG9hbY<v0>MZMAYCHOOSE<v2>myMaterial-0&myMaterial-1&myMaterial-2<v2>1<v2><v2>0<v1>CUSTOM<v2>MATERIALIZE<v2>1<v2><v2>0<v0>0<v0><v0><v0>ltv5klryvf<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0>b31x97n2jn<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>1<v0><v0>n8wyfG9hbY<v1>n8wyfG9hbY<v0><v0>px60u5n1do<v1>em6eEh9q8y<v1>n8wyfG9hbY<v1>n8wyfG9hbY<v1>px60u5n1do<v1>em6eEh9q8y<v1>n8wyfG9hbY<v1>em6eEh9q8y<v0><v0><v0>px60u5n1do<v1>n8wyfG9hbY<v1>em6eEh9q8y<v1>px60u5n1do<v0><v0>0<v0><v0><v0>ltv5klryvf<v1>m31WVJ9F04<v1>9gv4vm4kj3<v1>LeyUk5auEP<v0>LMyKyVC2O9<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v0><v0><v0><v0>{"mzID":"myField-0","isImbued":"NO","amount":1}<v0><v0>{}<v0>2<v0>{"DrawCalls":{"2":1}}<v0>64<v0>{"cards":{"1":{"em6eEh9q8y":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"px60u5n1do":{"drawn":3,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"n8wyfG9hbY":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}},"2":{"px60u5n1do":{"drawn":2,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"em6eEh9q8y":{"drawn":3,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0},"n8wyfG9hbY":{"drawn":3,"drawnToMemory":0,"materialized":0,"reserved":0,"discarded":0,"activated":0}}},"turns":[{"seat":1,"turn":1,"cardsPlayed":0,"memorySpent":0,"reserveSpent":0,"damageDealt":0,"damageTaken":0,"healed":0,"level":1,"hp":19},{"seat":2,"turn":1,"cardsPlayed":0,"memorySpent":0,"reserveSpent":0,"damageDealt":0,"damageTaken":0,"healed":0,"level":0,"hp":15}],"cur":{"1":[],"2":[]},"combatEvents":[]}
+0
+
+
+2
+1
+1
+MAIN
+
+-
+-
+-
+-
+-
+-
+-
+
+
+-

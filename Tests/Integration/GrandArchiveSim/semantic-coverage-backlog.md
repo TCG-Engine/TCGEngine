@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **284**
+Cards linked to an existing fixture: **286**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2203**
+Implemented cards still needing semantic coverage: **2201**
 
 ## Mechanic groups
 
@@ -61,7 +61,6 @@ Implemented cards still needing semantic coverage: **2203**
 | Altruistic Blacksmith (`Pd4hj3sveV`) | ALLY | 1 | token, combat, trigger | Lorraine Pantheon Starter | — |
 | Aqua Vitae (`y5ttkat9hr`) | ITEM | 1 | draw-discard, counter, condition | Arisanna Pantheon Starter | — |
 | Arcane Blast (`pn9gQjV3Rb`) | ACTION | 1 | cost, targeting, damage | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
-| Arisanna, Master Alchemist (`ltv5klryvf`) | CHAMPION | 1 | draw-discard, trigger, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Blue Slime (`1Sl4Gq2OuV`) | ALLY | 1 | damage, counter, trigger | Silvie Starter Deck | — |
 | Buoyant Driftguard (`TrK2lroxkz`) | ALLY | 1 | targeting, trigger, condition | Arisanna Pantheon Starter | — |
 | Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2203**
 | Gem of Searing Flame (`v1jaidvvz2`) | REGALIA,ITEM | 1 | targeting, damage, trigger | Kongming Pantheon Starter | — |
 | Hurricane Sweep (`4V6qKuM7xs`) | ATTACK | 1 | cost, combat, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Lunar Seer (`qjt0ooffy4`) | ALLY | 1 | cost, zone-movement, condition | Arisanna Pantheon Starter | — |
+| Lurking Assailant (`uq2r6v374c`) | ALLY | 1 | status, combat, condition | Lorraine Pantheon Starter, Zander Pantheon Starter | — |

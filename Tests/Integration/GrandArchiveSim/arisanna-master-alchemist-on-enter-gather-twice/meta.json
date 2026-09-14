@@ -1,0 +1,18 @@
+{
+    "name": "Arisanna, Master Alchemist's On Enter: Gather twice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Arisanna, Master Alchemist is level 2 (Arisanna Lineage), but CanChampionLevelUpIntoCard only checks targetLevel === currentLevel + 1 (GameLogic.php ~19487-19501) -- lineage text is not enforced by the level-up gate itself. The starting champion is patched directly to Arisanna, Herbalist Prodigy (b31x97n2jn, level 1) so a real level-up is legal; patching the CardID is fine here since only Master Alchemist's own On Enter is under test. Champion-swap materialization is only offered through the material-phase MZMAYCHOOSE at the start of a turn, so both players end their first turn (P1 -> P2) to reach that prompt; its 2-memory cost is paid from two filler cards seeded into myMemory. Its On Enter ability Gathers twice (resolves to Silvershine and Blightroot with this fixture's seed, same as arisanna-herbalist-prodigy-on-enter-gather-twice). Only the base On Enter is covered; the 'Inherited Effect' end-phase sacrifice-two-Herbs-draw clause is out of scope.",
+    "testedCards": [
+        "ltv5klryvf"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ltv5klryvf"],
+        "mechanics": ["token", "trigger"],
+        "rulesClauses": [
+            "Arisanna Lineage (Arisanna, Master Alchemist must be leveled from a previous level \"Arisanna\" champion.)",
+            "On Enter: Gather twice."
+        ]
+    }
+}

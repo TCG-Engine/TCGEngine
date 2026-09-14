@@ -9146,6 +9146,84 @@ DECK,
     ],
 ];
 
+// --- Arisanna, Herbalist Prodigy: On Enter, Gather twice ---
+$fixtures['arisanna-herbalist-prodigy-on-enter-gather-twice'] = [
+    'testedCards' => ['b31x97n2jn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Arisanna, Herbalist Prodigy
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Arisanna, Herbalist Prodigy is level 1, one level above the default level-0 starting
+    // champion (Spirit of Fire), so no lineage/element patch is needed -- 0+1 is already a legal
+    // level-up (same shape as dante-prodigal-swain-summon-token). Champion-swap materialization is
+    // only offered through the material-phase MZMAYCHOOSE at the start of a turn, so both players
+    // end their first turn (P1 -> P2) to reach that prompt on P1's next turn; its 1-memory cost is
+    // paid from a filler card seeded into myMemory. Its On Enter ability Gathers twice (resolves
+    // to Blightroot with this fixture's seed, same as foraging-servant-enter-gather).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay the 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the ambient opportunity offering the two gathered Herb tokens' own fast
+        // Sacrifice abilities (a different mechanic than Gather itself).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Arisanna, Master Alchemist: On Enter, Gather twice ---
+$fixtures['arisanna-master-alchemist-on-enter-gather-twice'] = [
+    'testedCards' => ['ltv5klryvf'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Arisanna, Master Alchemist
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Arisanna, Master Alchemist is level 2 (Arisanna Lineage), but CanChampionLevelUpIntoCard only
+    // checks targetLevel === currentLevel + 1 (GameLogic.php ~19487-19501) -- lineage text is not
+    // enforced by the level-up gate itself. The starting champion is patched directly to Arisanna,
+    // Herbalist Prodigy (b31x97n2jn, level 1) so a real level-up is legal; patching the CardID is
+    // fine here since only Master Alchemist's own On Enter is under test. Champion-swap
+    // materialization is only offered through the material-phase MZMAYCHOOSE at the start of a
+    // turn, so both players end their first turn (P1 -> P2) to reach that prompt; its 2-memory cost
+    // is paid from two filler cards seeded into myMemory. Its On Enter ability Gathers twice
+    // (resolves to Silvershine and Blightroot with this fixture's seed, same as arisanna-herbalist-
+    // prodigy-on-enter-gather-twice). Only the base On Enter is covered; the "Inherited Effect" end-
+    // phase sacrifice-two-Herbs-draw clause is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'b31x97n2jn']], // Arisanna, Herbalist Prodigy (level 1) - level-up precondition
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card 1/2 in memory to pay Master Alchemist's 2-memory level-up cost
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card 2/2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the ambient opportunity offering the two gathered Herb tokens' own fast
+        // Sacrifice abilities (a different mechanic than Gather itself).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
