@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T01:45:21+00:00",
+    "generatedAt": "2026-09-14T01:47:46+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 282,
+        "cardsWithExistingFixtures": 283,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2206,
+        "cardsNeedingSemanticCoverage": 2204,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,27 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "0z2snsdwmx",
-            "name": "Scale of Souls",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [
-                "scale-of-souls-rest-return-memory"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 133
-        },
         {
             "cardId": "MskPCrbv0L",
             "name": "Samaritan's Reach",
@@ -1198,25 +1177,6 @@
             "priority": 113
         },
         {
-            "cardId": "8c9htu9agw",
-            "name": "Prototype Staff",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "zdIhSL5RhK",
             "name": "Rai, Archmage",
             "type": "CHAMPION",
@@ -1253,6 +1213,25 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": true,
+            "priority": 113
+        },
+        {
+            "cardId": "0z2snsdwmx",
+            "name": "Scale of Souls",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [],
+            "semanticFixtures": [],
+            "starterDecks": [
+                "Arisanna Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2344,30 +2323,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "F9POfB5Nah",
-            "name": "Scry the Skies",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Rai Starter Deck",
-                "Silvie Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Rai Starter Deck (Prelude)",
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -42185,6 +42140,29 @@
             "priority": 133
         },
         {
+            "cardId": "8c9htu9agw",
+            "name": "Prototype Staff",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "prototype-staff-rest-bottom-draw"
+            ],
+            "semanticFixtures": [
+                "prototype-staff-rest-bottom-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "172utOanGk",
             "name": "Pure Cytosynth",
             "type": "ALLY",
@@ -43273,6 +43251,34 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "F9POfB5Nah",
+            "name": "Scry the Skies",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "scry-the-skies-glimpse-lv-draw"
+            ],
+            "semanticFixtures": [
+                "scry-the-skies-glimpse-lv-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Rai Starter Deck",
+                "Silvie Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Rai Starter Deck (Prelude)",
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

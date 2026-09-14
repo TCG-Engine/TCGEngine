@@ -9078,6 +9078,74 @@ DECK,
     ],
 ];
 
+// --- Scry the Skies: Glimpse LV. Draw a card into your memory ---
+$fixtures['scry-the-skies-glimpse-lv-draw'] = [
+    'testedCards' => ['F9POfB5Nah'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Scry the Skies is NORM, no lineage patch needed. The starting champion's level is patched to
+    // 2 so Glimpse LV (0 by default, which would be an invisible no-op) is directly observable via
+    // a real 2-card MZREARRANGE decision.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 2]]], // LV for Glimpse LV
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order (same no-op default as idle-thoughts-glimpse-4).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Prototype Staff: [Level 4+] REST: put a hand card on bottom of deck, draw into memory ---
+$fixtures['prototype-staff-rest-bottom-draw'] = [
+    'testedCards' => ['8c9htu9agw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Only the base REST ability (put a hand card on the deck's bottom, then draw into memory) is
+    // covered; the separate [Class Bonus][Memory 4+] +1 level static clause needs an "effective
+    // champion level" assertion type this harness doesn't have and is out of scope. The starting
+    // champion's level is patched to 4 to match the ability's printed [Level 4+] gate, though the
+    // ability's own macro body (GeneratedMacroCode.php) has no level check at all -- the gate
+    // appears to be enforced only client-side/by schema metadata, not by game logic, so this
+    // fixture exercises the effect unconditionally regardless. Field items with an activated
+    // ability are not clickable via a plain myField-N!FSM! action -- offered as a fast-action
+    // MZMAYCHOOSE opportunity once the turn player attempts to pass (same shape as sweet-ambrosia-
+    // banish-recover).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4]]], // matches the printed [Level 4+] gate
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '8c9htu9agw'], // Prototype Staff
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // attempt to pass -> offers the fast-action opportunity
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@8c9htu9agw', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // put a hand card on the bottom of the deck
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
