@@ -8919,6 +8919,57 @@ DECK,
     ],
 ];
 
+// --- Condensed Supernova: Brew (Silvershine + 2 Adjuvants + 2 Catalysts); Sacrifice: LV damage to all, Glimpse 4 ---
+$fixtures['condensed-supernova-brew-sacrifice-damage-glimpse'] = [
+    'testedCards' => ['14m4c8ljye'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Condensed Supernova's element is ASTRA (advanced), so the starting champion's Subcards are
+    // patched with a real ASTRA champion (Arisanna, Astral Zenith) for element access -- her
+    // patch also conveniently sets Counters.level = 3 so LV damage is directly observable (0 would
+    // be invisible). Brewing sacrifices a specific Silvershine plus two more ADJUVANT-subtype and
+    // two more CATALYST-subtype objects instead of paying reserve; Silvershine itself is also
+    // CATALYST but the brew cost lists it as a separate named-card requirement from the generic
+    // "2 Catalysts," so two additional Blightroot (CATALYST) plus two Manaroot (ADJUVANT) are
+    // seeded alongside it (5 ingredients total). Sacrifice hits every non-ASTRA-element unit on
+    // both fields automatically (no target choice) for LV damage, then Glimpses 4 (resolved
+    // keeping original order, same no-op default used in idle-thoughts-glimpse-4).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba'], 'Counters' => ['level' => 3]]], // ASTRA lineage/element unlock (Arisanna, Astral Zenith) + LV damage
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'bd7ozuj68m'], // Silvershine - named brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5joh300z2s'], // Manaroot (ADJUVANT) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5joh300z2s'], // Manaroot (ADJUVANT) #2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (CATALYST) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (CATALYST) #2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '14m4c8ljye'], // Condensed Supernova, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-3', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-5', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order (same no-op default as idle-thoughts-glimpse-4).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

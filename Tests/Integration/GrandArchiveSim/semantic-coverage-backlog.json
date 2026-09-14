@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T01:36:15+00:00",
+    "generatedAt": "2026-09-14T01:40:16+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 278,
+        "cardsWithExistingFixtures": 279,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2209,
+        "cardsNeedingSemanticCoverage": 2208,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2691,24 +2691,6 @@
             "existingFixtures": [],
             "semanticFixtures": [],
             "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "14m4c8ljye",
-            "name": "Condensed Supernova",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
@@ -43903,6 +43885,28 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "14m4c8ljye",
+            "name": "Condensed Supernova",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "condensed-supernova-brew-sacrifice-damage-glimpse"
+            ],
+            "semanticFixtures": [
+                "condensed-supernova-brew-sacrifice-damage-glimpse"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
