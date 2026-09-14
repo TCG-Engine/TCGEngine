@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T18:40:25+00:00",
+    "generatedAt": "2026-09-14T18:42:16+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 298,
+        "cardsWithExistingFixtures": 300,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2189,
+        "cardsNeedingSemanticCoverage": 2187,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -2492,23 +2492,6 @@
             "priority": 111
         },
         {
-            "cardId": "krgjMyVHRd",
-            "name": "Lakeside Serpent",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "NfbZ0nouSQ",
             "name": "Lorraine, Crux Knight",
             "type": "CHAMPION",
@@ -2840,23 +2823,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "dZ960Hnkzv",
-            "name": "Vertus, Gaia's Roar",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -44095,6 +44061,27 @@
             "priority": 131
         },
         {
+            "cardId": "krgjMyVHRd",
+            "name": "Lakeside Serpent",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "lakeside-serpent-class-bonus-water-graveyard-power"
+            ],
+            "semanticFixtures": [
+                "lakeside-serpent-class-bonus-water-graveyard-power"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "GXeEa0pe3B",
             "name": "Rebellious Bull",
             "type": "ALLY",
@@ -44153,6 +44140,27 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "dZ960Hnkzv",
+            "name": "Vertus, Gaia's Roar",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "vertus-gaias-roar-class-bonus-enter-power-buff"
+            ],
+            "semanticFixtures": [
+                "vertus-gaias-roar-class-bonus-enter-power-buff"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
