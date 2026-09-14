@@ -9841,6 +9841,127 @@ DECK,
     ],
 ];
 
+// --- Beastbond Ears: champion +1 level as long as you control an Animal or Beast ally ---
+$fixtures['beastbond-ears-level-while-animal-beast'] = [
+    'testedCards' => ['JPcFmCpdiF'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Beastbond Ears is NORM and unconditional (no Class Bonus gate). No "computed level" assertion
+    // type exists in this harness (only computed_power_equals/computed_life_equals -- champion
+    // level bonuses cannot be directly asserted), so the +1 level is confirmed indirectly: at the
+    // default champion level (0), Scry the Skies' "Glimpse LV" would be an invisible Glimpse 0
+    // no-op, but with Beastbond Ears' static bonus active (Gray Wolf, a BEAST ally, is seeded
+    // alongside it), the effective level is 1, so Glimpse LV surfaces a real 1-card MZREARRANGE
+    // decision that must be explicitly answered -- the fixture's own action sequence only completes
+    // if that decision genuinely appears, which is itself the proof.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'JPcFmCpdiF'], // Beastbond Ears
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order (same no-op default as idle-thoughts-glimpse-4).
+        // This decision only exists because the effective level is 1, not the default 0 -- proof
+        // that Beastbond Ears' static bonus is applying.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Deep Sea Beastbonder: champion +1 level as long as you control an Animal or Beast ally ---
+$fixtures['deep-sea-beastbonder-level-while-animal-beast'] = [
+    'testedCards' => ['qxbdXU7H4Z'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Deep Sea Beastbonder is WATER -- the starting champion's Subcards are patched with a real
+    // WATER champion (Nico, Rapture's Embrace) to unlock element access. Its static +1 level is
+    // unconditional (no Class Bonus gate); only [Class Bonus] Floating Memory is out of scope. Same
+    // indirect Glimpse-LV proof technique as beastbond-ears-level-while-animal-beast: Gray Wolf (a
+    // BEAST ally) is seeded onto the field so the condition is already satisfied once Deep Sea
+    // Beastbonder resolves, then Scry the Skies' Glimpse LV surfaces a real MZREARRANGE decision
+    // (invisible at the default level 0) proving the effective level is 1.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // Nico, Rapture's Embrace -- unlocks WATER
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qxbdXU7H4Z'], // Deep Sea Beastbonder, seeded to a known hand slot
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-3!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order -- only exists because the effective level is 1.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Melodious Flute: champion +1 level as long as you control an Animal or Beast ally ---
+$fixtures['melodious-flute-level-while-animal-beast'] = [
+    'testedCards' => ['WAFNy2lY5t'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Melodious Flute is NORM and REGALIA -- adding it to 'myHand' via setup gets silently
+    // redirected to the Material zone instead (HandAddReplacement), matching every other REGALIA
+    // item fixture this session, so it is seeded directly onto myField. Its static +1 level is
+    // unconditional; [Class Bonus] Banish: next Harmony action is a Melody is a separate,
+    // out-of-scope ability. Same indirect Glimpse-LV proof technique as beastbond-ears-level-
+    // while-animal-beast: Gray Wolf (a BEAST ally) is seeded alongside it, then Scry the Skies'
+    // Glimpse LV surfaces a real MZREARRANGE decision (invisible at the default level 0) proving
+    // the effective level is 1.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'WAFNy2lY5t'], // Melodious Flute
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the fast-opportunity offer of Melodious Flute's own [Class Bonus] Banish ability
+        // (unrelated -- out of scope here) so Scry the Skies proceeds to its own resolution.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order -- only exists because the effective level is 1.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

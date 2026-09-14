@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T18:44:49+00:00",
+    "generatedAt": "2026-09-14T18:48:32+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 303,
+        "cardsWithExistingFixtures": 306,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2184,
+        "cardsNeedingSemanticCoverage": 2181,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -757,25 +757,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "qxbdXU7H4Z",
-            "name": "Deep Sea Beastbonder",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1835,24 +1816,6 @@
             "priority": 112
         },
         {
-            "cardId": "WAFNy2lY5t",
-            "name": "Melodious Flute",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "i2vPUpbPEl",
             "name": "Nimble Court Assassin",
             "type": "ALLY",
@@ -2273,23 +2236,6 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "JPcFmCpdiF",
-            "name": "Beastbond Ears",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -41306,6 +41252,29 @@
             "priority": 133
         },
         {
+            "cardId": "qxbdXU7H4Z",
+            "name": "Deep Sea Beastbonder",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "deep-sea-beastbonder-level-while-animal-beast"
+            ],
+            "semanticFixtures": [
+                "deep-sea-beastbonder-level-while-animal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "iow4occyxi",
             "name": "Eminent Commander",
             "type": "ALLY",
@@ -43056,6 +43025,28 @@
             "priority": 132
         },
         {
+            "cardId": "WAFNy2lY5t",
+            "name": "Melodious Flute",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "melodious-flute-level-while-animal-beast"
+            ],
+            "semanticFixtures": [
+                "melodious-flute-level-while-animal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "hw8dxKAnMX",
             "name": "Mist Resonance",
             "type": "ACTION",
@@ -43834,6 +43825,27 @@
                 "Jin Starter Deck",
                 "Kongming Starter Deck",
                 "Lorraine Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "JPcFmCpdiF",
+            "name": "Beastbond Ears",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "beastbond-ears-level-while-animal-beast"
+            ],
+            "semanticFixtures": [
+                "beastbond-ears-level-while-animal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
