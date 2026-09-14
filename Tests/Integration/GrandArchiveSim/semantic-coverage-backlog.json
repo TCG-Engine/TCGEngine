@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T01:48:52+00:00",
+    "generatedAt": "2026-09-14T01:51:09+00:00",
     "summary": {
         "implementedCards": 2477,
         "cardsWithExistingFixtures": 284,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2204,
+        "cardsNeedingSemanticCoverage": 2203,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,27 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "0z2snsdwmx",
-            "name": "Scale of Souls",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [
-                "scale-of-souls-rest-return-memory"
-            ],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 133
-        },
         {
             "cardId": "MskPCrbv0L",
             "name": "Samaritan's Reach",
@@ -42323,6 +42302,29 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "0z2snsdwmx",
+            "name": "Scale of Souls",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "scale-of-souls-rest-return-memory"
+            ],
+            "semanticFixtures": [
+                "scale-of-souls-rest-return-memory"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
