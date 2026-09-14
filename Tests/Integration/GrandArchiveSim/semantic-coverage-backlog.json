@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T01:56:08+00:00",
+    "generatedAt": "2026-09-14T01:57:15+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 286,
+        "cardsWithExistingFixtures": 287,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2201,
+        "cardsNeedingSemanticCoverage": 2200,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1893,24 +1893,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "cyfrzrplyw",
-            "name": "Hypothermia",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -42966,6 +42948,28 @@
                 "Lorraine, Arclight Saber Starter Deck",
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "cyfrzrplyw",
+            "name": "Hypothermia",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status"
+            ],
+            "existingFixtures": [
+                "hypothermia-target-rested-ally-life"
+            ],
+            "semanticFixtures": [
+                "hypothermia-target-rested-ally-life"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

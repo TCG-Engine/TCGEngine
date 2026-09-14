@@ -30,6 +30,7 @@ Apply in numeric order:
 | 11 | `11_discord_oauth_users.sql` | Makes `users.usersPwd` nullable + `users.discordID` unique | Discord sign-in |
 | 12 | `12_grand_archive_recollection_phase_fix.sql` | Fixes 4 `card_abilities` rows comparing a phase to the literal `"RECOLLECTION"` (never matches; real code is `"BREC"`) | GrandArchiveSim engine bug fix |
 | 13 | `13_grand_archive_perfect_repulsion_memory_count_fix.sql` | Fixes Perfect Repulsion's (`gwj4f15joh`) `ability_code`: `$memoryCount` was computed before an `await`, but the generator splits ability code into two separate PHP closures at each `await`, so the post-await closure's reference was always undefined | GrandArchiveSim engine bug fix |
+| 14 | `14_grand_archive_hypothermia_rested_target_fix.sql` | Fixes Hypothermia's (`cyfrzrplyw`) `ability_code`: its target filter checked `$obj->Status == 2` (AWAKE) instead of `== 1` (RESTED), the opposite of its printed "Target rested ally" text | GrandArchiveSim engine bug fix |
 
 The first three are **independent** of each other (disjoint tables) — the numbering is the phase order they
 were designed and tested in, and is a safe, canonical sequence. There is no cross-file dependency.
@@ -56,6 +57,13 @@ alter the SWU stats tables.
   generator's `await`-splitting silently drops. Idempotent via `REPLACE()` + a `LIKE` guard on the
   pre-fix adjacency; safe to re-run. Also requires regenerating GrandArchiveSim's engine code after
   applying: `php zzGameCodeGenerator.php rootName=GrandArchiveSim`.
+- Migration 14 is also a **data-content** fix (no `ALTER TABLE`) -- it corrects a single
+  `card_abilities.ability_code` row (`cyfrzrplyw`, GrandArchiveSim) so Hypothermia's target filter
+  checks `Status == 1` (rested) instead of `Status == 2` (awake), matching its printed "Target
+  rested ally" text and the convention confirmed at GameLogic.php:10156 and by the sibling card
+  Drown in Aether (`gnfbp3g8iw`). Idempotent via `REPLACE()` + a `LIKE` guard on the pre-fix `==2`
+  check; safe to re-run. Also requires regenerating GrandArchiveSim's engine code after applying:
+  `php zzGameCodeGenerator.php rootName=GrandArchiveSim`.
 - Migration 11 is idempotent and converges from any starting state (no `discordID` index, a
   non-unique one, or already-unique). It replaces the former standalone
   `Database/discord_oauth_migration.sql`, which lived outside this directory and so was invisible
@@ -85,3 +93,5 @@ Record where each has been applied (date / environment) as they roll out:
 - prod GrandArchiveSim DB: 12 _pending_.
 - `grandarchivesim` local dev DB: 13 applied 2026-09-11.
 - prod GrandArchiveSim DB: 13 _pending_.
+- `grandarchivesim` local dev DB: 14 applied 2026-09-13.
+- prod GrandArchiveSim DB: 14 _pending_.
