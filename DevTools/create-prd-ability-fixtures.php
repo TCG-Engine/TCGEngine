@@ -10319,6 +10319,789 @@ DECK,
     ],
 ];
 
+// --- Anger the Skies: deal 3 (4 with [Class Bonus]) damage to all allies ---
+$fixtures['anger-the-skies-damage-all-allies'] = [
+    'testedCards' => ['wOKw0q4SZR'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Anger the Skies is ARCANE, so the starting champion's Subcards are patched with a real ARCANE
+    // champion (Lorraine, Arclight Saber) to unlock element access. Unconditional base deals 3
+    // damage to all allies both sides (GeneratedMacroCode.php ~22858-22865); the [Class Bonus] bump
+    // to 4 is out of scope. A Dungeon Guide is seeded onto the opponent's field as the only ally
+    // target present.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]], // ARCANE lineage/element unlock
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - damage target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'wOKw0q4SZR'], // Anger the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // The Lorraine, Arclight Saber Subcards patch grants a lineage-inherited "Enlighten"
+        // ability, offered as a fast-action opportunity to both players once reserve is paid
+        // (same side effect as arcane-sight-level-draw) -- both decline.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Arcane Blast: deal 11 damage to target champion ---
+$fixtures['arcane-blast-damage-target-champion'] = [
+    'testedCards' => ['pn9gQjV3Rb'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Arcane Blast is ARCANE, so the starting champion's Subcards are patched with a real ARCANE
+    // champion (Lorraine, Arclight Saber) to unlock element access. Its 11-reserve cost needs more
+    // fuel than a natural 7-card hand provides (same shortfall pattern as disintegrate-destroy,
+    // which needed 2 extra fillers for an 8-reserve cost); 5 extra filler cards are seeded into hand.
+    // Unlike the smaller-reserve-cost ARCANE fixtures in this batch, paying all 11 reserve leaves
+    // only 1 hand card -- too little to afford the Lorraine, Arclight Saber lineage-inherited
+    // "Enlighten" ability, so GetPlayableOpportunityChoices offers nothing and EffectStackOpportunity
+    // auto-resolves with no MZMAYCHOOSE at all (confirmed via direct probe: sending a stray PASS here
+    // instead answers the ability's OWN target-choice MZCHOOSE with "PASS", which ArcaneBlastTarget's
+    // handler treats as a decline and the 11 damage is never dealt) -- so no PASS step is needed
+    // between paying reserve and choosing the damage target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]], // ARCANE lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 1/5
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 2/5
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 3/5
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 4/5
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 5/5
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'pn9gQjV3Rb'], // Arcane Blast, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-12!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
+// --- Arcane Disposition: draw 2 (3 with [Class Bonus]), discard hand at next end phase ---
+$fixtures['arcane-disposition-draw-discard-flag'] = [
+    'testedCards' => ['blq7qXGvWH'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Arcane Disposition is ARCANE, so the starting champion's Subcards are patched with a real
+    // ARCANE champion (Lorraine, Arclight Saber) to unlock element access. Draws 2 (the [Class
+    // Bonus] 3rd draw is out of scope), then sets a delayed-discard flag
+    // (blq7qXGvWH_DISCARD_NEXT_END, GameLogic.php ~10454-10463) that fires at the next end phase --
+    // directly observable via card_exists in myGlobalEffects without needing to reach that end phase.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]], // ARCANE lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'blq7qXGvWH'], // Arcane Disposition, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // The Lorraine, Arclight Saber Subcards patch grants a lineage-inherited "Enlighten"
+        // ability, offered as a fast-action opportunity to both players once reserve is paid
+        // (same side effect as arcane-sight-level-draw) -- both decline.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Arcanist's Prism: at the beginning of recollection phase, wheel memory into deck, draw that many ---
+$fixtures['arcanists-prism-recollection-wheel-draw'] = [
+    'testedCards' => ['dIEAN4J4YS'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Arcanist's Prism is REGALIA -- adding it to 'myHand' via setup gets silently redirected to the
+    // Material zone instead (HandAddReplacement, GameLogic.php ~17282), matching every other REGALIA
+    // item fixture this session -- it must be seeded directly onto myField. Its recollection-phase
+    // trigger (GameLogic.php ~9044-9054, same unconditional per-field-card switch as Berserker
+    // Plate) puts all cards from memory on the bottom of the deck, then draws that many -- a filler
+    // card is seeded into myMemory so the effect has something to wheel. Same P1->P2->P1 cycle as
+    // berserker-plate-recollection-damage-draw to reach player 1's own recollection phase.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'dIEAN4J4YS'], // Arcanist's Prism
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card to wheel into the deck
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Blitz Mage: vanilla stats (3 POWER / 1 LIFE, no ability) ---
+$fixtures['blitz-mage-vanilla-stats'] = [
+    'testedCards' => ['u8m6LuUSSu'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Blitz Mage is FIRE and vanilla (no printed ability). The default starting champion (Spirit of
+    // Fire) is already FIRE, so no lineage/Subcards patch is needed to unlock element access.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'u8m6LuUSSu'], // Blitz Mage, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Careful Study: put five enlighten counters on your champion ---
+$fixtures['careful-study-enlighten-counters'] = [
+    'testedCards' => ['4NkVdSx9ed'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Careful Study is NORM, no lineage patch needed. Its 8-reserve cost needs 1 extra card beyond
+    // a natural 7-card hand (2 extra fillers seeded for margin). The "Efficiency" keyword is a cost
+    // discount (out of scope); the ability itself unconditionally puts 5 enlighten counters on the
+    // champion (GeneratedMacroCode.php ~15634-15640).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 1/2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 2/2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4NkVdSx9ed'], // Careful Study, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-9!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Cremation Ritual: additional cost sacrifice an ally, draw 2 ---
+$fixtures['cremation-ritual-sacrifice-draw'] = [
+    'testedCards' => ['Pr48kXnasw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Cremation Ritual is NORM, no lineage patch needed. A Dungeon Guide is seeded onto the field
+    // as sacrifice fodder for the ability's own MZCHOOSE (GeneratedMacroCode.php ~20677-20684:
+    // choose an ally, CUSTOM handler DoSacrificeFighter then Draw 2).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - sacrifice fodder
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Pr48kXnasw'], // Cremation Ritual, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Dungeon Guide
+    ],
+];
+
+// --- Crystal of Empowerment: Banish -- champion gets +2 level until end of turn ---
+$fixtures['crystal-of-empowerment-banish-level'] = [
+    'testedCards' => ['dmfoA7jOjy'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Crystal of Empowerment is REGALIA -- seeded directly onto myField (hand-add redirect). Its
+    // "until end of turn" TurnEffect is at risk of the same "attempt to pass ends the turn" bug
+    // documented for Beastbond Boots, so Scry the Skies is played first (a same-turn warm-up action)
+    // and the ability is reached via a direct Activate:0 click instead of the pass-trick (same fix
+    // as beastbond-boots-banish-spellshroud). At the default champion level (0), Scry's own Glimpse
+    // LV is an invisible no-op, so no further decision is needed after activating.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'dmfoA7jOjy'], // Crystal of Empowerment
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- a same-turn warm-up action so "attempt to pass" isn't needed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Scry the Skies' 1 reserve
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Endura, Scepter of Ignition: [REST] remove an enlighten counter, deal 1 damage to target unit ---
+$fixtures['endura-scepter-rest-damage'] = [
+    'testedCards' => ['SGsDKB9CN5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Endura is REGALIA -- seeded directly onto myField. Its prereq requires the champion to
+    // already have an enlighten counter (GeneratedMacroCode.php ~6147-6172), patched directly via
+    // Counters. Same Scry-the-Skies warm-up + direct Activate:0 click as crystal-of-empowerment-
+    // banish-level (this ability's own effect isn't "until end of turn", but the same "field item
+    // isn't clickable as the literal first action of a fresh turn via a plain FSM click" constraint
+    // applies, so the same warm-up shape is reused for safety). A Dungeon Guide on the opponent's
+    // field is the damage target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['enlighten' => 1]]], // ability cost fuel
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'SGsDKB9CN5'], // Endura, Scepter of Ignition
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - damage target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- a same-turn warm-up action so "attempt to pass" isn't needed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Scry the Skies' 1 reserve
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Dungeon Guide
+    ],
+];
+
+// --- Flame-Rune Swordsman: [Class Bonus] Floating Memory ---
+$fixtures['flame-rune-swordsman-class-bonus-floating-memory'] = [
+    'testedCards' => ['VV6ADdMrr5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Flame-Rune Swordsman's only ability is [Class Bonus] Floating Memory (its own classes are
+    // MAGE,WARRIOR), same shape as dewdrop-hares-class-bonus-floating-memory: the champion is
+    // patched to Rai, Spellcrafter (level 1, MAGE) so leveling into Rai, Archmage (level 2, MAGE,
+    // 2-memory cost) is legal and the Class Bonus condition (checked on the CURRENT champion at
+    // payment time) is satisfied. Flame-Rune Swordsman pays 1 of the 2 memory via Floating Memory
+    // from the graveyard; the 2nd memory point is a filler card seeded directly into myMemory.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gPKTJKqvOI']], // Rai, Spellcrafter (MAGE, level 1) - Class Bonus precondition + legal level-up base
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'VV6ADdMrr5'], // Flame-Rune Swordsman
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler memory card, 2nd point of Rai, Archmage's 2-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // select Rai, Archmage as the level-up target
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // pay 1 memory via Floating Memory
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // pay the 2nd memory point
+    ],
+];
+
+// --- Impassioned Tutor: On Attack: champion +1 level until end of turn ---
+$fixtures['impassioned-tutor-on-attack-level'] = [
+    'testedCards' => ['MECS7RHRZ8'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Impassioned Tutor is NORM. Same real attack-declaration sequence as ardent-cloudstriker-west-
+    // attack-champion-buff: seeded directly onto the field (bypassing its reserve cost) with Status
+    // patched awake so it can declare an attack immediately. Its On Attack fires as soon as the
+    // attack is declared (AddGlobalEffects "MECS7RHRZ8", GeneratedMacroCode.php ~24673-24677),
+    // before damage resolves.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'MECS7RHRZ8'], // Impassioned Tutor
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline materialize offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Impassioned Tutor
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
+// --- Library Witch: Intercept, On Death: draw a card ---
+$fixtures['library-witch-on-death-draw'] = [
+    'testedCards' => ['iD8qbpA8z5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Library Witch is NORM. Only the unconditional On Death: draw a card is covered here (Intercept
+    // is a shared static ability tested elsewhere, out of scope). Undeniable Truth's mandatory
+    // sacrifice-an-ally additional cost is reused as the kill trigger: choosing the sac target
+    // (GameLogic.php ~3218-3232, UndeniableTruthCost handler) directly sacrifices and queues its
+    // 1-reserve cost -- no YES/NO or Glimpse decision of its own (confirmed via direct probe; the
+    // extra YES/Glimpse steps in caretaker-drone-class-bonus-death-glimpse belong to THAT card's own
+    // On Death "Glimpse 4" effect, not to Undeniable Truth's generic cost flow).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'iD8qbpA8z5'], // Library Witch
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UaUfw7yFTW'], // Undeniable Truth, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Library Witch as the mandatory cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Undeniable Truth's 1-reserve cost
+    ],
+];
+
+// --- Magus Disciple: [Class Bonus] On Death: draw a card ---
+$fixtures['magus-disciple-class-bonus-on-death-draw'] = [
+    'testedCards' => ['pnDhApDNvR'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Magus Disciple's [Class Bonus] On Death is IsClassBonusActive($player) with NO class argument
+    // (degrades to "any champion present," same established finding as caretaker-drone-class-bonus-
+    // death-glimpse and gaias-songbird-class-bonus-enter-reveal-beast), so it fires unconditionally.
+    // Its separate unconditional static "+1 level while on the field" clause (GameLogic.php ~13185,
+    // a continuous computed-level check with no stored counter to assert) is out of scope here.
+    // Same Undeniable Truth sacrifice-kill technique as library-witch-on-death-draw (its cost
+    // handler directly sacrifices and queues its own 1-reserve cost -- no YES/NO or Glimpse step).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'pnDhApDNvR'], // Magus Disciple
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UaUfw7yFTW'], // Undeniable Truth, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Magus Disciple as the mandatory cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Undeniable Truth's 1-reserve cost
+    ],
+];
+
+// --- Mana Limiter: Activate: draw a card ---
+$fixtures['mana-limiter-activate-draw'] = [
+    'testedCards' => ['IC3OU6vCnF'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Mana Limiter is REGALIA -- seeded directly onto myField. Same Scry-the-Skies warm-up + direct
+    // Activate:0 click as crystal-of-empowerment-banish-level (field items aren't reliably
+    // clickable as the literal first action of a fresh turn).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'IC3OU6vCnF'], // Mana Limiter
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- a same-turn warm-up action so "attempt to pass" isn't needed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Scry the Skies' 1 reserve
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Peer into Mana: put 2+LV enlighten counters on your champion ---
+$fixtures['peer-into-mana-enlighten-counters'] = [
+    'testedCards' => ['914hZjxDL0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Peer into Mana is NORM, no lineage patch needed. At the default champion level (0), the
+    // amount is 2 + 0 = 2 enlighten counters (GeneratedMacroCode.php ~16481-16491).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '914hZjxDL0'], // Peer into Mana, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Power Overwhelming: remove X enlighten counters from your champion, it gets +X level until end of turn ---
+$fixtures['power-overwhelming-remove-enlighten-level'] = [
+    'testedCards' => ['AnEPyfFfHj'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Power Overwhelming is ARCANE (reserve cost 0), so the starting champion's Subcards are also
+    // patched with a real ARCANE champion (Lorraine, Arclight Saber) to unlock element access,
+    // alongside 3 enlighten counters so the NUMBERCHOOSE (0 to current enlighten count,
+    // GeneratedMacroCode.php ~16844-16853) has real fuel; 2 is chosen. The resulting TurnEffect key
+    // is dynamically suffixed with the removed amount ("AnEPyfFfHj-2", GameLogic.php ~13084-13087,
+    // +N level per counter removed) and is directly observable in TurnEffects without needing the
+    // indirect Glimpse-LV proof technique.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G'], 'Counters' => ['enlighten' => 3]]], // ARCANE lineage/element unlock + ability cost fuel
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'AnEPyfFfHj'], // Power Overwhelming, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // The Lorraine, Arclight Saber Subcards patch grants a lineage-inherited "Enlighten"
+        // ability, offered as a fast-action opportunity as soon as the card enters the effect
+        // stack (reserve cost 0, so no reserve payment precedes it) -- both players decline.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '2', 'chkInput' => [], 'inputText' => ''], // remove 2 enlighten counters
+    ],
+];
+
+// --- Rai, Archmage: Inherited Effect -- first Mage action card each turn, put an enlighten counter on champion ---
+$fixtures['rai-archmage-inherited-first-mage-action-enlighten'] = [
+    'testedCards' => ['zdIhSL5RhK'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Rai, Archmage's Inherited Effect (GameLogic.php ~5670-5680) checks ChampionHasInLineage,
+    // which reads the champion object's own CardID plus Subcards -- a direct CardID patch is
+    // sufficient (no natural level-up needed). Idle Thoughts (rWhFC8XBaH, NORM, MAGE, reserve 1,
+    // already used in idle-thoughts-glimpse-4 with this exact generic deck/seed) is the first MAGE
+    // ACTION card activated this turn, putting an enlighten counter on the champion and setting the
+    // RAI_ARCHMAGE_TRIGGERED once-per-turn flag.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zdIhSL5RhK']], // become Rai, Archmage
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rWhFC8XBaH'], // Idle Thoughts, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1-reserve cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Rai, Spellcrafter: On Enter: put two enlighten counters on CARDNAME ---
+$fixtures['rai-spellcrafter-on-enter-enlighten'] = [
+    'testedCards' => ['gPKTJKqvOI'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Spellcrafter
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Rai, Spellcrafter is level 1, one level above the default level-0 starting champion, so no
+    // lineage/level patch is needed -- 0+1 is already a legal level-up (same as arisanna-herbalist-
+    // prodigy-on-enter-gather-twice). Champion-swap materialization is only offered through the
+    // material-phase MZMAYCHOOSE at the start of a turn, so both players end their first turn
+    // (P1 -> P2) to reach that prompt; its 1-memory cost is paid from a filler card seeded into
+    // myMemory. Her On Enter puts 2 enlighten counters on herself (GeneratedMacroCode.php
+    // ~11447-11451).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay the 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Rai, Storm Seer: +1 level for each arcane element Mage Spell card in your banishment ---
+$fixtures['rai-storm-seer-level-per-arcane-mage-spell-banished'] = [
+    'testedCards' => ['g92bHLtTNl'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Storm Seer
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Rai, Storm Seer's level bonus (GameLogic.php ~13279-13288) is a continuous computed check
+    // (+1 level per qualifying banished card) with no stored counter to assert directly -- the
+    // champion is patched directly to Rai, Storm Seer (the check reads $obj->CardID literally, not
+    // lineage, so a direct patch is sufficient), and Shock Therapy (tyj2s3572j, an ARCANE MAGE
+    // SPELL action card) is seeded into myBanish. Same indirect Glimpse-LV proof technique as
+    // beastbond-ears-level-while-animal-beast: at the default level 0, Scry the Skies' Glimpse LV
+    // would be an invisible no-op, but with the +1 level bonus active (1 qualifying banished card),
+    // Glimpse LV surfaces a real 1-card MZREARRANGE decision that must be explicitly answered.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'g92bHLtTNl']], // Rai, Storm Seer
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'tyj2s3572j'], // Shock Therapy (ARCANE, MAGE, SPELL)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: this decision only exists because the effective level is 1, not the
+        // default 0 -- proof that Rai, Storm Seer's static bonus is applying.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Surveillance Stone: opponent's 3rd attack each turn, may banish to draw ---
+$fixtures['surveillance-stone-third-attack-banish-draw'] = [
+    'testedCards' => ['kk46Whz7CJ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Surveillance Stone is REGALIA -- seeded directly onto myField (P1's side). Its trigger
+    // (CombatLogic.php ~2742-2751) fires when the OPPONENT's OnAttackCallCount reaches exactly 3
+    // for their turn, offering the owner (P1) a YESNO to banish it and draw. 3 separate Dungeon
+    // Guide allies are seeded onto P2's field (each patched awake) so P2 can declare 3 real attacks
+    // in a single turn, same real attack-declaration sequence (P1 pass, P2 pass, P1 formally ends
+    // turn 1 via the mid-game Pass button, P2 declines their MAT offer) as swift-recruit-intercept-
+    // redirect for reaching P2's own attacking turn.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'kk46Whz7CJ'], // Surveillance Stone
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide attacker 1
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide attacker 2
+        ['player' => 2, 'patchMzId' => 'myField-2', 'setProperties' => ['Status' => 2]],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide attacker 3
+        ['player' => 2, 'patchMzId' => 'myField-3', 'setProperties' => ['Status' => 2]],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P1 declines their own MAT-phase materialize offer
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // P1 formally ends turn 1 (nothing to do)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P2 declines their MAT-phase materialize offer
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // attack 1/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-2!FSM!', 'chkInput' => [], 'inputText' => ''], // attack 2/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-3!FSM!', 'chkInput' => [], 'inputText' => ''], // attack 3/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // P1 banishes Surveillance Stone to draw
+    ],
+];
+
+// --- Tome of Knowledge: Banish -- draw a card ---
+$fixtures['tome-of-knowledge-banish-draw'] = [
+    'testedCards' => ['yDARN8eV6B'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Tome of Knowledge is REGALIA -- seeded directly onto myField. Same Scry-the-Skies warm-up +
+    // direct Activate:0 click as crystal-of-empowerment-banish-level.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'yDARN8eV6B'], // Tome of Knowledge
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- a same-turn warm-up action so "attempt to pass" isn't needed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Scry the Skies' 1 reserve
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Water Resonance Bauble: Banish -- draw a card (if your opponent can access Water) ---
+$fixtures['water-resonance-bauble-banish-draw'] = [
+    'testedCards' => ['dSSRtNnPtw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Water Resonance Bauble is REGALIA -- seeded directly onto myField. Its prereq (IsPlayerElementEnabled)
+    // reads the OPPONENT's own element lineage, so P2's starting champion's Subcards are patched
+    // with a real WATER champion (Spirit of Water), same technique as wind-resonance-bauble-banish-
+    // draw. Same Scry-the-Skies warm-up + direct Activate:0 click as crystal-of-empowerment-banish-
+    // level.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock for P2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'dSSRtNnPtw'], // Water Resonance Bauble
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- a same-turn warm-up action so "attempt to pass" isn't needed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Scry the Skies' 1 reserve
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

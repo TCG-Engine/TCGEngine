@@ -1,0 +1,17 @@
+{
+    "name": "Peer into Mana: put 2+LV enlighten counters on your champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Peer into Mana is NORM, no lineage patch needed. At the default champion level (0), the amount is 2 + 0 = 2 enlighten counters (GeneratedMacroCode.php ~16481-16491).",
+    "testedCards": [
+        "914hZjxDL0"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["914hZjxDL0"],
+        "mechanics": ["draw-discard"],
+        "rulesClauses": [
+            "Put 2+LV enlighten counters on your champion."
+        ]
+    }
+}

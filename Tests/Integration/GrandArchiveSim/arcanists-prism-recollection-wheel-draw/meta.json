@@ -1,0 +1,17 @@
+{
+    "name": "Arcanist's Prism: at the beginning of recollection phase, wheel memory into deck, draw that many",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Arcanist's Prism is REGALIA -- adding it to 'myHand' via setup gets silently redirected to the Material zone instead (HandAddReplacement, GameLogic.php ~17282), matching every other REGALIA item fixture this session -- it must be seeded directly onto myField. Its recollection-phase trigger (GameLogic.php ~9044-9054, same unconditional per-field-card switch as Berserker Plate) puts all cards from memory on the bottom of the deck, then draws that many -- a filler card is seeded into myMemory so the effect has something to wheel. Same P1->P2->P1 cycle as berserker-plate-recollection-damage-draw to reach player 1's own recollection phase. zone_count myMemory=0 (down from 1) confirms the wheel+draw pair fired, since both are unconditional and paired in the same code block.",
+    "testedCards": [
+        "dIEAN4J4YS"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["dIEAN4J4YS"],
+        "mechanics": ["draw-discard", "zone-movement"],
+        "rulesClauses": [
+            "At the beginning of your recollection phase, put all cards from your memory on the bottom of your deck in any order, then draw that many cards."
+        ]
+    }
+}

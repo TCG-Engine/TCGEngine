@@ -1,0 +1,17 @@
+{
+    "name": "Power Overwhelming: remove X enlighten counters from your champion, it gets +X level until end of turn",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Power Overwhelming is ARCANE (reserve cost 0), so the starting champion's Subcards are also patched with a real ARCANE champion (Lorraine, Arclight Saber) to unlock element access, alongside 3 enlighten counters so the NUMBERCHOOSE (0 to current enlighten count, GeneratedMacroCode.php ~16844-16853) has real fuel. With reserve cost 0, the lineage-inherited 'Enlighten' opportunity is offered immediately once the card enters the effect stack (both players decline) before the NUMBERCHOOSE; 2 is chosen. The resulting TurnEffect key is dynamically suffixed with the removed amount ('AnEPyfFfHj-2', GameLogic.php ~13084-13087, +N level per counter removed) and is directly observable in TurnEffects without needing the indirect Glimpse-LV proof technique.",
+    "testedCards": [
+        "AnEPyfFfHj"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["AnEPyfFfHj"],
+        "mechanics": ["counter"],
+        "rulesClauses": [
+            "Remove X enlighten counters from your champion. It gets +X level until end of turn."
+        ]
+    }
+}

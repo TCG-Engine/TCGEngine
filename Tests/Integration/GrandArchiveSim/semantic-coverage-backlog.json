@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T19:01:27+00:00",
+    "generatedAt": "2026-09-14T20:10:43+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 316,
+        "cardsWithExistingFixtures": 338,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2171,
+        "cardsNeedingSemanticCoverage": 2149,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -210,28 +210,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "kk46Whz7CJ",
-            "name": "Surveillance Stone",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -444,27 +422,6 @@
             "priority": 114
         },
         {
-            "cardId": "iD8qbpA8z5",
-            "name": "Library Witch",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "jcaLgesx0e",
             "name": "Lightveil Agent",
             "type": "ALLY",
@@ -500,27 +457,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "IC3OU6vCnF",
-            "name": "Mana Limiter",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -646,26 +582,6 @@
             "priority": 113
         },
         {
-            "cardId": "pn9gQjV3Rb",
-            "name": "Arcane Blast",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "TrK2lroxkz",
             "name": "Buoyant Driftguard",
             "type": "ALLY",
@@ -756,26 +672,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "SGsDKB9CN5",
-            "name": "Endura, Scepter of Ignition",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -880,26 +776,6 @@
             "priority": 113
         },
         {
-            "cardId": "pnDhApDNvR",
-            "name": "Magus Disciple",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "2RKjpzEFV6",
             "name": "Mendcall Mercy",
             "type": "ACTION",
@@ -994,26 +870,6 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "zdIhSL5RhK",
-            "name": "Rai, Archmage",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1178,26 +1034,6 @@
             "priority": 113
         },
         {
-            "cardId": "yDARN8eV6B",
-            "name": "Tome of Knowledge",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "yBDxSHkT1s",
             "name": "Twinstar Tonic",
             "type": "ITEM",
@@ -1269,25 +1105,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "dSSRtNnPtw",
-            "name": "Water Resonance Bauble",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1369,25 +1186,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 113
-        },
-        {
-            "cardId": "dIEAN4J4YS",
-            "name": "Arcanist's Prism",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
         },
         {
             "cardId": "mloejozihs",
@@ -1480,44 +1278,6 @@
             "priority": 112
         },
         {
-            "cardId": "4NkVdSx9ed",
-            "name": "Careful Study",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "Pr48kXnasw",
-            "name": "Cremation Ritual",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "oy34bro89w",
             "name": "Cunning Broker",
             "type": "ALLY",
@@ -1592,24 +1352,6 @@
             "priority": 112
         },
         {
-            "cardId": "VV6ADdMrr5",
-            "name": "Flame-Rune Swordsman",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "szeb8zzj86",
             "name": "Fractal of Mana",
             "type": "PHANTASIA",
@@ -1623,25 +1365,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "MECS7RHRZ8",
-            "name": "Impassioned Tutor",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -1756,25 +1479,6 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "gPKTJKqvOI",
-            "name": "Rai, Spellcrafter",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -2074,60 +1778,6 @@
             "priority": 111
         },
         {
-            "cardId": "wOKw0q4SZR",
-            "name": "Anger the Skies",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "blq7qXGvWH",
-            "name": "Arcane Disposition",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "u8m6LuUSSu",
-            "name": "Blitz Mage",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "QAU8WVUZM0",
             "name": "Celestial Navigation",
             "type": "ACTION",
@@ -2140,24 +1790,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "dmfoA7jOjy",
-            "name": "Crystal of Empowerment",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -2270,24 +1902,6 @@
             "priority": 111
         },
         {
-            "cardId": "914hZjxDL0",
-            "name": "Peer into Mana",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "uDWTjGarSL",
             "name": "Petalfall Embrace",
             "type": "ACTION",
@@ -2300,24 +1914,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "AnEPyfFfHj",
-            "name": "Power Overwhelming",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -2352,24 +1948,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "g92bHLtTNl",
-            "name": "Rai, Storm Seer",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -39204,6 +38782,32 @@
             "priority": 135
         },
         {
+            "cardId": "kk46Whz7CJ",
+            "name": "Surveillance Stone",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "surveillance-stone-third-attack-banish-draw"
+            ],
+            "semanticFixtures": [
+                "surveillance-stone-third-attack-banish-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "vj6vmuuldt",
             "name": "Swerving Spring",
             "type": "ACTION",
@@ -40149,6 +39753,31 @@
             "priority": 134
         },
         {
+            "cardId": "iD8qbpA8z5",
+            "name": "Library Witch",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "library-witch-on-death-draw"
+            ],
+            "semanticFixtures": [
+                "library-witch-on-death-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "1XegCUjBnY",
             "name": "Life Essence Amulet",
             "type": "REGALIA,ITEM",
@@ -40176,6 +39805,31 @@
                 "Rai Starter Deck",
                 "Silvie Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "IC3OU6vCnF",
+            "name": "Mana Limiter",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mana-limiter-activate-draw"
+            ],
+            "semanticFixtures": [
+                "mana-limiter-activate-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
@@ -40769,6 +40423,30 @@
             "priority": 133
         },
         {
+            "cardId": "pn9gQjV3Rb",
+            "name": "Arcane Blast",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "arcane-blast-damage-target-champion"
+            ],
+            "semanticFixtures": [
+                "arcane-blast-damage-target-champion"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "4kpotk5hvr",
             "name": "Ardent Cloudstriker",
             "type": "ALLY",
@@ -41158,6 +40836,30 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "SGsDKB9CN5",
+            "name": "Endura, Scepter of Ignition",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "counter"
+            ],
+            "existingFixtures": [
+                "endura-scepter-rest-damage"
+            ],
+            "semanticFixtures": [
+                "endura-scepter-rest-damage"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -41562,6 +41264,30 @@
             "priority": 133
         },
         {
+            "cardId": "pnDhApDNvR",
+            "name": "Magus Disciple",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "magus-disciple-class-bonus-on-death-draw"
+            ],
+            "semanticFixtures": [
+                "magus-disciple-class-bonus-on-death-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "io7maIjC4u",
             "name": "Memory Invocation",
             "type": "ACTION",
@@ -41814,6 +41540,30 @@
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "zdIhSL5RhK",
+            "name": "Rai, Archmage",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rai-archmage-inherited-first-mage-action-enlighten"
+            ],
+            "semanticFixtures": [
+                "rai-archmage-inherited-first-mage-action-enlighten"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42314,6 +42064,53 @@
             "priority": 133
         },
         {
+            "cardId": "yDARN8eV6B",
+            "name": "Tome of Knowledge",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tome-of-knowledge-banish-draw"
+            ],
+            "semanticFixtures": [
+                "tome-of-knowledge-banish-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "dSSRtNnPtw",
+            "name": "Water Resonance Bauble",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "water-resonance-bauble-banish-draw"
+            ],
+            "semanticFixtures": [
+                "water-resonance-bauble-banish-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "TgYTZg6TaG",
             "name": "Wind Cutter",
             "type": "ATTACK",
@@ -42386,6 +42183,29 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 133
+        },
+        {
+            "cardId": "dIEAN4J4YS",
+            "name": "Arcanist's Prism",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "arcanists-prism-recollection-wheel-draw"
+            ],
+            "semanticFixtures": [
+                "arcanists-prism-recollection-wheel-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
         },
         {
             "cardId": "q3huqj5bba",
@@ -42522,6 +42342,29 @@
             "priority": 132
         },
         {
+            "cardId": "4NkVdSx9ed",
+            "name": "Careful Study",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "careful-study-enlighten-counters"
+            ],
+            "semanticFixtures": [
+                "careful-study-enlighten-counters"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "qj5bbae3z4",
             "name": "Cosmic Astroscope",
             "type": "REGALIA,ITEM",
@@ -42540,6 +42383,29 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "Pr48kXnasw",
+            "name": "Cremation Ritual",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "cremation-ritual-sacrifice-draw"
+            ],
+            "semanticFixtures": [
+                "cremation-ritual-sacrifice-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -42681,6 +42547,28 @@
             "priority": 132
         },
         {
+            "cardId": "VV6ADdMrr5",
+            "name": "Flame-Rune Swordsman",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "flame-rune-swordsman-class-bonus-floating-memory"
+            ],
+            "semanticFixtures": [
+                "flame-rune-swordsman-class-bonus-floating-memory"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "SrBA7h2a1N",
             "name": "Freezing Hail",
             "type": "ACTION",
@@ -42794,6 +42682,29 @@
                 "Arisanna Pantheon Starter",
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "MECS7RHRZ8",
+            "name": "Impassioned Tutor",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "impassioned-tutor-on-attack-level"
+            ],
+            "semanticFixtures": [
+                "impassioned-tutor-on-attack-level"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43107,6 +43018,29 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "gPKTJKqvOI",
+            "name": "Rai, Spellcrafter",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "rai-spellcrafter-on-enter-enlighten"
+            ],
+            "semanticFixtures": [
+                "rai-spellcrafter-on-enter-enlighten"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43712,6 +43646,50 @@
             "priority": 131
         },
         {
+            "cardId": "wOKw0q4SZR",
+            "name": "Anger the Skies",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "anger-the-skies-damage-all-allies"
+            ],
+            "semanticFixtures": [
+                "anger-the-skies-damage-all-allies"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "blq7qXGvWH",
+            "name": "Arcane Disposition",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "arcane-disposition-draw-discard-flag"
+            ],
+            "semanticFixtures": [
+                "arcane-disposition-draw-discard-flag"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "XLrHaYV9VB",
             "name": "Arcane Sight",
             "type": "ACTION",
@@ -43870,6 +43848,28 @@
             "priority": 131
         },
         {
+            "cardId": "u8m6LuUSSu",
+            "name": "Blitz Mage",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "blitz-mage-vanilla-stats"
+            ],
+            "semanticFixtures": [
+                "blitz-mage-vanilla-stats"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "14m4c8ljye",
             "name": "Condensed Supernova",
             "type": "ITEM",
@@ -43908,6 +43908,28 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "dmfoA7jOjy",
+            "name": "Crystal of Empowerment",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "crystal-of-empowerment-banish-level"
+            ],
+            "semanticFixtures": [
+                "crystal-of-empowerment-banish-level"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -44099,6 +44121,72 @@
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "914hZjxDL0",
+            "name": "Peer into Mana",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "peer-into-mana-enlighten-counters"
+            ],
+            "semanticFixtures": [
+                "peer-into-mana-enlighten-counters"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "AnEPyfFfHj",
+            "name": "Power Overwhelming",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter"
+            ],
+            "existingFixtures": [
+                "power-overwhelming-remove-enlighten-level"
+            ],
+            "semanticFixtures": [
+                "power-overwhelming-remove-enlighten-level"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "g92bHLtTNl",
+            "name": "Rai, Storm Seer",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "rai-storm-seer-level-per-arcane-mage-spell-banished"
+            ],
+            "semanticFixtures": [
+                "rai-storm-seer-level-per-arcane-mage-spell-banished"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

@@ -1,0 +1,17 @@
+{
+    "name": "Anger the Skies: deal 3 (4 with Class Bonus) damage to all allies",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Anger the Skies is ARCANE, so the starting champion's Subcards are patched with a real ARCANE champion (Lorraine, Arclight Saber) to unlock element access -- this grants a lineage-inherited 'Enlighten' fast-action ability, offered as an opportunity to both players once reserve is paid (same side effect documented for arcane-sight-level-draw); both decline. Unconditional base deals 3 damage to all allies both sides (GeneratedMacroCode.php ~22858-22865); the [Class Bonus] bump to 4 is out of scope. A Dungeon Guide seeded on the opponent's field takes lethal damage and lands in their graveyard, proving the effect fired.",
+    "testedCards": [
+        "wOKw0q4SZR"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["wOKw0q4SZR"],
+        "mechanics": ["damage"],
+        "rulesClauses": [
+            "Deal 3 damage to all allies."
+        ]
+    }
+}

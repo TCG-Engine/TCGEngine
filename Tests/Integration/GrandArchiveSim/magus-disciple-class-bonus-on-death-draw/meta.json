@@ -1,0 +1,17 @@
+{
+    "name": "Magus Disciple: [Class Bonus] On Death: draw a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Magus Disciple's [Class Bonus] On Death is IsClassBonusActive($player) with NO class argument (degrades to 'any champion present,' same established finding as caretaker-drone-class-bonus-death-glimpse and gaias-songbird-class-bonus-enter-reveal-beast), so it fires unconditionally. Its separate unconditional static '+1 level while on the field' clause (GameLogic.php ~13185, a continuous computed-level check with no stored counter to assert) is out of scope here. Same Undeniable Truth sacrifice-kill technique as library-witch-on-death-draw (its cost handler directly sacrifices and queues its own 1-reserve cost -- no YES/NO or Glimpse step); the champion's preparation counter and Magus Disciple landing in the graveyard together confirm the kill trigger and cost resolved as expected.",
+    "testedCards": [
+        "pnDhApDNvR"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["pnDhApDNvR"],
+        "mechanics": ["draw-discard", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Death: Draw a card."
+        ]
+    }
+}

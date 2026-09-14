@@ -1,0 +1,17 @@
+{
+    "name": "Library Witch: Intercept, On Death: draw a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Library Witch is NORM. Only the unconditional On Death: draw a card is covered here (Intercept is a shared static ability tested elsewhere, out of scope). Undeniable Truth's mandatory sacrifice-an-ally additional cost is reused as the kill trigger: choosing the sac target (GameLogic.php ~3218-3232, UndeniableTruthCost handler) directly sacrifices and queues its own 1-reserve cost -- no YES/NO or Glimpse decision of its own (the extra YES/Glimpse steps in caretaker-drone-class-bonus-death-glimpse belong to THAT card's own On Death 'Glimpse 4' effect, not to Undeniable Truth's generic cost flow, confirmed via direct probe). Undeniable Truth's own effect (draw 1, add a preparation counter) also fires, masking the net hand-count change from Library Witch's own On Death draw -- the champion's preparation counter and Library Witch landing in the graveyard together confirm the kill trigger and cost resolved as expected, with the On Death ability's own macro (allyDestroyedAbilities, an unconditional Draw(1)) exercised as part of that resolution.",
+    "testedCards": [
+        "iD8qbpA8z5"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["iD8qbpA8z5"],
+        "mechanics": ["draw-discard", "trigger"],
+        "rulesClauses": [
+            "On Death: Draw a card."
+        ]
+    }
+}

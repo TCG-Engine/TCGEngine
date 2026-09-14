@@ -1,0 +1,17 @@
+{
+    "name": "Water Resonance Bauble: Banish -- draw a card (if your opponent can access Water)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Water Resonance Bauble is REGALIA -- seeded directly onto myField. Its prereq (IsPlayerElementEnabled) reads the OPPONENT's own element lineage, so P2's starting champion's Subcards are patched with a real WATER champion (Spirit of Water), same technique as wind-resonance-bauble-banish-draw. Same Scry-the-Skies warm-up + direct Activate:0 click as crystal-of-empowerment-banish-level.",
+    "testedCards": [
+        "dSSRtNnPtw"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["dSSRtNnPtw"],
+        "mechanics": ["draw-discard", "zone-movement", "condition"],
+        "rulesClauses": [
+            "[Activate], Banish Water Resonance Bauble: If your opponent's champion can access Water, draw a card."
+        ]
+    }
+}
