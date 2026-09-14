@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T18:51:09+00:00",
+    "generatedAt": "2026-09-14T18:53:28+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 308,
+        "cardsWithExistingFixtures": 310,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2179,
+        "cardsNeedingSemanticCoverage": 2177,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -757,25 +757,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "fxwy3haEXU",
-            "name": "Dewdrop Hares",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2017,24 +1998,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "RfPP8h16Wv",
-            "name": "Silvie, Wilds Whisperer",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -41239,6 +41202,29 @@
             "priority": 133
         },
         {
+            "cardId": "fxwy3haEXU",
+            "name": "Dewdrop Hares",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dewdrop-hares-class-bonus-floating-memory"
+            ],
+            "semanticFixtures": [
+                "dewdrop-hares-class-bonus-floating-memory"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "iow4occyxi",
             "name": "Eminent Commander",
             "type": "ALLY",
@@ -43301,6 +43287,28 @@
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck",
                 "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "RfPP8h16Wv",
+            "name": "Silvie, Wilds Whisperer",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "silvie-wilds-whisperer-on-enter-buff-next-animal-beast"
+            ],
+            "semanticFixtures": [
+                "silvie-wilds-whisperer-on-enter-buff-next-animal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132

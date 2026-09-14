@@ -10033,6 +10033,83 @@ DECK,
     ],
 ];
 
+// --- Silvie, Wilds Whisperer: On Enter: next Animal/Beast ally activated enters with a buff counter ---
+$fixtures['silvie-wilds-whisperer-on-enter-buff-next-animal-beast'] = [
+    'testedCards' => ['RfPP8h16Wv'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Silvie, Wilds Whisperer
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Silvie, Wilds Whisperer is level 1, one level above the default level-0 starting champion, so
+    // no lineage/level patch is needed -- 0+1 is already a legal level-up (same as arisanna-
+    // herbalist-prodigy-on-enter-gather-twice). Champion-swap materialization is only offered
+    // through the material-phase MZMAYCHOOSE at the start of a turn, so both players end their
+    // first turn (P1 -> P2) to reach that prompt; its 1-memory cost is paid from a filler card
+    // seeded into myMemory. Her On Enter sets a "next Animal/Beast ally" flag (AddGlobalEffects);
+    // Gray Wolf (BEAST) is then materialized from hand in the same turn to consume it, entering
+    // with an extra buff counter (GameLogic.php ~8009-8025).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay the 1-memory level-up cost
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Dewdrop Hares: [Class Bonus] Floating Memory ---
+$fixtures['dewdrop-hares-class-bonus-floating-memory'] = [
+    'testedCards' => ['fxwy3haEXU'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Silvie, With the Pack
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Dewdrop Hares' only ability is [Class Bonus] Floating Memory (its own class is TAMER),
+    // same shape as savage-swing-class-bonus-floating-memory: Floating Memory only offers itself
+    // as a payment source for a MEMORY cost (a champion level-up), and patching the champion
+    // directly to the level-2 target would make leveling illegal (level-up requires strictly +1),
+    // so the champion is patched to Silvie, Wilds Whisperer (level 1, TAMER) instead and leveled up
+    // into Silvie, With the Pack (level 2, TAMER, 2-memory cost) -- the Class Bonus condition
+    // checks the CURRENT champion (still TAMER) at payment time, before the level-up completes.
+    // Dewdrop Hares pays 1 of the 2 memory via Floating Memory from the graveyard; the 2nd memory
+    // point is a filler card seeded directly into myMemory.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'RfPP8h16Wv']], // Silvie, Wilds Whisperer (TAMER, level 1) - Class Bonus precondition + legal level-up base
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'fxwy3haEXU'], // Dewdrop Hares
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // filler memory card, 2nd point of Silvie, With the Pack's 2-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // select Silvie, With the Pack as the level-up target
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // pay 1 memory via Floating Memory
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // pay the 2nd memory point
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

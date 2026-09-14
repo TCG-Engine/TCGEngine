@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **308**
+Cards linked to an existing fixture: **310**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2179**
+Implemented cards still needing semantic coverage: **2177**
 
 ## Mechanic groups
 
@@ -62,7 +62,6 @@ Implemented cards still needing semantic coverage: **2179**
 | Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
 | Corhazi Infiltrator (`VAFTR5taNG`) | ALLY | 1 | zone-movement, status, trigger | Zander Pantheon Starter | — |
 | Covert Manipulator (`A1jfgrWpiN`) | ALLY | 1 | targeting, trigger, condition | Zander Pantheon Starter | — |
-| Dewdrop Hares (`fxwy3haEXU`) | ALLY | 1 | cost, zone-movement, condition | Silvie Starter Deck | — |
 | Drawn Blade (`eSAIP7mx9z`) | REGALIA,WEAPON | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
 | Endura, Scepter of Ignition (`SGsDKB9CN5`) | REGALIA,ITEM | 1 | targeting, damage, counter | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Fire Resonance Bauble (`LROrzTmh55`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude) | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2179**
 | Minister of Ceremony (`7gz0j8p4sx`) | ALLY | 1 | targeting, damage, condition | Kongming Pantheon Starter | — |
 | Ornamental Greatsword (`qyQLlDYBlr`) | REGALIA,WEAPON | 1 | targeting, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude) | — |
 | Photic Blade (`NRBO0nVMdl`) | REGALIA,WEAPON | 1 | recover, counter, trigger | Zander Pantheon Starter | — |
+| Piquant Shieldbearer (`Cvvvxlf0hi`) | ALLY | 1 | status, combat, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
