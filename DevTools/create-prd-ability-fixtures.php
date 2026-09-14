@@ -8721,6 +8721,81 @@ DECK,
 // shared input-routing file every other "myField@Activate" fixture in this suite depends on) --
 // left for a dedicated follow-up.
 
+// --- Barter Herbs: sacrifice up to two Herbs, summon that many chosen replacement Herb tokens ---
+$fixtures['barter-herbs-sacrifice-summon'] = [
+    'testedCards' => ['p5af098kmo'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Barter Herbs (NORM, reserve 1) sacrifices up to two Herb-subtype objects, choosing a
+    // replacement Herb token for each one sacrificed (BarterHerbsSacrificeLoop, PotionLogic.php
+    // ~664). Two Blightroot HERB tokens are seeded onto the field to sacrifice; each is replaced
+    // with Manaroot (chosen from the six-option temp-zone menu). Only the base sacrifice/summon
+    // loop is covered; the [Class Bonus] Floating Memory clause is a passive/reusable-elsewhere
+    // property and out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'p5af098kmo'], // Barter Herbs, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1
+        // Decline the ambient opportunity offering the seeded Blightroots' OWN fast Sacrifice
+        // ability (a different mechanic than Barter Herbs' own sacrifice loop below).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Blightroot #1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-1', 'chkInput' => [], 'inputText' => ''], // choose Manaroot as replacement
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Blightroot #2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-1', 'chkInput' => [], 'inputText' => ''], // choose Manaroot as replacement
+    ],
+];
+
+// --- Stream of Consciousness: Draw a card into memory ---
+$fixtures['stream-of-consciousness-draw-into-memory'] = [
+    'testedCards' => ['wa4x7e22tk'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Stream of Consciousness is WATER -- confirmed (via CanPlayerMeetCardElementRequirements /
+    // GetPlayerEnabledElements, GameLogic.php ~19412-19442) that EVERY non-NORM element, not just
+    // the "advanced" ones (NEOS/ASTRA/TERA), requires a lineage unlock; only NORM is free. The
+    // starting champion's Subcards are patched with a real WATER champion (Nico, Rapture's
+    // Embrace) to unlock element access. Base case only: without a CLERIC Class Bonus champion, it
+    // unconditionally draws a card into memory. The [Class Bonus][Memory 4+] Glimpse 3 clause is
+    // out of scope (a separate, richer effect requiring both a class-bonus champion patch and 4
+    // memory cards seeded).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // WATER lineage/element unlock (Nico, Rapture's Embrace)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'wa4x7e22tk'], // Stream of Consciousness, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

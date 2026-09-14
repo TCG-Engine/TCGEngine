@@ -1,0 +1,5 @@
+[
+    {"step":7,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":3,"semantic":true,"label":"champion plus two summoned Herb tokens (two sacrifice/summon cycles)"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"5joh300z2s","semantic":true,"label":"probe replacement herb #1"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-2","property":"CardID","value":"5joh300z2s","semantic":true,"label":"probe replacement herb #2"}
+]
