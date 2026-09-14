@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T01:43:25+00:00",
+    "generatedAt": "2026-09-14T01:45:21+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 276,
+        "cardsWithExistingFixtures": 282,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2212,
+        "cardsNeedingSemanticCoverage": 2206,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -166,28 +166,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "k1l75tlzsm",
-            "name": "Essence of Blizzards",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -849,25 +827,6 @@
             "priority": 113
         },
         {
-            "cardId": "urfp66pv4n",
-            "name": "Caretaker Drone",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "vkL2RFh0yM",
             "name": "Charm of Anticipation",
             "type": "REGALIA,ITEM",
@@ -1081,26 +1040,6 @@
             "priority": 113
         },
         {
-            "cardId": "c08c9htu9a",
-            "name": "Krustallan Distiller",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "qjt0ooffy4",
             "name": "Lunar Seer",
             "type": "ALLY",
@@ -1254,26 +1193,6 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "qtb31x97n2",
-            "name": "Potion of Healing",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "recover"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2454,25 +2373,6 @@
             "priority": 112
         },
         {
-            "cardId": "bae3z4pyx8",
-            "name": "Serum of Wisdom",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "d4z3tj2nu8",
             "name": "Set Ablaze",
             "type": "ACTION",
@@ -2754,24 +2654,6 @@
             "existingFixtures": [],
             "semanticFixtures": [],
             "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "14m4c8ljye",
-            "name": "Condensed Supernova",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
@@ -39533,6 +39415,32 @@
             "priority": 135
         },
         {
+            "cardId": "k1l75tlzsm",
+            "name": "Essence of Blizzards",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "essence-of-blizzards-brew-sacrifice-damage"
+            ],
+            "semanticFixtures": [
+                "essence-of-blizzards-brew-sacrifice-damage"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "1n3gygojwk",
             "name": "Evasive Maneuvers",
             "type": "ACTION",
@@ -41553,6 +41461,29 @@
             "priority": 133
         },
         {
+            "cardId": "urfp66pv4n",
+            "name": "Caretaker Drone",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "caretaker-drone-class-bonus-death-glimpse"
+            ],
+            "semanticFixtures": [
+                "caretaker-drone-class-bonus-death-glimpse"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "LZ8JpWj27h",
             "name": "Clumsy Apprentice",
             "type": "ALLY",
@@ -42021,6 +41952,30 @@
             "priority": 133
         },
         {
+            "cardId": "c08c9htu9a",
+            "name": "Krustallan Distiller",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "krustallan-distiller-class-bonus-brewed-draw"
+            ],
+            "semanticFixtures": [
+                "krustallan-distiller-class-bonus-brewed-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "x9sSpjpP3G",
             "name": "Lorraine, Arclight Saber",
             "type": "CHAMPION",
@@ -42174,6 +42129,30 @@
             ],
             "semanticFixtures": [
                 "potion-infusion-frostbite-rest"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "qtb31x97n2",
+            "name": "Potion of Healing",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "recover"
+            ],
+            "existingFixtures": [
+                "potion-of-healing-brew-sacrifice-recover"
+            ],
+            "semanticFixtures": [
+                "potion-of-healing-brew-sacrifice-recover"
             ],
             "starterDecks": [
                 "Arisanna Starter Deck",
@@ -43321,6 +43300,29 @@
             "priority": 132
         },
         {
+            "cardId": "bae3z4pyx8",
+            "name": "Serum of Wisdom",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "serum-of-wisdom-brew-sacrifice-glimpse-draw"
+            ],
+            "semanticFixtures": [
+                "serum-of-wisdom-brew-sacrifice-glimpse-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "5vettczb14",
             "name": "Shadow's Twin",
             "type": "REGALIA,WEAPON",
@@ -43893,6 +43895,28 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "14m4c8ljye",
+            "name": "Condensed Supernova",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "condensed-supernova-brew-sacrifice-damage-glimpse"
+            ],
+            "semanticFixtures": [
+                "condensed-supernova-brew-sacrifice-damage-glimpse"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
