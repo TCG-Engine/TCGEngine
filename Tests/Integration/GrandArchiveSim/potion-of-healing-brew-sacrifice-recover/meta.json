@@ -1,0 +1,18 @@
+{
+    "name": "Potion of Healing: Brew (Two Herbs); Sacrifice: Recover 5",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Potion of Healing's element is NORM, so no lineage patch is needed. Brewing is an alternate cost (sacrifice two Herb-subtype objects instead of paying reserve); two Blightroot tokens are seeded onto the field to pay it. Sacrifice: Recover 5 is unconditional (no 'if brewed' gate, unlike Distilled Water), so it's testable via a direct follow-up Activate:0 click once the brewed Potion has resolved onto the field and the entering-opportunity window has been declined by both players (same shape as distilled-water-brew-sacrifice-draw's own trailing step). The champion is pre-damaged by 6 so Recover 5 leaves 1 damage remaining, distinguishing 'recovered' from 'already at full life.'",
+    "testedCards": [
+        "qtb31x97n2"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["qtb31x97n2"],
+        "mechanics": ["cost", "recover"],
+        "rulesClauses": [
+            "Brew — Two Herbs (You may sacrifice the listed objects rather than pay this card's reserve cost.)",
+            "Sacrifice Potion of Healing: Recover 5."
+        ]
+    }
+}

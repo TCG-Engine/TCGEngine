@@ -1,0 +1,18 @@
+{
+    "name": "Essence of Blizzards: Brew (Adjuvant + Catalyst); Sacrifice: deal 1 damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Essence of Blizzards' element is WATER, so the starting champion's Subcards are patched with a real WATER champion (Nico, Rapture's Embrace) for element access. Brewing sacrifices one ADJUVANT-subtype and one CATALYST-subtype object instead of paying reserve; Manaroot (ADJUVANT) and Blightroot (CATALYST) are seeded to pay it. Unlike the HERB-count brews, its own self-move-to-graveyard is baked directly into the ability's own CardDQHandlers-style resolution handler (GeneratedMacroCode.php) rather than the generic ActivatedAbilityCost switch, so there's no engine-gap risk here. Only the base 'deal 1 damage' case against an awake target is covered; the 'if rested, deal 1+LV instead' and 'allies enter rested until end of turn' clauses are out of scope.",
+    "testedCards": [
+        "k1l75tlzsm"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["k1l75tlzsm"],
+        "mechanics": ["cost", "targeting", "damage"],
+        "rulesClauses": [
+            "Brew — One Adjuvant, One Catalyst (You may sacrifice the listed objects rather than pay this card's reserve cost.)",
+            "Sacrifice Essence of Blizzards: Deal 1 damage to target unit."
+        ]
+    }
+}

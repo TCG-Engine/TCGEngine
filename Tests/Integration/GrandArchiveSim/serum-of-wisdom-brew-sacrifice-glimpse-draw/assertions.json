@@ -1,0 +1,5 @@
+[
+    {"step":9,"type":"card_exists","zone":"myGraveyard","viewerPlayerID":1,"cardID":"bae3z4pyx8","semantic":true,"label":"Sacrifice moves the brewed Serum of Wisdom to the graveyard"},
+    {"step":9,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":1,"semantic":true,"label":"Sacrifice draws a card into memory after Glimpse 3"},
+    {"step":9,"type":"decision_queue_empty","player":"all"}
+]
