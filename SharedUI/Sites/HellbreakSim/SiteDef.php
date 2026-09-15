@@ -13,7 +13,7 @@
     'headTitle' => 'northbeach.gg — Hellbreak Deck Builder & Simulator',
     'tagline' => 'There’s something in the water.',
     'homeHref' => '/TCGEngine/SharedUI/Sites/HellbreakSim/MainMenu.php',
-    'favicon' => '/TCGEngine/SharedUI/Sites/HellbreakSim/assets/north-beach-buoy-favicon.png',
+    'favicon' => '/TCGEngine/SharedUI/Sites/HellbreakSim/assets/northbeach-icon.png',
     'showBanner' => false,
     'menuOverlay' => true,
     'disclaimerName' => 'northbeach.gg',
@@ -41,6 +41,7 @@
     ['label'=>'Log In','href'=>'/TCGEngine/SharedUI/Sites/HellbreakSim/LoginPage.php?redirect=%2FTCGEngine%2FSharedUI%2FSites%2FHellbreakSim%2FMainMenu.php','visibility'=>'loggedOut'],
   ],
   'navLinks' => [
+    ['kind'=>'icon','icon'=>'discord.svg','href'=>'https://discord.gg/BCr4f5HBxz','title'=>'northbeach.gg Discord'],
     ['kind'=>'icon','icon'=>'github.svg','href'=>'https://github.com/TCG-Engine/TCGEngine','title'=>'View TCGEngine on GitHub'],
   ],
   'profile' => ['sections' => ['welcome'], 'oauthAppLabel' => 'northbeach.gg', 'discordOAuth' => true],

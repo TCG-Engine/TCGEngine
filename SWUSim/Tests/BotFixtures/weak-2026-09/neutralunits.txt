@@ -1,0 +1,35 @@
+# BAD-DECK fixture — All no-aspect units
+# Source: owner-supplied (ninin) — every unit neutral, "generally weaker"
+#   The WEAK set (added 2026-09-15): deliberately poor decks, for the deck-advantage conversion test —
+#   a strong pilot should beat a clearly worse deck nearly every time, and that measure has none of the
+#   field-skew that makes bot-vs-tournament win rates misleading.
+#   ⚠ not Premier legal: HMW base. Never add this set to a strength gate or to the tournament-backed sets.
+# Shape: 51 cards, avg cost 2.94, 51 units (27 at 1-2, 6 at 6+), 0 removal, 0 wipe, 0 events, 0 upgrades
+# Style: aggro
+#   ⚠ auto-derived from deck shape, not reviewed.
+# Flavours: none
+
+Leader
+1 SEC_010
+
+Base
+1 HMW_020
+
+Deck
+3 SEC_262
+3 SEC_259
+3 SEC_263
+3 LAW_262
+3 LAW_259
+3 JTL_258
+3 LAW_258
+3 JTL_257
+3 LOF_256
+3 LAW_257
+3 SEC_260
+3 LAW_263
+3 LOF_257
+3 ASH_259
+3 ASH_260
+3 ASH_261
+3 LOF_254

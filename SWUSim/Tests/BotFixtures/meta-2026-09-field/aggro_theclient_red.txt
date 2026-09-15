@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — The Client, Please Lower Your Blaster - Naval Intelligence HQ
+# Source: melee.gg 438901, #42 of 119 (4-3-0)
+#   https://melee.gg/Decklist/View/f88714df-b89f-430d-9bb5-b4c300d4af44 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: The Client · Red 30HP — 3 entries, 7-9-0 (43.8% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 2.64, 16 cheap units, 0 removal, 0 wipe, 0 units 6+).
+# Flavours: none
+
+Leader
+1 LAW_016
+
+Base
+1 SEC_024
+
+Deck
+3 LOF_179
+3 LAW_075
+3 LOF_183
+2 JTL_189
+2 SEC_186
+2 SEC_163
+3 LAW_211
+3 SEC_215
+3 JTL_221
+3 ASH_144
+2 JTL_242
+2 ASH_222
+3 LAW_202
+2 SEC_179
+2 LAW_217
+3 LOF_215
+2 LOF_139
+2 LOF_140
+2 LAW_077
+2 SEC_176
+1 ASH_199

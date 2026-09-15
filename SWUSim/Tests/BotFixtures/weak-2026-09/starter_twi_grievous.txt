@@ -1,0 +1,49 @@
+# BAD-DECK fixture — Starter deck
+# Source: Twilight of the Republic starter — General Grievous (owner-supplied SET_NNN list)
+#   The WEAK set (added 2026-09-15): deliberately poor decks, for the deck-advantage conversion test —
+#   a strong pilot should beat a clearly worse deck nearly every time, and that measure has none of the
+#   field-skew that makes bot-vs-tournament win rates misleading.
+#   ⚠ NOT Premier legal: a pre-JTL starter deck, built to a low power level. Never add this set to a
+#   strength gate or to the tournament-backed sets.
+# Shape: 50 cards, avg cost 3.06, 32 units (14 at 1-2, 6 at 6+), 0 removal, 0 wipe, 14 events, 4 upgrades
+# Style: normal
+#   ⚠ auto-derived from deck shape, not reviewed.
+# Flavours: none
+
+Leader
+1 TWI_015
+
+Base
+1 TWI_023
+
+Deck
+1 TWI_190
+1 TWI_257
+2 TWI_230
+1 TWI_222
+1 TWI_184
+2 TWI_079
+3 TWI_083
+2 TWI_228
+3 TWI_229
+1 TWI_080
+1 TWI_087
+1 TWI_206
+1 TWI_084
+1 TWI_218
+1 TWI_086
+2 TWI_124
+2 TWI_237
+2 TWI_233
+1 TWI_217
+1 TWI_179
+2 TWI_221
+1 TWI_207
+1 TWI_082
+3 TWI_104
+2 TWI_226
+3 TWI_180
+1 TWI_112
+3 TWI_238
+3 TWI_236
+1 TWI_234

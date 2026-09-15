@@ -1,0 +1,37 @@
+# Real-deck self-play fixture — Wedge Antilles, Leader of Red Squadron - Emperor's Observatory
+# Source: melee.gg 441696, #23 of 25 (1-4-0)
+#   https://melee.gg/Decklist/View/c7127238-acfd-43a5-8316-b4c200f6d2f0 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Wedge Antilles · Yellow 30HP — 2 entries, 2-8-1 (22.7% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 2.71, 23 cheap units, 0 removal, 0 wipe, 0 units 6+).
+# Flavours: none
+
+Leader
+1 JTL_008
+
+Base
+1 ASH_025
+
+Deck
+3 ASH_110
+3 JTL_215
+3 JTL_103
+3 JTL_196
+3 JTL_203
+3 JTL_093
+2 JTL_211
+1 JTL_210
+3 JTL_096
+3 ASH_203
+3 JTL_249
+3 ASH_117
+3 JTL_095
+3 JTL_212
+3 JTL_102
+3 JTL_221
+3 ASH_253
+2 ASH_201
+1 SEC_213
+1 LOF_213

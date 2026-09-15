@@ -1,0 +1,40 @@
+# Real-deck self-play fixture — Obi-Wan Kenobi, Courage Makes Heroes - Vergence Temple
+# Source: melee.gg 443170, #1 of 29 (7-1-0) — the event winner
+#   https://melee.gg/Decklist/View/b76bf9cc-f73c-4297-9cc1-b4c3013345b9 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
+#   Its event was pulled on 2026-09-15, so the placement above is now from our own data.
+# Archetype (owner's label): Midrange go-wide Force deck (the list is on Vergence Temple, a blue base)
+#   Owner, 2026-09-15: the Force comes from Vergence Temple's regroup check (a unit with 4+ remaining HP), not a
+#   Force base — the list runs many high-HP units to satisfy that check. Other Obi-Wan lists run a 28-HP Force base with more Force
+#   units; this is not one of them.
+# Style: normal
+# Flavours: go-wide, force, high-hp
+
+Leader
+1 LOF_008
+
+Base
+1 LOF_019
+
+Deck
+3 LAW_037
+3 ASH_056
+3 LOF_094
+3 ASH_079
+3 ASH_248
+3 LOF_096
+3 SEC_101
+3 LOF_045
+2 SEC_098
+2 SEC_046
+2 LOF_093
+2 ASH_077
+1 LOF_070
+3 ASH_253
+2 ASH_063
+2 LAW_148
+2 LOF_079
+3 ASH_114
+2 LOF_053
+2 LAW_127
+2 LOF_102

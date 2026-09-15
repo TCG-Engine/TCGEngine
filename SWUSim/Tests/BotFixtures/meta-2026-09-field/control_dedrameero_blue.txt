@@ -1,0 +1,43 @@
+# Real-deck self-play fixture — Dedra Meero, Not Wasting Time - Nevarro City, Restored
+# Source: melee.gg 441696, #21 of 25 (1-2-2)
+#   https://melee.gg/Decklist/View/d1159a91-de69-43a4-91fd-b4c000799349 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Dedra Meero · Blue 30HP — 3 entries, 5-9-4 (38.9% match win) across the twenty events
+# Style: control
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from the owner-labelled Blue fixture for this leader.
+# Flavours: none
+
+Leader
+1 SEC_010
+
+Base
+1 ASH_020
+
+Deck
+3 ASH_030
+3 SEC_133
+2 LOF_070
+2 LOF_130
+2 ASH_048
+2 ASH_053
+1 ASH_079
+1 ASH_148
+3 JTL_033
+2 JTL_041
+2 SEC_037
+2 JTL_038
+2 JTL_143
+2 JTL_140
+2 ASH_146
+2 LAW_101
+2 SEC_171
+2 LOF_034
+1 ASH_052
+3 LAW_132
+2 SEC_179
+2 LAW_133
+2 JTL_043
+2 JTL_181
+1 LAW_044
+3 SEC_038

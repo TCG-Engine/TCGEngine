@@ -1,0 +1,36 @@
+# Real-deck self-play fixture — Chewbacca, Hero of Kessel - Alliance Outpost
+# Source: melee.gg 441130, #1 of 28 (6-1-1) — the event winner
+#   https://melee.gg/Decklist/View/d51e0e28-7f86-4c93-9c9f-b4c201455fea — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
+#   Its event was pulled on 2026-09-15, so the placement above is now from our own data.
+# Archetype (owner's label): Hyper aggro: defeats a token on its first turn to create a Credit, to deploy Chewbacca on turn 2 with 3 resources + the Credit
+# Style: aggro
+# Flavours: hyper, credit
+
+Leader
+1 LAW_013
+
+Base
+1 LAW_019
+
+Deck
+3 ASH_031
+3 SEC_148
+3 JTL_245
+3 LOF_061
+2 LAW_113
+1 LAW_191
+1 JTL_049
+3 JTL_147
+3 ASH_153
+3 JTL_151
+3 LOF_047
+3 SEC_163
+3 SEC_179
+3 LAW_202
+3 JTL_076
+2 JTL_174
+1 JTL_175
+3 LAW_129
+2 SEC_069
+2 ASH_182

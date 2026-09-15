@@ -61,6 +61,8 @@ function importHellbreakWorkbook(
 
         $dataAudit['reviewedCardFaces'] = applyReviewedCardFaces($cards, $repoRoot, $warnings);
         $dataAudit['cardFaceReviewQueue'] = applyCardFaceReviewQueue($cards, $repoRoot, $warnings);
+        $linkedByName = linkVariantPrintingsByName($cards, $warnings);
+        $dataAudit['variantPrintings'] = ['linkedByName' => $linkedByName] + applyVariantBaseCards($cards, $warnings);
 
         $target = $repoRoot . DIRECTORY_SEPARATOR . $targetRoot;
         $generated = $target . DIRECTORY_SEPARATOR . 'GeneratedCode';
@@ -70,7 +72,9 @@ function importHellbreakWorkbook(
         if ($extractImages) {
             $imageReport = ['enabled' => true] + importImages($xlsxPath, $import, $rowToCard, $cards, $target, $warnings);
         }
+        $imageReport['borrowedVariantArt'] = inheritVariantImages($cards, $target);
         $imageReport += imageInventory($cards, $target);
+        writeCardBaseMap($generated, buildCardBaseMap($cards));
 
         $payload = [
             'cardArray' => array_values($cards),
@@ -281,6 +285,7 @@ function normalizeRows(array $rows): array
             continue;
         }
         $type = canonicalType($raw['type'] ?? '');
+        $loyaltyMap = loyaltyAspectCounts($raw['loyalty'] ?? '', $raw['aspect'] ?? '', $name, $warnings);
         $collector = trim($raw['collectorNumber'] ?? $raw['id'] ?? '');
         $set = strtoupper(trim($raw['set'] ?? 'DOT'));
         $collectorNumbers = expandCollectorNumbers($collector);
@@ -309,7 +314,8 @@ function normalizeRows(array $rows): array
                 'combat' => integerValue($raw['combat'] ?? ''),
                 'health' => integerValue($raw['health'] ?? ''),
                 'aspect' => normalizeList($raw['aspect'] ?? ''),
-                'loyalty' => integerValue($raw['loyalty'] ?? ''),
+                'loyalty' => loyaltyPipTotal($raw['loyalty'] ?? '', $loyaltyMap),
+                'loyaltyAspects' => encodeLoyaltyAspects($loyaltyMap),
                 'intellectualProperty' => $raw['intellectualProperty'] ?? '',
                 'resources' => normalizeList($raw['resources'] ?? ''),
                 'scheme' => normalizeList($raw['scheme'] ?? ''),
@@ -320,6 +326,7 @@ function normalizeRows(array $rows): array
                 'imageSource' => $raw['imageSource'] ?? '',
                 'imageBackSource' => $raw['imageBackSource'] ?? '',
                 'tokenSource' => $raw['tokenSource'] ?? '',
+                'baseCard' => '',
             ];
             if ($type === '') $warnings[] = "Row {$rowNumber} ({$name}) has no recognized card type.";
             $cards[$id] = $card;
@@ -380,7 +387,19 @@ function applyReviewedCardFaces(array &$cards, string $repoRoot, array &$warning
         throw new RuntimeException('ReviewedCardFaces.json is not valid reviewed card data.');
     }
 
-    $coverage = array_fill_keys(['combat', 'health', 'traits', 'resources', 'scheme', 'text', 'threshold', 'faces'], 0);
+    $coverage = array_fill_keys(['combat', 'health', 'traits', 'resources', 'scheme', 'text', 'threshold', 'faces', 'loyalty'], 0);
+    // Variant printings the workbook lists on their own rows: {"DOT_455": "DOT_167"}.
+    $linkedVariants = 0;
+    foreach ((array)($review['baseCards'] ?? []) as $variantID => $baseID) {
+        $variantID = strtoupper(trim((string)$variantID));
+        $baseID = strtoupper(trim((string)$baseID));
+        if (!isset($cards[$variantID]) || !isset($cards[$baseID])) {
+            $warnings[] = "Reviewed baseCards entry {$variantID} -> {$baseID} names a card that was not imported.";
+            continue;
+        }
+        $cards[$variantID]['baseCard'] = $baseID;
+        ++$linkedVariants;
+    }
     $applied = 0;
     foreach ($review['cards'] as $cardID => $reviewed) {
         if (!isset($cards[$cardID])) {
@@ -413,6 +432,18 @@ function applyReviewedCardFaces(array &$cards, string $repoRoot, array &$warning
             ++$coverage['text'];
         }
         if (array_key_exists('unique', $reviewed)) $cards[$cardID]['unique'] = (bool)$reviewed['unique'];
+        // Card-level {aspect: count}, for loyalty the workbook's single number can't express.
+        // The engine also reads this directly through HellbreakReviewedCard().
+        if (isset($reviewed['loyalty']) && is_array($reviewed['loyalty'])) {
+            $loyaltyMap = [];
+            foreach ($reviewed['loyalty'] as $aspect => $count) {
+                $known = canonicalAspect((string)$aspect);
+                if ($known !== '' && intval($count) > 0) $loyaltyMap[$known] = intval($count);
+            }
+            $cards[$cardID]['loyaltyAspects'] = encodeLoyaltyAspects($loyaltyMap);
+            $cards[$cardID]['loyalty'] = array_sum($loyaltyMap);
+            ++$coverage['loyalty'];
+        }
         $imagePath = $repoRoot . DIRECTORY_SEPARATOR . 'HellbreakSim' . DIRECTORY_SEPARATOR . 'WebpImages' . DIRECTORY_SEPARATOR . $cardID . '.webp';
         $cards[$cardID]['reviewStatus'] = 'reviewed';
         $cards[$cardID]['transcriptionSource'] = 'HellbreakSim/WebpImages/' . $cardID . '.webp';
@@ -424,7 +455,126 @@ function applyReviewedCardFaces(array &$cards, string $repoRoot, array &$warning
         'reviewedAt' => (string)($review['reviewedAt'] ?? ''),
         'method' => (string)($review['method'] ?? ''),
         'fieldCoverage' => $coverage,
+        'linkedVariants' => $linkedVariants,
     ];
+}
+
+// Fields that belong to the CARD, not the printing: a borderless or alt-art printing plays exactly
+// like its base card. Printing details (number, rarity, art sources) stay on the variant.
+// A function, not a const: this file's CLI entry block runs mid-file, before any top-level const
+// below it is defined, while functions are available from the start.
+function hellbreakCardFields(): array
+{
+    return [
+        'type', 'cost', 'combat', 'health', 'aspect', 'loyalty', 'loyaltyAspects', 'resources', 'scheme',
+        'traits', 'text', 'unique', 'threshold', 'faces', 'reviewStatus', 'reviewReason',
+        'transcriptionSource', 'transcriptionImageSha256',
+    ];
+}
+
+// The workbook names a variant printing after its card plus a suffix: "Hypnotic Gaze (Borderless)",
+// "Dracula, Ancient Vampire (Poster)". Links each to the one card carrying the bare name. An "a / b"
+// collector row is NOT a variant pair: it means the number is one of the two (an unrevealed card).
+// Cards already linked (reviewed baseCards) are left alone; a name matching several cards is reported.
+function linkVariantPrintingsByName(array &$cards, array &$warnings): int
+{
+    $suffix = '/\s*\((Borderless|Poster|Alt Art|Alternate Art|Showcase|Blood Foil)\)\s*$/i';
+    $normalize = fn(string $name) => strtolower(trim((string)preg_replace('/\s+/', ' ', $name)));
+    $byName = [];
+    foreach ($cards as $cardID => $card) {
+        // Only base cards can be bases: skip suffixed names and cards already linked as variants.
+        if (preg_match($suffix, (string)$card['name']) || ($card['baseCard'] ?? '') !== '') continue;
+        $byName[$normalize((string)$card['name'])][] = (string)$cardID;
+    }
+    $linked = 0;
+    foreach ($cards as $cardID => $card) {
+        if (($card['baseCard'] ?? '') !== '' || !preg_match($suffix, (string)$card['name'])) continue;
+        $candidates = $byName[$normalize((string)preg_replace($suffix, '', (string)$card['name']))] ?? [];
+        if (count($candidates) === 1) {
+            $cards[$cardID]['baseCard'] = $candidates[0];
+            ++$linked;
+        } elseif (count($candidates) > 1) {
+            $warnings[] = "{$cardID} ({$card['name']}) matches several cards (" . implode(', ', $candidates) . "); add a reviewed baseCards entry.";
+        }
+    }
+    return $linked;
+}
+
+// Resolves every variant to its root base card and copies the base card's gameplay fields onto it,
+// so the dictionary shows the variant correctly and there is one source of truth for the card.
+// A variant whose base was not imported is unlinked and reported rather than pointing nowhere.
+function applyVariantBaseCards(array &$cards, array &$warnings): array
+{
+    $variants = 0;
+    foreach (array_keys($cards) as $cardID) {
+        $baseID = (string)($cards[$cardID]['baseCard'] ?? '');
+        if ($baseID === '') continue;
+        $seen = [$cardID => true];
+        while (($cards[$baseID]['baseCard'] ?? '') !== '' && !isset($seen[$baseID])) {
+            $seen[$baseID] = true;
+            $baseID = (string)$cards[$baseID]['baseCard'];
+        }
+        if (!isset($cards[$baseID]) || isset($seen[$baseID])) {
+            $warnings[] = "{$cardID} is listed as a variant of {$baseID}, which was not imported; it stays a card of its own.";
+            $cards[$cardID]['baseCard'] = '';
+            continue;
+        }
+        if (($cards[$cardID]['reviewStatus'] ?? '') === 'reviewed' && ($cards[$baseID]['reviewStatus'] ?? '') !== 'reviewed') {
+            $warnings[] = "{$cardID} has reviewed data but its base card {$baseID} does not; move the reviewed entry to {$baseID}.";
+        }
+        $cards[$cardID]['baseCard'] = $baseID;
+        foreach (hellbreakCardFields() as $field) {
+            if (array_key_exists($field, $cards[$baseID])) $cards[$cardID][$field] = $cards[$baseID][$field];
+        }
+        ++$variants;
+    }
+    return ['variants' => $variants];
+}
+
+// {variant: base} for every linked variant. Read by Core/CardBaseMap.php (CardEditor, the hosted
+// Card Code Service, deck import) and the MCP server, none of which load the card dictionaries.
+function buildCardBaseMap(array $cards): array
+{
+    $map = [];
+    foreach ($cards as $cardID => $card) {
+        $baseID = (string)($card['baseCard'] ?? '');
+        if ($baseID !== '') $map[(string)$cardID] = $baseID;
+    }
+    ksort($map, SORT_NATURAL);
+    return $map;
+}
+
+function writeCardBaseMap(string $generatedDirectory, array $map): void
+{
+    writeJson($generatedDirectory . DIRECTORY_SEPARATOR . 'CardBaseMap.json', ['version' => 1, 'baseCards' => $map ?: new stdClass()]);
+}
+
+// A base card with no art of its own borrows its first variant's art, so a deck that saved the
+// variant still shows the card after deck import converts it to the base ID. Never overwrites.
+function inheritVariantImages(array $cards, string $target): int
+{
+    $copied = 0;
+    $files = [
+        ['WebpImages', '.webp'],
+        ['concat', '.webp'],
+        ['crops', '_cropped.png'],
+        ['WebpImages', '_back.webp'],
+        ['concat', '_back.webp'],
+    ];
+    $hasArt = fn(string $id) => is_file($target . DIRECTORY_SEPARATOR . 'concat' . DIRECTORY_SEPARATOR . $id . '.webp')
+        && filesize($target . DIRECTORY_SEPARATOR . 'concat' . DIRECTORY_SEPARATOR . $id . '.webp') >= 8000;
+    $borrowed = [];
+    foreach (buildCardBaseMap($cards) as $variantID => $baseID) {
+        if (isset($borrowed[$baseID]) || $hasArt($baseID) || !$hasArt($variantID)) continue;
+        foreach ($files as [$folder, $suffix]) {
+            $from = $target . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . $variantID . $suffix;
+            $to = $target . DIRECTORY_SEPARATOR . $folder . DIRECTORY_SEPARATOR . $baseID . $suffix;
+            if (is_file($from) && !is_file($to)) copy($from, $to);
+        }
+        $borrowed[$baseID] = true;
+        ++$copied;
+    }
+    return $copied;
 }
 
 function applyCardFaceReviewQueue(array &$cards, string $repoRoot, array &$warnings): array
@@ -728,6 +878,59 @@ function expandCollectorNumbers(string $collector): array
 function integerValue(string $value): int
 {
     return preg_match('/-?\d+/', $value, $match) ? (int)$match[0] : 0;
+}
+
+function canonicalAspect(string $value): string
+{
+    // Inline list, not a top-level const: see hellbreakCardFields() for why.
+    foreach (['Cursed', 'Deranged', 'Feral', 'Revenant', 'Void'] as $aspect) {
+        if (strcasecmp(trim($value), $aspect) === 0) return $aspect;
+    }
+    return '';
+}
+
+// Loyalty as {aspect: count}. The rulebook's loyalty is "the small aspect icon(s)" under the cost,
+// so one card can ask for more than one aspect. Reads explicit pairs ("1 Cursed, 1 Feral",
+// "Cursed 1 / Feral 2") or a bare count paired with the aspect column ("2" + "Feral").
+// A bare count with several aspects can't be split reliably: it is flagged for a reviewed
+// loyalty override, and meanwhile every listed aspect requires the full count. Never merge
+// several aspects into one name ("Cursed, Feral"): no vault can supply that, so the card
+// would be silently unplayable.
+function loyaltyAspectCounts(string $loyalty, string $aspect, string $name, array &$warnings): array
+{
+    $counts = [];
+    preg_match_all('/(\d+)\s*([A-Za-z]+)|([A-Za-z]+)\s*(\d+)/', $loyalty, $pairs, PREG_SET_ORDER);
+    foreach ($pairs as $pair) {
+        $known = canonicalAspect($pair[2] !== '' ? $pair[2] : $pair[3]);
+        $count = (int)($pair[1] !== '' ? $pair[1] : $pair[4]);
+        if ($known !== '' && $count > 0) $counts[$known] = ($counts[$known] ?? 0) + $count;
+    }
+    if ($counts) return $counts;
+
+    $count = integerValue($loyalty);
+    if ($count <= 0) return [];
+    $aspects = array_values(array_unique(array_filter(array_map('canonicalAspect', preg_split('/[,;|\/&]+/', $aspect) ?: []))));
+    if (count($aspects) === 1) return [$aspects[0] => $count];
+    if (!$aspects) {
+        $warnings[] = "{$name}: loyalty {$count} has no aspect; add a reviewed loyalty map.";
+        return [];
+    }
+    $warnings[] = "{$name}: loyalty \"{$loyalty}\" with aspects " . implode(', ', $aspects)
+        . " is ambiguous; add a reviewed loyalty map. Until then each aspect requires {$count}.";
+    return array_fill_keys($aspects, $count);
+}
+
+// The searchable/sortable pip total that stays in the numeric `loyalty` column.
+function loyaltyPipTotal(string $loyalty, array $loyaltyMap): int
+{
+    return preg_match('/[A-Za-z]/', $loyalty) ? array_sum($loyaltyMap) : integerValue($loyalty);
+}
+
+// Always an object: '{}' means "no loyalty". A blank value is reserved for dictionaries generated
+// before this column existed, which the engine reads through the old count + aspect path.
+function encodeLoyaltyAspects(array $loyaltyMap): string
+{
+    return json_encode($loyaltyMap ?: new stdClass(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 }
 
 function booleanValue(string $value): bool

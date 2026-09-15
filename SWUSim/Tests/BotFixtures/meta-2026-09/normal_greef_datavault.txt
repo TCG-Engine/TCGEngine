@@ -1,0 +1,40 @@
+# Real-deck self-play fixture — Greef Karga, Gracious Magistrate - Data Vault
+# Source: melee.gg 443438, #5 of 55 (4-1-2)
+#   https://melee.gg/Decklist/View/3b6182f2-52c2-4bfa-95f2-b4c30140724b — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
+#   Its event was pulled on 2026-09-15, so the placement above is now from our own data.
+# Archetype (owner's label): Mixed midrange aggro go-wide
+#   Owner, 2026-09-15: plays on Normal for now (the bots spec's "Greef Karga (any list)" → Aggro predates this list).
+# Style: normal
+# Flavours: go-wide, mixed
+
+Leader
+1 ASH_017
+
+Base
+1 JTL_024
+
+Deck
+3 ASH_110
+3 LAW_219
+3 SEC_098
+3 JTL_103
+3 JTL_203
+3 LAW_067
+3 LAW_223
+3 ASH_208
+2 LAW_228
+2 LOF_100
+1 SEC_101
+3 SEC_204
+3 JTL_096
+3 SEC_199
+3 SEC_215
+3 JTL_095
+3 JTL_221
+3 ASH_222
+3 ASH_253
+2 ASH_207
+2 ASH_201
+2 SEC_233
+1 IBH_052

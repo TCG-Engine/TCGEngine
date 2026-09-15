@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Major Vonreg, Red Baron - Mos Eisley
+# Source: melee.gg 442747, #6 of 71 (5-2-1)
+#   https://melee.gg/Decklist/View/7aa145f2-8fc5-4012-bb45-b4c200e73b8c — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Major Vonreg · Yellow 30HP — 2 entries, 10-4-1 (70.0% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 2.46, 21 cheap units, 2 removal, 0 wipe, 2 units 6+).
+# Flavours: none
+
+Leader
+1 JTL_011
+
+Base
+1 JTL_030
+
+Deck
+3 SEC_186
+2 LAW_173
+2 JTL_142
+2 LOF_130
+2 ASH_220
+3 LAW_189
+3 SEC_215
+3 JTL_223
+3 JTL_137
+2 LAW_211
+2 JTL_158
+2 ASH_223
+2 ASH_141
+2 ASH_222
+2 SEC_163
+3 LAW_202
+3 JTL_179
+2 SEC_179
+2 JTL_175
+3 LOF_139
+2 ASH_228

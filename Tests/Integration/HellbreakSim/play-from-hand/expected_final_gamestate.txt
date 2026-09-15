@@ -1,0 +1,148 @@
+1
+6
+1
+DOT_001 2 LURKING 1 1 1 - -
+1
+DOT_006 2 LURKING 2 2 2 - -
+0
+0
+1
+DOT_049 2 1 1 5 0 - -
+0
+26
+DOT_053
+DOT_028
+DOT_028
+DOT_028
+DOT_027
+DOT_180
+DOT_180
+DOT_152
+DOT_152
+DOT_032
+DOT_034
+DOT_034
+DOT_161
+DOT_161
+DOT_159
+DOT_159
+DOT_159
+DOT_165
+DOT_165
+DOT_039
+DOT_039
+DOT_039
+DOT_040
+DOT_042
+DOT_042
+DOT_044
+26
+DOT_109
+DOT_098
+DOT_098
+DOT_098
+DOT_068
+DOT_068
+DOT_076
+DOT_076
+DOT_076
+DOT_112
+DOT_112
+DOT_119
+DOT_119
+DOT_119
+DOT_080
+DOT_080
+DOT_080
+DOT_104
+DOT_104
+DOT_122
+DOT_122
+DOT_122
+DOT_127
+DOT_127
+DOT_127
+DOT_128
+0
+0
+5
+DOT_052
+DOT_052
+DOT_052
+DOT_151
+DOT_053
+6
+DOT_105
+DOT_105
+DOT_105
+DOT_136
+DOT_109
+DOT_109
+0
+0
+8
+DOT_049 2
+DOT_025 2
+DOT_025 2
+DOT_151 2
+DOT_151 2
+DOT_151 2
+DOT_151 2
+DOT_151 2
+8
+DOT_092 2
+DOT_092 2
+DOT_110 2
+DOT_110 2
+DOT_110 2
+DOT_106 2
+DOT_106 2
+DOT_106 2
+0
+0
+0
+0
+16
+16
+2
+2
+1
+2
+0
+0
+-
+-
+-
+-
+1
+1
+4
+MZMODAL 1|1|Play_Card&Attack&Scheme&Slumber&Pass 0 Choose_your_Horror_action 0
+CUSTOM HellbreakChooseHorrorAction 1  0
+PASSPARAMETER PLAYED 99  0
+SYSTEM Played_AfterAction 99  0
+0
+1
+0:Before Play Card<vname>1<v0>1<v0>2<v0>HORROR<v0>1<v0><v0>0<v0>1<v0>1<v0>0<v0><v0>DOT_016<v2>1<v2>1<v2>1<v2>0<v2>0<v2>3<v2>3<v2>-<v2>-<v1>DOT_020<v2>2<v2>2<v2>2<v2>0<v2>0<v2>3<v2>4<v2>-<v2>-<v0>{"HellbreakAutoSetupPlayers":[2],"HellbreakDeckPreset":"gama-demo","HellbreakFeedingCollectStartedRound":1,"HellbreakPhaseBarrierToken":3,"HellbreakPendingPhaseBarrier":[],"HellbreakCollectedRoundP1":1,"HellbreakLastResourcesP1":{"round":1,"blood":2,"malice":0,"draw":2,"drawn":2,"aspects":{"Cursed":1}},"owner":2,"blood":2,"malice":0,"draw":2,"HellbreakCollectedRoundP2":1,"HellbreakLastResourcesP2":{"round":1,"blood":2,"malice":0,"draw":2,"drawn":2,"aspects":{"Feral":1}},"HellbreakPendingPhaseContinuation":[],"HellbreakBidResolutionRound":1,"HellbreakBidWinner":2,"HellbreakRevealedBids":{"1":{"cardID":null,"cost":0},"2":{"cardID":null,"cost":0}},"cardID":"","bidValue":0,"HellbreakAssignedInitiative":2,"winner":2,"holder":2,"HellbreakHorrorInitializedRound":1,"HellbreakLastHorrorAction":{"sequence":1,"player":2,"type":"PASS"},"HellbreakPublicLog":[{"round":1,"sequence":1,"type":"PASS","message":"Player 2 passed."}],"HellbreakLegalActionsP1":[{"id":"PLAY_CARD","label":"Play_Card","cards":["myHand-0","myHand-1","myHand-2","myHand-3","myHand-5"]},{"id":"ATTACK","label":"Attack","cards":["myMonster-0"]},{"id":"SCHEME","label":"Scheme","cards":["myMonster-0"]},{"id":"SLUMBER","label":"Slumber"},{"id":"PASS","label":"Pass"}]}<v0>{"ResourcesCollectedCalls":{"1":1,"2":1},"InitiativeBidRevealedCalls":{"1":1,"2":1},"InitiativeAssignedCalls":{"2":1}}<v0>{"ResourcesCollectedCalls":{"1":1,"2":1},"InitiativeBidRevealedCalls":{"1":1,"2":1},"InitiativeAssignedCalls":{"2":1}}<v0>DOT_001<v2>2<v2>LURKING<v2>1<v2>1<v2>1<v2>-<v2>-<v0><v0><v0>DOT_053<v1>DOT_028<v1>DOT_028<v1>DOT_028<v1>DOT_027<v1>DOT_180<v1>DOT_180<v1>DOT_152<v1>DOT_152<v1>DOT_032<v1>DOT_034<v1>DOT_034<v1>DOT_161<v1>DOT_161<v1>DOT_159<v1>DOT_159<v1>DOT_159<v1>DOT_165<v1>DOT_165<v1>DOT_039<v1>DOT_039<v1>DOT_039<v1>DOT_040<v1>DOT_042<v1>DOT_042<v1>DOT_044<v0><v0>DOT_052<v1>DOT_052<v1>DOT_052<v1>DOT_049<v1>DOT_151<v1>DOT_053<v0><v0>DOT_049<v2>2<v1>DOT_025<v2>2<v1>DOT_025<v2>2<v1>DOT_151<v2>2<v1>DOT_151<v2>2<v1>DOT_151<v2>2<v1>DOT_151<v2>2<v1>DOT_151<v2>2<v0><v0>MZMODAL<v2>1|1|Play_Card&Attack&Scheme&Slumber&Pass<v2>0<v2>Choose_your_Horror_action<v2>0<v1>CUSTOM<v2>HellbreakChooseHorrorAction<v2>1<v2><v2>0<v0>2<v0>0<v0>16<v0>2<v0>-<v0>-<v0>1<v0>DOT_006<v2>2<v2>LURKING<v2>2<v2>2<v2>2<v2>-<v2>-<v0><v0><v0>DOT_109<v1>DOT_098<v1>DOT_098<v1>DOT_098<v1>DOT_068<v1>DOT_068<v1>DOT_076<v1>DOT_076<v1>DOT_076<v1>DOT_112<v1>DOT_112<v1>DOT_119<v1>DOT_119<v1>DOT_119<v1>DOT_080<v1>DOT_080<v1>DOT_080<v1>DOT_104<v1>DOT_104<v1>DOT_122<v1>DOT_122<v1>DOT_122<v1>DOT_127<v1>DOT_127<v1>DOT_127<v1>DOT_128<v0><v0>DOT_105<v1>DOT_105<v1>DOT_105<v1>DOT_136<v1>DOT_109<v1>DOT_109<v0><v0>DOT_092<v2>2<v1>DOT_092<v2>2<v1>DOT_110<v2>2<v1>DOT_110<v2>2<v1>DOT_110<v2>2<v1>DOT_106<v2>2<v1>DOT_106<v2>2<v1>DOT_106<v2>2<v0><v0><v0>2<v0>0<v0>16<v0>2<v0>-<v0>-<v0>1<v0>0
+0
+2
+DOT_016 1 1 1 0 0 3 3 - -
+DOT_020 2 2 2 0 0 3 4 - -
+1
+1
+2
+1
+HORROR
+
+1
+0
+
+3
+0
+1
+5
+
+{"HellbreakAutoSetupPlayers":[2],"HellbreakDeckPreset":"gama-demo","HellbreakFeedingCollectStartedRound":1,"HellbreakPhaseBarrierToken":3,"HellbreakPendingPhaseBarrier":[],"HellbreakCollectedRoundP1":1,"HellbreakLastResourcesP1":{"round":1,"blood":2,"malice":0,"draw":2,"drawn":2,"aspects":{"Cursed":1}},"owner":2,"blood":2,"malice":0,"draw":2,"HellbreakCollectedRoundP2":1,"HellbreakLastResourcesP2":{"round":1,"blood":2,"malice":0,"draw":2,"drawn":2,"aspects":{"Feral":1}},"HellbreakPendingPhaseContinuation":[],"HellbreakBidResolutionRound":1,"HellbreakBidWinner":2,"HellbreakRevealedBids":{"1":{"cardID":null,"cost":0},"2":{"cardID":null,"cost":0}},"cardID":"","bidValue":0,"HellbreakAssignedInitiative":2,"winner":2,"holder":2,"HellbreakHorrorInitializedRound":1,"HellbreakLastHorrorAction":{"sequence":3,"player":2,"type":"PASS"},"HellbreakPublicLog":[{"round":1,"sequence":1,"type":"PASS","message":"Player 2 passed."},{"round":1,"sequence":2,"type":"PLAY_CARD","message":"Player 1 completed play card."},{"round":1,"sequence":3,"type":"PASS","message":"Player 2 passed."}],"HellbreakLegalActionsP1":[{"id":"PLAY_CARD","label":"Play_Card","cards":["myHand-0","myHand-1","myHand-2"]},{"id":"ATTACK","label":"Attack","cards":["myMonster-0"]},{"id":"SCHEME","label":"Scheme","cards":["myMonster-0"]},{"id":"SLUMBER","label":"Slumber"},{"id":"PASS","label":"Pass"}],"HellbreakPlayedCardsP1R1PHORROR":["DOT_049"],"HellbreakPendingPlayedCardP1":{"cardID":"DOT_049","type":"ASSET","locationSlot":0,"uniqueID":5},"mzID":"myAssets-0","fromZone":"Hand","locationSlot":0,"mzIDCardID":"DOT_049"}
+{"ResourcesCollectedCalls":{"1":1,"2":1},"InitiativeBidRevealedCalls":{"1":1,"2":1},"InitiativeAssignedCalls":{"2":1},"PlayedCalls":{"1":1},"Played":{"1":{"DOT_049":1}}}
+{"ResourcesCollectedCalls":{"1":1,"2":1},"InitiativeBidRevealedCalls":{"1":1,"2":1},"InitiativeAssignedCalls":{"2":1},"PlayedCalls":{"1":1},"Played":{"1":{"DOT_049":1}}}
+0

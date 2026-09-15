@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Darth Vader, Victor Squadron Leader - Canto Bight
+# Source: melee.gg 441130, #9 of 28 (3-2-0)
+#   https://melee.gg/Decklist/View/11910ed6-a5af-48b4-b0b6-b4c101383071 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Darth Vader · Yellow Splash — 5 entries, 8-16-0 (33.3% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from the owner-labelled Yellow fixture for this leader.
+# Flavours: none
+
+Leader
+1 JTL_006
+
+Base
+1 LAW_028
+
+Deck
+3 SEC_082
+3 SEC_186
+2 JTL_189
+2 ASH_220
+1 ASH_224
+3 LAW_211
+3 SEC_215
+3 JTL_081
+3 SEC_189
+3 LAW_135
+3 JTL_085
+2 SEC_213
+2 JTL_115
+2 JTL_217
+2 ASH_194
+3 LAW_217
+3 LAW_246
+3 JTL_106
+1 SEC_195
+1 SEC_233
+2 LOF_091

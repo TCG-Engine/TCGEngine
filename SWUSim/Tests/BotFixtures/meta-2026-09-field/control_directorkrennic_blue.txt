@@ -1,0 +1,39 @@
+# Real-deck self-play fixture — Director Krennic, Amidst My Achievement - Fortress of the Great Mothers
+# Source: melee.gg 438966, #1 of 72 (8-0-2)
+#   https://melee.gg/Decklist/View/5681125d-f7a1-4c75-87ca-b4bc0160f8a6 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Director Krennic · Blue 30HP — 112 entries, 351-290-73 (54.3% match win) across the twenty events
+# Style: control
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from the owner-labelled Blue fixture for this leader.
+# Flavours: none
+
+Leader
+1 LAW_008
+
+Base
+1 ASH_019
+
+Deck
+3 ASH_116
+3 JTL_032
+3 LAW_159
+3 ASH_079
+3 LAW_039
+3 ASH_097
+3 LOF_059
+3 ASH_053
+2 SEC_087
+2 ASH_048
+2 LAW_097
+2 ASH_133
+1 SEC_111
+3 ASH_052
+2 LAW_101
+2 JTL_033
+1 SEC_088
+1 ASH_102
+3 JTL_043
+1 SEC_078
+3 LOF_091
+1 SEC_038

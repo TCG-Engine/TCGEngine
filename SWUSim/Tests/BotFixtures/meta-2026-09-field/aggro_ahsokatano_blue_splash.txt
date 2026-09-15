@@ -1,0 +1,37 @@
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Daimyo's Palace
+# Source: melee.gg 442276, #5 of 27 (4-1-1)
+#   https://melee.gg/Decklist/View/212873e4-6b15-4ba7-a728-b4c400c1d893 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Ahsoka Tano · Blue Splash — 5 entries, 12-15-1 (44.6% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from the owner-labelled Blue fixture for this leader.
+# Flavours: none
+
+Leader
+1 ASH_009
+
+Base
+1 LAW_020
+
+Deck
+3 SEC_046
+3 LOF_093
+3 LAW_037
+3 SEC_111
+3 LAW_089
+3 ASH_079
+3 LAW_039
+3 LAW_038
+3 ASH_248
+3 SEC_101
+3 ASH_062
+2 ASH_056
+2 LOF_096
+2 ASH_077
+1 ASH_255
+3 SEC_099
+3 JTL_250
+2 LAW_041
+1 LAW_127
+1 SEC_256

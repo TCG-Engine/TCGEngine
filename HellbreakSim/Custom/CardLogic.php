@@ -135,6 +135,10 @@ function HellbreakObjectKeywordValue($object, string $keyword, int $defaultValue
     $value = preg_match($pattern, $text, $matches)
         ? (isset($matches[1]) && $matches[1] !== '' ? max(0, intval($matches[1])) : max(0, $defaultValue))
         : 0;
+    if(function_exists('HellbreakTurnEffectGrantsKeyword')) {
+        // A temporarily granted keyword counts as having it; take the larger value.
+        $value = max($value, HellbreakTurnEffectGrantsKeyword($object, $keyword));
+    }
     if(function_exists('HellbreakApplyValueModifiers')) {
         $player = intval($object->Controller ?? $object->Owner ?? 0);
         $value = HellbreakApplyValueModifiers('KeywordModifier', $player, $object, $value, [$keyword]);
@@ -149,6 +153,7 @@ function HellbreakObjectHasKeyword($object, string $keyword): bool {
 function HellbreakObjectHasTrait($object, string $trait, int $player = 0): bool {
     if(!is_object($object)) return false;
     if(HellbreakCardHasTrait(strval($object->CardID ?? ''), $trait)) return true;
+    if(function_exists('HellbreakTurnEffectGrantsTrait') && HellbreakTurnEffectGrantsTrait($object, $trait)) return true;
     if(!function_exists('HellbreakApplyValueModifiers')) return false;
     if(!in_array($player, [1, 2], true)) {
         $player = intval($object->Controller ?? $object->Owner ?? 0);
@@ -464,6 +469,9 @@ function HellbreakOnMinionKilled($player, $cardID, $owner, $locationSlot, $sourc
 
 function HellbreakMinionKilledHook(int $owner, $object, string $sourceMZ = ''): void {
     if(!is_object($object)) return;
+    // Before any MinionKilled listener runs, so observers see a board with the host's attachments
+    // already gone rather than pointing at a UniqueID that has left play.
+    if(function_exists('HellbreakDetachAssetsFromHost')) HellbreakDetachAssetsFromHost($object);
     $eventPlayer = $owner;
     if($sourceMZ !== '') {
         $source = GetZoneObject($sourceMZ);
@@ -617,10 +625,203 @@ function HellbreakOnRoundEnded($player, $round): string {
 }
 
 function HellbreakRoundEndedHook(int $round): void {
+    // Round and phase effects both go stale here; the sweep drops whatever its window has closed on.
+    if(function_exists('HellbreakExpireTurnEffects')) HellbreakExpireTurnEffects();
     foreach([1, 2] as $player) {
         if(function_exists('RoundEnded')) RoundEnded($player, $round);
         else HellbreakOnRoundEnded($player, $round);
     }
+}
+
+// ---------------------------------------------------------------------------
+// Attachments — "Attach to a character / minion / location" (rulebook p.5, Assets)
+//
+// An attached asset STAYS in its owner's Assets zone; the link is its AttachedTo field, holding the
+// host's UniqueID (0 = unattached, so the assets that never attach are untouched). The rulebook puts
+// assets in the play area and says one attached to your monster "should be played with your other
+// assets", so there is no separate zone to move it to.
+//
+// Pool vocabulary, straight from the glossary: a "character" is any MINION or MONSTER. "Allied" and
+// "enemy" are defined terms the set uses when it means them, so a pool with NEITHER qualifier spans
+// BOTH seats — restrict a pool only where the card prints a restriction. All ten DOT attach cards
+// are unqualified; they differ only in pool (character ×8, minion ×1, location ×1).
+// ---------------------------------------------------------------------------
+
+function HellbreakAttachTargets(int $viewer, string $pool = 'CHARACTER'): array {
+    $pool = strtoupper(trim($pool));
+    $targets = [];
+    if($pool === 'LOCATION') {
+        foreach(HellbreakLiveZoneObjects(GetLocations()) as $index => $location) {
+            $targets[] = 'Locations-' . $index;
+        }
+        return $targets;
+    }
+    foreach([1, 2] as $zonePlayer) {
+        $prefix = $zonePlayer === $viewer ? 'my' : 'their';
+        foreach(HellbreakLiveZoneObjects(GetCharacters($zonePlayer)) as $index => $character) {
+            $targets[] = $prefix . 'Characters-' . $index;
+        }
+        // A monster is a character but not a minion, so it joins only the wider pool.
+        if($pool === 'CHARACTER') {
+            foreach(HellbreakLiveZoneObjects(GetMonster($zonePlayer)) as $index => $monster) {
+                $targets[] = $prefix . 'Monster-' . $index;
+            }
+        }
+    }
+    return $targets;
+}
+
+function HellbreakFindAssetByUniqueID(int $uniqueID) {
+    if($uniqueID <= 0) return null;
+    foreach([1, 2] as $owner) {
+        foreach(HellbreakLiveZoneObjects(GetAssets($owner)) as $asset) {
+            if(intval($asset->UniqueID ?? 0) === $uniqueID) return $asset;
+        }
+    }
+    return null;
+}
+
+function HellbreakAttachHostUniqueID(int $viewer, string $hostMZ): int {
+    $hostMZ = trim($hostMZ);
+    if(preg_match('/^Locations-(\d+)$/', $hostMZ, $matches)) {
+        $live = HellbreakLiveZoneObjects(GetLocations());
+        $index = intval($matches[1]);
+        return isset($live[$index]) ? intval($live[$index]->UniqueID ?? 0) : 0;
+    }
+    $ref = HellbreakBattlefieldRef($viewer, $hostMZ);
+    return $ref === null ? 0 : intval($ref['uniqueID'] ?? 0);
+}
+
+// Queue the host choice. Called from a card's Played macro; the asset is addressed by UniqueID
+// rather than mzID because the answer arrives in a later request, where an index may have shifted.
+function HellbreakBeginAttach(int $player, string $assetMZ, string $pool = 'CHARACTER'): bool {
+    $asset = GetZoneObject($assetMZ);
+    if(!is_object($asset) || intval($asset->UniqueID ?? 0) <= 0) return false;
+    $targets = HellbreakAttachTargets($player, $pool);
+    // Unreachable for the CHARACTER pool — both players always have a monster in play, and a monster
+    // leaving play ends the game — but a narrower pool can legitimately be empty.
+    if(count($targets) === 0) return false;
+    DecisionQueueController::StoreVariable('HellbreakPendingAttachP' . $player, [
+        'assetUniqueID' => intval($asset->UniqueID),
+        'pool' => strtoupper(trim($pool)),
+    ]);
+    DecisionQueueController::AddDecision($player, 'MZCHOOSE', implode('&', $targets), 1, 'Choose_a_card_to_attach_to');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'HellbreakResolveAttach', 1);
+    return true;
+}
+
+function HellbreakResolveAttach(int $player, string $hostMZ): bool {
+    $pending = DecisionQueueController::GetVariable('HellbreakPendingAttachP' . $player);
+    if(!is_array($pending)) return false;
+    DecisionQueueController::StoreVariable('HellbreakPendingAttachP' . $player, null);
+    $asset = HellbreakFindAssetByUniqueID(intval($pending['assetUniqueID'] ?? 0));
+    if(!is_object($asset)) return false;
+    $hostUniqueID = HellbreakAttachHostUniqueID($player, $hostMZ);
+    if($hostUniqueID <= 0) return false;
+    $asset->AttachedTo = $hostUniqueID;
+    return true;
+}
+
+$customDQHandlers['HellbreakResolveAttach'] = function($player, $params, $lastDecision) {
+    HellbreakResolveAttach(intval($player), strval($lastDecision));
+};
+
+// THE predicate every attach card's value modifiers gate on: is $subjectObj the host of $assetObj?
+function HellbreakAssetIsAttachedTo($assetObj, $subjectObj): bool {
+    if(!is_object($assetObj) || !is_object($subjectObj)) return false;
+    $host = intval($assetObj->AttachedTo ?? 0);
+    if($host <= 0) return false;
+    return $host === intval($subjectObj->UniqueID ?? 0);
+}
+
+function HellbreakAttachedHostObject($assetObj) {
+    if(!is_object($assetObj)) return null;
+    $host = intval($assetObj->AttachedTo ?? 0);
+    if($host <= 0) return null;
+    foreach([1, 2] as $zonePlayer) {
+        foreach([GetMonster($zonePlayer), GetCharacters($zonePlayer)] as $zone) {
+            foreach(HellbreakLiveZoneObjects($zone) as $obj) {
+                if(intval($obj->UniqueID ?? 0) === $host) return $obj;
+            }
+        }
+    }
+    foreach(HellbreakLiveZoneObjects(GetLocations()) as $obj) {
+        if(intval($obj->UniqueID ?? 0) === $host) return $obj;
+    }
+    return null;
+}
+
+// USER RULING 2026-09-16: the rulebook does not say what becomes of an attachment when its host is
+// killed, so we follow p.5's "attached cards are at the location of the attached card" — with no
+// host it has no location — and send it to its owner's crypt.
+function HellbreakDetachAssetsFromHost($hostObj): int {
+    if(!is_object($hostObj)) return 0;
+    $hostUniqueID = intval($hostObj->UniqueID ?? 0);
+    if($hostUniqueID <= 0) return 0;
+    $detached = 0;
+    foreach([1, 2] as $owner) {
+        $assets = &GetAssets($owner);
+        // Collect first: splicing inside the loop shifts every later index underneath us, so a host
+        // carrying two attachments would strand the second one.
+        $doomed = [];
+        foreach($assets as $asset) {
+            if(!is_object($asset) || (isset($asset->removed) && $asset->removed)) continue;
+            if(intval($asset->AttachedTo ?? 0) === $hostUniqueID) $doomed[] = $asset;
+        }
+        foreach($doomed as $asset) {
+            $assetOwner = intval($asset->Owner ?? 0) ?: $owner;
+            foreach($assets as $index => $candidate) {
+                if($candidate !== $asset) continue;
+                array_splice($assets, $index, 1);
+                break;
+            }
+            HellbreakReindexZone($assets);
+            AddCrypt($assetOwner, $asset->CardID, 'Assets', intval(GetTurnNumber()), true, $asset);
+            ++$detached;
+        }
+        unset($assets);
+    }
+    return $detached;
+}
+
+/**
+ * Discard the top card of a deck to its owner's crypt, and report what it was.
+ *
+ * "Discard 1 card from a deck" is a shared shape across the set (Marishka, the Death Angel Action,
+ * Oxygen Tank, Bloodhound, Tree of the Dead, Daredevil, Amplify Feedback), so the move lives here
+ * and each card decides what to do with the discarded CardID.
+ *
+ * Returns '' when the deck is empty — the caller decides whether that matters. Note a discard is NOT
+ * a failed draw: no monster damage is dealt.
+ */
+function HellbreakDiscardTopOfDeck(int $player): string
+{
+    $deck = &GetDeck($player);
+    HellbreakReindexZone($deck);
+    if(count($deck) === 0) return '';
+    $card = array_shift($deck);
+    HellbreakReindexZone($deck);
+    $cardID = strval($card->CardID ?? '');
+    AddCrypt($player, $cardID, 'Deck', intval(GetTurnNumber()), true, $card);
+    return $cardID;
+}
+
+/**
+ * Add a card's printed resource icons to a player's pools.
+ *
+ * "Collect its resource icons" means the blood and malice on the card's resource bar; the draw icons
+ * draw cards. The aspect icons are a vault-only concept and are not collected here.
+ */
+function HellbreakCollectCardResourceIcons(int $player, string $cardID): array
+{
+    $resources = HellbreakCardResources($cardID);
+    $blood = max(0, intval($resources['blood'] ?? 0));
+    $malice = max(0, intval($resources['malice'] ?? 0));
+    $draw = max(0, intval($resources['draw'] ?? 0));
+    if($blood > 0) HellbreakGainBlood($player, $blood);
+    if($malice > 0) HellbreakGainMalice($player, $malice);
+    if($draw > 0) HellbreakDrawCards($player, $draw);
+    return ['blood' => $blood, 'malice' => $malice, 'draw' => $draw];
 }
 
 function HellbreakActiveMacroSourceObjects(): array {

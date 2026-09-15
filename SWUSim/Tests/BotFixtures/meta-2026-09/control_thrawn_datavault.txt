@@ -1,0 +1,39 @@
+# Real-deck self-play fixture — Grand Admiral Thrawn, ...How Unfortunate - Data Vault
+# Source: melee.gg 437625, #4 of 72 (6-2-1)
+#   https://melee.gg/Decklist/View/1d2bfab1-a4c1-42bc-88b5-b4c300d6204d — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
+#   Its event was pulled on 2026-09-15, so the placement above is now from our own data.
+# Archetype (owner's label): Midrange control / soft control: tries to outlast and drop big units as bombs
+# Style: control
+# Flavours: bombs
+
+Leader
+1 JTL_002
+
+Base
+1 JTL_024
+
+Deck
+3 ASH_116
+3 ASH_027
+3 ASH_048
+3 LAW_039
+3 ASH_097
+3 LOF_059
+3 ASH_053
+3 ASH_045
+2 LAW_097
+2 ASH_050
+2 ASH_133
+1 ASH_243
+3 ASH_052
+3 JTL_063
+3 JTL_033
+1 LAW_099
+3 SEC_078
+3 ASH_103
+3 JTL_043
+3 LAW_132
+2 LAW_133
+2 LAW_044
+3 LOF_091

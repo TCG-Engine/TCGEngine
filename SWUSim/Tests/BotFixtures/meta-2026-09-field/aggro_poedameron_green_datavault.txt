@@ -1,0 +1,43 @@
+# Real-deck self-play fixture — Poe Dameron, I Can Fly Anything - Data Vault
+# Source: melee.gg 453090, #6 of 41 (4-2-1)
+#   https://melee.gg/Decklist/View/887d3a88-9b4b-443e-a02f-b4c2010f997d — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Poe Dameron · Green Data Vault — 3 entries, 10-9-1 (52.5% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 3.05, 18 cheap units, 2 removal, 0 wipe, 3 units 6+).
+# Flavours: none
+
+Leader
+1 JTL_013
+
+Base
+1 JTL_024
+
+Deck
+3 ASH_110
+3 SEC_098
+3 JTL_103
+3 SEC_148
+2 SEC_111
+2 SEC_094
+1 SEC_101
+3 JTL_147
+3 JTL_096
+3 LAW_183
+3 JTL_095
+3 JTL_104
+3 JTL_151
+3 ASH_109
+2 ASH_153
+1 JTL_158
+1 LOF_147
+2 SEC_163
+3 JTL_155
+2 SEC_179
+2 JTL_125
+2 LAW_205
+2 JTL_174
+1 JTL_126
+2 SEC_176
+2 ASH_135

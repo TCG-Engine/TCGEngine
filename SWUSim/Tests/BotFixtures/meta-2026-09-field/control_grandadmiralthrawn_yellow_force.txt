@@ -1,0 +1,37 @@
+# Real-deck self-play fixture — Grand Admiral Thrawn, ...How Unfortunate - The Holy City
+# Source: melee.gg 437625, #9 of 72 (5-2-0)
+#   https://melee.gg/Decklist/View/b89d38bc-9d1d-4689-a8ae-b4c30161084a — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Grand Admiral Thrawn · Yellow Force — 2 entries, 6-7-0 (46.2% match win) across the twenty events
+# Style: control
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from the owner-labelled Yellow fixture for this leader.
+# Flavours: none
+
+Leader
+1 JTL_002
+
+Base
+1 LOF_030
+
+Deck
+3 LOF_231
+3 JTL_032
+3 LOF_031
+3 LOF_059
+3 LOF_057
+3 LOF_183
+3 LOF_035
+2 LOF_070
+2 LOF_037
+2 ASH_050
+2 LOF_036
+2 ASH_053
+2 LAW_086
+3 ASH_052
+3 JTL_033
+3 LOF_213
+2 JTL_039
+3 JTL_043
+2 ASH_247
+2 LOF_220

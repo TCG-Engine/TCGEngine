@@ -159,3 +159,4 @@ function SWUBotWeights(string $style, int $seat): array {
     foreach ($T as $k => $v) $out[$k] = $v[$col];
     return $out;
 }
+

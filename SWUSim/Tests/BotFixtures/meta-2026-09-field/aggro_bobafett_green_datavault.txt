@@ -1,0 +1,43 @@
+# Real-deck self-play fixture — Boba Fett, Any Methods Necessary - Data Vault
+# Source: melee.gg 437625, #14 of 72 (5-2-0)
+#   https://melee.gg/Decklist/View/b09c69b0-4c2f-4f89-98af-b4c3014a27b1 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Boba Fett · Green Data Vault — 4 entries, 16-10-0 (61.5% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from this leader's owner-labelled fixture (a different base colour).
+# Flavours: none
+
+Leader
+1 JTL_009
+
+Base
+1 JTL_024
+
+Deck
+3 LAW_174
+3 JTL_133
+3 SEC_172
+3 LOF_130
+2 LAW_057
+2 LAW_173
+2 ASH_148
+2 SEC_133
+2 SEC_168
+1 LAW_191
+1 SEC_082
+3 JTL_143
+3 JTL_162
+3 JTL_240
+3 JTL_140
+3 SEC_171
+3 JTL_237
+2 LAW_189
+2 ASH_146
+2 JTL_242
+3 SEC_183
+2 LAW_208
+2 JTL_175
+1 JTL_181
+3 LOF_091
+1 SEC_176

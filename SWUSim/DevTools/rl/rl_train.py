@@ -17,6 +17,8 @@ from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rl_merge import merge_batch
+from rl_ab import merge_batch_ab, significant_ab
+from collections import Counter
 
 ROOT = '/var/www/html/TCGEngine'
 FIXTURES = 'SWUSim/Tests/BotFixtures/meta-2026-09'
@@ -108,15 +110,27 @@ def main():
     ap.add_argument('--epsilon', type=float, default=0.1)
     ap.add_argument('--timeout', type=int, default=150)
     ap.add_argument('--snapshot-every', type=int, default=20)
+    ap.add_argument('--decks', default='', help='space-separated fixture names to train on (default: every fixture) — '
+                                                'leave some out to keep a held-out set for evaluation')
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
     epdir = os.path.join(a.out, 'ep'); os.makedirs(epdir, exist_ok=True)
     ckpt = os.path.join(a.out, 'checkpoint.json')
-    state = {'version': 'swu-v1', 'batches': 0, 'games': 0, 'table': {}}
+    # swu-v2: 'ab' is the randomised comparison (rl_ab.py) that decides overrides; 'table' (the plain Monte Carlo means)
+    # is kept for diagnostics only — RL run 3 showed it is biased by the heuristic's own choices.
+    state = {'version': 'swu-v2', 'batches': 0, 'games': 0, 'table': {}, 'ab': {}}
     if os.path.exists(ckpt):
         with open(ckpt) as fh:
             state = json.load(fh)
+        if 'ab' not in state:
+            sys.exit(f'[rl] {ckpt} is a swu-v1 checkpoint: its games did not record how each move was chosen, so the '
+                     'randomised comparison cannot use them. Start a new --out directory.')
     decks = deck_styles()
+    if a.decks.split():
+        unknown = sorted(set(a.decks.split()) - set(decks))
+        if unknown:
+            sys.exit(f'[rl] unknown fixture(s): {" ".join(unknown)}')
+        decks = {d: s for d, s in decks.items() if d in a.decks.split()}
     deadline = time.time() + a.hours * 3600
     log = open(os.path.join(a.out, 'train.log'), 'a')
     print(f'[rl] {len(decks)} decks, resume at batch {state["batches"]}, {a.workers} workers, {a.batch} games/batch', flush=True)
@@ -131,11 +145,12 @@ def main():
                 frozen[s] = ''   # SWURlPolicy() returns an empty table without reading anything
                 continue
             frozen[s] = os.path.join(a.out, f'policy_frozen_{s}.json')
-            write_json_atomic(frozen[s], {'version': 'swu-v1', 'table': {s: state['table'].get(s, {})}})
+            write_json_atomic(frozen[s], {'version': 'swu-v2', 'ab': {s: state['ab'].get(s, {})}})
         jobs = make_jobs(b, a.batch, decks, random.Random(f'rl-{b}'))
         with ThreadPoolExecutor(max_workers=a.workers) as pool:
             results = list(pool.map(lambda j: run_job(j, frozen[j['learnerStyle']], epdir, a.epsilon, a.timeout), jobs))
         stats = merge_batch(state['table'], results)
+        ab_stats = merge_batch_ab(state['ab'], results)
         state['batches'] = b
         state['games'] += stats['games']
         write_json_atomic(ckpt, state)
@@ -148,6 +163,8 @@ def main():
                 'median_rounds': {p: statistics.median(r) for p, r in sorted(stats['rounds'].items())},
                 'decisions_per_game': round(stats['decisions'] / max(1, stats['games']), 1),
                 'new_states_per_decision': round(stats['new_states'] / max(1, stats['decisions']), 3),
+                'explored_per_game': round(ab_stats['explored'] / max(1, stats['games']), 2),
+                'ab_significant': {s: n for s, n in sorted(Counter(p[0] for p in significant_ab(state['ab'], 3.0, 100)).items())},
                 'states': {s: len(t) for s, t in state['table'].items()},
                 'total_games': state['games']}
         log.write(json.dumps(line) + '\n'); log.flush()

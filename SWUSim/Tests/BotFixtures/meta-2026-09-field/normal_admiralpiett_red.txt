@@ -1,0 +1,35 @@
+# Real-deck self-play fixture — Admiral Piett, Commanding the Armada - Naval Intelligence HQ
+# Source: melee.gg 441494, #9 of 21 (3-2-0)
+#   https://melee.gg/Decklist/View/4deac345-a42a-462a-8203-b4bd0035d490 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Admiral Piett · Red 30HP — 15 entries, 44-44-2 (50.0% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from the owner-labelled Red fixture for this leader.
+# Flavours: none
+
+Leader
+1 JTL_005
+
+Base
+1 SEC_024
+
+Deck
+3 LAW_174
+3 LOF_155
+3 SEC_110
+3 LAW_058
+3 SEC_080
+3 LAW_075
+3 ASH_097
+2 ASH_098
+3 JTL_143
+3 JTL_112
+3 ASH_099
+3 JTL_118
+3 JTL_089
+2 ASH_149
+2 ASH_102
+3 JTL_181
+2 JTL_131
+3 LOF_091

@@ -1,0 +1,41 @@
+# Real-deck self-play fixture — Leia Organa, Of A Secret Bloodline - Data Vault
+# Source: melee.gg 437625, #1 of 72 (8-0-2)
+#   https://melee.gg/Decklist/View/67c82569-1085-4041-880b-b4c300734391 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Leia Organa · Green Data Vault — 5 entries, 18-13-2 (57.6% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 3.57, 15 cheap units, 8 removal, 0 wipe, 8 units 6+).
+# Flavours: none
+
+Leader
+1 SEC_004
+
+Base
+1 JTL_024
+
+Deck
+3 LAW_037
+3 ASH_056
+3 LOF_100
+3 ASH_079
+3 LAW_039
+3 SEC_094
+3 ASH_248
+3 LOF_096
+3 LOF_107
+2 LOF_070
+2 SEC_051
+2 SEC_098
+2 SEC_046
+2 LOF_246
+2 ASH_077
+1 LAW_149
+1 ASH_062
+3 JTL_096
+3 SEC_179
+3 LAW_133
+3 LOF_128
+2 JTL_078
+3 ASH_135
+2 LAW_111

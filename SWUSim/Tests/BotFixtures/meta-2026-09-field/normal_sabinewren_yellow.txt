@@ -1,0 +1,36 @@
+# Real-deck self-play fixture — Sabine Wren, Bargaining on Belief - Freetown
+# Source: melee.gg 439947, #40 of 64 (2-3-1)
+#   https://melee.gg/Decklist/View/9ee57e02-1e2b-498d-bbab-b4c20144d756 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Sabine Wren · Yellow 30HP — 2 entries, 5-7-2 (42.9% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 3.52, 14 cheap units, 11 removal, 0 wipe, 6 units 6+).
+# Flavours: none
+
+Leader
+1 ASH_006
+
+Base
+1 ASH_026
+
+Deck
+3 LOF_199
+3 ASH_056
+3 ASH_219
+3 ASH_206
+3 ASH_062
+3 LAW_229
+2 ASH_072
+2 ASH_079
+2 LOF_200
+3 SEC_204
+3 ASH_043
+3 JTL_198
+2 ASH_207
+1 LAW_224
+3 SEC_211
+3 ASH_236
+3 ASH_067
+3 LAW_246
+2 LAW_133

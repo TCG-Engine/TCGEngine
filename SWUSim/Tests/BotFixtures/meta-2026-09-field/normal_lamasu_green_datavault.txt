@@ -1,0 +1,46 @@
+# Real-deck self-play fixture — Lama Su, We Modified Their Genetics - Data Vault
+# Source: melee.gg 446903, #39 of 47 (2-4-0)
+#   https://melee.gg/Decklist/View/5ebf00e6-aba1-406a-b0d2-b4c3000140d4 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Lama Su · Green Data Vault — 2 entries, 2-8-0 (20.0% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 3.67, 16 cheap units, 9 removal, 2 wipe, 7 units 6+).
+# Flavours: none
+
+Leader
+1 SEC_003
+
+Base
+1 JTL_024
+
+Deck
+3 ASH_048
+3 SEC_080
+3 LOF_082
+2 SEC_082
+2 ASH_072
+2 ASH_047
+2 LAW_038
+2 ASH_097
+2 LOF_063
+2 ASH_053
+2 ASH_133
+2 SEC_028
+2 SEC_029
+1 LOF_234
+1 ASH_243
+2 ASH_078
+2 ASH_052
+2 LAW_135
+1 LAW_101
+3 JTL_043
+2 LOF_128
+2 LAW_132
+3 LOF_091
+2 SEC_038
+2 SEC_039
+2 ASH_086
+2 LAW_129
+2 SEC_069
+2 ASH_135

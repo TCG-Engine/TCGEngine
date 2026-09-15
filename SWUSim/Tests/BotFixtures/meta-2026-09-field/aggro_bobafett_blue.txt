@@ -1,0 +1,40 @@
+# Real-deck self-play fixture — Boba Fett, Any Methods Necessary - Shield Generator Complex
+# Source: melee.gg 442276, #10 of 27 (3-2-0)
+#   https://melee.gg/Decklist/View/3a0dca46-dabd-4f4f-981c-b4c400d138e8 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Boba Fett · Blue 30HP — 21 entries, 58-64-2 (47.6% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from this leader's owner-labelled fixture (a different base colour).
+# Flavours: none
+
+Leader
+1 JTL_009
+
+Base
+1 JTL_020
+
+Deck
+3 LAW_173
+3 LOF_130
+3 ASH_030
+2 SEC_172
+2 ASH_048
+2 ASH_148
+1 LAW_191
+1 SEC_163
+1 ASH_053
+3 JTL_162
+3 JTL_240
+3 JTL_140
+3 ASH_146
+3 JTL_033
+3 JTL_237
+3 JTL_137
+2 ASH_052
+2 JTL_143
+2 SEC_179
+2 JTL_043
+2 JTL_181
+2 SEC_183
+1 LAW_044

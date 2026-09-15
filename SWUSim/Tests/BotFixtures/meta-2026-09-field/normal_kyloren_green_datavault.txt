@@ -1,0 +1,42 @@
+# Real-deck self-play fixture — Kylo Ren, We're Not Done Yet - Data Vault
+# Source: melee.gg 453090, #14 of 41 (3-2-1)
+#   https://melee.gg/Decklist/View/6e336d18-ae8b-4298-b265-b4c000e12e4a — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Kylo Ren · Green Data Vault — 2 entries, 6-5-1 (54.2% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 3.8, 14 cheap units, 11 removal, 4 wipe, 10 units 6+).
+# Flavours: none
+
+Leader
+1 LOF_001
+
+Base
+1 JTL_024
+
+Deck
+3 LOF_070
+3 JTL_032
+3 SEC_080
+3 ASH_079
+3 LAW_038
+3 ASH_053
+3 ASH_077
+2 LAW_037
+2 ASH_048
+2 LAW_039
+2 ASH_097
+2 ASH_133
+3 JTL_033
+3 LOF_034
+2 ASH_052
+3 JTL_043
+2 LAW_133
+1 SEC_078
+1 LAW_132
+3 LOF_091
+3 ASH_087
+3 ASH_086
+3 ASH_114
+1 SEC_038
+1 SEC_256

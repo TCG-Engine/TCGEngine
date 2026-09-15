@@ -1,0 +1,27 @@
+[
+    {
+        "step": 5,
+        "type": "card_exists",
+        "zone": "myAssets",
+        "viewerPlayerID": 1,
+        "cardID": "DOT_049",
+        "semantic": true,
+        "label": "Playing Vampire's Coffin from hand puts it into play"
+    },
+    {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "The played card leaves hand (6 after feeding, 5 once played)"
+    },
+    {
+        "step": 5,
+        "type": "phase_is",
+        "value": "HORROR",
+        "semantic": true,
+        "label": "Cards are played during the Horror phase"
+    }
+]

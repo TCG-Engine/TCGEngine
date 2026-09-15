@@ -1,0 +1,36 @@
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Ancient Henge
+# Source: melee.gg 439947, #24 of 64 (3-3-0)
+#   https://melee.gg/Decklist/View/7e3d80e9-053c-4c25-b398-b4c1014887c4 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Ahsoka Tano · Red 30HP — 3 entries, 8-9-0 (47.1% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from this leader's owner-labelled fixture (a different base colour).
+# Flavours: none
+
+Leader
+1 ASH_009
+
+Base
+1 ASH_023
+
+Deck
+3 LAW_181
+3 ASH_108
+3 LOF_093
+3 SEC_111
+3 SEC_148
+3 LOF_096
+3 SEC_101
+3 LOF_163
+2 ASH_255
+1 LAW_191
+3 JTL_096
+3 ASH_153
+3 SEC_099
+3 JTL_149
+2 JTL_151
+3 SEC_179
+2 LAW_202
+2 JTL_175
+2 SEC_176

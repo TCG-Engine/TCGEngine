@@ -157,6 +157,12 @@ function SWUSetupGame($lobby, $opts = []) {
         QueuePregameSetup($firstPlayer);
         AdvanceAndExecute("PASS");
         AutoAdvanceAndExecute();
+        // A seat whose base forbids the mulligan (JTL_028 Nabat Village) has no YESNO in front, so its
+        // pregame statics (PushPregameSnapshot, ChooseStartingResource) ARE its front decision — and
+        // GetNextTurn never runs statics, so the game stalled in setup. Drain them now so that seat opens
+        // on its resource pick; a seat with a mulligan stops at its YESNO, unchanged.
+        // DevTools/tdd-regression/test_nabat_pregame_front_decision.php.
+        if (function_exists('ProcessGoldfishAutomation')) ProcessGoldfishAutomation();
         SaveUndoVersion($firstPlayer, "Start of Game");
     }
 

@@ -100,6 +100,7 @@ function _SWUBotTriggerScore(array $ctx, string $candidate): float {
     return 1.0;
 }
 
+
 function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     $seat = intval($ctx['seat']);
     $W = SWUBotWeights(strval($ctx['style']), $seat);
@@ -109,7 +110,9 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         switch (SWUBotActionKind($action)) {
             case 'pass':       return 0.0;
             case 'initiative': return $W['initiative'];
-            case 'deploy':     return $W['deploy'] + (SWUBotFeatureOn('enablers') ? _SWUBotDeployDiscount($seat, $action, $W) : 0.0);
+            case 'deploy':     return $W['deploy'] + (SWUBotFeatureOn('enablers') ? _SWUBotDeployDiscount($seat, $action, $W) : 0.0)
+                                                  + (SWUBotFeatureOn('pilotdeploy') ? _SWUBotPilotDeployValue($seat, $action, $W) : 0.0)
+                                                  + (SWUBotFeatureOn('plotdeploy') ? _SWUBotPlotDeployValue($seat, $W) : 0.0);
             case 'leader-ability': case 'unit-action': case 'base-epic': return _SWUBotAbilityValue($ctx, $action, $W);
             case 'attack':
                 $att = SWUBotViewForMz($seat, SWUBotActionMz($action));
@@ -128,6 +131,10 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 $cid = strval($obj->CardID ?? '');
                 // An effect event that would change nothing, or too little, on the enemy side is held (feature 'dudgate').
                 if (SWUBotFeatureOn('dudgate') && _SWUBotIsEffectEvent($cid) && _SWUBotEventIsDud($seat, $action, $cid, $W)) return -0.5;
+                // Any other event the ENGINE would log as "had no effect" (feature 'noeffect'; the Armorer fixture's
+                // round-1 Reforge with no friendly upgrade to defeat).
+                if (SWUBotFeatureOn('noeffect') && str_contains(strval(CardType($cid)), 'Event') && !_SWUBotIsEffectEvent($cid)
+                    && _SWUBotEventHadNoEffect($seat, $action, $cid, $W)) return -0.5;
                 $v = _SWUBotPlayValue($seat, $cid, $W);
                 // A Force card without the Force: its effect cannot happen — only the body counts (feature 'force').
                 if (SWUBotFeatureOn('force') && function_exists('PlayerHasTheForce') && !PlayerHasTheForce($seat) && _SWUBotNeedsTheForce($cid)) {
@@ -285,6 +292,9 @@ function _SWUBotTargetScore(int $seat, string $mz, bool $hostile, int $amount, s
     $v = SWUBotViewForMz($seat, $mz);
     if ($v === null) return null;
     $score = $good ? SWUBotUnitValue($v) : -SWUBotUnitValue($v);
+    // A hostile effect aimed at MY OWN board is a sacrifice: price it as fodder, not as a loss of printed value
+    // (feature 'fodder'), so the unit whose defeat pays me back is the one that goes.
+    if (!$good && $hostile && !$enemy && SWUBotFeatureOn('fodder')) $score = -SWUBotSacrificeCost($v);
     // "If it costs N or less, defeat it": a unit it defeats is a kill; any other gets only the rider (feature 'targeting2').
     if ($hostile && $enemy && SWUBotFeatureOn('targeting2') && ($n = _SWUBotDefeatIfCostAtMost($head)) !== null) {
         return intval($v['cost']) <= $n ? SWUBotUnitValue($v) * (1.0 + $W['kill']) + 1.0 : 0.1 * SWUBotUnitValue($v);
@@ -317,8 +327,22 @@ function _SWUBotTargetsScore(int $seat, string $candidate, bool $hostile, int $a
 // What losing one of my units costs: its value (cost + what dies with it), less what its When Defeated
 // ability gives back. Owner: Krennic's sacrificial ramp spends cheap units with beneficial When Defeated.
 function SWUBotSacrificeCost(array $v): float {
-    $wd = stripos(strval(CardText($v['cardID'])), 'When Defeated') !== false ? 1.5 : 0.0;
-    return max(0.0, SWUBotUnitValue($v) - $wd);
+    $value = SWUBotUnitValue($v);
+    $text = strval(CardText($v['cardID']));
+    if (stripos($text, 'When Defeated') === false) return $value;
+    if (!SWUBotFeatureOn('fodder')) return max(0.0, $value - 1.5);
+    // Feature 'fodder': price the When Defeated by WHAT IT DOES, not a flat allowance. The flat 1.5 collapsed the
+    // choice to printed cost, so the cheapest body always went — measured over 48 Krennic games, LAW_159 Expendable
+    // Mercenary ("When Defeated: You may resource this unit") was played 40 times and sacrificed 0, while a 1-cost
+    // Imperial Door Technician went 39/30. Owner 2026-09-15: sacrificing the Mercenary to Krennic is the deck's
+    // ramp — "gaining an exhausted resource and a Credit".
+    preg_match('/When Defeated:(.*)$/is', $text, $m);
+    $wd = strval($m[1] ?? '');
+    // The unit comes BACK (as a resource, into play, or to hand): defeating it is a gain, so it is the first fodder.
+    if (preg_match('/\bresource this unit\b|\bplay this unit\b|\breturn this unit\b/i', $wd)) return -1.0;
+    // It pays something back: heal, draw, or a replacement body.
+    if (preg_match('/\bheal \d+|\bdraw (a card|\d+)|\bcreate \d+/i', $wd)) return max(0.0, $value - 2.5);
+    return max(0.0, $value - 1.5);
 }
 
 // Owner's draw rule (2026-09-13): draw freely in the early and mid game, but watch the deck-out clock.
@@ -345,6 +369,7 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W): float {
     return $v;
 }
 
+
 // Deploying a leader that makes cards in hand cheaper — Piett: "Each Capital Ship unit you play costs 2 resources
 // less." — comes before hard-casting them (feature 'enablers'). Judged by the lookahead: each hand card's play
 // cost before and after the deploy.
@@ -361,6 +386,81 @@ function _SWUBotDeployDiscount(int $seat, array $action, array $W): float {
     $saved = 0;
     foreach ($before as $i => $c) $saved += max(0, $c - ($after['c'][$i] ?? $c));
     return $saved > 0 ? 3.0 + $W['develop'] * $saved : 0.0;
+}
+
+// Deploying a leader ONTO a Vehicle — the pilot side — is worth the damage it adds to a swing I have not made yet
+// (feature 'pilotdeploy'). Owner report 2026-09-16 (game 469688): with 6 resources, Boba Fett (upgrade side 4/4) and
+// two ready Vehicles, the bot attacked with both ships and left Boba in the leader zone. A deploy scored a flat
+// W['deploy'] (1.5) while attacking with a 4-power ship scored W['base'] x 4 = 4.0, so attacking always won and the
+// pilot slot went to waste — the same blind spot feature 'enablers' fixes for cost reductions, one step later.
+//
+// The bonus is the upgrade side's power at the same per-point rate the attack case uses, so it is style-scaled:
+// Aggro pays 1.0 a point and deploys first, Control pays 0.3 and still prefers a removal Action. Only a READY host
+// counts — a pilot on an exhausted ship adds nothing until next round, which the flat deploy weight already covers.
+function _SWUBotPilotDeployValue(int $seat, array $action, array $W): float {
+    if (!function_exists('CardLeaderCanDeployAsUpgrade') || !function_exists('SWUGetLeaderPilotVehicles')) return 0.0;
+    global $playerID;
+    $saved = $playerID; $playerID = $seat;
+    $li = intval(explode('-', explode('!', strval($action['cardID'] ?? ''), 2)[0])[1] ?? 0);
+    $lObj = (GetZone('myLeader')[$li] ?? null);
+    $leaderCid = ($lObj === null) ? '' : strval($lObj->CardID ?? '');
+    $ready = false;
+    if ($leaderCid !== '' && CardLeaderCanDeployAsUpgrade($leaderCid)) {
+        // SWUGetLeaderPilotVehicles is the ENGINE's own eligibility list (friendly, still a Vehicle, pilot seats
+        // free), so a host that already carries a Pilot — or has lost the trait — never reaches this.
+        foreach (SWUGetLeaderPilotVehicles($seat) as $mz) {
+            $host = GetZoneObject($mz);
+            if ($host !== null && intval($host->Status ?? 0) === 1) { $ready = true; break; }
+        }
+    }
+    $playerID = $saved;
+    return $ready ? $W['base'] * floatval(CardUpgradePower($leaderCid) ?? 0) : 0.0;
+}
+
+// Deploying a leader while Plot cards sit in my resources is worth the cards it PLAYS (feature 'plotdeploy').
+// Plot: "When you deploy a leader, you may play this card from your resources, paying its cost." The deploy itself
+// spends nothing (an Epic Action gates on resources CONTROLLED), so the whole pool is still there to pay with — but
+// only if the deploy comes FIRST. Owner deck guide 2026-09-16: Ahsoka's flip turn plots Jar Jar (2) and the Naboo
+// Starship (4) out of exactly 6 resources, "+12 damage on flip turn and closing the game here". Any ordinary play
+// made before the deploy takes the Plot budget with it.
+//
+// Measured over 60 games: Ahsoka deployed on round 5 every time — the right turn — yet plotted nothing in 24 of 42
+// deploys, and the only discriminator was ordering (0.56 cards played before the deploy when it plotted, 1.75 when
+// it did not). The resourcer already banks Plot cards first (SWUBotChooseResourceCards), so the cards were there;
+// the scorer just had no reason to deploy before spending. Cheapest-first, because plotting two cheap cards beats
+// plotting one expensive one — Plot is capped by the budget, not by a card limit.
+// The Plot cards in $seat's resources it could actually PAY for if it deployed right now, cheapest first —
+// cheapest because Plot is capped by the resource budget, not by a card limit, so two cheap cards beat one dear
+// one. Shared by the deploy's score and by the max-units guide, which must agree about what a deploy produces.
+function _SWUBotAffordablePlots(int $seat): array {
+    if (!function_exists('HasKeyword_Plot')) return [];
+    global $playerID;
+    $saved = $playerID; $playerID = $seat;
+    $cap = function_exists('SWUTotalPaymentCapacity') ? intval(SWUTotalPaymentCapacity($seat)) : intval(SWUResourceCount($seat));
+    $plots = [];
+    foreach (GetResources($seat) as $r) {
+        if ($r === null || !empty($r->removed) || !HasKeyword_Plot($r)) continue;
+        $cid = strval($r->CardID ?? '');
+        if ($cid === '') continue;
+        // The printed cost plus this deck's aspect penalty — the same figure the Plot payment will face.
+        $cost = function_exists('SWUComputePlayCost') ? intval(SWUComputePlayCost($seat, $r)) : intval(CardCost($cid));
+        $plots[] = [$cost, $cid];
+    }
+    $playerID = $saved;
+    usort($plots, fn($a, $b) => $a[0] <=> $b[0]);
+    $spent = 0; $out = [];
+    foreach ($plots as [$cost, $cid]) {
+        if ($cost < 0 || $spent + $cost > $cap) continue;
+        $spent += $cost;
+        $out[] = [$cost, $cid];
+    }
+    return $out;
+}
+
+function _SWUBotPlotDeployValue(int $seat, array $W): float {
+    $value = 0.0;
+    foreach (_SWUBotAffordablePlots($seat) as [$cost, $cid]) $value += _SWUBotPlayValue($seat, $cid, $W);
+    return $value;
 }
 
 // An Action that PLAYS a card from hand (Piett's front side) is worth the best card it plays: a pending choice of
@@ -480,6 +580,34 @@ function _SWUBotEventIsDud(int $seat, array $action, string $cid, array $W): boo
     if (in_array('wipe', $tags, true)) return $d < 0.0;
     if (in_array('removal', $tags, true)) return $d < 0.5 * intval(CardCost($cid));
     return false;
+}
+
+// Feature 'noeffect': play the event in the lookahead (its choices made for the best board change) and read the
+// ENGINE's verdict — "P1's X had no effect" is logged only when the whole gamestate is unchanged by the ability
+// (SWULogNoEffectCheck, SWUSim/Custom/GameLogEvents.php). The dud gate above only sees the enemy side, so an event
+// aimed at my own board (ASH_090 Reforge: "Defeat an upgrade on a friendly unit") slipped past it into nothing.
+function _SWUBotEventHadNoEffect(int $seat, array $action, string $cid, array $W): bool {
+    if (!function_exists('SWUBotLookaheadBest')) return false;
+    $logLen = strlen(_SWUBotLogValue());
+    $ref = '[[' . $cid . '|';
+    $before = _SWUBotBoardRead($seat);
+    $line = SWUBotLookaheadBest($seat, $action, function () use ($seat, $logLen, $ref) {
+        $r = _SWUBotBoardRead($seat);
+        $r['_noEffect'] = false;
+        foreach (explode('<NL>', substr(_SWUBotLogValue(), $logLen)) as $e) {
+            if (str_contains($e, $ref) && str_contains($e, 'had no effect')) { $r['_noEffect'] = true; break; }
+        }
+        return $r;
+    }, fn(array $r) => _SWUBotBoardDelta($before, $r, $W), SWU_BOT_LOOKAHEAD_DEPTH, 12);
+    return $line !== null && !empty($line['_noEffect']);
+}
+
+// The game log's raw value ("TYPE|VISIBILITY|text" joined by "<NL>"). It starts as the placeholder '0', which the
+// first entry REPLACES, so '0' reads as empty.
+function _SWUBotLogValue(): string {
+    global $gGameLog;
+    $v = is_object($gGameLog) ? strval($gGameLog->Value ?? '') : strval($gGameLog ?? '');
+    return $v === '0' ? '' : $v;
 }
 
 // A card's modal option ("Choose one", an arena): play the answer in the lookahead and score the board change.

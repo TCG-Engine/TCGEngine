@@ -1,0 +1,39 @@
+# Real-deck self-play fixture — Tobias Beckett, People are Predictable - Massassi Temple
+# Source: melee.gg 446903, #10 of 47 (4-2-0)
+#   https://melee.gg/Decklist/View/858f52a2-4827-4d50-bce0-b4c300d4e99b — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Tobias Beckett · Red 30HP — 2 entries, 4-6-0 (40.0% match win) across the twenty events
+# Style: aggro
+#   Owner, 2026-09-15: cheap, low curve and little removal — aggro, not midrange (auto-derived as "normal" before the review).
+# Flavours: none
+
+Leader
+1 LAW_002
+
+Base
+1 JTL_026
+
+Deck
+3 LAW_048
+3 LAW_118
+3 ASH_079
+3 ASH_032
+3 LAW_093
+3 LAW_090
+3 LAW_091
+2 LAW_191
+2 LAW_095
+2 LAW_050
+2 LAW_084
+2 ASH_077
+2 SEC_164
+1 SEC_163
+1 ASH_220
+3 JTL_221
+3 SEC_179
+1 JTL_235
+1 JTL_175
+3 LOF_215
+3 LAW_129
+2 SEC_176

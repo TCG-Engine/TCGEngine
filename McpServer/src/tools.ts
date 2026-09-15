@@ -1,5 +1,6 @@
 import { getPool } from "./db.js";
 import { getRemoteCardCodeConfig, remoteCardCodeRequest, remoteCardCodeRoots } from "./remoteCardCode.js";
+import { resolveBaseCardId } from "./cardBaseMap.js";
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
@@ -338,6 +339,8 @@ export async function getCardAbilities(
 ): Promise<{
   root: string;
   cardId: string;
+  requestedCardId: string;
+  isVariant: boolean;
   revision?: string;
   abilities: {
     id: number;
@@ -350,6 +353,9 @@ export async function getCardAbilities(
     isImplemented: boolean;
   }[];
 }> {
+  // A variant printing (borderless, alt art) shows its base card's abilities.
+  const resolution = resolveBaseCardId(root, cardId);
+  cardId = resolution.cardId;
   if (getRemoteCardCodeConfig(root)) {
     const payload = await remoteCardCodeRequest(root, 'card', 'GET', { card: cardId });
     const cacheKey = `${root}\0${cardId}`;
@@ -363,7 +369,7 @@ export async function getCardAbilities(
     remoteCardAbilitiesCache.set(cacheKey, mapped);
     return {
       root,
-      cardId,
+      ...resolution,
       revision: String(payload.revision || ''),
       abilities: mapped,
     };
@@ -380,7 +386,7 @@ export async function getCardAbilities(
 
   return {
     root,
-    cardId,
+    ...resolution,
     abilities: (rows as any[]).map((r) => ({
       id: r.id,
       macroName: r.macro_name,
@@ -423,8 +429,14 @@ export async function saveCardAbilities(
   success: boolean;
   savedCount: number;
   deletedCount: number;
+  cardId: string;
+  requestedCardId: string;
+  isVariant: boolean;
 }> {
-  const { root, cardId, abilities, cardImplemented = false, overwrite = false } = params;
+  const { root, abilities, cardImplemented = false, overwrite = false } = params;
+  // A variant printing's abilities live on its base card; saving through the variant writes there.
+  const resolution = resolveBaseCardId(root, params.cardId);
+  const cardId = resolution.cardId;
   if (getRemoteCardCodeConfig(root)) {
     const cacheKey = `${root}\0${cardId}`;
     let baseRevision = params.baseRevision ?? remoteCardRevisionCache.get(cacheKey);
@@ -451,7 +463,7 @@ export async function saveCardAbilities(
     } catch (err: any) {
       logToStderr(`Warning: Code generator failed for ${root}: ${err.message}`);
     }
-    return { success: true, savedCount: abilities.length, deletedCount: overwrite ? Math.max(0, existingAbilities.length - submitted.length) : 0 };
+    return { success: true, savedCount: abilities.length, deletedCount: overwrite ? Math.max(0, existingAbilities.length - submitted.length) : 0, ...resolution };
   }
   const pool = getPool();
   await ensurePrereqColumn(pool);
@@ -560,7 +572,7 @@ export async function saveCardAbilities(
       );
     }
 
-    return { success: true, savedCount, deletedCount };
+    return { success: true, savedCount, deletedCount, ...resolution };
   } catch (err) {
     await conn.rollback();
     throw err;
@@ -702,15 +714,20 @@ export function getCardInfo(
   life?: number;
   classes?: string;
   subtypes?: string;
+  baseCardId?: string;
 } {
+  // A variant printing (borderless, alt art) keeps its own dictionary entry; say which card it is.
+  const resolution = resolveBaseCardId(root, cardId);
+  const baseCardId = resolution.isVariant ? resolution.cardId : undefined;
   const dicts = getCardDictionaries(root);
   if (!dicts || !(cardId in dicts.nameData)) {
-    return { root, cardId, found: false };
+    return { root, cardId, found: false, baseCardId };
   }
   const numOrUndef = (v: number | undefined) => (v !== undefined && v !== -1) ? v : undefined;
   return {
     root,
     cardId,
+    baseCardId,
     found: true,
     name: dicts.nameData[cardId] || undefined,
     set: dicts.setData[cardId] || undefined,

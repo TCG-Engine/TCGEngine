@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Admiral Piett, Commanding the Armada - Colossus
+# Source: melee.gg 438546, #10 of 49 (4-2-0)
+#   https://melee.gg/Decklist/View/e6fe506e-bdcc-460e-9126-b4c30045389d — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Admiral Piett · Blue Colossus — 3 entries, 11-6-4 (61.9% match win) across the twenty events
+# Style: control
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from the owner-labelled Blue fixture for this leader.
+# Flavours: none
+
+Leader
+1 JTL_005
+
+Base
+1 JTL_021
+
+Deck
+3 LAW_118
+3 SEC_110
+3 ASH_048
+2 ASH_072
+2 ASH_053
+1 ASH_077
+3 JTL_041
+3 SEC_037
+3 ASH_052
+3 LAW_101
+3 JTL_119
+2 JTL_038
+2 JTL_040
+1 JTL_118
+1 ASH_102
+3 JTL_043
+3 LAW_132
+3 JTL_131
+2 LAW_133
+2 SEC_038
+2 LOF_091

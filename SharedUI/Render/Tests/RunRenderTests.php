@@ -73,6 +73,8 @@ else $_SERVER['SCRIPT_NAME'] = $previousScriptName;
 $hellbreakProfileNav = RenderMenuBar($hellbreakDef, ['isLoggedIn'=>true,'isPatron'=>false,'username'=>'tester','userId'=>5,'currentPage'=>'Profile']);
 checkContains('Hellbreak main-menu nav includes replay intro on first paint', $hellbreakMainNav, 'id="hellbreak-replay-intro"');
 check('Hellbreak non-main nav omits replay intro', strpos($hellbreakProfileNav, 'id="hellbreak-replay-intro"') === false);
+checkContains('Hellbreak nav has northbeach.gg Discord invite', $hellbreakMainNav, 'discord.gg/BCr4f5HBxz');
+checkContains('Hellbreak nav keeps GitHub link', $hellbreakMainNav, 'https://github.com/TCG-Engine/TCGEngine');
 
 // --- Task 4 tests: RenderHeader ---
 require_once __DIR__ . '/../Header.php';

@@ -1,0 +1,40 @@
+# Real-deck self-play fixture — Greef Karga, Gracious Magistrate - Theed Palace
+# Source: melee.gg 442276, #24 of 27 (1-4-0)
+#   https://melee.gg/Decklist/View/2e1994ed-3ce7-4de2-8ea3-b4c40064344b — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Greef Karga · Green 30HP — 3 entries, 8-12-1 (40.5% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from the owner-labelled Green fixture for this leader.
+# Flavours: none
+
+Leader
+1 ASH_017
+
+Base
+1 JTL_023
+
+Deck
+3 LAW_228
+3 JTL_103
+3 LAW_239
+3 LAW_067
+3 LAW_234
+3 LOF_096
+2 LOF_199
+2 LAW_070
+2 SEC_200
+2 SEC_222
+2 LAW_240
+2 JTL_100
+1 LAW_218
+1 ASH_206
+1 SEC_101
+1 LAW_223
+1 ASH_208
+3 JTL_096
+3 ASH_207
+3 LOF_192
+2 SEC_204
+2 ASH_253
+2 SEC_233

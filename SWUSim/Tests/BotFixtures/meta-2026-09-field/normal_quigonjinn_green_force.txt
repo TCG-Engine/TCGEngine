@@ -1,0 +1,41 @@
+# Real-deck self-play fixture — Qui-Gon Jinn, Student of the Living Force - Jedi Temple
+# Source: melee.gg 449469, #49 of 63 (2-5-0)
+#   https://melee.gg/Decklist/View/de9dca11-91fa-4ecd-99dd-b4c3010d7652 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Qui-Gon Jinn · Green Force — 3 entries, 4-12-1 (26.5% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 3.54, 13 cheap units, 0 removal, 0 wipe, 6 units 6+).
+# Flavours: none
+
+Leader
+1 LOF_016
+
+Base
+1 LOF_023
+
+Deck
+3 JTL_201
+3 LAW_232
+3 LOF_093
+3 LOF_094
+3 LAW_067
+3 LOF_096
+3 SEC_101
+2 SEC_111
+2 LAW_089
+2 LOF_200
+2 LOF_195
+2 LOF_193
+1 ASH_219
+1 LOF_100
+1 LAW_237
+2 JTL_096
+2 SEC_207
+2 LAW_241
+1 ASH_038
+1 ASH_109
+3 LAW_168
+2 ASH_236
+1 ASH_234
+2 LOF_102

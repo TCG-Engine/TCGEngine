@@ -1,0 +1,36 @@
+# Real-deck self-play fixture — Tobias Beckett, People are Predictable - Emperor's Throne Room
+# Source: melee.gg 437625, #10 of 72 (5-2-0)
+#   https://melee.gg/Decklist/View/332215fd-fc64-47cd-b822-b4c30153e371 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Tobias Beckett · Green 30HP — 2 entries, 5-8-0 (38.5% match win) across the twenty events
+# Style: aggro
+#   Owner, 2026-09-15: cheap, low curve and little removal — aggro, not midrange (auto-derived as "normal" before the review).
+# Flavours: none
+
+Leader
+1 LAW_002
+
+Base
+1 ASH_021
+
+Deck
+3 LAW_070
+3 LAW_039
+3 LAW_038
+3 LAW_093
+3 LAW_090
+3 LAW_092
+3 LAW_091
+2 LAW_095
+2 SEC_111
+2 ASH_079
+3 JTL_221
+2 LOF_121
+3 SEC_179
+3 LAW_041
+2 ASH_090
+3 LOF_215
+3 LAW_129
+3 ASH_135
+1 SEC_123

@@ -1,0 +1,41 @@
+# Real-deck self-play fixture — Sabine Wren, Bargaining on Belief - Data Vault
+# Source: melee.gg 446903, #4 of 47 (5-1-2)
+#   https://melee.gg/Decklist/View/dc812a7d-8238-4774-9438-b4c300d64d58 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Sabine Wren · Green Data Vault — 5 entries, 20-12-3 (61.4% match win) across the twenty events
+# Style: normal
+#   Owner, 2026-09-15: a high curve alone is not control — this is midrange (the same call as Luke · Green Data Vault) (auto-derived as "control" before the review).
+# Flavours: none
+
+Leader
+1 ASH_006
+
+Base
+1 JTL_024
+
+Deck
+3 ASH_105
+3 LAW_152
+3 LOF_046
+3 ASH_056
+3 LOF_100
+3 ASH_079
+3 LAW_039
+3 ASH_112
+3 SEC_094
+3 LOF_045
+2 SEC_051
+2 SEC_098
+2 SEC_101
+2 ASH_062
+2 ASH_133
+3 JTL_096
+3 JTL_250
+3 ASH_109
+2 JTL_053
+2 ASH_067
+2 LAW_133
+2 LAW_041
+1 SEC_078
+2 ASH_114

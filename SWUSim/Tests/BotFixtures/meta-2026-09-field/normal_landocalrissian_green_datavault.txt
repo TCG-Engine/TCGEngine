@@ -1,0 +1,42 @@
+# Real-deck self-play fixture — Lando Calrissian, Buying Time - Data Vault
+# Source: melee.gg 449469, #17 of 63 (4-3-0)
+#   https://melee.gg/Decklist/View/f487eb08-3398-46d6-a1ac-b4c200fce119 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Lando Calrissian · Green Data Vault — 2 entries, 7-7-0 (50.0% match win) across the twenty events
+# Style: normal
+#   Owner, 2026-09-15: a high curve alone is not control — this is midrange (the same call as Luke · Green Data Vault) (auto-derived as "control" before the review).
+# Flavours: none
+
+Leader
+1 JTL_003
+
+Base
+1 JTL_024
+
+Deck
+3 SEC_051
+3 ASH_056
+3 LOF_100
+3 SEC_101
+2 SEC_048
+2 SEC_098
+2 SEC_046
+2 SEC_110
+2 ASH_079
+2 LAW_039
+2 SEC_094
+2 LOF_096
+2 ASH_077
+2 ASH_062
+2 ASH_133
+3 JTL_096
+3 ASH_063
+3 ASH_057
+3 JTL_095
+3 ASH_109
+2 ASH_065
+2 JTL_051
+3 LAW_133
+3 LAW_041
+1 LAW_168

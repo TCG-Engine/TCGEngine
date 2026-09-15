@@ -1,0 +1,32 @@
+# Real-deck self-play fixture — The Armorer, Steel Shapes Us - Nabat Village
+# Source: melee.gg 445115, #29 of 180 (5-3)
+#   https://melee.gg/Decklist/View/4e2be560-24b3-4b79-9635-b4bd00488e06 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
+# Archetype (owner's label): Midrange aggro go-tall: puts upgrades on units and tries to race by going tall. Expected to lose to blue decks (The Tree Remembers).
+# Style: normal
+# Flavours: go-tall, upgrades
+
+Leader
+1 ASH_001
+
+Base
+1 JTL_028
+
+Deck
+3 LOF_206
+3 SEC_137
+3 LAW_037
+3 SEC_057
+3 LAW_054
+3 LOF_038
+3 LAW_229
+2 LOF_108
+3 SEC_232
+3 ASH_090
+3 ASH_084
+3 LOF_215
+3 ASH_230
+3 LAW_129
+3 SEC_069
+3 ASH_228
+3 ASH_135

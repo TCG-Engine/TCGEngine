@@ -19,8 +19,14 @@ mkdir -p "$OUT/games"
 export NEW OLD DIR OUT
 decks=${DECKS:-$(ls "$DIR"/*.txt | xargs -n1 basename | sed 's/\.txt$//')}
 : > "$OUT/jobs.txt"
+# FOCUS="deckA deckB" keeps only pairings where at least one side is a focus deck. A change that touches a few decks
+# (a flavour, a deck-specific rule) is otherwise drowned: with 4 of 22 decks affected, most mirrored pairs are
+# identical in both arms and can only dilute the result.
 for a in $decks; do for b in $decks; do
   [ "$a" = "$b" ] && continue
+  if [ -n "${FOCUS:-}" ]; then
+    case " $FOCUS " in *" $a "*|*" $b "*) ;; *) continue ;; esac
+  fi
   for s in $(seq -f "s%03g" 1 "$SEEDS"); do echo "$a $b $s 1" >> "$OUT/jobs.txt"; echo "$a $b $s 2" >> "$OUT/jobs.txt"; done
 done; done
 echo "[strength] new='$NEW' old='$OLD' — $(wc -l < "$OUT/jobs.txt") games, $WORKERS workers — $(date -u +%H:%M:%S)"

@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Colonel Yularen, This Is Why We Plan - Naval Intelligence HQ
+# Source: melee.gg 441696, #17 of 25 (2-3-0)
+#   https://melee.gg/Decklist/View/db3083f5-f487-45a7-b5d1-b4c200e38e69 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Colonel Yularen · Red 30HP — 3 entries, 5-10-0 (33.3% match win) across the twenty events
+# Style: aggro
+#   Owner, 2026-09-15: cheap, low curve and little removal — aggro, not midrange (auto-derived as "normal" before the review).
+# Flavours: none
+
+Leader
+1 SEC_006
+
+Base
+1 SEC_024
+
+Deck
+3 LAW_174
+3 LAW_173
+3 LAW_059
+3 SEC_080
+3 LAW_075
+3 SEC_168
+2 LAW_057
+2 SEC_082
+2 LAW_190
+2 LAW_063
+1 LOF_130
+1 SEC_085
+3 JTL_162
+3 JTL_089
+2 ASH_141
+1 SEC_142
+1 SEC_171
+3 SEC_179
+3 LAW_168
+3 LOF_091
+3 SEC_176

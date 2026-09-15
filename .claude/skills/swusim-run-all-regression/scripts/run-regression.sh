@@ -138,6 +138,15 @@ if [ "$RUN_INT" = 1 ]; then
       [ "$code" = 0 ] && st=PASS || st=FAIL
     elif echo "$last" | grep -qE '^(PASS|OK|ALL PASS)'; then st=PASS
     elif echo "$last" | grep -qE '^(FAIL|FAILED)'; then st=FAIL
+    # "N FAILED" is the summary line of every bot_test_bootstrap test (and several tdd tests). It matched neither
+    # pattern above, so over HTTP (code always 0) it fell through to PASS — a red bot test read GREEN. Found
+    # 2026-09-15: bot_flavours_test printed "7 FAILED" and the run listed no failure.
+    elif echo "$last" | grep -qE '^[0-9]+ (FAILED|failed)'; then st=FAIL
+    # A test that prints its failures FIRST and details after ends on a detail line ("  c={...}", "  JTL_155 => ...")
+    # and also fell through to PASS. When the last line is unrecognised, a line STARTING with FAIL anywhere is a
+    # failure (anchored, so check names containing the word never match). Dry-run on 2026-09-15's outputs: it flags
+    # exactly test_swusim_queue_separation and test_swu_token_requirements, both genuinely red, and nothing else.
+    elif grep -qE '^(FAIL|\[FAIL\])[: (]' "$OUT/$b.txt"; then st=FAIL
     elif grep -qE 'Fatal error|Parse error|Uncaught' "$OUT/$b.txt"; then st=ERROR
     elif [ "$code" = 0 ]; then st=PASS
     else st=FAIL; fi
@@ -163,7 +172,9 @@ if [ "$RUN_RENDER" = 1 ]; then
     SharedUI/Render/Tests/RunRenderTests.php >"$OUT/render.txt" 2>&1
   rc=$?
   say "  exit=$rc"
-  [ $rc -ne 0 ] && { FAILED+=("render"); tail -5 "$OUT/render.txt"; }
+  # RunRenderTests.php ends "RED" with a FAIL=N tally but exits 0 (seen 2026-09-15: PASS=251 FAIL=5, exit 0), so the
+  # exit code alone read a red render suite as green. Read its verdict line too.
+  if [ $rc -ne 0 ] || grep -qE '^RED$|FAIL=[1-9]' "$OUT/render.txt"; then FAILED+=("render"); tail -7 "$OUT/render.txt"; fi
 fi
 
 echo

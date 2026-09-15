@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Greef Karga, Gracious Magistrate - Ancient Henge
+# Source: melee.gg 446903, #1 of 47 (6-0-2)
+#   https://melee.gg/Decklist/View/327d5682-9004-41ef-95ff-b4c300d61c66 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Greef Karga · Red 30HP — 26 entries, 76-89-2 (46.1% match win) across the twenty events
+# Style: aggro
+#   Owner, 2026-09-15: more aggro (auto-derived as "normal" from deck shape before the review).
+# Flavours: none
+
+Leader
+1 ASH_017
+
+Base
+1 ASH_023
+
+Deck
+3 JTL_203
+3 SEC_148
+3 ASH_208
+3 LAW_078
+2 ASH_220
+2 ASH_161
+1 JTL_196
+1 ASH_040
+3 JTL_147
+3 SEC_204
+3 SEC_215
+3 ASH_171
+3 ASH_253
+2 ASH_159
+2 SEC_199
+2 ASH_153
+2 JTL_221
+2 ASH_222
+3 LAW_202
+2 SEC_233
+2 SEC_176

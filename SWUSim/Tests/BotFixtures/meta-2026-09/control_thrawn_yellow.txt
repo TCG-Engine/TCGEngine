@@ -1,0 +1,37 @@
+# Real-deck self-play fixture — Grand Admiral Thrawn, ...How Unfortunate - Mount Tantiss
+# Source: melee.gg 443170, #3 of 29 (4-2-1)
+#   https://melee.gg/Decklist/View/02768a69-c0bb-434a-97e2-b4c3014fcdd4 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
+#   Its event was pulled on 2026-09-15, so the placement above is now from our own data.
+# Archetype (owner's label): Midrange soft control; slightly a combo deck for doubling "When Defeated" abilities
+# Style: control
+# Flavours: combo, when-defeated
+
+Leader
+1 JTL_002
+
+Base
+1 SEC_026
+
+Deck
+3 JTL_060
+3 JTL_032
+3 ASH_192
+3 ASH_079
+3 ASH_050
+3 LOF_059
+3 ASH_053
+2 SEC_186
+2 ASH_195
+2 ASH_220
+2 ASH_077
+1 ASH_042
+3 ASH_052
+3 JTL_033
+3 ASH_194
+3 LOF_213
+2 JTL_039
+1 SEC_215
+3 JTL_043
+2 ASH_247
+1 LAW_133

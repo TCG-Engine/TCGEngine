@@ -1,0 +1,36 @@
+# Real-deck self-play fixture — Ezra Bridger, It's Now or Never - Partisan Hideout
+# Source: melee.gg 446903, #22 of 47 (3-3-0)
+#   https://melee.gg/Decklist/View/ce064b09-2a6d-414a-9a0a-b4c300cca84f — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Ezra Bridger · Yellow Splash — 2 entries, 3-6-0 (33.3% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 2.9, 16 cheap units, 0 removal, 0 wipe, 0 units 6+).
+# Flavours: none
+
+Leader
+1 ASH_013
+
+Base
+1 LAW_030
+
+Deck
+3 JTL_103
+3 JTL_203
+3 LAW_089
+3 ASH_251
+2 SEC_163
+2 ASH_208
+3 JTL_147
+3 ASH_204
+3 ASH_167
+3 ASH_153
+3 ASH_222
+3 ASH_253
+2 ASH_201
+2 JTL_221
+1 ASH_171
+3 LAW_202
+2 SEC_179
+3 LOF_151
+3 SEC_176

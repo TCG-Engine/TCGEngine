@@ -103,6 +103,24 @@ function SWUBotAggroMaxUnitsPick(array $ctx): ?array {
         if ($count > $bestCount || ($count === $bestCount && $spend > $bestSpend)) { $bestMask = $mask; $bestCount = $count; $bestSpend = $spend; }
     }
     if ($bestMask === 0) return null;
+    // A leader deploy that PLOTS units out of the resource row is a wider board than any hand subset it beats:
+    // the plotted units plus the leader's own body. It has to be judged here rather than by its score alone,
+    // because this guide's weight (4.0 for Aggro) otherwise decides the turn on its own and the deploy is not
+    // even a candidate — so the bot plays a 2-drop, spends the Plot budget, and the flip turn produces nothing
+    // (feature 'plotdeploy'; measured on aggro_ahsoka_blue, 24 of 42 deploys plotted nothing). Deploying FIRST
+    // costs nothing: an Epic Action gates on resources controlled and spends none, so the hand plays that lose
+    // this comparison are still affordable afterwards.
+    if (SWUBotFeatureOn('plotdeploy')) {
+        $deploy = null;
+        foreach ($ctx['actions'] as $a) { if (SWUBotActionKind($a) === 'deploy') { $deploy = $a; break; } }
+        if ($deploy !== null) {
+            $units = 0;
+            foreach (_SWUBotAffordablePlots($seat) as [$cost, $cid]) {
+                if (str_contains(strval(CardType($cid)), 'Unit')) $units++;
+            }
+            if ($units > 0 && $units + 1 > $bestCount) return $deploy;
+        }
+    }
     $pick = null; $pickCost = -1;
     for ($i = 0; $i < $n; $i++) {
         if (($bestMask & (1 << $i)) && $plays[$i][1] > $pickCost) { $pick = $plays[$i][0]; $pickCost = $plays[$i][1]; }

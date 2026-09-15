@@ -1,0 +1,46 @@
+# Real-deck self-play fixture — Asajj Ventress, I Work Alone - Ancient Henge
+# Source: melee.gg 453090, #3 of 41 (5-1-2)
+#   https://melee.gg/Decklist/View/73145754-b450-4e87-a0ef-b4c201442434 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Asajj Ventress · Red 30HP — 4 entries, 12-14-2 (46.4% match win) across the twenty events
+# Style: normal
+#   Owner, 2026-09-15: a high curve alone is not control — this is midrange (the same call as Luke · Green Data Vault) (auto-derived as "control" before the review).
+# Flavours: none
+
+Leader
+1 JTL_001
+
+Base
+1 ASH_023
+
+Deck
+3 LAW_048
+3 ASH_030
+3 ASH_053
+3 ASH_032
+2 ASH_079
+2 LOF_063
+1 LAW_174
+1 ASH_048
+1 ASH_168
+1 ASH_148
+1 ASH_077
+1 ASH_147
+3 ASH_052
+2 ASH_071
+2 JTL_143
+2 JTL_140
+2 ASH_146
+1 JTL_041
+1 LAW_101
+1 JTL_033
+3 SEC_163
+3 JTL_043
+3 LAW_044
+1 SEC_179
+1 LAW_217
+1 SEC_078
+1 LAW_133
+1 LAW_132
+3 SEC_038

@@ -1,0 +1,43 @@
+# Real-deck self-play fixture — Boba Fett, Any Methods Necessary - Amnesty Housing
+# Source: melee.gg 441696, #19 of 25 (2-3-0)
+#   https://melee.gg/Decklist/View/87aa58df-f4d2-4b01-8176-b4c2013c8c4c — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Boba Fett · Yellow 30HP — 3 entries, 7-12-0 (36.8% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from this leader's owner-labelled fixture (a different base colour).
+# Flavours: none
+
+Leader
+1 JTL_009
+
+Base
+1 SEC_025
+
+Deck
+3 JTL_218
+2 LAW_174
+2 JTL_189
+2 JTL_139
+1 JTL_133
+1 SEC_172
+1 LAW_075
+3 LAW_211
+3 JTL_162
+3 JTL_240
+3 SEC_189
+3 JTL_237
+3 JTL_183
+2 JTL_185
+2 JTL_165
+1 JTL_140
+1 JTL_242
+1 ASH_194
+1 LAW_241
+1 JTL_137
+2 SEC_163
+2 SEC_233
+2 LAW_208
+2 LAW_217
+1 JTL_235
+2 SEC_176

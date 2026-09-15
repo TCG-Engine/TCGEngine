@@ -1,0 +1,36 @@
+# Real-deck self-play fixture — Mother Talzin, Power Through Magick - Strangled Cliffs
+# Source: melee.gg 438546, #1 of 49 (8-1-0)
+#   https://melee.gg/Decklist/View/2e59cd7b-4cce-4990-9240-b4c30038866a — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Mother Talzin · Red Force — 28 entries, 81-89-6 (47.7% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from this leader's owner-labelled fixture (a different base colour).
+# Flavours: none
+
+Leader
+1 LOF_002
+
+Base
+1 LOF_027
+
+Deck
+3 LOF_129
+3 LOF_231
+3 LOF_031
+3 ASH_079
+3 ASH_030
+3 LOF_160
+3 ASH_148
+3 LOF_061
+3 LOF_035
+3 SEC_028
+2 LOF_070
+2 LOF_132
+2 SEC_163
+2 JTL_143
+3 JTL_043
+2 SEC_179
+2 LOF_079
+3 LOF_261
+2 ASH_055

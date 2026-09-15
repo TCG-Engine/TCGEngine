@@ -1,0 +1,42 @@
+# Real-deck self-play fixture — Luke Skywalker, I Can Save Him - Data Vault
+# Source: melee.gg 438901, #3 of 119 (7-2-0)
+#   https://melee.gg/Decklist/View/1bbe5ddc-8a79-40d9-aa65-b4c3012c8d50 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Luke Skywalker · Green Data Vault — 26 entries, 69-77-10 (47.4% match win) across the twenty events
+# Style: normal
+#   Owner, 2026-09-15: normal/midrange, though with a high curve and top end (auto-derived as "control" from deck shape before the review).
+# Flavours: none
+
+Leader
+1 ASH_005
+
+Base
+1 JTL_024
+
+Deck
+3 SEC_051
+3 SEC_048
+3 SEC_098
+3 ASH_056
+3 ASH_079
+3 LAW_039
+3 SEC_094
+3 LOF_096
+3 LOF_045
+2 LAW_152
+2 SEC_046
+2 LOF_100
+2 ASH_059
+2 SEC_101
+2 LAW_149
+2 ASH_077
+3 JTL_096
+3 JTL_062
+2 ASH_052
+2 ASH_109
+3 SEC_078
+3 LAW_133
+3 LAW_041
+2 SEC_070
+2 LAW_127

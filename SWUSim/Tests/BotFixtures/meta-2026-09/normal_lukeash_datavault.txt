@@ -1,0 +1,50 @@
+# Real-deck self-play fixture — Luke Skywalker, I Can Save Him - Data Vault
+# Source: melee.gg 438901, #3 of 119 (7-2-0)
+#   https://melee.gg/Decklist/View/1bbe5ddc-8a79-40d9-aa65-b4c3012c8d50 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   Promoted into the CURATED gate set 2026-09-16 at the owner's request: the defensive/heal behaviour class
+#   was otherwise uncovered by the gate set. Previously field-set only (meta-2026-09-field/normal_lukeskywalker_green_datavault.txt).
+# Archetype: Luke (ASH) · Green Data Vault — 35 entries, 91-106-10 (46.4% match win, 95% CI 39.7-53.2) over 207
+#   non-mirror matches across twenty-three events; 4 top-8 finishes.
+# Archetype (owner's label): Grindy midrange blue-green Hero — defensive, heal-based
+# Style: normal
+#   Owner, 2026-09-15: normal/midrange, though with a high curve and top end (auto-derived as "control" from deck shape before the review).
+# Flavours: heal, defensive, go-tall
+#
+# ⚠ THE SET TAG IS LOAD-BEARING. Two different Luke leaders both play Green Data Vault:
+#     ASH_005 "I Can Save Him"  — THIS deck: grindy, defensive, heal. 35 entries, 46.4%.
+#     JTL_012 "Hero of Yavin"   — normal_luke_datavault.txt: soft aggro / midrange SPACE. 94 entries, 52.5%.
+#   They share the archetype key apart from the set tag and play nothing alike. Never call either one "Luke DV"
+#   unqualified, and never merge their tournament numbers.
+
+Leader
+1 ASH_005
+
+Base
+1 JTL_024
+
+Deck
+3 SEC_051
+3 SEC_048
+3 SEC_098
+3 ASH_056
+3 ASH_079
+3 LAW_039
+3 SEC_094
+3 LOF_096
+3 LOF_045
+2 LAW_152
+2 SEC_046
+2 LOF_100
+2 ASH_059
+2 SEC_101
+2 LAW_149
+2 ASH_077
+3 JTL_096
+3 JTL_062
+2 ASH_052
+2 ASH_109
+3 SEC_078
+3 LAW_133
+3 LAW_041
+2 SEC_070
+2 LAW_127

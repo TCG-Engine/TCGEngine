@@ -1,0 +1,40 @@
+# Real-deck self-play fixture — Luke Skywalker, I Can Save Him - Mos Eisley
+# Source: melee.gg 446903, #35 of 47 (2-3-0)
+#   https://melee.gg/Decklist/View/68da9ff9-2c9f-4198-87b7-b4c20154a012 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Luke Skywalker · Yellow 30HP — 2 entries, 3-6-0 (33.3% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 3.96, 15 cheap units, 7 removal, 0 wipe, 10 units 6+).
+# Flavours: none
+
+Leader
+1 ASH_005
+
+Base
+1 JTL_030
+
+Deck
+3 ASH_072
+3 ASH_056
+3 LAW_108
+3 LAW_090
+2 ASH_255
+2 LAW_219
+2 SEC_051
+2 SEC_048
+2 ASH_079
+2 LOF_200
+2 SEC_209
+3 ASH_043
+3 JTL_198
+3 JTL_051
+2 SEC_204
+2 LAW_224
+1 ASH_222
+2 SEC_233
+2 LAW_133
+2 LAW_132
+2 SEC_070
+2 LOF_215
+2 ASH_088

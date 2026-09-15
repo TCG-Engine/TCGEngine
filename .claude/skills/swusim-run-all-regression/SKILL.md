@@ -101,6 +101,16 @@ still one of these four before calling your run green:
 | `test_hellbreak_tutorial` (HTTP:3400) | throws (read its output file) |
 | `test_hellbreakdeck_validation` (HTTP:3400) | fatal: `Undefined constant "STDERR"` at line 75 — the test writes to STDERR under the web SAPI |
 | `test_swudeck_format_column` (HTTP:3100) | `FAIL: format column defaults to premier, new row defaults to premier` |
+| `test_swusim_queue_separation` (HTTP:3400) | `FAIL: premier/bo3 pair` — joins anonymously, and non-Open queues have required login since the 2026-06/08 menu commits. Hidden until 2026-09-15 (see below) |
+| `test_swu_token_requirements` (CLI) | `FAIL (2/32)`: the Open-format early return comes before `ParseGamestate()` again. SWUDeck. Hidden until 2026-09-15 |
+| `test_swudeck_setnnn_dictionary` (HTTP:3100) | `FAIL: official card count (2302 …)` — first seen 2026-09-15 after the HMW card-mock commit |
+
+| render (`RunRenderTests.php`) | `PASS=251 FAIL=5 … RED` (hud/clarent theme links, the roster signature, empty seats Title Case). SharedUI. The script exits 0 when red, so the runner now reads its `RED` line as well |
+
+⚠ **Before 2026-09-15 the runner reported some red tests as GREEN.** An unrecognised last line, over HTTP (exit
+code always 0), defaulted to PASS. That hid every `bot_test_bootstrap` failure (they end "N FAILED") and every
+test that prints `FAIL: …` first and details after. The classifier now also fails on `^N FAILED` and, when the
+last line is unrecognised, on any line starting `FAIL`. The two "hidden" rows above surfaced that day.
 
 If you triage one, either fix it or add it to `known-red.txt` WITH its reason, and update this table.
 
