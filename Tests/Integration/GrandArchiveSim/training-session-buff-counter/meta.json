@@ -3,7 +3,7 @@
     "rootName": "GrandArchiveSim",
     "createdAt": "2026-09-15T00:00:00+00:00",
     "createdBy": "Codex",
-    "notes": "Training Session (TAMER,WARRIOR, NORM, no Class Bonus gate on the macro itself) targets an ally on the field and puts a buff counter on it. Dungeon Guide seeded as the target.",
+    "notes": "Training Session (TAMER,WARRIOR, NORM, no Class Bonus gate on the macro itself) targets an ally on the field and puts a buff counter on it. Dungeon Guide seeded as myField-1, the only legal ALLY target (ZoneSearch('myField', ['ALLY']) excludes the CHAMPION at myField-0). The card's own macro emits exactly one MZCHOOSE (Param='myField-1', the sole legal choice) immediately after the 2nd reserve payment -- an earlier draft of this fixture answered that MZCHOOSE with 'PASS' instead of the target mzId, which the engine silently accepted as a decline (DQ cleared, success=true, no WARN) without ever calling AddCounters, so the buff counter was never actually applied despite the fixture reporting PASS -- the same 'reports success but nothing happens' class of issue as the Crux Knight and Rai-deck Anger the Skies investigations. Fixed by answering the MZCHOOSE directly with 'myField-1'; asserts Counters={\"buff\":1} on p1Field-1.",
     "testedCards": [
         "G42RDwb3Ko"
     ],
