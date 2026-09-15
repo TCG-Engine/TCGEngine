@@ -1,0 +1,17 @@
+{
+    "name": "Training Session: target ally gets a buff counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Training Session (TAMER,WARRIOR, NORM, no Class Bonus gate on the macro itself) targets an ally on the field and puts a buff counter on it. Dungeon Guide seeded as the target.",
+    "testedCards": [
+        "G42RDwb3Ko"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["G42RDwb3Ko"],
+        "mechanics": ["targeting", "counter"],
+        "rulesClauses": [
+            "Target ally gets a buff counter."
+        ]
+    }
+}

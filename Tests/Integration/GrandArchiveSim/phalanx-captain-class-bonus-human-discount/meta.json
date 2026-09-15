@@ -1,0 +1,17 @@
+{
+    "name": "Phalanx Captain: reserve cost reduced by 1 per HUMAN ally (Class Bonus)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Phalanx Captain is WIND element with a self-referential activationCostModifierAbilities entry (rPpLwLPGaL:0) that reduces its own reserve cost by 1 per HUMAN ally controlled, gated on WARRIOR Class Bonus. Champion CardID-patched to Lorraine, Blademaster (WARRIOR) with Spirit of Wind added via Subcards for WIND access; Dungeon Guide (a HUMAN ally) is seeded onto the field. With 1 HUMAN ally, the printed 5 reserve cost is reduced to 4 (paid with exactly 4 reserve actions).",
+    "testedCards": [
+        "rPpLwLPGaL"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["rPpLwLPGaL"],
+        "mechanics": ["cost", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] This card costs 1 less to activate for each HUMAN ally you control."
+        ]
+    }
+}

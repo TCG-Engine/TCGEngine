@@ -1,0 +1,17 @@
+{
+    "name": "Esteemed Knight: [Class Bonus] Intercept",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Esteemed Knight's only ability is [Class Bonus] Intercept (HasKeyword_Intercept, GeneratedKeywordCode.php, gated on IsClassBonusActive($player, [\"WARRIOR\",\"HUMAN\"])) -- unlike Swift Recruit's unconditional Intercept (swift-recruit-intercept-redirect), this needs a real WARRIOR-or-HUMAN-class champion, so the starting champion is CardID-patched directly to Lorraine, Blademaster (WARRIOR). Same real-attack/redirect sequence as swift-recruit-intercept-redirect: P2's default champion (0 printed POWER) needs Executioner's Spear seeded on its own field to have a legal attack; P1 ends turn 1 with nothing to do, P2 attacks P1's champion directly, and P1 redirects to Esteemed Knight (GetAvailableInterceptRedirectTargets only offers a redirect when the attack target is a CHAMPION).",
+    "testedCards": [
+        "iabqeB0I6t"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["iabqeB0I6t"],
+        "mechanics": ["status", "combat", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] Intercept (Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally. Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}

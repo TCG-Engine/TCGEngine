@@ -1,0 +1,17 @@
+{
+    "name": "Spirit Blade: Dispersion: strip durability from Swords, split damage among units",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Spirit Blade: Dispersion is CRUX element, 0 reserve (champion CardID-patched to Lorraine, Crux Knight to unlock it). Its ability (SpiritBladeDispersion, CardLogic.php) removes durability counters from a chosen Sword weapon, banishes it, and splits that much damage among chosen units via an MZSPLITASSIGN decision. Clarent, Sword of Peace is seeded onto the field with 2 durability counters; the answer format for MZSPLITASSIGN (ProcessSplitDamage, GameLogic.php) is \"targetMZ:amount\" regardless of how the decision's own Param field happens to be ordered (confirmed by reading ProcessSplitDamage directly -- this card's own DQ handler builds Param as \"targets|amount|tooltip\", the reverse of every other MZSPLITASSIGN caller's \"amount|targets\" convention, which would even confuse GoldfishResolveDecisionInput's generic auto-resolver; a genuine minor engine inconsistency noted here but not fixed, since fixing engine behavior is out of scope for fixture authoring). All 2 damage assigned to P2's Dungeon Guide.",
+    "testedCards": [
+        "7Rsid05Cf6"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["7Rsid05Cf6"],
+        "mechanics": ["targeting", "damage", "zone-movement"],
+        "rulesClauses": [
+            "Remove all durability counters from any number of Sword weapons you control and banish them. Deal damage divided as you choose among any number of units equal to the number of durability counters removed this way."
+        ]
+    }
+}

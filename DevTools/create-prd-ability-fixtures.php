@@ -11102,6 +11102,757 @@ DECK,
     ],
 ];
 
+// --- Crusader of Aesa: enters the field rested ---
+$fixtures['crusader-of-aesa-enters-rested'] = [
+    'testedCards' => ['2Q60hBYO3i'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Crusader of Aesa's "enters the field rested" is unconditional card text (GameLogic.php
+    // ~7909: if($added->CardID == "2Q60hBYO3i") { $added->Status = 1; }), applied whenever the
+    // card is added to a field via the generic field-add hook -- not gated on Class Bonus (that
+    // gate only applies to its SEPARATE [Class Bonus] Intercept ability, tested separately by
+    // esteemed-knight-class-bonus-intercept since both cards share the same Intercept mechanic).
+    // Played from hand (myHand-7, verified via DevTools/probe-hand.php) paying its 3 reserve.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Q60hBYO3i'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Esteemed Knight: [Class Bonus] Intercept ---
+$fixtures['esteemed-knight-class-bonus-intercept'] = [
+    'testedCards' => ['iabqeB0I6t'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Esteemed Knight's only ability is [Class Bonus] Intercept (HasKeyword_Intercept,
+    // GeneratedKeywordCode.php, gated on IsClassBonusActive($player, ["WARRIOR","HUMAN"])) --
+    // unlike Swift Recruit's unconditional Intercept (swift-recruit-intercept-redirect), this
+    // needs a real WARRIOR-or-HUMAN-class champion, so the starting champion is CardID-patched
+    // directly to Lorraine, Blademaster (WARRIOR). Same real-attack/redirect sequence as
+    // swift-recruit-intercept-redirect: P2's default champion (0 printed POWER) needs
+    // Executioner's Spear seeded on its own field to have a legal attack; P1 ends turn 1 with
+    // nothing to do, P2 attacks P1's champion directly, and P1 redirects to Esteemed Knight
+    // (GetAvailableInterceptRedirectTargets only offers a redirect when the attack target is a
+    // CHAMPION).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'iabqeB0I6t'], // Esteemed Knight, awake
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zv6yp6q7zw'], // Executioner's Spear (1 POWER) for a legal P2 attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Spirit Blade: Ghost Strike: On Attack, may banish a material card for +1 POWER ---
+$fixtures['spirit-blade-ghost-strike-banish-material-power'] = [
+    'testedCards' => ['vcZSHNHvKX'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Spirit Blade: Ghost Strike is CRUX element (verified via CardElement(), not NORM as
+    // cardArrayCache.json's unreliable elements field would suggest) -- champion CardID-patched
+    // directly to Lorraine, Crux Knight (WARRIOR + CRUX) to unlock it, same technique as the
+    // Rai deck's ARCANE cards. 0 reserve cost, so played straight to attack (ATTACK cards go
+    // into myIntent via FSM, not through the DoActivateCard fast-action opportunity flow --
+    // confirmed via wind-cutter-class-bonus-power-attack). Its On Attack ability
+    // (onAttackAbilities["vcZSHNHvKX:0"]) offers a MZMAYCHOOSE to banish a material-deck card for
+    // +1 POWER on the champion's attacks (AddGlobalEffects "vcZSHNHvKX",
+    // doesGlobalEffectApply["vcZSHNHvKX"]); the deck's own default Material leftovers (Lorraine
+    // Wandering Warrior, Clarent, Backup Charger, Purifying Thurible) supply a real choice.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'NfbZ0nouSQ']],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vcZSHNHvKX'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Fire Resonance Bauble: Banish -- draw a card (if opponent can access Fire) ---
+$fixtures['fire-resonance-bauble-banish-draw'] = [
+    'testedCards' => ['LROrzTmh55'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Fire Resonance Bauble is REGALIA -- seeded directly onto myField (memory-cost REGALIA
+    // items are Material-zone-only cards when played for real, same as Clarent/Backup
+    // Charger/Purifying Thurible in this deck's own Material section; seeding directly bypasses
+    // that entirely to test only the [Activate] ability itself). Its prereq
+    // (activateAbilityPrereqs["LROrzTmh55:0"]) requires the OPPONENT to have Fire access --
+    // P2's default starting champion is literally Spirit of Fire, so no patch is needed. Same
+    // Scry the Skies warm-up + direct Activate:0 click as crystal-of-empowerment-banish-level.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'LROrzTmh55'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Hurricane Sweep: [Class Bonus] Efficiency + Cleave ---
+$fixtures['hurricane-sweep-class-bonus-power-attack'] = [
+    'testedCards' => ['4V6qKuM7xs'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+8 Dungeon Guide
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Hurricane Sweep is WIND element with [Class Bonus] Efficiency (reduce reserve cost by
+    // champion's current level) and printed Cleave (already proven generically by the
+    // pre-existing hemorrhaging-rend-damage20-cleave fixture, so not re-asserted here). Champion
+    // CardID-patched directly to Lorraine, Blademaster (WARRIOR, level 2) with Spirit of Wind
+    // added via Subcards for WIND access -- same technique as wind-cutter-class-bonus-power-attack,
+    // including dropping Fairy Whispers from the Main list to avoid the WIND-unlock
+    // Opportunity-window cascade that card triggers once WIND is enabled. With level 2 active,
+    // Efficiency reduces the printed 5 reserve cost to 3 (verified: CalculateActivationReserveCost
+    // applies the Efficiency registry's reduction unconditionally once IsGA's $Efficiency_Cards
+    // registry contains the card, regardless of the printed "[Class Bonus]" qualifier -- an
+    // engine-behavior detail worth noting, though moot here since a real WARRIOR Class Bonus is
+    // also active).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ', 'Subcards' => ['pNiyaGlIe7']]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4V6qKuM7xs'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Ornamental Greatsword: [Class Bonus] On Enter target ally gets +1 POWER until EOT ---
+$fixtures['ornamental-greatsword-enter-ally-power'] = [
+    'testedCards' => ['qyQLlDYBlr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Ornamental Greatsword
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Ornamental Greatsword is REGALIA with a 0-memory-cost On Enter ability, so (unlike the
+    // other REGALIA items in this deck) it must actually MATERIALIZE for its enterAbilities to
+    // fire -- direct field-seeding would skip the trigger entirely. Memory-cost REGALIA
+    // materialize like champions, via the material-phase MZMAYCHOOSE, only offered on the turn
+    // player's OWN turn after turn 1 (MaterializePhase() in MaterializeLogic.php), so both
+    // players end turn 1/2 to reach P1's turn 3. Its enterAbilities call
+    // IsClassBonusActive($player) with NO classes argument, which (per GameLogic.php's
+    // IsClassBonusActive) requires only that SOME champion is on the field -- not actually gated
+    // on this card's own GUARDIAN/WARRIOR classes, an engine-behavior detail noted here rather
+    // than assumed away; the default Spirit of Fire champion already satisfies it. A Dungeon
+    // Guide is seeded as the ally target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, the ally target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Savage Slash: [Class Bonus] Floating Memory ---
+$fixtures['savage-slash-class-bonus-floating-memory'] = [
+    'testedCards' => ['4a7QLLouGk'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Lorraine, Blademaster
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Savage Slash's only ability is [Class Bonus] Floating Memory, gated on WARRIOR Class
+    // Bonus (unlike honorable-vanguard-floating-memory's unconditional version). Floating Memory
+    // is a MEMORY-cost payment source (champion leveling / memory-cost REGALIA materialize) --
+    // NOT a reserve-cost payment source (that's the separate "Reservable" keyword, checked via
+    // GetReservablePaymentSources against field objects only; an initial draft of this fixture
+    // wrongly assumed Floating Memory applied to reserve costs too and failed with "Invalid
+    // selection" on the ReserveCard MZCHOOSE, whose Param turned out to be the literal zone name
+    // "myHand" with no graveyard entries). Champion CardID-patched to Lorraine, Wandering
+    // Warrior (level 1, WARRIOR -- already gives the Class Bonus), then leveled up for real
+    // (level 1 -> 2, legal since target == current + 1) into Lorraine, Blademaster on P1's turn 3
+    // material phase, paying its 2-memory cost with Savage Slash from myGraveyard (Floating
+    // Memory) plus 1 real myMemory filler card.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']],
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '4a7QLLouGk'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Spirit Blade: Ascension: additional cost return Sword to material; fetch a Sword to field ---
+$fixtures['spirit-blade-ascension-swap-sword'] = [
+    'testedCards' => ['N0ipz8UWwf'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Spirit Blade: Ascension is CRUX element (champion CardID-patched to Lorraine, Crux Knight
+    // to unlock it). Its ability (cardActivatedAbilities["N0ipz8UWwf:0"]) requires controlling a
+    // REGALIA,SWORD on the field to return to material, then lets you fetch a REGALIA,SWORD from
+    // material or banishment onto the field. Clarent, Sword of Peace is seeded directly onto the
+    // field as the Sword to return; Warrior's Longsword is seeded into material as the Sword to
+    // fetch back.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'NfbZ0nouSQ']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace -- the Sword to return
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'jF1VuIR7a6'], // Warrior's Longsword -- the Sword to fetch back
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'N0ipz8UWwf'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Spirit Blade: Dispersion: strip durability from Swords, split damage among units ---
+$fixtures['spirit-blade-dispersion-split-damage'] = [
+    'testedCards' => ['7Rsid05Cf6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Spirit Blade: Dispersion is CRUX element, 0 reserve (champion CardID-patched to Lorraine,
+    // Crux Knight to unlock it). Its ability (SpiritBladeDispersion, CardLogic.php) removes
+    // durability counters from a chosen Sword weapon, banishes it, and splits that much damage
+    // among chosen units via an MZSPLITASSIGN decision. Clarent, Sword of Peace is seeded onto
+    // the field with 2 durability counters; the answer format for MZSPLITASSIGN
+    // (ProcessSplitDamage, GameLogic.php) is "targetMZ:amount" regardless of how the decision's
+    // own Param field happens to be ordered (confirmed by reading ProcessSplitDamage directly --
+    // this card's own DQ handler builds Param as "targets|amount|tooltip", the reverse of every
+    // other MZSPLITASSIGN caller's "amount|targets" convention, which would even confuse
+    // GoldfishResolveDecisionInput's generic auto-resolver; a genuine minor engine inconsistency
+    // noted here but not fixed, since fixing engine behavior is out of scope for fixture
+    // authoring). All 2 damage assigned to P2's Dungeon Guide.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'NfbZ0nouSQ']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm31WVJ9F04', 'setProperties' => ['Counters' => ['durability' => 2]]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '7Rsid05Cf6'],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1:2', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Sword of Seeking: [Class Bonus] True Sight ---
+$fixtures['sword-of-seeking-class-bonus-true-sight'] = [
+    'testedCards' => ['Dz8I0eJzaf'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Sword of Seeking's only ability is [Class Bonus] True Sight (HasKeyword_TrueSight, gated
+    // on WARRIOR Class Bonus) -- champion CardID-patched directly to Lorraine, Blademaster
+    // (WARRIOR), Sword of Seeking seeded directly onto the field (its ability is a static
+    // wielded-weapon check, not an Enter trigger). Gildas, Faesworn Monarch (unconditional
+    // Stealth) is seeded onto P2's field as the attack target: AttackerHasTrueSight
+    // (CombatLogic.php) checks the wielded weapon for True Sight, which is what allows Stealth
+    // units to be legally targeted at all (GetChooseAttackTargets filters them out otherwise) --
+    // successfully targeting Gildas is itself the proof.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Dz8I0eJzaf'], // Sword of Seeking
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'g99PIuhU0O'], // Gildas, Faesworn Monarch (Stealth)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Weaponsmith: [Class Bonus] put a durability counter on target weapon at recollection ---
+$fixtures['weaponsmith-class-bonus-durability'] = [
+    'testedCards' => ['6gN5KjqRW5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Weaponsmith's ability fires from ResolveBeforeRecollectionPhaseStart (GameLogic.php ~9366),
+    // once per turn at the start of the controller's own recollection phase -- champion
+    // CardID-patched to Lorraine, Blademaster (WARRIOR) for the Class Bonus, with exactly one
+    // WEAPON on the field (Warrior's Longsword) so the counter is applied automatically with no
+    // extra MZCHOOSE. Both players end turn 1/2 (same pattern as
+    // arcanists-prism-recollection-wheel-draw) to reach P1's own turn 3 recollection phase.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '6gN5KjqRW5'], // Weaponsmith
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'jF1VuIR7a6'], // Warrior's Longsword -- the only weapon on the field
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Lorraine, Blademaster: On Enter, attacks +2 POWER and gain On Kill: Draw a card ---
+$fixtures['lorraine-blademaster-enter-attack-buff'] = [
+    'testedCards' => ['TJTeWcZnsQ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Lorraine, Blademaster
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lorraine, Blademaster's ability is an On Enter trigger (enterAbilities["TJTeWcZnsQ:0"]),
+    // so it must actually be leveled into via a real level-up event, not a direct CardID patch --
+    // but CanChampionLevelUpIntoCard only allows target level == current level + 1, so a direct
+    // 0->2 jump is illegal. The starting champion is CardID-patched to Lorraine, Wandering
+    // Warrior (level 1) first, then leveled up for real (level 1 -> 2) on P1's turn 3 material
+    // phase, paying the 2-memory cost from 2 seeded myMemory filler cards. The On Enter ability
+    // tags the champion with the TJTeWcZnsQ TurnEffect, which CombatLogic.php reads for both the
+    // +2 POWER on attacks and the On Kill: Draw grant -- asserted directly via TurnEffects
+    // rather than scripting a full attack, matching the minimal-assertion philosophy established
+    // for other "until end of turn" grants.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Phalanx Captain: reserve cost reduced by 1 per HUMAN ally (Class Bonus) ---
+$fixtures['phalanx-captain-class-bonus-human-discount'] = [
+    'testedCards' => ['rPpLwLPGaL'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Phalanx Captain is WIND element with a self-referential activationCostModifierAbilities
+    // entry (rPpLwLPGaL:0) that reduces its own reserve cost by 1 per HUMAN ally controlled,
+    // gated on WARRIOR Class Bonus. Champion CardID-patched to Lorraine, Blademaster (WARRIOR)
+    // with Spirit of Wind added via Subcards for WIND access; Dungeon Guide (a HUMAN ally) is
+    // seeded onto the field. With 1 HUMAN ally, the printed 5 reserve cost is reduced to 4.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ', 'Subcards' => ['pNiyaGlIe7']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (HUMAN)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rPpLwLPGaL'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Sudden Steel: [Class Bonus] Efficiency ---
+$fixtures['sudden-steel-class-bonus-efficiency'] = [
+    'testedCards' => ['SSu2eQZFJV'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Sudden Steel's only ability is [Class Bonus] Efficiency (reduce reserve cost by champion's
+    // current level). Champion CardID-patched directly to Lorraine, Blademaster (WARRIOR, level
+    // 2), reducing the printed 6 reserve cost to 4. Played into myIntent via FSM (ATTACK cards
+    // don't go through the fast-action opportunity flow until after the attack is declared, per
+    // wind-cutter-class-bonus-power-attack), then attacks the opponent's champion directly.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'SSu2eQZFJV'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Training Session: target ally gets a buff counter ---
+$fixtures['training-session-buff-counter'] = [
+    'testedCards' => ['G42RDwb3Ko'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Training Session (TAMER,WARRIOR, NORM, no Class Bonus gate on the macro itself) targets an
+    // ally on the field and puts a buff counter on it. Dungeon Guide seeded as the target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, the target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'G42RDwb3Ko'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Lorraine, Crux Knight: attacks +1 POWER per regalia weapon in banishment ---
+$fixtures['lorraine-crux-knight-banished-weapon-power'] = [
+    'testedCards' => ['NfbZ0nouSQ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lorraine, Crux Knight's ability is a static computed-power case (GameLogic.php ~11019,
+    // not an Enter trigger), so the champion is CardID-patched directly to it. NfbZ0nouSQ has no
+    // printed POWER (CardPower returns -1) -- a champion attacking with 0 total power never
+    // reaches the damage step at all (confirmed via a temporary error_log instrumentation of the
+    // ObjectCurrentPower switch case, since reverted: with no weapon, the pre-declaration "does
+    // this attacker have positive power" check runs while CombatAttacker is still unset, so the
+    // bonus can't count toward it, and the attack silently resolves with no damage step ever
+    // running -- the same "reports success but nothing happens" class of issue as the Rai-deck
+    // Anger the Skies investigation). Rather than fight that pre-check by adding a real weapon
+    // (which risks conflating the measurement with the weapon's own abilities, as a first draft
+    // using Warrior's Longsword discovered -- its own [Class Bonus] +1 POWER stacked with this
+    // card's bonus and killed the target outright), the CombatAttacker DecisionQueueController
+    // variable is set directly via the 'dqVariables' setup primitive (same technique as
+    // Samaritan's Reach's existing fixture) so ObjectCurrentPower's NfbZ0nouSQ case evaluates
+    // exactly as it would mid-combat, with zero scripted combat actions. A REGALIA weapon
+    // (Warrior's Longsword) is seeded into myBanish; computed_power_equals on the champion's own
+    // mzId directly asserts the resulting +1 POWER.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'NfbZ0nouSQ']],
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'jF1VuIR7a6'], // Warrior's Longsword (REGALIA,WEAPON) in banish -- the +1 POWER bonus source
+        ['player' => 1, 'dqVariables' => ['CombatAttacker' => 'myField-0']],
+    ],
+    // A single harmless mode=100 PASS with no pending decision is included purely so the test
+    // runner (RunIntegrationTests.php) loads the root runtime at all -- it only does so as a
+    // side effect of replaying at least one EngineRunAction, and a zero-action fixture crashes
+    // its own step-0 assertion check with "Call to undefined function GetZoneObject()" before
+    // ever reaching the replay loop. Confirmed via direct probing that this PASS does not touch
+    // the injected CombatAttacker variable or the champion's computed power.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Opening Cut: [Class Bonus] +2 POWER while exactly 1 card in memory ---
+$fixtures['opening-cut-class-bonus-memory-power'] = [
+    'testedCards' => ['vBetRTn3eW'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Opening Cut's only ability is [Class Bonus] +2 POWER while its controller has exactly 1
+    // card in Memory (GameLogic.php ~11053). Champion CardID-patched to Lorraine, Blademaster
+    // (WARRIOR), with exactly 1 filler card seeded into myMemory. Reserve cost 1.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // exactly 1 card in memory
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vBetRTn3eW'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Warrior's Longsword: [Class Bonus] +1 POWER ---
+$fixtures['warriors-longsword-class-bonus-power'] = [
+    'testedCards' => ['jF1VuIR7a6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Warrior's Longsword's only ability is [Class Bonus] +1 POWER, a static computed-power case
+    // (GameLogic.php ~10998, not an Enter trigger) -- seeded directly onto the field. Champion
+    // CardID-patched to Lorraine, Blademaster (WARRIOR). Champion attacks wielding the weapon;
+    // computed power includes the printed 1 POWER of the weapon itself plus the +1 Class Bonus.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'jF1VuIR7a6'], // Warrior's Longsword
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Prismatic Edge: [Class Bonus] On Enter, reveal memory: Fire deals 3 damage ---
+$fixtures['prismatic-edge-fire-damage'] = [
+    'testedCards' => ['FxYwR2azTt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Prismatic Edge
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Prismatic Edge is CRUX element (verified via CardElement(), not NORM) with a 2-memory
+    // On Enter ability requiring [Class Bonus] WARRIOR -- champion CardID-patched to Lorraine,
+    // Crux Knight (WARRIOR + CRUX unlock). It must actually materialize (memory-cost REGALIA are
+    // Material-zone-only cards, like this deck's own Clarent/Backup Charger/Purifying Thurible)
+    // for its enterAbilities to fire, so the deck's Material section is just the champion slot
+    // plus Prismatic Edge itself, giving it myMaterial-0. 2 filler cards are seeded into myMemory
+    // to pay the 2-memory cost -- FINISHPAYMATERIALIZE banishes the FIRST N memory cards as
+    // payment, so a real FIRE-element card (Spirit of Fire itself) is seeded into the OPPONENT's
+    // memory instead, untouched by payment, to trigger the "reveal memory for Fire" branch
+    // (revealing either player's memory counts) without index-ordering risk. The Fire branch
+    // deals 3 damage to a chosen unit (PrismaticEdgeFire, CardDQHandlers.php) -- P2's Dungeon
+    // Guide is the target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'NfbZ0nouSQ']],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'LMyKyVC2O9'], // Spirit of Fire (FIRE element), untouched by payment
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, damage target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
