@@ -1,0 +1,18 @@
+{
+    "name": "Lorraine, Blademaster: On Enter, attacks +2 POWER and gain On Kill: Draw a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Lorraine, Blademaster's ability is an On Enter trigger (enterAbilities[\"TJTeWcZnsQ:0\"]), so it must actually be leveled into via a real level-up event, not a direct CardID patch -- but CanChampionLevelUpIntoCard only allows target level == current level + 1, so a direct 0->2 jump is illegal. The starting champion is CardID-patched to Lorraine, Wandering Warrior (level 1) first, then leveled up for real (level 1 -> 2) on P1's turn 3 material phase, paying the 2-memory cost from 2 seeded myMemory filler cards. The On Enter ability tags the champion with the TJTeWcZnsQ TurnEffect, which CombatLogic.php reads for both the +2 POWER on attacks and the On Kill: Draw grant -- asserted directly via TurnEffects rather than scripting a full attack, matching the minimal-assertion philosophy established for other \"until end of turn\" grants.",
+    "testedCards": [
+        "TJTeWcZnsQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["TJTeWcZnsQ"],
+        "mechanics": ["draw-discard", "trigger"],
+        "rulesClauses": [
+            "Lorraine Lineage",
+            "On Enter: Until end of turn, CARDNAME's attacks get +2 POWER and gain \"On Kill: Draw a card.\""
+        ]
+    }
+}

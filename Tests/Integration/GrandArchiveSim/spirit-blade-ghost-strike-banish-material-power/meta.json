@@ -1,0 +1,17 @@
+{
+    "name": "Spirit Blade: Ghost Strike: On Attack, may banish a material card for +1 POWER",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Spirit Blade: Ghost Strike is CRUX element (verified via CardElement(), not NORM as cardArrayCache.json's unreliable elements field would suggest) -- champion CardID-patched directly to Lorraine, Crux Knight (WARRIOR + CRUX) to unlock it, same technique as the Rai deck's ARCANE cards. 0 reserve cost, so played straight to attack (ATTACK cards go into myIntent via FSM, not through the DoActivateCard fast-action opportunity flow -- confirmed via wind-cutter-class-bonus-power-attack). Its On Attack ability (onAttackAbilities[\"vcZSHNHvKX:0\"]) offers a MZMAYCHOOSE to banish a material-deck card for +1 POWER on the champion's attacks (AddGlobalEffects \"vcZSHNHvKX\", doesGlobalEffectApply[\"vcZSHNHvKX\"]); the deck's own default Material leftovers (Lorraine Wandering Warrior, Clarent, Backup Charger, Purifying Thurible) supply a real choice, and myMaterial-0 is banished.",
+    "testedCards": [
+        "vcZSHNHvKX"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["vcZSHNHvKX"],
+        "mechanics": ["zone-movement", "combat", "trigger", "condition"],
+        "rulesClauses": [
+            "On Attack: You may banish a card from your material deck. If you do, CARDNAME's attacks get +1 POWER."
+        ]
+    }
+}

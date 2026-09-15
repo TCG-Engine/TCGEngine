@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-14T20:10:43+00:00",
+    "generatedAt": "2026-09-15T13:43:50+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 338,
+        "cardsWithExistingFixtures": 357,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2149,
+        "cardsNeedingSemanticCoverage": 2130,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -171,29 +171,6 @@
             "priority": 115
         },
         {
-            "cardId": "FxYwR2azTt",
-            "name": "Prismatic Edge",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "soO3hjaVfN",
             "name": "Rending Flames",
             "type": "ATTACK",
@@ -296,28 +273,6 @@
             "priority": 114
         },
         {
-            "cardId": "2Q60hBYO3i",
-            "name": "Crusader of Aesa",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "em6eEh9q8y",
             "name": "Dungeon Guide",
             "type": "ALLY",
@@ -354,28 +309,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "iabqeB0I6t",
-            "name": "Esteemed Knight",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -477,28 +410,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "vcZSHNHvKX",
-            "name": "Spirit Blade: Ghost Strike",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -677,26 +588,6 @@
             "priority": 113
         },
         {
-            "cardId": "LROrzTmh55",
-            "name": "Fire Resonance Bauble",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "v1jaidvvz2",
             "name": "Gem of Searing Flame",
             "type": "REGALIA,ITEM",
@@ -711,27 +602,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "4V6qKuM7xs",
-            "name": "Hurricane Sweep",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -814,26 +684,6 @@
             "priority": 113
         },
         {
-            "cardId": "qyQLlDYBlr",
-            "name": "Ornamental Greatsword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "NRBO0nVMdl",
             "name": "Photic Blade",
             "type": "REGALIA,WEAPON",
@@ -870,27 +720,6 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "4a7QLLouGk",
-            "name": "Savage Slash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -934,47 +763,6 @@
             "priority": 113
         },
         {
-            "cardId": "N0ipz8UWwf",
-            "name": "Spirit Blade: Ascension",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "7Rsid05Cf6",
-            "name": "Spirit Blade: Dispersion",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "AMv1u54B2s",
             "name": "Strike of Singularity",
             "type": "ATTACK",
@@ -989,27 +777,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "Dz8I0eJzaf",
-            "name": "Sword of Seeking",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1124,27 +891,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "6gN5KjqRW5",
-            "name": "Weaponsmith",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1406,26 +1152,6 @@
             "priority": 112
         },
         {
-            "cardId": "TJTeWcZnsQ",
-            "name": "Lorraine, Blademaster",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "y46R5C190v",
             "name": "Meiren of Verdancy",
             "type": "ALLY",
@@ -1460,25 +1186,6 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "rPpLwLPGaL",
-            "name": "Phalanx Captain",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -1650,26 +1357,6 @@
             "priority": 112
         },
         {
-            "cardId": "SSu2eQZFJV",
-            "name": "Sudden Steel",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "0ZWcrEsFHA",
             "name": "Tenderheart Guard",
             "type": "ALLY",
@@ -1684,24 +1371,6 @@
             "starterDecks": [
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "G42RDwb3Ko",
-            "name": "Training Session",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -1862,41 +1531,6 @@
             "starterDecks": [
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "NfbZ0nouSQ",
-            "name": "Lorraine, Crux Knight",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "vBetRTn3eW",
-            "name": "Opening Cut",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -2128,24 +1762,6 @@
             "starterDecks": [
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "jF1VuIR7a6",
-            "name": "Warrior's Longsword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -38678,6 +38294,33 @@
             "priority": 135
         },
         {
+            "cardId": "FxYwR2azTt",
+            "name": "Prismatic Edge",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "prismatic-edge-fire-damage"
+            ],
+            "semanticFixtures": [
+                "prismatic-edge-fire-damage"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "rhlq2kkvoq",
             "name": "Rocket Jump",
             "type": "ACTION",
@@ -39255,6 +38898,32 @@
             "priority": 134
         },
         {
+            "cardId": "2Q60hBYO3i",
+            "name": "Crusader of Aesa",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "crusader-of-aesa-enters-rested"
+            ],
+            "semanticFixtures": [
+                "crusader-of-aesa-enters-rested"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "P9Y1Q5cQ0F",
             "name": "Crux Sight",
             "type": "ACTION",
@@ -39405,6 +39074,32 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "iabqeB0I6t",
+            "name": "Esteemed Knight",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "esteemed-knight-class-bonus-intercept"
+            ],
+            "semanticFixtures": [
+                "esteemed-knight-class-bonus-intercept"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -40254,6 +39949,32 @@
             "priority": 134
         },
         {
+            "cardId": "vcZSHNHvKX",
+            "name": "Spirit Blade: Ghost Strike",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "spirit-blade-ghost-strike-banish-material-power"
+            ],
+            "semanticFixtures": [
+                "spirit-blade-ghost-strike-banish-material-power"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "6wiHKD52Lw",
             "name": "Stoked Slice",
             "type": "ATTACK",
@@ -40911,6 +40632,30 @@
             "priority": 133
         },
         {
+            "cardId": "LROrzTmh55",
+            "name": "Fire Resonance Bauble",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fire-resonance-bauble-banish-draw"
+            ],
+            "semanticFixtures": [
+                "fire-resonance-bauble-banish-draw"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "MDu0e3tib8",
             "name": "Flourishing Qi",
             "type": "ACTION",
@@ -41146,6 +40891,31 @@
             "priority": 133
         },
         {
+            "cardId": "4V6qKuM7xs",
+            "name": "Hurricane Sweep",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hurricane-sweep-class-bonus-power-attack"
+            ],
+            "semanticFixtures": [
+                "hurricane-sweep-class-bonus-power-attack"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "17fzcyfrzr",
             "name": "Imperial Rifleman",
             "type": "ALLY",
@@ -41375,6 +41145,30 @@
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "qyQLlDYBlr",
+            "name": "Ornamental Greatsword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ornamental-greatsword-enter-ally-power"
+            ],
+            "semanticFixtures": [
+                "ornamental-greatsword-enter-ally-power"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -41661,6 +41455,31 @@
             "priority": 133
         },
         {
+            "cardId": "4a7QLLouGk",
+            "name": "Savage Slash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "savage-slash-class-bonus-floating-memory"
+            ],
+            "semanticFixtures": [
+                "savage-slash-class-bonus-floating-memory"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "vk56lbihtc",
             "name": "Savage Swing",
             "type": "ATTACK",
@@ -41847,6 +41666,55 @@
             "priority": 133
         },
         {
+            "cardId": "N0ipz8UWwf",
+            "name": "Spirit Blade: Ascension",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "spirit-blade-ascension-swap-sword"
+            ],
+            "semanticFixtures": [
+                "spirit-blade-ascension-swap-sword"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "7Rsid05Cf6",
+            "name": "Spirit Blade: Dispersion",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "spirit-blade-dispersion-split-damage"
+            ],
+            "semanticFixtures": [
+                "spirit-blade-dispersion-split-damage"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "qaA3sXFRFY",
             "name": "Spirit's Blessing",
             "type": "ACTION",
@@ -41989,6 +41857,31 @@
             "priority": 133
         },
         {
+            "cardId": "Dz8I0eJzaf",
+            "name": "Sword of Seeking",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sword-of-seeking-class-bonus-true-sight"
+            ],
+            "semanticFixtures": [
+                "sword-of-seeking-class-bonus-true-sight"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "2ugmnmp5af",
             "name": "Take Cover",
             "type": "ACTION",
@@ -42106,6 +41999,31 @@
             ],
             "starterDecks": [
                 "Rai Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "6gN5KjqRW5",
+            "name": "Weaponsmith",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "weaponsmith-class-bonus-durability"
+            ],
+            "semanticFixtures": [
+                "weaponsmith-class-bonus-durability"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42800,6 +42718,30 @@
             "priority": 132
         },
         {
+            "cardId": "TJTeWcZnsQ",
+            "name": "Lorraine, Blademaster",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "lorraine-blademaster-enter-attack-buff"
+            ],
+            "semanticFixtures": [
+                "lorraine-blademaster-enter-attack-buff"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "DpHDGaX2Pn",
             "name": "Lorraine, Wandering Warrior",
             "type": "CHAMPION",
@@ -42930,6 +42872,29 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "rPpLwLPGaL",
+            "name": "Phalanx Captain",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "phalanx-captain-class-bonus-human-discount"
+            ],
+            "semanticFixtures": [
+                "phalanx-captain-class-bonus-human-discount"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43331,6 +43296,30 @@
             "priority": 132
         },
         {
+            "cardId": "SSu2eQZFJV",
+            "name": "Sudden Steel",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sudden-steel-class-bonus-efficiency"
+            ],
+            "semanticFixtures": [
+                "sudden-steel-class-bonus-efficiency"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "ljyevpmu6g",
             "name": "Supply Drone",
             "type": "ALLY",
@@ -43460,6 +43449,28 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "G42RDwb3Ko",
+            "name": "Training Session",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter"
+            ],
+            "existingFixtures": [
+                "training-session-buff-counter"
+            ],
+            "semanticFixtures": [
+                "training-session-buff-counter"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -44126,6 +44137,49 @@
             "priority": 131
         },
         {
+            "cardId": "NfbZ0nouSQ",
+            "name": "Lorraine, Crux Knight",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "lorraine-crux-knight-banished-weapon-power"
+            ],
+            "semanticFixtures": [
+                "lorraine-crux-knight-banished-weapon-power"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "vBetRTn3eW",
+            "name": "Opening Cut",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "opening-cut-class-bonus-memory-power"
+            ],
+            "semanticFixtures": [
+                "opening-cut-class-bonus-memory-power"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "914hZjxDL0",
             "name": "Peer into Mana",
             "type": "ACTION",
@@ -44313,6 +44367,28 @@
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "jF1VuIR7a6",
+            "name": "Warrior's Longsword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "warriors-longsword-class-bonus-power"
+            ],
+            "semanticFixtures": [
+                "warriors-longsword-class-bonus-power"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

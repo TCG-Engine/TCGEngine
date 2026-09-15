@@ -1,0 +1,70 @@
+[
+    {
+        "step": 4,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"qyQLlDYBlr\"]"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "CardID",
+        "value": "qyQLlDYBlr"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Counters",
+        "value": "{\"durability\":1}"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "TurnEffects",
+        "value": "[\"ENTERED_THIS_TURN\"]"
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 8
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 3
+    },
+    {
+        "step": 4,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 8
+    }
+]

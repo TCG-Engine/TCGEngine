@@ -1,0 +1,17 @@
+{
+    "name": "Fire Resonance Bauble: Banish -- draw a card (if opponent can access Fire)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Fire Resonance Bauble is REGALIA -- seeded directly onto myField (memory-cost REGALIA items are Material-zone-only cards when played for real, same as Clarent/Backup Charger/Purifying Thurible in this deck's own Material section; seeding directly bypasses that entirely to test only the [Activate] ability itself). Its prereq (activateAbilityPrereqs[\"LROrzTmh55:0\"]) requires the OPPONENT to have Fire access -- P2's default starting champion is literally Spirit of Fire, so no patch is needed. Same Scry the Skies warm-up + direct Activate:0 click as crystal-of-empowerment-banish-level.",
+    "testedCards": [
+        "LROrzTmh55"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["LROrzTmh55"],
+        "mechanics": ["draw-discard", "zone-movement", "condition"],
+        "rulesClauses": [
+            "[Activate], Banish CARDNAME: If your opponent's champion can access Fire, draw a card."
+        ]
+    }
+}

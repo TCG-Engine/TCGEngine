@@ -1,0 +1,17 @@
+{
+    "name": "Savage Slash: [Class Bonus] Floating Memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Savage Slash's only ability is [Class Bonus] Floating Memory, gated on WARRIOR Class Bonus (unlike honorable-vanguard-floating-memory's unconditional version). Floating Memory is a MEMORY-cost payment source (champion leveling / memory-cost REGALIA materialize) -- NOT a reserve-cost payment source (that's the separate \"Reservable\" keyword, checked via GetReservablePaymentSources against field objects only; an initial draft of this fixture wrongly assumed Floating Memory applied to reserve costs too and failed with \"Invalid selection\" on the ReserveCard MZCHOOSE, whose Param turned out to be the literal zone name \"myHand\" with no graveyard entries -- corrected here). Champion CardID-patched to Lorraine, Wandering Warrior (level 1, WARRIOR -- already gives the Class Bonus), then leveled up for real (level 1 -> 2, legal since target == current + 1) into Lorraine, Blademaster on P1's turn 3 material phase, paying its 2-memory cost with Savage Slash from myGraveyard (Floating Memory) plus 1 real myMemory filler card.",
+    "testedCards": [
+        "4a7QLLouGk"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["4a7QLLouGk"],
+        "mechanics": ["cost", "zone-movement", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] Floating Memory (While paying a memory cost, you may banish this card from your graveyard to pay for 1. Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}

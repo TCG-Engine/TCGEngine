@@ -1,0 +1,17 @@
+{
+    "name": "Spirit Blade: Ascension: additional cost return a Sword to material; fetch a Sword to field",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Spirit Blade: Ascension is CRUX element (champion CardID-patched to Lorraine, Crux Knight to unlock it). Its ability (cardActivatedAbilities[\"N0ipz8UWwf:0\"]) requires controlling a REGALIA,SWORD on the field to return to material, then lets you fetch a REGALIA,SWORD from material or banishment onto the field. Clarent, Sword of Peace is seeded directly onto the field as the Sword to return; Warrior's Longsword is seeded into material as the Sword to fetch back -- final state shows Clarent back in myMaterial and Warrior's Longsword on myField.",
+    "testedCards": [
+        "N0ipz8UWwf"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["N0ipz8UWwf"],
+        "mechanics": ["cost", "targeting", "zone-movement"],
+        "rulesClauses": [
+            "Additional cost: Return a Sword regalia you control to your material deck. Choose a Sword regalia card from your material deck or banishment and put it onto the field."
+        ]
+    }
+}
