@@ -1,0 +1,96 @@
+[
+  {
+    "cardId": "incision_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$refs = FaBDYNAttacks($player, 'DAGGER');\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Choose_dagger_attack\");\n FaBDYNTag($chosen, 'WTR_POWER:3');\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "5050eca9ca45def626fcb0263de6a25b34306826150729f01cdd13200388d09f"
+      }
+    ]
+  },
+  {
+    "cardId": "incision_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$refs = FaBDYNAttacks($player, 'DAGGER');\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Choose_dagger_attack\");\n FaBDYNTag($chosen, 'WTR_POWER:1');\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "2d1d566faf9d7e1c020f947a5fd4fdd443916a97a694d3d25fcbb4390343888e"
+      }
+    ]
+  },
+  {
+    "cardId": "danger_digits",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$refs = FaBArakniDaggers($player);\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Throw_dagger\");\n FaBArakniThrow($player, $chosen);\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "75681f05568f1de6b3496fdd73ec01107d4e62c1b2273b9ef0b0b16d0d3882b4"
+      }
+    ]
+  },
+  {
+    "cardId": "starting_point",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$refs = FaBDYNAttacks($player, 'ANY');\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Give_attack_go_again\");\n FaBDYNTag($chosen, 'GO_AGAIN');\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "11608d5d611704803d7d281e6497b4b5e7b2fbbfb6b5ece8fab06ebc1d1ccabb"
+      }
+    ]
+  },
+  {
+    "cardId": "leap_frog_slime_skin",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n $mode = await $player.Modal(1, 1, \"Keep_equipment&Defend_with_Leap_Frog\", \"Leap_Frog_Slime_Skin\");\n if ($mode === '1') {\n FaBArakniLeap($uid);\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "cf7555c78098f6a53f4a4eb5c902f36f7608434ffbedde2e9c703e385f8ab8ef"
+      }
+    ]
+  },
+  {
+    "cardId": "hunted_or_hunter_red",
+    "abilities": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "FaBArakniHunted($player);\n",
+        "isImplemented": true,
+        "previousCodeHash": "5ac4dffe5d779cea3e54c7a6ed789e421d68395f253fa980999b68ecb0caaacd"
+      }
+    ]
+  },
+  {
+    "cardId": "the_hand_that_pulls_the_strings",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n FaBArakniFlip($uid);\n",
+        "isImplemented": true,
+        "previousCodeHash": "b3e00cf796fe978cd2a60ec5d6195f3edcb8b7798647c6e854a4c972a250a16f"
+      },
+      {
+        "macroName": "StartTurn",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n $refs = implode('&', FaBMONArena($player, 'silver'));\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZChoose($refs, \"Destroy_Silver_for_Strings\");\n \n}\n FaBArakniStringsUpkeep($player, $uid, $chosen);\n",
+        "isImplemented": true,
+        "previousCodeHash": "545c9a8265f210061c1e0b12db57bd20c2ef1fd288192179055b7d503cc2bc2f"
+      }
+    ]
+  },
+  {
+    "cardId": "up_sticks_and_run_blue",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$refs = FaBArakniRetrieveTargets($player);\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZMayChoose($refs, \"Retrieve_dagger_for_one_resource\");\n \n}\n if ($chosen !== 'PASS') {\n $daggerUID = intval(FaBIdentityFromMZ($chosen)['object']->UniqueID);\n while (intval(GetResources($player)) < 1) {\n $pitchRefs = FaBARCPitchChoices($player);\n $pitch = await $player.MZChoose($pitchRefs, \"Pitch_to_retrieve\");\n FaBARCPitchForEffect($player, $pitch);\n \n}\n AddResources($player, intval(GetResources($player)) - 1);\n FaBArakniRetrieve($player, $daggerUID);\n \n}\n FaBDYNNext($player, 'DAGGER', 2, '');\n",
+        "isImplemented": true,
+        "previousCodeHash": "4f81d80a4b1a33c6cd461a0f217e646e0c8d8c5863afab1af0a8d9ac31bd335d"
+      }
+    ]
+  }
+]

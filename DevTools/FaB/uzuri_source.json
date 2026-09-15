@@ -1,0 +1,640 @@
+{
+    "cards": [
+        {
+            "identifier": "cut-down-to-size-red",
+            "image": "https://content.fabrary.net/cards/OUT201.webp",
+            "name": "Cut Down to Size",
+            "setIdentifiers": [
+                "OUT201",
+                "UZU009"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "death-touch-red",
+            "image": "https://content.fabrary.net/cards/OUT162.webp",
+            "name": "Death Touch",
+            "setIdentifiers": [
+                "FAB132",
+                "OUT162",
+                "UZU008"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "demolition-crew-red",
+            "image": "https://content.fabrary.net/cards/UZU010.webp",
+            "name": "Demolition Crew",
+            "setIdentifiers": [
+                "UZU010",
+                "WTR179"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "destructive-deliberation-red",
+            "image": "https://content.fabrary.net/cards/OUT204.webp",
+            "name": "Destructive Deliberation",
+            "setIdentifiers": [
+                "OUT204",
+                "UZU011"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 1,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "fisticuffs",
+            "image": "https://content.fabrary.net/cards/OUT181.webp",
+            "name": "Fisticuffs",
+            "setIdentifiers": [
+                "BEN005",
+                "KAT005",
+                "OUT181",
+                "UZU005"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "arms",
+            "subtypes": [
+                "Arms"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "humble-red",
+            "image": "https://content.fabrary.net/cards/AKO009.webp",
+            "name": "Humble",
+            "setIdentifiers": [
+                "AKO009",
+                "LGS463",
+                "OUT189",
+                "UZU012"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 1,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "infect-blue",
+            "image": "https://content.fabrary.net/cards/OUT026.webp",
+            "name": "Infect",
+            "setIdentifiers": [
+                "ARA022",
+                "OUT026",
+                "UZU021"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "infect-red",
+            "image": "https://content.fabrary.net/cards/SAR013.webp",
+            "name": "Infect",
+            "setIdentifiers": [
+                "AAC010",
+                "ARA008",
+                "OUT024",
+                "SAR013",
+                "UZU013"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "infect-yellow",
+            "image": "https://content.fabrary.net/cards/OUT025.webp",
+            "name": "Infect",
+            "setIdentifiers": [
+                "ARA020",
+                "OUT025",
+                "UZU017"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "ironhide-legs",
+            "image": "https://content.fabrary.net/cards/UZU006.webp",
+            "name": "Ironhide Legs",
+            "setIdentifiers": [
+                "DRO008",
+                "MON244",
+                "OLD007",
+                "RVD006",
+                "UZU006"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "legs",
+            "subtypes": [
+                "Legs"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "isolate-blue",
+            "image": "https://content.fabrary.net/cards/OUT029.webp",
+            "name": "Isolate",
+            "setIdentifiers": [
+                "OUT029",
+                "UZU022"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "isolate-red",
+            "image": "https://content.fabrary.net/cards/OUT027.webp",
+            "name": "Isolate",
+            "setIdentifiers": [
+                "ARA009",
+                "OUT027",
+                "UZU014"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "isolate-yellow",
+            "image": "https://content.fabrary.net/cards/OUT028.webp",
+            "name": "Isolate",
+            "setIdentifiers": [
+                "OUT028",
+                "UZU018"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "mask-of-shifting-perspectives",
+            "image": "https://content.fabrary.net/cards/OUT140.webp",
+            "name": "Mask of Shifting Perspectives",
+            "setIdentifiers": [
+                "BEN003",
+                "OUT140",
+                "UZU003"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "head",
+            "subtypes": [
+                "Head"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "peace-of-mind-red",
+            "image": "https://content.fabrary.net/cards/OUT231.webp",
+            "name": "Peace of Mind",
+            "setIdentifiers": [
+                "FAB131",
+                "OUT231",
+                "UZU016"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "instant",
+            "types": [
+                "Instant"
+            ]
+        },
+        {
+            "identifier": "prowl-blue",
+            "image": "https://content.fabrary.net/cards/OUT035.webp",
+            "name": "Prowl",
+            "setIdentifiers": [
+                "ARA023",
+                "OUT035",
+                "UZU023"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "quelling-robe",
+            "image": "https://content.fabrary.net/cards/UZU004.webp",
+            "name": "Quelling Robe",
+            "setIdentifiers": [
+                "UPR184",
+                "UZU004"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "chest",
+            "subtypes": [
+                "Chest"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "razors-edge-blue",
+            "image": "https://content.fabrary.net/cards/OUT044.webp",
+            "name": "Razor's Edge",
+            "setIdentifiers": [
+                "ARA026",
+                "OUT044",
+                "UZU026"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "attack reaction",
+            "types": [
+                "Attack Reaction"
+            ]
+        },
+        {
+            "identifier": "sedate-blue",
+            "image": "https://content.fabrary.net/cards/OUT038.webp",
+            "name": "Sedate",
+            "setIdentifiers": [
+                "ARA024",
+                "OUT038",
+                "UZU024"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "sedate-red",
+            "image": "https://content.fabrary.net/cards/OUT036.webp",
+            "name": "Sedate",
+            "setIdentifiers": [
+                "ARA012",
+                "OUT036",
+                "UZU015"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "sedate-yellow",
+            "image": "https://content.fabrary.net/cards/OUT037.webp",
+            "name": "Sedate",
+            "setIdentifiers": [
+                "OUT037",
+                "UZU019"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "sneak-attack-red",
+            "image": "https://content.fabrary.net/cards/OUT018.webp",
+            "name": "Sneak Attack",
+            "setIdentifiers": [
+                "OUT018",
+                "UZU007"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "spiders-bite",
+            "image": "https://content.fabrary.net/cards/AAC003.webp",
+            "name": "Spider's Bite",
+            "setIdentifiers": [
+                "AAC003",
+                "ARA002",
+                "ARK002",
+                "DYN115",
+                "DYN116",
+                "FAB296",
+                "FAB297",
+                "LGS111",
+                "OUT004",
+                "UZU002"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "1h",
+            "subtypes": [
+                "1H",
+                "Dagger"
+            ],
+            "total": 2,
+            "type": "weapon",
+            "types": [
+                "Weapon"
+            ]
+        },
+        {
+            "identifier": "unmovable-blue",
+            "image": "https://content.fabrary.net/cards/SEN030.webp",
+            "name": "Unmovable",
+            "setIdentifiers": [
+                "1HP413",
+                "SEN030",
+                "UZU027",
+                "WTR214"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "defense reaction",
+            "types": [
+                "Defense Reaction"
+            ]
+        },
+        {
+            "identifier": "wither-blue",
+            "image": "https://content.fabrary.net/cards/OUT041.webp",
+            "name": "Wither",
+            "setIdentifiers": [
+                "ARA025",
+                "OUT041",
+                "UZU025"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "wither-yellow",
+            "image": "https://content.fabrary.net/cards/OUT040.webp",
+            "name": "Wither",
+            "setIdentifiers": [
+                "OUT040",
+                "UZU020"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "uzuri",
+            "image": "https://content.fabrary.net/cards/MPA004.webp",
+            "name": "Uzuri",
+            "setIdentifiers": [
+                "HER076",
+                "HER083",
+                "MPA004",
+                "OUT002",
+                "UZU001"
+            ],
+            "sideboardTotal": 0,
+            "subType": "young",
+            "subtypes": [
+                "Young"
+            ],
+            "total": 1,
+            "type": "hero",
+            "types": [
+                "Hero"
+            ]
+        }
+    ],
+    "format": "blitz",
+    "hero": {
+        "identifier": "uzuri",
+        "image": "https://content.fabrary.net/cards/MPA004.webp",
+        "name": "Uzuri",
+        "setIdentifiers": [
+            "HER076",
+            "HER083",
+            "MPA004",
+            "OUT002",
+            "UZU001"
+        ],
+        "sideboardTotal": 0,
+        "subType": "young",
+        "subtypes": [
+            "Young"
+        ],
+        "total": 1,
+        "type": "hero",
+        "types": [
+            "Hero"
+        ]
+    },
+    "name": "Uzuri Blitz Deck",
+    "matchups": [],
+    "slug": "01GW2945GHPH2YSX3FTS7HCBT1"
+}

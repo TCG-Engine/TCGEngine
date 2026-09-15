@@ -217,7 +217,7 @@
     if ($isFaBBot) {
       $secondPlayer = new Player(2, '', '');
       $faBBotProfile=strval($_POST['botProfile']??'fai');
-      if(!in_array($faBBotProfile,['fai','professor','ira'],true))throw new InvalidArgumentException('Unknown FaB bot profile.');
+      if(!in_array($faBBotProfile,['fai','professor','ira','boltyn','levia','prism','lexi','dromai','arakni','uzuri'],true))throw new InvalidArgumentException('Unknown FaB bot profile.');
       $secondPlayer->setBotProfile($faBBotProfile);
       $secondPlayer->setDeckOk(true);
       $secondPlayer->setReady(true);

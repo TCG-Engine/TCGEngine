@@ -25,7 +25,7 @@ function FaBCRUSelfTag(object $o,string $tag): void {
 }
 function FaBCRUSelfTagUID(int $uid,string $tag): void { $f=FaBFindUID($uid);if($f)FaBCRUSelfTag($f['object'],$tag); }
 function FaBCRUGainLife(int $p,int $n): void {
-    if(!FaBSeatIsLive($p)||$n<=0)return;
+    if(!FaBSeatIsLive($p)||$n<=0||(FaBMONCount($p,'NO_HEAL')&&$p===intval(GetTurnPlayer())&&GetCurrentPhase()==='MAIN'))return;
     $highest=true;foreach(FaBOpponents($p) as $seat)if(intval(GetHealth($seat))>=intval(GetHealth($p)))$highest=false;
     if($highest)foreach(FaBLiveSeats() as $seat)foreach(FaBChoiceRefs($seat,'Weapons',['base'=>'reaping_blade']) as $ref)if(!HasNoAbilities(FaBIdentityFromMZ($ref)['object']))return;
     AddHealth($p,intval(GetHealth($p))+$n);
@@ -114,9 +114,9 @@ function FaBCRUBlockLegal(int $p,array $f): bool {
     return true;
 }
 function FaBCRUMustEquip(int $p): bool {
-    $s=FaBGetState();$a=FaBFindUID(intval($s['attackUID']));if(!$a||$a['object']->CardID!=='meganetic_shockwave_blue')return false;
+    $s=FaBGetState();$a=FaBFindUID(intval($s['attackUID']));if(!$a||!($a['object']->CardID==='meganetic_shockwave_blue'||(FaBWTRBase($a['object']->CardID)==='t_bone'&&FaBCRUCount(intval($s['attacker']),'CHAIN_BOOST')>0)))return false;
     $n=0;foreach(GetCombatChain($p) as $o)if(is_object($o)&&empty($o->removed)&&intval($o->ChainLink)===intval($s['chainLink'])&&($o->FromZone??'')==='Equipment')++$n;
-    if($n>=FaBCRUCount(intval($s['attacker']),'CHAIN_BOOST'))return false;
+    if($n>=($a['object']->CardID==='meganetic_shockwave_blue'?FaBCRUCount(intval($s['attacker']),'CHAIN_BOOST'):1))return false;
     foreach(FaBChoiceRefs($p,'Equipment') as $ref)if(FaBCanBlock($p,$ref))return true;return false;
 }
 function FaBCRUCost(int $p,object $o): int {
@@ -269,8 +269,10 @@ function FaBCRULegacyRoll(int $p,string $id,int $roll): void {
     }
 }
 
-function FaBCRUWeaponReady(object $w): bool { return intval($w->Status??2)===2||in_array('CRU_EXTRA_ATTACK',(array)$w->TurnEffects,true); }
+function FaBCRUWeaponReady(object $w): bool { return (intval(FaBObjectCounters($w)['EVR_EXTRA_ATTACK_TURN']??-1)===intval(GetTurnNumber())&&intval(FaBObjectCounters($w)['WEAPON_ATTACKS']??0)<2)||intval($w->Status??2)===2||in_array('CRU_EXTRA_ATTACK',(array)$w->TurnEffects,true); }
 function FaBCRUUseWeapon(object $w): void {
+    $turn=intval(GetTurnNumber());$count=intval(FaBObjectCounters($w)['WEAPON_ATTACK_TURN']??0)===$turn?intval(FaBObjectCounters($w)['WEAPON_ATTACKS']??0):0;
+    FaBSetObjectCounter($w,'WEAPON_ATTACK_TURN',$turn);FaBSetObjectCounter($w,'WEAPON_ATTACKS',$count+1);
     if(intval($w->Status??2)!==2){$tags=(array)$w->TurnEffects;$i=array_search('CRU_EXTRA_ATTACK',$tags,true);if($i!==false){unset($tags[$i]);$w->TurnEffects=array_values($tags);}}
     $w->Status=1;
 }

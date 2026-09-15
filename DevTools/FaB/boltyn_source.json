@@ -1,0 +1,805 @@
+{
+  "cards": [
+    {
+      "identifier": "banneret-of-salvation-yellow",
+      "image": "https://content.fabrary.net/cards/SBL023.webp",
+      "name": "Banneret of Salvation",
+      "setIdentifiers": [
+        "DTD055",
+        "LGS180",
+        "SBL023"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "beaming-bravado-red",
+      "image": "https://content.fabrary.net/cards/SBL011.webp",
+      "name": "Beaming Bravado",
+      "setIdentifiers": [
+        "ASB007",
+        "DTD057",
+        "SBL011"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "beaming-bravado-yellow",
+      "image": "https://content.fabrary.net/cards/SBL024.webp",
+      "name": "Beaming Bravado",
+      "setIdentifiers": [
+        "ASB020",
+        "DTD058",
+        "SBL024"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "bolt-of-courage-red",
+      "image": "https://content.fabrary.net/cards/SBL012.webp",
+      "name": "Bolt of Courage",
+      "setIdentifiers": [
+        "ASB008",
+        "BOL011",
+        "MON042",
+        "SBL012"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "bolt-of-courage-yellow",
+      "image": "https://content.fabrary.net/cards/SBL025.webp",
+      "name": "Bolt of Courage",
+      "setIdentifiers": [
+        "ASB021",
+        "MON043",
+        "SBL025"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "courageous-steelhand-red",
+      "image": "https://content.fabrary.net/cards/SBL019.webp",
+      "name": "Courageous Steelhand",
+      "setIdentifiers": [
+        "ASB014",
+        "BOL012",
+        "MON057",
+        "SBL019"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "",
+      "subtypes": [],
+      "total": 2,
+      "type": "attack reaction",
+      "types": [
+        "Attack Reaction"
+      ]
+    },
+    {
+      "identifier": "duty-bound-blitz-red",
+      "image": "https://content.fabrary.net/cards/SBL013.webp",
+      "name": "Duty Bound Blitz",
+      "setIdentifiers": [
+        "GEM136",
+        "PEN183",
+        "SBL013"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "duty-bound-blitz-yellow",
+      "image": "https://content.fabrary.net/cards/SBL026.webp",
+      "name": "Duty Bound Blitz",
+      "setIdentifiers": [
+        "PEN184",
+        "SBL026"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "edict-of-steel-red",
+      "image": "https://content.fabrary.net/cards/MPW103.webp",
+      "name": "Edict of Steel",
+      "setIdentifiers": [
+        "AHA012",
+        "MPW103",
+        "SBL020"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "non-attack",
+      "subtypes": [
+        "Non-Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "engulfing-light-red",
+      "image": "https://content.fabrary.net/cards/SBL014.webp",
+      "name": "Engulfing Light",
+      "setIdentifiers": [
+        "ASB009",
+        "BOL014",
+        "MON048",
+        "SBL014"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "engulfing-light-yellow",
+      "image": "https://content.fabrary.net/cards/SBL027.webp",
+      "name": "Engulfing Light",
+      "setIdentifiers": [
+        "MON049",
+        "SBL027"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "flat-trackers",
+      "image": "https://content.fabrary.net/cards/SBL009.webp",
+      "name": "Flat Trackers",
+      "setIdentifiers": [
+        "HVY155",
+        "KSI007",
+        "KYO006",
+        "OLA007",
+        "RHI007",
+        "SBL009"
+      ],
+      "sideboardTotal": 0,
+      "stats": [],
+      "subType": "legs",
+      "subtypes": [
+        "Legs"
+      ],
+      "total": 1,
+      "type": "equipment",
+      "types": [
+        "Equipment"
+      ]
+    },
+    {
+      "identifier": "garland-of-spring",
+      "image": "https://content.fabrary.net/cards/SBL005.webp",
+      "name": "Garland of Spring",
+      "setIdentifiers": [
+        "LGS415",
+        "SBL005",
+        "SUP212"
+      ],
+      "sideboardTotal": 0,
+      "stats": [],
+      "subType": "chest",
+      "subtypes": [
+        "Chest"
+      ],
+      "total": 1,
+      "type": "equipment",
+      "types": [
+        "Equipment"
+      ]
+    },
+    {
+      "identifier": "gauntlets-of-unity",
+      "image": "https://content.fabrary.net/cards/SBL007.webp",
+      "name": "Gauntlets of Unity",
+      "setIdentifiers": [
+        "PEN046",
+        "SBL007",
+        "SDO007"
+      ],
+      "sideboardTotal": 0,
+      "stats": [],
+      "subType": "arms",
+      "subtypes": [
+        "Arms"
+      ],
+      "total": 1,
+      "type": "equipment",
+      "types": [
+        "Equipment"
+      ]
+    },
+    {
+      "identifier": "glisten-red",
+      "image": "https://content.fabrary.net/cards/SBL021.webp",
+      "name": "Glisten",
+      "setIdentifiers": [
+        "MON069",
+        "SBL021"
+      ],
+      "sideboardTotal": 2,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "",
+      "subtypes": [],
+      "total": 0,
+      "type": "instant",
+      "types": [
+        "Instant"
+      ]
+    },
+    {
+      "identifier": "halo-of-illumination",
+      "image": "https://content.fabrary.net/cards/SAT004.webp",
+      "name": "Halo of Illumination",
+      "setIdentifiers": [
+        "BOL005",
+        "FAB103",
+        "MON061",
+        "PSM004",
+        "SAT004",
+        "SBL003"
+      ],
+      "sideboardTotal": 1,
+      "stats": [],
+      "subType": "head",
+      "subtypes": [
+        "Head"
+      ],
+      "total": 0,
+      "type": "equipment",
+      "types": [
+        "Equipment"
+      ]
+    },
+    {
+      "identifier": "helm-of-unity",
+      "image": "https://content.fabrary.net/cards/SBL004.webp",
+      "name": "Helm of Unity",
+      "setIdentifiers": [
+        "PEN044",
+        "SBL004",
+        "SDO003"
+      ],
+      "sideboardTotal": 0,
+      "stats": [],
+      "subType": "head",
+      "subtypes": [
+        "Head"
+      ],
+      "total": 1,
+      "type": "equipment",
+      "types": [
+        "Equipment"
+      ]
+    },
+    {
+      "identifier": "illuminate-red",
+      "image": "https://content.fabrary.net/cards/SBL015.webp",
+      "name": "Illuminate",
+      "setIdentifiers": [
+        "MON072",
+        "PSM021",
+        "SBL015"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "light-the-way-red",
+      "image": "https://content.fabrary.net/cards/SBL016.webp",
+      "name": "Light the Way",
+      "setIdentifiers": [
+        "ASB011",
+        "DTD066",
+        "SBL016"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "light-the-way-yellow",
+      "image": "https://content.fabrary.net/cards/SBL028.webp",
+      "name": "Light the Way",
+      "setIdentifiers": [
+        "DTD067",
+        "SBL028"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "nullrune-boots",
+      "image": "https://content.fabrary.net/cards/SBW008.webp",
+      "name": "Nullrune Boots",
+      "setIdentifiers": [
+        "1HP349",
+        "ARC158",
+        "FAB071",
+        "FAB248",
+        "LGS372",
+        "SBL010",
+        "SBR011",
+        "SBW008",
+        "SVI010"
+      ],
+      "sideboardTotal": 1,
+      "stats": [],
+      "subType": "legs",
+      "subtypes": [
+        "Legs"
+      ],
+      "total": 0,
+      "type": "equipment",
+      "types": [
+        "Equipment"
+      ]
+    },
+    {
+      "identifier": "nullrune-robe",
+      "image": "https://content.fabrary.net/cards/SLY008.webp",
+      "name": "Nullrune Robe",
+      "setIdentifiers": [
+        "1HP347",
+        "ARC156",
+        "FAB069",
+        "FAB246",
+        "LGS370",
+        "SAR006",
+        "SBL006",
+        "SBR008",
+        "SDO006",
+        "SEN006",
+        "SGB005",
+        "SKA005",
+        "SLY008"
+      ],
+      "sideboardTotal": 1,
+      "stats": [],
+      "subType": "chest",
+      "subtypes": [
+        "Chest"
+      ],
+      "total": 0,
+      "type": "equipment",
+      "types": [
+        "Equipment"
+      ]
+    },
+    {
+      "identifier": "radiant-touch",
+      "image": "https://content.fabrary.net/cards/SBL008.webp",
+      "name": "Radiant Touch",
+      "setIdentifiers": [
+        "DTD077",
+        "SBL008"
+      ],
+      "sideboardTotal": 1,
+      "stats": [],
+      "subType": "arms",
+      "subtypes": [
+        "Arms"
+      ],
+      "total": 0,
+      "type": "equipment",
+      "types": [
+        "Equipment"
+      ]
+    },
+    {
+      "identifier": "raydn-duskbane",
+      "image": "https://content.fabrary.net/cards/SBL002.webp",
+      "name": "Raydn, Duskbane",
+      "setIdentifiers": [
+        "ASB002",
+        "CON006",
+        "FAB145",
+        "MON031",
+        "SBL002"
+      ],
+      "sideboardTotal": 0,
+      "stats": [],
+      "subType": "2h",
+      "subtypes": [
+        "2H",
+        "Sword"
+      ],
+      "total": 1,
+      "type": "weapon",
+      "types": [
+        "Weapon"
+      ]
+    },
+    {
+      "identifier": "roaring-beam-yellow",
+      "image": "https://content.fabrary.net/cards/SBL032.webp",
+      "name": "Roaring Beam",
+      "setIdentifiers": [
+        "GEM129",
+        "PEN178",
+        "SBL032"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "",
+      "subtypes": [],
+      "total": 2,
+      "type": "attack reaction",
+      "types": [
+        "Attack Reaction"
+      ]
+    },
+    {
+      "identifier": "snatch-red",
+      "image": "https://content.fabrary.net/cards/SBA021.webp",
+      "name": "Snatch",
+      "setIdentifiers": [
+        "1HP371",
+        "ANQ031",
+        "ASB012",
+        "ASR013",
+        "AST014",
+        "FAB331",
+        "SBA021",
+        "SBL017",
+        "SFA025",
+        "WTR167"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "springboard-somersault-yellow",
+      "image": "https://content.fabrary.net/cards/SBL033.webp",
+      "name": "Springboard Somersault",
+      "setIdentifiers": [
+        "1HP374",
+        "BVO015",
+        "CRU187",
+        "IRA012",
+        "KSU021",
+        "RNR022",
+        "SBL033",
+        "SDO023",
+        "SEN020",
+        "TEA019"
+      ],
+      "sideboardTotal": 2,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "",
+      "subtypes": [],
+      "total": 0,
+      "type": "defense reaction",
+      "types": [
+        "Defense Reaction"
+      ]
+    },
+    {
+      "identifier": "take-flight-red",
+      "image": "https://content.fabrary.net/cards/SBL018.webp",
+      "name": "Take Flight",
+      "setIdentifiers": [
+        "ASB013",
+        "BOL016",
+        "MON054",
+        "SBL018"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "take-flight-yellow",
+      "image": "https://content.fabrary.net/cards/SBL029.webp",
+      "name": "Take Flight",
+      "setIdentifiers": [
+        "ASB022",
+        "BOL021",
+        "MON055",
+        "SBL029"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "toe-the-line-red",
+      "image": "https://content.fabrary.net/cards/MPW074.webp",
+      "name": "Toe the Line",
+      "setIdentifiers": [
+        "AHA015",
+        "GEM165",
+        "MPW074",
+        "SBL022"
+      ],
+      "sideboardTotal": 2,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "",
+      "subtypes": [],
+      "total": 0,
+      "type": "instant",
+      "types": [
+        "Instant"
+      ]
+    },
+    {
+      "identifier": "v-of-the-vanguard-yellow",
+      "image": "https://content.fabrary.net/cards/SBL030.webp",
+      "name": "V of the Vanguard",
+      "setIdentifiers": [
+        "ASB023",
+        "BOL009",
+        "GEM189",
+        "MON035",
+        "SBL030"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "valiant-thrust-yellow",
+      "image": "https://content.fabrary.net/cards/SBL031.webp",
+      "name": "Valiant Thrust",
+      "setIdentifiers": [
+        "ASB024",
+        "MON040",
+        "SBL031"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "boltyn",
+      "image": "https://content.fabrary.net/cards/SBL001.webp",
+      "name": "Boltyn",
+      "setIdentifiers": [
+        "BOL001",
+        "DTD045",
+        "HER035",
+        "HER160",
+        "MON030",
+        "SBL001"
+      ],
+      "sideboardTotal": 0,
+      "subType": "young",
+      "subtypes": [
+        "Young"
+      ],
+      "total": 1,
+      "type": "hero",
+      "types": [
+        "Hero"
+      ]
+    }
+  ],
+  "format": "silver age",
+  "hero": {
+    "identifier": "boltyn",
+    "image": "https://content.fabrary.net/cards/SBL001.webp",
+    "name": "Boltyn",
+    "setIdentifiers": [
+      "BOL001",
+      "DTD045",
+      "HER035",
+      "HER160",
+      "MON030",
+      "SBL001"
+    ],
+    "sideboardTotal": 0,
+    "subType": "young",
+    "subtypes": [
+      "Young"
+    ],
+    "total": 1,
+    "type": "hero",
+    "types": [
+      "Hero"
+    ]
+  },
+  "name": "Boltyn Silver Age Deck",
+  "matchups": [],
+  "preferredTurnOrder": "NoPreference",
+  "slug": "01KP7ZQ311EMGC2S97KC79AEX0"
+}

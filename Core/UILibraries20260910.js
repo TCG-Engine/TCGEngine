@@ -807,7 +807,7 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         // Do NOT duplicate it here: a second handler firing on the same press double-submits,
         // and the second submit (after initiative is claimed and the turn has switched) trips the
         // server's "Only the active player can take the initiative" flash on BOTH players.
-        if ((window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim') && event.keyCode === 32) {
+        if ((hotkeyRootPath == './GrandArchiveSim' || hotkeyRootPath == './AzukiSim' || hotkeyRootPath == './FaBSim') && (event.keyCode === 32 || event.key === ' ')) {
           if (TryPassCurrentDecision()) {
             event.preventDefault();
             return;
@@ -5774,6 +5774,17 @@ function CheckAndShowDecisionQueue(decisionQueue, phase = 'all') {
       window.SelectionMode.popupCards = popupCards;
 
       if (!prepareOnly) {
+        // Only explicit, unfiltered card choices are unambiguous without expanding zones.
+        const singleSpec = parsedSpecs.length === 1 ? parsedSpecs[0] : null;
+        if (singleSpec?.isSpecificCard && singleSpec.filters.length === 0
+            && !singleSpec.actionPayload && !window.SelectionMode._twOffView?.length
+            && window.TCGSettings?.get('AutoChooseSingleOption', { type: 'boolean', defaultValue: false })) {
+          if (!entry._autoChooseSubmitted) {
+            entry._autoChooseSubmitted = true;
+            window.SelectionMode.callback(singleSpec.zone, singleSpec.originalSpec, i);
+          }
+          break;
+        }
         // Only show selection message banner if there are inline selectable options.
         // If only popup cards, the popup handles the UI.
         if (inlineSpecs.length > 0) {

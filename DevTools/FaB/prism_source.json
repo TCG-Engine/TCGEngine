@@ -1,0 +1,714 @@
+{
+    "cards": [
+        {
+            "identifier": "dream-weavers",
+            "image": "https://content.fabrary.net/cards/SAT006.webp",
+            "name": "Dream Weavers",
+            "setIdentifiers": [
+                "MON090",
+                "PSM006",
+                "SAT006"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "arms",
+            "subtypes": [
+                "Arms"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "enigma-chimera-blue",
+            "image": "https://content.fabrary.net/cards/SEN021.webp",
+            "name": "Enigma Chimera",
+            "setIdentifiers": [
+                "MON100",
+                "PSM028",
+                "SEN021",
+                "TNP060"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "enigma-chimera-yellow",
+            "image": "https://content.fabrary.net/cards/U-MON099.webp",
+            "name": "Enigma Chimera",
+            "setIdentifiers": [
+                "MON099",
+                "PSM027",
+                "TNP059"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "halo-of-illumination",
+            "image": "https://content.fabrary.net/cards/SAT004.webp",
+            "name": "Halo of Illumination",
+            "setIdentifiers": [
+                "BOL005",
+                "FAB103",
+                "MON061",
+                "PSM004",
+                "SAT004",
+                "SBL003"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "head",
+            "subtypes": [
+                "Head"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "heartened-cross-strap",
+            "image": "https://content.fabrary.net/cards/MPG119.webp",
+            "name": "Heartened Cross Strap",
+            "setIdentifiers": [
+                "1HP351",
+                "APR004",
+                "BRI006",
+                "FAB063",
+                "KSU006",
+                "MPG119",
+                "PSM005",
+                "WTR152"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "chest",
+            "subtypes": [
+                "Chest"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "herald-of-judgment-yellow",
+            "image": "https://content.fabrary.net/cards/SAT018.webp",
+            "name": "Herald of Judgment",
+            "setIdentifiers": [
+                "DTD013",
+                "FAB028",
+                "MON007",
+                "PSM008",
+                "SAT018"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 1,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "herald-of-protection-blue",
+            "image": "https://content.fabrary.net/cards/SAT025.webp",
+            "name": "Herald of Protection",
+            "setIdentifiers": [
+                "APR021",
+                "DTD016",
+                "FAB031",
+                "MON016",
+                "PSM016",
+                "SAT025"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "herald-of-protection-red",
+            "image": "https://content.fabrary.net/cards/SAT012.webp",
+            "name": "Herald of Protection",
+            "setIdentifiers": [
+                "APR007",
+                "DTD014",
+                "FAB029",
+                "MON014",
+                "PSM009",
+                "SAT012"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "herald-of-ravages-blue",
+            "image": "https://content.fabrary.net/cards/SAT026.webp",
+            "name": "Herald of Ravages",
+            "setIdentifiers": [
+                "DTD019",
+                "LGS155",
+                "MON019",
+                "PSM017",
+                "SAT026"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "herald-of-ravages-red",
+            "image": "https://content.fabrary.net/cards/SAT013.webp",
+            "name": "Herald of Ravages",
+            "setIdentifiers": [
+                "DTD017",
+                "LGS153",
+                "MON017",
+                "PSM010",
+                "SAT013"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "herald-of-rebirth-blue",
+            "image": "https://content.fabrary.net/cards/DTD022.webp",
+            "name": "Herald of Rebirth",
+            "setIdentifiers": [
+                "DTD022",
+                "FAB034",
+                "MON022",
+                "PSM018"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "herald-of-rebirth-red",
+            "image": "https://content.fabrary.net/cards/DTD020.webp",
+            "name": "Herald of Rebirth",
+            "setIdentifiers": [
+                "DTD020",
+                "FAB032",
+                "MON020",
+                "PSM011"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "herald-of-tenacity-blue",
+            "image": "https://content.fabrary.net/cards/DTD025.webp",
+            "name": "Herald of Tenacity",
+            "setIdentifiers": [
+                "DTD025",
+                "LGS175",
+                "MON025",
+                "PSM019"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "herald-of-tenacity-red",
+            "image": "https://content.fabrary.net/cards/DTD023.webp",
+            "name": "Herald of Tenacity",
+            "setIdentifiers": [
+                "DTD023",
+                "LGS173",
+                "MON023",
+                "PSM012"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "illuminate-blue",
+            "image": "https://content.fabrary.net/cards/U-MON074.webp",
+            "name": "Illuminate",
+            "setIdentifiers": [
+                "BOL027",
+                "MON074",
+                "PSM024"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "illuminate-red",
+            "image": "https://content.fabrary.net/cards/SBL015.webp",
+            "name": "Illuminate",
+            "setIdentifiers": [
+                "MON072",
+                "PSM021",
+                "SBL015"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "iris-of-reality",
+            "image": "https://content.fabrary.net/cards/SAT002.webp",
+            "name": "Iris of Reality",
+            "setIdentifiers": [
+                "FAB098",
+                "FAB156",
+                "LGS048",
+                "MON088",
+                "PSM003",
+                "SAT002"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "2h",
+            "subtypes": [
+                "2H",
+                "Orb"
+            ],
+            "total": 1,
+            "type": "weapon",
+            "types": [
+                "Weapon"
+            ]
+        },
+        {
+            "identifier": "merciful-retribution-yellow",
+            "image": "https://content.fabrary.net/cards/APR018.webp",
+            "name": "Merciful Retribution",
+            "setIdentifiers": [
+                "APR018",
+                "FAB026",
+                "MON012",
+                "PSM014"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "aura",
+            "subtypes": [
+                "Aura"
+            ],
+            "total": 1,
+            "type": "instant",
+            "types": [
+                "Instant"
+            ]
+        },
+        {
+            "identifier": "ode-to-wrath-yellow",
+            "image": "https://content.fabrary.net/cards/APR019.webp",
+            "name": "Ode to Wrath",
+            "setIdentifiers": [
+                "APR019",
+                "FAB027",
+                "MON013",
+                "PSM015"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "aura",
+            "subtypes": [
+                "Aura"
+            ],
+            "total": 1,
+            "type": "instant",
+            "types": [
+                "Instant"
+            ]
+        },
+        {
+            "identifier": "phantasmify-red",
+            "image": "https://content.fabrary.net/cards/U-MON095.webp",
+            "name": "Phantasmify",
+            "setIdentifiers": [
+                "LGS054",
+                "MON095",
+                "PSM025"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 1,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "prismatic-shield-red",
+            "image": "https://content.fabrary.net/cards/U-MON092.webp",
+            "name": "Prismatic Shield",
+            "setIdentifiers": [
+                "MON092",
+                "PSM026"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 1,
+            "type": "instant",
+            "types": [
+                "Instant"
+            ]
+        },
+        {
+            "identifier": "rising-solartide-yellow",
+            "image": "https://content.fabrary.net/cards/U-MON079.webp",
+            "name": "Rising Solartide",
+            "setIdentifiers": [
+                "BOL026",
+                "MON079",
+                "PSM023"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "seek-enlightenment-red",
+            "image": "https://content.fabrary.net/cards/U-MON081.webp",
+            "name": "Seek Enlightenment",
+            "setIdentifiers": [
+                "MON081",
+                "PSM022"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "spears-of-surreality-blue",
+            "image": "https://content.fabrary.net/cards/SEN026.webp",
+            "name": "Spears of Surreality",
+            "setIdentifiers": [
+                "MON103",
+                "PSM029",
+                "SEN026",
+                "TNP018"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "spell-fray-leggings",
+            "image": "https://content.fabrary.net/cards/TER030.webp",
+            "name": "Spell Fray Leggings",
+            "setIdentifiers": [
+                "AUR029",
+                "DYN239",
+                "PSM007",
+                "TER030"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "legs",
+            "subtypes": [
+                "Legs"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "the-librarian",
+            "image": "https://content.fabrary.net/cards/PSM002.webp",
+            "name": "The Librarian",
+            "setIdentifiers": [
+                "FAB043",
+                "PSM002"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "",
+            "subtypes": [],
+            "total": 1,
+            "type": "mentor",
+            "types": [
+                "Mentor"
+            ]
+        },
+        {
+            "identifier": "wartune-herald-blue",
+            "image": "https://content.fabrary.net/cards/SAT029.webp",
+            "name": "Wartune Herald",
+            "setIdentifiers": [
+                "APR023",
+                "DTD031",
+                "FAB037",
+                "MON028",
+                "PSM020",
+                "SAT029"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "wartune-herald-red",
+            "image": "https://content.fabrary.net/cards/SAT015.webp",
+            "name": "Wartune Herald",
+            "setIdentifiers": [
+                "APR008",
+                "DTD029",
+                "FAB035",
+                "MON026",
+                "PSM013",
+                "SAT015"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "prism",
+            "image": "https://content.fabrary.net/cards/U-MON002.webp",
+            "name": "Prism",
+            "setIdentifiers": [
+                "HER034",
+                "MON002",
+                "PEN343",
+                "PSM001"
+            ],
+            "sideboardTotal": 0,
+            "subType": "young",
+            "subtypes": [
+                "Young"
+            ],
+            "total": 1,
+            "type": "hero",
+            "types": [
+                "Hero"
+            ]
+        }
+    ],
+    "format": "blitz",
+    "hero": {
+        "identifier": "prism",
+        "image": "https://content.fabrary.net/cards/U-MON002.webp",
+        "name": "Prism",
+        "setIdentifiers": [
+            "HER034",
+            "MON002",
+            "PEN343",
+            "PSM001"
+        ],
+        "sideboardTotal": 0,
+        "subType": "young",
+        "subtypes": [
+            "Young"
+        ],
+        "total": 1,
+        "type": "hero",
+        "types": [
+            "Hero"
+        ]
+    },
+    "name": "Prism Blitz Deck",
+    "matchups": [],
+    "slug": "01G7FCP2N7N0MNHWAH6JTP0KFN"
+}

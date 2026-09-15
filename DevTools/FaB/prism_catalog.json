@@ -1,0 +1,33 @@
+[
+  {
+    "id": "spell_fray_leggings",
+    "name": "Spell Fray Leggings",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Generic",
+      "Equipment",
+      "Legs"
+    ],
+    "card_keywords": [
+      "Spellvoid 1"
+    ],
+    "functional_text": "**Spellvoid 1**"
+  },
+  {
+    "id": "the_librarian",
+    "name": "The Librarian",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Illusionist",
+      "Mentor"
+    ],
+    "card_keywords": [],
+    "functional_text": "While The Librarian is face down in arsenal, at the start of your turn, you may turn him face up.\n\nWhile The Librarian is face up in arsenal, once per turn when you create a Spectral Shield token, draw a card and put a lesson counter on The Librarian. Then if there are 3 or more lesson counters on him, banish him, search your deck for a **specialization** card, put it face up into arsenal, and shuffle."
+  }
+]

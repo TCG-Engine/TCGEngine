@@ -1,0 +1,605 @@
+{
+    "cards": [
+        {
+            "identifier": "annihilate-the-armed-blue",
+            "image": "https://content.fabrary.net/cards/ARK019.webp",
+            "name": "Annihilate the Armed",
+            "setIdentifiers": [
+                "ARK019",
+                "DYN135"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "annihilate-the-armed-red",
+            "image": "https://content.fabrary.net/cards/ARK008.webp",
+            "name": "Annihilate the Armed",
+            "setIdentifiers": [
+                "ARK008",
+                "DYN133"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "cut-to-the-chase-blue",
+            "image": "https://content.fabrary.net/cards/ARK022.webp",
+            "name": "Cut to the Chase",
+            "setIdentifiers": [
+                "ARK022",
+                "DYN150",
+                "LGS115",
+                "TNP033"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "attack reaction",
+            "types": [
+                "Attack Reaction"
+            ]
+        },
+        {
+            "identifier": "cut-to-the-chase-red",
+            "image": "https://content.fabrary.net/cards/ARK014.webp",
+            "name": "Cut to the Chase",
+            "setIdentifiers": [
+                "ARK014",
+                "DYN148",
+                "LGS113",
+                "TNP031"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "attack reaction",
+            "types": [
+                "Attack Reaction"
+            ]
+        },
+        {
+            "identifier": "cut-to-the-chase-yellow",
+            "image": "https://content.fabrary.net/cards/ARK018.webp",
+            "name": "Cut to the Chase",
+            "setIdentifiers": [
+                "ARK018",
+                "DYN149",
+                "LGS114",
+                "TNP032"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "attack reaction",
+            "types": [
+                "Attack Reaction"
+            ]
+        },
+        {
+            "identifier": "danger-digits",
+            "image": "https://content.fabrary.net/cards/SAR007.webp",
+            "name": "Danger Digits",
+            "setIdentifiers": [
+                "ARK005",
+                "CIN005",
+                "HNT173",
+                "SAR007",
+                "WOD005"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "arms",
+            "subtypes": [
+                "Arms"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "fleece-the-frail-red",
+            "image": "https://content.fabrary.net/cards/ARK009.webp",
+            "name": "Fleece the Frail",
+            "setIdentifiers": [
+                "ARK009",
+                "DYN136"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "hunted-or-hunter-red",
+            "image": "https://content.fabrary.net/cards/HNT052.webp",
+            "name": "Hunted or Hunter",
+            "setIdentifiers": [
+                "ARK017",
+                "HNT052"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "trap",
+            "subtypes": [
+                "Trap"
+            ],
+            "total": 2,
+            "type": "defense reaction",
+            "types": [
+                "Defense Reaction"
+            ]
+        },
+        {
+            "identifier": "incision-blue",
+            "image": "https://content.fabrary.net/cards/HNT207.webp",
+            "name": "Incision",
+            "setIdentifiers": [
+                "ARK023",
+                "HNT207"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "attack reaction",
+            "types": [
+                "Attack Reaction"
+            ]
+        },
+        {
+            "identifier": "incision-red",
+            "image": "https://content.fabrary.net/cards/HNT205.webp",
+            "name": "Incision",
+            "setIdentifiers": [
+                "ARK015",
+                "FNG014",
+                "GEM029",
+                "HNT205"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "attack reaction",
+            "types": [
+                "Attack Reaction"
+            ]
+        },
+        {
+            "identifier": "leap-frog-slime-skin",
+            "image": "https://content.fabrary.net/cards/HNT170.webp",
+            "name": "Leap Frog Slime Skin",
+            "setIdentifiers": [
+                "ARK004",
+                "HNT170"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "chest",
+            "subtypes": [
+                "Chest"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "mask-of-perdition",
+            "image": "https://content.fabrary.net/cards/ARK003.webp",
+            "name": "Mask of Perdition",
+            "setIdentifiers": [
+                "ARK003",
+                "DYN118"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "head",
+            "subtypes": [
+                "Head"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "nix-the-nimble-blue",
+            "image": "https://content.fabrary.net/cards/ARK020.webp",
+            "name": "Nix the Nimble",
+            "setIdentifiers": [
+                "ARK020",
+                "DYN141"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "nix-the-nimble-red",
+            "image": "https://content.fabrary.net/cards/ARK010.webp",
+            "name": "Nix the Nimble",
+            "setIdentifiers": [
+                "ARK010",
+                "DYN139"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "plunder-the-poor-blue",
+            "image": "https://content.fabrary.net/cards/ARK021.webp",
+            "name": "Plunder the Poor",
+            "setIdentifiers": [
+                "ARK021",
+                "DYN126"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "plunder-the-poor-red",
+            "image": "https://content.fabrary.net/cards/ARK011.webp",
+            "name": "Plunder the Poor",
+            "setIdentifiers": [
+                "ARK011",
+                "DYN124"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "razor-reflex-blue",
+            "image": "https://content.fabrary.net/cards/ARK024.webp",
+            "name": "Razor Reflex",
+            "setIdentifiers": [
+                "1HP404",
+                "ARK024",
+                "WTR211"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "attack reaction",
+            "types": [
+                "Attack Reaction"
+            ]
+        },
+        {
+            "identifier": "razor-reflex-red",
+            "image": "https://content.fabrary.net/cards/ASR016.webp",
+            "name": "Razor Reflex",
+            "setIdentifiers": [
+                "1HP402",
+                "ARK016",
+                "ASR016",
+                "FAB475",
+                "GEM032",
+                "HNT227",
+                "TEA016",
+                "WTR209"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "attack reaction",
+            "types": [
+                "Attack Reaction"
+            ]
+        },
+        {
+            "identifier": "sack-the-shifty-red",
+            "image": "https://content.fabrary.net/cards/ARK012.webp",
+            "name": "Sack the Shifty",
+            "setIdentifiers": [
+                "ARK012",
+                "DYN142"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "shred-blue",
+            "image": "https://content.fabrary.net/cards/SAR032.webp",
+            "name": "Shred",
+            "setIdentifiers": [
+                "AAC029",
+                "ARK025",
+                "DYN132",
+                "SAR032",
+                "TNP015"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "attack reaction",
+            "types": [
+                "Attack Reaction"
+            ]
+        },
+        {
+            "identifier": "slay-the-scholars-red",
+            "image": "https://content.fabrary.net/cards/ARK013.webp",
+            "name": "Slay the Scholars",
+            "setIdentifiers": [
+                "ARK013",
+                "DYN145"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "spiders-bite",
+            "image": "https://content.fabrary.net/cards/AAC003.webp",
+            "name": "Spider's Bite",
+            "setIdentifiers": [
+                "AAC003",
+                "ARA002",
+                "ARK002",
+                "DYN115",
+                "DYN116",
+                "FAB296",
+                "FAB297",
+                "LGS111",
+                "OUT004",
+                "UZU002"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "1h",
+            "subtypes": [
+                "1H",
+                "Dagger"
+            ],
+            "total": 2,
+            "type": "weapon",
+            "types": [
+                "Weapon"
+            ]
+        },
+        {
+            "identifier": "starting-point",
+            "image": "https://content.fabrary.net/cards/HNT196.webp",
+            "name": "Starting Point",
+            "setIdentifiers": [
+                "ARK006",
+                "HNT196",
+                "WOD006"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "legs",
+            "subtypes": [
+                "Legs"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "the-hand-that-pulls-the-strings",
+            "image": "https://content.fabrary.net/cards/ARK007.webp",
+            "name": "The Hand that Pulls the Strings",
+            "setIdentifiers": [
+                "ARK007",
+                "GEM218",
+                "LGS391"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "mentor",
+            "types": [
+                "Mentor"
+            ]
+        },
+        {
+            "identifier": "up-sticks-and-run-blue",
+            "image": "https://content.fabrary.net/cards/HNT181.webp",
+            "name": "Up Sticks and Run",
+            "setIdentifiers": [
+                "ARK026",
+                "HNT181",
+                "WOD026"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "arakni",
+            "image": "https://content.fabrary.net/cards/MPA001.webp",
+            "name": "Arakni",
+            "setIdentifiers": [
+                "ARK001",
+                "DYN114",
+                "HER073",
+                "HNT264",
+                "MPA001"
+            ],
+            "sideboardTotal": 0,
+            "subType": "young",
+            "subtypes": [
+                "Young"
+            ],
+            "total": 1,
+            "type": "hero",
+            "types": [
+                "Hero"
+            ]
+        }
+    ],
+    "format": "blitz",
+    "hero": {
+        "identifier": "arakni",
+        "image": "https://content.fabrary.net/cards/MPA001.webp",
+        "name": "Arakni",
+        "setIdentifiers": [
+            "ARK001",
+            "DYN114",
+            "HER073",
+            "HNT264",
+            "MPA001"
+        ],
+        "sideboardTotal": 0,
+        "subType": "young",
+        "subtypes": [
+            "Young"
+        ],
+        "total": 1,
+        "type": "hero",
+        "types": [
+            "Hero"
+        ]
+    },
+    "name": "Arakni Blitz Deck",
+    "matchups": [],
+    "slug": "01JJNEQ0SBZSFSDED4WQJG2YZA"
+}

@@ -15,6 +15,13 @@ class FaBLobbyAdapter implements LobbyAdapter, LobbyBotAdapter {
             'goldfish' => ['name' => 'Goldfish bot', 'description' => '20 health; passes priority and skips its turns.'],
             'fai' => ['name' => 'Fai · Heuristic bot', 'description' => 'Draconic Ninja: attacks, blocks, pitches, and builds combat chains.'],
             'ira' => ['name' => 'Ira · Heuristic bot', 'description' => 'Round the Table: builds Crouching Tiger chains and follows with Qi combos.'],
+            'boltyn' => ['name' => 'Boltyn · Heuristic bot', 'description' => 'Charges soul, empowers Light attacks, and extends Raydn chains.'],
+            'uzuri' => ['name' => 'Uzuri · Heuristic bot', 'description' => 'Attacks with stealth, swaps after blocks, and pressures with dagger hits.'],
+            'arakni' => ['name' => 'Arakni · Heuristic bot', 'description' => 'Sets up contracts with daggers, times reactions, and maintains Strings with Silver.'],
+            'dromai' => ['name' => 'Dromai · Heuristic bot', 'description' => 'Pitches red to create Ash, builds Ashwings, and attacks with a dragon swarm.'],
+            'lexi' => ['name' => 'Lexi · Heuristic bot', 'description' => 'Loads Shiver arrows, fuses elemental attacks, and reveals arsenal cards with Lexi.'],
+            'prism' => ['name' => 'Prism · Heuristic bot', 'description' => 'Builds Spectral Shields, attacks with Iris auras and Heralds, and develops soul.'],
+            'levia' => ['name' => 'Levia · Heuristic bot', 'description' => 'Builds graveyard fuel, banishes six-power cards, and manages blood debt.'],
             'professor' => ['name' => 'Professor Teklovossen · Heuristic bot', 'description' => 'Round the Table: upgrades Evos, boosts attacks, and fires Teklo Blaster.'],
         ] : [];
     }

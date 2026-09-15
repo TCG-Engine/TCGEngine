@@ -43,6 +43,18 @@
     const dock = document.createElement('div'); dock.id = 'fab-shortcut-dock';
     dock.innerHTML = `<div id="fab-shortcut-panel"><div style="font-size:15px;margin-bottom:3px">Shortcut windows</div><div class="fab-shortcut-note">On means automatically pass that window.</div>${entries.map(([id, spec]) => `<div class="fab-shortcut-row"><span>${spec.label || id}</span><button type="button" data-id="${id}" aria-pressed="${payload.windows[id]}"></button></div>`).join('')}</div><button id="fab-shortcut-toggle" type="button">Shortcuts</button>`;
     document.body.appendChild(dock);
+    const autoRow = document.createElement('label');
+    autoRow.className = 'fab-shortcut-row';
+    autoRow.innerHTML = '<span>Auto-choose single option</span><input type="checkbox">';
+    autoRow.title = 'Automatically select a lone card target, including optional choices. Saved for this browser.';
+    const autoInput = autoRow.querySelector('input');
+    autoInput.checked = !!window.TCGSettings?.get('AutoChooseSingleOption', { rootName: ROOT, type: 'boolean', defaultValue: false });
+    autoInput.onchange = () => window.TCGSettings?.set('AutoChooseSingleOption', autoInput.checked, { rootName: ROOT, type: 'boolean' });
+    dock.querySelector('#fab-shortcut-panel').appendChild(autoRow);
+    const autoNote = document.createElement('div');
+    autoNote.className = 'fab-shortcut-note';
+    autoNote.textContent = 'Includes optional single-card choices. Saved in this browser.';
+    dock.querySelector('#fab-shortcut-panel').appendChild(autoNote);
     const render = () => dock.querySelectorAll('[data-id]').forEach(button => button.classList.toggle('on', !!payload.windows[button.dataset.id]));
     const sync = () => {
       window.TCGSettings?.set?.(SETTING, payload, { rootName: ROOT, type: 'json' });

@@ -30,14 +30,14 @@ foreach ($lobby->players as $player) {
         && in_array($playerNumber, $lobby->goldfishPlayers, true)
         && trim((string)$player->getDeckLink()) === ''
         && trim((string)$player->getPreconstructedDeck()) === '';
-    if (!in_array($player->getBotProfile(), ['', 'goldfish', 'fai', 'professor', 'ira'], true)) throw new RuntimeException('Unsupported FaB bot profile.');
+    if (!in_array($player->getBotProfile(), ['', 'goldfish', 'fai', 'professor', 'ira', 'boltyn', 'levia', 'prism', 'lexi', 'dromai', 'arakni','uzuri'], true)) throw new RuntimeException('Unsupported FaB bot profile.');
     if ($isPassiveGoldfishSeat || $player->getBotProfile() === 'goldfish') {
         $passiveSeats[] = $playerNumber;
         FaBEnsureGoldfishOpponent($playerNumber);
         ++$playerNumber;
         continue;
     }
-    $isDeckBot=in_array($player->getBotProfile(),['fai','professor','ira'],true);
+    $isDeckBot=in_array($player->getBotProfile(),['fai','professor','ira','boltyn','levia','prism','lexi','dromai','arakni','uzuri'],true);
     if($isDeckBot)$botProfiles[$playerNumber]=$player->getBotProfile();
     $resolved = $isDeckBot ? FaBBotDeck($player->getBotProfile()) : FaBResolveDeckInput($player->getDeckLink(), method_exists($player, 'getUserId') ? $player->getUserId() : null);
     if (empty($resolved['success'])) throw new RuntimeException($resolved['message'] ?? 'Unable to load FaB deck.');
@@ -83,6 +83,8 @@ function FaBLoadPlayer($playerID, $resolved, bool $bot = false) {
     foreach ($resolved['equipment'] as $cardID) {
         AddEquipment($playerID, CardID:$cardID, Owner:$playerID, Controller:$playerID, Status:2);
     }
+    foreach($resolved['inventory']??[] as $cardID)AddInventory($playerID,CardID:$cardID,Owner:$playerID,Controller:$playerID);
+    FaBDYNSetup($playerID);
     foreach ($resolved['mainDeck'] as $cardID) AddDeck($playerID, CardID:$cardID);
     $deck = &GetDeck($playerID);
     EngineShuffle($deck, true);
@@ -92,7 +94,7 @@ function FaBLoadPlayer($playerID, $resolved, bool $bot = false) {
     $health = max(1, intval(CardHealth($resolved['hero'])) ?: 20);
     $resources = 0;
     $actionPoints = 1;
-    if($resolved['hero']==='fai'&&in_array('phoenix_flame_red',$resolved['mainDeck'],true)){
+    if(in_array($resolved['hero'],['fai','fai_rising_rebellion'],true)&&in_array('phoenix_flame_red',$resolved['mainDeck'],true)){
         if($bot)FaBFaiSetup($playerID,true);
         else {
             DecisionQueueController::AddDecision($playerID,'MZMODAL','1|1|Start_with_Phoenix_Flame_in_graveyard&Keep_it_in_deck',1,'Fai_setup');

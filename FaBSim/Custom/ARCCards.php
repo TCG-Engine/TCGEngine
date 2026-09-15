@@ -45,48 +45,42 @@ function FaBARCTargetSeat(int $player,string $ref,bool $opposing=true,bool $mult
 
 /** Subset sums matter: a lone Barrier 3 cannot be paid as Barrier 1. */
 function FaBARCBarrierPayments(int $player,int $damage): array {
-    $values=[0];
-    foreach(['Equipment','Arena','CombatChain'] as $zone)foreach(FaBZoneGet($zone,$player) as $obj){
-        if(!is_object($obj)||!empty($obj->removed)||HasNoAbilities($obj))continue;
-        if($zone==='CombatChain'&&($obj->FromZone??'')!=='Equipment')continue;
-        $barrier=0;foreach(FaBKeywords($obj->CardID) as $keyword)if(preg_match('/Arcane Barrier (\d+)/i',$keyword,$m))$barrier=max($barrier,intval($m[1]));
-        if($obj->CardID==='arcanite_skullcap')$barrier=FaBARCLowerLife($player)?3:0;
-        if($obj->CardID==='aether_sink_yellow')$barrier=in_array('ARC_BARRIER_2',(array)($obj->TurnEffects??[]),true)?2:0;
-        if($barrier>0)foreach(array_values($values) as $value)$values[]=$value+$barrier;
-    }
-    $max=FaBAvailablePitch($player);
-    $values=array_values(array_unique(array_filter($values,fn($n)=>$n<=$max)));
-    sort($values);return $values;
+    return array_values(array_unique(array_column(FaBUPRLegacyPreventionPlans($player,$damage),'cost')));
 }
 function FaBARCBarrierOptions(int $player,int $damage): string {
-    return implode('&',array_map(fn($n)=>$n===0?'Take_damage':'Pay_'.$n.'_to_prevent_'.$n,FaBARCBarrierPayments($player,$damage)));
+    return implode('&',array_map('FaBUPRLegacyPreventionLabel',FaBUPRLegacyPreventionPlans($player,$damage)));
 }
 function FaBARCBarrierCost(int $player,int $damage,string $choice): int {
-    return FaBARCBarrierPayments($player,$damage)[intval($choice)]??0;
+    $plan=FaBUPRLegacyPreventionPlans($player,$damage)[intval($choice)]??['cost'=>0,'quell'=>[],'energy'=>0];
+    foreach($plan['quell'] as $uid){$f=FaBFindUID($uid);if($f)FaBSetObjectCounter($f['object'],'UPR_DESTROY_END',1);}
+    if($plan['energy']&&FaBUPRAlluvionReady(abs($plan['energy']),$damage))FaBUPRAlluvion(abs($plan['energy']),$plan['energy']>0);
+    return $plan['cost'];
 }
+
 function FaBARCPitchChoices(int $player): string {
-    return implode('&',array_filter(FaBChoiceRefs($player,'Hand'),fn($ref)=>intval(CardPitch(FaBIdentityFromMZ($ref)['object']->CardID))>0&&!FaBARCNamedProhibited(FaBIdentityFromMZ($ref)['object']->CardID)));
+    return implode('&',array_filter(FaBChoiceRefs($player,'Hand'),fn($ref)=>intval(CardPitch(FaBIdentityFromMZ($ref)['object']->CardID))>0&&!FaBARCNamedProhibited(FaBIdentityFromMZ($ref)['object']->CardID)&&FaBOUTCanPitch($player,FaBIdentityFromMZ($ref)['object'])&&FaBELECanPitch($player,FaBIdentityFromMZ($ref)['object'])));
 }
 function FaBARCPitchForEffect(int $player,string $ref): bool {
     if(!in_array($ref,explode('&',FaBARCPitchChoices($player)),true))return false;
     $id=FaBIdentityFromMZ($ref)['object']->CardID;
-    FaBMoveChoice($player,$ref,'Hand','Pitch');AddResources($player,intval(GetResources($player))+intval(CardPitch($id)));
+    FaBMoveChoice($player,$ref,'Hand','Pitch');AddResources($player,intval(GetResources($player))+FaBEVRPitch($player,FaBMONPitchValue($player,$id),true),'PITCH');
     FaBWTRCardPitched($player,$id);
     $pitch=FaBChoiceRefs($player,'Pitch');$last=end($pitch);
     FaBRunSourceMacro('CardPitched',$player,$id,['mzID'=>$last]);return true;
 }
 function FaBARCDealArcane(int $player,int $target,int $amount,int $payment=0): int {
     if(!FaBSeatIsLive($target))return 0;
+    if(FaBEVRUnpreventable($player,$target))$payment=0;
     $payment=max(0,min($payment,intval(GetResources($target))));
     AddResources($target,intval(GetResources($target))-$payment);
-    $dealt=DoDamage($player,'',$target,max(0,$amount-$payment),'ARCANE');
+    $dealt=DoDamage($player,(string)DecisionQueueController::GetVariable('mzID'),$target,max(0,$amount-$payment),'ARCANE');
     $s=FaBGetState();$s['arcaneDealt'][(string)$player][(string)$target]=intval($s['arcaneDealt'][(string)$player][(string)$target]??0)+$dealt;FaBSetState($s);
     return $dealt;
 }
 function FaBARCArcaneAmount(int $player,int $uid,int $base,int $target=0): int {
     $f=FaBFindUID($uid);$id=$f['object']->CardID??'';
     if($id==='blazing_aether_red')$base=intval(FaBGetState()['arcaneDealt'][(string)$player][(string)$target]??0);
-    return max(0,$base+intval(FaBARCCard($uid,'arcaneBonus')));
+    return max(0,$base+FaBDYNArcaneBonus($uid)+intval(FaBARCCard($uid,'arcaneBonus'))+($f&&FaBHasType($f['object'],'Action')?FaBEVRCount($player,'WILDFIRE'):0));
 }
 
 function FaBARCLowerLife(int $player): bool {
@@ -134,6 +128,7 @@ function FaBARCRevealPitch(int $player): int {
     return $refs?intval(CardPitch(FaBIdentityFromMZ($refs[0])['object']->CardID)):0;
 }
 function FaBARCSelect(int $player,string $zone,string $class='',string $kind='',int $maxCost=999): string {
+    if($zone==='Deck'&&FaBUPRBleak())return '';
     $out=[];foreach(FaBChoiceRefs($player,$zone) as $ref){$o=FaBIdentityFromMZ($ref)['object'];
         if($class!==''&&!FaBHasType($o,$class))continue;
         if($kind==='AR'&&!FaBHasType($o,'Attack Reaction'))continue;
@@ -198,13 +193,15 @@ function FaBARCBanishInstant(int $player,string $chosen,string $zone,int $discou
     $o->PlayableFromBanish=1;FaBARCSetCard(intval($o->UniqueID),'instantTurn',intval(GetTurnNumber()));FaBARCSetCard(intval($o->UniqueID),'discount',$discount);
 }
 function FaBARCAsInstant(int $player,object $obj): bool {
+    if($obj->CardID==='lumina_ascension_yellow'&&FaBMONArena($player,'spirit_of_eirina'))return true;
+    if(FaBELEAsInstant($player,$obj)||FaBEVRAsInstant($player,$obj))return true;
     if(FaBCRUAsInstant($player,$obj))return true;
     if(!FaBHasType($obj,'Action')||FaBHasType($obj,'Attack'))return false;
     if(intval(FaBARCCard(intval($obj->UniqueID),'instantTurn'))===intval(GetTurnNumber()))return true;
     return FaBARCEffect($player,'ARC_NEXT_NAA_INSTANT')>0 || (FaBHasType($obj,'Wizard')&&FaBARCEffect($player,'ARC_NEXT_WIZARD_INSTANT')>0);
 }
 function FaBARCLoadArsenal(int $player,string $chosen,bool $faceUp,int $power=0): bool {
-    if(FaBChoiceRefs($player,'Arsenal'))return false;
+    if(!FaBELEArsenalSpace($player))return false;
     $f=FaBIdentityFromMZ($chosen);if($f===null||$f['player']!==$player||!in_array($f['zone'],['Hand','Temp','Deck'],true))return false;
     $o=FaBMoveUID(intval($f['object']->UniqueID),'Arsenal',$player);if($o===null)return false;
     $o->FaceDown=$faceUp?0:1;
@@ -213,6 +210,8 @@ function FaBARCLoadArsenal(int $player,string $chosen,bool $faceUp,int $power=0)
 }
 function FaBARCArsenalFaceUp(int $player,object $o,string $from='Arsenal'): void {
     FaBARCSetCard(intval($o->UniqueID),'faceUp',true);
+    FaBOUTFaceUp($player,$o,$from);
+    if(in_array($from,['Deck','Temp'],true)&&FaBHasType($o,'Arrow')&&FaBMONWeapon($player,'sandscour_greatbow'))FaBSetObjectCounter($o,'AIM',intval(FaBObjectCounters($o)['AIM']??0)+1);
     if($o->CardID==='remorseless_red'&&$from!=='Arsenal')FaBWTRTag($o,'CRU_NO_ARSENAL_DR');
     $base=FaBWTRBase($o->CardID);
     if($base==='head_shot'&&$from!=='Arsenal')FaBWTRTag($o,'WTR_POWER:2');
@@ -221,6 +220,7 @@ function FaBARCArsenalFaceUp(int $player,object $o,string $from='Arsenal'): void
 }
 function FaBARCLoseLife(int $target,int $amount,int $source): void {
     if(!FaBSeatIsLive($target))return;AddHealth($target,max(0,intval(GetHealth($target))-$amount));
+    FaBMONLifeLost($target,$amount);
     if(intval(GetHealth($target))===0)FaBEliminateSeat($target,$source);
 }
 
@@ -242,7 +242,7 @@ function FaBARCCanPlay(int $player,array $found): bool {
     return true;
 }
 function FaBARCCostModifier(int $player,object $obj): int {
-    $base=FaBWTRBase($obj->CardID);$delta=0;
+    $base=FaBWTRBase($obj->CardID);$delta=FaBOUTCost($player,$obj);
     if(in_array($base,['amplify_the_arknight','arknight_ascendancy','drawn_to_the_dark_dimension','ninth_blade_of_the_blood_oath','rune_flash','reduce_to_runechant'],true))$delta-=FaBARCRunechants($player);
     if(FaBWTRIsAttackAction($obj)||FaBWTRIsWeapon($obj))$delta+=FaBARCEffect($player,'ARC_FIRST_ATTACK_COST');
     if(FaBARCCard(intval($obj->UniqueID),'instantTurn')===intval(GetTurnNumber()))$delta-=intval(FaBARCCard(intval($obj->UniqueID),'discount'));
@@ -250,6 +250,7 @@ function FaBARCCostModifier(int $player,object $obj): int {
 }
 
 function FaBARCCardPlayed(int $player,object $obj,string $fromZone): void {
+    FaBEVRPlayed($player,$obj,$fromZone);
     $base=FaBWTRBase($obj->CardID);$aa=FaBWTRIsAttackAction($obj);$attack=$aa||FaBWTRIsWeapon($obj);
     if(FaBHasType($obj,'Action')||FaBWTRIsWeapon($obj))FaBARCRecordAction($player);
     $effects=[];$bonus=0;
@@ -309,7 +310,7 @@ function FaBARCEndTurn(int $player): void {
     if(!FaBARCPlayed($player,true))foreach(FaBChoiceRefs($player,'Arena',['base'=>'enchanting_melody']) as $ref)FaBMoveChoice($player,$ref,'Arena','Graveyard');
 }
 function FaBARCIsArcaneCard(string $id): bool {
-    return in_array(FaBWTRBase($id),['foreboding_bolt','rousing_aether','snapback','chain_lightning','aether_flare','aether_spindle','blazing_aether','forked_lightning','lesson_in_lava','reverberate','scalding_rain','sonic_boom','voltic_bolt','zap'],true);
+    return in_array(FaBWTRBase($id),['aether_wildfire','emeritus_scolding','timekeepers_whim','scour','foreboding_bolt','rousing_aether','snapback','chain_lightning','aether_flare','aether_spindle','blazing_aether','forked_lightning','lesson_in_lava','reverberate','scalding_rain','sonic_boom','voltic_bolt','zap'],true);
 }
 
 function FaBARCPreventDamage(int $player,int $amount,string $type): int {

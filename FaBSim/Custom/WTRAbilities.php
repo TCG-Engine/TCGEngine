@@ -3,7 +3,7 @@
 /** Activation metadata; the common payment and stack paths own timing. */
 function FaBWTRAbilitySpec(string $id): ?array {
     $specs=[
-        'fai'=>['INSTANT',3,false,false,true],
+        'fai'=>['INSTANT',3,false,false,true], 'fai_rising_rebellion'=>['INSTANT',3,false,false,true],
         'stubby_hammerers'=>['ACTION',0,true,true,false],
         'scabskin_leathers'=>['ACTION',0,false,false,true],
         'bravo'=>['ACTION',2,false,true,false], 'bravo_showstopper'=>['ACTION',2,false,true,false],
@@ -27,14 +27,16 @@ function FaBWTRAbilitySpec(string $id): ?array {
 }
 
 function FaBWTRAbilityCost(int $player, array $spec): int {
-    $cost=$spec['cost'];
-    if(($spec['cardID']??'')==='fai')$cost-=FaBFaiChainCount($player);
+    $cost=$spec['cost']+FaBELETax($player)-FaBEVRCount($player,'IGNITION');
+    if(FaBHasType($spec['cardID']??'','Staff'))$cost-=FaBUPRCount($player,'STAFF_DISCOUNT');
+    if(in_array($spec['cardID']??'',['fai','fai_rising_rebellion'],true))$cost-=FaBFaiChainCount($player);
     if($spec['timing']==='ACTION')foreach(FaBWTREffects($player)as$effect)if(($effect['type']??'')==='FIRST_ACTION_COST')$cost+=intval($effect['amount']);
     return max(0,$cost);
 }
 
 function FaBWTRAbilityLegal(int $player, array $found, array $spec): bool {
     $obj=$found['object'];$state=FaBGetState();
+    if(FaBUPRLocked($player)||FaBUPRFrozen($obj))return false;
     $inEquipment=$found['zone']==='Equipment'||($found['zone']==='CombatChain'&&($obj->FromZone??'')==='Equipment');
     if(!$inEquipment&&!in_array($found['zone'],['Hero','Arena'],true))return false;
     if($found['zone']==='Hero'&&!FaBWTRHeroActive($player))return false;
@@ -59,6 +61,7 @@ function FaBWTRAbilityLegal(int $player, array $found, array $spec): bool {
 
 function FaBWTRAnnounceAbility(int $player, array $found, array $spec): bool {
     $obj=$found['object'];$state=FaBGetState();
+    if(FaBUPRLocked($player)||FaBUPRFrozen($obj))return false;
     $stack=AddStack(CardID:$obj->CardID,Controller:$player,Kind:'ABILITY',SourceZone:$found['zone'],SourceUniqueID:intval($obj->UniqueID),
         Params:['returnWindow'=>$state['window'],'returnCombatStep'=>$state['combatStep'],'attackUID'=>intval($state['attackUID'])]);
     $state['pendingPayment']=['player'=>$player,'uid'=>intval($stack->UniqueID),'cost'=>FaBWTRAbilityCost($player,$spec),'fromZone'=>$found['zone'],
@@ -68,6 +71,9 @@ function FaBWTRAnnounceAbility(int $player, array $found, array $spec): bool {
 }
 
 function FaBWTRPayAbilityCosts(int $player, object $stack): void {
+    FaBEVRAdd($player,'ACTIVATED');FaBEVRClear($player,'IGNITION');
+    FaBELEActivated($player,$stack);
+    $reactionSpec=$stack->Params['arcSpec']??FaBWTRAbilitySpec($stack->CardID);FaBArakniReactionEvent($player,($reactionSpec['timing']??'')==='REACTION');
     if(isset($stack->Params['arcSpec'])){FaBARCPayAbility($player,$stack);return;}
     $spec=FaBWTRAbilitySpec($stack->CardID);$found=FaBFindUID(intval($stack->SourceUniqueID));
     if($spec===null||$found===null)return;
@@ -86,8 +92,8 @@ function FaBWTRResolveAbility(int $player, object $stack): void {
     $source=FaBFindUID(intval($stack->SourceUniqueID));
     $ran=FaBRunSourceMacro('ResolveAbility',$player,$id,['mzID'=>$source['mzID']??'']);
     if(!$ran)switch($id){
-        case 'scabskin_leathers': AddActionPoints($player,intval(GetActionPoints($player))+intdiv(EngineRandomInt(1,6),2)); break;
-        case 'barkbone_strapping': AddResources($player,intval(GetResources($player))+intdiv(EngineRandomInt(1,6),2)); break;
+        case 'scabskin_leathers': AddActionPoints($player,intval(GetActionPoints($player))+intdiv(FaBEVRRoll($player),2)); break;
+        case 'barkbone_strapping': AddResources($player,intval(GetResources($player))+intdiv(FaBEVRRoll($player),2)); break;
         case 'energy_potion_blue': AddResources($player,intval(GetResources($player))+2); break;
         case 'fyendals_spring_tunic': AddResources($player,intval(GetResources($player))+1); break;
         case 'timesnap_potion_blue': AddActionPoints($player,intval(GetActionPoints($player))+2); break;
@@ -101,7 +107,7 @@ function FaBWTRResolveAbility(int $player, object $stack): void {
         case 'breaking_scales': FaBTagUID(intval($stack->Params['attackUID']),'WTR_POWER:1'); break;
         case 'snapdragon_scalers': FaBTagUID(intval($stack->Params['attackUID']),'GO_AGAIN'); break;
         case 'crazy_brew_blue':
-            $roll=EngineRandomInt(1,6);
+            $roll=FaBEVRRoll($player);
             if($roll<=2){AddHealth($player,max(0,intval(GetHealth($player))-2));if(intval(GetHealth($player))===0)FaBEliminateSeat($player);}
             elseif($roll<=4)FaBCRUGainLife($player,2);
             else{AddResources($player,intval(GetResources($player))+2);AddActionPoints($player,intval(GetActionPoints($player))+2);FaBWTRAddEffect($player,'NEXT_ATTACK',2);}

@@ -1,0 +1,24 @@
+[
+  {
+    "cardId": "argh_smash_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$roller = $player;\n\n$roll = FaBEVRRoll($player);\n\n$seats = FaBLiveSeats();\n\n$cruSeq1 = $seats;\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $seat = $cruSeq1[$cruIdx1];\n\n $gloves = FaBCRUEquipment($seat, 'gamblers_gloves');\n\n $cruSeq2 = $gloves;\n\nfor ($cruIdx2 = 0; $cruIdx2 < count($cruSeq2); ++$cruIdx2) {\n\n $glove = $cruSeq2[$cruIdx2];\n\n  $gloveUID = intval(FaBIdentityFromMZ($glove)['object']->UniqueID);\n\n  $tip = 'Player_' . $roller . '_rolled_' . $roll;\n\n  $reroll = await $seat.Modal(1, 1, \"Keep_roll&Destroy_gloves_and_reroll\", $tip);\n\n  if ($reroll === '1') {\n FaBMoveUID($gloveUID, 'Graveyard', $seat);\n $roll = FaBEVRRoll($player);\n \n}\n\n \n}\n\n\n}\n\n$player = $roller;\n\n$targets = FaBCRUTargets($player, 'items');\n\n$maximum = min(intdiv($roll, 2), count(explode('&', $targets)));\n\nif ($targets !== '' && $maximum > 0) {\n\n $chosen = await $player.MZMultiChoose($targets, 0, $maximum, \"Destroy_up_to_rolled_items\");\n\n $cruSeq3 = explode('&', $chosen);\n\nfor ($cruIdx3 = 0; $cruIdx3 < count($cruSeq3); ++$cruIdx3) {\n\n $ref = $cruSeq3[$cruIdx3];\n $f = FaBIdentityFromMZ($ref);\n if ($f !== null) {\n FaBMoveUID(intval($f['object']->UniqueID), 'Graveyard', $f['player']);\n \n}\n \n}\n\n\n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "b39c4f2f409f852bbe42107c8fbe2b299f4a14bc0bf81ef4b689d6ad58f8b0e2"
+      }
+    ]
+  },
+  {
+    "cardId": "kayo_berserker_runt",
+    "abilities": [
+      {
+        "macroName": "CardPlayed",
+        "abilityCode": "$attackUID = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n\n$roller = $player;\n\n$roll = FaBEVRRoll($player);\n\n$seats = FaBLiveSeats();\n\n$cruSeq1 = $seats;\n\nfor ($cruIdx1 = 0; $cruIdx1 < count($cruSeq1); ++$cruIdx1) {\n\n $seat = $cruSeq1[$cruIdx1];\n\n $gloves = FaBCRUEquipment($seat, 'gamblers_gloves');\n\n $cruSeq2 = $gloves;\n\nfor ($cruIdx2 = 0; $cruIdx2 < count($cruSeq2); ++$cruIdx2) {\n\n $glove = $cruSeq2[$cruIdx2];\n\n  $gloveUID = intval(FaBIdentityFromMZ($glove)['object']->UniqueID);\n\n  $tip = 'Player_' . $roller . '_rolled_' . $roll;\n\n  $reroll = await $seat.Modal(1, 1, \"Keep_roll&Destroy_gloves_and_reroll\", $tip);\n\n  if ($reroll === '1') {\n FaBMoveUID($gloveUID, 'Graveyard', $seat);\n $roll = FaBEVRRoll($player);\n \n}\n\n \n}\n\n\n}\n\n$player = $roller;\n\nFaBARCSetCard($attackUID, 'kayo', $roll);\n",
+        "isImplemented": true,
+        "previousCodeHash": "a7cea6cef85bdcfc0fd45cb3f9df26c52656296638dee4d6a39cf1b6f6d2a701"
+      }
+    ]
+  }
+]

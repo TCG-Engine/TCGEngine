@@ -5,16 +5,18 @@ function FaBChoiceRefs(int $player, string $zone, array $filter = []): array {
     $refs = [];
     foreach (FaBZoneGet($zone, $player) as $index => $obj) {
         if (!is_object($obj) || !empty($obj->removed)) continue;
+        if(isset($filter['pitch'])&&intval(CardPitch($obj->CardID))!==intval($filter['pitch']))continue;
         if (isset($filter['type']) && !FaBHasType($obj, $filter['type'])) continue;
         if (!empty($filter['attackAction']) && !FaBWTRIsAttackAction($obj)) continue;
         if (isset($filter['keyword']) && !FaBHasKeyword($obj, $filter['keyword'])) continue;
+        if(!empty($filter['specialization'])&&stripos(implode('|',FaBKeywords($obj)),'Specialization')===false)continue;
         if ((isset($filter['cost']) || isset($filter['minCost']) || isset($filter['maxCost'])) && !is_numeric(CardCost($obj->CardID))) continue;
         if (isset($filter['cost']) && intval(CardCost($obj->CardID)) !== intval($filter['cost'])) continue;
         if (isset($filter['minCost']) && intval(CardCost($obj->CardID)) < intval($filter['minCost'])) continue;
         if (isset($filter['maxCost']) && intval(CardCost($obj->CardID)) > intval($filter['maxCost'])) continue;
         if (isset($filter['bases']) && !in_array(FaBWTRBase($obj->CardID), $filter['bases'], true)) continue;
         if (isset($filter['base']) && FaBWTRBase($obj->CardID) !== $filter['base']) continue;
-        $refs[] = 'p' . $player . $zone . '-' . $index;
+        $refs[] = ($zone === 'Stack' ? '' : 'p' . $player) . $zone . '-' . $index;
     }
     return $refs;
 }
@@ -33,6 +35,7 @@ function FaBShuffleDeck(int $player): void {
 
 /** Searches expose only matching cards, and only to the searching seat. */
 function FaBStageSearch(int $player, array $filter = []): string {
+    if(FaBUPRBleak())return '';
     $refs = FaBChoiceRefs($player, 'Deck', $filter);
     $uids = [];
     foreach ($refs as $ref) $uids[] = intval(FaBIdentityFromMZ($ref)['object']->UniqueID);
@@ -61,12 +64,15 @@ function FaBActionGraveChoices(int $player, int $excludedUID): string {
 }
 
 function FaBRevealChoices(int $player, string $choices): void {
+    if(FaBUPRBleak())return;
+    $revealed=false;
     foreach (explode('&',$choices) as $ref) {
         $found = FaBIdentityFromMZ($ref);
         // Publish through the shared Events feed without starting a decision or
         // replacing the source parameters of the card currently resolving.
-        if ($found !== null) IncrementMacroGameIndexCard('RevealCard', $player, $found['object']->CardID);
+        if ($found !== null) {$revealed=true;IncrementMacroGameIndexCard('RevealCard', $player, $found['object']->CardID);}
     }
+    if($revealed)FaBELEKorshemReveal($player);
 }
 
 function FaBSetPreparedMode(int $uid, int $mode): void {
@@ -89,6 +95,7 @@ function FaBTagUID(int $uid, string $tag): void {
     $source=FaBIdentityFromMZ((string)DecisionQueueController::GetVariable('mzID'));
     if($source!==null&&FaBHasType($source['object'],'Attack Reaction'))FaBCRUSelfTag($found['object'],$tag);
     else FaBWTRTag($found['object'],$tag);
+    if($tag==='WTR_POWER:1'&&FaBGetState()['window']==='REACTION'&&intval(FaBGetState()['attackUID'])===$uid)foreach(FaBMONArena($found['player'],'talisman_of_featherfoot') as $r){FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));FaBWTRTag($found['object'],'GO_AGAIN');}
 }
 
 function FaBPreviousAttackBase(): string {

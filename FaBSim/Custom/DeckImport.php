@@ -19,21 +19,32 @@ function FaBUPFDeckErrors(array $deck): array {
     if (count($pool) > 52) $errors[] = 'UPF allows at most 52 cards besides the hero.';
     foreach (array_count_values($pool) as $id => $count) {
         if ($count > 2) $errors[] = 'UPF allows two copies per pitch: ' . CardName($id) . '.';
-        if ($count > 1 && in_array('Legendary', (array)CardCard_keywords($id), true)) $errors[] = 'Legendary allows one copy: ' . CardName($id) . '.';
+        if ($count > 1 && count(array_filter((array)CardCard_keywords($id),fn($keyword)=>str_starts_with($keyword,'Legendary')))>0) $errors[] = 'Legendary allows one copy: ' . CardName($id) . '.';
         $types = (array)CardTypes($id);
+        if(($deck['hero']??'')==='emperor_dracai_of_aesir'&&!in_array('Equipment',$types,true)&&!in_array('Weapon',$types,true)&&intval(CardPitch($id))!==1)$errors[]='Emperor requires red cards in the deck.';
         if(($deck['hero']??'')==='shiyana_diamond_gemini'&&str_contains((string)CardFunctional_text_plain($id),'Specialization'))continue;
-        foreach(['Rhinar','Bravo','Katsu','Dorinthea','Dash','Azalea','Viserai','Kano']as$heroName){
+        foreach(['Rhinar','Bravo','Katsu','Dorinthea','Dash','Azalea','Viserai','Kano','Prism','Boltyn','Levia','Chane','Oldhim','Lexi','Briar','Iyslander','Arakni','Uzuri','Riptide','Benji']as$heroName){
             if(str_contains((string)CardFunctional_text_plain($id),$heroName.' Specialization') && !str_starts_with((string)CardName($deck['hero']??''),$heroName))$errors[]=CardName($id).' requires '.$heroName.'.';
         }
-        foreach (['Brute','Guardian','Ninja','Warrior','Mechanologist','Ranger','Runeblade','Wizard'] as $class) {
+        if(str_contains((string)CardFunctional_text_plain($id),'Dromai or Fai Specialization')&&!preg_match('/^(Dromai|Fai)/',(string)CardName($deck['hero']??'')))$errors[]=CardName($id).' requires Dromai or Fai.';
+        $classes=['Brute','Guardian','Ninja','Warrior','Mechanologist','Ranger','Runeblade','Wizard','Illusionist','Assassin'];
+        $cardClasses=array_intersect($classes,$types);
+        if($cardClasses&&!array_intersect($cardClasses,(array)CardTypes($deck['hero']??'')))$errors[]=CardName($id).' does not match your hero class.';
+        $heroText=(string)CardFunctional_text_plain($deck['hero'] ?? '');
+        foreach(['Earth','Ice','Lightning'] as $element)if(in_array($element,$types,true)&&stripos($heroText,$element)===false)$errors[]=CardName($id).' requires '.$element.' essence.';
+        foreach (['Light','Shadow','Elemental','Draconic'] as $class) {
             if (in_array($class, $types, true) && !in_array($class, (array)CardTypes($deck['hero'] ?? ''), true)) $errors[] = CardName($id) . ' does not match your hero class.';
         }
     }
-    foreach($deck['mainDeck']??[]as$id)if(array_intersect((array)CardTypes($id),['Hero','Weapon','Token'])||(in_array('Equipment',(array)CardTypes($id),true)&&!in_array('Evo',(array)CardTypes($id),true)))$errors[]=CardName($id).' cannot start in your deck.';
+    foreach($deck['mainDeck']??[]as$id)if(array_intersect((array)CardTypes($id),['Hero','Weapon','Token','Ally','Material'])||(in_array('Equipment',(array)CardTypes($id),true)&&!in_array('Evo',(array)CardTypes($id),true)))$errors[]=CardName($id).' cannot start in your deck.';
     foreach($deck['equipment']??[] as $id)if(in_array('Evo',(array)CardTypes($id),true))$errors[]='Evos must start in the deck, not equipped.';
     $hands = 0;
     foreach ($deck['weapons'] ?? [] as $id) $hands += in_array('2H', (array)CardTypes($id), true) ? 2 : 1;
     if ($hands > 2) $errors[] = 'Your starting weapons require more than two hands.';
+    $quivers=array_filter(array_merge($deck['weapons']??[],$deck['equipment']??[]),fn($id)=>in_array('Quiver',(array)CardTypes($id),true));
+    if(count($quivers)>1)$errors[]='Choose one starting quiver.';
+    $bows=array_filter($deck['weapons']??[],fn($id)=>in_array('Bow',(array)CardTypes($id),true));
+    if($quivers&&$hands>=2&&!$bows)$errors[]='A quiver needs a vacant weapon slot unless equipped with a bow.';
     foreach (['Head','Chest','Arms','Legs'] as $slot) {
         $equipped = array_filter($deck['equipment'] ?? [], fn($id) => in_array($slot, (array)CardTypes($id), true));
         if (count($equipped) > 1) $errors[] = 'Choose one starting equipment for ' . strtolower($slot) . '.';
@@ -218,6 +229,10 @@ function FaBNormalizeDeckPayload($payload) {
 
 function FaBNormalizeTalisharDeckPayload($payload) {
     $result = FaBEmptyResolvedDeck();
+    // Current Fabrary exports use separate main/sideboard counts. Older exports
+    // included sideboardTotal in total; preserve those unless the data disproves it.
+    $separateCounts=!empty($payload['separateSideboardCounts']);
+    foreach(($payload['cards']??[]) as $row)if(is_array($row)&&intval($row['sideboardTotal']??0)>intval($row['total']??0))$separateCounts=true;
     foreach (($payload['cards'] ?? []) as $row) {
         if (!is_array($row)) continue;
         $cardID = FaBResolveCardReference($row);
@@ -227,8 +242,9 @@ function FaBNormalizeTalisharDeckPayload($payload) {
         }
 
         $total = max(0, intval($row['total'] ?? $row['quantity'] ?? $row['count'] ?? 1));
-        $sideboard = min($total, max(0, intval($row['sideboardTotal'] ?? 0)));
-        $main = $total - $sideboard;
+        $sideboard = max(0, intval($row['sideboardTotal'] ?? 0));
+        if(!$separateCounts)$sideboard=min($total,$sideboard);
+        $main = $separateCounts?$total:$total-$sideboard;
         $types = CardTypes($cardID);
         if (!is_array($types)) $types = [];
 
@@ -251,6 +267,10 @@ function FaBNormalizeTalisharDeckPayload($payload) {
 
 function FaBFinalizeResolvedDeck($result) {
     foreach(array_merge($result['mainDeck']??[],$result['inventory']??[]) as $id){
+        if($id==='dragons_of_legend'){$result['success']=false;$result['message']='Replace Dragons of Legend with the invocation card it represents in your deck list.';return $result;}
+        if(in_array('Mentor',(array)CardTypes($id),true)&&!in_array('Young',(array)CardTypes($result['hero']??''),true)){
+            $result['success']=false;$result['message']='Mentor cards require a young hero.';return $result;
+        }
         if(in_array('Ephemeral',(array)CardCard_keywords($id),true)){
             $result['success']=false;
             $result['message']=CardName($id).' cannot start in your deck or inventory (Ephemeral).';

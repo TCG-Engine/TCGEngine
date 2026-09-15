@@ -1,0 +1,630 @@
+{
+    "cards": [
+        {
+            "identifier": "billowing-mirage-red",
+            "image": "https://content.fabrary.net/cards/UPR018.webp",
+            "name": "Billowing Mirage",
+            "setIdentifiers": [
+                "DRO012",
+                "UPR018"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "brutal-assault-red",
+            "image": "https://content.fabrary.net/cards/DRO024.webp",
+            "name": "Brutal Assault",
+            "setIdentifiers": [
+                "CRU192",
+                "DRO024"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "critical-strike-red",
+            "image": "https://content.fabrary.net/cards/UPR206.webp",
+            "name": "Critical Strike",
+            "setIdentifiers": [
+                "DRO023",
+                "UPR206"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "deep-blue",
+            "image": "https://content.fabrary.net/cards/MPW137.webp",
+            "name": "Deep Blue",
+            "setIdentifiers": [
+                "DRO006",
+                "ELE234",
+                "LXI004",
+                "MPW137"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "chest",
+            "subtypes": [
+                "Chest"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "dunebreaker-cenipai-red",
+            "image": "https://content.fabrary.net/cards/UPR021.webp",
+            "name": "Dunebreaker Cenipai",
+            "setIdentifiers": [
+                "DRO015",
+                "UPR021"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "dustup-red",
+            "image": "https://content.fabrary.net/cards/UPR024.webp",
+            "name": "Dustup",
+            "setIdentifiers": [
+                "DRO014",
+                "UPR024"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "embermaw-cenipai-red",
+            "image": "https://content.fabrary.net/cards/UPR027.webp",
+            "name": "Embermaw Cenipai",
+            "setIdentifiers": [
+                "DRO016",
+                "UPR027"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "enigma-chimera-red",
+            "image": "https://content.fabrary.net/cards/SEN010.webp",
+            "name": "Enigma Chimera",
+            "setIdentifiers": [
+                "DRO020",
+                "MON098",
+                "SEN010",
+                "TNP058"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "healing-balm-red",
+            "image": "https://content.fabrary.net/cards/UPR215.webp",
+            "name": "Healing Balm",
+            "setIdentifiers": [
+                "DRO025",
+                "UPR215"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "ironhide-helm",
+            "image": "https://content.fabrary.net/cards/DRO005.webp",
+            "name": "Ironhide Helm",
+            "setIdentifiers": [
+                "DRO005",
+                "MON241"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "head",
+            "subtypes": [
+                "Head"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "ironhide-legs",
+            "image": "https://content.fabrary.net/cards/UZU006.webp",
+            "name": "Ironhide Legs",
+            "setIdentifiers": [
+                "DRO008",
+                "MON244",
+                "OLD007",
+                "RVD006",
+                "UZU006"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "legs",
+            "subtypes": [
+                "Legs"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "lava-burst-red",
+            "image": "https://content.fabrary.net/cards/SFA019.webp",
+            "name": "Lava Burst",
+            "setIdentifiers": [
+                "DRO010",
+                "SFA019",
+                "UPR098"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "oasis-respite-red",
+            "image": "https://content.fabrary.net/cards/SLY019.webp",
+            "name": "Oasis Respite",
+            "setIdentifiers": [
+                "ANQ035",
+                "APR009",
+                "DRO027",
+                "FAB231",
+                "SDO021",
+                "SEN017",
+                "SLY019",
+                "UPR221"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "instant",
+            "types": [
+                "Instant"
+            ]
+        },
+        {
+            "identifier": "rake-the-embers-red",
+            "image": "https://content.fabrary.net/cards/UPR033.webp",
+            "name": "Rake the Embers",
+            "setIdentifiers": [
+                "DRO011",
+                "UPR033"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "ravenous-rabble-red",
+            "image": "https://content.fabrary.net/cards/SBA017.webp",
+            "name": "Ravenous Rabble",
+            "setIdentifiers": [
+                "1HP393",
+                "AAZ012",
+                "ANQ029",
+                "ARC191",
+                "AZL017",
+                "DRO021",
+                "FAB190",
+                "OUT213",
+                "RIP021",
+                "SAZ019",
+                "SBA017",
+                "SEA219"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "red-hot-red",
+            "image": "https://content.fabrary.net/cards/UPR090.webp",
+            "name": "Red Hot",
+            "setIdentifiers": [
+                "DRO009",
+                "LGS108",
+                "UPR090"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "sigil-of-solace-red",
+            "image": "https://content.fabrary.net/cards/HNT231.webp",
+            "name": "Sigil of Solace",
+            "setIdentifiers": [
+                "1HP387",
+                "ANQ036",
+                "DRO026",
+                "FAB136",
+                "FAB178",
+                "HNT231",
+                "TCC059",
+                "WTR173"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "instant",
+            "types": [
+                "Instant"
+            ]
+        },
+        {
+            "identifier": "silken-form",
+            "image": "https://content.fabrary.net/cards/UPR004.webp",
+            "name": "Silken Form",
+            "setIdentifiers": [
+                "DRO007",
+                "FAB151",
+                "UPR004"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "arms",
+            "subtypes": [
+                "Arms"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "sink-below-red",
+            "image": "https://content.fabrary.net/cards/AMA008.webp",
+            "name": "Sink Below",
+            "setIdentifiers": [
+                "1HP408",
+                "AMA008",
+                "ANQ034",
+                "ASB016",
+                "ASR018",
+                "DRO028",
+                "FAB332",
+                "FAB359",
+                "FAB515",
+                "JDG020",
+                "WTR215"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "defense reaction",
+            "types": [
+                "Defense Reaction"
+            ]
+        },
+        {
+            "identifier": "skittering-sands-red",
+            "image": "https://content.fabrary.net/cards/UPR036.webp",
+            "name": "Skittering Sands",
+            "setIdentifiers": [
+                "DRO013",
+                "UPR036"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "spears-of-surreality-red",
+            "image": "https://content.fabrary.net/cards/DRO019.webp",
+            "name": "Spears of Surreality",
+            "setIdentifiers": [
+                "DRO019",
+                "MON101",
+                "TNP016"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "storm-of-sandikai",
+            "image": "https://content.fabrary.net/cards/UPR003.webp",
+            "name": "Storm of Sandikai",
+            "setIdentifiers": [
+                "DRO004",
+                "LGS107",
+                "UPR003"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "2h",
+            "subtypes": [
+                "2H",
+                "Scepter"
+            ],
+            "total": 1,
+            "type": "weapon",
+            "types": [
+                "Weapon"
+            ]
+        },
+        {
+            "identifier": "sweeping-blow-blue",
+            "image": "https://content.fabrary.net/cards/UPR032.webp",
+            "name": "Sweeping Blow",
+            "setIdentifiers": [
+                "DRO018",
+                "UPR032"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "sweeping-blow-red",
+            "image": "https://content.fabrary.net/cards/UPR030.webp",
+            "name": "Sweeping Blow",
+            "setIdentifiers": [
+                "DRO017",
+                "UPR030"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "wounding-blow-red",
+            "image": "https://content.fabrary.net/cards/MST215.webp",
+            "name": "Wounding Blow",
+            "setIdentifiers": [
+                "DRO022",
+                "MST215",
+                "TEA015",
+                "WTR203"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "dromai",
+            "image": "https://content.fabrary.net/cards/UPR002.webp",
+            "name": "Dromai",
+            "setIdentifiers": [
+                "DRO001",
+                "HER062",
+                "PEN347",
+                "UPR002"
+            ],
+            "sideboardTotal": 0,
+            "subType": "young",
+            "subtypes": [
+                "Young"
+            ],
+            "total": 1,
+            "type": "hero",
+            "types": [
+                "Hero"
+            ]
+        }
+    ],
+    "format": "blitz",
+    "hero": {
+        "identifier": "dromai",
+        "image": "https://content.fabrary.net/cards/UPR002.webp",
+        "name": "Dromai",
+        "setIdentifiers": [
+            "DRO001",
+            "HER062",
+            "PEN347",
+            "UPR002"
+        ],
+        "sideboardTotal": 0,
+        "subType": "young",
+        "subtypes": [
+            "Young"
+        ],
+        "total": 1,
+        "type": "hero",
+        "types": [
+            "Hero"
+        ]
+    },
+    "name": "Dromai Blitz Deck",
+    "matchups": [],
+    "slug": "01G76H1R1ERRBRKS7RVCQAB8RX"
+}

@@ -319,3 +319,461 @@ four-seat room with bots assigned out of order and a main-menu duel.
 Rules references: [Round the Table release notes](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/bright-lights-round-the-table/),
 [Tiger Eye Reflex](https://cards.fabtcg.com/card/tiger-eye-reflex-3/TCC102/), and
 [Comprehensive Rules](https://rules.fabtcg.com/pdf/en-fab-cr.pdf).
+
+## Monarch
+
+`mon_catalog.json` and `mon_abilities.json` cover all 307 MON card identities,
+including pitch variants, heroes, equipment, tokens and reprints. The builder
+explicitly accounts for every identity and fails on an unhandled card. Shared
+continuous rules live in `MONCards.php`; activations live in `MONAbilities.php`;
+interactive card bodies are imported into CardEditor and generated normally.
+
+This adds the public, counted Soul zone to duels and UPF, charging, soul costs,
+Soul Shackle, blood debt and banish permissions, Illusionist aura attacks,
+phantasm, spectra, Ward and Spellvoid. Targets use actual seat IDs; all-opponent
+effects visit every live opponent, and delayed effects expire on their owner's
+turn. Prism, Boltyn, Chane and Levia work in both formats.
+
+Import after the earlier set/deck snapshots. `mon_support_abilities.json` adds
+Spellvoid choices to the existing ARC/CRU arcane effects. Its `previousCodeHash`
+allows the importer to replace only the exact previously authored body; it
+refuses to overwrite unrelated CardEditor edits. Importing the same snapshot
+again is safe. Reapplying older ARC/CRU snapshots after MON may conflict with
+these updated bodies.
+
+```powershell
+python DevTools/FaB/build_mon_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline' # Use this installation's configured database.
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/mon_abilities.json
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/mon_support_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/mon_test.php
+powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/mon_lobby_test.ps1
+```
+
+The tests exercise 500 authored continuations across duel and UPF seats,
+targeted interactions and completed seeded games with the four MON heroes.
+Regressions cover charge affordability, soul payment, Levia's blood debt,
+Spellvoid against existing arcane cards, aura source destruction, phantasm,
+Spectra, another player's Library activation, Sonata selection, all-opponent
+Gateway damage and Glisten expiry. The HTTP test imports a 40-card Prism deck
+and starts both a duel and a four-seat room with existing bots. These games use
+the existing legal-action heuristic driver, not new Monarch-specific bots.
+
+Rules references: [Monarch release notes](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/monarch/),
+[current keywords](https://rules.fabtcg.com/en/cr/08-keywords/), and
+[combat rules](https://rules.fabtcg.com/en/cr/07-combat/). Spectral Shield uses
+its current Ward 1 wording. Hard-refresh after regeneration to load the new
+zone layout and bindings.
+
+## Boltyn Light Warrior bot
+
+`boltyn_source.json` pins Fabrary deck `01KP7ZQ311EMGC2S97KC79AEX0`, **Boltyn
+Silver Age Deck**. `FaBSim/BoltynDeck.json` uses its exact 40-card main deck,
+Raydn, and four starting equipment. Choose **Boltyn** from the main-menu bot
+selector or an empty UPF lobby slot. It uses a fixed starting loadout and does
+not sideboard; the source's full 10-card inventory would exceed UPF's 52-card
+pool limit when combined with that loadout.
+
+All source cards, including the sideboard, are supported. The additions are 15
+card identities plus Agility, Courage and Flurry. They cover yellow soul checks,
+Solflare, Unity/Temper, Sharpen, mandatory Roaring Beam charge, prevention and
+token triggers. Player decisions use saved `await` macros. The importer now
+recognizes separate Fabrary sideboard counts while retaining older inclusive
+counts; hybrid Brute/Warrior equipment is accepted for either class.
+
+The bot prioritizes a charge opener, yellow Light cards and Banneret for soul,
+Duty Bound Blitz after a yellow soul entry, and charged Raydn attacks. It keeps
+enough pitch for additional costs, uses attack reactions to push damage or enable
+Boltyn, and spends soul on go again when another attack is available. Edict and
+Flurry extend weapon turns. It uses only its own hand and public information,
+with the shared legal-target, pitch, block and priority logic. This is a greedy
+heuristic, without lookahead or hidden opponent-hand access.
+
+```powershell
+python DevTools/FaB/build_boltyn_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/boltyn_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/boltyn_test.php
+powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/boltyn_lobby_test.ps1
+```
+
+Tests cover the pinned deck, sideboard import, card interactions from duel and
+UPF seats, completed Boltyn/Ira, four-Boltyn and mixed bot games, and the main-menu
+and UPF lobby routes. Flurry is tested against granting a third weapon attack;
+Agility waits for its owner's turn; Toe the Line prevents only its next damage
+event; Radiant Touch banishes both costs. Existing MON, CRU, Professor and Ira
+regressions also pass.
+
+Sources: [the deck](https://fabrary.net/decks/01KP7ZQ311EMGC2S97KC79AEX0),
+[keyword rules](https://rules.fabtcg.com/en/cr/08-keywords/),
+[hybrid card rules](https://rules.fabtcg.com/en/cr/02-object-properties/), and
+[Flat Trackers](https://cards.fabtcg.com/card/flat-trackers/HVY155-CF/).
+
+## Levia Shadow Brute bot
+
+`levia_source.json` pins [Fabrary's Levia Blitz Deck](https://fabrary.net/decks/01G7B1T1D1M2DAM61K876VJBDK).
+`FaBSim/LeviaDeck.json` contains its exact 40-card main deck, Ravenous Meataxe,
+Ebon Fold, Goliath Gauntlet, Hooves of the Shadowbeast and Spell Fray Cloak.
+Choose **Levia** in the main-menu bot selector or an empty UPF lobby slot.
+
+The two missing cards are included in `levia_abilities.json`. Lady Barthimont
+uses an arsenal `CardPlayed` listener and saved `await` decisions for her reveal
+and specialization search. She checks the actual event player, grants dominate
+when a six-power card is banished, and replaces herself with a face-up
+specialization after two lessons. Arsenal lesson counters are serialized and
+displayed through the schema. Spell Fray Cloak uses the shared Spellvoid choice.
+Deck validation rejects mentors with adult heroes.
+
+The heuristic builds graveyard fuel, estimates the chance that a random banish
+contains a six-power card, and prioritizes suppressing blood debt. It favors
+Dread Screamer when another attack is affordable, avoids spending its last
+graveyard fuel on a buff without a follow-up, pitches lower-value blues, and
+uses Ebon Fold or Blood Tribute to avert blood debt when possible. It arsenals
+and reveals Barthimont, saves Hooves for another attack, and uses Goliath before
+an eligible attack. Decisions use its own hand and public information; opt
+looks only at cards revealed by that decision, not unrevealed deck order.
+
+```powershell
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/levia_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/levia_test.php
+powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/levia_lobby_test.ps1
+```
+
+Tests cover the exact deck, optional mentor reveal, opposing-seat isolation,
+successful and failed lessons, specialization filtering, face-up arsenal
+replacement, Spellvoid prevention, and graveyard probability calculations.
+Completed games include Levia/Boltyn, four Levia bots, and Levia against the
+Fai/Professor/Ira bots. HTTP tests verify the main-menu duel and out-of-order
+UPF bot assignment. Boltyn and MON regressions also pass. Hard-refresh after
+generation to load the arsenal counter binding.
+
+Rules references: [MON release notes](https://dhhim4ltzu1pj.cloudfront.net/media/documents/MON_Release_Notes_v2.2.pdf)
+and [mentor type rules](https://rules.fabtcg.com/en/cr/08-keywords/).
+
+
+## Prism deck and heuristic bot
+
+Pinned Fabrary source: https://fabrary.net/decks/01G7FCP2N7N0MNHWAH6JTP0KFN
+(`prism_source.json`). `FaBSim/PrismDeck.json` contains the exact 40-card list,
+Prism, Iris of Reality, and its four starting equipment cards. The two missing
+identities are The Librarian and Spell Fray Leggings; other cards use the
+existing WTR/MON implementations. Card art is available for all 29 identities.
+
+The Librarian uses saved await macros for its optional start-turn reveal and
+specialization search. Shield creation reserves its once-per-turn trigger
+before resolving, including during other players' turns. Lessons draw first;
+the third banishes the mentor and searches into face-up arsenal. Spell Fray
+Leggings uses the shared Spellvoid prevention path. Hit processing refreshes
+the source reference after effects move it, so Seek Enlightenment and Herald
+hit abilities work together.
+
+The Prism profile is available in the main-menu duel selector and all UPF bot
+slots. Heuristics value Herald hits and soul, reserve blues for Iris attacks,
+play buffs with affordable follow-ups, develop auras, and reveal the mentor.
+The bot uses its own hand and public information, without reading opposing
+hands or unrevealed deck order.
+
+```powershell
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/prism_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/prism_test.php
+powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/prism_lobby_test.ps1
+```
+
+Tests cover the pinned deck, mentor reveal/lessons/search in duels and UPF,
+Iris payment/power/go again, Spellvoid, and Seek Enlightenment with Herald of
+Protection. Full matches exercise Prism/Boltyn, four Prism bots, and a mixed
+Fai/Professor/Ira/Prism table. HTTP checks verify both entry points and UPF slot
+assignment. Hard-refresh after generation.
+
+
+## Tales of Aria (ELE)
+
+`ele_catalog.json` pins the 238 functional card identities (120 families) with
+ELE printings in the shared card corpus. `build_ele_abilities.py` builds the
+reviewable CardEditor snapshot, reusing existing set implementations where
+appropriate and rejecting unhandled families. All 238 identities have art.
+Interactive card decisions are saved `await` macros, with serializable UIDs
+and absolute player-zone references across decisions.
+
+Shared ELE rules cover Earth/Ice/Lightning fusion, Frostbite and opposing cost
+increases, elemental essence validation, Briar/Oldhim/Lexi, New Horizon's extra
+arsenal space and destruction, bow activation limits, channel upkeep before
+pitch return, Embodiments, chain damage bonuses, graveyard recycling, and
+Korshem. Channel flow and Creepers bind counters are visible on cards. Oldhim
+and Winter's Wail track cards pitched for their particular activation; floating
+resources or unrelated pitched cards do not satisfy those effects.
+
+Engine fixes include choosing an available ability when a bot's default action
+has multiple activation entries (Voltaire), preserving newly created Frostbites
+after weapon activation, and awarding go again to non-attack actions played as
+instants. Scalar-zone `BeforeAdd` hooks distinguish resource gains from pitching
+for Korshem; the generator itself needs no special-case changes.
+
+```powershell
+python DevTools/FaB/build_ele_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/ele_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/ele_games_test.php
+powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/ele_lobby_test.ps1
+```
+
+The game suite includes `ele_test.php` (628 saved macro executions across duel
+and UPF seats) and `ele_rules_test.php` (outcome assertions for fused/declined
+fusion, dual-element cards, tax payment, hero abilities, arsenal capacity,
+channel upkeep, Creepers timing, bow limits, damage triggers, recycling, and
+Korshem). Complete two- and four-player matches exercise repeated decisions,
+combat, pitch, upkeep, and elimination. HTTP checks import an ELE Briar deck
+into a duel and an UPF table against existing bots. MON, Levia, and Prism
+regression suites pass. These fixture drivers are tests, not new selectable
+ELE bot profiles. Hard-refresh after regeneration.
+
+Rules reference: [official Tales of Aria release notes](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/tales-aria-release-notes/).
+
+## Lexi heuristic bot
+
+`lexi_source.json` pins Fabrary deck 01G7K3WGPVKVDXG2J013GXSXNP;
+`FaBSim/LexiDeck.json` is its normalized 40-card Shiver list. All card identities
+are covered by the existing WTR/ARC/CRU/ELE implementations. The `lexi` profile
+is available in the duel menu and UPF slot selector. It scores arrow loading,
+arsenal setup, elemental reveals, buffs, fusion choices, pitch and defense using
+its own hand and public information. Shiver favors power (including Bolt'n Shot);
+this first heuristic does not search entire turns or model opponents' hidden hands.
+
+Run `php DevTools/FaB/lexi_test.php` for source equality, seat-aware choices,
+shared stack references, and complete duel / four-Lexi / mixed-UPF games.
+Run `powershell -File DevTools/FaB/lexi_lobby_test.ps1` against the local server
+for slot assignment, persisted profiles and the main-menu duel route.
+
+## Everfest (EVR)
+
+`evr_catalog.json` pins all 198 functional EVR identities from the shared card
+corpus. `build_evr_abilities.py` authors the CardEditor snapshot, reuses seven
+existing identities, and fails on unhandled families. `evr_support_abilities.json`
+updates earlier dice abilities to share Ready to Roll / Skull Crushers handling.
+The authoring patterns use saved `await` decisions and absolute seat references.
+
+`EVRCards.php` and `EVRAbilities.php` supply shared event hooks, ability metadata,
+heave, aura creation counters, items, dice effects, source-specific prevention,
+Fractal Replication, and turn durations. Verse counters are exposed through the
+schema. Private hand inspection uses temporary private copies; the actual hand
+stays in its owner's zone. Targeted choices and all-hero effects handle live seats.
+
+Regenerate with the standard importer and schema generator:
+
+```powershell
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/evr_support_abilities.json
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/evr_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+```
+
+Validation:
+
+- `php DevTools/FaB/evr_rules_test.php`: complete snapshot / saved-decision sweep
+  plus outcome checks in two and four seats.
+- `php DevTools/FaB/evr_games_test.php`: complete mixed EVR mechanic fixture games.
+- `powershell -File DevTools/FaB/evr_lobby_test.ps1`: legal Valda EVR deck import,
+  four-seat lobby with bots, and main-menu duel board response.
+- Earlier-set regression suites: ELE outcomes, MON outcomes/full games, and
+  Lexi duel / four-Lexi / mixed-UPF games.
+
+Rules reference: https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/everfest/
+
+## Uprising (UPR)
+
+`upr_catalog.json` pins 238 functional identities, including invocation dragon
+faces and the physical checklist. `build_upr_abilities.py` produces the saved
+CardEditor snapshot and fails on unhandled families. Previously authored Fai
+cards are reused; Red Hot now uses the shared hero/ally damage path. Dragons of
+Legend is a physical checklist: import its represented invocation instead.
+
+`UPRCards.php` and `UPRAbilities.php` implement Ash transformations, dragons,
+ally damage/endurance/health, freezing, affliction ownership, fusion triggers,
+Quell, Alluvion prevention choices, source-specific prevention, and equipment
+activations. Phantasm uses a stack trigger so Semblance can respond. Individual
+Weathervane and Uprising effects retain their own target choices/use counts.
+Interactive effects use saved `await` macros with explicit seats and stable UIDs.
+The schema exposes ally health, endurance, frost, raze, and haunt counters.
+
+```powershell
+python DevTools/FaB/build_upr_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/upr_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/upr_games_test.php
+powershell -File DevTools/FaB/upr_lobby_test.ps1
+```
+
+`upr_test.php` exercises 498 saved macro paths in duels and four-seat UPF.
+`upr_rules_test.php` checks outcomes including dragon transformation/death,
+endurance, Nekria, freezing duration, Themai, Hypothermia, affliction ownership,
+phantasm responses, fusion taxes, Quell against UPR and older spells, Alluvion,
+Ghostly Touch, deck inspection, and cost/type changes. `upr_games_test.php`
+plays full duel and four-player fixtures with Dromai, Fai, and Iyslander mechanics.
+The fixture driver exercises allies explicitly; it is not a new lobby bot.
+The HTTP test imports a legal Dromai deck into both existing game routes.
+Earlier WTR/ARC/CRU/MON/ELE/EVR and Fai/Prism/Lexi regressions also pass.
+
+Rules references: [Uprising release notes](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/uprising/)
+and [UPF format rules](https://rules.fabtcg.com/en/trp/09-special-formats/).
+Hard-refresh after regenerating.
+
+## Dromai heuristic bot
+
+`dromai_source.json` pins Fabrary deck `01G76H1R1ERRBRKS7RVCQAB8RX`.
+`FaBSim/DromaiDeck.json` is the exact normalized 40-card Ashwing list with
+Storm of Sandikai, Deep Blue, Ironhide Helm/Legs, and Silken Form. Every card
+is covered by the existing saved WTR/ARC/MON/ELE/UPR implementations.
+
+The `dromai` profile is selectable in the main-menu duel selector and in each
+UPF lobby slot. It favors red pitch while short of Ash, switches to efficient
+blue pitch once stocked, develops Ashwings, enables dragon go again before
+attacking, and uses ready dragons before non-go-again finishers. It scores
+Deep Blue, Silken Form, Ironhide costs, defense, healing, arsenal and optional
+hand exchanges. Decisions use its own hand and public board information.
+This is a heuristic policy, not a full-turn search or an opponent-hand model.
+
+Run `php DevTools/FaB/dromai_test.php` for exact source equality, deck legality,
+card coverage, seat-aware choices, sequencing, and complete duel / four-Dromai /
+mixed-UPF games. Run `powershell -File DevTools/FaB/dromai_lobby_test.ps1` for
+selectable profiles, assignment to the clicked seats, persisted decks, and the
+main-menu duel route.
+
+
+## Dynasty (DYN)
+
+`dyn_catalog.json` pins all 247 functional identities (pitch colors and reverse
+faces included). `build_dyn_abilities.py` accounts for every identity, reuses
+implemented reprints, and writes the CardEditor snapshot `dyn_abilities.json`.
+Interactive effects use inline `await` and stable UIDs across player decisions.
+
+`DYNCards.php` and `DYNRuntime.php` implement contracts/Silver, Assassin equipment,
+aim, surge, Ward, Royal effects, Tigers, Hyper Driver colors, Nitro Mechanoid,
+Suraya, pitched-type bonuses, weapons, and equipment. UPF effects use explicit
+seats, current adjacency, ownership, and live-seat enumeration. Aim and doom
+counters are exposed by the schema. Existing duel and UPF import routes work.
+
+```powershell
+python DevTools/FaB/build_dyn_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/dyn_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/dyn_games_test.php
+powershell -File DevTools/FaB/dyn_lobby_test.ps1
+```
+
+`dyn_test.php` exercises 436 authored macro paths across duels and four-seat UPF.
+`dyn_rules_test.php` checks contracts, private inspection, aim/equipment counters,
+overpower, Regicide, surge, Ward and unpreventable damage, transformations,
+Bios Update, discard trigger ordering, Deathly Duet, Tranquil Passing, Yoji,
+Emperor, and adjacency after elimination. `dyn_games_test.php` plays a full duel
+and two mixed four-player fixtures. The HTTP test imports an Arakni deck,
+assigns existing bots to slots 4/2/3, and starts both formats. The fixture driver
+is test infrastructure, not a new Dynasty bot profile.
+
+Rules references: [Dynasty release notes](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/dynasty/)
+and [UPF rules](https://rules.fabtcg.com/en/trp/09-special-formats/).
+Hard-refresh after regeneration to load the new client bundle.
+
+
+## Arakni heuristic bot
+
+`arakni_source.json` pins Fabrary deck `01JJNEQ0SBZSFSDED4WQJG2YZA`.
+`FaBSim/ArakniDeck.json` preserves the exact 40-card list, paired Spider's Bites,
+Danger Digits, Leap Frog Slime Skin, Mask of Perdition, and Starting Point.
+The `arakni` profile appears in the main-menu duel selector and UPF slot picker.
+
+Eight previously missing identities are authored in `arakni_abilities.json`:
+Danger Digits, Hunted or Hunter (red), Incision (red/blue), Leap Frog Slime Skin,
+Starting Point, The Hand that Pulls the Strings, and Up Sticks and Run (blue).
+`build_arakni_abilities.py` emits compiler-compatible await bodies.
+`ArakniCards.php` handles reaction-step history, arsenal mentor effects,
+dagger retrieval/payment, and triggered equipment defending another UPF hero.
+
+The heuristic preserves red contracts and blue pitch, reserves resources for a
+contract after dagger setup, spends reactions to get past defense, and values
+Strings in arsenal. It uses only its own hand/public board and the private
+inspection candidates exposed by Arakni/Cut to the Chase. It does not inspect
+opponents' hidden hands or unexposed deck order.
+
+Run `php DevTools/FaB/arakni_test.php` for exact deck/coverage checks, actual card
+outcomes in duels and UPF, and targeted heuristic tests. Run
+`php DevTools/FaB/arakni_games_test.php` for Fai, all-Arakni, and mixed-UPF matches;
+`powershell -File DevTools/FaB/arakni_lobby_test.ps1` checks both HTTP routes and
+bot assignment to slots 4/2/3. Import the snapshot with the standard importer
+and regenerate FaBSim after changing authored abilities.
+
+Retrieve follows the [official Hunted release notes](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/the-hunted/):
+it costs one resource and needs a vacant weapon slot.
+
+## Outsiders (OUT)
+
+`out_catalog.json` pins the 236 distinct functional identities in OUT (alternate
+Marvel printings share their functional identities). `build_out_abilities.py`
+accounts for every identity, reuses earlier-set implementations, and refuses to
+write a snapshot with unhandled families. `out_abilities.json` is the reviewable
+CardEditor authoring source; it uses the standard revision-checked importer.
+
+`OUTCards.php` and `OUTRuntime.php` implement Uzuri's paid face-down attack swap,
+Solitary Confinement, Riptide/traps, disease tokens, Codex effects, quivers,
+Assassin daggers, aim, combo/name effects, prevention, and temporary permissions.
+Choices use stable UIDs and explicit seats across saved await continuations.
+Deck inspection and ordering use the card rearrangement popup. The active player
+chooses the order of their disease/Ponder end-phase triggers.
+
+The schema adds a private Inventory zone for Concealed Blade, including unique
+IDs and undo snapshots. Deck import loads the actual inventory; quiver and new
+hero-specialization restrictions are validated. Owner fields survive zone and
+stack serialization so Infiltrate cards return to their owner's zones. Start a
+new game after this schema update, and hard-refresh to load the generated UI.
+
+```powershell
+python DevTools/FaB/build_out_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/out_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/out_rules_test.php
+php DevTools/FaB/out_games_test.php
+powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/out_lobby_test.ps1
+```
+
+Validation covers 376 saved macro paths in duels and four-seat UPF, plus outcome
+checks for paid/invalid Uzuri swaps, Riptide conditions, all-seat Codex choices,
+occupied arsenals, Inertia/Ponder ordering, Bloodrot payment, weapon attacks and
+throws, defense-group debuffs, aim/pitch restrictions, gained names, inventory,
+and stolen-card ownership/expiry. Full fixtures play Uzuri versus Riptide and a
+four-player Arakni/Katsu/Riptide/Uzuri game to completion. The HTTP smoke test
+imports a legal Riptide OUT deck through the UPF and main-menu duel routes.
+Existing WTR/ARC/DYN, Arakni, MON, ELE, EVR and UPR regressions also pass.
+These are regression fixtures using the existing bot driver, not new OUT bot
+profiles. Browser visual QA across Chromium, Firefox, and Safari remains unrun.
+
+Rules reference: [official Outsiders release notes](https://dhhim4ltzu1pj.cloudfront.net/media/documents/09_OUT_24_03_2023_Outsiders_release_notes.pdf).
+
+## Uzuri bot
+
+The `uzuri` profile pins the exact 40-card young Uzuri list from
+[Fabrary 01GW2945GHPH2YSX3FTS7HCBT1](https://fabrary.net/decks/01GW2945GHPH2YSX3FTS7HCBT1).
+`uzuri_source.json` retains the export; `FaBSim/UzuriDeck.json` is the normalized
+list used by both the main-menu duel and UPF lobby. All cards use existing macros.
+`FaBSim/Custom/UzuriBot.php` scores stealth openers, legal hand swaps (including
+Sneak Attack's reaction bonus), dagger setup, reactions, defense, and equipment.
+Choices use the bot's own cards and public/explicitly offered information.
+This is a heuristic bot, not a game-tree search.
+
+```powershell
+php DevTools/FaB/uzuri_test.php
+php DevTools/FaB/uzuri_games_test.php
+powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/uzuri_lobby_test.ps1
+```
+
+Tests check source equality, card coverage, swap resolution and invalid payloads
+in two/four seats, Ironhide payment, hidden-hand independence, complete duel and
+multiplayer games, and both HTTP lobby routes.

@@ -9,6 +9,13 @@ function BotControllerPendingPlayerForClient(){
     $p=intval(GetPriorityPlayer());return in_array($p,$bots,true)?$p:0;
 }
 function FaBBotKeepValue(object $o,int $p): float {
+    if(FaBIsUzuriBot($p))return FaBUzuriKeepValue($o,$p);
+    if(FaBIsArakniBot($p))return FaBArakniKeepValue($o,$p);
+    if(FaBIsDromaiBot($p))return FaBDromaiKeepValue($o,$p);
+    if(FaBIsLexiBot($p))return FaBLexiKeepValue($o,$p);
+    if(FaBIsPrismBot($p))return FaBPrismKeepValue($o,$p);
+    if(FaBIsLeviaBot($p))return FaBLeviaKeepValue($o,$p);
+    if(FaBIsBoltynBot($p))return FaBBoltynKeepValue($o,$p);
     if(FaBIsIraBot($p))return FaBIraKeepValue($o,$p);
     if(FaBIsProfessorBot($p))return FaBProfessorKeepValue($o,$p);
     $v=floatval(CardPower($o->CardID))-floatval(CardCost($o->CardID));
@@ -19,6 +26,13 @@ function FaBBotKeepValue(object $o,int $p): float {
     return $v;
 }
 function FaBBotChoice(int $p,object $d): ?string {
+    if(FaBIsUzuriBot($p)){$answer=FaBUzuriChoice($p,$d);if($answer!==null)return $answer;}
+    if(FaBIsArakniBot($p)){$answer=FaBArakniChoice($p,$d);if($answer!==null)return $answer;}
+    if(FaBIsDromaiBot($p)){$answer=FaBDromaiChoice($p,$d);if($answer!==null)return $answer;}
+    if(FaBIsLexiBot($p)){$answer=FaBLexiChoice($p,$d);if($answer!==null)return $answer;}
+    if(FaBIsPrismBot($p)){$answer=FaBPrismChoice($p,$d);if($answer!==null)return $answer;}
+    if(FaBIsLeviaBot($p)){$answer=FaBLeviaChoice($p,$d);if($answer!==null)return $answer;}
+    if(FaBIsBoltynBot($p)){$answer=FaBBoltynChoice($p,$d);if($answer!==null)return $answer;}
     if($d->Type==='MZMULTICHOOSE'){
         $parts=explode('|',$d->Param,3);$refs=array_values(array_filter(explode('&',$parts[2]??''),fn($ref)=>FaBIdentityFromMZ($ref)!==null));
         return implode('&',array_slice($refs,0,intval($parts[1]??0)));
@@ -52,9 +66,9 @@ function FaBBotAct(int $p): bool {
         $dq->PopDecision($p);$dq->ExecuteStaticMethods($p,$answer);return true;
     }
     $s=FaBGetState();$candidates=[];
-    foreach(['Hand','Arsenal','Banish','Weapons','Equipment','Hero'] as $z)foreach(FaBChoiceRefs($p,$z) as $ref){
+    foreach(array_merge(['Hand','Arsenal','Banish','Weapons','Equipment','Hero'],FaBIsLeviaBot($p)?['CombatChain']:((FaBIsPrismBot($p)||FaBIsLexiBot($p)||FaBIsDromaiBot($p))?['Arena']:[])) as $z)foreach(FaBChoiceRefs($p,$z) as $ref){
         $o=FaBIdentityFromMZ($ref)['object'];$keep=FaBBotKeepValue($o,$p);
-        if(CanPitchCard($p,$ref))$candidates[]=[100+intval(CardPitch($o->CardID))*5-$keep,'PITCH',$ref];
+        if(CanPitchCard($p,$ref))$candidates[]=[FaBIsDromaiBot($p)?FaBDromaiPitchScore($p,$o):100+intval(CardPitch($o->CardID))*5-$keep,'PITCH',$ref];
         if(FaBCanBlock($p,$ref)){
             if($z==='Equipment'&&FaBCRUMustEquip($p))$candidates[]=[1000-$keep,'BLOCK',$ref];
             $remaining=FaBAttackPower($s)-FaBDefenseValue($s,$p);
@@ -62,7 +76,10 @@ function FaBBotAct(int $p): bool {
             // Preserve attack fuel unless damage is significant or threatens lethal.
             $lethal=$remaining>=intval(GetHealth($p));
             $preserveEquipment=in_array($o->CardID,['fyendals_spring_tunic','mask_of_momentum'],true)&&!$lethal;
-            if(!$preserveEquipment&&$remaining>0&&$defense>0&&(intval(GetHealth($p))<9||$remaining>=4||$z==='Equipment'))$candidates[]=[min($remaining,$defense)*3-$keep-($z==='Equipment'?2:0),'BLOCK',$ref];
+            if(FaBIsDromaiBot($p))$candidates[]=[FaBDromaiBlockScore($p,$o,$z),'BLOCK',$ref];
+            if(FaBIsUzuriBot($p))$candidates[]=[FaBUzuriBlockScore($p,$o,$z),'BLOCK',$ref];
+            if(FaBIsArakniBot($p))$candidates[]=[FaBArakniBlockScore($p,$o,$z),'BLOCK',$ref];
+            if(!FaBIsUzuriBot($p)&&!FaBIsArakniBot($p)&&!FaBIsDromaiBot($p)&&!$preserveEquipment&&$remaining>0&&$defense>0&&(intval(GetHealth($p))<9||$remaining>=4||$z==='Equipment'))$candidates[]=[min($remaining,$defense)*3-$keep-($z==='Equipment'?2:0),'BLOCK',$ref];
         }
         if(CanPlayCard($p,$ref)){
             $v=$keep+2;
@@ -78,6 +95,13 @@ function FaBBotAct(int $p): bool {
             elseif($o->CardID==='rise_from_the_ashes_red')$v=FaBHandCount($p)>1?14:-100;
             if(FaBIsProfessorBot($p))$v=FaBProfessorPlayScore($p,$o,$z);
             if(FaBIsIraBot($p))$v=FaBIraPlayScore($p,$o,$z);
+            if(FaBIsBoltynBot($p))$v=FaBBoltynPlayScore($p,$o,$z);
+            if(FaBIsPrismBot($p))$v=FaBPrismPlayScore($p,$o,$z);
+            if(FaBIsLeviaBot($p))$v=FaBLeviaPlayScore($p,$o,$z);
+            if(FaBIsLexiBot($p))$v=FaBLexiPlayScore($p,$o,$z);
+            if(FaBIsUzuriBot($p))$v=FaBUzuriPlayScore($p,$o,$z);
+            if(FaBIsArakniBot($p))$v=FaBArakniPlayScore($p,$o,$z);
+            if(FaBIsDromaiBot($p))$v=FaBDromaiPlayScore($p,$o,$z);
             $candidates[]=[$v,'PLAY',$ref];
         }
         if(FaBWTRCanActivate($p,$ref)){
@@ -89,12 +113,19 @@ function FaBBotAct(int $p): bool {
             if($o->CardID==='stubby_hammerers'&&FaBHandCount($p)>=3)$v=18;
             if($o->CardID==='snapdragon_scalers'&&FaBHandCount($p)>0){$attack=FaBFindUID(intval($s['attackUID']));if($attack&&!FaBAttackHasGoAgain($s,$attack['object']))$v=15;}
             if(FaBIsIraBot($p))$v=FaBIraAbilityScore($p,$o,$v);
+            if(FaBIsBoltynBot($p))$v=FaBBoltynAbilityScore($p,$o);
+            if(FaBIsPrismBot($p))$v=FaBPrismAbilityScore($p,$o);
+            if(FaBIsLeviaBot($p))$v=FaBLeviaAbilityScore($p,$o);
+            if(FaBIsLexiBot($p))$v=FaBLexiAbilityScore($p,$o);
+            if(FaBIsUzuriBot($p))$v=FaBUzuriAbilityScore($p,$o);
+            if(FaBIsArakniBot($p))$v=FaBArakniAbilityScore($p,$o);
+            if(FaBIsDromaiBot($p))$v=FaBDromaiAbilityScore($p,$o);
             $candidates[]=[$v,'ACTIVATE',$ref];
         }
         if(FaBCanArsenal($p,$ref)){
             $savePitch=FaBIsProfessorBot($p)&&count(FaBChoiceRefs($p,'Deck'))<4&&intval(CardPitch($o->CardID))===3;
             $uselessEvo=FaBIsProfessorBot($p)&&FaBHasType($o,'Evo')&&FaBEvoBase($p,$o)===null;
-            if(!$savePitch&&!$uselessEvo)$candidates[]=[$keep+10,'ARSENAL',$ref];
+            if(!$savePitch&&!$uselessEvo)$candidates[]=[FaBIsLexiBot($p)?FaBLexiArsenalScore($o,$p):$keep+10,'ARSENAL',$ref];
         }
     }
     usort($candidates,fn($a,$b)=>$b[0]<=>$a[0]);

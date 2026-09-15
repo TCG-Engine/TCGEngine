@@ -196,3 +196,12 @@ body.fab-upf-active #fab-upf-sidebar #chatWidget { position:static!important; wi
   .fab-upf-seat.is-summary .fab-upf-summary { font-size:9px; line-height:1.4; margin-bottom:0; }
   .fab-upf-seat.is-summary .fab-upf-zones { margin-top:4px; }
 }
+
+/* Soul is a public counted pile beside the pitch/graveyard columns. */
+.fab-upf-seat:not(.is-summary) [data-zone=Soul] { right:calc(var(--fab-table-card) + 24px); top:12px; }
+@media(min-width:700px) {
+ .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Soul] { display:block!important; right:calc(var(--fab-table-card) + 4px); top:0; }
+}
+@media(max-width:699px) {
+ .fab-upf-seat.is-summary .fab-upf-zone[data-zone=Soul] { display:block!important; position:relative; width:40px; }
+}

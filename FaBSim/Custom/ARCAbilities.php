@@ -44,19 +44,28 @@ function FaBARCAbilitySpecs(string $id): array {
         'optekal_monocle_blue'=>[['ACTION',0,false,true,false,1,'Opt one']],
         'dissipation_shield_yellow'=>[['INSTANT',0,true,false,false,0,'Prevent next damage']],
     ];
+    $rows=array_merge($rows,FaBMONAbilityRows(),FaBBoltynAbilityRows(),FaBELEAbilityRows(),FaBEVRAbilityRows(),FaBUPRAbilityRows(),FaBDYNAbilityRows(),FaBArakniAbilityRows(),FaBOUTAbilityRows());
     $result=[];foreach($rows[$id]??[] as $index=>$row)$result[]=array_combine(['timing','cost','destroy','goAgain','once','steam','label'],$row)+['index'=>$index,'cardID'=>$id];return $result;
 }
 function FaBARCAbilityLegal(int $player,array $f,array $spec): bool {
     $o=$f['object'];$id=$o->CardID;$s=FaBGetState();
+    if(FaBHasType($o,'Bow')&&FaBELECount($player,'SNAP')){$spec['timing']='INSTANT';if((intval(FaBObjectCounters($o)['ELE_USE_TURN']??0)===intval(GetTurnNumber())?intval(FaBObjectCounters($o)['ELE_USES_'.$spec['index']]??0):0)<=FaBELECount($player,'SNAP'))$spec['once']=false;}
+    if(FaBHasType($o,'Bow')&&intval(FaBObjectCounters($o)['EVR_BOW_TURN']??-1)===intval(GetTurnNumber())&&intval(FaBObjectCounters($o)['ELE_USES_'.$spec['index']]??0)<=intval(FaBObjectCounters($o)['EVR_BOW_USES']??0))$spec['once']=false;
     $equipped=$f['zone']==='CombatChain'&&($o->FromZone??'')==='Equipment';
-    if((!$equipped&&!in_array($f['zone'],['Equipment','Weapons','Hero','Arena'],true))||HasNoAbilities($o))return false;
+    if((!FaBMONSpecialAbilityZone($f)&&!($id==='the_hand_that_pulls_the_strings'&&$f['zone']==='Arsenal')&&!$equipped&&!($o->CardID==='firebreathing_red'&&$f['zone']==='CombatChain')&&!in_array($f['zone'],['Equipment','Weapons','Hero','Arena'],true))||HasNoAbilities($o))return false;
+    if(!FaBELEAbilityLegal($player,$f,$spec)||!FaBEVRAbilityLegal($player,$f,$spec))return false;
+    if(!FaBDYNAbilityLegal($player,$f,$spec)||!FaBArakniAbilityLegal($player,$f))return false;
+    if(!FaBOUTAbilityLegal($player,$f,$spec))return false;
+    if(!FaBUPRAbilityLegal($player,$f,$spec))return false;
+    if(!FaBMONAbilityLegal($player,$f))return false;
+    if($id==='radiant_touch'&&FaBMONSoul($player)==='')return false;
     if($f['zone']==='Hero'&&!FaBWTRHeroActive($player))return false;
     if($id==='blood_scent'&&!FaBARCEffect($player,'IRA_ATTACKED_TIGER'))return false;
     if($id==='mask_of_three_tails'&&(intval($s['attacker'])!==$player||intval($s['chainHits']??0)<3))return false;
     if($spec['once']&&intval(FaBObjectCounters($o)['ARC_USED_'.$spec['index']]??0)===intval(GetTurnNumber()))return false;
     if($spec['steam']>intval(FaBObjectCounters($o)['STEAM']??0))return false;
     if(in_array($s['window'],['PITCH','DEFEND_DECLARE'],true))return false;
-    if($spec['timing']==='ACTION'&&($player!==intval(GetTurnPlayer())||$s['window']!=='ACTION'||intval(GetActionPoints($player))<1))return false;
+    if($spec['timing']==='ACTION'&&($player!==intval(GetTurnPlayer())||!in_array($s['window'],$id==='emperor_dracai_of_aesir'?['ACTION','RESOLUTION']:['ACTION'],true)||intval(GetActionPoints($player))<1))return false;
     if($spec['timing']==='ACTION'&&FaBARCEffect($player,'ARC_LEDGER')&&FaBARCEffect($player,'ARC_ACTIONS')>=1)return false;
     if($spec['timing']==='REACTION'){
         if($s['window']!=='REACTION'||intval($s['attacker'])!==$player)return false;
@@ -72,28 +81,47 @@ function FaBARCAbilityLegal(int $player,array $f,array $spec): bool {
     return FaBAvailablePitch($player)>=FaBWTRAbilityCost($player,$spec);
 }
 function FaBARCAbilityActions(int $player,array $f): array {
+    if($f['player']!==$player&&$f['object']->CardID!=='great_library_of_solana')return [];
     if(!FaBSeatIsLive($player)||intval(GetWinner())||intval(GetPriorityPlayer())!==$player||FaBHasPendingDecision()||FaBGetState()['pendingPayment']!==null)return [];
     $out=[];foreach(FaBARCAbilitySpecs($f['object']->CardID) as $spec)if(FaBARCAbilityLegal($player,$f,$spec))$out[$spec['index']]=$spec;return $out;
 }
 function FaBARCActivate(int $player,array $f,int $index): bool {
     $spec=FaBARCAbilityActions($player,$f)[$index]??null;if($spec===null)return false;
     $o=$f['object'];$s=FaBGetState();
+    $emperorTarget=null;if($o->CardID==='emperor_dracai_of_aesir'){$emperorTarget=FaBClaimOrRequestAttackTarget($player,intval($o->UniqueID),'ACTIVATE');if($emperorTarget===null)return true;if($emperorTarget===false)return false;$s=FaBGetState();}
+    if(FaBHasType($o,'Bow')&&FaBELECount($player,'SNAP'))$spec['timing']='INSTANT';
     $cost=FaBWTRAbilityCost($player,$spec)+($o->CardID==='grasp_of_the_arknight'?FaBARCRunechants($player):0);
-    $stack=AddStack(CardID:$o->CardID,Controller:$player,Kind:'ABILITY',SourceZone:$f['zone'],SourceUniqueID:intval($o->UniqueID),Params:['arcSpec'=>$spec,'returnWindow'=>$s['window'],'returnCombatStep'=>$s['combatStep'],'attackUID'=>intval($s['attackUID'])]);
+    $stack=AddStack(CardID:$o->CardID,Controller:$player,Kind:'ABILITY',SourceZone:$f['zone'],SourceUniqueID:intval($o->UniqueID),Params:['arcSpec'=>$spec,'returnWindow'=>$s['window'],'returnCombatStep'=>$s['combatStep'],'attackUID'=>intval($s['attackUID']),'dynEmperorTarget'=>$emperorTarget]);
     $s['pendingPayment']=['player'=>$player,'uid'=>intval($stack->UniqueID),'cost'=>$cost,'fromZone'=>$f['zone'],'kind'=>'ABILITY','isAbility'=>true,'abilityAction'=>$spec['timing']==='ACTION','returnWindow'=>$s['window'],'returnCombatStep'=>$s['combatStep']];
-    $s['window']='PITCH';FaBSetState($s);SetConsecutivePasses(0);return FaBTryCompletePayment();
+    $s['window']='PITCH';FaBSetState($s);SetConsecutivePasses(0);
+    if((isset(FaBMONAbilityRows()[$o->CardID])||isset(FaBBoltynAbilityRows()[$o->CardID])||isset(FaBELEAbilityRows()[$o->CardID]))&&FaBRunSourceMacro('PrepareCard',$player,$o->CardID,['mzID'=>FaBFindUID(intval($stack->UniqueID))['mzID']]))return true;
+    if(FaBOUTPrepareAbility($player,$stack))return true;
+    return FaBTryCompletePayment();
 }
 function FaBARCPayAbility(int $player,object $stack): void {
-    $spec=$stack->Params['arcSpec'];$f=FaBFindUID(intval($stack->SourceUniqueID));if($f===null)return;$o=$f['object'];
+    $spec=$stack->Params['arcSpec'];if($spec['timing']==='REACTION')FaBOUTReactionPlayed($player,true);$f=FaBFindUID(intval($stack->SourceUniqueID));if($f===null)return;$o=$f['object'];
+    if($o->CardID==='micro_processor_blue'){if(intval(FaBObjectCounters($o)['EVR_TURN']??-1)!==intval(GetTurnNumber())){AddActionPoints($player,intval(GetActionPoints($player))+1);FaBSetObjectCounter($o,'EVR_TURN',intval(GetTurnNumber()));}}
     if($spec['timing']==='ACTION')FaBARCRecordAction($player);
+    if(FaBHasType($o,'Bow')){if(intval(FaBObjectCounters($o)['ELE_USE_TURN']??0)!==intval(GetTurnNumber())){foreach(array_keys(FaBObjectCounters($o)) as $k)if(str_starts_with($k,'ELE_USES_'))FaBSetObjectCounter($o,$k,0);}FaBSetObjectCounter($o,'ELE_USE_TURN',intval(GetTurnNumber()));FaBSetObjectCounter($o,'ELE_USES_'.$spec['index'],intval(FaBObjectCounters($o)['ELE_USES_'.$spec['index']]??0)+1);}
     if($spec['once'])FaBSetObjectCounter($o,'ARC_USED_'.$spec['index'],intval(GetTurnNumber()));
     FaBARCSetCard(intval($stack->UniqueID),'steam',intval(FaBObjectCounters($o)['STEAM']??0));
+    FaBUPRAbilityPaid($player,$o);
+    if($o->CardID==='imperial_ledger_red'){FaBMoveUID(intval($o->UniqueID),'Deck',$player);FaBShuffleDeck($player);}
     if($spec['steam'])FaBARCSteam($o,-intval($spec['steam']));
-    if($spec['destroy'])FaBMoveUID(intval($o->UniqueID),'Graveyard',$player);
+    if($spec['destroy'])FaBMONDestroy(intval($o->UniqueID));
+    if($o->CardID==='radiant_touch')FaBMoveUID(intval($o->UniqueID),'Banish',$player);
     if($o->CardID==='skullbone_crosswrap')foreach(GetArsenal($player) as $a)if(is_object($a)&&empty($a->removed)&&intval($a->FaceDown??1)===1){$a->FaceDown=0;break;}
 }
 function FaBARCResolveAbility(int $player,object $stack): void {
     $spec=$stack->Params['arcSpec'];
+    DecisionQueueController::StoreVariable('dynEmperorTarget',$stack->Params['dynEmperorTarget']??null);
+    DecisionQueueController::StoreVariable('dynPitchAA',FaBDYNPitched(intval($stack->UniqueID),'AA'));
+    DecisionQueueController::StoreVariable('dynPitchNAA',FaBDYNPitched(intval($stack->UniqueID),'NAA'));
+    DecisionQueueController::StoreVariable('monAbility_monDraw',FaBARCCard(intval($stack->UniqueID),'monDraw'));
+    foreach(['Ice','Lightning'] as $e)DecisionQueueController::StoreVariable('eleAbility'.$e,FaBARCCard(intval($stack->UniqueID),'eleAbility'.$e));
+    foreach(['Earth','Ice','Lightning'] as $e)DecisionQueueController::StoreVariable('elePitched'.$e,FaBARCCard(intval($stack->UniqueID),'elePitched'.$e));
+    DecisionQueueController::StoreVariable('uprVictim',0);
+    DecisionQueueController::StoreVariable('fabAbilityStackUID',intval($stack->UniqueID));
     DecisionQueueController::StoreVariable('arcAbilityIndex',intval($spec['index']));
     DecisionQueueController::StoreVariable('arcAbilitySteam',intval(FaBARCCard(intval($stack->UniqueID),'steam')));
     DecisionQueueController::StoreVariable('arcAttackUID',intval($stack->Params['attackUID']??0));
@@ -103,22 +131,25 @@ function FaBARCResolveAbility(int $player,object $stack): void {
 }
 function FaBARCSteam(object $o,int $change): void {
     $n=max(0,intval(FaBObjectCounters($o)['STEAM']??0)+$change);FaBSetObjectCounter($o,'STEAM',$n);
-    if($n===0&&in_array($o->CardID,['convection_amplifier_red','optekal_monocle_blue','hyper_driver_red','teklo_core_blue','absorption_dome_yellow'],true))FaBMoveUID(intval($o->UniqueID),'Graveyard');
+    if($n===0&&in_array($o->CardID,['convection_amplifier_red','optekal_monocle_blue','hyper_driver_red','hyper_driver_yellow','hyper_driver_blue','plasma_mainline_red','teklo_core_blue','absorption_dome_yellow'],true))FaBMoveUID(intval($o->UniqueID),'Graveyard');
 }
 function FaBARCEnterItem(int $player,object $o): void {
     FaBCRUItemEntered($player,$o);
     $n=['aether_sink_yellow'=>1,'convection_amplifier_red'=>2,'dissipation_shield_yellow'=>4,'hyper_driver_red'=>3,'optekal_monocle_blue'=>5,'teklo_core_blue'=>2][$o->CardID]??0;
     if($n)FaBSetObjectCounter($o,'STEAM',$n);
+    FaBDYNEnterItem($player,$o);
 }
 function FaBARCBoost(int $player,int $uid): void {
     $refs=FaBChoiceRefs($player,'Deck');if(!$refs)return;
     $f=FaBIdentityFromMZ($refs[0]);$mech=FaBHasType($f['object'],'Mechanologist');
-    FaBMoveUID(intval($f['object']->UniqueID),'Banish',$player);
+    $banishedUID=intval($f['object']->UniqueID);FaBMoveUID($banishedUID,'Banish',$player);
     if($mech)FaBTagUID($uid,'GO_AGAIN');
     FaBWTRAddEffect($player,'ARC_BOOSTED',1);
     FaBCRUBoost($player,$uid);
+    FaBEVRBoost($player,$uid);
     $ap=FaBARCEffect($player,'ARC_OCTANE');if($ap)AddActionPoints($player,intval(GetActionPoints($player))+$ap);
-    foreach(GetArena($player) as $o)if(is_object($o)&&empty($o->removed)&&$o->CardID==='hyper_driver_red'&&intval(FaBObjectCounters($o)['ARC_DRIVER_TURN']??0)!==intval(GetTurnNumber())){
+    foreach(GetArena($player) as $o)if(is_object($o)&&empty($o->removed)&&FaBWTRBase($o->CardID)==='hyper_driver'&&intval(FaBObjectCounters($o)['ARC_DRIVER_TURN']??0)!==intval(GetTurnNumber())){
         FaBSetObjectCounter($o,'ARC_DRIVER_TURN',intval(GetTurnNumber()));FaBARCSteam($o,-1);AddResources($player,intval(GetResources($player))+1);
     }
+    FaBDYNBoost($player,$uid,$banishedUID);
 }

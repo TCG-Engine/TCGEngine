@@ -15,7 +15,9 @@ foreach ($entries as $entry) {
         $matches = array_filter($old, fn($a) => ($a['macro_name'] ?? $a['macroName'] ?? '') === $ability['macroName']);
         foreach ($matches as $existing) {
             $code = $existing['ability_code'] ?? $existing['abilityCode'] ?? '';
-            if (trim($code) !== '' && trim($code) !== trim($ability['abilityCode'])) {
+            $expectedPrevious = $ability['previousCodeHash'] ?? '';
+            $knownMigration = $expectedPrevious !== '' && hash_equals($expectedPrevious, hash('sha256', trim($code)));
+            if (trim($code) !== '' && trim($code) !== trim($ability['abilityCode']) && !$knownMigration) {
                 throw new RuntimeException('Existing authored '.$ability['macroName'].' code for '.$id.' requires a manual merge.');
             }
         }

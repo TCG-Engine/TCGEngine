@@ -1,0 +1,25 @@
+[
+  {
+    "cardId": "lady_barthimont",
+    "abilities": [
+      {
+        "macroName": "StartTurn",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$mode = await $player.Modal(1, 1, \"Keep_face_down&Reveal_Lady_Barthimont\", \"Reveal_your_mentor\");\n$found = FaBFindUID($uid);\nif ($mode === '1' && $found !== null && $found['zone'] === 'Arsenal') {\n    $found['object']->FaceDown = 0;\n    FaBRevealChoices($player, $found['mzID']);\n}",
+        "isImplemented": true
+      },
+      {
+        "macroName": "CardPlayed",
+        "abilityType": "listener",
+        "listenerZones": [
+          "Arsenal"
+        ],
+        "abilityCode": "if (FaBLeviaMentorReady($listenerMZ, intval($eventPlayer), $event_mzID)) {\n    $owner = intval(FaBIdentityFromMZ($listenerMZ)['player']);\n    $mentorUID = intval(FaBIdentityFromMZ($listenerMZ)['object']->UniqueID);\n    $attackUID = intval(FaBIdentityFromMZ($event_mzID)['object']->UniqueID);\n    if (FaBLeviaMentorLesson($owner, $mentorUID, $attackUID)) {\n        FaBMoveUID($mentorUID, 'Banish', $owner);\n        $targets = FaBStageSearch($owner, ['specialization'=>true]);\n        if ($targets !== '') {\n            $chosen = await $owner.MZChoose($targets, \"Find_a_specialization_for_arsenal\");\n            $card = FaBMoveChoice($owner, $chosen, 'Temp', 'Arsenal');\n            if ($card !== null) {\n                $card->FaceDown = 0;\n                FaBRevealChoices($owner, FaBFindUID(intval($card->UniqueID))['mzID']);\n            }\n        }\n        FaBFinishSearch($owner);\n    }\n}",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "spell_fray_cloak",
+    "abilities": []
+  }
+]

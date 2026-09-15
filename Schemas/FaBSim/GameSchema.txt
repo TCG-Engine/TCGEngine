@@ -13,8 +13,8 @@ ServerInclude: /Custom/CustomInput.php
 ServerInclude: /Custom/GameLogic.php
 ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
-Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,SeatOrder,LiveSeats,p1Hero,p1Weapons,p1Equipment,p1Arena,p1CombatChain,p1Deck,p1Hand,p1Arsenal,p1Graveyard,p1Banish,p1Pitch,p1Temp,p1DecisionQueue,p1Health,p1Resources,p1ActionPoints,p1ShortcutPreferences,p2Hero,p2Weapons,p2Equipment,p2Arena,p2CombatChain,p2Deck,p2Hand,p2Arsenal,p2Graveyard,p2Banish,p2Pitch,p2Temp,p2DecisionQueue,p2Health,p2Resources,p2ActionPoints,p2ShortcutPreferences,p3Hero,p3Weapons,p3Equipment,p3Arena,p3CombatChain,p3Deck,p3Hand,p3Arsenal,p3Graveyard,p3Banish,p3Pitch,p3Temp,p3DecisionQueue,p3Health,p3Resources,p3ActionPoints,p3ShortcutPreferences,p4Hero,p4Weapons,p4Equipment,p4Arena,p4CombatChain,p4Deck,p4Hand,p4Arsenal,p4Graveyard,p4Banish,p4Pitch,p4Temp,p4DecisionQueue,p4Health,p4Resources,p4ActionPoints,p4ShortcutPreferences,DecisionQueueVariables,Stack,PriorityPlayer,ConsecutivePasses,GameState,Winner,MacroTurnIndex,MacroGameIndex,UniqueIDCounter,RandomCounter
-Module: UniqueID=Hero,UniqueID,UniqueIDCounter;Weapons,UniqueID,UniqueIDCounter;Equipment,UniqueID,UniqueIDCounter;Arena,UniqueID,UniqueIDCounter;CombatChain,UniqueID,UniqueIDCounter;Deck,UniqueID,UniqueIDCounter;Hand,UniqueID,UniqueIDCounter;Arsenal,UniqueID,UniqueIDCounter;Graveyard,UniqueID,UniqueIDCounter;Banish,UniqueID,UniqueIDCounter;Pitch,UniqueID,UniqueIDCounter;Temp,UniqueID,UniqueIDCounter;Stack,UniqueID,UniqueIDCounter
+Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,SeatOrder,LiveSeats,p1Hero,p1Weapons,p1Equipment,p1Arena,p1CombatChain,p1Deck,p1Hand,p1Arsenal,p1Graveyard,p1Banish,p1Soul,p1Pitch,p1Inventory,p1Temp,p1DecisionQueue,p1Health,p1Resources,p1ActionPoints,p1ShortcutPreferences,p2Hero,p2Weapons,p2Equipment,p2Arena,p2CombatChain,p2Deck,p2Hand,p2Arsenal,p2Graveyard,p2Banish,p2Soul,p2Pitch,p2Inventory,p2Temp,p2DecisionQueue,p2Health,p2Resources,p2ActionPoints,p2ShortcutPreferences,p3Hero,p3Weapons,p3Equipment,p3Arena,p3CombatChain,p3Deck,p3Hand,p3Arsenal,p3Graveyard,p3Banish,p3Soul,p3Pitch,p3Inventory,p3Temp,p3DecisionQueue,p3Health,p3Resources,p3ActionPoints,p3ShortcutPreferences,p4Hero,p4Weapons,p4Equipment,p4Arena,p4CombatChain,p4Deck,p4Hand,p4Arsenal,p4Graveyard,p4Banish,p4Soul,p4Pitch,p4Inventory,p4Temp,p4DecisionQueue,p4Health,p4Resources,p4ActionPoints,p4ShortcutPreferences,DecisionQueueVariables,Stack,PriorityPlayer,ConsecutivePasses,GameState,Winner,MacroTurnIndex,MacroGameIndex,UniqueIDCounter,RandomCounter
+Module: UniqueID=Hero,UniqueID,UniqueIDCounter;Weapons,UniqueID,UniqueIDCounter;Equipment,UniqueID,UniqueIDCounter;Arena,UniqueID,UniqueIDCounter;CombatChain,UniqueID,UniqueIDCounter;Deck,UniqueID,UniqueIDCounter;Hand,UniqueID,UniqueIDCounter;Arsenal,UniqueID,UniqueIDCounter;Graveyard,UniqueID,UniqueIDCounter;Banish,UniqueID,UniqueIDCounter;Soul,UniqueID,UniqueIDCounter;Pitch,UniqueID,UniqueIDCounter;Inventory,UniqueID,UniqueIDCounter;Temp,UniqueID,UniqueIDCounter;Stack,UniqueID,UniqueIDCounter
 Module: ShortcutWindows={"BLOCK":{"label":"Declare Blocks","default":false,"group":"Combat","order":10},"ATTACK_REACTION":{"label":"Attack Reactions","default":false,"group":"Combat","order":20},"DEFENSE_REACTION":{"label":"Defense Reactions","default":false,"group":"Combat","order":30},"INSTANT_PRIORITY":{"label":"Instant Priority","default":true,"group":"Priority","order":40}}
 
 Macro: Name=PlayCard(mzID); ChoiceFunction=DoPlayCard; PrereqFunction=CanPlayCard; SourceParam=mzID; Toast=Card; ToastCardParam=mzID; ToastLabel=Played; Action={}
@@ -33,6 +33,7 @@ Macro: Name=Defended(mzID,defender); ChoiceFunction=OnDefended; SourceParam=mzID
 Macro: Name=Damage(sourceMZ,targetPlayer,amount,damageType); ChoiceFunction=DoDamage; SourceParam=sourceMZ; Action={}
 Macro: Name=Hit(mzID,amount); ChoiceFunction=OnHit; SourceParam=mzID; Action={}
 Macro: Name=ChainLinkResolved(mzID); ChoiceFunction=OnChainLinkResolved; SourceParam=mzID; Action={}
+Macro: Name=EndTurn();
 Macro: Name=CombatChainClosed(); ChoiceFunction=OnCombatChainClosed; Action={}
 Macro: Name=AttackPowerModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 Macro: Name=DefenseModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
@@ -65,6 +66,10 @@ Equipment - CardID:string, Status:number=2, Owner:number=0, Controller:number=0,
 Display: Visibility=Public, Mode=All, BindTo=EquipmentSlot
 Virtual: SelectionMetadata=FaBSelectionMetadata()
 Virtual: EnergyCounters=FaBEnergyCounters(), DefenseCounters=FaBDefenseCounters()
+Virtual: HauntCounters=FaBUPRHauntCounters()
+Counters: HauntCounters=Badge(Color=Green,Position=TopRight,ShowZero=false)
+Virtual: BindCounters=FaBELEBindCounters()
+Counters: BindCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false)
 Counters: EnergyCounters=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
 Counters: DefenseCounters=Badge(Color=Red,Position=BottomRight,ShowZero=false)
 Highlight: SelectionMetadata
@@ -77,6 +82,10 @@ Arena - CardID:string, Status:number=2, Owner:number=0, Controller:number=0, Dam
 Display: Visibility=Public, Mode=All, BindTo=ArenaSlot
 Virtual: SelectionMetadata=FaBSelectionMetadata()
 Virtual: SteamCounters=FaBSteamCounters()
+Virtual: AllyHealth=FaBUPRDisplayHealth(), FrostCounters=FaBUPRFrostCounters(), RazeCounters=FaBUPRRazeCounters(), EnduranceCounters=FaBUPREnduranceCounters()
+Counters: AllyHealth=Badge(Color=Green,Position=BottomRight,ShowZero=true,ShowNegative=false), FrostCounters=Badge(Color=Blue,Position=BottomLeft,ShowZero=false), RazeCounters=Badge(Color=Yellow,Position=BottomLeft,ShowZero=false), EnduranceCounters=Badge(Color=Yellow,Position=BottomLeft,ShowZero=false)
+Virtual: FlowCounters=FaBELEFlowCounters(), VerseCounters=FaBEVRVerseCounters(), DoomCounters=FaBDYNDoomCounter()
+Counters: DoomCounters=Badge(Color=Red,Position=TopLeft,ShowZero=false), VerseCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false), FlowCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false)
 Counters: SteamCounters=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
 Highlight: SelectionMetadata
 Overlay: Status=1:exhausted
@@ -93,35 +102,45 @@ Click: FSM()
 Counters: CombatPower=Badge(Color=Green,Position=BottomLeft,ShowZero=true,ShowNegative=false)
 Counters: CombatDefense=Badge(Color=Blue,Position=BottomRight,ShowZero=true,ShowNegative=false)
 
-Deck - CardID:string, UniqueID:number=0
+Deck - CardID:string, UniqueID:number=0, Owner:number=0, Controller:number=0
 Display: Visibility=Private, Mode=Single, BindTo=DeckSlot
 Macros: Shuffle
-Hand - CardID:string, UniqueID:number=0
+Hand - CardID:string, UniqueID:number=0, Owner:number=0, Controller:number=0
 Display: Visibility=Self, Mode=All, BindTo=HandSlot
 Virtual: SelectionMetadata=FaBSelectionMetadata()
 Highlight: SelectionMetadata
 Click: FSM()
-Arsenal - CardID:string, UniqueID:number=0, FaceDown:number=1, TurnEffects:array[string], Counters:json
+Arsenal - CardID:string, UniqueID:number=0, FaceDown:number=1, TurnEffects:array[string], Counters:json, Owner:number=0, Controller:number=0
 Display: Visibility=Self, Mode=Single, BindTo=ArsenalSlot
 Virtual: SelectionMetadata=FaBSelectionMetadata()
+Virtual: LessonCounters=FaBLessonCounters(), AimCounters=FaBDYNAimCounter()
+Counters: LessonCounters=Badge(Color=Yellow,Position=TopLeft,ShowZero=false), AimCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false)
 Highlight: SelectionMetadata
 Click: FSM()
-Graveyard - CardID:string, UniqueID:number=0
+Graveyard - CardID:string, UniqueID:number=0, Owner:number=0, Controller:number=0
 Display: Visibility=Public, Mode=Single, BindTo=GraveyardSlot
-Banish - CardID:string, UniqueID:number=0, FaceDown:number=0, ReturnAtEndTurn:number=0, PlayableFromBanish:number=0, PlayableChainLink:number=0, Counters:json, TurnEffects:array[string]
+Banish - CardID:string, UniqueID:number=0, FaceDown:number=0, ReturnAtEndTurn:number=0, PlayableFromBanish:number=0, PlayableChainLink:number=0, Counters:json, TurnEffects:array[string], Owner:number=0, Controller:number=0
 Display: Visibility=Public, Mode=Single, BindTo=BanishSlot
 Virtual: SelectionMetadata=FaBSelectionMetadata()
 Highlight: SelectionMetadata
 Click: FSM()
-Pitch - CardID:string, UniqueID:number=0
+Soul - CardID:string, UniqueID:number=0
+Display: Visibility=Public, Mode=Single, BindTo=SoulSlot
+
+Pitch - CardID:string, UniqueID:number=0, Owner:number=0, Controller:number=0
 Display: Visibility=Public, Mode=Single, BindTo=PitchSlot
 
-Temp - CardID:string, UniqueID:number=0
+Inventory - CardID:string, UniqueID:number=0, Owner:number=0, Controller:number=0
+Display: Visibility=Self, Mode=Single, BindTo=InventorySlot
+
+Temp - CardID:string, UniqueID:number=0, Owner:number=0, Controller:number=0
 Display: Visibility=Self, Mode=All, BindTo=TempSlot
 
 Health - Value:number=20
+BeforeAdd: FaBELEBeforeHealth
 Display: Visibility=Public, Mode=Value(ValueOnly), BindTo=HealthSlot
 Resources - Value:number=0
+BeforeAdd: FaBELEBeforeResources
 Display: Visibility=Public, Mode=Value(ValueOnly), BindTo=ResourcesSlot
 ActionPoints - Value:number=1
 Display: Visibility=Public, Mode=Value(ValueOnly), BindTo=ActionPointsSlot
@@ -130,7 +149,7 @@ Widgets: CustomInput=Pass
 ShortcutPreferences - Value:string=-
 Display: Visibility=None, Mode=Value, Display=None
 
-Stack - CardID:string, Controller:number=0, Kind:string="", SourceZone:string="", SourceUniqueID:number=0, Params:json, UniqueID:number=0, TurnEffects:array[string], Counters:json
+Stack - CardID:string, Owner:number=0, Controller:number=0, Kind:string="", SourceZone:string="", SourceUniqueID:number=0, Params:json, UniqueID:number=0, TurnEffects:array[string], Counters:json
 Display: Visibility=Public, Mode=All, Scope=Global, BindTo=StackSlot
 
 PriorityPlayer - Value:number=1

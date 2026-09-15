@@ -1,0 +1,705 @@
+{
+    "cards": [
+        {
+            "identifier": "amulet-of-lightning-blue",
+            "image": "https://content.fabrary.net/cards/U-ELE201.webp",
+            "name": "Amulet of Lightning",
+            "setIdentifiers": [
+                "ELE201",
+                "LGS065",
+                "LXI021"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "item",
+            "subtypes": [
+                "Item",
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "blizzard-bolt-red",
+            "image": "https://content.fabrary.net/cards/U-ELE044.webp",
+            "name": "Blizzard Bolt",
+            "setIdentifiers": [
+                "ELE044",
+                "LXI022"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "arrow",
+            "subtypes": [
+                "Arrow",
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "boltn-shot-red",
+            "image": "https://content.fabrary.net/cards/SAZ010.webp",
+            "name": "Bolt'n' Shot",
+            "setIdentifiers": [
+                "AAZ009",
+                "ELE216",
+                "GEM058",
+                "LXI026",
+                "SAZ010"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "arrow",
+            "subtypes": [
+                "Arrow",
+                "Attack"
+            ],
+            "total": 1,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "buzz-bolt-red",
+            "image": "https://content.fabrary.net/cards/U-ELE047.webp",
+            "name": "Buzz Bolt",
+            "setIdentifiers": [
+                "ELE047",
+                "LXI007"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "arrow",
+            "subtypes": [
+                "Arrow",
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "buzz-bolt-yellow",
+            "image": "https://content.fabrary.net/cards/U-ELE048.webp",
+            "name": "Buzz Bolt",
+            "setIdentifiers": [
+                "ELE048",
+                "LXI011"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "arrow",
+            "subtypes": [
+                "Arrow",
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "chill-to-the-bone-yellow",
+            "image": "https://content.fabrary.net/cards/U-ELE164.webp",
+            "name": "Chill to the Bone",
+            "setIdentifiers": [
+                "ELE164",
+                "LXI024"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "chilling-icevein-yellow",
+            "image": "https://content.fabrary.net/cards/U-ELE051.webp",
+            "name": "Chilling Icevein",
+            "setIdentifiers": [
+                "ELE051",
+                "LXI023"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "arrow",
+            "subtypes": [
+                "Arrow",
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "dazzling-crescendo-red",
+            "image": "https://content.fabrary.net/cards/U-ELE053.webp",
+            "name": "Dazzling Crescendo",
+            "setIdentifiers": [
+                "ELE053",
+                "LXI008"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "arrow",
+            "subtypes": [
+                "Arrow",
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "deep-blue",
+            "image": "https://content.fabrary.net/cards/MPW137.webp",
+            "name": "Deep Blue",
+            "setIdentifiers": [
+                "DRO006",
+                "ELE234",
+                "LXI004",
+                "MPW137"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "chest",
+            "subtypes": [
+                "Chest"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "electrify-blue",
+            "image": "https://content.fabrary.net/cards/U-ELE200.webp",
+            "name": "Electrify",
+            "setIdentifiers": [
+                "ELE200",
+                "FAB048",
+                "LXI020"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "electrify-red",
+            "image": "https://content.fabrary.net/cards/U-ELE198.webp",
+            "name": "Electrify",
+            "setIdentifiers": [
+                "ELE198",
+                "LXI016"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "entwine-lightning-red",
+            "image": "https://content.fabrary.net/cards/SBA012.webp",
+            "name": "Entwine Lightning",
+            "setIdentifiers": [
+                "AST009",
+                "BRI028",
+                "ELE100",
+                "LXI013",
+                "SBA012"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "frazzle-red",
+            "image": "https://content.fabrary.net/cards/U-ELE059.webp",
+            "name": "Frazzle",
+            "setIdentifiers": [
+                "ELE059",
+                "LXI009"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "arrow",
+            "subtypes": [
+                "Arrow",
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "frazzle-yellow",
+            "image": "https://content.fabrary.net/cards/U-ELE060.webp",
+            "name": "Frazzle",
+            "setIdentifiers": [
+                "ELE060",
+                "LXI012"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "arrow",
+            "subtypes": [
+                "Arrow",
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "heavens-claws-red",
+            "image": "https://content.fabrary.net/cards/OMN172.webp",
+            "name": "Heaven's Claws",
+            "setIdentifiers": [
+                "AUA010",
+                "AUR009",
+                "ELE192",
+                "LXI014",
+                "OMN172",
+                "ROS095"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "heavens-claws-yellow",
+            "image": "https://content.fabrary.net/cards/OMN173.webp",
+            "name": "Heaven's Claws",
+            "setIdentifiers": [
+                "AUR017",
+                "ELE193",
+                "LXI019",
+                "OMN173",
+                "ROS096"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "honing-hood",
+            "image": "https://content.fabrary.net/cards/U-ELE214.webp",
+            "name": "Honing Hood",
+            "setIdentifiers": [
+                "ELE214",
+                "LXI003"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "head",
+            "subtypes": [
+                "Head"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "ironrot-legs",
+            "image": "https://content.fabrary.net/cards/BDD006.webp",
+            "name": "Ironrot Legs",
+            "setIdentifiers": [
+                "1HP345",
+                "AUR006",
+                "AZL007",
+                "BDD006",
+                "BVO007",
+                "DVR006",
+                "KSU008",
+                "LXI006",
+                "MPG125",
+                "OXO004",
+                "RIP007",
+                "TER007",
+                "WTR158"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "legs",
+            "subtypes": [
+                "Legs"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "lightning-press-red",
+            "image": "https://content.fabrary.net/cards/SBA032.webp",
+            "name": "Lightning Press",
+            "setIdentifiers": [
+                "AST021",
+                "ELE183",
+                "FAB262",
+                "LXI018",
+                "SBA032"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 1,
+            "type": "instant",
+            "types": [
+                "Instant"
+            ]
+        },
+        {
+            "identifier": "mark-of-lightning",
+            "image": "https://content.fabrary.net/cards/U-ELE174.webp",
+            "name": "Mark of Lightning",
+            "setIdentifiers": [
+                "ELE174",
+                "LXI005"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "arms",
+            "subtypes": [
+                "Arms"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "over-flex-red",
+            "image": "https://content.fabrary.net/cards/U-ELE219.webp",
+            "name": "Over Flex",
+            "setIdentifiers": [
+                "ELE219",
+                "LXI027"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "pitfall-trap-yellow",
+            "image": "https://content.fabrary.net/cards/LGS151-RF.webp",
+            "name": "Pitfall Trap",
+            "setIdentifiers": [
+                "CRU127",
+                "LGS151",
+                "LXI029"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "trap",
+            "subtypes": [
+                "Trap"
+            ],
+            "total": 1,
+            "type": "defense reaction",
+            "types": [
+                "Defense Reaction"
+            ]
+        },
+        {
+            "identifier": "shiver",
+            "image": "https://content.fabrary.net/cards/U-ELE033.webp",
+            "name": "Shiver",
+            "setIdentifiers": [
+                "ELE033",
+                "LGS067",
+                "LXI002"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "2h",
+            "subtypes": [
+                "2H",
+                "Bow"
+            ],
+            "total": 1,
+            "type": "weapon",
+            "types": [
+                "Weapon"
+            ]
+        },
+        {
+            "identifier": "shock-striker-red",
+            "image": "https://content.fabrary.net/cards/U-ELE195.webp",
+            "name": "Shock Striker",
+            "setIdentifiers": [
+                "ELE195",
+                "LXI015"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "snap-shot-red",
+            "image": "https://content.fabrary.net/cards/U-ELE041.webp",
+            "name": "Snap Shot",
+            "setIdentifiers": [
+                "ELE041",
+                "LXI010"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "arrow",
+            "subtypes": [
+                "Arrow",
+                "Attack"
+            ],
+            "total": 1,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "take-aim-red",
+            "image": "https://content.fabrary.net/cards/SAZ029.webp",
+            "name": "Take Aim",
+            "setIdentifiers": [
+                "1HP237",
+                "ARC054",
+                "LXI028",
+                "SAZ029",
+                "TNP049"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 1,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "weave-lightning-red",
+            "image": "https://content.fabrary.net/cards/SBA029.webp",
+            "name": "Weave Lightning",
+            "setIdentifiers": [
+                "ELE180",
+                "LGS075",
+                "LXI017",
+                "SBA029"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 1,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "winters-bite-blue",
+            "image": "https://content.fabrary.net/cards/SIY033.webp",
+            "name": "Winter's Bite",
+            "setIdentifiers": [
+                "AJV025",
+                "ELE171",
+                "LXI025",
+                "SIY033"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "lexi",
+            "image": "https://content.fabrary.net/cards/U-ELE032.webp",
+            "name": "Lexi",
+            "setIdentifiers": [
+                "ELE032",
+                "HER046",
+                "LXI001",
+                "PEN346"
+            ],
+            "sideboardTotal": 0,
+            "subType": "young",
+            "subtypes": [
+                "Young"
+            ],
+            "total": 1,
+            "type": "hero",
+            "types": [
+                "Hero"
+            ]
+        }
+    ],
+    "format": "blitz",
+    "hero": {
+        "identifier": "lexi",
+        "image": "https://content.fabrary.net/cards/U-ELE032.webp",
+        "name": "Lexi",
+        "setIdentifiers": [
+            "ELE032",
+            "HER046",
+            "LXI001",
+            "PEN346"
+        ],
+        "sideboardTotal": 0,
+        "subType": "young",
+        "subtypes": [
+            "Young"
+        ],
+        "total": 1,
+        "type": "hero",
+        "types": [
+            "Hero"
+        ]
+    },
+    "name": "Lexi Blitz Deck",
+    "matchups": [],
+    "slug": "01G7K3WGPVKVDXG2J013GXSXNP"
+}

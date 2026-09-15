@@ -1,0 +1,673 @@
+{
+    "cards": [
+        {
+            "identifier": "blood-tribute-blue",
+            "image": "https://content.fabrary.net/cards/U-MON217.webp",
+            "name": "Blood Tribute",
+            "setIdentifiers": [
+                "LEV025",
+                "MON217"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "",
+            "subtypes": [],
+            "total": 2,
+            "type": "instant",
+            "types": [
+                "Instant"
+            ]
+        },
+        {
+            "identifier": "boneyard-marauder-blue",
+            "image": "https://content.fabrary.net/cards/U-MON137.webp",
+            "name": "Boneyard Marauder",
+            "setIdentifiers": [
+                "LEV018",
+                "MON137"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "boneyard-marauder-red",
+            "image": "https://content.fabrary.net/cards/U-MON135.webp",
+            "name": "Boneyard Marauder",
+            "setIdentifiers": [
+                "FAB023",
+                "LEV009",
+                "MON135"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "consuming-aftermath-red",
+            "image": "https://content.fabrary.net/cards/U-MON195.webp",
+            "name": "Consuming Aftermath",
+            "setIdentifiers": [
+                "LEV023",
+                "MON195"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 1,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "convulsions-from-the-bellows-of-hell-blue",
+            "image": "https://content.fabrary.net/cards/U-MON134.webp",
+            "name": "Convulsions from the Bellows of Hell",
+            "setIdentifiers": [
+                "LEV019",
+                "MON134"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 1,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "deadwood-rumbler-blue",
+            "image": "https://content.fabrary.net/cards/U-MON140.webp",
+            "name": "Deadwood Rumbler",
+            "setIdentifiers": [
+                "LEV020",
+                "MON140"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "deadwood-rumbler-red",
+            "image": "https://content.fabrary.net/cards/U-MON138.webp",
+            "name": "Deadwood Rumbler",
+            "setIdentifiers": [
+                "LEV010",
+                "MON138"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "dread-screamer-blue",
+            "image": "https://content.fabrary.net/cards/U-MON143.webp",
+            "name": "Dread Screamer",
+            "setIdentifiers": [
+                "LEV021",
+                "MON143"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "dread-screamer-red",
+            "image": "https://content.fabrary.net/cards/U-MON141.webp",
+            "name": "Dread Screamer",
+            "setIdentifiers": [
+                "LEV011",
+                "MON141"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "ebon-fold",
+            "image": "https://content.fabrary.net/cards/U-MON188.webp",
+            "name": "Ebon Fold",
+            "setIdentifiers": [
+                "CHN004",
+                "FAB072",
+                "LEV004",
+                "MON188"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "head",
+            "subtypes": [
+                "Head"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "endless-maw-red",
+            "image": "https://content.fabrary.net/cards/U-MON126.webp",
+            "name": "Endless Maw",
+            "setIdentifiers": [
+                "LEV012",
+                "MON126"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 1,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "goliath-gauntlet",
+            "image": "https://content.fabrary.net/cards/ARR005-RF.webp",
+            "name": "Goliath Gauntlet",
+            "setIdentifiers": [
+                "1HP352",
+                "ARR005",
+                "BVO006",
+                "FAB064",
+                "LEV006",
+                "MPG120",
+                "OLD006",
+                "WTR153"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "arms",
+            "subtypes": [
+                "Arms"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "graveling-growl-red",
+            "image": "https://content.fabrary.net/cards/U-MON144.webp",
+            "name": "Graveling Growl",
+            "setIdentifiers": [
+                "LEV013",
+                "MON144"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "hooves-of-the-shadowbeast",
+            "image": "https://content.fabrary.net/cards/U-MON122.webp",
+            "name": "Hooves of the Shadowbeast",
+            "setIdentifiers": [
+                "LEV007",
+                "MON122"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "legs",
+            "subtypes": [
+                "Legs"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "hungering-slaughterbeast-red",
+            "image": "https://content.fabrary.net/cards/U-MON147.webp",
+            "name": "Hungering Slaughterbeast",
+            "setIdentifiers": [
+                "LEV014",
+                "MON147"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "hungering-slaughterbeast-yellow",
+            "image": "https://content.fabrary.net/cards/U-MON148.webp",
+            "name": "Hungering Slaughterbeast",
+            "setIdentifiers": [
+                "LEV017",
+                "MON148"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "lady-barthimont",
+            "image": "https://content.fabrary.net/cards/LEV002.webp",
+            "name": "Lady Barthimont",
+            "setIdentifiers": [
+                "FAB045",
+                "LEV002"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "",
+            "subtypes": [],
+            "total": 1,
+            "type": "mentor",
+            "types": [
+                "Mentor"
+            ]
+        },
+        {
+            "identifier": "lunartide-plunderer-yellow",
+            "image": "https://content.fabrary.net/cards/U-MON207.webp",
+            "name": "Lunartide Plunderer",
+            "setIdentifiers": [
+                "CHN023",
+                "LEV024",
+                "MON207"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "rally-the-rearguard-blue",
+            "image": "https://content.fabrary.net/cards/HVY230.webp",
+            "name": "Rally the Rearguard",
+            "setIdentifiers": [
+                "HVY230",
+                "LEV029",
+                "MON283",
+                "RVD022"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "rally-the-rearguard-red",
+            "image": "https://content.fabrary.net/cards/AKO011.webp",
+            "name": "Rally the Rearguard",
+            "setIdentifiers": [
+                "AKO011",
+                "HVY228",
+                "KYO010",
+                "LEV028",
+                "MON281",
+                "VIC010"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "ravenous-meataxe",
+            "image": "https://content.fabrary.net/cards/U-MON221.webp",
+            "name": "Ravenous Meataxe",
+            "setIdentifiers": [
+                "LEV003",
+                "LGS047",
+                "MON221"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "2h",
+            "subtypes": [
+                "2H",
+                "Axe"
+            ],
+            "total": 1,
+            "type": "weapon",
+            "types": [
+                "Weapon"
+            ]
+        },
+        {
+            "identifier": "smash-with-big-tree-red",
+            "image": "https://content.fabrary.net/cards/U-MON226.webp",
+            "name": "Smash with Big Tree",
+            "setIdentifiers": [
+                "LEV026",
+                "MON226"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "smash-with-big-tree-yellow",
+            "image": "https://content.fabrary.net/cards/RVD017.webp",
+            "name": "Smash with Big Tree",
+            "setIdentifiers": [
+                "LEV027",
+                "MON227",
+                "RVD017"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 2
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "soul-harvest-blue",
+            "image": "https://content.fabrary.net/cards/U-MON198.webp",
+            "name": "Soul Harvest",
+            "setIdentifiers": [
+                "GEM190",
+                "LEV008",
+                "MON198"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 1,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "spell-fray-cloak",
+            "image": "https://content.fabrary.net/cards/DYN237.webp",
+            "name": "Spell Fray Cloak",
+            "setIdentifiers": [
+                "BOL006",
+                "DYN237",
+                "LEV005"
+            ],
+            "sideboardTotal": 0,
+            "stats": [],
+            "subType": "chest",
+            "subtypes": [
+                "Chest"
+            ],
+            "total": 1,
+            "type": "equipment",
+            "types": [
+                "Equipment"
+            ]
+        },
+        {
+            "identifier": "unworldly-bellow-blue",
+            "image": "https://content.fabrary.net/cards/U-MON152.webp",
+            "name": "Unworldly Bellow",
+            "setIdentifiers": [
+                "LEV022",
+                "MON152"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 3
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "unworldly-bellow-red",
+            "image": "https://content.fabrary.net/cards/U-MON150.webp",
+            "name": "Unworldly Bellow",
+            "setIdentifiers": [
+                "LEV015",
+                "MON150"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "non-attack",
+            "subtypes": [
+                "Non-Attack"
+            ],
+            "total": 2,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "writhing-beast-hulk-red",
+            "image": "https://content.fabrary.net/cards/U-MON129.webp",
+            "name": "Writhing Beast Hulk",
+            "setIdentifiers": [
+                "LEV016",
+                "MON129"
+            ],
+            "sideboardTotal": 0,
+            "stats": {
+                "resource": 1
+            },
+            "subType": "attack",
+            "subtypes": [
+                "Attack"
+            ],
+            "total": 1,
+            "type": "action",
+            "types": [
+                "Action"
+            ]
+        },
+        {
+            "identifier": "levia",
+            "image": "https://content.fabrary.net/cards/IAR002.webp",
+            "name": "Levia",
+            "setIdentifiers": [
+                "DTD104",
+                "HER036",
+                "IAR002",
+                "LEV001",
+                "MON120"
+            ],
+            "sideboardTotal": 0,
+            "subType": "young",
+            "subtypes": [
+                "Young"
+            ],
+            "total": 1,
+            "type": "hero",
+            "types": [
+                "Hero"
+            ]
+        }
+    ],
+    "format": "blitz",
+    "hero": {
+        "identifier": "levia",
+        "image": "https://content.fabrary.net/cards/IAR002.webp",
+        "name": "Levia",
+        "setIdentifiers": [
+            "DTD104",
+            "HER036",
+            "IAR002",
+            "LEV001",
+            "MON120"
+        ],
+        "sideboardTotal": 0,
+        "subType": "young",
+        "subtypes": [
+            "Young"
+        ],
+        "total": 1,
+        "type": "hero",
+        "types": [
+            "Hero"
+        ]
+    },
+    "name": "Levia Blitz Deck",
+    "matchups": [],
+    "slug": "01G7B1T1D1M2DAM61K876VJBDK"
+}

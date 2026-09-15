@@ -1,4 +1,9 @@
 <?php include __DIR__ . '/GameOver.php'; include __DIR__ . '/MultiplayerLayout.php'; ?>
+<style>
+#bug-report-button{position:fixed;top:8px;right:8px;z-index:2600}
+@media(min-width:900px){.fab-upf-active #bug-report-button{right:230px}}
+</style>
+<button id="bug-report-button" class="fab-overlay-button" type="button" onclick="openBugReportModal()">Report Bug</button>
 <div id="fab-duel-layout">
 <style>
 :root{
@@ -83,6 +88,8 @@ html,body{margin:0;overflow:hidden;background:#090d0f;color:#f3eee5;font-family:
 #myGraveyardSlot{right:calc(var(--fab-card-size) + 24px);bottom:calc(4% + var(--fab-card-size)*2 + 16px)}
 #myPitchSlot{right:calc(var(--fab-card-size) + 24px);bottom:calc(4% + var(--fab-card-size) + 8px)}
 #myDeckSlot{right:12px;bottom:calc(4% + var(--fab-card-size) + 8px)}
+#mySoulSlot{left:22%;bottom:4%}
+#theirSoulSlot{left:22%;top:4%}
 #myBanishSlot{right:calc(var(--fab-card-size) + 24px);bottom:4%}
 
 /* Counters belong to the objects they describe instead of occupying board zones. */
@@ -160,9 +167,9 @@ $zones = [
   'theirHand' => 'Hand', 'theirArena' => 'Arena', 'theirHero' => 'Hero',
   'theirWeapons' => 'Weapons', 'theirEquipment' => 'Equipment', 'theirDeck' => 'Deck',
   'theirGraveyard' => 'Graveyard', 'theirArsenal' => 'Arsenal', 'theirPitch' => 'Pitch',
-  'theirBanish' => 'Banish', 'myHand' => 'Hand', 'myArena' => 'Arena', 'myHero' => 'Hero',
+  'theirSoul' => 'Soul', 'theirBanish' => 'Banish', 'myHand' => 'Hand', 'myArena' => 'Arena', 'myHero' => 'Hero',
   'myWeapons' => 'Weapons', 'myEquipment' => 'Equipment', 'myDeck' => 'Deck',
-  'myGraveyard' => 'Graveyard', 'myArsenal' => 'Arsenal', 'myPitch' => 'Pitch', 'myBanish' => 'Banish',
+  'myGraveyard' => 'Graveyard', 'myArsenal' => 'Arsenal', 'myPitch' => 'Pitch', 'mySoul' => 'Soul', 'myBanish' => 'Banish',
 ];
 foreach ($zones as $zone => $label) {
   echo '<div id="' . $zone . 'Slot" class="fab-zone" data-label="' . $label . '"><div id="' . $zone . '"></div></div>';

@@ -1,0 +1,305 @@
+[
+  {
+    "id": "banneret_of_salvation_yellow",
+    "name": "Banneret of Salvation",
+    "pitch": "2",
+    "cost": "0",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Light",
+      "Warrior",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Solflare"
+    ],
+    "functional_text": "**Solflare** - When this is **charged** to your hero's soul, the next time you hit this turn, gain 1{h}."
+  },
+  {
+    "id": "beaming_bravado_red",
+    "name": "Beaming Bravado",
+    "pitch": "1",
+    "cost": "0",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Light",
+      "Warrior",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Charge"
+    ],
+    "functional_text": "As an additional cost to play this, you may **charge** your hero's soul.\n\nIf a yellow card is **charged** this way, this gets +1{p}"
+  },
+  {
+    "id": "beaming_bravado_yellow",
+    "name": "Beaming Bravado",
+    "pitch": "2",
+    "cost": "0",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Light",
+      "Warrior",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Charge"
+    ],
+    "functional_text": "As an additional cost to play this, you may **charge** your hero's soul.\n\nIf a yellow card is **charged** this way, this gets +1{p}"
+  },
+  {
+    "id": "duty_bound_blitz_red",
+    "name": "Duty Bound Blitz",
+    "pitch": "1",
+    "cost": "0",
+    "power": "5",
+    "defense": "2",
+    "types": [
+      "Light",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Play this only if a yellow card has been put into your soul this turn.\n\n**Go again**"
+  },
+  {
+    "id": "duty_bound_blitz_yellow",
+    "name": "Duty Bound Blitz",
+    "pitch": "2",
+    "cost": "0",
+    "power": "4",
+    "defense": "2",
+    "types": [
+      "Light",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Go again"
+    ],
+    "functional_text": "Play this only if a yellow card has been put into your soul this turn.\n\n**Go again**"
+  },
+  {
+    "id": "edict_of_steel_red",
+    "name": "Edict of Steel",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Warrior",
+      "Action"
+    ],
+    "card_keywords": [
+      "Sharpen",
+      "Go again"
+    ],
+    "functional_text": "**Sharpen** target sword you control.\n\nIf it has 1 or more +1{p} counters, create a Flurry token.\n\n**Go again**"
+  },
+  {
+    "id": "flat_trackers",
+    "name": "Flat Trackers",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "1",
+    "types": [
+      "Brute",
+      "Warrior",
+      "Equipment",
+      "Legs"
+    ],
+    "card_keywords": [
+      "Blade Break"
+    ],
+    "functional_text": "Action - Destroy this: Create an Agility token. **Go again**\n\n**Blade Break**"
+  },
+  {
+    "id": "garland_of_spring",
+    "name": "Garland of Spring",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "0",
+    "types": [
+      "Generic",
+      "Equipment",
+      "Chest"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Action** - Destroy this: Gain {r}. **Go again**"
+  },
+  {
+    "id": "gauntlets_of_unity",
+    "name": "Gauntlets of Unity",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "1",
+    "types": [
+      "Warrior",
+      "Equipment",
+      "Arms"
+    ],
+    "card_keywords": [
+      "Unity",
+      "Temper"
+    ],
+    "functional_text": "**Unity** - When this defends together with a card from hand, this gets +1{d} until end of turn.\n\n**Temper**"
+  },
+  {
+    "id": "helm_of_unity",
+    "name": "Helm of Unity",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "1",
+    "types": [
+      "Warrior",
+      "Equipment",
+      "Head"
+    ],
+    "card_keywords": [
+      "Unity",
+      "Temper"
+    ],
+    "functional_text": "**Unity** - When this defends together with a card from hand, this gets +1{d} until end of turn.\n\n**Temper**"
+  },
+  {
+    "id": "light_the_way_red",
+    "name": "Light the Way",
+    "pitch": "1",
+    "cost": "0",
+    "power": "3",
+    "defense": "3",
+    "types": [
+      "Light",
+      "Warrior",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Charge",
+      "Go again"
+    ],
+    "functional_text": "As an additional cost to play this, you may **charge** your hero's soul.\n\nWhen this hits, if a yellow card was **charged** this way, this gets **go again**."
+  },
+  {
+    "id": "light_the_way_yellow",
+    "name": "Light the Way",
+    "pitch": "2",
+    "cost": "0",
+    "power": "2",
+    "defense": "3",
+    "types": [
+      "Light",
+      "Warrior",
+      "Action",
+      "Attack"
+    ],
+    "card_keywords": [
+      "Charge",
+      "Go again"
+    ],
+    "functional_text": "As an additional cost to play this, you may **charge** your hero's soul.\n\nWhen this hits, if a yellow card was **charged** this way, this gets **go again**."
+  },
+  {
+    "id": "radiant_touch",
+    "name": "Radiant Touch",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Light",
+      "Equipment",
+      "Arms"
+    ],
+    "card_keywords": [],
+    "functional_text": "**Instant** - Banish this and a card from your hero's soul: Prevent the next 2 damage that would be dealt to your hero this turn."
+  },
+  {
+    "id": "roaring_beam_yellow",
+    "name": "Roaring Beam",
+    "pitch": "2",
+    "cost": "0",
+    "power": "",
+    "defense": "3",
+    "types": [
+      "Light",
+      "Warrior",
+      "Attack Reaction"
+    ],
+    "card_keywords": [
+      "Charge"
+    ],
+    "functional_text": "Create a Courage token.\n\nIf there are no cards in your soul, return this to its owner's hand, then **charge** your soul."
+  },
+  {
+    "id": "toe_the_line_red",
+    "name": "Toe the Line",
+    "pitch": "1",
+    "cost": "0",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Warrior",
+      "Instant"
+    ],
+    "card_keywords": [],
+    "functional_text": "The next time you would be dealt damage this turn, prevent 2 of that damage. If you prevent damage this way, create a Flurry token."
+  },
+  {
+    "id": "agility",
+    "name": "Agility",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Token",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "At the start of your turn, destroy this, then your next attack this turn gets **go again**."
+  },
+  {
+    "id": "courage",
+    "name": "Courage",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Generic",
+      "Token",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "When you play an attack action card or activate a weapon attack, destroy this and the attack gets +1{p}."
+  },
+  {
+    "id": "flurry",
+    "name": "Flurry",
+    "pitch": "",
+    "cost": "",
+    "power": "",
+    "defense": "",
+    "types": [
+      "Warrior",
+      "Token",
+      "Aura"
+    ],
+    "card_keywords": [],
+    "functional_text": "When you activate a weapon attack, destroy this and you may attack with the weapon twice this turn."
+  }
+]

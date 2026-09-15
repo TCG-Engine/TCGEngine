@@ -63,7 +63,7 @@ $check(DoPitchCard(4,'p4Hand-0'),'Bravo could not accept a pitched card.');
 $layer=FaBStackTop();$check($layer->Kind==='ABILITY','Bravo bypassed the ability stack.');
 DoResolveCard(4,'Stack-'.intval($layer->mzIndex));
 $check(intval(GetResources(4))===1&&intval(GetActionPoints(4))===1,'Bravo costs or go again were incorrect.');
-$check(FaBWTREffects(4)[0]['type']==='BRAVO_DOMINATE','Bravo did not create its turn effect.');
+$check(count(array_filter(FaBWTREffects(4),fn($e)=>$e['type']==='BRAVO_DOMINATE'))===1,'Bravo did not create its turn effect.');
 $reset();
 SetTurnPlayer(4);SetPriorityPlayer(4);$GLOBALS['playerID']=4;
 $plating=AddEquipment(4,CardID:'tectonic_plating',Owner:4,Controller:4);AddResources(4,2);

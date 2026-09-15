@@ -1,0 +1,21 @@
+[
+  {
+    "cardId": "the_librarian",
+    "abilities": [
+      {
+        "macroName": "StartTurn",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$mode = await $player.Modal(1, 1, \"Keep_face_down&Reveal_The_Librarian\", \"Reveal_your_mentor\");\n$found = FaBFindUID($uid);\nif ($mode === '1' && $found !== null && $found['zone'] === 'Arsenal') {\n    $found['object']->FaceDown = 0;\n    FaBRevealChoices($player, $found['mzID']);\n}",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nDoDrawCard($player, 1);\n$found = FaBFindUID($uid);\nif ($found !== null && $found['zone'] === 'Arsenal') {\n    $lessons = intval(FaBObjectCounters($found['object'])['LESSONS'] ?? 0) + 1;\n    FaBSetObjectCounter($found['object'], 'LESSONS', $lessons);\n    if ($lessons >= 3) {\n        FaBMoveUID($uid, 'Banish', $player);\n        $targets = FaBStageSearch($player, ['specialization'=>true]);\n        if ($targets !== '') {\n            $chosen = await $player.MZChoose($targets, \"Find_a_specialization_for_arsenal\");\n            $card = FaBMoveChoice($player, $chosen, 'Temp', 'Arsenal');\n            if ($card !== null) {\n                $card->FaceDown = 0;\n                FaBRevealChoices($player, FaBFindUID(intval($card->UniqueID))['mzID']);\n            }\n        }\n        FaBFinishSearch($player);\n    }\n}",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "spell_fray_leggings",
+    "abilities": []
+  }
+]

@@ -1,0 +1,161 @@
+[
+  {
+    "cardId": "banneret_of_salvation_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "beaming_bravado_red",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n $chosen = 'PASS';\n $targets = FaBMONAffordableHand($player, '', true);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZMayChoose($targets, \"Charge_your_soul\");\n \n}\n $yellow = FaBBoltynYellowChoice($chosen);\n FaBMONCharge($player, $chosen);\n if ($yellow) {\n FaBCRUSelfTagUID($uid, 'WTR_POWER:1');\n \n}\n FaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "beaming_bravado_yellow",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n $chosen = 'PASS';\n $targets = FaBMONAffordableHand($player, '', true);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZMayChoose($targets, \"Charge_your_soul\");\n \n}\n $yellow = FaBBoltynYellowChoice($chosen);\n FaBMONCharge($player, $chosen);\n if ($yellow) {\n FaBCRUSelfTagUID($uid, 'WTR_POWER:1');\n \n}\n FaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "duty_bound_blitz_red",
+    "abilities": []
+  },
+  {
+    "cardId": "duty_bound_blitz_yellow",
+    "abilities": []
+  },
+  {
+    "cardId": "edict_of_steel_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "$chosen = 'PASS';\n $targets = FaBBoltynSwordChoices($player);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Sharpen_your_sword\");\n \n}\n FaBBoltynSharpen($player, $chosen);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "flat_trackers",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "FaBWTRCreateArena($player, 'agility');\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "garland_of_spring",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "AddResources($player, intval(GetResources($player)) + 1);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "gauntlets_of_unity",
+    "abilities": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "FaBBoltynUnity($player, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID));\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "helm_of_unity",
+    "abilities": [
+      {
+        "macroName": "Defended",
+        "abilityCode": "FaBBoltynUnity($player, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID));\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "light_the_way_red",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n $chosen = 'PASS';\n $targets = FaBMONAffordableHand($player, '', true);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZMayChoose($targets, \"Charge_your_soul\");\n \n}\n $yellow = FaBBoltynYellowChoice($chosen);\n FaBMONCharge($player, $chosen);\n if ($yellow) {\n FaBTagUID($uid, 'BOLT_YELLOW_CHARGE');\n \n}\n FaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "Hit",
+        "abilityCode": "$f = FaBIdentityFromMZ($mzID);\n if ($f !== null && in_array('BOLT_YELLOW_CHARGE', (array)$f['object']->TurnEffects, true)) {\n FaBWTRTag($f['object'], 'GO_AGAIN');\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "light_the_way_yellow",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n $chosen = 'PASS';\n $targets = FaBMONAffordableHand($player, '', true);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZMayChoose($targets, \"Charge_your_soul\");\n \n}\n $yellow = FaBBoltynYellowChoice($chosen);\n FaBMONCharge($player, $chosen);\n if ($yellow) {\n FaBTagUID($uid, 'BOLT_YELLOW_CHARGE');\n \n}\n FaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "Hit",
+        "abilityCode": "$f = FaBIdentityFromMZ($mzID);\n if ($f !== null && in_array('BOLT_YELLOW_CHARGE', (array)$f['object']->TurnEffects, true)) {\n FaBWTRTag($f['object'], 'GO_AGAIN');\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "radiant_touch",
+    "abilities": [
+      {
+        "macroName": "PrepareCard",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n $chosen = 'PASS';\n $targets = FaBMONSoul($player);\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Banish_from_soul\");\n \n}\n FaBMoveChoice($player, $chosen, 'Soul', 'Banish');\n FaBFinishPreparedCard($uid);\n",
+        "isImplemented": true
+      },
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "FaBWTRAddEffect($player, 'PREVENT_DAMAGE', 2);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "roaring_beam_yellow",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRCreateArena($player, 'courage');\n if (FaBMONSoul($player) === '') {\n $uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n FaBMoveUID($uid, 'Hand', $player);\n $chosen = 'PASS';\n $targets = implode('&', FaBChoiceRefs($player, 'Hand'));\n\nif ($targets !== \"\") {\n $chosen = await $player.MZChoose($targets, \"Charge_your_soul\");\n \n}\n FaBMONCharge($player, $chosen);\n \n}\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "toe_the_line_red",
+    "abilities": [
+      {
+        "macroName": "ResolveCard",
+        "abilityCode": "FaBWTRAddEffect($player, 'BOLTYN_TOE', 2);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  {
+    "cardId": "agility",
+    "abilities": []
+  },
+  {
+    "cardId": "courage",
+    "abilities": []
+  },
+  {
+    "cardId": "flurry",
+    "abilities": []
+  }
+]
