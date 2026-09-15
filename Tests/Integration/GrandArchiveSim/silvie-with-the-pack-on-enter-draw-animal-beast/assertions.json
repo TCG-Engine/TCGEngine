@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"nllCALIXDT","semantic":true,"label":"Silvie, With the Pack resolves onto the field"},
+    {"step":3,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":10,"semantic":true,"label":"Both On Enter draw clauses (Animal ally present, Beast ally present) resolved"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,17 @@
+{
+    "name": "Ornamental Greatsword: [Class Bonus] On Enter target ally gets +1 POWER until EOT",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Ornamental Greatsword is REGALIA with a 0-memory-cost On Enter ability, so (unlike the other REGALIA items in this deck) it must actually MATERIALIZE for its enterAbilities to fire -- direct field-seeding would skip the trigger entirely. Memory-cost REGALIA materialize like champions, via the material-phase MZMAYCHOOSE, only offered on the turn player's OWN turn after turn 1 (MaterializePhase() in MaterializeLogic.php), so both players end turn 1/2 to reach P1's turn 3. Its enterAbilities call IsClassBonusActive($player) with NO classes argument, which (per GameLogic.php's IsClassBonusActive) requires only that SOME champion is on the field -- not actually gated on this card's own GUARDIAN/WARRIOR classes, an engine-behavior detail noted here rather than assumed away; the default Spirit of Fire champion already satisfies it. A Dungeon Guide is seeded as the ally target.",
+    "testedCards": [
+        "qyQLlDYBlr"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["qyQLlDYBlr"],
+        "mechanics": ["targeting", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: target ally gets +1 POWER until end of turn."
+        ]
+    }
+}

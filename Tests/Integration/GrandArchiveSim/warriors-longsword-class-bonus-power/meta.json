@@ -1,0 +1,17 @@
+{
+    "name": "Warrior's Longsword: [Class Bonus] +1 POWER",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Warrior's Longsword's only ability is [Class Bonus] +1 POWER, a static computed-power case (GameLogic.php ~10998, not an Enter trigger) -- seeded directly onto the field. Champion CardID-patched to Lorraine, Blademaster (WARRIOR). Champion attacks wielding the weapon; final combat damage (2) reflects the weapon's printed 1 POWER plus the +1 Class Bonus.",
+    "testedCards": [
+        "jF1VuIR7a6"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["jF1VuIR7a6"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1 POWER."
+        ]
+    }
+}

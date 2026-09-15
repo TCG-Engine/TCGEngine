@@ -1,0 +1,6 @@
+[
+    {"step":17,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":1,"semantic":true,"label":"Only the champion remains -- the Potion was sacrificed"},
+    {"step":17,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"1","semantic":true,"label":"Potion of Healing's own Sacrifice: Recover 5 still resolves (6 damage - 5 = 1 remaining)"},
+    {"step":17,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":2,"semantic":true,"label":"The granted On Sacrifice bonus (Draw two cards) resolved before the Potion's own ability"},
+    {"step":17,"type":"decision_queue_empty","player":"all"}
+]

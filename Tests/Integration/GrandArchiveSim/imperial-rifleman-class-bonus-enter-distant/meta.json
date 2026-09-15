@@ -1,0 +1,17 @@
+{
+    "name": "Imperial Rifleman's [Class Bonus] On Enter: becomes distant",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-10T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "The On Enter trigger only fires on a real materialize (BridgeAddToZone seeds silently, no Enter trigger), so it must be played from hand while a RANGER Class Bonus is already active. Seeds a RANGER champion (Diana, Keen Huntress) onto player 1's field, then plays Imperial Rifleman from a known hand slot on turn 1 (materializing doesn't hit Rule 1.h's attack lock, so no turn-cycle is needed here). Its 3-reserve cost needs 3 reps of the myHand-0 reserve-payment decision (MZCHOOSE=myHand), matching its printed cost.",
+    "testedCards": [
+        "17fzcyfrzr"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["17fzcyfrzr"],
+        "mechanics": ["cost", "condition", "combat"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Imperial Rifleman becomes distant. (Units stay distant until the end of their controller's turn. Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}

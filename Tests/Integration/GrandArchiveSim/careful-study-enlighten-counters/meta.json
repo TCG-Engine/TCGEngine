@@ -1,0 +1,17 @@
+{
+    "name": "Careful Study: put five enlighten counters on your champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Careful Study is NORM, no lineage patch needed. Its 8-reserve cost needs 1 extra card beyond a natural 7-card hand (2 extra fillers seeded for margin). The 'Efficiency' keyword is a cost discount (out of scope); the ability itself unconditionally puts 5 enlighten counters on the champion (GeneratedMacroCode.php ~15634-15640).",
+    "testedCards": [
+        "4NkVdSx9ed"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["4NkVdSx9ed"],
+        "mechanics": ["cost", "draw-discard"],
+        "rulesClauses": [
+            "Put five enlighten counters on your champion."
+        ]
+    }
+}

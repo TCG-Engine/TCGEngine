@@ -1,0 +1,5 @@
+[
+    {"step":5,"type":"computed_power_equals","mzId":"myField-1","value":3,"semantic":true,"label":"Shadow's Twin base 1 POWER + 2 (whenever it becomes loaded, until end of turn)"},
+    {"step":5,"type":"zone_count","zone":"myField","viewerPlayerID":1,"value":2,"semantic":true,"label":"Plated Bullet is consumed (loaded) rather than staying as a separate field object"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

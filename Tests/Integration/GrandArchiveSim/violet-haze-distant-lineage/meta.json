@@ -1,0 +1,17 @@
+{
+    "name": "Violet Haze: all units become distant; curse placed on target champion's lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-10T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Violet Haze is UMBRA (advanced element), so the starting champion's Subcards are patched with a real UMBRA champion (Tristan, Shadowdancer) to unlock element access -- the same pattern used elsewhere in this file for other UMBRA cards. A Dungeon Guide is seeded onto the field alongside the champion to confirm 'all units you control' isn't limited to the champion. Playing it (2-reserve) queues the usual reserve-payment MZCHOOSE=myHand decision (2 reps), then an unrelated optional MZMAYCHOOSE (declined with PASS), then the target-champion MZCHOOSE, before both units gain DISTANT and the card is placed into the champion's Subcards (lineage) rather than the graveyard.",
+    "testedCards": [
+        "vdxi74wa4x"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["vdxi74wa4x"],
+        "mechanics": ["cost", "targeting", "zone-movement", "combat"],
+        "rulesClauses": [
+            "All units you control become distant, then put Violet Haze on the bottom of target champion's lineage."
+        ]
+    }
+}

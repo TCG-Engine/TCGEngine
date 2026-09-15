@@ -1,0 +1,4 @@
+[
+    {"step":3,"type":"computed_life_equals","mzId":"p1Field-1","value":4,"semantic":true,"label":"Base life 2 + 2 = 4"},
+    {"step":3,"type":"computed_power_equals","mzId":"p1Field-1","value":3,"semantic":true,"label":"[Class Bonus] Base power 2 + 1 = 3"}
+]

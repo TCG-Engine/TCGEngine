@@ -3,7 +3,7 @@
     "rootName": "GrandArchiveSim",
     "createdAt": "2026-08-30T02:00:00+00:00",
     "createdBy": "Codex",
-    "notes": "Flute of Taming's element is NORM, so no lineage patch is needed, and its memory cost is NOT exercised for the same FSM-click-bypass reason as entrancing-filigree-enter-banish. Ability 1 ([REST]: champion +1 level) is covered via the same AddGlobalEffects()-flag pattern used elsewhere; ability 0 (buff a target Animal/Beast ally) requires a subtyped ally target and is out of scope.",
+    "notes": "Flute of Taming's element is NORM, so no lineage patch is needed, and its memory cost is NOT exercised for the same FSM-click-bypass reason as entrancing-filigree-enter-banish. Ability index 0 ([REST]: champion +1 level) is covered via the same AddGlobalEffects()-flag pattern used elsewhere; ability index 1 (buff a target Animal/Beast ally) requires a subtyped ally target and is out of scope. Activating ability 0 grants a fast-speed opportunity window (the card's own unused Buff ability is still offered as a fast response) that must be explicitly declined by both players (two trailing PASS actions) before the decision queue is empty; the decision_queue_empty assertion is checked at step 4, after both declines, not immediately at step 2.",
     "testedCards": [
         "y8fx8G64C9"
     ],

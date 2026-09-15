@@ -1,0 +1,17 @@
+{
+    "name": "Silvie, Wilds Whisperer: On Enter: next Animal/Beast ally activated enters with a buff counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Silvie, Wilds Whisperer is level 1, one level above the default level-0 starting champion, so no lineage/level patch is needed -- 0+1 is already a legal level-up (same as arisanna-herbalist-prodigy-on-enter-gather-twice). Champion-swap materialization is only offered through the material-phase MZMAYCHOOSE at the start of a turn, so both players end their first turn (P1 -> P2) to reach that prompt; its 1-memory cost is paid from a filler card seeded into myMemory. Her On Enter sets a 'next Animal/Beast ally' flag (AddGlobalEffects, GameLogic.php ~8009-8025); Gray Wolf (BEAST) is then materialized from hand in the same turn to consume it, entering with an extra buff counter, confirmed via Counters = {\"buff\":1}.",
+    "testedCards": [
+        "RfPP8h16Wv"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["RfPP8h16Wv"],
+        "mechanics": ["draw-discard", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: The next Animal or Beast ally card you activate this turn enters the field with an additional buff counter on it."
+        ]
+    }
+}

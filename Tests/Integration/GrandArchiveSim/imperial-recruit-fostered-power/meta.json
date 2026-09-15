@@ -1,0 +1,17 @@
+{
+    "name": "Imperial Recruit's static +1 POWER while fostered",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "'Fostered' is a plain persistent TurnEffect (IsFostered() in CardLogic.php just checks for the FOSTERED tag), so the static +1 POWER while fostered can be tested directly by patching TurnEffects at setup, without needing a real recollection-phase Foster transition.",
+    "testedCards": [
+        "lzsmw3rrii"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["lzsmw3rrii"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "Imperial Recruit gets +1 POWER as long as it's fostered."
+        ]
+    }
+}

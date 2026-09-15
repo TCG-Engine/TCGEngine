@@ -1,0 +1,17 @@
+{
+    "name": "Blastshot Pump's [Class Bonus] combat-damage redirect to an additional unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Weapons need a 'durability' counter to even be considered available to attack with (GetAvailableWeapons in CombatLogic.php), and functional weapons (GUN/BOW/AETHERWING) must already be loaded (non-empty Subcards). Same turn-cycle approach as automaton-bomber-ranged-attack (Rule 1.h blocks player 1's own turn-1 attack): player 1 ends turn 1, then player 2's champion attacks using Blastshot Pump (loaded with Plated Bullet, whose own power becomes the weapon-based attack's total instead of the champion's own power) against player 1's champion, with a RANGER Class Bonus champion also on player 2's field. The primary target must survive the hit for BlastshotPumpOnHit to still find it and queue the redirect choice (GetZoneObject returns null for an already-removed exactly-lethal target), so the champion (high life) is the primary target and the low-life Dungeon Guide is the redirected 'additional unit' -- both end up taking the same 3 damage.",
+    "testedCards": [
+        "gmnmp5af09"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["gmnmp5af09"],
+        "mechanics": ["cost", "condition", "combat", "targeting", "damage"],
+        "rulesClauses": [
+            "[Class Bonus] If combat damage would be dealt to a unit by an attack using Blastshot Pump, that damage is dealt to that unit and an additional unit you don't control instead."
+        ]
+    }
+}

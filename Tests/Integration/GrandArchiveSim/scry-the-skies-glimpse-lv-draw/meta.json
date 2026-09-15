@@ -1,0 +1,17 @@
+{
+    "name": "Scry the Skies: Glimpse LV, draw a card into memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Scry the Skies is NORM, no lineage patch needed. The starting champion's level is patched to 2 so Glimpse LV (0 by default, which would be an invisible no-op) is directly observable via a real 2-card MZREARRANGE decision (resolved keeping original order, same no-op default used in idle-thoughts-glimpse-4). Memory ends at 2, matching the same reserve-payment/draw-chain multiplier already documented in stream-of-consciousness-draw-into-memory rather than the literal single 'draw a card' -- recorded as observed ground truth.",
+    "testedCards": [
+        "F9POfB5Nah"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["F9POfB5Nah"],
+        "mechanics": ["draw-discard", "zone-movement"],
+        "rulesClauses": [
+            "Glimpse LV. Draw a card into your memory."
+        ]
+    }
+}

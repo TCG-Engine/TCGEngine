@@ -2874,6 +2874,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "BlazingThrowCost|" . $reserveCost, 100);
     }
 
+    // 1.3 Declaring Costs — Smash with Obelisk (2kkvoqk1l7): mandatory sacrifice of a domain;
+    // gets +X POWER where X is the sacrificed domain's reserve cost (bonus applied in the
+    // cardActivatedAbilities macro via the "smashObeliskBonus" variable set by SmashWithObeliskSacrifice).
+    $hasSmashObeliskCost = false;
+    if($obj->CardID === "2kkvoqk1l7" && !$ignoreCost) {
+        $domains = ZoneSearch("myField", ["DOMAIN"]);
+        if(empty($domains)) {
+            SetFlashMessage("Smash with Obelisk requires a domain you control to sacrifice.");
+            return;
+        }
+        $hasSmashObeliskCost = true;
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $domains), 100, tooltip:"Sacrifice_a_domain");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SmashWithObeliskSacrifice|" . $reserveCost, 100);
+    }
+
     //1.3 Declaring Costs â€” Clash of Fates (9rbziyasag): [Guo Jia Bonus] may remove a quest counter instead of reserve
     $hasClashOfFatesAltCost = false;
     if($obj->CardID === "9rbziyasag" && IsGuoJiaBonus($player) && !$ignoreCost && $reserveCost > 0) {
@@ -2913,7 +2929,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSmashObeliskCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost && !$hasMemoryInvocationCost && !$hasPiccardaStaticCost && !$hasZenaAltCost && !$hasCryogenicRitualCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -2991,6 +3007,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // When $hasUndeniableTruthCost is true, UndeniableTruthCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasBlazingThrowCost is true, BlazingThrowCost handles sacrifice,
+    // reserve payments, and EffectStackOpportunity.
+    // When $hasSmashObeliskCost is true, SmashWithObeliskSacrifice handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasPowercellSacrificeCost is true, PowercellSacrifice handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
@@ -6173,6 +6191,8 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "czvy67nbin": // Prismatic Codex â€” banish self
         case "yxk7e8opr6": // Spectral Beacon â€” banish self
         case "df594Qoszn": // Apotheosis Rite â€” banish self
+        case "z1vdxi74wa": // Synth Disrupter â€” banish self
+        case "bHGUNMFLg9": // Wind Resonance Bauble â€” banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;

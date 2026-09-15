@@ -1,0 +1,4 @@
+[
+    {"step":6,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"GXeEa0pe3B","semantic":true,"label":"Rebellious Bull resolves onto the field"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-1","property":"Status","value":"1","semantic":true,"label":"CARDNAME enters the field rested (Status 1), not the default awake (2)"}
+]

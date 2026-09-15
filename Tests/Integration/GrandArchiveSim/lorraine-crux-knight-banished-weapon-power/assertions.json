@@ -1,0 +1,17 @@
+[
+    {
+        "step": 1,
+        "type": "computed_power_equals",
+        "mzId": "myField-0",
+        "value": 1,
+        "semantic": true,
+        "label": "Lorraine, Crux Knight computed power = 0 base + 1 per REGALIA weapon in banishment (1 weapon)"
+    },
+    {
+        "step": 1,
+        "type": "card_property_equals",
+        "mzId": "myBanish-0",
+        "property": "CardID",
+        "value": "jF1VuIR7a6"
+    }
+]

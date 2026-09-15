@@ -1,0 +1,17 @@
+{
+    "name": "Beastbond Boots: Banish -- champion gains spellshroud (only if you control an Animal/Beast ally)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Beastbond Boots is REGALIA -- adding it to 'myHand' via setup gets silently redirected to the Material zone instead (HandAddReplacement, GameLogic.php ~17282: any REGALIA CardID added to hand is rerouted to AddMaterial), matching every other REGALIA item fixture this session -- it must be seeded directly onto myField. Gray Wolf (a BEAST ally, also from this deck) is seeded alongside it so the prereq (control an Animal or Beast ally) is already satisfied. ENGINE BEHAVIOR CONFIRMED (traced via temporary error_log instrumentation, since reverted): using the 'attempt to pass' trick as the ONLY action to reach a field-resident item's ability is not safe when the granted effect is 'until end of turn' -- if nothing else responds after the ability resolves, the original pass attempt itself completes and the turn actually ends, running end-of-turn cleanup that clears the just-granted SPELLSHROUD before it can ever be observed (confirmed via instrumentation: AddTurnEffect correctly applies it, and it survives through the entire AbilityOpportunity/GrantOpportunityWindow resolution chain, but is gone by the time the action's final gamestate is written). This is the same class of issue documented in synth-disrupter-banish-automaton-rested's notes ('attempt to pass ends the turn if nothing else responds'). Fixed by playing a real card first (Scry the Skies, NORM, reserve 1) so a same-turn action has already happened, then reaching Beastbond Boots' ability via a direct Activate:0 click instead of the pass-trick -- this correctly avoids ending the turn, and the champion's TurnEffects now correctly show SPELLSHROUD (alongside an unrelated pre-existing 'vz4kc558yx-ACTION_ACTIVATED' tracking flag) in the final state.",
+    "testedCards": [
+        "xjuCkODVRx"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["xjuCkODVRx"],
+        "mechanics": ["zone-movement", "condition"],
+        "rulesClauses": [
+            "Banish CARDNAME: Your champion gains spellshroud until end of turn. Activate this ability only if you control an Animal or Beast ally."
+        ]
+    }
+}

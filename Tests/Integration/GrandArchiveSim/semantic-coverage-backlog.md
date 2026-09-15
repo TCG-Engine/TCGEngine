@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **231**
+Cards linked to an existing fixture: **359**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2256**
+Implemented cards still needing semantic coverage: **2128**
 
 ## Mechanic groups
 
@@ -30,49 +30,49 @@ Implemented cards still needing semantic coverage: **2256**
 | Slay the King (`6v374coy34`) | ATTACK | 2 | zone-movement, combat, trigger, condition | Lorraine Pantheon Starter | — |
 | Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
 | Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
-| Diana, Duskstalker (`iq4d5vettc`) | CHAMPION | 2 | status, trigger | Diana Starter Deck | — |
-| Smash with Obelisk (`2kkvoqk1l7`) | ATTACK | 2 | cost | Tonoris Starter Deck | — |
 | Assassin's Mantle (`3tcs0axa03`) | REGALIA,ITEM | 1 | damage, prevention, zone-movement, counter, condition | Zander Pantheon Starter | — |
 | Corhazi Courier (`YqQsXwEvv5`) | ALLY | 1 | targeting, damage, draw-discard, status, combat, condition | Zander Pantheon Starter | — |
-| Essence of Blizzards (`k1l75tlzsm`) | ITEM | 1 | cost, targeting, damage, status, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Extraction Incision (`zthwm68lgo`) | ATTACK | 1 | targeting, counter, status, combat, condition | Zander Pantheon Starter | — |
-| Prismatic Edge (`FxYwR2azTt`) | REGALIA,WEAPON | 1 | targeting, damage, draw-discard, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Rending Flames (`soO3hjaVfN`) | ATTACK | 1 | damage, zone-movement, combat, trigger, condition | Zander Pantheon Starter | — |
-| Surveillance Stone (`kk46Whz7CJ`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, combat, trigger, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Zander, Deft Executor (`fc4ic5fmaa`) | CHAMPION | 1 | zone-movement, counter, combat, trigger, condition | Zander Pantheon Starter | — |
-| Archon Broadsword (`pyx8bd7ozu`) | REGALIA,WEAPON | 1 | cost, token, combat, condition | Tonoris Starter Deck | — |
-| Automaton Bomber (`ygojwk0pw0`) | ALLY | 1 | cost, zone-movement, status, condition | Diana Starter Deck | — |
 | Cleansing Reunion (`xpnjvt9y59`) | ACTION | 1 | cost, targeting, status, condition | Lorraine Pantheon Starter | — |
 | Convalescent Tonic (`l8ao8bls6g`) | ITEM | 1 | cost, recover, draw-discard, zone-movement | Arisanna Pantheon Starter | — |
 | Corhazi Lightblade (`2Ch1Gp3jEL`) | ALLY | 1 | damage, combat, trigger, condition | Zander Pantheon Starter | — |
-| Crest of the Alliance (`ojwk0pw0y6`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, trigger, condition | Tonoris Starter Deck | — |
-| Crusader of Aesa (`2Q60hBYO3i`) | ALLY | 1 | status, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
-| Dungeon Guide (`em6eEh9q8y`) | ALLY | 1 | cost, zone-movement, trigger, condition | Lorraine Starter Deck (Prelude), Rai Starter Deck (Prelude) | — |
 | Elyan, Lustre Loyalty (`2jgiM0p4dt`) | UNIQUE,ALLY | 1 | recover, status, trigger, condition | Zander Pantheon Starter | — |
-| Esteemed Knight (`iabqeB0I6t`) | ALLY | 1 | status, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
-| Flash Freeze (`w3rrii17fz`) | ACTION | 1 | cost, targeting, zone-movement, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
 | Hasty Messenger (`DsiRzt0trX`) | ALLY | 1 | draw-discard, combat, trigger, condition | Kongming Pantheon Starter, Zander Pantheon Starter | — |
-| Imperial Sentry (`plywc08c9h`) | ALLY | 1 | status, combat, trigger, condition | Tonoris Starter Deck | — |
 | Insignia of the Corhazi (`52u81v4c0z`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, counter, trigger | Zander Pantheon Starter | — |
-| Library Witch (`iD8qbpA8z5`) | ALLY | 1 | draw-discard, status, combat, trigger | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
 | Lightveil Agent (`jcaLgesx0e`) | ALLY | 1 | recover, counter, status, trigger | Zander Pantheon Starter | — |
 | Lorraine, Spirit Ruler (`n2TKqNaODR`) | CHAMPION | 1 | cost, targeting, zone-movement, trigger | Lorraine Pantheon Starter | — |
-| Mana Limiter (`IC3OU6vCnF`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
-| Meadowbloom Dryad (`cVRIUJdTW5`) | ALLY | 1 | targeting, zone-movement, counter, trigger | Silvie Starter Deck | — |
 | Orb of Choking Fumes (`llQe0cg4xJ`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Zander Pantheon Starter | — |
-| Plated Bullet (`l75tlzsmw3`) | REGALIA,ITEM | 1 | targeting, zone-movement, combat, condition | Diana Starter Deck | — |
-| Potion Infusion: Clarity (`300z2snsdw`) | ACTION | 1 | cost, targeting, draw-discard, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
-| Quickdraw Piercer (`j4f15joh30`) | REGALIA,WEAPON | 1 | draw-discard, zone-movement, combat, condition | Diana Starter Deck | — |
-| Smack with Flute (`zpkcFs72Ah`) | ATTACK | 1 | cost, zone-movement, combat, trigger | Silvie Starter Deck | — |
-| Spirit Blade: Ghost Strike (`vcZSHNHvKX`) | ATTACK | 1 | zone-movement, combat, trigger, condition | Lorraine Starter Deck, Lorraine Starter Deck (Prelude), Lorraine Pantheon Starter | — |
 | Starlit Apothecary (`ShQkyQMBCT`) | UNIQUE,DOMAIN | 1 | cost, targeting, token, condition | Arisanna Pantheon Starter | — |
-| Take Aim (`vnta6qsesw`) | ACTION | 1 | targeting, status, combat, condition | Diana Starter Deck | — |
 | Templar of the Eternal (`peyG8Hfgqt`) | ALLY | 1 | damage, prevention, zone-movement, counter | Lorraine Pantheon Starter | — |
-| Tonoris, Lone Mercenary (`zb14m4c8lj`) | CHAMPION | 1 | status, combat, trigger, condition | Tonoris Starter Deck | — |
 | Altruistic Blacksmith (`Pd4hj3sveV`) | ALLY | 1 | token, combat, trigger | Lorraine Pantheon Starter | — |
 | Aqua Vitae (`y5ttkat9hr`) | ITEM | 1 | draw-discard, counter, condition | Arisanna Pantheon Starter | — |
-| Arcane Blast (`pn9gQjV3Rb`) | ACTION | 1 | cost, targeting, damage | Rai Starter Deck, Rai Starter Deck (Prelude) | — |
-| Arisanna, Master Alchemist (`ltv5klryvf`) | CHAMPION | 1 | draw-discard, trigger, condition | Arisanna Starter Deck, Arisanna Pantheon Starter | — |
-| Blastshot Pump (`gmnmp5af09`) | REGALIA,WEAPON | 1 | damage, combat, condition | Diana Starter Deck | — |
-| Blue Slime (`1Sl4Gq2OuV`) | ALLY | 1 | damage, counter, trigger | Silvie Starter Deck | — |
-| Bulwark Sword (`8kmoi0a5uh`) | REGALIA,WEAPON | 1 | cost, combat, condition | Tonoris Starter Deck | — |
+| Buoyant Driftguard (`TrK2lroxkz`) | ALLY | 1 | targeting, trigger, condition | Arisanna Pantheon Starter | — |
+| Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
+| Corhazi Infiltrator (`VAFTR5taNG`) | ALLY | 1 | zone-movement, status, trigger | Zander Pantheon Starter | — |
+| Covert Manipulator (`A1jfgrWpiN`) | ALLY | 1 | targeting, trigger, condition | Zander Pantheon Starter | — |
+| Drawn Blade (`eSAIP7mx9z`) | REGALIA,WEAPON | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
+| Gem of Searing Flame (`v1jaidvvz2`) | REGALIA,ITEM | 1 | targeting, damage, trigger | Kongming Pantheon Starter | — |
+| Lunar Seer (`qjt0ooffy4`) | ALLY | 1 | cost, zone-movement, condition | Arisanna Pantheon Starter | — |
+| Lurking Assailant (`uq2r6v374c`) | ALLY | 1 | status, combat, condition | Lorraine Pantheon Starter, Zander Pantheon Starter | — |
+| Mendcall Mercy (`2RKjpzEFV6`) | ACTION | 1 | cost, targeting, condition | Arisanna Pantheon Starter | — |
+| Minister of Ceremony (`7gz0j8p4sx`) | ALLY | 1 | targeting, damage, condition | Kongming Pantheon Starter | — |
+| Photic Blade (`NRBO0nVMdl`) | REGALIA,WEAPON | 1 | recover, counter, trigger | Zander Pantheon Starter | — |
+| Piquant Shieldbearer (`Cvvvxlf0hi`) | ALLY | 1 | status, combat, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
+| Scorching Imperilment (`aj7pz79wsp`) | PHANTASIA | 1 | cost, draw-discard, condition | Zander Pantheon Starter | — |
+| Strike of Singularity (`AMv1u54B2s`) | ATTACK | 1 | damage, combat, condition | Zander Pantheon Starter | — |
+| Tactful Sergeant (`7UXGwC7lSO`) | ALLY | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
+| Twinstar Tonic (`yBDxSHkT1s`) | ITEM | 1 | targeting, trigger, condition | Arisanna Pantheon Starter | — |
+| Uncover the Plot (`4zkTRt8qXn`) | ACTION | 1 | targeting, draw-discard, condition | Zander Pantheon Starter | — |
+| Veiling Breeze (`KoF3AMSlUe`) | ACTION | 1 | damage, prevention, condition | Lorraine Pantheon Starter | — |
+| Verdure of Preservation (`wCAIuvPOAT`) | UNIQUE,PHANTASIA | 1 | zone-movement, trigger, condition | Kongming Pantheon Starter | — |
+| Weaken Resistance (`bb3oeup7oq`) | ACTION | 1 | cost, targeting, damage | Kongming Pantheon Starter | — |
+| Wisp's Protection (`OmWFVRUr8I`) | ACTION | 1 | targeting, damage, prevention | Lorraine Pantheon Starter | — |
+| Zander, Prepared Scout (`T3CIBknts0`) | CHAMPION | 1 | zone-movement, counter, trigger | Zander Pantheon Starter | — |
+| Astromech Attendant (`mloejozihs`) | ALLY | 1 | draw-discard, trigger | Arisanna Pantheon Starter | — |
+| Bathe in Light (`d9zax2g20h`) | ACTION | 1 | damage, recover | Zander Pantheon Starter | — |
+| Beacon Knight (`sucwQ9or0n`) | ALLY | 1 | counter, trigger | Lorraine Pantheon Starter | — |
+| Besieged Slash (`Dkq7QnrGJI`) | ATTACK | 1 | cost, condition | Lorraine Pantheon Starter | — |
+| Bolstering Tempest (`PwHub76Fw4`) | ACTION | 1 | cost, targeting | Lorraine Pantheon Starter | — |
+| Cunning Broker (`oy34bro89w`) | ALLY | 1 | draw-discard, status | Zander Pantheon Starter | — |

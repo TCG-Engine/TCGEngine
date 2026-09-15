@@ -1,0 +1,4 @@
+[
+    {"step":2,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"the chosen memory card leaves memory"},
+    {"step":2,"type":"card_exists","zone":"myHand","viewerPlayerID":1,"cardID":"n8wyfG9hbY","semantic":true,"label":"REST: returns the chosen card from memory to hand"}
+]

@@ -1,0 +1,17 @@
+{
+    "name": "Umbral Tithe: each player draws 2 into memory, then damage at 6+ memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Umbral Tithe is UMBRA (advanced element); same starting-champion Subcards lineage patch as Umbra Sight. Its 5-reserve cost is discounted 1 per Curse in either champion's lineage; with none seeded, the full 5 reps of the myHand-0 reserve-payment decision are needed (each reserve payment itself moves a card into memory). Player 1's memory is pre-seeded with 4 cards so that, combined with the 5 reserve payments and the 2 memory draws from this effect, they cross the 6-card threshold and take 4 damage; player 2 stays under it and takes none.",
+    "testedCards": [
+        "2snsdwmxz1"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["2snsdwmxz1"],
+        "mechanics": ["cost", "condition", "draw-discard", "damage"],
+        "rulesClauses": [
+            "Each player draws two cards into their memory. Then deal 4 damage to each champion controlled by players with six or more cards in their memory."
+        ]
+    }
+}

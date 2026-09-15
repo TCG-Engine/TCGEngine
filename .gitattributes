@@ -17,6 +17,12 @@ Dockerfile      text eol=lf
 *.yaml          text eol=lf
 .htaccess       text eol=lf
 
+# Regression fixtures are matched by exact byte sequence (see
+# DevTools/RunIntegrationTests.php's initialGamestateReplacements handling),
+# so a CRLF checkout silently breaks them. Force LF regardless of platform.
+Tests/Integration/**/*.txt   text eol=lf
+Tests/Integration/**/*.json  text eol=lf
+
 # Binary assets — never transform.
 *.png   binary
 *.jpg   binary

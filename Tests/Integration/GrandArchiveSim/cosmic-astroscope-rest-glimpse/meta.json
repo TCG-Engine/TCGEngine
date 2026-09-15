@@ -1,0 +1,17 @@
+{
+    "name": "Cosmic Astroscope's REST: Glimpse 3",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Cosmic Astroscope's REST ability is a plain, free (memory cost 0) Glimpse 3 -- no reserve payment queued. Only the base Glimpse is covered; the [Class Bonus] 'opponent glimpses 3 instead' replacement effect is a passive/reusable-elsewhere property and out of scope. Field items with an activated ability are not clickable via a plain myField-N!FSM! action -- their ability is offered as a fast-action MZMAYCHOOSE opportunity once the turn player attempts to pass, answered with the encoded '{mzID}@Activate-{abilityIndex}@{label}' choice string (same shape as sweet-ambrosia-banish-recover). The MZREARRANGE response keeps the original deck order (a no-op reorder), confirming Glimpse 3 fired and resolved cleanly.",
+    "testedCards": [
+        "qj5bbae3z4"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["qj5bbae3z4"],
+        "mechanics": ["cost", "zone-movement"],
+        "rulesClauses": [
+            "REST: Glimpse 3."
+        ]
+    }
+}

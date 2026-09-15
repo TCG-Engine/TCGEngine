@@ -1,0 +1,17 @@
+{
+    "name": "Assemble the Ancients: sacrifice domains, summon buffed Automaton Drone tokens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Assemble the Ancients is NEOS (advanced element), so the starting champion's Subcards are patched with a real NEOS champion (Tonoris, Creation's Will) to unlock element access. Two Palatial Concourse domains (a plain DOMAIN with only an unrelated recollection-phase trigger, chosen to avoid any On Enter interference from the summoned tokens) are seeded onto the field so AssembleAncientsSacrifice (CardDQHandlers.php ~2026) has something to offer. Its 3-reserve cost is paid from three more hand cards, then its own MZMAYCHOOSE loop is taken twice (sacrificing both domains via DoSacrificeFighter, recursing with count+1 each time) then auto-finalizes once no domains remain, calling AssembleAncientsFinalize(player, 2): summons 2 Automaton Drone tokens (mu6gvnta6q), each entering the field rested (Status=1) with 2 buff counters (equal to the amount of domains sacrificed) and a VIGOR_EOT turn effect.",
+    "testedCards": [
+        "moi0a5uhjx"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["moi0a5uhjx"],
+        "mechanics": ["cost", "sacrifice", "token", "condition"],
+        "rulesClauses": [
+            "Sacrifice any number of domains then summon that many Automaton Drone tokens. Each of those tokens enters the field rested with an amount of buff counters on it equal to the amount of domains sacrificed this way. Then they gain vigor until end of turn."
+        ]
+    }
+}

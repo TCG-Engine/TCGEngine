@@ -1,0 +1,17 @@
+{
+    "name": "Arcane Blast: deal 11 damage to target champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Arcane Blast is ARCANE, so the starting champion's Subcards are patched with a real ARCANE champion (Lorraine, Arclight Saber) to unlock element access. Its 11-reserve cost needs more fuel than a natural 7-card hand provides (same shortfall pattern as disintegrate-destroy, which needed extra fillers for an 8-reserve cost); 5 extra filler cards are seeded into hand. Unlike smaller-reserve-cost ARCANE cards in this batch, paying all 11 reserve leaves only 1 hand card left -- too little to afford the Lorraine lineage-inherited 'Enlighten' ability, so no fast-action opportunity is offered at all (confirmed via direct probe: sending a stray PASS there instead answers the ability's own target-choice MZCHOOSE with 'PASS', silently declining the 11 damage). Deals 11 damage directly to the chosen target champion (GeneratedMacroCode.php ~20653-20661, CardDQHandlers.php ArcaneBlastTarget).",
+    "testedCards": [
+        "pn9gQjV3Rb"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["pn9gQjV3Rb"],
+        "mechanics": ["cost", "targeting", "damage"],
+        "rulesClauses": [
+            "Deal 11 damage to target champion."
+        ]
+    }
+}

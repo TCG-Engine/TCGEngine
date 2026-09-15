@@ -1,0 +1,4 @@
+[
+    {"step":9,"type":"decision_queue_empty","player":"all"},
+    {"step":9,"type":"card_property_equals","mzId":"p1Field-0","property":"Damage","value":"5","semantic":true,"label":"1 base + 2 Take Aim + 2 [Class Bonus] Ranged 2 (target is already Distant)"}
+]

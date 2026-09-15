@@ -1,0 +1,17 @@
+{
+    "name": "Prismatic Edge: [Class Bonus] On Enter, reveal memory: Fire deals 3 damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Prismatic Edge is CRUX element (verified via CardElement(), not NORM) with a 2-memory On Enter ability requiring [Class Bonus] WARRIOR -- champion CardID-patched to Lorraine, Crux Knight (WARRIOR + CRUX unlock). It must actually materialize (memory-cost REGALIA are Material-zone-only cards, like this deck's own Clarent/Backup Charger/Purifying Thurible) for its enterAbilities to fire, so the deck's Material section is just the champion slot plus Prismatic Edge itself, giving it myMaterial-0. 2 filler cards are seeded into myMemory to pay the 2-memory cost -- FINISHPAYMATERIALIZE banishes the FIRST N memory cards as payment, so a real FIRE-element card (Spirit of Fire itself) is seeded into the OPPONENT's memory instead, untouched by payment, to trigger the \"reveal memory for Fire\" branch (revealing either player's memory counts) without index-ordering risk. The Fire branch deals 3 damage to a chosen unit (PrismaticEdgeFire, CardDQHandlers.php) -- P2's Dungeon Guide is the target, taking exactly 3 damage.",
+    "testedCards": [
+        "FxYwR2azTt"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["FxYwR2azTt"],
+        "mechanics": ["targeting", "damage", "draw-discard", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Reveal your memory and your opponent's memory. If a fire card was revealed this way, deal 3 damage to a unit. If a water card was revealed this way, draw a card. If a wind card was revealed this way, banish a random card from your opponent's memory."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Prototype Pistol's [Class Bonus] On Enter +1 POWER buff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-10T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Prototype Pistol is a REGALIA card: HandAddReplacement (GameLogic.php) silently redirects any REGALIA card added to hand via the BridgeAddToZone test-setup primitive into the material zone instead, so it can't be seeded to a known hand slot the usual way. That hook only fires for that kind of explicit single-card add, not the normal bulk initial deal, so a copy drawn into a real opening hand stays there normally -- player 2's natural 7-card opening hand happens to include one at myHand-0. Rule 1.h blocks only the opening player's own turn 1, so player 1 ends turn 1 with a single CustomInput Pass (no decision is pending, so this action itself ends the turn) and player 2 plays their naturally-drawn copy on turn 2, with a RANGER Class Bonus champion (Diana, Keen Huntress) already seeded onto their field.",
+    "testedCards": [
+        "frzrplywc0"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["frzrplywc0"],
+        "mechanics": ["condition", "combat"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Prototype Pistol gets +1 POWER until end of turn. (Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}

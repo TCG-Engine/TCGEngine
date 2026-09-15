@@ -1,0 +1,17 @@
+{
+    "name": "Force Load: choose a fire/norm 0-cost Bullet and load into target Gun",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Force Load reads the material zone directly, and this fixture's own deck's Material section has no Bullet cards, so a real 0-memory-cost NORM Bullet (Plated Bullet) is seeded there via test-setup. Shadow's Twin is seeded unloaded onto the field as the target Gun -- LoadBulletIntoGun() is the same shared function used by Plated Bullet's own [REST] ability (see plated-bullet-rest-load-shadows-twin-power), so loading via Force Load also triggers Shadow's Twin's 'whenever this becomes loaded, +2 POWER' trigger.",
+    "testedCards": [
+        "y6isxy5lh2"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["y6isxy5lh2"],
+        "mechanics": ["targeting", "condition", "zone-movement", "cost"],
+        "rulesClauses": [
+            "Choose a fire or norm element Bullet card from your material deck with memory cost 0 and load it into target Gun weapon you control."
+        ]
+    }
+}

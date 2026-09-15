@@ -1,0 +1,18 @@
+{
+    "name": "Cremation Ritual: additional cost sacrifice an ally, draw 2",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Cremation Ritual is FIRE (matching the default Spirit of Fire champion, no lineage patch needed). A Dungeon Guide is seeded onto the field as sacrifice fodder for the ability's own MZCHOOSE (GeneratedMacroCode.php ~20677-20684: choose an ally, CUSTOM handler DoSacrificeFighter then Draw 2).",
+    "testedCards": [
+        "Pr48kXnasw"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["Pr48kXnasw"],
+        "mechanics": ["cost", "draw-discard"],
+        "rulesClauses": [
+            "Sacrifice an ally as an additional cost to activate this card.",
+            "Draw two cards."
+        ]
+    }
+}

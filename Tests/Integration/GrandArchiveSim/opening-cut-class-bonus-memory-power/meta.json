@@ -1,0 +1,17 @@
+{
+    "name": "Opening Cut: [Class Bonus] +2 POWER while exactly 1 card in memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Opening Cut's only ability is [Class Bonus] +2 POWER while its controller has exactly 1 card in Memory (GameLogic.php ~11053). Champion CardID-patched to Lorraine, Blademaster (WARRIOR), with exactly 1 filler card seeded into myMemory. Reserve cost 1.",
+    "testedCards": [
+        "vBetRTn3eW"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["vBetRTn3eW"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +2 POWER while you have exactly 1 card in your memory."
+        ]
+    }
+}

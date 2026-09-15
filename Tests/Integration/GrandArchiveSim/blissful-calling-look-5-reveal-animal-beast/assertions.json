@@ -1,0 +1,4 @@
+[
+    {"step":3,"type":"card_exists","zone":"myHand","viewerPlayerID":1,"cardID":"hJ2xh9lNMR","semantic":true,"label":"Gray Wolf, chosen from among the top 5 looked at, is put into hand"},
+    {"step":3,"type":"decision_queue_empty","player":"all"}
+]

@@ -1,0 +1,19 @@
+{
+    "name": "Freezing Hail + Blue Slime: deal 2 damage, [Class Bonus] Blue Slime gets a buff counter",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Both cards are WATER -- the starting champion's CardID is patched directly to Silvie, With the Pack (TAMER, which also satisfies Blue Slime's [Class Bonus] class-match) and its Subcards are ALSO patched with a real WATER champion (Nico, Rapture's Embrace) purely for the element/lineage unlock, since Silvie's own champions are NORM/TERA, not WATER. Blue Slime (Pride 4) is seeded directly onto the field so its Pride doesn't need to be re-satisfied for a materialize (Pride only gates attacking, already covered generically by gray-wolf-pride-2-attack-rejected). Freezing Hail's dealDamageAbilities trigger for Blue Slime fires reactively off DealDamage regardless of source, so targeting Blue Slime with our own Freezing Hail exercises both cards' effects in one fixture: Freezing Hail's own 'deal 2 damage, skip next wake up' (Damage=2, TurnEffects includes SKIP_WAKEUP -- a 'until next wake up phase' effect, unaffected by any pass-trick/turn-end concern) and Blue Slime's own '[Class Bonus] whenever dealt damage, buff counter' (Counters.buff=1) trigger simultaneously.",
+    "testedCards": [
+        "SrBA7h2a1N",
+        "1Sl4Gq2OuV"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["SrBA7h2a1N", "1Sl4Gq2OuV"],
+        "mechanics": ["targeting", "damage", "counter", "trigger"],
+        "rulesClauses": [
+            "Deal 2 damage to target unit. That unit doesn't wake up during its controller's next wake up phase.",
+            "[Class Bonus] Whenever CARDNAME is dealt damage, put a buff counter on it."
+        ]
+    }
+}

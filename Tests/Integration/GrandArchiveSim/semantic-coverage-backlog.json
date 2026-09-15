@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-01T16:14:15+00:00",
+    "generatedAt": "2026-09-15T15:54:13+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 231,
+        "cardsWithExistingFixtures": 359,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2256,
+        "cardsNeedingSemanticCoverage": 2128,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -107,41 +107,6 @@
             "priority": 123
         },
         {
-            "cardId": "iq4d5vettc",
-            "name": "Diana, Duskstalker",
-            "type": "CHAMPION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 122
-        },
-        {
-            "cardId": "2kkvoqk1l7",
-            "name": "Smash with Obelisk",
-            "type": "ATTACK",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 121
-        },
-        {
             "cardId": "3tcs0axa03",
             "name": "Assassin's Mantle",
             "type": "REGALIA,ITEM",
@@ -185,28 +150,6 @@
             "priority": 115
         },
         {
-            "cardId": "k1l75tlzsm",
-            "name": "Essence of Blizzards",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "zthwm68lgo",
             "name": "Extraction Incision",
             "type": "ATTACK",
@@ -223,29 +166,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "FxYwR2azTt",
-            "name": "Prismatic Edge",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 115
@@ -272,28 +192,6 @@
             "priority": 115
         },
         {
-            "cardId": "kk46Whz7CJ",
-            "name": "Surveillance Stone",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
             "cardId": "fc4ic5fmaa",
             "name": "Zander, Deft Executor",
             "type": "CHAMPION",
@@ -313,46 +211,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 115
-        },
-        {
-            "cardId": "pyx8bd7ozu",
-            "name": "Archon Broadsword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "token",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "ygojwk0pw0",
-            "name": "Automaton Bomber",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
         },
         {
             "cardId": "xpnjvt9y59",
@@ -415,69 +273,6 @@
             "priority": 114
         },
         {
-            "cardId": "ojwk0pw0y6",
-            "name": "Crest of the Alliance",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "2Q60hBYO3i",
-            "name": "Crusader of Aesa",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "em6eEh9q8y",
-            "name": "Dungeon Guide",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck (Prelude)",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "2jgiM0p4dt",
             "name": "Elyan, Lustre Loyalty",
             "type": "UNIQUE,ALLY",
@@ -493,49 +288,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "iabqeB0I6t",
-            "name": "Esteemed Knight",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "w3rrii17fz",
-            "name": "Flash Freeze",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -562,26 +314,6 @@
             "priority": 114
         },
         {
-            "cardId": "plywc08c9h",
-            "name": "Imperial Sentry",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "52u81v4c0z",
             "name": "Insignia of the Corhazi",
             "type": "REGALIA,ITEM",
@@ -597,27 +329,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "iD8qbpA8z5",
-            "name": "Library Witch",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -663,47 +374,6 @@
             "priority": 114
         },
         {
-            "cardId": "IC3OU6vCnF",
-            "name": "Mana Limiter",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "cVRIUJdTW5",
-            "name": "Meadowbloom Dryad",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "llQe0cg4xJ",
             "name": "Orb of Choking Fumes",
             "type": "REGALIA,ITEM",
@@ -719,109 +389,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "l75tlzsmw3",
-            "name": "Plated Bullet",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "300z2snsdw",
-            "name": "Potion Infusion: Clarity",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "j4f15joh30",
-            "name": "Quickdraw Piercer",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "zpkcFs72Ah",
-            "name": "Smack with Flute",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "vcZSHNHvKX",
-            "name": "Spirit Blade: Ghost Strike",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -847,26 +414,6 @@
             "priority": 114
         },
         {
-            "cardId": "vnta6qsesw",
-            "name": "Take Aim",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "peyG8Hfgqt",
             "name": "Templar of the Eternal",
             "type": "ALLY",
@@ -882,26 +429,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "zb14m4c8lj",
-            "name": "Tonoris, Lone Mercenary",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -945,103 +472,6 @@
             "priority": 113
         },
         {
-            "cardId": "pn9gQjV3Rb",
-            "name": "Arcane Blast",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "ltv5klryvf",
-            "name": "Arisanna, Master Alchemist",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "gmnmp5af09",
-            "name": "Blastshot Pump",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "1Sl4Gq2OuV",
-            "name": "Blue Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "8kmoi0a5uh",
-            "name": "Bulwark Sword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "TrK2lroxkz",
             "name": "Buoyant Driftguard",
             "type": "ALLY",
@@ -1056,25 +486,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "urfp66pv4n",
-            "name": "Caretaker Drone",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1137,44 +548,6 @@
             "priority": 113
         },
         {
-            "cardId": "qxbdXU7H4Z",
-            "name": "Deep Sea Beastbonder",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "fxwy3haEXU",
-            "name": "Dewdrop Hares",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "eSAIP7mx9z",
             "name": "Drawn Blade",
             "type": "REGALIA,WEAPON",
@@ -1194,84 +567,6 @@
             "priority": 113
         },
         {
-            "cardId": "SGsDKB9CN5",
-            "name": "Endura, Scepter of Ignition",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "LROrzTmh55",
-            "name": "Fire Resonance Bauble",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "y6isxy5lh2",
-            "name": "Force Load",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "sHzSmygjWY",
-            "name": "Gaia's Songbird",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "v1jaidvvz2",
             "name": "Gem of Searing Flame",
             "type": "REGALIA,ITEM",
@@ -1286,66 +581,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "4V6qKuM7xs",
-            "name": "Hurricane Sweep",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "17fzcyfrzr",
-            "name": "Imperial Rifleman",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "c08c9htu9a",
-            "name": "Krustallan Distiller",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1390,26 +625,6 @@
             "priority": 113
         },
         {
-            "cardId": "pnDhApDNvR",
-            "name": "Magus Disciple",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "2RKjpzEFV6",
             "name": "Mendcall Mercy",
             "type": "ACTION",
@@ -1443,45 +658,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "22tk3ir1o0",
-            "name": "Novice Mechanist",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "qyQLlDYBlr",
-            "name": "Ornamental Greatsword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1528,124 +704,6 @@
             "priority": 113
         },
         {
-            "cardId": "qtb31x97n2",
-            "name": "Potion of Healing",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "recover"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "frzrplywc0",
-            "name": "Prototype Pistol",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "8c9htu9agw",
-            "name": "Prototype Staff",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "zdIhSL5RhK",
-            "name": "Rai, Archmage",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "4a7QLLouGk",
-            "name": "Savage Slash",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "0z2snsdwmx",
-            "name": "Scale of Souls",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "aj7pz79wsp",
             "name": "Scorching Imperilment",
             "type": "PHANTASIA",
@@ -1660,85 +718,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "XQKyUqsMUg",
-            "name": "Seer's Sword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "nllCALIXDT",
-            "name": "Silvie, With the Pack",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "N0ipz8UWwf",
-            "name": "Spirit Blade: Ascension",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "7Rsid05Cf6",
-            "name": "Spirit Blade: Dispersion",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1763,27 +742,6 @@
             "priority": 113
         },
         {
-            "cardId": "Dz8I0eJzaf",
-            "name": "Sword of Seeking",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "7UXGwC7lSO",
             "name": "Tactful Sergeant",
             "type": "ALLY",
@@ -1798,45 +756,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "098kmoi0a5",
-            "name": "Take Point",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "yDARN8eV6B",
-            "name": "Tome of Knowledge",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -1918,25 +837,6 @@
             "priority": 113
         },
         {
-            "cardId": "dSSRtNnPtw",
-            "name": "Water Resonance Bauble",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "bb3oeup7oq",
             "name": "Weaken Resistance",
             "type": "ACTION",
@@ -1951,47 +851,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "6gN5KjqRW5",
-            "name": "Weaponsmith",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "bHGUNMFLg9",
-            "name": "Wind Resonance Bauble",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -2033,81 +892,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 113
-        },
-        {
-            "cardId": "dIEAN4J4YS",
-            "name": "Arcanist's Prism",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "q3huqj5bba",
-            "name": "Arisanna, Astral Zenith",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "b31x97n2jn",
-            "name": "Arisanna, Herbalist Prodigy",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "moi0a5uhjx",
-            "name": "Assemble the Ancients",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
         },
         {
             "cardId": "mloejozihs",
@@ -2164,24 +948,6 @@
             "priority": 112
         },
         {
-            "cardId": "xjuCkODVRx",
-            "name": "Beastbond Boots",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "Dkq7QnrGJI",
             "name": "Besieged Slash",
             "type": "ATTACK",
@@ -2213,63 +979,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "4NkVdSx9ed",
-            "name": "Careful Study",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "qj5bbae3z4",
-            "name": "Cosmic Astroscope",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "Pr48kXnasw",
-            "name": "Cremation Ritual",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -2329,24 +1038,6 @@
             "priority": 112
         },
         {
-            "cardId": "7ozuj68m69",
-            "name": "Diana, Deadly Duelist",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "zd83net7x0",
             "name": "Disenchant",
             "type": "ACTION",
@@ -2367,42 +1058,6 @@
             "priority": 112
         },
         {
-            "cardId": "Kc5Bktw0yK",
-            "name": "Empowering Harmony",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "VV6ADdMrr5",
-            "name": "Flame-Rune Swordsman",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "szeb8zzj86",
             "name": "Fractal of Mana",
             "type": "PHANTASIA",
@@ -2416,97 +1071,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "SrBA7h2a1N",
-            "name": "Freezing Hail",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "kvoqk1l75t",
-            "name": "Heavy Swing",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "cyfrzrplyw",
-            "name": "Hypothermia",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "MECS7RHRZ8",
-            "name": "Impassioned Tutor",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "lzsmw3rrii",
-            "name": "Imperial Recruit",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -2548,44 +1112,6 @@
             "priority": 112
         },
         {
-            "cardId": "TJTeWcZnsQ",
-            "name": "Lorraine, Blademaster",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "xi74wa4x7e",
-            "name": "Materialize Munitions",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "y46R5C190v",
             "name": "Meiren of Verdancy",
             "type": "ALLY",
@@ -2599,60 +1125,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "WAFNy2lY5t",
-            "name": "Melodious Flute",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "hw8dxKAnMX",
-            "name": "Mist Resonance",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "4n1n3gygoj",
-            "name": "Neos Sight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -2674,98 +1146,6 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "rPpLwLPGaL",
-            "name": "Phalanx Captain",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "raG5r85ieO",
-            "name": "Piper's Lullaby",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "6qsesw2ugm",
-            "name": "Potion Infusion: Starlight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "rrii17fzcy",
-            "name": "Powercharged Shield",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "gPKTJKqvOI",
-            "name": "Rai, Spellcrafter",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -2802,24 +1182,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "v5klryvfq3",
-            "name": "Rousing Slam",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -2919,67 +1281,6 @@
             "priority": 112
         },
         {
-            "cardId": "F9POfB5Nah",
-            "name": "Scry the Skies",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Rai Starter Deck",
-                "Silvie Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Rai Starter Deck (Prelude)",
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "j68m69iq4d",
-            "name": "Sentinel Fabricator",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "bae3z4pyx8",
-            "name": "Serum of Wisdom",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "d4z3tj2nu8",
             "name": "Set Ablaze",
             "type": "ACTION",
@@ -2998,42 +1299,6 @@
             "priority": 112
         },
         {
-            "cardId": "5vettczb14",
-            "name": "Shadow's Twin",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "RfPP8h16Wv",
-            "name": "Silvie, Wilds Whisperer",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "3jg01o26b4",
             "name": "Slice and Dice",
             "type": "ATTACK",
@@ -3047,102 +1312,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "pNiyaGlIe7",
-            "name": "Spirit of Wind",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Jin Starter Deck",
-                "Tonoris Starter Deck",
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "wa4x7e22tk",
-            "name": "Stream of Consciousness",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "SSu2eQZFJV",
-            "name": "Sudden Steel",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)",
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "ljyevpmu6g",
-            "name": "Supply Drone",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "z1vdxi74wa",
-            "name": "Synth Disrupter",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -3167,78 +1336,6 @@
             "priority": 112
         },
         {
-            "cardId": "ta6qsesw2u",
-            "name": "Tonoris, Genesis Aegis",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "yevpmu6gvn",
-            "name": "Tonoris, Might of Humanity",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "uhjxhkurfp",
-            "name": "Trained Sharpshooter",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "G42RDwb3Ko",
-            "name": "Training Session",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "dwZvL9K0Ke",
             "name": "Trine Recursion",
             "type": "ACTION",
@@ -3252,42 +1349,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "f15joh300z",
-            "name": "Umbra Sight",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "2snsdwmxz1",
-            "name": "Umbral Tithe",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -3311,42 +1372,6 @@
             "priority": 112
         },
         {
-            "cardId": "vdxi74wa4x",
-            "name": "Violet Haze",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "z4pyx8bd7o",
-            "name": "Young Peacekeeper",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "idaRe7y3In",
             "name": "Zephyr",
             "type": "ACTION",
@@ -3365,23 +1390,6 @@
             "priority": 112
         },
         {
-            "cardId": "m4c8ljyevp",
-            "name": "Academy Attendant",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "uZCyXDNJ6I",
             "name": "Accepted Contract",
             "type": "ACTION",
@@ -3394,112 +1402,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "wOKw0q4SZR",
-            "name": "Anger the Skies",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "blq7qXGvWH",
-            "name": "Arcane Disposition",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "p5af098kmo",
-            "name": "Barter Herbs",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "JPcFmCpdiF",
-            "name": "Beastbond Ears",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "YOjdZJpOO1",
-            "name": "Blissful Calling",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "u8m6LuUSSu",
-            "name": "Blitz Mage",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -3522,42 +1424,6 @@
             "priority": 111
         },
         {
-            "cardId": "14m4c8ljye",
-            "name": "Condensed Supernova",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "dmfoA7jOjy",
-            "name": "Crystal of Empowerment",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "Q2ugqVm04E",
             "name": "Curved Dagger",
             "type": "REGALIA,WEAPON",
@@ -3570,23 +1436,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "e3z4pyx8bd",
-            "name": "Diana, Keen Huntress",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -3607,40 +1456,6 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "L0RmNaDzhk",
-            "name": "Giant Tortoise",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "hJ2xh9lNMR",
-            "name": "Gray Wolf",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -3681,111 +1496,6 @@
             "priority": 111
         },
         {
-            "cardId": "u7d6soporh",
-            "name": "Ingredient Pouch",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Starter Deck",
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "PLljzdiMmq",
-            "name": "Invoke Dominance",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "krgjMyVHRd",
-            "name": "Lakeside Serpent",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "NfbZ0nouSQ",
-            "name": "Lorraine, Crux Knight",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "vBetRTn3eW",
-            "name": "Opening Cut",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "914hZjxDL0",
-            "name": "Peer into Mana",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "uDWTjGarSL",
             "name": "Petalfall Embrace",
             "type": "ACTION",
@@ -3798,24 +1508,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "AnEPyfFfHj",
-            "name": "Power Overwhelming",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -3855,24 +1547,6 @@
             "priority": 111
         },
         {
-            "cardId": "g92bHLtTNl",
-            "name": "Rai, Storm Seer",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Rai Starter Deck",
-                "Rai Starter Deck (Prelude)"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "XDVIiIfKZk",
             "name": "Reaping Legacy",
             "type": "ATTACK",
@@ -3885,40 +1559,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "GXeEa0pe3B",
-            "name": "Rebellious Bull",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "1x97n2jnlt",
-            "name": "Recruitment Officer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -4035,40 +1675,6 @@
             "priority": 111
         },
         {
-            "cardId": "GKEpAulogu",
-            "name": "Silvie, Loved by All",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "4hbA9FT56L",
-            "name": "Song of Nurturing",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "uqrptjej4m",
             "name": "Tonic of Remembrance",
             "type": "ITEM",
@@ -4103,23 +1709,6 @@
             "priority": 111
         },
         {
-            "cardId": "dZ960Hnkzv",
-            "name": "Vertus, Gaia's Roar",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Silvie Starter Deck"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "p6120p3f5d",
             "name": "Wandering Glaivier",
             "type": "ALLY",
@@ -4133,24 +1722,6 @@
             "starterDecks": [
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "jF1VuIR7a6",
-            "name": "Warrior's Longsword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck",
-                "Lorraine Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -39872,6 +37443,28 @@
             "priority": 142
         },
         {
+            "cardId": "iq4d5vettc",
+            "name": "Diana, Duskstalker",
+            "type": "CHAMPION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "diana-duskstalker-enter-distant"
+            ],
+            "semanticFixtures": [
+                "diana-duskstalker-enter-distant"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 142
+        },
+        {
             "cardId": "O1OU62Zx2Y",
             "name": "Distilled Water",
             "type": "ITEM",
@@ -40021,6 +37614,27 @@
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 141
+        },
+        {
+            "cardId": "2kkvoqk1l7",
+            "name": "Smash with Obelisk",
+            "type": "ATTACK",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "smash-with-obelisk-domain-sacrifice-bonus"
+            ],
+            "semanticFixtures": [
+                "smash-with-obelisk-domain-sacrifice-bonus"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 141
@@ -40298,6 +37912,32 @@
                 "essence-crucible-enter-draw"
             ],
             "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "k1l75tlzsm",
+            "name": "Essence of Blizzards",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "essence-of-blizzards-brew-sacrifice-damage"
+            ],
+            "semanticFixtures": [
+                "essence-of-blizzards-brew-sacrifice-damage"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
@@ -40614,6 +38254,33 @@
             "priority": 135
         },
         {
+            "cardId": "FxYwR2azTt",
+            "name": "Prismatic Edge",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "prismatic-edge-fire-damage"
+            ],
+            "semanticFixtures": [
+                "prismatic-edge-fire-damage"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "rhlq2kkvoq",
             "name": "Rocket Jump",
             "type": "ACTION",
@@ -40713,6 +38380,32 @@
                 "Tonoris Starter Deck",
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "kk46Whz7CJ",
+            "name": "Surveillance Stone",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "surveillance-stone-third-attack-banish-draw"
+            ],
+            "semanticFixtures": [
+                "surveillance-stone-third-attack-banish-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 135
@@ -40892,6 +38585,30 @@
             "priority": 134
         },
         {
+            "cardId": "pyx8bd7ozu",
+            "name": "Archon Broadsword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "token",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "archon-broadsword-class-bonus-token-power"
+            ],
+            "semanticFixtures": [
+                "archon-broadsword-class-bonus-token-power"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "zuj68m69iq",
             "name": "Astra Sight",
             "type": "ACTION",
@@ -40912,6 +38629,30 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "ygojwk0pw0",
+            "name": "Automaton Bomber",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "automaton-bomber-ranged-attack"
+            ],
+            "semanticFixtures": [
+                "automaton-bomber-ranged-attack"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -41093,6 +38834,56 @@
             "priority": 134
         },
         {
+            "cardId": "ojwk0pw0y6",
+            "name": "Crest of the Alliance",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "crest-of-the-alliance-fostered-ally-dies-draw"
+            ],
+            "semanticFixtures": [
+                "crest-of-the-alliance-fostered-ally-dies-draw"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "2Q60hBYO3i",
+            "name": "Crusader of Aesa",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "crusader-of-aesa-enters-rested"
+            ],
+            "semanticFixtures": [
+                "crusader-of-aesa-enters-rested"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "P9Y1Q5cQ0F",
             "name": "Crux Sight",
             "type": "ACTION",
@@ -41193,6 +38984,31 @@
             "priority": 134
         },
         {
+            "cardId": "em6eEh9q8y",
+            "name": "Dungeon Guide",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dungeon-guide-enter-banish-memory-levelup"
+            ],
+            "semanticFixtures": [
+                "dungeon-guide-enter-banish-memory-levelup"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck (Prelude)",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "HHtlkEeyQR",
             "name": "Elysian Aspirant",
             "type": "ALLY",
@@ -41248,6 +39064,32 @@
             "priority": 134
         },
         {
+            "cardId": "iabqeB0I6t",
+            "name": "Esteemed Knight",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "esteemed-knight-class-bonus-intercept"
+            ],
+            "semanticFixtures": [
+                "esteemed-knight-class-bonus-intercept"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "1fy8l4pxs9",
             "name": "Exia Sight",
             "type": "ACTION",
@@ -41294,6 +39136,31 @@
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "w3rrii17fz",
+            "name": "Flash Freeze",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "flash-freeze-negate-target-card-activation"
+            ],
+            "semanticFixtures": [
+                "flash-freeze-negate-target-card-activation"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -41470,6 +39337,30 @@
             "priority": 134
         },
         {
+            "cardId": "plywc08c9h",
+            "name": "Imperial Sentry",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "imperial-sentry-class-bonus-intercept"
+            ],
+            "semanticFixtures": [
+                "imperial-sentry-class-bonus-intercept"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "zd8l14052j",
             "name": "Jin, Fate Defiant",
             "type": "CHAMPION",
@@ -41542,6 +39433,31 @@
             "priority": 134
         },
         {
+            "cardId": "iD8qbpA8z5",
+            "name": "Library Witch",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "library-witch-on-death-draw"
+            ],
+            "semanticFixtures": [
+                "library-witch-on-death-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "1XegCUjBnY",
             "name": "Life Essence Amulet",
             "type": "REGALIA,ITEM",
@@ -41575,6 +39491,31 @@
             "priority": 134
         },
         {
+            "cardId": "IC3OU6vCnF",
+            "name": "Mana Limiter",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mana-limiter-activate-draw"
+            ],
+            "semanticFixtures": [
+                "mana-limiter-activate-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "LRsgl92Iqa",
             "name": "Mark the Target",
             "type": "ACTION",
@@ -41594,6 +39535,30 @@
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "cVRIUJdTW5",
+            "name": "Meadowbloom Dryad",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "meadowbloom-dryad-class-bonus-enter-buff"
+            ],
+            "semanticFixtures": [
+                "meadowbloom-dryad-class-bonus-enter-buff"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -41698,6 +39663,55 @@
             "priority": 134
         },
         {
+            "cardId": "l75tlzsmw3",
+            "name": "Plated Bullet",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "plated-bullet-rest-load-shadows-twin-power"
+            ],
+            "semanticFixtures": [
+                "plated-bullet-rest-load-shadows-twin-power"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "300z2snsdw",
+            "name": "Potion Infusion: Clarity",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "potion-infusion-clarity-rest-grant-draw-two"
+            ],
+            "semanticFixtures": [
+                "potion-infusion-clarity-rest-grant-draw-two"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "om2ry208kk",
             "name": "Potion Infusion: Seal",
             "type": "ACTION",
@@ -41717,6 +39731,30 @@
             ],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "j4f15joh30",
+            "name": "Quickdraw Piercer",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "quickdraw-piercer-class-bonus-on-banish-draw"
+            ],
+            "semanticFixtures": [
+                "quickdraw-piercer-class-bonus-on-banish-draw"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -41872,6 +39910,56 @@
             "priority": 134
         },
         {
+            "cardId": "zpkcFs72Ah",
+            "name": "Smack with Flute",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "smack-with-flute-on-attack-level"
+            ],
+            "semanticFixtures": [
+                "smack-with-flute-on-attack-level"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "vcZSHNHvKX",
+            "name": "Spirit Blade: Ghost Strike",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "spirit-blade-ghost-strike-banish-material-power"
+            ],
+            "semanticFixtures": [
+                "spirit-blade-ghost-strike-banish-material-power"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "6wiHKD52Lw",
             "name": "Stoked Slice",
             "type": "ATTACK",
@@ -41891,6 +39979,30 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "vnta6qsesw",
+            "name": "Take Aim",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "take-aim-class-bonus-ranged-attack"
+            ],
+            "semanticFixtures": [
+                "take-aim-class-bonus-ranged-attack"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -41916,6 +40028,30 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "zb14m4c8lj",
+            "name": "Tonoris, Lone Mercenary",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tonoris-lone-mercenary-on-enter-taunt"
+            ],
+            "semanticFixtures": [
+                "tonoris-lone-mercenary-on-enter-taunt"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -41993,6 +40129,30 @@
             "priority": 133
         },
         {
+            "cardId": "pn9gQjV3Rb",
+            "name": "Arcane Blast",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "arcane-blast-damage-target-champion"
+            ],
+            "semanticFixtures": [
+                "arcane-blast-damage-target-champion"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "4kpotk5hvr",
             "name": "Ardent Cloudstriker",
             "type": "ALLY",
@@ -42012,6 +40172,30 @@
             "starterDecks": [
                 "Kongming Starter Deck",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "ltv5klryvf",
+            "name": "Arisanna, Master Alchemist",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "arisanna-master-alchemist-on-enter-gather-twice"
+            ],
+            "semanticFixtures": [
+                "arisanna-master-alchemist-on-enter-gather-twice"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42081,6 +40265,98 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "gmnmp5af09",
+            "name": "Blastshot Pump",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "blastshot-pump-class-bonus-redirect-damage"
+            ],
+            "semanticFixtures": [
+                "blastshot-pump-class-bonus-redirect-damage"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "1Sl4Gq2OuV",
+            "name": "Blue Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "freezing-hail-blue-slime-class-bonus-buff"
+            ],
+            "semanticFixtures": [
+                "freezing-hail-blue-slime-class-bonus-buff"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "8kmoi0a5uh",
+            "name": "Bulwark Sword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "bulwark-sword-class-bonus-attack-cost"
+            ],
+            "semanticFixtures": [
+                "bulwark-sword-class-bonus-attack-cost"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "urfp66pv4n",
+            "name": "Caretaker Drone",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "caretaker-drone-class-bonus-death-glimpse"
+            ],
+            "semanticFixtures": [
+                "caretaker-drone-class-bonus-death-glimpse"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42202,6 +40478,52 @@
             "priority": 133
         },
         {
+            "cardId": "qxbdXU7H4Z",
+            "name": "Deep Sea Beastbonder",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "deep-sea-beastbonder-level-while-animal-beast"
+            ],
+            "semanticFixtures": [
+                "deep-sea-beastbonder-level-while-animal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "fxwy3haEXU",
+            "name": "Dewdrop Hares",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dewdrop-hares-class-bonus-floating-memory"
+            ],
+            "semanticFixtures": [
+                "dewdrop-hares-class-bonus-floating-memory"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "iow4occyxi",
             "name": "Eminent Commander",
             "type": "ALLY",
@@ -42220,6 +40542,30 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "SGsDKB9CN5",
+            "name": "Endura, Scepter of Ignition",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "counter"
+            ],
+            "existingFixtures": [
+                "endura-scepter-rest-damage"
+            ],
+            "semanticFixtures": [
+                "endura-scepter-rest-damage"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42271,6 +40617,30 @@
             "priority": 133
         },
         {
+            "cardId": "LROrzTmh55",
+            "name": "Fire Resonance Bauble",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fire-resonance-bauble-banish-draw"
+            ],
+            "semanticFixtures": [
+                "fire-resonance-bauble-banish-draw"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "MDu0e3tib8",
             "name": "Flourishing Qi",
             "type": "ACTION",
@@ -42289,6 +40659,29 @@
             ],
             "starterDecks": [
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "y6isxy5lh2",
+            "name": "Force Load",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "combat"
+            ],
+            "existingFixtures": [
+                "force-load-bullet-into-gun"
+            ],
+            "semanticFixtures": [
+                "force-load-bullet-into-gun"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42336,6 +40729,29 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "sHzSmygjWY",
+            "name": "Gaia's Songbird",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "gaias-songbird-class-bonus-enter-reveal-beast"
+            ],
+            "semanticFixtures": [
+                "gaias-songbird-class-bonus-enter-reveal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42460,6 +40876,54 @@
             "priority": 133
         },
         {
+            "cardId": "4V6qKuM7xs",
+            "name": "Hurricane Sweep",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hurricane-sweep-class-bonus-power-attack"
+            ],
+            "semanticFixtures": [
+                "hurricane-sweep-class-bonus-power-attack"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "17fzcyfrzr",
+            "name": "Imperial Rifleman",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "imperial-rifleman-class-bonus-enter-distant"
+            ],
+            "semanticFixtures": [
+                "imperial-rifleman-class-bonus-enter-distant"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "k71PE3clOI",
             "name": "Inspiring Call",
             "type": "ACTION",
@@ -42508,6 +40972,30 @@
             "priority": 133
         },
         {
+            "cardId": "c08c9htu9a",
+            "name": "Krustallan Distiller",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "krustallan-distiller-class-bonus-brewed-draw"
+            ],
+            "semanticFixtures": [
+                "krustallan-distiller-class-bonus-brewed-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "x9sSpjpP3G",
             "name": "Lorraine, Arclight Saber",
             "type": "CHAMPION",
@@ -42526,6 +41014,30 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "pnDhApDNvR",
+            "name": "Magus Disciple",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "magus-disciple-class-bonus-on-death-draw"
+            ],
+            "semanticFixtures": [
+                "magus-disciple-class-bonus-on-death-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42577,6 +41089,29 @@
             "priority": 133
         },
         {
+            "cardId": "22tk3ir1o0",
+            "name": "Novice Mechanist",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "novice-mechanist-on-foster-summon-drone"
+            ],
+            "semanticFixtures": [
+                "novice-mechanist-on-foster-summon-drone"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "j4U5Tu76Lz",
             "name": "Optical Control",
             "type": "PHANTASIA",
@@ -42595,6 +41130,30 @@
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "qyQLlDYBlr",
+            "name": "Ornamental Greatsword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "ornamental-greatsword-enter-ally-power"
+            ],
+            "semanticFixtures": [
+                "ornamental-greatsword-enter-ally-power"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42647,6 +41206,76 @@
             "priority": 133
         },
         {
+            "cardId": "qtb31x97n2",
+            "name": "Potion of Healing",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "recover"
+            ],
+            "existingFixtures": [
+                "potion-of-healing-brew-sacrifice-recover"
+            ],
+            "semanticFixtures": [
+                "potion-of-healing-brew-sacrifice-recover"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "frzrplywc0",
+            "name": "Prototype Pistol",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "prototype-pistol-class-bonus-enter-power"
+            ],
+            "semanticFixtures": [
+                "prototype-pistol-class-bonus-enter-power"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "8c9htu9agw",
+            "name": "Prototype Staff",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "prototype-staff-rest-bottom-draw"
+            ],
+            "semanticFixtures": [
+                "prototype-staff-rest-bottom-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "172utOanGk",
             "name": "Pure Cytosynth",
             "type": "ALLY",
@@ -42690,6 +41319,30 @@
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "zdIhSL5RhK",
+            "name": "Rai, Archmage",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rai-archmage-inherited-first-mage-action-enlighten"
+            ],
+            "semanticFixtures": [
+                "rai-archmage-inherited-first-mage-action-enlighten"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42787,6 +41440,31 @@
             "priority": 133
         },
         {
+            "cardId": "4a7QLLouGk",
+            "name": "Savage Slash",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "savage-slash-class-bonus-floating-memory"
+            ],
+            "semanticFixtures": [
+                "savage-slash-class-bonus-floating-memory"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "vk56lbihtc",
             "name": "Savage Swing",
             "type": "ATTACK",
@@ -42805,6 +41483,75 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "0z2snsdwmx",
+            "name": "Scale of Souls",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "scale-of-souls-rest-return-memory"
+            ],
+            "semanticFixtures": [
+                "scale-of-souls-rest-return-memory"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "XQKyUqsMUg",
+            "name": "Seer's Sword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "seers-sword-class-bonus-glimpse-attack"
+            ],
+            "semanticFixtures": [
+                "seers-sword-class-bonus-glimpse-attack"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "nllCALIXDT",
+            "name": "Silvie, With the Pack",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "silvie-with-the-pack-on-enter-draw-animal-beast"
+            ],
+            "semanticFixtures": [
+                "silvie-with-the-pack-on-enter-draw-animal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42922,6 +41669,55 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "N0ipz8UWwf",
+            "name": "Spirit Blade: Ascension",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "spirit-blade-ascension-swap-sword"
+            ],
+            "semanticFixtures": [
+                "spirit-blade-ascension-swap-sword"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "7Rsid05Cf6",
+            "name": "Spirit Blade: Dispersion",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "spirit-blade-dispersion-split-damage"
+            ],
+            "semanticFixtures": [
+                "spirit-blade-dispersion-split-damage"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -43069,6 +41865,31 @@
             "priority": 133
         },
         {
+            "cardId": "Dz8I0eJzaf",
+            "name": "Sword of Seeking",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sword-of-seeking-class-bonus-true-sight"
+            ],
+            "semanticFixtures": [
+                "sword-of-seeking-class-bonus-true-sight"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "2ugmnmp5af",
             "name": "Take Cover",
             "type": "ACTION",
@@ -43087,6 +41908,29 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "098kmoi0a5",
+            "name": "Take Point",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "take-point-champion-taunt-next-turn"
+            ],
+            "semanticFixtures": [
+                "take-point-champion-taunt-next-turn"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -43121,6 +41965,78 @@
             "priority": 133
         },
         {
+            "cardId": "yDARN8eV6B",
+            "name": "Tome of Knowledge",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tome-of-knowledge-banish-draw"
+            ],
+            "semanticFixtures": [
+                "tome-of-knowledge-banish-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "dSSRtNnPtw",
+            "name": "Water Resonance Bauble",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "water-resonance-bauble-banish-draw"
+            ],
+            "semanticFixtures": [
+                "water-resonance-bauble-banish-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "6gN5KjqRW5",
+            "name": "Weaponsmith",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "weaponsmith-class-bonus-durability"
+            ],
+            "semanticFixtures": [
+                "weaponsmith-class-bonus-durability"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "TgYTZg6TaG",
             "name": "Wind Cutter",
             "type": "ATTACK",
@@ -43142,6 +42058,30 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "bHGUNMFLg9",
+            "name": "Wind Resonance Bauble",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "wind-resonance-bauble-banish-draw"
+            ],
+            "semanticFixtures": [
+                "wind-resonance-bauble-banish-draw"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck",
+                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -43169,6 +42109,119 @@
             ],
             "needsSemanticCoverage": false,
             "priority": 133
+        },
+        {
+            "cardId": "dIEAN4J4YS",
+            "name": "Arcanist's Prism",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "arcanists-prism-recollection-wheel-draw"
+            ],
+            "semanticFixtures": [
+                "arcanists-prism-recollection-wheel-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "q3huqj5bba",
+            "name": "Arisanna, Astral Zenith",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "arisanna-astral-zenith-free-starcalling"
+            ],
+            "semanticFixtures": [
+                "arisanna-astral-zenith-free-starcalling"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "b31x97n2jn",
+            "name": "Arisanna, Herbalist Prodigy",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "arisanna-herbalist-prodigy-on-enter-gather-twice"
+            ],
+            "semanticFixtures": [
+                "arisanna-herbalist-prodigy-on-enter-gather-twice"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "moi0a5uhjx",
+            "name": "Assemble the Ancients",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "token"
+            ],
+            "existingFixtures": [
+                "assemble-the-ancients-domain-sacrifice-tokens"
+            ],
+            "semanticFixtures": [
+                "assemble-the-ancients-domain-sacrifice-tokens"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "xjuCkODVRx",
+            "name": "Beastbond Boots",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "beastbond-boots-banish-spellshroud"
+            ],
+            "semanticFixtures": [
+                "beastbond-boots-banish-spellshroud"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
         },
         {
             "cardId": "yHIeIwxWde",
@@ -43210,6 +42263,75 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "4NkVdSx9ed",
+            "name": "Careful Study",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "careful-study-enlighten-counters"
+            ],
+            "semanticFixtures": [
+                "careful-study-enlighten-counters"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "qj5bbae3z4",
+            "name": "Cosmic Astroscope",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cosmic-astroscope-rest-glimpse"
+            ],
+            "semanticFixtures": [
+                "cosmic-astroscope-rest-glimpse"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "Pr48kXnasw",
+            "name": "Cremation Ritual",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "cremation-ritual-sacrifice-draw"
+            ],
+            "semanticFixtures": [
+                "cremation-ritual-sacrifice-draw"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43282,6 +42404,50 @@
             "priority": 132
         },
         {
+            "cardId": "7ozuj68m69",
+            "name": "Diana, Deadly Duelist",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "diana-deadly-duelist-enter-materialize-bullet"
+            ],
+            "semanticFixtures": [
+                "diana-deadly-duelist-enter-materialize-bullet"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "Kc5Bktw0yK",
+            "name": "Empowering Harmony",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "empowering-harmony-level"
+            ],
+            "semanticFixtures": [
+                "empowering-harmony-level"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "dsAqxMezGb",
             "name": "Favorable Winds",
             "type": "ACTION",
@@ -43302,6 +42468,72 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "VV6ADdMrr5",
+            "name": "Flame-Rune Swordsman",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "flame-rune-swordsman-class-bonus-floating-memory"
+            ],
+            "semanticFixtures": [
+                "flame-rune-swordsman-class-bonus-floating-memory"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "SrBA7h2a1N",
+            "name": "Freezing Hail",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "freezing-hail-blue-slime-class-bonus-buff"
+            ],
+            "semanticFixtures": [
+                "freezing-hail-blue-slime-class-bonus-buff"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "kvoqk1l75t",
+            "name": "Heavy Swing",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "heavy-swing-class-bonus-discount"
+            ],
+            "semanticFixtures": [
+                "heavy-swing-class-bonus-discount"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43331,6 +42563,28 @@
             "priority": 132
         },
         {
+            "cardId": "cyfrzrplyw",
+            "name": "Hypothermia",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status"
+            ],
+            "existingFixtures": [
+                "hypothermia-target-rested-ally-life"
+            ],
+            "semanticFixtures": [
+                "hypothermia-target-rested-ally-life"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "rWhFC8XBaH",
             "name": "Idle Thoughts",
             "type": "ACTION",
@@ -43354,6 +42608,51 @@
                 "Arisanna Pantheon Starter",
                 "Kongming Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "MECS7RHRZ8",
+            "name": "Impassioned Tutor",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "impassioned-tutor-on-attack-level"
+            ],
+            "semanticFixtures": [
+                "impassioned-tutor-on-attack-level"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "lzsmw3rrii",
+            "name": "Imperial Recruit",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "imperial-recruit-fostered-power"
+            ],
+            "semanticFixtures": [
+                "imperial-recruit-fostered-power"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43427,6 +42726,30 @@
             "priority": 132
         },
         {
+            "cardId": "TJTeWcZnsQ",
+            "name": "Lorraine, Blademaster",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "lorraine-blademaster-enter-attack-buff"
+            ],
+            "semanticFixtures": [
+                "lorraine-blademaster-enter-attack-buff"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "DpHDGaX2Pn",
             "name": "Lorraine, Wandering Warrior",
             "type": "CHAMPION",
@@ -43447,6 +42770,28 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "xi74wa4x7e",
+            "name": "Materialize Munitions",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "materialize-munitions-class-bonus-discount"
+            ],
+            "semanticFixtures": [
+                "materialize-munitions-class-bonus-discount"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43474,6 +42819,95 @@
             "priority": 132
         },
         {
+            "cardId": "WAFNy2lY5t",
+            "name": "Melodious Flute",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "melodious-flute-level-while-animal-beast"
+            ],
+            "semanticFixtures": [
+                "melodious-flute-level-while-animal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "hw8dxKAnMX",
+            "name": "Mist Resonance",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mist-resonance-allies-life"
+            ],
+            "semanticFixtures": [
+                "mist-resonance-allies-life"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "4n1n3gygoj",
+            "name": "Neos Sight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "neos-sight-eight-objects-memory-draw"
+            ],
+            "semanticFixtures": [
+                "neos-sight-eight-objects-memory-draw"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "rPpLwLPGaL",
+            "name": "Phalanx Captain",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "phalanx-captain-class-bonus-human-discount"
+            ],
+            "semanticFixtures": [
+                "phalanx-captain-class-bonus-human-discount"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "yguf3aw2ct",
             "name": "Pierce the Heavens",
             "type": "ATTACK",
@@ -43491,6 +42925,95 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "raG5r85ieO",
+            "name": "Piper's Lullaby",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "pipers-lullaby-class-bonus-level-rest"
+            ],
+            "semanticFixtures": [
+                "pipers-lullaby-class-bonus-level-rest"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "6qsesw2ugm",
+            "name": "Potion Infusion: Starlight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "potion-infusion-starlight-rest-grant-champion-level"
+            ],
+            "semanticFixtures": [
+                "potion-infusion-starlight-rest-grant-champion-level"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "rrii17fzcy",
+            "name": "Powercharged Shield",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "powercharged-shield-banish-taunt-vigor"
+            ],
+            "semanticFixtures": [
+                "powercharged-shield-banish-taunt-vigor"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "gPKTJKqvOI",
+            "name": "Rai, Spellcrafter",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "rai-spellcrafter-on-enter-enlighten"
+            ],
+            "semanticFixtures": [
+                "rai-spellcrafter-on-enter-enlighten"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43518,6 +43041,123 @@
             "priority": 132
         },
         {
+            "cardId": "v5klryvfq3",
+            "name": "Rousing Slam",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "rousing-slam-class-bonus-level-2-on-attack-vigor-taunt"
+            ],
+            "semanticFixtures": [
+                "rousing-slam-class-bonus-level-2-on-attack-vigor-taunt"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "F9POfB5Nah",
+            "name": "Scry the Skies",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "scry-the-skies-glimpse-lv-draw"
+            ],
+            "semanticFixtures": [
+                "scry-the-skies-glimpse-lv-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Rai Starter Deck",
+                "Silvie Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Rai Starter Deck (Prelude)",
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "j68m69iq4d",
+            "name": "Sentinel Fabricator",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "token"
+            ],
+            "existingFixtures": [
+                "sentinel-fabricator-summon-buffed-drone"
+            ],
+            "semanticFixtures": [
+                "sentinel-fabricator-summon-buffed-drone"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "bae3z4pyx8",
+            "name": "Serum of Wisdom",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "serum-of-wisdom-brew-sacrifice-glimpse-draw"
+            ],
+            "semanticFixtures": [
+                "serum-of-wisdom-brew-sacrifice-glimpse-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "5vettczb14",
+            "name": "Shadow's Twin",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "plated-bullet-rest-load-shadows-twin-power"
+            ],
+            "semanticFixtures": [
+                "plated-bullet-rest-load-shadows-twin-power"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "qqq8j5fxym",
             "name": "Shard of Empowerment",
             "type": "REGALIA,ITEM",
@@ -43536,6 +43176,28 @@
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck",
                 "Kongming Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "RfPP8h16Wv",
+            "name": "Silvie, Wilds Whisperer",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "silvie-wilds-whisperer-on-enter-buff-next-animal-beast"
+            ],
+            "semanticFixtures": [
+                "silvie-wilds-whisperer-on-enter-buff-next-animal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43594,6 +43256,122 @@
             "priority": 132
         },
         {
+            "cardId": "pNiyaGlIe7",
+            "name": "Spirit of Wind",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "spirit-of-wind-enter-draw-seven"
+            ],
+            "semanticFixtures": [
+                "spirit-of-wind-enter-draw-seven"
+            ],
+            "starterDecks": [
+                "Jin Starter Deck",
+                "Tonoris Starter Deck",
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "wa4x7e22tk",
+            "name": "Stream of Consciousness",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "stream-of-consciousness-draw-into-memory"
+            ],
+            "semanticFixtures": [
+                "stream-of-consciousness-draw-into-memory"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "SSu2eQZFJV",
+            "name": "Sudden Steel",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sudden-steel-class-bonus-efficiency"
+            ],
+            "semanticFixtures": [
+                "sudden-steel-class-bonus-efficiency"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)",
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "ljyevpmu6g",
+            "name": "Supply Drone",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "supply-drone-class-bonus-recollection-materialize"
+            ],
+            "semanticFixtures": [
+                "supply-drone-class-bonus-recollection-materialize"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "z1vdxi74wa",
+            "name": "Synth Disrupter",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status"
+            ],
+            "existingFixtures": [
+                "synth-disrupter-banish-automaton-rested"
+            ],
+            "semanticFixtures": [
+                "synth-disrupter-banish-automaton-rested"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "2Ojrn7buPe",
             "name": "Tera Sight",
             "type": "ACTION",
@@ -43618,6 +43396,94 @@
             "priority": 132
         },
         {
+            "cardId": "ta6qsesw2u",
+            "name": "Tonoris, Genesis Aegis",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "token"
+            ],
+            "existingFixtures": [
+                "tonoris-genesis-aegis-recollection-obelisk"
+            ],
+            "semanticFixtures": [
+                "tonoris-genesis-aegis-recollection-obelisk"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "yevpmu6gvn",
+            "name": "Tonoris, Might of Humanity",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "tonoris-might-of-humanity-on-enter-next-attack-power"
+            ],
+            "semanticFixtures": [
+                "tonoris-might-of-humanity-on-enter-next-attack-power"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "uhjxhkurfp",
+            "name": "Trained Sharpshooter",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "trained-sharpshooter-class-bonus-ranged-attack"
+            ],
+            "semanticFixtures": [
+                "trained-sharpshooter-class-bonus-ranged-attack"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "G42RDwb3Ko",
+            "name": "Training Session",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter"
+            ],
+            "existingFixtures": [
+                "training-session-buff-counter"
+            ],
+            "semanticFixtures": [
+                "training-session-buff-counter"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "FCbKYZcbNq",
             "name": "Trusty Steed",
             "type": "ALLY",
@@ -43636,6 +43502,50 @@
             "starterDecks": [
                 "Jin Starter Deck",
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "f15joh300z",
+            "name": "Umbra Sight",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "umbra-sight-curse-lineage-damage"
+            ],
+            "semanticFixtures": [
+                "umbra-sight-curse-lineage-damage"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "2snsdwmxz1",
+            "name": "Umbral Tithe",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage"
+            ],
+            "existingFixtures": [
+                "umbral-tithe-memory-damage"
+            ],
+            "semanticFixtures": [
+                "umbral-tithe-memory-damage"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43690,6 +43600,115 @@
             "priority": 132
         },
         {
+            "cardId": "vdxi74wa4x",
+            "name": "Violet Haze",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "status"
+            ],
+            "existingFixtures": [
+                "violet-haze-distant-lineage"
+            ],
+            "semanticFixtures": [
+                "violet-haze-distant-lineage"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "z4pyx8bd7o",
+            "name": "Young Peacekeeper",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "young-peacekeeper-fostered-power-life"
+            ],
+            "semanticFixtures": [
+                "young-peacekeeper-fostered-power-life"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "m4c8ljyevp",
+            "name": "Academy Attendant",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "academy-attendant-class-bonus-memory-power"
+            ],
+            "semanticFixtures": [
+                "academy-attendant-class-bonus-memory-power"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "wOKw0q4SZR",
+            "name": "Anger the Skies",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "anger-the-skies-damage-all-allies"
+            ],
+            "semanticFixtures": [
+                "anger-the-skies-damage-all-allies"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "blq7qXGvWH",
+            "name": "Arcane Disposition",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "arcane-disposition-draw-discard-flag"
+            ],
+            "semanticFixtures": [
+                "arcane-disposition-draw-discard-flag"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "XLrHaYV9VB",
             "name": "Arcane Sight",
             "type": "ACTION",
@@ -43738,6 +43757,28 @@
             "priority": 131
         },
         {
+            "cardId": "p5af098kmo",
+            "name": "Barter Herbs",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token"
+            ],
+            "existingFixtures": [
+                "barter-herbs-sacrifice-summon"
+            ],
+            "semanticFixtures": [
+                "barter-herbs-sacrifice-summon"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "Z9TCpaMJTc",
             "name": "Bauble of Abundance",
             "type": "REGALIA,ITEM",
@@ -43758,6 +43799,48 @@
                 "Jin Starter Deck",
                 "Kongming Starter Deck",
                 "Lorraine Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "JPcFmCpdiF",
+            "name": "Beastbond Ears",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "beastbond-ears-level-while-animal-beast"
+            ],
+            "semanticFixtures": [
+                "beastbond-ears-level-while-animal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "YOjdZJpOO1",
+            "name": "Blissful Calling",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "blissful-calling-look-5-reveal-animal-beast"
+            ],
+            "semanticFixtures": [
+                "blissful-calling-look-5-reveal-animal-beast"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -43784,6 +43867,50 @@
             "priority": 131
         },
         {
+            "cardId": "u8m6LuUSSu",
+            "name": "Blitz Mage",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "blitz-mage-vanilla-stats"
+            ],
+            "semanticFixtures": [
+                "blitz-mage-vanilla-stats"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "14m4c8ljye",
+            "name": "Condensed Supernova",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage"
+            ],
+            "existingFixtures": [
+                "condensed-supernova-brew-sacrifice-damage-glimpse"
+            ],
+            "semanticFixtures": [
+                "condensed-supernova-brew-sacrifice-damage-glimpse"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "KCXN59ldAi",
             "name": "Creative Tinder",
             "type": "ACTION",
@@ -43800,6 +43927,134 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "dmfoA7jOjy",
+            "name": "Crystal of Empowerment",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "crystal-of-empowerment-banish-level"
+            ],
+            "semanticFixtures": [
+                "crystal-of-empowerment-banish-level"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "e3z4pyx8bd",
+            "name": "Diana, Keen Huntress",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "diana-keen-huntress-lineage-release-materialize-gun"
+            ],
+            "semanticFixtures": [
+                "diana-keen-huntress-lineage-release-materialize-gun"
+            ],
+            "starterDecks": [
+                "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "L0RmNaDzhk",
+            "name": "Giant Tortoise",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "giant-tortoise-vanilla-stats"
+            ],
+            "semanticFixtures": [
+                "giant-tortoise-vanilla-stats"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "hJ2xh9lNMR",
+            "name": "Gray Wolf",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "gray-wolf-pride-2-attack-rejected"
+            ],
+            "semanticFixtures": [
+                "gray-wolf-pride-2-attack-rejected"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "u7d6soporh",
+            "name": "Ingredient Pouch",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token"
+            ],
+            "existingFixtures": [
+                "ingredient-pouch-rest-gather"
+            ],
+            "semanticFixtures": [
+                "ingredient-pouch-rest-gather"
+            ],
+            "starterDecks": [
+                "Arisanna Starter Deck",
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "PLljzdiMmq",
+            "name": "Invoke Dominance",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "invoke-dominance-level-lock-non-ally"
+            ],
+            "semanticFixtures": [
+                "invoke-dominance-level-lock-non-ally"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -43869,6 +44124,220 @@
             "priority": 131
         },
         {
+            "cardId": "krgjMyVHRd",
+            "name": "Lakeside Serpent",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "lakeside-serpent-class-bonus-water-graveyard-power"
+            ],
+            "semanticFixtures": [
+                "lakeside-serpent-class-bonus-water-graveyard-power"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "NfbZ0nouSQ",
+            "name": "Lorraine, Crux Knight",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "lorraine-crux-knight-banished-weapon-power"
+            ],
+            "semanticFixtures": [
+                "lorraine-crux-knight-banished-weapon-power"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "vBetRTn3eW",
+            "name": "Opening Cut",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "opening-cut-class-bonus-memory-power"
+            ],
+            "semanticFixtures": [
+                "opening-cut-class-bonus-memory-power"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "914hZjxDL0",
+            "name": "Peer into Mana",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "peer-into-mana-enlighten-counters"
+            ],
+            "semanticFixtures": [
+                "peer-into-mana-enlighten-counters"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "AnEPyfFfHj",
+            "name": "Power Overwhelming",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter"
+            ],
+            "existingFixtures": [
+                "power-overwhelming-remove-enlighten-level"
+            ],
+            "semanticFixtures": [
+                "power-overwhelming-remove-enlighten-level"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "g92bHLtTNl",
+            "name": "Rai, Storm Seer",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "rai-storm-seer-level-per-arcane-mage-spell-banished"
+            ],
+            "semanticFixtures": [
+                "rai-storm-seer-level-per-arcane-mage-spell-banished"
+            ],
+            "starterDecks": [
+                "Rai Starter Deck",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "GXeEa0pe3B",
+            "name": "Rebellious Bull",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status"
+            ],
+            "existingFixtures": [
+                "rebellious-bull-enters-rested"
+            ],
+            "semanticFixtures": [
+                "rebellious-bull-enters-rested"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "1x97n2jnlt",
+            "name": "Recruitment Officer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "recruitment-officer-class-bonus-on-foster-look-top-5"
+            ],
+            "semanticFixtures": [
+                "recruitment-officer-class-bonus-on-foster-look-top-5"
+            ],
+            "starterDecks": [
+                "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "GKEpAulogu",
+            "name": "Silvie, Loved by All",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "silvie-loved-by-all-animal-beast-life-intercept"
+            ],
+            "semanticFixtures": [
+                "silvie-loved-by-all-animal-beast-life-intercept"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "4hbA9FT56L",
+            "name": "Song of Nurturing",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "song-of-nurturing-class-bonus-life-power"
+            ],
+            "semanticFixtures": [
+                "song-of-nurturing-class-bonus-life-power"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "fvnvknj4dd",
             "name": "Steel Halberd",
             "type": "REGALIA,WEAPON",
@@ -43885,6 +44354,49 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "dZ960Hnkzv",
+            "name": "Vertus, Gaia's Roar",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "vertus-gaias-roar-class-bonus-enter-power-buff"
+            ],
+            "semanticFixtures": [
+                "vertus-gaias-roar-class-bonus-enter-power-buff"
+            ],
+            "starterDecks": [
+                "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "jF1VuIR7a6",
+            "name": "Warrior's Longsword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "warriors-longsword-class-bonus-power"
+            ],
+            "semanticFixtures": [
+                "warriors-longsword-class-bonus-power"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck",
+                "Lorraine Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
