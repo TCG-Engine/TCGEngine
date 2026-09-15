@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **357**
+Cards linked to an existing fixture: **359**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2130**
+Implemented cards still needing semantic coverage: **2128**
 
 ## Mechanic groups
 
@@ -38,7 +38,6 @@ Implemented cards still needing semantic coverage: **2130**
 | Cleansing Reunion (`xpnjvt9y59`) | ACTION | 1 | cost, targeting, status, condition | Lorraine Pantheon Starter | — |
 | Convalescent Tonic (`l8ao8bls6g`) | ITEM | 1 | cost, recover, draw-discard, zone-movement | Arisanna Pantheon Starter | — |
 | Corhazi Lightblade (`2Ch1Gp3jEL`) | ALLY | 1 | damage, combat, trigger, condition | Zander Pantheon Starter | — |
-| Dungeon Guide (`em6eEh9q8y`) | ALLY | 1 | cost, zone-movement, trigger, condition | Lorraine Starter Deck (Prelude), Rai Starter Deck (Prelude) | — |
 | Elyan, Lustre Loyalty (`2jgiM0p4dt`) | UNIQUE,ALLY | 1 | recover, status, trigger, condition | Zander Pantheon Starter | — |
 | Hasty Messenger (`DsiRzt0trX`) | ALLY | 1 | draw-discard, combat, trigger, condition | Kongming Pantheon Starter, Zander Pantheon Starter | — |
 | Insignia of the Corhazi (`52u81v4c0z`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, counter, trigger | Zander Pantheon Starter | — |
@@ -62,7 +61,6 @@ Implemented cards still needing semantic coverage: **2130**
 | Photic Blade (`NRBO0nVMdl`) | REGALIA,WEAPON | 1 | recover, counter, trigger | Zander Pantheon Starter | — |
 | Piquant Shieldbearer (`Cvvvxlf0hi`) | ALLY | 1 | status, combat, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
 | Scorching Imperilment (`aj7pz79wsp`) | PHANTASIA | 1 | cost, draw-discard, condition | Zander Pantheon Starter | — |
-| Seer's Sword (`XQKyUqsMUg`) | REGALIA,WEAPON | 1 | zone-movement, combat, trigger | Lorraine Starter Deck (Prelude) | — |
 | Strike of Singularity (`AMv1u54B2s`) | ATTACK | 1 | damage, combat, condition | Zander Pantheon Starter | — |
 | Tactful Sergeant (`7UXGwC7lSO`) | ALLY | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
 | Twinstar Tonic (`yBDxSHkT1s`) | ITEM | 1 | targeting, trigger, condition | Arisanna Pantheon Starter | — |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **2130**
 | Bathe in Light (`d9zax2g20h`) | ACTION | 1 | damage, recover | Zander Pantheon Starter | — |
 | Beacon Knight (`sucwQ9or0n`) | ALLY | 1 | counter, trigger | Lorraine Pantheon Starter | — |
 | Besieged Slash (`Dkq7QnrGJI`) | ATTACK | 1 | cost, condition | Lorraine Pantheon Starter | — |
+| Bolstering Tempest (`PwHub76Fw4`) | ACTION | 1 | cost, targeting | Lorraine Pantheon Starter | — |
+| Cunning Broker (`oy34bro89w`) | ALLY | 1 | draw-discard, status | Zander Pantheon Starter | — |

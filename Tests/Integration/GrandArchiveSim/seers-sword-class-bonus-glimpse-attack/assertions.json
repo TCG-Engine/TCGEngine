@@ -1,0 +1,9 @@
+[
+    {"step":7,"type":"decision_queue_empty","player":"all"},
+    {"step":7,"type":"card_property_equals","mzId":"p1Field-0","property":"Counters","value":"{\"_champCombatDamageDealtThisTurn\":1}","semantic":true,"label":"The champion actually attacked (wielding Seer's Sword), which is what triggers its On Attack ability"},
+    {"step":7,"type":"card_property_equals","mzId":"p1GlobalEffects-0","property":"CardID","value":"CHAMP_DEALT_COMBAT_DMG","semantic":true,"label":"Combat damage was dealt, confirming the attack (and thus the On Attack trigger) resolved"},
+    {"step":7,"type":"card_property_equals","mzId":"p2Field-0","property":"Damage","value":"1","semantic":true,"label":"The attack connected for 1 combat damage"},
+    {"step":7,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":4,"semantic":true,"label":"Glimpse 2 only looks and reorders the top of the deck -- count is unchanged from immediately before the Glimpse decision (also 4, after the turn-2 draw step)"},
+    {"step":7,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":8},
+    {"step":7,"type":"zone_count","zone":"theirHand","viewerPlayerID":1,"value":8}
+]
