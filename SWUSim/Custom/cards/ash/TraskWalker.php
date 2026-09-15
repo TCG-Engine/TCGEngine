@@ -33,12 +33,7 @@ $customDQHandlers["ASH_133#1"] = function($player, $parts, $lastDecision) {
         SWUReturnFromDiscardToHand(intval($player), $discardMz);
     } else {
         // Bottom of deck + heal 3 from base.
-        $o->removed = true;
-        DecisionQueueController::CleanupRemovedCards();
-        $deck = &GetDeck(intval($player));
-        $deck[] = new Deck($cardID, 'Deck', intval($player));
-        foreach ($deck as $i => $c) { $c->mzIndex = $i; }
-        SWULogToDeck(intval($player), [$cardID], 'discard', 'bottom');   // game log: public zone, named
+        SWUMoveCardToDeck(intval($player), $discardMz, 'bottom');   // public zone, named
         OnHealBase(intval($player), intval($player), 3);
     }
 };

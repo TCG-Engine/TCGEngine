@@ -320,3 +320,32 @@ WithP2SpaceArena: SOR_225:1:0
 P2SPACEARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:1:READY
 P2BASEDMG:2
+
+---
+
+# TwinSuns_OfferSpansEverySeat_TheTeammatesUnitIncluded
+#// "Exhaust A unit" is unqualified — every seat's units, a teammate's included. The pool was built from
+#// my*/their* zones, and their* is the OPPONENT fan-out, so at four seats (teams 1+3 vs 2+4) the teammate's
+#// unit was never offered. P1 plays SHD_178 (cost 1) and deals its 2 to seat 2's SHD_095; Tobias's offer
+#// is left pending: the three cost-1 bodies on seats 2, 3 and 4 (Tobias himself costs 4).
+#// (Found 2026-09-12 while converting Tobias's round to a per-copy budget.)
+## GIVEN
+CommonSetup: rrk/rrk
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 1
+WithP1GroundArena: SHD_217:1:0
+WithP1Hand: SHD_178
+WithP2GroundArena: SHD_095:1:0
+WithP3GroundArena: SHD_095:1:0
+WithP4GroundArena: SHD_095:1:0
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p2GroundArena-0
+## EXPECT
+SEATCOUNT:4
+P1SELECTABLEEXACT:p2GroundArena-0&p3GroundArena-0&p4GroundArena-0

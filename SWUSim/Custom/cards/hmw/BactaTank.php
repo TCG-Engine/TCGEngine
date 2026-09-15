@@ -91,16 +91,9 @@ $customDQHandlers["HMW_037#2"] = function($player, $parts, $lastDecision) {
     if (!SWUDecisionDeclined($lastDecision)) {
         $o = GetZoneObject((string)$lastDecision);
         if (!SWUObjGone($o)) {
-            $cid = (string)($o->CardID ?? '');
-            $o->removed = true;
-            DecisionQueueController::CleanupRemovedCards();
-            // TOP of the deck is index 0 — the engine's deck-top convention everywhere (DoDrawCard,
-            // DoScry, the look-at-top family, and WithP{n}Deck's first entry). Reindex after the
-            // unshift so every mzIndex still matches its slot.
-            $deck = &GetDeck(intval($player));
-            array_unshift($deck, new Deck($cid, 'Deck', intval($player)));
-            foreach ($deck as $i => $c) { $c->mzIndex = $i; }
-            SWULogToDeck(intval($player), [$cid], 'discard', 'top');   // game log: public zone, named
+            // TOP of the deck is index 0 — the engine's deck-top convention everywhere (DoDrawCard, DoScry,
+            // the look-at-top family, and WithP{n}Deck's first entry). Public zone, named.
+            SWUMoveCardToDeck(intval($player), (string)$lastDecision, 'top');
         }
     }
     SWUAfterAction(intval($player));

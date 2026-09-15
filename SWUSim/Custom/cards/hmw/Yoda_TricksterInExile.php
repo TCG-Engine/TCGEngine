@@ -34,13 +34,6 @@ $customDQHandlers["HMW_056#0"] = function($player, $parts, $lastDecision) {
     $mz = _SWUFindSelfInDiscardMzID(intval($player), 'HMW_056');
     $o = $mz !== null ? GetZoneObject($mz) : null;
     if (SWUObjGone($o)) return;                         // left the discard before the answer — no heal
-    $cid = (string)($o->CardID ?? '');
-    $o->removed = true;
-    DecisionQueueController::CleanupRemovedCards();
-    // TOP of the deck is index 0 (the engine-wide convention); reindex after the unshift.
-    $deck = &GetDeck(intval($player));
-    array_unshift($deck, new Deck($cid, 'Deck', intval($player)));
-    foreach ($deck as $i => $c) { $c->mzIndex = $i; }
-    SWULogToDeck(intval($player), [$cid], 'discard', 'top');   // game log: public zone, named
+    SWUMoveCardToDeck(intval($player), $mz, 'top');   // TOP of the deck is index 0; public zone, named
     OnHealBase(intval($player), intval($player), 2);
 };

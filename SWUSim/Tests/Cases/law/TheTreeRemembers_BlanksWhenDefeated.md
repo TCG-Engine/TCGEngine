@@ -1,26 +1,24 @@
-# LAW_132 The Tree Remembers — a blanked unit fires NO When Defeated.
-#
-# Bug report #1027 (game 4162): "Tree Remembers not blanking Droid Missile Platform's When Defeated."
-#
-# THE CARDS, and they interlock exactly:
-#   LAW_132 The Tree Remembers (cost 4) — "An enemy unit loses all abilities for this phase. If it costs
-#                                          3 or less, defeat it."
-#   JTL_162 Droid Missile Platform (cost 3) — "When Defeated: Deal 3 indirect damage to a player."
-# Cost exactly 3 means one card does BOTH: it blanks the unit and then defeats it, so the ability is
-# already gone when the defeat that would have used it happens. Official ruling (03/27/2026) underlines
-# how total the loss is — "Losing all abilities means the chosen unit also can't gain abilities for this
-# phase."
-#
-# ROOT CAUSE. `CollectWhenDefeatedTriggers` (GameLogic.php) gated the trigger on
-#     HasWhenDefeatedAbility($d['cardID']) && !_SWUGalenSuppressesCard(...)
-# — a PRINTED-CardID lookup plus ONE hand-written special case, for SEC_046 Galen Erso's name-based
-# blanking. It never called `LostAbilities()`, even though that helper already recognises the 'LAW_132'
-# TurnEffect token this card stamps. So every GENERIC "loses all abilities" effect left the When
-# Defeated firing: LAW_132, SOR_138, JTL_244, JTL_018, SHD_072, SEC_054, TWI_255.
-# ⚠ Galen having its own special case is exactly what made this look covered.
-
----
-
+#// LAW_132 The Tree Remembers — a blanked unit fires NO When Defeated.
+#//
+#// Bug report #1027 (game 4162): "Tree Remembers not blanking Droid Missile Platform's When Defeated."
+#//
+#// THE CARDS, and they interlock exactly:
+#//   LAW_132 The Tree Remembers (cost 4) — "An enemy unit loses all abilities for this phase. If it costs
+#//                                          3 or less, defeat it."
+#//   JTL_162 Droid Missile Platform (cost 3) — "When Defeated: Deal 3 indirect damage to a player."
+#// Cost exactly 3 means one card does BOTH: it blanks the unit and then defeats it, so the ability is
+#// already gone when the defeat that would have used it happens. Official ruling (03/27/2026) underlines
+#// how total the loss is — "Losing all abilities means the chosen unit also can't gain abilities for this
+#// phase."
+#//
+#// ROOT CAUSE. `CollectWhenDefeatedTriggers` (GameLogic.php) gated the trigger on
+#//     HasWhenDefeatedAbility($d['cardID']) && !_SWUGalenSuppressesCard(...)
+#// — a PRINTED-CardID lookup plus ONE hand-written special case, for SEC_046 Galen Erso's name-based
+#// blanking. It never called `LostAbilities()`, even though that helper already recognises the 'LAW_132'
+#// TurnEffect token this card stamps. So every GENERIC "loses all abilities" effect left the When
+#// Defeated firing: LAW_132, SOR_138, JTL_244, JTL_018, SHD_072, SEC_054, TWI_255.
+#// ⚠ Galen having its own special case is exactly what made this look covered.
+#//
 # ExactReportedBoard_4162_NoIndirectDamage
 #// THE REPORTED BOARD, rebuilt from game 4162's gamestate rather than invented: P1's Droid Missile
 #// Platform sits exhausted in space, P2 holds The Tree Remembers with 4 resources, P2 to act.

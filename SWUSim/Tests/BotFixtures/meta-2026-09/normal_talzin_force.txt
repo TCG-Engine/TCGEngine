@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Mother Talzin, Power Through Magick - Crystal Caves
+# Source: melee.gg 439947, #2 of 64 (6-1-2)
+#   https://melee.gg/Decklist/View/745a08c1-df02-46e2-ace1-b4c20106e001 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (17 entries).
+# Archetype (owner's label): Aggressive midrange tempo (Force)
+# Style: normal
+# Flavours: tempo, force
+
+Leader
+1 LOF_002
+
+Base
+1 LOF_029
+
+Deck
+3 LOF_231
+3 ASH_219
+3 LOF_031
+3 LOF_061
+3 LOF_183
+3 LOF_035
+3 SEC_028
+2 LOF_059
+2 ASH_053
+2 ASH_077
+1 LOF_070
+1 ASH_224
+3 ASH_191
+2 ASH_196
+2 ASH_194
+1 ASH_052
+2 JTL_235
+2 JTL_043
+2 LOF_079
+2 LAW_132
+1 SEC_179
+3 LOF_261
+2 ASH_199

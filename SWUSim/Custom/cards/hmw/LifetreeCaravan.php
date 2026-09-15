@@ -22,7 +22,7 @@ $whenPlayedAbilities["HMW_136:0"] = function($player, $mzID) {
 $customDQHandlers["HMW_136#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID; $playerID = intval($player);
-    if (count(GetDeck(intval($player))) === 0) return;   // re-check: the board can move behind a decision
-    // "resource the top card" with NO "and ready it" rider → the resource enters EXHAUSTED.
-    SWURampResourceExhausted(intval($player), "myDeck-0");
+    // "resource the top card" with NO "and ready it" rider → the resource enters EXHAUSTED. (No-op on an empty
+    // deck — the board can move behind a decision.)
+    SWUResourceTopOfDeck(intval($player));
 };

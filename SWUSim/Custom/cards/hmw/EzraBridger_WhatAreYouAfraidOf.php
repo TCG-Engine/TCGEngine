@@ -5,17 +5,13 @@
 // Text: When you take the initiative: You may deal 3 damage to your base. If you do, create a Beast token.
 //
 // The "when you take the initiative" offer is armed in SWUTakeInitiative (GameLogic.php). This is the "if
-// you do" continuation: the 3 self-damage is the cost, so the Beast token (HMW_T03, a 3/3 ground Creature)
-// is created only when that damage actually lands — a base-damage prevention (Close the Shield Gate) leaves
-// the base damage unchanged, so no Beast.
+// you do" continuation: accepting deals the 3 and creates the Beast token (HMW_T03, a 3/3 ground Creature).
+// ★ JUDGE RULING 2026-09-14: prevented damage still satisfies "If you do" — "you still tried to damage it"
+// (CR 9.2; the Malakili ruling). So a base-damage prevention (JTL_074 Close the Shield Gate) stops the 3
+// but NOT the Beast. This used to sample the base and skip the Beast on a prevented hit — the wrong reading.
 $customDQHandlers["HMW_168#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;   // "you may" — declined
     global $playerID; $playerID = intval($player);
-    $zone = GetBase(intval($player)); $base = $zone[0] ?? null;
-    if ($base === null) return;
-    $before = intval($base->Damage ?? 0);
     SWUDealDamageToBase(3, intval($player));           // "deal 3 damage to your base" (self-damage)
-    if (intval($base->Damage ?? 0) > $before) {        // damage landed (not prevented) → "if you do"
-        SWUCreateUnitToken(intval($player), 'HMW_T03');
-    }
+    SWUCreateUnitToken(intval($player), 'HMW_T03');
 };

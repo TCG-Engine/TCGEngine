@@ -6,7 +6,10 @@
 // TS26_53 Coruscanti Spy — Raid 2 (auto). When Played: heal 2 damage from each of any number of bases.
 $whenPlayedAbilities["TS26_53:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|2|myBase-0&theirBase-0", 1,
+    // "Any number of bases" is unqualified — every seat's base, a teammate's included (it was the literal
+    // "myBase-0&theirBase-0", which at four seats offered two of the four and capped the pick at 2).
+    $bases = SWUAllBaseMzIDs(intval($player), 'any');
+    DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|" . count($bases) . "|" . implode('&', $bases), 1,
         tooltip: "Heal_2_from_each_of_any_number_of_bases");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "TS26_53#0", 1, dontSkipOnPass: 1);
 };

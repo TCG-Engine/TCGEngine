@@ -30,8 +30,10 @@ $leaderAbilities["LOF_009"] = function(int $player): void {
 $customDQHandlers["LOF_009#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) { SWUAfterAction(intval($player)); return; }
-    SWUDealDamageToUnit($lastDecision, 1, intval($player));
+    // Read the first target's UID BEFORE the damage: a lethal ping removes it at once, and its mzID would then
+    // name the unit that slid into its slot (excluding THAT unit as "the same one").
     $firstUID = intval(GetZoneObject($lastDecision)->UniqueID ?? -1);
+    SWUDealDamageToUnit($lastDecision, 1, intval($player));
     // Second target: a DIFFERENT unit.
     $targets = [];
     foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
@@ -55,8 +57,8 @@ $customDQHandlers["LOF_009#2"] = function ($player, $parts, $lastDecision) {
     return;
   global $playerID;
   $playerID = intval($player);
+  $firstUID = intval(GetZoneObject($lastDecision)->UniqueID ?? -1);   // before the damage (see LOF_009#0)
   SWUDealDamageToUnit($lastDecision, 1, intval($player));
-  $firstUID = intval(GetZoneObject($lastDecision)->UniqueID ?? -1);
   $targets = [];
   foreach (SWUAllUnits() as $mz) {
     $o = GetZoneObject($mz);

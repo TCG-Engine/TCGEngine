@@ -238,3 +238,29 @@ P2BASEDMG:0
 LOGCONTAINS:5 damage to P2's base was prevented ([[HMW_081|Alliance Shield Generator]])
 LOGCONTAINS:P2's [[HMW_081|Alliance Shield Generator]] defeated itself (on P2's base)
 LOGCONTAINS:P2 drew 1 card ([[HMW_081|Alliance Shield Generator]])
+
+---
+
+# Amidala_SplitDamage_PreventedAndTheSacrificeIsHers
+#// The SPLIT/divided-damage leg (SPLIT_PREVENT_RESOLVE) — a coverage gap from the first pass. SOR_092
+#// Overwhelming Barrage splits damage; Amidala's controller sacrifices a Spy to prevent her share. The
+#// sacrifice is HER ability's (not the Barrage's), and the prevention says so. (Fixture from
+#// sec/QueenAmidala_ChampioningHerPeople.md, PreventsSplitDamage_SOR092.)
+
+## GIVEN
+CommonSetup: ggk/ggw/{myResources:5;handCardIds:SOR_092}
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SEC_101:1:2
+WithP2GroundArena: SEC_T01:1:0
+WithP2GroundArena: SEC_T01:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0:1,theirGroundArena-1:2,theirGroundArena-2:2
+- P2>AnswerDecision:myGroundArena-1
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:2
+LOGCONTAINS:P2's [[SEC_101|Queen Amidala]] defeated P2's [[SEC_T01|Spy]]
+LOGCONTAINS:Damage to P2's [[SEC_101|Queen Amidala]] was prevented ([[SEC_101|Queen Amidala]])

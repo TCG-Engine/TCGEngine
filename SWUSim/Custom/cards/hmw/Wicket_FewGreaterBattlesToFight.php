@@ -18,7 +18,7 @@ $customDQHandlers["HMW_014#0"] = function($player, $parts, $lastDecision) {
     foreach (GetLeader(intval($player)) as $l) {
         if (!empty($l->removed)) continue;
         if (($l->CardID ?? '') === 'HMW_014' && empty($l->Deployed) && !empty($l->Ready)) {
-            $l->Ready = false; $paid = true; break;
+            $l->Ready = false; $paid = true; SWULogLeaderExhaustCost(intval($player), 'HMW_014'); break;
         }
     }
     if (!$paid) return;

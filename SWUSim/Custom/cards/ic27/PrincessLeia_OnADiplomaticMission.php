@@ -36,41 +36,25 @@ $customDQHandlers["IC27_008#0"] = function($player, $parts, $lastDecision) {
     $close = intval($parts[0] ?? 0);
     global $playerID; $playerID = intval($player);
     $o = SWUDecisionDeclined($lastDecision) ? null : GetZoneObject($lastDecision);
-    if (SWUObjGone($o)) {
+    if (SWUObjGone($o) || !preg_match('/^myHand-(\d+)$/', (string)$lastDecision, $m)) {
         if ($close === 1) SWUAfterAction(intval($player));
         return;
     }
     DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "Top&Bottom", 1,
         tooltip: "Put_the_card_on_top_or_bottom_of_your_deck");
+    // The chosen hand POSITION rides along (with two copies in hand the player chose ONE — see
+    // SWUMoveChosenHandCardToDeck); the CardID verifies it.
     DecisionQueueController::AddDecision(intval($player), "CUSTOM",
-        "IC27_008#1|{$close}|" . ($o->CardID ?? ''), 1);
+        "IC27_008#1|{$close}|" . ($o->CardID ?? '') . "|" . intval($m[1]), 1);
 };
 
 $customDQHandlers["IC27_008#1"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $close = intval($parts[0] ?? 0);
-    $cid   = $parts[1] ?? '';
-    // Re-find the card in hand by CardID — the index may have shifted since it was chosen.
-    DecisionQueueController::CleanupRemovedCards();
-    $handMz = null;
-    foreach (array_values(ZoneSearch("myHand")) as $mz) {
-        $c = GetZoneObject($mz);
-        if ($c !== null && ($c->CardID ?? '') === $cid) { $handMz = $mz; break; }
-    }
-    if ($handMz !== null) {
-        $c = GetZoneObject($handMz);
-        $c->Remove();
-        DecisionQueueController::CleanupRemovedCards();
-        if ($lastDecision === 'Top') {
-            $deck = &GetDeck(intval($player));
-            $obj  = new Deck($cid, 'Deck', intval($player));
-            array_unshift($deck, $obj);
-            foreach ($deck as $i => $card) { $card->mzIndex = $i; }
-            SWULogToDeck(intval($player), [$cid], 'hand', 'top');   // game log (the bottom path logs in _topDeckPutRemainingToBottom)
-        } else {
-            _topDeckPutRemainingToBottom(intval($player), [$cid]);
-        }
-    }
+    // Exactly the chosen copy, reported to the waiting draw triggers (a drawn Rey put back here can't be
+    // revealed). Top, or bottom (logged as a hidden count).
+    SWUMoveChosenHandCardToDeck(intval($player), intval($parts[2] ?? -1), (string)($parts[1] ?? ''),
+        $lastDecision === 'Top' ? 'top' : 'bottom');
     if ($close === 1) SWUAfterAction(intval($player));
 };
 

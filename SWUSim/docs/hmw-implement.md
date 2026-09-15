@@ -1,9 +1,9 @@
 # HMW — Card Implementation Plan
 
-> **▶ 2026-09-10 (latest): card-complete 174/174 HMW CardIDs (third wave that day: HMW_042 Dooku), suite
-> 11485 / 0, tree uncommitted. ⚠ True only as of that day's `CardMocks.php`
-> diff — re-derive it. See "SECOND WAVE (2026-09-10)" under `## Status`. The earlier
-> wave's open item is still the Restore-stacking ruling.**
+> **▶ 2026-09-14 (latest): FOURTH WAVE DONE — card-complete at 182/182 HMW CardIDs (HMW_083, 079, 012,
+> 006, 135, 156, 182, 122; `--iterative`), suite 12040 / 0. See "FOURTH WAVE (2026-09-14)" under
+> `## Status`. ⚠ Re-derive from the `CardMocks.php` diff. The Restore-stacking ruling is still open.**
+> *(2026-09-10: card-complete 174/174 after the third wave, suite 11485 / 0.)*
 > Older next-session plan and open TODOs are at the BOTTOM of this file under "NEXT SESSION STARTS HERE".**
 
 **⚠ PREVIEW SET.** 129 cards exist (127 numbered + 2 tokens) of ~262 printed — count re-derived from
@@ -21,7 +21,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112, HMW_160, HMW_046, HMW_044, HMW_172, HMW_215, HMW_108, HMW_103, HMW_109, HMW_105, HMW_008, HMW_040, HMW_041, HMW_039, HMW_001, HMW_082, HMW_128, HMW_047, HMW_052, HMW_053, HMW_049, HMW_054, HMW_050, HMW_002, HMW_126, HMW_104, HMW_229, HMW_056, HMW_058, HMW_057, HMW_042
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112, HMW_160, HMW_046, HMW_044, HMW_172, HMW_215, HMW_108, HMW_103, HMW_109, HMW_105, HMW_008, HMW_040, HMW_041, HMW_039, HMW_001, HMW_082, HMW_128, HMW_047, HMW_052, HMW_053, HMW_049, HMW_054, HMW_050, HMW_002, HMW_126, HMW_104, HMW_229, HMW_056, HMW_058, HMW_057, HMW_042, HMW_083, HMW_079, HMW_012, HMW_006, HMW_135, HMW_156, HMW_182, HMW_122
 
 
 <!-- HMW_005 Jar Jar Binks, Bombad General — Done, 16/16. THE SET'S LAST CARD.
@@ -808,6 +808,90 @@ engine, worth fixing in `CardMocks.php` when convenient.
   DAMAGED base on any seat (`SWUAllBaseMzIDs 'any'`), auto-resolved when only one is damaged, skipped when
   none is or the cost is 0. Eight mutations, each reddening only its own sections.
 
+**FOURTH WAVE (2026-09-14): 174 → 179 HMW CardIDs** — HMW_006 Omega, HMW_012 Poggle the Lesser, HMW_079
+Radiant VII, HMW_083 Batcher, HMW_122 Boga. All five were absent from BOTH dictionaries until the three
+regens ran (`docker exec -e DEVENV=true … php zzCardCodeGenerator.php rootName=SWUSim`, `rootName=SWUDeck`,
+`Data/ProcessKeywordsSWU.php`). Baseline after the regen **11942 / 0**. `--iterative` order (simplest
+first): 083 → 079 → 012 → 006 → 122.
+- [x] **HMW_083 Batcher, Loyal Hound** — done 2026-09-14, 7 sections (+5 sibling guards), suite
+  11942 → 11954 · 0 failed. Restore 1 free from `$Restore_Cards`. "+1/+0 while defending" follows the
+  released trio (LOF_049 / SHD_042 / ASH_073): counter-damage only, flagged (preview, no ruling).
+  ★ ENGINE FIX — every "while defending" bonus now lives in ONE helper, `_SWUWhileDefendingPowerBonus`
+  (CombatLogic), called by BOTH combat resolvers. They had been written inline in the single-defender
+  branch only, so TWI_135 Darth Maul's two-defender path counter-attacked at printed power for EVERY one of
+  them (LOF_049, SHD_042, ASH_073, deployed ASH_018 Grogu, HMW_212 The Chieftain) — and the self-printed
+  ones never checked `LostAbilities`, so a Force-Lightninged Guardian still swung back for +2. Guards: a
+  blanked section per self-printed card, a Maul section for Batcher, Grogu and the Chieftain. Four
+  mutations (Batcher dropped / +2 / no LostAbilities gate / Maul path skips the helper), each reddening
+  only its own sections.
+- [x] **HMW_079 Radiant VII, Negotiating For Naboo** — done 2026-09-14, 10 sections, suite 11954 → 11964 ·
+  0 failed. The JTL_051 shape: a target-less "you may" → YESNO → `HMW_079#0` (unit by UniqueID) deals 3,
+  then queues `HMW_079#1` for the Shield. ★ CR 9.2 — "If you do" is the CHOICE, not the damage landing:
+  a prevention is a replacement effect, so a prevented 3 still earns the Shield (Malakili ruling
+  07/14/2025 says the same). Pinned twice: Three Lessons plays it pre-shielded, and ASH_062 The Mandalorian
+  prevents it. ⚠ The Shield is a SEPARATE queued step because The Mandalorian's offer DEFERS the damage —
+  a Shield given inline eats the deferred 3 (MandalorianOfferDeclined_… is the only section that sees it).
+  Three mutations, each reddening only its own sections. ⚠ Flagged, not changed: TS26_62 R2-D2 was made
+  to MEASURE its "deal 2 … If you do" damage, which reads against CR 9.2 — and JTL_051 draws even when
+  its 2 is prevented, which CR 9.2 agrees with. The two disagree; worth a ruling.
+  ★ RULED 2026-09-14 (judge, via the user): prevented damage SATISFIES "If you do" but fires NO
+  damage-dealt reactions. Radiant VII + JTL_051 were right; TS26_62 R2-D2, HMW_168 Ezra Bridger and
+  HMW_051 Third Sister gated on the damage landing and were FIXED (one confirmed section each flipped, with
+  the go-ahead). `_SWUOnUnitDamaged` now returns on amount ≤ 0; TWI_016 Jango Fett gained five
+  prevention/reduction guards. Memory: `if-you-do-prevented-damage-still-counts`.
+- [x] **HMW_012 Poggle the Lesser, Let the Executions Begin** — done 2026-09-14, 15 sections (9 front + 6
+  deployed; floor 4 + 7), suite 11969 → 11984 · 0 failed. One pool for both sides: friendly Creatures,
+  team-wide, trait read live (`_SWUHmw012CreaturePool`), ready ones INCLUDED (CR 1.e). "Ready … AND deal 1"
+  is unconditional — a ready Creature and a Frozen-in-Carbonite one both still take the 1. Front: mandatory
+  pick, $leaderActionResourceCosts = 1, soft pass with no Creature. Deployed: When Deployed creates a Beast
+  (HMW_T03, exhausted); On Attack = MZMAYCHOOSE, no prompt on an empty pool, combat owns the close. Six
+  mutations (damage gated on the ready / no trait filter / "my" not "friendly" / exhausted-only pool /
+  mandatory On Attack / front never closes), each reddening only its own sections.
+- [x] **HMW_006 Omega, Close Your Eyes and Focus** — done 2026-09-14, 13 sections (6 front + 7 deployed;
+  floor 4 + 4), suite 11984 → 11997 · 0 failed. Front = TWI_172 Grim Resolve's shape: pool = READY units
+  YOU control with the Heroism ASPECT, an attack-duration GRIT grant, then BeginSWUAttack (owns the close);
+  $leaderActionResourceCosts = 1, soft pass with no Heroism unit. Deployed = `_SWUHmw006GrantsGrit`, hooked
+  into HasConditionalKeyword_Grit: "other" (never Omega), Heroism, team-wide "friendly", only while that
+  Omega's abilities are active — recomputed on read, so it ends when she leaves play. Seven mutations
+  (no "other" / no Heroism check / controller-only / no LostAbilities gate / phase-long Grit / exhausted
+  in the pool / non-Heroism in the pool), each reddening only its own sections.
+
+**FOURTH WAVE, second import (2026-09-14): 179 → 182 HMW CardIDs** — three Petranaki arena Creatures, mocked
+mid-run: HMW_135 Arena Reek, HMW_156 Arena Acklay, HMW_182 Arena Nexu. The same three regens were needed.
+Order (user: before Boga): 135 → 156 → 182 → then HMW_122 Boga.
+- [x] **HMW_135 Arena Reek, Fixture of Ceremony** — done 2026-09-14, Step-0 verify-only NO-OP. Blank text
+  box (3-cost 4/4 Command Creature, unique): fully defined by the dictionary, no keyword, no code, no card
+  test (it would be green on its first RED-check). Watched once via a throwaway probe: plays at printed
+  cost 3 as a 4/4 Creature under a Command base, and is a legal HMW_012 Poggle target (readied, takes 1).
+- [x] **HMW_156 Arena Acklay, Screaming Predator** — done 2026-09-14, 12 sections, suite 11997 → 12009 ·
+  0 failed. HMW_169 Crosshair's clause-1 shape: `_SWUHmw156CheckObserve` below `_SWUOnUnitDamaged`'s
+  $survived gate, queued as `HMW_156#0` for the CONTROLLER, which loops OpponentsOf() (Twin Suns: every
+  opponent; Team Suns: never the teammate; control change: the thief's enemies). Per damage INSTANCE.
+  ★ Prevented / reduced-to-0 damage does not trigger it (judge ruling; the central amount guard).
+  Pinned with the Poggle deck it was previewed for (Poggle's ping → 2; ping + a survived attack → 4).
+  Five mutations (OtherPlayer / all-other-seats / owner / no LostAbilities / above the survived gate),
+  each reddening only its own sections.
+- [x] **HMW_182 Arena Nexu, Starved For Prey** — done 2026-09-14, 11 sections, suite 12009 → 12020 ·
+  0 failed. Grit is registry-wired; the On Attack is `$onAttackAbilities["HMW_182:0"]` → a MZMAYCHOOSE over
+  friendly (team) Creatures including itself → `HMW_182#0|<nexuUID>`: spend THIS copy's round (on accept
+  only — the SHD_239 Toro shape, user ruling 2026-09-07), deal 3 with the Nexu as SOURCE (so LOF_108
+  Malakili can prevent it), then ready the Nexu regardless ("and", not "If you do"). Self-pick = +3 Grit
+  for this attack; lethal self-pick ends the attack with nothing dealt. Pinned with the Acklay (3 → +2 to
+  each enemy base) and Malakili (prevented → no Acklay trigger, still readies). Seven mutations
+  (spend-at-offer / no spend / no source / ready gated on damage / 'my' pool / self excluded / no Creature
+  filter), each reddening its own sections.
+- [x] **HMW_122 Boga, Loyal Varactyl** — done 2026-09-14, 20 sections, suite 12020 → 12040 · 0 failed.
+  When Played/When Defeated → a mandatory pick over your discard's non-Vehicle units not named Boga →
+  stamps TWI_201's own-discard permission at 1 as `TPP1U` (`U` = unit-only: "play that UNIT", official
+  Piloting ruling 03/06/2025). A better permission already on the entry (Cobb Vanth's free play) is kept.
+  ENGINE: the at-cost own-discard unit play now runs the hand pipeline, and the discard glow shares the
+  hand's predicate — see "UPDATE 2026-09-14 (HMW_122 Boga)" in the engine follow-ups. Pinned with Exploit
+  (TWI_117, plays at 3 / refused at 2 with no picker), SEC_110 stacking, Credits (play + glow), a Pilot
+  played as a unit only, control change, request boundary and a no-`P1OnlyActions` single-close section.
+  Twelve mutations (card: 3 pool filters / not unit-only / discount 0 / discount 2 / always overwrite;
+  engine: ignores unit-only / ready-count glow / reroute drops discount / no gate), each reddening its own
+  sections; the gate was green until the Exploit one-short section was added.
+
 
 ## ⚠ SIXTEENTH WAVE — 2026-09-03 (146 → 150 CardIDs)
 `AppCore/SWU/CardMocks.php` grew again in the working tree: **HMW_044, HMW_046, HMW_172, HMW_215** are
@@ -1245,6 +1329,49 @@ severity than first framed, still worth the one-seam fix. An in-drain fix needs 
 sticky drain (probed: block-2 + dontSkipOnPass was not sufficient; the mid-drain MZMULTICHOOSE consumed
 the stale `myHand-0`). Fix the family at ONE seam; the section that must FLIP when fixed is
 `VernestraRwoh::NestedDirectPlay_SkipsTheAdditionalCost_LikeExploit` (its comment says so).
+
+**UPDATE 2026-09-14 — PARTLY CLOSED: the seam exists, three cards use it.** Reported from the Maul /
+Data Vault deck: HMW_204 Nightbrother → Vernestra from the discard offered no cost (and so no gains);
+same through both of HMW_016 Maul's abilities. What landed:
+- **`SWUNestedPlayUnit($player, $mz, $discount, $grants)`** (CardHelpers.php) — a nested "play a unit"
+  through `SWUBeginPlayCard(unitOnly)`, i.e. the full ceremony (Exploit, HMW_048/125/049, Clone copy).
+  Nightbrother, Maul's front Action and Maul's When Deployed now use it. The cost prompt stays pending
+  on these routes (the sticky-drain hazard above did not reproduce — pinned by
+  `ViaNightbrother_TheAdditionalCostIsOffered` + the two `SurvivesARequestBoundary` sections).
+- **Play grants now survive a deferred play**: `_SWUPlayGrantsCapture` (SWUBeginPlayCard) writes the
+  armed `$gForceEnterReady` / `$gPlayGrantTurnEffect` / Shield / Exp / `$gPlayGrantThen` to
+  `SWU_PENDING_PLAY_GRANTS`, and the PLAY_CARD dispatch restores them only when the play really was
+  deferred. This replaced the HMW_048/125/049 per-card snapshots, which also missed the Credit prompt.
+  `then` = a function run once the play resolves (Maul's "Then, defeat it"), in a nested frame on both
+  paths so the ability still owns the close.
+- **Two pre-existing discount drops fixed**: `EXPLOIT_RESOLVE` and `CLONE_COPY_CHOICE` never received the
+  play's own discount (Consular -2 → Exploit unit was priced/charged without it).
+  `core/DiscountedPlay_PrePaymentPickersKeepTheDiscount.md`.
+- **Vernestra played FROM THE DISCARD** is re-found by identity after her own cost compacts the pile
+  (with a card after her, the stale slot played THAT card at her price).
+**Still open:** every other `SWUNestedPlay` caller (SOR_219 Sneak Attack, LOF_076 Soresu Stance, LOF_225
+Three Lessons, SEC_018 DJ, play-from-deck effects …) still enters at ActivateCard and skips additional
+costs; the pinned Sneak Attack section is unchanged. Migrating one is a call-site swap to
+SWUNestedPlayUnit, but any caller that stamps the played unit AFTER the call returns (gLastPlayedMzID,
+a marker scan) must move that work into a grant or a `then` step first — SEC_018 DJ's capture is the
+same shape as Maul's defeat.
+
+**UPDATE 2026-09-14 (HMW_122 Boga) — the OWN-DISCARD at-cost play joined the pipeline.** A `TPP`
+(at-cost) unit play from your own discard (`_SWUOwnDiscardPlayAsUnit`) now enters at
+`SWUBeginPlayCard(unitOnly)` with the permission's discount: every reducer, Exploit, HMW_048/125/049,
+the Clone copy and the Credit picker, gated up front on `CanAffordActivationReserve` (which gained
+optional `$discount / $fromHand / $allowPilot`, defaults = the hand glow). The discard glow in
+`SWUComputeActionsData` asks the same predicate (it counted ready resources against printed + penalty).
+Modifier strings now decode through `SWUParseDiscardModifier` everywhere on the own path (it read the
+literal `'TPP2'`), which gained a `U` = UNIT-ONLY flag. New assertion `P#DISCARDPLAYABLE[NOT]:N`.
+**Still open (found on the way, not touched):**
+- FREE (`TPF`) own-discard plays stay inline. For a "play that UNIT for free" grant (LOF_036 Old Daka,
+  ASH_247, HMW_109) the Unit/Pilot fork is still offered to a Piloting card — the same 03/06/2025 ruling
+  Boga's `U` flag honours. Stamping `TPFU` there is the fix; no section exercises it today.
+- The OPPONENT-discard glow (`opponentPlayableDiscards`) still counts ready resources only (Credits dark).
+- `PlayFromDiscard` input does not check turn / phase / empty queues, unlike `myResources` next to it.
+- One `Modifier` field: a Boga grant on an entry already carrying an opponent's permission (TS26_26
+  Mother Talzin's `OTPN`) is dropped rather than erasing theirs.
 
 ## Phase 9 — fourth preview wave (autonomous)
 

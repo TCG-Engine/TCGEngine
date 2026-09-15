@@ -22,7 +22,7 @@ $customDQHandlers["LAW_066#0"] = function($player, $parts, $lastDecision) {
         return;
     }
     if (_SWUPlayForeignResourceFree(intval($player), $opp, $lastDecision, $cardID, $type)) {
-        TearThisShipApartRefill($opp); // "If you do, that opponent resources the top card of their deck."
+        TearThisShipApartRefill($opp, intval($player)); // "If you do, that opponent resources the top card of their deck."
     }
 };
 
@@ -35,11 +35,10 @@ $customDQHandlers["LAW_066#1"] = function($player, $parts, $lastDecision) {
     $resMz  = $parts[1] ?? '';
     $cardID = $parts[2] ?? '';
     if (SWUDecisionDeclined($lastDecision)) return;
-    AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');
-    SWULogPlay(intval($player), $cardID, " from P{$opp}'s resources for free");
+    SWUCommitPlay(intval($player), $cardID, " from P{$opp}'s resources for free", 'upgrade');
     // Attach the foreign upgrade to the chosen host for free (suppress the After Action — the LAW_066 event owns it).
     _SWUFinalizeUpgradeAttach(intval($player), $cardID, $resMz, $lastDecision, 0, true, false, true);
-    TearThisShipApartRefill($opp);
+    TearThisShipApartRefill($opp, intval($player));
 };
 
 // ── LAW_066 Tear This Ship Apart — foreign-owned, any-type free play from an opponent's resources ──
@@ -47,7 +46,7 @@ $customDQHandlers["LAW_066#1"] = function($player, $parts, $lastDecision) {
 // caster (card → the OWNER's discard); attaches upgrades free to a caster host. The opponent then
 // resources their deck-top (ready), netting their resource count unchanged. (Continuations queued by
 // the LAW_066 OnPlayEvent case in CardEffects.php.)
-function TearThisShipApartRefill(int $opp): void
+function TearThisShipApartRefill(int $opp, int $caster = 0): void
 {
   // "resources the top card of their deck" — the plain "resource" verb, so it enters EXHAUSTED
   // (readied at the controller's next ReadyPhase), mirroring LAW_029 / the regroup resource step.
@@ -55,9 +54,9 @@ function TearThisShipApartRefill(int $opp): void
   global $playerID;
   $savedPID = $playerID;
   $playerID = $opp;
-  $deck = ZoneSearch("myDeck", null); // opp's deck, in the opp frame
-  if (!empty($deck))
-    SWURampResourceExhausted($opp, $deck[0]);
+  // Tear This Ship Apart's own effect — named as the source even though the stolen card (an event with its
+  // own source) resolved in between.
+  SWULogWithSource($caster > 0 ? $caster : $opp, 'LAW_066', fn() => SWUResourceTopOfDeck($opp));   // opp's own deck, into opp's resources
   $playerID = $savedPID;
 }
 

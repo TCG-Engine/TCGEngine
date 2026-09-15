@@ -122,3 +122,24 @@ WithP1GroundArenaUpgrade: 0:SHD_193
 ## EXPECT
 P1GROUNDARENAUNIT:0:EXHAUSTED
 LOGCONTAINS:P1's [[SHD_182|Bravado]] couldn't ready P1's [[SOR_095|Battlefield Marine]]
+
+---
+
+# CaptureRefused_BaseCapture_Arrest
+#// The BASE-capture path (_SWUBaseCaptureUnit) has its own "can't be captured" check — a coverage gap from
+#// the first pass. SEC_195 Arrest: "Your base captures an enemy non-leader unit." SHD_187 Lurking TIE
+#// Phantom can't be captured by enemy card abilities: it stays in play and the refusal is logged.
+
+## GIVEN
+CommonSetup: yyk/rrk
+P1OnlyActions: true
+WithP1Resources: 5
+WithP1Hand: SEC_195
+WithP2SpaceArena: SHD_187:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2SPACEARENACOUNT:1
+LOGCONTAINS:P1's [[SEC_195|Arrest]] couldn't capture P2's [[SHD_187|Lurking TIE Phantom]]

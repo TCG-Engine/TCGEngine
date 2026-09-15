@@ -1,26 +1,24 @@
-# CORE — the per-round locks must CLEAR at the start of the next round.
-#
-# ⚠ WHY THIS FILE IS THE HIGHEST-VALUE ONE IN THE MULTI-SEAT SET. Two mechanisms take a seat out of the
-# rotation for the rest of a round, and both do it by auto-passing that seat inside `SWUSwapTurnPlayer`:
-# claiming the initiative, and taking a blast/plan counter (CR §12.5.3). Both are CORRECT within their
-# round. `ActionPhaseStart` clears them — `SetInitiativeCounter("P{n}_UNCLAIMED")`,
-# `SetSWUVar('SWU_COUNTER_TAKEN', '')`, `SetBlastCounter/SetPlanCounter("AVAILABLE")`, `PASS = 0`.
-#
-# **If any of those clears failed, the affected seat would be skipped for the REST OF THE GAME** — and
-# the symptom a player would report is exactly "it skipped the next player's turn", which is the report
-# this engine has now received three times against 3- and 4-seat tables. Nothing in the suite pinned the
-# clears at 3+ seats before this file: `twinsuns/RegroupAllSeats.md` covers the regroup's draw, resource
-# and trigger steps, but not the lock resets.
-#
-# ROUND-ROLLOVER IDIOM, since it is fiddly: every live seat passes to end the action phase, then every
-# live seat answers the regroup's "Resource up to 1 card" prompt. That prompt is an MZMAYCHOOSE, and
-# CommonSetup deals no hand, so the answer is a DECLINE (`AnswerDecision:-`) — `ResourceHand` fails
-# there because there is no card to pick.
-#
-# ⚠ NO `P{n}OnlyActions`: it is itself a claimed initiative plus SWU_COUNTER_TAKEN on the other seats.
-
----
-
+#// CORE — the per-round locks must CLEAR at the start of the next round.
+#//
+#// ⚠ WHY THIS FILE IS THE HIGHEST-VALUE ONE IN THE MULTI-SEAT SET. Two mechanisms take a seat out of the
+#// rotation for the rest of a round, and both do it by auto-passing that seat inside `SWUSwapTurnPlayer`:
+#// claiming the initiative, and taking a blast/plan counter (CR §12.5.3). Both are CORRECT within their
+#// round. `ActionPhaseStart` clears them — `SetInitiativeCounter("P{n}_UNCLAIMED")`,
+#// `SetSWUVar('SWU_COUNTER_TAKEN', '')`, `SetBlastCounter/SetPlanCounter("AVAILABLE")`, `PASS = 0`.
+#//
+#// **If any of those clears failed, the affected seat would be skipped for the REST OF THE GAME** — and
+#// the symptom a player would report is exactly "it skipped the next player's turn", which is the report
+#// this engine has now received three times against 3- and 4-seat tables. Nothing in the suite pinned the
+#// clears at 3+ seats before this file: `twinsuns/RegroupAllSeats.md` covers the regroup's draw, resource
+#// and trigger steps, but not the lock resets.
+#//
+#// ROUND-ROLLOVER IDIOM, since it is fiddly: every live seat passes to end the action phase, then every
+#// live seat answers the regroup's "Resource up to 1 card" prompt. That prompt is an MZMAYCHOOSE, and
+#// CommonSetup deals no hand, so the answer is a DECLINE (`AnswerDecision:-`) — `ResourceHand` fails
+#// there because there is no card to pick.
+#//
+#// ⚠ NO `P{n}OnlyActions`: it is itself a claimed initiative plus SWU_COUNTER_TAKEN on the other seats.
+#//
 # ThreeSeat_CounterLockCLEARSAtTheStartOfTheNextRound
 #// Seat 1 takes the blast counter in round 1 (locking itself out for that round). After the rollover
 #// both counters are back in the centre, nobody is marked as having taken one, and the consecutive-pass

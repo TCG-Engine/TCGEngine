@@ -11,13 +11,10 @@
 $customDQHandlers["SHD_228#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $allIDs   = array_values(array_filter(explode(',', $parts[0] ?? '')));
-    $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
-    $drawnID  = $resolved['drawn'][0] ?? null;
-    if ($drawnID !== null) {
-        AddHand(intval($player), CardID: $drawnID);
-        AddGameLogEntry('REVEAL', 'P' . intval($player) . ' revealed ' . GameLogCardRef($drawnID)); // "reveal it"
-    }
-    _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);   // shuffle the deck
+    // "reveal it, and draw it" → a public draw (observers fire inside); the rest of the deck to the bottom in
+    // random order, which is the "(Shuffle your deck.)" — the search peeked the WHOLE deck.
+    $drawn   = SWUFinishTopDeckSearch(intval($player), $allIDs, $lastDecision, 'bottom', true);
+    $drawnID = $drawn[0][0] ?? null;
     if ($drawnID === null) return;                                           // no Bounty upgrade found
     if (empty(SWUGetUpgradeValidTargets(intval($player), $drawnID))) return; // no valid enemy host → can't play
     DecisionQueueController::CleanupRemovedCards();

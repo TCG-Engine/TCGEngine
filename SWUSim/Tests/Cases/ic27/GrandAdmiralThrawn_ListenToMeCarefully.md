@@ -88,10 +88,13 @@ P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
 ---
 
 # WhenDefeated_GivesExperienceToASurvivor
-#// THE THIRD DISPATCH PATH. Thrawn attacks into a body that kills him, and the ability still resolves
-#// for a surviving friendly unit. ⚠ The collection runs BEFORE cleanup, so the dying Thrawn is still
-#// occupying ground index 0 and the survivor is addressed as index 1 — and Thrawn himself must NOT be
-#// offered as a recipient (a unit leaving play cannot take the token).
+#// THE THIRD DISPATCH PATH. Thrawn attacks into a body that kills him, and BOTH halves resolve for the
+#// surviving friendly unit. On Attack (Thrawn still in play, survivor at ground index 1) gives SOR_095 its
+#// first token; Thrawn dies to the counter-damage, and When Defeated — resolving after cleanup, so the
+#// survivor has shifted to index 0 — gives it a second. 3 + 2 = 5 power, and nothing is left pending.
+#// (Rewritten 2026-09-11, user-approved: this section used to answer only the On Attack prompt, so its
+#// POWER:4 came from On Attack alone and When Defeated was never reached — which hid the positional
+#// self-exclusion bug that excluded the survivor.)
 
 ## GIVEN
 CommonSetup: bbk/bbk/{}
@@ -103,12 +106,15 @@ WithP2GroundArena: SOR_046:1:0
 ## WHEN
 - P1>AttackGroundArena:0:0
 - P1>AnswerDecision:myGroundArena-1
+- P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
-P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1GROUNDARENAUNIT:0:POWER:5
 P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+P1NODECISION
 
 ---
 
@@ -154,3 +160,32 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:POWER:4
 P1GROUNDARENAUNIT:0:HP:4
 P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel
+
+---
+
+# WhenDefeated_OnAttackDeclined_SurvivorStillOffered
+#// Game-log triage (2026-09-11): the When Defeated half "had no effect" with a friendly unit still in play.
+#// By the time it resolves after a combat death, Thrawn has been cleaned up and the survivor has SHIFTED
+#// into his slot — so the positional self-exclusion excluded the SURVIVOR and left nothing to offer.
+#// (WhenDefeated_GivesExperienceToASurvivor above never reaches this: its one answer goes to the On
+#// Attack prompt.) Here P1 declines On Attack, Thrawn dies to SOR_046, and When Defeated still gives
+#// SOR_095 the Experience token and Sentinel.
+
+## GIVEN
+CommonSetup: bbk/bbk/{}
+P1OnlyActions: true
+WithP1GroundArena: IC27_024:1:3
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:PASS
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:0:HASKEYWORD:Sentinel
+LOGCOUNT:0:had no effect

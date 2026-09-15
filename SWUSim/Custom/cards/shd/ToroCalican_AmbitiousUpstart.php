@@ -14,5 +14,5 @@ $customDQHandlers["SHD_239#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($po)) return;
     SWUDealDamageToUnit($playedMz, 1, intval($player));   // deal 1 to the just-played Bounty Hunter unit
     if ($toroMz !== null) OnReadyCard(intval($player), $toroMz);   // ready Toro
-    AddGlobalEffects(intval($player), 'SWU_SHD239_USED');   // once each round — consumed on actual use
+    SWUSpendUnitRoundUse(intval($parts[1] ?? 0));   // once each round, THIS Toro — consumed on actual use
 };

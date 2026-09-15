@@ -200,6 +200,40 @@ On Attack: If you gave a token upgrade to a unit this phase, you may deal 1 dama
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
   ),
+  'HMW_006' => 
+  array (
+    'title' => 'Omega',
+    'subtitle' => 'Close Your Eyes and Focus',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 2,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Clone',
+    ),
+    'text' => 'Action [1 resource, Exhaust]: Attack with a Heroism unit. It gains Grit for this attack.',
+    'epicAction' => 'Epic Action: If you control 5 or more resources, deploy this leader.',
+    'deployText' => 'Other friendly Heroism units gains Grit.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/006.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/006-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
   'HMW_007' => 
   array (
     'title' => 'Darth Vader',
@@ -372,6 +406,42 @@ When you deal 4 or more damage to a unit or a base: You may deal 1 damage to a d
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/011.png',
     'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/011-back.png',
+    'leaderUnitTitle' => '',
+    'leaderUnitSubtitle' => '',
+    'leaderUnitTrait' => 
+    array (
+    ),
+    'leaderUnitArena' => '',
+    'leaderUnitType' => '',
+  ),
+  'HMW_012' => 
+  array (
+    'title' => 'Poggle the Lesser',
+    'subtitle' => 'Let the Executions Begin',
+    'type' => 'Leader',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 1,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Separatist',
+      1 => 'Official',
+    ),
+    'text' => 'Action [1 resource, Exhaust]: Ready a friendly Creature unit and deal 1 damage to it.',
+    'epicAction' => 'Epic Action: If you control 5 or more resources, deploy this leader.',
+    'deployText' => 'When Deployed: Create a Beast token.
+On Attack: You may ready a friendly Creature unit and deal 1 damage to it.',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/012.png',
+    'imageUrlBack' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/012-back.png',
     'leaderUnitTitle' => '',
     'leaderUnitSubtitle' => '',
     'leaderUnitTrait' => 
@@ -2072,6 +2142,35 @@ When Played: You may defeat a unit that attacked your base this phase. If it\'s 
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/078.png',
     'imageUrlBack' => '',
   ),
+  'HMW_079' => 
+  array (
+    'title' => 'Radiant VII',
+    'subtitle' => 'Negotiating For Naboo',
+    'type' => 'Unit',
+    'arena' => 'Space',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 5,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Republic',
+      1 => 'Vehicle',
+      2 => 'Transport',
+    ),
+    'text' => 'When Played: You may deal 3 damage to this unit. If you do, give a Shield token to it.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/079.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_080' => 
   array (
     'title' => 'Fambaa Shield Team',
@@ -2150,6 +2249,33 @@ If attached base would be dealt 5 or more damage, prevent that damage. If you do
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/082.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_083' => 
+  array (
+    'title' => 'Batcher',
+    'subtitle' => 'Loyal Hound',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 2,
+    'power' => 2,
+    'hp' => 3,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+    ),
+    'text' => 'Restore 1 (When this unit attacks, heal 1 damage from your base.)
+This unit gets +1/+0 while defending.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/083.png',
     'imageUrlBack' => '',
   ),
   'HMW_084' => 
@@ -2758,6 +2884,33 @@ When Played: This unit doesn\'t ready during the next regroup phase.',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/IC27/121.png',
     'imageUrlBack' => '',
   ),
+  'HMW_122' => 
+  array (
+    'title' => 'Boga',
+    'subtitle' => 'Loyal Varactyl',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 6,
+    'power' => 6,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Command',
+      1 => 'Heroism',
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+    ),
+    'text' => 'When Played/When Defeated: Choose a non-Vehicle unit in your discard pile not named Boga. For this phase, you may play that unit from your discard pile. It costs [1 resource] less.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/122.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_123' => 
   array (
     'title' => 'King Grakchawwaa',
@@ -2931,6 +3084,32 @@ When Played: if attached unit is Chewbacca, resource the top card of your deck. 
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/128.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_135' => 
+  array (
+    'title' => 'Arena Reek',
+    'subtitle' => 'Fixture of Ceremony',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 3,
+    'power' => 4,
+    'hp' => 4,
+    'aspect' => 
+    array (
+      0 => 'Command',
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+    ),
+    'text' => '',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/135.png',
     'imageUrlBack' => '',
   ),
   'HMW_136' => 
@@ -3181,6 +3360,33 @@ When Played: An opponent creates a Beast token.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/154.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_156' => 
+  array (
+    'title' => 'Arena Acklay',
+    'subtitle' => 'Screaming Predator',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Uncommon',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 5,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+    ),
+    'text' => 'When this unit is dealt damage and survives: Deal 2 damage to each enemy base.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/156.png',
     'imageUrlBack' => '',
   ),
   'HMW_158' => 
@@ -3643,6 +3849,33 @@ Attached base gains: "Action [discard a card from your hand]: Deal 2 damage to a
     'deployText' => '',
     'unique' => false,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/180.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_182' => 
+  array (
+    'title' => 'Arena Nexu',
+    'subtitle' => 'Starved For Prey',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 4,
+    'power' => 2,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Aggression',
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+    ),
+    'text' => 'Grit
+On Attack: You may deal 3 damage to a friendly Creature unit (including this one) and ready this unit. Use this ability only once each round.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/182.png',
     'imageUrlBack' => '',
   ),
   'HMW_185' => 

@@ -8,6 +8,6 @@ $whenPlayedAbilities["TS26_56:0"] = function($player, $mzID = '') {
     // "EACH player" — every live seat in player order. Was the caster + OtherPlayer() only.
     // An empty deck simply resources nothing for that seat; it does not stop the others.
     foreach (SWUSeatsInPlayerOrder(intval($player)) as $p) {
-        if (!empty(GetDeck($p))) SWURampResourceExhausted($p, 'myDeck-0');
+        SWUResourceTopOfDeck(intval($p));
     }
 };

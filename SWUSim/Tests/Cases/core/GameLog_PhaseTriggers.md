@@ -87,3 +87,52 @@ WithP2SpaceArena: SOR_237:1:0
 ## EXPECT
 P1LOGSEES:P1 named the Vehicle trait; enemy cards lose it this phase ([[HMW_108|The First Legion]])
 P2LOGSEES:P1 named the Vehicle trait
+
+---
+
+# RegroupStart_JetpackShieldDefeat_Attributed
+#// SHD_225 Jetpack: "When Played: Give a Shield token to attached unit. At the start of the regroup phase,
+#// defeat that token." The regroup-start defeat removed the tagged token silently. (Fixture from
+#// shd/Jetpack.md.)
+
+## GIVEN
+CommonSetup: yyw/yyw/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: SHD_225
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+P1GROUNDARENAUNIT:0:SHIELDCOUNT:0
+LOGCONTAINS:P1's [[SHD_225|Jetpack]] defeated a Shield token on P1's [[SOR_095|Battlefield Marine]]
+
+---
+
+# RegroupStart_ZoriiDiscard_Attributed
+#// SHD_203 Zorii Bliss: "On Attack: Draw a card. At the start of the regroup phase, discard a card from your
+#// hand." The regroup discard is a QUEUED choice; it now carries Zorii as its source (queued-source stamp).
+#// (Fixture from shd/ZoriiBliss_ValiantSmuggler.md, OnAttack_DrawThenRegroupDiscard.)
+
+## GIVEN
+CommonSetup: gyw/gyw
+P1OnlyActions: true
+WithP1GroundArena: SHD_203:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SEC_080 SEC_080]
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>Pass
+- P1>AnswerDecision:myHand-0
+- P1>ResourcePass
+- P2>ResourcePass
+
+## EXPECT
+LOGCONTAINS:P1 discarded [[SOR_095|Battlefield Marine]] ([[SHD_203|Zorii Bliss]])

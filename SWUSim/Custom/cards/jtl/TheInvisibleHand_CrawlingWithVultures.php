@@ -23,16 +23,11 @@ $customDQHandlers["JTL_089#0"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
     $allIDs   = array_values(array_filter(explode(',', $parts[0] ?? '')));
-    $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
     $freeMz   = null;  // hand mzID of a drawn Droid eligible for the free-play rider
-    SWULogSearchedToHand(intval($player), $resolved['drawn'], true);   // game log: "reveal it, and draw it" → public
-    foreach ($resolved['drawn'] as $cardID) {
-        $handObj = AddHand(intval($player), CardID: $cardID);
-        if ($handObj !== null && intval(CardCost($cardID)) <= 2) {
-            $freeMz = 'myHand-' . intval($handObj->mzIndex);  // count:1 → at most one such card
-        }
+    // "reveal it, and draw it" → a public draw (observers fire inside); the rest to the bottom.
+    foreach (SWUFinishTopDeckSearch(intval($player), $allIDs, $lastDecision, 'bottom', true) as [$cardID, $handMz]) {
+        if (intval(CardCost($cardID)) <= 2) $freeMz = $handMz;   // count:1 → at most one such card
     }
-    _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
     if ($freeMz !== null) {
         DecisionQueueController::AddDecision($player, 'YESNO', '-', 1, tooltip: "Play_the_drawn_Droid_for_free?");
         DecisionQueueController::AddDecision($player, 'CUSTOM', 'JTL_089#1|' . $freeMz, 1);

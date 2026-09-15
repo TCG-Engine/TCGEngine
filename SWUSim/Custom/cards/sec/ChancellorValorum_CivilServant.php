@@ -12,7 +12,5 @@ $onAttackEndAbilities["SEC_107:0"] = function($player, $mzID) {
 
 $customDQHandlers["SEC_107#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    $deck = ZoneSearch("myDeck", null);
-    if (empty($deck)) return;
-    SWURampResourceExhausted(intval($player), $deck[0]);
+    SWUResourceTopOfDeck(intval($player));   // no-op on an empty deck
 };

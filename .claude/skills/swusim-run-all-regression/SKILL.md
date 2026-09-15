@@ -86,13 +86,23 @@ each. They are reported separately so a **new** failure is visible.
 only ever failed because of the connection exhaustion in rule 2. A baseline that outlives its entries
 stops being a baseline.
 
-Current 7, in two groups:
+**The file is EMPTY (since 2026-08-29)** — all 7 original entries were fixed the day they were recorded
+(the file's own header says why each one was). So every red the runner prints is reported as "new".
 
-- **Stale test expectations** (the code is right): `test_swudeck_client_format_data` asserts Premier
-  has no bans, but Premier deliberately bans `ASH_011`; `test_swudeck_setnnn_dictionary` asserts a card
-  count of 2302.
-- **Untriaged**: `test_swusim_authkeys`, `test_swu_maintenance_guards`, `test_hellbreak_tutorial`,
-  `test_database_resolution`, `test_swudeck_deckstats_manual_format`.
+**Red on every run as of 2026-09-11 — NOT baselined, NOT investigated.** None is in SWUSim game logic, and
+all were already red before that day's game-log/SSOT changes (recorded as pre-existing when that work
+began). They are left out of `known-red.txt` on purpose:
+that file demands an ACCEPTED reason, and nobody has triaged these yet. When one shows up, check it is
+still one of these four before calling your run green:
+
+| test | observed (2026-09-11) |
+|---|---|
+| `test_grand_archive_dictionary_integrity` (HTTP:3400) | fatal: `./GrandArchiveSim/GeneratedCode/GeneratedCardDictionaries.php` missing — GA card data not generated in this local env |
+| `test_hellbreak_tutorial` (HTTP:3400) | throws (read its output file) |
+| `test_hellbreakdeck_validation` (HTTP:3400) | fatal: `Undefined constant "STDERR"` at line 75 — the test writes to STDERR under the web SAPI |
+| `test_swudeck_format_column` (HTTP:3100) | `FAIL: format column defaults to premier, new row defaults to premier` |
+
+If you triage one, either fix it or add it to `known-red.txt` WITH its reason, and update this table.
 
 ## Also reported: the action-close ledger
 
@@ -100,6 +110,11 @@ The unit run prints `action-close ledger: N double-closes`. That is the count of
 turn-swap ran twice — **393** at baseline, invisible to the suite because 1834 test files use
 `P1OnlyActions`. It is observe-only and does not fail the run. See
 `SWUSim/docs/action-close-ownership.md`; a section can assert `NOEXTRAACTION` to gate on it directly.
+Since the close gate went authoritative, each refused duplicate prints
+`[ACTION-LEDGER] BLOCKED-DOUBLE-CLOSE <file::section>` on stderr — **161** lines on 2026-09-11. ⚠ After any
+change to how an action ENDS, save the full unit output with and without your change and `diff` the sorted
+notice lines. The totals can match while the set differs, and a new line is a new double close that the
+pass/fail counts will never show.
 
 ## Common mistakes
 

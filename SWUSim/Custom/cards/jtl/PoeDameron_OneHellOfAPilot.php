@@ -3,12 +3,9 @@
 // Cost 4 - Poe Dameron - One Hell of a Pilot - [Command,Heroism] - Power 3 - HP 3 - Upgrade Power 2 - Upgrade HP 3
 // Text: When played as a unit: Create an X-Wing token. You may attach this unit as an upgrade to a friendly Vehicle unit without a Pilot on it. / Piloting [2 resources Command Heroism] (You may play this as an upgrade on a friendly Vehicle without a Pilot.)
 
-// No-op WhenPlayedAsUpgrade handler: prevents the fallback to WhenPlayed when
-// JTL_100 is played as a pilot (Piloting keyword path).
-$whenPlayedAsUpgradeAbilities["JTL_100:0"] = function($player, $mzID) {
-    // Intentional no-op: the "When played as a unit" clause must NOT fire
-    // when JTL_100 is attached via its Piloting keyword.
-};
+// Played as a pilot (Piloting keyword path), the WhenPlayed fallback must not run the token logic.
+// (No no-op $whenPlayedAsUpgradeAbilities stub any more: "When played as a unit" is recognised as unit-only by
+// _SWUWhenPlayedIsUnitOnly, so CollectWhenPlayedAsUpgradeTriggers collects nothing for a pilot play.)
 
 // WhenPlayed handler: fires only when JTL_100 enters play as a unit.
 $whenPlayedAbilities["JTL_100:0"] = function($player, $mzID) {

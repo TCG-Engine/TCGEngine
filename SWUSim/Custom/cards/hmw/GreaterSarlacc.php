@@ -74,17 +74,17 @@ function _SWUHmw049MinOutlay(int $player, int $baseCost, int $readyCount): int {
 
 // Resolve the pick: re-validate server-side against the SAME pool that was offered, defeat the picks,
 // then continue the play with the discount folded in.
-// $parts = [handMzID, playDiscountSoFar, "ready~grantTE~shield", offeredMax].
+// $parts = [handMzID, playDiscountSoFar, offeredMax]. (The playing effect's grants — enters ready, a
+// marker, a Shield — ride SWU_PENDING_PLAY_GRANTS to the PLAY_CARD dispatch, not this param.)
 $customDQHandlers["HMW_049#0"] = function ($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
     $handMz   = $parts[0] ?? '';
     $discount = intval($parts[1] ?? 0);
-    $snap     = explode('~', (string)($parts[2] ?? ''), 3);
     // The OFFERED maximum, carried across the request boundary. The schema harness (and a
     // non-conforming client) hands an answer straight to this handler without consulting the decision's
     // {max}, so the cap is only real if the server re-applies it here.
-    $offeredMax = intval($parts[3] ?? PHP_INT_MAX);
+    $offeredMax = intval($parts[2] ?? PHP_INT_MAX);
 
     $picks = [];
     if ($lastDecision !== null && $lastDecision !== '' && $lastDecision !== '-' && $lastDecision !== 'PASS') {
@@ -130,13 +130,6 @@ $customDQHandlers["HMW_049#0"] = function ($player, $parts, $lastDecision) {
     rsort($idxs, SORT_NUMERIC);
     $defeated = 0;
     foreach ($idxs as $i) { if (SWUDefeatResource(intval($player), "myResources-{$i}")) $defeated++; }
-
-    // Restore the play-grant globals the original caller had armed (it nulls them once it returns, and
-    // the picker sits across a request boundary).
-    global $gForceEnterReady, $gPlayGrantTurnEffect, $gPlayGrantShield;
-    if (($snap[0] ?? '0') === '1') $gForceEnterReady     = true;
-    if (($snap[1] ?? '')  !== '') $gPlayGrantTurnEffect = $snap[1];
-    if (intval($snap[2] ?? 0) > 0) $gPlayGrantShield     = intval($snap[2]);
 
     // SWUContinuePlayAfterExploit floors the cost at 0, which is what makes over-defeating harmless
     // rather than negative.

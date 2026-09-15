@@ -221,3 +221,104 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:1
 P2BASEDMG:3
 P1NODECISION
+
+---
+
+# Front_DiscardsTheCHOSENCard_NotTheFirst
+#// HMW_010 front — the discard cost honours the CHOICE. Every other front section either has one card
+#// in hand or answers myHand-0, which a cost that always discarded the first card would satisfy just the
+#// same. Two cards; P1 picks the SECOND (SOR_046): it lands in the discard and SOR_095 stays in hand.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myLeader:HMW_010;myResources:3}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [SOR_095 SOR_046]
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-1
+
+## EXPECT
+P1HANDCOUNT:1
+P1HANDCARD:0:SOR_095
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:CARDID:HMW_T03
+P1RESAVAILABLE:1
+P1LEADER:EXHAUSTED
+
+---
+
+# Deployed_OnAttack_ExactlyOneResource_StillOffered
+#// HMW_010 deployed — the BOUNDARY of "pay 1 resource": exactly one ready resource is enough. The offer
+#// is raised, the resource is spent (0 left) and the Beast is created. Pairs with
+#// Deployed_OnAttack_NoResources_NoOffer (0 → no offer) to pin the threshold at 1.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myLeader:HMW_010:1:1;myResources:1}
+SkipPreGame: true
+P1OnlyActions: true
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:HMW_T03
+P1RESAVAILABLE:0
+P1RESCOUNT:1
+P2BASEDMG:3
+
+---
+
+# Deployed_OnAttack_ResourcesAllExhausted_NoOffer
+#// HMW_010 deployed — cannot-pay is about READY resources, not resources controlled. P1 has 2 resources
+#// but spends both playing SOR_095 Battlefield Marine (cost 2, on-aspect) first; Tarfful then attacks
+#// with 0 ready. No offer, no Beast. Distinct from Deployed_OnAttack_NoResources_NoOffer, where the
+#// resource ZONE is empty — a gate that counted total resources passes that one and fails only here.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myLeader:HMW_010:1:1;myResources:2}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: SOR_095
+
+## WHEN
+- P1>PlayHand:0
+- P1>AttackGroundArena:0:BASE
+
+## EXPECT
+P1RESCOUNT:2
+P1RESAVAILABLE:0
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:HMW_010
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P2BASEDMG:3
+P1NODECISION
+
+---
+
+# Deployed_OnAttack_AttackingAUnit_StillOffered
+#// HMW_010 deployed — "On Attack" names no target, so attacking a UNIT triggers it exactly as attacking
+#// a base does (every other deployed section attacks the base). Tarfful (3/7) hits P2's SEC_080 (3/3)
+#// — the offer is taken, a Beast joins, and the defender is defeated by the 3 damage.
+
+## GIVEN
+CommonSetup: ggw/bgw/{myLeader:HMW_010:1:1;myResources:2}
+SkipPreGame: true
+P1OnlyActions: true
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:1:CARDID:HMW_T03
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P1RESAVAILABLE:1
+P2GROUNDARENACOUNT:0
+P2BASEDMG:0

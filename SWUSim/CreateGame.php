@@ -60,6 +60,12 @@ function SWUSetupGame($lobby, $opts = []) {
             }
         }
         SetSWUBotPlayers(empty($botSeats) ? [2] : $botSeats);
+        // The live bot's chooser (SWUBotActiveChooserProfile reads SWUBotProfile): the heuristic stack for
+        // the Play Style the menu sent (APIs/Lobbies/JoinQueue.php → $lobby->botStyle). Missing or unknown
+        // means Normal — never the first-legal fallback. The bot's flavours come from its own leader + base.
+        $botStyle = strtolower(strval($lobby->botStyle ?? ''));
+        if (!in_array($botStyle, ['aggro', 'normal', 'control'], true)) $botStyle = 'normal';
+        DecisionQueueController::StoreVariable('SWUBotProfile', 'heuristic-' . $botStyle);
     }
     // Team Suns (2v2). A separate never-cleared flag rather than a value of $mode, because it is
     // orthogonal: SWUGameMode() answers "goldfish/hotseat/normal" and must keep returning '' here.

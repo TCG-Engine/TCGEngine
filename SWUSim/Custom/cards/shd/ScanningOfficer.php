@@ -55,13 +55,7 @@ $customDQHandlers["SHD_114#0"] = function($player, $parts, $lastDecision) {
     // card each iteration rather than blindly taking myDeck-0 (which would stay the spent card).
     $playerID = $opp;
     for ($i = 0; $i < $defeated; $i++) {
-        $top = null;
-        foreach (ZoneSearch("myDeck", null) as $dz) {
-            $o = GetZoneObject($dz);
-            if ($o !== null && empty($o->removed)) { $top = $dz; break; }
-        }
-        if ($top === null) break;   // deck empty → no replacement
-        SWURampResourceExhausted($opp, $top);
+        if (SWUResourceTopOfDeck($opp) === null) break;   // deck empty → no replacement
     }
     $playerID = intval($player);
 };

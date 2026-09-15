@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Luke Skywalker, Hero of Yavin - Data Vault
+# Source: melee.gg 438966, #6 of 72 (5-2-1)
+#   https://melee.gg/Decklist/View/259bb00c-2827-4cd7-b8e5-b4bc0137be7d — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (20 entries).
+# Archetype (owner's label): Midrange space aggro (Plot Cinta Kaz → Luke pilot)
+# Style: normal
+# Flavours: space, combo, pilot
+
+Leader
+1 JTL_012
+
+Base
+1 JTL_024
+
+Deck
+3 ASH_110
+3 JTL_103
+3 SEC_172
+2 LAW_191
+2 LOF_100
+2 JTL_245
+3 JTL_147
+3 JTL_096
+3 JTL_158
+3 ASH_157
+3 LOF_144
+3 LOF_147
+3 JTL_095
+3 JTL_151
+3 JTL_149
+3 JTL_102
+2 ASH_153
+2 JTL_250
+3 JTL_174
+2 SEC_179
+2 JTL_125
+2 JTL_175
+2 SEC_176

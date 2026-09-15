@@ -11,7 +11,7 @@
 $customDQHandlers["TS26_08#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID; $playerID = intval($player);
-    foreach (GetLeader(intval($player)) as $l) { if (($l->CardID ?? '') === 'TS26_08') { $l->Ready = false; break; } }
+    foreach (GetLeader(intval($player)) as $l) { if (($l->CardID ?? '') === 'TS26_08') { $l->Ready = false; SWULogLeaderExhaustCost(intval($player), 'TS26_08'); break; } }
     $topIdx = _SWUTopDeckFrontIdx(intval($player));
     if ($topIdx === -1) return;
     $topID = GetDeck(intval($player))[$topIdx]->CardID;

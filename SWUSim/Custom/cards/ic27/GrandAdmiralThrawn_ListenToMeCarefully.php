@@ -40,14 +40,15 @@ $ic27024Live = function($player, $mzID = '') use ($ic27024Offer) {
 $whenPlayedAbilities["IC27_024:0"] = $ic27024Live;
 $onAttackAbilities["IC27_024:0"]   = $ic27024Live;
 
-// When Defeated: the collection runs BEFORE CleanupRemovedCards, so Thrawn is still sitting in the
-// arena array and would otherwise be offered as a recipient for his own token — a unit on its way out
-// of play cannot receive one. Exclude the source explicitly rather than relying on a `removed` flag
-// that is not yet set at this point.
+// When Defeated: Thrawn may still be sitting in the arena array (not yet cleaned up) and would
+// otherwise be offered as a recipient for his own token — a unit on its way out of play cannot receive
+// one. But the positional mzID can also be STALE by dispatch time (after a combat death he has been
+// cleaned up and a survivor shifted into his slot), so only exclude the slot when it really is Thrawn
+// — excluding whatever sits there excluded the SURVIVOR (same idiom as SEC_202 Rebel Propagandist).
 $whenDefeatedAbilities["IC27_024:0"] = function($player, $mzID = '') use ($ic27024Offer) {
     global $playerID; $playerID = intval($player);
     $self = ($mzID !== '') ? GetZoneObject($mzID) : null;
-    $selfUID = ($self !== null) ? intval($self->UniqueID ?? -1) : -1;
+    $selfUID = ($self !== null && ($self->CardID ?? '') === 'IC27_024') ? intval($self->UniqueID ?? -1) : -1;
     $ic27024Offer($player, $mzID, $selfUID);
 };
 

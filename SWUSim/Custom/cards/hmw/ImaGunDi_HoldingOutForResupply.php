@@ -57,12 +57,8 @@ $customDQHandlers["HMW_044#0"] = function($player, $parts, $lastDecision) {
     SWUKeepCreditTokensLast($me);
 
     // MEASURE, don't assume: the rider fires only because the hand card actually moved above.
-    $deck = ZoneSearch("myDeck", null);
-    // Empty deck → the rider is a clean no-op and the hand card already resourced above still stands.
-    // This guard is for the $deck[0] read, not for the outcome: MZMove no-ops on a missing mzID anyway,
-    // so removing it does not change behaviour (measured). EmptyDeck_HandCardIsStillResourced is what
-    // actually pins the outcome.
-    if (empty($deck)) return;
-    SWURampResourceExhausted($me, $deck[0]);
+    // Empty deck → the rider is a clean no-op (SWUResourceTopOfDeck returns null) and the hand card already
+    // resourced above still stands — EmptyDeck_HandCardIsStillResourced pins that.
+    if (SWUResourceTopOfDeck($me) === null) return;
     SWUKeepCreditTokensLast($me);
 };

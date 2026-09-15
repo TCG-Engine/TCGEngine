@@ -493,3 +493,54 @@ WithP1GroundArena: SOR_095:1:0
 P2BASEDMG:3
 P1GROUNDARENAUNIT:1:READY
 P1NODECISION
+
+---
+
+# GainsHiddenMidPhase_WhenTheOpponentPlaysAUniqueUnit
+#// HMW_104 — the ON transition (HiddenEndsWhenTheOpponentsLastUniqueUnitLeaves is the OFF one). Every
+#// positive above SEEDS the opponent's unique unit; here it arrives mid-phase. P1 plays Garnac into a board
+#// where P2 controls only a non-unique SEC_080 Imperial Dark Trooper (no Hidden), then P2 PLAYS LAW_149 Rey
+#// (unique, cost 8, on-aspect for ggw, no When Played). "WHILE an opponent controls" re-reads live, so
+#// Garnac — played this phase — now has Hidden and P2's Dark Trooper can target only P1's base (1).
+#// The before-state is pinned by the control below (identical flow, non-unique play → 2 targets).
+
+## GIVEN
+CommonSetup: ggk/ggw/{myResources:1;theirResources:8;theirhandCardIds:LAW_149}
+WithActivePlayer: 1
+WithP1Hand: HMW_104
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+
+## EXPECT
+P2GROUNDARENAUNIT:1:CARDID:LAW_149
+P1GROUNDARENAUNIT:0:CARDID:HMW_104
+P1GROUNDARENAUNIT:0:HASKEYWORD:Hidden
+ATTACKTARGETS:2:G:0:1
+TURNPLAYER:1
+
+---
+
+# OpponentPlaysANonUniqueUnit_StaysVisible
+#// HMW_104 — CONTROL for the transition above: the identical flow, but P2 plays SOR_095 Battlefield Marine
+#// (non-unique, Command/Heroism, on-aspect for ggw). No opponent unique unit → no Hidden, and P2's Dark
+#// Trooper can target Garnac + P1's base (2). Only the uniqueness of the played unit differs.
+
+## GIVEN
+CommonSetup: ggk/ggw/{myResources:1;theirResources:8;theirhandCardIds:SOR_095}
+WithActivePlayer: 1
+WithP1Hand: HMW_104
+WithP2GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P2>PlayHand:0
+
+## EXPECT
+P2GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:CARDID:HMW_104
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Hidden
+ATTACKTARGETS:2:G:0:2
+TURNPLAYER:1

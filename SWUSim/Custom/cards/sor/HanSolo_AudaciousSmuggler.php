@@ -23,13 +23,7 @@ $customDQHandlers["SOR_017#0"] = function($player, $parts, $lastDecision) {
 $onAttackAbilities["SOR_017:0"] = function($player) {
     global $playerID;
     $playerID = intval($player);
-    $deck = GetDeck(intval($player));
-    $topIdx = null;
-    foreach ($deck as $i => $c) {
-        if (empty($c->removed ?? false)) { $topIdx = $i; break; }
-    }
-    if ($topIdx === null) return; // empty deck — nothing to ramp
-    SWURampResourceReady(intval($player), "myDeck-" . $topIdx);
+    if (SWUResourceTopOfDeck(intval($player), true) === null) return; // empty deck — nothing to ramp
     AddGlobalEffects(intval($player), 'SWU_HAN_DEFEAT_RESOURCE');
 };
 

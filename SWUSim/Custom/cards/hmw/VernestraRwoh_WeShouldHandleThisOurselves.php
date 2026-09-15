@@ -11,8 +11,11 @@
 //
 // THE ADDITIONAL COST mirrors Exploit's play-path shape: _SWUBeginPlayCardUnitPath owns the offer
 // (MZMULTICHOOSE 0..2 over the legal discard picks) and this CUSTOM resolves it, then continues the play
-// through the same SWUContinuePlayAfterExploit funnel every unit play uses — so ANY real play path
-// (hand, Sneak Attack, discounts) pays the cost without per-path wiring.
+// through the same SWUContinuePlayAfterExploit funnel every unit play uses — so every path that begins
+// with SWUBeginPlayCard pays it without per-path wiring: the hand, DISCOUNT_PLAY_FROM_HAND (LOF_094
+// Jedi Consular), and SWUNestedPlayUnit (HMW_204 Nightbrother, both HMW_016 Maul abilities). A nested
+// play still entering at ActivateCard (SOR_219 Sneak Attack) skips it — the open family gap in
+// hmw-implement.md.
 //
 // RULINGS (2026-08-13):
 // - Bottom order is RANDOM ("put on the bottom" names no order) — _topDeckPutRemainingToBottom shuffles.
@@ -43,15 +46,15 @@ function _SWUHmw048LegalPicks(int $player): array {
     return $out;
 }
 
-// Resolve the cost pick: validate server-side, bottom the picks (random order), record the gains,
-// restore the caller's consume-once play-grant globals from the snapshot, and continue the play through
-// the same funnel every unit play uses. $parts = [handMzID, playDiscount, "ready~grantTE~shield"].
+// Resolve the cost pick: validate server-side, bottom the picks (random order), record the gains, and
+// continue the play through the same funnel every unit play uses. $parts = [handMzID, playDiscount].
+// (A playing effect's grants — Nightbrother's enters-ready + defeat-at-regroup, Maul's "then defeat it" —
+// ride SWU_PENDING_PLAY_GRANTS to the PLAY_CARD dispatch; see _SWUPlayGrantsCapture.)
 $customDQHandlers["HMW_048#0"] = function ($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
     $handMz   = $parts[0] ?? '';
     $discount = intval($parts[1] ?? 0);
-    $snap     = explode('~', (string)($parts[2] ?? ''), 3);
 
     // ⚠ ABORT BEFORE THE ADDITIONAL COST IS PAID if the play cannot be afforded. Unlike Exploit and
     // HMW_125 this additional cost does NOT reduce the price, so the picks cannot change the answer — but
@@ -63,6 +66,14 @@ $customDQHandlers["HMW_048#0"] = function ($player, $parts, $lastDecision) {
         return;
     }
 
+    // ⚠ HOLD HER BY IDENTITY, NOT BY POSITION. Played FROM THE DISCARD (HMW_204 Nightbrother, HMW_016
+    // Maul's When Deployed), she sits in the very pile this cost removes cards from, so compacting it
+    // moves her. Behind both donors her old "myDiscard-N" points past the end and the play silently
+    // fizzles; with a card after her it points at THAT card, and the wrong unit is played at her price.
+    // CleanupRemovedCards keeps the objects and only compacts the array, so she is found again by
+    // identity in her own zone. (From the hand nothing moves — the picks come out of a different zone.)
+    $playObj = GetZoneObject($handMz);
+
     $gained = [];
     if ($lastDecision !== null && $lastDecision !== '' && $lastDecision !== '-' && $lastDecision !== 'PASS') {
         // Re-validate against the SAME pool that was offered (the filter must hold on the server —
@@ -71,7 +82,7 @@ $customDQHandlers["HMW_048#0"] = function ($player, $parts, $lastDecision) {
         foreach (explode('&', $lastDecision) as $mz) {
             if ($mz === '' || !isset($legal[$mz]) || count($gained) >= 2) continue;
             $o = GetZoneObject($mz);
-            if (SWUObjGone($o)) continue;
+            if (SWUObjGone($o) || $o === $playObj) continue;
             $gained[] = $o->CardID ?? '';
             $o->removed = true;
         }
@@ -81,11 +92,13 @@ $customDQHandlers["HMW_048#0"] = function ($player, $parts, $lastDecision) {
         }
     }
     SetSWUVar('SWU_HMW048_GAINS', implode(',', $gained));
-    // Restore the play-grant globals the original caller had armed (nulled once it returned).
-    global $gForceEnterReady, $gPlayGrantTurnEffect, $gPlayGrantShield;
-    if (($snap[0] ?? '0') === '1') $gForceEnterReady     = true;
-    if (($snap[1] ?? '')  !== '') $gPlayGrantTurnEffect = $snap[1];
-    if (intval($snap[2] ?? 0) > 0) $gPlayGrantShield     = intval($snap[2]);
+    $playerID = intval($player);
+    $dash = strrpos($handMz, '-');
+    if (!SWUObjGone($playObj) && $dash !== false) {
+        foreach (ZoneSearch(substr($handMz, 0, $dash), null) as $mz) {
+            if (GetZoneObject($mz) === $playObj) { $handMz = $mz; break; }
+        }
+    }
     SWUContinuePlayAfterExploit(intval($player), $handMz, $discount);
     // $playerID intentionally not restored — the continue funnel's callers own the restore
     // (mirrors EXPLOIT_RESOLVE / _SWUBeginPlayCardUnitPath).

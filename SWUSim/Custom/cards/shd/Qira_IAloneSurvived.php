@@ -29,25 +29,31 @@ $customDQHandlers["SHD_002#0"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
+    // Re-find "it" by UID after the damage: a lethal 2 removes it, and its old mzID would name the next unit.
+    $uid = intval($o->UniqueID ?? 0);
     SWUDealDamageToUnit($lastDecision, 2, intval($player));
-    $after = GetZoneObject($lastDecision);          // shield only if it survived the 2 damage
-    if ($after !== null && empty($after->removed)) DoGiveShieldToken(intval($player), $lastDecision);
+    $mz = SWUFindMzByUID($uid);                      // shield only if it survived the 2 damage
+    if ($mz !== null) DoGiveShieldToken(intval($player), $mz);
 };
 
 // When Deployed (deployed side): heal all, then deal each unit floor(remaining HP / 2).
 $whenPlayedAbilities["SHD_002:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
+    // Heal through OnHealUnit (not a raw Damage = 0) so "when healed" reactions (JTL_062, LAW_047), the
+    // healed-this-phase marker (TWI_042) and the heal line + animation all happen. Units are collected by
+    // UID first and re-resolved in Qi'ra's frame, so every seat's units are reached.
+    $toHeal = [];
     foreach (GetLiveSeatsArray() as $p) {
         foreach (array_merge(GetGroundArena($p) ?? [], GetSpaceArena($p) ?? []) as $u) {
-            if (!empty($u->removed)) continue;
-            $healed = intval($u->Damage ?? 0);
-            $u->Damage = 0;   // heal all damage from each unit
-            if ($healed > 0) {   // game log (the raw write bypasses OnHealUnit's heal line)
-                $ref = SWULogObjRef($u);
-                SWULogEffect('HEAL', "healed {$healed} damage from {$ref}", "{$ref} healed {$healed} damage");
-            }
+            if (empty($u->removed) && intval($u->Damage ?? 0) > 0) $toHeal[] = [intval($u->UniqueID ?? 0), intval($u->Damage)];
         }
     }
+    foreach ($toHeal as [$uid, $amount]) {
+        $playerID = intval($player);
+        $hmz = SWUFindMzByUID($uid);
+        if ($hmz !== null) OnHealUnit(intval($player), $hmz, $amount);   // heal all damage from each unit
+    }
+    $playerID = intval($player);
     foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);

@@ -8,7 +8,7 @@
 $whenPlayedAbilities["TWI_198:0"] = $onAttackAbilities["TWI_198:0"] = function($player, $mzID) {
     $self = GetZoneObject($mzID);
     if (SWUObjGone($self)) return;
-    $myPower = intval(ObjectCurrentPower($self));
+    $myPower = intval(ObjectCurrentPowerInAttack($self));   // attack bonuses while attacking; plain power when played
     SWUOfferUnitTarget($player, $mzID, [
         'continuation' => 'BOUNCE_UNIT', 'side' => 'their', 'nonLeader' => true, 'may' => true,
         'extraFilter' => fn($o) => intval(ObjectCurrentPower($o)) < $myPower,

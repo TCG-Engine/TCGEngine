@@ -9,6 +9,8 @@
 #//           boundary=ExactlyFourPower_NoPermission vs this section (5) — N-1/N pair on "5 or more"
 #//           control=StolenMagnaguard_LandsInTheOWNERSDiscard_NoPermission
 #//           reqboundary=RequestBoundary_PermissionSurvives
+#//           repeat=ReplayedRepeatedly_SamePhase_FreshPermissionEachDefeat  expiry=LaterPhase_PermissionExpired
+#//           leftdiscard=ArmedCopyReturnedToHand_PlayedAtFullCost_NoWeakness
 #//           modes=2P only (no player reference; "your discard pile" is owner/controller-scoped, not
 #//                 friendly/enemy — TwinSuns=N/A, TeamSuns=N/A)
 #//
@@ -292,3 +294,120 @@ P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:HMW_109
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
 P1DISCARDCOUNT:0
+
+---
+
+# ReplayedRepeatedly_SamePhase_FreshPermissionEachDefeat
+#// The permission is granted PER DEFEAT, not once per phase and not once per card. Three cycles in one
+#// action phase, each defeat at exactly 5 power:
+#//   1. P1's printed 5/3 trades with a 3/7 Consular Security Force → permission; replayed free as a 3/1.
+#//   2. SOR_124 Tactical Advantage (+2/+2 for this phase) lifts the replayed 3/1 back to 5/3; P2's
+#//      SOR_078 Vanquish defeats it at 5 → a FRESH permission; replayed free again with 2 new Weakness.
+#//   3. The same with the second Tactical Advantage and the second Vanquish.
+#// The end state is a 3/1 carrying exactly TWO Weakness (the phase-long +2/+2 died with the old copy,
+#// and one armed rider weakens exactly one replay — not 4 or 6 stacked tokens), and only the two
+#// 1-cost events were paid for (6 → 4): all three replays were free.
+#// Discard indexes: each Tactical Advantage lands before the Magnaguard it pumped, so the dead copy
+#// sits at index 1, then 2. The Vanquish defeats happen on P2's action, so P1>Drain resolves P1's
+#// When Defeated before P1 takes the replay.
+## GIVEN
+CommonSetup: ggk/bbk/{myResources:6;theirResources:12}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Hand: [SOR_124 SOR_124]
+WithP1GroundArena: HMW_109:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2Hand: [SOR_078 SOR_078]
+## WHEN
+- P1>AttackGroundArena:0:0
+- P2>Pass
+- P1>PlayFromDiscard:0
+- P2>Pass
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>Drain
+- P1>PlayFromDiscard:1
+- P2>Pass
+- P1>PlayHand:0
+- P1>AnswerDecision:myGroundArena-0
+- P2>PlayHand:0
+- P2>AnswerDecision:theirGroundArena-0
+- P1>Drain
+- P1>PlayFromDiscard:2
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:HMW_109
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:1
+P1DISCARDCOUNT:2
+P1RESAVAILABLE:4
+P2DISCARDCOUNT:2
+TURNPLAYER:2
+
+---
+
+# LaterPhase_PermissionExpired
+#// "for THIS PHASE" — a transition, not a never-granted case. The Magnaguard trades at 5 power in the
+#// action phase (the permission IS granted: see Decline_PermissionIsOptional, the same board with the TPF
+#// modifier still on the discard entry). The round then ends — regroup (both decks seeded so the draws
+#// land cleanly) — and in the NEXT action phase the PlayFromDiscard is refused: the card is still in the
+#// discard with its modifier cleared, nothing entered play, and no resource was spent.
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+WithP1GroundArena: HMW_109:1:0
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P2>Pass
+- P1>PlayFromDiscard:0
+## EXPECT
+PHASE:MAIN
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:HMW_109
+P1DISCARDUNIT:0:MODIFIER:
+P1RESAVAILABLE:6
+P1HANDCOUNT:2
+TURNPLAYER:1
+
+---
+
+# ArmedCopyReturnedToHand_PlayedAtFullCost_NoWeakness
+#// The permission names a card IN THE DISCARD PILE. The SAME copy that was just defeated at 5 power
+#// (permission granted, rider armed) is pulled out of the discard by SEC_105 Renewed Friendship ("Return
+#// a unit from your discard pile to your hand. Create 2 Spy tokens.") — the only unit there, so the pick
+#// auto-resolves. Played from HAND it is an ordinary play: full cost 4 (6 for the off-aspect Renewed
+#// Friendship + 4 = all 10 resources), no Weakness tokens, a clean 5/3. Sibling of
+#// PlayedFromHandWhileArmed_GetsNoWeakness, which uses a DIFFERENT copy and leaves the armed one in the pile.
+#// Arena: the two Spy tokens are created first, so the Magnaguard seats at index 2.
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:10}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: [SEC_105]
+WithP1GroundArena: HMW_109:1:0
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>PlayHand:0
+- P1>PlayHand:0
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:2:CARDID:HMW_109
+P1GROUNDARENAUNIT:2:UPGRADECOUNT:0
+P1GROUNDARENAUNIT:2:POWER:5
+P1GROUNDARENAUNIT:2:HP:3
+P1DISCARDCOUNT:1
+P1DISCARDUNIT:0:CARDID:SEC_105
+P1RESAVAILABLE:0
+P1HANDCOUNT:0

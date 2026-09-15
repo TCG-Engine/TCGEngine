@@ -37,9 +37,7 @@ $customDQHandlers["SOR_238#1"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'Draw') return;
     global $playerID;
     $playerID = intval($player);
-    $idx = _SWUTopDeckFrontIdx(intval($player));
-    if ($idx === -1) return;
-    $topID = GetDeck(intval($player))[$idx]->CardID;
-    AddGameLogEntry('REVEAL', 'P' . intval($player) . ' revealed ' . GameLogCardRef($topID) . ' and drew it');
-    SWUDrawTopCardFront(intval($player));
+    // "Reveal and draw it" — public; SWUDrawTopCardFront writes the "revealed and drew" line and fires the
+    // draw observers. (No-op on an empty deck.)
+    SWUDrawTopCardFront(intval($player), true);
 };

@@ -20,10 +20,7 @@ $customDQHandlers["ASH_245#0"] = function($player, $parts, $lastDecision) {
     _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
     if (empty($chosen)) { SWUAfterAction($player); return; }
     $cardID = $chosen[0];
-    $deck = &GetDeck(intval($player));
-    $topObj = new Deck($cardID, 'Deck', intval($player));
-    array_unshift($deck, $topObj);
-    foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+    SWUPutCardsOnDeck(intval($player), [$cardID], 'top', '');   // staged on top only to be played from there
     $gForceEnterReady = true;
     SWUPlayTopDeckCard(intval($player), false, 99);   // free
     $gForceEnterReady = null;

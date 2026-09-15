@@ -131,3 +131,50 @@ WithP2GroundArena: TWI_T01:1:0
 ## EXPECT
 P1BASEDMG:0
 P2GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# EnemyGroundDefender_IsNotReduced
+#// HMW_251 — the "WHILE ATTACKING" negative. An enemy ground unit that is only DEFENDING is not debuffed,
+#// so it strikes back at full power. P1 (the Blockade Ship's controller) attacks P2's SOR_095 Battlefield
+#// Marine (3/3) with TWI_247 AT-TE Vanguard (6/9): the Marine dies and deals its full 3 back (2 if the
+#// aura applied to every enemy ground unit in combat rather than to attackers only).
+#// (The AT-TE's Restore 3 heals an undamaged base — inert here.)
+
+## GIVEN
+CommonSetup: rrk/yyk
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: HMW_251:1:0
+WithP1GroundArena: TWI_247:1:0
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:CARDID:TWI_247
+P1GROUNDARENAUNIT:0:DAMAGE:3
+
+---
+
+# ReducedAttacker_DamageDependentHealUsesTheReducedDamage
+#// HMW_251 — downstream read. ASH_031 Hera Syndulla, Renegade General (3/4): "When Attack Ends: If this unit
+#// dealt combat damage to a base, heal that much damage from your base." P2's Hera attacks P1's base with
+#// P1's Blockade Ship in play: she attacks at 2, deals 2, and so heals exactly 2 from P2's base (10 → 8),
+#// not her printed 3. The unreduced control is ash/HeraSyndulla_RenegadeGeneral.md::HealBaseOnBaseHit.
+
+## GIVEN
+CommonSetup: rrk/yyk/{theirBaseDamage:10}
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1SpaceArena: HMW_251:1:0
+WithP2GroundArena: ASH_031:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:BASE
+
+## EXPECT
+P1BASEDMG:2
+P2BASEDMG:8

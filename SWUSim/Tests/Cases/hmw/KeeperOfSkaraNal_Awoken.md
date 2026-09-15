@@ -250,3 +250,32 @@ WithP2GroundArena: SHD_110:1:0
 - P1>AnswerDecision:NO
 ## EXPECT
 P1BASEDMG:3
+
+---
+
+# Offer_NothingIsSpentOrBuffedUntilTheChoiceIsCommitted
+#// The "start paying, then back out" cell. The cost is one all-or-nothing commit — both copies share
+#// the title, so WHICH two are spent is immaterial and there is no per-card picker, hence no half-paid
+#// state to strand. Backing out after starting is therefore the plain decline
+#// (OnAttack_Decline_NoBuffNoDiscard / Decline_TheAttackStillHitsForFive: both copies stay in hand, no
+#// +15, no Overwhelm). What this section adds is the moment BEFORE the answer: with the offer still
+#// pending, nothing has been discarded and the attacker is still a plain 5 — so a handler that spent
+#// the cost or applied the rider eagerly, and only "refunded" on a decline, is caught here.
+## GIVEN
+CommonSetup: rbk/ggw/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: HMW_041:1:0
+WithP1Hand: [HMW_041 HMW_041]
+WithP2GroundArena: SHD_110:1:0
+## WHEN
+- P1>AttackGroundArena:0:0
+## EXPECT
+P1HASDECISION
+P1DECISIONTOOLTIP:Discard_2_Keeper_of_Skara_Nal_for_+15/+0_and_Overwhelm?
+P1HANDCOUNT:2
+P1DISCARDCOUNT:0
+P1GROUNDARENAUNIT:0:POWER:5
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Overwhelm
+P2GROUNDARENACOUNT:1
+P2BASEDMG:0

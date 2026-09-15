@@ -19,9 +19,5 @@ $customDQHandlers["JTL_119#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     global $playerID;
     $playerID = intval($player);
-    $deck = GetDeck(intval($player));
-    $topIdx = null;
-    foreach ($deck as $i => $c) { if (empty($c->removed)) { $topIdx = $i; break; } }
-    if ($topIdx === null) return;
-    SWURampResourceExhausted(intval($player), "myDeck-" . $topIdx); // JTL_119: enters exhausted (no "ready" wording)
+    SWUResourceTopOfDeck(intval($player)); // JTL_119: enters exhausted (no "ready" wording)
 };

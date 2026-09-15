@@ -15,6 +15,12 @@ require_once __DIR__ . '/../../Render/DeckLibrary.php';
 include_once __DIR__ . '/Header.php';
 
 $swuFormats = function_exists('SWUListFormats') ? SWUListFormats() : ['premier' => 'Premier'];
+// Bot Practice is offered to ADMINS (approved moderators) and in local dev (owner, 2026-09-15; dev-only since 2026-09-14).
+// It stays 'enabled' => false in AppCore/SWU/Formats.php, so SWUListFormats() and every other menu leave it out.
+// APIs/Lobbies/JoinQueue.php enforces the same gate: SWUSim/Mod/DevGate.php SWUBotPracticeAllowed().
+if (SWUBotPracticeAllowed() && function_exists('SWUGetFormat') && ($swuBotPracticeFmt = SWUGetFormat('botpractice')) !== null) {
+    $swuFormats['botpractice'] = $swuBotPracticeFmt['displayName'] ?? 'Bot Practice';
+}
 $swuQueueTypes = function_exists('SWUQueueTypeDefinitions') ? SWUQueueTypeDefinitions() : ['bo1' => ['displayName' => 'Best of 1']];
 $swuSiteDef = require __DIR__ . '/SiteDef.php';
 $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
@@ -79,10 +85,22 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         <label for="deck-text" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste deck list (e.g. from SWUDB or SWUDeck):</label>
         <textarea id="deck-text" name="deck_text" rows="12" placeholder="# Leader&#10;1 Luke Skywalker, Faithful Friend&#10;&#10;# Base&#10;1 Echo Base&#10;&#10;# Main Deck&#10;3 Alliance X-Wing&#10;..." style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 13px; font-family: monospace; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
       </div>
-      <!-- Hotseat: a second deck link for Player 2 (revealed only when the Hotseat format is selected). -->
+      <!-- Hotseat / Bot Practice: a second deck link for Player 2 (revealed only for those formats; the
+           label and placeholder switch in applyFormatUI). Bot Practice may leave it empty: the bot then
+           plays the host's own list (APIs/Lobbies/JoinQueue.php). -->
       <div id="swu-deck2-group" style="display: none; margin-top: 10px;">
-        <label for="swu-deck2-input" style="display: block; margin-bottom: 8px; font-weight: 500;">Player 2 deck link (Hotseat):</label>
+        <label id="swu-deck2-label" for="swu-deck2-input" style="display: block; margin-bottom: 8px; font-weight: 500;">Player 2 deck link (Hotseat):</label>
         <input type="text" id="swu-deck2-input" placeholder="Second deck link" style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+      </div>
+      <!-- Bot Practice: the bot's Play Style (revealed only for Bot Practice). Sent as botStyle; the game
+           stores SWUBotProfile = heuristic-<style> (SWUSim/CreateGame.php). -->
+      <div id="swu-botstyle-group" style="display: none; margin-top: 10px;">
+        <label for="swu-botstyle-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Bot play style:</label>
+        <select id="swu-botstyle-select" class="swu-queue-select">
+          <option value="aggro">Aggro</option>
+          <option value="normal" selected>Normal</option>
+          <option value="control">Control</option>
+        </select>
       </div>
       <!--
       <label for="game-name">Game Name:</label>
@@ -106,7 +124,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
               $swuDefaultFormat = $swuLoggedIn ? 'premier' : 'open';
             ?>
             <?php foreach ($swuFormats as $fid => $fname): ?>
-            <?php if (!$swuLoggedIn && $fid !== 'open' && $fid !== 'goldfish' && $fid !== 'hotseat') continue; ?>
+            <?php if (!$swuLoggedIn && $fid !== 'open' && $fid !== 'goldfish' && $fid !== 'hotseat' && $fid !== 'botpractice') continue; ?>
             <option value="<?php echo htmlspecialchars($fid, ENT_QUOTES); ?>"<?php echo $fid === $swuDefaultFormat ? ' selected' : ''; ?>><?php echo htmlspecialchars($fname, ENT_QUOTES); ?></option>
             <?php endforeach; ?>
           </select>
@@ -579,11 +597,14 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
 
         var deck2El = document.getElementById('swu-deck2-input');
         var deckLink2 = deck2El ? deck2El.value.trim() : '';
+        var botStyleEl = document.getElementById('swu-botstyle-select');
+        var botStyle = (format === 'botpractice' && botStyleEl) ? botStyleEl.value : '';
 
         return {
           preconstructedDeck: preconstructedDeck,
           deckLink: deckLink,
           deckLink2: deckLink2,
+          botStyle: botStyle,
           gameType: gameType,
           format: format,
           queueType: queueType
@@ -646,17 +667,25 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         loadSavedDeckInput(opt ? opt.getAttribute('data-queue-input') : '');
       });
 
-      // Format-dependent UI: Hotseat reveals a 2nd deck input; both solo/local modes are Bo1-only
-      // for now (lock Match Type to Bo1 — remove the isMode branch below to re-enable Bo3 later).
+      // Format-dependent UI: Hotseat and Bot Practice reveal a 2nd deck input, Bot Practice its Play Style
+      // select; the solo/local modes are Bo1-only for now (lock Match Type to Bo1 — remove the isMode
+      // branch below to re-enable Bo3 later).
       (function(){
         var fmt = document.getElementById('swu-format-select');
         if (!fmt) return;
         function applyFormatUI(){
-          var isMode = (fmt.value === 'goldfish' || fmt.value === 'hotseat');
+          var isBotPractice = (fmt.value === 'botpractice');
+          var isMode = (fmt.value === 'goldfish' || fmt.value === 'hotseat' || isBotPractice);
           var isTwinSuns = (fmt.value === 'twinsuns');
           var isTwinSunsPreview = (fmt.value === 'twinsuns-preview');
           var g = document.getElementById('swu-deck2-group');
-          if (g) g.style.display = (fmt.value === 'hotseat') ? '' : 'none';
+          if (g) g.style.display = (fmt.value === 'hotseat' || isBotPractice) ? '' : 'none';
+          var d2Label = document.getElementById('swu-deck2-label');
+          if (d2Label) d2Label.textContent = isBotPractice ? 'Bot deck link:' : 'Player 2 deck link (Hotseat):';
+          var d2Input = document.getElementById('swu-deck2-input');
+          if (d2Input) d2Input.placeholder = isBotPractice ? 'Leave empty for the bot to play your deck' : 'Second deck link';
+          var bs = document.getElementById('swu-botstyle-group');
+          if (bs) bs.style.display = isBotPractice ? '' : 'none';
           // Followed someone else's invite link? Then the ONLY sensible action is Join Private Invite.
           // Public matchmaking and hosting your own private game both abandon the invite they came for,
           // and the server adopts the host's format/match type regardless of these selects.
@@ -685,7 +714,8 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
           }
           if (soloBtn) {
             soloBtn.style.display = isMode ? '' : 'none';
-            soloBtn.textContent = (fmt.value === 'hotseat') ? 'Start Hotseat Game' : 'Start 1P Game';
+            soloBtn.textContent = (fmt.value === 'hotseat') ? 'Start Hotseat Game'
+                               : (isBotPractice ? 'Start Bot Practice' : 'Start 1P Game');
           }
         }
         fmt.addEventListener('change', applyFormatUI);
@@ -823,6 +853,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         params += '&format=' + encodeURIComponent(submission.format || 'premier');
         params += '&queueType=' + encodeURIComponent(submission.queueType || 'bo1');
         if (submission.deckLink2)       params += '&deckLink2=' + encodeURIComponent(submission.deckLink2);
+        if (submission.botStyle)        params += '&botStyle=' + encodeURIComponent(submission.botStyle);
         if (options.createPrivate)      params += '&createPrivate=1';
         if (options.privateInviteCode)  params += '&privateInviteCode=' + encodeURIComponent(options.privateInviteCode);
         xhr.send(params);

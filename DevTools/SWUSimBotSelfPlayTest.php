@@ -71,7 +71,8 @@
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 \
 //     php -d apc.enable_cli=1 -d xdebug.mode=off DevTools/SWUSimBotSelfPlayTest.php \
 //     [--deck=<path>] [--deck2=<path>] [--max-steps=3000] [--verbose] [--first-player=1|2]
-//     [--seed=<string>|random] [--games=N] [--chooser=first-legal|random]
+//     [--seed=<string>|random] [--games=N] [--chooser=first-legal|random|heuristic-aggro|...]
+//     [--chooser2=<profile>]
 //
 // --chooser= selects a profile registered in SWUSim/BotHeuristic.php. The DEFAULT is 'first-legal',
 // so every pre-existing invocation of this file is byte-for-byte unchanged. 'random' selects
@@ -79,6 +80,16 @@
 // arms (unit activated abilities, the second label of an OPTIONCHOOSE, the non-trivial SCRY /
 // REVEALARRANGE / NAMETRAIT answers) ever get executed — see the [COVERAGE] table below for the
 // per-family evidence, which is what measured them at 0% under 'first-legal' in the first place.
+//
+// --chooser2= gives SEAT 2 its own profile (default: --chooser's value), through the per-seat override
+// SWUBotSetForcedChooserProfileForSeat() — how the RL bots spec's style pairings are played
+// (heuristic-aggro vs heuristic-control, …). Without it every line of output is unchanged.
+//
+// Every game also prints one `SWUBOT_METRICS {json}` line (seed, firstPlayer, winner, rounds,
+// baseDamageDealt per seat, the heuristic stack's per-seat rule coverage, chooser per seat), and a sweep
+// aggregates them into [SWEEP METRICS] / [SWEEP RULES] lines: median rounds, mean base damage dealt per
+// seat, rule firings per seat, and the rules that never fired. An `invalid:<rule>` coverage entry — a
+// rule that answered outside the candidate set — fails the sweep.
 //
 // --games=N runs a SWEEP of N games instead of one. Use it: a single game is not sufficient
 // evidence for this harness. Of the three infinite loops Task 8 found, the third (a refused upgrade
@@ -131,18 +142,21 @@ require_once __DIR__ . '/../SWUSim/CreateGame.php';
 $swuDir = __DIR__ . '/../SWUSim/';
 
 function SWUBotTestParseArgs($argv) {
-  $args = ['deck' => null, 'deck2' => null, 'maxSteps' => 3000, 'verbose' => false, 'firstPlayer' => 1,
-           'seed' => 'swusimbotselfplay00000000000000', 'games' => 1, 'chooser' => 'first-legal'];
+  $args = ['deck' => null, 'deck2' => null, 'maxSteps' => 3000, 'maxRounds' => 0, 'verbose' => false, 'firstPlayer' => 1,
+           'seed' => 'swusimbotselfplay00000000000000', 'games' => 1, 'chooser' => 'first-legal', 'chooser2' => null];
   foreach (array_slice($argv, 1) as $arg) {
     if (str_starts_with($arg, '--deck=')) $args['deck'] = substr($arg, 7);
     elseif (str_starts_with($arg, '--deck2=')) $args['deck2'] = substr($arg, 8);
     elseif (str_starts_with($arg, '--max-steps=')) $args['maxSteps'] = intval(substr($arg, 12));
+    // RL training's round cap (spec Section 4: 1.5x the top of the pairing's range). 0 = no cap.
+    elseif (str_starts_with($arg, '--max-rounds=')) $args['maxRounds'] = max(0, intval(substr($arg, 13)));
     elseif (str_starts_with($arg, '--first-player=')) $args['firstPlayer'] = intval(substr($arg, 15));
     // A FIXED seed by default, so a stall this harness finds can be re-entered and diagnosed instead
     // of vanishing on the next run. --seed=random asks for a fresh unpredictable game.
     elseif (str_starts_with($arg, '--seed=')) $args['seed'] = substr($arg, 7);
     elseif (str_starts_with($arg, '--games=')) $args['games'] = max(1, intval(substr($arg, 8)));
     elseif (str_starts_with($arg, '--chooser=')) $args['chooser'] = substr($arg, 10);
+    elseif (str_starts_with($arg, '--chooser2=')) $args['chooser2'] = substr($arg, 11);
     elseif ($arg === '--verbose') $args['verbose'] = true;
   }
   return $args;
@@ -161,6 +175,11 @@ if (!is_file($deckPath2)) { fwrite(STDERR, "deck file not found: $deckPath2\n");
 $registeredChoosers = array_keys($GLOBALS['SWUBotChoosers'] ?? []);
 if (!in_array($args['chooser'], $registeredChoosers, true)) {
   fwrite(STDERR, "unknown --chooser='{$args['chooser']}'; registered profiles: "
+    . implode(', ', $registeredChoosers) . "\n");
+  exit(1);
+}
+if ($args['chooser2'] !== null && !in_array($args['chooser2'], $registeredChoosers, true)) {
+  fwrite(STDERR, "unknown --chooser2='{$args['chooser2']}'; registered profiles: "
     . implode(', ', $registeredChoosers) . "\n");
   exit(1);
 }
@@ -280,9 +299,9 @@ function SWUBotTestRunSweep(array $args, $selfPath) {
   $games = intval($args['games']);
   $seeds = intdiv($games + 1, 2);
   echo "[SWEEP] {$games} game(s) — {$seeds} seed(s) x both first players, max-steps={$args['maxSteps']}"
-     . " chooser={$args['chooser']}\n";
+     . " chooser={$args['chooser']}" . ($args['chooser2'] !== null ? " chooser2={$args['chooser2']}" : '') . "\n";
 
-  $passed = 0; $failed = 0; $totalGaps = 0; $gapLines = []; $signals = []; $coverage = [];
+  $passed = 0; $failed = 0; $totalGaps = 0; $gapLines = []; $signals = []; $coverage = []; $metrics = [];
   for ($game = 1; $game <= $games; ++$game) {
     $seed = 's' . str_pad(strval(intdiv($game + 1, 2)), 2, '0', STR_PAD_LEFT);
     $firstPlayer = (($game - 1) % 2) + 1;
@@ -293,7 +312,8 @@ function SWUBotTestRunSweep(array $args, $selfPath) {
       . ' --games=1'
       . ' --seed=' . escapeshellarg($seed)
       . ' --first-player=' . intval($firstPlayer)
-      . ' --max-steps=' . intval($args['maxSteps']);
+      . ' --max-steps=' . intval($args['maxSteps'])
+      . ' --max-rounds=' . intval($args['maxRounds']);
     if ($args['deck']  !== null) $cmd .= ' --deck='  . escapeshellarg($args['deck']);
     if ($args['deck2'] !== null) $cmd .= ' --deck2=' . escapeshellarg($args['deck2']);
     // Forwarded the same way --deck/--deck2 are: the sweep's children are separate PHP processes
@@ -301,6 +321,7 @@ function SWUBotTestRunSweep(array $args, $selfPath) {
     // reach the game. Always passed, not just when non-default, so the child's own [SWEEP]/[RESULT]
     // reporting states the profile it actually ran under.
     $cmd .= ' --chooser=' . escapeshellarg($args['chooser']);
+    if ($args['chooser2'] !== null) $cmd .= ' --chooser2=' . escapeshellarg($args['chooser2']);
     // stderr carries the bot's own error_log chatter (the "excluding and retrying" lines), which is
     // per-step diagnostic noise, not a result. Everything a verdict depends on is on stdout.
     $cmd .= ' 2>/dev/null';
@@ -313,6 +334,11 @@ function SWUBotTestRunSweep(array $args, $selfPath) {
     // missing (a fatal before the report, for example), so a crashed child can never read as a pass.
     $result = null;
     foreach ($output as $line) {
+      if (strpos($line, 'SWUBOT_METRICS ') === 0) {
+        $m = json_decode(substr($line, 15), true);
+        if (is_array($m)) $metrics[] = $m;
+        continue;
+      }
       if (strpos($line, '[RESULT] ') !== 0) continue;
       $decoded = json_decode(substr($line, 9), true);
       if (is_array($decoded)) $result = $decoded;
@@ -354,7 +380,48 @@ function SWUBotTestRunSweep(array $args, $selfPath) {
   SWUBotTestPrintCoverage($coverage, "[SWEEP COVERAGE] offered/chosen/applied by action family, all {$games} game(s), chooser={$args['chooser']}");
   echo "[SWEEP SUMMARY] {$passed}/{$games} games passed | gaps={$totalGaps} | controller failure signals="
      . count(array_unique($signals)) . "\n";
-  return $failed === 0 ? 0 : 1;
+  $invalid = SWUBotTestPrintSweepMetrics($metrics);
+  return ($failed === 0 && $invalid === 0) ? 0 : 1;
+}
+
+// Aggregates the per-game SWUBOT_METRICS lines. Returns the number of invalid:<rule> coverage entries (a
+// rule answered outside the candidate set), which fails the sweep.
+function SWUBotTestPrintSweepMetrics(array $metrics) {
+  if (empty($metrics)) return 0;
+  $rounds = array_map(fn($m) => intval($m['rounds'] ?? 0), $metrics);
+  sort($rounds);
+  $n = count($rounds);
+  $median = $n % 2 ? $rounds[intdiv($n, 2)] : ($rounds[$n / 2 - 1] + $rounds[$n / 2]) / 2;
+  $dealt = [1 => 0, 2 => 0]; $wins = [1 => 0, 2 => 0]; $rules = []; $invalid = 0;
+  foreach ($metrics as $m) {
+    foreach ([1, 2] as $s) {
+      $dealt[$s] += intval($m['baseDamageDealt'][$s] ?? 0);
+      foreach ((array)($m['coverage'][$s] ?? []) as $key => $count) {
+        $rules[$key][$s] = ($rules[$key][$s] ?? 0) + intval($count);
+        if (str_starts_with(strval($key), 'invalid:')) $invalid += intval($count);
+      }
+    }
+    $w = intval($m['winner'] ?? 0);
+    if (isset($wins[$w])) $wins[$w]++;
+  }
+  $c = $metrics[0]['chooser'] ?? [];
+  echo sprintf("[SWEEP METRICS] chooser1=%s chooser2=%s games=%d rounds median=%s min=%d max=%d | wins P1=%d P2=%d"
+    . " | mean base damage dealt P1=%.1f P2=%.1f | invalid=%d\n",
+    strval($c[1] ?? '?'), strval($c[2] ?? '?'), $n, strval($median), $rounds[0], $rounds[$n - 1],
+    $wins[1], $wins[2], $dealt[1] / $n, $dealt[2] / $n, $invalid);
+  ksort($rules);
+  foreach ($rules as $key => $bySeat) {
+    echo sprintf("[SWEEP RULES] %-34s P1=%-5d P2=%d\n", $key, intval($bySeat[1] ?? 0), intval($bySeat[2] ?? 0));
+  }
+  // Name the rules the fixtures never exercised (a report, not a gate).
+  if (function_exists('SWUBotRulesBeforeFilter') && !empty($rules)) {
+    $never = [];
+    foreach (array_keys(array_merge(SWUBotRulesBeforeFilter(), SWUBotRulesAfterFilter())) as $name) {
+      if (!isset($rules["rule:$name"])) $never[] = $name;
+    }
+    echo "[SWEEP RULES] never fired: " . (empty($never) ? '(none)' : implode(', ', $never)) . "\n";
+  }
+  return $invalid;
 }
 
 if ($args['games'] > 1) exit(SWUBotTestRunSweep($args, __FILE__));
@@ -378,12 +445,16 @@ function SWUBotTestCheck(&$checks, $label, $passed, $detail = '') { $checks[] = 
 $GLOBALS['SWUBotTestChoiceLog'] = [];
 $GLOBALS['SWUBotTestCoverage'] = [];
 $swuBotChooserProfile = strval($args['chooser']);
-$swuBotOriginalChooser = $GLOBALS['SWUBotChoosers'][$swuBotChooserProfile] ?? null;
+// --chooser2= puts seat 2 on its own profile. BOTH profiles get the recording wrapper — an unwrapped
+// seat-2 profile would log nothing, and the applied/non-pass accounting below reads that log.
+$swuBotChooserProfile2 = $args['chooser2'] !== null ? strval($args['chooser2']) : $swuBotChooserProfile;
+foreach (array_unique([$swuBotChooserProfile, $swuBotChooserProfile2]) as $swuBotWrapProfile) {
+$swuBotOriginalChooser = $GLOBALS['SWUBotChoosers'][$swuBotWrapProfile] ?? null;
 if (!is_callable($swuBotOriginalChooser)) {
-  fwrite(STDERR, "SWUBotHeuristic did not register a '{$swuBotChooserProfile}' chooser; cannot run.\n");
+  fwrite(STDERR, "SWUBotHeuristic did not register a '{$swuBotWrapProfile}' chooser; cannot run.\n");
   exit(1);
 }
-SWUBotRegisterChooser($swuBotChooserProfile, function (array $actions, array $legal) use ($swuBotOriginalChooser) {
+SWUBotRegisterChooser($swuBotWrapProfile, function (array $actions, array $legal) use ($swuBotOriginalChooser) {
   $kind = strval($legal['kind'] ?? '');
   // Read ONCE per invocation, before the answer is chosen: the queue is untouched at this point, so
   // every candidate in $actions and the pick itself belong to this same decision.
@@ -406,7 +477,9 @@ SWUBotRegisterChooser($swuBotChooserProfile, function (array $actions, array $le
   ];
   return $chosen;
 });
+}
 SWUBotSetForcedChooserProfile($swuBotChooserProfile);
+if ($swuBotChooserProfile2 !== $swuBotChooserProfile) SWUBotSetForcedChooserProfileForSeat(2, $swuBotChooserProfile2);
 
 // A "pass" is either the free-play end-of-action Pass wire form or a mode-100 decline of an
 // optional decision. Assertion 4 needs the bot to do something that is NEITHER.
@@ -478,6 +551,7 @@ $steps = 0;
 $consecutiveNoOps = 0;
 $stalled = false;
 $gameOver = false;
+$capped = false;   // --max-rounds reached (RL training scores it -0.25; not a stall)
 $winner = 0;
 $maxRetriesInOneStep = 0;
 $maxRetriesStepDetail = '';
@@ -486,6 +560,7 @@ $appliedActions = [1 => 0, 2 => 0];
 $actionHistogram = [];
 $failureSignal = '';
 $stepError = '';
+if (function_exists('SWUBotResetCoverage')) SWUBotResetCoverage();   // the heuristic stack's per-seat rule log
 
 for (; $steps < $args['maxSteps']; $steps++) {
   // Re-parse before every step, mirroring what a real HTTP request does on every poll. See
@@ -495,6 +570,7 @@ for (; $steps < $args['maxSteps']; $steps++) {
 
   $winner = function_exists('SWUGetGameWinner') ? intval(SWUGetGameWinner()) : 0;
   if ($winner !== 0) { $gameOver = true; break; }
+  if ($args['maxRounds'] > 0 && intval(GetTurnNumber()) > $args['maxRounds']) { $capped = true; break; }
 
   $GLOBALS['SWUBotTestChoiceLog'] = [];
   $result = ProcessBotControllerStep(0, 'SWUSim', $gameName);
@@ -559,7 +635,20 @@ SWUBotTestCheck($checks, 'game completed', $gameOver,
       : ($stepError !== '' ? "aborted at step {$steps}: {$stepError}"
         : "hit --max-steps={$args['maxSteps']} without a winner")));
 SWUBotTestCheck($checks, 'step budget not exhausted', $steps < $args['maxSteps'], "steps={$steps} budget={$args['maxSteps']}");
-if (!$gameOver) SWUBotTestStallDiagnostic($swuDir, $gameName, $stalled ? 'stall' : ($stepError !== '' ? 'error' : 'timeout'));
+// Game-end metrics, read NOW — the hash probes below write to the game. The round counter is
+// $gTurnNumber (GetTurnNumber): 1 at the start, +1 at each round's regroup (GameLogic.php ~:6772), so it
+// is the round the game ended in. Base damage DEALT by a seat is the damage on the OTHER seat's base.
+$swuBotMetrics = [
+  'seed'            => $args['seed'],
+  'firstPlayer'     => $args['firstPlayer'],
+  'winner'          => $winner,
+  'rounds'          => intval(GetTurnNumber()),
+  'baseDamageDealt' => [1 => intval(GetBase(2)[0]->Damage ?? 0), 2 => intval(GetBase(1)[0]->Damage ?? 0)],
+  'coverage'        => [1 => $GLOBALS['SWUBotCoverage'][1] ?? (object)[], 2 => $GLOBALS['SWUBotCoverage'][2] ?? (object)[]],
+  'chooser'         => [1 => $swuBotChooserProfile, 2 => $swuBotChooserProfile2],
+  'capped'          => $capped,
+];
+if (!$gameOver && !$capped) SWUBotTestStallDiagnostic($swuDir, $gameName, $stalled ? 'stall' : ($stepError !== '' ? 'error' : 'timeout'));
 
 // ── 2. NO ENUMERATION GAPS ───────────────────────────────────────────────────────────────────────
 $gaps = $GLOBALS['SWUBotUnrecognizedDecisions'] ?? [];
@@ -593,6 +682,13 @@ SWUBotTestCheck($checks, 'seat 2 took a non-pass action', $nonPassActions[2] > 0
 // A deliberately illegal action must not move the comparable hash. If it does, some gamestate block
 // mutates on a rejected write and is missing from SWUBotExcludedHashBlocks() — which would strand
 // the bot's no-op detector and, through it, the exclude-and-retry loop.
+//
+// These probes WRITE to the game. For a game that did not complete, the saved state is the stall point the
+// sweep keeps for diagnosis (SWUSim/DevTools/rl/sweep_fixtures.sh), and the probes were overwriting it: a
+// stalled prompt could vanish from the kept folder. So snapshot the file here and restore it after the probes.
+// The checks run exactly as before.
+$swuBotGamestatePath = $swuDir . "Games/{$gameName}/Gamestate.txt";
+$swuBotStallSnapshot = $gameOver ? null : @file_get_contents($swuBotGamestatePath);
 ParseGamestate($swuDir);
 $before = SWUBotComparableGamestateHash($gameName);
 EngineExecuteLoadedAction(
@@ -616,6 +712,7 @@ EngineExecuteLoadedAction(
 $afterFsm = SWUBotComparableGamestateHash($gameName);
 SWUBotTestCheck($checks, 'illegal FSM play does not move the hash', $beforeFsm !== null && $beforeFsm === $afterFsm,
   substr(strval($beforeFsm), 0, 12) . ' vs ' . substr(strval($afterFsm), 0, 12));
+if (is_string($swuBotStallSnapshot) && $swuBotStallSnapshot !== '') @file_put_contents($swuBotGamestatePath, $swuBotStallSnapshot);
 
 // ── Report ───────────────────────────────────────────────────────────────────────────────────────
 if ($args['verbose'] || !$gameOver) {
@@ -651,5 +748,6 @@ echo '[RESULT] ' . json_encode([
   'nonPass2'      => $nonPassActions[2],
   'failureSignal' => $failureSignal,
 ], JSON_UNESCAPED_SLASHES) . "\n";
+echo 'SWUBOT_METRICS ' . json_encode($swuBotMetrics, JSON_UNESCAPED_SLASHES) . "\n";
 
 exit($failures > 0 ? 1 : 0);

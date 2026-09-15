@@ -5,10 +5,13 @@
 
 // TWI_082 MagnaGuard Wing Leader — "Action: Attack with a Droid unit. Then, attack with another Droid
 // unit. Use this ability only once each round." (No exhaust/resource cost; once/round gate.)
+// The round belongs to THIS copy (NumUses on the unit — two Wing Leaders each get one), and it is spent
+// by using the Action even with no Droid to attack with (official ruling, see SWUUnitActionAffordable).
 $unitActionCostKind["TWI_082"] = 'none';
 
 $unitAbilities["TWI_082"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
+    SWUConsumeUse(GetZoneObject($mzID));
     $droids = [];
     foreach (["myGroundArena", "mySpaceArena"] as $z) {
         $arr = GetZone($z);
@@ -19,7 +22,6 @@ $unitAbilities["TWI_082"] = function($player, $mzID) {
         }
     }
     if (empty($droids)) { SWUAfterAction(intval($player)); return; }
-    AddGlobalEffects(intval($player), 'SWU_TWI082_USED'); // once each round
     SWUQueueChooseTarget(intval($player), $droids, "Attack_with_a_Droid_unit", "TWI_082#0");
 };
 

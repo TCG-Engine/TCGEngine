@@ -64,8 +64,47 @@ the attack, so `SWU_CURRENT_DEFENDING_SEAT` is gone by then.
 ### STILL OPEN (small, named)
 - `SEC_133` — unpinnable by construction (its residual defect is an unreachable `?:` fallback).
 - The `SWU_DMGDBASE` base-damage stamp has no four-seat pin.
-- Pass 2: the ~70 "neither helper" + 16 monolith cards, plus the **45** cards the text scan structurally
-  missed (the "defending player / that opponent / its controller" family, `_FINDINGS.md` §1b).
+- ~~Pass 2: the ~70 "neither helper" + 16 monolith cards, plus the 45 §1b cards~~ — all CLOSED 2026-08-27
+  (see the Progress rows below).
+
+### POST-SWEEP RE-SCAN (2026-09-12) — 2 live bugs the clause index could not see
+Re-scanned every card file for a live `OtherPlayer` / `GetOpponent` / `SWUChooseOpponent` call (comments
+stripped) and read all 22 hits. No card added since 2026-08-27 carries one, and nothing was reintroduced
+in the monoliths. 19 are fine: `SeatCountForGame() > 2` gates, `$parts[0] ?? …` fallbacks whose producer
+always passes the seat, the 3 annotated leftovers, and `SEC_133`. The other three:
+- **`SOR_134` Ruthless Raider — LIVE BUG.** `SWUDealDamageToBase(2, GetOpponent($player))`, ungated. At
+  four seats the base damage always went to seat 2, and from seat 3/4 (GetOpponent → NULL) it went nowhere.
+  It now uses the opponent picker above two seats; the unit half is queued from the continuation.
+  Pins: `sor/RuthlessRaider.md::TwinSuns_*` (4 sections, two mutations).
+- **`LAW_159` Expendable Mercenary — LIVE BUG.** The owner's-pile search looked in the controller's
+  pile, then in `OtherPlayer()`'s only. A seat-4-owned mercenary defeated under seat 1's control was never
+  found. It now walks every seat and names the pile `p<seat>Discard-N`.
+  Pin: `law/ExpendableMercenary.md::TwinSuns_DefeatedUnderFarSeatControl_FoundInTheOwnersPile`.
+- `LAW_101` Lawbringer — a DEAD seat param (the handler fans out over `their*`). Removed. The fan-out is
+  pinned by `law/Lawbringer_ShadowOverLothal.md::TwinSuns_EachEnemyUnitSpansBothOpponents_NeverTheTeammate`.
+
+Three more surfaced while converting the once-per-round flags the same day, all "unqualified pool built
+from two seats":
+- **`TS26_53` Coruscanti Spy** and **`ASH_032` Rancor Keeper** — "any number of bases" was the literal
+  MZMULTICHOOSE param `"0|2|myBase-0&theirBase-0"`: at four seats it offered 2 of the 4 bases and capped
+  the pick at 2. Now `SWUAllBaseMzIDs($p, 'any')` with the cap = the pool size. ⚠ The neither-helper
+  sweep grepped for a QUOTED `'theirBase-0'`, so an `&`-joined literal walked straight past it.
+- **`SHD_217` Tobias Beckett** — "exhaust a unit" built its pool from `my*` + `their*` zones, and `their*`
+  is the OPPONENT fan-out, so a teammate's units were never offered. Now `SWUAllUnits()`.
+Pins: `ts26/CoruscantiSpy.md::TwinSuns_*`, `ash/RancorKeeper.md::TwinSuns_*`,
+`shd/TobiasBeckett_ITrustNoOne.md::TwinSuns_OfferSpansEverySeat_TheTeammatesUnitIncluded`.
+
+⚠ **OPEN FOLLOW-UP — the Tobias shape is not a one-off.** 73 hand-written
+`['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena']` zone lists remain in
+`SWUSim/Custom`. In a TEAM game each one skips the teammate's units, which is wrong wherever the text is
+UNQUALIFIED ("a unit", "each unit"). It is right for "friendly"/"enemy" wording, and harmless outside
+team games (free-for-all Twin Suns has no teammate). Each needs reading against its printed text; the fix
+is `SWUAllUnits()`. Not started.
+
+⚠ **Why the pass-2 clause index missed both.** It keyed clauses on `$whenPlayedAbilities["X"] = function`.
+SOR_134's body is a shared `$var = function` closure assigned to two keys, and LAW_159's call sits in a
+NAMED helper function. **A clause scan must also follow closure variables and the card file's own named
+functions — or just read every raw hit in the file, which is what found these.**
 
 ### THE WORKING RULES THIS SWEEP ESTABLISHED (do not re-derive)
 1. **Check `.claude/SWUSim/refs/card-specific-rulings.md` FIRST** for any released card. 20 converted cards

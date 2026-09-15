@@ -80,7 +80,7 @@ $customDQHandlers["SHD_014#exhaust"] = function($player, $parts, $lastDecision) 
         SWUConsumeUse(SWUGetLeader(intval($player)));   // "use this ability only once each round"
     } else {
         $leaderArr = &GetLeader(intval($player));
-        foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'SHD_014' && empty($l->removed)) { $l->Ready = false; break; } }  // exhaust the leader (cost)
+        foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'SHD_014' && empty($l->removed)) { $l->Ready = false; SWULogLeaderExhaustCost(intval($player), 'SHD_014'); break; } }  // exhaust the leader (cost)
         unset($l);
     }
     $amount = ($mode === 'deployed') ? 2 : 1;

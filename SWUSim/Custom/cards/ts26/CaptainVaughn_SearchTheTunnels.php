@@ -26,10 +26,7 @@ function _SWUTs26039OfferPutOnTop(int $player): void {
 $customDQHandlers["TS26_39#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $allIDs = array_values(array_filter(explode(',', $parts[0] ?? '')));
-    $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
-    SWULogSearchedToHand(intval($player), $resolved['drawn'], false);  // game log: no "reveal" → hidden draw
-    foreach ($resolved['drawn'] as $cid) AddHand(intval($player), CardID: $cid);
-    _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
+    SWUFinishTopDeckSearch(intval($player), $allIDs, $lastDecision, 'bottom', false);  // no "reveal" → hidden draw
     _SWUTs26039OfferPutOnTop(intval($player));
 };
 
@@ -38,12 +35,10 @@ $customDQHandlers["TS26_39#1"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || !str_contains($lastDecision, '-')) return;
     $o = GetZoneObject($lastDecision);
     if (SWUObjGone($o)) return;
-    $cid = $o->CardID ?? '';
-    $o->removed = true;
-    DecisionQueueController::CleanupRemovedCards();
-    $deck = &GetDeck(intval($player));
-    $topObj = new Deck($cid, 'Deck', intval($player));
-    array_unshift($deck, $topObj);
-    foreach ($deck as $i => $c) { $c->mzIndex = $i; }
-    SWULogToDeck(intval($player), [$cid], 'hand', 'top');   // game log: hidden, a count
+    // Its position among the LIVE hand cards, for the waiting draw triggers: a drawn LOF_148 Rey put back
+    // here can no longer be revealed (CR 7.6.11 nested hold — see _SWUDeferredDrawNoteHandRemoval).
+    $ord = 0;
+    foreach (GetHand(intval($player)) as $h) { if ($h === $o) break; if (empty($h->removed)) $ord++; }
+    SWUMoveCardToDeck(intval($player), (string)$lastDecision, 'top');   // hidden, a count
+    _SWUDeferredDrawNoteHandRemoval(intval($player), $ord);
 };

@@ -10,14 +10,7 @@ $customDQHandlers["LAW_029#0"] = function($player, $parts, $lastDecision) {
     if ($mz === '' || !str_contains($mz, '-')) return;
     if (!SWUReturnResourceToHand(intval($player), $mz)) return;
     DecisionQueueController::CleanupRemovedCards();
-    $deck = &GetDeck(intval($player));
-    for ($i = 0; $i < count($deck); $i++) {
-        if (isset($deck[$i]->removed) && $deck[$i]->removed) continue;
-        $top = $deck[$i]->CardID; $deck[$i]->Remove();
-        AddResources(intval($player), $top, 0, intval($player), intval($player));   // enters exhausted
-        AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' resourced the top card of their deck');
-        break;
-    }
+    SWUResourceTopOfDeck(intval($player));   // the top card of the deck, exhausted (SSOT #3 funnel)
     DecisionQueueController::CleanupRemovedCards();
 };
 

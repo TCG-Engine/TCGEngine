@@ -1,24 +1,22 @@
-# CORE — multi-seat turn rotation. No cards, no abilities: just "whose turn is it next".
-#
-# WHY A CORE FILE. 152 case files already set WithSeatOrder, but every one of them is about a CARD —
-# the rotation itself is only ever asserted incidentally, as a side effect of something else. These
-# sections pin the rotation on its own, so a regression in NextLiveSeat/SWUSwapTurnPlayer reds here
-# with an unambiguous message instead of scattering odd failures across a hundred card files.
-#
-# ⚠ WHY THIS MATTERS MORE THAN AT TWO SEATS. SWUSwapTurnPlayer() advances via NextLiveSeat(), which at
-# two seats is an INVOLUTION — a double swap returns to the acting player and reads as "I got an extra
-# action". At three or more it advances twice and the middle seat never acts. Only a fixture that pins
-# the EXACT next seat can tell those apart, so every section below asserts a specific TURNPLAYER rather
-# than "not me".
-#
-# ⚠ NO `P{n}OnlyActions` ANYWHERE IN THIS FILE. That directive claims initiative and marks every other
-# seat in SWU_COUNTER_TAKEN so they auto-pass — which is precisely the rotation these sections exist to
-# measure. It would make all of them vacuous.
-#
-# A plain pass is the probe: it is the only action that moves the turn without touching a board.
-
----
-
+#// CORE — multi-seat turn rotation. No cards, no abilities: just "whose turn is it next".
+#//
+#// WHY A CORE FILE. 152 case files already set WithSeatOrder, but every one of them is about a CARD —
+#// the rotation itself is only ever asserted incidentally, as a side effect of something else. These
+#// sections pin the rotation on its own, so a regression in NextLiveSeat/SWUSwapTurnPlayer reds here
+#// with an unambiguous message instead of scattering odd failures across a hundred card files.
+#//
+#// ⚠ WHY THIS MATTERS MORE THAN AT TWO SEATS. SWUSwapTurnPlayer() advances via NextLiveSeat(), which at
+#// two seats is an INVOLUTION — a double swap returns to the acting player and reads as "I got an extra
+#// action". At three or more it advances twice and the middle seat never acts. Only a fixture that pins
+#// the EXACT next seat can tell those apart, so every section below asserts a specific TURNPLAYER rather
+#// than "not me".
+#//
+#// ⚠ NO `P{n}OnlyActions` ANYWHERE IN THIS FILE. That directive claims initiative and marks every other
+#// seat in SWU_COUNTER_TAKEN so they auto-pass — which is precisely the rotation these sections exist to
+#// measure. It would make all of them vacuous.
+#//
+#// A plain pass is the probe: it is the only action that moves the turn without touching a board.
+#//
 # ThreeSeat_Rotate_1to2
 ## GIVEN
 CommonSetup3P: bbk/bbk/bbk

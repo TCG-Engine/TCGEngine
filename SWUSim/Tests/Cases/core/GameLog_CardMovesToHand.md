@@ -281,3 +281,6 @@ WithP2GroundArena: SOR_046:1:0
 ## EXPECT
 P1NOFORCE
 LOGCONTAINS:P1 defeated their Force token ([[LAW_017|Han Solo]])
+#// The Action's 1 damage resolves in a queued universal continuation after the after-action was queued;
+#// it used to read passively ("P2's X took 1 damage"). The queued-source stamp (gamelog-updates #6) fixed it.
+LOGCONTAINS:P1's [[LAW_017|Han Solo]] dealt 1 damage to P2's [[SOR_046|Consular Security Force]]

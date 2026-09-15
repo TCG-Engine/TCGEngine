@@ -16,6 +16,8 @@
 #//           reveal, the aspect read and the damage choose are one continuous resolution, with no state
 #//           written by one player ACTION and read by the next. Base-subcard survival across a
 #//           round-trip is covered generically by keywords/Fortify.md) ·
+#//           emptydeck=Regroup_EmptyDeck_NothingRevealed_RegroupContinues (control: Regroup_SingleCardDeck_*) ·
+#//           bothArenas=Regroup_EnemySpaceUnit_IsOffered + Regroup_EnemySpaceUnit_TakesTheDamage ·
 #//           modes=2P only — "an enemy unit" is a controller relation the shared pool already resolves
 #//           per seat, and there is no player reference to choose between opponents.
 #//
@@ -244,3 +246,106 @@ P1GROUNDARENAUNIT:0:CARDID:SOR_046
 P1GROUNDARENAUNIT:0:DAMAGE:1
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
 P2GROUNDARENAUNIT:0:DAMAGE:0
+
+---
+
+# Regroup_EmptyDeck_NothingRevealed_RegroupContinues
+#// HMW_160 — the EMPTY-DECK cell. With no card on top there is nothing to reveal, so there is no reveal
+#// log line, no aspect read and no damage — and the regroup does not stall: it runs on into its own
+#// draw step, where drawing 2 from the empty deck deals the ordinary deck-out damage (3 per card not
+#// drawn = 6, one event), and on to the resource step (PHASE:RES). That base damage is the proof the phase
+#// got PAST the trigger; a crash or a choose queued with nothing to show would strand it before the draw.
+#// The paired control is Regroup_SingleCardDeck_StillRevealsAndDeals (the same board with ONE card).
+## GIVEN
+CommonSetup: rrk/grw/{myResources:5}
+WithP1BaseUpgrade: HMW_160
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>Pass
+- P2>Pass
+- P1>Drain
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:0
+LOGCOUNT:0:revealed
+P1DECKCOUNT:0
+P1HANDCOUNT:0
+P1BASEDMG:6
+PHASE:RES
+
+---
+
+# Regroup_SingleCardDeck_StillRevealsAndDeals
+#// HMW_160 — the control for the empty-deck section, and the "regardless of deck size" cell at its low
+#// end: a deck of exactly ONE Aggression card (SOR_128) is revealed (one reveal line), the enemy 3/7 takes
+#// 1, and only THEN does the draw step take that same card — hand 1, deck 0, and 3 deck-out damage for
+#// the second card that could not be drawn. The revealed card ending up in hand pins that the reveal ran
+#// BEFORE the regroup draw.
+## GIVEN
+CommonSetup: rrk/grw/{myResources:5}
+WithP1BaseUpgrade: HMW_160
+WithP1Deck: [SOR_128]
+WithP2GroundArena: SOR_046:1:0
+## WHEN
+- P1>Pass
+- P2>Pass
+- P1>Drain
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:1
+LOGCOUNT:1:revealed
+P1DECKCOUNT:0
+P1HANDCOUNT:1
+P1HANDCARD:0:SOR_128
+P1BASEDMG:3
+PHASE:RES
+
+---
+
+# Regroup_EnemySpaceUnit_IsOffered
+#// HMW_160 — "an enemy unit" spans BOTH arenas. The existing offer section seats one enemy unit (so the
+#// choose auto-resolves) and proves only the friendly exclusion. Here P2 has a ground 3/7 AND a space
+#// SOR_237 Alliance X-Wing, and P1 has its own SEC_080 on the ground: the pending choose must offer
+#// exactly the two ENEMY units, the space one included, and never P1's own. Left pending; the answer is
+#// resolved in the section below.
+## GIVEN
+CommonSetup: rrk/grw/{myResources:5}
+WithP1BaseUpgrade: HMW_160
+WithP1Deck: [SOR_128 SOR_095 SOR_046 SEC_080]
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SOR_237:1:0
+## WHEN
+- P1>Pass
+- P2>Pass
+- P1>Drain
+## EXPECT
+P1SELECTABLEEXACT:theirGroundArena-0&theirSpaceArena-0
+P1DECISIONTOOLTIP:Deal_1_damage_to_an_enemy_unit_(Noxious_Refinery)
+P1DECKCOUNT:4
+
+---
+
+# Regroup_EnemySpaceUnit_TakesTheDamage
+#// HMW_160 — the same board, answered: the SPACE unit is chosen and takes the 1; the enemy ground unit
+#// and P1's own unit are untouched. The regroup then resumes into its draw step (deck 4 → 2) and the
+#// resource step — the choose was the only thing holding it.
+## GIVEN
+CommonSetup: rrk/grw/{myResources:5}
+WithP1BaseUpgrade: HMW_160
+WithP1Deck: [SOR_128 SOR_095 SOR_046 SEC_080]
+WithP1GroundArena: SEC_080:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SOR_237:1:0
+## WHEN
+- P1>Pass
+- P2>Pass
+- P1>Drain
+- P1>AnswerDecision:theirSpaceArena-0
+## EXPECT
+P2SPACEARENAUNIT:0:CARDID:SOR_237
+P2SPACEARENAUNIT:0:DAMAGE:1
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P1GROUNDARENAUNIT:0:DAMAGE:0
+P1DECKCOUNT:2
+PHASE:RES

@@ -6,7 +6,7 @@
 $customDQHandlers["LAW_101#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = intval($player);
-    $opp = intval($parts[0] ?? OtherPlayer(intval($player)));
+    // "EACH enemy unit" — the their* fan-out already spans every opponent, so no seat is carried.
     // Apply -2/-2 to every matching enemy unit simultaneously (defer the per-unit defeat check), THEN
     // resolve defeats once — else a unit killed mid-loop shifts the remaining arena indices and later
     // matching units get skipped (same bug class as SEC_051 Bo-Katan's -3/-3).
@@ -28,7 +28,7 @@ $law101 = function ($player, $mzID) {
   global $playerID;
   $playerID = intval($player);
   DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "Vigilance&Command&Aggression&Cunning&Heroism&Villainy", 1, "Choose_an_aspect");
-  DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_101#0|" . OtherPlayer(intval($player)), 1);
+  DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_101#0", 1);
 };
 
 $whenPlayedAbilities["LAW_101:0"] = $law101;

@@ -1,28 +1,26 @@
-# ASH_011 Cad Bane — Still Faster than You: the leader Action after a seat has been ELIMINATED.
-#
-# WHY THIS FILE EXISTS — game 4160, "after a player was eliminated, i can't choose a target with my
-# Cad Bane leader."
-#
-# The reported defect was CLIENT-side (a Twin Suns game narrowed to two live seats stopped translating
-# the server's seat-tagged `p{n}Zone-i` ids into the `their…` frame the 2-player board renders, so
-# nothing was clickable). These sections guard the SERVER half of that seam, which was — and must stay
-# — correct: ZoneSearch's seat-tagged fan-out is gated on SeatCountForGame(), which counts SEAT ORDER,
-# so it keeps addressing the surviving opponent by seat for the rest of the game.
-#
-# ⚠ THIS IS THE GUARD AGAINST "FIXING" IT ON THE SERVER. The tempting alternative was to gate the
-# fan-out on the LIVE seat count instead, so a narrowed game would emit plain `their…` and match the
-# client with no client change. That is wrong and this file is what catches it: with two live seats out
-# of an original three, an unqualified `their<Zone>` search resolved through the 2-player frame does
-# NOT reach seat 3 — the frame's "other player" is seat 2, who is dead and holds nothing — so the pool
-# would come back EMPTY and Cad Bane would fizzle without ever asking. That is a strictly worse bug
-# than the one reported, and it is silent.
-#
-# Cad Bane's Action is "[Exhaust]: Deal 1 damage to a unit with 2 or more remaining HP", and its pool
-# is every unit on the table, so with P1 controlling nothing the pool is entirely seat-tagged — which
-# is exactly the shape that broke.
-
----
-
+#// ASH_011 Cad Bane — Still Faster than You: the leader Action after a seat has been ELIMINATED.
+#//
+#// WHY THIS FILE EXISTS — game 4160, "after a player was eliminated, i can't choose a target with my
+#// Cad Bane leader."
+#//
+#// The reported defect was CLIENT-side (a Twin Suns game narrowed to two live seats stopped translating
+#// the server's seat-tagged `p{n}Zone-i` ids into the `their…` frame the 2-player board renders, so
+#// nothing was clickable). These sections guard the SERVER half of that seam, which was — and must stay
+#// — correct: ZoneSearch's seat-tagged fan-out is gated on SeatCountForGame(), which counts SEAT ORDER,
+#// so it keeps addressing the surviving opponent by seat for the rest of the game.
+#//
+#// ⚠ THIS IS THE GUARD AGAINST "FIXING" IT ON THE SERVER. The tempting alternative was to gate the
+#// fan-out on the LIVE seat count instead, so a narrowed game would emit plain `their…` and match the
+#// client with no client change. That is wrong and this file is what catches it: with two live seats out
+#// of an original three, an unqualified `their<Zone>` search resolved through the 2-player frame does
+#// NOT reach seat 3 — the frame's "other player" is seat 2, who is dead and holds nothing — so the pool
+#// would come back EMPTY and Cad Bane would fizzle without ever asking. That is a strictly worse bug
+#// than the one reported, and it is silent.
+#//
+#// Cad Bane's Action is "[Exhaust]: Deal 1 damage to a unit with 2 or more remaining HP", and its pool
+#// is every unit on the table, so with P1 controlling nothing the pool is entirely seat-tagged — which
+#// is exactly the shape that broke.
+#//
 # OffersEliminatedGameSurvivorsUnits
 #// SeatOrder 123 with seat 2 ELIMINATED. P1 controls no units, so every legal target belongs to seat 3
 #// and the whole pool is seat-tagged. Two of seat 3's units qualify (>= 2 remaining HP) and two do not,

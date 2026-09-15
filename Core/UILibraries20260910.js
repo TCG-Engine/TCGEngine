@@ -250,6 +250,7 @@ var SWU_EFFECT_STACK_TRIGGER_LABELS = {
     'OnDefenseFromUpgrade': 'On Defense', 'OnAttackedFromUpgrade': 'On Defense',
     'OnAttached': 'On Attached', 'Ambush': 'Ambush', 'Shielded': 'Shielded', 'Support': 'Support',
     'AdvantageShed': 'Advantage', 'SWU_PLOT_WINDOW': 'Plot', 'LOF_017D': 'When Attack Ends',
+    'RegroupStart': 'Regroup Start',   // SWUSim regroup-start trigger window ("When the regroup phase starts")
     'SHD_018D': 'Upgrade Played', 'TWI_018D': 'Unit Played',
 
     // ── Card reactions, grouped by the window they resolve in ──
@@ -342,7 +343,7 @@ var SWU_EFFECT_STACK_TRIGGER_LABELS = {
     // them with it would state the wrong timing). ASH_062 / SEC_101 are damage REPLACEMENT effects.
     // '' is a DECISION here, not an omission — the test above treats a missing key and a blank
     // string differently, so these four cannot be mistaken for an unmapped type.
-    'ASH_184': '', 'LAW_205': '', 'ASH_062_PREVENT': '', 'SEC_101_PREVENT': '',
+    'ASH_184': '', 'LAW_205': '',
 };
 function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
   if (!zoneSlot) return false;

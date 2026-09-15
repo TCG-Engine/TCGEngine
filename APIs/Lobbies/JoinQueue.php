@@ -7,6 +7,7 @@
   require_once __DIR__ . "/Classes/TeamRooms.php";   // SWURoomAutoTeamOnJoin / SWURoomAssignTeam
   require_once __DIR__ . "/Classes/LobbyAdapter.php"; // LobbyAdapterFor — the per-sim lobby seam
   require_once __DIR__ . "/Classes/LobbyStore.php";  // LobbyMutate — the ONE locked lobby write
+  require_once __DIR__ . '/../../SWUSim/Mod/DevGate.php';  // SWUBotPracticeAllowed — Bot Practice is admin-only
 
   // Personal deck stats (Feature B): remember who created each seat so the match can attribute W/L.
   if (session_status() === PHP_SESSION_NONE) { @session_start(); }
@@ -88,6 +89,11 @@
   }
   $gaBotPlayers = $requestedBotPlayers;
   if (empty($gaBotPlayers)) $gaBotPlayers = [1, 2];
+  // SWUSim Bot Practice: the bot's Play Style (the menu's select). Optional; missing or unknown means
+  // 'normal', so a Bot Practice game never falls back to the first-legal chooser. SWUSim/CreateGame.php
+  // turns it into the SWUBotProfile game variable (heuristic-<style>). Ignored by every other format.
+  $botStyle = strtolower(trim(strval($_POST['botStyle'] ?? '')));
+  if (!in_array($botStyle, ['aggro', 'normal', 'control'], true)) $botStyle = 'normal';
   $createTutorial = isset($_POST['createTutorial']) && ($_POST['createTutorial'] === '1' || strtolower($_POST['createTutorial']) === 'true');
   $casterMode = isset($_POST['casterMode']) && ($_POST['casterMode'] === '1' || strtolower($_POST['casterMode']) === 'true');
   $privateInviteCode = isset($_POST['privateInviteCode']) ? trim($_POST['privateInviteCode']) : '';
@@ -140,6 +146,15 @@
     // ⚠ JOINING by invite code is deliberately EXEMPT: a logged-in host already created the lobby and
     // vouched for the format, so an anonymous friend following the link may join a Premier/Twin Suns
     // game they could not have started themselves.
+    // Bot Practice is admin-only outside local dev (owner, 2026-09-15): the same gate the menu uses, so a hand-built
+    // request cannot bypass it. SWUSim/Mod/DevGate.php SWUBotPracticeAllowed().
+    if (($bpRefusal = SWUBotPracticeRefusal($format)) !== null) {
+      $response->success = false;
+      $response->message = $bpRefusal;
+      header('Content-Type: application/json');
+      echo json_encode($response);
+      exit;
+    }
     $swuNeedsAccount = !$createGoldfish && !$isModeFormat && $privateInviteCode === '';
     if ($format !== 'open' && $swuNeedsAccount && !$joiningUserId) {
       $response->success = false;
@@ -277,6 +292,7 @@
     $lobby->botPlayers = $isGABot
       ? $gaBotPlayers
       : ($isBotPractice ? (empty($requestedBotPlayers) ? [2] : $requestedBotPlayers) : []);
+    $lobby->botStyle = $isBotPractice ? $botStyle : '';
     $lobby->azukiRlBotPlayers = $isAzukiRlBot ? [2] : [];
     $lobby->azukiRlBotProfile = $isAzukiRlBot ? $azukiRlBotProfile : '';
     $lobby->players = [$hostPlayer, $secondPlayer];

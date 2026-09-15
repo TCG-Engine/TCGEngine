@@ -316,6 +316,16 @@ class GameStateBuilder {
     }
 
     public function _applyToGlobals(): void {
+        // HMW_011 Darth Sidious's "deployed this action" latch is REQUEST-scoped and cleared by SWUAfterAction.
+        // A section that ends with a decision still pending never reaches that clear, so the latch leaked into
+        // the NEXT section's game and an UNDEPLOYED Sidious reacted in 'deployed' mode (no exhaust) — found
+        // 2026-09-14 by Front_AbilityDamage_OpenFireFourToAnEnemyUnit_Triggers, which failed only when run
+        // after a deployed-Sidious section. Reset HERE, not in Build(): GameTestAdapter::loadState() — the
+        // per-section entry point — calls this directly and never runs Build().
+        unset($GLOBALS['gHmw011DeployedThisAction']);
+        // HMW_108's active-trait memo (a function static) — the same per-section reset Build() does. Build() is
+        // never called by the runner, so its copy of this line never ran per section.
+        if (function_exists('_SWUHmw108ActiveFlags')) _SWUHmw108ActiveFlags(true);
         InitializeGamestate();
 
         // Turn context

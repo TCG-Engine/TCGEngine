@@ -9,7 +9,7 @@ $customDQHandlers["SHD_008#front"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (($lastDecision ?? '') !== 'YES') return;
     $leaderArr = &GetLeader(intval($player));
-    foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'SHD_008' && empty($l->removed)) { $l->Ready = false; break; } }  // exhaust the leader (cost)
+    foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'SHD_008' && empty($l->removed)) { $l->Ready = false; SWULogLeaderExhaustCost(intval($player), 'SHD_008'); break; } }  // exhaust the leader (cost)
     unset($l);
     SWUOfferUnitTarget(intval($player), '', [
         'continuation' => 'APPLY_PHASE_BUFF|1|0|SHD_008',

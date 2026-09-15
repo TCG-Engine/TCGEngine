@@ -9,7 +9,7 @@ $customDQHandlers["SHD_005#exhaust"] = function($player, $parts, $lastDecision) 
     global $playerID; $playerID = intval($player);
     if (($lastDecision ?? '') !== 'YES') return;
     $leaderArr = &GetLeader(intval($player));
-    foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'SHD_005' && empty($l->removed)) { $l->Ready = false; break; } }  // exhaust the leader (cost)
+    foreach ($leaderArr as &$l) { if (($l->CardID ?? '') === 'SHD_005' && empty($l->removed)) { $l->Ready = false; SWULogLeaderExhaustCost(intval($player), 'SHD_005'); break; } }  // exhaust the leader (cost)
     unset($l);
     GiveTokenUpgrade(intval($player), '', [
         'friendlyOnly' => false,

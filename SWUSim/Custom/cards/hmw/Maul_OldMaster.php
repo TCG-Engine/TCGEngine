@@ -61,8 +61,18 @@ $leaderAbilities["HMW_016"] = function(int $player): void {
 };
 
 // Step 0: play the chosen hand unit at the discount, then defeat it.
+//
+// The play is the FULL ceremony (SWUNestedPlayUnit -> SWUBeginPlayCard), so the unit's additional costs
+// are charged — HMW_048 Vernestra Rwoh's discard-bottoming, Exploit. SWUNestedPlay entered at
+// ActivateCard and skipped them (reported 2026-09-14 alongside HMW_204 Nightbrother).
+//
+// ⚠ "Then, defeat it" is a THEN STEP, not code after the call. An additional cost can make the player
+// choose, and the unit then arrives in a LATER request — code after the call would find nothing to
+// defeat and close the action early. SWUNestedPlayUnit runs the step wherever the play finishes: right
+// here when it was synchronous, otherwise at the PLAY_CARD dispatch that resumes it. On both paths the
+// play runs in a nested frame (its own close refused) and the step owns the close, exactly as before.
 $customDQHandlers["HMW_016#0"] = function($player, $parts, $lastDecision) {
-    global $playerID, $gTurnPlayer, $gPlayGrantTurnEffect;
+    global $playerID;
     $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) { SWUAfterAction(intval($player)); return; }
     $handMz = strval($lastDecision);
@@ -70,13 +80,15 @@ $customDQHandlers["HMW_016#0"] = function($player, $parts, $lastDecision) {
 
     // The marker is how the played unit is FOUND afterwards. A positional guess would be wrong as soon
     // as the unit lands in the other arena, or the arena reindexes.
-    $gPlayGrantTurnEffect = 'HMW_016';
-    // Nested play: the leader Action owns this action's ending. SWUNestedPlay neutralises BOTH of
-    // ActivateCard's after-actions — the immediate one and the deferred one that a queued
-    // SWU_TRIGGER_RESUME fires when the played unit arms an entry trigger (an opponent's Trap Field).
-    SWUNestedPlay(intval($player), $handMz, false, intval($parts[0] ?? 0));
-    $gPlayGrantTurnEffect = null;
+    SWUNestedPlayUnit(intval($player), $handMz, intval($parts[0] ?? 0),
+        ['turnEffect' => 'HMW_016', 'then' => '_SWUHmw016ThenDefeat']);
+};
 
+// The "Then, defeat it" step — see HMW_016#0. $placedMz is unused: the marker is the authoritative
+// finder (the nested close's cleanup can reindex the arena after ActivateCard reported the slot).
+function _SWUHmw016ThenDefeat(int $player, string $placedMz): void {
+    global $playerID;
+    $playerID = intval($player);
     $newMz = null;
     foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
@@ -106,7 +118,7 @@ $customDQHandlers["HMW_016#0"] = function($player, $parts, $lastDecision) {
 
     if ($newMz !== null) SWUDefeatUnit(intval($player), $newMz);
     SWUAfterAction(intval($player));
-};
+}
 
 // True when ActivateCard queued the CR 1050.3 uniqueness choose-and-defeat for this player.
 function _SWUMaulUniquenessPending(int $player): bool {
@@ -152,10 +164,12 @@ $whenPlayedAbilities["HMW_016:0"] = function($player, $mzID = '') {
 };
 
 // Step 2: play the chosen discard unit at the discount. No after-action — the deploy's flush owns it.
+// The FULL play ceremony (SWUNestedPlayUnit), so the unit's additional costs are charged: HMW_048
+// Vernestra Rwoh defeated this phase comes back here and still bottoms her two donors.
 $customDQHandlers["HMW_016#2"] = function($player, $parts, $lastDecision) {
-    global $playerID, $gTurnPlayer;
+    global $playerID;
     $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
     if (strpos(strval($lastDecision), '-') === false) return;
-    SWUNestedPlay(intval($player), strval($lastDecision), false, intval($parts[0] ?? 0));
+    SWUNestedPlayUnit(intval($player), strval($lastDecision), intval($parts[0] ?? 0));
 };

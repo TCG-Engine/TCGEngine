@@ -251,11 +251,21 @@ function _SWUUnitHasUpgrade(object $unit, string $upgradeCardID): bool {
 
 // True if $player controls a unit in play bearing $upgradeCardID (JTL_260 granted-discount check).
 function _SWUControlsUnitBearingUpgrade(int $player, string $upgradeCardID): bool {
+    return _SWUCountBorneUpgrade($player, $upgradeCardID) > 0;
+}
+// How many copies of $upgradeCardID ride units $player controls — one granted ability per copy, so a
+// granted cost modifier applies once per copy (CR 1.8.3: cost modifiers are cumulative).
+function _SWUCountBorneUpgrade(int $player, string $upgradeCardID): int {
+    $n = 0;
     foreach (GetField($player) as $u) {
-        if (SWUObjGone($u)) continue;
-        if (_SWUUnitHasUpgrade($u, $upgradeCardID)) return true;
+        if (SWUObjGone($u) || !is_array($u->Subcards ?? null)) continue;
+        foreach ($u->Subcards as $sub) {
+            $subCardID  = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+            $subRemoved = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
+            if (!$subRemoved && $subCardID === $upgradeCardID) $n++;
+        }
     }
-    return false;
+    return $n;
 }
 
 // ── SWU-only virtual properties (not defined in GA code) ────────────────────
@@ -1784,6 +1794,15 @@ function _SWUValidateTwoListPartition(string $param, string $answer): bool {
     return true;
 }
 
+// The indirect-damage assignment queued by SWUDealIndirectDamage (tooltip "Assign_<N>_indirect_damage", its
+// only emitter) is FORCED-FULL: the pool is already "as much as possible" (CR 35.3), so the assigner must place
+// all of it. Every other MZSPLITASSIGN keeps its "up to N" / soft-pass leniency. Found by the RL-bot diagnosis
+// (2026-09-14): a "-" answer cancelled the damage outright — 186 indirect prompts in 39 self-play games dealt 0.
+function _SWUIsForcedFullSplit($head): bool {
+    return $head !== null && (string)($head->Type ?? '') === 'MZSPLITASSIGN'
+        && preg_match('/^Assign_\d+_indirect_damage$/', (string)($head->Tooltip ?? '')) === 1;
+}
+
 function SWUValidateDecisionAnswer(int $player, string $answer): bool {
     $head = null;
     foreach (GetDecisionQueue($player) as $d) {
@@ -1811,7 +1830,7 @@ function SWUValidateDecisionAnswer(int $player, string $answer): bool {
     // MANDATORY "each player chooses". Note this is also why the decline check must come AFTER: a forced
     // resolve is not declinable, so PASS/'-' must be refused here too.
     if ($type === 'PASSPARAMETER') return $answer === (string)($head->Param ?? '');
-    if ($answer === 'PASS' || $answer === '-' || $answer === '') return $type !== 'MZCHOOSE';
+    if ($answer === 'PASS' || $answer === '-' || $answer === '') return $type !== 'MZCHOOSE' && !_SWUIsForcedFullSplit($head);
     // OPTIONCHOOSE is a fixed label list ("You&P2&P3", "Yours&Theirs", "@-&Your_deck&P2_deck"): the answer
     // must be one of those exact labels. It fell through unvalidated, and because every decoder
     // (SWUDecodePlayerPick / SWUDecodeDeckPick) happily reads any "P{n}" token out of the answer, a test
@@ -1981,10 +2000,14 @@ function SWUValidateDecisionAnswer(int $player, string $answer): bool {
     // remaining==0, which is exactly why nothing server-side did.
     // Validate BOTH halves: every mzID must be in the offered pool, and the TOTAL must not exceed it.
     // Under-assigning stays legal — "up to N" and a soft pass of 0 are both real plays.
+    // Indirect damage (_SWUIsForcedFullSplit) is the exception: it must be assigned in full.
     if ($type === 'MZSPLITASSIGN') {
         $paramParts = explode('|', (string)($head->Param ?? ''));
         $poolTotal  = intval($paramParts[0] ?? 0);
         $specStr    = $paramParts[1] ?? '';
+        // Optional 4th segment = STEP: every amount must be a whole multiple of it (HMW_036 Kelnacca assigns
+        // strikes of its power — "total|targets|ALL|4"). Absent/1 = the ordinary point-by-point split.
+        $step       = max(1, intval($paramParts[3] ?? 1));
         $assigned   = 0;
         $allOk      = true;
         foreach (explode(',', $answer) as $pair) {
@@ -1994,7 +2017,7 @@ function SWUValidateDecisionAnswer(int $player, string $answer): bool {
             if (count($bits) < 2) { $allOk = false; break; }
             $mz  = trim($bits[0]);
             $amt = intval($bits[1]);
-            if ($amt < 0) { $allOk = false; break; }
+            if ($amt < 0 || $amt % $step !== 0) { $allOk = false; break; }
             $assigned += $amt;
             $hit = false;
             foreach (explode('&', $specStr) as $rawSpec) {
@@ -2007,6 +2030,7 @@ function SWUValidateDecisionAnswer(int $player, string $answer): bool {
             if (!$hit) { $allOk = false; break; }
         }
         if ($poolTotal > 0 && $assigned > $poolTotal) $allOk = false;
+        if (_SWUIsForcedFullSplit($head) && $assigned !== $poolTotal) $allOk = false;   // indirect damage: all of it
         $playerID = $saved;
         return $allOk;
     }
@@ -2878,6 +2902,11 @@ function SWUCheckShrinkDefeats(): void {
         $guard++;
     } while ($defeated && $guard < 100);
     $playerID = $saved;
+    // ⚠ This cleanup is UNCONDITIONAL on purpose — callers rely on it as their zone compaction even when the
+    // sweep defeats nothing (gating it on "defeated something" broke 48 sections: hand discards, Echo, the
+    // nested-play / Plot layers — measured 2026-09-14). The cost: a caller running MID-COMBAT compacts units the
+    // combat has defeated but not yet collected (HMW_081 Alliance Shield Generator defeating itself during
+    // combat damage), so step-3 defeat collection must read those objects null-safe.
     DecisionQueueController::CleanupRemovedCards();
     $GLOBALS['gSWUInShrinkSweep'] = false;
 }
@@ -3602,6 +3631,59 @@ function _SWUMarkUnitPlayUsedFlags($player, $cardID): void {
     }
 }
 
+// ── THE PLAY COMMIT — every path that PLAYS a card calls this exactly ONCE, at the point the play is committed.
+// SSOT #1 (gamelog-updates, 2026-09-11). The steps below used to be hand-copied at 12 commit points, and they
+// drifted: a smuggled EVENT and any card played from an OPPONENT's discard committed TWICE (their path bumped
+// the counter, then delegated to ActivateCard, which bumped it again — Vanguard Ace got 2 tokens for 1 card),
+// a Pilot played from HAND committed NEVER (the Unit-vs-Pilot fork leaves before ActivateCard), and the
+// Smuggle / discard / pilot paths skipped telemetry and the "first X you play" flags. A path that DELEGATES to
+// ActivateCard must not also commit — ActivateCard does.
+//   $logSuffix  appended to "P1 played X" (" using Smuggle", " from their discard pile as a pilot"). null =
+//               no play line here: a hand Pilot's line is written by the attach step, with its Vehicle.
+//   $as         'unit' | 'event' | 'upgrade' | 'pilot' — HOW it is played. A Piloting unit played as a pilot
+//               is an upgrade for every "first unit you play" count, so 'pilot' marks no unit flags.
+//   $chargeObj  the played object, ONLY on a path that applied the one-shot "next X costs N less" charges
+//               (ActivateCard, Smuggle) and must therefore spend them. null = it applied none, spends none.
+// Deliberately NOT here: the cards-played-this-phase counter's timing contract (bumped AFTER the cost is
+// computed — TS26_36 Tribunal must not count itself), which every caller already satisfies by committing
+// after payment; and the path-specific cost overrides (JTL_232's free copy, SEC_001's Plot discount), which
+// only ActivateCard applies and so only ActivateCard spends.
+function SWUCommitPlay(int $player, string $cardID, ?string $logSuffix, string $as, $chargeObj = null): void {
+    if ($logSuffix !== null) SWULogPlay($player, $cardID, $logSuffix);
+    if (function_exists('SWUTelemetryBumpCard')) { SWUTelemetryBumpCard($player, $cardID, 'played'); SWUTelemetryBumpTurn($player, 'cardsUsed'); }
+    AddGlobalEffects($player, 'SWU_CARDS_PLAYED');
+    if ($chargeObj !== null) _SWUConsumeOneShotCharges($player, $chargeObj);
+    if ($as === 'unit') {
+        // JTL_260 Death Star Plans: "The first unit you play each round costs 2 less." The used-flag means
+        // "this player has played a unit this round" — set on ANY unit play, NOT only while controlling a DSP
+        // bearer, so a unit played BEFORE the player gains DSP still counts. Cleared at RegroupPhaseStart.
+        if (GlobalEffectCount($player, 'SWU_JTL260_USED') <= 0) AddGlobalEffects($player, 'SWU_JTL260_USED');
+        // JTL_032 Director Krennic + LOF_108 Malakili: the "first When-Defeated unit / first Creature" slots.
+        _SWUMarkUnitPlayUsedFlags($player, $cardID);
+        // SHD_198 Omega: "the first Clone unit you play each round". Set on ANY Clone unit play, NOT only
+        // while Omega is in play — CR 8.8.1: "the first" is the very first occurrence in the round, "not
+        // the first after an ability becomes active". Omega is herself a Clone, so her own play spends it.
+        if (HasTrait($cardID, 'Clone') && GlobalEffectCount($player, 'SWU_SHD198_USED') <= 0) {
+            AddGlobalEffects($player, 'SWU_SHD198_USED');
+        }
+    }
+    if ($as === 'event') {
+        // ASH_212 Peli Motto: "Ignore the aspect penalties of the first non-unit card you play each phase." Set
+        // on ANY non-unit play, NOT only while controlling Peli. Upgrades (and pilots) set it in
+        // _SWUFinalizeUpgradeAttach instead, AFTER their attach-time charge — setting it here first would make
+        // that charge recompute with the waiver already spent. Cleared at RegroupPhaseStart.
+        if (GlobalEffectCount($player, 'SWU_ASH212_USED') <= 0) AddGlobalEffects($player, 'SWU_ASH212_USED');
+        // LOF_012 Rey: "played a non-unit Force card this phase". Force upgrades set it in the upgrade branch
+        // once a host is confirmed; Force pilots in SWUQueuePilotVehiclePick.
+        if (HasTrait($cardID, 'Force')) AddGlobalEffects($player, 'SWU_PLAYED_NONUNIT_FORCE');
+    }
+    // LAW_229 The Master Codebreaker: "the first Gambit card you play each round" — any card type. Set on
+    // ANY Gambit play, not only while a Codebreaker is in play (CR 8.8.1, as SHD_198 above).
+    if (HasTrait($cardID, 'Gambit') && GlobalEffectCount($player, 'SWU_LAW229_USED') <= 0) {
+        AddGlobalEffects($player, 'SWU_LAW229_USED');
+    }
+}
+
 // Base-cost-INDEPENDENT play-cost modifier delta shared by every play path (normal play, Smuggle) so the
 // cost math never drifts between them. Returns the signed sum of surcharges (+) and discounts (-) for
 // playing $obj. NEVER consumes a charge (read-only) — consumption happens at each path's commit site
@@ -3638,14 +3720,16 @@ function _SWUFirstUpgradePlayDiscount(int $player, $host = null, bool $pilotPlay
             }
         }
     }
-    if (GlobalEffectCount($player, 'SWU_SEC064_USED') <= 0
-            && _SWUCountUnitsWithCardID($player, 'SEC_064') > 0) {
-        $delta += -1;
+    // One discount PER COPY (CR 1.8.3: cost modifiers are cumulative) — both cards are non-unique.
+    if (GlobalEffectCount($player, 'SWU_SEC064_USED') <= 0) {
+        $delta += -_SWUCountUnitsWithCardID($player, 'SEC_064');
     }
     if (GlobalEffectCount($player, 'SWU_ASH075_USED') <= 0
-            && _SWUCountUnitsWithCardID($player, 'ASH_075') > 0
-            && ($host === null || (intval($host->Controller ?? 0) === $player && ($host->CardID ?? '') !== 'ASH_075'))) {
-        $delta += -1;
+            && ($host === null || intval($host->Controller ?? 0) === $player)) {
+        // "ANOTHER friendly unit" is relative to each Pit Droid Team: on one of them, only the others apply.
+        $pit = _SWUCountUnitsWithCardID($player, 'ASH_075');
+        if ($host !== null && ($host->CardID ?? '') === 'ASH_075') $pit = max(0, $pit - 1);
+        $delta += -$pit;
     }
     return $delta;
 }
@@ -3716,10 +3800,10 @@ function _SWUPlayCostModifierDelta($player, $obj, $host = null, bool $includeUse
     // JTL_260 Death Star Plans: "first unit each round costs 2 less" (consumed via the SWU_JTL260_USED
     // flag in ActivateCard and, for smuggled units, in SWUSmuggleResource). In the always-included bucket
     // because the Smuggle path applies+consumes it — so it is NOT a used-flag-bucket exclusion.
+    // One instance of the granted ability per copy of the Plans (CR 1.8.3: cumulative).
     if (strpos(CardType($cardID) ?? '', 'Unit') !== false
-            && GlobalEffectCount(intval($player), 'SWU_JTL260_USED') <= 0
-            && _SWUControlsUnitBearingUpgrade(intval($player), 'JTL_260')) {
-        $delta += -2;
+            && GlobalEffectCount(intval($player), 'SWU_JTL260_USED') <= 0) {
+        $delta += -2 * _SWUCountBorneUpgrade(intval($player), 'JTL_260');
     }
     // LAW_129 Mastery — "costs 1 less on a unique host." Host-conditional, no claw-back consume.
     if ($cardID === 'LAW_129') {
@@ -3892,9 +3976,14 @@ function _SWUCreateOneToken(int $player, string $tokenID, bool $ready = false): 
     AddGlobalEffects(intval($player), 'SWU_ENTERED_PHASE_' . intval($uid)); // TS26_02/004 "entered play this phase (incl. tokens)"
     // ASH_017 Greef Karga — "When you play OR create a unit: may exhaust leader → Advantage to that unit."
     // Creation isn't "playing", so queue the offer directly (the play half rides SWUCollectOwnPlayReactions).
+    // The offers are CHAINED through ASH_017#ASK: two tokens from one card must not each queue an offer up
+    // front (both would be asked while Greef is still ready). Pending units wait in a stored list; each offer
+    // re-arms the next check only after its own answer, so once one YES exhausts Greef the rest ask nothing.
     if ($newCard !== null && empty($newCard->removed) && _SWULeaderReadyUndeployed($player, 'ASH_017')) {
-        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip: "Exhaust_Greef_to_give_the_created_unit_an_Advantage_token?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ASH_017#0|{$uid}", 1);
+        $a017key = 'ASH017_CREATED_PENDING_' . intval($player);
+        $a017pend = GetSWUVar($a017key, '');
+        SetSWUVar($a017key, $a017pend === '' ? strval($uid) : $a017pend . ',' . $uid);
+        if ($a017pend === '') DecisionQueueController::AddDecision($player, "CUSTOM", "ASH_017#ASK", 1);
     } elseif ($newCard !== null && empty($newCard->removed) && _SWULeaderDeployed($player, 'ASH_017')) {
         DoGiveAdvantageToken($player, $newCard->GetMzID());   // deployed side: auto-give, no exhaust
     }
@@ -4014,14 +4103,19 @@ function _SWUIsResistanceTarget($obj): bool {
 
 // SWU affordability: player has enough ready resources to cover the card's
 // cost (including aspect penalty and cost modifiers). Overrides the GA version.
-function CanAffordActivationReserve($player, $obj) {
+// $discount / $fromHand / $allowPilot (defaults = the hand glow, byte-identical): a play from ANOTHER zone
+// under a permission — the own-discard 'TPP<N>[U]' play (HMW_122 Boga, TWI_201) — asks the same question
+// with the permission's discount, without the hand-only "can't be played from your hand" suppression, and,
+// for a UNIT-ONLY permission, without the Piloting route. One predicate, so the discard glow and the
+// discard play's gate cannot drift from the hand's (Exploit, HMW_125/049, Credits, Starhawk halving).
+function CanAffordActivationReserve($player, $obj, int $discount = 0, bool $fromHand = true, bool $allowPilot = true) {
     if ($obj === null || !isset($obj->CardID)) return false;
     // SOR_062 Regional Governor: a card named by an opponent is not playable (don't glow it).
     if (SWUCardPlayBlocked(intval($player), $obj->CardID)) return false;
     // SEC_053 etc.: "can't be played from your hand" — this affordability check is hand-only
     // (called solely for Location==Hand cards), so suppress the hand glow.
-    if (_SWUCantPlayFromHand($obj->CardID)) return false;
-    $cost    = SWUComputePlayCost($player, $obj);
+    if ($fromHand && _SWUCantPlayFromHand($obj->CardID)) return false;
+    $cost    = max(0, SWUComputePlayCost($player, $obj) - max(0, $discount));
     $cost    = SWUApplyCostHalving(intval($player), $cost); // JTL_105 The Starhawk — affordable at half
     // Exploit: a unit with Exploit N reduces its own play cost by 2 per friendly unit defeated (up to N,
     // capped by available fodder). So it is POTENTIALLY affordable at cost − 2·min(N, fodder) — glow green
@@ -4049,7 +4143,7 @@ function CanAffordActivationReserve($player, $obj) {
     // affordable. Guarded as a PAIR: Glow_AffordableOnlyWithTheReduction /
     // Glow_UnaffordableEvenAtMaxReduction.
     if (($obj->CardID ?? '') === 'HMW_049') {
-        $cost = _SWUHmw049MinOutlay(intval($player), SWUComputePlayCost($player, $obj),
+        $cost = _SWUHmw049MinOutlay(intval($player), max(0, SWUComputePlayCost($player, $obj) - max(0, $discount)),
                                     count(_SWUHmw049LegalPicks(intval($player))));
     }
     // Capacity, NOT a bare ready-resource count. Paying a cost routes through SWUOfferAltPayment, which
@@ -4076,7 +4170,9 @@ function CanAffordActivationReserve($player, $obj) {
     // _SWUFinalizeUpgradeAttach — and filters to legal hosts, so a Piloting card with no Vehicle to
     // attach to (or none it can afford) correctly stays dark rather than glowing for a play that does
     // not exist.
-    return HasKeyword_Piloting($obj)
+    // (A caller passing a discount — a permission play from another zone — reaches here only as a UNIT-ONLY
+    // question today; the Pilot route of an unrestricted discard permission is priced by its own fork.)
+    return $allowPilot && HasKeyword_Piloting($obj)
         && !empty(SWUGetPilotValidTargets(intval($player), $obj->CardID));
 }
 
@@ -4136,7 +4232,6 @@ function DoDrawCard($player, $amount) {
 
         $newObj = MZMove($player, "myDeck-$topIdx", "myHand");
         if ($newObj !== null) {
-            if (function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newObj->CardID ?? '', 'drawn');
             $hand = GetHand($player);
             for ($k = count($hand) - 1; $k >= 0; $k--) {
                 if (!isset($hand[$k]->removed) || !$hand[$k]->removed) {
@@ -4152,20 +4247,168 @@ function DoDrawCard($player, $amount) {
     }
 
     $playerID = $savedPID;
+    if (!empty($drawn) && function_exists('SWULogDraw')) SWULogDraw(intval($player), $drawn); // game log: count public, cards private
+    _SWUAfterCardsDrawn(intval($player), $drawn);
+    return empty($drawn) ? "-" : (count($drawn) === 1 ? $drawn[0] : implode("&", $drawn));
+}
+
+// ── EVERYTHING THAT FOLLOWS A DRAW — SSOT #4 (gamelog-updates, 2026-09-11) ─────────────────────────────
+// $drawnMz: the drawn cards' hand mzIDs in $player's frame, valid NOW (call before anything can clean up the
+// hand). Every path that DRAWS a card calls this once, after the cards are in hand and logged: DoDrawCard,
+// SWUFinishTopDeckSearch ("search … and draw it") and SWUDrawTopCardFront ("look at the top card … draw it").
+// Those two used to move the card with a raw AddHand / MZMove and dropped some or all of these — Axe Woves /
+// JTL_111 / SHD_184 / LOF_148 Rey never saw a search-and-draw from The Invisible Hand, Sense Through the
+// Force, Captain Vaughn, Bounty Posting, I've Found Them, Reinforcement Walker or C-3PO, and even the shared
+// search finalize never counted its draw for LAW_051 Beilert Valance.
+// ⚠ "Put into your hand" is NOT a draw (a search that says "put it into your hand", a return to hand) — only
+// call this for card text that says DRAW.
+function _SWUAfterCardsDrawn(int $player, array $drawnMz): void {
+    if (empty($drawnMz)) return;
+    global $playerID;
+    $savedPID = $playerID; $playerID = $player;
+    if (function_exists('SWUTelemetryBumpCard')) {
+        foreach ($drawnMz as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null) SWUTelemetryBumpCard($player, $o->CardID ?? '', 'drawn');
+        }
+    }
+    $playerID = $savedPID;
     // A draw reveals a hidden card to the drawing player; undoing back through it un-reveals that info,
     // so this action's snapshot needs opponent consent to undo in a public game (undo redesign).
-    if (!empty($drawn)) MarkUndoRequiresConsent();
-    if (!empty($drawn) && function_exists('SWULogDraw')) SWULogDraw(intval($player), $drawn); // game log: count public, cards private
+    MarkUndoRequiresConsent();
     // Per-phase "cards you've drawn this phase" counter (LAW_051 Beilert Valance). Action phase only;
     // cleared at RegroupPhaseStart.
-    if (!empty($drawn) && GetCurrentPhase() === 'MAIN') {
-        for ($d = 0; $d < count($drawn); $d++) AddGlobalEffects(intval($player), 'SWU_DREW_PHASE');
+    if (GetCurrentPhase() === 'MAIN') {
+        for ($d = 0; $d < count($drawnMz); $d++) AddGlobalEffects($player, 'SWU_DREW_PHASE');
     }
-    // Reactive "when a player draws 1+ cards during the action phase" hook (JTL_111 / SHD_184).
-    if (!empty($drawn) && function_exists('_SWUOnPlayerDrew')) _SWUOnPlayerDrew(intval($player), count($drawn));
+    // The draw TRIGGERS never interrupt the ability that drew (CR 7.6.8); the state above (counter, telemetry,
+    // undo) is not a trigger and stays. Two holds:
+    //   'true'   — an EVENT or an ACTION ability is resolving (SWUBeginDeferDrawTriggers): they wait for the
+    //              whole action (released by SWUAfterAction).
+    //   'nested' — a TRIGGERED ability is resolving (the log source is set, action phase): they are NESTED
+    //              abilities (CR 7.6.11) and resolve right after it. One release marker is queued at block 2
+    //              on the resolving player's queue: every follow-up prompt of the ability is queued at block
+    //              1 and so stays ahead of it, however late it is added (Vaughn's put-on-top), while the
+    //              sibling-trigger orchestration (block 20) and the action close (block 10) stay behind it.
+    //              ★ USER RULING 2026-09-11: "Rey triggers, but won't resolve til after."
+    $mode = GetSWUVar('SWU_DEFER_DRAW', '');
+    if ($mode === '' && GetCurrentPhase() === 'MAIN') {
+        [$srcP, $srcC] = SWULogSource();
+        if ($srcC !== '') {
+            $mode = 'nested';
+            SetSWUVar('SWU_DEFER_DRAW', 'nested');
+            SetSWUVar('SWU_DEFER_DRAW_BAG', '[]');
+            // On the queue that is RUNNING the ability (Watto's "an opponent chooses: … you draw" runs on the
+            // opponent's queue) — a static entry left on a seat that isn't draining never runs, and the combat
+            // hop-back would wait on it forever. Inline (no drain yet): the ability's controller.
+            $markSeat = DecisionQueueController::ExecutingSeat();
+            if ($markSeat <= 0) $markSeat = $srcP > 0 ? $srcP : $player;
+            DecisionQueueController::AddDecision($markSeat, "CUSTOM", "SWU_RELEASE_DRAW_TRIGGERS", 2, '', 1);
+        }
+    }
+    if ($mode !== '') {
+        $hand = GetHand($player);
+        $ordinals = [];
+        foreach ($drawnMz as $mz) {
+            if (!preg_match('/^myHand-(\d+)$/', $mz, $m)) continue;
+            $ord = 0;   // position among the LIVE hand cards — raw indices shift when removed entries are cleaned up
+            for ($i = 0; $i < intval($m[1]); $i++) if (isset($hand[$i]) && empty($hand[$i]->removed)) $ord++;
+            $ordinals[] = $ord;
+        }
+        $bag = json_decode(GetSWUVar('SWU_DEFER_DRAW_BAG', '[]'), true) ?: [];
+        $bag[] = ['p' => $player, 'n' => count($drawnMz), 'hand' => $ordinals];
+        SetSWUVar('SWU_DEFER_DRAW_BAG', json_encode($bag));
+        return;
+    }
+    _SWUFireDrawTriggers($player, count($drawnMz), $drawnMz);
+}
+
+// The draw TRIGGERS proper. $count: cards drawn ("when you draw 1 or more cards" fires whatever became of
+// them); $handMz: the drawn cards still in hand ("when you draw THIS card … reveal this card from your hand").
+function _SWUFireDrawTriggers(int $player, int $count, array $handMz): void {
+    // Reactive "when a player draws 1+ cards" hook (ASH_169 in any phase; JTL_111 / SHD_184 in the action phase).
+    if (function_exists('_SWUOnPlayerDrew')) _SWUOnPlayerDrew($player, $count);
     // "When you draw THIS card during the action phase" hook (LOF_148 — needs the drawn card identities).
-    if (!empty($drawn)) _SWUOnDrawLof148(intval($player), $drawn);
-    return empty($drawn) ? "-" : (count($drawn) === 1 ? $drawn[0] : implode("&", $drawn));
+    if (!empty($handMz)) _SWUOnDrawLof148($player, $handMz);
+}
+
+// ── DRAW TRIGGERS WAIT FOR THE ACTION THAT DREW — CR 7.6.8, ★ USER RULING 2026-09-11 ──────────────────────
+// CR 7.6.8: "If an ability triggers during or as the result of a non-attack action, resolve that ability at
+// the next available opportunity after that action is fully completed … Resolving a triggered ability never
+// interrupts an action or ability that is currently resolving." Playing an EVENT and using an ACTION ability
+// (leader, unit or base) are such actions — they must fully resolve first (user, 2026-09-11). TWI_004 Yoda:
+// "draw a card, THEN put a card from your hand on the top or bottom of your deck" — LOF_148 Rey's "when you
+// draw this card" waits until the put-back is done. And the trigger belongs to the COPY that was drawn: put
+// that Rey on the deck and it can't resolve, even with another Rey in hand; keep it and only that Rey can be
+// revealed.
+// The bracket is SERIALIZED in SWUVars (an action spans request boundaries between its prompts), like
+// SWUBeginDeferWhenDefeated (LAW_208). Opened by SWUBeginActionAbility (every Action ability) and the event
+// branch of ActivateCard; released by SWUAfterAction in the frame that really closes the action, which then
+// closes it again BEHIND the released triggers. An ability that moves cards out of the hand after drawing
+// must report each one — _SWUDeferredDrawNoteHandRemoval($player, $ordinal) — because hand cards carry no
+// identity (a Hand row is just its CardID): the drawn copies are tracked by position among the live hand
+// cards. (Yoda's put-back does; an unreported removal before a drawn Rey would misplace her.)
+// Triggered abilities (When Played, When Defeated …) do not open THIS hold: a draw trigger raised inside one is
+// a NESTED ability (CR 7.6.11) — it still waits for that ability ("Rey triggers, but won't resolve til after",
+// user 2026-09-11), through the 'nested' hold _SWUAfterCardsDrawn opens and SWU_RELEASE_DRAW_TRIGGERS releases.
+function SWUBeginDeferDrawTriggers(): void {
+    if (GetSWUVar('SWU_DEFER_DRAW', '') !== '') return;   // already open — an event inside an action (or a triggered ability) keeps the outer bag
+    SetSWUVar('SWU_DEFER_DRAW', 'true');
+    SetSWUVar('SWU_DEFER_DRAW_BAG', '[]');
+}
+
+// The NESTED hold's release marker (see _SWUAfterCardsDrawn): the triggered ability that drew has finished.
+// dontSkipOnPass — a declined "may" earlier in that ability must not swallow it. Only its own hold: an
+// action-level hold ('true') is released by SWUAfterAction.
+$customDQHandlers["SWU_RELEASE_DRAW_TRIGGERS"] = function($player, $parts, $lastDecision) {
+    if (GetSWUVar('SWU_DEFER_DRAW', '') !== 'nested') return;
+    SWUFlushDeferredDrawTriggers(intval($player));
+};
+
+// The start of every "use an Action ability" action (leader, unit, base, Epic): the draw triggers raised while
+// it resolves wait for it (CR 7.6.8), and the log gets its "P1 used X's Action" line.
+function SWUBeginActionAbility(int $player, string $cardID, string $kind = 'Action'): void {
+    SWUBeginDeferDrawTriggers();
+    SWULogBeginAction($player, $cardID, $kind);
+}
+
+function _SWUDeferredDrawNoteHandRemoval(int $player, int $ordinal): void {
+    if (GetSWUVar('SWU_DEFER_DRAW', '') === '') return;
+    $bag = json_decode(GetSWUVar('SWU_DEFER_DRAW_BAG', '[]'), true) ?: [];
+    foreach ($bag as &$e) {
+        if (intval($e['p']) !== $player) continue;
+        $kept = [];
+        foreach ($e['hand'] as $o) {
+            // That drawn copy left the hand — its trigger can't resolve. (Defensive for Yoda: a drawn card is
+            // the LAST in hand, so after its removal its position is out of range anyway; this matters once an
+            // owner adds cards to the hand after the draw.)
+            if ($o === $ordinal) continue;
+            $kept[] = $o > $ordinal ? $o - 1 : $o;   // cards after it slide down one
+        }
+        $e['hand'] = $kept;
+    }
+    unset($e);
+    SetSWUVar('SWU_DEFER_DRAW_BAG', json_encode($bag));
+}
+
+// Closes the bracket and fires what waited. Returns how many draw events it fired (0 = nothing was drawn).
+function SWUFlushDeferredDrawTriggers(int $player): int {
+    if (GetSWUVar('SWU_DEFER_DRAW', '') === '') return 0;
+    $bag = json_decode(GetSWUVar('SWU_DEFER_DRAW_BAG', '[]'), true) ?: [];
+    SetSWUVar('SWU_DEFER_DRAW', '');
+    SetSWUVar('SWU_DEFER_DRAW_BAG', '');
+    global $playerID;
+    foreach ($bag as $e) {
+        $p = intval($e['p']);
+        $savedPID = $playerID; $playerID = $p;
+        $live = [];   // live-ordinal → raw mzID in the hand as it is NOW
+        foreach (GetHand($p) as $i => $h) if (empty($h->removed)) $live[] = "myHand-{$i}";
+        $playerID = $savedPID;
+        $mzs = [];
+        foreach ($e['hand'] as $o) if (isset($live[$o])) $mzs[] = $live[$o];
+        _SWUFireDrawTriggers($p, intval($e['n']), $mzs);
+    }
+    return count($bag);
 }
 
 // True if $player controls a leader OR base with the Aggression aspect (LOF_148's draw condition).
@@ -4262,13 +4505,13 @@ function DoDiscardCard($player, $mzID) {
     return $newObj !== null ? $mzID : "-";
 }
 
-// SHD_163 discard observer — fire for each player controlling an SHD_163 that hasn't used it this round.
+// SHD_163 discard observer — fire for each SHD_163 in play that hasn't used its round (per COPY: NumUses on
+// the unit, carried to the continuation by UID; spent only on an accepted use — USER RULING 2026-09-07).
 function _SWUShd163React(): void {
     foreach (GetLiveSeatsArray() as $p) {
-        if (GlobalEffectCount($p, 'SWU_SHD163_USED') > 0) continue;
         foreach (GetUnitsInPlay($p) as $u) {
-            if (empty($u->removed) && ($u->CardID ?? '') === 'SHD_163' && !LostAbilities($u)) {
-                AddTrigger($p, 'SHD_163', 'SHD_163', '');
+            if (empty($u->removed) && ($u->CardID ?? '') === 'SHD_163' && !LostAbilities($u) && SWUHasUseAvailable($u)) {
+                AddTrigger($p, 'SHD_163', 'SHD_163', strval(intval($u->UniqueID ?? 0)));
                 // FLUSH IT HERE. AddTrigger only bags the reaction; something else has to drain the bag.
                 // On a card-PLAY discard the play ceremony happens to flush afterwards, so Migs worked by
                 // ambience — but a discard made inside a LEADER ABILITY (cost or effect) finishes through
@@ -4442,9 +4685,7 @@ function SWULookAtOpponentHand(int $player, ?callable $filter = null, ?int $opp 
 // involved players, so Premier's log stays byte-identical.
 function SWULogPrivateReveal(string $msg, int $looker, int $subject): void {
     if (SeatCountForGame() <= 2) { AddGameLogEntry('REVEAL', $msg, 'ALL'); return; }
-    $seats = ['P' . intval($looker)];
-    if (intval($subject) !== intval($looker)) $seats[] = 'P' . intval($subject);
-    AddGameLogEntry('REVEAL', $msg, implode(',', $seats));
+    SWULogSeats([$looker, $subject], 'REVEAL', $msg);   // one entry for both seats (deduped when the same)
 }
 
 // Log a "P looked at an opponent's resources: …" REVEAL entry for the given resource mzIDs (the cards
@@ -4731,6 +4972,11 @@ function _SWUTakeTaggedShieldToken(string $tag): bool {
                     $tg  = is_array($sub) ? ($sub['GrantTag'] ?? '')    : ($sub->GrantTag ?? '');
                     if ($rem || $cid !== 'SOR_T02' || $tg !== $tag) continue;
                     array_splice($host->Subcards, $k, 1);
+                    // Game log: the granting card's delayed "defeat that token" (SHD_225 Jetpack at regroup
+                    // start) — the tag names its card ("SHD225" → SHD_225). Resolved inline, so no source.
+                    $tagCard = preg_match('/^([A-Z]+\d*?)(\d{3})$/', $tag, $tm) ? $tm[1] . '_' . $tm[2] : '';
+                    if ($tagCard !== '' && CardTitle($tagCard))
+                        SWULogWithSource(intval($host->Controller ?? $p), $tagCard, fn() => SWULogShieldDefeated($host));
                     return true;
                 }
             }
@@ -4783,6 +5029,7 @@ function DoGiveAdvantageToken($player, $targetMZ) {
         'IsPilot'     => false,
     ];
     AddGlobalEffects(intval($player), 'SWU_CREATED_TOKEN'); // LAW_016 "if you created a token this phase"
+    _SWUAsh208OnUpgradeAttach(intval($player), $obj);   // an Advantage token is an upgrade attaching (ASH_208)
     _SWUNoteTokenUpgradeGiven($player, $targetMZ);
     return $targetMZ;
 }
@@ -4902,7 +5149,7 @@ function _SWUDefeatAllUpgradesOn($targetMZ): int {
             SWUAddToDiscard($subOwner > 0 ? $subOwner : $owner, $cid, 'PLAY');
         }
         // … but BOTH are DEFEATED, so the observer fires either way. Keeping it inside the branch above
-        // made this site disagree with SWUConsumeShieldToken and the Advantage shed, which both fire for
+        // made this site disagree with SWUPreventWithShield and the Advantage shed, which both fire for
         // tokens. Third of the three sites that carried the same mistake.
         _SWUOnUpgradeDefeated(intval($obj->Controller ?? $owner), $cid, $obj, $subOwner > 0 ? $subOwner : $owner);
         unset($obj->Subcards[$i]); $removed++;
@@ -6186,48 +6433,12 @@ function OnReadyCard($player, $mzID) {
     $playerID = intval($player);
     $obj = GetZoneObject($mzID);
     if ($obj !== null && !$obj->removed) {
-        // LOF_098 — "while in the space arena, she can't ready" by any "Ready a unit" effect.
-        if (($obj->CardID ?? '') === 'LOF_098' && strpos((string)$mzID, 'SpaceArena') !== false) {
-            if (intval($obj->Status ?? 1) !== 1) SWULogRefusal($obj, 'ready');   // game log
-            $playerID = $savedPID; return $mzID;
-        }
-        // SOR_186 No Good to Me Dead: a unit flagged "can't ready this round" doesn't ready from any
-        // effect this round (the regroup ready step is gated separately in RegroupPhaseStart). Log the
-        // prevention so a blocked "ready a unit" effect (Bravado SHD_182, Motti SOR_226's When Defeated,
-        // etc.) is visible in the game log rather than silently no-op'ing.
-        $uid  = intval($obj->UniqueID ?? 0);
-        $ctrl = intval($obj->Controller ?? $player);
-        if ($uid > 0 && GlobalEffectCount($ctrl, 'SWU_CANT_READY_' . $uid) > 0) {
-            AddGameLogEntry('EFFECT', GameLogCardRef((string)($obj->CardID ?? '')) . " can't ready this round (" . GameLogCardRef('SOR_186') . ")");
-            $playerID = $savedPID; return $mzID;
-        }
-        // SEC_037 locked-while-source-in-play / LAW_077 / SHD_193 — see _SWUUnitCantReadyNow.
-        if (_SWUUnitCantReadyNow($obj)) {
-            if (intval($obj->Status ?? 1) !== 1) SWULogRefusal($obj, 'ready');   // game log (Frozen in Carbonite, SEC_037, …)
-            $playerID = $savedPID; return $mzID;
-        }
+        if (_SWUReadyBlocked($obj, (string)$mzID)) { $playerID = $savedPID; return $mzID; }
         $lsWasExhausted = intval($obj->Status ?? 1) !== 1;
         $obj->Status = 1;
         if ($lsWasExhausted && function_exists('SWULogExhaustReady')) SWULogExhaustReady($obj, (string)$mzID, true); // game log
         _SWUTs26063OnEnemyReady($obj);   // Rex's DC-17s — ready its host when an enemy unit readies (action phase)
-        // JTL_192 In Debt to Crimson Dawn — "When attached unit readies: exhaust it unless its controller
-        // pays 2 resources." Fires for ANY ready, not just the regroup ready step (which is handled directly
-        // in RegroupPhaseStart via SWUQueueJTL192RegroupTriggers, NOT through OnReadyCard — so no double-tax):
-        // a mid-phase ready effect (e.g. SOR_169 Keep Fighting) triggers the tax here.
-        if (_SWUUnitHasUpgrade($obj, 'JTL_192')) {
-            DecisionQueueController::AddDecision($ctrl, 'YESNO', '', 1,
-                'Pay_2_resources_to_keep_this_unit_ready?_(No_exhausts_it)');
-            DecisionQueueController::AddDecision($ctrl, 'CUSTOM', "JTL_192#0|{$mzID}", 1);
-        }
-        // ASH_088 The Conflict Within — "When this unit readies: you may pay 3 resources. If you don't,
-        // exhaust this unit." Same structure as JTL_192: the regroup ready step is handled directly in
-        // RegroupPhaseStart (SWUQueueASH088RegroupTriggers, NOT through OnReadyCard → no double-tax); a
-        // mid-phase ready effect (e.g. SOR_169 Keep Fighting) triggers the tax here.
-        if (_SWUUnitHasUpgrade($obj, 'ASH_088')) {
-            DecisionQueueController::AddDecision($ctrl, 'YESNO', '', 1,
-                'Pay_3_resources_to_keep_this_unit_ready?_(No_exhausts_it)');
-            DecisionQueueController::AddDecision($ctrl, 'CUSTOM', "ASH_088#0|{$mzID}", 1);
-        }
+        _SWUQueueReadyTaxes($obj);
     }
     $playerID = $savedPID;
     return $mzID;
@@ -6237,12 +6448,71 @@ function OnReadyCard($player, $mzID) {
 // DC-17s' host) — deliberately NOT through OnReadyCard: these run mid-attack or from inside OnReadyCard itself,
 // where its when-readies taxes / observers must not re-fire. The write stays direct; this adds the game-log
 // line, with $cardID as the source (nothing dispatched these, so nothing else set one).
+// USER DECISION 2026-09-11: these inline readies honour the same rules as OnReadyCard — the can't-ready
+// restrictions (SOR_186, Frozen in Carbonite, SEC_037, LOF_098) and the "when this unit readies" taxes
+// (JTL_192 / ASH_088). They still skip OnReadyCard's OBSERVERS (Rex's DC-17s), which is the recursion the
+// direct write exists to avoid.
 function _SWUReadyInline(int $controller, string $cardID, $obj): void {
     if ($obj === null || !empty($obj->removed)) return;
+    $blocked = function_exists('SWULogWithSource')
+        ? SWULogWithSource($controller, $cardID, fn() => _SWUReadyBlocked($obj, 'Arena'))
+        : _SWUReadyBlocked($obj, 'Arena');
+    if ($blocked) return;
     $wasExhausted = intval($obj->Status ?? 1) !== 1;
     $obj->Status = 1;
     if ($wasExhausted && function_exists('SWULogWithSource'))
         SWULogWithSource($controller, $cardID, fn() => SWULogExhaustReady($obj, 'Arena', true));
+    _SWUQueueReadyTaxes($obj);
+}
+
+// Can $obj be readied by an EFFECT right now? True = blocked (and the refusal is logged). Shared by
+// OnReadyCard and _SWUReadyInline so the two cannot drift. (The regroup ready step has its own, wider list.)
+function _SWUReadyBlocked($obj, string $mzHint): bool {
+    // LOF_098 — "while in the space arena, she can't ready" by any "Ready a unit" effect.
+    $inSpace = strpos($mzHint, 'SpaceArena') !== false || (string)($obj->Location ?? '') === 'SpaceArena';
+    if (($obj->CardID ?? '') === 'LOF_098' && $inSpace) {
+        if (intval($obj->Status ?? 1) !== 1) SWULogRefusal($obj, 'ready');   // game log
+        return true;
+    }
+    // SOR_186 No Good to Me Dead: a unit flagged "can't ready this round" doesn't ready from any effect this
+    // round (the regroup ready step is gated separately in RegroupPhaseStart).
+    $uid  = intval($obj->UniqueID ?? 0);
+    $ctrl = intval($obj->Controller ?? 0);
+    if ($uid > 0 && $ctrl > 0 && GlobalEffectCount($ctrl, 'SWU_CANT_READY_' . $uid) > 0) {
+        AddGameLogEntry('EFFECT', GameLogCardRef((string)($obj->CardID ?? '')) . " can't ready this round (" . GameLogCardRef('SOR_186') . ")");
+        return true;
+    }
+    // SEC_037 locked-while-source-in-play / LAW_077 / SHD_193 — see _SWUUnitCantReadyNow.
+    if (_SWUUnitCantReadyNow($obj)) {
+        if (intval($obj->Status ?? 1) !== 1) SWULogRefusal($obj, 'ready');   // game log (Frozen in Carbonite, SEC_037, …)
+        return true;
+    }
+    return false;
+}
+
+// "When this unit readies: pay N or exhaust it" upgrades — THE one queue for them (SSOT #5): OnReadyCard, the
+// inline readies, and the regroup ready step (only for the units that actually readied there — CR 5.1.e).
+// Call it once per real ready, so there is no double tax. The continuation resolves its unit in the CONTROLLER's frame,
+// so the mzID is re-resolved there by UID (it used to be the caller's frame, wrong when an opponent
+// readied the unit).
+function _SWUQueueReadyTaxes($obj): void {
+    $taxes = [];
+    // JTL_192 In Debt to Crimson Dawn — "exhaust it unless its controller pays 2 resources."
+    if (_SWUUnitHasUpgrade($obj, 'JTL_192')) $taxes[] = ['JTL_192', 'Pay_2_resources_to_keep_this_unit_ready?_(No_exhausts_it)'];
+    // ASH_088 The Conflict Within — "you may pay 3 resources. If you don't, exhaust this unit."
+    if (_SWUUnitHasUpgrade($obj, 'ASH_088')) $taxes[] = ['ASH_088', 'Pay_3_resources_to_keep_this_unit_ready?_(No_exhausts_it)'];
+    if (empty($taxes)) return;
+    global $playerID;
+    $ctrl = intval($obj->Controller ?? 0);
+    if ($ctrl <= 0) return;
+    $saved = $playerID; $playerID = $ctrl;
+    $mz = SWUFindMzByUID(intval($obj->UniqueID ?? 0));
+    $playerID = $saved;
+    if ($mz === null) return;
+    foreach ($taxes as [$card, $prompt]) {
+        DecisionQueueController::AddDecision($ctrl, 'YESNO', '', 1, $prompt);
+        DecisionQueueController::AddDecision($ctrl, 'CUSTOM', "{$card}#0|{$mz}", 1);
+    }
 }
 
 // Mid-phase "this unit can't ready" restrictions, shared by OnReadyCard and by any effect that readies a
@@ -6415,6 +6685,9 @@ $customDQHandlers["SWUApplyRegroupResource"] = function($player, $parts, $lastDe
 
 function MainPhase() {
     // TODO: consecutive-pass tracking and TurnPlayer swap
+    // Entered once per round, when the action phase's start (and, in round 1, SETUP) has drained — the only
+    // round-1 "first action phase starts" hook, since ActionPhaseStart() does not run for round 1.
+    _SWUNabatFirstActionPhase();
 }
 
 function DrawPhase() {
@@ -6471,6 +6744,7 @@ function ReadyPhase() {
     SWULogClearSource(); // game log: a regroup step boundary (see DrawPhase)
     // CR 5.4.d: ready all exhausted cards for both players (units, resources, leader).
     // Leader.EpicActionUsed is NOT reset — that flag persists the whole game.
+    $readiedAtRegroup = [];   // units that go exhausted → ready at this step (they, and only they, "ready")
     for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $resources = &GetResources($p);
         for ($i = 0; $i < count($resources); $i++) {
@@ -6505,14 +6779,20 @@ function ReadyPhase() {
         };
         $ground = &GetGroundArena($p);
         for ($i = 0; $i < count($ground); $i++) {
-            if ((!isset($ground[$i]->removed) || !$ground[$i]->removed) && !$cantReadyRegroup($ground[$i])) $ground[$i]->Status = 1;
+            if ((!isset($ground[$i]->removed) || !$ground[$i]->removed) && !$cantReadyRegroup($ground[$i])) {
+                if (intval($ground[$i]->Status ?? 1) === 0) $readiedAtRegroup[] = $ground[$i];   // it READIES (was exhausted)
+                $ground[$i]->Status = 1;
+            }
         }
         $space = &GetSpaceArena($p);
         for ($i = 0; $i < count($space); $i++) {
             // LOF_098 — "while in the space arena, she can't ready." Blocks the regroup ready here (and
             // any "Ready a unit" effect via OnReadyCard); "enters play ready" is a separate path, unaffected.
             if (($space[$i]->CardID ?? '') === 'LOF_098') continue;
-            if ((!isset($space[$i]->removed) || !$space[$i]->removed) && !$cantReadyRegroup($space[$i])) $space[$i]->Status = 1;
+            if ((!isset($space[$i]->removed) || !$space[$i]->removed) && !$cantReadyRegroup($space[$i])) {
+                if (intval($space[$i]->Status ?? 1) === 0) $readiedAtRegroup[] = $space[$i];
+                $space[$i]->Status = 1;
+            }
         }
         $leader = &GetLeader($p);
         for ($i = 0; $i < count($leader); $i++) {
@@ -6532,13 +6812,12 @@ function ReadyPhase() {
     // Either pay [1 resource] or return this unit to her owner's hand."
     SWUQueueFalconRegroupTriggers();
 
-    // JTL_192 In Debt to Crimson Dawn — "When attached unit readies: exhaust it unless its controller
-    // pays 2 resources." Fires for every host that just readied in the regroup ready step.
-    SWUQueueJTL192RegroupTriggers();
-
-    // ASH_088 The Conflict Within — "When this unit readies: you may pay 3 resources. If you don't,
-    // exhaust this unit." Same shape as JTL_192 (pay 3 instead of 2).
-    SWUQueueASH088RegroupTriggers();
+    // The "when this unit READIES" taxes — JTL_192 In Debt to Crimson Dawn (pay 2 or exhaust), ASH_088 The
+    // Conflict Within (pay 3 or exhaust) — for exactly the units that READIED above, through the one shared
+    // queue OnReadyCard and the inline readies use (SSOT #5). Two regroup clones used to tax EVERY unit carrying
+    // the upgrade: one already ready (CR 5.1.e — it is "not considered to have been readied") and one that
+    // couldn't ready (Frozen in Carbonite) were both asked to pay.
+    foreach ($readiedAtRegroup as $readied) _SWUQueueReadyTaxes($readied);
 
     // TWI_068 Foresight — granted "When the regroup phase starts (before drawing cards): Name a card,
     // then look at the top card of your deck. If it's the named card, you may reveal and draw it."
@@ -6546,7 +6825,7 @@ function ReadyPhase() {
 }
 
 // TWI_068 Foresight — queue the name-a-card / peek-top / may-draw for each unit carrying a TWI_068
-// upgrade, at the start of the regroup phase (before the draw step). Model: SWUQueueJTL192RegroupTriggers.
+// upgrade, at the start of the regroup phase (before the draw step). Model: SWUQueueFalconRegroupTriggers.
 function SWUQueueTWI068RegroupTriggers(): void {
     global $playerID;
     $savedPID = $playerID;
@@ -6560,27 +6839,6 @@ function SWUQueueTWI068RegroupTriggers(): void {
                 if (empty(GetDeck($p))) continue;   // no deck → nothing to peek
                 DecisionQueueController::AddDecision($p, 'NAMECARD', '', 1, 'Name_a_card_(Foresight)');
                 DecisionQueueController::AddDecision($p, 'CUSTOM', 'TWI_068#0', 1);
-            }
-        }
-    }
-    $playerID = $savedPID;
-}
-
-// ASH_088 The Conflict Within — queue a "pay 3 or be exhausted" decision for each unit carrying an
-// ASH_088 upgrade that readied during the regroup ready step. (Clone of SWUQueueJTL192RegroupTriggers.)
-function SWUQueueASH088RegroupTriggers(): void {
-    global $playerID;
-    $savedPID = $playerID;
-    for ($p = 1; $p <= SeatCountForGame(); $p++) {
-        $playerID = $p;
-        foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
-            foreach (ZoneSearch($zone, ['Unit']) as $mzID) {
-                $obj = GetZoneObject($mzID);
-                if ($obj === null || ($obj->removed ?? false)) continue;
-                if (!_SWUUnitHasUpgrade($obj, 'ASH_088')) continue;
-                DecisionQueueController::AddDecision($p, 'YESNO', '', 1,
-                    'Pay_3_resources_to_keep_this_unit_ready?_(No_exhausts_it)');
-                DecisionQueueController::AddDecision($p, 'CUSTOM', "ASH_088#0|{$mzID}", 1);
             }
         }
     }
@@ -6603,27 +6861,6 @@ function SWUQueueFalconRegroupTriggers(): void {
                 DecisionQueueController::AddDecision($p, 'YESNO', '', 1,
                     'Pay_1_resource_to_keep_Millennium_Falcon?_(No_returns_her_to_hand)');
                 DecisionQueueController::AddDecision($p, 'CUSTOM', "SOR_193#0|{$mzID}", 1);
-            }
-        }
-    }
-    $playerID = $savedPID;
-}
-
-// JTL_192 In Debt to Crimson Dawn — queue a "pay 2 or be exhausted" decision for each unit carrying a
-// JTL_192 upgrade that readied during the regroup ready step. (Modeled on SWUQueueFalconRegroupTriggers.)
-function SWUQueueJTL192RegroupTriggers(): void {
-    global $playerID;
-    $savedPID = $playerID;
-    for ($p = 1; $p <= SeatCountForGame(); $p++) {
-        $playerID = $p;
-        foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
-            foreach (ZoneSearch($zone, ['Unit']) as $mzID) {
-                $obj = GetZoneObject($mzID);
-                if ($obj === null || ($obj->removed ?? false)) continue;
-                if (!_SWUUnitHasUpgrade($obj, 'JTL_192')) continue;
-                DecisionQueueController::AddDecision($p, 'YESNO', '', 1,
-                    'Pay_2_resources_to_keep_this_unit_ready?_(No_exhausts_it)');
-                DecisionQueueController::AddDecision($p, 'CUSTOM', "JTL_192#0|{$mzID}", 1);
             }
         }
     }
@@ -6660,47 +6897,20 @@ function SWUClearDiscardModifiers(): void {
     }
 }
 
-// LAW regroup-start triggers (fire at the start of the regroup phase, before the next ReadyPhase).
-function _SWULawRegroupStartTriggers(): void {
-    global $playerID; $saved = $playerID;
-    for ($p = 1; $p <= SeatCountForGame(); $p++) {
-        $playerID = $p;
-        // LAW_071 The Max Rebo Band — "When the regroup phase starts: create a Credit token."
-        $n071 = _SWUCountActiveUnitsWithCardID($p, 'LAW_071');
-        for ($i = 0; $i < $n071; $i++) SWULogWithSource($p, 'LAW_071', fn() => SWUCreateCreditToken($p, 1));   // log source: resolved inline
-        // LAW_073 Patient Hunter — "When the regroup phase starts: you may give an Experience token to a
-        // non-leader unit; if you do, that unit can't ready during this regroup phase."
-        $n073 = _SWUCountActiveUnitsWithCardID($p, 'LAW_073');
-        if ($n073 > 0) {
-            $targets = [];
-            foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
-                foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
-                    $o = GetZoneObject($mz);
-                    if ($o !== null && empty($o->removed)) $targets[] = $mz;
-                }
-            }
-            for ($i = 0; $i < $n073 && !empty($targets); $i++) {
-                SWUQueueMayChooseTarget($p, $targets, "Give_an_Experience_token_to_a_non-leader_unit_(it_can't_ready_this_regroup)?", "Choose_a_unit", "LAW_073#0|" . $p);
-            }
-        }
-        // LAW_077 Shadow of Stygeon Prime — granted "When the regroup phase starts: deal 2 damage to
-        // your base" (the attached unit's controller's base). Once per attached LAW_077 instance.
-        foreach (array_merge(GetGroundArena($p), GetSpaceArena($p)) as $u) {
-            if (empty($u->removed) && _SWUUnitHasUpgrade($u, 'LAW_077')) SWULogWithSource($p, 'LAW_077', fn() => SWUDealDamageToBase(2, $p));
-        }
-    }
-    $playerID = $saved;
-}
+// LAW_071 / LAW_073 / LAW_077 regroup-start triggers are collected per copy by the regroup-start trigger
+// window (_SWURegroupStartTriggerItems / _SWURegroupStartResolve).
 
 // HMW_004 Grand Moff Tarkin, DEPLOYED side (The Death Star) — "When the regroup phase starts: You may
 // defeat a base with 10 or less remaining HP." The printed text carries no friendly/enemy qualifier, so
 // EITHER base is a legal target once it is at 10 or less remaining HP — including your own, which simply
 // loses you the game. The threshold wording matters in Twin Suns, where several bases can qualify; in
 // 2-player it is my base and their base.
-function _SWUHmw004RegroupBaseDefeat(): void {
+// ONE seat's Death Star trigger, RESOLVING now (the regroup-start window collects it as an item, so the bases
+// are read when it resolves — after anything ordered before it, e.g. a Ruthless Raider's When Defeated).
+function _SWUHmw004OfferBaseDefeat(int $seat): void {
     global $playerID; $saved = $playerID;
-    for ($p = 1; $p <= SeatCountForGame(); $p++) {
-        if (!_SWULeaderDeployed($p, 'HMW_004')) continue;   // deployed side only
+    foreach ([$seat] as $p) {
+        if (!_SWULeaderDeployed($p, 'HMW_004')) continue;   // deployed side only (it may have been defeated since)
         $playerID = $p;
         $targets = [];
         // ⚠ "Defeat A BASE with 10 or less remaining HP" — unqualified, so EVERY base at the table is a
@@ -6753,45 +6963,189 @@ function EngineTransitionOverride(?string $currentPhase, $input): ?string {
 
 // ASH_227 Heightened Awareness — "Attached unit gains: 'When the regroup phase starts: give an Advantage
 // token to this unit.'" Give one Advantage token per ASH_227 upgrade on each in-play unit (both players).
-function _SWUAsh227RegroupStart(): void {
-    global $playerID; $savedPID = $playerID;
-    for ($p = 1; $p <= SeatCountForGame(); $p++) {
-        $playerID = $p;
-        foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-            foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-                $o = GetZoneObject($mz);
-                if (SWUObjGone($o)) continue;
-                $n = 0;
-                foreach (GetUpgradesOnUnit($o) as $up) { if (($up->CardID ?? '') === 'ASH_227') $n++; }
-                for ($i = 0; $i < $n; $i++) SWULogWithSource($p, 'ASH_227', fn() => DoGiveAdvantageToken($p, $mz));
-            }
-        }
-    }
-    $playerID = $savedPID;
-}
+// ASH_227 Heightened Awareness — see _SWURegroupStartTriggerItems / _SWURegroupStartResolve ('ASH227').
 
 // ASH_159 Alphabet Squadron U-Wing — "When the regroup phase starts: give an Advantage token to a unit."
 // Each ASH_159 in play lets its controller give 1 Advantage to a unit of their choice.
-function _SWUAsh159RegroupStart(): void {
-    global $playerID; $savedPID = $playerID;
+// ASH_159 Alphabet Squadron U-Wing — see _SWURegroupStartTriggerItems / _SWURegroupStartResolve ('ASH159').
+
+// ══ REGROUP-START TRIGGER WINDOW (USER DECISION 2026-09-14, "plan B") ═══════════════════════════════════
+// CR 5.4.a: at the start of the regroup phase, abilities "that trigger at the start of the regroup phase
+// trigger now". CR 4.b: DELAYED effects ("At the start of the regroup phase, defeat it") resolve
+// automatically and FIRST, "before any other abilities triggered by that timing point". CR 7.9/7.10: a
+// player with several triggered abilities waiting chooses their order; with both players, the active
+// player picks who goes first.
+// These used to be hardcoded one after another, so no one could order them — HMW_004 The Death Star always
+// resolved before SOR_219 Sneak Attack's defeat, and "Ruthless Raider's When Defeated first, THEN the Death
+// Star defeats the base" was impossible (interactions/DeathStar_RegroupDefeat_vsSneakAttackRuthlessRaider.md).
+// Now: the delayed effects run inline first (their When Defeated triggers are HELD — gSWURegroupStartWindow),
+// then every "When the regroup phase starts" triggered ability is collected here, one ITEM per copy, and
+// the whole set goes through the ordering trigger bag. ONE item still resolves inline, exactly as before.
+// NOT here, on purpose: JTL_216 Contracted Hunter (its self-defeat must see "this phase" effects already
+// expired) and the after-expiry delayed effects (HMW_054, LAW_245) — see RegroupPhaseStart.
+
+// Every regroup-start TRIGGERED ability in play right now: ['player','cardID','key','ref'] per copy, in the
+// order the old hardcoded blocks ran. ref = "U{uid}" for a unit/host, "P{seat}" otherwise.
+function _SWURegroupStartTriggerItems(): array {
+    global $playerID; $saved = $playerID;
+    $items = [];
+    $add = function (int $p, string $cid, string $key, string $ref) use (&$items) {
+        $items[] = ['player' => $p, 'cardID' => $cid, 'key' => $key, 'ref' => $ref];
+    };
+    $baseCopies = function (int $p, string $cid): int {
+        $zone = GetBase($p);
+        if (empty($zone) || !isset($zone[0]) || !empty($zone[0]->removed)) return 0;
+        $n = 0;
+        foreach (GetUpgradesOnUnit($zone[0]) as $sub) {
+            if ((is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '')) === $cid) $n++;
+        }
+        return ($n > 0 && !_SWUFortifyBlanked($p, $cid)) ? $n : 0;
+    };
     for ($p = 1; $p <= SeatCountForGame(); $p++) {
-        foreach (GetUnitsInPlay($p) as $src) {
-            if (empty($src->removed) && ($src->CardID ?? '') === 'ASH_159') {
-                $playerID = $p;
-                // Queued with ASH_159 as the log source (the queued-source stamp restores it on resolve).
-                SWULogWithSource($p, 'ASH_159', fn() => SWUOfferUnitTarget($p, '', [
-                    'continuation' => 'GIVE_ADVANTAGE',
-                    'prompt' => "Give_an_Advantage_token_to_a_unit",
-                ]));
+        $playerID = $p;
+        $units = GetUnitsInPlay($p);
+        foreach ($units as $u) {                                  // LAW_071 The Max Rebo Band — create a Credit
+            if (empty($u->removed) && ($u->CardID ?? '') === 'LAW_071' && !LostAbilities($u))
+                $add($p, 'LAW_071', 'LAW071', 'U' . intval($u->UniqueID ?? 0));
+        }
+        $hasNonLeader = false;                                    // LAW_073 Patient Hunter — may give an Exp
+        foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
+            foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) { if (!SWUObjGone(GetZoneObject($mz))) { $hasNonLeader = true; break 2; } }
+        }
+        foreach ($units as $u) {
+            if ($hasNonLeader && empty($u->removed) && ($u->CardID ?? '') === 'LAW_073' && !LostAbilities($u))
+                $add($p, 'LAW_073', 'LAW073', 'U' . intval($u->UniqueID ?? 0));
+        }
+        foreach (array_merge(GetGroundArena($p), GetSpaceArena($p)) as $u) {   // LAW_077 granted: 2 to your base
+            if (empty($u->removed) && _SWUUnitHasUpgrade($u, 'LAW_077'))
+                $add($p, 'LAW_077', 'LAW077', 'U' . intval($u->UniqueID ?? 0));
+        }
+        if (_SWULeaderDeployed($p, 'HMW_004')) $add($p, 'HMW_004', 'HMW004', 'P' . $p);   // The Death Star
+        for ($i = $baseCopies($p, 'HMW_070'); $i > 0; $i--) $add($p, 'HMW_070', 'HMW070', 'P' . $p);   // Dark Sanctum
+        for ($i = $baseCopies($p, 'HMW_160'); $i > 0; $i--) $add($p, 'HMW_160', 'HMW160', 'P' . $p);   // Noxious Refinery
+        foreach ($units as $u) {
+            if (!empty($u->removed)) continue;
+            $cid = $u->CardID ?? ''; $ref = 'U' . intval($u->UniqueID ?? 0);
+            if ($cid === 'TWI_067' && intval($u->Damage ?? 0) > 0) $add($p, 'TWI_067', 'TWI067', $ref);   // Zillo: heal 5
+            if ($cid === 'TS26_23') $add($p, 'TS26_23', 'TS26023', $ref);                              // Lander: 4 to self
+        }
+        foreach ($units as $u) {                                  // ASH_227 Heightened Awareness — per wearer copy
+            if (!empty($u->removed)) continue;
+            foreach (GetUpgradesOnUnit($u) as $up) {
+                if (($up->CardID ?? '') === 'ASH_227') $add($p, 'ASH_227', 'ASH227', 'U' . intval($u->UniqueID ?? 0));
             }
         }
+        foreach ($units as $u) {                                  // ASH_159 Alphabet Squadron U-Wing
+            if (empty($u->removed) && ($u->CardID ?? '') === 'ASH_159') $add($p, 'ASH_159', 'ASH159', 'U' . intval($u->UniqueID ?? 0));
+        }
+        foreach (GetLeader($p) as $lo) {                          // SHD_015 Doctor Aphra (front, undeployed)
+            if (empty($lo->removed) && ($lo->CardID ?? '') === 'SHD_015' && empty($lo->Deployed)) { $add($p, 'SHD_015', 'SHD015', 'P' . $p); break; }
+        }
+        foreach ($units as $u) {                                  // JTL_198 Fireball — 1 to itself
+            if (empty($u->removed) && ($u->CardID ?? '') === 'JTL_198') $add($p, 'JTL_198', 'JTL198', 'U' . intval($u->UniqueID ?? 0));
+        }
+        $vb = GetBase($p);                                        // LOF_019 Vergence Temple (condition read on resolve)
+        if (!empty($vb) && ($vb[0]->CardID ?? '') === 'LOF_019') $add($p, 'LOF_019', 'LOF019', 'P' . $p);
+        foreach ($units as $u) {                                  // LOF_055 Dume — Exp to each other friendly non-Vehicle
+            if (empty($u->removed) && ($u->CardID ?? '') === 'LOF_055') $add($p, 'LOF_055', 'LOF055', 'U' . intval($u->UniqueID ?? 0));
+        }
     }
+    $playerID = $saved;
+    return $items;
+}
 
-    $playerID = $savedPID;
+// Resolve ONE regroup-start item. A unit-referenced effect that acts on the unit itself does nothing once
+// that unit is gone (an earlier item may have defeated it); the rest resolve regardless of their source.
+function _SWURegroupStartResolve(string $key, int $p, string $ref): void {
+    global $playerID; $saved = $playerID; $playerID = $p;
+    $uid = ($ref !== '' && $ref[0] === 'U') ? intval(substr($ref, 1)) : 0;
+    $mz  = $uid > 0 ? SWUFindMzByUID($uid) : null;
+    switch ($key) {
+        case 'LAW071': SWULogWithSource($p, 'LAW_071', fn() => SWUCreateCreditToken($p, 1)); break;
+        case 'LAW073':
+            $targets = [];
+            foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
+                foreach (ZoneSearch($z, NonLeaderUnitFilter) as $tmz) { if (!SWUObjGone(GetZoneObject($tmz))) $targets[] = $tmz; }
+            }
+            if (!empty($targets)) SWUQueueMayChooseTarget($p, $targets,
+                "Give_an_Experience_token_to_a_non-leader_unit_(it_can't_ready_this_regroup)?", "Choose_a_unit", "LAW_073#0|" . $p);
+            break;
+        case 'LAW077': SWULogWithSource($p, 'LAW_077', fn() => SWUDealDamageToBase(2, $p)); break;
+        case 'HMW004': _SWUHmw004OfferBaseDefeat($p); break;
+        case 'HMW070': SWULogWithSource($p, 'HMW_070', function () use ($p) { DoDrawCard($p, 1); SWUDealDamageToBase(2, $p); }); break;
+        case 'HMW160': _SWUHmw160ResolveOne($p); break;
+        case 'TWI067':
+            if ($mz !== null && intval(GetZoneObject($mz)->Damage ?? 0) > 0)
+                SWULogWithSource($p, 'TWI_067', fn() => OnHealUnit($p, $mz, 5));
+            break;
+        case 'TS26023': if ($mz !== null) SWULogWithSource($p, 'TS26_23', fn() => SWUDealDamageToUnit($mz, 4, $p)); break;
+        case 'ASH227':  if ($mz !== null) SWULogWithSource($p, 'ASH_227', fn() => DoGiveAdvantageToken($p, $mz)); break;
+        case 'ASH159':
+            SWULogWithSource($p, 'ASH_159', fn() => SWUOfferUnitTarget($p, '', [
+                'continuation' => 'GIVE_ADVANTAGE', 'prompt' => "Give_an_Advantage_token_to_a_unit",
+            ]));
+            break;
+        case 'SHD015': SWUMillTopCard($p); break;
+        case 'JTL198': if ($mz !== null) SWUDealDamageToUnit($mz, 1, $p); break;
+        case 'LOF019':
+            foreach (['myGroundArena', 'mySpaceArena'] as $vz) {
+                foreach (ZoneSearch($vz, AnyUnitFilter) as $vmz) {
+                    $vo = GetZoneObject($vmz);
+                    if (!SWUObjGone($vo) && intval(ObjectCurrentHP($vo)) - intval($vo->Damage ?? 0) >= 4) { TheForceIsWithYou($p); break 2; }
+                }
+            }
+            break;
+        case 'LOF055':
+            // "each OTHER friendly non-Vehicle unit" — object-aware exclusion via TraitContains.
+            foreach (_SWUCollectTokenTargets($p, ['friendlyOnly' => true, 'notTraits' => ['Vehicle'], 'excludeUID' => $uid]) as $dmz) {
+                DoGiveExperienceToken($p, $dmz);
+            }
+            break;
+    }
+    $playerID = $saved;
+}
+
+// Collect the triggered items and resolve them together with any When Defeated the delayed effects HELD.
+function _SWURegroupStartTriggerWindow(): void {
+    global $gPendingTriggers;
+    $items = _SWURegroupStartTriggerItems();
+    $held  = count($gPendingTriggers ?? []);
+    $total = $held + count($items);
+    if ($total === 0) return;
+    // Who drives the flush: the owner, when every pending trigger is ONE player's (the resume and the ordering
+    // prompt then sit on the queue that player drains); with both players' triggers, CR 7.10's "active
+    // player" — at regroup, the initiative holder — picks who resolves first.
+    $owners = array_unique(array_merge(array_map(fn($t) => intval($t['player']), $gPendingTriggers ?? []),
+                                       array_map(fn($it) => intval($it['player']), $items)));
+    $active = count($owners) === 1 ? intval(reset($owners)) : 1;
+    if (count($owners) > 1) {
+        for ($p = 1; $p <= SeatCountForGame(); $p++) { if (PlayerHasIniative($p)) { $active = $p; break; } }
+    }
+    if ($total === 1) {
+        // Nothing to order — resolve as before (inline for a triggered item, the plain bag for a held one).
+        if (!empty($items)) _SWURegroupStartResolve($items[0]['key'], $items[0]['player'], $items[0]['ref']);
+        else FlushTriggerBag($active);
+        return;
+    }
+    // Copies of ONE ability for ONE player (two Dark Sanctums, two Max Rebo Bands) — every order is the same
+    // result, so there is no real choice to offer (the no-immaterial-prompt ruling): resolve them in turn.
+    $keys = array_unique(array_map(fn($it) => $it['key'] . '@' . $it['player'], $items));
+    if ($held === 0 && count($keys) === 1) {
+        foreach ($items as $it) _SWURegroupStartResolve($it['key'], $it['player'], $it['ref']);
+        return;
+    }
+    foreach ($items as $it) AddTrigger($it['player'], 'RegroupStart', $it['cardID'], $it['ref'], $it['key']);
+    // The resume runs with the REGROUP continuation: when the stack empties it tidies up and returns — there
+    // is no action to finalise mid-regroup.
+    FlushEntryTriggerBag($active, '|REGROUP');
 }
 
 function RegroupPhaseStart(): void {
     SWULogClearSource(); // phase boundary — a regroup draw/ready is never attributed to the last ability
+    // Leak guard for the CR 7.6.8 draw-trigger bracket: an action that ended without SWUAfterAction must not
+    // leave it open into regroup (a regroup draw would then wait for an action that never comes). Anything
+    // still waiting is released here; Rey / JTL_111 / SHD_184 are action-phase-only and stay silent.
+    SWUFlushDeferredDrawTriggers(0);
     // Twin Suns (CR §12.7): if the action phase that just ended contained the first elimination,
     // the game ends now by highest remaining base HP. No-op for 2-player / no elimination.
     _SWUScoreTwinSunsEndOfPhase();
@@ -6808,28 +7162,10 @@ function RegroupPhaseStart(): void {
     _SWURescueBaseCaptives();              // SEC_195 Arrest — base captives' owners rescue them now
     _SWUCheckConfidenceWin();              // SEC_145 Confidence in Victory — arena-control win check
     _SWUCheckFinalShowdownLose();          // SHD_208 Final Showdown — caster loses the game (before the draw step)
-    _SWULawRegroupStartTriggers();         // LAW_071 (credit), LAW_073 (Exp + can't-ready) at regroup start
-    _SWUHmw004RegroupBaseDefeat();         // HMW_004 (deployed) — may defeat a base at 10 or less remaining HP
-    _SWUHmw070RegroupBaseTriggers();       // HMW_070 Dark Sanctum — attached base draws 1 and takes 2 (per copy)
-    _SWUHmw160RegroupBaseTriggers();       // HMW_160 Noxious Refinery — reveal top; if Aggression, 1 dmg to an enemy (per copy)
-    // TWI_067 The Zillo Beast — "When the regroup phase starts: Heal 5 damage from this unit."
-    for ($zp = 1; $zp <= SeatCountForGame(); $zp++) {
-        foreach (GetUnitsInPlay($zp) as $zu) {
-            if (empty($zu->removed) && ($zu->CardID ?? '') === 'TWI_067' && intval($zu->Damage ?? 0) > 0) {
-                $zmz = SWUFindMzByUID(intval($zu->UniqueID ?? -1));
-                if ($zmz !== null) SWULogWithSource($zp, 'TWI_067', fn() => OnHealUnit($zp, $zmz, 5));   // log source: resolved inline
-            }
-        }
-    }
-    // TS26_23 Assault Lander LAAT — "When the regroup phase starts: Deal 4 damage to this unit."
-    for ($lp = 1; $lp <= SeatCountForGame(); $lp++) {
-        foreach (GetUnitsInPlay($lp) as $lu) {
-            if (empty($lu->removed) && ($lu->CardID ?? '') === 'TS26_23') {
-                $lmz = SWUFindMzByUID(intval($lu->UniqueID ?? -1));
-                if ($lmz !== null) SWULogWithSource($lp, 'TS26_23', fn() => SWUDealDamageToUnit($lmz, 4, $lp));
-            }
-        }
-    }
+    // ── DELAYED effects first (CR 4.b) — "At the start of the regroup phase, …". They resolve automatically,
+    // before the triggered abilities below; a unit they defeat HOLDS its When Defeated in the bag so the player
+    // can order it with the "When the regroup phase starts" abilities (_SWURegroupStartTriggerWindow).
+    $GLOBALS['gSWURegroupStartWindow'] = true;
     // SHD_225 Jetpack — "At the start of the regroup phase, defeat that [Shield] token." One flag per
     // grant (host UID in the flag). Approximation: removes ONE non-removed Shield subcard from the
     // host — if Jetpack's own shield was already consumed and the host gained another shield since,
@@ -6859,12 +7195,10 @@ function RegroupPhaseStart(): void {
             RemoveGlobalEffect($zp, 'SWU_SHD203_DISCARD');
             DecisionQueueController::AddDecision($zp, 'MZCHOOSE', 'myHand', 1,
                 'Discard_a_card_from_your_hand_(Zorii_Bliss)');
-            DecisionQueueController::AddDecision($zp, 'CUSTOM', "DISCARD_FROM_OWN_HAND|{$zp}", 1);
+            // Queued with SHD_203 as the log source: the queued-source stamp names Zorii on the discard line.
+            SWULogWithSource($zp, 'SHD_203', fn() => DecisionQueueController::AddDecision($zp, 'CUSTOM', "DISCARD_FROM_OWN_HAND|{$zp}", 1));
         }
     }
-    _SWUAsh227RegroupStart();              // ASH_227 Heightened Awareness — Advantage token to each wearer
-    _SWUAsh159RegroupStart();              // ASH_159 Alphabet Squadron U-Wing — Advantage token to a chosen unit
-
     // LAW_074 Maz Kanata — "At the start of the regroup phase, put that unit on the bottom of your deck
     // (if it is still in play)." Bottom every unit still carrying the SWU_LAW074_BOTTOM marker, to its
     // owner's deck. Drain loop: SWUUnitToBottomOfDeck shifts arena indices, so re-scan after each.
@@ -6925,17 +7259,6 @@ function RegroupPhaseStart(): void {
     }
     $playerID = $savedShd194PID;
 
-    // SHD_015 Doctor Aphra (leader FRONT side, undeployed) — "When the regroup phase starts: Discard a
-    // card from your deck." (Once deployed, the deployed side replaces this — so gate on !Deployed.)
-    for ($ap = 1; $ap <= SeatCountForGame(); $ap++) {
-        foreach (GetLeader($ap) as $lo) {
-            if (empty($lo->removed) && ($lo->CardID ?? '') === 'SHD_015' && empty($lo->Deployed)) {
-                SWUMillTopCard($ap);
-                break;
-            }
-        }
-    }
-
     // SOR_219 Sneak Attack — "At the start of the regroup phase, defeat it." Defeat every unit still
     // carrying the SWU_SNEAK_DEFEAT marker (set when it was played by Sneak Attack). Drain loop:
     // SWUDefeatUnit shifts arena indices, so re-scan after each defeat.
@@ -6960,64 +7283,10 @@ function RegroupPhaseStart(): void {
     }
     $playerID = $savedSneakPID;
 
-    // JTL_198 Fireball — "When the regroup phase starts: deal 1 damage to this unit." (one pass; any
-    // resulting defeat is handled by the SWUDealDamageToUnit/state-based checks below.)
-    for ($rp = 1; $rp <= SeatCountForGame(); $rp++) {
-        $playerID = $rp;
-        foreach (['myGroundArena', 'mySpaceArena'] as $rz) {
-            foreach (ZoneSearch($rz, AnyUnitFilter) as $rmz) {
-                $ro = GetZoneObject($rmz);
-                if (SWUObjGone($ro)) continue;
-                if (($ro->CardID ?? '') === 'JTL_198') SWUDealDamageToUnit($rmz, 1, $rp);
-            }
-        }
-    }
-    $playerID = $savedSneakPID;
-
     // JTL_216 Contracted Hunter's regroup self-defeat is evaluated LOWER DOWN, right after phase-duration
     // effects expire (SWUExpireTurnEffects(SWU_DUR_PHASE)) — so a "this phase" ability-nullify (Force
     // Lightning) has already lifted (Hunter defeats) while a round-long one (Kazuda) is still active
     // (Hunter survives). See the block after the phase-expiry pass below.
-
-    // LOF_019 Vergence Temple — "When the regroup phase starts: If you control a unit with 4 or more
-    // remaining HP, the Force is with you." Checked for whichever player's base is Vergence Temple.
-    for ($vp = 1; $vp <= SeatCountForGame(); $vp++) {
-        $vbaseArr = GetBase($vp);
-        if (empty($vbaseArr) || ($vbaseArr[0]->CardID ?? '') !== 'LOF_019') continue;
-        $playerID = $vp;
-        $hasBig = false;
-        foreach (['myGroundArena', 'mySpaceArena'] as $vz) {
-            foreach (ZoneSearch($vz, AnyUnitFilter) as $vmz) {
-                $vo = GetZoneObject($vmz);
-                if (SWUObjGone($vo)) continue;
-                if (intval(ObjectCurrentHP($vo)) - intval($vo->Damage ?? 0) >= 4) { $hasBig = true; break 2; }
-            }
-        }
-        if ($hasBig) TheForceIsWithYou($vp);
-    }
-    $playerID = $savedSneakPID;
-
-    // LOF_055 Dume — "When the regroup phase starts: give an Experience token to each OTHER friendly
-    // non-Vehicle unit." (Loop per Dume so multiple copies each grant.)
-    for ($dp = 1; $dp <= SeatCountForGame(); $dp++) {
-        $playerID = $dp;
-        $dumeUIDs = [];
-        foreach (['myGroundArena', 'mySpaceArena'] as $dz) {
-            foreach (ZoneSearch($dz, AnyUnitFilter) as $dmz) {
-                $do = GetZoneObject($dmz);
-                if ($do !== null && empty($do->removed) && ($do->CardID ?? '') === 'LOF_055') $dumeUIDs[] = intval($do->UniqueID ?? 0);
-            }
-        }
-        foreach ($dumeUIDs as $dumeUID) {
-            // "each OTHER friendly non-Vehicle unit" — object-aware exclusion via TraitContains.
-            foreach (_SWUCollectTokenTargets($dp, [
-                'friendlyOnly' => true, 'notTraits' => ['Vehicle'], 'excludeUID' => $dumeUID,
-            ]) as $dmz) {
-                DoGiveExperienceToken($dp, $dmz);
-            }
-        }
-    }
-    $playerID = $savedSneakPID;
 
     // JTL_235 Commandeer — return commandeered units to their owners' hands at the start of regroup.
     $j235Found = true;
@@ -7078,6 +7347,10 @@ function RegroupPhaseStart(): void {
         }
     }
     $playerID = $savedSneakPID;
+
+    // ── TRIGGERED "When the regroup phase starts" abilities — collected and ordered with anything held above.
+    $GLOBALS['gSWURegroupStartWindow'] = false;
+    _SWURegroupStartTriggerWindow();
 
     // Expire "for this phase" effects. Registry-known tokens (keyword grants, value keywords,
     // stats, lose-abilities / suppress markers) are dropped by SWUExpireTurnEffects via their
@@ -7169,14 +7442,11 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_HMW215_USED');        // HMW_215 L3-37 "use this ability only once each phase"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_HMW108');             // HMW_108 The First Legion "lose that Trait for this phase"
         _SWUHmw108ActiveFlags(true);                                 // ...and drop the memo of it
-        SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH047_USED');        // ASH_047 Gar Saxon "once each round" create-Mandalorian
-        SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH128_USED');        // ASH_128 Bothan-5 "once each round" capture-from-discard
-        SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD137_USED');        // SHD_137 Punishing One "ready this unit once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_HMW109_WEAKEN');      // HMW_109 "for this phase" replay charge (twin of SWUClearDiscardModifiers' TPF)
+        // Once-each-round UNIT abilities now keep their round as NumUses on the copy (refilled by
+        // SWUResetAllNumUses): ASH_032, ASH_047, ASH_128, ASH_160, LAW_094, LAW_176, SHD_137, SHD_163,
+        // SHD_217, SHD_239, TWI_082 (2026-09-12). The flags still cleared here are player-level.
         SWUClearGlobalEffectsByPrefix($p, 'SWU_HMW062_USED');        // HMW_062 Nuvo Vindi "give a Weakness once each round"
-        SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD163_USED');        // SHD_163 Migs Mayfeld "deal 2 on any hand-discard once each round"
-        SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD217_USED');        // SHD_217 Tobias Beckett "exhaust a ≤cost unit once each round"
-        SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD239_USED');        // SHD_239 Toro Calican "deal 1 + ready once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD010_USED');        // SHD_010 Bossk (deployed) "collect a bounty again once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD017_USED');        // SHD_017 Lando (deployed) "smuggle -2 + defeat a resource once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_BASE_ATTACKED');      // ASH_119 Greef Karga "if your base was attacked this phase"
@@ -7206,8 +7476,6 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH027_DISCOUNT_NEXT'); // ASH_027 Enoch "next unit -N"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD006_DISCOUNT_NEXT'); // SHD_006 Jabba's bounty "next unit -N"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_LAW053_USED');          // LAW_053 Dengar "once each round"
-        SWUClearGlobalEffectsByPrefix($p, 'SWU_LAW094_USED');          // LAW_094 Hondo "once each round"
-        SWUClearGlobalEffectsByPrefix($p, 'SWU_LAW176_USED');          // LAW_176 Sebulba's Podracer "once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_NAMEBLOCK_PHASE');     // LAW_243 "named card can't be played this phase"
         RemoveGlobalEffect($p, 'SWU_PLAYED_VILLAINY');
         SWUClearGlobalEffectsByPrefix($p, 'SWU_PLAYED_EVENT'); // TWI_014 Asajj "played an event this phase"
@@ -7236,7 +7504,6 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD198_USED');       // SHD_198 Clone Trooper: "first Clone unit each round ignores aspect penalty"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_LAW229_USED');       // LAW_229 "first Gambit each round -1" use
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SEC110_DISCOUNT_NEXT'); // SEC_110 GNK "next unit -1" charge
-        SWUClearGlobalEffectsByPrefix($p, 'SWU_TWI082_USED');         // TWI_082 MagnaGuard Wing Leader "once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_TWI121_DISCOUNT_NEXT'); // TWI_121 General's Blade "next unit -2" charge
         SWUClearGlobalEffectsByPrefix($p, 'SWU_TWI246_DISCOUNT');      // TWI_246 Tranquility "next 3 Republic cards -1"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SEC064_USED');       // SEC_064 "first upgrade each phase -1" use
@@ -7244,8 +7511,6 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SEC261_OFFICIAL_DISCOUNT'); // SEC_261 "next Official unit -1" charge
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SEC001_PLOT_DISCOUNT');     // SEC_001 Palpatine "next Plot play -3" charge
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SEC002_USED');              // SEC_002 Jabba deployed "once each round"
-        SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH032_USED');              // ASH_032 Rancor Keeper "once each round"
-        SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH160_USED_');             // ASH_160 Kachirho Militia "once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH248_READY');             // ASH_248 Neel "next ≤1-power unit this phase enters ready"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_LEADER_DEFEATED_PHASE');    // ASH_093 Captain Pellaeon "leader defeated this phase → Raid 3"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SEC067_USED_');      // SEC_067 "first damage each phase prevented" per-unit
@@ -7425,11 +7690,8 @@ function ActionPhaseStart() {
             $deck = GetDeck($deckOwner);
             $active = array_values(array_filter($deck, fn($c) => empty($c->removed ?? false)));
             if (empty($active)) continue;
-            AddGameLogEntry(
-                'REVEAL',
-                'Thrawn sees top of P' . $deckOwner . '\'s deck: ' . GameLogCardRef($active[0]->CardID),
-                'P' . $p
-            );
+            SWULogPrivate(intval($p), 'REVEAL',
+                'Thrawn sees top of P' . $deckOwner . '\'s deck: ' . GameLogCardRef($active[0]->CardID));
         }
     }
     $playerID = $savedPID; // restore: the peek loop leaves $playerID on the last deck owner,
@@ -7479,11 +7741,28 @@ function ActionPhaseStart() {
     // resolves, so the ambient frame must not be left pointing at whichever opponent happened to be last.
     $playerID = $eyeSavedPID;
 
-    // JTL_028 Nabat Village — "At the start of the FIRST action phase, put 3 cards from your hand on the
-    // bottom of your deck." (The +3 starting hand + no-mulligan halves live in the pregame setup —
-    // SWUStartingHandModifier / SWUBaseSuppressesMulligan.) Fires exactly once per game, guarded by the
-    // per-player SWU_NABAT_BOTTOM_DONE flag. Interactive: the base's controller chooses which 3 (an
-    // MZMULTICHOOSE over their hand → JTL_028#0 moves them to the bottom, mirroring TWI_257).
+    // JTL_028 Nabat Village — normally already resolved when setup ended (MainPhase); this is the fallback
+    // for a game that never ran setup (a SkipPreGame fixture loads straight into MAIN). Once per game.
+    _SWUNabatFirstActionPhase();
+
+    $playerID = $savedPID;
+}
+
+// JTL_028 Nabat Village — "When the first action phase starts: Put 3 cards from your hand on the bottom of your
+// deck in any order." (The +3 starting hand + no-mulligan halves live in the pregame setup —
+// SWUStartingHandModifier / SWUBaseSuppressesMulligan.) Official ruling (03/06/2025): "resolved at the start of
+// the first action phase, after setup but before the player with initiative has taken their first action."
+// Fires exactly once per game, guarded by the per-player SWU_NABAT_BOTTOM_DONE flag. Interactive: the base's
+// controller chooses which 3 (an MZMULTICHOOSE over their hand → JTL_028#0 moves them to the bottom, mirroring
+// TWI_257).
+// ⚠ WHERE IT FIRES. SWUSim/CreateGame.php puts a new game straight into APS and runs setup there, so
+// ActionPhaseStart() never runs for round 1 — its first call is round 2's. Living only there, this resolved a
+// whole round late in every game (found 2026-09-14, Bot Practice). MainPhase() — entered once when setup ends —
+// is the real first-action-phase hook; ActionPhaseStart() keeps the call as the fallback for games that never
+// ran setup. SWUSim/Tests/Cases/jtl/NabatVillage_FirstActionPhaseTiming.md.
+function _SWUNabatFirstActionPhase(): void {
+    global $playerID;
+    $savedPID = $playerID;
     for ($p = 1; $p <= SeatCountForGame(); $p++) {
         $nabatBase = GetBase($p);
         $hasNabat  = false;
@@ -7500,9 +7779,7 @@ function ActionPhaseStart() {
         DecisionQueueController::AddDecision($p, "MZMULTICHOOSE", "{$n}|{$n}|" . implode('&', $hand), 1,
             tooltip:"Put_3_cards_from_your_hand_on_the_bottom_of_your_deck_(Nabat_Village)");
         DecisionQueueController::AddDecision($p, "CUSTOM", "JTL_028#0", 1);
-        // leave $playerID = $p so MZCountChoices validates the myHand-* relative mzIDs
     }
-
     $playerID = $savedPID;
 }
 
@@ -7963,15 +8240,46 @@ function SWUPayCost($player, $cost, $prepaid = 0, bool $applyCostHalving = true,
 // Normal resources enter exhausted; SOR_017 Han Solo's abilities ready the new one.
 // Returns the new resource object or null on failure.
 function SWURampResourceReady(int $player, string $mzID): ?object {
+    return _SWURampResource($player, $mzID, 1, _SWURampLogLine($player, $mzID, true));
+}
+
+// "Put a card into play as a resource" — the DEFAULT: it enters EXHAUSTED (readied at the controller's
+// next ReadyPhase), because in SWU cards enter play exhausted unless the text says otherwise. Only the
+// explicit "...and ready it / and readies it" wording (SOR_017, SEC_242) uses SWURampResourceReady.
+function SWURampResourceExhausted(int $player, string $mzID): ?object {
+    return _SWURampResource($player, $mzID, 0, _SWURampLogLine($player, $mzID, false));
+}
+
+// The ramp helpers' line — SSOT #8: the one resource wording, "P1 resourced <what> (Source)" (SWULogResourced),
+// worded by where the card came FROM. They used to write a generic "P1 put a card into play as a (ready)
+// resource" with no source and no origin. A HAND card stays hidden; a DISCARD / in-play card was face up, so it
+// is named; ", ready" when it enters ready. Read BEFORE the move (the line is written after it).
+function _SWURampLogLine(int $player, string $mzID, bool $ready): callable {
+    global $playerID;
+    $saved = $playerID; $playerID = $player;
+    $o = GetZoneObject($mzID);
+    $playerID = $saved;
+    $ref = GameLogCardRef((string)($o->CardID ?? ''));
+    if (str_contains($mzID, 'Hand'))        $what = 'a card from their hand';
+    elseif (str_contains($mzID, 'Discard')) $what = $ref . ' from their discard pile';
+    elseif (str_contains($mzID, 'Deck'))    $what = 'the top card of their deck';
+    else                                    $what = $ref;
+    if ($ready) $what .= ', ready';
+    return fn() => SWULogResourced($player, $what);
+}
+
+// The one move behind both: the card at $mzID (in $player's frame) goes to $player's resource zone with
+// $status, owned and controlled by $player, then $log writes the line.
+function _SWURampResource(int $player, string $mzID, int $status, callable $log): ?object {
     global $playerID;
     $savedPID = $playerID;
     $playerID = intval($player);
     $newResource = MZMove($player, $mzID, "myResources");
     if ($newResource !== null) {
-        $newResource->Status     = 1; // enters READY
+        $newResource->Status     = $status;   // 1 = ready, 0 = exhausted
         $newResource->Owner      = intval($player);
         $newResource->Controller = intval($player);
-        AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' put a card into play as a ready resource');
+        $log();
         // Card slides into the RESOURCE ZONE ANCHOR, not a per-card slot: resources collapse to a
         // single DOM element (CollapseGroupBy CardID — GameLayoutShared), so 'myResources-N' for N>0
         // resolves to nothing and the card flew at whatever the fallback picked. 'myResources-0' is
@@ -7984,29 +8292,27 @@ function SWURampResourceReady(int $player, string $mzID): ?object {
     return $newResource;
 }
 
-// "Put a card into play as a resource" — the DEFAULT: it enters EXHAUSTED (readied at the controller's
-// next ReadyPhase), because in SWU cards enter play exhausted unless the text says otherwise. Only the
-// explicit "...and ready it / and readies it" wording (SOR_017, SEC_242) uses SWURampResourceReady.
-function SWURampResourceExhausted(int $player, string $mzID): ?object {
-    global $playerID;
-    $savedPID = $playerID;
-    $playerID = intval($player);
-    $newResource = MZMove($player, $mzID, "myResources");
-    if ($newResource !== null) {
-        $newResource->Status     = 0; // enters EXHAUSTED
-        $newResource->Owner      = intval($player);
-        $newResource->Controller = intval($player);
-        AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' put a card into play as a resource');
-        // Card slides into the RESOURCE ZONE ANCHOR, not a per-card slot: resources collapse to a
-        // single DOM element (CollapseGroupBy CardID — GameLayoutShared), so 'myResources-N' for N>0
-        // resolves to nothing and the card flew at whatever the fallback picked. 'myResources-0' is
-        // the collapsed badge and is always present.
-        // Scoped to the resourcing player: the Resources zone is Display: Visibility=Self, so the
-        // opponent has no business seeing a card slide into it.
-        SWUQueueZoneMoveAnim($mzID, 'myResources-0', intval($player), 420, null, intval($player));
-    }
-    $playerID = $savedPID;
-    return $newResource;
+// ── "PUT THE TOP CARD OF YOUR DECK INTO PLAY AS A RESOURCE" — SSOT #3 (gamelog-updates, 2026-09-11) ────────
+// THE funnel for it. ~20 sites wrote it by hand: 8 raw Remove + AddResources loops (the Smuggle unit / event /
+// upgrade and Plot slot refills, Hunter, Frontier Trader, Bail Organa, Citadel Research Center — no slide
+// animation, and three different log lines) and a dozen ramp-helper callers that located the top card
+// themselves, several as 'myDeck-0' — which is a DEAD slot after an uncleaned removal (the reason Outlaw
+// Corona's bounty once silently did nothing). The top is the first LIVE deck card (_SWUTopDeckFrontIdx).
+//   $player  whose deck AND whose resource zone (an opponent refilling from their own deck passes their seat).
+//   $ready   "…and ready it" (SOR_017 Han Solo, SEC_010 Elia Kane); otherwise it enters exhausted.
+//   $reason  a RULE refill with no ability behind it ("Smuggle slot refill", "Plot slot refill") — named in
+//            place of the source; '' = the resolving ability is the source.
+// Returns the resourced CardID, or null when the deck is empty (no replacement, no damage — CR 8.22.h / 19).
+// The card is face down: the line never names it.
+function SWUResourceTopOfDeck(int $player, bool $ready = false, string $reason = ''): ?string {
+    $idx = _SWUTopDeckFrontIdx($player);
+    if ($idx < 0) return null;
+    $what = 'the top card of their deck' . ($ready ? ', ready' : '');
+    $log = ($reason !== '')
+        ? fn() => SWULogWithoutSource(fn() => SWULogResourced($player, "{$what} ({$reason})"))
+        : fn() => SWULogResourced($player, $what);
+    $obj = _SWURampResource($player, "myDeck-{$idx}", $ready ? 1 : 0, $log);
+    return $obj !== null ? (string)$obj->CardID : null;
 }
 
 // Defeat the resource at $mzID, sending it to its owner's discard (From:RESOURCES).
@@ -8428,6 +8734,29 @@ function SWUSeatToTheLeft(int $seat): int {
 //   p{n}<Zone>  → seat n            (union targets)
 //   their<Zone> → the one opponent  (2-player; SWUChooseOpponent == OtherPlayer there)
 //   my<Zone>/other → $actingPlayer  (self)
+// ── WHOSE IS THIS OBJECT? — SSOT #6 (gamelog-updates, 2026-09-11) ──────────────────────────────────────────
+// $owner = false → its CONTROLLER, true → its OWNER. An arena unit carries both. A BASE carries neither, an
+// undeployed LEADER no Controller, a RESOURCE often Owner = 0 (set, not null), and a HAND card no Owner at all —
+// for those the answer is the seat whose zone holds the object, found by OBJECT IDENTITY (no frame needed;
+// bases and leaders never change control, and a zone-held card belongs to that zone's seat unless its field
+// says otherwise). Returns 0 only for an object that is in no zone (a clone, a snapshot).
+// ⚠ Prefer this over `intval($o->Owner ?? $player)`: `??` falls back only on NULL (a resource's Owner 0 slips
+// through as seat 0), and its fallback guesses the ACTING player, not the seat — LAW_140 Intimidator and
+// SOR_197 Lando returned a teammate's resource to the wrong hand that way.
+function SWUObjSeat($obj, bool $owner = false): int {
+    if ($obj === null) return 0;
+    $field = $owner ? 'Owner' : 'Controller';
+    if (intval($obj->$field ?? 0) > 0) return intval($obj->$field);
+    foreach (GetLiveSeatsArray() as $seat) {
+        $seat = intval($seat);
+        foreach ([GetLeader($seat), GetBase($seat), GetResources($seat), GetHand($seat), GetDiscard($seat), GetDeck($seat)] as $zone) {
+            foreach ((array)$zone as $o) { if ($o === $obj) return $seat; }
+        }
+    }
+    $other = $owner ? 'Controller' : 'Owner';
+    return max(0, intval($obj->$other ?? 0));
+}
+
 function SWUMzOwner(string $mzID, int $actingPlayer): int {
     if (preg_match('/^p(\d+)/', $mzID, $m)) return intval($m[1]);
     if (strpos($mzID, 'their') !== false) return SWUChooseOpponent($actingPlayer);
@@ -9008,6 +9337,26 @@ function _SWURecordDamageSource(int $player, ?string $mzID): void {
 }
 
 function SWUAfterAction($player) {
+    // Draw triggers that waited for this action (CR 7.6.8 — see SWUBeginDeferDrawTriggers) resolve now, still
+    // INSIDE it: release them and close again BEHIND them (FINISH_PLAY_CARD — it also waits for a seat that
+    // still owes a decision, e.g. an opponent's JTL_111 reaction). Only in the frame that will really close
+    // the action: a nested frame's close is refused by the gate and must not release them early.
+    // A release that queued nothing (no draw, or only inline observers like ASH_169's token) closes inline as
+    // before — re-queuing the close is only for triggers that still have to resolve.
+    // The close goes BEHIND the released triggers on the queue they landed on (the caster's if it grew,
+    // otherwise the seat that did): a lone CUSTOM on a seat that isn't otherwise acting never drains, and
+    // FINISH_PLAY_CARD's owing check hops it to any other seat still owing a decision.
+    if (GetSWUVar('SWU_DEFER_DRAW', '') === 'true' && _SWUActionCloseWouldPass()) {
+        $pendingBefore = _SWUPendingDecisionsBySeat();
+        SWUFlushDeferredDrawTriggers(intval($player));
+        $grew = [];
+        foreach (_SWUPendingDecisionsBySeat() as $seat => $n) if ($n > ($pendingBefore[$seat] ?? 0)) $grew[] = $seat;
+        if (!empty($grew)) {
+            $closeOn = in_array(intval($player), $grew, true) ? intval($player) : $grew[0];
+            DecisionQueueController::AddDecision($closeOn, "CUSTOM", "FINISH_PLAY_CARD|" . intval($player), 10, '', 1);
+            return;
+        }
+    }
     // Client-visible lobby facts, refreshed every action so a game already in flight when this shipped
     // self-heals rather than rendering the wrong Undo menu forever. Cosmetic only — SWUTakeBookmark /
     // SWULoadBookmark re-check privacy server-side, and a crafted request is refused regardless.
@@ -9084,6 +9433,7 @@ function SWUAfterAction($player) {
     // The single place an action ends. Everything above this line is per-action cleanup that a nested
     // or duplicate frame still wants to run; only the SWAP is exclusive to the owning frame.
     if (!_SWUActionCloseGate()) return;
+    _SWUEsSetLayers([]);   // CR 7.6.11 layers belong to one action — never let a stale one leak into the next
     _SWUEndActionAndPassTurn();
     _SWUCheckForcedAttack(intval(GetTurnPlayer())); // SHD_144 — force the new turn player's next action to be the compelled attack
 }
@@ -9317,14 +9667,85 @@ function _SWUQueueOrchestration($player, string $param, int $block): void {
     DecisionQueueController::AddDecision($player, "CUSTOM", $param, $block, '', 1);
 }
 
+// ── EFFECTSTACK LAYERS (CR 7.6.11) ─────────────────────────────────────────────────────────────────────
+// "After resolving a triggered ability 'A', if any new abilities were triggered while resolving it, the new
+// abilities are considered 'nested abilities' and must be resolved before any other abilities triggered at the
+// same time as ability 'A'." The EffectStack is one flat zone, so a card PLAYED while a trigger resolves
+// (Kelleran Beq fetching a unit, a Plot card played from the deploy's window) used to add its triggers BESIDE
+// the outer batch's leftovers, and the next ordering prompt offered all of them (Greef-for-Kelleran ahead of
+// the fetched unit's own Support). Layers restore the rule:
+//   • FlushEntryTriggerBag pushes a layer whenever it adds triggers while older live entries are pending.
+//   • The ordering prompt and the bare SWU_TRIGGER_RESUME see ONLY the top layer; when it empties it is popped
+//     and the outer layer carries on.
+//   • The Plot window holds a layer open while it offers Plot cards (CR 19.b: the abilities of one Plot card
+//     resolve before the next is played, and — keywords/Plot_TriggerOrdering.md — the window is one entry, so
+//     the leader's own trigger waits for the whole window). It is released when the window closes.
+// A boundary is stored as the number of LIVE entries below the layer, not a stack index: CleanupRemovedCards
+// compacts the EffectStack, and live entries are only ever appended or removed, never inserted mid-stack.
+// ⚠ Direct AddEffectStack writes (JTL_096's re-armed Ambush, which by USER RULING 2026-08-31 REJOINS the pool)
+// push no layer, so they land in the current top layer exactly as before.
+function _SWUEsLayers(): array {
+    $j = json_decode(GetSWUVar('SWU_ES_LAYERS', ''), true);
+    return is_array($j) ? array_values($j) : [];
+}
+function _SWUEsSetLayers(array $layers): void {
+    SetSWUVar('SWU_ES_LAYERS', empty($layers) ? '' : json_encode(array_values($layers)));
+}
+function _SWUEsLiveCount(): int {
+    $n = 0;
+    foreach (GetEffectStack() as $e) if (empty($e->removed)) $n++;
+    return $n;
+}
+function _SWUEsPushLayer(bool $hold = false): void {
+    $l = _SWUEsLayers();
+    $l[] = ['live' => _SWUEsLiveCount(), 'hold' => $hold ? 1 : 0];
+    _SWUEsSetLayers($l);
+}
+// Raw EffectStack indices of the live entries in the TOP layer (all live entries when no layer is open).
+function _SWUEsTopLayerIndices(): array {
+    $l = _SWUEsLayers();
+    $floor = empty($l) ? 0 : intval($l[count($l) - 1]['live'] ?? 0);
+    $out = []; $rank = 0;
+    foreach (GetEffectStack() as $i => $e) {
+        if (!empty($e->removed)) continue;
+        if ($rank >= $floor) $out[] = $i;
+        $rank++;
+    }
+    return $out;
+}
+// Pop every EMPTY top layer. Returns false when an empty HOLD layer (an open Plot window) is on top: the
+// outer triggers must keep waiting, and the window's close resumes them.
+function _SWUEsSettleLayers(): bool {
+    while (true) {
+        $l = _SWUEsLayers();
+        if (empty($l)) return true;
+        if (!empty(_SWUEsTopLayerIndices())) return true;
+        if (!empty($l[count($l) - 1]['hold'])) return false;
+        array_pop($l);
+        _SWUEsSetLayers($l);
+    }
+}
+// Release the topmost HOLD layer (the Plot window closing), with any layers left above it.
+function _SWUEsReleaseHold(): void {
+    $l = _SWUEsLayers();
+    for ($i = count($l) - 1; $i >= 0; $i--) {
+        if (!empty($l[$i]['hold'])) { _SWUEsSetLayers(array_slice($l, 0, $i)); return; }
+    }
+}
+
 // FlushEntryTriggerBag — EffectStack path for entry triggers (WhenPlayed, Shielded, Ambush).
 // 0 triggers: returns 0.
 // 1 trigger:  auto-dispatches via RESOLVE_NEXT_TRIGGER (no player choice). Returns 1.
 // 2+ triggers, same player: populates EffectStack + queues MZCHOOSE for ordering. Returns 2.
 // 2+ triggers, cross-player: populates EffectStack + queues YESNO for who resolves first. Returns 2.
-function FlushEntryTriggerBag($activePlayer): int {
+// $resumeSuffix: a continuation for the resume ("|REGROUP" — the regroup-start window, where no action
+// is open to finalise). Empty = the ordinary action-scoped resume, byte-identical.
+function FlushEntryTriggerBag($activePlayer, string $resumeSuffix = ''): int {
     global $gPendingTriggers, $gTriggerDepth;
     if (empty($gPendingTriggers)) return 0;
+
+    // Older triggers still pending → these were triggered WHILE one of them resolved: a nested layer.
+    if (_SWUEsLiveCount() > 0) _SWUEsPushLayer();
 
     $count = count($gPendingTriggers);
 
@@ -9340,7 +9761,7 @@ function FlushEntryTriggerBag($activePlayer): int {
         AddEffectStack(CardID:$t['cardID'], Controller:$t['player'], TriggerType:$t['triggerType'], Params:$buildParams($t));
         $mzID = "EffectStack-{$stackIdx}";
         _SWUQueueOrchestration($t['player'], "RESOLVE_NEXT_TRIGGER|{$mzID}", $gTriggerDepth);
-        _SWUQueueOrchestration($t['player'], "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
+        _SWUQueueOrchestration($t['player'], "SWU_TRIGGER_RESUME|{$activePlayer}{$resumeSuffix}", 20);
         return 1;
     }
 
@@ -9353,7 +9774,7 @@ function FlushEntryTriggerBag($activePlayer): int {
         AddEffectStack(CardID:$t['cardID'], Controller:$t['player'], TriggerType:$t['triggerType'], Params:$buildParams($t));
     }
 
-    _SWUQueueOrchestration(intval($activePlayer), "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
+    _SWUQueueOrchestration(intval($activePlayer), "SWU_TRIGGER_RESUME|{$activePlayer}{$resumeSuffix}", 20);
 
     if (!empty($mine) && !empty($theirs)) {
         // Cross-player: active player picks who resolves first.
@@ -9493,14 +9914,19 @@ function FlushCombatTriggerBag(int $activePlayer, string $attackerMzID, string $
         : intval($activePlayer);
     _SWUQueueOrchestration($resumeOwner, "SWU_TRIGGER_RESUME|{$activePlayer}|{$cont}", 20);
 
+    // The FIRST ordering prompt is scoped to this attack's batch too, not just the resume's (bug #976d): a
+    // Support or Ambush attack starts WHILE its own batch's siblings are pending (the deploy's Plot window,
+    // Blue Leader's Ambush), and CR 7.5 Support e. / Ambush f. hold those "until after the attack … and any
+    // abilities triggered during the attack are resolved". Found by the RL-bot sweep (run 5, 2026-09-14): the
+    // Plot window was offered beside a Support attack's On Attacks and Plot cards were played MID-ATTACK.
     if (!empty($mine) && !empty($theirs)) {
         DecisionQueueController::AddDecision(intval($activePlayer), "YESNO", "-", $gTriggerDepth,
             tooltip:"Resolve_Which_Player_First?");
         _SWUQueueOrchestration(intval($activePlayer),
-            "SWU_TRIGGER_ORDER_CHOICE|{$activePlayer}", $gTriggerDepth);
+            "SWU_TRIGGER_ORDER_CHOICE|{$activePlayer}|{$batchStart}", $gTriggerDepth);
     } else {
         $choosingPlayer = !empty($mine) ? intval($activePlayer) : (intval($activePlayer) === 1 ? 2 : 1);
-        $targetStr = _SWUEffectStackTargetsForPlayer($choosingPlayer);
+        $targetStr = _SWUEffectStackTargetsForPlayer($choosingPlayer, $batchStart);
         DecisionQueueController::AddDecision($choosingPlayer, "MZCHOOSE", $targetStr, $gTriggerDepth,
             tooltip:"Choose_trigger_to_resolve");
         _SWUQueueOrchestration($choosingPlayer,
@@ -9511,11 +9937,16 @@ function FlushCombatTriggerBag(int $activePlayer, string $attackerMzID, string $
 }
 
 // Returns a &-delimited mzID string of non-removed EffectStack entries for the given player.
-function _SWUEffectStackTargetsForPlayer($player): string {
+// $batchStart — a COMBAT batch's boundary (bug #976d, FlushCombatTriggerBag): only entries at or after it are
+// this attack's triggers. 0 (every non-combat caller) = no floor, byte-identical.
+function _SWUEffectStackTargetsForPlayer($player, int $batchStart = 0): string {
     $stack = GetEffectStack();
     $mzIDs = [];
+    $top = array_flip(_SWUEsTopLayerIndices());   // CR 7.6.11 — only the innermost layer may be chosen
     foreach ($stack as $i => $e) {
         if (!empty($e->removed)) continue;
+        if (!isset($top[$i])) continue;
+        if ($i < $batchStart) continue;
         if (intval($e->Controller) === intval($player)) $mzIDs[] = "EffectStack-{$i}";
     }
     return implode('&', $mzIDs);
@@ -9626,7 +10057,7 @@ function BobaLeftPlayReaction($player): void {
     if (SWUReadyResources(intval($player), 1) <= 0) return; // resources full → skip the cost
     foreach (GetLeader(intval($player)) as &$l) {
         if (!empty($l->removed)) continue;
-        if (($l->CardID ?? '') === 'SOR_015') { $l->Ready = false; break; }
+        if (($l->CardID ?? '') === 'SOR_015') { $l->Ready = false; SWULogLeaderExhaustCost(intval($player), 'SOR_015'); break; }
     }
     unset($l);
 }
@@ -9649,18 +10080,12 @@ function HeroicSacrificeDefeatTrigger($player, $mzID): void {
     $playerID = intval($player);
     $obj = GetZoneObject($mzID);
     if (SWUObjGone($obj)) return;
-    $wasLuthenHimself = (($obj->CardID ?? '') === 'SEC_013');
-    SWUDefeatUnit(intval($player), $mzID);
     // SEC_013 Luthen Rael — "When a friendly unit is defeated while attacking." This EFFECT-driven
-    // self-defeat (SOR_150 Heroic Sacrifice / LAW_205 / LAW_062) happens while the unit is the attacker, so
-    // it must fire Luthen too — the combat-counter-death path fires it in ExecuteSWUAttack. If Luthen HIMSELF
-    // is the self-defeated attacker he has already returned to the leader zone (undeployed), so force the
-    // deployed-self branch.
-    if ($wasLuthenHimself) {
-        AddTrigger(intval($player), 'SEC_013', 'SEC_013', 'DEPLOYED_SELF');
-    } elseif (_SWULeaderReadyUndeployed(intval($player), 'SEC_013') || _SWULeaderDeployed(intval($player), 'SEC_013')) {
-        AddTrigger(intval($player), 'SEC_013', 'SEC_013', '');
-    }
+    // self-defeat (SOR_150 Heroic Sacrifice / LAW_205 / LAW_062) happens while the unit is still the live
+    // attacker (SWU_CURRENT_ATTACKER_UID), so SWUDefeatUnit's own "defeated while attacking" check fires
+    // Luthen — including the deployed-self branch when Luthen himself is the attacker. A second AddTrigger
+    // here fired him TWICE (the deployed side offered a second deal-2).
+    SWUDefeatUnit(intval($player), $mzID);
 }
 
 // ASH_102 Ravager — "When you play a unit: you may have it deal damage equal to its power to a unit in
@@ -9852,7 +10277,7 @@ $customDQHandlers["LOF_017#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $leaderArr = &GetLeader(intval($player));
     for ($i = 0; $i < count($leaderArr); $i++) {
-        if (($leaderArr[$i]->CardID ?? '') === 'LOF_017') { $leaderArr[$i]->Ready = false; break; } // exhaust
+        if (($leaderArr[$i]->CardID ?? '') === 'LOF_017') { $leaderArr[$i]->Ready = false; SWULogLeaderExhaustCost(intval($player), 'LOF_017'); break; } // exhaust
     }
     $mz = $parts[0] ?? '';
     if ($mz !== '') { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) DoGiveExperienceToken(intval($player), $mz); }
@@ -9931,7 +10356,8 @@ function Shd122ResourceStealTrigger(int $attacker, string $payload): void {
     $disc[$idx]->removed = true;
     DecisionQueueController::CleanupRemovedCards();
     AddResources($attacker, $cardID, 0, $owner, $attacker);   // Status 0 = exhausted; Owner=enemy, Controller=you
-    AddGameLogEntry('RESOURCE', 'P' . $attacker . ' put ' . GameLogCardRef($cardID) . ' into play as a resource');
+    // The one resource wording (SSOT #8): "P1 resourced [[X]] from P2's discard pile (Arquitens Assault Cruiser)".
+    SWULogResourced($attacker, GameLogCardRef($cardID) . ($owner > 0 && $owner !== $attacker ? " from P{$owner}'s discard pile" : ' from their discard pile'));
     $playerID = $savedPID;
 }
 
@@ -10105,9 +10531,8 @@ function Law007Trigger($player): void {
 // LAW_176 Sebulba's Podracer — queue the may-ready YESNO ($mzID = the Podracer).
 function Law176Trigger($player, $mzID): void {
     global $playerID; $playerID = intval($player);
-    if (GlobalEffectCount(intval($player), 'SWU_LAW176_USED') > 0) return;
     $o = GetZoneObject($mzID);
-    if (SWUObjGone($o)) return;
+    if (SWUObjGone($o) || !SWUHasUseAvailable($o)) return;   // once each round — per copy (NumUses)
     $uid = intval($o->UniqueID ?? 0);
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Ready_Sebulba's_Podracer?");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "LAW_176#0|{$uid}", 1);
@@ -10196,7 +10621,10 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         // the ONLY thing that opens the window now; the deploy's own SWUAfterAction is unreachable
         // while this trigger is pending (see SWUDeployLeader). _SWUPlotReoffer both makes the first
         // offer and, on later re-entry after each Plot card is played, closes the window.
-        case 'SWU_PLOT_WINDOW': _SWUPlotReoffer(intval($player)); break;
+        case 'SWU_PLOT_WINDOW': _SWUEsPushLayer(true); _SWUPlotReoffer(intval($player)); break;   // hold until it closes
+        // A "When the regroup phase starts" ability ordered by the regroup-start window: $mzID = its ref
+        // ("U{uid}"/"P{seat}"), $extra[0] = its key. See _SWURegroupStartResolve.
+        case 'RegroupStart': _SWURegroupStartResolve((string)($extra[0] ?? ''), intval($player), (string)$mzID); break;
         case 'OnAttached':          OnOnAttached($player, $cardID, $mzID);          break;
         case 'WhenDefeated':
             OnWhenDefeated($player, $cardID, $mzID);
@@ -10234,7 +10662,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'TWI_101': Twi101Reaction($player, intval($extra[0] ?? 0)); break; // may exhaust self → search top 4 for a unit
         case 'TWI_216': Twi216Reaction($player, intval($extra[0] ?? 0)); break; // may recycle a Clone from discard → draw
         case 'LOF_229': KyloRenUpgradeReaction($player); break; // "When you play an upgrade on this unit": may use the Force → draw
-        case 'ASH_047': Ash047UpgradeReaction($player); break;  // "When you play an upgrade on this unit": may create a Mandalorian token (once/round)
+        case 'ASH_047': Ash047UpgradeReaction($player, intval($mzID)); break;  // "When you play an upgrade on this unit": may create a Mandalorian token (once/round)
         case 'SHD_067': {                                       // Fenn Rau — give an enemy unit -2/-2 this phase
             SWUOfferUnitTarget($player, '', ['continuation'=>'APPLY_PHASE_DEBUFF|2|2|SHD_067', 'side'=>'their', 'prompt'=>"Give_an_enemy_unit_-2/-2_this_phase"]);
             break;
@@ -10326,8 +10754,8 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'OnAttackEndFromUpgrade': OnAttackEndFromUpgradeTrigger($player, $cardID, $mzID); break;
         case 'OnAttackedFromUpgrade': OnAttackedFromUpgradeTrigger($player, $cardID, $mzID); break;
         case 'OnDefenseFromUpgrade': OnDefenseFromUpgradeTrigger($player, $cardID, $mzID); break;
-        case 'SEC_101_PREVENT': SEC101PreventTrigger($player, $mzID); break;
-        case 'ASH_062_PREVENT': Ash062PreventTrigger($player, $mzID); break;
+        // SEC_101_PREVENT / ASH_062_PREVENT are no longer triggers: since the OWNER RULING 2026-09-13 the combat
+        // prevention is offered at the combat commit (_SWUOfferCombatPreventions, CombatLogic.php).
         case 'OnDefense':    OnDefenseTrigger($player, $cardID, $mzID);   break;
         case 'OnAttackEnd':  OnAttackEndTrigger($player, $cardID, $mzID); break;
         case 'SOR_036':    GideonExpReaction($player);    break;
@@ -10408,27 +10836,30 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             SWUQueueMayChooseTarget($player, SWUAllBaseMzIDs(intval($player), 'any'), "Deal_1_damage_to_a_base?", "Choose_a_base", "DEAL_TARGET|1");
             break;
         }
-        case 'SHD_163': {  // Migs Mayfeld — "may deal 2 to a unit or base" (once/round; consumed on use)
+        case 'SHD_163': {  // Migs Mayfeld — "may deal 2 to a unit or base" (once/round per copy; consumed on use); $mzID = Migs's UID
             global $playerID; $playerID = intval($player);
-            if (GlobalEffectCount($player, 'SWU_SHD163_USED') > 0) break;  // multi-card discard: only the first reacts
+            $uid163 = intval($mzID);
+            if (SWUUnitRoundUseSpent($uid163)) break;  // multi-card discard: once this copy is used, the rest don't react
             $targets = _SWUAllUnitsAndBases(intval($player));
             if (empty($targets)) break;
-            SWUQueueMayChooseTarget($player, $targets, "Deal_2_damage_to_a_unit_or_base?", "Choose_a_target", "SHD_163#0");
+            SWUQueueMayChooseTarget($player, $targets, "Deal_2_damage_to_a_unit_or_base?", "Choose_a_target", "SHD_163#0|{$uid163}");
             break;
         }
-        case 'SHD_217': {  // Tobias Beckett — "may exhaust a unit costing ≤ the non-unit card you played"; $mzID = cost
+        case 'SHD_217': {  // Tobias Beckett — "may exhaust a unit costing ≤ the non-unit card you played"; $mzID = "cost,tobiasUID"
             global $playerID; $playerID = intval($player);
-            $cost = intval($mzID);
+            $pp217  = explode(',', (string)$mzID, 2);
+            $cost   = intval($pp217[0] ?? 0);
+            $uid217 = intval($pp217[1] ?? 0);
             $targets = [];
-            foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
-                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-                    $o = GetZoneObject($mz);
-                    if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1
-                        && intval(CardCost($o->CardID ?? '')) <= $cost) $targets[] = $mz;
-                }
+            // "A unit" is unqualified — every seat's units, a teammate's included (a my+their zone list
+            // skipped the teammate, since their* is the OPPONENT fan-out).
+            foreach (SWUAllUnits() as $mz) {
+                $o = GetZoneObject($mz);
+                if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1
+                    && intval(CardCost($o->CardID ?? '')) <= $cost) $targets[] = $mz;
             }
             if (empty($targets)) break;   // no valid target → don't consume the once/round
-            SWUQueueMayChooseTarget($player, $targets, "Exhaust_a_unit_costing_{$cost}_or_less?", "Choose_a_unit", "SHD_217#0");
+            SWUQueueMayChooseTarget($player, $targets, "Exhaust_a_unit_costing_{$cost}_or_less?", "Choose_a_unit", "SHD_217#0|{$uid217}");
             break;
         }
         case 'SOR_182':        BosskPlayEventReaction($player);        break;
@@ -10515,7 +10946,8 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
     if ($entO !== null) AddGlobalEffects(intval($entO->Controller ?? $activePlayer), 'SWU_ENTERED_PHASE_' . intval($entO->UniqueID ?? 0));
     // SEC_046 Galen Erso — a named card the enemy Galen targets has lost its abilities, so its When
     // Played does not fire (the $cardID/hand-source path can't rely on the object's Owner being set).
-    if (HasWhenPlayedAbility($cardID) && !_SWUGalenSuppressesCard($activePlayer, $cardID)) {
+    if (HasWhenPlayedAbility($cardID) && !_SWUGalenSuppressesCard($activePlayer, $cardID)
+        && _SWUWhenPlayedAbilityActive((string)$cardID, intval($activePlayer))) {   // "Coordinate - When Played"
         AddTrigger($activePlayer, 'WhenPlayed', $cardID, $mzID);
     }
 
@@ -10688,12 +11120,24 @@ function Hmw171TrapFieldReaction(int $player, int $enteredUID, int $count): void
     DecisionQueueController::AddDecision($player, 'CUSTOM', "HMW_171#0|{$enteredUID}|{$count}", 1);
 }
 
+// True for a card whose When Played is "When played as a unit" ONLY (JTL_100 Poe, JTL_213 Sidon Ithano) —
+// read from the printed text, so a future unit-only pilot needs no registration.
+function _SWUWhenPlayedIsUnitOnly(string $cardID): bool {
+    $t = (string)(CardText($cardID) ?? '');
+    return stripos($t, 'When played as a unit') !== false && stripos($t, 'When played as an upgrade:') === false;
+}
+
 // CollectWhenPlayedAsUpgradeTriggers — parallel to CollectEntryTriggers for upgrades.
 // If the card has a WhenPlayedAsUpgrade ability, that fires; otherwise falls back to
 // WhenPlayed if the card also has that. Returns FlushEntryTriggerBag count (0/1/2+).
 function CollectWhenPlayedAsUpgradeTriggers(int $player, string $cardID, string $targetMzID): int {
     // SEC_046 Galen Erso — a named upgrade/pilot that lost its abilities fires no When-Played(-as-Upgrade).
     if (_SWUGalenSuppressesCard($player, $cardID)) { /* suppressed: no entry trigger */ }
+    // "When played as a unit: …" (with no "When played as an upgrade:" clause) does not exist when the card is
+    // played or attached AS AN UPGRADE — so NOTHING is collected: not a When Played As Upgrade, and not the
+    // When Played fallback below. (JTL_100 Poe used to register a no-op stub to block the fallback; the stub
+    // was dispatched, logged "had no effect", and consumed an armed LOF_197 Aethersprite repeat.)
+    elseif (_SWUWhenPlayedIsUnitOnly($cardID)) { /* unit-only When Played: no entry trigger as an upgrade */ }
     elseif (HasWhenPlayedAsUpgradeAbility($cardID)) {
         AddTrigger($player, 'WhenPlayedAsUpgrade', $cardID, $targetMzID);
     } elseif (HasWhenPlayedAbility($cardID)) {
@@ -10722,9 +11166,8 @@ function CollectWhenPlayedAsUpgradeTriggers(int $player, string $cardID, string 
     // ASH_047 Gar Saxon — "When you play an upgrade on this unit: you may create a Mandalorian token
     // (once each round)." Host known here; reaction owned by the active player. The once-per-round gate
     // is enforced in the reaction (so the trigger always collects; it no-ops if already used).
-    if ($upgHostIsMine && ($lof229Host->CardID ?? '') === 'ASH_047'
-        && GlobalEffectCount($player, 'SWU_ASH047_USED') <= 0) {
-        AddTrigger($player, 'ASH_047', 'ASH_047', '');
+    if ($upgHostIsMine && ($lof229Host->CardID ?? '') === 'ASH_047' && SWUHasUseAvailable($lof229Host)) {
+        AddTrigger($player, 'ASH_047', 'ASH_047', strval(intval($lof229Host->UniqueID ?? 0)));   // round is per copy
     }
     // SHD_067 Fenn Rau — "When you play an upgrade on this unit: Give an enemy unit -2/-2 for this phase."
     if ($upgHostIsMine && ($lof229Host->CardID ?? '') === 'SHD_067') {
@@ -11316,7 +11759,11 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // leader-unit status of the defeated object (still intact here, before its upgrades are stripped)
             // so a unit made a leader unit by The Darksaber (ASH_135) or a deployed Pilot leader counts —
             // its PRINTED type is "Unit". Fall back to the printed type for entries built without an mzID.
-            if ((!empty($d['mzID']) && IsLeaderUnit(GetZoneObject($d['mzID'])))
+            // ⚠ The object can already be compacted away (a mid-combat cleanup — HMW_081 Alliance Shield
+            // Generator defeating itself during combat damage), so read it null-safe; the printed type below
+            // is the fallback, as for the Rebel read above.
+            $ldrObj = !empty($d['mzID']) ? GetZoneObject($d['mzID']) : null;
+            if (($ldrObj !== null && IsLeaderUnit($ldrObj))
                 || strpos(CardType($d['cardID'] ?? '') ?? '', 'Leader') !== false) {
                 foreach (GetLiveSeatsArray() as $lp) AddGlobalEffects($lp, 'SWU_LEADER_DEFEATED_PHASE');
             }
@@ -11351,10 +11798,10 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             $dCardID128 = $d['cardID'] ?? '';
             if ($dCardID128 !== '' && strpos(CardType($dCardID128) ?? '', 'Unit') !== false
                 && strpos(strtolower(CardType($dCardID128) ?? ''), 'token') === false
-                && !HasTrait($dCardID128, 'Vehicle')
-                && GlobalEffectCount($controller, 'SWU_ASH128_USED') <= 0) {
+                && !HasTrait($dCardID128, 'Vehicle')) {
                 foreach (GetUnitsInPlay($controller) as $bothan) {
                     if (!empty($bothan->removed) || ($bothan->CardID ?? '') !== 'ASH_128') continue;
+                    if (!SWUHasUseAvailable($bothan)) continue;   // once each round — per copy (NumUses)
                     // Encode captor UID + defeated CardID in mzID: the flat FlushTriggerBag path (used by
                     // leave-play reactions) drops extraParams, so both must ride the mzID field (comma-sep).
                     AddTrigger($controller, 'ASH_128', 'ASH_128', strval(intval($bothan->UniqueID ?? 0)) . ',' . $dCardID128);
@@ -11402,12 +11849,13 @@ function SWUCollectLeavePlayReactions(array $leftCards, bool $defeated): void {
             // ready this unit. Use this ability only once each round." Readying is pure benefit, so this is
             // an always-yes auto-resolve that only fires (and consumes the once/round) when there IS a
             // benefit — i.e. an EXHAUSTED Punishing One (mirrors SOR_015's benefit-only auto-resolve).
-            if (!empty($d['upgraded']) && GlobalEffectCount($opp, 'SWU_SHD137_USED') <= 0) {
+            if (!empty($d['upgraded'])) {
                 foreach (GetUnitsInPlay($opp) as $pu) {
                     if (!empty($pu->removed) || ($pu->CardID ?? '') !== 'SHD_137' || LostAbilities($pu)) continue;
+                    if (!SWUHasUseAvailable($pu)) continue;          // once each round — per copy (NumUses)
                     if (intval($pu->Status ?? 0) === 1) continue;   // already ready → no benefit, don't consume
                     _SWUReadyInline($opp, 'SHD_137', $pu);          // ready it
-                    AddGlobalEffects($opp, 'SWU_SHD137_USED');       // once each round
+                    SWUConsumeUse($pu);
                     break;
                 }
             }
@@ -11739,7 +12187,7 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
         // you do, ready this unit. Once each round." Carries the played unit's UID + Toro's UID.
         if ($cid === 'SHD_239' && $isUnitPlay
             && HasTrait($playedCardID, 'Bounty Hunter') && $uid !== $playedUID && $playedUID > 0
-            && GlobalEffectCount($playingPlayer, 'SWU_SHD239_USED') <= 0) {
+            && !SWUUnitRoundUseSpent($uid)) {
             AddTrigger($playingPlayer, 'SHD_239', 'SHD_239', $playedUID . ',' . $uid);
         }
         // SHD_255 Lady Proxima: "When you play ANOTHER Underworld card: you may deal 1 damage to a base."
@@ -11753,10 +12201,10 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
         }
         // SHD_217 Tobias Beckett: "When you play a NON-UNIT card: you may exhaust a unit that costs the
         // same as or less than the card you played. Use this ability only once each round." The once/round
-        // marker is consumed when the exhaust actually resolves (SHD_217#0), not on trigger.
-        if ($cid === 'SHD_217' && !$isUnitPlay
-            && GlobalEffectCount($playingPlayer, 'SWU_SHD217_USED') <= 0) {
-            AddTrigger($playingPlayer, 'SHD_217', 'SHD_217', strval(intval(CardCost($playedCardID))));
+        // round (per copy — NumUses on Tobias) is consumed when the exhaust actually resolves (SHD_217#0), not
+        // on trigger. $mzID carries "cost,tobiasUID".
+        if ($cid === 'SHD_217' && !$isUnitPlay && !SWUUnitRoundUseSpent($uid)) {
+            AddTrigger($playingPlayer, 'SHD_217', 'SHD_217', intval(CardCost($playedCardID)) . ',' . $uid);
         }
         // LOF_096 Obi-Wan Kenobi: "When you play a Force unit (including this one): this unit gains
         // Sentinel for this phase." No self-exclusion; grant immediately (no decision).
@@ -12257,7 +12705,10 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
         return;
     }
 
-    FlushTriggerBag($activePlayer);
+    // The regroup-start window: a unit defeated by a DELAYED regroup effect (SOR_219 Sneak Attack) triggers
+    // its When Defeated alongside the "When the regroup phase starts" abilities, and the player orders them
+    // together (CR 7.9) — so HOLD it in the bag; _SWURegroupStartTriggerWindow flushes everything at once.
+    if (empty($GLOBALS['gSWURegroupStartWindow'])) FlushTriggerBag($activePlayer);
 
     // Bounty (CR 7.6.3 / 13.f): after WhenDefeated triggers, offer the reward to the collector —
     // SWUBountyCollector() owns that rule (2-player: the opponent of the defeated unit's controller;
@@ -12360,6 +12811,24 @@ function SWUHasUseAvailable($obj): bool {
 function SWUConsumeUse($obj): void {
     if ($obj !== null) $obj->NumUses = max(0, SWUNumUses($obj) - 1);
 }
+// The same budget addressed by a unit's UniqueID — for a "use this ability only once each round" whose
+// check and spend happen in different requests (a trigger offered now, accepted in a continuation). The
+// limit belongs to the COPY (CR 8.32.3; USER RULING 2026-09-07): two copies each have their own, and a copy
+// that leaves play and returns is a "new copy" with a fresh one (CR 8.5.4). A NEW CONTROLLER also gets a
+// fresh one — SWUTakeControlOfUnit rebuilds the unit — which is the per-controller reading pinned by
+// law/SebulbasPodracer_TakingTheLead.md::NewControllerGetsAFreshUsePerRound (CR 8.32.3 words the limit
+// on the player: "they may not choose to resolve that text again that round"). OPEN QUESTION to the user.
+// "Spent" is asked rather than "available" on purpose: a copy that has LEFT play can still resolve a
+// trigger it was part of (last-known information), and its round can never be reused — so only a copy
+// that is in play and out of uses says no.
+function SWUUnitRoundUseSpent(int $uid): bool {
+    $mz = $uid > 0 ? SWUFindMzByUID($uid) : null;
+    return $mz !== null && !SWUHasUseAvailable(GetZoneObject($mz));
+}
+function SWUSpendUnitRoundUse(int $uid): void {
+    $mz = $uid > 0 ? SWUFindMzByUID($uid) : null;
+    if ($mz !== null) SWUConsumeUse(GetZoneObject($mz));
+}
 // Refresh every card's once-per-round budget (called from RegroupPhaseStart). Repeatable base Actions
 // with a per-GAME budget ($baseActionNumUses, e.g. LOF_022) are EXEMPT — their NumUses must persist
 // across rounds, so they are not refilled here.
@@ -12390,7 +12859,12 @@ function _SWUExhaustUndeployedLeader(int $player, string $cardID): void {
     $leaderArr = &GetLeader($player);
     for ($i = 0; $i < count($leaderArr); $i++) {
         if (!empty($leaderArr[$i]->removed)) continue;
-        if (($leaderArr[$i]->CardID ?? '') === $cardID) { $leaderArr[$i]->Ready = false; break; }
+        if (($leaderArr[$i]->CardID ?? '') === $cardID) {
+            $wasReady = !empty($leaderArr[$i]->Ready);
+            $leaderArr[$i]->Ready = false;
+            if ($wasReady) SWULogLeaderExhaustCost($player, $cardID);   // game log (user decision 2026-09-11)
+            break;
+        }
     }
 }
 
@@ -12503,6 +12977,7 @@ function _SWUAddShadowCasterGrantedReuse(int $owner, string $grantedType, string
 // Processes RESOLVE_TRIGGER and other CUSTOM/SYSTEM entries until a
 // non-static decision (MZCHOOSE, YESNO, etc.) blocks further progress.
 function ProcessGoldfishAutomation(): bool {
+    global $playerID;
     $madeProgress = false;
     $dqController = new DecisionQueueController();
     // Drain EVERY live seat's static queue after each action, not just seats 1/2 — otherwise a
@@ -12511,10 +12986,22 @@ function ProcessGoldfishAutomation(): bool {
     // 2-player games have no SeatOrder → fall back to [1,2] (byte-identical drain).
     $seats = GetLiveSeatsArray();
     if (empty($seats)) $seats = [1, 2];
+    // ⚠ Each seat is drained IN ITS OWN FRAME. ExecuteStaticMethods re-checks an MZCHOOSE at the head of
+    // the queue with MZCountChoices(), which resolves "my…" zones against $playerID. Drained in the
+    // REQUESTER's frame, another seat's "mySpaceArena-0&mySpaceArena-1" was counted on the requester's
+    // side, came to 0 when the requester had no space units, and was auto-PASSed — the continuation behind
+    // it skipped. Found 2026-09-14 in Bot Practice (the bot's step arrives as the human's request): Darth
+    // Vader's "Choose a Vehicle" vanished and the bot re-deployed forever. SWUSim/DevTools/tests/
+    // queue_drain_seat_frame_test.php. The requester's frame is restored after every pass.
+    $requester = $playerID;
     for ($cycle = 0; $cycle < 64; ++$cycle) {
         $before = [];
         foreach ($seats as $s) $before[$s] = count(GetDecisionQueue($s));
-        foreach ($seats as $s) $dqController->ExecuteStaticMethods($s);
+        try {
+            foreach ($seats as $s) { $playerID = $s; $dqController->ExecuteStaticMethods($s); }
+        } finally {
+            $playerID = $requester;
+        }
         // A defeat resolved INSIDE this drain (e.g. a non-active player's When Defeated that defeats a
         // unit) parks any "if this would be defeated, you may instead …" replacement. SWUAfterAction
         // already flushed before this drain began, and it is the only other flush point — so without
@@ -12882,6 +13369,21 @@ $customDQHandlers["UNIQUENESS_DEFEAT"] = function($player, $parts, $lastDecision
     // $flushed > 0: SWU_TRIGGER_RESUME (already queued) re-enters SWUAfterAction after the triggers resolve.
 };
 
+// Spin guard for SWU_TRIGGER_RESUME's deferral (below). A bare resume that defers behind a pending COMBAT
+// resume must be reached again only after something else has drained; hundreds of CONSECUTIVE deferrals
+// with nothing in between can only be a resolution loop. Throw with a clear message instead of hanging:
+// a test section fails in a second instead of freezing the whole suite, a live request errors instead of
+// timing out and silently rewinding the game, and a sweep game fails fast. The streak resets on every
+// resume that does not defer, so long games and long test runs never accumulate toward it.
+function _SWUResumeSpinGuard(): void {
+    $n = intval($GLOBALS['SWU_RESUME_DEFER_STREAK'] ?? 0) + 1;
+    $GLOBALS['SWU_RESUME_DEFER_STREAK'] = $n;
+    if ($n > 500) {
+        $GLOBALS['SWU_RESUME_DEFER_STREAK'] = 0;
+        throw new RuntimeException("Trigger resolution looped: SWU_TRIGGER_RESUME deferred {$n} times in a row behind a pending COMBAT resume that never ran (see _SWUResumeSpinGuard).");
+    }
+}
+
 $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $savedPID    = $playerID;
@@ -12913,9 +13415,25 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
         fn($e, $i) => empty($e->removed ?? false) && $i >= $batchStart,
         ARRAY_FILTER_USE_BOTH
     ));
+    // CR 7.6.11 layers (see _SWUEsLayers): a BARE resume works on the innermost layer only, popping it once it
+    // empties so the outer triggers follow. An empty HOLD layer is an open Plot window: treat the batch as
+    // resolved, so the finalise path below runs SWUAfterAction — which, with the window open, hands back to
+    // the Plot orchestrator (re-offer the next Plot) — while the outer triggers keep waiting underneath. The
+    // window's close releases the hold and queues a fresh resume for them.
+    if ($continuation === '') {
+        if (!_SWUEsSettleLayers()) {
+            $remaining = [];
+        } else {
+            $topIdx = array_flip(_SWUEsTopLayerIndices());
+            $remaining = array_values(array_filter($stack, fn($e, $i) => empty($e->removed ?? false) && isset($topIdx[$i]), ARRAY_FILTER_USE_BOTH));
+        }
+    }
 
     if (empty($remaining)) {
         DecisionQueueController::CleanupRemovedCards();
+        // The regroup-start trigger window (_SWURegroupStartTriggerWindow): no action is open, so there is
+        // nothing to finalise — the regroup phase carries on once the queues drain.
+        if ($continuation === 'REGROUP') { $playerID = $savedPID; return; }
         if ($continuation === 'COMBAT' || $continuation === 'MAULCOMBAT') {
             // A defender's On Defense reaction (Captain Typho's disclose, LOF_047/067/252, …) is a
             // NON-active-player decision that must resolve BEFORE combat damage. When it was resolved in
@@ -12935,6 +13453,14 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
             // ⚠ NOT OpponentsOf() — that excludes TEAMMATES in Team Suns, and a teammate owing a
             // pre-damage decision must be waited for exactly like an opponent. The question here is
             // "is anyone else still deciding", which has nothing to do with sides.
+            // OWNER RULING 2026-09-13: the combat-damage prevention (Amidala / The Mandalorian) is offered NOW,
+            // after the Step-1 triggers and before damage. Wait for it: this resume re-fires behind the offer, and
+            // the cross-seat hop below then holds the commit until an offer on another seat is answered.
+            if (_SWUOfferCombatPreventions(intval($activePlayer))) {
+                _SWUQueueOrchestration(intval($player), "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
+                $playerID = $savedPID;
+                return;
+            }
             $hopped = false;
             foreach (GetLiveSeatsArray() as $other) {
                 if (intval($other) === intval($activePlayer)) continue;
@@ -12978,7 +13504,9 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
             // Cross-queue wait, the unit-play twin of the COMBAT hop above: a unit's When Played can hand
             // a decision to another seat (SOR_040 Avenger), and this bare resume is what finalises the
             // action. Without the wait the turn passed while that seat was still choosing.
-            $owingSeat = _SWUSeatOwingCrossPlayerDecision($activePlayer, intval($player));
+            // includeActor when this resume runs on another seat's queue: a trigger dispatched from there may have
+            // handed the ACTOR a decision, and the action must not finalise ahead of it.
+            $owingSeat = _SWUSeatOwingCrossPlayerDecision($activePlayer, intval($player), intval($player) !== intval($activePlayer));
             if ($owingSeat > 0) {
                 _SWUQueueOrchestration($owingSeat, "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
                 $playerID = $savedPID;
@@ -13055,12 +13583,40 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
             foreach (GetDecisionQueue($_p) as $_e) {
                 $_param = (string)($_e->Param ?? '');
                 if (str_starts_with($_param, 'SWU_TRIGGER_RESUME') && strpos($_param, '|COMBAT') !== false) {
-                    _SWUQueueOrchestration(intval($activePlayer), "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
+                    // Wait on the queue that HOLDS the combat resume ($_p), not the attacker's own. When the combat
+                    // resume has hopped onto the defender's queue — waiting for a mid-combat decision there, e.g. a
+                    // TIE Bomber's indirect assignment — re-queuing on the attacker's queue left this bare resume
+                    // alone on a queue that drains at once: it re-fired, found the combat resume still pending,
+                    // re-queued, and spun forever (sweep 2026-09-13, Boba Pilot + Plot Cinta Kaz; owner-confirmed
+                    // live; interactions/Plot_NestedAttack_DuringDeployTriggers.md). Appended at block 20 behind
+                    // the combat resume, it now waits with it and runs once the attack has resolved.
+                    _SWUResumeSpinGuard();
+                    _SWUQueueOrchestration(intval($_p), "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
                     $playerID = $savedPID;
                     return;
                 }
             }
         }
+    }
+    $GLOBALS['SWU_RESUME_DEFER_STREAK'] = 0;
+
+    // ★ WAIT FOR ANOTHER SEAT BEFORE DISPATCHING THE NEXT TRIGGER (2026-09-13). The trigger that just resolved
+    // may have handed a decision to another seat (a TIE Bomber / Red Squadron Y-Wing's indirect damage: the
+    // DEFENDING player assigns it). That assignment is part of resolving THAT ability, so the next pooled
+    // trigger (the pilot's granted On Attack) must not start until it is answered (CR 7.6.9 / 7.6.11). Without
+    // this wait the next trigger was dispatched onto the actor's queue at once: the actor was asked while the
+    // other seat was still assigning, from a target list built BEFORE the damage landed, so a unit the
+    // indirect defeated was still offered and choosing it lost the damage (interactions/PilotOnAttack_vs…).
+    // Same hop as the empty-stack COMBAT/bare paths above: park this resume on the owing seat's queue; it
+    // re-fires once they answer and dispatches against the board as it then is.
+    // When this resume is already running on ANOTHER seat's queue (it waited there), the actor counts too: a
+    // trigger dispatched from here can hand the actor a decision, and this resume must then wait behind it on
+    // the actor's queue (the actor's own block order only protects a resume that sits on the actor's queue).
+    $owingNext = _SWUSeatOwingCrossPlayerDecision(intval($activePlayer), intval($player), intval($player) !== intval($activePlayer));
+    if ($owingNext > 0) {
+        _SWUQueueOrchestration($owingNext, "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
+        $playerID = $savedPID;
+        return;
     }
 
     // Check if remaining triggers all belong to one player.
@@ -13079,6 +13635,12 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
     if (count($remaining) > 1 && empty($myRemaining) && !empty($theirRemaining)) {
         $resumeOwner = intval($activePlayer) === 1 ? 2 : 1;
     }
+    // A resume that WAITED on another seat is now draining THAT seat's queue. Re-queue it there, not on the
+    // actor's: the actor is not acting, so a lone CUSTOM parked on their queue never drains and the attack
+    // never commits its combat damage (JTL_174 Hotshot Maneuver, Condemn's disclose). If the trigger
+    // dispatched below hands the actor a decision, the next firing sees it (includeActor above) and moves
+    // behind it.
+    if (intval($player) !== intval($activePlayer) && count($remaining) === 1) $resumeOwner = intval($player);
     _SWUQueueOrchestration($resumeOwner, "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
 
     if (count($remaining) === 1) {
@@ -13126,7 +13688,8 @@ $customDQHandlers["SWU_TRIGGER_ORDER_CHOICE"] = function($player, $parts, $lastD
 
     $mineFirst = ($lastDecision === 'YES' || $lastDecision === '1');
     $first  = $mineFirst ? $activePlayer : (intval($activePlayer) === 1 ? 2 : 1);
-    $ids = array_values(array_filter(explode('&', _SWUEffectStackTargetsForPlayer($first))));
+    // parts[1] = a combat batch's boundary (FlushCombatTriggerBag); absent for entry batches → 0, no floor.
+    $ids = array_values(array_filter(explode('&', _SWUEffectStackTargetsForPlayer($first, intval($parts[1] ?? 0)))));
 
     if (count($ids) === 1) {
         // The chosen side has exactly ONE trigger — no order to pick, so skip the single-option
@@ -13348,11 +13911,8 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
                 // re-collect) moved the old top card out and left its slot marked `removed`, and cleanup
                 // has not run yet. Without this, $deck[0] is still that dead slot, the guard below skips,
                 // and the second collection silently does nothing.
-                DecisionQueueController::CleanupRemovedCards();
-                $deck = GetDeck($player);
-                if (!empty($deck) && !empty($deck[0]) && empty($deck[0]->removed)) {
-                    SWURampResourceExhausted(intval($player), 'myDeck-0');
-                }
+                // (SWUResourceTopOfDeck finds the first LIVE card, so a dead slot can't hide it any more.)
+                SWUResourceTopOfDeck(intval($player));
                 break;
             case 'SHD_161': // Stolen Landspeeder — if the collector OWNS the defeated unit (param 1,
                             // threaded from the defeat-time owner snapshot), play it from their discard
@@ -13650,7 +14210,7 @@ function _SWUNonInteractiveDamagePrevention($obj, int $amount, int $player, ?str
     if (($obj->CardID ?? '') === 'SEC_042' && $isEnemyAbility) $amount = max(0, $amount - 2);
     $amount = _SWUApplyDamagePrevention($obj, $amount, false, $sourceMzID); // LOF_220 / SEC_050 / ASH_150
     // Shield (CR 8.31): absorbs the ENTIRE remaining instance from any source.
-    if ($amount > 0 && SWUConsumeShieldToken($obj)) { $prevented = true; $shielded = true; SWULogShieldPrevented($obj); return 0; }
+    if ($amount > 0 && SWUPreventWithShield($obj)) { $prevented = true; $shielded = true; SWULogShieldPrevented($obj); return 0; }
     return $amount;
 }
 
@@ -14561,15 +15121,25 @@ function _SWUTopDeckFrontIdx(int $player): int {
 }
 
 // Draw the top (front) card to $player's hand. Returns its CardID, or null if deck empty.
-function SWUDrawTopCardFront(int $player): ?string {
+// $revealed: the card text says "reveal" (C-3PO) → the drawn card is named publicly; otherwise a hidden draw
+// (public count, the card named only to the drawer). The line is written here, BEFORE the draw observers,
+// so an observer's own line (Axe Woves' Advantage) never precedes the draw it reacts to.
+function SWUDrawTopCardFront(int $player, bool $revealed = false): ?string {
     global $playerID;
     $saved = $playerID; $playerID = intval($player);
     $idx = _SWUTopDeckFrontIdx($player);
     if ($idx === -1) { $playerID = $saved; return null; }
     $obj = MZMove($player, "myDeck-$idx", "myHand");
+    $drawnMz = [];
+    if ($obj !== null) {
+        foreach (GetHand($player) as $i => $h) { if ($h === $obj) { $drawnMz[] = "myHand-{$i}"; break; } }
+    }
     $playerID = $saved;
-    if ($obj !== null) MarkUndoRequiresConsent();   // top card revealed to the player (undo redesign)
-    return $obj ? $obj->CardID : null;
+    if ($obj === null) return null;
+    SWULogSearchedToHand(intval($player), [$obj->CardID], $revealed);
+    // A DRAW — the observers, the drawn-this-phase counter, telemetry and undo consent (SSOT #4).
+    _SWUAfterCardsDrawn(intval($player), $drawnMz);
+    return $obj->CardID;
 }
 
 // Play the top (front) card of $player's deck, paying its cost minus $discount (floored at 0), or
@@ -14624,13 +15194,11 @@ function SWUMillTopCard(int $player): ?string {
     // LAW_176 Sebulba's Podracer — "When you discard a card from your deck: you may ready this unit"
     // (once each round). Collect the reactive may-ready trigger for the milling player; it flushes at
     // the enclosing action's completion (combat / play-card). Gated to an EXHAUSTED Podracer so the
-    // offer only appears when it's meaningful, and to once-per-round via SWU_LAW176_USED.
-    if (GlobalEffectCount(intval($player), 'SWU_LAW176_USED') <= 0) {
-        foreach (GetUnitsInPlay(intval($player)) as $pu) {
-            if (empty($pu->removed) && ($pu->CardID ?? '') === 'LAW_176' && intval($pu->Status ?? 1) === 0) {
-                AddTrigger(intval($player), 'LAW_176', 'LAW_176', $pu->GetMzID());
-                break;
-            }
+    // offer only appears when it's meaningful, and to a copy with its round unspent (NumUses — per copy).
+    foreach (GetUnitsInPlay(intval($player)) as $pu) {
+        if (empty($pu->removed) && ($pu->CardID ?? '') === 'LAW_176' && intval($pu->Status ?? 1) === 0 && SWUHasUseAvailable($pu)) {
+            AddTrigger(intval($player), 'LAW_176', 'LAW_176', $pu->GetMzID());
+            break;
         }
     }
     $playerID = $saved;
@@ -14798,57 +15366,126 @@ function _topDeckResolveFromIDs(array $allIDs, string $lastDecision): array {
 // gamestate + the per-game secret RNG_SEED, so the order stays unpredictable to players AND
 // reproducible on undo/replay.
 function _topDeckPutRemainingToBottom(int $player, array $remainingIDs): void {
-    // EngineShuffle() indexes $array[$i] positionally (unlike the shuffle() this replaced, which
-    // accepted any array) — a key-preserving caller (e.g. array_filter() without array_values())
-    // would silently push nulls into the deck with no error. All 44 call sites pass genuine lists
-    // today; this makes the contract explicit rather than assumed.
-    $remainingIDs = array_values($remainingIDs);
-    if (function_exists('SWULogDeckPlacement')) SWULogDeckPlacement($player, count($remainingIDs)); // game log (face down: a count)
-    EngineShuffle($remainingIDs);
-    $deck = &GetDeck($player);
-    foreach ($remainingIDs as $cardID) {
-        $obj          = new Deck($cardID, 'Deck', $player);
-        $obj->mzIndex = count($deck);
-        array_push($deck, $obj);
-    }
-    foreach ($deck as $i => $card) { $card->mzIndex = $i; }
+    SWUPutCardsOnDeck($player, $remainingIDs, 'bottomRandom', 'deck');   // face down: a count
 }
 
-// TOPDECKSEARCH_FINALIZE: draw chosen cards to hand; shuffle rest to bottom of deck.
-$customDQHandlers["TOPDECKSEARCH_FINALIZE"] = function($player, $parts, $lastDecision) {
+// ── PUTTING CARDS INTO A DECK — SSOT #2 (gamelog-updates, 2026-09-11) ─────────────────────────────────────
+// THE funnel. ~20 sites built `new Deck(...)` and unshifted / pushed it by hand, several into the ACTING
+// player's deck rather than the owner's, and the log was split between SWULogDeckPlacement (a search's rest)
+// and SWULogToDeck (everything else) — LOF_103 Following the Path's top half logged nothing at all.
+//   $owner    whose deck (a card always goes to its OWNER's deck).
+//   $cardIDs  already OUT of their zone (removed by the caller, or a search's peeked cards). TOP-FIRST for
+//             'top' — the first listed ends on top; in order for 'bottom'.
+//   $where    'top' | 'bottom' | 'bottomRandom' (the rest of a search; "in a random order") | 'shuffle' (then
+//             the whole deck is shuffled).
+//   $from     the log wording: 'hand' / 'deck' are hidden (a count); 'discard' / 'play' / 'revealed' are named.
+//             '' = no line — an internal STAGING move (a search pick placed on top only so it can be played
+//             or resourced from there) or a caller that writes its own line (a unit leaving play).
+// ⚠ EngineShuffle(), never PHP's shuffle(): PHP's Mt19937 is auto-seeded per process, not from the gamestate,
+// so an undo → redo dealt a DIFFERENT order. EngineShuffle derives from gamestate + RNG_SEED.
+function SWUPutCardsOnDeck(int $owner, array $cardIDs, string $where, string $from): void {
+    $cardIDs = array_values(array_filter($cardIDs, fn($c) => (string)$c !== ''));   // EngineShuffle indexes positionally
+    if ($owner <= 0 || empty($cardIDs)) return;
+    // Log BEFORE any shuffle — naming them in shuffled order would leak the random order.
+    if ($from !== '') SWULogToDeck($owner, $cardIDs, $from, $where === 'bottomRandom' ? 'bottom' : $where);
+    if ($where === 'bottomRandom') EngineShuffle($cardIDs);
+    $deck = &GetDeck($owner);
+    $objs = array_map(fn($c) => new Deck($c, 'Deck', $owner), $cardIDs);
+    if ($where === 'top') array_splice($deck, 0, 0, $objs);
+    else foreach ($objs as $o) $deck[] = $o;
+    if ($where === 'shuffle') EngineShuffle($deck);
+    foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+}
+
+// "…then put a card from your hand on the top or bottom of your deck" (TWI_004 Yoda, IC27_008 Leia): move
+// EXACTLY the hand card the player chose. $idx is its position when chosen (the picker is built from a
+// cleaned-up hand); $cid verifies it, falling back to the first copy only if the hand changed in between.
+// With two copies in hand the choice matters — a drawn LOF_148 Rey's trigger belongs to the drawn copy — so
+// the removal is reported to the waiting draw triggers (_SWUDeferredDrawNoteHandRemoval). ★ User ruling
+// 2026-09-11. Returns false if the card is gone.
+function SWUMoveChosenHandCardToDeck(int $player, int $idx, string $cid, string $where): bool {
     global $playerID;
-    $savedPID = $playerID; $playerID = intval($player);
-    $allIDs  = array_values(array_filter(explode(',', $parts[0] ?? '')));
-    $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
-    // These cards are DRAWN ("search … reveal it, and DRAW it"), so the when-you-draw observers must
-    // fire exactly as they do for DoDrawCard — this path used to AddHand() silently, so LOF_148 Rey's
-    // "when you draw this card during the action phase" never triggered off a search-and-draw
-    // (SOR_123 Recruit, SOR_084, …). Capture the new hand slots to hand the observers real mzIDs.
-    $handBefore = count(GetHand(intval($player)));
-    foreach ($resolved['drawn'] as $cardID) {
-        // Game log. "Search …, REVEAL it, and draw it" (Recruit) is public; a search that just DRAWS (SOR_042
-        // Search Your Feelings) stays hidden — a public count and a line only the drawer sees. Decided from
-        // the searching card's own text; with no known source, stay hidden (never leak by default).
-        if (function_exists('SWULogSource')) {
-            [, $lsSrc] = SWULogSource();
-            $lsSfx = SWULogSourceSuffix();
-            if ($lsSrc !== '' && stripos((string)(CardText($lsSrc) ?? ''), 'reveal') !== false) {
-                AddGameLogEntry('REVEAL', 'P' . intval($player) . ' revealed and drew ' . GameLogCardRef($cardID) . $lsSfx, 'ALL');
-            } else {
-                AddGameLogEntry('DRAW', 'P' . intval($player) . ' drew a card' . $lsSfx, 'ALL');
-                AddGameLogEntry('DRAW', 'You drew ' . GameLogCardRef($cardID), 'P' . intval($player));
-            }
-        }
-        AddHand(intval($player), CardID: $cardID);
-    }
-    $drawnMz = [];
-    for ($i = $handBefore; $i < count(GetHand(intval($player))); $i++) $drawnMz[] = "myHand-{$i}";
-    _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
-    if (!empty($drawnMz)) {
-        if (function_exists('_SWUOnPlayerDrew')) _SWUOnPlayerDrew(intval($player), count($drawnMz));
-        _SWUOnDrawLof148(intval($player), $drawnMz);
+    $savedPID = $playerID; $playerID = $player;
+    DecisionQueueController::CleanupRemovedCards();
+    $hand = GetHand($player);
+    if (!($idx >= 0 && isset($hand[$idx]) && empty($hand[$idx]->removed) && ($hand[$idx]->CardID ?? '') === $cid)) {
+        $idx = -1;
+        foreach ($hand as $i => $h) { if (empty($h->removed) && ($h->CardID ?? '') === $cid) { $idx = $i; break; } }
     }
     $playerID = $savedPID;
+    if ($idx < 0) return false;
+    SWUMoveCardToDeck($player, "myHand-{$idx}", $where);
+    _SWUDeferredDrawNoteHandRemoval($player, $idx);
+    return true;
+}
+
+// Move the card at $mzID (in $player's frame — a hand, discard or deck card) to its OWNER's deck: take it out
+// of its zone, then SWUPutCardsOnDeck, naming the zone it came from in the log. Returns its CardID, or null
+// if it is gone. (A UNIT leaving play has its own ceremony — SWUUnitToBottomOfDeck.)
+function SWUMoveCardToDeck(int $player, string $mzID, string $where): ?string {
+    global $playerID;
+    $savedPID = $playerID; $playerID = $player;
+    $o = GetZoneObject($mzID);
+    if (SWUObjGone($o)) { $playerID = $savedPID; return null; }
+    $cid   = (string)$o->CardID;
+    $owner = intval($o->Owner ?? 0);
+    if ($owner <= 0) $owner = SWUMzOwner($mzID, $player);
+    if ($owner <= 0) $owner = $player;
+    $from = str_contains($mzID, 'Hand') ? 'hand' : (str_contains($mzID, 'Discard') ? 'discard' : (str_contains($mzID, 'Deck') ? 'deck' : 'play'));
+    $o->Remove();
+    DecisionQueueController::CleanupRemovedCards();
+    SWUPutCardsOnDeck($owner, [$cid], $where, $from);
+    $playerID = $savedPID;
+    return $cid;
+}
+
+// ── FINISHING A "search … and DRAW it" — SSOT #4 (gamelog-updates, 2026-09-11) ─────────────────────────
+// Resolves the pick from the peeked IDs, DRAWS it (hand + log + _SWUAfterCardsDrawn) and puts the rest where
+// the card says. Every search that draws goes through here — the shared TOPDECKSEARCH_FINALIZE and the custom
+// finalizers whose card adds a rider (The Invisible Hand, Sense Through the Force, Captain Vaughn, Bounty
+// Posting, I've Found Them). Those used to re-implement the draw with a raw AddHand, so no draw observer, no
+// drawn-this-phase count. A search that PLAYS its pick or puts it into hand is not a draw — not for those.
+//   $rest      'bottom' — the rest go to the bottom in random order (also a full-deck "Shuffle your deck."
+//              search, whose rest IS the deck); 'discard' — to the discard pile (I've Found Them).
+//   $revealed  true = "reveal it, and draw it" (named publicly); false = a hidden draw (a public count, the
+//              card named only to the drawer); null = decide from the log source's own text, and with no
+//              known source stay hidden (never leak by default).
+// Returns the drawn cards as [cardID, handMz] pairs, mzIDs valid at return, for the card's rider.
+function SWUFinishTopDeckSearch(int $player, array $allIDs, $lastDecision, string $rest = 'bottom', ?bool $revealed = null): array {
+    global $playerID;
+    $savedPID = $playerID; $playerID = $player;
+    $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
+    if ($revealed === null) {
+        [, $lsSrc] = SWULogSource();
+        $revealed = $lsSrc !== '' && stripos((string)(CardText($lsSrc) ?? ''), 'reveal') !== false;
+    }
+    $objs = [];
+    foreach ($resolved['drawn'] as $cardID) $objs[] = AddHand($player, CardID: $cardID);
+    SWULogSearchedToHand($player, $resolved['drawn'], $revealed);
+    if ($rest === 'discard') {
+        foreach ($resolved['remaining'] as $cardID) SWUAddToDiscard($player, $cardID, 'DECK');
+        DecisionQueueController::CleanupRemovedCards();
+    } else {
+        _topDeckPutRemainingToBottom($player, $resolved['remaining']);
+    }
+    // Hand slots by OBJECT identity — a cleanup (above, or the searching event's own removal) re-indexes the hand.
+    $drawn = [];
+    $hand  = GetHand($player);
+    foreach ($objs as $o) {
+        if ($o === null) continue;
+        foreach ($hand as $i => $h) { if ($h === $o) { $drawn[] = [(string)$o->CardID, "myHand-{$i}"]; break; } }
+    }
+    _SWUAfterCardsDrawn($player, array_column($drawn, 1));
+    $playerID = $savedPID;
+    return $drawn;
+}
+
+// TOPDECKSEARCH_FINALIZE: draw chosen cards to hand; shuffle rest to bottom of deck. "Search …, REVEAL it,
+// and draw it" (SOR_123 Recruit) is public; a search that just DRAWS (SOR_042 Search Your Feelings) stays
+// hidden — decided from the searching card's own text.
+$customDQHandlers["TOPDECKSEARCH_FINALIZE"] = function($player, $parts, $lastDecision) {
+    $allIDs = array_values(array_filter(explode(',', $parts[0] ?? '')));
+    SWUFinishTopDeckSearch(intval($player), $allIDs, $lastDecision);
 };
 
 // TWI_201 Aid from the Innocent — like TOPDECKSEARCH_FINALIZE, but the chosen cards are DISCARDED (not
@@ -14878,13 +15515,9 @@ $customDQHandlers["LOF_103#0"] = function($player, $parts, $lastDecision) {
     $allIDs   = array_values(array_filter(explode(',', $parts[0] ?? '')));
     $resolved = _topDeckResolveFromIDs($allIDs, $lastDecision ?? '');
     _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
-    $deck = &GetDeck(intval($player));
-    $chosen = $resolved['drawn'];
-    for ($i = count($chosen) - 1; $i >= 0; $i--) {
-        $obj = new Deck($chosen[$i], 'Deck', intval($player));
-        array_unshift($deck, $obj);
-    }
-    foreach ($deck as $i => $card) { $card->mzIndex = $i; }
+    // "reveal them, and put them on top" — named (they were revealed); first chosen ends on top. This half
+    // used to be a raw unshift that logged nothing.
+    SWUPutCardsOnDeck(intval($player), $resolved['drawn'], 'top', 'revealed');
 };
 
 // SOR_087#0 — the shared finalize for every "search the deck and play them for FREE" card
@@ -14928,10 +15561,7 @@ $customDQHandlers["TOPDECK_PLAY_NEXT"] = function($player, $parts, $lastDecision
     if (SWUCardPlayBlocked(intval($player), $cardID)) {
         _topDeckPutRemainingToBottom(intval($player), [$cardID]);
     } else {
-        $deck = &GetDeck(intval($player));
-        $obj  = new Deck($cardID, 'Deck', intval($player));
-        array_unshift($deck, $obj);
-        foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+        SWUPutCardsOnDeck(intval($player), [$cardID], 'top', '');   // staged on top only to be played from there
         SWUPlayTopDeckCard(intval($player), true);
     }
     if (!empty($queue)) {
@@ -15808,10 +16438,8 @@ function SWUUnitToBottomOfDeck(int $player, string $mzID, bool $toTop = false): 
     SWURescueCaptivesOf($obj);
     $obj->removed = true;
     if (strpos(strtolower(CardType($cardID) ?? ''), 'token') === false) {
-        $deck = &GetDeck($owner);
-        $d = new Deck($cardID, 'Deck', $owner);
-        if ($toTop) array_unshift($deck, $d); else array_push($deck, $d); // LOF_200: owner chooses top/bottom
-        foreach ($deck as $i => $c) { $c->mzIndex = $i; }
+        // LOF_200: owner chooses top/bottom. The unit-event line above already logged it.
+        SWUPutCardsOnDeck($owner, [$cardID], $toTop ? 'top' : 'bottom', '');
     }
 
     SWUCollectLeavePlayReactions([['player' => $controller, 'cardID' => $cardID]], false);
@@ -15907,73 +16535,29 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
     // ⚠ The three deferred-payment paths (ignoreCost / alt-cost events / upgrades) deliberately skip the
     // gate above and fall through to here exactly as before — their payment happens later (SOR_199,
     // ATTACH_UPGRADE), so a failure THERE still commits these. That residue is untouched and known.
-    SWULogPlay(intval($player), $cardID, SWULogPlayZone((string)$mzID, intval($player), $owner !== null ? intval($owner) : null));
-    if (function_exists('SWUTelemetryBumpCard')) { SWUTelemetryBumpCard($player, $cardID, 'played'); SWUTelemetryBumpTurn($player, 'cardsUsed'); }
-    // cards-played-this-phase counter (any type). Bumped AFTER the cost is computed, so a modifier that
-    // reads "for each OTHER card you played this phase" (TS26_36 Tribunal) sees the cards that came
-    // before this one — the same view the UI affordability check gets, since that runs before the play.
-    // Bumping first made Tribunal count ITSELF and cost 2 less than it should. Everything downstream
-    // (e.g. the Coordinate "exactly the 2nd card" check) still sees a count that includes this card.
-    AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');
-    // Consume every one-shot "next X costs N less" charge this play triggered — table-driven, so the set
-    // spent always matches the set _SWUPlayCostModifierDelta applied at cost time (SOR_056 Bendu / JTL_098
-    // Snap / JTL_008 Wedge-as-unit / LOF_005 Morgan / SEC_110 / TWI_121 / TS26_35 / TS26_06 Rex / TWI_246 /
-    // SEC_261 / LAW_058 / ASH_027 / SHD_006 / LAW_158 / ASH_237). Shared with the Smuggle commit.
-    _SWUConsumeOneShotCharges($player, $obj);
+    // The shared commit (SWUCommitPlay): play line, telemetry, the cards-played-this-phase counter, the
+    // one-shot charges this play applied, and the "first unit / non-unit / Clone / Gambit you play" flags.
+    // The counter is bumped AFTER the cost is computed above, so a modifier that reads "for each OTHER card
+    // you played this phase" (TS26_36 Tribunal) sees the cards that came before this one — the same view the
+    // UI affordability check gets. Bumping first made Tribunal count ITSELF and cost 2 less than it should.
+    // Everything downstream (e.g. the Coordinate "exactly the 2nd card" check) sees a count that includes it.
+    // A caller that delegates here (Smuggle's event branch, a play from an opponent's discard, Plot) must NOT
+    // commit on its own as well — that double-counted.
+    SWUCommitPlay(intval($player), $cardID,
+        SWULogPlayZone((string)$mzID, intval($player), $owner !== null ? intval($owner) : null),
+        strpos($cardTypeLower, 'unit') !== false ? 'unit' : (strpos($cardTypeLower, 'upgrade') !== false ? 'upgrade' : 'event'),
+        $obj);
     // JTL_232 Jump to Lightspeed: consume the one-shot "next copy of that unit is free" charge (keyed on
     // the exact CardID — a per-CardID free-override, not part of the shared one-shot table).
     if (GlobalEffectCount(intval($player), 'SWU_JTL232_FREE|' . $cardID) > 0) {
         RemoveGlobalEffect(intval($player), 'SWU_JTL232_FREE|' . $cardID);
     }
-    // ASH_212 Peli Motto: "Ignore the aspect penalties of the first non-unit card you play each phase." The
-    // used-flag means "this player has played a non-unit this phase" — set on ANY non-unit play, NOT only
-    // while controlling Peli (mirrors the JTL_260 pattern below). That way a non-unit played BEFORE Peli
-    // entered still counts, so a later non-unit is correctly not the phase's first and keeps its penalty.
-    // The waiver itself (in the cost pipeline) additionally requires controlling Peli. Cleared at RegroupPhaseStart.
-    // Upgrades are EXCLUDED here: they charge their cost later, in _SWUFinalizeUpgradeAttach (after a host is
-    // chosen), which sets the flag AFTER its charge — otherwise the flag would be set before the attach-time
-    // cost recompute and the waiver would be lost (the cost would recompute with the flag already used).
-    if (stripos(CardType($cardID) ?? '', 'Unit') === false
-            && stripos(CardType($cardID) ?? '', 'Upgrade') === false
-            && GlobalEffectCount(intval($player), 'SWU_ASH212_USED') <= 0) {
-        AddGlobalEffects(intval($player), 'SWU_ASH212_USED');
-    }
-    // JTL_260 Death Star Plans: "The first unit you play each round costs 2 less." The used-flag means
-    // "this player has played a unit this round" — set on ANY unit play, NOT only while controlling a DSP
-    // bearer. That way a unit played BEFORE the player gains DSP still counts, so a later unit correctly
-    // is not the round's first and gets no discount. The discount itself (the peek in the cost pipeline)
-    // additionally requires controlling a DSP bearer. Cleared at RegroupPhaseStart.
-    if (strpos(CardType($cardID) ?? '', 'Unit') !== false
-            && GlobalEffectCount(intval($player), 'SWU_JTL260_USED') <= 0) {
-        AddGlobalEffects(intval($player), 'SWU_JTL260_USED');
-    }
-    // SHD_198 Clone Trooper: mark the once-per-round "first Clone unit ignores aspect penalty" charge used
-    // once this Clone unit's (already-waived) cost is locked in. Cleared at RegroupPhaseStart.
-    if (strpos(CardType($cardID) ?? '', 'Unit') !== false && HasTrait($cardID, 'Clone')
-            && GlobalEffectCount(intval($player), 'SWU_SHD198_USED') <= 0
-            && _SWUControlsCardInPlay(intval($player), 'SHD_198')) {
-        AddGlobalEffects(intval($player), 'SWU_SHD198_USED');
-    }
-    // LAW_229 The Master Codebreaker: mark the once-per-round "first Gambit -1" discount used when the
-    // player plays a Gambit card while controlling LAW_229. Cleared at RegroupPhaseStart.
-    if (HasTrait($cardID, 'Gambit')
-            && GlobalEffectCount(intval($player), 'SWU_LAW229_USED') <= 0
-            && _SWUCountUnitsWithCardID(intval($player), 'LAW_229') > 0) {
-        AddGlobalEffects(intval($player), 'SWU_LAW229_USED');
-    }
-    // (The LAW_058 / ASH_027 / SHD_006 / LAW_158 / ASH_237 / SEC_110 / TWI_121 / TS26_35 / TS26_06 Rex /
-    // TWI_246 / SEC_261 one-shot consumes are now handled by _SWUConsumeOneShotCharges above.)
     // SEC_001 Chancellor Palpatine: consume the "next Plot play −3" charge when a Plot card is actually
     // played from resources (a Resources object). Mirrors the SWUComputePlayCost gate above.
     global $Plot_Cards;
     if (isset($Plot_Cards[$cardID]) && is_object($obj) && ($obj instanceof Resources)
             && GlobalEffectCount(intval($player), 'SWU_SEC001_PLOT_DISCOUNT') > 0) {
         RemoveGlobalEffect(intval($player), 'SWU_SEC001_PLOT_DISCOUNT');
-    }
-    // LOF_012 Rey: "played a non-unit Force card this phase" — a Force EVENT commits here (cost paid).
-    // Force UPGRADES set the same flag in the upgrade branch once a valid host is confirmed.
-    if ($isEvent && HasTrait($cardID, 'Force')) {
-        AddGlobalEffects($player, 'SWU_PLAYED_NONUNIT_FORCE');
     }
 
     // Task 3.1 / Task 6.1: stamp how many real resources were paid for this play (unit + event paths).
@@ -16070,102 +16654,8 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         // slot still resolves.
         SWUQueueZoneMoveAnim($mzID, $newCardMzID, intval($player));
 
-        // Task 3.1: durable paid-resources stamp on the arena object so a deferred WhenPlayed
-        // (resolved in a later request via the EffectStack) can still read it.
-        // Cleared at RegroupPhaseStart alongside other per-phase TurnEffects.
-        AddTurnEffect($newCardMzID, "SWU_PAID_{$resourcesPaid}");
-
-        // A play SOURCE may grant a TurnEffect token to the entering unit (consume-once, like
-        // $gForceEnterReady): SOR_003 Chewbacca tags it 'SOR_003' (Sentinel this phase), SOR_219
-        // Sneak Attack tags it 'SWU_SNEAK_DEFEAT' (defeated at the next regroup).
-        global $gPlayGrantTurnEffect;
-        if (!empty($gPlayGrantTurnEffect)) {
-            AddTurnEffect($newCardMzID, $gPlayGrantTurnEffect);
-            $gPlayGrantTurnEffect = null;
-        }
-        // A play SOURCE may also give Shield token(s) to the entering unit (consume-once):
-        // LOF_076 Soresu Stance plays a Force unit and gives it a Shield.
-        global $gPlayGrantShield;
-        if (!empty($gPlayGrantShield)) {
-            for ($gs = 0; $gs < intval($gPlayGrantShield); $gs++) DoGiveShieldToken($player, $newCardMzID);
-            $gPlayGrantShield = null;
-        }
-        // …or Experience token(s): LOF_125 The Burden of Masters plays a unit and gives it 2 Experience.
-        global $gPlayGrantExp;
-        if (!empty($gPlayGrantExp)) {
-            for ($ge = 0; $ge < intval($gPlayGrantExp); $ge++) DoGiveExperienceToken($player, $newCardMzID);
-            $gPlayGrantExp = null;
-        }
-        // …or the LOF_220 "prevent 2 of next damage" one-shot marker (applied BEFORE entry triggers so a
-        // granted-Ambush attack's counter-damage is the instance that gets prevented).
-        global $gPlayGrantPrevent2;
-        if (!empty($gPlayGrantPrevent2)) {
-            AddTurnEffect($newCardMzID, 'PREVENT_DMG_2');
-            $gPlayGrantPrevent2 = null;
-        }
-        // LOF_180 Deceptive Shade — "the next unit you play this phase gains Ambush." Lingering flag,
-        // consumed at this (the next) unit's entry — before entry triggers collect, so Ambush can fire.
-        if (GlobalEffectCount(intval($player), 'SWU_LOF180_NEXT_AMBUSH') > 0) {
-            AddTurnEffect($newCardMzID, 'AMBUSH^LOF_180');
-            RemoveGlobalEffect(intval($player), 'SWU_LOF180_NEXT_AMBUSH');
-        }
-        // LOF_010 Third Sister (deployed) — "the next unit you play this phase gains Hidden."
-        if (GlobalEffectCount(intval($player), 'SWU_LOF010_NEXT_HIDDEN') > 0) {
-            AddTurnEffect($newCardMzID, 'HIDDEN^LOF_010');
-            RemoveGlobalEffect(intval($player), 'SWU_LOF010_NEXT_HIDDEN');
-        }
-        // LAW_015 Jabba (deployed) — the Underworld unit played by Jabba's action gains Ambush this phase
-        // IF a Credit was defeated paying its cost (CREDIT_PAY armed SWU_JABBA015_AMBUSH). Consume both
-        // flags here, before entry triggers collect, so the granted Ambush can fire its entry attack.
-        if (GlobalEffectCount(intval($player), 'SWU_JABBA015_PENDING') > 0) {
-            RemoveGlobalEffect(intval($player), 'SWU_JABBA015_PENDING');
-            if (GlobalEffectCount(intval($player), 'SWU_JABBA015_AMBUSH') > 0) {
-                AddTurnEffect($newCardMzID, 'AMBUSH^LAW_015');
-                RemoveGlobalEffect(intval($player), 'SWU_JABBA015_AMBUSH');
-            }
-        }
-        // (LOF_005 Morgan's "next unit you play" charge is spent by _SWUConsumeOneShotCharges at the top of
-        // ActivateCard — its consumeApplies gate spends it on any unit play, discount or not.)
-
-        AddGlobalEffects($player, 'SWU_PLAYED_UNIT_' . $uid);
-        // Ordinal of units played this ROUND (HMW_145 Origin Tree Shyyyo's 1st/2nd/3rd ladder). Bumped
-        // HERE — in the unit-entry branch, after the cost was charged — for two reasons: only real UNIT
-        // plays reach this point (an event, an upgrade, and a Piloting card played as a pilot do not),
-        // and a cost modifier reading it therefore sees the units that came BEFORE the one being paid
-        // for. Cleared with the other per-round flags at RegroupPhaseStart.
-        AddGlobalEffects($player, 'SWU_UNITS_PLAYED_ROUND');
-        // SHD_161 Stolen Landspeeder / SHD_204 Millennium Falcon — "if you played this unit from your
-        // hand": per-UID flag set ONLY for hand-sourced plays (discard/deck/smuggle-resource plays
-        // don't set it). Cleared with the other per-phase flags at RegroupPhaseStart.
-        if (strpos($mzID, 'Hand') !== false) AddGlobalEffects($player, 'SWU_PLAYED_FROM_HAND_' . $uid);
-        // JTL_032 Director Krennic + LOF_108 Malakili: consume the "first When-Defeated unit / first
-        // Creature" per-round/phase discount slots on ANY qualifying play (shared with the smuggled-unit
-        // commit in SWUSmuggleResource).
-        _SWUMarkUnitPlayUsedFlags($player, $cardID);
-        if (strpos(CardAspect($cardID) ?? '', 'Villainy') !== false) {
-            AddGlobalEffects($player, 'SWU_PLAYED_VILLAINY');
-        }
-        if (HasTrait($cardID, 'First Order')) {
-            AddGlobalEffects($player, 'SWU_PLAYED_FO');  // JTL_010 Captain Phasma "played a First Order card"
-        }
-        if (HasTrait($cardID, 'Force')) {
-            AddGlobalEffects($player, 'SWU_PLAYED_FORCE_CARD');  // LOF_243 Caretaker Matron "played a Force card"
-        }
-        if (HasTrait($cardID, 'Bounty Hunter')) {
-            AddGlobalEffects($player, 'SWU_PLAYED_BOUNTYHUNTER');  // JTL_186 Mist Hunter
-        }
-        if (HasTrait($cardID, 'Pilot')) {
-            AddGlobalEffects($player, 'SWU_PLAYED_PILOT');         // JTL_186 Mist Hunter
-        }
-
-        // Apply pending entry TurnEffects keyed by UniqueID (e.g. AMBUSH granted by Energy Conversion Lab).
-        global $gPendingEntryEffects;
-        if (isset($gPendingEntryEffects[$uid])) {
-            foreach ($gPendingEntryEffects[$uid] as $effect) {
-                AddTurnEffect($newCardMzID, $effect);
-            }
-            unset($gPendingEntryEffects[$uid]);
-        }
+        // Everything a PLAYED unit's entry records — shared with the own-discard and Smuggle placements.
+        _SWUPlayedUnitEntry(intval($player), $cardID, $newCardMzID, $uid, (string)$mzID, intval($resourcesPaid));
 
         // Collect all entry triggers: WhenPlayed, Shielded, Ambush.
         // FlushEntryTriggerBag populates EffectStack (2+ triggers) or auto-dispatches (1 trigger).
@@ -16324,6 +16814,8 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
             global $whenPlayedAbilities;
             SWULogSetSource(intval($player), (string)$cardID); // game log: the event is the source of its effect lines
             if (isset($whenPlayedAbilities["{$cardID}:0"])) {
+                // An event must fully resolve first (CR 7.6.8): draw triggers it raises wait for its action's end.
+                SWUBeginDeferDrawTriggers();
                 $noEffectProbe = SWULogNoEffectProbe();   // "had no effect" — see SWULogNoEffectCheck
                 $whenPlayedAbilities["{$cardID}:0"]($player, '');
                 SWULogNoEffectCheck($noEffectProbe, intval($player), (string)$cardID);
@@ -16446,6 +16938,81 @@ function SWUPlayerControlsSEC122(int $player): bool {
 // $unitOnly — the play was granted by an effect that says "play a UNIT" (CR 17.c / CR 525.a: a card
 // with Piloting played through such an effect CANNOT be played as an upgrade, so the unit-vs-pilot
 // fork must not be offered at all). Every other pre-payment step still runs.
+// ── PLAY GRANTS THAT OUTLIVE A DEFERRED PLAY ────────────────────────────────────────────────────────
+// A PLAYING effect arms consume-once globals for the unit it is about to play: $gForceEnterReady
+// ("enters play ready"), $gPlayGrantTurnEffect (a marker such as SWU_SNEAK_DEFEAT), $gPlayGrantShield,
+// $gPlayGrantExp — and $gPlayGrantThen, the name of a function to run once the play has resolved
+// (HMW_016 Maul's "Then, defeat it"). The arming caller nulls them the moment its call returns.
+//
+// That is only safe when the play is SYNCHRONOUS, and SWUBeginPlayCard is not always: it can stop and
+// wait for the player at an additional cost (Exploit, HMW_048 Vernestra, HMW_125 The Marauder, HMW_049
+// Greater Sarlacc), at TWI_116 Clone's copy choice, or at the Credit / SEC_122 Droid payment prompt. The
+// play then resumes in a LATER request with every global gone — the unit entered exhausted, lost its
+// marker, and a "then" step never ran. (Reported via HMW_204 Nightbrother -> HMW_048 Vernestra.)
+//
+// So SWUBeginPlayCard records the armed grants in a SWUVar, which survives the request boundary, and the
+// one place every unit play resumes — the PLAY_CARD dispatch (SWUDispatchDroidContinuation) — restores
+// them if, and only if, the play really was deferred. "Deferred" = the SWUVar is set but the globals are
+// NOT armed: on the synchronous path the arming caller's globals are still live and are used as before.
+// This replaced three per-card snapshots (HMW_048/125/049) that re-armed the globals themselves — which
+// also missed the Credit prompt that can sit between them and the actual play.
+//
+// Format "<cardID>~<ready 0/1>~<turnEffect>~<shield>~<exp>~<then>" — '~' because '|' is the SWUVar
+// KEY=VALUE delimiter. Keyed on the played CardID so a play abandoned mid-way (its additional cost aborted
+// as unaffordable) cannot hand its grants to a different card's later play.
+function _SWUPlayGrantsArmed(): bool {
+    return !empty($GLOBALS['gForceEnterReady']) || !empty($GLOBALS['gPlayGrantTurnEffect'])
+        || !empty($GLOBALS['gPlayGrantShield']) || !empty($GLOBALS['gPlayGrantExp'])
+        || !empty($GLOBALS['gPlayGrantThen']);
+}
+
+function _SWUPlayGrantsCapture(string $cardID): void {
+    if (!_SWUPlayGrantsArmed()) {
+        if (GetSWUVar('SWU_PENDING_PLAY_GRANTS', '') !== '') SetSWUVar('SWU_PENDING_PLAY_GRANTS', '');
+        return;
+    }
+    SetSWUVar('SWU_PENDING_PLAY_GRANTS', implode('~', [
+        $cardID,
+        !empty($GLOBALS['gForceEnterReady']) ? '1' : '0',
+        (string) ($GLOBALS['gPlayGrantTurnEffect'] ?? ''),
+        intval($GLOBALS['gPlayGrantShield'] ?? 0),
+        intval($GLOBALS['gPlayGrantExp'] ?? 0),
+        (string) ($GLOBALS['gPlayGrantThen'] ?? ''),
+    ]));
+}
+
+// True while a play begun with grants is still waiting to resume.
+function _SWUPlayGrantsPending(): bool {
+    return GetSWUVar('SWU_PENDING_PLAY_GRANTS', '') !== '';
+}
+
+// At the PLAY_CARD dispatch. Always consumes the record. Returns NULL when this is not a resumed deferred
+// play (the synchronous path, or nothing was captured for this card); otherwise re-arms the globals and
+// returns the "then" function name ('' when there is none).
+function _SWUPlayGrantsResume(string $cardID): ?string {
+    $raw = GetSWUVar('SWU_PENDING_PLAY_GRANTS', '');
+    if ($raw === '') return null;
+    SetSWUVar('SWU_PENDING_PLAY_GRANTS', '');
+    if (_SWUPlayGrantsArmed()) return null;
+    $f = explode('~', $raw);
+    if (($f[0] ?? '') !== $cardID) return null;
+    $GLOBALS['gForceEnterReady']     = (($f[1] ?? '0') === '1');
+    $GLOBALS['gPlayGrantTurnEffect'] = (($f[2] ?? '') !== '') ? $f[2] : null;
+    $GLOBALS['gPlayGrantShield']     = (intval($f[3] ?? 0) > 0) ? intval($f[3]) : null;
+    $GLOBALS['gPlayGrantExp']        = (intval($f[4] ?? 0) > 0) ? intval($f[4]) : null;
+    return (string) ($f[5] ?? '');
+}
+
+// Null every play-grant global. $gForceEnterReady in particular is NOT consumed by ActivateCard — each
+// arming caller resets it — so a resumed play must reset it too or the next play inherits it.
+function _SWUPlayGrantsClear(): void {
+    $GLOBALS['gForceEnterReady']     = false;
+    $GLOBALS['gPlayGrantTurnEffect'] = null;
+    $GLOBALS['gPlayGrantShield']     = null;
+    $GLOBALS['gPlayGrantExp']        = null;
+    $GLOBALS['gPlayGrantThen']       = null;
+}
+
 function SWUBeginPlayCard($player, $mzID, $discount = 0, $unitOnly = false) {
     global $playerID, $gPlayGrantedExploit;
     $savedPID = $playerID;
@@ -16457,6 +17024,8 @@ function SWUBeginPlayCard($player, $mzID, $discount = 0, $unitOnly = false) {
         $playerID = $savedPID;
         return;
     }
+    // Record any armed play grants BEFORE a pre-payment step can defer the play (see the block above).
+    _SWUPlayGrantsCapture((string) ($obj->CardID ?? ''));
 
     // TWI_005 Count Dooku (deployed) On Attack: "the next Separatist card you play this phase
     // gains Exploit 3." Consume the flag NOW (before SWUEffectivePlayExploit reads
@@ -16479,7 +17048,7 @@ function SWUBeginPlayCard($player, $mzID, $discount = 0, $unitOnly = false) {
         $copyTargets = _SWUCloneCopyTargets(intval($player));
         if (!empty($copyTargets)) {
             SWUQueueMayChooseTarget(intval($player), $copyTargets,
-                "Copy_a_unit_in_play?", "Choose_a_unit_to_copy", "CLONE_COPY_CHOICE|{$mzID}");
+                "Copy_a_unit_in_play?", "Choose_a_unit_to_copy", "CLONE_COPY_CHOICE|{$mzID}|{$discount}");
             $playerID = $savedPID;
             return;
         }
@@ -16519,6 +17088,8 @@ function SWUBeginPlayCard($player, $mzID, $discount = 0, $unitOnly = false) {
         }
         if (!$canUnit && $canPilot) {
             // Pilot-only (cannot afford the unit cost) — go straight to Vehicle pick (discount consumed at charge).
+            // The hand Pilot's commit (no play line — the attach step writes it, naming the Vehicle).
+            SWUCommitPlay(intval($player), $cardID, null, 'pilot');
             SWUQueuePilotVehiclePick(intval($player), $mzID, $cardID, $vehicles);
             $playerID = $savedPID;
             return;
@@ -16585,6 +17156,9 @@ $customDQHandlers["CLONE_COPY_CHOICE"] = function($player, $parts, $lastDecision
     global $playerID, $gCloneCopyCardID;
     $playerID = intval($player);
     $mzID = $parts[0] ?? '';
+    // The play's own discount (Nightbrother's -3 on a Clone from the discard) — dropped before, so a
+    // discounted Clone that had anything to copy was charged full price.
+    $discount = intval($parts[1] ?? 0);
     $gCloneCopyCardID = null;
     if ($lastDecision !== '' && $lastDecision !== '-' && $lastDecision !== 'PASS') {
         $chosen = GetZoneObject($lastDecision);
@@ -16592,7 +17166,7 @@ $customDQHandlers["CLONE_COPY_CHOICE"] = function($player, $parts, $lastDecision
             $gCloneCopyCardID = $chosen->CardID ?? null;   // the printed card to copy
         }
     }
-    _SWUBeginPlayCardUnitPath(intval($player), $mzID);
+    _SWUBeginPlayCardUnitPath(intval($player), $mzID, $discount);
     // $playerID intentionally left = $player (mirrors _SWUBeginPlayCardUnitPath callers)
 };
 
@@ -16627,9 +17201,13 @@ function _SWUBeginPlayCardUnitPath(int $player, string $mzID, int $discount = 0)
         // sticky and made ExecuteStaticMethods skip this CUSTOM outright — the unit was never played and
         // the card just vanished. Measured 2026-08-27 on TWI_167; the '-' decline was fine, so every
         // existing Exploit-decline test passed. SWUQueueMultiChoose derives DontSkipOnPass from min<=0.
+        // ⚠ The PLAY's own discount rides the param too (4th field). It used to be dropped here, so an
+        // Exploit unit played at a discount (HMW_204 Nightbrother's -3, LOF_094 Jedi Consular's -2) was
+        // priced at full cost by the resolver's affordability gate — which then aborted a legal play —
+        // and, when it did not abort, was charged without the discount.
         SWUQueueMultiChoose($player, 0, $max, $friendly,
             "Defeat_up_to_{$max}_units_(Exploit)",
-            "EXPLOIT_RESOLVE|{$mzID}|{$grant}|{$exploitX}");
+            "EXPLOIT_RESOLVE|{$mzID}|{$grant}|{$exploitX}|" . intval($discount));
         return;
     }
 
@@ -16638,8 +17216,9 @@ function _SWUBeginPlayCardUnitPath(int $player, string $mzID, int $discount = 0)
     // SCOPE: this lives on the SWUBeginPlayCard path, so a direct-ActivateCard nested play (SOR_219
     // Sneak Attack, play-from-deck effects) skips it — exactly as those paths already skip Exploit.
     // That is a documented engine-family gap (see hmw-implement.md), not a per-card choice; when the
-    // family is fixed, fix it at ONE seam for both. The play-grant globals are snapshotted into the
-    // param: the caller nulls them before the queued cost resolves (e.g. LOF_076's shield grant).
+    // family is fixed, fix it at ONE seam for both. A nested play that must pay it goes through
+    // SWUNestedPlayUnit (HMW_204 Nightbrother, HMW_016 Maul). The caller's play grants survive the
+    // pickers below via SWU_PENDING_PLAY_GRANTS (_SWUPlayGrantsCapture), not through their params.
     // HMW_125 The Marauder — "While playing this unit, you may choose any number of friendly units. Deal
     // 1 damage to each of them. For each unit chosen this way, this unit costs 1 resource less."
     // Exploit's shape and Exploit's scope (see the HMW_048 note just below). "ANY NUMBER" means the cap
@@ -16651,12 +17230,9 @@ function _SWUBeginPlayCardUnitPath(int $player, string $mzID, int $discount = 0)
     if (($obj->CardID ?? '') === 'HMW_125') {
         $picks125 = _SWUHmw125LegalPicks($player);
         if (!empty($picks125)) {
-            $snap125 = (!empty($GLOBALS['gForceEnterReady']) ? '1' : '0')
-                     . '~' . (string)($GLOBALS['gPlayGrantTurnEffect'] ?? '')
-                     . '~' . intval($GLOBALS['gPlayGrantShield'] ?? 0);
             SWUQueueMultiChoose($player, 0, count($picks125), $picks125,
                 "Choose_any_number_of_friendly_units_to_damage_for_1_resource_less_each",
-                "HMW_125#0|{$mzID}|" . intval($discount) . "|{$snap125}|" . count($picks125));
+                "HMW_125#0|{$mzID}|" . intval($discount) . "|" . count($picks125));
             return;
         }
     }
@@ -16672,12 +17248,9 @@ function _SWUBeginPlayCardUnitPath(int $player, string $mzID, int $discount = 0)
     if (($obj->CardID ?? '') === 'HMW_049') {
         $picks049 = _SWUHmw049LegalPicks($player);
         if (!empty($picks049)) {
-            $snap049 = (!empty($GLOBALS['gForceEnterReady']) ? '1' : '0')
-                     . '~' . (string)($GLOBALS['gPlayGrantTurnEffect'] ?? '')
-                     . '~' . intval($GLOBALS['gPlayGrantShield'] ?? 0);
             SWUQueueMultiChoose($player, 0, count($picks049), $picks049,
                 "Defeat_any_number_of_ready_resources_for_3_resources_less_each",
-                "HMW_049#0|{$mzID}|" . intval($discount) . "|{$snap049}|" . count($picks049));
+                "HMW_049#0|{$mzID}|" . intval($discount) . "|" . count($picks049));
             return;
         }
     }
@@ -16686,14 +17259,11 @@ function _SWUBeginPlayCardUnitPath(int $player, string $mzID, int $discount = 0)
         $picks048 = _SWUHmw048LegalPicks($player);
         if (!empty($picks048)) {
             $max048  = min(2, count($picks048));
-            $snap048 = (!empty($GLOBALS['gForceEnterReady']) ? '1' : '0')
-                     . '~' . (string)($GLOBALS['gPlayGrantTurnEffect'] ?? '')
-                     . '~' . intval($GLOBALS['gPlayGrantShield'] ?? 0);
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
                 "0|{$max048}|" . implode("&", $picks048), 1,
                 tooltip:"Bottom_up_to_{$max048}_units_(additional_cost)", dontSkipOnPass: 1);
             DecisionQueueController::AddDecision($player, "CUSTOM",
-                "HMW_048#0|{$mzID}|" . intval($discount) . "|{$snap048}", 1, dontSkipOnPass: 1);
+                "HMW_048#0|{$mzID}|" . intval($discount), 1, dontSkipOnPass: 1);
             return;
         }
     }
@@ -16841,7 +17411,26 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             $argParts = explode('|', $args, 2);
             $mzID     = $argParts[0] ?? '';
             $discount = intval($argParts[1] ?? 0);
-            ActivateCard($player, $mzID, false, $discount, $prepaid, null, true);
+            // A play deferred behind an additional cost / payment prompt resumes HERE, in a later request
+            // — re-arm the grants its playing effect set (see _SWUPlayGrantsCapture).
+            $playObj = GetZoneObject($mzID);
+            $then = _SWUPlayGrantsResume(SWUObjGone($playObj) ? '' : (string) ($playObj->CardID ?? ''));
+            if ($then === null) {
+                ActivateCard($player, $mzID, false, $discount, $prepaid, null, true);
+                break;
+            }
+            if ($then === '') {
+                ActivateCard($player, $mzID, false, $discount, $prepaid, null, true);
+                _SWUPlayGrantsClear();
+                break;
+            }
+            // A "then" step belongs to the ability that played the card, and that ability closes the
+            // action once it is done — exactly as on the synchronous path (SWUNestedPlayUnit), where the
+            // play runs nested and the step runs after it. Mirror that frame here.
+            SWUWithNestedActionFrame(fn() => ActivateCard($player, $mzID, false, $discount, $prepaid, null, true));
+            $placed = (string) ($GLOBALS['gLastPlayedMzID'] ?? '');
+            _SWUPlayGrantsClear();
+            if (function_exists($then)) $then(intval($player), $placed);
             break;
         }
         case 'ATTACH_UPGRADE': {
@@ -16906,7 +17495,7 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             $playerID = $player; // $mzID is a relative mzID in this player's frame
             if (!SWUPayCost($player, $cost, $prepaid, false, true)) { SWUAfterAction($player); break; }
             if (isset($unitAbilities[$provider]) && is_callable($unitAbilities[$provider])) {
-                SWULogBeginAction(intval($player), (string)$provider, 'Action'); ($unitAbilities[$provider])($player, $mzID); // handler owns its SWUAfterAction
+                SWUBeginActionAbility(intval($player), (string)$provider, 'Action'); ($unitAbilities[$provider])($player, $mzID); // handler owns its SWUAfterAction
             } else {
                 SWUAfterAction($player);
             }
@@ -16923,7 +17512,7 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             $playerID = $player;
             if (!SWUPayCost($player, $cost, $prepaid, false, true)) { SWUAfterAction($player); break; }
             if (isset($baseAbilities[$cardID]) && is_callable($baseAbilities[$cardID])) {
-                SWULogBeginAction(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
+                SWUBeginActionAbility(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
             } else {
                 SWUAfterAction($player);
             }
@@ -16940,7 +17529,7 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             $playerID = $player; // handlers below resolve relative mzIDs
             if (!SWUPayCost($player, $cost, $prepaid, false, true)) { SWUAfterAction($player); break; }
             if (isset($leaderAbilities[$cardID]) && is_callable($leaderAbilities[$cardID])) {
-                SWULogBeginAction(intval($player), (string)$cardID, 'Action'); ($leaderAbilities[$cardID])($player); // handler owns its SWUAfterAction
+                SWUBeginActionAbility(intval($player), (string)$cardID, 'Action'); ($leaderAbilities[$cardID])($player); // handler owns its SWUAfterAction
             } else {
                 SWUAfterAction($player);
             }
@@ -17730,7 +18319,7 @@ function SWULeaderAction(int $player, string $cardID, int $leaderIndex = 0): voi
     }
 
     if (isset($leaderAbilities[$cardID]) && is_callable($leaderAbilities[$cardID])) {
-        SWULogBeginAction(intval($player), (string)$cardID, 'Action'); ($leaderAbilities[$cardID])($player);
+        SWUBeginActionAbility(intval($player), (string)$cardID, 'Action'); ($leaderAbilities[$cardID])($player);
         // Ability handlers are responsible for calling SWUAfterAction
     } else {
         SWUAfterAction($player);
@@ -17879,7 +18468,7 @@ function _SWUBaseOwnAction(int $player): void {
     // ability closure pays its own cost. Does NOT consume EpicActionUsed or a NumUses budget.
     if (isset($baseActionRepeatable[$cardID])) {
         if (isset($baseAbilities[$cardID]) && is_callable($baseAbilities[$cardID])) {
-            SWULogBeginAction(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
+            SWUBeginActionAbility(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
         } else {
             SWUAfterAction($player);
         }
@@ -17898,7 +18487,7 @@ function _SWUBaseOwnAction(int $player): void {
         }
         $base->NumUses = $left - 1; // lazily seed + consume in one step
         if (isset($baseAbilities[$cardID]) && is_callable($baseAbilities[$cardID])) {
-            SWULogBeginAction(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
+            SWUBeginActionAbility(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
         } else {
             SWUAfterAction($player);
         }
@@ -17952,7 +18541,7 @@ function _SWUBaseOwnAction(int $player): void {
     }
 
     if (isset($baseAbilities[$cardID]) && is_callable($baseAbilities[$cardID])) {
-        SWULogBeginAction(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
+        SWUBeginActionAbility(intval($player), (string)$cardID, 'Epic Action'); ($baseAbilities[$cardID])($player);
     } else {
         SWUAfterAction($player);
     }
@@ -18108,16 +18697,11 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
         case 'ASH_119': // Greef Karga: only useful if your base was attacked this phase.
             if (GlobalEffectCount($player, 'SWU_BASE_ATTACKED') <= 0) $ok = false;
             break;
-        case 'TWI_082': { // MagnaGuard Wing Leader: once each round, and needs a ready Droid unit.
-            if (GlobalEffectCount($player, 'SWU_TWI082_USED') > 0) { $ok = false; break; }
-            $found = false;
-            foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-                    $o = GetZoneObject($mz);
-                    if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1 && HasTrait($o->CardID ?? '', 'Droid')) { $found = true; break 2; }
-                }
-            }
-            if (!$found) $ok = false;
+        case 'TWI_082': { // MagnaGuard Wing Leader: once each round — PER COPY (not unique; NumUses on the unit).
+            // Deliberately NOT gated on a ready Droid. Official ruling (03/27/2026): the Action "can be used
+            // as an action even if you can't attack with a Droid unit, since making the ability no longer
+            // usable changes the game state."
+            if (!SWUHasUseAvailable($actor)) $ok = false;
             break;
         }
         case 'TWI_206': { // Independent Senator: needs a ready unit with 4 or less power to exhaust.
@@ -18213,7 +18797,7 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
         }
         case 'LAW_094': // Hondo Ohnaka: deck non-empty, not used this round, top card actually playable.
             $topIdx094 = _SWUTopDeckFrontIdx($player);
-            if ($topIdx094 === -1 || GlobalEffectCount($player, 'SWU_LAW094_USED') > 0) { $ok = false; break; }
+            if ($topIdx094 === -1 || !SWUHasUseAvailable($actor)) { $ok = false; break; }   // once each round — per copy
             // "Play the top card of your deck" respects play-restrictions: can't use it on a card an
             // opponent named (SOR_062 Regional Governor) — the top card must be playable.
             $deck094 = GetDeck($player);
@@ -18278,8 +18862,12 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
 // a UNIT in an arena, or an UPGRADE attached to a friendly unit (SOR_184 "control Boba Fett or
 // Jango Fett (as a leader, unit, or upgrade)"). Title match is exact (CardTitle).
 function _SWUControlsTitle(int $player, array $titles): bool {
+    // A DEPLOYED leader's row stays in the leader zone, hidden, carrying the FRONT title — the card is the
+    // unit (or Pilot upgrade) found below, under its deployed face. Reading the row said HMW_004 was still
+    // "Grand Moff Tarkin" after it had deployed as The Death Star (USER DECISION 2026-09-14: ignore it).
     foreach (GetLeader($player) as $l) {
-        if (empty($l->removed) && in_array(SWUObjectTitle($l), $titles, true)) return true;
+        if (!empty($l->removed) || !empty($l->Deployed)) continue;
+        if (in_array(SWUObjectTitle($l), $titles, true)) return true;
     }
     foreach (GetUnitsInPlay($player) as $u) {
         if (!empty($u->removed)) continue;
@@ -18427,7 +19015,7 @@ function SWUUnitAction(int $player, string $mzID): void {
     }
 
     if (isset($unitAbilities[$provider]) && is_callable($unitAbilities[$provider])) {
-        SWULogBeginAction(intval($player), (string)$provider, 'Action'); ($unitAbilities[$provider])($player, $mzID);
+        SWUBeginActionAbility(intval($player), (string)$provider, 'Action'); ($unitAbilities[$provider])($player, $mzID);
         // Ability handlers are responsible for calling SWUAfterAction.
     } else {
         SWUAfterAction($player);
@@ -18473,13 +19061,9 @@ function PlayerHasPlotsToPlay(int $player): bool {
 // art over a window that offers BOTH. Keep this returning a real, affordable CardID — the tile renders
 // beneath the cover and a bogus id would 404 — but do not add meaning to WHICH one it picks.
 //
-// ⚠ SCOPE, and it is a deliberate narrowing. Strictly, CR 19.a makes EACH Plot card its own triggered
-// ability, so with two Plot cards CR 7.6.9 would let a player interleave the leader's trigger between
-// them. This models the WINDOW as a single orderable entry instead: the player picks Plot-vs-leader
-// once, and within the window still plays their Plot cards in any order (CR 19.b). Doing it per-card
-// means re-entering the ordering choice from inside _SWUPlotReoffer's own re-offer loop, which is the
-// most entangled part of this file; the reported case (one Plot card, one leader trigger) is fully
-// correct either way. Widen this only with a fixture that actually needs the interleave.
+// ⚠ SCOPE (OWNER RULING 2026-09-13): each Plot card is its own orderable trigger. The window opens as one
+// entry; after a Plot card resolves, _SWUPlotReoffer puts the window back into the pool when other deploy
+// triggers are pending, so the player orders "the next Plot card" against them (CR 7.6.9).
 function _SWUPlotWindowTriggerCardID(int $player): string {
     global $playerID, $Plot_Cards;
     $saved = $playerID; $playerID = $player;
@@ -18529,15 +19113,7 @@ function _SWUEligiblePlotResources(int $player): array {
 function _SWUPlotReplaceSlot(int $player): void {
     global $playerID;
     $saved = $playerID; $playerID = $player;
-    $deck = &GetDeck($player);
-    for ($i = 0; $i < count($deck); $i++) {
-        if (isset($deck[$i]->removed) && $deck[$i]->removed) continue;
-        $topCardID = $deck[$i]->CardID;
-        $deck[$i]->Remove();
-        AddResources($player, $topCardID, 0, $player, $player);   // Status 0 = exhausted
-        SWULogWithoutSource(fn() => SWULogResourced($player, 'the top card of their deck (Plot slot refill)'));   // game log — face down
-        break;
-    }
+    SWUResourceTopOfDeck($player, false, 'Plot slot refill');
     DecisionQueueController::CleanupRemovedCards();
     $playerID = $saved;
 }
@@ -18557,18 +19133,64 @@ function _SWUPlotAfterPlay(int $player): void {
         _SWUPlotReplaceSlot($player);
         SetSWUVar('SWU_PLOT_P', strval(intval(GetSWUVar('SWU_PLOT_P', '0')) + 1));
     }
-    _SWUPlotReoffer($player);
+    _SWUPlotReoffer($player, true);
 }
 
 // Offer the next Plot (MZMAYCHOOSE over eligible resources). When none remain, close the window and
 // run the real After Action (swap the turn — ending the deploy action).
-function _SWUPlotReoffer(int $player): void {
+// Is a BARE trigger resume ("SWU_TRIGGER_RESUME|{p}") still queued on any live seat? That entry finalises the
+// action (SWUAfterAction) once the EffectStack empties. Since the Plot window became a trigger in the deploy's
+// bag (bug #1024), the deploy's resume is always queued behind it, so the window must NOT also end the action
+// when it closes: it would close twice (the gate refused the second, but NOEXTRAACTION counted it).
+function _SWUBareTriggerResumePending(): bool {
+    foreach (GetLiveSeatsArray() as $p) {
+        foreach (GetDecisionQueue($p) as $e) {
+            if (!empty($e->removed)) continue;
+            if (preg_match('/^SWU_TRIGGER_RESUME\|\d+$/', (string)($e->Param ?? ''))) return true;
+        }
+    }
+    return false;
+}
+
+// The Plot window is closing: release its held layer. If deploy triggers are still pending (the leader's own
+// When Deployed, held back while the window was open) or a bare resume is queued, make sure a resume will run
+// them and end the action, and return true. False = nothing left, the caller ends the action itself.
+function _SWUPlotWindowHandOff(int $player): bool {
+    _SWUEsReleaseHold();
+    if (_SWUEsLiveCount() > 0 || _SWUBareTriggerResumePending()) {
+        // On the queue being DRAINED right now, not necessarily the deployer's: when the window closes inside
+        // the opponent's drain (they just assigned a Plot-launched attack's indirect damage), a resume parked on
+        // the deployer's idle queue would never run. The resume keeps the deployer as its acting player.
+        $seat = intval(DecisionQueueController::ExecutingSeat());
+        _SWUQueueOrchestration($seat > 0 ? $seat : $player, "SWU_TRIGGER_RESUME|{$player}", 20);
+        return true;
+    }
+    return false;
+}
+
+function _SWUPlotReoffer(int $player, bool $afterPlay = false): void {
     $eligible = _SWUEligiblePlotResources($player);
+    // ★ OWNER RULING 2026-09-13: "Plot and When Deployed share a window, so those should be orderable." Each Plot
+    // card is its own trigger (CR 19.a), so once a Plot card has been played and its own abilities resolved
+    // (CR 19.b), the NEXT Plot card and the leader's still-pending When Deployed are ordered by the player
+    // (CR 7.6.9). So when other deploy triggers are waiting under the window's hold, the window does not simply
+    // re-offer: it releases the hold and goes BACK INTO THE POOL as a Plot-window entry, and the trigger resume
+    // raises "Choose_trigger_to_resolve" between it and them. Picking it re-dispatches the window (a fresh
+    // hold + this offer). With nothing else pending, the offer comes straight away as before.
+    if ($afterPlay && !empty($eligible) && _SWUEsLiveCount() > 0) {
+        _SWUEsReleaseHold();
+        AddEffectStack(CardID: _SWUPlotWindowTriggerCardID($player), Controller: $player,
+                       TriggerType: 'SWU_PLOT_WINDOW', Params: '');
+        $seat = intval(DecisionQueueController::ExecutingSeat());
+        _SWUQueueOrchestration($seat > 0 ? $seat : $player, "SWU_TRIGGER_RESUME|{$player}", 20);
+        return;
+    }
     if (empty($eligible)) {
         SetSWUVar('SWU_PLOT_IN_PROGRESS', '');
         SetSWUVar('SWU_PLOT_K', '0');
         SetSWUVar('SWU_PLOT_P', '0');
         SetSWUVar('SWU_PLOT_PENDING_REPLACE', '');
+        if (_SWUPlotWindowHandOff($player)) return;   // the deploy's triggers/resume end the action (see above)
         // ⚠ ROUTE THE WINDOW'S TERMINAL SWAP THROUGH THE GATE. This is the deploy action ENDING, and
         // it used to swap directly — bypassing the close ledger entirely, so the action was never
         // stamped closed and a later stray close could swap again. Audit of every direct
@@ -18605,7 +19227,8 @@ $customDQHandlers["PLOT_PLAY"] = function($player, $parts, $lastDecision) {
         SetSWUVar('SWU_PLOT_K', '0');
         SetSWUVar('SWU_PLOT_P', '0');
         SetSWUVar('SWU_PLOT_PENDING_REPLACE', '');
-        SWUAfterAction(intval($player));
+        // The deploy's pending triggers / resume end the action; only end it here when nothing is left.
+        if (!_SWUPlotWindowHandOff(intval($player))) SWUAfterAction(intval($player));
         $playerID = $savedPID;
         return;
     }
@@ -18963,27 +19586,14 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
         return;
     }
 
-    // Play committed: spend the one-shot "next X costs N less" charges the shared delta applied (Smuggle
-    // bypasses ActivateCard, where a normal play would consume them). Same table-driven consume the normal
-    // path uses, so the two can never diverge. No-op when no discount was armed.
-    _SWUConsumeOneShotCharges($player, $resourceObj, null);
-    // JTL_260 Death Star Plans: mark the once-per-round "first unit costs 2 less" discount used (it is in
-    // the always-included peek bucket but not the one-shot table — its consume is a _USED flag). Mirrors
-    // ActivateCard's JTL_260 block so a smuggled first unit spends the charge (preserved from the prior
-    // _SWUSmugglePlayDiscount behavior).
-    if (_SWUObjIsUnit($resourceObj)
-            && GlobalEffectCount(intval($player), 'SWU_JTL260_USED') <= 0) {
-        AddGlobalEffects(intval($player), 'SWU_JTL260_USED');
+    // Play committed (SWUCommitPlay): the play line, the counter, telemetry, the one-shot "next X costs N
+    // less" charges the shared delta applied (the same table-driven consume ActivateCard uses, so the two
+    // can never diverge), and the JTL_260 / Krennic / Malakili "first unit" flags a smuggled unit spends.
+    // ⚠ NOT for an EVENT: the event branch below delegates to ActivateCard, which commits it — committing
+    // here as well counted a smuggled event TWICE (and re-ran the charge consume).
+    if (stripos(CardType($cardID) ?? '', 'Event') === false) {
+        SWUCommitPlay(intval($player), $cardID, ' using Smuggle', $isUpgrade ? 'upgrade' : 'unit', $resourceObj);
     }
-    // Phase 3: a smuggled unit spends the JTL_032 Krennic / LOF_108 Malakili "first slot" just like a
-    // normal unit play (mirrors ActivateCard's unit branch), so the used-flag-bucket discounts the shared
-    // delta now applies to Smuggle are consumed and can't be double-dipped by a later normal play.
-    _SWUMarkUnitPlayUsedFlags($player, $cardID);
-
-    AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');  // playing via Smuggle counts
-    // Game log. An EVENT's line is ActivateCard's (the event branch below delegates to it); a unit or an
-    // upgrade is placed here, so this is its only play line.
-    if (stripos(CardType($cardID) ?? '', 'Event') === false) SWULogPlay(intval($player), $cardID, ' using Smuggle');
 
     // UPGRADE smuggle branch (SHD_174 / SHD_175): attach to a chosen host instead of entering an
     // arena. Cost is already paid; the SMUGGLE_ATTACH continuation removes the resource entry,
@@ -19015,15 +19625,7 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
     // The new resource appends to the END of the zone, so $actualIdx still addresses the smuggled card
     // for the ActivateCard call below. Deck empty => no replacement and no base damage (CR 8.22.h).
     if (stripos(CardType($cardID) ?? '', 'Event') !== false) {
-        $deckE = &GetDeck($player);
-        for ($i = 0; $i < count($deckE); $i++) {
-            if (isset($deckE[$i]->removed) && $deckE[$i]->removed) continue;
-            $topE = $deckE[$i]->CardID;
-            $deckE[$i]->Remove();
-            AddResources($player, $topE, 0, $player, $player); // Status 0 = exhausted
-            SWULogWithoutSource(fn() => SWULogResourced($player, 'the top card of their deck (Smuggle slot refill)'));   // game log — face down
-            break;
-        }
+        SWUResourceTopOfDeck($player, false, 'Smuggle slot refill');
         // Thread the resource's OWNER. A spent event goes to its OWNER's discard, and ActivateCard's
         // discard line is already owner-correct — but its $owner parameter DEFAULTS to the acting
         // player, so a foreign-owned smuggled event (a resource you control but an opponent owns) was
@@ -19042,15 +19644,7 @@ function SWUSmuggleResource(int $player, int $resourceIdx, int $discount = 0, ?s
 
     // CR 8.22.g: replace the slot with the top card of the deck (enters exhausted).
     // If deck is empty, no replacement and no base damage (CR 8.22.h).
-    $deck = &GetDeck($player);
-    for ($i = 0; $i < count($deck); $i++) {
-        if (isset($deck[$i]->removed) && $deck[$i]->removed) continue;
-        $topCardID = $deck[$i]->CardID;
-        $deck[$i]->Remove();
-        AddResources($player, $topCardID, 0, $player, $player); // Status 0 = exhausted
-        SWULogWithoutSource(fn() => SWULogResourced($player, 'the top card of their deck (Smuggle slot refill)'));   // game log — face down
-        break;
-    }
+    SWUResourceTopOfDeck($player, false, 'Smuggle slot refill');
 
     // TWI_116 Clone — "You may have this unit enter play as a copy of a non-leader, non-Vehicle unit in
     // play." Smuggle is the card's OWN alternate cost, so the player is PLAYING the Clone and the copy
@@ -19108,6 +19702,9 @@ function _SWUSmugglePlaceUnit(int $player, string $cardID, ?string $cloneCopyID,
 
     // CR 8.22.f: WhenPlayed and other entry triggers fire just as for normal play.
     $newCardMzID = $newCard->GetMzID();
+    // The per-play entry bookkeeping every played unit gets — this inline placement used to skip it.
+    _SWUPlayedUnitEntry(intval($player), $cardID, $newCardMzID, $uid, 'myResources',
+        intval($GLOBALS['gLastPlayResourcesPaid'] ?? 0));
 
     // SHD_017 Lando — defer the entry triggers so the "defeat a resource you own and control" cost resolves
     // AFTER the Smuggled card's slot is replaced (above) but BEFORE its When Played abilities (CR ordering:
@@ -19253,6 +19850,9 @@ function SWUForeignDiscardMzID(int $player, int $ownerSeat, int $idx): string {
 //   • a trailing DIGIT is a COST DISCOUNT — 'TPP2' is TWI_201's "at cost, 2 resources less". This
 //     predates the sweep, which is why the grantee seat CANNOT be encoded as a bare number.
 //   • '@N' is the GRANTEE SEAT (Twin Suns only) — WHICH player received the permission.
+//   • a trailing 'U' (after the digit) is UNIT-ONLY — the permission came from a "play that UNIT" ability
+//     (HMW_122 Boga's 'TPP1U'), and a Pilot played by a "play a unit" ability may only be played as a unit
+//     (official Piloting ruling, 03/06/2025), so the Unit-or-Pilot fork is not offered.
 //
 // Why the grantee is needed at all: the modifier lives on an entry in the OWNER's pile, so the owner is
 // implicit, but "an opponent may play this" names nobody. At two seats that was complete — there is only
@@ -19263,12 +19863,13 @@ function SWUForeignDiscardMzID(int $player, int $ownerSeat, int $idx): string {
 // I1: at ≤2 seats no '@N' is ever emitted, so every existing `MODIFIER:OTPF` / `MODIFIER:TPP2`
 // assertion stays byte-identical.
 function SWUParseDiscardModifier(string $mod): array {
-    $out = ['kind' => '', 'discount' => 0, 'grantee' => null];
+    $out = ['kind' => '', 'discount' => 0, 'unitOnly' => false, 'grantee' => null];
     if ($mod === '') return $out;
-    if (!preg_match('/^(OTPF|OTPP|OTPN|TPF|TPP)(\d*)(?:@(\d+))?$/', $mod, $m)) return $out;
+    if (!preg_match('/^(OTPF|OTPP|OTPN|TPF|TPP)(\d*)(U?)(?:@(\d+))?$/', $mod, $m)) return $out;
     $out['kind']     = $m[1];
     $out['discount'] = ($m[2] !== '') ? intval($m[2]) : 0;
-    $out['grantee']  = (isset($m[3]) && $m[3] !== '') ? intval($m[3]) : null;
+    $out['unitOnly'] = ($m[3] === 'U');
+    $out['grantee']  = (isset($m[4]) && $m[4] !== '') ? intval($m[4]) : null;
     return $out;
 }
 
@@ -19324,10 +19925,19 @@ function SWUPlayFromDiscard(int $player, int $discardIdx): void {
     $modifier = _SWUEffectiveDiscardModifier($player, $entry);
 
     // 'TPP2' = "this phase you may play this from your discard, and it costs 2 resources less"
-    // (TWI_201 Aid from the Innocent). Decode it into the plain at-cost modifier plus a discount so the
-    // gate, the cost charge and the upgrade path all deal with one shape.
+    // (TWI_201 Aid from the Innocent); 'TPP1U' = HMW_122 Boga's "…that UNIT…, it costs 1 less". Decode
+    // into the plain kind plus a discount and the unit-only flag, so the gate, the cost charge and the
+    // upgrade path all deal with one shape. (This read the literal 'TPP2' only, so any other amount was
+    // "cannot be played".) Only the OWNER kinds decode here; an opponent's permission on this pile stays
+    // an unknown modifier for this path and is refused below.
     $playDiscount = 0;
-    if ($modifier === 'TPP2') { $modifier = 'TPP'; $playDiscount = 2; }
+    $unitOnly     = false;
+    $parsedOwn    = SWUParseDiscardModifier($modifier);
+    if ($parsedOwn['kind'] === 'TPF' || $parsedOwn['kind'] === 'TPP') {
+        $modifier     = $parsedOwn['kind'];
+        $playDiscount = $parsedOwn['discount'];
+        $unitOnly     = $parsedOwn['unitOnly'];
+    }
 
     if ($modifier !== 'TPF' && $modifier !== 'TPP') {
         SetFlashMessage("That card cannot be played from discard this phase.");
@@ -19369,8 +19979,9 @@ function SWUPlayFromDiscard(int $player, int $discardIdx): void {
     // its Piloting cost is. Expressed as SWU_PILOT_DISCOUNT stacks because SWUComputePilotCost is the
     // single chokepoint used by BOTH the affordability gate (SWUGetPilotValidTargets) and the charge
     // (_SWUFinalizeUpgradeAttach), so the offer and the payment can't disagree.
+    // A UNIT-ONLY permission ("play that unit" — HMW_122 Boga) never offers the Pilot route (same ruling).
     $entryObjForPilot = (object) ['CardID' => $cardID, 'TurnEffects' => []];
-    if (HasKeyword_Piloting($entryObjForPilot) && !_SWUGalenSuppressesCard(intval($player), $cardID)) {
+    if (!$unitOnly && HasKeyword_Piloting($entryObjForPilot) && !_SWUGalenSuppressesCard(intval($player), $cardID)) {
         $freeWaiver = ($modifier === 'TPF')
             ? max(0, intval(CardPilotingCost($cardID))) + SWUAspectPenalty($player, $cardID, true) : 0;
         for ($k = 0; $k < $freeWaiver; $k++) AddGlobalEffects(intval($player), 'SWU_PILOT_DISCOUNT');
@@ -19392,8 +20003,7 @@ function SWUPlayFromDiscard(int $player, int $discardIdx): void {
                 return;
             }
             // Can't afford the unit cost — the Pilot route is the only one left.
-            AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');
-            SWULogPlay(intval($player), $cardID, ' from their discard pile as a pilot');
+            SWUCommitPlay(intval($player), $cardID, ' from their discard pile as a pilot', 'pilot');
             SWUQueuePilotVehiclePick(intval($player), "myDiscard-{$actualIdx}", $cardID, $vehicles);
             $playerID = $savedPID;
             return;
@@ -19404,6 +20014,113 @@ function SWUPlayFromDiscard(int $player, int $discardIdx): void {
 
     _SWUOwnDiscardPlayAsUnit($player, $actualIdx, $cardID, $modifier, $playDiscount);
     $playerID = $savedPID;
+}
+
+// ── A PLAYED UNIT ENTERS — the per-play entry bookkeeping (SSOT #1 follow-up, 2026-09-11) ───────────────────
+// Called by EVERY path that puts a PLAYED unit into play, right after it is placed and before its entry
+// triggers collect: ActivateCard's unit branch, the own-discard play (_SWUOwnDiscardPlayAsUnit) and the
+// Smuggle play (_SWUSmugglePlaceUnit). The last two used to place the unit inline and skipped all of it — a
+// unit played from the discard or via Smuggle never spent LOF_180's / LOF_010's "the next unit you play"
+// charge and never counted as played (HMW_145's round ladder, the Villainy / First Order / Force / Bounty
+// Hunter / Pilot "played this phase" flags).
+//   $cardID       the PLAYED card (a Clone's own ID, not what it copies — the flags read the card played).
+//   $fromMz       where it was played from ("played from your hand" flags read it).
+//   $resourcesPaid real resources spent on this play (the durable SWU_PAID_<n> stamp).
+function _SWUPlayedUnitEntry(int $player, string $cardID, string $newCardMzID, int $uid, string $fromMz, int $resourcesPaid): void {
+    $mzID = $fromMz;
+    // Task 3.1: durable paid-resources stamp on the arena object so a deferred WhenPlayed
+    // (resolved in a later request via the EffectStack) can still read it.
+    // Cleared at RegroupPhaseStart alongside other per-phase TurnEffects.
+    AddTurnEffect($newCardMzID, "SWU_PAID_{$resourcesPaid}");
+
+    // A play SOURCE may grant a TurnEffect token to the entering unit (consume-once, like
+    // $gForceEnterReady): SOR_003 Chewbacca tags it 'SOR_003' (Sentinel this phase), SOR_219
+    // Sneak Attack tags it 'SWU_SNEAK_DEFEAT' (defeated at the next regroup).
+    global $gPlayGrantTurnEffect;
+    if (!empty($gPlayGrantTurnEffect)) {
+        AddTurnEffect($newCardMzID, $gPlayGrantTurnEffect);
+        $gPlayGrantTurnEffect = null;
+    }
+    // A play SOURCE may also give Shield token(s) to the entering unit (consume-once):
+    // LOF_076 Soresu Stance plays a Force unit and gives it a Shield.
+    global $gPlayGrantShield;
+    if (!empty($gPlayGrantShield)) {
+        for ($gs = 0; $gs < intval($gPlayGrantShield); $gs++) DoGiveShieldToken($player, $newCardMzID);
+        $gPlayGrantShield = null;
+    }
+    // …or Experience token(s): LOF_125 The Burden of Masters plays a unit and gives it 2 Experience.
+    global $gPlayGrantExp;
+    if (!empty($gPlayGrantExp)) {
+        for ($ge = 0; $ge < intval($gPlayGrantExp); $ge++) DoGiveExperienceToken($player, $newCardMzID);
+        $gPlayGrantExp = null;
+    }
+    // …or the LOF_220 "prevent 2 of next damage" one-shot marker (applied BEFORE entry triggers so a
+    // granted-Ambush attack's counter-damage is the instance that gets prevented).
+    global $gPlayGrantPrevent2;
+    if (!empty($gPlayGrantPrevent2)) {
+        AddTurnEffect($newCardMzID, 'PREVENT_DMG_2');
+        $gPlayGrantPrevent2 = null;
+    }
+    // LOF_180 Deceptive Shade — "the next unit you play this phase gains Ambush." Lingering flag,
+    // consumed at this (the next) unit's entry — before entry triggers collect, so Ambush can fire.
+    if (GlobalEffectCount($player, 'SWU_LOF180_NEXT_AMBUSH') > 0) {
+        AddTurnEffect($newCardMzID, 'AMBUSH^LOF_180');
+        RemoveGlobalEffect($player, 'SWU_LOF180_NEXT_AMBUSH');
+    }
+    // LOF_010 Third Sister (deployed) — "the next unit you play this phase gains Hidden."
+    if (GlobalEffectCount($player, 'SWU_LOF010_NEXT_HIDDEN') > 0) {
+        AddTurnEffect($newCardMzID, 'HIDDEN^LOF_010');
+        RemoveGlobalEffect($player, 'SWU_LOF010_NEXT_HIDDEN');
+    }
+    // LAW_015 Jabba (deployed) — the Underworld unit played by Jabba's action gains Ambush this phase
+    // IF a Credit was defeated paying its cost (CREDIT_PAY armed SWU_JABBA015_AMBUSH). Consume both
+    // flags here, before entry triggers collect, so the granted Ambush can fire its entry attack.
+    if (GlobalEffectCount($player, 'SWU_JABBA015_PENDING') > 0) {
+        RemoveGlobalEffect($player, 'SWU_JABBA015_PENDING');
+        if (GlobalEffectCount($player, 'SWU_JABBA015_AMBUSH') > 0) {
+            AddTurnEffect($newCardMzID, 'AMBUSH^LAW_015');
+            RemoveGlobalEffect($player, 'SWU_JABBA015_AMBUSH');
+        }
+    }
+    // (LOF_005 Morgan's "next unit you play" charge is spent by _SWUConsumeOneShotCharges at the top of
+    // ActivateCard — its consumeApplies gate spends it on any unit play, discount or not.)
+
+    AddGlobalEffects($player, 'SWU_PLAYED_UNIT_' . $uid);
+    // Ordinal of units played this ROUND (HMW_145 Origin Tree Shyyyo's 1st/2nd/3rd ladder). Bumped
+    // HERE — in the unit-entry branch, after the cost was charged — for two reasons: only real UNIT
+    // plays reach this point (an event, an upgrade, and a Piloting card played as a pilot do not),
+    // and a cost modifier reading it therefore sees the units that came BEFORE the one being paid
+    // for. Cleared with the other per-round flags at RegroupPhaseStart.
+    AddGlobalEffects($player, 'SWU_UNITS_PLAYED_ROUND');
+    // SHD_161 Stolen Landspeeder / SHD_204 Millennium Falcon — "if you played this unit from your
+    // hand": per-UID flag set ONLY for hand-sourced plays (discard/deck/smuggle-resource plays
+    // don't set it). Cleared with the other per-phase flags at RegroupPhaseStart.
+    if (strpos($mzID, 'Hand') !== false) AddGlobalEffects($player, 'SWU_PLAYED_FROM_HAND_' . $uid);
+    // (JTL_032 Krennic / LOF_108 Malakili "first slot" flags: marked by SWUCommitPlay at the commit point.)
+    if (strpos(CardAspect($cardID) ?? '', 'Villainy') !== false) {
+        AddGlobalEffects($player, 'SWU_PLAYED_VILLAINY');
+    }
+    if (HasTrait($cardID, 'First Order')) {
+        AddGlobalEffects($player, 'SWU_PLAYED_FO');  // JTL_010 Captain Phasma "played a First Order card"
+    }
+    if (HasTrait($cardID, 'Force')) {
+        AddGlobalEffects($player, 'SWU_PLAYED_FORCE_CARD');  // LOF_243 Caretaker Matron "played a Force card"
+    }
+    if (HasTrait($cardID, 'Bounty Hunter')) {
+        AddGlobalEffects($player, 'SWU_PLAYED_BOUNTYHUNTER');  // JTL_186 Mist Hunter
+    }
+    if (HasTrait($cardID, 'Pilot')) {
+        AddGlobalEffects($player, 'SWU_PLAYED_PILOT');         // JTL_186 Mist Hunter
+    }
+
+    // Apply pending entry TurnEffects keyed by UniqueID (e.g. AMBUSH granted by Energy Conversion Lab).
+    global $gPendingEntryEffects;
+    if (isset($gPendingEntryEffects[$uid])) {
+        foreach ($gPendingEntryEffects[$uid] as $effect) {
+            AddTurnEffect($newCardMzID, $effect);
+        }
+        unset($gPendingEntryEffects[$uid]);
+    }
 }
 
 // The UNIT half of an own-discard play (cost, arena placement, entry triggers), split out so the
@@ -19418,22 +20135,33 @@ function _SWUOwnDiscardPlayAsUnit(int $player, int $actualIdx, string $cardID, s
     $entry    = $discard[$actualIdx] ?? null;
     if ($entry === null || !empty($entry->removed)) { $playerID = $savedPID; return; }
 
+    // AT COST ('TPP' — SHD_135 Kylo's TIE Silencer, HMW_122 Boga): a real play from the discard, so it
+    // runs the HAND play pipeline — Determine Cost with every reducer (SEC_110's "next unit costs 1
+    // less"), the additional costs (Exploit, HMW_125/049/048), the Clone copy choice, and Credits/Droids
+    // paying the charge — with the permission's own discount threaded through. The inline charge below
+    // priced it as printed + aspect penalty − discount and nothing else, which was invisible while the only
+    // at-cost unit permission was a 2-cost Vehicle; Boga makes ANY unit replayable at cost.
+    // Gated on the SAME affordability the discard glow reads (CanAffordActivationReserve, as a unit, with
+    // the discount), so an unaffordable play is refused before anything moves and the permission waits.
+    // (FREE plays stay inline: no reducer or Credit matters at 0, and HMW_109's weakness rider lives there.)
     if ($modifier === 'TPP') {
-        $cost = max(0, intval(CardCost($cardID)) + SWUAspectPenalty($player, $cardID) - $playDiscount);
-        if (!SWUPayInlineAbilityCost($player, $cost)) {
+        $mz = "myDiscard-{$actualIdx}";
+        if (!CanAffordActivationReserve(intval($player), GetZoneObject($mz), $playDiscount, false, false)) {
             SetFlashMessage("Not enough ready resources.");
             $playerID = $savedPID;
             return;
         }
-        // Task 5.1: stamp resources paid for TWI_210 observer (at-cost play = full cost paid).
-        $GLOBALS['gLastPlayResourcesPaid'] = $cost;
-    } else {
-        // TPF = free play from discard (e.g. The Power of the Force) → 0 resources paid.
-        $GLOBALS['gLastPlayResourcesPaid'] = 0;
+        SWUBeginPlayCard(intval($player), $mz, $playDiscount, unitOnly: true);
+        $playerID = $savedPID;
+        return;
     }
 
-    AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');  // playing from discard counts
-    SWULogPlay(intval($player), $cardID, ' from their discard pile');   // placed inline — no ActivateCard line
+    // TPF = free play from discard (e.g. The Power of the Force) → 0 resources paid.
+    $GLOBALS['gLastPlayResourcesPaid'] = 0;
+
+    // Placed inline (no ActivateCard), so this is its commit. No one-shot charges: this path's cost above
+    // applies none, so it must spend none.
+    SWUCommitPlay(intval($player), $cardID, ' from their discard pile', 'unit');
     $entry->removed = true;
     $targetArena = CardTargetArena($cardID);
     $uid = NextUniqueID();
@@ -19458,13 +20186,10 @@ function _SWUOwnDiscardPlayAsUnit(int $player, int $actualIdx, string $cardID, s
     }
     $newCardMzID = $newCard->GetMzID();
 
-    global $gPendingEntryEffects;
-    if (isset($gPendingEntryEffects[$uid])) {
-        foreach ($gPendingEntryEffects[$uid] as $effect) {
-            AddTurnEffect($newCardMzID, $effect);
-        }
-        unset($gPendingEntryEffects[$uid]);
-    }
+    // The per-play entry bookkeeping every played unit gets (the "next unit you play" charges, the played
+    // flags, the paid stamp, pending entry effects) — this inline placement used to skip it.
+    _SWUPlayedUnitEntry(intval($player), $cardID, $newCardMzID, $uid, "myDiscard-{$actualIdx}",
+        intval($GLOBALS['gLastPlayResourcesPaid'] ?? 0));
 
     // HMW_109 Tireless Magnaguard — "…play this unit from your discard pile for free AND GIVE 2 WEAKNESS
     // TOKENS TO IT." The tokens ride the PERMISSION, not the card: a Magnaguard played from hand, or a
@@ -19478,6 +20203,20 @@ function _SWUOwnDiscardPlayAsUnit(int $player, int $actualIdx, string $cardID, s
     }
 
     SWUApplyPassiveEntryGrants($player, $cardID, $newCardMzID);
+    // A unit entering play can meet a continuous shrink (SHD_037 Snoke) and be defeated at once — the check
+    // ActivateCard runs; this path skipped it. Defeated on entry → no entry triggers, just finish the action.
+    SWUCheckShrinkDefeats();
+    $enteredStill = false;
+    foreach (GetZone($targetArena === 'SpaceArena' ? 'mySpaceArena' : 'myGroundArena') as $u) {
+        if (empty($u->removed) && intval($u->UniqueID ?? 0) === $uid) { $enteredStill = true; break; }
+    }
+    if (!$enteredStill) {
+        $deferredTriggered = FlushEntryTriggerBag($player);
+        DecisionQueueController::CleanupRemovedCards();
+        if ($deferredTriggered === 0) SWUAfterAction($player);
+        $playerID = $savedPID;
+        return;
+    }
     $triggered = CollectEntryTriggers($player, $cardID, $newCardMzID, $targetArena);
     if ($triggered === 0) {
         DecisionQueueController::CleanupRemovedCards();
@@ -19572,8 +20311,7 @@ function SWUPlayFromOpponentDiscard(int $player, int $discardIdx, ?int $ownerSea
                 return;
             }
             // Can't afford the unit cost — the Pilot route is the only one left.
-            AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');
-            SWULogPlay(intval($player), $cardID, " from P{$opponent}'s discard pile as a pilot");
+            SWUCommitPlay(intval($player), $cardID, " from P{$opponent}'s discard pile as a pilot", 'pilot');
             SWUQueuePilotVehiclePick(intval($player), SWUForeignDiscardMzID(intval($player), $opponent, $actualIdx), $cardID,
                 $vehicles, $opponent);
             $playerID = $savedPID;
@@ -19583,7 +20321,8 @@ function SWUPlayFromOpponentDiscard(int $player, int $discardIdx, ?int $ownerSea
         for ($k = 0; $k < $penaltyWaiver; $k++) RemoveGlobalEffect(intval($player), 'SWU_PILOT_DISCOUNT');
     }
 
-    AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');  // playing from opponent's discard counts
+    // No commit here: _SWUForeignDiscardPlayAsUnit hands the card to ActivateCard, which commits it (bumping the
+    // counter here as well counted every card played from an opponent's discard TWICE).
     _SWUForeignDiscardPlayAsUnit(intval($player), $actualIdx, $cardID, $modifier, $opponent);
     $playerID = $savedPID;
 }
@@ -19816,15 +20555,17 @@ function SWUComputeActionsData(int $player): array {
     $di = 0;
     for ($i = 0; $i < count($myDiscard); $i++) {
         if (isset($myDiscard[$i]->removed) && $myDiscard[$i]->removed) continue;
-        $mod = _SWUEffectiveDiscardModifier($player, $myDiscard[$i]);
-        $dDisc = 0;
-        if ($mod === 'TPP2') { $mod = 'TPP'; $dDisc = 2; }   // TWI_201 — at cost, 2 less
-        if ($mod === 'TPF') {
+        // Decoded exactly as SWUPlayFromDiscard decodes it ('TPP2' TWI_201, 'TPP1U' HMW_122 Boga), and priced
+        // by the same predicate its gate asks — CanAffordActivationReserve with the permission's discount —
+        // so Exploit, other reducers and Credits light it up. This counted READY RESOURCES against printed
+        // cost + aspect penalty − discount, so a play payable with a Credit (or only through Exploit) was
+        // live but dark, and the client offers "Play" only on a lit entry.
+        $pm = SWUParseDiscardModifier(_SWUEffectiveDiscardModifier($player, $myDiscard[$i]));
+        if ($pm['kind'] === 'TPF') {
             $playableDiscards[] = ['idx' => $di, 'free' => true];
-        } elseif ($mod === 'TPP') {
-            $dCost = max(0, intval(CardCost($myDiscard[$i]->CardID))
-                            + SWUAspectPenalty($player, $myDiscard[$i]->CardID) - $dDisc);
-            if ($readyCount >= $dCost) $playableDiscards[] = ['idx' => $di, 'free' => false];
+        } elseif ($pm['kind'] === 'TPP') {
+            if (CanAffordActivationReserve($player, $myDiscard[$i], $pm['discount'], false, !$pm['unitOnly']))
+                $playableDiscards[] = ['idx' => $di, 'free' => false];
         }
         $di++;
     }
@@ -20005,6 +20746,27 @@ function _SWUOpenAction(): void {
 //  2. ALREADY CLOSED (a cross-request signal). If the played card arms an entry trigger, a
 //     SWU_TRIGGER_RESUME finalises in a LATER request where the nesting depth is long gone. The
 //     closed stamp lives in the gamestate precisely so it survives that boundary.
+// Live (not removed) decisions in each seat's queue, keyed by seat.
+function _SWUPendingDecisionsBySeat(): array {
+    $out = [];
+    for ($p = 1; $p <= SeatCountForGame(); $p++) {
+        $n = 0;
+        foreach (GetDecisionQueue($p) as $d) if (empty($d->removed)) $n++;
+        $out[$p] = $n;
+    }
+    return $out;
+}
+
+// The close gate's answer WITHOUT its side effect (stamping the action closed): would a close attempted now
+// end the action? Used to release the waiting draw triggers only in the frame that owns the close.
+function _SWUActionCloseWouldPass(): bool {
+    if (function_exists('GetCurrentPhase') && GetCurrentPhase() !== 'MAIN') return false;
+    if (intval($GLOBALS['gSWUActionDepth'] ?? 0) > 0) return false;
+    $id = GetSWUVar('SWU_ACTION_ID', '');
+    if ($id === '' || $id === '0') return true;
+    return GetSWUVar('SWU_ACTION_CLOSED', '') !== $id;
+}
+
 function _SWUActionCloseGate(): bool {
     // (0) AN ACTION CAN ONLY END DURING THE ACTION PHASE. Outside MAIN there is no action to close and
     // no turn to pass — the regroup phase runs its own ordered steps. Without this the outcome depended
@@ -20166,7 +20928,7 @@ function _SWUReapplyUndoBlocks(array $blockedSeats): void {
 //             entries above the most recent non-action boundary ('resource'/'pregame-step'). Restoring
 //             it lands at the action-phase start; the pop then leaves the top at that boundary, so a
 //             following 'step' Undo crosses into it (the regroup RES step).
-function SWUComputeUndoTarget(string $kind): int {
+function SWUComputeUndoTarget(string $kind, int $requester = 0): int {
     global $gRandomCounter;
     $top = UndoCursor();
     // Skip "no-op" snapshots at the top of the stack: a snapshot whose stored payload equals the CURRENT
@@ -20182,7 +20944,7 @@ function SWUComputeUndoTarget(string $kind): int {
         if (UndoRecordParse($line)['payload'] !== $cur) break;
         $top--;
     }
-    if ($kind !== 'phase') return $top;
+    if ($kind !== 'phase') return _SWUBotPracticeUndoTarget($top, $requester);
     // Walk down through contiguous 'action' entries, stopping at any other boundary. 'load' is one of
     // them: it marks the pre-state of a bookmark load, so Undo Phase lands at the start of the CURRENT
     // line instead of wandering into the branch that was abandoned by that load.
@@ -20194,6 +20956,22 @@ function SWUComputeUndoTarget(string $kind): int {
         $target = $i;                                                  // lowest 'action' seen so far
     }
     return $target;
+}
+
+// Bot Practice (owner ruling 2026-09-14): a step Undo by the human rewinds past the BOT's moves to just before the
+// human's OWN last action. Record ord_i holds the pre-state of action i+1 and that action's seat, so the target is
+// the highest ordinal at or below $top whose seat is the requester. Reverting only the bot's reply was useless: the
+// bot then owed the move again and replayed it within ~100 ms ("the bot moves too fast for me to roll it back to my
+// action"). Other modes, and a requester with no record of their own, keep the one-step target.
+// SWUSim/Tests/Cases/undo/BotPracticeUndoSkipsTheBotsMoves.md.
+function _SWUBotPracticeUndoTarget(int $top, int $requester): int {
+    if ($requester <= 0 || SWUGameMode() !== 'botpractice') return $top;
+    for ($i = $top; $i >= 0; $i--) {
+        $line = UndoStackRead($i);
+        if ($line === null) break;
+        if (intval(UndoRecordParse($line)['seat']) === $requester) return $i;
+    }
+    return $top;
 }
 
 // Does an undo TO $targetOrdinal by $requesterSeat need opponent consent (a public-queue request)?
@@ -20261,7 +21039,7 @@ function SWUUndoNeedsConsent(int $requesterSeat, int $targetOrdinal, string $kin
 }
 
 function SWUDoUndo(int $playerID, string $kind = 'step', string $rootName = '', string $gameName = ''): void {
-    $target = SWUComputeUndoTarget($kind);
+    $target = SWUComputeUndoTarget($kind, intval($playerID));
     if (!SWUUndoNeedsConsent($playerID, $target, $kind, $rootName, $gameName)) {
         $blocked = _SWUCaptureUndoBlocks();
         $logBefore = SWULogEntries();   // game log: the restore rewinds the log — keep what it erases

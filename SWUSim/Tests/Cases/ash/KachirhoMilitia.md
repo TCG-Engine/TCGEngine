@@ -66,3 +66,24 @@ P1OnlyActions: true
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:ASH_160
 P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# OncePerRound_SecondBaseAttackDoesNotReadyAgain
+#// "Use this ability only once each round." P2's first ground attack on P1's base readies Kachirho; P1
+#// then attacks with it (exhausting it), and P2's second ground attack on the base the same round leaves
+#// it exhausted.
+## GIVEN
+CommonSetup: rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1GroundArena: ASH_160:0:0
+WithP2GroundArena: SEC_080:1:0
+WithP2GroundArena: SEC_080:1:0
+## WHEN
+- P2>AttackGroundArena:0:BASE
+- P1>AttackGroundArena:0:BASE
+- P2>AttackGroundArena:1:BASE
+## EXPECT
+P1BASEDMG:6
+P1GROUNDARENAUNIT:0:EXHAUSTED

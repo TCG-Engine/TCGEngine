@@ -6,3 +6,5 @@
 // IBH_010 / IBH_042 Han Solo — On Attack: defender -2/-0 (SWU_DEF_DEBUFF_2 applied synchronously in ExecuteSWUAttack).
 $onAttackAbilities["IBH_010:0"] =
 $onAttackAbilities["IBH_042:0"] = function($player, $mzID) { /* effect applied synchronously in ExecuteSWUAttack */ };
+global $swuLogEffectAppliedElsewhere;   // game log: an empty stub is not "had no effect" (see SWULogNoEffectCheck)
+$swuLogEffectAppliedElsewhere['IBH_010'] = $swuLogEffectAppliedElsewhere['IBH_042'] = true;

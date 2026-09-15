@@ -303,3 +303,119 @@ WithP2GroundArenaUpgrade: 1:HMW_T02
 P2GROUNDARENACOUNT:0
 P1GROUNDARENAUNIT:0:CARDID:HMW_062
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# WhenPlayed_Offer_EveryUnitIncludingItselfAndBothLeaderUnits
+#// "A unit" is unqualified: the pool is every unit in play — Vindi himself, both sides, both arenas, and
+#// BOTH deployed leader units (P1's Iden Versio, P2's Leia Organa). Left pending.
+
+## GIVEN
+CommonSetup: bbk/grw/{myResources:5;myhandCardIds:HMW_062;myLeaderDeployed:true;theirLeaderDeployed:true}
+P1OnlyActions: true
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SOR_164:1:0
+WithP2SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&myGroundArena-2&theirGroundArena-0&theirGroundArena-1&theirSpaceArena-0
+
+---
+
+# Reaction_WeaknessRemovedBeforeTheDefeat_NoTrigger
+#// The trigger reads the token AT THE DEFEAT. SOR_251 Confiscate defeats the enemy Marine's Weakness token
+#// first; SOR_077 Takedown then defeats the (now unweakened) Marine — no offer.
+
+## GIVEN
+CommonSetup: bbk/grw/{myResources:5;myhandCardIds:SOR_251,SOR_077}
+P1OnlyActions: true
+WithP1GroundArena: HMW_062:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:HMW_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION
+
+---
+
+# Reaction_WeakenedEnemyBouncedNotDefeated_NoTrigger
+#// SOR_222 Waylay returns the weakened enemy Marine to its owner's hand — it left play, but it was not
+#// DEFEATED. No offer.
+
+## GIVEN
+CommonSetup: bbk/grw/{myResources:5;myhandCardIds:SOR_222}
+P1OnlyActions: true
+WithP1GroundArena: HMW_062:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:HMW_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2HANDCOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION
+
+---
+
+# Reaction_NGOR_FriendlyAtTheMomentOfDefeat_NoTrigger
+#// JTL_043 No Glory, Only Results takes control of the weakened enemy Marine, THEN defeats it: at the
+#// defeat it is P1's own unit, not an enemy one. No offer. It goes to its owner's (P2's) discard.
+
+## GIVEN
+CommonSetup: bbk/grw/{myResources:5;myhandCardIds:JTL_043}
+P1OnlyActions: true
+WithP1GroundArena: HMW_062:1:0
+WithP2GroundArena: SOR_095:1:0
+WithP2GroundArenaUpgrade: 0:HMW_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:0
+P2DISCARDUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1NODECISION
+
+---
+
+# Reaction_EnemyDefeatsItsOwnWeakenedUnit_StillTriggers
+#// The defeat need not be P1's doing: P2 casts TWI_140 Self-Destruct on its OWN weakened Marine (then 4 to
+#// its Consular Security Force). The Marine was an ENEMY unit to Vindi when it was defeated, so P1 is
+#// offered a Weakness — Vindi and the surviving Consular are the pool.
+
+## GIVEN
+CommonSetup: bbk/rrk/{theirResources:2;theirhandCardIds:TWI_140}
+WithActivePlayer: 2
+WithP1GroundArena: HMW_062:1:0
+WithP2GroundArena: [SOR_095:1:0 SOR_046:1:0]
+WithP2GroundArenaUpgrade: 0:HMW_T02
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
+- P2>AnswerDecision:myGroundArena-0
+- P1>Drain
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2DISCARDCOUNT:2
+P1HASDECISION
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0

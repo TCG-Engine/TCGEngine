@@ -21,7 +21,7 @@ $unitAbilities["LAW_094"] = function($player, $mzID) {
     $deck   = GetDeck(intval($player));
     $topCid = ($topIdx !== -1) ? ($deck[$topIdx]->CardID ?? '') : '';
     if ($topCid === '' || SWUCardPlayBlocked(intval($player), $topCid)) { SWUAfterAction($player); return; }
-    AddGlobalEffects(intval($player), 'SWU_LAW094_USED');
+    SWUConsumeUse(GetZoneObject($mzID));   // once each round — THIS Hondo's round (NumUses)
     SWUPlayTopDeckCard(intval($player), false, 0);
     SWUAfterAction($player);
 };

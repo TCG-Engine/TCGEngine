@@ -32,7 +32,9 @@
 #//                 SwapExpires_WithinTheSamePhase (the duration cell that DISCRIMINATES — see its
 #//                 note; Front_SwapExpires_TheNextAttackIsNormal crosses a round boundary and so
 #//                 cannot tell "this attack" from "this phase") ·
-#//           control=Front_LeaderExhausts (the printed cost) ·
+#//           control=Front_RaidBecomesRestore's P1LEADER:EXHAUSTED (the printed cost) ·
+#//           neither=Front_NeitherKeyword_AttackIsUnchanged_NoPrompt ·
+#//           upgradeRaid=UpgradeGrantedRaid_ReplaceRestore_* / _ReplaceRaid_* / _UnaidedBaseline ·
 #//   DEPLOY  offer=Deployed_NoEligibleAttacker_ActionNotOffered (the FREE-cost gate — the deployed
 #//                 side must NOT be offerable when the front side deliberately still is) ·
 #//           boundary=Deployed_Restore2_HealsOnAttack (the passive) +
@@ -530,3 +532,100 @@ P1HASDECISION
 P1OPTIONHAS:Replace_Raid_With_Restore
 P1OPTIONHAS:Replace_Restore_With_Raid
 P2BASEDMG:0
+
+---
+
+# Front_NeitherKeyword_AttackIsUnchanged_NoPrompt
+#// A unit with NEITHER keyword. SOR_095 Battlefield Marine (3/3, no Raid, no Restore) attacks through
+#// the front Action: there is nothing to replace in either direction, so no direction prompt is raised
+#// and the attack is an ordinary one — 3 to the enemy base, nothing healed off P1's 5 damage. The Action
+#// still cost its [Exhaust]. The keyword-less SOR_046 Consular Security Force is seated beside it only so
+#// the attacker choose stays interactive (a single eligible attacker would auto-resolve it), and it is
+#// left ready — the Marine was the one sent in.
+#// DISCRIMINATION: a direction prompt raised on this unit leaves the attack pending (P1NODECISION and
+#// both base numbers fail); any spurious keyword grant moves P2BASEDMG or P1BASEDMG.
+## GIVEN
+CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:5}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [SOR_095:1:0 SOR_046:1:0]
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+## EXPECT
+P2BASEDMG:3
+P1BASEDMG:5
+P1LEADER:EXHAUSTED
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P1GROUNDARENAUNIT:1:READY
+P1NODECISION
+
+---
+
+# UpgradeGrantedRaid_ReplaceRestore_GainedRaidLeftInPlace_Raid4
+#// The UPGRADE-granted RAID path (the existing UpgradeGranted_* pair walks the upgrade loop for
+#// RESTORE only; the Raid grant on the asymmetric mirror comes from a unit aura). LAW_090 Toydarian
+#// Technician (2/3, printed Raid 1 / Restore 1) wears TWI_169 Clone Cohort ("Attached unit gains Raid 2",
+#// no stat change), so it attacks as Raid 3 / Restore 1.
+#// Replace Restore With Raid: only the Restore 1 moves; the GAINED Raid 2 is left exactly where it is and
+#// the moved point stacks onto it — Raid 1 + 2 + 1 = 4, no Restore. It deals 2 + 4 = 6 and heals nothing.
+#// DISCRIMINATION: dropping the upgrade-granted Raid when the other direction is chosen gives Raid 2
+#// (4 damage); ignoring the chosen direction entirely is the baseline below (5 damage, heal 1).
+#// A Battlefield Marine keeps the attacker choose interactive.
+## GIVEN
+CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:5}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [LAW_090:1:0 SOR_095:1:0]
+WithP1GroundArenaUpgrade: 0:TWI_169
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:Replace_Restore_With_Raid
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:LAW_090
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:POWER:2
+P2BASEDMG:6
+P1BASEDMG:5
+P1NODECISION
+
+---
+
+# UpgradeGrantedRaid_ReplaceRaid_GainedRaidReplacedToo_Restore4
+#// The same board, the other direction: "replace any Raid it has OR GAINS" — the printed Raid 1 AND the
+#// Clone Cohort's gained Raid 2 both become Restore, stacking with the printed Restore 1: Restore 4, no
+#// Raid. It deals its bare 2 and heals 4 (P1's base 5 → 1).
+#// DISCRIMINATION: replacing only the printed Raid leaves Raid 2 / Restore 2 (4 damage, heal 2).
+## GIVEN
+CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:5}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [LAW_090:1:0 SOR_095:1:0]
+WithP1GroundArenaUpgrade: 0:TWI_169
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:Replace_Raid_With_Restore
+## EXPECT
+P2BASEDMG:2
+P1BASEDMG:1
+P1NODECISION
+
+---
+
+# UpgradeGrantedRaid_UnaidedBaseline
+#// Baseline for the Clone Cohort pair on the identical board: unaided the Technician is Raid 3 /
+#// Restore 1 — 2 + 3 = 5 to the base, 1 healed (5 → 4). This also pins that the upgrade's Raid 2 grant
+#// landed at all; without it the attack would deal 3.
+## GIVEN
+CommonSetup: brk/ggw/{myLeader:HMW_001; myResources:6; myBaseDamage:5}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: [LAW_090:1:0 SOR_095:1:0]
+WithP1GroundArenaUpgrade: 0:TWI_169
+## WHEN
+- P1>AttackGroundArena:0:BASE
+## EXPECT
+P2BASEDMG:5
+P1BASEDMG:4

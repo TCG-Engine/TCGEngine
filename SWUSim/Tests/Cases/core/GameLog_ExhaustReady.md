@@ -194,3 +194,35 @@ WithP1GroundArena: SEC_188:1:0
 ## EXPECT
 P1LEADER:READY
 LOGCONTAINS:P1's [[SEC_188|Darth Traya]] readied P1's [[SOR_016|
+
+---
+
+# CalKestis_Deployed_OpponentPicksAnImmuneUnit_StaysReady
+#// The DEPLOYED side of LOF_015 Cal Kestis ("On Attack: An opponent chooses a ready unit they control.
+#// Exhaust that unit.") got the same immunity fix as the front Action (the CASTER's ability exhausts, even
+#// though the opponent picks) but had no test — a coverage gap from the first pass. P2 picks Rey wearing
+#// Kylo Ren's Lightsaber; she stays ready and the refusal is logged. (Fixture from
+#// lof/CalKestis_ICantKeepHiding.md, DeployedOnAttack.)
+
+## GIVEN
+CommonSetup: byw/bbk/{
+  myLeader:LOF_015;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1Resources: 4
+WithP2GroundArena: LAW_149:1:0
+WithP2GroundArenaUpgrade: 0:LOF_040
+WithP2GroundArena: SOR_059:1:0
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:0:BASE
+- P2>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:READY
+LOGCONTAINS:couldn't exhaust P2's [[LAW_149|Rey]]

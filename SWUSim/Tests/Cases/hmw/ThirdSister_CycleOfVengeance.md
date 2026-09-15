@@ -11,8 +11,9 @@
 #// reached for OtherPlayer() would be right only by coincidence.
 #//
 #// COVERAGE: offer=Link1_OffersEVERYUnitOnBothSides (P1SELECTABLEEXACT, includes Third Sister herself) ·
-#//           negative=ShieldAbsorbsTheTwo_ChainSTOPS (the "if you do" gate must not fire when no damage
-#//             landed) + the three decline sections ·
+#//           negative=the three decline sections (a declined link is the ONLY thing that stops the chain) ·
+#//             ShieldAbsorbsTheTwo_ChainSTILLContinues pins the JUDGE RULING (2026-09-14) that a PREVENTED
+#//             link still satisfies "If you do" ·
 #//           boundary=N/A (fixed 2/3/4 — no threshold, no scaling count) ·
 #//           control=Link1_TargetsYOUROwnUnit_SoYOUActNext (the actor is read off the damaged unit's
 #//             CONTROLLER, which is the card's only control-sensitive read) ·
@@ -237,16 +238,16 @@ P1GROUNDARENAUNIT:0:DAMAGE:3
 
 ---
 
-# ShieldAbsorbsTheTwo_ChainSTOPS
-#// ⚠ THE "IF YOU DO" GATE, and the judgement call this card turns on. A Shield token PREVENTS the
-#// instance — the shield is defeated instead — so no damage is dealt, so "if you do" is NOT satisfied
-#// and the chain must stop dead. The outcome must be MEASURED, never assumed from having chosen a
-#// target; that is the documented family (base-damage prevention, no-heal locks, can't-be-defeated all
-#// make attempt-vs-outcome observable).
+# ShieldAbsorbsTheTwo_ChainSTILLContinues
+#// ★ JUDGE RULING 2026-09-14 — "If the damage is prevented, you still tried to damage it" (CR 9.2; the
+#// Malakili ruling). A Shield token PREVENTS the instance — the shield is defeated instead, no damage is
+#// dealt — and "If you do" is STILL satisfied: the Marine's controller (P2) is offered link 2.
+#// Flipped that day: this section used to be ShieldAbsorbsTheTwo_ChainSTOPS and assert the chain
+#// stopped, on a "measure the outcome" reading the ruling overturned.
 #// P1 shields the ENEMY's Marine with SOR_073 Moment of Peace (its offer is unit-unrestricted), P2
 #// passes, then P1 plays Third Sister and aims the 2 at that shielded Marine.
-#// ⚠ No P1OnlyActions: it would let P2's auto-pass swallow a link-2 prompt, and P2NODECISION is
-#//   exactly what this section exists to assert — the fixture must leave P2 able to be asked.
+#// ⚠ No P1OnlyActions: it would let P2's auto-pass swallow the link-2 prompt, which is exactly what this
+#//   section exists to assert — the fixture must leave P2 able to be asked.
 
 ## GIVEN
 CommonSetup: rrk/bbw/{myResources:14}
@@ -267,7 +268,8 @@ WithP2Deck: [SOR_095 SOR_046 SEC_080]
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P1NODECISION
-P2NODECISION
+P2HASDECISION
+P2DECISIONTOOLTIP:Deal_3_damage_to_a_unit
 
 ---
 

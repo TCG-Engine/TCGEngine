@@ -268,3 +268,38 @@ P1OPTIONHAS:Cunning
 P1OPTIONHAS:Villainy
 P1OPTIONHAS:Heroism
 P1OPTIONNOT:Force
+
+---
+
+# TwinSuns_EachEnemyUnitSpansBothOpponents_NeverTheTeammate
+#// "EACH enemy unit" is a fan-out: at four seats (teams 1+3 vs 2+4) it reaches BOTH opponents' units and
+#// never the teammate's. The continuation used to carry an OtherPlayer() seat it never read; this pins
+#// the fan-out now that the dead param is gone. Heroism is chosen, so each Consular Security Force
+#// (SOR_046, Vigilance/Heroism 3/7) on seats 2 and 4 drops to 1/5 while seat 3's stays 3/7.
+
+## GIVEN
+CommonSetup: brk/bgw
+SkipPreGame: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_019:0
+WithP4Base: SOR_019:0
+WithP1Resources: 12
+WithP1Hand: LAW_101
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Heroism
+
+## EXPECT
+SEATCOUNT:4
+P2GROUNDARENAUNIT:0:POWER:1
+P2GROUNDARENAUNIT:0:HP:5
+P4GROUNDARENAUNIT:0:POWER:1
+P4GROUNDARENAUNIT:0:HP:5
+P3GROUNDARENAUNIT:0:POWER:3
+P3GROUNDARENAUNIT:0:HP:7

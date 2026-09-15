@@ -42,6 +42,24 @@ syntax (`f=premier`, `c:rr`, `cost>=8 is=unit`), and the zero-result path. Exits
 so it is usable as a gate. The lazy-fetch assertions are the load-bearing ones — an eager `<script>`
 tag would double the main menu's weight and no functional test would notice.
 
+## SWUSim game board — boards built from a Visual schema (2026-09-11)
+
+```bash
+node swusim-log-styles-xbrowser.mjs [BASE] [SHOTS_DIR]   # game-log line styles, desktop + mobile layout
+node swusim-refill-slide-xbrowser.mjs [BASE]             # the Smuggle-refill deck → resources slide
+```
+
+Both build their board from a `SWUSim/Tests/Visual/*.md` schema through the Test Schema Editor's own
+endpoints (`SWUSim/TestSchemaSetup.php`, `TestSchemaStep.php`) — mod login, `claudebot1` — then open
+`NextTurn.php?…&authKey=testschema` in Chromium, Firefox and WebKit. Exits non-zero on failure.
+- **log-styles:** `GameLog_UndoneAndDeckLines.md`. The `(undone)` line (type `UNDONE`) is dimmed and struck
+  through, and the live lines are not (a negative control). The search's pick line is `REVEAL` gold; its
+  "put N on the bottom" line is `DECK`. Log-panel screenshots go to `SHOTS_DIR`.
+- **refill-slide:** `ResourceTopOfDeck_SmuggleRefillSlides.md`. ⚠ The STEP endpoint stubs every animation, so
+  the Smuggle is performed through the page's own `SubmitInput` instead (the resource-click path, real
+  animations). The script checks for a `ZONE_MOVE` `p1Deck → p1Resources` scoped to seat 1, plus a
+  `.tcg-zone-move-clone` on the page.
+
 ## Usage
 
 Render a SWUDeck deck's identity banner in all three engines, screenshot it, and measure the leader

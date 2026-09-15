@@ -1,23 +1,21 @@
-# CORE — "an opponent" vs "a player" pickers at 3+ seats.
-#
-# Two different pickers, and the difference is INVISIBLE at two seats:
-#   `SWUQueueChooseOpponent`  → "an opponent" — OpponentsOf(), so a TEAMMATE IS EXCLUDED
-#   `SWUPlayerPickerLabels`   → "a player"    — every live seat except the caster, TEAMMATE INCLUDED
-#                                              (an unqualified player reference names everybody)
-#
-# ⚠ WHY TWO SEATS CANNOT TEST EITHER ONE. `SWUQueueChooseOpponent` emits a silent `PASSPARAMETER` when
-# exactly one opponent is eligible and an `OPTIONCHOOSE` only at two or more. In Premier there is always
-# exactly one opponent, so **the menu is never built and its scope is unobservable** — a picker that
-# offered the wrong seats, or the caster themselves, would look identical. Every scope assertion in this
-# file therefore needs three seats or more, and each leaves the decision PENDING so the option list can
-# be read with P{n}OPTIONHAS / P{n}OPTIONNOT rather than inferred from an outcome.
-#
-# Cards used, both plain wrappers around the shared helpers rather than special cases:
-#   SHD_161 Stolen Landspeeder (cost 1) — "When Played: … an opponent takes control of it" (no filter)
-#   SEC_216 Regulations Bureaucrat      — "Action [Exhaust]: Exhaust a resource" (unqualified "a player")
-
----
-
+#// CORE — "an opponent" vs "a player" pickers at 3+ seats.
+#//
+#// Two different pickers, and the difference is INVISIBLE at two seats:
+#//   `SWUQueueChooseOpponent`  → "an opponent" — OpponentsOf(), so a TEAMMATE IS EXCLUDED
+#//   `SWUPlayerPickerLabels`   → "a player"    — every live seat except the caster, TEAMMATE INCLUDED
+#//                                              (an unqualified player reference names everybody)
+#//
+#// ⚠ WHY TWO SEATS CANNOT TEST EITHER ONE. `SWUQueueChooseOpponent` emits a silent `PASSPARAMETER` when
+#// exactly one opponent is eligible and an `OPTIONCHOOSE` only at two or more. In Premier there is always
+#// exactly one opponent, so **the menu is never built and its scope is unobservable** — a picker that
+#// offered the wrong seats, or the caster themselves, would look identical. Every scope assertion in this
+#// file therefore needs three seats or more, and each leaves the decision PENDING so the option list can
+#// be read with P{n}OPTIONHAS / P{n}OPTIONNOT rather than inferred from an outcome.
+#//
+#// Cards used, both plain wrappers around the shared helpers rather than special cases:
+#//   SHD_161 Stolen Landspeeder (cost 1) — "When Played: … an opponent takes control of it" (no filter)
+#//   SEC_216 Regulations Bureaucrat      — "Action [Exhaust]: Exhaust a resource" (unqualified "a player")
+#//
 # TwoSeat_AnOpponentPicker_AUTORESOLVES_WithNoPrompt
 #// The baseline that shows why the rest of this file exists. One eligible opponent → PASSPARAMETER, so
 #// control transfers with NO decision ever raised. Nothing here can see WHICH seats a menu would list,

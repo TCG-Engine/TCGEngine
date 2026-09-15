@@ -65,16 +65,18 @@ P1RESAVAILABLE:0
 # PlayAsPilot_NoToken
 #// JTL_100 Poe Dameron — played as a PILOT: no X-Wing token, no pending decision.
 #//
-#// This guards the no-op WhenPlayedAsUpgrade suppressor:
-#// HasWhenPlayedAsUpgradeAbility(JTL_100)=true fires the no-op stub, which prevents
-#// the WhenPlayedAsUpgrade->WhenPlayed fallback from ever running the token logic.
+#// This guards the unit-only gate: "When played as a unit" is recognised by _SWUWhenPlayedIsUnitOnly, so
+#// CollectWhenPlayedAsUpgradeTriggers collects nothing for a pilot play and the
+#// WhenPlayedAsUpgrade->WhenPlayed fallback never runs the token logic. (It used to be a no-op
+#// $whenPlayedAsUpgradeAbilities["JTL_100:0"] stub, removed 2026-09-11 — that stub fired, did nothing and
+#// logged "had no effect".)
 #//
 #// JTL_100: unit cost 4, piloting cost 2, aspects Command+Heroism.
 #// Leader SOR_009 Leia (Command+Heroism) + Base SOR_024 (Command) → 0 aspect penalty.
 #// With exactly 2 resources: canUnit=false (2 < 4), canPilot=true (2 >= 2, SOR_237 present).
 #// → Pilot-only short-circuit: auto-attaches to the only Vehicle (SOR_237) immediately.
 #//
-#// WhenPlayedAsUpgrade fires: no-op stub → returns without action.
+#// No When-Played-as-upgrade trigger is collected (the unit-only gate).
 #// WhenPlayed does NOT fire (JTL_100 entered as Upgrade, not Unit).
 #//
 #// Final state:

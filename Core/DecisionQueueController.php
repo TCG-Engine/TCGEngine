@@ -56,6 +56,14 @@ class DecisionQueueController {
 
     public static function SetSuppressNewDecisionsCheck(?callable $fn) { self::$suppressNewDecisionsCheck = $fn; }
 
+    // The seat whose queue is being drained right now (innermost ExecuteStaticMethods), or 0 outside any drain.
+    // Read-only. A game that queues bookkeeping behind "whatever is resolving" must put it on THIS queue — a
+    // static entry on a seat that isn't draining can sit there forever.
+    public static function ExecutingSeat(): int {
+        $s = end(self::$executePlayerStack);
+        return $s === false ? 0 : intval($s);
+    }
+
     // Returns true if EVERY seat's queue is empty (2 in a normal game, 3-4 in Twin Suns).
     public function AllQueuesEmpty() {
         $seats = $this->SeatCount();

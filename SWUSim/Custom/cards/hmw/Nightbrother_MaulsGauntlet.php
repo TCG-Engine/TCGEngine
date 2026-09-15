@@ -47,32 +47,31 @@ $whenPlayedAbilities["HMW_204:0"] = function($player, $mzID = '') {
     ]);
 };
 
-// The chosen discard unit is played through the CANONICAL path (ActivateCard), which is what makes its
-// own When Played fire — a bespoke "drop it in the arena" shortcut would seat the unit and silently run
-// none of its entry triggers.
+// The chosen discard unit is played through the FULL play ceremony (SWUNestedPlayUnit ->
+// SWUBeginPlayCard), which is what makes its own When Played fire AND what charges its additional costs
+// — HMW_048 Vernestra Rwoh's "bottom up to 2 units from your discard", Exploit. The earlier SWUNestedPlay
+// entered at ActivateCard, the second half of the play, and skipped them: Nightbrother -> Vernestra
+// offered no cost and she gained nothing (reported 2026-09-14).
 //
-// Both riders are then stamped on the unit that actually arrived, located via gLastPlayedMzID rather
-// than by re-deriving an index: the arena has just grown, and a positional guess would be a slot ahead
-// or behind depending on which arena the played unit belongs to.
+// Both riders are play GRANTS rather than stamps applied after the call returns: an additional cost can
+// make the player choose, and then the unit arrives in a LATER request, after this handler is long gone.
+// The grants ride SWU_PENDING_PLAY_GRANTS to wherever the play finishes. "Enters play ready" is now
+// literal, too — the unit is placed ready, instead of being placed exhausted and readied afterwards.
 //
 // SWU_SNEAK_DEFEAT is SOR_219 Sneak Attack's marker, swept by the RegroupPhaseStart drain loop that
 // defeats every unit still carrying it. It is deliberately NOT in $turnEffectRegistry: an unregistered
 // token is skipped by SWUExpireTurnEffects, which is exactly the permanence this rider needs to survive
 // until the regroup. (The cost is that it shows no source-card provenance in the Active Effects popup —
 // a pre-existing gap shared with SOR_219, TWI_189 and SHD_226, not one to fix from here.)
+//
+// Nested play: Nightbrother's own play already owns this action's ending. A synchronous inner play's
+// close is refused by the nested frame; a play that resumes later closes at most once, because the
+// ledger refuses whichever close comes second. Guarded by TrapFieldReactsToTheReplayedUnit_StillNoExtraAction
+// and, for the deferred leg, by the Vernestra file's ViaNightbrother_*_ExactlyOneTurnSwap section.
 $customDQHandlers["HMW_204#0"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || !preg_match('/myDiscard-(\d+)/', (string) $lastDecision, $m)) return;  // '-' = declined
-    global $playerID, $gTurnPlayer;
+    global $playerID;
     $playerID = intval($player);
-    // Nested play: Nightbrother's own play already owns this action's ending, so ActivateCard must not
-    // finalise it again. SWUNestedPlay handles BOTH after-actions — the immediate one AND the deferred
-    // one a queued SWU_TRIGGER_RESUME would fire if the replayed unit arms an entry trigger (an
-    // opponent's HMW_171 Trap Field). Guarded by TrapFieldReactsToTheReplayedUnit_StillNoExtraAction;
-    // the plain TURNPLAYER sections cannot see the deferred leg, because no trigger fires in them.
-    SWUNestedPlay(intval($player), strval($lastDecision), false, intval($parts[0] ?? 0));
-    $newMz = $GLOBALS['gLastPlayedMzID'] ?? '';
-    if ($newMz === '' || $newMz === null) return;
-    $o = GetZoneObject($newMz);
-    if ($o !== null) $o->Status = 1;                 // enters play ready
-    AddTurnEffect($newMz, 'SWU_SNEAK_DEFEAT');       // defeated at the start of the next regroup phase
+    SWUNestedPlayUnit(intval($player), strval($lastDecision), intval($parts[0] ?? 0),
+        ['enterReady' => true, 'turnEffect' => 'SWU_SNEAK_DEFEAT']);
 };

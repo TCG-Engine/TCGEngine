@@ -30,13 +30,13 @@ $whenPlayedAbilities["HMW_077:0"] = $onAttackAbilities["HMW_077:0"] = function (
     ]);
 };
 
-// "If you do" — measure the OUTCOME, never assume the attempt worked. SWUConsumeShieldToken returns
+// "If you do" — measure the OUTCOME, never assume the attempt worked. SWUDefeatShieldToken returns
 // whether a token was actually removed, so a shield that vanished between the offer and this
 // continuation correctly produces no Beast.
 //
 // $forPrevention = false: this DEFEATS the token as an effect rather than consuming it to prevent
 // damage, so SEC_046 Galen Erso naming "Shield" (which blanks the prevention ability, not the token's
-// existence) must not block it. See the note on SWUConsumeShieldToken.
+// existence) must not block it. See the note on SWUDefeatShieldToken.
 //
 // ⚠ The Shield rider on the Beast goes through the BATCH create API's $upgradeToken parameter, NOT a
 // DoGiveShieldToken stamped on the returned UID. ASH_094 Moff Jerjerrod's "create twice that number
@@ -48,7 +48,7 @@ $customDQHandlers["HMW_077#0"] = function ($player, $parts, $lastDecision) {
     $playerID = intval($player);
     $unit = GetZoneObject($lastDecision);
     if (SWUObjGone($unit)) return;
-    if (!SWUConsumeShieldToken($unit, false)) return;      // "If you do" — nothing defeated, no Beast
+    if (!SWUDefeatShieldToken($unit)) return;      // "If you do" — nothing defeated, no Beast
     SWULogShieldDefeated($unit);
     SWUCreateUnitTokens(intval($player), 'HMW_T03', 1, false, '', 'SHIELD');
 };

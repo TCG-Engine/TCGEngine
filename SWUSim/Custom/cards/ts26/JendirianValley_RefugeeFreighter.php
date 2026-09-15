@@ -17,9 +17,6 @@ $customDQHandlers["TS26_18#0"] = function($player, $parts, $lastDecision) {
     $chosen = $resolved['drawn'];
     _topDeckPutRemainingToBottom(intval($player), $resolved['remaining']);
     if (empty($chosen)) return;
-    $deck = &GetDeck(intval($player));
-    $topObj = new Deck($chosen[0], 'Deck', intval($player));
-    array_unshift($deck, $topObj);
-    foreach ($deck as $i => $c) { $c->mzIndex = $i; }
-    SWURampResourceExhausted(intval($player), 'myDeck-0');
+    SWUPutCardsOnDeck(intval($player), [$chosen[0]], 'top', '');   // staged on top only to be resourced from there
+    SWUResourceTopOfDeck(intval($player));
 };

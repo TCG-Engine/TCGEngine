@@ -11,15 +11,16 @@
 // (keyed on _SWUControlsTarkinHmw004, which does not care whether he is deployed) — that one edit covers
 // every play path: hand, discard, resources, and the affordability glow.
 //
-// The regroup clause is DEPLOYED-only and is collected in _SWUHmw004RegroupBaseDefeat (called from
-// RegroupPhaseStart); only its resolution lives here. Defeating a base is not a separate board state in
+// The regroup clause is DEPLOYED-only; it is collected by RegroupPhaseStart's regroup-start trigger window
+// (orderable against other regroup-start triggers) and offered by _SWUHmw004OfferBaseDefeat when it resolves;
+// only the answer's resolution lives here. Defeating a base is not a separate board state in
 // SWU — a base with damage >= its HP IS defeated and its owner immediately loses the game (SWU CR, base
 // section), so SWUDefeatBase fills the damage in and lets the existing state-based sweep declare the result.
 
 $customDQHandlers["HMW_004#0"] = function ($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;          // "You may" — declining changes nothing
-    // ⚠ ANY base can be offered now (see _SWUHmw004RegroupBaseDefeat), so the seat must be read out of
+    // ⚠ ANY base can be offered now (see _SWUHmw004OfferBaseDefeat), so the seat must be read out of
     // the chosen mzID. The old my/their string match collapsed every non-"my" pick onto seat 2 — which,
     // for an ability whose whole effect is "that player loses the game", is the worst possible place to
     // guess. Choosing your own base is still legal; it just loses you the game.

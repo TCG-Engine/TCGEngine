@@ -160,3 +160,75 @@ WithP2GroundArenaUpgrade: 1:HMW_T02
 - P1>PlayHand:0
 ## EXPECT
 P1SELECTABLEEXACT:theirGroundArena-1&theirSpaceArena-0
+
+---
+
+# StolenUnitBecomesALeaderUnit_DefeatedAtRegroupInsteadOfReturning
+#// The delayed half meets CR 3.4.6: "If an ability would cause a Leader Unit to … CHANGE CONTROL for any
+#// reason, it is defeated instead." P1's Rish Loo steals P2's weakened SEC_214 Skyhopper Canyon Runner
+#// (a ground Vehicle), then P1 deploys its leader JTL_008 Wedge Antilles onto it AS A PILOT — the stolen
+#// Vehicle is now a leader unit under P1's control. At the start of regroup "its owner takes control of
+#// it" cannot happen, so the unit is DEFEATED: SEC_214 goes to its OWNER's discard (P2) and Wedge returns
+#// to the leader zone exhausted (CR 3.4.7 — a leader never goes to a discard).
+#// PREVIEW SET: no official ruling; reasoned from CR 3.4.6/3.4.7 and the released analogue
+#// lof/LiberatedByDarkness.md (StolenUnitBecomesLeaderUnit_DefeatedAtRegroup), which shares the return.
+#// ⚠ FIXTURE: myLeader JTL_008 is Command/Heroism, so Rish Loo's Villainy is uncovered: 4 + 2 = 6.
+#//   Wedge's deploy needs 5+ resources CONTROLLED — 12 covers both.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:12;myLeader:JTL_008}
+P1OnlyActions: true
+WithP1Hand: HMW_200
+WithP2GroundArena: SEC_214:1:0
+WithP2GroundArenaUpgrade: 0:HMW_T02
+WithP1Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>DeployLeader
+- P1>AnswerDecision:Pilot
+- P1>Pass
+- P2>Pass
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:HMW_200
+P2GROUNDARENACOUNT:0
+P2DISCARDCOUNT:1
+P2DISCARDUNIT:0:CARDID:SEC_214
+P1LEADER:NOTDEPLOYED
+P1LEADER:EXHAUSTED
+
+---
+
+# StolenUnitOwnedByRishsController_StaysAtRegroup
+#// "At the start of the next regroup phase, ITS OWNER takes control of it." The "enemy" unit Rish takes
+#// need not be OWNED by the enemy: here P2 controls a Battlefield Marine that P1 OWNS (the end state of an
+#// earlier steal). Rish Loo takes it back; at regroup its owner — P1, already its controller — "takes
+#// control" of it, which changes nothing. It must stay in P1's arena, NOT flip to P2 (a return keyed on
+#// "give it back to whoever it was taken from" instead of the OWNER would hand it to P2).
+#// Pairs with ControlRETURNSToTheOwnerAtNextRegroupStart (owner = the other seat → it goes back).
+#// PREVIEW SET: no official ruling; the printed text names the owner, not the previous controller.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:4}
+P1OnlyActions: true
+WithP1Hand: HMW_200
+WithP2GroundArenaControlled: SOR_095:1
+WithP2GroundArenaUpgrade: 0:HMW_T02
+WithP1Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
+
+## WHEN
+- P1>PlayHand:0
+- P1>Pass
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:HMW_200
+P1GROUNDARENAUNIT:1:CARDID:SOR_095
+P1GROUNDARENAUNIT:1:UPGRADE:0:CARDID:HMW_T02
+P2GROUNDARENACOUNT:0
+P1DISCARDCOUNT:0
+P2DISCARDCOUNT:0

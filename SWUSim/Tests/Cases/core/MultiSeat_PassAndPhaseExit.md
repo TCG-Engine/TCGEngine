@@ -1,18 +1,16 @@
-# CORE — the action phase ends when ALL LIVE players pass consecutively, not when TWO do.
-#
-# `SWUPassAction` ends the phase on `$consecutivePasses >= $liveCount - 1`. At two seats that is
-# `>= 1`, i.e. the historical "two consecutive passes" rule — so the seat-count-aware form is
-# byte-identical there and NO 2-player fixture can tell the two apart. These sections are the ones that
-# can: at three seats a phase that ends after two passes robs the third seat of its turn, and at four
-# seats it robs two of them.
-#
-# The threshold is driven by LIVE seats, not seat order, so an elimination LOWERS it — covered below.
-#
-# ⚠ NO `P{n}OnlyActions`: it marks the other seats as having taken a counter so they auto-pass, which
-# is exactly the pass accounting under test.
-
----
-
+#// CORE — the action phase ends when ALL LIVE players pass consecutively, not when TWO do.
+#//
+#// `SWUPassAction` ends the phase on `$consecutivePasses >= $liveCount - 1`. At two seats that is
+#// `>= 1`, i.e. the historical "two consecutive passes" rule — so the seat-count-aware form is
+#// byte-identical there and NO 2-player fixture can tell the two apart. These sections are the ones that
+#// can: at three seats a phase that ends after two passes robs the third seat of its turn, and at four
+#// seats it robs two of them.
+#//
+#// The threshold is driven by LIVE seats, not seat order, so an elimination LOWERS it — covered below.
+#//
+#// ⚠ NO `P{n}OnlyActions`: it marks the other seats as having taken a counter so they auto-pass, which
+#// is exactly the pass accounting under test.
+#//
 # ThreeSeat_TwoPassesDoNotEndThePhase
 #// Two of three seats have passed. The third has not, so the phase MUST still be MAIN and the turn must
 #// be sitting on that third seat waiting for it. A 2-player threshold ends the phase here.

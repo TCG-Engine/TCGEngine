@@ -792,6 +792,7 @@ class GameTestAdapter {
         // a real fresh process would not. Drop it here or a boundary section reads a pre-boundary answer.
         if (function_exists('_SWUHmw108ActiveFlags')) _SWUHmw108ActiveFlags(true);
         unset($GLOBALS['gSimulDefeatSidious']);
+        unset($GLOBALS['gHmw011DeployedThisAction']);   // request-scoped by design (see the HMW_011 card file)
         $gShootFirstPending    = null;
         $gDeferredReplacements = [];
         $gSec035DefeatSnapshot = [];

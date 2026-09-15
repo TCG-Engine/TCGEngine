@@ -272,3 +272,119 @@ P2GROUNDARENAUNIT:0:DAMAGE:3
 P2GROUNDARENAUNIT:0:READY
 P1LEADER:EXHAUSTED
 P1NODECISION
+
+---
+
+# Front_CombatDamageAbsorbedByAShield_NoTrigger
+#// ★ JUDGE RULING 2026-09-14 — prevented damage is not DEALT (CR 8.9), so "when a friendly unit deals
+#// damage to an enemy unit" does not trigger. P1's SOR_046 attacks a SHIELDED enemy 3/7: the Shield
+#// absorbs the 3 and pops, no damage lands, and Jango is not offered. (The same prevention still counts
+#// for an "If you do" in the dealing ability — a separate question, HMW_079 Radiant VII.)
+
+## GIVEN
+CommonSetup: yyk/rrk/{myLeader:TWI_016:1}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:READY
+P1LEADER:READY
+P1NODECISION
+
+---
+
+# Front_AbilityDamageAbsorbedByAShield_NoTrigger
+#// The same ruling on the ABILITY path: LOF_259 Ravening Gundark's 1 is aimed at a shielded enemy, the
+#// Shield prevents it, and Jango is not offered.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myLeader:TWI_016:1;myResources:5;handCardIds:LOF_259}
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:READY
+P1LEADER:READY
+P1NODECISION
+
+---
+
+# Front_AbilityDamageReducedToZero_NoTrigger
+#// "Reduced to 0 by some other effect" — not a Shield. P2 controls SEC_050 Vigil ("If damage would be
+#// dealt to another friendly unit, prevent 1 of that damage"), so Gundark's 1 to P2's 3/7 becomes 0.
+#// Nothing is dealt and Jango is not offered.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myLeader:TWI_016:1;myResources:5;handCardIds:LOF_259}
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SEC_050:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:READY
+P1LEADER:READY
+P1NODECISION
+
+---
+
+# Front_CombatDamageReducedButNotToZero_StillTriggers
+#// The boundary partner of the section above: Vigil takes 1 off a 3-power attack, 2 still lands, and
+#// that IS damage dealt — Jango is offered and exhausts the enemy.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myLeader:TWI_016:1}
+P1OnlyActions: true
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2SpaceArena: SEC_050:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENAUNIT:0:EXHAUSTED
+P1LEADER:EXHAUSTED
+
+---
+
+# Deployed_CombatDamageAbsorbedByAShield_NoTrigger
+#// The deployed side shares the trigger, so it shares the ruling: deployed Jango attacks a shielded enemy,
+#// the Shield takes the hit, and there is no "may exhaust that unit" offer.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myLeader:TWI_016;myResources:5}
+P1OnlyActions: true
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>DeployLeader
+- P1>AttackGroundArena:0:0
+
+## EXPECT
+P1LEADER:DEPLOYED
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:READY
+P1NODECISION

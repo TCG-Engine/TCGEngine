@@ -1,0 +1,36 @@
+# Real-deck self-play fixture — Admiral Piett, Commanding the Armada - Shield Generator Complex
+# Source: melee.gg 445115, #24 of 180 (5-2-1)
+#   https://melee.gg/Decklist/View/49b5adf9-77b1-44a1-ac27-b4bd003e0989 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (6 entries).
+# Archetype (owner's label): Capital Ship soft control
+# Style: control
+# Flavours: capital-ship
+
+Leader
+1 JTL_005
+
+Base
+1 JTL_020
+
+Deck
+3 LAW_118
+3 SEC_110
+3 ASH_048
+3 SEC_080
+2 ASH_118
+2 LAW_038
+2 ASH_097
+2 ASH_073
+3 ASH_052
+3 JTL_118
+3 JTL_089
+2 SEC_037
+2 JTL_038
+2 LAW_101
+2 ASH_102
+1 ASH_099
+3 JTL_043
+2 JTL_131
+1 SEC_179
+3 SEC_038
+3 LOF_091

@@ -15,7 +15,12 @@ $whenPlayedAbilities["LOF_171:0"] = function($player, $mzID) {
 $customDQHandlers["LOF_171#0"] = function($player, $parts, $lastDecision) {
     if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = intval($player);
-    SWUDealDamageToUnit($lastDecision, 1, intval($player));
-    SWUDealDamageToUnit($lastDecision, 1, intval($player));
-    SWUDealDamageToUnit($lastDecision, 1, intval($player));
+    // "The same unit" each time: re-find it by UID before every ping. Once it is defeated the rest of the damage
+    // has nowhere to go (its old mzID would name the next ground unit).
+    $uid = intval(GetZoneObject($lastDecision)->UniqueID ?? 0);
+    for ($i = 0; $i < 3; $i++) {
+        $mz = $uid > 0 ? SWUFindMzByUID($uid) : null;
+        if ($mz === null) break;
+        SWUDealDamageToUnit($mz, 1, intval($player));
+    }
 };

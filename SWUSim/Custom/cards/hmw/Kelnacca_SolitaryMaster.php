@@ -28,12 +28,8 @@
 // the prompt is suppressed below 3 (where it could only fizzle) and intdiv() converts payment to
 // instances.
 //
-// Each instance re-reads Kelnacca's CURRENT power and picks its own enemy target, and the next instance
-// is a QUEUED CUSTOM rather than an inline call — so "is Kelnacca still here / is there still an enemy
-// unit" are evaluated at DRAIN time, after the previous instance's damage has resolved. Computing them
-// inline would read the pre-damage board and could aim an instance at a unit that had just died (the
-// HMW_035 recompute-before-every-pick lesson). Kelnacca rides through as a UniqueID: the arena
-// reindexes whenever a target is defeated, and the answers arrive in later requests.
+// The strikes are assigned in ONE divided-damage prompt and resolved SIMULTANEOUSLY — see HMW_036#1.
+// Kelnacca rides through the payment as a UniqueID: the answers arrive in later requests.
 
 $whenPlayedAbilities["HMW_036:0"] = function($player, $mzID = '') {
     global $playerID;
@@ -74,26 +70,58 @@ $customDQHandlers["HMW_036#0"] = function($player, $parts, $lastDecision) {
         "HMW_036#1|" . intval($parts[0] ?? 0) . "|{$instances}", 1);
 };
 
-// One instance: re-read the power, offer an enemy target, then queue the next instance behind it.
+// ── The strikes: ONE assignment, then ALL of it at once (CR 34.1 / 34.1.a) ────────────────────────────
+// "For every 3 resources paid …" is a FOR-EACH: every instance is determined first and then they resolve
+// SIMULTANEOUSLY, and damage from it "is calculated and dealt as one instance". So N strikes aimed at one
+// unit are ONE hit of N × power — a single Shield prevents all of it. This used to offer and deal one
+// strike at a time, so a Shield ate the first and the rest landed.
+// USER DECISION 2026-09-14 — the UI is the divided-damage MZSPLITASSIGN with a STEP of Kelnacca's power:
+// each −/+ moves one strike, the pool is strikes × power, and a unit may take several strikes. A lone enemy
+// unit is not a choice, so it takes the whole pool without a prompt.
+// Power is read ONCE, here, when the strikes are determined.
 $customDQHandlers["HMW_036#1"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
-    $uid  = intval($parts[0] ?? 0);
-    $left = intval($parts[1] ?? 0);
-    if ($left <= 0) return;
+    $uid       = intval($parts[0] ?? 0);
+    $instances = intval($parts[1] ?? 0);
+    if ($instances <= 0) return;
     $mz = SWUFindMzByUID($uid);
     if ($mz === null || $mz === '') return;          // Kelnacca has left play — nothing to measure
     $self = GetZoneObject($mz);
     if (SWUObjGone($self)) return;
-    $pow = intval(ObjectCurrentPower($self));        // CURRENT power, re-read per instance
-    if ($pow > 0) {
-        SWUOfferUnitTarget(intval($player), $mz, [
-            'continuation' => 'DEAL_UNIT_DAMAGE', 'amount' => $pow, 'side' => 'their',
-            'prompt' => "Deal_{$pow}_damage_to_an_enemy_unit",
-        ]);
+    $pow = intval(ObjectCurrentPower($self));
+    if ($pow <= 0) return;
+    $enemies = _SWUCollectUnitTargets(intval($player), ['side' => 'their']);
+    if (empty($enemies)) return;
+    $total  = $instances * $pow;
+    $srcTok = _SWUEncodeDamageSource($mz);          // Kelnacca deals it (CR 9.12)
+    if (count($enemies) === 1) {
+        SWUDealSplitDamage(intval($player), $enemies[0] . ':' . $total, $srcTok);
+        return;
     }
-    if ($left > 1) {
-        DecisionQueueController::AddDecision(intval($player), "CUSTOM",
-            "HMW_036#1|{$uid}|" . ($left - 1), 1);
+    // "total|targets|ALL|step": ALL = every strike must be placed; step = one strike's damage.
+    DecisionQueueController::AddDecision(intval($player), "MZSPLITASSIGN",
+        "{$total}|" . implode('&', $enemies) . "|ALL|{$pow}", 1,
+        tooltip: "Assign_{$instances}_strike" . ($instances === 1 ? "" : "s") . "_of_{$pow}_damage_among_enemy_units");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "HMW_036#2|{$pow}|{$total}|{$srcTok}", 1);
+};
+
+// Deal the assignment — each unit's strikes as ONE instance, all units simultaneously (SWUDealSplitDamage).
+// ⚠ Re-validated here as well as in SWUValidateDecisionAnswer: an amount that is not a whole number of
+// strikes, or a total beyond the pool, is dropped rather than trusted.
+$customDQHandlers["HMW_036#2"] = function($player, $parts, $lastDecision) {
+    $pow    = intval($parts[0] ?? 0);
+    $total  = intval($parts[1] ?? 0);
+    $srcTok = (string)($parts[2] ?? '');
+    if ($pow <= 0 || SWUDecisionDeclined($lastDecision)) return;
+    $kept = []; $sum = 0;
+    foreach (explode(',', (string)$lastDecision) as $pair) {
+        $bits = explode(':', trim($pair));
+        if (count($bits) < 2) continue;
+        $amt = intval($bits[1]);
+        if ($amt <= 0 || $amt % $pow !== 0 || $sum + $amt > $total) continue;
+        $sum   += $amt;
+        $kept[] = trim($bits[0]) . ':' . $amt;
     }
+    if (!empty($kept)) SWUDealSplitDamage(intval($player), implode(',', $kept), $srcTok);
 };

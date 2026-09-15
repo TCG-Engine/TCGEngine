@@ -240,3 +240,58 @@ WithP2GroundArena: SOR_046:1:0
 SEATCOUNT:4
 P2GROUNDARENAUNIT:0:DAMAGE:1
 P2GROUNDARENAUNIT:1:DAMAGE:1
+
+---
+
+# ShieldedEnemy_ShieldPopsWhileTheOtherDamageResolves
+#// A Shield replaces only the damage aimed at ITS unit. Two dealers (SEC_080 + Nute) against two
+#// SOR_046: the one wearing a Shield loses the Shield and takes 0, while the simultaneous 1 aimed at the
+#// other enemy still lands. A resolver that let one prevention swallow the whole batch — or that stopped
+#// after the first "damage prevented" — would leave the second enemy at 0.
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:4}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1Hand: HMW_105
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T02
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0&theirGroundArena-1
+## EXPECT
+P2GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2GROUNDARENAUNIT:1:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:1:DAMAGE:1
+P1NODECISION
+
+---
+
+# ShieldedOneHpEnemy_SurvivesWhileItsUnshieldedTwinDies
+#// The lethal version of the Shield cell, with the arena compacting underneath. Two SOR_128 (3/1); the
+#// SECOND wears the Shield. Both are chosen: the unshielded one at index 0 is defeated by its 1 damage,
+#// and the shielded one loses only its Shield, survives undamaged, and compacts to index 0. The
+#// discard count proves the unshielded twin really died rather than both being spared.
+## GIVEN
+CommonSetup: ggk/rrk/{myResources:4}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: SEC_080:1:0
+WithP1Hand: HMW_105
+WithP2GroundArena: SOR_128:1:0
+WithP2GroundArena: SOR_128:1:0
+WithP2GroundArenaUpgrade: 1:SOR_T02
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0&theirGroundArena-1
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SOR_128
+P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
+P2GROUNDARENAUNIT:0:DAMAGE:0
+P2DISCARDCOUNT:1
+P2DISCARDUNIT:0:CARDID:SOR_128
+P1NODECISION

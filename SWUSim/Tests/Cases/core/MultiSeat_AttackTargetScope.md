@@ -1,20 +1,18 @@
-# CORE — who a unit may attack at 3+ seats, and how teams and Sentinel narrow it.
-#
-# `SWUGetAllValidAttackTargets` is one of the consumers that inherits `OpponentsOf()`, so it is the
-# place a teammate leaking into the opponent list becomes a rules break you can actually see: you could
-# attack your own partner. It also has to union across SEVERAL opponents while applying each one's
-# Sentinel and base separately — a per-opponent property that simply does not exist at two seats, where
-# there is only ever one "them".
-#
-# Counting model used throughout: from a GROUND unit, each live opponent contributes its ground units
-# plus its base. Space units are not reachable from the ground arena.
-#
-# ⚠ Every seat needs a BASE for these counts to mean anything, and CommonSetup3P/4P supplies one per
-# seat from its aspect code. Before those directives existed each far seat needed a hand-written
-# WithP{n}Base here, and forgetting one silently LOWERED the expected count instead of failing loudly.
-
----
-
+#// CORE — who a unit may attack at 3+ seats, and how teams and Sentinel narrow it.
+#//
+#// `SWUGetAllValidAttackTargets` is one of the consumers that inherits `OpponentsOf()`, so it is the
+#// place a teammate leaking into the opponent list becomes a rules break you can actually see: you could
+#// attack your own partner. It also has to union across SEVERAL opponents while applying each one's
+#// Sentinel and base separately — a per-opponent property that simply does not exist at two seats, where
+#// there is only ever one "them".
+#//
+#// Counting model used throughout: from a GROUND unit, each live opponent contributes its ground units
+#// plus its base. Space units are not reachable from the ground arena.
+#//
+#// ⚠ Every seat needs a BASE for these counts to mean anything, and CommonSetup3P/4P supplies one per
+#// seat from its aspect code. Before those directives existed each far seat needed a hand-written
+#// WithP{n}Base here, and forgetting one silently LOWERED the expected count instead of failing loudly.
+#//
 # ThreeSeat_UnionsAcrossBothOpponents
 #// Seats 2 and 3 each field one ground unit and hold a base: 2 units + 2 bases = 4 targets. At two
 #// seats this number can only ever be "one opponent's worth", so the union is untested there.

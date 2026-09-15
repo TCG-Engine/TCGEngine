@@ -1,34 +1,32 @@
-# Hidden covers PLAYED, DEPLOYED and CREATED — not just played.
-#
-# Bug reports #1025 (game 4161) and #1026 (game 4162), and they are ONE bug:
-#   "Darth Sidious is missing the Hidden overlay when deployed this phase"
-#   "Darth Sidious able to be attacked on deploy phase"
-# The overlay (ObjectHiddenUnattackable) and the attack gate (_SWUHiddenBlocksAttack) read the SAME
-# predicate, so a single wrong answer produces both symptoms at once.
-#
-# THE RULE. CR 18.a: "'Hidden' is a keyword whose effect is the same as the constant ability: 'This unit
-# can't be attacked if it was **played/deployed/created** this phase.'" A leader deploy is explicitly
-# covered. ⚠ The card's printed reminder text says only "if it was played this phase" — reminder text is
-# abbreviated, and taking it literally is exactly how this bug was written. CR 6.x is emphatic that a
-# leader "is considered deployed, NOT played", so "played" alone excludes the deploy.
-#
-# ROOT CAUSE. `_SWUHiddenBlocksAttack` tests the `SWU_PLAYED_UNIT_{uid}` global effect, and that flag is
-# set in exactly ONE place — `ActivateCard`'s unit-entry branch (GameLogic.php). `SWUDeployLeader` builds
-# the arena unit directly with `AddGroundArena(...)` and never goes through `ActivateCard`, so a deployed
-# leader never carries it. `SWUCreateUnitToken` doesn't set it either.
-#
-# ⚠ THE FLAG IS CARRYING TWO DIFFERENT RULES, which is the real defect and why this file tests more than
-# Sidious. The card texts settle which is which:
-#     "a unit that ENTERED PLAY this phase"      TWI_052 Hello There, ASH_001 The Armorer
-#     "didn't ENTER PLAY this round/phase"       SOR_179 Boba Fett, JTL_185 Hound's Tooth
-#     "a unit YOU PLAYED this phase"             SOR_005 Luke Skywalker
-#     "a unit that WAS PLAYED this phase"        SEC_236 Undercover Operation
-# `SWU_PLAYED_UNIT_` implements PLAYED, which is right for the last two and wrong for the rest — Hidden
-# included. Hence a separate ENTERED-play marker rather than widening the played flag and silently
-# breaking Luke and Undercover Operation.
-
----
-
+#// Hidden covers PLAYED, DEPLOYED and CREATED — not just played.
+#//
+#// Bug reports #1025 (game 4161) and #1026 (game 4162), and they are ONE bug:
+#//   "Darth Sidious is missing the Hidden overlay when deployed this phase"
+#//   "Darth Sidious able to be attacked on deploy phase"
+#// The overlay (ObjectHiddenUnattackable) and the attack gate (_SWUHiddenBlocksAttack) read the SAME
+#// predicate, so a single wrong answer produces both symptoms at once.
+#//
+#// THE RULE. CR 18.a: "'Hidden' is a keyword whose effect is the same as the constant ability: 'This unit
+#// can't be attacked if it was **played/deployed/created** this phase.'" A leader deploy is explicitly
+#// covered. ⚠ The card's printed reminder text says only "if it was played this phase" — reminder text is
+#// abbreviated, and taking it literally is exactly how this bug was written. CR 6.x is emphatic that a
+#// leader "is considered deployed, NOT played", so "played" alone excludes the deploy.
+#//
+#// ROOT CAUSE. `_SWUHiddenBlocksAttack` tests the `SWU_PLAYED_UNIT_{uid}` global effect, and that flag is
+#// set in exactly ONE place — `ActivateCard`'s unit-entry branch (GameLogic.php). `SWUDeployLeader` builds
+#// the arena unit directly with `AddGroundArena(...)` and never goes through `ActivateCard`, so a deployed
+#// leader never carries it. `SWUCreateUnitToken` doesn't set it either.
+#//
+#// ⚠ THE FLAG IS CARRYING TWO DIFFERENT RULES, which is the real defect and why this file tests more than
+#// Sidious. The card texts settle which is which:
+#//     "a unit that ENTERED PLAY this phase"      TWI_052 Hello There, ASH_001 The Armorer
+#//     "didn't ENTER PLAY this round/phase"       SOR_179 Boba Fett, JTL_185 Hound's Tooth
+#//     "a unit YOU PLAYED this phase"             SOR_005 Luke Skywalker
+#//     "a unit that WAS PLAYED this phase"        SEC_236 Undercover Operation
+#// `SWU_PLAYED_UNIT_` implements PLAYED, which is right for the last two and wrong for the rest — Hidden
+#// included. Hence a separate ENTERED-play marker rather than widening the played flag and silently
+#// breaking Luke and Undercover Operation.
+#//
 # DeployedThisPhase_CannotBeAttacked
 #// THE BUG (#1026). HMW_011 Darth Sidious's deployed side has Hidden. P1 deploys him with their action;
 #// the turn passes to P2, still the SAME action phase. P2's ground unit may then attack P1's BASE ONLY —

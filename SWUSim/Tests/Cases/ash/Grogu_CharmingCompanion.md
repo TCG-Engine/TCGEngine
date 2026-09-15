@@ -374,3 +374,29 @@ P1LEADER:DEPLOYED
 P1GROUNDARENACOUNT:2
 P1DECKCOUNT:3
 TURNPLAYER:2
+
+---
+
+# Deployed_DefenderBuff_AlsoAppliesToDarthMaulsTwoDefenderAttack
+#// TWI_135 Darth Maul resolves "attack 2 units" through a separate two-defender path, which read each
+#// defender's printed power and skipped every "while defending" bonus (fixed 2026-09-14 with the shared
+#// while-defending helper). With Grogu deployed on P2's side, BOTH defending Battle Droid tokens (1/1) get
+#// +1/+0, so Maul (5/6) takes 2 + 2 = 4, not 1 + 1 = 2. Both tokens die; Grogu (not attacked) stays.
+
+## GIVEN
+CommonSetup: rrk/gyw/{theirLeader:ASH_018:1:1:1}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: TWI_135:1:0
+WithP2GroundArena: [TWI_T01:1:0 TWI_T01:1:0]
+
+## WHEN
+- P1>AttackGroundArena:0:0
+- P1>AnswerDecision:Units
+- P1>AnswerDecision:theirGroundArena-0&theirGroundArena-1
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:TWI_135
+P1GROUNDARENAUNIT:0:DAMAGE:4
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:ASH_018

@@ -24,6 +24,8 @@
 #//           on identical hands; the difference between them is the COST, and that is what the two
 #//           deployed sections above exist to pin.
 #// COVERAGE (epic): Epic_DeployAtSixResources / Epic_BlockedAtFiveResources
+#// COVERAGE control=N/A — STRUCTURAL: Maz is a LEADER (front and deployed), and leaders cannot change control;
+#//           scope=NormalPlay_NoDiscount_NoWeakness_MazStaysReady (the grant rides the Action only)
 #// COVERAGE modes=2P only — "play a unit from YOUR hand" and "give a Weakness token to IT" name no
 #//           player and carry no friendly/enemy word; nothing here fans out or narrows by seat.
 #//
@@ -442,3 +444,94 @@ P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:POWER:3
 P1GROUNDARENAUNIT:0:HP:2
 P1RESAVAILABLE:3
+
+---
+
+# NormalPlay_NoDiscount_NoWeakness_MazStaysReady
+#// SCOPE CELL. The discount and the Weakness ride Maz's ACTION only. Playing SOR_247 Underworld Thug
+#// (colourless, 2) through the ordinary Play a Card action costs the full 2 of 2 resources, gets no
+#// Weakness, and leaves Maz ready.
+
+## GIVEN
+CommonSetup: gyk/rrk/{myLeader:HMW_002;myResources:2}
+P1OnlyActions: true
+WithP1Hand: SOR_247
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:SOR_247
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1RESAVAILABLE:0
+P1LEADER:READY
+
+---
+
+# KilledOnArrivalByTheWeakness_ItsWhenPlayedStillResolves
+#// It was PLAYED, so its When Played resolves even though the Weakness defeats it on arrival. SHD_209
+#// Criminal Muscle (2/1, Cunning, 1 → 0 with the discount) dies at once, and its "You may return a
+#// non-unique upgrade to its owner's hand" still lets P1 take the Shield token off its own Marine.
+
+## GIVEN
+CommonSetup: gyk/rrk/{myLeader:HMW_002;myResources:1}
+P1OnlyActions: true
+WithP1Hand: SHD_209
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myTempZone-0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+P1DISCARDUNIT:0:CARDID:SHD_209
+P1TEMPZONECOUNT:0
+
+---
+
+# KilledOnArrivalByTheWeakness_ItsWhenDefeatedResolves
+#// …and its When Defeated fires. SHD_164 Rhokai Gunship (2/1 space, Aggression — off-aspect here, so
+#// 2 + 2 − 1 = 3 of 3) dies to the Weakness and deals its 1 to P2's base.
+
+## GIVEN
+CommonSetup: gyk/rrk/{myLeader:HMW_002;myResources:3}
+P1OnlyActions: true
+WithP1Hand: SHD_164
+WithP2GroundArena: SOR_095:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:theirBase-0
+
+## EXPECT
+P1SPACEARENACOUNT:0
+P1DISCARDUNIT:0:CARDID:SHD_164
+P2BASEDMG:1
+P1RESAVAILABLE:0
+
+---
+
+# KilledOnArrivalByTheWeakness_TheTurnPassesOnce
+#// The same Criminal Muscle play without P1OnlyActions (which hides a double turn swap): the action-close
+#// gate refuses a second close attempt here, and the turn is P2's exactly once.
+
+## GIVEN
+CommonSetup: gyk/rrk/{myLeader:HMW_002;myResources:1}
+WithP1Hand: SHD_209
+WithP1GroundArena: SOR_095:1:0
+WithP1GroundArenaUpgrade: 0:SOR_T02
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myTempZone-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+TURNPLAYER:2

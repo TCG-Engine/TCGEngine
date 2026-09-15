@@ -8,16 +8,7 @@
 $customDQHandlers["LAW_026#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (SWUDecisionDeclined($lastDecision)) return;
-    $o = GetZoneObject($lastDecision);
-    if (SWUObjGone($o)) return;
-    $cid = $o->CardID;
-    $o->removed = true;
-    DecisionQueueController::CleanupRemovedCards();
-    $deck = &GetDeck(intval($player));
-    $newTop = new Deck($cid, 'Deck', intval($player));
-    array_unshift($deck, $newTop);
-    foreach ($deck as $i => $c) { $c->mzIndex = $i; }
-    SWULogToDeck(intval($player), [$cid], 'discard', 'top');   // game log: public zone, named
+    SWUMoveCardToDeck(intval($player), (string)$lastDecision, 'top');   // public zone, named
 };
 
 // LAW_026 Shipbreaking Yard — Epic Action: Discard 3 cards from your deck. You may return a card

@@ -574,6 +574,50 @@ if (!function_exists('SWUNestedPlay')) {
     }
 }
 
+// ─── SWUNestedPlayUnit — "play a unit from <zone>" as part of another card's resolution, IN FULL ─────
+// SWUNestedPlay enters at ActivateCard, which is only the SECOND HALF of playing a card: everything
+// SWUBeginPlayCard owns before payment is skipped — every additional cost (Exploit, HMW_048 Vernestra
+// Rwoh's discard-bottoming, HMW_125, HMW_049) and TWI_116 Clone's copy choice. Per CR step 3.c an
+// additional cost is determined and paid on EVERY play, however the play was begun. Reported
+// 2026-09-14: HMW_204 Nightbrother -> Vernestra from the discard never offered her cost, so she gained
+// nothing (and the same through both of HMW_016 Maul's abilities).
+//
+// $grants (all optional) are the playing effect's riders on the unit it plays:
+//   'enterReady' => bool     "…and enters play ready"
+//   'turnEffect' => string   a TurnEffect marker stamped on entry (e.g. SWU_SNEAK_DEFEAT)
+//   'shield'     => int      Shield tokens given on entry
+//   'then'       => string   a FUNCTION NAME, called ($player, $playedMz) once the play has resolved —
+//                            "Then, defeat it". $playedMz is '' when nothing was played.
+// Because a pre-payment step can make the player choose, the play may finish in a LATER request. The
+// grants survive that via SWU_PENDING_PLAY_GRANTS, and a "then" step runs wherever the play finishes:
+// here, right after the nested frame, when it was synchronous; otherwise at the PLAY_CARD dispatch that
+// resumes it, inside the same kind of nested frame. Either way the step runs AFTER a play whose own
+// close was refused as nested — so the step's owner is what closes the action, on both paths.
+//
+// unitOnly: every caller grants "play a UNIT", and per CR 17.c a Piloting card played through such an
+// effect cannot be played as an upgrade (the same reason DISCOUNT_PLAY_FROM_HAND passes it).
+//
+// ⚠ Same close-ownership caveat as SWUNestedPlay: only for an outer effect that ends its own action.
+if (!function_exists('SWUNestedPlayUnit')) {
+    function SWUNestedPlayUnit(int $player, string $mzID, int $discount = 0, array $grants = []): void {
+        $then = (string) ($grants['then'] ?? '');
+        // A stale record (a play abandoned mid-way) must not make this play look deferred below.
+        SetSWUVar('SWU_PENDING_PLAY_GRANTS', '');
+        $GLOBALS['gForceEnterReady']     = !empty($grants['enterReady']);
+        $GLOBALS['gPlayGrantTurnEffect'] = (($grants['turnEffect'] ?? '') !== '') ? (string) $grants['turnEffect'] : null;
+        $GLOBALS['gPlayGrantShield']     = (intval($grants['shield'] ?? 0) > 0) ? intval($grants['shield']) : null;
+        $GLOBALS['gPlayGrantThen']       = ($then !== '') ? $then : null;
+        $GLOBALS['gLastPlayedMzID']      = '';
+
+        SWUWithNestedActionFrame(fn() => SWUBeginPlayCard($player, $mzID, $discount, unitOnly: true));
+
+        $deferred = _SWUPlayGrantsPending();              // still waiting at an additional cost / payment
+        $placed   = (string) ($GLOBALS['gLastPlayedMzID'] ?? '');
+        _SWUPlayGrantsClear();
+        if ($then !== '' && !$deferred && function_exists($then)) $then($player, $placed);
+    }
+}
+
 // How many SWU_TRIGGER_RESUME entries are queued right now? Scans EVERY live seat, because the trigger that armed
 // it may belong to an OPPONENT — Trap Field is owned by the base owner, i.e. the non-active player in
 // the reported case.
