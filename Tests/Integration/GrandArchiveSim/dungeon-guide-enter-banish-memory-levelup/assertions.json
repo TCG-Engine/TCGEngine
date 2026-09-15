@@ -1,0 +1,10 @@
+[
+    {"step":6,"type":"decision_queue_empty","player":"all"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Dungeon Guide itself resolves onto the field"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"DpHDGaX2Pn","semantic":true,"label":"Accepting the On Enter offer levels the champion up into a higher-level champion from material"},
+    {"step":6,"type":"card_property_equals","mzId":"p1Field-1","property":"Subcards","value":"[\"LMyKyVC2O9\"]","semantic":true,"label":"The previous champion (Spirit of Fire) is preserved in the new champion's lineage"},
+    {"step":6,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":2,"semantic":true,"label":"Exactly two cards were banished at random from memory to pay for the level-up"},
+    {"step":6,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":3,"semantic":true,"label":"Memory went from 5 (2 seeded + 3 paid as this card's own memory cost) down to 3 after banishing 2"},
+    {"step":6,"type":"zone_count","zone":"myMaterial","viewerPlayerID":1,"value":3,"semantic":true,"label":"The chosen champion left material to level up"},
+    {"step":6,"type":"zone_count","zone":"myHand","viewerPlayerID":1,"value":3}
+]

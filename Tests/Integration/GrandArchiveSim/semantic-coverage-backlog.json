@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-15T13:43:50+00:00",
+    "generatedAt": "2026-09-15T15:54:13+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 357,
+        "cardsWithExistingFixtures": 359,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2130,
+        "cardsNeedingSemanticCoverage": 2128,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -268,27 +268,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "em6eEh9q8y",
-            "name": "Dungeon Guide",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck (Prelude)",
-                "Rai Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -739,25 +718,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "XQKyUqsMUg",
-            "name": "Seer's Sword",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -39024,6 +38984,31 @@
             "priority": 134
         },
         {
+            "cardId": "em6eEh9q8y",
+            "name": "Dungeon Guide",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "dungeon-guide-enter-banish-memory-levelup"
+            ],
+            "semanticFixtures": [
+                "dungeon-guide-enter-banish-memory-levelup"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck (Prelude)",
+                "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "HHtlkEeyQR",
             "name": "Elysian Aspirant",
             "type": "ALLY",
@@ -41521,6 +41506,29 @@
             ],
             "starterDecks": [
                 "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "XQKyUqsMUg",
+            "name": "Seer's Sword",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "seers-sword-class-bonus-glimpse-attack"
+            ],
+            "semanticFixtures": [
+                "seers-sword-class-bonus-glimpse-attack"
+            ],
+            "starterDecks": [
+                "Lorraine Starter Deck (Prelude)"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
