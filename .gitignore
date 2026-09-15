@@ -149,6 +149,10 @@ AppCore/SWU/Images/TempImages
 # eventually applies a stale map. The generators are tracked; their output is not.
 AppCore/SWU/migrations/0*.sql
 
+# Hellbreak research scratch: third-party card art mirrored from hellbreakhub.com (~80MB) plus its
+# manifest. Reference material for reviewing card data, not app source — never ship it.
+HellbreakSim/_research/
+
 # Maintenance-mode flag (zzMaintenanceMode.php). Runtime operational state, per box — its ABSENCE
 # means "normal service", so it must never ship in a deploy and freeze a healthy site.
 */maintenance.json

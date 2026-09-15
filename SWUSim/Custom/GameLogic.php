@@ -854,6 +854,8 @@ function ObjectCurrentPower($obj) {
 
     // SHD_037 Supreme Leader Snoke — "Each enemy non-leader unit gets –2/–2."
     $base -= 2 * SWUEnemySnokeCount($obj);
+    // HMW_065 Clone of the Zillo Beast — "Other friendly units get -2/-2." (cards/hmw/CloneOfTheZillo…php)
+    $base -= 2 * _SWUHmw065AuraCount($obj);
 
     // HMW_008 General Grievous (DEPLOYED side) — "While you control more units than an opponent, this
     // unit gets +3/+0." Power ONLY, so there is deliberately no twin in ObjectCurrentHP. Self-only
@@ -1047,6 +1049,8 @@ function ObjectCurrentHP($obj) {
 
     // SHD_037 Supreme Leader Snoke — "Each enemy non-leader unit gets –2/–2."
     $base -= 2 * SWUEnemySnokeCount($obj);
+    // HMW_065 Clone of the Zillo Beast — "Other friendly units get -2/-2." (cards/hmw/CloneOfTheZillo…php)
+    $base -= 2 * _SWUHmw065AuraCount($obj);
 
     // "For this phase" stat changes (STAT_BUFF minus STAT_DEBUFF), HP component.
     $base += SWUTurnEffectStatBonus($obj, 'hp');
@@ -4033,6 +4037,9 @@ function _SWUCreateOneToken(int $player, string $tokenID, bool $ready = false): 
 // replacement after the token is made.
 function SWUCreateUnitToken(int $player, string $tokenID, bool $ready = false): int {
     $uid = _SWUCreateOneToken($player, $tokenID, $ready);
+    // A created token can enter at 0 remaining HP under a continuous shrink (SHD_037 Snoke, HMW_065 Clone
+    // of the Zillo Beast) — the state check every other entry route runs. See _SWUAfterTokensCreated.
+    _SWUAfterTokensCreated();
     _SWUMaybeOfferJerjerrodDouble($player, $tokenID, 1, $ready);
     return $uid;
 }
@@ -4056,8 +4063,20 @@ function SWUCreateUnitTokens(int $player, string $tokenID, int $count, bool $rea
         // or the doubled tokens arrive bare (TS26_14 Yoda's Sentinel, TS26_55 Jedi General's Experience).
         if ($upgradeToken !== '' && $mz !== null) _SWUApplyTokenRider($player, $mz, $upgradeToken);
     }
+    _SWUAfterTokensCreated();   // after EVERY token and rider has landed — see below
     _SWUMaybeOfferJerjerrodDouble($player, $tokenID, $count, $ready, $turnEffect, 'unit', $upgradeToken);
     return $uids;
+}
+
+// The "no remaining HP" state check for CREATED token units. Played, smuggled and stolen units all run
+// SWUCheckShrinkDefeats as they arrive; creation never did, so a token made under a continuous shrink —
+// an opponent's SHD_037 Snoke (-2/-2), or its own controller's HMW_065 Clone of the Zillo Beast — sat in
+// play at 0 HP. Run ONCE per create instruction, AFTER the riders ("create a token and give it
+// Experience"), mirroring the play path, whose entry grants land before its sweep. A per-token sweep inside
+// _SWUCreateOneToken would kill a token before a +HP rider could save it. Every creator of token units goes
+// through SWUCreateUnitToken / SWUCreateUnitTokens / ASH_094 Jerjerrod's doubling, which all call this.
+function _SWUAfterTokensCreated(): void {
+    SWUCheckShrinkDefeats();
 }
 
 // Apply a persistent token-upgrade rider to a freshly created token. Kept in one place so the immediate
@@ -26659,6 +26678,18 @@ function SWUIsTeamGame(): bool {
 function SWUTeamOf(int $seat): int {
     if (!SWUIsTeamGame()) return $seat;      // no teams -> everyone is their own team
     return $seat % 2;                        // 1,3 -> 1 (Red);  2,4 -> 0 (Blue)
+}
+
+// Is $actor an ENEMY of $seat? — the reading behind every "… by ENEMY card abilities" protection
+// (SWUAvoidsDefeat & co.). Enemy = the OPPOSING team: a teammate is friendly, never an enemy, so a
+// teammate's card ability is not blocked by "can't be defeated by enemy card abilities". Outside a team
+// game SWUTeamOf is the seat itself, so this is exactly $actor !== $seat — Premier and Twin Suns unchanged.
+// ⚠ Adopted so far ONLY at the DEFEAT gate (SWUDefeatUnit, 2026-09-15, found via HMW_099 Always a Bigger
+// Fish + IBH_095). The capture / bounce / exhaust / take-control / ability-damage gates still compare seat
+// identity and carry the same Team Suns defect — an unswept family, see hmw-implement.md.
+function SWUIsEnemySeat(int $actor, int $seat): bool {
+    if ($actor <= 0 || $seat <= 0 || $actor === $seat) return false;
+    return SWUTeamOf($actor) !== SWUTeamOf($seat);
 }
 
 function SWUTeammatesOf(int $player): array {
