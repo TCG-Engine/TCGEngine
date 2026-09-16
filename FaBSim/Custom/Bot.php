@@ -9,6 +9,7 @@ function BotControllerPendingPlayerForClient(){
     $p=intval(GetPriorityPlayer());return in_array($p,$bots,true)?$p:0;
 }
 function FaBBotKeepValue(object $o,int $p): float {
+    if(FaBIsMaxxBot($p))return FaBMaxxKeepValue($o,$p);
     if(FaBIsUzuriBot($p))return FaBUzuriKeepValue($o,$p);
     if(FaBIsArakniBot($p))return FaBArakniKeepValue($o,$p);
     if(FaBIsDromaiBot($p))return FaBDromaiKeepValue($o,$p);
@@ -26,6 +27,7 @@ function FaBBotKeepValue(object $o,int $p): float {
     return $v;
 }
 function FaBBotChoice(int $p,object $d): ?string {
+    if(FaBIsMaxxBot($p)){$answer=FaBMaxxChoice($p,$d);if($answer!==null)return $answer;}
     if(FaBIsUzuriBot($p)){$answer=FaBUzuriChoice($p,$d);if($answer!==null)return $answer;}
     if(FaBIsArakniBot($p)){$answer=FaBArakniChoice($p,$d);if($answer!==null)return $answer;}
     if(FaBIsDromaiBot($p)){$answer=FaBDromaiChoice($p,$d);if($answer!==null)return $answer;}
@@ -38,6 +40,11 @@ function FaBBotChoice(int $p,object $d): ?string {
         return implode('&',array_slice($refs,0,intval($parts[1]??0)));
     }
     if($d->Type==='MZREARRANGE')return $d->Param;
+    if($d->Type==='NAMECARD')return 'Crouching Tiger';
+    if($d->Type==='NUMBERCHOOSE'){
+        $bounds=explode('|',$d->Param);
+        return (string)intval($bounds[$d->Tooltip==='Choose_number_of_boosts'?1:0]??0);
+    }
     if($d->Type==='MZMODAL'){
         if(FaBIsProfessorBot($p)&&str_contains($d->Tooltip,'Banish_top_card_to_boost'))return FaBProfessorBoostChoice($p);
         $parts=explode('|',$d->Param,3);$n=intval($parts[0]);
@@ -77,9 +84,10 @@ function FaBBotAct(int $p): bool {
             $lethal=$remaining>=intval(GetHealth($p));
             $preserveEquipment=in_array($o->CardID,['fyendals_spring_tunic','mask_of_momentum'],true)&&!$lethal;
             if(FaBIsDromaiBot($p))$candidates[]=[FaBDromaiBlockScore($p,$o,$z),'BLOCK',$ref];
+            if(FaBIsMaxxBot($p))$candidates[]=[FaBMaxxBlockScore($p,$o,$z),'BLOCK',$ref];
             if(FaBIsUzuriBot($p))$candidates[]=[FaBUzuriBlockScore($p,$o,$z),'BLOCK',$ref];
             if(FaBIsArakniBot($p))$candidates[]=[FaBArakniBlockScore($p,$o,$z),'BLOCK',$ref];
-            if(!FaBIsUzuriBot($p)&&!FaBIsArakniBot($p)&&!FaBIsDromaiBot($p)&&!$preserveEquipment&&$remaining>0&&$defense>0&&(intval(GetHealth($p))<9||$remaining>=4||$z==='Equipment'))$candidates[]=[min($remaining,$defense)*3-$keep-($z==='Equipment'?2:0),'BLOCK',$ref];
+            if(!FaBIsMaxxBot($p)&&!FaBIsUzuriBot($p)&&!FaBIsArakniBot($p)&&!FaBIsDromaiBot($p)&&!$preserveEquipment&&$remaining>0&&$defense>0&&(intval(GetHealth($p))<9||$remaining>=4||$z==='Equipment'))$candidates[]=[min($remaining,$defense)*3-$keep-($z==='Equipment'?2:0),'BLOCK',$ref];
         }
         if(CanPlayCard($p,$ref)){
             $v=$keep+2;
@@ -99,6 +107,7 @@ function FaBBotAct(int $p): bool {
             if(FaBIsPrismBot($p))$v=FaBPrismPlayScore($p,$o,$z);
             if(FaBIsLeviaBot($p))$v=FaBLeviaPlayScore($p,$o,$z);
             if(FaBIsLexiBot($p))$v=FaBLexiPlayScore($p,$o,$z);
+            if(FaBIsMaxxBot($p))$v=FaBMaxxPlayScore($p,$o,$z);
             if(FaBIsUzuriBot($p))$v=FaBUzuriPlayScore($p,$o,$z);
             if(FaBIsArakniBot($p))$v=FaBArakniPlayScore($p,$o,$z);
             if(FaBIsDromaiBot($p))$v=FaBDromaiPlayScore($p,$o,$z);
@@ -117,6 +126,7 @@ function FaBBotAct(int $p): bool {
             if(FaBIsPrismBot($p))$v=FaBPrismAbilityScore($p,$o);
             if(FaBIsLeviaBot($p))$v=FaBLeviaAbilityScore($p,$o);
             if(FaBIsLexiBot($p))$v=FaBLexiAbilityScore($p,$o);
+            if(FaBIsMaxxBot($p))$v=FaBMaxxAbilityScore($p,$o);
             if(FaBIsUzuriBot($p))$v=FaBUzuriAbilityScore($p,$o);
             if(FaBIsArakniBot($p))$v=FaBArakniAbilityScore($p,$o);
             if(FaBIsDromaiBot($p))$v=FaBDromaiAbilityScore($p,$o);

@@ -42,18 +42,22 @@ function FaBMONAbilityLegal(int $p,array $f): bool {
 function FaBMONArenaAttackSpec(int $p,array $f): ?array {
     if($f['player']!==$p||$f['zone']!=='Arena'||HasNoAbilities($f['object']))return null;$o=$f['object'];
     if(FaBUPRFrozen($o)||FaBUPRLocked($p))return null;
+    if(($mstSpec=FaBMSTCosmo($p,$o))!==null)return $mstSpec;
     if(FaBHasType($o,'Dragon')&&!FaBMONWeapon($p,'storm_of_sandikai'))return null;
     if(in_array('UPR_GHOST',(array)$o->TurnEffects,true))return ['cost'=>3,'power'=>FaBUPRHealth($o),'iris'=>false,'aura'=>false];
     if($o->CardID==='suraya_archangel_of_knowledge')return ['cost'=>2,'power'=>4,'iris'=>false,'aura'=>false];
+    if(FaBHasType($o,'Angel'))return ['cost'=>2,'power'=>intval(CardPower($o->CardID)),'iris'=>false,'aura'=>false];
+    if($o->CardID==='cintari_sellsword'){if(!FaBHVYCount($p,'WEAPON_ATTACKED'))return null;return ['cost'=>1,'power'=>intval(CardPower($o->CardID)),'iris'=>false,'aura'=>false];}
     if(FaBHasType($o,'Ally'))return ['cost'=>0,'power'=>intval(CardPower($o->CardID)),'iris'=>false,'aura'=>false];
     if(!FaBHasType($o,'Aura')||!FaBHasType($o,'Illusionist'))return null;
     if(FaBMONWeapon($p,'luminaris'))return ['cost'=>0,'power'=>1,'iris'=>false,'aura'=>true];
-    if(FaBMONWeapon($p,'iris_of_reality'))return ['cost'=>3,'power'=>4,'iris'=>true,'aura'=>true];
+    if(FaBMONWeapon($p,'reality_refractor'))return ['cost'=>max(0,2-FaBMSTShieldDiscount($p,$o)),'power'=>5,'iris'=>false,'aura'=>true];
+    if(FaBMONWeapon($p,'iris_of_reality'))return ['cost'=>max(0,3-FaBMSTShieldDiscount($p,$o)),'power'=>4,'iris'=>true,'aura'=>true];
     return null;
 }
 function FaBMONArenaCanAttack(int $p,array $f): bool {
     $spec=FaBMONArenaAttackSpec($p,$f);$s=FaBGetState();
-    return $spec!==null&&$p===intval(GetTurnPlayer())&&FaBCRUWeaponReady($f['object'])&&intval(GetActionPoints($p))>0&&in_array($s['window'],['ACTION','RESOLUTION'],true)&&FaBAvailablePitch($p)>=intval($spec['cost']);
+    return $spec!==null&&FaBDTDRestrictions($p,$f['object'],true,true)&&$p===intval(GetTurnPlayer())&&FaBCRUWeaponReady($f['object'])&&intval(GetActionPoints($p))>0&&in_array($s['window'],['ACTION','RESOLUTION'],true)&&FaBAvailablePitch($p)>=intval($spec['cost']);
 }
 function FaBMONArenaAttack(int $p,array $f): bool {
     if(!FaBMONArenaCanAttack($p,$f))return false;$spec=FaBMONArenaAttackSpec($p,$f);$uid=intval($f['object']->UniqueID);

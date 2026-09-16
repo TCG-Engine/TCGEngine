@@ -27,7 +27,8 @@ function FaBWTRAbilitySpec(string $id): ?array {
 }
 
 function FaBWTRAbilityCost(int $player, array $spec): int {
-    $cost=$spec['cost']+FaBELETax($player)-FaBEVRCount($player,'IGNITION');
+    if(FaBMSTChiCost($spec['cardID']??''))return FaBMSTChiCost($spec['cardID'])+max(0,FaBELETax($player)-FaBEVRCount($player,'IGNITION'));
+    $cost=$spec['cost']+FaBHNTAbilityCost($player,$spec)-(($spec['cardID']??'')==='volzar_the_lightning_rod'&&FaBROSSigils($player)!==''?1:0)+FaBHVYAbilityCost($player,$spec)+FaBEVOAbilityCost($player,$spec)+FaBDTDAbilityCost($player,$spec)+FaBELETax($player)-FaBEVRCount($player,'IGNITION');
     if(FaBHasType($spec['cardID']??'','Staff'))$cost-=FaBUPRCount($player,'STAFF_DISCOUNT');
     if(in_array($spec['cardID']??'',['fai','fai_rising_rebellion'],true))$cost-=FaBFaiChainCount($player);
     if($spec['timing']==='ACTION')foreach(FaBWTREffects($player)as$effect)if(($effect['type']??'')==='FIRST_ACTION_COST')$cost+=intval($effect['amount']);
@@ -36,6 +37,7 @@ function FaBWTRAbilityCost(int $player, array $spec): int {
 
 function FaBWTRAbilityLegal(int $player, array $found, array $spec): bool {
     $obj=$found['object'];$state=FaBGetState();
+    if(!FaBDTDRestrictions($player,$obj,$spec['timing']==='ACTION',false))return false;
     if(FaBUPRLocked($player)||FaBUPRFrozen($obj))return false;
     $inEquipment=$found['zone']==='Equipment'||($found['zone']==='CombatChain'&&($obj->FromZone??'')==='Equipment');
     if(!$inEquipment&&!in_array($found['zone'],['Hero','Arena'],true))return false;
@@ -61,6 +63,7 @@ function FaBWTRAbilityLegal(int $player, array $found, array $spec): bool {
 
 function FaBWTRAnnounceAbility(int $player, array $found, array $spec): bool {
     $obj=$found['object'];$state=FaBGetState();
+    if(!FaBDTDRestrictions($player,$obj,$spec['timing']==='ACTION',false))return false;
     if(FaBUPRLocked($player)||FaBUPRFrozen($obj))return false;
     $stack=AddStack(CardID:$obj->CardID,Controller:$player,Kind:'ABILITY',SourceZone:$found['zone'],SourceUniqueID:intval($obj->UniqueID),
         Params:['returnWindow'=>$state['window'],'returnCombatStep'=>$state['combatStep'],'attackUID'=>intval($state['attackUID'])]);
@@ -114,5 +117,5 @@ function FaBWTRResolveAbility(int $player, object $stack): void {
             if($roll<=4&&FaBWTRMayGoAgain($player))AddActionPoints($player,intval(GetActionPoints($player))+1);
             break;
     }
-    if($spec['goAgain']&&FaBWTRMayGoAgain($player))AddActionPoints($player,intval(GetActionPoints($player))+1);
+    if($spec['goAgain']&&FaBWTRMayGoAgain($player)){AddActionPoints($player,intval(GetActionPoints($player))+1);FaBROSGo($player,intval($stack->SourceUniqueID));}
 }

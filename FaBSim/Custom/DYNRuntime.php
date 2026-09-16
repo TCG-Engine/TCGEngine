@@ -22,21 +22,24 @@ function FaBDYNAbilityLegal(int $p,array $f,array $spec): bool {
  if($spec['timing']==='ACTION'&&FaBDYNCount($p,'IMMOBILE')&&count(FaBARCPlayed($p,true))>=1)return false;
  return true;
 }
-function FaBDYNWeaponCost(string $id): ?int {return ['jubeel_spellbane'=>1,'merciless_battleaxe'=>3,'quicksilver_dagger'=>1,'spiders_bite'=>2,'nerve_scalpel'=>2,'orbitoclast'=>2,'scale_peeler'=>2,'rok'=>3,'hanabi_blaster'=>0,'nitro_mechanoid'=>0][$id]??null;}
+function FaBDYNWeaponCost(string $id): ?int {return ['hunters_klaive'=>2,'mark_of_the_huntsman'=>2,'graphene_chelicera'=>1,'kunai_of_retribution'=>1,'obsidian_fire_vein'=>1,'star_fall'=>1,'rotwood_reaper'=>2,'beckoning_mistblade'=>2,'tiger_taming_khakkara'=>2,'ball_breaker'=>2,'high_riser'=>3,'hot_streak'=>1,'millers_grindstone'=>3,'mini_meataxe'=>2,'parry_blade'=>1,'graven_call'=>2,'bank_breaker'=>1,'banksy'=>1,'symbiosis_shot'=>0,'teklo_leveler'=>3,'teklovossen_the_mechropotent'=>3,'beaming_blade'=>2,'hell_hammer'=>2,'flail_of_agony'=>0,'decimator_great_axe'=>3,'rugged_roller'=>1,'jubeel_spellbane'=>1,'merciless_battleaxe'=>3,'quicksilver_dagger'=>1,'spiders_bite'=>2,'nerve_scalpel'=>2,'orbitoclast'=>2,'scale_peeler'=>2,'rok'=>3,'hanabi_blaster'=>0,'nitro_mechanoid'=>0][$id]??null;}
 function FaBDYNWeaponCanAttack(int $p,array $f): bool {
- $o=$f['object'];$cost=FaBDYNWeaponCost($o->CardID);$s=FaBGetState();if($cost===null||$f['player']!==$p||!in_array($f['zone'],['Weapons','Equipment'],true)||HasNoAbilities($o)||FaBUPRFrozen($o)||FaBUPRLocked($p))return false;
+ $o=$f['object'];$cost=FaBDYNWeaponCost($o->CardID);$s=FaBGetState();if($cost===null||$f['player']!==$p||!in_array($f['zone'],['Weapons','Equipment','Hero'],true)||HasNoAbilities($o)||FaBUPRFrozen($o)||FaBUPRLocked($p))return false;
+ if(!FaBHNTWeaponLegal($p)||!FaBEVOWeaponLegal($p,$o)||!FaBDTDRestrictions($p,$o,true,true))return false;
+ if($o->CardID==='rugged_roller'&&!FaBDTDCount($p,'ROLL_SIX'))return false;
+ if($o->CardID==='flail_of_agony'&&intval(GetHealth($p))<1)return false;
  if($o->CardID==='rok'&&FaBHandCount($p)>0)return false;
  if($o->CardID==='hanabi_blaster'&&intval(FaBObjectCounters($o)['STEAM']??0)<2)return false;
  if($o->CardID==='nitro_mechanoid'&&!count(FaBObjectCounters($o)['DYN_MATERIAL']??[]))return false;
- return $p===intval(GetTurnPlayer())&&($o->CardID==='nitro_mechanoid'||FaBCRUWeaponReady($o))&&intval(GetActionPoints($p))>0&&in_array($s['window'],['ACTION','RESOLUTION'],true)&&FaBAvailablePitch($p)>=FaBWTRAbilityCost($p,['timing'=>'ACTION','cost'=>$cost]);
+ return $p===intval(GetTurnPlayer())&&(in_array($o->CardID,['nitro_mechanoid','symbiosis_shot','teklovossen_the_mechropotent'],true)||FaBCRUWeaponReady($o))&&intval(GetActionPoints($p))>0&&in_array($s['window'],['ACTION','RESOLUTION'],true)&&FaBAvailablePitch($p)>=FaBWTRAbilityCost($p,['timing'=>'ACTION','cost'=>$cost,'cardID'=>$o->CardID,'sourceUID'=>intval($o->UniqueID)]);
 }
 function FaBDYNWeaponAttack(int $p,array $f): bool {
  if(!FaBDYNWeaponCanAttack($p,$f))return false;$o=$f['object'];$uid=intval($o->UniqueID);$target=FaBClaimOrRequestAttackTarget($p,$uid,'ACTIVATE');if($target===null)return true;if($target===false)return false;
  $s=FaBGetState();$stack=AddStack(CardID:$o->CardID,Controller:$p,Kind:'ATTACK',SourceZone:$f['zone'],SourceUniqueID:$uid,Params:['attackTarget'=>$target]);
- $cost=FaBWTRAbilityCost($p,['timing'=>'ACTION','cost'=>FaBDYNWeaponCost($o->CardID)]);
- if($o->CardID==='nitro_mechanoid'){FaBSetObjectCounter($stack,'MON_ARENA_ATTACK',1);FaBSetObjectCounter($stack,'MON_SOURCE_UID',$uid);}
+ $cost=FaBWTRAbilityCost($p,['timing'=>'ACTION','cost'=>FaBDYNWeaponCost($o->CardID),'cardID'=>$o->CardID,'sourceUID'=>intval($o->UniqueID),'attackTarget'=>$target]);
+ if(in_array($o->CardID,['nitro_mechanoid','teklovossen_the_mechropotent'],true)){FaBSetObjectCounter($stack,'MON_ARENA_ATTACK',1);FaBSetObjectCounter($stack,'MON_SOURCE_UID',$uid);}
  $s['pendingPayment']=['player'=>$p,'uid'=>intval($stack->UniqueID),'weaponUID'=>$uid,'cost'=>$cost,'fromZone'=>$f['zone'],'kind'=>'ATTACK','isWeaponAttack'=>true,'returnWindow'=>$s['window'],'returnCombatStep'=>$s['combatStep']];$s['window']='PITCH';FaBSetState($s);SetConsecutivePasses(0);
- if($o->CardID==='nitro_mechanoid'){FaBRunSourceMacro('PrepareCard',$p,$o->CardID,['mzID'=>FaBFindUID(intval($stack->UniqueID))['mzID']]);return true;}
+ if(in_array($o->CardID,['nitro_mechanoid','teklovossen_the_mechropotent'],true)){FaBRunSourceMacro('PrepareCard',$p,$o->CardID,['mzID'=>FaBFindUID(intval($stack->UniqueID))['mzID']]);return true;}
  return FaBTryCompletePayment();
 }
 function FaBDYNMaterialOptions(int $stackUID): string {$f=FaBFindUID($stackUID);$source=$f?FaBFindUID(intval($f['object']->SourceUniqueID)):null;return $source?implode('&',array_map(fn($id)=>str_replace(' ','_',CardName($id)),FaBObjectCounters($source['object'])['DYN_MATERIAL']??[])):'';}
@@ -59,7 +62,7 @@ function FaBDYNBlockLegal(int $p,array $f): bool {
  if(FaBHasType($f['object'],'Action')&&FaBDYNOverpower($a['object'],$s))foreach(FaBChoiceRefs($p,'CombatChain') as $r){$b=FaBIdentityFromMZ($r)['object'];if(intval($b->ChainLink)===intval($s['chainLink'])&&in_array($b->Role,['DEFENSE','DEFENSE_REACTION'],true)&&FaBHasType($b,'Action'))return false;}
  return true;
 }
-function FaBDYNOverpower(object $o,array $s): bool {return FaBHasKeyword($o,'Overpower')||in_array('DYN_OVERPOWER',(array)$o->TurnEffects,true)||($o->CardID==='merciless_battleaxe'&&FaBAttackPower($s)>2*intval(CardPower($o->CardID)));}
+function FaBDYNOverpower(object $o,array $s): bool {return FaBHVYOverpower(intval($s['attacker']),$o,$s)||FaBEVOOverpower(intval($s['attacker']),$o,$s)||FaBHasKeyword($o,'Overpower')||in_array('OVERPOWER',(array)$o->TurnEffects,true)||(FaBWTRBase($o->CardID)==='wall_breaker'&&FaBMONCount(intval($s['attacker']),'BANISHED_SIX'))||in_array('DYN_OVERPOWER',(array)$o->TurnEffects,true)||($o->CardID==='merciless_battleaxe'&&FaBAttackPower($s)>2*intval(CardPower($o->CardID)));}
 function FaBDYNPlayed(int $p,object $o,string $from): void {
  $b=FaBWTRBase($o->CardID);$uid=intval($o->UniqueID);$attack=FaBWTRIsAttackAction($o)||FaBWTRIsWeapon($o);
  if($attack){$left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='DYN_NEXT'&&FaBDYNMatch($o,$e['kind'])){if(intval($e['amount']))FaBTagUID($uid,'WTR_POWER:'.intval($e['amount']));foreach($e['tags'] as $tag)if($tag!=='DYN_DEAD_EYE'||FaBDYNAimed($uid))FaBTagUID($uid,$tag);}else $left[]=$e;}FaBWTRSetEffects($p,$left);}
@@ -82,9 +85,9 @@ function FaBDYNPower(int $p,object $o): int {
  if($b==='long_shot'&&FaBDYNAimed(intval($o->UniqueID)))$n+=2;
  $piercing=0;foreach((array)$o->TurnEffects as $t)if(str_starts_with($t,'DYN_PIERCING:'))$piercing+=intval(substr($t,13));
  if(FaBDYNMatch($o,'BLADE'))$piercing+=FaBDYNCount($p,'FORGE');
- if($o->CardID==='spiders_bite'||($b==='drill_shot'&&FaBDYNAimed(intval($o->UniqueID))))++$piercing;
+ if(in_array($o->CardID,['spiders_bite','graven_call','hunters_klaive'],true)||($b==='drill_shot'&&FaBDYNAimed(intval($o->UniqueID))))++$piercing;
  if($piercing&&FaBDYNDefendingEquipment()!=='')$n+=$piercing;
- if($o->CardID==='nitro_mechanoid'){$f=FaBFindUID(intval(FaBObjectCounters($o)['WEAPON_UID']??0));if($f)$n+=intval(FaBObjectCounters($f['object'])['DYN_MATERIAL_POWER']??0);}
+ if(in_array($o->CardID,['nitro_mechanoid','teklovossen_the_mechropotent'],true)){$f=FaBFindUID(intval(FaBObjectCounters($o)['WEAPON_UID']??0));if($f)$n+=intval(FaBObjectCounters($f['object'])['DYN_MATERIAL_POWER']??0);}
  return $n;
 }
 function FaBDYNDefense(int $p,object $o): int {
@@ -123,7 +126,7 @@ function FaBDYNBoost(int $p,int $uid,int $banishedUID): void {
  if(FaBDYNCount($p,'BIOS_ITEM')&&FaBHasType($o,'Mechanologist')&&FaBHasType($o,'Item')&&intval(CardCost($o->CardID))<=2){FaBDYNClear($p,'BIOS_ITEM');$o=FaBMoveUID($banishedUID,'Arena',$p);if($o)FaBARCEnterItem($p,$o);}
 }
 function FaBDYNEnterItem(int $p,object $o): void {
- $b=FaBWTRBase($o->CardID);if($b==='hyper_driver')FaBSetObjectCounter($o,'STEAM',max(1,4-intval(CardPitch($o->CardID))));
+ $b=FaBWTRBase($o->CardID);if($b==='hyper_driver')FaBSetObjectCounter($o,'STEAM',intval(FaBObjectCounters($o)['STEAM']??0)+max(1,4-intval(CardPitch($o->CardID))));
  if($b==='plasma_mainline')FaBSetObjectCounter($o,'STEAM',5);
  if(FaBHasType($o,'Mechanologist')&&intval(CardCost($o->CardID))<=2)foreach(FaBMONArena($p,'plasma_mainline') as $r)FaBRunSourceMacro('ResolveAbility',$p,'plasma_mainline_red',['mzID'=>$r,'dynItemUID'=>intval($o->UniqueID)]);
 }
@@ -136,8 +139,9 @@ function FaBDYNRandomDiscard(int $p,int $uid,string $id): void {
  }
 }
 function FaBDYNWard(int $p,int $amount,bool $unpreventable=false): int {
- while($amount>0){$ward=null;$value=0;foreach(array_merge(FaBChoiceRefs($p,'Arena'),FaBChoiceRefs($p,'Equipment')) as $r){$f=FaBIdentityFromMZ($r);$o=$f['object'];if(!HasNoAbilities($o)&&preg_match('/\bWard (\d+)/i',(string)CardFunctional_text_plain($o->CardID),$m)){$ward=$o;$value=intval($m[1]);break;}}
-  if(!$ward||$value<=0)break;if(!$unpreventable)$amount=max(0,$amount-$value);FaBMONDestroy(intval($ward->UniqueID));
+ while($amount>0){$ward=null;$value=0;foreach(array_merge(FaBChoiceRefs($p,'Arena'),FaBChoiceRefs($p,'Equipment')) as $r){$f=FaBIdentityFromMZ($r);$o=$f['object'];if(FaBWTRBase($o->CardID)==='mini_forcefield'&&!HasNoAbilities($o)){$ward=$o;$value=intval(FaBObjectCounters($o)['STEAM']??0);if($value>0)break;}if(FaBMSTWardActive($o)){$ward=$o;$value=FaBMSTWard($p,$o);break;}}
+  if(!$ward){foreach(FaBCRUEquipment($p,'empyrean_rapture') as $r){$o=FaBIdentityFromMZ($r)['object'];if(in_array('DTD_WARD:1',(array)$o->TurnEffects,true)){$ward=$o;$value=1;break;}}}
+  if(!$ward)break;if(!$unpreventable)$amount=max(0,$amount-$value);FaBMONDestroy(intval($ward->UniqueID));
  }return $amount;
 }
 function FaBDYNDestroyed(int $p,object $o): void {

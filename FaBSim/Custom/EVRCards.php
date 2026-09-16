@@ -7,6 +7,7 @@ function FaBEVRNext(int $p,string $kind,int $n): void {FaBEVRAdd($p,'NEXT_'.$kin
 function FaBEVRCreate(int $p,string $id,int $n): void {if(FaBSeatIsLive($p))for($i=0;$i<$n;++$i)FaBWTRCreateArena($p,$id);}
 function FaBEVRRoll(int $p): int {
     $roll=EngineRandomInt(1,6);if(FaBEVRCount($p,'READY'))$roll=max($roll,EngineRandomInt(1,6));
+    if($roll===6)FaBDTDAdd($p,'ROLL_SIX');
     if($roll>=4)FaBEVRAdd($p,'HIGH_ROLL');
     foreach(FaBCRUEquipment($p,'skull_crushers') as $r){if($roll===1)FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));elseif($roll>=5)FaBEVRAdd($p,'CRUSHERS');}
     return $roll;

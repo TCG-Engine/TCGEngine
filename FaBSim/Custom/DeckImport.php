@@ -23,7 +23,7 @@ function FaBUPFDeckErrors(array $deck): array {
         $types = (array)CardTypes($id);
         if(($deck['hero']??'')==='emperor_dracai_of_aesir'&&!in_array('Equipment',$types,true)&&!in_array('Weapon',$types,true)&&intval(CardPitch($id))!==1)$errors[]='Emperor requires red cards in the deck.';
         if(($deck['hero']??'')==='shiyana_diamond_gemini'&&str_contains((string)CardFunctional_text_plain($id),'Specialization'))continue;
-        foreach(['Rhinar','Bravo','Katsu','Dorinthea','Dash','Azalea','Viserai','Kano','Prism','Boltyn','Levia','Chane','Oldhim','Lexi','Briar','Iyslander','Arakni','Uzuri','Riptide','Benji']as$heroName){
+        foreach(['Rhinar','Bravo','Katsu','Dorinthea','Dash','Azalea','Viserai','Kano','Prism','Boltyn','Levia','Chane','Oldhim','Lexi','Briar','Iyslander','Arakni','Uzuri','Riptide','Benji','Vynnset','Levia','Maxx','Teklovossen','Kayo','Kassai','Betsy','Victor','Olympia']as$heroName){
             if(str_contains((string)CardFunctional_text_plain($id),$heroName.' Specialization') && !str_starts_with((string)CardName($deck['hero']??''),$heroName))$errors[]=CardName($id).' requires '.$heroName.'.';
         }
         if(str_contains((string)CardFunctional_text_plain($id),'Dromai or Fai Specialization')&&!preg_match('/^(Dromai|Fai)/',(string)CardName($deck['hero']??'')))$errors[]=CardName($id).' requires Dromai or Fai.';
@@ -32,14 +32,17 @@ function FaBUPFDeckErrors(array $deck): array {
         if($cardClasses&&!array_intersect($cardClasses,(array)CardTypes($deck['hero']??'')))$errors[]=CardName($id).' does not match your hero class.';
         $heroText=(string)CardFunctional_text_plain($deck['hero'] ?? '');
         foreach(['Earth','Ice','Lightning'] as $element)if(in_array($element,$types,true)&&stripos($heroText,$element)===false)$errors[]=CardName($id).' requires '.$element.' essence.';
-        foreach (['Light','Shadow','Elemental','Draconic'] as $class) {
+        foreach (['Light','Shadow','Elemental','Draconic','Mystic'] as $class) {
             if (in_array($class, $types, true) && !in_array($class, (array)CardTypes($deck['hero'] ?? ''), true)) $errors[] = CardName($id) . ' does not match your hero class.';
         }
     }
-    foreach($deck['mainDeck']??[]as$id)if(array_intersect((array)CardTypes($id),['Hero','Weapon','Token','Ally','Material'])||(in_array('Equipment',(array)CardTypes($id),true)&&!in_array('Evo',(array)CardTypes($id),true)))$errors[]=CardName($id).' cannot start in your deck.';
+    foreach($deck['mainDeck']??[]as$id)if(array_intersect((array)CardTypes($id),['Hero','Demi-Hero','Weapon','Token','Ally','Material','Macro'])||(in_array('Equipment',(array)CardTypes($id),true)&&!in_array('Evo',(array)CardTypes($id),true)))$errors[]=CardName($id).' cannot start in your deck.';
     foreach($deck['equipment']??[] as $id)if(in_array('Evo',(array)CardTypes($id),true))$errors[]='Evos must start in the deck, not equipped.';
     $hands = 0;
     foreach ($deck['weapons'] ?? [] as $id) $hands += in_array('2H', (array)CardTypes($id), true) ? 2 : 1;
+    $weaponZones=in_array($deck['hero']??'',['kayo','kayo_armed_and_dangerous'],true)?1:2;
+    $offhands=count(array_filter($deck['equipment']??[],fn($id)=>in_array('Off-Hand',(array)CardTypes($id),true)));
+    if($hands+$offhands>$weaponZones)$errors[]='Starting weapons and off-hand exceed your hero weapon zones.';
     if ($hands > 2) $errors[] = 'Your starting weapons require more than two hands.';
     $quivers=array_filter(array_merge($deck['weapons']??[],$deck['equipment']??[]),fn($id)=>in_array('Quiver',(array)CardTypes($id),true));
     if(count($quivers)>1)$errors[]='Choose one starting quiver.';
@@ -267,6 +270,7 @@ function FaBNormalizeTalisharDeckPayload($payload) {
 
 function FaBFinalizeResolvedDeck($result) {
     foreach(array_merge($result['mainDeck']??[],$result['inventory']??[]) as $id){
+        if($id==='inner_chi_blue'){$result['success']=false;$result['message']='Inner Chi is a transformed card. Use its front face in your deck.';return $result;}
         if($id==='dragons_of_legend'){$result['success']=false;$result['message']='Replace Dragons of Legend with the invocation card it represents in your deck list.';return $result;}
         if(in_array('Mentor',(array)CardTypes($id),true)&&!in_array('Young',(array)CardTypes($result['hero']??''),true)){
             $result['success']=false;$result['message']='Mentor cards require a young hero.';return $result;

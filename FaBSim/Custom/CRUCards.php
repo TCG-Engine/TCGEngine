@@ -28,7 +28,8 @@ function FaBCRUGainLife(int $p,int $n): void {
     if(!FaBSeatIsLive($p)||$n<=0||(FaBMONCount($p,'NO_HEAL')&&$p===intval(GetTurnPlayer())&&GetCurrentPhase()==='MAIN'))return;
     $highest=true;foreach(FaBOpponents($p) as $seat)if(intval(GetHealth($seat))>=intval(GetHealth($p)))$highest=false;
     if($highest)foreach(FaBLiveSeats() as $seat)foreach(FaBChoiceRefs($seat,'Weapons',['base'=>'reaping_blade']) as $ref)if(!HasNoAbilities(FaBIdentityFromMZ($ref)['object']))return;
-    AddHealth($p,intval(GetHealth($p))+$n);
+    foreach(FaBLiveSeats() as $seat)if(FaBDTDCount($seat,'POISON')){FaBDTDClear($seat,'POISON');FaBARCLoseLife($p,$n,$seat);return;}
+    AddHealth($p,intval(GetHealth($p))+$n);FaBROSLife($p,$n);
 }
 function FaBCRUKavdaen(): void {
     $seats=FaBLiveSeats();if(count($seats)<2)return;
@@ -184,6 +185,7 @@ function FaBCRUDefended(int $p,object $block): void {
     if($o->CardID==='zephyr_needle'&&FaBCurrentDefense($block,$p)>FaBAttackPower($s)&&$weapon)FaBWTRTag($weapon['object'],'CRU_BREAK_CHAIN');
 }
 function FaBCRUHitSuppressed(object $o,bool $all=false): bool {
+    foreach(FaBMSTAttackVictims() as $v)if(FaBMSTCount($v,'NO_HIT'))return true;
     if(in_array('CRU_NO_HIT',(array)$o->TurnEffects,true))return true;
     if(!$all&&FaBWTRIsAttackAction($o))foreach(FaBLiveSeats() as $p)if(FaBChoiceRefs($p,'Arena',['base'=>'stamp_authority']))return true;
     return false;
@@ -258,6 +260,7 @@ function FaBCRURestoreOther(int $p,int $target,array $uids,string $order): void 
 }
 
 function FaBCRULegacyRoll(int $p,string $id,int $roll): void {
+    if($roll===6)FaBDTDAdd($p,'ROLL_SIX');
     if($id==='scabskin_leathers')AddActionPoints($p,intval(GetActionPoints($p))+intdiv($roll,2));
     elseif($id==='barkbone_strapping')AddResources($p,intval(GetResources($p))+intdiv($roll,2));
     elseif($id==='bone_head_barrier_yellow')FaBWTRAddEffect($p,'PREVENT_DAMAGE',$roll);
@@ -269,11 +272,11 @@ function FaBCRULegacyRoll(int $p,string $id,int $roll): void {
     }
 }
 
-function FaBCRUWeaponReady(object $w): bool { return (intval(FaBObjectCounters($w)['EVR_EXTRA_ATTACK_TURN']??-1)===intval(GetTurnNumber())&&intval(FaBObjectCounters($w)['WEAPON_ATTACKS']??0)<2)||intval($w->Status??2)===2||in_array('CRU_EXTRA_ATTACK',(array)$w->TurnEffects,true); }
+function FaBCRUWeaponReady(object $w): bool { if($w->CardID==='bank_breaker')return FaBAMXReady($w)||in_array('CRU_EXTRA_ATTACK',(array)$w->TurnEffects,true); return (intval(FaBObjectCounters($w)['EVR_EXTRA_ATTACK_TURN']??-1)===intval(GetTurnNumber())&&intval(FaBObjectCounters($w)['WEAPON_ATTACKS']??0)<2)||intval($w->Status??2)===2||in_array('CRU_EXTRA_ATTACK',(array)$w->TurnEffects,true); }
 function FaBCRUUseWeapon(object $w): void {
     $turn=intval(GetTurnNumber());$count=intval(FaBObjectCounters($w)['WEAPON_ATTACK_TURN']??0)===$turn?intval(FaBObjectCounters($w)['WEAPON_ATTACKS']??0):0;
     FaBSetObjectCounter($w,'WEAPON_ATTACK_TURN',$turn);FaBSetObjectCounter($w,'WEAPON_ATTACKS',$count+1);
-    if(intval($w->Status??2)!==2){$tags=(array)$w->TurnEffects;$i=array_search('CRU_EXTRA_ATTACK',$tags,true);if($i!==false){unset($tags[$i]);$w->TurnEffects=array_values($tags);}}
+    if(intval($w->Status??2)!==2&&($w->CardID!=='bank_breaker'||$count>=2)){$tags=(array)$w->TurnEffects;$i=array_search('CRU_EXTRA_ATTACK',$tags,true);if($i!==false){unset($tags[$i]);$w->TurnEffects=array_values($tags);}}
     $w->Status=1;
 }
 

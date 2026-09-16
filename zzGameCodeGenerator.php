@@ -2423,7 +2423,11 @@ function AddGetNextTurnForPlayer($player) {
         $getNextTurn .= "  }\r\n";
       } else if($zone->Visibility == "Private") {
         //Single Private
-        if($rootName == "SWUSim" && $zone->Name == "Deck") {
+        if($rootName == "FaBSim" && $zone->Name == "Deck") {
+          $getNextTurn .= "  \$_dashTop = FaBEVODeckView(" . $player . ", \$canSeePrivatePlayer" . $player . ");\r\n";
+          $getNextTurn .= "  if(\$_dashTop !== null) { ComputeVirtualProperties(\$_dashTop); echo(ClientRenderedCard(\$_dashTop->CardID, counters:count(\$" . $zoneName . "), cardJSON:json_encode(\$_dashTop))); }\r\n";
+          $getNextTurn .= "  else echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . ")));\r\n";
+        } else if($rootName == "SWUSim" && $zone->Name == "Deck") {
           // "You may look at the top card of your deck at any time" (LAW_094 / HMW_205). The identity of
           // the top card is sent ONLY to the seat that holds the permission and only for its OWN deck —
           // never to the opponent and never to a spectator, so this cannot leak hidden information. The
@@ -2504,7 +2508,10 @@ function AddGetNextTurnForPlayer($player) {
           ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
           : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         }
-        if ($rootName === 'FaBSim' && $zone->Name === 'Banish') {
+        if ($rootName === 'FaBSim' && $zone->Name === 'Equipment') {
+          $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1 && !\$canSeePrivatePlayer" . $player . ") echo(ClientRenderedCard('CardBack'));\r\n";
+          $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        } else if ($rootName === 'FaBSim' && $zone->Name === 'Banish') {
           $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1) echo(ClientRenderedCard('CardBack'));\r\n";
           $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         } else {
@@ -4795,6 +4802,7 @@ function GenerateMacroCode() {
         foreach ($abilities as $ability) {
           $cardId = $ability['card_id'];
           $code = $ability['ability_code'];
+          if ($rootName === 'FaBSim') { require_once __DIR__ . '/FaBSim/Custom/CodeGeneration.php'; $code = FaBPrepareDamageCode($code); }
           $prereqCode = $ability['prereq_code'] ?? '';
           $name = $ability['ability_name'] ?? $cardId;
 

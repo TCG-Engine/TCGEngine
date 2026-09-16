@@ -99,6 +99,8 @@ html,body{margin:0;overflow:hidden;background:#090d0f;color:#f3eee5;font-family:
 .fab-stat[data-life]:after{content:attr(data-life);display:grid;place-items:center;position:absolute;inset:0;color:#f4eee1;font-size:18px;font-weight:900;line-height:1}
 #myHealthSlot{left:calc(50% + var(--fab-card-size)/2 - 8px);bottom:calc(20% - 8px);z-index:27}
 #theirHealthSlot{left:calc(50% + var(--fab-card-size)/2 - 8px);top:calc(20% + var(--fab-card-size) - 28px);z-index:27}
+#myChiSlot{right:calc(var(--fab-card-size)*2 + 28px);bottom:calc(4% + var(--fab-card-size) + 2px);z-index:27}
+#theirChiSlot{right:calc(var(--fab-card-size)*2 + 28px);top:calc(4% + var(--fab-card-size)*2 - 28px);z-index:27}
 #myResourcesSlot{right:calc(var(--fab-card-size) + 14px);bottom:calc(4% + var(--fab-card-size) + 2px);z-index:27}
 #theirResourcesSlot{right:calc(var(--fab-card-size) + 14px);top:calc(4% + var(--fab-card-size)*2 - 28px);z-index:27}
 #myActionPointsSlot,#theirActionPointsSlot{width:44px;height:44px;border-radius:10px;font-size:18px;z-index:27}
@@ -177,9 +179,11 @@ foreach ($zones as $zone => $label) {
 ?>
 
 <div id="myHealthSlot" class="fab-zone fab-stat" data-label="Life"><div id="myHealth"></div></div>
+<div id="myChiSlot" title="Chi included in your total resources" class="fab-zone fab-stat" data-label="Chi"><div id="myChi"></div></div>
 <div id="myResourcesSlot" class="fab-zone fab-stat" data-label="Pitch"><div id="myResources"></div></div>
 <div id="myActionPointsSlot" class="fab-zone fab-stat" data-label="AP"><div id="myActionPoints"></div></div>
 <div id="theirHealthSlot" class="fab-zone fab-stat" data-label="Life"><div id="theirHealth"></div></div>
+<div id="theirChiSlot" title="Chi included in their total resources" class="fab-zone fab-stat" data-label="Chi"><div id="theirChi"></div></div>
 <div id="theirResourcesSlot" class="fab-zone fab-stat" data-label="Pitch"><div id="theirResources"></div></div>
 <div id="theirActionPointsSlot" class="fab-zone fab-stat" data-label="AP"><div id="theirActionPoints"></div></div>
 

@@ -30,7 +30,7 @@ function FaBUPRDeal(int $p,int $sourceUID,int $targetUID,int $n,string $type='AR
  if($f['zone']==='Hero')return $type==='ARCANE'?FaBELEDealArcane($p,$f['player'],$n,$payment,$sourceUID):DoDamage($p,$source['mzID']??'',$f['player'],$n,'PHYSICAL');
  $o=$f['object'];if($f['zone']!=='Arena'||!FaBHasType($o,'Ally'))return 0;
  if($o->CardID==='yendurai'&&intval(FaBObjectCounters($o)['ENDURANCE']??0)>0){FaBSetObjectCounter($o,'ENDURANCE',0);$n=max(0,$n-3);}
- $o->Damage=intval($o->Damage)+$n;if($n>0&&$o->CardID==='nekria'){FaBSetObjectCounter($o,'UPR_LOST_HP',intval(FaBObjectCounters($o)['UPR_LOST_HP']??0)+1);FaBWTRCreateArena($f['player'],'ash');}
+ if($n>0){FaBROSDamaged($p,$f['player'],$n,$type,false);FaBHNTOwnDamage($p,$n,$type);}$o->Damage=intval($o->Damage)+$n;if($n>0&&$o->CardID==='nekria'){FaBSetObjectCounter($o,'UPR_LOST_HP',intval(FaBObjectCounters($o)['UPR_LOST_HP']??0)+1);FaBWTRCreateArena($f['player'],'ash');}
  if(function_exists('QueueDamageAnimation'))QueueDamageAnimation($f['mzID'],$n,500,true,$targetUID);
  if($n>0)FaBDYNDamaged($p,$n,$source['mzID']??'');
  if($n>0&&$source&&$source['object']->CardID==='nekria')FaBUPRNekria($p,$source['object']);
@@ -98,7 +98,7 @@ function FaBUPREnd(int $p): void {
 function FaBUPRUIDs(string $refs): array {$out=[];foreach(explode('&',$refs) as $r){$f=FaBIdentityFromMZ($r);if($f)$out[]=intval($f['object']->UniqueID);}return $out;}
 function FaBUPRHeroUID(int $p): int {$r=FaBChoiceRefs($p,'Hero');return $r?intval(FaBIdentityFromMZ($r[0])['object']->UniqueID):0;}
 function FaBUPRControlledTargets(int $p): string {return implode('&',array_merge(FaBChoiceRefs($p,'Hero'),FaBChoiceRefs($p,'Arena',['type'=>'Ally'])));}
-function FaBUPRDamageBonus(int $p,int $uid,int $n,string $type): int {$f=FaBFindUID($uid);return $type==='ARCANE'?FaBELEDamageBonus($p,$f['mzID']??'',$n+FaBDYNArcaneBonus($uid)+intval(FaBARCCard($uid,'arcaneBonus')),$type):$n;}
+function FaBUPRDamageBonus(int $p,int $uid,int $n,string $type): int {$f=FaBFindUID($uid);return $type==='ARCANE'?FaBELEDamageBonus($p,$f['mzID']??'',$n+FaBMSTAmp($p,$uid)+FaBROSChorus($p,$uid)+FaBDYNArcaneBonus($uid)+intval(FaBARCCard($uid,'arcaneBonus')),$type):$n;}
 function FaBUPRSmallHand(int $p): string {return implode('&',FaBChoiceRefs($p,'Hand',['attackAction'=>true,'maxCost'=>FaBFaiChainCount($p)-1]));}
 function FaBUPRBanishPlayable(int $p,string $r,string $tag=''): void {$f=FaBIdentityFromMZ($r);if(!$f)return;$o=FaBMoveUID(intval($f['object']->UniqueID),'Banish',$p);if($o){$o->PlayableFromBanish=1;if($tag)FaBWTRTag($o,$tag);}}
 function FaBUPRBottom(string $r): void {$f=FaBIdentityFromMZ($r);if($f)FaBMoveUID(intval($f['object']->UniqueID),'Deck',intval($f['object']->Owner??$f['player']));}
@@ -155,7 +155,7 @@ function FaBUPRPhantasm(int $p,object $o): void {
  if(FaBWTRIsAttackAction($o))foreach(FaBCRUEquipment($p,'silent_stilettos') as $r)FaBRunSourceMacro('ResolveAbility',$p,'silent_stilettos',['mzID'=>$r]);
  $source=intval(FaBObjectCounters($o)['MON_SOURCE_UID']??0);if($source)FaBMONDestroy($source);
 }
-function FaBUPRUnpreventable(int $uid): bool {$f=FaBFindUID($uid);return $f&&(in_array('UPR_UNPREVENTABLE',(array)($f['object']->TurnEffects??[]),true)||in_array(FaBWTRBase($f['object']->CardID),['malign','murkmire_grapnel'],true));}
+function FaBUPRUnpreventable(int $uid): bool {$f=FaBFindUID($uid);return $f&&(FaBMSTUnpreventable($f['object'])||in_array('UPR_UNPREVENTABLE',(array)($f['object']->TurnEffects??[]),true)||in_array(FaBWTRBase($f['object']->CardID),['malign','murkmire_grapnel'],true));}
 function FaBUPRBarrierValue(string $r): int {$f=FaBIdentityFromMZ($r);if(!$f||HasNoAbilities($f['object']))return 0;$o=$f['object'];$n=0;foreach(FaBKeywords($o) as $k)if(preg_match('/Arcane Barrier (\d+)/i',$k,$m))$n=max($n,intval($m[1]));if($o->CardID==='arcanite_skullcap')$n=FaBARCLowerLife($f['player'])?3:0;if($o->CardID==='aether_sink_yellow')$n=in_array('ARC_BARRIER_2',(array)$o->TurnEffects,true)?2:0;return $n;}
 function FaBUPRBarrierChoices(int $p,array $used,int $source): string {if(FaBUPRUnpreventable($source))return '';$f=FaBFindUID($source);if($f&&FaBEVRUnpreventable($f['player'],$p))return '';$out=[];foreach(['Equipment','Weapons','Arena','CombatChain'] as $z)foreach(FaBChoiceRefs($p,$z) as $r){$o=FaBIdentityFromMZ($r)['object'];if($z==='CombatChain'&&($o->FromZone??'')!=='Equipment')continue;$n=FaBUPRBarrierValue($r);if($n>0&&$n<=FaBAvailablePitch($p)&&!in_array(intval($o->UniqueID),$used,true))$out[]=$r;}return implode('&',$out);}
 function FaBUPRAlluvionReady(int $uid,int $n): bool {$f=FaBFindUID($uid);if(!$f||$f['object']->CardID!=='alluvion_constellas'||$n<=0)return false;$o=$f['object'];$c=FaBObjectCounters($o);if(intval($c['UPR_BARRIER_TURN']??-1)===intval(GetTurnNumber()))return false;FaBSetObjectCounter($o,'UPR_BARRIER_TURN',intval(GetTurnNumber()));return intval($c['ENERGY']??0)<4;}

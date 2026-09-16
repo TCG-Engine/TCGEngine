@@ -520,3 +520,24 @@ Manual `GameLogic.php` edits are still appropriate for:
 - Costs that are not simple scalar modifiers, such as `REST`, sacrifice, banish, discard, reveal, or multi-step alternative payment flows.
 - Cases where the current generated macro surface cannot represent the rule without awkward or fragile workarounds.
 
+### FaBSim damage prevention generation
+
+`FaBSim/Custom/CodeGeneration.php` preprocesses saved FaB abilities before await
+compilation, inserting the shared interactive prevention window before standalone
+or assigned `DoDamage`, `FaBARCDealArcane`, `FaBELEDealArcane`, and `FaBUPRDeal`
+calls. Other game roots are unaffected. Calls nested inside expressions and
+native PHP helper bodies are not transformed. New interactive card damage should
+use a supported saved-macro statement; combat uses its own pre-damage queue hook.
+Edit these sources and regenerate, never edit the generated prevention blocks.
+
+### FaBSim EVO integration
+
+Bright Lights sources and regression commands are documented in
+`DevTools/FaB/README.md`. Edit `build_evo_abilities.py` and the native EVO helpers,
+then import `evo_abilities.json` and regenerate. Preserve `previousCodeHash`
+when rebuilding an unchanged macro so revision-checked imports remain usable.
+Evo material arrays live in `SUBCARDS`; use `FaBEVOCounter` for noninteger
+counter values, and preserve underlying cards through transformations.
+Dash's Deck view is generated from an authenticated own-seat check. Never
+expose her top card to an opponent or spectator to make it clickable.
+

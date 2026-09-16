@@ -777,3 +777,262 @@ powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/uzuri_lobby_tes
 Tests check source equality, card coverage, swap resolution and invalid payloads
 in two/four seats, Ironhide payment, hidden-hand independence, complete duel and
 multiplayer games, and both HTTP lobby routes.
+
+## Dusk till Dawn (DTD)
+
+`dtd_catalog.json` accounts for 245 functional identities, including reverse
+faces and reprints. `build_dtd_abilities.py` reuses earlier implementations and
+rejects unhandled families; `dtd_abilities.json` contains 217 saved macros for
+the revision-checked importer. Import this snapshot after the earlier sets.
+
+`DTDCards.php` and `DTDRuntime.php` implement Prism's Figment/Angel transitions,
+Vynnset and Rune Gate, Levia's demi-hero transformations, charge, Unity,
+Diplomacy, life-loss tracking, and damage prevention. Choices retain explicit
+seats and stable card UIDs through continuations. UPF opponents remain opponents
+for party effects; they are not treated as teammates.
+
+```powershell
+python DevTools/FaB/build_dtd_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/dtd_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/dtd_rules_test.php
+php DevTools/FaB/dtd_games_test.php
+powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/dtd_lobby_test.ps1
+```
+
+Validation exercises 434 saved continuation paths in two/four seats, targeted
+rule outcomes, complete Vynnset/Prism and Levia/Prism/Boltyn/Vynnset games, and
+legal Prism deck imports through both HTTP lobby routes. Earlier-set regression
+suites and the Uzuri bot checks also pass. Full-game fixtures use the existing
+bot driver with fixture-specific choices; this adds no DTD bot profile.
+Hard-refresh after regeneration. Browser visual QA remains unrun.
+
+Rules reference: [official Dusk till Dawn release notes](https://dhhim4ltzu1pj.cloudfront.net/media/documents/10_DTD_24_07_2023_Dusk_till_Dawn_release_notes.pdf).
+
+## Bright Lights (EVO)
+
+`evo_catalog.json` accounts for 252 functional identities found in the EVO
+printings, including reverse faces and shared reprints. The builder rejects
+unhandled families and produces 351 saved macros. Import after DTD and the
+earlier sets; the importer checks revisions before replacing existing macros.
+
+`EVOCards.php` and `EVORuntime.php` provide Evo transformations and materials,
+Dash's private top-deck play, Maxx's Hyper Drivers, Teklovossen/Mechropotent,
+Crank, Scrap, Galvanize, item upkeep, variable costs, and expansion-card effects.
+Choices use explicit live seats and stable UIDs in duels and multiplayer UPF.
+Transformations preserve underlying cards, including when building Nitro
+Mechanoid. Mechropotent can defend without removing its hero target.
+
+```powershell
+python DevTools/FaB/build_evo_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/evo_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/evo_rules_test.php
+php DevTools/FaB/evo_games_test.php
+powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/evo_lobby_test.ps1
+```
+
+Validation exercises 702 saved continuation paths, targeted rule outcomes,
+complete Teklovossen/Maxx and Dash/Maxx/Teklovossen/Professor games, and both HTTP
+lobby routes. Fixtures use the existing bot driver; no EVO bot profile is added.
+Hard-refresh after regeneration and start a new game. Browser visual QA across
+Chromium, Firefox, and Safari remains unrun.
+
+The Deck schema and generator expose Dash's top card only to its authenticated
+controller, preserving hidden cards for other seats and spectators. The deck
+counter still shows the full pile size. Older Windows PHP 8.1 ZTS web requests
+disable opcode caching locally to avoid a reproduced native cache crash with
+the enlarged generated file. Linux production and CLI behavior are unchanged.
+
+Rules reference: [official Bright Lights and Round the Table release notes](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/bright-lights-round-the-table/).
+
+## Maxx Armory Deck bot
+
+`maxx_source.json` pins [Fabrary 01JRH0631MH5A9JPVGTP3TKJXN](https://fabrary.net/decks/01JRH0631MH5A9JPVGTP3TKJXN).
+`FaBSim/MaxxDeck.json` is its normalized, unchanged 60-card Classic Constructed
+list with adult Maxx. The `maxx` bot is available through the main-menu duel
+route and is deliberately unavailable in UPF. No young-hero adaptation is made.
+
+`AMXCards.php` and `amx_abilities.json` add Bank Breaker/Construct Bank Breaker,
+Breaker Helm Protos, Clamp Press, Drive Brake, Fist Pump, Puffer Jacket, and
+Twintek Charging Station. Reprints reuse existing set implementations. Import
+AMX after EVO. Transformations preserve underlying cards and token materials;
+Bank Breaker has a separate optional material choice for each attack.
+
+`MaxxBot.php` prioritizes Hyper Driver setup, construction, wrench attacks,
+boost chains, and material/steam choices. It uses its own hand and public or
+explicitly offered information, with no inspection of hidden deck order or an
+opponent's hand. It preserves attack hands against small hits and boosts when
+the public resource budget supports a follow-up. This is a heuristic bot, not a
+search-based opponent.
+
+```powershell
+python DevTools/FaB/build_amx_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/amx_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/maxx_test.php
+php DevTools/FaB/maxx_games_test.php
+powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/maxx_lobby_test.ps1
+```
+
+The rule tests cover two/four seats, source-list equality, entry counters,
+equipment triggers, material movement, twice-per-turn activation, and hidden
+information independence. HTTP checks verify duel creation and rejection of
+Maxx through the UPF AddBot endpoint. Complete mirror and Professor matches
+pass; a separate prepared-position regression requires the bot to construct
+Bank Breaker and pay for both attacks. Hard-refresh after regeneration.
+
+## Heavy Hitters (HVY)
+
+`hvy_catalog.json` and `build_hvy_abilities.py` cover all 255 HVY identities,
+including reprints and expansion-slot cards. The builder rejects unhandled
+identities and emits `hvy_abilities.json` with 230 saved macros.
+Import HVY after the earlier set snapshots: Bare Fangs and Wild Ride now use
+Kayo's effective power when checking a discarded card.
+
+`HVYCards.php` and `HVYRuntime.php` implement Clash, Wager, Beat Chest, hero
+and token effects, equipment restrictions, and activation/cost hooks. Wagers
+record their opposing hero and use that hero's damage result in multi-target
+combat. Optional costs preserve the resources needed to finish payment.
+Private inspections use the chooser's Temp zone and return original identities.
+Deck validation includes Kayo's one weapon zone and HVY specializations.
+
+```powershell
+python DevTools/FaB/build_hvy_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/hvy_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/hvy_rules_test.php
+php DevTools/FaB/hvy_games_test.php
+powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/hvy_lobby_test.ps1
+```
+
+The tests execute 460 authored continuations across two/four seats, then assert
+mechanic outcomes, ownership, private-choice cleanup, cost payment, and equipment
+behavior. Complete Kayo/Victor and Betsy/Kassai/Olympia/Victor games exercise the
+shared bot driver; this set does not add dedicated HVY bot profiles. HTTP checks
+import an HVY Kayo deck and start both duel and four-seat UPF rooms.
+
+Rules references: [HVY release notes](https://legacy.fabtcg.com/resources/rules-and-policy-center/release-notes/heavy-hitters/)
+and [Run into Trouble](https://cards.fabtcg.com/card/run-into-trouble-1/ES_HVY161-RF/).
+The cached text omits Run into Trouble's numeric damage; its ability deals 1.
+
+## Part the Mistveil (MST)
+
+`mst_catalog.json`, `build_mst_abilities.py`, and `mst_abilities.json` cover all
+240 identities, including reprints, expansion-slot cards, and Enigma, New Moon.
+The builder rejects unhandled cards and emits 197 saved macros. Import MST after
+the earlier sets. `MSTCards.php` and `MSTRuntime.php` provide the shared rules.
+
+Chi is a separately serialized subset of the resource pool: ordinary costs
+spend it first, Chi costs require it, and resource taxes still apply separately.
+Transcend keeps the original UID and owner while changing the card to Inner Chi.
+Cloaked equipment starts face down, conceals its identity from other viewers,
+and only exposes abilities that work while face down. The schema and generated
+rendering include Chi displays and aura power counters.
+
+Cosmo uses current Ward values for aura attacks. The shared damage-prevention
+queue lets the defending player choose Ward order, including zero Ward and
+unpreventable damage. Keep the Radiant Forcefield macro in `dtd_abilities.json`
+aligned with `CodeGeneration.php`; `build_dtd_abilities.py` reads that fragment.
+Nuu, private inspections, stolen cards, and added defenders retain their chosen
+opponent, owner, and original identity across decisions.
+
+```powershell
+python DevTools/FaB/build_mst_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/dtd_abilities.json
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/mst_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/mst_rules_test.php
+php DevTools/FaB/mst_games_test.php
+powershell -NoProfile -ExecutionPolicy Bypass -File DevTools/FaB/mst_lobby_test.ps1
+```
+
+Tests exercise 394 saved continuations across two and four seats, plus payment,
+Cloaked legality, private choices, Transcend ownership, dynamic Ward, alternative
+costs, granted Boost, and multiplayer permissions. Game fixtures use the shared
+driver with explicit aura attacks and an aggressive policy after the opening rounds; there is
+no new dedicated MST bot profile. HTTP tests import an Enigma deck and create
+both duel and UPF rooms. Hard-refresh the browser after regeneration.
+
+Rules references: [MST release notes](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/part-the-mistveil/),
+[resource rules](https://rules.fabtcg.com/en/cr/01-game-concepts/), and
+[Ward prevention order](https://legacy.fabtcg.com/en/articles/rules-reprise-14-light/).
+
+## Rosetta (ROS)
+
+`ros_catalog.json` covers all 257 distinct card identities in the local ROS
+printing catalog. `build_ros_abilities.py` authors 271 saved macros, retains
+current reprint implementations, and fails if a card family is unaccounted for.
+The runtime lives in `ROSCards.php` and `ROSRuntime.php`.
+
+Implemented mechanics include Meld (half selection, combined costs/properties,
+right-half-first resolution and a priority window between halves), Amp/Surge,
+Decompose, Arcane Shelter, discard activations, Sigil leave-arena triggers, and
+Aurora, Florian, Oscilio and Verdance. Aura-token creation is counted per event;
+adult Florian/Verdance use the catalog's eight-Earth threshold. Delayed end-phase
+triggers resolve before pitch return and turn advancement. Effects involving
+all heroes or opponents use live seats; targeted damage uses existing UPF
+adjacency rules.
+
+```powershell
+python DevTools/FaB/build_ros_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/ros_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/ros_rules_test.php
+php DevTools/FaB/ros_games_test.php
+powershell -ExecutionPolicy Bypass -File DevTools/FaB/ros_lobby_test.ps1
+```
+
+The rules suite includes 542 saved-continuation executions across two and four
+seats, plus outcome assertions for token replacement, life-gain triggers,
+damage prevention, Surge, Meld, Decompose, equipment and turn-end timing.
+The complete-game fixtures use the existing generic driver with an aggressive
+policy after the opening rounds. They are test fixtures, not new selectable bot
+profiles. The lobby check uses a legal young Aurora deck with existing Prism bots.
+
+Rules references: [Rosetta release notes](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/rosetta-1st-strike/),
+[split cards](https://legacy.fabtcg.com/en/articles/rules-reprise-21-split-cards/),
+[current keywords](https://rules.fabtcg.com/en/cr/08-keywords/), and
+[UPF rules](https://rules.fabtcg.com/en/trp/09-special-formats/).
+
+## The Hunted (HNT)
+
+`hnt_catalog.json` covers 265 distinct identities in the local printing catalog.
+`build_hnt_abilities.py` emits 243 saved macros and rejects unhandled identities.
+It retains current reprints, including the earlier Arakni support-card revisions.
+Shared mechanics live in `HNTCards.php` and `HNTRuntime.php`.
+
+The implementation includes per-hero Marked conditions and a public hero badge,
+Fealty and prospective Draconic play restrictions, Cindra/Fang, all six Agents
+of Chaos, dagger flick hits, retrieve, chain-limited discounts, copy effects,
+discard activations, secret-number choices, and the expansion cards. Marked is
+captured at the hit event and removed before its hit abilities resolve; damage
+without a hit leaves it intact. Off-chain dagger hits share this handling with
+ordinary combat hits. All-hero effects iterate live seats; targeted effects use
+the existing UPF targeting rules.
+
+```powershell
+python DevTools/FaB/build_hnt_abilities.py
+$env:MYSQL_DATABASE_NAME='swuonline'
+php DevTools/FaB/import_wtr_abilities.php DevTools/FaB/hnt_abilities.json
+php zzGameCodeGenerator.php rootName=FaBSim
+php DevTools/FaB/hnt_rules_test.php
+php DevTools/FaB/hnt_games_test.php
+powershell -ExecutionPolicy Bypass -File DevTools/FaB/hnt_lobby_test.ps1
+```
+
+The rules suite executes 484 saved continuations across two and four seats, plus
+outcome checks for hit timing, transformation, copy identity, equipment costs,
+prevention, secret choices, and stacked reactions. Complete-game fixtures use
+the existing generic bot driver; they do not add a selectable HNT bot profile.
+Lobby checks import a legal young Cindra deck for duel and four-player play.
+Regenerate and hard-refresh after importing to load the Marked badge.
+
+Rules references: [The Hunted release notes](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/the-hunted/)
+and [current keyword rules](https://rules.fabtcg.com/en/cr/08-keywords/).

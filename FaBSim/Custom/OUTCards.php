@@ -68,7 +68,7 @@ function FaBOUTRustling(int $p,int $sourceUID): void {$r=FaBChoiceRefs($p,'Deck'
 function FaBOUTThrow(int $p,string $dagger,string $target): void {
  $f=FaBIdentityFromMZ($dagger);$hero=FaBIdentityFromMZ($target);if(!$f||!$hero||$hero['zone']!=='Hero'||!FaBSeatIsLive($hero['player'])||!in_array($dagger,explode('&',FaBArakniDaggers($p)),true))return;
  $uid=intval($f['object']->UniqueID);$victim=$hero['player'];$n=DoDamage($p,$dagger,$victim,1,'PHYSICAL');
- if($n>0){FaBOUTDaggerHit($p,$f['object'],$victim,$n);if($f['object']->CardID==='spiders_bite')FaBDYNAdd($victim,'SPIDER');}
+ FaBHNTPseudoHit($p,$uid,$victim,$n);
  FaBMONDestroy($uid);
 }
 function FaBOUTHandAndArsenal(int $p): string {return implode('&',array_merge(FaBChoiceRefs($p,'Hand'),FaBChoiceRefs($p,'Arsenal')));}
@@ -112,7 +112,7 @@ function FaBOUTInfiltrate(int $p,int $victim): void {
  $r=FaBChoiceRefs($victim,'Deck')[0]??'';$f=FaBIdentityFromMZ($r);if(!$f)return;$o=FaBMoveUID(intval($f['object']->UniqueID),'Banish',$victim);$o->Owner=$victim;
  $s=FaBGetState();$s['outInfiltrate'][intval($o->UniqueID)]=['player'=>$p,'turn'=>intval(GetTurnNumber())];FaBSetState($s);
 }
-function FaBOUTCanPlayStolen(int $p,array $f): bool {return $f['zone']==='Banish'&&empty($f['object']->FaceDown)&&intval(FaBGetState()['outInfiltrate'][intval($f['object']->UniqueID)]['player']??0)===$p;}
+function FaBOUTCanPlayStolen(int $p,array $f): bool {if(FaBMSTStolen($p,$f))return true;return $f['zone']==='Banish'&&empty($f['object']->FaceDown)&&intval(FaBGetState()['outInfiltrate'][intval($f['object']->UniqueID)]['player']??0)===$p;}
 function FaBOUTEndPermissions(int $p): void {$s=FaBGetState();$s['outInfiltrate']=array_filter($s['outInfiltrate']??[],fn($e)=>intval($e['player'])!==$p||intval($e['turn'])>=intval(GetTurnNumber()));FaBSetState($s);}
 function FaBOUTEndTargets(int $p): string {return implode('&',array_filter(FaBChoiceRefs($p,'Arena'),fn($r)=>in_array(FaBIdentityFromMZ($r)['object']->CardID,['bloodrot_pox','frailty','inertia','ponder'],true)));}
 function FaBOUTHasDiseases(int $p): bool {foreach(['bloodrot_pox','frailty','inertia'] as $id)if(FaBMONArena($p,$id))return true;return false;}

@@ -9,13 +9,14 @@ function FaBMONArena(int $p,string $base): array {
     return array_values(array_filter(FaBChoiceRefs($p,'Arena',['base'=>$base]),fn($r)=>!HasNoAbilities(FaBIdentityFromMZ($r)['object'])));
 }
 function FaBMONSoul(int $p): string {return implode('&',FaBChoiceRefs($p,'Soul'));}
-function FaBMONBasePower(int $p,object $o): int {return $o->CardID==='mutated_mass_blue'?FaBMONMass($p):intval(CardPower($o->CardID));}
+function FaBMONBasePower(int $p,object $o): int {$n=$o->CardID==='diabolic_offering_blue'?(FaBMONCount($p,'BANISHED_SIX')?6:0):($o->CardID==='mutated_mass_blue'?FaBMONMass($p):intval(CardPower($o->CardID)));return $n+FaBHVYPowerOutsideChain($p,$o);}
 function FaBMONBloodDebt(int $p): int {
     $n=0;foreach(GetBanish($p) as $o)if(is_object($o)&&empty($o->removed)&&empty($o->FaceDown)&&FaBHasKeyword($o,'Blood Debt'))++$n;return $n;
 }
 function FaBMONCharge(int $p,string $chosen): int {
     $n=0;foreach(explode('&',$chosen) as $ref){$f=FaBIdentityFromMZ($ref);if(!$f||$f['player']!==$p||$f['zone']!=='Hand')continue;
-        $light=FaBHasType($f['object'],'Light');FaBMoveUID(intval($f['object']->UniqueID),'Soul',$p);FaBMONAdd($p,'CHARGED');FaBBoltynCharged($p,$f['object']->CardID);if($light)++$n;
+        $light=FaBHasType($f['object'],'Light');FaBMoveUID(intval($f['object']->UniqueID),'Soul',$p);FaBMONAdd($p,'CHARGED');FaBBoltynCharged($p,$f['object']->CardID);FaBDTDCharged($p,$f['object']->CardID);
+        $pendingUID=intval(FaBGetState()['pendingPayment']['uid']??0);if($pendingUID)FaBARCSetCard($pendingUID,'dtdCharged',true);if($light)++$n;
     }return $n;
 }
 function FaBMONBanishRandom(int $p,int $n): bool {
@@ -25,6 +26,7 @@ function FaBMONBanishRandom(int $p,int $n): bool {
     }return $six;
 }
 function FaBMONAfterMove(int $p,object $o,string $from,string $to): void {
+    FaBDTDAfterMove($p,$o,$from,$to);FaBEVOAfterMove($p,$o,$from,$to);FaBHVYAfterMove($p,$o,$from,$to);FaBMSTAfterMove($p,$o,$from,$to);FaBROSAfterMove($p,$o,$from,$to);FaBHNTAfterMove($p,$o,$from,$to);
     if($from==='Arena'&&$to!=='Arena'){
         $s=FaBGetState();$attack=FaBFindUID(intval($s['attackUID']??0));
         if(!empty($s['combatOpen'])&&$attack&&!FaBMONAttackSourceExists($attack['object'])){
@@ -34,18 +36,19 @@ function FaBMONAfterMove(int $p,object $o,string $from,string $to): void {
     if($to==='Banish'){FaBMONAdd($p,'BANISHED');if(empty($o->FaceDown)&&FaBMONBasePower($p,$o)>=6){FaBMONAdd($p,'BANISHED_SIX');
         foreach(FaBCRUEquipment($p,'hooves_of_the_shadowbeast') as $ref)FaBRunSourceMacro('ResolveAbility',$p,'hooves_of_the_shadowbeast',['mzID'=>$ref]);}}
     if($to==='Soul'){FaBMONAdd($p,'SOUL_ADDED');FaBBoltynSoulAdded($p,$o);}
+    if($to==='Banish'&&FaBMONHero($p,'blasmophet_levia_consumed')){$o->FaceDown=1;$o->PlayableFromBanish=0;}
 }
 function FaBMONAttackSourceExists(object $attack): bool {
     $uid=intval(FaBObjectCounters($attack)['MON_SOURCE_UID']??0);
     if(!$uid)return true;
-    $source=FaBFindUID($uid);return $source!==null&&($source['zone']==='Arena'||($source['object']->CardID==='nitro_mechanoid'&&$source['zone']==='Equipment'));
+    $source=FaBFindUID($uid);return $source!==null&&($source['zone']==='Arena'||($source['object']->CardID==='nitro_mechanoid'&&$source['zone']==='Equipment')||($source['object']->CardID==='teklovossen_the_mechropotent'&&$source['zone']==='Hero'));
 }
 function FaBMONBanishPlayable(int $p,object $o): bool {
     if(!empty($o->FaceDown)||HasNoAbilities($o))return false;$b=FaBWTRBase($o->CardID);
     if(in_array($b,['bounding_demigon','unhallowed_rites'],true))return count(FaBARCPlayed($p,true))>0;
     if($b==='deep_rooted_evil')return FaBMONCount($p,'BANISHED_SIX')>0;
     if($b==='eclipse')return FaBMONCount($p,'DEBT_PLAYED')>=6;
-    return in_array($b,['ghostly_visit','howl_from_beyond','piercing_shadow_vise','rift_bind','rifted_torment','rip_through_reality','seeds_of_agony','seeping_shadows','tome_of_torment','void_wraith','mutated_mass','shadow_of_ursur','invert_existence'],true);
+    return in_array($b,['cull','ghostly_visit','howl_from_beyond','piercing_shadow_vise','rift_bind','rifted_torment','rip_through_reality','seeds_of_agony','seeping_shadows','tome_of_torment','void_wraith','mutated_mass','shadow_of_ursur','invert_existence'],true);
 }
 function FaBMONCanPlay(int $p,array $f): bool {
     $b=FaBWTRBase($f['object']->CardID);$s=FaBGetState();
@@ -151,7 +154,8 @@ function FaBMONDefendingPower(int $p,object $o): int {
     if(FaBWTRIsAttackAction($o)){
         foreach(FaBOpponents($p) as $other)$n-=count(FaBMONArena($other,'parable_of_humility'));
         $a=FaBFindUID(intval(FaBGetState()['attackUID']));if($a){if(FaBWTRBase($a['object']->CardID)==='herald_of_triumph')--$n;foreach((array)(FaBObjectCounters($a['object'])['EVR_COPIED']??[]) as $id)if(FaBWTRBase($id)==='herald_of_triumph')--$n;}
-    }return max(0,$n);
+    }if(FaBWTRIsAttackAction($o))foreach(FaBOpponents($p) as $seat)$n-=FaBDTDCount($seat,'TRIUMPH');
+    return FaBWTRBase($o->CardID)==='numbskull'?intval(CardPower($o->CardID)):max(0,$n);
 }
 function FaBMONMass(int $p): int {$costs=[];foreach(FaBChoiceRefs($p,'Pitch') as $r)$costs[]=(string)CardCost(FaBIdentityFromMZ($r)['object']->CardID);return count(array_unique($costs))*2;}
 function FaBMONDefense(int $p,object $o): int {
@@ -173,7 +177,7 @@ function FaBMONStart(int $p): void {
 }
 function FaBMONEnd(int $p): void {
     FaBBoltynEnd();
-    if(!(FaBMONHero($p,'levia')&&FaBMONCount($p,'BANISHED_SIX')))FaBARCLoseLife($p,FaBMONBloodDebt($p),$p);
+    if(!FaBDTDBloodDebt($p))FaBARCLoseLife($p,FaBMONBloodDebt($p),$p);
     foreach(FaBCRUEquipment($p,'valiant_dynamo') as $ref)if(FaBCRUCount($p,'WEAPONS')>=2)FaBRunSourceMacro('ResolveAbility',$p,'valiant_dynamo',['mzID'=>$ref]);
     foreach(FaBLiveSeats() as $owner)if(FaBMONArena($owner,'great_library_of_solana'))foreach(FaBLiveSeats() as $seat){
         $yellow=0;foreach(FaBChoiceRefs($seat,'Pitch') as $r)if(intval(CardPitch(FaBIdentityFromMZ($r)['object']->CardID))===2)++$yellow;
@@ -189,7 +193,7 @@ function FaBMONDestroy(int $uid): void {
     $triggers=(FaBHasType($o,'Aura')||FaBWTRIsAttackAction($o))?FaBMONArena($p,'merciful_retribution'):[];
     $light=FaBHasType($o,'Light')&&!FaBHasType($o,'Token');$aa=FaBWTRIsAttackAction($o)&&FaBHasType($o,'Illusionist');
     FaBMoveUID($uid,'Graveyard',intval($o->Owner??$p));
-    FaBEVRDestroyed($p,$o);FaBUPRDestroyed($p,$o);FaBDYNDestroyed($p,$o);
+    if(!empty(FaBObjectCounters($o)['EVO_HERO_UID']))FaBEliminateSeat($p);FaBEVODestroyed($p,$o,$f['zone']);FaBHVYDestroyed($p,$o);FaBDTDDestroyed($p,$o);FaBEVRDestroyed($p,$o);FaBUPRDestroyed($p,$o);FaBDYNDestroyed($p,$o);
     foreach($triggers as $r){$a=FaBIdentityFromMZ($r);$triggerID=$a?$a['object']->CardID:'merciful_retribution_yellow';
         FaBRunSourceMacro('ResolveAbility',$p,$triggerID,['mzID'=>$r,'monDestroyedUID'=>$uid,'monLight'=>$light]);}
 
@@ -218,12 +222,13 @@ function FaBMONDamage(int $source,int $p,int $amount,string $type,string $source
     if($source!==$p&&in_array($p,FaBOpponents($source),true))FaBARCLoseLife($p,count(FaBMONArena($source,'ode_to_wrath')),$source);
 }
 function FaBMONLifeLost(int $p,int $amount): void {
+    if($amount>0)FaBDTDAdd($p,'LOST',$amount);
     if($amount>0&&$p===intval(GetTurnPlayer()))foreach(FaBMONArena($p,'dimenxxional_crossroads') as $r)FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));
 }
 function FaBMONCloseMove(object $o,int $p): bool {
     if(in_array('MON_CLOSE_SOUL',(array)$o->TurnEffects,true)||$o->CardID==='soul_shield_yellow'){FaBMoveUID(intval($o->UniqueID),'Soul',$p);return true;}
     if($o->CardID==='carrion_husk'&&in_array($o->Role,['DEFENSE','DEFENSE_REACTION'],true)){FaBMoveUID(intval($o->UniqueID),'Banish',$p);return true;}
-    if((($o->FromZone??'')==='Arena'||$o->CardID==='nitro_mechanoid')&&($o->Role??'')==='ATTACK'){$o->removed=true;return true;}
+    if((in_array(($o->FromZone??''),['Arena','Hero'],true)||$o->CardID==='nitro_mechanoid')&&($o->Role??'')==='ATTACK'){$o->removed=true;return true;}
     return false;
 }
 function FaBMONAttack(int $p,object $o): void {
@@ -279,7 +284,7 @@ function FaBMONSpellvoidRefs(int $p): string {
     $out=[];foreach(['Equipment','Arena','CombatChain'] as $zone)foreach(FaBChoiceRefs($p,$zone) as $r){$o=FaBIdentityFromMZ($r)['object'];if($zone==='CombatChain'&&($o->FromZone??'')!=='Equipment')continue;if(FaBHasKeyword($o,'Spellvoid'))$out[]=$r;}return implode('&',$out);
 }
 function FaBMONSpellvoid(int $p,string $r): int {
-    if(!in_array($r,explode('&',FaBMONSpellvoidRefs($p)),true))return 0;$o=FaBIdentityFromMZ($r)['object'];$n=0;
+    if(!in_array($r,explode('&',FaBMONSpellvoidRefs($p)),true))return 0;$o=FaBIdentityFromMZ($r)['object'];$n=$o->CardID==='arcanite_fortress'?FaBROSArcanite($p):0;
     foreach(FaBKeywords($o) as $k)if(preg_match('/Spellvoid (\d+)/i',$k,$m))$n=max($n,intval($m[1]));FaBMONDestroy(intval($o->UniqueID));return $n;
 }
 function FaBMONHigherLight(int $p): bool {foreach(FaBOpponents($p) as $other)if(FaBHasType(GetHero($other)[0],'Light')&&intval(GetHealth($p))>intval(GetHealth($other)))return true;return false;}
@@ -318,7 +323,9 @@ function FaBMONAffordableHand(int $p,string $kind='',bool $charge=false): string
 function GameValidateDecisionAnswer($player,$answer): bool {
     if(function_exists('SWUValidateDecisionAnswer')&&!SWUValidateDecisionAnswer($player,$answer))return false;
     $d=GetDecisionQueue(intval($player))[0]??null;$s=FaBGetState();
+    if($d&&$d->Tooltip==='Choose_two_Earth_cards')return count(FaBUPRUIDs((string)$answer))===2&&FaBROSActionExcept(intval($player),(string)$answer)!=='';
     if(!$d||!$s['pendingPayment']||intval($s['pendingPayment']['player'])!==intval($player))return true;
+    if($d->Tooltip==='Choose_three_different_names'){ $refs=explode('&',(string)$answer);$names=[];foreach($refs as $r){$f=FaBIdentityFromMZ($r);if(!$f)return false;$names[]=CardName($f['object']->CardID);}return count($refs)===3&&count(array_unique($names))===3;}
     if(!in_array($d->Tooltip,['Charge_your_soul','Charge_any_number'],true))return true;
     $chosen=array_values(array_filter(array_unique(explode('&',(string)$answer)),fn($r)=>in_array($r,FaBChoiceRefs(intval($player),'Hand'),true)));
     $remaining=$chosen?FaBMONPitchAfterCharge(intval($player),$chosen):FaBAvailablePitch(intval($player));

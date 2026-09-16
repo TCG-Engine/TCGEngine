@@ -14,7 +14,7 @@ function FaBProfessorActive(int $player): bool {
     foreach(GetHero($player) as $o)if(is_object($o)&&empty($o->removed)&&$o->CardID==='professor_teklovossen'&&!HasNoAbilities($o))return true;
     return false;
 }
-function FaBEvoCount(int $player): int {return count(array_filter(FaBProfessorEquipped($player),fn($o)=>FaBHasType($o,'Evo')));}
+function FaBEvoCount(int $player): int {return (FaBMONHero($player,'teklovossen_the_mechropotent')?4:0)+count(array_filter(FaBProfessorEquipped($player),fn($o)=>FaBHasType($o,'Evo')));}
 function FaBEvoActive(int $player,string $id): bool {
     foreach(FaBProfessorEquipped($player) as $o)if($o->CardID===$id&&!HasNoAbilities($o))return true;
     return false;
@@ -26,12 +26,7 @@ function FaBEvoBase(int $player,object $evo): ?object {
     return null;
 }
 function FaBEvoEquip(int $player,string $mzID): void {
-    $f=FaBIdentityFromMZ($mzID);if($f===null)return;
-    $base=FaBEvoBase($player,$f['object']);if($base===null)return;
-    $under=(array)(FaBObjectCounters($base)['SUBCARDS']??[]);
-    $under[]=$base->CardID;$base->removed=true;
-    $o=FaBMoveUID(intval($f['object']->UniqueID),'Equipment',$player);
-    if($o!==null){$o->Owner=$player;$o->Controller=$player;$o->Status=2;$o->TurnEffects=[];$o->Counters=['SUBCARDS'=>$under];}
+    FaBEVOTransform($player,$mzID);
 }
 function FaBProfessorCost(int $player,object $o): int {
     if(FaBHasType($o,'Evo')&&FaBProfessorActive($player))return -count(FaBOpponents($player));
@@ -39,7 +34,7 @@ function FaBProfessorCost(int $player,object $o): int {
     return 0;
 }
 function FaBProfessorPower(int $player,object $o): int {
-    if(FaBWTRBase($o->CardID)==='mechanical_strength')return FaBEvoCount($player);
+    if(FaBWTRBase($o->CardID)==='mechanical_strength')return in_array($o->Role??'', ['DEFENSE','DEFENSE_REACTION'],true)?0:FaBEvoCount($player);
     return $o->CardID==='teklo_blaster'&&FaBEvoActive($player,'evo_scatter_shot_blue')?count(FaBOpponents($player)):0;
 }
 function FaBTekloBlasterCost(int $player): int {return max(0,3-(FaBEvoActive($player,'evo_energy_matrix_blue')?count(FaBOpponents($player)):0));}

@@ -30,14 +30,15 @@ foreach ($lobby->players as $player) {
         && in_array($playerNumber, $lobby->goldfishPlayers, true)
         && trim((string)$player->getDeckLink()) === ''
         && trim((string)$player->getPreconstructedDeck()) === '';
-    if (!in_array($player->getBotProfile(), ['', 'goldfish', 'fai', 'professor', 'ira', 'boltyn', 'levia', 'prism', 'lexi', 'dromai', 'arakni','uzuri'], true)) throw new RuntimeException('Unsupported FaB bot profile.');
+    if (!in_array($player->getBotProfile(), ['', 'goldfish', 'fai', 'professor', 'ira', 'boltyn', 'levia', 'prism', 'lexi', 'dromai', 'arakni','uzuri','maxx'], true)) throw new RuntimeException('Unsupported FaB bot profile.');
     if ($isPassiveGoldfishSeat || $player->getBotProfile() === 'goldfish') {
         $passiveSeats[] = $playerNumber;
         FaBEnsureGoldfishOpponent($playerNumber);
         ++$playerNumber;
         continue;
     }
-    $isDeckBot=in_array($player->getBotProfile(),['fai','professor','ira','boltyn','levia','prism','lexi','dromai','arakni','uzuri'],true);
+    if($player->getBotProfile()==='maxx' && count($lobby->players)!==2)throw new RuntimeException('The Maxx Armory Deck bot is duel-only.');
+    $isDeckBot=in_array($player->getBotProfile(),['fai','professor','ira','boltyn','levia','prism','lexi','dromai','arakni','uzuri','maxx'],true);
     if($isDeckBot)$botProfiles[$playerNumber]=$player->getBotProfile();
     $resolved = $isDeckBot ? FaBBotDeck($player->getBotProfile()) : FaBResolveDeckInput($player->getDeckLink(), method_exists($player, 'getUserId') ? $player->getUserId() : null);
     if (empty($resolved['success'])) throw new RuntimeException($resolved['message'] ?? 'Unable to load FaB deck.');

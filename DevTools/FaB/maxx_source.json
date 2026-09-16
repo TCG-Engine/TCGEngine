@@ -1,0 +1,649 @@
+{
+  "cards": [
+    {
+      "identifier": "banksy",
+      "image": "https://content.fabrary.net/cards/AMX002.webp",
+      "name": "Banksy",
+      "setIdentifiers": [
+        "AMX002",
+        "EVO006",
+        "LGS201"
+      ],
+      "sideboardTotal": 0,
+      "stats": {},
+      "subType": "2h",
+      "subtypes": [
+        "2H",
+        "Wrench"
+      ],
+      "total": 1,
+      "type": "weapon",
+      "types": [
+        "Weapon"
+      ]
+    },
+    {
+      "identifier": "big-bertha-blue",
+      "image": "https://content.fabrary.net/cards/SDA028.webp",
+      "name": "Big Bertha",
+      "setIdentifiers": [
+        "AMX024",
+        "EVO179",
+        "SDA028"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 3
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "breaker-helm-protos",
+      "image": "https://content.fabrary.net/cards/AMX003-RF.webp",
+      "name": "Breaker Helm Protos",
+      "setIdentifiers": [
+        "AMX003",
+        "JDG046"
+      ],
+      "sideboardTotal": 0,
+      "stats": {},
+      "subType": "base",
+      "subtypes": [
+        "Base",
+        "Head"
+      ],
+      "total": 1,
+      "type": "equipment",
+      "types": [
+        "Equipment"
+      ]
+    },
+    {
+      "identifier": "clamp-press-blue",
+      "image": "https://content.fabrary.net/cards/AMX026.webp",
+      "name": "Clamp Press",
+      "setIdentifiers": [
+        "AMX026",
+        "GEM074"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 3
+      },
+      "subType": "item",
+      "subtypes": [
+        "Item",
+        "Non-Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "construct-bank-breaker-yellow",
+      "image": "https://content.fabrary.net/cards/AMX022.webp",
+      "name": "Construct Bank Breaker",
+      "setIdentifiers": [
+        "AMX022",
+        "JDG052"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "construct",
+      "subtypes": [
+        "Construct",
+        "Non-Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "crankshaft-blue",
+      "image": "https://content.fabrary.net/cards/SDA029.webp",
+      "name": "Crankshaft",
+      "setIdentifiers": [
+        "AMX025",
+        "DYN103",
+        "EVO176",
+        "SDA029"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 3
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "crankshaft-red",
+      "image": "https://content.fabrary.net/cards/SDA012.webp",
+      "name": "Crankshaft",
+      "setIdentifiers": [
+        "AMX007",
+        "DYN101",
+        "EVO174",
+        "SDA012"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "crankshaft-yellow",
+      "image": "https://content.fabrary.net/cards/AMX020.webp",
+      "name": "Crankshaft",
+      "setIdentifiers": [
+        "AMX020",
+        "DYN102",
+        "EVO175"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "data-link-red",
+      "image": "https://content.fabrary.net/cards/AMX008.webp",
+      "name": "Data Link",
+      "setIdentifiers": [
+        "AIO007",
+        "AMX008",
+        "EVO186"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "drive-brake",
+      "image": "https://content.fabrary.net/cards/AMX006-RF.webp",
+      "name": "Drive Brake",
+      "setIdentifiers": [
+        "AMX006",
+        "JDG056"
+      ],
+      "sideboardTotal": 0,
+      "stats": {},
+      "subType": "legs",
+      "subtypes": [
+        "Legs"
+      ],
+      "total": 1,
+      "type": "equipment",
+      "types": [
+        "Equipment"
+      ]
+    },
+    {
+      "identifier": "expedite-red",
+      "image": "https://content.fabrary.net/cards/AMX009.webp",
+      "name": "Expedite",
+      "setIdentifiers": [
+        "AMX009",
+        "EVO198"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "fist-pump",
+      "image": "https://content.fabrary.net/cards/AMX005-RF.webp",
+      "name": "Fist Pump",
+      "setIdentifiers": [
+        "AMX005"
+      ],
+      "sideboardTotal": 0,
+      "stats": {},
+      "subType": "arms",
+      "subtypes": [
+        "Arms"
+      ],
+      "total": 1,
+      "type": "equipment",
+      "types": [
+        "Equipment"
+      ]
+    },
+    {
+      "identifier": "heist-red",
+      "image": "https://content.fabrary.net/cards/AMX010.webp",
+      "name": "Heist",
+      "setIdentifiers": [
+        "AMX010",
+        "EVO138"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 1,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "hyper-driver-blue",
+      "image": "https://content.fabrary.net/cards/AMX027.webp",
+      "name": "Hyper Driver",
+      "setIdentifiers": [
+        "AMX027",
+        "DYN112"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 3
+      },
+      "subType": "item",
+      "subtypes": [
+        "Item",
+        "Non-Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "hyper-driver-red",
+      "image": "https://content.fabrary.net/cards/SDA024.webp",
+      "name": "Hyper Driver",
+      "setIdentifiers": [
+        "1HP218",
+        "AMX019",
+        "ARC036",
+        "DYN110",
+        "EVO099",
+        "SDA024"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "item",
+      "subtypes": [
+        "Item",
+        "Non-Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "hyper-driver-yellow",
+      "image": "https://content.fabrary.net/cards/AMX023.webp",
+      "name": "Hyper Driver",
+      "setIdentifiers": [
+        "AMX023",
+        "DYN111"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "item",
+      "subtypes": [
+        "Item",
+        "Non-Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "jump-start-red",
+      "image": "https://content.fabrary.net/cards/SDA014.webp",
+      "name": "Jump Start",
+      "setIdentifiers": [
+        "AMX011",
+        "DYN104",
+        "EVO180",
+        "SDA014"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "puffer-jacket",
+      "image": "https://content.fabrary.net/cards/AMX004-RF.webp",
+      "name": "Puffer Jacket",
+      "setIdentifiers": [
+        "AMX004"
+      ],
+      "sideboardTotal": 0,
+      "stats": {},
+      "subType": "chest",
+      "subtypes": [
+        "Chest"
+      ],
+      "total": 1,
+      "type": "equipment",
+      "types": [
+        "Equipment"
+      ]
+    },
+    {
+      "identifier": "sprocket-rocket-red",
+      "image": "https://content.fabrary.net/cards/AMX012.webp",
+      "name": "Sprocket Rocket",
+      "setIdentifiers": [
+        "AMX012",
+        "EVO192"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "t-bone-red",
+      "image": "https://content.fabrary.net/cards/AMX013.webp",
+      "name": "T-Bone",
+      "setIdentifiers": [
+        "AMX013",
+        "EVR073",
+        "TNP046"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "throttle-red",
+      "image": "https://content.fabrary.net/cards/SDA018.webp",
+      "name": "Throttle",
+      "setIdentifiers": [
+        "1HP208",
+        "AIO011",
+        "AMX014",
+        "ARC023",
+        "SDA018",
+        "TCC015"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 2,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "twintek-charging-station-red",
+      "image": "https://content.fabrary.net/cards/AMX018.webp",
+      "name": "Twintek Charging Station",
+      "setIdentifiers": [
+        "AMX018"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "non-attack",
+      "subtypes": [
+        "Non-Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "zero-to-fifty-red",
+      "image": "https://content.fabrary.net/cards/AMX015.webp",
+      "name": "Zero to Fifty",
+      "setIdentifiers": [
+        "AMX015",
+        "EVO162"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "zero-to-sixty-red",
+      "image": "https://content.fabrary.net/cards/SDA020.webp",
+      "name": "Zero to Sixty",
+      "setIdentifiers": [
+        "1HP211",
+        "AIO012",
+        "AMX016",
+        "ARC026",
+        "FAB177",
+        "SDA020",
+        "TCC017"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "zero-to-sixty-yellow",
+      "image": "https://content.fabrary.net/cards/SDA026.webp",
+      "name": "Zero to Sixty",
+      "setIdentifiers": [
+        "1HP212",
+        "AIO018",
+        "AMX021",
+        "ARC027",
+        "SDA026"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 2
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "zipper-hit-red",
+      "image": "https://content.fabrary.net/cards/SDA021.webp",
+      "name": "Zipper Hit",
+      "setIdentifiers": [
+        "1HP214",
+        "AIO013",
+        "AMX017",
+        "ARC029",
+        "SDA021",
+        "TCC018",
+        "TNP028"
+      ],
+      "sideboardTotal": 0,
+      "stats": {
+        "resource": 1
+      },
+      "subType": "attack",
+      "subtypes": [
+        "Attack"
+      ],
+      "total": 3,
+      "type": "action",
+      "types": [
+        "Action"
+      ]
+    },
+    {
+      "identifier": "maxx-the-hype-nitro",
+      "image": "https://content.fabrary.net/cards/AMX001.webp",
+      "name": "Maxx 'The Hype' Nitro",
+      "setIdentifiers": [
+        "AMX001",
+        "EVO004",
+        "GEM105",
+        "HER090",
+        "HER095",
+        "WIN026"
+      ],
+      "sideboardTotal": 0,
+      "subType": "",
+      "subtypes": [],
+      "total": 1,
+      "type": "hero",
+      "types": [
+        "Hero"
+      ]
+    }
+  ],
+  "format": "classic constructed",
+  "hero": {
+    "identifier": "maxx-the-hype-nitro",
+    "image": "https://content.fabrary.net/cards/AMX001.webp",
+    "name": "Maxx 'The Hype' Nitro",
+    "setIdentifiers": [
+      "AMX001",
+      "EVO004",
+      "GEM105",
+      "HER090",
+      "HER095",
+      "WIN026"
+    ],
+    "sideboardTotal": 0,
+    "subType": "",
+    "subtypes": [],
+    "total": 1,
+    "type": "hero",
+    "types": [
+      "Hero"
+    ]
+  },
+  "name": "Armory Deck: Maxx",
+  "matchups": [],
+  "preferredTurnOrder": "NoPreference",
+  "slug": "01JRH0631MH5A9JPVGTP3TKJXN"
+}

@@ -8,7 +8,7 @@
 .fab-upf-zones{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}.fab-upf-zone{min-width:50px;max-width:100%;padding:6px;border:1px solid #9eb6ae18;border-radius:7px;background:#00000012;box-sizing:border-box}.fab-upf-zone h3{font:600 10px system-ui;letter-spacing:.06em;text-transform:uppercase;color:#91a9a7;margin:0 0 6px}.fab-upf-zone [id$=Wrapper]{position:relative!important;overflow:visible!important;max-width:100%}.fab-upf-zone [data-mzid]{position:relative!important}.fab-upf-zone>div{overflow:auto;max-width:100%}.fab-upf-zone [id$=Hand]{flex-wrap:wrap!important}
 .fab-upf-seat.is-summary .fab-upf-zone{border:0;background:none;padding:0}.fab-upf-seat.is-summary .fab-upf-zone:not([data-zone=Hero]):not([data-zone=Weapons]):not([data-zone=Equipment]):not([data-zone=Arena]){display:none}.fab-upf-seat.is-summary .fab-upf-zones{gap:8px}.fab-upf-seat.is-summary .fab-upf-zone[data-empty=true]{display:none}
 .fab-upf-seat.is-mine{min-height:46vh;border-top:2px solid #9b7e45;background:linear-gradient(150deg,#243b3cdd,#17292edf);padding:16px 20px}.fab-upf-seat.is-mine h2{font-size:17px}.fab-upf-seat.is-mine .fab-upf-zones{gap:12px}.fab-upf-seat.is-mine [data-zone=Hand]{flex-basis:100%;order:20;background:#0a181b55;border-color:#9eb6ae20;padding:12px}
-.fab-upf-zone[data-zone=Health],.fab-upf-zone[data-zone=Resources],.fab-upf-zone[data-zone=ActionPoints]{font:700 20px system-ui;min-width:70px;background:#0b171c70}.fab-upf-opponents.is-focused{grid-template-columns:minmax(0,1fr)}.fab-upf-seat[hidden],.fab-upf-zone[hidden]{display:none!important}
+.fab-upf-zone[data-zone=Health],.fab-upf-zone[data-zone=Resources],.fab-upf-zone[data-zone=Chi],.fab-upf-zone[data-zone=ActionPoints]{font:700 20px system-ui;min-width:70px;background:#0b171c70}.fab-upf-opponents.is-focused{grid-template-columns:minmax(0,1fr)}.fab-upf-seat[hidden],.fab-upf-zone[hidden]{display:none!important}
 .fab-upf-panel{position:fixed;z-index:150;left:15vw;top:24vh;width:min(850px,75vw);max-width:calc(100vw - 20px);max-height:65vh;border:1px solid #ad9056;border-radius:12px;background:#112128fa;box-shadow:0 22px 70px #000a;overflow:hidden;color:#eee9de}.fab-upf-panel[hidden]{display:none}.fab-upf-panel header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background:#23343a;cursor:grab;touch-action:none;user-select:none}.fab-upf-panel header:active{cursor:grabbing}.fab-upf-panel h2{font:700 14px system-ui;margin:0}.fab-upf-panel header small{font:11px system-ui;color:#a7bab8}.fab-upf-panel button{background:#142329;color:#eee;border:1px solid #9eb6ae55;border-radius:5px;padding:5px 9px;cursor:pointer}
 .fab-upf-panel-body{padding:16px;overflow:auto;max-height:calc(65vh - 65px);box-sizing:border-box}.fab-upf-chain-row{padding:10px 0;border-bottom:1px solid #ffffff16}.fab-upf-chain-row h3{font:600 11px system-ui;color:#d5bd88;margin:0 0 8px}.fab-upf-panel [id$=Wrapper]{overflow:visible!important}.fab-upf-panel [data-mzid]{position:relative!important}.fab-upf-empty{color:#94aaa8;font:13px system-ui}
 .fab-upf-active #macro-card-toast-host{top:8px!important;left:76px!important;z-index:160!important}body.fab-upf-active #chatWidget{top:5px!important;bottom:auto!important;left:auto!important;right:12px!important;width:480px!important;max-width:calc(100vw - 200px)!important;z-index:170!important}.fab-upf-active #fab-shortcut-dock{bottom:8px}
@@ -18,7 +18,7 @@
   .is-mine [data-zone=Equipment]{grid-column:1/4;grid-row:1/3}.is-mine [data-zone=Hero]{grid-column:4/6;grid-row:1}.is-mine [data-zone=Weapons]{grid-column:6/9;grid-row:1}
   .is-mine [data-zone=Arena]{grid-column:4/9;grid-row:2}.is-mine [data-zone=Deck]{grid-column:9/11;grid-row:1}.is-mine [data-zone=Graveyard]{grid-column:11/13;grid-row:1}
   .is-mine [data-zone=Arsenal]{grid-column:9/11;grid-row:2}.is-mine [data-zone=Banish]{grid-column:11/13;grid-row:2}
-  .is-mine [data-zone=Health]{grid-column:1/3;grid-row:3}.is-mine [data-zone=Resources]{grid-column:3/5;grid-row:3}.is-mine [data-zone=ActionPoints]{grid-column:5/9;grid-row:3}.is-mine [data-zone=Pitch]{grid-column:9/13;grid-row:3}
+  .is-mine [data-zone=Health]{grid-column:1/3;grid-row:3}.is-mine [data-zone=Resources]{grid-column:3/5;grid-row:3}.is-mine [data-zone=Chi]{grid-column:5/7;grid-row:3}.is-mine [data-zone=ActionPoints]{grid-column:7/9;grid-row:3}.is-mine [data-zone=Pitch]{grid-column:9/13;grid-row:3}
   .is-mine [data-zone=Hand],.is-mine [data-zone=Temp]{grid-column:1/-1}.is-mine [data-zone=Hand]{grid-row:4}
   .is-mine [data-zone=Equipment]>div{max-width:240px;margin:auto}
 }
@@ -149,7 +149,7 @@
       // A private pile is one CardBack record whose counter carries its size.
       const count=name=>{
         const data=(dataByName[name] || '').trim();
-        const pile=/^CardBack (\d+) /.exec(data);
+        const pile=/^\S+ (\d+) /.exec(data);
         if(pile && (name==='Deck'||name==='Arsenal'))return Number(pile[1]);
         return data?data.split('<|>').length:0;
       };
@@ -158,7 +158,7 @@
       hand.replaceChildren();hand.setAttribute('role','img');hand.setAttribute('aria-label',handCount+' cards in hand');hand.title=handCount+' cards in hand';
       for(let i=0;i<Math.min(handCount,10);i++){const back=document.createElement('img');back.src='./FaBSim/concat/CardBack.webp';back.alt='';hand.appendChild(back);}
       if(handCount>10){const extra=document.createElement('span');extra.textContent='+'+(handCount-10);hand.appendChild(extra);}
-      for(const [zoneName,value,label] of [['Hero',dataByName.Health||'0','Life'],['Pitch',dataByName.Resources||'0','Available resources']]){
+      for(const [zoneName,value,label] of [['Hero',dataByName.Health||'0','Life'],['Pitch',(dataByName.Resources||'0')+' ('+(dataByName.Chi||'0')+' Chi)','Available resources']]){
         const zone=section.querySelector('[data-zone="'+zoneName+'"]');
         let badge=zone.querySelector('.fab-upf-summary-counter');
         if(!badge){badge=document.createElement('span');badge.className='fab-upf-summary-counter';zone.appendChild(badge);}
