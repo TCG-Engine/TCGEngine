@@ -1,0 +1,44 @@
+# BAD-DECK fixture — Starter deck
+# Source: Spark of Rebellion two-player starter — Luke Skywalker (owner-supplied SET_NNN list)
+#   The WEAK set (added 2026-09-15): deliberately poor decks, for the deck-advantage conversion test —
+#   a strong pilot should beat a clearly worse deck nearly every time, and that measure has none of the
+#   field-skew that makes bot-vs-tournament win rates misleading.
+#   ⚠ NOT Premier legal: a pre-JTL starter deck, built to a low power level. Never add this set to a
+#   strength gate or to the tournament-backed sets.
+# Shape: 50 cards, avg cost 2.86, 37 units (18 at 1-2, 2 at 6+), 3 removal, 0 wipe, 11 events, 2 upgrades
+# Style: aggro
+#   ⚠ auto-derived from deck shape, not reviewed.
+# Flavours: none
+
+Leader
+1 SOR_005
+
+Base
+1 SOR_029
+
+Deck
+1 SOR_194
+1 SOR_047
+1 SOR_244
+3 SOR_240
+1 SOR_241
+2 SOR_220
+3 SOR_078
+1 SOR_242
+3 SOR_189
+3 SOR_236
+1 SOR_192
+2 SOR_196
+1 SOR_217
+3 SOR_046
+3 SOR_238
+2 SOR_195
+2 SOR_222
+2 SOR_053
+2 SOR_218
+3 SOR_239
+2 SOR_049
+1 SOR_245
+1 SOR_045
+3 SOR_237
+3 SOR_044

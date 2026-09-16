@@ -8,6 +8,8 @@
 //
 // Environment (all optional; with none of them set '@rl' plays exactly like the heuristic):
 //   SWU_RL_POLICY      checkpoint JSON {"version","batches","games","table":{style:{state:{move:[visits,mean]}}}}
+//                      — or swu-v2 (rl_ab.py) with "ab":{style:{state:{move:[tw,twg,tw2,nc,cg]}}}, which then decides
+//                      every override (the swu-v1 means are biased by the heuristic's own choices: RL run 3)
 //   SWU_RL_MODE        'play' (default: greedy, abstains to the fallback on thin evidence) | 'train' (also explores)
 //   SWU_RL_EPSILON     exploration rate in train mode (default 0.1)
 //   SWU_RL_MIN_VISITS  visits a move needs before its mean is trusted (default 8)
@@ -30,6 +32,17 @@ function SWURlPolicy(): array {
     return $cache[$k];
 }
 
+// One swu-v2 entry [tw, twg, tw2, nc, cg] → the treatment and control means, their (effective) sizes, the effect and
+// its standard error. Mirrors ab_effect() in SWUSim/DevTools/rl/rl_ab.py; null without both arms.
+function SWURlAbEffect($e): ?array {
+    if (!is_array($e) || count($e) < 5) return null;
+    [$tw, $twg, $tw2, $nc, $cg] = array_map('floatval', $e);
+    if ($tw <= 0 || $nc <= 0 || $tw2 <= 0) return null;
+    $qT = $twg / $tw; $qC = $cg / $nc; $nT = $tw * $tw / $tw2;
+    $se = sqrt(max(1e-9, 1 - $qT * $qT) / $nT + max(1e-9, 1 - $qC * $qC) / $nc);
+    return ['qT' => $qT, 'qC' => $qC, 'nT' => $nT, 'nC' => $nc, 'effect' => $qT - $qC, 'se' => $se];
+}
+
 function SWURlChoose(array $ctx, ?array $fallbackPick): ?array {
     if ($fallbackPick === null || empty($ctx['actions'])) return $fallbackPick;
     $seat = intval($ctx['seat']); $style = strval($ctx['style']);
@@ -39,13 +52,27 @@ function SWURlChoose(array $ctx, ?array $fallbackPick): ?array {
     if (count($byMove) < 2) return $fallbackPick;   // no choice to learn
 
     $s = SWURlStateKey($ctx);
-    $row = SWURlPolicy()['table'][$style][$s] ?? [];
+    $policy = SWURlPolicy();
+    $row = $policy['table'][$style][$s] ?? [];
     $minV = intval(getenv('SWU_RL_MIN_VISITS') ?: 8);
     $fbMove = SWURlMoveKey($ctx, $fallbackPick);
     $choice = $fallbackPick; $chosen = $fbMove; $how = 'keep';
 
     $z = floatval(getenv('SWU_RL_Z') ?: 0);
-    if ($z > 0) {
+    if (isset($policy['ab'])) {
+        // swu-v2 (SWUSim/DevTools/rl/rl_ab.py): override only where games in which EXPLORATION forced a move beat the
+        // heuristic's own games in the same state — the swu-v1 means were biased by the heuristic's choices (RL run 3
+        // lost at 46.8%). Both arms need the sample floor, and the effect must clear z SE (z defaults to 3 here: a
+        // bare positive effect is never enough). Among the qualifying moves, the largest effect.
+        $abRow = $policy['ab'][$style][$s] ?? [];
+        $zAb = $z > 0 ? $z : 3.0; $bestE = -INF;
+        foreach ($byMove as $m => $a) {
+            if ($m === $fbMove) continue;
+            $e = SWURlAbEffect($abRow[$m] ?? null);
+            if ($e === null || $e['nT'] < $minV || $e['nC'] < $minV) continue;
+            if ($e['effect'] > $zAb * $e['se'] && $e['effect'] > $bestE) { $bestE = $e['effect']; $choice = $a; $chosen = $m; $how = 'override'; }
+        }
+    } elseif ($z > 0) {
         // The significance rule (RL run 1: the margin rule below chased noise — winner's curse). Only when the
         // fallback's OWN move is measured, and an alternative beats it by more than z standard errors of the
         // difference (a ±1 return has variance ≈ 1 − mean²). Among those, the highest mean.
@@ -82,8 +109,12 @@ function SWURlChoose(array $ctx, ?array $fallbackPick): ?array {
             $chosen = $keys[intdiv($h, 1000000) % count($keys)];
             $choice = $byMove[$chosen]; $how = 'explore';
         }
+        // how / fb / L feed the randomised comparison (rl_ab.py): 'explore' decisions are the treatment arm, 'keep'
+        // decisions the control arm for every legal move, and the forced move is weighted by the legal-move count.
         $ep = strval(getenv('SWU_RL_EPISODE') ?: '');
-        if ($ep !== '') @file_put_contents($ep, json_encode(['seat' => $seat, 'style' => $style, 's' => $s, 'm' => $chosen], JSON_UNESCAPED_SLASHES) . "\n", FILE_APPEND);
+        $legal = array_keys($byMove); sort($legal);
+        if ($ep !== '') @file_put_contents($ep, json_encode(['seat' => $seat, 'style' => $style, 's' => $s, 'm' => $chosen,
+            'how' => $how, 'fb' => $fbMove, 'L' => $legal], JSON_UNESCAPED_SLASHES) . "\n", FILE_APPEND);
     }
     SWUBotRecordCoverage($seat, "rl:$how");
     return $choice;

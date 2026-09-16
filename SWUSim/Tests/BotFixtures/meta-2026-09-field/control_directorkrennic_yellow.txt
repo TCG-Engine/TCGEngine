@@ -1,0 +1,39 @@
+# Real-deck self-play fixture — Director Krennic, Amidst My Achievement - Freetown
+# Source: melee.gg 448251, #33 of 43 (1-2-0)
+#   https://melee.gg/Decklist/View/21f37bad-8166-4c23-9ebf-b4c4001900c5 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Director Krennic · Yellow 30HP — 2 entries, 2-4-0 (33.3% match win) across the twenty events
+# Style: control
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from this leader's owner-labelled fixture (a different base colour).
+# Flavours: none
+
+Leader
+1 LAW_008
+
+Base
+1 ASH_026
+
+Deck
+3 ASH_116
+3 LAW_159
+3 SEC_186
+3 LAW_136
+3 LAW_071
+3 ASH_133
+2 JTL_216
+2 LOF_180
+2 SEC_090
+2 ASH_097
+2 ASH_220
+1 ASH_053
+3 JTL_119
+3 LOF_213
+2 ASH_052
+2 SEC_088
+2 ASH_102
+3 ASH_200
+2 LAW_217
+1 JTL_121
+1 LAW_066
+3 LOF_091

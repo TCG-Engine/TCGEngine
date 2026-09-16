@@ -4,6 +4,7 @@
 
 include_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
 include_once('../Database/CardAbilityRepository.php');
+include_once __DIR__ . '/../../Core/CardBaseMap.php';
 
 header('Content-Type: application/json');
 
@@ -24,6 +25,10 @@ try {
         exit;
     }
     
+    // A variant printing (borderless, alt art) shows its base card's abilities.
+    $resolution = CardBaseResolution((string)$rootName, (string)$cardId);
+    $cardId = $resolution['cardId'];
+
     $db = OpenCardAbilityRepository($rootName);
     if (method_exists($db, 'loadCardWithRevision')) {
         $loaded = $db->loadCardWithRevision($rootName, $cardId);
@@ -39,7 +44,7 @@ try {
         'abilities' => $abilities,
         'hasAbilities' => count($abilities) > 0,
         'revision' => $revision
-    ]);
+    ] + $resolution);
     $db->close();
 } catch (Exception $e) {
     http_response_code(500);

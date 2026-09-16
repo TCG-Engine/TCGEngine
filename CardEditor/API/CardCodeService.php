@@ -5,6 +5,7 @@
 
 include_once __DIR__ . '/../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../Database/CardCodeServiceDB.php';
+include_once __DIR__ . '/../../Core/CardBaseMap.php';
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
@@ -47,10 +48,12 @@ try {
     $token = $service->authenticate(CardCodeServiceBearerToken(), $root, $scope);
     $actor = (string)$token['token_name'];
 
+    // Variant printings (borderless, alt art) share their base card's abilities: reads and writes
+    // through a variant ID land on the base card, and ensure-cards never creates variant rows.
     if ($action === 'card' && $method === 'GET') {
-        $cardId = (string)($_GET['card'] ?? '');
-        $rows = $service->rows($root, $cardId);
-        CardCodeServiceJson(200, ['success' => true, 'root' => $root, 'cardId' => $cardId, 'revision' => CardCodeServiceDB::RevisionForRows($rows), 'abilities' => $rows]);
+        $resolution = CardBaseResolution($root, (string)($_GET['card'] ?? ''));
+        $rows = $service->rows($root, $resolution['cardId']);
+        CardCodeServiceJson(200, ['success' => true, 'root' => $root, 'revision' => CardCodeServiceDB::RevisionForRows($rows), 'abilities' => $rows] + $resolution);
     }
     if ($action === 'snapshot' && $method === 'GET') {
         $rows = $service->rows($root);
@@ -69,15 +72,16 @@ try {
     }
     if ($action === 'save' && $method === 'POST') {
         $service->checkpoint($root, $actor);
+        $resolution = CardBaseResolution($root, (string)($body['cardId'] ?? $body['card'] ?? ''));
         $result = $service->replaceCard(
             $root,
-            (string)($body['cardId'] ?? $body['card'] ?? ''),
+            $resolution['cardId'],
             is_array($body['abilities'] ?? null) ? $body['abilities'] : [],
             !empty($body['cardImplemented']),
             isset($body['baseRevision']) ? (string)$body['baseRevision'] : null
         );
-        if (!empty($result['conflict'])) CardCodeServiceJson(409, ['success' => false, 'error' => 'Card abilities changed since they were loaded', 'conflict' => $result]);
-        CardCodeServiceJson(200, ['success' => true] + $result);
+        if (!empty($result['conflict'])) CardCodeServiceJson(409, ['success' => false, 'error' => 'Card abilities changed since they were loaded', 'conflict' => $result] + $resolution);
+        CardCodeServiceJson(200, ['success' => true] + $result + $resolution);
     }
     if ($action === 'ensure-cards' && $method === 'POST') {
         $service->checkpoint($root, $actor);
@@ -89,7 +93,7 @@ try {
             $check = mysqli_prepare($conn, 'SELECT 1 FROM card_abilities WHERE root_name = ? AND card_id = ? LIMIT 1');
             $insert = mysqli_prepare($conn, "INSERT INTO card_abilities (root_name, card_id, macro_name, ability_type, ability_code, is_implemented) VALUES (?, ?, '', 'macro', '', 0)");
             foreach (array_unique($cardIds) as $candidate) {
-                $cardId = trim((string)$candidate);
+                $cardId = ResolveBaseCardID($root, trim((string)$candidate));
                 if ($cardId === '' || strlen($cardId) > 128) continue;
                 mysqli_stmt_bind_param($check, 'ss', $root, $cardId);
                 mysqli_stmt_execute($check);

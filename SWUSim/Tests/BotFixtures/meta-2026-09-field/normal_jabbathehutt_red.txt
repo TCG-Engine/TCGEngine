@@ -1,0 +1,41 @@
+# Real-deck self-play fixture — Jabba the Hutt, Wonderful Human Being - Naval Intelligence HQ
+# Source: melee.gg 438966, #40 of 72 (3-4-0)
+#   https://melee.gg/Decklist/View/4b12d47d-d36a-44da-94f2-b4bc011bca4c — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Jabba the Hutt · Red 30HP — 2 entries, 4-9-0 (30.8% match win) across the twenty events
+# Style: normal
+#   Owner, 2026-09-15: a high curve alone is not control — this is midrange (the same call as Luke · Green Data Vault) (auto-derived as "control" before the review).
+# Flavours: none
+
+Leader
+1 SEC_002
+
+Base
+1 SEC_024
+
+Deck
+3 LAW_174
+3 LAW_173
+3 ASH_030
+3 ASH_032
+2 ASH_048
+2 ASH_147
+1 ASH_079
+1 ASH_053
+1 ASH_077
+3 SEC_037
+3 JTL_140
+3 JTL_033
+2 ASH_071
+2 ASH_052
+2 ASH_146
+2 JTL_239
+1 JTL_143
+1 SEC_171
+3 JTL_043
+2 SEC_180
+2 LAW_133
+2 LAW_044
+1 LAW_208
+2 SEC_038

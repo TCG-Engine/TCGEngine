@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Jabba the Hutt, Crime Boss - Daimyo's Palace
+# Source: melee.gg 439042, #17 of 90 (5-2-0)
+#   https://melee.gg/Decklist/View/bb2d5e65-572b-4797-a509-b4c30177256d — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Jabba the Hutt · Blue Splash — 2 entries, 8-4-2 (64.3% match win) across the twenty events
+# Style: normal
+#   Owner, 2026-09-15: a high curve alone is not control — this is midrange (the same call as Luke · Green Data Vault) (auto-derived as "control" before the review).
+# Flavours: none
+
+Leader
+1 LAW_015
+
+Base
+1 LAW_020
+
+Deck
+3 SEC_186
+3 ASH_048
+3 ASH_053
+3 LAW_210
+3 LAW_090
+2 LAW_214
+2 LAW_118
+2 ASH_192
+2 ASH_219
+2 LAW_086
+1 LAW_113
+3 ASH_052
+3 ASH_194
+2 ASH_196
+3 LAW_217
+3 LAW_133
+3 JTL_043
+3 LAW_044
+2 LOF_077
+1 SEC_078
+2 SEC_038

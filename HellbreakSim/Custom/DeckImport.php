@@ -1,5 +1,7 @@
 <?php
 
+include_once __DIR__ . '/../../Core/CardBaseMap.php';
+
 function HellbreakDeckCardUsable(string $cardID): bool {
     if(!preg_match('/^[A-Za-z0-9_-]+$/', $cardID)) return false;
     if(!function_exists('CardType') || trim((string)CardType($cardID)) === '') return false;
@@ -26,7 +28,9 @@ function HellbreakParseDeckGamestateFile(string $path): array {
         $zone = [];
         for($i = 0; $i < $count; ++$i) {
             $parts = preg_split('/\s+/', trim((string)$lines[$cursor++]));
-            $cardID = trim((string)($parts[0] ?? ''));
+            // A saved variant printing (DOT_262 borderless, DOT_455 alt art) enters the game as its
+            // base card, so abilities and uniqueness only ever see one ID per card.
+            $cardID = ResolveBaseCardID('HellbreakSim', trim((string)($parts[0] ?? '')));
             if($cardID !== '') $zone[] = $cardID;
         }
         return $zone;

@@ -1,0 +1,37 @@
+# Real-deck self-play fixture — Ezra Bridger, It's Now or Never - Amnesty Housing
+# Source: melee.gg 437735, #4 of 53 (5-2-1)
+#   https://melee.gg/Decklist/View/237aa1dd-fa7f-4e2f-8f38-b4bc014bcd82 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Ezra Bridger · Yellow 30HP — 16 entries, 35-51-2 (40.9% match win) across the twenty events
+# Style: aggro
+#   Owner, 2026-09-15: aggro (auto-derived as "normal" from deck shape before the review).
+# Flavours: none
+
+Leader
+1 ASH_013
+
+Base
+1 SEC_025
+
+Deck
+3 JTL_203
+3 SEC_148
+3 LAW_078
+2 SEC_163
+2 ASH_208
+1 LAW_191
+1 ASH_224
+3 ASH_204
+3 ASH_157
+3 ASH_167
+3 ASH_153
+3 LOF_192
+3 JTL_221
+3 ASH_253
+2 ASH_222
+3 SEC_179
+2 SEC_233
+3 LOF_151
+3 SEC_176
+1 ASH_183

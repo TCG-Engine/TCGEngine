@@ -14762,6 +14762,12 @@ function SWUApplyIndirectAssignment(int $controller, int $damagedPlayer, string 
         // SWUDealDamageToUnit funnel, so the threshold observer has to be fired here too or a whole
         // damage KIND is invisible to it (the JTL_177 shape).
         _SWUCollectHmw011Threshold(intval($controller), intval($h['amount']), 'U' . intval($h['uid'] ?? 0));
+        // JTL_009 Boba Fett — the same funnel-bypass, one observer further. "When you deal non-combat damage" is
+        // collected by SWUDealDamageToUnit and by SWUDealDamageToBase, so indirect assigned to a BASE offered the
+        // reaction while indirect assigned to a UNIT silently did not (owner report 2026-09-16, Bot Practice game
+        // 469688: Fett's Firespray dealt 3 indirect, the opponent put all of it on a unit, and Boba stayed ready).
+        // The SWU_BOBA_009_PENDING guard dedupes when part of the same assignment also hit the base.
+        _SWUCollectBobaNonCombatReaction(intval($controller));
     }
 
     // JTL_133 Allegiant General Pryde — "When indirect damage is dealt to a unit: you may defeat a
@@ -20468,6 +20474,12 @@ function SWUComputeActionsData(int $player): array {
             // TWI_017 "Flipatine" has NO deploy — both faces are flip Actions (its empty printed cost
             // would otherwise make the generic ">= CardCost" check pass and offer a bogus Deploy option).
             $deployByIdx[$liveIdx] = false;
+        } elseif ($cid === 'LAW_013') {
+            // Chewbacca: "Epic Action [4 resources]" is a paid COST, not a control threshold — offer it on
+            // the same payment-capacity gate SWUDeployLeader enforces, or Deploy glows and does nothing
+            // (the bot re-picked it forever). SWUSim/DevTools/tests/chewbacca_deploy_offer_test.php.
+            $deployByIdx[$liveIdx] = !$epicUsed && !$deployed
+                && SWUTotalPaymentCapacity($player) >= intval(CardCost($cid));
         } else {
             $deployByIdx[$liveIdx] = !$epicUsed && !$deployed
                 && SWUResourceCount($player) >= intval(CardCost($cid));

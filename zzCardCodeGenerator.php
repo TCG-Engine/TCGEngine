@@ -8,6 +8,7 @@ include "./Core/HTTPLibraries.php";
 include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./Database/ConnectionManager.php";
 include_once "./CardEditor/Database/CardAbilityRepository.php";
+include_once "./Core/CardBaseMap.php";
 
 // Support CLI invocation: parse arguments into $_GET if not running under HTTP (mirrors
 // zzGameCodeGenerator.php's bridge — needed so TryGET("rootName", ...) below sees CLI args
@@ -834,12 +835,15 @@ try {
   $databaseRoot = !empty($cardDBOverride) ? $cardDBOverride : $rootName;
   $cardAbilityDB = OpenCardAbilityRepository($databaseRoot);
 
+  // Variant printings share their base card's abilities, so they get no rows of their own.
+  $abilityCardIds = array_values(array_unique(array_map(fn($cardId) => ResolveBaseCardID($rootName, (string)$cardId), $allCardIds)));
+
   $existingCount = 0;
   if (method_exists($cardAbilityDB, 'ensureCards')) {
-    $cardAbilityDB->ensureCards($databaseRoot, $allCardIds);
-    $existingCount = count($allCardIds);
+    $cardAbilityDB->ensureCards($databaseRoot, $abilityCardIds);
+    $existingCount = count($abilityCardIds);
   } else {
-    foreach($allCardIds as $cardId) {
+    foreach($abilityCardIds as $cardId) {
       // Check if this card already has abilities in the database (using the appropriate database root)
       if(!$cardAbilityDB->cardHasAbilities($databaseRoot, $cardId)) {
         // Create placeholder entry for this card so it shows up in the editor

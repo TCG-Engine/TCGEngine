@@ -2007,6 +2007,9 @@ function BridgeEnumerateModalResults($param) {
   }
   if (empty($labels)) return ['-'];
 
+  // Answers are INDICES, matching what Core/MZModalUI.js submits (`indices.join(',')`). Labels look
+  // friendlier but handlers read the answer as an index (HellbreakSim validates `^\d+$`), so a
+  // label is silently rejected and the prompt is consumed with nothing done.
   $results = [];
   $n = count($labels);
   for ($k = $min; $k <= min($max, $n); ++$k) {
@@ -2014,10 +2017,15 @@ function BridgeEnumerateModalResults($param) {
       $results[] = '-';
       continue;
     }
-    // first-k deterministic selection
-    $results[] = implode('&', array_slice($labels, 0, $k));
-    // last-k deterministic selection
-    $results[] = implode('&', array_slice($labels, $n - $k, $k));
+    if ($k === 1) {
+      // Single-select: offer every option. Sampling first/last hides the middle ones, and those are
+      // real choices (a Hellbreak horror prompt lists Play Card, Attack, Scheme, Ability, Pass...).
+      for ($i = 0; $i < $n; ++$i) $results[] = (string)$i;
+      continue;
+    }
+    // Multi-select: keep the deterministic first-k / last-k sample; every combination explodes.
+    $results[] = implode(',', range(0, $k - 1));
+    $results[] = implode(',', range($n - $k, $n - 1));
   }
   return array_values(array_unique($results));
 }

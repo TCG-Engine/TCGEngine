@@ -32,6 +32,41 @@ Each file header records:
 | control_aurra_red | control | hard |
 | control_dedra_colossus | control | hard |
 
+**Second batch (2026-09-15)** — eight owner-supplied lists (a ninth, Mother Talzin on Crystal Caves, turned out to be the SAME decklist as `normal_talzin_force` and was dropped): B-tier decks and newer lists, several from events
+outside the research data (each header says which). They are not "best of archetype" picks. RL run 3 never
+saw them (the trainer lists its decks at startup), so they double as a held-out set for the learned layer.
+
+| File | Style | Flavours |
+|---|---|---|
+| normal_armorer_nabat | normal | go-tall, upgrades |
+| normal_obiwan_vergence | normal | go-wide, force, high-hp |
+| normal_greef_datavault | normal | go-wide, mixed |
+| aggro_chewbacca_outpost | aggro | hyper, credit |
+| control_thrawn_yellow | control | combo, when-defeated |
+| control_thrawn_datavault | control | bombs |
+| control_mando_colossus | control | hard, combo |
+| control_aurra_datavault | control | setup |
+
+**Third batch (2026-09-16)** — one deck, promoted from the field set at the owner's request because the gate set
+covered no **defensive / heal** deck at all. Every other fixture either races, trades, or stalls behind Sentinels;
+none of them heals to win.
+
+| File | Style | Flavours |
+|---|---|---|
+| normal_lukeash_datavault | normal | heal, defensive, go-tall |
+
+⚠ **`normal_lukeash_datavault` and `normal_luke_datavault` are DIFFERENT DECKS that share an archetype key.**
+Two Luke leaders both play Green Data Vault:
+- `normal_lukeash_datavault` — ASH_005 *I Can Save Him*: grindy midrange blue-green Hero, defensive, heal-based.
+  35 entries, 46.4% over 207 matches.
+- `normal_luke_datavault` — JTL_012 *Hero of Yavin*: soft aggro / midrange SPACE, the Plot Cinta Kaz → Luke pilot
+  deck. 94 entries, 52.5% over 575 matches.
+
+They differ by 6 points and play nothing alike, so "Luke DV" unqualified is always ambiguous — say Luke (ASH) or
+Luke (JTL). The same trap applies to every leader with two printings in this meta (Thrawn, Vader, Leia, Jabba,
+Lando, Ahsoka). ⚠ The gate is now **23 decks**, so a full `strength_test.sh` run is 23 x 22 x seeds x 2 =
+**10,120 games** at 10 seeds, not 9,240.
+
 Run a pairing with each deck on its own style's profile:
 
     docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d apc.enable_cli=1 -d xdebug.mode=off \

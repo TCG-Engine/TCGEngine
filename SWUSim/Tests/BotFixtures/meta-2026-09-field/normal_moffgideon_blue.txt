@@ -1,0 +1,36 @@
+# Real-deck self-play fixture — Moff Gideon, Indomitable Warlord - Fortress of the Great Mothers
+# Source: melee.gg 445115, #38 of 180 (5-3-0)
+#   https://melee.gg/Decklist/View/1dda0885-c6e0-4a89-94e5-b4bd003d29b8 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Moff Gideon · Blue 30HP — 2 entries, 6-6-0 (50.0% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 3.68, 19 cheap units, 7 removal, 3 wipe, 9 units 6+).
+# Flavours: none
+
+Leader
+1 ASH_008
+
+Base
+1 ASH_019
+
+Deck
+3 ASH_243
+3 JTL_032
+3 ASH_027
+3 ASH_048
+3 SEC_080
+3 LAW_097
+3 ASH_097
+3 ASH_237
+3 ASH_053
+3 ASH_045
+1 LAW_037
+3 ASH_052
+3 JTL_119
+3 JTL_242
+2 JTL_033
+1 ASH_117
+3 JTL_043
+1 LAW_132
+3 LOF_091

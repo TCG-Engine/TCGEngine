@@ -1,0 +1,47 @@
+# Real-deck self-play fixture — Poe Dameron, I Can Fly Anything - Kryze Castle
+# Source: melee.gg 442747, #66 of 71 (2-5-0)
+#   https://melee.gg/Decklist/View/dc1eb6a8-8f70-4fb7-82e4-b4c300052859 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Poe Dameron · Green 30HP — 2 entries, 4-11-0 (26.7% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 3.08, 17 cheap units, 0 removal, 1 wipe, 2 units 6+).
+# Flavours: none
+
+Leader
+1 JTL_013
+
+Base
+1 ASH_022
+
+Deck
+3 JTL_103
+3 ASH_154
+2 JTL_097
+2 JTL_100
+2 JTL_245
+1 ASH_129
+1 ASH_112
+1 ASH_126
+1 ASH_133
+3 JTL_147
+2 ASH_124
+2 ASH_172
+2 JTL_149
+2 JTL_102
+2 JTL_247
+1 JTL_096
+1 LAW_189
+1 ASH_153
+1 LAW_144
+1 JTL_250
+1 ASH_174
+1 ASH_253
+2 SEC_163
+3 ASH_184
+2 LAW_208
+1 LAW_168
+1 ASH_140
+2 SEC_176
+2 ASH_135
+1 ASH_183

@@ -1,6 +1,6 @@
 <?php
 // FLAVOUR REGISTRY (RL bots spec, Section 5 "Flavour profiles"): the owner's flavour tags per ARCHETYPE, keyed by
-// leader + the base's aspect ("LEADER|Aspect", else "LEADER|*"), so any deck — not only the fixtures — gets its
+// leader + the base ("LEADER|BASE_ID", else "LEADER|Aspect", else "LEADER|*"), so any deck — not only the fixtures — gets its
 // flavours in live play. A deck not listed has none and plays its style alone. Source: the owner's labels (spec,
 // "Archetype vocabulary"), as tagged in SWUSim/Tests/BotFixtures/meta-2026-09/README.md (bot_flavours_test.php
 // checks every fixture header against this table).
@@ -20,13 +20,23 @@ const SWU_BOT_FLAVOURS = [
     'JTL_012|*'         => ['space', 'combo', 'pilot'],  // Luke (JTL)
     'LOF_009|*'         => ['tempo', 'force'],           // Darth Maul
     'LOF_002|*'         => ['tempo', 'force'],           // Mother Talzin
+    // Second fixture batch (2026-09-15). A label that names a BASE is keyed by the base's CardID (owner: "the flavor
+    // profiles should come from the leader/base combo"); one that names a colour, by the aspect.
+    'ASH_001|JTL_028'   => ['go-tall', 'upgrades'],      // The Armorer, Nabat Village
+    'LOF_008|LOF_019'   => ['go-wide', 'force', 'high-hp'], // Obi-Wan, Vergence Temple (not the 28-HP Force-base lists)
+    'JTL_002|Cunning'   => ['combo', 'when-defeated'],   // Thrawn (JTL), Yellow
+    'JTL_002|JTL_024'   => ['bombs'],                    // Thrawn (JTL), Data Vault
+    'ASH_014|JTL_021'   => ['hard', 'combo'],            // The Mandalorian (ASH), Colossus
+    'LAW_004|JTL_024'   => ['setup'],                    // Aurra Sing, Data Vault (the red list stays 'hard')
+    'LAW_013|LAW_019'   => ['hyper', 'credit'],          // Chewbacca (LAW), Alliance Outpost
 ];
 
 function SWUBotDeckFlavours(int $seat): array {
     $leader = strval((GetLeader($seat)[0] ?? null)->CardID ?? '');
     $base = GetBase($seat)[0] ?? null;
-    $aspect = $base !== null ? strval(CardAspect(strval($base->CardID ?? '')) ?? '') : '';
-    return SWU_BOT_FLAVOURS["$leader|$aspect"] ?? SWU_BOT_FLAVOURS["$leader|*"] ?? [];
+    $baseID = $base !== null ? strval($base->CardID ?? '') : '';
+    $aspect = $baseID !== '' ? strval(CardAspect($baseID) ?? '') : '';
+    return SWU_BOT_FLAVOURS["$leader|$baseID"] ?? SWU_BOT_FLAVOURS["$leader|$aspect"] ?? SWU_BOT_FLAVOURS["$leader|*"] ?? [];
 }
 
 // A card this deck should not resource while it holds filler (feature 'keep'): its answers (removal, wipe), its

@@ -1,0 +1,45 @@
+# BAD-DECK fixture — Starter deck
+# Source: Shadows of the Galaxy two-player starter — Moff Gideon (DotGG)
+#   The WEAK set (added 2026-09-15): deliberately poor decks, for the deck-advantage conversion test —
+#   a strong pilot should beat a clearly worse deck nearly every time, and that measure has none of the
+#   field-skew that makes bot-vs-tournament win rates misleading.
+#   ⚠ NOT Premier legal: a pre-JTL starter deck, built to a low power level. Never add this set to a strength gate or to the tournament-backed sets.
+# Shape: 50 cards, avg cost 2.98, 37 units (16 at 1-2, 5 at 6+), 3 removal, 0 wipe, 9 events, 4 upgrades
+# Style: aggro
+#   ⚠ auto-derived from deck shape, not reviewed.
+# Flavours: none
+
+Leader
+1 SHD_007
+
+Base
+1 SHD_019
+
+Deck
+1 SHD_031
+1 SHD_093
+2 SHD_238
+2 SHD_262
+1 SHD_130
+3 SHD_085
+2 SHD_125
+1 SHD_113
+1 SHD_071
+3 SHD_234
+1 SHD_120
+3 SHD_083
+3 SHD_030
+1 SHD_124
+3 SHD_082
+2 SHD_063
+2 SHD_089
+1 SHD_081
+1 SHD_129
+1 SHD_028
+2 SHD_236
+3 SHD_242
+3 SHD_084
+1 SHD_118
+3 SHD_039
+1 SHD_128
+2 SHD_110

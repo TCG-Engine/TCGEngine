@@ -1,0 +1,40 @@
+# Real-deck self-play fixture — Rose Tico, Saving What We Love - Freetown
+# Source: melee.gg 441494, #13 of 21 (2-3-0)
+#   https://melee.gg/Decklist/View/05fefbd5-f73d-47fb-aa89-b4bc00afc0fe — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Rose Tico · Yellow 30HP — 3 entries, 9-10-0 (47.4% match win) across the twenty events
+# Style: aggro
+#   Owner, 2026-09-15: cheap, low curve and little removal — aggro, not midrange (auto-derived as "normal" before the review).
+# Flavours: none
+
+Leader
+1 JTL_004
+
+Base
+1 ASH_026
+
+Deck
+3 JTL_245
+2 LAW_228
+2 JTL_203
+2 JTL_046
+2 JTL_066
+1 JTL_210
+3 ASH_043
+3 SEC_219
+3 JTL_198
+3 JTL_249
+2 SEC_204
+2 SEC_207
+2 JTL_223
+2 JTL_250
+2 JTL_062
+2 ASH_222
+2 ASH_253
+2 SEC_233
+2 JTL_235
+2 JTL_078
+2 JTL_207
+2 JTL_231
+2 LAW_129

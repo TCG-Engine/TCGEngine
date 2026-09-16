@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Chewbacca, Hero of Kessel - Emperor's Observatory
+# Source: melee.gg 442747, #31 of 71 (4-3-0)
+#   https://melee.gg/Decklist/View/a6cfdfd3-012f-41ec-a7aa-b4c200ed33b9 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Chewbacca · Yellow 30HP — 3 entries, 6-12-1 (34.2% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from this leader's owner-labelled fixture (a different base colour).
+# Flavours: none
+
+Leader
+1 LAW_013
+
+Base
+1 ASH_025
+
+Deck
+3 SEC_148
+3 ASH_040
+2 ASH_255
+2 JTL_203
+2 SEC_151
+2 LAW_078
+3 LAW_183
+3 ASH_153
+3 LOF_192
+2 LAW_083
+2 SEC_219
+2 JTL_249
+2 JTL_151
+2 ASH_222
+2 SEC_163
+3 SEC_179
+3 LAW_202
+3 JTL_155
+2 LOF_215
+2 ASH_180
+2 ASH_183

@@ -1,0 +1,39 @@
+# Real-deck self-play fixture — Lando Calrissian, Full Sabacc - Colossus
+# Source: melee.gg 441696, #7 of 25 (3-2-1)
+#   https://melee.gg/Decklist/View/3cab0bc4-6075-4270-b302-b4c2017474bd — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Lando Calrissian · Blue Colossus — 4 entries, 11-8-3 (56.8% match win) across the twenty events
+# Style: control
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from the owner-labelled Blue fixture for this leader.
+# Flavours: none
+
+Leader
+1 LAW_018
+
+Base
+1 JTL_021
+
+Deck
+3 LOF_070
+3 SEC_051
+3 LAW_118
+3 LAW_095
+3 ASH_053
+3 LAW_092
+1 ASH_179
+1 LOF_200
+1 SEC_209
+3 ASH_052
+3 LOF_077
+3 JTL_078
+3 LAW_133
+3 JTL_080
+3 JTL_043
+3 LAW_096
+3 LAW_132
+2 ASH_067
+2 SEC_078
+2 LAW_044
+2 JTL_055
+1 SEC_077

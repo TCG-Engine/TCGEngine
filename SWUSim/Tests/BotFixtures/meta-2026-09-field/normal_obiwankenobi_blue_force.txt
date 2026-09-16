@@ -1,0 +1,35 @@
+# Real-deck self-play fixture — Obi-Wan Kenobi, Courage Makes Heroes - Shadowed Undercity
+# Source: melee.gg 437735, #5 of 53 (4-1-2)
+#   https://melee.gg/Decklist/View/c40ad2a9-d418-40ed-8e7f-b4bc015af2bc — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Obi-Wan Kenobi · Blue Force — 6 entries, 15-17-5 (47.3% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from the owner-labelled Blue fixture for this leader.
+# Flavours: none
+
+Leader
+1 LOF_008
+
+Base
+1 LOF_021
+
+Deck
+3 LOF_067
+3 LOF_093
+3 ASH_056
+3 LOF_048
+3 LOF_100
+3 LOF_111
+3 LOF_096
+3 LOF_061
+3 LOF_045
+3 LOF_101
+2 LOF_246
+2 ASH_077
+1 LOF_070
+3 JTL_096
+3 LOF_128
+3 LOF_079
+3 ASH_114
+3 LOF_102

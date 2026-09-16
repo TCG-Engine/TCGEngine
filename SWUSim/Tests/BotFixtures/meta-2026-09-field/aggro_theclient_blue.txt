@@ -1,0 +1,37 @@
+# Real-deck self-play fixture — The Client, Please Lower Your Blaster - Rix Road
+# Source: melee.gg 443438, #51 of 55 (1-5-0)
+#   https://melee.gg/Decklist/View/2413b132-1db7-4463-9acb-b4c201174b8f — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: The Client · Blue 30HP — 2 entries, 1-8-0 (11.1% match win) across the twenty events
+# Style: aggro
+#   Owner, 2026-09-15: cheap, low curve and little removal — aggro, not midrange (auto-derived as "normal" before the review).
+# Flavours: none
+
+Leader
+1 LAW_016
+
+Base
+1 SEC_019
+
+Deck
+3 LOF_062
+3 JTL_189
+3 JTL_032
+3 LAW_118
+3 JTL_036
+3 LOF_183
+3 LAW_090
+2 SEC_186
+1 LAW_091
+3 LAW_211
+3 SEC_215
+3 JTL_242
+3 JTL_221
+2 SEC_040
+2 LAW_217
+2 JTL_043
+1 SEC_195
+3 LAW_129
+3 SEC_069
+2 LOF_215

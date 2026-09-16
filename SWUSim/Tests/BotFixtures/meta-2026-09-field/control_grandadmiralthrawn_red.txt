@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Grand Admiral Thrawn, Victory is Mine - Ancient Henge
+# Source: melee.gg 437625, #15 of 72 (4-2-1)
+#   https://melee.gg/Decklist/View/96efd0dc-154a-4c70-866b-b4c301528962 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Grand Admiral Thrawn · Red 30HP — 3 entries, 5-8-3 (40.6% match win) across the twenty events
+# Style: control
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 4.43, 12 cheap units, 18 removal, 12 wipe, 10 units 6+).
+# Flavours: none
+
+Leader
+1 ASH_004
+
+Base
+1 ASH_023
+
+Deck
+3 ASH_243
+3 ASH_072
+3 LOF_130
+3 ASH_048
+3 ASH_030
+3 ASH_148
+3 LOF_057
+3 LOF_254
+3 ASH_053
+3 ASH_049
+2 SEC_082
+1 ASH_179
+3 ASH_052
+3 LOF_077
+3 SEC_078
+3 LAW_133
+3 JTL_043
+3 ASH_151
+3 LAW_044
+3 JTL_175
+3 LAW_132

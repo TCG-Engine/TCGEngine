@@ -1,0 +1,40 @@
+# Real-deck self-play fixture — Grand Admiral Thrawn, ...How Unfortunate - Stygeon Spire
+# Source: melee.gg 446903, #29 of 47 (2-2-0)
+#   https://melee.gg/Decklist/View/026a6466-e81d-47ef-8180-b4c20148d267 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Grand Admiral Thrawn · Red Splash — 4 entries, 8-12-2 (40.9% match win) across the twenty events
+# Style: control
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from this leader's owner-labelled fixture (a different base colour).
+# Flavours: none
+
+Leader
+1 JTL_002
+
+Base
+1 LAW_027
+
+Deck
+3 JTL_060
+3 JTL_032
+3 ASH_030
+3 LOF_059
+2 IBH_082
+2 ASH_048
+2 ASH_079
+2 ASH_050
+2 ASH_148
+2 LOF_057
+2 ASH_053
+1 LAW_086
+3 ASH_052
+3 JTL_033
+3 LOF_213
+2 JTL_039
+2 JTL_162
+2 ASH_153
+1 LAW_099
+1 SEC_163
+3 JTL_043
+2 ASH_247
+1 SEC_176

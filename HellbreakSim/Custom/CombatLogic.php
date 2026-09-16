@@ -1,5 +1,275 @@
 <?php
 
+// ===========================================================================
+// TURN EFFECTS — temporary stat changes, granted keywords/traits and markers.
+//
+// Ported from SWUSim's design (string token + side registry + duration-driven expiry), with four
+// deliberate changes made because SWU's versions of them caused real, still-live bugs:
+//
+//   1. AN UNREGISTERED BASE EXPIRES AT THE END OF THE PHASE; it does NOT become permanent.
+//      SWUExpireTurnEffects skips any token whose base is unregistered, so forgetting a registry row
+//      makes the effect PERMANENT — three SWU cards still leak that way. Permanence here must be
+//      asked for explicitly, with @perm.
+//   2. EVERY zone that can hold an effect is swept. SWU walks only its two arenas, so effects parked
+//      on a leader or base never expire. Hellbreak sweeps Monster, Characters, Assets and Locations,
+//      which is all four card-bearing zones.
+//   3. EXPIRY IS BELT AND BRACES. Each token records the context it was made in, and a stale effect
+//      stops applying on READ even if no sweep ran. SWU's "SWU_DUR_ROUND never expired" family is a
+//      duration hook living in only one of the phases it spans; a read-side guard cannot have that
+//      bug. The sweep still runs, because data hygiene and the lethal re-check both need a moment.
+//   4. PROVENANCE AND UNIQUENESS ARE SEPARATE SIGILS. SWU overloads '^' for both, so a stacking
+//      token reads as having a "source" of "0".
+//
+// GRAMMAR:  base[,params][@duration[:context]][#ordinal][^source]
+//
+//   base      registry key — a CardID (DOT_092) or a synthetic kind (COMBAT, HEALTH, KEYWORD, TRAIT)
+//   ,params   comma-joined values: signed integers, or a keyword/trait name for GRANT kinds.
+//             ⚠ NOT dash-joined. A dash is also the minus sign, so "COMBAT--1" splits to ["","1"]
+//             and a debuff silently becomes a buff of 1. This is the sigil-collision trap.
+//   @duration attack | phase | round | perm, with the context that dates it
+//   #ordinal  per-target counter so two IDENTICAL applications STACK instead of de-duping
+//   ^source   the CardID to credit in the UI
+//
+// Tokens must never contain a space or '~' — the zone row is space-delimited and the TurnEffects
+// list is '~'-joined (ZoneClasses::Serialize). CardIDs are [A-Z]+_[0-9]+ and params are signed
+// integers or bare words, so none of , @ : # ^ can collide with them.
+// ===========================================================================
+
+const HELLBREAK_DUR_ATTACK = 'attack';  // until the current action finishes
+const HELLBREAK_DUR_PHASE  = 'phase';   // until this phase of this round ends
+const HELLBREAK_DUR_ROUND  = 'round';   // until this round ends
+const HELLBREAK_DUR_PERM   = 'perm';    // never expires; must be asked for explicitly
+
+function HellbreakTurnEffectRegistry(): array
+{
+    // kind: STAT_COMBAT | STAT_HEALTH | GRANT_KEYWORD | GRANT_TRAIT | MARKER
+    // duration: the default when a token does not say otherwise.
+    return [
+        'COMBAT'  => ['kind' => 'STAT_COMBAT',   'duration' => HELLBREAK_DUR_PHASE, 'label' => '{0} combat'],
+        'HEALTH'  => ['kind' => 'STAT_HEALTH',   'duration' => HELLBREAK_DUR_PHASE, 'label' => '{0} health'],
+        'KEYWORD' => ['kind' => 'GRANT_KEYWORD', 'duration' => HELLBREAK_DUR_PHASE, 'label' => 'gains {0}'],
+        'TRAIT'   => ['kind' => 'GRANT_TRAIT',   'duration' => HELLBREAK_DUR_PHASE, 'label' => 'gains {0}'],
+        'MARKER'  => ['kind' => 'MARKER',        'duration' => HELLBREAK_DUR_PHASE, 'label' => '{0}'],
+    ];
+}
+
+/** The context that dates an effect of this duration: what must still be true for it to apply. */
+function HellbreakTurnEffectContext(string $duration): string
+{
+    switch ($duration) {
+        // An action's sequence number only advances once the action FINISHES, so it is stable for
+        // exactly the span of one attack.
+        case HELLBREAK_DUR_ATTACK: return strval(intval(GetActionSequence()));
+        case HELLBREAK_DUR_PHASE:  return intval(GetTurnNumber()) . ':' . strtoupper(strval(GetCurrentPhase()));
+        case HELLBREAK_DUR_ROUND:  return strval(intval(GetTurnNumber()));
+        default:                   return '';
+    }
+}
+
+function HellbreakMakeTurnEffect(string $base, array $params = [], ?string $duration = null, string $source = '', int $ordinal = 0): string
+{
+    $registry = HellbreakTurnEffectRegistry();
+    $base = trim($base);
+    if ($duration === null) $duration = $registry[$base]['duration'] ?? HELLBREAK_DUR_PHASE;
+    $token = $base;
+    if (count($params) > 0) $token .= ',' . implode(',', array_map('strval', $params));
+    $token .= '@' . $duration;
+    $context = HellbreakTurnEffectContext($duration);
+    if ($context !== '') $token .= ':' . $context;
+    if ($ordinal > 0) $token .= '#' . $ordinal;
+    if ($source !== '') $token .= '^' . $source;
+    return $token;
+}
+
+function HellbreakParseTurnEffect(string $raw): array
+{
+    $registry = HellbreakTurnEffectRegistry();
+    $s = trim($raw);
+    $source = '';
+    $ordinal = 0;
+    $duration = null;
+    $context = '';
+
+    $caret = strpos($s, '^');
+    if ($caret !== false) { $source = substr($s, $caret + 1); $s = substr($s, 0, $caret); }
+    $hash = strpos($s, '#');
+    if ($hash !== false) { $ordinal = intval(substr($s, $hash + 1)); $s = substr($s, 0, $hash); }
+    $at = strpos($s, '@');
+    if ($at !== false) {
+        $durationPart = substr($s, $at + 1);
+        $s = substr($s, 0, $at);
+        $colon = strpos($durationPart, ':');
+        if ($colon !== false) {
+            $context = substr($durationPart, $colon + 1);
+            $durationPart = substr($durationPart, 0, $colon);
+        }
+        $duration = $durationPart;
+    }
+    $params = [];
+    $comma = strpos($s, ',');
+    if ($comma !== false) { $params = explode(',', substr($s, $comma + 1)); $s = substr($s, 0, $comma); }
+    $base = $s;
+
+    // ⚠ An unknown base defaults to PHASE, never to permanent. Forgetting a registry row must cost
+    // an effect its label, not its expiry.
+    if ($duration === null || $duration === '') $duration = $registry[$base]['duration'] ?? HELLBREAK_DUR_PHASE;
+    $entry = $registry[$base] ?? null;
+    return [
+        'base' => $base,
+        'kind' => $entry['kind'] ?? null,
+        'params' => $params,
+        'duration' => $duration,
+        'context' => $context,
+        'ordinal' => $ordinal,
+        'source' => $source,
+        'registered' => $entry !== null,
+        'raw' => trim($raw),
+    ];
+}
+
+/** The read-side guard: is this effect's window still open? */
+function HellbreakTurnEffectIsLive(array $parsed): bool
+{
+    if ($parsed['duration'] === HELLBREAK_DUR_PERM) return true;
+    // A token written before contexts existed carries none; treat it as live and let the sweep decide.
+    if ($parsed['context'] === '') return true;
+    return $parsed['context'] === HellbreakTurnEffectContext($parsed['duration']);
+}
+
+/** Every LIVE effect on an object, parsed and joined to the registry. */
+function HellbreakParsedTurnEffects($object): array
+{
+    if (!is_object($object) || !is_array($object->TurnEffects ?? null)) return [];
+    $out = [];
+    foreach ($object->TurnEffects as $raw) {
+        $parsed = HellbreakParseTurnEffect(strval($raw));
+        if (HellbreakTurnEffectIsLive($parsed)) $out[] = $parsed;
+    }
+    return $out;
+}
+
+/** Net temporary delta for 'combat' or 'health'. Amounts are signed, so a debuff is a negative param. */
+function HellbreakTurnEffectStatBonus($object, string $stat): int
+{
+    $wanted = strtolower($stat) === 'health' ? 'STAT_HEALTH' : 'STAT_COMBAT';
+    $net = 0;
+    foreach (HellbreakParsedTurnEffects($object) as $effect) {
+        if ($effect['kind'] === $wanted) $net += intval($effect['params'][0] ?? 0);
+    }
+    return $net;
+}
+
+function HellbreakTurnEffectGrantsKeyword($object, string $keyword): int
+{
+    $keyword = strtoupper(trim($keyword));
+    $value = 0;
+    foreach (HellbreakParsedTurnEffects($object) as $effect) {
+        if ($effect['kind'] !== 'GRANT_KEYWORD') continue;
+        if (strtoupper(strval($effect['params'][0] ?? '')) !== $keyword) continue;
+        $value = max($value, intval($effect['params'][1] ?? 1));
+    }
+    return $value;
+}
+
+function HellbreakTurnEffectGrantsTrait($object, string $trait): bool
+{
+    $trait = strtoupper(trim($trait));
+    foreach (HellbreakParsedTurnEffects($object) as $effect) {
+        if ($effect['kind'] === 'GRANT_TRAIT' && strtoupper(strval($effect['params'][0] ?? '')) === $trait) return true;
+    }
+    return false;
+}
+
+function HellbreakHasTurnEffectMarker($object, string $marker): bool
+{
+    $marker = strtoupper(trim($marker));
+    foreach (HellbreakParsedTurnEffects($object) as $effect) {
+        if ($effect['kind'] === 'MARKER' && strtoupper(strval($effect['params'][0] ?? '')) === $marker) return true;
+        if (strtoupper($effect['base']) === $marker) return true;
+    }
+    return false;
+}
+
+/**
+ * Apply an effect to an object.
+ *
+ * Two identical applications must STACK — two separate continuous effects, per the rules — so each
+ * gets its own ordinal. Without it the generated AddTurnEffects would de-dupe them to one, which is
+ * the SEC_081 bug SWU had to patch card by card.
+ */
+function HellbreakAddTurnEffect($object, string $base, array $params = [], ?string $duration = null, string $source = ''): string
+{
+    if (!is_object($object)) return '';
+    if (!is_array($object->TurnEffects ?? null)) $object->TurnEffects = [];
+    $probe = HellbreakMakeTurnEffect($base, $params, $duration, $source, 0);
+    $stem = explode('#', $probe)[0];
+    $ordinal = 0;
+    foreach ($object->TurnEffects as $existing) {
+        if (strpos(strval($existing), $stem) === 0) ++$ordinal;
+    }
+    $token = HellbreakMakeTurnEffect($base, $params, $duration, $source, $ordinal);
+    if (method_exists($object, 'AddTurnEffects')) $object->AddTurnEffects($token);
+    else $object->TurnEffects[] = $token;
+    return $token;
+}
+
+/** Every object that can carry an effect, across both seats and the shared locations. */
+function HellbreakTurnEffectBearers(): array
+{
+    $bearers = [];
+    foreach ([1, 2] as $player) {
+        foreach ([GetMonster($player), GetCharacters($player), GetAssets($player)] as $zone) {
+            foreach ($zone as $object) {
+                if (is_object($object) && !(isset($object->removed) && $object->removed)) $bearers[] = $object;
+            }
+        }
+    }
+    foreach (GetLocations() as $object) {
+        if (is_object($object) && !(isset($object->removed) && $object->removed)) $bearers[] = $object;
+    }
+    return $bearers;
+}
+
+/**
+ * Drop every effect whose window has closed, everywhere.
+ *
+ * Driven by the same read-side liveness test, so the sweep and the guard can never disagree. Safe to
+ * call at any boundary, and harmless to call twice.
+ */
+function HellbreakExpireTurnEffects(): int
+{
+    $dropped = 0;
+    foreach (HellbreakTurnEffectBearers() as $object) {
+        if (!is_array($object->TurnEffects ?? null) || count($object->TurnEffects) === 0) continue;
+        $kept = [];
+        foreach ($object->TurnEffects as $raw) {
+            if (HellbreakTurnEffectIsLive(HellbreakParseTurnEffect(strval($raw)))) $kept[] = $raw;
+            else ++$dropped;
+        }
+        if (count($kept) !== count($object->TurnEffects)) $object->TurnEffects = array_values($kept);
+    }
+    // A minion kept alive by a temporary +health is now lethally damaged. Same state-based sweep the
+    // damage paths run; SWU had to add this after a phase-expiry left over-damaged units standing.
+    if ($dropped > 0) HellbreakCheckTurnEffectLethal();
+    return $dropped;
+}
+
+/** Defeat any minion whose damage now meets its (un-buffed) health. */
+function HellbreakCheckTurnEffectLethal(): int
+{
+    $killed = 0;
+    foreach ([1, 2] as $player) {
+        foreach (HellbreakLiveZoneObjects(GetCharacters($player)) as $character) {
+            $health = HellbreakCardHealthValue(strval($character->CardID ?? ''), $character,
+                intval($character->Controller ?? $player));
+            if (intval($character->Damage ?? 0) < $health) continue;
+            $descriptor = ['kind' => 'MINION', 'zonePlayer' => $player, 'uniqueID' => intval($character->UniqueID ?? 0)];
+            if (HellbreakCheckLethal($descriptor, null, $player, '')) ++$killed;
+        }
+    }
+    return $killed;
+}
+
 function HellbreakCardCombatValue(string $cardID, $subjectObj = null, int $player = 0): int {
     $fixture = function_exists('HellbreakFixtureCard') ? HellbreakFixtureCard($cardID) : null;
     $value = is_array($fixture) && isset($fixture['combat'])
@@ -8,6 +278,8 @@ function HellbreakCardCombatValue(string $cardID, $subjectObj = null, int $playe
     if(is_object($subjectObj) && function_exists('HellbreakApplyValueModifiers')) {
         if($player !== 1 && $player !== 2) $player = intval($subjectObj->Controller ?? $subjectObj->Owner ?? 0);
         $value = HellbreakApplyValueModifiers('CombatModifier', $player, $subjectObj, $value);
+        // Temporary "+N combat this attack/phase" effects, after the continuous modifiers.
+        $value += HellbreakTurnEffectStatBonus($subjectObj, 'combat');
     }
     return max(0, $value);
 }
@@ -20,6 +292,9 @@ function HellbreakCardHealthValue(string $cardID, $subjectObj = null, int $playe
     if(is_object($subjectObj) && function_exists('HellbreakApplyValueModifiers')) {
         if($player !== 1 && $player !== 2) $player = intval($subjectObj->Controller ?? $subjectObj->Owner ?? 0);
         $value = HellbreakApplyValueModifiers('HealthModifier', $player, $subjectObj, $value);
+        // Temporary health changes. ⚠ A minion whose buff expires can become lethally damaged, which
+        // is why HellbreakExpireTurnEffects runs the lethal sweep afterwards.
+        $value += HellbreakTurnEffectStatBonus($subjectObj, 'health');
     }
     return max(0, $value);
 }
@@ -695,7 +970,7 @@ function HellbreakJumpscarePlayRevealedAsset(int $player, string $cardID): bool 
     if(HellbreakCardType($cardID) !== 'ASSET') return false;
     $object = HellbreakTakeRevealedJumpscareCard($player, $cardID);
     if(!is_object($object)) return false;
-    $playedObject = AddAssets($player, $cardID, 2, $player, $player, [], [], $object);
+    $playedObject = AddAssets($player, $cardID, 2, $player, $player, 0, [], [], $object);
     if(function_exists('HellbreakCardPlayedHook')) {
         HellbreakCardPlayedHook($player, $cardID, 'ASSET', $playedObject, null, 'HealthStack');
     }
@@ -711,6 +986,59 @@ function HellbreakJumpscarePlayRevealedEvent(int $player, string $cardID): bool 
         HellbreakCardPlayedHook($player, $cardID, 'EVENT', $playedObject, null, 'HealthStack');
     }
     return true;
+}
+
+/**
+ * Play a MINION from hand for free, at a given location.
+ *
+ * The Jumpscare helpers above play for free from the HEALTH STACK; this is the hand equivalent, and
+ * the two differ in more than the source zone: a minion needs a location, and it enters exhausted
+ * like any other minion unless a keyword says otherwise.
+ *
+ * "For free" means no blood and no malice — HellbreakPlayCard computes and charges a cost, so it
+ * cannot be reused here. Everything else about entering play is kept: Fearsome still applies, and the
+ * Played macro still fires, with fromZone 'Hand'.
+ */
+function HellbreakPlayMinionFromHandForFree(int $player, string $handMZ, int $locationSlot): bool
+{
+    $handCard = HellbreakParseHandMZ($player, $handMZ);
+    if($handCard === null) return false;
+    $cardID = strval($handCard['cardID']);
+    if(HellbreakCardType($cardID) !== 'MINION') return false;
+    $validLocation = false;
+    foreach(HellbreakLiveZoneObjects(GetLocations()) as $location) {
+        if(intval($location->Slot ?? 0) === $locationSlot) { $validLocation = true; break; }
+    }
+    if(!$validLocation) return false;
+
+    $hand = &GetHand($player);
+    $source = $handCard['object'];
+    array_splice($hand, $handCard['index'], 1);
+    HellbreakReindexZone($hand);
+    HellbreakRecordPlayedCardThisPhase($player, $cardID);
+
+    $playedObject = AddCharacters($player, $cardID, 1, 0, $player, $player, $locationSlot, [], [], $source);
+    if(function_exists('HellbreakCardHasKeyword') && HellbreakCardHasKeyword($cardID, 'Fearsome')) {
+        $playedObject->Status = 2; // Fearsome enters ready
+    }
+    if(function_exists('HellbreakCardPlayedHook')) {
+        HellbreakCardPlayedHook($player, $cardID, 'MINION', $playedObject, $locationSlot, 'Hand');
+    }
+    return true;
+}
+
+/** Hand mzIDs for minions matching a trait, optionally excluding unique cards. */
+function HellbreakHandMinionTargets(int $player, string $trait = '', bool $nonUniqueOnly = false): array
+{
+    $targets = [];
+    foreach(HellbreakLiveZoneObjects(GetHand($player)) as $index => $card) {
+        $cardID = strval($card->CardID ?? '');
+        if($cardID === '' || HellbreakCardType($cardID) !== 'MINION') continue;
+        if($trait !== '' && !HellbreakCardHasTrait($cardID, $trait)) continue;
+        if($nonUniqueOnly && function_exists('CardUnique') && CardUnique($cardID)) continue;
+        $targets[] = 'myHand-' . $index;
+    }
+    return $targets;
 }
 
 function HellbreakEndGame(int $winner): bool {

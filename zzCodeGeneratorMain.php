@@ -551,6 +551,7 @@ foreach ($apps as $app) {
                     <span class="file-choice-name" id="hellbreak-workbook-name">No workbook selected</span>
                     <input type="file" id="hellbreak-workbook-file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden>
                 </div>
+                <label class="switch"><input type="checkbox" id="hellbreak-refresh-source"> Re-download the public workbook (ignore the cached copy) and refresh card art from HellbreakHub</label>
             </section>
 
             <section class="options" id="database-options">
@@ -672,6 +673,7 @@ const hellbreakWorkbookOptions = document.getElementById('hellbreak-workbook-opt
 const chooseHellbreakWorkbookButton = document.getElementById('choose-hellbreak-workbook');
 const hellbreakWorkbookFile = document.getElementById('hellbreak-workbook-file');
 const hellbreakWorkbookName = document.getElementById('hellbreak-workbook-name');
+const hellbreakRefreshSource = document.getElementById('hellbreak-refresh-source');
 const exportAbilitiesButton = document.getElementById('export-abilities-button');
 const importAbilitiesButton = document.getElementById('import-abilities-button');
 const importAbilitiesFile = document.getElementById('import-abilities-file');
@@ -892,7 +894,9 @@ function render() {
     hellbreakWorkbookOptions.hidden = !selectedApp.usesWorkbookImport;
     hellbreakWorkbookName.textContent = hellbreakWorkbookFile.files && hellbreakWorkbookFile.files[0]
         ? hellbreakWorkbookFile.files[0].name
-        : (selectedApp.hasValidCardCache ? 'Public source ready — valid cache will be reused' : 'Public OneDrive source will be downloaded');
+        : ((selectedApp.hasValidCardCache && !hellbreakRefreshSource.checked)
+            ? 'Public source ready — valid cache will be reused'
+            : 'Public OneDrive source will be downloaded');
     chooseHellbreakWorkbookButton.disabled = pipelineRunning;
     const lastRun = selectedApp.actions
         .map(action => runStates.get(stateKey(selectedApp, action)))
@@ -1588,7 +1592,10 @@ async function executeAction(action) {
     const key = stateKey(appAtStart, action);
     const startedAt = performance.now();
 
-    if (action.kind === 'workbook' && !(hellbreakWorkbookFile.files && hellbreakWorkbookFile.files[0])) {
+    // A cached card array is reused so a full pipeline run does not re-download the workbook every
+    // time. "Re-download the public workbook" is the way to pull the latest source (new cards, new
+    // card art) without having to download an .xlsx by hand first.
+    if (action.kind === 'workbook' && !(hellbreakWorkbookFile.files && hellbreakWorkbookFile.files[0]) && !hellbreakRefreshSource.checked) {
         if (appAtStart.hasValidCardCache) {
             outputs.set(key, 'Skipped workbook import: HellbreakSim/GeneratedCode/cardArrayCache.json already contains card data. Choose a local workbook above to replace it.');
             runStates.set(key, { status: 'success', duration: 0, completedAt: Date.now() });
@@ -1614,6 +1621,9 @@ async function executeAction(action) {
             if (hellbreakWorkbookFile.files && hellbreakWorkbookFile.files[0]) {
                 form.set('workbook', hellbreakWorkbookFile.files[0]);
             }
+            // Refreshing the source also refreshes card art from HellbreakHub: better art where the
+            // hub has a higher-resolution scan, and the only art for cards the workbook omits.
+            if (hellbreakRefreshSource.checked) form.set('refreshArt', '1');
             requestOptions.method = 'POST';
             requestOptions.body = form;
         }
@@ -1708,6 +1718,7 @@ chooseHellbreakWorkbookButton.addEventListener('click', () => {
     if (!pipelineRunning) hellbreakWorkbookFile.click();
 });
 hellbreakWorkbookFile.addEventListener('change', render);
+hellbreakRefreshSource.addEventListener('change', render);
 
 if (!hasRequestedApp) {
     try {

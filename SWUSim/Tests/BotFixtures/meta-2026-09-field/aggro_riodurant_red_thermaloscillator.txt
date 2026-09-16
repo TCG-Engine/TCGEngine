@@ -1,0 +1,36 @@
+# Real-deck self-play fixture — Rio Durant, Wisecracking Wheelman - Thermal Oscillator
+# Source: melee.gg 443170, #8 of 29 (3-2-1)
+#   https://melee.gg/Decklist/View/54f61863-2a4f-4573-821b-b4c3002411f6 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Rio Durant · Red Thermal Oscillator — 9 entries, 21-29-2 (42.3% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 2.8, 16 cheap units, 0 removal, 0 wipe, 0 units 6+).
+# Flavours: none
+
+Leader
+1 JTL_015
+
+Base
+1 JTL_025
+
+Deck
+3 JTL_189
+3 SEC_186
+1 ASH_173
+3 LAW_211
+3 SEC_215
+3 JTL_135
+3 JTL_221
+2 JTL_165
+2 SEC_189
+2 JTL_223
+2 JTL_242
+2 LAW_076
+2 JTL_183
+2 SEC_163
+3 SEC_179
+2 SEC_195
+3 SEC_176
+2 LOF_139
+2 ASH_199

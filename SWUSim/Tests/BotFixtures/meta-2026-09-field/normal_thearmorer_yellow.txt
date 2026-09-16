@@ -1,0 +1,36 @@
+# Real-deck self-play fixture — The Armorer, Steel Shapes Us - Mount Tantiss
+# Source: melee.gg 439947, #31 of 64 (3-3-0)
+#   https://melee.gg/Decklist/View/b466f797-4355-474d-b037-b4c20149e130 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: The Armorer · Yellow 30HP — 7 entries, 14-25-0 (35.9% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from the owner-labelled Yellow fixture for this leader.
+# Flavours: none
+
+Leader
+1 ASH_001
+
+Base
+1 SEC_026
+
+Deck
+3 LOF_062
+3 LOF_206
+3 LAW_037
+3 SEC_057
+3 LAW_054
+3 LOF_038
+3 LAW_229
+2 ASH_074
+2 ASH_077
+1 LAW_039
+3 ASH_090
+2 SEC_072
+3 ASH_084
+3 LOF_215
+3 ASH_230
+3 LAW_129
+3 ASH_135
+2 ASH_085
+2 ASH_227

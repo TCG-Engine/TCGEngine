@@ -1,0 +1,40 @@
+# Real-deck self-play fixture — Sly Moore, Cipher in the Dark - Massassi Temple
+# Source: melee.gg 439947, #12 of 64 (4-2-0)
+#   https://melee.gg/Decklist/View/6b109092-b738-4351-8a10-b4c200d495fb — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Sly Moore · Red 30HP — 3 entries, 11-9-0 (55.0% match win) across the twenty events
+# Style: aggro
+#   Owner, 2026-09-15: cheap, low curve and little removal — aggro, not midrange (auto-derived as "normal" before the review).
+# Flavours: none
+
+Leader
+1 SEC_014
+
+Base
+1 JTL_026
+
+Deck
+3 LAW_174
+3 LAW_173
+3 ASH_192
+3 SEC_186
+3 LOF_130
+3 ASH_148
+3 SEC_133
+2 LAW_191
+2 LOF_179
+2 LAW_214
+2 ASH_224
+2 ASH_193
+2 LAW_075
+2 JTL_143
+2 JTL_140
+2 ASH_194
+1 SEC_163
+3 LAW_217
+1 LAW_208
+2 LOF_261
+2 LAW_077
+1 LOF_140
+1 ASH_183

@@ -1,0 +1,37 @@
+# Real-deck self-play fixture — Luke Skywalker, Hero of Yavin - Kryze Castle
+# Source: melee.gg 437625, #17 of 72 (4-2-1)
+#   https://melee.gg/Decklist/View/19c94de3-93d9-4fb0-8fb1-b4c300b4142c — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Luke Skywalker · Green 30HP — 3 entries, 6-10-1 (38.2% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from the owner-labelled Green fixture for this leader.
+# Flavours: none
+
+Leader
+1 JTL_012
+
+Base
+1 ASH_022
+
+Deck
+3 ASH_110
+3 JTL_103
+3 SEC_172
+2 SEC_098
+2 SEC_101
+3 JTL_147
+3 JTL_096
+3 ASH_153
+3 LOF_144
+3 JTL_151
+3 JTL_149
+3 JTL_102
+3 JTL_250
+2 ASH_157
+2 LOF_147
+1 LAW_183
+1 JTL_158
+3 JTL_125
+3 JTL_174
+1 LAW_202

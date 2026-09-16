@@ -1,0 +1,35 @@
+# Real-deck self-play fixture — Obi-Wan Kenobi, Courage Makes Heroes - The Holy City
+# Source: melee.gg 441130, #14 of 28 (2-2-1)
+#   https://melee.gg/Decklist/View/ef02f0a4-fbfd-4a1a-b7a5-b4c2016d8c39 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Obi-Wan Kenobi · Yellow Force — 3 entries, 4-7-1 (37.5% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from this leader's owner-labelled fixture (a different base colour).
+# Flavours: none
+
+Leader
+1 LOF_008
+
+Base
+1 LOF_030
+
+Deck
+3 JTL_201
+3 LOF_199
+3 LOF_097
+3 LOF_093
+3 LOF_094
+3 LAW_067
+3 LOF_111
+3 LOF_096
+3 LOF_195
+3 LOF_193
+2 LOF_100
+2 LOF_252
+3 LOF_099
+3 LOF_128
+2 SEC_233
+3 LOF_215
+3 LOF_102
+2 LOF_261

@@ -1,0 +1,36 @@
+# Real-deck self-play fixture — Mother Talzin, Power Through Magick - Jedi Temple
+# Source: melee.gg 438966, #18 of 72 (4-2-1)
+#   https://melee.gg/Decklist/View/410faae7-5c59-400b-9efb-b4bc0149183a — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Mother Talzin · Green Force — 3 entries, 8-7-2 (52.9% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from this leader's owner-labelled fixture (a different base colour).
+# Flavours: none
+
+Leader
+1 LOF_002
+
+Base
+1 LOF_023
+
+Deck
+3 LOF_070
+3 LOF_231
+3 LOF_031
+3 LAW_039
+3 LOF_111
+3 LOF_059
+3 LOF_061
+3 LOF_035
+3 SEC_028
+2 LOF_036
+2 ASH_053
+3 JTL_112
+2 ASH_052
+3 JTL_043
+2 LOF_079
+3 LOF_261
+3 LOF_091
+2 ASH_055
+2 SEC_038

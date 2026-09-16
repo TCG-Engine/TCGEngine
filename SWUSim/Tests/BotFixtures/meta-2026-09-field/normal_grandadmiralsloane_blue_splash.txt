@@ -1,0 +1,36 @@
+# Real-deck self-play fixture — Grand Admiral Sloane, Holding the Empire Together - Coaxium Mine
+# Source: melee.gg 439042, #2 of 90 (7-2-1)
+#   https://melee.gg/Decklist/View/0aa6c1e8-71ee-485a-bd7f-b4c400ed67cb — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Grand Admiral Sloane · Blue Splash — 2 entries, 8-6-1 (56.7% match win) across the twenty events
+# Style: normal
+#   Owner, 2026-09-15: a COMBO deck — it plays Unity of Purpose (JTL_106) for 6 off Coaxium Mine's Splash
+#   ability and tries to win that round. Between soft aggro and midrange; kept on normal.
+# Flavours: combo, go-wide
+
+Leader
+1 ASH_007
+
+Base
+1 LAW_021
+
+Deck
+3 SEC_082
+3 JTL_032
+3 ASH_100
+3 LAW_037
+3 ASH_048
+3 SEC_080
+3 LAW_097
+3 SEC_111
+3 ASH_079
+3 LAW_039
+3 LAW_038
+3 ASH_097
+2 ASH_077
+3 SEC_119
+3 JTL_242
+3 JTL_106
+1 LAW_202
+2 LOF_091

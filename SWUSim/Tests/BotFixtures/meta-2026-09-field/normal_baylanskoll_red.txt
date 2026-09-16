@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Baylan Skoll, Power Beyond Dream - Imperial Prison Complex
+# Source: melee.gg 445115, #43 of 180 (5-3-0)
+#   https://melee.gg/Decklist/View/e24f4b9c-40ef-4e1b-a79b-b4bd003ef9de — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Baylan Skoll · Red 30HP — 3 entries, 8-11-0 (42.1% match win) across the twenty events
+# Style: normal
+#   Owner, 2026-09-15: a high curve alone is not control — this is midrange (the same call as Luke · Green Data Vault) (auto-derived as "control" before the review).
+# Flavours: none
+
+Leader
+1 ASH_003
+
+Base
+1 SEC_023
+
+Deck
+3 LAW_174
+3 LAW_173
+3 ASH_048
+3 ASH_079
+3 ASH_030
+3 ASH_148
+3 ASH_053
+3 ASH_032
+2 LOF_070
+2 LAW_191
+2 LOF_130
+2 SEC_163
+3 ASH_052
+2 ASH_078
+2 JTL_135
+2 JTL_137
+1 JTL_140
+1 JTL_033
+3 SEC_179
+2 SEC_078
+2 JTL_043

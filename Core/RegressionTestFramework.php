@@ -500,6 +500,10 @@ function RegressionBuildAssertionFromInput($viewerPlayerID, $payload) {
       $assertion['mzId'] = strval($payload['mzId'] ?? '');
       $assertion['value'] = intval($payload['value'] ?? 0);
       break;
+    case 'scalar_zone_equals':
+      $assertion['zone'] = strval($payload['zone'] ?? '');
+      $assertion['value'] = intval($payload['value'] ?? 0);
+      break;
     case 'decision_queue_empty':
       $assertion['player'] = strval($payload['player'] ?? 'all');
       break;
@@ -1014,6 +1018,18 @@ function RegressionEvaluateAssertion($assertion) {
       $actual = strval(GetFlashMessage());
       $expected = strval($assertion['value'] ?? '');
       return [str_contains($actual, $expected), "Expected flash message to contain '{$expected}', got '{$actual}'."];
+    case 'scalar_zone_equals':
+      // A single-valued zone: a resource or counter rather than a pile of cards. Hellbreak's whole
+      // economy is these (Blood, Malice, Health), and no other assertion type can read one — a
+      // scalar zone holds a bare value, so card_property_equals has no object to inspect.
+      $zoneName = strval($assertion['zone'] ?? '');
+      $expected = intval($assertion['value'] ?? 0);
+      $zone = GetZone($zoneName);
+      $actual = is_array($zone) ? (count($zone) > 0 ? $zone[0] : null) : $zone;
+      if (is_object($actual)) $actual = $actual->Value ?? null;
+      $actualInt = is_scalar($actual) ? intval($actual) : null;
+      return [$actualInt === $expected,
+        "Expected {$zoneName} to equal {$expected}, got " . var_export($actual, true) . "."];
     default:
       return [false, "Unsupported assertion type '{$type}'."];
   }

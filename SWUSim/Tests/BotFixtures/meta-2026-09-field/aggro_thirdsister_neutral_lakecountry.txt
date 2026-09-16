@@ -1,0 +1,37 @@
+# Real-deck self-play fixture — Third Sister, Seething With Ambition - Lake Country
+# Source: melee.gg 437735, #14 of 53 (4-2-0)
+#   https://melee.gg/Decklist/View/7240b4ab-ec5d-45c4-8368-b4bc014f723f — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Third Sister · Neutral Lake Country — 2 entries, 7-5-0 (58.3% match win) across the twenty events
+# Style: aggro
+#   Owner, 2026-09-15: cheap, low curve and little removal — aggro, not midrange (auto-derived as "normal" before the review).
+# Flavours: none
+
+Leader
+1 LOF_010
+
+Base
+1 JTL_031
+
+Deck
+3 LAW_174
+3 LAW_173
+3 LOF_130
+3 SHD_168
+3 SEC_163
+3 LAW_196
+2 LOF_165
+2 SEC_135
+2 LAW_177
+2 SEC_133
+1 LAW_191
+3 JTL_162
+3 ASH_172
+3 LOF_131
+3 LAW_202
+2 SEC_179
+2 JTL_180
+3 LOF_139
+3 LOF_140
+1 ASH_183

@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Chancellor Palpatine, How Liberty Dies - Dragonsnake Bog
+# Source: melee.gg 437735, #38 of 53 (2-4-0)
+#   https://melee.gg/Decklist/View/7095e3b1-f8d8-422c-b664-b4bd00742a9a — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Chancellor Palpatine · Red 30HP — 2 entries, 5-8-0 (38.5% match win) across the twenty events
+# Style: control
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 4.71, 2 cheap units, 14 removal, 8 wipe, 12 units 6+).
+# Flavours: none
+
+Leader
+1 SEC_001
+
+Base
+1 ASH_024
+
+Deck
+3 ASH_048
+3 ASH_030
+3 ASH_053
+3 SEC_033
+2 SEC_172
+2 SEC_036
+2 SEC_046
+2 SEC_163
+3 ASH_052
+2 JTL_143
+3 SEC_179
+3 LAW_133
+3 JTL_043
+3 LAW_044
+3 LAW_132
+2 LOF_077
+2 SEC_078
+2 LAW_043
+3 SEC_038
+3 ASH_054
+3 SEC_176

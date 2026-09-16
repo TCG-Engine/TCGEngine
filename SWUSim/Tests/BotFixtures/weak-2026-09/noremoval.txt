@@ -1,0 +1,35 @@
+# BAD-DECK fixture — No removal
+# Source: owner-supplied (ninin) — "Red Blue Villainy noob deck with no removal"
+#   The WEAK set (added 2026-09-15): deliberately poor decks, for the deck-advantage conversion test —
+#   a strong pilot should beat a clearly worse deck nearly every time, and that measure has none of the
+#   field-skew that makes bot-vs-tournament win rates misleading.
+#   ⚠ not Premier legal: HMW base. Never add this set to a strength gate or to the tournament-backed sets.
+# Shape: 50 cards, avg cost 3.42, 45 units (15 at 1-2, 9 at 6+), 0 removal, 0 wipe, 2 events, 3 upgrades
+# Style: normal
+#   ⚠ auto-derived from deck shape, not reviewed.
+# Flavours: none
+
+Leader
+1 SEC_010
+
+Base
+1 HMW_020
+
+Deck
+3 LAW_114
+3 LOF_129
+3 SEC_070
+2 SEC_179
+3 LOF_066
+3 ASH_164
+3 LOF_236
+3 ASH_078
+3 JTL_058
+3 LAW_174
+3 SEC_066
+3 ASH_169
+3 IBH_072
+3 JTL_057
+3 IBH_082
+3 IBH_060
+3 SEC_262

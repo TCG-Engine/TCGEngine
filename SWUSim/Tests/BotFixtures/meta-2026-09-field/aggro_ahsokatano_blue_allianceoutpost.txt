@@ -1,0 +1,39 @@
+# Real-deck self-play fixture — Ahsoka Tano, Trust in the Force - Alliance Outpost
+# Source: melee.gg 445115, #64 of 180 (4-4-0)
+#   https://melee.gg/Decklist/View/97c3b6d8-016f-43a9-88ed-b4bd002f938c — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Ahsoka Tano · Blue Alliance Outpost — 2 entries, 5-7-1 (42.3% match win) across the twenty events
+# Style: aggro
+#   ⚠ NOT REVIEWED BY THE OWNER — inherited from the owner-labelled Blue fixture for this leader.
+# Flavours: none
+
+Leader
+1 ASH_009
+
+Base
+1 LAW_019
+
+Deck
+3 LAW_037
+3 SEC_111
+3 ASH_079
+3 LAW_039
+3 LAW_038
+3 ASH_248
+3 LOF_096
+2 ASH_255
+2 SEC_046
+2 LOF_093
+2 ASH_056
+2 ASH_069
+2 LOF_057
+2 SEC_101
+2 ASH_062
+2 LOF_045
+3 SEC_099
+2 JTL_096
+1 JTL_250
+2 LAW_041
+1 JTL_123
+2 LAW_127

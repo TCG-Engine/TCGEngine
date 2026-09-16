@@ -1,0 +1,37 @@
+# Real-deck self-play fixture — Darth Vader, Unstoppable - Fortress of the Great Mothers
+# Source: melee.gg 437735, #10 of 53 (4-2-0)
+#   https://melee.gg/Decklist/View/c610f817-1fc8-4069-a14d-b4bc012a4d06 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Darth Vader · Blue 30HP — 4 entries, 10-12-0 (45.5% match win) across the twenty events
+# Style: normal
+#   Owner, 2026-09-15: a high curve alone is not control — this is midrange (the same call as Luke · Green Data Vault) (auto-derived as "control" before the review).
+# Flavours: none
+
+Leader
+1 LAW_011
+
+Base
+1 ASH_019
+
+Deck
+3 LOF_070
+3 LAW_191
+3 ASH_072
+3 ASH_079
+3 ASH_030
+3 ASH_053
+3 ASH_032
+2 ASH_048
+2 ASH_148
+2 ASH_077
+3 ASH_052
+3 JTL_033
+3 JTL_135
+2 JTL_143
+2 ASH_146
+3 JTL_043
+3 SEC_157
+2 LAW_044
+2 LAW_132
+1 SEC_078

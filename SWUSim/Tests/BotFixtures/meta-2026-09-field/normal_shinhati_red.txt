@@ -1,0 +1,38 @@
+# Real-deck self-play fixture — Shin Hati, Eager Adversary - Ancient Henge
+# Source: melee.gg 438892, #5 of 23 (3-2-1)
+#   https://melee.gg/Decklist/View/a8a710fe-b022-4871-9195-b4c101257365 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-15: every archetype with 2+ entries across the twenty events that the
+#   curated meta-2026-09/ set does not cover. Best-finishing list of its archetype.
+# Archetype: Shin Hati · Red 30HP — 8 entries, 18-29-2 (38.8% match win) across the twenty events
+# Style: normal
+#   ⚠ NOT REVIEWED BY THE OWNER — auto from deck shape (avg cost 3.36, 13 cheap units, 0 removal, 2 wipe, 3 units 6+).
+# Flavours: none
+
+Leader
+1 ASH_016
+
+Base
+1 ASH_023
+
+Deck
+3 LAW_174
+3 LOF_179
+3 LAW_214
+3 LAW_075
+3 ASH_190
+3 LOF_183
+2 ASH_243
+2 SEC_193
+2 IBH_064
+1 SEC_163
+3 JTL_162
+3 ASH_191
+3 ASH_222
+2 SEC_171
+1 ASH_196
+2 SEC_179
+2 SEC_234
+2 LAW_217
+3 LAW_077
+2 LOF_215
+2 ASH_183

@@ -1,6 +1,9 @@
 <?php
 
 function HellbreakTutorialIsActive(): bool {
+    // Card-data callers (HellbreakFixtureCard) reach this from contexts that load the card layer
+    // without a gamestate — tests and tools. No gamestate means no game, so it is not the tutorial.
+    if(!class_exists('DecisionQueueController') || !function_exists('GetDecisionQueueVariables')) return false;
     return strval(DecisionQueueController::GetVariable('GameMode') ?? '') === 'tutorial';
 }
 

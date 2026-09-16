@@ -1,0 +1,48 @@
+# BAD-DECK fixture — Starter deck
+# Source: Spark of Rebellion two-player starter — Darth Vader (owner-supplied, resolved by card NAME)
+#   Its export listed Tarkin and Palpatine by their LEADER ids (SOR_007 / SOR_006 as "SOR_7/20", "SOR_6/20");
+#   both are the UNIT printings here (SOR_084 / SOR_135), which is why those entries would not resolve.
+#   The WEAK set (added 2026-09-15): deliberately poor decks, for the deck-advantage conversion test —
+#   a strong pilot should beat a clearly worse deck nearly every time, and that measure has none of the
+#   field-skew that makes bot-vs-tournament win rates misleading.
+#   ⚠ NOT Premier legal: a pre-JTL starter deck, built to a low power level. Never add this set to a
+#   strength gate or to the tournament-backed sets.
+# Shape: 50 cards, avg cost 3.16, 36 units (16 at 1-2, 6 at 6+), 0 removal, 0 wipe, 11 events, 3 upgrades
+# Style: aggro
+#   ⚠ auto-derived from deck shape, not reviewed.
+# Flavours: none
+
+Leader
+1 SOR_010
+
+Base
+1 SOR_023
+
+Deck
+2 SOR_225
+3 SOR_128
+1 SOR_129
+2 SOR_130
+3 SOR_226
+2 SOR_227
+2 SOR_228
+1 SOR_079
+3 SOR_083
+3 SOR_229
+1 SOR_230
+3 SOR_084
+3 SOR_132
+1 SOR_231
+2 SOR_232
+1 SOR_086
+1 SOR_088
+1 SOR_135
+1 SOR_089
+3 SOR_136
+1 SOR_123
+1 SOR_139
+1 SOR_126
+3 SOR_172
+3 SOR_233
+1 SOR_234
+1 SOR_092

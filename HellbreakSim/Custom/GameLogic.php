@@ -12,7 +12,10 @@ function CardHasAbility($cardID, $from, $index = -1) {
     $count = intval(CardActivateAbilityCount(strval($cardID)));
     return intval($index) < 0 ? $count > 0 : intval($index) < $count;
 }
-function ActionMap($cardID, $action, $from = '') { return ''; }
+// The engine calls this with one argument (Core/EngineActionRunner.php's 'FSM' case), as every
+// other root declares it. Hellbreak plays cards through the horror-action prompt, so this stays a
+// no-op — but a two-required-argument signature made that call a fatal instead.
+function ActionMap($cardID, $action = '', $from = '') { return ''; }
 function SelectionMetadata($cardID, $from = '') { return ''; }
 function CardCurrentEffects($cardID, $from = '') { return []; }
 
@@ -237,6 +240,13 @@ function HellbreakCollectResources(int $player): bool {
 function HellbreakCardLoyalty(string $cardID): array {
     $fixture = function_exists('HellbreakFixtureCard') ? HellbreakFixtureCard($cardID) : null;
     if(is_array($fixture) && isset($fixture['loyalty'])) return HellbreakNormalizeAspectCounts($fixture['loyalty']);
+
+    // The importer's per-aspect map ({"Cursed":1,"Feral":1}). An explicit '{}' means no loyalty;
+    // only a blank (a dictionary generated before this column existed) falls through below.
+    if(function_exists('CardLoyaltyAspects')) {
+        $map = CardLoyaltyAspects($cardID);
+        if(is_array($map) || (is_string($map) && trim($map) !== '')) return HellbreakNormalizeAspectCounts($map);
+    }
     if(!function_exists('CardLoyalty')) return [];
 
     $loyalty = CardLoyalty($cardID);
@@ -245,7 +255,11 @@ function HellbreakCardLoyalty(string $cardID): array {
     }
     $count = max(0, intval($loyalty));
     $aspect = function_exists('CardAspect') ? trim((string)CardAspect($cardID)) : '';
-    return $count > 0 && $aspect !== '' ? [$aspect => $count] : [];
+    if($count <= 0 || $aspect === '') return [];
+    // One count for the whole card. Split a multi-aspect string rather than requiring an aspect
+    // literally named "Cursed, Feral", which no vault can supply; each listed aspect needs the
+    // full count, matching the importer's handling of the same ambiguous cell.
+    return array_fill_keys(array_keys(HellbreakNormalizeAspectCounts($aspect)), $count);
 }
 
 function HellbreakMeetsLoyalty(array $available, array $required): bool {
@@ -1153,6 +1167,10 @@ function HellbreakResolveUniqueChoice(int $player, string $selection): bool {
 function HellbreakFinishNormalAction(int $player, string $actionType, array $details = []): bool {
     if(GetCurrentPhase() !== 'HORROR' || intval(GetTurnPlayer()) !== $player) return false;
     SetPreviousActionPassLike(false);
+    // "For this attack" effects are dated by the action sequence, so sweep BEFORE it advances —
+    // afterwards they read as stale and would be dropped anyway, but the lethal re-check has to
+    // happen while the board still belongs to this action.
+    if(function_exists('HellbreakExpireTurnEffects')) HellbreakExpireTurnEffects();
     SetActionSequence(intval(GetActionSequence()) + 1);
     SetTurnPlayer(HellbreakOtherPlayer($player));
     DecisionQueueController::StoreVariable('HellbreakLastHorrorAction', [
@@ -1315,7 +1333,7 @@ function HellbreakPlayCard(int $player, string $mzID, ?int $locationSlot = null,
             $playedObject->Status = 2;
         }
     } else if($type === 'ASSET') {
-        $playedObject = AddAssets($player, $cardID, 2, $player, $player, [], [], $source);
+        $playedObject = AddAssets($player, $cardID, 2, $player, $player, 0, [], [], $source);
     } else {
         $playedObject = AddCrypt($player, $cardID, 'Hand', intval(GetTurnNumber()), true, $source);
     }
