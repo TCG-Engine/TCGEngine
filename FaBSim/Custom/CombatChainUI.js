@@ -71,6 +71,11 @@
         .fab-chain-card img{width:92px!important;height:92px!important;object-fit:cover!important}
         .fab-chain-role{font-size:9px;color:#bcb8ac;margin-bottom:3px;white-space:nowrap}
         .fab-chain-arrow{flex:none;color:#d6aa4d;font-size:16px}
+        .fab-chain-totals{display:flex;flex-direction:column;gap:5px;flex:none;align-self:center;padding-right:3px}
+        .fab-chain-total{display:flex;align-items:center;gap:5px;white-space:nowrap;font:bold 16px system-ui;font-variant-numeric:tabular-nums;color:#e8cb78}
+        .fab-chain-total.is-block{color:#c5d2db}
+        .fab-chain-total svg{width:17px;height:17px;flex:none}
+        .fab-chain-total small{font-size:9px;font-weight:500;color:#aab5bd}
         .fab-go-again{position:absolute;top:15px;right:0;z-index:5;padding:2px 4px;border:1px solid #b3f7be;border-radius:12px;background:#196437;color:#fff;font:bold 10px system-ui;pointer-events:none}
         #fabCombatWindow .fab-chain-flow{display:block;overflow:auto;padding:5px 10px 7px;height:auto;min-height:0}
         #fabCombatWindow{height:auto;max-height:65vh}
@@ -118,6 +123,25 @@
         row.appendChild(wrapper);
       });
       if (link.current) {
+        const totals = link.cards.find(card => card.data.Role === 'ATTACK')?.data.CombatTotals;
+        if (totals && Number.isFinite(Number(totals.attack))) {
+          const summary = document.createElement('div'); summary.className = 'fab-chain-totals';
+          summary.setAttribute('role', 'group'); summary.setAttribute('aria-label', 'Active link totals');
+          const addTotal = (value, label, block, seat = '') => {
+            const badge = document.createElement('div'); badge.className = 'fab-chain-total' + (block ? ' is-block' : '');
+            badge.title = label + ': ' + value; badge.setAttribute('aria-label', badge.title);
+            badge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' + (block
+              ? '<path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6z"/>'
+              : '<path d="m5 19 3-3m-3-4 7 7M9 15 20 4l-5 1L7 13"/>') + '</svg>';
+            const number = document.createElement('span'); number.textContent = String(value); badge.appendChild(number);
+            if (seat) { const player = document.createElement('small'); player.textContent = 'P' + seat; badge.appendChild(player); }
+            summary.appendChild(badge);
+          };
+          addTotal(Number(totals.attack), 'Total attack', false);
+          const blocks = Object.entries(totals.blocks || {});
+          blocks.forEach(([seat, value]) => addTotal(Number(value), 'Total block for player ' + seat, true, blocks.length > 1 ? seat : ''));
+          row.prepend(summary);
+        }
         row.setAttribute('aria-label', 'Current link ' + link.number);
         target.appendChild(row);
       } else {

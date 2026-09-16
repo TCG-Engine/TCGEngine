@@ -820,6 +820,16 @@ function FaBDisplayGoAgain($obj): int {
 function FaBDisplayCombatDefense($obj): int {
     return in_array($obj->Role??'',['DEFENSE','DEFENSE_REACTION'],true) ? FaBCurrentDefense($obj,intval($obj->Controller??$obj->Owner??0)) : -1;
 }
+function FaBDisplayCombatTotals($obj): array {
+    $state = FaBGetState();
+    if (($obj->Role ?? '') !== 'ATTACK' || intval($obj->UniqueID) !== intval($state['attackUID'])) return [];
+    $blocks = [];
+    foreach ($state['attackTargets'] ?? [$state['attackTarget'] ?? ['type'=>'HERO', 'player'=>$state['defender']]] as $target) {
+        $seat = intval($target['player'] ?? $state['defender']);
+        $blocks[(string)$seat] = ($target['type'] ?? 'HERO') === 'HERO' ? FaBDefenseValue($state, $seat) : 0;
+    }
+    return ['attack'=>FaBAttackPower($state), 'blocks'=>$blocks];
+}
 
 function FaBHasPendingDecision(): bool {
     // Static continuations need no player input. Generated macro bookkeeping

@@ -113,6 +113,7 @@ CombatChain - CardID:string, Status:number=2, Owner:number=0, Controller:number=
 Display: Visibility=Public, Mode=All, BindTo=CombatChainSlot
 Virtual: CombatPower=FaBDisplayCombatPower(), CombatDefense=FaBDisplayCombatDefense()
 Virtual: CombatGoAgain=FaBDisplayGoAgain()
+Virtual: CombatTotals=FaBDisplayCombatTotals()
 Virtual: SelectionMetadata=FaBSelectionMetadata()
 Highlight: SelectionMetadata
 Click: FSM()
