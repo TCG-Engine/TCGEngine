@@ -162,11 +162,12 @@
       hand.replaceChildren();hand.setAttribute('role','img');hand.setAttribute('aria-label',handCount+' cards in hand');hand.title=handCount+' cards in hand';
       for(let i=0;i<Math.min(handCount,10);i++){const back=document.createElement('img');back.src='./FaBSim/concat/CardBack.webp';back.alt='';hand.appendChild(back);}
       if(handCount>10){const extra=document.createElement('span');extra.textContent='+'+(handCount-10);hand.appendChild(extra);}
-      for(const [zoneName,value,label] of [['Hero',dataByName.Health||'0','Life'],['Pitch',(dataByName.Resources||'0')+(Number(dataByName.Chi)>0?' ('+dataByName.Chi+' Chi)':''),'Available resources']]){
+      for(const [zoneName,stat,value,label] of [['Hero','health',dataByName.Health||'0','Life'],['Pitch','resource',dataByName.Resources||'0','Available resources'],['Pitch','chi',dataByName.Chi||'0','Chi included in resources']]){
         const zone=section.querySelector('[data-zone="'+zoneName+'"]');
-        let badge=zone.querySelector('.fab-upf-summary-counter');
-        if(!badge){badge=document.createElement('span');badge.className='fab-upf-summary-counter';zone.appendChild(badge);}
+        let badge=zone.querySelector('.fab-upf-summary-counter[data-stat="'+stat+'"]');
+        if(!badge){badge=document.createElement('span');badge.className='fab-upf-summary-counter';badge.dataset.stat=stat;zone.appendChild(badge);}
         badge.textContent=value;badge.title=label+': '+value;badge.setAttribute('aria-label',badge.title);
+        badge.hidden=stat==='chi'&&!(Number(value)>0);
       }
     });
     let state={};try{state=JSON.parse(window.GameStateData||'{}');}catch(_){}
