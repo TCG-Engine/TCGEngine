@@ -33,15 +33,15 @@
     style.textContent = `
       #fab-shortcut-dock{position:fixed;right:12px;bottom:12px;z-index:1800;font:600 13px system-ui;color:#eee}
       #fab-shortcut-toggle{border:1px solid #8a6a21;background:#17140e;color:#e8c766;border-radius:8px;padding:8px 12px;cursor:pointer}
-      #fab-shortcut-panel{display:none;position:absolute;right:0;bottom:42px;width:245px;padding:12px;border:1px solid #70551c;border-radius:10px;background:rgba(15,15,14,.97);box-shadow:0 12px 35px #000}
+      #fab-shortcut-panel{display:none;position:absolute;right:0;bottom:42px;width:285px;max-width:calc(100vw - 48px);max-height:calc(100vh - 100px);overflow-y:auto;padding:12px;border:1px solid #70551c;border-radius:10px;background:rgba(15,15,14,.97);box-shadow:0 12px 35px #000}
       #fab-shortcut-dock.open #fab-shortcut-panel{display:block}.fab-shortcut-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 0}
-      .fab-shortcut-row button{width:42px;height:23px;border:0;border-radius:14px;background:#494949;cursor:pointer;position:relative}
+      .fab-shortcut-row button{flex-shrink:0;width:42px;height:23px;border:0;border-radius:14px;background:#494949;cursor:pointer;position:relative}
       .fab-shortcut-row button:after{content:'';position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:#ddd;transition:.14s}
       .fab-shortcut-row button.on{background:#2f9d55}.fab-shortcut-row button.on:after{left:22px}.fab-shortcut-note{font-weight:400;color:#aaa;font-size:11px;margin-bottom:6px}`;
     document.head.appendChild(style);
 
     const dock = document.createElement('div'); dock.id = 'fab-shortcut-dock';
-    dock.innerHTML = `<div id="fab-shortcut-panel"><div style="font-size:15px;margin-bottom:3px">Shortcut windows</div><div class="fab-shortcut-note">On means automatically pass that window.</div>${entries.map(([id, spec]) => `<div class="fab-shortcut-row"><span>${spec.label || id}</span><button type="button" data-id="${id}" aria-pressed="${payload.windows[id]}"></button></div>`).join('')}</div><button id="fab-shortcut-toggle" type="button">Shortcuts</button>`;
+    dock.innerHTML = `<div id="fab-shortcut-panel"><div style="font-size:15px;margin-bottom:3px">Shortcut windows</div><div class="fab-shortcut-note">On automatically passes, even with an instant available. Your own action/chain continuation and arsenal choices still stop.</div>${entries.map(([id, spec]) => `<div class="fab-shortcut-row"><span>${spec.label || id}</span><button type="button" data-id="${id}" aria-label="Auto-pass ${spec.label || id}" aria-pressed="${payload.windows[id]}"></button></div>`).join('')}</div><button id="fab-shortcut-toggle" type="button">Shortcuts</button>`;
     document.body.appendChild(dock);
     const autoRow = document.createElement('label');
     autoRow.className = 'fab-shortcut-row';
@@ -55,7 +55,11 @@
     autoNote.className = 'fab-shortcut-note';
     autoNote.textContent = 'Includes optional single-card choices. Saved in this browser.';
     dock.querySelector('#fab-shortcut-panel').appendChild(autoNote);
-    const render = () => dock.querySelectorAll('[data-id]').forEach(button => button.classList.toggle('on', !!payload.windows[button.dataset.id]));
+    const render = () => dock.querySelectorAll('[data-id]').forEach(button => {
+      const enabled = !!payload.windows[button.dataset.id];
+      button.classList.toggle('on', enabled);
+      button.setAttribute('aria-pressed', String(enabled));
+    });
     const sync = () => {
       window.TCGSettings?.set?.(SETTING, payload, { rootName: ROOT, type: 'json' });
       if (typeof SubmitInput === 'function') SubmitInput('10015', '&inputText=' + encodeURIComponent(JSON.stringify(payload)));

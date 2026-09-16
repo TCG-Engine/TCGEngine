@@ -701,7 +701,8 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       if (function_exists('SetShortcutPreferencesState')) {
         SetShortcutPreferencesState($playerID, $inputText);
       }
-      $result['updateCache'] = false;
+      // FaBSim may advance priority immediately when a shortcut is enabled.
+      $result['updateCache'] = ($folderPath === 'FaBSim');
       $result['recordAction'] = false;
       break;
     case 10017:

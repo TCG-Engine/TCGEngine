@@ -236,8 +236,17 @@ function FaBResetWindowState(): array {
 }
 
 function FaBGetState(): array {
-    $decoded = json_decode((string)GetGameState(), true);
-    return array_replace(FaBStateDefaults(), is_array($decoded) ? $decoded : []);
+    // Card legality/stat hooks repeatedly read the same state within an action.
+    // Key by the serialized value so direct setters, undo, and game loads also
+    // invalidate the cache. PHP arrays return by value (copy on write).
+    static $serialized = null, $state = [];
+    $current = (string)GetGameState();
+    if ($current !== $serialized) {
+        $decoded = json_decode($current, true);
+        $state = array_replace(FaBStateDefaults(), is_array($decoded) ? $decoded : []);
+        $serialized = $current;
+    }
+    return $state;
 }
 
 function FaBSetState(array $state): void {
@@ -1470,25 +1479,52 @@ function FaBSelectionMetadata($obj): string {
         : json_encode(['highlight' => false]);
 }
 
+/** Map each priority opportunity to its independently configurable shortcut. */
+function FaBShortcutWindow(int $player, array $state): string {
+    return match ($state['window']) {
+        'DEFEND_DECLARE' => 'BLOCK',
+        'REACTION' => $player === intval($state['attacker']) ? 'ATTACK_REACTION'
+            : (FaBIsDefendingHero($player, $state) ? 'DEFENSE_REACTION' : 'OTHER_REACTION'),
+        'ACTION' => 'ACTION_PRIORITY',
+        'PRIORITY' => 'INSTANT_PRIORITY',
+        'ATTACK' => 'ATTACK_PRIORITY',
+        'DEFEND_PRIORITY' => 'DEFEND_PRIORITY',
+        'DAMAGE' => 'DAMAGE_PRIORITY',
+        'RESOLUTION' => 'RESOLUTION_PRIORITY',
+        'END_PHASE' => 'END_PHASE',
+        default => '',
+    };
+}
+
 function FaBAutoPassShortcuts(): void {
-    static $running = false; if ($running) return; $running = true;
-    for ($guard = 0; $guard < 16 && intval(GetWinner()) === 0; ++$guard) {
-        foreach (FaBLiveSeats() as $seat) if (count(GetDecisionQueue($seat)) > 0) { $running = false; return; }
-        $player = intval(GetPriorityPlayer()); $state = FaBGetState(); $window = '';
-        if (FaBIsPassiveSeat($player)) {
+    static $running = false;
+    if ($running) return;
+    $running = true;
+    try {
+        // Four-seat combat can require more than sixteen consecutive passes.
+        for ($guard = 0; $guard < 256 && intval(GetWinner()) === 0; ++$guard) {
+            foreach (FaBLiveSeats() as $seat) if (count(GetDecisionQueue($seat)) > 0) return;
+            $player = intval(GetPriorityPlayer()); $state = FaBGetState();
+            if (!FaBIsPassiveSeat($player)) {
+                $window = FaBShortcutWindow($player, $state);
+                if ($window === '' || !ShouldAutoPassShortcutWindow($player, $window)) break;
+                // Preserve action/chain-continuation decisions on the active player's turn.
+                if ($player === intval(GetTurnPlayer()) && FaBStackTop() === null) {
+                    if (in_array($state['window'], ['ACTION', 'RESOLUTION'], true)
+                        && FaBPlayerHasPriorityAction($player)) break;
+                    if ($state['window'] === 'END_PHASE') {
+                        foreach (FaBChoiceRefs($player, 'Hand') as $ref) if (FaBCanArsenal($player, $ref)) return;
+                    }
+                }
+            }
+            $turn = intval(GetTurnNumber());
+            $wasInCombat = !empty($state['combatOpen']);
             if (!FaBPassPriority($player, true)) break;
-            continue;
+            if ($turn !== intval(GetTurnNumber()) || ($wasInCombat && empty(FaBGetState()['combatOpen']))) break;
         }
-        if ($state['window'] === 'DEFEND_DECLARE') $window = 'BLOCK';
-        elseif ($state['window'] === 'REACTION') $window = $player === intval($state['attacker']) ? 'ATTACK_REACTION' : 'DEFENSE_REACTION';
-        elseif (in_array($state['window'], ['ACTION', 'PRIORITY', 'ATTACK', 'DEFEND_PRIORITY', 'DAMAGE', 'RESOLUTION'], true)) $window = 'INSTANT_PRIORITY';
-        if ($window === '' || !ShouldAutoPassShortcutWindow($player, $window)) break;
-        if ($window === 'INSTANT_PRIORITY' && FaBPlayerHasPriorityAction($player)) break;
-        $wasInCombat = !empty($state['combatOpen']);
-        if (!FaBPassPriority($player, true)) break;
-        if ($wasInCombat && empty(FaBGetState()['combatOpen'])) break;
+    } finally {
+        $running = false;
     }
-    $running = false;
 }
 
 function ActionMap($actionCard) {

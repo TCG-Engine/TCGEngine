@@ -117,8 +117,8 @@ $check(FaBFindUID($attackUID)['zone'] === 'Graveyard', 'Closing combat did not m
 // With shortcuts disabled, every rules step must remain independently observable.
 InitializeGamestate();
 $playerID = 1; SetSeatOrder('12'); SetLiveSeats('12'); SetTurnPlayer(1); SetTurnNumber(1); SetCurrentPhase('MAIN'); SetPriorityPlayer(1); FaBSetState(FaBStateDefaults());
-SetShortcutPreferencesState(1, ['windows' => ['BLOCK'=>false, 'ATTACK_REACTION'=>false, 'DEFENSE_REACTION'=>false, 'INSTANT_PRIORITY'=>false]]);
-SetShortcutPreferencesState(2, ['windows' => ['BLOCK'=>false, 'ATTACK_REACTION'=>false, 'DEFENSE_REACTION'=>false, 'INSTANT_PRIORITY'=>false]]);
+SetShortcutPreferencesState(1, ['windows' => array_fill_keys(array_keys(GetShortcutWindowRegistry()), false)]);
+SetShortcutPreferencesState(2, ['windows' => array_fill_keys(array_keys(GetShortcutWindowRegistry()), false)]);
 AddHealth(1, 20); AddHealth(2, 20); AddResources(1, 0); AddActionPoints(1, 1);
 AddHero(2, CardID:'ira_crimson_haze', Owner:2, Controller:2, Status:2);
 $stepAttack = AddHand(1, CardID:'wounded_bull_red'); $stepPitch = AddHand(1, CardID:'wounded_bull_blue');
@@ -152,8 +152,8 @@ $anothos=AddWeapons(1,CardID:'anothos',Owner:1,Controller:1,Status:2);$check(FaB
 
 InitializeGamestate();
 $playerID=1;SetSeatOrder('12');SetLiveSeats('12');SetTurnPlayer(1);SetCurrentPhase('MAIN');SetPriorityPlayer(1);FaBSetState(FaBStateDefaults());AddHealth(1,20);AddHealth(2,20);AddResources(1,0);AddActionPoints(1,1);
-SetShortcutPreferencesState(1,['windows'=>['BLOCK'=>false,'ATTACK_REACTION'=>false,'DEFENSE_REACTION'=>false,'INSTANT_PRIORITY'=>false]]);
-SetShortcutPreferencesState(2,['windows'=>['BLOCK'=>false,'ATTACK_REACTION'=>false,'DEFENSE_REACTION'=>false,'INSTANT_PRIORITY'=>false]]);
+SetShortcutPreferencesState(1,['windows'=>array_fill_keys(array_keys(GetShortcutWindowRegistry()), false)]);
+SetShortcutPreferencesState(2,['windows'=>array_fill_keys(array_keys(GetShortcutWindowRegistry()), false)]);
 AddHero(2,CardID:'ira_crimson_haze',Owner:2,Controller:2,Status:2);
 $kodachi=AddWeapons(1,CardID:'harmonized_kodachi',Owner:1,Controller:1,Status:2);$kodachiUID=intval($kodachi->UniqueID);$kodachiPitch=AddHand(1,CardID:'flic_flak_blue');$kodachiPitchUID=intval($kodachiPitch->UniqueID);
 $check(FaBWTRCanActivate(1,'p1Weapons-0'),'Kodachi was not legal as the opening attack with a pitchable card.');
@@ -208,16 +208,15 @@ $check(DoDamage(1, '', 2, 3, 'PHYSICAL') === 3 && intval(GetHealth(2)) === 17, '
 $goldfishDamageFrame = end($frameAnimations);
 $check(($goldfishDamageFrame['type'] ?? '') === 'DAMAGE' && intval($goldfishDamageFrame['uniqueID'] ?? 0) === $goldfishHeroUID && intval($goldfishDamageFrame['amount'] ?? 0) === 3, 'Goldfish damage did not queue a hero-identity damage animation.');
 $check(FaBPassPriority(1), 'Goldfish action-window pass failed.');
-$check(FaBGetState()['window'] === 'END_PHASE', 'The passive opponent did not auto-pass the action window.');
+$check(FaBGetState()['window'] === 'ACTION', 'Default end-phase shortcut did not reach the next turn.');
 $check(intval(GetPriorityPlayer()) === 1, 'Priority did not return to the goldfish player for end phase.');
-$check(FaBPassPriority(1), 'Goldfish end-phase pass failed.');
 $check(intval(GetTurnPlayer()) === 1, 'The passive goldfish seat incorrectly received a turn.');
 $check(intval(GetTurnNumber()) === 2, 'Goldfish end phase did not advance the turn number.');
 $check(FaBGetState()['passiveSeats'] === [2], 'Goldfish metadata was lost across the turn reset.');
 
 InitializeGamestate();
 $playerID=1;SetSeatOrder('123');SetLiveSeats('123');SetTurnPlayer(1);SetCurrentPhase('MAIN');SetPriorityPlayer(1);FaBSetState(FaBStateDefaults());
-foreach([1,2,3]as$seat)SetShortcutPreferencesState($seat,['windows'=>['BLOCK'=>false,'ATTACK_REACTION'=>false,'DEFENSE_REACTION'=>false,'INSTANT_PRIORITY'=>false]]);
+foreach([1,2,3]as$seat)SetShortcutPreferencesState($seat,['windows'=>array_fill_keys(array_keys(GetShortcutWindowRegistry()), false)]);
 AddHero(1,CardID:'katsu_the_wanderer',Owner:1,Controller:1,Status:2);AddHero(2,CardID:'ira_crimson_haze',Owner:2,Controller:2,Status:2);AddHero(3,CardID:'bravo',Owner:3,Controller:3,Status:2);
 $attackablePermanent=AddArena(2,CardID:'quicken',Owner:2,Controller:2,Status:2);$attackablePermanent->TurnEffects=['ATTACKABLE'];
 $multiTargets=FaBLegalAttackTargets(1);$targetUIDs=array_map(fn($target)=>intval($target['uid']),$multiTargets);
