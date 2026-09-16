@@ -94,6 +94,7 @@
     const active=seats.length>2;document.body.classList.toggle('fab-upf-active',active);
     mountActivity();
     if(!active){
+      if(typeof FaBRefreshOptionalCounters==='function')FaBRefreshOptionalCounters();
       ['stack','chain'].forEach(kind=>panelToggle(kind,false));
       if(typeof window.RenderFaBLayers==='function'){const data=String(window.StackData||'');window.RenderFaBLayers(PopulateZone('Stack',data,size,'./FaBSim/concat','0','All'),data.trim()?data.split('<|>').length:0);}return;
     }
@@ -144,6 +145,9 @@
         if(zone.name==='Equipment'&&typeof FaBArrangeEquipment==='function')FaBArrangeEquipment(name);
         if(!mine)slot.querySelectorAll('button').forEach(button=>button.remove());
         slot.parentElement.dataset.empty=String(!data.trim());if(zone.name==='Temp'||zone.name==='CombatChain')slot.parentElement.hidden=!data.trim();
+        if(zone.name==='Chi')slot.parentElement.hidden=!(Number(data)>0);
+        if(zone.name==='Soul')slot.parentElement.hidden=!data.split('<|>').some(record=>{const card=record.trim().split(' ')[0];return card&&card!=='-';});
+        if(zone.name==='ActionPoints')slot.parentElement.classList.toggle('fab-upf-ap-inactive',Number(seat)!==Number(window.TurnPlayerData));
         if(zone.name==='CombatChain'&&data.trim())chainCount+=data.split('<|>').length;
       });
       // A private pile is one CardBack record whose counter carries its size.
@@ -158,7 +162,7 @@
       hand.replaceChildren();hand.setAttribute('role','img');hand.setAttribute('aria-label',handCount+' cards in hand');hand.title=handCount+' cards in hand';
       for(let i=0;i<Math.min(handCount,10);i++){const back=document.createElement('img');back.src='./FaBSim/concat/CardBack.webp';back.alt='';hand.appendChild(back);}
       if(handCount>10){const extra=document.createElement('span');extra.textContent='+'+(handCount-10);hand.appendChild(extra);}
-      for(const [zoneName,value,label] of [['Hero',dataByName.Health||'0','Life'],['Pitch',(dataByName.Resources||'0')+' ('+(dataByName.Chi||'0')+' Chi)','Available resources']]){
+      for(const [zoneName,value,label] of [['Hero',dataByName.Health||'0','Life'],['Pitch',(dataByName.Resources||'0')+(Number(dataByName.Chi)>0?' ('+dataByName.Chi+' Chi)':''),'Available resources']]){
         const zone=section.querySelector('[data-zone="'+zoneName+'"]');
         let badge=zone.querySelector('.fab-upf-summary-counter');
         if(!badge){badge=document.createElement('span');badge.className='fab-upf-summary-counter';zone.appendChild(badge);}

@@ -76,7 +76,9 @@
         .fab-chain-total.is-block{color:#c5d2db}
         .fab-chain-total svg{width:17px;height:17px;flex:none}
         .fab-chain-total small{font-size:9px;font-weight:500;color:#aab5bd}
-        .fab-go-again{position:absolute;top:15px;right:0;z-index:5;padding:2px 4px;border:1px solid #b3f7be;border-radius:12px;background:#196437;color:#fff;font:bold 10px system-ui;pointer-events:none}
+        .fab-chain-art{position:relative;width:92px;height:92px}
+        .fab-go-again{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28px;height:28px;z-index:5;color:#b0f5be;pointer-events:none}
+        .fab-go-again svg{display:block;width:100%;height:100%}
         #fabCombatWindow .fab-chain-flow{display:block;overflow:auto;padding:5px 10px 7px;height:auto;min-height:0}
         #fabCombatWindow{height:auto;max-height:65vh}
         #myCombatChainSlot,#theirCombatChainSlot{display:none!important}
@@ -113,12 +115,14 @@
         const role = document.createElement('div'); role.className = 'fab-chain-role';
         role.textContent = (labels[card.data.Role] || 'Card') + ' · P' + Number(card.data.Controller || card.data.Owner);
         wrapper.appendChild(role);
-        const image = document.createElement('div');
+        const image = document.createElement('div'); image.className = 'fab-chain-art';
         image.innerHTML = createCardHTML(card.zone, 'CombatChain', './FaBSim/concat', 92, card.fields, card.index);
         wrapper.appendChild(image);
         if (link.current && Number(card.data.CombatGoAgain) === 1 && card.data.Role === 'ATTACK') {
-          const badge = document.createElement('span'); badge.className = 'fab-go-again'; badge.textContent = '↻ Go again';
-          badge.setAttribute('aria-label', 'This attack has go again'); wrapper.appendChild(badge);
+          const badge = document.createElement('span'); badge.className = 'fab-go-again';
+          const arrows = 'M20 10A8 8 0 0 0 6 6L3 9M3 4v5h5M4 14a8 8 0 0 0 14 4l3-3m0 5v-5h-5';
+          badge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + arrows + '" stroke="#102019" stroke-width="4"/><path d="' + arrows + '" stroke="currentColor" stroke-width="2"/></svg>';
+          badge.setAttribute('role', 'img'); badge.setAttribute('aria-label', 'This attack has go again'); image.appendChild(badge);
         }
         row.appendChild(wrapper);
       });
@@ -130,9 +134,9 @@
           const addTotal = (value, label, block, seat = '') => {
             const badge = document.createElement('div'); badge.className = 'fab-chain-total' + (block ? ' is-block' : '');
             badge.title = label + ': ' + value; badge.setAttribute('aria-label', badge.title);
-            badge.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' + (block
-              ? '<path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6z"/>'
-              : '<path d="m5 19 3-3m-3-4 7 7M9 15 20 4l-5 1L7 13"/>') + '</svg>';
+            const icon = document.createElement('img'); icon.className = 'fab-total-icon'; icon.alt = '';
+            icon.src = './FaBSim/Assets/Icons/' + (block ? 'defense' : 'attack') + '.png';
+            badge.appendChild(icon);
             const number = document.createElement('span'); number.textContent = String(value); badge.appendChild(number);
             if (seat) { const player = document.createElement('small'); player.textContent = 'P' + seat; badge.appendChild(player); }
             summary.appendChild(badge);
@@ -148,7 +152,7 @@
         const button = document.createElement('button'); button.type = 'button'; button.className = 'fab-chain-link'; button.dataset.link = String(link.number);
         const label = 'Link ' + link.number + ' · ' + link.cards.length + ' cards';
         button.setAttribute('aria-label', label); button.setAttribute('aria-expanded', 'false');
-        button.innerHTML = '<svg viewBox="0 0 32 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="11" cy="10" rx="8" ry="5" transform="rotate(-25 11 10)"/><ellipse cx="21" cy="10" rx="8" ry="5" transform="rotate(-25 21 10)"/></svg><span>' + link.number + '</span>';
+        button.innerHTML = '<img class="fab-link-icon" src="./FaBSim/Assets/Icons/chain.svg" alt=""><span>' + link.number + '</span>';
         const box = document.createElement('div'); box.className = 'fab-history-popover'; box.hidden = true; box.id = previews.id + '-' + link.number;
         button.setAttribute('aria-controls', box.id);
         const title = document.createElement('div'); title.className = 'fab-history-title'; title.textContent = label;

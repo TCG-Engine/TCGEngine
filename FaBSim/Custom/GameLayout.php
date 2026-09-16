@@ -1,4 +1,5 @@
 <?php include __DIR__ . '/GameOver.php'; include __DIR__ . '/MultiplayerLayout.php'; ?>
+<link rel="stylesheet" href="./FaBSim/Custom/IconTheme.css?v=<?= filemtime(__DIR__ . '/IconTheme.css') ?>">
 <style>
 #bug-report-button{position:fixed;top:8px;right:8px;z-index:2600}
 @media(min-width:900px){.fab-upf-active #bug-report-button{right:230px}}
@@ -33,6 +34,8 @@ html,body{margin:0;overflow:hidden;background:#090d0f;color:#f3eee5;font-family:
 .fab-zone img{width:var(--fab-card-size)!important;height:var(--fab-card-size)!important;object-fit:cover!important;border-radius:5px!important;box-shadow:0 3px 10px rgba(0,0,0,.62)}
 .fab-zone [id$="Wrapper"]{height:100%;overflow:visible!important}
 .fab-zone [id^="my"],.fab-zone [id^="their"]{align-items:flex-end}
+/* The slot already supplies its small uppercase title. Hide the renderer's plain label. */
+.fab-zone:not(.fab-stat)>div>span>span:not([data-mzid]):not([id]){display:none}
 #chatWidget{top:5px!important;bottom:auto!important;left:70px!important;z-index:90!important}
 
 /* Hands anchor the composition; cards fan across the center without large zone boxes. */
@@ -80,29 +83,30 @@ html,body{margin:0;overflow:hidden;background:#090d0f;color:#f3eee5;font-family:
 #myArenaSlot:not(:has([data-mzid])),#theirArenaSlot:not(:has([data-mzid])){width:calc(var(--fab-card-size) + 10px)}
 #theirArenaSlot{right:52%;top:34%}#myArenaSlot{left:52%;bottom:34%}
 
-/* Utility mirrors equipment: banish/pitch/graveyard in one column, deck beside pitch. */
-#theirBanishSlot{right:calc(var(--fab-card-size) + 24px);top:4%}
-#theirPitchSlot{right:calc(var(--fab-card-size) + 24px);top:calc(4% + var(--fab-card-size) + 8px)}
-#theirDeckSlot{right:12px;top:calc(4% + var(--fab-card-size) + 8px)}
-#theirGraveyardSlot{right:calc(var(--fab-card-size) + 24px);top:calc(4% + var(--fab-card-size)*2 + 16px)}
-#myGraveyardSlot{right:calc(var(--fab-card-size) + 24px);bottom:calc(4% + var(--fab-card-size)*2 + 16px)}
-#myPitchSlot{right:calc(var(--fab-card-size) + 24px);bottom:calc(4% + var(--fab-card-size) + 8px)}
-#myDeckSlot{right:12px;bottom:calc(4% + var(--fab-card-size) + 8px)}
+/* Equal-sized utility slots: graveyard / deck / banish, pitch beside deck. */
+#myDeckSlot,#theirDeckSlot,#myGraveyardSlot,#theirGraveyardSlot,#myBanishSlot,#theirBanishSlot,#myPitchSlot,#theirPitchSlot,#myHeroSlot,#theirHeroSlot{padding:4px}
+#myDeckSlot,#theirDeckSlot,#myGraveyardSlot,#theirGraveyardSlot,#myBanishSlot,#theirBanishSlot{right:12px}
+#theirGraveyardSlot{top:max(52px,4vh)}
+#theirDeckSlot,#theirPitchSlot{top:calc(max(52px,4vh) + var(--fab-card-size) + 18px)}
+#theirBanishSlot{top:calc(max(52px,4vh) + var(--fab-card-size)*2 + 36px)}
+#myGraveyardSlot{bottom:calc(4% + var(--fab-card-size)*2 + 36px)}
+#myDeckSlot,#myPitchSlot{bottom:calc(4% + var(--fab-card-size) + 18px)}
+#myPitchSlot,#theirPitchSlot{right:calc(var(--fab-card-size) + 30px)}
 #mySoulSlot{left:22%;bottom:4%}
 #theirSoulSlot{left:22%;top:4%}
-#myBanishSlot{right:calc(var(--fab-card-size) + 24px);bottom:4%}
+#myBanishSlot{bottom:4%}
 
 /* Counters belong to the objects they describe instead of occupying board zones. */
 .fab-stat{display:grid;place-items:center;width:36px;height:36px;padding:0;border:2px solid rgba(214,170,77,.75);border-radius:50%;background:rgba(7,9,10,.94);box-shadow:0 3px 12px rgba(0,0,0,.7);font-size:18px;font-weight:900;line-height:1}
 .fab-stat:before{display:none}
 .fab-stat>div{display:grid;place-items:center;width:100%;height:100%}
 .fab-stat[data-life]:after{content:attr(data-life);display:grid;place-items:center;position:absolute;inset:0;color:#f4eee1;font-size:18px;font-weight:900;line-height:1}
-#myHealthSlot{left:calc(50% + var(--fab-card-size)/2 - 8px);bottom:calc(20% - 8px);z-index:27}
-#theirHealthSlot{left:calc(50% + var(--fab-card-size)/2 - 8px);top:calc(20% + var(--fab-card-size) - 28px);z-index:27}
+#myHealthSlot{left:calc(50% - 20px);bottom:calc(20% - 15px);z-index:27}
+#theirHealthSlot{left:calc(50% - 20px);top:calc(20% + var(--fab-card-size) - 15px);z-index:27}
 #myChiSlot{right:calc(var(--fab-card-size)*2 + 28px);bottom:calc(4% + var(--fab-card-size) + 2px);z-index:27}
 #theirChiSlot{right:calc(var(--fab-card-size)*2 + 28px);top:calc(4% + var(--fab-card-size)*2 - 28px);z-index:27}
-#myResourcesSlot{right:calc(var(--fab-card-size) + 14px);bottom:calc(4% + var(--fab-card-size) + 2px);z-index:27}
-#theirResourcesSlot{right:calc(var(--fab-card-size) + 14px);top:calc(4% + var(--fab-card-size)*2 - 28px);z-index:27}
+#myResourcesSlot{right:calc(var(--fab-card-size)*1.5 + 15px);bottom:calc(4% + var(--fab-card-size)*1.5 + 3px);z-index:27}
+#theirResourcesSlot{right:calc(var(--fab-card-size)*1.5 + 15px);top:calc(max(52px,4vh) + var(--fab-card-size)*1.5 + 3px);z-index:27}
 #myActionPointsSlot,#theirActionPointsSlot{width:44px;height:44px;border-radius:10px;font-size:18px;z-index:27}
 #myActionPointsSlot{right:calc(var(--fab-card-size)*2 + 39px);bottom:calc(4% + var(--fab-card-size)/2 - 14px)}
 #theirActionPointsSlot{right:calc(var(--fab-card-size)*2 + 39px);top:calc(4% + var(--fab-card-size)/2 - 14px)}
@@ -124,14 +128,14 @@ body.fab-lunge-active .fab-floating-window:not([hidden]){opacity:0;visibility:hi
 .fab-chain-close{position:absolute;z-index:4;top:7px;right:8px;width:24px;height:24px;font-size:14px}
 .fab-combat-progress{display:grid;grid-template-columns:repeat(7,minmax(58px,82px));justify-content:center;gap:5px;padding:7px 40px 6px;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.18)}
 .fab-combat-step{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;min-width:0;height:28px;padding:0 6px;border:1px solid rgba(255,255,255,.08);border-radius:15px;color:#767a78;text-align:center;font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;transition:background .16s,border-color .16s,color .16s,transform .16s,box-shadow .16s}
-.fab-step-glyph{display:grid;place-items:center;width:16px;height:16px;border:1px solid rgba(255,255,255,.12);border-radius:50%;color:#9b9d99;font-size:10px;line-height:1}
+.fab-step-glyph{display:block;width:20px;height:20px;flex:none;color:#9b9d99;filter:drop-shadow(0 1px 1px #0008)}
 .fab-combat-step:not(:last-child):after{content:"";position:absolute;z-index:2;top:50%;right:-6px;width:7px;height:1px;background:rgba(255,255,255,.14)}
 .fab-combat-step.is-complete{color:#aaa89f;border-color:rgba(214,170,77,.18);background:rgba(214,170,77,.055)}
-.fab-combat-step.is-complete .fab-step-glyph{color:#69c887;border-color:rgba(105,200,135,.4)}
+.fab-combat-step.is-complete .fab-step-glyph{color:#69c887}
 .fab-combat-progress{--fab-priority:105,200,135}
 .fab-combat-progress[data-priority="opponent"]{--fab-priority:239,104,104}
 .fab-combat-step.is-active{color:#fff;border-color:rgb(var(--fab-priority));background:rgba(var(--fab-priority),.2);transform:translateY(-1px);box-shadow:0 0 6px rgba(var(--fab-priority),.65),inset 0 0 8px rgba(var(--fab-priority),.12)}
-.fab-combat-step.is-active .fab-step-glyph{color:#101718;border-color:rgb(var(--fab-priority));background:rgb(var(--fab-priority));box-shadow:0 0 6px rgba(var(--fab-priority),.65)}
+.fab-combat-step.is-active .fab-step-glyph{color:rgb(var(--fab-priority));filter:drop-shadow(0 0 3px rgba(var(--fab-priority),.65))}
 .fab-combat-status{min-height:15px;padding:4px 38px 2px;color:#c9c3b7;font-size:10px;text-align:center}
 .fab-combat-status strong{color:#f1d17c}
 .fab-chain-flow{position:relative;display:flex;align-items:center;justify-content:center;gap:0;height:calc(100% - 64px);min-height:148px;padding:6px 38px 12px;box-sizing:border-box}
@@ -197,13 +201,13 @@ foreach ($zones as $zone => $label) {
 <section id="fabCombatWindow" class="fab-floating-window" aria-label="Combat chain" hidden>
   <button class="fab-window-close fab-chain-close" type="button" aria-label="Close combat chain" onclick="FaBToggleWindow('fabCombatWindow', false)">×</button>
   <div id="fabCombatProgress" class="fab-combat-progress" aria-label="Combat progress">
-    <div class="fab-combat-step" data-fab-step="LAYER"><span class="fab-step-glyph">✦</span><span class="fab-step-label">Layer</span></div>
-    <div class="fab-combat-step" data-fab-step="ATTACK"><span class="fab-step-glyph">▶</span><span class="fab-step-label">Attack</span></div>
-    <div class="fab-combat-step" data-fab-step="DEFEND"><span class="fab-step-glyph">◆</span><span class="fab-step-label">Defend</span></div>
-    <div class="fab-combat-step" data-fab-step="REACTION"><span class="fab-step-glyph">↯</span><span class="fab-step-label">React</span></div>
-    <div class="fab-combat-step" data-fab-step="DAMAGE"><span class="fab-step-glyph">✹</span><span class="fab-step-label">Damage</span></div>
-    <div class="fab-combat-step" data-fab-step="RESOLUTION"><span class="fab-step-glyph">✓</span><span class="fab-step-label">Resolve</span></div>
-    <div class="fab-combat-step" data-fab-step="CLOSE"><span class="fab-step-glyph">×</span><span class="fab-step-label">Close</span></div>
+    <div class="fab-combat-step" data-fab-step="LAYER" aria-label="layer phase" title="layer"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#layer"></use></svg><span class="fab-step-label">Layer</span></div>
+    <div class="fab-combat-step" data-fab-step="ATTACK" aria-label="attack phase" title="attack"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#attack"></use></svg><span class="fab-step-label">Attack</span></div>
+    <div class="fab-combat-step" data-fab-step="DEFEND" aria-label="defend phase" title="defend"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#defend"></use></svg><span class="fab-step-label">Defend</span></div>
+    <div class="fab-combat-step" data-fab-step="REACTION" aria-label="reaction phase" title="reaction"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#reaction"></use></svg><span class="fab-step-label">React</span></div>
+    <div class="fab-combat-step" data-fab-step="DAMAGE" aria-label="damage phase" title="damage"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#damage"></use></svg><span class="fab-step-label">Damage</span></div>
+    <div class="fab-combat-step" data-fab-step="RESOLUTION" aria-label="resolution phase" title="resolution"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#resolution"></use></svg><span class="fab-step-label">Resolve</span></div>
+    <div class="fab-combat-step" data-fab-step="CLOSE" aria-label="close phase" title="close"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#close"></use></svg><span class="fab-step-label">Close</span></div>
   </div>
   <div class="fab-chain-flow">
     <div id="fabChainView"></div>
@@ -283,9 +287,33 @@ function FaBArrangeEquipment(zoneID) {
 }
 
 function FaBRefreshLifeTotals() {
+  document.querySelectorAll('.fab-stat').forEach(function(slot) {
+    if (!slot.title) slot.title = slot.dataset.label === 'AP' ? 'Action points' : slot.dataset.label === 'Pitch' ? 'Available pitch resources' : slot.dataset.label;
+  });
   [['myHealthSlot', window.myHealthData], ['theirHealthSlot', window.theirHealthData]].forEach(function(entry) {
     var slot = document.getElementById(entry[0]);
     if (slot) slot.dataset.life = String(entry[1] === undefined || entry[1] === null ? '' : entry[1]).trim();
+  });
+  FaBRefreshOptionalCounters();
+}
+
+function FaBRefreshOptionalCounters() {
+  var seats = String(window.SeatOrderData || '12').match(/[1-4]/g) || ['1', '2'];
+  var viewer = Number(document.getElementById('playerID')?.value);
+  if (!viewer) viewer = Number(document.getElementById('viewerPerspective')?.value || 1);
+  var opponent = Number(seats.find(function(seat) { return Number(seat) !== viewer; }));
+  [['my', viewer], ['their', opponent]].forEach(function(entry) {
+    var prefix = entry[0];
+    var chi = document.getElementById(prefix + 'ChiSlot');
+    if (chi) chi.hidden = !(Number(window[prefix + 'ChiData']) > 0);
+    var soul = document.getElementById(prefix + 'SoulSlot');
+    if (soul) soul.hidden = !String(window[prefix + 'SoulData'] || '').split('<|>').some(function(record) {
+      var card = record.trim().split(' ')[0]; return card && card !== '-';
+    });
+    var actions = document.getElementById(prefix + 'ActionPointsSlot');
+    // The generated Pass control lives inside this slot and must remain usable
+    // in the opponent's reaction windows, even while the AP badge is invisible.
+    if (actions) actions.classList.toggle('fab-stat-inactive', Number(window.TurnPlayerData) !== entry[1]);
   });
 }
 
@@ -420,7 +448,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var slot = document.getElementById(slotID);
     if (slot) new MutationObserver(function() { FaBArrangeEquipment(slotID.replace('Slot', '')); }).observe(slot, {childList:true, subtree:true});
   });
-  ['myHealthSlot', 'theirHealthSlot'].forEach(function(slotID) {
+  ['myHealthSlot', 'theirHealthSlot', 'myChiSlot', 'theirChiSlot', 'mySoulSlot', 'theirSoulSlot', 'myActionPointsSlot', 'theirActionPointsSlot'].forEach(function(slotID) {
     var healthSlot = document.getElementById(slotID);
     if (healthSlot) new MutationObserver(FaBRefreshLifeTotals).observe(healthSlot, {childList:true, subtree:true});
   });
