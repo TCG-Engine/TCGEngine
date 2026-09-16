@@ -52,6 +52,13 @@ function logLine($msg) {
 
 $rootName = TryGET("rootName", "");
 
+// Card data snapshot mode (SWU apps; see AppCore/SWU/CardDataSnapshot.php). Both default OFF:
+// without them a regen is byte-identical. snapshot= writes a caller-chosen path, so it is CLI-only.
+$mocksMode = TryGET("mocks", "1");
+if(!in_array($mocksMode, ["0", "1", "prefer"], true)) $mocksMode = "1";
+if($mocksMode === "prefer" && $rootName !== "SWUSim") $mocksMode = "1";
+$snapshotPath = $isHTTPRequest ? "" : TryGET("snapshot", "");
+
 // Optional override for card database path (useful when multiple roots share card data)
 $cardDBOverride = TryGET("CardDBOverride", "");
 // When withPreview=1, fetch fresh data from the external API (use when previewing new cards).
@@ -608,9 +615,15 @@ if($supplementalCardCount > 0) {
 // Both SWU apps: SWUDeck needs the same preview cards in its dictionary so an HMW/IC27 deck can be
 // searched, validated and rendered in the deckbuilder. The mock row carries both Strapi shapes
 // (see SWUMockToImportRow) because the two apps' GetPropertyValue branches read different ones.
+// mocks=0 skips the merge (snapshot mode's official-only view); MockCardMerge.php is still loaded
+// because later phases call SWULoadMockCards()/SWUIsMockCardID() for every SWU regen.
+$mockAddedIDs = [];
 if($rootName == "SWUSim" || $rootName == "SWUDeck") {
   require_once __DIR__ . '/AppCore/SWU/MockCardMerge.php';
-  $mockResult = SWUMergeMockCards($cardArray, true);
+}
+if(($rootName == "SWUSim" || $rootName == "SWUDeck") && $mocksMode !== "0") {
+  $mockResult = SWUMergeMockCards($cardArray, true, '', $mocksMode === "prefer");
+  $mockAddedIDs = $mockResult['added'];
   $count = count($cardArray);
   foreach($mockResult['superseded'] as $supersededID) {
     logLine("mock " . $supersededID . " superseded by official data — safe to remove");
@@ -623,7 +636,7 @@ if($rootName == "SWUSim" || $rootName == "SWUDeck") {
   // art once the real card downloads. CheckImage handles webp conversion, concat and crops — and
   // the Imagick-not-GD path prod requires.
   $mockDefs = SWULoadMockCards();
-  foreach($mockResult['added'] as $mockID) {
+  foreach(($snapshotPath === "" ? $mockResult['added'] : []) as $mockID) {
     $def = $mockDefs[$mockID] ?? [];
     $front = trim((string)($def['imageUrl'] ?? ''));
     $back  = trim((string)($def['imageUrlBack'] ?? ''));
@@ -647,8 +660,8 @@ if($rootName == "SWUSim" || $rootName == "SWUDeck") {
 // wrong SET_NNN name (before Phase 1 got the early re-ID logic). For each token in the
 // card array, if WebpImages/SET_NNN.webp exists but WebpImages/SET_T##.webp does not,
 // rename it so the token art lands at the correct path and the real card can be
-// downloaded fresh by the next generator run.
-if($rootName == "SWUSim") {
+// downloaded fresh by the next generator run. Skipped in snapshot mode, which must write nothing.
+if($rootName == "SWUSim" && $snapshotPath === "") {
   $tokenCountersPhase1b = [];
   $tokenMigrateCount = 0;
   $tokenTypes1b = ['Token Unit', 'Token Upgrade', 'Force Token', 'Credit Token'];
@@ -760,20 +773,39 @@ for ($i = 0; $i < count($cardArray); ++$i) {
   }
 }
 
-// Trait supplement: the upstream API publishes NO traits for bases (all 91 come back empty) even
-// though every base prints one. Fill those gaps from tracked source BEFORE the dictionaries +
-// client JS are written, so CardTrait()/TraitContains() and the browse UI all see the same data.
-// Fill-gaps only: anything the API did provide is left untouched.
+// Card data supplement: the upstream API omits some printed data — traits for EVERY base, and the
+// deployed side of a leader that prints its own name/traits (HMW_004 -> The Death Star). Fill those
+// blanks from tracked source (AppCore/SWU/CardDataSupplement.php) BEFORE the dictionaries + client
+// JS are written, so CardTrait()/TraitContains()/SWUObjectTitle() and the browse UI all see the same
+// data. Fill-blanks only: anything the API (or a mock) provided is left untouched.
 //
-// Applies to EVERY SWU app that builds a dictionary, not just SWUSim. This used to be gated on
-// `$rootName == "SWUSim"` with the helper living under SWUSim/DevTools/, which left all 91 bases
-// in SWUDeck's dictionary (server AND client JS) carrying an empty trait list while SWUSim's were
-// correct — the same "both apps need the same card data" argument that put MockCardMerge.php in
-// AppCore/SWU/. Non-SWU roots simply have no supplement file entry to match, so this is inert.
+// Applies to BOTH SWU apps. The trait supplement was once gated to SWUSim, which left every base in
+// SWUDeck's dictionary with an empty trait list. Fields an app lacks (SWUDeck: leaderUnit*) skip.
+$supplementResult = ['filled' => [], 'unknownCard' => [], 'unknownField' => []];
 if($rootName == "SWUSim" || $rootName == "SWUDeck") {
-  require_once __DIR__ . '/AppCore/SWU/TraitSupplement.php';
-  $traitFilled = SWUApplyTraitSupplement($associativeArrays["trait"]);
-  if($traitFilled > 0) logLine("Trait supplement: filled " . $traitFilled . " card(s) the API left empty.");
+  require_once __DIR__ . '/AppCore/SWU/CardDataSupplementApply.php';
+  $supplementResult = SWUApplyCardDataSupplement($associativeArrays);
+  $filledByField = [];
+  foreach($supplementResult['filled'] as $filledFields) {
+    foreach(array_keys($filledFields) as $filledField) $filledByField[$filledField] = ($filledByField[$filledField] ?? 0) + 1;
+  }
+  foreach($filledByField as $filledField => $filledCount) {
+    logLine("Card data supplement: filled " . $filledField . " for " . $filledCount . " card(s) the API left blank.");
+  }
+  if(count($supplementResult['unknownCard']) > 0) {
+    logLine("Card data supplement: " . count($supplementResult['unknownCard']) . " entr(ies) name a CardID not in this dictionary (skipped): " . implode(", ", $supplementResult['unknownCard']));
+  }
+  if($snapshotPath !== "") {
+    require_once __DIR__ . '/AppCore/SWU/CardDataSnapshot.php';
+    $snapshot = SWUBuildCardDataSnapshot($rootName, $mocksMode, $associativeArrays, $properties, $mockAddedIDs, $supplementResult);
+    $snapshotJson = json_encode($snapshot, JSON_INVALID_UTF8_SUBSTITUTE);
+    if($snapshotJson === false || file_put_contents($snapshotPath, $snapshotJson) === false) {
+      logLine("ERROR: could not write card data snapshot to " . $snapshotPath);
+      exit(1);
+    }
+    logLine("Card data snapshot (mocks=" . $mocksMode . ") written to " . $snapshotPath . " — stopping before Phase 3; nothing else written.");
+    exit(0);
+  }
 }
 
 // Process keywords file if it exists

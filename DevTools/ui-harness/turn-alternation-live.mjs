@@ -84,7 +84,8 @@ const main = async () => {
 
     await host.goto(BASE + 'SharedUI/MainMenu.php', { waitUntil: 'load' });
     await host.waitForTimeout(600);
-    await host.selectOption('#swu-format-select', 'premier');
+    // The menu's three dropdowns now write a hidden #swu-format-select (2026-09-16), which selectOption cannot target.
+    if (!(await host.evaluate(() => swuSelectFormat('premier', '', false)))) throw new Error('the menu offers no path to premier');
     await host.click('#tab-text');
     await host.fill('#deck-text', DECK);
     await host.click('#create-private-game-btn');

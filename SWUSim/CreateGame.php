@@ -7,6 +7,7 @@ include_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/TurnController.php';
 include_once __DIR__ . '/Custom/GameLogic.php';
 include_once __DIR__ . '/Custom/DeckImport.php';
+include_once __DIR__ . '/GameSetupRules.php';   // SWUCardPoolFor — the card pool a game records
 include_once __DIR__ . '/../Core/CoreZoneModifiers.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
 include_once __DIR__ . '/../Core/GameAuth.php';
@@ -67,11 +68,17 @@ function SWUSetupGame($lobby, $opts = []) {
         if (!in_array($botStyle, ['aggro', 'normal', 'control'], true)) $botStyle = 'normal';
         DecisionQueueController::StoreVariable('SWUBotProfile', 'heuristic-' . $botStyle);
     }
-    // Team Suns (2v2). A separate never-cleared flag rather than a value of $mode, because it is
+    // Team rules (2v2). A separate never-cleared flag rather than a value of $mode, because it is
     // orthogonal: SWUGameMode() answers "goldfish/hotseat/normal" and must keep returning '' here.
-    if (isset($lobby->format) && strtolower((string)$lobby->format) === 'teamsuns') {
+    // ⚠ Follows the format's CONFIGURATION ('teams' in AppCore/SWU/Formats.php), never the literal id: the old
+    // `=== 'teamsuns'` would load every Team Suns Preview game as a four-player free-for-all (2026-09-16).
+    if (isset($lobby->format) && SWUFormatIsTeamFormat(strtolower((string)$lobby->format))) {
         AddGlobalEffects(1, 'SWU_MODE_TEAMS');
     }
+    // Every game records its card pool (docs/superpowers/specs/2026-09-16-swusim-format-menu-design.md §2): an Arenabot game
+    // its chosen pool, Goldfish and Hotseat 'open', everything else its own format. Read through SWUGameCardPool().
+    DecisionQueueController::StoreVariable('SWUCardPool', SWUCardPoolFor(strval($lobby->format ?? ''),
+        isset($lobby->cardPool) ? strval($lobby->cardPool) : null));
 
     // Optional fixed per-game RNG seed. Normally LoadPlayerDeck() mints one from random_bytes() the
     // first time it runs, which makes every game's shuffle unpredictable (the point) but also makes a

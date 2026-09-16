@@ -571,6 +571,8 @@ function HasConditionalKeyword_Ambush($obj) {
             return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Command', $obj->UniqueID);
         case 'SOR_249': // Frontier AT-RT — while you control a Vehicle unit
             return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Vehicle', $obj->UniqueID);
+        case 'HMW_131': // Soaring Can-Cell — while you control a Kashyyyk base (the CONTROLLER's base)
+            return _SWUControlsBaseWithTrait($ctrl, 'Kashyyyk');
         case 'TWI_081': // Droid Commando — while you control a Separatist unit
             return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Separatist', $obj->UniqueID);
         case 'TWI_194': // Ahsoka Tano — while you control fewer units than the opponent
@@ -666,6 +668,8 @@ function HasConditionalKeyword_Grit($obj) {
     if (_SWUUnitHasActiveUpgrade($obj, 'JTL_150') && HasTrait($obj->CardID ?? '', 'Speeder')) return true;
     // LOF_238 Darth Revan's Lightsabers: "If attached unit is a Sith, it gains Grit."
     if (_SWUUnitHasActiveUpgrade($obj, 'LOF_238') && HasTrait($obj->CardID ?? '', 'Sith')) return true;
+    // HMW_191 Hunter's Instinct: "If attached unit is a Creature, it gains Grit." Object-aware trait read.
+    if (_SWUUnitHasActiveUpgrade($obj, 'HMW_191') && TraitContains($obj, 'Creature')) return true;
     // HMW_006 Omega (deployed): "Other friendly Heroism units gain Grit." Team-wide, live, Omega-active —
     // see cards/hmw/Omega_CloseYourEyesAndFocus.php.
     if (function_exists('_SWUHmw006GrantsGrit') && _SWUHmw006GrantsGrit($obj)) return true;
@@ -995,6 +999,13 @@ function HasConditionalKeyword_Sentinel($obj) {
                 if (empty($u->removed) && !IsLeaderUnit($u) && intval($u->UniqueID ?? 0) !== $self) return false;
             }
             return true;
+        case 'HMW_137': { // V-19 Skirmisher — while you control 3 or more units (itself included; seat only)
+            $n137 = 0;
+            foreach (GetUnitsInPlay($ctrl) as $u) { if (empty($u->removed)) $n137++; }
+            return $n137 >= 3;
+        }
+        case 'HMW_259': // Pack Guardian — while this unit is ready
+            return intval($obj->Status ?? 0) === 1;
         case 'HMW_142': // Wookiee Rangers — while you control another Wookiee unit OR a Kashyyyk base
             foreach (GetUnitsInPlay($ctrl) as $u) {
                 if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $self && TraitContains($u, 'Wookiee')) return true;
@@ -1284,6 +1295,10 @@ function GetConditionalKeyword_Raid_Value($obj) {
     // _SWUCountFriendlyTraitUnits excludes the source by UniqueID (she is herself a Tusken, so a count
     // that forgets that reads one too many) and uses TraitContains + GetUnitsInPlay, so a GRANTED Tusken
     // trait counts and a deployed leader unit counts as a unit.
+    // HMW_138 Commander Gree — "While there are 3 or more Command aspect icons among friendly units (including
+    // this one) and upgrades, this unit gains Raid 4." See cards/hmw/CommanderGree_OfThe41stEliteCorps.php.
+    if (($obj->CardID ?? '') === 'HMW_138' && function_exists('_SWUHmw138CommandIcons')
+        && _SWUHmw138CommandIcons(intval($obj->Controller ?? 0)) >= 3) $amount += 4;
     if (($obj->CardID ?? '') === 'HMW_212') {
         $amount += _SWUCountFriendlyTraitUnits(intval($obj->Controller ?? 0), 'Tusken', intval($obj->UniqueID ?? 0));
     }
@@ -1445,6 +1460,7 @@ function GetConditionalKeyword_Raid_Value($obj) {
                 $amount += 1;
                 break;
             case 'TWI_169': // Clone Cohort — "Attached unit gains Raid 2." (per copy)
+            case 'HMW_190': // Enraged — "Attached unit gains Raid 2." (per copy; Raid stacks, CR 7.5.8.b)
                 $amount += 2;
                 break;
             case 'LOF_261': // Constructed Lightsaber — "If attached unit is a Villainy unit, it gains Raid 2."

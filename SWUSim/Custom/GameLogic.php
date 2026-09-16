@@ -140,6 +140,19 @@ global $hasAlternateCostCards;
 $hasAlternateCostCards = ['SOR_199' => true];
 
 function HasTrait(string $cardID, string $trait): bool {
+    if (_SWUHasPrintedTrait($cardID, $trait)) return true;
+    // HMW_134 Zam Wesell gains her friendly leaders' traits even out of play. A bare CardID read has no object,
+    // so the seat is resolved from where Zam copies are (see _SWUHmw134ContextSeat). The precise paths —
+    // TraitContains (controller) and _SWUCardHasTrait (owner) — don't come through here for Zam.
+    if ($cardID === 'HMW_134' && function_exists('_SWUHmw134ContextSeat')) {
+        $seat = _SWUHmw134ContextSeat();
+        if ($seat > 0 && _SWUHmw134GrantsTraitOutOfPlay($seat, $trait)) return true;
+    }
+    return false;
+}
+
+// The card's printed trait line only (no grants).
+function _SWUHasPrintedTrait(string $cardID, string $trait): bool {
     $raw = CardTrait($cardID);
     if ($raw === null || $raw === '') return false;
     foreach (explode(',', $raw) as $t) {
@@ -233,7 +246,10 @@ function _SWUCardHasTrait(int $owner, string $cardID, string $trait): bool {
     // HMW_108 — an ENEMY card loses the named trait even while it is out of play (in hand, deck,
     // discard or resources). This is the whole reason the helper takes an owner.
     if (_SWUHmw108TraitSuppressed($owner, $trait)) return false;
-    if (HasTrait($cardID, $trait)) return true;
+    if ($cardID === 'HMW_134' && function_exists('_SWUHmw134GrantsTraitOutOfPlay')) {
+        // HMW_134 Zam Wesell — the owner's friendly leaders' traits, resolved precisely from the owner.
+        if (_SWUHasPrintedTrait($cardID, $trait) || _SWUHmw134GrantsTraitOutOfPlay($owner, $trait)) return true;
+    } elseif (HasTrait($cardID, $trait)) return true;
     if (strtoupper($trait) === 'UNDERWORLD' && HasTrait($cardID, 'Creature')
         && $owner > 0 && _SWUCountUnitsWithCardID($owner, 'LAW_212') > 0) return true;
     return false;
@@ -605,6 +621,11 @@ function ObjectCurrentPower($obj) {
     }
     // TWI_110 Huyang — chosen unit gets +2/+2 while Huyang is in play. (power half).
     $base += 2 * _SWUTwi110BuffCount($obj);
+    // HMW_271 Landing Pad (Fortify) — attached base gains "Friendly space units get +1/+0." Per copy, team-wide,
+    // live arena. A stat bonus, not an ability, so a recipient that lost its abilities still gets it.
+    if (function_exists('_SWUHmw271SpacePower')) $base += _SWUHmw271SpacePower($obj);
+    // HMW_141 Rex — "Friendly units with no abilities get +1/+1." (power half; per Rex copy, team-wide).
+    if (function_exists('_SWUHmw141Bonus')) $base += _SWUHmw141Bonus($obj);
     // TWI_122 Squad Support — "Attached unit gets +1/+1 for each Trooper unit you control." (power half).
     if ($controller > 0 && _SWUUnitHasUpgrade($obj, 'TWI_122')) {
         $tr = 0;
@@ -647,6 +668,20 @@ function ObjectCurrentPower($obj) {
             break;
         case 'SOR_161': // Ardent Sympathizer: while you have the initiative, +2/+0.
             if ($controller > 0 && PlayerHasIniative($controller)) $base += 2;
+            break;
+        case 'HMW_129': // Child of Dathomir: while you control 3 or more units (including this one), +2/+0.
+            // "you control" = this seat only, never the team. GetUnitsInPlay counts tokens + leader units.
+            if ($controller > 0) {
+                $n129 = 0;
+                foreach (GetUnitsInPlay($controller) as $u) { if (empty($u->removed)) $n129++; }
+                if ($n129 >= 3) $base += 2;
+            }
+            break;
+        case 'HMW_133': // Wroshyr Rebel: +1/+0 for every 2 resources you control (Credits are not resources).
+            if ($controller > 0) $base += intdiv(SWUResourceCount($controller), 2);
+            break;
+        case 'HMW_256': // Jedi Interceptor: while you control 6 or more resources, +2/+0.
+            if ($controller > 0 && SWUResourceCount($controller) >= 6) $base += 2;
             break;
         case 'SEC_108': // Senator's Aide: while you have the initiative, +2/+0.
         case 'SHD_086': // Warbird Stowaway: while you have the initiative, +2/+0.
@@ -980,6 +1015,8 @@ function ObjectCurrentHP($obj) {
     if (!$lost && $__n > 0 && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += $__n * (1);
     // TWI_110 Huyang — chosen unit gets +2/+2 while Huyang is in play. (HP half).
     $base += 2 * _SWUTwi110BuffCount($obj);
+    // HMW_141 Rex — "Friendly units with no abilities get +1/+1." (HP half).
+    if (function_exists('_SWUHmw141Bonus')) $base += _SWUHmw141Bonus($obj);
     // TWI_122 Squad Support — "Attached unit gets +1/+1 for each Trooper unit you control." (HP half).
     if ($controller > 0 && _SWUUnitHasUpgrade($obj, 'TWI_122')) {
         $tr = 0;
@@ -1205,6 +1242,7 @@ $turnEffectRegistry = [
     // ── Card-specific grant tokens (base = source CardID, for Active Effects provenance).
     //    Add a row here when a card grants a TurnEffect. Duration omitted ⇒ phase.
     'SOR_086' => ['kind' => 'GRANT_KEYWORD',  'value' => 'SENTINEL', 'label' => 'Sentinel'],                                  // Gladiator Star Destroyer — give a unit Sentinel this phase
+    'HMW_246' => ['kind' => 'GRANT_KEYWORD',  'value' => 'SENTINEL', 'label' => 'Sentinel'],                                  // Pyke Sarisa — give a unit Sentinel this phase
     'SOR_003' => ['kind' => 'GRANT_KEYWORD',  'value' => 'SENTINEL', 'label' => 'Sentinel'],                                  // Chewbacca — the unit played by his action gains Sentinel this phase
     'SHD_103' => ['kind' => 'GRANT_KEYWORD',  'value' => 'SENTINEL', 'label' => 'Sentinel'],                                  // General Rieekan — chosen friendly unit gains Sentinel this phase
     'SHD_141' => ['kind' => 'STAT_BUFF'],                                                                                      // Kylo Ren (deployed OnAttack) — chosen unit +2/+0 this phase
@@ -1217,7 +1255,7 @@ $turnEffectRegistry = [
     'SHD_031' => ['kind' => 'GRANT_KEYWORD',  'value' => 'BOUNTY',   'label' => 'Bounty'],                                    // The Client — chosen unit gains "Bounty — Heal 5 damage from a base" this phase (reward in SWUCollectBounty)
     'SHD_097' => ['kind' => 'STAT_BUFF'],                                                                                     // Freetown Backup — On Attack: another friendly unit gets +2/+2 this phase
     'IC27_079' => ['kind' => 'STAT_BUFF'],                                                                                    // Qui-Gon Jinn — When Played: another friendly unit gets +2/+2 this phase
-    'HMW_052' => ['kind' => 'STAT_BUFF'],                                                                                     // A'Koba, Restless Raider — When Played: a unit (either side, self included) gets +2/+2 this phase
+    'HMW_052' => ['kind' => 'STAT_BUFF'],                                                                                     // A'Koba, Restless Raider — When Played: a unit (either side, self included) gets +2/+0 this phase
     'SHD_129' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Timely Intervention — the played unit gains Ambush this phase
     'SHD_215' => ['kind' => 'STAT_DEBUFF'],                                                                                   // Smuggler's Starfighter — enemy unit gets -3/-0 this phase
     'SEC_018' => ['kind' => 'MARKER',          'label' => 'DJ'],                                                               // DJ — transient findable marker on the unit just played by the leader action (captured immediately)
@@ -1324,6 +1362,7 @@ $turnEffectRegistry = [
     'LAW_062' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'Self-defeat after this attack'],   // Defiant Hammerhead
     'ASH_184' => ['kind' => 'MARKER', 'duration' => SWU_DUR_ATTACK, 'label' => 'Give 3 Advantage tokens after this attack'],   // Follow Me
     'ASH_046' => ['kind' => 'STAT_DEBUFF', 'duration' => SWU_DUR_ATTACK, 'label' => 'Scion Shuttle (-1/-1 while defending)'],   // Scion Shuttle
+    'HMW_233' => ['kind' => 'STAT_DEBUFF', 'duration' => SWU_DUR_ATTACK, 'label' => 'Awakened Exogorth (-3/-0 while defending)'],   // Awakened Exogorth
     'ASH_050' => ['kind' => 'STAT_DEBUFF', 'label' => '-{0}/-{1}'],   // Morgan Elsbeth (-2/-2 for this phase)
     'ASH_209' => ['kind' => 'STAT_DEBUFF', 'label' => '-{0}/-{1}'],   // Ezra Bridger (-3/-0 for this phase)
     'ASH_115' => ['kind' => 'STAT_BUFF', 'label' => '+{0}/+{1}'],   // The Student Guides the Master (+N/+0 this phase)
@@ -3212,6 +3251,18 @@ $playCostModifiers["LAW_179"] = function($player, $subjectObj) {
 };
 
 // TWI_254 Volunteer Soldier: "If you control a Trooper unit, this unit costs 1 resource less to play."
+// HMW_184 Aggrocrab: "While you have the initiative, this unit costs 1 resource less to play."
+// Lives here, not in cards/hmw/Aggrocrab.php: $playCostModifiers is initialised after cards/_loader.php.
+$playCostModifiers["HMW_184"] = function($player, $subjectObj) {
+    return PlayerHasIniative(intval($player)) ? -1 : 0;
+};
+
+// HMW_173 Rebel Operation: "costs 1 resource less to play for each friendly Rebel unit and leader."
+// The count lives in cards/hmw/RebelOperation.php (_SWUHmw173RebelCount).
+$playCostModifiers["HMW_173"] = function($player, $subjectObj) {
+    return function_exists('_SWUHmw173RebelCount') ? -_SWUHmw173RebelCount(intval($player)) : 0;
+};
+
 $playCostModifiers["TWI_254"] = function($player, $subjectObj) {
     foreach (GetUnitsInPlay(intval($player)) as $u) {
         if (empty($u->removed) && TraitContains($u, 'Trooper')) return -1;
@@ -3598,6 +3649,7 @@ $oneShotPlayCharges = [
     ['flag'=>'SWU_REX_DISCOUNT_NEXT',       'applies'=>fn($p,$o,$h)=>_SWUObjIsEvent($o),                                                   'amount'=>fn($p,$o)=>GlobalEffectCount(intval($p), 'SWU_REX_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // TS26_06 Rex
     ['flag'=>'SWU_TWI246_DISCOUNT',         'applies'=>fn($p,$o,$h)=>HasTrait($o->CardID ?? '', 'Republic'),                               'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // TWI_246 Tranquility
     ['flag'=>'SWU_SEC261_OFFICIAL_DISCOUNT','applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o) && HasTrait($o->CardID ?? '', 'Official'),          'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // SEC_261 Inspiring Senator
+    ['flag'=>'SWU_HMW130_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o),                                                    'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // HMW_130 Emerie Karr
     ['flag'=>'SWU_LAW058_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o),                                                    'amount'=>fn($p,$o)=>1, 'consume'=>'remove'],       // LAW_058 Honor-Bound Partisan
     ['flag'=>'SWU_ASH027_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o),                                                    'amount'=>fn($p,$o)=>GlobalEffectCount(intval($p), 'SWU_ASH027_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // ASH_027 Enoch
     ['flag'=>'SWU_SHD006_DISCOUNT_NEXT',    'applies'=>fn($p,$o,$h)=>_SWUObjIsUnit($o),                                                    'amount'=>fn($p,$o)=>GlobalEffectCount(intval($p), 'SWU_SHD006_DISCOUNT_NEXT'), 'consume'=>'clearPrefix'], // SHD_006 Jabba's bounty
@@ -7524,6 +7576,7 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_LAW229_USED');       // LAW_229 "first Gambit each round -1" use
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SEC110_DISCOUNT_NEXT'); // SEC_110 GNK "next unit -1" charge
         SWUClearGlobalEffectsByPrefix($p, 'SWU_TWI121_DISCOUNT_NEXT'); // TWI_121 General's Blade "next unit -2" charge
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_HMW130_DISCOUNT_NEXT'); // HMW_130 Emerie Karr "next unit this phase -1" charge
         SWUClearGlobalEffectsByPrefix($p, 'SWU_TWI246_DISCOUNT');      // TWI_246 Tranquility "next 3 Republic cards -1"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SEC064_USED');       // SEC_064 "first upgrade each phase -1" use
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH075_USED');       // ASH_075 Pit Droid "first upgrade each phase -1" use
@@ -8372,9 +8425,9 @@ function SWUUnitEntersReady(string $cardID): bool {
     return stripos($text, 'this unit enters play ready') !== false;
 }
 
-// True if $player's base carries $trait. Base traits are published by AppCore/SWU/CardTraitSupplement.php
+// True if $player's base carries $trait. Base traits are published by AppCore/SWU/CardDataSupplement.php
 // (the API omits them), merged into $traitData at generation, so HasTrait resolves them like any card
-// trait. Shared with SWUDeck — see AppCore/SWU/TraitSupplement.php.
+// trait. Shared with SWUDeck — see AppCore/SWU/CardDataSupplementApply.php.
 // Used by the HMW base-condition cards (HMW_142 Kashyyyk, HMW_234 Tatooine, HMW_177 Endor).
 function _SWUControlsBaseWithTrait(int $player, string $trait): bool {
     $zone = GetBase($player);
@@ -8438,7 +8491,7 @@ function _SWUCountBaseUpgrades(int $player, string $cardID): int {
 // this helper is reading the base-granted half. Add new "Attached base gains" Fortify cards here.
 function _SWUFortifyGrantsToBase(string $cardID): bool {
     return in_array($cardID, ['HMW_070', 'HMW_112', 'HMW_113', 'HMW_126', 'HMW_147', 'HMW_160',
-                              'HMW_172', 'HMW_205', 'HMW_206'], true);
+                              'HMW_172', 'HMW_205', 'HMW_206', 'HMW_271'], true);
 }
 
 // True if $player's copies of the base-attached upgrade $cardID currently have no effect because of
@@ -10665,7 +10718,8 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'LOF_026': case 'LOF_027': case 'LOF_029': case 'LOF_030':
             TheForceIsWithYou($player); break;
         case 'LOF_087': EighthBrotherReaction($player); break; // "When you play another unit": may use the Force → +2/+2
-        case 'HMW_171': Hmw171TrapFieldReaction($player, intval($mzID), max(1, intval($extra[0] ?? 1))); break; // Trap Field — non-leader ground unit entered: may defeat this upgrade → deal 3
+        case 'HMW_171': Hmw171TrapFieldReaction($player, intval($mzID), max(1, intval($extra[0] ?? 1))); break;
+        case 'HMW_216': Hmw216InsurgentCampReaction(intval($player), intval($mzID), max(1, intval($extra[0] ?? 1))); break; // Insurgent Camp // Trap Field — non-leader ground unit entered: may defeat this upgrade → deal 3
         case 'HMW_206': { // The Tarkin Doctrine base-grant — "When you play a Fortification upgrade: Exhaust an enemy unit."
             global $playerID; $playerID = intval($player);
             $enemies = array_merge(
@@ -12020,6 +12074,14 @@ function _SWUCollectOpponentPlayReactionsFor(int $playingPlayer, int $opp, strin
             AddTrigger($opp, 'SHD_172', 'SHD_172', $printedCost . '~' . $krayts . '~' . intval($playingPlayer));   // "cost~count~playingSeat"
         }
     }
+    // HMW_119 Saw Gerrera — "When an opponent plays an event: Resource the top card of your deck." Mandatory,
+    // no choice, so it resolves here (this collector runs after the event's own effects, block 5). Each
+    // active copy resources one card. "an opponent" is determined — the reactor is every opponent of the
+    // playing seat, which OpponentsOf already fans out over.
+    if (strpos(CardType($playedCardID) ?? '', 'Event') !== false) {
+        $saws = _SWUCountActiveUnitsWithCardID($opp, 'HMW_119');
+        for ($i = 0; $i < $saws; $i++) SWUResourceTopOfDeck($opp);
+    }
     // TWI_064 Ki-Adi-Mundi — "Coordinate - When an opponent plays their SECOND card each phase: You may
     // draw 2 cards." Fires only on the opponent's exactly-2nd card of the phase (SWU_CARDS_PLAYED was
     // incremented at the start of ActivateCard, so == 2 here means this is that 2nd card) and only while
@@ -12275,6 +12337,17 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
     // do, exhaust an enemy unit with 4 or less remaining HP."
     if ($isUpgradePlay && _SWULeaderReadyUndeployed($playingPlayer, 'SHD_018')) {
         AddTrigger($playingPlayer, 'SHD_018', 'SHD_018', '', '4');
+    }
+    // HMW_216 Insurgent Camp (Fortify) — "When you play a unit with 3 or less power: You may defeat this
+    // upgrade. If you do, ready that unit." Trap Field's shape: ONE trigger carrying the copy count. Power is
+    // read off the entered unit (current power). "you" = the base's controller only.
+    if ($isUnitPlay && $playedUID > 0 && !_SWUFortifyBlanked(intval($playingPlayer), 'HMW_216')) {
+        $n216 = _SWUCountBaseUpgrades(intval($playingPlayer), 'HMW_216');
+        $pMz216 = $n216 > 0 ? SWUFindMzByUID($playedUID) : null;
+        $pObj216 = $pMz216 !== null ? GetZoneObject($pMz216) : null;
+        if ($pObj216 !== null && !SWUObjGone($pObj216) && intval(ObjectCurrentPower($pObj216)) <= 3) {
+            AddTrigger($playingPlayer, 'HMW_216', 'HMW_216', (string)$playedUID, (string)$n216);
+        }
     }
     $playerID = $swuOwnRxSavedPID;
 }
@@ -13569,6 +13642,11 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
                 SetSWUVar('SWU_CHAINED_ATTACK', '');
                 _SWUQueueOrchestration($activePlayer, "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
                 ChainedAttackTrigger($activePlayer, $chainSpec);
+            } elseif (GetSWUVar('SWU_HMW149_AGAIN', '') !== '') {
+                // HMW_149 Log Trap — "Then attack with it again, even if it's exhausted" (no bases). Checked
+                // AFTER a nested chained attack so the first attack's own triggered attacks resolve first.
+                // The second combat closes the action itself; a fizzle closes it here.
+                if (!_SWUHmw149SecondAttack(intval($activePlayer))) SWUAfterAction($activePlayer);
             } elseif (GetSWUVar('SWU_MONMOTHMA_LOOP', '') !== '') {
                 // SEC_103 Mon Mothma — a looped attack just resolved; re-offer the next "attack with
                 // another unit". Don't re-queue a resume here (each accepted attack's CollectAfterAttack-
@@ -15782,6 +15860,13 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'TS26_79': // Underestimated
             $all = array_values(array_filter($all, fn($mz) => intval(CardCost(GetZoneObject($mz)->CardID ?? '')) <= 4));
             break;
+        // "Attach to a non-Vehicle unit with 3 or less power."
+        case 'HMW_235': // Gaderffii Stick
+            $all = array_values(array_filter($all, function($mz) {
+                $o = GetZoneObject($mz);
+                return !SWUObjGone($o) && !TraitContains($o, 'Vehicle') && intval(ObjectCurrentPower($o)) <= 3;
+            }));
+            break;
         // "Attach to a token unit."
         case 'TWI_119': // Nameless Valor
             $all = array_values(array_filter($all, fn($mz) => strpos(CardType(GetZoneObject($mz)->CardID ?? '') ?? '', 'Token') !== false));
@@ -17570,6 +17655,18 @@ function SWUDispatchDroidContinuation(int $player, string $continuation, string 
             if (empty($targets)) break;
             SWUQueueChooseTarget(intval($player), $targets,
                 "Return_a_friendly_unit_(cost_3_or_less)_to_its_owner's_hand", "IC27_158#1");
+            break;
+        }
+        case 'HMW_248_PAY': {
+            // Defoliator Tank "you may pay 2 resources. If you do, give 2 Weakness tokens to it", after the
+            // Credit/Droid alt-pay offer. $args = the defending unit's UniqueID.
+            $paidOk = SWUPayCost($player, 2, $prepaid, false, true);
+            if (!$paidOk) break;
+            global $playerID; $playerID = intval($player);
+            $mz = SWUFindMzByUID(intval($args));
+            if ($mz === null) break;
+            for ($i = 0; $i < 2; $i++) DoGiveTokenUpgrade(intval($player), $mz, 'HMW_T02');
+            SWUCheckShrinkDefeats();
             break;
         }
         case 'JTL_096_MOVE_PAY': {
@@ -25128,6 +25225,9 @@ function TraitContains($obj, $trait): bool {
     // is absolute, so a unit that would otherwise GAIN the trait from an upgrade or an aura (LOF_073's
     // Mandalorian, SEC_156's Rebel, ASH_135's Darksaber …) still does not have it.
     if (_SWUHmw108TraitSuppressed(intval($obj->Controller ?? 0), $trait)) return false;
+    // HMW_134 Zam Wesell — gains each friendly leader's traits except Force (by her controller).
+    if (($obj->CardID ?? '') === 'HMW_134' && function_exists('_SWUHmw134GrantsTraitInPlay')
+        && _SWUHmw134GrantsTraitInPlay($obj, $trait)) return true;
     if (strtoupper($trait) === 'CLONE' && !empty($obj->IsClone)) return true;
     if (strtoupper($trait) === 'FORCE' && _SWUUnitHasUpgrade($obj, 'SEC_054')) return false;
     if (strtoupper($trait) === 'JEDI' && _SWUUnitHasUpgrade($obj, 'TS26_37')) return false;
@@ -25161,7 +25261,9 @@ function TraitContains($obj, $trait): bool {
         }
         return false;
     }
-    return HasTrait($obj->CardID ?? '', $trait);
+    // Printed traits only: the grants above are the object-aware ones (a bare HasTrait would re-resolve
+    // HMW_134 Zam Wesell's grant from a guessed seat instead of this object's controller).
+    return _SWUHasPrintedTrait($obj->CardID ?? '', $trait);
 }
 
 // The deployed side's trait list for a deployed leader's arena unit, or null when $obj isn't one
@@ -26645,6 +26747,14 @@ function SWUGameMode(): string {
     if (GlobalEffectCount(1, 'SWU_MODE_HOTSEAT')  > 0) return 'hotseat';
     if (GlobalEffectCount(1, 'SWU_MODE_BOTPRACTICE') > 0) return 'botpractice';
     return '';
+}
+
+// Runtime card-pool accessor: the pool this game is played in, stored at creation by SWUSim/CreateGame.php from
+// SWUSim/GameSetupRules.php SWUCardPoolFor() — an Arenabot game's chosen pool, 'open' for Goldfish/Hotseat, otherwise the
+// format. '' for a game created before 2026-09-16: callers treat that as unknown.
+function SWUGameCardPool(): string {
+    $v = DecisionQueueController::GetVariable('SWUCardPool');
+    return is_string($v) ? $v : '';
 }
 
 // ─── Bot Practice seat bookkeeping ───────────────────────────────────────────

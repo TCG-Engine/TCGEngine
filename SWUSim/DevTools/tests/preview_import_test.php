@@ -94,7 +94,7 @@ check($m['imageUrlBack'] !== '', 'back art URL');
 check(($m['leaderUnitTitle'] ?? '') === '', 'leader unit title left blank for review');
 
 // --- ASH_023: a BASE keeps its location trait ---
-// The official API omits traits for every base; CardTraitSupplement.php backfills them, so a
+// The official API omits traits for every base; CardDataSupplement.php backfills them, so a
 // mocked base carrying "Seatos" matches what it will have after release rather than losing it.
 $m = SWUPreviewToMock(fixture('ash_023'));
 check($m['type'] === 'Base', 'base type decoded');

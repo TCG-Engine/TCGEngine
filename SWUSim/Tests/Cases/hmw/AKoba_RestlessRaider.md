@@ -1,13 +1,14 @@
 # WhenPlayed_BuffsAFriendlyUnit
 #// HMW_052 A'Koba — Restless Raider. Ground Unit, cost 2, 1/4, [Aggression][Cunning].
 #// Text: "Raid 1 (This unit gets +1/+0 while attacking.)
-#//        When Played: Give a unit +2/+2 for this phase."
+#//        When Played: Give a unit +2/+0 for this phase."
+#// (Official text, 2026-09-16 flip — the preview mock read +2/+2; the HP halves below were re-pointed.)
 #//
 #// COVERAGE: offer=Offer_IncludesSelfFriendlyDeployedLeaderAndEnemy
 #//           decline=N/A (structural — the clause prints no "may" and no "up to", so the choose is
 #//                 mandatory; the only softening is the single-target auto-resolve, covered by
 #//                 WhenPlayed_CanBuffItself_AutoResolvesWhenAlone)
-#//           boundary=N/A (structural — a flat +2/+2, no threshold and no counted quantity)
+#//           boundary=N/A (structural — a flat +2/+0, no threshold and no counted quantity)
 #//           control=N/A (structural — the clause names no owner-scoped zone and moves nothing;
 #//                 the buff lands on the CHOSEN unit whoever controls it, which is exactly what
 #//                 WhenPlayed_CanBuffAnEnemyUnit already proves)
@@ -25,7 +26,7 @@
 #// ⚠ Raid 1 needs no code — the generator already registered 'HMW_052' => 1 in $Raid_Cards, and
 #// the keyword has generic coverage under Tests/Cases/keywords/. It is NOT testable against this
 #// card in combination with the buff, either: A'Koba enters play exhausted, so she cannot attack
-#// the turn she is played, and the +2/+2 expires at the regroup before she ever readies.
+#// the turn she is played, and the +2/+0 expires at the regroup before she ever readies.
 
 ## GIVEN
 CommonSetup: ryk/rrk/{myResources:4;myhandCardIds:HMW_052}
@@ -40,7 +41,7 @@ WithP1GroundArena: SOR_095:1:0
 P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:POWER:5
-P1GROUNDARENAUNIT:0:HP:5
+P1GROUNDARENAUNIT:0:HP:3
 P1GROUNDARENAUNIT:1:CARDID:HMW_052
 P1GROUNDARENAUNIT:1:POWER:1
 P1GROUNDARENAUNIT:1:HP:4
@@ -48,7 +49,7 @@ P1GROUNDARENAUNIT:1:HP:4
 ---
 
 # WhenPlayed_CanBuffAnEnemyUnit
-#// "Give a unit +2/+2" carries no friendly qualifier, so an ENEMY unit is a legal target. Buffing
+#// "Give a unit +2/+0" carries no friendly qualifier, so an ENEMY unit is a legal target. Buffing
 #// the opponent is a real (if rarely correct) play, and the pool must offer it — this is the cell
 #// that reds if the handler copies IC27_079's friendly-only arenas.
 
@@ -64,7 +65,7 @@ WithP2GroundArena: SEC_080:1:0
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SEC_080
 P2GROUNDARENAUNIT:0:POWER:5
-P2GROUNDARENAUNIT:0:HP:5
+P2GROUNDARENAUNIT:0:HP:3
 P1GROUNDARENAUNIT:0:CARDID:HMW_052
 P1GROUNDARENAUNIT:0:POWER:1
 
@@ -89,7 +90,7 @@ P1OnlyActions: true
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:HMW_052
 P1GROUNDARENAUNIT:0:POWER:3
-P1GROUNDARENAUNIT:0:HP:6
+P1GROUNDARENAUNIT:0:HP:4
 P1NODECISION
 
 ---
@@ -119,53 +120,41 @@ P1SELECTABLEEXACT:myGroundArena-0&myGroundArena-1&myGroundArena-2&theirGroundAre
 
 ---
 
-# BuffedUnitSurvivesCombatThenDiesWhenTheBuffExpires
-#// DURATION CELL — and the reason it is written this way rather than as "re-read POWER after the
-#// phase". ⚠ The obvious form of this section PASSES AGAINST AN UNIMPLEMENTED CARD: with no buff
-#// ever applied the unit reads its printed 3/3 the whole time, so "assert 3/3 after the regroup"
-#// asserts the value the engine already produces. It was green on the RED check, which is exactly
-#// the failure mode a green-on-RED section is supposed to warn about.
-#//
-#// So the expiry is proven through a CONSEQUENCE that separates the two worlds:
-#//   buffed   → the 3/3 becomes 5/5, survives a 4-power attacker, and counters for FIVE; the buff
-#//              then expires at the regroup and SWUCheckShrinkDefeats kills it (3 HP vs 4 damage)
-#//   unbuffed → it dies during the combat instead and counters for only THREE
-#// Both worlds end with the unit gone, so the arena count alone proves nothing — the attacker's
-#// damage is the discriminator, and the count is what proves the death happened at the regroup.
-#//
-#// This also covers the +2 HP half being real: combat lethality reads ObjectCurrentHP, not printed
-#// HP, so a +2/+0 implementation would let the marine die in combat and counter for 5.
-#//
-#// Decks are seeded for both seats deliberately: reaching the regroup with an empty deck triggers
-#// the CR 6.1 deck-out draw and puts 6 damage on the base, which has faked an engine bug before.
+# BuffedUnitHitsForFive_ThenReadsThreeAfterTheRegroup
+#// DURATION CELL. ⚠ "assert printed power after the regroup" alone passes against an UNIMPLEMENTED card, so the
+#// same section first proves the buff was real through a consequence: the buffed SOR_046 (3/7 → 5/7) attacks
+#// P2's SOR_046 in the same phase and deals FIVE. Only then does "POWER:3 after the regroup" prove expiry.
+#// (Rewritten for the official +2/+0: the old +2/+2 form relied on the extra HP keeping a unit alive.)
+#// Decks are seeded for both seats: a regroup draw from an empty deck deals 6 to the base.
 
 ## GIVEN
-CommonSetup: ryk/rrk/{myResources:4;myhandCardIds:HMW_052;theirResources:6}
+CommonSetup: ryk/rrk/{myResources:4;myhandCardIds:HMW_052}
 WithActivePlayer: 1
-WithP1GroundArena: SOR_095:1:0
-WithP2GroundArena: LAW_124:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
 WithP1Deck: [SOR_046 SOR_128 SOR_225 SOR_237 SEC_080 SOR_095]
 WithP2Deck: [SOR_046 SOR_128 SOR_225 SOR_237 SEC_080 SOR_095]
 
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:myGroundArena-0
-- P2>AttackGroundArena:0:0
-- P1>Pass
 - P2>Pass
+- P1>AttackGroundArena:0:0
+- P2>Pass
+- P1>Pass
 - P1>ResourcePass
 - P2>ResourcePass
 
 ## EXPECT
-P2GROUNDARENAUNIT:0:CARDID:LAW_124
 P2GROUNDARENAUNIT:0:DAMAGE:5
-P1GROUNDARENACOUNT:1
-P1GROUNDARENAUNIT:0:CARDID:HMW_052
+P1GROUNDARENAUNIT:0:CARDID:SOR_046
+P1GROUNDARENAUNIT:0:POWER:3
+P1GROUNDARENAUNIT:0:HP:7
 
 ---
 
 # BuffAppliesToOnlyTheChosenUnit
-#// SCOPE CELL. "Give A unit +2/+2" is singular — it is not a board buff and not a friendly-side
+#// SCOPE CELL. "Give A unit +2/+0" is singular — it is not a board buff and not a friendly-side
 #// buff. With two identical friendly bodies on the table, only the answered one may move.
 #//
 #// A handler that looped its target pool instead of using the answer would pass every other
@@ -184,7 +173,7 @@ WithP1GroundArena: SOR_046:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:POWER:5
-P1GROUNDARENAUNIT:0:HP:5
+P1GROUNDARENAUNIT:0:HP:3
 P1GROUNDARENAUNIT:1:CARDID:SOR_046
 P1GROUNDARENAUNIT:1:POWER:3
 P1GROUNDARENAUNIT:1:HP:7
@@ -212,4 +201,4 @@ WithP1GroundArena: SOR_095:1:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095
 P1GROUNDARENAUNIT:0:POWER:5
-P1GROUNDARENAUNIT:0:HP:5
+P1GROUNDARENAUNIT:0:HP:3

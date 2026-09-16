@@ -74,7 +74,15 @@ doc is written, so batches only ever covered what existed then (HMW's plan read 
 implemented" with 30 cards mocked and HMW_003 unimplemented). **Derive the remaining cards from the
 diff:** the tracker's `### Already Done` line vs the set's CardIDs in `AppCore/SWU/CardMocks.php`
 (`grep -oE "'HMW_[0-9T]+'"`), then confirm anything that surfaces with the quoted-CardID-under-`Custom/`
-check. Order the diff yourself (simplest first unless the user says otherwise) and state the order at
+check.
+
+⚠ **After a set FLIPS to official FFG data (HMW, 2026-09-16) its mocks are DELETED, so the CardMocks diff
+returns nothing.** The oracle is then **`php SWUSim/DevTools/scaffold-cards.php <SET> --dry`** (as
+`docker exec -e DEVENV=true …`): it lists every CardID with text beyond keywords and no handler. Vanilla /
+keyword-only cards, tokens and reprint bases never appear there — they need no code, so do not batch
+them. Every other mention of the CardMocks diff in this skill applies only while the set is mocked.
+
+Order the diff yourself (simplest first unless the user says otherwise) and state the order at
 the start of the run.
 
 ## Step 1 — Orient

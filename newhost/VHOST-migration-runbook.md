@@ -567,16 +567,49 @@ sudo DB_PASS='<real>' ./newhost/ensure-db.sh fabsim --apply
 ```
 Same rule as phase 2: `database.sql` is complete — do not apply `Database/migrations/*.sql` to it.
 
-## Step 3.4 — Generate the site and engine files
+## Step 3.4 — Generate the card data, engine and site files
 
-Prod has two PHPs; bare `php` is 7.4 and fails on this codebase. Use XAMPP's:
+FaBSim needs its full generator chain (from `DevTools/FaB/README.md`); none of these outputs are
+tracked. Four things every command below needs, each learned the hard way:
+- **`/opt/lampp/bin/php`** — bare `php` is 7.4 and fails on this codebase.
+- **`DEVENV=true`** — without it the generators print "You must be logged in", exit 0, write nothing.
+- **`MYSQL_ROOT_PASSWORD`** — `SetEnv` only exists for web requests; a shell run otherwise connects
+  with an EMPTY password. The card and game generators both write/read `card_abilities` in `fabsim`
+  (the rootName resolves the database; the password must come from the env).
+- **Run inside `tmux`** — a dropped SSH session killed the first attempt (2026-09-16).
+
+`sudo -u daemon` keeps the output web-owned; pass variables through `env`. `Cannot load Zend
+OPcache - it was already loaded` on every run is harmless.
+
 ```bash
+tmux new -s fab                                    # detach: Ctrl-B then D; reattach: tmux attach -t fab
 cd /opt/lampp/htdocs/TCGEngine
+read -rs DBP                                       # type the MySQL root password (keeps it out of history)
+
+# 1. card dictionaries WITHOUT art — ~10s locally (5196 cards)
+sudo -u daemon env DEVENV=true MYSQL_ROOT_PASSWORD="$DBP" /opt/lampp/bin/php zzCardCodeGenerator.php rootName=FaBSim withPreview=1 downloadImages=0 2>&1 | tee ~/fabsim-cardgen.log | tail -12
+#    expect "Phase 1 complete: 5196 cards accepted" … "Generator complete!"
+
+# 2. engine, deck builder, turn logic, site pages
+sudo -u daemon env DEVENV=true MYSQL_ROOT_PASSWORD="$DBP" /opt/lampp/bin/php zzGameCodeGenerator.php rootName=FaBSim
+sudo -u daemon env DEVENV=true MYSQL_ROOT_PASSWORD="$DBP" /opt/lampp/bin/php zzGameCodeGenerator.php rootName=FaBDeck
+sudo -u daemon env DEVENV=true MYSQL_ROOT_PASSWORD="$DBP" /opt/lampp/bin/php zzTurnGenerator.php rootName=FaBSim
 sudo -u daemon /opt/lampp/bin/php SharedUI/Render/GenerateSites.php all
-ls SharedUI/Sites/FaBSim/                    # must now include LoginPage.php, Profile.php, Signup.php …
-sudo -u daemon DEVENV=true MYSQL_DATABASE_NAME=fabsim /opt/lampp/bin/php zzGameCodeGenerator.php rootName=FaBSim
-sudo -u daemon DEVENV=true MYSQL_DATABASE_NAME=fabsim /opt/lampp/bin/php zzGameCodeGenerator.php rootName=FaBDeck
+ls FaBSim/GeneratedCode/ SharedUI/Sites/FaBSim/    # dictionaries present; LoginPage.php, Profile.php … present
+unset DBP
 ```
+
+**Card art is a separate, later pass.** The box already has 4,942 `FaBSim/WebpImages` from
+2026-08-11; the new sets (IAR/MPG/OMN/PEN/SEA/SUP) will be missing art until this runs. The first
+attempt (with images) logged nothing for 5+ minutes and never reached card #3594, so run it in the
+foreground inside tmux and watch where it sits. It reuses the cache from step 1 (no `withPreview`):
+```bash
+sudo -u daemon env DEVENV=true MYSQL_ROOT_PASSWORD="$DBP" /opt/lampp/bin/php zzCardCodeGenerator.php rootName=FaBSim 2>&1 | tee ~/fabsim-artgen.log
+```
+Note that `CheckImage` sets no curl timeout, so one unresponsive image URL blocks the run forever.
+
+Deck import from Fabrary needs an API key (`FABRARY_API_KEY` env or `$FaBraryKey`); without one the
+UI says so and pasted text lists still work. Not a blocker for provisioning.
 
 ## Step 3.5 — Write the FaBSim vhost (config only, no restart yet)
 

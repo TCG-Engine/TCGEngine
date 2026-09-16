@@ -166,8 +166,8 @@
     });
     if(phase === 'FEED_BID') return Object.assign(base, {
       title: round <= 1 ? 'Bid for initiative' : 'Confirm no bid', body: round <= 1
-        ? 'Bid Mina Seward if she is available. Both bid cards enter their Vaults; the higher printed blood cost wins. The tutorial opponent declines.'
-        : 'Select no card and confirm. You retain initiative against this passive opponent and keep your hand for normal play.', index: round <= 1 ? 3 : 9
+        ? 'Bid Mina Seward. The higher printed blood cost wins and chooses who takes initiative; if the bids are equal, the player without initiative wins instead. Both bid cards enter their Vaults, and Mina\'s Cursed icon is what lets you play the Wolf, which needs two. The tutorial opponent declines.'
+        : 'Select no card and confirm. With neither player bidding, the bids tie at 0, and a tie goes to the player without initiative, so the opponent takes it this round. That costs you nothing against a passive opponent, and you keep your hand.', index: round <= 1 ? 3 : 9
     });
     if(phase === 'FEED_RESOLVE') return Object.assign(base, {
       title: 'Take initiative', body: 'If you won, choose Take Initiative. Initiative determines who takes the first Horror action and acts first during ordered choices.', index: 3
@@ -181,7 +181,7 @@
         title: 'Place the Wolf', body: 'Click Carfax Abbey directly on the battlefield. The highlighted location cards are the legal destinations for your minion.', target: document.getElementById('LocationsSlot'), index: 5
       });
       if(prompt === 'pay 1 malice to ready this minion') return Object.assign(base, {
-        title: 'Ready the Wolf', body: 'Choose Yes to pay 1 malice and ready Transylvanian Wolf. Minions normally enter exhausted; a ready minion can attack when priority returns.', target: target, index: 6
+        title: 'Ready this minion', body: 'Choose Yes to pay 1 malice and ready it now. Minions enter exhausted, and only a ready minion can attack. (A minion with Fearsome, like the Wolf, enters ready and skips this.)', target: target, index: 6
       });
       if(prompt === 'choose a character to attack') return Object.assign(base, {
         title: 'Attack with the Wolf', body: 'Click the highlighted Transylvanian Wolf on your board to declare it as the attacker.', target: document.getElementById('myCharactersSlot'), index: 7
@@ -202,7 +202,7 @@
         title: 'Resolve Foresee', body: 'Arrange the revealed cards between Top and Bottom, then confirm. Cards on Top are drawn first; cards on Bottom go beneath your deck.', target: target, index: 8
       });
       if(round <= 1 && types.indexOf('PLAY_CARD') === -1) return Object.assign(base, {
-        title: 'Play Transylvanian Wolf', body: 'Click the highlighted Transylvanian Wolf directly in your hand, then place it at Carfax Abbey. When prompted, pay 1 malice to ready it; minions normally enter exhausted.', target: target || document.getElementById('myHandSlot'), index: 4
+        title: 'Play Transylvanian Wolf', body: 'Click the highlighted Transylvanian Wolf directly in your hand, then place it at Carfax Abbey. Minions normally enter exhausted, but the Wolf has Fearsome, so it enters ready and can attack this round.', target: target || document.getElementById('myHandSlot'), index: 4
       });
       if(round <= 1 && types.indexOf('ATTACK') === -1) return Object.assign(base, {
         title: 'Attack with the Wolf', body: 'When priority returns, click the highlighted Transylvanian Wolf to attack, then click the highlighted Jaws directly on the board. Attackers exhaust; combat damage is dealt simultaneously.', target: target || document.getElementById('myCharactersSlot'), index: 7

@@ -13,7 +13,7 @@ $checks = [];
 // not re-break it; the eternal block below still pins its exact ids, which is what catches a payload
 // that silently drops bans on the way to the client.
 $premier = SWUDeckClientFormatData('premier');
-$checks['premier legalSets matches config'] = $premier['legalSets'] === ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'];
+$checks['premier legalSets matches config'] = $premier['legalSets'] === ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH', 'HMW'];
 $premierConfigBans = SWUGetFormat('premier')['banned'];
 sort($premierConfigBans);
 $premierPayloadBans = $premier['bannedIDs'];

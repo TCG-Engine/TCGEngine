@@ -7,9 +7,9 @@
 // but SWUGetFormat()/SWUCheckFormat() still resolve them for anything mid-flight.
 
 function SWUFormatDefinitions() {
-    $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH',];
-    $eternalSets = ['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'TS26', 'ASH',];
-    $previewSets = ['HMW',];   // the next set to release (or a future set's preview window)
+    $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH', 'HMW',];   // HMW released 2026-09-16 (owner)
+    $eternalSets = ['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'TS26', 'ASH', 'HMW',];
+    $previewSets = ['IC27',];  // the next set to release (or a future set's preview window)
     $premierBans = ['ASH_011'];
     $eternalBans = ['JTL_140', 'JTL_170'];
     return [
@@ -22,12 +22,14 @@ function SWUFormatDefinitions() {
             'legalSets'   => $premierSets,
             'banned'      => $premierBans,
             'enabled'     => true,
+            'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
         'eternal' => [
             'displayName' => 'Eternal',
             'legalSets'   => $eternalSets,
             'banned'      => $eternalBans,
             'enabled'     => true,
+            'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
         // Open enforces NOTHING — USER RULING 2026-09-08: "Open format should allow any and all
         // lists. so no deck min or max. no copies min or max. no leader limit." 'unrestricted' makes
@@ -40,6 +42,7 @@ function SWUFormatDefinitions() {
             'banned'        => [],                        // no bans, ever
             'unrestricted'  => true,
             'enabled'       => true,
+            'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
 
         // ── SOLO / LOCAL MODES ────────────────────────────────────────────────
@@ -81,7 +84,7 @@ function SWUFormatDefinitions() {
         // unrestricted, and SWUSim/CreateGame.php still stamps SWU_MODE_BOTPRACTICE. Phase 1 is
         // reachable programmatically and by the headless harness; it is only absent from the menu.
         'botpractice' => [
-            'displayName'   => 'Bot Practice',
+            'displayName'   => 'Arenabot',   // the player-facing name since 2026-09-16; the id stays botpractice
             'legalSets'     => '*',
             'banned'        => [],
             'unrestricted'  => true,
@@ -144,13 +147,15 @@ function SWUFormatDefinitions() {
             'banned'        => [],
             'legalRarities' => ['Common'],
             'enabled'       => true,
+            'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
         'padawan-preview' => [
-            'displayName'   => 'Padawan Preview',
+            'displayName'   => 'Padawan Preview (IC27)',
             'legalSets'     => array_merge($eternalSets, $previewSets),
             'banned'        => [],
             'legalRarities' => ['Common'],
             'enabled'       => true,
+            'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
 
         // ── PREVIEW (temporary) ──────────────────────────────────────────────
@@ -158,13 +163,14 @@ function SWUFormatDefinitions() {
         // add the new set code to 'legalSets' when a preview window opens; set it
         // back to false (or comment out) when the window closes.
         'preview' => [
-            'displayName' => 'Premier Preview',
+            'displayName' => 'Premier Preview (IC27)',
             'legalSets'   => array_merge($premierSets, $previewSets),
             'banned'      => $premierBans,
             'enabled'     => true,
+            'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
         'twinsuns-preview' => [
-            'displayName' => 'Twin Suns Preview',
+            'displayName' => 'Twin Suns Preview (IC27)',
             'legalSets'   => array_merge($eternalSets, $previewSets),
             'banned'      => [],
             'minDeck'     => 80,
@@ -180,6 +186,24 @@ function SWUFormatDefinitions() {
             'maxPlayers'  => 4,
             'enabled'     => true,
         ],
+        // Team Suns pool + the upcoming set's previews (owner, 2026-09-16: "add both options to Team Suns as well").
+        // This REVERSES the 2026-08-29 decision recorded in DevTools/tdd-regression/test_swusim_formats_config.php
+        // ("Team Suns previews are not offered"). It mirrors 'teamsuns' on every rule key, and the preview-family parity
+        // check enforces that. The seat range and the team markers are REQUIRED, for the reason twinsuns-preview's note
+        // above explains. The id is 16 characters: exactly the stats tables' `format varchar(16)` limit.
+        'teamsuns-preview' => [
+            'displayName'       => 'Team Suns Preview',
+            'legalSets'         => array_merge($eternalSets, $previewSets),
+            'banned'            => [],
+            'minDeck'           => 80,
+            'maxCopies'         => 1,
+            'leaderCount'       => 2,
+            'minPlayers'        => 4,
+            'maxPlayers'        => 4,
+            'teams'             => 2,
+            'uniqueTeamLeaders' => true,
+            'enabled'           => true,
+        ],
         // Eternal pool + the upcoming set's previews — the Eternal counterpart of 'preview'. Same
         // shape as 'eternal' (no rarity restriction, standard deck rules); only the pool differs.
         // SWUFormatIsPreview derives preview-ness from the pool, so this needs no separate wiring.
@@ -188,6 +212,7 @@ function SWUFormatDefinitions() {
             'legalSets'   => array_merge($eternalSets, $previewSets),
             'banned'      => $eternalBans,
             'enabled'     => true,
+            'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
     ];
 }
@@ -238,6 +263,9 @@ function SWUGetFormat($formatId) {
         'unrestricted'      => $unrestricted,
         'leaderCount'       => $f['leaderCount']       ?? 1,    // leaders required in the deck
         'enabled'           => $f['enabled']           ?? true,
+        // May this format use the public matchmaking queue (APIs/Lobbies/JoinQueue.php)? Ask
+        // SWUFormatAllowsPublicQueue(), which also applies the site-wide switch — never read this key directly.
+        'publicQueue'       => !empty($f['publicQueue']),
         // Local/solo mode (Goldfish = solo; Hotseat = one human driving both seats) rather than a
         // matchmade format. This is the WAITING-ROOM ROUTING PREDICATE — a localMode format never
         // gets a lobby page — and it is also read by the stats gate to tell practice from results.
@@ -298,6 +326,118 @@ function SWUListFormats() {
     foreach (array_keys(SWUFormatDefinitions()) as $id) {
         $f = SWUGetFormat($id);
         if ($f['enabled']) $out[$id] = $f['displayName'];
+    }
+    return $out;
+}
+
+// ── The SWUSim game-setup menu (docs/superpowers/specs/2026-09-16-swusim-format-menu-design.md) ─────────────────────
+// The menu is a VIEW over the format ids above; the ids do not change. Three questions, one dropdown each: the game type,
+// then the opponent / players / mode, then the card pool.
+//
+// An option that carries its own 'format' (Arenabot, Goldfish, Hotseat) stores THAT format, and its pools only say which
+// card pool it plays. Every other option stores the chosen pool's format. So Constructed → Arenabot → Premier stores
+// 'botpractice' with card pool 'premier', while Constructed → PvP → Premier stores 'premier'.
+//
+// "Standard" and "Preview" are MENU labels only — the displayNames stay, because SWUDeck and the stats pages show them.
+// SWUSim/DevTools/tests/menu_tree_test.php keeps this tree and the registry in step in both directions.
+function SWUMenuTree(): array {
+    $constructedPools = [
+        ['format' => 'premier',         'label' => 'Premier'],
+        ['format' => 'preview',         'label' => 'Premier Preview'],
+        ['format' => 'eternal',         'label' => 'Eternal'],
+        ['format' => 'eternal-preview', 'label' => 'Eternal Preview'],
+        ['format' => 'padawan',         'label' => 'Padawan'],
+        ['format' => 'padawan-preview', 'label' => 'Padawan Preview'],
+        ['format' => 'open',            'label' => 'Open'],
+    ];
+    $tree = [
+        ['id' => 'constructed', 'label' => 'Constructed', 'secondLabel' => 'Opponent', 'options' => [
+            ['id' => 'pvp',      'label' => 'PvP',      'pools' => $constructedPools],
+            ['id' => 'arenabot', 'label' => 'Arenabot', 'format' => 'botpractice', 'pools' => $constructedPools],
+        ]],
+        ['id' => 'twinsuns', 'label' => 'Twin Suns', 'secondLabel' => 'Players', 'options' => [
+            ['id' => 'ffa', 'label' => 'Free-for-all', 'pools' => [
+                ['format' => 'twinsuns',         'label' => 'Standard'],
+                ['format' => 'twinsuns-preview', 'label' => 'Preview'],
+            ]],
+            ['id' => 'teams', 'label' => 'Teams', 'pools' => [
+                ['format' => 'teamsuns',         'label' => 'Standard'],
+                ['format' => 'teamsuns-preview', 'label' => 'Preview'],
+            ]],
+        ]],
+        ['id' => 'solo', 'label' => '1P Mode', 'secondLabel' => 'Mode', 'options' => [
+            ['id' => 'goldfish', 'label' => 'Goldfish', 'format' => 'goldfish', 'pools' => []],
+            ['id' => 'hotseat',  'label' => 'Hotseat',  'format' => 'hotseat',  'pools' => []],
+        ]],
+    ];
+    // Join Queue is offered per POOL: only a pool whose option has no format of its own (PvP) stores the pool's format,
+    // so only those can queue. Arenabot and 1P options store their own local-mode format and never queue.
+    foreach ($tree as &$gt) {
+        foreach ($gt['options'] as &$opt) {
+            foreach ($opt['pools'] as &$p) {
+                $p['publicQueue'] = !isset($opt['format']) && SWUFormatAllowsPublicQueue($p['format']);
+            }
+            unset($p);
+        }
+        unset($opt);
+    }
+    unset($gt);
+    return $tree;
+}
+
+// Every selectable leaf of a tree, with what it stores. An option with no pools is itself a leaf and plays card pool 'open'.
+function SWUMenuLeaves(array $tree): array {
+    $out = [];
+    foreach ($tree as $gt) {
+        foreach ($gt['options'] as $opt) {
+            if (empty($opt['pools'])) {
+                $out[] = ['gameType' => $gt['id'], 'option' => $opt['id'], 'pool' => null,
+                          'format' => strval($opt['format'] ?? ''), 'cardPool' => 'open'];
+                continue;
+            }
+            foreach ($opt['pools'] as $p) {
+                $out[] = ['gameType' => $gt['id'], 'option' => $opt['id'], 'pool' => $p['format'],
+                          'format' => strval($opt['format'] ?? $p['format']), 'cardPool' => $p['format']];
+            }
+        }
+    }
+    return $out;
+}
+
+// The tree one viewer is offered. Dropped:
+//   • disabled formats — a preview window that has closed;
+//   • the Arenabot option unless $arenabotAllowed (SWUSim/Mod/DevGate.php SWUBotPracticeAllowed());
+//   • logged out, every PvP pool but Open and the whole Twin Suns branch — APIs/Lobbies/JoinQueue.php refuses those
+//     without an account, while Arenabot and 1P Mode never needed one;
+//   • a pooled option whose every pool dropped, and a game type left with no options.
+// $isEnabled is injectable for tests; by default it asks the registry.
+function SWUMenuTreeFor(bool $loggedIn, bool $arenabotAllowed, ?callable $isEnabled = null): array {
+    $isEnabled = $isEnabled ?? function (string $id): bool {
+        $f = SWUGetFormat($id);
+        return $f !== null && !empty($f['enabled']);
+    };
+    $out = [];
+    foreach (SWUMenuTree() as $gt) {
+        if (!$loggedIn && $gt['id'] === 'twinsuns') continue;
+        $options = [];
+        foreach ($gt['options'] as $opt) {
+            if ($opt['id'] === 'arenabot') {
+                if (!$arenabotAllowed) continue;
+            } else if (isset($opt['format']) && !$isEnabled($opt['format'])) {
+                continue;
+            }
+            if (empty($opt['pools'])) { $options[] = $opt; continue; }
+            $pools = array_values(array_filter($opt['pools'], function ($p) use ($isEnabled, $loggedIn, $opt) {
+                if (!$isEnabled($p['format'])) return false;
+                return $loggedIn || $opt['id'] !== 'pvp' || $p['format'] === 'open';
+            }));
+            if (empty($pools)) continue;
+            $opt['pools'] = $pools;
+            $options[] = $opt;
+        }
+        if (empty($options)) continue;
+        $gt['options'] = $options;
+        $out[] = $gt;
     }
     return $out;
 }
@@ -374,17 +514,18 @@ function SWUGetQueueType($id) {
     return $defs[$id] ?? null;
 }
 
-// Public matchmaking (anonymous "Join Queue") is off in PRODUCTION at launch — SWUSim only — but ENABLED
-// in the dev environment so Playwright/local dev can exercise the queue flow. This mirrors the Join Queue
-// button gate exactly (SWUIsLocalDevRequest, SWUSim/Mod/DevGate.php): DEVENV, or a localhost/loopback Host
-// over HTTP where php-fpm doesn't see DEVENV. Flip the production side on (return true) when there's enough
-// player volume. Private invites, solo modes (goldfish/hotseat), and Twin Suns rooms are UNAFFECTED — they
-// don't go through the public-queue scan this gates (see JoinQueue.php).
+// Site-wide kill switch for SWUSim public matchmaking. ON since 2026-09-16 (owner: public queues for Constructed).
+// Return false to close every public queue at once; private rooms, invites and solo modes are unaffected.
 function SWUPublicQueueEnabled() {
-    if (function_exists('SWUIsLocalDevRequest')) return SWUIsLocalDevRequest();
-    if (getenv('DEVENV') === 'true') return true;
-    $host = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
-    return str_starts_with($host, 'localhost')
-        || str_starts_with($host, '127.0.0.1')
-        || str_starts_with($host, '[::1]');
+    return true;
+}
+
+// THE question every consumer asks — the lobby endpoint, the menu tree and the tests: may $formatId be queued publicly
+// right now? True only for an enabled format flagged 'publicQueue' while the switch is on. $switchOn is injectable for
+// tests; null reads SWUPublicQueueEnabled(). SWUSim/DevTools/tests/public_queue_policy_test.php.
+function SWUFormatAllowsPublicQueue(string $formatId, ?bool $switchOn = null): bool {
+    $on = $switchOn ?? SWUPublicQueueEnabled();
+    if (!$on) return false;
+    $f = SWUGetFormat($formatId);
+    return $f !== null && !empty($f['enabled']) && !empty($f['publicQueue']);
 }

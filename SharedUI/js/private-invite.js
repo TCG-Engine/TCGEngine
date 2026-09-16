@@ -48,6 +48,8 @@
     premier: 'Premier', open: 'Open', eternal: 'Eternal', twinsuns: 'Twin Suns',
     padawan: 'Padawan', 'padawan-preview': 'Padawan Preview',
     'twinsuns-preview': 'Twin Suns (Preview)', preview: 'Preview', standard: 'Standard',
+    'eternal-preview': 'Eternal Preview', teamsuns: 'Team Suns', 'teamsuns-preview': 'Team Suns (Preview)',
+    goldfish: 'Goldfish', hotseat: 'Hotseat', botpractice: 'Arenabot',
     bo1: 'Best of 1', bo3: 'Best of 3'
   };
   function label(v) { return LABELS[v] || v; }

@@ -103,7 +103,7 @@ function scaffold_covered_cids(string $customRoot): array {
         $src = @file_get_contents($f->getPathname());
         if ($src === false) continue;
         // DATA files under Custom/ list CardIDs without implementing anything (CardMocks.php,
-        // CardTraitSupplement.php). Counting them as coverage silently suppresses every stub for a
+        // CardDataSupplement.php). Counting them as coverage silently suppresses every stub for a
         // mocked set — scaffolding HMW proposed 0 files while Tarkin and Carbonite Chamber sat
         // unimplemented. They opt out with the marker below; add it to any new data file.
         if (strpos($src, 'SCAFFOLD-IGNORE') !== false) continue;

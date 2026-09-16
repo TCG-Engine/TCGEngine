@@ -2119,7 +2119,8 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     // handler, AFTER this attack's full trigger resolution. If no trigger flush queued a resume,
     // queue a bare one so the chained attack still fires and SWUAfterAction stays deferred until then.
     if ($flushed === 0 && (GetSWUVar('SWU_CHAINED_ATTACK', '') !== '' || GetSWUVar('SWU_MONMOTHMA_LOOP', '') !== ''
-            || GetSWUVar('SWU_SHD145_LOOP', '') !== '' || GetSWUVar('SWU_TS26059_LOOP', '') !== '')) {   // SHD_145 / TS26_59 Brothers count-capped loops
+            || GetSWUVar('SWU_SHD145_LOOP', '') !== '' || GetSWUVar('SWU_TS26059_LOOP', '') !== ''    // SHD_145 / TS26_59 Brothers count-capped loops
+            || GetSWUVar('SWU_HMW149_AGAIN', '') !== '')) {   // HMW_149 Log Trap — the same unit attacks again
         _SWUQueueOrchestration($activePlayer, "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
     }
 }
@@ -2563,6 +2564,15 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
             // If the -1 HP drops the defender to no remaining HP, it is defeated by SBA BEFORE combat damage
             // (so it deals no counter). Run the shrink-defeat sweep now, while the -1/-1 marker is live.
             SWUCheckShrinkDefeats();
+        }
+    }
+    // HMW_233 Awakened Exogorth — "While this unit is attacking, the defending unit gets -3/-0." ASH_046's
+    // shape: a real attack-duration STAT_DEBUFF on the defending UNIT, so its counter-power reads 3 less and
+    // the marker drops when the attack ends. No HP half, so no shrink sweep. Own attack or Support-lent.
+    if (_SWUAttackerGrants($attacker, 'HMW_233') && !LostAbilities($attacker) && strpos($targetMzID, 'Arena') !== false) {
+        $d233 = GetZoneObject($targetMzID);
+        if ($d233 !== null && empty($d233->removed)) {
+            AddTurnEffect($targetMzID, SWUMakeTurnEffect('HMW_233', [3, 0], SWU_DUR_ATTACK));
         }
     }
     // LOF_014 Grand Inquisitor (deployed) — On Attack: "the defender gets -2/-0 for this attack." Applied

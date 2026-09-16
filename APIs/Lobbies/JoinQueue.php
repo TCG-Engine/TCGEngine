@@ -51,10 +51,12 @@
     if(is_file($swuDeckImportPath)) {
       include_once $swuDeckImportPath;
     }
+    require_once __DIR__ . '/../../SWUSim/GameSetupRules.php';   // Arenabot card pool: SWUArenabotResolvePool / SWUArenabotDeckRefusal
     $swuMatchFlowPath = __DIR__ . '/../../SWUSim/MatchFlow.php';
     if(is_file($swuMatchFlowPath)) {
       include_once $swuMatchFlowPath;
     }
+    include_once __DIR__ . '/../../SWUSim/PublicQueue.php';   // SWUPublicQueueRefusal / SWUPublicQueueDeckErrors
   } else if($rootName === 'HellbreakSim') {
     include_once __DIR__ . '/../../HellbreakSim/GeneratedCode/GeneratedCardDictionaries.php';
     include_once __DIR__ . '/../../HellbreakSim/Custom/DeckImport.php';
@@ -137,6 +139,8 @@
       ($rootName === 'GrandArchiveSim' && ($format === 'goldfish' || $format === 'hotseat' || $format === 'bot')) ||
       ($rootName === 'AzukiSim'        && ($format === 'rlbot' || $format === 'tutorial')) ||
       ($rootName === 'HellbreakSim'    && $format === 'tutorial');
+  // Arenabot's card pool — only ever used when the format is botpractice. See the SWUSim guard below.
+  $arenabotPool = 'open';
   // Guard: for SWUSim, fall back to safe defaults on unknown/garbage. (Other roots ignore these.)
   if ($rootName === 'SWUSim') {
     if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
@@ -154,6 +158,22 @@
       header('Content-Type: application/json');
       echo json_encode($response);
       exit;
+    }
+    // Arenabot's card pool (docs/superpowers/specs/2026-09-16-swusim-format-menu-design.md §2). Absent → Open, so an older
+    // client behaves exactly as before; an unknown pool is refused rather than widened to Open. Both decks are checked HERE,
+    // on the server: the menu's own check is a convenience, and it never looked at the bot's deck at all.
+    if ($format === 'botpractice') {
+      $arenabotPool = SWUArenabotResolvePool(isset($_POST['cardPool']) ? strval($_POST['cardPool']) : null);
+      $arenabotRefusal = ($arenabotPool === null)
+        ? 'Unknown card pool for Arenabot.'
+        : SWUArenabotDeckRefusal($arenabotPool, strval($deckLink), strval($deckLink2));
+      if ($arenabotRefusal !== null) {
+        $response->success = false;
+        $response->message = $arenabotRefusal;
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
+      }
     }
     $swuNeedsAccount = !$createGoldfish && !$isModeFormat && $privateInviteCode === '';
     if ($format !== 'open' && $swuNeedsAccount && !$joiningUserId) {
@@ -293,6 +313,7 @@
       ? $gaBotPlayers
       : ($isBotPractice ? (empty($requestedBotPlayers) ? [2] : $requestedBotPlayers) : []);
     $lobby->botStyle = $isBotPractice ? $botStyle : '';
+    $lobby->cardPool = $isBotPractice ? $arenabotPool : '';   // SWUSim/CreateGame.php records it as SWUCardPool
     $lobby->azukiRlBotPlayers = $isAzukiRlBot ? [2] : [];
     $lobby->azukiRlBotProfile = $isAzukiRlBot ? $azukiRlBotProfile : '';
     $lobby->players = [$hostPlayer, $secondPlayer];
@@ -507,14 +528,29 @@
     exit;
   }
 
-  // Public matchmaking kill-switch (SWUSim only). Every non-public path (mode formats,
-  // private-invite-by-code, createPrivate) has already exited above by this point.
-  if ($rootName === 'SWUSim' && function_exists('SWUPublicQueueEnabled') && !SWUPublicQueueEnabled()) {
-    $response->success = false;
-    $response->message = "Public matchmaking isn't open yet — use a private invite.";
-    header('Content-Type: application/json');
-    echo json_encode($response);
-    exit;
+  // Public matchmaking (SWUSim). Every non-public path (mode formats, private-invite-by-code, createPrivate) has already
+  // exited above. docs/superpowers/specs/2026-09-16-swusim-public-queues-design.md §2: refuse a format that may not queue
+  // (the Twin Suns family, the local modes, the site-wide switch off), then check the deck against the format BEFORE it
+  // can pair — a deck that fails only at pairing used to strand the other player.
+  // testFailAtPairing is a LOCAL-DEV-only test hook (DevTools/tdd-regression/test_swusim_public_queue_http.php): it makes
+  // this seat's deck fail the pairing-time check so the release path can be driven end to end.
+  $swuTestFailAtPairing = false;
+  if ($rootName === 'SWUSim') {
+    $swuQueueRefusal = function_exists('SWUPublicQueueRefusal')
+      ? SWUPublicQueueRefusal($format) : "Public matchmaking isn't open for this format.";
+    if ($swuQueueRefusal === null) {
+      $swuQueueDeckInput = trim((string)$deckLink) !== '' ? strval($deckLink) : strval($preconstructedDeck);
+      $swuQueueErrors = SWUPublicQueueDeckErrors($format, $swuQueueDeckInput);
+      if (!empty($swuQueueErrors)) $swuQueueRefusal = implode("\n", array_slice($swuQueueErrors, 0, 5));
+    }
+    if ($swuQueueRefusal !== null) {
+      $response->success = false;
+      $response->message = $swuQueueRefusal;
+      header('Content-Type: application/json');
+      echo json_encode($response);
+      exit;
+    }
+    $swuTestFailAtPairing = !empty($_POST['testFailAtPairing']) && SWUIsLocalDevRequest();
   }
 
   if (isset($cacheInfo['cache_list'])) {
@@ -531,6 +567,10 @@
             (($lobby->queueType ?? 'bo1') === $queueType) &&
             (!isset($lobby->isPrivate) || !$lobby->isPrivate) &&
             (!empty($lobby->casterMode) === $casterMode) &&
+            // A lobby that already made its game is never joinable again. LeaveQueue can take a matched seat out
+            // (numPlayers drops back below max and the write refreshes the TTL), and without this the next joiner was
+            // "paired" into the finished lobby and handed the OLD game's name (found 2026-09-16, public-queues work).
+            empty($lobby->gameName) && (($lobby->state ?? '') !== 'matched') &&
             intval($lobby->numPlayers) < intval($lobby->maxPlayers)
           ) {
               if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // skip blocked host, keep scanning
@@ -540,10 +580,11 @@
               $joinErr = null; $newPlayer = null; $playerID = 0;
               $stored = LobbyMutate($targetKey, function ($lobby) use (
                   $deckLink, $preconstructedDeck, $joiningUserId, $rootName,
-                  $shareAnonymizedGameplayData, &$joinErr, &$newPlayer, &$playerID) {
+                  $shareAnonymizedGameplayData, $swuTestFailAtPairing, &$joinErr, &$newPlayer, &$playerID) {
                 // Re-checked under the lock: two people can reach a one-seat queue at once, and the
                 // loser must fall through to the next lobby rather than overfill this one.
                 if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) { $joinErr = 'full'; return false; }
+                if (!empty($lobby->gameName) || (($lobby->state ?? '') === 'matched')) { $joinErr = 'full'; return false; }
                 $lobby->numPlayers++;
                 if ($rootName === 'GrandArchiveSim') {
                   $lobby->shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData) && $shareAnonymizedGameplayData;
@@ -552,6 +593,9 @@
                 $playerID  = _SWUNextPlayerID($lobby);
                 $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
                 $lobby->players[] = $newPlayer;
+                if ($swuTestFailAtPairing) {   // local-dev test hook (Task 11)
+                  $lobby->testFailAtPairing = array_merge((array)($lobby->testFailAtPairing ?? []), [strval($newPlayer->getAuthKey())]);
+                }
                 LobbyEnsureFixedSeats($lobby);
                 return true;
               });
@@ -563,7 +607,39 @@
               // short mutation commits the gameName it produces.
               if($lobby->ready) {
                 if ($rootName === 'SWUSim' && empty($lobby->isGoldfish) && function_exists('SWUCreateMatchFromLobby')) {
-                  SWUCreateMatchFromLobby($lobby); // sets $lobby->gameName to game 1
+                  // A pairing whose game cannot be created must never leave a `ready` lobby with no game: the joiner
+                  // used to be sent to gameName=undefined and the host polled until the lobby expired
+                  // (docs/superpowers/specs/2026-09-16-swusim-public-queues-design.md §2.3). Check each seat first so the
+                  // failure is attributed; release the failing seat(s) and let the other player keep searching.
+                  $swuFailing = SWUQueueFailingSeats($lobby);
+                  if (empty($swuFailing)) {
+                    SWUCreateMatchFromLobby($lobby); // sets $lobby->gameName to game 1
+                    if (empty($lobby->gameName)) {
+                      // Not attributable to one seat: release everyone with the same notice.
+                      foreach ($lobby->players as $swuP) {
+                        if ($swuP instanceof Player) $swuFailing[strval($swuP->getAuthKey())] = "The match could not be started — please queue again.";
+                      }
+                    }
+                  }
+                  if (!empty($swuFailing)) {
+                    $lobby = LobbyMutate($targetKey, function ($l) use ($swuFailing) { SWUQueueDropSeats($l, $swuFailing); return true; }) ?? $lobby;
+                    $swuJoinerKey = strval($newPlayer->getAuthKey());
+                    if (isset($swuFailing[$swuJoinerKey])) {
+                      $response->success = false;
+                      $response->message = $swuFailing[$swuJoinerKey];
+                    } else {
+                      // Only the host's deck failed: the joiner now holds the lobby and keeps searching.
+                      $response->success = true;
+                      $response->message = "Successfully joined queue.";
+                      $response->ready = false;
+                      $response->playerID = $playerID;
+                      $response->authKey = $swuJoinerKey;
+                      $response->lobbyID = $lobby->id;
+                    }
+                    header('Content-Type: application/json');
+                    echo json_encode($response);
+                    exit;
+                  }
                 } else if ($rootName === 'GrandArchiveSim' && empty($lobby->isGoldfish) && function_exists('MatchCreateFromLobby')) {
                   MatchCreateFromLobby('GrandArchiveSim', $lobby); // creates the Match + game 1, sets $lobby->gameName
                 } else if ($rootName === 'AzukiSim' && empty($lobby->isGoldfish) && function_exists('MatchCreateFromLobby')) {
@@ -610,6 +686,7 @@
       $lobby->casterMode = $casterMode;
       $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
       $lobby->players = array($newPlayer);
+      if ($swuTestFailAtPairing) $lobby->testFailAtPairing = [strval($newPlayer->getAuthKey())];   // local-dev test hook
 
       apcu_store($lobbyId, $lobby, $ttl);
 

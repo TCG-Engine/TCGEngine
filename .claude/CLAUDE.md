@@ -13,7 +13,6 @@ To be used for deck validation flows and loading decks for games. strategy summa
 Premier (as of 2026-07-15):
 https://swudb.com/deck/eeFFtweXI | Midrange go wide
 https://swudb.com/deck/HeEAAQjVtrhee | Midrange go tall
-https://swudb.com/deck/prozLLKSsRS | Tempo control with damage
 https://swudb.com/deck/aICaKTGaQd | Hero midrange "tank and heal" with Bo-Katan SEC_051 finisher
 https://swudb.com/deck/LImIrpIS | Burn aggro with Cinta Kaz pilot flip plot combo
 https://swudb.com/deck/PCQRTCWTgMLr | soft aggro with heavy draw and Aggressive Negotations finisher

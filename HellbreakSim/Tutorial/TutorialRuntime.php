@@ -38,7 +38,10 @@ function HellbreakTutorialAdjustResources(int $player, array $resources): array 
     // The engine fixtures intentionally use minimal synthetic resource bars for
     // universal-rule tests. The authored lesson adds Dracula's reviewed blood
     // and draw income while retaining the fixture's 1 malice as a teaching
-    // resource, so the player can ready and attack with their first minion.
+    // resource. ⚠ That malice is NOT what lets the first minion attack: the
+    // lesson's Transylvanian Wolf has Fearsome and enters ready on its own, so
+    // no ready prompt appears. (This comment and the lesson text both used to
+    // say the player pays it to ready the Wolf.) Printed Dracula has 0 malice.
     if($player === 1) {
         $resources['blood'] = intval($resources['blood'] ?? 0) + 2;
         $resources['draw'] = intval($resources['draw'] ?? 0) + 2;

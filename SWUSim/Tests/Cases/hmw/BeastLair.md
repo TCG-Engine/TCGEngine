@@ -1,14 +1,14 @@
 # Fortify_PlaysOntoYourOwnBase
 #// HMW_147 Beast Lair — Upgrade, cost 2, [Command], trait Fortification, NON-unique.
 #// "Fortify (Attach this to your base, not a unit.)
-#//  Attached base gains: 'When the action phase starts: You discard a card from your hand. If you do,
-#//  create a Beast token.'"
+#//  Attached base gains: 'When the action phase starts: You may discard a card from your hand. If you do,
+#//  create a Beast token.'" (Official text, 2026-09-16 flip — the preview mock read "You discard".)
 #// Fortify needs no code (registry + keywords/Fortify.md, incl. the enemy-base exclusion). ggw covers
 #// Command, so it costs exactly 2 and attaches to P1's own base with no host prompt — the friendly unit
 #// ending bare is the proof it was never offered.
 #// COVERAGE: offer=the discard prompt pool is the player's own hand (DiscardIsAChoice_FromOwnHand picks
-#//           a specific card) · decline=N/A (the discard is MANDATORY — "You discard", not "may"; the
-#//           cannot-pay branch is EmptyHand_NoDiscardNoBeast) · boundary=N/A (no numeric threshold;
+#//           a specific card) · decline=Decline_WithCardsInHand_NoDiscardNoBeast (official "You may"); the
+#//           cannot-pay branch is EmptyHand_NoDiscardNoBeast · boundary=N/A (no numeric threshold;
 #//           per-copy scaling pinned by TwoCopies_TwoDiscardsTwoBeasts) · control=EnemyBase_TheirsFires
 #//           ForTHEM (the granted ability belongs to the base's controller) · reqboundary=N/A (each
 #//           phase-start trigger raises and consumes its decision inside one exchange; nothing is
@@ -58,6 +58,31 @@ P1GROUNDARENAUNIT:0:CARDID:HMW_T03
 P1GROUNDARENAUNIT:0:POWER:3
 P1DISCARDCOUNT:1
 P1HANDCOUNT:1
+
+---
+
+# Decline_WithCardsInHand_NoDiscardNoBeast
+#// Official "You may": with cards in hand the player declines — nothing is discarded and no Beast is created.
+
+## GIVEN
+CommonSetup: ggw/rrk/{myResources:3}
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_147
+WithP1Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
+WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
+
+## WHEN
+- P1>Pass
+- P1>ResourcePass
+- P2>ResourcePass
+- P1>Drain
+- P1>AnswerDecision:-
+
+## EXPECT
+P1GROUNDARENACOUNT:0
+P1DISCARDCOUNT:0
+P1HANDCOUNT:2
+P1NODECISION
 
 ---
 

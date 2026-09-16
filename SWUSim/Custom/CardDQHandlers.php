@@ -2151,6 +2151,9 @@ function _SWUOnUnitDamaged($obj, int $amount = 0, bool $isCombat = false, bool $
   // Logray/Cham. ⚠ It has NO "once each round" clause (unlike ASH_032 and SEC_002 just above), so every
   // qualifying damage instance gets its own offer. See cards/hmw/Tech_IThoughtItWasObvious.php.
   _SWUHmw211CheckObserve($obj, $amount);
+  // HMW_166 Gungi — "When this unit is dealt damage and survives: You may discard a card from your hand. If
+  // you do, ready this unit." Same self-observer shape as Tech. See cards/hmw/Gungi_FightingForKashyyyk.php.
+  if (function_exists('_SWUHmw166CheckObserve')) _SWUHmw166CheckObserve($obj, $amount);
   // HMW_169 Crosshair, I've Changed — "When THIS unit is dealt damage and survives: Each player draws a
   // card." Same self-observer shape as HMW_211 above; its SECOND clause ("when an opponent draws…") is a
   // field observer on _SWUOnPlayerDrew, and the draws made here are what feed it.

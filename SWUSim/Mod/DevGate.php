@@ -29,5 +29,6 @@ function SWUBotPracticeAllowed(): bool {
 // A function so the refusal path is testable without a production web server (the local container's Apache runs with
 // DEVENV=true, so every local HTTP request is "local dev").
 function SWUBotPracticeRefusal(string $format): ?string {
-    return ($format === 'botpractice' && !SWUBotPracticeAllowed()) ? 'Bot Practice is currently limited to approved testers.' : null;
+    // "Arenabot" is the player-facing name of the botpractice format (owner, 2026-09-16); the id and this gate keep their names.
+    return ($format === 'botpractice' && !SWUBotPracticeAllowed()) ? 'Arenabot is currently limited to approved testers.' : null;
 }

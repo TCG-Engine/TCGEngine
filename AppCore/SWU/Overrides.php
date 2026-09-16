@@ -192,6 +192,8 @@ function CardIDOverride($cardID) {
     case "HMW_022": return "JTL_020"; //Shield Generator Complex
     case "HMW_025": return "JTL_023"; //Theed Palace
     case "HMW_032": return "JTL_030"; //Mos Eisley
+    case "HMW_096": return "SOR_070"; //Devotion
+    case "HMW_239": return "LOF_224"; //Pounce
     default: return $cardID;
   }
 }

@@ -9,18 +9,18 @@ include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../../../SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/../../../AppCore/SWU/Formats.php';
-include_once __DIR__ . '/../../../SWUSim/Mod/DevGate.php';   // SWUIsLocalDevRequest() — dev/localhost gate
+include_once __DIR__ . '/../../../SWUSim/Mod/DevGate.php';   // SWUBotPracticeAllowed() — the Arenabot access gate
 require_once __DIR__ . '/../../Render/DeckLibrary.php';
 
 include_once __DIR__ . '/Header.php';
 
-$swuFormats = function_exists('SWUListFormats') ? SWUListFormats() : ['premier' => 'Premier'];
-// Bot Practice is offered to ADMINS (approved moderators) and in local dev (owner, 2026-09-15; dev-only since 2026-09-14).
-// It stays 'enabled' => false in AppCore/SWU/Formats.php, so SWUListFormats() and every other menu leave it out.
-// APIs/Lobbies/JoinQueue.php enforces the same gate: SWUSim/Mod/DevGate.php SWUBotPracticeAllowed().
-if (SWUBotPracticeAllowed() && function_exists('SWUGetFormat') && ($swuBotPracticeFmt = SWUGetFormat('botpractice')) !== null) {
-    $swuFormats['botpractice'] = $swuBotPracticeFmt['displayName'] ?? 'Bot Practice';
-}
+$swuLoggedIn = isset($_SESSION['userid']);
+// The game-setup menu is a VIEW over the format registry (docs/superpowers/specs/2026-09-16-swusim-format-menu-design.md):
+// game type → opponent / players / mode → card pool. SWUMenuTreeFor() applies this viewer's access: Arenabot only where
+// SWUBotPracticeAllowed() (admins and local dev; APIs/Lobbies/JoinQueue.php enforces the same gate), and logged out PvP
+// Open only and no Twin Suns. The FULL tree rides along for invites, whose host may have picked a path this viewer could not.
+$swuMenuTree = SWUMenuTreeFor($swuLoggedIn, SWUBotPracticeAllowed());
+$swuMenuTreeFull = SWUMenuTree();
 $swuQueueTypes = function_exists('SWUQueueTypeDefinitions') ? SWUQueueTypeDefinitions() : ['bo1' => ['displayName' => 'Best of 1']];
 $swuSiteDef = require __DIR__ . '/SiteDef.php';
 $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
@@ -85,14 +85,14 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         <label for="deck-text" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste deck list (e.g. from SWUDB or SWUDeck):</label>
         <textarea id="deck-text" name="deck_text" rows="12" placeholder="# Leader&#10;1 Luke Skywalker, Faithful Friend&#10;&#10;# Base&#10;1 Echo Base&#10;&#10;# Main Deck&#10;3 Alliance X-Wing&#10;..." style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 13px; font-family: monospace; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
       </div>
-      <!-- Hotseat / Bot Practice: a second deck link for Player 2 (revealed only for those formats; the
-           label and placeholder switch in applyFormatUI). Bot Practice may leave it empty: the bot then
+      <!-- Hotseat / Arenabot: a second deck link for Player 2 (revealed only for those formats; the
+           label and placeholder switch in applyFormatUI). Arenabot may leave it empty: the bot then
            plays the host's own list (APIs/Lobbies/JoinQueue.php). -->
       <div id="swu-deck2-group" style="display: none; margin-top: 10px;">
         <label id="swu-deck2-label" for="swu-deck2-input" style="display: block; margin-bottom: 8px; font-weight: 500;">Player 2 deck link (Hotseat):</label>
         <input type="text" id="swu-deck2-input" placeholder="Second deck link" style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
       </div>
-      <!-- Bot Practice: the bot's Play Style (revealed only for Bot Practice). Sent as botStyle; the game
+      <!-- Arenabot: the bot's Play Style (revealed only for Arenabot). Sent as botStyle; the game
            stores SWUBotProfile = heuristic-<style> (SWUSim/CreateGame.php). -->
       <div id="swu-botstyle-group" style="display: none; margin-top: 10px;">
         <label for="swu-botstyle-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Bot play style:</label>
@@ -115,20 +115,24 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
       <br>
       <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
         <div style="flex: 1; min-width: 140px;">
-          <label for="swu-format-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Format:</label>
-          <select id="swu-format-select" class="swu-queue-select">
-            <?php
-              // Only logged-in users may queue non-Open formats, so only offer 'Open' when logged out.
-              // (The JoinQueue endpoint enforces this too, for anyone who bypasses the UI.)
-              $swuLoggedIn = isset($_SESSION['userid']);
-              $swuDefaultFormat = $swuLoggedIn ? 'premier' : 'open';
-            ?>
-            <?php foreach ($swuFormats as $fid => $fname): ?>
-            <?php if (!$swuLoggedIn && $fid !== 'open' && $fid !== 'goldfish' && $fid !== 'hotseat' && $fid !== 'botpractice') continue; ?>
-            <option value="<?php echo htmlspecialchars($fid, ENT_QUOTES); ?>"<?php echo $fid === $swuDefaultFormat ? ' selected' : ''; ?>><?php echo htmlspecialchars($fname, ENT_QUOTES); ?></option>
-            <?php endforeach; ?>
-          </select>
+          <label for="swu-gametype-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Game type:</label>
+          <select id="swu-gametype-select" class="swu-queue-select"></select>
         </div>
+        <div style="flex: 1; min-width: 140px;">
+          <label id="swu-second-label" for="swu-second-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Opponent:</label>
+          <select id="swu-second-select" class="swu-queue-select"></select>
+        </div>
+        <div id="swu-pool-group" style="flex: 1; min-width: 140px;">
+          <label for="swu-pool-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Card pool:</label>
+          <select id="swu-pool-select" class="swu-queue-select"></select>
+        </div>
+      </div>
+      <!-- ⚠ The STORED format and card pool. The three dropdowns above write these; everything else reads them — the request,
+           the Bo1 lock, and SharedUI/js/private-invite.js, which sets every [id$="-format-select"] to the host's format id.
+           So this select must keep its id and stay hidden, and the visible dropdowns' ids must NOT end in -format-select. -->
+      <select id="swu-format-select" style="display: none;" aria-hidden="true" tabindex="-1"></select>
+      <input type="hidden" id="swu-cardpool-input" value="">
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
         <div style="flex: 1; min-width: 140px;">
           <label for="swu-queuetype-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Match Type:</label>
           <select id="swu-queuetype-select" class="swu-queue-select">
@@ -144,11 +148,9 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
            are clip-path'd to the cut corners; an element background is NOT clipped, so it paints
            a full rectangle that shows through as a solid triangle in each chamfer. -->
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <?php if (SWUIsLocalDevRequest()): ?>
-        <!-- Public matchmaking is hidden in production for now; enabled only in the dev environment
-             (DEVENV or a localhost Host) so Playwright suites can still exercise the queue flow. -->
+        <!-- Public matchmaking (open since 2026-09-16): applyFormatUI shows this for a PvP card pool whose tree entry says
+             publicQueue — never Arenabot, Twin Suns or 1P Mode. The server enforces the same rule (JoinQueue.php). -->
         <button id="join-queue-btn" onclick="joinQueue()">Join Queue</button>
-        <?php endif; ?>
         <!-- Solo / local modes (Goldfish, Hotseat) are NOT matchmade — JoinQueue.php creates the
              game immediately. They used to ride the "Join Queue" button, which is dev-only in
              production, leaving those formats unstartable; this button is their own entry point.
@@ -518,6 +520,12 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
   var rootName = "SWUSim";
   var _lobby_id = "";
   var _privateInviteCode = "";
+  // The game-setup menu tree (AppCore/SWU/Formats.php SWUMenuTreeFor / SWUMenuTree); see the menu section further down.
+  var SWU_MENU = {
+    tree: <?php echo json_encode($swuMenuTree, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>,
+    full: <?php echo json_encode($swuMenuTreeFull, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>,
+    defaultFormat: <?php echo json_encode($swuLoggedIn ? 'premier' : 'open'); ?>
+  };
   var _waitingEscHandler = null;
 
       // TODO: remove this function before deploy
@@ -567,6 +575,18 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
       // lobby's settings for an invite join), and RE-APPLY after applyFormatUI re-runs.
       function initializePrivateInviteFromUrl() {
         try {
+          if (window.PrivateInviteUI && !window.PrivateInviteUI._swuMenuWrapped) {
+            // The shared module applies an invite by setting #swu-format-select to the host's format — without firing a
+            // change event, and a second time when its async lookup returns. Wrap its public enforce() BEFORE init(), so
+            // both applies also re-sync the three visible dropdowns. (init() registers api.enforce, so it registers this
+            // wrapper; the module itself is unchanged.)
+            var baseEnforce = window.PrivateInviteUI.enforce;
+            window.PrivateInviteUI.enforce = function () {
+              baseEnforce.apply(this, arguments);
+              swuSyncMenuFromStoredFormat();
+            };
+            window.PrivateInviteUI._swuMenuWrapped = true;
+          }
           _privateInviteCode = window.PrivateInviteUI ? window.PrivateInviteUI.init({ rootName: 'SWUSim' }) : '';
         } catch (e) {
           console.error('Failed to parse private invite URL:', e);
@@ -599,12 +619,15 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         var deckLink2 = deck2El ? deck2El.value.trim() : '';
         var botStyleEl = document.getElementById('swu-botstyle-select');
         var botStyle = (format === 'botpractice' && botStyleEl) ? botStyleEl.value : '';
+        var cardPoolEl = document.getElementById('swu-cardpool-input');
+        var cardPool = (format === 'botpractice' && cardPoolEl) ? cardPoolEl.value : '';
 
         return {
           preconstructedDeck: preconstructedDeck,
           deckLink: deckLink,
           deckLink2: deckLink2,
           botStyle: botStyle,
+          cardPool: cardPool,
           gameType: gameType,
           format: format,
           queueType: queueType
@@ -667,59 +690,161 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         loadSavedDeckInput(opt ? opt.getAttribute('data-queue-input') : '');
       });
 
-      // Format-dependent UI: Hotseat and Bot Practice reveal a 2nd deck input, Bot Practice its Play Style
-      // select; the solo/local modes are Bo1-only for now (lock Match Type to Bo1 — remove the isMode
-      // branch below to re-enable Bo3 later).
-      (function(){
-        var fmt = document.getElementById('swu-format-select');
-        if (!fmt) return;
-        function applyFormatUI(){
-          var isBotPractice = (fmt.value === 'botpractice');
-          var isMode = (fmt.value === 'goldfish' || fmt.value === 'hotseat' || isBotPractice);
-          var isTwinSuns = (fmt.value === 'twinsuns');
-          var isTwinSunsPreview = (fmt.value === 'twinsuns-preview');
-          var g = document.getElementById('swu-deck2-group');
-          if (g) g.style.display = (fmt.value === 'hotseat' || isBotPractice) ? '' : 'none';
-          var d2Label = document.getElementById('swu-deck2-label');
-          if (d2Label) d2Label.textContent = isBotPractice ? 'Bot deck link:' : 'Player 2 deck link (Hotseat):';
-          var d2Input = document.getElementById('swu-deck2-input');
-          if (d2Input) d2Input.placeholder = isBotPractice ? 'Leave empty for the bot to play your deck' : 'Second deck link';
-          var bs = document.getElementById('swu-botstyle-group');
-          if (bs) bs.style.display = isBotPractice ? '' : 'none';
-          // Followed someone else's invite link? Then the ONLY sensible action is Join Private Invite.
-          // Public matchmaking and hosting your own private game both abandon the invite they came for,
-          // and the server adopts the host's format/match type regardless of these selects.
-          // ⚠ This gate must live here as well as in initializePrivateInviteFromUrl: applyFormatUI owns
-          // these controls and re-runs on every format change, so without it one dropdown change would
-          // silently bring the buttons back and re-enable the match-type select.
-          var joiningInvite = !!_privateInviteCode;
-          var qt = document.getElementById('swu-queuetype-select');
-          if (qt) {
-            if (joiningInvite) { qt.disabled = true; }
-            else if (isMode || isTwinSuns || isTwinSunsPreview) { qt.value = 'bo1'; qt.disabled = true; }
-            else { qt.disabled = false; }
+      // ── Game-setup menu: game type → opponent / players / mode → card pool ────────────────────────────────────────────
+      // docs/superpowers/specs/2026-09-16-swusim-format-menu-design.md. The dropdowns are a VIEW: they write the stored
+      // format (#swu-format-select) and card pool (#swu-cardpool-input), and applyFormatUI below reads only those.
+      var swuMenuTree = SWU_MENU.tree;
+      function swuMenuEl(id) { return document.getElementById(id); }
+      function swuFindById(list, id) { for (var i = 0; i < list.length; i++) { if (list[i].id === id) return list[i]; } return null; }
+      // Replace a select's options, keeping its current value when the new list still offers it.
+      function swuSetOptions(sel, items) {
+        if (!sel) return;
+        var keep = sel.value;
+        sel.innerHTML = '';
+        items.forEach(function (it) {
+          var o = document.createElement('option'); o.value = it.value; o.textContent = it.label; sel.appendChild(o);
+        });
+        if (items.some(function (it) { return it.value === keep; })) sel.value = keep;
+      }
+      function swuCurrentGameType() {
+        var gt = swuMenuEl('swu-gametype-select');
+        return swuFindById(swuMenuTree, gt ? gt.value : '') || swuMenuTree[0];
+      }
+      function swuCurrentOption() {
+        var t = swuCurrentGameType(); var s = swuMenuEl('swu-second-select');
+        return t ? (swuFindById(t.options, s ? s.value : '') || t.options[0]) : null;
+      }
+      // Refill the lower dropdowns for the current upper choices. A card pool the new branch also offers is kept.
+      function swuFillMenu() {
+        swuSetOptions(swuMenuEl('swu-gametype-select'), swuMenuTree.map(function (t) { return { value: t.id, label: t.label }; }));
+        var t = swuCurrentGameType();
+        if (!t) return;
+        swuSetOptions(swuMenuEl('swu-second-select'), t.options.map(function (o) { return { value: o.id, label: o.label }; }));
+        var lbl = swuMenuEl('swu-second-label'); if (lbl) lbl.textContent = t.secondLabel + ':';
+        var opt = swuCurrentOption();
+        var pools = (opt && opt.pools) || [];
+        swuSetOptions(swuMenuEl('swu-pool-select'), pools.map(function (p) { return { value: p.format, label: p.label }; }));
+        var pg = swuMenuEl('swu-pool-group'); if (pg) pg.style.display = pools.length ? '' : 'none';
+      }
+      // Write the stored format and card pool from the dropdowns — the same rule as SWUMenuLeaves() in AppCore/SWU/Formats.php:
+      // an option with its own format stores it and plays the chosen pool; otherwise the chosen pool is the format.
+      function swuWriteStored() {
+        var opt = swuCurrentOption();
+        var pools = (opt && opt.pools) || [];
+        var poolSel = swuMenuEl('swu-pool-select');
+        var pool = (pools.length && poolSel) ? poolSel.value : '';
+        var format = opt ? (opt.format || pool) : '';
+        var fmt = swuMenuEl('swu-format-select');
+        if (fmt && format) {
+          if (!Array.prototype.some.call(fmt.options, function (o) { return o.value === format; })) {
+            var o = document.createElement('option'); o.value = format; o.textContent = format; fmt.appendChild(o);
           }
-          var joinBtn = document.getElementById('join-queue-btn');
-          var createBtn = document.getElementById('create-private-game-btn');
-          var soloBtn = document.getElementById('start-solo-btn');
-          // Solo/local modes: only the Start button applies — matchmaking and private invites
-          // are meaningless for a game that has no remote opponent.
-          if (joinBtn) joinBtn.style.display = (joiningInvite || isTwinSuns || isMode) ? 'none' : '';
-          if (createBtn) {
-            // One label for every format: EVERY private lobby is a room now (WaitingRoom.php), not
-            // just Twin Suns, so relabelling per format would imply a distinction that no longer
-            // exists. The format select right above already says which format the room will be.
-            createBtn.style.display = (joiningInvite || isMode) ? 'none' : '';
-            createBtn.textContent = 'Create Private Room';
-          }
-          if (soloBtn) {
-            soloBtn.style.display = isMode ? '' : 'none';
-            soloBtn.textContent = (fmt.value === 'hotseat') ? 'Start Hotseat Game'
-                               : (isBotPractice ? 'Start Bot Practice' : 'Start 1P Game');
+          fmt.value = format;
+        }
+        var cp = swuMenuEl('swu-cardpool-input'); if (cp) cp.value = pools.length ? pool : 'open';
+      }
+      function swuOnMenuChange() { swuFillMenu(); swuWriteStored(); applyFormatUI(); }
+      // Point the dropdowns at a stored format (and, for Arenabot, a card pool). Used by invites and the browser harnesses.
+      // useFull searches the FULL tree and makes it the menu's source: an invite's host may have picked a path this viewer's
+      // own menu does not offer. Returns false, changing nothing, when no path matches.
+      function swuSelectFormat(formatId, cardPool, useFull) {
+        var source = useFull ? SWU_MENU.full : SWU_MENU.tree;
+        for (var i = 0; i < source.length; i++) {
+          var t = source[i];
+          for (var j = 0; j < t.options.length; j++) {
+            var o = t.options[j];
+            var pools = o.pools || [];
+            var pool = null;
+            if (o.format) {
+              if (o.format !== formatId) continue;
+              if (pools.length) {
+                pool = pools.filter(function (p) { return p.format === (cardPool || 'open'); })[0] || null;
+                if (!pool) continue;
+              }
+            } else {
+              pool = pools.filter(function (p) { return p.format === formatId; })[0] || null;
+              if (!pool) continue;
+            }
+            swuMenuTree = source;
+            swuSetOptions(swuMenuEl('swu-gametype-select'), source.map(function (x) { return { value: x.id, label: x.label }; }));
+            swuMenuEl('swu-gametype-select').value = t.id;
+            swuFillMenu();
+            swuMenuEl('swu-second-select').value = o.id;
+            swuFillMenu();
+            if (pool) swuMenuEl('swu-pool-select').value = pool.format;
+            swuWriteStored();
+            applyFormatUI();
+            return true;
           }
         }
-        fmt.addEventListener('change', applyFormatUI);
-        applyFormatUI();
+        return false;
+      }
+      // Invites: mirror the stored format into the dropdowns and lock them (the shared module locks only the stored select).
+      function swuSyncMenuFromStoredFormat() {
+        var joining = !!(window.PrivateInviteUI && window.PrivateInviteUI.code);
+        var fmt = swuMenuEl('swu-format-select'); var cp = swuMenuEl('swu-cardpool-input');
+        if (fmt && fmt.value) swuSelectFormat(fmt.value, cp ? cp.value : '', joining);
+        ['swu-gametype-select', 'swu-second-select', 'swu-pool-select'].forEach(function (id) {
+          var el = swuMenuEl(id); if (el) el.disabled = joining;
+        });
+      }
+      // Format-dependent UI, read from the STORED values: Hotseat and Arenabot reveal a 2nd deck input, Arenabot its Play
+      // Style select. The local modes and the whole Twin Suns family are Bo1 with no public queue (owner, 2026-09-16:
+      // "Twin Suns Bo3 was not needed") — the family is decided by the menu branch, not by listing ids.
+      // Join Queue is offered per card pool: SWUMenuTree() marks each pool with publicQueue (SWUFormatAllowsPublicQueue on
+      // the server), which is true only for PvP pools. docs/superpowers/specs/2026-09-16-swusim-public-queues-design.md §3.
+      function swuCurrentPoolQueues() {
+        var opt = swuCurrentOption();
+        var pools = (opt && opt.pools) || [];
+        var poolSel = swuMenuEl('swu-pool-select');
+        var cur = poolSel ? poolSel.value : '';
+        for (var i = 0; i < pools.length; i++) { if (pools[i].format === cur) return pools[i].publicQueue === true; }
+        return false;
+      }
+      function applyFormatUI() {
+        var fmt = swuMenuEl('swu-format-select');
+        if (!fmt) return;
+        var gameTypeEl = swuMenuEl('swu-gametype-select');
+        var isArenabot = (fmt.value === 'botpractice');
+        var isMode = (fmt.value === 'goldfish' || fmt.value === 'hotseat' || isArenabot);
+        var isTwinSunsFamily = !!gameTypeEl && gameTypeEl.value === 'twinsuns';
+        var g = swuMenuEl('swu-deck2-group');
+        if (g) g.style.display = (fmt.value === 'hotseat' || isArenabot) ? '' : 'none';
+        var d2Label = swuMenuEl('swu-deck2-label');
+        if (d2Label) d2Label.textContent = isArenabot ? 'Bot deck link:' : 'Player 2 deck link (Hotseat):';
+        var d2Input = swuMenuEl('swu-deck2-input');
+        if (d2Input) d2Input.placeholder = isArenabot ? 'Leave empty for the bot to play your deck' : 'Second deck link';
+        var bs = swuMenuEl('swu-botstyle-group');
+        if (bs) bs.style.display = isArenabot ? '' : 'none';
+        // Followed someone else's invite link? Then the ONLY sensible action is Join Private Invite. This gate lives here as
+        // well as in the shared module, because this function owns these controls and re-runs on every menu change.
+        var joiningInvite = !!_privateInviteCode || !!(window.PrivateInviteUI && window.PrivateInviteUI.code);
+        var qt = swuMenuEl('swu-queuetype-select');
+        if (qt) {
+          if (joiningInvite) { qt.disabled = true; }
+          else if (isMode || isTwinSunsFamily) { qt.value = 'bo1'; qt.disabled = true; }
+          else { qt.disabled = false; }
+        }
+        var joinBtn = swuMenuEl('join-queue-btn');
+        var createBtn = swuMenuEl('create-private-game-btn');
+        var soloBtn = swuMenuEl('start-solo-btn');
+        if (joinBtn) joinBtn.style.display = (joiningInvite || !swuCurrentPoolQueues()) ? 'none' : '';
+        if (createBtn) {
+          // One label for every format: EVERY private lobby is a room (WaitingRoom.php).
+          createBtn.style.display = (joiningInvite || isMode) ? 'none' : '';
+          createBtn.textContent = 'Create Private Room';
+        }
+        if (soloBtn) {
+          soloBtn.style.display = isMode ? '' : 'none';
+          soloBtn.textContent = (fmt.value === 'hotseat') ? 'Start Hotseat Game' : (isArenabot ? 'Start Arenabot' : 'Start 1P Game');
+        }
+      }
+      (function () {
+        if (!swuMenuEl('swu-gametype-select')) return;
+        ['swu-gametype-select', 'swu-second-select', 'swu-pool-select'].forEach(function (id) {
+          swuMenuEl(id).addEventListener('change', swuOnMenuChange);
+        });
+        if (!swuSelectFormat(SWU_MENU.defaultFormat, '', false)) { swuFillMenu(); swuWriteStored(); applyFormatUI(); }
       })();
 
       function createPrivateGame() {
@@ -751,6 +876,9 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         }
 
         // ── Step 1: validate deck before touching the queue ──────────────────
+        // Arenabot is checked against the card pool it plays, not its unrestricted internal format. The server checks both
+        // decks again (APIs/Lobbies/JoinQueue.php); this is only the early, friendlier message.
+        var checkFormat = (submission.format === 'botpractice') ? (submission.cardPool || 'open') : (submission.format || 'premier');
         showQueueInlineInfo('Validating deck…');
         var vxhr = new XMLHttpRequest();
         vxhr.open('POST', swusimAppBase() + 'SWUSim/ValidateDeck.php', true);
@@ -768,7 +896,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
           }
           // Hard block on format violations
           if (vres.formatErrors && vres.formatErrors.length) {
-            var formatLabel = (submission.format || 'premier');
+            var formatLabel = checkFormat;
             formatLabel = formatLabel.charAt(0).toUpperCase() + formatLabel.slice(1);
             showQueueInlineError(formatLabel + ' format error:\n• ' + vres.formatErrors.join('\n• '));
             return;
@@ -789,7 +917,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
           showQueueInlineError('Could not reach deck validator. Check your connection.');
         };
         vxhr.send('deckLink=' + encodeURIComponent(submission.deckLink) +
-                  '&format=' + encodeURIComponent(submission.format || 'premier'));
+                  '&format=' + encodeURIComponent(checkFormat));
       }
 
       function doJoinQueue(options, submission) {
@@ -827,6 +955,11 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
                                      encodeURIComponent(response.lobbyID);
               return;
             }
+            if (response.ready && !response.gameName) {
+              // Never navigate to gameName=undefined (docs/superpowers/specs/2026-09-16-swusim-public-queues-design.md §2.4).
+              showQueueInlineError('The match could not be started — please queue again.');
+              return;
+            }
             if (response.ready) {
               DisplayMatchFoundPopup(response.playerID, response.gameName, response.authKey);
             } else {
@@ -854,6 +987,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         params += '&queueType=' + encodeURIComponent(submission.queueType || 'bo1');
         if (submission.deckLink2)       params += '&deckLink2=' + encodeURIComponent(submission.deckLink2);
         if (submission.botStyle)        params += '&botStyle=' + encodeURIComponent(submission.botStyle);
+        if (submission.cardPool)        params += '&cardPool=' + encodeURIComponent(submission.cardPool);
         if (options.createPrivate)      params += '&createPrivate=1';
         if (options.privateInviteCode)  params += '&privateInviteCode=' + encodeURIComponent(options.privateInviteCode);
         xhr.send(params);
@@ -1233,6 +1367,18 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         xhr.onload = function() {
           if (xhr.status >= 200 && xhr.status < 300) {
             var response = JSON.parse(xhr.responseText);
+            if (response.gone || (response.ready && !response.gameName)) {
+              // Released from the queue, or the lobby is gone: say why and STOP polling. Re-polling a gone lobby used to
+              // spin (docs/superpowers/specs/2026-09-16-swusim-public-queues-design.md §2.4).
+              var goneWaitingPopup = document.getElementById('waiting-popup');
+              if (goneWaitingPopup) goneWaitingPopup.remove();
+              if (_waitingEscHandler) {
+                document.removeEventListener('keydown', _waitingEscHandler);
+                _waitingEscHandler = null;
+              }
+              showQueueInlineError(response.message || 'The match could not be started — please queue again.');
+              return;
+            }
             if (response.ready) {
               // Close waiting popup and show match found popup
               var waitingPopup = document.getElementById('waiting-popup');

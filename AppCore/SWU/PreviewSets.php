@@ -5,7 +5,7 @@
 //
 // Remove a set from this list on its release day — that alone promotes it into the released
 // pool. See docs/superpowers/specs/2026-07-29-swu-preview-format-design.md.
+// HMW left this list on 2026-09-16 (owner): released, legal in Premier and Eternal.
 return array(
-    'HMW',
     'IC27',
 );

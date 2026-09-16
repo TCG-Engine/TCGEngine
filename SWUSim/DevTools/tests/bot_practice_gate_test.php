@@ -29,7 +29,7 @@ putenv('DEVENV=false');
 // The endpoint's refusal (APIs/Lobbies/JoinQueue.php calls SWUBotPracticeRefusal before anything else reads the format).
 // Tested here in the CLI: the local container's Apache runs with DEVENV=true, so over HTTP every request is local dev.
 $as('swustats.net', 'someplayer');
-$check(SWUBotPracticeRefusal('botpractice') === 'Bot Practice is currently limited to approved testers.', 'a non-admin Bot Practice request gets the refusal');
+$check(SWUBotPracticeRefusal('botpractice') === 'Arenabot is currently limited to approved testers.', 'a non-admin Arenabot request gets the refusal');
 $check(SWUBotPracticeRefusal('premier') === null && SWUBotPracticeRefusal('hotseat') === null, 'other formats are never refused by it');
 $as('swustats.net', $mod);
 $check(SWUBotPracticeRefusal('botpractice') === null, 'an approved moderator is not refused');

@@ -128,5 +128,17 @@ check(strpos($ui, 'resolveCardImageID(cardNumber)') !== false,
 $nextTurn = file_get_contents(__DIR__ . '/../../../NextTurn.php');
 check(preg_match('#jsInclude\.js\?v=#', $nextTurn) === 1, 'jsInclude.js is cache-busted');
 
+// --- preferMocks: the mock REPLACES the official row (flip-audit's mock-side view) ---
+$arr = [(object)['id' => 'SOR_001', 'title' => 'Official One'], (object)['id' => 'HMW_004', 'title' => 'Official Tarkin']];
+$res = SWUMergeMockCards($arr, true, $fixture, true);
+check(count($arr) === 2, 'prefer mode replaces in place, adds no row');
+check($arr[1]->title === 'Grand Moff Tarkin', 'prefer mode: mock row replaced the official row');
+check($arr[0]->title === 'Official One', 'prefer mode: unrelated official row untouched');
+check($res['added'] === ['HMW_004'] && $res['superseded'] === [], 'prefer mode reports the replacement as added');
+
+$arr2 = [(object)['id' => 'HMW_004', 'title' => 'Official Tarkin']];
+$res2 = SWUMergeMockCards($arr2, true, $fixture);
+check($arr2[0]->title === 'Official Tarkin' && $res2['superseded'] === ['HMW_004'], 'default mode unchanged: official wins');
+
 unlink($fixture);
 echo "OK\n";

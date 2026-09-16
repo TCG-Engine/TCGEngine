@@ -84,7 +84,7 @@ funcs={
 bare={'leaderAbilities','baseAbilities'}  # keyed by bare CardID, not CardID:N
 custom=''
 # ** = incl. per-card files under cards/<set>/. SKIP data files (CardMocks.php,
-# CardTraitSupplement.php): they list CardIDs without implementing anything, so counting them
+# CardDataSupplement.php): they list CardIDs without implementing anything, so counting them
 # makes every mocked/supplemented card look wired and hides real gaps. They carry SCAFFOLD-IGNORE.
 for f in glob.glob('SWUSim/Custom/**/*.php', recursive=True):
     src=open(f).read()

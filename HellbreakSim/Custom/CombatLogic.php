@@ -415,7 +415,10 @@ function HellbreakLegalAttackers(int $player): array {
     }
     foreach(HellbreakLiveZoneObjects(GetCharacters($player)) as $index => $character) {
         $ref = HellbreakBattlefieldRef($player, 'myCharacters-' . $index);
-        if($ref !== null && count(HellbreakAttackTargetsForRef($player, $ref)) > 0) $attackers[] = 'myCharacters-' . $index;
+        // Same readiness gate as the monster above. Without it an exhausted minion stayed a legal
+        // attacker and could attack every action — HellbreakAttackTargetsForRef never checks Status.
+        if($ref === null || !HellbreakIsReadyControlledCharacter($ref, $player)) continue;
+        if(count(HellbreakAttackTargetsForRef($player, $ref)) > 0) $attackers[] = 'myCharacters-' . $index;
     }
     return $attackers;
 }

@@ -251,7 +251,7 @@ function SWUPreviewToMock(array $rec): array {
         'upgradeHp'    => isset($rec['hitPointBonus']) ? intval($rec['hitPointBonus']) : null,
         'aspect'   => $aspectNames,
         // Bases keep their location trait ("Seatos", "Tatooine"). The OFFICIAL API omits traits for
-        // every base, but CardTraitSupplement.php now backfills them, so a mocked base does NOT
+        // every base, but CardDataSupplement.php now backfills them, so a mocked base does NOT
         // lose its trait on release day — the supplement supplies the same value.
         'trait'    => _SWUPreviewTraitList($rec['traits'] ?? []),
         'text'     => $frontText,

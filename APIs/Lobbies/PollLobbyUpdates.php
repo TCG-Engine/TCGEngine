@@ -150,6 +150,17 @@ while (true) {
     exit;
   }
 
+  // A public-queue seat released at pairing (its deck failed, or the match could not start) is told why, once, and the
+  // client stops polling. docs/superpowers/specs/2026-09-16-swusim-public-queues-design.md §2.3.
+  if ($lobby && is_array($lobby->queueNotices ?? null) && isset($lobby->queueNotices[strval($authKey)])) {
+    $response->success = false;
+    $response->gone    = true;
+    $response->message = strval($lobby->queueNotices[strval($authKey)]);
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit;
+  }
+
   if ($lobby) {
     // Joining fills the lobby before game creation runs outside the lobby lock.
     // Wait for its committed game name before telling polling players to navigate.

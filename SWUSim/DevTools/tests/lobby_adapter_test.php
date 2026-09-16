@@ -31,7 +31,7 @@ function lobby(string $format, bool $private): object {
 $expectPrivate = [
     'premier' => true, 'eternal' => true, 'open' => true, 'padawan' => true,
     'padawan-preview' => true, 'preview' => true, 'twinsuns-preview' => true,
-    'eternal-preview' => true, 'twinsuns' => true, 'teamsuns' => true,
+    'eternal-preview' => true, 'twinsuns' => true, 'teamsuns' => true, 'teamsuns-preview' => true,
     'goldfish' => false,   // solo
     'hotseat'  => false,   // one human driving both seats
     // Bot Practice: one human at seat 1, Core/BotController.php at seat 2. No remote opponent ever
