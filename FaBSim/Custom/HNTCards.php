@@ -21,7 +21,7 @@ function FaBHNTBeforeHit(int $p,object $o,int $v): void {
  $marked=FaBHNTMarked($v);FaBARCSetCard(intval($o->UniqueID),'hntHitMarked'.$v,$marked);
  if($p!==$v&&in_array($v,FaBOpponents($p),true))FaBHNTMark($v,false);
  if($marked&&FaBHasKeyword($o,'Stealth')&&(FaBMONHero($p,'arakni_marionette')||FaBMONHero($p,'arakni_web_of_deceit')))FaBWTRTag($o,'GO_AGAIN');
- if($marked&&(FaBMONHero($p,'cindra')||FaBMONHero($p,'fang')))FaBHVYToken($p,'fealty',1,$p,false);
+ if($marked&&!FaBSEAHeroCreationBlocked($p)&&(FaBMONHero($p,'cindra')||FaBMONHero($p,'fang')))FaBHVYToken($p,'fealty',1,$p,false);
  if($marked)foreach(FaBChoiceRefs($p,'CombatChain') as $r){$c=FaBIdentityFromMZ($r)['object'];if(intval($c->UniqueID)===intval($o->UniqueID)||HasNoAbilities($c)||($c->Role??'')!=='ATTACK')continue;$b=FaBWTRBase($c->CardID);if($b==='defang_the_dragon'&&FaBMONHero($v,'fang')||$b==='extinguish_the_flames'&&FaBMONHero($v,'cindra'))DoDrawCard($p,1);}
 }
 function FaBHNTHit(int $p,object $o,int $v): void {

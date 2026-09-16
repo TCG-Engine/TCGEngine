@@ -37,6 +37,7 @@ function FaBEVOPlayed(int $p,object $o,string $from): void {
  if(FaBWTRIsAttackAction($o)||FaBWTRIsWeapon($o)){if(FaBEVOEffect($p,'BELLONA')){FaBEVOClear($p,'BELLONA');FaBRunSourceMacro('ResolveAbility',$p,'warband_of_bellona',['mzID'=>FaBDTDSource($uid),'evoEvent'=>'charge']);}}
 }
 function FaBEVOBoost(int $p,int $uid,int $banished): void {
+ FaBPENBoost($p,$uid,$banished);
  $f=FaBFindUID($uid);$b=FaBFindUID($banished);if(!$f)return;
  if($b&&(FaBHasType($b['object'],'Equipment')||FaBHasType($b['object'],'Item')))FaBARCSetCard($uid,'evoBoostEquipment',true);
  if($b&&FaBWTRBase($b['object']->CardID)==='big_bertha')FaBRunSourceMacro('ResolveAbility',$p,$b['object']->CardID,['mzID'=>$b['mzID']]);

@@ -5,7 +5,7 @@ function FaBHVYAdd(int $p,string $key,int $n=1,array $data=[]): void {FaBWTRAddE
 function FaBHVYClear(int $p,string $key): void {FaBWTRSetEffects($p,array_values(array_filter(FaBWTREffects($p),fn($e)=>($e['type']??'')!=='HVY_'.$key)));}
 function FaBHVYHero(int $p,string $hero): bool {return FaBMONHero($p,$hero);}
 function FaBHVYGold(int $p): string {
-    $refs=FaBChoiceRefs($p,'Arena',['base'=>'gold']);
+    $refs=array_merge(FaBChoiceRefs($p,'Arena',['base'=>'gold']),FaBChoiceRefs($p,'Arena',['base'=>'golden_skull']),FaBSUPGoldEquipment($p));
     foreach(FaBCRUEquipment($p,'aurum_aegis') as $r)$refs[]=$r;
     return implode('&',$refs);
 }
@@ -19,22 +19,25 @@ function FaBHVYActionSource(): bool {
 }
 function FaBHVYToken(int $p,string $id,int $n=1,?int $controller=null,?bool $action=null,bool $wager=false): ?object {
     if(!FaBSeatIsLive($p)||$n<1)return null;$controller??=intval($GLOBALS['fabEffectController']??0)?:$p;$action??=FaBHVYActionSource();
+    if(FaBPENReplaceFrost($p,$id,$n,$controller,$action,$wager))return null;
+    $n=FaBMPGTokenCount($p,$id,$n);if(FaBHasType($id,'Aura') && (FaBHasType($id,'Elemental')||FaBHasType($id,'Runeblade')))$n+=FaBARCEffect($p,'PEN_VERDANT');if($n<1)return null;
     if(FaBHasType($id,'Aura')&&FaBROSActive($p,'florian'))++$n;
     if($wager)foreach(FaBLiveSeats() as $s)$n+=FaBHVYCount($s,'DOUBLE_DOWN');
     if($action)foreach(FaBLiveSeats() as $s)$n-=FaBHVYCount($s,'RIPPLE');
     $first=null;for($i=0;$i<max(0,$n);++$i){$o=FaBWTRCreateArena($p,$id,true);$first??=$o;}
-    if($n>0&&in_array($id,['agility','might','vigor'],true))FaBHVYAdd($p,'CONTROLLED_'.$id);
+    if($n>0&&$id==='runechant')FaBIARCreatedRunes($p,$n);
+    if($n>0&&in_array($id,['agility','confidence','toughness','might','vigor'],true))FaBHVYAdd($p,'CONTROLLED_'.$id);
     if($n>0&&$id==='gold'&&$controller===$p&&FaBHVYHero($p,'victor_goldmane')&&!FaBHVYCount($p,'VICTOR_DRAW')&&in_array(GetCurrentPhase(),['MAIN','END'],true)) {
         FaBHVYAdd($p,'VICTOR_DRAW');DoDrawCard($p,1);
     }
     return $first;
 }
-function FaBHVYOwnedPower(int $p,object $o): int {return FaBMONBasePower($p,$o);}
+function FaBHVYOwnedPower(int $p,object $o): int {return FaBMONBasePower($p,$o)+FaBMPGOutsidePower($p,$o);}
 function FaBHVYPowerOutsideChain(int $p,object $o): int {
     $owner=intval($o->Owner??$p);if(!$owner)$owner=$p;
-    if(!FaBWTRIsAttackAction($o)||!FaBHVYHero($owner,'kayo')||FaBHVYHero($owner,'kayo_berserker_runt'))return 0;
+    if(!FaBWTRIsAttackAction($o)||!FaBHVYHero($owner,'kayo')||(FaBHVYHero($owner,'kayo_berserker_runt')||in_array(GetHero($owner)[0]->CardID,['kayo_strong_arm','kayo_underhanded_cheat'],true)))return 0;
     $f=isset($o->UniqueID)?FaBFindUID(intval($o->UniqueID)):null;
-    return ($f&&$f['zone']==='CombatChain')||(!$f&&in_array($o->Role??'',['ATTACK','DEFENSE','DEFENSE_REACTION'],true))?0:1;
+    return ($f&&$f['zone']==='CombatChain')||(!$f&&in_array($o->Role??'',['ATTACK','DEFENSE','DEFENSE_REACTION'],true))?0:FaBPENPowerGain($o,1);
 }
 function FaBHVYSix(int $p,string $zone='Hand'): string {
     return implode('&',array_filter(FaBChoiceRefs($p,$zone),fn($r)=>FaBHVYOwnedPower($p,FaBIdentityFromMZ($r)['object'])>=6));
@@ -45,11 +48,11 @@ function FaBHVYBottom(int $uid): void {if(FaBFindUID($uid))FaBARCToDeck(FaBFindU
 function FaBHVYClash(int $a,int $b): array {
     $out=['winner'=>0,'cards'=>[],'seats'=>[$a,$b]];
     if($a===$b||!FaBSeatIsLive($a)||!FaBSeatIsLive($b))return $out;
-    $power=[];
-    foreach([$a,$b] as $p){$r=FaBChoiceRefs($p,'Deck')[0]??'';$f=FaBIdentityFromMZ($r);$power[$p]=-1;
-        if($f){$o=$f['object'];FaBRevealChoices($p,$r);$power[$p]=is_numeric(CardPower($o->CardID))?FaBHVYOwnedPower($p,$o):-1;$out['cards'][]=['player'=>$p,'uid'=>intval($o->UniqueID),'card'=>$o->CardID];}}
+    $switch=FaBSUPSwitch($a,$b);$out['switch']=$switch;$power=[];
+    foreach([$a,$b] as $p){$owner=$switch?($p===$a?$b:$a):$p;$r=FaBChoiceRefs($owner,'Deck')[0]??'';$f=FaBIdentityFromMZ($r);$power[$p]=-1;
+        if($f){$o=$f['object'];FaBRevealChoices($p,$r);$power[$p]=is_numeric(CardPower($o->CardID))?FaBHVYOwnedPower($owner,$o):-1;$out['cards'][]=['owner'=>$owner,'player'=>$p,'uid'=>intval($o->UniqueID),'card'=>$o->CardID];}}
     if($power[$a]!==$power[$b])$out['winner']=$power[$a]>$power[$b]?$a:$b;
-    return $out;
+    return FaBSUPClashResult($out);
 }
 function FaBHVYClashRetry(array $clash): int {
     foreach($clash['seats'] as $p)if($p!==intval($clash['winner'])&&FaBSeatIsLive($p)&&FaBHVYHero($p,'victor_goldmane')&&!FaBHVYCount($p,'VICTOR_RETRY')){FaBHVYAdd($p,'VICTOR_RETRY');return $p;}
@@ -64,9 +67,10 @@ function FaBHVYBottomPreview(string $r,string $refs): void {
     FaBHVYClearPreviews($refs);
 }
 function FaBHVYClashWon(array $clash,int $controller,string $prize=''): int {
-    $p=intval($clash['winner']);if(!$p||!FaBSeatIsLive($p))return 0;FaBHVYAdd($p,'CLASH_WINS');
+    $p=intval($clash['winner']);if(!$p||!FaBSeatIsLive($p))return 0;FaBHVYAdd($p,'CLASH_WINS');FaBSUPClashWon($clash);
     if($prize!=='')FaBHVYToken($p,$prize,1,$controller);
-    foreach($clash['cards'] as $entry)if($entry['player']===$p){$token=['the_golden_son'=>'gold','thunk'=>'might','wallop'=>'vigor'][FaBWTRBase($entry['card'])]??'';if($token!=='')FaBHVYToken($p,$token,1,$p,true);}
+
+    foreach($clash['cards'] as $entry)if($entry['player']===$p&&intval($entry['owner']??$p)===$p){$token=['the_golden_son'=>'gold','thunk'=>'might','wallop'=>'vigor'][FaBWTRBase($entry['card'])]??'';if($token!=='')FaBHVYToken($p,$token,1,$p,true);}
     return $p;
 }
 function FaBHVYWager(int $p,int $uid,int $victim,array $tokens): bool {
@@ -77,7 +81,7 @@ function FaBHVYWager(int $p,int $uid,int $victim,array $tokens): bool {
     return true;
 }
 function FaBHVYResolveWagers(int $p,int $uid): void {
-    if(!FaBSeatIsLive($p))return;$s=FaBGetState();$wagers=(array)FaBARCCard($uid,'hvyWagers',[]);FaBARCSetCard($uid,'hvyWagers',[]);$olympia=false;
+    if(!FaBSeatIsLive($p))return;$s=FaBGetState();$wagers=(array)FaBARCCard($uid,'hvyWagers',[]);FaBARCSetCard($uid,'hvyWagers',[]);if(FaBPENWagerResolution($p,$uid,$wagers))return;$olympia=false;
     foreach($wagers as $w){$victim=intval($w['victim']);$hit=isset($s['targetDamage'][(string)$victim])?intval($s['targetDamage'][(string)$victim]['damage'])>0:(!empty($s['attackHit'])&&$victim===intval($s['defender']));$winner=$hit?$p:$victim;
         if(!FaBSeatIsLive($winner))continue;foreach($w['tokens'] as $token){if($token==='ROS_DRINK'){DoDrawCard($winner,1);FaBROSQueue($winner,'drink_em_under_the_table_red',$uid,['rosTarget'=>$hit?$victim:$p]);}else FaBHVYToken($winner,$token,1,$p,$w['action'],true);}
         if($hit&&!$olympia&&FaBHVYHero($p,'olympia')){$olympia=true;FaBHVYToken($p,'gold',1,$p,false);}}
@@ -90,7 +94,7 @@ function FaBHVYActionBlock(array $s): bool {foreach(FaBLiveSeats() as $p)foreach
 function FaBHVYNext(int $p,int $power,string $classes='',string $tag=''): void {FaBHVYAdd($p,'NEXT_ATTACK',$power,['classes'=>$classes,'tag'=>$tag]);}
 function FaBHVYAbove(int $uid): bool {$f=FaBFindUID($uid);return $f&&FaBAttackPower(FaBGetState())>intval(CardPower($f['object']->CardID));}
 function FaBHVYControlCount(int $p,string $kind): int {if($kind!=='Equipment')return count(FaBChoiceRefs($p,'Arena',['type'=>$kind]));$n=0;foreach(['Equipment','Weapons','CombatChain'] as $z)foreach(FaBChoiceRefs($p,$z,['type'=>'Equipment']) as $r){$o=FaBIdentityFromMZ($r)['object'];if($z!=='CombatChain'||($o->Role??'')==='DEFENSE')++$n;}return $n;}
-function FaBHVYLowerLife(int $p): int {return count(array_filter(FaBOpponents($p),fn($v)=>GetHealth($v)>GetHealth($p)));}
+function FaBHVYLowerLife(int $p): int {return count(array_filter(FaBOpponents($p),fn($v)=>FaBPENLifeMore($v,$p)));}
 function FaBHVYNoFear(int $p,int $uid,string $refs): void {
     $n=0;foreach(explode('&',$refs) as $r)if(in_array($r,explode('&',FaBHVYSix($p)),true)){$o=FaBMoveChoice($p,$r,'Hand','Banish');if($o){$o->ReturnAtEndTurn=1;FaBARCSetCard(intval($o->UniqueID),'hvyFearReturn',true);++$n;}}FaBARCSetCard($uid,'hvyFear',$n);
 }
@@ -155,7 +159,7 @@ function FaBHVYAnte(int $p,int $uid,int $victim,string $modes): void {foreach(ar
 function FaBHVYHarmony(int $p): void {$r=FaBChoiceRefs($p,'Deck')[0]??'';$f=FaBIdentityFromMZ($r);if(!$f)return;$o=FaBMoveUID(intval($f['object']->UniqueID),'Banish',$p);if($o&&FaBHasKeyword($o,'Combo')){$o->PlayableFromBanish=1;FaBWTRTag($o,'HVY_HARMONY');}}
 function FaBHVYAfterMove(int $p,object $o,string $from,string $to): void {
  if($to==='Arena'&&in_array($o->CardID,['might','vigor','agility'],true))FaBHVYAdd($p,'CONTROLLED_'.$o->CardID);
- if($o->CardID==='nasty_surprise_blue'&&$to==='Graveyard'&&$from!=='Graveyard'){$controller=intval($GLOBALS['fabEffectController']??0);if($controller&&$controller!==$p&&!FaBGetState()['pendingPayment'])foreach(['agility','might','vigor'] as $t)FaBHVYToken($p,$t,1,$p,true);}
+ if($o->CardID==='nasty_surprise_blue'&&$to==='Graveyard'&&$from!=='Graveyard'){$controller=intval($GLOBALS['fabEffectController']??0);if($controller&&$controller!==$p&&!FaBGetState()['pendingPayment'])foreach(['agility','confidence','toughness','might','vigor'] as $t)FaBHVYToken($p,$t,1,$p,true);}
 }
 function FaBHVYPowerTag(object $o,string $tag): string {
  if(!preg_match('/^WTR_POWER:([1-9][0-9]*)$/',$tag,$m)||($o->Role??'')!=='ATTACK')return $tag;

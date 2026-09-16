@@ -1,0 +1,22 @@
+<?php
+require_once __DIR__ . '/upf_test.php';
+$reset();
+$attack = AddCombatChain(1, CardID:'head_jab_red', Owner:1, Controller:1, Role:'ATTACK', ChainLink:2);
+$old = AddCombatChain(1, CardID:'head_jab_red', Owner:1, Controller:1, Role:'ATTACK', ChainLink:1);
+$block = AddCombatChain(4, CardID:'wounding_blow_red', Owner:4, Controller:4, Role:'DEFENSE', ChainLink:2);
+$state = FaBGetState();
+$state['combatOpen'] = true; $state['chainLink'] = 2; $state['attacker'] = 1; $state['defender'] = 4; $state['attackUID'] = $attack->UniqueID;
+FaBSetState($state);
+$expect = function ($value, $message) { if (!$value) throw new RuntimeException($message); };
+$expect(FaBDisplayGoAgain($attack) === 1, 'Printed go again must be visible.');
+$expect(FaBDisplayGoAgain($old) === 0 && FaBDisplayGoAgain($block) === 0, 'Only the active attack may show go again.');
+$attack->CardID = 'wounding_blow_red';
+$expect(FaBDisplayGoAgain($attack) === 0, 'Ordinary attack must not show go again.');
+$attack->TurnEffects = ['GO_AGAIN'];
+$expect(FaBDisplayGoAgain($attack) === 1, 'Granted go again must be visible.');
+$attack->TurnEffects[] = 'ELE_NO_GO';
+$expect(FaBDisplayGoAgain($attack) === 0, 'Suppressed go again must disappear.');
+$reaction = AddStack(CardID:'razor_reflex_red', Controller:1, Kind:'ATTACK_REACTION', Counters:['FAB_PLAY_ORDER'=>12]);
+$moved = FaBMoveStackUID(intval($reaction->UniqueID), 'CombatChain', 1, false);
+$expect(intval($moved->Counters['FAB_PLAY_ORDER'] ?? 0) === 12, 'Play order must survive stack resolution.');
+echo "Combat chain UI metadata checks passed.\n";

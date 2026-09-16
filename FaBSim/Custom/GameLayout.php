@@ -128,8 +128,10 @@ body.fab-lunge-active .fab-floating-window:not([hidden]){opacity:0;visibility:hi
 .fab-combat-step:not(:last-child):after{content:"";position:absolute;z-index:2;top:50%;right:-6px;width:7px;height:1px;background:rgba(255,255,255,.14)}
 .fab-combat-step.is-complete{color:#aaa89f;border-color:rgba(214,170,77,.18);background:rgba(214,170,77,.055)}
 .fab-combat-step.is-complete .fab-step-glyph{color:#69c887;border-color:rgba(105,200,135,.4)}
-.fab-combat-step.is-active{color:#fff3d5;border-color:#f0cb7b;background:rgba(214,170,77,.2);transform:translateY(-1px);box-shadow:0 0 7px rgba(240,203,123,.8),0 0 19px rgba(214,170,77,.4),inset 0 0 9px rgba(240,203,123,.12)}
-.fab-combat-step.is-active .fab-step-glyph{color:#17130c;border-color:#f4d995;background:#edc45f;box-shadow:0 0 8px rgba(240,203,123,.85)}
+.fab-combat-progress{--fab-priority:105,200,135}
+.fab-combat-progress[data-priority="opponent"]{--fab-priority:239,104,104}
+.fab-combat-step.is-active{color:#fff;border-color:rgb(var(--fab-priority));background:rgba(var(--fab-priority),.2);transform:translateY(-1px);box-shadow:0 0 6px rgba(var(--fab-priority),.65),inset 0 0 8px rgba(var(--fab-priority),.12)}
+.fab-combat-step.is-active .fab-step-glyph{color:#101718;border-color:rgb(var(--fab-priority));background:rgb(var(--fab-priority));box-shadow:0 0 6px rgba(var(--fab-priority),.65)}
 .fab-combat-status{min-height:15px;padding:4px 38px 2px;color:#c9c3b7;font-size:10px;text-align:center}
 .fab-combat-status strong{color:#f1d17c}
 .fab-chain-flow{position:relative;display:flex;align-items:center;justify-content:center;gap:0;height:calc(100% - 64px);min-height:148px;padding:6px 38px 12px;box-sizing:border-box}
@@ -203,8 +205,8 @@ foreach ($zones as $zone => $label) {
     <div class="fab-combat-step" data-fab-step="RESOLUTION"><span class="fab-step-glyph">✓</span><span class="fab-step-label">Resolve</span></div>
     <div class="fab-combat-step" data-fab-step="CLOSE"><span class="fab-step-glyph">×</span><span class="fab-step-label">Close</span></div>
   </div>
-  <div id="fabCombatStatus" class="fab-combat-status">Waiting for an attack.</div>
   <div class="fab-chain-flow">
+    <div id="fabChainView"></div>
     <div id="myCombatChainSlot" class="fab-chain-side"><div id="myCombatChain"></div></div>
     <div id="theirCombatChainSlot" class="fab-chain-side"><div id="theirCombatChain"></div></div>
   </div>
@@ -333,10 +335,20 @@ function FaBToggleWindow(id, forceOpen) {
 function FaBRefreshSharedWindows() {
   var combatWindow = document.getElementById('fabCombatWindow');
   if (!combatWindow) return;
+  if (typeof window.FaBRenderChain === 'function') {
+    var zones = {};
+    ['myCombatChain', 'theirCombatChain'].forEach(function(zone) {
+      zones[zone] = window[zone + 'Data'] || '';
+      var slot = document.getElementById(zone + 'Slot');
+      // The generated slots signal updates; the combined view owns card IDs.
+      if (slot && slot.childNodes.length) slot.replaceChildren();
+    });
+    window.FaBRenderChain(document.getElementById('fabChainView'), zones, FaBReadCombatState());
+  }
   var chainCards = Array.prototype.slice.call(combatWindow.querySelectorAll('[data-mzid]'));
   chainCards.forEach(function(card) { card.classList.remove('fab-chain-last'); });
   if (chainCards.length) chainCards[chainCards.length - 1].classList.add('fab-chain-last');
-  var count = chainCards.length;
+  var count = Number(document.getElementById('fabChainView')?.dataset.cardCount || chainCards.length);
   var badge = document.getElementById('fabCombatCount');
   if (badge) badge.textContent = String(count);
   var oldCount = Number(combatWindow.dataset.cardCount || 0);
@@ -365,31 +377,15 @@ function FaBRefreshCombatProgress() {
     node.classList.toggle('is-complete', activeIndex > index);
   });
 
-  var status = document.getElementById('fabCombatStatus');
-  if (!status) return;
   var player = Number(window.PriorityPlayerData || 0);
-  var attackName = String(state.lastAttackName || 'Attack');
-  var windowName = String(state.window || '').toUpperCase();
-  var messages = {
-    LAYER: '<strong>' + attackName + '</strong> is on the stack. Players may respond with instants.',
-    ATTACK: '<strong>' + attackName + '</strong> became attacking. Player ' + player + ' has priority.',
-    DEFEND: windowName === 'DEFEND_DECLARE'
-      ? 'Player ' + Number(state.defender || player) + ': declare any number of legal defending cards, then Pass.'
-      : 'Defenders are locked in (' + Number(state.defenseValue || 0) + ' defense). Player ' + player + ' has priority.',
-    REACTION: 'Reaction step: Player ' + player + ' has priority for legal reactions and instants.',
-    DAMAGE: Number(state.attackPower || 0) + ' attack − ' + Number(state.defenseValue || 0) + ' defense = <strong>' + Number(state.damageDealt || 0) + ' damage</strong>.',
-    RESOLUTION: 'Chain link ' + Number(state.chainLink || 0) + ' resolved. Play another attack or pass to close the chain.',
-    CLOSE: 'The combat chain is closing and remaining cards are returning to their rules-defined zones.'
-  };
-  if (Array.isArray(state.attackTargets) && state.attackTargets.length > 1) {
-    var targetNames = state.attackTargets.map(function(t) { return 'P' + Number(t.player); }).join(', ');
-    messages.ATTACK = '<strong>' + attackName + '</strong> attacks ' + targetNames + '. Player ' + player + ' has priority.';
-    if (windowName !== 'DEFEND_DECLARE') messages.DEFEND = 'Defenders for ' + targetNames + ' are locked in. Player ' + player + ' has priority.';
-    messages.DAMAGE = Object.entries(state.targetDamage || {}).map(function(entry) {
-      var d = entry[1]; return 'P' + Number(entry[0]) + ': ' + Number(d.power) + ' attack − ' + Number(d.defense) + ' defense = <strong>' + Number(d.damage) + ' damage</strong>';
-    }).join(' · ');
+  var viewer = Number(document.getElementById('playerID')?.value);
+  if (!viewer) viewer = Number(document.getElementById('viewerPerspective')?.value || 1);
+  var progress = document.getElementById('fabCombatProgress');
+  if (progress) {
+    progress.dataset.priority = player === viewer ? 'self' : 'opponent';
+    progress.setAttribute('aria-label', 'Combat progress. Player ' + player + ' has priority.');
+    progress.title = 'Player ' + player + ' has priority';
   }
-  status.innerHTML = messages[active] || 'Waiting for an attack.';
   var panel = document.getElementById('fabCombatWindow');
   if (panel) panel.dataset.combatStep = active;
 }

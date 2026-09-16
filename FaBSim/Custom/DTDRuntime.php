@@ -61,7 +61,7 @@ function FaBDTDMirage(): void {
 function FaBDTDDefendGroup(int $p,array $uids): void {
  $objects=[];foreach($uids as $uid){$f=FaBFindUID(intval($uid));if($f&&$f['player']===$p)$objects[]=$f['object'];}
  foreach($objects as $o){$others=array_filter($objects,fn($x)=>$x->UniqueID!==$o->UniqueID&&($x->FromZone??'')==='Hand');if(!$others)continue;
-  if($o->CardID==='bastion_of_unity')FaBWTRTag($o,'WTR_DEFENSE:1');
+  if(in_array($o->CardID,['bastion_of_unity','plating_of_unity','pillar_of_unity'],true))FaBWTRTag($o,'WTR_DEFENSE:1');
   $token=['alluring_inducement_yellow'=>'eloquence','anthem_of_spring_blue'=>'embodiment_of_earth','call_down_the_lightning_yellow'=>'embodiment_of_lightning','chorus_of_ironsong_yellow'=>'courage','northern_winds_blue'=>'spellbane_aegis','star_struck_yellow'=>'seismic_surge'][$o->CardID]??null;
   if($token)FaBRunSourceMacro('ResolveAbility',$p,$o->CardID,['mzID'=>FaBDTDSource(intval($o->UniqueID)),'dtdLightningDamage'=>0]);
   if($o->CardID==='united_we_stand_yellow')FaBDTDParty($p);

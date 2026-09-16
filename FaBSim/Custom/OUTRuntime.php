@@ -7,7 +7,7 @@ function FaBOUTSource(int $uid): string {return FaBFindUID($uid)['mzID']??'';}
 function FaBOUTHero(int $p,string $id): bool {return FaBMONHero($p,$id);}
 function FaBOUTNames(object $o): array {
  $owner=intval($o->Owner??0)?:intval(FaBFindUID(intval($o->UniqueID??0))['player']??$o->Controller??0);if($owner&&FaBOUTCount($owner,'AMNESIA'))return [];
- $names=[(string)CardName($o->CardID)];foreach((array)($o->TurnEffects??[]) as $t)if(str_starts_with($t,'OUT_NAME:'))$names[]=substr($t,9);return array_unique($names);
+ $names=(array)FaBARCCard(intval($o->UniqueID??0),'penNames',[(string)CardName($o->CardID)]);foreach((array)($o->TurnEffects??[]) as $t)if(str_starts_with($t,'OUT_NAME:'))$names[]=substr($t,9);return array_unique($names);
 }
 function FaBOUTNamed(object $o,string $name): bool {return in_array($name,FaBOUTNames($o),true);}
 function FaBOUTCombo(int $p,string $kind,?object $o=null): bool {

@@ -2419,7 +2419,10 @@ function AddGetNextTurnForPlayer($player) {
           ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
           : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         }
-        $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        if ($rootName === 'FaBSim' && $zone->Name === 'Graveyard') {
+          $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1 && !\$canSeePrivatePlayer" . $player . ") echo(ClientRenderedCard('CardBack'));\r\n";
+          $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        } else $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         $getNextTurn .= "  }\r\n";
       } else if($zone->Visibility == "Private") {
         //Single Private
@@ -2508,7 +2511,7 @@ function AddGetNextTurnForPlayer($player) {
           ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"
           : "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         }
-        if ($rootName === 'FaBSim' && $zone->Name === 'Equipment') {
+        if ($rootName === 'FaBSim' && in_array($zone->Name, ['Equipment','Graveyard'], true)) {
           $getNextTurn .= "    if (intval(\$obj->FaceDown ?? 0) === 1 && !\$canSeePrivatePlayer" . $player . ") echo(ClientRenderedCard('CardBack'));\r\n";
           $getNextTurn .= "    else echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         } else if ($rootName === 'FaBSim' && $zone->Name === 'Banish') {
@@ -4802,7 +4805,7 @@ function GenerateMacroCode() {
         foreach ($abilities as $ability) {
           $cardId = $ability['card_id'];
           $code = $ability['ability_code'];
-          if ($rootName === 'FaBSim') { require_once __DIR__ . '/FaBSim/Custom/CodeGeneration.php'; $code = FaBPrepareDamageCode($code); }
+          if ($rootName === 'FaBSim') { require_once __DIR__ . '/FaBSim/Custom/CodeGeneration.php'; $code = FaBPrepareDamageCode(FaBPrepareHeroCreationCode($code,$cardId)); }
           $prereqCode = $ability['prereq_code'] ?? '';
           $name = $ability['ability_name'] ?? $cardId;
 
@@ -4934,6 +4937,10 @@ function GenerateMacroCode() {
         if (!empty($macroMeta['prereqFunction'])) {
           $prereqVarName = "\$" . lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Prereqs";
           $prereqFunction = $macroMeta['prereqFunction'];
+          // FaBSim owns the complete play/timing gate; card prereqs extend it.
+          if ($rootName === 'FaBSim' && $macroName === 'PlayCard') {
+            $prereqFunction = 'FaBGeneratedCanPlayCard';
+          }
           $sourceParam = $macroMeta['sourceParam'] ?? null;
           $selectedIndexParam = $macroMeta['selectedIndexParam'] ?? null;
           $signatureParams = ['$player'];

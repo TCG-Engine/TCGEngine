@@ -5,7 +5,7 @@ function FaBUPRAdd(int $p,string $k,int $n=1): void {FaBWTRAddEffect($p,'UPR_'.$
 function FaBUPRClear(int $p,string $k): void {FaBWTRSetEffects($p,array_values(array_filter(FaBWTREffects($p),fn($e)=>($e['type']??'')!=='UPR_'.$k)));}
 function FaBUPRRed(int $p,int $minimum=1): bool {return count(array_filter(FaBARCPlayed($p),fn($id)=>intval(CardPitch($id))===1))>=$minimum;}
 function FaBUPRBleak(): bool {foreach(FaBLiveSeats() as $p)if(FaBMONArena($p,'channel_the_bleak_expanse'))return true;return false;}
-function FaBUPRFrozen(object $o): bool {return intval(FaBObjectCounters($o)['UPR_FROZEN_BY']??0)>0;}
+function FaBUPRFrozen(object $o): bool {return intval(FaBObjectCounters($o)['UPR_FROZEN_BY']??0)>0 || FaBPENFrozenObject($o);}
 function FaBUPRLocked(int $p): bool {foreach(FaBOpponents($p) as $seat)if($seat===intval(GetTurnPlayer())&&FaBMONArena($seat,'themai'))return true;return false;}
 function FaBUPRAsh(int $p): string {return implode('&',FaBChoiceRefs($p,'Arena',['type'=>'Ash']));}
 function FaBUPRTransform(int $p,string $ref,string $dragon,int $invocationUID=0): int {
@@ -20,17 +20,17 @@ function FaBUPRTransform(int $p,string $ref,string $dragon,int $invocationUID=0)
 }
 function FaBUPRAnyTargets(int $p,bool $heroOnly=false,bool $multiple=false): string {
  $seats=$multiple?FaBLiveSeats():array_merge([$p],FaBAdjacentOpponents($p));$out=explode('&',FaBARCHeroTargets($p,false,$multiple));
- if(!$heroOnly)foreach($seats as $seat)$out=array_merge($out,FaBChoiceRefs($seat,'Arena',['type'=>'Ally']));return implode('&',array_filter(array_unique($out)));
+ if(!$heroOnly)foreach($seats as $seat)$out=array_merge($out,FaBChoiceRefs($seat,'Arena',['type'=>'Ally']),FaBChoiceRefs($seat,'Equipment',['type'=>'Ally']));return implode('&',array_filter(array_unique($out)));
 }
 function FaBUPRStoreTarget(int $uid,string $r): void {$f=FaBIdentityFromMZ($r);if($f){FaBARCSetCard($uid,'uprTargetUID',intval($f['object']->UniqueID));FaBARCSetCard($uid,'target',$f['player']);}}
 function FaBUPRTarget(int $uid): ?array {return FaBFindUID(intval(FaBARCCard($uid,'uprTargetUID')));}
 function FaBUPRHealth(object $o): int {return max(0,intval(FaBObjectCounters($o)['UPR_GHOST_HP']??CardHealth($o->CardID))-intval(FaBObjectCounters($o)['UPR_LOST_HP']??0));}
 function FaBUPRDeal(int $p,int $sourceUID,int $targetUID,int $n,string $type='ARCANE',int $payment=0): int {
- $f=FaBFindUID($targetUID);$source=FaBFindUID($sourceUID);if(!$f||!FaBSeatIsLive($f['player']))return 0;
- if($f['zone']==='Hero')return $type==='ARCANE'?FaBELEDealArcane($p,$f['player'],$n,$payment,$sourceUID):DoDamage($p,$source['mzID']??'',$f['player'],$n,'PHYSICAL');
- $o=$f['object'];if($f['zone']!=='Arena'||!FaBHasType($o,'Ally'))return 0;
+ $f=FaBFindUID($targetUID);$source=FaBFindUID($sourceUID);if(!FaBDTDUnpreventable($p,$sourceUID,$type))$n=FaBIARConsecrateDamage($sourceUID,$n);if(!$f||!FaBSeatIsLive($f['player']))return 0;
+ if($f['zone']==='Hero')return $type==='ARCANE'?FaBELEDealArcane($p,$f['player'],$n,$payment,$sourceUID):DoDamage($p,$source['mzID']??'',$f['player'],$n,$type);
+ $o=$f['object'];if(!in_array($f['zone'],['Arena','Equipment'],true)||!FaBHasType($o,'Ally'))return 0;if(!FaBUPRUnpreventable($sourceUID)){$n=FaBSEAPrevent($f['player'],$n,$o);if($type==='ARCANE')$n=FaBSUPArcanePrevent($f['player'],$n,$sourceUID,false);}
  if($o->CardID==='yendurai'&&intval(FaBObjectCounters($o)['ENDURANCE']??0)>0){FaBSetObjectCounter($o,'ENDURANCE',0);$n=max(0,$n-3);}
- if($n>0){FaBROSDamaged($p,$f['player'],$n,$type,false);FaBHNTOwnDamage($p,$n,$type);}$o->Damage=intval($o->Damage)+$n;if($n>0&&$o->CardID==='nekria'){FaBSetObjectCounter($o,'UPR_LOST_HP',intval(FaBObjectCounters($o)['UPR_LOST_HP']??0)+1);FaBWTRCreateArena($f['player'],'ash');}
+ if($n>0){FaBMPGDamaged($p,$n);FaBROSDamaged($p,$f['player'],$n,$type,false);FaBHNTOwnDamage($p,$n,$type);}$o->Damage=intval($o->Damage)+$n;if($n>0&&$o->CardID==='nekria'){FaBSetObjectCounter($o,'UPR_LOST_HP',intval(FaBObjectCounters($o)['UPR_LOST_HP']??0)+1);FaBWTRCreateArena($f['player'],'ash');}
  if(function_exists('QueueDamageAnimation'))QueueDamageAnimation($f['mzID'],$n,500,true,$targetUID);
  if($n>0)FaBDYNDamaged($p,$n,$source['mzID']??'');
  if($n>0&&$source&&$source['object']->CardID==='nekria')FaBUPRNekria($p,$source['object']);
@@ -40,7 +40,7 @@ function FaBUPRFreeze(int $p,string $ref): void {$f=FaBIdentityFromMZ($ref);if($
 function FaBUPRFreezeChoices(int $target,string $kind='Both'): string {$refs=[];if($kind!=='Ally')$refs=FaBChoiceRefs($target,'Arsenal');if($kind!=='Arsenal')$refs=array_merge($refs,FaBChoiceRefs($target,'Arena',['type'=>'Ally']));return implode('&',$refs);}
 function FaBUPRIceCount(int $p): int {$n=0;foreach(['Arena','Equipment','Hero','Arsenal'] as $z)foreach(FaBChoiceRefs($p,$z) as $r){$o=FaBIdentityFromMZ($r)['object'];if($o->CardID==='frostbite'||(FaBHasType($o,'Ice')&&FaBHasType($o,'Affliction'))||FaBUPRFrozen($o))++$n;}return $n;}
 function FaBUPRAfflict(int $p,int $uid,string $hero): void {$f=FaBIdentityFromMZ($hero);if(!$f||$f['zone']!=='Hero'||$f['player']===$p)return;$o=FaBMoveUID($uid,'Arena',$f['player']);if($o){$o->Owner=$p;$o->Controller=$f['player'];}}
-function FaBUPRPitched(int $p,string $id): void {if(intval(CardPitch($id))===1&&FaBMONHero($p,'dromai'))FaBWTRCreateArena($p,'ash');}
+function FaBUPRPitched(int $p,string $id): void {if(intval(CardPitch($id))===1&&FaBMONHero($p,'dromai')&&!FaBSEAHeroCreationBlocked($p))FaBWTRCreateArena($p,'ash');}
 function FaBUPRCost(int $p,object $o): int {return FaBHasType($o,'Draconic')?-FaBUPRInstances($p,'BLOOD'):0;}
 function FaBUPRCanPlay(int $p,array $f): bool {
  $o=$f['object'];$b=FaBWTRBase($o->CardID);if(FaBUPRLocked($p)||FaBUPRFrozen($o))return false;
@@ -98,11 +98,11 @@ function FaBUPREnd(int $p): void {
 function FaBUPRUIDs(string $refs): array {$out=[];foreach(explode('&',$refs) as $r){$f=FaBIdentityFromMZ($r);if($f)$out[]=intval($f['object']->UniqueID);}return $out;}
 function FaBUPRHeroUID(int $p): int {$r=FaBChoiceRefs($p,'Hero');return $r?intval(FaBIdentityFromMZ($r[0])['object']->UniqueID):0;}
 function FaBUPRControlledTargets(int $p): string {return implode('&',array_merge(FaBChoiceRefs($p,'Hero'),FaBChoiceRefs($p,'Arena',['type'=>'Ally'])));}
-function FaBUPRDamageBonus(int $p,int $uid,int $n,string $type): int {$f=FaBFindUID($uid);return $type==='ARCANE'?FaBELEDamageBonus($p,$f['mzID']??'',$n+FaBMSTAmp($p,$uid)+FaBROSChorus($p,$uid)+FaBDYNArcaneBonus($uid)+intval(FaBARCCard($uid,'arcaneBonus')),$type):$n;}
+function FaBUPRDamageBonus(int $p,int $uid,int $n,string $type): int {$f=FaBFindUID($uid);if($f)$n=FaBOMNDamageBonus($f['object'],$n);if($type==='ARCANE'&&FaBSEAArcaneCapped($uid))return $n;return $type==='ARCANE'?FaBELEDamageBonus($p,$f['mzID']??'',$n+FaBMSTAmp($p,$uid)+FaBROSChorus($p,$uid)+FaBDYNArcaneBonus($uid)+intval(FaBARCCard($uid,'arcaneBonus')),$type):$n;}
 function FaBUPRSmallHand(int $p): string {return implode('&',FaBChoiceRefs($p,'Hand',['attackAction'=>true,'maxCost'=>FaBFaiChainCount($p)-1]));}
 function FaBUPRBanishPlayable(int $p,string $r,string $tag=''): void {$f=FaBIdentityFromMZ($r);if(!$f)return;$o=FaBMoveUID(intval($f['object']->UniqueID),'Banish',$p);if($o){$o->PlayableFromBanish=1;if($tag)FaBWTRTag($o,$tag);}}
 function FaBUPRBottom(string $r): void {$f=FaBIdentityFromMZ($r);if($f)FaBMoveUID(intval($f['object']->UniqueID),'Deck',intval($f['object']->Owner??$f['player']));}
-function FaBUPRTop(string $r): void {$f=FaBIdentityFromMZ($r);if(!$f)return;$p=intval($f['object']->Owner??$f['player']);$o=FaBMoveUID(intval($f['object']->UniqueID),'Deck',$p);if($o){$deck=&GetDeck($p);$i=array_search($o,$deck,true);if($i!==false){array_splice($deck,$i,1);array_unshift($deck,$o);}}}
+function FaBUPRTop(string $r): void {if(FaBPENTopsy()){FaBHVYBottomChoice($r);return;}$f=FaBIdentityFromMZ($r);if(!$f)return;$p=intval($f['object']->Owner??$f['player']);$o=FaBMoveUID(intval($f['object']->UniqueID),'Deck',$p);if($o){$deck=&GetDeck($p);$i=array_search($o,$deck,true);if($i!==false){array_splice($deck,$i,1);array_unshift($deck,$o);}}}
 function FaBUPRBottomHand(int $p,string $refs): int {$n=0;foreach(explode('&',$refs) as $r){$f=FaBIdentityFromMZ($r);if($f&&$f['player']===$p&&$f['zone']==='Hand'){FaBUPRBottom($r);++$n;}}return $n;}
 function FaBUPRGraveActions(int $p,int $cost): string {$out=[];foreach(FaBLiveSeats() as $s)$out=array_merge($out,FaBChoiceRefs($s,'Graveyard',['type'=>'Action','maxCost'=>$cost]));return implode('&',array_values(array_diff($out,[(string)DecisionQueueController::GetVariable('mzID')])));}
 function FaBUPRRewindTargets(int $p): string {return implode('&',array_filter(FaBChoiceRefs($p,'Stack'),function($r){$o=FaBIdentityFromMZ($r)['object'];return ($o->Kind??'')!=='ABILITY'&&FaBHasType($o,'Action')&&!FaBWTRIsAttackAction($o);}));}
@@ -114,7 +114,7 @@ function FaBUPRThaw(string $r,int $mode): void {$f=FaBIdentityFromMZ($r);if(!$f)
 function FaBUPRSetX(int $uid,int $x): void {FaBEVRSetX($uid,2*$x,0);FaBARCSetCard($uid,'uprX',$x);}
 function FaBUPRRaze(int $uid): int {$f=FaBFindUID($uid);if(!$f)return 0;$n=intval(FaBObjectCounters($f['object'])['RAZE']??0)+1;FaBSetObjectCounter($f['object'],'RAZE',$n);return $n;}
 function FaBUPRPayRaze(int $p,int $uid,string $r,int $n): void {if(count(FaBUPRUIDs($r))!==$n)FaBMONDestroy($uid);else FaBMoveChoices($p,$r,'Graveyard','Banish');}
-function FaBUPRLowestLife(int $p): bool {foreach(FaBOpponents($p) as $other)if(intval(GetHealth($p))>=intval(GetHealth($other)))return false;return true;}
+function FaBUPRLowestLife(int $p): bool {foreach(FaBOpponents($p) as $other)if(!FaBPENLifeMore($other,$p))return false;return true;}
 function FaBUPRProtect(int $p,string $r,int $n): void {$f=FaBIdentityFromMZ($r);if($f)FaBWTRAddEffect($p,'UPR_PROTECT',$n,['sourceUID'=>intval($f['object']->UniqueID)]);}
 function FaBUPRDestroyAtEnd(int $p,string $id): void {foreach(FaBCRUEquipment($p,$id) as $r)FaBSetObjectCounter(FaBIdentityFromMZ($r)['object'],'UPR_DESTROY_END',1);}
 function FaBUPRQuellChoices(int $p,array $used=[]): string {if(FaBAvailablePitch($p)<1)return '';$out=[];foreach(['Equipment','CombatChain'] as $z)foreach(FaBChoiceRefs($p,$z) as $r){$o=FaBIdentityFromMZ($r)['object'];if(FaBHasKeyword($o,'Quell 1')&&!in_array(intval($o->UniqueID),$used,true))$out[]=$r;}return implode('&',$out);}
@@ -156,7 +156,7 @@ function FaBUPRPhantasm(int $p,object $o): void {
  $source=intval(FaBObjectCounters($o)['MON_SOURCE_UID']??0);if($source)FaBMONDestroy($source);
 }
 function FaBUPRUnpreventable(int $uid): bool {$f=FaBFindUID($uid);return $f&&(FaBMSTUnpreventable($f['object'])||in_array('UPR_UNPREVENTABLE',(array)($f['object']->TurnEffects??[]),true)||in_array(FaBWTRBase($f['object']->CardID),['malign','murkmire_grapnel'],true));}
-function FaBUPRBarrierValue(string $r): int {$f=FaBIdentityFromMZ($r);if(!$f||HasNoAbilities($f['object']))return 0;$o=$f['object'];$n=0;foreach(FaBKeywords($o) as $k)if(preg_match('/Arcane Barrier (\d+)/i',$k,$m))$n=max($n,intval($m[1]));if($o->CardID==='arcanite_skullcap')$n=FaBARCLowerLife($f['player'])?3:0;if($o->CardID==='aether_sink_yellow')$n=in_array('ARC_BARRIER_2',(array)$o->TurnEffects,true)?2:0;return $n;}
+function FaBUPRBarrierValue(string $r): int {$f=FaBIdentityFromMZ($r);if(!$f||HasNoAbilities($f['object']))return 0;$o=$f['object'];if($o->CardID==='spellbane_sigil_blue')return 1;$n=0;foreach(FaBKeywords($o) as $k)if(preg_match('/Arcane Barrier (\d+)/i',$k,$m))$n=max($n,intval($m[1]));if($o->CardID==='arcanite_skullcap')$n=FaBARCLowerLife($f['player'])?3:0;if($o->CardID==='aether_sink_yellow')$n=in_array('ARC_BARRIER_2',(array)$o->TurnEffects,true)?2:0;return $n;}
 function FaBUPRBarrierChoices(int $p,array $used,int $source): string {if(FaBUPRUnpreventable($source))return '';$f=FaBFindUID($source);if($f&&FaBEVRUnpreventable($f['player'],$p))return '';$out=[];foreach(['Equipment','Weapons','Arena','CombatChain'] as $z)foreach(FaBChoiceRefs($p,$z) as $r){$o=FaBIdentityFromMZ($r)['object'];if($z==='CombatChain'&&($o->FromZone??'')!=='Equipment')continue;$n=FaBUPRBarrierValue($r);if($n>0&&$n<=FaBAvailablePitch($p)&&!in_array(intval($o->UniqueID),$used,true))$out[]=$r;}return implode('&',$out);}
 function FaBUPRAlluvionReady(int $uid,int $n): bool {$f=FaBFindUID($uid);if(!$f||$f['object']->CardID!=='alluvion_constellas'||$n<=0)return false;$o=$f['object'];$c=FaBObjectCounters($o);if(intval($c['UPR_BARRIER_TURN']??-1)===intval(GetTurnNumber()))return false;FaBSetObjectCounter($o,'UPR_BARRIER_TURN',intval(GetTurnNumber()));return intval($c['ENERGY']??0)<4;}
 function FaBUPRAlluvion(int $uid,bool $gain): void {$f=FaBFindUID($uid);if($f&&$gain)FaBSetObjectCounter($f['object'],'ENERGY',min(4,intval(FaBObjectCounters($f['object'])['ENERGY']??0)+1));}
@@ -168,6 +168,7 @@ function FaBUPRLegacyPreventionPlans(int $p,int $damage): array {
  $max=FaBAvailablePitch($p);$plans=[['cost'=>0,'quell'=>[],'energy'=>0]];
  foreach(['Weapons','Equipment','Arena','CombatChain'] as $z)foreach(FaBChoiceRefs($p,$z) as $r){$o=FaBIdentityFromMZ($r)['object'];if(HasNoAbilities($o)||($z==='CombatChain'&&($o->FromZone??'')!=='Equipment'))continue;$n=FaBUPRBarrierValue($r);$uid=intval($o->UniqueID);$options=[];
   if($n>0){$options[]=['cost'=>$n,'quell'=>[],'energy'=>$o->CardID==='alluvion_constellas'?-$uid:0];$c=FaBObjectCounters($o);if($o->CardID==='alluvion_constellas'&&intval($c['ENERGY']??0)<4&&intval($c['UPR_BARRIER_TURN']??-1)!==intval(GetTurnNumber())&&$damage>0)$options[]=['cost'=>$n,'quell'=>[],'energy'=>$uid];}
+  if($o->CardID==='spellbane_sigil_blue')for($x=2;$x<=min($max,$damage);++$x)$options[]=['cost'=>$x,'quell'=>[],'energy'=>0];
   if(FaBHasKeyword($o,'Quell 1'))$options[]=['cost'=>1,'quell'=>[$uid],'energy'=>0];
   $next=$plans;foreach($plans as $plan)foreach($options as $option){$v=['cost'=>$plan['cost']+$option['cost'],'quell'=>array_merge($plan['quell'],$option['quell']),'energy'=>$option['energy']!==0?$option['energy']:$plan['energy']];if($v['cost']<=$max)$next[]=$v;}
   $unique=[];foreach($next as $plan)$unique[$plan['cost'].'|'.implode(',',$plan['quell']).'|'.$plan['energy']]=$plan;$plans=array_values($unique);

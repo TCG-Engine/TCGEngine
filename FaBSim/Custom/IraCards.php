@@ -1,6 +1,7 @@
 <?php
 // Crouching Tigers are created cards, not tokens. Unplayed Tigers stay banished.
 function FaBCreateTigers(int $player,int $count=1,int $power=0,bool $nextTurn=false): void {
+    $count=FaBPENCreatedCount($player,$count);
     if($count>0)FaBMSTAdd($player,'TIGER_CREATED',$count);
     for($i=0;$i<$count;++$i){
         $o=AddBanish($player,CardID:'crouching_tiger',PlayableFromBanish:$nextTurn?0:1);

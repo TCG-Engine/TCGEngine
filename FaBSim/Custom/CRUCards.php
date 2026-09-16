@@ -26,9 +26,11 @@ function FaBCRUSelfTag(object $o,string $tag): void {
 function FaBCRUSelfTagUID(int $uid,string $tag): void { $f=FaBFindUID($uid);if($f)FaBCRUSelfTag($f['object'],$tag); }
 function FaBCRUGainLife(int $p,int $n): void {
     if(!FaBSeatIsLive($p)||$n<=0||(FaBMONCount($p,'NO_HEAL')&&$p===intval(GetTurnPlayer())&&GetCurrentPhase()==='MAIN'))return;
-    $highest=true;foreach(FaBOpponents($p) as $seat)if(intval(GetHealth($seat))>=intval(GetHealth($p)))$highest=false;
+    foreach(FaBLiveSeats() as $v)if(FaBSEACount($v,'NO_HEAL')||FaBMPGAuras($v,'parched_terrain'))return;
+    $highest=true;foreach(FaBOpponents($p) as $seat)if(!FaBPENLifeMore($p,$seat))$highest=false;
     if($highest)foreach(FaBLiveSeats() as $seat)foreach(FaBChoiceRefs($seat,'Weapons',['base'=>'reaping_blade']) as $ref)if(!HasNoAbilities(FaBIdentityFromMZ($ref)['object']))return;
     foreach(FaBLiveSeats() as $seat)if(FaBDTDCount($seat,'POISON')){FaBDTDClear($seat,'POISON');FaBARCLoseLife($p,$n,$seat);return;}
+    if(FaBPENReplaceGain($p,$n))return;
     AddHealth($p,intval(GetHealth($p))+$n);FaBROSLife($p,$n);
 }
 function FaBCRUKavdaen(): void {
@@ -115,7 +117,7 @@ function FaBCRUBlockLegal(int $p,array $f): bool {
     return true;
 }
 function FaBCRUMustEquip(int $p): bool {
-    $s=FaBGetState();$a=FaBFindUID(intval($s['attackUID']));if(!$a||!($a['object']->CardID==='meganetic_shockwave_blue'||(FaBWTRBase($a['object']->CardID)==='t_bone'&&FaBCRUCount(intval($s['attacker']),'CHAIN_BOOST')>0)))return false;
+    $s=FaBGetState();$a=FaBFindUID(intval($s['attackUID']));if(!$a||!(FaBWTRBase($a['object']->CardID)==='palantir_aeronought'||$a['object']->CardID==='meganetic_shockwave_blue'||(FaBWTRBase($a['object']->CardID)==='t_bone'&&FaBCRUCount(intval($s['attacker']),'CHAIN_BOOST')>0)))return false;
     $n=0;foreach(GetCombatChain($p) as $o)if(is_object($o)&&empty($o->removed)&&intval($o->ChainLink)===intval($s['chainLink'])&&($o->FromZone??'')==='Equipment')++$n;
     if($n>=($a['object']->CardID==='meganetic_shockwave_blue'?FaBCRUCount(intval($s['attacker']),'CHAIN_BOOST'):1))return false;
     foreach(FaBChoiceRefs($p,'Equipment') as $ref)if(FaBCanBlock($p,$ref))return true;return false;
@@ -185,6 +187,7 @@ function FaBCRUDefended(int $p,object $block): void {
     if($o->CardID==='zephyr_needle'&&FaBCurrentDefense($block,$p)>FaBAttackPower($s)&&$weapon)FaBWTRTag($weapon['object'],'CRU_BREAK_CHAIN');
 }
 function FaBCRUHitSuppressed(object $o,bool $all=false): bool {
+    if(!$all&&FaBMPGSuppressed($o))return true;
     foreach(FaBMSTAttackVictims() as $v)if(FaBMSTCount($v,'NO_HIT'))return true;
     if(in_array('CRU_NO_HIT',(array)$o->TurnEffects,true))return true;
     if(!$all&&FaBWTRIsAttackAction($o))foreach(FaBLiveSeats() as $p)if(FaBChoiceRefs($p,'Arena',['base'=>'stamp_authority']))return true;
@@ -221,7 +224,7 @@ function FaBCRUStart(int $p): void {
     }
 }
 function FaBCRUEnd(int $p): void {
-    if(FaBCRUHero($p,'kassai_cintari_sellsword')&&FaBCRUCount($p,'WEAPONS')>=2)for($i=0;$i<FaBCRUCount($p,'WEAPON_HITS');++$i)FaBWTRCreateArena($p,'copper');
+    if(!FaBSEAHeroCreationBlocked($p)&&FaBCRUHero($p,'kassai_cintari_sellsword')&&FaBCRUCount($p,'WEAPONS')>=2)for($i=0;$i<FaBCRUCount($p,'WEAPON_HITS');++$i)FaBWTRCreateArena($p,'copper');
     foreach(FaBLiveSeats() as $seat)foreach(['Weapons','Equipment','CombatChain'] as $zone)foreach(FaBChoiceRefs($seat,$zone) as $ref){$o=FaBIdentityFromMZ($ref)['object'];if(($seat===$p&&$o->CardID==='talishar_the_lost_prince'&&intval(FaBObjectCounters($o)['RUST']??0)>=3)||($o->CardID==='metacarpus_node'&&in_array('CRU_NODE_USED',(array)$o->TurnEffects,true)))FaBMoveUID(intval($o->UniqueID),'Graveyard',$seat);}
 }
 function FaBCRUClose(): void {

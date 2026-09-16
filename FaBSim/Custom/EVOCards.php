@@ -23,13 +23,14 @@ function FaBEVOEnter(int $p,object $o,bool $triggerStasis=true): void {
  if(!FaBHasType($o,'Item'))return;$id=$o->CardID;$b=FaBWTRBase($id);$n=null;
  if(str_contains((string)CardFunctional_text_plain($id),'At the start of your turn')&&FaBHasKeyword($o,'Crank')){$n=in_array($b,['hadron_collider','mini_forcefield'],true)?5-intval(CardPitch($id)):($b==='dissolving_shield'?4-intval(CardPitch($id)):1);}
  if(in_array($b,['clamp_press','null_time_zone'],true))$n=2;
+ if($b==='copper_cog')$n=2;
  if($b==='hyper_driver'&&FaBHasType($o,'Token'))$n=2;
  if($n!==null)FaBEVOCounter($o,'STEAM',intval(FaBObjectCounters($o)['STEAM']??0)+$n);
  if(FaBEVOCrank($p,$o)&&intval(FaBObjectCounters($o)['STEAM']??0)>0)FaBRunSourceMacro('ResolveAbility',$p,'master_cog_yellow',['mzID'=>FaBDTDSource(intval($o->UniqueID)),'evoEvent'=>'crank']);
  foreach(FaBChoiceRefs($p,'Weapons',['base'=>'symbiosis_shot']) as $r)if(intval(FaBObjectCounters(FaBIdentityFromMZ($r)['object'])['STEAM']??0)<6)FaBRunSourceMacro('ResolveAbility',$p,'symbiosis_shot',['mzID'=>$r]);
  if($triggerStasis&&$b==='stasis_cell')FaBRunSourceMacro('ResolveCard',$p,$id,['mzID'=>FaBDTDSource(intval($o->UniqueID)),'evoEvent'=>'stasis']);
 }
-function FaBEVODoCrank(int $p,int $uid): void {$f=FaBFindUID($uid);if(!$f||$f['player']!==$p||$f['zone']!=='Arena'||!FaBEVOCrank($p,$f['object'])||intval(FaBObjectCounters($f['object'])['STEAM']??0)<1)return;FaBARCSteam($f['object'],-1);FaBEVOAdd($p,'CRANKED');FaBEVOAP($p);}
+function FaBEVODoCrank(int $p,int $uid): void {$f=FaBFindUID($uid);if(!$f||$f['player']!==$p||$f['zone']!=='Arena'||!FaBEVOCrank($p,$f['object'])||intval(FaBObjectCounters($f['object'])['STEAM']??0)<1)return;FaBARCSteam($f['object'],-1);FaBEVOAdd($p,'CRANKED');FaBEVOAP($p);FaBSEACranked($p);}
 function FaBEVOUnder(object $o): array {return array_values((array)(FaBObjectCounters($o)['SUBCARDS']??[]));}
 function FaBEVOAttach(int $p,int $parent,string $r): bool {
  $f=FaBFindUID($parent);$c=FaBIdentityFromMZ($r);if(!$f||!$c||$parent===intval($c['object']->UniqueID))return false;

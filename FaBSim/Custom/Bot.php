@@ -73,7 +73,7 @@ function FaBBotAct(int $p): bool {
         $dq->PopDecision($p);$dq->ExecuteStaticMethods($p,$answer);return true;
     }
     $s=FaBGetState();$candidates=[];
-    foreach(array_merge(['Hand','Arsenal','Banish','Weapons','Equipment','Hero'],FaBIsLeviaBot($p)?['CombatChain']:((FaBIsPrismBot($p)||FaBIsLexiBot($p)||FaBIsDromaiBot($p))?['Arena']:[])) as $z)foreach(FaBChoiceRefs($p,$z) as $ref){
+    foreach(array_merge(['Hand','Arsenal','Banish','Weapons','Equipment','Hero'],FaBSEAHero($p)?['Arena','Graveyard','CombatChain']:(FaBIsLeviaBot($p)?['CombatChain']:((FaBIsPrismBot($p)||FaBIsLexiBot($p)||FaBIsDromaiBot($p))?['Arena']:[]))) as $z)foreach(FaBChoiceRefs($p,$z) as $ref){
         $o=FaBIdentityFromMZ($ref)['object'];$keep=FaBBotKeepValue($o,$p);
         if(CanPitchCard($p,$ref))$candidates[]=[FaBIsDromaiBot($p)?FaBDromaiPitchScore($p,$o):100+intval(CardPitch($o->CardID))*5-$keep,'PITCH',$ref];
         if(FaBCanBlock($p,$ref)){
@@ -130,6 +130,7 @@ function FaBBotAct(int $p): bool {
             if(FaBIsUzuriBot($p))$v=FaBUzuriAbilityScore($p,$o);
             if(FaBIsArakniBot($p))$v=FaBArakniAbilityScore($p,$o);
             if(FaBIsDromaiBot($p))$v=FaBDromaiAbilityScore($p,$o);
+            if(FaBSEAHero($p)){if(FaBMONArenaCanAttack($p,FaBIdentityFromMZ($ref)))$v=8+intval(CardPower($o->CardID));elseif($z==='Hero'||$o->CardID==='gold')$v=4;elseif(FaBSEACogLimit($o->CardID)>0)$v=5;}
             $candidates[]=[$v,'ACTIVATE',$ref];
         }
         if(FaBCanArsenal($p,$ref)){

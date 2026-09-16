@@ -9,13 +9,13 @@ function FaBMONArena(int $p,string $base): array {
     return array_values(array_filter(FaBChoiceRefs($p,'Arena',['base'=>$base]),fn($r)=>!HasNoAbilities(FaBIdentityFromMZ($r)['object'])));
 }
 function FaBMONSoul(int $p): string {return implode('&',FaBChoiceRefs($p,'Soul'));}
-function FaBMONBasePower(int $p,object $o): int {$n=$o->CardID==='diabolic_offering_blue'?(FaBMONCount($p,'BANISHED_SIX')?6:0):($o->CardID==='mutated_mass_blue'?FaBMONMass($p):intval(CardPower($o->CardID)));return $n+FaBHVYPowerOutsideChain($p,$o);}
+function FaBMONBasePower(int $p,object $o): int {if($o->CardID==='blasmophets_boon_blue'&&!HasNoAbilities($o))return FaBIARHasBlasmophet($p)?6:0;$n=$o->CardID==='diabolic_offering_blue'?(FaBMONCount($p,'BANISHED_SIX')?6:0):($o->CardID==='mutated_mass_blue'?FaBMONMass($p):intval(CardPower($o->CardID)));return FaBSUPBase($p,$o,FaBPENBase($p,$o,$n))+FaBHVYPowerOutsideChain($p,$o);}
 function FaBMONBloodDebt(int $p): int {
     $n=0;foreach(GetBanish($p) as $o)if(is_object($o)&&empty($o->removed)&&empty($o->FaceDown)&&FaBHasKeyword($o,'Blood Debt'))++$n;return $n;
 }
 function FaBMONCharge(int $p,string $chosen): int {
     $n=0;foreach(explode('&',$chosen) as $ref){$f=FaBIdentityFromMZ($ref);if(!$f||$f['player']!==$p||$f['zone']!=='Hand')continue;
-        $light=FaBHasType($f['object'],'Light');FaBMoveUID(intval($f['object']->UniqueID),'Soul',$p);FaBMONAdd($p,'CHARGED');FaBBoltynCharged($p,$f['object']->CardID);FaBDTDCharged($p,$f['object']->CardID);
+        $light=FaBHasType($f['object'],'Light');FaBMoveUID(intval($f['object']->UniqueID),'Soul',$p);FaBMONAdd($p,'CHARGED');FaBBoltynCharged($p,$f['object']->CardID);if($f['object']->CardID==='banneret_of_swordsmanship_yellow')FaBWTRCreateArena($p,'flurry');FaBDTDCharged($p,$f['object']->CardID);
         $pendingUID=intval(FaBGetState()['pendingPayment']['uid']??0);if($pendingUID)FaBARCSetCard($pendingUID,'dtdCharged',true);if($light)++$n;
     }return $n;
 }
@@ -48,7 +48,7 @@ function FaBMONBanishPlayable(int $p,object $o): bool {
     if(in_array($b,['bounding_demigon','unhallowed_rites'],true))return count(FaBARCPlayed($p,true))>0;
     if($b==='deep_rooted_evil')return FaBMONCount($p,'BANISHED_SIX')>0;
     if($b==='eclipse')return FaBMONCount($p,'DEBT_PLAYED')>=6;
-    return in_array($b,['cull','ghostly_visit','howl_from_beyond','piercing_shadow_vise','rift_bind','rifted_torment','rip_through_reality','seeds_of_agony','seeping_shadows','tome_of_torment','void_wraith','mutated_mass','shadow_of_ursur','invert_existence'],true);
+    return in_array($b,['embalm','cull','ghostly_visit','howl_from_beyond','piercing_shadow_vise','rift_bind','rifted_torment','rip_through_reality','seeds_of_agony','seeping_shadows','tome_of_torment','void_wraith','mutated_mass','shadow_of_ursur','invert_existence'],true);
 }
 function FaBMONCanPlay(int $p,array $f): bool {
     $b=FaBWTRBase($f['object']->CardID);$s=FaBGetState();
@@ -67,11 +67,11 @@ function FaBMONCanPlay(int $p,array $f): bool {
     return true;
 }
 function FaBMONLessLife(int $p,string $talent=''): bool {
-    foreach(FaBOpponents($p) as $other)if(intval(GetHealth($p))<intval(GetHealth($other))&&($talent===''||FaBHasType(GetHero($other)[0],$talent)))return true;return false;
+    foreach(FaBOpponents($p) as $other)if(FaBPENLifeMore($other,$p)&&($talent===''||FaBHasType(GetHero($other)[0],$talent)))return true;return false;
 }
 function FaBMONCardPlayed(int $p,object $o,string $from): void {
     $b=FaBWTRBase($o->CardID);$aa=FaBWTRIsAttackAction($o);$left=[];
-    if($from==='Banish'){FaBMONAdd($p,'BANISH_PLAYED');FaBARCSetCard(intval($o->UniqueID),'monFromBanish',true);}
+    if($from==='Banish'){FaBMONAdd($p,'BANISH_PLAYED');FaBARCSetCard(intval($o->UniqueID),'monFromBanish',FaBIAROwnBanish($p,intval($o->UniqueID)));}
     if(FaBHasKeyword($o,'Blood Debt'))FaBMONAdd($p,'DEBT_PLAYED');
     foreach(FaBWTREffects($p) as $e){$t=$e['type']??'';$applies=false;$amount=intval($e['amount']??0);
         if($t==='MON_NEXT_SHADOW_BRUTE')$applies=$aa&&(FaBHasType($o,'Shadow')||FaBHasType($o,'Brute'));
@@ -150,6 +150,7 @@ function FaBMONGAgain(int $p,object $o,array $s): bool {
 }
 function FaBMONDefendingPower(int $p,object $o): int {
     $n=$o->CardID==='fractal_replication_red'?FaBEVRFractalValue($o,'POWER'):intval(CardPower($o->CardID));if($o->CardID==='mutated_mass_blue')$n=FaBMONMass($p);
+    $n=FaBPENBase($p,$o,$n)+FaBPENCombatPower($p,$o);
     foreach((array)($o->TurnEffects??[]) as $tag)if(str_starts_with($tag,'WTR_POWER:'))$n+=intval(substr($tag,10));
     if(FaBWTRIsAttackAction($o)){
         foreach(FaBOpponents($p) as $other)$n-=count(FaBMONArena($other,'parable_of_humility'));
@@ -175,9 +176,9 @@ function FaBMONStart(int $p): void {
     }
     if(intval(GetHealth($p))<=13)foreach(FaBCRUEquipment($p,'carrion_husk') as $r)FaBMoveUID(intval(FaBIdentityFromMZ($r)['object']->UniqueID),'Banish',$p);
 }
-function FaBMONEnd(int $p): void {
+function FaBMONEnd(int $p, ?int $bloodDebtAtEnd = null): void {
     FaBBoltynEnd();
-    if(!FaBDTDBloodDebt($p))FaBARCLoseLife($p,FaBMONBloodDebt($p),$p);
+    if(!FaBDTDBloodDebt($p))FaBARCLoseLife($p,$bloodDebtAtEnd??FaBMONBloodDebt($p),$p);
     foreach(FaBCRUEquipment($p,'valiant_dynamo') as $ref)if(FaBCRUCount($p,'WEAPONS')>=2)FaBRunSourceMacro('ResolveAbility',$p,'valiant_dynamo',['mzID'=>$ref]);
     foreach(FaBLiveSeats() as $owner)if(FaBMONArena($owner,'great_library_of_solana'))foreach(FaBLiveSeats() as $seat){
         $yellow=0;foreach(FaBChoiceRefs($seat,'Pitch') as $r)if(intval(CardPitch(FaBIdentityFromMZ($r)['object']->CardID))===2)++$yellow;
@@ -187,13 +188,16 @@ function FaBMONEnd(int $p): void {
     foreach(explode('&',FaBMONWeaponChoices($p)) as $r){$f=FaBIdentityFromMZ($r);if(!$f)continue;$o=$f['object'];$g=FaBMONCount($p,'GLISTEN');if($g){FaBSetObjectCounter($o,'POWER',0);FaBSetObjectCounter($o,'MON_GLISTEN',0);}}
 }
 function FaBMONDestroy(int $uid): void {
+    if(FaBIARBeforeDeath($uid))return;
+    $penSource=FaBFindUID($uid);if($penSource&&FaBPENProtectFealty($penSource['object'],intval($GLOBALS['fabEffectController']??0)))return;
     FaBELEDestroyHook($uid);
     $f=FaBFindUID($uid);if(!$f)return;$p=$f['player'];$o=clone $f['object'];
     // Snapshot eligible triggers before the source leaves (Retribution sees itself).
     $triggers=(FaBHasType($o,'Aura')||FaBWTRIsAttackAction($o))?FaBMONArena($p,'merciful_retribution'):[];
     $light=FaBHasType($o,'Light')&&!FaBHasType($o,'Token');$aa=FaBWTRIsAttackAction($o)&&FaBHasType($o,'Illusionist');
+    if($f['zone']==='Arena')FaBIARBoundTriggers($uid,true);
     FaBMoveUID($uid,'Graveyard',intval($o->Owner??$p));
-    if(!empty(FaBObjectCounters($o)['EVO_HERO_UID']))FaBEliminateSeat($p);FaBEVODestroyed($p,$o,$f['zone']);FaBHVYDestroyed($p,$o);FaBDTDDestroyed($p,$o);FaBEVRDestroyed($p,$o);FaBUPRDestroyed($p,$o);FaBDYNDestroyed($p,$o);
+    if(!empty(FaBObjectCounters($o)['EVO_HERO_UID']))FaBEliminateSeat($p);FaBEVODestroyed($p,$o,$f['zone']);FaBHVYDestroyed($p,$o);FaBDTDDestroyed($p,$o);FaBEVRDestroyed($p,$o);FaBUPRDestroyed($p,$o);FaBDYNDestroyed($p,$o);FaBPENDestroyed($p,$o);FaBOMNDestroyed($p,$o);FaBIARDestroyed($p,$o);if($f['zone']==='Arena')FaBIARZombieDied($p,$o);
     foreach($triggers as $r){$a=FaBIdentityFromMZ($r);$triggerID=$a?$a['object']->CardID:'merciful_retribution_yellow';
         FaBRunSourceMacro('ResolveAbility',$p,$triggerID,['mzID'=>$r,'monDestroyedUID'=>$uid,'monLight'=>$light]);}
 
@@ -287,7 +291,7 @@ function FaBMONSpellvoid(int $p,string $r): int {
     if(!in_array($r,explode('&',FaBMONSpellvoidRefs($p)),true))return 0;$o=FaBIdentityFromMZ($r)['object'];$n=$o->CardID==='arcanite_fortress'?FaBROSArcanite($p):0;
     foreach(FaBKeywords($o) as $k)if(preg_match('/Spellvoid (\d+)/i',$k,$m))$n=max($n,intval($m[1]));FaBMONDestroy(intval($o->UniqueID));return $n;
 }
-function FaBMONHigherLight(int $p): bool {foreach(FaBOpponents($p) as $other)if(FaBHasType(GetHero($other)[0],'Light')&&intval(GetHealth($p))>intval(GetHealth($other)))return true;return false;}
+function FaBMONHigherLight(int $p): bool {foreach(FaBOpponents($p) as $other)if(FaBHasType(GetHero($other)[0],'Light')&&FaBPENLifeMore($p,$other))return true;return false;}
 function FaBMONHasBoth(string $refs): bool {$aa=false;$naa=false;foreach(explode('&',$refs) as $r){$f=FaBIdentityFromMZ($r);if(!$f)continue;$aa=$aa||FaBWTRIsAttackAction($f['object']);$naa=$naa||(FaBHasType($f['object'],'Action')&&!FaBWTRIsAttackAction($f['object']));}return $aa&&$naa;}
 function FaBMONNonAttacks(string $refs): int {$n=0;foreach(explode('&',$refs) as $r){$f=FaBIdentityFromMZ($r);if($f&&FaBHasType($f['object'],'Action')&&!FaBWTRIsAttackAction($f['object']))++$n;}return $n;}
 function FaBMONExtraWeapons(int $p): void {foreach(FaBChoiceRefs($p,'Weapons') as $r)FaBWTRTag(FaBIdentityFromMZ($r)['object'],'CRU_EXTRA_ATTACK');}

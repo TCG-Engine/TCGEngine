@@ -112,7 +112,7 @@ function FaBOUTInfiltrate(int $p,int $victim): void {
  $r=FaBChoiceRefs($victim,'Deck')[0]??'';$f=FaBIdentityFromMZ($r);if(!$f)return;$o=FaBMoveUID(intval($f['object']->UniqueID),'Banish',$victim);$o->Owner=$victim;
  $s=FaBGetState();$s['outInfiltrate'][intval($o->UniqueID)]=['player'=>$p,'turn'=>intval(GetTurnNumber())];FaBSetState($s);
 }
-function FaBOUTCanPlayStolen(int $p,array $f): bool {if(FaBMSTStolen($p,$f))return true;return $f['zone']==='Banish'&&empty($f['object']->FaceDown)&&intval(FaBGetState()['outInfiltrate'][intval($f['object']->UniqueID)]['player']??0)===$p;}
+function FaBOUTCanPlayStolen(int $p,array $f): bool {if(FaBPENCanPlayBanished($p,$f)||FaBMSTStolen($p,$f))return true;return $f['zone']==='Banish'&&empty($f['object']->FaceDown)&&intval(FaBGetState()['outInfiltrate'][intval($f['object']->UniqueID)]['player']??0)===$p;}
 function FaBOUTEndPermissions(int $p): void {$s=FaBGetState();$s['outInfiltrate']=array_filter($s['outInfiltrate']??[],fn($e)=>intval($e['player'])!==$p||intval($e['turn'])>=intval(GetTurnNumber()));FaBSetState($s);}
 function FaBOUTEndTargets(int $p): string {return implode('&',array_filter(FaBChoiceRefs($p,'Arena'),fn($r)=>in_array(FaBIdentityFromMZ($r)['object']->CardID,['bloodrot_pox','frailty','inertia','ponder'],true)));}
 function FaBOUTHasDiseases(int $p): bool {foreach(['bloodrot_pox','frailty','inertia'] as $id)if(FaBMONArena($p,$id))return true;return false;}

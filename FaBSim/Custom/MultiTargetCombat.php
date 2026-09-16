@@ -28,14 +28,15 @@ function FaBMultiTargetDamage(array $state): void {
     // Calculate every packet before anyone loses life or is eliminated.
     foreach($state['attackTargets'] as $t){
         $p=intval($t['player']);if(!FaBSeatIsLive($p))continue;
-        $defense=FaBDefenseValue($state,$p);$amount=max(0,$power-$defense);
+        $defense=($t['type']??'HERO')==='HERO'?FaBDefenseValue($state,$p):0;$amount=max(0,$power-$defense);
         if($attack&&in_array('WTR_DOUBLE_DAMAGE',(array)$attack['object']->TurnEffects,true))$amount*=2;
         $packets[]=[$t,$defense,$amount];
     }
     $state['combatStep']='DAMAGE';$state['window']='DAMAGE';$state['attackPower']=$power;$state['targetDamage']=[];FaBSetState($state);
     $hits=[];$total=0;
     foreach($packets as [$t,$defense,$amount]){
-        $p=intval($t['player']);$dealt=$attack?DoDamage(intval($state['attacker']),$attack['mzID'],$p,$amount,'PHYSICAL'):0;
+        $p=intval($t['player']);$dealt=0;
+        if($attack)$dealt=($t['type']??'HERO')==='HERO'?DoDamage(intval($state['attacker']),$attack['mzID'],$p,$amount,'PHYSICAL'):FaBUPRDeal(intval($state['attacker']),intval($state['attackUID']),intval($t['uid']),$amount,'PHYSICAL');
         $s=FaBGetState();$s['targetDamage'][(string)$p]=['power'=>$power,'defense'=>$defense,'damage'=>$dealt];FaBSetState($s);
         if($dealt>0)$hits[]=[$t,$dealt];$total+=$dealt;
     }

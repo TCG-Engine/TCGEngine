@@ -138,21 +138,23 @@ function FaBDTDOpposingTargets(int $p): string {return implode('&',array_filter(
 function FaBDTDHideBanish(int $p): void {foreach(FaBChoiceRefs($p,'Banish') as $r)FaBDTDFaceDown($r);}
 function FaBDTDForcefield(int $p,array $used=[]): bool {return FaBDTDForcefieldUID($p,$used)>0;}
 function FaBDTDForcefieldUID(int $p,array $used=[]): int {if(FaBMONSoul($p)==='')return 0;foreach(FaBMONArena($p,'radiant_forcefield') as $r){$uid=intval(FaBIdentityFromMZ($r)['object']->UniqueID);if(!in_array($uid,$used,true))return $uid;}return 0;}
-function FaBDTDPreventionChoices(int $p,int $n,array $used=[],string $type='PHYSICAL'): string {
+function FaBDTDPreventionChoices(int $p,int $n,array $used=[],string $type='PHYSICAL',int $source=0): string {
  if($p<1||$n<1||!FaBSeatIsLive($p))return '';$out=FaBMSTWardRefs($p);if($type==='ARCANE')$out=array_merge($out,FaBROSShelters($p));
  foreach(['shroud_of_darkness','cloak_of_darkness','grasp_of_darkness','dance_of_darkness'] as $id)$out=array_merge($out,FaBCRUEquipment($p,$id));
  if(FaBDTDForcefield($p,$used))$out=array_merge($out,FaBChoiceRefs($p,'Soul'));
  if($n>=intval(GetHealth($p))&&FaBDTDCount($p,'MORLOCK'))foreach(['Hand','Arsenal'] as $z)$out=array_merge($out,FaBChoiceRefs($p,$z,['base'=>'minerva_themis']));
- return implode('&',$out);
+ return implode('&',array_unique(array_merge($out,FaBPENPreventionChoices($p,$type,$used),FaBIARShadowResistRefs($p,$source))));
 }
-function FaBDTDPreventionPay(int $p,string $r,int $n,array &$used=[]): int {
+function FaBDTDPreventionPay(int $p,string $r,int $n,array &$used=[],int $source=0): int {
+ $iar=FaBIARShadowResistPay($p,$r,$source);if($iar)return $iar;
+ $pen=FaBPENPreventionPay($p,$r,$used);if($pen)return $pen;
  if(in_array($r,FaBROSShelters($p),true)){$o=FaBIdentityFromMZ($r)['object'];FaBMONDestroy(intval($o->UniqueID));return 1;}if(!in_array($r,explode('&',FaBDTDPreventionChoices($p,$n,$used)),true))return 0;$f=FaBIdentityFromMZ($r);if(FaBMSTWardActive($f['object'])){$value=FaBMSTWard($p,$f['object']);FaBMONDestroy(intval($f['object']->UniqueID));return $value;}$value=$f['zone']==='Soul'?1:2;if($f['zone']==='Soul')$used[]=FaBDTDForcefieldUID($p,$used);
  if($f['object']->CardID==='minerva_themis'){$value=$n;FaBDTDClear($p,'MORLOCK');}
  FaBMoveUID(intval($f['object']->UniqueID),'Banish',$p);return $value;
 }
 function FaBDTDStorePrevention(int $p,int $source,int $n): void {if($n>0)FaBDTDAdd($p,'PREVENT_PACKET',$n,['sourceUID'=>$source]);}
 function FaBDTDConsumePrevention(int $p,int $source,int $n): int {$left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='DTD_PREVENT_PACKET'&&intval($e['sourceUID']??0)===$source)$n=max(0,$n-intval($e['amount']));else $left[]=$e;}FaBWTRSetEffects($p,$left);return $n;}
-function FaBDTDUnpreventable(int $p,int $source,string $type): bool {return FaBUPRUnpreventable($source)||($type==='ARCANE'&&FaBEVRUnpreventable($p,0));}
+function FaBDTDUnpreventable(int $p,int $source,string $type): bool {return ($type==='PHYSICAL'&&FaBARCEffect($p,'OMN_UNPREVENTABLE'))||FaBUPRUnpreventable($source)||($type==='ARCANE'&&FaBEVRUnpreventable($p,0));}
 function FaBDTDCombatPrevention(): bool {
  $s=FaBGetState();$uid=intval($s['attackUID']);$targets=$s['attackTargets']??[];if(!$targets)$targets=[$s['attackTarget']??[]];
  foreach($targets as $target){if(($target['type']??'HERO')!=='HERO')continue;$victim=intval($target['player']??0);if(!$victim)continue;
@@ -170,4 +172,4 @@ function FaBDTDCostPitchChoices(int $p,int $reserve=1): string {
   if($available>=$cost&&in_array($r,explode('&',FaBARCPitchChoices($p)),true))$out[]=$r;
  }return implode('&',$out);
 }
-function FaBDTDBeginActionPhase(): void {$s=FaBGetState();$s['dtdStarting']=false;FaBSetState($s);}
+function FaBDTDBeginActionPhase(): void {$s=FaBGetState();$s['dtdStarting']=false;FaBSetState($s);FaBPENActionPhase(intval(GetTurnPlayer()));FaBOMNActionPhase(intval(GetTurnPlayer()));FaBIARActionPhase(intval(GetTurnPlayer()));}

@@ -1036,3 +1036,25 @@ Regenerate and hard-refresh after importing to load the Marked badge.
 
 Rules references: [The Hunted release notes](https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/the-hunted/)
 and [current keyword rules](https://rules.fabtcg.com/en/cr/08-keywords/).
+
+## Compendium of Rathe (PEN)
+
+All 348 printing identities are covered by `pen_abilities.json`, built from
+`build_pen_abilities.py`, with native support in `FaBSim/Custom/PENCards.php`.
+The suite covers duels and three-/four-seat UPF, including adjacency exceptions,
+all-hero effects, replacement choices, and delayed effects.
+
+See [PEN implementation and rebuild instructions](PEN_IMPLEMENTATION.md).
+
+## Omens of the Third Age (OMN)
+
+The 251-identity catalog, saved authoring, runtime hooks, and duel/UPF regression
+commands are documented in [OMN_IMPLEMENTATION.md](OMN_IMPLEMENTATION.md).
+Rebuild `omn_abilities.json`, import through CardEditor, and regenerate FaBSim.
+
+## Usurp the Shadow Throne (IAR)
+
+The 261-identity catalog, CardEditor snapshot, shared rules, image generation,
+and duel/UPF checks are documented in [IAR_IMPLEMENTATION.md](IAR_IMPLEMENTATION.md).
+The card-data source is pinned, and the builder fails if any IAR identity is
+unhandled.

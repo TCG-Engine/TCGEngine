@@ -1,4 +1,4 @@
-https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/develop/json/english/card.json
+https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/0ef333c01b7c933a03f3b2762cdac89a73e8e204/json/english/card.json
 
 png
 

@@ -166,6 +166,18 @@
       }
     });
     let state={};try{state=JSON.parse(window.GameStateData||'{}');}catch(_){}
+    if (typeof window.FaBRenderChain === 'function') {
+      const chainHost = document.getElementById('fab-upf-chain');
+      let view = document.getElementById('fab-upf-chain-view');
+      if (!view) { view = document.createElement('div'); view.id = 'fab-upf-chain-view'; chainHost.appendChild(view); }
+      const chainZones = {};
+      seats.forEach(seat => {
+        const zone = 'p' + seat + 'CombatChain'; chainZones[zone] = window[zone + 'Data'] || '';
+        const slot = document.getElementById(zone + 'Slot');
+        if (slot) { slot.replaceChildren(); slot.parentElement.hidden = true; }
+      });
+      window.FaBRenderChain(view, chainZones, state);
+    }
     document.getElementById('fab-upf-turn-label').textContent=Number(window.WinnerData)>0?'Player '+window.WinnerData+' wins':"Player "+window.TurnPlayerData+"'s turn";
     document.getElementById('fab-upf-priority-label').textContent='Priority: Player '+window.PriorityPlayerData+' · '+String(state.window||'').replaceAll('_',' ');
     document.getElementById('fab-upf-status').textContent=Number(window.WinnerData)>0?'Player '+window.WinnerData+' wins!':'UPF · Turn P'+window.TurnPlayerData+' · Priority P'+window.PriorityPlayerData+' · '+String(state.window||'').replaceAll('_',' ');

@@ -357,6 +357,9 @@ if(!$withPreview && file_exists($cacheFile)) {
       $cardID = $card->id;
     } else if($rootName == "FaBSim") {
       $cardID = FaBCardIdentifier($card->name ?? '', $card->pitch ?? 0);
+      // IAR release notes correct the preview feed's blue Darkest Hour value.
+      if($cardID === 'darkest_hour_blue')foreach(['functional_text','functional_text_plain'] as $field)
+        if(isset($card->$field))$card->$field=str_replace('+1{p}','+2{p}',$card->$field);
       if($cardID === '') {
         $pageSkipped++; $totalSkipped++;
         continue;

@@ -9,6 +9,7 @@ AssetReflection: FaBSim
 Layout: /Custom/GameLayout.php
 ClientInclude: /TCGEngine/FaBSim/Custom/CardImages.js
 ClientInclude: /TCGEngine/FaBSim/Custom/GameUI.js
+ClientInclude: /TCGEngine/FaBSim/Custom/CombatChainUI.js
 ServerInclude: /Custom/CustomInput.php
 ServerInclude: /Custom/GameLogic.php
 ServerInclude: /TurnController.php
@@ -82,14 +83,25 @@ Click: FSM()
 
 Arena - CardID:string, Status:number=2, Owner:number=0, Controller:number=0, Damage:number=0, UniqueID:number=0, TurnEffects:array[string], Counters:json
 Display: Visibility=Public, Mode=All, BindTo=ArenaSlot
+Virtual: HoloCounters=FaBOMNHolo(), EnergyCounters=FaBEnergyCounters(), FrostZone=FaBMPGFrostZone(), SuspenseCounters=FaBSUPDisplaySuspense()
+Counters: EnergyCounters=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
+Counters: HoloCounters=Badge(Color=Purple,Position=TopRight,ShowZero=false), FrostZone=Badge(Color=Blue,Position=TopRight,ShowZero=false), SuspenseCounters=Badge(Color=Yellow,Position=BottomLeft,ShowZero=false)
+Virtual: GoldCounters=FaBSEAGoldCounters(), BalanceCounters=FaBSEABalanceCounters()
+Counters: GoldCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false)
+Counters: BalanceCounters=Badge(Color=Blue,Position=TopRight,ShowZero=false)
 Virtual: SelectionMetadata=FaBSelectionMetadata()
 Virtual: SteamCounters=FaBSteamCounters()
 Virtual: PowerCounters=FaBPowerCounters()
 Counters: PowerCounters=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
 Virtual: AllyHealth=FaBUPRDisplayHealth(), FrostCounters=FaBUPRFrostCounters(), RazeCounters=FaBUPRRazeCounters(), EnduranceCounters=FaBUPREnduranceCounters()
-Counters: AllyHealth=Badge(Color=Green,Position=BottomRight,ShowZero=true,ShowNegative=false), FrostCounters=Badge(Color=Blue,Position=BottomLeft,ShowZero=false), RazeCounters=Badge(Color=Yellow,Position=BottomLeft,ShowZero=false), EnduranceCounters=Badge(Color=Yellow,Position=BottomLeft,ShowZero=false)
+Counters: AllyHealth=Badge(Color=Green,Position=BottomRight,ShowZero=true,ShowNegative=false)
+Counters: FrostCounters=Badge(Color=Blue,Position=BottomLeft,ShowZero=false)
+Counters: RazeCounters=Badge(Color=Yellow,Position=BottomLeft,ShowZero=false)
+Counters: EnduranceCounters=Badge(Color=Yellow,Position=BottomLeft,ShowZero=false)
 Virtual: FlowCounters=FaBELEFlowCounters(), VerseCounters=FaBEVRVerseCounters(), DoomCounters=FaBDYNDoomCounter()
-Counters: DoomCounters=Badge(Color=Red,Position=TopLeft,ShowZero=false), VerseCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false), FlowCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false)
+Counters: DoomCounters=Badge(Color=Red,Position=TopLeft,ShowZero=false)
+Counters: VerseCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false)
+Counters: FlowCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false)
 Counters: SteamCounters=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
 Highlight: SelectionMetadata
 Overlay: Status=1:exhausted
@@ -100,6 +112,7 @@ Click: FSM()
 CombatChain - CardID:string, Status:number=2, Owner:number=0, Controller:number=0, Damage:number=0, UniqueID:number=0, TurnEffects:array[string], Counters:json, Role:string="", ChainLink:number=0, FromZone:string=""
 Display: Visibility=Public, Mode=All, BindTo=CombatChainSlot
 Virtual: CombatPower=FaBDisplayCombatPower(), CombatDefense=FaBDisplayCombatDefense()
+Virtual: CombatGoAgain=FaBDisplayGoAgain()
 Virtual: SelectionMetadata=FaBSelectionMetadata()
 Highlight: SelectionMetadata
 Click: FSM()
@@ -120,11 +133,16 @@ Arsenal - CardID:string, UniqueID:number=0, FaceDown:number=1, TurnEffects:array
 Display: Visibility=Self, Mode=Single, BindTo=ArsenalSlot
 Virtual: SelectionMetadata=FaBSelectionMetadata()
 Virtual: LessonCounters=FaBLessonCounters(), AimCounters=FaBDYNAimCounter()
-Counters: LessonCounters=Badge(Color=Yellow,Position=TopLeft,ShowZero=false), AimCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false)
+Counters: LessonCounters=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
+Counters: AimCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false)
 Highlight: SelectionMetadata
 Click: FSM()
-Graveyard - CardID:string, UniqueID:number=0, Owner:number=0, Controller:number=0
+Graveyard - CardID:string, UniqueID:number=0, Owner:number=0, Controller:number=0, FaceDown:number=0
 Display: Visibility=Public, Mode=Single, BindTo=GraveyardSlot
+Virtual: SelectionMetadata=FaBSelectionMetadata()
+Highlight: SelectionMetadata
+Overlay: FaceDown=1:exhausted
+Click: FSM()
 Banish - CardID:string, UniqueID:number=0, FaceDown:number=0, ReturnAtEndTurn:number=0, PlayableFromBanish:number=0, PlayableChainLink:number=0, Counters:json, TurnEffects:array[string], Owner:number=0, Controller:number=0
 Display: Visibility=Public, Mode=Single, BindTo=BanishSlot
 Virtual: SelectionMetadata=FaBSelectionMetadata()

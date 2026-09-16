@@ -25,16 +25,17 @@ function FaBMSTTranscend(int $p,int $uid): void {
  $f['object']->CardID='inner_chi_blue';$o=FaBMoveUID($uid,'Hand',$owner);if(!$o)return;FaBMSTAdd($p,'TRANSCENDED');
  foreach(FaBCRUEquipment($p,'twelve_petal_kasaya') as $r)FaBRunSourceMacro('ResolveAbility',$p,'twelve_petal_kasaya',['mzID'=>$r,'mstEvent'=>'transcend']);
 }
-function FaBMSTChiCost(string $id): int {return in_array($id,['enigma','enigma_ledger_of_ancestry','enigma_new_moon','nuu','nuu_alluring_desire','zen','zen_tamer_of_purpose','mask_of_recurring_nightmares','meridian_pathway','twelve_petal_kasaya'],true)?3:0;}
+function FaBMSTChiCost(string $id): int {return in_array($id,['enigma','enigma_ledger_of_ancestry','enigma_new_moon','nuu','nuu_alluring_desire','zen','zen_tamer_of_purpose','mask_of_recurring_nightmares','meridian_pathway','twelve_petal_kasaya','rippling_wave','kimono_of_layered_lessons'],true)?3:0;}
 function FaBMSTAvailableChi(int $p): int {$n=FaBMSTChi($p);foreach(FaBChoiceRefs($p,'Hand') as $r){$o=FaBIdentityFromMZ($r)['object'];if(FaBHasType($o,'Chi')&&!FaBARCNamedProhibited($o->CardID)&&FaBELECanPitch($p,$o)&&FaBOUTCanPitch($p,$o))$n+=intval(CardPitch($o->CardID));}return $n;}
 function FaBMSTPendingChi(array $pending): int {return !empty($pending['isAbility'])?FaBMSTChiCost((string)(FaBFindUID(intval($pending['uid']))['object']->CardID??'')):0;}
 function FaBMSTCanPitch(int $p,object $o,array $pending): bool {return FaBMSTChi($p)>=FaBMSTPendingChi($pending)||FaBHasType($o,'Chi');}
 function FaBMSTHidden(object $o): bool {return intval($o->FaceDown??0)===1&&FaBHasType($o,'Equipment');}
-function FaBMSTCloakAbility(object $o): bool {return FaBMSTHidden($o)&&!in_array('NO_ABILITIES',(array)($o->TurnEffects??[]),true)&&empty(FaBObjectCounters($o)['_overrides']['NO_ABILITIES'])&&in_array($o->CardID,['aqua_laps','aqua_seeing_shell','waves_of_aqua_marine','truths_retold','uphold_tradition','skybody_keikoi','skycrest_keikoi','skyhold_keikoi','skywalker_keikoi'],true);}
+function FaBMSTCloakAbility(object $o): bool {return FaBMSTHidden($o)&&!in_array('NO_ABILITIES',(array)($o->TurnEffects??[]),true)&&empty(FaBObjectCounters($o)['_overrides']['NO_ABILITIES'])&&in_array($o->CardID,['rippling_wave','kimono_of_layered_lessons','aqua_laps','aqua_seeing_shell','waves_of_aqua_marine','truths_retold','uphold_tradition','skybody_keikoi','skycrest_keikoi','skyhold_keikoi','skywalker_keikoi'],true);}
 function FaBMSTSetup(int $p): void {foreach(FaBChoiceRefs($p,'Equipment') as $r){$o=FaBIdentityFromMZ($r)['object'];if(FaBHasKeyword($o->CardID,'Cloaked')||FaBMONHero($p,'enigma_new_moon'))$o->FaceDown=1;}}
 function FaBMSTFlip(int $uid): void {$f=FaBFindUID($uid);if(!$f||$f['zone']!=='Equipment'||!FaBMSTHidden($f['object']))return;$f['object']->FaceDown=0;FaBARCSetCard($uid,'mstFlipped',true);if($f['object']->CardID==='koi_blessed_kimono')FaBRunSourceMacro('ResolveAbility',$f['player'],$f['object']->CardID,['mzID'=>$f['mzID']]);}
 function FaBMSTWard(int $p,object $o): int {
- if(HasNoAbilities($o))return 0;$b=FaBWTRBase($o->CardID);$text=(string)CardFunctional_text_plain($o->CardID);
+ if (!HasNoAbilities($o) && in_array(FaBWTRBase($o->CardID), ['holo_shield','corrosive_space_dust'], true)) return FaBOMNHolo($o) ? 5-intval(CardPitch($o->CardID)) : 1;
+ if(HasNoAbilities($o))return 0;$penWard=FaBARCCard(intval($o->UniqueID),'penWard',[]);if(intval($penWard['turn']??-1)===intval(GetTurnNumber()))return intval($penWard['amount']);$b=FaBWTRBase($o->CardID);$text=(string)CardFunctional_text_plain($o->CardID);
  if($b==='manifestation_of_miragai')return max(0,intval(FaBObjectCounters($o)['POWER']??0));
  if($b==='haze_shelter')return FaBMSTBlue($p)?4:1;
  if($b==='three_visits')return 3*FaBMSTBlue($p);
@@ -45,8 +46,8 @@ function FaBMSTWard(int $p,object $o): int {
 function FaBMSTAuras(int $p,bool $ward=false): string {return implode('&',array_filter(FaBChoiceRefs($p,'Arena',['type'=>'Aura']),fn($r)=>!$ward||FaBMSTWardActive(FaBIdentityFromMZ($r)['object'])));}
 function FaBMSTCounters(string $r,int $n): void {$f=FaBIdentityFromMZ($r);if($f)FaBEVOCounter($f['object'],'POWER',max(0,intval(FaBObjectCounters($f['object'])['POWER']??0)+$n));}
 function FaBMSTShield(int $p,int $power=0,int $n=1,?bool $action=null): void {$o=FaBHVYToken($p,'spectral_shield',$n,$p,$action);if($o&&$power)FaBEVOCounter($o,'POWER',$power);}
-function FaBMSTTiger(int $p,bool $hand=true,int $n=1): void {for($i=0;$i<$n;++$i){if($hand)AddHand($p,CardID:'crouching_tiger',Owner:$p,Controller:$p);else{$o=AddBanish($p,CardID:'crouching_tiger',Owner:$p,Controller:$p,PlayableFromBanish:1);}FaBMSTAdd($p,'TIGER_CREATED');}}
-function FaBMSTEphemeral(int $p,string $id): void {AddHand($p,CardID:$id,Owner:$p,Controller:$p);}
+function FaBMSTTiger(int $p,bool $hand=true,int $n=1): void {$n=FaBPENCreatedCount($p,$n);for($i=0;$i<$n;++$i){if($hand)AddHand($p,CardID:'crouching_tiger',Owner:$p,Controller:$p);else{$o=AddBanish($p,CardID:'crouching_tiger',Owner:$p,Controller:$p,PlayableFromBanish:1);}FaBMSTAdd($p,'TIGER_CREATED');}}
+function FaBMSTEphemeral(int $p,string $id): void {$n=FaBPENCreatedCount($p,1);for($i=0;$i<$n;++$i)AddHand($p,CardID:$id,Owner:$p,Controller:$p);}
 function FaBMSTAttackRefs(int $p,string $kind='',bool $own=true): string {
  $s=FaBGetState();$f=FaBFindUID(intval($s['attackUID']));if(!$f||($own&&intval($s['attacker'])!==$p))return '';$o=$f['object'];
  $ok=match($kind){'aa'=>FaBWTRIsAttackAction($o),'hybrid'=>FaBWTRIsAttackAction($o)&&(FaBHasType($o,'Assassin')||FaBHasType($o,'Mystic')),'small'=>FaBWTRIsAttackAction($o)&&FaBMONBasePower($p,$o)<=1,'stealth'=>FaBHasKeyword($o,'Stealth'),'tiger'=>$o->CardID==='crouching_tiger',default=>true};return $ok?$f['mzID']:'';
@@ -113,7 +114,7 @@ function FaBMSTAllWardCounters(int $p): void {foreach(explode('&',FaBMSTAuras($p
 function FaBMSTBlanch(int $p,int $v): void {foreach(FaBChoiceRefs($v,'Hero') as $r)FaBEVOCounter(FaBIdentityFromMZ($r)['object'],'MST_COLORLESS_UNTIL',intval(GetTurnNumber())+(intval(GetTurnPlayer())===$v?0:1));}
 function FaBMSTStart(int $p): void {
  foreach(FaBChoiceRefs($p,'Arena',['base'=>'sigil_of_solitude']) as $r)if(!HasNoAbilities(FaBIdentityFromMZ($r)['object']))FaBRunSourceMacro('StartTurn',$p,FaBIdentityFromMZ($r)['object']->CardID,['mzID'=>$r]);
- foreach(FaBChoiceRefs($p,'Equipment') as $r){$o=FaBIdentityFromMZ($r)['object'];if(in_array($o->CardID,['aqua_laps','aqua_seeing_shell','waves_of_aqua_marine','heirloom_of_rabbit_hide','koi_blessed_kimono'],true))FaBRunSourceMacro('StartTurn',$p,$o->CardID,['mzID'=>$r]);}
+ foreach(FaBChoiceRefs($p,'Equipment') as $r){$o=FaBIdentityFromMZ($r)['object'];if(in_array($o->CardID,['rippling_wave','kimono_of_layered_lessons','aqua_laps','aqua_seeing_shell','waves_of_aqua_marine','heirloom_of_rabbit_hide','koi_blessed_kimono'],true))FaBRunSourceMacro('StartTurn',$p,$o->CardID,['mzID'=>$r]);}
 }
 function FaBMSTEnd(int $p): void {
  foreach(FaBLiveSeats() as $v){foreach(FaBChoiceRefs($v,'Arena',['base'=>'mistcloak_gully']) as $r)FaBRunSourceMacro('EndTurn',$v,FaBIdentityFromMZ($r)['object']->CardID,['mzID'=>$r]);}
@@ -150,7 +151,7 @@ function FaBMSTUnpreventable(object $o): bool {return FaBWTRBase($o->CardID)==='
 function FaBMSTFinishBlocks(): void {$s=FaBGetState();$refs=[];foreach(FaBLiveSeats() as $p)foreach(FaBChoiceRefs($p,'CombatChain') as $r){$o=FaBIdentityFromMZ($r)['object'];if(intval($o->ChainLink)===intval($s['chainLink'])&&($o->Role??'')==='DEFENSE')$refs[]=$r;}if(count($refs)===1){$f=FaBIdentityFromMZ($refs[0]);if(FaBWTRBase($f['object']->CardID)==='battlefront_bastion')FaBWTRAddEffect($f['player'],'PREVENT_DAMAGE',1);}}
 function FaBMSTAttackCounters(object $o): int {$uid=intval(FaBObjectCounters($o)['MON_SOURCE_UID']??0);$f=$uid?FaBFindUID($uid):null;return intval(FaBObjectCounters($f?$f['object']:$o)['POWER']??0);}
 function FaBMSTAmp(int $p,int $uid): int {$f=FaBFindUID($uid);if(!$f||(!FaBHasType($f['object'],'Action')&&!FaBHasType($f['object'],'Instant'))||FaBHasType($f['object'],'Token'))return 0;$n=FaBMSTCount($p,'AMP');if($n)FaBMSTClear($p,'AMP');return $n;}
-function FaBMSTWardActive(object $o): bool {return !HasNoAbilities($o)&&(preg_match('/\bWard\b/i',(string)CardFunctional_text_plain($o->CardID))||in_array('MST_WARD3',(array)($o->TurnEffects??[]),true));}
+function FaBMSTWardActive(object $o): bool {if($o->CardID==='touch_of_reality')return !HasNoAbilities($o)&&intval(FaBARCCard(intval($o->UniqueID),'penTouchTurn',-1))===intval(GetTurnNumber());return !HasNoAbilities($o)&&(preg_match('/\bWard\b/i',(string)CardFunctional_text_plain($o->CardID))||in_array('MST_WARD3',(array)($o->TurnEffects??[]),true));}
 function FaBMSTWardRefs(int $p): array {return array_values(array_filter(array_merge(FaBChoiceRefs($p,'Arena'),FaBChoiceRefs($p,'Equipment')),fn($r)=>($f=FaBIdentityFromMZ($r))&&FaBMSTWardActive($f['object'])));}
 function FaBMSTBeforeClose(): void {foreach(FaBLiveSeats() as $p)foreach(FaBChoiceRefs($p,'CombatChain',['base'=>'eloquent_eulogy']) as $r){$o=FaBIdentityFromMZ($r)['object'];if(($o->Role??'')==='ATTACK'&&!HasNoAbilities($o))FaBRunSourceMacro('CombatChainClosed',$p,$o->CardID,[]);}}
 function FaBMSTPrepareBoost(int $p,object $o): bool {
@@ -168,6 +169,6 @@ function FaBMSTCanPlay(int $p,object $o): bool {
  return true;
 }
 function FaBMSTAttackVictims(): array {$s=FaBGetState();$targets=$s['attackTargets']??[];if(!$targets)$targets=[$s['attackTarget']??['type'=>'HERO','player'=>intval($s['defender'])]];$out=[];foreach($targets as $t)if(($t['type']??'HERO')==='HERO'&&intval($t['player']??0)>0)$out[]=intval($t['player']);return array_values(array_unique($out));}
-function FaBMSTObjectColor(int $p,object $o): int {return FaBMSTColor(intval($o->Owner??0)?:$p,$o->CardID);}
+function FaBMSTObjectColor(int $p,object $o): int {return intval(FaBARCCard(intval($o->UniqueID??0),'penColor',FaBMSTColor(intval($o->Owner??0)?:$p,$o->CardID)));}
 function FaBMSTEnigma(int $p): bool {foreach(FaBChoiceRefs($p,'Hero') as $r){$o=FaBIdentityFromMZ($r)['object'];if(in_array($o->CardID,['enigma','enigma_ledger_of_ancestry'],true)&&!HasNoAbilities($o))return true;}return false;}
 function FaBMSTShieldDiscount(int $p,object $o): int {return $o->CardID==='spectral_shield'&&FaBMSTEnigma($p)&&!FaBMSTCount($p,'SHIELD_ATTACK')?1:0;}

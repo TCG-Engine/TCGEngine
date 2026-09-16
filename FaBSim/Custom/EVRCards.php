@@ -39,7 +39,7 @@ function FaBEVRShuffleHandArsenal(int $p): int {$n=0;foreach(['Hand','Arsenal'] 
 function FaBEVRExtraBow(string $r,int $n): void {$f=FaBIdentityFromMZ($r);if($f){FaBSetObjectCounter($f['object'],'EVR_BOW_TURN',intval(GetTurnNumber()));FaBSetObjectCounter($f['object'],'EVR_BOW_USES',intval(FaBObjectCounters($f['object'])['EVR_BOW_USES']??0)+$n);}}
 function FaBEVRRound(int $p): void {foreach(FaBLiveSeats() as $seat)FaBWTRAddEffect($seat,'EVR_ROUND',1,['target'=>$p,'expiresAtStartOf'=>$p]);}
 function FaBEVRWildfire(int $n): void {foreach(FaBLiveSeats() as $p)FaBEVRAdd($p,'WILDFIRE',$n);}
-function FaBEVRArcaneBonus(int $p,string $r,int $n,string $type): int {return FaBELEDamageBonus($p,$r,$n+intval(FaBARCCard(intval(FaBIdentityFromMZ($r)['object']->UniqueID??0),'arcaneBonus')),$type);}
+function FaBEVRArcaneBonus(int $p,string $r,int $n,string $type): int {if($type==='ARCANE'&&FaBSEAArcaneCapped(intval(FaBIdentityFromMZ($r)['object']->UniqueID??0)))return $n;return FaBELEDamageBonus($p,$r,$n+intval(FaBARCCard(intval(FaBIdentityFromMZ($r)['object']->UniqueID??0),'arcaneBonus')),$type);}
 function FaBEVRCanPlay(int $p,array $f): bool {
     $o=$f['object'];$b=FaBWTRBase($o->CardID);
     if(FaBHasType($o,'Action')&&!FaBWTRIsAttackAction($o)&&count(FaBARCPlayed($p,true)))foreach(FaBLiveSeats() as $seat)if(FaBMONArena($seat,'signal_jammer'))return false;
@@ -116,7 +116,7 @@ function FaBEVRBoost(int $p,int $uid): void {
 function FaBEVRStart(int $p): void {
     if(FaBCRUHero($p,'bravo_star_of_the_show'))FaBRunSourceMacro('StartTurn',$p,'bravo_star_of_the_show',['mzID'=>FaBChoiceRefs($p,'Hero')[0]]);
     if(FaBCRUHero($p,'valda_brightaxe')&&count(FaBMONArena($p,'seismic_surge'))>=3)FaBEVRAdd($p,'VALDA');
-    foreach(FaBOpponents($p) as $seat)if(intval(GetHealth($seat))>intval(GetHealth($p)))foreach(FaBCRUEquipment($seat,'silver_palms') as $r)FaBRunSourceMacro('ResolveAbility',$seat,'silver_palms',['mzID'=>$r]);
+    foreach(FaBOpponents($p) as $seat)if(FaBPENLifeMore($seat,$p))foreach(FaBCRUEquipment($seat,'silver_palms') as $r)FaBRunSourceMacro('ResolveAbility',$seat,'silver_palms',['mzID'=>$r]);
     foreach(FaBLiveSeats() as $seat)FaBWTRSetEffects($seat,array_values(array_filter(FaBWTREffects($seat),fn($e)=>intval($e['expiresAtStartOf']??0)!==$p)));
     foreach(FaBChoiceRefs($p,'Arena') as $r){$o=FaBIdentityFromMZ($r)['object'];$b=FaBWTRBase($o->CardID);
         if($b==='pyroglyphic_protection')FaBMONDestroy(intval($o->UniqueID));
@@ -124,7 +124,7 @@ function FaBEVRStart(int $p): void {
     }
 }
 function FaBEVREnd(int $p): void {
-    if(FaBELEArsenalSpace($p))foreach(FaBChoiceRefs($p,'Hand') as $r){$o=FaBIdentityFromMZ($r)['object'];if(FaBHasKeyword($o,'Heave')){FaBRunSourceMacro('ResolveAbility',$p,$o->CardID,['mzID'=>$r]);break;}}
+    if(FaBELEArsenalSpace($p))foreach(FaBChoiceRefs($p,'Hand') as $r){$o=FaBIdentityFromMZ($r)['object'];if(FaBHasKeyword($o,'Heave')){FaBRunSourceMacro('ResolveAbility',$p,'rubble_raiser_blue',['mzID'=>$r]);break;}}
     foreach(FaBMONArena($p,'talisman_of_balance') as $r){$more=false;foreach(FaBOpponents($p) as $seat)if(count(FaBChoiceRefs($seat,'Arsenal'))>count(FaBChoiceRefs($p,'Arsenal')))$more=true;if($more){FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));if(FaBELEArsenalSpace($p)){ $top=FaBChoiceRefs($p,'Deck')[0]??'';if($top!==''){$o=FaBMoveChoice($p,$top,'Deck','Arsenal');if($o)$o->FaceDown=1;}}}}
     if(FaBEVRCount($p,'REVEL'))foreach(FaBMONArena($p,'runechant') as $r)FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));
     if(FaBEVRCount($p,'OATH'))foreach(FaBChoiceRefs($p,'Weapons') as $r)FaBSetObjectCounter(FaBIdentityFromMZ($r)['object'],'POWER',0);
@@ -189,7 +189,7 @@ function FaBEVRShatterTargets(): string {$s=FaBGetState();$n=max(0,FaBAttackPowe
 function FaBEVRDrawAmount(int $p,int $n): int {if(GetCurrentPhase()==='MAIN'&&$p!==intval(GetTurnPlayer()))foreach(FaBMONArena(intval(GetTurnPlayer()),'talisman_of_tithes') as $r){if($n<=0)break;FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));--$n;}return $n;}
 function FaBEVRDrew(int $p,int $n): void {
  if($n<=0)return;
- if(GetCurrentPhase()==='MAIN')foreach(FaBOpponents($p) as $seat)if(FaBCRUHero($seat,'valda_brightaxe'))FaBEVRCreate($seat,'seismic_surge',$n);
+ if(GetCurrentPhase()==='MAIN')foreach(FaBOpponents($p) as $seat)if((FaBCRUHero($seat,'valda_brightaxe')||FaBCRUHero($seat,'valda_seismic_impact'))&&!FaBSEAHeroCreationBlocked($seat))FaBEVRCreate($seat,'seismic_surge',$n);
  $ref=(string)DecisionQueueController::GetVariable('mzID');$f=FaBIdentityFromMZ($ref);
  if(GetCurrentPhase()==='MAIN'&&$f&&FaBHasType($f['object'],'Action'))foreach(FaBCRUEquipment($p,'earthlore_bounty') as $r)FaBEVRCreate($p,'seismic_surge',$n);
 }

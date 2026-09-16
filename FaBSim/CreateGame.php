@@ -106,4 +106,5 @@ function FaBLoadPlayer($playerID, $resolved, bool $bot = false) {
     }else DoDrawCard($playerID, max(1, intval(CardIntelligence($resolved['hero'])) ?: 4));
 }
 
+FaBOMNSetup();
 ?>

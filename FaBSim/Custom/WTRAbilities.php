@@ -27,6 +27,8 @@ function FaBWTRAbilitySpec(string $id): ?array {
 }
 
 function FaBWTRAbilityCost(int $player, array $spec): int {
+    if (FaBHasType($spec['cardID']??'', 'Draconic')) $spec['cost']=max(0,intval($spec['cost'])-FaBARCEffect($player,'OMN_DRACO_COST'));
+    if (($spec['cardID']??'')==='aphrodias') $spec['cost']=max(0,intval($spec['cost'])-FaBARCEffect($player,'OMN_STARFIELD'));
     if(FaBMSTChiCost($spec['cardID']??''))return FaBMSTChiCost($spec['cardID'])+max(0,FaBELETax($player)-FaBEVRCount($player,'IGNITION'));
     $cost=$spec['cost']+FaBHNTAbilityCost($player,$spec)-(($spec['cardID']??'')==='volzar_the_lightning_rod'&&FaBROSSigils($player)!==''?1:0)+FaBHVYAbilityCost($player,$spec)+FaBEVOAbilityCost($player,$spec)+FaBDTDAbilityCost($player,$spec)+FaBELETax($player)-FaBEVRCount($player,'IGNITION');
     if(FaBHasType($spec['cardID']??'','Staff'))$cost-=FaBUPRCount($player,'STAFF_DISCOUNT');

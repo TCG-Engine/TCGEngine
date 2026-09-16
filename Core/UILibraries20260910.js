@@ -7567,6 +7567,8 @@ function _buildOpponentWaitingMessage() {
 }
 
 function _shouldShowOpponentWaitingMessage(viewerIsTurn) {
+  // A resolving effect can ask this viewer to choose while another seat retains priority.
+  if (_firstPendingDecisionFromRaw(window.myDecisionQueueData)) return false;
   // Games with explicit priority expose the actual deciding seat. Prefer that
   // authoritative value over redacted/placeholder opponent decision data.
   const priorityVal = typeof window.PriorityPlayerData !== 'undefined'

@@ -444,7 +444,13 @@
     for (let specIndex = 0; specIndex < specs.length; specIndex++) {
       const spec = specs[specIndex];
       const zoneDataVar = spec.zone + 'Data';
-      const zoneDataStr = window[zoneDataVar];
+      let zoneDataStr = window[zoneDataVar];
+      // Duel views render my/their zones while the server offers absolute pN refs.
+      // Resolve the display alias without changing the identity submitted back.
+      if (typeof zoneDataStr !== 'string' && typeof window.swuTwNormalizeSelection === 'function') {
+        const normalized = window.swuTwNormalizeSelection([spec]).inlineNormalized;
+        if (normalized && normalized.length === 1) zoneDataStr = window[normalized[0].zone + 'Data'];
+      }
       if (!zoneDataStr || typeof zoneDataStr !== 'string') continue;
 
       const cards = zoneDataStr.split('<|>').filter(s => s.trim());

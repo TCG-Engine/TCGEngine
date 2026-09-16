@@ -5,6 +5,7 @@ function FaBChoiceRefs(int $player, string $zone, array $filter = []): array {
     $refs = [];
     foreach (FaBZoneGet($zone, $player) as $index => $obj) {
         if (!is_object($obj) || !empty($obj->removed)) continue;
+        if ($zone==='Graveyard' && !empty($obj->FaceDown) && empty($filter['includeFaceDown'])) continue;
         if(isset($filter['pitch'])&&FaBMSTObjectColor($player,$obj)!==intval($filter['pitch']))continue;
         if (isset($filter['type']) && !FaBHasType($obj, $filter['type'])) continue;
         if (!empty($filter['attackAction']) && !FaBWTRIsAttackAction($obj)) continue;
@@ -134,7 +135,7 @@ function FaBDefendingChoices(int $defender, bool $equipment = false): string {
 
 function FaBPlaceChosenOnDeck(int $player, string $choice, bool $top): void {
     $moved=FaBMoveChoice($player,$choice,'Hand','Deck');
-    if($moved!==null&&$top){$deck=&GetDeck($player);$last=array_pop($deck);array_unshift($deck,$last);}
+    if($moved!==null&&$top&&!FaBPENTopsy()){$deck=&GetDeck($player);$last=array_pop($deck);array_unshift($deck,$last);}
 }
 
 function FaBEquipmentChoices(int $player): string {

@@ -18,30 +18,32 @@ function FaBUPFDeckErrors(array $deck): array {
     $pool = array_merge($deck['weapons'] ?? [], $deck['equipment'] ?? [], $deck['mainDeck'] ?? [], $deck['inventory'] ?? []);
     if (count($pool) > 52) $errors[] = 'UPF allows at most 52 cards besides the hero.';
     foreach (array_count_values($pool) as $id => $count) {
-        if ($count > 2) $errors[] = 'UPF allows two copies per pitch: ' . CardName($id) . '.';
+        if ($count > 2 && !in_array('Unlimited',(array)CardCard_keywords($id),true)) $errors[] = 'UPF allows two copies per pitch: ' . CardName($id) . '.';
         if ($count > 1 && count(array_filter((array)CardCard_keywords($id),fn($keyword)=>str_starts_with($keyword,'Legendary')))>0) $errors[] = 'Legendary allows one copy: ' . CardName($id) . '.';
         $types = (array)CardTypes($id);
+        if(in_array('Companion',$types,true)&&!str_starts_with((string)CardName($deck['hero']??''),(string)($types[0]??'')))$errors[]=CardName($id).' requires its named hero.';
         if(($deck['hero']??'')==='emperor_dracai_of_aesir'&&!in_array('Equipment',$types,true)&&!in_array('Weapon',$types,true)&&intval(CardPitch($id))!==1)$errors[]='Emperor requires red cards in the deck.';
         if(($deck['hero']??'')==='shiyana_diamond_gemini'&&str_contains((string)CardFunctional_text_plain($id),'Specialization'))continue;
-        foreach(['Rhinar','Bravo','Katsu','Dorinthea','Dash','Azalea','Viserai','Kano','Prism','Boltyn','Levia','Chane','Oldhim','Lexi','Briar','Iyslander','Arakni','Uzuri','Riptide','Benji','Vynnset','Levia','Maxx','Teklovossen','Kayo','Kassai','Betsy','Victor','Olympia']as$heroName){
+        foreach(['Rhinar','Bravo','Katsu','Dorinthea','Dash','Azalea','Viserai','Kano','Prism','Boltyn','Levia','Chane','Oldhim','Lexi','Briar','Iyslander','Arakni','Uzuri','Riptide','Benji','Vynnset','Levia','Maxx','Teklovossen','Kayo','Kassai','Betsy','Victor','Olympia','Gravy Bones','Marlynn','Puffin','Scurv','Valda']as$heroName){
             if(str_contains((string)CardFunctional_text_plain($id),$heroName.' Specialization') && !str_starts_with((string)CardName($deck['hero']??''),$heroName))$errors[]=CardName($id).' requires '.$heroName.'.';
         }
         if(str_contains((string)CardFunctional_text_plain($id),'Dromai or Fai Specialization')&&!preg_match('/^(Dromai|Fai)/',(string)CardName($deck['hero']??'')))$errors[]=CardName($id).' requires Dromai or Fai.';
-        $classes=['Brute','Guardian','Ninja','Warrior','Mechanologist','Ranger','Runeblade','Wizard','Illusionist','Assassin'];
+        $classes=['Brute','Guardian','Ninja','Warrior','Mechanologist','Ranger','Runeblade','Wizard','Illusionist','Assassin','Necromancer','Thief'];
         $cardClasses=array_intersect($classes,$types);
         if($cardClasses&&!array_intersect($cardClasses,(array)CardTypes($deck['hero']??'')))$errors[]=CardName($id).' does not match your hero class.';
         $heroText=(string)CardFunctional_text_plain($deck['hero'] ?? '');
         foreach(['Earth','Ice','Lightning'] as $element)if(in_array($element,$types,true)&&stripos($heroText,$element)===false)$errors[]=CardName($id).' requires '.$element.' essence.';
-        foreach (['Light','Shadow','Elemental','Draconic','Mystic'] as $class) {
+        foreach (['Light','Shadow','Elemental','Draconic','Mystic','Pirate','Revered','Reviled'] as $class) {
             if (in_array($class, $types, true) && !in_array($class, (array)CardTypes($deck['hero'] ?? ''), true)) $errors[] = CardName($id) . ' does not match your hero class.';
         }
     }
-    foreach($deck['mainDeck']??[]as$id)if(array_intersect((array)CardTypes($id),['Hero','Demi-Hero','Weapon','Token','Ally','Material','Macro'])||(in_array('Equipment',(array)CardTypes($id),true)&&!in_array('Evo',(array)CardTypes($id),true)))$errors[]=CardName($id).' cannot start in your deck.';
+    foreach($deck['mainDeck']??[]as$id)if(in_array('Incarnate',(array)CardCard_keywords($id),true)||array_intersect((array)CardTypes($id),['Hero','Demi-Hero','Weapon','Token','Companion','Material','Macro'])||(in_array('Equipment',(array)CardTypes($id),true)&&!in_array('Evo',(array)CardTypes($id),true)))$errors[]=CardName($id).' cannot start in your deck.';
     foreach($deck['equipment']??[] as $id)if(in_array('Evo',(array)CardTypes($id),true))$errors[]='Evos must start in the deck, not equipped.';
     $hands = 0;
     foreach ($deck['weapons'] ?? [] as $id) $hands += in_array('2H', (array)CardTypes($id), true) ? 2 : 1;
-    $weaponZones=in_array($deck['hero']??'',['kayo','kayo_armed_and_dangerous'],true)?1:2;
-    $offhands=count(array_filter($deck['equipment']??[],fn($id)=>in_array('Off-Hand',(array)CardTypes($id),true)));
+    $weaponZones=in_array($deck['hero']??'',['kayo','kayo_armed_and_dangerous','kayo_strong_arm','kayo_underhanded_cheat'],true)?1:2;
+    $offhands=count(array_filter($deck['equipment']??[],fn($id)=>in_array('Off-Hand',(array)CardTypes($id),true)&&!in_array('Perched',(array)CardCard_keywords($id),true)));
+    if($hands===2&&count(array_filter($deck['equipment']??[],fn($id)=>in_array('Off-Hand',(array)CardTypes($id),true)))>1)$errors[]='A two-handed weapon allows only one perched off-hand.';
     if($hands+$offhands>$weaponZones)$errors[]='Starting weapons and off-hand exceed your hero weapon zones.';
     if ($hands > 2) $errors[] = 'Your starting weapons require more than two hands.';
     $quivers=array_filter(array_merge($deck['weapons']??[],$deck['equipment']??[]),fn($id)=>in_array('Quiver',(array)CardTypes($id),true));

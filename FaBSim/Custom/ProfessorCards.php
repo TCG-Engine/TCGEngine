@@ -48,6 +48,15 @@ function FaBProfessorAnyHero(int $player,string $id): bool {
 }
 function FaBProfessorAttackTargets(int $player,int $sourceUID): array {
     $f=FaBFindUID($sourceUID);
+    if($f && FaBPENFarflight($player,$f['object'])) {
+        $out=[];
+        $state=FaBGetState();$seats=FaBOpponents($player);
+        if($state['gameMode']==='UPF'&&!empty($state['combatOpen'])&&intval($state['defender'])>0)$seats=array_values(array_intersect($seats,[intval($state['defender'])]));
+        foreach($seats as $seat)foreach(array_merge(FaBChoiceRefs($seat,'Hero'),FaBChoiceRefs($seat,'Arena',['type'=>'Ally'])) as $ref){
+            $target=FaBAttackTargetDescriptor(FaBIdentityFromMZ($ref));$target['anyHero']=true;$out[]=$target;
+        }
+        return $out;
+    }
     if($f===null||!FaBProfessorAnyHero($player,$f['object']->CardID))return FaBLegalAttackTargets($player);
     $out=[];foreach(FaBOpponents($player) as $seat)foreach(FaBChoiceRefs($seat,'Hero') as $ref){
         $target=FaBAttackTargetDescriptor(FaBIdentityFromMZ($ref));$target['anyHero']=true;$out[]=$target;

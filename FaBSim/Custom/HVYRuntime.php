@@ -40,7 +40,7 @@ function FaBHVYPlayed(int $p,object $o,string $from): void {
  if(FaBWTRBase($o->CardID)==='performance_bonus'&&$from==='Arsenal')FaBWTRTag($o,'GO_AGAIN');
  if(FaBWTRIsAttackAction($o)&&str_contains((string)CardName($o->CardID),'Herald')){if(!FaBHVYCount($p,'HERALD_PLAYED'))FaBWTRTag($o,'HVY_FIRST_HERALD');FaBHVYAdd($p,'HERALD_PLAYED');}
 }
-function FaBHVYDown(int $p): bool {$v=intval(FaBGetState()['defender']);return $v!==$p&&GetHealth($p)<GetHealth($v)&&FaBHVYControlCount($p,'Equipment')<FaBHVYControlCount($v,'Equipment')&&FaBHVYControlCount($p,'Token')<FaBHVYControlCount($v,'Token');}
+function FaBHVYDown(int $p): bool {$v=intval(FaBGetState()['defender']);return $v!==$p&&FaBPENLifeMore($v,$p)&&FaBHVYControlCount($p,'Equipment')<FaBHVYControlCount($v,'Equipment')&&FaBHVYControlCount($p,'Token')<FaBHVYControlCount($v,'Token');}
 function FaBHVYPower(int $p,object $o): int {
  $b=FaBWTRBase($o->CardID);$n=0;
  if(FaBHasKeyword($o,'Combo'))$n+=FaBHVYCount($p,'COMBO_POWER');
