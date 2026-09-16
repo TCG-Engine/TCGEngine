@@ -113,7 +113,9 @@
         if(seat!==viewer){const button=document.createElement('button');button.type='button';button.textContent='Inspect';button.setAttribute('aria-label','Inspect player '+seat);button.onclick=()=>focusSeat(seat);header.appendChild(button);}
         section.appendChild(header);const summary=document.createElement('p');summary.className='fab-upf-summary';section.appendChild(summary);
         const row=document.createElement('div');row.className='fab-upf-zones';section.appendChild(row);
-        zones.filter(z=>z.name!=='CombatChain').forEach(zone=>makeZone(seat,zone,row));(seat===viewer?own:opponents).appendChild(section);
+        // Inventory remains in the response data for rules and selection prompts,
+        // but has no permanent board slot. CombatChain has its own shared panel.
+        zones.filter(z=>!['CombatChain','Inventory'].includes(z.name)).forEach(zone=>makeZone(seat,zone,row));(seat===viewer?own:opponents).appendChild(section);
         const chain=document.createElement('section');chain.className='fab-upf-chain-row';chain.dataset.seat=seat;
         const name=document.createElement('h3');name.textContent='Player '+seat;chain.appendChild(name);
         const slot=document.createElement('div');slot.id='p'+seat+'CombatChainSlot';chain.appendChild(slot);document.getElementById('fab-upf-chain').appendChild(chain);
