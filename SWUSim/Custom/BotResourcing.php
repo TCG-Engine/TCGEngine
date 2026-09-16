@@ -73,10 +73,16 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         $cost = intval(CardCost(strval($c->CardID ?? '')));
         if ($cost > $bombCost) { $bombCost = $cost; $bombIndex = $i; }
     }
+    // Feature 'wipekeep' (owner ruling 2026-09-16) refines that rule for WIPES — see _SWUBotProtectedWipe.
+    $wipeRule = $ctx['style'] === 'control' && SWUBotFeatureOn('wipekeep');
+    $early = SWUResourceCount($seat) <= 5;
+    $protectedWipe = ($wipeRule && $early) ? _SWUBotProtectedWipe($seat, 'control') : null;
+    $stabilized = $wipeRule && !$early && _SWUBotIsStabilized($seat);
     $ranked = [];
     foreach (GetHand($seat) as $i => $c) {
         if ($c === null || !empty($c->removed)) continue;
-        $cost = intval(CardCost(strval($c->CardID ?? '')));
+        $cid = strval($c->CardID ?? '');
+        $cost = intval(CardCost($cid));
         $keep = match ($ctx['style']) {
             'control' => $i === $bombIndex ? 200.0 : ($cost <= $soon ? 100.0 + $cost : (float)($soon - $cost)),
             default   => (float)-$cost,    // Aggro resources its most expensive; Normal: FALLBACK default, not a rule
@@ -84,13 +90,103 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         // Key cards (answers, burn, the flavour's key cards) go to resources after filler (feature 'keep'). Control
         // keeps its owner rule first — castable soon + one bomb (2026-09-13) — so its bonus (50) lifts a key card
         // only above FAR filler, never above a card it can cast soon; the other styles keep key cards over all filler.
-        if (SWUBotFeatureOn('keep') && SWUBotIsKeyCard($seat, strval($c->CardID ?? ''))) $keep += $ctx['style'] === 'control' ? 50.0 : 150.0;
+        if (SWUBotFeatureOn('keep') && SWUBotIsKeyCard($seat, $cid)) $keep += $ctx['style'] === 'control' ? 50.0 : 150.0;
+        // 2R–5R: the one relevant wipe is held like the bomb — just below it, above every castable card. ONE copy:
+        // a second wipe falls back to the ordinary rule.
+        if ($protectedWipe !== null && $cid === $protectedWipe && $i !== $bombIndex) { $keep = 190.0; $protectedWipe = null; }
+        // 6R+: once I have stabilized, a wipe that would cost me as much as it costs them is no longer needed — it
+        // may go. Self-damage alone is not enough: "if i have one or two weenie space units and they have a swarm,
+        // then i would still keep it and use it" (owner, 2026-09-16), so a trade clearly in my favour stays.
+        if ($stabilized && in_array('wipe', SWUBotCardTags($cid), true)) {
+            [$mine, $theirs] = _SWUBotWipeLosses($seat, $cid);
+            if ($mine > 0.0 && $mine >= $theirs) $keep = -1.0;
+        }
         // `$budget > 0` states the intent; the sum test alone already refuses every Plot card (all cost ≥ 1).
         if ($budget > 0 && HasKeyword_Plot($c) && $plotInResources + $cost <= $budget) $keep = -1000.0 + $cost;
         $ranked[] = [$keep, $i];
     }
     usort($ranked, fn($a, $b) => $a[0] <=> $b[0] ?: $a[1] <=> $b[1]);
     return array_map(fn($r) => 'myHand-' . $r[1], array_slice($ranked, 0, $n));
+}
+
+// ── Feature 'wipekeep' — control keeps the wipe it will need ─────────────────────────────────────
+// Owner ruling 2026-09-16: "on the 2R turn to the 5R turn, keep the cheapest wipe that is relevant to the opponent
+// (HSD for space, SRI for mixed or ground aggro). for 6R up, gauge whether it's needed. if you stabilized enough to
+// not need it, then resource it if it will also hurt your own board. however, if it only affects their arena for
+// example, HSD, then keep it."
+// Found by the 2026-09-16 fidelity baseline: control ran 11.6 points cold, and a probe showed Lando's resourcer
+// throwing Hyperspace Disaster away on round 2 — Bo-Katan held the one bomb slot and HSD (7) sat just past the
+// 6-resource horizon, so the card control most needs against space aggro was the first one resourced.
+
+// The effect clause of a wipe — its FIRST sentence. Riders must not leak into the reading: Single Reactor Ignition
+// is "Defeat all units. For each enemy unit defeated this way, deal 1 damage…", and a whole-text search for "enemy
+// unit" would call that one-sided when it defeats every unit on the board, mine included.
+function _SWUBotWipeClause(string $cid): string {
+    $t = strtolower(str_replace("\n", ' ', strval(CardText($cid))));
+    $dot = strpos($t, '.');
+    return $dot === false ? $t : substr($t, 0, $dot);
+}
+
+// The arenas a wipe defeats: "space unit(s)" → Space, "ground unit(s)" → Ground, otherwise both.
+function _SWUBotWipeArenas(string $cid): array {
+    $clause = _SWUBotWipeClause($cid);
+    if (str_contains($clause, 'space unit')) return ['Space'];
+    if (str_contains($clause, 'ground unit')) return ['Ground'];
+    return ['Space', 'Ground'];
+}
+
+// Does the wipe spare my units BY ITS WORDING? Either it names enemies, or I choose the victims ("any number of").
+function _SWUBotWipeIsOneSided(string $cid): bool {
+    $clause = _SWUBotWipeClause($cid);
+    return str_contains($clause, 'enemy') || str_contains($clause, 'any number of');
+}
+
+function _SWUBotUnitArenas(int $seat): array {
+    return array_values(array_unique(array_map(fn($v) => strval($v['arena']), SWUBotUnits($seat))));
+}
+
+// What this wipe would cost each side if it resolved now: [my unit value lost, their unit value lost], by
+// SWUBotUnitValue over the arenas it covers. Judged against the actual board, not a static label: Hyperspace
+// Disaster reads "Defeat all space units" — both sides — and costs me nothing exactly when I control no space unit,
+// the usual state of these ground-based control decks and what the owner's example assumes. A one-sided wipe
+// costs me nothing by its wording.
+function _SWUBotWipeLosses(int $seat, string $cid): array {
+    $arenas = _SWUBotWipeArenas($cid);
+    $sum = function (int $s) use ($arenas) {
+        $v = 0.0;
+        foreach (SWUBotUnits($s) as $u) { if (in_array(strval($u['arena']), $arenas, true)) $v += SWUBotUnitValue($u); }
+        return $v;
+    };
+    return [_SWUBotWipeIsOneSided($cid) ? 0.0 : $sum($seat), $sum(SWUBotOpponent($seat))];
+}
+
+// Relevant = it covers EVERY arena the opponent is using. So Hyperspace Disaster answers a pure space board, but
+// against a mixed board it leaves the ground half standing and Single Reactor Ignition is the answer — the owner's
+// "HSD for space, SRI for mixed or ground aggro". With no enemy unit yet the need is unknown, and every wipe counts
+// as relevant: throwing an answer away before seeing the threat is the mistake being fixed.
+function _SWUBotWipeIsRelevant(int $seat, string $cid): bool {
+    $theirs = _SWUBotUnitArenas(SWUBotOpponent($seat));
+    return empty($theirs) || empty(array_diff($theirs, _SWUBotWipeArenas($cid)));
+}
+
+// The cheapest relevant wipe in hand, or null. Control only — the ruling is about control's resourcing.
+function _SWUBotProtectedWipe(int $seat, string $style): ?string {
+    if ($style !== 'control') return null;
+    $best = null; $bestCost = PHP_INT_MAX;
+    foreach (GetHand($seat) as $c) {
+        if ($c === null || !empty($c->removed)) continue;
+        $cid = strval($c->CardID ?? '');
+        if (!in_array('wipe', SWUBotCardTags($cid), true) || !_SWUBotWipeIsRelevant($seat, $cid)) continue;
+        $cost = intval(CardCost($cid));
+        if ($cost < $bestCost) { $best = $cid; $bestCost = $cost; }
+    }
+    return $best;
+}
+
+// "Stabilized enough to not need it": the opponent is at least 3 rounds from killing me — the same threshold
+// rule 5 uses for a wipe that stabilises (SWUBotStabilises).
+function _SWUBotIsStabilized(int $seat): bool {
+    return SWUBotClock(SWUBotOpponent($seat), $seat) >= 3;
 }
 
 // Rule 10 — the resourcing floor (CR 5.5.1c): resource every regroup until the leader can deploy. A fixed

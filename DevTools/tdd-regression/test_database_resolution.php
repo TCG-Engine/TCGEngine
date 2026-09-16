@@ -67,6 +67,10 @@ $check($withEnvAndRoot(null, 'AzukiDeck', fn() => ResolveDatabaseName()) === 'az
     'AzukiDeck falls back to its sim database, per AssetReflection');
 $check($withEnvAndRoot(null, 'SWUDeck', fn() => ResolveDatabaseName()) === 'swudeck',
     'SWUDeck falls back to the swudeck database');
+$check($withEnvAndRoot(null, 'FaBSim', fn() => ResolveDatabaseName()) === 'fabsim',
+    'FaBSim falls back to the fabsim database');
+$check($withEnvAndRoot(null, 'FaBDeck', fn() => ResolveDatabaseName()) === 'fabsim',
+    'FaBDeck falls back to its sim database, per AssetReflection');
 
 // An empty env var is as absent as an unset one -- Apache can hand over "" for a SetEnv with no
 // value, and `?: ` treated that as missing before. Keep that.
@@ -76,11 +80,12 @@ $check($withEnvAndRoot('', 'HellbreakDeck', fn() => ResolveDatabaseName()) === '
 // ---------------------------------------------------------------------------
 // Unresolvable => throw. This is the whole point: no silent `swuonline`.
 // ---------------------------------------------------------------------------
-// FaBSim has no database of its own -- no docker-compose service, no ActiveSite entry. Inventing
-// one would be exactly the silent-wrong-database bug we are removing.
-$msg = $withEnvAndRoot(null, 'FaBSim', fn() => $throws(fn() => ResolveDatabaseName()));
+// GudnakSim has no database of its own -- no docker-compose service, no registry entry. Inventing
+// one would be exactly the silent-wrong-database bug we are removing. (This used to be FaBSim,
+// until FaBSim got its own `fabsim` database for upf.talishar.net.)
+$msg = $withEnvAndRoot(null, 'GudnakSim', fn() => $throws(fn() => ResolveDatabaseName()));
 $check($msg !== '', 'a rootName with no database throws instead of guessing');
-$check(stripos($msg, 'FaBSim') !== false, 'the throw names the unresolved rootName');
+$check(stripos($msg, 'GudnakSim') !== false, 'the throw names the unresolved rootName');
 
 $msg = $withEnvAndRoot(null, null, fn() => $throws(fn() => ResolveDatabaseName()));
 $check($msg !== '', 'no env and no resolvable rootName throws');
@@ -157,6 +162,7 @@ $historicalPairs = [
     'azukisim'        => 'AzukiSim',
     'swusim'          => 'SWUSim',
     'hellbreaksim'    => 'HellbreakSim',
+    'fabsim'          => 'FaBSim',
 ];
 // The OLD name must stay unmapped: re-adding it would give GrandArchiveSim two databases and make
 // which one wins depend on registry order.

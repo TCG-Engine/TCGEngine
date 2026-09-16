@@ -13,7 +13,7 @@
 // no menu pages of their own — so exactly one root per database carries site=true. Without the
 // flag the reverse lookup would depend on array order.
 //
-// Roots absent on purpose: FaBSim, FaBDeck, GudnakSim, RBDeck, SoulMastersDB, MatchTestSim. They
+// Roots absent on purpose: GudnakSim, RBDeck, SoulMastersDB, MatchTestSim. They
 // have no database of their own (no docker-compose service, nothing here). A CLI run under those
 // folders throws rather than guessing — inventing a database name is exactly the silent
 // wrong-database bug this registry exists to remove.
@@ -26,4 +26,6 @@ return [
     'AzukiDeck'        => ['db' => 'azukisim',        'site' => false],
     'HellbreakSim'     => ['db' => 'hellbreaksim',    'site' => true],
     'HellbreakDeck'    => ['db' => 'hellbreaksim',    'site' => false],
+    'FaBSim'           => ['db' => 'fabsim',          'site' => true],   // upf.talishar.net
+    'FaBDeck'          => ['db' => 'fabsim',          'site' => false],
 ];

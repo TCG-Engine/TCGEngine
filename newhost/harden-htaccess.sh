@@ -34,6 +34,7 @@ APP_DOMAINS=(
   "zendo.gg|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                         # AzukiSim
   "petranaki.net|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                    # SWUSim
   "northbeach.gg|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                    # HellbreakSim
+  "upf.talishar.net|https://%{HTTP_HOST}/TCGEngine/SharedUI/MainMenu.php"                 # FaBSim (a subdomain; "www.upf." also matches, harmlessly)
   # Add a line per live app as new domains come online (e.g. SWUSim once it has one).
   # NB: rule 3 below already sends /TCGEngine and /TCGEngine/SharedUI/ to the main menu for
   # ANY host, so a missing entry here only breaks the APEX ("https://<domain>/") — which is

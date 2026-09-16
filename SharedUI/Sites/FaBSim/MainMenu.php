@@ -1,7 +1,9 @@
 <?php
-include_once './MenuBar.php';
-include_once '../../../AccountFiles/AccountSessionAPI.php';
-include_once 'Header.php';
+// __DIR__-relative includes, like the other sites: via the SharedUI/MainMenu.php root pointer the cwd
+// is SharedUI/, where './MenuBar.php' is the legacy SWU Stats menu, not this site's.
+include_once __DIR__ . '/MenuBar.php';
+include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
+include_once __DIR__ . '/Header.php';
 ?>
 <style>
 .home-header{display:none}
@@ -97,4 +99,4 @@ function fabOpen(data){
   const u=new URL('/TCGEngine/NextTurn.php',location.origin);u.searchParams.set('folderPath',fabRoot);u.searchParams.set('gameName',data.gameName);u.searchParams.set('playerID',data.playerID);if(data.authKey)u.searchParams.set('authKey',data.authKey);location.href=u;
 }
 </script>
-<?php include_once './Disclaimer.php'; ?>
+<?php include_once __DIR__ . '/Disclaimer.php'; ?>

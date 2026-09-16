@@ -8,7 +8,10 @@
 # Archetype (owner's label): Grindy midrange blue-green Hero — defensive, heal-based
 # Style: normal
 #   Owner, 2026-09-15: normal/midrange, though with a high curve and top end (auto-derived as "control" from deck shape before the review).
-# Flavours: heal, defensive, go-tall
+# (no Flavours line — this deck has NO registry flavours. The line is omitted rather than written as
+#   'none', because bot_flavours_test parses 'none' as a flavour token. Flavours are behaviour-driving tokens in
+#   SWUSim/Custom/BotFlavours.php, not descriptions: there is no 'heal' or 'defensive' flavour, and choosing
+#   real ones for this deck — 'high-hp' and 'go-tall' exist — is a behaviour change for the owner to rule on.)
 #
 # ⚠ THE SET TAG IS LOAD-BEARING. Two different Luke leaders both play Green Data Vault:
 #     ASH_005 "I Can Save Him"  — THIS deck: grindy, defensive, heal. 35 entries, 46.4%.

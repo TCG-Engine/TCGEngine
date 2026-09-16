@@ -30,13 +30,18 @@
 #   sudo DB_PASS=... ./provision-vhost.sh grandarchivesim --server-name ga.example.com \
 #        --ports "80 443" --ssl-cert /path/fullchain.pem --ssl-key /path/privkey.pem
 #
+#   # Adding a site to a box whose unmatched-Host fallback is ALREADY a --default-site app
+#   # (e.g. northbeach.gg/HellbreakSim on the clarent box): --no-catch-all leaves that fallback alone.
+#   sudo DB_PASS=... ./provision-vhost.sh fabsim --server-name upf.talishar.net --no-catch-all \
+#        --ports "80 443" --ssl-cert /opt/lampp/etc/ssl.crt/server.crt --ssl-key /opt/lampp/etc/ssl.key/server.key
+#
 set -euo pipefail
 
 # ---------------------------------------------------------------------------
 # Positional args + flags
 # ---------------------------------------------------------------------------
 APP=""; DB_NAME=""; SERVER_NAME=""; SERVER_ALIAS=""
-PORTS=""; SSL_CERT=""; SSL_KEY=""; SKIP_RESTART=0; DEFAULT_SITE=0; KEEP_SERVER_ENV=0
+PORTS=""; SSL_CERT=""; SSL_KEY=""; SKIP_RESTART=0; DEFAULT_SITE=0; KEEP_SERVER_ENV=0; NO_CATCH_ALL=0
 want_val=""
 for arg in "$@"; do
   if [ -n "$want_val" ]; then
@@ -53,6 +58,7 @@ for arg in "$@"; do
     --server-name|--server-alias|--ports|--ssl-cert|--ssl-key)
                      want_val="${arg#--}" ;;
     --default-site)  DEFAULT_SITE=1 ;;
+    --no-catch-all)  NO_CATCH_ALL=1 ;;
     --keep-server-env) KEEP_SERVER_ENV=1 ;;
     --skip-restart)  SKIP_RESTART=1 ;;
     -h|--help)       grep '^#' "$0" | sed 's/^# \{0,1\}//' | sed '/^!/d'; exit 0 ;;
@@ -142,6 +148,8 @@ conf_is_included() {
 [ -n "$SERVER_NAME" ] || die "--server-name <fqdn> is required — this script separates sites by HOSTNAME."
 [ -n "$DB_PASS" ]    || die "DB_PASS is required — pass DB_PASS=... (a passwordless DB is not allowed)."
 [ -d "$DOCROOT" ]    || die "DocumentRoot '$DOCROOT' does not exist (set DOCROOT=...)."
+[ "$DEFAULT_SITE" -eq 1 ] && [ "$NO_CATCH_ALL" -eq 1 ] \
+  && die "--default-site and --no-catch-all are mutually exclusive (--default-site already writes no catch-all)."
 
 echo "$APP" | grep -Eq '^[A-Za-z0-9_-]+$' \
   || die "APP '$APP' must be [A-Za-z0-9_-] (it becomes a filename)."
@@ -201,6 +209,27 @@ for f in "$EXTRA_DIR"/httpd-vhost-1*.conf; do
   fi
 done
 
+# ---- Guard 2b: --no-catch-all needs a fallback that is already there. -------
+# Without the deny catch-all, the FIRST vhost Apache loads on a port serves every unmatched Host.
+# That is only safe when a --default-site app (httpd-vhost-000-<app>.conf) already owns that slot;
+# otherwise this app, or whichever 1* app sorts first, would silently become the fallback. And a
+# 000-default.conf left on disk sorts BEFORE 000-<app>, so it would still be the fallback.
+if [ "$NO_CATCH_ALL" -eq 1 ]; then
+  fallback=""
+  for f in "$EXTRA_DIR"/httpd-vhost-000-*.conf; do
+    [ -e "$f" ] || continue
+    [ "$f" = "$DEFAULT_CONF" ] && continue
+    fallback="$f"; break
+  done
+  [ -n "$fallback" ] \
+    || die "--no-catch-all: no httpd-vhost-000-<app>.conf fallback exists. Provision one with --default-site first, or drop --no-catch-all."
+  if [ -e "$DEFAULT_CONF" ]; then
+    warn "--no-catch-all: $DEFAULT_CONF still exists and sorts before $(basename "$fallback"), so IT is the unmatched-Host fallback, not that app."
+  else
+    ok "--no-catch-all: unmatched Hosts keep falling back to $(basename "$fallback")"
+  fi
+fi
+
 # ---- Guard 3: an EXISTING vhost on a port this run does not cover. ----------
 # Server-level SetEnv is INHERITED by every vhost, so a vhost on another port works today
 # ONLY because of the server-level conf this script retires. XAMPP ships a LIVE
@@ -239,6 +268,8 @@ fi
 # This one denies before PHP ever runs, so an unmatched host can never reach a DB.
 if [ "$DEFAULT_SITE" -eq 1 ]; then
   ok "--default-site: skipping the deny catch-all; '$SERVER_NAME' is the fallback for unmatched hosts"
+elif [ "$NO_CATCH_ALL" -eq 1 ]; then
+  ok "--no-catch-all: not writing $DEFAULT_CONF"
 else
 log "Writing catch-all vhost -> $DEFAULT_CONF"
 backup "$DEFAULT_CONF"
@@ -310,8 +341,9 @@ ok "wrote $VHOST_CONF (ServerName $SERVER_NAME, db $DB_NAME)"
 # catch-all promotes some app vhost to the unmatched-Host fallback.
 inc_default="Include etc/extra/httpd-vhost-000-default.conf"
 inc_sites="IncludeOptional etc/extra/httpd-vhost-1*.conf"
-if [ "$DEFAULT_SITE" -eq 1 ]; then
-  # Glob covers httpd-vhost-000-<app>.conf; no separate catch-all line yet.
+if [ "$DEFAULT_SITE" -eq 1 ] || [ "$NO_CATCH_ALL" -eq 1 ]; then
+  # Glob covers httpd-vhost-000-<app>.conf; no separate catch-all line yet. (--no-catch-all
+  # already proved in Guard 2b that such a file exists, so the strict Include matches.)
   inc_default="Include etc/extra/httpd-vhost-0*.conf"
 fi
 HTTPD_CONF_MODIFIED=0
@@ -429,7 +461,8 @@ Verify:
                (Browsers scope session cookies by host; that is what keeps the two
                \`users\` tables from being confused for each other.)
   Catch-all  : curl -s -o /dev/null -w '%{http_code}\\n' -H 'Host: nope.invalid' http://127.0.0.1/
-               (expect 403 — an unmatched Host must never reach PHP)
+               (expect 403 — an unmatched Host must never reach PHP; with --default-site or
+               --no-catch-all it is instead the fallback app's page)
 
 Note: this box is now MULTI-SITE. Do not run provision-app.sh here — it writes a
 server-level SetEnv that would become the silent default for unmatched hosts.

@@ -53,7 +53,7 @@ none of them heals to win.
 
 | File | Style | Flavours |
 |---|---|---|
-| normal_lukeash_datavault | normal | heal, defensive, go-tall |
+| normal_lukeash_datavault | normal | none — see its header |
 
 ⚠ **`normal_lukeash_datavault` and `normal_luke_datavault` are DIFFERENT DECKS that share an archetype key.**
 Two Luke leaders both play Green Data Vault:

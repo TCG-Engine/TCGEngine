@@ -136,6 +136,27 @@ take `$player` plus every macro parameter positionally.
 These rows are not in git. To move them to production, use the **Card ability SQL** panel in
 `zzCodeGeneratorMain.php`: Export SQL locally, then Import SQL on prod (which regenerates).
 
+## Deploying to production
+
+Hellbreak state lives in four places and only one of them travels through git, so a deploy is four
+steps, in this order, on prod's `zzCodeGeneratorMain.php` after the code is live:
+
+1. **Import Hellbreak workbook.** This is the only step that reads `ReviewedCardFaces.json`, so it
+   carries reviewed card data and the `baseCards` variant links. Neither is in the ability SQL.
+2. **Card data & images.** Rebuilds the dictionaries from that import.
+3. **Card ability SQL → Import SQL.** Regenerates the game runtime afterwards on its own, which also
+   applies any schema change (such as a new zone field).
+4. **Generated card data → Import archive.** The art root is gitignored; without this, art added or
+   upgraded locally never reaches prod.
+
+⚠ **The code must be deployed before step 3.** Ability rows call shared helpers that live in
+`HellbreakSim/Custom/`. Importing rows onto older code compiles macros that call undefined functions,
+and the resulting fatal takes down every Hellbreak game rather than one card.
+
+Re-running step 3 is safe. The export is scoped to its root and begins with
+`DELETE FROM card_abilities WHERE root_name = 'HellbreakSim'`, so it cannot duplicate rows or touch
+another app's.
+
 `extract-card-face-review.ps1` runs local Windows OCR over every usable front that is not yet
 manually reviewed and writes `HellbreakSim/CardData/CardFaceReviewQueue.json`. Queue records are
 never promoted into gameplay fields: they retain OCR text, identity confidence, source image, and
