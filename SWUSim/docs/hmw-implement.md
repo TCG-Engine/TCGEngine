@@ -1,6 +1,10 @@
 # HMW — Card Implementation Plan
 
-> **▶ 2026-09-14 (latest): FOURTH WAVE DONE — card-complete at 182/182 HMW CardIDs (HMW_083, 079, 012,
+> **▶ 2026-09-15 (latest): FIFTH WAVE DONE — card-complete at 186/186 HMW CardIDs (HMW_090, 065, 067, 099;
+> `--iterative`), suite 12223 / 0. Engine fixes: token-creation state check; team-aware defeat gate; same-
+> window When Defeated + When Played orderable for HMW_099 (USER RULING). TO DO: the SWUIsEnemySeat sibling
+> sweep; the same ordering ruling for HMW_016 / SEC_018. See "FIFTH WAVE (2026-09-15)".**
+> **▶ 2026-09-14: FOURTH WAVE DONE — card-complete at 182/182 HMW CardIDs (HMW_083, 079, 012,
 > 006, 135, 156, 182, 122; `--iterative`), suite 12040 / 0. See "FOURTH WAVE (2026-09-14)" under
 > `## Status`. ⚠ Re-derive from the `CardMocks.php` diff. The Restore-stacking ruling is still open.**
 > *(2026-09-10: card-complete 174/174 after the third wave, suite 11485 / 0.)*
@@ -21,7 +25,7 @@ entries in `CardMocks.php`, is the authoritative "what is left" check. (Counting
 would have reported this set complete while HMW_003 was still unimplemented.)
 
 ### Already Done
-HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112, HMW_160, HMW_046, HMW_044, HMW_172, HMW_215, HMW_108, HMW_103, HMW_109, HMW_105, HMW_008, HMW_040, HMW_041, HMW_039, HMW_001, HMW_082, HMW_128, HMW_047, HMW_052, HMW_053, HMW_049, HMW_054, HMW_050, HMW_002, HMW_126, HMW_104, HMW_229, HMW_056, HMW_058, HMW_057, HMW_042, HMW_083, HMW_079, HMW_012, HMW_006, HMW_135, HMW_156, HMW_182, HMW_122
+HMW_019, HMW_T02, HMW_T03, HMW_009, HMW_004, HMW_061, HMW_095, HMW_081, HMW_121, HMW_171, HMW_085, HMW_127, HMW_142, HMW_234, HMW_257, HMW_177, HMW_255, HMW_059, HMW_168, HMW_206, HMW_060, HMW_164, HMW_162, HMW_193, HMW_014, HMW_115, HMW_116, HMW_136, HMW_124, HMW_003, HMW_062, HMW_064, HMW_070, HMW_020, HMW_021, HMW_023, HMW_024, HMW_026, HMW_027, HMW_028, HMW_029, HMW_030, HMW_031, HMW_033, HMW_034, HMW_188, HMW_043, HMW_147, HMW_200, HMW_048, HMW_007, HMW_107, HMW_202, HMW_077, HMW_110, HMW_114, HMW_118, HMW_176, HMW_084, HMW_113, HMW_045, HMW_123, HMW_151, HMW_010, HMW_117, HMW_074, HMW_272, HMW_035, HMW_055, HMW_196, HMW_017, HMW_210, HMW_066, HMW_163, HMW_063, HMW_170, HMW_037, HMW_094, HMW_205, HMW_154, HMW_159, HMW_223, HMW_071, HMW_152, HMW_161, HMW_051, HMW_011, HMW_268, HMW_018, HMW_180, HMW_230, HMW_222, HMW_221, HMW_240, HMW_212, HMW_175, HMW_208, HMW_225, HMW_237, HMW_013, HMW_088, HMW_265, HMW_185, HMW_201, HMW_102, HMW_038, HMW_036, HMW_145, HMW_174, HMW_211, HMW_263, HMW_169, HMW_125, HMW_243, HMW_238, HMW_204, HMW_016, HMW_073, HMW_100, HMW_254, HMW_005, HMW_217, HMW_260, HMW_078, HMW_214, HMW_207, HMW_203, HMW_197, HMW_015, HMW_219, HMW_069, HMW_075, HMW_076, HMW_140, HMW_143, HMW_213, HMW_226, HMW_247, HMW_158, HMW_072, HMW_080, HMW_251, HMW_231, HMW_112, HMW_160, HMW_046, HMW_044, HMW_172, HMW_215, HMW_108, HMW_103, HMW_109, HMW_105, HMW_008, HMW_040, HMW_041, HMW_039, HMW_001, HMW_082, HMW_128, HMW_047, HMW_052, HMW_053, HMW_049, HMW_054, HMW_050, HMW_002, HMW_126, HMW_104, HMW_229, HMW_056, HMW_058, HMW_057, HMW_042, HMW_083, HMW_079, HMW_012, HMW_006, HMW_135, HMW_156, HMW_182, HMW_122, HMW_090, HMW_065, HMW_067, HMW_099
 
 
 <!-- HMW_005 Jar Jar Binks, Bombad General — Done, 16/16. THE SET'S LAST CARD.
@@ -891,6 +895,70 @@ Order (user: before Boga): 135 → 156 → 182 → then HMW_122 Boga.
   Twelve mutations (card: 3 pool filters / not unit-only / discount 0 / discount 2 / always overwrite;
   engine: ignores unit-only / ready-count glow / reroute drops discount / no gate), each reddening its own
   sections; the gate was green until the Exploit one-short section was added.
+
+**FIFTH WAVE (2026-09-15): 182 → 186 HMW CardIDs** — HMW_065 Clone of the Zillo Beast, HMW_067 The Great
+Progenitor, HMW_090 Opee Sea Killer, HMW_099 Always a Bigger Fish (uncommitted CardMocks import; SWUSim
+dictionary + keyword registries regenerated — the keyword regen changed nothing). `--iterative`, order
+simplest first: 090 → 065 → 067 → 099. Baseline 12167 / 0.
+- [x] **HMW_090 Opee Sea Killer** — done 2026-09-15, 9 sections, suite 12167 → 12176 · 0 failed. One `case`
+  in `HasConditionalKeyword_Grit` over `_SWUControlsBaseWithTrait(controller, 'Naboo')` — the HMW_084 Gunga
+  City Guard shape. All three Naboo printings used (JTL_023 / JTL_031 / HMW_033). Four mutations, each
+  reddening only its own sections: Owner-for-Controller (2), any-player's-base (2), CardID-keyed to
+  JTL_023 (2), and a power bonus that bypasses the keyword layer (only the lost-abilities section).
+- [x] **HMW_065 Clone of the Zillo Beast, Emperor's Experiment** — done 2026-09-15, 16 sections, suite
+  12176 → 12193 · 0 failed (incl. one new Snoke guard). The aura is `_SWUHmw065AuraCount` (card file), read
+  by ObjectCurrentPower/HP beside SHD_037 Snoke: live, TEAM-wide ("friendly"), "other" by UniqueID (a
+  teammate's copy shrinks this one; two copies stack), leader units included, blanked source grants
+  nothing. On Attack = HMW_003 Hemlock's deployed `GiveTokenUpgrade(WEAKNESS, any unit, may)`, itself
+  included. Nine mutations, each reddening only its own sections.
+  ★ ENGINE FIX (shared, pre-existing): token CREATION never ran the no-remaining-HP state check, so a token
+  made under a continuous shrink survived at 0 HP — including an opponent's tokens under a RELEASED SHD_037
+  Snoke. New `_SWUAfterTokensCreated()` (= `SWUCheckShrinkDefeats`) runs once per create instruction, AFTER
+  riders (so an Experience rider can still save a token, as the play path's entry grants do), from
+  SWUCreateUnitToken, SWUCreateUnitTokens and ASH_094 Jerjerrod's doubling. Guarded twice: here and in
+  `shd/SupremeLeaderSnoke_ShadowRuler.md::EnemyTokensCreatedUnderSnoke_AreDefeatedAtOnce`; emptying the
+  helper reds exactly those two. Zero collateral across the suite.
+- [x] **HMW_067 The Great Progenitor, First of the Drengir** — done 2026-09-15, 9 sections, suite 12193 →
+  12202 · 0 failed. `$onAttackEndAbilities["HMW_067:0"]` → YESNO → `HMW_067#0|<uid>`: give HMW_T02, COUNT the
+  Weakness tokens (by title), state check, then ONE `SWUCreateUnitTokens(HMW_T03, N)` (so ASH_094 Jerjerrod
+  doubles the whole batch: 2 → 4, where per-token creation ends on 3).
+  ⚠ PREVIEW-SET ASSUMPTIONS: (a) died in its own attack → the trigger fires (CR 7.6.16.c) but nothing is
+  offered (no unit to give a token to); (b) a Weakness that DEFEATS it still creates Beasts, counted by Last
+  Known Information (CR 11) — `WeaknessDefeatsIt_BeastsStillCreated_LastKnown` is the one section to change.
+  Seven mutations; six red only their own sections. The seventh (delete the card's own state check) is
+  GREEN by construction — `_SWUAfterTokensCreated` sweeps right after — so that line is kept for CR ORDER
+  only and its comment says so.
+- [x] **HMW_099 Always a Bigger Fish** — done 2026-09-15, 13 sections (+2 in twi/ShadowedIntentions.md),
+  suite 12202 → 12217 · 0 failed. The IBH_095 shape: a mandatory pick over FRIENDLY (team) Creatures
+  (TraitContains) → `HMW_099#0` captures the PRINTED cost, defeats, and only on a real defeat offers a
+  MAY-choose (hand = hidden zone) over hand Creature UNITS costing ≤ cost+3 → `SWUNestedPlay(ignoreCost)`.
+  ★ "For free" bypasses every cost MODIFIER (CR 6.2 3.d), so the ignoreCost path, not SWUNestedPlayUnit
+  with a big discount — that would still raise HMW_049 Greater Sarlacc's / TWI_118's Exploit pickers
+  (pinned by the Sarlacc section). No Creature has an additional non-resource cost today; revisit if one
+  is printed. Nine mutations; seven red their own sections, two green and diagnosed: the in-continuation
+  pool re-check was redundant (server-side answer validation) and was DELETED; the "If you do" defeat gate
+  is unreachable (no friendly defeat can fail) and is kept, labelled as such.
+  ⚠ NOEXTRAACTION is not usable on the When-Played section: a nested play of a unit with an ENTRY TRIGGER
+  has the documented deferred close leg (refused attempt) — measured identical on released SHD_129. That
+  section asserts TURNPLAYER:2; the strict form sits on the vanilla-play section.
+  ★ ENGINE FIX (Team Suns, shared): SWUDefeatUnit treated ANY other seat as the "enemy" of a "can't be
+  defeated by enemy card abilities" unit, so a TEAMMATE's defeat was refused — reproduced on the released
+  IBH_095 against TWI_220. New `SWUIsEnemySeat()` (team-aware; identical to seat identity outside teams)
+  at the DEFEAT gate only. Guards: HMW_099 + `twi/ShadowedIntentions.md` (teammate allowed / enemy still
+  refused); seat-identity reds exactly the 2 teammate sections, never-block reds 23.
+  ⚠ OPEN — the same defect sits at 7 sibling sites, NOT changed: capture ×2 (GameLogic ~5258/5373),
+  exhaust (~6417), take-control (~7849, owner-based), ability damage (~14224), bounce (~16339) and
+  Evacuate (cards/shd/Evacuate.php:21). USER DECISION 2026-09-15: recorded as a TO DO (OTMTCGE memory
+  `enemy-seat-team-aware-sweep-todo`), not swept this session.
+  ★ USER RULING 2026-09-15 — SAME-WINDOW TRIGGERS ARE ORDERABLE. Implemented for HMW_099: the defeat's
+  When Defeated is PARKED (SWU_DEFER_WD), carried in the play continuation's param, and replayed through
+  ActivateCard's Exploit seam ($gExploitDeferredBag) into ONE batch with the played unit's entry triggers →
+  one ordering prompt. No-play paths (none affordable, '-' / PASS decline, refused play) flush it alone;
+  the continuation is dontSkipOnPass. +6 sections (the mirrored WD-first / WP-first pair, the offer, both
+  no-play flushes, a request boundary); five mutations each red only their own sections. Suite 12223 / 0.
+  ⚠ STILL OPEN under the same ruling: HMW_016 Maul / SEC_018 DJ (play THEN defeat/capture) — their When
+  Played is committed to the EffectStack before the defeat, so the park-and-replay seam doesn't fit; needs
+  trigger-plumbing work (OTMTCGE memory `same-window-triggers-are-orderable`).
 
 
 ## ⚠ SIXTEENTH WAVE — 2026-09-03 (146 → 150 CardIDs)

@@ -1382,6 +1382,47 @@ fixture-blind-spot table above for *why* that coverage could not see them.
 - **Fixture: SOR_111 Patrolling V-Wing is a SPACE unit** — the go-to "When Played: draw a card" fixture lands
   in `SPACEARENACOUNT`, not ground. Read the arena from the dictionary like every other stat.
 
+### ★ HMW fifth wave 2026-09-15 — entry routes, team-aware "enemy", same-window ordering
+
+Four cards, three engine fixes — each found only because a section walked a route the card text never names.
+
+- **★★ AN AURA THAT SHRINKS HP MUST BE MET ON EVERY ENTRY ROUTE — and token CREATION was missing.** Play,
+  smuggle and take-control ran the no-remaining-HP state check; `_SWUCreateOneToken` never did, so a token
+  made under SHD_037 Snoke or HMW_065 Clone of the Zillo Beast sat at 0 HP. Fixed as
+  `_SWUAfterTokensCreated()`, once per create instruction and AFTER riders (an Experience rider can save
+  the token — the play path's entry grants likewise land before its sweep). For any new −X/−X or +HP-
+  dependent card: play · token-create · take-control · smuggle, one section each, and guard the fix on a
+  RELEASED victim (Snoke) so it outlives the preview card.
+- **★★ "FRIENDLY" AURA = the TEAM, and "OTHER" = IDENTITY.** Exclude the source by UniqueID, never by
+  CardID (Omega's shape): a teammate's copy is an "other friendly unit" and the two stack. The
+  discriminating section is TWO copies on one team — name-based "other" reads 6/6, a boolean "a copy
+  exists" reads −2 instead of −4.
+- **★★ "BY ENEMY CARD ABILITIES" MUST BE TEAM-AWARE — `SWUIsEnemySeat($actor, $seat)`.** The SWUAvoids*
+  gates compared seat identity, so a TEAMMATE's "defeat a friendly unit" (IBH_095 ruling) was refused by
+  TWI_220. Only the DEFEAT gate is fixed; the other 7 sites are a recorded TO DO (OTMTCGE memory
+  `enemy-seat-team-aware-sweep-todo`). The board that finds it: a friendly-scoped effect on a teammate's
+  PROTECTED unit, plus the enemy-still-refused partner so the fix cannot over-widen.
+- **★★ SAME-WINDOW TRIGGERS ARE ORDERABLE (USER RULING 2026-09-15) — two flush paths never meet.** A When
+  Defeated flushes to the flat `RESOLVE_TRIGGER` queue, a When Played to the EffectStack, so an ability that
+  DEFEATS then PLAYS always forced WD-first with no prompt. Fix shape (HMW_099): `SWUBeginDeferWhenDefeated()`
+  around the defeat → carry `SWU_DEFER_WD_BAG` in the play continuation's param → append to
+  `$gExploitDeferredBag` before the nested play (ActivateCard's Exploit replay batches it with the entry
+  triggers). Flush it alone on EVERY no-play path, and mark the continuation `dontSkipOnPass` (a Pass-button
+  decline otherwise strands it). Test with the MIRRORED pair (WD-first / WP-first). Play-THEN-defeat
+  (HMW_016, SEC_018) is still open — its When Played is committed before the defeat.
+- **`SWUAllUnits` / `SWUFriendlyUnits`' `$filter` is a ZoneSearch CARD-TYPE filter, NOT a callable.** A trait
+  predicate passed there is silently wrong; loop and test `TraitContains` yourself.
+- **An in-handler re-check of an MZ pool is unreachable** — `SWUValidateDecisionAnswer` already refuses an
+  out-of-pool MZCHOOSE/MZMAYCHOOSE answer (measured green, deleted on HMW_099). The re-check rule above is for
+  CardID-list offers (TOPDECKSEARCH), which the server does NOT validate.
+- **A When Attack Ends on a DEAD attacker arrives with an EMPTY mzID** (CR 7.6.16.c, the dead-attacker path in
+  CollectAfterAttackTriggers). A self-targeting "you may … this unit" must return without a prompt.
+  And "for each X on this unit" when the effect itself defeats the unit: COUNT before the state check (CR 11
+  Last Known Information), then sweep.
+- **Before believing a `NOEXTRAACTION` failure on a nested play, run a RELEASED control.** A played unit WITH
+  an entry trigger has the documented deferred close leg; SHD_129 Timely Intervention reproduced it
+  identically. Put `NOEXTRAACTION` on a vanilla-play section and `TURNPLAYER` on the When Played one.
+
 ### ★★ Game-log & SSOT pass (2026-09-11) — trigger TIMING, the drawn COPY, and counting the parallels
 The helper rows are in the §3c table ("ONE FUNNEL PER GAME EVENT"). The lessons behind them:
 - **★★ Triggers never interrupt the ability that raised them — ★ USER RULINGS 2026-09-11 (CR 7.6.8 /
@@ -2183,7 +2224,7 @@ Only add what the tests actually require.
 
 | Ability type | Where to add it |
 |---|---|
-| **A card that PLAYS another card** ("play a unit from your discard", "play a card from your hand") | **`SWUNestedPlay($player, $mzID, $ignoreCost, $discount)`** in `CardHelpers.php` — NEVER a bare `ActivateCard`. ActivateCard finalises the action itself, and so does the outer effect (an event's `FINISH_PLAY_CARD`, a unit's entry-trigger flush), so the turn swaps twice and the player gets a FREE EXTRA ACTION. There are TWO after-actions and they need different guards: the IMMEDIATE one (the `$gTurnPlayer`/`PASS` save-restore) and the DEFERRED one — if the played card arms an ENTRY TRIGGER a `SWU_TRIGGER_RESUME` is queued and finalises LATER, after the restore. The helper does both. ⚠ This produced FIVE bugs in one week because each fix was invented locally; `DevTools/tests/nested_play_guard_test.php` now fails on any raw `ActivateCard` in a card file. ⚠ EXCEPTION: a leader/base Action that DELEGATES its whole action to the play must call `ActivateCard` directly — there its after-action is the action's only one and the helper strands the turn. ⚠ TESTING: a double after-action is INVISIBLE under `P1OnlyActions` — assert `TURNPLAYER` on an ALTERNATING turn, and for the deferred leg give an opponent HMW_171 Trap Field (it reacts to ANY non-leader ground unit entering play). ⚠ A "play up to N" card HIDES the bug at EVEN counts (the swaps cancel) — test with an ODD number of plays. ⚠ **`SWUNestedPlay` enters at ActivateCard and SKIPS ADDITIONAL COSTS** (Exploit, HMW_048 Vernestra, HMW_125, HMW_049) and the Clone copy choice. For a nested "play a UNIT" use **`SWUNestedPlayUnit($player, $mz, $discount, $grants)`** — the full `SWUBeginPlayCard(unitOnly)` ceremony in a nested frame, with play grants (`enterReady`, `turnEffect`, `shield`, `then`) that survive a deferred play (HMW_204 Nightbrother → Vernestra from the discard, 2026-09-14). Anything done to the played unit AFTER the call returns must move into a grant or `then`, because a cost picker defers the play past the return. |
+| **A card that PLAYS another card** ("play a unit from your discard", "play a card from your hand") | **`SWUNestedPlay($player, $mzID, $ignoreCost, $discount)`** in `CardHelpers.php` — NEVER a bare `ActivateCard`. ActivateCard finalises the action itself, and so does the outer effect (an event's `FINISH_PLAY_CARD`, a unit's entry-trigger flush), so the turn swaps twice and the player gets a FREE EXTRA ACTION. There are TWO after-actions and they need different guards: the IMMEDIATE one (the `$gTurnPlayer`/`PASS` save-restore) and the DEFERRED one — if the played card arms an ENTRY TRIGGER a `SWU_TRIGGER_RESUME` is queued and finalises LATER, after the restore. The helper does both. ⚠ This produced FIVE bugs in one week because each fix was invented locally; `DevTools/tests/nested_play_guard_test.php` now fails on any raw `ActivateCard` in a card file. ⚠ EXCEPTION: a leader/base Action that DELEGATES its whole action to the play must call `ActivateCard` directly — there its after-action is the action's only one and the helper strands the turn. ⚠ TESTING: a double after-action is INVISIBLE under `P1OnlyActions` — assert `TURNPLAYER` on an ALTERNATING turn, and for the deferred leg give an opponent HMW_171 Trap Field (it reacts to ANY non-leader ground unit entering play). ⚠ A "play up to N" card HIDES the bug at EVEN counts (the swaps cancel) — test with an ODD number of plays. ⚠ **`SWUNestedPlay` enters at ActivateCard and SKIPS every pre-payment step** — the additional cost (HMW_048 Vernestra), the cost-modifier pickers (Exploit, HMW_125, HMW_049) and the Clone copy choice. For a nested "play a UNIT" use **`SWUNestedPlayUnit($player, $mz, $discount, $grants)`** — the full `SWUBeginPlayCard(unitOnly)` ceremony in a nested frame, with play grants (`enterReady`, `turnEffect`, `shield`, `then`) that survive a deferred play (HMW_204 Nightbrother → Vernestra from the discard, 2026-09-14). Anything done to the played unit AFTER the call returns must move into a grant or `then`, because a cost picker defers the play past the return. ⚠ **"FOR FREE" IS THE OTHER WAY ROUND (HMW_099, 2026-09-15).** Exploit, HMW_125 and HMW_049's "N less each" pickers are cost MODIFIERS, not additional costs, and CR 6.2 step 3.d says a free play bypasses EVERY cost modifier — so a free play must NOT raise them. Use `SWUNestedPlay($p, $mz, true, 0)` (ignoreCost), never `SWUNestedPlayUnit` with a huge discount (that still offers Greater Sarlacc's resource-defeat picker). Only an additional NON-resource cost survives a free play (HMW_048 Vernestra is the lone one today) — if the free pool can contain such a card, that is the case SWUNestedPlay does not cover. Pin it with a Sarlacc section asserting `P1NODECISION` + untouched resources. |
 | **Assert `NOEXTRAACTION` on any card that plays another card, attacks from an ability, or runs a reactive trigger** | It asserts no action was closed twice. **It is the only form that works in the ~1834 files using `P1OnlyActions`** — that directive claims initiative so the opponent auto-passes, making a DOUBLE turn swap indistinguishable from a single one, so `TURNPLAYER` is blind there. It is also stronger than `TURNPLAYER` in an alternating fixture, because it sees a STRUCTURAL double close even when the turn ends up correct. ⚠ It means "no second close was ATTEMPTED", which is stricter than "no extra action happened": the DEFERRED leg (a queued `SWU_TRIGGER_RESUME`, typically via an opponent's HMW_171 Trap Field) legitimately attempts one and the gate refuses it — use `TURNPLAYER` on those sections instead. See `SWUSim/docs/action-close-ownership.md`. |
 | **★ ONE FUNNEL PER GAME EVENT (SSOT pass, 2026-09-11)** — each was re-implemented at ~20 sites, and every copy drifted | Use these; never the raw zone write they replace. They carry the log line, the observers, the counters and the trigger timing, so a hand-rolled copy is a bug even when its test passes. |
 | **Committing a PLAY** (any path that plays a card) | **`SWUCommitPlay($player, $cardID, $logSuffix, $as, $chargeObj)`** — the play line, telemetry, `SWU_CARDS_PLAYED`, one-shot charges, the "first unit / non-unit / Clone / Gambit" flags. ⚠ A path that DELEGATES to ActivateCard must NOT also commit (a smuggled event and every opponent-discard play were counted TWICE); a hand Pilot commits with `$logSuffix = null` (its attach writes the line). Pass `$chargeObj` only if this path's cost APPLIED the charges. |

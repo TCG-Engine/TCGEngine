@@ -705,8 +705,9 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     }
     // "Can't be defeated by enemy card abilities" (SHD_187 / JTL_103 / LAW_149 / TWI_220).
     // Only blocks a DIRECT defeat effect from an opponent — NOT state-based "no remaining HP" defeat
-    // ($fromDamage, governed by SWUImmuneToHpDefeat), NOT combat, NOT the controller's own abilities.
-    if (!$fromDamage && intval($player) !== intval($obj->Controller ?? $player) && SWUAvoidsDefeat($obj)) {
+    // ($fromDamage, governed by SWUImmuneToHpDefeat), NOT combat, NOT the controller's own abilities —
+    // and NOT a TEAMMATE's (Team Suns: a teammate is friendly, never an enemy; SWUIsEnemySeat).
+    if (!$fromDamage && SWUIsEnemySeat(intval($player), intval($obj->Controller ?? $player)) && SWUAvoidsDefeat($obj)) {
         SWULogRefusal($obj, 'defeat');   // game log: the refused defeat says so (the defeat line below never runs)
         $playerID = $savedPID;
         return false;

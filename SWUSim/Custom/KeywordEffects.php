@@ -696,6 +696,10 @@ function HasConditionalKeyword_Grit($obj) {
             return count(GetUpgradesOnUnit($obj)) > 0;
         case 'LOF_050': // Plo Koon — "While the Force is with you, this unit gains Grit."
             return PlayerHasTheForce(intval($obj->Controller ?? 0));
+        case 'HMW_090': // Opee Sea Killer — "While you control a Naboo base, this unit gains Grit."
+                        // "You" = the CONTROLLER (a stolen Opee reads the thief's base); the base is
+                        // matched by TRAIT, so every Naboo printing counts.
+            return _SWUControlsBaseWithTrait(intval($obj->Controller ?? 0), 'Naboo');
     }
 
     return false;

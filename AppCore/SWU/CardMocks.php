@@ -1833,6 +1833,35 @@ When an enemy unit with a Weakness token on it is defeated: You may give a Weakn
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/064.png',
     'imageUrlBack' => '',
   ),
+  'HMW_065' => 
+  array (
+    'title' => 'Clone of the Zillo Beast',
+    'subtitle' => 'Emperor\'s Experiment',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 4,
+    'power' => 6,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Clone',
+      1 => 'Creature',
+    ),
+    'text' => 'Other friendly units get -2/-2.
+On Attack: You may give a Weakness token to a unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/065.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_066' => 
   array (
     'title' => 'Carrion Spike',
@@ -1861,6 +1890,33 @@ For each upgrade on your base, this unit gets +1/+0 and gains Restore 1.',
     'deployText' => '',
     'unique' => true,
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/066.png',
+    'imageUrlBack' => '',
+  ),
+  'HMW_067' => 
+  array (
+    'title' => 'The Great Progenitor',
+    'subtitle' => 'First of the Drengir',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Legendary',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 4,
+    'hp' => 7,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+      1 => 'Villainy',
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+    ),
+    'text' => 'When Attack Ends: You may give a Weakness token to this unit. If you do, create a Beast token for each Weakness token on this unit.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => true,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/067.png',
     'imageUrlBack' => '',
   ),
   'HMW_069' => 
@@ -2360,6 +2416,32 @@ If this unit would be dealt damage, prevent 1 of that damage',
     'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/088.png',
     'imageUrlBack' => '',
   ),
+  'HMW_090' => 
+  array (
+    'title' => 'Opee Sea Killer',
+    'subtitle' => '',
+    'type' => 'Unit',
+    'arena' => 'Ground',
+    'rarity' => 'Common',
+    'set' => 'HMW',
+    'cost' => 5,
+    'power' => 5,
+    'hp' => 6,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+    ),
+    'trait' => 
+    array (
+      0 => 'Creature',
+    ),
+    'text' => 'While you control a Naboo base, this unit gains Grit. (This unit gets +1/+0 for each damage on it.)',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/090.png',
+    'imageUrlBack' => '',
+  ),
   'HMW_094' => 
   array (
     'title' => 'Sando Aqua Monster',
@@ -2418,6 +2500,30 @@ Action [defeat this upgrade]: Choose a non-Vehicle unit. It doesn\'t ready durin
     ),
     'leaderUnitArena' => '',
     'leaderUnitType' => '',
+  ),
+  'HMW_099' => 
+  array (
+    'title' => 'Always a Bigger Fish',
+    'subtitle' => '',
+    'type' => 'Event',
+    'arena' => '',
+    'rarity' => 'Rare',
+    'set' => 'HMW',
+    'cost' => 2,
+    'aspect' => 
+    array (
+      0 => 'Vigilance',
+    ),
+    'trait' => 
+    array (
+      0 => 'Innate',
+    ),
+    'text' => 'Defeat a friendly Creature unit. If you do, play a Creature unit that costs up to 3 more than the defeated unit from your hand for free.',
+    'epicAction' => '',
+    'deployText' => '',
+    'unique' => false,
+    'imageUrl' => 'https://swudb.com/cdn-cgi/image/quality=95/images/cards/HMW/099.png',
+    'imageUrlBack' => '',
   ),
   'HMW_100' => 
   array (
