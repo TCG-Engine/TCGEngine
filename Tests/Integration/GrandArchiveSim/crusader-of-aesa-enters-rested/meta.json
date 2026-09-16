@@ -1,0 +1,17 @@
+{
+    "name": "Crusader of Aesa: enters the field rested",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Crusader of Aesa's \"enters the field rested\" is unconditional card text (GameLogic.php ~7909: if($added->CardID == \"2Q60hBYO3i\") { $added->Status = 1; }), applied whenever the card is added to a field -- not gated on Class Bonus (that gate only applies to its SEPARATE [Class Bonus] Intercept ability, tested by esteemed-knight-class-bonus-intercept since both cards share that mechanic). Played from hand paying its 3 reserve.",
+    "testedCards": [
+        "2Q60hBYO3i"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["2Q60hBYO3i"],
+        "mechanics": ["status", "combat", "trigger", "condition"],
+        "rulesClauses": [
+            "CARDNAME enters the field rested."
+        ]
+    }
+}

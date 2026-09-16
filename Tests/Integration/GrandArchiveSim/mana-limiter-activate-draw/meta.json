@@ -1,0 +1,17 @@
+{
+    "name": "Mana Limiter: Activate: draw a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Mana Limiter is REGALIA -- seeded directly onto myField. Same Scry-the-Skies warm-up + direct Activate:0 click as crystal-of-empowerment-banish-level (field items aren't reliably clickable as the literal first action of a fresh turn). Its ability body (GeneratedMacroCode.php ~3934-3938) is just an unconditional Draw(1); confirmed via direct probe that the card ends up in myBanish after activating, so the [Activate], Banish self cost is enforced generically (outside the ability body, the same way Endura's [REST] cost isn't visible in its macro either) -- the card landing in myBanish plus the draw together prove the full ability resolved.",
+    "testedCards": [
+        "IC3OU6vCnF"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["IC3OU6vCnF"],
+        "mechanics": ["cost", "draw-discard", "zone-movement", "condition"],
+        "rulesClauses": [
+            "[Activate]: Draw a card."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Sword of Seeking: [Class Bonus] True Sight",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Sword of Seeking's only ability is [Class Bonus] True Sight (HasKeyword_TrueSight, gated on WARRIOR Class Bonus) -- champion CardID-patched directly to Lorraine, Blademaster (WARRIOR), Sword of Seeking seeded directly onto the field (its ability is a static wielded-weapon check, not an Enter trigger). Gildas, Faesworn Monarch (unconditional Stealth) is seeded onto P2's field as the attack target: AttackerHasTrueSight (CombatLogic.php) checks the wielded weapon for True Sight, which is what allows Stealth units to be legally targeted at all (GetChooseAttackTargets filters them out otherwise) -- successfully targeting Gildas and dealing 1 combat damage is itself the proof.",
+    "testedCards": [
+        "Dz8I0eJzaf"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["Dz8I0eJzaf"],
+        "mechanics": ["targeting", "status", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] True Sight (Attacks while wielding this weapon can target units with stealth. Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}

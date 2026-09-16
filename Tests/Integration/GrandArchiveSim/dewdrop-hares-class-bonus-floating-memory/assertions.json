@@ -1,0 +1,5 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"nllCALIXDT","semantic":true,"label":"The champion successfully levels up, partly paid by Dewdrop Hares' Floating Memory"},
+    {"step":5,"type":"zone_count","zone":"myGraveyard","viewerPlayerID":1,"value":0,"semantic":true,"label":"Dewdrop Hares is banished from the graveyard to pay 1 of the memory cost"},
+    {"step":5,"type":"decision_queue_empty","player":"all"}
+]

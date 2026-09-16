@@ -1,0 +1,17 @@
+{
+    "name": "Rai, Archmage: Inherited Effect -- first Mage action card each turn, put an enlighten counter on champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Rai, Archmage's Inherited Effect (GameLogic.php ~5670-5680) checks ChampionHasInLineage, which reads the champion object's own CardID plus Subcards -- a direct CardID patch is sufficient (no natural level-up needed). Idle Thoughts (rWhFC8XBaH, NORM, MAGE, reserve 1, already used in idle-thoughts-glimpse-4 with this exact generic deck/seed, so the same Glimpse response is reused) is the first MAGE ACTION card activated this turn, putting an enlighten counter on the champion and setting the RAI_ARCHMAGE_TRIGGERED once-per-turn flag.",
+    "testedCards": [
+        "zdIhSL5RhK"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zdIhSL5RhK"],
+        "mechanics": ["counter", "trigger", "condition"],
+        "rulesClauses": [
+            "Inherited Effect: Whenever you activate your first Mage action card each turn, put an enlighten counter on your champion."
+        ]
+    }
+}

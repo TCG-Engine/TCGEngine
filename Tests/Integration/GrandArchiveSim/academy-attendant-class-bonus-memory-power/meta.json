@@ -1,0 +1,17 @@
+{
+    "name": "Academy Attendant's [Class Bonus][Memory 4+] +1 POWER",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Academy Attendant's static +1 POWER (GameLogic.php ~11255) is a plain IsClassBonusActive([\"CLERIC\"]) + '4+ cards in memory' check with no turn-cycle needed -- the starting champion is patched directly to Arisanna, Master Alchemist (CLERIC) and 4 filler cards are seeded into myMemory. Verified via computed_power_equals (base 2 + 1 = 3) rather than a real combat sequence.",
+    "testedCards": [
+        "m4c8ljyevp"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["m4c8ljyevp"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "[Class Bonus] [Memory 4+] Academy Attendant gets +1 POWER. (Apply this effect only if your champion's class matches this card's class and only if there are four or more cards in your memory.)"
+        ]
+    }
+}

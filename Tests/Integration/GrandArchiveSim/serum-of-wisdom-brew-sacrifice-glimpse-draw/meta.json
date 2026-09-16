@@ -1,0 +1,18 @@
+{
+    "name": "Serum of Wisdom: Brew (Three Herbs); Sacrifice: Glimpse 3, draw a card into memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Serum of Wisdom's element is NORM. Brewing sacrifices three Herb-subtype objects instead of paying reserve; three Blightroot tokens are seeded onto the field to pay it. Sacrifice: Glimpse 3 (an MZREARRANGE decision, resolved keeping original order, same no-op default used in idle-thoughts-glimpse-4) then queues a draw into memory, confirmed by the memory zone going from 0 to 1.",
+    "testedCards": [
+        "bae3z4pyx8"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["bae3z4pyx8"],
+        "mechanics": ["cost", "draw-discard"],
+        "rulesClauses": [
+            "Brew — Three Herbs (You may sacrifice the listed objects rather than pay this card's reserve cost.)",
+            "Sacrifice Serum of Wisdom: Glimpse 3. Draw a card into your memory."
+        ]
+    }
+}

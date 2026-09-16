@@ -1,0 +1,17 @@
+{
+    "name": "Dungeon Guide: On Enter, may banish 2 random from memory to level up your champion",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Claude",
+    "notes": "Dungeon Guide's On Enter ability (enterAbilities[\"em6eEh9q8y:0\"]) only offers its YESNO if the controller has at least 2 cards in memory, then (on YES) banishes exactly 2 random cards from memory via engine RNG (GetLevelUpMaterialIndices($player, true), higherLevelOnly) and, if a legal one-level-higher champion exists in material, materializes it directly via DoMaterialize -- unlike a generic champion-swap FSM click, this path is not gated to the material-phase MZMAYCHOOSE window, so it can be played and resolved in one shot during turn 1 MAIN. Reused lorraine-wandering-warrior-levelup's exact deck/material setup (default level-0 Spirit of Fire champion with the level-1 Lorraine, Wandering Warrior seeded in material as the only legal target) but seeded a second floating-memory filler card so the starting memory zone has 2 cards before Dungeon Guide's own 3-memory materialization cost is paid (paying memory cost moves cards from hand into memory, same mechanic as reserve payment but landing in the memory zone instead of being spent) -- by the time the On Enter ability fires, memory has 5 cards (2 seeded + 3 paid), satisfying the >=2 check with room to spare. The 2 banished card IDs are RNG-seed-dependent and were confirmed via a direct engine probe against this exact deck/seed before being hardcoded as an expected zone count rather than specific card identities (the specific cards banished aren't part of the printed rule; only the count and the resulting champion swap are).",
+    "testedCards": [
+        "em6eEh9q8y"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["em6eEh9q8y"],
+        "mechanics": ["cost", "zone-movement", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: You may banish two cards at random from your memory. If you do, level up your champion."
+        ]
+    }
+}

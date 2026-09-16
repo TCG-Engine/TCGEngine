@@ -1,0 +1,18 @@
+{
+    "name": "Tonoris, Might of Humanity's On Enter: next attack +3 POWER",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Tonoris, Might of Humanity is level 2 (Tonoris Lineage), but CanChampionLevelUpIntoCard only checks targetLevel === currentLevel + 1 (GameLogic.php ~19487-19501) -- lineage text is not enforced by the level-up gate itself. The starting champion is patched directly to Tonoris, Lone Mercenary (zb14m4c8lj, level 1) so a real level-up into Might of Humanity is legal; patching the CardID is fine here since only Might of Humanity's own On Enter is under test. Champion-swap materialization is only offered through the material-phase MZMAYCHOOSE at the start of a turn, so both players end their first turn (P1 -> P2) to reach that prompt; its 2-memory cost is paid from two filler cards seeded into myMemory. Its On Enter ability (GeneratedMacroCode.php enterAbilities[\"yevpmu6gvn:0\"]) calls AddTurnEffect($mzID, \"yevpmu6gvn\") on the champion -- CombatLogic.php ~1688 reads and consumes that exact marker to grant +3 POWER on the champion's next attack, so asserting the marker's presence directly confirms the On Enter ability fired (the marker's consumption-on-attack is a separate CombatLogic mechanic, out of scope for this fixture).",
+    "testedCards": [
+        "yevpmu6gvn"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["yevpmu6gvn"],
+        "mechanics": ["trigger", "condition"],
+        "rulesClauses": [
+            "Tonoris Lineage (Tonoris, Might of Humanity must be leveled from a previous level \"Tonoris\" champion.)",
+            "On Enter: Tonoris' next attack this turn gets +3 POWER."
+        ]
+    }
+}

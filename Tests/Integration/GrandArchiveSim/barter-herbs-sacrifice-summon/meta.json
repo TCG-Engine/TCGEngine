@@ -1,0 +1,17 @@
+{
+    "name": "Barter Herbs: sacrifice up to two Herbs, summon chosen replacement tokens",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Barter Herbs (NORM, reserve 1) sacrifices up to two Herb-subtype objects, choosing a replacement Herb token for each one sacrificed (BarterHerbsSacrificeLoop, PotionLogic.php ~664). Two Blightroot HERB tokens are seeded onto the field to sacrifice; each is replaced with Manaroot chosen from the six-option temp-zone menu -- the newly-summoned replacement can land at the same field index as the object just sacrificed (reindexing), so the second sacrifice cycle may target the freshly-summoned token rather than the original second Blightroot; either way the same sacrifice/summon mechanic runs twice, confirmed by both final field objects being Manaroot. Only the base sacrifice/summon loop is covered; the [Class Bonus] Floating Memory clause is a passive/reusable-elsewhere property and out of scope. An ambient opportunity offering the seeded Blightroots' own fast Sacrifice ability appears first and must be declined -- a different mechanic than Barter Herbs' own loop.",
+    "testedCards": [
+        "p5af098kmo"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["p5af098kmo"],
+        "mechanics": ["cost", "token", "condition"],
+        "rulesClauses": [
+            "Sacrifice up to two Herbs. For each Herb sacrificed this way, summon your choice of Blightroot, Manaroot, Silvershine, Fraysia, Razorvine, or Springleaf token."
+        ]
+    }
+}

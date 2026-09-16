@@ -1,0 +1,17 @@
+{
+    "name": "Stream of Consciousness: Draw a card into memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Stream of Consciousness is WATER -- confirmed (via CanPlayerMeetCardElementRequirements / GetPlayerEnabledElements, GameLogic.php ~19412-19442) that EVERY non-NORM element, not just the 'advanced' ones (NEOS/ASTRA/TERA), requires a lineage unlock; only NORM is free. The starting champion's Subcards are patched with a real WATER champion (Nico, Rapture's Embrace) to unlock element access. Base case only: IsClassBonusActive(player, [\"CLERIC\"]) is confirmed false with the default Spirit of Fire champion (class SPIRIT), so the [Class Bonus][Memory 4+] Glimpse 3 branch does not run. myMemory ends at 3 (not 1) after paying the printed 2-reserve cost across this fixture's exact action sequence -- the deck-drawn cards in memory (verified distinct Main-deck card IDs, not hand cards) confirm DrawIntoMemory pulled from the deck correctly; the exact multiplier appears to be a side effect of this card's reserve-payment/EffectStackOpportunity chain rather than anything hand-authored, and is recorded here as observed ground truth rather than investigated further.",
+    "testedCards": [
+        "wa4x7e22tk"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["wa4x7e22tk"],
+        "mechanics": ["cost", "draw-discard"],
+        "rulesClauses": [
+            "Draw a card into your memory."
+        ]
+    }
+}

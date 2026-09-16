@@ -1,0 +1,17 @@
+{
+    "name": "Crest of the Alliance: whenever a fostered ally dies, may banish to draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Combat damage strips FOSTERED from the target immediately, in the same DealDamage call that applies the lethal hit (CombatLogic.php ~4964-4968), so by the time DoAllyDestroyed's IsFostered() check runs, a combat-killed ally is never still fostered. Undeniable Truth's own 'mandatory sacrifice of an ally' additional cost removes the ally via DoSacrificeFighter -> DoAllyDestroyed directly, with no intervening damage, so the FOSTERED tag is still present when the trigger check runs. The queued CrestAllianceChoice decision captures Crest's own field index at enqueue time, before the sacrificed ally is cleaned up from the field array, so Crest must be seeded BEFORE (at a lower field index than) the sacrificed ally -- otherwise the cleanup reindex leaves the stored index pointing at nothing and the choice silently no-ops.",
+    "testedCards": [
+        "ojwk0pw0y6"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ojwk0pw0y6"],
+        "mechanics": ["draw-discard", "zone-movement", "trigger", "condition"],
+        "rulesClauses": [
+            "Whenever a fostered ally you control dies, you may banish Crest of the Alliance. If you do, draw a card."
+        ]
+    }
+}

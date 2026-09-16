@@ -1,0 +1,17 @@
+{
+    "name": "Imperial Sentry's [Class Bonus] Intercept redirect",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Same shape as swift-recruit-intercept-redirect, except Imperial Sentry's Intercept is [Class Bonus]-gated (HasKeyword_Intercept, GeneratedKeywordCode.php ~487, checks IsClassBonusActive($player, CardClasses($cardId))), so player 1 (the defender)'s champion is patched to a GUARDIAN champion (Tonoris, Lone Mercenary) to satisfy it -- unlike Swift Recruit's unconditional Intercept, a plain field seed alone is not enough. GetAvailableInterceptRedirectTargets (CombatLogic.php:605-624) only offers a redirect when the attack's target is a CHAMPION, so this needs the opponent (P2) attacking P1's champion: P1 ends turn 1 (nothing to do), P2 declines their MAT-phase offer, then P2's champion attacks P1's champion using a weapon (Spirit of Fire has no base POWER). The resulting 'Choose_an_interceptor' MZMAYCHOOSE for P1 offers Imperial Sentry (awake, ALLY, HasIntercept now satisfied); redirecting moves the attack's target to it, and declining the following Retaliate decision leaves the resulting combat damage on Imperial Sentry (1 damage from the weapon's 1 POWER) instead of the champion (0 damage). The [Level 2+] +1 LIFE static clause is out of scope for this fixture.",
+    "testedCards": [
+        "plywc08c9h"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["plywc08c9h"],
+        "mechanics": ["condition", "combat", "keyword"],
+        "rulesClauses": [
+            "[Class Bonus] Intercept (Whenever your champion is attacked while this ally is awake, you may redirect that attack to this ally. Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}

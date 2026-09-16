@@ -1,0 +1,17 @@
+{
+    "name": "Meadowbloom Dryad: [Class Bonus] whenever an ally enters, buff counter on target ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Meadowbloom Dryad is TERA. The starting champion's CardID is patched directly to Silvie, Loved by All -- both TAMER (satisfies the Class Bonus) and TERA (unlocks element access) at once. The trigger (FieldAfterAdd, GameLogic.php ~8126) fires for ANY ally entering, including Meadowbloom Dryad itself: when it resolves as the very first ally on either field, it is the only entry in the target-ally search, so the engine auto-applies the buff counter without a choice decision (count($allyTargets) === 1 skips the MZCHOOSE branch) -- a simpler and equally valid way to exercise the trigger than materializing a second ally afterward. Confirmed via its own Counters.buff = 1. Only the Class Bonus trigger is covered; Preserve (returning from the material deck on materialize) is a separate, out-of-scope mechanic.",
+    "testedCards": [
+        "cVRIUJdTW5"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["cVRIUJdTW5"],
+        "mechanics": ["targeting", "zone-movement", "counter", "trigger"],
+        "rulesClauses": [
+            "[Class Bonus] Whenever CARDNAME or another ally enters the field under your control, put a buff counter on target ally."
+        ]
+    }
+}

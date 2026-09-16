@@ -1,0 +1,17 @@
+{
+    "name": "Scale of Souls' REST: return a card from your memory to your hand",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T01:42:39+00:00",
+    "createdBy": "batch-script",
+    "notes": "Field-resident REGALIA/ITEM cards whose activated ability is registered in $cardActivatedAbilities had no client-reachable activation path (CustomInput.php's \"myField\"/\"myIntent\" case only ever called ActivateAbility(), which reads a different dictionary) -- fixed by routing through ActivateCard() when CardCardActivatedCount() indicates this dictionary instead. This fixture confirms the fix end-to-end: a direct myField-N!CustomInput!Activate:0 click now correctly resolves Scale of Souls' REST ability, returning the chosen memory card to hand.",
+    "testedCards": [
+        "0z2snsdwmx"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["0z2snsdwmx"],
+        "mechanics": ["cost", "zone-movement"],
+        "rulesClauses": [
+            "(2), REST: Return a card from your memory to your hand."
+        ]
+    }
+}

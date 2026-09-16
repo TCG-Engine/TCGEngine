@@ -1,0 +1,17 @@
+{
+    "name": "Sudden Steel: [Class Bonus] Efficiency",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Sudden Steel's only ability is [Class Bonus] Efficiency (reduce reserve cost by champion's current level). Champion CardID-patched directly to Lorraine, Blademaster (WARRIOR, level 2), reducing the printed 6 reserve cost to 4. Played into myIntent via FSM (ATTACK cards don't go through the fast-action opportunity flow until after the attack is declared, per wind-cutter-class-bonus-power-attack), then attacks the opponent's champion directly.",
+    "testedCards": [
+        "SSu2eQZFJV"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["SSu2eQZFJV"],
+        "mechanics": ["cost", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] Efficiency (This card costs 1 less to activate for each level your champion has.)"
+        ]
+    }
+}

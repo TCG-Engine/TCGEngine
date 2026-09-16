@@ -1,0 +1,17 @@
+{
+    "name": "Trained Sharpshooter's [Class Bonus] Ranged 2 attack bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-10T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Unlike Automaton Bomber's unconditional Ranged 4, Trained Sharpshooter's Ranged 2 needs an active RANGER Class Bonus (IsClassBonusActive scans the whole field for any champion-type object of the matching class), so a real RANGER champion (Diana, Keen Huntress) is seeded onto player 2's field alongside it. Same turn-cycle approach as automaton-bomber-ranged-attack: Rule 1.h blocks the opening player's own turn-1 attack, so player 1 ends turn 1 with a single CustomInput Pass (no decision is pending, so this action itself ends the turn) before player 2 attacks on turn 2, Distant and awake.",
+    "testedCards": [
+        "uhjxhkurfp"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["uhjxhkurfp"],
+        "mechanics": ["condition", "combat", "targeting", "damage"],
+        "rulesClauses": [
+            "[Class Bonus] Ranged 2 (As long as this unit is distant, its attacks get +2 POWER. Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}

@@ -3,7 +3,7 @@
   "rootName":"GrandArchiveSim",
   "baseFixture":"magus-initiate-class-bonus",
   "initialGamestateReplacements":[
-    {"from":"4FtNBFaOJp 2 1 0 1 - - - -1\r\n","to":"tafqldAGRF 2 1 0 1 - - - -1\r\n"}
+    {"from":"4FtNBFaOJp 2 1 0 1 - - - -1\n","to":"tafqldAGRF 2 1 0 1 - - - -1\n"}
   ],
   "testedCards":["fZ08zyFIlz"],
   "semanticCoverage":{

@@ -1801,14 +1801,21 @@ function AdventStormcallerRearrange($player) {
 
 // --- Smash with Obelisk (2kkvoqk1l7): sacrifice domain and store its reserve cost ---
 $customDQHandlers["SmashWithObeliskSacrifice"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0] ?? 0);
     if($lastDecision == "-" || $lastDecision == "") {
         DecisionQueueController::StoreVariable("smashObeliskBonus", "0");
-        return;
+    } else {
+        $obj = GetZoneObject($lastDecision);
+        $cost = ($obj !== null) ? CardCost_reserve($obj->CardID) : 0;
+        DoSacrificeFighter($player, $lastDecision);
+        DecisionQueueController::StoreVariable("smashObeliskBonus", strval($cost));
     }
-    $obj = GetZoneObject($lastDecision);
-    $cost = ($obj !== null) ? CardCost_reserve($obj->CardID) : 0;
-    DoSacrificeFighter($player, $lastDecision);
-    DecisionQueueController::StoreVariable("smashObeliskBonus", strval($cost));
+    DecisionQueueController::CleanupRemovedCards();
+    for($i = 0; $i < $baseReserve; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
 
 // Shield Fragmentation (CHU96qWwaS): sacrifice a Shield item as additional cost

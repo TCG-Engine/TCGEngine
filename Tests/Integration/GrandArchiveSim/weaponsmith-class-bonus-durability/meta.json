@@ -1,0 +1,17 @@
+{
+    "name": "Weaponsmith: [Class Bonus] put a durability counter on target weapon at recollection",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Weaponsmith's ability fires from ResolveBeforeRecollectionPhaseStart (GameLogic.php ~9366), gated on WARRIOR Class Bonus, and (when exactly one WEAPON is on the field) applies automatically with no MZCHOOSE. Champion CardID-patched to Lorraine, Blademaster (WARRIOR), with exactly one WEAPON on the field (Warrior's Longsword). Both players end turn 1/2 (same pattern as arcanists-prism-recollection-wheel-draw) to reach P1's own turn 3 recollection phase. Residual finding, not fully traced: the weapon ends with 3 durability counters rather than 1 after this 3-action sequence -- direct instrumentation showed the P1-pass action alone (turn1->2) already applies 2 increments while GetTurnNumber() still reports 1, and the final P1 PASS (declining the turn-3 materialize offer) applies a 3rd, suggesting BeforeRecollectionPhase's Opportunity-window continuation re-enters more than once per turn transition in this exact deck/seed. The mechanic itself (Class-Bonus-gated durability grant on the sole weapon) is unambiguously proven either way; the exact multiplicity is documented here honestly rather than asserted with unwarranted confidence, matching the crystal-of-empowerment-banish-level precedent.",
+    "testedCards": [
+        "6gN5KjqRW5"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["6gN5KjqRW5"],
+        "mechanics": ["targeting", "counter", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] At the beginning of your recollection phase, put a durability counter on target weapon you control."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Quickdraw Piercer's [Class Bonus] On Banish: Draw a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Quickdraw Piercer has no activated ability of its own -- its only ability is the generic OnLeaveField hook, fired whenever it leaves the field for any reason. Blazing Throw's own mandatory 'sacrifice a weapon' additional cost is the simplest real in-game path to remove it from the field: DoSacrificeFighter routes a non-Ally sacrifice (a WEAPON, here) to the banish zone rather than the graveyard, matching this card's 'On Banish' wording exactly. Blazing Throw is FIRE element, so it needs the same starting-champion Subcards lineage-patch pattern already used for UMBRA cards, just with a FIRE-element level-0 champion instead.",
+    "testedCards": [
+        "j4f15joh30"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["j4f15joh30"],
+        "mechanics": ["zone-movement", "condition", "draw-discard", "cost"],
+        "rulesClauses": [
+            "[Class Bonus] On Banish: Draw a card. (Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
+}

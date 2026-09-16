@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"decision_queue_empty","player":"all"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"CardID","value":"iq4d5vettc","semantic":true,"label":"champion levels up into Diana, Duskstalker"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-0","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"DISTANT\"]","semantic":true,"label":"On Enter: Diana becomes distant"}
+]

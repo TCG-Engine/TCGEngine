@@ -1,0 +1,18 @@
+{
+    "name": "Recruitment Officer's [Class Bonus] Foster; On Foster: look at top 5",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Recruitment Officer's Foster is [Class Bonus]-gated (HasFoster's $fosterCBCards table, CardLogic.php), so a GUARDIAN champion (Tonoris, Lone Mercenary) is seeded for the bonus. Same 3-action approach as novice-mechanist-on-foster-summon-drone to reach player 1's own recollection phase, where Foster processing (and this card's On Foster trigger) runs. Deck-shuffle seed 1 (not the usual default 42) is used so the revealed top 5 of the deck actually contains an ally card, exercising the 'may reveal an ally' branch instead of the no-op 'no ally found' one -- regenerate this fixture with --seed=1, not the project default.",
+    "testedCards": [
+        "1x97n2jnlt"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["1x97n2jnlt"],
+        "mechanics": ["condition", "trigger", "zone-movement", "draw-discard"],
+        "rulesClauses": [
+            "[Class Bonus] Foster",
+            "On Foster: Look at the top five cards of your deck. You may reveal an ally card from among them and put it into your hand. Put the rest of the cards on the bottom of your deck in any order."
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Prototype Staff's [Level 4+] REST: bottom a hand card, draw into memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Only the base REST ability (put a hand card on the deck's bottom, then draw into memory) is covered; the separate [Class Bonus][Memory 4+] +1 level static clause needs an 'effective champion level' assertion type this harness doesn't have and is out of scope. The starting champion's level is patched to 4 to match the ability's printed [Level 4+] gate, though the ability's own macro body (GeneratedMacroCode.php) has no level check at all -- the gate appears to be enforced only client-side/by schema metadata, not by game logic. Field items with an activated ability are not clickable via a plain myField-N!FSM! action -- offered as a fast-action MZMAYCHOOSE opportunity once the turn player attempts to pass (same shape as sweet-ambrosia-banish-recover).",
+    "testedCards": [
+        "8c9htu9agw"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["8c9htu9agw"],
+        "mechanics": ["cost", "draw-discard", "condition"],
+        "rulesClauses": [
+            "[Level 4+] REST: You may put a card from your hand on the bottom of your deck. If you do, draw a card into your memory."
+        ]
+    }
+}

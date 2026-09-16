@@ -1,0 +1,17 @@
+{
+    "name": "Endura, Scepter of Ignition: [REST] remove an enlighten counter, deal 1 damage to target unit",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Endura is REGALIA -- seeded directly onto myField. Its prereq requires the champion to already have an enlighten counter (GeneratedMacroCode.php ~6147-6172), patched directly via Counters. Same Scry-the-Skies warm-up + direct Activate:0 click as crystal-of-empowerment-banish-level (this ability's own effect isn't 'until end of turn', but the same 'field item isn't reliably clickable as the literal first action of a fresh turn' caution is reused). A Dungeon Guide on the opponent's field is the damage target; its Damage=1 and the champion's enlighten counter dropping to 0 together prove the effect.",
+    "testedCards": [
+        "SGsDKB9CN5"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["SGsDKB9CN5"],
+        "mechanics": ["targeting", "damage", "counter"],
+        "rulesClauses": [
+            "[REST], Remove an enlighten counter from your champion: Deal 1 damage to target unit."
+        ]
+    }
+}

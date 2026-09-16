@@ -1,0 +1,18 @@
+{
+    "name": "Rebellious Bull: enters the field rested (Pride 3)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Rebellious Bull is NORM, no lineage patch needed. Confirms the printed 'CARDNAME enters the field rested' clause directly via Status (1, rested) after a normal FSM materialize -- the default for a newly-materialized ally is awake (2). Pride 3 (a combat-only restriction, same mechanic already covered generically in gray-wolf-pride-2-attack-rejected) is not separately re-tested here.",
+    "testedCards": [
+        "GXeEa0pe3B"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["GXeEa0pe3B"],
+        "mechanics": ["status"],
+        "rulesClauses": [
+            "CARDNAME enters the field rested.",
+            "Pride 3 (This ally won't obey you unless your champion is level 3 or higher.)"
+        ]
+    }
+}

@@ -1,0 +1,6 @@
+[
+    {"step":8,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"the negated card is banished, not sent to the graveyard"},
+    {"step":8,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"F9POfB5Nah","semantic":true,"label":"Scry the Skies (the negated activation) is the banished card"},
+    {"step":8,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":5,"semantic":true,"label":"myMemory stays at its pre-existing 5 -- Scry the Skies never resolved its 'draw a card into memory' effect"},
+    {"step":8,"type":"decision_queue_empty","player":"all"}
+]

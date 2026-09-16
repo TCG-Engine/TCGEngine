@@ -1,0 +1,18 @@
+{
+    "name": "Hurricane Sweep: [Class Bonus] Efficiency + Cleave",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Hurricane Sweep is WIND element with [Class Bonus] Efficiency (reduce reserve cost by champion's current level) and printed Cleave (already proven generically by the pre-existing hemorrhaging-rend-damage20-cleave fixture, so not re-asserted here). Champion CardID-patched directly to Lorraine, Blademaster (WARRIOR, level 2) with Spirit of Wind added via Subcards for WIND access -- same technique as wind-cutter-class-bonus-power-attack, including dropping Fairy Whispers from the Main list to avoid the WIND-unlock Opportunity-window cascade that card triggers once WIND is enabled. With level 2 active, Efficiency reduces the printed 5 reserve cost to 3 (verified: CalculateActivationReserveCost applies the Efficiency registry's reduction unconditionally once a card is in the $Efficiency_Cards registry, regardless of the printed \"[Class Bonus]\" qualifier -- a genuine engine-behavior detail worth noting for future decks, though moot in this fixture since a real WARRIOR Class Bonus is also active).",
+    "testedCards": [
+        "4V6qKuM7xs"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["4V6qKuM7xs"],
+        "mechanics": ["cost", "combat", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] Efficiency (This card costs 1 less to activate for each level your champion has.)",
+            "Cleave"
+        ]
+    }
+}

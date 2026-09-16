@@ -1,0 +1,17 @@
+{
+    "name": "Tome of Knowledge: Banish -- draw a card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Tome of Knowledge is REGALIA -- seeded directly onto myField. Same Scry-the-Skies warm-up + direct Activate:0 click as crystal-of-empowerment-banish-level. Its ability (GeneratedMacroCode.php ~7551-7559) explicitly moves itself to myBanish then draws a card.",
+    "testedCards": [
+        "yDARN8eV6B"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["yDARN8eV6B"],
+        "mechanics": ["draw-discard", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Banish Tome of Knowledge: Draw a card."
+        ]
+    }
+}

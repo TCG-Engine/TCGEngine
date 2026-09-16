@@ -1,0 +1,4 @@
+[
+    {"step":5,"type":"computed_power_equals","mzId":"p1Field-1","value":4,"semantic":true,"label":"[Class Bonus] On Enter: the pre-existing Gray Wolf ally gets +1 power per Animal/Beast in graveyard (base 2 + 2 = 4)"},
+    {"step":5,"type":"card_exists","zone":"myField","viewerPlayerID":1,"cardID":"dZ960Hnkzv","semantic":true,"label":"Vertus itself resolves onto the field"}
+]

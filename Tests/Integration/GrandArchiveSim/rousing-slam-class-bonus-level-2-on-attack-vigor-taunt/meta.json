@@ -1,0 +1,17 @@
+{
+    "name": "Rousing Slam's [Class Bonus][Level 2+] On Attack: vigor and taunt",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "PlayerLevel($player) >= 2 is checked against the CHAMPION's own level, so patching the champion directly to Tonoris, Might of Humanity (level 2, GUARDIAN) satisfies both the [Class Bonus] and [Level 2+] gates in one step (CanChampionLevelUpIntoCard-style level requirements only check current state, not lineage). Rousing Slam is WIND (advanced element), so the champion's Subcards also carry a WIND lineage unlock. Unlike Heavy Swing (which loads into intent for a later separate attack), Rousing Slam's activation directly resolves as a real attack -- its own printed 4 POWER is dealt to the chosen target and the card ends up in the graveyard, not myIntent. Rule 1.h applies to activating any ATTACK-type card, so it's played on player 2's turn (after player 1 ends turn 1). Several ambient fast-opportunity windows appear along the way and are declined with PASS.",
+    "testedCards": [
+        "v5klryvfq3"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["v5klryvfq3"],
+        "mechanics": ["condition", "combat", "trigger"],
+        "rulesClauses": [
+            "[Class Bonus] [Level 2+] On Attack: The attacker gains vigor and taunt until the beginning of your next turn. (Units with vigor wake up at the beginning of your end phase.)"
+        ]
+    }
+}

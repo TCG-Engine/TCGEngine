@@ -1,0 +1,18 @@
+{
+    "name": "Flash Freeze: Negate target card activation, banish the negated card",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Flash Freeze is WATER -- the starting champion's Subcards are patched with a real WATER champion (Nico, Rapture's Embrace) to unlock element access. Its 'unless its controller pays (LV)' branch is not exercised: QueueNegateActivation is called with payAmount = PlayerLevel($player), and the default champion has level 0, so NegateActivationResolve's payAmount <= 0 short-circuit auto-negates immediately without offering a pay-to-save choice -- that branch would need a separate fixture with the champion's level counter patched above 0. The negated activation target is a second card (Scry the Skies) played immediately beforehand: FSM-playing it leaves it pending on the effect stack, which (since it needs no further targeting) opens a same-turn fast-opportunity window offering Flash Freeze in response, before Scry the Skies resolves -- the same 'respond before resolution' pattern used for Synth Disrupter's banish-self fixture. GetEffectStackActivationTargets did not offer Flash Freeze's own stack entry as a valid negate target alongside Scry the Skies, only the latter. Confirms both effects of a successful negation: the negated card lands in myBanish (destinationMode='banish', per NegatedActivationDestination) rather than myGraveyard, and myMemory stays at its pre-existing baseline of 5, proving Scry the Skies' own 'draw a card into memory' ability never ran. Flash Freeze itself resolves normally afterward (ends in myGraveyard, not myBanish -- it doesn't banish itself, only the card it negated).",
+    "testedCards": [
+        "w3rrii17fz"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["w3rrii17fz"],
+        "mechanics": ["cost", "targeting", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Negate target card activation unless its controller pays (LV).",
+            "Banish the card that had its activation negated this way."
+        ]
+    }
+}

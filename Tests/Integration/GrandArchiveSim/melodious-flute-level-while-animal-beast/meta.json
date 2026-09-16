@@ -1,0 +1,17 @@
+{
+    "name": "Melodious Flute: champion +1 level as long as you control an Animal or Beast ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Melodious Flute is NORM and REGALIA -- adding it to 'myHand' via setup gets silently redirected to the Material zone instead (HandAddReplacement), matching every other REGALIA item fixture this session, so it is seeded directly onto myField. Its static +1 level is unconditional; [Class Bonus] Banish: the next Harmony action card activated becomes a Melody is a separate, out-of-scope ability -- the fast-opportunity offer to activate it is declined so Scry the Skies proceeds normally. Same indirect Glimpse-LV proof technique as beastbond-ears-level-while-animal-beast: Gray Wolf (a BEAST ally) is seeded alongside it, then Scry the Skies' Glimpse LV surfaces a real MZREARRANGE decision (invisible at the default level 0) proving the effective level is 1.",
+    "testedCards": [
+        "WAFNy2lY5t"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["WAFNy2lY5t"],
+        "mechanics": ["zone-movement", "condition"],
+        "rulesClauses": [
+            "Your champion gets +1 level as long as you control an Animal or Beast ally."
+        ]
+    }
+}

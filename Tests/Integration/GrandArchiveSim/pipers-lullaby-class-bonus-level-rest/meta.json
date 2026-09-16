@@ -1,0 +1,18 @@
+{
+    "name": "Piper's Lullaby: champion +1 level while Animal/Beast ally, [Class Bonus] rest target ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Piper's Lullaby is WATER -- the starting champion's CardID is patched directly to Silvie, With the Pack (TAMER, satisfies the Class Bonus) and its Subcards are ALSO patched with a real WATER champion (Nico, Rapture's Embrace) for element/lineage unlock. Unlike the '+1 level while Animal/Beast ally' STATIC clauses tested indirectly via Glimpse LV elsewhere this session, this one is a one-shot AddTurnEffect(\"raG5r85ieO\") applied when the card resolves (GeneratedMacroCode.php ~21186-21203), so it is directly observable via TurnEffects. Gray Wolf is seeded onto the field, satisfying the Animal/Beast condition and also serving as the Class Bonus's rest target, confirmed via Status = 1 (rested).",
+    "testedCards": [
+        "raG5r85ieO"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["raG5r85ieO"],
+        "mechanics": ["targeting", "condition"],
+        "rulesClauses": [
+            "If you control an Animal or Beast ally, your champion gets +1 level until end of turn.",
+            "[Class Bonus] Rest up to one target ally."
+        ]
+    }
+}

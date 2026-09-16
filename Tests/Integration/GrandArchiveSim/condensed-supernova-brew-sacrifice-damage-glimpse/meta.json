@@ -1,0 +1,18 @@
+{
+    "name": "Condensed Supernova: Brew (Silvershine + 2 Adjuvants + 2 Catalysts); Sacrifice: LV damage to all, Glimpse 4",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Condensed Supernova's element is ASTRA (advanced), so the starting champion's Subcards are patched with a real ASTRA champion (Arisanna, Astral Zenith) for element access -- her patch also conveniently sets Counters.level = 3 so LV damage is directly observable (0 would be invisible). Brewing sacrifices a specific Silvershine plus two more ADJUVANT-subtype and two more CATALYST-subtype objects instead of paying reserve; Silvershine itself is also CATALYST but the brew cost lists it as a separate named-card requirement from the generic '2 Catalysts,' so two additional Blightroot (CATALYST) plus two Manaroot (ADJUVANT) are seeded alongside it (5 ingredients total). Sacrifice hits every non-ASTRA-element unit on both fields automatically (no target choice) for LV damage -- confirmed both champions take 3 damage -- then Glimpses 4 (resolved keeping original order, same no-op default used in idle-thoughts-glimpse-4). Already correctly wired in ActivatedAbilityCost's sacrifice-self switch (GameLogic.php ~6383), no engine gap here.",
+    "testedCards": [
+        "14m4c8ljye"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["14m4c8ljye"],
+        "mechanics": ["cost", "damage", "zone-movement"],
+        "rulesClauses": [
+            "Brew — One Silvershine, Two Adjuvants, Two Catalysts",
+            "Sacrifice Condensed Supernova: Deal LV damage to all non-astra element units. Glimpse 4."
+        ]
+    }
+}

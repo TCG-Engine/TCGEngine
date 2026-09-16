@@ -66,6 +66,21 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
             break;
         }
         SaveUndoVersion($playerID);
+        // Field-resident REGALIA/ITEM cards whose activated ability is registered in
+        // $cardActivatedAbilities (the reserve-cost dictionary backed by CardCardActivatedCount,
+        // normally reached via DoActivateCard/ActivateCard for hand/material plays) rather than
+        // $activateAbilityAbilities (the free/memory-cost-0 dictionary backed by
+        // CardActivateAbilityCount, reached via ActivateAbility/DoActivatedAbility) have no static
+        // ability entry for DoActivatedAbility to find -- its $staticAbilityCount comes back 0,
+        // misclassifying index 0 as a "dynamic" ability that matches nothing. Route those through
+        // ActivateCard instead, same as reserve-cost hand activations.
+        $targetObj = GetZoneObject($actionCard);
+        $targetCardID = $targetObj !== null ? ($targetObj->CardID ?? null) : null;
+        if($targetCardID !== null && function_exists("CardActivateAbilityCount") && function_exists("CardCardActivatedCount")
+            && CardActivateAbilityCount($targetCardID) === 0 && CardCardActivatedCount($targetCardID) > 0) {
+            ActivateCard($playerID, $actionCard, false);
+            break;
+        }
         ActivateAbility($playerID, $actionCard, $abilityIndex);
         break;
       case "myHand":

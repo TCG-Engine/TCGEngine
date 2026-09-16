@@ -1,0 +1,18 @@
+{
+    "name": "Vertus, Gaia's Roar: [Class Bonus] On Enter: allies +1 POWER per Animal/Beast in graveyard (Pride 10)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Vertus is TERA -- the starting champion's CardID is patched directly to Silvie, With the Pack (TAMER, satisfies the Class Bonus) and its Subcards are ALSO patched with Silvie, Loved by All (a real TERA champion, used purely for the element/lineage unlock, not its own ability) since Vertus needs a real TERA unlock and no Silvie champion is itself WATER/TERA except Loved by All. Two Gray Wolf copies (BEAST) are seeded into the graveyard, and a third Gray Wolf is seeded directly onto the field as the ally that receives the buff. Vertus itself is materialized via a real FSM play (paying its 4 reserve) rather than seeded directly onto the field, since seeding onto myField would bypass enterAbilities entirely and the On Enter trigger would never fire. Confirmed via computed_power_equals on the pre-existing Gray Wolf ally (base 2 + 2 Animal/Beast graveyard cards = 4). Pride 10 (a combat-only restriction, same mechanic already covered generically in gray-wolf-pride-2-attack-rejected) is not separately re-tested here.",
+    "testedCards": [
+        "dZ960Hnkzv"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["dZ960Hnkzv"],
+        "mechanics": ["trigger"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Allies you control get +1 POWER for each Animal and/or Beast ally card in your graveyard until end of turn.",
+            "Pride 10 (This ally won't obey you unless your champion is level 10 or higher.)"
+        ]
+    }
+}

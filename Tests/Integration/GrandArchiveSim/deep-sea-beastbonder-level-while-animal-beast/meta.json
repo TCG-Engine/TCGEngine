@@ -1,0 +1,17 @@
+{
+    "name": "Deep Sea Beastbonder: champion +1 level as long as you control an Animal or Beast ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Deep Sea Beastbonder is WATER -- the starting champion's Subcards are patched with a real WATER champion (Nico, Rapture's Embrace) to unlock element access. Its static +1 level is unconditional (no Class Bonus gate); [Class Bonus] Floating Memory is out of scope. Same indirect Glimpse-LV proof technique as beastbond-ears-level-while-animal-beast: Gray Wolf (a BEAST ally) is seeded onto the field so the condition is already satisfied once Deep Sea Beastbonder resolves (paid via its full 4 reserve), then Scry the Skies' Glimpse LV surfaces a real MZREARRANGE decision (invisible at the default level 0) proving the effective level is 1.",
+    "testedCards": [
+        "qxbdXU7H4Z"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["qxbdXU7H4Z"],
+        "mechanics": ["cost", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Your champion gets +1 level as long as you control an Animal or Beast ally."
+        ]
+    }
+}

@@ -7190,6 +7190,4669 @@ DECK,
     ],
 ];
 
+$fixtures['plated-bullet-rest-load-shadows-twin-power'] = [
+    'testedCards' => ['l75tlzsmw3', '5vettczb14'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+8 Dungeon Guide
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5vettczb14'], // Shadow's Twin, unloaded Gun, myField-1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'l75tlzsmw3'], // Plated Bullet, awake, myField-2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline own MAT-phase materialize offer
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''], // Plated Bullet's [REST] ability
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Shadow's Twin as the unloaded Gun to load into
+    ],
+];
+
+
+// --- Automaton Bomber: Ranged 4 (unconditional -- no Class Bonus needed) ---
+$fixtures['automaton-bomber-ranged-attack'] = [
+    'testedCards' => ['ygojwk0pw0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Automaton Bomber
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Seed Automaton Bomber directly onto player 2's field (awake, Distant) so player 2 can
+    // legally attack on turn 2 (Rule 1.h only blocks the opening player's own turn 1). DISTANT
+    // is on the persistent-turn-effects allowlist and is only cleared in EndPhase for the
+    // *controller's own* ending turn, so seeding it before turn 1 ends (player 1's turn, not
+    // player 2's) survives into player 2's turn untouched. Player 1 ends turn 1 with a single
+    // CustomInput Pass (there's no pending decision to decline here, so this action itself ends
+    // the turn -- confirmed by directly instrumenting the phase machine this session), then
+    // player 2 attacks with Ranged 4 active (1 base + 4 = 5 POWER).
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'ygojwk0pw0', 'setProperties' => ['TurnEffects' => ['DISTANT'], 'Status' => 2]], // Automaton Bomber, awake and Distant
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (no pending decision to decline)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Trained Sharpshooter: [Class Bonus] Ranged 2 ---
+$fixtures['trained-sharpshooter-class-bonus-ranged-attack'] = [
+    'testedCards' => ['uhjxhkurfp'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Trained Sharpshooter
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Same turn-cycle approach as automaton-bomber-ranged-attack (Rule 1.h blocks player 1's own
+    // turn-1 attack), but Trained Sharpshooter's Ranged 2 needs a RANGER Class Bonus
+    // (IsClassBonusActive scans the whole field for any champion-type object of the right class),
+    // so also seed a real RANGER champion (Diana, Keen Huntress) onto player 2's field.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'uhjxhkurfp', 'setProperties' => ['TurnEffects' => ['DISTANT'], 'Status' => 2]], // Trained Sharpshooter, awake and Distant
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-2!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Imperial Rifleman: [Class Bonus] On Enter: becomes distant ---
+$fixtures['imperial-rifleman-class-bonus-enter-distant'] = [
+    'testedCards' => ['17fzcyfrzr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Imperial Rifleman
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Imperial Rifleman's On Enter trigger only fires on a REAL materialize (BridgeAddToZone
+    // seeds silently, no Enter trigger), so it must be played from hand while a RANGER Class
+    // Bonus is already active. Seed the RANGER champion first, then Imperial Rifleman into a
+    // known hand slot; its 3-reserve cost needs 3 reps of the myHand-0 reserve-payment decision.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '17fzcyfrzr'], // Imperial Rifleman, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Prototype Pistol: [Class Bonus] On Enter: +1 POWER until end of turn ---
+$fixtures['prototype-pistol-class-bonus-enter-power'] = [
+    'testedCards' => ['frzrplywc0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Prototype Pistol
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Prototype Pistol is a REGALIA card. HandAddReplacement (GameLogic.php) silently redirects
+    // a REGALIA card into the material zone whenever it's added to hand via the BridgeAddToZone
+    // test-setup primitive -- but that hook only fires for that kind of explicit single-card
+    // add, not the normal bulk initial deal, so a REGALIA copy drawn into a real opening hand
+    // stays there normally. Player 2's natural 7-card opening hand happens to include one
+    // (confirmed at theirHand-0 from player 1's perspective, i.e. player 2's own myHand-0), so it
+    // can be played for real via the ordinary hand FSM flow once player 2 reaches their turn.
+    // Rule 1.h only blocks the opening player's own turn 1, so player 1 ends turn 1 with a single
+    // CustomInput Pass (no decision is pending, so this action itself ends the turn) and player 2
+    // plays it on turn 2, with a RANGER Class Bonus champion already seeded onto their field.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Violet Haze: all your units become distant; put on bottom of target champion's lineage ---
+$fixtures['violet-haze-distant-lineage'] = [
+    'testedCards' => ['vdxi74wa4x'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Violet Haze
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Violet Haze is UMBRA (advanced element), so the starting champion's Subcards are patched
+    // with a real UMBRA champion (Tristan, Shadowdancer) to unlock element access -- the same
+    // pattern already used for other UMBRA cards elsewhere in this file. It's a 2-reserve action
+    // played for real (no On Enter/no field presence to fake via test-setup). Seed an extra ally
+    // on the field to confirm "all units you control" isn't limited to the champion, then play
+    // the card from hand and target the champion with the lineage placement.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc']]], // UMBRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide - confirms "all units" isn't champion-only
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vdxi74wa4x'], // Violet Haze, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Umbra Sight: Draw a card; may draw into memory + curse lineage for damage ---
+$fixtures['umbra-sight-curse-lineage-damage'] = [
+    'testedCards' => ['f15joh300z'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Umbra Sight
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Umbra Sight is UMBRA (advanced element), so the starting champion's Subcards are patched
+    // with a real UMBRA champion (Tristan, Shadowdancer) to unlock element access. Its reserve
+    // cost is a real printed 0 (not the "-1 = no reserve type" sentinel), so no reserve-payment
+    // decision is queued at all -- straight into the unconditional draw, then a YESNO for the
+    // optional draw-into-memory + curse-lineage effect. Choosing YES adds it to the champion's
+    // lineage and deals 2 unpreventable damage per curse in lineage (2, counting itself).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc']]], // UMBRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'f15joh300z'], // Umbra Sight, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Umbral Tithe: each player draws 2 into memory, then damage to high-memory champions ---
+$fixtures['umbral-tithe-memory-damage'] = [
+    'testedCards' => ['2snsdwmxz1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Umbral Tithe
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Umbral Tithe is UMBRA (advanced element); same lineage patch as Umbra Sight. Its 5-reserve
+    // cost is discounted 1 per Curse in either champion's lineage -- with none seeded here the
+    // full 5 reps of the myHand-0 reserve-payment decision are needed. Player 1's memory is
+    // pre-seeded with 4 cards so the two drawn by this effect push them to 6+, triggering the
+    // 4-damage clause; player 2 starts at 0 and stays under the threshold.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['he6kd7hocc']]], // UMBRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2snsdwmxz1'], // Umbral Tithe, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Take Aim: target unit's next attack gets +2 POWER; [Class Bonus] also gains Ranged 2 ---
+$fixtures['take-aim-class-bonus-ranged-attack'] = [
+    'testedCards' => ['vnta6qsesw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Take Aim
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Same turn-cycle approach as automaton-bomber-ranged-attack (Rule 1.h blocks player 1's own
+    // turn-1 attack): player 1 ends turn 1 with a single CustomInput Pass, then player 2 plays
+    // Take Aim targeting their own ally (already Distant and awake) with a RANGER Class Bonus
+    // active, then attacks. AddTurnEffect("vnta6qsesw"/"RANGED_2") only turns into actual POWER
+    // once the target's attack is declared (CombatLogic.php converts vnta6qsesw ->
+    // vnta6qsesw_POWER at that point), and the CB-granted "RANGED_2" only contributes via
+    // GetRangedValue while the unit is Distant on its controller's turn.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['TurnEffects' => ['DISTANT'], 'Status' => 2]], // Dungeon Guide, awake and Distant - Take Aim's target
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'vnta6qsesw'], // Take Aim, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-2!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Force Load: choose a fire/norm 0-cost Bullet from material deck, load into target Gun ---
+$fixtures['force-load-bullet-into-gun'] = [
+    'testedCards' => ['y6isxy5lh2'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Force Load
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Force Load reads the material zone directly (not the standard "myMaterial" section of this
+    // fixture's own deck list, which has no Bullet cards), so a real 0-memory-cost NORM Bullet
+    // (Plated Bullet) is seeded there via test-setup. Shadow's Twin is seeded unloaded onto the
+    // field as the target Gun -- LoadBulletIntoGun() is the same shared function used by Plated
+    // Bullet's own [REST] ability, so loading via Force Load also triggers Shadow's Twin's
+    // "whenever this becomes loaded, +2 POWER" trigger.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5vettczb14'], // Shadow's Twin, unloaded Gun - Force Load's target
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'l75tlzsmw3'], // Plated Bullet - 0-memory NORM Bullet source
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'y6isxy5lh2'], // Force Load, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Materialize Munitions: [Class Bonus] discount; materialize a Bullet from material deck ---
+$fixtures['materialize-munitions-class-bonus-discount'] = [
+    'testedCards' => ['xi74wa4x7e'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Materialize Munitions
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Seeds a RANGER champion for the Class Bonus (discounting the 3-reserve activation cost to
+    // 2) and a real 0-memory-cost Bullet (Plated Bullet) into the material zone -- this fixture's
+    // own deck's Material section has no Bullet cards. Materializing the chosen bullet still
+    // routes through the normal CUSTOM "MATERIALIZE" handler and pays its own (0) memory cost.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'l75tlzsmw3'], // Plated Bullet - 0-memory Bullet source
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'xi74wa4x7e'], // Materialize Munitions, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Diana, Keen Huntress: Lineage Release -- materialize a Gun from material deck ---
+$fixtures['diana-keen-huntress-lineage-release-materialize-gun'] = [
+    'testedCards' => ['e3z4pyx8bd'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Diana, Keen Huntress's Lineage Release ("LR: Materialize Gun") only becomes an activatable
+    // dynamic ability when she sits as a subcard of the CURRENT champion's inner lineage (not
+    // just present on the field), patched directly via the champion's Subcards. A real 0-memory
+    // NORM Gun card (Framework Sidearm) is seeded into the material zone as the LR effect's
+    // target -- MaterializeLogic.php's generic MATERIALIZE handler element-checks the chosen
+    // card (CanPlayerUseCardElement) before placing it, so an UMBRA Gun like Shadow's Twin would
+    // need its own lineage patch too; NORM needs none. Activating a champion's dynamic ability
+    // uses the same CustomInput Activate:N pattern as a field object's own activated ability,
+    // with N = staticAbilityCount (0, since the starting champion has no static abilities) for
+    // the first eligible LR subcard.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['e3z4pyx8bd']]], // Diana, Keen Huntress in the champion's inner lineage
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'p4lgdlx7md'], // Framework Sidearm (NORM Gun, 0 memory) - LR materialize target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-0!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Quickdraw Piercer: [Class Bonus] On Banish: Draw a card ---
+$fixtures['quickdraw-piercer-class-bonus-on-banish-draw'] = [
+    'testedCards' => ['j4f15joh30'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Quickdraw Piercer
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Quickdraw Piercer has no activated ability of its own -- its only ability is the generic
+    // OnLeaveField hook (fired whenever it leaves the field for any reason, not just a genuine
+    // rules "banish"). Blazing Throw's own mandatory "sacrifice a weapon" additional cost is the
+    // simplest real in-game path to remove it from the field, so it's played (FIRE element, needs
+    // the same lineage-patch pattern as UMBRA cards) targeting Quickdraw Piercer as the sacrifice.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['LMyKyVC2O9']]], // FIRE lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'j4f15joh30'], // Quickdraw Piercer - sacrifice target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'iohZMWh5v5'], // Blazing Throw, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Blastshot Pump: [Class Bonus] redirect combat damage to an additional unit ---
+$fixtures['blastshot-pump-class-bonus-redirect-damage'] = [
+    'testedCards' => ['gmnmp5af09'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Blastshot Pump
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Weapons need a "durability" counter to even be considered available to attack with
+    // (GetAvailableWeapons in CombatLogic.php), and functional weapons (GUN/BOW/AETHERWING) must
+    // already be loaded (non-empty Subcards). Same turn-cycle approach as automaton-bomber-
+    // ranged-attack (Rule 1.h blocks player 1's own turn-1 attack): player 1 ends turn 1, then
+    // player 2's champion attacks using Blastshot Pump (with a RANGER Class Bonus champion also
+    // on their field) against one of player 1's two units, redirecting some of the hit damage to
+    // the other.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'gmnmp5af09', 'setProperties' => ['Counters' => ['durability' => 1], 'Subcards' => ['l75tlzsmw3']]], // Blastshot Pump, loaded and usable
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide - primary attack target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Supply Drone: [Class Bonus] at recollection phase, materialize a 0-cost Bullet ---
+$fixtures['supply-drone-class-bonus-recollection-materialize'] = [
+    'testedCards' => ['ljyevpmu6g'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Supply Drone
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // The global turn counter only increments when play cycles back to the first player (EndPhase:
+    // "$turnPlayer = ($turnPlayer==1)?2:1; if($turnPlayer==$firstPlayer) ++$currentTurn;"), so
+    // "$currentTurn===1" actually covers BOTH player 1's AND player 2's first turns -- player 2's
+    // first turn does NOT unblock RecollectionPhase/BeforeRecollectionPhase (confirmed by directly
+    // instrumenting the turn/phase state this session). Reaching a real recollection phase for
+    // player 2 needs a full cycle back to player 2's own SECOND turn: P1 ends turn 1, P2 ends
+    // their (still turn-1) turn, P1 declines their own MAT-phase materialize offer and ends their
+    // turn 2 (this crosses back to player 1, incrementing the global counter to 2), then P2
+    // declines their own materialize offer before BREC's per-card recollection check queues
+    // Supply Drone's materialize choice.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'e3z4pyx8bd'], // Diana, Keen Huntress (RANGER champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'ljyevpmu6g'], // Supply Drone
+        ['player' => 2, 'zone' => 'myMaterial', 'cardID' => 'l75tlzsmw3'], // Plated Bullet - 0-cost Bullet source
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends player 2's turn (still global turn 1)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline player 1's own MAT-phase materialize offer
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends player 1's turn 2 (crosses back to player 1 -> global turn increments to 2)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline player 2's own MAT-phase materialize offer -> reaches BREC
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Diana, Deadly Duelist: On Enter -- materialize a Bullet from material deck (level-up) ---
+$fixtures['diana-deadly-duelist-enter-materialize-bullet'] = [
+    'testedCards' => ['7ozuj68m69'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Diana, Deadly Duelist requires Diana Lineage (leveled from a level-1 Diana champion), but
+    // CanChampionLevelUpIntoCard only checks the CURRENT champion's own printed CardLevel, not
+    // lineage (same pattern already used for lorraine-arclight-saber-static-counters), so the
+    // starting champion's CardID is patched directly to Diana, Keen Huntress (level 1) as the
+    // level-up precondition. Her On Enter ability filters the material zone specifically for the
+    // BULLET subtype (GeneratedMacroCode.php enterAbilities["7ozuj68m69:0"]), so a real Bullet
+    // (Plated Bullet, NORM/0-memory) -- not a Gun -- is seeded into the material zone as her
+    // materialize target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'e3z4pyx8bd']], // Diana, Keen Huntress (level 1) - level-up precondition
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => '7ozuj68m69'], // Diana, Deadly Duelist (level 2) - level-up target
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'l75tlzsmw3'], // Plated Bullet (NORM Bullet, 0 memory) - On Enter materialize target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Diana, Duskstalker: On Enter -- becomes distant (level-up) ---
+$fixtures['diana-duskstalker-enter-distant'] = [
+    'testedCards' => ['iq4d5vettc'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Same level-up-bypass approach as diana-deadly-duelist-enter-materialize-bullet:
+    // CanChampionLevelUpIntoCard only checks the CURRENT champion's own printed CardLevel, not
+    // lineage, so the starting champion's CardID is patched directly to Diana, Deadly Duelist
+    // (level 2) as the level-up precondition, then a real level-up (via the standard
+    // MaterializeChoice flow) into Diana, Duskstalker (level 3) fires her On Enter naturally.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => '7ozuj68m69']], // Diana, Deadly Duelist (level 2) - level-up precondition
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'iq4d5vettc'], // Diana, Duskstalker (level 3) - level-up target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Novice Mechanist: Foster; On Foster: Summon an Automaton Drone token ---
+$fixtures['novice-mechanist-on-foster-summon-drone'] = [
+    'testedCards' => ['22tk3ir1o0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Novice Mechanist
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Foster is checked at the beginning of the controller's recollection phase: "if this ally
+    // hasn't been dealt damage since the end of your previous turn, it becomes fostered"
+    // (GameLogic.php ~9501, inside ResolveBeforeRecollectionPhaseStart). A freshly-seeded object
+    // has no DAMAGED_SINCE_LAST_TURN tag, so it qualifies immediately. Reaching player 1's own
+    // recollection phase just needs: player 1 ends turn 1, player 2 ends their turn (still global
+    // turn 1), then player 1 declines their own MAT-phase materialize offer -- that single Pass
+    // auto-advances into player 1's own BREC, which is where Foster processing (and this card's
+    // On Foster trigger) runs.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '22tk3ir1o0'], // Novice Mechanist
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends player 2's turn (still global turn 1)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline player 1's own MAT-phase materialize offer -> reaches BREC/Foster processing
+    ],
+];
+
+// --- Recruitment Officer: [Class Bonus] Foster; On Foster: look top 5, may take an ally ---
+$fixtures['recruitment-officer-class-bonus-on-foster-look-top-5'] = [
+    'testedCards' => ['1x97n2jnlt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Recruitment Officer
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Recruitment Officer's Foster is [Class Bonus]-gated (HasFoster's $fosterCBCards table,
+    // CardLogic.php), so a GUARDIAN champion (Tonoris, Lone Mercenary) is seeded for the bonus.
+    // Same 3-action approach as novice-mechanist-on-foster-summon-drone to reach player 1's own
+    // recollection phase, where Foster processing (and this card's On Foster trigger) runs.
+    // Deck-shuffle seed 1 (not the usual default 42) is used so the revealed top 5 of the deck
+    // actually contains an ally card, exercising the "may reveal an ally" branch instead of the
+    // no-op "no ally found" one.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'zb14m4c8lj'], // Tonoris, Lone Mercenary (GUARDIAN champion) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '1x97n2jnlt'], // Recruitment Officer
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends player 2's turn (still global turn 1)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline player 1's own MAT-phase materialize offer -> reaches BREC/Foster processing
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-0', 'chkInput' => [], 'inputText' => ''], // reveal the ally found in the top 5 and put it into hand
+    ],
+];
+
+// --- Imperial Recruit: Foster; gets +1 POWER as long as it's fostered ---
+$fixtures['imperial-recruit-fostered-power'] = [
+    'testedCards' => ['lzsmw3rrii'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Imperial Recruit
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // "Fostered" is a plain (persistent) TurnEffect (IsFostered() in CardLogic.php just checks
+    // for the tag), so the static +1 POWER while fostered can be tested directly by patching
+    // TurnEffects at setup, without needing a real recollection-phase Foster transition.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'lzsmw3rrii', 'setProperties' => ['TurnEffects' => ['FOSTERED']]], // Imperial Recruit, fostered
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // harmless no-op click
+    ],
+];
+
+// --- Young Peacekeeper: Foster; gets +1 POWER and +1 LIFE as long as it's fostered ---
+$fixtures['young-peacekeeper-fostered-power-life'] = [
+    'testedCards' => ['z4pyx8bd7o'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Young Peacekeeper
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Same reasoning as imperial-recruit-fostered-power: "Fostered" is a plain persistent
+    // TurnEffect, so the static +1 POWER/+1 LIFE while fostered can be tested directly by
+    // patching TurnEffects at setup.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'z4pyx8bd7o', 'setProperties' => ['TurnEffects' => ['FOSTERED']]], // Young Peacekeeper, fostered
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // harmless no-op click
+    ],
+];
+
+// --- Neos Sight: Draw a card; if you control 8+ objects, draw into memory too ---
+$fixtures['neos-sight-eight-objects-memory-draw'] = [
+    'testedCards' => ['4n1n3gygoj'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Neos Sight
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Neos Sight is NEOS (advanced element), so the starting champion's Subcards are patched
+    // with a real NEOS champion (Tonoris, Creation's Will) to unlock element access. Its reserve
+    // cost is a real printed 0, so no reserve-payment decision is ever queued. Seven allies are
+    // seeded onto the field alongside the champion (8 objects total) to satisfy the "eight or
+    // more objects" clause.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['n2jnltv5kl']]], // NEOS lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4n1n3gygoj'], // Neos Sight, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Take Point: your champion gains taunt until the beginning of your next turn ---
+$fixtures['take-point-champion-taunt-next-turn'] = [
+    'testedCards' => ['098kmoi0a5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Take Point
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Take Point applies "TAUNT_NEXT_TURN" (a delayed grant, converted to real TAUNT at the
+    // beginning of the caster's next turn), not TAUNT directly, so it's tested at the point the
+    // tag is applied rather than trying to advance all the way to the conversion.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '098kmoi0a5'], // Take Point, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Powercharged Shield: Banish this -- target unit with taunt gains vigor ---
+$fixtures['powercharged-shield-banish-taunt-vigor'] = [
+    'testedCards' => ['rrii17fzcy'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Powercharged Shield
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Powercharged Shield's own activated ability requires a unit with taunt already on the
+    // field (activateAbilityPrereqs["rrii17fzcy:0"]), so a Dungeon Guide is patched with TAUNT
+    // directly via test-setup rather than scripting a real taunt-granting effect.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['TurnEffects' => ['TAUNT']]], // Dungeon Guide w/ Taunt - ability target
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'rrii17fzcy'], // Powercharged Shield
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Sentinel Fabricator: (3), REST: Summon an Automaton Drone token with a buff counter ---
+$fixtures['sentinel-fabricator-summon-buffed-drone'] = [
+    'testedCards' => ['j68m69iq4d'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Sentinel Fabricator
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // The activated ability's prereq requires Status==2 (awake), so it's patched explicitly.
+    // The 3-reserve cost queues 3 reps of the myHand-0 reserve-payment decision before summoning
+    // the token.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'j68m69iq4d', 'setProperties' => ['Status' => 2]], // Sentinel Fabricator, awake
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Crest of the Alliance: whenever a fostered ally dies, may banish this to draw ---
+$fixtures['crest-of-the-alliance-fostered-ally-dies-draw'] = [
+    'testedCards' => ['ojwk0pw0y6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Crest of the Alliance
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Combat damage strips FOSTERED from the target immediately, in the same DealDamage call that
+    // applies the lethal hit (CombatLogic.php ~4964-4968: "Foster tracking: mark that this unit
+    // received damage and remove fostered state"), so by the time DoAllyDestroyed's IsFostered()
+    // check runs, a combat-killed ally is never still fostered. Undeniable Truth's own "mandatory
+    // sacrifice of an ally" additional cost (GameLogic.php's DoActivateCard cost-declaration
+    // switch, $hasUndeniableTruthCost) removes the ally via DoSacrificeFighter -> DoAllyDestroyed
+    // directly, with no intervening damage, so the FOSTERED tag is still present when the "does a
+    // fostered ally you control die" check runs.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ojwk0pw0y6'], // Crest of the Alliance (added first, so sacrificing the ally below it doesn't shift its own index)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['TurnEffects' => ['FOSTERED']]], // Dungeon Guide, fostered
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UaUfw7yFTW'], // Undeniable Truth, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Bulwark Sword: [Class Bonus] +1 POWER; additional attack cost pay (2) ---
+$fixtures['bulwark-sword-class-bonus-attack-cost'] = [
+    'testedCards' => ['8kmoi0a5uh'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Bulwark Sword
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Weapons need a "durability" counter to be considered available to attack with
+    // (GetAvailableWeapons in CombatLogic.php); SWORD weapons (unlike GUN/BOW/AETHERWING) don't
+    // need to be "loaded". Same turn-cycle approach as automaton-bomber-ranged-attack (Rule 1.h
+    // blocks player 1's own turn-1 attack): player 1 ends turn 1, then player 2's champion
+    // attacks using Bulwark Sword (with a GUARDIAN Class Bonus champion also on their field),
+    // paying the weapon's own additional 2-reserve attack cost.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zb14m4c8lj'], // Tonoris, Lone Mercenary (GUARDIAN champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '8kmoi0a5uh', 'setProperties' => ['Counters' => ['durability' => 1]]], // Bulwark Sword, usable
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Archon Broadsword: additional attack cost pay (2); [Class Bonus] +1 POWER per token ---
+$fixtures['archon-broadsword-class-bonus-token-power'] = [
+    'testedCards' => ['pyx8bd7ozu'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Archon Broadsword
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Same turn-cycle/durability-counter approach as bulwark-sword-class-bonus-attack-cost.
+    // Two Automaton Drone tokens are seeded onto player 2's field (alongside a GUARDIAN Class
+    // Bonus champion) so the "+1 POWER for each token you control" clause has something to count.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zb14m4c8lj'], // Tonoris, Lone Mercenary (GUARDIAN champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'mu6gvnta6q'], // Automaton Drone token #1
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'mu6gvnta6q'], // Automaton Drone token #2
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'pyx8bd7ozu', 'setProperties' => ['Counters' => ['durability' => 1]]], // Archon Broadsword, usable
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Heavy Swing: [Class Bonus] costs 2 less to activate ---
+$fixtures['heavy-swing-class-bonus-discount'] = [
+    'testedCards' => ['kvoqk1l75t'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Heavy Swing
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Heavy Swing is an ATTACK card (its printed 6 POWER becomes the intent-loaded attack bonus,
+    // out of scope here) with a straightforward [Class Bonus] reserve discount: 6 - 2 = 4.
+    // CanActivateAttackCardNow (GameLogic.php ~1246) applies Rule 1.h to activating ANY ATTACK-
+    // type card, not just declaring a real attack, so playing it also needs player 2's turn (Rule
+    // 1.h only locks the opening player's own turn 1); the discount is confirmed by needing only
+    // 4 reps of the myHand-0 reserve-payment decision, not 6.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zb14m4c8lj'], // Tonoris, Lone Mercenary (GUARDIAN champion) - Class Bonus source
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'kvoqk1l75t'], // Heavy Swing, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Rousing Slam: [Class Bonus] [Level 2+] On Attack: attacker gains vigor and taunt ---
+$fixtures['rousing-slam-class-bonus-level-2-on-attack-vigor-taunt'] = [
+    'testedCards' => ['v5klryvfq3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Rousing Slam
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // PlayerLevel($player) >= 2 is checked against the CHAMPION's own level, so patching the
+    // champion directly to Tonoris, Might of Humanity (level 2, GUARDIAN) satisfies both the
+    // [Class Bonus] and [Level 2+] gates in one step (same CardID-patch bypass used for the Diana
+    // champion-lineage fixtures -- CanChampionLevelUpIntoCard-style level requirements only check
+    // current state, not lineage). Rousing Slam is WIND (advanced element), so the champion's
+    // Subcards also carry a WIND lineage unlock. Rule 1.h applies to activating any ATTACK-type
+    // card, so it's played on player 2's turn (after player 1 ends turn 1), then the champion
+    // declares a real attack for OnAttack to fire.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'yevpmu6gvn', 'Subcards' => ['pNiyaGlIe7']]], // Tonoris, Might of Humanity (level 2, GUARDIAN) + WIND lineage unlock
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'v5klryvfq3'], // Rousing Slam, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline an ambient fast-opportunity window
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the active-response opportunity for the spell on the stack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target player 1's champion -- Rousing Slam's own effect IS the attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline a post-resolution opportunity window
+    ],
+];
+
+// --- Spirit of Wind: On Enter -- Draw seven cards ---
+$fixtures['spirit-of-wind-enter-draw-seven'] = [
+    'testedCards' => ['pNiyaGlIe7'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Wind
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Spirit of Wind is a level-0 champion used as the pregame starting-champion material choice
+    // in place of the usual Spirit of Fire. Its On Enter ability ("Draw seven cards") fires
+    // synchronously during pregame resolution (PREGAME_CHOOSE_STARTING_CHAMPION's unconditional
+    // Enter() call, GameLogic.php ~1190-1200) -- confirmed via a standalone debug script tracing
+    // hand count through the exact pregame sequence: hand goes from 0 to 7 the instant Enter()
+    // fires, BEFORE initial_gamestate.txt is even captured. Note Spirit of Fire (used by every
+    // other fixture's Material section) has the IDENTICAL "On Enter: Draw seven cards" text, so
+    // there is no separate/default opening-hand mechanic to diff against -- every single fixture
+    // in this suite already exercises this exact ability text via Spirit of Fire; this fixture
+    // exists purely to record dedicated coverage against pNiyaGlIe7's own card ID. A zone_count
+    // assertion of 7 on myHand (the deck has 0 other draw effects before this point) is therefore
+    // the correct and only meaningful check: if the On Enter ability failed to fire, hand would
+    // be 0, not 7.
+    'setup' => [],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // harmless no-op click
+    ],
+];
+
+// --- Tonoris, Lone Mercenary: On Enter, gain taunt until beginning of next turn ---
+$fixtures['tonoris-lone-mercenary-on-enter-taunt'] = [
+    'testedCards' => ['zb14m4c8lj'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Tonoris, Lone Mercenary
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Tonoris, Lone Mercenary is level 1, one level above the default level-0 starting champion
+    // (Spirit of Fire), so no lineage/element patch is needed -- 0+1 is already a legal level-up
+    // (same shape as dante-prodigal-swain-summon-token/lorraine-wandering-warrior-levelup). Its
+    // NORM element is always playable. Champion-swap materialization is only offered through the
+    // material-phase MZMAYCHOOSE at the start of a turn, so both players end their first turn
+    // (P1 -> P2) to reach that prompt on P1's next turn. Its printed cost is 1 memory, paid from a
+    // filler card seeded directly into myMemory. Choosing it completes the swap and its On Enter
+    // ability (GeneratedMacroCode.php enterAbilities["zb14m4c8lj:0"]) calls
+    // AddTurnEffect($mzID, "TAUNT_NEXT_TURN") on the champion itself.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay Tonoris, Lone Mercenary's 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Tonoris, Might of Humanity: On Enter, next attack this turn gets +3 POWER ---
+$fixtures['tonoris-might-of-humanity-on-enter-next-attack-power'] = [
+    'testedCards' => ['yevpmu6gvn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Tonoris, Might of Humanity
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Tonoris, Might of Humanity is level 2 (Tonoris Lineage), but CanChampionLevelUpIntoCard only
+    // checks $targetLevel === $currentLevel + 1 (GameLogic.php ~19487-19501) -- lineage text is not
+    // enforced by the level-up gate itself (same bypass used for rousing-slam-class-bonus and the
+    // Diana champion-lineage fixtures this session). The starting champion is patched directly to
+    // Tonoris, Lone Mercenary (zb14m4c8lj, level 1) so a REAL level-up into Might of Humanity is
+    // legal; patching the CardID (rather than leveling up twice) is fine here since we don't care
+    // about Lone Mercenary's own On Enter firing, only Might of Humanity's. NORM element needs no
+    // lineage/Subcards patch to be playable. Champion-swap materialization is only offered through
+    // the material-phase MZMAYCHOOSE at the start of a turn, so both players end their first turn
+    // (P1 -> P2) to reach that prompt on P1's next turn; its 2-memory cost is paid from two filler
+    // cards seeded directly into myMemory. Choosing it completes the swap and its On Enter ability
+    // (GeneratedMacroCode.php enterAbilities["yevpmu6gvn:0"]) calls
+    // AddTurnEffect($mzID, "yevpmu6gvn") on the champion itself -- CombatLogic.php ~1688 reads and
+    // consumes that exact marker to grant +3 POWER on the champion's next attack, so asserting the
+    // marker is present directly confirms the On Enter ability fired.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zb14m4c8lj']], // Tonoris, Lone Mercenary (level 1) - level-up precondition
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card 1/2 in memory to pay Might of Humanity's 2-memory level-up cost
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card 2/2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Tonoris, Genesis Aegis: at recollection, choose an Obelisk token not yet chosen ---
+$fixtures['tonoris-genesis-aegis-recollection-obelisk'] = [
+    'testedCards' => ['ta6qsesw2u'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Genesis Aegis's recollection trigger is a plain CardID switch-case inside
+    // ResolveBeforeRecollectionPhaseStart (GameLogic.php ~9089, same dispatcher used for Foster
+    // processing) rather than a materialized-Enter/activateAbility macro, so the starting champion
+    // is patched directly to ta6qsesw2u -- no real level-up/lineage/element unlock needed, since
+    // this switch only reads the already-on-field object's CardID, not how it got there (same
+    // reasoning as the Foster class-bonus champion patches this session). Reaching player 1's own
+    // recollection phase just needs the established 3-action shortcut: player 1 ends turn 1,
+    // player 2 ends their turn (still global turn 1), then player 1 declines their own MAT-phase
+    // materialize offer, auto-advancing into player 1's own BREC. TonorisRecollection()
+    // (CardDQHandlers.php ~2350) finds no obelisks in Counters['tonoris_chosen'] yet, so it queues
+    // an MZCHOOSE over all three myTempZone Obelisk choices; choosing myTempZone-0 (Obelisk of
+    // Armaments, wk0pw0y6is) summons it onto the field via TonorisChooseObelisk and records the
+    // choice.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'ta6qsesw2u']], // Tonoris, Genesis Aegis
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends player 2's turn (still global turn 1)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline player 1's own MAT-phase materialize offer -> reaches BREC/Tonoris recollection processing
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-0', 'chkInput' => [], 'inputText' => ''], // choose Obelisk of Armaments
+    ],
+];
+
+// --- Assemble the Ancients: sacrifice domains, summon that many buffed Automaton Drone tokens ---
+$fixtures['assemble-the-ancients-domain-sacrifice-tokens'] = [
+    'testedCards' => ['moi0a5uhjx'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Assemble the Ancients is NEOS (advanced element), so the starting champion's Subcards are
+    // patched with a real NEOS champion (Tonoris, Creation's Will) to unlock element access. Two
+    // Palatial Concourse domains (a plain DOMAIN with only an unrelated recollection-phase
+    // trigger, chosen to avoid any On Enter interference from the summoned tokens) are seeded onto
+    // the field so AssembleAncientsSacrifice (CardDQHandlers.php ~2026) has something to offer.
+    // Its own MZMAYCHOOSE loop is repeated twice (sacrificing both domains via DoSacrificeFighter)
+    // then declined, which calls AssembleAncientsFinalize(player, 2): summons 2 Automaton Drone
+    // tokens, each entering rested (Status=1) with 2 buff counters and a VIGOR_EOT turn effect.
+    // Its printed cost is 3 reserve, paid from three more hand cards.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['n2jnltv5kl']]], // NEOS lineage/element unlock (Tonoris, Creation's Will)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'c7wklzjmwu'], // Palatial Concourse (DOMAIN) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'c7wklzjmwu'], // Palatial Concourse (DOMAIN) #2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'moi0a5uhjx'], // Assemble the Ancients, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice domain #1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice domain #2 (reindexed after #1's removal)
+    ],
+];
+
+// --- Imperial Sentry: [Class Bonus] Intercept redirect ---
+$fixtures['imperial-sentry-class-bonus-intercept'] = [
+    'testedCards' => ['plywc08c9h'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Same shape as swift-recruit-intercept-redirect, except Imperial Sentry's Intercept is
+    // [Class Bonus]-gated (HasKeyword_Intercept, GeneratedKeywordCode.php ~487, checks
+    // IsClassBonusActive($player, CardClasses($cardId))), so player 1 (the defender)'s champion is
+    // patched to a GUARDIAN champion (Tonoris, Lone Mercenary) to satisfy it -- unlike Swift
+    // Recruit's unconditional Intercept, a plain field seed alone is not enough here.
+    // GetAvailableInterceptRedirectTargets (CombatLogic.php:605-624) only offers a redirect when
+    // the attack's TARGET is a CHAMPION, so this needs the opponent (P2) attacking P1's champion.
+    // P1 ends turn 1 (nothing to do), P2 declines their MAT-phase offer, then P2's champion attacks
+    // P1's champion using a weapon (Spirit of Fire has no base POWER). The resulting
+    // "Choose_an_interceptor" MZMAYCHOOSE for P1 offers Imperial Sentry (awake, ALLY, HasIntercept
+    // now satisfied); redirecting moves the attack's target to it, and the following "Retaliate?"
+    // decision is declined so the resulting combat damage lands on Imperial Sentry instead of the
+    // champion.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zb14m4c8lj']], // Tonoris, Lone Mercenary (GUARDIAN) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'plywc08c9h'], // Imperial Sentry, awake by default
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zv6yp6q7zw'], // Executioner's Spear (1 POWER), P2's own field -- Spirit of Fire has no base POWER, so a weapon is needed for a legal attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P1 declines their own MAT-phase materialize offer first
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // P1 formally ends turn 1 (nothing to do)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P2 declines their MAT-phase materialize offer
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // P2's champion attacks
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Executioner's Spear as the weapon
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target P1's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // redirect to Imperial Sentry
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate
+    ],
+];
+
+// --- Smash with Obelisk (2kkvoqk1l7): mandatory domain sacrifice as additional cost; gets +X
+// POWER where X is the sacrificed domain's reserve cost. Engine gap: the "Play prereq" (requires a
+// domain on field, see activateCardPrereqs["2kkvoqk1l7:0"]) was wired via the schema/generator, but
+// DoActivateCard's hand-written cost-declaration switch (GrandArchiveSim/Custom/GameLogic.php) never
+// queued the pre-existing SmashWithObeliskSacrifice DQ handler, so playing the card skipped the
+// sacrifice entirely and the ability macro's "smashObeliskBonus" read (GeneratedMacroCode.php) always
+// saw an unset variable, resolving as +0 POWER. Fixed by wiring $hasSmashObeliskCost the same way as
+// the other mandatory-sacrifice additional-cost cards (Undeniable Truth, Blazing Throw).
+$fixtures['smash-with-obelisk-domain-sacrifice-bonus'] = [
+    'testedCards' => ['2kkvoqk1l7'],
+    'deck' => <<<'DECK'
+# Main
+4 Recruitment Officer
+4 Recruitment Officer
+4 Recruitment Officer
+4 Recruitment Officer
+4 Recruitment Officer
+# Material
+1 Spirit of Wind
+DECK,
+    // Grant NEOS element access (Smash with Obelisk's element) by patching the starting champion's
+    // Subcards with a NEOS lineage card -- the harness's documented technique for reaching an
+    // advanced element without scripting a real level-up sequence (GetChampionLineage() walks
+    // $obj->Subcards; see GrandArchiveSim/Custom/GameLogic.php ~19370-19446). Then seed a plain,
+    // rules-text-free DOMAIN (Wool Brook, reserve cost 4) onto the field to sacrifice, and seed
+    // Smash with Obelisk plus 3 reserve-payment fodder cards directly into hand so the fixture only
+    // has to replay the actual activation, not deck/draw setup. Everything is seeded for PLAYER 2:
+    // CanActivateAttackCardNow()/IsFirstTurnAttackLocked() (GrandArchiveSim/Custom/GameLogic.php)
+    // forbid the true first player from playing an ATTACK card on turn 1, so player 1's turn is
+    // passed through first (below) and player 2 -- never "the first player" -- plays the card on
+    // their own first turn instead. The starting champion is always the first (and here, only)
+    // object placed on a fresh field, so it lands at myField-0.
+    'setup' => [
+        ['patchMzId' => 'myField-0', 'player' => 2, 'setProperties' => ['Subcards' => ['n2jnltv5kl']]], // Tonoris, Creation's Will (NEOS)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'lcCGyyNGuM'], // Wool Brook (DOMAIN, reserve cost 4, no rules text)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '2kkvoqk1l7'], // Smash with Obelisk
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '1x97n2jnlt'], // Recruitment Officer (reserve fodder)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '1x97n2jnlt'], // Recruitment Officer (reserve fodder)
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '1x97n2jnlt'], // Recruitment Officer (reserve fodder)
+    ],
+    // myHand-7 confirmed from the "Setup: added ..." mzID log (opening hand under seed=42 is
+    // myHand-0..6, so Smash with Obelisk lands at myHand-7 and the 3 fodder cards follow it).
+    'actions' => [
+        // Pass through player 1's turn 1 (nothing to do), matching the pattern verified in
+        // wind-cutter-class-bonus-power-attack for reaching player 2's own turn.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P1 declines their own MAT-phase materialize offer
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // P1 formally ends turn 1
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P2 declines their MAT-phase materialize offer
+        // Free play: P2 plays Smash with Obelisk
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // MZCHOOSE: sacrifice the domain (Wool Brook)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        // Pay reserve cost (3x, one MZCHOOSE per reserve payment). Each payment removes a card and
+        // reindexes the hand zone, so the next fodder card always shifts down into myHand-8.
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-8', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-8', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-8', 'chkInput' => [], 'inputText' => ''],
+        // Pass fast action opportunities
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Academy Attendant: [Class Bonus][Memory 4+] +1 POWER ---
+$fixtures['academy-attendant-class-bonus-memory-power'] = [
+    'testedCards' => ['m4c8ljyevp'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Academy Attendant's static +1 POWER (GameLogic.php ~11255) is a plain
+    // IsClassBonusActive(["CLERIC"]) + "4+ cards in memory" check with no turn-cycle needed at all
+    // -- the champion is patched directly to Arisanna, Master Alchemist (CLERIC) and 4 filler cards
+    // are seeded into myMemory. Verified via computed_power_equals (base 2 + 1 = 3) rather than a
+    // real combat sequence.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'ltv5klryvf']], // Arisanna, Master Alchemist (CLERIC)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm4c8ljyevp'], // Academy Attendant
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // harmless no-op click
+    ],
+];
+
+// --- Synth Disrupter: banish, Automaton allies enter the field rested until end of turn ---
+$fixtures['synth-disrupter-banish-automaton-rested'] = [
+    'testedCards' => ['z1vdxi74wa'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Synth Disrupter's banish ability just sets a global effect flag (z1vdxi74wa_RESTED,
+    // GeneratedMacroCode.php); the actual effect (Automaton allies enter the field rested) is
+    // checked in FieldAfterAdd (GameLogic.php ~8256). ENGINE BUG FOUND AND FIXED: Synth Disrupter's
+    // "Banish [self]:" cost was missing from the hardcoded "always banish self" fallthrough switch
+    // in ActivatedAbilityCost (GameLogic.php ~6142-6194, alongside ~50 other banish-self cards) --
+    // selecting its fast-action opportunity choice fired the ability's effect but never actually
+    // removed the card, so it stayed on the field and kept re-offering itself. Fixed by adding
+    // z1vdxi74wa (and bHGUNMFLg9, Wind Resonance Bauble, found missing the same way) to that list.
+    // Materializing Automaton Beastkeeper (a plain AUTOMATON ally with an optional Class Bonus On
+    // Enter, out of scope) queues its own reserve payment then an EffectStackOpportunity BEFORE it
+    // actually resolves onto the field -- answering that opportunity with Synth Disrupter's banish
+    // choice (instead of declining) lets the global effect apply in time for Beastkeeper's own
+    // FieldAfterAdd check, confirmed by its Status landing rested (1) instead of the default awake
+    // (2). (Using "attempt to pass" to reach the opportunity instead would end player 1's turn
+    // outright once nothing else responds -- it only works standalone, as in sweet-ambrosia-banish-
+    // recover, not when a same-turn follow-up action is still needed.)
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'z1vdxi74wa'], // Synth Disrupter
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'i5jnsl7ddc'], // Automaton Beastkeeper, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // materialize Automaton Beastkeeper
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''], // banish Synth Disrupter during the pre-resolution opportunity
+    ],
+];
+
+// --- Ingredient Pouch: (1), REST: Gather ---
+$fixtures['ingredient-pouch-rest-gather'] = [
+    'testedCards' => ['u7d6soporh'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Ingredient Pouch's REST ability pays 1 reserve then Gathers (summons one of six possible
+    // resource tokens at random -- resolves to Blightroot with this fixture's seed, same as
+    // foraging-servant-enter-gather). Field items with an activated ability are not clickable via a
+    // plain myField-N!FSM! action -- their ability is offered as a fast-action MZMAYCHOOSE
+    // opportunity once the turn player attempts to pass, answered with the encoded
+    // "{mzID}@Activate-{abilityIndex}@{label}" choice string (same shape as sweet-ambrosia-banish-
+    // recover). Blightroot itself carries a fast "Sacrifice:" ability, so the AbilityOpportunity
+    // window that opens after Gather resolves re-offers it once more even after the first decline
+    // (a fresh priority round re-checks the still-available fast ability) -- a second explicit
+    // decline is needed to fully close out and leave the decision queue empty.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'u7d6soporh'], // Ingredient Pouch
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // attempt to pass -> offers the fast-action opportunity
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Gather', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the gathered Blightroot's own fast Sacrifice ability (1/2)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline again -- the same fast ability is re-offered in the next priority round (2/2)
+    ],
+];
+
+// --- Cosmic Astroscope: REST: Glimpse 3 ---
+$fixtures['cosmic-astroscope-rest-glimpse'] = [
+    'testedCards' => ['qj5bbae3z4'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Cosmic Astroscope's REST ability is a plain, free (memory cost 0) Glimpse 3 -- no reserve
+    // payment queued. Only the base Glimpse is covered; the [Class Bonus] "opponent glimpses 3
+    // instead" replacement effect is a passive/reusable-elsewhere property and out of scope. Field
+    // items with an activated ability are not clickable via a plain myField-N!FSM! action -- their
+    // ability is offered as a fast-action MZMAYCHOOSE opportunity once the turn player attempts to
+    // pass, answered with the encoded "{mzID}@Activate-{abilityIndex}@{label}" choice string.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'qj5bbae3z4'], // Cosmic Astroscope
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // attempt to pass -> offers the fast-action opportunity
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Glimpse', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: submit the same "Top=...;Bottom=" param verbatim to keep original
+        // order (same no-op default GoldfishChooseAction uses for this decision type) -- confirmed
+        // via direct probe against this exact deck/seed since the glimpsed card IDs depend on the
+        // deterministic shuffle.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Scale of Souls: (2), REST: Return a card from your memory to your hand ---
+// ENGINE BUG FOUND AND FIXED: Scale of Souls' ability is registered in $cardActivatedAbilities
+// (GeneratedMacroCode.php, the same dictionary used for reserve-cost cards played from
+// hand/material via DoActivateCard/ActivateCard), NOT in $activateAbilityAbilities (the
+// free/memory-cost-0 dictionary field items like Ingredient Pouch and Cosmic Astroscope use, invoked
+// via ActivateAbility/DoActivatedAbility). But GrandArchiveSim/Custom/CustomInput.php's
+// "myField"/"myIntent" case only ever called ActivateAbility() for a field-resident object's direct
+// activate click -- DoActivatedAbility's $staticAbilityCount came back 0 for this card (it has no
+// $activateAbilityAbilities entry), so ability index 0 was misclassified as a "dynamic" ability that
+// matched nothing and the whole activation silently no-opped. Fixed by having CustomInput.php route
+// to ActivateCard() instead whenever CardActivateAbilityCount() is 0 but CardCardActivatedCount() is
+// nonzero for the target's CardID -- this affects every field-resident REGALIA/ITEM with a
+// repeatable ability only reachable this way (not via the fast-opportunity MZMAYCHOOSE path the
+// other myField@Activate fixtures in this suite use), so this fixture drives the direct,
+// non-opportunity mode=10001 CustomInput click that was previously dead.
+// SEPARATE, NOT-YET-FIXED GAP FOUND: the card's own "(2)" reserve cost is not wired up --
+// CardCost_reserve('0z2snsdwmx') returns -1 (unset) in the CardEditor card-ability database, so
+// CalculateActivationReserveCost() computes no reserve cost and DoActivateCard() charges nothing.
+// This is a card-data gap in the CardEditor database (separate from the CustomInput.php routing
+// fix), out of scope here -- this fixture reflects the ability's actual current (free) cost rather
+// than fabricating a reserve payment that doesn't really happen; no myHand-N cost-payment action is
+// needed before the MZCHOOSE.
+$fixtures['scale-of-souls-rest-return-memory'] = [
+    'testedCards' => ['0z2snsdwmx'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '0z2snsdwmx'], // Scale of Souls
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // Fairy Whispers, filler card to return from memory
+    ],
+    'actions' => [
+        // Direct field click via the normal client action path (not the fast-opportunity
+        // workaround) -- only reachable now that CustomInput.php routes this to ActivateCard().
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // choose the filler card to return to hand
+    ],
+];
+
+// --- Barter Herbs: sacrifice up to two Herbs, summon that many chosen replacement Herb tokens ---
+$fixtures['barter-herbs-sacrifice-summon'] = [
+    'testedCards' => ['p5af098kmo'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Barter Herbs (NORM, reserve 1) sacrifices up to two Herb-subtype objects, choosing a
+    // replacement Herb token for each one sacrificed (BarterHerbsSacrificeLoop, PotionLogic.php
+    // ~664). Two Blightroot HERB tokens are seeded onto the field to sacrifice; each is replaced
+    // with Manaroot (chosen from the six-option temp-zone menu). Only the base sacrifice/summon
+    // loop is covered; the [Class Bonus] Floating Memory clause is a passive/reusable-elsewhere
+    // property and out of scope.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'p5af098kmo'], // Barter Herbs, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1
+        // Decline the ambient opportunity offering the seeded Blightroots' OWN fast Sacrifice
+        // ability (a different mechanic than Barter Herbs' own sacrifice loop below).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Blightroot #1
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-1', 'chkInput' => [], 'inputText' => ''], // choose Manaroot as replacement
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Blightroot #2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-1', 'chkInput' => [], 'inputText' => ''], // choose Manaroot as replacement
+    ],
+];
+
+// --- Stream of Consciousness: Draw a card into memory ---
+$fixtures['stream-of-consciousness-draw-into-memory'] = [
+    'testedCards' => ['wa4x7e22tk'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Stream of Consciousness is WATER -- confirmed (via CanPlayerMeetCardElementRequirements /
+    // GetPlayerEnabledElements, GameLogic.php ~19412-19442) that EVERY non-NORM element, not just
+    // the "advanced" ones (NEOS/ASTRA/TERA), requires a lineage unlock; only NORM is free. The
+    // starting champion's Subcards are patched with a real WATER champion (Nico, Rapture's
+    // Embrace) to unlock element access. Base case only: without a CLERIC Class Bonus champion, it
+    // unconditionally draws a card into memory. The [Class Bonus][Memory 4+] Glimpse 3 clause is
+    // out of scope (a separate, richer effect requiring both a class-bonus champion patch and 4
+    // memory cards seeded).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // WATER lineage/element unlock (Nico, Rapture's Embrace)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'wa4x7e22tk'], // Stream of Consciousness, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Potion of Healing: Brew (Two Herbs); Sacrifice: Recover 5 ---
+$fixtures['potion-of-healing-brew-sacrifice-recover'] = [
+    'testedCards' => ['qtb31x97n2'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Potion of Healing's element is NORM, so no lineage patch is needed. Brewing is an alternate
+    // cost (sacrifice two Herb-subtype objects instead of paying reserve); two Blightroot tokens
+    // are seeded onto the field to pay it. Sacrifice: Recover 5 is unconditional (no "if brewed"
+    // gate, unlike Distilled Water), so it's testable via a direct follow-up Activate:0 click once
+    // the brewed Potion has resolved onto the field (same shape as distilled-water-brew-sacrifice-
+    // draw's own trailing step). The champion is pre-damaged by 6 so Recover 5 leaves 1 damage
+    // remaining, distinguishing "recovered" from "already at full life."
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 6]], // pre-damage champion
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #1 - brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #2 - brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qtb31x97n2'], // Potion of Healing, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Serum of Wisdom: Brew (Three Herbs); Sacrifice: Glimpse 3, draw a card into memory ---
+$fixtures['serum-of-wisdom-brew-sacrifice-glimpse-draw'] = [
+    'testedCards' => ['bae3z4pyx8'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Serum of Wisdom's element is NORM. Brewing sacrifices three Herb-subtype objects instead of
+    // paying reserve; three Blightroot tokens are seeded onto the field to pay it. Sacrifice:
+    // Glimpse 3 (an MZREARRANGE decision, resolved keeping original order, same no-op default used
+    // in idle-thoughts-glimpse-4) then queues a draw into memory.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #1 - brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #2 - brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #3 - brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'bae3z4pyx8'], // Serum of Wisdom, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-3', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order (same no-op default as idle-thoughts-glimpse-4).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Essence of Blizzards: Brew (One Adjuvant, One Catalyst); Sacrifice: deal 1 damage ---
+$fixtures['essence-of-blizzards-brew-sacrifice-damage'] = [
+    'testedCards' => ['k1l75tlzsm'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Essence of Blizzards' element is WATER, so the starting champion's Subcards are patched with
+    // a real WATER champion (Nico, Rapture's Embrace) for element access. Brewing sacrifices one
+    // ADJUVANT-subtype and one CATALYST-subtype object instead of paying reserve; Manaroot
+    // (ADJUVANT) and Blightroot (CATALYST) are seeded to pay it. Unlike the HERB-count brews, its
+    // own self-move-to-graveyard is baked directly into the ability macro (CardDQHandlers-style
+    // handler, GeneratedMacroCode.php) rather than the generic ActivatedAbilityCost switch, so no
+    // engine-gap risk there. Only the base "deal 1 damage" case against an awake target is covered;
+    // the "if rested, deal 1+LV instead" and "allies enter rested until EOT" clauses are out of
+    // scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // WATER lineage/element unlock (Nico, Rapture's Embrace)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5joh300z2s'], // Manaroot (ADJUVANT) - brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (CATALYST) - brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'k1l75tlzsm'], // Essence of Blizzards, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
+// --- Condensed Supernova: Brew (Silvershine + 2 Adjuvants + 2 Catalysts); Sacrifice: LV damage to all, Glimpse 4 ---
+$fixtures['condensed-supernova-brew-sacrifice-damage-glimpse'] = [
+    'testedCards' => ['14m4c8ljye'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Condensed Supernova's element is ASTRA (advanced), so the starting champion's Subcards are
+    // patched with a real ASTRA champion (Arisanna, Astral Zenith) for element access -- her
+    // patch also conveniently sets Counters.level = 3 so LV damage is directly observable (0 would
+    // be invisible). Brewing sacrifices a specific Silvershine plus two more ADJUVANT-subtype and
+    // two more CATALYST-subtype objects instead of paying reserve; Silvershine itself is also
+    // CATALYST but the brew cost lists it as a separate named-card requirement from the generic
+    // "2 Catalysts," so two additional Blightroot (CATALYST) plus two Manaroot (ADJUVANT) are
+    // seeded alongside it (5 ingredients total). Sacrifice hits every non-ASTRA-element unit on
+    // both fields automatically (no target choice) for LV damage, then Glimpses 4 (resolved
+    // keeping original order, same no-op default used in idle-thoughts-glimpse-4).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba'], 'Counters' => ['level' => 3]]], // ASTRA lineage/element unlock (Arisanna, Astral Zenith) + LV damage
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'bd7ozuj68m'], // Silvershine - named brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5joh300z2s'], // Manaroot (ADJUVANT) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '5joh300z2s'], // Manaroot (ADJUVANT) #2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (CATALYST) #1
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (CATALYST) #2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '14m4c8ljye'], // Condensed Supernova, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-3', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-5', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order (same no-op default as idle-thoughts-glimpse-4).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Krustallan Distiller: [Class Bonus] On Enter, if brewed a Potion this turn, draw into memory ---
+$fixtures['krustallan-distiller-class-bonus-brewed-draw'] = [
+    'testedCards' => ['c08c9htu9a'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Krustallan Distiller is WATER, so the starting champion's Subcards are patched with a real
+    // WATER champion (Nico, Rapture's Embrace) for element access; that same champion's CardID is
+    // ALSO patched directly onto the field so IsClassBonusActive(["CLERIC"]) is NOT satisfied by
+    // it -- Nico is GUARDIAN, so instead the champion is patched to Arisanna, Master Alchemist
+    // (CLERIC) directly for the Class Bonus, with Subcards left carrying the WATER unlock. The
+    // "brewed a Potion this turn" condition is reached via the BREWED_POTION global effect
+    // (normally set by the real Brew-declaration flow) seeded directly at setup, matching the
+    // harness's documented technique for reaching an otherwise-unreachable-at-game-start
+    // precondition without scripting a full brew sequence.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'ltv5klryvf', 'Subcards' => ['29lqrve8fz']]], // Arisanna, Master Alchemist (CLERIC) + WATER lineage unlock
+        ['player' => 1, 'globalEffect' => 'BREWED_POTION'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'c08c9htu9a'], // Krustallan Distiller, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Caretaker Drone: [Class Bonus] On Death: Glimpse 4 ---
+$fixtures['caretaker-drone-class-bonus-death-glimpse'] = [
+    'testedCards' => ['urfp66pv4n'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Caretaker Drone is NORM (no lineage patch needed). Its [Class Bonus] On Death is coded as
+    // IsClassBonusActive($player) with NO class argument (GameLogic.php's IsClassBonusActive
+    // treats a null $classes as "any champion present," GameLogic.php ~18079-18104), so it fires
+    // unconditionally as long as a champion exists -- no champion patch needed at all. Only Intercept
+    // (a shared static ability tested elsewhere) is out of scope. Undeniable Truth's own "mandatory
+    // sacrifice of an ally" additional cost (GameLogic.php's DoActivateCard cost-declaration switch,
+    // $hasUndeniableTruthCost) is borrowed to kill Caretaker Drone via a non-combat removal path
+    // (same technique as crest-of-the-alliance-fostered-ally-dies-draw), which triggers On Death
+    // reliably.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'urfp66pv4n'], // Caretaker Drone
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UaUfw7yFTW'], // Undeniable Truth, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Caretaker Drone as the mandatory cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order (same no-op default as idle-thoughts-glimpse-4).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Scry the Skies: Glimpse LV. Draw a card into your memory ---
+$fixtures['scry-the-skies-glimpse-lv-draw'] = [
+    'testedCards' => ['F9POfB5Nah'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Scry the Skies is NORM, no lineage patch needed. The starting champion's level is patched to
+    // 2 so Glimpse LV (0 by default, which would be an invisible no-op) is directly observable via
+    // a real 2-card MZREARRANGE decision.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 2]]], // LV for Glimpse LV
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order (same no-op default as idle-thoughts-glimpse-4).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Flash Freeze: Negate target card activation, banish the negated card ---
+$fixtures['flash-freeze-negate-target-card-activation'] = [
+    'testedCards' => ['w3rrii17fz'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // Nico, Rapture's Embrace -- unlocks WATER for Flash Freeze
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- the card whose activation gets negated
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'w3rrii17fz'], // Flash Freeze
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Fast-opportunity window offers Flash Freeze in response, before Scry the Skies resolves.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-6', 'chkInput' => [], 'inputText' => ''],
+        // Pay Flash Freeze's 4-reserve cost (no Class Bonus -- default champion isn't CLERIC).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Choose Scry the Skies (EffectStack-0) as the activation to negate.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Potion Infusion: Clarity: Rest target Potion, grant "On Sacrifice: Draw two cards" ---
+$fixtures['potion-infusion-clarity-rest-grant-draw-two'] = [
+    'testedCards' => ['300z2snsdw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // Nico, Rapture's Embrace -- unlocks WATER for Potion Infusion: Clarity
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 6]], // pre-damage champion so Recover 5 (Potion of Healing's own Sacrifice) is observable
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #1 - brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #2 - brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qtb31x97n2'], // Potion of Healing, seeded to a known hand slot -- brewed onto the field as the Infusion's target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '300z2snsdw'], // Potion Infusion: Clarity
+    ],
+    'actions' => [
+        // Brew Potion of Healing (sacrifice both Blightroot tokens instead of paying reserve).
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Play Potion Infusion: Clarity, paying its full 7 reserve (no Class Bonus).
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the standing fast-opportunity to Sacrifice the brewed Potion early -- Infusion
+        // must resolve first so the granted "On Sacrifice: Draw two" bonus is in place.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Target the brewed Potion of Healing (myField-1) to rest it and grant the bonus.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        // Activate the Potion's own Sacrifice ability -- triggers the granted "draw two" before it.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Potion Infusion: Starlight: Rest target Potion, grant "On Sacrifice: champion +4 level" ---
+$fixtures['potion-infusion-starlight-rest-grant-champion-level'] = [
+    'testedCards' => ['6qsesw2ugm'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Only the base ability (Rest target Potion, grant "On Sacrifice: champion +4 level") is
+    // covered; [Class Bonus] Starcalling -- (1) needs a full starcalling reveal-and-choose flow
+    // (a mechanic not otherwise scripted this session) and is out of scope. No "computed level"
+    // assertion type exists in this harness (only computed_power_equals/computed_life_equals), so
+    // the grant is confirmed via the champion's own TurnEffects list carrying "INFUSION_STARLIGHT"
+    // after the Potion's Sacrifice ability resolves, rather than a numeric level readout.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], // Arisanna, Astral Zenith -- unlocks ASTRA for Potion Infusion: Starlight
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #1 - brew ingredient
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB) #2 - brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qtb31x97n2'], // Potion of Healing, seeded to a known hand slot -- brewed onto the field as the Infusion's target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '6qsesw2ugm'], // Potion Infusion: Starlight
+    ],
+    'actions' => [
+        // Brew Potion of Healing (sacrifice both Blightroot tokens instead of paying reserve).
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Play Potion Infusion: Starlight, paying its full 3 reserve (no Class Bonus).
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the standing fast-opportunity to Sacrifice the brewed Potion early -- Infusion
+        // must resolve first so the granted "On Sacrifice: champion +4 level" bonus is in place.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Target the brewed Potion of Healing (myField-1) to rest it and grant the bonus.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        // Activate the Potion's own Sacrifice ability -- triggers the granted "+4 level" before it.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Arisanna, Astral Zenith: Once per turn, pay (0) rather than a card's starcalling costs ---
+$fixtures['arisanna-astral-zenith-free-starcalling'] = [
+    'testedCards' => ['q3huqj5bba'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // The starting champion's CardID is patched directly to Arisanna, Astral Zenith (q3huqj5bba) --
+    // ChampionHasInLineage() checks [champion's own CardID, ...Subcards], so this trivially
+    // satisfies "Arisanna Lineage" and also unlocks ASTRA (its own element) for Cometfall's
+    // Starcalling. Its level is patched to 1 so Scry the Skies' "Glimpse LV" (0 by default) reveals
+    // exactly one card. The deck's top card (myDeck-0) is patched directly to Cometfall
+    // (4d5vettczb, Starcalling -- (2)) so that single glimpsed card is a starcalling candidate.
+    // GetStarcallingCost() internally calls EnsureArisannaFreeStarcallingEligibility() on every
+    // call (including the candidate pre-check during Glimpse), so the cost is already forced to 0
+    // before the player is even offered the choice -- no reserve payment is queued when starcalled.
+    // Confirmed via Cometfall's own effect resolving (3 damage to all non-astra units) with zero
+    // reserve spent, and the once-per-turn "ArisannaFreeStarcallingUsed" flag being set afterward
+    // (GameLogic.php's MarkArisannaFreeStarcallingUsed/HasUsedArisannaFreeStarcalling) -- not
+    // independently re-testable within one fixture, so only the single use is exercised.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba', 'Counters' => ['level' => 1]]],
+        ['player' => 1, 'patchMzId' => 'myDeck-0', 'setProperties' => ['CardID' => '4d5vettczb']], // Cometfall on top of deck
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Starcall Cometfall from the glimpse popup instead of returning it to the deck.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-0', 'chkInput' => [], 'inputText' => ''],
+        // Scry the Skies' own "draw a card into memory" clause then runs its own glimpse-driven
+        // draw (the same multi-card multiplier documented in stream-of-consciousness-draw-into-
+        // memory / scry-the-skies-glimpse-lv-draw); accept the offered bottom order verbatim.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Bottom=em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Prototype Staff: [Level 4+] REST: put a hand card on bottom of deck, draw into memory ---
+$fixtures['prototype-staff-rest-bottom-draw'] = [
+    'testedCards' => ['8c9htu9agw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Only the base REST ability (put a hand card on the deck's bottom, then draw into memory) is
+    // covered; the separate [Class Bonus][Memory 4+] +1 level static clause needs an "effective
+    // champion level" assertion type this harness doesn't have and is out of scope. The starting
+    // champion's level is patched to 4 to match the ability's printed [Level 4+] gate, though the
+    // ability's own macro body (GeneratedMacroCode.php) has no level check at all -- the gate
+    // appears to be enforced only client-side/by schema metadata, not by game logic, so this
+    // fixture exercises the effect unconditionally regardless. Field items with an activated
+    // ability are not clickable via a plain myField-N!FSM! action -- offered as a fast-action
+    // MZMAYCHOOSE opportunity once the turn player attempts to pass (same shape as sweet-ambrosia-
+    // banish-recover).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 4]]], // matches the printed [Level 4+] gate
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '8c9htu9agw'], // Prototype Staff
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // attempt to pass -> offers the fast-action opportunity
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@8c9htu9agw', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // put a hand card on the bottom of the deck
+    ],
+];
+
+// --- Arisanna, Herbalist Prodigy: On Enter, Gather twice ---
+$fixtures['arisanna-herbalist-prodigy-on-enter-gather-twice'] = [
+    'testedCards' => ['b31x97n2jn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Arisanna, Herbalist Prodigy
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Arisanna, Herbalist Prodigy is level 1, one level above the default level-0 starting
+    // champion (Spirit of Fire), so no lineage/element patch is needed -- 0+1 is already a legal
+    // level-up (same shape as dante-prodigal-swain-summon-token). Champion-swap materialization is
+    // only offered through the material-phase MZMAYCHOOSE at the start of a turn, so both players
+    // end their first turn (P1 -> P2) to reach that prompt on P1's next turn; its 1-memory cost is
+    // paid from a filler card seeded into myMemory. Its On Enter ability Gathers twice (resolves
+    // to Blightroot with this fixture's seed, same as foraging-servant-enter-gather).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay the 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the ambient opportunity offering the two gathered Herb tokens' own fast
+        // Sacrifice abilities (a different mechanic than Gather itself).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Arisanna, Master Alchemist: On Enter, Gather twice ---
+$fixtures['arisanna-master-alchemist-on-enter-gather-twice'] = [
+    'testedCards' => ['ltv5klryvf'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Arisanna, Master Alchemist
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Arisanna, Master Alchemist is level 2 (Arisanna Lineage), but CanChampionLevelUpIntoCard only
+    // checks targetLevel === currentLevel + 1 (GameLogic.php ~19487-19501) -- lineage text is not
+    // enforced by the level-up gate itself. The starting champion is patched directly to Arisanna,
+    // Herbalist Prodigy (b31x97n2jn, level 1) so a real level-up is legal; patching the CardID is
+    // fine here since only Master Alchemist's own On Enter is under test. Champion-swap
+    // materialization is only offered through the material-phase MZMAYCHOOSE at the start of a
+    // turn, so both players end their first turn (P1 -> P2) to reach that prompt; its 2-memory cost
+    // is paid from two filler cards seeded into myMemory. Its On Enter ability Gathers twice
+    // (resolves to Silvershine and Blightroot with this fixture's seed, same as arisanna-herbalist-
+    // prodigy-on-enter-gather-twice). Only the base On Enter is covered; the "Inherited Effect" end-
+    // phase sacrifice-two-Herbs-draw clause is out of scope.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'b31x97n2jn']], // Arisanna, Herbalist Prodigy (level 1) - level-up precondition
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card 1/2 in memory to pay Master Alchemist's 2-memory level-up cost
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card 2/2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the ambient opportunity offering the two gathered Herb tokens' own fast
+        // Sacrifice abilities (a different mechanic than Gather itself).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Hypothermia: target rested ally gets -4 LIFE until end of turn ---
+$fixtures['hypothermia-target-rested-ally-life'] = [
+    'testedCards' => ['cyfrzrplyw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Hypothermia
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Regression fixture for Database/migrations/14_grand_archive_hypothermia_rested_target_fix.sql:
+    // Hypothermia's stored ability_code filtered its ally target list on $obj->Status == 2 (AWAKE,
+    // GrandArchiveSim/Custom/GameLogic.php:10156) instead of == 1 (RESTED), the opposite of its
+    // printed "Target rested ally gets -4 [LIFE] until end of turn." text -- a rested-only field
+    // would silently no-op. Hypothermia's element is WATER (unlike the FIRE-aligned starting
+    // champion used by most fixtures in this file), so the same WATER lineage/element-unlock patch
+    // used by tsunami-of-nanyue-damage is reused. Dungeon Guide is seeded onto the opponent's field
+    // and explicitly rested (Status=1) as the target; after the fix it's the only legal target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Status' => 1]], // rested Dungeon Guide - the only legal target after the fix
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cyfrzrplyw'], // Hypothermia, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Giant Tortoise: vanilla stat check ---
+$fixtures['giant-tortoise-vanilla-stats'] = [
+    'testedCards' => ['L0RmNaDzhk'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Giant Tortoise is WATER and vanilla (no printed ability). The starting champion's Subcards
+    // are patched with a real WATER champion (Nico, Rapture's Embrace) to unlock element access.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // Nico, Rapture's Embrace -- unlocks WATER
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'L0RmNaDzhk'], // Giant Tortoise, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Wind Resonance Bauble: Banish -- draw a card (only if opponent controls a wind champion) ---
+$fixtures['wind-resonance-bauble-banish-draw'] = [
+    'testedCards' => ['bHGUNMFLg9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Wind Resonance Bauble is REGALIA -- adding it to 'myHand' via setup gets silently redirected
+    // to the Material zone instead (HandAddReplacement, GameLogic.php ~17282: any REGALIA CardID
+    // added to hand is rerouted to AddMaterial), matching every other REGALIA item fixture this
+    // session (Synth Disrupter, Ingredient Pouch, etc.) -- it must be seeded directly onto myField.
+    // Its prereq (IsPlayerElementEnabled) reads the OPPONENT's own element lineage, so P2's starting
+    // champion's Subcards are patched with a real WIND champion. Field items with an activated
+    // ability are not clickable via a plain myField-N!FSM! action as the very first action of a
+    // fresh turn -- offered as a fast-action MZMAYCHOOSE opportunity once the turn player attempts
+    // to pass, answered with the encoded "{mzID}@Activate-{abilityIndex}@{label}" choice string
+    // (same shape as ingredient-pouch-rest-gather).
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock for P2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'bHGUNMFLg9'], // Wind Resonance Bauble
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // attempt to pass -> offers the fast-action opportunity
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Banish', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline P2's own resulting fast-action opportunity (1/2)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline again -- same fast opportunity re-offered in the next priority round (2/2)
+    ],
+];
+
+// --- Beastbond Boots: Banish -- champion gains spellshroud (only if you control an Animal/Beast ally) ---
+$fixtures['beastbond-boots-banish-spellshroud'] = [
+    'testedCards' => ['xjuCkODVRx'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Beastbond Boots is REGALIA -- adding it to 'myHand' via setup gets silently redirected to the
+    // Material zone instead (HandAddReplacement, GameLogic.php ~17282), matching every other
+    // REGALIA item fixture this session -- it must be seeded directly onto myField. Gray Wolf (a
+    // BEAST ally, also from this deck) is seeded alongside it so the prereq (control an Animal or
+    // Beast ally) is already satisfied.
+    // ENGINE BEHAVIOR CONFIRMED (traced via temporary error_log instrumentation, since reverted):
+    // using the "attempt to pass" trick as the ONLY action to reach a field-resident item's
+    // ability is NOT safe when the granted effect is "until end of turn" -- if nothing else
+    // responds after the ability resolves, the original pass attempt itself completes and the turn
+    // actually ends, running end-of-turn cleanup that clears the just-granted SPELLSHROUD before it
+    // can ever be observed (confirmed: AddTurnEffect correctly applies it, and it is still present
+    // through the entire AbilityOpportunity/GrantOpportunityWindow resolution chain, but is gone by
+    // the time the action's final gamestate is written). This is the same class of issue documented
+    // in synth-disrupter-banish-automaton-rested's notes ("attempt to pass ends the turn if nothing
+    // else responds -- cannot be used mid-sequence"). Fixed the same way: play a real card first
+    // (Scry the Skies, NORM, reserve 1) so a same-turn action has already happened, then reach the
+    // Boots' ability via a direct Activate:0 click instead of the pass-trick.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST) -- satisfies "control an Animal or Beast ally"
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'xjuCkODVRx'], // Beastbond Boots
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- a same-turn warm-up action so "attempt to pass" isn't needed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Scry the Skies' 1 reserve
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Gray Wolf: Pride 2 (won't attack unless champion is level 2+) ---
+$fixtures['gray-wolf-pride-2-attack-rejected'] = [
+    'testedCards' => ['hJ2xh9lNMR'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Gray Wolf is NORM, vanilla besides Pride 2. Pride is enforced only in combat
+    // (CombatLogic.php ~619/2836, GameLogic.php ~16695: PlayerLevel($controller) < PrideAmount($obj)),
+    // there is no side-effect-free "can attack" predicate -- BeginCombatPhase() is simultaneously the
+    // check and the action. Seeded directly onto the field (already awake, so no materialize/summoning
+    // sickness concern). At the default champion level (0), attempting to declare it as an attacker is
+    // rejected outright (expectFailure) since 0 < 2.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Rebellious Bull: enters the field rested (Pride 3) ---
+$fixtures['rebellious-bull-enters-rested'] = [
+    'testedCards' => ['GXeEa0pe3B'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Rebellious Bull is NORM. Its "enters the field rested" clause is directly observable via
+    // Status after a normal FSM materialize -- Pride 3 (a combat-only restriction, same mechanic
+    // as gray-wolf-pride-2-attack-rejected) is not separately re-tested here.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'GXeEa0pe3B'], // Rebellious Bull, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Freezing Hail + Blue Slime: deal 2 damage, [Class Bonus] Blue Slime gets a buff counter ---
+$fixtures['freezing-hail-blue-slime-class-bonus-buff'] = [
+    'testedCards' => ['SrBA7h2a1N', '1Sl4Gq2OuV'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Both cards are WATER -- the starting champion's CardID is patched directly to Silvie, With
+    // the Pack (TAMER, also satisfies Blue Slime's [Class Bonus] class-match) and its Subcards are
+    // ALSO patched with a real WATER champion (Nico, Rapture's Embrace) purely for the element/
+    // lineage unlock (Silvie's own champions are NORM/TERA, not WATER). Blue Slime (Pride 4) is
+    // seeded directly onto the field so its Pride doesn't need to be re-satisfied for a
+    // materialize (Pride only gates attacking, already covered by gray-wolf-pride-2-attack-
+    // rejected). Freezing Hail's dealDamageAbilities trigger for Blue Slime fires reactively off
+    // DealDamage regardless of source, so targeting Blue Slime with our own Freezing Hail is a
+    // valid, simple way to trigger both cards' effects in one fixture: Freezing Hail's own "deal 2
+    // damage, skip next wake up" and Blue Slime's own "[Class Bonus] whenever dealt damage, buff
+    // counter" trigger simultaneously.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT', 'Subcards' => ['29lqrve8fz']]], // Silvie, With the Pack (TAMER) + Nico (WATER unlock)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '1Sl4Gq2OuV'], // Blue Slime
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'SrBA7h2a1N'], // Freezing Hail, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // target Blue Slime
+    ],
+];
+
+// --- Lakeside Serpent: [Class Bonus] +1 POWER per water card in graveyard (Pride 6) ---
+$fixtures['lakeside-serpent-class-bonus-water-graveyard-power'] = [
+    'testedCards' => ['krgjMyVHRd'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lakeside Serpent is WATER -- the starting champion's CardID is patched directly to Silvie,
+    // With the Pack (TAMER, satisfies the Class Bonus) and its Subcards are ALSO patched with a
+    // real WATER champion (Nico, Rapture's Embrace) for element/lineage unlock. Two Freezing Hail
+    // copies (WATER) are seeded directly into the graveyard. Pride 6 (a combat-only restriction,
+    // same mechanic already covered generically in gray-wolf-pride-2-attack-rejected) is not
+    // separately re-tested here; Lakeside Serpent is seeded directly onto the field.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT', 'Subcards' => ['29lqrve8fz']]], // Silvie, With the Pack (TAMER) + Nico (WATER unlock)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'SrBA7h2a1N'], // Freezing Hail (WATER) #1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'SrBA7h2a1N'], // Freezing Hail (WATER) #2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'krgjMyVHRd'], // Lakeside Serpent
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // harmless no-op click
+    ],
+];
+
+// --- Vertus, Gaia's Roar: [Class Bonus] On Enter: allies +1 POWER per Animal/Beast in graveyard (Pride 10) ---
+$fixtures['vertus-gaias-roar-class-bonus-enter-power-buff'] = [
+    'testedCards' => ['dZ960Hnkzv'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Vertus is TERA -- the starting champion's CardID is patched directly to Silvie, With the
+    // Pack (TAMER, satisfies the Class Bonus) and its Subcards are ALSO patched with a real TERA
+    // champion (Arisanna, Astral Zenith is ASTRA -- use Gaia's Songbird's own Silvie Loved by All
+    // instead, a real TERA champion) for element/lineage unlock. Two Gray Wolf copies (BEAST) are
+    // seeded into the graveyard, and Gray Wolf itself is also seeded onto the field as the target
+    // ally to observe the buff on. Pride 10 (combat-only) is not separately re-tested here; Vertus
+    // is materialized via a real FSM play (paying its 4 reserve) so its On Enter ability actually
+    // fires, since seeding directly onto myField would bypass enterAbilities entirely.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT', 'Subcards' => ['GKEpAulogu']]], // Silvie, With the Pack (TAMER) + Silvie, Loved by All (TERA unlock)
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST) #1
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST) #2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf -- the ally that receives the buff
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'dZ960Hnkzv'], // Vertus, Gaia's Roar, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Song of Nurturing: allies +2 LIFE, [Class Bonus] also +1 POWER, until end of turn ---
+$fixtures['song-of-nurturing-class-bonus-life-power'] = [
+    'testedCards' => ['4hbA9FT56L'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Song of Nurturing is NORM. The starting champion's CardID is patched directly to Silvie,
+    // With the Pack (TAMER) so the Class Bonus applies. Gray Wolf is seeded onto the field as the
+    // ally that receives the buff. Confirmed via computed_life_equals (base 2 + 2 = 4) and
+    // computed_power_equals (base 2 + 1 Class Bonus = 3).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT']], // Silvie, With the Pack (TAMER)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf -- the ally that receives the buff
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4hbA9FT56L'], // Song of Nurturing, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Mist Resonance: allies +1 LIFE until end of turn ---
+$fixtures['mist-resonance-allies-life'] = [
+    'testedCards' => ['hw8dxKAnMX'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Mist Resonance is WATER -- the starting champion's Subcards are patched with a real WATER
+    // champion (Nico, Rapture's Embrace) to unlock element access. Only the base ability (allies +1
+    // LIFE) is covered; the [Class Bonus] Harmonize clause (allies assign damage with life instead
+    // of power) is confirmed NOT IMPLEMENTED at all by the engine's own code comment
+    // (GeneratedMacroCode.php: "Note: Harmonize class bonus ... is not implemented") and is out of
+    // scope. Gray Wolf is seeded onto the field as the ally that receives the buff. Confirmed via
+    // computed_life_equals (base 2 + 1 = 3).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // Nico, Rapture's Embrace -- unlocks WATER
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf -- the ally that receives the buff
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'hw8dxKAnMX'], // Mist Resonance, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Meadowbloom Dryad: [Class Bonus] whenever an ally enters, buff counter on target ally ---
+$fixtures['meadowbloom-dryad-class-bonus-enter-buff'] = [
+    'testedCards' => ['cVRIUJdTW5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Meadowbloom Dryad is TERA. The starting champion's CardID is patched directly to Silvie,
+    // Loved by All -- both TAMER (satisfies the Class Bonus) and TERA (unlocks element access) at
+    // once. The trigger (FieldAfterAdd, GameLogic.php ~8126) fires for ANY ally entering, including
+    // Meadowbloom Dryad itself: when it resolves as the very first ally on either field, it is the
+    // only entry in the target-ally search, so the engine auto-applies the buff counter without a
+    // choice decision (count($allyTargets) === 1 skips the MZCHOOSE branch) -- a simpler and
+    // equally valid way to exercise the trigger than materializing a second ally afterward. Only
+    // the Class Bonus trigger is covered; Preserve (returning from the material deck on
+    // materialize) is a separate, out-of-scope mechanic.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'GKEpAulogu']], // Silvie, Loved by All (TAMER + TERA)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'cVRIUJdTW5'], // Meadowbloom Dryad, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Beastbond Ears: champion +1 level as long as you control an Animal or Beast ally ---
+$fixtures['beastbond-ears-level-while-animal-beast'] = [
+    'testedCards' => ['JPcFmCpdiF'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Beastbond Ears is NORM and unconditional (no Class Bonus gate). No "computed level" assertion
+    // type exists in this harness (only computed_power_equals/computed_life_equals -- champion
+    // level bonuses cannot be directly asserted), so the +1 level is confirmed indirectly: at the
+    // default champion level (0), Scry the Skies' "Glimpse LV" would be an invisible Glimpse 0
+    // no-op, but with Beastbond Ears' static bonus active (Gray Wolf, a BEAST ally, is seeded
+    // alongside it), the effective level is 1, so Glimpse LV surfaces a real 1-card MZREARRANGE
+    // decision that must be explicitly answered -- the fixture's own action sequence only completes
+    // if that decision genuinely appears, which is itself the proof.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'JPcFmCpdiF'], // Beastbond Ears
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order (same no-op default as idle-thoughts-glimpse-4).
+        // This decision only exists because the effective level is 1, not the default 0 -- proof
+        // that Beastbond Ears' static bonus is applying.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Deep Sea Beastbonder: champion +1 level as long as you control an Animal or Beast ally ---
+$fixtures['deep-sea-beastbonder-level-while-animal-beast'] = [
+    'testedCards' => ['qxbdXU7H4Z'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Deep Sea Beastbonder is WATER -- the starting champion's Subcards are patched with a real
+    // WATER champion (Nico, Rapture's Embrace) to unlock element access. Its static +1 level is
+    // unconditional (no Class Bonus gate); only [Class Bonus] Floating Memory is out of scope. Same
+    // indirect Glimpse-LV proof technique as beastbond-ears-level-while-animal-beast: Gray Wolf (a
+    // BEAST ally) is seeded onto the field so the condition is already satisfied once Deep Sea
+    // Beastbonder resolves, then Scry the Skies' Glimpse LV surfaces a real MZREARRANGE decision
+    // (invisible at the default level 0) proving the effective level is 1.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['29lqrve8fz']]], // Nico, Rapture's Embrace -- unlocks WATER
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qxbdXU7H4Z'], // Deep Sea Beastbonder, seeded to a known hand slot
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-3!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order -- only exists because the effective level is 1.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Melodious Flute: champion +1 level as long as you control an Animal or Beast ally ---
+$fixtures['melodious-flute-level-while-animal-beast'] = [
+    'testedCards' => ['WAFNy2lY5t'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Melodious Flute is NORM and REGALIA -- adding it to 'myHand' via setup gets silently
+    // redirected to the Material zone instead (HandAddReplacement), matching every other REGALIA
+    // item fixture this session, so it is seeded directly onto myField. Its static +1 level is
+    // unconditional; [Class Bonus] Banish: next Harmony action is a Melody is a separate,
+    // out-of-scope ability. Same indirect Glimpse-LV proof technique as beastbond-ears-level-
+    // while-animal-beast: Gray Wolf (a BEAST ally) is seeded alongside it, then Scry the Skies'
+    // Glimpse LV surfaces a real MZREARRANGE decision (invisible at the default level 0) proving
+    // the effective level is 1.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'WAFNy2lY5t'], // Melodious Flute
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the fast-opportunity offer of Melodious Flute's own [Class Bonus] Banish ability
+        // (unrelated -- out of scope here) so Scry the Skies proceeds to its own resolution.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: keep original order -- only exists because the effective level is 1.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Silvie, Loved by All: Animal and Beast allies get +1 LIFE and have intercept ---
+$fixtures['silvie-loved-by-all-animal-beast-life-intercept'] = [
+    'testedCards' => ['GKEpAulogu'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // The starting champion's CardID is patched directly to Silvie, Loved by All itself (the card
+    // under test), bypassing Silvie Lineage's level-up gate the same way established for other
+    // champion fixtures this session. Gray Wolf (BEAST) is seeded onto the field. The +1 LIFE half
+    // of the static ability is confirmed via computed_life_equals (base 2 + 1 = 3). The "has
+    // intercept" half (HasIntercept(), GameLogic.php ~21762-21769, confirmed via direct code read
+    // to share the same Animal-or-Beast-ally + Silvie-on-field check) has no dedicated assertion
+    // type in this harness and would need a real combat interception sequence to observe -- out of
+    // scope here, matching this session's treatment of other keyword-only clauses (e.g. Pride).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'GKEpAulogu']], // Silvie, Loved by All
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''], // harmless no-op click
+    ],
+];
+
+// --- Silvie, With the Pack: On Enter: draw if Animal ally, draw if Beast ally ---
+$fixtures['silvie-with-the-pack-on-enter-draw-animal-beast'] = [
+    'testedCards' => ['nllCALIXDT'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Silvie, With the Pack
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Silvie, With the Pack is level 2 (Silvie Lineage), but CanChampionLevelUpIntoCard only checks
+    // targetLevel === currentLevel + 1 -- lineage text is not enforced by the level-up gate itself
+    // (same technique established for Arisanna's champions). The starting champion is patched
+    // directly to Silvie, Wilds Whisperer (level 1) so a real level-up is legal. Champion-swap
+    // materialization is only offered through the material-phase MZMAYCHOOSE at the start of a
+    // turn, so both players end their first turn (P1 -> P2) to reach that prompt; its 2-memory cost
+    // is paid from two filler cards seeded into myMemory. Giant Tortoise (ANIMAL) and Gray Wolf
+    // (BEAST) are seeded onto the field beforehand so both On Enter draw clauses trigger.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'RfPP8h16Wv']], // Silvie, Wilds Whisperer (level 1) - level-up precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'L0RmNaDzhk'], // Giant Tortoise (ANIMAL)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card 1/2 in memory to pay the 2-memory level-up cost
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card 2/2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Silvie, Wilds Whisperer: On Enter: next Animal/Beast ally activated enters with a buff counter ---
+$fixtures['silvie-wilds-whisperer-on-enter-buff-next-animal-beast'] = [
+    'testedCards' => ['RfPP8h16Wv'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Silvie, Wilds Whisperer
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Silvie, Wilds Whisperer is level 1, one level above the default level-0 starting champion, so
+    // no lineage/level patch is needed -- 0+1 is already a legal level-up (same as arisanna-
+    // herbalist-prodigy-on-enter-gather-twice). Champion-swap materialization is only offered
+    // through the material-phase MZMAYCHOOSE at the start of a turn, so both players end their
+    // first turn (P1 -> P2) to reach that prompt; its 1-memory cost is paid from a filler card
+    // seeded into myMemory. Her On Enter sets a "next Animal/Beast ally" flag (AddGlobalEffects);
+    // Gray Wolf (BEAST) is then materialized from hand in the same turn to consume it, entering
+    // with an extra buff counter (GameLogic.php ~8009-8025).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay the 1-memory level-up cost
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Dewdrop Hares: [Class Bonus] Floating Memory ---
+$fixtures['dewdrop-hares-class-bonus-floating-memory'] = [
+    'testedCards' => ['fxwy3haEXU'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Silvie, With the Pack
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Dewdrop Hares' only ability is [Class Bonus] Floating Memory (its own class is TAMER),
+    // same shape as savage-swing-class-bonus-floating-memory: Floating Memory only offers itself
+    // as a payment source for a MEMORY cost (a champion level-up), and patching the champion
+    // directly to the level-2 target would make leveling illegal (level-up requires strictly +1),
+    // so the champion is patched to Silvie, Wilds Whisperer (level 1, TAMER) instead and leveled up
+    // into Silvie, With the Pack (level 2, TAMER, 2-memory cost) -- the Class Bonus condition
+    // checks the CURRENT champion (still TAMER) at payment time, before the level-up completes.
+    // Dewdrop Hares pays 1 of the 2 memory via Floating Memory from the graveyard; the 2nd memory
+    // point is a filler card seeded directly into myMemory.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'RfPP8h16Wv']], // Silvie, Wilds Whisperer (TAMER, level 1) - Class Bonus precondition + legal level-up base
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'fxwy3haEXU'], // Dewdrop Hares
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // filler memory card, 2nd point of Silvie, With the Pack's 2-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // select Silvie, With the Pack as the level-up target
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // pay 1 memory via Floating Memory
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // pay the 2nd memory point
+    ],
+];
+
+// --- Gaia's Songbird: [Class Bonus] On Enter: reveal until a Beast ally is found, put it in hand ---
+$fixtures['gaias-songbird-class-bonus-enter-reveal-beast'] = [
+    'testedCards' => ['sHzSmygjWY'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Gaia's Songbird is TERA -- the starting champion's Subcards are patched with a real TERA
+    // champion (Silvie, Loved by All) to unlock element access. Its Class Bonus is checked via
+    // IsClassBonusActive($player) with NO $classes argument, which (per this session's established
+    // finding) degrades to "does any champion exist" -- always true -- so no class-match patch is
+    // needed. The deck's top card (myDeck-0) is patched directly to Gray Wolf (a BEAST ally) so the
+    // reveal finds it on the very first card, confirmed by Gray Wolf ending up in hand rather than
+    // in the deck.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['GKEpAulogu']]], // Silvie, Loved by All -- unlocks TERA
+        ['player' => 1, 'patchMzId' => 'myDeck-0', 'setProperties' => ['CardID' => 'hJ2xh9lNMR']], // Gray Wolf on top of deck
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'sHzSmygjWY'], // Gaia's Songbird, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Blissful Calling: look at top 5, may reveal an Animal or Beast card to hand ---
+$fixtures['blissful-calling-look-5-reveal-animal-beast'] = [
+    'testedCards' => ['YOjdZJpOO1'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Blissful Calling is NORM, no lineage patch needed. The deck's top card (myDeck-0) is patched
+    // directly to Gray Wolf (a BEAST ally) so it is among the top 5 looked at and offered as the
+    // sole qualifying candidate.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myDeck-0', 'setProperties' => ['CardID' => 'hJ2xh9lNMR']], // Gray Wolf on top of deck
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'YOjdZJpOO1'], // Blissful Calling, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-0', 'chkInput' => [], 'inputText' => ''], // choose Gray Wolf
+    ],
+];
+
+// --- Invoke Dominance: champion +3 level, can't activate non-ally cards this turn ---
+$fixtures['invoke-dominance-level-lock-non-ally'] = [
+    'testedCards' => ['PLljzdiMmq'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Invoke Dominance is TERA -- the starting champion's Subcards are patched with a real TERA
+    // champion (Silvie, Loved by All) to unlock element access. Unlike the "+1 level while Animal/
+    // Beast ally" static clauses tested indirectly via Glimpse LV elsewhere this session, this +3
+    // level is applied via a direct AddTurnEffect("PLljzdiMmq") on the champion (GeneratedMacroCode.
+    // php ~20641-20652), so it is directly observable via TurnEffects without needing the indirect
+    // proof technique. The "can't activate non-ally cards this turn" restriction is a silent no-op
+    // check embedded inside DoActivateCard itself (GameLogic.php ~2008-2014), not a legality
+    // rejection CanActivateCard/expectFailure would catch -- confirmed instead via the global effect
+    // flag it sets (AddGlobalEffects "PLljzdiMmq_NO_NONALLY") being present in myGlobalEffects.
+    // Preserve (this card returning to the material deck as it resolves, rather than the graveyard)
+    // is a separate, out-of-scope mechanic.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['GKEpAulogu']]], // Silvie, Loved by All -- unlocks TERA
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'PLljzdiMmq'], // Invoke Dominance, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Piper's Lullaby: champion +1 level while Animal/Beast ally, [Class Bonus] rest target ally ---
+$fixtures['pipers-lullaby-class-bonus-level-rest'] = [
+    'testedCards' => ['raG5r85ieO'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Piper's Lullaby is WATER -- the starting champion's CardID is patched directly to Silvie,
+    // With the Pack (TAMER, satisfies the Class Bonus) and its Subcards are ALSO patched with a
+    // real WATER champion (Nico, Rapture's Embrace) for element/lineage unlock. Unlike the "+1
+    // level while Animal/Beast ally" STATIC clauses tested indirectly via Glimpse LV elsewhere this
+    // session, this one is a one-shot AddTurnEffect("raG5r85ieO") applied when the card resolves
+    // (GeneratedMacroCode.php ~21186-21203), so it is directly observable via TurnEffects. Gray
+    // Wolf is seeded onto the field, satisfying the Animal/Beast condition and also serving as the
+    // Class Bonus's rest target, confirmed via Status.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'nllCALIXDT', 'Subcards' => ['29lqrve8fz']]], // Silvie, With the Pack (TAMER) + Nico (WATER unlock)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hJ2xh9lNMR'], // Gray Wolf (BEAST) -- satisfies the level condition and is the rest target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'raG5r85ieO'], // Piper's Lullaby, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // [Class Bonus] rest Gray Wolf
+    ],
+];
+
+// --- Empowering Harmony: champion +2 level until end of turn ---
+$fixtures['empowering-harmony-level'] = [
+    'testedCards' => ['Kc5Bktw0yK'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Empowering Harmony is NORM, no lineage patch needed. The +2 level is unconditional (no Class
+    // Bonus gate); it is applied via AddGlobalEffects("Kc5Bktw0yK") (GeneratedMacroCode.php ~19347-
+    // 19352), checked in the level-computation switch (GameLogic.php ~12964) -- directly observable
+    // via card_exists in myGlobalEffects, without needing the indirect Glimpse-LV proof technique
+    // used for the continuous "+1 level while Animal/Beast ally" static clauses elsewhere this
+    // session. [Class Bonus] Harmonize -- draw a card (gated on both TAMER class match AND having
+    // activated a Melody card this turn) is a separate, out-of-scope mechanic.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Kc5Bktw0yK'], // Empowering Harmony, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Smack with Flute: On Attack: champion +1 level until end of turn ---
+$fixtures['smack-with-flute-on-attack-level'] = [
+    'testedCards' => ['zpkcFs72Ah'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Smack with Flute is NORM, no lineage patch needed; its On Attack level bonus is unconditional
+    // ([Class Bonus] Floating Memory is a separate, unrelated ability on the same card, out of
+    // scope). Same real single-target ATTACK-card flow as wind-cutter-class-bonus-power-attack: the
+    // card is played from hand into myIntent, then the champion attacks with no weapon available
+    // (GetAttackWeaponChoices returns empty, so BeginCombatPhase skips straight to
+    // ChooseAttackTarget). On Attack fires as soon as the attack is declared, before damage
+    // resolves, so its effect (AddGlobalEffects "zpkcFs72Ah") is asserted right after choosing the
+    // target, before the defender's Retaliate response.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zpkcFs72Ah'], // Smack with Flute
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
+// --- Anger the Skies: deal 3 (4 with [Class Bonus]) damage to all allies ---
+$fixtures['anger-the-skies-damage-all-allies'] = [
+    'testedCards' => ['wOKw0q4SZR'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Anger the Skies is ARCANE, so the starting champion's Subcards are patched with a real ARCANE
+    // champion (Lorraine, Arclight Saber) to unlock element access. Unconditional base deals 3
+    // damage to all allies both sides (GeneratedMacroCode.php ~22858-22865); the [Class Bonus] bump
+    // to 4 is out of scope. A Dungeon Guide is seeded onto the opponent's field as the only ally
+    // target present.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]], // ARCANE lineage/element unlock
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - damage target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'wOKw0q4SZR'], // Anger the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // The Lorraine, Arclight Saber Subcards patch grants a lineage-inherited "Enlighten"
+        // ability, offered as a fast-action opportunity to both players once reserve is paid
+        // (same side effect as arcane-sight-level-draw) -- both decline.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Arcane Blast: deal 11 damage to target champion ---
+$fixtures['arcane-blast-damage-target-champion'] = [
+    'testedCards' => ['pn9gQjV3Rb'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Arcane Blast is ARCANE, so the starting champion's Subcards are patched with a real ARCANE
+    // champion (Lorraine, Arclight Saber) to unlock element access. Its 11-reserve cost needs more
+    // fuel than a natural 7-card hand provides (same shortfall pattern as disintegrate-destroy,
+    // which needed 2 extra fillers for an 8-reserve cost); 5 extra filler cards are seeded into hand.
+    // Unlike the smaller-reserve-cost ARCANE fixtures in this batch, paying all 11 reserve leaves
+    // only 1 hand card -- too little to afford the Lorraine, Arclight Saber lineage-inherited
+    // "Enlighten" ability, so GetPlayableOpportunityChoices offers nothing and EffectStackOpportunity
+    // auto-resolves with no MZMAYCHOOSE at all (confirmed via direct probe: sending a stray PASS here
+    // instead answers the ability's OWN target-choice MZCHOOSE with "PASS", which ArcaneBlastTarget's
+    // handler treats as a decline and the 11 damage is never dealt) -- so no PASS step is needed
+    // between paying reserve and choosing the damage target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]], // ARCANE lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 1/5
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 2/5
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 3/5
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 4/5
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 5/5
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'pn9gQjV3Rb'], // Arcane Blast, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-12!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
+// --- Arcane Disposition: draw 2 (3 with [Class Bonus]), discard hand at next end phase ---
+$fixtures['arcane-disposition-draw-discard-flag'] = [
+    'testedCards' => ['blq7qXGvWH'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Arcane Disposition is ARCANE, so the starting champion's Subcards are patched with a real
+    // ARCANE champion (Lorraine, Arclight Saber) to unlock element access. Draws 2 (the [Class
+    // Bonus] 3rd draw is out of scope), then sets a delayed-discard flag
+    // (blq7qXGvWH_DISCARD_NEXT_END, GameLogic.php ~10454-10463) that fires at the next end phase --
+    // directly observable via card_exists in myGlobalEffects without needing to reach that end phase.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G']]], // ARCANE lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'blq7qXGvWH'], // Arcane Disposition, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // The Lorraine, Arclight Saber Subcards patch grants a lineage-inherited "Enlighten"
+        // ability, offered as a fast-action opportunity to both players once reserve is paid
+        // (same side effect as arcane-sight-level-draw) -- both decline.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Arcanist's Prism: at the beginning of recollection phase, wheel memory into deck, draw that many ---
+$fixtures['arcanists-prism-recollection-wheel-draw'] = [
+    'testedCards' => ['dIEAN4J4YS'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Arcanist's Prism is REGALIA -- adding it to 'myHand' via setup gets silently redirected to the
+    // Material zone instead (HandAddReplacement, GameLogic.php ~17282), matching every other REGALIA
+    // item fixture this session -- it must be seeded directly onto myField. Its recollection-phase
+    // trigger (GameLogic.php ~9044-9054, same unconditional per-field-card switch as Berserker
+    // Plate) puts all cards from memory on the bottom of the deck, then draws that many -- a filler
+    // card is seeded into myMemory so the effect has something to wheel. Same P1->P2->P1 cycle as
+    // berserker-plate-recollection-damage-draw to reach player 1's own recollection phase.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'dIEAN4J4YS'], // Arcanist's Prism
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card to wheel into the deck
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Blitz Mage: vanilla stats (3 POWER / 1 LIFE, no ability) ---
+$fixtures['blitz-mage-vanilla-stats'] = [
+    'testedCards' => ['u8m6LuUSSu'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Blitz Mage is FIRE and vanilla (no printed ability). The default starting champion (Spirit of
+    // Fire) is already FIRE, so no lineage/Subcards patch is needed to unlock element access.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'u8m6LuUSSu'], // Blitz Mage, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Careful Study: put five enlighten counters on your champion ---
+$fixtures['careful-study-enlighten-counters'] = [
+    'testedCards' => ['4NkVdSx9ed'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Careful Study is NORM, no lineage patch needed. Its 8-reserve cost needs 1 extra card beyond
+    // a natural 7-card hand (2 extra fillers seeded for margin). The "Efficiency" keyword is a cost
+    // discount (out of scope); the ability itself unconditionally puts 5 enlighten counters on the
+    // champion (GeneratedMacroCode.php ~15634-15640).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 1/2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'], // Extra reserve-payment fuel 2/2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4NkVdSx9ed'], // Careful Study, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-9!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Cremation Ritual: additional cost sacrifice an ally, draw 2 ---
+$fixtures['cremation-ritual-sacrifice-draw'] = [
+    'testedCards' => ['Pr48kXnasw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Cremation Ritual is NORM, no lineage patch needed. A Dungeon Guide is seeded onto the field
+    // as sacrifice fodder for the ability's own MZCHOOSE (GeneratedMacroCode.php ~20677-20684:
+    // choose an ally, CUSTOM handler DoSacrificeFighter then Draw 2).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - sacrifice fodder
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Pr48kXnasw'], // Cremation Ritual, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Dungeon Guide
+    ],
+];
+
+// --- Crystal of Empowerment: Banish -- champion gets +2 level until end of turn ---
+$fixtures['crystal-of-empowerment-banish-level'] = [
+    'testedCards' => ['dmfoA7jOjy'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Crystal of Empowerment is REGALIA -- seeded directly onto myField (hand-add redirect). Its
+    // "until end of turn" TurnEffect is at risk of the same "attempt to pass ends the turn" bug
+    // documented for Beastbond Boots, so Scry the Skies is played first (a same-turn warm-up action)
+    // and the ability is reached via a direct Activate:0 click instead of the pass-trick (same fix
+    // as beastbond-boots-banish-spellshroud). At the default champion level (0), Scry's own Glimpse
+    // LV is an invisible no-op, so no further decision is needed after activating.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'dmfoA7jOjy'], // Crystal of Empowerment
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- a same-turn warm-up action so "attempt to pass" isn't needed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Scry the Skies' 1 reserve
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Endura, Scepter of Ignition: [REST] remove an enlighten counter, deal 1 damage to target unit ---
+$fixtures['endura-scepter-rest-damage'] = [
+    'testedCards' => ['SGsDKB9CN5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Endura is REGALIA -- seeded directly onto myField. Its prereq requires the champion to
+    // already have an enlighten counter (GeneratedMacroCode.php ~6147-6172), patched directly via
+    // Counters. Same Scry-the-Skies warm-up + direct Activate:0 click as crystal-of-empowerment-
+    // banish-level (this ability's own effect isn't "until end of turn", but the same "field item
+    // isn't clickable as the literal first action of a fresh turn via a plain FSM click" constraint
+    // applies, so the same warm-up shape is reused for safety). A Dungeon Guide on the opponent's
+    // field is the damage target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['enlighten' => 1]]], // ability cost fuel
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'SGsDKB9CN5'], // Endura, Scepter of Ignition
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - damage target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- a same-turn warm-up action so "attempt to pass" isn't needed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Scry the Skies' 1 reserve
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Dungeon Guide
+    ],
+];
+
+// --- Flame-Rune Swordsman: [Class Bonus] Floating Memory ---
+$fixtures['flame-rune-swordsman-class-bonus-floating-memory'] = [
+    'testedCards' => ['VV6ADdMrr5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Flame-Rune Swordsman's only ability is [Class Bonus] Floating Memory (its own classes are
+    // MAGE,WARRIOR), same shape as dewdrop-hares-class-bonus-floating-memory: the champion is
+    // patched to Rai, Spellcrafter (level 1, MAGE) so leveling into Rai, Archmage (level 2, MAGE,
+    // 2-memory cost) is legal and the Class Bonus condition (checked on the CURRENT champion at
+    // payment time) is satisfied. Flame-Rune Swordsman pays 1 of the 2 memory via Floating Memory
+    // from the graveyard; the 2nd memory point is a filler card seeded directly into myMemory.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'gPKTJKqvOI']], // Rai, Spellcrafter (MAGE, level 1) - Class Bonus precondition + legal level-up base
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'VV6ADdMrr5'], // Flame-Rune Swordsman
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler memory card, 2nd point of Rai, Archmage's 2-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // select Rai, Archmage as the level-up target
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // pay 1 memory via Floating Memory
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // pay the 2nd memory point
+    ],
+];
+
+// --- Impassioned Tutor: On Attack: champion +1 level until end of turn ---
+$fixtures['impassioned-tutor-on-attack-level'] = [
+    'testedCards' => ['MECS7RHRZ8'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Impassioned Tutor is NORM. Same real attack-declaration sequence as ardent-cloudstriker-west-
+    // attack-champion-buff: seeded directly onto the field (bypassing its reserve cost) with Status
+    // patched awake so it can declare an attack immediately. Its On Attack fires as soon as the
+    // attack is declared (AddGlobalEffects "MECS7RHRZ8", GeneratedMacroCode.php ~24673-24677),
+    // before damage resolves.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'MECS7RHRZ8'], // Impassioned Tutor
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline materialize offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Impassioned Tutor
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+    ],
+];
+
+// --- Library Witch: Intercept, On Death: draw a card ---
+$fixtures['library-witch-on-death-draw'] = [
+    'testedCards' => ['iD8qbpA8z5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Library Witch is NORM. Only the unconditional On Death: draw a card is covered here (Intercept
+    // is a shared static ability tested elsewhere, out of scope). Undeniable Truth's mandatory
+    // sacrifice-an-ally additional cost is reused as the kill trigger: choosing the sac target
+    // (GameLogic.php ~3218-3232, UndeniableTruthCost handler) directly sacrifices and queues its
+    // 1-reserve cost -- no YES/NO or Glimpse decision of its own (confirmed via direct probe; the
+    // extra YES/Glimpse steps in caretaker-drone-class-bonus-death-glimpse belong to THAT card's own
+    // On Death "Glimpse 4" effect, not to Undeniable Truth's generic cost flow).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'iD8qbpA8z5'], // Library Witch
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UaUfw7yFTW'], // Undeniable Truth, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Library Witch as the mandatory cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Undeniable Truth's 1-reserve cost
+    ],
+];
+
+// --- Magus Disciple: [Class Bonus] On Death: draw a card ---
+$fixtures['magus-disciple-class-bonus-on-death-draw'] = [
+    'testedCards' => ['pnDhApDNvR'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Magus Disciple's [Class Bonus] On Death is IsClassBonusActive($player) with NO class argument
+    // (degrades to "any champion present," same established finding as caretaker-drone-class-bonus-
+    // death-glimpse and gaias-songbird-class-bonus-enter-reveal-beast), so it fires unconditionally.
+    // Its separate unconditional static "+1 level while on the field" clause (GameLogic.php ~13185,
+    // a continuous computed-level check with no stored counter to assert) is out of scope here.
+    // Same Undeniable Truth sacrifice-kill technique as library-witch-on-death-draw (its cost
+    // handler directly sacrifices and queues its own 1-reserve cost -- no YES/NO or Glimpse step).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'pnDhApDNvR'], // Magus Disciple
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'UaUfw7yFTW'], // Undeniable Truth, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // sacrifice Magus Disciple as the mandatory cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Undeniable Truth's 1-reserve cost
+    ],
+];
+
+// --- Mana Limiter: Activate: draw a card ---
+$fixtures['mana-limiter-activate-draw'] = [
+    'testedCards' => ['IC3OU6vCnF'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Mana Limiter is REGALIA -- seeded directly onto myField. Same Scry-the-Skies warm-up + direct
+    // Activate:0 click as crystal-of-empowerment-banish-level (field items aren't reliably
+    // clickable as the literal first action of a fresh turn).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'IC3OU6vCnF'], // Mana Limiter
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- a same-turn warm-up action so "attempt to pass" isn't needed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Scry the Skies' 1 reserve
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Peer into Mana: put 2+LV enlighten counters on your champion ---
+$fixtures['peer-into-mana-enlighten-counters'] = [
+    'testedCards' => ['914hZjxDL0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Peer into Mana is NORM, no lineage patch needed. At the default champion level (0), the
+    // amount is 2 + 0 = 2 enlighten counters (GeneratedMacroCode.php ~16481-16491).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '914hZjxDL0'], // Peer into Mana, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Power Overwhelming: remove X enlighten counters from your champion, it gets +X level until end of turn ---
+$fixtures['power-overwhelming-remove-enlighten-level'] = [
+    'testedCards' => ['AnEPyfFfHj'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Power Overwhelming is ARCANE (reserve cost 0), so the starting champion's Subcards are also
+    // patched with a real ARCANE champion (Lorraine, Arclight Saber) to unlock element access,
+    // alongside 3 enlighten counters so the NUMBERCHOOSE (0 to current enlighten count,
+    // GeneratedMacroCode.php ~16844-16853) has real fuel; 2 is chosen. The resulting TurnEffect key
+    // is dynamically suffixed with the removed amount ("AnEPyfFfHj-2", GameLogic.php ~13084-13087,
+    // +N level per counter removed) and is directly observable in TurnEffects without needing the
+    // indirect Glimpse-LV proof technique.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['x9sSpjpP3G'], 'Counters' => ['enlighten' => 3]]], // ARCANE lineage/element unlock + ability cost fuel
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'AnEPyfFfHj'], // Power Overwhelming, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        // The Lorraine, Arclight Saber Subcards patch grants a lineage-inherited "Enlighten"
+        // ability, offered as a fast-action opportunity as soon as the card enters the effect
+        // stack (reserve cost 0, so no reserve payment precedes it) -- both players decline.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '2', 'chkInput' => [], 'inputText' => ''], // remove 2 enlighten counters
+    ],
+];
+
+// --- Rai, Archmage: Inherited Effect -- first Mage action card each turn, put an enlighten counter on champion ---
+$fixtures['rai-archmage-inherited-first-mage-action-enlighten'] = [
+    'testedCards' => ['zdIhSL5RhK'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Rai, Archmage's Inherited Effect (GameLogic.php ~5670-5680) checks ChampionHasInLineage,
+    // which reads the champion object's own CardID plus Subcards -- a direct CardID patch is
+    // sufficient (no natural level-up needed). Idle Thoughts (rWhFC8XBaH, NORM, MAGE, reserve 1,
+    // already used in idle-thoughts-glimpse-4 with this exact generic deck/seed) is the first MAGE
+    // ACTION card activated this turn, putting an enlighten counter on the champion and setting the
+    // RAI_ARCHMAGE_TRIGGERED once-per-turn flag.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'zdIhSL5RhK']], // become Rai, Archmage
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rWhFC8XBaH'], // Idle Thoughts, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1-reserve cost
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Rai, Spellcrafter: On Enter: put two enlighten counters on CARDNAME ---
+$fixtures['rai-spellcrafter-on-enter-enlighten'] = [
+    'testedCards' => ['gPKTJKqvOI'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Spellcrafter
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Rai, Spellcrafter is level 1, one level above the default level-0 starting champion, so no
+    // lineage/level patch is needed -- 0+1 is already a legal level-up (same as arisanna-herbalist-
+    // prodigy-on-enter-gather-twice). Champion-swap materialization is only offered through the
+    // material-phase MZMAYCHOOSE at the start of a turn, so both players end their first turn
+    // (P1 -> P2) to reach that prompt; its 1-memory cost is paid from a filler card seeded into
+    // myMemory. Her On Enter puts 2 enlighten counters on herself (GeneratedMacroCode.php
+    // ~11447-11451).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay the 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Rai, Storm Seer: +1 level for each arcane element Mage Spell card in your banishment ---
+$fixtures['rai-storm-seer-level-per-arcane-mage-spell-banished'] = [
+    'testedCards' => ['g92bHLtTNl'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Storm Seer
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Rai, Storm Seer's level bonus (GameLogic.php ~13279-13288) is a continuous computed check
+    // (+1 level per qualifying banished card) with no stored counter to assert directly -- the
+    // champion is patched directly to Rai, Storm Seer (the check reads $obj->CardID literally, not
+    // lineage, so a direct patch is sufficient), and Shock Therapy (tyj2s3572j, an ARCANE MAGE
+    // SPELL action card) is seeded into myBanish. Same indirect Glimpse-LV proof technique as
+    // beastbond-ears-level-while-animal-beast: at the default level 0, Scry the Skies' Glimpse LV
+    // would be an invisible no-op, but with the +1 level bonus active (1 qualifying banished card),
+    // Glimpse LV surfaces a real 1-card MZREARRANGE decision that must be explicitly answered.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'g92bHLtTNl']], // Rai, Storm Seer
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'tyj2s3572j'], // Shock Therapy (ARCANE, MAGE, SPELL)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // MZREARRANGE response: this decision only exists because the effective level is 1, not the
+        // default 0 -- proof that Rai, Storm Seer's static bonus is applying.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Surveillance Stone: opponent's 3rd attack each turn, may banish to draw ---
+$fixtures['surveillance-stone-third-attack-banish-draw'] = [
+    'testedCards' => ['kk46Whz7CJ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Surveillance Stone is REGALIA -- seeded directly onto myField (P1's side). Its trigger
+    // (CombatLogic.php ~2742-2751) fires when the OPPONENT's OnAttackCallCount reaches exactly 3
+    // for their turn, offering the owner (P1) a YESNO to banish it and draw. 3 separate Dungeon
+    // Guide allies are seeded onto P2's field (each patched awake) so P2 can declare 3 real attacks
+    // in a single turn, same real attack-declaration sequence (P1 pass, P2 pass, P1 formally ends
+    // turn 1 via the mid-game Pass button, P2 declines their MAT offer) as swift-recruit-intercept-
+    // redirect for reaching P2's own attacking turn.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'kk46Whz7CJ'], // Surveillance Stone
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide attacker 1
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide attacker 2
+        ['player' => 2, 'patchMzId' => 'myField-2', 'setProperties' => ['Status' => 2]],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide attacker 3
+        ['player' => 2, 'patchMzId' => 'myField-3', 'setProperties' => ['Status' => 2]],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P1 declines their own MAT-phase materialize offer
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // P1 formally ends turn 1 (nothing to do)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P2 declines their MAT-phase materialize offer
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // attack 1/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-2!FSM!', 'chkInput' => [], 'inputText' => ''], // attack 2/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-3!FSM!', 'chkInput' => [], 'inputText' => ''], // attack 3/3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // P1 banishes Surveillance Stone to draw
+    ],
+];
+
+// --- Tome of Knowledge: Banish -- draw a card ---
+$fixtures['tome-of-knowledge-banish-draw'] = [
+    'testedCards' => ['yDARN8eV6B'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Tome of Knowledge is REGALIA -- seeded directly onto myField. Same Scry-the-Skies warm-up +
+    // direct Activate:0 click as crystal-of-empowerment-banish-level.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'yDARN8eV6B'], // Tome of Knowledge
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- a same-turn warm-up action so "attempt to pass" isn't needed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Scry the Skies' 1 reserve
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Water Resonance Bauble: Banish -- draw a card (if your opponent can access Water) ---
+$fixtures['water-resonance-bauble-banish-draw'] = [
+    'testedCards' => ['dSSRtNnPtw'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Rai, Archmage
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Water Resonance Bauble is REGALIA -- seeded directly onto myField. Its prereq (IsPlayerElementEnabled)
+    // reads the OPPONENT's own element lineage, so P2's starting champion's Subcards are patched
+    // with a real WATER champion (Spirit of Water), same technique as wind-resonance-bauble-banish-
+    // draw. Same Scry-the-Skies warm-up + direct Activate:0 click as crystal-of-empowerment-banish-
+    // level.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock for P2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'dSSRtNnPtw'], // Water Resonance Bauble
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'], // Scry the Skies -- a same-turn warm-up action so "attempt to pass" isn't needed
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay Scry the Skies' 1 reserve
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Crusader of Aesa: enters the field rested ---
+$fixtures['crusader-of-aesa-enters-rested'] = [
+    'testedCards' => ['2Q60hBYO3i'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Crusader of Aesa's "enters the field rested" is unconditional card text (GameLogic.php
+    // ~7909: if($added->CardID == "2Q60hBYO3i") { $added->Status = 1; }), applied whenever the
+    // card is added to a field via the generic field-add hook -- not gated on Class Bonus (that
+    // gate only applies to its SEPARATE [Class Bonus] Intercept ability, tested separately by
+    // esteemed-knight-class-bonus-intercept since both cards share the same Intercept mechanic).
+    // Played from hand (myHand-7, verified via DevTools/probe-hand.php) paying its 3 reserve.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Q60hBYO3i'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Esteemed Knight: [Class Bonus] Intercept ---
+$fixtures['esteemed-knight-class-bonus-intercept'] = [
+    'testedCards' => ['iabqeB0I6t'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Esteemed Knight's only ability is [Class Bonus] Intercept (HasKeyword_Intercept,
+    // GeneratedKeywordCode.php, gated on IsClassBonusActive($player, ["WARRIOR","HUMAN"])) --
+    // unlike Swift Recruit's unconditional Intercept (swift-recruit-intercept-redirect), this
+    // needs a real WARRIOR-or-HUMAN-class champion, so the starting champion is CardID-patched
+    // directly to Lorraine, Blademaster (WARRIOR). Same real-attack/redirect sequence as
+    // swift-recruit-intercept-redirect: P2's default champion (0 printed POWER) needs
+    // Executioner's Spear seeded on its own field to have a legal attack; P1 ends turn 1 with
+    // nothing to do, P2 attacks P1's champion directly, and P1 redirects to Esteemed Knight
+    // (GetAvailableInterceptRedirectTargets only offers a redirect when the attack target is a
+    // CHAMPION).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'iabqeB0I6t'], // Esteemed Knight, awake
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zv6yp6q7zw'], // Executioner's Spear (1 POWER) for a legal P2 attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Spirit Blade: Ghost Strike: On Attack, may banish a material card for +1 POWER ---
+$fixtures['spirit-blade-ghost-strike-banish-material-power'] = [
+    'testedCards' => ['vcZSHNHvKX'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Spirit Blade: Ghost Strike is CRUX element (verified via CardElement(), not NORM as
+    // cardArrayCache.json's unreliable elements field would suggest) -- champion CardID-patched
+    // directly to Lorraine, Crux Knight (WARRIOR + CRUX) to unlock it, same technique as the
+    // Rai deck's ARCANE cards. 0 reserve cost, so played straight to attack (ATTACK cards go
+    // into myIntent via FSM, not through the DoActivateCard fast-action opportunity flow --
+    // confirmed via wind-cutter-class-bonus-power-attack). Its On Attack ability
+    // (onAttackAbilities["vcZSHNHvKX:0"]) offers a MZMAYCHOOSE to banish a material-deck card for
+    // +1 POWER on the champion's attacks (AddGlobalEffects "vcZSHNHvKX",
+    // doesGlobalEffectApply["vcZSHNHvKX"]); the deck's own default Material leftovers (Lorraine
+    // Wandering Warrior, Clarent, Backup Charger, Purifying Thurible) supply a real choice.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'NfbZ0nouSQ']],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vcZSHNHvKX'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Fire Resonance Bauble: Banish -- draw a card (if opponent can access Fire) ---
+$fixtures['fire-resonance-bauble-banish-draw'] = [
+    'testedCards' => ['LROrzTmh55'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Fire Resonance Bauble is REGALIA -- seeded directly onto myField (memory-cost REGALIA
+    // items are Material-zone-only cards when played for real, same as Clarent/Backup
+    // Charger/Purifying Thurible in this deck's own Material section; seeding directly bypasses
+    // that entirely to test only the [Activate] ability itself). Its prereq
+    // (activateAbilityPrereqs["LROrzTmh55:0"]) requires the OPPONENT to have Fire access --
+    // P2's default starting champion is literally Spirit of Fire, so no patch is needed. Same
+    // Scry the Skies warm-up + direct Activate:0 click as crystal-of-empowerment-banish-level.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'LROrzTmh55'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'F9POfB5Nah'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Hurricane Sweep: [Class Bonus] Efficiency + Cleave ---
+$fixtures['hurricane-sweep-class-bonus-power-attack'] = [
+    'testedCards' => ['4V6qKuM7xs'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+8 Dungeon Guide
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Hurricane Sweep is WIND element with [Class Bonus] Efficiency (reduce reserve cost by
+    // champion's current level) and printed Cleave (already proven generically by the
+    // pre-existing hemorrhaging-rend-damage20-cleave fixture, so not re-asserted here). Champion
+    // CardID-patched directly to Lorraine, Blademaster (WARRIOR, level 2) with Spirit of Wind
+    // added via Subcards for WIND access -- same technique as wind-cutter-class-bonus-power-attack,
+    // including dropping Fairy Whispers from the Main list to avoid the WIND-unlock
+    // Opportunity-window cascade that card triggers once WIND is enabled. With level 2 active,
+    // Efficiency reduces the printed 5 reserve cost to 3 (verified: CalculateActivationReserveCost
+    // applies the Efficiency registry's reduction unconditionally once IsGA's $Efficiency_Cards
+    // registry contains the card, regardless of the printed "[Class Bonus]" qualifier -- an
+    // engine-behavior detail worth noting, though moot here since a real WARRIOR Class Bonus is
+    // also active).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ', 'Subcards' => ['pNiyaGlIe7']]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4V6qKuM7xs'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Ornamental Greatsword: [Class Bonus] On Enter target ally gets +1 POWER until EOT ---
+$fixtures['ornamental-greatsword-enter-ally-power'] = [
+    'testedCards' => ['qyQLlDYBlr'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Ornamental Greatsword
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Ornamental Greatsword is REGALIA with a 0-memory-cost On Enter ability, so (unlike the
+    // other REGALIA items in this deck) it must actually MATERIALIZE for its enterAbilities to
+    // fire -- direct field-seeding would skip the trigger entirely. Memory-cost REGALIA
+    // materialize like champions, via the material-phase MZMAYCHOOSE, only offered on the turn
+    // player's OWN turn after turn 1 (MaterializePhase() in MaterializeLogic.php), so both
+    // players end turn 1/2 to reach P1's turn 3. Its enterAbilities call
+    // IsClassBonusActive($player) with NO classes argument, which (per GameLogic.php's
+    // IsClassBonusActive) requires only that SOME champion is on the field -- not actually gated
+    // on this card's own GUARDIAN/WARRIOR classes, an engine-behavior detail noted here rather
+    // than assumed away; the default Spirit of Fire champion already satisfies it. A Dungeon
+    // Guide is seeded as the ally target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, the ally target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Savage Slash: [Class Bonus] Floating Memory ---
+$fixtures['savage-slash-class-bonus-floating-memory'] = [
+    'testedCards' => ['4a7QLLouGk'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Lorraine, Blademaster
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Savage Slash's only ability is [Class Bonus] Floating Memory, gated on WARRIOR Class
+    // Bonus (unlike honorable-vanguard-floating-memory's unconditional version). Floating Memory
+    // is a MEMORY-cost payment source (champion leveling / memory-cost REGALIA materialize) --
+    // NOT a reserve-cost payment source (that's the separate "Reservable" keyword, checked via
+    // GetReservablePaymentSources against field objects only; an initial draft of this fixture
+    // wrongly assumed Floating Memory applied to reserve costs too and failed with "Invalid
+    // selection" on the ReserveCard MZCHOOSE, whose Param turned out to be the literal zone name
+    // "myHand" with no graveyard entries). Champion CardID-patched to Lorraine, Wandering
+    // Warrior (level 1, WARRIOR -- already gives the Class Bonus), then leveled up for real
+    // (level 1 -> 2, legal since target == current + 1) into Lorraine, Blademaster on P1's turn 3
+    // material phase, paying its 2-memory cost with Savage Slash from myGraveyard (Floating
+    // Memory) plus 1 real myMemory filler card.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']],
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '4a7QLLouGk'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Spirit Blade: Ascension: additional cost return Sword to material; fetch a Sword to field ---
+$fixtures['spirit-blade-ascension-swap-sword'] = [
+    'testedCards' => ['N0ipz8UWwf'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Spirit Blade: Ascension is CRUX element (champion CardID-patched to Lorraine, Crux Knight
+    // to unlock it). Its ability (cardActivatedAbilities["N0ipz8UWwf:0"]) requires controlling a
+    // REGALIA,SWORD on the field to return to material, then lets you fetch a REGALIA,SWORD from
+    // material or banishment onto the field. Clarent, Sword of Peace is seeded directly onto the
+    // field as the Sword to return; Warrior's Longsword is seeded into material as the Sword to
+    // fetch back.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'NfbZ0nouSQ']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace -- the Sword to return
+        ['player' => 1, 'zone' => 'myMaterial', 'cardID' => 'jF1VuIR7a6'], // Warrior's Longsword -- the Sword to fetch back
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'N0ipz8UWwf'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Spirit Blade: Dispersion: strip durability from Swords, split damage among units ---
+$fixtures['spirit-blade-dispersion-split-damage'] = [
+    'testedCards' => ['7Rsid05Cf6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Spirit Blade: Dispersion is CRUX element, 0 reserve (champion CardID-patched to Lorraine,
+    // Crux Knight to unlock it). Its ability (SpiritBladeDispersion, CardLogic.php) removes
+    // durability counters from a chosen Sword weapon, banishes it, and splits that much damage
+    // among chosen units via an MZSPLITASSIGN decision. Clarent, Sword of Peace is seeded onto
+    // the field with 2 durability counters; the answer format for MZSPLITASSIGN
+    // (ProcessSplitDamage, GameLogic.php) is "targetMZ:amount" regardless of how the decision's
+    // own Param field happens to be ordered (confirmed by reading ProcessSplitDamage directly --
+    // this card's own DQ handler builds Param as "targets|amount|tooltip", the reverse of every
+    // other MZSPLITASSIGN caller's "amount|targets" convention, which would even confuse
+    // GoldfishResolveDecisionInput's generic auto-resolver; a genuine minor engine inconsistency
+    // noted here but not fixed, since fixing engine behavior is out of scope for fixture
+    // authoring). All 2 damage assigned to P2's Dungeon Guide.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'NfbZ0nouSQ']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'm31WVJ9F04', 'setProperties' => ['Counters' => ['durability' => 2]]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '7Rsid05Cf6'],
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1:2', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Sword of Seeking: [Class Bonus] True Sight ---
+$fixtures['sword-of-seeking-class-bonus-true-sight'] = [
+    'testedCards' => ['Dz8I0eJzaf'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Sword of Seeking's only ability is [Class Bonus] True Sight (HasKeyword_TrueSight, gated
+    // on WARRIOR Class Bonus) -- champion CardID-patched directly to Lorraine, Blademaster
+    // (WARRIOR), Sword of Seeking seeded directly onto the field (its ability is a static
+    // wielded-weapon check, not an Enter trigger). Gildas, Faesworn Monarch (unconditional
+    // Stealth) is seeded onto P2's field as the attack target: AttackerHasTrueSight
+    // (CombatLogic.php) checks the wielded weapon for True Sight, which is what allows Stealth
+    // units to be legally targeted at all (GetChooseAttackTargets filters them out otherwise) --
+    // successfully targeting Gildas is itself the proof.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Dz8I0eJzaf'], // Sword of Seeking
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'g99PIuhU0O'], // Gildas, Faesworn Monarch (Stealth)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Weaponsmith: [Class Bonus] put a durability counter on target weapon at recollection ---
+$fixtures['weaponsmith-class-bonus-durability'] = [
+    'testedCards' => ['6gN5KjqRW5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Weaponsmith's ability fires from ResolveBeforeRecollectionPhaseStart (GameLogic.php ~9366),
+    // once per turn at the start of the controller's own recollection phase -- champion
+    // CardID-patched to Lorraine, Blademaster (WARRIOR) for the Class Bonus, with exactly one
+    // WEAPON on the field (Warrior's Longsword) so the counter is applied automatically with no
+    // extra MZCHOOSE. Both players end turn 1/2 (same pattern as
+    // arcanists-prism-recollection-wheel-draw) to reach P1's own turn 3 recollection phase.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '6gN5KjqRW5'], // Weaponsmith
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'jF1VuIR7a6'], // Warrior's Longsword -- the only weapon on the field
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Lorraine, Blademaster: On Enter, attacks +2 POWER and gain On Kill: Draw a card ---
+$fixtures['lorraine-blademaster-enter-attack-buff'] = [
+    'testedCards' => ['TJTeWcZnsQ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Lorraine, Blademaster
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lorraine, Blademaster's ability is an On Enter trigger (enterAbilities["TJTeWcZnsQ:0"]),
+    // so it must actually be leveled into via a real level-up event, not a direct CardID patch --
+    // but CanChampionLevelUpIntoCard only allows target level == current level + 1, so a direct
+    // 0->2 jump is illegal. The starting champion is CardID-patched to Lorraine, Wandering
+    // Warrior (level 1) first, then leveled up for real (level 1 -> 2) on P1's turn 3 material
+    // phase, paying the 2-memory cost from 2 seeded myMemory filler cards. The On Enter ability
+    // tags the champion with the TJTeWcZnsQ TurnEffect, which CombatLogic.php reads for both the
+    // +2 POWER on attacks and the On Kill: Draw grant -- asserted directly via TurnEffects
+    // rather than scripting a full attack, matching the minimal-assertion philosophy established
+    // for other "until end of turn" grants.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Phalanx Captain: reserve cost reduced by 1 per HUMAN ally (Class Bonus) ---
+$fixtures['phalanx-captain-class-bonus-human-discount'] = [
+    'testedCards' => ['rPpLwLPGaL'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Phalanx Captain is WIND element with a self-referential activationCostModifierAbilities
+    // entry (rPpLwLPGaL:0) that reduces its own reserve cost by 1 per HUMAN ally controlled,
+    // gated on WARRIOR Class Bonus. Champion CardID-patched to Lorraine, Blademaster (WARRIOR)
+    // with Spirit of Wind added via Subcards for WIND access; Dungeon Guide (a HUMAN ally) is
+    // seeded onto the field. With 1 HUMAN ally, the printed 5 reserve cost is reduced to 4.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ', 'Subcards' => ['pNiyaGlIe7']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (HUMAN)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rPpLwLPGaL'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Sudden Steel: [Class Bonus] Efficiency ---
+$fixtures['sudden-steel-class-bonus-efficiency'] = [
+    'testedCards' => ['SSu2eQZFJV'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Sudden Steel's only ability is [Class Bonus] Efficiency (reduce reserve cost by champion's
+    // current level). Champion CardID-patched directly to Lorraine, Blademaster (WARRIOR, level
+    // 2), reducing the printed 6 reserve cost to 4. Played into myIntent via FSM (ATTACK cards
+    // don't go through the fast-action opportunity flow until after the attack is declared, per
+    // wind-cutter-class-bonus-power-attack), then attacks the opponent's champion directly.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'SSu2eQZFJV'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Training Session: target ally gets a buff counter ---
+$fixtures['training-session-buff-counter'] = [
+    'testedCards' => ['G42RDwb3Ko'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Training Session (TAMER,WARRIOR, NORM, no Class Bonus gate on the macro itself) targets an
+    // ally on the field and puts a buff counter on it. Dungeon Guide seeded as the target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, the target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'G42RDwb3Ko'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Lorraine, Crux Knight: attacks +1 POWER per regalia weapon in banishment ---
+$fixtures['lorraine-crux-knight-banished-weapon-power'] = [
+    'testedCards' => ['NfbZ0nouSQ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lorraine, Crux Knight's ability is a static computed-power case (GameLogic.php ~11019,
+    // not an Enter trigger), so the champion is CardID-patched directly to it. NfbZ0nouSQ has no
+    // printed POWER (CardPower returns -1) -- a champion attacking with 0 total power never
+    // reaches the damage step at all (confirmed via a temporary error_log instrumentation of the
+    // ObjectCurrentPower switch case, since reverted: with no weapon, the pre-declaration "does
+    // this attacker have positive power" check runs while CombatAttacker is still unset, so the
+    // bonus can't count toward it, and the attack silently resolves with no damage step ever
+    // running -- the same "reports success but nothing happens" class of issue as the Rai-deck
+    // Anger the Skies investigation). Rather than fight that pre-check by adding a real weapon
+    // (which risks conflating the measurement with the weapon's own abilities, as a first draft
+    // using Warrior's Longsword discovered -- its own [Class Bonus] +1 POWER stacked with this
+    // card's bonus and killed the target outright), the CombatAttacker DecisionQueueController
+    // variable is set directly via the 'dqVariables' setup primitive (same technique as
+    // Samaritan's Reach's existing fixture) so ObjectCurrentPower's NfbZ0nouSQ case evaluates
+    // exactly as it would mid-combat, with zero scripted combat actions. A REGALIA weapon
+    // (Warrior's Longsword) is seeded into myBanish; computed_power_equals on the champion's own
+    // mzId directly asserts the resulting +1 POWER.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'NfbZ0nouSQ']],
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'jF1VuIR7a6'], // Warrior's Longsword (REGALIA,WEAPON) in banish -- the +1 POWER bonus source
+        ['player' => 1, 'dqVariables' => ['CombatAttacker' => 'myField-0']],
+    ],
+    // A single harmless mode=100 PASS with no pending decision is included purely so the test
+    // runner (RunIntegrationTests.php) loads the root runtime at all -- it only does so as a
+    // side effect of replaying at least one EngineRunAction, and a zero-action fixture crashes
+    // its own step-0 assertion check with "Call to undefined function GetZoneObject()" before
+    // ever reaching the replay loop. Confirmed via direct probing that this PASS does not touch
+    // the injected CombatAttacker variable or the champion's computed power.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Opening Cut: [Class Bonus] +2 POWER while exactly 1 card in memory ---
+$fixtures['opening-cut-class-bonus-memory-power'] = [
+    'testedCards' => ['vBetRTn3eW'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Opening Cut's only ability is [Class Bonus] +2 POWER while its controller has exactly 1
+    // card in Memory (GameLogic.php ~11053). Champion CardID-patched to Lorraine, Blademaster
+    // (WARRIOR), with exactly 1 filler card seeded into myMemory. Reserve cost 1.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'], // exactly 1 card in memory
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'vBetRTn3eW'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Warrior's Longsword: [Class Bonus] +1 POWER ---
+$fixtures['warriors-longsword-class-bonus-power'] = [
+    'testedCards' => ['jF1VuIR7a6'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Warrior's Longsword's only ability is [Class Bonus] +1 POWER, a static computed-power case
+    // (GameLogic.php ~10998, not an Enter trigger) -- seeded directly onto the field. Champion
+    // CardID-patched to Lorraine, Blademaster (WARRIOR). Champion attacks wielding the weapon;
+    // computed power includes the printed 1 POWER of the weapon itself plus the +1 Class Bonus.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'jF1VuIR7a6'], // Warrior's Longsword
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Prismatic Edge: [Class Bonus] On Enter, reveal memory: Fire deals 3 damage ---
+$fixtures['prismatic-edge-fire-damage'] = [
+    'testedCards' => ['FxYwR2azTt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Prismatic Edge
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Prismatic Edge is CRUX element (verified via CardElement(), not NORM) with a 2-memory
+    // On Enter ability requiring [Class Bonus] WARRIOR -- champion CardID-patched to Lorraine,
+    // Crux Knight (WARRIOR + CRUX unlock). It must actually materialize (memory-cost REGALIA are
+    // Material-zone-only cards, like this deck's own Clarent/Backup Charger/Purifying Thurible)
+    // for its enterAbilities to fire, so the deck's Material section is just the champion slot
+    // plus Prismatic Edge itself, giving it myMaterial-0. 2 filler cards are seeded into myMemory
+    // to pay the 2-memory cost -- FINISHPAYMATERIALIZE banishes the FIRST N memory cards as
+    // payment, so a real FIRE-element card (Spirit of Fire itself) is seeded into the OPPONENT's
+    // memory instead, untouched by payment, to trigger the "reveal memory for Fire" branch
+    // (revealing either player's memory counts) without index-ordering risk. The Fire branch
+    // deals 3 damage to a chosen unit (PrismaticEdgeFire, CardDQHandlers.php) -- P2's Dungeon
+    // Guide is the target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'NfbZ0nouSQ']],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'LMyKyVC2O9'], // Spirit of Fire (FIRE element), untouched by payment
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, damage target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

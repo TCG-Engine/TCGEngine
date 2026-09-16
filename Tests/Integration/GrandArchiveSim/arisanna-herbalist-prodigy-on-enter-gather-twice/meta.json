@@ -1,0 +1,17 @@
+{
+    "name": "Arisanna, Herbalist Prodigy's On Enter: Gather twice",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-13T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Arisanna, Herbalist Prodigy is level 1, one level above the default level-0 starting champion (Spirit of Fire), so no lineage/element patch is needed -- 0+1 is already a legal level-up. Champion-swap materialization is only offered through the material-phase MZMAYCHOOSE at the start of a turn, so both players end their first turn (P1 -> P2) to reach that prompt; its 1-memory cost is paid from a filler card seeded into myMemory. Its On Enter ability Gathers twice, resolving to Silvershine and Blightroot with this fixture's seed (same random-token mechanic as foraging-servant-enter-gather). The two gathered Herb tokens each carry their own fast Sacrifice ability, surfacing an ambient opportunity that must be declined to fully close the decision queue.",
+    "testedCards": [
+        "b31x97n2jn"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["b31x97n2jn"],
+        "mechanics": ["token", "trigger"],
+        "rulesClauses": [
+            "On Enter: Gather twice. (To gather, summon a Blightroot, Manaroot, Silvershine, Fraysia, Razorvine, or Springleaf token, chosen at random.)"
+        ]
+    }
+}

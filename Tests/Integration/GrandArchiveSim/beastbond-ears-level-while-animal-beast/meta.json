@@ -1,0 +1,17 @@
+{
+    "name": "Beastbond Ears: champion +1 level as long as you control an Animal or Beast ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-14T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Beastbond Ears is NORM and unconditional (no Class Bonus gate). No 'computed level' assertion type exists in this harness (only computed_power_equals/computed_life_equals -- champion level bonuses cannot be directly asserted), so the +1 level is confirmed indirectly: at the default champion level (0), Scry the Skies' 'Glimpse LV' would be an invisible Glimpse 0 no-op, but with Beastbond Ears' static bonus active (Gray Wolf, a BEAST ally, is seeded alongside it), the effective level is 1, so Glimpse LV surfaces a real 1-card MZREARRANGE decision that must be explicitly answered -- the fixture's own action sequence (and its decision_queue_empty assertion) only completes if that decision genuinely appeared, which is itself the proof.",
+    "testedCards": [
+        "JPcFmCpdiF"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["JPcFmCpdiF"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "Your champion gets +1 level as long as you control an Animal or Beast ally."
+        ]
+    }
+}

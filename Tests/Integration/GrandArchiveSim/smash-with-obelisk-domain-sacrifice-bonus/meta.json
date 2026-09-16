@@ -1,0 +1,18 @@
+{
+    "name": "Smash with Obelisk's domain-sacrifice cost and reserve-cost POWER bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Engine gap: the 'Play prereq' (requires a domain on field, activateCardPrereqs[\"2kkvoqk1l7:0\"]) was wired via the schema/generator, but DoActivateCard's hand-written cost-declaration switch (GrandArchiveSim/Custom/GameLogic.php) never queued the pre-existing SmashWithObeliskSacrifice DQ handler, so playing the card skipped the mandatory domain sacrifice entirely and always resolved with +0 POWER. Fixed by wiring $hasSmashObeliskCost the same way as the other mandatory-sacrifice additional-cost cards (Undeniable Truth, Blazing Throw), and extending SmashWithObeliskSacrifice to queue the reserve payment + EffectStackOpportunity steps those cards' handlers also queue. NEOS element access is granted by patching the starting champion's Subcards; a plain rules-text-free DOMAIN (Wool Brook, reserve cost 4) is seeded onto the field to sacrifice. Player 1's turn is passed through first since CanActivateAttackCardNow/IsFirstTurnAttackLocked forbid the true first player from playing an ATTACK card on turn 1, so player 2 plays the card on their own first turn instead.",
+    "testedCards": [
+        "2kkvoqk1l7"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["2kkvoqk1l7"],
+        "mechanics": ["cost", "condition"],
+        "rulesClauses": [
+            "As an additional cost to activate this card, sacrifice a domain you control.",
+            "Smash with Obelisk gets +X POWER where X is the reserve cost of the sacrificed domain."
+        ]
+    }
+}

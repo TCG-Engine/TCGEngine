@@ -1,0 +1,17 @@
+{
+    "name": "Neos Sight's conditional draw-into-memory at 8+ controlled objects",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-11T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Neos Sight is NEOS (advanced element), so the starting champion's Subcards are patched with a real NEOS champion (Tonoris, Creation's Will) to unlock element access. Its reserve cost is a real printed 0, so no reserve-payment decision is ever queued. Seven allies are seeded onto the field alongside the champion (8 objects total) to satisfy the 'eight or more objects' clause; an unrelated optional post-draw MZMAYCHOOSE is declined with PASS.",
+    "testedCards": [
+        "4n1n3gygoj"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["4n1n3gygoj"],
+        "mechanics": ["draw-discard", "condition"],
+        "rulesClauses": [
+            "Draw a card. If you control eight or more objects, draw a card into your memory."
+        ]
+    }
+}

@@ -1,0 +1,5 @@
+[
+    {"step":4,"type":"zone_count","zone":"myBanish","viewerPlayerID":1,"value":1,"semantic":true,"label":"The Bauble banishes itself as its own cost"},
+    {"step":4,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"bHGUNMFLg9","semantic":true,"label":"Wind Resonance Bauble is the banished card"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]

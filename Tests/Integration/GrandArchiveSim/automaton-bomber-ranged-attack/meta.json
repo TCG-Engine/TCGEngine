@@ -1,0 +1,17 @@
+{
+    "name": "Automaton Bomber's unconditional Ranged 4 attack bonus",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-10T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Automaton Bomber's Ranged 4 needs no Class Bonus (unlike most Ranged allies), so it's seeded directly onto player 2's field, awake and Distant. Rule 1.h blocks the opening player's own turn 1 attack, so player 1 ends turn 1 with a single CustomInput Pass (no decision is pending, so this action itself ends the turn rather than declining anything) before player 2 attacks on turn 2. DISTANT is on the persistent-turn-effects allowlist and only expires at the end of its own controller's turn, so it survives player 1's end-of-turn-1 cleanup untouched.",
+    "testedCards": [
+        "ygojwk0pw0"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ygojwk0pw0"],
+        "mechanics": ["combat", "targeting", "damage"],
+        "rulesClauses": [
+            "Ranged 4 (As long as this unit is distant, its attacks get +4 POWER.)"
+        ]
+    }
+}

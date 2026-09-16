@@ -1,0 +1,18 @@
+{
+    "name": "Lorraine, Crux Knight: attacks +1 POWER per regalia weapon in banishment",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Lorraine, Crux Knight's ability is a static computed-power case (GameLogic.php ~11019, not an Enter trigger), so the champion is CardID-patched directly to it. NfbZ0nouSQ has no printed POWER (CardPower returns -1) -- a champion attacking with 0 total power never reaches the damage step at all (confirmed via a temporary error_log instrumentation of the ObjectCurrentPower switch case, since reverted: with no weapon, the pre-declaration \"does this attacker have positive power\" check runs while CombatAttacker is still unset, so the bonus can't count toward it, and the attack silently resolves with no damage step ever running -- the same \"reports success but nothing happens\" class of issue as the Rai-deck Anger the Skies investigation). Rather than fight that pre-check by adding a real weapon (a first draft using Warrior's Longsword on the field discovered its own [Class Bonus] +1 POWER stacked with this card's bonus and conflated the measurement, killing the target outright), the CombatAttacker DecisionQueueController variable is set directly via the 'dqVariables' setup primitive so ObjectCurrentPower's NfbZ0nouSQ case evaluates exactly as it would mid-combat, with zero scripted combat actions (one harmless no-op PASS action is included only so the test runner loads the root runtime at all). A REGALIA weapon (Warrior's Longsword) is seeded into myBanish; computed_power_equals on the champion's own mzId directly asserts the resulting +1 POWER (base -1/none clamped, +1 bonus = 1).",
+    "testedCards": [
+        "NfbZ0nouSQ"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["NfbZ0nouSQ"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "Lorraine Lineage",
+            "CARDNAME's attacks get +1 POWER for each regalia weapon card in your banishment."
+        ]
+    }
+}

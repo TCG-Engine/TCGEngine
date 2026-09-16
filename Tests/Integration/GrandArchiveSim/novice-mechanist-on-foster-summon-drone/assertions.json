@@ -1,0 +1,5 @@
+[
+    {"step":3,"type":"decision_queue_empty","player":"all"},
+    {"step":3,"type":"card_property_equals","mzId":"p1Field-1","property":"TurnEffects","value":"[\"FOSTERED\"]","semantic":true,"label":"Novice Mechanist becomes fostered (took no damage since last turn)"},
+    {"step":3,"type":"card_exists","zone":"myField","cardID":"mu6gvnta6q","semantic":true,"label":"On Foster: Summon an Automaton Drone token"}
+]

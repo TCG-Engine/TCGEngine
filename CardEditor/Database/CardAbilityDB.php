@@ -183,7 +183,7 @@ class CardAbilityDB {
                 SELECT card_id, ability_code, prereq_code, ability_name
                 FROM card_abilities
                 WHERE root_name = ? AND macro_name = ? AND ability_type = 'macro'
-                ORDER BY card_id ASC
+                ORDER BY card_id ASC, id ASC
             ");
             mysqli_stmt_bind_param($stmt, "ss", $rootName, $macroName);
             mysqli_stmt_execute($stmt);

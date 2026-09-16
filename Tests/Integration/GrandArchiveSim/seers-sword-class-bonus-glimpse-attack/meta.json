@@ -1,0 +1,17 @@
+{
+    "name": "Seer's Sword: [Class Bonus] On Attack: Glimpse 2",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-15T00:00:00+00:00",
+    "createdBy": "Claude",
+    "notes": "Seer's Sword is WARRIOR,SWORD with [Class Bonus] On Attack: Glimpse 2 (onAttackAbilities[\"XQKyUqsMUg:0\"], gated on IsClassBonusActive). Reused sword-of-seeking-class-bonus-true-sight's exact deck/champion setup (champion CardID-patched to Lorraine, Blademaster, a WARRIOR) since it already establishes the correct turn-cycling opener for this specific champion+weapon board (two-pass to reach P1's own turn 2, then a PASS to decline the material phase -- this board offers no BEOP fast action, unlike the Clarent/Spirit-of-Wind boards fixed elsewhere in this deck) -- only the weapon's CardID was swapped (Dz8I0eJzaf -> XQKyUqsMUg) and the attack target changed from the seeded stealth ally (theirField-1, which only True Sight could legally target) to the opposing champion (theirField-0), since Seer's Sword grants no stealth-targeting. Attacking triggers Glimpse(2), which queues an MZREARRANGE decision (param 'Top=<cardIDs>;Bottom=<cardIDs>') that must be answered with that same string verbatim to keep the two revealed cards on top -- the exact two card IDs are deck-order-dependent and were confirmed via a direct engine probe against this exact deck/seed before being hardcoded. Deck count is asserted unchanged (still 4, same as immediately before the Glimpse decision) to prove Glimpse only looks/reorders rather than drawing or discarding.",
+    "testedCards": [
+        "XQKyUqsMUg"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["XQKyUqsMUg"],
+        "mechanics": ["combat", "zone-movement", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: Glimpse 2. (To glimpse, look at that many cards from the top of your deck. Put those cards back on the top or on the bottom of your deck in any order.)"
+        ]
+    }
+}

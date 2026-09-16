@@ -1,0 +1,126 @@
+[
+    {
+        "step": 12,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "3"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"_champDamageThisTurn\":3}"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"WAS_ATTACKED\",\"DAMAGED_SINCE_LAST_TURN\"]"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "CardID",
+        "value": "kk46Whz7CJ"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Status",
+        "value": "2"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Damage",
+        "value": "0"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "Counters",
+        "value": "[]"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p2Field-1",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p2Field-2",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p2Field-3",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 12,
+        "type": "card_property_equals",
+        "mzId": "p2Field-3",
+        "property": "TurnEffects",
+        "value": "[]"
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 9
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 12,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 9
+    }
+]
