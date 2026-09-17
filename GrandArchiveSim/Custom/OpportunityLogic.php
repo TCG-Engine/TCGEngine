@@ -1391,6 +1391,13 @@ function ResolveTopOfEffectStack() {
         }
         $topObj->Remove();
         DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "LEAVE_FIELD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireLeaveFieldTriggeredAbility")) {
+            FireLeaveFieldTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
     } else if($triggerType === "ON_BANISH") {
         $cardID = $topObj->CardID ?? "";
         if(function_exists("FireOnBanishTriggeredAbility")) {

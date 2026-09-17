@@ -671,10 +671,16 @@ function ClearCombatAttackerState() {
  *    moments before it's even queued -- e.g. a weapon's durability hits 0 in CombatDealDamage(),
  *    destroying it instants before that same function calls OnHitTrigger() to queue the weapon's
  *    own on-hit ability, which still needs to find and CardID-check it.
- *  - Every not-yet-fired ON_ATTACK/ON_HIT/ON_KILL EffectStack entry's own "selfUniqueID" context
- *    (stored by QueueAttackTriggeredAbility() and friends, GameLogic.php): covers the object for
- *    as long as its queued entry is still waiting to resolve -- an Opportunity window round, a
- *    fast-card response resolving ahead of it on the stack, however long that takes.
+ *  - Every not-yet-fired ON_ATTACK/ON_HIT/ON_KILL/LEAVE_FIELD EffectStack entry's own
+ *    "selfUniqueID" context (stored by QueueAttackTriggeredAbility() and friends, and
+ *    QueueLeaveFieldTriggeredAbility(), GameLogic.php): covers the object for as long as its
+ *    queued entry is still waiting to resolve -- an Opportunity window round, a fast-card
+ *    response resolving ahead of it on the stack, however long that takes. LEAVE_FIELD is the
+ *    one case here where the object has *already* been moved (not destroyed) by the time this
+ *    matters: OnLeaveField() queues before the caller's own MZMove() runs, so the object at its
+ *    captured mzID is marked removed the instant that move happens, not from dying -- protecting
+ *    it keeps GetZoneObject($mzID) inside the (generated, unmodifiable) leaveFieldAbilities
+ *    closures resolving to the same pre-move object they'd have seen firing synchronously.
  */
 function GetProtectedRemovedCardUniqueIDs() {
     $ids = [];
@@ -686,7 +692,7 @@ function GetProtectedRemovedCardUniqueIDs() {
     foreach ($stack as $entry) {
         if ($entry === null || !empty($entry->removed)) continue;
         $type = $entry->TriggerType ?? "";
-        if ($type !== "ON_ATTACK" && $type !== "ON_HIT" && $type !== "ON_KILL") continue;
+        if ($type !== "ON_ATTACK" && $type !== "ON_HIT" && $type !== "ON_KILL" && $type !== "LEAVE_FIELD") continue;
         $context = is_array($entry->Counters) ? $entry->Counters : [];
         if (isset($context['selfUniqueID'])) {
             $uid = intval($context['selfUniqueID']);

@@ -7179,7 +7179,9 @@ function OnLeaveField($player, $mzID) {
     DecisionQueueController::CleanupRemovedCards();
     SyncCombatStateToFieldUniqueIDs();
     DecisionQueueController::StoreVariable("mzID", $mzID);
-    if(!HasNoAbilities($obj) && isset($leaveFieldAbilities[$obj->CardID . ":0"])) $leaveFieldAbilities[$obj->CardID . ":0"]($controller);
+    if(!HasNoAbilities($obj) && isset($leaveFieldAbilities[$obj->CardID . ":0"])) {
+        QueueLeaveFieldTriggeredAbility($controller, $obj->CardID, $mzID, $obj->UniqueID ?? null);
+    }
     if($previousMzID === null) DecisionQueueController::ClearVariable("mzID");
     else DecisionQueueController::StoreVariable("mzID", $previousMzID);
 }
@@ -7441,6 +7443,42 @@ function FireRestCardTriggeredAbility($controller, $cardID) {
     global $restCardAbilities;
     if(isset($restCardAbilities[$cardID . ":0"])) {
         $restCardAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
+ * Leave-field triggers are queued from OnLeaveField() *before* the object actually moves --
+ * every one of its ~59 call sites calls OnLeaveField() first and performs the real
+ * MZMove()/MZRemove() afterward, so $mzID here is still the departing object's pre-move field
+ * position. In the common case (no fast-speed response available to either player) this
+ * resolves synchronously before OnLeaveField() even returns, exactly matching pre-migration
+ * timing byte-for-byte. When a genuine Opportunity Window response defers it, the object may
+ * already have been moved (and marked removed at its old slot) by the time this fires --
+ * several of the generated leaveFieldAbilities closures call GetZoneObject($mzID) expecting to
+ * still find it there (e.g. to read a counter/Damage value off the departing card itself), and
+ * those closures can't be hand-edited to read a snapshot instead (macro-generated from the card
+ * ability DB). $uniqueID is captured into context as "selfUniqueID", which
+ * GetProtectedRemovedCardUniqueIDs() (CombatLogic.php) now also reads for TriggerType
+ * "LEAVE_FIELD" to keep CleanupRemovedCards() from physically splicing that one object out of
+ * its old zone slot for as long as this entry sits unfired on the EffectStack -- so
+ * GetZoneObject($mzID) inside those closures keeps resolving to the same object they'd have
+ * seen firing synchronously, same as before this migration.
+ */
+function QueueLeaveFieldTriggeredAbility($controller, $cardID, $mzID, $uniqueID = null) {
+    global $leaveFieldAbilities;
+    if(!isset($leaveFieldAbilities[$cardID . ":0"])) return false;
+    $context = [
+        'mzID' => NormalizeMzIDForController($mzID, $controller),
+    ];
+    $uniqueID = intval($uniqueID ?? 0);
+    if($uniqueID > 0) $context['selfUniqueID'] = strval($uniqueID);
+    return QueueTriggeredAbility($controller, $cardID, "LEAVE_FIELD", $context);
+}
+
+function FireLeaveFieldTriggeredAbility($controller, $cardID) {
+    global $leaveFieldAbilities;
+    if(isset($leaveFieldAbilities[$cardID . ":0"])) {
+        $leaveFieldAbilities[$cardID . ":0"]($controller);
     }
 }
 
