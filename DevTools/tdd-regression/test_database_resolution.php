@@ -171,6 +171,10 @@ foreach($historicalPairs as $db => $expectedSite) {
     $check($activeSite($db) === $expectedSite, "ActiveSite still resolves '$db' to $expectedSite");
 }
 
+$check($activeSite('swuonline') === 'SWUDeck', 'the legacy XAMPP database renders SWUDeck');
+$check($withEnvAndRoot('swuonline', 'SWUDeck', fn() => ResolveDatabaseName()) === 'swuonline',
+    'the legacy site alias preserves the configured database connection');
+
 // ActiveSite must keep throwing rather than falling back -- serving the wrong site silently is
 // worse than a 500, and a deck-shaped root must never render as a site.
 $msg = $throws(fn() => $activeSite(null));

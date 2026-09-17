@@ -58,6 +58,7 @@
 .fab-upf-seat:not(.is-summary) [data-zone=Temp] { left:22%; right:22%; top:0; width:auto; z-index:8; background:#20252af5; padding:8px; }
 .fab-upf-opponents.is-focused { min-height:390px!important; }
 .fab-upf-opponents.is-focused .fab-upf-seat { padding:0; }
+.fab-upf-opponents.is-focused .fab-upf-inspect { display:none; }
 .fab-upf-seat.is-summary { overflow:auto; padding:10px; }
 .fab-upf-seat.is-summary h2 { font-size:12px; }
 .fab-upf-seat.is-summary .fab-upf-summary { color:#d2d7d9; }

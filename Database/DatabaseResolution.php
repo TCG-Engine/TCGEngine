@@ -26,7 +26,8 @@ function SiteRegistry()
 function SiteForDatabase($database)
 {
     foreach (SiteRegistry() as $rootName => $entry) {
-        if ($entry['site'] && $entry['db'] === $database) return $rootName;
+        if ($entry['site'] && ($entry['db'] === $database
+            || in_array($database, $entry['aliases'] ?? [], true))) return $rootName;
     }
     return null;
 }

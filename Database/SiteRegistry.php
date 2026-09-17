@@ -12,6 +12,8 @@
 // database (see `AssetReflection:` in Schemas/<Root>/GameSchema.txt) but are NOT sites — they have
 // no menu pages of their own — so exactly one root per database carries site=true. Without the
 // flag the reverse lookup would depend on array order.
+// Optional `aliases` lists existing database names that render the same site. These are only
+// used for site lookup; the configured database is preserved and CLI defaults still use `db`.
 //
 // Roots absent on purpose: GudnakSim, RBDeck, SoulMastersDB, MatchTestSim. They
 // have no database of their own (no docker-compose service, nothing here). A CLI run under those
@@ -19,7 +21,7 @@
 // wrong-database bug this registry exists to remove.
 return [
     // rootName        => ['db' => database name,     'site' => renders as this db's site?]
-    'SWUDeck'          => ['db' => 'swudeck',         'site' => true],
+    'SWUDeck'          => ['db' => 'swudeck',         'site' => true, 'aliases' => ['swuonline']], // Legacy XAMPP database
     'SWUSim'           => ['db' => 'swusim',          'site' => true],
     'GrandArchiveSim'  => ['db' => 'grandarchivesim', 'site' => true],
     'AzukiSim'         => ['db' => 'azukisim',        'site' => true],

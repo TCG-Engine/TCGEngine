@@ -809,9 +809,21 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
         // and the second submit (after initiative is claimed and the turn has switched) trips the
         // server's "Only the active player can take the initiative" flash on BOTH players.
         if ((hotkeyRootPath == './GrandArchiveSim' || hotkeyRootPath == './AzukiSim' || hotkeyRootPath == './FaBSim') && (event.keyCode === 32 || event.key === ' ')) {
+          if (event.repeat) { event.preventDefault(); return; }
           if (TryPassCurrentDecision()) {
             event.preventDefault();
             return;
+          }
+          if (hotkeyRootPath === './FaBSim' && !(window.SelectionMode && window.SelectionMode.active)) {
+            const passButtons = document.querySelectorAll('#myActionPointsSlot .widget-button-pass, #fab-upf-own .widget-button-pass');
+            const passButton = Array.from(passButtons).find(button => !button.disabled
+              && button.getAttribute('aria-disabled') !== 'true' && button.getClientRects().length > 0
+              && window.getComputedStyle(button).visibility === 'visible');
+            if (passButton) {
+              event.preventDefault();
+              passButton.click();
+              return;
+            }
           }
         }
         if ((window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim') && window.GAHandCollapse) {

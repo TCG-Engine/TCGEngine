@@ -110,7 +110,7 @@
         const identity=document.createElement('div'),heading=document.createElement('h2');identity.className='fab-upf-identity';heading.textContent='Player '+seat;identity.appendChild(heading);
         const hand=document.createElement('span');hand.className='fab-upf-hand-count';identity.appendChild(hand);
         const badges=document.createElement('div');badges.className='fab-upf-badges';identity.appendChild(badges);header.appendChild(identity);
-        if(seat!==viewer){const button=document.createElement('button');button.type='button';button.textContent='Inspect';button.setAttribute('aria-label','Inspect player '+seat);button.onclick=()=>focusSeat(seat);header.appendChild(button);}
+        if(seat!==viewer){const button=document.createElement('button');button.type='button';button.className='fab-upf-inspect';button.textContent='Inspect';button.setAttribute('aria-label','Inspect player '+seat);button.onclick=()=>focusSeat(seat);header.appendChild(button);}
         section.appendChild(header);const summary=document.createElement('p');summary.className='fab-upf-summary';section.appendChild(summary);
         const row=document.createElement('div');row.className='fab-upf-zones';section.appendChild(row);
         // Inventory remains in the response data for rules and selection prompts,
