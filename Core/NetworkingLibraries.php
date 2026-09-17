@@ -2,6 +2,7 @@
 
 include_once __DIR__ . '/GameAuth.php';
 include_once __DIR__ . '/ChatWhisper.php';
+include_once __DIR__ . '/GamePresence.php';
 
 $APCuEnabled = extension_loaded('apcu');
 

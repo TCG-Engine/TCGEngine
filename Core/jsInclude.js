@@ -785,7 +785,24 @@ function ApplyChatPayload(payload) {
       if (ci.dataset.ph !== undefined) ci.placeholder = ci.dataset.ph;
     }
   }
+  // Optional host sink for the inactivity clock / kick vote (SWUSim). It rides the chat payload because
+  // that piece is already parsed on BOTH poll branches (see ParseChatPayload in NextTurn.php).
+  if (typeof window.TCGPresenceSink === "function"
+      && Object.prototype.hasOwnProperty.call(payload, "presence")) {
+    try { window.TCGPresenceSink(payload.presence); } catch (e) {}
+  }
   return msgs.length > 0 || version > 0;
+}
+
+// Echoed back to the poll as lastPresenceVersion, so a vote opening or changing wakes the long poll.
+// Set by the host sink; 0 when no sim uses the clock.
+var _lastPresenceVersion = 0;
+function ChatPresenceVersionParam() {
+  return "&lastPresenceVersion=" + encodeURIComponent(_lastPresenceVersion);
+}
+function NotePresenceVersion(v) {
+  var parsed = parseInt(v || 0, 10);
+  if (!Number.isNaN(parsed) && parsed > _lastPresenceVersion) _lastPresenceVersion = parsed;
 }
 
 function _ChatPlayerLabel(msg) {

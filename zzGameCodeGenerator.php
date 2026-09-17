@@ -1953,24 +1953,59 @@ fwrite($handler, "if(!SimGameValidateViewerAuth('" . $rootName . "', \$gameName,
 fwrite($handler, "  echo(\"Invalid auth key.\");\r\n");
 fwrite($handler, "  exit;\r\n");
 fwrite($handler, "}\r\n");
+// Inactivity clock (SWUSim only): the poll IS the heartbeat. Emitted after the auth check so an
+// unauthenticated request cannot mark a seat present. Other sims emit nothing here.
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "// Inactivity clock: the poll IS the heartbeat. Seated viewers only — a spectator poll must\r\n");
+  fwrite($handler, "// never make an absent player look present. Throttled inside PresenceTouchSeat.\r\n");
+  fwrite($handler, "if (empty(\$viewerInfo['isSpectator']) && function_exists('PresenceTouchSeat')) {\r\n");
+  fwrite($handler, "  PresenceTouchSeat(strval(\$gameName), intval(\$viewerInfo['viewerSeat'] ?? 0), time());\r\n");
+  fwrite($handler, "}\r\n");
+}
 fwrite($handler, "\$lastUpdate = TryGet(\"lastUpdate\", 0);\r\n");
 fwrite($handler, "\$lastChatVersion = TryGet(\"lastChatVersion\", 0);\r\n");
 fwrite($handler, "\$lastChatID = TryGet(\"lastChatID\", 0);\r\n");
+// Inactivity clock (SWUSim): the client echoes back the VOTE version, so a vote opening/changing wakes
+// the poll. Heartbeats bump a different counter and deliberately wake nobody.
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "\$lastPresenceVersion = TryGet(\"lastPresenceVersion\", 0);\r\n");
+}
 fwrite($handler, "\$count = 0;\r\n");
-fwrite($handler, "while(!CheckUpdate(\$gameName, \$lastUpdate) && !HasChatUpdate(\$gameName, \$lastChatVersion) && \$count < 100) {\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "while(!CheckUpdate(\$gameName, \$lastUpdate) && !HasChatUpdate(\$gameName, \$lastChatVersion) && !PresenceHasVoteUpdate(\$gameName, \$lastPresenceVersion) && \$count < 100) {\r\n");
+} else {
+  fwrite($handler, "while(!CheckUpdate(\$gameName, \$lastUpdate) && !HasChatUpdate(\$gameName, \$lastChatVersion) && \$count < 100) {\r\n");
+}
 fwrite($handler, "  usleep(25000); //25 milliseconds\r\n");
 fwrite($handler, "  ++\$count;\r\n");
 fwrite($handler, "}\r\n");
 fwrite($handler, "\$boardChanged = CheckUpdate(\$gameName, \$lastUpdate);\r\n");
 fwrite($handler, "\$chatChanged = HasChatUpdate(\$gameName, \$lastChatVersion);\r\n");
-fwrite($handler, "if(!\$boardChanged && !\$chatChanged) {\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  // Cheap path: evaluate the inactivity clock from the FACTS CACHED BY THE LAST ACTION, so a stall or a
+  // disconnect is noticed (and its vote opened) without parsing the gamestate on every poll.
+  fwrite($handler, "\$swuPresence = function_exists('SWUPresenceLight')\r\n");
+  fwrite($handler, "  ? SWUPresenceLight(strval(\$gameName), intval(\$viewerInfo['viewerSeat'] ?? 0), time())\r\n");
+  fwrite($handler, "  : ['v' => 0, 'onClock' => null, 'vote' => null];\r\n");
+  fwrite($handler, "\$presenceChanged = PresenceHasVoteUpdate(\$gameName, \$lastPresenceVersion);\r\n");
+  fwrite($handler, "if(!\$boardChanged && !\$chatChanged && !\$presenceChanged) {\r\n");
+} else {
+  fwrite($handler, "if(!\$boardChanged && !\$chatChanged) {\r\n");
+}
 fwrite($handler, "  echo(\"KEEPALIVE\");\r\n");
 fwrite($handler, "  exit;\r\n");
 fwrite($handler, "}\r\n");
-fwrite($handler, "if(!\$boardChanged && \$chatChanged) {\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "if(!\$boardChanged && (\$chatChanged || \$presenceChanged)) {\r\n");
+} else {
+  fwrite($handler, "if(!\$boardChanged && \$chatChanged) {\r\n");
+}
 fwrite($handler, "  \$chatPayload = json_encode([\r\n");
 fwrite($handler, "    \"version\" => GetChatUpdateVersion(\$gameName),\r\n");
 fwrite($handler, "    \"messages\" => GetChatMessagesSince(\$gameName, \$lastChatID, \$viewerInfo),\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "    \"presence\" => \$swuPresence,\r\n");
+}
 fwrite($handler, "  ]);\r\n");
 fwrite($handler, "  if(\$chatPayload === false) \$chatPayload = '{\"version\":0,\"messages\":[]}';\r\n");
 fwrite($handler, "  echo(\"CHATONLY<~>\");\r\n");
@@ -2107,6 +2142,11 @@ fwrite($handler, "echo(\"<~>\");\r\n");
 fwrite($handler, "\$chatPayload = json_encode([\r\n");
 fwrite($handler, "  \"version\" => GetChatUpdateVersion(\$gameName),\r\n");
 fwrite($handler, "  \"messages\" => GetChatMessagesSince(\$gameName, \$lastChatID, \$viewerInfo),\r\n");
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "  \"presence\" => function_exists('SWUPresencePayload')\r\n");
+  fwrite($handler, "    ? SWUPresencePayload(strval(\$gameName), intval(\$viewerInfo['viewerSeat'] ?? 0), time())\r\n");
+  fwrite($handler, "    : ['v' => 0, 'onClock' => null, 'vote' => null],\r\n");
+}
 fwrite($handler, "]);\r\n");
 fwrite($handler, "if(\$chatPayload === false) \$chatPayload = '{\"version\":0,\"messages\":[]}';\r\n");
 fwrite($handler, "echo(\$chatPayload);\r\n");

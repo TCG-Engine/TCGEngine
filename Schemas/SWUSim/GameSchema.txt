@@ -6,6 +6,7 @@ GamestateStorage: APCu
 Layout: /Custom/GameLayout.php
 ServerInclude: /Custom/CustomInput.php
 ServerInclude: /Custom/GameLogic.php
+ServerInclude: /Custom/InactivityClock.php
 ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 ServerInclude: /GeneratedCode/GeneratedKeywordCode.php

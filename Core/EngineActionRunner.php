@@ -664,6 +664,47 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         $result['recordAction'] = false;
       }
       break;
+    // ── Inactivity kick vote (SWUSim). cardID = the TARGET seat. ────────────────────────────────
+    // 10021 = "Kick <name>" (record this seat's Yes; perform the removal when the vote carries)
+    // 10022 = "Wait another 20 seconds"
+    // A vote is PRESENCE state, not gamestate: a vote that has not yet carried writes no gamestate and
+    // bumps no update counter — the presence vote-version wakes the other polls instead.
+    case 10021:
+    case 10022:
+      $result['writeGamestate'] = false;
+      $result['updateCache'] = false;
+      $result['recordAction'] = false;
+      if (!function_exists('SWUVoterSeatsFor') || !function_exists('PresenceRecordVote')) {
+        $result['success'] = false; $result['message'] = 'Voting is not available in this game.'; break;
+      }
+      $kickTarget = intval($cardID);
+      $kickVoter  = intval($playerID);
+      $kickVotes  = PresenceRead(strval($gameName))['votes'] ?? [];
+      if (!SWUClockIsActive() || !isset($kickVotes[$kickTarget])) {
+        $result['success'] = false; $result['message'] = 'There is no open vote for that player.'; break;
+      }
+      if (!in_array($kickVoter, SWUVoterSeatsFor($kickTarget), true)) {
+        $result['success'] = false; $result['message'] = 'You cannot vote on that player.'; break;
+      }
+      if ($mode === 10022) {
+        PresenceExtendVote(strval($gameName), $kickTarget, time(), SWU_CLOCK_WAIT_SECONDS);
+        $result['message'] = 'OK';
+        break;
+      }
+      PresenceRecordVote(strval($gameName), $kickTarget, $kickVoter, time());
+      $kickVote = PresenceRead(strval($gameName))['votes'][$kickTarget] ?? [];
+      if (SWUVoteIsCarried($kickVote, $kickTarget)) {
+        // Carried: remove the player HERE, on the normal action path, so the after-action stats hook runs.
+        SWUApplyKick($kickTarget);
+        PresenceClearVote(strval($gameName), $kickTarget);
+        // The seat count / game-over state just changed: refresh the cached facts in THIS request, or
+        // the poll's cheap path would re-open the vote from facts that still say the game is live.
+        PresenceWriteFacts(strval($gameName), SWUClockFacts());
+        $result['writeGamestate'] = true;
+        $result['updateCache'] = true;
+      }
+      $result['message'] = 'OK';
+      break;
     case 10008:
       // Approve undo request (called by the opponent)
       if (function_exists('SWUApproveUndo')) SWUApproveUndo();
@@ -1073,6 +1114,33 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       GameLogCommitFrame($gameName, $updateNumber, $action, $result);
     }
     WriteGamestate('./' . $folderPath . '/');
+    // ── Inactivity clock (SWUSim) ────────────────────────────────────────────────────────────────
+    // Stamp the acting seat's clock ONLY when the game actually moved AND the seat does not still owe
+    // a decision it just created. That second condition is what stops an ATTACK DECLARATION (or any
+    // play that hands its own chooser back) from buying another full timeout — answering the prompt
+    // stamps instead. See docs/superpowers/specs/2026-09-17-swusim-inactivity-timer-and-kick-design.md
+    // Never let this throw into the action path: a failed stamp gives a player MORE time, never less.
+    if (function_exists('SWUProgressFingerprint') && function_exists('PresenceStampAction')
+        && function_exists('SWUClockIsActive') && SWUClockIsActive()
+        && !in_array($mode, [10004, 10005, 10008, 10009, 10010, 10011, 10018, 10019, 10017], true)
+        && $mode < 11000) {
+      $fpBefore = $GLOBALS['gEngineProgressFingerprintBefore'] ?? null;
+      $fpAfter  = SWUProgressFingerprint();
+      $seat     = intval($playerID);
+      // Refresh the cached facts on EVERY action, not only when the board moved, so the poll's cheap
+      // path can evaluate the clock without parsing the gamestate (stage 2).
+      // ⚠ Unconditional on purpose: ending the game (a concede, or a kick) changes 'active' WITHOUT
+      // changing the fingerprint, and stale facts saying "still live" let the cheap path re-open a
+      // vote on a finished game.
+      if (function_exists('SWUClockFacts') && function_exists('PresenceWriteFacts')) {
+        PresenceWriteFacts(strval($gameName), SWUClockFacts());
+      }
+      if ($fpBefore !== null && $fpBefore !== $fpAfter) {
+        if ($seat >= 1 && !SWUSeatOwesDecision($seat)) {
+          PresenceStampAction(strval($gameName), $seat, time(), SWUSeatsOnTheClock());
+        }
+      }
+    }
     // SWUSim-only Bo3 match advance (function exists only when MatchFlow is loaded; no-op for other sims).
     if (function_exists('SWUAfterActionMatchHook')) {
       SWUAfterActionMatchHook($folderPath, $gameName);

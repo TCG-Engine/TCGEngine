@@ -1305,6 +1305,42 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 @media (prefers-reduced-motion: reduce) { .swu-whisper-row label { transition: none; } }
 .chatMsg-whisper, .swu-log-CHAT.chatMsg-whisper { font-style: italic; background: rgba(160,110,255,0.10); }
 .chatMsg-whisperStub, .swu-log-CHAT.chatMsg-whisperStub { opacity: 0.72; }
+/* ── Inactivity clock + kick vote ──
+   z-index 4990: just BELOW the decision-modal tier (5000), because the stalled player is still allowed
+   to act and their own prompt must always win. Fixed-position and outside the zone containers, so a
+   board re-render (ClearSelectionMode) cannot wipe it. */
+.swu-kick-host {
+    position: fixed; z-index: 4990; left: 50%; transform: translateX(-50%); top: 12px;
+    display: none; flex-direction: column; align-items: center; gap: 6px;
+    width: max-content; max-width: calc(100vw - 24px); box-sizing: border-box;
+    font-family: barlow, sans-serif; pointer-events: none;
+}
+.swu-kick-host.is-open { display: flex; }
+.swu-kick-clock {
+    background: rgba(0,0,0,0.82); border: 1px solid #555; border-radius: 6px; color: #e6e6e6;
+    padding: 4px 10px; font-size: 13px; line-height: 1.3; text-align: center;
+}
+.swu-kick-clock.is-you { border-color: #ffb648; color: #ffd9a0; }
+.swu-kick-prompt {
+    pointer-events: auto;
+    background: rgba(14,12,20,0.95); border: 1px solid #b98cff; border-radius: 8px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.55); padding: 10px 14px; text-align: center; color: #f3eaff;
+    max-width: 100%; box-sizing: border-box;
+}
+.swu-kick-title { font-size: 14px; line-height: 1.35; }
+.swu-kick-tally { font-size: 12px; opacity: 0.8; margin-top: 3px; }
+.swu-kick-actions {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; margin-top: 8px;
+}
+.swu-kick-actions button {
+    font-family: barlow, sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;
+    border-radius: 5px; padding: 5px 10px; margin: 0; box-shadow: none; white-space: nowrap;
+}
+.swu-kick-yes  { background: #7a2f3a; border: 1px solid #ff8fa3; color: #ffe6ea; }
+.swu-kick-yes:hover { background: #933845; }
+.swu-kick-wait { background: #2a2a33; border: 1px solid #777; color: #e6e6e6; }
+.swu-kick-wait:hover { background: #363642; }
+.swu-kick-voted { font-size: 12px; opacity: 0.85; }
 </style>
 <script>
 window.SWU_PILOT_LEADERS = <?php echo json_encode([
@@ -5271,10 +5307,105 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
         input.title = '';
       }
       window.TCGChatWhisperTargets = selected;
+      // (the kick-vote overlay is set up further down, in its own IIFE)
       controls.parentNode.insertBefore(row, controls);   // sticky: nothing clears the boxes after a send
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
     else build();
+  })();
+
+  // ── Inactivity clock + kick vote (spec 2026-09-17-swusim-inactivity-timer-and-kick-design.md) ──
+  // The prompt is deliberately NOT a decision-queue entry: AllQueuesEmpty() scans every seat, so a DQ
+  // prompt would freeze the table AND block the stalled player from acting — and acting is exactly how
+  // they cancel the vote. So it is a fixed-position overlay OUTSIDE the zone containers (ClearSelectionMode
+  // removes decision modals on EVERY board update; this survives) kept alive by an idempotent ensure()
+  // on a light interval, the same pattern as swuEnsureEndGameToggle.
+  (function () {
+    var state = null;          // last presence payload
+    var localDeadline = 0;     // ms epoch, for smooth local ticking between polls
+    var HOST_ID = 'swuKickVote';
+
+    window.TCGPresenceSink = function (presence) {
+      if (!presence || typeof presence !== 'object') { state = null; render(); return; }
+      if (typeof NotePresenceVersion === 'function') NotePresenceVersion(presence.v);
+      state = presence;
+      localDeadline = (presence.onClock && presence.onClock.remaining >= 0)
+        ? Date.now() + (parseInt(presence.onClock.remaining, 10) * 1000) : 0;
+      render();
+    };
+
+    function host() {
+      var el = document.getElementById(HOST_ID);
+      if (el) return el;
+      el = document.createElement('div');
+      el.id = HOST_ID;
+      el.className = 'swu-kick-host';
+      document.body.appendChild(el);
+      return el;
+    }
+
+    function secondsLeft() {
+      if (!localDeadline) return null;
+      return Math.max(0, Math.round((localDeadline - Date.now()) / 1000));
+    }
+
+    function render() {
+      var el = host();
+      if (!state) { el.innerHTML = ''; el.classList.remove('is-open'); return; }
+      var vote = state.vote;
+      var clock = state.onClock;
+      var viewer = parseInt(window.SWU_VIEWER_SEAT, 10) || 0;
+      var html = '';
+
+      // The waiting line: who the game is waiting on, and how long they have left.
+      if (clock && clock.seat) {
+        var left = secondsLeft();
+        var mine = (parseInt(clock.seat, 10) === viewer);
+        // The target is warned in their last 20s (SWU_CLOCK_WARN_SECONDS); everyone else sees the quiet
+        // waiting line a little earlier (30s), so a stall is visible BEFORE any prompt appears.
+        var showFrom = mine ? 20 : 30;
+        if (left !== null && (clock.warn || left <= showFrom || vote)) {
+          html += '<div class="swu-kick-clock' + (mine ? ' is-you' : '') + '">'
+                + (mine ? 'You have <b>' + left + 's</b> to act — the other players can vote to remove you'
+                        : 'Waiting for <b>' + escapeName(clock.name) + '</b> — ' + left + 's')
+                + '</div>';
+        }
+      }
+
+      // The vote prompt: only for seats allowed to vote on this target.
+      if (vote && vote.canVote) {
+        var title = (vote.reason === 'disconnect')
+          ? '<b>' + escapeName(vote.name) + '</b> disconnected. Kick them?'
+          : 'Kick <b>' + escapeName(vote.name) + '</b>?';
+        var tally = (vote.needed > 1)
+          ? '<div class="swu-kick-tally">' + (vote.yes || []).length + ' of ' + vote.needed + ' votes</div>' : '';
+        html += '<div class="swu-kick-prompt" role="dialog" aria-live="polite">'
+              + '<div class="swu-kick-title">' + title + '</div>' + tally
+              + '<div class="swu-kick-actions">'
+              + (vote.youVoted
+                  ? '<span class="swu-kick-voted">You voted to kick — waiting for the others</span>'
+                  : '<button id="swuKickYes" type="button" class="swu-kick-yes">Kick ' + escapeName(vote.name) + '</button>')
+              + '<button id="swuKickWait" type="button" class="swu-kick-wait">Wait another '
+              + (parseInt(vote.waitSeconds, 10) || 20) + ' seconds</button>'
+              + '</div></div>';
+      }
+
+      el.innerHTML = html;
+      el.classList.toggle('is-open', html !== '');
+      var yes = document.getElementById('swuKickYes');
+      if (yes) yes.onclick = function () { SubmitInput(10021, '&cardID=' + encodeURIComponent(state.vote.target)); };
+      var wait = document.getElementById('swuKickWait');
+      if (wait) wait.onclick = function () { SubmitInput(10022, '&cardID=' + encodeURIComponent(state.vote.target)); };
+    }
+
+    function escapeName(n) {
+      return String(n == null ? '' : n).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // Tick locally so the countdown moves between polls, and re-assert the overlay if a re-render
+    // removed it (belt and braces: it lives outside the zone containers, but the board can be rebuilt).
+    window.setInterval(function () { if (state) render(); }, 1000);
+    window.swuKickVoteState = function () { return state; };   // read by the cross-browser probe
   })();
 </script>
 <div id="swuSettingsOverlay" class="swu-settings-overlay" style="display:none;" onclick="if(event.target===this)swuCloseSettings()">

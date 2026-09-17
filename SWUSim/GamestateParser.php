@@ -2,6 +2,7 @@
 include_once __DIR__ . '/../Core/GameAuth.php';
 include __DIR__ . '/Custom/CustomInput.php';
 include __DIR__ . '/Custom/GameLogic.php';
+include __DIR__ . '/Custom/InactivityClock.php';
 include __DIR__ . '/TurnController.php';
 include __DIR__ . '/GeneratedCode/GeneratedMacroCode.php';
 include __DIR__ . '/GeneratedCode/GeneratedKeywordCode.php';

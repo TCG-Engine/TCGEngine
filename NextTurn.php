@@ -651,52 +651,17 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       }
     ?>
 
-    <?php echo (CreatePopup("inactivityWarningPopup", [], 0, 0, "⚠️ Inactivity Warning ⚠️", 1, "", "", true, true, "Interact with the screen in the next 30 seconds or you could be kicked for inactivity.")); ?>
-    <?php echo (CreatePopup("inactivePopup", [], 0, 0, "⚠️ You are Inactive ⚠️", 1, "", "", true, true, "You are inactive. Your opponent is able to claim victory. Interact with the screen to clear this.")); ?>
-
+    <?php /* The legacy 30-second idle timer, its two "kicked for inactivity" popups and the
+         SubmitInput("100005"/"100006") posts lived here and were DELETED on 2026-09-17, replaced by the
+         real inactivity clock (spec docs/superpowers/specs/2026-09-17-swusim-inactivity-timer-and-kick-design.md).
+         They were inert three times over: gated on an #iconHolder element that exists nowhere, posting
+         two modes with no server handler, and calling a forfeit function with no callers — and they
+         reset on document.onmousemove, so merely moving the pointer counted as playing.
+         The clock now lives server-side (Core/GamePresence.php + SWUSim/Custom/InactivityClock.php) and
+         only a state-changing ACTION resets it. */ ?>
     <script>
-      var IDLE_TIMEOUT = 30; //seconds
-      var _idleSecondsCounter = 0;
-      var _idleState = 0; //0 = not idle, 1 = idle warning, 2 = idle
       var _lastUpdate = 0;
-
-      var activityFunction = function() {
-        var oldIdleState = _idleState;
-        _idleSecondsCounter = 0;
-        _idleState = 0;
-        var inactivityPopup = document.getElementById('inactivityWarningPopup');
-        if (inactivityPopup) inactivityPopup.style.display = "none";
-        var inactivePopup = document.getElementById('inactivePopup');
-        if (inactivePopup) inactivePopup.style.display = "none";
-        if (oldIdleState == 2) SubmitInput("100005", "");
-      };
-
-      document.onclick = activityFunction;
-
-      document.onmousemove = activityFunction;
-
-      document.onkeydown = activityFunction;
-
-      window.setInterval(CheckIdleTime, 1000);
-
-      function CheckIdleTime() {
-        if (document.getElementById("iconHolder") == null || document.getElementById("iconHolder").innerText != "ready.png") return;
-        _idleSecondsCounter++;
-        if (_idleSecondsCounter >= IDLE_TIMEOUT) {
-          if (_idleState == 0) {
-            _idleState = 1;
-            _idleSecondsCounter = 0;
-            var inactivityPopup = document.getElementById('inactivityWarningPopup');
-            if (inactivityPopup) inactivityPopup.style.display = "inline";
-          } else if (_idleState == 1) {
-            _idleState = 2;
-            var inactivityPopup = document.getElementById('inactivityWarningPopup');
-            if (inactivityPopup) inactivityPopup.style.display = "none";
-            var inactivePopup = document.getElementById('inactivePopup');
-            if (inactivePopup) inactivePopup.style.display = "inline";
-            SubmitInput("100006", "");
-          }
-        }
+    </script>
       }
     </script>
     <!-- Your-turn chime (SWUSim: played by swuPlayTurnChime in GameLayoutShared.php).
@@ -1448,8 +1413,11 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         var lastCurrentPlayer = "&lastCurrentPlayer=" + (!lcpEl ? "0" : lcpEl.innerHTML);
         var lastChatVersion = "&lastChatVersion=" + encodeURIComponent(_lastChatVersion);
         var lastChatID = "&lastChatID=" + encodeURIComponent(_lastChatID);
+        // Inactivity clock: wakes the long poll when a kick vote opens or changes (SWUSim; harmless
+        // elsewhere — other sims' GetNextTurn.php never reads the param).
+        var lastPresenceVersion = (typeof ChatPresenceVersionParam === "function") ? ChatPresenceVersionParam() : "";
         if (lastUpdate == "NaN") window.location.replace("https://www.petranaki.net/Arena/MainMenu.php");
-        else xmlhttp.open("GET", "./<?php echo($folderPath);?>/GetNextTurn.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo urlencode($playerID); ?>&viewerPerspective=<?php echo($viewerPerspective); ?>&opponentID=<?php echo intval($opponentID); ?>&lastUpdate=" + lastUpdate + "&authKey=<?php echo urlencode($authKey); ?>" + lastChatVersion + lastChatID + dimensions, true);
+        else xmlhttp.open("GET", "./<?php echo($folderPath);?>/GetNextTurn.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo urlencode($playerID); ?>&viewerPerspective=<?php echo($viewerPerspective); ?>&opponentID=<?php echo intval($opponentID); ?>&lastUpdate=" + lastUpdate + "&authKey=<?php echo urlencode($authKey); ?>" + lastChatVersion + lastChatID + lastPresenceVersion + dimensions, true);
         xmlhttp.send();
       }
 

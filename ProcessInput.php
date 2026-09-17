@@ -151,6 +151,11 @@ global $gameName;
 $gameName = strval($gameName);
 ParseGamestate("./" . $folderPath . "/");
 
+// Inactivity clock (SWUSim): snapshot the progress fingerprint BEFORE the action so the engine's write
+// block can tell a real move from a refused click. Absent in other sims -> nothing happens.
+$GLOBALS['gEngineProgressFingerprintBefore'] =
+    function_exists('SWUProgressFingerprint') ? SWUProgressFingerprint() : null;
+
 if ($viewerInfo['isSpectator']) {
   ProcessInputReply(false, "Spectators are view-only.", [
     "playbackState" => ProcessInputPlaybackStateForResponse(),

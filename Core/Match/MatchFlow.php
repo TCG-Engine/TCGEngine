@@ -337,12 +337,13 @@ function MatchAcceptConvertToBo3($rootName, $matchId) {
     return $matchId;
 }
 
-// Disconnect policy: an inactive player in a match game forfeits THAT GAME (not the whole match).
-// Declaring the opponent the game winner lets the normal hook advance/sideboard the match.
-function MatchInactivityForfeit($rootName, $gameName, $inactiveSeat) {
-    if ($inactiveSeat !== 1 && $inactiveSeat !== 2) return;
-    MatchHook($rootName, 'declareGameWinner', ($inactiveSeat === 1) ? 2 : 1);
-}
+// Disconnect / inactivity policy now lives in the inactivity clock, not here:
+// spec docs/superpowers/specs/2026-09-17-swusim-inactivity-timer-and-kick-design.md.
+// MatchInactivityForfeit() was DELETED on 2026-09-17: it never had a single caller, was hardcoded to
+// seats 1-2, ignored $gameName, and bypassed TriggerGameOver()'s Twin Suns branch — so it would have
+// handed a 4-seat game to one seat. A kick now calls SWUApplyKick() (SWUSim/Custom/InactivityClock.php),
+// which routes through TriggerGameOver / SWUEliminateSeat / SWUDeclareTwinSunsWinners per mode and keeps
+// the normal after-action stats chain.
 
 // Orphaned-match reaper: delete Matches/ dirs whose Match.json is complete (or abandoned) and older
 // than $maxAgeSeconds. Cheap GC — call opportunistically, never on the hot path. Logs the count.

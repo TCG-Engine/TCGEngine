@@ -27,5 +27,6 @@ function SWURequestRematch($oldMatchId, $seat, $bestOf, $sideboard) { return Mat
 function SWUAcceptRematch($oldMatchId)              { return MatchAcceptRematch('SWUSim', $oldMatchId); }
 function SWURequestConvertToBo3($matchId, $seat)    { return MatchRequestConvertToBo3('SWUSim', $matchId, $seat); }
 function SWUAcceptConvertToBo3($matchId)            { return MatchAcceptConvertToBo3('SWUSim', $matchId); }
-function SWUMatchInactivityForfeit($gameName, $inactiveSeat) { return MatchInactivityForfeit('SWUSim', $gameName, $inactiveSeat); }
+// SWUMatchInactivityForfeit() deleted 2026-09-17 with Core's MatchInactivityForfeit() — no callers,
+// 2-seat only. The inactivity clock's SWUApplyKick() replaces it (SWUSim/Custom/InactivityClock.php).
 function SWUAfterActionMatchHook($folderPath, $gameName)     { return MatchAfterActionHook($folderPath, $gameName); }
