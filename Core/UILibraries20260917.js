@@ -6156,6 +6156,15 @@ function ClearSelectionMode() {
   if (typeof HideNameCardUI === 'function') {
     HideNameCardUI();
   }
+  // OPTIONCHOOSE ("You / Opponent", "Ground / Space") and TWOSIDEDSLIDER were missing from this sweep. In a
+  // live game the answering click closes them, so the gap never showed — but a replay steps past the decision
+  // with no click, and the stale banner stayed on screen as if the choice had never been made.
+  if (typeof HideOptionChooseUI === 'function') {
+    HideOptionChooseUI();
+  }
+  if (typeof HideTwoSidedSliderUI === 'function') {
+    HideTwoSidedSliderUI();
+  }
   // Also hide YES/NO and icon choice modals if they exist
   let yesNoModal = document.getElementById('yesno-decision-modal');
   if (yesNoModal) yesNoModal.remove();

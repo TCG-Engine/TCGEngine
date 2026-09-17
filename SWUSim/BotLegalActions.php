@@ -237,7 +237,7 @@ function SWUBotLegalActions($gameName, $seat) {
 //    all, so $actionValue is '', which hits the switch's default (no-op) — the action would be
 //    SILENTLY SWALLOWED, never reaching ActionMap. Confirmed against SWUSim's own generated
 //    client dispatch (GeneratedUI_20260903180200.js GetZoneClickActions() returns
-//    [{"Action":"FSM","Parameters":[]}] for every zone, and Core/UILibraries20260910.js'
+//    [{"Action":"FSM","Parameters":[]}] for every zone, and Core/UILibraries20260917.js'
 //    CardClick() builds the cardID as `cardId + "!" + Action + "!" + Parameters.join(",")`) and
 //    against GrandArchiveSim/BotLegalActions.php, the sibling this file mirrors, which already
 //    does exactly this ("myHand-$i!FSM!", "myField-$i!FSM!"). Fixed below.
