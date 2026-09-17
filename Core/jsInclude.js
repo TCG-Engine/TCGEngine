@@ -724,6 +724,19 @@ function SubmitChat() {
   ajaxLink += "&authKey="  + encodeURIComponent(document.getElementById("authKey").value);
   ajaxLink += "&folderPath=" + encodeURIComponent(document.getElementById("folderPath").value);
   ajaxLink += "&chatText="  + encodeURIComponent(text);
+  // Optional host hook (SWUSim whisper checkboxes). No hook / no targets = today's public request.
+  var whisperTargets = (typeof window.TCGChatWhisperTargets === "function") ? window.TCGChatWhisperTargets() : null;
+  var isWhisper = Array.isArray(whisperTargets) && whisperTargets.length > 0;
+  if (isWhisper) {
+    ajaxLink += "&whisperTo=" + encodeURIComponent(whisperTargets.join(","));
+    // A refused whisper must not silently eat the message: put the text back if the box is still empty.
+    xmlhttp.onload = function() {
+      if (String(xmlhttp.responseText || "").trim() !== "OK" && chatBox.value === "") {
+        chatBox.value = text;
+        chatBox.title = String(xmlhttp.responseText || "").trim();
+      }
+    };
+  }
   xmlhttp.open("GET", ajaxLink, true);
   xmlhttp.send();
 }
@@ -785,6 +798,35 @@ function _ChatPlayerLabel(msg) {
   return seatName ? seatName : (msg.playerLabel ? msg.playerLabel : ("P" + msg.playerID));
 }
 
+function _ChatViewerSeat() {
+  var el = document.getElementById("playerID");
+  var seat = el ? parseInt(el.value, 10) : NaN;
+  return Number.isNaN(seat) ? 0 : seat;
+}
+
+function _ChatSeatLabel(seat) {
+  return _ChatPlayerLabel({ playerID: seat, playerLabel: "P" + seat });
+}
+
+// "A" · "A and B" · "A, B and C"
+function _ChatJoinNames(names) {
+  if (names.length <= 1) return names.join("");
+  return names.slice(0, -1).join(", ") + " and " + names[names.length - 1];
+}
+
+// Label for a readable row. Public: "Alice:". Whisper (sender/recipient): "Alice → you, Dana:".
+function _ChatMessageLabel(msg) {
+  if (!Array.isArray(msg.to) || msg.to.length === 0) return _ChatPlayerLabel(msg) + ":";
+  var viewer = _ChatViewerSeat();
+  var names = msg.to.map(function(s) { return parseInt(s, 10) === viewer ? "you" : _ChatSeatLabel(s); });
+  return _ChatPlayerLabel(msg) + " → " + names.join(", ") + ":";
+}
+
+// The only thing a non-party ever renders for a whisper. No text exists client-side to show.
+function _ChatWhisperStubText(msg) {
+  return _ChatPlayerLabel(msg) + " whispered something to " + _ChatJoinNames(msg.to.map(_ChatSeatLabel));
+}
+
 function _ChatHistoryIsOpen() {
   var expanded = document.getElementById("chatExpanded");
   return !!expanded && expanded.style.display === "flex";
@@ -825,7 +867,7 @@ function _ShowChatToast(msg) {
   toast.title = "Open chat history";
   var label = document.createElement("span");
   label.className = "chatToastLabel";
-  label.textContent = _ChatPlayerLabel(msg) + ":";
+  label.textContent = _ChatMessageLabel(msg);
   var body = document.createElement("span");
   body.textContent = msg.text;
   toast.appendChild(label);
@@ -847,14 +889,24 @@ function _AppendChatMessage(msg, notify) {
   var div = document.createElement("div");
   div.className = "chatMsg chatMsg-p" + msg.playerID;
   div.style.cssText = "padding:2px 4px; word-break:break-word; font-size:13px;";
-  var label = document.createElement("span");
-  label.style.cssText = "font-weight:700; margin-right:4px;";
-  // Prefer the seat's username (SWUSim) so chat reads from real names; fall back to P#/label.
-  label.textContent = _ChatPlayerLabel(msg) + ":";
-  var body = document.createElement("span");
-  body.textContent = msg.text;
-  div.appendChild(label);
-  div.appendChild(body);
+  var isWhisper = Array.isArray(msg.to) && msg.to.length > 0;
+  if (isWhisper && msg.redacted) {
+    // Non-party: "Alice whispered something to Bob and Dana" — one span, no body, never toasts.
+    div.className += " chatMsg-whisper chatMsg-whisperStub";
+    var stub = document.createElement("span");
+    stub.textContent = _ChatWhisperStubText(msg);
+    div.appendChild(stub);
+  } else {
+    if (isWhisper) div.className += " chatMsg-whisper";
+    var label = document.createElement("span");
+    label.style.cssText = "font-weight:700; margin-right:4px;";
+    // Prefer the seat's username (SWUSim) so chat reads from real names; fall back to P#/label.
+    label.textContent = _ChatMessageLabel(msg);
+    var body = document.createElement("span");
+    body.textContent = msg.text;
+    div.appendChild(label);
+    div.appendChild(body);
+  }
 
   // Optional host sink: a sim that merges chat into another surface (SWUSim renders chat inside its
   // game log, one stream instead of two tabs) takes the element and places it itself. Returning
@@ -869,7 +921,7 @@ function _AppendChatMessage(msg, notify) {
   if (!log) return;
   log.appendChild(div);
   log.scrollTop = log.scrollHeight;
-  if (notify && !_ChatHistoryIsOpen()) {
+  if (notify && !msg.redacted && !_ChatHistoryIsOpen()) {
     _ShowChatToast(msg);
   }
 }

@@ -38,6 +38,24 @@ if ($folderPath === 'SWUSim') {
     }
 }
 
+// Whisper: only the TEXT is private — see Core/ChatWhisper.php. Validated here, redacted at egress.
+$whisperTo = [];
+$whisperRaw = TryGET("whisperTo", "");
+if (trim(strval($whisperRaw)) !== "") {
+    include_once './Core/ChatWhisper.php';
+    if (!empty($viewerInfo['isSpectator'])) { echo "Spectators cannot whisper."; exit; }
+    // An empty folderPath skips auth above, and there is no sim policy to consult — never a whisper.
+    $whisperPolicy = ($folderPath !== "") ? __DIR__ . '/' . $folderPath . '/Custom/ChatWhisperPolicy.php' : '';
+    if ($whisperPolicy === '' || !is_file($whisperPolicy)) { echo "Whispers are not available."; exit; }
+    $senderSeat = intval($viewerInfo['viewerSeat'] ?? 0);
+    $whisperTo = ChatParseWhisperTargets($whisperRaw, $senderSeat, SimGameMaxSeats($folderPath));
+    if ($whisperTo === null || count($whisperTo) === 0) { echo "Invalid whisper."; exit; }
+    include_once $whisperPolicy;   // TOP-LEVEL include on purpose (engine globals)
+    if (!function_exists('ChatWhisperAllowed') || !ChatWhisperAllowed($gameName, $senderSeat, $whisperTo)) {
+        echo "Whisper not allowed."; exit;
+    }
+}
+
 // Store message in APCu
 if (!extension_loaded('apcu') || !apcu_enabled()) { echo "Chat unavailable (APCu not enabled)."; exit; }
 
@@ -46,13 +64,15 @@ $existing = apcu_fetch($cacheKey);
 $messages = ($existing !== false) ? $existing : [];
 
 $nextId     = empty($messages) ? 1 : (end($messages)['id'] + 1);
-$messages[] = [
+$row = [
     'id'       => $nextId,
     'playerID' => $playerID,
     'playerLabel' => $viewerInfo['label'],
     'text'     => $chatText,
     'time'     => time(),
 ];
+if (!empty($whisperTo)) $row['to'] = $whisperTo;   // public rows keep today's exact shape
+$messages[] = $row;
 
 // Keep at most 100 messages
 if (count($messages) > 100) {

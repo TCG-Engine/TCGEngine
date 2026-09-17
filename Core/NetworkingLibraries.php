@@ -1,6 +1,7 @@
 <?php
 
 include_once __DIR__ . '/GameAuth.php';
+include_once __DIR__ . '/ChatWhisper.php';
 
 $APCuEnabled = extension_loaded('apcu');
 
@@ -220,16 +221,21 @@ function IncrementChatUpdateVersion($gameName)
   return intval($newVersion);
 }
 
-function GetChatMessagesSince($gameName, $lastChatID = 0)
+function GetChatMessagesSince($gameName, $lastChatID = 0, $viewerInfo = null)
 {
   global $APCuEnabled;
   if(!$APCuEnabled || !function_exists('apcu_fetch')) return [];
   $messages = apcu_fetch(GetChatMessagesCacheKey($gameName));
   if($messages === false || !is_array($messages)) return [];
   $lastChatID = intval($lastChatID);
-  return array_values(array_filter($messages, function($message) use ($lastChatID) {
-    return isset($message['id']) && intval($message['id']) > $lastChatID;
-  }));
+  // Whisper rows are redacted for anyone who is not the sender or a recipient. $viewerInfo === null
+  // (GetChat.php, or a GetNextTurn.php not yet regenerated) is a NON-party — deny by default.
+  $out = [];
+  foreach ($messages as $message) {
+    if (!isset($message['id']) || intval($message['id']) <= $lastChatID) continue;
+    $out[] = ChatRowForViewer($message, $viewerInfo);
+  }
+  return $out;
 }
 
 function GamestateUpdated($gameName)

@@ -1264,6 +1264,47 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
    9998 (Core/Styles/ScreenAnimations.css); lowered here (SWUSim-scoped) to just under the modal
    tier. Still well above the board, so the turn glyphs stay visible during normal play. */
 #turn-miasma-overlay { z-index: 4999 !important; }
+/* ── Whisper chat (spec docs/superpowers/specs/2026-09-17-swusim-twinsuns-whisper-chat-design.md) ──
+   Shared, not desktop-only: GameLayoutMobile.php does not inherit GameLayout.php's CSS. */
+.swu-whisper-row {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 4px 5px;
+    width: 100%; min-width: 0; box-sizing: border-box; padding: 4px 2px;
+    font-family: barlow, sans-serif;   /* the composer's font; the row otherwise falls back to the UA serif */
+    font-size: 12px; line-height: 1.2; color: rgba(255,255,255,0.72);
+}
+.swu-whisper-row .swu-whisper-head {
+    font-weight: 700; font-size: 10px; letter-spacing: 0.06em; margin-right: 1px; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+}
+.swu-whisper-row.is-active .swu-whisper-head { color: #c9a2ff; }
+/* Each target is a pill toggle; .is-on is set by the change handler (not :has(), for older engines). */
+.swu-whisper-row label {
+    display: inline-flex; align-items: center; gap: 4px; cursor: pointer; user-select: none;
+    max-width: 100%; min-width: 0; box-sizing: border-box; padding: 2px 7px 2px 4px;
+    border: 1px solid rgba(255,255,255,0.16); border-radius: 999px; background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.78); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+.swu-whisper-row label:hover { border-color: rgba(201,162,255,0.55); color: #fff; }
+.swu-whisper-row label.is-on {
+    background: rgba(160,110,255,0.26); border-color: #b98cff; color: #f3eaff;
+}
+.swu-whisper-row input[type=checkbox] {
+    -webkit-appearance: none; appearance: none; margin: 0; flex: 0 0 auto; cursor: pointer;
+    width: 12px; height: 12px; border-radius: 3px; box-sizing: border-box;
+    border: 1.5px solid rgba(255,255,255,0.45); background: transparent;
+    background-position: center; background-repeat: no-repeat; background-size: 10px 10px;
+}
+.swu-whisper-row input[type=checkbox]:focus { outline: none; }
+/* Keyboard focus only — a mouse click must not leave a ring around the pill. */
+.swu-whisper-row input[type=checkbox]:focus-visible { outline: 2px solid #e2ccff; outline-offset: 2px; }
+.swu-whisper-row input[type=checkbox]:checked {
+    border-color: #c9a2ff; background-color: #c9a2ff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.3l2.3 2.3 4.7-5' fill='none' stroke='%23180c2c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+@media (prefers-reduced-motion: reduce) { .swu-whisper-row label { transition: none; } }
+.chatMsg-whisper, .swu-log-CHAT.chatMsg-whisper { font-style: italic; background: rgba(160,110,255,0.10); }
+.chatMsg-whisperStub, .swu-log-CHAT.chatMsg-whisperStub { opacity: 0.72; }
 </style>
 <script>
 window.SWU_PILOT_LEADERS = <?php echo json_encode([
@@ -5165,6 +5206,76 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   // in which nobody is logged in, or one played outside the match system.
   window.SWU_SEAT_USERNAMES = <?= json_encode((object)$swuSeatNames, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
   window.SWU_VIEWER_SEAT = <?= intval($playerID) ?>;   // 0 for a spectator ('S')
+  <?php
+    // Whisper chat (spec 2026-09-17-swusim-twinsuns-whisper-chat-design.md). Other seats come from SeatOrder,
+    // NOT LiveSeats, so eliminated players stay whisperable. Empty for spectators and < 3-seat games.
+    $swuWhisperSeats = [];
+    $swuWhisperViewer = ctype_digit(strval($playerID)) ? intval($playerID) : 0;
+    if ($swuWhisperViewer > 0 && function_exists('GetSeatOrderArray')) {
+        $swuWhisperAll = GetSeatOrderArray();
+        if (count($swuWhisperAll) >= 3) {
+            foreach ($swuWhisperAll as $swuWhisperSeat) {
+                if ($swuWhisperSeat !== $swuWhisperViewer) $swuWhisperSeats[] = $swuWhisperSeat;
+            }
+        }
+    }
+    $swuWhisperTeam = function_exists('SWUIsTeamGame') && SWUIsTeamGame();
+  ?>
+  window.SWU_WHISPER = <?= json_encode(['seats' => $swuWhisperSeats, 'team' => $swuWhisperTeam]) ?>;
+  (function () {
+    var cfg = window.SWU_WHISPER || { seats: [], team: false };
+    if (!cfg.seats || cfg.seats.length === 0) return;
+    var viewer = parseInt(window.SWU_VIEWER_SEAT, 10) || 0;
+    function seatName(s) { return (typeof _ChatPlayerLabel === 'function') ? _ChatPlayerLabel({ playerID: s, playerLabel: 'P' + s }) : 'P' + s; }
+    function build() {
+      var controls = document.getElementById('chatWidgetControls');
+      var input = document.getElementById('chatText');
+      if (!controls || !input || document.getElementById('swuWhisperRow')) return;   // muted chat has no input
+      var row = document.createElement('div');
+      row.id = 'swuWhisperRow';
+      row.className = 'swu-whisper-row';
+      var boxes = [];
+      function addBox(text, seats) {
+        var lab = document.createElement('label');
+        var cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.setAttribute('data-seats', seats.join(','));
+        cb.addEventListener('change', function () { lab.classList.toggle('is-on', cb.checked); refresh(); });
+        lab.appendChild(cb);
+        lab.appendChild(document.createTextNode(text));
+        row.appendChild(lab);
+        boxes.push({ cb: cb, seats: seats });
+      }
+      if (cfg.team) {
+        // Team Suns: seat parity (1,3 red · 2,4 blue) — same rule as SWUTeamOf / ChatWhisperPolicy.
+        var mates = cfg.seats.filter(function (s) { return (s % 2) === (viewer % 2); });
+        if (mates.length === 0) return;
+        addBox('Team only', mates);
+      } else {
+        var head = document.createElement('span');
+        head.className = 'swu-whisper-head';
+        head.textContent = 'Whisper:';
+        row.appendChild(head);
+        cfg.seats.forEach(function (s) { addBox(seatName(s), [s]); });
+      }
+      function selected() {
+        var seen = {};
+        boxes.forEach(function (b) { if (b.cb.checked) b.seats.forEach(function (s) { seen[s] = true; }); });
+        return Object.keys(seen).map(function (s) { return parseInt(s, 10); }).sort(function (a, b) { return a - b; });
+      }
+      function refresh() {
+        var t = selected();
+        row.classList.toggle('is-active', t.length > 0);
+        if (input.disabled) return;                       // leave the "Chat disabled" placeholder alone
+        input.placeholder = t.length > 0 ? 'Whisper to ' + t.map(seatName).join(', ') + '…' : 'Message...';
+        input.title = '';
+      }
+      window.TCGChatWhisperTargets = selected;
+      controls.parentNode.insertBefore(row, controls);   // sticky: nothing clears the boxes after a send
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+    else build();
+  })();
 </script>
 <div id="swuSettingsOverlay" class="swu-settings-overlay" style="display:none;" onclick="if(event.target===this)swuCloseSettings()">
   <div class="swu-settings-panel" role="dialog" aria-modal="true">
