@@ -11,6 +11,14 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
+        "cardID": "-",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
         "cardID": "myField-1@Activate-0@8c9htu9agw",
         "chkInput": [],
         "inputText": ""

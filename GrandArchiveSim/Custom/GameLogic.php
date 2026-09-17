@@ -10065,6 +10065,26 @@ function MainPhase() {
 }
 
 /**
+ * The turn player has passed out of the main phase. Grand Archive rules: the game only
+ * proceeds to the end phase once every player has passed Opportunity with an empty
+ * Effects Stack, so the non-turn player must get a chance to act (or pass) here before
+ * the phase actually advances -- mirrors the BeforeRecollectionPhase/BeforeEndOpportunityPhase
+ * pattern used at the other phase boundaries.
+ */
+function RequestMainPhasePass($turnPlayer) {
+    global $playerID;
+    $playerID = $turnPlayer;
+    GrantOpportunityWindow($turnPlayer, "MainPhasePassContinue", null, "MAIN_PASS");
+}
+
+$customDQHandlers["MainPhasePassContinue"] = function($player, $parts, $lastDecision) {
+    global $gCurrentPhase;
+    $gCurrentPhase = "MAIN";
+    AdvanceAndExecute("PASS");
+    AutoAdvanceAndExecute();
+};
+
+/**
  * Suppress an ally: banish it and schedule its return at the beginning of the next end phase.
  * The card is moved to its owner's banishment zone and tagged with a "SUPPRESSED" TurnEffect
  * on the banished card itself so EndPhase can find and return it.
