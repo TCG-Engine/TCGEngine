@@ -285,7 +285,7 @@ function _ProfilePanelRegistry(): array {
         },
         'sounds'           => function($def, $ctx, $ud) {
             require_once __DIR__ . '/SoundSettings.php';
-            return "<div class='soundSettings container bg-black'><h2>Sounds</h2>"
+            return "<div class='soundSettings container bg-black'><h2>Game Settings</h2>"
                  . RenderSoundSettings((int)($ctx['userId'] ?? 0)) . "</div>";
         },
         'blockedUsers'     => function($def, $ctx, $ud) {

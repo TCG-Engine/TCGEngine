@@ -24,7 +24,7 @@
     'fonts'   => ['Barlow', 'Teko'],
   ],
   'nav' => [
-    ['label'=>'Support','href'=>'https://www.patreon.com/c/OotTheMonk','target'=>'_blank'],
+    ['label'=>'Support','href'=>'https://www.patreon.com/c/ninintcg','target'=>'_blank'],
     ['label'=>'APIs','href'=>'/TCGEngine/Stats/APIs.php'],
     ['label'=>'Decks','href'=>'/TCGEngine/Stats/Decks.php'],
     ['label'=>'Stats','kind'=>'dropdown','children'=>[

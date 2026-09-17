@@ -144,6 +144,8 @@ AppCore/SWU/Images/TempImages
 !AppCore/SWU/Images/WebpImages/mock_*
 !AppCore/SWU/Images/concat/mock_*
 !AppCore/SWU/Images/crops/mock_*
+# Localized card art (zzCardI18nImageGenerator.php). Generated per locale, like the English corpus above.
+AppCore/SWU/Images/i18n/
 # SET_NNN migration SQL is GENERATED per box (tools/materialize-id-map.php, tools/build-rekey-sql.php)
 # and encodes one box's card dictionary and schema at one moment. Committing it guarantees someone
 # eventually applies a stale map. The generators are tracked; their output is not.

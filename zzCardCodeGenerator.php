@@ -65,8 +65,15 @@ $cardDBOverride = TryGET("CardDBOverride", "");
 // Default (withPreview omitted) skips the API and rebuilds dictionaries from the saved cache.
 $withPreview = (TryGET("withPreview", "") === "1" || TryGET("withPreview", "") === "true");
 // When overwriteImages=1, delete and re-download all images (webp, concat, crop) even if they exist.
-$overwriteImages = (TryGET("overwriteImages", "") === "1");
-logLine("=== Generator starting: rootName=" . $rootName . " | PHP " . PHP_VERSION . " | memory_limit=" . ini_get('memory_limit') . " | max_exec_time=" . ini_get('max_execution_time') . "s ===");
+// overwriteImages=<SET> (e.g. HMW) does the same for that one set only; see ImageOverwriteSpec() in
+// zzImageConverter.php. Each CheckImage call asks ImageOverwriteRequested() for its own card ID.
+$overwriteImagesSpec = ImageOverwriteSpec(TryGET("overwriteImages", ""));
+if ($overwriteImagesSpec['error'] !== null) {
+  logLine("ERROR: " . $overwriteImagesSpec['error']);
+  exit();
+}
+logLine("=== Generator starting: rootName=" . $rootName . " | PHP " . PHP_VERSION . " | memory_limit=" . ini_get('memory_limit') . " | max_exec_time=" . ini_get('max_execution_time') . "s"
+  . " | overwriteImages=" . ($overwriteImagesSpec['mode'] === 'set' ? $overwriteImagesSpec['set'] : $overwriteImagesSpec['mode']) . " ===");
 
 $schemaFile = "./Schemas/" . $rootName . "/ImportSchema.txt";
 $handler = fopen($schemaFile, "r");
@@ -486,7 +493,7 @@ if(!$withPreview && file_exists($cacheFile)) {
       if($derived !== null) $artCardID = $derived;
     }
     if($thisImageUrl !== null && $downloadImportedImages) {
-      CheckImage($artCardID, $thisImageUrl, $cardType, "", rootPath:$artRootPath, squareCards:$squareCards, overwriteImages:$overwriteImages);
+      CheckImage($artCardID, $thisImageUrl, $cardType, "", rootPath:$artRootPath, squareCards:$squareCards, overwriteImages:ImageOverwriteRequested($overwriteImagesSpec, $artCardID));
     } else if($thisImageUrl === null) {
       logLine("WARNING: No image URL for $cardID — skipping download.");
     }
@@ -523,7 +530,7 @@ if(!$withPreview && file_exists($cacheFile)) {
           }
         }
       }
-      CheckImage($backCardID, $thisBackImageUrl, $backType, "", rootPath:$artRootPath, squareCards:$squareCards, overwriteImages:$overwriteImages);
+      CheckImage($backCardID, $thisBackImageUrl, $backType, "", rootPath:$artRootPath, squareCards:$squareCards, overwriteImages:ImageOverwriteRequested($overwriteImagesSpec, $backCardID));
     }
 
     // Drop heavy API fields that NO later phase reads (verified: 0 references), so the
@@ -641,7 +648,7 @@ if(($rootName == "SWUSim" || $rootName == "SWUDeck") && $mocksMode !== "0") {
     $front = trim((string)($def['imageUrl'] ?? ''));
     $back  = trim((string)($def['imageUrlBack'] ?? ''));
     if($front !== '') {
-      CheckImage("mock_" . $mockID, $front, $def['type'] ?? "", "", rootPath:$artRootPath, overwriteImages:$overwriteImages);
+      CheckImage("mock_" . $mockID, $front, $def['type'] ?? "", "", rootPath:$artRootPath, overwriteImages:ImageOverwriteRequested($overwriteImagesSpec, "mock_" . $mockID));
     }
     if($back !== '') {
       // A mock leader's back is its deployed unit side (portrait), EXCEPT for a flip leader whose
@@ -651,7 +658,7 @@ if(($rootName == "SWUSim" || $rootName == "SWUDeck") && $mocksMode !== "0") {
       $mockBackType = (($def['type'] ?? '') === 'Leader')
           ? ($mockIsFlipLeader ? "Leader" : "LeaderUnit")
           : ($def['type'] ?? "");
-      CheckImage("mock_" . $mockID . "_back", $back, $mockBackType, "", rootPath:$artRootPath, overwriteImages:$overwriteImages);
+      CheckImage("mock_" . $mockID . "_back", $back, $mockBackType, "", rootPath:$artRootPath, overwriteImages:ImageOverwriteRequested($overwriteImagesSpec, "mock_" . $mockID . "_back"));
     }
   }
 }
@@ -1677,7 +1684,7 @@ function ImportOptionList($importOptions, $key)
 
 function AppendSupplementalImportCards(&$cardArray, $sources)
 {
-  global $rootName, $artRootPath, $overwriteImages;
+  global $rootName, $artRootPath, $overwriteImagesSpec;
   if(empty($sources)) return 0;
 
   $seenCardIds = [];
@@ -1720,7 +1727,7 @@ function AppendSupplementalImportCards(&$cardArray, $sources)
       ++$sourceAdded;
 
       if(isset($row->image_url) && trim((string)$row->image_url) !== "") {
-        CheckImage($cardID, trim((string)$row->image_url), "", "", rootPath:$artRootPath, overwriteImages:$overwriteImages);
+        CheckImage($cardID, trim((string)$row->image_url), "", "", rootPath:$artRootPath, overwriteImages:ImageOverwriteRequested($overwriteImagesSpec, $cardID));
       }
     }
 

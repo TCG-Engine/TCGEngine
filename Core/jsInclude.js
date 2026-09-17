@@ -288,6 +288,13 @@ function AddCardDetailControls(el, imgSource, place, token) {
   el.appendChild(close);
 
   var opposite = CardDetailOppositeFace(imgSource);
+  // opposite is built by toggling "_back" on imgSource as a plain string, so if imgSource was already
+  // localized (i18n/<lang>/...) that prefix carries over unchecked — including onto a face the
+  // localized manifest never listed. Re-run it through SWUCardI18n so a localized front with no
+  // localized back correctly falls back to the (existing) English back instead of 404ing the probe.
+  if (opposite && window.SWUCardI18n && typeof window.SWUCardI18n.currentUrl === "function") {
+    opposite = window.SWUCardI18n.currentUrl(opposite);
+  }
   if (!opposite || opposite === imgSource) return;
 
   ProbeCardDetailFace(opposite, function(exists) {

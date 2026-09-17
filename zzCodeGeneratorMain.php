@@ -163,6 +163,18 @@ foreach ($appRoots as $rootName) {
     if (isset($keywordActions[$rootName]) && is_file(__DIR__ . '/' . $keywordActions[$rootName]['source'])) {
         $actions[] = $keywordActions[$rootName];
     }
+    // Localized card art (es/it/fr). Kind 'i18n' keeps it out of "Run build pipeline": it downloads
+    // thousands of images per language, so it only runs when picked. See zzCardI18nImageGenerator.php.
+    if ($rootName === 'SWUSim' && is_file(__DIR__ . '/zzCardI18nImageGenerator.php')) {
+        $actions[] = GeneratorAdminAction(
+            'i18n-images',
+            'Localized card images',
+            'Download Spanish, Italian or French card art into AppCore/SWU/Images/i18n/. Choose the language under Card generator options. Not part of the build pipeline.',
+            'zzCardI18nImageGenerator.php?rootName={app}',
+            'zzCardI18nImageGenerator.php',
+            'i18n'
+        );
+    }
     if (is_file(__DIR__ . '/SharedUI/Sites/' . $rootName . '/SiteDef.php')) {
         $actions[] = GeneratorAdminAction(
             'site',
@@ -351,6 +363,12 @@ foreach ($apps as $app) {
            at its own intrinsic height and ignores min-height, which leaves the control ~20px next
            to the 34px buttons beside it. Dropping the native chrome costs us the arrow, so one is
            drawn back in as a background chevron. */
+        /* A set code (e.g. HMW): the select-input box without the chevron. */
+        /* Two classes so it beats .select-input below regardless of source order. */
+        /* Height restated: `.switch input` (the checkbox size rule) would otherwise shrink it to 16px. */
+        .select-input.set-input { width: 72px; height: 34px; padding: 0 8px; background-image: none; text-transform: uppercase; }
+        .select-input.set-input::placeholder { text-transform: none; color: var(--muted); }
+        .select-input.set-input:disabled { cursor: not-allowed; opacity: .45; }
         .select-input {
             appearance: none;
             -webkit-appearance: none;
@@ -535,10 +553,31 @@ foreach ($apps as $app) {
             <section class="options" id="card-options">
                 <div class="options-title">
                     <strong>Card generator options</strong>
-                    <small>Applied whenever the card-data step runs.</small>
+                    <small>Applied whenever the "Card data &amp; images" step runs (English card data and images).</small>
                 </div>
                 <label class="switch" id="with-preview-option"><input type="checkbox" id="with-preview"> Fetch current source data</label>
                 <label class="switch"><input type="checkbox" id="overwrite-images"> Replace existing images</label>
+                <label class="switch">Only this set
+                    <input type="text" id="overwrite-images-set" class="select-input set-input" placeholder="All" maxlength="5" autocomplete="off" spellcheck="false" disabled>
+                </label>
+            </section>
+
+            <section class="options" id="i18n-options" hidden>
+                <div class="options-title">
+                    <strong>Localized card images</strong>
+                    <small>Spanish, Italian or French card art. A separate step: run "Localized card images" below. Not part of the build pipeline.</small>
+                </div>
+                <label class="switch">Language
+                    <select id="card-image-locale" class="select-input">
+                        <option value="es">Spanish</option>
+                        <option value="it">Italian</option>
+                        <option value="fr">French</option>
+                    </select>
+                </label>
+                <label class="switch"><input type="checkbox" id="i18n-overwrite-images"> Replace existing localized images</label>
+                <label class="switch">Only this set
+                    <input type="text" id="i18n-overwrite-images-set" class="select-input set-input" placeholder="All" maxlength="5" autocomplete="off" spellcheck="false" disabled>
+                </label>
             </section>
 
             <section class="options" id="hellbreak-workbook-options" hidden>
@@ -669,6 +708,11 @@ const runBanner = document.getElementById('run-banner');
 const withPreview = document.getElementById('with-preview');
 const withPreviewOption = document.getElementById('with-preview-option');
 const overwriteImages = document.getElementById('overwrite-images');
+const overwriteImagesSet = document.getElementById('overwrite-images-set');
+const i18nOptions = document.getElementById('i18n-options');
+const cardImageLocale = document.getElementById('card-image-locale');
+const i18nOverwriteImages = document.getElementById('i18n-overwrite-images');
+const i18nOverwriteImagesSet = document.getElementById('i18n-overwrite-images-set');
 const hellbreakWorkbookOptions = document.getElementById('hellbreak-workbook-options');
 const chooseHellbreakWorkbookButton = document.getElementById('choose-hellbreak-workbook');
 const hellbreakWorkbookFile = document.getElementById('hellbreak-workbook-file');
@@ -890,6 +934,10 @@ function render() {
     document.getElementById('schema-count').textContent = selectedApp.actions.filter(action => ['cards', 'game', 'turn'].includes(action.id)).length;
     document.getElementById('card-options').hidden = selectedApp.usesWorkbookImport || !selectedApp.actions.some(action => action.id === 'cards');
     withPreviewOption.hidden = selectedApp.usesWorkbookImport;
+    i18nOptions.hidden = !selectedApp.actions.some(action => action.id === 'i18n-images');
+    cardImageLocale.disabled = pipelineRunning;
+    overwriteImagesSet.disabled = pipelineRunning || !overwriteImages.checked;
+    i18nOverwriteImagesSet.disabled = pipelineRunning || !i18nOverwriteImages.checked;
     if (selectedApp.usesWorkbookImport) withPreview.checked = false;
     hellbreakWorkbookOptions.hidden = !selectedApp.usesWorkbookImport;
     hellbreakWorkbookName.textContent = hellbreakWorkbookFile.files && hellbreakWorkbookFile.files[0]
@@ -1557,12 +1605,26 @@ async function importCardEditorGame() {
     }
 }
 
+// overwriteImages: omitted when the box is unticked, 1 for every set, or one set code (e.g. HMW).
+// The generator validates the set code and stops with an ERROR line on anything else.
+function overwriteImagesParam(checkbox, setField) {
+    if (!checkbox.checked) return '';
+    const set = setField.value.trim().toUpperCase();
+    return set === '' ? '1' : set;
+}
+
 function actionUrl(action) {
     let endpoint = action.endpoint.replace('{app}', encodeURIComponent(selectedApp.rootName));
     const url = new URL(endpoint, window.location.href);
     if (action.id === 'cards') {
         if (withPreview.checked) url.searchParams.set('withPreview', '1');
-        if (overwriteImages.checked) url.searchParams.set('overwriteImages', '1');
+        const overwrite = overwriteImagesParam(overwriteImages, overwriteImagesSet);
+        if (overwrite) url.searchParams.set('overwriteImages', overwrite);
+    }
+    if (action.id === 'i18n-images') {
+        url.searchParams.set('locale', cardImageLocale.value);
+        const overwrite = overwriteImagesParam(i18nOverwriteImages, i18nOverwriteImagesSet);
+        if (overwrite) url.searchParams.set('overwriteImages', overwrite);
     }
     url.searchParams.set('_generatorAdminRun', Date.now().toString());
     return url;
@@ -1674,10 +1736,12 @@ async function runPipeline() {
     if (pipelineRunning || !selectedApp) return;
     pipelineRunning = true;
     const pipelineApp = selectedApp;
+    // Kind 'i18n' (localized card art) is a separate, opt-in download: never part of the pipeline.
+    const pipelineActions = pipelineApp.actions.filter(action => action.kind !== 'i18n');
     render();
     let completed = 0;
-    for (const action of pipelineApp.actions) {
-        showRunBanner(action.label, `Step ${completed + 1} of ${pipelineApp.actions.length}`);
+    for (const action of pipelineActions) {
+        showRunBanner(action.label, `Step ${completed + 1} of ${pipelineActions.length}`);
         const succeeded = await executeAction(action);
         if (!succeeded) break;
         completed++;
@@ -1697,6 +1761,9 @@ function hideRunBanner() { runBanner.classList.remove('visible'); }
 function cancelRun() { if (activeController) activeController.abort(); }
 
 runAllButton.addEventListener('click', runPipeline);
+// The "Only this set" fields are only meaningful once their replace box is ticked.
+overwriteImages.addEventListener('change', render);
+i18nOverwriteImages.addEventListener('change', render);
 cancelButton.addEventListener('click', cancelRun);
 bannerCancelButton.addEventListener('click', cancelRun);
 exportAbilitiesButton.addEventListener('click', exportAbilities);

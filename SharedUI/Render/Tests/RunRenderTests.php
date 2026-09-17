@@ -40,7 +40,7 @@ require_once __DIR__ . '/../MenuBar.php';
 $navOut = RenderMenuBar($def, ['isLoggedIn'=>false,'isPatron'=>false,'username'=>null,'userId'=>null]);
 $navIn  = RenderMenuBar($def, ['isLoggedIn'=>true,'isPatron'=>false,'username'=>'tester','userId'=>5]);
 checkContains('menubar embeds head', $navOut, '<title>SWU Stats</title>');
-checkContains('menubar has Support', $navOut, "https://www.patreon.com/c/OotTheMonk");
+checkContains('menubar has Support', $navOut, "https://www.patreon.com/c/ninintcg");
 checkContains('menubar has Stats dropdown', $navOut, "class='dropdown'");
 checkContains('menubar has Deck Stats child', $navOut, '/TCGEngine/Stats/DeckMetaStats.php');
 checkContains('menubar has github icon', $navOut, 'icons/github.svg');

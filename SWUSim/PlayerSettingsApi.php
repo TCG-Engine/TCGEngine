@@ -1,6 +1,6 @@
 <?php
 // SWUSim player-settings endpoint (SWUSim-local). Serves the Profile toggle AND the in-game gear
-// menu, so both surfaces write through one path. Actions: get / set.
+// menu, so both surfaces write through one path. Actions: get / set / promote (mute), setCardLanguage / promoteCardLanguage (card language).
 // Mirrors Cosmetics.php's shape (ob_start + JSON respond + CheckSession) so the two behave alike.
 $__test = !empty($GLOBALS['__PLAYERSETTINGS_TEST']);
 if (!$__test) ob_start();
@@ -17,13 +17,14 @@ CheckSession();
 $uid = isset($_SESSION['userid']) ? (int)$_SESSION['userid'] : 0;
 // A guest is NOT an error here: muting still works for them, it just lives in their browser only.
 // Answering with mute=null lets the client fall back to its local value without special-casing.
-if ($uid === 0) return $respond(['success' => true, 'loggedIn' => false, 'mute' => null]);
+if ($uid === 0) return $respond(['success' => true, 'loggedIn' => false, 'mute' => null, 'cardLanguage' => null]);
 
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 
 if ($action === 'get') {
     $m = SWUSimAccountMuted($uid);
-    return $respond(['success' => true, 'loggedIn' => true, 'mute' => $m === null ? null : ($m ? 1 : 0)]);
+    return $respond(['success' => true, 'loggedIn' => true, 'mute' => $m === null ? null : ($m ? 1 : 0),
+                     'cardLanguage' => SWUSimAccountCardLanguage($uid)]);
 }
 
 if ($action === 'set') {
@@ -46,6 +47,27 @@ if ($action === 'promote') {
     $val = intval($_POST['mute']) ? 1 : 0;
     SWUSimSetSetting($uid, SWUSIM_SET_MUTE, $val);
     return $respond(['success' => true, 'loggedIn' => true, 'promoted' => true, 'mute' => $val]);
+}
+
+// Card language (localized card art). Same two-layer shape as mute: the browser choice wins locally, the
+// account value follows the player to other devices, and a browser choice is promoted only onto an account
+// that has never set one.
+if ($action === 'setCardLanguage') {
+    $lang = $_POST['lang'] ?? null;
+    if (SWUSimCardLanguageToCode($lang) === null) return $respond(['success' => false, 'error' => 'invalid_lang']);
+    if (!SWUSimSetCardLanguage($uid, $lang)) return $respond(['success' => false, 'error' => 'save_failed']);
+    return $respond(['success' => true, 'loggedIn' => true, 'cardLanguage' => strtolower(trim($lang))]);
+}
+
+if ($action === 'promoteCardLanguage') {
+    $lang = $_POST['lang'] ?? null;
+    if (SWUSimCardLanguageToCode($lang) === null) return $respond(['success' => false, 'error' => 'invalid_lang']);
+    $current = SWUSimAccountCardLanguage($uid);
+    if ($current !== null) {
+        return $respond(['success' => true, 'loggedIn' => true, 'promoted' => false, 'cardLanguage' => $current]);
+    }
+    SWUSimSetCardLanguage($uid, $lang);
+    return $respond(['success' => true, 'loggedIn' => true, 'promoted' => true, 'cardLanguage' => strtolower(trim($lang))]);
 }
 
 return $respond(['success' => false, 'error' => 'unknown_action']);

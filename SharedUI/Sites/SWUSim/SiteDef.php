@@ -25,7 +25,7 @@
   ],
   'nav' => [
     ['label'=>'Previews','href'=>'/TCGEngine/SharedUI/Sites/SWUSim/Previews.php'],
-    ['label'=>'Support','href'=>'https://www.patreon.com/c/OotTheMonk','target'=>'_blank'],
+    ['label'=>'Support','href'=>'https://www.patreon.com/c/ninintcg','target'=>'_blank'],
     ['label'=>'Profile','href'=>'/TCGEngine/SharedUI/Sites/SWUSim/Profile.php','visibility'=>'loggedIn'],
     ['label'=>'Log Out','href'=>'/TCGEngine/AccountFiles/LogoutUser.php','visibility'=>'loggedIn'],
     ['label'=>'Sign Up','href'=>'/TCGEngine/SharedUI/Sites/SWUSim/Signup.php','visibility'=>'loggedOut'],

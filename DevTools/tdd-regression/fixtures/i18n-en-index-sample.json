@@ -1,0 +1,86 @@
+[
+ {
+  "cardUid": "2579145458",
+  "id": "SOR_005",
+  "type": {
+   "data": {
+    "id": 4,
+    "attributes": {
+     "name": "Leader",
+     "description": "",
+     "value": "Leader",
+     "createdAt": "2023-08-14T21:36:36.932Z",
+     "updatedAt": "2024-03-05T17:11:46.417Z",
+     "publishedAt": "2023-11-15T17:30:41.305Z",
+     "locale": "en",
+     "sortValue": 1
+    }
+   }
+  },
+  "power": 4,
+  "hp": 7
+ },
+ {
+  "cardUid": "2524528997",
+  "id": "SOR_229",
+  "type": {
+   "data": {
+    "id": 9,
+    "attributes": {
+     "name": "Unit",
+     "description": "",
+     "value": "Unit",
+     "createdAt": "2023-08-14T21:42:29.466Z",
+     "updatedAt": "2024-04-25T13:52:29.760Z",
+     "publishedAt": "2023-11-15T17:31:08.061Z",
+     "locale": "en",
+     "sortValue": 3
+    }
+   }
+  },
+  "power": 3,
+  "hp": 3
+ },
+ {
+  "cardUid": "8129465864",
+  "id": "SOR_029",
+  "type": {
+   "data": {
+    "id": 7,
+    "attributes": {
+     "name": "Base",
+     "description": "",
+     "value": "Base",
+     "createdAt": "2023-08-14T21:42:12.232Z",
+     "updatedAt": "2024-04-25T13:53:09.078Z",
+     "publishedAt": "2023-11-15T17:30:24.538Z",
+     "locale": "en",
+     "sortValue": 2
+    }
+   }
+  },
+  "power": null,
+  "hp": 30
+ },
+ {
+  "cardUid": "8752877738",
+  "id": "SOR_T02",
+  "type": {
+   "data": {
+    "id": 11,
+    "attributes": {
+     "name": "Token Upgrade",
+     "description": "",
+     "value": "Token",
+     "createdAt": "2023-08-14T21:42:52.018Z",
+     "updatedAt": "2024-11-19T22:37:07.305Z",
+     "publishedAt": "2023-11-15T17:31:00.080Z",
+     "locale": "en",
+     "sortValue": 4
+    }
+   }
+  },
+  "power": null,
+  "hp": null
+ }
+]

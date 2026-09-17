@@ -1426,6 +1426,44 @@ Four cards, three engine fixes — each found only because a section walked a ro
   an entry trigger has the documented deferred close leg; SHD_129 Timely Intervention reproduced it
   identically. Put `NOEXTRAACTION` on a vanilla-play section and `TURNPLAYER` on the When Played one.
 
+### ★★ HMW Phase R + the deferred three (2026-09-17) — "no code needed" is a claim, borrowed markers, hidden turn passes
+
+- **★★ PROVE every "auto-wired / no code needed" verdict — per card, through the path a real game takes.**
+  After the official-data flip I called 18 leftover HMW cards auto-wired from their text and was wrong twice
+  over: Devotion (HMW_096, "Attached unit gains Restore 2") looked unimplemented because an upgrade's keyword
+  GRANT is not in `$Restore_Cards` — it works only because `Overrides.php` aliases it to SOR_070; Pounce
+  (HMW_239) likewise loads as LOF_224. And the tracker was missing 12 genuinely-vanilla cards. Three checks:
+  (1) a printed keyword on a UNIT → assert it is in the generated `$<Kw>_Cards` list; (2) an UPGRADE/aura
+  keyword grant is NOT automatic → it needs a `GetConditionalKeyword_*` / grant line OR an alias; (3) a
+  reprint → resolve it with `SWUResolveToImplementedPrint()` and probe the ALIASED id.
+  ⚠ **A fixture seats the RAW CardID and skips deck-import aliasing**, so a probe of an aliased reprint via
+  `WithP1Hand: HMW_239` / `WithP1GroundArenaUpgrade: 0:HMW_096` fails even though real games work. Probe
+  reprints through `SWUResolveDeckInput`, or seat the canonical id.
+- **★★ Borrowing an engine MARKER borrows every reader's interpretation of it.** ASH_230 Improvised Identity
+  put its transplanted abilities on Support's `SUPPORT_GRANT` carrier (uid 0). `BeginSWUAttack` reads that
+  marker as "a Support bonus attack nested inside a play/deploy action whose resume owns the close", so the
+  attack skipped its After Action and the player kept the turn (game 505692). Before reusing a TurnEffect
+  token, flag or carrier: `grep` every READER, and write down which of their assumptions your use violates.
+  Distinguish your use by a param the readers can test (the fix keys on the lender UID > 0).
+- **★ `P1OnlyActions: true` makes `TURNPLAYER` unobservable — a whole file can hide an extra-action bug.**
+  Every Improvised Identity section used it. Any card whose ability STARTS AN ATTACK, plays a card, or ends an
+  action on a bespoke path needs at least one section WITHOUT it asserting `TURNPLAYER:2` + `NOEXTRAACTION`,
+  plus the same shape through `SimulateRequestBoundary` when the attack has a real target choice.
+- **★ A card that gains traits (or anything) "even while not in play" meets the ~260 bare-CardID `HasTrait`
+  reads, which carry no owner.** HMW_134 Zam Wesell: precise hooks in `TraitContains` (controller) and
+  `_SWUCardHasTrait` (owner), plus a seat resolver for bare reads. ⚠ A top-deck search `array_splice`s the
+  peeked cards OUT of every zone before its filter runs — "no copy findable anywhere" is a real state; fall
+  back to the acting player rather than returning nothing.
+- **★ When a mutation stays green, the finding may be STRUCTURAL — record it, and delete redundant code.**
+  Log Trap (HMW_149): the resume branch's position relative to `SWU_CHAINED_ATTACK` cannot matter (every "attack
+  with another unit" trigger queues its attack inside trigger resolution), and re-queuing the resume before the
+  second attack was redundant (the combat closes the action itself) — it was DELETED, not kept "just in case".
+  First Legion's suppression-before-grant order only discriminated through an UNDEPLOYED leader (a deployed
+  leader's own trait is already stripped). Write the structural reason into the section comment.
+- **Floor scans: a printed keyword line is not a clause.** Counting text LINES flagged 14 HMW files / 23
+  sections; excluding keyword lines (Overwhelm, Restore, Hidden, Fortify…) and "Attach to" restrictions left
+  3 / 4. Count ability lead-ins, never lines.
+
 ### ★★ Game-log & SSOT pass (2026-09-11) — trigger TIMING, the drawn COPY, and counting the parallels
 The helper rows are in the §3c table ("ONE FUNNEL PER GAME EVENT"). The lessons behind them:
 - **★★ Triggers never interrupt the ability that raised them — ★ USER RULINGS 2026-09-11 (CR 7.6.8 /

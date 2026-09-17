@@ -16,8 +16,10 @@
 //
 //   REGISTRY
 //     1 = Mute sounds (0/1)
-//     -- next free: 2 --
+//     2 = Card language (0=en 1=es 2=it 3=fr) — settingValue is an INT column, so languages are codes
+//     -- next free: 3 --
 if (!defined('SWUSIM_SET_MUTE')) define('SWUSIM_SET_MUTE', 1);
+if (!defined('SWUSIM_SET_CARD_LANGUAGE')) define('SWUSIM_SET_CARD_LANGUAGE', 2);
 
 require_once __DIR__ . '/../Database/ConnectionManager.php';
 require_once __DIR__ . '/../Database/functions.inc.php';
@@ -58,5 +60,48 @@ if (!function_exists('SWUSimAccountMuted')) {
     function SWUSimAccountMuted($userId): ?bool {
         $v = SWUSimGetSetting($userId, SWUSIM_SET_MUTE);
         return $v === null ? null : ($v === '1');
+    }
+}
+
+// Card language for localized card art (images only). ⚠ The codes are PERMANENT for the same reason the
+// setting numbers are: they are what is stored. Append a language; never renumber one.
+if (!function_exists('SWUSimCardLanguageCodes')) {
+    function SWUSimCardLanguageCodes(): array {
+        return ['en' => 0, 'es' => 1, 'it' => 2, 'fr' => 3];
+    }
+}
+
+if (!function_exists('SWUSimCardLanguageToCode')) {
+    function SWUSimCardLanguageToCode($lang): ?int {
+        if (!is_string($lang)) return null;
+        $codes = SWUSimCardLanguageCodes();
+        $key = strtolower(trim($lang));
+        return array_key_exists($key, $codes) ? $codes[$key] : null;
+    }
+}
+
+if (!function_exists('SWUSimCardLanguageFromCode')) {
+    function SWUSimCardLanguageFromCode($value): ?string {
+        if ($value === null || !preg_match('/^\d+$/', (string)$value)) return null;
+        $lang = array_search(intval($value), SWUSimCardLanguageCodes(), true);
+        return $lang === false ? null : $lang;
+    }
+}
+
+if (!function_exists('SWUSimSetCardLanguage')) {
+    function SWUSimSetCardLanguage($userId, $lang): bool {
+        if ($userId === null || $userId === '' || intval($userId) <= 0) return false;
+        $code = SWUSimCardLanguageToCode($lang);
+        if ($code === null) return false;
+        SaveSetting($userId, SWUSIM_SET_CARD_LANGUAGE, (string)$code);
+        return true;
+    }
+}
+
+// null = no account-level answer (guest, never set, or an unreadable stored value). The client then uses
+// this browser's choice, else English — see SWUCardI18n.effectiveLanguage() in Core/SWUCardI18n.js.
+if (!function_exists('SWUSimAccountCardLanguage')) {
+    function SWUSimAccountCardLanguage($userId): ?string {
+        return SWUSimCardLanguageFromCode(SWUSimGetSetting($userId, SWUSIM_SET_CARD_LANGUAGE));
     }
 }

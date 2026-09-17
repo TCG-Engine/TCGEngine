@@ -1,10 +1,23 @@
 <?php // SWUSim/Sideboard.php — between-games sideboard screen (card-image editor)
 include_once __DIR__ . '/MatchFlow.php';
+// LoggedInUser() is not otherwise defined on this standalone page — needed below for the card
+// language wiring (Step 5, localized card art).
+include_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php'; // CardTitle/CardSubtitle
 // The one seam that knows where SWU art lives and how it is named. This page is STANDALONE — it does
 // not load Core's Card()/resolveCardImageID — so without it the art paths get hand-built relative to
 // /TCGEngine/SWUSim/ and preview (mock_-prefixed) cards never resolve.
 include_once __DIR__ . '/../AppCore/SWU/CardImagePath.php';
+require_once __DIR__ . '/PlayerSettings.php';
+// Login state MUST be resolved here, before any HTML is echoed below. LoggedInUser() -> CheckSession()
+// only calls session_start() when !headers_sent() (AccountFiles/AccountSessionAPI.php), and by the
+// time this page reaches the <script> globals near the bottom, ~5KB of static HTML has already
+// flushed past output_buffering=4096 — headers are sent, so a session started only there would never
+// see the login cookie. Call CheckSession() explicitly up front (this page starts no session of its
+// own) and snapshot both values now; they are only ever PRINTED later, not recomputed.
+CheckSession();
+$sbLoggedIn = function_exists('LoggedInUser') && intval(LoggedInUser()) > 0;
+$sbCardLang = function_exists('LoggedInUser') ? SWUSimAccountCardLanguage(LoggedInUser()) : null;
 $matchId = preg_replace('/[^A-Za-z0-9_]/','', $_GET['matchId'] ?? '');
 $seat    = intval($_GET['playerID'] ?? 0);
 $m = SWUReadMatch($matchId);
@@ -129,6 +142,11 @@ var leader=<?= json_encode($deck['leader']) ?>, base=<?= json_encode($deck['base
 var titles=<?= json_encode($titles, JSON_UNESCAPED_UNICODE) ?>;
 </script>
 <?= SWUCardArtScript(false) /* lite: SWUSim ids are already SET_NNN, so the UUID map is dead weight */ ?>
+<script>
+  window.SWU_LOGGED_IN = <?= $sbLoggedIn ? 'true' : 'false' ?>;
+  window.SWU_ACCOUNT_CARD_LANGUAGE = <?= $sbCardLang === null ? 'null' : json_encode($sbCardLang) ?>;
+</script>
+<script src="../Core/SWUCardI18n.js?v=<?= filemtime(__DIR__ . '/../Core/SWUCardI18n.js') ?>"></script>
 <script>
 var deck=<?= json_encode((object)array_map('intval',$mainCounts), JSON_FORCE_OBJECT) ?>;
 var side=<?= json_encode((object)array_map('intval',$sideCounts), JSON_FORCE_OBJECT) ?>;

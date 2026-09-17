@@ -5078,6 +5078,9 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   // eligible for promotion onto the account. See PlayerSettings.php.
   require_once __DIR__ . '/../PlayerSettings.php';
   $swuGearMute   = SWUSimAccountMuted($swuGearUid);
+  // Card language (localized card art): the ACCOUNT value, or null when there is none. Same null
+  // contract as mute: null is what lets a browser-side choice be promoted onto the account.
+  $swuGearCardLang = SWUSimAccountCardLanguage($swuGearUid);
   $swuGearLogged = ($swuGearUid !== '' && $swuGearUid !== null && intval($swuGearUid) > 0);
 
   // Seat -> public username, for every seat whose player is LOGGED IN.
@@ -5125,6 +5128,7 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
 <script>
   window.SWU_LOGGED_IN   = <?= $swuGearLogged ? 'true' : 'false' ?>;
   window.SWU_ACCOUNT_MUTE = <?= $swuGearMute === null ? 'null' : ($swuGearMute ? 'true' : 'false') ?>;
+  window.SWU_ACCOUNT_CARD_LANGUAGE = <?= $swuGearCardLang === null ? 'null' : json_encode($swuGearCardLang) ?>;
   // Always an object (never undefined) so a consumer can index it without a guard. Empty = a game
   // in which nobody is logged in, or one played outside the match system.
   window.SWU_SEAT_USERNAMES = <?= json_encode((object)$swuSeatNames, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
@@ -5165,6 +5169,13 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
         <input type="checkbox" id="swuSetShowPlaymats"></label>
       <label class="swu-settings-row"><span>Mute sounds</span>
         <input type="checkbox" id="swuSetMuteSounds"></label>
+      <label class="swu-settings-row"><span>Card language</span>
+        <select id="swuSetCardLanguage">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="it">Italiano</option>
+          <option value="fr">Français</option>
+        </select></label>
       <label class="swu-settings-row"><span>Card motion</span>
         <input type="checkbox" id="swuSetCardMotion"></label>
       <?php if ($swuGearCos !== null): ?>
@@ -5235,6 +5246,9 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     // deliberately no "following your profile" hint: the box itself is the mute status.
     var m = document.getElementById('swuSetMuteSounds');
     if (m && typeof window.swuSoundsMuted === 'function') m.checked = window.swuSoundsMuted();
+    // Card language shows the EFFECTIVE value (browser choice, else account, else English), like mute.
+    var cl = document.getElementById('swuSetCardLanguage');
+    if (cl && window.SWUCardI18n) cl.value = window.SWUCardI18n.effectiveLanguage();
     // Card motion (zone slides + attack lunge). Read through TCGCardMotion.isEnabled rather than
     // TCGSettings directly: its default honours prefers-reduced-motion, so a player who has asked the
     // OS for reduced motion sees this unchecked without ever having touched it.
@@ -5397,6 +5411,11 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
       // Writes BOTH layers: this browser always, and the account too when signed in, so the gear
       // menu and the Profile toggle can never disagree after a change.
       if (typeof window.swuSetSoundsMuted === 'function') window.swuSetSoundsMuted(e.target.checked);
+      return;
+    }
+    if (e.target && e.target.id === 'swuSetCardLanguage') {
+      // Writes this browser and (when signed in) the account, then re-points every card image on screen.
+      if (window.SWUCardI18n) window.SWUCardI18n.setLanguage(e.target.value);
       return;
     }
     if (e.target && e.target.id === 'swuSetShowPlaymats') {
