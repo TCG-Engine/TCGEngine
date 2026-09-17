@@ -45,7 +45,11 @@
   <div class="fab-upf-panel-body" id="fab-upf-stack"></div>
 </section>
 <section class="fab-upf-panel" id="fab-upf-chain-panel" aria-label="Combat chain" hidden>
-  <header tabindex="0" aria-label="Move combat chain panel with arrow keys"><h2>Combat chain <small>Drag to move</small></h2><button type="button" data-fab-close="chain" aria-label="Hide combat chain">×</button></header>
+  <header tabindex="0" aria-label="Move combat chain panel with arrow keys">
+    <h2>Combat chain</h2>
+    <?php include __DIR__ . '/CombatProgress.php'; ?>
+    <button type="button" data-fab-close="chain" aria-label="Hide combat chain">×</button>
+  </header>
   <div class="fab-upf-panel-body"><p id="fab-upf-chain-status" class="fab-upf-status"></p><div id="fab-upf-chain"></div></div>
 </section>
 <script>
@@ -77,9 +81,7 @@
     if(!panel.hidden){raisePanel(panel);clampPanel(panel);if(focus)panel.querySelector('header').focus();}
   }
   function clampPanel(panel,left,top) {
-    const rect=panel.getBoundingClientRect();
-    panel.style.left=Math.max(8,Math.min(left??rect.left,innerWidth-rect.width-8))+'px';
-    panel.style.top=Math.max(8,Math.min(top??rect.top,innerHeight-Math.min(rect.height,innerHeight)-8))+'px';
+    window.FaBClampPanel(panel,left,top);
   }
   function focusSeat(seat){focusedSeat=seat;if(lastRender)window.RenderFaBMultiplayer(...lastRender);}
   function makeZone(seat,zone,row){
@@ -173,6 +175,7 @@
       }
     });
     let state={};try{state=JSON.parse(window.GameStateData||'{}');}catch(_){}
+    window.FaBUpdateCombatProgress(document.getElementById('fab-upf-chain-panel'), state);
     if (typeof window.FaBRenderChain === 'function') {
       const chainHost = document.getElementById('fab-upf-chain');
       let view = document.getElementById('fab-upf-chain-view');
@@ -203,15 +206,10 @@
   document.querySelectorAll('[data-fab-panel]').forEach(button=>button.onclick=()=>panelToggle(button.dataset.fabPanel,undefined,true));
   document.querySelectorAll('[data-fab-close]').forEach(button=>button.onclick=()=>{panelToggle(button.dataset.fabClose,false);document.querySelector('[data-fab-panel="'+button.dataset.fabClose+'"]').focus();});
   document.querySelectorAll('.fab-upf-panel').forEach(panel=>{
-    const header=panel.querySelector('header'),key=panel.id+'-position';let drag=null;
-    const save=()=>{try{localStorage.setItem(key,JSON.stringify({left:parseFloat(panel.style.left),top:parseFloat(panel.style.top)}));}catch(_){}};
-    try{const pos=JSON.parse(localStorage.getItem(key));if(pos&&Number.isFinite(pos.left)&&Number.isFinite(pos.top)){panel.style.left=pos.left+'px';panel.style.top=pos.top+'px';}}catch(_){}
+    window.FaBMakeDraggablePanel(panel, panel.querySelector('header'));
+    if (panel.querySelector('[data-fab-drag-handle]')) window.FaBMakeDraggablePanel(panel, panel.querySelector('[data-fab-drag-handle]'));
     panel.addEventListener('pointerdown',()=>raisePanel(panel));
-    header.addEventListener('pointerdown',event=>{if(event.button!==0||event.target.closest('button'))return;const r=panel.getBoundingClientRect();drag={x:event.clientX,y:event.clientY,left:r.left,top:r.top};header.setPointerCapture(event.pointerId);event.preventDefault();});
-    header.addEventListener('pointermove',event=>{if(drag)clampPanel(panel,drag.left+event.clientX-drag.x,drag.top+event.clientY-drag.y);});
-    header.addEventListener('pointerup',()=>{if(drag){drag=null;save();}});header.addEventListener('pointercancel',()=>{drag=null;});
-    header.addEventListener('keydown',event=>{if(event.target!==header)return;const delta={ArrowLeft:[-20,0],ArrowRight:[20,0],ArrowUp:[0,-20],ArrowDown:[0,20]}[event.key];if(!delta)return;event.preventDefault();const r=panel.getBoundingClientRect();clampPanel(panel,r.left+delta[0],r.top+delta[1]);save();});
-    panel.addEventListener('keydown',event=>{if(event.key==='Escape')panel.querySelector('[data-fab-close]').click();});window.addEventListener('resize',()=>{if(!panel.hidden)clampPanel(panel);});
+    panel.addEventListener('keydown',event=>{if(event.key==='Escape')panel.querySelector('[data-fab-close]').click();});
   });
 })();
 </script>

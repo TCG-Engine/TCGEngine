@@ -1,4 +1,4 @@
-<?php include __DIR__ . '/GameOver.php'; include __DIR__ . '/MultiplayerLayout.php'; ?>
+<?php include __DIR__ . '/GameOver.php'; include __DIR__ . '/CombatPanel.php'; include __DIR__ . '/MultiplayerLayout.php'; ?>
 <link rel="stylesheet" href="./FaBSim/Custom/IconTheme.css?v=<?= filemtime(__DIR__ . '/IconTheme.css') ?>">
 <style>
 #bug-report-button{position:fixed;top:8px;right:8px;z-index:2600}
@@ -126,16 +126,6 @@ body.fab-lunge-active .fab-floating-window:not([hidden]){opacity:0;visibility:hi
 .fab-window-subtitle{margin-left:8px;color:#a9a49a;font-size:11px;font-weight:500}
 .fab-window-close{width:27px;height:27px;border:1px solid rgba(255,255,255,.13);border-radius:50%;background:#292b2b;color:#eee;cursor:pointer}
 .fab-chain-close{position:absolute;z-index:4;top:7px;right:8px;width:24px;height:24px;font-size:14px}
-.fab-combat-progress{display:grid;grid-template-columns:repeat(7,minmax(58px,82px));justify-content:center;gap:5px;padding:7px 40px 6px;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.18)}
-.fab-combat-step{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;min-width:0;height:28px;padding:0 6px;border:1px solid rgba(255,255,255,.08);border-radius:15px;color:#767a78;text-align:center;font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;transition:background .16s,border-color .16s,color .16s,transform .16s,box-shadow .16s}
-.fab-step-glyph{display:block;width:20px;height:20px;flex:none;color:#9b9d99;filter:drop-shadow(0 1px 1px #0008)}
-.fab-combat-step:not(:last-child):after{content:"";position:absolute;z-index:2;top:50%;right:-6px;width:7px;height:1px;background:rgba(255,255,255,.14)}
-.fab-combat-step.is-complete{color:#aaa89f;border-color:rgba(214,170,77,.18);background:rgba(214,170,77,.055)}
-.fab-combat-step.is-complete .fab-step-glyph{color:#69c887}
-.fab-combat-progress{--fab-priority:105,200,135}
-.fab-combat-progress[data-priority="opponent"]{--fab-priority:239,104,104}
-.fab-combat-step.is-active{color:#fff;border-color:rgb(var(--fab-priority));background:rgba(var(--fab-priority),.2);transform:translateY(-1px);box-shadow:0 0 6px rgba(var(--fab-priority),.65),inset 0 0 8px rgba(var(--fab-priority),.12)}
-.fab-combat-step.is-active .fab-step-glyph{color:rgb(var(--fab-priority));filter:drop-shadow(0 0 3px rgba(var(--fab-priority),.65))}
 .fab-combat-status{min-height:15px;padding:4px 38px 2px;color:#c9c3b7;font-size:10px;text-align:center}
 .fab-combat-status strong{color:#f1d17c}
 .fab-chain-flow{position:relative;display:flex;align-items:center;justify-content:center;gap:0;height:calc(100% - 64px);min-height:148px;padding:6px 38px 12px;box-sizing:border-box}
@@ -200,15 +190,7 @@ foreach ($zones as $zone => $label) {
 
 <section id="fabCombatWindow" class="fab-floating-window" aria-label="Combat chain" hidden>
   <button class="fab-window-close fab-chain-close" type="button" aria-label="Close combat chain" onclick="FaBToggleWindow('fabCombatWindow', false)">×</button>
-  <div id="fabCombatProgress" class="fab-combat-progress" aria-label="Combat progress">
-    <div class="fab-combat-step" data-fab-step="LAYER" aria-label="layer phase" title="layer"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#layer"></use></svg><span class="fab-step-label">Layer</span></div>
-    <div class="fab-combat-step" data-fab-step="ATTACK" aria-label="attack phase" title="attack"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#attack"></use></svg><span class="fab-step-label">Attack</span></div>
-    <div class="fab-combat-step" data-fab-step="DEFEND" aria-label="defend phase" title="defend"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#defend"></use></svg><span class="fab-step-label">Defend</span></div>
-    <div class="fab-combat-step" data-fab-step="REACTION" aria-label="reaction phase" title="reaction"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#reaction"></use></svg><span class="fab-step-label">React</span></div>
-    <div class="fab-combat-step" data-fab-step="DAMAGE" aria-label="damage phase" title="damage"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#damage"></use></svg><span class="fab-step-label">Damage</span></div>
-    <div class="fab-combat-step" data-fab-step="RESOLUTION" aria-label="resolution phase" title="resolution"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#resolution"></use></svg><span class="fab-step-label">Resolve</span></div>
-    <div class="fab-combat-step" data-fab-step="CLOSE" aria-label="close phase" title="close"><svg class="fab-step-glyph" aria-hidden="true" focusable="false"><use href="./FaBSim/Assets/Icons/phases.svg#close"></use></svg><span class="fab-step-label">Close</span></div>
-  </div>
+  <?php include __DIR__ . '/CombatProgress.php'; ?>
   <div class="fab-chain-flow">
     <div id="fabChainView"></div>
     <div id="myCombatChainSlot" class="fab-chain-side"><div id="myCombatChain"></div></div>
@@ -356,6 +338,7 @@ function FaBToggleWindow(id, forceOpen) {
     if (otherToggle) otherToggle.setAttribute('aria-expanded', 'false');
   }
   panel.hidden = !shouldOpen;
+  if (shouldOpen && typeof window.FaBClampPanel === 'function') window.FaBClampPanel(panel);
   var toggle = document.getElementById(id === 'fabCombatWindow' ? 'fabCombatToggle' : 'fabLayersToggle');
   if (toggle) toggle.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
 }
@@ -396,26 +379,7 @@ function FaBReadCombatState() {
 
 function FaBRefreshCombatProgress() {
   var state = FaBReadCombatState();
-  var active = String(state.combatStep || 'NONE').toUpperCase();
-  var order = ['LAYER', 'ATTACK', 'DEFEND', 'REACTION', 'DAMAGE', 'RESOLUTION', 'CLOSE'];
-  var activeIndex = order.indexOf(active);
-  document.querySelectorAll('[data-fab-step]').forEach(function(node) {
-    var index = order.indexOf(node.dataset.fabStep);
-    node.classList.toggle('is-active', index === activeIndex);
-    node.classList.toggle('is-complete', activeIndex > index);
-  });
-
-  var player = Number(window.PriorityPlayerData || 0);
-  var viewer = Number(document.getElementById('playerID')?.value);
-  if (!viewer) viewer = Number(document.getElementById('viewerPerspective')?.value || 1);
-  var progress = document.getElementById('fabCombatProgress');
-  if (progress) {
-    progress.dataset.priority = player === viewer ? 'self' : 'opponent';
-    progress.setAttribute('aria-label', 'Combat progress. Player ' + player + ' has priority.');
-    progress.title = 'Player ' + player + ' has priority';
-  }
-  var panel = document.getElementById('fabCombatWindow');
-  if (panel) panel.dataset.combatStep = active;
+  window.FaBUpdateCombatProgress(document.getElementById('fabCombatWindow'), state);
 }
 
 window.RenderFaBLayers = function(html, count) {
@@ -440,6 +404,8 @@ window.RenderFaBLayers = function(html, count) {
 document.addEventListener('DOMContentLoaded', function() {
   var combatWindow = document.getElementById('fabCombatWindow');
   if (!combatWindow) return;
+  window.FaBMakeDraggablePanel(combatWindow, combatWindow.querySelector('[data-fab-drag-handle]'));
+  combatWindow.addEventListener('keydown', function(event) { if (event.key === 'Escape') FaBToggleWindow('fabCombatWindow', false); });
   ['myCombatChainSlot', 'theirCombatChainSlot'].forEach(function(slotID) {
     var chainSlot = document.getElementById(slotID);
     if (chainSlot) new MutationObserver(FaBRefreshSharedWindows).observe(chainSlot, {childList:true, subtree:true});
