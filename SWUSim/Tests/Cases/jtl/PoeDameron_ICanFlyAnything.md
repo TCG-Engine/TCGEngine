@@ -303,3 +303,87 @@ P1SPACEARENAUNIT:1:UPGRADE:0:CARDID:JTL_013
 P1SPACEARENAUNIT:2:UPGRADECOUNT:0
 P1RESAVAILABLE:1
 P1NODECISION
+
+---
+
+# DeployedAsUnit_NoAbilityOffered
+#// Reported 2026-09-17: Poe deployed on the ground got the "Ability" option. His deployed text is "Action
+#// [1 resource]: Attach THIS UPGRADE to a friendly Vehicle unit without a Pilot on it" — it exists only while
+#// he is attached as a Pilot upgrade. As a unit he is not an upgrade, so no Action may be offered, even with
+#// an empty Vehicle, a ready unit and resources to pay. (The hop is registered under his own CardID, which
+#// the unit-Action lookup matched against the deployed unit itself.)
+
+## GIVEN
+CommonSetup: grw/grw/{
+  myLeader:JTL_013;
+  myLeaderDeployed:true;
+  myBase:SOR_022;
+  theirLeader:JTL_013;
+  theirBase:SOR_022
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1SpaceArena: SOR_225:1:0
+
+## WHEN
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:JTL_013
+P1UNITACTIONSNOT:myGroundArena-0
+
+---
+
+# DeployedAsUnit_ForcedAbilityClick_DoesNothing
+#// The server side of the same rule: a stale or scripted Ability click on the deployed Poe unit must not pay
+#// the 1 resource, attach him anywhere, or leave a decision pending.
+
+## GIVEN
+CommonSetup: grw/grw/{
+  myLeader:JTL_013;
+  myLeaderDeployed:true;
+  myBase:SOR_022;
+  theirLeader:JTL_013;
+  theirBase:SOR_022
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>UseUnitAbility:myGroundArena-0
+
+## EXPECT
+P1GROUNDARENAUNIT:0:CARDID:JTL_013
+P1SPACEARENAUNIT:0:UPGRADECOUNT:0
+P1RESAVAILABLE:2
+P1NODECISION
+
+---
+
+# PilotingAVehicle_HopStillOffered_CONTROL
+#// Control for the two sections above: attached as a Pilot upgrade, Poe's hop IS offered on his host
+#// Vehicle (with another empty Vehicle to hop to and a resource to pay). A guard that simply removed his
+#// Action everywhere would fail here.
+
+## GIVEN
+CommonSetup: grw/grw/{
+  myLeader:JTL_013;
+  myBase:SOR_022;
+  theirLeader:JTL_013;
+  theirBase:SOR_022
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 2
+WithP1SpaceArena: SOR_225:1:0
+WithP1SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>UseLeaderAbility
+- P1>AnswerDecision:mySpaceArena-0
+
+## EXPECT
+P1SPACEARENAUNIT:0:UPGRADE:0:CARDID:JTL_013
+P1UNITACTIONSHAS:mySpaceArena-0
