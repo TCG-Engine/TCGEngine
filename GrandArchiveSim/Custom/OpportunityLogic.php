@@ -1252,6 +1252,67 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
 };
 
 /**
+ * Normalize a "my"/"their"-prefixed mzID string so it's unambiguous regardless of who's
+ * the ambient viewer at the moment it's read back.
+ *
+ * "my"/"their" zone names are only meaningful relative to whatever the ambient global
+ * $playerID happens to be *at the moment they're resolved*, not to who they were written
+ * down by. ResolveTopOfEffectStack() always sets $playerID = $cardOwner (the trigger's
+ * controller) right before firing a deferred ability -- so any mzID captured into a
+ * QueueTriggeredAbility() context must be re-expressed relative to that same controller
+ * *at capture time*, or it can silently flip meaning once replayed under a different
+ * ambient $playerID than was active when it was captured.
+ *
+ * @param string $mzID       A "my"/"their"-prefixed zone reference (or a global zone, unaffected).
+ * @param int    $controller The player this trigger's ability will run as (matches the
+ *                            Controller passed to QueueTriggeredAbility).
+ */
+function NormalizeMzIDForController($mzID, $controller) {
+    global $playerID;
+    return (intval($controller) === intval($playerID)) ? $mzID : FlipZonePerspective($mzID);
+}
+
+/**
+ * Generic helper to queue a triggered ability onto the EffectStack instead of firing it
+ * synchronously. This is the shared primitive for moving a trigger type off the old
+ * "look up the dispatch table and call it immediately" pattern and onto the stack, so
+ * both players get a real Opportunity window (and, for simultaneous triggers, proper
+ * turn-order stacking) before it resolves.
+ *
+ * $context is an associative array of ambient DQ variables (e.g. "mzID", or a card-specific
+ * snapshot value like a counter count read off the source object before it left the field)
+ * that the deferred ability closure will need. It's captured here -- at queue time, while the
+ * relevant game state is still fresh -- and stored on the stack entry's own Counters slot
+ * (a free-form JSON field, unused by any real card mechanic on EffectStack objects), then
+ * replayed into DQ variables by ResolveTopOfEffectStack() right before the closure runs.
+ * This avoids the entries clobbering each other's ambient state when multiple triggers of
+ * different kinds are queued back to back. Any "my"/"their"-prefixed mzID in $context must
+ * already be normalized via NormalizeMzIDForController() before being passed in here.
+ *
+ * @param int    $player      The ability's controller.
+ * @param string $cardID      The source card's ID (dispatch tables are keyed by CardID).
+ * @param string $triggerType A tag ResolveTopOfEffectStack() switches on (e.g. "ALLY_DESTROYED").
+ * @param array  $context     Ambient DQ variables to snapshot and replay at resolution time.
+ * @return bool True if a stack entry was queued.
+ */
+function QueueTriggeredAbility($player, $cardID, $triggerType, $context = []) {
+    $stackObj = AddEffectStack(
+        CardID: $cardID,
+        Controller: $player,
+        TriggerType: $triggerType,
+        Counters: $context
+    );
+    if($stackObj === null) return false;
+
+    if(DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES") {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        $dqController = new DecisionQueueController();
+        $dqController->ExecuteStaticMethods($player, "-");
+    }
+    return true;
+}
+
+/**
  * Resolve the top card of the EffectStack.
  *
  * Swaps $playerID to match the card owner so that all my/their zone references
@@ -1292,6 +1353,16 @@ function ResolveTopOfEffectStack() {
     DecisionQueueController::StoreVariable("ResolvingEffectStack", "YES");
     ClearDamageSourcesDealtThisResolution();
 
+    // Restore any ambient DQ variables (e.g. "mzID", or a card-specific snapshot value)
+    // that were captured into this entry's Counters slot when it was queued -- ability
+    // code reads these as ambient context, and since resolution is now deferred (an
+    // Opportunity window may have run, other things may have happened), they can't be
+    // recomputed live and must be replayed from what was true when the trigger fired.
+    $triggerContext = is_array($topObj->Counters) ? $topObj->Counters : [];
+    foreach($triggerContext as $ctxKey => $ctxValue) {
+        DecisionQueueController::StoreVariable($ctxKey, is_string($ctxValue) ? $ctxValue : strval($ctxValue));
+    }
+
     if($triggerType === "ENTER") {
         $cardID = $topObj->CardID ?? "";
         $sourceUniqueID = intval($topObj->TriggerSourceUniqueID ?? 0);
@@ -1310,6 +1381,55 @@ function ResolveTopOfEffectStack() {
     } else if($triggerType === "WITHER") {
         if(function_exists("FireWitherTriggeredAbility")) {
             FireWitherTriggeredAbility($cardOwner);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ALLY_DESTROYED") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireAllyDestroyedTriggeredAbility")) {
+            FireAllyDestroyedTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ON_BANISH") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireOnBanishTriggeredAbility")) {
+            FireOnBanishTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "DISCARD_CARD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireDiscardCardTriggeredAbility")) {
+            FireDiscardCardTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "REVEAL_CARD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireRevealTriggeredAbility")) {
+            FireRevealTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "PLAY_CARD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FirePlayCardTriggeredAbility")) {
+            FirePlayCardTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "REST_CARD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireRestCardTriggeredAbility")) {
+            FireRestCardTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "DEAL_DAMAGE") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireDealDamageTriggeredAbility")) {
+            FireDealDamageTriggeredAbility($cardOwner, $cardID);
         }
         $topObj->Remove();
         DecisionQueueController::CleanupRemovedCards();

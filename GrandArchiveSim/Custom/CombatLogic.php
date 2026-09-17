@@ -4967,11 +4967,8 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     }
     $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "FOSTERED"));
 
-    // Trigger per-card DealDamage abilities on the target card
-    global $dealDamageAbilities;
-    if(isset($dealDamageAbilities) && isset($dealDamageAbilities[$targetObj->CardID . ":0"])) {
-        $dealDamageAbilities[$targetObj->CardID . ":0"]($player);
-    }
+    // Trigger per-card DealDamage abilities on the target card, via the Effects Stack
+    QueueDealDamageTriggeredAbility($targetObj->Controller ?? $player, $targetObj->CardID, $source, $target, $amount);
 
     // Everflame Staff (nrvth9vyz1): whenever a fire Spell source you control deals damage,
     // put a refinement counter on Everflame Staff
@@ -5223,11 +5220,8 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     }
     $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "FOSTERED"));
 
-    // Trigger per-card DealDamage abilities on the target card
-    global $dealDamageAbilities;
-    if(isset($dealDamageAbilities) && isset($dealDamageAbilities[$targetObj->CardID . ":0"])) {
-        $dealDamageAbilities[$targetObj->CardID . ":0"]($player);
-    }
+    // Trigger per-card DealDamage abilities on the target card, via the Effects Stack
+    QueueDealDamageTriggeredAbility($targetObj->Controller ?? $player, $targetObj->CardID, $source, $target, $amount);
     RadiantOriginGuardianTrigger($source, $amount);
 
     // Magebane Lash (oh300z2sns): Nico Bonus — whenever Nico takes non-combat damage, recover 2

@@ -4879,7 +4879,17 @@ function OnBanishTrigger($player, $mzID) {
     $triggerCardID = GetOnBanishTriggerCardID($obj);
     if($triggerCardID === null) return;
     if(isset($onBanishAbilities[$triggerCardID . ":0"])) {
-        $onBanishAbilities[$triggerCardID . ":0"]($player);
+        // $mzID already points at the card's final resting place in banishment (this fires
+        // as an AfterAdd hook, post-move), so it's captured for replay at resolution time --
+        // normalized to $player's own perspective since that's who it'll be replayed as.
+        QueueTriggeredAbility($player, $triggerCardID, "ON_BANISH", ['mzID' => NormalizeMzIDForController($mzID, $player)]);
+    }
+}
+
+function FireOnBanishTriggeredAbility($player, $cardID) {
+    global $onBanishAbilities;
+    if(isset($onBanishAbilities[$cardID . ":0"])) {
+        $onBanishAbilities[$cardID . ":0"]($player);
     }
 }
 
@@ -5774,6 +5784,10 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
     if($sourceObject !== null && IsDreamFairyLockedCardID($player, $sourceObject->CardID)) {
         SetFlashMessage("Dream Fairy is preventing that card from being played.");
         return;
+    }
+
+    if($sourceObject !== null) {
+        QueuePlayCardTriggeredAbility($player, $sourceObject->CardID, $mzCard, $ignoreCost);
     }
 
     $dqController = new DecisionQueueController();
@@ -7290,6 +7304,147 @@ function QueueEnterTriggeredAbility($player, $mzID, $copiedCardID = "") {
 }
 
 /**
+ * Queue a card's On Death ("ally destroyed") ability onto the EffectStack rather than firing
+ * it synchronously, so both players get a real Opportunity window before it resolves.
+ * $mzID is the destroyed card's *new* location (it has already been moved to graveyard/
+ * banish/material by the time this is called) -- ability code reads the ambient "mzID"
+ * variable as "the card this trigger is about", so that location is captured here and
+ * replayed by ResolveTopOfEffectStack() right before the deferred closure runs, since the
+ * object may no longer be resolvable from the field by the time this actually fires.
+ * $context can carry additional card-specific snapshot values (e.g. a counter count read
+ * off the object before it left the field) that would otherwise go stale.
+ */
+function QueueAllyDestroyedTriggeredAbility($controller, $cardID, $mzID, $context = []) {
+    global $allyDestroyedAbilities;
+    if(!isset($allyDestroyedAbilities[$cardID . ":0"])) return false;
+    $context['mzID'] = $mzID;
+    return QueueTriggeredAbility($controller, $cardID, "ALLY_DESTROYED", $context);
+}
+
+function FireAllyDestroyedTriggeredAbility($controller, $cardID) {
+    global $allyDestroyedAbilities;
+    if(isset($allyDestroyedAbilities[$cardID . ":0"])) {
+        $allyDestroyedAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
+ * Discard-triggered abilities fire after the discarded card has already left the field
+ * (OnDiscardCard is called post-move), so unlike leave-field triggers there's no stale-mzID
+ * risk from deferring. $abilityIndex is carried in context since a single card can register
+ * more than one discard-triggered ability (CardDiscardCardCount).
+ */
+function QueueDiscardCardTriggeredAbility($controller, $cardID, $abilityIndex, $mzID, $discardedCardID) {
+    global $discardCardAbilities;
+    if(!isset($discardCardAbilities[$cardID . ":" . $abilityIndex])) return false;
+    return QueueTriggeredAbility($controller, $cardID, "DISCARD_CARD", [
+        'mzID' => $mzID,
+        'discardedCardID' => $discardedCardID,
+        'AbilityIndex' => strval($abilityIndex),
+    ]);
+}
+
+function FireDiscardCardTriggeredAbility($controller, $cardID) {
+    global $discardCardAbilities;
+    $abilityIndex = strval(DecisionQueueController::GetVariable("AbilityIndex") ?? "0");
+    if($abilityIndex === "") $abilityIndex = "0";
+    $abilityKey = $cardID . ":" . $abilityIndex;
+    if(isset($discardCardAbilities[$abilityKey])) {
+        $discardCardAbilities[$abilityKey]($controller);
+    }
+}
+
+/**
+ * Reveal-triggered abilities read "revealedMZ"/"revealSourceZone" as ambient context (some of
+ * their own queued follow-up handlers, e.g. LightweaverRevealDmg, read "revealedMZ" again well
+ * after the initial fire) -- both are normalized to the controller's perspective up front so
+ * they stay correct however far deferred resolution replays them.
+ */
+function QueueRevealTriggeredAbility($controller, $cardID, $revealedMZ) {
+    global $revealAbilities;
+    if(!isset($revealAbilities[$cardID . ":0"])) return false;
+    $normalizedMZ = NormalizeMzIDForController($revealedMZ, $controller);
+    $sourceZone = explode("-", $normalizedMZ)[0];
+    return QueueTriggeredAbility($controller, $cardID, "REVEAL_CARD", [
+        'revealedMZ' => $normalizedMZ,
+        'revealSourceZone' => $sourceZone,
+    ]);
+}
+
+function FireRevealTriggeredAbility($controller, $cardID) {
+    global $revealAbilities;
+    if(isset($revealAbilities[$cardID . ":0"])) {
+        $revealAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
+ * $playCardAbilities was previously unreachable: the only code that dispatched it,
+ * $customDQHandlers["CardPlayed"], was never queued anywhere, so these 14 cards' on-play
+ * triggers (mostly instant-speed negate/interaction effects) silently never fired. Wiring
+ * it here, straight onto the Effects Stack, both fixes the dead dispatch and gives these
+ * abilities a proper Opportunity Window instead of resurrecting the old bypass.
+ */
+function QueuePlayCardTriggeredAbility($controller, $cardID, $mzID, $ignoreCost) {
+    global $playCardAbilities;
+    if(!isset($playCardAbilities[$cardID . ":0"])) return false;
+    return QueueTriggeredAbility($controller, $cardID, "PLAY_CARD", [
+        'mzID' => NormalizeMzIDForController($mzID, $controller),
+        'ignoreCost' => $ignoreCost ? "1" : "",
+    ]);
+}
+
+function FirePlayCardTriggeredAbility($controller, $cardID) {
+    global $playCardAbilities;
+    if(isset($playCardAbilities[$cardID . ":0"])) {
+        $playCardAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
+ * Resting only flips Status, never moves a zone, so unlike leave-field triggers there's no
+ * stale-mzID risk from deferring -- the object is still at $mzID whenever this resolves.
+ */
+function QueueRestCardTriggeredAbility($controller, $cardID, $mzID) {
+    global $restCardAbilities;
+    if(!isset($restCardAbilities[$cardID . ":0"])) return false;
+    return QueueTriggeredAbility($controller, $cardID, "REST_CARD", [
+        'mzID' => NormalizeMzIDForController($mzID, $controller),
+    ]);
+}
+
+/**
+ * DealDamage-triggered abilities belong to the damaged card's controller, not the damage's
+ * source ($player can be the opponent). Damage has already been applied by the time this
+ * fires, so there's no stale-mzID risk -- but "source" may be a raw card ID (a non-field
+ * source like a spell) rather than an mzID; NormalizeMzIDForController is a no-op on those
+ * since FlipZonePerspective only rewrites recognized "my"/"their" zone prefixes.
+ */
+function QueueDealDamageTriggeredAbility($controller, $cardID, $source, $target, $amount) {
+    global $dealDamageAbilities;
+    if(!isset($dealDamageAbilities[$cardID . ":0"])) return false;
+    return QueueTriggeredAbility($controller, $cardID, "DEAL_DAMAGE", [
+        'source' => NormalizeMzIDForController($source, $controller),
+        'target' => NormalizeMzIDForController($target, $controller),
+        'amount' => strval($amount),
+    ]);
+}
+
+function FireDealDamageTriggeredAbility($controller, $cardID) {
+    global $dealDamageAbilities;
+    if(isset($dealDamageAbilities[$cardID . ":0"])) {
+        $dealDamageAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+function FireRestCardTriggeredAbility($controller, $cardID) {
+    global $restCardAbilities;
+    if(isset($restCardAbilities[$cardID . ":0"])) {
+        $restCardAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
  * Signal the end of the game. The loser's opponent becomes the winner.
  * Stores GAMEOVER_WINNER in DQ variables so the client can show the
  * "You Won / You Lost" overlay on the next turn update.
@@ -7301,7 +7456,7 @@ function TriggerGameOver($loserPlayer) {
 }
 
 function DoAllyDestroyed($player, $mzCard) {
-    global $allyDestroyedAbilities, $customDQHandlers;
+    global $customDQHandlers;
     $obj = GetZoneObject($mzCard);
     if($obj === null) return;
     // Lu Bu, Indomitable Titan: Diao Chan replacement applies before any champion-loss handling.
@@ -7322,8 +7477,11 @@ function DoAllyDestroyed($player, $mzCard) {
     $destroyedObj = clone $obj;
     $controller = $destroyedObj->Controller;
     $suppressed = HasNoAbilities($destroyedObj);
+    // Snapshot context the On Death ability closure needs, since it now resolves later
+    // (via QueueAllyDestroyedTriggeredAbility) instead of synchronously right here.
+    $allyDestroyedContext = [];
     if($destroyedObj->CardID === "ejvddohjdu") {
-        DecisionQueueController::StoreVariable("LustrousSlimeBuffCount", strval(GetCounterCount($destroyedObj, "buff")));
+        $allyDestroyedContext['LustrousSlimeBuffCount'] = strval(GetCounterCount($destroyedObj, "buff"));
     }
     if($destroyedObj->CardID === "U5Fns5U7He"
         && !$suppressed
@@ -7356,7 +7514,17 @@ function DoAllyDestroyed($player, $mzCard) {
     }
     $isChampion = PropertyContains(EffectiveCardType($destroyedObj), "CHAMPION");
     $animatedPotionDeath = is_array($destroyedObj->Counters ?? null) && !empty($destroyedObj->Counters["potion_animate"]);
-    MZMove($player, $mzCard, $dest);
+    $movedDestroyedObj = MZMove($player, $mzCard, $dest);
+    // The On Death ability closure reads the ambient "mzID" variable as "the card this is
+    // about" -- capture where it actually landed so that can be replayed at resolution time.
+    // Built from the moved object's own (perspective-independent) Location/mzIndex rather
+    // than the "my"/"their"-relative $dest string, since $dest is only meaningful relative
+    // to whatever the ambient $playerID happened to be right now -- and by the time this
+    // replays, ResolveTopOfEffectStack() will have set $playerID = $controller, at which
+    // point "my" + Location is always the correct label for the controller's own zone.
+    $allyDestroyedMzID = ($movedDestroyedObj !== null)
+        ? "my" . $movedDestroyedObj->Location . "-" . $movedDestroyedObj->mzIndex
+        : "";
     // Champion destruction triggers game over only if controller no longer has any champion.
     // This allows replacement effects that establish a new champion (e.g. Lu Bu replacement)
     // to prevent an incorrect loss from stale destruction paths.
@@ -7381,8 +7549,8 @@ function DoAllyDestroyed($player, $mzCard) {
             $customDQHandlers["AbilityActivated"]($controller, [$destroyedObj->CardID, $ai], null);
         }
     }
-    if(!$suppressed && isset($allyDestroyedAbilities[$destroyedObj->CardID . ":0"])) {
-        $allyDestroyedAbilities[$destroyedObj->CardID . ":0"]($controller);
+    if(!$suppressed) {
+        QueueAllyDestroyedTriggeredAbility($controller, $destroyedObj->CardID, $allyDestroyedMzID, $allyDestroyedContext);
     }
     if(PropertyContains(EffectiveCardType($destroyedObj), "ALLY")) {
         if(PropertyContains(EffectiveCardSubtypes($destroyedObj), "ELYSIAN")) AddGlobalEffects($controller, "ELYSIAN_ALLY_DIED_THIS_TURN");
@@ -15239,10 +15407,13 @@ function OnDiscardCard($player, $discardedCardID) {
         if($field[$i]->removed || HasNoAbilities($field[$i])) continue;
         $count = CardDiscardCardCount($field[$i]->CardID);
         for($abilityIndex = 0; $abilityIndex < $count; ++$abilityIndex) {
-            $abilityKey = $field[$i]->CardID . ":" . $abilityIndex;
-            if(isset($discardCardAbilities[$abilityKey])) {
-                $discardCardAbilities[$abilityKey]($player);
-            }
+            QueueDiscardCardTriggeredAbility(
+                $player,
+                $field[$i]->CardID,
+                $abilityIndex,
+                NormalizeMzIDForController("myField-" . $i, $player),
+                $discardedCardID
+            );
         }
     }
     DecisionQueueController::ClearVariable("discardedCardID");
@@ -15265,11 +15436,7 @@ function DoRevealCard($player, $revealedMZ) {
     $parts = explode("-", $revealedMZ);
     $sourceZone = $parts[0];
     // Fire reveal triggers for this card
-    if(isset($revealAbilities[$CardID . ":0"])) {
-        DecisionQueueController::StoreVariable("revealedMZ", $revealedMZ);
-        DecisionQueueController::StoreVariable("revealSourceZone", $sourceZone);
-        $revealAbilities[$CardID . ":0"]($player);
-    }
+    QueueRevealTriggeredAbility($player, $CardID, $revealedMZ);
     // Striking Illuminance (2lukkhisu5): whenever you reveal a luxem card from memory, +1 POWER
     if(strpos($sourceZone, "Memory") !== false && CardElement($CardID) === "LUXEM") {
         global $playerID;
@@ -20740,9 +20907,8 @@ function OnRestCard($player, $mzCard) {
     $obj = &GetZoneObject($mzCard);
     if($obj === null || $obj->removed) return;
     $obj->Status = 1; // Rest the card (Grand Archive terminology for exhaust)
-    global $restCardAbilities;
-    if(!HasNoAbilities($obj) && isset($restCardAbilities[$obj->CardID . ":0"])) {
-        $restCardAbilities[$obj->CardID . ":0"]($player);
+    if(!HasNoAbilities($obj)) {
+        QueueRestCardTriggeredAbility($player, $obj->CardID, $mzCard);
     }
 }
 
