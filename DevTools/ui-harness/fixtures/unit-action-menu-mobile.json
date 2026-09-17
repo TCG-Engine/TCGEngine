@@ -1,0 +1,12 @@
+{
+ "format": "tcgengine-match-replay-v1",
+ "rootName": "SWUSim",
+ "gameName": "unit-action-menu-mobile",
+ "savedAt": "2026-09-17T07:00:14+00:00",
+ "createdAt": "2026-09-17T07:00:14+00:00",
+ "winner": 0,
+ "actionCount": 0,
+ "initialGamestate": "1\r\n1\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\nSOR_005 false true false 0 0 - - 1\r\n1\r\nSOR_010 false true false 0 0 - - 1\r\n0\r\n0\r\n1\r\nSOR_019 0 false 0 - -\r\n1\r\nSOR_020 0 false 0 - -\r\n0\r\n0\r\n2\r\nSOR_094 1 1 0 1 - - 1 1 false\r\nSOR_046 1 1 0 1 - - 2 1 false\r\n1\r\nSOR_095 1 2 0 2 - - 3 1 false\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0:cursor=-1\r\n0\r\n0\r\n1\r\n1\r\n1\r\nMAIN\r\n\r\n-\r\n-\r\nP2_CLAIMED\r\n12\r\n12\r\nAVAILABLE\r\nAVAILABLE\r\n-\r\n-\r\n4\r\n0\r\n-\r\n\r\n\r\n0\r\n-\r\n",
+ "actions": [],
+ "finalGamestateHash": ""
+}

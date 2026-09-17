@@ -982,33 +982,8 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
        green) glows now live in GameLayoutShared.php next to the JS that applies them, so
        both desktop and mobile pick them up. */
 
-    /* Attack / Ability chooser popup for a glowing .unit-action unit */
-    .swu-unit-action-menu {
-        position: fixed;
-        z-index: 10000;
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-        padding: 4px;
-        background: var(--panel-scrim);
-        border: 1px solid var(--accent);
-        border-radius: 6px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.6);
-    }
-    .swu-uam-btn {
-        background: var(--surface-sunken);
-        color: var(--text);
-        border: 1px solid var(--border);
-        border-radius: 4px;
-        padding: 5px 16px;
-        font-size: 13px;
-        cursor: pointer;
-        white-space: nowrap;
-    }
-    .swu-uam-btn:hover {
-        background: var(--surface-raised);
-        border-color: var(--accent);
-    }
+    /* Attack / Ability chooser popup (.swu-unit-action-menu / .swu-uam-btn) moved to
+       GameLayoutShared.php — on phones it was never styled (game 505707). */
 
     /* Discard-slot ".has-action" glow moved to GameLayoutShared.php (shared by mobile). */
 

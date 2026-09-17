@@ -22,6 +22,38 @@
     border-radius: 4px; cursor: pointer;
 }
 
+/* Attack / Ability chooser popup for a glowing .unit-action unit (showUnitActionMenu below).
+   Same history as the glows above: this sat in desktop GameLayout.php only, so on a phone the menu
+   rendered unstyled — position static at the top-left of <body>, hidden under the fixed top control
+   band — and a unit with an Action could neither attack nor use it (game 505707, Poe on a vehicle).
+   Guarded by DevTools/ui-harness/unit-action-menu-mobile-xbrowser.mjs. */
+.swu-unit-action-menu {
+    position: fixed;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 4px;
+    background: var(--panel-scrim);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+.swu-uam-btn {
+    background: var(--surface-sunken);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 5px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.swu-uam-btn:hover {
+    background: var(--surface-raised);
+    border-color: var(--accent);
+}
+
 /* ── Arena HUD darkening overlay (shared: desktop + mobile) ─────────────────────
    Blue cyan-interface wash inside each arena box, clipped to the box (behind the
    cards, below the corner brackets). Kept here so both layouts share one definition.
