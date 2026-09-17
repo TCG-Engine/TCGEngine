@@ -4010,7 +4010,11 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
     // Persist the skip decision here (committed attack, past the can't-attack no-ops) so it survives the
     // boundary; _SWUCombatFinishAction consumes it. NOT set for a plain event-attack (no SUPPORT_GRANT) —
     // that path uses SWU_COMBAT_OWNS_AFTERACTION (combat owns, FINISH_PLAY_CARD skips) instead.
-    SetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', _SWUSupportGrant($attacker) !== null ? '1' : '');
+    // ⚠ Only a REAL Support lender (a unit in play, UID > 0) means a nested bonus attack. ASH_230 Improvised
+    // Identity borrows the same carrier with uid 0 (the abilities come from a card in the DISCARD pile) for its
+    // own standalone unit action — nothing outer owns that close, so skipping it here kept the turn (game 505692).
+    $supportGrant = _SWUSupportGrant($attacker);
+    SetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', ($supportGrant !== null && intval($supportGrant['uid'] ?? 0) > 0) ? '1' : '');
 
     _SWURecordAttackFlags($player, $attacker);
 
