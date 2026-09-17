@@ -123,3 +123,52 @@ WithP1Hand: SOR_095
 ## EXPECT
 P1GROUNDARENAUNIT:0:READY
 P1BASE:UPGRADECOUNT:0
+
+---
+
+# CloneCombatSquadronWithASpaceUnit_EntersAt4_NoOffer
+#// Insurgent Camp reads the played unit's power as it enters play (current power), NOT printed power (unlike
+#// ASH_248 Neel's errata). Clone Combat Squadron (JTL_115, printed 3/3, "+1/+1 for each other friendly space
+#// unit") is played with an X-Wing token (JTL_T02) already in space, so it enters at 4 power: no offer, it
+#// stays exhausted and the Camp stays on the base. (Ruling as of 2026-09-17.)
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_216
+WithP1SpaceArena: JTL_T02:1:0
+WithP1Hand: JTL_115
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENAUNIT:1:CARDID:JTL_115
+P1SPACEARENAUNIT:1:POWER:4
+P1SPACEARENAUNIT:1:EXHAUSTED
+P1BASE:UPGRADECOUNT:1
+P1NODECISION
+
+---
+
+# CloneCombatSquadronAlone_EntersAt3_Offered_CONTROL
+#// Control: with no other friendly space unit, Clone Combat Squadron enters at its printed 3 power, so the Camp
+#// is offered; YES defeats the Camp and readies it. Pairs with the section above (4 power, no offer).
+
+## GIVEN
+CommonSetup: ggw/ggw/{myResources:6}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1BaseUpgrade: HMW_216
+WithP1Hand: JTL_115
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:JTL_115
+P1SPACEARENAUNIT:0:POWER:3
+P1SPACEARENAUNIT:0:READY
+P1BASE:UPGRADECOUNT:0
