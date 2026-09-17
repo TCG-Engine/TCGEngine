@@ -754,6 +754,11 @@ function SWULogForce(int $player, bool $gained): void {
     AddGameLogEntry('FORCE', ($gained ? 'The Force is with P' . $player : 'P' . $player . ' used the Force') . SWULogSourceSuffix(), 'ALL');
 }
 
+// The Force token defeated WITHOUT Using the Force (a cost such as "[defeat a friendly token]").
+function SWULogForceDefeated(int $player): void {
+    AddGameLogEntry('FORCE', 'P' . $player . ' defeated their Force token' . SWULogSourceSuffix(), 'ALL');
+}
+
 // Leader / unit / base Actions: "P1 used [[JTL_016|Admiral Ackbar]]'s Action" — and it becomes the source
 // of everything that Action does. Called at each invocation point (the direct path and the alternative-
 // payment continuations are separate sites, so each logs exactly once).

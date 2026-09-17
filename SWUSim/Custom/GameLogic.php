@@ -26965,6 +26965,17 @@ function UseTheForce(int $player): void {
     }
 }
 
+// Defeat $player's Force token WITHOUT Using the Force — e.g. to pay LAW_019 Alliance Outpost's
+// "[defeat a friendly token]". CR 37.4: a player has only "Used the Force" when an ability instructs them
+// to Use the Force, so no "when you use the Force" reactions fire and the per-phase count is untouched.
+// Returns true if a Force token was defeated.
+function SWUDefeatForceToken(int $player): bool {
+    if (!PlayerHasTheForce($player)) return false;
+    RemoveGlobalEffect($player, 'SWU_HAS_FORCE');
+    if (function_exists('SWULogForceDefeated')) SWULogForceDefeated($player); // game log
+    return true;
+}
+
 // "When you use the Force:" reactive window. Fires once per friendly unit that has such a reaction each
 // time the controller uses the Force. Optional ("may") reactions, so each queues a YESNO + continuation.
 // (LOF_260 The Father re-creates the Force via TheForceIsWithYou, not UseTheForce, so there is no loop.)
