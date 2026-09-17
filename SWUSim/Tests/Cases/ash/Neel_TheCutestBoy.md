@@ -367,3 +367,67 @@ P1GROUNDARENAUNIT:1:CARDID:ASH_116
 P1GROUNDARENAUNIT:1:READY
 P1GROUNDARENAUNIT:2:CARDID:SHD_055
 P1GROUNDARENAUNIT:2:EXHAUSTED
+
+---
+
+# Errata_PrintedPower_DodonnaBuffedHanSolo_WhenPlayed_EntersReady
+#// ASH_248 Neel ERRATA (clarification, 2026-09-17): "When Played/On Attack: The next unit you play this phase
+#// with 1 or less PRINTED power enters play ready." General Dodonna (SOR_242, "Other friendly Rebel units get
+#// +1/+1") is in play. Neel is played (When Played arms), then Han Solo - Hibernation Sick (LAW_037, Rebel,
+#// printed 1/1). Han enters at 2 power, but his PRINTED power is 1, so he still enters ready.
+
+## GIVEN
+CommonSetup: gbw/bbk/{myResources:10}
+P1OnlyActions: true
+WithP1GroundArena: SOR_242:1:0
+WithP1Hand: [ASH_248 LAW_037]
+
+## WHEN
+- P1>PlayHand:0
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:2:CARDID:LAW_037
+P1GROUNDARENAUNIT:2:POWER:2
+P1GROUNDARENAUNIT:2:READY
+
+---
+
+# Errata_PrintedPower_DodonnaBuffedHanSolo_OnAttack_EntersReady
+#// Same errata through the On Attack arm: a seated Neel attacks, then Han Solo (LAW_037, printed 1, 2 with
+#// Dodonna's +1/+1) is played and enters ready.
+
+## GIVEN
+CommonSetup: gbw/bbk/{myResources:10}
+P1OnlyActions: true
+WithP1GroundArena: [ASH_248:1:0 SOR_242:1:0]
+WithP1Hand: LAW_037
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:2:CARDID:LAW_037
+P1GROUNDARENAUNIT:2:POWER:2
+P1GROUNDARENAUNIT:2:READY
+
+---
+
+# Errata_PrintedPower_DodonnaBuffedHanSolo_NoNeel_EntersExhausted_CONTROL
+#// Control for the two sections above: with Dodonna but no Neel, Han Solo enters exhausted like any played
+#// unit — so the READY above comes from Neel, not from anything else on this board.
+
+## GIVEN
+CommonSetup: gbw/bbk/{myResources:10}
+P1OnlyActions: true
+WithP1GroundArena: SOR_242:1:0
+WithP1Hand: LAW_037
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENAUNIT:1:CARDID:LAW_037
+P1GROUNDARENAUNIT:1:POWER:2
+P1GROUNDARENAUNIT:1:EXHAUSTED
