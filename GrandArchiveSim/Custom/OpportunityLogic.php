@@ -1433,6 +1433,27 @@ function ResolveTopOfEffectStack() {
         }
         $topObj->Remove();
         DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ON_ATTACK") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireAttackTriggeredAbility")) {
+            FireAttackTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ON_HIT") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireHitTriggeredAbility")) {
+            FireHitTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ON_KILL") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireKillTriggeredAbility")) {
+            FireKillTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
     } else {
         // Call the generated CardActivated() wrapper, which:
         //  - Stores mzID variable for ability code

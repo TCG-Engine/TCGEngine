@@ -7445,6 +7445,93 @@ function FireRestCardTriggeredAbility($controller, $cardID) {
 }
 
 /**
+ * "mzID" (this ability's own source reference) is captured into context here because it's a
+ * generic macro parameter reused by every card activation, including any fast-card response
+ * resolved off the EffectStack during the Opportunity Window between when this is queued and when
+ * it fires -- exactly like every other already-migrated trigger type above.
+ *
+ * The mzID string's own POSITION, though, is protected differently than a plain snapshot: this
+ * resolves its current UniqueID and stashes it as "selfUniqueID" in context, which
+ * GetProtectedRemovedCardUniqueIDs() (CombatLogic.php) reads back to keep CleanupRemovedCards()
+ * from physically splicing that ONE object out of its zone for as long as this entry sits
+ * unfired on the EffectStack -- e.g. a weapon whose durability hit 0 moments before this queued,
+ * still readable (removed-flagged, but present) when the closure actually runs. Only that specific
+ * object is protected; every other object's cleanup timing in the same zone is untouched, matching
+ * baseline (pre-migration) behavior exactly (a blanket "defer cleanup for all of combat" version of
+ * this was tried and reverted -- see CombatLogic.php's GetProtectedRemovedCardUniqueIDs() docblock).
+ */
+function QueueAttackTriggeredAbility($controller, $cardID, $mzID) {
+    global $onAttackAbilities;
+    if(!isset($onAttackAbilities[$cardID . ":0"])) return false;
+    $context = [
+        'mzID' => NormalizeMzIDForController($mzID, $controller),
+        'wasPrepared' => DecisionQueueController::GetVariable("wasPrepared") ?? "NO",
+    ];
+    $selfUniqueID = GetFieldObjectUniqueID($mzID, $controller);
+    if ($selfUniqueID !== null) $context['selfUniqueID'] = strval($selfUniqueID);
+    return QueueTriggeredAbility($controller, $cardID, "ON_ATTACK", $context);
+}
+
+function FireAttackTriggeredAbility($controller, $cardID) {
+    global $onAttackAbilities;
+    if(isset($onAttackAbilities[$cardID . ":0"])) {
+        $onAttackAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+function QueueHitTriggeredAbility($controller, $cardID, $mzID) {
+    global $onHitAbilities;
+    if(!isset($onHitAbilities[$cardID . ":0"])) return false;
+    $context = [
+        'mzID' => NormalizeMzIDForController($mzID, $controller),
+        'wasPrepared' => DecisionQueueController::GetVariable("wasPrepared") ?? "NO",
+        'CombatDamageAmount' => strval(DecisionQueueController::GetVariable("CombatDamageAmount") ?? "0"),
+    ];
+    $selfUniqueID = GetFieldObjectUniqueID($mzID, $controller);
+    if ($selfUniqueID !== null) $context['selfUniqueID'] = strval($selfUniqueID);
+    return QueueTriggeredAbility($controller, $cardID, "ON_HIT", $context);
+}
+
+function FireHitTriggeredAbility($controller, $cardID) {
+    global $onHitAbilities;
+    if(isset($onHitAbilities[$cardID . ":0"])) {
+        $onHitAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
+ * $context snapshots CombatKilledCardID/Power/HP and isImbued because DispatchCombatKillTriggers()
+ * (CombatLogic.php) loops through multiple kill events -- e.g. a multi-target Cleave swing --
+ * reusing the same ambient vars for each. Capturing them here, at queue time inside that loop,
+ * freezes the values for THIS kill event before the next iteration (or an interleaved EffectStack
+ * entry) overwrites them. isImbued in particular would otherwise be clobbered a second way: since
+ * ResolveTopOfEffectStack() also unconditionally recomputes "isImbued" from the stack entry's own
+ * (irrelevant, for a trigger marker) imbued flag before replaying this context -- so this snapshot
+ * has to win, which it does since the generic context-restore loop runs after that recompute.
+ */
+function QueueKillTriggeredAbility($controller, $cardID, $mzID) {
+    global $onKillAbilities;
+    if(!isset($onKillAbilities[$cardID . ":0"])) return false;
+    $context = [
+        'mzID' => NormalizeMzIDForController($mzID, $controller),
+        'isImbued' => DecisionQueueController::GetVariable("isImbued") ?? "NO",
+        'CombatKilledCardID' => strval(DecisionQueueController::GetVariable("CombatKilledCardID") ?? ""),
+        'CombatKilledPower' => strval(DecisionQueueController::GetVariable("CombatKilledPower") ?? ""),
+        'CombatKilledHP' => strval(DecisionQueueController::GetVariable("CombatKilledHP") ?? ""),
+    ];
+    $selfUniqueID = GetFieldObjectUniqueID($mzID, $controller);
+    if ($selfUniqueID !== null) $context['selfUniqueID'] = strval($selfUniqueID);
+    return QueueTriggeredAbility($controller, $cardID, "ON_KILL", $context);
+}
+
+function FireKillTriggeredAbility($controller, $cardID) {
+    global $onKillAbilities;
+    if(isset($onKillAbilities[$cardID . ":0"])) {
+        $onKillAbilities[$cardID . ":0"]($controller);
+    }
+}
+
+/**
  * Signal the end of the game. The loser's opponent becomes the winner.
  * Stores GAMEOVER_WINNER in DQ variables so the client can show the
  * "You Won / You Lost" overlay on the next turn update.
@@ -7823,6 +7910,14 @@ function DoAllyDestroyed($player, $mzCard) {
 }
 
 function WakeUpPhase() {
+    // Backstop: no explicit removed-card protection should still be "in progress" once a new turn
+    // begins. This guards against any dispatch that isn't wired to
+    // ClearProtectedRemovedCardUniqueIDs() (see ProtectRemovedCardUniqueID() in CombatLogic.php)
+    // so a protected UniqueID can never leak past the turn it started in.
+    if(function_exists("ClearProtectedRemovedCardUniqueIDs")) {
+        ClearProtectedRemovedCardUniqueIDs();
+    }
+
     $currentTurn = intval(GetTurnNumber());
     if($currentTurn === 1) return;
 
@@ -21079,6 +21174,9 @@ function EndCombat($player) {
         DecisionQueueController::ClearVariable("CombatAttackerUniqueID");
     }
     DecisionQueueController::ClearVariable("CombatWeapon");
+    if(function_exists("ClearProtectedRemovedCardUniqueIDs")) {
+        ClearProtectedRemovedCardUniqueIDs();
+    }
 
     // Pop remaining combat decisions (AttackTargetChosen, CleaveAttack,
     // Retaliate, CombatCleanup) from both players' queues.
@@ -22748,7 +22846,15 @@ function BlastshotPumpOnHit($player) {
     $damage = intval(DecisionQueueController::GetVariable("CombatDamageAmount") ?? "0");
     if($damage <= 0 || empty($targets)) return;
     DecisionQueueController::StoreVariable("BlastshotPumpDamage", strval($damage));
-    DecisionQueueController::StoreVariable("BlastshotPumpSource", $weaponMZ);
+    // Store the weapon's CardID, not its mzID: BlastshotPumpChoose needs a real interactive
+    // MZCHOOSE answer, so it can only resolve in a LATER engine action -- by which point
+    // GamestateParser.php's WriteGamestate() has already serialized this weapon out of the field
+    // (it drops ->Removed() objects on every save, regardless of ProtectRemovedCardUniqueID()'s
+    // in-memory protection, which only lasts for the current action). A bare CardID is still a
+    // valid DealDamage() source -- ResolveDamageSourceCardInfo() (GameLogic.php) already treats a
+    // hyphen-free $source string as "just a CardID, no live position", the same fallback used for
+    // a non-field (e.g. spell) damage source.
+    DecisionQueueController::StoreVariable("BlastshotPumpSource", $weaponObj->CardID);
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Choose_additional_unit_for_Blastshot_Pump");
     DecisionQueueController::AddDecision($player, "CUSTOM", "BlastshotPumpChoose", 1);
 }

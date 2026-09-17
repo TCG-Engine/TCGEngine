@@ -2,5 +2,6 @@
     "name": "poised-strike-prepare",
     "rootName": "GrandArchiveSim",
     "createdAt": "2026-06-24T15:41:38+02:00",
-    "createdBy": "5"
+    "createdBy": "5",
+    "notes": "Updated for the on-attack/on-hit/on-kill Effects Stack migration: an on-hit/on-kill ability now resolves through a real Opportunity window, leaving player 2 a genuine (declined) priority pass that didn't exist under the old synchronous dispatch. Added a trailing PASS action for player 2 and bumped the assertion step (9 -> 10) to match; the final state is unchanged."
 }

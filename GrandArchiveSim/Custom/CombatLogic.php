@@ -653,6 +653,90 @@ function ClearCombatAttackerState() {
     DecisionQueueController::ClearVariable("CombatAttackerUniqueID");
 }
 
+/**
+ * Per-object (not blanket) protection for Core/DecisionQueueController.php's CleanupRemovedCards():
+ * it splices every other ->removed object out of its zone as normal, but SKIPS one whose UniqueID
+ * is returned here, leaving it in place (still flagged ->removed, just not yet purged) for whatever
+ * still needs to read it as a phantom. A blanket "defer cleanup for all of combat" flag was tried
+ * first and reverted: it also suppressed OTHER, unrelated objects' cleanup that happened to occur
+ * during the same combat (an unrelated kill, a banished weapon from a different ability), compacting
+ * their zones later than baseline (pre-migration) ever did and shifting a later card's position out
+ * from under fixtures recorded against baseline's timing (bulwark-sword, life-essence-amulet,
+ * lorraine-cleave-draw, weapon-true-sight, and others). Per-object protection leaves every
+ * OTHER object's cleanup timing completely untouched, exactly matching baseline, while still
+ * protecting exactly what's needed.
+ *
+ * The protected set is the union of two sources:
+ *  - ProtectRemovedCardUniqueID()'s short-lived explicit list (below): covers an object destroyed
+ *    moments before it's even queued -- e.g. a weapon's durability hits 0 in CombatDealDamage(),
+ *    destroying it instants before that same function calls OnHitTrigger() to queue the weapon's
+ *    own on-hit ability, which still needs to find and CardID-check it.
+ *  - Every not-yet-fired ON_ATTACK/ON_HIT/ON_KILL EffectStack entry's own "selfUniqueID" context
+ *    (stored by QueueAttackTriggeredAbility() and friends, GameLogic.php): covers the object for
+ *    as long as its queued entry is still waiting to resolve -- an Opportunity window round, a
+ *    fast-card response resolving ahead of it on the stack, however long that takes.
+ */
+function GetProtectedRemovedCardUniqueIDs() {
+    $ids = [];
+    $explicit = json_decode(DecisionQueueController::GetVariable("ProtectedRemovedCardUniqueIDs") ?? "[]", true);
+    if (is_array($explicit)) {
+        foreach ($explicit as $uid) { $ids[] = intval($uid); }
+    }
+    $stack = GetEffectStack();
+    foreach ($stack as $entry) {
+        if ($entry === null || !empty($entry->removed)) continue;
+        $type = $entry->TriggerType ?? "";
+        if ($type !== "ON_ATTACK" && $type !== "ON_HIT" && $type !== "ON_KILL") continue;
+        $context = is_array($entry->Counters) ? $entry->Counters : [];
+        if (isset($context['selfUniqueID'])) {
+            $uid = intval($context['selfUniqueID']);
+            if ($uid > 0) $ids[] = $uid;
+        }
+    }
+    return array_values(array_unique($ids));
+}
+
+/**
+ * Add a UniqueID to the short-lived explicit protected list (see GetProtectedRemovedCardUniqueIDs()
+ * above). Call this right before anything that might destroy an object an about-to-be-queued
+ * on-attack/on-hit/on-kill ability still needs to find -- e.g. weapon durability loss
+ * (CombatDealDamage/CleaveDealDamage) or at the top of OnAttackTrigger()/OnHitTrigger()/
+ * OnKillTrigger() to protect the attacker/weapon/each intent card THEY are about to inspect (any of
+ * which may have just been destroyed by an unrelated earlier event this same combat step).
+ * $uniqueID may be null (a convenience for callers passing straight through
+ * GetFieldObjectUniqueID()'s possibly-null result) -- silently ignored.
+ */
+function ProtectRemovedCardUniqueID($uniqueID) {
+    if ($uniqueID === null) return;
+    $uniqueID = intval($uniqueID);
+    if ($uniqueID <= 0) return;
+    $explicit = json_decode(DecisionQueueController::GetVariable("ProtectedRemovedCardUniqueIDs") ?? "[]", true);
+    if (!is_array($explicit)) $explicit = [];
+    if (!in_array($uniqueID, $explicit, true)) {
+        $explicit[] = $uniqueID;
+        DecisionQueueController::StoreVariable("ProtectedRemovedCardUniqueIDs", json_encode($explicit));
+    }
+}
+
+/**
+ * Close the short explicit list opened by ProtectRemovedCardUniqueID() once the dispatch that
+ * needed it has finished queueing everything it's going to queue. Called at the end of
+ * OnAttackTrigger()/OnHitTrigger()/OnKillTrigger(), and as a backstop after every engine action
+ * (EngineActionSettled(), the EngineExecuteLoadedAction() hook in Core/EngineActionRunner.php) and
+ * once per turn from WakeUpPhase() -- so an early return skipping the explicit clear inside one of
+ * those three functions still can't leak the explicit list past the current action. Safe (a no-op)
+ * when nothing is on it. Clearing it doesn't reduce protection for anything actually still pending:
+ * GetProtectedRemovedCardUniqueIDs()'s stack scan keeps covering every queued-but-unfired entry
+ * regardless of what's on this explicit list.
+ */
+function ClearProtectedRemovedCardUniqueIDs() {
+    DecisionQueueController::ClearVariable("ProtectedRemovedCardUniqueIDs");
+}
+
+function EngineActionSettled() {
+    ClearProtectedRemovedCardUniqueIDs();
+}
+
 function ClearCombatTargetState($clearMarkers = false) {
     if($clearMarkers) {
         ClearCombatTargetMarkers();
@@ -826,6 +910,7 @@ function CancelCombatForMissingTarget($attackerPlayer) {
     DecisionQueueController::ClearVariable("CombatWeapon");
     DecisionQueueController::ClearVariable("CombatDamageAmount");
     DecisionQueueController::ClearVariable("CombatLorraineBlademasterDraw");
+    ClearProtectedRemovedCardUniqueIDs();
 }
 
 /**
@@ -1622,13 +1707,32 @@ function ChooseAttackTarget($player, $attackerMZ, $weaponChoices = null, $includ
  */
 function OnAttackTrigger($player, $mzID) {
     global $onAttackAbilities;
+    // See GetProtectedRemovedCardUniqueIDs()/ProtectRemovedCardUniqueID() above: protects the
+    // attacker, weapon, and each intent card this dispatch is about to inspect from being purged
+    // before the on-attack closures below get a chance to queue and later resolve against them --
+    // any one of them may have just been destroyed by an unrelated earlier event this same combat
+    // step. Cleared once queueing (not resolution) is done.
+    ProtectRemovedCardUniqueID(GetFieldObjectUniqueID($mzID, $player));
+    $weaponMZForProtection = GetCombatWeapon();
+    if ($weaponMZForProtection !== null) {
+        ProtectRemovedCardUniqueID(GetFieldObjectUniqueID($weaponMZForProtection, $player));
+    }
+    foreach (GetIntentCards($player) as $iMZForProtection) {
+        ProtectRemovedCardUniqueID(GetFieldObjectUniqueID($iMZForProtection, $player));
+    }
     // Dispatch OnAttack for the attacker itself (ally or champion attacking directly)
+    // Note: the closures below are queued with the OUTER $mzID (the attacker's own reference) for
+    // every branch, including the intent-card and weapon ones -- this function never re-points the
+    // ambient "mzID" DQ var per branch the way OnHitTrigger/OnKillTrigger do, so that's what those
+    // closures have always seen as "mzID" when they fired synchronously. Matching it exactly here
+    // (rather than passing each branch's own $iMZ/$weaponMZ) keeps this a pure deferral with no
+    // observable behavior change.
     $obj = GetZoneObject($mzID);
     if($obj !== null && !HasNoAbilities($obj) && isset($onAttackAbilities[$obj->CardID . ":0"])) {
-        $onAttackAbilities[$obj->CardID . ":0"]($player);
+        QueueAttackTriggeredAbility($player, $obj->CardID, $mzID);
         // Seiryuu's Command (v9d2242357): DOUBLE_ON_ATTACK — fire on-attack abilities a second time
         if(in_array("DOUBLE_ON_ATTACK", $obj->TurnEffects ?? [])) {
-            $onAttackAbilities[$obj->CardID . ":0"]($player);
+            QueueAttackTriggeredAbility($player, $obj->CardID, $mzID);
         }
     }
     // Also dispatch OnAttack for any attack cards currently in the player's intent zone
@@ -1637,7 +1741,7 @@ function OnAttackTrigger($player, $mzID) {
         $iObj = GetZoneObject($iMZ);
         if($iObj === null) continue;
         if(isset($onAttackAbilities[$iObj->CardID . ":0"])) {
-            $onAttackAbilities[$iObj->CardID . ":0"]($player);
+            QueueAttackTriggeredAbility($player, $iObj->CardID, $mzID);
         }
     }
     // Weapon OnAttack: if a weapon was selected for this attack, fire its OnAttack.
@@ -1646,10 +1750,16 @@ function OnAttackTrigger($player, $mzID) {
         if($weaponMZ !== null) {
             $weaponObj = GetZoneObject($weaponMZ);
             if($weaponObj !== null && !HasNoAbilities($weaponObj) && isset($onAttackAbilities[$weaponObj->CardID . ":0"])) {
-                $onAttackAbilities[$weaponObj->CardID . ":0"]($player);
+                QueueAttackTriggeredAbility($player, $weaponObj->CardID, $mzID);
             }
         }
     }
+    // The reads above are done -- clear protection now, not at the end of this function. What's
+    // below can itself trigger nested resolution (Draw(), other queued abilities auto-firing via
+    // QueueTriggeredAbility()'s own ExecuteStaticMethods call), and a real CleanupRemovedCards()
+    // pass during any of that would otherwise still see (and skip) an object that no longer needs
+    // protecting, silently leaving it uncompacted with nothing left to purge it until much later.
+    ClearProtectedRemovedCardUniqueIDs();
     // Majestic Spirit's Crest (Tx6iJQNSA6): TurnEffect on champion — when champion attacks, draw 1
     if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         if(in_array("Tx6iJQNSA6", $obj->TurnEffects)) {
@@ -1972,6 +2082,7 @@ function OnAttackTrigger($player, $mzID) {
             }
         }
     }
+    ClearProtectedRemovedCardUniqueIDs();
 }
 
 /**
@@ -1986,38 +2097,57 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
     global $onHitAbilities;
     if(!isset($onHitAbilities) || !is_array($onHitAbilities)) return;
 
+    // See GetProtectedRemovedCardUniqueIDs()/ProtectRemovedCardUniqueID() above: protects the
+    // attacker, weapon, and each intent card this dispatch is about to inspect (e.g. weapon
+    // durability hitting 0 in CombatDealDamage(), right before it calls this) from being purged
+    // before the on-hit closures below get a chance to queue and later resolve against them.
+    // Cleared once queueing (not resolution) is done.
+    ProtectRemovedCardUniqueID(GetFieldObjectUniqueID($attackerMZ, $player));
+    $weaponMZForProtection = GetCombatWeapon();
+    if ($weaponMZForProtection !== null) {
+        ProtectRemovedCardUniqueID(GetFieldObjectUniqueID($weaponMZForProtection, $player));
+    }
+    foreach (GetIntentCards($player) as $iMZForProtection) {
+        ProtectRemovedCardUniqueID(GetFieldObjectUniqueID($iMZForProtection, $player));
+    }
+
     RefreshCombatTargetForHit($player);
 
     // Preserve prior macro context and set source mzID per dispatched On Hit ability.
     $prevMzID = DecisionQueueController::GetVariable("mzID");
 
-    // Dispatch On Hit for the attacker itself
-    DecisionQueueController::StoreVariable("mzID", $attackerMZ);
+    // Dispatch On Hit for the attacker itself. The immediate StoreVariable("mzID", ...) that used
+    // to precede each synchronous closure call below is gone -- QueueHitTriggeredAbility() now
+    // captures each branch's own mzID into the queued entry's context and replays it as the
+    // ambient "mzID" right before the closure actually fires (see ResolveTopOfEffectStack()).
     $obj = GetZoneObject($attackerMZ);
     if($obj !== null && !HasNoAbilities($obj) && isset($onHitAbilities[$obj->CardID . ":0"])) {
-        $onHitAbilities[$obj->CardID . ":0"]($player);
+        QueueHitTriggeredAbility($player, $obj->CardID, $attackerMZ);
     }
 
     // Dispatch On Hit for attack cards in intent
     $intentCards = GetIntentCards($player);
     foreach($intentCards as $iMZ) {
-        DecisionQueueController::StoreVariable("mzID", $iMZ);
         $iObj = GetZoneObject($iMZ);
         if($iObj === null) continue;
         if(isset($onHitAbilities[$iObj->CardID . ":0"])) {
-            $onHitAbilities[$iObj->CardID . ":0"]($player);
+            QueueHitTriggeredAbility($player, $iObj->CardID, $iMZ);
         }
     }
 
     // Dispatch On Hit for combat weapon
     $weaponMZ = GetCombatWeapon();
     if($weaponMZ !== null) {
-        DecisionQueueController::StoreVariable("mzID", $weaponMZ);
         $weaponObj = GetZoneObject($weaponMZ);
         if($weaponObj !== null && isset($onHitAbilities[$weaponObj->CardID . ":0"])) {
-            $onHitAbilities[$weaponObj->CardID . ":0"]($player);
+            QueueHitTriggeredAbility($player, $weaponObj->CardID, $weaponMZ);
         }
     }
+
+    // The reads above are done -- clear protection now, not at the end of this function. See the
+    // matching comment in OnAttackTrigger for why (nested resolution below could otherwise see a
+    // real CleanupRemovedCards() pass skip an object that no longer needs protecting).
+    ClearProtectedRemovedCardUniqueIDs();
 
     // Fulminator Rising Storm: when an arcane unit you control deals combat damage,
     // you may spend a static counter from Fulminator to deal 1 damage to the hit object.
@@ -2382,6 +2512,7 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
             }
         }
     }
+    ClearProtectedRemovedCardUniqueIDs();
 }
 
 /**
@@ -2541,38 +2672,58 @@ function UpdateCombatLorraineBlademasterFlag($player, $attackerMZ) {
 function OnKillTrigger($player, $attackerMZ) {
     global $onKillAbilities;
 
+    // See GetProtectedRemovedCardUniqueIDs()/ProtectRemovedCardUniqueID() above: protects the
+    // attacker, weapon, and each intent card this dispatch is about to inspect from being purged
+    // before the on-kill closures below get a chance to queue and later resolve against them.
+    // Cleared once queueing (not resolution) is done.
+    ProtectRemovedCardUniqueID(GetFieldObjectUniqueID($attackerMZ, $player));
+    $weaponMZForProtection = GetCombatWeapon();
+    if ($weaponMZForProtection !== null) {
+        ProtectRemovedCardUniqueID(GetFieldObjectUniqueID($weaponMZForProtection, $player));
+    }
+    foreach (GetIntentCards($player) as $iMZForProtection) {
+        ProtectRemovedCardUniqueID(GetFieldObjectUniqueID($iMZForProtection, $player));
+    }
+
     // Preserve prior macro context and set source mzID per dispatched On Kill ability.
     $prevMzID = DecisionQueueController::GetVariable("mzID");
 
-    // Dispatch On Kill for the attacker itself
-    DecisionQueueController::StoreVariable("mzID", $attackerMZ);
+    // Dispatch On Kill for the attacker itself. As with OnHitTrigger, each branch's own mzID is
+    // now captured by QueueKillTriggeredAbility() into the queued entry's context instead of
+    // being set live via StoreVariable("mzID", ...) for a synchronous closure call.
     $obj = GetZoneObject($attackerMZ);
     if(isset($onKillAbilities) && is_array($onKillAbilities)) {
         if($obj !== null && !HasNoAbilities($obj) && isset($onKillAbilities[$obj->CardID . ":0"])) {
-            $onKillAbilities[$obj->CardID . ":0"]($player);
+            QueueKillTriggeredAbility($player, $obj->CardID, $attackerMZ);
         }
 
         // Dispatch On Kill for attack cards in intent
         $intentCards = GetIntentCards($player);
         foreach($intentCards as $iMZ) {
-            DecisionQueueController::StoreVariable("mzID", $iMZ);
             $iObj = GetZoneObject($iMZ);
             if($iObj === null) continue;
             if(isset($onKillAbilities[$iObj->CardID . ":0"])) {
-                $onKillAbilities[$iObj->CardID . ":0"]($player);
+                QueueKillTriggeredAbility($player, $iObj->CardID, $iMZ);
             }
         }
 
         // Dispatch On Kill for combat weapon
         $weaponMZ = GetCombatWeapon();
         if($weaponMZ !== null) {
-            DecisionQueueController::StoreVariable("mzID", $weaponMZ);
             $weaponObj = GetZoneObject($weaponMZ);
             if($weaponObj !== null && isset($onKillAbilities[$weaponObj->CardID . ":0"])) {
-                $onKillAbilities[$weaponObj->CardID . ":0"]($player);
+                QueueKillTriggeredAbility($player, $weaponObj->CardID, $weaponMZ);
             }
         }
     }
+
+    // The reads above are done -- clear protection now, not at the end of this function. See the
+    // matching comment in OnAttackTrigger for why: the Lorraine Blademaster Draw() a few lines
+    // below (and anything else past this point) can trigger nested resolution, and a real
+    // CleanupRemovedCards() pass during any of that would otherwise still see (and skip) an object
+    // that no longer needs protecting, silently leaving it uncompacted with nothing left to purge
+    // it until much later (this is what broke weapon-true-sight).
+    ClearProtectedRemovedCardUniqueIDs();
 
     if($prevMzID === null || $prevMzID === "") DecisionQueueController::ClearVariable("mzID");
     else DecisionQueueController::StoreVariable("mzID", $prevMzID);
@@ -2609,6 +2760,7 @@ function OnKillTrigger($player, $attackerMZ) {
             AddSheenToMastery($player, $killedSheenCount);
         }
     }
+    ClearProtectedRemovedCardUniqueIDs();
 }
 
 $customDQHandlers["HerdOfTheHearthDiscard"] = function($player, $parts, $lastDecision) {
@@ -2713,6 +2865,7 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
         ClearIntent($player);
         ClearCombatAttackerState();
         DecisionQueueController::ClearVariable("CombatWeapon");
+        ClearProtectedRemovedCardUniqueIDs();
         return;
     }
 
@@ -2941,6 +3094,10 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
     if($weaponMZ !== null) {
         $weaponObj = &GetZoneObject($weaponMZ);
         if($weaponObj !== null && !$weaponObj->removed) {
+            // Protect the weapon before it might be destroyed below: its own on-hit ability
+            // (queued moments later, from OnHitTrigger()) still needs to find and CardID-check it.
+            // See GetProtectedRemovedCardUniqueIDs()/ProtectRemovedCardUniqueID() (above).
+            ProtectRemovedCardUniqueID($weaponObj->UniqueID ?? null);
             RemoveCounters($attackerPlayer, $weaponMZ, "durability", 1);
             if(GetCounterCount($weaponObj, "durability") <= 0) {
                 DoAllyDestroyed($attackerPlayer, $weaponMZ);
@@ -3131,6 +3288,10 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
     if($weaponMZ !== null) {
         $weaponObj = &GetZoneObject($weaponMZ);
         if($weaponObj !== null && !$weaponObj->removed) {
+            // Protect the weapon before it might be destroyed below: its own on-hit ability
+            // (queued moments later, from OnHitTrigger()) still needs to find and CardID-check it.
+            // See GetProtectedRemovedCardUniqueIDs()/ProtectRemovedCardUniqueID() (above).
+            ProtectRemovedCardUniqueID($weaponObj->UniqueID ?? null);
             RemoveCounters($attackerPlayer, $weaponMZ, "durability", 1);
             if(GetCounterCount($weaponObj, "durability") <= 0) {
                 DoAllyDestroyed($attackerPlayer, $weaponMZ);
@@ -3438,6 +3599,7 @@ $customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
     $playerID = $attackerPlayer;
     ClearIntent($attackerPlayer);
     $playerID = $savedPlayerID;
+    ClearProtectedRemovedCardUniqueIDs();
 };
 
 // --- critical resolution -------------------------------------------------------
