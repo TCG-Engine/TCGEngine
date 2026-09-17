@@ -15,6 +15,18 @@ npm install          # postinstall pulls the chromium, firefox, and webkit brows
 
 `node_modules/` is gitignored — this is a local dev tool, not shipped.
 
+## FaBSim priority shortcuts
+
+```bash
+node fab-shortcuts-xbrowser.mjs [SCREENSHOT_DIR] [chromium,firefox,webkit]
+php ../FaB/shortcuts_test.php
+```
+
+The browser fixture loads the real FaBSim script, styles, and shortcut registry with local settings
+and transport adapters. It checks master hold, preserved selections, reload persistence, keyboard
+and dismissal behavior, and desktop/mobile layout. The PHP suite checks authoritative auto-pass
+behavior, including multiplayer seats. The browser fixture does not connect to a live match.
+
 ## Latest-printing display
 
 ```bash

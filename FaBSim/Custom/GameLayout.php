@@ -1,6 +1,7 @@
 <?php include __DIR__ . '/GameOver.php'; include __DIR__ . '/CombatPanel.php'; include __DIR__ . '/MultiplayerLayout.php'; ?>
 <link rel="stylesheet" href="./FaBSim/Custom/IconTheme.css?v=<?= filemtime(__DIR__ . '/IconTheme.css') ?>">
 <link rel="stylesheet" href="./FaBSim/Custom/Interaction.css?v=<?= filemtime(__DIR__ . '/Interaction.css') ?>">
+<link rel="stylesheet" href="./FaBSim/Custom/Shortcuts.css?v=<?= filemtime(__DIR__ . '/Shortcuts.css') ?>">
 <style>
 #bug-report-button{position:fixed;top:8px;right:8px;z-index:2600}
 @media(min-width:900px){.fab-upf-active #bug-report-button{right:230px}}

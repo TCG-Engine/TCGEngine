@@ -25,6 +25,37 @@ foreach (['ACTION','PRIORITY','ATTACK','DEFEND_DECLARE','DEFEND_PRIORITY','REACT
 $state['window'] = 'PITCH';
 $check(FaBShortcutWindow(1, $state) === '', 'Payment must never be shortcut.');
 
+// Master hold survives serialization without overwriting individual choices.
+$savedWindows = GetShortcutWindowDefaultMap();
+$savedWindows['ATTACK_PRIORITY'] = true;
+$savedWindows['DAMAGE_PRIORITY'] = false;
+SetShortcutPreferencesState(1, ['holdPriority'=>true, 'windows'=>$savedWindows]);
+$held = GetShortcutPreferencesState(1);
+$check($held['holdPriority'] === true && $held['windows'] === $savedWindows, 'Master hold lost its state or changed saved windows.');
+foreach (array_keys(GetShortcutWindowRegistry()) as $id) {
+    $check(!ShouldAutoPassShortcutWindow(1, $id), 'Master hold allowed auto-pass for '.$id);
+}
+$check(ShouldAutoPassShortcutWindow(2, 'ATTACK_PRIORITY'), 'Master hold leaked into another seat.');
+$held['holdPriority'] = false;
+SetShortcutPreferencesState(1, $held);
+foreach ($savedWindows as $id => $enabled) {
+    $check(ShouldAutoPassShortcutWindow(1, $id) === $enabled, 'Resuming shortcuts lost the saved choice for '.$id);
+}
+$check(NormalizeShortcutPreferencesPayload(['ATTACK_PRIORITY'=>false])['holdPriority'] === false, 'Legacy preferences unexpectedly hold priority.');
+
+// Exercise the actual auto-pass loop for a fourth seat, then resume its selection.
+$resetShortcuts(4);
+$state = FaBGetState(); $state['window']='REACTION'; $state['combatStep']='REACTION';
+$state['combatOpen']=true; $state['attacker']=1; $state['defender']=2;
+$state['attackTarget']=['type'=>'HERO','player'=>2]; FaBSetState($state);
+SetPriorityPlayer(4);
+SetShortcutPreferencesState(4, ['holdPriority'=>true, 'windows'=>['OTHER_REACTION'=>true]]);
+FaBAutoPassShortcuts();
+$check(intval(GetPriorityPlayer()) === 4 && intval(GetConsecutivePasses()) === 0, 'Master hold failed to stop the multiplayer auto-pass loop.');
+$resume = GetShortcutPreferencesState(4); $resume['holdPriority'] = false;
+SetShortcutPreferencesState(4, $resume); FaBAutoPassShortcuts();
+$check(intval(GetPriorityPlayer()) === 1 && intval(GetConsecutivePasses()) === 1, 'Resuming did not respect the saved multiplayer shortcut.');
+
 // Enabled shortcuts pass even when an instant is legal; disabling one stops it.
 foreach ([false, true] as $enabled) {
     $resetShortcuts();

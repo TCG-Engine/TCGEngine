@@ -150,7 +150,6 @@ body.fab-upf-active #fab-upf-sidebar #chatWidget { position:static!important; wi
 #fab-upf-sidebar #chatComposer { flex:1 0 100%; }
 #fab-upf-sidebar #chatToggleBtn { display:none; }
 #fab-upf-sidebar #cardMotionToggleBtn { margin-top:6px!important; }
-.fab-upf-active #fab-shortcut-dock { right:238px; }
 @media(min-width:900px) {
   /* Both fields share the available board height, including in inspection mode. */
   .fab-upf-opponents { flex:.48 1 0; min-height:0!important; }
@@ -170,7 +169,6 @@ body.fab-upf-active #fab-upf-sidebar #chatWidget { position:static!important; wi
   .fab-upf-seat:not(.is-summary) [data-zone=Hero],.fab-upf-seat:not(.is-summary) [data-zone=Weapons] { top:38%; }
   .fab-upf-seat:not(.is-summary) [data-zone=Arsenal] { top:calc(38% + var(--fab-table-card) + 8px); }
   .fab-upf-seat:not(.is-summary) [data-zone=Hand] { left:15%; right:15%; bottom:30px; }
-  .fab-upf-active #fab-shortcut-dock { right:8px; }
 }
 @media(max-width:599px) {
   .fab-upf-seat.is-mine { height:auto; }
