@@ -352,3 +352,86 @@ P1OnlyActions: true
 P2SPACEARENACOUNT:1
 P1GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:CARDID:ASH_053
+
+---
+
+# ReportRepro_ProtectedUnitPickedAlongsideAKillableOne_TokenStillCreated
+#// ⚠ EXTERNAL BUG REPORT (another SWU implementation, 2026-09-17), reproduced here as a GUARD:
+#//   "there was a rey (LAW) and blue leader (JTL) in play both with 2 health remaining. I play previzla
+#//    to defeat the blue leader and saw that I could also select rey, so I did that. ended up defeating
+#//    the blue leader but it didnt create a mando token"
+#// ⚠ READ THE CARDS BEFORE BELIEVING THE WORDING. Neither named card is a leader:
+#//   • LAW_149 "Rey - Skywalker" is a UNIT (8 cost, 9/9) whose text is "This unit can't be defeated by
+#//     enemy card abilities" — so she IS a legal PICK (a non-leader unit at 2 remaining HP) and simply
+#//     survives the defeat. Selecting her is correct behaviour, not the bug it looked like.
+#//   • JTL_096 "Blue Leader - Scarif Air Support" is a SPACE UNIT despite the name.
+#// So the reported board is 2 remaining + 2 remaining = 4 of the 6 budget, one killable and one immune.
+#// THE ACTUAL DEFECT CLAIMED: the killable unit died and produced NO token. SWUSim counts tokens per
+#// unit ACTUALLY defeated (the ASH_053#0 loop counts SWUDefeatUnit's return), so Rey surviving must not
+#// suppress Blue Leader's token: exactly ONE Mandalorian is created.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:8}
+P1OnlyActions: true
+WithP2GroundArena: LAW_149:1:7
+WithP2SpaceArena: JTL_096:1:1
+WithP1Hand: ASH_053
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0&theirSpaceArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:LAW_149
+P2GROUNDARENAUNIT:0:DAMAGE:7
+P2SPACEARENACOUNT:0
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:ASH_053
+P1GROUNDARENAUNIT:1:CARDID:ASH_T01
+
+---
+
+# ReportRepro_BothPicksOffered_IncludingTheProtectedUnit
+#// The offer side of the same board: BOTH 2-remaining units are offered (plus Pre Vizsla himself at 6),
+#// because "can't be defeated by enemy card abilities" is not a targeting restriction — it is resolved
+#// when the defeat is attempted. The reporter seeing Rey selectable is therefore correct.
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:8}
+P1OnlyActions: true
+WithP2GroundArena: LAW_149:1:7
+WithP2SpaceArena: JTL_096:1:1
+WithP1Hand: ASH_053
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SELECTABLEEXACT:myGroundArena-0&theirGroundArena-0&theirSpaceArena-0
+P1DECISIONTOOLTIP:Defeat_any_number_of_non-leader_units_with_6_or_less_combined_remaining_HP~BUDGET~6~HP~myGroundArena-0=6~theirGroundArena-0=2~theirSpaceArena-0=2
+
+---
+
+# ReportRepro_ProtectedUnitAlone_NoTokenAtAll
+#// Picking ONLY the immune unit defeats nothing, so no token is created — the tokens are "for each unit
+#// defeated this way", not for each unit selected. (The SHD_187 section above pins the same rule for a
+#// friendly-side protection; this one pins it for the card the report actually named.)
+
+## GIVEN
+CommonSetup: bbk/rrk/{myResources:8}
+P1OnlyActions: true
+WithP2GroundArena: LAW_149:1:7
+WithP2SpaceArena: JTL_096:1:1
+WithP1Hand: ASH_053
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:LAW_149
+P2SPACEARENACOUNT:1
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:ASH_053
