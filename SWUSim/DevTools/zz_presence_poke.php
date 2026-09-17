@@ -9,6 +9,14 @@ require_once __DIR__ . '/../../Core/GamePresence.php';
 if (!SimGameIsDevelopmentEnvironment()) { http_response_code(403); echo '{}'; exit; }
 
 $gameName = preg_replace('/[^A-Za-z0-9_]/', '', strval($_GET['gameName'] ?? ''));
+// ?clock=on|off — the dev-environment opt-in. The clock is off by default in dev (user request
+// 2026-09-17); the automated tests turn it on for their own game and nothing else.
+if (isset($_GET['clock'])) {
+    if ($gameName === '') { echo '{"error":"gameName is required"}'; exit; }
+    PresenceSetClockEnabledInDev($gameName, strval($_GET['clock']) === 'on');
+    echo json_encode(['gameName' => $gameName, 'clockEnabledInDev' => PresenceClockEnabledInDev($gameName)]);
+    exit;
+}
 $seat = intval($_GET['seat'] ?? 0);
 $back = max(0, intval($_GET['back'] ?? 0));
 $actedOnly = strval($_GET['actedOnly'] ?? '') === '1';

@@ -110,3 +110,12 @@ function swuchat_poll_full_raw(string $gn, string $pid): string
         'lastUpdate' => 0, 'lastChatVersion' => 0, 'lastChatID' => 0,
     ]));
 }
+
+// The inactivity clock is OFF in the dev environment by default (user request 2026-09-17). A test that
+// exercises it must opt ITS OWN game in; nothing else on the dev box is affected.
+function swuchat_clock_on(string $gn): bool
+{
+    $j = json_decode(swuchat_http('SWUSim/DevTools/zz_presence_poke.php?'
+        . http_build_query(['gameName' => $gn, 'clock' => 'on'])), true);
+    return is_array($j) && !empty($j['clockEnabledInDev']);
+}

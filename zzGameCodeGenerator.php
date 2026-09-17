@@ -2546,6 +2546,15 @@ function AddGetNextTurnForPlayer($player) {
         // SHOW their unit side ("{CardID}_back") while on the battlefield.
         if($rootName == "SWUSim" && ($zone->Name == "GroundArena" || $zone->Name == "SpaceArena")) {
           $getNextTurn .= "    \$displayID = SWUArenaDisplayCardID(\$obj);\r\n";
+        } else if($rootName == "SWUSim" && $zone->Name == "Leader") {
+          // TWI_017 "Flipatine" is a double-leader-face FLIP card with NO unit side — its Deployed flag
+          // IS the flipped Villainy face, so the LEADER SLOT itself must show "{CardID}_back".
+          // ⚠ This arm exists in the DisplayMode=="Single" branch too, but SWUSim's Leader zone is
+          // declared `Display: Visibility=Public, Mode=All` — so that copy is NEVER emitted and
+          // SWULeaderDisplayCardID() had no caller at all. Reported as "Palpatine exhausted but never
+          // flipped to the Villainy side" (game 506505): the engine HAD flipped him, the payload kept
+          // shipping the front CardID. Pinned by DevTools/tdd-regression/test_swusim_flipatine_leader_art.php.
+          $getNextTurn .= "    \$displayID = SWULeaderDisplayCardID(\$obj);\r\n";
         } else {
           $getNextTurn .= $swuCardApp
           ? "    \$displayID = isset(\$obj->CardID) ? SWUDisplayCardID(\$obj->CardID) : \"-\";\r\n"

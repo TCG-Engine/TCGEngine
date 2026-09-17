@@ -59,6 +59,7 @@ $checks = [];
 
 // ── the payload ──
 $gn = swuchat_make_game($SCHEMA_2P);
+swuchat_clock_on($gn);   // dev default is OFF; opt this game in
 $checks['2P fixture created'] = $gn !== '';
 swuchat_poll($gn, '1');              // heartbeat + a first evaluate
 $pr = kv_presence($gn, '2');
@@ -69,6 +70,7 @@ $checks['2P: ~75s remaining']            = intval($pr['onClock']['remaining'] ??
 $checks['no vote before expiry']         = ($pr['vote'] ?? null) === null;
 
 $gn4 = swuchat_make_game(SWUCHAT_SCHEMA_TWINSUNS);
+swuchat_clock_on($gn4);
 swuchat_poll($gn4, '1');
 $pr4 = kv_presence($gn4, '2');
 $checks['TwinSuns: ~150s remaining']     = intval($pr4['onClock']['remaining'] ?? 0) > 120
@@ -112,6 +114,7 @@ $checks['2P: vote cleared after kick']   = empty(kv_dump($gn)['votes']);
 
 // ── Twin Suns: 2 of 3 removes the seat, nobody heals, the table keeps playing ──
 $gt = swuchat_make_game(SWUCHAT_SCHEMA_TWINSUNS);
+swuchat_clock_on($gt);
 swuchat_poll($gt, '1'); swuchat_poll_full_raw($gt, '1');
 kv_poke($gt, 1, 200, true);                          // seat 1 stalls (still connected)
 $prt = kv_presence($gt, '2');
@@ -129,6 +132,7 @@ $checks['TS: table still playable']      = kv_submit($gt, '2', 10001, 'myHealth-
 
 // ── Team Suns: both opposing players are needed; the teammate cannot vote ──
 $gm = swuchat_make_game(SWUCHAT_SCHEMA_TEAMSUNS);
+swuchat_clock_on($gm);
 swuchat_poll($gm, '1'); swuchat_poll_full_raw($gm, '1');
 kv_poke($gm, 1, 200, true);                          // seat 1 (red) stalls; blue = seats 2+4
 $prm = kv_presence($gm, '2');
@@ -145,6 +149,7 @@ $checks['Team: opposing team wins']      = strpos($boardM, 'removed for inactivi
 
 // ── acting cancels an open vote ──
 $gc = swuchat_make_game($SCHEMA_2P);
+swuchat_clock_on($gc);
 swuchat_poll($gc, '1'); swuchat_poll_full_raw($gc, '1');
 kv_poke($gc, 1, 200, true);
 $checks['cancel: vote opened']           = intval(kv_presence($gc, '2')['vote']['target'] ?? 0) === 1;

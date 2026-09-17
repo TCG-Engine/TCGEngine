@@ -148,6 +148,29 @@ function PresenceClearVote(string $gameName, int $target): bool
     return PresenceWrite($gameName, $p);
 }
 
+// ── Dev-environment opt-in (user request 2026-09-17) ─────────────────────────────────────────────
+// The inactivity clock is OFF in the dev environment by default: a local tester poking at a board does
+// not want a 75s countdown and a kick prompt appearing mid-session. The automated tests re-enable it
+// PER GAME through SWUSim/DevTools/zz_presence_poke.php?clock=on. Production is unaffected — the gate
+// only applies when SimGameIsDevelopmentEnvironment() is true.
+function PresenceClockKey(string $gameName): string
+{
+    return 'presence_clockon_' . $gameName;
+}
+
+function PresenceClockEnabledInDev(string $gameName): bool
+{
+    if (!PresenceApcuReady()) return false;
+    return apcu_fetch(PresenceClockKey($gameName)) === 1;
+}
+
+function PresenceSetClockEnabledInDev(string $gameName, bool $on): bool
+{
+    if (!PresenceApcuReady()) return false;
+    if (!$on) { apcu_delete(PresenceClockKey($gameName)); return true; }
+    return (bool)apcu_store(PresenceClockKey($gameName), 1, GAME_PRESENCE_TTL);
+}
+
 // A wait extension that has run out is a real EVENT: it must bump the vote version, or no poll wakes
 // and every client goes on showing the prompt as hidden. Clears 'until' once, keeping the sticky votes.
 function PresenceLapseExtensions(string $gameName, int $now): bool

@@ -45,6 +45,8 @@ MD;
 
 $gn = swuchat_make_game($SCHEMA);
 $checks['fixture created'] = $gn !== '';
+// The clock is off in dev by default — opt this game in (see swuchat_clock_on).
+$checks['clock enabled for this game'] = swuchat_clock_on($gn);
 
 // ── the poll is the heartbeat ──
 swuchat_poll($gn, '1');
@@ -77,18 +79,21 @@ $checks['choosing the attack target stamps'] = acted_at($gn, 1) > $before;
 
 // ── an ordinary state-changing action stamps ──
 $gn2 = swuchat_make_game($SCHEMA);
+swuchat_clock_on($gn2);
 $b2 = acted_at($gn2, 1);
 submit($gn2, '1', 10002, 'myHand-0!FSM!');              // play a card
 $checks['playing a card stamps'] = acted_at($gn2, 1) > $b2;
 
 // Pass stamps too (it is how a turn legitimately moves on).
 $gn3 = swuchat_make_game($SCHEMA);
+swuchat_clock_on($gn3);
 submit($gn3, '1', 10001, 'myHealth-0!CustomInput!');
 $checks['pass stamps'] = acted_at($gn3, 1) > 0;
 
 // ── a local mode never stamps ──
 $GOLD = str_replace('WithActivePlayer: 1', "WithActivePlayer: 1\nWithP1GlobalEffect: SWU_MODE_GOLDFISH", $SCHEMA);
 $gg = swuchat_make_game($GOLD);
+swuchat_clock_on($gg);   // even opted in, goldfish must never stamp
 submit($gg, '1', 10002, 'myHand-0!FSM!');
 $checks['goldfish never stamps'] = acted_at($gg, 1) === 0;
 

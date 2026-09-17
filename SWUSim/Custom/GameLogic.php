@@ -3708,6 +3708,16 @@ function SWUCommitPlay(int $player, string $cardID, ?string $logSuffix, string $
     if ($logSuffix !== null) SWULogPlay($player, $cardID, $logSuffix);
     if (function_exists('SWUTelemetryBumpCard')) { SWUTelemetryBumpCard($player, $cardID, 'played'); SWUTelemetryBumpTurn($player, 'cardsUsed'); }
     AddGlobalEffects($player, 'SWU_CARDS_PLAYED');
+    // "If you played a [Villainy] card this phase" (TWI_017 Chancellor Palpatine's Villainy face, SOR_010
+    // Darth Vader's Action) — a CARD of any type, so this belongs at the shared commit point, not in the
+    // unit branch below. It used to be armed only in the unit-entry path (whose own comment says an event,
+    // an upgrade and a Piloting card played as a pilot never reach it), so playing a Villainy UPGRADE or
+    // EVENT armed nothing: reported as "I played Craving Power (a Villainy upgrade), so it should have
+    // counted" — game 506505, 2026-09-17. Pinned by the Villainy_Played* sections in
+    // SWUSim/Tests/Cases/twi/ChancellorPalpatine_PlayingBothSides.md.
+    if (strpos(CardAspect($cardID) ?? '', 'Villainy') !== false) {
+        AddGlobalEffects($player, 'SWU_PLAYED_VILLAINY');
+    }
     if ($chargeObj !== null) _SWUConsumeOneShotCharges($player, $chargeObj);
     if ($as === 'unit') {
         // JTL_260 Death Star Plans: "The first unit you play each round costs 2 less." The used-flag means
@@ -20223,9 +20233,8 @@ function _SWUPlayedUnitEntry(int $player, string $cardID, string $newCardMzID, i
     // don't set it). Cleared with the other per-phase flags at RegroupPhaseStart.
     if (strpos($mzID, 'Hand') !== false) AddGlobalEffects($player, 'SWU_PLAYED_FROM_HAND_' . $uid);
     // (JTL_032 Krennic / LOF_108 Malakili "first slot" flags: marked by SWUCommitPlay at the commit point.)
-    if (strpos(CardAspect($cardID) ?? '', 'Villainy') !== false) {
-        AddGlobalEffects($player, 'SWU_PLAYED_VILLAINY');
-    }
+    // (SWU_PLAYED_VILLAINY is armed in SWUCommitPlay — "a Villainy CARD" is type-agnostic, and this
+    //  unit-only site meant an upgrade or event armed nothing. See the note there.)
     if (HasTrait($cardID, 'First Order')) {
         AddGlobalEffects($player, 'SWU_PLAYED_FO');  // JTL_010 Captain Phasma "played a First Order card"
     }

@@ -14,8 +14,16 @@ function SWUClockTimeout(): int
 }
 
 // The clock never runs in local modes, in a replay, or after the game is over.
+// ⚠ It is also OFF THROUGHOUT THE DEV ENVIRONMENT by default (user request 2026-09-17) so local testing
+// is never interrupted by a countdown or a kick prompt. The automated tests opt a single game back in via
+// SWUSim/DevTools/zz_presence_poke.php?clock=on. Production has no such gate.
 function SWUClockIsActive(): bool
 {
+    if (function_exists('SimGameIsDevelopmentEnvironment') && SimGameIsDevelopmentEnvironment()
+        && function_exists('PresenceClockEnabledInDev')) {
+        global $gameName;
+        if (!PresenceClockEnabledInDev(strval($gameName))) return false;
+    }
     if (function_exists('SWUGameMode') && SWUGameMode() !== '') return false;   // goldfish/hotseat/botpractice
     if (function_exists('IsReplay') && IsReplay()) return false;
     $winner = DecisionQueueController::GetVariable('GAMEOVER_WINNER');
