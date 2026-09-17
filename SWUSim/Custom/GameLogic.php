@@ -18974,6 +18974,10 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             // pass); Poe stays on his current Vehicle. The dispatcher pays the resource; the handler no-ops on
             // no target (and does NOT consume the once-per-round, since no hop occurred).
             if (!SWUHasUseAvailable(SWUGetLeader($player))) $ok = false;
+            // "Attach THIS UPGRADE …" exists only while Poe is attached as a Pilot upgrade. The provider lookup
+            // also matches a Poe deployed as a UNIT by his own CardID, which offered "Ability" on the ground and
+            // let the click lift him off the ground onto a Vehicle (reported 2026-09-17).
+            if ($actor !== null && ($actor->CardID ?? '') === 'JTL_013') $ok = false;
             break;
     }
     $playerID = $savedPID;
