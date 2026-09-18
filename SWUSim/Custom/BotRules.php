@@ -113,7 +113,8 @@ function SWUBotRuleBreakLethal(array $ctx): ?array {
 // planner never picks its own units to qualify (Pre Vizsla had defeated six Annihilators that way) and a one-sided
 // sweep qualifies. Prefers the longest clock left to them, then the most value gained.
 function SWUBotRuleControlWipe(array $ctx): ?array {
-    if (($ctx['style'] ?? '') !== 'control' || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    // The control wing (rank 3-4): soft and hard control both plan wipes.
+    if (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3 || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
     if (!function_exists('SWUBotLookaheadBest')) return null;
     $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
     $byValue = SWUBotFeatureOn('wipegate');

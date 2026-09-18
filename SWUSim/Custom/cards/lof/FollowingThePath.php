@@ -8,6 +8,7 @@ $whenPlayedAbilities["LOF_103:0"] = function($player, $mzID = '') {
 // Following the Path — "Search the top 8 cards for up to 2 Force units, reveal them,
                         // and put them on top of your deck in any order. (Put the others on the bottom.)"
             _topDeckSearchBegin(intval($player), 8,
-                fn($c) => HasTrait($c, 'Force') && CardType($c) === 'Unit', "count:2", "LOF_103#0");
+                fn($c) => HasTrait($c, 'Force') && CardType($c) === 'Unit', "count:2", "LOF_103#0",
+                'Force units', 'Put on top');
             return;
 };

@@ -13,6 +13,6 @@ $whenPlayedAbilities["LAW_166:0"] = function($player, $mzID = '') {
                 if (CardType($c) !== 'Unit') return false;
                 $a = CardAspect($c) ?? '';
                 return strpos($a, 'Vigilance') !== false || strpos($a, 'Aggression') !== false || strpos($a, 'Cunning') !== false;
-            }, 1);
+            }, 1, 'Vigilance, Aggression or Cunning units');
             return;
 };

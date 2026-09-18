@@ -13997,7 +13997,7 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
                             // reveal + draw; THEN, if the host was NOT unique (param 0), discard a card
                             // from your hand (queued after the search finalize; SHD_222#0).
                 DoTopDeckSearch(intval($player), 10,
-                    fn($c) => stripos(CardType($c) ?? '', 'Unit') === false, 2);
+                    fn($c) => stripos(CardType($c) ?? '', 'Unit') === false, 2, 'non-unit cards');
                 if (intval($parts[1] ?? 0) !== 1) {
                     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_222#0", 1);
                 }
@@ -14106,7 +14106,7 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
                 if (count(GetDeck($player)) > 0) {
                     DoTopDeckPlay($player, $n,
                         fn($c) => stripos(CardType($c) ?? '', 'Unit') !== false && intval(CardCost($c)) <= 3,
-                        3, 1);
+                        3, 'units', 1);
                 }
                 break;
             case 'SHD_031': // The Client's granted bounty — heal 5 damage from a base
@@ -15335,19 +15335,43 @@ function SWUMillTopCard(int $player): ?string {
 }
 
 // ── Top-deck search infrastructure ───────────────────────────────────────────
-// DoTopDeckSearch($player, $n, $filter, $maxPicks):
+// DoTopDeckSearch($player, $n, $filter, $maxPicks, $label):
 //   Peek top $n cards, player picks up to $maxPicks matching cards to draw.
 //   Constraint encoded as "count:N" in the TOPDECKSEARCH decision param.
 //
-// DoTopDeckPlay($player, $n, $filter, $costBudget):
+// DoTopDeckPlay($player, $n, $filter, $costBudget, $label, $maxCount = 0):
 //   Peek top $n cards, player picks any number of matching units whose combined
 //   cost ≤ $costBudget, each is played for free (no WhenPlayed triggers).
 //   Constraint encoded as "cost:N" in the TOPDECKSEARCH decision param.
 //
 // The peeked card IDs are embedded in the CUSTOM finalize handler param so they
 // survive PHP's stateless HTTP request boundary. Format: HANDLER|ID1,ID2,...
-// Decision param format: "allIDs|matchingIDs|constraint|costMap"
+// Decision param format: "allIDs|matchingIDs|constraint|costMap|label|verb"
 // Finalize answer format: comma-separated chosen CardIDs (empty = choose none).
+//
+// ⚠ $label AND $verb ARE REQUIRED, AND THEY ARE THE CARD'S OWN WORDING. The panel
+// (ShowTopDeckSearchPanel, Core/UILibraries*.js) is shared by every caller in this family, and the
+// $filter is a PHP CLOSURE — it cannot cross the request boundary, so the client has NOTHING to
+// describe the selection with unless the caller says. That gap used to be filled by hardcoding the
+// FIRST caller's wording into the panel: the cost-budget subtitle read "Select Villainy units"
+// (SOR_087 Darth Vader) for all seven cost callers, so ASH_110 Ackbar — whose search is for SPACE
+// units — told the player to pick Villainy. Required rather than defaulted on purpose: a default is
+// exactly how one card's wording became everyone's, and a new caller must not be able to inherit
+// wording silently. Write them as ordinary prose ("space units", "Discard"); the underscoring the
+// space-delimited DecisionQueue row needs is done here, once, not at ~65 call sites.
+//   $label — the plural noun phrase for what may be picked, as the card names it: "space units",
+//            "Droid units", "Clone units", "Rebel cards", "cards".
+//   $verb  — what happens to the picks, for the confirm button: "Take" (to hand), "Play" (for free),
+//            "Discard". It is the finalize handler's action in the player's words.
+
+// Make caller wording safe for the wire. A DecisionQueue row is SPACE-delimited (ZoneClasses explodes
+// on " ") and this family's param is itself '|'-delimited, so a raw space truncates the row and a raw
+// '|' shifts every field after it. AddDecision normalises the TOOLTIP this way but deliberately not
+// $param (see its comment) — this family does it at the funnel so no card file has to remember.
+function _swuTopDeckWireText(string $s): string {
+    $s = str_replace('|', '/', trim($s));
+    return preg_replace('/\s+/', '_', $s);
+}
 
 // True if $player controls a unit with CardID $cardID in play (any arena, incl. deployed leaders).
 function _SWUControlsCardInPlay(int $player, string $cardID): bool {
@@ -15369,7 +15393,7 @@ function _SWUControlsUnitWithUpgrade(int $player, string $upgradeCardID): bool {
     return false;
 }
 
-function _topDeckSearchBegin(int $player, int $n, callable $filter, string $constraint, string $finalizeHandler): void {
+function _topDeckSearchBegin(int $player, int $n, callable $filter, string $constraint, string $finalizeHandler, string $label, string $verb): void {
     // ASH_084 Arcana Star Map — "If you would search a number of cards from your deck, search twice that
     // number of cards instead." Applies to every deck-search/play-from-deck routed through this funnel.
     if ($n > 0 && _SWUControlsUnitWithUpgrade($player, 'ASH_084')) $n *= 2;
@@ -15404,7 +15428,8 @@ function _topDeckSearchBegin(int $player, int $n, callable $filter, string $cons
     // filter. SOR_087 Darth Vader's "any number of Villainy units with combined cost 3 or LESS" happily
     // played two cost-2 units for a combined 4.
     DecisionQueueController::StoreVariable("TopDeckConstraint", $constraint);
-    $param = $allIDs . '|' . $matchIDs . '|' . $constraint . '|' . $costMap;
+    $param = $allIDs . '|' . $matchIDs . '|' . $constraint . '|' . $costMap
+           . '|' . _swuTopDeckWireText($label) . '|' . _swuTopDeckWireText($verb);
     DecisionQueueController::AddDecision($player, "TOPDECKSEARCH", $param, 1, tooltip: "Search_top_cards");
     if (function_exists('SWULogPeek')) SWULogPeek(intval($player), 'searched', array_values(array_filter(explode(',', (string)$allIDs)))); // game log
     // Embed allIDs in the finalize param — survives the HTTP request boundary. dontSkipOnPass: when the search
@@ -15414,11 +15439,16 @@ function _topDeckSearchBegin(int $player, int $n, callable $filter, string $cons
     MarkUndoRequiresConsent();
 }
 
-function DoTopDeckSearch(int $player, int $n, callable $filter, int $maxPicks): void {
-    _topDeckSearchBegin($player, $n, $filter, "count:$maxPicks", "TOPDECKSEARCH_FINALIZE");
+// $label: what the card says may be picked, plural ("Rebel cards", "units", "Plot cards"). The picks are
+// DRAWN to hand, so the verb is always "Take".
+function DoTopDeckSearch(int $player, int $n, callable $filter, int $maxPicks, string $label): void {
+    _topDeckSearchBegin($player, $n, $filter, "count:$maxPicks", "TOPDECKSEARCH_FINALIZE", $label, 'Take');
 }
 
-function DoTopDeckPlay(int $player, int $n, callable $filter, int $costBudget, int $maxCount = 0): void {
+// $label: as above ("Villainy units", "space units", …). The picks are PLAYED for free, so the verb is
+// always "Play". ⚠ $label sits BEFORE $maxCount: PHP treats a required parameter after an optional one as
+// implicitly required and deprecates the declaration, and only two callers pass $maxCount.
+function DoTopDeckPlay(int $player, int $n, callable $filter, int $costBudget, string $label, int $maxCount = 0): void {
     // Constraint "cost:N" (any number within budget) or "cost:N:M" (≤M picks AND within budget,
     // e.g. SOR_104 U-Wing Reinforcement: up to 3 units, combined cost ≤7).
     // ⚠ NOT "frontend-enforced" — that comment was stale. _topDeckResolveFromIDs enforces this
@@ -15426,7 +15456,7 @@ function DoTopDeckPlay(int $player, int $n, callable $filter, int $costBudget, i
     // when the top-deck filter was centralised after it turned out to be client-only. Do not add a
     // defensive re-check in a caller on the strength of the old wording.
     $constraint = $maxCount > 0 ? "cost:$costBudget:$maxCount" : "cost:$costBudget";
-    _topDeckSearchBegin($player, $n, $filter, $constraint, "SOR_087#0");
+    _topDeckSearchBegin($player, $n, $filter, $constraint, "SOR_087#0", $label, 'Play');
 }
 
 // Resolve chosen CardIDs from $lastDecision against the flat list of all peeked IDs.

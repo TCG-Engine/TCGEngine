@@ -20,7 +20,7 @@ $customDQHandlers["LAW_023#0"] = function($player, $parts, $lastDecision) {
     DoDiscardCard(intval($player), $lastDecision);          // pay the [discard a unit] cost
     DecisionQueueController::CleanupRemovedCards();
     $deckSize = count(GetDeck(intval($player)));
-    if ($deckSize > 0) DoTopDeckSearch(intval($player), $deckSize, fn($c) => $c === 'LAW_163', 1);
+    if ($deckSize > 0) DoTopDeckSearch(intval($player), $deckSize, fn($c) => $c === 'LAW_163', 1, 'copies of The Sarlacc of Carkoon');
     SWUQueueAfterAction(intval($player));
 };
 

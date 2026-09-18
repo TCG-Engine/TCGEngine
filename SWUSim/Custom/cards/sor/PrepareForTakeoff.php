@@ -8,7 +8,7 @@ $whenPlayedAbilities["SOR_125:0"] = function($player, $mzID = '') {
 // Prepare for Takeoff — "Search the top 8 cards for up to 2 Vehicle units, draw them."
             DoTopDeckSearch($player, 8,
                 fn($c) => HasTrait($c, 'Vehicle') && CardType($c) === 'Unit',
-                2
+                2, 'Vehicle units'
             );
             return;
 };

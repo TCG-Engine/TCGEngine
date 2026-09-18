@@ -74,23 +74,23 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         if ($cost > $bombCost) { $bombCost = $cost; $bombIndex = $i; }
     }
     // Feature 'wipekeep' (owner ruling 2026-09-16) refines that rule for WIPES — see _SWUBotProtectedWipe.
-    $wipeRule = $ctx['style'] === 'control' && SWUBotFeatureOn('wipekeep');
+    $rank = SWUBotStyleRank(strval($ctx['style']));
+    $wipeRule = $rank >= 3 && SWUBotFeatureOn('wipekeep');
     $early = SWUResourceCount($seat) <= 5;
-    $protectedWipe = ($wipeRule && $early) ? _SWUBotProtectedWipe($seat, 'control') : null;
+    $protectedWipe = ($wipeRule && $early) ? _SWUBotProtectedWipe($seat, strval($ctx['style'])) : null;
     $stabilized = $wipeRule && !$early && _SWUBotIsStabilized($seat);
     $ranked = [];
     foreach (GetHand($seat) as $i => $c) {
         if ($c === null || !empty($c->removed)) continue;
         $cid = strval($c->CardID ?? '');
         $cost = intval(CardCost($cid));
-        $keep = match ($ctx['style']) {
-            'control' => $i === $bombIndex ? 200.0 : ($cost <= $soon ? 100.0 + $cost : (float)($soon - $cost)),
-            default   => (float)-$cost,    // Aggro resources its most expensive; Normal: FALLBACK default, not a rule
-        };
+        $keep = $rank >= 3
+            ? ($i === $bombIndex ? 200.0 : ($cost <= $soon ? 100.0 + $cost : (float)($soon - $cost)))
+            : (float)-$cost;   // the aggro wing resources its most expensive; midrange: FALLBACK default, not a rule
         // Key cards (answers, burn, the flavour's key cards) go to resources after filler (feature 'keep'). Control
         // keeps its owner rule first — castable soon + one bomb (2026-09-13) — so its bonus (50) lifts a key card
         // only above FAR filler, never above a card it can cast soon; the other styles keep key cards over all filler.
-        if (SWUBotFeatureOn('keep') && SWUBotIsKeyCard($seat, $cid)) $keep += $ctx['style'] === 'control' ? 50.0 : 150.0;
+        if (SWUBotFeatureOn('keep') && SWUBotIsKeyCard($seat, $cid)) $keep += $rank >= 3 ? 50.0 : 150.0;
         // 2R–5R: the one relevant wipe is held like the bomb — just below it, above every castable card. ONE copy:
         // a second wipe falls back to the ordinary rule.
         if ($protectedWipe !== null && $cid === $protectedWipe && $i !== $bombIndex) { $keep = 190.0; $protectedWipe = null; }
@@ -171,7 +171,7 @@ function _SWUBotWipeIsRelevant(int $seat, string $cid): bool {
 
 // The cheapest relevant wipe in hand, or null. Control only — the ruling is about control's resourcing.
 function _SWUBotProtectedWipe(int $seat, string $style): ?string {
-    if ($style !== 'control') return null;
+    if (SWUBotStyleRank($style) < 3) return null;   // the control wing only — the ruling is about control's resourcing
     $best = null; $bestCost = PHP_INT_MAX;
     foreach (GetHand($seat) as $c) {
         if ($c === null || !empty($c->removed)) continue;
@@ -213,10 +213,16 @@ function SWUBotResourceStop(int $seat, string $style): int {
     }
     rsort($answers);
     $pair = count($answers) >= 2 ? $answers[0] + $answers[1] : 0;
-    return match ($style) {
-        'aggro'   => max(6, min(7, $top)),
-        'control' => max(9, min(11, max($top, $pair))),
-        default   => max(8, min(9, $top)),
+    // Five archetypes, five stops (spec, "The archetype is an ordered scale"): the aggro wing stops early,
+    // hard control banks for its bombs and its answer pair. Floors come from the spec; the ceiling still
+    // follows the deck, so a deck holding an 11-cost card can still bank enough to cast it.
+    $rank = SWUBotStyleRank($style);
+    return match ($rank) {
+        0 => max(6, min(7, $top)),
+        1 => max(7, min(8, $top)),
+        2 => max(8, min(9, $top)),
+        3 => max(9, min(11, max($top, $pair))),
+        default => max(11, min(12, max($top, $pair))),
     };
 }
 

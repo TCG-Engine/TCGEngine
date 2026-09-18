@@ -10,7 +10,7 @@ $whenDefeatedAbilities["SHD_115:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     _topDeckSearchBegin(intval($player), 10,
         function($cid) { return strpos(CardType($cid) ?? '', 'Unit') !== false && intval(CardCost($cid)) <= 2; },
-        "count:1", "SHD_115#0");
+        "count:1", "SHD_115#0", 'units costing 2 or less', 'Discard');
 };
 
 // Finalize: discard the chosen unit tagged TPF (free play from discard this phase); rest to the bottom.

@@ -15,5 +15,5 @@ $customDQHandlers["LOF_115#0"] = function($player, $parts, $lastDecision) {
     UseTheForce(intval($player));
     global $playerID; $playerID = intval($player);
     DoTopDeckSearch(intval($player), 5,
-        fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false && HasTrait($c, 'Force'), 1);
+        fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false && HasTrait($c, 'Force'), 1, 'Force units');
 };

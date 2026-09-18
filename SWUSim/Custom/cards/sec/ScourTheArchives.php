@@ -6,6 +6,6 @@
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["SEC_072:0"] = function($player, $mzID = '') {
 // Scour the Archives — search the top 8 of your deck for an upgrade, reveal+draw.
-            DoTopDeckSearch(intval($player), 8, fn($c) => stripos(CardType($c) ?? '', 'Upgrade') !== false, 1);
+            DoTopDeckSearch(intval($player), 8, fn($c) => stripos(CardType($c) ?? '', 'Upgrade') !== false, 1, 'upgrades');
             return;
 };

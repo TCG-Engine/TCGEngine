@@ -22,5 +22,5 @@ $customDQHandlers["TWI_193#0"] = function($player, $parts, $lastDecision) {
     $o->Remove();
     SWUAddToDiscard(intval($player), $o->CardID, 'HAND'); // discard the chosen hand card
     if (count(GetDeck(intval($player))) === 0) return;
-    DoTopDeckSearch(intval($player), 3, fn($c) => true, 1);
+    DoTopDeckSearch(intval($player), 3, fn($c) => true, 1, 'cards');
 };

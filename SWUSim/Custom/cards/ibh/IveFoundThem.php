@@ -5,6 +5,6 @@
 
 $whenPlayedAbilities["IBH_009:0"] = function($player, $mzID = '') {
     _topDeckSearchBegin(intval($player), 3, fn($c) => CardType($c) === 'Unit', "count:1",
-        "IBH_TOPDECK_DISCARD_FINALIZE");
+        "IBH_TOPDECK_DISCARD_FINALIZE", 'units', 'Take');
 };
 $whenPlayedAbilities["IBH_025:0"] = $whenPlayedAbilities["IBH_009:0"];

@@ -123,14 +123,14 @@ $c = $botCtx('normal');
 $check(SWUBotScoreAction($c, $c['actions'][1], 1) < SWUBotScoreAction($c, $c['actions'][0], 0), 'an Ambush trigger scores below a buff trigger');
 
 // ── Free play ────────────────────────────────────────────────────────────────────────────────────
-// A losing attack (Marine into a 4/4, Control may only hit the unit) scores below passing. The leader is
+// The attack (Marine into a 4/4) now also hits the base — it is no longer a pure losing trade. The leader is
 // exhausted so its Action is not on offer.
 $build(function ($b) { $b->MyLeader('SOR_014', false); $b->WithGroundUnitForPlayer(1, 'SOR_095', true); $b->WithGroundUnitForPlayer(2, 'LOF_084', true); });
 $c = $botCtx('control');
 $check($ids($c['actions']) === ['myGroundArena-0!FSM!', 'InitiativeCounter-0!CustomInput!TakeInitiative', 'myHealth-0!CustomInput!Pass'],
     'fixture: attack, initiative, pass');
-$check(strval(SWUBotFallbackChoose($c)['cardID']) === 'InitiativeCounter-0!CustomInput!TakeInitiative',
-    'Control: a losing attack is not taken; the initiative (small bonus) beats passing');
+$check(strval(SWUBotFallbackChoose($c)['cardID']) === 'myGroundArena-0!FSM!',
+    'Control: the attack is taken now — it hits the BASE rather than losing a trade');
 $check(strval(SWUBotFallbackChoose($botCtx('aggro'))['cardID']) === 'myGroundArena-0!FSM!', 'Aggro: the same attack hits the base → taken');
 $check(SWUBotFallbackChoose(array_merge($c, ['actions' => []])) === null, 'an empty candidate list → null');
 // The opponent already claimed the initiative: only the attack and Pass remain, and the losing attack
@@ -141,7 +141,17 @@ $build(function ($b) {
 });
 $c = $botCtx('control');
 $check($ids($c['actions']) === ['myGroundArena-0!FSM!', 'myHealth-0!CustomInput!Pass'], 'fixture: attack, pass (initiative claimed)');
-$check(strval(SWUBotFallbackChoose($c)['cardID']) === 'myHealth-0!CustomInput!Pass', 'Control: passing beats a losing attack');
+$check(strval(SWUBotFallbackChoose($c)['cardID']) === 'myGroundArena-0!FSM!',
+    'Control: attacking the base beats passing — a doomed unit still deals base damage');
+
+// A losing attack is still declined when the base itself is not a legal target: an unconditional Sentinel
+// (SOR_063 Cloud City Wing Guard) forces the attack onto the unit, and that attack still loses.
+$build(function ($b) {
+    $b->MyLeader('SOR_014', false); $b->WithGroundUnitForPlayer(1, 'SOR_227', true); $b->WithGroundUnitForPlayer(2, 'SOR_063', true);
+});
+$c = $botCtx('control');
+$check(strval(SWUBotFallbackChoose($c)['cardID']) !== 'myGroundArena-0!FSM!',
+    'Control: with a Sentinel blocking the base, a losing attack is still declined');
 
 // ── "You may": taken by default, declined when it would only hurt me (owner, 2026-09-13) ──────────────
 // Daimyo's Palace (LAW_020): "Epic Action: Play a card from your hand, ignoring 1 of its … aspect
@@ -253,6 +263,8 @@ $scoreDraw = function () use ($botCtx) {
 };
 $build($decks(40, 40, true)); $early = $scoreDraw();
 $build($decks(11, 20, true)); $late = $scoreDraw();
-$check($early !== null && $late !== null && abs(($early - $late) - 2.4) < 1e-9, 'Heroic Sacrifice (draw) is worth W.draw × 2 less once drawing would deck me out first (1.2 → −1.2)');
+$Wd = SWUBotWeights('control', 1)['draw'];
+$check($early !== null && $late !== null && abs(($early - $late) - 2.0 * $Wd) < 1e-9,
+    'Heroic Sacrifice (draw) is worth W.draw × 2 less once drawing would deck me out first');
 
 bot_test_finish();

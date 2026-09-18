@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const layout = fs.readFileSync(new URL('../../FaBSim/Custom/GameLayout.php', import.meta.url), 'utf8');
-const ui = fs.readFileSync(new URL('../../Core/UILibraries20260917.js', import.meta.url), 'utf8');
+const ui = fs.readFileSync(new URL('../../Core/UILibraries20260918.js', import.meta.url), 'utf8');
 const multi = fs.readFileSync(new URL('../../Core/MZMultiChooseUI.js', import.meta.url), 'utf8');
 function setup(viewer, seats = '12') {
   const context = vm.createContext({window: {SeatOrderData: seats}, document: {getElementById: () => ({value: viewer})}});

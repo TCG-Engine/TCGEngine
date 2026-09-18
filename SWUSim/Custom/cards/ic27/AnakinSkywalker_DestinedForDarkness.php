@@ -29,5 +29,5 @@ $whenDefeatedAbilities["IC27_078:0"] = function($player, $mzID = '') {
     $deckSize = count(GetDeck(intval($player)));
     if ($deckSize <= 0) return;
     DoTopDeckSearch(intval($player), $deckSize,
-        fn($c) => CardTitle($c) === 'Darth Vader', 1);
+        fn($c) => CardTitle($c) === 'Darth Vader', 1, 'copies of Darth Vader');
 };

@@ -12,7 +12,7 @@ $whenDefeatedAbilities["TS26_39:0"] = function($player, $mzID) {
     // nothing. _topDeckSearchBegin no-ops on an empty deck and never reaches TS26_39#0, which used to
     // swallow the top-of-deck step with it — so run that half directly here instead.
     if (empty(GetDeck(intval($player)))) { _SWUTs26039OfferPutOnTop(intval($player)); return; }
-    _topDeckSearchBegin(intval($player), 3, fn($c) => true, "count:1", "TS26_39#0");
+    _topDeckSearchBegin(intval($player), 3, fn($c) => true, "count:1", "TS26_39#0", 'cards', 'Take');
 };
 
 // "Put a card from your hand on top of your deck." Shared by the normal path and the empty-deck path.

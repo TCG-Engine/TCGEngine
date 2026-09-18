@@ -53,5 +53,5 @@ $customDQHandlers["ASH_224#1"] = function($player, $parts, $lastDecision) {
     $n   = intval($parts[0] ?? 0);
     $opp = SWUPickedOpponent($lastDecision);
     if ($n <= 0 || $opp <= 0 || $opp === intval($player)) return;
-    DoTopDeckSearch($opp, $n, fn($cid) => strpos(CardType($cid) ?? '', 'Event') !== false, 1);
+    DoTopDeckSearch($opp, $n, fn($cid) => strpos(CardType($cid) ?? '', 'Event') !== false, 1, 'events');
 };

@@ -105,7 +105,11 @@ SWUBotSetDisabledFeatures([]);
 // only) goes. Control's castable-soon rule still comes first (the Marine is kept either way).
 $build(function ($b) use ($hand) { $b->MyLeader('LAW_008', false); $b->FillResourcesForPlayer(1, 'SOR_095', 2); $hand($b, ['JTL_041', 'LAW_044', 'ASH_133', 'SOR_095']); });
 $check($pick('control') === ['myHand-2'], 'Control keeps Single Reactor Ignition over far filler: Trask Walker goes');
-SWUBotSetDisabledFeatures(['keep']);
+// ⚠ 'wipekeep' must go too (owner-approved 2026-09-17). This check asserts the raw INDEX tie-break between two
+// equally-far 8s, so it only means anything while nothing is scoring the wipe above the other card — and
+// wipekeep (added 2026-09-16) gives Single Reactor Ignition a protected-wipe keep at 2 resources, which is the
+// behaviour the check one line above now covers.
+SWUBotSetDisabledFeatures(['keep', 'wipekeep']);
 $check($pick('control') === ['myHand-1'], '@no-keep: the tie between the two 8s went to the wipe (lower index)');
 SWUBotSetDisabledFeatures([]);
 // Boba's burn.

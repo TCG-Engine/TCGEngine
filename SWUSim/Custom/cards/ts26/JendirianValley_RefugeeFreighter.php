@@ -7,7 +7,7 @@
 // card and resource it (put it into play as a resource, exhausted); the rest go to the bottom.
 $whenPlayedAbilities["TS26_18:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    _topDeckSearchBegin(intval($player), 8, fn($c) => true, "count:1", "TS26_18#0");
+    _topDeckSearchBegin(intval($player), 8, fn($c) => true, "count:1", "TS26_18#0", 'cards', 'Resource');
 };
 
 $customDQHandlers["TS26_18#0"] = function($player, $parts, $lastDecision) {

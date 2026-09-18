@@ -18,5 +18,5 @@ $whenPlayedAbilities["LAW_145:0"] = function($player, $mzID) {
         if (CardType($c) !== 'Unit') return false;
         foreach (explode(',', (string)(CardAspect($c) ?? '')) as $a) { if (isset($friendlyAspects[trim($a)])) return true; }
         return false;
-    }, 1);
+    }, 1, 'units sharing an aspect with a friendly unit');
 };

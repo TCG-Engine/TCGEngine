@@ -17,5 +17,5 @@ $customDQHandlers["TWI_146#0"] = function($player, $parts, $lastDecision) {
     $playerID = intval($player);
     SWUDealDamageToBase(2, intval($player), intval($player)); // 2 to your own base
     if (count(GetDeck(intval($player))) === 0) return;
-    DoTopDeckSearch(intval($player), 8, fn($c) => HasTrait($c, 'Tactic'), 1);
+    DoTopDeckSearch(intval($player), 8, fn($c) => HasTrait($c, 'Tactic'), 1, 'Tactic cards');
 };

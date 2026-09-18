@@ -12,6 +12,6 @@ $whenPlayedAbilities["TWI_201:0"] = function($player, $mzID = '') {
             _topDeckSearchBegin(intval($player), 10,
                 fn($c) => strpos(CardType($c) ?? '', 'Unit') === false
                           && strpos(CardAspect($c) ?? '', 'Heroism') !== false,
-                "count:2", "TWI_201#0");
+                "count:2", "TWI_201#0", 'Heroism non-unit cards', 'Discard');
             return;
 };

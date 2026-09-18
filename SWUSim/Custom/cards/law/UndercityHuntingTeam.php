@@ -7,5 +7,5 @@
 $whenPlayedAbilities["LAW_138:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     if (count(GetDeck(intval($player))) === 0) return;
-    DoTopDeckSearch(intval($player), 5, fn($c) => CardType($c) === 'Unit' && HasTrait($c, 'Bounty Hunter'), 1);
+    DoTopDeckSearch(intval($player), 5, fn($c) => CardType($c) === 'Unit' && HasTrait($c, 'Bounty Hunter'), 1, 'Bounty Hunter units');
 };

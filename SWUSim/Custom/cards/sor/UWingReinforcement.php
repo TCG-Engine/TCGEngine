@@ -6,6 +6,6 @@
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["SOR_104:0"] = function($player, $mzID = '') {
 // U-Wing Reinforcement — "Search top 10 for up to 3 units, combined cost ≤7, play each free."
-            DoTopDeckPlay(intval($player), 10, fn($c) => CardType($c) === 'Unit', 7, 3);
+            DoTopDeckPlay(intval($player), 10, fn($c) => CardType($c) === 'Unit', 7, 'units', 3);
             return;
 };

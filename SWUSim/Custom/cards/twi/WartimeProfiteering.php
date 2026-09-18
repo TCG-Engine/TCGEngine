@@ -12,6 +12,6 @@ $whenPlayedAbilities["TWI_188:0"] = function($player, $mzID = '') {
             global $playerID; $playerID = intval($player);
             $n = GlobalEffectCount(1, 'SWU_FRIENDLY_DEFEATED') + GlobalEffectCount(2, 'SWU_FRIENDLY_DEFEATED');
             if ($n <= 0) return;
-            DoTopDeckSearch(intval($player), $n, fn($c) => true, 1);
+            DoTopDeckSearch(intval($player), $n, fn($c) => true, 1, 'cards');
             return;
 };

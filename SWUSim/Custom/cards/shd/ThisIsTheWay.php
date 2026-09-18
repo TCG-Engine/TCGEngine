@@ -10,6 +10,7 @@ $whenPlayedAbilities["SHD_253:0"] = function($player, $mzID = '') {
             global $playerID; $playerID = intval($player);
             if (count(GetDeck($player)) === 0) return;
             DoTopDeckSearch(intval($player), 8,
-                fn($c) => HasTrait($c, 'Mandalorian') || strpos(CardType($c) ?? '', 'Upgrade') !== false, 2);
+                fn($c) => HasTrait($c, 'Mandalorian') || strpos(CardType($c) ?? '', 'Upgrade') !== false, 2,
+                'Mandalorian and/or upgrade cards');
             return;
 };

@@ -21,7 +21,7 @@ $whenPlayedAbilities["LOF_100:0"] = function($player, $mzID) {
         fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false
                   && max(0, SWUComputePlayCost(intval($player), new Deck($c, 'Deck', intval($player))) - 3)
                      <= $ready,
-        "count:1", "LOF_100#0");
+        "count:1", "LOF_100#0", 'units', 'Play');
 };
 
 // ⚠ THE CARD SAYS "PLAY IT", SO IT IS A REAL PLAY — not a put-into-play.

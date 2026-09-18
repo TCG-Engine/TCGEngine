@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-const ui = fs.readFileSync(new URL('../../Core/UILibraries20260917.js', import.meta.url), 'utf8');
+const ui = fs.readFileSync(new URL('../../Core/UILibraries20260918.js', import.meta.url), 'utf8');
 const source = ui.slice(ui.indexOf('function CheckAndShowDecisionQueue('), ui.indexOf('// --- Selection Mode State ---'));
 function setup(enabled, spectator = false) {
   const answers = [];

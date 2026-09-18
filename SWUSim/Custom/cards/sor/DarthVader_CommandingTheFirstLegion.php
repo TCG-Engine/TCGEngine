@@ -10,6 +10,6 @@
 $whenPlayedAbilities["SOR_087:0"] = function($player, $mzID) {
     DoTopDeckPlay($player, 10,
         fn($c) => strpos(CardAspect($c) ?? '', 'Villainy') !== false && CardType($c) === 'Unit',
-        3
+        3, 'Villainy units'
     );
 };

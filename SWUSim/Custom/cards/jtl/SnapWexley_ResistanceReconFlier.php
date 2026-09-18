@@ -14,5 +14,5 @@ $whenPlayedAbilities["JTL_098:0"] = $onAttackAbilities["JTL_098:0"] = function($
 $whenPlayedAsUpgradeAbilities["JTL_098:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    DoTopDeckSearch(intval($player), 5, fn($c) => HasTrait($c, 'Resistance'), 1);
+    DoTopDeckSearch(intval($player), 5, fn($c) => HasTrait($c, 'Resistance'), 1, 'Resistance cards');
 };

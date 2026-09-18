@@ -7,5 +7,5 @@
 $whenPlayedAbilities["SOR_096:0"] = function($player, $mzID) {
     // Owner-aware: these are cards in the SEARCHER's own deck, and HMW_108 strips a named trait from
     // enemy cards INCLUDING those not in play — so an opponent who named Rebel makes this find nothing.
-    DoTopDeckSearch(intval($player), 5, fn($c) => _SWUCardHasTrait(intval($player), $c, 'Rebel'), 1);
+    DoTopDeckSearch(intval($player), 5, fn($c) => _SWUCardHasTrait(intval($player), $c, 'Rebel'), 1, 'Rebel cards');
 };

@@ -11,6 +11,8 @@
 //             (SWUBotIsRacing), when it takes Aggro's rule (feature 'baserace'; owner ruling 2026-09-14)
 //   Normal  — racing (SWUBotIsRacing): Aggro's rule; otherwise favourable trades only, if any exist
 
+require_once __DIR__ . '/BotArchetypes.php';   // the five archetypes, the rank scale and the weight table
+
 function SWUBotActionMz(array $action): string {
     if (intval($action['mode'] ?? 0) === 100) return '';
     return explode('!', strval($action['cardID'] ?? ''))[0];
@@ -65,24 +67,31 @@ function SWUBotAttackTargets(int $seat, array $att): array {
 // when a target exists: with no qualifying target the choice is left open.
 function SWUBotAllowedTargets(array $ctx, array $att): array {
     $t = SWUBotAttackTargets(intval($ctx['seat']), $att);
-    $style = $ctx['style'];
-    if ($style === 'normal') $style = SWUBotIsRacing(intval($ctx['seat']), intval($ctx['opp'])) ? 'aggro' : 'normal-trade';
-    // Control races like Aggro when it is ahead (feature 'baserace'; owner ruling 2026-09-14).
-    if ($style === 'control' && SWUBotFeatureOn('baserace') && SWUBotIsRacing(intval($ctx['seat']), intval($ctx['opp']))) $style = 'aggro';
+    // The filter and the weights now agree by construction: both read SWUBotRacingRank.
+    $rank = SWUBotRacingRank(strval($ctx['style']), intval($ctx['seat']));
+    $mode = $rank <= 1 ? 'aggro' : ($rank === 2 ? 'normal-trade' : 'control');
     $all = [];
     if ($t['base']) $all[] = ['base', null];
     foreach ($t['units'] as $u) $all[] = ['unit', $u];
+    // The filter never removes the BASE by preference — that exclusion was the bug. Until 2026-09-17 the control
+    // branch kept `unit` targets only, so a control bot could not choose the base at all unless it was racing, and
+    // racing (clock <= 3) was true in ~7% of its decisions. Measured: control attacked the base in 55.0% of its
+    // attacks against aggro's 92.5%, and 462 of its freely-chosen unit attacks killed nothing at all. The weights
+    // decide between base and unit now (base 0.60 flat, chip strictly below it).
+    // Each archetype KEEPS its own unit-side pruning (owner, 2026-09-18): the defect was control's base exclusion,
+    // not its unit preferences, and widening further would change aggro and midrange unmeasured.
+    // SWUBotAttackTargets above has already removed whatever the RULES forbid (Sentinel without Saboteur).
     $keep = [];
     foreach ($all as [$k, $u]) {
-        if ($style === 'aggro') {
-            if ($k === 'base' || SWUBotOverwhelmKills($att, $u)) $keep[] = [$k, $u];
-        } elseif ($style === 'control') {
-            if ($k === 'unit') $keep[] = [$k, $u];
-        } else { // normal-trade: kill-and-survive, or a trade into something that cost more
-            if ($k !== 'unit') continue;
-            $o = SWUBotCombatOutcome($att, $u);
-            if ($o === 'kill-survive' || ($o === 'trade' && $u['cost'] > $att['cost'])) $keep[] = [$k, $u];
+        if ($k === 'base') { $keep[] = [$k, $u]; continue; }
+        if ($mode === 'aggro') {
+            if (!SWUBotOverwhelmKills($att, $u)) continue;          // aggro takes a unit only when Overwhelm carries
+        } elseif ($mode === 'normal-trade') {
+            $o = SWUBotCombatOutcome($att, $u);                      // midrange: kill-and-survive, or trade up
+            if ($o !== 'kill-survive' && !($o === 'trade' && $u['cost'] > $att['cost'])) continue;
         }
+        // the control wing (rank >= 3) keeps every unit
+        $keep[] = [$k, $u];
     }
     return empty($keep) ? $all : $keep;
 }
@@ -120,43 +129,5 @@ function SWUBotStyleFilter(array $ctx): array {
         if ($v !== null && isset($allowedUids[$v['uid']])) $keep[] = $a;
     }
     return empty($keep) ? $acts : $keep;   // never empty
-}
-
-// Starting values for the fallback scorer (layer 4). Tuned later against self-play reports, the difficulty
-// calibration and the RL warm start — not fixed facts.
-function SWUBotWeights(string $style, int $seat): array {
-    static $T = [
-        //                aggro normal control
-        'base'      => [1.0, 0.6, 0.3],   // per point of damage to the enemy base
-        'kill'      => [0.6, 1.0, 1.2],   // × value of an enemy unit killed
-        'loss'      => [0.5, 0.8, 1.0],   // × value of own unit lost
-        'chip'      => [0.2, 0.3, 0.4],   // per point of non-lethal damage to a unit
-        'grit'      => [0.3, 0.3, 0.3],   // penalty per point of non-lethal damage to an enemy Grit unit
-        'develop'   => [0.3, 0.3, 0.25],  // × printed cost of a card played
-        'unitPlay'  => [0.5, 0.0, 0.0],   // flat bonus for playing a unit (Aggro: units entering play)
-        'removal'   => [0.5, 0.8, 1.2],   // tag bonuses for plays (SWUBotCardTags)
-        'wipe'      => [0.0, 0.3, 1.5],
-        'damage'    => [0.4, 0.6, 0.8],
-        'draw'      => [0.3, 0.4, 1.2],   // Control maximises card draw early and mid game (owner, 2026-09-13); × SWUBotDrawMultiplier
-        'heal'      => [0.1, 0.3, 0.6],
-        'burn'      => [0.6, 0.4, 0.3],   // indirect / base damage from a card (tags v2, 2026-09-14)
-        'buff'      => [0.5, 0.4, 0.3],
-        'bounce'    => [0.3, 0.5, 0.6],
-        'exhaust'   => [0.3, 0.4, 0.4],
-        'deploy'    => [1.5, 1.5, 1.5],
-        'ability'   => [0.4, 0.4, 0.4],   // leader / unit / base Action
-        'ready'     => [0.3, 0.3, 0.3],   // guide: buffs and upgrades go on units that attack this round
-        'initiative'=> [0.05, 0.05, 0.05],
-        // GUIDES (BotGuides.php) — large enough to reproduce the layer-2 rules they replaced, in their old
-        // priority (attack before developing beat Aggro's max-units), while staying learnable in training.
-        'attackFirst' => [6.0, 6.0, 6.0], // a free attack when no play on offer could improve it (was rule 6)
-        'maxUnits'    => [4.0, 0.0, 0.0], // Aggro: the play from the affordable set with the most units (was rule 7)
-        'stopPass'    => [1.5, 1.5, 1.5], // at the resource stop, above the floor: skip the regroup resource (rule 11, a guide)
-    ];
-    $col = ['aggro' => 0, 'normal' => 1, 'control' => 2][$style] ?? 1;
-    if ($style === 'normal' && SWUBotIsRacing($seat, SWUBotOpponent($seat))) $col = 0;   // Normal races like Aggro
-    $out = [];
-    foreach ($T as $k => $v) $out[$k] = $v[$col];
-    return $out;
 }
 

@@ -10,6 +10,6 @@ $whenPlayedAbilities["JTL_128:0"] = function($player, $mzID = '') {
             global $playerID;
             $playerID = intval($player);
             DoTopDeckSearch(intval($player), 8,
-                fn($c) => stripos(CardType($c) ?? '', 'Unit') !== false && HasTrait($c, 'Vehicle'), 2);
+                fn($c) => stripos(CardType($c) ?? '', 'Unit') !== false && HasTrait($c, 'Vehicle'), 2, 'Vehicle units');
             return;
 };

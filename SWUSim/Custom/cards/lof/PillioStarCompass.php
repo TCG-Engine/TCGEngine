@@ -6,5 +6,5 @@
 // LOF_122 Pillio Star Compass — When Played: search the top 3 for a unit, reveal and draw it.
 $whenPlayedAbilities["LOF_122:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    DoTopDeckSearch(intval($player), 3, fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false, 1);
+    DoTopDeckSearch(intval($player), 3, fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false, 1, 'units');
 };

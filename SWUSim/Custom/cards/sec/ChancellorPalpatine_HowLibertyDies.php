@@ -18,6 +18,6 @@ $whenPlayedAbilities["SEC_001:0"] = function($player, $mzID) {
 $leaderAbilities["SEC_001"] = function(int $player): void {
     global $playerID, $Plot_Cards;
     $playerID = $player;
-    DoTopDeckSearch($player, 5, fn($cid) => isset($Plot_Cards[$cid]), 1);
+    DoTopDeckSearch($player, 5, fn($cid) => isset($Plot_Cards[$cid]), 1, 'cards with Plot');
     SWUQueueAfterAction($player);
 };

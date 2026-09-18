@@ -8,5 +8,5 @@
 $whenPlayedAbilities["SHD_245:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     if (count(GetDeck(intval($player))) === 0) return;
-    DoTopDeckSearch(intval($player), 5, fn($c) => strpos(CardType($c) ?? '', 'Upgrade') !== false, 1);
+    DoTopDeckSearch(intval($player), 5, fn($c) => strpos(CardType($c) ?? '', 'Upgrade') !== false, 1, 'upgrades');
 };

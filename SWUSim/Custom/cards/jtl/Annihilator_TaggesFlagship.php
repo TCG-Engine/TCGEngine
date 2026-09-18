@@ -74,7 +74,12 @@ $customDQHandlers["JTL_041#0"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::CleanupRemovedCards();
     $allIDs  = implode(',', $matchIDs);
     $costMap = implode(',', array_map(fn($cid) => $cid . ':' . intval(CardCost($cid)), $matchIDs));
-    $param   = $allIDs . '|' . $allIDs . '|' . 'count:' . count($matchIDs) . '|' . $costMap; // all matches selectable, up to all (0 = take nothing)
+    // all matches selectable, up to all (0 = take nothing). The trailing label/verb are the shared panel's
+    // wording channel (see _topDeckSearchBegin) — this site builds its own param, so it supplies them by
+    // hand: the picks are DISCARDED from the OPPONENT's deck, not taken from your own.
+    $param   = $allIDs . '|' . $allIDs . '|' . 'count:' . count($matchIDs) . '|' . $costMap
+             . '|' . _swuTopDeckWireText("copies of {$name} in your opponent's deck") . '|'
+             . _swuTopDeckWireText('Discard');
     DecisionQueueController::AddDecision(intval($player), "TOPDECKSEARCH", $param, 1, tooltip: "Choose_which_named_cards_to_discard_from_the_opponents_deck");
     DecisionQueueController::AddDecision(intval($player), "CUSTOM", "JTL_041#1|{$controller}|" . $allIDs, 1);
 };

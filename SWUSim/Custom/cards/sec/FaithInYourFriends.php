@@ -19,7 +19,7 @@ $whenPlayedAbilities["SEC_211:0"] = function($player, $mzID = '') {
 // Faith in Your Friends — "Search the top 3 of your deck for a card and draw it.
                           // Then, you may disclose CunningCunningCunningHeroismHeroism → create 2 Spy tokens."
                           // The disclose is queued at block 2 so it offers the hand AFTER the search's draw.
-            DoTopDeckSearch(intval($player), 3, fn($c) => true, 1);
+            DoTopDeckSearch(intval($player), 3, fn($c) => true, 1, 'cards');
             DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_211#0", 2);
             return;
 };

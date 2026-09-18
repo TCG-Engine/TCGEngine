@@ -1632,6 +1632,29 @@ class SchemaTestRunner {
                         $failures[] = "{$line}: '{$cardID}' unexpectedly in playable set [" . implode(',', $playable) . "]";
                 }
 
+            } elseif (preg_match('/^P(\d+)SEARCH(LABEL|VERB):(.+)$/', $line, $m)) {
+                // Assert the caller-supplied wording on a pending TOPDECKSEARCH (param segments 4 and 5).
+                // The panel is SHARED by ~65 callers and the filter is a PHP closure that cannot cross the
+                // request boundary, so the client has nothing to describe the selection with unless the
+                // caller says. Before this channel existed the cost-budget subtitle hardcoded SOR_087
+                // Vader's own wording ("Villainy units") and lied for every other caller — ASH_110 Ackbar
+                // searches for SPACE units. Both fields are underscored on the wire (a DecisionQueue row is
+                // space-delimited); compare normalised, exactly like P{n}DECISIONTOOLTIP.
+                $p       = intval($m[1]);
+                $which   = ($m[2] === 'LABEL') ? 4 : 5;
+                $norm    = fn($t) => str_replace('_', ' ', (string)$t);
+                $pending = $g->state->pendingDecision($p);
+                if ($pending === null) {
+                    $failures[] = "{$line}: expected a pending TOPDECKSEARCH decision, but none found";
+                } elseif (($pending->Type ?? '') !== 'TOPDECKSEARCH') {
+                    $failures[] = "{$line}: pending decision is '" . ($pending->Type ?? '') . "', not TOPDECKSEARCH";
+                } else {
+                    $fields = explode('|', $pending->Param ?? '');
+                    $got    = $norm($fields[$which] ?? '');
+                    if ($got !== $norm($m[3]))
+                        $failures[] = "{$line}: expected {$m[2]} '{$m[3]}', got '{$got}'";
+                }
+
             } elseif (preg_match('/^P(\d+)OPTION(HAS|NOT):(.+)$/', $line, $m)) {
                 // Membership of a label in a pending OPTIONCHOOSE's option list (Param, '&'-split). A
                 // leading "@CardID" image ref is naturally excluded (it won't equal a label). Leave the

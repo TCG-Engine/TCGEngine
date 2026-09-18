@@ -8,5 +8,5 @@
 $whenPlayedAbilities["LAW_136:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     if (count(GetDeck(intval($player))) === 0) return;
-    DoTopDeckSearch(intval($player), 3, fn($c) => CardType($c) === 'Unit' && HasTrait($c, 'Underworld'), 1);
+    DoTopDeckSearch(intval($player), 3, fn($c) => CardType($c) === 'Unit' && HasTrait($c, 'Underworld'), 1, 'Underworld units');
 };

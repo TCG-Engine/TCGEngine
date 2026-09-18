@@ -26,7 +26,7 @@ $customDQHandlers["ASH_090#0"] = function($player, $parts, $lastDecision) {
             $host = GetZoneObject($hMz);
             return max(0, SWUComputePlayCost(intval($player), (object)['CardID' => $cid], $host) - 4) <= $ready;
         },
-        "count:1", "ASH_090#1|{$hostUID}");
+        "count:1", "ASH_090#1|{$hostUID}", 'upgrades that can attach to that unit', 'Play');
 };
 
 $customDQHandlers["ASH_090#1"] = function($player, $parts, $lastDecision) {

@@ -7,5 +7,5 @@
 // Mirrors SOR_125 Prepare for Takeoff (search top 8 for up to 2 Vehicle units) — DoTopDeckSearch reveals
 // + draws the picks and bottoms the rest in random order. Here: up to 1 pick, filtered to upgrades.
 $whenPlayedAbilities["HMW_085:0"] = function($player, $mzID = '') {
-    DoTopDeckSearch($player, 8, fn($c) => strpos(CardType($c) ?? '', 'Upgrade') !== false, 1);
+    DoTopDeckSearch($player, 8, fn($c) => strpos(CardType($c) ?? '', 'Upgrade') !== false, 1, 'upgrades');
 };

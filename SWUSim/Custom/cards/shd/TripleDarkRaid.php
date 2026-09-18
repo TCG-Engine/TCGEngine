@@ -41,6 +41,6 @@ $whenPlayedAbilities["SHD_194:0"] = function($player, $mzID = '') {
             $deckSize = count(GetDeck(intval($player)));
             if ($deckSize === 0) return;
             _topDeckSearchBegin(intval($player), min(7, $deckSize),
-                fn($cid) => HasTrait($cid, 'Vehicle'), "count:1", "SHD_194#0");
+                fn($cid) => HasTrait($cid, 'Vehicle'), "count:1", "SHD_194#0", 'Vehicles', 'Play');
             return;
 };

@@ -8,7 +8,7 @@
 $customDQHandlers["ASH_235#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $num = intval($lastDecision);
-    _topDeckSearchBegin(intval($player), 5, fn($c) => true, "count:1", "ASH_235#1|{$num}");
+    _topDeckSearchBegin(intval($player), 5, fn($c) => true, "count:1", "ASH_235#1|{$num}", 'cards', 'Take');
 };
 
 // ASH_235 Sense Through the Force — custom search finalize: draw the chosen card, then (if its cost equals

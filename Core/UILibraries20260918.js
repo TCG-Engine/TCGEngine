@@ -5493,8 +5493,17 @@ function ShowRevealArrangePanel(entry, decisionIndex, onSubmit) {
 
 // Show a panel for a TOPDECKSEARCH decision — all peeked cards visible; matching cards
 // are selectable up to the constraint limit. Confirm submits chosen CardIDs.
-// entry.Param = "allIDs|matchingIDs|constraint"  where constraint is "count:N" or "cost:N".
-// Result format: comma-separated chosen CardIDs (empty string = choose none).
+// entry.Param = "allIDs|matchingIDs|constraint|costMap|label|verb"  (constraint = "count:N", "cost:N"
+// or "cost:N:M"). Result format: comma-separated chosen CardIDs (empty string = choose none).
+//
+// ⚠ NEVER HARDCODE A CARD'S WORDING HERE. This panel is shared by ~65 callers whose $filter is a PHP
+// closure that cannot reach the client, so the wording has to arrive in the param — segment 4 (what may
+// be picked) and segment 5 (what happens to the picks). Both are REQUIRED of the caller server-side
+// (_topDeckSearchBegin, SWUSim/Custom/GameLogic.php). This comment exists because the cost-budget
+// subtitle was once written against its only caller of the day, SOR_087 Darth Vader, and read
+// "Select Villainy units" for all seven cost callers — so ASH_110 Ackbar, which searches for SPACE
+// units, told the player to pick Villainy ones. The empty-string fallbacks below are for an
+// in-flight decision queued by an older build, not a licence to omit the fields.
 function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
   const parts = (entry.Param || '').split('|');
   const allIDs      = (parts[0] || '').split(',').map(s => s.trim()).filter(Boolean);
@@ -5512,6 +5521,10 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
     var kv = pair.split(':');
     if (kv.length === 2) costLookup[kv[0].trim()] = parseInt(kv[1], 10) || 0;
   });
+  // Caller wording. Underscores are TRANSPORT (the DecisionQueue row is space-delimited) — turn them
+  // back into spaces here, exactly as every prompt site does with Tooltip.
+  const pickLabel = ((parts[4] || '').replace(/_/g, ' ').trim()) || 'cards';
+  const pickVerb  = ((parts[5] || '').replace(/_/g, ' ').trim()) || 'Take';
 
   // Shared SWU art corpus — see window.assetImageFolder (NextTurnRender.php); the rootPath form
   // resolves to the deleted ./SWUSim/concat tree and 404s.
@@ -5540,11 +5553,14 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
 
     var subtitle = document.createElement('div');
     subtitle.style.cssText = 'color:#aaa;font-size:12px;margin-bottom:18px;';
+    // Parenthesised limits rather than "Select up to N <label>" so the line stays grammatical whatever
+    // the caller's noun phrase and whatever N is ("up to 1 Rebel cards" otherwise).
     if (isCost) {
       var used = Array.from(selectedIndices).reduce(function(s, idx) { return s + getCardCost(allIDs[idx]); }, 0);
-      subtitle.textContent = 'Select Villainy units (combined cost ≤ ' + limitValue + '). Used: ' + used + '/' + limitValue;
+      var costLimits = (maxCountCap > 0 ? 'up to ' + maxCountCap + ', ' : '') + 'combined cost ≤ ' + limitValue;
+      subtitle.textContent = 'Select ' + pickLabel + ' (' + costLimits + '). Used: ' + used + '/' + limitValue;
     } else {
-      subtitle.textContent = 'Select up to ' + limitValue + ' card' + (limitValue !== 1 ? 's' : '') + '. Selected: ' + selectedIndices.size + '/' + limitValue;
+      subtitle.textContent = 'Select ' + pickLabel + ' (up to ' + limitValue + '). Selected: ' + selectedIndices.size + '/' + limitValue;
     }
     panel.appendChild(subtitle);
 
@@ -5606,7 +5622,11 @@ function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
 
     var selCount = selectedIndices.size;
     var confirmBtn = document.createElement('button');
-    confirmBtn.textContent = selCount > 0 ? 'Take ' + selCount + ' card' + (selCount !== 1 ? 's' : '') : 'Take None';
+    // The verb is the caller's, not "Take" — LOF_117 Sifo-Dyas and TWI_201 Aid from the Innocent DISCARD
+    // their picks and SOR_087's family PLAYS them, so a fixed "Take N cards" mislabelled the commit.
+    confirmBtn.textContent = selCount > 0
+      ? pickVerb + ' ' + selCount + ' card' + (selCount !== 1 ? 's' : '')
+      : pickVerb + ' None';
     confirmBtn.style.cssText = "margin-top:22px;padding:9px 36px;background:#1a5a2a;color:#fff;border:1px solid #3adf7a;border-radius:6px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:14px;letter-spacing:1px;";
     confirmBtn.onclick = function() {
       var existing2 = document.getElementById('topdecksearch-panel');

@@ -41,7 +41,8 @@ function _SWUHmw043IsLegalPick(string $cardID): bool {
 }
 
 $whenPlayedAbilities["HMW_043:0"] = function ($player, $mzID = '') {
-    _topDeckSearchBegin(intval($player), 8, '_SWUHmw043IsLegalPick', "count:2", "HMW_043#0");
+    _topDeckSearchBegin(intval($player), 8, '_SWUHmw043IsLegalPick', "count:2", "HMW_043#0",
+        'units costing 4 or less', 'Play');
 };
 
 // Resolve the picks, bottom the rest, then play + damage INLINE (triggers resolve after — see above).

@@ -17,5 +17,5 @@ $customDQHandlers["ASH_110#0"] = function($player, $parts, $lastDecision) {
     if ($lastDecision !== 'YES') return;
     $mz = SWUFindMzByUID(intval($parts[0] ?? 0));
     if ($mz !== null) SWUDefeatUnit(intval($player), $mz);
-    DoTopDeckPlay(intval($player), 10, fn($cid) => CardTargetArena($cid) === 'SpaceArena' && strpos(CardType($cid) ?? '', 'Unit') !== false, 5);
+    DoTopDeckPlay(intval($player), 10, fn($cid) => CardTargetArena($cid) === 'SpaceArena' && strpos(CardType($cid) ?? '', 'Unit') !== false, 5, 'space units');
 };

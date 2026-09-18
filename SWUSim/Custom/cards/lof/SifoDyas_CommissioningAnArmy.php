@@ -10,7 +10,7 @@
 $whenDefeatedAbilities["LOF_117:0"] = function($player, $mzID) {
     _topDeckSearchBegin(intval($player), 8,
         fn($cid) => CardType($cid) === 'Unit' && HasTrait($cid, 'Clone'),
-        "cost:4", "LOF_117#0");
+        "cost:4", "LOF_117#0", 'Clone units', 'Discard');
 };
 
 // ── LOF When-Defeated units (Phase 9) ───────────────────────────────────────────────────────────────

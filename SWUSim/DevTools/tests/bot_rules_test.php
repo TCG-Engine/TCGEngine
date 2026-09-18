@@ -28,6 +28,7 @@ $rule = function (string $name, string $style, int $seat = 1) use ($rules, $botC
     return $pick === null ? null : strval($pick['cardID']);
 };
 $ids = fn($acts) => array_map(fn($a) => strval($a['cardID']), $acts);
+$sorted = function ($a) { sort($a); return $a; };
 // The whole stack, for the GUIDES (owner ruling 2026-09-13: moved out of layer 2): returns [pick, coverage keys].
 $stack = function (string $style, int $seat = 1, string $variant = '') use (&$gameName) {
     SWUBotResetCoverage(); $legal = SWUBotLegalActions($gameName, $seat);
@@ -69,9 +70,11 @@ $c = $botCtx('control');
 // Owner ruling 2026-09-14 (feature 'baserace'): this board is a race Control wins, so its filter now keeps the base
 // too. The premise below is about the unit-only filter, so it is pinned to @no-baserace.
 SWUBotSetDisabledFeatures(['baserace']);
-$check($ids(SWUBotStyleFilter($c)) === ['theirGroundArena-0'], 'fixture: Control\'s filter alone would drop the base');
+$check($sorted($ids(SWUBotStyleFilter($c))) === ['theirBase-0', 'theirGroundArena-0'],
+    'fixture: with the racing shift off, Control keeps the unit AND the base (it no longer drops the base)');
 SWUBotSetDisabledFeatures([]);
-$check(in_array('theirBase-0', $ids(SWUBotStyleFilter($c)), true), 'baserace: racing, Control\'s filter keeps the base');
+$check($ids(SWUBotStyleFilter($c)) === ['theirBase-0'],
+    'baserace: racing, Control shifts to the aggro wing — the base ONLY');
 $check($rule('lethal-now', 'control') === 'theirBase-0', 'rule 2 (target prompt): the exhausted attacker\'s 4 still counts → the base');
 $build(function ($b) use ($quietLeader) {
     $quietLeader($b); $b->TheirBase('SOR_020', 22);
@@ -295,7 +298,8 @@ $check($rule('no-unused-attacks', 'normal') === 'myGroundArena-0!FSM!', 'rule 8:
 $build($develop('SOR_095'));
 $check($rule('no-unused-attacks', 'normal') === null, 'rule 8 abstains while a play is on offer');
 $build(function ($b) use ($quietLeader) { $quietLeader($b); $b->WithGroundUnitForPlayer(1, 'SOR_095', true); $b->WithGroundUnitForPlayer(2, 'LOF_084', true); });
-$check($rule('no-unused-attacks', 'control') === null, 'rule 8 abstains when the only attack is a losing trade');
+$check($rule('no-unused-attacks', 'control') !== null,
+    'rule 8 now attacks the BASE when the only unit attack would be a losing trade (owner, 2026-09-18)');
 
 // ── Rule 9 — nothing left ────────────────────────────────────────────────────────────────────────
 $build(function ($b) use ($quietLeader) { $quietLeader($b); });
@@ -317,11 +321,15 @@ $check(!in_array('PASS', $ids(SWUBotResourceFloorFilter($botCtx('aggro'))), true
 $check($stack('aggro') === ['myHand-1', ['filter:resource-floor', 'fallback']], '… and the card is the guide\'s keep-value pick (Aggro: the most expensive)');
 $build($regroup('SOR_014', 4)); $toRegroup();
 $check(in_array('PASS', $ids(SWUBotResourceFloorFilter($botCtx('aggro'))), true), 'rule 10 lets PASS stay at the threshold');
-// Resource stops as GUIDES (owner ruling 2026-09-14: "aggro stops at 6 or 7. midrange/normal stops at 8 or 9.
-// control stops at 9 - 11 …"); the deck decides within its range (SWUBotResourceStop). This deck tops out at 4.
+// Resource stops as GUIDES (spec: the five archetypes stop at 6 / 7 / 8 / 9 / 11 — hyper aggro stops
+// earliest, hard control banks for its bombs and its answer pair); the deck decides within its range
+// (SWUBotResourceStop). This deck tops out at 4.
 $build($regroup('SOR_014', 6)); $toRegroup();
-$check([SWUBotResourceStop(1, 'aggro'), SWUBotResourceStop(1, 'normal'), SWUBotResourceStop(1, 'control')] === [6, 8, 9], 'a deck topping out at 4: stops 6 / 8 / 9');
-$check($stack('aggro') === ['PASS', ['fallback', 'guide:stop']], 'stop (guide): Aggro at 6 resources passes');
+$check([SWUBotResourceStop(1, 'hyperaggro'), SWUBotResourceStop(1, 'softaggro'), SWUBotResourceStop(1, 'midrange'),
+        SWUBotResourceStop(1, 'softcontrol'), SWUBotResourceStop(1, 'hardcontrol')] === [6, 7, 8, 9, 11],
+    'a deck topping out at 4: stops 6 / 7 / 8 / 9 / 11 across the five archetypes');
+$check($stack('hyperaggro') === ['PASS', ['fallback', 'guide:stop']], 'stop (guide): hyper aggro at 6 resources passes');
+$check($stack('softaggro')[0] === 'myHand-1', 'soft aggro at 6 keeps resourcing — its stop is 7');
 $check($stack('aggro', 1, 'no-stop')[0] === 'myHand-1', '@no-stop: Aggro keeps resourcing');
 $check($stack('normal')[0] === 'myHand-1', 'Normal at 6 keeps resourcing');
 $build($regroup('SOR_014', 5)); $toRegroup();

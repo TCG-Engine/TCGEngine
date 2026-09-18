@@ -83,7 +83,8 @@ function SWUBotAttackFirstAttacks(array $ctx): array {
 // that spends the most), play its most expensive card. Costs via SWUComputePlayCost, capacity via
 // SWUTotalPaymentCapacity (CR 3.13). A unit competing with an event is left to the learned layer.
 function SWUBotAggroMaxUnitsPick(array $ctx): ?array {
-    if (($ctx['style'] ?? '') !== 'aggro' || !_SWUBotIsFreePlay($ctx)) return null;
+    // The aggro wing (rank 0-1): hyper aggro and soft aggro both maximise units played.
+    if (SWUBotStyleRank(strval($ctx['style'] ?? '')) > 1 || !_SWUBotIsFreePlay($ctx)) return null;
     $seat = intval($ctx['seat']);
     $plays = [];
     foreach ($ctx['actions'] as $a) {

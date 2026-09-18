@@ -20,6 +20,6 @@ $customDQHandlers["ASH_118#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if (!$lastDecision || !str_contains($lastDecision, '-')) { SWUAfterAction($player); return; }
     SWUDealDamageToUnit($lastDecision, 1, intval($player));
-    DoTopDeckSearch(intval($player), 5, fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false, 1);
+    DoTopDeckSearch(intval($player), 5, fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false, 1, 'units');
     SWUQueueAfterAction($player);
 };
