@@ -3,7 +3,7 @@
 #   https://melee.gg/Decklist/View/a96724c2-e046-47b0-9c1b-b4bd0041d53e — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (11 entries).
 # Archetype (owner's label): Hard control
-# Style: control
+# Style: hardcontrol
 # Flavours: hard
 
 Leader

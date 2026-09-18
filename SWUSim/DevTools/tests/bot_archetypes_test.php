@@ -4,6 +4,7 @@
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d xdebug.mode=off SWUSim/DevTools/tests/bot_archetypes_test.php
 chdir(dirname(__DIR__, 3));
 require_once './SWUSim/Custom/BotArchetypes.php';
+require_once './SWUSim/Custom/BotFlavours.php';
 $fails = 0;
 $check = function ($ok, $msg) use (&$fails) { echo ($ok ? 'PASS' : 'FAIL') . ": $msg\n"; if (!$ok) $fails++; };
 
@@ -98,6 +99,35 @@ foreach (SWU_BOT_ARCHETYPES as $s) {
     $check(SWUBotRacingRank($s, 1) === SWUBotStyleRank($s), "not racing: $s acts at its own rank");
 }
 unset($GLOBALS['SWUBotTestForceRacing']);
+
+// ── Derivation: a FALLBACK for decks with no '# Style:' line (a human's deck in Arenabot) ──────────
+// ⚠ NOT the default. Only hard control separates cleanly (event share >= 40%: the three hard-control fixtures are
+// 46.8-51.0%, every other deck <= 26.7%). On mean unit cost the owner's labels interleave badly, so the curve bands
+// below are an explicit best guess and the caller must LOG them. Spec: "Assignment".
+$deck = function (array $spec): array {   // [[qty, cost, type], ...]
+    return array_map(fn($r) => ['qty' => $r[0], 'cost' => $r[1], 'type' => $r[2]], $spec);
+};
+// 26 units at mean cost 5.4, 27 events -> 51% events: Aurra Red's shape.
+$check(SWUBotDeriveStyle($deck([[26, 5, 'Unit'], [27, 3, 'Event']])) === 'hardcontrol',
+    'derive: half the deck is events -> hard control');
+// 31 units at mean 2.2, 12 events -> 28% events but a very low curve: Chewbacca's shape.
+$check(SWUBotDeriveStyle($deck([[31, 2, 'Unit'], [12, 3, 'Event']])) === 'hyperaggro',
+    'derive: a 2.0 curve is hyper aggro even with a fifth of the deck in events');
+$check(SWUBotDeriveStyle($deck([[45, 3, 'Unit'], [3, 3, 'Event']])) === 'softaggro',
+    'derive: a 3.0-3.5 curve is soft aggro');
+$check(SWUBotDeriveStyle($deck([[43, 4, 'Unit'], [5, 3, 'Event']])) === 'midrange',
+    'derive: a 3.6-4.2 curve is midrange');
+$check(SWUBotDeriveStyle($deck([[40, 5, 'Unit'], [8, 3, 'Event']])) === 'softcontrol',
+    'derive: a high curve without the event density is soft control');
+$check(SWUBotDeriveStyle([]) === 'midrange', 'derive: an empty deck falls back to midrange, never to an extreme');
+$check(SWUBotDeriveStyle($deck([[40, 3, 'Upgrade']])) === 'midrange',
+    'derive: a deck with no units at all falls back to midrange');
+
+// ── Flavours can shift rank (feature 'flavourrank') ────────────────────────────────────────────────
+// Owner, 2026-09-17: "a tempo deck would trade. a normal midrange deck would hit base" — so tempo is +1 toward control.
+$check(SWU_BOT_FLAVOUR_RANK_SHIFT['tempo'] === 1, 'tempo shifts +1 toward control');
+$check(!isset(SWU_BOT_FLAVOUR_RANK_SHIFT['combo']) && !isset(SWU_BOT_FLAVOUR_RANK_SHIFT['space']),
+    'only flavours with a measured reason carry a shift; the rest are descriptive');
 
 echo $fails === 0 ? "\nALL PASS\n" : "\n$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

@@ -31,6 +31,26 @@ const SWU_BOT_FLAVOURS = [
     'LAW_013|LAW_019'   => ['hyper', 'credit'],          // Chewbacca (LAW), Alliance Outpost
 ];
 
+// Flavours that change the ARCHETYPE RANK rather than a single weight (feature 'flavourrank').
+// ⚠ History: giving flavours teeth as weight MULTIPLIERS failed its gate at 49.8%, and 'tempo' changed literally zero
+// games, because tempo is about SEQUENCING (when to take initiative, exhausting a blocker first) which the scorer
+// cannot express (part-3 plan, "Flavour layer, attempt 1 — REVERTED"). A rank shift is a much larger lever: it moves
+// the whole kill ladder a step, so midrange's "remove a 3-cost blocker" becomes soft control's "remove a 2-cost".
+// It is gated separately so the fidelity sweep can attribute it.
+const SWU_BOT_FLAVOUR_RANK_SHIFT = [
+    'tempo' => 1,   // owner, 2026-09-17: "a tempo deck would trade. a normal midrange deck would hit base"
+];
+
+function SWUBotFlavourRankShift(int $seat): int {
+    if (function_exists('SWUBotFeatureOn') && !SWUBotFeatureOn('flavourrank')) return 0;
+    // No live board (unit tests, offline tooling): there are no deck flavours to read. A pure scoring
+    // input must never require game state — SWUBotWeights() calls through here on every decision.
+    if (!function_exists('GetLeader')) return 0;
+    $shift = 0;
+    foreach (SWUBotDeckFlavours($seat) as $f) $shift += intval(SWU_BOT_FLAVOUR_RANK_SHIFT[$f] ?? 0);
+    return $shift;
+}
+
 function SWUBotDeckFlavours(int $seat): array {
     $leader = strval((GetLeader($seat)[0] ?? null)->CardID ?? '');
     $base = GetBase($seat)[0] ?? null;

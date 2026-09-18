@@ -5,7 +5,7 @@
 #   Its event was pulled on 2026-09-15, so the placement above is now from our own data.
 # Archetype (owner's label): Mixed midrange aggro go-wide
 #   Owner, 2026-09-15: plays on Normal for now (the bots spec's "Greef Karga (any list)" → Aggro predates this list).
-# Style: normal
+# Style: midrange
 # Flavours: go-wide, mixed
 
 Leader

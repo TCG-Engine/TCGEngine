@@ -11,18 +11,21 @@ function SWUIsLocalDevRequest(): bool {
         || str_starts_with($host, '[::1]');
 }
 
-// Who may start a Bot Practice game (owner, 2026-09-15: admin-only, so other admins can try it and give feedback).
-// Local dev exactly as before (SWUIsLocalDevRequest); elsewhere a logged-in approved moderator — the same list
-// CheckLoggedInUserMod() gates the admin tools with (AccountFiles/AccountSessionAPI.php ApprovedModeratorUserNames).
-// Used by the menu (SharedUI/Sites/SWUSim/MainMenu.php) AND the endpoint (APIs/Lobbies/JoinQueue.php), so a hand-built
-// request cannot bypass the menu. Reads the session directly: the caller has already started it.
+// Who may start an Arenabot game. OPENED TO EVERY LOGGED-IN PLAYER (owner, 2026-09-18) — it was
+// admin-only from 2026-09-15 so approved moderators could try it and give feedback, and that trial is over.
+// Local dev exactly as before (SWUIsLocalDevRequest); elsewhere, any account. The ONLY remaining gate is
+// being signed in, because a bot game still creates a real game and needs a player identity.
+// Used by the menu (SharedUI/Sites/SWUSim/MainMenu.php) AND the endpoint (APIs/Lobbies/JoinQueue.php), so a
+// hand-built request cannot bypass the menu. Reads the session directly: the caller has already started it.
+//
+// ⚠ Bot games must stay OUT of real stats, and two independent layers keep them there — neither is affected
+// by opening this gate, but both must hold if that ever changes: (1) 'botpractice' is localMode + enabled=false
+// in AppCore/SWU/Formats.php, so SWUStatsFormats() excludes it; (2) the solo branch of JoinQueue calls
+// SWUSetupGame() directly and never creates a MATCH, and only the match hook submits stats.
 // Test: SWUSim/DevTools/tests/bot_practice_gate_test.php.
 function SWUBotPracticeAllowed(): bool {
     if (SWUIsLocalDevRequest()) return true;
-    $user = strval($_SESSION['useruid'] ?? '');
-    if ($user === '') return false;
-    require_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
-    return in_array($user, ApprovedModeratorUserNames(), true);
+    return strval($_SESSION['useruid'] ?? '') !== '';
 }
 
 // JoinQueue's refusal for a Bot Practice request that SWUBotPracticeAllowed() rejects: the message, or null to proceed.
@@ -30,5 +33,7 @@ function SWUBotPracticeAllowed(): bool {
 // DEVENV=true, so every local HTTP request is "local dev").
 function SWUBotPracticeRefusal(string $format): ?string {
     // "Arenabot" is the player-facing name of the botpractice format (owner, 2026-09-16); the id and this gate keep their names.
-    return ($format === 'botpractice' && !SWUBotPracticeAllowed()) ? 'Arenabot is currently limited to approved testers.' : null;
+    // Since 2026-09-18 the only account that can be refused is a logged-OUT one, so the message says what to do
+    // about it rather than naming a tester list that no longer gates anything.
+    return ($format === 'botpractice' && !SWUBotPracticeAllowed()) ? 'Sign in to play Arenabot.' : null;
 }

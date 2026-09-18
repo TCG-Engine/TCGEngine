@@ -73,8 +73,9 @@ async function loggedOutChecks(engine, page, width) {
   ok(engine, `${tag}: bot deck label`, (await page.textContent('#swu-deck2-label')).trim() === 'Bot deck link:');
   ok(engine, `${tag}: empty = mirror placeholder`, /empty/i.test(await page.getAttribute('#swu-deck2-input', 'placeholder')));
   ok(engine, `${tag}: play style shown`, await visible(page, '#swu-botstyle-group'));
-  ok(engine, `${tag}: styles are aggro/normal/control`, (await values(page, '#swu-botstyle-select')).join(',') === 'aggro,normal,control');
-  ok(engine, `${tag}: Normal is the default`, (await page.inputValue('#swu-botstyle-select')) === 'normal');
+  ok(engine, `${tag}: styles are the five archetypes`,
+     (await values(page, '#swu-botstyle-select')).join(',') === 'hyperaggro,softaggro,midrange,softcontrol,hardcontrol');
+  ok(engine, `${tag}: Midrange is the default`, (await page.inputValue('#swu-botstyle-select')) === 'midrange');
   ok(engine, `${tag}: Start Arenabot shown`, await visible(page, '#start-solo-btn') && (await page.textContent('#start-solo-btn')).trim() === 'Start Arenabot');
   ok(engine, `${tag}: Create Private Room hidden`, !(await visible(page, '#create-private-game-btn')));
   ok(engine, `${tag}: Join Queue hidden`, !(await visible(page, '#join-queue-btn')));
@@ -130,7 +131,11 @@ async function loggedInChecks(engine, browser) {
   ok(engine, 'Twin Suns players are Free-for-all and Teams', (await values(page, '#swu-second-select')).join(',') === 'ffa,teams');
   ok(engine, 'Free-for-all pools are twinsuns and twinsuns-preview', (await values(page, '#swu-pool-select')).join(',') === 'twinsuns,twinsuns-preview');
   const labels = await page.$$eval('#swu-pool-select option', os => os.map(o => o.textContent.trim()));
-  ok(engine, 'Twin Suns pools are labelled Standard and Preview', labels.join(',') === 'Standard,Preview', labels.join(','));
+  // Shape, not literal: every preview label now names the set it opens ("Preview (IC27)"), derived from
+  // AppCore/SWU/PreviewSets.php, so a literal would break on the next preview rollover and again the day
+  // the set releases. startsWith keeps the intent — Standard first, a Preview pool second — across both.
+  ok(engine, 'Twin Suns pools are Standard and a Preview',
+     labels.length === 2 && labels[0] === 'Standard' && labels[1].startsWith('Preview'), labels.join(','));
   await pick(page, 'twinsuns', 'teams', 'teamsuns-preview');
   ok(engine, 'Teams offers teamsuns and teamsuns-preview', (await values(page, '#swu-pool-select')).join(',') === 'teamsuns,teamsuns-preview');
   ok(engine, 'Teams Preview stores teamsuns-preview', (await stored(page)).format === 'teamsuns-preview');
@@ -188,7 +193,9 @@ async function gameCheck(engine, page) {
   await pick(page, 'constructed', 'arenabot', 'premier');
   await page.evaluate(() => switchDeckTab('text'));
   await page.fill('#deck-text', DECK);
-  await page.selectOption('#swu-botstyle-select', 'control');
+  // hardcontrol, not the old 'control' alias: this drives a real game to watch a control bot take turns,
+  // and hard control is the archetype whose conversion failure the archetype work targets (owner, 2026-09-18).
+  await page.selectOption('#swu-botstyle-select', 'hardcontrol');
   const steps = [];
   page.on('request', r => { if (/ProcessInput\.php\?.*[?&]mode=10017\b/.test(r.url())) r._t0 = Date.now(); });
   page.on('response', async r => {

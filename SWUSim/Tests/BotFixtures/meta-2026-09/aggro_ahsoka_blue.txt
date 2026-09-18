@@ -3,7 +3,7 @@
 #   https://melee.gg/Decklist/View/af94dfb6-2132-4b0f-bca8-b4bc01574c37 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (36 entries).
 # Archetype (owner's label): Ground-heavy combo aggro
-# Style: aggro
+# Style: softaggro
 # Flavours: ground, combo
 
 Leader

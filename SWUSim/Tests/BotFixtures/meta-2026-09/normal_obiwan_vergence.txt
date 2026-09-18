@@ -7,7 +7,7 @@
 #   Owner, 2026-09-15: the Force comes from Vergence Temple's regroup check (a unit with 4+ remaining HP), not a
 #   Force base — the list runs many high-HP units to satisfy that check. Other Obi-Wan lists run a 28-HP Force base with more Force
 #   units; this is not one of them.
-# Style: normal
+# Style: midrange
 # Flavours: go-wide, force, high-hp
 
 Leader

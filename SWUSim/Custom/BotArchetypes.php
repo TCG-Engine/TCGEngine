@@ -78,8 +78,34 @@ function SWUBotWeights(string $style, int $seat): array {
 const SWU_BOT_RACING_SHIFT = 2;
 function SWUBotRacingRank(string $style, int $seat): int {
     $rank = SWUBotStyleRank($style);
+    if (function_exists('SWUBotFlavourRankShift')) $rank += SWUBotFlavourRankShift($seat);
+    $rank = max(0, min(count(SWU_BOT_ARCHETYPES) - 1, $rank));
     if (function_exists('SWUBotFeatureOn') && !SWUBotFeatureOn('baserace')) return $rank;
     $racing = $GLOBALS['SWUBotTestForceRacing']
         ?? (function_exists('SWUBotIsRacing') ? SWUBotIsRacing($seat, SWUBotOpponent($seat)) : false);
     return $racing ? max(0, $rank - SWU_BOT_RACING_SHIFT) : $rank;
+}
+
+// A FALLBACK archetype for a deck with no '# Style:' label — a human's deck in Arenabot. The hand label is always
+// primary (spec, "Assignment"): composition genuinely does not separate the five. Adjacent-pair gaps on mean unit
+// cost measured 2026-09-17: hyper/soft aggro +0.16, then soft aggro/midrange -0.68, midrange/soft control -0.80,
+// soft control/hard -0.17 — three of four OVERLAP, because archetype is a judgement about a deck's PLAN.
+// Only the hard-control test is trustworthy. The caller MUST log the result so a wrong guess is visible in play.
+// $cards: [['cost' => int, 'type' => string, 'qty' => int], ...] — the main deck, excluding leader and base.
+function SWUBotDeriveStyle(array $cards): string {
+    $total = 0; $events = 0; $unitQty = 0; $unitCost = 0;
+    foreach ($cards as $c) {
+        $qty = max(1, intval($c['qty'] ?? 1));
+        $total += $qty;
+        if (str_contains(strval($c['type'] ?? ''), 'Event')) { $events += $qty; continue; }
+        if (str_contains(strval($c['type'] ?? ''), 'Unit')) { $unitQty += $qty; $unitCost += intval($c['cost'] ?? 0) * $qty; }
+    }
+    if ($total === 0 || $unitQty === 0) return 'midrange';
+    // The one clean separator in the measured set.
+    if ($events / $total >= 0.40) return 'hardcontrol';
+    $mean = $unitCost / $unitQty;
+    if ($mean < 2.60) return 'hyperaggro';
+    if ($mean < 3.55) return 'softaggro';
+    if ($mean < 4.25) return 'midrange';
+    return 'softcontrol';
 }

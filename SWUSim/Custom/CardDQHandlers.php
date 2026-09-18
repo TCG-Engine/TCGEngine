@@ -3342,6 +3342,31 @@ $customDQHandlers["CREDIT_PAY"] = function ($player, $parts, $lastDecision) {
     }
   }
 
+  // ⚠ AUTO-TOP-UP TO THE FORCED MINIMUM (owner ruling 2026-09-18, bug #1048 / game 522237).
+  // The producer now sets the MZMULTICHOOSE lower bound to the Credits that ready resources and SEC_122
+  // Droids together cannot cover — but that bound is CLIENT-enforced only (see the $cap note above), so
+  // a short answer still arrives here and must not be allowed to fail the play. Recomputed from live
+  // state rather than threaded through the param: this param's indices have already been shifted once
+  // (2026-09-02) and every field after the insertion point moves with it, so adding a field is the
+  // riskiest way to carry one number that the handler can derive for itself.
+  // Declining Credits you cannot avoid spending was never a real choice — it is a misclick that failed
+  // the play, and on HMW_048 Vernestra it failed it AFTER her additional cost had bottomed two units out
+  // of the discard, which is unrecoverable. Topping up is capped at the REQUIRED count, never at $cap:
+  // a Credit that is not needed is still the player's to keep (PartialPick_ToppedUpToTheMinimumOnly).
+  $readyRes  = SWUResourceCount(intval($player), readyOnly: true);   // excludes Credit tokens (CR 3.13)
+  $droidCap  = SWUPlayerControlsSEC122(intval($player)) ? count(SWUReadyFriendlyDroids(intval($player))) : 0;
+  $mustSpend = max(0, min(max(0, $cap), $required - $readyRes - $droidCap));
+  if (count($chosenSlots) < $mustSpend) {
+    $already = array_flip($chosenSlots);
+    foreach (SWUUsableCreditTokenMzIDs(intval($player)) as $mzID) {
+      if (count($chosenSlots) >= $mustSpend) break;
+      if (isset($already[$mzID])) continue;
+      $o = GetZoneObject($mzID);
+      if (SWUObjGone($o) || !SWUIsCreditToken($o->CardID ?? '')) continue;
+      $chosenSlots[] = $mzID;
+    }
+  }
+
   // CR 4.a gate — nothing is defeated unless the whole cost can be met.
   $shortfall = $required - count($chosenSlots);
   if ($shortfall > 0 && SWUResourceCount(intval($player), readyOnly: true) < $shortfall) {

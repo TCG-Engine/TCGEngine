@@ -3,7 +3,7 @@
 #   https://melee.gg/Decklist/View/4e2be560-24b3-4b79-9635-b4bd00488e06 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
 #   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
 # Archetype (owner's label): Midrange aggro go-tall: puts upgrades on units and tries to race by going tall. Expected to lose to blue decks (The Tree Remembers).
-# Style: normal
+# Style: midrange
 # Flavours: go-tall, upgrades
 
 Leader

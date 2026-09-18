@@ -3,7 +3,7 @@
 #   https://melee.gg/Decklist/View/dfcad855-388e-4770-bcf1-b4bd00d81505 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (8 entries).
 # Archetype (owner's label): Capital Ship midrange
-# Style: normal
+# Style: midrange
 # Flavours: capital-ship
 
 Leader

@@ -41,10 +41,24 @@ $check(($leaf('solo', 'goldfish', null)['cardPool'] ?? null) === 'open' && ($lea
 // ── Labels ──────────────────────────────────────────────────────────────────────────────────────────
 $tree = SWUMenuTree();
 $labels = fn($pools) => array_map(fn($p) => $p['label'], $pools);
-$check($labels($tree[1]['options'][0]['pools']) === ['Standard', 'Preview'], 'Twin Suns Free-for-all offers Standard and Preview');
-$check($labels($tree[1]['options'][1]['pools']) === ['Standard', 'Preview'], 'Twin Suns Teams offers Standard and Preview');
-$check(($tree[0]['options'][1]['label'] ?? '') === 'Arenabot', 'the bot opponent is labelled Arenabot');
-$check(SWUGetFormat('botpractice')['displayName'] === 'Arenabot', "botpractice's display name is Arenabot");
+// Every preview label names the set it opens (owner, 2026-09-18), derived from PreviewSets.php — so this
+// asserts the DERIVATION, not the literal "IC27", and keeps passing when the set rolls over or the window
+// closes. SWUPreviewSetSuffix() returns '' between windows, and the label is then plainly "Preview".
+$pv = SWUPreviewSetSuffix();
+$check($labels($tree[1]['options'][0]['pools']) === ['Standard', 'Preview' . $pv], 'Twin Suns Free-for-all offers Standard and Preview' . $pv);
+$check($labels($tree[1]['options'][1]['pools']) === ['Standard', 'Preview' . $pv], 'Twin Suns Teams offers Standard and Preview' . $pv);
+// ⚠ Pin the suffix itself against the source of truth, or the two checks above pass for an
+// implementation that never appends anything at all.
+$pvSets = require './AppCore/SWU/PreviewSets.php';
+$check($pv === (empty($pvSets) ? '' : ' (' . implode('/', $pvSets) . ')'),
+    'the preview suffix is derived from PreviewSets.php (currently ' . var_export($pv, true) . ')');
+$check(!empty($pvSets) ? str_ends_with($labels($tree[0]['options'][0]['pools'])[1], $pv) : true,
+    'a Constructed preview pool carries the same suffix (Premier Preview' . $pv . ')');
+// The CHOICE label carries "(beta)" (owner, 2026-09-18) so the heuristic bot is not mistaken for the
+// competitive bot that was promised. The displayName below deliberately does NOT — it is the format's
+// name for SWUDeck and the stats pages, not a player-facing pick.
+$check(($tree[0]['options'][1]['label'] ?? '') === 'Arenabot (beta)', 'the bot opponent is labelled Arenabot (beta)');
+$check(SWUGetFormat('botpractice')['displayName'] === 'Arenabot', "botpractice's display name stays Arenabot (no beta suffix)");
 $check(SWUGetFormat('twinsuns')['displayName'] === 'Twin Suns', "twinsuns' display name is unchanged (SWUDeck and the stats pages show it)");
 
 // ── Viewer filtering ────────────────────────────────────────────────────────────────────────────────

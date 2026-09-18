@@ -4,7 +4,7 @@
 #   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
 #   Its event was pulled on 2026-09-15, so the placement above is now from our own data.
 # Archetype (owner's label): Hard control with late-game bombs. Closes with Bo-Katan and Aggressive Negotiations; combo: Hera (ASH) unit + Aggressive Negotiations deals a lot of damage and heals that much — opponents should remove Hera immediately
-# Style: control
+# Style: hardcontrol
 # Flavours: hard, combo
 
 Leader

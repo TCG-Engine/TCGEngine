@@ -361,11 +361,43 @@ function SWUBotDrawMultiplier(int $seat, int $k = 2): float {
     return $mine >= $theirs ? 0.25 : -1.0;
 }
 
+// Feature 'bombtiming' (owner, 2026-09-17: commit a big unit "when it advances the clock").
+// Diagnosis: hard control sees ~7 cards costing 6+ a game and plays 2.33 of them, and dealt only 21-24% of a kill
+// across 6-8 rounds. Both conditions must hold, and condition 2 is what makes this "advances the clock" rather than
+// merely "is safe": a 6-cost 2-power body that survives everything but does not move the clock earns nothing.
+const SWU_BOT_BOMB_COST = 6;
+function _SWUBotBombTimingValue(int $seat, string $cid, array $W): float {
+    if (!SWUBotFeatureOn('bombtiming')) return 0.0;
+    if (intval(CardCost($cid)) < SWU_BOT_BOMB_COST) return 0.0;
+    if (!str_contains(strval(CardType($cid)), 'Unit')) return 0.0;
+    $opp = SWUBotOpponent($seat);
+    $arena = str_contains(strval(CardArena($cid)), 'Space') ? 'Space' : 'Ground';
+    $power = intval(CardPower($cid)); $hp = intval(CardHp($cid));
+    // A synthetic defender view: SWUBotCombatOutcome reads only shields / power / remaining from the defender.
+    $bomb = ['shields' => 0, 'power' => $power, 'attackPower' => $power, 'remaining' => $hp, 'saboteur' => false];
+    // 1. It survives: no single enemy unit in its arena defeats it in one attack.
+    foreach (SWUBotUnits($opp) as $e) {
+        if ($e['arena'] !== $arena) continue;
+        if (in_array(SWUBotCombatOutcome($e, $bomb), ['kill-survive', 'trade'], true)) return 0.0;
+    }
+    // 2. It shortens the clock: recompute SWUBotClock's arithmetic with this unit's power added.
+    $guarded = _SWUBotSentinelArenas($opp);
+    $pot = SWUBotBasePotential($seat, $opp, false);
+    $with = $pot + (($guarded[$arena] ?? false) ? 0 : $power);
+    $hpLeft = SWUBaseRemainingHp($opp);
+    $clockNow  = $pot  <= 0 ? SWU_BOT_NO_CLOCK : max(1, intdiv($hpLeft + $pot  - 1, $pot));
+    $clockWith = $with <= 0 ? SWU_BOT_NO_CLOCK : max(1, intdiv($hpLeft + $with - 1, $with));
+    if ($clockWith >= $clockNow) return 0.0;
+    // Worth the same per-point rate the attack case uses, so it stays style-scaled and learnable.
+    return $W['base'] * $power;
+}
+
 // What playing $cid is worth: develop × printed cost, its tag weights, and Aggro's bonus for a unit.
 function _SWUBotPlayValue(int $seat, string $cid, array $W): float {
     $v = $W['develop'] * intval(CardCost($cid));
     foreach (SWUBotCardTags($cid) as $t) $v += ($W[$t] ?? 0.0) * ($t === 'draw' ? SWUBotDrawMultiplier($seat) : 1.0);
     if (str_contains(strval(CardType($cid)), 'Unit')) $v += $W['unitPlay'];
+    $v += _SWUBotBombTimingValue($seat, $cid, $W);
     return $v;
 }
 

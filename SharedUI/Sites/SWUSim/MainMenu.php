@@ -97,9 +97,14 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
       <div id="swu-botstyle-group" style="display: none; margin-top: 10px;">
         <label for="swu-botstyle-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Bot play style:</label>
         <select id="swu-botstyle-select" class="swu-queue-select">
-          <option value="aggro">Aggro</option>
-          <option value="normal" selected>Normal</option>
-          <option value="control">Control</option>
+          <?php
+            // The five bot archetypes (AppCore-side registry: SWUSim/Custom/BotArchetypes.php). Five rather than
+            // three because a picker should not be forced to choose an extreme (owner, 2026-09-17).
+            foreach (['hyperaggro' => 'Hyper Aggro', 'softaggro' => 'Soft Aggro', 'midrange' => 'Midrange',
+                      'softcontrol' => 'Soft Control', 'hardcontrol' => 'Hard Control'] as $sid => $slabel):
+          ?>
+          <option value="<?php echo htmlspecialchars($sid, ENT_QUOTES); ?>"<?php echo $sid === 'midrange' ? ' selected' : ''; ?>><?php echo htmlspecialchars($slabel, ENT_QUOTES); ?></option>
+          <?php endforeach; ?>
         </select>
       </div>
       <!--

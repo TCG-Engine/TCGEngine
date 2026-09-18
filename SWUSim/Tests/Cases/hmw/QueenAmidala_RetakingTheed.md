@@ -148,6 +148,15 @@ P1RESAVAILABLE:0
 #// raises the Credit-payment picker only when total payment capacity actually reaches the cost, so the
 #// prompt appearing IS the assertion that the gate priced the card at 2 rather than 4.
 #// 1 ready resource + 1 Credit = capacity 2, exactly the discounted cost.
+#//
+#// ⚠ ASSERTION CHANGED 2026-09-18 (owner-approved), same intent, stronger evidence. This section used to
+#// assert that the Credit PICKER was raised, as a proxy for "the gate priced the card at 2, not 4".
+#// Credits that ready resources and SEC_122 Droids cannot cover are now auto-paid with no prompt at all
+#// (bug #1048: a misclick on a modal whose only legal answer was the one it was showing had already cost
+#// a player an irreversible additional cost), and capacity here is EXACTLY the cost — so there is nothing
+#// left to decide and no picker appears. The discount is now asserted directly instead: the card is in
+#// play and both the resource and the Credit were spent, which only happens if the gate priced it at 2.
+#// Its partner Credits_UndiscountedCostIsNOTReachable_NoOffer is untouched and still pins the other side.
 ## GIVEN
 CommonSetup: bbw/rrk
 SkipPreGame: true
@@ -159,8 +168,10 @@ WithP1BaseUpgrade: HMW_081
 ## WHEN
 - P1>PlayHand:0
 ## EXPECT
-P1HASDECISION
-P1DECISIONTOOLTIP:Defeat_any_number_of_Credit_tokens_to_pay_1_resource_less_each
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:HMW_260
+P1CREDITCOUNT:0
+P1RESAVAILABLE:0
 
 ---
 

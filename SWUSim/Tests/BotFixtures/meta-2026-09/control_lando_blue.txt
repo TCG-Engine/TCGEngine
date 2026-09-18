@@ -3,7 +3,7 @@
 #   https://melee.gg/Decklist/View/68d504dd-5a39-4396-a01a-b4bd005ee0fc — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (15 entries).
 # Archetype (owner's label): Credit ramp control — tempo soft control, Heroism, early bombs
-# Style: control
+# Style: softcontrol
 # Flavours: credit-ramp, tempo
 
 Leader

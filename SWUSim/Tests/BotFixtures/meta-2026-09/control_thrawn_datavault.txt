@@ -4,7 +4,7 @@
 #   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
 #   Its event was pulled on 2026-09-15, so the placement above is now from our own data.
 # Archetype (owner's label): Midrange control / soft control: tries to outlast and drop big units as bombs
-# Style: control
+# Style: softcontrol
 # Flavours: bombs
 
 Leader

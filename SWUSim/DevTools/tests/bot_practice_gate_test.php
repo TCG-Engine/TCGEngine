@@ -1,8 +1,9 @@
 <?php
-// Bot Practice is admin-only outside local dev (owner, 2026-09-15: "update the Bot Practice local dev gate to now be
-// an admin-only gate … for other admins to try out and give me feedback"). "Admin" = the approved moderators
-// (AccountFiles/AccountSessionAPI.php ApprovedModeratorUserNames(), the same list CheckLoggedInUserMod() gates the admin
-// tools with). Local dev keeps working exactly as before (SWUIsLocalDevRequest: a localhost Host, or DEVENV=true).
+// Arenabot is open to EVERY LOGGED-IN PLAYER outside local dev (owner, 2026-09-18: "open them up to all logged in
+// players"). It was admin-only from 2026-09-15 — approved moderators only, so they could try it and give feedback —
+// and that trial is over; the moderator list no longer gates it at all. The one remaining requirement is being
+// signed in, because a bot game creates a real game and needs a player identity.
+// Local dev keeps working exactly as before (SWUIsLocalDevRequest: a localhost Host, or DEVENV=true).
 // The menu (SharedUI/Sites/SWUSim/MainMenu.php) and the endpoint (APIs/Lobbies/JoinQueue.php) use the same helper.
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d xdebug.mode=off SWUSim/DevTools/tests/bot_practice_gate_test.php
 chdir(dirname(__DIR__, 3));
@@ -20,19 +21,24 @@ $as = function (string $host, ?string $user) {
 $mod = ApprovedModeratorUserNames()[0];
 $check($as('localhost:3400', null) === true, 'local dev, logged out: allowed (unchanged)');
 $check($as('swustats.net', null) === false, 'production, logged out: not allowed');
-$check($as('swustats.net', 'someplayer') === false, 'production, an ordinary account: not allowed');
-$check($as('swustats.net', $mod) === true, "production, an approved moderator ($mod): allowed");
+$check($as('swustats.net', 'someplayer') === true, 'production, an ordinary account: ALLOWED (opened up 2026-09-18)');
+// Moderator status is now IRRELEVANT rather than sufficient — this passes because a moderator is a logged-in
+// account like any other, so it is kept only as the pair to the ordinary-account check above.
+$check($as('swustats.net', $mod) === true, "production, an approved moderator ($mod): allowed, same as anyone");
+// ⚠ The distinction that actually still gates: signed in vs not. An empty useruid is the only refusal left,
+// and it is what the two checks above would otherwise stop pinning.
+$check($as('swustats.net', '') === false, 'production, an empty useruid is not a login: not allowed');
 putenv('DEVENV=true');
 $check($as('swustats.net', null) === true, 'DEVENV=true still counts as local dev');
 putenv('DEVENV=false');
 
 // The endpoint's refusal (APIs/Lobbies/JoinQueue.php calls SWUBotPracticeRefusal before anything else reads the format).
 // Tested here in the CLI: the local container's Apache runs with DEVENV=true, so over HTTP every request is local dev.
-$as('swustats.net', 'someplayer');
-$check(SWUBotPracticeRefusal('botpractice') === 'Arenabot is currently limited to approved testers.', 'a non-admin Arenabot request gets the refusal');
+$as('swustats.net', null);
+$check(SWUBotPracticeRefusal('botpractice') === 'Sign in to play Arenabot.', 'a LOGGED-OUT Arenabot request gets the refusal, and it says what to do about it');
 $check(SWUBotPracticeRefusal('premier') === null && SWUBotPracticeRefusal('hotseat') === null, 'other formats are never refused by it');
-$as('swustats.net', $mod);
-$check(SWUBotPracticeRefusal('botpractice') === null, 'an approved moderator is not refused');
+$as('swustats.net', 'someplayer');
+$check(SWUBotPracticeRefusal('botpractice') === null, 'an ordinary logged-in account is not refused');
 
 // Over HTTP (local dev): a Bot Practice request still creates a game.
 $post = function (string $host) {

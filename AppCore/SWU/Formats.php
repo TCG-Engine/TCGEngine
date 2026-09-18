@@ -340,29 +340,50 @@ function SWUListFormats() {
 //
 // "Standard" and "Preview" are MENU labels only — the displayNames stay, because SWUDeck and the stats pages show them.
 // SWUSim/DevTools/tests/menu_tree_test.php keeps this tree and the registry in step in both directions.
+// " (IC27)" — the set(s) a preview pool is opened for, ready to append to a menu label so a player can
+// see WHICH preview they are picking (owner, 2026-09-18). Derived from AppCore/SWU/PreviewSets.php, the
+// same single source of truth SWUFormatIsPreview() reads, so removing a set on release day (the sunset
+// checklist) drops it from every label with no edit here.
+// ⚠ Returns '' when nothing is previewing — between windows the labels must read "Premier Preview", not
+// "Premier Preview ()". Several sets would read " (IC27/IC28)".
+function SWUPreviewSetSuffix(): string {
+    static $suffix = null;
+    if ($suffix === null) {
+        $p = require __DIR__ . '/PreviewSets.php';
+        $sets = is_array($p) ? array_values(array_filter($p)) : [];
+        $suffix = empty($sets) ? '' : ' (' . implode('/', $sets) . ')';
+    }
+    return $suffix;
+}
+
 function SWUMenuTree(): array {
+    $pv = SWUPreviewSetSuffix();   // '' between preview windows — see SWUPreviewSetSuffix
     $constructedPools = [
         ['format' => 'premier',         'label' => 'Premier'],
-        ['format' => 'preview',         'label' => 'Premier Preview'],
+        ['format' => 'preview',         'label' => 'Premier Preview' . $pv],
         ['format' => 'eternal',         'label' => 'Eternal'],
-        ['format' => 'eternal-preview', 'label' => 'Eternal Preview'],
+        ['format' => 'eternal-preview', 'label' => 'Eternal Preview' . $pv],
         ['format' => 'padawan',         'label' => 'Padawan'],
-        ['format' => 'padawan-preview', 'label' => 'Padawan Preview'],
+        ['format' => 'padawan-preview', 'label' => 'Padawan Preview' . $pv],
         ['format' => 'open',            'label' => 'Open'],
     ];
     $tree = [
         ['id' => 'constructed', 'label' => 'Constructed', 'secondLabel' => 'Opponent', 'options' => [
             ['id' => 'pvp',      'label' => 'PvP',      'pools' => $constructedPools],
-            ['id' => 'arenabot', 'label' => 'Arenabot', 'format' => 'botpractice', 'pools' => $constructedPools],
+            // "(beta)" is deliberate (owner, 2026-09-18, at the point Arenabot opened to all logged-in
+            // players): it keeps the heuristic bot from being mistaken for the competitive bot that was
+            // promised. The format id and displayName stay 'botpractice' / 'Arenabot' — this is the
+            // player-facing CHOICE label only.
+            ['id' => 'arenabot', 'label' => 'Arenabot (beta)', 'format' => 'botpractice', 'pools' => $constructedPools],
         ]],
         ['id' => 'twinsuns', 'label' => 'Twin Suns', 'secondLabel' => 'Players', 'options' => [
             ['id' => 'ffa', 'label' => 'Free-for-all', 'pools' => [
                 ['format' => 'twinsuns',         'label' => 'Standard'],
-                ['format' => 'twinsuns-preview', 'label' => 'Preview'],
+                ['format' => 'twinsuns-preview', 'label' => 'Preview' . $pv],
             ]],
             ['id' => 'teams', 'label' => 'Teams', 'pools' => [
                 ['format' => 'teamsuns',         'label' => 'Standard'],
-                ['format' => 'teamsuns-preview', 'label' => 'Preview'],
+                ['format' => 'teamsuns-preview', 'label' => 'Preview' . $pv],
             ]],
         ]],
         ['id' => 'solo', 'label' => '1P Mode', 'secondLabel' => 'Mode', 'options' => [

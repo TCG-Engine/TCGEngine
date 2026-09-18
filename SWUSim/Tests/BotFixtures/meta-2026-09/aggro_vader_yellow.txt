@@ -3,7 +3,7 @@
 #   https://melee.gg/Decklist/View/8b67d9aa-9654-42c3-8a26-b4bd00d518ba — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (29 entries).
 # Archetype (owner's label): Space aggro
-# Style: aggro
+# Style: hyperaggro
 # Flavours: space
 
 Leader

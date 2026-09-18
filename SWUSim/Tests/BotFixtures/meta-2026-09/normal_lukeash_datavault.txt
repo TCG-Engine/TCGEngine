@@ -6,7 +6,7 @@
 # Archetype: Luke (ASH) · Green Data Vault — 35 entries, 91-106-10 (46.4% match win, 95% CI 39.7-53.2) over 207
 #   non-mirror matches across twenty-three events; 4 top-8 finishes.
 # Archetype (owner's label): Grindy midrange blue-green Hero — defensive, heal-based
-# Style: normal
+# Style: midrange
 #   Owner, 2026-09-15: normal/midrange, though with a high curve and top end (auto-derived as "control" from deck shape before the review).
 # (no Flavours line — this deck has NO registry flavours. The line is omitted rather than written as
 #   'none', because bot_flavours_test parses 'none' as a flavour token. Flavours are behaviour-driving tokens in

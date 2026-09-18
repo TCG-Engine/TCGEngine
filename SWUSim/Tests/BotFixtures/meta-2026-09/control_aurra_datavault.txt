@@ -3,7 +3,7 @@
 #   https://melee.gg/Decklist/View/d5cc52ab-09bc-4d7c-b8de-b4c3007638b0 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
 #   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
 # Archetype (owner's label): Midrange control: softens units up with trades or debuffs and uses Aurra's ability to maximise value trades (e.g. a 2/3/3 hits a 3/4/4, then Aurra's ability finishes it)
-# Style: control
+# Style: softcontrol
 # Flavours: setup
 
 Leader

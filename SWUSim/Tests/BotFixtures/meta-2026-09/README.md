@@ -12,25 +12,33 @@ Each file header records:
 - the **source** — event, final placement and the melee decklist URL. Lists were converted to SET_NNN by
   `APIs/MeleeLinkToJson.php`; sideboards are dropped.
 - the owner's **archetype label**.
-- the **style** (`aggro` / `normal` / `control`): which heuristic profile, and later which RL base model, plays it.
+- the **style**: which heuristic profile, and later which RL base model, plays it.
 - the **flavours**: tags for the flavour profiles, the heuristic nudges on top of a style.
+
+⚠ **Filenames keep their historical `aggro_` / `normal_` / `control_` prefixes — they were never renamed.**
+The five archetypes (`SWUSim/Custom/BotArchetypes.php`, `SWU_BOT_ARCHETYPES`) replaced the old three-style
+scheme on 2026-09-17: `hyperaggro`, `softaggro`, `midrange`, `softcontrol`, `hardcontrol`, ordered aggro ->
+control. The old three names (`aggro` / `normal` / `control`) remain permanent aliases to `softaggro` /
+`midrange` / `softcontrol` for backward compatibility, but every fixture below now carries an explicit,
+non-aliased `# Style:` line — that line is what `sweep_fixtures.sh` reads (`grep -m1 '^# Style:'`) and is
+authoritative; the filename prefix is now only a historical label and must not be used to infer style.
 
 | File | Style | Flavours |
 |---|---|---|
-| aggro_vader_yellow | aggro | space |
-| aggro_ahsoka_yellow | aggro | mixed-space |
-| aggro_ahsoka_blue | aggro | ground, combo |
-| aggro_boba_lakecountry | aggro | burn |
-| aggro_greef | aggro | go-wide, mixed |
-| normal_maul_blueforce | normal | tempo, force |
-| normal_talzin_force | normal | tempo, force |
-| normal_luke_datavault | normal | space, combo, pilot |
-| normal_piett_red | normal | capital-ship |
-| control_krennic_splash | control | credit-ramp |
-| control_lando_blue | control | credit-ramp, tempo |
-| control_piett_blue | control | capital-ship |
-| control_aurra_red | control | hard |
-| control_dedra_colossus | control | hard |
+| aggro_vader_yellow | hyperaggro | space |
+| aggro_ahsoka_yellow | softaggro | mixed-space |
+| aggro_ahsoka_blue | softaggro | ground, combo |
+| aggro_boba_lakecountry | softaggro | burn |
+| aggro_greef | softaggro | go-wide, mixed |
+| normal_maul_blueforce | midrange | tempo, force |
+| normal_talzin_force | midrange | tempo, force |
+| normal_luke_datavault | softaggro | space, combo, pilot |
+| normal_piett_red | midrange | capital-ship |
+| control_krennic_splash | softcontrol | credit-ramp |
+| control_lando_blue | softcontrol | credit-ramp, tempo |
+| control_piett_blue | softcontrol | capital-ship |
+| control_aurra_red | hardcontrol | hard |
+| control_dedra_colossus | hardcontrol | hard |
 
 **Second batch (2026-09-15)** — eight owner-supplied lists (a ninth, Mother Talzin on Crystal Caves, turned out to be the SAME decklist as `normal_talzin_force` and was dropped): B-tier decks and newer lists, several from events
 outside the research data (each header says which). They are not "best of archetype" picks. RL run 3 never
@@ -38,14 +46,14 @@ saw them (the trainer lists its decks at startup), so they double as a held-out 
 
 | File | Style | Flavours |
 |---|---|---|
-| normal_armorer_nabat | normal | go-tall, upgrades |
-| normal_obiwan_vergence | normal | go-wide, force, high-hp |
-| normal_greef_datavault | normal | go-wide, mixed |
-| aggro_chewbacca_outpost | aggro | hyper, credit |
-| control_thrawn_yellow | control | combo, when-defeated |
-| control_thrawn_datavault | control | bombs |
-| control_mando_colossus | control | hard, combo |
-| control_aurra_datavault | control | setup |
+| normal_armorer_nabat | midrange | go-tall, upgrades |
+| normal_obiwan_vergence | midrange | go-wide, force, high-hp |
+| normal_greef_datavault | midrange | go-wide, mixed |
+| aggro_chewbacca_outpost | hyperaggro | hyper, credit |
+| control_thrawn_yellow | softcontrol | combo, when-defeated |
+| control_thrawn_datavault | softcontrol | bombs |
+| control_mando_colossus | hardcontrol | hard, combo |
+| control_aurra_datavault | softcontrol | setup |
 
 **Third batch (2026-09-16)** — one deck, promoted from the field set at the owner's request because the gate set
 covered no **defensive / heal** deck at all. Every other fixture either races, trades, or stalls behind Sentinels;
@@ -53,7 +61,7 @@ none of them heals to win.
 
 | File | Style | Flavours |
 |---|---|---|
-| normal_lukeash_datavault | normal | none — see its header |
+| normal_lukeash_datavault | midrange | none — see its header |
 
 ⚠ **`normal_lukeash_datavault` and `normal_luke_datavault` are DIFFERENT DECKS that share an archetype key.**
 Two Luke leaders both play Green Data Vault:

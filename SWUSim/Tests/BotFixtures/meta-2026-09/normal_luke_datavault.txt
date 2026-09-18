@@ -3,7 +3,7 @@
 #   https://melee.gg/Decklist/View/259bb00c-2827-4cd7-b8e5-b4bc0137be7d — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (20 entries).
 # Archetype (owner's label): Midrange space aggro (Plot Cinta Kaz → Luke pilot)
-# Style: normal
+# Style: softaggro
 # Flavours: space, combo, pilot
 
 Leader

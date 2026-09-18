@@ -4,7 +4,7 @@
 #   Added 2026-09-15 at the owner's request (the second deck batch: B-tier and newer lists).
 #   Its event was pulled on 2026-09-15, so the placement above is now from our own data.
 # Archetype (owner's label): Midrange soft control; slightly a combo deck for doubling "When Defeated" abilities
-# Style: control
+# Style: softcontrol
 # Flavours: combo, when-defeated
 
 Leader

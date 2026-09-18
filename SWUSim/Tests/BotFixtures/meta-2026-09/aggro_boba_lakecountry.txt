@@ -3,7 +3,7 @@
 #   https://melee.gg/Decklist/View/cba6340b-a26b-4cd3-8dac-b4bc0178bbda — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (16 entries).
 # Archetype (owner's label): Burn (soft aggro: indirect + effect damage to the base)
-# Style: aggro
+# Style: softaggro
 # Flavours: burn
 
 Leader

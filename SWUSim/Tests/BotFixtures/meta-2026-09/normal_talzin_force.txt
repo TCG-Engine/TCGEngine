@@ -3,7 +3,7 @@
 #   https://melee.gg/Decklist/View/745a08c1-df02-46e2-ace1-b4c20106e001 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (17 entries).
 # Archetype (owner's label): Aggressive midrange tempo (Force)
-# Style: normal
+# Style: midrange
 # Flavours: tempo, force
 
 Leader

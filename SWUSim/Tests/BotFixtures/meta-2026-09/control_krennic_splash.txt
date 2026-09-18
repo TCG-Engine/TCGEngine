@@ -3,7 +3,7 @@
 #   https://melee.gg/Decklist/View/73b660ce-7055-4a3b-bef4-b4bd00482ebd — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (8 entries).
 # Archetype (owner's label): Credit ramp control (soft / midrange control)
-# Style: control
+# Style: softcontrol
 # Flavours: credit-ramp
 
 Leader

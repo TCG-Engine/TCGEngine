@@ -249,7 +249,9 @@ function SWUBotRecordCoverage(int $seat, string $key): void {
 }
 function SWUBotResetCoverage(): void { $GLOBALS['SWUBotCoverage'] = []; }
 
-foreach (['aggro', 'normal', 'control'] as $style) {
+// The five archetypes (SWUSim/Custom/BotArchetypes.php) plus the three legacy names, which must keep
+// resolving: botStyle is a POST field on APIs/Lobbies/JoinQueue.php and is stored on saved lobbies.
+foreach (array_merge(SWU_BOT_ARCHETYPES, array_keys(SWU_BOT_STYLE_ALIASES)) as $style) {
     SWUBotRegisterChooser("heuristic-$style", fn(array $actions, array $legal) => SWUBotHeuristicChoose($style, $actions, $legal));
     // Variant profiles for the strength test (BotFeatures.php): "heuristic-<style>@base", "heuristic-<style>@no-<feature>".
     foreach (SWUBotVariants() as $v) {

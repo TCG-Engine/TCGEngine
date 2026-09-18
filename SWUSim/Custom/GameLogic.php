@@ -17499,8 +17499,57 @@ function SWUOfferAltPayment(int $player, int $cost, string $continuation, string
         $credits = SWUUsableCreditTokenMzIDs($player);
         if (!empty($credits)) {
             $max = min(count($credits), $cost); // can't pay below 0
+            // ⚠ THE LOWER BOUND IS NOT ALWAYS 0. Credits that ready resources and SEC_122 Droids
+            // together cannot cover are the ONLY way to pay, so declining them is not a real choice —
+            // it is a misclick that fails the play (owner ruling 2026-09-18: "auto-pick Credits when
+            // that is the only way to pay").
+            // Bug #1048 / game 522237: 4 ready resources + 2 Credits against a cost-6 HMW_048 Vernestra
+            // offered "0..2", the player confirmed ZERO, and SWUPayCost then failed on 4 vs 6 — AFTER
+            // her additional cost had already bottomed two units out of the discard. CREDIT_PAY's CR 4.a
+            // gate protects the CREDITS on that path ("nothing was spent") but cannot protect an
+            // additional cost applied a level up, and the capacity gate there cannot help either: it
+            // verifies the player CAN pay across all three tiers (CR 3.13), never that they WILL.
+            // Droids are subtracted so a SEC_122 player is never forced to burn a Credit a Droid could
+            // have paid; when Droids can cover the shortfall the minimum stays 0 and declining is still
+            // honoured (CreditsNotRequired_DeclineIsStillHonoured pins that side).
+            $readyRes = SWUResourceCount($player, readyOnly: true);   // excludes Credit tokens (CR 3.13)
+            $droidCap = SWUPlayerControlsSEC122($player) ? count(SWUReadyFriendlyDroids($player)) : 0;
+            $min      = max(0, min($max, $cost - $readyRes - $droidCap));
             global $playerID;
             $playerID = $player; // leave set: MZCountChoices resolves the relative mzIDs after return
+
+            // ⚠ NOTHING LEFT TO DECIDE → NO PROMPT (owner ruling 2026-09-18, part 2). When every Credit
+            // on offer is required, "pick 2 of 2" is a modal whose only legal answer is the one it is
+            // already showing — and bug #1048 is what a misclick on that modal costs. Queue the resolver
+            // ALONE and let its top-up spend exactly $min.
+            // ⚠ Deliberately NOT a second payment implementation: CREDIT_PAY stays the only code that
+            // defeats a Credit, so the game-log line and LAW_015 Jabba's Credit-paid Ambush arming keep
+            // working without being duplicated here.
+            // ⚠ The TempZone is deliberately left UNSTAGED and the map EMPTY on this path. With no
+            // picker of our own, the CUSTOM sees whatever the PREVIOUS decision answered as
+            // $lastDecision — on HMW_048 that is the discard picker's "myDiscard-0&myDiscard-1". An empty
+            // map makes every such stale pick fail CREDIT_PAY's `isset($map[$k])` check, so it can never
+            // be mistaken for a Credit selection, and the top-up supplies the real payment.
+            // ⚠ RUN THE RESOLVER INLINE, DO NOT QUEUE IT. A CUSTOM queued on its own never executes —
+            // the pair above works because the CUSTOM is the answered MZMULTICHOOSE's continuation, so
+            // removing the picker and leaving the CUSTOM behind silently drops the whole play (measured:
+            // a 1-cost unit with 0 ready resources and 1 Credit was simply never played, from hand AND
+            // from the discard). Calling the handler directly reuses the ONE implementation that defeats
+            // a Credit — game-log line, LAW_015 Jabba Ambush arming and all — and it ends by dispatching
+            // $continuation itself, exactly as answering the picker would. Inline dispatch is already the
+            // established shape here: the unaffordable guard at the top of this function returns through
+            // SWUDispatchDroidContinuation the same way.
+            // $lastDecision is '-' because there were no picks to report; the top-up supplies the payment.
+            if ($min > 0 && $min >= $max) {
+                global $customDQHandlers;
+                $creditPay = $customDQHandlers['CREDIT_PAY'] ?? null;
+                if (is_callable($creditPay)) {
+                    $creditPay($player, array_merge([$max, $cost, '', $continuation], explode('|', (string)$args)), '-');
+                    return; // $playerID intentionally left = $player
+                }
+                // Handler missing (should be impossible): fall through to the ordinary picker rather
+                // than silently skipping the payment.
+            }
             // Stage the Credits into TempZone and offer THOSE, never the myResources-N mzIDs directly.
             // Resources is `Display: Visibility=Self, Mode=All`, and a Self zone of your OWN is routed
             // INLINE by CategorizeMZChooseSpecs — so a prompt over myResources-N lights up the Credits
@@ -17524,7 +17573,14 @@ function SWUOfferAltPayment(int $player, int $cost, string $continuation, string
             // thing that ties a pick back to the right resource slot.
             $creditMap = implode(',', $map);
             DecisionQueueController::AddDecision($player, "MZMULTICHOOSE",
-                "0|{$max}|" . implode("&", $tempMZs), $block,
+                "{$min}|{$max}|" . implode("&", $tempMZs), $block,
+                // ⚠ THE TOOLTIP IS LOAD-BEARING TEXT — do not reword it. SWUBotRuleBankCredits
+                // (SWUSim/Custom/BotRules.php) gates on this EXACT string, and three schema sections
+                // assert it verbatim, so a wording change silently disables the bot's credit rule in the
+                // very case it matters most. A first cut at this fix made it dynamic when $min > 0 and
+                // broke bot rule 15 ("1 ready resource -> one Credit for the shortfall") that way.
+                // The enforced lower bound above already tells the player the Credits are mandatory:
+                // the confirm stays disabled until enough are picked.
                 tooltip:"Defeat_any_number_of_Credit_tokens_to_pay_1_resource_less_each");
             // The cap rides in the decision param: the MZMULTICHOOSE "0|max|..." bound is enforced by the
             // CLIENT only (the queue controller validates that at least one choice exists, never how many
