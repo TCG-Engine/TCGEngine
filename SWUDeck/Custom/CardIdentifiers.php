@@ -167,7 +167,13 @@ function CardNicknames($cardName) {
             return "Grogu";
         case "uwing":
             return "U-Wing Reinforcements";
-        default: 
+        // Source-spelling aliases. An external decklist that misspells a title resolves to null and
+        // the card is then silently DROPPED from the import (APIs/MeleeLinkToJson.php skips any name
+        // it cannot resolve), so the deck comes back short with no error. melee.gg writes
+        // "Zeb Orellios"; the card is "Zeb Orrelios".
+        case "zeb orellios":
+            return "Zeb Orrelios";
+        default:
             return $cardName;
     }
 }
@@ -186,11 +192,19 @@ function FindCardSetCode($cardName) {
         $parts = explode('|', $cardName);
         $characterName = trim($parts[0]);
         $subtitle = isset($parts[1]) ? trim($parts[1]) : '';
-        
+
+        // Normalise the title through CardNicknames first, exactly as RankCardTitleMatches does, so a
+        // source that misspells a title still reaches the title+subtitle comparison below. Without
+        // this the branch falls through to the title-only retry, which for a card with several
+        // printings returns whichever printing sits first in the dictionary — for "Zeb Orellios |
+        // Spectre Four" that is SOR_146 "Headstrong Warrior", not the LAW_045 "Spectre Four" asked
+        // for. A wrong printing is worse than the dropped card it replaces.
+        $normalizedName = strtolower(trim(CardNicknames(strtolower($characterName))));
+
         // First try to find an exact match with both title and subtitle
         global $titleData, $subtitleData;
         foreach ($titleData as $cardID => $title) {
-            if (strtolower($title) == strtolower($characterName)) {
+            if (strtolower($title) == $normalizedName) {
                 // Found a match for the title, check if subtitle matches
                 if (isset($subtitleData[$cardID])) {
                     $cardSubtitle = $subtitleData[$cardID];

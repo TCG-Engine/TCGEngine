@@ -170,6 +170,9 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
     };
     $run = function (array $rules) use (&$ctx, $inSet, $seat) {
         foreach ($rules as $name => $fn) {
+            // Rule-level bisection ("@no-rule:<name>", BotFeatures.php). Default-on: with no variant the
+            // disabled set is empty, so every rule runs and behaviour is unchanged.
+            if (!SWUBotFeatureOn("rule:$name")) continue;
             $pick = $fn($ctx);
             if ($pick === null) continue;
             if (!$inSet($pick)) { SWUBotRecordCoverage($seat, "invalid:$name"); continue; }

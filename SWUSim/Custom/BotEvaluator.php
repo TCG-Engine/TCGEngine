@@ -92,12 +92,46 @@ function SWUBotBasePotential(int $seat, int $defSeat, bool $readyOnly): int {
     return $total;
 }
 
+// ── THREAT = base damage a unit can deal ─────────────────────────────────────────────────────────────
+// Owner ruling 2026-09-18: judge removal and wipes by the BASE DAMAGE THEY PREVENT, not by what the target
+// costs — "if it's not really considered a bomb, it can still use removal if that would be the best way to
+// mitigate damage to base", and "paying 7 to only wipe Boba Fett on a 4+ cost ship is the only play to mitigate
+// 8+ damage". Same Sentinel/Saboteur rules as SWUBotBasePotential below (CR 6.3.2b, 7.5.10): a unit facing my
+// Sentinel in its arena cannot reach my base, unless it has Saboteur.
+function SWUBotUnitBaseThreat(int $defSeat, array $v): int {
+    $guarded = _SWUBotSentinelArenas($defSeat);
+    return (!$v['saboteur'] && ($guarded[$v['arena']] ?? false)) ? 0 : intval($v['attackPower']);
+}
+
 // Rounds for $seat's board to reduce $defSeat's base to 0. Counts exhausted units: everything readies at
 // the regroup (CR 5.5.1d).
 function SWUBotClock(int $seat, int $defSeat): int {
     $pot = SWUBotBasePotential($seat, $defSeat, false);
     if ($pot <= 0) return SWU_BOT_NO_CLOCK;
     return max(1, intdiv(SWUBaseRemainingHp($defSeat) + $pot - 1, $pot));
+}
+
+// THE DAMAGE BUDGET (proposal 'dmgbudget', BotFeatures.php). Owner ruling 2026-09-18: "control wants to minimize
+// damage to below 50-60% of their base total by the 6R/7R turn. if they keep it below 40% then they are performing
+// really well." Round N carries N+1 resources (2 starting + 1 per regroup, CR 5.4), so "the 6R/7R turn" is round
+// 5-6. A linear pace of 10% of base HP per round reaches 50% at round 5 and is capped at 55% — the middle of the
+// owner's 50-60% band — from round 6 on, so a seat at 70% on round 8 is still over budget.
+const SWU_BOT_DMG_BUDGET_PER_ROUND = 0.10;
+const SWU_BOT_DMG_BUDGET_CAP = 0.55;
+
+// Fraction of $seat's base total already taken as damage, 0..1.
+function SWUBotBaseDamageFraction(int $seat): float {
+    $b = GetBase($seat);
+    if (empty($b) || !empty($b[0]->removed)) return 0.0;
+    $hp = intval(CardHp($b[0]->CardID));
+    return $hp > 0 ? min(1.0, intval($b[0]->Damage ?? 0) / $hp) : 0.0;
+}
+
+// Is $seat taking damage faster than the owner's pace for this round?
+function SWUBotOverDamageBudget(int $seat): bool {
+    $round = max(1, intval(GetTurnNumber()));
+    $budget = min(SWU_BOT_DMG_BUDGET_CAP, SWU_BOT_DMG_BUDGET_PER_ROUND * $round);
+    return SWUBotBaseDamageFraction($seat) > $budget;
 }
 
 function SWUBotLethalNow(int $seat, int $defSeat): bool {

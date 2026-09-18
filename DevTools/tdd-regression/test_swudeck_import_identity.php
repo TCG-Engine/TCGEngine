@@ -75,6 +75,33 @@ $checks['substring fallback still resolves']    = FindCardSetCode('Administrator
 // The melee pipe format must be unaffected.
 $checks['pipe format still resolves']           = FindCardSetCode('Luke Skywalker | Faithful Friend') === 'SOR_005';
 
+// ── Regression 4: a MISSPELLED source title must resolve to the RIGHT PRINTING ───────────
+// APIs/MeleeLinkToJson.php skips any name FindCardSetCode() cannot resolve (`if ($setCode !== null)`),
+// with no error — the deck just comes back short. melee.gg spells LAW_045 "Zeb Orellios"; the card is
+// "Zeb Orrelios", so every Leia (LAW) · Blue Splash list converted to 48 cards and the archetype was
+// unbuildable as a bot fixture from 2026-09-15 to 2026-09-18.
+//
+// The fix is TWO parts and part 2 is the one that matters. A CardNicknames() alias alone is WORSE THAN
+// THE BUG: FindCardSetCode's pipe branch compared the raw title against $titleData without normalising,
+// so an aliased name fell through to the title-only retry, which returns $matches[0] — the first
+// printing in dictionary order. Zeb has three, so "Zeb Orellios | Spectre Four" would have silently
+// imported SOR_146 'Headstrong Warrior'. A wrong printing is far more invisible than a dropped card.
+// So: the pipe branch normalises through CardNicknames first, and the subtitle still decides.
+$zebPrintings = ['Spectre Four' => 'LAW_045', 'Headstrong Warrior' => 'SOR_146', 'Fists Work Every Time' => 'ASH_161'];
+foreach ($zebPrintings as $subtitle => $expected) {
+    // the misspelling melee actually sends...
+    $checks["misspelled 'Zeb Orellios | $subtitle' is $expected"] = FindCardSetCode("Zeb Orellios | $subtitle") === $expected;
+    // ...and the correct spelling, which must be unaffected.
+    $checks["correct 'Zeb Orrelios | $subtitle' is $expected"]    = FindCardSetCode("Zeb Orrelios | $subtitle") === $expected;
+}
+// The alias must not leak into bare-title lookups in a way that changes an existing answer: a bare
+// "Zeb Orrelios" is a 3-printing name, so assert the shape, as the reprint check above does.
+$zebBare = FindCardSetCode('Zeb Orrelios');
+$checks['bare reprinted name still resolves']   = $isSetNnn($zebBare) && ($titleData[$zebBare] ?? '') === 'Zeb Orrelios';
+// An unknown name must still resolve to null rather than to some near neighbour — that null is what
+// tells an importer a card was dropped.
+$checks['unknown name still yields null']       = FindCardSetCode('Qqxzy Nonexistent | Nowhere') === null;
+
 // ── Regression 1: leader/base helpers ───────────────────────────────────────
 // Exact "Title, Subtitle" is Method 1, so this is deterministic.
 $checks['GetLeaderCardID exact match']       = GetLeaderCardID('Luke Skywalker, Faithful Friend') === 'SOR_005';

@@ -44,6 +44,31 @@ function SWUBotLeaderDeployThreshold(int $seat): int {
     return $t;
 }
 
+// Does this card have Sentinel as a PRINTED KEYWORD? Read from card text, not HasKeyword_Sentinel(): that
+// reads an in-play object's Controller and FATALS on a hand object (memory `haskeyword-fatals-on-hand-objects`),
+// and the resourcing decision is made entirely on cards in hand.
+//
+// Anchored to the start of a line because the keyword is printed on its own line, while its own reminder text
+// ("Units in this arena can't attack your NON-SENTINEL units…") and unrelated references ("defeat a Sentinel
+// unit") appear mid-sentence. Measured over the full card pool: the anchor yields 110 printed Sentinels and
+// rejects 143 mere references. A CONDITIONAL grant ("while this unit is undamaged, it gains Sentinel",
+// SOR_048) is deliberately NOT counted — the card in hand is not yet a Sentinel.
+function _SWUBotHasPrintedSentinel(string $cardID): bool {
+    return (bool)preg_match('/(^|\n)\s*Sentinel\b/i', strval(CardText($cardID)));
+}
+
+// A second copy of a UNIQUE card already in hand is redundant — only one can ever be in play (CR uniqueness),
+// so the duplicate is safe to resource. Keyed on hand INDEX so exactly one copy keeps the bonus: the earliest
+// index is the keeper and any later copy is redundant.
+function _SWUBotRedundantUniqueInHand(int $seat, string $cardID, int $index): bool {
+    if (!CardUnique($cardID)) return false;
+    foreach (GetHand($seat) as $j => $o) {
+        if ($j >= $index || $o === null || !empty($o->removed)) continue;
+        if (strval($o->CardID ?? '') === $cardID) return true;   // an earlier copy is already the keeper
+    }
+    return false;
+}
+
 function SWUBotResourceFloorApplies(int $seat): bool {
     $t = SWUBotLeaderDeployThreshold($seat);
     return $t > 0 && SWUResourceCount($seat) < $t;
@@ -91,6 +116,23 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         // keeps its owner rule first — castable soon + one bomb (2026-09-13) — so its bonus (50) lifts a key card
         // only above FAR filler, never above a card it can cast soon; the other styles keep key cards over all filler.
         if (SWUBotFeatureOn('keep') && SWUBotIsKeyCard($seat, $cid)) $keep += $rank >= 3 ? 50.0 : 150.0;
+        // PROPOSAL 'sentinelkeep' (default OFF, "@try-sentinelkeep"). Owner ruling 2026-09-18: "Sentinels in
+        // general are good to keep… unless you have two of the same unique unit Sentinel. then it should be safe
+        // to resource one." A Sentinel is how control mitigates early damage, and the deficit is a SURVIVAL
+        // problem (memory `control-loses-by-not-reaching-round-8`). Control wing only, so the arm is one-sided.
+        // +50 matches the key-card bonus deliberately — a blocker is an answer — rather than inventing a new
+        // magnitude; tune it only after the first measurement.
+        if (SWUBotFeatureOn('sentinelkeep') && $rank >= 3 && _SWUBotHasPrintedSentinel($cid)
+            && !_SWUBotRedundantUniqueInHand($seat, $cid, $i)) {
+            $keep += 50.0;
+        }
+        // PROPOSAL 'earlyremoval' — the RESOURCING half. Owner, Q13: "Crushing Blow only works on 2-cost non-leader
+        // units. so late game, it's an auto resource." From round 6 (7 resources — past the owner's "5R turn") a
+        // RESTRICTED removal event is resourced FIRST: -100 sinks it below every other card in hand.
+        if ((SWUBotProposalOn('earlyremoval') || SWUBotProposalOn('restrictedearly')) && $rank >= 3 && intval(GetTurnNumber()) >= 6
+            && (SWUBotRemovalClass($cid)[0] ?? '') === 'restricted') {
+            $keep = -100.0;
+        }
         // 2R–5R: the one relevant wipe is held like the bomb — just below it, above every castable card. ONE copy:
         // a second wipe falls back to the ordinary rule.
         if ($protectedWipe !== null && $cid === $protectedWipe && $i !== $bombIndex) { $keep = 190.0; $protectedWipe = null; }

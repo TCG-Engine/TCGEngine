@@ -1,0 +1,44 @@
+# Real-deck self-play fixture — Leia Organa, Someone Who Loves You - Daimyo's Palace
+# Source: melee.gg 443170, #2 of 29 (5-1-2)
+#   https://melee.gg/Decklist/View/5f0d5e9e-838e-40f1-8673-b4c30152ab7c — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
+#   FIELD set, added 2026-09-18: completes the top-50 archetype field (the 50 archetypes with the most
+#   real matches across the twenty-three events). Best-finishing list of its archetype.
+# Archetype: Leia Organa (LAW) · Blue Splash — rank #36 of 171 by real matches; 6 entries, 18-15-1 (54.4% match win) over 34 matches
+# Style: softaggro
+#   OWNER-LABELLED — this exact archetype (LAW_010 + LAW_020) is the owner's own reference decklist in
+#   .claude/CLAUDE.md, described there as "Leia blue aggro go tall". The deck-shape deriver agrees
+#   independently (avg cost 2.7, 30 units, 17 upgrades, 0 units 6+, 2 removal, 0 wipe → softaggro).
+# Flavours: none
+#
+#   NOTE: this archetype was unbuildable until 2026-09-18. melee.gg spells LAW_045 "Zeb Orellios";
+#   the card is "Zeb Orrelios", so MeleeLinkToJson silently dropped 2 copies and every candidate list
+#   converted to 48 cards and failed the size check. Fixed in SWUDeck/Custom/CardIdentifiers.php.
+
+Leader
+1 LAW_010
+
+Base
+1 LAW_020
+
+Deck
+3 LOF_093
+3 LAW_037
+3 ASH_056
+3 LAW_089
+3 LAW_039
+3 LOF_045
+2 ASH_031
+2 ASH_079
+2 LAW_038
+2 LOF_096
+2 ASH_062
+2 LAW_045
+3 ASH_090
+3 LAW_111
+3 ASH_135
+2 LOF_215
+2 LAW_129
+2 SEC_256
+2 SEC_069
+2 ASH_114
+1 ASH_066

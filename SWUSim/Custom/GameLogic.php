@@ -2934,6 +2934,13 @@ function SWUCheckShrinkDefeats(): void {
                         if (intval($dr['uid'] ?? 0) === intval($obj->UniqueID ?? -1)) { $pendingRepl = true; break; }
                     }
                     if ($pendingRepl) continue;
+                    // ⚠ A unit whose defeat is ALREADY IN PROGRESS is not available to the state check.
+                    // SWUDefeatUnit collects its leave-play reactions before marking the unit removed, so
+                    // a damage-killed unit sits here at <= 0 remaining HP for the whole collection. A
+                    // reaction that creates a token re-enters this sweep (_SWUAfterTokensCreated), which
+                    // without this skip defeats the same unit a second time and fires every leave-play
+                    // reaction twice — TS26_13 Darth Sidious made two Battle Droids off one kill.
+                    if (!empty($GLOBALS['gSWUUnitsMidDefeat'][intval($obj->UniqueID ?? 0)])) continue;
                     if (ObjectCurrentHP($obj) - intval($obj->Damage ?? 0) <= 0 && !SWUImmuneToHpDefeat($obj)) {
                         SWUDefeatUnit($p, $mz);
                         $defeated = true;

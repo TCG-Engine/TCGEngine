@@ -112,6 +112,11 @@ function SWUBotRuleBreakLethal(array $ctx): ?array {
 // Control — unless the opponent's clock on Control is 2 or less. "At least one of Control's own" is gone, so the
 // planner never picks its own units to qualify (Pre Vizsla had defeated six Annihilators that way) and a one-sided
 // sweep qualifies. Prefers the longest clock left to them, then the most value gained.
+// Proposal 'wipethreat': the base damage per round a wipe must prevent to qualify on damage alone. Roughly the
+// owner's finisher level ("swinging with Ahsoka or another 5-power unit like Amidala", 2026-09-18); the owner's
+// Boba example prevents 8+. A first guess — tune after measuring.
+const SWU_BOT_WIPE_THREAT_WORTH = 5;
+
 function SWUBotRuleControlWipe(array $ctx): ?array {
     // The control wing (rank 3-4): soft and hard control both plan wipes.
     if (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3 || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
@@ -124,21 +129,52 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
     if (!$byValue && empty($mineBefore)) return null;
     $vMine = $valueOf($seat); $vTheirs = $valueOf($opp);
     $clockBefore = SWUBotClock($opp, $seat);
+    // Base damage each side's board threatens per round, before the wipe (for proposal 'wipethreat' below).
+    $oppPotBefore = SWUBotBasePotential($opp, $seat, false);
+    $myPotBefore = SWUBotBasePotential($seat, $opp, false);
     $read = function () use ($seat, $opp, $uids, $valueOf, $mineBefore, $theirsBefore, $vMine, $vTheirs) {
         $own = count(array_diff($mineBefore, $uids($seat)));
         return ['ownLost' => $own, 'defeated' => $own + count(array_diff($theirsBefore, $uids($opp))),
-                'net' => ($vTheirs - $valueOf($opp)) - ($vMine - $valueOf($seat)), 'oppClock' => SWUBotClock($opp, $seat)];
+                'net' => ($vTheirs - $valueOf($opp)) - ($vMine - $valueOf($seat)), 'oppClock' => SWUBotClock($opp, $seat),
+                'oppPot' => SWUBotBasePotential($opp, $seat, false), 'myPot' => SWUBotBasePotential($seat, $opp, false)];
     };
-    $qualifies = $byValue
+    $countGate = $byValue
         ? fn(array $r) => $r['defeated'] >= 2 && SWUBotStabilises($clockBefore, $r['oppClock']) && ($r['net'] >= 0 || $clockBefore <= 2)
         : fn(array $r) => $r['defeated'] >= 2 && $r['ownLost'] >= 1 && SWUBotStabilises($clockBefore, $r['oppClock']);
+    // PROPOSAL 'wipethreat' (default OFF). Owner ruling 2026-09-18: "the botwipeisrelevant algorithm should be
+    // improved. because sometimes, paying 7 to only wipe Boba Fett on a 4+ cost ship is the only play to mitigate
+    // 8+ damage from them swinging a second time post-deploy." The count gate above (defeated >= 2) can NEVER
+    // qualify a one-unit wipe however much damage it prevents. So a wipe ALSO qualifies when it prevents at least
+    // SWU_BOT_WIPE_THREAT_WORTH base damage per round AND removes more of their damage potential than of mine —
+    // both measured in the same currency (base damage), by the lookahead that resolves the wipe.
+    $threatGate = SWUBotFeatureOn('wipethreat')
+        ? fn(array $r) => ($oppPotBefore - $r['oppPot']) >= SWU_BOT_WIPE_THREAT_WORTH
+                          && ($oppPotBefore - $r['oppPot']) > ($myPotBefore - $r['myPot'])
+        : fn(array $r) => false;
+    $qualifies = fn(array $r) => $countGate($r) || $threatGate($r);
     $score = fn(array $r) => $qualifies($r) ? 1000.0 + $r['oppClock'] * 10 + ($byValue ? $r['net'] : -$r['ownLost']) : -1.0;
     $isWipe = function (array $a) use ($seat) {
         if (SWUBotActionKind($a) !== 'play') return false;
         $o = _SWUBotHandObject($seat, $a);
         return $o !== null && in_array('wipe', SWUBotCardTags(strval($o->CardID)), true);
     };
-    return _SWUBotBestLine($ctx, $read, $score, $qualifies, $isWipe);
+    // Diagnostics (read-only; land in SWUBOT_METRICS coverage). 'wipe:castable' = this rule saw at least one wipe it
+    // could play — the rule only ever sees CASTABLE wipes, so a gate that never fires may simply never be reached.
+    // 'wipe:threat-only' = a line qualified on damage prevented but NOT on the count gate: the case 'wipethreat'
+    // exists for. Recorded in the $ok check only ($score also calls $qualifies, once per lookahead leaf).
+    // ⚠ OFF unless SWUBOT_WIPE_DIAG is set: coverage keys are a CONTRACT — bot_rules_test asserts the EXACT key
+    // list (`=== ['myHand-0!FSM!', ['rule:control-wipe']]`), so an always-on diagnostic key broke two rule-5
+    // assertions with the rule's decision unchanged. They were gated on the 'wipethreat' PROPOSAL while it was
+    // measured; now that it ships ON by default, that gate would make them always-on, so they get their own
+    // switch. `docker exec -e SWUBOT_WIPE_DIAG=1 …` to read them.
+    $diag = (bool)getenv('SWUBOT_WIPE_DIAG');
+    if ($diag && !empty(array_filter($ctx['actions'], $isWipe))) SWUBotRecordCoverage($seat, 'wipe:castable');
+    $ok = function (array $r) use ($countGate, $threatGate, $seat, $diag) {
+        $c = $countGate($r); $t = $threatGate($r);
+        if ($diag && $t && !$c) SWUBotRecordCoverage($seat, 'wipe:threat-only');
+        return $c || $t;
+    };
+    return _SWUBotBestLine($ctx, $read, $score, $ok, $isWipe);
 }
 
 // Follow the plan a lookahead rule (4, 5) stored for this seat: at a decision whose prompt matches the plan's

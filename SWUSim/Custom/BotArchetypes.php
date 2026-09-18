@@ -67,8 +67,28 @@ function SWUBotWeights(string $style, int $seat): array {
     $col = SWUBotRacingRank($style, $seat);
     $out = [];
     foreach ($T as $k => $v) $out[$k] = $v[$col];
+    // WEIGHT PROBE ("@w-<probe>", BotFeatures.php). Default-off: with no variant SWUBotActiveWeightProbe()
+    // is null and the table is returned exactly as written, so behaviour is unchanged. This is the ONLY
+    // place the table is produced, so scaling here reaches every reader in BotFallback.php.
+    if (function_exists('SWUBotActiveWeightProbe') && ($probe = SWUBotActiveWeightProbe()) !== null) {
+        foreach ($probe as $k => $mult) { if (isset($out[$k])) $out[$k] *= $mult; }
+    }
+    // PROPOSAL 'dmgbudget' (default OFF, "@try-dmgbudget"). While a control-wing seat is over the owner's damage
+    // pace (SWUBotOverDamageBudget, BotEvaluator.php) it plays for survival: trades and removal up, healing up,
+    // racing the base down, and it minds losing a unit in a trade less (owner, Q10: "most of the time a 1-to-1
+    // trade is good"). Keyed on the ARCHETYPE rank, not the racing rank — a control seat that is racing is
+    // winning its race and the budget does not apply.
+    // ⚠ Conditional on STATE by design. The same shift applied UNCONDITIONALLY ('@w-horizon', control-only) was
+    // measured flat on 2026-09-18 (paired p=0.20): it lengthened games without converting them. The hypothesis
+    // here is that defence pays only when control is actually behind.
+    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('dmgbudget') && SWUBotStyleRank($style) >= 3
+        && function_exists('SWUBotOverDamageBudget') && SWUBotOverDamageBudget($seat)) {
+        foreach (SWU_BOT_DMGBUDGET_SHIFT as $k => $mult) { if (isset($out[$k])) $out[$k] *= $mult; }
+    }
     return $out;
 }
+
+const SWU_BOT_DMGBUDGET_SHIFT = ['kill' => 1.5, 'removal' => 1.5, 'heal' => 2.0, 'base' => 0.5, 'loss' => 0.75];
 
 // The rank this seat ACTS at: its archetype, shifted toward aggro while it is racing.
 // ONE rule replacing three hand-coded style swaps (BotStyles.php:69, :71 and the old BotStyles.php:157), the last of

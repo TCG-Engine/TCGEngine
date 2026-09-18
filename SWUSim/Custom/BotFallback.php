@@ -136,6 +136,14 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 if (SWUBotFeatureOn('noeffect') && str_contains(strval(CardType($cid)), 'Event') && !_SWUBotIsEffectEvent($cid)
                     && _SWUBotEventHadNoEffect($seat, $action, $cid, $W)) return -0.5;
                 $v = _SWUBotPlayValue($seat, $cid, $W);
+                // PROPOSAL 'earlyremoval' (default OFF). _SWUBotPlayValue is TARGET-BLIND — a removal event scores
+                // develop x cost + W['removal'] whether the best target is a 2-drop or a bomb. This gives it a target.
+                if ((SWUBotProposalOn('earlyremoval') || SWUBotProposalOn('threathold') || SWUBotProposalOn('restrictedearly'))
+                    && SWUBotStyleRank(strval($ctx['style'] ?? '')) >= 3) {
+                    $held = _SWUBotEarlyRemovalAdjust($seat, $cid, $v, $W);
+                    if ($held === null) return -0.5;
+                    $v = $held;
+                }
                 // A Force card without the Force: its effect cannot happen — only the body counts (feature 'force').
                 if (SWUBotFeatureOn('force') && function_exists('PlayerHasTheForce') && !PlayerHasTheForce($seat) && _SWUBotNeedsTheForce($cid)) {
                     $v = $W['develop'] * intval(CardCost($cid)) + (str_contains(strval(CardType($cid)), 'Unit') ? $W['unitPlay'] : 0.0);
@@ -393,6 +401,44 @@ function _SWUBotBombTimingValue(int $seat, string $cid, array $W): float {
 }
 
 // What playing $cid is worth: develop × printed cost, its tag weights, and Aggro's bonus for a unit.
+// PROPOSAL 'earlyremoval' — the PLAY half (the resourcing half is in BotResourcing.php). Owner ruling 2026-09-18
+// (Q13/Q14). Returns the adjusted play value, or NULL to HOLD the card (the caller scores it -0.5, as the dud gate
+// does).
+//   bomb-killer + the best enemy target is cheap (cost <= 3) → HOLD it for a bomb, unless the opponent threatens
+//     lethal next round (then survival beats saving it — owner, Q15: you hold only "if there is not immediate
+//     threat to losing the game").
+//   restricted + round <= 4 + a legal cheap target → +W['removal']: spend it now, it goes dead later.
+// Cost 3 as "cheap" matches the restricted caps themselves (Crushing Blow 2, The Tree Remembers 3); round 4 is the
+// owner's "5R turn … where aggro gets close to finishing the game" (round N = N+1 resources).
+const SWU_BOT_CHEAP_TARGET_COST = 3;
+const SWU_BOT_EARLY_REMOVAL_LAST_ROUND = 4;
+// Three proposals share this hook (all default OFF):
+//   'earlyremoval'    — the ORIGINAL, kept byte-for-byte so its measured −22 (p=0.011) stays reproducible:
+//                       cost-only hold + restricted-early bonus.
+//   'threathold'      — the THREAT-AWARE hold only (SWUBotShouldHoldBombKiller, BotFlavours.php), owner 2026-09-18.
+//   'restrictedearly' — the restricted-early bonus only (plus its late auto-resource half in BotResourcing.php):
+//                       the split, to learn whether these halves were ever part of earlyremoval's loss.
+function _SWUBotEarlyRemovalAdjust(int $seat, string $cid, float $v, array $W): ?float {
+    [$cls] = SWUBotRemovalClass($cid);
+    $notDying = !SWUBotLethalNextRound(SWUBotOpponent($seat), $seat);
+    if ($cls === 'bombkiller') {
+        if (SWUBotProposalOn('earlyremoval')) {
+            $cheap = SWUBotBestEnemyTargetCost($seat, $cid) <= SWU_BOT_CHEAP_TARGET_COST;
+            return ($cheap && $notDying) ? null : $v;
+        }
+        if (SWUBotProposalOn('threathold')) {
+            return (SWUBotShouldHoldBombKiller($seat, $cid) && $notDying) ? null : $v;
+        }
+        return $v;
+    }
+    if ($cls === 'restricted' && (SWUBotProposalOn('earlyremoval') || SWUBotProposalOn('restrictedearly'))
+        && intval(GetTurnNumber()) <= SWU_BOT_EARLY_REMOVAL_LAST_ROUND
+        && SWUBotRestrictedRemovalHasTarget($seat, $cid)) {
+        return $v + $W['removal'];
+    }
+    return $v;
+}
+
 function _SWUBotPlayValue(int $seat, string $cid, array $W): float {
     $v = $W['develop'] * intval(CardCost($cid));
     foreach (SWUBotCardTags($cid) as $t) $v += ($W[$t] ?? 0.0) * ($t === 'draw' ? SWUBotDrawMultiplier($seat) : 1.0);
@@ -770,9 +816,21 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
 }
 
 // Which moves the guides favour, for this candidate list (BotGuides.php).
+//
+// Guide-level bisection ("@no-guide:<name>", BotFeatures.php) is gated HERE because this is the single
+// chokepoint: the weight applications at lines ~126 and ~150 and the coverage recording in
+// BotHeuristic.php all read this array (directly or via $ctx['_guides']). Default-on — with no variant
+// every guide is on and behaviour is unchanged.
+//
+// Why guides need their own switch: the anti-control bias measured 2026-09-18 leaves ~11 points in the CORE
+// stack, which is three separate things — the layer-2 RULES ("@no-rule:<name>"), these GUIDES, and the raw
+// fallback weights. 'attackFirst' is weight 6.00 FLAT across all five archetypes, an order of magnitude above
+// base (0.60) or kill (1.50), so whenever it fires it decides the action outright for control exactly as
+// hard as for aggro. That is a hypothesis, not a finding — this switch is how to test it.
 function _SWUBotGuides(array $ctx): array {
-    $pick = SWUBotAggroMaxUnitsPick($ctx);
-    return ['attackFirst' => array_map(fn($a) => strval($a['cardID'] ?? ''), SWUBotAttackFirstAttacks($ctx)),
+    $pick = SWUBotFeatureOn('guide:maxUnits') ? SWUBotAggroMaxUnitsPick($ctx) : null;
+    return ['attackFirst' => SWUBotFeatureOn('guide:attackFirst')
+                ? array_map(fn($a) => strval($a['cardID'] ?? ''), SWUBotAttackFirstAttacks($ctx)) : [],
             'maxUnits' => $pick === null ? null : strval($pick['cardID'] ?? '')];
 }
 

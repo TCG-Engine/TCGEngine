@@ -778,9 +778,25 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
     // sacrifice, shrink sweep, Rukh, etc. Combat-defeats mark units removed directly (not via this
     // function) and collect separately; the damage paths used to pre-collect before calling this, so
     // those pre-collects were removed (this is now the single collection point for effect-defeats).
-    CollectWhenDefeatedTriggers(intval($player), [
-        ['player' => intval($obj->Controller ?? $obj->Owner ?? $player), 'cardID' => $obj->CardID, 'mzID' => $unitMzID, 'upgraded' => _SWUIsUpgraded($obj), 'weakened' => (SWUFindUpgradeIndex($obj, 'HMW_T02') >= 0)]
-    ]);
+    // ⚠ MARK THIS UNIT AS MID-DEFEAT ACROSS THE COLLECTION. The collection runs BEFORE the unit is
+    // marked removed (deliberate — GameLogic.php's Sidious add-back reads that ordering), so for a unit
+    // killed by DAMAGE the object is still sitting in its arena at <= 0 remaining HP for the whole of
+    // CollectWhenDefeatedTriggers. Any reaction that creates a token re-enters the state check
+    // (SWUCreateUnitToken -> _SWUAfterTokensCreated -> SWUCheckShrinkDefeats), whose sweep would then
+    // find this very unit and DEFEAT IT A SECOND TIME — collecting every leave-play reaction twice.
+    // Measured on TS26_13 Darth Sidious: one ability-damage kill produced TWO Battle Droids.
+    // The sweep's own gSWUInShrinkSweep guard does not cover this: the outer call came from
+    // SWUDealDamageToUnit, so no sweep is in progress when the nested one starts. Keyed by UniqueID and
+    // released in a finally, mirroring the $gDeferredReplacements skip in SWUCheckShrinkDefeats.
+    $uidMidDefeat = intval($obj->UniqueID ?? 0);
+    if ($uidMidDefeat > 0) $GLOBALS['gSWUUnitsMidDefeat'][$uidMidDefeat] = true;
+    try {
+        CollectWhenDefeatedTriggers(intval($player), [
+            ['player' => intval($obj->Controller ?? $obj->Owner ?? $player), 'cardID' => $obj->CardID, 'mzID' => $unitMzID, 'upgraded' => _SWUIsUpgraded($obj), 'weakened' => (SWUFindUpgradeIndex($obj, 'HMW_T02') >= 0)]
+        ]);
+    } finally {
+        if ($uidMidDefeat > 0) unset($GLOBALS['gSWUUnitsMidDefeat'][$uidMidDefeat]);
+    }
     $obj = GetZoneObject($unitMzID);
     if ($obj === null || (isset($obj->removed) && $obj->removed)) { $playerID = $savedPID; return true; }
     $owner = isset($obj->Owner) ? intval($obj->Owner) : intval($player);
