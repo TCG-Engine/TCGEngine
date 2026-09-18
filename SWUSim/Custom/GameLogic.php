@@ -3718,6 +3718,22 @@ function SWUCommitPlay(int $player, string $cardID, ?string $logSuffix, string $
     if (strpos(CardAspect($cardID) ?? '', 'Villainy') !== false) {
         AddGlobalEffects($player, 'SWU_PLAYED_VILLAINY');
     }
+    // ── The rest of the "played a <TRAIT> CARD this phase" family, same reasoning ────────────────────
+    // All five flags were armed in the unit-entry branch, which excludes events, upgrades AND a Piloting
+    // card played as a pilot. Every consumer's text says CARD, not unit:
+    //   SWU_PLAYED_FO           JTL_010 Captain Phasma (both faces), JTL_134 General Hux
+    //   SWU_PLAYED_FORCE_CARD   LOF_243 Caretaker Matron            ("a Force card")
+    //   SWU_PLAYED_BOUNTYHUNTER + SWU_PLAYED_PILOT  JTL_186 Mist Hunter ("a Bounty Hunter or Pilot card")
+    // ⚠ For First Order / Bounty Hunter / Pilot the ONLY non-unit play that exists is a Piloting unit
+    // played AS A PILOT — no Event or Upgrade in the pool carries those traits (checked 2026-09-17) — so
+    // that pilot play was the entire uncovered surface. Pinned by Action_DrawAfterFO_PlayedAsPILOT
+    // (jtl/GeneralHux_NoTermsNoSurrender.md) and PlayedForceEVENT_Draw (lof/CaretakerMatron.md).
+    // NOT to be confused with SWU_PLAYED_NONUNIT_FORCE (LOF_012 Rey "a NON-UNIT Force card"), which is
+    // armed only on the non-unit paths and must stay there.
+    if (HasTrait($cardID, 'First Order'))   AddGlobalEffects($player, 'SWU_PLAYED_FO');
+    if (HasTrait($cardID, 'Force'))         AddGlobalEffects($player, 'SWU_PLAYED_FORCE_CARD');
+    if (HasTrait($cardID, 'Bounty Hunter')) AddGlobalEffects($player, 'SWU_PLAYED_BOUNTYHUNTER');
+    if (HasTrait($cardID, 'Pilot'))         AddGlobalEffects($player, 'SWU_PLAYED_PILOT');
     if ($chargeObj !== null) _SWUConsumeOneShotCharges($player, $chargeObj);
     if ($as === 'unit') {
         // JTL_260 Death Star Plans: "The first unit you play each round costs 2 less." The used-flag means
@@ -16655,6 +16671,32 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
     // ⚠ The three deferred-payment paths (ignoreCost / alt-cost events / upgrades) deliberately skip the
     // gate above and fall through to here exactly as before — their payment happens later (SOR_199,
     // ATTACH_UPGRADE), so a failure THERE still commits these. That residue is untouched and known.
+    // ⚠ A FIZZLED PLAY MUST COMMIT NOTHING (user ruling 2026-09-17: "a reverted play should also revert
+    // its counters"). An upgrade with no legal host bails in the upgrade branch below
+    // ("No valid targets for upgrade.") and stays in hand — but SWUCommitPlay had already written the
+    // "P1 played X" log line, bumped the cards-played-this-phase counter (SOR_190 Lothal Insurgent reads
+    // it as "another card"), armed the "played a <X> card this phase" family (TWI_017 / JTL_010 / LOF_243)
+    // and bumped per-card telemetry. So take that decision BEFORE committing anything.
+    // The branch below repeats the call because it needs the list itself (and other callers reach it
+    // directly); SWUGetUpgradeValidTargets is a pure read, so the duplicate is a cheap guard.
+    // ⚠ STILL KNOWN RESIDUE: a deferred PAYMENT that fails later (ATTACH_UPGRADE, SOR_199-style alt-cost
+    // events) commits first and fails afterwards. Reverting that needs a rollback of the log line too —
+    // see SWUSim/Tests/Cases/core/FizzledPlay_CommitsNothing.md.
+    // ⚠ COST IS DELIBERATELY IGNORED HERE (null, not $obj). Judged with cost, this guard is STRICTER than
+    // the branch below — that check runs later, after the commit, with state the commit itself can change
+    // — and a borderline-affordable host was then refused outright: it broke
+    // twi/ChancellorPalpatine_PlayingBothSides.md's Craving Power section, a play that works in the live
+    // game. So this asks only the question that cannot change: does a legal HOST exist at all? That is
+    // the reported fizzle (a Force upgrade with only a Fringe unit in play). Affordability fizzles keep
+    // their old behaviour and stay part of the residue noted above.
+    if (strpos($cardTypeLower, 'upgrade') !== false) {
+        $preValidTargets = SWUGetUpgradeValidTargets($player, $cardID, null, $discount);
+        if (empty($preValidTargets)) {
+            SetFlashMessage("No valid targets for upgrade.");
+            $playerID = $savedPID;
+            return;
+        }
+    }
     // The shared commit (SWUCommitPlay): play line, telemetry, the cards-played-this-phase counter, the
     // one-shot charges this play applied, and the "first unit / non-unit / Clone / Gambit you play" flags.
     // The counter is bumped AFTER the cost is computed above, so a modifier that reads "for each OTHER card
@@ -20233,20 +20275,9 @@ function _SWUPlayedUnitEntry(int $player, string $cardID, string $newCardMzID, i
     // don't set it). Cleared with the other per-phase flags at RegroupPhaseStart.
     if (strpos($mzID, 'Hand') !== false) AddGlobalEffects($player, 'SWU_PLAYED_FROM_HAND_' . $uid);
     // (JTL_032 Krennic / LOF_108 Malakili "first slot" flags: marked by SWUCommitPlay at the commit point.)
-    // (SWU_PLAYED_VILLAINY is armed in SWUCommitPlay — "a Villainy CARD" is type-agnostic, and this
-    //  unit-only site meant an upgrade or event armed nothing. See the note there.)
-    if (HasTrait($cardID, 'First Order')) {
-        AddGlobalEffects($player, 'SWU_PLAYED_FO');  // JTL_010 Captain Phasma "played a First Order card"
-    }
-    if (HasTrait($cardID, 'Force')) {
-        AddGlobalEffects($player, 'SWU_PLAYED_FORCE_CARD');  // LOF_243 Caretaker Matron "played a Force card"
-    }
-    if (HasTrait($cardID, 'Bounty Hunter')) {
-        AddGlobalEffects($player, 'SWU_PLAYED_BOUNTYHUNTER');  // JTL_186 Mist Hunter
-    }
-    if (HasTrait($cardID, 'Pilot')) {
-        AddGlobalEffects($player, 'SWU_PLAYED_PILOT');         // JTL_186 Mist Hunter
-    }
+    // (The "played a <X> CARD this phase" flags — SWU_PLAYED_VILLAINY / _FO / _FORCE_CARD /
+    //  _BOUNTYHUNTER / _PILOT — are armed in SWUCommitPlay, which every card type reaches. They used to
+    //  live HERE, in the unit-entry branch, so an event, an upgrade and a pilot play armed nothing.)
 
     // Apply pending entry TurnEffects keyed by UniqueID (e.g. AMBUSH granted by Energy Conversion Lab).
     global $gPendingEntryEffects;
