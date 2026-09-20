@@ -493,6 +493,10 @@ function _SWULaw017FinishDeployed(int $player): void {
     $n = intval(GetSWUVar("LAW017_CNT_{$player}", '0'));
     SetSWUVar("LAW017_CNT_{$player}", '0');
     _SWULaw017DealNToUnit($player, $n);
+    // Last thing the ability does: release the When-Defeated triggers its cost parked (see the
+    // SWUBeginDeferWhenDefeated call in the On Attack). Queued even when $n is 0 — declining every
+    // token still ends the ability, and a parked trigger that never flushes is lost silently.
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_017#2", 1);
 }
 
 

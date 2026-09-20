@@ -682,3 +682,52 @@ P1SPACEARENACOUNT:0
 P1CREDITCOUNT:1
 P1BASE:EPICUSED
 P1NODECISION
+
+---
+
+# CostDefeatsAUnit_RewardResolvesBeforeItsWhenDefeated
+#// LAW_019's Epic cost is "[defeat a friendly token]", and paying it can DEFEAT A UNIT: an Experience
+#// token is +1/+1, so taking it off SOR_204 Greedo (3/1, carrying 1 damage) drops him to 0 remaining
+#// HP. His "When Defeated" must not jump ahead of the rest of this ability — the reward clause is
+#// chosen and resolved first (CR 8.29.1 + 7.6.14.a), and only then does Greedo's trigger resolve.
+#//
+#// The WHEN order IS the assertion: the harness refuses an answer that is not a candidate of the
+#// pending decision, so this only runs through if the reward (OPTIONCHOOSE) is asked BEFORE Greedo's
+#// discard (YESNO). P1 takes the Credit reward, then Greedo discards LAW_225 Han's Golden Dice — an
+#// upgrade, not a unit — and deals 2 damage to the enemy 2/2, defeating it.
+#//
+#// A Credit is on the board beside Greedo's Experience so the cost itself does not auto-resolve, and
+#// a second friendly unit so Greedo's ground-damage pick is a real choice.
+#// Sibling coverage: HanSoloLAW_TokenCost_DefeatByTokenLossOrdering.md covers LAW_017, which pays the
+#// SAME cost through the same helper but queues its payoff in a later handler — that one needed an
+#// explicit deferral to get this order.
+
+## GIVEN
+CommonSetup: yyw/grw/{
+  myBase:LAW_019
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Credits: 1
+WithP1GroundArena: SOR_204:1:1
+WithP1GroundArenaUpgrade: 0:SOR_T01
+WithP1GroundArena: SOR_095:1:0
+WithP1Deck: [LAW_225 SOR_095 SOR_095]
+WithP2GroundArena: SOR_207:1:0
+
+## WHEN
+- P1>UseBaseAbility
+- P1>AnswerDecision:myGroundArena-0.u0
+- P1>AnswerDecision:Credit
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+# The reward resolved: the Credit was created (1 held + 1 made).
+P1CREDITCOUNT:2
+# Greedo died to the cost, then his trigger spent the top card and killed the enemy 2/2.
+P1DISCARDCOUNT:2
+P2GROUNDARENACOUNT:0
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1GROUNDARENAUNIT:0:DAMAGE:0

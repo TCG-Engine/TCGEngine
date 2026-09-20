@@ -18,6 +18,12 @@ $leaderAbilities["LAW_017"] = function(int $player): void {
     global $playerID; $playerID = $player;
     $tokens = SWUFriendlyTokenMzIDs($player);
     if (empty($tokens)) { SWUAfterAction($player); return; }   // no token to pay the cost → action unusable
+    // Same shape as the deployed side: paying the cost can defeat a friendly unit (an Experience token
+    // is +1/+1), and that When Defeated must wait for the "deal 1 damage" clause. Flushed by LAW_017#2.
+    // No deferral here, unlike the deployed side: the front Action queues its damage clause in the
+    // SAME handler that pays the cost, so a cost defeat's When Defeated already resolves after it.
+    // FrontAction_TokenLossDefeat_WhenDefeatedWaitsForTheDamageClause pins that order, and it passes
+    // with the deployed side's deferral removed — adding one here would be a guard that cannot fail.
     // Not $may: the cost is mandatory once the Action is taken, and a lone token auto-pays.
     SWUQueueChooseTarget($player, $tokens, "Choose_a_friendly_token_to_defeat", "LAW_017#0");
     SWUQueueAfterAction($player);
@@ -34,6 +40,12 @@ $customDQHandlers["LAW_017#0"] = function($player, $parts, $lastDecision) {
 $onAttackAbilities["LAW_017:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     SetSWUVar("LAW017_CNT_{$player}", '0');
+    // The cost can DEFEAT a friendly unit: an Experience token is +1/+1, so taking it off a damaged
+    // unit can drop it to 0 remaining HP. That defeat's When Defeated (and any bounty) must not jump
+    // ahead of the rest of THIS ability — the player keeps picking tokens and the damage clause
+    // resolves first (CR 8.29.1 + 7.6.14.a, the same rule Collateral Damage's two hits follow).
+    // Parked here, flushed by LAW_017#2 once the damage clause is done.
+    SWUBeginDeferWhenDefeated();
     HanSoloIGotaReallyGoodFeelingQueueDeployedPick(intval($player));
 };
 
@@ -44,6 +56,14 @@ $customDQHandlers["LAW_017#1"] = function($player, $parts, $lastDecision) {
     SetSWUVar("LAW017_CNT_{$player}", strval(intval(GetSWUVar("LAW017_CNT_{$player}", '0')) + 1));
     DecisionQueueController::CleanupRemovedCards();
     HanSoloIGotaReallyGoodFeelingQueueDeployedPick(intval($player));   // re-offer with the remaining tokens
+};
+
+// Releases the When-Defeated triggers parked while the ability resolved. Queued AFTER the damage
+// offer, so it runs once that clause has resolved and before combat damage — an attacker whose own
+// trigger removes the defender therefore never trades with it.
+$customDQHandlers["LAW_017#2"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    SWUFlushDeferredWhenDefeated(intval($player));
 };
 
 // DEPLOYED On Attack: defeat ANY NUMBER of friendly tokens (0..N); deal that many to a unit. Implemented
