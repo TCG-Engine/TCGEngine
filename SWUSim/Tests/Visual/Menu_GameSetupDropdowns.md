@@ -25,13 +25,16 @@ Screenshots land in /tmp/arenabot-menu-shots/. Then look, by eye, at the menu in
 5. **1P Mode.** The Card pool dropdown disappears. Hotseat shows "Player 2 deck link (Hotseat):" and "Start Hotseat Game";
    Goldfish shows "Start 1P Game".
 6. **Logged in → Twin Suns.** Players: Free-for-all, Teams. Both offer Standard and Preview. Match Type is Bo1 and greyed
-   for all four; Create Private Room is shown; no Join Queue.
+   for all four; Create Private Room is shown; **Join Queue IS shown** (owner, 2026-09-20 — the Twin Suns family now takes
+   public queues, as a public ROOM rather than a quick match). Clicking it lands on the WaitingRoom page, seated, with
+   four seats drawn and a Start control, rather than opening the "waiting for opponent" popup.
 7. **Invite.** Create a Premier private room, copy the invite link, open it in a private window (logged out). The three
    dropdowns show Constructed / PvP / Premier and are greyed; only Join Private Invite is offered. The invite notice names
    the format.
 8. **Theme.** The new dropdowns use the same `swu-queue-select` style as Match Type in every theme.
-9. **Join Queue (public queues, 2026-09-16).** Logged in, Constructed → PvP shows Join Queue for all seven pools;
-   Arenabot, both Twin Suns options and 1P Mode never show it. Logged out, PvP → Open shows it.
+9. **Join Queue (public queues, 2026-09-16; Twin Suns added 2026-09-20).** Logged in, Constructed → PvP shows Join Queue
+   for all seven pools, and Twin Suns shows it on BOTH branches (Free-for-all and Teams, Standard and Preview — four
+   formats). Arenabot and 1P Mode never show it. Logged out, PvP → Open shows it.
 10. **A real pairing.** claudebot1 in Chromium and claudebot2 in Firefox both pick Constructed → PvP → Premier, Bo1, with a
     Premier-legal deck (e.g. SWUSim/Tests/BotFixtures/meta-2026-09/aggro_vader_yellow.txt without its # lines) and click
     Join Queue. The first sees the waiting popup; the second's click lands both in the SAME game.

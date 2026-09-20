@@ -15,6 +15,16 @@ require_once __DIR__ . '/../../Render/DeckLibrary.php';
 include_once __DIR__ . '/Header.php';
 
 $swuLoggedIn = isset($_SESSION['userid']);
+// Is this visitor ARRIVING ON AN INVITE? A guest who follows one may play ANY format — JoinQueue.php's
+// login gate is `$swuNeedsAccount = … && $privateInviteCode === ''`, so an invite skips it outright —
+// which makes the guest notice below actively wrong for them: it would tell someone who was invited to
+// a Premier game that they can only play Open.
+//
+// Read server-side from the same two params SharedUI/js/private-invite.js reads
+// (`privateInvite`, then `invite`), rather than hiding the note from JS once that module initialises.
+// Hiding it later would flash the wrong message on exactly the page where it is wrong, and the note is
+// otherwise entirely server-rendered — one mechanism, not two.
+$swuInviteArrival = trim(strval($_GET['privateInvite'] ?? $_GET['invite'] ?? '')) !== '';
 // The game-setup menu is a VIEW over the format registry (docs/superpowers/specs/2026-09-16-swusim-format-menu-design.md):
 // game type → opponent / players / mode → card pool. SWUMenuTreeFor() applies this viewer's access: Arenabot only where
 // SWUBotPracticeAllowed() (admins and local dev; APIs/Lobbies/JoinQueue.php enforces the same gate), and logged out PvP
@@ -171,6 +181,25 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
       </div>
       <div id="queue-inline-error" style="display: none; margin-top: 10px; color: #ff6b6b; font-size: 13px; line-height: 1.35;"></div>
       <div id="private-invite-notice" style="display: none; margin-top: 10px; color: var(--text-muted); font-size: 13px;"></div>
+      <?php if (!$swuLoggedIn && !$swuInviteArrival): ?>
+      <!-- Guest note. SWUMenuTreeFor($swuLoggedIn, …) above has already REMOVED everything a logged-out
+           visitor cannot play — every Constructed pool but Open, and the whole Twin Suns branch — so
+           without this the card-pool dropdown is simply short with no explanation, and the only other
+           signal is JoinQueue's refusal AFTER they have pasted a deck and pressed the button.
+           Server-rendered rather than toggled in JS: the logged-out state is known at render time, and
+           a guest must never see it flash on a logged-in page (or vice versa).
+           ⚠ NOT shown to a guest arriving on an INVITE ($swuInviteArrival): the invite exempts them
+           from the login gate entirely, so they really can play the host's format whatever it is, and
+           this note would be a lie on the one page where it matters most.
+           ⚠ Reads conservative on a DEV BOX: SWUBotPracticeAllowed() short-circuits on
+           SWUIsLocalDevRequest(), so a local guest also sees Arenabot. Correct in production, which is
+           what the note is for. -->
+      <div id="guest-format-notice" style="margin-top: 10px; color: var(--text-muted); font-size: 13px; line-height: 1.4;">
+        Playing as a guest — Open lobbies and 1P modes only.
+        <a href="/TCGEngine/SharedUI/LoginPage.php" style="color: var(--accent); text-decoration: underline;">Log in</a>
+        to play Premier, Eternal, Twin Suns and more.
+      </div>
+      <?php endif; ?>
       <?php
         if (isset($_SESSION['userid'])) {
             echo "<div class='saved-decks-panel' style='margin-top:16px;'><h3 style='margin:0 0 8px 0;'>Saved Decks</h3>";
