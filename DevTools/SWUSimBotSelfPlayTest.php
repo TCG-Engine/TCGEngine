@@ -480,6 +480,11 @@ SWUBotRegisterChooser($swuBotWrapProfile, function (array $actions, array $legal
 }
 SWUBotSetForcedChooserProfile($swuBotChooserProfile);
 if ($swuBotChooserProfile2 !== $swuBotChooserProfile) SWUBotSetForcedChooserProfileForSeat(2, $swuBotChooserProfile2);
+// Value-model logging (SWUSim/Rl/SwuValueFeatures.php) needs each seat's archetype: "heuristic-<style>[@variant]".
+$GLOBALS['SWUValueLogStyles'] = [];
+foreach ([1 => $swuBotChooserProfile, 2 => $swuBotChooserProfile2] as $s => $c) {
+  if (preg_match('/^heuristic-([a-z]+)/', strval($c), $m)) $GLOBALS['SWUValueLogStyles'][$s] = $m[1];
+}
 
 // A "pass" is either the free-play end-of-action Pass wire form or a mode-100 decline of an
 // optional decision. Assertion 4 needs the bot to do something that is NEITHER.

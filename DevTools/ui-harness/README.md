@@ -57,8 +57,9 @@ tag would double the main menu's weight and no functional test would notice.
 ## SWUSim game board — boards built from a Visual schema (2026-09-11)
 
 ```bash
-node swusim-log-styles-xbrowser.mjs [BASE] [SHOTS_DIR]   # game-log line styles, desktop + mobile layout
-node swusim-refill-slide-xbrowser.mjs [BASE]             # the Smuggle-refill deck → resources slide
+node swusim-log-styles-xbrowser.mjs [BASE] [SHOTS_DIR]      # game-log line styles, desktop + mobile layout
+node swusim-refill-slide-xbrowser.mjs [BASE]                # the Smuggle-refill deck → resources slide
+node swusim-resource-filter-xbrowser.mjs [BASE] [SHOTS_DIR] # resource box narrows to the offered resources
 ```
 
 Both build their board from a `SWUSim/Tests/Visual/*.md` schema through the Test Schema Editor's own
@@ -67,6 +68,12 @@ endpoints (`SWUSim/TestSchemaSetup.php`, `TestSchemaStep.php`) — mod login, `c
 - **log-styles:** `GameLog_UndoneAndDeckLines.md`. The `(undone)` line (type `UNDONE`) is dimmed and struck
   through, and the live lines are not (a negative control). The search's pick line is `REVEAL` gold; its
   "put N on the bottom" line is `DECK`. Log-panel screenshots go to `SHOTS_DIR`.
+- **resource-filter:** `ResourceBox_ShowsOnlyOfferedCredits.md`. A decision that offers resources auto-opens
+  the resource box; it must then render ONLY the resources in the offer. The board interleaves two Credits
+  among five ordinary resources and leaves Han Solo's "[defeat a friendly token]" cost pending, so the box
+  must show exactly the two Credits and title itself "SELECTABLE RESOURCES". Each run also builds the SAME
+  board WITHOUT executing the WHEN step — no decision, box opened by hand, all seven resources — which is
+  what proves the narrowing follows the offer rather than always hiding non-Credits.
 - **refill-slide:** `ResourceTopOfDeck_SmuggleRefillSlides.md`. ⚠ The STEP endpoint stubs every animation, so
   the Smuggle is performed through the page's own `SubmitInput` instead (the resource-click path, real
   animations). The script checks for a `ZONE_MOVE` `p1Deck → p1Resources` scoped to seat 1, plus a

@@ -82,12 +82,44 @@ function SWUBotArenaHasSentinel(int $defSeat, string $arena): bool {
 // Base damage $seat's units could deal to $defSeat's base: every unit (or only ready ones) whose arena has
 // no enemy Sentinel, plus Saboteurs anywhere (CR 6.3.2b, 7.5.10).
 function SWUBotBasePotential(int $seat, int $defSeat, bool $readyOnly): int {
+    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('sentinelpot')) return _SWUBotBasePotentialThroughSentinels($seat, $defSeat, $readyOnly);
     $guarded = _SWUBotSentinelArenas($defSeat);
     $total = 0;
     foreach (SWUBotUnits($seat) as $v) {
         if ($readyOnly && !$v['ready']) continue;
         if (!$v['saboteur'] && ($guarded[$v['arena']] ?? false)) continue;
         $total += $v['attackPower'];
+    }
+    return $total;
+}
+
+// PROPOSAL 'sentinelpot' (default OFF). Loss mining 2026-09-19: the model above treats ONE Sentinel as blocking its
+// whole arena, but a Sentinel only redirects attacks while it is in play (CR 7.5.11) — once it is defeated the rest
+// of the arena's attackers reach the base. Seen in a lost game: at 19 HP, facing 7+7+2 on the ground, rule 4 played a
+// 3-HP Sentinel "to break lethal" instead of Lost and Forgotten, and took 15 next round.
+// Per arena: Saboteurs ignore Sentinels and always count. The rest are spent, smallest first, on the defender's
+// Sentinels, easiest first — one attack per Shield (a Shield prevents a whole instance, CR 3.7.6), then enough power
+// to cover remaining HP (no Overwhelm carry). Attackers left over reach the base. Greedy, deterministic.
+function _SWUBotBasePotentialThroughSentinels(int $seat, int $defSeat, bool $readyOnly): int {
+    $total = 0;
+    $defenders = SWUBotUnits($defSeat);
+    foreach (['Ground', 'Space'] as $arena) {
+        $att = [];
+        foreach (SWUBotUnits($seat) as $v) {
+            if ($v['arena'] !== $arena || ($readyOnly && !$v['ready'])) continue;
+            if ($v['saboteur']) { $total += $v['attackPower']; continue; }
+            $att[] = intval($v['attackPower']);
+        }
+        sort($att);
+        $sent = array_values(array_filter($defenders, fn($d) => $d['arena'] === $arena && $d['sentinel']));
+        usort($sent, fn($a, $b) => [$a['shields'], $a['remaining']] <=> [$b['shields'], $b['remaining']]);
+        foreach ($sent as $d) {
+            for ($i = 0; $i < intval($d['shields']) && !empty($att); $i++) array_shift($att);   // pop the Shields
+            $need = max(1, intval($d['remaining']));
+            while ($need > 0 && !empty($att)) $need -= array_shift($att);
+            if ($need > 0) { $att = []; break; }   // this Sentinel survives: nothing else in the arena gets through
+        }
+        $total += array_sum($att);
     }
     return $total;
 }
@@ -185,11 +217,117 @@ function SWUBotOverwhelmKills(array $att, array $def): bool {
 // are defeated when the unit leaves play (CR 1.5.5d, 3.6.11). The guide "removal value counts everything
 // that goes with the unit".
 function SWUBotUnitValue(array $v): float {
+    if (function_exists('SWUBotProposalOn') && (SWUBotProposalOn('unitvalue') || SWUBotProposalOn('unitvalue2'))) return SWUBotUnitValueV2($v);
     $cost = floatval($v['cost']);
     // A token has no printed cost; value it by its body (feature 'targeting', diagnosis 2026-09-14: a TIE token was
     // worth 0, so a ping that could defeat it hit a 4/5 instead).
     if ($cost <= 0 && function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('targeting')) $cost = (floatval($v['power']) + floatval($v['hp'])) / 2.0;
     return $cost + floatval($v['upgrades']) + 0.5 * floatval($v['shields']);
+}
+
+// PROPOSAL 'unitvalue' (default OFF) — THE VALUE ALGORITHM. Owner ruling 2026-09-19: "look at stats first (power
+// being a little more valuable than hp), whether or not it is a saboteur or sentinel, whether or not it has upgrades
+// like shields or equipment … also consider when defeated effects. For example, Loth Cat when defeated exhausts a
+// ground unit, so it is more valuable to kill it when it's my last ground unit attacking into it."
+// Same SCALE as the cost-based value it replaces (so every weight that multiplies it keeps its meaning): the stat
+// weights are the game's own pricing, fitted over the pool's 107 vanilla units — cost ≈ 0.584·power + 0.409·HP − 0.68
+// (rmse 0.49) — so power IS worth ~1.4× HP, as ruled. Keyword premiums are the mean cost residual of units whose only
+// text is that keyword (Sentinel +1.05 n=45, Restore +0.92, Grit +0.84, Raid +0.81, Overwhelm +0.31, Saboteur +0.28);
+// Ambush/Hidden/Shielded are play-time only and are NOT counted — the Shield TOKENS a unit actually has are (+0.67
+// each, the Shielded residual). Current power (upgrades included) and REMAINING HP. Each non-Shield upgrade adds
+// 0.5: its stats are already in power/HP, but the card dies with the unit.
+// When Defeated: what the ability would do for its controller RIGHT NOW is subtracted (the kill is worth less), or
+// added when it hurts its controller (Savage Opress). See _SWUBotWhenDefeatedPayout.
+const SWU_BOT_UV_POWER = 0.584;
+const SWU_BOT_UV_HP = 0.409;
+const SWU_BOT_UV_BASE = -0.676;
+const SWU_BOT_UV_SHIELD = 0.67;
+const SWU_BOT_UV_UPGRADE = 0.5;
+const SWU_BOT_UV_KEYWORDS = ['sentinel' => 1.05, 'restore' => 0.92, 'grit' => 0.84, 'raid' => 0.81, 'overwhelm' => 0.31, 'saboteur' => 0.28];
+
+function _SWUBotUnitStatsValue(array $v): float {
+    $val = max(0.5, SWU_BOT_UV_POWER * floatval($v['power']) + SWU_BOT_UV_HP * max(0, floatval($v['remaining'])) + SWU_BOT_UV_BASE);
+    foreach (['sentinel', 'grit', 'overwhelm', 'saboteur'] as $k) { if (!empty($v[$k])) $val += SWU_BOT_UV_KEYWORDS[$k]; }
+    if (intval($v['attackPower']) > intval($v['power'])) $val += SWU_BOT_UV_KEYWORDS['raid'];
+    if (isset($v['obj']) && function_exists('HasKeyword_Restore') && HasKeyword_Restore($v['obj'])) $val += SWU_BOT_UV_KEYWORDS['restore'];
+    return $val + SWU_BOT_UV_SHIELD * intval($v['shields']) + SWU_BOT_UV_UPGRADE * max(0, intval($v['upgrades']) - intval($v['shields']));
+}
+
+function SWUBotUnitValueV2(array $v): float {
+    return max(0.2, _SWUBotUnitStatsValue($v) + _SWUBotAbilityPremium($v) - _SWUBotWhenDefeatedPayout($v));
+}
+
+// PROPOSAL 'unitvalue2' (default OFF) — 'unitvalue' RESCALED. Measured 2026-09-19: 'unitvalue' changed half of all
+// games and trended DOWN (−50 / 3,780, p .076). Hypothesis: pricing a unit by its BODY alone loses what the designers
+// charged for its TEXT, so every ability unit is undervalued against the cost-based scale the kill/loss weights were
+// tuned on (a 4-cost 3/3 with a strong ability priced 2.3 instead of 4), which shifts every trade and every removal
+// target. The premium restores exactly that, from PRINTED stats: cost − the fitted price of its body, never negative.
+// Keywords are already priced above, so a unit whose only text is keywords gets ~0 here; it is the non-keyword text
+// that this pays for. 'unitvalue' keeps its measured behaviour (premium 0) so its −50 stays reproducible.
+function _SWUBotAbilityPremium(array $v): float {
+    if (!SWUBotProposalOn('unitvalue2')) return 0.0;
+    static $cache = [];
+    $cid = strval($v['cardID']);
+    if (!array_key_exists($cid, $cache)) {
+        $cost = floatval(CardCost($cid));
+        $body = SWU_BOT_UV_POWER * floatval(CardPower($cid)) + SWU_BOT_UV_HP * floatval(CardHp($cid)) + SWU_BOT_UV_BASE;
+        $cache[$cid] = $cost > 0 ? max(0.0, $cost - $body) : 0.0;   // a token (no printed cost) gets nothing
+    }
+    return $cache[$cid];
+}
+
+// What $v's printed When Defeated ability would give its CONTROLLER against the current board, in unit-value units
+// (≈ resources). Positive = it pays them back (killing it is worth less); negative = it hurts them. The clause is
+// sorted into categories by its printed words (148 distinct clauses in the pool, 2026-09-19); the board decides
+// how much each is worth now. Unrecognised clauses get a small default.
+//   exhaust a unit  — worth ~1 only while the OTHER side has 2+ ready units in that arena: with one ready unit left,
+//                     that unit is almost always the attacker, exhausted by its own attack (owner's Loth-Cat case).
+//   damage a unit   — the best other-side unit it would defeat (its stats value), else 0.3 per point.
+//   damage a base   — 0.5 per point; "your base" is the controller's own — negative.
+//   -N/-N           — as damage N.   tokens: 1 each.   draw: 1 per card.   heal: 0.3 per point.
+//   comes back      — return to hand / resource it / play it again: 1.5.   ready a unit: 0.8.
+//   give a token    — 0.6.   defeat a unit: 1.5.   the opponent gains (Credits, a resource): −0.5.
+function _SWUBotWhenDefeatedPayout(array $v): float {
+    static $clauses = [];
+    $cid = strval($v['cardID']);
+    if (!array_key_exists($cid, $clauses)) {
+        $clauses[$cid] = preg_match('/When (?:Played ?\/ ?)?Defeated:\s*([^\n]*)/i', strval(CardText($cid)), $m) ? $m[1] : '';
+    }
+    $t = $clauses[$cid];
+    if ($t === '') return 0.0;
+    $other = SWUBotOpponent(intval($v['controller']));
+    $arena = preg_match('/\bspace unit/i', $t) ? 'Space' : (preg_match('/\bground unit/i', $t) ? 'Ground' : '');
+    $theirs = array_values(array_filter(SWUBotUnits($other), fn($u) => $arena === '' || $u['arena'] === $arena));
+    $pay = 0.0; $hit = false;
+    if (preg_match('/\bexhaust (a|an|each|up to \w+)\b[^.]*unit/i', $t)) {
+        $hit = true;
+        $pay += count(array_filter($theirs, fn($u) => $u['ready'])) >= 2 ? 1.0 : 0.0;
+    }
+    $n = null;
+    if (preg_match('/deal (\d+) damage (divided )?[^.]*\b(unit|units)\b/i', $t, $m) && !preg_match('/damage to (your|a|each)[^.]*base/i', $t)) $n = intval($m[1]);
+    if (preg_match("/damage equal to this unit's power/i", $t)) $n = intval($v['power']);
+    if (preg_match('/[-–](\d+)\/[-–]\d+/u', $t, $m)) $n = intval($m[1]);
+    if ($n !== null) {
+        $hit = true;
+        $best = 0.0;
+        foreach ($theirs as $u) { if ($u['remaining'] <= $n && $u['shields'] == 0) $best = max($best, _SWUBotUnitStatsValue($u)); }
+        $pay += $best > 0 ? $best : 0.3 * $n;
+    }
+    if (preg_match('/deal (\d+) (indirect )?damage to (a player|each opponent|an opponent|the opponent|a base|each enemy base)/i', $t, $m)) { $hit = true; $pay += 0.5 * intval($m[1]); }
+    if (preg_match('/deal (\d+) damage to your base/i', $t, $m)) { $hit = true; $pay -= 0.5 * intval($m[1]); }
+    if (preg_match('/\bcreate (a|an|one|two|three|\d+)?\b/i', $t, $m) && !preg_match('/(opponent|each player) creates/i', $t)) {
+        $hit = true;
+        $words = ['' => 1, 'a' => 1, 'an' => 1, 'one' => 1, 'two' => 2, 'three' => 3];
+        $pay += floatval($words[strtolower($m[1] ?? '')] ?? intval($m[1] ?? 1));
+    }
+    if (preg_match('/(opponent|each player) creates|opponent may ready a resource/i', $t)) { $hit = true; $pay -= 0.5; }
+    if (preg_match('/\bdraw (a card|(\d+) cards?)/i', $t, $m)) { $hit = true; $pay += isset($m[2]) && $m[2] !== '' ? intval($m[2]) : 1.0; }
+    if (preg_match('/\bheal (up to )?(\d+)/i', $t, $m)) { $hit = true; $pay += 0.3 * intval($m[2]); }
+    if (preg_match('/return[^.]*to (its owner\'s|your|their) hand|resource this unit|into play as a resource|play (this unit|it|him|her|that unit)[^.]*from/i', $t)) { $hit = true; $pay += 1.5; }
+    if (preg_match('/\bready (a|another)\b[^.]*unit/i', $t)) { $hit = true; $pay += 0.8; }
+    if (preg_match('/give (a|an|\d+)?[^.]*(Experience|Shield|Advantage) token/i', $t)) { $hit = true; $pay += 0.6; }
+    if (preg_match('/\bdefeat (a|an)\b/i', $t)) { $hit = true; $pay += 1.5; }
+    return $hit ? $pay : 0.4;
 }
 
 // Could $oppSeat get a Sentinel into play during the rest of this round? Rule 3's guard. Conservative:

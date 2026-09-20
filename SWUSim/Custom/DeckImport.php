@@ -2,6 +2,7 @@
 
 include_once __DIR__ . '/../GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/DeckTextParser.php';
+include_once __DIR__ . '/../../AppCore/SWU/DeckLinkImport.php'; // shared deck-builder link import (melee.gg, swubase, …)
 include_once __DIR__ . '/../../AppCore/SWU/Overrides.php'; // CardIDOverride — reprint → earliest printing
 include_once __DIR__ . '/../../AppCore/SWU/Formats.php'; // SWUGetFormat / SWUFormatLegalSets / config
 include_once __DIR__ . '/../../AppCore/SWU/DeckValidation.php'; // shared legality validator: SWUCheckFormat / SWUCardHasLegalPrint / SWUReprintGroup / SWUCardSet / SWUIsDeckLegal
@@ -124,12 +125,18 @@ function SWUResolveDeckInput($deckLink) {
         return SWUImportFromSWUStats($deckLink);
     }
 
+    // ── Other deck builders (shared with SWUDeck) ─────────────────────────────
+    // melee.gg, swubase, protectthepod, swucardhub, swuforge, swumetastats, sw-unlimited-db.
+    if (SWUDeckLinkParse($deckLink) !== null) {
+        return SWUImportFromDeckLink($deckLink);
+    }
+
     // ── Bare friendly deck code (the short code on its own, no URL) ────────────
     if (preg_match('/^[A-Za-z]{12}$/', $deckLink)) {
         return SWUImportFromSWUStats($deckLink);
     }
 
-    return SWUDeckError('Unsupported deck format. Paste a deck list, JSON, or a SWUDeck / SWUDB / SWUStats URL.');
+    return SWUDeckError('Unsupported deck format. Paste a deck list, JSON, or a deck link from SWUStats, SWUDB, melee.gg, SWUBase, Protect the Pod, SWU Card Hub, SWUForge, SWU Meta Stats or SW-Unlimited-DB.');
 }
 
 // ─── Source: standardized SWU JSON ───────────────────────────────────────────
@@ -263,6 +270,21 @@ function SWUImportFromSWUDB($url) {
     }
 
     return SWUNormalizeStandardJSON($data);
+}
+
+// ─── Source: other deck builders (AppCore/SWU/DeckLinkImport.php) ────────────
+
+function SWUImportFromDeckLink($url) {
+    $fetched = SWUDeckLinkFetch($url);
+    if (!$fetched['success']) {
+        return SWUDeckError($fetched['message']);
+    }
+    $result = SWUNormalizeStandardJSON($fetched['deck']);
+    // melee.gg names that matched no card — report them instead of silently shipping a short deck.
+    if ($result['success'] && !empty($fetched['unresolved'])) {
+        $result['unresolved'] = array_values(array_unique(array_merge($result['unresolved'], $fetched['unresolved'])));
+    }
+    return $result;
 }
 
 // ─── Source: SWUStats / SWUDeck game link ────────────────────────────────────

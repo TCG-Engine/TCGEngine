@@ -89,5 +89,15 @@ FROM base as dev
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
+# Dev-only ML tooling for the SWUSim bot value model (docs/superpowers/specs/2026-09-19-swusim-value-model-design.md
+# §6a). OFF by default: this Dockerfile is shared by every sim, and only docker-compose-files/swusim.dev.yml sets
+# DEV_ML=1. Debian's packages, not pip — the image has no pip, and baking it in here (not a one-off install) keeps it
+# across a container recreate, the documented fix for a broken dev env. Production never runs Python.
+ARG DEV_ML=0
+RUN if [ "$DEV_ML" = "1" ]; then \
+      apt-get update && apt-get install -y --no-install-recommends python3-numpy python3-sklearn \
+      && rm -rf /var/lib/apt/lists/*; \
+    fi
+
 # Production stage (builds by default)
 FROM base as prod

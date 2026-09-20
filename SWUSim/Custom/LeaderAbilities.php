@@ -482,24 +482,6 @@ function _SWULaw015AfterPay(int $player, bool $paidOk): void {
 // Each defeatable token becomes a distinct OPTIONCHOOSE option decodable back to the token to defeat.
 // (Subcards and the Force token aren't zone objects, so they can't be MZCHOOSE targets — hence a menu.)
 // Field separator '~' avoids the ':' / '&' the DSL uses for args/lists; host mzIDs keep their '-'.
-function _SWULaw017TokenOptions(int $player): array {
-    global $playerID; $playerID = $player;
-    $opts = [];
-    if (PlayerHasTheForce($player)) $opts[] = 'Force';
-    $c = 0;
-    foreach (SWUUsableCreditTokenMzIDs($player) as $mz) { $opts[] = 'Credit' . $c; $c++; }
-    foreach (['myGroundArena', 'mySpaceArena'] as $z) {
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz); if (SWUObjGone($o)) continue;
-            $ex = _CountExperienceSubcards($o); for ($k = 0; $k < $ex; $k++) $opts[] = 'Exp~' . $mz . '~' . $k;
-            $sh = _SWUCountShieldSubcards($o);  for ($k = 0; $k < $sh; $k++) $opts[] = 'Shield~' . $mz . '~' . $k;
-        }
-    }
-    foreach (['myGroundArena', 'mySpaceArena'] as $z)
-        foreach (ZoneSearch($z, ["Token Unit"]) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $opts[] = 'Unit~' . $mz; }
-    return $opts;
-}
-
 function _SWULaw017DealNToUnit(int $player, int $n): void {
     if ($n <= 0) return;
     SWUOfferUnitTarget($player, '', ['continuation'=>'DEAL_UNIT_DAMAGE','amount'=>$n,'prompt'=>"Deal_{$n}_damage_to_a_unit"]);

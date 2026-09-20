@@ -18526,10 +18526,11 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     if ($cardID === 'LAW_015') {
         if (empty(_SWULaw015FriendlyUnderworldUnits($player))) return false;
     }
-    // LAW_017 Han Solo (front) — needs a friendly token to defeat (the cost). "Friendly token" = the Force
-    // token, a Credit, an Experience/Shield token, or a Token unit (all enumerated by _SWULaw017TokenOptions).
+    // LAW_017 Han Solo (front) — needs a friendly token to defeat (the cost). Which tokens qualify is
+    // SWUFriendlyTokenMzIDs() (CardHelpers.php), shared with LAW_019's identical cost, so the gate and the
+    // offer cannot disagree — they used to, and an Advantage token made the Action vanish (game 690588).
     if ($cardID === 'LAW_017') {
-        if (empty(_SWULaw017TokenOptions($player))) return false;
+        if (empty(SWUFriendlyTokenMzIDs($player))) return false;
     }
     // LAW_016 The Client (front) — "Action [Exhaust]: If you created a token this phase, exhaust an enemy
     // unit." The "if you created a token" is a conditional EFFECT, not an activation gate: the [Exhaust]

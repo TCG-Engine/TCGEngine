@@ -15,7 +15,6 @@ WithP2GroundArena: SOR_128:1:0
 
 ## WHEN
 - P1>UseLeaderAbility
-- P1>AnswerDecision:Unit~myGroundArena-0
 
 ## EXPECT
 P1GROUNDARENACOUNT:0
@@ -42,9 +41,9 @@ WithP2GroundArena: SOR_046:1:0
 
 ## WHEN
 - P1>AttackGroundArena:2:BASE
-- P1>AnswerDecision:Unit~myGroundArena-0
-- P1>AnswerDecision:Unit~myGroundArena-0
-- P1>AnswerDecision:Credit0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:myGroundArena-0
+- P1>AnswerDecision:myResources-0
 - P1>AnswerDecision:theirGroundArena-0
 
 ## EXPECT
@@ -73,7 +72,7 @@ WithP2GroundArena: SOR_046:1:0
 
 ## WHEN
 - P1>AttackGroundArena:2:BASE
-- P1>AnswerDecision:Done
+- P1>AnswerDecision:-
 
 ## EXPECT
 P2BASEDMG:4
@@ -146,7 +145,6 @@ WithP2GroundArena: SOR_046:1:0
 
 ## WHEN
 - P1>UseLeaderAbility
-- P1>AnswerDecision:Exp~myGroundArena-0~0
 - P1>AnswerDecision:theirGroundArena-0
 
 ## EXPECT
@@ -175,7 +173,6 @@ WithP2GroundArena: SOR_046:1:0
 
 ## WHEN
 - P1>UseLeaderAbility
-- P1>AnswerDecision:Shield~myGroundArena-0~0
 - P1>AnswerDecision:theirGroundArena-0
 
 ## EXPECT
@@ -231,10 +228,10 @@ WithP2GroundArena: SOR_046:1:0
 
 ## WHEN
 - P1>AttackGroundArena:1:BASE
-- P1>AnswerDecision:Force
-- P1>AnswerDecision:Credit0
-- P1>AnswerDecision:Exp~myGroundArena-0~0
-- P1>AnswerDecision:Shield~myGroundArena-0~0
+- P1>AnswerDecision:myBase-0
+- P1>AnswerDecision:myResources-0
+- P1>AnswerDecision:myGroundArena-0.u0
+- P1>AnswerDecision:myGroundArena-0.u0
 - P1>AnswerDecision:theirGroundArena-0
 
 ## EXPECT
@@ -252,8 +249,9 @@ P2GROUNDARENAUNIT:0:DAMAGE:4
 #//           Epic_StolenResourceCountsTowardFive / Epic_FourOwnedResourcesCannotDeploy ("you control 5 or
 #//           more resources" counts the resource zone P1 controls, whoever owns the card) — "friendly"
 #//           and "you control" both follow CONTROL, not ownership · offer=Front_EnemyTokensCannotPayTheCost
-#//           asserts the cost pool is empty by outcome (the Action is unavailable) rather than by mzID,
-#//           because the token cost is answered with Exp~/Shield~/Force/Credit keys, not zone mzIDs ·
+#//           asserts the cost pool is empty by outcome (the Action is unavailable); the pool's CONTENTS
+#//           are asserted positively in HanSolo_AdvantageTokenPaysTheCost.md, where the cost is answered
+#//           with the token's own mzID ·
 #//           decline=Deployed_OnAttack_ChooseNoTokens_NoDamage · reqboundary=N/A.
 #//
 #// LAW_017 Han Solo (front) — every token on the board belongs to P2: an Experience and a Shield on P2's
@@ -306,7 +304,6 @@ WithP2GroundArena: SOR_046:1:0
 
 ## WHEN
 - P1>UseLeaderAbility
-- P1>AnswerDecision:Exp~myGroundArena-0~0
 - P1>AnswerDecision:theirGroundArena-0
 
 ## EXPECT
@@ -398,7 +395,7 @@ WithP2GroundArena: SOR_128:1:0
 
 ## WHEN
 - P1>AttackGroundArena:1:BASE
-- P1>AnswerDecision:Credit0
+- P1>AnswerDecision:myResources-0
 - P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
@@ -436,7 +433,7 @@ WithP2GroundArenaUpgrade: 0:SOR_T01
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:Credit0
+- P1>AnswerDecision:myResources-0
 - P1>AnswerDecision:theirGroundArena-0
 
 ## EXPECT

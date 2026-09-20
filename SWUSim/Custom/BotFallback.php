@@ -138,11 +138,22 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 $v = _SWUBotPlayValue($seat, $cid, $W);
                 // PROPOSAL 'earlyremoval' (default OFF). _SWUBotPlayValue is TARGET-BLIND — a removal event scores
                 // develop x cost + W['removal'] whether the best target is a 2-drop or a bomb. This gives it a target.
-                if ((SWUBotProposalOn('earlyremoval') || SWUBotProposalOn('threathold') || SWUBotProposalOn('restrictedearly'))
+                if ((SWUBotProposalOn('earlyremoval') || SWUBotFeatureOn('threathold') || SWUBotProposalOn('restrictedearly'))
                     && SWUBotStyleRank(strval($ctx['style'] ?? '')) >= 3) {
                     $held = _SWUBotEarlyRemovalAdjust($seat, $cid, $v, $W);
                     if ($held === null) return -0.5;
                     $v = $held;
+                }
+                // PROPOSAL 'holdanswers', play half (owner, Q2-D): "Barriss Offee will not be valuable here because they
+                // most likely won't damage your ground units with their own units. and since you are not playing the
+                // aggro, then you do not need Advantage tokens to race with." Control wing: a heal that targets a UNIT
+                // earns nothing while none of my units is damaged, and Advantage tokens earn nothing while not racing.
+                if (SWUBotProposalOn('holdanswers') && SWUBotStyleRank(strval($ctx['style'] ?? '')) >= 3) {
+                    $t = strval(CardText($cid));
+                    $tags = SWUBotCardTags($cid);
+                    if (in_array('heal', $tags, true) && preg_match('/heal[^.]*from a unit/i', $t) && !preg_match('/base/i', $t)
+                        && !array_filter(SWUBotUnits($seat), fn($u) => $u['remaining'] < $u['hp'])) $v -= $W['heal'];
+                    if (in_array('buff', $tags, true) && stripos($t, 'Advantage token') !== false && !SWUBotIsRacing($seat, SWUBotOpponent($seat))) $v -= $W['buff'];
                 }
                 // A Force card without the Force: its effect cannot happen — only the body counts (feature 'force').
                 if (SWUBotFeatureOn('force') && function_exists('PlayerHasTheForce') && !PlayerHasTheForce($seat) && _SWUBotNeedsTheForce($cid)) {
@@ -416,6 +427,7 @@ const SWU_BOT_EARLY_REMOVAL_LAST_ROUND = 4;
 //   'earlyremoval'    — the ORIGINAL, kept byte-for-byte so its measured −22 (p=0.011) stays reproducible:
 //                       cost-only hold + restricted-early bonus.
 //   'threathold'      — the THREAT-AWARE hold only (SWUBotShouldHoldBombKiller, BotFlavours.php), owner 2026-09-18.
+//                       SHIPPED 2026-09-19: now a FEATURE (default ON, '@no-threathold'), not a proposal.
 //   'restrictedearly' — the restricted-early bonus only (plus its late auto-resource half in BotResourcing.php):
 //                       the split, to learn whether these halves were ever part of earlyremoval's loss.
 function _SWUBotEarlyRemovalAdjust(int $seat, string $cid, float $v, array $W): ?float {
@@ -426,7 +438,7 @@ function _SWUBotEarlyRemovalAdjust(int $seat, string $cid, float $v, array $W): 
             $cheap = SWUBotBestEnemyTargetCost($seat, $cid) <= SWU_BOT_CHEAP_TARGET_COST;
             return ($cheap && $notDying) ? null : $v;
         }
-        if (SWUBotProposalOn('threathold')) {
+        if (SWUBotFeatureOn('threathold')) {   // SHIPPED 2026-09-19 (feature group 'p5')
             return (SWUBotShouldHoldBombKiller($seat, $cid) && $notDying) ? null : $v;
         }
         return $v;

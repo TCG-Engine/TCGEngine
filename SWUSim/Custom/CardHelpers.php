@@ -632,3 +632,57 @@ if (!function_exists('_SWUNestedPlayResumeCount')) {
         return $n;
     }
 }
+
+// ─── "A friendly token" — the shared cost pool ───────────────────────────────
+// THE single source of truth for which tokens a "[defeat a friendly token]" cost can be paid with
+// (LAW_019 Alliance Outpost's Epic, LAW_017 Han Solo's leader Action and his deployed On Attack).
+// The offer, the availability gate and the burn-the-slot guard all call this, so they cannot disagree
+// about what "payable" means. Every friendly token qualifies:
+//   • token UNITS in $player's arenas                          → "myGroundArena-N"
+//   • token UPGRADES (Shield, Experience, Advantage, …) attached to a unit or base $player controls
+//     (CR 3.50.f: a player controls the token upgrades on units they control, whoever created them)
+//                                                              → subcard mzID "myGroundArena-N.uK"
+//   • Credit tokens in $player's resource zone (CR 3.13)       → "myResources-N"
+//   • the Force token (CR 3.11; stored as player state, shown on the base) → "myBase-0"
+// Non-token upgrades and every enemy token are excluded. Kept TYPE-DRIVEN (CardType contains "token")
+// rather than a list of token CardIDs, so a token printed in a later set is payable the day it lands —
+// the whitelist this replaced silently refused ASH_T02 Advantage (game 690588).
+if (!function_exists('SWUFriendlyTokenMzIDs')) {
+function SWUFriendlyTokenMzIDs(int $player): array {
+    global $playerID; $saved = $playerID; $playerID = $player;
+    $tokens = [];
+    foreach (["myGroundArena", "mySpaceArena"] as $z) {
+        foreach (ZoneSearch($z, ["Token Unit"]) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed)) $tokens[] = $mz;
+        }
+    }
+    foreach (SWUGetUpgradeSubcardMzIDs('') as $subMz) {
+        if (strpos($subMz, 'my') !== 0) continue;                       // host controlled by $player
+        $sub = MZParseSubcardID($subMz);
+        if ($sub === null) continue;
+        $host = GetZoneObject($sub['host']);
+        $up = $host->Subcards[$sub['subIndex']] ?? null;
+        $cid = is_array($up) ? ($up['CardID'] ?? '') : ($up->CardID ?? '');
+        if ($cid !== '' && strpos(strtolower(CardType($cid) ?? ''), 'token') !== false) $tokens[] = $subMz;
+    }
+    $resources = GetResources($player);
+    for ($i = 0; $i < count($resources); $i++) {
+        if (empty($resources[$i]->removed) && SWUIsCreditToken($resources[$i]->CardID ?? '')) $tokens[] = "myResources-{$i}";
+    }
+    if (PlayerHasTheForce($player)) $tokens[] = "myBase-0";
+    $playerID = $saved;
+    return $tokens;
+}
+}
+
+// Defeat one token from the pool above. The answer's SHAPE says which kind it is, so callers never
+// have to carry a parallel "what kind was that" key alongside the mzID.
+if (!function_exists('SWUDefeatFriendlyTokenByMzID')) {
+function SWUDefeatFriendlyTokenByMzID(int $player, string $mz): void {
+    if (MZParseSubcardID($mz) !== null)        { SWUDefeatUpgradeByMzID($player, $mz); return; }
+    if (strpos($mz, 'myResources-') === 0)     { SWUDefeatCreditToken($mz); return; }
+    if ($mz === 'myBase-0')                    { SWUDefeatForceToken($player); return; }
+    SWUDefeatUnit($player, $mz);
+}
+}

@@ -20,15 +20,38 @@ const SWU_BOT_PART3_FEATURES = ['dudgate', 'wipegate', 'targeting2', 'modes', 'f
 // alone. '@no-p4' = the stack before them. See the OTMTCGE memory `control-loses-by-not-reaching-round-8`.
 const SWU_BOT_PART4_FEATURES = ['sentinelkeep', 'wipethreat'];
 
+// Part 5 (2026-09-19): 'threathold' — a control-wing seat holds a bomb-killer removal event while every enemy unit it
+// would kill is both cheap and low-threat by base damage (SWUBotShouldHoldBombKiller, BotFlavours.php). Owner ruling
+// 2026-09-18. Session 125 (pre-p4 stack): mid +12, mirror +6, missed its bar. STRICT fresh-seed confirmation vs the
+// SHIPPED p4 stack (s021-s040, 13,680 games, pre-registered): mid+mirror +34 (126:92, p=0.025) on fresh seeds alone;
+// aggro −4 (p .56, it rarely holds vs aggro — nearly every unit is a threat). '@no-p5' = the stack before it.
+// Record: docs/superpowers/research/2026-09-premier-meta/bot-sweeps/2026-09-19_threathold_prereg.md.
+const SWU_BOT_PART5_FEATURES = ['threathold'];
+
+// Part 6 (2026-09-20): 'shrinkfirst' — a control-wing seat REMOVES A READY THREAT BEFORE ATTACKING. Owner ruling
+// 2026-09-19 on a real lost position (Knowledge and Defense vs a ready Lepi Lookout): "if that Lepi was ready, it
+// might be best to shrink it to kill before it attacks. the draw is also very valuable to control." A castable card
+// that would defeat a READY enemy unit of 3+ power is played first; among lines, the one removing the most ready
+// enemy power wins, then the one that also draws. Rule 'shrink-first' (BotRules.php).
+// Discovery (batch 1, s046-s055): +28 mid+mirror, p .182 — "no effect", but the only upward trend.
+// STRICT confirmation (batch 2, s056-s095, PRE-REGISTERED primary, 10,798 fresh paired mid+mirror games sized for
+// edge >= 0.048): **+136 (866:730), p = 0.001**, ~ +1.3 win-rate points; aggro +11 (n.s.); stable across halves
+// (+51 / +85). ⚠ SHIPPED ALONE: the 'lm3' trio (with sentinelpot + freekill) measured WORSE than shrinkfirst by
+// itself (−42 paired, p .061), so those two stay proposals. ⚠ The 3-power bar is MEASURED: 'shrinkfirst2' (bar 2)
+// lost −88 (p .015). '@no-p6' = the stack before it.
+// Record: docs/superpowers/research/2026-09-premier-meta/bot-sweeps/2026-09-20_batch2_prereg.md.
+const SWU_BOT_PART6_FEATURES = ['shrinkfirst'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
-                       SWU_BOT_PART4_FEATURES);   // Phase 1b part 2, then part 3, then part 4
+                       SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES);   // part 2, then 3-6
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
 // '@no-p4' = the stack before the 2026-09-18 anti-control features.
 function SWUBotFeatureGroups(): array {
-    return ['p3' => SWU_BOT_PART3_FEATURES, 'p4' => SWU_BOT_PART4_FEATURES];
+    return ['p3' => SWU_BOT_PART3_FEATURES, 'p4' => SWU_BOT_PART4_FEATURES, 'p5' => SWU_BOT_PART5_FEATURES,
+            'p6' => SWU_BOT_PART6_FEATURES];
 }
 
 // ── RULE switches (bisection instrumentation, added 2026-09-18) ──────────────────────────────────────
@@ -88,7 +111,7 @@ function SWUBotWeightProbeList(): array {
 // survival. Keyed "try:<name>" in the active-variant set, like "w:" and "rule:".
 // ⚠ SHIPPED proposals LEAVE this list and become FEATURES (SWU_BOT_PART4_FEATURES above) — a name in both would
 // make SWUBotProposalOn() false forever and silently switch the shipped behaviour off. Shipped 2026-09-18:
-// 'sentinelkeep' and 'wipethreat'. Their history stays in the feature comment.
+// 'sentinelkeep' and 'wipethreat' (2026-09-18), 'threathold' (2026-09-19). Their history stays in the feature comment.
 const SWU_BOT_PROPOSALS = [
     // Owner 2026-09-18 (Q7 / 5.7): "control wants to minimize damage to below 50-60% of their base total by the
     // 6R/7R turn. if they keep it below 40% then they are performing really well." While a control seat is OVER
@@ -101,13 +124,24 @@ const SWU_BOT_PROPOSALS = [
     // ⚠ MEASURED −22 (p=0.011): its cost-only hold froze No Glory / Lost and Forgotten against aggro. Kept
     // byte-for-byte so that result stays reproducible; 'threathold' + 'restrictedearly' are its split.
     'earlyremoval',
-    // Owner 2026-09-18: "if it's not really considered a bomb, it can still use removal if that would be the best
-    // way to mitigate damage to base." The hold only, judged by THREAT (base damage), not cost.
-    'threathold',
+    // ('threathold' — earlyremoval's threat-aware hold — was CONFIRMED and SHIPPED 2026-09-19 as feature group 'p5'.)
     // earlyremoval's other two halves alone (restricted early + late auto-resource), to learn whether they
     // contributed to its loss.
     'restrictedearly',
+    // Owner 2026-09-18 (Q16 / 5.2): take the initiative when it lets control remove a threat BEFORE it swings — worth
+    // more than a card play or an attack. Rule 'initiative-for-answer' (BotRules.php). Control wing only.
+    'initiative',
+    // 2026-09-19 loss mining (540 traced control-vs-aggro games; owner rulings on real lost positions):
+    'sentinelpot',   // bug: one Sentinel was modelled as blocking its whole arena (BotEvaluator.php)
+    'freekill',      // Q1: always take a kill-survive on a READY enemy unit (BotRules.php)
+    'holdanswers',   // Q2-D: keep space answers vs a space-heavy board; no value for idle heal/Advantage (Resourcing/Fallback)
+    'unitvalue',     // the value algorithm: stats-first, keywords, upgrades, When Defeated in context (BotEvaluator.php)
+    // 2026-09-19, second batch — follow-ups to that batch's "no effect" verdicts:
+    'unitvalue2',    // 'unitvalue' + the printed ability premium (cost − the fitted price of the body)
+    // ('shrinkfirst' was CONFIRMED and SHIPPED 2026-09-20 as feature group 'p6'; its history is in the feature comment.)
+    'shrinkfirst2',  // 'shrinkfirst' with the threat bar at 2 power instead of 3 — MEASURED −88 (p .015): the 3-power bar wins
 ];
+
 
 function SWUBotProposalList(): array {
     return SWU_BOT_PROPOSALS;
@@ -116,6 +150,7 @@ function SWUBotProposalList(): array {
 // Named proposal GROUPS, switched on together by "@try-<group>" — the mirror of SWUBotFeatureGroups(). Used to
 // measure proposals TOGETHER before shipping them. The first, 'shipset' (sentinelkeep + wipethreat), was measured
 // and SHIPPED 2026-09-18 as feature group 'p4', so it is gone from here. Empty until the next candidate set.
+// 'lm3' measured WORSE than shrinkfirst alone (−42, p .061), so the set is retired; shrinkfirst shipped by itself.
 const SWU_BOT_PROPOSAL_GROUPS = [];
 
 // Proposals default OFF: true only when the active variant explicitly enabled it.
@@ -140,7 +175,7 @@ function SWUBotGuideList(): array {
 
 // The features $variant turns off; null for a variant that is not recognised.
 function SWUBotVariantDisabled(string $variant): ?array {
-    if ($variant === '' || $variant === 'rl') return [];   // 'rl' = the full stack plus the learned layer
+    if ($variant === '' || $variant === 'rl' || $variant === 'value') return [];   // 'rl' / 'value' = the full stack plus a learned layer
     if ($variant === 'base') return SWUBotFeatureList();
     if (str_starts_with($variant, 'no-rule:')) {
         $r = substr($variant, 8);

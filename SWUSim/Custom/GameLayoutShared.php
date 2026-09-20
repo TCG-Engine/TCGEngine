@@ -86,6 +86,13 @@
     border-radius: 7px;
     transition: box-shadow 0.3s ease;
 }
+/* Resource-box narrowing while a decision is picking resources (swuApplyResourcePanelFilter).
+   Lives here, not in GameLayout.php, because the JS that sets these classes is shared by the
+   desktop AND mobile layouts — a desktop-only rule would leave the phone box unfiltered. */
+#myResourcesSlot .swu-res-not-offered { display: none !important; }
+/* Outranks the plain `.swu-resource-panel::before` label in both layouts (id + class beats class),
+   so the narrowed box says why it is short rather than looking like resources went missing. */
+#myResourcesSlot.is-filtered::before { content: "SELECTABLE RESOURCES"; }
 #myResourcesSlot .smuggle-available {
     box-shadow: 0 0 10px 2px rgba(60,220,90,0.65), 0 0 3px 1px rgba(60,220,90,0.35);
     border-radius: 4px;
@@ -1896,6 +1903,52 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // Resources live behind a collapsed badge, so a board-level MZCHOOSE would otherwise
     // have nothing visible to click. We only auto-close a panel we ourselves opened, so a
     // panel the player opened manually is left alone.
+    // While such a decision is open the panel also NARROWS to the resources actually being offered
+    // (see swuOfferedResourceIndices): a player asked to defeat one Credit should not have to find it
+    // among twenty near-identical resource cards. The pool the server sent IS the filter, so this can
+    // never hide a legal choice or show an illegal one — there is no second list to drift out of sync.
+    // A whole-zone offer ("myResources", no index) means every resource is legal, so nothing is hidden.
+    //
+    // Returns a {index: true} map of the offered resources, or null when the panel must show them all.
+    function swuOfferedResourceIndices() {
+        var sel = window.SelectionMode;
+        if (!sel || !sel.active || !Array.isArray(sel.allowedZones)) return null;
+        var specs = sel.allowedZones.filter(function(z) { return z && z.zone === 'myResources'; });
+        if (specs.length === 0) return null;
+        var offered = {};
+        for (var i = 0; i < specs.length; i++) {
+            var idx = specs[i].specificIndex;
+            if (typeof idx !== 'number' || isNaN(idx)) return null;   // whole-zone offer → show everything
+            offered[idx] = true;
+        }
+        return offered;
+    }
+
+    // Hide the resource cards outside the offer. The engine re-renders the zone on every update and
+    // that wipes these classes, so this re-runs from pollGlobals and from an observer on the slot.
+    var _swuResFilterBusy = false;
+    function swuApplyResourcePanelFilter(panel) {
+        if (_swuResFilterBusy) return;
+        _swuResFilterBusy = true;
+        try {
+            var offered = swuOfferedResourceIndices();
+            var cards = panel.querySelectorAll('[data-mzid]');
+            var hidden = 0;
+            for (var i = 0; i < cards.length; i++) {
+                var m = /^myResources-(\d+)$/.exec(cards[i].getAttribute('data-mzid') || '');
+                if (!m) continue;                                   // subcards etc. are not resource cards
+                var hide = !!offered && !offered[parseInt(m[1], 10)];
+                cards[i].classList.toggle('swu-res-not-offered', hide);
+                if (hide) hidden++;
+            }
+            // Relabels the panel header, so a narrowed box reads as deliberate rather than as
+            // resources having gone missing.
+            panel.classList.toggle('is-filtered', hidden > 0);
+        } finally {
+            _swuResFilterBusy = false;
+        }
+    }
+
     function refreshResourceSelectionPanel() {
         var panel = document.getElementById('myResourcesSlot'); if (!panel) return;
         var sel = window.SelectionMode;
@@ -1910,6 +1963,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             panel.classList.remove('is-open');
             window.__swuAutoOpenedResPanel = false;
         }
+        swuApplyResourcePanelFilter(panel);
+    }
+
+    // Re-apply after the engine repaints the zone (a repaint can land between polls, and it drops
+    // every class we set). Toggling a class to the value it already has mutates nothing, so this
+    // cannot feed itself; the busy flag is belt-and-braces.
+    function watchResourcePanelFilter() {
+        var panel = document.getElementById('myResourcesSlot'); if (!panel) return;
+        new MutationObserver(function() { swuApplyResourcePanelFilter(panel); })
+            .observe(panel, { childList: true, subtree: true });
     }
 
     // The Force token is rendered inside the base card by the core Card() renderer
@@ -2273,6 +2336,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         setupHandCollapse();
         watchResZone('myResourcesSlot',    'swuMyResCount',    'myResourcesData');
         watchResZone('theirResourcesSlot', 'swuTheirResCount', 'theirResourcesData');
+        watchResourcePanelFilter();
         // (Initiative token is a status badge now — taking it lives on the Take/Keep button
         //  in the player's own controls, wired via inline onclick → window.swuTakeInitiative.)
         var passBtn = document.getElementById('swuPassBtn');

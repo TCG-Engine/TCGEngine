@@ -23,6 +23,8 @@ require_once __DIR__ . '/Custom/BotRules.php';
 require_once __DIR__ . '/Custom/BotLookahead.php';   // the fallback judges Actions by applying them (BotFallback.php)
 require_once __DIR__ . '/Rl/SwuKeys.php';            // RL Phase 3: swu-v1 state and move keys
 require_once __DIR__ . '/Rl/SwuPolicy.php';          // RL Phase 3: the learned layer ('@rl' variant)
+require_once __DIR__ . '/Rl/SwuValueFeatures.php';  // the learned value model's features (spec 2026-09-19)
+require_once __DIR__ . '/Rl/SwuValue.php';            // the @value chooser
 
 if (!isset($GLOBALS['SWUBotChoosers'])) $GLOBALS['SWUBotChoosers'] = [];
 
@@ -150,11 +152,14 @@ function SWUBotHeuristicChoose(string $style, array $actions, array $legal, stri
     SWUBotSetDisabledFeatures(SWUBotVariantDisabled($variant) ?? []);
     $GLOBALS['SWUBotLastDecisionDisabled'] = $GLOBALS['SWUBotDisabledFeatures'];
     $GLOBALS['SWURlOn'] = ($variant === 'rl');   // the learned layer (SWUSim/Rl/SwuPolicy.php), fallback decisions only
+    $prevValue = $GLOBALS['SWUValueOn'] ?? false;
+    $GLOBALS['SWUValueOn'] = ($variant === 'value');   // the learned value model (SWUSim/Rl/SwuValue.php)
     try {
         return _SWUBotHeuristicChooseStack($style, $actions, $legal);
     } finally {
         SWUBotSetDisabledFeatures($prev);
         $GLOBALS['SWURlOn'] = $prevRl;
+        $GLOBALS['SWUValueOn'] = $prevValue;
     }
 }
 
@@ -164,6 +169,7 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
             'kind' => strval($legal['kind'] ?? ''), 'type' => strval($legal['decisionType'] ?? ''),
             'param' => strval($legal['decisionParam'] ?? ''), 'tooltip' => strval($legal['decisionTooltip'] ?? ''),
             'following' => (array)($legal['following'] ?? []), 'actions' => array_values($actions)];
+    SWUValueLogPosition($ctx);   // value-model data collection (spec 2026-09-19); a no-op unless SWU_VALUE_LOG is set
     $inSet = function ($pick) use (&$ctx) {
         foreach ($ctx['actions'] as $a) { if (($a['cardID'] ?? null) === ($pick['cardID'] ?? '')) return true; }
         return false;
@@ -194,6 +200,7 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
     $pick = SWUBotFallbackChoose($ctx);
     // Layer 3 — the learned layer replaces ONLY the fallback's choice (spec Section 2).
     if (!empty($GLOBALS['SWURlOn'])) $pick = SWURlChoose($ctx, $pick);
+    if (!empty($GLOBALS['SWUValueOn'])) $pick = SWUValueChoose($ctx, $pick);
     // Which guide (BotGuides.php) favoured the pick, if any — so sweeps can report how often each one decides.
     $g = _SWUBotGuides($ctx); $pc = strval($pick['cardID'] ?? '');
     if (in_array($pc, $g['attackFirst'], true)) SWUBotRecordCoverage($seat, 'guide:attack-first');
@@ -243,6 +250,20 @@ function SWUBotTrace(array $ctx, array $all, ?array $pick, string $layer): ?arra
             'turn' => $turn, 'stack' => $stack,
             'candidates' => array_map($show, $all), 'pick' => $pick === null ? null : $show($pick), 'layer' => $layer,
             'rule' => $layer === 'rule' ? ($GLOBALS['SWUBotLastRule'] ?? null) : null];
+    // SWUBOT_TRACE_BOARD=1 adds the whole board (read-only), so a traced decision can be shown as a position: both
+    // bases, every unit, resources, the opponent's hand SIZE, the initiative. Added 2026-09-19 for loss mining.
+    if (getenv('SWUBOT_TRACE_BOARD')) {
+        $side = function (int $p) {
+            return ['hpLeft' => SWUBaseRemainingHp($p), 'base' => strval((GetBase($p)[0] ?? null)->CardID ?? ''),
+                    'res' => SWUResourceCount($p) . '/' . SWUResourceCount($p, true) . 'r',
+                    'handSize' => count(array_filter(GetHand($p), fn($o) => $o !== null && empty($o->removed))),
+                    'deck' => count(array_filter(GetDeck($p), fn($o) => $o !== null && empty($o->removed))),
+                    'units' => array_map(fn($v) => $v['cardID'] . ' ' . $v['arena'][0] . ' ' . $v['power'] . '/' . $v['remaining']
+                                          . ($v['ready'] ? '' : ' exh') . ($v['sentinel'] ? ' SENT' : '') . ($v['upgrades'] ? " +{$v['upgrades']}up" : '')
+                                          . ($v['isLeader'] ? ' LDR' : ''), SWUBotUnits($p))];
+        };
+        $rec['board'] = ['me' => $side($seat), 'opp' => $side(SWUBotOpponent($seat)), 'init' => strval(GetInitiativeCounter() ?? '')];
+    }
     @file_put_contents($path, json_encode($rec, JSON_UNESCAPED_SLASHES) . "\n", FILE_APPEND);
     return $pick;
 }
@@ -262,4 +283,6 @@ foreach (array_merge(SWU_BOT_ARCHETYPES, array_keys(SWU_BOT_STYLE_ALIASES)) as $
     }
     // The learned layer (RL Phase 3): "heuristic-<style>@rl", configured by SWU_RL_* (SWUSim/Rl/SwuPolicy.php).
     SWUBotRegisterChooser("heuristic-$style@rl", fn(array $actions, array $legal) => SWUBotHeuristicChoose($style, $actions, $legal, 'rl'));
+    // The learned value model (spec 2026-09-19): "heuristic-<style>@value", configured by SWU_VALUE_MODEL.
+    SWUBotRegisterChooser("heuristic-$style@value", fn(array $actions, array $legal) => SWUBotHeuristicChoose($style, $actions, $legal, 'value'));
 }

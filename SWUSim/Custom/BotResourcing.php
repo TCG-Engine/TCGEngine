@@ -122,6 +122,11 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         // problem (memory `control-loses-by-not-reaching-round-8`). Control wing only, so the arm is one-sided.
         // +50 matches the key-card bonus deliberately — a blocker is an answer — rather than inventing a new
         // magnitude; tune it only after the first measurement.
+        // PROPOSAL 'holdanswers' (default OFF). Owner ruling 2026-09-19 (Q2-D: Lando vs a space-heavy Chewbacca board):
+        // "since it looks like they are going space heavy, hold both the HSD and the Chimaera." Against a space-heavy
+        // board (2+ enemy space units, at least as many as on the ground), a card that answers space — a wipe of
+        // space units, or unrestricted removal of an enemy unit — is kept above every castable-soon card.
+        if (SWUBotProposalOn('holdanswers') && $rank >= 3 && _SWUBotOpponentSpaceHeavy($seat) && _SWUBotAnswersSpace($cid)) $keep += 150.0;
         if (SWUBotFeatureOn('sentinelkeep') && $rank >= 3 && _SWUBotHasPrintedSentinel($cid)
             && !_SWUBotRedundantUniqueInHand($seat, $cid, $i)) {
             $keep += 50.0;
@@ -273,4 +278,18 @@ function SWUBotAtResourceStop(array $ctx): bool {
     if (!SWUBotFeatureOn('stop') || ($ctx['tooltip'] ?? '') !== 'Resource_up_to_1_card') return false;
     $seat = intval($ctx['seat']);
     return !SWUBotResourceFloorApplies($seat) && SWUResourceCount($seat) >= SWUBotResourceStop($seat, strval($ctx['style']));
+}
+
+
+// 'holdanswers' helpers (owner ruling 2026-09-19, Q2-D).
+function _SWUBotOpponentSpaceHeavy(int $seat): bool {
+    $u = SWUBotUnits(SWUBotOpponent($seat));
+    $space = count(array_filter($u, fn($v) => $v['arena'] === 'Space'));
+    return $space >= 2 && $space >= count($u) - $space;
+}
+function _SWUBotAnswersSpace(string $cid): bool {
+    $t = strval(CardText($cid));
+    if (preg_match('/defeat all (space )?units/i', $t)) return true;
+    if (preg_match('/ground unit/i', $t) && !preg_match('/space unit/i', $t)) return false;
+    return SWUBotRemovalClass($cid)[0] === 'bombkiller' || (bool)preg_match('/(defeat|take control of) (a|an)( enemy)?( non-leader)? unit|enemy non-leader unit\. If you do, defeat/i', $t);
 }

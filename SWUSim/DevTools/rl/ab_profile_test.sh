@@ -53,5 +53,7 @@ export -f run_one
 
 echo "[ab] $(wc -l < "$PAIRS") games, $WORKERS workers, out $OUT — $(date -u +%H:%M:%S)"
 tr '\t' ' ' < "$PAIRS" | xargs -P "$WORKERS" -L1 bash -c 'run_one "$@"' _
-cat "$OUT"/games/*.tsv > "$OUT/results.tsv" 2>/dev/null
+# find -exec, not a glob: a 45,720-game run (2026-09-19) blew past ARG_MAX and wrote an EMPTY results.tsv while
+# reporting "done — 0 results". The per-game files survived, but the run looked lost.
+find "$OUT/games" -name "*.tsv" -exec cat {} + > "$OUT/results.tsv" 2>/dev/null
 echo "[ab] done — $(wc -l < "$OUT/results.tsv") results — $(date -u +%H:%M:%S)"

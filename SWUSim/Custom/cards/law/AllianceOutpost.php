@@ -1,53 +1,15 @@
 <?php
 
-// LAW_019 Alliance Outpost — the Epic's cost is "[defeat a friendly token]". THE single source of truth
-// for which tokens can pay it: the offer, the availability gate, and the burn-the-slot guard all call
-// this, so they cannot disagree about what "payable" means.
-// Every friendly token is a legal cost (widened 2026-09-17, game 505707 — the Chewbacca deck's line is
-// "play a Shielded unit, defeat its Shield with the Epic, take the Credit"):
-//   • token UNITS in $player's arenas                          → "myGroundArena-N"
-//   • token UPGRADES (Shield, Experience, Advantage …) attached to a unit or base $player controls
-//     (CR 3.50.f: a player controls the token upgrades on units they control — whoever created them)
-//                                                              → subcard mzID "myGroundArena-N.uK"
-//   • Credit tokens in $player's resource zone (CR 3.13)       → "myResources-N"
-//   • the Force token (CR 3.11; stored as player state, shown on the base) → "myBase-0"
-// Non-token upgrades and every enemy token are excluded.
-function _SWULaw019FriendlyTokens(int $player): array {
-    global $playerID; $saved = $playerID; $playerID = $player;
-    $tokens = [];
-    foreach (["myGroundArena", "mySpaceArena"] as $z) {
-        foreach (ZoneSearch($z, ["Token Unit"]) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed)) $tokens[] = $mz;
-        }
-    }
-    foreach (SWUGetUpgradeSubcardMzIDs('') as $subMz) {
-        if (strpos($subMz, 'my') !== 0) continue;                       // host controlled by $player
-        $sub = MZParseSubcardID($subMz);
-        if ($sub === null) continue;
-        $host = GetZoneObject($sub['host']);
-        $up = $host->Subcards[$sub['subIndex']] ?? null;
-        $cid = is_array($up) ? ($up['CardID'] ?? '') : ($up->CardID ?? '');
-        if ($cid !== '' && strpos(strtolower(CardType($cid) ?? ''), 'token') !== false) $tokens[] = $subMz;
-    }
-    $resources = GetResources($player);
-    for ($i = 0; $i < count($resources); $i++) {
-        if (empty($resources[$i]->removed) && SWUIsCreditToken($resources[$i]->CardID ?? '')) $tokens[] = "myResources-{$i}";
-    }
-    if (PlayerHasTheForce($player)) $tokens[] = "myBase-0";
-    $playerID = $saved;
-    return $tokens;
-}
+// LAW_019 Alliance Outpost — the Epic's cost is "[defeat a friendly token]". Which tokens qualify, and
+// how one is defeated, live in SWUFriendlyTokenMzIDs()/SWUDefeatFriendlyTokenByMzID() (CardHelpers.php),
+// shared with LAW_017 Han Solo's identical cost. The offer, the availability gate and the burn-the-slot
+// guard all reach the pool through this wrapper, so they cannot disagree about what "payable" means.
+function _SWULaw019FriendlyTokens(int $player): array { return SWUFriendlyTokenMzIDs($player); }
 
 function _SWULaw019CanPayCost(int $player): bool { return !empty(_SWULaw019FriendlyTokens($player)); }
 
-// Defeat the chosen friendly token. The answer's shape says which kind it is (see the list above).
-function _SWULaw019DefeatToken(int $player, string $mz): void {
-    if (MZParseSubcardID($mz) !== null)        { SWUDefeatUpgradeByMzID($player, $mz); return; }
-    if (strpos($mz, 'myResources-') === 0)     { SWUDefeatCreditToken($mz); return; }
-    if ($mz === 'myBase-0')                    { SWUDefeatForceToken($player); return; }
-    SWUDefeatUnit($player, $mz);
-}
+// Defeat the chosen friendly token (the cost).
+function _SWULaw019DefeatToken(int $player, string $mz): void { SWUDefeatFriendlyTokenByMzID($player, $mz); }
 
 // LAW_019
 // Alliance Outpost - [Vigilance] - HP 26

@@ -177,6 +177,146 @@ function SWUBotRuleControlWipe(array $ctx): ?array {
     return _SWUBotBestLine($ctx, $read, $score, $ok, $isWipe);
 }
 
+// PROPOSAL 'initiative' (default OFF, "@try-initiative"). Owner ruling 2026-09-18 (Q16 / 5.2): taking the
+// initiative can be worth MORE than a card play or an attack when it lets control remove a threat BEFORE it swings.
+// Two scenarios on record:
+//   (a) they hold the initiative and play Allegiant General Pryde (JTL_133, 2/3); I hold Latts Razzi (LAW_039, 3)
+//       and an Imperial Dark Trooper (SEC_080, 2) → take the initiative, then Latts Razzi their Pryde first thing.
+//   (b) mid-game, one 4-power unit ready, resources spent, their last play a 6/6, a removal in hand not castable
+//       now but castable as next round's first action → take the initiative rather than swing for 4 (assuming no
+//       Sentinel of mine absorbs their attack).
+// Every condition is read from those two scenarios:
+//   - the control wing, not racing (a racing seat is winning its race: its remaining actions are worth more);
+//   - the OPPONENT holds the initiative (unclaimed — a claimed one is not on offer). If nobody claims it, they
+//     act first next round and the threat swings before my answer;
+//   - an enemy unit threatens my base (SWUBotUnitBaseThreat: 0 behind my Sentinel — the owner's caveat);
+//   - a card in my hand kills it (SWUBotHandCardKills), is NOT castable now (else the fallback just plays it) and
+//     IS castable next round (every resource ready + the regroup's resource + my Credits);
+//   - the swing prevented (W['base'] × its base threat — the same per-point rate as every base hit) beats what
+//     taking the initiative forgoes: every free attack I have left, plus the best other play. Guides are held
+//     out of that sum — attackFirst's flat 6.00 is a SEQUENCING bonus, not a value.
+// Placed ahead of rule 8 on purpose: scenario (b) leaves only attack / pass / initiative, which rule 8 answers
+// with the free attack before the fallback ever sees the initiative.
+function SWUBotRuleInitiativeForAnswer(array $ctx): ?array {
+    if (!SWUBotProposalOn('initiative') || !_SWUBotIsFreePlay($ctx)) return null;
+    $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
+    if (SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3) return null;
+    $init = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'initiative');
+    if ($init === null || strval(GetInitiativeCounter() ?? '') !== 'P' . $opp . '_UNCLAIMED') return null;
+    $W = SWUBotWeights(strval($ctx['style']), $seat);
+    $capNow = SWUTotalPaymentCapacity($seat);
+    $capNext = SWUResourceCount($seat) + 1 + count(SWUUsableCreditTokenMzIDs($seat));
+    $threat = 0;
+    foreach (GetHand($seat) as $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        $cost = intval(SWUComputePlayCost($seat, $o));
+        if ($cost <= $capNow || $cost > $capNext) continue;
+        foreach (SWUBotUnits($opp) as $u) {
+            if (SWUBotHandCardKills(strval($o->CardID), $u)) $threat = max($threat, SWUBotUnitBaseThreat($seat, $u));
+        }
+    }
+    if ($threat <= 0) return null;
+    // What the initiative gives up: the rest of this round.
+    $noGuides = array_merge($ctx, ['_guides' => ['attackFirst' => [], 'maxUnits' => '']]);
+    $attacks = 0.0; $other = 0.0;
+    foreach ($ctx['actions'] as $i => $a) {
+        $k = SWUBotActionKind($a);
+        if ($k === 'pass' || $k === 'initiative') continue;
+        $s = max(0.0, SWUBotScoreAction($noGuides, $a, $i));
+        if ($k === 'attack') $attacks += $s; else $other = max($other, $s);
+    }
+    return $W['base'] * $threat > $attacks + $other ? $init : null;
+}
+
+// PROPOSAL 'freekill' (default OFF). Owner ruling 2026-09-19 (loss mining, Q1): "control should always take the free
+// kill if the unit is ready. if it has already attacked, then it needs to think about other threats and how to stop
+// them." At a control-wing attacker's target prompt: if an enemy unit that is READY can be defeated while the
+// attacker survives (kill-survive), attack it — the most valuable such unit. Exhausted targets are left to the
+// normal scorer. Seen in lost games: Helgait 6/4 hit the base with a 3/1 free kill on offer (took 17 next round);
+// The Mandalorian 4/6 hit the base at 14 HP instead of killing a 5/4 carrying 3 upgrades.
+function SWUBotRuleFreeKill(array $ctx): ?array {
+    if (!SWUBotProposalOn('freekill') || ($ctx['tooltip'] ?? '') !== 'Choose_an_attack_target') return null;
+    $seat = intval($ctx['seat']);
+    if (SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3) return null;
+    $attMz = SWUBotAttackerMz($ctx);
+    $att = $attMz !== null ? SWUBotViewForMz($seat, $attMz) : null;
+    if ($att === null) return null;
+    $best = null; $bestV = -1.0;
+    foreach ($ctx['actions'] as $a) {
+        $c = strval($a['cardID'] ?? '');
+        if (!str_starts_with($c, 'their') || str_contains($c, 'Base')) continue;
+        $u = SWUBotViewForMz($seat, $c);
+        if ($u === null || !$u['ready'] || SWUBotCombatOutcome($att, $u) !== 'kill-survive') continue;
+        $val = SWUBotUnitValue($u);
+        if ($val > $bestV) { $bestV = $val; $best = $a; }
+    }
+    return $best;
+}
+
+// PROPOSAL 'shrinkfirst' (default OFF). Owner ruling 2026-09-19 (Q2, position C — Knowledge and Defense vs a ready
+// Lepi Lookout 3/1 behind a Shield): "if that Lepi was ready, it might be best to shrink it to kill before it
+// attacks. the draw is also very valuable to control." At free play, a control-wing seat with a castable card that
+// can defeat a READY enemy threat (≥ SWU_BOT_THREAT_WORTH power) plays it first. Judged by the sequence lookahead
+// (the play and its target answer), so the plan follows the line that actually removes the threat; among lines,
+// more ready enemy power removed wins, then the one that also draws.
+// 'shrinkfirst2' is the same rule with the threat bar at 2 power instead of 3 — the threshold test.
+function SWUBotRuleShrinkFirst(array $ctx): ?array {
+    if ((!SWUBotFeatureOn('shrinkfirst') && !SWUBotProposalOn('shrinkfirst2')) || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    $bar = SWUBotProposalOn('shrinkfirst2') ? 2 : SWU_BOT_THREAT_WORTH;
+    $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
+    // The CONTROL WING as measured: the archetype rank gates WHO uses the rule (soft/hard control — the only seats
+    // that ever carried it in the one-sided arms), the racing rank keeps the measured behaviour WITHIN those seats
+    // (a control seat that is racing drops below 3 and stops). Without the archetype gate, shipping would also switch
+    // the rule on for a 'tempo'-flavoured MIDRANGE deck, whose racing rank reaches 3 — unmeasured behaviour: the
+    // ship check caught exactly that (mid 104/126 until the opponent was held at @no-p6, then 126/126).
+    if (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3 || SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3
+        || !function_exists('SWUBotLookaheadBest')) return null;
+    $threats = array_values(array_filter(SWUBotUnits($opp), fn($u) => $u['ready'] && $u['attackPower'] >= $bar));
+    if (empty($threats)) return null;
+    $readyPow = fn() => array_sum(array_map(fn($u) => $u['ready'] ? $u['attackPower'] : 0, SWUBotUnits($opp)));
+    $before = $readyPow();
+    $handBefore = count(array_filter(GetHand($seat), fn($o) => $o !== null && empty($o->removed)));
+    $consider = function (array $a) use ($seat, $threats) {
+        if (SWUBotActionKind($a) !== 'play') return false;
+        $o = _SWUBotHandObject($seat, $a);
+        if ($o === null) return false;
+        foreach ($threats as $u) { if (SWUBotHandCardKills(strval($o->CardID), $u)) return true; }
+        return false;
+    };
+    $read = fn() => ['pow' => $readyPow(), 'hand' => count(array_filter(GetHand($seat), fn($o) => $o !== null && empty($o->removed)))];
+    $score = fn(array $r) => ($before - $r['pow']) * 10 + ($r['hand'] >= $handBefore ? 1 : 0);   // hand kept its size = it drew
+    $ok = fn(array $r) => ($before - $r['pow']) >= $bar;
+    return _SWUBotBestLine($ctx, $read, $score, $ok, $consider);
+}
+
+// Can hand card $cid, once played, defeat the enemy unit $u? Read from PRINTED TEXT, for proposal 'initiative'.
+// Covers the answer shapes in the pool: removal events (SWUBotRemovalClass — an uncapped defeat, or a printed cap),
+// "deal N damage to … unit", a unit dealing "damage equal to her/his/its power" (+1 if it can give itself an
+// Experience token — LAW_039 Latts Razzi), and "-N/-N". Honours "non-leader", "enemy", and a named arena.
+// Damage is stopped by a Shield (CR 3.7.6); a defeat or a -N/-N is not. Conservative: anything else is false.
+function SWUBotHandCardKills(string $cid, array $u): bool {
+    $t = strval(CardText($cid));
+    if ($t === '' || stripos($t, 'chooses') !== false) return false;
+    if ($u['isLeader'] && stripos($t, 'non-leader') !== false) return false;
+    if (stripos($t, 'space unit') !== false && $u['arena'] !== 'Space') return false;
+    if (stripos($t, 'ground unit') !== false && $u['arena'] !== 'Ground') return false;
+    [$cls, $kind, $n] = SWUBotRemovalClass($cid);
+    if ($cls === 'bombkiller') return true;
+    if ($cls === 'restricted') {
+        $val = $kind === 'cost' ? $u['cost'] : ($kind === 'remaining' ? $u['remaining'] : $u['power']);
+        if ($val > $n) return false;
+        if (preg_match('/\bdefeat\b/i', $t)) return true;
+    }
+    if (preg_match('/-(\d+)\/-\d+/', $t, $m)) return intval($m[1]) >= $u['remaining'];
+    if ($u['shields'] > 0) return false;
+    if (preg_match('/deals? (\d+) damage to (a|an) (enemy )?(non-leader )?(ground |space )?unit/i', $t, $m)) return intval($m[1]) >= $u['remaining'];
+    if (str_contains(strval(CardType($cid)), 'Unit') && preg_match('/damage equal to (her|his|its) power/i', $t)) {
+        $p = intval(CardPower($cid)) + (stripos($t, 'Experience token to this unit') !== false ? 1 : 0);
+        return $p >= $u['remaining'];
+    }
+    return false;
+}
+
 // Follow the plan a lookahead rule (4, 5) stored for this seat: at a decision whose prompt matches the plan's
 // next step and whose candidates include the planned answer, give it. Anything else drops the plan — the game
 // went somewhere the lookahead did not foresee. Plans live in memory only: a new request (live play) starts
@@ -289,6 +429,9 @@ function SWUBotRulesAfterFilter(): array {
         'initiative-for-lethal'    => 'SWUBotRuleInitiativeForLethal',
         'break-lethal'             => 'SWUBotRuleBreakLethal',
         'control-wipe'             => 'SWUBotRuleControlWipe',
+        'initiative-for-answer'    => 'SWUBotRuleInitiativeForAnswer',   // proposal 'initiative' — inert unless "@try-initiative"
+        'free-kill'                => 'SWUBotRuleFreeKill',              // proposal 'freekill' — inert unless "@try-freekill"
+        'shrink-first'             => 'SWUBotRuleShrinkFirst',           // proposal 'shrinkfirst' — inert unless "@try-shrinkfirst"
         'no-unused-attacks'        => 'SWUBotRuleNoUnusedAttacks',
         'nothing-left'             => 'SWUBotRuleNothingLeft',
         'decline-losing-ambush'    => 'SWUBotRuleDeclineLosingAmbush',

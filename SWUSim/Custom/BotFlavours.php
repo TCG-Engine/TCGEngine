@@ -164,7 +164,7 @@ function SWUBotRemovalKills(string $cardID, array $v): bool {
     return true;
 }
 
-// PROPOSAL 'threathold' — the threat-aware HOLD. Owner ruling 2026-09-18: "the bot should analyze better when a
+// FEATURE 'threathold' (shipped 2026-09-19, group 'p5'; was a proposal) — the threat-aware HOLD. Owner ruling 2026-09-18: "the bot should analyze better when a
 // threat is present and if it's not really considered a bomb, it can still use removal if that would be the best
 // way to mitigate damage to base." Replaces earlyremoval's cost-only hold, which measured −22 (p=0.011) because
 // against aggro — no bombs — it held No Glory and Lost and Forgotten forever.

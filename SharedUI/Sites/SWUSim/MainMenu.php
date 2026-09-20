@@ -78,7 +78,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         <label for="deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste a deck link:</label>
         <input type="text" id="deck-link" name="deck_link" placeholder="https://swustats.net/deck/..." style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
         <div style="margin-top: 8px; color: var(--text-muted); font-size: 12px; line-height: 1.35;">
-          Supported deck links: SWUStats, SWUDB
+          Supported deck links: SWUStats, SWUDB, melee.gg, SWUBase, Protect the Pod, SWU Card Hub, SWUForge, SWU Meta Stats, SW-Unlimited-DB
         </div>
       </div>
       <div id="deck-input-text" style="display: none;">
@@ -406,7 +406,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
     { key: 'u', label: 'Undo your most recent action' },
     { key: 'Space', label: 'Pass an optional decision when available' },
     { text: 'Hover a card on the field to see its full text.' },
-    { text: 'You can paste a deck link directly from SWUStats or SWUDB.' },
+    { text: 'You can paste a deck link directly from SWUStats, SWUDB, melee.gg and most other SWU deck builders.' },
     { text: 'Private games generate a shareable invite link — send it to your opponent and they can join instantly.' },
     { text: 'The queue matches you with the first available opponent. No need to refresh — it polls automatically.' },
     { text: 'Units enter the arena exhausted when played from hand.' },
