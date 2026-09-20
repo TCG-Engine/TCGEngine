@@ -42,16 +42,30 @@ const SWU_BOT_PART5_FEATURES = ['threathold'];
 // Record: docs/superpowers/research/2026-09-premier-meta/bot-sweeps/2026-09-20_batch2_prereg.md.
 const SWU_BOT_PART6_FEATURES = ['shrinkfirst'];
 
+// Part 7 (2026-09-20): 'buffattack' — a power buff is used BEFORE the attack it improves. Owner report #1052 on
+// game 690588: "after i claimed initiative, the bot attacked with Gungi and then buffed him with Ahsoka's
+// ability. they should have buffed first and then attacked". ASH_009's "+2/+0 for this phase" on LOF_093 Gungi
+// (2/5) was spent AFTER he had swung, so it did nothing at all. Cause: an Action scores a flat W['ability']
+// (0.40) while the attack it would improve scores W['base'] x power (0.60 x 2 = 1.20), so the attack always wins
+// and the Action is taken afterwards because 0.40 still beats passing. _SWUBotBuffAttackGain (BotFallback.php)
+// now adds what the buff is worth to the attacks my READY units can still make, priced with the same weights.
+// ⚠ SHIPPED ON THE RULING, NOT ON A MEASUREMENT (owner decision 2026-09-20): buffing a unit that has already
+// attacked is strictly zero value, so the floor is "no worse". The ordering is NOT free in general — buffing
+// first gives the opponent an action in which to remove the buffed unit — so if an A/B is ever run, '@no-p7' is
+// the stack before it. Guard: SWUSim/DevTools/tests/bot_buffattack_test.php.
+const SWU_BOT_PART7_FEATURES = ['buffattack'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
-                       SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES);   // part 2, then 3-6
+                       SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
+                       SWU_BOT_PART7_FEATURES);   // part 2, then 3-7
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
 // '@no-p4' = the stack before the 2026-09-18 anti-control features.
 function SWUBotFeatureGroups(): array {
     return ['p3' => SWU_BOT_PART3_FEATURES, 'p4' => SWU_BOT_PART4_FEATURES, 'p5' => SWU_BOT_PART5_FEATURES,
-            'p6' => SWU_BOT_PART6_FEATURES];
+            'p6' => SWU_BOT_PART6_FEATURES, 'p7' => SWU_BOT_PART7_FEATURES];
 }
 
 // ── RULE switches (bisection instrumentation, added 2026-09-18) ──────────────────────────────────────
@@ -91,13 +105,42 @@ const SWU_BOT_WEIGHT_PROBES = [
     'longgame-up' => ['draw' => 2.0, 'heal' => 2.0, 'develop' => 2.0, 'removal' => 2.0],
     // tempo and reach: damage that closes a game rather than winning a board
     'tempo-down'  => ['base' => 0.5, 'chip' => 0.5, 'burn' => 0.5, 'damage' => 0.5],
+    // THE EMPIRICAL NULL for a multi-arm screen. A true no-op cannot serve: the bots are deterministic and arms share
+    // seeds, so it returns zero discordant games and p=1 by construction (measured 2026-09-20, the 'placebo' arm).
+    // These nudge ONE weight by ±3% — enough to flip close calls, far too small to be a strategy — so their paired
+    // results sample the NOISE at this sample size, and every other arm is read against that spread. Two of them,
+    // because one draw bounds the noise poorly.
+    'jitter-up'   => ['develop' => 1.03],
+    'jitter-down' => ['develop' => 0.97],
+    // Play units EARLIER: the loss-mining signature was a board deficit of 1.4-2.3 units by rounds 3-5 (2026-09-19).
+    'develop-up'  => ['develop' => 2.0],
     // both at once — the full horizon shift
     'horizon'     => ['draw' => 2.0, 'heal' => 2.0, 'develop' => 2.0, 'removal' => 2.0,
                       'base' => 0.5, 'chip' => 0.5, 'burn' => 0.5, 'damage' => 0.5],
 ];
 
+// WEIGHT FLOORS ("@w-<probe>", same namespace as the multipliers above). A MULTIPLIER cannot switch on a weight
+// that is zero — maxUnits is 0.00 for midrange and both control archetypes — and scaling 0.05 to a meaningful
+// initiative value would need a factor of 12. A floor states the value plainly: max(current, floor).
+const SWU_BOT_WEIGHT_FLOORS = [
+    // The initiative is valued at 0.05 for all five archetypes — below a single point of base damage, so the bot
+    // takes it only when a rule tells it to (owner Q16, 2026-09-18). 0.60 = one point of base damage.
+    'initiative-up' => ['initiative' => 0.60],
+    // Going wide is worth 4.00 to hyper aggro and 3.00 to soft aggro, and exactly 0.00 to midrange, soft and hard
+    // control — they never value a second body for its own sake.
+    'maxunits-on'   => ['maxUnits' => 2.00],
+];
+
 function SWUBotWeightProbeList(): array {
-    return array_keys(SWU_BOT_WEIGHT_PROBES);
+    return array_merge(array_keys(SWU_BOT_WEIGHT_PROBES), array_keys(SWU_BOT_WEIGHT_FLOORS));
+}
+
+// The FLOOR map of the probe active for this decision, or null. Read by SWUBotWeights() after the multipliers.
+function SWUBotActiveWeightFloor(): ?array {
+    foreach ($GLOBALS['SWUBotDisabledFeatures'] ?? [] as $d) {
+        if (is_string($d) && str_starts_with($d, 'w:')) return SWU_BOT_WEIGHT_FLOORS[substr($d, 2)] ?? null;
+    }
+    return null;
 }
 
 // ── PROPOSALS (added 2026-09-18) — "@try-<name>", the MIRROR of a feature switch ──────────────────────
@@ -140,6 +183,32 @@ const SWU_BOT_PROPOSALS = [
     'unitvalue2',    // 'unitvalue' + the printed ability premium (cost − the fitted price of the body)
     // ('shrinkfirst' was CONFIRMED and SHIPPED 2026-09-20 as feature group 'p6'; its history is in the feature comment.)
     'shrinkfirst2',  // 'shrinkfirst' with the threat bar at 2 power instead of 3 — MEASURED −88 (p .015): the 3-power bar wins
+    // ── 2026-09-20 overnight screen (5-archetype panel). Everything shipped so far was measured on CONTROL seats
+    // only, because every arm to date was one-sided on a control deck. These ask whether the gates are right.
+    'placebo',         // NOTHING reads this: "@try-placebo" plays exactly like the default. It measures the
+                       // false-positive floor of a 13-arm screen instead of assuming it.
+    'shrinkfirstall',  // 'shrinkfirst' (p6, control-only) for every archetype
+    'threatholdall',   // 'threathold' (p5, control-only) for every archetype
+    'sentinelkeepall', // 'sentinelkeep' (p4, control-only) for every archetype
+    'keepequal',       // control's key-card keep bonus 50 -> 150, the same as every other archetype
+    // ── 2026-09-20 behaviour screen. THE BOT HAS NEVER MULLIGANED: BotFallback's YESNO branch scores "keep"
+    // above "mulligan" unconditionally (the spec left mulligans to the learned layer, which never learned them),
+    // so every game starts from an unexamined opening hand. Three rules for what a keepable hand is:
+    'mullnocast',      // fewer than 2 cards castable by round 2 (cost <= 3)
+    'mullcurve',       // no card costing <= 2, or 3+ costing >= 6
+    'mullstyle',       // per archetype: the aggro wing needs an early drop, control needs an answer
+    // Behaviour arms — the family every shipped win came from (sequencing and keeping, not valuation):
+    'killfirst',       // take a kill-and-survive attack before a base attack, within the turn
+    'blockerfirst',    // behind on units: play a body before attacking
+    'tradewhenbehind', // behind on units: an even trade is worth taking (owner Q10, made conditional)
+    'leaderrisk',      // a deployed LEADER unit that dies returns exhausted — it is not a lost card
+    'removalready',    // spend removal on READY enemies; an exhausted one cannot attack this round
+    'playsurvivor',    // prefer units that survive the opponent's best attacker
+    'sentineltiming',  // play a Sentinel late in the round, so it guards their turn
+                       // ⚠ contradicts the owner's 2026-09-13 resourcing ruling; run with the owner's OK to
+                       // gather data (2026-09-20). Memory `bot-heuristics-cause-the-anti-control-bias` calls this
+                       // the most actionable lead: control resources its own answers before filler.
+    // ('buffattack' was SHIPPED 2026-09-20 as feature group 'p7' — its history is in the feature comment.)
 ];
 
 
@@ -187,7 +256,7 @@ function SWUBotVariantDisabled(string $variant): ?array {
     }
     if (str_starts_with($variant, 'w-')) {
         $p = substr($variant, 2);
-        return isset(SWU_BOT_WEIGHT_PROBES[$p]) ? ["w:$p"] : null;
+        return (isset(SWU_BOT_WEIGHT_PROBES[$p]) || isset(SWU_BOT_WEIGHT_FLOORS[$p])) ? ["w:$p"] : null;
     }
     if (str_starts_with($variant, 'try-')) {
         $p = substr($variant, 4);

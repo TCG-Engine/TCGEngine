@@ -534,6 +534,88 @@ P1NODECISION
 
 ---
 
+# ViaNightbrother_PalpatineAndDisposableB1_StealsAnXPTokenAndDraws
+#// PLAYER-REPORTED LINE (2026-09-20), end to end. Nightbrother -> Vernestra from the discard -> bottom
+#// HMW_110 Emperor Palpatine (cost 5) and HMW_103 Disposable B1 (cost 1) -> BOTH gained When Playeds
+#// resolve. Two things this pins that ViaNightbrother_PalpatineAndInfernoSquad_BothFire does not:
+#//   • Palpatine's "enemy non-leader unit that costs 3 or less" must offer a TOKEN unit — ASH_T01
+#//     Mandalorian costs 0, and here it carries 3 Experience (5/5), which does NOT change its cost.
+#//     It is stolen WITH its upgrades and then takes the 2 Weakness: 3 XP + 2 Weakness = 5 subcards.
+#//   • Disposable B1's gained ability is CONDITIONAL ("if another friendly unit entered play this
+#//     phase"). Gained by Vernestra it must see Nightbrother, so the draw really happens — asserted on
+#//     BOTH sides of the draw (deck 3 + 2 bottomed - 1 drawn = 4, hand 0 after the play + 1 = 1), because
+#//     a count on one side alone cannot tell a draw from a bottoming.
+#// Mutating the gain dispatch off (GameLogic.php's HMW048Gain AddTrigger) reproduces the report exactly:
+#// the Mandalorian stays on P2's board and no card is drawn.
+
+## GIVEN
+CommonSetup: gyk/rrk/{myResources:10;myLeader:HMW_016;myBase:JTL_024}
+P1OnlyActions: true
+WithP1Hand: HMW_204
+WithP1Discard: [HMW_048 HMW_110 HMW_103]
+WithP1Deck: [SOR_095 SOR_128 SOR_046]
+WithP2GroundArena: ASH_T01:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T01
+WithP2GroundArenaUpgrade: 0:SOR_T01
+WithP2GroundArenaUpgrade: 0:SOR_T01
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myDiscard-0
+- P1>AnswerDecision:myDiscard-1&myDiscard-2
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1SPACEARENAUNIT:0:CARDID:HMW_204
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:HMW_048
+P1GROUNDARENAUNIT:1:CARDID:ASH_T01
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:5
+P2GROUNDARENACOUNT:0
+P1DISCARDCOUNT:0
+P1DECKCOUNT:4
+P1HANDCOUNT:1
+P1NODECISION
+
+---
+
+# ViaNightbrother_PalpatineAndDisposableB1_ReversedTriggerOrder
+#// Same reported line, but the two gained When Playeds are ordered the OTHER way (EffectStack-1). Both
+#// still resolve and the end state is identical — the gains are independent, so the player's ordering
+#// choice must not decide whether one of them fires. Guards against a second gain being dropped when
+#// the first one to resolve is the auto-resolving draw rather than the one that prompts.
+
+## GIVEN
+CommonSetup: gyk/rrk/{myResources:10;myLeader:HMW_016;myBase:JTL_024}
+P1OnlyActions: true
+WithP1Hand: HMW_204
+WithP1Discard: [HMW_048 HMW_110 HMW_103]
+WithP1Deck: [SOR_095 SOR_128 SOR_046]
+WithP2GroundArena: ASH_T01:1:0
+WithP2GroundArenaUpgrade: 0:SOR_T01
+WithP2GroundArenaUpgrade: 0:SOR_T01
+WithP2GroundArenaUpgrade: 0:SOR_T01
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:myDiscard-0
+- P1>AnswerDecision:myDiscard-1&myDiscard-2
+- P1>AnswerDecision:EffectStack-1
+- P1>AnswerDecision:theirGroundArena-0
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P1GROUNDARENAUNIT:0:CARDID:HMW_048
+P1GROUNDARENAUNIT:1:CARDID:ASH_T01
+P1GROUNDARENAUNIT:1:UPGRADECOUNT:5
+P2GROUNDARENACOUNT:0
+P1DECKCOUNT:4
+P1HANDCOUNT:1
+P1NODECISION
+
+---
+
 # ViaNightbrother_SheIsLASTInTheDiscard_TheDonorsBeforeHerStillBottom
 #// ⚠ THE DISCARD REINDEX. When Vernestra is played FROM the discard, her own additional cost removes
 #// cards from that SAME pile before she is paid for. Here she sits at myDiscard-2 behind both donors;

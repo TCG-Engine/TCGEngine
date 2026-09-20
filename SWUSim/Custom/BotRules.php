@@ -269,8 +269,11 @@ function SWUBotRuleShrinkFirst(array $ctx): ?array {
     // (a control seat that is racing drops below 3 and stops). Without the archetype gate, shipping would also switch
     // the rule on for a 'tempo'-flavoured MIDRANGE deck, whose racing rank reaches 3 — unmeasured behaviour: the
     // ship check caught exactly that (mid 104/126 until the opponent was held at @no-p6, then 126/126).
-    if (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3 || SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3
-        || !function_exists('SWUBotLookaheadBest')) return null;
+    // PROPOSAL 'shrinkfirstall' (default OFF) lifts the control-wing gate: does the shipped p6 rule help every
+    // archetype? It was only ever measured on control seats.
+    if (!SWUBotProposalOn('shrinkfirstall')
+        && (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3 || SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3)) return null;
+    if (!function_exists('SWUBotLookaheadBest')) return null;
     $threats = array_values(array_filter(SWUBotUnits($opp), fn($u) => $u['ready'] && $u['attackPower'] >= $bar));
     if (empty($threats)) return null;
     $readyPow = fn() => array_sum(array_map(fn($u) => $u['ready'] ? $u['attackPower'] : 0, SWUBotUnits($opp)));
@@ -287,6 +290,46 @@ function SWUBotRuleShrinkFirst(array $ctx): ?array {
     $score = fn(array $r) => ($before - $r['pow']) * 10 + ($r['hand'] >= $handBefore ? 1 : 0);   // hand kept its size = it drew
     $ok = fn(array $r) => ($before - $r['pow']) >= $bar;
     return _SWUBotBestLine($ctx, $read, $score, $ok, $consider);
+}
+
+// PROPOSAL 'killfirst' (default OFF) — ORDERING, the family every shipped win came from. When an attack this turn
+// would defeat an enemy unit and survive, make THAT attack before any attack that would go to the base: the
+// defender is removed before it can be buffed, healed or used, and the base is still there later. The scorer
+// compares attacks by value but has no notion of doing one first.
+function SWUBotRuleKillFirst(array $ctx): ?array {
+    if (!SWUBotProposalOn('killfirst') || !_SWUBotIsFreePlay($ctx)) return null;
+    $seat = intval($ctx['seat']);
+    $best = null; $bestV = 0.0;
+    foreach ($ctx['actions'] as $a) {
+        if (SWUBotActionKind($a) !== 'attack') continue;
+        $att = SWUBotViewForMz($seat, SWUBotActionMz($a));
+        if ($att === null) continue;
+        foreach (SWUBotAllowedTargets($ctx, $att) as [$k, $u]) {
+            if ($k === 'base' || SWUBotCombatOutcome($att, $u) !== 'kill-survive') continue;
+            $v = SWUBotUnitValue($u);
+            if ($v > $bestV) { $bestV = $v; $best = $a; }
+        }
+    }
+    return $best;
+}
+
+// PROPOSAL 'blockerfirst' (default OFF) — the loss-mining signature: in games control loses it is 1.4 units behind
+// by round 3 and 2.3 by round 5 (2026-09-19). While behind on bodies, put one down BEFORE attacking; the attack is
+// still available afterwards, the body is not (a removal spell in their turn takes the play away).
+function SWUBotRuleBlockerFirst(array $ctx): ?array {
+    if (!SWUBotProposalOn('blockerfirst') || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
+    if (count(SWUBotUnits($seat)) >= count(SWUBotUnits($opp))) return null;
+    $hasAttack = false;
+    foreach ($ctx['actions'] as $a) { if (SWUBotActionKind($a) === 'attack') { $hasAttack = true; break; } }
+    if (!$hasAttack) return null;
+    $plays = [];
+    foreach ($ctx['actions'] as $a) {
+        if (SWUBotActionKind($a) !== 'play') continue;
+        $o = _SWUBotHandObject($seat, $a);
+        if ($o !== null && str_contains(strval(CardType(strval($o->CardID))), 'Unit')) $plays[] = $a;
+    }
+    return empty($plays) ? null : SWUBotFallbackChoose(array_merge($ctx, ['actions' => $plays]));
 }
 
 // Can hand card $cid, once played, defeat the enemy unit $u? Read from PRINTED TEXT, for proposal 'initiative'.
@@ -430,6 +473,8 @@ function SWUBotRulesAfterFilter(): array {
         'break-lethal'             => 'SWUBotRuleBreakLethal',
         'control-wipe'             => 'SWUBotRuleControlWipe',
         'initiative-for-answer'    => 'SWUBotRuleInitiativeForAnswer',   // proposal 'initiative' — inert unless "@try-initiative"
+        'kill-first'               => 'SWUBotRuleKillFirst',             // proposal 'killfirst'
+        'blocker-first'            => 'SWUBotRuleBlockerFirst',          // proposal 'blockerfirst'
         'free-kill'                => 'SWUBotRuleFreeKill',              // proposal 'freekill' — inert unless "@try-freekill"
         'shrink-first'             => 'SWUBotRuleShrinkFirst',           // proposal 'shrinkfirst' — inert unless "@try-shrinkfirst"
         'no-unused-attacks'        => 'SWUBotRuleNoUnusedAttacks',

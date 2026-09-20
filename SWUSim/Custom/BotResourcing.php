@@ -115,7 +115,12 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         // Key cards (answers, burn, the flavour's key cards) go to resources after filler (feature 'keep'). Control
         // keeps its owner rule first — castable soon + one bomb (2026-09-13) — so its bonus (50) lifts a key card
         // only above FAR filler, never above a card it can cast soon; the other styles keep key cards over all filler.
-        if (SWUBotFeatureOn('keep') && SWUBotIsKeyCard($seat, $cid)) $keep += $rank >= 3 ? 50.0 : 150.0;
+        // PROPOSAL 'keepequal' (default OFF, owner-approved for data 2026-09-20): give control the same +150 every
+        // other archetype gets. Today control's answers rank BELOW any castable card, so it resources its own
+        // removal while keeping filler. ⚠ This contradicts the owner's 2026-09-13 "castable soon + one bomb" ruling.
+        if (SWUBotFeatureOn('keep') && SWUBotIsKeyCard($seat, $cid)) {
+            $keep += ($rank >= 3 && !SWUBotProposalOn('keepequal')) ? 50.0 : 150.0;
+        }
         // PROPOSAL 'sentinelkeep' (default OFF, "@try-sentinelkeep"). Owner ruling 2026-09-18: "Sentinels in
         // general are good to keep… unless you have two of the same unique unit Sentinel. then it should be safe
         // to resource one." A Sentinel is how control mitigates early damage, and the deficit is a SURVIVAL
@@ -127,7 +132,8 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         // board (2+ enemy space units, at least as many as on the ground), a card that answers space — a wipe of
         // space units, or unrestricted removal of an enemy unit — is kept above every castable-soon card.
         if (SWUBotProposalOn('holdanswers') && $rank >= 3 && _SWUBotOpponentSpaceHeavy($seat) && _SWUBotAnswersSpace($cid)) $keep += 150.0;
-        if (SWUBotFeatureOn('sentinelkeep') && $rank >= 3 && _SWUBotHasPrintedSentinel($cid)
+        // 'sentinelkeepall' (default OFF) lifts the control-wing gate on the shipped p4 Sentinel keep.
+        if (SWUBotFeatureOn('sentinelkeep') && ($rank >= 3 || SWUBotProposalOn('sentinelkeepall')) && _SWUBotHasPrintedSentinel($cid)
             && !_SWUBotRedundantUniqueInHand($seat, $cid, $i)) {
             $keep += 50.0;
         }

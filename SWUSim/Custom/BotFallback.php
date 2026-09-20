@@ -5,8 +5,24 @@
 // Spec: docs/superpowers/specs/2026-09-13-swusim-rl-bots-design.md, Section 2 ("Layer 4", "The guides").
 
 // What attacking $def (an enemy unit view) or the base ($def === null) with $att is worth.
+// PROPOSAL 'leaderrisk' (default OFF): a deployed LEADER unit that is defeated RETURNS to its leader zone
+// exhausted (memory `leader-units-are-defeated-then-return`) — the player loses a body for a round, not a card,
+// so pricing its loss like a real unit makes the bot under-attack with leaders.
+// PROPOSAL 'tradewhenbehind' (default OFF): while behind on units, an even trade is worth taking (owner Q10,
+// "most of the time a 1-to-1 trade is good") — as a CONDITION, where the flat loss weight could not express it.
+function _SWUBotLossFactor(array $att): float {
+    $f = 1.0;
+    if (SWUBotProposalOn('leaderrisk') && !empty($att['isLeader'])) $f *= 0.3;
+    if (SWUBotProposalOn('tradewhenbehind') && function_exists('SWUBotUnits')) {
+        $seat = intval($att['controller']);
+        if (count(SWUBotUnits($seat)) < count(SWUBotUnits(SWUBotOpponent($seat)))) $f *= 0.5;
+    }
+    return $f;
+}
+
 function SWUBotTargetValue(array $att, ?array $def, array $W): float {
     if ($def === null) return $W['base'] * $att['attackPower'];
+    $lossF = _SWUBotLossFactor($att);
     switch (SWUBotCombatOutcome($att, $def)) {
         case 'kill-survive':
             $v = $W['kill'] * SWUBotUnitValue($def);
@@ -14,14 +30,14 @@ function SWUBotTargetValue(array $att, ?array $def, array $W): float {
             if (SWUBotOverwhelmKills($att, $def)) $v += $W['base'] * ($att['attackPower'] - $def['remaining']);
             return $v;
         case 'trade':
-            return $W['kill'] * SWUBotUnitValue($def) - $W['loss'] * SWUBotUnitValue($att);
+            return $W['kill'] * SWUBotUnitValue($def) - $lossF * $W['loss'] * SWUBotUnitValue($att);
         case 'bounce':
             // Guide: pop a Shield with the smallest attacker.
             if ($def['shields'] > 0 && !$att['saboteur']) return $W['chip'] - 0.05 * $att['attackPower'];
             $dmg = min($att['attackPower'], $def['remaining']);
             return $W['chip'] * $dmg - ($def['grit'] ? $W['grit'] * $dmg : 0.0);   // guide: don't feed Grit
         default: // 'die'
-            return -$W['loss'] * SWUBotUnitValue($att);
+            return -$lossF * $W['loss'] * SWUBotUnitValue($att);
     }
 }
 
@@ -138,8 +154,9 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 $v = _SWUBotPlayValue($seat, $cid, $W);
                 // PROPOSAL 'earlyremoval' (default OFF). _SWUBotPlayValue is TARGET-BLIND — a removal event scores
                 // develop x cost + W['removal'] whether the best target is a 2-drop or a bomb. This gives it a target.
+                // 'threatholdall' (default OFF) lifts the control-wing gate on the shipped p5 hold.
                 if ((SWUBotProposalOn('earlyremoval') || SWUBotFeatureOn('threathold') || SWUBotProposalOn('restrictedearly'))
-                    && SWUBotStyleRank(strval($ctx['style'] ?? '')) >= 3) {
+                    && (SWUBotStyleRank(strval($ctx['style'] ?? '')) >= 3 || SWUBotProposalOn('threatholdall'))) {
                     $held = _SWUBotEarlyRemovalAdjust($seat, $cid, $v, $W);
                     if ($held === null) return -0.5;
                     $v = $held;
@@ -154,6 +171,20 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                     if (in_array('heal', $tags, true) && preg_match('/heal[^.]*from a unit/i', $t) && !preg_match('/base/i', $t)
                         && !array_filter(SWUBotUnits($seat), fn($u) => $u['remaining'] < $u['hp'])) $v -= $W['heal'];
                     if (in_array('buff', $tags, true) && stripos($t, 'Advantage token') !== false && !SWUBotIsRacing($seat, SWUBotOpponent($seat))) $v -= $W['buff'];
+                }
+                // PROPOSAL 'playsurvivor' (default OFF): prefer a body that SURVIVES the opponent's best attacker.
+                // Control keeps trading fresh units away; a unit that dies to the first swing bought nothing.
+                if (SWUBotProposalOn('playsurvivor') && str_contains(strval(CardType($cid)), 'Unit')) {
+                    $hp = intval(CardHp($cid));
+                    $worst = 0;
+                    foreach (SWUBotUnits(SWUBotOpponent($seat)) as $e) $worst = max($worst, intval($e['attackPower']));
+                    if ($hp > 0 && $worst >= $hp) $v -= 1.0;
+                }
+                // PROPOSAL 'sentineltiming' (default OFF): a Sentinel is played to guard the OPPONENT'S turn, so it
+                // belongs at the END of my round — while I still have attacks to make, playing it early only exposes
+                // it to removal. Held back while any attack is still on offer.
+                if (SWUBotProposalOn('sentineltiming') && function_exists('_SWUBotHasPrintedSentinel') && _SWUBotHasPrintedSentinel($cid)) {
+                    foreach ($ctx['actions'] as $other) { if (SWUBotActionKind($other) === 'attack') { $v -= 1.0; break; } }
                 }
                 // A Force card without the Force: its effect cannot happen — only the body counts (feature 'force').
                 if (SWUBotFeatureOn('force') && function_exists('PlayerHasTheForce') && !PlayerHasTheForce($seat) && _SWUBotNeedsTheForce($cid)) {
@@ -230,12 +261,23 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     $hostile = $effect === 'hostile';
     if (($hostile || $effect === 'beneficial') && $onBoard) {
         $s = _SWUBotTargetsScore($seat, $c, $hostile, _SWUBotEffectAmount($tip, strval(($ctx['following'] ?? [])[0] ?? '')), $head, $W);
+        // PROPOSAL 'removalready' (default OFF): among enemy targets, prefer a READY one — an exhausted unit cannot
+        // attack this round, so removing it saves nothing until the regroup. The same logic as the shipped
+        // 'shrinkfirst' rule (p6), applied to every hostile target choice rather than to one play.
+        if ($s !== null && $hostile && SWUBotProposalOn('removalready') && str_starts_with($c, 'their')) {
+            $tv = SWUBotViewForMz($seat, $c);
+            if ($tv !== null && !$tv['ready']) $s -= 0.5;
+        }
         return $s ?? -$index * 1e-6;
     }
 
     if ($type === 'YESNO') {
         // Mulligans are LEARNED (spec); the fallback keeps. Any other yes/no: take the optional effect.
-        if (str_starts_with($tip, 'Take_a_mulligan')) return $c === 'NO' ? 0.1 : 0.0;
+        if (str_starts_with($tip, 'Take_a_mulligan')) {
+            $mull = _SWUBotShouldMulligan($seat, strval($ctx['style'] ?? ''));
+            if ($mull !== null) return $c === ($mull ? 'YES' : 'NO') ? 0.1 : 0.0;
+            return $c === 'NO' ? 0.1 : 0.0;   // default: the bot has never mulliganed
+        }
         // An optional draw that would deck me out first is declined (the deck-out guard).
         if (stripos($tip, 'draw') !== false && SWUBotDrawMultiplier($seat) < 0) return $c === 'NO' ? 0.1 : 0.0;
         // "Use the Force to …" something hostile with no enemy unit to hit: keep the Force (feature 'force').
@@ -814,6 +856,11 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     }
     $value = $W['ability'];
     if (SWUBotFeatureOn('enablers')) $value = max($value, _SWUBotEnabledPlayValue($seat, $handBefore, $after, $W));
+    // FEATURE 'buffattack', group p7 (owner report #1052, game 690588): an Action that BUFFS a unit which can still attack
+    // this phase is worth what the buff adds to that attack. Flat W['ability'] (0.40) sits BELOW the attack it
+    // would improve (W['base'] x power), so the bot attacked with Gungi for 2 and then spent Ahsoka's Action on
+    // him — and "+2/+0 for this phase" on a unit that has already swung does nothing at all.
+    if (SWUBotFeatureOn('buffattack')) $value = max($value, $W['ability'] + _SWUBotBuffAttackGain($ctx, $seat, $before, $after, $W));
     // An Action that costs the Force (Talzin's -1/-1): never onto an empty enemy board, and held when its -N/-N kills
     // nothing while another card needs the Force (feature 'force').
     $text = _SWUBotActionSourceText($seat, $action);
@@ -825,6 +872,75 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
         if (!$kills && _SWUBotHasOtherForceUse($seat)) $value = min($value, 0.02);   // below the initiative (0.05)
     }
     return $value - max(0.0, $lost - 1.0);
+}
+
+// What a buff adds to the attacks my READY units can still make this phase — the extra damage it enables,
+// priced with the same weights the attack itself is scored with, so the two are directly comparable.
+// Two shapes, because the Action's target prompt may or may not have resolved inside the lookahead:
+//   · it auto-resolved (one legal target — the reported game) → the power rise shows in the board signature;
+//   · it is still pending → read the amount off the APPLY_PHASE_BUFF continuation and try each candidate.
+// Zero when the buff lands on an exhausted unit (it cannot attack this phase), on a unit with nothing worth
+// attacking, or on the enemy — so this never promotes an Action that does not improve an attack.
+function _SWUBotBuffAttackGain(array $ctx, int $seat, array $before, array $after, array $W): float {
+    $views = [];
+    foreach (SWUBotUnits($seat) as $v) $views[$v['uid']] = $v;
+    $bestAttack = function (array $att) use ($ctx, $W): float {
+        $best = 0.0;
+        foreach (SWUBotAllowedTargets($ctx, $att) as [$k, $u]) $best = max($best, SWUBotTargetValue($att, $k === 'base' ? null : $u, $W));
+        return $best;
+    };
+    $gainFor = function (?array $v, int $delta) use ($bestAttack): float {
+        if ($v === null || $delta <= 0 || !$v['ready']) return 0.0;   // exhausted: the buff expires unused
+        $boosted = $v; $boosted['attackPower'] += $delta; $boosted['power'] += $delta;
+        return max(0.0, $bestAttack($boosted) - $bestAttack($v));
+    };
+    $gain = 0.0;
+    // Signature index: [cardID, power, remaining, ready, shields, upgrades] (_SWUBotBoardSignature).
+    foreach (($after['sig']['mine'] ?? []) as $uid => $row) {
+        $prev = $before['mine'][$uid] ?? null;
+        if ($prev === null) continue;
+        $gain = max($gain, $gainFor($views[$uid] ?? null, intval($row[1]) - intval($prev[1])));
+    }
+    $d = $after['decision'] ?? null;
+    if ($gain <= 0.0 && $d !== null) {
+        $parts = explode('|', strval($d['next'] ?? ''));
+        if (($parts[0] ?? '') === 'APPLY_PHASE_BUFF') {
+            $amount = intval($parts[1] ?? 0);
+            foreach (array_filter(explode('&', strval($d['param'] ?? ''))) as $mz) {
+                if (!str_starts_with($mz, 'my')) continue;            // a buff on THEIR unit adds nothing to my attacks
+                $gain = max($gain, $gainFor(SWUBotViewForMz($seat, $mz), $amount));
+            }
+        }
+    }
+    return $gain;
+}
+
+// PROPOSALS 'mullnocast' / 'mullcurve' / 'mullstyle' (all default OFF) — the opening hand. Returns true to
+// mulligan, false to keep, or NULL when no mulligan proposal is active (the shipped bot always keeps).
+// Costs are PRINTED: at the mulligan there are no resources yet. Round N carries N+1 resources (CR 5.4), so
+// "castable by round 2" is cost <= 3. The hand is 6 cards (CR 1.8).
+function _SWUBotShouldMulligan(int $seat, string $style): ?bool {
+    $costs = [];
+    $tags = [];
+    foreach (GetHand($seat) as $o) {
+        if ($o === null || !empty($o->removed)) continue;
+        $cid = strval($o->CardID ?? '');
+        $costs[] = intval(CardCost($cid));
+        $tags[] = SWUBotCardTags($cid);
+    }
+    if (empty($costs)) return null;
+    $atMost = fn(int $n) => count(array_filter($costs, fn($c) => $c <= $n));
+    $atLeast = fn(int $n) => count(array_filter($costs, fn($c) => $c >= $n));
+    if (SWUBotProposalOn('mullnocast')) return $atMost(3) < 2;
+    if (SWUBotProposalOn('mullcurve'))  return $atMost(2) === 0 || $atLeast(6) >= 3;
+    if (SWUBotProposalOn('mullstyle')) {
+        $rank = SWUBotStyleRank($style);
+        if ($rank <= 1) return $atMost(2) === 0;                                   // the aggro wing needs an early drop
+        $answers = count(array_filter($tags, fn($t) => (bool)array_intersect($t, ['removal', 'wipe'])));
+        if ($rank >= 3) return $answers === 0 || $atMost(3) < 2;                   // control needs an answer AND a curve
+        return $atMost(3) < 2;                                                     // midrange: just the curve
+    }
+    return null;
 }
 
 // Which moves the guides favour, for this candidate list (BotGuides.php).

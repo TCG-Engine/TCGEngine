@@ -35,7 +35,10 @@ run_one() {
   local na nb key f out m g
   na=$(basename "$da" .txt); nb=$(basename "$db" .txt)
   key="$arm.$na.$nb.$s"; f="$OUT/games/$key.tsv"
-  [ -s "$f" ] && return 0
+  # Resume only past games that actually PRODUCED a result. A row whose metrics field is empty is a FAILED game
+  # (unknown chooser, timeout, fatal); treating it as done used to bake the failure in permanently — a rerun
+  # "resumed" 6,000 empty rows and reported success (2026-09-20).
+  grep -q 'SWUBOT_METRICS' "$f" 2>/dev/null && return 0
   # A profile naming a chooser directly (e.g. "random", "first-legal") is used verbatim; a bare archetype
   # name gets the "heuristic-" prefix. Archetype ids carry no hyphen by construction (BotArchetypes.php).
   local ca cb
@@ -52,6 +55,25 @@ run_one() {
 export -f run_one
 
 echo "[ab] $(wc -l < "$PAIRS") games, $WORKERS workers, out $OUT — $(date -u +%H:%M:%S)"
+
+# PREFLIGHT: play the FIRST job and require a result before spending the rest. Twice on 2026-09-19/20 a whole run
+# was wasted on profile columns that named a chooser the harness does not have — once caught before launch, once
+# not (6,000 games, every one exiting instantly). The profile column takes a BARE archetype ("softcontrol"); the
+# "heuristic-" prefix is added here, so passing "heuristic-softcontrol" asks for "heuristic-heuristic-softcontrol".
+preflight=$(head -1 "$PAIRS")
+IFS=$'\t' read -r p_arm p_da p_pa p_db p_pb p_s <<< "$preflight"
+run_one "$p_arm" "$p_da" "$p_pa" "$p_db" "$p_pb" "$p_s"
+p_key="$p_arm.$(basename "$p_da" .txt).$(basename "$p_db" .txt).$p_s"
+if ! grep -q 'SWUBOT_METRICS' "$OUT/games/$p_key.tsv" 2>/dev/null; then
+  echo "[ab] PREFLIGHT FAILED — the first job produced no SWUBOT_METRICS line, so every job would fail." >&2
+  echo "[ab]   arm=$p_arm  seed=$p_s" >&2
+  echo "[ab]   deckA=$p_da  profileA=$p_pa   deckB=$p_db  profileB=$p_pb" >&2
+  echo "[ab]   A bare archetype gets the 'heuristic-' prefix here; pass 'softcontrol', not 'heuristic-softcontrol'." >&2
+  echo "[ab]   Run that one game by hand to see the harness's own error (it prints the registered profiles)." >&2
+  rm -f "$OUT/games/$p_key.tsv"
+  exit 1
+fi
+
 tr '\t' ' ' < "$PAIRS" | xargs -P "$WORKERS" -L1 bash -c 'run_one "$@"' _
 # find -exec, not a glob: a 45,720-game run (2026-09-19) blew past ARG_MAX and wrote an EMPTY results.tsv while
 # reporting "done — 0 results". The per-game files survived, but the run looked lost.

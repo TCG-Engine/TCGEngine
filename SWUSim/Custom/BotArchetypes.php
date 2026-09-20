@@ -73,6 +73,10 @@ function SWUBotWeights(string $style, int $seat): array {
     if (function_exists('SWUBotActiveWeightProbe') && ($probe = SWUBotActiveWeightProbe()) !== null) {
         foreach ($probe as $k => $mult) { if (isset($out[$k])) $out[$k] *= $mult; }
     }
+    // FLOORS (BotFeatures.php): max(current, floor). A multiplier cannot lift a weight that is 0.00.
+    if (function_exists('SWUBotActiveWeightFloor') && ($floor = SWUBotActiveWeightFloor()) !== null) {
+        foreach ($floor as $k => $v) { if (isset($out[$k])) $out[$k] = max($out[$k], $v); }
+    }
     // PROPOSAL 'dmgbudget' (default OFF, "@try-dmgbudget"). While a control-wing seat is over the owner's damage
     // pace (SWUBotOverDamageBudget, BotEvaluator.php) it plays for survival: trades and removal up, healing up,
     // racing the base down, and it minds losing a unit in a trade less (owner, Q10: "most of the time a 1-to-1
