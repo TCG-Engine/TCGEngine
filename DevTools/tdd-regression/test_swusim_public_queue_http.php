@@ -47,17 +47,75 @@ function fixture($rel) {
     return trim(implode("\n", array_filter(explode("\n", file_get_contents(__DIR__ . '/../../SWUSim/Tests/BotFixtures/' . $rel)), fn($l) => !str_starts_with($l, '#'))));
 }
 
-$LEGAL   = fixture('meta-2026-09/aggro_vader_yellow.txt');   // Premier-legal
-$ILLEGAL = fixture('premier_deck_a.txt');                     // SOR — not Premier-legal; Open-legal
+$LEGAL    = fixture('meta-2026-09/aggro_vader_yellow.txt');   // Premier-legal
+$ILLEGAL  = fixture('premier_deck_a.txt');                     // SOR — not Premier-legal; Open-legal
+$TWINSUNS = fixture('twinsuns_deck_a.txt');                    // 2 leaders + 80 highlander (CR §12.2)
 $bot1 = login('claudebot1');
 $bot2 = login('claudebot2');
 $anon = tempnam(sys_get_temp_dir(), 'pq');
 
 echo "── Part A: refusals and legality ──\n";
-foreach (['twinsuns', 'twinsuns-preview', 'teamsuns'] as $f) {
-    $r = join_($bot1, $f, 'bo1', $LEGAL);
-    check(empty($r['success']) && str_contains((string)($r['message'] ?? ''), 'private rooms') && empty($r['lobbyID']), "$f public join is refused toward private rooms", $r);
+// Owner, 2026-09-20: the Twin Suns family now takes the public queue, REVERSING the refusal this
+// block used to assert ("…is refused toward private rooms"). Its queue is a public ROOM: the join
+// succeeds, the lobby is created at the format's real seat count, and the client is told it is a room
+// so it routes to the waiting-room page instead of sitting on a quick-match spinner.
+//
+// ⚠ teamsuns-preview was MISSING from the old loop — a pre-existing gap, closed here. All four now.
+foreach (['twinsuns', 'twinsuns-preview', 'teamsuns', 'teamsuns-preview'] as $f) {
+    $r = join_($bot1, $f, 'bo1', $TWINSUNS);
+    check(!empty($r['success']) && !empty($r['lobbyID']), "$f public join is ACCEPTED", $r);
+    check(($r['isRoom'] ?? null) === true, "$f public join reports isRoom", $r);
+    check(intval($r['maxPlayers'] ?? 0) === 4, "$f public lobby seats 4, not 2", $r);
+    check(empty($r['ready']), "$f public lobby does not auto-start on create", $r);
+    leave($bot1, $r);
 }
+// The refusal that REMAINS is deck legality, and it must not be the old "private rooms" message —
+// a Premier list has one leader and is nowhere near 80 highlander cards.
+$r = join_($bot1, 'twinsuns', 'bo1', $LEGAL);
+check(empty($r['success']) && empty($r['lobbyID']), 'a Premier list is still refused for twinsuns', $r);
+check(!str_contains((string)($r['message'] ?? ''), 'private rooms'), 'twinsuns refusal is about the DECK, not private rooms', $r);
+
+echo "── Part A2: a public Twin Suns ROOM fills without auto-starting ──\n";
+// ⚠ THE ASSERTIONS ABOVE DO NOT COVER THE AUTO-START GUARD. They run on a freshly CREATED lobby,
+// which holds one player and so could never be `ready` regardless. The guard only has an opinion when
+// the room FILLS — so fill it. Four seats, Team Suns (strictly 4), all on the same public lobby.
+$bot3 = login('claudebot3');
+$bot4 = login('claudebot4');
+$seats = [];
+foreach ([[$bot1, 1], [$bot2, 2], [$bot3, 3], [$bot4, 4]] as [$jar, $n]) {
+    $r = join_($jar, 'teamsuns', 'bo1', $TWINSUNS);
+    $seats[] = [$jar, $r];
+    check(!empty($r['success']), "seat $n joined the public Team Suns room", $r);
+    if ($n > 1) check(($r['lobbyID'] ?? '') === ($seats[0][1]['lobbyID'] ?? ''), "seat $n landed in the SAME room as seat 1", $r);
+}
+$last = end($seats)[1];
+// The payoff: a FULL room must still not have started. A quick-match lobby would be ready + carry a
+// gameName the moment its last seat arrived.
+check(empty($last['ready']), 'the full Team Suns room is NOT ready (the host starts it)', $last);
+check(empty($last['gameName']), 'the full Team Suns room created no game on its own', $last);
+check(intval($last['maxPlayers'] ?? 0) === 4 && ($last['isRoom'] ?? null) === true, 'the 4th seat is told it is a 4-player room', $last);
+// And the creator holds the room: only hostPlayerID may start it, so a NON-host start must be refused.
+$nonHost = $seats[1];
+$sr = post($L . 'StartRoom.php', ['rootName' => 'SWUSim', 'lobbyID' => $nonHost[1]['lobbyID'],
+                                  'playerID' => $nonHost[1]['playerID'] ?? 0, 'authKey' => $nonHost[1]['authKey'] ?? ''], $nonHost[0]);
+check(empty($sr['success']) && str_contains(strtolower((string)($sr['message'] ?? '')), 'host'),
+      'a non-host cannot start the public room', $sr);
+// The creator holds the room: seat 1's start must fail for some OTHER reason (teams unpicked, decks
+// unconfirmed — whatever startBlockers says), never "only the host can start".
+//
+// ⚠ WHAT THIS DOES NOT PROVE, measured by mutation 2026-09-20: deleting `$lobby->hostPlayerID = 1`
+// from JoinQueue leaves this GREEN. StartRoom.php:33 and PollLobbyUpdates.php:117 both read
+// `hostPlayerID ?? 1`, so an unset field still names seat 1 at both of the places a test can see.
+// The readers that default to 0 are SWUMigrateHostIfNeeded / SWUMigrateHostIfAway — and the second
+// one is where an unset field really bites: its host lookup finds no seat 0, returns false, and an
+// away host's room can NEVER be handed over. That needs 300s of clock and belongs in
+// SWUSim/DevTools/tests/lobby_presence_test.php (which injects $now), not here.
+$hostSeat = $seats[0];
+$hr = post($L . 'StartRoom.php', ['rootName' => 'SWUSim', 'lobbyID' => $hostSeat[1]['lobbyID'],
+                                  'playerID' => $hostSeat[1]['playerID'] ?? 0, 'authKey' => $hostSeat[1]['authKey'] ?? ''], $hostSeat[0]);
+check(!str_contains(strtolower((string)($hr['message'] ?? '')), 'only the host'),
+      'the room CREATOR is its host (seat 1 is not refused as a non-host)', $hr);
+foreach (array_reverse($seats) as [$jar, $r]) leave($jar, $r);
 $r = join_($bot1, 'premier', 'bo1', $ILLEGAL);
 check(empty($r['success']) && ($r['message'] ?? '') !== '' && empty($r['lobbyID']), 'an illegal Premier deck is refused at join', $r);
 $r = join_($anon, 'premier', 'bo1', $LEGAL);

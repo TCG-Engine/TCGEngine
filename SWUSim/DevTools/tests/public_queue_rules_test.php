@@ -13,10 +13,20 @@ $ILLEGAL = $fixture('premier_deck_a.txt');
 
 $check(SWUPublicQueueRefusal('premier') === null, 'premier may queue');
 $check(SWUPublicQueueRefusal('padawan-preview') === null, 'padawan-preview may queue');
+// Owner, 2026-09-20: the Twin Suns family now queues too, REVERSING the "refused toward private
+// rooms" this block used to assert. The refusal is gone entirely — SWUPublicQueueRefusal returns null
+// — and the room-vs-quick-match distinction is made later, by the lobby adapter, not by a refusal.
 foreach (['twinsuns', 'twinsuns-preview', 'teamsuns', 'teamsuns-preview'] as $f) {
-    $check(str_contains((string)SWUPublicQueueRefusal($f), 'private rooms'), "$f is refused toward private rooms");
+    $check(SWUPublicQueueRefusal($f) === null, "$f may queue (as a public room)");
 }
 $check(SWUPublicQueueRefusal('goldfish') === "Public matchmaking isn't open for this format.", 'a local mode gets the generic refusal');
+$check(SWUPublicQueueRefusal('botpractice') === "Public matchmaking isn't open for this format.", 'Arenabot still never queues');
+
+// A Twin Suns list must pass its own format here, and a Premier list must NOT — the deck gate is what
+// still refuses a wrong-format deck now that the blanket format refusal is gone.
+$TWINSUNS = $fixture('twinsuns_deck_a.txt');
+$check(SWUPublicQueueDeckErrors('twinsuns', $TWINSUNS) === [], 'a Twin Suns-legal list has no errors');
+$check(!empty(SWUPublicQueueDeckErrors('twinsuns', $LEGAL)), 'a Premier list is refused for twinsuns');
 
 $check(SWUPublicQueueDeckErrors('premier', $LEGAL) === [], 'a Premier-legal list has no errors');
 $check(!empty(SWUPublicQueueDeckErrors('premier', $ILLEGAL)), 'an SOR list is not Premier-legal');

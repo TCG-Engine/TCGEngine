@@ -9,17 +9,25 @@ require_once __DIR__ . '/../APIs/Lobbies/Classes/TeamRooms.php';
 
 class SWULobbyAdapter implements LobbyAdapter {
 
-    // ROUTING: private && not local/solo.
+    // ROUTING: not local/solo, AND (private || a room format).
     //
-    // Note what this does NOT ask: seat count. "Does this lobby get a page?" and "how many seats do I
-    // draw?" are different questions, and the predicate this replaces
+    // Note what this does NOT ask for the PRIVATE case: seat count. "Does this lobby get a page?" and
+    // "how many seats do I draw?" are different questions, and an older predicate
     // (rootName === 'SWUSim' && SWUFormatIsRoomFormat, i.e. maxPlayers > 2) answered the first with
-    // the second. That denied a lobby to every private 2-player game, and to twinsuns-preview, which
-    // is declared seats 2-2 despite being Twin Suns.
+    // the second, which denied a page to every private 2-player game.
+    //
+    // For the PUBLIC case the seat count IS the question (owner, 2026-09-20). The Twin Suns family now
+    // takes public queues, and its queue is a public ROOM: you land in an open room, the creator hosts,
+    // and only the host starts. Constructed's public queue stays quick-match — it pairs two players and
+    // goes straight into the game, so there is nothing for a page to wait for.
+    //
+    // ⚠ The discriminator is the FORMAT (SWUFormatIsRoomFormat), never $lobby->maxPlayers. A lobby's
+    // maxPlayers is data an old or hand-built record may carry wrong; the format registry is the truth.
     public function wantsWaitingRoom(object $lobby): bool {
-        if (empty($lobby->isPrivate)) return false;              // public queue -> quick match, no page
         $f = SWUGetFormat($lobby->format ?? '');
-        return $f !== null && empty($f['localMode']);            // goldfish / hotseat -> no page
+        if ($f === null || !empty($f['localMode'])) return false;   // unknown / goldfish / hotseat -> no page
+        if (!empty($lobby->isPrivate)) return true;                 // every private non-local lobby
+        return SWUFormatIsRoomFormat($lobby->format ?? '');         // public: Twin Suns family only
     }
 
     // RENDERING: how many seats to draw, and whether they split into teams.

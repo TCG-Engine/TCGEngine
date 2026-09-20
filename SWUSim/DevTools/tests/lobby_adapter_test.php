@@ -1,8 +1,10 @@
 <?php
 // The waiting-room routing predicate, pinned as a TRUTH TABLE.
 //
-// A lobby gets a WaitingRoom iff it is PRIVATE and its format is not a localMode format.
-// Public queue: never. Solo/local: never. Every other private lobby: always, at 2 seats or 4.
+// A lobby gets a WaitingRoom iff its format is not a localMode format AND (it is PRIVATE, or its
+// format is a ROOM format). Solo/local: never. Every private non-local lobby: always, at 2 seats or 4.
+// Public: only the Twin Suns family — its queue pairs into an open public room with a host, while
+// Constructed's public queue stays quick-match (owner, 2026-09-20).
 //
 // The table is the point. A one-off assertion would let goldfish or hotseat silently drift back in
 // the next time someone touches the predicate — and the old predicate it replaces
@@ -45,9 +47,27 @@ foreach ($expectPrivate as $fmt => $want) {
     $got = $a->wantsWaitingRoom(lobby($fmt, true));
     check($got === $want, sprintf('PRIVATE %-16s -> %s', $fmt, $want ? 'waiting room' : 'no waiting room'));
 }
+// PUBLIC lobbies. Owner, 2026-09-20: the Twin Suns family now takes public queues, and its queue is a
+// public ROOM — players land in an open room, the creator hosts, and only the host starts. So a public
+// lobby gets a waiting room iff its format is a ROOM format (maxPlayers > 2). Constructed's public
+// queue stays quick-match with no page, exactly as before; 1P/local modes never get one either.
+//
+// This is the half of the table that changed. Before, the answer was "public -> never". Keeping the
+// loop over EVERY registered format (rather than asserting the four Twin Suns ids) is what stops a new
+// format from silently inheriting whichever branch the predicate happens to take.
 foreach (array_keys($expectPrivate) as $fmt) {
-    check($a->wantsWaitingRoom(lobby($fmt, false)) === false, sprintf('PUBLIC  %-16s -> no waiting room', $fmt));
+    $wantPublic = SWUFormatIsRoomFormat($fmt) && empty(SWUGetFormat($fmt)['localMode']);
+    check($a->wantsWaitingRoom(lobby($fmt, false)) === $wantPublic,
+          sprintf('PUBLIC  %-16s -> %s', $fmt, $wantPublic ? 'waiting room' : 'no waiting room'));
 }
+// Pin the two sides explicitly too, so the loop above cannot pass by computing the same wrong answer
+// on both sides of the comparison.
+check($a->wantsWaitingRoom(lobby('twinsuns', false))  === true,  'PUBLIC twinsuns gets a room (the new behaviour)');
+check($a->wantsWaitingRoom(lobby('teamsuns', false))  === true,  'PUBLIC teamsuns gets a room');
+check($a->wantsWaitingRoom(lobby('twinsuns-preview', false)) === true, 'PUBLIC twinsuns-preview gets a room');
+check($a->wantsWaitingRoom(lobby('teamsuns-preview', false)) === true, 'PUBLIC teamsuns-preview gets a room');
+check($a->wantsWaitingRoom(lobby('premier', false))   === false, 'PUBLIC premier stays quick-match');
+check($a->wantsWaitingRoom(lobby('goldfish', false))  === false, 'PUBLIC goldfish never gets a room');
 
 // Every format in the registry is covered above — otherwise a newly added format silently gets no
 // assertion at all and inherits whatever the predicate happens to do.

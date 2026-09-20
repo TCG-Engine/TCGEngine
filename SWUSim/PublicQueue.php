@@ -4,11 +4,17 @@
 // SWUSim/Custom/DeckImport.php (SWUResolveDeckInput, SWUCheckFormat) loaded by the caller.
 require_once __DIR__ . '/../AppCore/SWU/Formats.php';
 
-// Why $formatId may not use the public queue, or null when it may. The Twin Suns family is pointed at private rooms;
-// everything else not allowed (a local mode, a disabled format, the site-wide switch off) gets the generic line.
+// Why $formatId may not use the public queue, or null when it may.
+//
+// The Twin Suns family USED to be refused here and pointed at private rooms. Owner, 2026-09-20: it
+// queues now (as a public room — SWULobbyAdapter::wantsWaitingRoom draws that line, not a refusal),
+// so that branch is gone. Removing it is not just tidying: the branch sat AFTER the allow check, so
+// the only way left to reach it was with the site-wide switch OFF — where it told Twin Suns players
+// that their format is played in private rooms, which is no longer true and hid the real reason
+// (matchmaking is closed site-wide). Everything still refused — a local mode, a disabled format, the
+// switch off — gets the one generic line.
 function SWUPublicQueueRefusal(string $formatId): ?string {
     if (SWUFormatAllowsPublicQueue($formatId)) return null;
-    if (SWUFormatIsRoomFormat($formatId)) return "Twin Suns games are played in private rooms — create a room and share the invite.";
     return "Public matchmaking isn't open for this format.";
 }
 

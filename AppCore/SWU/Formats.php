@@ -107,6 +107,11 @@ function SWUFormatDefinitions() {
             'leaderCount' => 2,                                   // CR §12.2.1.a / §12.3
             'minPlayers'  => 3,
             'maxPlayers'  => 4,
+            // Public matchmaking (owner, 2026-09-20), REVERSING the 2026-09-16 "Constructed only".
+            // ⚠ A room format's queue is NOT Constructed's quick match: it pairs into an open public
+            // ROOM whose creator hosts and starts it. SWULobbyAdapter::wantsWaitingRoom() is what
+            // splits the two, keyed on SWUFormatIsRoomFormat.
+            'publicQueue' => true,
             'enabled'     => true,
         ],
         // Team Suns: 2v2 Twin Suns. Same deckbuilding, plus one TEAM-wide rule — no leader may
@@ -122,6 +127,7 @@ function SWUFormatDefinitions() {
             'maxPlayers'        => 4,
             'teams'             => 2,
             'uniqueTeamLeaders' => true,
+            'publicQueue'       => true,   // public ROOM queue — see the note on twinsuns
             'enabled'           => true,
         ],
 
@@ -184,6 +190,7 @@ function SWUFormatDefinitions() {
             // in DevTools/tdd-regression/test_swusim_formats_config.php now enforces that.
             'minPlayers'  => 3,
             'maxPlayers'  => 4,
+            'publicQueue' => true,   // public ROOM queue — see the note on twinsuns
             'enabled'     => true,
         ],
         // Team Suns pool + the upcoming set's previews (owner, 2026-09-16: "add both options to Team Suns as well").
@@ -202,6 +209,7 @@ function SWUFormatDefinitions() {
             'maxPlayers'        => 4,
             'teams'             => 2,
             'uniqueTeamLeaders' => true,
+            'publicQueue'       => true,   // public ROOM queue — see the note on twinsuns
             'enabled'           => true,
         ],
         // Eternal pool + the upcoming set's previews — the Eternal counterpart of 'preview'. Same

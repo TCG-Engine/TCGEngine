@@ -553,6 +553,24 @@
     $swuTestFailAtPairing = !empty($_POST['testFailAtPairing']) && SWUIsLocalDevRequest();
   }
 
+  // Does a PUBLIC lobby in this format pair into a ROOM, or into a quick match? (owner, 2026-09-20)
+  //
+  //   quick match — Constructed. Two seats, auto-starts the instant it fills; no page.
+  //   public room — the Twin Suns family. Seats come from the format, the creator is the host, and
+  //                 NOTHING auto-starts: the host presses Start when the room looks right. That is
+  //                 also what settles 3-vs-4 for twinsuns (seats 3-4) without a rule of its own —
+  //                 the host starts at 3 if that is who turned up, and startBlockers enforces the
+  //                 minimum.
+  //
+  // Asked through the ADAPTER, not through a format predicate inline, so every sim keeps one answer
+  // to "is this a room?" — the same call the private path already makes at its own create site.
+  $publicAdapter = LobbyAdapterFor($rootName);
+  $publicProbe = new stdClass();
+  $publicProbe->format    = $format;
+  $publicProbe->isPrivate = false;
+  $publicProbe->rootName  = $rootName;
+  $publicIsRoom = $publicAdapter !== null && $publicAdapter->wantsWaitingRoom($publicProbe);
+
   if (isset($cacheInfo['cache_list'])) {
       foreach ($cacheInfo['cache_list'] as $entry) {
           if (!isset($entry['info'])) continue;
@@ -580,7 +598,7 @@
               $joinErr = null; $newPlayer = null; $playerID = 0;
               $stored = LobbyMutate($targetKey, function ($lobby) use (
                   $deckLink, $preconstructedDeck, $joiningUserId, $rootName,
-                  $shareAnonymizedGameplayData, $swuTestFailAtPairing, &$joinErr, &$newPlayer, &$playerID) {
+                  $shareAnonymizedGameplayData, $swuTestFailAtPairing, $publicIsRoom, &$joinErr, &$newPlayer, &$playerID) {
                 // Re-checked under the lock: two people can reach a one-seat queue at once, and the
                 // loser must fall through to the next lobby rather than overfill this one.
                 if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) { $joinErr = 'full'; return false; }
@@ -589,7 +607,11 @@
                 if ($rootName === 'GrandArchiveSim') {
                   $lobby->shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData) && $shareAnonymizedGameplayData;
                 }
-                if ($lobby->numPlayers == $lobby->maxPlayers) $lobby->ready = true;
+                // A quick match auto-starts the moment it fills; a public ROOM never does — its host
+                // starts it. Mirrors the `!$isRoom` guard the invite path already carries on the same
+                // assignment. Without this a Twin Suns room would fire into a game the instant a 4th
+                // player joined, with nobody having chosen teams or checked their deck.
+                if (!$publicIsRoom && $lobby->numPlayers == $lobby->maxPlayers) $lobby->ready = true;
                 $playerID  = _SWUNextPlayerID($lobby);
                 $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
                 $lobby->players[] = $newPlayer;
@@ -662,6 +684,10 @@
               $response->authKey = $newPlayer->getAuthKey();
               $response->lobbyID = $lobby->id;
               if(isset($lobby->gameName) && $lobby->gameName) $response->gameName = $lobby->gameName;
+              // Same routing fields the create path reports: a seat that JOINS a public room needs to
+              // land on the waiting-room page just as much as the one that made it.
+              $response->isRoom = $publicIsRoom;
+              $response->maxPlayers = $lobby->maxPlayers;
               $matchFound = true;
               header('Content-Type: application/json');
               echo json_encode($response);
@@ -675,7 +701,11 @@
       $lobbyId = uniqid();
       $lobby = new stdClass();
       $lobby->numPlayers = 1;
-      $lobby->maxPlayers = 2;
+      // Seats come from the FORMAT, not from a hardcoded 2 — the private path at the createPrivate
+      // block above has always done this, and a public Twin Suns room needs the same 3-4 or 4.
+      // Constructed still resolves to 2, so its queue is byte-identical to before.
+      [, $publicMaxPlayers] = ($rootName === 'SWUSim') ? SWUFormatSeatRange($format) : [2, 2];
+      $lobby->maxPlayers = $publicMaxPlayers;
       $lobby->ready = false;
       $lobby->id = $lobbyId;
       $lobby->rootName = $rootName;
@@ -685,6 +715,19 @@
       if ($rootName === 'GrandArchiveSim') $lobby->shareAnonymizedGameplayData = $shareAnonymizedGameplayData;
       $lobby->casterMode = $casterMode;
       $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
+      // A public ROOM needs a host, and the creator is it. Identity (hostPlayerID), never "seat 1" —
+      // Team Suns reorders seats on every team pick, and StartRoom/KickSeat/AddBot all authenticate
+      // against this field. Omitting it left hostPlayerID at 0, which SWUMigrateHostIfNeeded treats as
+      // "host not seated" and would hand to the lowest id on the first Leave — survivable, but it
+      // means the creator is not actually the host until someone drops.
+      if ($publicIsRoom) {
+        $lobby->hostUserId   = $joiningUserId;
+        $lobby->hostPlayerID = 1;
+        if (LobbyUsesFixedSeats($lobby)) $newPlayer->setSeat(1);
+        // Resolve the creator's deck so the roster shows a real identity strip immediately, exactly as
+        // the private room create does. Never fatal.
+        _SWURoomApplyResolvedDeck($newPlayer, _SWURoomResolveDeck($lobby, $deckLink, $preconstructedDeck));
+      }
       $lobby->players = array($newPlayer);
       if ($swuTestFailAtPairing) $lobby->testFailAtPairing = [strval($newPlayer->getAuthKey())];   // local-dev test hook
 
@@ -696,6 +739,11 @@
       $response->playerID = 1;
       $response->authKey = $newPlayer->getAuthKey();
       $response->lobbyID = $lobby->id;
+      // The client routes on these: a room goes to the waiting-room page and waits for its host,
+      // a quick match sits on the pairing spinner. The private create has reported them since it
+      // shipped; the public one never needed to until room-shaped queues existed.
+      $response->isRoom = $publicIsRoom;
+      $response->maxPlayers = $lobby->maxPlayers;
   }
 
 

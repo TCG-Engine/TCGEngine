@@ -1,0 +1,93 @@
+# Twin Suns fixture — 2 leaders, 80 distinct cards (CR §12.2: 80 min, highlander).
+# Generated from GeneratedCardDictionaries.php and validated with SWUCheckFormat('twinsuns').
+# Purpose: the ONLY Twin Suns-legal deck fixture in the repo; the public-queue HTTP test needs
+# a list that actually passes the format so it can prove a Twin Suns join is ACCEPTED.
+
+Leader
+1 SOR_001
+1 SOR_002
+
+Base
+1 SOR_019
+
+Deck
+1 SOR_031
+1 SOR_032
+1 SOR_033
+1 SOR_034
+1 SOR_035
+1 SOR_036
+1 SOR_037
+1 SOR_038
+1 SOR_039
+1 SOR_040
+1 SOR_041
+1 SOR_042
+1 SOR_043
+1 SOR_044
+1 SOR_045
+1 SOR_046
+1 SOR_047
+1 SOR_048
+1 SOR_049
+1 SOR_050
+1 SOR_051
+1 SOR_052
+1 SOR_053
+1 SOR_054
+1 SOR_055
+1 SOR_056
+1 SOR_057
+1 SOR_058
+1 SOR_059
+1 SOR_060
+1 SOR_061
+1 SOR_062
+1 SOR_063
+1 SOR_064
+1 SOR_065
+1 SOR_066
+1 SOR_067
+1 SOR_068
+1 SOR_069
+1 SOR_070
+1 SOR_071
+1 SOR_072
+1 SOR_073
+1 SOR_074
+1 SOR_075
+1 SOR_076
+1 SOR_077
+1 SOR_078
+1 SOR_079
+1 SOR_080
+1 SOR_081
+1 SOR_082
+1 SOR_083
+1 SOR_084
+1 SOR_085
+1 SOR_086
+1 SOR_087
+1 SOR_088
+1 SOR_089
+1 SOR_090
+1 SOR_091
+1 SOR_092
+1 SOR_093
+1 SOR_094
+1 SOR_095
+1 SOR_096
+1 SOR_097
+1 SOR_098
+1 SOR_099
+1 SOR_100
+1 SOR_101
+1 SOR_102
+1 SOR_103
+1 SOR_104
+1 SOR_105
+1 SOR_106
+1 SOR_107
+1 SOR_108
+1 SOR_109
+1 SOR_110

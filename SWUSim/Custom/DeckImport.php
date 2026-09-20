@@ -377,7 +377,13 @@ function SWUNormalizeSWUDBLegacy($data) {
  *   e.g.  "3 K-2SO"  or  "1x Sabine Wren (SOR_014)"  or  "SOR_014"
  */
 function SWUParseFreeText($text) {
-    $leader    = '';
+    // Leaders are COLLECTED, not first-wins. A Twin Suns / Team Suns list has two, and this parser
+    // used to keep only the first and silently drop the rest — so a Twin Suns deck could not be
+    // expressed as text at all, and every such list failed format-checking with "requires exactly 2
+    // leaders; found 1". The swudb JSON path (see the `secondleader` handling above) has always
+    // returned both, and SWUDeckSuccess already documents $leader as "a single CardID or an array of
+    // 2", so this only brings the text path up to a contract the rest of the file already keeps.
+    $leaders   = [];
     $base      = '';
     $mainDeck  = [];
     $sideboard = [];
@@ -438,7 +444,11 @@ function SWUParseFreeText($text) {
         for ($i = 0; $i < $quantity; ++$i) {
             switch ($section) {
                 case 'leader':
-                    if ($leader === '') $leader = $cardId;
+                    // Deduped: "2 SOR_001" in a Leader section is one leader listed with a quantity,
+                    // never the same leader twice (no format allows that). Two DIFFERENT lines give
+                    // two leaders. Not capped here — SWUCheckFormat owns leaderCount, so a 3-leader
+                    // list must reach it as 3 and be rejected with a real message.
+                    if (!in_array($cardId, $leaders, true)) $leaders[] = $cardId;
                     break;
                 case 'base':
                     if ($base === '') $base = $cardId;
@@ -451,6 +461,10 @@ function SWUParseFreeText($text) {
             }
         }
     }
+
+    // Collapse to the shape every consumer already handles: a bare CardID for a one-leader deck
+    // (unchanged for every standard format), an ARRAY once there are two or more.
+    $leader = count($leaders) > 1 ? $leaders : (string)($leaders[0] ?? '');
 
     if ($leader === '' && $base === '' && empty($mainDeck)) {
         return SWUDeckError('Unable to parse the deck list. Please check the format.');
