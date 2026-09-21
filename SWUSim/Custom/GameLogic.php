@@ -12745,16 +12745,22 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
                     AddTrigger($d['player'], $scid, $scid, $param);
                     _SWUAddShadowCasterGrantedReuse(intval($d['player']), $scid, $param); // JTL_169 Shadow Caster reuse
                 }
-                // SHD_001 Gar Saxon (deployed grant) — "Each friendly upgraded unit gains: When Defeated:
-                // you may return an upgrade that was attached to this unit to its owner's hand." Field-
-                // presence grant (fires while the unit's controller's leader is SHD_001). Snapshot the real
-                // upgrade CardIDs now (subcards still intact). Resolved as a benefit-only auto-return in
-                // SWUAfterAction's lazy sweep rather than a When-Defeated trigger: an ENEMY defeat queues
-                // the controller's trigger on their (non-active) queue, which doesn't drain mid-attack
-                // (subsystem gap #1). Returning an upgrade is always beneficial, so auto-resolve one.
+                // SHD_001 Gar Saxon — "Each friendly upgraded unit gains: When Defeated: you may return an
+                // upgrade that was attached to this unit to its owner's hand."
+                // ⚠ THIS IS A DEPLOYED-SIDE GRANT, NOT A "FIELD-PRESENCE" ONE — the two sides differ and
+                // only one carries it:
+                //     FRONT  : "Each friendly upgraded unit gets +1/+0."                    (buff only)
+                //     DEPLOY : "… gets +1/+0 AND GAINS: 'When Defeated: … return an upgrade …'"
+                // This read `($ld1->CardID ?? '') === 'SHD_001'` alone, so the return fired with Gar Saxon
+                // still on his leader side — reported by a player as "the on-deploy effect works even when
+                // he isn't deployed". `_SWULeaderDeployed` is the house helper for exactly this, and it
+                // also scans ALL of the seat's leaders, so Twin Suns (two per seat) reads correctly.
+                // Snapshot the real upgrade CardIDs now (subcards still intact). Resolved as a benefit-only
+                // auto-return in SWUAfterAction's lazy sweep rather than a When-Defeated trigger: an ENEMY
+                // defeat queues the controller's trigger on their (non-active) queue, which doesn't drain
+                // mid-attack (subsystem gap #1). Returning an upgrade is always beneficial, so auto-resolve.
                 $dctrl1 = intval($d['player'] ?? 0);
-                $ld1    = $dctrl1 > 0 ? SWUGetLeader($dctrl1) : null;
-                if ($ld1 !== null && ($ld1->CardID ?? '') === 'SHD_001') {
+                if ($dctrl1 > 0 && _SWULeaderDeployed($dctrl1, 'SHD_001')) {
                     $upgSnap = [];
                     foreach ($defObj->Subcards as $sub) {
                         $scid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
@@ -19308,14 +19314,40 @@ function SWUHandPlayablesAtDiscount(int $player, array $types, int $discount): a
 // affordability gate and its ability closures (leader side + deployed-unit side).
 // Caller must set $playerID before calling.
 function _SWUSeparatistHandPlayables(int $player): array {
+    global $Exploit_Cards;
     $ready = SWUTotalPaymentCapacity($player); // Credits/Droids can pay a play cost (CR 3.13)
+    // ⚠ THE POOL MUST PREDICT THE DISCOUNT THE PLAY WILL OFFER. This read `$cost <= $ready` on the
+    // PLAIN cost, but `$gPlayGrantedExploit` is not set until SWUBeginPlayCard runs — long after the
+    // pool is built. So a card affordable ONLY because of the Exploit this very ability grants was
+    // filtered out, the pool came back empty, and the Action fell through to SWUAfterAction: spent,
+    // with nothing played. Reported as "a 3 drop separatist with 2 resources and a unit out — the
+    // action did nothing". Nothing upstream catches it either: SWULeaderActionAffordable deliberately
+    // does NOT gate TWI_005 (CR 6.4.587.c), so this pool is the ONLY gate and a narrow one reads as a
+    // dead button. Pin: twi/CountDooku_FaceOfTheConfederacy.md::Leader_AffordableONLYViaTheExploit…
+    //
+    // The caller grants Exploit 1. SWUBeginPlayCard ALSO consumes the deployed side's "next Separatist
+    // gains Exploit 3" charge for any Separatist play, so the pool counts it too — pool and play must
+    // agree on the same sources or the mismatch reappears one card further along.
+    $grantedExploit = 1;
+    if (GlobalEffectCount($player, 'SWU_DOOKU_NEXT_SEPARATIST_EXPLOIT') > 0) $grantedExploit += 3;
+    // Exploit is worth 2 per unit ACTUALLY defeated (`$exploitDiscount = 2 * $count`) and you may only
+    // defeat units YOU CONTROL — so the discount is capped by available fodder, and with none the card
+    // is correctly still unplayable. Team Suns: a teammate's unit is not yours to exploit, hence
+    // SWUControlledUnits() ('my'), not SWUFriendlyUnits().
+    $fodder = count(SWUControlledUnits());
     $out = [];
     foreach (ZoneSearch("myHand") as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
         if (!HasTrait($o->CardID ?? '', 'Separatist')) continue;
         $cost = SWUComputePlayCost($player, $o);
-        if ($cost <= $ready) $out[] = $mz;
+        // ⚠ PRINTED Exploit only, read straight from the keyword table. GetKeyword_Exploit_Value()
+        // descends into GetConditionalKeyword_Exploit_Value(), which reads ->Controller and FATALS on a
+        // HAND object (see the haskeyword-fatals-on-hand-objects note). Printed + granted is what
+        // SWUEffectivePlayExploit will compute at play time for a hand card anyway.
+        $exploitN     = $grantedExploit + intval($Exploit_Cards[$o->CardID ?? ''] ?? 0);
+        $bestDiscount = 2 * min($exploitN, $fodder);
+        if ($cost - $bestDiscount <= $ready) $out[] = $mz;
     }
     return $out;
 }

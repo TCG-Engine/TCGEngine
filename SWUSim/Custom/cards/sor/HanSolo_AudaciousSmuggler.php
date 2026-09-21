@@ -30,13 +30,17 @@ $onAttackAbilities["SOR_017:0"] = function($player) {
 // SOR_017 Han Solo "Audacious Smuggler" — Leader Action [Exhaust]:
 // "Put a card from your hand into play as a resource and ready it. At the start of
 //  the next action phase, defeat a resource you control."
-// Affordability (hand non-empty) is checked in SWULeaderActionAffordable.
+// ⚠ NOT gated by SWULeaderActionAffordable, which says so explicitly in its own SOR_017 note: this is an
+// "effect targets only" Action, so CR 6.4.587.c keeps it usable with an EMPTY HAND (the [Exhaust] cost
+// changes game state) and it simply does nothing. An earlier comment here claimed the opposite
+// ("affordability is checked in SWULeaderActionAffordable"), which sends anyone debugging a dead-button
+// report to a gate that does not exist — the same wrong trail that cost time on TWI_005 Count Dooku.
 $leaderAbilities["SOR_017"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
 
     $hand = array_values(ZoneSearch("myHand"));
-    if (empty($hand)) { // safety net — should be gated upstream
+    if (empty($hand)) { // ⚠ THE ONLY empty-hand guard, not a "safety net" — nothing upstream gates this
         SWUAfterAction($player);
         return;
     }
