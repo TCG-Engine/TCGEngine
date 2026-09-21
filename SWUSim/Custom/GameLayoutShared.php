@@ -2479,6 +2479,25 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var order = String(window.LiveSeatsData || window.SeatOrderData || '').trim();
         var seats = order.length ? order.split('').map(function (c) { return parseInt(c, 10); }) : [];
         var me = MY_PLAYER_ID;
+        // ELIMINATED, BUT STILL WATCHING (owner, 2026-09-20). A player knocked out of a 3-seat game is
+        // "effectively a spectator of the last 2 remaining": show them the survivors' board (P2 vs P3),
+        // not the emptied board of their own dead seat, which is what falling through to `return []`
+        // gave them. Giving viewSeat to a seat that is NOT them is exactly what swuApplySpectate() keys
+        // on, so the read-only badge and the board click guard arm themselves with no extra wiring.
+        //   • SeatOrder decides "were you ever a player here" and LiveSeats "are you still in it", so a
+        //     genuine SPECTATOR (never seated, seat 0) is untouched and keeps its own path.
+        //   • EXACTLY two survivors. At 3+ the existing branch below already builds a home view and a
+        //     matchup per survivor, which an eliminated player can page through (owner: keep 4P as-is).
+        //     At 1 the game is over and there is no matchup to show.
+        //   • Hands need nothing here: the server gates them on "the viewer IS seat N"
+        //     ($canSeePrivatePlayerN), so another seat's hand is never sent to this viewer whatever the
+        //     client renders. Face-down backs still show, which is the hand SIZE everyone can see.
+        var seatedEver = String(window.SeatOrderData || '').trim();
+        if (seats.length === 2 && me >= 1 && seatedEver.indexOf(String(me)) !== -1
+            && seats.indexOf(me) === -1) {
+            return [{ viewSeat: seats[0], oppSeat: seats[1], mode: 'matchup', opps: [seats[1]],
+                      label: 'P' + seats[0] + ' vs P' + seats[1] }];
+        }
         if (seats.length <= 2) return [];
         var opps = seats.filter(function (s) { return s !== me; });
         var views = [{ viewSeat: me, oppSeat: opps[0], mode: 'home', opps: opps, label: 'Home' }];
@@ -2909,6 +2928,21 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if (!window.swuView) window.swuView = { viewSeat: window.swuViews[0].viewSeat,
             oppSeat: window.swuViews[0].oppSeat, mode: window.swuViews[0].mode, opps: window.swuViews[0].opps, index: 0 };
         swuApplySpectate();
+        // ⚠ ESTABLISHING A VIEW HAS TO REPAINT. This function runs from pollGlobals (on data change),
+        // which is AFTER the render that just drew the board — so adopting a view here changed
+        // window.swuView but left the pixels drawn against the PREVIOUS one. For a normal player that
+        // was invisible (their first view is viewSeat = themselves, which is what was already drawn).
+        // It is very visible for a player who has just been ELIMINATED: their first view is the two
+        // survivors, so without this they keep staring at their own emptied board and their own hand.
+        // Repaint only when the applied pair actually changed, so a steady board never re-renders in a
+        // loop; swuSetView() does its own repaint and is unaffected.
+        var _vk = window.swuView.viewSeat + 'v' + window.swuView.oppSeat;
+        if (window.__swuAppliedViewKey !== _vk) {
+            window.__swuAppliedViewKey = _vk;
+            if (window.swuLastResponseArr && typeof RenderUpdate === 'function') {
+                RenderUpdate(window.swuLastResponseArr, window.__lastRenderedGameUpdate || 0);
+            }
+        }
         // Read-only guard: swallow clicks on the board zones (capture phase, before the framework's
         // attack/activate handlers) when spectating a board that isn't yours. Hover-to-inspect still
         // works (only click is blocked). Wired once. The pair-switcher arrows/dots/strips + order strip

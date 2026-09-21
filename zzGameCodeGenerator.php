@@ -2681,7 +2681,49 @@ function AddNextTurn() {
     $header .= "\$__vp = intval(\$viewerPerspective);\r\n";
     $header .= "\$__opp = isset(\$opponentID) ? intval(\$opponentID) : (isset(\$_GET['opponentID']) ? intval(\$_GET['opponentID']) : 0);\r\n";
     $header .= "if (\$__opp <= 0 || \$__opp === \$__vp || !IsSeatLive(\$__opp)) \$__opp = NextLiveSeat(\$__vp);\r\n";
-    $header .= "echo(\"var otherPlayerIndex = (window.swuView && window.swuView.oppSeat) ? window.swuView.oppSeat : \" . \$__opp . \";\");\r\n";
+    // ⚠ THE CLIENT OVERRIDE MUST CHECK LIVENESS TOO. The PHP fallback one line up already refuses a
+    // dead seat (`!IsSeatLive($__opp) -> NextLiveSeat($__vp)`); the swuView override used to not, and
+    // it WINS when set. So a viewer whose swuView still named the seat that just died kept rendering
+    // that seat as their opponent — an empty enemy arena and a bare "Base" placeholder, because
+    // _SWUEliminationCleanup has cleared the dead seat's base and arenas. Reported on game 846502:
+    // P3 attacked P1's base (so P3's swuView.oppSeat was 1), P1 was eliminated by that attack, and the
+    // board stayed on "P3 vs P1". swuInitPairSwitcher() does clear swuView once LiveSeats drops to 2,
+    // but it returns early WITHOUT repainting, so the stale board survives until something else
+    // re-renders — which is why a page RELOAD fixes it and a snapshot never reproduces it.
+    // ⚠ THE LIVE-SEAT LIST MUST COME FROM responseArr, AND NOTHING ELSE. Two wrong sources, both tried
+    // and both measured failing against the real repro:
+    //   • `window.LiveSeatsData` — assigned ~35 lines BELOW this one, so on the very poll that reports
+    //     the elimination it still holds the PREVIOUS value and the dead seat reads as alive.
+    //   • a server-baked PHP literal — NextTurn.php includes this file ONCE, at page load, so the list
+    //     freezes there and every later RenderUpdate re-runs this function with the page-load value.
+    // responseArr is the render's own input and is fresh on every repaint, so read the LiveSeats slot
+    // straight out of it. Falling back to window.LiveSeatsData covers a short/absent slot; an EMPTY
+    // list means a pre-Twin-Suns game, where swuView is never set anyway, so the permissive branch
+    // keeps 2-player byte-identical.
+    $__liveIdx = -1;
+    for ($zi = 0; $zi < count($zones); ++$zi) {
+      if (($zones[$zi]->Name ?? '') === 'LiveSeats') { $__liveIdx = $zi + $startPiece; break; }
+    }
+    // ⚠ AND THE FALLBACK HAS TO BE PER-RENDER TOO. $__opp is a PHP literal, so it freezes at page load
+    // exactly like the list did. In the repro it froze at 1 — NextLiveSeat(3) with all three seats
+    // alive — so after the elimination the guard correctly REJECTED the stale swuView.oppSeat=1 and
+    // then fell back to a baked 1 anyway. Both branches named the dead seat and the board stayed blank.
+    // So mirror NextLiveSeat() in JS over the fresh list; the baked value survives only as the
+    // last-resort default for a game that ships no list at all (pre-Twin-Suns, where it is correct).
+    $__liveExpr = ($__liveIdx >= 0)
+      ? "String((responseArr && responseArr[" . $__liveIdx . "] != null) ? responseArr[" . $__liveIdx . "] : (window.LiveSeatsData || ''))"
+      : "String(window.LiveSeatsData || '')";
+    $header .= "echo(\"var otherPlayerIndex = (function(){\");\r\n";
+    $header .= "echo(\"  var _l = " . $__liveExpr . ";\");\r\n";
+    $header .= "echo(\"  var _v = window.swuView && window.swuView.oppSeat;\");\r\n";
+    $header .= "echo(\"  if (_v && (!_l || _l.indexOf(String(_v)) !== -1)) return _v;\");\r\n";
+    $header .= "echo(\"  if (_l) {\");\r\n";
+    $header .= "echo(\"    var _s = _l.split('').map(Number), _i = _s.indexOf(currentPlayerIndex);\");\r\n";
+    $header .= "echo(\"    if (_i !== -1 && _s.length > 1) return _s[(_i + 1) % _s.length];\");\r\n";
+    $header .= "echo(\"    for (var _k = 0; _k < _s.length; ++_k) if (_s[_k] !== currentPlayerIndex) return _s[_k];\");\r\n";
+    $header .= "echo(\"  }\");\r\n";
+    $header .= "echo(\"  return \" . \$__opp . \";\");\r\n";
+    $header .= "echo(\"})();\");\r\n";
   } else {
     $header .= "echo(\"var currentPlayerIndex = playerID;\");\r\n";
     $header .= "echo(\"var otherPlayerIndex = playerID == 1 ? 2 : 1;\");\r\n";
