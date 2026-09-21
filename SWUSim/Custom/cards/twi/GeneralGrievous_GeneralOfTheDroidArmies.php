@@ -19,7 +19,10 @@ $customDQHandlers["TWI_015#0"] = function($player, $parts, $lastDecision) {
 $onAttackAbilities["TWI_015:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $droids = [];
-    foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+    // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+    // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+    foreach (["teamGroundArena", "teamSpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Droid')) $droids[] = $mz;
@@ -33,7 +36,11 @@ $onAttackAbilities["TWI_015:0"] = function($player, $mzID) {
 $leaderAbilities["TWI_015"] = function(int $player): void {
     global $playerID; $playerID = $player;
     $droids = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed) && HasTrait($o->CardID ?? '', 'Droid')) $droids[] = $mz;

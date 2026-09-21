@@ -35,7 +35,11 @@ $whenPlayedAbilities["SHD_039:0"] = function($player, $mzID = '') {
 // Calculated Lethality — "Defeat a non-leader unit that costs 3 or less. For each
                           // upgrade that was on that unit, give an Experience token to a friendly unit."
             $targets = [];
-            foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+            // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+            // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+            // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+            // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+            foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
                 foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
                     $o = GetZoneObject($mz);
                     if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID)) <= 3) $targets[] = $mz;

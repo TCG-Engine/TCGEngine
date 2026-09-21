@@ -35,7 +35,11 @@ $customDQHandlers["LAW_006#2"] = function($player, $parts, $lastDecision) {
     $opp = SWUPickedOpponent($lastDecision);
     if ($opp <= 0 || $opp === intval($player)) return;
     $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $targets[] = $mz; }
     if (empty($targets)) {
         // "An opponent creates a Credit token" is a separate, UNCONDITIONAL sentence — it still happens even
@@ -49,7 +53,7 @@ $customDQHandlers["LAW_006#2"] = function($player, $parts, $lastDecision) {
 $onAttackAbilities["LAW_006:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $targets[] = $mz; }
     if (empty($targets)) return;
     // Deployed side is "…IF YOU DO, an opponent creates a Credit token", so the opponent pick is queued
@@ -63,7 +67,7 @@ $customDQHandlers["LAW_006#3"] = function($player, $parts, $lastDecision) {
     $opp = SWUPickedOpponent($lastDecision);
     if ($opp <= 0 || $opp === intval($player)) return;
     $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $targets[] = $mz; }
     if (empty($targets)) return;
     SWUQueueMayChooseTarget(intval($player), $targets, "Give_an_Experience_token_to_a_unit_(opponent_creates_a_Credit)?", "Choose_a_unit", "LAW_006#0|" . $opp);

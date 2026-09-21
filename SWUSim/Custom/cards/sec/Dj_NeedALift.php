@@ -57,7 +57,11 @@ $customDQHandlers["SEC_018#1"] = function($player, $parts, $lastDecision) {
     SWUNestedPlay(intval($player), $handMz, false, 1);        // −1 discount; inner after-action neutralised
     $gPlayGrantTurnEffect = null;
     $newMz = null;
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+    // ⚠ A LOOKUP, NOT A TARGET POOL — this scans for the unit SWUNestedPlay just put into play
+    // (found by its marker), so it is not the unqualified-pool defect the rest of this sweep fixes.
+    // 'team*' regardless, so the scan cannot miss a seat if a future path ever plays onto a
+    // teammate's side; identical to 'my*' outside a team game.
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed) && is_array($o->TurnEffects ?? null)

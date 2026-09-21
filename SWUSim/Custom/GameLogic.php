@@ -5026,7 +5026,10 @@ function _SWUAsh208OnUpgradeAttach(int $player, $hostObj): bool {
     if (SWUObjGone($hostObj) || ($hostObj->CardID ?? '') !== 'ASH_208') return false;
     $ctrl = intval($hostObj->Controller ?? $player);
     global $playerID; $sp = $playerID; $playerID = $ctrl;
-    $tg = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('theirGroundArena', AnyUnitFilter));
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+    // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+    // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+    $tg = array_merge(ZoneSearch('teamGroundArena', AnyUnitFilter), ZoneSearch('theirGroundArena', AnyUnitFilter));
     if (empty($tg)) { $playerID = $sp; return false; }
     SWUQueueMayChooseTarget($ctrl, $tg, "Exhaust_a_ground_unit?", "Choose_a_ground_unit", "EXHAUST_UNIT");
     $playerID = $sp;
@@ -7142,7 +7145,7 @@ function _SWURegroupStartTriggerItems(): array {
                 $add($p, 'LAW_071', 'LAW071', 'U' . intval($u->UniqueID ?? 0));
         }
         $hasNonLeader = false;                                    // LAW_073 Patient Hunter — may give an Exp
-        foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
+        foreach (["teamGroundArena", "teamSpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
             foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) { if (!SWUObjGone(GetZoneObject($mz))) { $hasNonLeader = true; break 2; } }
         }
         foreach ($units as $u) {
@@ -7197,7 +7200,7 @@ function _SWURegroupStartResolve(string $key, int $p, string $ref): void {
         case 'LAW071': SWULogWithSource($p, 'LAW_071', fn() => SWUCreateCreditToken($p, 1)); break;
         case 'LAW073':
             $targets = [];
-            foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
+            foreach (["teamGroundArena", "teamSpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
                 foreach (ZoneSearch($z, NonLeaderUnitFilter) as $tmz) { if (!SWUObjGone(GetZoneObject($tmz))) $targets[] = $tmz; }
             }
             if (!empty($targets)) SWUQueueMayChooseTarget($p, $targets,
@@ -16352,7 +16355,11 @@ function SWUCheckAlternateCost(int $player, string $cardID): bool {
 // upgrade at all. Only 2 callers, both in the defeat-upgrade flow, both intending to include bases.
 function SWUGetUnitsWithUpgrades(string $filter = ''): array {
     $result = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $zone) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $zone) {
         foreach (ZoneSearch($zone, ['Unit', 'Leader Unit', 'Token Unit']) as $mzID) {
             $obj = GetZoneObject($mzID);
             if ($obj === null || ($obj->removed ?? false)) continue;
@@ -16409,7 +16416,7 @@ function SWUGetUpgradeSubcardMzIDs(string $filter = '', int $onlyHostUID = 0): a
             $result[] = $hostMz . '.u' . $key;
         }
     };
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $zone) {
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $zone) {
         foreach (ZoneSearch($zone, ['Unit', 'Leader Unit', 'Token Unit']) as $mzID) $scan($mzID);
     }
     // Bases carry Fortify upgrades; without this they are invisible to every "defeat an upgrade" card.
@@ -17415,7 +17422,7 @@ function SWUBeginPlayCard($player, $mzID, $discount = 0, $unitOnly = false) {
 // are irrelevant to eligibility.
 function _SWUCloneCopyTargets(int $player): array {
     $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $zone) {
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $zone) {
         foreach (ZoneSearch($zone, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if (SWUObjGone($o)) continue;
@@ -19045,7 +19052,7 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             if ($actor !== null && intval($player) === intval($actor->Controller ?? $player)) { $ok = false; break; }
             $selfUID = SWUObjUID($actor);
             $found = false;
-            foreach (['myGroundArena', 'theirGroundArena'] as $z) {
+            foreach (['teamGroundArena', 'theirGroundArena'] as $z) {
                 foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
                     $o = GetZoneObject($mz);
                     if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? -1) !== $selfUID) { $found = true; break 2; }
@@ -19083,7 +19090,7 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
         }
         case 'TWI_206': { // Independent Senator: needs a ready unit with 4 or less power to exhaust.
             $found = false;
-            foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+            foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
                 foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
                     $o = GetZoneObject($mz);
                     if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1 && intval(ObjectCurrentPower($o)) <= 4) { $found = true; break 2; }
@@ -19110,8 +19117,9 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
         case 'ASH_118': { // 8D8: needs ANOTHER friendly unit to damage.
             $selfUid = SWUObjUID($actor, 0);
             $zones = $providerCardID === 'ASH_109'
-                ? ['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena']
-                : ['myGroundArena', 'mySpaceArena'];
+                ? ['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena']
+                : ['teamGroundArena', 'teamSpaceArena'];   // ASH_118: "another FRIENDLY unit" spans the team,
+                                                            // matching the card's own SWUFriendlyUnits() pool
             $found = false;
             foreach ($zones as $z) { foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUid) { $found = true; break 2; } } }
             if (!$found) $ok = false;
@@ -19163,7 +19171,7 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             break;
         case 'LAW_126': { // Adventurer Sniper Rifle: needs an undamaged non-leader ground unit to target.
             $has = false;
-            foreach (["myGroundArena", "theirGroundArena"] as $z) {
+            foreach (["teamGroundArena", "theirGroundArena"] as $z) {
                 foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
                     $o = GetZoneObject($mz);
                     if ($o !== null && empty($o->removed) && intval($o->Damage ?? 0) === 0) { $has = true; break 2; }
@@ -19268,7 +19276,7 @@ function _SWUControlsTitle(int $player, array $titles): bool {
 // unit". Deployed leaders are unique, so they're excluded. Caller sets $playerID.
 function _SWUNonUniqueUnitTargets(int $player): array {
     $out = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if (SWUObjGone($o)) continue;

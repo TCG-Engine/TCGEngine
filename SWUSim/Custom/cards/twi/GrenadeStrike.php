@@ -15,7 +15,10 @@ $customDQHandlers["TWI_171#0"] = function($player, $parts, $lastDecision) {
     $isSpace = (strpos((string)$lastDecision, 'SpaceArena') !== false);
     SWUDealDamageToUnit($lastDecision, 2, intval($player));
     // Offer 1 damage to another unit in the same arena (either player), excluding the first target.
-    $zones = $isSpace ? ["mySpaceArena", "theirSpaceArena"] : ["myGroundArena", "theirGroundArena"];
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+    // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+    // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+    $zones = $isSpace ? ["teamSpaceArena", "theirSpaceArena"] : ["teamGroundArena", "theirGroundArena"];
     $targets = [];
     foreach ($zones as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {

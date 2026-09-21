@@ -8,7 +8,10 @@
 $whenPlayedAbilities["LAW_187:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $targets = [];
-    foreach (["myGroundArena", "theirGroundArena"] as $z) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+    // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+    // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+    foreach (["teamGroundArena", "theirGroundArena"] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed)) $targets[] = $mz;

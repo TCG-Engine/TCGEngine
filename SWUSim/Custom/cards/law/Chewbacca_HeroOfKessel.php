@@ -57,7 +57,11 @@ function ChewbaccaHeroofKesselPayoff(int $player): void {   // after the resourc
     global $playerID; $playerID = $player;
     SWUCreateCreditToken($player, 1);
     $units = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z)
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $units[] = $mz; }
     if (empty($units)) return;
     SWUQueueChooseTarget($player, $units, "Deal_2_damage_to_a_unit", "DEAL_UNIT_DAMAGE|2");

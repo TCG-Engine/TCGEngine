@@ -21,7 +21,11 @@ $whenPlayedAbilities["HMW_114:0"] = function ($player, $mzID = '') {
     global $playerID;
     $playerID = intval($player);
     $dealers = [];
-    foreach ([['myGroundArena', 'theirGroundArena'], ['mySpaceArena', 'theirSpaceArena']] as [$mine, $theirs]) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach ([['teamGroundArena', 'theirGroundArena'], ['teamSpaceArena', 'theirSpaceArena']] as [$mine, $theirs]) {
         if (empty(ZoneSearch($theirs, AnyUnitFilter))) continue;   // no enemy in this arena
         foreach (ZoneSearch($mine, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);

@@ -14,7 +14,11 @@
 // Played resolves. Space units are excluded by arena, whatever their power.
 function _SWUHmw094GroundWeights(int $player): array {
     $weights = [];
-    foreach (['myGroundArena', 'theirGroundArena'] as $z) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach (['teamGroundArena', 'theirGroundArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if (SWUObjGone($o)) continue;

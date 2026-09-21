@@ -10,7 +10,11 @@ $whenPlayedAbilities["TS26_27:0"] = function($player, $mzID) {
     $self = GetZoneObject($mzID);
     $captorUID = SWUObjUID($self);
     $tg = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? -2) !== $captorUID) $tg[] = $mz;
@@ -38,7 +42,7 @@ $customDQHandlers["TS26_27#1"] = function ($player, $parts, $lastDecision) {
   $captor = GetZoneObject($lastDecision);
   $captorUID = SWUObjUID($captor);
   $tg = [];
-  foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+  foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
     foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
       $o = GetZoneObject($mz);
       if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? -2) !== $captorUID)

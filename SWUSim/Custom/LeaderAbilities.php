@@ -666,7 +666,11 @@ function Ash016DeployedTrigger($player, $mzID, $baseDmg): void {
     if ($baseDmg <= 0) return;                                  // no base damage → nothing costs "less than 0"
     if (!SWUHasUseAvailable(SWUGetLeader(intval($player)))) return;   // once-per-round already spent
     $targets = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID ?? '')) < $baseDmg) $targets[] = $mz;
@@ -689,7 +693,7 @@ function Ash016Trigger($player, $mzID, $baseDmg): void {
     global $playerID; $playerID = intval($player);
     if ($baseDmg <= 0) return;   // no base damage → nothing costs "less than 0"
     $any = false;
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed) && intval(CardCost($o->CardID ?? '')) < $baseDmg) { $any = true; break 2; }
@@ -727,7 +731,7 @@ function Ash016Trigger($player, $mzID, $baseDmg): void {
 function _SWUShd006AllUnits(int $player): array {
     global $playerID; $playerID = $player;
     $out = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed)) $out[] = $mz;

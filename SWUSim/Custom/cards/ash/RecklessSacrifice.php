@@ -13,7 +13,11 @@ $customDQHandlers["ASH_163#0"] = function($player, $parts, $lastDecision) {
     $discardedCost = intval(CardCost($o->CardID ?? ''));
     DoDiscardCard(intval($player), $lastDecision);
     $tg = [];
-    foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+    // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+    // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+    // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+    foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $u = GetZoneObject($mz);
             if ($u !== null && empty($u->removed) && intval(CardCost($u->CardID ?? '')) > $discardedCost) $tg[] = $mz;

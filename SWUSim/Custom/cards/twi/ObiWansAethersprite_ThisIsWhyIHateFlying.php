@@ -12,7 +12,10 @@ $whenPlayedAbilities["TWI_048:0"] = $onAttackAbilities["TWI_048:0"] = function($
     if (SWUObjGone($self)) return;
     $selfUID = intval($self->UniqueID ?? 0);
     $targets = [];
-    foreach (["mySpaceArena", "theirSpaceArena"] as $z) {
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+    // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+    // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+    foreach (["teamSpaceArena", "theirSpaceArena"] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUID) $targets[] = $mz;

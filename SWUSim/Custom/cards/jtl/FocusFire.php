@@ -35,11 +35,14 @@ $whenPlayedAbilities["JTL_129:0"] = function($player, $mzID = '') {
                 return false;
             };
             $targets = [];
-            if ($friendlyVehicleIn('myGroundArena')) {
-                $targets = array_merge($targets, ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('theirGroundArena', AnyUnitFilter));
+            if ($friendlyVehicleIn('teamGroundArena')) {
+                // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+                // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+                // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+                $targets = array_merge($targets, ZoneSearch('teamGroundArena', AnyUnitFilter), ZoneSearch('theirGroundArena', AnyUnitFilter));
             }
-            if ($friendlyVehicleIn('mySpaceArena')) {
-                $targets = array_merge($targets, ZoneSearch('mySpaceArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter));
+            if ($friendlyVehicleIn('teamSpaceArena')) {
+                $targets = array_merge($targets, ZoneSearch('teamSpaceArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter));
             }
             $targets = array_values($targets);
             if (empty($targets)) return;

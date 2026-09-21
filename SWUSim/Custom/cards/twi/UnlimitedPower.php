@@ -30,7 +30,10 @@ $customDQHandlers["TWI_156#0"] = function($player, $parts, $lastDecision) {
         $nextAmt = intval($remaining[0]);
         $rest = implode(',', array_slice($remaining, 1));
         $targets = [];
-        foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
+        // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+        // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+        // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+        foreach (["teamGroundArena", "teamSpaceArena", "theirGroundArena", "theirSpaceArena"] as $z) {
             foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
                 $o = GetZoneObject($mz);
                 if ($o !== null && empty($o->removed) && !in_array(intval($o->UniqueID ?? 0), $pickedUids, true)) $targets[] = $mz;

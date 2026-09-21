@@ -2349,7 +2349,11 @@ function _SWUSec143Offer(int $player, int $selfUID): void
   global $playerID;
   $playerID = $player;
   $targets = [];
-  foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $zone) {
+  // ⚠ UNQUALIFIED pool = the WHOLE table, so the own-side zones are 'team*', not 'my*': in a
+  // team game `their*` is the OPPONENT fan-out and excludes a teammate, so my*+their* leaves a
+  // teammate's units in NEITHER list. 'team*' degrades to 'my*' outside a team game, leaving
+  // Premier byte-identical. Same defect as SWUAllUnits() documents for the helper form.
+  foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $zone) {
     foreach (ZoneSearch($zone, AnyUnitFilter) as $mz) {
       $o = GetZoneObject($mz);
       if (SWUObjGone($o))
@@ -2373,7 +2377,7 @@ function _SWUAllUnitsAndBases(int $player): array
   global $playerID;
   $playerID = $player;
   $out = [];
-  foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+  foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
     foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
       $o = GetZoneObject($mz);
       if ($o !== null && empty($o->removed))
@@ -2410,7 +2414,7 @@ function _SWUAllUnitsOnly(int $player): array
   global $playerID;
   $playerID = $player;
   $out = [];
-  foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+  foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
     foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
       $o = GetZoneObject($mz);
       if ($o !== null && empty($o->removed))
@@ -2760,8 +2764,8 @@ function SWUQueueMoveUpgrade(int $player, string $filter, string $tooltip, strin
   $targets = []; // subcard mzIDs
   $scanZones = ($sourceHostMz !== '')
     ? [$sourceHostMz]
-    : ($friendlyOnly ? ['myGroundArena', 'mySpaceArena']
-      : ['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena']);
+    : ($friendlyOnly ? ['teamGroundArena', 'teamSpaceArena']
+      : ['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena']);
   foreach ($scanZones as $z) {
     // A single host mzID is fetched directly; a zone name is enumerated.
     $mzList = ($sourceHostMz !== '') ? [$z] : ZoneSearch($z, AnyUnitFilter);
@@ -2808,7 +2812,7 @@ $customDQHandlers["MOVE_UPGRADE"] = function ($player, $parts, $lastDecision) {
     }
   }
   $dests = [];
-  foreach (['myGroundArena', 'mySpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
+  foreach (['teamGroundArena', 'teamSpaceArena', 'theirGroundArena', 'theirSpaceArena'] as $z) {
     foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
       if ($mz === $hostMz && $destScope !== 'anyIncludingSource')
         continue;

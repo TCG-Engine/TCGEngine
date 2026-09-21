@@ -53,7 +53,10 @@ function RhydoniumDetonationDefeatAllNonLeader(int $caster): void
   global $playerID;
   $playerID = $caster;
   $uids = [];
-  foreach (["myGroundArena", "mySpaceArena", "theirGroundArena", "theirSpaceArena"] as $zone) {
+  // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+  // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+  // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+  foreach (["teamGroundArena", "teamSpaceArena", "theirGroundArena", "theirSpaceArena"] as $zone) {
     foreach (ZoneSearch($zone, NonLeaderUnitFilter) as $mz) {
       $o = GetZoneObject($mz);
       if ($o !== null && empty($o->removed))

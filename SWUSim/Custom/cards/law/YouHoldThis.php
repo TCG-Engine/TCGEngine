@@ -46,7 +46,10 @@ $customDQHandlers["LAW_085#0"] = function($player, $parts, $lastDecision) {
     $newMz = SWUTakeControlOfUnit($opp, $lastDecision);
     if ($newMz === '') return;                       // take-control blocked (e.g. LAW_149) → no deal
     $playerID = intval($player);
-    $zones = $isSpace ? ["mySpaceArena", "theirSpaceArena"] : ["myGroundArena", "theirGroundArena"];
+    // ⚠ UNQUALIFIED pool = the WHOLE table, so the own side is 'team*', not 'my*': `their*` is the
+    // OPPONENT fan-out and excludes a teammate, so my*+their* leaves a teammate's units in NEITHER
+    // list. 'team*' degrades to 'my*' outside a team game (Premier byte-identical).
+    $zones = $isSpace ? ["teamSpaceArena", "theirSpaceArena"] : ["teamGroundArena", "theirGroundArena"];
     $targets = [];
     foreach ($zones as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {

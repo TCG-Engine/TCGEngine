@@ -127,3 +127,48 @@ WithP3GroundArena: SOR_128:1:0
 SEATCOUNT:4
 P1HASDECISION
 P1SELECTABLEEXACT:myGroundArena-0&p2GroundArena-0&p3GroundArena-0
+
+---
+
+# ZoneListShape_MassEffectReachesTheTeammatesUnit
+#// ⚠ THE SECOND SYNTAX OF THE SAME DEFECT, and the reason the first sweep missed 98 sites.
+#//
+#// The sections above pin pools built with the HELPER form — `ZoneSearch('myGroundArena', F),
+#// ZoneSearch('mySpaceArena', F), …` as a comma-run. But the same pool is very often hand-written as an
+#// ARRAY LITERAL of zone NAMES that a loop walks:
+#//     foreach (['myGroundArena','mySpaceArena','theirGroundArena','theirSpaceArena'] as $z)
+#//         foreach (ZoneSearch($z, F) as $mz) { … }
+#// A regex tuned to the comma-run walks straight past that, so a rescan that reported "0 files" was
+#// reporting only on the shape it could see. 98 occurrences across 78 files survived it.
+#//
+#// The fix for this shape is NOT a helper swap — it is `my*` -> `team*` INSIDE the literal, because
+#// ZoneSearch('teamGroundArena') is already the team fan-out. Minimal diff, no loop restructuring, and
+#// exactly equivalent to SWUAllUnits(); 'team*' degrades to 'my*' outside a team game.
+#//
+#// TWI_173 Blood Sport — "Deal 2 damage to EACH ground unit." A mass effect raises no prompt at all, so
+#// unlike the sections above there is no pool to read: the assertion has to be the DAMAGE. That is also
+#// the point — with the old list the teammate's unit was simply never in the loop and took nothing,
+#// silently, while every other ground unit on the table burned.
+
+## GIVEN
+CommonSetup: rrk/bbw/{myResources:7}
+SkipPreGame: true
+P1OnlyActions: true
+WithTeams: true
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Hand: TWI_173
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+# "Each ground unit" means every seat's, the caster's own included...
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P2GROUNDARENAUNIT:0:DAMAGE:2
+# ...and the TEAMMATE's, which the my*+their* list silently skipped.
+P3GROUNDARENAUNIT:0:DAMAGE:2
