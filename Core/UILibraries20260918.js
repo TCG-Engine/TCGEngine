@@ -4208,7 +4208,8 @@ Aspect filtering (key: "aspect", alias "c")
           if (rule.type !== 'Card') continue;
           const macroBucket = indexData[macroName] || {};
           current[macroName] = {};
-          [1, 2].forEach(function(playerID) {
+          Object.keys(macroBucket).filter(function(seat) { return /^[1-9]\d*$/.test(seat); }).forEach(function(seat) {
+            const playerID = Number(seat);
             const playerBucket = macroBucket[playerID] || macroBucket[String(playerID)] || {};
             current[macroName][playerID] = {};
             for (const cardID in playerBucket) {
@@ -4226,7 +4227,8 @@ Aspect filtering (key: "aspect", alias "c")
         for (const macroName in current) {
           if (!Object.prototype.hasOwnProperty.call(current, macroName)) continue;
           const rule = rules[macroName] || {};
-          [1, 2].forEach(function(playerID) {
+          Object.keys(current[macroName]).forEach(function(seat) {
+            const playerID = Number(seat);
             const bucket = current[macroName][playerID] || {};
             const previousMacro = window._lastMacroToastEventCounts[macroName] || {};
             const previous = previousMacro[playerID] || {};
