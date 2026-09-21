@@ -5312,17 +5312,21 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   // (Core/jsInclude.js _ChatPlayerLabel) and SWUBuildBlockPlayerWidget above. Until now nothing in
   // the repo assigned window.SWU_SEAT_USERNAMES, so chat always fell back to "P1"/"P2" and the
   // Block Player widget returned null for everybody (it bails when the viewer has no name).
-  // ⚠ ONLY REAL USERNAMES GO IN. MatchSeatDisplayNames substitutes "Player N" for an anonymous seat,
+  // ⚠ ONLY REAL USERNAMES GO IN. MatchSeatDisplayNames substitutes "Guest PN" for an anonymous seat,
   // and both consumers read a MISSING entry as "this seat is not logged in" — publishing the
   // fallback would label a guest as an account and offer a Block button that cannot work. So the
   // seat list is gated on userId > 0 rather than on the display string.
   $swuSeatNames = [];
+  // Every seat's DISPLAY name, guests included ("Guest PN") — for UI that just labels a seat (the player picker).
+  // Kept apart from $swuSeatNames because that map's missing entries MEAN "not logged in".
+  $swuSeatDisplayNames = [];
   require_once __DIR__ . '/../MatchFlow.php';
   if (isset($gameName) && function_exists('SWUReadMatchRef') && function_exists('MatchSeatDisplayNames')) {
       $swuRef = SWUReadMatchRef($gameName);
       $swuMatch = ($swuRef !== null && !empty($swuRef['matchId'])) ? SWUReadMatch($swuRef['matchId']) : null;
       if (is_array($swuMatch) && !empty($swuMatch['players'])) {
           $swuNames = MatchSeatDisplayNames($swuMatch);
+          foreach ($swuNames as $swuSeat => $swuName) $swuSeatDisplayNames[strval($swuSeat)] = strval($swuName);
           foreach ($swuMatch['players'] as $swuSeatKey => $swuPlayer) {
               $swuSeat = intval($swuSeatKey);
               if ($swuSeat < 1 || intval($swuPlayer['userId'] ?? 0) <= 0) continue;   // guest seat
@@ -5356,6 +5360,8 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   // Always an object (never undefined) so a consumer can index it without a guard. Empty = a game
   // in which nobody is logged in, or one played outside the match system.
   window.SWU_SEAT_USERNAMES = <?= json_encode((object)$swuSeatNames, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
+  // Seat -> display name for EVERY seat of a match game ("Guest PN" for a guest); empty outside the match system.
+  window.SWU_SEAT_DISPLAY_NAMES = <?= json_encode((object)$swuSeatDisplayNames, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
   window.SWU_VIEWER_SEAT = <?= intval($playerID) ?>;   // 0 for a spectator ('S')
   <?php
     // Whisper chat (spec 2026-09-17-swusim-twinsuns-whisper-chat-design.md). Other seats come from SeatOrder,

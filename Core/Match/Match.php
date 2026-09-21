@@ -128,10 +128,10 @@ function MatchWinner(array $match) {
 }
 
 // Human-readable name per seat: the player's PUBLIC username when they were logged in, otherwise
-// the neutral "Player N". Used by the end-game overlay, which has to name winners in a game with
-// more than two seats ("Player 2" alone is meaningless when there are four of them).
+// "Guest PN" (owner, 2026-09-21 — guests can play every SWUSim format, so they need a name). Used by
+// the end-game overlay, the kick vote, and the in-game player picker.
 // Best-effort by design: no DB (schema-test harness, local dev without MySQL), no userId (guest),
-// or a deleted account all degrade to "Player N" rather than failing the whole endpoint.
+// or a deleted account all degrade to "Guest PN" rather than failing the whole endpoint.
 // Returns [seat(int) => name(string)] for every seat present in the match.
 function MatchSeatDisplayNames(array $match) {
     $names = [];
@@ -140,7 +140,7 @@ function MatchSeatDisplayNames(array $match) {
     foreach (array_keys($match['players'] ?? []) as $seatKey) {
         $seat = intval($seatKey);
         if ($seat < 1) continue;
-        $names[$seat] = 'Player ' . $seat;
+        $names[$seat] = 'Guest P' . $seat;
         $userId = intval($match['players'][$seatKey]['userId'] ?? 0);
         if ($userId <= 0) continue;                      // not logged in → keep the seat name
         if (!$tried) {                                   // connect at most once, and only if needed

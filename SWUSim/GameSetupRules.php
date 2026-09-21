@@ -6,10 +6,9 @@
 // for rootName SWUSim).
 require_once __DIR__ . '/../AppCore/SWU/Formats.php';
 
-// The card pools Arenabot offers: every enabled Constructed pool, in menu order. Login-independent, because Arenabot needs no
-// account (SWUMenuTreeFor keeps its pools for logged-out viewers too).
+// The card pools Arenabot offers: every enabled Constructed pool, in menu order.
 function SWUArenabotPools(): array {
-    foreach (SWUMenuTreeFor(true, true) as $gt) {
+    foreach (SWUMenuTreeFor(true) as $gt) {
         foreach ($gt['options'] as $opt) {
             if ($opt['id'] === 'arenabot') return array_map(fn($p) => $p['format'], $opt['pools']);
         }

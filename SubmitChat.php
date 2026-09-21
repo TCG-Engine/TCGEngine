@@ -27,8 +27,16 @@ if ($folderPath !== "") {
     }
 }
 
-// Blocked players cannot chat. Generic response — never reveals the block to the other side.
 if ($folderPath === 'SWUSim') {
+    // SWUSim needs no account to PLAY, only to CHAT (owner, 2026-09-21) — players and spectators alike. The game page
+    // (NextTurn.php) renders no message box for a guest; this is the enforcement behind it. Read the session and release
+    // its lock at once, so a chat send never serialises behind the same browser's game polls.
+    if (session_status() === PHP_SESSION_NONE) session_start();
+    $chatUserId = intval($_SESSION['userid'] ?? 0);
+    session_write_close();
+    if ($chatUserId <= 0) { echo "Log in to chat."; exit; }
+
+    // Blocked players cannot chat. Generic response — never reveals the block to the other side.
     $swuMatchFlow = __DIR__ . '/SWUSim/MatchFlow.php';
     if (is_file($swuMatchFlow)) {
         include_once $swuMatchFlow;

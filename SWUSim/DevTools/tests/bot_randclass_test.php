@@ -17,6 +17,8 @@ foreach (SWUBotRandomClassList() as $c) {
     $check(isset($GLOBALS['SWUBotChoosers']["heuristic-softcontrol@rand:$c"]), "profile heuristic-softcontrol@rand:$c exists");
 }
 $check(SWUBotVariantDisabled('rand:nosuchclass') === null, 'an unknown class is refused');
+$check(in_array('resourceopen', SWUBotRandomClassList(), true) && in_array('resourceregroup', SWUBotRandomClassList(), true),
+    'resourcing splits into the opening pick and the regroup picks');
 $g = SWUBotFeatureGroups();
 $check(count(array_merge($g['p3a'], $g['p3b'], $g['p3c'], $g['p3d'])) === count(SWU_BOT_PART3_FEATURES)
     && array_merge($g['p3a'], $g['p3b'], $g['p3c'], $g['p3d']) === SWU_BOT_PART3_FEATURES,

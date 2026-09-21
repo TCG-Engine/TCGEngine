@@ -69,8 +69,9 @@ $wantTree = $queued; sort($wantTree);
 $check($seenTree === $wantTree, 'the menu tree offers a queue for exactly the queued formats (' . implode(',', $seenTree) . ')');
 $check(in_array('twinsuns', $seenTree, true) && in_array('teamsuns', $seenTree, true),
        'the tree offers a public queue on both Twin Suns branches');
-$in = SWUMenuTreeFor(true, true);
-$check(($in[0]['options'][0]['pools'][0]['publicQueue'] ?? null) === true, 'the viewer-filtered tree keeps the flag');
+$in = SWUMenuTreeFor(true);
+$inPvp = array_values(array_filter($in[0]['options'], fn($o) => $o['id'] === 'pvp'))[0] ?? [];
+$check(($inPvp['pools'][0]['publicQueue'] ?? null) === true, 'the viewer-filtered tree keeps the flag');
 
 echo $fails === 0 ? "\nALL PASS\n" : "\n$fails FAILED\n";
 exit($fails === 0 ? 0 : 1);

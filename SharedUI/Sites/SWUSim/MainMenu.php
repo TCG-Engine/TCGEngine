@@ -15,21 +15,12 @@ require_once __DIR__ . '/../../Render/DeckLibrary.php';
 include_once __DIR__ . '/Header.php';
 
 $swuLoggedIn = isset($_SESSION['userid']);
-// Is this visitor ARRIVING ON AN INVITE? A guest who follows one may play ANY format — JoinQueue.php's
-// login gate is `$swuNeedsAccount = … && $privateInviteCode === ''`, so an invite skips it outright —
-// which makes the guest notice below actively wrong for them: it would tell someone who was invited to
-// a Premier game that they can only play Open.
-//
-// Read server-side from the same two params SharedUI/js/private-invite.js reads
-// (`privateInvite`, then `invite`), rather than hiding the note from JS once that module initialises.
-// Hiding it later would flash the wrong message on exactly the page where it is wrong, and the note is
-// otherwise entirely server-rendered — one mechanism, not two.
-$swuInviteArrival = trim(strval($_GET['privateInvite'] ?? $_GET['invite'] ?? '')) !== '';
 // The game-setup menu is a VIEW over the format registry (docs/superpowers/specs/2026-09-16-swusim-format-menu-design.md):
 // game type → opponent / players / mode → card pool. SWUMenuTreeFor() applies this viewer's access: Arenabot only where
-// SWUBotPracticeAllowed() (admins and local dev; APIs/Lobbies/JoinQueue.php enforces the same gate), and logged out PvP
-// Open only and no Twin Suns. The FULL tree rides along for invites, whose host may have picked a path this viewer could not.
-$swuMenuTree = SWUMenuTreeFor($swuLoggedIn, SWUBotPracticeAllowed());
+// SWUBotPracticeAllowed() (APIs/Lobbies/JoinQueue.php enforces the same gate). Logging in no longer changes the tree
+// (owner, 2026-09-21) — guests play every format and lose only chat. The FULL tree rides along for invites, whose host
+// may have picked a path this viewer could not.
+$swuMenuTree = SWUMenuTreeFor(SWUBotPracticeAllowed());
 $swuMenuTreeFull = SWUMenuTree();
 $swuQueueTypes = function_exists('SWUQueueTypeDefinitions') ? SWUQueueTypeDefinitions() : ['bo1' => ['displayName' => 'Best of 1']];
 $swuSiteDef = require __DIR__ . '/SiteDef.php';
@@ -85,11 +76,19 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         <button id="tab-text" onclick="switchDeckTab('text')" style="flex: 1; padding: 8px; background: rgba(var(--accent-rgb),0.06); color: var(--text-muted); border: none; border-bottom: 2px solid transparent; cursor: pointer; font-size: 13px;">Free Text</button>
       </div>
       <div id="deck-input-link">
-        <label for="deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste a deck link:</label>
-        <input type="text" id="deck-link" name="deck_link" placeholder="https://swustats.net/deck/..." style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
-        <div style="margin-top: 8px; color: var(--text-muted); font-size: 12px; line-height: 1.35;">
-          Supported deck links: SWUStats, SWUDB, melee.gg, SWUBase, Protect the Pod, SWU Card Hub, SWUForge, SWU Meta Stats, SW-Unlimited-DB
+        <!-- The supported-sites list lives in an info tooltip (owner, 2026-09-21). The bubble is positioned against the
+             whole ROW, not the icon, so it always fits the card on a phone. Opens on hover, keyboard focus, or a tap
+             (WebKit does not focus a button on click, so the tap toggles .is-open in JS); Escape or a click elsewhere
+             closes it. -->
+        <div class="swu-label-row" style="margin-bottom: 8px;">
+          <label for="deck-link" style="font-weight: 500;">Paste a deck link:</label>
+          <button type="button" class="swu-info-tip" id="deck-link-sites-btn" aria-label="Supported deck links"
+                  aria-describedby="deck-link-sites" aria-expanded="false">i</button>
+          <span class="swu-info-tip__bubble" id="deck-link-sites" role="tooltip">
+            <strong>Supported deck links:</strong> SWUStats, SWUDB, melee.gg, SWUBase, Protect the Pod, SWU Card Hub, SWUForge, SWU Meta Stats, SW-Unlimited-DB
+          </span>
         </div>
+        <input type="text" id="deck-link" name="deck_link" placeholder="https://swustats.net/deck/..." style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
       </div>
       <div id="deck-input-text" style="display: none;">
         <label for="deck-text" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste deck list (e.g. from SWUDB or SWUDeck):</label>
@@ -181,23 +180,14 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
       </div>
       <div id="queue-inline-error" style="display: none; margin-top: 10px; color: #ff6b6b; font-size: 13px; line-height: 1.35;"></div>
       <div id="private-invite-notice" style="display: none; margin-top: 10px; color: var(--text-muted); font-size: 13px;"></div>
-      <?php if (!$swuLoggedIn && !$swuInviteArrival): ?>
-      <!-- Guest note. SWUMenuTreeFor($swuLoggedIn, …) above has already REMOVED everything a logged-out
-           visitor cannot play — every Constructed pool but Open, and the whole Twin Suns branch — so
-           without this the card-pool dropdown is simply short with no explanation, and the only other
-           signal is JoinQueue's refusal AFTER they have pasted a deck and pressed the button.
-           Server-rendered rather than toggled in JS: the logged-out state is known at render time, and
-           a guest must never see it flash on a logged-in page (or vice versa).
-           ⚠ NOT shown to a guest arriving on an INVITE ($swuInviteArrival): the invite exempts them
-           from the login gate entirely, so they really can play the host's format whatever it is, and
-           this note would be a lie on the one page where it matters most.
-           ⚠ Reads conservative on a DEV BOX: SWUBotPracticeAllowed() short-circuits on
-           SWUIsLocalDevRequest(), so a local guest also sees Arenabot. Correct in production, which is
-           what the note is for. -->
+      <?php if (!$swuLoggedIn): ?>
+      <!-- Guest note. Guests play every format (owner, 2026-09-21); the one thing an account adds is in-game chat,
+           which SubmitChat.php refuses for a logged-out SWUSim sender. Server-rendered: the logged-out state is known
+           at render time, so it never flashes on a logged-in page. -->
       <div id="guest-format-notice" style="margin-top: 10px; color: var(--text-muted); font-size: 13px; line-height: 1.4;">
-        Playing as a guest — Open lobbies and 1P modes only.
-        <a href="/TCGEngine/SharedUI/LoginPage.php" style="color: var(--accent); text-decoration: underline;">Log in</a>
-        to play Premier, Eternal, Twin Suns and more.
+        Playing as a guest —
+        <a href="/TCGEngine/SharedUI/LoginPage.php" style="color: var(--accent); text-decoration: underline;">log in</a>
+        to use in-game chat.
       </div>
       <?php endif; ?>
       <?php
@@ -558,7 +548,10 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
   var SWU_MENU = {
     tree: <?php echo json_encode($swuMenuTree, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>,
     full: <?php echo json_encode($swuMenuTreeFull, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>,
-    defaultFormat: <?php echo json_encode($swuLoggedIn ? 'premier' : 'open'); ?>
+    // Arenabot → Premier for everyone (owner, 2026-09-21). If the Arenabot gate is ever closed, swuSelectFormat
+    // finds no such leaf and the menu falls back to its first path (PvP → Premier).
+    defaultFormat: 'botpractice',
+    defaultPool: 'premier'
   };
   var _waitingEscHandler = null;
 
@@ -584,6 +577,25 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         welcomePanel.classList.toggle('is-active', !isReplays);
         replaysPanel.classList.toggle('is-active', isReplays);
       }
+      // Info tooltips (.swu-info-tip): hover and keyboard focus are pure CSS; a tap toggles .is-open, and Escape or a
+      // click anywhere else closes every open one.
+      (function () {
+        function closeAll(except) {
+          document.querySelectorAll('.swu-info-tip.is-open').forEach(function (b) {
+            if (b === except) return;
+            b.classList.remove('is-open'); b.setAttribute('aria-expanded', 'false');
+          });
+        }
+        document.addEventListener('click', function (e) {
+          var btn = e.target.closest ? e.target.closest('.swu-info-tip') : null;
+          closeAll(btn);
+          if (!btn) return;
+          var open = !btn.classList.contains('is-open');
+          btn.classList.toggle('is-open', open);
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });
+      })();
       function switchDeckTab(tab) {
         var isLink = tab === 'link';
         document.getElementById('deck-input-link').style.display = isLink ? '' : 'none';
@@ -878,7 +890,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         ['swu-gametype-select', 'swu-second-select', 'swu-pool-select'].forEach(function (id) {
           swuMenuEl(id).addEventListener('change', swuOnMenuChange);
         });
-        if (!swuSelectFormat(SWU_MENU.defaultFormat, '', false)) { swuFillMenu(); swuWriteStored(); applyFormatUI(); }
+        if (!swuSelectFormat(SWU_MENU.defaultFormat, SWU_MENU.defaultPool, false)) { swuFillMenu(); swuWriteStored(); applyFormatUI(); }
       })();
 
       function createPrivateGame() {

@@ -145,13 +145,9 @@
   if ($rootName === 'SWUSim') {
     if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
     if (!function_exists('SWUGetQueueType') || SWUGetQueueType($queueType) === null) $queueType = 'bo1';
-    // Login is required to START a non-Open game — both the public queue and HOSTING a private one.
-    // Open is the anonymous-friendly format; Goldfish/Hotseat are local-only.
-    // ⚠ JOINING by invite code is deliberately EXEMPT: a logged-in host already created the lobby and
-    // vouched for the format, so an anonymous friend following the link may join a Premier/Twin Suns
-    // game they could not have started themselves.
-    // Bot Practice is admin-only outside local dev (owner, 2026-09-15): the same gate the menu uses, so a hand-built
-    // request cannot bypass it. SWUSim/Mod/DevGate.php SWUBotPracticeAllowed().
+    // No account is required to play any SWUSim format (owner, 2026-09-21) — guests lose only chat (SubmitChat.php).
+    // Arenabot keeps its own switch, the same one the menu uses, so a hand-built request cannot bypass it:
+    // SWUSim/Mod/DevGate.php SWUBotPracticeAllowed().
     if (($bpRefusal = SWUBotPracticeRefusal($format)) !== null) {
       $response->success = false;
       $response->message = $bpRefusal;
@@ -174,16 +170,6 @@
         echo json_encode($response);
         exit;
       }
-    }
-    $swuNeedsAccount = !$createGoldfish && !$isModeFormat && $privateInviteCode === '';
-    if ($format !== 'open' && $swuNeedsAccount && !$joiningUserId) {
-      $response->success = false;
-      $response->message = $createPrivate
-        ? "You must be logged in to host a private game in this format."
-        : "You must be logged in to join this queue.";
-      header('Content-Type: application/json');
-      echo json_encode($response);
-      exit;
     }
   }
   if ($rootName === 'GrandArchiveSim') {

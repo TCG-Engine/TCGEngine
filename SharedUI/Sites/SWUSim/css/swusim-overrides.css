@@ -194,3 +194,51 @@ body {
    full-width line restores the panes at every width, mobile and desktop. */
 .core-wrapper { flex-wrap: wrap; }
 .core-wrapper > .disclaimer { flex: 0 0 100%; width: 100%; margin-top: 8px; }
+
+/* Info tooltip next to a form label (first use: the supported deck-link sites, 2026-09-21). The bubble is
+   positioned against .swu-label-row — the full card width — not the icon, so it never overflows on a phone.
+   Opens on hover, on keyboard focus, and on .is-open (a tap: WebKit does not focus a button on click).
+   ⚠ The icon selectors are deliberately heavy: components.css styles every raw menu button through
+   `button:not(.btn):not(.switch)` (0,3,1 with :hover), which beats a single class and turned the icon into a borderless,
+   padded, uppercase chip. `.swu-label-row > button.swu-info-tip:not(.btn)` outranks it without touching the shared file. */
+.swu-label-row { position: relative; display: flex; align-items: center; gap: 6px; }
+.swu-label-row > button.swu-info-tip:not(.btn) {
+  flex: 0 0 auto;
+  width: 18px; height: 18px; min-width: 0; padding: 0; margin: 0;
+  border-radius: 50%;
+  border: 1px solid var(--text-muted);
+  background: transparent;
+  color: var(--text-muted);
+  font: italic 700 12px/16px Georgia, 'Times New Roman', serif;
+  text-transform: none; letter-spacing: 0;
+  box-shadow: none;
+  cursor: help;
+}
+.swu-label-row > button.swu-info-tip:not(.btn)::before,
+.swu-label-row > button.swu-info-tip:not(.btn)::after { content: none !important; }   /* no HUD chamfer pseudos on a glyph */
+.swu-label-row > button.swu-info-tip:not(.btn):hover,
+.swu-label-row > button.swu-info-tip:not(.btn):focus-visible,
+.swu-label-row > button.swu-info-tip:not(.btn).is-open {
+  color: var(--text); border-color: var(--accent); outline: none; transform: none; filter: none;
+}
+.swu-info-tip__bubble {
+  position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 20;
+  padding: 8px 10px;
+  background: var(--panel-scrim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 12px; font-weight: 400; line-height: 1.4;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  visibility: hidden; opacity: 0;
+  transition: opacity 120ms ease, visibility 0s linear 120ms;
+}
+.swu-info-tip:hover + .swu-info-tip__bubble,
+.swu-info-tip:focus-visible + .swu-info-tip__bubble,
+.swu-info-tip.is-open + .swu-info-tip__bubble {
+  visibility: visible; opacity: 1;
+  transition: opacity 120ms ease, visibility 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .swu-info-tip__bubble, .swu-info-tip:hover + .swu-info-tip__bubble { transition: none; }
+}

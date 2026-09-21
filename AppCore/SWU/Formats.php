@@ -376,13 +376,14 @@ function SWUMenuTree(): array {
         ['format' => 'open',            'label' => 'Open'],
     ];
     $tree = [
+        // Arenabot is listed FIRST, so it is the menu's default opponent (owner, 2026-09-21).
         ['id' => 'constructed', 'label' => 'Constructed', 'secondLabel' => 'Opponent', 'options' => [
-            ['id' => 'pvp',      'label' => 'PvP',      'pools' => $constructedPools],
             // "(beta)" is deliberate (owner, 2026-09-18, at the point Arenabot opened to all logged-in
             // players): it keeps the heuristic bot from being mistaken for the competitive bot that was
             // promised. The format id and displayName stay 'botpractice' / 'Arenabot' — this is the
             // player-facing CHOICE label only.
             ['id' => 'arenabot', 'label' => 'Arenabot (beta)', 'format' => 'botpractice', 'pools' => $constructedPools],
+            ['id' => 'pvp',      'label' => 'PvP',      'pools' => $constructedPools],
         ]],
         ['id' => 'twinsuns', 'label' => 'Twin Suns', 'secondLabel' => 'Players', 'options' => [
             ['id' => 'ffa', 'label' => 'Free-for-all', 'pools' => [
@@ -436,18 +437,17 @@ function SWUMenuLeaves(array $tree): array {
 // The tree one viewer is offered. Dropped:
 //   • disabled formats — a preview window that has closed;
 //   • the Arenabot option unless $arenabotAllowed (SWUSim/Mod/DevGate.php SWUBotPracticeAllowed());
-//   • logged out, every PvP pool but Open and the whole Twin Suns branch — APIs/Lobbies/JoinQueue.php refuses those
-//     without an account, while Arenabot and 1P Mode never needed one;
 //   • a pooled option whose every pool dropped, and a game type left with no options.
+// Being logged out drops NOTHING (owner, 2026-09-21: "we can remove the account requirement"). Guests play every
+// format; what they lose is chat (SubmitChat.php refuses a logged-out SWUSim sender).
 // $isEnabled is injectable for tests; by default it asks the registry.
-function SWUMenuTreeFor(bool $loggedIn, bool $arenabotAllowed, ?callable $isEnabled = null): array {
+function SWUMenuTreeFor(bool $arenabotAllowed, ?callable $isEnabled = null): array {
     $isEnabled = $isEnabled ?? function (string $id): bool {
         $f = SWUGetFormat($id);
         return $f !== null && !empty($f['enabled']);
     };
     $out = [];
     foreach (SWUMenuTree() as $gt) {
-        if (!$loggedIn && $gt['id'] === 'twinsuns') continue;
         $options = [];
         foreach ($gt['options'] as $opt) {
             if ($opt['id'] === 'arenabot') {
@@ -456,10 +456,7 @@ function SWUMenuTreeFor(bool $loggedIn, bool $arenabotAllowed, ?callable $isEnab
                 continue;
             }
             if (empty($opt['pools'])) { $options[] = $opt; continue; }
-            $pools = array_values(array_filter($opt['pools'], function ($p) use ($isEnabled, $loggedIn, $opt) {
-                if (!$isEnabled($p['format'])) return false;
-                return $loggedIn || $opt['id'] !== 'pvp' || $p['format'] === 'open';
-            }));
+            $pools = array_values(array_filter($opt['pools'], fn($p) => $isEnabled($p['format'])));
             if (empty($pools)) continue;
             $opt['pools'] = $pools;
             $options[] = $opt;

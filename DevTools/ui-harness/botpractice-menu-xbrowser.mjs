@@ -3,12 +3,13 @@
 // (Rewritten 2026-09-16 from the Bot Practice single-dropdown check, owner-approved; Bot Practice is now "Arenabot".)
 //
 // What it protects:
-//  • logged out: Constructed + 1P Mode only; PvP offers Open only; Arenabot keeps every pool (dev gate allows it)
+//  • logged out = logged in (owner, 2026-09-21: no account needed to play): every game type, every PvP pool, Arenabot
+//  • Arenabot is the FIRST Constructed opponent and the default for everyone: Constructed → Arenabot → Premier
 //  • Arenabot reveals the bot deck link and Play Style, shows "Start Arenabot", hides Join Queue / Create Private Room,
 //    locks Match Type to Bo1, and writes format botpractice + the chosen card pool to the hidden stored fields
 //  • 1P Mode hides the card pool; Hotseat / Goldfish restore their own labels (controls)
 //  • logged in: Twin Suns → Free-for-all / Teams, each with Standard and Preview; the whole family is Bo1 with no queue
-//  • public queues (2026-09-16): Join Queue is shown for every PvP card pool (logged out: Open) and nowhere else
+//  • public queues (2026-09-16): Join Queue is shown for every PvP card pool and nowhere else
 //  • enforcement: Arenabot → Premier refuses an SOR deck in the page and does not navigate
 //  • invite lock: an anonymous visitor following a Premier invite sees Constructed → PvP → Premier, all three locked
 //  • Start creates a real Arenabot game and the bot answers its own prompts
@@ -57,12 +58,14 @@ async function loggedOutChecks(engine, page, width) {
   await page.goto(BASE + 'SharedUI/MainMenu.php', { waitUntil: 'load' });
   const tag = `${width}px`;
   ok(engine, `${tag}: the stored format field is hidden`, !(await visible(page, '#swu-format-select')));
-  ok(engine, `${tag}: logged out: game types are Constructed and 1P Mode`, (await values(page, '#swu-gametype-select')).join(',') === 'constructed,solo', (await values(page, '#swu-gametype-select')).join(','));
-  await pick(page, 'constructed', 'pvp');
-  ok(engine, `${tag}: logged out: PvP offers Open only`, (await values(page, '#swu-pool-select')).join(',') === 'open');
+  ok(engine, `${tag}: logged out: the default is Constructed → Arenabot → Premier`, JSON.stringify(await stored(page)) === JSON.stringify({ format: 'botpractice', pool: 'premier' }), JSON.stringify(await stored(page)));
+  ok(engine, `${tag}: logged out: every game type is offered`, (await values(page, '#swu-gametype-select')).join(',') === 'constructed,twinsuns,solo', (await values(page, '#swu-gametype-select')).join(','));
   ok(engine, `${tag}: second dropdown is labelled Opponent`, (await page.textContent('#swu-second-label')).trim() === 'Opponent:');
   const opponents = await values(page, '#swu-second-select');
-  ok(engine, `${tag}: the dev gate offers Arenabot`, opponents.includes('arenabot'), opponents.join(','));
+  ok(engine, `${tag}: Arenabot is listed first, then PvP`, opponents.join(',') === 'arenabot,pvp', opponents.join(','));
+  await pick(page, 'constructed', 'pvp');
+  const pvpPools = await values(page, '#swu-pool-select');
+  ok(engine, `${tag}: logged out: PvP offers every pool, Premier first`, pvpPools[0] === 'premier' && ['eternal', 'padawan', 'open'].every(p => pvpPools.includes(p)), pvpPools.join(','));
   if (!opponents.includes('arenabot')) return;
 
   await pick(page, 'constructed', 'arenabot', 'premier');
@@ -83,7 +86,7 @@ async function loggedOutChecks(engine, page, width) {
   await page.selectOption('#swu-pool-select', 'eternal');
   ok(engine, `${tag}: changing the pool updates the stored pool`, (await stored(page)).pool === 'eternal');
   await page.selectOption('#swu-second-select', 'pvp');
-  ok(engine, `${tag}: switching Arenabot → PvP keeps a pool PvP offers (logged out: Open)`, (await stored(page)).format === 'open');
+  ok(engine, `${tag}: switching Arenabot → PvP keeps the chosen pool`, (await stored(page)).format === 'eternal', (await stored(page)).format);
   const fits = await page.evaluate(() => {
     const card = document.querySelector('.swu-queue-card').getBoundingClientRect();
     return ['#swu-gametype-select', '#swu-second-select', '#swu-pool-select', '#swu-deck2-input'].every(s => {
@@ -117,8 +120,9 @@ async function loggedInChecks(engine, browser) {
   await page.setViewportSize({ width: 1400, height: 900 });
   await login(page, 'claudebot1');
   await page.goto(BASE + 'SharedUI/MainMenu.php', { waitUntil: 'load' });
-  ok(engine, 'logged in: the default is Constructed → PvP → Premier', JSON.stringify(await stored(page)) === JSON.stringify({ format: 'premier', pool: 'premier' }));
+  ok(engine, 'logged in: the default is Constructed → Arenabot → Premier', JSON.stringify(await stored(page)) === JSON.stringify({ format: 'botpractice', pool: 'premier' }), JSON.stringify(await stored(page)));
   ok(engine, 'logged in: Twin Suns is offered', (await values(page, '#swu-gametype-select')).includes('twinsuns'));
+  await pick(page, 'constructed', 'pvp', 'premier');   // the page opens on Arenabot, which locks Match Type to Bo1
   ok(engine, 'logged in: PvP Match Type is selectable', await page.$eval('#swu-queuetype-select', s => !s.disabled));
   for (const pool of ['premier', 'preview', 'eternal', 'eternal-preview', 'padawan', 'padawan-preview', 'open']) {
     await pick(page, 'constructed', 'pvp', pool);
@@ -144,7 +148,7 @@ async function loggedInChecks(engine, browser) {
   ok(engine, 'Team Suns Preview: Create Private Room shown', await visible(page, '#create-private-game-btn'));
   await page.screenshot({ path: path.join(OUT, `${engine}-teamsuns-preview.png`) });
 
-  // Invite lock: host a Premier room, then follow its invite as an ANONYMOUS visitor (whose own menu offers PvP Open only).
+  // Invite lock: host a Premier room, then follow its invite as an ANONYMOUS visitor (whose own menu defaults to Arenabot).
   await pick(page, 'constructed', 'pvp', 'premier');
   await page.click('#tab-text');
   await page.fill('#deck-text', DECK);

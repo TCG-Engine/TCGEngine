@@ -12,7 +12,8 @@
 #   a player to pick "P3", which means nothing to them.
 #   Core/OptionChooseUI.js now humanises the BUTTON TEXT only:
 #     seat with an account  -> that username        (e.g. "claudebot2")
-#     seat without one      -> "Player N"
+#     seat without one      -> "Guest PN" in a match game (owner, 2026-09-21), from window.SWU_SEAT_DISPLAY_NAMES
+#                              "Player N" outside the match system (no display map)
 #
 # ⚠⚠ THE LINE THAT MUST NOT MOVE: the button SUBMITS the untouched option string. Display and value are
 #   separate on purpose. Do NOT humanise this server-side — a username is arbitrary user input and the
@@ -22,7 +23,8 @@
 # WHERE THE NAMES COME FROM
 #   window.SWU_SEAT_USERNAMES, published per board render by GameLayoutShared.php from
 #   MatchSeatDisplayNames(). It contains ONLY seats whose player has a real account (userId > 0), so a
-#   guest seat is absent and falls through to "Player N" without any extra branch.
+#   guest seat is absent from it. The picker then reads window.SWU_SEAT_DISPLAY_NAMES — every seat of a
+#   match game, "Guest PN" for a guest (same producer) — and only then falls back to "Player N".
 #   ⚠ Its other consumers are chat labels and the Block Player widget — see the memory note on that
 #   global having had two consumers and NO producer until 2026-08-21.
 #
@@ -34,13 +36,15 @@
 #   • A degenerate 4-seat choice (only one opponent eligible) also shows NO banner (invariant I2).
 #
 # AUTOMATED PROBE (what was actually run — assertions on the rendered text AND the submitted value)
-#   mixed accounts+guest -> ["claudebot2", "Player 3", "Drixx"]
+#   mixed accounts+guest -> ["claudebot2", "Guest P3", "Drixx"]   (display map present, 2026-09-21)
+#   mixed, no display map -> ["claudebot2", "Player 3", "Drixx"]
 #   clicking the GUEST button -> submitCallback received "P3"   ← the raw token, unchanged
-#   nobody logged in     -> ["Player 2", "Player 3", "Player 4"]
+#   nobody logged in     -> ["Guest P2", "Guest P3", "Guest P4"]   (display map present, 2026-09-21)
 #   non-seat options     -> ["Ground", "Space"]        (untouched — the regex only matches ^P\d+$)
 #   2-player picker      -> ["You", "Opponent"]        (untouched)
 #   window.SWU_SEAT_USERNAMES absent (another sim on this shared Core file) -> ["P2", "P3"] untouched
 #   Chromium: ALL PASS      Firefox: ALL PASS
+#   2026-09-21 re-run with SWU_SEAT_DISPLAY_NAMES (Guest PN): Chromium, Firefox AND WebKit ALL PASS; submit still "P3".
 #   ⚠ WebKit could NOT be verified on this machine: playwright's webkit launches but its first
 #     newPage()/about:blank never completes (>90s). Safari is UNVERIFIED. The change is textContent plus
 #     a regex, with no engine-specific construct.

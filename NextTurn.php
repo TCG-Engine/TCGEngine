@@ -2188,7 +2188,15 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                         font-family:barlow,sans-serif; height:160px; overflow-y:auto; padding:4px 6px;'></div>
         </div>
         <div id='chatWidgetControls' style='display:flex; gap:4px; align-items:center;'>
-        <?php if (!IsChatMuted()): ?>
+        <?php if ($folderPath === 'SWUSim' && intval($_SESSION['userid'] ?? 0) <= 0): ?>
+            <!-- SWUSim guests can read chat but not send (owner, 2026-09-21); SubmitChat.php enforces it. No #chatText,
+                 so the whisper row (GameLayoutShared.php) and the chat hotkeys stay out of the way too. -->
+            <div id='chatGuestNote'
+                 style='flex:1; background:#111; color:#bbb; font-size:13px; font-family:barlow,sans-serif; height:30px;
+                        line-height:30px; border:1px solid #555; border-radius:5px; padding:0 8px; white-space:nowrap;'>
+              <a href='/TCGEngine/SharedUI/LoginPage.php' target='_blank' rel='noopener' style='color:inherit; text-decoration:underline;'>Log in</a> to chat
+            </div>
+        <?php elseif (!IsChatMuted()): ?>
             <div id='chatComposer'>
                 <input id='chatText'
                       style='flex:1; background:#111; color:white; font-size:14px; font-family:barlow,sans-serif;

@@ -52,12 +52,14 @@ $check($labels($tree[1]['options'][1]['pools']) === ['Standard', 'Preview' . $pv
 $pvSets = require './AppCore/SWU/PreviewSets.php';
 $check($pv === (empty($pvSets) ? '' : ' (' . implode('/', $pvSets) . ')'),
     'the preview suffix is derived from PreviewSets.php (currently ' . var_export($pv, true) . ')');
-$check(!empty($pvSets) ? str_ends_with($labels($tree[0]['options'][0]['pools'])[1], $pv) : true,
+$check(!empty($pvSets) ? str_ends_with($labels($tree[0]['options'][1]['pools'])[1], $pv) : true,
     'a Constructed preview pool carries the same suffix (Premier Preview' . $pv . ')');
 // The CHOICE label carries "(beta)" (owner, 2026-09-18) so the heuristic bot is not mistaken for the
 // competitive bot that was promised. The displayName below deliberately does NOT — it is the format's
 // name for SWUDeck and the stats pages, not a player-facing pick.
-$check(($tree[0]['options'][1]['label'] ?? '') === 'Arenabot (beta)', 'the bot opponent is labelled Arenabot (beta)');
+$check(($tree[0]['options'][0]['label'] ?? '') === 'Arenabot (beta)', 'the bot opponent is labelled Arenabot (beta)');
+// Arenabot is the FIRST Constructed opponent, so the menu opens on it (owner, 2026-09-21).
+$check(array_map(fn($o) => $o['id'], $tree[0]['options']) === ['arenabot', 'pvp'], 'Constructed lists Arenabot first, then PvP');
 $check(SWUGetFormat('botpractice')['displayName'] === 'Arenabot', "botpractice's display name stays Arenabot (no beta suffix)");
 $check(SWUGetFormat('twinsuns')['displayName'] === 'Twin Suns', "twinsuns' display name is unchanged (SWUDeck and the stats pages show it)");
 
@@ -68,18 +70,20 @@ $pools = function ($t, $gt, $opt) {
     foreach ($t as $g) { if ($g['id'] !== $gt) continue; foreach ($g['options'] as $o) { if ($o['id'] === $opt) return array_map(fn($p) => $p['format'], $o['pools']); } }
     return null;
 };
-$out = SWUMenuTreeFor(false, true);
-$check($gameTypes($out) === ['constructed', 'solo'], 'logged out: no Twin Suns');
-$check($pools($out, 'constructed', 'pvp') === ['open'], 'logged out: PvP offers Open only');
-$check($pools($out, 'constructed', 'arenabot') === $pools(SWUMenuTreeFor(true, true), 'constructed', 'arenabot'), 'logged out: Arenabot keeps every enabled pool (it needs no account)');
-$check($options($out, 'solo') === ['goldfish', 'hotseat'], 'logged out: 1P Mode offers Goldfish and Hotseat');
-$in = SWUMenuTreeFor(true, false);
-$check(!in_array('arenabot', $options($in, 'constructed'), true), 'the Arenabot gate refuses → no Arenabot option');
-$check(in_array('twinsuns', $gameTypes($in), true), 'logged in: Twin Suns is offered');
-$previewsOff = SWUMenuTreeFor(true, true, fn(string $id): bool => !str_contains($id, 'preview'));
+// Login no longer filters anything (owner, 2026-09-21: guests play every format and lose only chat), so the viewer
+// tree has no logged-in parameter. With every format enabled, the full-access tree IS the whole tree.
+$all = SWUMenuTreeFor(true, fn(string $id): bool => true);
+$check($all === SWUMenuTree(), 'with every format enabled, the viewer tree is the full tree (no login filtering)');
+$in = SWUMenuTreeFor(true);
+$check(in_array('twinsuns', $gameTypes($in), true), 'Twin Suns is offered');
+$check($options($in, 'solo') === ['goldfish', 'hotseat'], '1P Mode offers Goldfish and Hotseat');
+$noBot = SWUMenuTreeFor(false);
+$check(!in_array('arenabot', $options($noBot, 'constructed'), true), 'the Arenabot gate refuses → no Arenabot option');
+$check($options($noBot, 'constructed') === ['pvp'], 'with Arenabot closed, PvP is the only Constructed opponent');
+$previewsOff = SWUMenuTreeFor(true, fn(string $id): bool => !str_contains($id, 'preview'));
 $check($pools($previewsOff, 'constructed', 'pvp') === ['premier', 'eternal', 'padawan', 'open'], 'a disabled preview format is not offered');
 $check($pools($previewsOff, 'twinsuns', 'teams') === ['teamsuns'], 'a disabled Team Suns Preview leaves Teams with Standard');
-$noFfa = SWUMenuTreeFor(true, true, fn(string $id): bool => !in_array($id, ['twinsuns', 'twinsuns-preview'], true));
+$noFfa = SWUMenuTreeFor(true, fn(string $id): bool => !in_array($id, ['twinsuns', 'twinsuns-preview'], true));
 $check($options($noFfa, 'twinsuns') === ['teams'], 'an option whose every pool is disabled disappears');
 
 echo $fails === 0 ? "\nALL PASS\n" : "\n$fails FAILED\n";

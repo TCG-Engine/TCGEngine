@@ -17,8 +17,9 @@ Screenshots land in /tmp/arenabot-menu-shots/. Then look, by eye, at the menu in
 
 1. **Layout, 1400px and 420px.** The three dropdowns sit on one row at desktop width and wrap cleanly on a phone. The
    Match Type sits on its own row below. Nothing overflows the "Create a New Game" card.
-2. **Logged out.** Game type offers Constructed and 1P Mode. Constructed → PvP offers only Open. Arenabot (local dev)
-   offers every Constructed pool.
+2. **Opening state, logged out AND logged in (owner, 2026-09-21).** The menu opens on Constructed → Arenabot (beta) →
+   Premier. The Opponent dropdown lists Arenabot (beta) first, then PvP. Login changes nothing: a guest sees Constructed,
+   Twin Suns and 1P Mode, and PvP offers every pool.
 3. **Constructed → Arenabot → Premier.** "Bot deck link:" and "Bot play style" appear; the button reads "Start Arenabot";
    Match Type is Bo1 and greyed; no Create Private Room, no Join Queue.
 4. **Arenabot → Premier with an SOR deck.** Start shows a red "Premier format error" line in the card and stays on the menu.
@@ -34,7 +35,7 @@ Screenshots land in /tmp/arenabot-menu-shots/. Then look, by eye, at the menu in
 8. **Theme.** The new dropdowns use the same `swu-queue-select` style as Match Type in every theme.
 9. **Join Queue (public queues, 2026-09-16; Twin Suns added 2026-09-20).** Logged in, Constructed → PvP shows Join Queue
    for all seven pools, and Twin Suns shows it on BOTH branches (Free-for-all and Teams, Standard and Preview — four
-   formats). Arenabot and 1P Mode never show it. Logged out, PvP → Open shows it.
+   formats). Arenabot and 1P Mode never show it. Logged out, the same.
 10. **A real pairing.** claudebot1 in Chromium and claudebot2 in Firefox both pick Constructed → PvP → Premier, Bo1, with a
     Premier-legal deck (e.g. SWUSim/Tests/BotFixtures/meta-2026-09/aggro_vader_yellow.txt without its # lines) and click
     Join Queue. The first sees the waiting popup; the second's click lands both in the SAME game.

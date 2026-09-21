@@ -147,9 +147,9 @@
    * never move this humanising server-side: a username is arbitrary user input and the decision Param is
    * a delimited transport, so a name containing "&" or a space would corrupt the queue row.
    *
-   * Name resolution: the seat's account username when it has one, else "Player N". window.SWU_SEAT_USERNAMES
-   * is published per board render and deliberately contains ONLY seats with a real account (userId > 0),
-   * so a guest seat falls through to the numbered form on its own.
+   * Name resolution: the seat's account username when it has one, else its match display name ("Guest PN",
+   * window.SWU_SEAT_DISPLAY_NAMES), else "Player N" (a game outside the match system). window.SWU_SEAT_USERNAMES
+   * is published per board render and deliberately contains ONLY seats with a real account (userId > 0).
    * Gated on that global EXISTING so other sims sharing this Core file are untouched; inside SWUSim it is
    * always defined (an empty object when nobody is logged in).
    */
@@ -164,7 +164,9 @@
     if (!m) return opt;                       // "You", "Opponent", "Ground", … pass through untouched
     const seat = m[1];
     const name = window.SWU_SEAT_USERNAMES[seat];
-    return (name && String(name).trim() !== '') ? String(name) : ('Player ' + seat);
+    if (name && String(name).trim() !== '') return String(name);
+    const shown = window.SWU_SEAT_DISPLAY_NAMES ? window.SWU_SEAT_DISPLAY_NAMES[seat] : null;
+    return (shown && String(shown).trim() !== '') ? String(shown) : ('Player ' + seat);
   }
 
   /**

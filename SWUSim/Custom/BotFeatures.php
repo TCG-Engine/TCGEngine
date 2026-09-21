@@ -92,7 +92,9 @@ function SWUBotFeatureGroups(): array {
 //   play         — which card I play from hand                 resource — which cards I put into resources
 //   ability      — which leader/unit/base ability I use        tempo    — pass vs take the initiative
 function SWUBotRandomClassList(): array {
-    return ['attacktarget', 'attacker', 'play', 'resource', 'ability', 'tempo'];
+    // 'resourceopen' / 'resourceregroup' split 'resource' (2026-09-21): resourcing is random-equivalent for control,
+    // and the owner's rulings need to know WHICH resourcing decision — the opening two cards, or the regroup pick.
+    return ['attacktarget', 'attacker', 'play', 'resource', 'ability', 'tempo', 'resourceopen', 'resourceregroup'];
 }
 
 // The class of a candidate, for the randomiser. Mirrors SWUBotActionKind plus the two decision prompts.
@@ -126,8 +128,15 @@ function SWUBotActiveRandomClass(): string {
 function SWUBotRandomiseClass(array $ctx, ?array $pick): ?array {
     $class = SWUBotActiveRandomClass();
     if ($class === '' || $pick === null) return $pick;
-    if (_SWUBotDecisionClass($ctx, $pick) !== $class) return $pick;
-    $same = array_values(array_filter($ctx['actions'], fn($a) => _SWUBotDecisionClass($ctx, $a) === $class));
+    // The two resourcing sub-classes: the opening pick (CreateGame's "Choose_2_cards_to_resource") vs every later one.
+    $base = $class;
+    if ($class === 'resourceopen' || $class === 'resourceregroup') {
+        $opening = strval($ctx['tooltip'] ?? '') === 'Choose_2_cards_to_resource';
+        if (($class === 'resourceopen') !== $opening) return $pick;
+        $base = 'resource';
+    }
+    if (_SWUBotDecisionClass($ctx, $pick) !== $base) return $pick;
+    $same = array_values(array_filter($ctx['actions'], fn($a) => _SWUBotDecisionClass($ctx, $a) === $base));
     if (count($same) < 2 || !function_exists('EngineRandomInt')) return $pick;
     $counter = GetDeterministicRandomCounter();
     try { $i = EngineRandomInt(0, count($same) - 1); } finally { SetDeterministicRandomCounter($counter); }
@@ -271,6 +280,9 @@ const SWU_BOT_PROPOSALS = [
     'removalready',    // spend removal on READY enemies; an exhausted one cannot attack this round
     'playsurvivor',    // prefer units that survive the opponent's best attacker
     'sentineltiming',  // play a Sentinel late in the round, so it guards their turn
+    // 2026-09-21: the p3d bisection named 'flavourrank' (+54 for Maul piloted as soft control, p=.0016). Its 'tempo'
+    // shift is correct for a tempo MIDRANGE deck and double-counts on a deck already labelled control.
+    'flavourcap',      // apply the flavour rank shift only when the deck's own label is below the control wing
                        // ⚠ contradicts the owner's 2026-09-13 resourcing ruling; run with the owner's OK to
                        // gather data (2026-09-20). Memory `bot-heuristics-cause-the-anti-control-bias` calls this
                        // the most actionable lead: control resources its own answers before filler.
