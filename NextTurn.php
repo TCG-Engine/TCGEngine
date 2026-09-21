@@ -243,17 +243,6 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     }
 
     if (!SimGameValidateViewerAuth($folderPath, $gameName, $viewerInfo, $authKey)) {
-      // SWUSim public spectating requires a logged-in account: send anonymous spectators to the
-      // login page with a return link back to this spectate URL (rather than the generic "link
-      // invalid" page, which would be misleading — nothing is wrong with the link). This file has
-      // already emitted markup by now (output buffering is off), so a header() redirect can't work
-      // — use a client-side redirect, the same way SimGameRenderInvalidAuthPage renders post-output.
-      if (SimGameSpectatorLoginRequiredMissing($folderPath, $gameName, $viewerInfo)) {
-        $loginUrl = './SharedUI/LoginPage.php?redirect=' . urlencode($_SERVER['REQUEST_URI'] ?? '');
-        echo '<script>window.location.replace(' . json_encode($loginUrl) . ');</script>';
-        echo '<noscript><meta http-equiv="refresh" content="0;url=' . htmlspecialchars($loginUrl, ENT_QUOTES, 'UTF-8') . '"></noscript>';
-        exit;
-      }
       SimGameRenderInvalidAuthPage($folderPath, $gameName, $playerID);
     }
 

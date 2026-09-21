@@ -1046,8 +1046,8 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 }
 #topdecksearch-panel button::after, #scry-panel button::after, #revealarrange-panel button::after,
 #yesno-decision-modal button::after, .optchoose-btn::after {
-    content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
-    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
+    content: '' !important; position: absolute !important; inset: 2px !important; z-index: -1 !important;   /* whole px: see petranaki-hud --btn-rim-width */
+    clip-path: polygon(6.83px 0, 100% 0, 100% calc(100% - 6.83px), calc(100% - 6.83px) 100%, 0 100%, 0 6.83px) !important;
     background: var(--btn-fill) !important;
 }
 #topdecksearch-panel button:hover, #scry-panel button:hover, #revealarrange-panel button:hover,
@@ -1212,8 +1212,8 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 .numchoose-confirm::after, .numchoose-btn-minus::after, .numchoose-btn-plus::after, .twosided-slider-confirm::after,
 .mzrearrange-btn-submit::after, .mzrearrange-btn-reset::after, .namecard-modal button::after,
 #selection-message > button:not([id])::after {
-    content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
-    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
+    content: '' !important; position: absolute !important; inset: 2px !important; z-index: -1 !important;   /* whole px: see petranaki-hud --btn-rim-width */
+    clip-path: polygon(6.83px 0, 100% 0, 100% calc(100% - 6.83px), calc(100% - 6.83px) 100%, 0 100%, 0 6.83px) !important;
     background: var(--btn-fill) !important;
 }
 .numchoose-confirm:hover, .numchoose-btn-minus:hover, .numchoose-btn-plus:hover, .twosided-slider-confirm:hover,
@@ -1241,8 +1241,8 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px) !important;
 }
 .mzsplit-btn-minus::after, .mzsplit-btn-plus::after {
-    content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
-    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
+    content: '' !important; position: absolute !important; inset: 2px !important; z-index: -1 !important;   /* whole px: see petranaki-hud --btn-rim-width */
+    clip-path: polygon(6.83px 0, 100% 0, 100% calc(100% - 6.83px), calc(100% - 6.83px) 100%, 0 100%, 0 6.83px) !important;
 }
 .mzsplit-btn-minus            { color: var(--on-danger) !important; text-shadow: 0 0 6px rgba(0,0,0,0.5) !important; filter: drop-shadow(0 0 4px var(--danger)) !important; }
 .mzsplit-btn-minus::before    { background: var(--danger) !important; }

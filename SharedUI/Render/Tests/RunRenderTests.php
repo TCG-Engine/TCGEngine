@@ -84,6 +84,12 @@ checkContains('header h1', $hdr, '<h1>SWU Stats</h1>');
 checkContains('header tagline', $hdr, '<p>Star Wars Unlimited Stats</p>');
 checkContains('header banner block', $hdr, 'class="banner block-1"');
 check('header omits dead pull-to-refresh indicator', strpos($hdr, 'pull-indicator') === false);
+// branding.logo is optional: absent → the header is byte-identical to before; present → an emblem img inside the title link.
+check('header without branding.logo has no emblem', strpos($hdr, 'title-logo') === false && strpos($hdr, 'has-logo') === false);
+$logoDef = $def; $logoDef['branding']['logo'] = '/TCGEngine/x/logo.svg';
+$hdrLogo = RenderHeader($logoDef);
+checkContains('header with branding.logo renders the emblem', $hdrLogo, '<img class="title-logo" src="/TCGEngine/x/logo.svg" alt="" aria-hidden="true">');
+checkContains('header with branding.logo marks the title', $hdrLogo, 'class="title has-logo"');
 
 // --- Task 5 tests: RenderProfile + RenderDisclaimer ---
 require_once __DIR__ . '/../Profile.php';

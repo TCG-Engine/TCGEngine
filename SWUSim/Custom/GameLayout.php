@@ -484,9 +484,9 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         transition: filter 150ms, color 150ms, transform 110ms;
     }
     .swu-init-pass-btn::before {
-        content: ''; position: absolute; inset: 1.5px; z-index: 0;
+        content: ''; position: absolute; inset: 2px; z-index: 0;   /* whole px — see petranaki-hud --btn-rim-width */
         background: var(--btn-fill);   /* flat fill */
-        clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+        clip-path: polygon(7.83px 0, 100% 0, 100% calc(100% - 7.83px), calc(100% - 7.83px) 100%, 0 100%, 0 7.83px);
         transition: background 150ms;
     }
     .swu-init-pass-btn > span { position: relative; z-index: 1; }
@@ -783,9 +783,9 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         clip-path: polygon(0 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 7px 100%, 0 calc(100% - 7px));
     }
     .swu-base-tab::before {
-        content: ''; position: absolute; inset: 1.5px; z-index: -1;
+        content: ''; position: absolute; inset: 2px; z-index: -1;
         background: rgba(10, 20, 30, 0.55);   /* translucent flat fill, mirroring --btn-fill */
-        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px));
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5.83px), calc(100% - 5.83px) 100%, 5.83px 100%, 0 calc(100% - 5.83px));
     }
     /* Both tabs span the base card's full width — they read as part of the card, not as pills under
        it — so no inset step. The layering comes from the butt joint and the seam border alone. */

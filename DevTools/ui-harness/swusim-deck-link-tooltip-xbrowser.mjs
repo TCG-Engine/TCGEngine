@@ -34,6 +34,14 @@ const bubble = (page) => page.evaluate(() => {
   };
 });
 const settle = (page) => page.waitForTimeout(250);   // the fade is 120ms
+// Wait for the bubble to REACH a state instead of sleeping a fixed time: under load (the menu's frosted-glass panels are
+// expensive in headless Firefox) a 250ms sleep can land mid-fade and flake. Resolves true/false, never throws.
+const waitShown = (page, want) => page.waitForFunction((w) => {
+  const cs = getComputedStyle(document.querySelector('#deck-link-sites'));
+  const shown = cs.visibility === 'visible' && parseFloat(cs.opacity) > 0.5;
+  const hidden = cs.visibility === 'hidden';
+  return w ? shown : hidden;
+}, want, { timeout: 3000 }).then(() => true, () => false);
 
 for (const [engine, driver] of Object.entries(ENGINES)) {
   let browser;
@@ -66,36 +74,36 @@ for (const [engine, driver] of Object.entries(ENGINES)) {
       ok(engine, `${tag}: it lists the supported sites`, /Supported deck links:.*SWUDB.*melee\.gg.*SW-Unlimited-DB/.test(s.text), s.text);
 
       if (width === 1400) {
-        await page.hover('#deck-link-sites-btn'); await settle(page);
+        await page.hover('#deck-link-sites-btn'); await waitShown(page, true);
         s = await bubble(page);
         ok(engine, `${tag}: hover opens it`, s.shown, JSON.stringify(s));
-        await page.mouse.move(5, 5); await settle(page);
+        await page.mouse.move(5, 5); await waitShown(page, false);
         ok(engine, `${tag}: moving away closes it`, !(await bubble(page)).shown);
 
         // Safari's default Tab order skips buttons; a keyboard user reaches one with Option+Tab, so WebKit is driven that way.
         const back = engine === 'webkit' ? 'Alt+Shift+Tab' : 'Shift+Tab';
         await page.focus('#deck-link');
-        await page.keyboard.press(back); await settle(page);
+        await page.keyboard.press(back); await waitShown(page, true);
         const focused = await page.evaluate(() => document.activeElement && document.activeElement.id);
         s = await bubble(page);
         ok(engine, `${tag}: keyboard focus (Shift+Tab from the input; Option+Shift+Tab on WebKit) opens it`, focused === 'deck-link-sites-btn' && s.shown, `${focused} ${JSON.stringify(s)}`);
-        await page.keyboard.press(engine === 'webkit' ? 'Alt+Tab' : 'Tab'); await settle(page);
+        await page.keyboard.press(engine === 'webkit' ? 'Alt+Tab' : 'Tab'); await waitShown(page, false);
         ok(engine, `${tag}: tabbing away closes it`, !(await bubble(page)).shown);
       }
 
       // Tap / click: the path a phone and Safari use.
-      await page.click('#deck-link-sites-btn'); await page.mouse.move(5, 5); await settle(page);
+      await page.click('#deck-link-sites-btn'); await page.mouse.move(5, 5); await waitShown(page, true);
       s = await bubble(page);
       ok(engine, `${tag}: a click opens it and it stays open`, s.shown && s.expanded === 'true', JSON.stringify(s));
       ok(engine, `${tag}: the open bubble fits inside the card`, s.inCard, s.box);
       ok(engine, `${tag}: the open bubble fits inside the viewport`, s.inViewport, s.box);
       await page.$eval('.swu-queue-card', el => el.scrollIntoView());
       await page.screenshot({ path: `${OUT}/deck-link-tip-${engine}-${width}.png` });
-      await page.click('.swu-queue-card h2'); await settle(page);
+      await page.click('.swu-queue-card h2'); await waitShown(page, false);
       s = await bubble(page);
       ok(engine, `${tag}: a click elsewhere closes it`, !s.shown && s.expanded === 'false', JSON.stringify(s));
       await page.click('#deck-link-sites-btn'); await page.mouse.move(5, 5);
-      await page.keyboard.press('Escape'); await page.evaluate(() => document.activeElement && document.activeElement.blur()); await settle(page);
+      await page.keyboard.press('Escape'); await page.evaluate(() => document.activeElement && document.activeElement.blur()); await waitShown(page, false);
       ok(engine, `${tag}: Escape closes it`, !(await bubble(page)).shown);
       await page.close();
     }

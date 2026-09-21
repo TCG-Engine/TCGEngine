@@ -1,0 +1,485 @@
+/* swusim-menu.css — the SWUSim MAIN MENU only (linked from SharedUI/Sites/SWUSim/MainMenu.php, after the whole site
+   stack). Restyle to the owner's 2026-09-21 mockup, recoloured from its navy to the STONE GREY of the in-game buttons
+   (petranaki-hud --btn-fill: rgb(70,80,92) → rgb(46,54,64)) at the owner's request, with sandy-gold corner glows.
+
+   ⚠ Menu-scoped on purpose. petranaki-hud.tokens.css also paints the in-game board, so nothing here redefines a theme
+   token globally — the palette below is --pa-* on the grid, and site-wide chrome (header, nav) lives in
+   swusim-overrides.css.
+   ⚠ Raw <button>s are styled by components.css `button:not(.btn):not(.switch)` (0,2,1; 0,3,1 on :hover). Button rules
+   here are written as `.swu-menu-grid button.<class>` — (0,2,1) and later in the cascade — so they win without
+   !important. Their shape still comes from the theme's chamfer pseudos; we only feed tokens (--btn-rim / --btn-fill). */
+
+.swu-menu-grid {
+  --pa-stone-hi:   rgba(70, 80, 92, 0.94);
+  --pa-stone-lo:   rgba(40, 47, 56, 0.94);
+  --pa-panel:      var(--pa-glass);   /* site-wide glass, swusim-overrides.css */
+  --pa-sunken:     rgba(14, 17, 22, 0.58);
+  --pa-line-soft:  rgba(196, 208, 220, 0.14);
+  --pa-gold:       #e9b866;
+  --pa-gold-rgb:   233, 184, 102;
+  --pa-gold-hi:    #ffd998;
+  --pa-text:       #eef2f6;
+  --pa-muted:      rgba(226, 232, 240, 0.64);
+
+  display: grid;
+  grid-template-columns: minmax(240px, 0.85fr) minmax(360px, 1.25fr) minmax(300px, 1fr);
+  gap: 18px;
+  align-items: start;
+  flex-grow: 1;
+  margin: 0 16px 10px;
+}
+.swu-menu-grid > .card { min-width: 0; margin: 0; }
+@media (max-width: 920px) {
+  .swu-menu-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Panels ─────────────────────────────────────────────────────────────────────────────────────
+   Frosted, shaded, chamfered glass (top-left + bottom-right cut) that casts a real shadow. The ELEMENT itself is
+   unclipped and unpainted, so its shadow can fall outside it; all the paint is on the two pseudos:
+     ::after  (z -2) — the drop shadow: box-shadows off a rounded box inset by the cut, behind everything.
+     ::before (z -1) — the glass, clipped to the chamfer: backdrop blur, a semi-transparent stone fill, top sheen and
+                       bottom shading, a 1px hairline (inset box-shadow; the SVG strokes draw it along the diagonals),
+                       and the two fixed-size gold corner-glow SVGs (they never stretch with the panel).
+   ⚠ The blur lives on ::before, not on the element: an element backdrop-filter is a RECTANGLE, which would show as blurred
+   triangles in the cut corners. And nothing here may put a `filter` on the panel — a filtered ancestor becomes the
+   backdrop root and the glass would blur nothing. */
+.swu-menu-grid > .swu-panel {
+  position: relative;
+  isolation: isolate;
+  padding: 22px 22px 20px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  clip-path: none;
+  color: var(--pa-text) !important;
+}
+.swu-menu-grid > .swu-panel::after {
+  content: '';
+  position: absolute;
+  inset: var(--pa-cut);
+  z-index: -2;
+  /* The shadow box is INSET by the cut and rounded, with spread to reach the edges again. A full-size square box's
+     shadow showed its square corner just past each diagonal cut (owner-reported 2026-09-21). */
+  border-radius: 12px;
+  box-shadow:
+    0 4px 8px 10px rgba(0, 0, 0, 0.35),
+    0 20px 32px 8px rgba(0, 0, 0, 0.55),
+    0 38px 64px 0 rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  /* Cut the glass's own shape OUT of the shadow layer (evenodd: a big outer ring, then the glass outline as a hole) —
+     otherwise the frosted blur picks the shadow up and a dark rounded box shows through the glass. The box is
+     inset by the cut, so in its coordinates the glass outline sits one cut OUTSIDE it. */
+  clip-path: polygon(evenodd,
+    -300px -300px, calc(100% + 300px) -300px, calc(100% + 300px) calc(100% + 300px), -300px calc(100% + 300px), -300px -300px,
+    0 calc(-1 * var(--pa-cut)), calc(100% + var(--pa-cut)) calc(-1 * var(--pa-cut)), calc(100% + var(--pa-cut)) 100%,
+    100% calc(100% + var(--pa-cut)), calc(-1 * var(--pa-cut)) calc(100% + var(--pa-cut)), calc(-1 * var(--pa-cut)) 0,
+    0 calc(-1 * var(--pa-cut)));
+}
+.swu-menu-grid > .swu-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  clip-path: polygon(var(--pa-cut) 0, 100% 0, 100% calc(100% - var(--pa-cut)), calc(100% - var(--pa-cut)) 100%, 0 100%, 0 var(--pa-cut));
+  -webkit-backdrop-filter: blur(16px) saturate(115%) brightness(0.82);
+  backdrop-filter: blur(16px) saturate(115%) brightness(0.82);
+  box-shadow:
+    inset 0 0 0 1px var(--pa-line),                  /* hairline (straight edges) */
+    inset 0 2px 0 -1px rgba(255, 255, 255, 0.16),    /* lit top edge, just inside the hairline */
+    inset 0 -30px 40px -24px rgba(0, 0, 0, 0.45),    /* bottom falls into shade */
+    inset 0 0 60px rgba(0, 0, 0, 0.18);              /* soft vignette */
+  background:
+    var(--pa-glow-tl) top left / 90px 90px no-repeat,
+    var(--pa-glow-br) bottom right / 90px 90px no-repeat,
+    radial-gradient(ellipse 90% 55% at 30% 0%, rgba(255, 255, 255, 0.075), transparent 70%),   /* overhead light */
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0, transparent 22%, transparent 70%, rgba(0, 0, 0, 0.22) 100%),
+    var(--pa-panel);
+}
+.swu-menu-grid > .swu-panel * { color: inherit; }
+
+/* Panel heading row: title · rule · kicker */
+.swu-panel-head { display: flex; align-items: center; gap: 12px; margin: 0 0 6px; min-height: 34px; }
+.swu-menu-grid .swu-panel-title,
+.swu-menu-grid .swu-welcome__title {
+  margin: 0;
+  font-family: 'Barlow', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--pa-text);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+.swu-menu-grid .swu-welcome__title { font-size: 22px; letter-spacing: 0.02em; text-transform: none; font-weight: 700; }
+.swu-panel-head .swu-panel-title { flex: 0 1 auto; }
+.swu-panel-rule {
+  flex: 1 1 auto; min-width: 16px; height: 1px;
+  background: linear-gradient(90deg, var(--pa-line) 0%, rgba(196, 208, 220, 0.45) 70%, transparent 100%);
+  position: relative;
+}
+.swu-panel-rule::after {   /* the little slash up into the kicker */
+  content: ''; position: absolute; right: -2px; top: -9px; width: 12px; height: 1px;
+  background: rgba(196, 208, 220, 0.45); transform: rotate(-45deg); transform-origin: right center;
+}
+.swu-panel-kicker {
+  flex: 0 0 auto;
+  font-size: 9.5px; line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--pa-muted) !important; font-style: italic; text-align: left;
+}
+.swu-panel-sub { margin: 0 0 12px; color: var(--pa-muted) !important; font-size: 13px; }
+@media (max-width: 520px) { .swu-panel-kicker, .swu-panel-rule { display: none; } }
+
+/* Small square icon button (refresh, next tip) */
+.swu-menu-grid button.swu-icon-btn {
+  --btn-rim: var(--pa-line);
+  --btn-fill: linear-gradient(135deg, var(--pa-stone-hi), var(--pa-stone-lo));
+  --btn-cut: 5px; --btn-cut-inner: 4.41px; --btn-rim-width: 1px;   /* inner = cut − 0.586 × rim */
+  flex: 0 0 auto;
+  width: 34px; height: 34px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--pa-text);
+}
+.swu-menu-grid button.swu-icon-btn:hover { --btn-rim: var(--pa-gold); color: var(--pa-gold-hi); transform: none; }
+.swu-panel-head .swu-icon-btn { margin-left: auto; }
+.swu-ico { width: 18px; height: 18px; flex: 0 0 auto; display: block; }
+
+/* ── Active Games ─────────────────────────────────────────────────────────────────────────────── */
+.swu-active-empty {
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px;
+  padding: 34px 16px 22px;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(var(--pa-gold-rgb), 0.08), transparent 65%),
+    var(--pa-sunken);
+  border: 1px solid var(--pa-line-soft);
+  border-bottom-color: rgba(196, 208, 220, 0.24);
+  box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.50), inset 0 0 30px rgba(0, 0, 0, 0.25);
+}
+.swu-active-empty__icon { color: rgba(226, 232, 240, 0.55) !important; margin-bottom: 4px; }
+.swu-active-empty__icon .swu-ico { width: 46px; height: 46px; }
+.swu-active-empty__title { font-size: 16px; font-weight: 600; }
+.swu-active-empty__text { font-size: 13px; color: var(--pa-muted) !important; max-width: 240px; line-height: 1.45; }
+.swu-menu-grid button.swu-refresh-btn {
+  --btn-rim: rgba(196, 208, 220, 0.55);
+  --btn-fill: linear-gradient(135deg, var(--pa-stone-hi), var(--pa-stone-lo));
+  margin-top: 16px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-width: 70%; min-height: 40px; padding: 8px 18px;
+  font-size: 14px; letter-spacing: 0.08em;
+}
+.swu-menu-grid button.swu-refresh-btn .swu-ico { width: 16px; height: 16px; }
+
+/* ── Games in Progress: one chip per public game (MainMenu.php swuGameChip) ──────────────────────────── */
+.swu-games-count {
+  margin-left: auto;
+  font-size: 24px; font-weight: 500; line-height: 1;
+  color: var(--pa-text) !important;
+}
+.swu-panel-head .swu-games-count + .swu-icon-btn { margin-left: 12px; }
+.swu-games-rule { margin: 14px 0 12px; }
+.swu-games-list {
+  container-type: inline-size;
+  display: flex; flex-direction: column; gap: 10px;
+  max-height: 640px;
+  overflow-y: auto;
+  padding: 2px 4px 2px 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(196, 208, 220, 0.35) transparent;
+}
+.swu-game-chip {
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 12px 12px 10px;
+  background: rgba(14, 17, 22, 0.34);
+  border: 1px solid var(--pa-line-soft);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: border-color 0.2s, background-color 0.2s;
+}
+.swu-game-chip:hover { border-color: rgba(var(--pa-gold-rgb), 0.45); background-color: rgba(14, 17, 22, 0.46); }
+.swu-game-chip__seats {
+  display: flex; align-items: center; justify-content: center; gap: 8px 10px;
+  min-width: 0;
+}
+.swu-game-chip.is-team .swu-game-chip__seats { flex-direction: column; gap: 4px; }
+.swu-game-chip.is-ffa .swu-game-chip__seats { flex-wrap: wrap; }
+.swu-game-chip.is-ffa-4 .swu-game-chip__seats { display: grid; grid-template-columns: repeat(2, auto); justify-content: center; }
+.swu-game-team { display: flex; gap: 8px; }
+.swu-game-vs {
+  flex: 0 0 auto;
+  font-size: 15px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.72) !important;
+}
+.swu-game-chip__foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.swu-game-chip__format {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--pa-muted) !important;
+}
+
+/* A seat's identity: the base peeks out behind (top-right), the leader sits in front (bottom-left). Card art is
+   landscape (628×450). Twin Suns / Team Suns seats put TWO leaders side by side in front — the SWUDeck deck-list stack. */
+.swu-idstack { position: relative; flex: 0 0 auto; width: 150px; height: 106px; }
+.swu-idstack img {
+  position: absolute; display: block;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.55);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.55);
+  background: #1a1e24;
+}
+.swu-idstack__base   { top: 0; right: 0; width: 106px; height: 76px; object-position: top; }
+.swu-idstack__leader { bottom: 0; left: 0; width: 118px; height: 85px; z-index: 1; object-position: top left; }
+.swu-idstack.is-twin { width: 106px; height: 80px; }
+.swu-idstack.is-twin .swu-idstack__base { width: 78px; height: 56px; }
+.swu-idstack.is-twin .swu-idstack__leader { width: 47px; height: 64px; }
+.swu-idstack.is-twin .swu-idstack__leader.is-b { left: 43px; z-index: 2; }
+
+.swu-menu-grid button.swu-spectate-btn {
+  --btn-rim: rgba(196, 208, 220, 0.55);
+  --btn-fill: linear-gradient(135deg, var(--pa-stone-hi), var(--pa-stone-lo));
+  --btn-cut: 8px; --btn-cut-inner: 6.83px; --btn-rim-width: 2px;
+  --btn-glow: 10px; --btn-glow-color: rgba(var(--pa-gold-rgb), 0.55);
+  flex: 0 0 auto;
+  min-height: 38px; padding: 7px 18px;
+  font-size: 14px; font-weight: 700; letter-spacing: 0.08em;
+  color: var(--pa-text);
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.45));
+}
+.swu-menu-grid button.swu-spectate-btn:hover { --btn-rim: var(--pa-gold); color: var(--pa-gold-hi); }
+/* Narrow panel: shrink the 1v1 stacks so leader · vs · leader still fits on one line. */
+@container (max-width: 360px) {
+  .swu-idstack:not(.is-twin) { width: 122px; height: 88px; }
+  .swu-idstack:not(.is-twin) .swu-idstack__base { width: 88px; height: 63px; }
+  .swu-idstack:not(.is-twin) .swu-idstack__leader { width: 98px; height: 70px; }
+  .swu-game-chip.is-ffa .swu-idstack.is-twin { transform: scale(0.9); margin: -4px; }
+}
+
+/* ── Create a New Game ────────────────────────────────────────────────────────────────────────── */
+
+/* Tabs — Deck Link / Free Text, and Welcome / Replays */
+.swu-tabs, .ga-info-tabs { display: flex; gap: 8px; margin: 8px 0 14px; border: 0; }
+.swu-menu-grid button.swu-tab {
+  --btn-rim: rgba(196, 208, 220, 0.42);
+  --btn-fill: linear-gradient(135deg, rgba(62, 71, 82, 0.92), rgba(38, 45, 54, 0.92));
+  --btn-cut: 8px; --btn-cut-inner: 7.41px; --btn-rim-width: 1px;
+  flex: 1 1 0;
+  min-height: 36px; padding: 6px 10px;
+  font-size: 14px; font-weight: 600; letter-spacing: 0.08em;
+  color: rgba(226, 232, 240, 0.72);
+  border: 0; background: transparent;
+}
+.swu-menu-grid button.swu-tab:hover { color: var(--pa-text); transform: none; }
+.swu-menu-grid button.swu-tab.is-active {
+  --btn-rim: linear-gradient(135deg, var(--pa-gold-hi), var(--pa-gold) 45%, rgba(var(--pa-gold-rgb), 0.55));
+  --btn-fill: linear-gradient(135deg, rgba(78, 86, 96, 0.96), rgba(48, 54, 62, 0.96));
+  --btn-rim-width: 2px; --btn-cut-inner: 6.83px;
+  color: #fff;
+  filter: drop-shadow(0 0 6px rgba(var(--pa-gold-rgb), 0.45));
+}
+
+/* Labels + fields */
+.swu-menu-grid .swu-label { display: block; margin: 0 0 8px; font-size: 15px; font-weight: 600; }
+.swu-menu-grid .swu-label-row { margin: 0 0 8px; }
+.swu-menu-grid .swu-label-row .swu-label { margin: 0; }
+.swu-menu-grid .swu-field-label {
+  display: block; margin: 0 0 7px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.80) !important;
+}
+.swu-field-row { display: flex; gap: 14px; flex-wrap: wrap; margin: 0 0 16px; }
+.swu-field { flex: 1 1 0; min-width: 140px; }
+.swu-field-block { margin: 14px 0 0; }
+.swu-menu-grid #deck-input-link, .swu-menu-grid #deck-input-text { margin-bottom: 18px; }
+
+.swu-menu-grid .swu-input,
+.swu-menu-grid .swu-queue-select {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 42px;
+  padding: 9px 14px;
+  background-color: var(--pa-sunken);
+  color: var(--pa-text) !important;
+  border: 1px solid rgba(196, 208, 220, 0.26);
+  border-bottom-color: rgba(196, 208, 220, 0.40);   /* lit lower lip: reads as recessed */
+  border-radius: 3px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(0, 0, 0, 0.35);
+  font: 500 15px/1.3 'Barlow', sans-serif;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+.swu-menu-grid .swu-input::placeholder { color: rgba(226, 232, 240, 0.42); }
+.swu-menu-grid .swu-input--mono { font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; resize: vertical; }
+.swu-menu-grid .swu-queue-select {
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  padding-right: 38px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1.5 1.5 7 7l5.5-5.5' fill='none' stroke='%23e2e8f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+.swu-menu-grid .swu-input:hover, .swu-menu-grid .swu-queue-select:hover { border-color: rgba(196, 208, 220, 0.50); }
+.swu-menu-grid .swu-input:focus, .swu-menu-grid .swu-queue-select:focus {
+  border-color: var(--pa-gold);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(var(--pa-gold-rgb), 0.35), 0 0 12px rgba(var(--pa-gold-rgb), 0.25);
+}
+.swu-menu-grid .swu-queue-select:disabled { opacity: 0.55; cursor: default; }
+.swu-menu-grid .swu-queue-select option { background-color: #2c333c; color: var(--pa-text); }
+
+/* Actions */
+.swu-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+.swu-menu-grid button.swu-action {
+  --btn-rim: rgba(196, 208, 220, 0.55);
+  --btn-fill: linear-gradient(135deg, var(--pa-stone-hi), var(--pa-stone-lo));
+  --btn-cut: 9px; --btn-cut-inner: 7.83px; --btn-rim-width: 2px;   /* whole px; inner = cut − 0.586 × rim */
+  --btn-glow: 8px; --btn-glow-color: rgba(196, 208, 220, 0.35);
+  flex: 1 1 auto;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 46px; padding: 8px 18px;
+  font-size: 15px; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--pa-text);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.45));
+}
+.swu-menu-grid button.swu-action--primary {
+  --btn-rim: linear-gradient(135deg, var(--pa-gold-hi), var(--pa-gold) 50%, #b98534);
+  --btn-fill: linear-gradient(135deg, rgba(74, 70, 64, 0.97), rgba(40, 40, 42, 0.97));
+  --btn-rim-width: 2px;
+  --btn-glow: 12px; --btn-glow-color: rgba(var(--pa-gold-rgb), 0.65);
+  color: var(--pa-gold-hi);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 7px rgba(var(--pa-gold-rgb), 0.45));
+}
+.swu-menu-grid button.swu-action:hover { transform: translateY(-1px); }
+.swu-menu-grid button.swu-action .swu-ico { width: 20px; height: 20px; }
+
+.swu-menu-grid .swu-note { margin-top: 12px; font-size: 13px; line-height: 1.45; color: var(--pa-muted) !important; }
+.swu-menu-grid .swu-note a { color: var(--pa-gold) !important; text-decoration: underline; }
+.swu-menu-grid .swu-note--error { color: #ff7b72 !important; }
+
+/* Section label with a trailing rule — "Saved Decks", "Quick Reference" */
+.swu-menu-grid .swu-section-label {
+  display: flex; align-items: center; gap: 12px;
+  margin: 0 0 10px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.80) !important;
+}
+.swu-menu-grid .swu-section-label::after { content: ''; flex: 1; height: 1px; background: var(--pa-line); }
+.swu-saved-decks { margin-top: 22px; }
+.swu-saved-decks .dl-select {
+  width: 100%; box-sizing: border-box; min-height: 42px; padding: 9px 38px 9px 14px;
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  background: var(--pa-sunken) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1.5 1.5 7 7l5.5-5.5' fill='none' stroke='%23e2e8f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+  color: var(--pa-text); border: 1px solid rgba(196, 208, 220, 0.30); border-radius: 3px;
+  font: 500 15px/1.3 'Barlow', sans-serif; cursor: pointer;
+}
+.swu-saved-decks .dl-select option { background: #2c333c; color: var(--pa-text); }
+.swu-saved-decks .deck-library-empty { color: var(--pa-muted) !important; font-size: 13px; }
+
+/* ── Welcome / Replays ────────────────────────────────────────────────────────────────────────── */
+.swu-info-card { display: flex; flex-direction: column; }
+.ga-info-tabs { margin-top: 0; }
+.ga-info-panel { display: none; flex-direction: column; gap: 16px; }
+.ga-info-panel.is-active { display: flex; }
+.swu-welcome { display: flex; align-items: center; gap: 14px; }
+.swu-welcome__body { flex: 1 1 auto; min-width: 0; }
+.swu-welcome__text { margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: var(--pa-muted) !important; }
+.swu-welcome__mark {
+  flex: 0 0 auto; width: 84px; height: 84px; opacity: 0.22;
+  filter: brightness(0) saturate(100%) invert(80%) sepia(38%) saturate(640%) hue-rotate(345deg) brightness(98%) contrast(90%);
+}
+.swu-hr { border: 0; border-top: 1px solid var(--pa-line); margin: 0; }
+
+.swu-dyk {
+  position: relative;
+  padding: 14px 52px 16px 16px;
+  min-height: 108px;
+  box-sizing: border-box;
+  width: 100%; max-width: 100%; min-width: 0;
+  background: linear-gradient(135deg, rgba(var(--pa-gold-rgb), 0.07), rgba(0, 0, 0, 0.12));
+  border: 1px solid rgba(var(--pa-gold-rgb), 0.38);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 0 18px rgba(var(--pa-gold-rgb), 0.07), 0 6px 14px rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+  transition: opacity 0.25s;
+}
+.swu-dyk__head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--pa-gold) !important;
+}
+.swu-dyk__head .swu-ico { width: 20px; height: 20px; color: var(--pa-gold); }
+.swu-dyk__next { position: absolute !important; top: 12px; right: 12px; }
+#did-you-know-text {
+  display: block; margin: 0;
+  width: 100%; max-width: 100%;
+  min-height: 46px; max-height: 66px;
+  overflow-y: auto; overflow-x: hidden;
+  font-size: 15px; line-height: 1.55; color: var(--pa-text) !important;
+  white-space: normal !important; overflow-wrap: anywhere !important; word-break: break-word !important;
+}
+
+.swu-hotkeys { display: flex; flex-direction: column; gap: 8px; }
+.hotkey-row { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--pa-muted) !important; }
+.hotkey-row > span:last-child { color: rgba(226, 232, 240, 0.86) !important; }
+.hotkey-badge {
+  display: inline-block; flex-shrink: 0;
+  min-width: 44px; box-sizing: border-box;
+  text-align: center;
+  padding: 3px 9px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, rgba(72, 81, 92, 0.9), rgba(40, 46, 54, 0.9));
+  border: 1px solid rgba(196, 208, 220, 0.40);
+  border-bottom-width: 2px;
+  font: 700 13px/1.3 'Barlow', sans-serif; color: var(--pa-text) !important;
+}
+
+.swu-flourish, .swu-menu-footer-flourish span {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  font-size: 9.5px; letter-spacing: 0.42em; text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.50) !important;
+}
+.swu-flourish { margin-top: 4px; }
+.swu-flourish::before, .swu-flourish::after,
+.swu-menu-footer-flourish span::before, .swu-menu-footer-flourish span::after {
+  content: ''; flex: 0 1 70px; height: 1px; background: rgba(196, 208, 220, 0.30);
+}
+.swu-flourish__gem { color: var(--pa-gold) !important; letter-spacing: 0; }
+.swu-replay-list { margin-top: 6px; }
+
+.swu-menu-footer-flourish { margin: 6px 0 4px; }
+.swu-menu-footer-flourish span { color: rgba(233, 184, 102, 0.75) !important; }   /* outside the grid: no --pa-* here */
+
+/* ── Phones ───────────────────────────────────────────────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .swu-menu-grid { margin: 0 10px 10px; }
+  .swu-menu-grid > .swu-panel { padding: 16px 14px !important; }
+  .swu-menu-grid .swu-panel-title { font-size: 19px; }
+  .swu-welcome__mark { width: 56px; height: 56px; }
+  .swu-menu-grid button.swu-action { flex-basis: 100%; }
+  .swu-flourish, .swu-menu-footer-flourish span { letter-spacing: 0.24em; white-space: nowrap; gap: 8px; }
+  .swu-flourish::before, .swu-flourish::after,
+  .swu-menu-footer-flourish span::before, .swu-menu-footer-flourish span::after { flex-basis: 28px; }
+}
+
+/* ── Dormant menu-settings modal (kept for the gear button; see SiteDef navLinks) ─────────────── */
+.ga-settings-modal { position: fixed; inset: 0; z-index: 3000; display: none; align-items: center; justify-content: center; }
+.ga-settings-modal.is-open { display: flex; }
+.ga-settings-modal__overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.66); }
+.ga-settings-modal__dialog {
+  position: relative; width: min(560px, 92vw); padding: 18px;
+  background: var(--surface-raised); color: var(--text);
+  border: 1px solid rgba(var(--accent-rgb), 0.35); border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(10, 4, 0, 0.55);
+}
+.ga-settings-modal__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.ga-settings-modal__header h3 { margin: 0; font-size: 18px; color: var(--text); }
+.ga-settings-modal__close {
+  border: 0; background: rgba(var(--accent-rgb), 0.14); color: var(--text);
+  border-radius: 6px; width: 28px; height: 28px; cursor: pointer; font-size: 14px; line-height: 1;
+}
+.ga-settings-modal__body { display: flex; flex-direction: column; gap: 12px; }
+.ga-settings-row { display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 13px; }
+.ga-settings-row--split { justify-content: space-between; }
+#ga-board-background-theme {
+  background: var(--surface-sunken); color: var(--text);
+  border: 1px solid rgba(var(--accent-rgb), 0.35); border-radius: 6px; padding: 4px 8px; font-size: 12px;
+}

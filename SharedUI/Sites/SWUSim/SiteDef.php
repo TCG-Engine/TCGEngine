@@ -11,6 +11,9 @@
     'tagline'        => 'Fan-made Star Wars: Unlimited simulator',
     'homeHref'       => '/TCGEngine/SharedUI/Sites/SWUSim/MainMenu.php',
     'favicon'        => '/TCGEngine/SharedUI/Sites/SWUSim/assets/petranaki-favicon.png',
+    // Header emblem (also the faint watermark on the menu's Welcome card). The SVG is solid black; the menu CSS tints it
+    // gold with a filter (swusim-overrides.css .title-logo, swusim-menu.css .swu-welcome__mark).
+    'logo'           => '/TCGEngine/SharedUI/Sites/SWUSim/assets/stadium.svg',
     'showBanner'     => false,
     'menuOverlay'    => true,   // renders the burger button + overlay (see MenuBar.php); paired with burger-menu.js below
     'disclaimerName' => 'Petranaki Arena',

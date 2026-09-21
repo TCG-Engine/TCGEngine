@@ -506,9 +506,9 @@
         transition: filter 150ms, color 150ms, transform 110ms;
     }
     .swu-init-pass-btn::before {
-        content: ''; position: absolute; inset: 1.5px; z-index: 0;
+        content: ''; position: absolute; inset: 2px; z-index: 0;   /* whole px — see petranaki-hud --btn-rim-width */
         background: var(--btn-fill);   /* flat fill */
-        clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+        clip-path: polygon(7.83px 0, 100% 0, 100% calc(100% - 7.83px), calc(100% - 7.83px) 100%, 0 100%, 0 7.83px);
         transition: background 150ms;
     }
     .swu-init-pass-btn > span { position: relative; z-index: 1; }

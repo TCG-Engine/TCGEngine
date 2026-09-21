@@ -26,85 +26,90 @@ $swuQueueTypes = function_exists('SWUQueueTypeDefinitions') ? SWUQueueTypeDefini
 $swuSiteDef = require __DIR__ . '/SiteDef.php';
 $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
 ?>
+<?php
+// Inline icons for the menu (decorative: every one sits next to a text label, so aria-hidden). currentColor, so the
+// CSS colours them per button. A function rather than a sprite so the page stays one request.
+function SWUMenuIcon(string $name): string {
+    $paths = [
+        'users'   => '<circle cx="9" cy="8" r="3.2"/><path d="M2.5 19c.6-3.6 3.2-5.6 6.5-5.6s5.9 2 6.5 5.6z"/><circle cx="17" cy="9" r="2.6"/><path d="M16.2 13.6c2.9-.3 5 1.5 5.4 5.4h-4.5c-.2-2-.5-3.7-.9-5.4z"/>',
+        'save'    => '<path d="M4 3h13l3 3v15H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 3h9v6H7zM7 14h10v7H7z"/>',
+        'refresh' => '<path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M20.5 3.5v6h-6z"/>',
+        'bolt'    => '<path d="M13.5 2 4.5 13.5h6l-1.5 8.5 9.5-12h-6.2z"/>',
+        'next'    => '<path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+        'play'    => '<path d="M7 4.5v15l12-7.5z"/>',
+        'join'    => '<path d="M10 4h9v16h-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M3 12h11M10.5 8l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+    ];
+    return '<svg class="swu-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">' . ($paths[$name] ?? '') . '</svg>';
+}
+$swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
+?>
+<link rel="stylesheet" href="<?php echo _VersionAsset('/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-menu.css'); ?>">
 <div class="row-wrapper swu-menu-grid">
-  <!-- Active Games (left) -->
-  <div class="card ga-glass-card swu-active-card" style="padding: 20px; color: var(--text); border-radius: 12px; position: relative;">
-    <button style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;" onclick="refreshOpenGames()">
-      <img src='/TCGEngine/Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
-    </button>
-    <h2>Active Games (<span id="active-game-count">0</span>)</h2>
-    <div id="active-games-list" class="swu-active-games-list"></div>
-    <p class="swu-active-empty" style="color: var(--text-muted); font-size: 13px; margin: 6px 0 0;">Games in the public queue appear in the count above.</p>
+  <!-- Games in Progress (left): public SWUSim matches anyone can spectate, one chip per game — leader vs leader (a
+       leader/leader/base stack per seat in Twin Suns / Team Suns) and a Spectate button. Data: SWUSim/PublicGames.php;
+       rendered by swuRenderPublicGames(). Layout modelled on the owner's reference (2026-09-21). -->
+  <div class="card ga-glass-card swu-panel swu-active-card">
+    <div class="swu-panel-head">
+      <h2 class="swu-panel-title">Games in Progress</h2>
+      <span class="swu-games-count" id="active-game-count" aria-label="Public games in progress">0</span>
+      <button type="button" class="swu-icon-btn" onclick="refreshOpenGames()" title="Refresh" aria-label="Refresh games in progress"><?php echo SWUMenuIcon('refresh'); ?></button>
+    </div>
+    <select id="swu-games-filter" class="swu-queue-select" aria-label="Filter by format">
+      <option value="">Filter by Format</option>
+    </select>
+    <hr class="swu-hr swu-games-rule">
+    <div id="active-games-list" class="swu-games-list" aria-live="polite"></div>
+    <!-- Empty state, shown only when no public game (or none in the chosen format) is running. -->
+    <div class="swu-active-empty" id="swu-active-empty">
+      <span class="swu-active-empty__icon"><?php echo SWUMenuIcon('users'); ?></span>
+      <div class="swu-active-empty__title" id="swu-active-empty-title">No games in progress</div>
+      <div class="swu-active-empty__text" id="swu-active-empty-text">Be the first to challenge an opponent in the arena!</div>
+      <button type="button" class="swu-refresh-btn" onclick="refreshOpenGames()"><?php echo SWUMenuIcon('refresh'); ?><span>Refresh</span></button>
+    </div>
   </div>
 
   <!-- Create a New Game (middle) -->
-  <div class="card ga-glass-card swu-queue-card" style="padding: 20px; color: var(--text); border-radius: 12px; position: relative;">
-    <h2>Create a New Game</h2>
+  <div class="card ga-glass-card swu-panel swu-queue-card">
+    <div class="swu-panel-head">
+      <h2 class="swu-panel-title">Create a New Game</h2>
+      <span class="swu-panel-rule" aria-hidden="true"></span>
+      <span class="swu-panel-kicker" aria-hidden="true"></span>
+    </div>
     <div>
-      <!--
-      <label for="preconstructed-deck" style="display: block; margin-bottom: 8px; font-weight: 500;">Choose Your Deck:</label>
-      <select id="preconstructed-deck" name="preconstructed_deck" required style="
-        width: 100%;
-        padding: 10px 15px;
-        background-color: rgba(40, 40, 40, 0.95);
-        color: white;
-        border: 2px solid rgba(100, 100, 100, 0.5);
-        border-radius: 8px;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        outline: none;
-      " onmouseover="this.style.borderColor='rgba(var(--accent-rgb), 0.8)'; this.style.backgroundColor='rgba(50, 50, 50, 0.95)';" onmouseout="this.style.borderColor='rgba(100, 100, 100, 0.5)'; this.style.backgroundColor='rgba(40, 40, 40, 0.95)';" onfocus="this.style.borderColor='var(--accent)'; this.style.boxShadow='0 0 8px rgba(var(--accent-rgb), 0.4)';" onblur="this.style.borderColor='rgba(100, 100, 100, 0.5)'; this.style.boxShadow='none';">
-        <option value="" disabled selected style="color: #999;">Select a preconstructed deck...</option>
-        <option value="Refractory">Refractory</option>
-        <option value="Gloaming">Gloaming</option>
-        <option value="Shardsworn">Shardsworn</option>
-        <option value="Delguon">Delguon</option>
-      </select>
-      <div style="display: flex; align-items: center; margin: 12px 0; color: #888;">
-        <hr style="flex-grow: 1; border-color: #555; border-top-width: 1px;"><span style="margin: 0 10px; font-size: 12px;">OR</span><hr style="flex-grow: 1; border-color: #555; border-top-width: 1px;">
-      </div>
--->
-      <?php if (getenv('DEVENV') === 'true'): ?>
-      <!-- Dev-only convenience: prefills a known-good deck link. Gated to DEVENV so it never
-           renders in production. -->
-      <button onclick="loadTestDeck()" style="margin-bottom: 10px; padding: 6px 14px; background: rgba(60,120,60,0.25); color: #90e090; border: 1px solid rgba(90,160,90,0.45); border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">⚗ Test Deck</button>
-      <?php endif; ?>
-
-      <div style="display: flex; gap: 0; margin-bottom: 10px; border-bottom: 2px solid rgba(100,100,100,0.4);">
-        <button id="tab-link" onclick="switchDeckTab('link')" style="flex: 1; padding: 8px; background: rgba(var(--accent-rgb),0.18); color: var(--text); border: none; border-bottom: 2px solid var(--accent); cursor: pointer; font-size: 13px; font-weight: 600;">Deck Link</button>
-        <button id="tab-text" onclick="switchDeckTab('text')" style="flex: 1; padding: 8px; background: rgba(var(--accent-rgb),0.06); color: var(--text-muted); border: none; border-bottom: 2px solid transparent; cursor: pointer; font-size: 13px;">Free Text</button>
+      <div class="swu-tabs">
+        <button type="button" id="tab-link" class="swu-tab is-active" onclick="switchDeckTab('link')">Deck Link</button>
+        <button type="button" id="tab-text" class="swu-tab" onclick="switchDeckTab('text')">Free Text</button>
       </div>
       <div id="deck-input-link">
         <!-- The supported-sites list lives in an info tooltip (owner, 2026-09-21). The bubble is positioned against the
              whole ROW, not the icon, so it always fits the card on a phone. Opens on hover, keyboard focus, or a tap
              (WebKit does not focus a button on click, so the tap toggles .is-open in JS); Escape or a click elsewhere
              closes it. -->
-        <div class="swu-label-row" style="margin-bottom: 8px;">
-          <label for="deck-link" style="font-weight: 500;">Paste a deck link:</label>
+        <div class="swu-label-row">
+          <label for="deck-link" class="swu-label">Paste a deck link:</label>
           <button type="button" class="swu-info-tip" id="deck-link-sites-btn" aria-label="Supported deck links"
                   aria-describedby="deck-link-sites" aria-expanded="false">i</button>
           <span class="swu-info-tip__bubble" id="deck-link-sites" role="tooltip">
             <strong>Supported deck links:</strong> SWUStats, SWUDB, melee.gg, SWUBase, Protect the Pod, SWU Card Hub, SWUForge, SWU Meta Stats, SW-Unlimited-DB
           </span>
         </div>
-        <input type="text" id="deck-link" name="deck_link" placeholder="https://swustats.net/deck/..." style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+        <input type="text" id="deck-link" name="deck_link" class="swu-input" placeholder="https://swustats.net/deck/...">
       </div>
       <div id="deck-input-text" style="display: none;">
-        <label for="deck-text" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste deck list (e.g. from SWUDB or SWUDeck):</label>
-        <textarea id="deck-text" name="deck_text" rows="12" placeholder="# Leader&#10;1 Luke Skywalker, Faithful Friend&#10;&#10;# Base&#10;1 Echo Base&#10;&#10;# Main Deck&#10;3 Alliance X-Wing&#10;..." style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 13px; font-family: monospace; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
+        <label for="deck-text" class="swu-label">Paste deck list (e.g. from SWUDB or SWUDeck):</label>
+        <textarea id="deck-text" name="deck_text" class="swu-input swu-input--mono" rows="12" placeholder="# Leader&#10;1 Luke Skywalker, Faithful Friend&#10;&#10;# Base&#10;1 Echo Base&#10;&#10;# Main Deck&#10;3 Alliance X-Wing&#10;..."></textarea>
       </div>
       <!-- Hotseat / Arenabot: a second deck link for Player 2 (revealed only for those formats; the
            label and placeholder switch in applyFormatUI). Arenabot may leave it empty: the bot then
            plays the host's own list (APIs/Lobbies/JoinQueue.php). -->
-      <div id="swu-deck2-group" style="display: none; margin-top: 10px;">
-        <label id="swu-deck2-label" for="swu-deck2-input" style="display: block; margin-bottom: 8px; font-weight: 500;">Player 2 deck link (Hotseat):</label>
-        <input type="text" id="swu-deck2-input" placeholder="Second deck link" style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+      <div id="swu-deck2-group" class="swu-field-block" style="display: none;">
+        <label id="swu-deck2-label" for="swu-deck2-input" class="swu-label">Player 2 deck link (Hotseat):</label>
+        <input type="text" id="swu-deck2-input" class="swu-input" placeholder="Second deck link">
       </div>
       <!-- Arenabot: the bot's Play Style (revealed only for Arenabot). Sent as botStyle; the game
            stores SWUBotProfile = heuristic-<style> (SWUSim/CreateGame.php). -->
-      <div id="swu-botstyle-group" style="display: none; margin-top: 10px;">
-        <label for="swu-botstyle-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Bot play style:</label>
+      <div id="swu-botstyle-group" class="swu-field-block" style="display: none;">
+        <label for="swu-botstyle-select" class="swu-field-label">Bot play style:</label>
         <select id="swu-botstyle-select" class="swu-queue-select">
           <?php
             // The five bot archetypes (AppCore-side registry: SWUSim/Custom/BotArchetypes.php). Five rather than
@@ -116,28 +121,17 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
           <?php endforeach; ?>
         </select>
       </div>
-      <!--
-      <label for="game-name">Game Name:</label>
-      <input type="text" id="game-name" name="game_name" required>
-      <br>
-      <label for="game-type">Game Type:</label>
-      <select id="game-type" name="game_type">
-      <option value="casual">Casual</option>
-      <option value="ranked">Ranked</option>
-      </select>
-    -->
-      <br>
-      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
-        <div style="flex: 1; min-width: 140px;">
-          <label for="swu-gametype-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Game type:</label>
+      <div class="swu-field-row">
+        <div class="swu-field">
+          <label for="swu-gametype-select" class="swu-field-label">Game type:</label>
           <select id="swu-gametype-select" class="swu-queue-select"></select>
         </div>
-        <div style="flex: 1; min-width: 140px;">
-          <label id="swu-second-label" for="swu-second-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Opponent:</label>
+        <div class="swu-field">
+          <label id="swu-second-label" for="swu-second-select" class="swu-field-label">Opponent:</label>
           <select id="swu-second-select" class="swu-queue-select"></select>
         </div>
-        <div id="swu-pool-group" style="flex: 1; min-width: 140px;">
-          <label for="swu-pool-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Card pool:</label>
+        <div id="swu-pool-group" class="swu-field">
+          <label for="swu-pool-select" class="swu-field-label">Card pool:</label>
           <select id="swu-pool-select" class="swu-queue-select"></select>
         </div>
       </div>
@@ -146,9 +140,9 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
            So this select must keep its id and stay hidden, and the visible dropdowns' ids must NOT end in -format-select. -->
       <select id="swu-format-select" style="display: none;" aria-hidden="true" tabindex="-1"></select>
       <input type="hidden" id="swu-cardpool-input" value="">
-      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
-        <div style="flex: 1; min-width: 140px;">
-          <label for="swu-queuetype-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Match Type:</label>
+      <div class="swu-field-row">
+        <div class="swu-field">
+          <label for="swu-queuetype-select" class="swu-field-label">Match Type:</label>
           <select id="swu-queuetype-select" class="swu-queue-select">
             <?php foreach ($swuQueueTypes as $qid => $qdef): ?>
             <option value="<?php echo htmlspecialchars($qid, ENT_QUOTES); ?>"<?php echo $qid === 'bo1' ? ' selected' : ''; ?>><?php echo htmlspecialchars($qdef['displayName'] ?? $qid, ENT_QUOTES); ?></option>
@@ -156,43 +150,43 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
           </select>
         </div>
       </div>
-      <!-- Colour-coding these actions sets the BUTTON TOKENS (--btn-rim / --btn-border), never a
-           flat `background-color`. Under a chamfer theme the element box is deliberately
-           transparent and the shape is drawn by the ::before rim + ::after fill pseudos, which
-           are clip-path'd to the cut corners; an element background is NOT clipped, so it paints
-           a full rectangle that shows through as a solid triangle in each chamfer. -->
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <!-- Colour-coding these actions sets the BUTTON TOKENS (--btn-rim / --btn-fill, in swusim-menu.css), never a
+           flat `background-color`. Under a chamfer theme the element box is deliberately transparent and the shape is
+           drawn by the ::before rim + ::after fill pseudos, which are clip-path'd to the cut corners; an element
+           background is NOT clipped, so it paints a full rectangle that shows through as a solid triangle in each chamfer.
+           ⚠ Labels live in .swu-btn-label: applyFormatUI rewrites the text through swuSetBtnLabel(), which keeps the icon
+           (setting the button's textContent would wipe it). -->
+      <div class="swu-actions">
         <!-- Public matchmaking (open since 2026-09-16): applyFormatUI shows this for a PvP card pool whose tree entry says
-             publicQueue — never Arenabot, Twin Suns or 1P Mode. The server enforces the same rule (JoinQueue.php). -->
-        <button id="join-queue-btn" onclick="joinQueue()">Join Queue</button>
-        <!-- Solo / local modes (Goldfish, Hotseat) are NOT matchmade — JoinQueue.php creates the
-             game immediately. They used to ride the "Join Queue" button, which is dev-only in
-             production, leaving those formats unstartable; this button is their own entry point.
-             Hidden unless a mode format is selected (see applyFormatUI). -->
-        <button id="start-solo-btn" onclick="startSoloGame()" style="display: none; --btn-rim: #b3977c; --btn-border: #b3977c;">Start 1P Game</button>
-        <button onclick="saveCurrentDeck()" style="--btn-rim: #9f8dc1; --btn-border: #9f8dc1;" title="Save this deck link to your library">Save Deck</button>
+             publicQueue — never Arenabot or 1P Mode. The server enforces the same rule (JoinQueue.php). -->
+        <button type="button" id="join-queue-btn" class="swu-action swu-action--primary" onclick="joinQueue()"><?php echo SWUMenuIcon('users'); ?><span class="swu-btn-label">Join Queue</span></button>
+        <!-- Solo / local modes (Goldfish, Hotseat, Arenabot) are NOT matchmade — JoinQueue.php creates the
+             game immediately; this button is their own entry point. Hidden unless a mode format is selected
+             (see applyFormatUI). -->
+        <button type="button" id="start-solo-btn" class="swu-action swu-action--primary" onclick="startSoloGame()" style="display: none;"><?php echo SWUMenuIcon('play'); ?><span class="swu-btn-label">Start 1P Game</span></button>
+        <button type="button" class="swu-action" onclick="saveCurrentDeck()" title="Save this deck link to your library"><?php echo SWUMenuIcon('save'); ?><span class="swu-btn-label">Save Deck</span></button>
         <!-- Hidden when the URL carries a privateInvite code: that visitor is JOINING someone else's
              invite, so offering "Create Private Room" right next to "Join Private Invite" is ambiguous
              (and creating one would silently abandon the invite they followed). See
              initializePrivateInviteFromUrl. -->
-        <button id="create-private-game-btn" onclick="createPrivateGame()" style="--btn-rim: #78a1c1; --btn-border: #78a1c1;">Create Private Room</button>
-        <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; --btn-rim: #77b392; --btn-border: #77b392;">Join Private Invite</button>
+        <button type="button" id="create-private-game-btn" class="swu-action" onclick="createPrivateGame()"><?php echo SWUMenuIcon('users'); ?><span class="swu-btn-label">Create Private Room</span></button>
+        <button type="button" id="join-private-invite-btn" class="swu-action swu-action--primary" onclick="joinPrivateInvite()" style="display: none;"><?php echo SWUMenuIcon('join'); ?><span class="swu-btn-label">Join Private Invite</span></button>
       </div>
-      <div id="queue-inline-error" style="display: none; margin-top: 10px; color: #ff6b6b; font-size: 13px; line-height: 1.35;"></div>
-      <div id="private-invite-notice" style="display: none; margin-top: 10px; color: var(--text-muted); font-size: 13px;"></div>
+      <div id="queue-inline-error" class="swu-note swu-note--error" style="display: none;"></div>
+      <div id="private-invite-notice" class="swu-note" style="display: none;"></div>
       <?php if (!$swuLoggedIn): ?>
       <!-- Guest note. Guests play every format (owner, 2026-09-21); the one thing an account adds is in-game chat,
            which SubmitChat.php refuses for a logged-out SWUSim sender. Server-rendered: the logged-out state is known
            at render time, so it never flashes on a logged-in page. -->
-      <div id="guest-format-notice" style="margin-top: 10px; color: var(--text-muted); font-size: 13px; line-height: 1.4;">
+      <div id="guest-format-notice" class="swu-note">
         Playing as a guest —
-        <a href="/TCGEngine/SharedUI/LoginPage.php" style="color: var(--accent); text-decoration: underline;">log in</a>
+        <a href="/TCGEngine/SharedUI/LoginPage.php">log in</a>
         to use in-game chat.
       </div>
       <?php endif; ?>
       <?php
         if (isset($_SESSION['userid'])) {
-            echo "<div class='saved-decks-panel' style='margin-top:16px;'><h3 style='margin:0 0 8px 0;'>Saved Decks</h3>";
+            echo "<div class='saved-decks-panel swu-saved-decks'><h3 class='swu-section-label'>Saved Decks</h3>";
             // Default (no action buttons): the dropdown only loads a deck into the queue box.
             // Managing saved decks (favorite/rename/delete) lives on the Profile page.
             echo RenderDeckLibrary((int)$_SESSION['userid'], $swuDeckLibraryConfig);
@@ -203,48 +197,38 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
   </div>
 
   <!-- Welcome + Replays (right, tabbed) -->
-  <div class="card ga-glass-card swu-info-card" style="padding: 20px; color: var(--text); border-radius: 12px; display: flex; flex-direction: column; gap: 16px;">
+  <div class="card ga-glass-card swu-panel swu-info-card">
     <div class="ga-info-tabs" role="tablist" aria-label="Petranaki information">
-      <button type="button" id="ga-info-tab-welcome" class="ga-info-tab is-active" onclick="switchInfoTab('welcome')" role="tab" aria-selected="true" aria-controls="ga-info-panel-welcome">Welcome</button>
-      <button type="button" id="ga-info-tab-replays" class="ga-info-tab" onclick="switchInfoTab('replays')" role="tab" aria-selected="false" aria-controls="ga-info-panel-replays">Replays</button>
+      <button type="button" id="ga-info-tab-welcome" class="ga-info-tab swu-tab is-active" onclick="switchInfoTab('welcome')" role="tab" aria-selected="true" aria-controls="ga-info-panel-welcome">Welcome</button>
+      <button type="button" id="ga-info-tab-replays" class="ga-info-tab swu-tab" onclick="switchInfoTab('replays')" role="tab" aria-selected="false" aria-controls="ga-info-panel-replays">Replays</button>
     </div>
     <div id="ga-info-panel-welcome" class="ga-info-panel is-active" role="tabpanel" aria-labelledby="ga-info-tab-welcome">
-    <h2 style="margin: 0 0 4px 0;">Welcome to Petranaki Arena!</h2>
-    <p class="login-message" style="margin: 0; color: var(--text-muted); font-size: 14px;">Petranaki Arena is a fan-made online simulator for Star Wars: Unlimited.</p>
-
-    <hr style="border: none; border-top: 1px solid rgba(var(--accent-rgb),0.20); margin: 0;">
-
-    <!-- Did you know? -->
-    <div id="did-you-know-box" style="
-      background: linear-gradient(135deg, rgba(var(--accent-rgb),0.14) 0%, rgba(var(--accent-rgb),0.20) 100%);
-      border: 1px solid rgba(var(--accent-rgb),0.28);
-      border-radius: 8px;
-      padding: 14px 16px;
-      position: relative;
-    ">
-      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-        <span style="font-size: 18px;">⚡</span>
-        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);">Did you know?</span>
+      <div class="swu-welcome">
+        <div class="swu-welcome__body">
+          <h2 class="swu-welcome__title">Welcome to Petranaki Arena!</h2>
+          <p class="login-message swu-welcome__text">Petranaki Arena is a fan-made online simulator for Star Wars: Unlimited.</p>
+        </div>        
       </div>
-      <p id="did-you-know-text" style="margin: 0; font-size: 14px; color: var(--text); line-height: 1.55;"></p>
-      <button onclick="cycleDidYouKnow()" title="Next tip" style="
-        position: absolute; top: 10px; right: 10px;
-        background: none; border: none; cursor: pointer;
-        color: var(--accent); font-size: 16px; padding: 2px 6px; border-radius: 4px;
-        transition: background 0.2s;
-      " onmouseover="this.style.background='rgba(var(--accent-rgb),0.14)'" onmouseout="this.style.background='none'">→</button>
-    </div>
+      <hr class="swu-hr">
 
-    <!-- Quick-reference hotkeys -->
-    <div>
-      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Quick Reference</div>
-      <div style="display: flex; flex-direction: column; gap: 6px;" id="hotkey-list"></div>
-    </div>
+      <!-- Did you know? -->
+      <div id="did-you-know-box" class="swu-dyk">
+        <div class="swu-dyk__head"><?php echo SWUMenuIcon('bolt'); ?><span>Did you know?</span></div>
+        <p id="did-you-know-text"></p>
+        <button type="button" class="swu-icon-btn swu-dyk__next" onclick="cycleDidYouKnow()" title="Next tip" aria-label="Next tip"><?php echo SWUMenuIcon('next'); ?></button>
+      </div>
+
+      <!-- Quick-reference hotkeys -->
+      <div>
+        <div class="swu-section-label">Quick Reference</div>
+        <div id="hotkey-list" class="swu-hotkeys"></div>
+      </div>
+      <div class="swu-flourish" aria-hidden="true"><span class="swu-flourish__gem">◇</span></div>
     </div>
     <div id="ga-info-panel-replays" class="ga-info-panel" role="tabpanel" aria-labelledby="ga-info-tab-replays">
-    <h2 style="margin: 0 0 4px 0;">Your Replays</h2>
-    <p style="margin: 0; color: var(--text-muted); font-size: 13px; line-height: 1.4;">Saved in this browser. Use the <strong>Save Replay</strong> button on the end-of-game screen to add one here.</p>
-    <div id="match-replay-menu-list" class="swu-replay-list" style="margin-top: 6px;"></div>
+      <h2 class="swu-welcome__title">Your Replays</h2>
+      <p class="swu-welcome__text">Saved in this browser. Use the <strong>Save Replay</strong> button on the end-of-game screen to add one here.</p>
+      <div id="match-replay-menu-list" class="swu-replay-list"></div>
     </div><!-- end replays panel -->
   </div><!-- end info card -->
 </div>
@@ -271,154 +255,6 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
   </div>
 </div>
 
-<style>
-  .swu-menu-grid {
-    display: grid;
-    grid-template-columns: minmax(240px, 0.85fr) minmax(360px, 1.2fr) minmax(300px, 1fr);
-    gap: 14px;
-    align-items: start;
-    flex-grow: 1;
-    margin: 0 10px 10px;
-  }
-  .swu-menu-grid > .card { min-width: 0; margin: 0; }
-  @media (max-width: 920px) {
-    .swu-menu-grid { grid-template-columns: 1fr; }
-  }
-  /* Right-column Welcome/Replays tabs (scoped past .ga-glass-card * color rule) */
-  .ga-info-tabs { display: flex; gap: 0; border-bottom: 1px solid rgba(var(--accent-rgb), 0.28); }
-  .ga-glass-card .ga-info-tab {
-    flex: 1; padding: 8px; border: 0; border-bottom: 2px solid transparent;
-    background: rgba(var(--accent-rgb), 0.06); color: var(--text-muted);
-    cursor: pointer; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
-  }
-  .ga-glass-card .ga-info-tab:hover { color: var(--text); }
-  .ga-glass-card .ga-info-tab.is-active {
-    background: rgba(var(--accent-rgb), 0.16); color: var(--text); border-bottom-color: var(--accent);
-  }
-  .ga-info-panel { display: none; flex-direction: column; gap: 16px; }
-  .ga-info-panel.is-active { display: flex; }
-  /* .ga-glass-card (the frosted grey panel) + its descendant colour rule now live in
-     css/swusim-overrides.css so every SWUSim page can use the class, not just this one. */
-  .swu-queue-select {
-    width: 100%;
-    padding: 8px 12px;
-    background-color: var(--surface-sunken);
-    color: var(--text) !important;
-    border: 2px solid rgba(var(--accent-rgb), 0.40);
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    outline: none;
-    box-sizing: border-box;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .swu-queue-select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.4);
-  }
-  .swu-queue-select option { background-color: var(--surface-raised); color: var(--text); }
-  .hotkey-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted); }
-  .hotkey-badge {
-    display: inline-block; min-width: 28px; text-align: center;
-    padding: 2px 7px; border-radius: 5px;
-    background: rgba(var(--accent-rgb), 0.12); border: 1px solid rgba(var(--accent-rgb), 0.30);
-    font-family: monospace; font-size: 13px; font-weight: 700; color: var(--text);
-    flex-shrink: 0;
-  }
-  #did-you-know-box {
-    transition: opacity 0.25s;
-    min-height: 140px;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-  }
-  #did-you-know-text {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    min-height: 66px;
-    max-height: 66px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-right: 4px;
-    white-space: normal !important;
-    overflow-wrap: anywhere !important;
-    word-break: break-word !important;
-  }
-  .ga-settings-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 3000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-  }
-  .ga-settings-modal.is-open {
-    display: flex;
-  }
-  .ga-settings-modal__overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.66);
-  }
-  .ga-settings-modal__dialog {
-    position: relative;
-    width: min(560px, 92vw);
-    background: var(--surface-raised);
-    border: 1px solid rgba(var(--accent-rgb), 0.35);
-    border-radius: 10px;
-    box-shadow: 0 20px 50px rgba(10, 4, 0, 0.55);
-    color: var(--text);
-    padding: 18px;
-  }
-  .ga-settings-modal__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
-  .ga-settings-modal__header h3 {
-    margin: 0;
-    font-size: 18px;
-    color: var(--text);
-  }
-  .ga-settings-modal__close {
-    border: 0;
-    background: rgba(var(--accent-rgb), 0.14);
-    color: var(--text);
-    border-radius: 6px;
-    width: 28px;
-    height: 28px;
-    cursor: pointer;
-    font-size: 14px;
-    line-height: 1;
-  }
-  .ga-settings-modal__body {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .ga-settings-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--text-muted);
-    font-size: 13px;
-  }
-  .ga-settings-row--split {
-    justify-content: space-between;
-  }
-  #ga-board-background-theme {
-    background: var(--surface-sunken);
-    color: var(--text);
-    border: 1px solid rgba(var(--accent-rgb), 0.35);
-    border-radius: 6px;
-    padding: 4px 8px;
-    font-size: 12px;
-  }
-</style>
 
 <script>
   var _didYouKnowTips = [
@@ -555,13 +391,6 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
   };
   var _waitingEscHandler = null;
 
-      // TODO: remove this function before deploy
-      function loadTestDeck() {
-        switchDeckTab('link');
-        var el = document.getElementById('deck-link');
-        if (el) el.value = 'https://swudb.com/deck/TGxyxzhRG';
-      }
-
       // Right-column info card: switch between the Welcome and Replays tabs.
       function switchInfoTab(tab) {
         var isReplays = tab === 'replays';
@@ -596,16 +425,19 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         });
         document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(null); });
       })();
+      // Menu action buttons carry an icon + <span class="swu-btn-label">; rewriting the button's own textContent would
+      // wipe the icon, so every label change goes through here.
+      function swuSetBtnLabel(btn, text) {
+        if (!btn) return;
+        var label = btn.querySelector('.swu-btn-label');
+        if (label) label.textContent = text; else btn.textContent = text;
+      }
       function switchDeckTab(tab) {
         var isLink = tab === 'link';
         document.getElementById('deck-input-link').style.display = isLink ? '' : 'none';
         document.getElementById('deck-input-text').style.display = isLink ? 'none' : '';
-        document.getElementById('tab-link').style.background = isLink ? 'rgba(var(--accent-rgb),0.18)' : 'rgba(var(--accent-rgb),0.06)';
-        document.getElementById('tab-link').style.color = isLink ? 'var(--text)' : 'var(--text-muted)';
-        document.getElementById('tab-link').style.borderBottom = isLink ? '2px solid var(--accent)' : '2px solid transparent';
-        document.getElementById('tab-text').style.background = isLink ? 'rgba(var(--accent-rgb),0.06)' : 'rgba(var(--accent-rgb),0.18)';
-        document.getElementById('tab-text').style.color = isLink ? 'var(--text-muted)' : 'var(--text)';
-        document.getElementById('tab-text').style.borderBottom = isLink ? '2px solid transparent' : '2px solid var(--accent)';
+        document.getElementById('tab-link').classList.toggle('is-active', isLink);
+        document.getElementById('tab-text').classList.toggle('is-active', !isLink);
         try { localStorage.setItem('swu_deck_tab', tab); } catch(e) {}
       }
 
@@ -878,11 +710,11 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         if (createBtn) {
           // One label for every format: EVERY private lobby is a room (WaitingRoom.php).
           createBtn.style.display = (joiningInvite || isMode) ? 'none' : '';
-          createBtn.textContent = 'Create Private Room';
+          swuSetBtnLabel(createBtn, 'Create Private Room');
         }
         if (soloBtn) {
           soloBtn.style.display = isMode ? '' : 'none';
-          soloBtn.textContent = (fmt.value === 'hotseat') ? 'Start Hotseat Game' : (isArenabot ? 'Start Arenabot' : 'Start 1P Game');
+          swuSetBtnLabel(soloBtn, (fmt.value === 'hotseat') ? 'Start Hotseat Game' : (isArenabot ? 'Start Arenabot' : 'Start 1P Game'));
         }
       }
       (function () {
@@ -1375,36 +1207,118 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         });
       }
 
+      // ── Games in Progress (left panel) ─────────────────────────────────────────────────────────────────────
+      // SWUSim/PublicGames.php lists public matches; each becomes a chip: an identity stack per seat (base behind,
+      // leader(s) in front — one leader in Premier-style formats, two in Twin Suns / Team Suns) and a Spectate button.
+      var _swuPublicGames = [];
+      function swuEsc(v) {
+        return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+      // One seat's identity: the base peeks out behind, the leader(s) sit in front. Card art is decorative next to the
+      // text title, so alt="" and the names go in the stack's title/aria-label.
+      function swuIdentityStack(seat) {
+        var leaders = seat.leaders || [];
+        var twin = leaders.length > 1;
+        var names = leaders.map(function (l) { return l.name; });
+        if (seat.base) names.push(seat.base.name);
+        var html = '<div class="swu-idstack' + (twin ? ' is-twin' : '') + '" role="img" aria-label="' + swuEsc(names.join(' · ')) + '" title="' + swuEsc(names.join('\n')) + '">';
+        if (seat.base) html += '<img class="swu-idstack__base" src="' + swuEsc(seat.base.url) + '" alt="" loading="lazy">';
+        leaders.slice(0, 2).forEach(function (l, i) {
+          html += '<img class="swu-idstack__leader' + (twin ? (i === 0 ? ' is-a' : ' is-b') : '') + '" src="' + swuEsc(l.url) + '" alt="" loading="lazy">';
+        });
+        return html + '</div>';
+      }
+      function swuGameChip(g) {
+        var seats = g.seats || [];
+        var body, layout;
+        if (g.isTeam) {
+          // Team Suns: partners side by side, the two teams stacked with "vs" between them.
+          var team = function (t) {
+            return '<div class="swu-game-team">' + seats.filter(function (s) { return s.team === t; }).map(swuIdentityStack).join('') + '</div>';
+          };
+          body = team(1) + '<span class="swu-game-vs">vs</span>' + team(2);
+          layout = ' is-team';
+        } else if (seats.length > 2) {
+          // Twin Suns free-for-all: every seat side by side (2×2 for four); the footer names the player count.
+          body = seats.map(swuIdentityStack).join('');
+          layout = ' is-ffa is-ffa-' + seats.length;
+        } else {
+          body = seats.map(swuIdentityStack).join('<span class="swu-game-vs">vs</span>');
+          layout = '';
+        }
+        var label = g.formatName + (seats.length > 2 && !g.isTeam ? ' · ' + seats.length + ' players' : '');
+        return '<div class="swu-game-chip' + layout + '" data-format="' + swuEsc(g.format) + '">'
+          + '<div class="swu-game-chip__seats">' + body + '</div>'
+          + '<div class="swu-game-chip__foot">'
+          +   '<span class="swu-game-chip__format">' + swuEsc(label) + '</span>'
+          +   '<button type="button" class="swu-spectate-btn" data-href="' + swuEsc(g.spectateUrl) + '">Spectate</button>'
+          + '</div>'
+          + '</div>';
+      }
+      function swuRenderPublicGames() {
+        var list = document.getElementById('active-games-list');
+        var filter = document.getElementById('swu-games-filter');
+        if (!list) return;
+        var want = filter ? filter.value : '';
+        var shown = _swuPublicGames.filter(function (g) { return !want || g.format === want; });
+        list.innerHTML = shown.map(swuGameChip).join('');
+        list.style.display = shown.length ? '' : 'none';
+        swuRenderActiveEmpty(shown.length, want !== '');
+      }
+      function swuFillGamesFilter(formats) {
+        var filter = document.getElementById('swu-games-filter');
+        if (!filter) return;
+        var keep = filter.value;
+        filter.innerHTML = '<option value="">Filter by Format</option>' + (formats || []).map(function (f) {
+          return '<option value="' + swuEsc(f.id) + '">' + swuEsc(f.name) + '</option>';
+        }).join('');
+        // Keep the viewer's choice across refreshes while that format still has games; otherwise fall back to all.
+        filter.value = (formats || []).some(function (f) { return f.id === keep; }) ? keep : '';
+      }
+      // The empty-state message. filtered = a format is chosen but has no games right now.
+      function swuRenderActiveEmpty(count, filtered) {
+        var box = document.getElementById('swu-active-empty');
+        var title = document.getElementById('swu-active-empty-title');
+        var text = document.getElementById('swu-active-empty-text');
+        if (!box || !title || !text) return;
+        count = parseInt(count, 10) || 0;
+        box.style.display = count > 0 ? 'none' : '';
+        title.textContent = filtered ? 'No games in this format' : 'No games in progress';
+        text.textContent = filtered ? 'Try another format, or start one yourself!' : 'Be the first to challenge an opponent in the arena!';
+      }
       function refreshOpenGames() {
-        console.log('Refreshing open games');
-        var gameCountElement = document.getElementById('active-game-count');
+        var countEl = document.getElementById('active-game-count');
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', swusimAppBase() + 'APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName), true);
+        xhr.open('GET', swusimAppBase() + 'SWUSim/PublicGames.php', true);
         xhr.responseType = 'json';
-
-        xhr.onload = function() {
-          if (xhr.status >= 200 && xhr.status < 300) {
-          var data = xhr.response;
-
-          if (data.data && Array.isArray(data.data)) {
-            var totalCount = (typeof data.totalCount === 'number') ? data.totalCount : data.data.length;
-            gameCountElement.textContent = totalCount;
-          } else {
-            gameCountElement.textContent = '0';
-          }
-          } else {
-          console.error('Error fetching open games:', xhr.statusText);
-          gameCountElement.textContent = '0';
-          }
+        xhr.onload = function () {
+          var data = (xhr.status >= 200 && xhr.status < 300 && xhr.response && xhr.response.success) ? xhr.response : null;
+          _swuPublicGames = data && Array.isArray(data.games) ? data.games : [];
+          if (countEl) countEl.textContent = _swuPublicGames.length;
+          swuFillGamesFilter(data ? data.formats : []);
+          swuRenderPublicGames();
         };
-
-        xhr.onerror = function() {
-          console.error('Error fetching open games:', xhr.statusText);
-          gameCountElement.textContent = '0';
+        xhr.onerror = function () {
+          _swuPublicGames = [];
+          if (countEl) countEl.textContent = '0';
+          swuRenderPublicGames();
         };
-
         xhr.send();
       }
+      (function () {
+        var filter = document.getElementById('swu-games-filter');
+        if (filter) filter.addEventListener('change', swuRenderPublicGames);
+        var list = document.getElementById('active-games-list');
+        if (list) list.addEventListener('click', function (e) {
+          var btn = e.target.closest ? e.target.closest('.swu-spectate-btn') : null;
+          if (btn && btn.getAttribute('data-href')) window.location.href = btn.getAttribute('data-href');
+        });
+        // Keep the list live without hammering the server: every 20s, only while this tab is visible.
+        setInterval(function () { if (!document.hidden) refreshOpenGames(); }, 20000);
+        document.addEventListener('visibilitychange', function () { if (!document.hidden) refreshOpenGames(); });
+      })();
       function pollLobbyUpdates(playerID, authKey) {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', swusimAppBase() + 'APIs/Lobbies/PollLobbyUpdates.php', true);
