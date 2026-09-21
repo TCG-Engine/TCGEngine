@@ -5353,6 +5353,15 @@ function OnCardActivated($player, $mzCard) {
         $cardActivatedAbilities[$obj->CardID . ":0"]($player);
     }
 
+    // The real gameplay pathway for playing a card from hand (ActivateCard -> DoActivateCard,
+    // and the StarcallingActivate DQ handler) resolves here, in OnCardActivated -- never through
+    // the generated PlayCard()/DoPlayCard() macro, which nothing calls. Queue the PLAY_CARD
+    // trigger for this card's own on-play ability (the $playCardAbilities dispatch table) here,
+    // matching how OnRestCard() queues QueueRestCardTriggeredAbility() at its own real event site.
+    if(!HasNoAbilities($obj)) {
+        QueuePlayCardTriggeredAbility($player, $obj->CardID, $mzCard, false);
+    }
+
     $champMZ = FindChampionMZ($player);
     if($champMZ !== null) {
         if(PropertyContains($cardType, "ACTION")) {
@@ -7381,11 +7390,15 @@ function FireRevealTriggeredAbility($controller, $cardID) {
 }
 
 /**
- * $playCardAbilities was previously unreachable: the only code that dispatched it,
- * $customDQHandlers["CardPlayed"], was never queued anywhere, so these 14 cards' on-play
- * triggers (mostly instant-speed negate/interaction effects) silently never fired. Wiring
- * it here, straight onto the Effects Stack, both fixes the dead dispatch and gives these
- * abilities a proper Opportunity Window instead of resurrecting the old bypass.
+ * Queues this card's PLAY_CARD trigger (the $playCardAbilities dispatch table) onto the
+ * Effects Stack, giving it a proper Opportunity Window instead of firing synchronously.
+ *
+ * The only caller used to be DoPlayCard(), reached solely through the generated PlayCard()
+ * macro -- but nothing in the real gameplay pathway (ActivateCard -> DoActivateCard, or the
+ * StarcallingActivate DQ handler) ever called PlayCard(), so these 14 cards' on-play triggers
+ * (mostly instant-speed negate/interaction effects) silently never fired. The real caller is
+ * now OnCardActivated(), the actual resolution site for every card activation regardless of
+ * how it reached the Effects Stack -- see the QueuePlayCardTriggeredAbility() call there.
  */
 function QueuePlayCardTriggeredAbility($controller, $cardID, $mzID, $ignoreCost) {
     global $playCardAbilities;

@@ -11959,6 +11959,61 @@ DECK,
     ],
 ];
 
+// --- Vainglory Retribution: playCardAbilities dispatch coverage (qtzsekkjn3) ---
+// Effects Stack fixture-coverage gap fill for the whole $playCardAbilities table: nothing in
+// real gameplay ever called QueuePlayCardTriggeredAbility() before the fix in GameLogic.php's
+// OnCardActivated() (the real "a card just resolved off the Effects Stack" chokepoint, reached
+// from both DoActivateCard() and the separate StarcallingActivate path) -- the only previous
+// caller, DoPlayCard(), was reachable solely through the generated PlayCard() macro, which
+// nothing in the codebase invokes. Confirmed live: all 14 playCardAbilities entries fired zero
+// times across the full 546-fixture suite before the fix (instrumented FirePlayCardTriggeredAbility
+// with logging). This fixture actually plays Vainglory Retribution (qtzsekkjn3, WIND ACTION,
+// reserve cost 4) from hand through the real ActivateCard()->DoActivateCard() path and asserts
+// its on-play effect (playCardAbilities["qtzsekkjn3:0"]: AddTurnEffect(champMZ,
+// "VAINGLORY_RETRIBUTION_4")) actually lands on the champion.
+$fixtures['vainglory-retribution-play-card-trigger'] = [
+    'testedCards' => ['qtzsekkjn3'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // PRISMATIC_CODEX_IGNORE_ELEMENT bypasses the WIND element-access check for this one
+    // activation (CanPlayerUseCardElement, GameLogic.php) without scripting a real element
+    // unlock -- self-consuming, matches the card's own real element gate rather than faking it
+    // via a champion Subcards patch. Vainglory Retribution is seeded directly into hand at the
+    // next open slot after the natural 7-card opening hand (myHand-7).
+    'setup' => [
+        ['player' => 1, 'globalEffect' => 'PRISMATIC_CODEX_IGNORE_ELEMENT'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'qtzsekkjn3'],
+    ],
+    // Play Vainglory Retribution (mode 10002 FSM free play), pay its 4 reserve cost with four
+    // "choose a card from myHand" MZCHOOSE decisions (always myHand-0 -- each payment removes
+    // that slot and shifts the rest down, so the index is stable across all four), then both
+    // players pass the resulting Effects Stack Opportunity windows -- first for Vainglory
+    // Retribution's own activation entry, then a second time for the PLAY_CARD trigger entry
+    // that QueuePlayCardTriggeredAbility() pushes once the card resolves.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
