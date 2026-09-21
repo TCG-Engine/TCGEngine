@@ -814,7 +814,7 @@ function DoPlayCard($player, $mzID) {
 
 function FaBEnergyCounters($obj): int { return intval(FaBObjectCounters($obj)['ENERGY']??0); }
 function FaBSteamCounters($obj): int { return intval(FaBObjectCounters($obj)['STEAM']??0); }
-function FaBDefenseCounters($obj): int { return intval(FaBObjectCounters($obj)['DEFENSE']??0); }
+function FaBDefenseCounters($obj): int { return -intval(FaBObjectCounters($obj)['DEFENSE']??0); }
 function FaBPowerCounters($obj): int { return intval(FaBObjectCounters($obj)['POWER']??0); }
 function FaBDisplayCombatPower($obj): int {
     $state=FaBGetState();

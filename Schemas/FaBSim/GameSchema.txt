@@ -74,7 +74,7 @@ Counters: HauntCounters=Badge(Color=Green,Position=TopRight,ShowZero=false)
 Virtual: BindCounters=FaBELEBindCounters()
 Counters: BindCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false)
 Counters: EnergyCounters=Image(Path=FaBSim/Assets/Icons/energy.png,Position=Center,ShowZero=false,Size=28,TextColor=White)
-Counters: DefenseCounters=Image(Path=FaBSim/Assets/Icons/defense.png,Position=BottomRight,ShowZero=false,ShowNegative=true,Size=28,TextColor=White)
+Counters: DefenseCounters=Image(Path=FaBSim/Assets/Icons/defense.png,Position=BottomRight,ShowZero=false,ShowNegative=true,Size=24,TextColor=White,OffsetX=5,OffsetY=9)
 Highlight: SelectionMetadata
 Overlay: Status=1:exhausted
 Rotation: Status=1:9
