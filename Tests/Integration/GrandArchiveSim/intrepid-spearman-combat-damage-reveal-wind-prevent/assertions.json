@@ -1,0 +1,27 @@
+[
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "TurnEffects",
+        "value": "[\"pal7cpvn96\"]",
+        "semantic": true,
+        "label": "Once-per-turn replacement-effect marker is set, proving the CombatLogic.php OnDealDamage() branch for pal7cpvn96 actually ran on real combat damage"
+    },
+    {
+        "step": 6,
+        "type": "flash_message_contains",
+        "value": "REVEAL:qtzsekkjn3",
+        "semantic": true,
+        "label": "Reveals the sole (WIND element) memory card at random, per the printed replacement effect"
+    },
+    {
+        "step": 6,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "0",
+        "semantic": true,
+        "label": "1 combat damage from Executioner's Spear minus 3 prevented (revealed card is WIND) clamps to 0"
+    }
+]

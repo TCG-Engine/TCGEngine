@@ -11853,6 +11853,112 @@ DECK,
     ],
 ];
 
+// --- Powered Defender: dealDamageAbilities dispatch coverage (z07nau5sw9) ---
+// Effects Stack fixture-coverage gap fill: dealDamageAbilities["z07nau5sw9:0"] summons a
+// Powercell token (qzzadf9q1v) whenever Powered Defender is dealt damage. No prior fixture
+// deals real (combat or non-combat) damage to this card. WATER element ally, cost 4 reserve,
+// class bonus (Taunt) not needed for this test. Uses a cheap real damage spell -- Charge the
+// Soul (ra9950o14t, NORM element, 1 reserve, "Deal 1 damage to target unit") -- targeting our
+// own ally, which is the simplest real damage-dealing event available (no combat/attack
+// sequence needed, since the dealDamageAbilities dispatch doesn't check isCombat for this
+// card -- unlike pal7cpvn96/Intrepid Spearman's replacement effect).
+$fixtures['powered-defender-dealt-damage-summons-powercell'] = [
+    'testedCards' => ['z07nau5sw9'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Powered Defender is seeded directly onto the field (myField-1, awake by default) rather
+    // than played from hand -- setup field-seeding bypasses cost/element checks entirely, so no
+    // WATER element access is needed. Charge the Soul is seeded into hand (myHand-7), then
+    // played by resolving the OpportunityWindowFirstResponse MZMAYCHOOSE with its own mzID
+    // (mode=10002 FSM free-play is a no-op here -- verified live: reports success but never
+    // removes the card from hand). Its 1-reserve cost is
+    // paid with myHand-0, then the resulting MZCHOOSE:myField-0&myField-1&theirField-0 targets
+    // myField-1 (Powered Defender itself). Verified live: this leaves Powered Defender with 1
+    // damage and a genuine qzzadf9q1v Powercell token freshly created at myField-2 -- no
+    // additional PASS actions are needed, the Effects Stack resolves immediately.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'z07nau5sw9'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ra9950o14t'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Intrepid Spearman: dealDamageAbilities dispatch coverage (pal7cpvn96) ---
+// Effects Stack fixture-coverage gap fill: dealDamageAbilities["pal7cpvn96:0"] is itself an
+// intentional no-op stub (its real logic is a synchronous replacement effect inlined in
+// OnDealDamage(), GrandArchiveSim/Custom/CombatLogic.php ~line 4925, guarded by
+// DecisionQueueController::GetVariable("CombatAttacker") !== null -- i.e. it only applies to
+// REAL COMBAT damage, unlike Powered Defender's dispatch-table trigger above). No prior fixture
+// deals real combat damage to this card, so this fixture exercises the replacement effect
+// itself: [Level 1+] once per turn, reveal a random memory card when combat damage would be
+// dealt; if wind element, prevent 3 of that damage.
+//
+// Requires: (1) champion at Level 1+ (PlayerLevel() reads ObjectCurrentLevel(), which adds a
+// "level" counter on top of the card's printed level -- patched directly via setProperties
+// rather than scripting a real level-up), (2) a real attack that deals combat damage to this
+// ally specifically. GetValidAttackTargets() (CombatLogic.php) allows a champion to attack an
+// opposing ALLY directly (ZoneSearch("theirField", ["ALLY","CHAMPION"])), so no
+// intercept/redirect dance is needed -- P2's champion just targets theirField-1 (P1's Intrepid
+// Spearman) directly. P2's champion (Spirit of Fire, 0 base power) needs a weapon to have any
+// attack power; Executioner's Spear (zv6yp6q7zw, printed 1 POWER, no durability requirement --
+// verified live, unlike Tideholder Claymore which requires durability counters to be a legal
+// weapon choice per GetAvailableWeapons()) is seeded onto P2's field. (3) Exactly one memory
+// card, and it must be WIND element, for a deterministic array_rand() reveal -- Vainglory
+// Retribution (qtzsekkjn3, WIND) is reused as the memory card. With 1 combat damage and -3
+// prevention, final Damage clamps to 0 -- verified live: TurnEffects gains the "pal7cpvn96"
+// once-per-turn marker and FlashMessage is set to "REVEAL:qtzsekkjn3" regardless, which is
+// exactly the code path that (per CombatLogic.php) sets TurnEffects *before* the amount<=0
+// early-return, so both survive as independent proof the replacement effect actually ran.
+$fixtures['intrepid-spearman-combat-damage-reveal-wind-prevent'] = [
+    'testedCards' => ['pal7cpvn96'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'pal7cpvn96'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'qtzsekkjn3'], // sole memory card, WIND element
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['level' => 1]]], // champion Level 1+
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'zv6yp6q7zw'], // Executioner's Spear, 1 POWER
+    ],
+    'actions' => [
+        // P1 has nothing playable this turn (no hand cards seeded) -- a single health-pass ends
+        // the whole turn and hands priority straight to P2's MAIN phase (verified live).
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline P2's own MAT-phase materialize offer
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // P2's champion attacks
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Executioner's Spear as the weapon
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target P1's Intrepid Spearman directly (not the champion)
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline Retaliate
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
