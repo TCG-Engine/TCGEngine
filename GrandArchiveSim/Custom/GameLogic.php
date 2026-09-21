@@ -7498,7 +7498,7 @@ function FireLeaveFieldTriggeredAbility($controller, $cardID) {
  * baseline (pre-migration) behavior exactly (a blanket "defer cleanup for all of combat" version of
  * this was tried and reverted -- see CombatLogic.php's GetProtectedRemovedCardUniqueIDs() docblock).
  */
-function QueueAttackTriggeredAbility($controller, $cardID, $mzID) {
+function QueueAttackTriggeredAbility($controller, $cardID, $mzID, $sourceMZ = null) {
     global $onAttackAbilities;
     if(!isset($onAttackAbilities[$cardID . ":0"])) return false;
     $context = [
@@ -7507,7 +7507,11 @@ function QueueAttackTriggeredAbility($controller, $cardID, $mzID) {
     ];
     $selfUniqueID = GetFieldObjectUniqueID($mzID, $controller);
     if ($selfUniqueID !== null) $context['selfUniqueID'] = strval($selfUniqueID);
-    return QueueTriggeredAbility($controller, $cardID, "ON_ATTACK", $context);
+    // OnAttackTrigger deliberately passes the same $mzID (the attacker's) into context for every
+    // branch -- see its own docblock -- so the attacker/intent/weapon candidates aren't otherwise
+    // distinguishable for a stack-order choice. $sourceMZ carries each branch's own real location.
+    $normalizedSourceMZ = $sourceMZ !== null ? NormalizeMzIDForController($sourceMZ, $controller) : null;
+    return QueueTriggeredAbility($controller, $cardID, "ON_ATTACK", $context, $normalizedSourceMZ);
 }
 
 function FireAttackTriggeredAbility($controller, $cardID) {
@@ -15555,6 +15559,10 @@ function OnDiscardCard($player, $discardedCardID) {
         return;
     }
 
+    // Batched (BeginTriggeredAbilityBatch()) so, when 2+ of the player's own field cards have a
+    // discard-triggered ability for this same discard event, they choose stacking order instead
+    // of it being hardcoded to field-index order.
+    BeginTriggeredAbilityBatch();
     $field = GetField($player);
     for($i = 0; $i < count($field); ++$i) {
         if($field[$i]->removed || HasNoAbilities($field[$i])) continue;
@@ -15569,6 +15577,7 @@ function OnDiscardCard($player, $discardedCardID) {
             );
         }
     }
+    EndTriggeredAbilityBatch();
     DecisionQueueController::ClearVariable("discardedCardID");
 }
 
@@ -19500,7 +19509,14 @@ function DestroyObjectSelection($player, $selection) {
         if(($aParts[0] ?? "") !== ($bParts[0] ?? "")) return strcmp($a, $b);
         return intval($bParts[1] ?? 0) <=> intval($aParts[1] ?? 0);
     });
+    // Batched (BeginTriggeredAbilityBatch()) so, if this destroys 2+ objects belonging to the same
+    // controller at once (e.g. a "destroy all" mode), that controller chooses their own abilities'
+    // stacking order instead of it being hardcoded to this method's target-sort order. Groups by
+    // each object's own Controller (read inside DoAllyDestroyed), not $player -- a "destroy all"
+    // can hit both sides, and each affected controller gets their own choice.
+    BeginTriggeredAbilityBatch();
     foreach($targets as $targetMZ) if(GetZoneObject($targetMZ) !== null) DoAllyDestroyed($player, $targetMZ);
+    EndTriggeredAbilityBatch();
 }
 
 function PowerforgedBurstResolve($player, $sourceMZ, $selection, $targetMZ) {

@@ -1732,13 +1732,16 @@ function OnAttackTrigger($player, $mzID) {
     // ambient "mzID" DQ var per branch the way OnHitTrigger/OnKillTrigger do, so that's what those
     // closures have always seen as "mzID" when they fired synchronously. Matching it exactly here
     // (rather than passing each branch's own $iMZ/$weaponMZ) keeps this a pure deferral with no
-    // observable behavior change.
+    // observable behavior change. (The attacker/intent/weapon branches below pass their own real
+    // location as QueueAttackTriggeredAbility's separate $sourceMZ instead, so a stack-order choice
+    // -- see BeginTriggeredAbilityBatch() -- can still tell the three apart.)
+    BeginTriggeredAbilityBatch();
     $obj = GetZoneObject($mzID);
     if($obj !== null && !HasNoAbilities($obj) && isset($onAttackAbilities[$obj->CardID . ":0"])) {
-        QueueAttackTriggeredAbility($player, $obj->CardID, $mzID);
+        QueueAttackTriggeredAbility($player, $obj->CardID, $mzID, $mzID);
         // Seiryuu's Command (v9d2242357): DOUBLE_ON_ATTACK — fire on-attack abilities a second time
         if(in_array("DOUBLE_ON_ATTACK", $obj->TurnEffects ?? [])) {
-            QueueAttackTriggeredAbility($player, $obj->CardID, $mzID);
+            QueueAttackTriggeredAbility($player, $obj->CardID, $mzID, $mzID);
         }
     }
     // Also dispatch OnAttack for any attack cards currently in the player's intent zone
@@ -1747,7 +1750,7 @@ function OnAttackTrigger($player, $mzID) {
         $iObj = GetZoneObject($iMZ);
         if($iObj === null) continue;
         if(isset($onAttackAbilities[$iObj->CardID . ":0"])) {
-            QueueAttackTriggeredAbility($player, $iObj->CardID, $mzID);
+            QueueAttackTriggeredAbility($player, $iObj->CardID, $mzID, $iMZ);
         }
     }
     // Weapon OnAttack: if a weapon was selected for this attack, fire its OnAttack.
@@ -1756,10 +1759,11 @@ function OnAttackTrigger($player, $mzID) {
         if($weaponMZ !== null) {
             $weaponObj = GetZoneObject($weaponMZ);
             if($weaponObj !== null && !HasNoAbilities($weaponObj) && isset($onAttackAbilities[$weaponObj->CardID . ":0"])) {
-                QueueAttackTriggeredAbility($player, $weaponObj->CardID, $mzID);
+                QueueAttackTriggeredAbility($player, $weaponObj->CardID, $mzID, $weaponMZ);
             }
         }
     }
+    EndTriggeredAbilityBatch();
     // The reads above are done -- clear protection now, not at the end of this function. What's
     // below can itself trigger nested resolution (Draw(), other queued abilities auto-firing via
     // QueueTriggeredAbility()'s own ExecuteStaticMethods call), and a real CleanupRemovedCards()
@@ -2126,6 +2130,9 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
     // to precede each synchronous closure call below is gone -- QueueHitTriggeredAbility() now
     // captures each branch's own mzID into the queued entry's context and replays it as the
     // ambient "mzID" right before the closure actually fires (see ResolveTopOfEffectStack()).
+    // Batched (BeginTriggeredAbilityBatch()) so, when 2+ of these fire from the same hit, the
+    // controller chooses stacking order instead of it being hardcoded attacker/intent/weapon.
+    BeginTriggeredAbilityBatch();
     $obj = GetZoneObject($attackerMZ);
     if($obj !== null && !HasNoAbilities($obj) && isset($onHitAbilities[$obj->CardID . ":0"])) {
         QueueHitTriggeredAbility($player, $obj->CardID, $attackerMZ);
@@ -2149,6 +2156,7 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
             QueueHitTriggeredAbility($player, $weaponObj->CardID, $weaponMZ);
         }
     }
+    EndTriggeredAbilityBatch();
 
     // The reads above are done -- clear protection now, not at the end of this function. See the
     // matching comment in OnAttackTrigger for why (nested resolution below could otherwise see a
@@ -2626,6 +2634,10 @@ function ResetCombatKill() {
 }
 
 function DispatchCombatKillTriggers($player, $attackerMZ, $killEvents) {
+    // Batches across ALL kill events in this call (e.g. every defender a multi-target Cleave swing
+    // killed at once), not just each event's own attacker/intent/weapon dispatch (OnKillTrigger's
+    // own inner batch) -- BeginTriggeredAbilityBatch()'s depth counter lets both nest safely.
+    BeginTriggeredAbilityBatch();
     foreach($killEvents as $killEvent) {
         $killedCardID = is_array($killEvent) ? ($killEvent["cardID"] ?? "") : strval($killEvent);
         $sheenCount = is_array($killEvent) ? intval($killEvent["sheenCount"] ?? 0) : 0;
@@ -2642,6 +2654,7 @@ function DispatchCombatKillTriggers($player, $attackerMZ, $killEvents) {
     }
     DecisionQueueController::ClearVariable("CombatKilledCardID");
     DecisionQueueController::ClearVariable("CombatKilledSheenCount");
+    EndTriggeredAbilityBatch();
 }
 
 function LorraineBlademasterAttackHasOnKillDraw($player, $attackerMZ) {
@@ -2697,6 +2710,10 @@ function OnKillTrigger($player, $attackerMZ) {
     // Dispatch On Kill for the attacker itself. As with OnHitTrigger, each branch's own mzID is
     // now captured by QueueKillTriggeredAbility() into the queued entry's context instead of
     // being set live via StoreVariable("mzID", ...) for a synchronous closure call.
+    // Batched (BeginTriggeredAbilityBatch()) so, when 2+ of these fire from the same kill, the
+    // controller chooses stacking order instead of it being hardcoded attacker/intent/weapon.
+    // Nests safely inside DispatchCombatKillTriggers()'s own outer batch (multi-target Cleave).
+    BeginTriggeredAbilityBatch();
     $obj = GetZoneObject($attackerMZ);
     if(isset($onKillAbilities) && is_array($onKillAbilities)) {
         if($obj !== null && !HasNoAbilities($obj) && isset($onKillAbilities[$obj->CardID . ":0"])) {
@@ -2722,6 +2739,7 @@ function OnKillTrigger($player, $attackerMZ) {
             }
         }
     }
+    EndTriggeredAbilityBatch();
 
     // The reads above are done -- clear protection now, not at the end of this function. See the
     // matching comment in OnAttackTrigger for why: the Lorraine Blademaster Draw() a few lines
