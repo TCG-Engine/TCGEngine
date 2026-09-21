@@ -189,13 +189,13 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
         return null;
     };
     $all = $ctx['actions'];
-    if (($p = $run(SWUBotRulesBeforeFilter())) !== null) return SWUBotTrace($ctx, $all, $p, 'rule');
+    if (($p = $run(SWUBotRulesBeforeFilter())) !== null) return SWUBotTrace($ctx, $all, SWUBotRandomiseClass($ctx, $p), 'rule');
     $ctx['actions'] = SWUBotStyleFilter($ctx);
     // Rule 10, the resourcing floor, as a fixed constraint: it removes PASS below the leader's deploy threshold
     // and leaves WHICH card to the fallback's keep values (and to the learned layer in training).
     $floored = SWUBotResourceFloorFilter($ctx);
     if (count($floored) !== count($ctx['actions'])) { SWUBotRecordCoverage($seat, 'filter:resource-floor'); $ctx['actions'] = $floored; }
-    if (($p = $run(array_merge(SWUBotRulesAfterFilter(), $GLOBALS['SWUBotTestExtraRules'] ?? []))) !== null) return SWUBotTrace($ctx, $all, $p, 'rule');
+    if (($p = $run(array_merge(SWUBotRulesAfterFilter(), $GLOBALS['SWUBotTestExtraRules'] ?? []))) !== null) return SWUBotTrace($ctx, $all, SWUBotRandomiseClass($ctx, $p), 'rule');
     SWUBotRecordCoverage($seat, 'fallback');
     $pick = SWUBotFallbackChoose($ctx);
     // Layer 3 — the learned layer replaces ONLY the fallback's choice (spec Section 2).
@@ -206,6 +206,8 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
     if (in_array($pc, $g['attackFirst'], true)) SWUBotRecordCoverage($seat, 'guide:attack-first');
     elseif ($pc !== '' && $g['maxUnits'] === $pc) SWUBotRecordCoverage($seat, 'guide:max-units');
     elseif ($pc === 'PASS' && SWUBotAtResourceStop($ctx)) SWUBotRecordCoverage($seat, 'guide:stop');
+    // "@rand:<class>" (BotFeatures.php): the decision-class diagnostic. Inert unless the variant is active.
+    $pick = SWUBotRandomiseClass($ctx, $pick);
     return SWUBotTrace($ctx, $all, $pick, 'fallback');
 }
 

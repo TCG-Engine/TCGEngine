@@ -64,8 +64,69 @@ function SWUBotFeatureList(): array {
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
 // '@no-p4' = the stack before the 2026-09-18 anti-control features.
 function SWUBotFeatureGroups(): array {
-    return ['p3' => SWU_BOT_PART3_FEATURES, 'p4' => SWU_BOT_PART4_FEATURES, 'p5' => SWU_BOT_PART5_FEATURES,
-            'p6' => SWU_BOT_PART6_FEATURES, 'p7' => SWU_BOT_PART7_FEATURES];
+    // 'p3a'-'p3d' bisect part 3: it has only ever been measured as ONE block ('@no-p3' = −608 pooled on the
+    // 2026-09-20 panel screen, but +19 for SOFT CONTROL — so one of the 16 may be HURTING control).
+    // 'wk' = everything shipped in the week of 2026-09-18/20, for re-measuring the random-play benchmark.
+    $p3 = SWU_BOT_PART3_FEATURES;
+    return ['p3' => $p3, 'p4' => SWU_BOT_PART4_FEATURES, 'p5' => SWU_BOT_PART5_FEATURES,
+            'p6' => SWU_BOT_PART6_FEATURES, 'p7' => SWU_BOT_PART7_FEATURES,
+            'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
+            'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
+            'wk' => array_merge(SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES, SWU_BOT_PART7_FEATURES)];
+}
+
+// ── DECISION-CLASS RANDOMISATION ("@rand:<class>") ───────────────────────────────────────────────────
+// THE DIAGNOSTIC THE PROJECT HAS NEVER RUN. Under RANDOM play control beats aggro 51.5%; under the shipped stack
+// ~31% (memory `bot-heuristics-cause-the-anti-control-bias`). Three sessions tried to localise those ~20 points —
+// layer-2 rules inert, guides inert, the weight model has no control-side lever — and the core scorer holds the
+// residue. Nobody has asked WHICH KIND OF DECISION it is bad at.
+// Each class replaces the stack's pick with a UNIFORM choice among the candidates OF THAT SAME CLASS, and nothing
+// else. If control plays BETTER with random choices in a class, that heuristic actively mis-serves control — which
+// is a bug with an address, not a distributed bias.
+//   attacktarget — which enemy unit / base an attack hits      attacker — which of my units attacks
+//   play         — which card I play from hand                 resource — which cards I put into resources
+//   ability      — which leader/unit/base ability I use        tempo    — pass vs take the initiative
+function SWUBotRandomClassList(): array {
+    return ['attacktarget', 'attacker', 'play', 'resource', 'ability', 'tempo'];
+}
+
+// The class of a candidate, for the randomiser. Mirrors SWUBotActionKind plus the two decision prompts.
+function _SWUBotDecisionClass(array $ctx, array $action): string {
+    if (($ctx['kind'] ?? '') === 'decision') {
+        $tip = strval($ctx['tooltip'] ?? '');
+        if ($tip === 'Choose_an_attack_target') return 'attacktarget';
+        if (stripos($tip, 'to_resource') !== false) return 'resource';
+        return '';
+    }
+    switch (SWUBotActionKind($action)) {
+        case 'attack': return 'attacker';
+        case 'play': return 'play';
+        case 'leader-ability': case 'unit-action': case 'base-epic': case 'deploy': return 'ability';
+        case 'pass': case 'initiative': return 'tempo';
+    }
+    return '';
+}
+
+// The active "@rand:<class>" for this decision, or ''. Keyed "rand:<class>" in the disabled set, like "w:" and "try:".
+function SWUBotActiveRandomClass(): string {
+    foreach ($GLOBALS['SWUBotDisabledFeatures'] ?? [] as $d) {
+        if (is_string($d) && str_starts_with($d, 'rand:')) return substr($d, 5);
+    }
+    return '';
+}
+
+// Replace $pick with a uniform choice among the candidates of the SAME class. Deterministic per game and
+// counter-neutral: EngineRandomInt() only (never rand()), with $gRandomCounter restored — the 'random' chooser's
+// header in BotHeuristic.php explains why a consuming draw would break the no-op detector.
+function SWUBotRandomiseClass(array $ctx, ?array $pick): ?array {
+    $class = SWUBotActiveRandomClass();
+    if ($class === '' || $pick === null) return $pick;
+    if (_SWUBotDecisionClass($ctx, $pick) !== $class) return $pick;
+    $same = array_values(array_filter($ctx['actions'], fn($a) => _SWUBotDecisionClass($ctx, $a) === $class));
+    if (count($same) < 2 || !function_exists('EngineRandomInt')) return $pick;
+    $counter = GetDeterministicRandomCounter();
+    try { $i = EngineRandomInt(0, count($same) - 1); } finally { SetDeterministicRandomCounter($counter); }
+    return $same[$i] ?? $pick;
 }
 
 // ── RULE switches (bisection instrumentation, added 2026-09-18) ──────────────────────────────────────
@@ -254,6 +315,10 @@ function SWUBotVariantDisabled(string $variant): ?array {
         $g = substr($variant, 9);
         return in_array($g, SWUBotGuideList(), true) ? ["guide:$g"] : null;
     }
+    if (str_starts_with($variant, 'rand:')) {
+        $c = substr($variant, 5);
+        return in_array($c, SWUBotRandomClassList(), true) ? ["rand:$c"] : null;
+    }
     if (str_starts_with($variant, 'w-')) {
         $p = substr($variant, 2);
         return (isset(SWU_BOT_WEIGHT_PROBES[$p]) || isset(SWU_BOT_WEIGHT_FLOORS[$p])) ? ["w:$p"] : null;
@@ -274,6 +339,7 @@ function SWUBotVariants(): array {
                        array_map(fn($r) => "no-rule:$r", SWUBotRuleList()),
                        array_map(fn($g) => "no-guide:$g", SWUBotGuideList()),
                        array_map(fn($p) => "w-$p", SWUBotWeightProbeList()),
+                       array_map(fn($c) => "rand:$c", SWUBotRandomClassList()),
                        array_map(fn($p) => "try-$p", SWUBotProposalList()),
                        array_map(fn($g) => "try-$g", array_keys(SWU_BOT_PROPOSAL_GROUPS)));
 }

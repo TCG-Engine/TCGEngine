@@ -92,3 +92,28 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095]
 ## EXPECT
 P1RESAVAILABLE:0
 P1SPACEARENACOUNT:1
+
+---
+
+# DefeatedUnitFirst_LaterUnitStillDebuffed
+#// BUG #1055 family. Every section above debuffs only units that SURVIVE, so none of them can see the
+#// defeat-shift. -2/-2 kills SOR_128 (3/1); the arena compacts and SEC_080 slides from index 1 into
+#// index 0, past the cursor of a loop walking pre-captured mzIDs.
+#// ⚠ Tribunal is the widest case in this family — it loops ALL FOUR arenas, so a death on the
+#// CASTER'S OWN side shifts too, not just the enemy's. Played here at full price (10) with no discount.
+
+## GIVEN
+CommonSetup: byk/rrk/{myResources:10}
+WithP1Hand: TS26_36
+WithP2GroundArena: [SOR_128:1:0 SEC_080:1:0]
+P1OnlyActions: true
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P2GROUNDARENAUNIT:0:CARDID:SEC_080
+P2GROUNDARENAUNIT:0:POWER:1
+P2GROUNDARENAUNIT:0:HP:1
+P1SPACEARENAUNIT:0:POWER:6
