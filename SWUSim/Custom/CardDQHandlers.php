@@ -706,11 +706,28 @@ function _SWUFinalizeUpgradeAttach(
   $triggered = CollectWhenPlayedAsUpgradeTriggers($player, $cardID, $hostMz);
   $triggered += CollectOnAttachedTriggers($player, $cardID, $hostMz);
   // ASH_208 Sabine Wren — "When 1 or more upgrades attach to this unit: may exhaust a ground unit."
+  //
+  // ⚠ HER TRIGGER COUNTS TOWARDS $triggered BUT CANNOT CLOSE THE ACTION, so it has to be given a close
+  // of its own. Every other contributor to $triggered is a real trigger whose dispatch ends the action;
+  // Sabine's continuation is the UNIVERSAL EXHAUST_UNIT handler, which exhausts and returns. Counting
+  // her therefore suppressed the SWUAfterAction() below and handed the close to something that never
+  // performs it — the action stayed open and the player kept the turn. Reported on LAW_129 Mastery:
+  // "I could exhaust someone like intended but it automatically gave me another action."
+  //
+  // ⚠ ONLY WHEN SHE IS THE SOLE TRIGGER. If the upgrade brought its own (LAW_127 Kill Switch's "When
+  // Played: Exhaust attached unit"), that trigger already owns the close and a second one here would be
+  // a double close — invisible to TURNPLAYER but caught by NOEXTRAACTION.
+  // SWUQueueAfterAction rides behind her offer with dontSkipOnPass, so DECLINING still closes; a plain
+  // queued CUSTOM would be swallowed by the sticky PASS and leave the free action in place.
+  //
+  // Her OTHER route in — Shielded giving her a Shield as she enters play — goes through
+  // DoGiveShieldToken, not this function, and the play already owns that close. Untouched here.
   $hostObj208 = GetZoneObject($hostMz);
   if (
     $hostObj208 !== null && ($hostObj208->CardID ?? '') === 'ASH_208'
     && _SWUAsh208OnUpgradeAttach($player, $hostObj208)
   ) {
+    if ($triggered === 0 && !$suppressAfterAction) SWUQueueAfterAction($player);
     $triggered++;
   }
   // SBA — no remaining HP: a stat-reducing upgrade (e.g. LAW_127 Kill Switch's -1/-1) can drop the host's

@@ -1524,9 +1524,22 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if (_planBtn)  _planBtn.hidden  = !(canAct && _ad.planAvailable);
         var _passBtn = document.getElementById('swuPassBtn');
         if (_passBtn) {
-            var _mustCounter = canAct && (_ad.blastAvailable || _ad.planAvailable);
-            _passBtn.disabled = !!_mustCounter;
-            _passBtn.title = _mustCounter ? 'You must take a counter before passing' : 'Pass (Space)';
+            // CR §12.6.1.a — "players may only pass if there are no counters available to take".
+            //
+            // ⚠ THE SERVER DECIDES (myActionsData.passAvailable), for two reasons. It counts the
+            // INITIATIVE counter, which the old blast/plan-only test here missed — so at three seats,
+            // where the last free counter is very often the initiative, Pass stayed offered exactly
+            // when the rules forbid it. And it is the same predicate CustomInput enforces, so the
+            // button and the server can never disagree.
+            //
+            // HIDDEN, not disabled (owner, 2026-09-20): a disabled button that silently swallows the
+            // click reads as a broken button. Layout is safe — syncPassReserveVar already reserves the
+            // worst case (two rows) precisely so the lane does not re-flow as buttons come and go.
+            // Absent key (premier / 1P, or an older payload) ⇒ true ⇒ unchanged behaviour.
+            var _passOk = (_ad.passAvailable === undefined) ? true : !!_ad.passAvailable;
+            _passBtn.hidden = !_passOk;
+            _passBtn.disabled = false;
+            _passBtn.title = 'Pass (Space)';
         }
     }
 
@@ -1546,11 +1559,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     window.swuTakePlanCounter = function () {
         SubmitInput('10001', '&cardID=' + encodeURIComponent('PlanCounter-0!CustomInput!TakeCounter'));
     };
-    // Twin Suns pass rule (CR §12.5): a seat may only pass if no counter is available to take. False in
-    // 2-player (the keys are absent) so premier passing is unchanged.
+    // Twin Suns pass rule (CR §12.6.1.a): a seat may only pass if no counter is available to take.
+    // Guards the Pass BUTTON's click handler and the Space-key shortcut, so neither can route around a
+    // hidden button.
+    // ⚠ Reads the server's own verdict rather than re-deriving it. The previous version tested only
+    // blast/plan and so missed the INITIATIVE counter — the common last-counter case at three seats.
+    // Absent key (premier / 1P, older payload) ⇒ passing is allowed ⇒ unchanged.
     window.swuMustTakeCounter = function () {
         var ad = window.myActionsData || {};
-        return !!(ad.blastAvailable || ad.planAvailable);
+        return ad.passAvailable === undefined ? false : !ad.passAvailable;
     };
 
     // Hotseat: one person plays both seats from one browser (shared authKey). Switch reloads the

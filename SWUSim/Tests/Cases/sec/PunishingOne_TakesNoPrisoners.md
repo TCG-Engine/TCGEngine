@@ -102,3 +102,53 @@ WithP2SpaceArena: SOR_141:1:2
 ## EXPECT
 P2BASEDMG:7
 P1NODECISION
+
+---
+
+# TwinSuns_RaidCountsDamagedEnemiesOnEVERYSeat
+#// TWIN SUNS FAMILY FIX (2026-09-20, from the Duchess's Champion report on game 850132).
+#// ⚠ THIS ONE COUNTS, it does not merely test existence — "Raid 1 for EACH damaged enemy unit" has to
+#// SUM across every opponent, so a one-seat read is wrong even when that seat has a damaged unit and
+#// the section still looks green. KeywordEffects.php read GetUnitsInPlay(OtherPlayer($ctrl)), which
+#// sees seat 2 only.
+#// P2 has ONE damaged unit and P3 has TWO, so the correct total is Raid 3; a seat-2-only read gives 1.
+#// That is why the fixture damages units on BOTH opponents rather than only the far seat — an
+#// existence-style far-seat fixture would have passed the moment the count reached 1.
+
+## GIVEN
+CommonSetup3P: bbk/grw/grw
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_171:1:0
+WithP2GroundArena: SEC_080:1:2
+WithP3GroundArena: [SEC_080:1:2 SEC_080:1:1]
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENAUNIT:0:CARDID:SEC_171
+P1GROUNDARENAUNIT:0:KEYWORDVALUE:Raid:3
+
+---
+
+# TwinSuns_NoDamagedEnemyAnywhere_NoRaid
+#// The negative: undamaged enemies on both opponents, so the count is 0 and she has NO Raid at all —
+#// her Raid is entirely conditional ("gains Raid 1 for each damaged enemy unit"), with nothing printed.
+#// Keeps the counting section above from passing on an unconditional grant.
+
+## GIVEN
+CommonSetup3P: bbk/grw/grw
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_171:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP3GroundArena: SEC_080:1:0
+
+## WHEN
+- P1>Pass
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Raid

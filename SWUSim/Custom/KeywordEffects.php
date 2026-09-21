@@ -186,6 +186,31 @@ function OtherPlayer(int $player): int {
     return $player === 1 ? 2 : 1;
 }
 
+// EVERY unit controlled by ANY opponent of $ctrl, already filtered to non-removed.
+//
+// ⚠ THIS IS THE SEAM FOR "an enemy unit …" / "an opponent controls …" KEYWORD CONDITIONS. They were
+// all written as GetUnitsInPlay(OtherPlayer($ctrl)), which is a TWO-SEAT read: OtherPlayer() answers 2
+// for seat 1 and 1 for every other seat, so at three or four seats one opponent is checked and the
+// rest are invisible. That shipped as a live bug — game 850132, where a Duchess's Champion never
+// gained Sentinel because the only seat that met its condition was the one OtherPlayer() skips.
+//
+// OpponentsOf() is seat-count-aware AND team-aware, so every caller inherits both for free: in Team
+// Suns a teammate is never an opponent, and their units can therefore never satisfy an "enemy" clause.
+//
+// ⚠ Existence vs COUNT. Most callers ask "is there an enemy unit that …" and just need the wider pool.
+// SEC_171 Punishing One asks "for EACH damaged enemy unit" and SUMS — for it a one-seat read is wrong
+// even when that seat has a qualifying unit, because the total is short rather than absent.
+function _SWUAllEnemyUnits(int $ctrl): array {
+    $out = [];
+    if ($ctrl <= 0) return $out;
+    foreach (OpponentsOf($ctrl) as $opp) {
+        foreach (GetUnitsInPlay($opp) as $u) {
+            if (empty($u->removed)) $out[] = $u;
+        }
+    }
+    return $out;
+}
+
 // Returns all non-removed unit objects in one arena for a player.
 // $arena is 'Ground' or 'Space'.
 function GetUnitsInArena(int $player, string $arena): array {
@@ -575,10 +600,19 @@ function HasConditionalKeyword_Ambush($obj) {
             return _SWUControlsBaseWithTrait($ctrl, 'Kashyyyk');
         case 'TWI_081': // Droid Commando — while you control a Separatist unit
             return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Separatist', $obj->UniqueID);
-        case 'TWI_194': // Ahsoka Tano — while you control fewer units than the opponent
-            return count(GetUnitsInPlay($obj->Controller)) < count(GetUnitsInPlay(OtherPlayer($obj->Controller)));
-        case 'LOF_118': // Terentatek — while an OPPONENT controls a Force unit
-            return PlayerHasUnitWithTraitInPlay(OtherPlayer($ctrl), 'Force');
+        case 'TWI_194': // Ahsoka Tano — "while you control fewer units than AN opponent (including
+                        // this unit)". ANY ONE opponent above you satisfies it, so compare against the
+                        // LARGEST opponent rather than a single hardcoded seat.
+            $mine194 = count(GetUnitsInPlay($obj->Controller));
+            foreach (OpponentsOf(intval($obj->Controller)) as $opp194) {
+                if ($mine194 < count(GetUnitsInPlay($opp194))) return true;
+            }
+            return false;
+        case 'LOF_118': // Terentatek — "while AN opponent controls a Force unit": any one of them.
+            foreach (OpponentsOf(intval($ctrl)) as $opp118) {
+                if (PlayerHasUnitWithTraitInPlay($opp118, 'Force')) return true;
+            }
+            return false;
         case 'ASH_113': // Mandalorian Flagship — while you control a leader unit
             foreach (GetUnitsInPlay($ctrl) as $u) {
                 if (empty($u->removed) && IsLeaderUnit($u)) return true;
@@ -1014,10 +1048,15 @@ function HasConditionalKeyword_Sentinel($obj) {
         case 'SEC_079': // Corrupt Politician — while you control MORE units than an opponent
             if ($ctrl <= 0) return false;
             $mine = 0;   foreach (GetUnitsInPlay($ctrl) as $u)              { if (empty($u->removed)) $mine++; }
-            $theirs = 0; foreach (GetUnitsInPlay(OtherPlayer($ctrl)) as $u) { if (empty($u->removed)) $theirs++; }
-            return $mine > $theirs;
-        case 'SHD_052': // Sugi — while an OPPONENT has an upgraded unit
-            foreach (GetUnitsInPlay(OtherPlayer($obj->Controller)) as $u) {
+            // ANY ONE opponent below you satisfies it, so compare against the SMALLEST opponent
+            // rather than a single hardcoded seat.
+            foreach (OpponentsOf(intval($ctrl)) as $opp079) {
+                $theirs = 0; foreach (GetUnitsInPlay($opp079) as $u) { if (empty($u->removed)) $theirs++; }
+                if ($mine > $theirs) return true;
+            }
+            return false;
+        case 'SHD_052': // Sugi — "while AN ENEMY UNIT is upgraded": every opponent's units.
+            foreach (_SWUAllEnemyUnits(intval($obj->Controller)) as $u) {
                 if (count(GetUpgradesOnUnit($u)) > 0) return true;
             }
             return false;
@@ -1037,8 +1076,20 @@ function HasConditionalKeyword_Sentinel($obj) {
             return PlayerHasTheForce($ctrl);
         case 'TWI_061': // Infantry of the 212th — while YOUR Coordinate is active
             return IsCoordinateActive($obj->Controller);
-        case 'TWI_054': // Duchess's Champion — while the OPPONENT's Coordinate is active
-            return IsCoordinateActive(OtherPlayer($obj->Controller));
+        case 'TWI_054': // Duchess's Champion — "While AN OPPONENT controls 3 or more units" (which is
+                        // that opponent's Coordinate condition).
+                        // ⚠ EVERY opponent, not OtherPlayer(). "An opponent" is satisfied by ANY one of
+                        // them, and OtherPlayer() is a TWO-SEAT helper — it answers 2 for seat 1 and 1
+                        // for every other seat, so at 3+ seats the far seat is invisible to it. Live
+                        // (game 850132): P1's Champion never gained Sentinel while P3 sat on 4 units,
+                        // because P2 — the only seat OtherPlayer() looks at — held 2.
+                        // OpponentsOf() is the seat-count-aware list and is TEAM-AWARE for free: a Team
+                        // Suns teammate is never an opponent, so their unit count cannot arm this.
+                        // Same trap the Galen note at the top of this file describes.
+            foreach (OpponentsOf(intval($obj->Controller)) as $opp054) {
+                if (IsCoordinateActive($opp054)) return true;
+            }
+            return false;
         case 'HMW_074': { // Yord Fandar — while A BASE has 15 or more damage on it.
                           // ⚠ "a base" carries NO controller qualifier, so it means EITHER player's
                           // base — the same wording (and the same both-sides scan) as SOR_148 Guerilla
@@ -1086,7 +1137,7 @@ function HasConditionalKeyword_Shielded($obj) {
         case 'SHD_212': // Privateer Scyk — while you have a Cunning unit
             return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Cunning', $obj->UniqueID);
         case 'SHD_186': { // Hunter of the Haxion Brood — while opponent has a Bounty unit
-            foreach (GetUnitsInPlay(OtherPlayer($obj->Controller)) as $u) {
+            foreach (_SWUAllEnemyUnits(intval($obj->Controller)) as $u) {
                 if (HasKeyword_Bounty($u)) return true;
             }
             return false;
@@ -1380,13 +1431,14 @@ function GetConditionalKeyword_Raid_Value($obj) {
             }
             break;
         case 'SEC_171': // Punishing One — Raid 1 for each damaged enemy unit
-            foreach (GetUnitsInPlay(OtherPlayer(intval($obj->Controller ?? 0))) as $eu) {
-                if (empty($eu->removed) && intval($eu->Damage ?? 0) > 0) $amount += 1;
+            // ⚠ COUNTS, so a one-seat read was SHORT rather than absent — see _SWUAllEnemyUnits.
+            foreach (_SWUAllEnemyUnits(intval($obj->Controller ?? 0)) as $eu) {
+                if (intval($eu->Damage ?? 0) > 0) $amount += 1;
             }
             break;
         case 'SEC_134': // Hunting Assassin Droid — Raid 2 while an enemy unit is damaged
-            foreach (GetUnitsInPlay(OtherPlayer(intval($obj->Controller ?? 0))) as $eu) {
-                if (empty($eu->removed) && intval($eu->Damage ?? 0) > 0) { $amount += 2; break; }
+            foreach (_SWUAllEnemyUnits(intval($obj->Controller ?? 0)) as $eu) {
+                if (intval($eu->Damage ?? 0) > 0) { $amount += 2; break; }
             }
             break;
         case 'SEC_249': // High Command Councilor — Raid 2 while you control another Official unit
@@ -1411,8 +1463,8 @@ function GetConditionalKeyword_Raid_Value($obj) {
             if (PlayerHasUnitWithAspectInPlay($obj->Controller, 'Aggression', $obj->UniqueID)) $amount += 2;
             break;
         case 'LOF_212': // Life Wind Sage — Raid 2 while an enemy unit is exhausted
-            foreach (GetUnitsInPlay(OtherPlayer(intval($obj->Controller ?? 0))) as $eu) {
-                if (empty($eu->removed) && intval($eu->Status ?? 0) !== 1) { $amount += 2; break; }
+            foreach (_SWUAllEnemyUnits(intval($obj->Controller ?? 0)) as $eu) {
+                if (intval($eu->Status ?? 0) !== 1) { $amount += 2; break; }
             }
             break;
         case 'SOR_188': // Chopper — Raid 1 while you control ANOTHER Spectre unit
@@ -1526,8 +1578,8 @@ function GetConditionalKeyword_Restore_Value($obj) {
     if (($obj->CardID ?? '') === 'ASH_122' && HasInitiative(intval($obj->Controller ?? 0))) $amount += 2;
     // ASH_057 Lothal E-Wing — "While an enemy unit is upgraded, this unit gains Restore 2."
     if (($obj->CardID ?? '') === 'ASH_057') {
-        foreach (GetUnitsInPlay(OtherPlayer(intval($obj->Controller ?? 0))) as $eu) {
-            if (empty($eu->removed) && _SWUIsUpgraded($eu)) { $amount += 2; break; }
+        foreach (_SWUAllEnemyUnits(intval($obj->Controller ?? 0)) as $eu) {
+            if (_SWUIsUpgraded($eu)) { $amount += 2; break; }
         }
     }
     // TWI_051 For The Republic — "Attached unit gains: 'Coordinate - Restore 2.'"

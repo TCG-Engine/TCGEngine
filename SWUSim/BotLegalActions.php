@@ -501,6 +501,23 @@ function SWUBotFreePlayActions($gameName, $seat) {
     if (!str_ends_with($initiativeCounter, '_CLAIMED')) {
         $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'InitiativeCounter-0!CustomInput!TakeInitiative'];
     }
+    // Twin Suns blast / plan counters — the OTHER two "take an available counter" actions. Wire form is
+    // the client's own (GameLayoutShared.php:1544/1547); handler is CustomInput's BlastCounter /
+    // PlanCounter case, which re-checks turn player, empty queues, MAIN and one-counter-per-round.
+    //
+    // ⚠ THESE ARE LOAD-BEARING FOR TERMINATION, not a feature. Pass is gated below by CR §12.6.1.a, so
+    // in Twin Suns it is NOT always legal any more — and the retry loop's guarantee used to rest
+    // entirely on Pass being unconditional. Taking a counter is always legal for a seat that has not
+    // taken one, so listing all three counters is what restores "there is always a terminating action".
+    // Remove these and a Twin Suns bot facing available counters would propose only refused actions.
+    if (SeatCountForGame() > 2 && !_SWUSeatTookCounterThisRound($seat)) {
+        if (GetBlastCounter() === 'AVAILABLE') {
+            $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'BlastCounter-0!CustomInput!TakeCounter'];
+        }
+        if (GetPlanCounter() === 'AVAILABLE') {
+            $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'PlanCounter-0!CustomInput!TakeCounter'];
+        }
+    }
 
     // ── Pass / end action ────────────────────────────────────────────────────
     // Inlined rather than gated on SWUBotEnsureBridgeLoaded(): BridgePassActionForRoot('SWUSim', …)
@@ -512,14 +529,20 @@ function SWUBotFreePlayActions($gameName, $seat) {
     // (:8, :25) — so, absent a still-open effect stack (a rare case the retry loop can still
     // absorb), Pass is genuinely legal and unconditional here, which is what guarantees
     // BotController's retry loop terminates.
-    $actions[] = [
-        'playerID'    => $seat,
-        'mode'        => 10001,
-        'buttonInput' => '',
-        'cardID'      => 'myHealth-0!CustomInput!Pass',
-        'chkInput'    => [],
-        'inputText'   => '',
-    ];
+    // ⚠ NO LONGER UNCONDITIONAL IN TWIN SUNS (CR §12.6.1.a): "players may only pass if there are no
+    // counters available to take". Offering it anyway would hand the retry loop an action the server
+    // refuses. The termination guarantee still holds — when this is false a counter IS available, and
+    // the three counter actions added above are legal for any seat that has not taken one.
+    if (!function_exists('SWUPassActionAllowed') || SWUPassActionAllowed($seat)) {
+        $actions[] = [
+            'playerID'    => $seat,
+            'mode'        => 10001,
+            'buttonInput' => '',
+            'cardID'      => 'myHealth-0!CustomInput!Pass',
+            'chkInput'    => [],
+            'inputText'   => '',
+        ];
+    }
 
     $playerID = $savedPlayerID;
 

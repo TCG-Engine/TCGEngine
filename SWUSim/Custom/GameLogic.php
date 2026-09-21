@@ -1597,14 +1597,29 @@ function SWUAddAttackPowerBonus(string $mzID, int $power): void {
 // A player may control only ONE in-play copy of a given unique card at a time. Copies are matched by
 // name + subtitle (NOT CardID) so cross-set reprints of the same character still collide. If a player
 // ever controls more than one, they must immediately choose and defeat copies until only one remains
-// — this is a game RULE, not a triggered ability, and it resolves as the action finishes (before the
-// turn passes). Called from SWUAfterAction, the single action-end chokepoint.
+// — this is a game RULE, not a triggered ability.
+//
+// ⚠ "IMMEDIATELY" IS LITERAL (CR 29.3.3): the defeat is NOT deferred to a priority window or to the
+// action's end. Two callers, and the difference between them is $closesAction:
+//   • $closesAction = TRUE  — SWUAfterAction, the action-end chokepoint. This is the BACKSTOP: it
+//     catches any duplicate that survived to the end of the action. UNIQUENESS_DEFEAT re-enters
+//     SWUAfterAction once the chosen copy dies, so the action finishes afterwards.
+//   • $closesAction = FALSE — mid-resolution (SWUTakeControlOfUnit), where the action is still in
+//     flight. The close must NOT be attempted here: the action-close gate grants exactly one close,
+//     so an early attempt ENDS THE ACTION while the ability still has clauses to resolve. The
+//     defeated copy's When Defeated triggers still resolve (CR 29.3.3 requires it) — they ride a
+//     UNIQINLINE resume, which is the no-finalise resume tag (cf. REGROUP).
+//
+// A TRANSIENT duplicate — one that exists only between two clauses of a single ability — is exactly
+// why the mid-resolution call has to exist. JTL_043 No Glory, Only Results takes control of a copy
+// and then defeats it; the backstop alone never sees the violation, so the player was never asked.
+// See Tests/Cases/core/UniquenessRule_ImmediateOnControlChange.md.
 //
 // Returns true (and queues an interactive choose-and-defeat via UNIQUENESS_DEFEAT) when a violation
 // exists, so the caller can defer the action-end. Returns false when every unique card the player
 // controls is a singleton. Scope: arena units (ground + space); unique upgrades / pilot upgrades
 // (CR 29.3.a) are not yet covered (see SWUSim/Tests/Cases/core/UniquenessRule_* / TODO).
-function SWUEnforceUniqueness(int $player, ?int $actingPlayer = null): bool {
+function SWUEnforceUniqueness(int $player, ?int $actingPlayer = null, bool $closesAction = true): bool {
     $actingPlayer = $actingPlayer ?? intval($player);
     global $playerID, $titleData, $subtitleData, $uniqueData;
     $saved = $playerID;
@@ -1672,8 +1687,11 @@ function SWUEnforceUniqueness(int $player, ?int $actingPlayer = null): bool {
             // The continuation carries the ACTING player: the chooser may be the NON-acting seat
             // (an exchange/control-give handed THEM the duplicate), and the post-defeat re-entry
             // must resume the acting player's action-end, not the chooser's.
+            // $parts[1] = the "inline" flag: 1 means the action is still resolving, so the
+            // continuation must not attempt the close (see $closesAction on the signature).
             SWUQueueChooseTarget(intval($player), $mzIDs,
-                "Uniqueness_rule_choose_a_copy_to_defeat", "UNIQUENESS_DEFEAT|" . intval($actingPlayer));
+                "Uniqueness_rule_choose_a_copy_to_defeat",
+                "UNIQUENESS_DEFEAT|" . intval($actingPlayer) . ($closesAction ? '' : '|1'));
             return true;
         }
     }
@@ -8033,6 +8051,16 @@ function SWUTakeControlOfUnit(int $newController, string $mzID): string {
     // Palpatine and the Guard's max HP drops). Re-run the state-based "no remaining HP" sweep, exactly
     // as the defeat and upgrade-unattach paths do.
     SWUCheckShrinkDefeats();
+    // CR 29.3.3 — gaining control is one of the ways a player comes to control two copies of a unique
+    // card, and the rule resolves IMMEDIATELY, not at the end of the action. $closesAction = false:
+    // the ability that took control is still resolving and owns its own close.
+    //
+    // ⚠ The prompt is QUEUED, so any work the caller does in straight-line PHP after this call still
+    // runs FIRST. A card whose remaining clauses must come after the uniqueness choice has to queue
+    // them as a continuation rather than run them inline — JTL_043's "then defeat it" is the case
+    // that forced this, and it addresses the stolen unit by UID because the uniqueness defeat
+    // compacts the arena and shifts every mzID after it.
+    SWUEnforceUniqueness($newController, $newController, false);
     return $newMzID;
 }
 
@@ -9089,6 +9117,39 @@ function _SWUSeatTookCounterThisRound(int $seat): bool {
     return $taken !== '' && strpos($taken, strval($seat)) !== false;
 }
 
+// Twin Suns: is ANY counter still there to be taken? (initiative unclaimed, or blast/plan available)
+// Always false below three seats — two-player games have no blast/plan and keep the ordinary Pass.
+function _SWUAnyCounterAvailable(): bool {
+    if (SeatCountForGame() <= 2) return false;
+    if (str_ends_with((string)GetInitiativeCounter(), '_UNCLAIMED')) return true;
+    return GetBlastCounter() === 'AVAILABLE' || GetPlanCounter() === 'AVAILABLE';
+}
+
+// May $seat choose the PASS action right now? (CR §12.6.1.a)
+//
+//   "Players may NOT choose the Pass action available in other formats in place of taking a different
+//    action. In the Twin Suns format, players may only pass if there are no counters available to take,
+//    and must pass if they took a counter earlier in the round."
+//
+// So there is ONE rule, not a 3-player rule and a 4-player rule. §12.6.1.c only spells out its two
+// consequences: at three seats the third player necessarily takes the last counter (so a Pass choice
+// never appears), and at four seats the last player may pass once all three counters are gone.
+// Writing the general rule also survives an ELIMINATION, which neither special case does:
+// SWUEliminateSeat() returns a dead seat's blast/plan to AVAILABLE and re-offers its initiative, so a
+// four-player game that drops to three can have a counter free up again mid-round.
+//
+// ⚠ This is the CHOICE, not the forced pass. A seat that already took a counter MUST pass, and
+// SWUSwapTurnPlayer auto-passes it — that path does not ask this function.
+function SWUPassActionAllowed(int $seat): bool {
+    // ⚠ REDUNDANT WITH _SWUAnyCounterAvailable()'s OWN SEAT GUARD, AND KEPT ON PURPOSE. Measured by
+    // mutation 2026-09-20: removing EITHER guard alone leaves two-player behaviour correct, so neither
+    // is individually load-bearing — it takes removing BOTH to break premier. That is defence in depth
+    // for the format that must never inherit this rule, not dead code. Do not "simplify" one away.
+    if (SeatCountForGame() <= 2) return true;              // premier / 1P: unchanged
+    if (_SWUSeatTookCounterThisRound($seat)) return true;  // must pass — never block the forced one
+    return !_SWUAnyCounterAvailable();
+}
+
 function SWUSwapTurnPlayer() {
     global $gTurnPlayer;
     // Twin Suns (Phase 4): advance clockwise via SeatOrder, skipping eliminated seats. 2-player: the other seat.
@@ -9501,10 +9562,24 @@ function SWUAfterAction($player) {
     // the defeat (looping for 3+ copy piles), so control only falls through to the turn-swap below once
     // every unique the player controls is a singleton.
     if (SWUEnforceUniqueness(intval($player))) return;
-    // CR 8.19.1.b binds EVERY player: an exchange/control-give can hand the NON-acting seat a
-    // duplicate unique (Double-Cross). Enforce for the opponent too; their choose parks on THEIR
-    // queue and, once resolved, re-enters this action-end as the ACTING player (param above).
-    if (SWUEnforceUniqueness(OtherPlayer(intval($player)), intval($player))) return;
+    // CR 8.19.1.b binds EVERY player: an exchange/control-give can hand a NON-acting seat a duplicate
+    // unique (Double-Cross, LAW_085 You Hold This, TS26_15 C-3PO). Enforce for every other seat too;
+    // each choose parks on THAT seat's queue and, once resolved, re-enters this action-end as the
+    // ACTING player (the param below).
+    //
+    // ⚠ EVERY OTHER LIVE SEAT, not OtherPlayer(). This read `OtherPlayer($player)` — literally
+    // `$p === 1 ? 2 : 1` — so at three or four seats exactly ONE opponent was ever checked and the
+    // rest were skipped: with P1 acting, seat 3 could hold two copies of a unique indefinitely.
+    //
+    // ⚠ SWUSeatsInPlayerOrder, NOT OpponentsOf: the uniqueness rule is per-PLAYER (CR 29.3.5) and
+    // binds a Team Suns TEAMMATE exactly as much as an opponent. OpponentsOf() filters teammates out,
+    // which would reintroduce the same hole one seat over. Player order is also the right resolution
+    // order for a rules-mandated check that can affect several seats at once (TWI Impropriety Among
+    // Thieves moves a unit to every player in one resolution).
+    foreach (SWUSeatsInPlayerOrder(intval($player)) as $uniqSeat) {
+        if (intval($uniqSeat) === intval($player)) continue;   // the acting seat is enforced above
+        if (SWUEnforceUniqueness(intval($uniqSeat), intval($player))) return;
+    }
     // SEC_194 per-action tracking: finalize the just-completed action. SWU_LAST_ACTION records who acted
     // and whether it attacked a base (and whose), so SEC_194 can ask "did the opponent attack my base in
     // their previous action". The transient SWU_ACTION_BASEATK was set in ExecuteSWUAttack for base hits.
@@ -13487,11 +13562,19 @@ $customDQHandlers["UNIQUENESS_DEFEAT"] = function($player, $parts, $lastDecision
     if (SWUDecisionDeclined($lastDecision)) return; // mandatory — no decline
     global $playerID; $playerID = intval($player);
     $actingPlayer = intval($parts[0] ?? $player) ?: intval($player);  // cross-seat enforcement resumes the ACTOR
+    // $parts[1] = INLINE: this enforcement ran mid-resolution (SWUTakeControlOfUnit), so the action is
+    // still in flight and owns its own close. Closing here would end the action early — the close gate
+    // grants exactly one close, so the ability's remaining clauses would resolve after the turn passed.
+    $inline = !empty($parts[1]);
     SWULogWithDefeatNote('uniqueness rule', fn() => SWUDefeatUnit(intval($player), $lastDecision));
-    $flushed = FlushEntryTriggerBag(intval($player));
+    // CR 29.3.3 — "the player still must resolve any abilities that trigger upon either copy being
+    // defeated", so the bag is flushed either way. UNIQINLINE is the no-finalise resume tag (cf.
+    // REGROUP): the When Defeated triggers resolve, then control returns without closing the action.
+    $flushed = FlushEntryTriggerBag(intval($player), $inline ? '|UNIQINLINE' : '');
     DecisionQueueController::CleanupRemovedCards();
-    if ($flushed === 0) SWUAfterAction($actingPlayer);
-    // $flushed > 0: SWU_TRIGGER_RESUME (already queued) re-enters SWUAfterAction after the triggers resolve.
+    if ($flushed === 0 && !$inline) SWUAfterAction($actingPlayer);
+    // $flushed > 0: SWU_TRIGGER_RESUME (already queued) re-enters SWUAfterAction after the triggers
+    // resolve — unless it carries UNIQINLINE, which returns without finalising.
 };
 
 // Spin guard for SWU_TRIGGER_RESUME's deferral (below). A bare resume that defers behind a pending COMBAT
@@ -13559,6 +13642,11 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
         // The regroup-start trigger window (_SWURegroupStartTriggerWindow): no action is open, so there is
         // nothing to finalise — the regroup phase carries on once the queues drain.
         if ($continuation === 'REGROUP') { $playerID = $savedPID; return; }
+        // UNIQUENESS_DEFEAT fired MID-RESOLUTION (CR 29.3.3, see SWUEnforceUniqueness $closesAction):
+        // the defeated copy's When Defeated triggers have now resolved, but the ability that created
+        // the duplicate is still running and owns the close. Finalising here would end the action
+        // early, exactly as the REGROUP case above would.
+        if ($continuation === 'UNIQINLINE') { $playerID = $savedPID; return; }
         if ($continuation === 'COMBAT' || $continuation === 'MAULCOMBAT') {
             // A defender's On Defense reaction (Captain Typho's disclose, LOF_047/067/252, …) is a
             // NON-active-player decision that must resolve BEFORE combat damage. When it was resolved in
@@ -20657,6 +20745,9 @@ function SWUComputeActionsData(int $player): array {
         'blastAvailable'      => false,
         'planAvailable'       => false,
         'counterTaken'        => false,
+        // Twin Suns only: may this seat CHOOSE to pass right now (CR §12.6.1.a)? Defaults true so
+        // premier / 1P keep the button unconditionally.
+        'passAvailable'       => true,
         'roundState'          => [],
     ];
 
@@ -20666,6 +20757,11 @@ function SWUComputeActionsData(int $player): array {
         $data['counterTaken']   = $tookCounter;
         $data['blastAvailable'] = !$tookCounter && (GetBlastCounter() === 'AVAILABLE');
         $data['planAvailable']  = !$tookCounter && (GetPlanCounter() === 'AVAILABLE');
+        // The Pass button's own affordance (CR §12.6.1.a). At three seats this is false for anyone who
+        // has not taken a counter — there are exactly as many counters as players, so a Pass CHOICE
+        // never becomes legal; at four it turns on once all three are gone. A seat that already took a
+        // counter keeps it true because its pass is FORCED, not chosen.
+        $data['passAvailable']  = SWUPassActionAllowed($player);
         $turnSeat = intval(GetTurnPlayer());
         foreach (GetLiveSeatsArray() as $seat) {
             if (_SWUSeatTookCounterThisRound($seat)) $data['roundState'][$seat] = 'took-counter';

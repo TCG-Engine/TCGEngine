@@ -12,7 +12,31 @@ $customDQHandlers["JTL_043#0"] = function($player, $parts, $lastDecision) {
     if (SWUObjGone($obj)) return;
     $newMz = SWUTakeControlOfUnit(intval($player), $lastDecision);   // unit moves into the caster's arena
     if ($newMz === '') return;                                       // take control blocked (LAW_149 Rey) — nothing to defeat
-    SWUDefeatUnit(intval($player), $newMz);                          // then defeat it: now friendly, so it lands in its owner's discard
+    // ⚠ "THEN defeat it" IS QUEUED, NOT INLINE. Taking control can hand the caster a SECOND copy of a
+    // unique card, and CR 29.3.3 resolves that immediately — before this clause. SWUTakeControlOfUnit
+    // queues that choice, so defeating here in straight-line PHP would run BEFORE it and the caster
+    // would never be asked (the duplicate is gone by action close, so the backstop never sees it).
+    // Queued, the order is: uniqueness choice → this defeat.
+    //
+    // Addressed by UID, not mzID: the uniqueness defeat compacts the arena, so $newMz can by then name
+    // a DIFFERENT unit. If the caster resolved uniqueness by defeating this very copy, the lookup
+    // finds nothing and the clause correctly does nothing.
+    $stolenObj = GetZoneObject($newMz);
+    $stolenUid = intval($stolenObj->UniqueID ?? 0);
+    if ($stolenUid <= 0) { SWUDefeatUnit(intval($player), $newMz); return; }   // no UID to track: defeat now
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "JTL_043#1|{$stolenUid}", 1);
+};
+
+// "…then defeat it" — resolved after any uniqueness choice the control change forced (see above).
+$customDQHandlers["JTL_043#1"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $uid = intval($parts[0] ?? 0);
+    if ($uid <= 0) return;
+    $mz = SWUFindMzByUID($uid);
+    if ($mz === null || $mz === '') return;              // already defeated by the uniqueness rule
+    $obj = GetZoneObject($mz);
+    if (SWUObjGone($obj)) return;
+    SWUDefeatUnit(intval($player), $mz);                 // now friendly, so it lands in its OWNER's discard
 };
 
 // When Played (event) — migrated from OnPlayEvent.

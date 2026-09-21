@@ -21,6 +21,17 @@ function CustomWidgetInput($playerID, $actionCard, $action = '') {
             SetFlashMessage("Cannot pass while decisions are pending.");
             break;
         }
+        // Twin Suns (CR §12.6.1.a): Pass is NOT a free alternative to acting. "Players may only pass if
+        // there are no counters available to take" — so while initiative, blast or plan is still on the
+        // table, the player must take one (or act). The client hides the button, and this refuses the
+        // request, because a hidden button is cosmetic: a stale tab or a direct ProcessInput call would
+        // otherwise skip a forced action.
+        // ⚠ Never blocks the FORCED pass — a seat that already took a counter must pass, and
+        // SWUPassActionAllowed() returns true for it. Two-player games are unaffected.
+        if (function_exists('SWUPassActionAllowed') && !SWUPassActionAllowed(intval($playerID))) {
+            SetFlashMessage("You must take an action or an available counter — you can only pass once every counter is taken.");
+            break;
+        }
         $currentPhase = GetCurrentPhase();
         if ($currentPhase === "MAIN") {
             SWUPassAction(intval($playerID));
