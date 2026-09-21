@@ -1,4 +1,15 @@
 /* FaBSim icon counters; values and interactions remain engine-owned. */
+/* Card-art sizing rules must not stretch schema-rendered counter icons. */
+[data-counter-field="EnergyCounters"] > img.counter-image-icon,
+[data-counter-field="DefenseCounters"] > img.counter-image-icon {
+  width:100%!important;height:100%!important;object-fit:contain!important;
+  border-radius:0!important;box-shadow:none!important;
+}
+[data-counter-field="EnergyCounters"] > div,
+[data-counter-field="DefenseCounters"] > div {
+  font:900 15px/1 "Segoe UI",sans-serif!important;
+  -webkit-text-stroke:3px #071014;paint-order:stroke fill;
+}
 #fab-duel-layout .fab-zone[hidden]{display:none!important}
 #fab-duel-layout .fab-stat-inactive{visibility:hidden}
 #fab-duel-layout .fab-stat-inactive .widget-button-pass{visibility:visible}

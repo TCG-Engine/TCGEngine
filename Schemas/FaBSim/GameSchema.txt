@@ -73,8 +73,8 @@ Virtual: HauntCounters=FaBUPRHauntCounters()
 Counters: HauntCounters=Badge(Color=Green,Position=TopRight,ShowZero=false)
 Virtual: BindCounters=FaBELEBindCounters()
 Counters: BindCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false)
-Counters: EnergyCounters=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
-Counters: DefenseCounters=Badge(Color=Red,Position=BottomRight,ShowZero=false)
+Counters: EnergyCounters=Image(Path=FaBSim/Assets/Icons/energy.png,Position=Center,ShowZero=false,Size=28,TextColor=White)
+Counters: DefenseCounters=Image(Path=FaBSim/Assets/Icons/defense.png,Position=BottomRight,ShowZero=false,ShowNegative=true,Size=28,TextColor=White)
 Highlight: SelectionMetadata
 Overlay: Status=1:exhausted
 Rotation: Status=1:9
@@ -84,7 +84,7 @@ Click: FSM()
 Arena - CardID:string, Status:number=2, Owner:number=0, Controller:number=0, Damage:number=0, UniqueID:number=0, TurnEffects:array[string], Counters:json
 Display: Visibility=Public, Mode=All, BindTo=ArenaSlot
 Virtual: HoloCounters=FaBOMNHolo(), EnergyCounters=FaBEnergyCounters(), FrostZone=FaBMPGFrostZone(), SuspenseCounters=FaBSUPDisplaySuspense()
-Counters: EnergyCounters=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
+Counters: EnergyCounters=Image(Path=FaBSim/Assets/Icons/energy.png,Position=Center,ShowZero=false,Size=28,TextColor=White)
 Counters: HoloCounters=Badge(Color=Purple,Position=TopRight,ShowZero=false), FrostZone=Badge(Color=Blue,Position=TopRight,ShowZero=false), SuspenseCounters=Badge(Color=Yellow,Position=BottomLeft,ShowZero=false)
 Virtual: GoldCounters=FaBSEAGoldCounters(), BalanceCounters=FaBSEABalanceCounters()
 Counters: GoldCounters=Badge(Color=Yellow,Position=TopRight,ShowZero=false)
