@@ -28,12 +28,11 @@ $onAttackAbilities["SHD_012:0"] = function($player, $mzID) {
     $attackerObj = GetZoneObject($mzID);
     $attackerUID = SWUObjUID($attackerObj, 0);
 
-    $targets = array_values(array_merge(
-        ZoneSearch('myGroundArena',    AnyUnitFilter),
-        ZoneSearch('mySpaceArena',     AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter),
-        ZoneSearch('theirSpaceArena',  AnyUnitFilter)
-    ));
+    // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+    // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+    // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+    // Premier is byte-identical). See memory: unqualified pools miss teammates.
+    $targets = SWUAllUnits();
     if (empty($targets)) return;
     DecisionQueueController::AddDecision($player, 'MZMAYCHOOSE', implode('&', $targets), 0,
         'Deal_1_damage_to_a_unit?');
@@ -50,12 +49,7 @@ $customDQHandlers["SHD_012#1"] = function($player, $parts, $lastDecision) {
     // Second "deal 1" available only if another Mandalorian (uid != $attackerUID) attacked.
     if (!SWUAnotherMandalorianAttacked(intval($player), $attackerUID)) return;
 
-    $targets = array_values(array_merge(
-        ZoneSearch('myGroundArena',    AnyUnitFilter),
-        ZoneSearch('mySpaceArena',     AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter),
-        ZoneSearch('theirSpaceArena',  AnyUnitFilter)
-    ));
+    $targets = SWUAllUnits();
     if (empty($targets)) return;
     DecisionQueueController::AddDecision($player, 'MZMAYCHOOSE', implode('&', $targets), 0,
         'Another_Mandalorian_attacked:_deal_1_more_damage_to_a_unit?');
@@ -80,12 +74,7 @@ $leaderAbilities["SHD_012"] = function(int $player): void {
         return;
     }
 
-    $targets = array_values(array_merge(
-        ZoneSearch('myGroundArena',    AnyUnitFilter),
-        ZoneSearch('mySpaceArena',     AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter),
-        ZoneSearch('theirSpaceArena',  AnyUnitFilter)
-    ));
+    $targets = SWUAllUnits();
     if (empty($targets)) {
         SWUAfterAction($player);
         return;

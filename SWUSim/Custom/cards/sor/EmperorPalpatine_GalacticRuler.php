@@ -80,7 +80,10 @@ $customDQHandlers["SOR_006#2"] = function($player, $parts, $lastDecision) {
 $onAttackAbilities["SOR_006:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $friendlies = array_values(array_filter(SWUAllUnits('my'), fn($mz) => $mz !== $mzID));
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095), so this EFFECT may reach a
+    // teammate's unit. ⚠ The Action's COST pool on this same card deliberately stays
+    // SWUControlledUnits(): paying a cost spends YOUR board, not an ally's. See the note there.
+    $friendlies = array_values(array_filter(SWUFriendlyUnits(), fn($mz) => $mz !== $mzID));
     if (empty($friendlies)) return; // no unit to sacrifice, skip
     DecisionQueueController::AddDecision($player, 'YESNO', '-', 0,
         'Defeat_another_friendly_unit_for_effect?');
@@ -92,7 +95,7 @@ $customDQHandlers["SOR_006#3"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $playerID = intval($player);
     $attackerMzID = $parts[0] ?? '';
-    $targets = array_values(array_filter(SWUAllUnits('my'), fn($mz) => $mz !== $attackerMzID));
+    $targets = array_values(array_filter(SWUFriendlyUnits(), fn($mz) => $mz !== $attackerMzID));
     if (empty($targets)) return;
     if (count($targets) === 1) {
         DecisionQueueController::AddDecision($player, 'PASSPARAMETER', $targets[0], 0);
@@ -134,7 +137,11 @@ $leaderAbilities["SOR_006"] = function(int $player): void {
     $playerID = $player;
 
 
-    $targets = array_values(SWUAllUnits('my'));
+    // ⚠ AN ABILITY COST, so this stays 'my' even though the card says "friendly". A cost is paid
+    // from YOUR OWN board: letting it defeat a teammate's unit would spend an ally's card without
+    // their agreement. The EFFECT pools above DO span the team. Owner ruling pending — if costs
+    // should reach a teammate too, this line and LOF_028 / LOF_218 change together.
+    $targets = array_values(SWUControlledUnits());
     if (empty($targets)) {
         SWUAfterAction($player);
         return;

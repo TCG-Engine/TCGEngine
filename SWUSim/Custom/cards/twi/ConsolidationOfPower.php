@@ -66,7 +66,10 @@ $whenPlayedAbilities["TWI_089:0"] = function($player, $mzID = '') {
                           // unit from your hand if its cost is less than or equal to the combined power of
                           // the chosen units for free. Then, defeat the chosen units."
             global $playerID; $playerID = intval($player);
-            $friendly = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter));
+            // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+            // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+            // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+            $friendly = SWUFriendlyUnits(null, AnyUnitFilter);
             if (empty($friendly)) return;
             $max = count($friendly);
             SWUQueueMultiChoose($player, 0, $max, $friendly, "Choose_any_number_of_friendly_units", "TWI_089#0");

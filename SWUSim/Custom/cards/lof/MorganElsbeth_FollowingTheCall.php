@@ -14,7 +14,10 @@ $onAttackAbilities["LOF_005:0"] = function($player, $mzID) {
 $leaderAbilities["LOF_005"] = function(int $player): void {
     global $playerID; $playerID = $player;
     $attacked = [];
-    foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    foreach (SWUFriendlyUnits(null, AnyUnitFilter) as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
         if (GlobalEffectCount($player, 'SWU_ATTACKED_' . intval($o->UniqueID ?? -1)) > 0) $attacked[] = $mz;

@@ -121,7 +121,10 @@ $customDQHandlers["ASH_001#1"] = function($player, $parts, $lastDecision) {
 // Combat owns the After Action (onAttackEnd), so the continuations never call SWUAfterAction.
 $onAttackEndAbilities["ASH_001:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $hosts = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter));
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    $hosts = SWUFriendlyUnits(null, AnyUnitFilter);
     if (empty($hosts)) return;
     $ready     = SWUTotalPaymentCapacity(intval($player));
     $resources = &GetResources(intval($player));

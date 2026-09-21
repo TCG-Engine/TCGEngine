@@ -41,7 +41,10 @@ $whenPlayedAbilities["HMW_151:0"] = function($player, $mzID = '') {
     // ── Clause 1 — GATED on controlling a Kashyyyk base. Needs both a dealer and a target; with
     // either pool empty the clause simply fizzles (it is mandatory, so no "may" anywhere).
     if (_SWUControlsBaseWithTrait($me, 'Kashyyyk')) {
-        $friendly = SWUAllUnits('my');
+        // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+        // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+        // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+        $friendly = SWUFriendlyUnits();
         $enemy    = SWUAllUnits('their');
         // USER RULING 2026-09-14: when EVERY friendly unit has 0 power the strike can only deal 0, so it is
         // skipped outright (no dealer / target prompts). A 0-power unit is still a legal dealer when another

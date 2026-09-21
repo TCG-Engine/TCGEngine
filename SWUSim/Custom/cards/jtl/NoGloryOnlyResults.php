@@ -44,10 +44,11 @@ $whenPlayedAbilities["JTL_043:0"] = function($player, $mzID = '') {
 // No Glory, Only Results — "Take control of a non-leader unit, then defeat it."
             global $playerID;
             $playerID = intval($player);
-            $targets = array_values(array_merge(
-                ZoneSearch('myGroundArena',    NonLeaderUnitFilter), ZoneSearch('mySpaceArena',    NonLeaderUnitFilter),
-                ZoneSearch('theirGroundArena', NonLeaderUnitFilter), ZoneSearch('theirSpaceArena', NonLeaderUnitFilter)
-            ));
+            // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+            // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+            // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+            // Premier is byte-identical). See memory: unqualified pools miss teammates.
+            $targets = SWUAllUnits(null, null, NonLeaderUnitFilter);
             if (empty($targets)) return;
             SWUQueueChooseTarget(intval($player), $targets, "Take_control_of_and_defeat_a_non-leader_unit", "JTL_043#0");
             return;

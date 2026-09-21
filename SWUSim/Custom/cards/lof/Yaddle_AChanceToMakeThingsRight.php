@@ -8,7 +8,11 @@ $onAttackAbilities["LOF_045:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $self = GetZoneObject($mzID);
     $selfUID = SWUObjUID($self);
-    foreach (SWUAllUnits('my') as $mz) {
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): in Team Suns a teammate's
+    // unit is friendly, so the pool is SWUFriendlyUnits() ('team'), not 'my'. ⚠ NOT the same as "a unit you control",
+    // which stays 'my' — control is per-player. 'team' degrades to 'my' outside a team game, so
+    // Premier is byte-identical. See memory: unqualified pools miss teammates.
+    foreach (SWUFriendlyUnits() as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o) || intval($o->UniqueID ?? -1) === $selfUID) continue;
         // CardID-based token (not bare 'RESTORE') so the Active Effects popup shows Yaddle's art as

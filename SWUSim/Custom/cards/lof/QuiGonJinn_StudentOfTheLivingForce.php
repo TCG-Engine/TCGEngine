@@ -11,7 +11,10 @@ $leaderAbilities["LOF_016"] = function(int $player): void {
     global $playerID; $playerID = $player;
     UseTheForce($player);
     $targets = [];
-    foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    foreach (SWUFriendlyUnits(null, AnyUnitFilter) as $mz) {
         $o = GetZoneObject($mz); if (SWUObjGone($o) || IsLeaderUnit($o)) continue;
         $targets[] = $mz;
     }
@@ -49,7 +52,7 @@ $customDQHandlers["LOF_016#1"] = function($player, $parts, $lastDecision) {
 $onAttackEndAbilities["LOF_016:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $targets = [];
-    foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {
+    foreach (SWUFriendlyUnits(null, AnyUnitFilter) as $mz) {
         $o = GetZoneObject($mz); if (SWUObjGone($o) || IsLeaderUnit($o)) continue;
         $targets[] = $mz;
     }

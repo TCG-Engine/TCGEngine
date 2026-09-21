@@ -30,10 +30,11 @@ $customDQHandlers["SOR_106#0"] = function($player, $parts, $lastDecision) {
     [$np, $nh] = array_pad(explode('_', $next), 2, '0');
 
     // Distinct friendly units that have not yet received a buff.
-    $targets = array_values(array_filter(array_merge(
-        ZoneSearch('myGroundArena', AnyUnitFilter),
-        ZoneSearch('mySpaceArena',  AnyUnitFilter)
-    ), fn($mz) => !in_array($mz, $excluded, true)));
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): in Team Suns a teammate's
+    // unit is friendly, so the pool is SWUFriendlyUnits() ('team'), not 'my'. ⚠ NOT the same as "a unit you control",
+    // which stays 'my' — control is per-player. 'team' degrades to 'my' outside a team game, so
+    // Premier is byte-identical. See memory: unqualified pools miss teammates.
+    $targets = array_values(array_filter(SWUFriendlyUnits(null, AnyUnitFilter), fn($mz) => !in_array($mz, $excluded, true)));
     if (empty($targets)) return;               // not enough friendly units → fizzle
 
     if (count($targets) === 1) {
@@ -56,10 +57,7 @@ $whenPlayedAbilities["SOR_106:0"] = function($player, $mzID = '') {
             // descending buffs are assigned one at a time via the chained SOR_106 handler.
             global $playerID;
             $playerID = intval($player);
-            $targets = array_values(array_merge(
-                ZoneSearch('myGroundArena', AnyUnitFilter),
-                ZoneSearch('mySpaceArena',  AnyUnitFilter)
-            ));
+            $targets = SWUFriendlyUnits(null, AnyUnitFilter);
             if (empty($targets)) return;
             if (count($targets) === 1) {
                 DecisionQueueController::AddDecision($player, 'PASSPARAMETER', $targets[0], 1);

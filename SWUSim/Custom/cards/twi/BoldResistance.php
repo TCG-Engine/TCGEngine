@@ -29,10 +29,11 @@ $whenPlayedAbilities["TWI_153:0"] = function($player, $mzID = '') {
                           // those units gets +2/+0 for this phase."
             global $playerID;
             $playerID = intval($player);
-            $all = array_merge(
-                ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
-                ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)
-            );
+            // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+            // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+            // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+            // Premier is byte-identical). See memory: unqualified pools miss teammates.
+            $all = SWUAllUnits();
             if (empty($all)) return;
             DecisionQueueController::AddDecision(intval($player), 'MZMULTICHOOSE',
                 "0|3|" . implode('&', $all), 1, tooltip: 'Choose_up_to_3_units_sharing_a_Trait_(+2/+0_this_phase)');

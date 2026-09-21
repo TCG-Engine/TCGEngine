@@ -18,7 +18,11 @@ $whenPlayedAbilities["LOF_043:0"] = function($player, $mzID = '') {
                           // defeated by having no remaining HP. An opponent chooses a unit they control.
                           // Defeat that unit."
             global $playerID; $playerID = intval($player);
-            $mine = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter));
+            // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): in Team Suns a teammate's
+            // unit is friendly, so the pool is SWUFriendlyUnits() ('team'), not 'my'. ⚠ NOT the same as "a unit you control",
+            // which stays 'my' — control is per-player. 'team' degrades to 'my' outside a team game, so
+            // Premier is byte-identical. See memory: unqualified pools miss teammates.
+            $mine = SWUFriendlyUnits(null, AnyUnitFilter);
             if (!empty($mine)) {
                 SWUQueueChooseTarget(intval($player), $mine, "Choose_a_friendly_unit_(can't_be_defeated_by_no_HP_this_phase)", "LOF_043#0");
             }

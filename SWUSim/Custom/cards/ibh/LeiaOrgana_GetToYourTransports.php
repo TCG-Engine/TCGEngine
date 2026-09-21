@@ -15,7 +15,10 @@ $onAttackAbilities["IBH_001:0"] = function($player, $mzID) {
 // IBH_001 Leia Organa — Leader Action [1 resource, Exhaust]: heal 1 damage from a friendly unit.
 $leaderAbilities["IBH_001"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    $targets = SWUAllUnits('my');
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    $targets = SWUFriendlyUnits();
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets, "Heal_1_from_a_friendly_unit", "HEAL_TARGET|1");
     SWUQueueAfterAction($player);

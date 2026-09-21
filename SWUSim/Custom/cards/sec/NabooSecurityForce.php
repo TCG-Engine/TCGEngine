@@ -5,7 +5,10 @@
 
 $customDQHandlers["SEC_120#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
-    $friendly = SWUAllUnits('my');
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    $friendly = SWUFriendlyUnits();
     if (empty($friendly)) return;
     SWUQueueChooseTarget(intval($player), $friendly, "Give_a_friendly_unit_Sentinel_this_phase",
         "GRANT_PHASE_KEYWORD|SENTINEL^SEC_120");

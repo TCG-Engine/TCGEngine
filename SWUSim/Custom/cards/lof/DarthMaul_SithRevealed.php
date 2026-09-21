@@ -11,6 +11,10 @@
 // choose-targets (a single valid target auto-resolves via PASSPARAMETER).
 $onAttackAbilities["LOF_009:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
+    // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+    // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+    // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+    // Premier is byte-identical). See memory: unqualified pools miss teammates.
     $targets = array_values(SWUAllUnits());
     if (empty($targets)) return;
     SWUQueueChooseTarget(intval($player), $targets, "Deal_1_damage_to_a_unit", "LOF_009#2");
@@ -21,8 +25,7 @@ $onAttackAbilities["LOF_009:0"] = function($player, $mzID) {
 $leaderAbilities["LOF_009"] = function(int $player): void {
     global $playerID; $playerID = $player;
     UseTheForce($player);
-    $targets = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
-                           ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter));
+    $targets = SWUAllUnits();
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets, "Deal_1_damage_to_a_unit", "LOF_009#0");
 };
@@ -36,8 +39,7 @@ $customDQHandlers["LOF_009#0"] = function($player, $parts, $lastDecision) {
     SWUDealDamageToUnit($lastDecision, 1, intval($player));
     // Second target: a DIFFERENT unit.
     $targets = [];
-    foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
-                         ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)) as $mz) {
+    foreach (SWUAllUnits() as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o) || intval($o->UniqueID ?? -1) === $firstUID) continue;
         $targets[] = $mz;

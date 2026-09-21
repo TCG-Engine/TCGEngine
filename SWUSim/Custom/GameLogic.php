@@ -5357,8 +5357,16 @@ function DoCaptureUnit($player, $capturingMZ, $capturedMZ) {
     if ($captive === null || ($captive->removed ?? false)) return "-";
 
     // "Can't be captured by enemy card abilities" (SHD_187 / TWI_220). Capture is always ability-driven;
-    // block when the captor belongs to an opponent of the captive's controller.
-    if (intval($player) !== intval($captive->Controller ?? $player) && SWUAvoidsCapture($captive)) { SWULogRefusal($captive, 'capture'); return "-"; }
+    // block when the captor belongs to an ENEMY of the captive's controller — a Team Suns teammate is
+    // friendly, never an enemy, hence SWUIsEnemySeat (identical to seat identity outside a team game).
+    //
+    // ⚠ DELIBERATELY UNPINNED, unlike every other member of this family. EVERY capture effect in the
+    // game is worded "captures an ENEMY non-leader unit" (SHD_006 / SHD_106 / SHD_120 / SHD_124 /
+    // SHD_131 / SHD_251), so a teammate's unit is never a legal captive and the teammate branch has no
+    // reachable state to assert. Converted for consistency and to stay correct if a future card ever
+    // says "capture a unit" — but do NOT write a test that fakes the situation. Same call as SEC_133 in
+    // the Twin Suns opponent-choice plan. If such a card ships, pin it then.
+    if (SWUIsEnemySeat(intval($player), intval($captive->Controller ?? $player)) && SWUAvoidsCapture($captive)) { SWULogRefusal($captive, 'capture'); return "-"; }
 
     // SHD_170 IG-11 — "If this unit would be captured, defeat him and deal 3 damage to each enemy ground
     // unit instead." ABSOLUTE replacement — fires for ANY captor, enemy OR friendly. (DJ SEC_018 plays a
@@ -5472,8 +5480,9 @@ function _SWUBaseCaptureUnit(int $player, string $capturedMZ): bool {
     $savedPID = $playerID; $playerID = intval($player);
     $captive = GetZoneObject($capturedMZ);
     if (SWUObjGone($captive)) { $playerID = $savedPID; return false; }
-    // "Can't be captured by enemy card abilities" (SHD_187 / TWI_220).
-    if (intval($player) !== intval($captive->Controller ?? $player) && SWUAvoidsCapture($captive)) { SWULogRefusal($captive, 'capture'); $playerID = $savedPID; return false; }
+    // "Can't be captured by enemy card abilities" (SHD_187 / TWI_220). ENEMY, not "any other seat" —
+    // see the sibling gate above, including why this one is deliberately left unpinned.
+    if (SWUIsEnemySeat(intval($player), intval($captive->Controller ?? $player)) && SWUAvoidsCapture($captive)) { SWULogRefusal($captive, 'capture'); $playerID = $savedPID; return false; }
     // Tokens can't be captured — the token CEASES (same judge ruling as DoCaptureUnit: not a defeat,
     // no When-Defeated observers; leave-play reactions fire as non-defeat). No base-captive is stored,
     // so _SWURescueBaseCaptives won't return a ceased token at regroup.
@@ -6516,8 +6525,10 @@ function OnExhaustCard($player, $mzID, ?int $byPlayer = null) {
 function SWUExhaustUnitObj(int $byPlayer, $obj, string $mzHint = 'Arena'): bool {
     if ($obj === null || !empty($obj->removed)) return false;
     // "Can't be exhausted by enemy card abilities" (LOF_040 / LOF_073). Self-exhaust (attacking,
-    // cost payment — actor == controller) is always allowed; only an opponent's exhaust is blocked.
-    if ($byPlayer !== intval($obj->Controller ?? $byPlayer) && SWUAvoidsExhaust($obj)) {
+    // cost payment — actor == controller) is always allowed; only an ENEMY's exhaust is blocked, and
+    // a Team Suns teammate is friendly, never an enemy — hence SWUIsEnemySeat rather than seat
+    // identity (identical outside a team game). Pair: core/TeamSuns_EnemyOnlyProtections.md.
+    if (SWUIsEnemySeat($byPlayer, intval($obj->Controller ?? $byPlayer)) && SWUAvoidsExhaust($obj)) {
         if (intval($obj->Status ?? 0) === 1) SWULogRefusal($obj, 'exhaust');   // game log (a no-op on an exhausted unit is not news)
         return false;
     }
@@ -7948,9 +7959,13 @@ function SWUTakeControlOfUnit(int $newController, string $mzID): string {
         $playerID = $savedPID;
         return '';
     }
-    // "Opponents can't take control of this unit" (LAW_149 Rey). Block when someone OTHER than the
-    // owner is taking control (an opponent); returning control to the owner is always allowed.
-    if (intval($newController) !== intval($unit->Owner ?? $newController) && SWUAvoidsTakeControl($unit)) {
+    // "Opponents can't take control of this unit" (LAW_149 Rey). Block when an OPPONENT of the owner
+    // is taking control; returning control to the owner is always allowed.
+    // ⚠ Compared against the OWNER, not the controller, and that stays — the protection is owed to
+    // Rey's owner, so an opponent who already stole her is not shielded by it. Only the comparison
+    // changes: a Team Suns teammate is not an opponent either (OpponentsOf excludes them), so a
+    // teammate may take control. Pair: core/TeamSuns_EnemyOnlyProtections.md::TeamSuns_TakeControl_*.
+    if (SWUIsEnemySeat(intval($newController), intval($unit->Owner ?? $newController)) && SWUAvoidsTakeControl($unit)) {
         SWULogRefusal($unit, 'take control of');   // game log
         $playerID = $savedPID;
         return '';
@@ -14418,7 +14433,11 @@ function _SWUNonInteractiveDamagePrevention($obj, int $amount, int $player, ?str
     $prevented = false;
     $shielded  = false;
     if ($obj === null) return $amount;
-    $isEnemyAbility = intval($player) !== intval($obj->Controller ?? $player);
+    // ⚠ ENEMY, not "any other seat": in Team Suns a teammate's card ability is friendly, so neither
+    // SHD_187's prevention nor SEC_042's -2 reduction applies to it. Outside a team game SWUIsEnemySeat
+    // is exactly this seat comparison. Both consumers are pinned in
+    // core/TeamSuns_EnemyOnlyProtections.md (SHD_187 pair + the SEC_042 reduction section).
+    $isEnemyAbility = SWUIsEnemySeat(intval($player), intval($obj->Controller ?? $player));
     // "Can't be damaged by enemy card abilities" (SHD_187 Lurking TIE Phantom) — the whole instance.
     if ($isEnemyAbility && SWUAvoidsAbilityDamage($obj)) { $prevented = true; if ($amount > 0) SWULogRefusal($obj, 'deal damage to'); return 0; }
     // LOF_108 Malakili — "if a friendly Creature unit would deal damage to a friendly unit, prevent it".
@@ -16577,8 +16596,10 @@ function SWUBounceUnit(int $player, string $mzID): bool {
         return false;
     }
     // "Can't be returned to hand by enemy card abilities" (JTL_103 / TWI_220 / LOF_073). Bounce is
-    // always ability-driven; only block when an opponent is doing it.
-    if (intval($player) !== intval($obj->Controller ?? $player) && SWUAvoidsBounce($obj)) {
+    // always ability-driven; only block when an ENEMY is doing it — in Team Suns a teammate is
+    // friendly, never an enemy, so SWUIsEnemySeat, not seat identity (outside a team game the two are
+    // the same expression). Pair: core/TeamSuns_EnemyOnlyProtections.md::TeamSuns_Bounce_*.
+    if (SWUIsEnemySeat(intval($player), intval($obj->Controller ?? $player)) && SWUAvoidsBounce($obj)) {
         SWULogRefusal($obj, 'return');   // game log
         $playerID = $savedPID;
         return false;
@@ -27040,9 +27061,16 @@ function SWUTeamOf(int $seat): int {
 // (SWUAvoidsDefeat & co.). Enemy = the OPPOSING team: a teammate is friendly, never an enemy, so a
 // teammate's card ability is not blocked by "can't be defeated by enemy card abilities". Outside a team
 // game SWUTeamOf is the seat itself, so this is exactly $actor !== $seat — Premier and Twin Suns unchanged.
-// ⚠ Adopted so far ONLY at the DEFEAT gate (SWUDefeatUnit, 2026-09-15, found via HMW_099 Always a Bigger
-// Fish + IBH_095). The capture / bounce / exhaust / take-control / ability-damage gates still compare seat
-// identity and carry the same Team Suns defect — an unswept family, see hmw-implement.md.
+// ✅ THE FAMILY IS SWEPT (2026-09-20). Every "… by enemy card abilities" gate now routes through here:
+// defeat (SWUDefeatUnit, the original, 2026-09-15 via HMW_099 + IBH_095), bounce (SWUBounceUnit AND
+// SHD_233 Evacuate's own pre-filter, which bypasses that guard), exhaust (SWUExhaustUnitObj),
+// take-control (SWUTakeControlOfUnit — compared against the OWNER, see there), ability damage
+// (_SWUNonInteractiveDamagePrevention's $isEnemyAbility, which feeds SHD_187's prevention AND SEC_042's
+// -2 reduction), and capture (DoCaptureUnit ×2 — converted but deliberately unpinned; every printed
+// capture effect targets an ENEMY unit, so its teammate branch is unreachable).
+// Pairs: core/TeamSuns_EnemyOnlyProtections.md, plus twi/ShadowedIntentions.md for defeat.
+// ⚠ A new gate of this shape must come here too — and it needs its OWN teammate/enemy pair, because
+// each gate reads a different SWUAvoids* helper and one conversion is no evidence about the next.
 function SWUIsEnemySeat(int $actor, int $seat): bool {
     if ($actor <= 0 || $seat <= 0 || $actor === $seat) return false;
     return SWUTeamOf($actor) !== SWUTeamOf($seat);

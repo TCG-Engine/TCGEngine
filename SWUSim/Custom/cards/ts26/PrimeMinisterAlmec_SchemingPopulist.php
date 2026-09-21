@@ -7,7 +7,11 @@
 // exhaust each enemy unit in its arena with less power than it (measured after the buff).
 $whenPlayedAbilities["TS26_28:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $tg = SWUAllUnits('my');
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): in Team Suns a teammate's
+    // unit is friendly, so the pool is SWUFriendlyUnits() ('team'), not 'my'. ⚠ NOT the same as "a unit you control",
+    // which stays 'my' — control is per-player. 'team' degrades to 'my' outside a team game, so
+    // Premier is byte-identical. See memory: unqualified pools miss teammates.
+    $tg = SWUFriendlyUnits();
     if (empty($tg)) return;
     SWUQueueChooseTarget(intval($player), $tg, "Give_a_friendly_unit_+2/+2_this_phase", "TS26_28#0");
 };

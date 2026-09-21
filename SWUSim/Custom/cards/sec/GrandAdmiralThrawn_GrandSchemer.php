@@ -26,7 +26,11 @@ $whenPlayedAbilities["SEC_193:0"] = function($player, $mzID) {
     $anyUnit = false;
     foreach (OpponentsOf(intval($player)) as $o) {
         $sp0 = $playerID; $playerID = $o;
-        $u = array_merge(ZoneSearch('myGroundArena', NonLeaderUnitFilter), ZoneSearch('mySpaceArena', NonLeaderUnitFilter));
+        // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): in Team Suns a teammate's
+        // unit is friendly, so the pool is SWUFriendlyUnits() ('team'), not 'my'. ⚠ NOT the same as "a unit you control",
+        // which stays 'my' — control is per-player. 'team' degrades to 'my' outside a team game, so
+        // Premier is byte-identical. See memory: unqualified pools miss teammates.
+        $u = SWUFriendlyUnits(null, NonLeaderUnitFilter);
         $playerID = $sp0;
         if (!empty($u)) { $anyUnit = true; break; }
     }
@@ -51,7 +55,7 @@ $customDQHandlers["SEC_193#3"] = function($player, $parts, $lastDecision) {
     $opp       = SWUPickedOpponent($lastDecision);
     if ($opp <= 0 || $opp === $caster) return;
     $playerID = $opp;
-    $units = array_merge(ZoneSearch('myGroundArena', NonLeaderUnitFilter), ZoneSearch('mySpaceArena', NonLeaderUnitFilter));
+    $units = SWUFriendlyUnits(null, NonLeaderUnitFilter);
     if (empty($units)) {   // a unit-less opponent WAS a legal pick → they cannot choose → ready Thrawn
         $playerID = $caster;
         $tmz = SWUFindMzByUID($thrawnUID);
@@ -87,7 +91,7 @@ $customDQHandlers["SEC_193#0"] = function($player, $parts, $lastDecision) {   //
 
 $whenDefeatedAbilities["SEC_193:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $friendly = SWUAllUnits('my');
+    $friendly = SWUFriendlyUnits();
     if (empty($friendly)) return;
     SWUQueueChooseTarget(intval($player), $friendly, "Choose_a_friendly_capturing_unit", "SEC_193#1");
 };

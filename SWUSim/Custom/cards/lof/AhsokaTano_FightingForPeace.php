@@ -14,7 +14,10 @@ $onAttackAbilities["LOF_003:0"] = function($player, $mzID) {
 $leaderAbilities["LOF_003"] = function(int $player): void {
     global $playerID; $playerID = $player;
     UseTheForce($player);
-    $targets = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter));
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    $targets = SWUFriendlyUnits(null, AnyUnitFilter);
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets, "Give_a_friendly_unit_Sentinel_this_phase", "LOF_003#0");
 };

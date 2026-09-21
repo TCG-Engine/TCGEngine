@@ -33,7 +33,10 @@ $onAttackAbilities["JTL_001:0"] = function($player, $mzID) {
     $playerID = intval($player);
     $atk = GetZoneObject($mzID);
     if ($atk === null || ($atk->CardID ?? '') === 'JTL_001') return; // deployed-unit side has only Grit
-    $friendly = SWUAllUnits('my');
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    $friendly = SWUFriendlyUnits();
     if (empty($friendly)) return;
     SWUQueueMayChooseTarget(intval($player), $friendly,
         "You_may_deal_1_to_a_friendly_unit", "Deal_1_to_a_friendly_unit", "JTL_001#1");
@@ -59,7 +62,7 @@ $customDQHandlers["JTL_001#1"] = function($player, $parts, $lastDecision) {
 $leaderAbilities["JTL_001"] = function(int $player): void {
     global $playerID;
     $playerID = $player;
-    $friendly = SWUAllUnits('my');
+    $friendly = SWUFriendlyUnits();
     if (empty($friendly)) { SWUAfterAction($player); return; } // no friendly to damage → fizzle
     SWUQueueChooseTarget($player, $friendly,
         "Deal_1_damage_to_a_friendly_unit", "JTL_001#0");

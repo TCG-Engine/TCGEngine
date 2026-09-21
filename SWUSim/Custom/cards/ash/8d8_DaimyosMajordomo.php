@@ -9,7 +9,10 @@ $unitAbilities["ASH_118"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $self = GetZoneObject($mzID); $uid = SWUObjUID($self, 0);
     $tg = [];
-    foreach (SWUAllUnits('my') as $mz) {
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    foreach (SWUFriendlyUnits() as $mz) {
         $o = GetZoneObject($mz); if ($o && empty($o->removed) && intval($o->UniqueID ?? 0) !== $uid) $tg[] = $mz;
     }
     if (empty($tg)) { SWUAfterAction($player); return; }

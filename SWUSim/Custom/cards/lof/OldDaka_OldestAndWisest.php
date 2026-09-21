@@ -8,7 +8,10 @@
 $whenPlayedAbilities["LOF_036:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $targets = [];
-    foreach (SWUAllUnits('my') as $mz) {
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): a teammate's unit is friendly,
+    // so this pool is SWUFriendlyUnits(). ⚠ NOT SWUControlledUnits() — "a unit you control", an
+    // ability COST, and "attack with" all stay 'my'. Degrades to 'my' outside a team game.
+    foreach (SWUFriendlyUnits() as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o) || ($o->CardID ?? '') === 'LOF_036') continue;
         if (HasTrait($o->CardID ?? '', 'Night')) $targets[] = $mz;

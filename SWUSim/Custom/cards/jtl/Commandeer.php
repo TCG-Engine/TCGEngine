@@ -28,10 +28,11 @@ $whenPlayedAbilities["JTL_235:0"] = function($player, $mzID = '') {
             global $playerID;
             $playerID = intval($player);
             $targets = [];
-            foreach (array_merge(
-                ZoneSearch('myGroundArena',    NonLeaderUnitFilter), ZoneSearch('mySpaceArena',    NonLeaderUnitFilter),
-                ZoneSearch('theirGroundArena', NonLeaderUnitFilter), ZoneSearch('theirSpaceArena', NonLeaderUnitFilter)
-            ) as $mz) {
+            // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+            // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+            // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+            // Premier is byte-identical). See memory: unqualified pools miss teammates.
+            foreach (SWUAllUnits(null, null, NonLeaderUnitFilter) as $mz) {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
                 if (HasTrait($o->CardID, 'Vehicle') && intval(CardCost($o->CardID)) <= 6 && !_SWUHasPilotOnIt($o)) $targets[] = $mz;

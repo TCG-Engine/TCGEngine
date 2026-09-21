@@ -20,7 +20,11 @@ $law185 = function ($player, $mzID) {
   $self = ($mzID !== '' && str_contains((string) $mzID, '-')) ? GetZoneObject($mzID) : null;
   $uid = SWUObjUID($self, 0);
   $targets = [];
-  foreach (SWUAllUnits('my') as $mz) {
+  // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): in Team Suns a teammate's
+  // unit is friendly, so the pool is SWUFriendlyUnits() ('team'), not 'my'. ⚠ NOT the same as "a unit you control",
+  // which stays 'my' — control is per-player. 'team' degrades to 'my' outside a team game, so
+  // Premier is byte-identical. See memory: unqualified pools miss teammates.
+  foreach (SWUFriendlyUnits() as $mz) {
     $o = GetZoneObject($mz);
     if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $uid)
       $targets[] = $mz;

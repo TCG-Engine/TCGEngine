@@ -18,8 +18,11 @@ $onAttackAbilities["LOF_002:0"] = function($player, $mzID) {
 $leaderAbilities["LOF_002"] = function(int $player): void {
     global $playerID; $playerID = $player;
     UseTheForce($player); // affordability already confirmed the Force token
-    $targets = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
-                           ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter));
+    // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+    // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+    // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+    // Premier is byte-identical). See memory: unqualified pools miss teammates.
+    $targets = SWUAllUnits();
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets, "Give_a_unit_-1/-1_this_phase", "LOF_002#0");
 };

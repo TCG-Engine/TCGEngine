@@ -8,10 +8,11 @@
 $onAttackAbilities["JTL_142:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $units = array_values(array_merge(
-        ZoneSearch('myGroundArena',    AnyUnitFilter), ZoneSearch('mySpaceArena',    AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)
-    ));
+    // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+    // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+    // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+    // Premier is byte-identical). See memory: unqualified pools miss teammates.
+    $units = SWUAllUnits();
     if (empty($units)) return;
     SWUQueueMayChooseTarget(intval($player), $units, "Deal_1_damage_to_a_unit", "Choose_a_unit", "JTL_142#0");
 };
@@ -26,10 +27,7 @@ $customDQHandlers["JTL_142#0"] = function($player, $parts, $lastDecision) {
     SWUDealDamageToUnit($lastDecision, 1, intval($player));
     if (SWUFindMzByUID($uid) !== null) return;   // target survived → no chain
     // A unit was defeated this way → may deal 1 to a unit or base.
-    $targets = array_values(array_merge(
-        ZoneSearch('myGroundArena',    AnyUnitFilter), ZoneSearch('mySpaceArena',    AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)
-    ));
+    $targets = SWUAllUnits();
     // ⚠ 'theirBase-0' is a HAND-BUILT relative mzID: it names SEAT 2 and nothing else, so above two seats
     // a far seat's base could not be targeted at all. SWUAllBaseMzIDs(…, 'any') is the caster's own base
     // plus EVERY opponent's, as real p{n}Base mzIDs. (This shape is invisible to a seat-helper scan —

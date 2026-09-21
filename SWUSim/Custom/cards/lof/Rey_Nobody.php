@@ -9,8 +9,11 @@
 $leaderAbilities["LOF_012"] = function(int $player): void {
     global $playerID; $playerID = $player;
     if (GlobalEffectCount($player, 'SWU_PLAYED_NONUNIT_FORCE') <= 0) { SWUAfterAction($player); return; }
-    $targets = array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter),
-                           ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter));
+    // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+    // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+    // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+    // Premier is byte-identical). See memory: unqualified pools miss teammates.
+    $targets = SWUAllUnits();
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $targets, "Deal_1_damage_to_a_unit", "LOF_012#0");
 };

@@ -11,7 +11,11 @@ $customDQHandlers["SEC_091#0"] = function($player, $parts, $lastDecision) {
     $chosen = GetZoneObject($lastDecision);
     $chosenUID = $chosen ? intval($chosen->UniqueID ?? 0) : -1;
     SWUApplyPhaseBuff($lastDecision, 3, 3, '');
-    foreach (SWUAllUnits('my') as $mz) {
+    // ⚠ FRIENDLY spans the TEAM (user ruling 2026-08-25, IBH_095): in Team Suns a teammate's
+    // unit is friendly, so the pool is SWUFriendlyUnits() ('team'), not 'my'. ⚠ NOT the same as "a unit you control",
+    // which stays 'my' — control is per-player. 'team' degrades to 'my' outside a team game, so
+    // Premier is byte-identical. See memory: unqualified pools miss teammates.
+    foreach (SWUFriendlyUnits() as $mz) {
         $o = GetZoneObject($mz);
         if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $chosenUID) SWUApplyPhaseBuff($mz, 1, 1, '');
     }

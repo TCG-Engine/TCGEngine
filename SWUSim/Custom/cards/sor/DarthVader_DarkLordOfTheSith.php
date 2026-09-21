@@ -44,12 +44,11 @@ $customDQHandlers["SOR_010#1"] = function($player, $parts, $lastDecision) {
 $onAttackAbilities["SOR_010:0"] = function($player, $mzID) {
     global $playerID;
     $playerID = intval($player);
-    $targets = array_values(array_merge(
-        ZoneSearch('myGroundArena',    AnyUnitFilter),
-        ZoneSearch('mySpaceArena',     AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter),
-        ZoneSearch('theirSpaceArena',  AnyUnitFilter)
-    ));
+    // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+    // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+    // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+    // Premier is byte-identical). See memory: unqualified pools miss teammates.
+    $targets = SWUAllUnits();
     if (empty($targets)) return;
     DecisionQueueController::AddDecision($player, 'MZMAYCHOOSE', implode('&', $targets), 0,
         'Deal_2_damage_to_a_unit?');
@@ -68,12 +67,7 @@ $leaderAbilities["SOR_010"] = function(int $player): void {
         return;
     }
 
-    $targets = array_values(array_merge(
-        ZoneSearch('myGroundArena',    AnyUnitFilter),
-        ZoneSearch('mySpaceArena',     AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter),
-        ZoneSearch('theirSpaceArena',  AnyUnitFilter)
-    ));
+    $targets = SWUAllUnits();
     if (empty($targets)) {
         SWUAfterAction($player);
         return;

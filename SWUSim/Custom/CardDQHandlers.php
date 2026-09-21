@@ -24,12 +24,11 @@ $onAttachedAbilities = [];
 function _SWUCollectUnits(int $excludeUID, callable $pred): array
 {
   $out = [];
-  foreach (array_merge(
-    ZoneSearch('myGroundArena', AnyUnitFilter),
-    ZoneSearch('mySpaceArena', AnyUnitFilter),
-    ZoneSearch('theirGroundArena', AnyUnitFilter),
-    ZoneSearch('theirSpaceArena', AnyUnitFilter)
-  ) as $mz) {
+  // ⚠ UNQUALIFIED pool = the WHOLE table. NOT my*+their*: `their*` excludes a Team Suns
+  // teammate, so that pairing leaves their units in NEITHER list and they silently drop out
+  // of the pool. SWUAllUnits() starts from 'team' (degrades to 'my' outside a team game, so
+  // Premier is byte-identical). See memory: unqualified pools miss teammates.
+  foreach (SWUAllUnits() as $mz) {
     $o = GetZoneObject($mz);
     if (SWUObjGone($o))
       continue;
@@ -149,12 +148,7 @@ function _SWUOnPlayerDrew(int $drawingPlayer, int $count): void
         continue;
       if (($u->CardID ?? '') !== 'JTL_111')
         continue;
-      $targets = array_values(array_merge(
-        ZoneSearch('myGroundArena', AnyUnitFilter),
-        ZoneSearch('mySpaceArena', AnyUnitFilter),
-        ZoneSearch('theirGroundArena', AnyUnitFilter),
-        ZoneSearch('theirSpaceArena', AnyUnitFilter)
-      ));
+      $targets = SWUAllUnits();
       if (!empty($targets)) {
         SWUQueueMayChooseTarget(
           $reactor,
@@ -1674,12 +1668,7 @@ $customDQHandlers["OZZEL_READY_OFFER"] = function ($player, $parts, $lastDecisio
   global $playerID;
   $savedPID = $playerID;
   $playerID = intval($player);
-  $units = array_values(array_filter(array_merge(
-    ZoneSearch('myGroundArena',    AnyUnitFilter),
-    ZoneSearch('mySpaceArena',     AnyUnitFilter),
-    ZoneSearch('theirGroundArena', AnyUnitFilter),
-    ZoneSearch('theirSpaceArena',  AnyUnitFilter)
-  ), function($mz) {
+  $units = array_values(array_filter(SWUAllUnits(), function($mz) {
     $o = GetZoneObject($mz);
     return $o !== null && empty($o->removed) && intval($o->Status ?? 1) === 0;
   }));
