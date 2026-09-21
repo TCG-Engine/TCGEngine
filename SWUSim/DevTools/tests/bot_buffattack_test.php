@@ -72,4 +72,38 @@ $check(in_array($ability, $offeredB, true) && in_array('mySpaceArena-0!FSM!', $o
 [$pickB, $kindB] = $pickOf('normal');
 $check($kindB === 'attack', "a buff that improves no attack does not delay the attack; picked " . json_encode($pickB) . " ($kindB)");
 
+// ── C) A buff that improves NO attack is not used at all ─────────────────────────────────────────────
+// Owner report 2026-09-21 (Petranaki Arenabot): "when the bot plays Ahsoka (ASH) leader, it sometimes wastes
+// an action to buff an exhausted unit. this should not be spent because that unit can't attack. and the Ahsoka
+// lists typically don't play 'ready a unit' cards". B's board after the 3/3 has swung: both units exhausted,
+// so "+2/+0 for this phase" on Gungi expires unused. The Action used to score the flat W['ability'] (0.40),
+// which beats passing, so the bot spent it anyway.
+$build(function ($b) {
+    $b->MyLeader('ASH_009');
+    $b->WithGroundUnitForPlayer(1, 'LOF_093', false);    // Gungi exhausted — the only legal buff target of mine
+    $b->WithSpaceUnitForPlayer(1, 'JTL_250', false);     // 3/3 exhausted — already attacked
+});
+$offeredC = $ids($botCtx('normal')['actions']);
+$check(in_array($ability, $offeredC, true), "fixture: Ahsoka's Action is on offer; got " . json_encode($offeredC));
+[$pickC, $kindC] = $pickOf('normal');
+$check($pickC !== $ability, "a +2/+0 that no ready unit can use is not spent; picked " . json_encode($pickC) . " ($kindC)");
+[$pickCOff] = $pickOf('normal', 1, 'no-buffattack');
+$check($pickCOff === $ability, "@no-buffattack: the Action was spent on the exhausted unit, the reported mistake; picked " . json_encode($pickCOff));
+
+// ── D) When the Action IS worth using, the +2/+0 goes on the unit that can still attack ───────────────
+// Two legal friendly targets under the 3/3's power: Gungi (2/5, exhausted, the more valuable body) and a READY
+// 0-power Spy token. Only the Spy can turn the buff into damage; unit value must not pull it onto Gungi.
+$build(function ($b) {
+    $b->MyLeader('ASH_009');
+    $b->WithGroundUnitForPlayer(1, 'LOF_093', false);    // myGroundArena-0: Gungi, exhausted
+    $b->WithGroundUnitForPlayer(1, 'SEC_T01', true);     // myGroundArena-1: Spy 0/2, ready
+    $b->WithSpaceUnitForPlayer(1, 'JTL_250', false);     // the 3-power reference, exhausted
+});
+$act(1, 10001, $ability);
+$gotD = $ids($botCtx('normal')['actions']);
+$check(in_array('myGroundArena-0', $gotD, true) && in_array('myGroundArena-1', $gotD, true),
+    'fixture: the prompt offers exhausted Gungi and the ready Spy; got ' . json_encode($gotD));
+[$pickD] = $pickOf('normal');
+$check($pickD === 'myGroundArena-1', "the buff goes on the READY unit; picked " . json_encode($pickD));
+
 bot_test_finish();

@@ -268,6 +268,15 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
             $tv = SWUBotViewForMz($seat, $c);
             if ($tv !== null && !$tv['ready']) $s -= 0.5;
         }
+        // A "+N/+0 for this phase" on an EXHAUSTED friendly unit expires unused — unless it is the unit attacking
+        // right now (an On Attack buff lands before damage). Worth nothing, so any ready candidate outranks it
+        // whatever the bodies' values (feature 'buffattack'; owner report 2026-09-21, Ahsoka ASH_009).
+        if ($s !== null && $head === 'APPLY_PHASE_BUFF' && str_starts_with($c, 'my') && SWUBotFeatureOn('buffattack')
+            && intval(explode('|', strval(($ctx['following'] ?? [])[0] ?? ''))[2] ?? 0) === 0) {
+            $tv = SWUBotViewForMz($seat, $c);
+            $att = _SWUBotDecisionAttacker($ctx);
+            if ($tv !== null && !$tv['ready'] && ($att === null || $att['uid'] !== $tv['uid'])) $s = -$index * 1e-6;
+        }
         return $s ?? -$index * 1e-6;
     }
 
@@ -860,7 +869,13 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     // this phase is worth what the buff adds to that attack. Flat W['ability'] (0.40) sits BELOW the attack it
     // would improve (W['base'] x power), so the bot attacked with Gungi for 2 and then spent Ahsoka's Action on
     // him — and "+2/+0 for this phase" on a unit that has already swung does nothing at all.
-    if (SWUBotFeatureOn('buffattack')) $value = max($value, $W['ability'] + _SWUBotBuffAttackGain($ctx, $seat, $before, $after, $W));
+    // …and an Action whose ONLY effect is +N/+0 for this phase, with no ready unit to spend it, is not used at all
+    // (owner report 2026-09-21, Petranaki Arenabot: Ahsoka's Action "wasted" on an exhausted unit).
+    if (SWUBotFeatureOn('buffattack')) {
+        $gain = _SWUBotBuffAttackGain($ctx, $seat, $before, $after, $W);
+        if ($gain <= 0.0 && _SWUBotIsPowerOnlyPhaseBuff($before, $after, $handBefore)) return -0.5;
+        $value = max($value, $W['ability'] + $gain);
+    }
     // An Action that costs the Force (Talzin's -1/-1): never onto an empty enemy board, and held when its -N/-N kills
     // nothing while another card needs the Force (feature 'force').
     $text = _SWUBotActionSourceText($seat, $action);
@@ -913,6 +928,32 @@ function _SWUBotBuffAttackGain(array $ctx, int $seat, array $before, array $afte
         }
     }
     return $gain;
+}
+
+// Is the Action's whole effect a "+N/+0 for this phase" power buff? Power only matters to an attack, so such a
+// buff is worth nothing unless _SWUBotBuffAttackGain finds a ready unit to spend it. Same two shapes:
+//   · still pending → the target prompt's continuation is APPLY_PHASE_BUFF|N|0;
+//   · auto-resolved → the only change anywhere is a power rise on my units (same hand, same everything else).
+// An HP buff (+N/+N) is NOT power-only: it keeps a unit alive, so it is left to the flat value.
+function _SWUBotIsPowerOnlyPhaseBuff(array $before, array $after, array $handBefore): bool {
+    $d = $after['decision'] ?? null;
+    if ($d !== null) {
+        $parts = explode('|', strval($d['next'] ?? ''));
+        return ($parts[0] ?? '') === 'APPLY_PHASE_BUFF' && intval($parts[1] ?? 0) > 0 && intval($parts[2] ?? 0) === 0;
+    }
+    $sig = $after['sig'] ?? null;
+    if ($sig === null || ($after['hand'] ?? null) != $handBefore) return false;
+    foreach ($before as $k => $v) { if ($k !== 'mine' && ($sig[$k] ?? null) != $v) return false; }
+    if (array_keys($sig['mine'] ?? []) != array_keys($before['mine'])) return false;
+    $rose = false;
+    // Signature index: [cardID, power, remaining, ready, shields, upgrades] (_SWUBotBoardSignature).
+    foreach ($before['mine'] as $uid => $row) {
+        $now = $sig['mine'][$uid];
+        foreach ([0, 2, 3, 4, 5] as $i) { if ($now[$i] != $row[$i]) return false; }
+        if (intval($now[1]) < intval($row[1])) return false;
+        if (intval($now[1]) > intval($row[1])) $rose = true;
+    }
+    return $rose;
 }
 
 // PROPOSALS 'mullnocast' / 'mullcurve' / 'mullstyle' (all default OFF) — the opening hand. Returns true to

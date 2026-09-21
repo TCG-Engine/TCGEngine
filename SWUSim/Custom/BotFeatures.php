@@ -72,6 +72,11 @@ function SWUBotFeatureGroups(): array {
             'p6' => SWU_BOT_PART6_FEATURES, 'p7' => SWU_BOT_PART7_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
+            // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,
+            // p<.0001) while costing hard control −66, so one of these four is hurting a control-piloted deck.
+            // Prime suspect 'flavourrank': Maul carries the 'tempo' flavour, whose rank shift moves a deck piloted
+            // as SOFT control one step further, i.e. it plays as HARD control.
+            'p3d1' => ['plotdeploy'], 'p3d2' => ['wipekeep'], 'p3d3' => ['flavourrank'], 'p3d4' => ['bombtiming'],
             'wk' => array_merge(SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES, SWU_BOT_PART7_FEATURES)];
 }
 
