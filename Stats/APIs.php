@@ -196,7 +196,7 @@ include_once "../SharedUI/Header.php";
 
     <div class="api-section">
         <h2>Deck Edit API</h2>
-        <p>Modify a deck you own (add or remove cards). This endpoint requires OAuth authentication with the 'decks' scope and the caller must be the deck owner.</p>
+        <p>Modify a deck you own (add or remove cards). This endpoint requires OAuth authentication with the 'editdecks' scope and the caller must be the deck owner.</p>
         <div class="api-endpoint">
             <h3>Edit Deck Card</h3>
             <p><span class="method post">POST</span> <code>/TCGEngine/APIs/EditDeckCard.php</code></p>
@@ -207,7 +207,7 @@ include_once "../SharedUI/Header.php";
                 <li><strong>Authorization header:</strong> <code>Authorization: Bearer {access_token}</code></li>
                 <li><strong>JSON body:</strong> <code>{"access_token": "{access_token}"}</code> (recommended for local testing where Authorization headers may be stripped)</li>
             </ul>
-            <p><strong>Required scope:</strong> <code>decks</code> — the token must include the <code>decks</code> scope or the API will return HTTP 403 (insufficient_scope).</p>
+            <p><strong>Required scope:</strong> <code>editdecks</code> — the token must include the <code>editdecks</code> scope or the API will return HTTP 403 (insufficient_scope).</p>
 
             <h4>Request Body (JSON):</h4>
             <pre><code>{
@@ -260,7 +260,7 @@ include_once "../SharedUI/Header.php";
             <pre><code>{
     "success": false,
     "error": "insufficient_scope",
-    "required": "decks"
+    "required": "editdecks"
 }
 </code></pre>
 
@@ -268,6 +268,60 @@ include_once "../SharedUI/Header.php";
             <pre><code>{
     "success": false,
     "error": "Card not found in specified zone"
+}
+</code></pre>
+        </div>
+        <div class="api-endpoint">
+            <h3>Edit Deck Cards (Bulk)</h3>
+            <p><span class="method post">POST</span> <code>/TCGEngine/APIs/EditDeckCards.php</code></p>
+            <p>Apply several card changes to a deck you own in a single request. Same authentication, required scope (<code>editdecks</code>), and ownership rules as Edit Deck Card. Changes are atomic: if any <code>remove</code> entry cannot be satisfied, nothing is written. The gamestate is persisted once for the whole batch.</p>
+
+            <h4>Request Body (JSON):</h4>
+            <pre><code>{
+    "access_token": "your_oauth_token",    // or provide in Authorization header
+    "deckID": 123,                          // integer deck id
+    "overwrite": false,                     // optional, default false; when true the deck's
+                                            // main deck and sideboard are cleared first and
+                                            // only "add" entries are allowed
+    "cards": [                              // array of changes (max 200 per request)
+        {
+            "action": "add|remove",         // optional, default "add"
+            "cardID": "CARD_UID",           // card id used in gamestate (required)
+            "count": 1,                     // optional, default 1
+            "zone": "main|side"             // optional, default "main"
+        }
+    ]
+}</code></pre>
+            <p>With <code>"overwrite": true</code>, <code>cards</code> may be omitted or empty to clear the deck entirely.</p>
+
+            <h4>Example Responses:</h4>
+            <h5>Success (HTTP 200)</h5>
+            <pre><code>POST /TCGEngine/APIs/EditDeckCards.php
+{
+    "success": true,
+    "deckID": 123,
+    "overwrite": false,
+    "changes": [
+        {"index": 0, "action": "add", "cardID": "CARD_UID", "zone": "main", "added": 2},
+        {"index": 1, "action": "remove", "cardID": "OTHER_UID", "zone": "side", "removed": 1}
+    ]
+}
+</code></pre>
+
+            <h5>Unsatisfiable Remove (HTTP 404, nothing written)</h5>
+            <pre><code>{
+    "success": false,
+    "error": "Card not found in specified zone",
+    "index": 1,
+    "cardID": "OTHER_UID",
+    "zone": "side"
+}
+</code></pre>
+
+            <h5>Remove With Overwrite (HTTP 400)</h5>
+            <pre><code>{
+    "success": false,
+    "error": "Invalid action in cards[0]; only 'add' is allowed with overwrite"
 }
 </code></pre>
         </div>
