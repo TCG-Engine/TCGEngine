@@ -9,7 +9,9 @@
         "type": "card_property_equals",
         "mzId": "p1Memory-2",
         "property": "CardID",
-        "value": "n06zlhihka"
+        "value": "n06zlhihka",
+        "semantic": true,
+        "label": "The targeted graveyard card moves to memory."
     },
     {
         "step": 6,

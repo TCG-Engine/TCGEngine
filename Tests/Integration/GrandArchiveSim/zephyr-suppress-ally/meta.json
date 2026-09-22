@@ -5,5 +5,17 @@
     "createdBy": "batch-script",
     "testedCards": [
         "idaRe7y3In"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "idaRe7y3In"
+        ],
+        "mechanics": [
+            "targeting",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Suppress target ally or regalia."
+        ]
+    }
 }

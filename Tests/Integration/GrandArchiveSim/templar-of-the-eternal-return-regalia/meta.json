@@ -5,5 +5,19 @@
     "createdBy": "batch-script",
     "testedCards": [
         "peyG8Hfgqt"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "peyG8Hfgqt"
+        ],
+        "mechanics": [
+            "cost",
+            "targeting",
+            "zone-movement",
+            "trigger"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] (2), Return a regalia you control to its owner's material deck: Put a buff counter on Templar of the Eternal, and it gains spellshroud until end of turn."
+        ]
+    }
 }

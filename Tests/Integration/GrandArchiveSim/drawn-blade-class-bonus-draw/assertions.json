@@ -4,7 +4,9 @@
         "type": "zone_count",
         "zone": "myHand",
         "viewerPlayerID": 1,
-        "value": 8
+        "value": 8,
+        "semantic": true,
+        "label": "Player 1's hand ends at 8 cards -- 7 (materialize draws none) + the extra card from Drawn Blade's own On Enter draw."
     },
     {
         "step": 8,

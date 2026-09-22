@@ -16,6 +16,8 @@
         "type": "zone_count",
         "zone": "theirGraveyard",
         "viewerPlayerID": 1,
-        "value": 1
+        "value": 1,
+        "semantic": true,
+        "label": "The targeted phantasia leaves the opponent's field and lands in their graveyard."
     }
 ]

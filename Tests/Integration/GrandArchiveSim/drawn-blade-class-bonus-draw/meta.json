@@ -5,5 +5,18 @@
     "createdBy": "batch-script",
     "testedCards": [
         "eSAIP7mx9z"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "eSAIP7mx9z"
+        ],
+        "mechanics": [
+            "draw-discard",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Draw a card."
+        ]
+    }
 }

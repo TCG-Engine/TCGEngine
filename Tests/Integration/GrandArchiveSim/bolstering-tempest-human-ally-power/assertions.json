@@ -9,6 +9,8 @@
         "type": "card_property_equals",
         "mzId": "p1Field-1",
         "property": "TurnEffects",
-        "value": "[\"ENTERED_THIS_TURN\",\"PwHub76Fw4-POWER-3\"]"
+        "value": "[\"ENTERED_THIS_TURN\",\"PwHub76Fw4-POWER-3\"]",
+        "semantic": true,
+        "label": "The targeted Human ally gains the PwHub76Fw4-POWER-3 turn effect."
     }
 ]

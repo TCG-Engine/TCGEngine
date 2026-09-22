@@ -5,5 +5,16 @@
     "createdBy": "batch-script",
     "testedCards": [
         "uvopjFSUj0"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uvopjFSUj0"
+        ],
+        "mechanics": [
+            "cost"
+        ],
+        "rulesClauses": [
+            "Materialize a regalia card from your material deck or banishment."
+        ]
+    }
 }

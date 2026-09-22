@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-22T19:10:21+00:00",
+    "generatedAt": "2026-09-22T23:56:14+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 410,
+        "cardsWithExistingFixtures": 423,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2080,
+        "cardsNeedingSemanticCoverage": 2067,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -43,26 +43,6 @@
             "starterDecks": [
                 "Arisanna Pantheon Starter",
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
-            "cardId": "6v374coy34",
-            "name": "Slay the King",
-            "type": "ATTACK",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 124
@@ -208,26 +188,6 @@
             "priority": 114
         },
         {
-            "cardId": "peyG8Hfgqt",
-            "name": "Templar of the Eternal",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "zone-movement",
-                "counter"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "Pd4hj3sveV",
             "name": "Altruistic Blacksmith",
             "type": "ALLY",
@@ -293,25 +253,6 @@
             "mechanics": [
                 "draw-discard",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "eSAIP7mx9z",
-            "name": "Drawn Blade",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -456,25 +397,6 @@
             "priority": 113
         },
         {
-            "cardId": "KoF3AMSlUe",
-            "name": "Veiling Breeze",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "wCAIuvPOAT",
             "name": "Verdure of Preservation",
             "type": "UNIQUE,PHANTASIA",
@@ -513,25 +435,6 @@
             "priority": 113
         },
         {
-            "cardId": "OmWFVRUr8I",
-            "name": "Wisp's Protection",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "prevention"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "mloejozihs",
             "name": "Astromech Attendant",
             "type": "ALLY",
@@ -550,24 +453,6 @@
             "priority": 112
         },
         {
-            "cardId": "sucwQ9or0n",
-            "name": "Beacon Knight",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "Dkq7QnrGJI",
             "name": "Besieged Slash",
             "type": "ATTACK",
@@ -576,24 +461,6 @@
             "mechanics": [
                 "cost",
                 "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "PwHub76Fw4",
-            "name": "Bolstering Tempest",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -622,24 +489,6 @@
             "priority": 112
         },
         {
-            "cardId": "b1k0zi5h8a",
-            "name": "Dematerialize",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "szeb8zzj86",
             "name": "Fractal of Mana",
             "type": "PHANTASIA",
@@ -653,24 +502,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "fK1IQGsUeh",
-            "name": "Iridescent Resurgence",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -769,24 +600,6 @@
             "priority": 112
         },
         {
-            "cardId": "zi5h8asbie",
-            "name": "Scatter Essence",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "d4z3tj2nu8",
             "name": "Set Ablaze",
             "type": "ACTION",
@@ -859,24 +672,6 @@
             "priority": 112
         },
         {
-            "cardId": "idaRe7y3In",
-            "name": "Zephyr",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "QAU8WVUZM0",
             "name": "Celestial Navigation",
             "type": "ACTION",
@@ -889,23 +684,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "uvopjFSUj0",
-            "name": "Halcyon Animus",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -1116,23 +894,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "JEOxGQppTE",
-            "name": "Windrider Vanguard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -23394,7 +23155,7 @@
         },
         {
             "cardId": "zRG5hmBcsP",
-            "name": "Tidal Fractal",
+            "name": "Tidal Fractal ",
             "type": "PHANTASIA",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -36054,6 +35815,30 @@
             "priority": 144
         },
         {
+            "cardId": "6v374coy34",
+            "name": "Slay the King",
+            "type": "ATTACK",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "slay-the-king-banish-material"
+            ],
+            "semanticFixtures": [
+                "slay-the-king-banish-material"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
             "cardId": "7t9m4muq2r",
             "name": "Thieving Cut",
             "type": "ATTACK",
@@ -39360,6 +39145,30 @@
             "priority": 134
         },
         {
+            "cardId": "peyG8Hfgqt",
+            "name": "Templar of the Eternal",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "zone-movement",
+                "counter"
+            ],
+            "existingFixtures": [
+                "templar-of-the-eternal-return-regalia"
+            ],
+            "semanticFixtures": [
+                "templar-of-the-eternal-return-regalia"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "KEhmWGivJp",
             "name": "Tindered Soldier",
             "type": "ALLY",
@@ -39917,6 +39726,29 @@
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "eSAIP7mx9z",
+            "name": "Drawn Blade",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "drawn-blade-class-bonus-draw"
+            ],
+            "semanticFixtures": [
+                "drawn-blade-class-bonus-draw"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -41506,6 +41338,29 @@
             "priority": 133
         },
         {
+            "cardId": "KoF3AMSlUe",
+            "name": "Veiling Breeze",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "veiling-breeze-prevent-champion-damage"
+            ],
+            "semanticFixtures": [
+                "veiling-breeze-prevent-champion-damage"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "dSSRtNnPtw",
             "name": "Water Resonance Bauble",
             "type": "REGALIA,ITEM",
@@ -41623,6 +41478,29 @@
             "starterDecks": [
                 "Kongming Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "OmWFVRUr8I",
+            "name": "Wisp's Protection",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "prevention"
+            ],
+            "existingFixtures": [
+                "wisps-protection-prevent-damage"
+            ],
+            "semanticFixtures": [
+                "wisps-protection-prevent-damage"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -41764,6 +41642,28 @@
             "priority": 132
         },
         {
+            "cardId": "sucwQ9or0n",
+            "name": "Beacon Knight",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "beacon-knight-regalia-enter-buff"
+            ],
+            "semanticFixtures": [
+                "beacon-knight-regalia-enter-buff"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "xjuCkODVRx",
             "name": "Beastbond Boots",
             "type": "REGALIA,ITEM",
@@ -41825,6 +41725,28 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "PwHub76Fw4",
+            "name": "Bolstering Tempest",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting"
+            ],
+            "existingFixtures": [
+                "bolstering-tempest-human-ally-power"
+            ],
+            "semanticFixtures": [
+                "bolstering-tempest-human-ally-power"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -41961,6 +41883,28 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "b1k0zi5h8a",
+            "name": "Dematerialize",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "dematerialize-return-regalia"
+            ],
+            "semanticFixtures": [
+                "dematerialize-return-regalia"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -42283,6 +42227,28 @@
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "fK1IQGsUeh",
+            "name": "Iridescent Resurgence",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "iridescent-resurgence-return-to-memory"
+            ],
+            "semanticFixtures": [
+                "iridescent-resurgence-return-to-memory"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -42758,6 +42724,28 @@
             "starterDecks": [
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "zi5h8asbie",
+            "name": "Scatter Essence",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "scatter-essence-destroy-phantasia"
+            ],
+            "semanticFixtures": [
+                "scatter-essence-destroy-phantasia"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43367,6 +43355,28 @@
             "priority": 132
         },
         {
+            "cardId": "idaRe7y3In",
+            "name": "Zephyr",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "zephyr-suppress-ally"
+            ],
+            "semanticFixtures": [
+                "zephyr-suppress-ally"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "m4c8ljyevp",
             "name": "Academy Attendant",
             "type": "ALLY",
@@ -43801,6 +43811,27 @@
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "uvopjFSUj0",
+            "name": "Halcyon Animus",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost"
+            ],
+            "existingFixtures": [
+                "halcyon-animus-materialize-regalia"
+            ],
+            "semanticFixtures": [
+                "halcyon-animus-materialize-regalia"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -44254,6 +44285,27 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "JEOxGQppTE",
+            "name": "Windrider Vanguard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "windrider-vanguard-class-bonus-vigor"
+            ],
+            "semanticFixtures": [
+                "windrider-vanguard-class-bonus-vigor"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

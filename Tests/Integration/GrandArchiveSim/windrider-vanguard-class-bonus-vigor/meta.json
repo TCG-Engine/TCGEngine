@@ -5,5 +5,16 @@
     "createdBy": "batch-script",
     "testedCards": [
         "JEOxGQppTE"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "JEOxGQppTE"
+        ],
+        "mechanics": [
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] Vigor (This unit wakes up at the beginning of your end phase. Apply this effect only if your champion's class matches this card's class.)"
+        ]
+    }
 }

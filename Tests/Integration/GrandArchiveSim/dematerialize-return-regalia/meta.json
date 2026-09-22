@@ -5,5 +5,17 @@
     "createdBy": "batch-script",
     "testedCards": [
         "b1k0zi5h8a"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "b1k0zi5h8a"
+        ],
+        "mechanics": [
+            "targeting",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Return target regalia to its owner's material deck."
+        ]
+    }
 }

@@ -5,5 +5,17 @@
     "createdBy": "batch-script",
     "testedCards": [
         "zi5h8asbie"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zi5h8asbie"
+        ],
+        "mechanics": [
+            "targeting",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Destroy target phantasia."
+        ]
+    }
 }

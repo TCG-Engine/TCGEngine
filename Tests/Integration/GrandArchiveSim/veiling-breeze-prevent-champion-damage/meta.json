@@ -5,5 +5,18 @@
     "createdBy": "batch-script",
     "testedCards": [
         "KoF3AMSlUe"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "KoF3AMSlUe"
+        ],
+        "mechanics": [
+            "damage",
+            "prevention",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Until end of turn, if damage would be dealt to your champion, prevent an amount of that damage equal to the amount of cards revealed this way."
+        ]
+    }
 }

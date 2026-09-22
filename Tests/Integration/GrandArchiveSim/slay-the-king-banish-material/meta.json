@@ -5,5 +5,19 @@
     "createdBy": "batch-script",
     "testedCards": [
         "6v374coy34"
-    ]
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6v374coy34"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "combat",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may banish a card from your material deck. If you do, Slay the King gains \"On Kill: You may play the banished card.\""
+        ]
+    }
 }
