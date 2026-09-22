@@ -7,16 +7,24 @@ $root = realpath(__DIR__ . '/../..');
 $code = preg_replace('~//[^\n]*~', '', file_get_contents($root . '/APIs/EditDeckCard.php'));
 $checks = [];
 
-$checks['EditDeckCard folds the input id'] = preg_match('~CardIDOverride\(~', $code) === 1;
-$checks['EditDeckCard requires Overrides'] = strpos($code, 'Overrides.php') !== false;
+$checks['EditDeckCard normalizes input and stored ids'] = substr_count($code, 'SWUDeckEditCardID(') >= 2;
+$checks['EditDeckCard loads shared identity helper'] = strpos($code, 'DeckEditCardID.php') !== false;
 // It must NOT reach for the display map — this is a write path, and the two directions must not mix.
 $checks['write path never uses the display map'] = strpos($code, 'SWUDisplayCardID') === false;
 
 // Behavioural: the fold must actually move a latest-printing id back to canonical, and be idempotent.
 require_once $root . '/SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
 require_once $root . '/AppCore/SWU/Overrides.php';
+require_once $root . '/AppCore/SWU/DeckEditCardID.php';
 $checks['LOF_164 folds back to SOR_164']  = CardIDOverride('LOF_164') === 'SOR_164';
 $checks['fold is idempotent']             = CardIDOverride(CardIDOverride('LOF_164')) === 'SOR_164';
+$checks['FFG UID maps to canonical printing'] = SWUDeckEditCardID('7965404100') === 'SOR_033';
+$checks['numeric JSON UID maps to canonical printing'] = SWUDeckEditCardID(7965404100) === 'SOR_033';
+$checks['printing and UID match same stored card'] = SWUDeckEditCardID('SEC_030') === SWUDeckEditCardID('7965404100');
+$checks['canonical ID remains canonical'] = SWUDeckEditCardID('SOR_033') === 'SOR_033';
+
+$bulkCode = file_get_contents($root . '/APIs/EditDeckCards.php');
+$checks['bulk edit normalizes input and both remove comparisons'] = substr_count($bulkCode, 'SWUDeckEditCardID(') === 3;
 
 $fail = array_keys(array_filter($checks, fn($v) => !$v));
 if ($fail) { fwrite(STDERR, "FAIL (" . count($fail) . "/" . count($checks) . "):\n  - " . implode("\n  - ", $fail) . "\n"); exit(1); }

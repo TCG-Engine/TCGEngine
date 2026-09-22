@@ -3,8 +3,8 @@
 // Rewrites a deck gamestate file. The deck-file rewrite walks those files, and autosave racing a
   // format change is exactly what caused the Leader2 sideboard data loss.
 require_once __DIR__ . '/../AppCore/SWU/Maintenance.php';
-require_once __DIR__ . '/../AppCore/SWU/Overrides.php';   // CardIDOverride — writes store the EARLIEST printing
 SWUMaintenanceRequire('SWUDeck', 'deck');
+require_once __DIR__ . '/../AppCore/SWU/DeckEditCardID.php';
 
   // APIs/EditDeckCard.php
   // Modify a deck's gamestate (add/remove cards) for decks owned by the token's user.
@@ -28,11 +28,8 @@ SWUMaintenanceRequire('SWUDeck', 'deck');
 
   $deckID = isset($data['deckID']) ? intval($data['deckID']) : 0;
   $action = isset($data['action']) ? strtolower($data['action']) : '';// add | remove
-  // Any printing is accepted; the EARLIEST is what gets stored. Exports now emit the latest printing,
-  // so a client echoing an exported id back would otherwise write a non-canonical card into the deck
-  // file — splitting it from its own stats history. CardIDOverride is idempotent, so a caller sending
-  // the canonical id is unaffected.
-  $cardID = isset($data['cardID']) ? CardIDOverride($data['cardID']) : '';
+  // Resolve FFG UIDs and alternate printings to the earliest SET_NNN ID for storage.
+  $cardID = isset($data['cardID']) ? SWUDeckEditCardID($data['cardID']) : '';
   $count = isset($data['count']) ? intval($data['count']) : 1;
   $zone = isset($data['zone']) ? strtolower($data['zone']) : 'main'; // main | side
 
@@ -163,13 +160,13 @@ SWUMaintenanceRequire('SWUDeck', 'deck');
       $modified = true;
     }
   } else if ($action === 'remove') {
-    // Remove up to $count occurrences using exact CardID match
+    // Remove up to $count occurrences using canonical card identity.
     $removed = 0;
     for ($i = 0; $i < count($targetArray) && $removed < $count; $i++) {
       $obj = $targetArray[$i];
-      // Use the object's CardID property for exact matching when available
+      // Use the object's CardID property when available.
       $objCardID = isset($obj->CardID) ? $obj->CardID : trim($obj->Serialize());
-      if ($objCardID === $cardID) {
+      if (SWUDeckEditCardID($objCardID) === $cardID) {
         array_splice($targetArray, $i, 1);
         $i--; // adjust index after removal
         $removed++;

@@ -3,8 +3,8 @@
 // Rewrites a deck gamestate file. The deck-file rewrite walks those files, and autosave racing a
 // format change is exactly what caused the Leader2 sideboard data loss.
 require_once __DIR__ . '/../AppCore/SWU/Maintenance.php';
-require_once __DIR__ . '/../AppCore/SWU/Overrides.php';   // CardIDOverride — writes store the EARLIEST printing
 SWUMaintenanceRequire('SWUDeck', 'deck');
+require_once __DIR__ . '/../AppCore/SWU/DeckEditCardID.php';
 
   // APIs/EditDeckCards.php
   // Modify several of a deck's cards at once for decks owned by the token's user.
@@ -68,11 +68,8 @@ SWUMaintenanceRequire('SWUDeck', 'deck');
       echo json_encode(["success" => false, "error" => "Invalid cards[$index]; must be an object"]);
       exit;
     }
-    // Any printing is accepted; the EARLIEST is what gets stored. Exports now emit the latest printing,
-    // so a client echoing an exported id back would otherwise write a non-canonical card into the deck
-    // file — splitting it from its own stats history. CardIDOverride is idempotent, so a caller sending
-    // the canonical id is unaffected.
-    $cardID = isset($entry['cardID']) ? CardIDOverride($entry['cardID']) : '';
+    // Resolve FFG UIDs and alternate printings to the earliest SET_NNN ID for storage.
+    $cardID = isset($entry['cardID']) ? SWUDeckEditCardID($entry['cardID']) : '';
     $action = isset($entry['action']) ? strtolower($entry['action']) : 'add'; // add | remove
     $count = isset($entry['count']) ? intval($entry['count']) : 1;
     $zone = isset($entry['zone']) ? strtolower($entry['zone']) : 'main'; // main | side
@@ -214,7 +211,7 @@ SWUMaintenanceRequire('SWUDeck', 'deck');
       $available = 0;
       foreach ($targetArray as $obj) {
         $objCardID = isset($obj->CardID) ? $obj->CardID : trim($obj->Serialize());
-        if ($objCardID === $change['cardID']) $available++;
+        if (SWUDeckEditCardID($objCardID) === $change['cardID']) $available++;
       }
       if ($available < $change['count']) {
         mysqli_close($conn);
@@ -240,13 +237,13 @@ SWUMaintenanceRequire('SWUDeck', 'deck');
       }
       $results[] = ["index" => $index, "action" => "add", "cardID" => $change['cardID'], "zone" => $change['zone'], "added" => $change['count']];
     } else {
-      // Remove up to count occurrences using exact CardID match (pre-verified above)
+      // Remove up to count occurrences using canonical card identity (pre-verified above).
       $removed = 0;
       for ($i = 0; $i < count($targetArray) && $removed < $change['count']; $i++) {
         $obj = $targetArray[$i];
-        // Use the object's CardID property for exact matching when available
+        // Use the object's CardID property when available.
         $objCardID = isset($obj->CardID) ? $obj->CardID : trim($obj->Serialize());
-        if ($objCardID === $change['cardID']) {
+        if (SWUDeckEditCardID($objCardID) === $change['cardID']) {
           array_splice($targetArray, $i, 1);
           $i--; // adjust index after removal
           $removed++;
