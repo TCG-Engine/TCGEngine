@@ -1,0 +1,16 @@
+{
+    "name": "epochal-conqueror-attack-domain-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:45:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "gR3LGjzKPS"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["gR3LGjzKPS"],
+        "mechanics": ["combat", "condition"],
+        "rulesClauses": [
+            "As long as CARDNAME is attacking a domain, it gets +3 POWER."
+        ]
+    }
+}

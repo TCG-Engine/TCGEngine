@@ -1,0 +1,16 @@
+{
+    "name": "sable-remnant-class-bonus-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:51:14+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "8n4zw4gq5w"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["8n4zw4gq5w"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "[Class Bonus] CARDNAME gets +1 POWER."
+        ]
+    }
+}

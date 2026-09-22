@@ -12916,6 +12916,229 @@ DECK,
     ],
 ];
 
+// --- Sable Remnant: [Class Bonus] +1 POWER ---
+$fixtures['sable-remnant-class-bonus-power'] = [
+    'testedCards' => ['8n4zw4gq5w'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Sable Remnant's element is NORM, so only the Class Bonus condition needs a precondition:
+    // the starting champion's CardID is patched directly to Zander, Deft Executor (ASSASSIN) so
+    // IsClassBonusActive($player, ["ASSASSIN"]) is true. Sable Remnant's printed POWER is 1
+    // (verified via CardPower()); the computed_power_equals assertion of 2 is only possible if the
+    // static +1 POWER case in GameLogic.php's power-modifier switch actually applied. A single
+    // harmless "end turn 1" action is included even though nothing about ending the turn matters
+    // to this static ability -- RunIntegrationTests.php's step-0 (pre-action) assertion check
+    // never calls ParseGamestate() itself, so with zero actions it reads stale runtime globals
+    // left over from whichever fixture ran immediately before this one in the same process
+    // (verified live: computed_power_equals came back as an unrelated leftover value), while the
+    // step-1 (post-action) check is always evaluated against this fixture's own freshly-parsed
+    // state.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'fc4ic5fmaa']], // Zander, Deft Executor (ASSASSIN)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '8n4zw4gq5w'], // Sable Remnant, seeded straight onto the field
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // harmless: ends turn 1
+    ],
+];
+
+// --- Photic Blade: gets +1 POWER for each refinement counter on it ---
+$fixtures['photic-blade-refinement-power'] = [
+    'testedCards' => ['NRBO0nVMdl'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Photic Blade's element is LUXEM, but it is seeded directly onto the field (materialize flow
+    // out of scope, same pattern as necklace-of-foresight-banish-glimpse), so no lineage patch is
+    // needed for this always-on static clause. It is pre-seeded with 2 refinement counters
+    // directly (normally only reachable via its own [Class Bonus] recover-triggered listener,
+    // which is out of scope here). Photic Blade's printed POWER is 3 (verified via CardPower());
+    // the computed_power_equals assertion of 5 is only possible if the +1-per-refinement-counter
+    // static case in GameLogic.php's power-modifier switch actually applied. A single harmless
+    // "end turn 1" action is included so the assertion runs against step 1 (this fixture's own
+    // freshly-parsed state) rather than step 0, which RunIntegrationTests.php evaluates before
+    // ever calling ParseGamestate() for this fixture (verified live -- see
+    // sable-remnant-class-bonus-power's note for the same gotcha).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'NRBO0nVMdl', 'setProperties' => ['Counters' => ['refinement' => 2]]], // Photic Blade, 2 refinement counters
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // harmless: ends turn 1
+    ],
+];
+
+// --- Elyan, Lustre Loyalty: [Class Bonus] whenever you recover, +X POWER (X = amount recovered) ---
+$fixtures['elyan-lustre-loyalty-recover-power'] = [
+    'testedCards' => ['2jgiM0p4dt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Elyan's element is LUXEM; the starting champion's CardID is patched directly to Zander,
+    // Blinding Steel (LUXEM, ASSASSIN) both for its own element-requirement precondition (Bathe in
+    // Light, used to trigger a real recover event, is also LUXEM) and Elyan's own [Class Bonus]
+    // condition. Elyan is seeded directly onto the field. The champion's Damage is pre-set to 10
+    // so Bathe in Light's Recover 4 is a real, observable recover event that fires the recover
+    // listener in GameLogic.php (~line 18437), which both tags Elyan with the
+    // "2jgiM0p4dt_RECOVER_4" TurnEffects entry (+4 POWER, since 4 >= 4 also grants UNBLOCKABLE)
+    // and -- because the recovered amount is >= 4 -- grants unblockable, both asserted below.
+    // Elyan's printed POWER is 2 (verified via CardPower()); computed_power_equals of 6 is only
+    // possible if the +X-per-recover-amount static case actually applied with X=4.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE', 'Damage' => 10]], // Zander, Blinding Steel (LUXEM, ASSASSIN) + damage precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '2jgiM0p4dt'], // Elyan, Lustre Loyalty
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'd9zax2g20h'], // Bathe in Light, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Lightveil Agent: whenever you recover, put a buff counter on CARDNAME ---
+$fixtures['lightveil-agent-recover-buff-counter'] = [
+    'testedCards' => ['jcaLgesx0e'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lightveil Agent's element is LUXEM; the starting champion's CardID is patched directly to
+    // Zander, Blinding Steel (LUXEM) so Bathe in Light (also LUXEM) can be legally activated. The
+    // champion's Damage is pre-set to 4 so Bathe in Light's Recover 4 is a real, observable
+    // recover event that fires the unconditional (no Class Bonus needed) recover listener in
+    // GameLogic.php (~line 18447), which puts a buff counter on Lightveil Agent.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE', 'Damage' => 4]], // Zander, Blinding Steel (LUXEM) + damage precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'jcaLgesx0e'], // Lightveil Agent
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'd9zax2g20h'], // Bathe in Light, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Epochal Conqueror: as long as it's attacking a domain, it gets +3 POWER ---
+$fixtures['epochal-conqueror-attack-domain-power'] = [
+    'testedCards' => ['gR3LGjzKPS'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Epochal Conqueror's element is NORM, so no lineage patch is needed. Rule 1.h blocks the
+    // game's first player from attacking on turn 1, so player 1 ends turn 1 and player 2 attacks
+    // with Epochal Conqueror on their own turn 1 instead. Baidi, Oathsworn Palace (a plain DOMAIN
+    // card with only a static ability and no activated ability of its own -- Bedlam Borough's own
+    // "(2), REST: Cascade" activated ability was tried first but kept re-offering itself as a
+    // perpetual Opportunity choice that never actually declined, verified live) is seeded onto the
+    // opponent's field as the attack target; IsSiegeable() recognizes it via its SIEGEABLE
+    // subtype, the actual condition GameLogic.php's power-modifier switch checks (not the DOMAIN
+    // card type itself). Since the +3 POWER only applies transiently while CombatAttacker is set
+    // (cleared again once combat fully resolves within the same action), it is proven indirectly:
+    // the domain's durability drops by 4 (1 printed POWER + 3), not just 1.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'gR3LGjzKPS'], // Epochal Conqueror
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '43rtqovkti', 'setProperties' => ['Counters' => ['durability' => 5]]], // Baidi, Oathsworn Palace (DOMAIN/SIEGEABLE)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Epochal Conqueror
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Baidi, Oathsworn Palace
+    ],
+];
+
+// --- Curved Dagger: [Class Bonus] as long as your champion is attacking an ally, +1 POWER ---
+$fixtures['curved-dagger-class-bonus-attack-ally-power'] = [
+    'testedCards' => ['Q2ugqVm04E'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Curved Dagger's element is NORM. The starting champion's CardID is patched directly to
+    // Zander, Deft Executor (ASSASSIN) for the Class Bonus condition. Rule 1.h blocks the game's
+    // first player from attacking on turn 1, so player 1 ends turn 1 and player 2's champion
+    // attacks (equipped with Curved Dagger) targeting a Dungeon Guide ally on their turn 1
+    // instead. Curved Dagger's printed POWER is 1, and the champion's own printed POWER is blank
+    // (-1, so it contributes nothing) -- since the +1 POWER is only active transiently while
+    // CombatAttacker/CombatTarget are set (cleared again once combat fully resolves within the
+    // same action, so a computed_power_equals snapshot after the fact can't observe it, verified
+    // live), it is instead proven indirectly via the ally taking 2 damage, not just 1. The
+    // defender's "Retaliate?" MZMAYCHOOSE (Dungeon Guide itself, being the target with positive
+    // POWER, is eligible) must be explicitly declined so CombatApplyAttackerDamage actually lands.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'fc4ic5fmaa']], // Zander, Deft Executor (ASSASSIN)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'Q2ugqVm04E', 'setProperties' => ['Counters' => ['durability' => 1]]], // Curved Dagger, usable
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) - attack target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // choose Curved Dagger as the weapon
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so CombatApplyAttackerDamage actually lands
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
