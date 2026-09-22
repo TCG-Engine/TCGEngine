@@ -94,8 +94,11 @@
   // SWUSim Bot Practice: the bot's Play Style (the menu's select). Optional; missing or unknown means
   // 'normal', so a Bot Practice game never falls back to the first-legal chooser. SWUSim/CreateGame.php
   // turns it into the SWUBotProfile game variable (heuristic-<style>). Ignored by every other format.
+  // Accepted: the five archetypes the menu sends (SWUSim/Custom/BotArchetypes.php SWU_BOT_ARCHETYPES) and the three
+  // legacy names older clients send (its SWU_BOT_STYLE_ALIASES). Until 2026-09-22 only the legacy three passed, so
+  // every archetype but Midrange silently became 'normal' (DevTools/tdd-regression/test_swusim_botpractice_style5.php).
   $botStyle = strtolower(trim(strval($_POST['botStyle'] ?? '')));
-  if (!in_array($botStyle, ['aggro', 'normal', 'control'], true)) $botStyle = 'normal';
+  if (!in_array($botStyle, ['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 'hardcontrol', 'aggro', 'normal', 'control'], true)) $botStyle = 'normal';
   $createTutorial = isset($_POST['createTutorial']) && ($_POST['createTutorial'] === '1' || strtolower($_POST['createTutorial']) === 'true');
   $casterMode = isset($_POST['casterMode']) && ($_POST['casterMode'] === '1' || strtolower($_POST['casterMode']) === 'true');
   $privateInviteCode = isset($_POST['privateInviteCode']) ? trim($_POST['privateInviteCode']) : '';

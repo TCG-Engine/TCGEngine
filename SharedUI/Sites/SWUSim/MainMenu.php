@@ -172,7 +172,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <button type="button" id="create-private-game-btn" class="swu-action" onclick="createPrivateGame()"><?php echo SWUMenuIcon('users'); ?><span class="swu-btn-label">Create Private Room</span></button>
         <button type="button" id="join-private-invite-btn" class="swu-action swu-action--primary" onclick="joinPrivateInvite()" style="display: none;"><?php echo SWUMenuIcon('join'); ?><span class="swu-btn-label">Join Private Invite</span></button>
       </div>
-      <div id="queue-inline-error" class="swu-note swu-note--error" style="display: none;"></div>
+      <div id="queue-inline-error" class="swu-note" style="display: none;"></div>
       <div id="private-invite-notice" class="swu-note" style="display: none;"></div>
       <?php if (!$swuLoggedIn): ?>
       <!-- Guest note. Guests play every format (owner, 2026-09-21); the one thing an account adds is in-game chat,
@@ -874,7 +874,9 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
       function showQueueInlineError(message) {
         var el = document.getElementById('queue-inline-error');
         if (!el) { StyledAlert(message); return; }
-        el.style.color = '#ff6b6b';
+        // The colour is a CLASS: the menu stylesheet sets .swu-note colours with !important, so an inline
+        // colour loses (the revamp's fixed swu-note--error class turned every success message red).
+        el.classList.remove('swu-note--ok'); el.classList.add('swu-note--error');
         el.style.display = '';
         var lines = (message || 'Unable to join queue.').split('\n');
         el.innerHTML = lines.map(function(l) {
@@ -886,7 +888,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         var el = document.getElementById('queue-inline-error');
         if (!el) return;
         el.textContent = message;
-        el.style.color = '#a8c8a0';
+        el.classList.remove('swu-note--error'); el.classList.add('swu-note--ok');
         el.style.display = '';
       }
 

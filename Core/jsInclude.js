@@ -812,7 +812,10 @@ function _ChatPlayerLabel(msg) {
   var seat = String(msg.playerID == null ? "" : msg.playerID);
   var seatName = (window.SWU_SEAT_USERNAMES && /^[0-9]+$/.test(seat))
     ? window.SWU_SEAT_USERNAMES[seat] : null;
-  return seatName ? seatName : (msg.playerLabel ? msg.playerLabel : ("P" + msg.playerID));
+  if (!seatName) return msg.playerLabel ? msg.playerLabel : ("P" + msg.playerID);
+  // A host that sets CHAT_SEAT_SUFFIX (SWUSim, at 3+ seats) gets "alice (P3)", so a multiplayer table can
+  // match a name to a seat. Unset, the label is the bare username, as before.
+  return window.CHAT_SEAT_SUFFIX === true ? seatName + " (P" + seat + ")" : seatName;
 }
 
 function _ChatViewerSeat() {
