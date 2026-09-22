@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-15T15:54:13+00:00",
+    "generatedAt": "2026-09-22T13:56:23+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 359,
+        "cardsWithExistingFixtures": 377,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2128,
+        "cardsNeedingSemanticCoverage": 2113,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -1811,6 +1811,28 @@
             "priority": 50
         },
         {
+            "cardId": "Lewf9sfv9m",
+            "name": "Golden Pawn",
+            "type": "ALLY",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "draw-discard",
+                "token",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "redslime-ondeath-sweep-stack-order-choice"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 45
+        },
+        {
             "cardId": "t0240ykvj0",
             "name": "Rescue the Heir",
             "type": "ACTION",
@@ -2189,6 +2211,25 @@
             "priority": 33
         },
         {
+            "cardId": "mttsvbgl6f",
+            "name": "Red Slime",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "redslime-ondeath-sweep-stack-order-choice"
+            ],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 33
+        },
+        {
             "cardId": "oCqKBEPemA",
             "name": "Aenean Flux Generator",
             "type": "ITEM",
@@ -2201,6 +2242,24 @@
                 "trigger"
             ],
             "existingFixtures": [],
+            "semanticFixtures": [],
+            "starterDecks": [],
+            "needsSemanticCoverage": true,
+            "priority": 32
+        },
+        {
+            "cardId": "loSCQzxqi1",
+            "name": "Heavenly Drake",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "redslime-ondeath-sweep-stack-order-choice"
+            ],
             "semanticFixtures": [],
             "starterDecks": [],
             "needsSemanticCoverage": true,
@@ -2634,25 +2693,6 @@
             "priority": 25
         },
         {
-            "cardId": "jh9s424gjr",
-            "name": "Enervating Decay",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "recover",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
             "cardId": "9wxcgpy069",
             "name": "Expel the Departed",
             "type": "ACTION",
@@ -2719,26 +2759,6 @@
                 "cost",
                 "recover",
                 "draw-discard",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 25
-        },
-        {
-            "cardId": "Lewf9sfv9m",
-            "name": "Golden Pawn",
-            "type": "ALLY",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "draw-discard",
-                "token",
-                "combat",
                 "trigger",
                 "condition"
             ],
@@ -3181,24 +3201,6 @@
                 "zone-movement",
                 "combat",
                 "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "e3aebjvwbc",
-            "name": "Astral Seal",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4089,24 +4091,6 @@
             "priority": 24
         },
         {
-            "cardId": "9e0z7hb9id",
-            "name": "Rebounding Gust",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
             "cardId": "2rz308kuz0",
             "name": "Reconnaissance Field",
             "type": "PHANTASIA",
@@ -4163,24 +4147,6 @@
         {
             "cardId": "voy5ttkk39",
             "name": "Sidestep",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "j9fkuzgg9i",
-            "name": "Sleety Retreat",
             "type": "ACTION",
             "abilityCount": 2,
             "listenerCount": 0,
@@ -4278,24 +4244,6 @@
                 "draw-discard",
                 "zone-movement",
                 "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "4etkr73opc",
-            "name": "Tempest Downfall",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
                 "condition"
             ],
             "existingFixtures": [],
@@ -4405,24 +4353,6 @@
                 "targeting",
                 "draw-discard",
                 "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 24
-        },
-        {
-            "cardId": "qtzsekkjn3",
-            "name": "Vainglory Retribution",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "damage",
-                "prevention",
-                "combat"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -4642,23 +4572,6 @@
             "priority": 23
         },
         {
-            "cardId": "u817uqlk1j",
-            "name": "Annul Spell",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
             "cardId": "7e22tk3ir1",
             "name": "Arisanna, Lucent Arbiter",
             "type": "CHAMPION",
@@ -4729,23 +4642,6 @@
         {
             "cardId": "tFOpmUdi2W",
             "name": "Castling",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "75uhspxqme",
-            "name": "Cavalier Rescue",
             "type": "ACTION",
             "abilityCount": 2,
             "listenerCount": 0,
@@ -5244,23 +5140,6 @@
             "listenerCount": 0,
             "mechanics": [
                 "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 23
-        },
-        {
-            "cardId": "1S7Q5fqX5u",
-            "name": "Imperial Accord",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
                 "zone-movement",
                 "condition"
             ],
@@ -9391,26 +9270,6 @@
                 "draw-discard",
                 "zone-movement",
                 "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 15
-        },
-        {
-            "cardId": "z07nau5sw9",
-            "name": "Powered Defender",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "status",
-                "token",
-                "combat",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -20723,23 +20582,6 @@
             "priority": 13
         },
         {
-            "cardId": "pal7cpvn96",
-            "name": "Intrepid Spearman",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
             "cardId": "smr2rn78qo",
             "name": "Invective Instruction",
             "type": "ACTION",
@@ -22686,23 +22528,6 @@
             "mechanics": [
                 "draw-discard",
                 "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 13
-        },
-        {
-            "cardId": "mttsvbgl6f",
-            "name": "Red Slime",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "trigger",
                 "condition"
             ],
             "existingFixtures": [],
@@ -27694,22 +27519,6 @@
             "priority": 12
         },
         {
-            "cardId": "Zw0T2GmowK",
-            "name": "Greater Boon of Shou",
-            "type": "GREATER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "nETOkMHYwv",
             "name": "Greater Boon of the Underdog",
             "type": "GREATER BOON",
@@ -27839,22 +27648,6 @@
         },
         {
             "cardId": "jej8y91lkg",
-            "name": "Heavenly Drake",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "loSCQzxqi1",
             "name": "Heavenly Drake",
             "type": "ALLY",
             "abilityCount": 1,
@@ -28350,22 +28143,6 @@
             "priority": 12
         },
         {
-            "cardId": "P8sbt2gXkn",
-            "name": "Lesser Boon of Kanaloa",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
             "cardId": "WLPf8QTdsP",
             "name": "Lesser Boon of Knox",
             "type": "LESSER BOON",
@@ -28406,22 +28183,6 @@
             "mechanics": [
                 "status",
                 "token"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 12
-        },
-        {
-            "cardId": "rSIXf50oBc",
-            "name": "Lesser Boon of Shou",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "condition"
             ],
             "existingFixtures": [],
             "semanticFixtures": [],
@@ -34534,21 +34295,6 @@
         {
             "cardId": "nJOde7e1Xc",
             "name": "Lesser Boon of Scriveners",
-            "type": "LESSER BOON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [],
-            "needsSemanticCoverage": true,
-            "priority": 11
-        },
-        {
-            "cardId": "ZpM7gliLxm",
-            "name": "Lesser Boon of Territories",
             "type": "LESSER BOON",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -44402,6 +44148,51 @@
             "priority": 131
         },
         {
+            "cardId": "jh9s424gjr",
+            "name": "Enervating Decay",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "recover",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "enervating-decay-target-destroy-recover"
+            ],
+            "semanticFixtures": [
+                "enervating-decay-target-destroy-recover"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 45
+        },
+        {
+            "cardId": "e3aebjvwbc",
+            "name": "Astral Seal",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "astral-seal-negate-activation-banish"
+            ],
+            "semanticFixtures": [
+                "astral-seal-negate-activation-banish"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
             "cardId": "5u5ic64930",
             "name": "Butler's Augury",
             "type": "ACTION",
@@ -44542,6 +44333,157 @@
             "priority": 44
         },
         {
+            "cardId": "9e0z7hb9id",
+            "name": "Rebounding Gust",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rebounding-gust-target-to-memory"
+            ],
+            "semanticFixtures": [
+                "rebounding-gust-target-to-memory"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "j9fkuzgg9i",
+            "name": "Sleety Retreat",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sleety-retreat-target-distant"
+            ],
+            "semanticFixtures": [
+                "sleety-retreat-target-distant"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "4etkr73opc",
+            "name": "Tempest Downfall",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "tempest-downfall-target-damage"
+            ],
+            "semanticFixtures": [
+                "tempest-downfall-target-damage"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "qtzsekkjn3",
+            "name": "Vainglory Retribution",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "damage",
+                "prevention",
+                "combat"
+            ],
+            "existingFixtures": [
+                "vainglory-retribution-play-card-trigger"
+            ],
+            "semanticFixtures": [
+                "vainglory-retribution-play-card-trigger"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 44
+        },
+        {
+            "cardId": "u817uqlk1j",
+            "name": "Annul Spell",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "annul-spell-negate-spell-activation"
+            ],
+            "semanticFixtures": [
+                "annul-spell-negate-spell-activation"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "75uhspxqme",
+            "name": "Cavalier Rescue",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cavalier-rescue-target-turn-effect"
+            ],
+            "semanticFixtures": [
+                "cavalier-rescue-target-turn-effect"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
+            "cardId": "1S7Q5fqX5u",
+            "name": "Imperial Accord",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "imperial-accord-negate-advanced-element"
+            ],
+            "semanticFixtures": [
+                "imperial-accord-negate-advanced-element"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 43
+        },
+        {
             "cardId": "ts9VdtFtk1",
             "name": "Divine Comedy",
             "type": "MASTERY",
@@ -44560,6 +44502,30 @@
             ],
             "semanticFixtures": [
                 "divine-comedy-once-per-turn"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 35
+        },
+        {
+            "cardId": "z07nau5sw9",
+            "name": "Powered Defender",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "status",
+                "token",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "powered-defender-dealt-damage-summons-powercell"
+            ],
+            "semanticFixtures": [
+                "powered-defender-dealt-damage-summons-powercell"
             ],
             "starterDecks": [],
             "needsSemanticCoverage": false,
@@ -44609,6 +44575,87 @@
             "priority": 33
         },
         {
+            "cardId": "pal7cpvn96",
+            "name": "Intrepid Spearman",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "condition"
+            ],
+            "existingFixtures": [
+                "intrepid-spearman-combat-damage-reveal-wind-prevent"
+            ],
+            "semanticFixtures": [
+                "intrepid-spearman-combat-damage-reveal-wind-prevent"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 33
+        },
+        {
+            "cardId": "Zw0T2GmowK",
+            "name": "Greater Boon of Shou",
+            "type": "GREATER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "greater-boon-of-shou-draw-on-play"
+            ],
+            "semanticFixtures": [
+                "greater-boon-of-shou-draw-on-play"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "P8sbt2gXkn",
+            "name": "Lesser Boon of Kanaloa",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-kanaloa-both-discard-3"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-kanaloa-both-discard-3"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
+            "cardId": "rSIXf50oBc",
+            "name": "Lesser Boon of Shou",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-shou-enlighten-on-play"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-shou-enlighten-on-play"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 32
+        },
+        {
             "cardId": "MuCOJRgMdj",
             "name": "Otherworldly Possessions",
             "type": "ACTION",
@@ -44627,6 +44674,25 @@
             "starterDecks": [],
             "needsSemanticCoverage": false,
             "priority": 32
+        },
+        {
+            "cardId": "ZpM7gliLxm",
+            "name": "Lesser Boon of Territories",
+            "type": "LESSER BOON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "lesser-boon-of-territories-scavenge-domain"
+            ],
+            "semanticFixtures": [
+                "lesser-boon-of-territories-scavenge-domain"
+            ],
+            "starterDecks": [],
+            "needsSemanticCoverage": false,
+            "priority": 31
         }
     ]
 }
