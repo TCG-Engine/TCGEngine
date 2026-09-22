@@ -1,0 +1,16 @@
+[
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "CardID",
+        "value": "DpHDGaX2Pn"
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1
+    }
+]

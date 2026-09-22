@@ -13902,6 +13902,71 @@ $fixtures['drawn-blade-class-bonus-draw'] = [
     ],
 ];
 
+// --- Windrider Vanguard: [Class Bonus] Vigor -- wakes up at the beginning of the end phase ---
+$fixtures['windrider-vanguard-class-bonus-vigor'] = [
+    'testedCards' => ['JEOxGQppTE'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Windrider Vanguard (JEOxGQppTE) is seeded directly onto the field already rested (Status=1),
+    // with the champion patched to Lorraine, Wandering Warrior (DpHDGaX2Pn, WARRIOR) for the class
+    // bonus. Its Vigor is conditional (GeneratedKeywordCode.php's $Vigor_Cards["JEOxGQppTE"] has a
+    // "Class Bonus" condition, checked by HasKeyword_Vigor()), so without WARRIOR active it would
+    // stay rested. Both players end their first turns (a real end-phase transition, not a targeted
+    // ability), and Windrider Vanguard wakes up (Status -> 2) at player 1's own end phase.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'JEOxGQppTE', 'setProperties' => ['Status' => 1]],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Slay the King: [Class Bonus] On Attack, may banish a material card ("On Kill: play it") ---
+$fixtures['slay-the-king-banish-material'] = [
+    'testedCards' => ['6v374coy34'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Slay the King (6v374coy34, CRUX ATTACK, WARRIOR [Class Bonus]) needs both CRUX and WARRIOR --
+    // the champion is patched to Lorraine, Spirit Ruler (n2TKqNaODR), which is itself WARRIOR-class
+    // CRUX-element, satisfying both at once. Attacking is locked on turn 1
+    // (CanActivateAttackCardNow), so both players end their first turns to reach player 1's second
+    // turn, materializing Sword of Seeking (Dz8I0eJzaf, 0-memory WARRIOR/SWORD weapon already in
+    // this deck's Material zone) so the champion has a nonzero attack power. Slay the King is then
+    // played as a real attack (reserve cost 2, paid before the attacker/weapon/target declaration,
+    // matching this card's own DQ ordering) against the opponent's champion.
+    // onAttackAbilities["6v374coy34:0"] (GeneratedMacroCode.php) offers a YES/NO to banish a
+    // material-deck card (SlayTheKingOnAttack, Custom/CardDQHandlers.php); answering YES and
+    // choosing myMaterial-0 (Lorraine, Wandering Warrior) banishes it, observable as the card
+    // moving from material to banishment. (The follow-up "On Kill: may play the banished card" is
+    // out of scope -- it requires a full combat kill, not just a hit.)
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'n2TKqNaODR']],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '6v374coy34'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-7', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // NOTE: Silver Soldier (c3C6PjX0Vt, printed "Retort 2, Vigor") is intentionally NOT covered.
 // GeneratedKeywordCode.php has no entry at all for this card -- HasKeyword_Retort() and
 // HasKeyword_Vigor() both return false for it (verified live: GetRetortValue() computes 0, and a
