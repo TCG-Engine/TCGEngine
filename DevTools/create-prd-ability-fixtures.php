@@ -12714,6 +12714,208 @@ DECK,
     ],
 ];
 
+// --- Sacred Barrier: the next non-combat damage to each ally this turn is prevented by 4 ---
+$fixtures['sacred-barrier-prevent-noncombat'] = [
+    'testedCards' => ['hYDqthNDpB'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Sacred Barrier's element is NORM, so no lineage patch is needed. Cunning Broker (an ALLY
+    // with no On Enter trigger of its own, unlike Fluffy Shopkeep/Dungeon Guide -- verified live
+    // that seeding either of those left a dangling MZMAYCHOOSE/CUSTOM Enter decision in the queue
+    // that blocked every subsequent FSM action) is seeded onto the field as the beneficiary of the
+    // "each ally" clause. Activating a card puts it on the EffectStack behind an Opportunity
+    // window (verified live via a throwaway EffectStack/DQ dump) -- both players must pass their
+    // response window (P1's own MZMAYCHOOSE offering to respond by activating Cunning Broker's
+    // Rest ability, then P2's) before Sacred Barrier actually resolves.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'oy34bro89w'], // Cunning Broker (ALLY, no On Enter trigger)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'hYDqthNDpB'], // Sacred Barrier, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Accepted Contract: Put three preparation counters on your champion ---
+$fixtures['accepted-contract-prepare-three'] = [
+    'testedCards' => ['uZCyXDNJ6I'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Accepted Contract's element is NORM, so no lineage patch is needed.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uZCyXDNJ6I'], // Accepted Contract, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Increasing Danger: Draw a card. Each player draws a card into their memory ---
+$fixtures['increasing-danger-draw-memory'] = [
+    'testedCards' => ['7tUvIHeo0i'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Increasing Danger's element is FIRE, matching the starting champion, so no lineage patch is
+    // needed.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '7tUvIHeo0i'], // Increasing Danger, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Shared Fervor: Each player draws a card into their memory. You gain the Crowd's Favor status ---
+$fixtures['shared-fervor-memory-crowds-favor'] = [
+    'testedCards' => ['RnUpMoSb4w'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Shared Fervor's element is NORM, so no lineage patch is needed.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'RnUpMoSb4w'], // Shared Fervor, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Tenderheart Guard: On Enter, each player may discard to draw into memory; gain Crowd's Favor ---
+$fixtures['tenderheart-guard-enter-discard-draw-crowds-favor'] = [
+    'testedCards' => ['0ZWcrEsFHA'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Tenderheart Guard's element is FIRE, matching the starting champion, so no lineage patch is
+    // needed. Both players answer YES to the discard-to-draw-into-memory offer so both halves of
+    // the trigger (TenderheartGuardEnter -> TenderheartGuardDiscard -> TenderheartGuardDrawMemory,
+    // CardDQHandlers.php) are exercised, plus the unconditional GainCrowdsFavor() call.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '0ZWcrEsFHA'], // Tenderheart Guard, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Wandering Glaivier: On Death, each player draws a card ---
+$fixtures['wandering-glaivier-on-death-draw'] = [
+    'testedCards' => ['p6120p3f5d'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Wandering Glaivier's element is FIRE, matching the starting champion, so no lineage patch is
+    // needed. Rule 1.h blocks the game's first player from attacking at all on turn 1 (any attack,
+    // not just ATTACK-type cards -- BeginCombatPhase() in CombatLogic.php), so player 1 ends turn 1
+    // first and player 2 attacks with Wandering Glaivier on their own turn 1 instead (same
+    // turn-cycle shape as thieving-cut-prepare-onhit-draw). It is seeded directly onto player 2's
+    // field, awake, so it can attack immediately. Its 1 Life means any retaliate damage kills it --
+    // but the starting champion's printed POWER is blank/0 (CardPower() returns -1, verified live),
+    // so it is NOT itself a legal retaliator (GetRetaliatorOptions requires POWER > 0). A Dungeon
+    // Guide (1 POWER, no dangling On Enter decision when seeded this way -- verified live, unlike
+    // Fluffy Shopkeep which leaves an unresolved MZMAYCHOOSE/CUSTOM Enter chain in the queue) is
+    // seeded onto player 1's own field instead as the retaliator. Player 1 accepts the
+    // "Retaliate?" MZMAYCHOOSE with it (myField-1 from their perspective), which deals 1 combat
+    // damage back to Wandering Glaivier and destroys it, firing its On Death trigger. Only the
+    // attack's actual TARGET is offered as a retaliator (GetRetaliatorOptions in CombatLogic.php
+    // otherwise only allows specific hardcoded Ambush-style cards to retaliate without being
+    // targeted -- a plain awake/positive-power ally that wasn't the target is NOT offered,
+    // verified live), so Dungeon Guide itself -- not the champion -- is the attack's target.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'p6120p3f5d'], // Wandering Glaivier
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (1 POWER) - attack target and retaliator
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can retaliate
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Wandering Glaivier
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // accept Retaliate with Dungeon Guide
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
