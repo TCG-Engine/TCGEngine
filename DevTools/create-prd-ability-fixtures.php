@@ -12014,6 +12014,73 @@ DECK,
     ],
 ];
 
+// --- Red Slime stack-order choice: a generated closure's own synchronous multi-kill sweep
+// (mttsvbgl6f:0 On Death, GeneratedCode/GeneratedMacroCode.php) chain-kills 2+ of its own
+// controller's other allies with On Death triggers. ResolveTopOfEffectStack() (hand-written,
+// OpportunityLogic.php) now wraps its whole trigger-resolution dispatch in
+// BeginTriggeredAbilityBatch()/EndTriggeredAbilityBatch() so this case gets the same
+// controller-chooses-stacking-order treatment as OnAttackTrigger/OnHitTrigger/OnKillTrigger.
+$fixtures['redslime-ondeath-sweep-stack-order-choice'] = [
+    'testedCards' => ['mttsvbgl6f'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Killed via two casts of Charge the Soul (ra9950o14t, NORM, 1 reserve, "Deal 1 damage to
+    // target unit") targeting our own Red Slime, rather than combat -- no weapon/retaliate/
+    // combat-cleanup timing to fight, and (per the powered-defender-dealt-damage-summons-
+    // powercell precedent) a single cast resolves immediately with no extra PASS actions needed.
+    'setup' => [
+        // Guo Jia, Chosen Disciple: plain single-class TAMER champion with no special-cased
+        // ObjectCurrentHP/FieldAfterAdd logic (unlike Silvie, Wilds Whisperer, whose "next
+        // Animal/Beast ally enters with a buff counter" passive silently buffed Red Slime's
+        // life from 2 to 3 -- Red Slime is subtyped BEAST -- and made it survive exactly-lethal
+        // damage; verified live via a temporary debug print in OnDealDamage).
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'j6dkdoxyqt'], // Guo Jia, Chosen Disciple -- TAMER champion, satisfies Red Slime's Class Bonus
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mttsvbgl6f'], // Red Slime, life 2
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Lewf9sfv9m'], // Golden Pawn, life 1 -- On Death: Draw a card
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'loSCQzxqi1'], // Heavenly Drake, life 3 -- On Death: Recover 3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ra9950o14t'], // Charge the Soul #1 -- myHand-7
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ra9950o14t'], // Charge the Soul #2 -- myHand-8
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        // Cast #1: myHand-7, pay 1 reserve with myHand-0, target Red Slime at myField-2
+        // (champion=0, Silvie=1, Red Slime=2, Golden Pawn=3, Heavenly Drake=4).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Decline the Effect Stack Opportunity's "play a fast card in response" offer
+        // (the second Charge the Soul copy, myHand-6) so the first cast resolves first.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // Target Red Slime (myField-2) with the first Charge the Soul.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        // Cast #2: second Charge the Soul copy, now at myHand-6 after the first cast + its
+        // reserve-cost payment each removed one card ahead of it. First cast's target-response
+        // (mode=100, myHand-N) worked without FSM because it was answering the still-open
+        // OpportunityWindowFirstResponse MZMAYCHOOSE left over from the P1/P2 health-passes --
+        // once that resolves to a clean MAIN-phase state (decisionQueue=0), a fresh play needs
+        // the normal FSM free-play click instead.
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-6!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        // The fix under test: Red Slime's death sweep just killed both Golden Pawn and Heavenly
+        // Drake simultaneously, and the controller is now asked to choose their stacking order
+        // (MZCHOOSE:myGraveyard-3&myGraveyard-4 / TriggerOrderPickResolve) instead of them
+        // silently auto-resolving in a hardcoded order. Pick myGraveyard-3 (Golden Pawn) first.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-3', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

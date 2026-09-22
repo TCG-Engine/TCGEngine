@@ -1559,6 +1559,18 @@ function ResolveTopOfEffectStack() {
         DecisionQueueController::StoreVariable($ctxKey, is_string($ctxValue) ? $ctxValue : strval($ctxValue));
     }
 
+    // Batched (BeginTriggeredAbilityBatch()) so that whatever this entry's own resolution does --
+    // whether a hand-written Fire*TriggeredAbility dispatcher or a generated ability/macro closure
+    // (invoked below via CardActivated(), or transitively via any of the Fire*TriggeredAbility calls) --
+    // any QueueTriggeredAbility() calls it makes for the SAME controller are grouped into one
+    // stacking-order choice instead of landing in whatever order the closure happened to call them.
+    // This is what covers a generated closure's OWN self-contained multi-kill/multi-trigger effect
+    // (e.g. Red Slime's On Death dealing power damage to all allies, which can chain-kill several of
+    // its controller's own other allies in one synchronous sweep: each of THEIR On Death triggers
+    // queues here, inside this same window) without touching or regenerating any generated code.
+    // Nests safely inside any dispatcher's own inner batch (e.g. OnKillTrigger's attacker/intent/
+    // weapon batch) via BeginTriggeredAbilityBatch()'s depth counter.
+    BeginTriggeredAbilityBatch();
     if($triggerType === "ENTER") {
         $cardID = $topObj->CardID ?? "";
         $sourceUniqueID = intval($topObj->TriggerSourceUniqueID ?? 0);
@@ -1665,6 +1677,7 @@ function ResolveTopOfEffectStack() {
         //  - Calls ExecuteStaticMethods to process any ability decisions
         CardActivated($cardOwner, $topMZ);
     }
+    EndTriggeredAbilityBatch();
     ReconcileEffectStackSourceZones();
 
     // Queue PostResolutionCheck to run after all ability interactions (block 200)
