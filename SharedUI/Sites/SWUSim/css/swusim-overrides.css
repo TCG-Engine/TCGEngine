@@ -8,7 +8,7 @@ body {
 }
 
 /* ── Petranaki GLASS ("New Petranaki HUD", owner's name) — one look for the header plate, both nav chips, the main-menu
-   cards and the waiting-room panel (2026-09-21) ──────────
+   cards, the waiting-room panel and the site pages' panels (2026-09-21) ──────────
    Frosted stone-grey glass (the in-game button grey) with a 1px steel hairline, a lit top edge and shaded bottom, gold
    corner glows at top-left + bottom-right where the corners are cut, and a soft drop shadow. Every surface is built the
    same way — the ELEMENT is unclipped and unpainted so its shadow can fall outside it:
@@ -27,6 +27,10 @@ body {
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   :root { --pa-glass: linear-gradient(165deg, rgba(58, 66, 77, 0.92) 0%, rgba(30, 36, 44, 0.95) 100%); }
 }
+/* The site pages' panels (Login, Signup, Profile, Previews — see "Site pages" below) join the same glass. A notice
+   NESTED in another panel is a sunken well instead (no glass-in-glass), so it is excluded here with :not(). */
+body .container.bg-black:not(.container .container)::before, body .container.bg-blue:not(.container .container)::before,
+body .card.ga-glass-card:not(.swu-panel):not(.wr-panel)::before,
 .home-header .title::before,
 .nav-bar-user::before, .nav-bar-links::before,
 .row-wrapper > .card.wr-panel::before {
@@ -48,6 +52,8 @@ body {
     linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0, transparent 30%, transparent 65%, rgba(0, 0, 0, 0.22) 100%),
     var(--pa-glass);
 }
+body .container.bg-black:not(.container .container)::after, body .container.bg-blue:not(.container .container)::after,
+body .card.ga-glass-card:not(.swu-panel):not(.wr-panel)::after,
 .home-header .title::after,
 .nav-bar-user::after, .nav-bar-links::after,
 .row-wrapper > .card.wr-panel::after {
@@ -261,6 +267,120 @@ body {
   font-size: 14px;
 }
 #wr-root .wr-count { font-size: 15px; }
+
+/* ── Site pages — Login, Signup, Profile, Previews — in the New Petranaki HUD style (2026-09-21) ──────────────────────
+   Their panels are three shared classes: `.container.bg-black` (Login / Signup / Profile panes, Cosmetics, Sounds),
+   `.container.bg-blue` (the cookie notice, Signup's disclosures) and `.card.ga-glass-card` (Previews). The renderers are
+   shared with other sites, so the restyle lives here (SWUSim only) and is written `body …` to outrank their own rules.
+   The glass itself is the shared recipe above; this block strips the old paint and styles the contents. */
+body .container.bg-black:not(.container .container), body .container.bg-blue:not(.container .container),
+body .card.ga-glass-card:not(.swu-panel):not(.wr-panel) {
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;               /* the glass is ::before — an element blur is a rectangle */
+  -webkit-backdrop-filter: none;
+  color: #eef2f6;
+}
+body .card.ga-glass-card:not(.swu-panel):not(.wr-panel) * { color: inherit; }
+/* A panel NESTED in a panel (Profile's Welcome / Change Password / Saved Decks / Blocked Users sections) is just a
+   section of its pane: no glass of its own, no frame — glass-in-glass drew stray corners and shadows. */
+body .container .container.bg-black {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+/* A notice inside a panel: a sunken well, like the menu's inner boxes. */
+body .container .container.bg-blue {
+  background: rgba(14, 17, 22, 0.34);
+  border: 1px solid rgba(196, 208, 220, 0.14);
+  border-radius: 4px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.30);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+/* Titles: the menu's spaced uppercase. */
+body .container.bg-black h1, body .container.bg-black h2, body .container.bg-black h3,
+body .card.ga-glass-card:not(.swu-panel):not(.wr-panel) h2 {
+  font-family: 'Barlow', sans-serif; font-weight: 500;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+/* Fields: sunken wells with a gold focus ring. */
+body .container input[type=text], body .container input[type=password], body .container input[type=email],
+body .container input:not([type]), body .container select, body .container textarea {
+  min-height: 40px; box-sizing: border-box;
+  padding: 8px 12px;
+  background-color: rgba(14, 17, 22, 0.58);
+  color: #eef2f6;
+  border: 1px solid rgba(196, 208, 220, 0.26);
+  border-bottom-color: rgba(196, 208, 220, 0.40);
+  border-radius: 3px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(0, 0, 0, 0.35);
+  font: 500 15px/1.3 'Barlow', sans-serif;
+  outline: none;
+}
+body .container input::placeholder, body .container textarea::placeholder { color: rgba(226, 232, 240, 0.42); }
+body .container input:focus, body .container select:focus, body .container textarea:focus {
+  border-color: #e9b866;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(233, 184, 102, 0.35), 0 0 12px rgba(233, 184, 102, 0.25);
+}
+body .container select {
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  padding-right: 36px; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1.5 1.5 7 7l5.5-5.5' fill='none' stroke='%23e2e8f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+}
+body .container select option { background: #2c333c; color: #eef2f6; }
+/* Buttons: the menu's chamfered steel; a form's submit is the gold primary. Brand buttons (Discord, Patreon) and
+   switches keep their own look — they are links / .switch, not bare buttons. */
+body .container button:not(.switch):not(.btn), body .card.ga-glass-card:not(.swu-panel):not(.wr-panel) button:not(.switch) {
+  --btn-rim: rgba(196, 208, 220, 0.55);
+  --btn-fill: linear-gradient(135deg, rgba(70, 80, 92, 0.94), rgba(40, 47, 56, 0.94));
+  --btn-cut: 8px; --btn-cut-inner: 6.83px; --btn-rim-width: 2px;
+  --btn-glow: 8px; --btn-glow-color: rgba(196, 208, 220, 0.35);
+  --btn-pad: 8px 16px;
+  letter-spacing: 0.08em;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.45));
+}
+body .container button[type=submit]:not(.switch):not(.btn), body .container input[type=submit] {
+  --btn-rim: linear-gradient(135deg, #ffd998, #e9b866 50%, #b98534);
+  --btn-fill: linear-gradient(135deg, rgba(74, 70, 64, 0.97), rgba(40, 40, 42, 0.97));
+  --btn-glow: 12px; --btn-glow-color: rgba(233, 184, 102, 0.65);
+  --btn-pad: 9px 22px;
+  color: #ffd998;
+}
+/* Signup is taller than the auth pages' fixed-height wrapper (menuStyles.css .core-wrapper), so the form ran over the
+   disclaimer footer (pre-existing; found in this pass). Let the auth wrapper grow with its content. */
+body .core-wrapper.auth-page { height: auto; min-height: 0; }
+body .core-wrapper.auth-page .flex-wrapper { overflow: visible; padding-bottom: 24px; }
+/* Profile on phones: each pane was locked to 320px with overflow:hidden, which CUT OFF the first pane's Change Password
+   form (pre-existing; found in this pass — measured scrollHeight 476 in a 320 box). Stacked panes size to content. */
+@media (max-width: 900px) {
+  body .core-wrapper > .container.profile-pane,
+  body .core-wrapper > .container.cosmetics,
+  body .core-wrapper > .container.soundSettings { height: auto !important; min-height: 0 !important; overflow: visible !important; }
+}
+/* Previews: the tabs become the menu's tabs (gold rim on the active one). */
+body .swu-preview-tabs button.swu-preview-tab {
+  --btn-rim: rgba(196, 208, 220, 0.42);
+  --btn-fill: linear-gradient(135deg, rgba(62, 71, 82, 0.92), rgba(38, 45, 54, 0.92));
+  --btn-cut: 8px; --btn-cut-inner: 7.41px; --btn-rim-width: 1px;
+  background: transparent; border: 0;
+  color: rgba(226, 232, 240, 0.72);
+}
+body .swu-preview-tabs button.swu-preview-tab.is-active {
+  --btn-rim: linear-gradient(135deg, #ffd998, #e9b866 45%, rgba(233, 184, 102, 0.55));
+  --btn-fill: linear-gradient(135deg, rgba(78, 86, 96, 0.96), rgba(48, 54, 62, 0.96));
+  --btn-rim-width: 2px; --btn-cut-inner: 6.83px;
+  color: #fff;
+  filter: drop-shadow(0 0 6px rgba(233, 184, 102, 0.45));
+}
 
 /* Frosted menu panel — the grey the main menu's cards sit on: --surface-raised from the
    petranaki-hud theme, plus the gold hairline and blur. Lived inline inside MainMenu.php, which made it

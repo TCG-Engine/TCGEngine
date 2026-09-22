@@ -3519,7 +3519,9 @@ $playCostFieldModifiers["JTL_188"] = function($subjectObj, $subjectPlayer, $sour
 // SOR_034 Del Meeko: each event an opponent plays costs 1 more.
 $playCostFieldModifiers["SOR_034"] = function($subjectObj, $subjectPlayer, $sourceObj) {
     $srcController = intval($sourceObj->Controller ?? 0);
-    if ($srcController <= 0 || $srcController === intval($subjectPlayer)) return 0; // only opponents
+    // Only OPPONENTS' events — team-aware: in Team Suns a teammate is never an opponent (was `srcController !==
+    // subjectPlayer`, which taxed a teammate's events too). Two seats / free-for-all: identical to before.
+    if (!SWUIsEnemySeat($srcController, intval($subjectPlayer))) return 0;
     if (stripos(CardType($subjectObj->CardID) ?? '', 'Event') === false) return 0;
     return 1;
 };
@@ -9332,11 +9334,14 @@ function SWUPassAction($player) {
             }
         }
     } else {
-        // A player who has already claimed the initiative is locked out for the rest of the action
-        // phase — the engine resolves their non-turns as passes, but they aren't choosing to pass,
-        // so don't log a "passed" entry for them (their claim was already logged as "took the
-        // initiative"). Other passes are real player choices and ARE logged.
-        if (GetInitiativeCounter() !== 'P' . intval($player) . '_CLAIMED') {
+        // A player who has already taken a counter this round — the initiative, or in Twin Suns the Blast / Plan
+        // counter (CR §12.5) — is locked out for the rest of the action phase: the engine resolves their
+        // non-turns as passes, but they aren't choosing to pass, so don't log a "passed" entry for them (the
+        // claim was already logged). Other passes are real player choices and ARE logged.
+        // ⚠ This checked the INITIATIVE claim only, so a Blast / Plan taker got a "P<n> passed" line when taking
+        // the counter and on every skipped turn after (player report 2026-09-21). Two seats have no Blast / Plan,
+        // so the two-player log is unchanged.
+        if (!_SWUSeatTookCounterThisRound(intval($player))) {
             AddGameLogEntry('PASS', 'P' . intval($player) . ' passed');
         }
         SetSWUVar('PASS', strval($consecutivePasses + 1));   // accumulate the consecutive-pass streak
@@ -11487,6 +11492,19 @@ function _SWULeaderReadyUndeployed(int $player, string $cardID): bool {
         if (($l->CardID ?? '') === $cardID && empty($l->Deployed) && !empty($l->Ready)) return true;
     }
     return false;
+}
+
+// The LIVE leader index (the one SWUGetLeaderByIndex / SWUDeployLeader take) of the first undeployed leader
+// with $cardID, or null. In Twin Suns a seat has two leaders, so a leader's own trigger must deploy ITS slot —
+// never a hard-coded 0, which deploys whichever leader sits first (ASH_018 Grogu, player report 2026-09-21).
+function _SWULiveLeaderIndexOf(int $player, string $cardID): ?int {
+    $live = 0;
+    foreach (GetLeader($player) as $l) {
+        if (!empty($l->removed)) continue;
+        if (($l->CardID ?? '') === $cardID && empty($l->Deployed)) return $live;
+        $live++;
+    }
+    return null;
 }
 
 // Ready up to $count exhausted resources for $player (resources are fungible, so no choice needed).
@@ -17076,20 +17094,32 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0, 
         // A foreign-owned event goes to the OWNER's discard as a PLAY (not the caster's HAND).
         SWUAddToDiscard($owner, $cardID, ($owner !== intval($player)) ? 'PLAY' : 'HAND');
         unset($GLOBALS['gPlayingEventCardID']);
+        // ⚠ The three "enemy in play" event observers below read EVERY opponent's board (OpponentsOf — seat-count-
+        // and team-aware). They read OtherPlayer($player), a TWO-SEAT helper (1→2, every other seat→1), so in
+        // Twin Suns most opponents' Adi / Saw / Relentless were invisible (player report 2026-09-21; test
+        // twinsuns/OpponentEventObservers_FarSeats.md). Two seats: OpponentsOf is exactly [OtherPlayer], unchanged.
+        $evOpps = OpponentsOf(intval($player));
+        $evCount = function (string $cid) use ($evOpps): int {
+            $n = 0;
+            foreach ($evOpps as $opp) $n += _SWUCountUnitsWithCardID(intval($opp), $cid);
+            return $n;
+        };
         // SOR_153 Saw Gerrera (enemy in play): "As an additional cost for each opponent to play an
         // event, they must deal 2 damage to their base." Applied at play time (always payable).
-        if (_SWUCountUnitsWithCardID(OtherPlayer(intval($player)), 'SOR_153') > 0) {
+        // A static cost, not a per-copy trigger: any number of Saws on the opponents' side is one 2-damage tax.
+        if ($evCount('SOR_153') > 0) {
             SWUDealDamageToBase(2, intval($player));
         }
         // LOF_142 Adi Gallia (enemy in play): "When an opponent plays an event: deal 1 to that player's base."
-        $adiCount = _SWUCountUnitsWithCardID(OtherPlayer(intval($player)), 'LOF_142');
+        // A trigger per copy, so every opponent's Adi deals its own 1.
+        $adiCount = $evCount('LOF_142');
         for ($ai = 0; $ai < $adiCount; $ai++) SWUDealDamageToBase(1, intval($player));
         // SOR_089 Relentless (enemy in play): "The first event played by each opponent each round loses
         // all abilities." If this is $player's first event this round AND an opponent controls Relentless,
         // skip the event's effect (it still goes to discard). The per-round flag clears at RegroupPhaseStart.
         $eventBlanked = false;
         if (GlobalEffectCount(intval($player), 'SWU_EVENT_PLAYED_ROUND') <= 0
-            && _SWUCountUnitsWithCardID(OtherPlayer(intval($player)), 'SOR_089') > 0) {
+            && $evCount('SOR_089') > 0) {
             $eventBlanked = true;
             AddGameLogEntry('ABILITY', GameLogCardRef($cardID) . " loses all abilities (Relentless)");
         }

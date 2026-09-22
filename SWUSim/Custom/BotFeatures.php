@@ -102,7 +102,11 @@ function _SWUBotDecisionClass(array $ctx, array $action): string {
     if (($ctx['kind'] ?? '') === 'decision') {
         $tip = strval($ctx['tooltip'] ?? '');
         if ($tip === 'Choose_an_attack_target') return 'attacktarget';
-        if (stripos($tip, 'to_resource') !== false) return 'resource';
+        // BOTH resourcing prompts. ⚠ Until 2026-09-22 this matched only 'to_resource', i.e. the OPENING
+        // "Choose_2_cards_to_resource" — the per-round "Resource_up_to_1_card" (~5x more frequent) was never
+        // classified, so every '@rand:resource' arm randomised the opening pick alone. Caught when '@rand:resourceregroup'
+        // changed exactly 0 of 6,000 games (bot-sweeps/2026-09-21_softcontrol_prereg.md).
+        if (stripos($tip, 'to_resource') !== false || str_starts_with($tip, 'Resource_up_to')) return 'resource';
         return '';
     }
     switch (SWUBotActionKind($action)) {

@@ -330,8 +330,12 @@ function SWUPresenceEvaluate(array $presence, array $facts, int $now): array
 
     foreach ($onClock as $seat) {
         if (in_array($seat, $bots, true)) continue;          // bots never stall
-        $from = intval($presence['acted'][$seat] ?? 0);
-        if ($from <= 0) $from = $since;                      // never acted: start from the last board movement
+        // The clock starts when this seat's WAIT began: the later of its own last action and `since` (the last
+        // clock-resetting action by anyone). Counting from acted[seat] alone charged a seat for every second it
+        // spent waiting on the others — at four seats that is three turns, so a seat could come on the clock
+        // already expired (player report 2026-09-21). A seat still deciding keeps its start: its own
+        // non-stamping actions (e.g. declaring an attack) move neither value.
+        $from = max(intval($presence['acted'][$seat] ?? 0), $since);
         if ($from <= 0) continue;                            // no data at all: never expire anyone
         $deadline = $from + $timeout;
         $until = intval($votes[$seat]['until'] ?? 0);        // a Wait extension postpones expiry

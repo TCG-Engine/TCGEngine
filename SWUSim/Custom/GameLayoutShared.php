@@ -1348,6 +1348,22 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
 .swu-kick-wait { background: #2a2a33; border: 1px solid #777; color: #e6e6e6; }
 .swu-kick-wait:hover { background: #363642; }
 .swu-kick-voted { font-size: 12px; opacity: 0.85; }
+/* Deck count badge (updateDeckCount below). Sits at the bottom-centre of the pile, over the card art, above the
+   stack layers (their z-index tops out at 9). Desktop .swu-pile is already position:relative; the mobile pile is
+   made so here. pointer-events:none keeps the pile's own click (the zone popup) working through it. */
+.swu-m-pile { position: relative; }
+.swu-pile-count {
+    position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%); z-index: 30;
+    min-width: 24px; padding: 1px 7px; box-sizing: border-box; text-align: center;
+    border-radius: 10px;
+    background: rgba(12, 15, 20, 0.88);
+    border: 1px solid rgba(196, 208, 220, 0.45);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    font: 700 13px/1.35 'Barlow', sans-serif; color: #eef2f6; letter-spacing: 0.02em;
+    pointer-events: none;
+}
+.swu-pile-count[hidden] { display: none; }
+.swu-m-pile .swu-pile-count { font-size: 11px; bottom: 2px; padding: 0 5px; min-width: 18px; }
 </style>
 <script>
 window.SWU_PILOT_LEADERS = <?php echo json_encode([
@@ -1669,6 +1685,42 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         new MutationObserver(function() {
             updateResCounterFromData(dataVar, countElId);
         }).observe(slot, {childList: true, subtree: true, attributes: true});
+    }
+
+    // ── Deck count badge (player report 2026-09-21: "can't see own deck size") ─────────────────
+    // The deck renders as a Stacked single zone, and Core's renderer deliberately zeroes the card's own
+    // count bubble in that mode (the stack depth stands in for it — CreateVisualSingleZoneStackHTML), so no
+    // number was shown for either deck. The count is in the zone data: a private zone arrives as ONE
+    // "CardBack <count> -" entry. The badge lives on the pile (the slot's PARENT), because the renderer
+    // replaces the slot's whole contents on every update. Works on desktop (.swu-pile) and mobile
+    // (.swu-m-pile) alike, and shows 1 too — the stack draws no layers for a single card, which is exactly
+    // when the number matters most (deck-out).
+    function swuDeckCountFromData(dataVar) {
+        var raw = String(window[dataVar] || '').trim();
+        if (!raw) return 0;
+        var n = parseInt(raw.split(' ')[1], 10);
+        return isFinite(n) && n > 0 ? n : 0;
+    }
+    function updateDeckCount(slotId, dataVar) {
+        var slot = document.getElementById(slotId); if (!slot || !slot.parentElement) return;
+        var pile = slot.parentElement;
+        var badge = pile.querySelector(':scope > .swu-pile-count');
+        if (!badge) {
+            badge = document.createElement('span');
+            badge.className = 'swu-pile-count';
+            badge.setAttribute('aria-label', 'Cards in deck');
+            pile.appendChild(badge);
+        }
+        var n = swuDeckCountFromData(dataVar);
+        badge.textContent = String(n);
+        badge.hidden = n === 0;              // an empty deck already reads "Empty" on the pile frame
+        badge.title = n + (n === 1 ? ' card' : ' cards') + ' in deck';
+    }
+    function watchDeckCount(slotId, dataVar) {
+        updateDeckCount(slotId, dataVar);
+        var slot = document.getElementById(slotId); if (!slot) return;
+        new MutationObserver(function() { updateDeckCount(slotId, dataVar); })
+            .observe(slot, {childList: true, subtree: true});
     }
 
     // ── Resource panel toggle (mine only) ─────────────────────────────────────
@@ -2353,6 +2405,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         setupHandCollapse();
         watchResZone('myResourcesSlot',    'swuMyResCount',    'myResourcesData');
         watchResZone('theirResourcesSlot', 'swuTheirResCount', 'theirResourcesData');
+        watchDeckCount('myDeckSlot',    'myDeckData');
+        watchDeckCount('theirDeckSlot', 'theirDeckData');
         watchResourcePanelFilter();
         // (Initiative token is a status badge now — taking it lives on the Take/Keep button
         //  in the player's own controls, wired via inline onclick → window.swuTakeInitiative.)

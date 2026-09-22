@@ -546,8 +546,10 @@ function Ash017DeployedTrigger($player, $uid): void {
 // ASH_018 Grogu — triggered (play a uq unit costing 4+): if Grogu is ready, you may deploy him.
 function Ash018Trigger($player): void {
     global $playerID; $playerID = intval($player);
+    // Carry Grogu's OWN leader slot: in Twin Suns he may be the second leader (see ASH_018#0).
+    $idx = _SWULiveLeaderIndexOf(intval($player), 'ASH_018') ?? 0;
     DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Deploy_Grogu?");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_018#0", 1);
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_018#0|{$idx}", 1);
 }
 
 

@@ -41,6 +41,11 @@ $check(count($byClass['play'] ?? []) === 2, 'free play: two hand plays are class
 $check(count($byClass['tempo'] ?? []) === 2, 'free play: pass and the initiative are class "tempo"');
 $raiseAttack(1, 'myGroundArena-0');
 $tctx = $botCtx('softcontrol');
+// Both resourcing prompts are class "resource" — the per-round one was missed until 2026-09-22.
+$check(_SWUBotDecisionClass(['kind' => 'decision', 'tooltip' => 'Resource_up_to_1_card'], ['cardID' => 'myHand-0']) === 'resource',
+    'the per-round "Resource_up_to_1_card" prompt is class "resource"');
+$check(_SWUBotDecisionClass(['kind' => 'decision', 'tooltip' => 'Choose_2_cards_to_resource'], ['cardID' => 'myHand-0&myHand-1']) === 'resource',
+    'the opening "Choose_2_cards_to_resource" prompt is class "resource"');
 $check($tctx['tooltip'] === 'Choose_an_attack_target'
     && _SWUBotDecisionClass($tctx, $tctx['actions'][0]) === 'attacktarget', 'the attack-target prompt is class "attacktarget"');
 

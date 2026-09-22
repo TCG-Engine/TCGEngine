@@ -112,7 +112,12 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         /* Width the deck+discard pile rows occupy on the right (2 piles + gap +
            breathing room). Hand panels stop before this so they never bleed
            under the piles. */
-        --swu-pile-zone-w:  calc(var(--swu-pile-w) * 2 + 20px);
+        /* Gap between the deck and discard piles. The deck is a Stacked zone whose offset layers deliberately
+           spill past its box — up to 8 layers x 2px + the 1px card border each side = 18px for a big deck — so a
+           gap smaller than that put the deck's layers ON the discard (player report 2026-09-21: a 74-card
+           Twin Suns deck spilled 17px into a 6px gap). */
+        --swu-pile-gap:     18px;
+        --swu-pile-zone-w:  calc(var(--swu-pile-w) * 2 + var(--swu-pile-gap) + 14px);
 
         /* ── Game-log palette — ONE var per log type (single source of truth). ──
            Tune a type's color here; every .swu-log-<TYPE> rule below reads its var.
@@ -852,7 +857,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     /* Pile rows — right end of the hand strip */
     .swu-pile-row {
         position: fixed; z-index: 37; pointer-events: auto;
-        display: flex; gap: 6px; align-items: center;
+        display: flex; gap: var(--swu-pile-gap); align-items: center;
         right: calc(var(--swu-sidebar-w) + var(--swu-play-margin-r));
     }
     #myPileRow    { bottom: var(--swu-hand-bottom-gap); height: var(--swu-hand-h); }
