@@ -1070,6 +1070,14 @@ $customDQHandlers["SWU_PLAN_BOTTOM"] = function ($player, $parts, $lastDecision)
   DecisionQueueController::CleanupRemovedCards();
   _topDeckPutRemainingToBottom(intval($player), [$cardID]);
 };
+// Twin Suns plan counter: the counter-taker's pass, queued behind the bottom-a-card choice (SWUTakeCounter).
+$customDQHandlers["SWU_PLAN_PASS"] = function ($player, $parts, $lastDecision) {
+  SWUPassAction(intval($player));
+};
+// The initiative claimant's pass, queued behind its "when you take the initiative" triggers (SWUTakeInitiative).
+$customDQHandlers["SWU_INITIATIVE_PASS"] = function ($player, $parts, $lastDecision) {
+  SWUPassAction(intval($player));
+};
 
 // SOR_215 — Snapshot Reflexes: "When Played: You may attack with the attached unit."
 // $mzID is the host unit's arena mzID (e.g. "myGroundArena-0").

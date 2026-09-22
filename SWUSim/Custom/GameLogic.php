@@ -9419,6 +9419,16 @@ function SWUTakeInitiative($player) {
             tooltip: "Deal_3_to_your_base_to_create_a_Beast_token?");
         DecisionQueueController::AddDecision(intval($player), "CUSTOM", "HMW_168#0", 1);
     }
+    // A "when you take the initiative" trigger left something to resolve: the pass waits for it, so the turn does
+    // not reach the next seat while this one is still answering (owner UX report 2026-09-22, the Plan counter's
+    // twin). The close is stamped NOW, not when the pass runs: Grogu's bonus attack reaches the action-close gate
+    // before the deferred pass does, and only the stamp stops its after-action from swapping the turn as well.
+    // Block 9 + dontSkipOnPass: after everything the triggers queue, and not skipped by a declined "may".
+    if (!(new DecisionQueueController())->AllQueuesEmpty()) {
+        _SWUStampActionClosedForPass();
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SWU_INITIATIVE_PASS", 9, '', 1);
+        return;
+    }
     SWUPassAction($player);
 }
 
@@ -9447,7 +9457,13 @@ function SWUTakeCounter(int $player, string $which): void {
         $handMz = [];
         for ($i = 0; $i < count($hand); $i++) { if (empty($hand[$i]->removed)) $handMz[] = "myHand-{$i}"; }
         if (!empty($handMz)) {
+            SetSWUVar('SWU_COUNTER_TAKEN', GetSWUVar('SWU_COUNTER_TAKEN', '') . strval($player));
             SWUQueueMayChooseTarget($player, $handMz, "-", "Put_a_card_on_the_bottom_of_your_deck", "SWU_PLAN_BOTTOM");
+            // The pass waits until Plan has resolved. Passing here handed the turn to the next seat while this
+            // one was still choosing, so the next seat's clicks bounced off "decisions are pending" (owner UX
+            // report 2026-09-22). dontSkipOnPass: declining the choice (a sticky PASS) must still pass the turn.
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SWU_PLAN_PASS", 1, dontSkipOnPass: 1);
+            return;
         }
     } else {
         return;
