@@ -13967,6 +13967,37 @@ $fixtures['slay-the-king-banish-material'] = [
     ],
 ];
 
+// --- Savage Attack: Floating Memory pays a champion level-up's memory cost from graveyard ---
+$fixtures['savage-attack-floating-memory'] = [
+    'testedCards' => ['3ewnten2rn'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Savage Attack's entire printed text is the Floating Memory keyword (while paying a memory
+    // cost, you may banish this card from your graveyard to pay for 1 of that cost) -- same test
+    // shape as shieldroid-floating-memory/stalwart-shieldmate-floating-memory/etc: seeded directly
+    // into the graveyard with no myMemory filler, then Lorraine, Wandering Warrior's 1-memory
+    // champion level-up (myMaterial-0, reached via a real Materialize opportunity on player 1's
+    // second turn) is paid entirely from Savage Attack via QueueMaterializeFloatingPaymentChoice
+    // (Custom/MaterializeLogic.php), observable as it moving from graveyard to banishment.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3ewnten2rn'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // NOTE: Silver Soldier (c3C6PjX0Vt, printed "Retort 2, Vigor") is intentionally NOT covered.
 // GeneratedKeywordCode.php has no entry at all for this card -- HasKeyword_Retort() and
 // HasKeyword_Vigor() both return false for it (verified live: GetRetortValue() computes 0, and a

@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **423**
+Cards linked to an existing fixture: **424**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2067**
+Implemented cards still needing semantic coverage: **2066**
 
 ## Mechanic groups
 
@@ -55,7 +55,6 @@ Implemented cards still needing semantic coverage: **2067**
 | Refracted Twilight (`me0xxw0plq`) | ITEM | 1 | targeting, zone-movement | Arisanna Pantheon Starter | — |
 | Roots of Tomorrow (`MkhP6iKyLX`) | ACTION | 1 | draw-discard, zone-movement | Kongming Pantheon Starter | — |
 | Sanctified Paladin (`ioLmt0S7op`) | ALLY | 1 | draw-discard, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
-| Savage Attack (`3ewnten2rn`) | ATTACK | 1 | cost, zone-movement | Lorraine Pantheon Starter | — |
 | Set Ablaze (`d4z3tj2nu8`) | ACTION | 1 | targeting, damage | Kongming Pantheon Starter | — |
 | Slice and Dice (`3jg01o26b4`) | ATTACK | 1 | combat, condition | Zander Pantheon Starter | — |
 | Trine Recursion (`dwZvL9K0Ke`) | ACTION | 1 | targeting, zone-movement | Arisanna Pantheon Starter | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2067**
 | CookTech Mixer (`yZBIpXIDIo`) | ITEM | 4 | cost, damage, draw-discard | — | — |
 | ResonanTech Module (`qalnrTTPal`) | REGALIA,ITEM | 4 | cost, condition | — | — |
 | Golden Pawn (`Lewf9sfv9m`) | ALLY | 2 | damage, draw-discard, token, combat, trigger, condition | — | redslime-ondeath-sweep-stack-order-choice |
+| Rescue the Heir (`t0240ykvj0`) | ACTION | 2 | cost, targeting, zone-movement, condition | — | save-the-heir |
