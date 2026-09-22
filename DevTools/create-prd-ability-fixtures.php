@@ -13479,6 +13479,86 @@ DECK,
     ],
 ];
 
+// --- Scorching Imperilment: at each end phase, that player may discard a card to draw a card ---
+$fixtures['scorching-imperilment-end-phase-discard-draw'] = [
+    'testedCards' => ['aj7pz79wsp'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Scorching Imperilment's element is FIRE, matching the starting champion, so no lineage patch
+    // is needed. It is seeded directly onto the field (materialize flow, including its own Class
+    // Bonus cost discount, out of scope). Ending player 1's turn 1 (myHealth-0!CustomInput!Pass)
+    // passes through player 1's own end phase, where the unconditional end-phase check in
+    // GameLogic.php (~line 10817) queues the "discard a card to draw a card" MZMAYCHOOSE for the
+    // turn player (player 1) as long as any Scorching Imperilment is on either player's field.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'aj7pz79wsp'], // Scorching Imperilment
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1, passing through end phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // discard a card
+    ],
+];
+
+// --- Rending Flames: [Class Bonus] On Attack, may banish 3 fire cards from graveyard for double damage ---
+$fixtures['rending-flames-onattack-banish-double-damage'] = [
+    'testedCards' => ['soO3hjaVfN'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Rending Flames's element is FIRE, but no Zander champion is itself FIRE (all are NORM or
+    // LUXEM, verified via CardElement()), so patching the champion's CardID alone to an ASSASSIN
+    // Zander champion for the Class Bonus condition would lose FIRE access entirely (verified
+    // live: with CardID patched to Zander, Deft Executor alone, the FSM activation silently
+    // no-oped). GetChampionLineage() (GameLogic.php) returns [CardID] merged with Subcards, so the
+    // champion's CardID is patched to Zander, Deft Executor (ASSASSIN) for Class Bonus AND its
+    // Subcards are separately patched to include Corhazi Courier (FIRE) for element access -- both
+    // conditions are independent properties on the same object. Rule 1.h blocks the game's first
+    // player from attacking on turn 1, so player 1 ends turn 1 and player 2 plays Rending Flames on
+    // their own turn 1 instead. Three copies of Corhazi Courier (FIRE element) are seeded directly
+    // into player 2's graveyard to satisfy the "banish three fire element cards from your
+    // graveyard" cost. Rending Flames's printed POWER is 3; doubled damage (6) on the champion is
+    // only possible if the ability's "deals double that damage instead" effect actually applied.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'fc4ic5fmaa', 'Subcards' => ['YqQsXwEvv5']]], // Zander, Deft Executor (ASSASSIN) + FIRE lineage/element unlock
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'YqQsXwEvv5'], // Corhazi Courier (FIRE) #1
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'YqQsXwEvv5'], // Corhazi Courier (FIRE) #2
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'YqQsXwEvv5'], // Corhazi Courier (FIRE) #3
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'soO3hjaVfN'], // Rending Flames, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // banish 3 fire cards for double damage
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0&myGraveyard-1&myGraveyard-2', 'chkInput' => [], 'inputText' => ''], // select all 3 Corhazi Couriers
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so CombatApplyAttackerDamage actually lands
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
