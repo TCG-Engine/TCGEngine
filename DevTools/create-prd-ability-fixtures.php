@@ -13601,6 +13601,16 @@ DECK,
     ],
 ];
 
+// NOTE: Silver Soldier (c3C6PjX0Vt, printed "Retort 2, Vigor") is intentionally NOT covered.
+// GeneratedKeywordCode.php has no entry at all for this card -- HasKeyword_Retort() and
+// HasKeyword_Vigor() both return false for it (verified live: GetRetortValue() computes 0, and a
+// live retaliation dealt only 3 damage, its bare printed POWER, not 5). The generic keyword parser
+// misses comma-separated keyword lines ("Retort 2, Vigor" on one line), the same class of gap
+// GameLogic.php's own HasTaunt()/HasKeyword_Taunt() comments call out for other cards. This is a
+// real pre-existing engine gap (Silver Soldier's printed keywords are not functional), not
+// something a fixture can responsibly paper over -- writing a fixture against the current (buggy)
+// behavior would assert the wrong thing, and one against the intended behavior would just fail.
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

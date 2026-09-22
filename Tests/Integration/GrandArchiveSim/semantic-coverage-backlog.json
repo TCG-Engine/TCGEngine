@@ -1,13 +1,13 @@
 {
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
-    "inventoryExportedAt": "2026-08-27T23:01:49+00:00",
-    "generatedAt": "2026-09-22T13:56:23+00:00",
+    "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
+    "generatedAt": "2026-09-22T19:10:21+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 377,
+        "cardsWithExistingFixtures": 410,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2113,
+        "cardsNeedingSemanticCoverage": 2080,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -68,26 +68,6 @@
             "priority": 124
         },
         {
-            "cardId": "7t9m4muq2r",
-            "name": "Thieving Cut",
-            "type": "ATTACK",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
-        {
             "cardId": "szene5o32m",
             "name": "Incapacitate",
             "type": "ACTION",
@@ -105,91 +85,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 123
-        },
-        {
-            "cardId": "3tcs0axa03",
-            "name": "Assassin's Mantle",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention",
-                "zone-movement",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "YqQsXwEvv5",
-            "name": "Corhazi Courier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "draw-discard",
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "zthwm68lgo",
-            "name": "Extraction Incision",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "counter",
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "soO3hjaVfN",
-            "name": "Rending Flames",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "zone-movement",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
         },
         {
             "cardId": "fc4ic5fmaa",
@@ -273,87 +168,6 @@
             "priority": 114
         },
         {
-            "cardId": "2jgiM0p4dt",
-            "name": "Elyan, Lustre Loyalty",
-            "type": "UNIQUE,ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "status",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "DsiRzt0trX",
-            "name": "Hasty Messenger",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "52u81v4c0z",
-            "name": "Insignia of the Corhazi",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "jcaLgesx0e",
-            "name": "Lightveil Agent",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "counter",
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "n2TKqNaODR",
             "name": "Lorraine, Spirit Ruler",
             "type": "CHAMPION",
@@ -369,26 +183,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
-            "cardId": "llQe0cg4xJ",
-            "name": "Orb of Choking Fumes",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 114
@@ -510,44 +304,6 @@
             "priority": 113
         },
         {
-            "cardId": "VAFTR5taNG",
-            "name": "Corhazi Infiltrator",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "status",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "A1jfgrWpiN",
-            "name": "Covert Manipulator",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "eSAIP7mx9z",
             "name": "Drawn Blade",
             "type": "REGALIA,WEAPON",
@@ -605,26 +361,6 @@
             "priority": 113
         },
         {
-            "cardId": "uq2r6v374c",
-            "name": "Lurking Assailant",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "2RKjpzEFV6",
             "name": "Mendcall Mercy",
             "type": "ACTION",
@@ -658,66 +394,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "NRBO0nVMdl",
-            "name": "Photic Blade",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "Cvvvxlf0hi",
-            "name": "Piquant Shieldbearer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "status",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "aj7pz79wsp",
-            "name": "Scorching Imperilment",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -775,25 +451,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "4zkTRt8qXn",
-            "name": "Uncover the Plot",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -875,25 +532,6 @@
             "priority": 113
         },
         {
-            "cardId": "T3CIBknts0",
-            "name": "Zander, Prepared Scout",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "mloejozihs",
             "name": "Astromech Attendant",
             "type": "ALLY",
@@ -907,24 +545,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "d9zax2g20h",
-            "name": "Bathe in Light",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "recover"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -984,24 +604,6 @@
             "priority": 112
         },
         {
-            "cardId": "oy34bro89w",
-            "name": "Cunning Broker",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "znk6g5o8ys",
             "name": "Dazzling Courtesan",
             "type": "ALLY",
@@ -1038,26 +640,6 @@
             "priority": 112
         },
         {
-            "cardId": "zd83net7x0",
-            "name": "Disenchant",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "szeb8zzj86",
             "name": "Fractal of Mana",
             "type": "PHANTASIA",
@@ -1071,24 +653,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "l6gt7lh9v2",
-            "name": "Imperial Spy",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "counter",
-                "status"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -1130,27 +694,6 @@
             "priority": 112
         },
         {
-            "cardId": "i2vPUpbPEl",
-            "name": "Nimble Court Assassin",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "me0xxw0plq",
             "name": "Refracted Twilight",
             "type": "ITEM",
@@ -1182,43 +725,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "8n4zw4gq5w",
-            "name": "Sable Remnant",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "hYDqthNDpB",
-            "name": "Sacred Barrier",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "prevention"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -1317,25 +823,6 @@
             "priority": 112
         },
         {
-            "cardId": "0ZWcrEsFHA",
-            "name": "Tenderheart Guard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "dwZvL9K0Ke",
             "name": "Trine Recursion",
             "type": "ACTION",
@@ -1390,23 +877,6 @@
             "priority": 112
         },
         {
-            "cardId": "uZCyXDNJ6I",
-            "name": "Accepted Contract",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "QAU8WVUZM0",
             "name": "Celestial Navigation",
             "type": "ACTION",
@@ -1424,43 +894,6 @@
             "priority": 111
         },
         {
-            "cardId": "Q2ugqVm04E",
-            "name": "Curved Dagger",
-            "type": "REGALIA,WEAPON",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "gR3LGjzKPS",
-            "name": "Epochal Conqueror",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "uvopjFSUj0",
             "name": "Halcyon Animus",
             "type": "ACTION",
@@ -1473,24 +906,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "7tUvIHeo0i",
-            "name": "Increasing Danger",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter",
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -1618,26 +1033,6 @@
             "priority": 111
         },
         {
-            "cardId": "RnUpMoSb4w",
-            "name": "Shared Fervor",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "5j36gn1b2s",
             "name": "Shred to Ribbons",
             "type": "ATTACK",
@@ -1709,24 +1104,6 @@
             "priority": 111
         },
         {
-            "cardId": "p6120p3f5d",
-            "name": "Wandering Glaivier",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter",
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "tiymuyv3fp",
             "name": "Waterveil Apostle",
             "type": "ALLY",
@@ -1756,23 +1133,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "UAF6Nr7GUE",
-            "name": "Zander, Blinding Steel",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -24034,7 +23394,7 @@
         },
         {
             "cardId": "zRG5hmBcsP",
-            "name": "Tidal Fractal ",
+            "name": "Tidal Fractal",
             "type": "PHANTASIA",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -36694,6 +36054,30 @@
             "priority": 144
         },
         {
+            "cardId": "7t9m4muq2r",
+            "name": "Thieving Cut",
+            "type": "ATTACK",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "thieving-cut-prepare-onhit-draw"
+            ],
+            "semanticFixtures": [
+                "thieving-cut-prepare-onhit-draw"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
             "cardId": "cAcgxzrz6z",
             "name": "Unruled Bereavement",
             "type": "ACTION",
@@ -37436,6 +36820,31 @@
             "priority": 135
         },
         {
+            "cardId": "3tcs0axa03",
+            "name": "Assassin's Mantle",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention",
+                "zone-movement",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "assassins-mantle"
+            ],
+            "semanticFixtures": [
+                "assassins-mantle"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "xW6SZSlJX6",
             "name": "Barrier Servant",
             "type": "ALLY",
@@ -37457,6 +36866,32 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "YqQsXwEvv5",
+            "name": "Corhazi Courier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "draw-discard",
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "corhazi-courier-onhit-draw-discard-damage"
+            ],
+            "semanticFixtures": [
+                "corhazi-courier-onhit-draw-discard-damage"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 135
@@ -37732,6 +37167,31 @@
             ],
             "semanticFixtures": [
                 "exploit-vulnerability-draw"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "zthwm68lgo",
+            "name": "Extraction Incision",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "counter",
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "extraction-incision-truesight-onkill-prepare"
+            ],
+            "semanticFixtures": [
+                "extraction-incision-truesight-onkill-prepare"
             ],
             "starterDecks": [
                 "Zander Pantheon Starter"
@@ -38022,6 +37482,31 @@
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)",
                 "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
+            "cardId": "soO3hjaVfN",
+            "name": "Rending Flames",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "zone-movement",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "rending-flames-onattack-banish-double-damage"
+            ],
+            "semanticFixtures": [
+                "rending-flames-onattack-banish-double-damage"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 135
@@ -38755,6 +38240,30 @@
             "priority": 134
         },
         {
+            "cardId": "2jgiM0p4dt",
+            "name": "Elyan, Lustre Loyalty",
+            "type": "UNIQUE,ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "status",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "elyan-lustre-loyalty-recover-power"
+            ],
+            "semanticFixtures": [
+                "elyan-lustre-loyalty-recover-power"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "HHtlkEeyQR",
             "name": "Elysian Aspirant",
             "type": "ALLY",
@@ -39059,6 +38568,31 @@
             "priority": 134
         },
         {
+            "cardId": "DsiRzt0trX",
+            "name": "Hasty Messenger",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "hasty-messenger-on-attack-discard-draw"
+            ],
+            "semanticFixtures": [
+                "hasty-messenger-on-attack-discard-draw"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "Uxn14UqyQg",
             "name": "Immolation Trap",
             "type": "ACTION",
@@ -39102,6 +38636,30 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "52u81v4c0z",
+            "name": "Insignia of the Corhazi",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "insignia-of-corhazi-rest-prepare"
+            ],
+            "semanticFixtures": [
+                "insignia-of-corhazi-rest-prepare"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -39237,6 +38795,30 @@
             "priority": 134
         },
         {
+            "cardId": "jcaLgesx0e",
+            "name": "Lightveil Agent",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "counter",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "lightveil-agent-recover-buff-counter"
+            ],
+            "semanticFixtures": [
+                "lightveil-agent-recover-buff-counter"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "IC3OU6vCnF",
             "name": "Mana Limiter",
             "type": "REGALIA,ITEM",
@@ -39355,6 +38937,30 @@
                 "Dante, Hemomancer Starter Deck",
                 "Arisanna Pantheon Starter",
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "llQe0cg4xJ",
+            "name": "Orb of Choking Fumes",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "orb-of-choking-fumes-banish-cost-cb-draw"
+            ],
+            "semanticFixtures": [
+                "orb-of-choking-fumes-banish-cost-cb-draw"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -40155,6 +39761,52 @@
             "priority": 133
         },
         {
+            "cardId": "VAFTR5taNG",
+            "name": "Corhazi Infiltrator",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "status",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "corhazi-infiltrator-reveal-memory-to-field"
+            ],
+            "semanticFixtures": [
+                "corhazi-infiltrator-reveal-memory-to-field"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "A1jfgrWpiN",
+            "name": "Covert Manipulator",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "covert-manipulator-enter-reveal-crowds-favor"
+            ],
+            "semanticFixtures": [
+                "covert-manipulator-enter-reveal-crowds-favor"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "QwF7kvdpFz",
             "name": "Crimson Vein",
             "type": "REGALIA,ITEM",
@@ -40765,6 +40417,30 @@
             "priority": 133
         },
         {
+            "cardId": "uq2r6v374c",
+            "name": "Lurking Assailant",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lurking-assailant-stealth-while-awake"
+            ],
+            "semanticFixtures": [
+                "lurking-assailant-stealth-while-awake"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "pnDhApDNvR",
             "name": "Magus Disciple",
             "type": "ALLY",
@@ -40923,6 +40599,55 @@
             ],
             "starterDecks": [
                 "Lorraine, Arclight Saber Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "NRBO0nVMdl",
+            "name": "Photic Blade",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "photic-blade-refinement-power"
+            ],
+            "semanticFixtures": [
+                "photic-blade-refinement-power"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "Cvvvxlf0hi",
+            "name": "Piquant Shieldbearer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "status",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "piquant-shieldbearer-taunt-forces-target"
+            ],
+            "semanticFixtures": [
+                "piquant-shieldbearer-taunt-forces-target"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -41252,6 +40977,29 @@
             ],
             "starterDecks": [
                 "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "aj7pz79wsp",
+            "name": "Scorching Imperilment",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "scorching-imperilment-end-phase-discard-draw"
+            ],
+            "semanticFixtures": [
+                "scorching-imperilment-end-phase-discard-draw"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -41735,6 +41483,29 @@
             "priority": 133
         },
         {
+            "cardId": "4zkTRt8qXn",
+            "name": "Uncover the Plot",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "uncover-the-plot-reveal-draw-prepare"
+            ],
+            "semanticFixtures": [
+                "uncover-the-plot-reveal-draw-prepare"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "dSSRtNnPtw",
             "name": "Water Resonance Bauble",
             "type": "REGALIA,ITEM",
@@ -41857,6 +41628,29 @@
             "priority": 133
         },
         {
+            "cardId": "T3CIBknts0",
+            "name": "Zander, Prepared Scout",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "zander-prepared-scout-enter-glimpse-prepare"
+            ],
+            "semanticFixtures": [
+                "zander-prepared-scout-enter-glimpse-prepare"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "dIEAN4J4YS",
             "name": "Arcanist's Prism",
             "type": "REGALIA,ITEM",
@@ -41943,6 +41737,28 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "d9zax2g20h",
+            "name": "Bathe in Light",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "recover"
+            ],
+            "existingFixtures": [
+                "bathe-in-light-recover-delayed"
+            ],
+            "semanticFixtures": [
+                "bathe-in-light-recover-delayed"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -42083,6 +41899,28 @@
             "priority": 132
         },
         {
+            "cardId": "oy34bro89w",
+            "name": "Cunning Broker",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "status"
+            ],
+            "existingFixtures": [
+                "cunning-broker-rest-remove-prep-draw"
+            ],
+            "semanticFixtures": [
+                "cunning-broker-rest-remove-prep-draw"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "84YTQPTvar",
             "name": "Dante, Aenean Initiate",
             "type": "CHAMPION",
@@ -42167,6 +42005,30 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "zd83net7x0",
+            "name": "Disenchant",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "disenchant-destroy-phantasia"
+            ],
+            "semanticFixtures": [
+                "disenchant-destroy-phantasia"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -42404,6 +42266,28 @@
             "priority": 132
         },
         {
+            "cardId": "l6gt7lh9v2",
+            "name": "Imperial Spy",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "counter",
+                "status"
+            ],
+            "existingFixtures": [
+                "imperial-spy-onkill-prepare"
+            ],
+            "semanticFixtures": [
+                "imperial-spy-onkill-prepare"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "5ramr16052",
             "name": "Jin, Zealous Maverick",
             "type": "CHAMPION",
@@ -42631,6 +42515,31 @@
             "priority": 132
         },
         {
+            "cardId": "i2vPUpbPEl",
+            "name": "Nimble Court Assassin",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "nimble-court-assassin-enter-agility"
+            ],
+            "semanticFixtures": [
+                "nimble-court-assassin-enter-agility"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "rPpLwLPGaL",
             "name": "Phalanx Captain",
             "type": "ALLY",
@@ -42804,6 +42713,51 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "8n4zw4gq5w",
+            "name": "Sable Remnant",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "sable-remnant-class-bonus-power"
+            ],
+            "semanticFixtures": [
+                "sable-remnant-class-bonus-power"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "hYDqthNDpB",
+            "name": "Sacred Barrier",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "prevention"
+            ],
+            "existingFixtures": [
+                "sacred-barrier-prevent-noncombat"
+            ],
+            "semanticFixtures": [
+                "sacred-barrier-prevent-noncombat"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -43118,6 +43072,29 @@
             "priority": 132
         },
         {
+            "cardId": "0ZWcrEsFHA",
+            "name": "Tenderheart Guard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "tenderheart-guard-enter-discard-draw-crowds-favor"
+            ],
+            "semanticFixtures": [
+                "tenderheart-guard-enter-discard-draw-crowds-favor"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "2Ojrn7buPe",
             "name": "Tera Sight",
             "type": "ACTION",
@@ -43406,6 +43383,27 @@
             ],
             "starterDecks": [
                 "Arisanna Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "uZCyXDNJ6I",
+            "name": "Accepted Contract",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "accepted-contract-prepare-three"
+            ],
+            "semanticFixtures": [
+                "accepted-contract-prepare-three"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -43700,6 +43698,27 @@
             "priority": 131
         },
         {
+            "cardId": "Q2ugqVm04E",
+            "name": "Curved Dagger",
+            "type": "REGALIA,WEAPON",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "curved-dagger-class-bonus-attack-ally-power"
+            ],
+            "semanticFixtures": [
+                "curved-dagger-class-bonus-attack-ally-power"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "e3z4pyx8bd",
             "name": "Diana, Keen Huntress",
             "type": "CHAMPION",
@@ -43716,6 +43735,30 @@
             ],
             "starterDecks": [
                 "Diana Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "gR3LGjzKPS",
+            "name": "Epochal Conqueror",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "epochal-conqueror-attack-domain-power"
+            ],
+            "semanticFixtures": [
+                "epochal-conqueror-attack-domain-power"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -43758,6 +43801,28 @@
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "7tUvIHeo0i",
+            "name": "Increasing Danger",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "increasing-danger-draw-memory"
+            ],
+            "semanticFixtures": [
+                "increasing-danger-draw-memory"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter",
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -44042,6 +44107,30 @@
             "priority": 131
         },
         {
+            "cardId": "RnUpMoSb4w",
+            "name": "Shared Fervor",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "shared-fervor-memory-crowds-favor"
+            ],
+            "semanticFixtures": [
+                "shared-fervor-memory-crowds-favor"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "GKEpAulogu",
             "name": "Silvie, Loved by All",
             "type": "CHAMPION",
@@ -44126,6 +44215,28 @@
             "priority": 131
         },
         {
+            "cardId": "p6120p3f5d",
+            "name": "Wandering Glaivier",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "wandering-glaivier-on-death-draw"
+            ],
+            "semanticFixtures": [
+                "wandering-glaivier-on-death-draw"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "jF1VuIR7a6",
             "name": "Warrior's Longsword",
             "type": "REGALIA,WEAPON",
@@ -44143,6 +44254,27 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "UAF6Nr7GUE",
+            "name": "Zander, Blinding Steel",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "zander-blinding-steel-recollection-luxem-memory"
+            ],
+            "semanticFixtures": [
+                "zander-blinding-steel-recollection-luxem-memory"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
