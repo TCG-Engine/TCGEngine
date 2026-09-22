@@ -12082,6 +12082,364 @@ DECK,
 ];
 
 // ---------------------------------------------------------------------------
+// playCardAbilities dispatch coverage batch: the remaining 13 entries besides
+// qtzsekkjn3 (see vainglory-retribution-play-card-trigger above). Confirmed via
+// FirePlayCardTriggeredAbility instrumentation that NONE of these 13 ever fired
+// across the full pre-fix suite -- the earlier assumption that 12 of 14 already
+// had fixture coverage was wrong; grep hits on these CardIDs in other fixtures'
+// gamestate dumps were decklist/hand noise, not an actual play of the card.
+// ---------------------------------------------------------------------------
+
+$fillerDeck = <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK;
+
+$bigFillerDeck = <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+10 Dungeon Guide
+10 Fairy Whispers
+10 Fluffy Shopkeep
+10 Stocked Outpost
+DECK;
+
+// --- Lesser Boon of Shou: As gained, put an enlighten counter on your champion (rSIXf50oBc) ---
+$fixtures['lesser-boon-of-shou-enlighten-on-play'] = [
+    'testedCards' => ['rSIXf50oBc'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'rSIXf50oBc'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Greater Boon of Shou: As gained, draw a card (Zw0T2GmowK) ---
+$fixtures['greater-boon-of-shou-draw-on-play'] = [
+    'testedCards' => ['Zw0T2GmowK'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Zw0T2GmowK'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Cavalier Rescue: target ally gains a turn effect (+3 LIFE until EOT) (75uhspxqme) ---
+$fixtures['cavalier-rescue-target-turn-effect'] = [
+    'testedCards' => ['75uhspxqme'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['TurnEffects' => []]], // Dungeon Guide, target ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '75uhspxqme'],
+    ],
+    // The target MZCHOOSE fires immediately once reserve is paid (negating/targeting something
+    // still mid-resolution doesn't open a fresh Opportunity window) -- see the note on
+    // astral-seal-negate-activation-banish. Answer it as the very next action; a PASS submitted
+    // first would be misapplied against that pending MZCHOOSE and the effect would silently never
+    // land, even though replay still "verifies" against the (also-silently-wrong) recorded state.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Tempest Downfall: deal 3 damage to target ally/champion (4etkr73opc) ---
+$fixtures['tempest-downfall-target-damage'] = [
+    'testedCards' => ['4etkr73opc'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        // A permanent lineage unlock, not PRISMATIC_CODEX_IGNORE_ELEMENT: that self-consuming
+        // bypass is checked (and consumed) TWICE for a single activation -- once by
+        // CanActivateCard()'s own element gate, again by DoActivateCard()'s redundant
+        // CanPlayerUseCardElement($player,$cardID,true,true) call -- so a 1-stack budget is
+        // silently exhausted by the first check and the second always fails, aborting the whole
+        // activation with no decision ever queued and no error.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['TurnEffects' => []]], // Dungeon Guide, target ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4etkr73opc'],
+    ],
+    // The lineage-unlocked activation opens a real Opportunity window (other WIND-eligible filler
+    // copies remain in hand), unlike the "nothing left to offer" fixtures elsewhere in this file --
+    // decline it ('-') so 4etkr73opc itself resolves and its on-play target MZCHOOSE is queued,
+    // then answer that immediately (see astral-seal-negate-activation-banish's note).
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Rebounding Gust: move target ally to its controller's memory (9e0z7hb9id) ---
+$fixtures['rebounding-gust-target-to-memory'] = [
+    'testedCards' => ['9e0z7hb9id'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // opponent's Dungeon Guide, target ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '9e0z7hb9id'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Sleety Retreat: target Ranger ally/champion becomes distant (j9fkuzgg9i) ---
+$fixtures['sleety-retreat-target-distant'] = [
+    'testedCards' => ['j9fkuzgg9i'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ki6fxxgmue', 'setProperties' => ['TurnEffects' => []]], // Bertha, Spry Howitzer (RANGER ally)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'j9fkuzgg9i'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Enervating Decay: destroy target opposing ally, recover champion its HP (jh9s424gjr) ---
+$fixtures['enervating-decay-target-destroy-recover'] = [
+    'testedCards' => ['jh9s424gjr'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1'], 'Damage' => 5]], // TERA lineage/element unlock + pre-existing damage for the recover assertion
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'em6eEh9q8y'], // opponent's Dungeon Guide, target ally
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'jh9s424gjr'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Pouvoir Absolu: banish top 10 own deck, add omen counters ([Ciel Bonus]) (OylAWd6Tew) ---
+$fixtures['pouvoir-absolu-banish-top10-omen'] = [
+    'testedCards' => ['OylAWd6Tew'],
+    'deck' => $bigFillerDeck,
+    'setup' => [
+        ['player' => 1, 'globalEffect' => 'PRISMATIC_CODEX_IGNORE_ELEMENT'], // UMBRA unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'AOMXEGeSQk'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'AOMXEGeSQk'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'AOMXEGeSQk'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'AOMXEGeSQk'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'OylAWd6Tew'],
+    ],
+    'actions' => array_merge(
+        [['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-21!FSM!', 'chkInput' => [], 'inputText' => '']],
+        array_fill(0, 13, ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => '']),
+        [
+            ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+            ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+            ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+            ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ]
+    ),
+];
+
+// --- Lesser Boon of Kanaloa: both players discard 3 (P8sbt2gXkn) ---
+$fixtures['lesser-boon-of-kanaloa-both-discard-3'] = [
+    'testedCards' => ['P8sbt2gXkn'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['tafqldAGRF']]], // WATER lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'P8sbt2gXkn'],
+    ],
+    // The on-play trigger (both players discard 3) fires immediately once reserve is paid -- no
+    // Opportunity-window passes needed or possible here. A PASS submitted against the pending
+    // discard MZCHOOSE is treated by DiscardChosenCard as "discard nothing" (it explicitly no-ops
+    // on "-"/""/"PASS"), silently eating one of the six discard rounds per stray PASS -- see the
+    // note on astral-seal-negate-activation-banish for the general pattern.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Lesser Boon of Territories: scavenge 10 for a Domain card (ZpM7gliLxm) ---
+$fixtures['lesser-boon-of-territories-scavenge-domain'] = [
+    'testedCards' => ['ZpM7gliLxm'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Stocked Outpost
+4 Stocked Outpost
+4 Stocked Outpost
+4 Stocked Outpost
+DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ZpM7gliLxm'],
+    ],
+    // The scavenge choice fires immediately once reserve is paid (see the note on
+    // astral-seal-negate-activation-banish); a PASS against that pending MZCHOOSE is treated by
+    // ScavengeChoose as "decline" and silently skips the scavenge instead of answering it.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myTempZone-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Astral Seal: negate target activation, banish it (e3aebjvwbc) ---
+$fixtures['astral-seal-negate-activation-banish'] = [
+    'testedCards' => ['e3aebjvwbc'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        // A real lineage-based unlock (not the self-consuming PRISMATIC_CODEX_IGNORE_ELEMENT
+        // bypass) -- that bypass is consumed once per non-NORM card *considered* while the engine
+        // assembles the opportunity-window candidate list, not just once per card actually played,
+        // so it silently starves out before reaching the real activation in a multi-candidate
+        // window. A permanent lineage unlock has no such budget.
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['q3huqj5bba']]], // ASTRA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (NORM ALLY, no element unlock needed), bait activation to negate
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'e3aebjvwbc'],
+    ],
+    // Play Dungeon Guide (materialize, 3 reserve), then in its Opportunity window the engine offers
+    // every fast-eligible hand card at once (MZMAYCHOOSE lists them "&"-joined) -- pick Astral Seal
+    // specifically among the offered candidates. Once Astral Seal's own 3 reserve is paid, its
+    // on-play trigger fires *immediately* off the same call (no further Opportunity-window passes
+    // needed -- negating something still mid-resolution doesn't open a new window) and queues the
+    // MZCHOOSE target choice right there, so it must be answered as the very next action.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-4', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Choose EffectStack-0 (Dungeon Guide) to negate/banish, not EffectStack-1 (Astral Seal's
+        // own still-resolving trigger entry, also offered as a technically-legal but wrong target).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Annul Spell: negate target SPELL activation unless controller pays 3 (u817uqlk1j) ---
+$fixtures['annul-spell-negate-spell-activation'] = [
+    'testedCards' => ['u817uqlk1j'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        // Both u817uqlk1j (NORM) and its bait (Charge the Soul, also NORM) need no element unlock.
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'ra9950o14t'], // Charge the Soul (NORM SPELL), bait activation to negate
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'u817uqlk1j'],
+    ],
+    // Play Charge the Soul (materialize/activate, 1 reserve), then in its Opportunity window respond
+    // with Annul Spell (myHand-6 at this point). Once Annul Spell's own 3 reserve is paid, its
+    // on-play trigger fires immediately (no further Opportunity-window passes) and queues the
+    // MZCHOOSE target choice, which must be answered as the very next action. Since self-controller
+    // still has exactly 3 reserve-payable cards left (>= payAmount 3), the engine then asks Charge
+    // the Soul's controller (also player 1) whether to pay 3 to prevent the negate -- answer NO so
+    // the negate actually fires.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-6', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Imperial Accord: negate target advanced-element activation unless controller pays 6 (1S7Q5fqX5u) ---
+$fixtures['imperial-accord-negate-advanced-element'] = [
+    'testedCards' => ['1S7Q5fqX5u'],
+    'deck' => $fillerDeck,
+    'setup' => [
+        // Permanent lineage unlocks (see astral-seal-negate-activation-banish's note on why not
+        // PRISMATIC_CODEX_IGNORE_ELEMENT): NEOS for the bait, EXALTED + WATER for Imperial Accord
+        // itself (a dual-element card).
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['n2jnltv5kl', 'KqBosnU7pU', 'tafqldAGRF']]],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4n1n3gygoj'], // Neos Sight (NEOS, advanced element), bait activation to negate
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '1S7Q5fqX5u'],
+    ],
+    // Play Neos Sight (free, reserve 0) -- its Opportunity window offers Imperial Accord as a fast
+    // response. Once Imperial Accord's own 2 reserve is paid, its on-play trigger fires immediately
+    // and queues the MZCHOOSE target choice, answered as the very next action. Imperial Accord's
+    // "pay 6 to prevent" check needs the target's controller (self, player 1) to have >= 6
+    // reserve-payable cards; after paying for both cards, far fewer than 6 remain, so the engine
+    // auto-negates with no further YES/NO prompt.
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
 if ($onlyFixture) {

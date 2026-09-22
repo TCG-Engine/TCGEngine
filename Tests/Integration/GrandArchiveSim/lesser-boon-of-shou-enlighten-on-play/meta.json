@@ -1,0 +1,17 @@
+{
+    "name": "lesser-boon-of-shou-enlighten-on-play",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-21T20:20:19+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "rSIXf50oBc"
+    ],
+    "notes": "Engine fix coverage: playCardAbilities[\"rSIXf50oBc:0\"] was unreachable before bf25c65c for the same reason as qtzsekkjn3 (see vainglory-retribution-play-card-trigger). Playing this card also exposed a second, independent bug: Lesser Boon of Shou's CardType() is \"LESSER BOON\", which OnCardActivated()'s zone-resolution chain (ALLY/WEAPON/REGALIA/DOMAIN/ITEM/ACTION/ATTACK) never matched, so the card's own EffectStack entry was never moved off the stack. PostResolutionCheck kept finding the stack non-empty and re-resolved the same still-live entry through OnCardActivated() again, re-queuing a fresh PLAY_CARD trigger each time -- an unbounded loop (confirmed live: 100,000+ re-fires before being killed). Fixed by adding a LESSER BOON/GREATER BOON branch to OnCardActivated() (GameLogic.php) that moves Boon cards to the field like items/domains, matching how their persistent field presence is already read elsewhere (e.g. the end-phase enlighten-counter check for this same CardID).",
+    "semanticCoverage": {
+        "testedCards": ["rSIXf50oBc"],
+        "mechanics": ["trigger", "counter"],
+        "rulesClauses": [
+            "As this card is played, put an enlighten counter on your champion."
+        ]
+    }
+}

@@ -5276,6 +5276,19 @@ function OnCardActivated($player, $mzCard) {
         // Domains enter the field like allies/regalia â€” they are objects that persist
         $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
+    } else if(PropertyContains($cardType, "LESSER BOON") || PropertyContains($cardType, "GREATER BOON")) {
+        // Boons (e.g. Lesser Boon of Shou, Greater Boon of Shou) enter the field as persistent
+        // objects, same as domains/items -- other logic reads them there directly by CardID
+        // (e.g. the end-phase enlighten-counter check for rSIXf50oBc in the recollection-phase
+        // pass). Without this branch, a Boon's EffectStack entry never matches any case in this
+        // chain and is never moved off the stack, so it's never marked removed: every subsequent
+        // PostResolutionCheck still finds the stack non-empty and calls ResolveTopOfEffectStack()
+        // again, which resolves the same still-live entry through OnCardActivated() again,
+        // re-queuing a fresh PLAY_CARD trigger each time -- an unbounded loop (confirmed live:
+        // 100,000+ re-fires before being killed) for any card whose on-play ability was wired
+        // through QueuePlayCardTriggeredAbility() while its own CardType fell through this chain.
+        $obj = MoveEffectStackCardToField($player, $mzCard);
+        $obj->Controller = $player;
     } else if(PropertyContains($cardType, "ITEM")) {
         global $NonChampionObjectLink_Cards;
         if(isset($NonChampionObjectLink_Cards[$obj->CardID]) && ValidateStoredNonChampionObjectLinkTarget($player) === null) {
