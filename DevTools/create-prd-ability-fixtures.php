@@ -13214,6 +13214,124 @@ DECK,
     ],
 ];
 
+// --- Zander, Prepared Scout: On Enter, Glimpse 2, put a preparation counter on itself ---
+$fixtures['zander-prepared-scout-enter-glimpse-prepare'] = [
+    'testedCards' => ['T3CIBknts0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Zander, Prepared Scout
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Zander, Prepared Scout is level 1, one level above the default level-0 starting champion
+    // (Spirit of Fire), so no lineage/element patch is needed -- 0->1 is a legal level-up
+    // (CanChampionLevelUpIntoCard() in GameLogic.php requires targetLevel === currentLevel + 1;
+    // same shape as tonoris-lone-mercenary-on-enter-taunt). Its NORM element is always playable.
+    // Champion-swap materialization is only offered through the material-phase MZMAYCHOOSE at the
+    // start of a turn, so both players end their first turn (P1 -> P2) to reach that prompt on
+    // P1's next turn. Its printed cost is 1 memory, paid from a filler card seeded directly into
+    // myMemory. Choosing it completes the swap and its On Enter ability (GeneratedMacroCode.php
+    // enterAbilities["T3CIBknts0:0"]) both Glimpses 2 (resolved via the Top=/Bottom= deck-order
+    // decision) and puts a preparation counter on itself.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // filler card in memory to pay the 1-memory level-up cost
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=n8wyfG9hbY,em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''], // Glimpse 2: keep deck order unchanged
+    ],
+];
+
+// --- Imperial Spy: On Kill, put a preparation counter on your champion ---
+$fixtures['imperial-spy-onkill-prepare'] = [
+    'testedCards' => ['l6gt7lh9v2'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Imperial Spy's element is NORM, so no lineage patch is needed. Rule 1.h blocks the game's
+    // first player from attacking on turn 1, so player 1 ends turn 1 and player 2 attacks with
+    // Imperial Spy on their own turn 1 instead. A directly-patched Damage precondition on a
+    // freshly-seeded ally does NOT survive ending the turn -- GA's recollection/end-of-turn
+    // processing clears Damage back to 0 for any object whose Damage was set outside a real
+    // damage event (verified live: a Dungeon Guide seeded with Damage=2 read back as Damage=0
+    // immediately after the very next "end turn" action, before combat ever ran) -- so instead of
+    // pre-damaging a 3-Life ally, Wandering Glaivier (1 Life, from this same Pantheon pool) is
+    // used as the kill target: Imperial Spy's printed 2 POWER is lethal on a single fresh hit with
+    // no precondition needed. The defender's "Retaliate?" MZMAYCHOOSE (Wandering Glaivier, being
+    // the target with positive POWER, is eligible) must be explicitly declined so
+    // CombatApplyAttackerDamage actually lands and kills it, firing Imperial Spy's On Kill trigger.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'l6gt7lh9v2'], // Imperial Spy
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'p6120p3f5d'], // Wandering Glaivier (1 Life) - kill target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Imperial Spy
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Wandering Glaivier
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so CombatApplyAttackerDamage actually lands the kill
+    ],
+];
+
+// --- Corhazi Infiltrator: Whenever you reveal it from memory, may put a copy from memory to field ---
+$fixtures['corhazi-infiltrator-reveal-memory-to-field'] = [
+    'testedCards' => ['VAFTR5taNG'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Corhazi Infiltrator's element is LUXEM; the starting champion's CardID is patched directly
+    // to Zander, Blinding Steel (LUXEM, ASSASSIN) for both its own element requirement and the
+    // Class Bonus condition (Element Bonus is unconditionally true -- IsElementBonusActive() is a
+    // stubbed TODO returning true always, verified via GameLogic.php). Two copies of Corhazi
+    // Infiltrator are seeded into memory; Uncover the Plot (targeting yourself) reveals all of
+    // memory, firing the reveal-triggered ability once per copy revealed (QueueRevealTriggeredAbility
+    // in GameLogic.php). Answering the resulting MZMayChoose moves the OTHER copy from memory onto
+    // the field.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE']], // Zander, Blinding Steel (LUXEM, ASSASSIN)
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'VAFTR5taNG'], // Corhazi Infiltrator copy #1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'VAFTR5taNG'], // Corhazi Infiltrator copy #2
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4zkTRt8qXn'], // Uncover the Plot, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // target yourself
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''], // move a copy from memory to field
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline the second copy's own reveal-triggered offer
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
