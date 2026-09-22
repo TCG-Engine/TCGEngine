@@ -18232,6 +18232,63 @@ function SWUFindLeaderByCardID(int $player, string $cardID): ?object {
 // the default true). That is safe only because the one reaction-deploy leader, ASH_018, is not
 // CardLeaderCanDeployAsUpgrade, so it can never reach that branch. A future pilot-capable leader with a
 // reaction deploy must carry $isAction through LEADER_DEPLOY_CHOICE or it will regress this bug.
+// ── THE ONE DEPLOY CONDITION ──────────────────────────────────────────────────────────────────────
+// "May this leader deploy right now?" — read by BOTH the gate (SWUDeployLeader, below) and the OFFER
+// (SWUComputeActionsData: the client's Deploy glow and the bot's legal-action list).
+// ⚠ IT EXISTS BECAUSE THE TWO HAD DRIFTED, in both directions (Bug Report #1069, game 1109600):
+//   · ASH_010 Bo-Katan   — the offer wanted 10 RESOURCES, the rule is resources + friendly Mandalorian
+//     units >= 10, so with 6 + 4 the deploy was legal but never offered (the report);
+//   · LOF_007 Avar Kriss — same shape, her Force uses were missing from the offer;
+//   · ASH_018 Grogu      — the reverse: he has no Epic Action at all (he deploys only from his own
+//     trigger), yet the generic branch offered Deploy at 4 resources and the gate let the click through.
+// A new leader with a non-standard condition belongs HERE, once — never in a second copy.
+// ⚠ CONDITIONS ONLY, no side effects: the costs (JTL_014's 3, LAW_013's 4, SEC_008's discard-2) are paid
+// by SWUDeployLeader after this returns true.
+function SWULeaderDeployThresholdMet(int $player, $leader): bool {
+    if ($leader === null) return false;
+    $cardID   = strval($leader->CardID ?? '');
+    $ready    = (bool)($leader->Ready ?? false);
+    $deployed = (bool)($leader->Deployed ?? false);
+    $epicUsed = (bool)($leader->EpicActionUsed ?? false);
+    $cost     = intval(CardCost($cardID));
+    if ($deployed) return false;
+    switch ($cardID) {
+        // Trench: a NON-epic repeatable Action [3 resources, Exhaust] — ready, 6+ resources controlled,
+        // and 3 payable.
+        case 'JTL_014':
+            return $ready && SWUResourceCount($player) >= 6 && SWUTotalPaymentCapacity($player) >= 3;
+        // Bail Organa: non-epic repeatable Action [Exhaust, discard 2 cards] — 4+ resources and the cards
+        // to pay with. (The RE-ENTRY after the discard has its own path in SWUDeployLeader.)
+        case 'SEC_008':
+            $hand = 0; foreach (GetHand($player) as $h) if (empty($h->removed)) $hand++;
+            return $ready && SWUResourceCount($player) >= 4 && $hand >= 2;
+        // Flipatine: both faces are flip Actions — there is no deploy, and its empty printed cost would
+        // otherwise pass the generic check and offer a bogus one.
+        case 'TWI_017':
+            return false;
+        // Chewbacca: "Epic Action [4 resources]" is a paid COST, not a threshold — judge it on payment
+        // capacity (Credits/Droids may pay it, CR 3.13), or Deploy glows and the click does nothing.
+        case 'LAW_013':
+            return !$epicUsed && SWUTotalPaymentCapacity($player) >= $cost;
+        // Avar Kriss: resources + times the Force was used this phase.
+        case 'LOF_007':
+            return !$epicUsed && (SWUResourceCount($player) + GlobalEffectCount($player, 'SWU_FORCE_USED_THIS_PHASE')) >= $cost;
+        // Bo-Katan Kryze, Reclaiming Mandalore: resources + friendly Mandalorian units.
+        case 'ASH_010':
+            $mandoUnits = 0;
+            foreach (GetUnitsInPlay($player) as $u) {
+                if (empty($u->removed) && TraitContains($u, 'Mandalorian')) $mandoUnits++;
+            }
+            return !$epicUsed && (SWUResourceCount($player) + $mandoUnits) >= $cost;
+        // Grogu: NO Epic Action. He deploys only from his "play a unique unit costing 4+" trigger, which
+        // calls SWUDeployLeader with $isAction=false; a player-initiated deploy is never legal.
+        case 'ASH_018':
+            return false;
+        default:
+            return !$epicUsed && SWUResourceCount($player) >= $cost;
+    }
+}
+
 function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = '', int $leaderIndex = 0, bool $isAction = true): void {
     global $playerID;
     $savedPID = $playerID;
@@ -18250,12 +18307,7 @@ function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''
     // leader form.
     if ($leader->Deployed ?? false) { $playerID = $savedPID; return; }
     if ($cardID === 'JTL_014') {
-        if (empty($leader->Ready)
-            || SWUResourceCount($player) < 6
-            || SWUTotalPaymentCapacity($player) < 3) {
-            $playerID = $savedPID;
-            return;
-        }
+        if (!SWULeaderDeployThresholdMet($player, $leader)) { $playerID = $savedPID; return; }
         SWUPayInlineAbilityCost($player, 3); // [3 resources] — Credits/Droids may pay it (CR 3.13)
     } elseif ($cardID === 'SEC_008') {
         // Bail Organa Action [Exhaust, discard 2 cards from your hand]: deploy if you control 4+ resources.
@@ -18280,43 +18332,16 @@ function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''
         // leader carries (he is the only leader in the game printed this way). It is still the
         // once-per-game Epic. Capacity, not ready resources: a Credit token / SEC_122 Droid pays it
         // (CR 3.13). Pay before committing so an unpayable Epic can't spend the slot.
-        if (($leader->EpicActionUsed ?? false)
-            || SWUTotalPaymentCapacity($player) < intval(CardCost($cardID))) {
-            $playerID = $savedPID;
-            return;
-        }
+        if (!SWULeaderDeployThresholdMet($player, $leader)) { $playerID = $savedPID; return; }
         SWUPayInlineAbilityCost($player, intval(CardCost($cardID)));
-    } elseif ($cardID === 'LOF_007') {
-        // Avar Kriss Epic Action: deploy if (resources you control) + (times you used the Force this
-        // phase) ≥ 9 (her printed deploy threshold).
-        $forceUses = GlobalEffectCount($player, 'SWU_FORCE_USED_THIS_PHASE');
-        if (($leader->EpicActionUsed ?? false)
-            || (SWUResourceCount($player) + $forceUses) < intval(CardCost($cardID))) {
-            $playerID = $savedPID;
-            return;
-        }
     } elseif ($cardID === 'ASH_018') {
         // Grogu has no Epic Action; he deploys ONLY via his "play a uq unit costing 4+" trigger, which
-        // just requires he is ready (no resource threshold).
-        if (empty($leader->Ready)) { $playerID = $savedPID; return; }
-    } elseif ($cardID === 'ASH_010') {
-        // Bo-Katan Kryze, Reclaiming Mandalore — Epic Action: deploy when (resources you control) +
-        // (friendly Mandalorian units) ≥ her printed deploy threshold (10). Mirrors LOF_007 Avar Kriss.
-        $mandoUnits = 0;
-        foreach (GetUnitsInPlay($player) as $u) {
-            if (empty($u->removed) && TraitContains($u, 'Mandalorian')) $mandoUnits++;
-        }
-        if (($leader->EpicActionUsed ?? false)
-            || (SWUResourceCount($player) + $mandoUnits) < intval(CardCost($cardID))) {
-            $playerID = $savedPID;
-            return;
-        }
+        // just requires he is ready (no resource threshold). SWULeaderDeployThresholdMet says NO for him
+        // — that is the PLAYER-INITIATED answer (nothing may offer him a Deploy button) — so the trigger
+        // is recognised by $isAction === false and checked here instead.
+        if ($isAction || empty($leader->Ready)) { $playerID = $savedPID; return; }
     } else {
-        if (($leader->EpicActionUsed ?? false)
-            || SWUResourceCount($player) < intval(CardCost($cardID))) {
-            $playerID = $savedPID;
-            return;
-        }
+        if (!SWULeaderDeployThresholdMet($player, $leader)) { $playerID = $savedPID; return; }
     }
 
     // For CardLeaderCanDeployAsUpgrade leaders deploying as 'Unit' (not 'UnitDirect'):
@@ -20897,31 +20922,9 @@ function SWUComputeActionsData(int $player): array {
         // Villainy face, not a unit deploy), so its glow isn't gated on !deployed.
         $abilityByIdx[$liveIdx] = $ready && (!$deployed || $cid === 'TWI_017')
             && SWULeaderActionAffordable($player, $cid);
-        if ($cid === 'JTL_014') {
-            // Trench: non-epic repeatable deploy — ready, control 6+ resources, 3 ready resources.
-            $deployByIdx[$liveIdx] = $ready && !$deployed
-                && SWUResourceCount($player) >= 6
-                && SWUTotalPaymentCapacity($player) >= 3;
-        } elseif ($cid === 'SEC_008') {
-            // Bail Organa: non-epic repeatable Action [Exhaust, discard 2 cards from hand]: deploy if you
-            // control 4+ resources. Needs the leader ready + 2 cards in hand to discard as the cost.
-            $bailHand = 0; foreach (GetHand($player) as $bh) if (empty($bh->removed)) $bailHand++;
-            $deployByIdx[$liveIdx] = $ready && !$deployed
-                && SWUResourceCount($player) >= 4 && $bailHand >= 2;
-        } elseif ($cid === 'TWI_017') {
-            // TWI_017 "Flipatine" has NO deploy — both faces are flip Actions (its empty printed cost
-            // would otherwise make the generic ">= CardCost" check pass and offer a bogus Deploy option).
-            $deployByIdx[$liveIdx] = false;
-        } elseif ($cid === 'LAW_013') {
-            // Chewbacca: "Epic Action [4 resources]" is a paid COST, not a control threshold — offer it on
-            // the same payment-capacity gate SWUDeployLeader enforces, or Deploy glows and does nothing
-            // (the bot re-picked it forever). SWUSim/DevTools/tests/chewbacca_deploy_offer_test.php.
-            $deployByIdx[$liveIdx] = !$epicUsed && !$deployed
-                && SWUTotalPaymentCapacity($player) >= intval(CardCost($cid));
-        } else {
-            $deployByIdx[$liveIdx] = !$epicUsed && !$deployed
-                && SWUResourceCount($player) >= intval(CardCost($cid));
-        }
+        // ONE condition, shared with the gate in SWUDeployLeader (see SWULeaderDeployThresholdMet):
+        // the per-leader branches that used to live here had drifted from it three ways (Bug #1069).
+        $deployByIdx[$liveIdx] = SWULeaderDeployThresholdMet($player, $leaderObj);
         $liveIdx++;
     }
     $data['leaderAbilityByIndex'] = $abilityByIdx;
