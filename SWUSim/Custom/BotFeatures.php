@@ -55,10 +55,55 @@ const SWU_BOT_PART6_FEATURES = ['shrinkfirst'];
 // the stack before it. Guard: SWUSim/DevTools/tests/bot_buffattack_test.php.
 const SWU_BOT_PART7_FEATURES = ['buffattack'];
 
+// Part 8 (2026-09-22): 'resourcing3' — the OWNER'S RESOURCING RULINGS for the control wing vs an AGGRO-LEADER opponent
+// (SWU_BOT_AGGRO_LEADERS, BotResourcing.php), as ordered tiers:
+//   - duplicates first;
+//   - before the flip, the 7+ drops, non-answers first;
+//   - then keep answers, a relevant wipe and a curve.
+// Protected: Hyperspace Disaster vs space aggro, Chimaera, and a capital-ship deck's Capital Ships. Against every
+// other opponent it is the shipped resourcer, unchanged. Method: the owner's first FOCUSED block (one style, one
+// opponent).
+// Measured (one-sided, paired, fresh seeds):
+//   - Thrawn DV vs Vader: canary +27, confirmation **+104 / 2,000 (19.1 → 24.3%)**, the first effect that did not
+//     shrink on confirmation.
+//   - Piett vs Vader: **+104 (24.1 → 34.5%)**.
+//   - Aurra +21, Lando −3, Thrawn Yellow −4, Krennic Splash −1.
+//   - Safety vs Ahsoka +9. Identical to base vs Dedra / Luke ASH.
+// Its forerunner 'resourcing2' FAILED safety (Dedra −142, Piett −46): it read "aggressive" off the board and dropped
+// the ruling's exceptions ("unless the matchup is slow / you can ramp"). '@no-p8' = the stack before it.
+// Record: docs/superpowers/research/2026-09-premier-meta/bot-sweeps/2026-09-22_*.
+const SWU_BOT_PART8_FEATURES = ['resourcing3'];
+
+// Part 9 (2026-09-22): 'nogift' — never make a play whose BEST line still makes the opponent stronger.
+// FOUND in Bug Report #1066 (game 1097180): Arenabot had no units, played ASH_089 Perseverance ("Heal 3 damage from
+// a unit and give a Shield token to it"), and its only legal target was the opponent's LAW_113 — which ended the
+// action with 2 Shields. The play case priced the event by cost and tags alone, so nothing saw who it helped.
+// _SWUBotPlayIsGift (BotFallback.php) plays the card in the lookahead (targets chosen for the best board change) and
+// holds it when the opponent's units / base still come out ahead. Abilities already had the same guard ('buffs').
+// ⚠ SHIPPED ON THE OWNER'S RULING, NOT ON A MEASUREMENT ("the bot should not give any advantageous plays to the
+// opponent", 2026-09-22), like p7. '@no-p9' is the stack before it. Guard: SWUSim/DevTools/tests/bot_nogift_test.php.
+const SWU_BOT_PART9_FEATURES = ['nogift'];
+
+// Part 10 (2026-09-22): 'enablerfirst' — a card whose WHEN PLAYED text improves "the next unit you play this phase"
+// is played BEFORE the unit it improves, and is worth what it adds to it.
+// FOUND in a Bug Report (game 1105765): "Ahsoka played a 0 power unit before Neel. it should be the other way around
+// to be able to 1) ready Tarpals 2) buff him and start the game strong with 4 damage to base". ASH_248 Neel readies
+// the next unit played with 1 or less power; HMW_254 Captain Tarpals is 0 power with Raid 2. Neel → Tarpals (ready)
+// → Ahsoka's Action (+2/+0) → 4 damage at the base. The bot played Tarpals first and attacked with nothing.
+// Root cause: _SWUBotPlayValue is ORDER-BLIND (develop x cost + tags + unitPlay), so two 1-drops tie and the order
+// is whatever the enumerator lists first. _SWUBotEnablerFirstBonus (BotFallback.php) prices the grant the way
+// 'buffattack' prices a buff — the attack it unlocks, or the resources it saves — and only when an eligible payoff
+// is in hand AND still affordable after the enabler.
+// ⚠ SHIPPED ON THE REPORT, NOT ON A MEASUREMENT, like p7/p9: an unused "next unit you play this phase" grant is
+// strictly zero, so the floor is "no worse". '@no-p10' is the stack before it.
+// Guard: SWUSim/DevTools/tests/bot_enablerfirst_test.php.
+const SWU_BOT_PART10_FEATURES = ['enablerfirst'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
-                       SWU_BOT_PART7_FEATURES);   // part 2, then 3-7
+                       SWU_BOT_PART7_FEATURES, SWU_BOT_PART8_FEATURES, SWU_BOT_PART9_FEATURES,
+                       SWU_BOT_PART10_FEATURES);   // part 2, then 3-10
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -69,7 +114,8 @@ function SWUBotFeatureGroups(): array {
     // 'wk' = everything shipped in the week of 2026-09-18/20, for re-measuring the random-play benchmark.
     $p3 = SWU_BOT_PART3_FEATURES;
     return ['p3' => $p3, 'p4' => SWU_BOT_PART4_FEATURES, 'p5' => SWU_BOT_PART5_FEATURES,
-            'p6' => SWU_BOT_PART6_FEATURES, 'p7' => SWU_BOT_PART7_FEATURES,
+            'p6' => SWU_BOT_PART6_FEATURES, 'p7' => SWU_BOT_PART7_FEATURES, 'p8' => SWU_BOT_PART8_FEATURES,
+            'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,
@@ -287,6 +333,22 @@ const SWU_BOT_PROPOSALS = [
     // 2026-09-21: the p3d bisection named 'flavourrank' (+54 for Maul piloted as soft control, p=.0016). Its 'tempo'
     // shift is correct for a tempo MIDRANGE deck and double-counts on a deck already labelled control.
     'flavourcap',      // apply the flavour rank shift only when the deck's own label is below the control wing
+    // 2026-09-22 — built from the OWNER'S RESOURCING RULINGS (bot-sweeps/2026-09-21_resourcing_rulings.md), first
+    // focused block: soft control vs Vader Yellow.
+    'resourcing2',     // control-wing resourcing as the owner's ordered tiers (rulings 1-10, confirmed precedence)
+    'krennicramp',     // Krennic LAW_008: before the flip, play a cheap unit and sacrifice it to the leader for a Credit
+    'aurathreat',      // a unit's threat/value includes the power its aura grants (Victor Leader: +1 per other ship)
+    // 2026-09-22 — resourcing2 was CONFIRMED on Thrawn DV vs Vader (+104/2,000) but FAILED safety: Dedra −142, Piett −46.
+    // It read "aggressive" off the BOARD, so a hard-control mirror counted, and it dropped the ruling's exceptions.
+    // ('resourcing3', its fix, was SHIPPED 2026-09-22 as feature group 'p8' — its history is in the feature comment.)
+    'krennicplan',     // owner rulings K1-K3 (Krennic vs Vader): bank Credits for 7+ cards, HSD as soon as it saves
+                       // the game, attack before sacrificing, Mercenary sacrificed the round it is played
+    // krennicplan LOST its canary (−44 / 1,000; base damage dealt 14.3 → 7.8). Its parts, for the split (BotRules.php
+    // SWU_BOT_KRENNIC_PLAN_ARMS): K1 banking only, K2 only, K3 only, and all but the forced ramp.
+    'kpbank', 'kphsd', 'kporder', 'kpnoramp',
+    'piettcheat',      // owner: "cheat out capital ships" — value a leader's discounted play-from-hand Action
+                       // (Piett JTL_005) as the best card it can play, and pick the best card at its prompt.
+                       // Measured +7 alone (11/1,000 games changed), 0 on top of resourcing3: kept OFF (owner 2026-09-22).
                        // ⚠ contradicts the owner's 2026-09-13 resourcing ruling; run with the owner's OK to
                        // gather data (2026-09-20). Memory `bot-heuristics-cause-the-anti-control-bias` calls this
                        // the most actionable lead: control resources its own answers before filler.
@@ -302,6 +364,7 @@ function SWUBotProposalList(): array {
 // measure proposals TOGETHER before shipping them. The first, 'shipset' (sentinelkeep + wipethreat), was measured
 // and SHIPPED 2026-09-18 as feature group 'p4', so it is gone from here. Empty until the next candidate set.
 // 'lm3' measured WORSE than shrinkfirst alone (−42, p .061), so the set is retired; shrinkfirst shipped by itself.
+// ('piettplan' = resourcing3 + piettcheat was measured 2026-09-22; with resourcing3 shipped it is '@try-piettcheat'.)
 const SWU_BOT_PROPOSAL_GROUPS = [];
 
 // Proposals default OFF: true only when the active variant explicitly enabled it.

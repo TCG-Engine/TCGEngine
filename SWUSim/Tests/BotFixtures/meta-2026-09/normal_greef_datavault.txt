@@ -5,7 +5,12 @@
 #   Its event was pulled on 2026-09-15, so the placement above is now from our own data.
 # Archetype (owner's label): Mixed midrange aggro go-wide
 #   Owner, 2026-09-15: plays on Normal for now (the bots spec's "Greef Karga (any list)" → Aggro predates this list).
-# Style: midrange
+#   ⚠ RELABELLED 2026-09-22 (owner): SOFT AGGRO. This list and aggro_greef.txt are the same deck — same leader, same
+#   base, 87% of the same cards — and carried different styles, which no classifier can satisfy (the deck-style
+#   classifier's 75% rule would have each hand the other its label). Owner's ruling: "both soft aggro".
+#   ⚠ The bot now PILOTS this fixture as soft aggro in sweeps, so any measurement that used it before 2026-09-22 is
+#   not comparable with one after.
+# Style: softaggro
 # Flavours: go-wide, mixed
 
 Leader

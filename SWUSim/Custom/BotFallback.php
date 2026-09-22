@@ -151,7 +151,12 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 // round-1 Reforge with no friendly upgrade to defeat).
                 if (SWUBotFeatureOn('noeffect') && str_contains(strval(CardType($cid)), 'Event') && !_SWUBotIsEffectEvent($cid)
                     && _SWUBotEventHadNoEffect($seat, $action, $cid, $W)) return -0.5;
+                // A play whose best line still helps the opponent is held (feature 'nogift'; Bug #1066, Perseverance
+                // with only an enemy unit to heal and shield).
+                if (SWUBotFeatureOn('nogift') && _SWUBotPlayIsGift($seat, $action, $cid, $W)) return -0.5;
                 $v = _SWUBotPlayValue($seat, $cid, $W);
+                // Play an enabler BEFORE the unit it improves (feature 'enablerfirst').
+                if (SWUBotFeatureOn('enablerfirst')) $v += _SWUBotEnablerFirstBonus($seat, $action, $cid, $W);
                 // PROPOSAL 'earlyremoval' (default OFF). _SWUBotPlayValue is TARGET-BLIND — a removal event scores
                 // develop x cost + W['removal'] whether the best target is a 2-drop or a bomb. This gives it a target.
                 // 'threatholdall' (default OFF) lifts the control-wing gate on the shipped p5 hold.
@@ -235,6 +240,12 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
     }
     if ($type === 'OPTIONCHOOSE' && $tip === 'Choose_a_player_to_deal_indirect_damage' && SWUBotFeatureOn('splits')) {
         return $c === 'You' ? -1.0 : $W['base'];
+    }
+    // PROPOSAL 'piettcheat' (default OFF): a discounted play-from-hand prompt (Piett's "Play_a_Capital_Ship_unit_(costs_1_less)")
+    // plays the card worth most, not the first legal one.
+    if (SWUBotProposalOn('piettcheat') && str_starts_with($tip, 'Play_a_') && str_starts_with($c, 'myHand-')) {
+        $o = GetHand($seat)[intval(substr($c, strlen('myHand-')))] ?? null;
+        if ($o !== null) return 0.5 + 0.01 * _SWUBotPlayValue($seat, strval($o->CardID ?? ''), $W);
     }
     // Guide: the opening two resources are the resourcing engine's two lowest keep values.
     if ($tip === 'Choose_2_cards_to_resource') return _SWUBotSameSelection($c, SWUBotChooseResourceCards($ctx, 2)) ? 1.0 : -$index * 1e-6;
@@ -511,6 +522,48 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W): float {
 }
 
 
+// An ENABLER — a card whose WHEN PLAYED text improves "the next unit you play this phase" — is worth what it adds
+// to that next unit, so it is played BEFORE it (feature 'enablerfirst'; Bug Report game 1105765, ASH_248 Neel and
+// HMW_254 Captain Tarpals). Two priced benefits, both read off the card text:
+//   · "enters play ready" → the attack that unit can now make this phase, priced like any attack (W['base'] x power,
+//     Raid included — a 0-power Tarpals with Raid 2 swings for 2);
+//   · "costs N resource(s) less" → the resources saved (W['develop'] x N).
+// Zero unless an ELIGIBLE payoff is in hand AND still affordable after this card is paid for — an unused grant is
+// worth nothing, and promoting the enabler then would just reorder two plays for no reason. Other benefits
+// ("gains Hidden / Shielded") are deliberately not priced: no number to price them with.
+function _SWUBotEnablerFirstBonus(int $seat, array $action, string $cid, array $W): float {
+    $text = strval(CardText($cid));
+    // The grant must come from PLAYING this card (When Played). "On Attack" / "When Defeated" versions of the same
+    // sentence say nothing about which card to play first.
+    if (!preg_match('/When Played/i', $text)) return 0.0;
+    if (!preg_match('/next unit you play this phase(.*?)\./is', $text, $m)) return 0.0;
+    $clause = $m[1];
+    $readies = stripos($clause, 'enters play ready') !== false;
+    $cheaper = preg_match('/costs (\d+) resource/i', $clause, $c) ? intval($c[1]) : 0;
+    if (!$readies && $cheaper <= 0) return 0.0;
+    // A condition this cannot evaluate ("if it shares a keyword with a friendly unit") — do not guess.
+    if (preg_match('/\bif\b/i', $clause)) return 0.0;
+    $maxPower = preg_match('/with (\d+) or less power/i', $clause, $p) ? intval($p[1]) : PHP_INT_MAX;
+    $i = intval(substr(SWUBotActionMz($action), strlen('myHand-')));
+    $self = GetHand($seat)[$i] ?? null;
+    if ($self === null) return 0.0;
+    $left = SWUTotalPaymentCapacity($seat) - intval(SWUComputePlayCost($seat, $self));
+    $best = 0.0;
+    foreach (GetHand($seat) as $j => $o) {
+        if ($j === $i || $o === null || !empty($o->removed)) continue;
+        $pid = strval($o->CardID ?? '');
+        if (!str_contains(strval(CardType($pid)), 'Unit')) continue;
+        $power = intval(CardPower($pid));
+        if ($power > $maxPower) continue;
+        $cost = intval(SWUComputePlayCost($seat, $o)) - $cheaper;
+        if ($cost > $left) continue;                       // the grant would expire unused
+        $raid = preg_match('/\bRaid (\d+)/i', strval(CardText($pid)), $r) ? intval($r[1]) : 0;
+        $gain = $readies ? $W['base'] * max(0, $power + $raid) : $W['develop'] * $cheaper;
+        $best = max($best, $gain);
+    }
+    return $best;
+}
+
 // Deploying a leader that makes cards in hand cheaper — Piett: "Each Capital Ship unit you play costs 2 resources
 // less." — comes before hard-casting them (feature 'enablers'). Judged by the lookahead: each hand card's play
 // cost before and after the deploy.
@@ -723,6 +776,33 @@ function _SWUBotEventIsDud(int $seat, array $action, string $cid, array $W): boo
     return false;
 }
 
+// Feature 'nogift': what the opponent's side is worth to THEM, on the axes a friendly-minded effect improves —
+// remaining HP, power, Shields, upgrades, readiness, unit count, base HP. _SWUBotSideValue misses Shields and
+// upgrades, so a Shield handed to an undamaged enemy unit would read as nothing.
+function _SWUBotGiftRead(int $seat): float {
+    $opp = SWUBotOpponent($seat);
+    $v = floatval(SWUBaseRemainingHp($opp));
+    foreach (SWUBotUnits($opp) as $u) {
+        $v += 2.0 + max(0, $u['remaining']) + max(0, $u['power']) + 2.0 * $u['shields'] + $u['upgrades'] + ($u['ready'] ? 1.0 : 0.0);
+    }
+    return $v;
+}
+
+// Play the card in the lookahead (its choices made for the best board change for me) and hold it when even that
+// line leaves the opponent better off. Only cards whose text can help a unit are tried (the lookahead is not free).
+function _SWUBotPlayIsGift(int $seat, array $action, string $cid, array $W): bool {
+    if (!function_exists('SWUBotLookaheadBest')) return false;
+    if (!preg_match('/\b(heal|give|gives|ready|attach|gets \+)/i', strval(CardText($cid)))) return false;
+    $before = _SWUBotBoardRead($seat);
+    $gift0 = _SWUBotGiftRead($seat);
+    $line = SWUBotLookaheadBest($seat, $action, function () use ($seat) {
+        $r = _SWUBotBoardRead($seat);
+        $r['_gift'] = _SWUBotGiftRead($seat);
+        return $r;
+    }, fn(array $r) => _SWUBotBoardDelta($before, $r, $W), SWU_BOT_LOOKAHEAD_DEPTH, 12);
+    return $line !== null && floatval($line['_gift'] ?? $gift0) - $gift0 > 1e-6;
+}
+
 // Feature 'noeffect': play the event in the lookahead (its choices made for the best board change) and read the
 // ENGINE's verdict — "P1's X had no effect" is logged only when the whole gamestate is unchanged by the ability
 // (SWULogNoEffectCheck, SWUSim/Custom/GameLogEvents.php). The dud gate above only sees the enemy side, so an event
@@ -820,6 +900,25 @@ function _SWUBotBoardSignature(int $seat): array {
 // If the lookahead cannot apply the action, the flat value stands (the pre-2026-09-13 behaviour).
 function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     $seat = intval($ctx['seat']);
+    // PROPOSAL 'piettcheat' (default OFF). Owner, 2026-09-22: Piett "should cheat out capital ships to be able to trade
+    // and stall against Vader". The lookahead stops at the ship prompt, so the discounted play scored as a bare
+    // ability (1.5) — no more than playing the same ship at full price. Value it as the best ship it can play, plus
+    // the resource it saves.
+    if (SWUBotProposalOn('piettcheat') && SWUBotActionKind($action) === 'leader-ability') {
+        $l = GetLeader($seat)[0] ?? null;
+        $txt = $l !== null ? strval(CardText(strval($l->CardID ?? ''))) : '';
+        if (preg_match('/Play an? ([A-Z][\w ]*?) unit from your hand\. It costs (\d+) resources? less/', $txt, $m)
+            && function_exists('SWUHandPlayablesAtDiscount')) {
+            $best = null;
+            foreach (SWUHandPlayablesAtDiscount($seat, ['Unit'], intval($m[2])) as $mz) {
+                $o = GetZoneObject($mz);
+                if ($o === null || !empty($o->removed) || !HasTrait($o->CardID, $m[1])) continue;
+                $v = _SWUBotPlayValue($seat, strval($o->CardID), $W);
+                $best = $best === null ? $v : max($best, $v);
+            }
+            if ($best !== null) return $best + 0.1 * intval($m[2]);
+        }
+    }
     if (!function_exists('SWUBotLookahead')) return $W['ability'];
     $before = _SWUBotBoardSignature($seat);
     $handIDs = fn() => array_values(array_map(fn($o) => strval($o->CardID), array_filter(GetHand($seat), fn($o) => $o !== null && empty($o->removed))));

@@ -355,6 +355,7 @@
 .swu-menu-grid .swu-note { margin-top: 12px; font-size: 13px; line-height: 1.45; color: var(--pa-muted) !important; }
 .swu-menu-grid .swu-note a { color: var(--pa-gold) !important; text-decoration: underline; }
 .swu-menu-grid .swu-note--error { color: #ff7b72 !important; }
+.swu-menu-grid .swu-note--ok { color: #a8c8a0 !important; }   /* the deck check's "✓ Leader / Base — 50 cards" */
 
 /* Section label with a trailing rule — "Saved Decks", "Quick Reference" */
 .swu-menu-grid .swu-section-label {

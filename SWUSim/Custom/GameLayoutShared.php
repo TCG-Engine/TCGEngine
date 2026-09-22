@@ -248,6 +248,15 @@ body.swu-spectating .swu-spectate-badge { display: block; }
 .swu-home-strip { position: relative; flex-direction: column; align-items: stretch; gap: 6px; padding: 8px; max-width: 46%; cursor: default; }
 .swu-mb-r1 { display: flex; align-items: center; gap: 5px; }
 .swu-mb-seat { font-weight: 800; color: #eef; margin-right: 2px; }
+/* A named seat label (swuSeatLabelHtml): "username P3". The name truncates so a long one cannot push the
+   leaders, base and Zoom button off the tile; the full "username (P3)" is in the title tooltip. */
+.swu-mb-seat.has-name, .swu-sr-seat.has-name { display: inline-flex; align-items: baseline; gap: 4px; min-width: 0; }
+.swu-seat-name { display: inline-block; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Phone row: the label is the one item allowed to SHRINK, so a long name gives way to the leaders, base, arena
+   counts and Zoom button instead of pushing Zoom off the row (measured: a fixed 84px cap overflowed a 400px row). */
+.swu-sr-seat.has-name { flex: 0 1 auto; overflow: hidden; }
+.swu-sr-seat .swu-seat-name { max-width: 84px; min-width: 0; flex: 0 1 auto; }
+.swu-seat-pn { font-weight: 600; font-size: 0.78em; opacity: 0.7; }
 .swu-mb-spacer { flex: 1 1 auto; }
 .swu-mb-card { position: relative; border-radius: 3px; border: 1px solid #10151f;
     background-size: cover; background-position: center; box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
@@ -1949,7 +1958,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             var text = parts.slice(2).join('|');
             var div  = document.createElement('div');
             div.className = 'swu-log-entry swu-log-' + type;
-            div.innerHTML = swuParseLogText(text.replace(/</g, '&lt;'));
+            div.innerHTML = swuParseLogText(swuNameSeatsInLog(text.replace(/</g, '&lt;')));
             frag.appendChild(div);
         }
         _swuLogRenderedCount = entries.length;
@@ -2567,7 +2576,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if (seats.length === 2 && me >= 1 && seatedEver.indexOf(String(me)) !== -1
             && seats.indexOf(me) === -1) {
             return [{ viewSeat: seats[0], oppSeat: seats[1], mode: 'matchup', opps: [seats[1]],
-                      label: 'P' + seats[0] + ' vs P' + seats[1] }];
+                      label: swuSeatName(seats[0]) + ' vs ' + swuSeatName(seats[1]) }];
         }
         if (seats.length <= 2) return [];
         var opps = seats.filter(function (s) { return s !== me; });
@@ -2581,7 +2590,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // opposite of USER RULING 2026-08-25 (the home view stays as it is; Zoom In is how you look
             // at your ally's board).
             views.push({ viewSeat: me, oppSeat: o, mode: 'matchup',
-                         label: (swuIsTeammate(o) ? 'P' : 'vs P') + o });
+                         label: (swuIsTeammate(o) ? '' : 'vs ') + swuSeatName(o) });
         });
         return views;
     }
@@ -2692,7 +2701,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         document.body.classList.toggle('swu-home', !!(window.swuView && window.swuView.mode === 'home'));
         var badge = document.getElementById('swuSpectateBadge');
         if (badge && window.swuView) {
-            badge.textContent = '👁 Read-only — viewing P' + window.swuView.viewSeat + ' vs P' + window.swuView.oppSeat;
+            badge.textContent = '👁 Read-only — viewing ' + swuSeatName(window.swuView.viewSeat) + ' vs ' + swuSeatName(window.swuView.oppSeat);
         }
     }
 
@@ -3409,6 +3418,49 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         return html + "</span>";
     }
 
+    // The seat label on a Twin Suns preview (desktop tile and mobile row): the player's username followed by
+    // their seat, "alice P3", so a table of four reads as people rather than numbers (owner request
+    // 2026-09-22). A guest, or a game outside the match system, has no entry in SWU_SEAT_USERNAMES (only real
+    // accounts go in) and keeps the bare "P3". The username is escaped: it lands in innerHTML.
+    // Escape a username for innerHTML / an attribute. [ and ] too: the game log turns [[id|name]] into a card link.
+    function swuEscName(t) {
+        return String(t).replace(/[&<>"'\[\]]/g, function (c) { return '&#' + c.charCodeAt(0) + ';'; });
+    }
+
+    // Plain-text seat name. A logged-in seat is its username — "alice (P3)" at a multiplayer table
+    // (CHAT_SEAT_SUFFIX, 3+ seats), plain "alice" in 1v1. Any other seat of a match game takes its display name
+    // from the server: "Guest P3" for a guest (the site-wide pattern), "Arenabot" for the bot. A game with no
+    // match record (goldfish, hotseat, a test board) has neither, and keeps "P3". Used by the game log, the
+    // matchup labels, the read-only badge and the Zoom tooltips. Escape it (swuEscName) before it goes into HTML.
+    function swuSeatName(seat) {
+        var s = String(seat);
+        var name = (window.SWU_SEAT_USERNAMES || {})[s];
+        if (name) return window.CHAT_SEAT_SUFFIX === true ? String(name) + ' (P' + s + ')' : String(name);
+        var shown = (window.SWU_SEAT_DISPLAY_NAMES || {})[s];
+        return shown ? String(shown) : 'P' + s;
+    }
+
+    // The game log is written server-side with bare seat numbers ("P1 took the initiative", "P3's Grogu") and
+    // each one is shown by name at render (swuSeatName), in 1v1 and multiplayer alike (owner request 2026-09-22).
+    // The stored log keeps "P1", so replays and the match record are unchanged. Card links ([[id|name]]) are
+    // left alone. Takes and returns HTML-escaped text (swuRenderGameLog has already escaped "<").
+    function swuNameSeatsInLog(text) {
+        return text.split(/(\[\[[^\]]*\]\])/).map(function (seg, i) {
+            if (i % 2 === 1) return seg;
+            return seg.replace(/\bP([1-9])\b/g, function (m, s) { return swuEscName(swuSeatName(s)); });
+        }).join('');
+    }
+
+    function swuSeatLabelHtml(seat, cls) {
+        var s = String(seat);
+        var name = (window.SWU_SEAT_USERNAMES || {})[s];
+        // No account: the server's display name ("Guest P3") already carries the seat; else the bare "P3".
+        if (!name) return '<span class="' + cls + '">' + swuEscName(swuSeatName(s)) + '</span>';
+        var esc = swuEscName(name);
+        return '<span class="' + cls + ' has-name" title="' + esc + ' (P' + s + ')">' +
+               '<span class="swu-seat-name">' + esc + '</span><span class="swu-seat-pn">P' + s + '</span></span>';
+    }
+
     function swuRenderMiniBoard(seat) {
         var b = swuReadSeatBlock(seat) || { leaders: [], baseObj: null, groundUnits: [], spaceUnits: [] };
         // Leaders
@@ -3474,9 +3526,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // opens the you-vs-P{seat} matchup; the cards are clickable targets during a decision.
         return '' +
             '<div class="swu-mb-r1">' +
-                '<span class="swu-mb-seat">P' + seat + '</span>' + leadHtml + baseHtml +
+                swuSeatLabelHtml(seat, 'swu-mb-seat') + leadHtml + baseHtml +
                 '<span class="swu-mb-spacer"></span>' +
-                '<button type="button" class="swu-mb-zoom" title="Open the you-vs-P' + seat + ' board">🔍 Zoom in</button>' +
+                '<button type="button" class="swu-mb-zoom" title="Open your board vs ' + swuEscName(swuSeatName(seat)) + '">🔍 Zoom in</button>' +
             '</div>' +
             // Row 2 — the numbers you would otherwise have to zoom in to read: resources as
             // ready/total (+credits when they hold any), deck size, discard size.
@@ -3557,7 +3609,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // button silently does nothing.
         return "<div class='swu-seat-row' data-seat='" + seat + "' data-view='" + (parseInt(viewIndex, 10) || 0) + "'>" +
                  "<div class='swu-sr-a'>" +
-                   "<span class='swu-sr-seat'>P" + seat + "</span>" + lead + base +
+                   swuSeatLabelHtml(seat, 'swu-sr-seat') + lead + base +
                    swuMbFxColumn(b.baseObj) +
                    // Ground/Space moved up here from row B, stacked, so row B holds only the four
                    // ZONE counts (Res/Hand/Deck/Discard) and this row holds what is ON the board. Row B
@@ -3574,7 +3626,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                      "<span class='swu-sr-stat'><span class='swu-sr-lbl'>Space</span>" + b.spaceCount + "</span>" +
                    "</span>" +
                    "<span class='swu-sr-pills'></span>" +
-                   "<button type='button' class='swu-sr-zoom' title='Open the you-vs-P" + seat + " board'>&#128269;</button>" +
+                   "<button type='button' class='swu-sr-zoom' title='Open your board vs " + swuEscName(swuSeatName(seat)) + "'>&#128269;</button>" +
                  "</div>" +
                  // Row B is now the ZONE counts only — Ground/Space moved up to row A above.
                  "<div class='swu-sr-b'>" +
@@ -5389,6 +5441,13 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
           }
       }
   }
+  // A bot seat has no account, so MatchSeatDisplayNames calls it "Guest P2". Name it for what it is — in the log
+  // and the player picker. DISPLAY names only: it is not an account (no Block button, not in $swuSeatNames).
+  if (function_exists('GetSWUBotPlayers')) {
+      foreach (GetSWUBotPlayers() as $swuBotSeat) {
+          if (intval($swuBotSeat) >= 1) $swuSeatDisplayNames[strval(intval($swuBotSeat))] = 'Arenabot';
+      }
+  }
   // MATCHLESS games (goldfish / hotseat) never create a match record — SWUReadMatchRef returns null
   // above, so the loop cannot name anyone and chat would read "P1" for a logged-in player asking why
   // their own name is missing. Same fallback shape SWUBuildCosmeticsPayload already uses for these
@@ -5417,6 +5476,8 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   // Seat -> display name for EVERY seat of a match game ("Guest PN" for a guest); empty outside the match system.
   window.SWU_SEAT_DISPLAY_NAMES = <?= json_encode((object)$swuSeatDisplayNames, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
   window.SWU_VIEWER_SEAT = <?= intval($playerID) ?>;   // 0 for a spectator ('S')
+  // Chat names read "username (PN)" at a multiplayer table (owner request 2026-09-22); 1v1 keeps the bare name.
+  window.CHAT_SEAT_SUFFIX = <?= (function_exists('GetSeatOrderArray') && count(GetSeatOrderArray()) >= 3) ? 'true' : 'false' ?>;
   <?php
     // Whisper chat (spec 2026-09-17-swusim-twinsuns-whisper-chat-design.md). Other seats come from SeatOrder,
     // NOT LiveSeats, so eliminated players stay whisperable. Empty for spectators and < 3-seat games.

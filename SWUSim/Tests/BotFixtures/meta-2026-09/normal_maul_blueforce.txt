@@ -4,6 +4,12 @@
 #   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (14 entries).
 # Archetype (owner's label): Tempo / midrange (Force)
 # Style: midrange
+#   ⚠ '# Style:' is how the BOT PILOTS this deck. It stays midrange: piloting it as control was measured WORSE
+#   (2026-09-21 p3d bisection, +54 then +81 replicated with the shift removed).
+# DeckStyle: softcontrol
+#   What the deck IS, for the Main Menu's auto-pick (owner, 2026-09-22): "i do think it is borderline control. it
+#   just so happens that the blue red villainy top end is so good right now/in this meta" — 12 cards at cost 6+ and
+#   3 Pre Vizsla wipes, against 7 and 0 for a Talzin Red list.
 # Flavours: tempo, force
 
 Leader

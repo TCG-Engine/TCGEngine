@@ -332,6 +332,167 @@ function SWUBotRuleBlockerFirst(array $ctx): ?array {
     return empty($plays) ? null : SWUBotFallbackChoose(array_merge($ctx, ['actions' => $plays]));
 }
 
+// PROPOSAL 'krennicramp' (default OFF) — the owner's Krennic plan vs Vader (rulings K1-K4, 2026-09-22). The leader
+// (LAW_008 Director Krennic, "Action [Exhaust, defeat a friendly unit]: Create a Credit token") turns a cheap body
+// into ramp every round: T1 play a unit, sacrifice it → 2R+1C; T2 → 3R+2C; T3 → 4R+3C = 7, so Hyperspace Disaster
+// lands early and Chimaera still follows. Before the leader FLIP only. With fodder on board (a cheap unit, or one with
+// a When Defeated — Ant Droid, Expendable Mercenary) use the leader; with none, put a cheap body down first. Which
+// unit the ability defeats is left to the existing sacrifice scoring ('fodder').
+function SWUBotRuleKrennicRamp(array $ctx): ?array {
+    if (!SWUBotProposalOn('krennicramp') || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    $seat = intval($ctx['seat']);
+    $leader = GetLeader($seat)[0] ?? null;
+    if ($leader === null || !preg_match('/defeat a friendly unit\]:\s*Create a Credit token/i', strval(CardText(strval($leader->CardID ?? ''))))) return null;
+    if (!empty($leader->Deployed) && strval($leader->Deployed) !== 'false') return null;
+    $threshold = SWUBotLeaderDeployThreshold($seat);
+    if ($threshold > 0 && SWUResourceCount($seat) >= $threshold) return null;
+    $isFodder = fn(array $v) => !$v['isLeader'] && ($v['cost'] <= 2 || stripos(strval(CardText($v['cardID'])), 'When Defeated') !== false);
+    $ability = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'leader-ability');
+    if ($ability !== null && array_filter(SWUBotUnits($seat), $isFodder)) return $ability;
+    // No fodder yet: put down the cheapest body that would be one.
+    $best = null; $bestCost = PHP_INT_MAX;
+    foreach ($ctx['actions'] as $a) {
+        if (SWUBotActionKind($a) !== 'play') continue;
+        $o = _SWUBotHandObject($seat, $a);
+        if ($o === null) continue;
+        $cid = strval($o->CardID ?? '');
+        if (!str_contains(strval(CardType($cid)), 'Unit')) continue;
+        $c = intval(CardCost($cid));
+        if ($c <= 2 || stripos(strval(CardText($cid)), 'When Defeated') !== false) { if ($c < $bestCost) { $bestCost = $c; $best = $a; } }
+    }
+    // Only worth it while the leader can still cash the body in this round. The ability is NOT on offer while there is
+    // nothing to sacrifice, so readiness is read from the leader itself rather than from the action list.
+    $ready = !isset($leader->Ready) || (strval($leader->Ready) !== 'false' && $leader->Ready !== false && strval($leader->Ready) !== '0');
+    return $ready ? $best : null;
+}
+
+// PROPOSAL 'krennicplan' (default OFF) — owner rulings K1-K3, 2026-09-22 (bot-sweeps/2026-09-22_krennic_rulings.md),
+// Krennic vs Vader Yellow. Tournament data: 56.5% of matches; the bot won 7.8%. Traces: Krennic used its leader almost
+// every round but spent each Credit at once (~0.6 held at the start of rounds 3-5), so Hyperspace Disaster (7) came a
+// Credit short while the swarm grew. `krennicramp` (−15) put bodies down to feed the leader but still spent the Credits.
+//   K1 bank:    Credits pay only for 7+ cards (HSD, Chimaera, Lawbringer). Develop with ready resources; a cheap When
+//               Defeated body is played and sacrificed so next round reaches 7 (Q2 follow-up: "Ant Droid only … so i
+//               can have 5R + 2C next round and play HSD").
+//   K2 HSD now: Hyperspace Disaster as soon as it is castable vs 3+ ships that threaten lethal within 2 rounds ("even a
+//               HSD on round 5 is better than waiting"). Not while I have a space unit of my own (Q8.1: it depends).
+//   K3 order:   attack with a unit BEFORE sacrificing it; Expendable Mercenary is sacrificed the round it is played
+//               ("save your leader ability to sac the Expendable Merc the same round it can be played").
+// Scope: a seat whose leader is an undeployed "defeat a friendly unit: create a Credit" leader, vs an aggro leader
+// playing space (flavour 'space', or 3+ ships out) — the only matchup the rulings were given for.
+const SWU_BOT_CREDIT_WORTHY_COST = 7;
+
+// The plan's parts, so the 2026-09-22 canary loss (−44) can be split: 'bank' (K1 Credits for 7+ only), 'hsd' (K2),
+// 'order' (K3 attack before the sacrifice, the Mercenary pick), 'ramp' (K1's forced fodder play + leader cash-in).
+const SWU_BOT_KRENNIC_PLAN_ARMS = [
+    'krennicplan' => ['bank', 'hsd', 'order', 'ramp'],
+    'kpbank'      => ['bank'],
+    'kphsd'       => ['hsd'],
+    'kporder'     => ['order'],
+    'kpnoramp'    => ['bank', 'hsd', 'order'],
+];
+
+function _SWUBotKrennicPlanParts(): array {
+    $on = [];
+    foreach (SWU_BOT_KRENNIC_PLAN_ARMS as $prop => $parts) { if (SWUBotProposalOn($prop)) $on = array_merge($on, $parts); }
+    return array_values(array_unique($on));
+}
+
+function _SWUBotKrennicPlanOn(array $ctx, string $part = ''): bool {
+    $parts = _SWUBotKrennicPlanParts();
+    if (empty($parts) || ($part !== '' && !in_array($part, $parts, true))) return false;
+    $seat = intval($ctx['seat']);
+    $leader = GetLeader($seat)[0] ?? null;
+    if ($leader === null || !preg_match('/defeat a friendly unit\]:\s*Create a Credit token/i', strval(CardText(strval($leader->CardID ?? ''))))) return false;
+    if (!empty($leader->Deployed) && strval($leader->Deployed) !== 'false') return false;
+    $opp = SWUBotOpponent($seat);
+    if (!function_exists('SWUBotOpponentIsAggroLeader') || !SWUBotOpponentIsAggroLeader($seat)) return false;
+    $ships = count(array_filter(SWUBotUnits($opp), fn($v) => $v['arena'] === 'Space'));
+    return in_array('space', SWUBotDeckFlavours($opp), true) || $ships >= 3;
+}
+
+// A body worth feeding to the leader: Expendable Mercenary first (it resources itself), then any cheap or When
+// Defeated unit. Lower is better; null = not fodder.
+function _SWUBotFodderRank(string $cid, int $cost): ?int {
+    if (stripos(strval(CardText($cid)), 'When Defeated: You may resource this unit') !== false) return 0;
+    if ($cost <= 2 || stripos(strval(CardText($cid)), 'When Defeated') !== false) return 1 + $cost;
+    return null;
+}
+
+function _SWUBotIsHSD(string $cid): bool {
+    return (bool)preg_match('/^Defeat all space units/i', strval(CardText($cid)));
+}
+
+// K1 + K3, as a filter (runs after the style filter, before the rules): drop the plays that would spend a Credit on a
+// card under 7, and hold the leader's sacrifice while a friendly unit can still attack or a Mercenary can still be
+// played with ready resources.
+function SWUBotKrennicPlanFilter(array $ctx): array {
+    if (!_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN' || !_SWUBotKrennicPlanOn($ctx)) return $ctx['actions'];
+    $seat = intval($ctx['seat']);
+    $bank = _SWUBotKrennicPlanOn($ctx, 'bank'); $order = _SWUBotKrennicPlanOn($ctx, 'order');
+    $ready = SWUResourceCount($seat, true);
+    $canAttack = false; $mercPlayable = false;
+    foreach ($ctx['actions'] as $a) {
+        $k = SWUBotActionKind($a);
+        if ($k === 'attack') $canAttack = true;
+        if ($k === 'play' && ($o = _SWUBotHandObject($seat, $a)) !== null
+            && _SWUBotFodderRank(strval($o->CardID), intval(CardCost(strval($o->CardID)))) === 0
+            && intval(SWUComputePlayCost($seat, $o)) <= $ready) $mercPlayable = true;
+    }
+    $out = [];
+    foreach ($ctx['actions'] as $a) {
+        $k = SWUBotActionKind($a);
+        if ($k === 'play' && ($o = _SWUBotHandObject($seat, $a)) !== null) {
+            $cid = strval($o->CardID);
+            if ($bank && intval(CardCost($cid)) < SWU_BOT_CREDIT_WORTHY_COST && intval(SWUComputePlayCost($seat, $o)) > $ready) continue;   // K1
+        }
+        if ($order && $k === 'leader-ability' && ($canAttack || $mercPlayable)) continue;   // K3
+        $out[] = $a;
+    }
+    return $out;
+}
+
+// K2 + K1's ramp + K3's Mercenary pick, as a rule.
+function SWUBotRuleKrennicPlan(array $ctx): ?array {
+    if (!_SWUBotKrennicPlanOn($ctx)) return null;
+    $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
+    // K3: the sacrifice prompt takes the Mercenary when it is on offer.
+    if (($ctx['kind'] ?? '') === 'decision') {
+        if (!_SWUBotKrennicPlanOn($ctx, 'order') || ($ctx['tooltip'] ?? '') !== 'Defeat_a_friendly_unit_to_create_a_Credit') return null;
+        return _SWUBotFind($ctx, function ($a) use ($seat) {
+            $v = SWUBotViewForMz($seat, strval($a['cardID'] ?? ''));
+            return $v !== null && _SWUBotFodderRank($v['cardID'], intval($v['cost'])) === 0;
+        });
+    }
+    if (!_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    // K2: Hyperspace Disaster now.
+    $ships = array_filter(SWUBotUnits($opp), fn($v) => $v['arena'] === 'Space');
+    $mine = array_filter(SWUBotUnits($seat), fn($v) => $v['arena'] === 'Space');
+    if (_SWUBotKrennicPlanOn($ctx, 'hsd') && count($ships) >= 3 && empty($mine)) {
+        $hsd = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'play' && ($o = _SWUBotHandObject($seat, $a)) !== null && _SWUBotIsHSD(strval($o->CardID)));
+        if ($hsd !== null && (2 * SWUBotBasePotential($opp, $seat, false) >= SWUBaseRemainingHp($seat) || count($ships) >= 5)) return $hsd;
+    }
+    // K1 ramp: short of 7 next round (every resource + the regroup's + my Credits) and the leader is ready to cash a
+    // body in this round → the leader, once nothing can still attack (the filter holds it until then); with no
+    // fodder on board, the best castable fodder body first.
+    $credits = count(SWUUsableCreditTokenMzIDs($seat));
+    if (!_SWUBotKrennicPlanOn($ctx, 'ramp') || SWUResourceCount($seat) + 1 + $credits >= SWU_BOT_CREDIT_WORTHY_COST) return null;
+    $ability = _SWUBotFind($ctx, fn($a) => SWUBotActionKind($a) === 'leader-ability');
+    $fodderOnBoard = array_filter(SWUBotUnits($seat), fn($v) => !$v['isLeader'] && _SWUBotFodderRank($v['cardID'], intval($v['cost'])) !== null);
+    if ($ability !== null && $fodderOnBoard) return $ability;
+    $leader = GetLeader($seat)[0] ?? null;
+    $leaderReady = $leader !== null && (!isset($leader->Ready) || (strval($leader->Ready) !== 'false' && $leader->Ready !== false && strval($leader->Ready) !== '0'));
+    if (!$leaderReady || $fodderOnBoard) return null;
+    $best = null; $bestRank = PHP_INT_MAX;
+    foreach ($ctx['actions'] as $a) {
+        if (SWUBotActionKind($a) !== 'play' || ($o = _SWUBotHandObject($seat, $a)) === null) continue;
+        $cid = strval($o->CardID);
+        if (!str_contains(strval(CardType($cid)), 'Unit')) continue;
+        $r = _SWUBotFodderRank($cid, intval(CardCost($cid)));
+        if ($r !== null && $r < $bestRank) { $bestRank = $r; $best = $a; }
+    }
+    return $best;
+}
+
 // Can hand card $cid, once played, defeat the enemy unit $u? Read from PRINTED TEXT, for proposal 'initiative'.
 // Covers the answer shapes in the pool: removal events (SWUBotRemovalClass — an uncapped defeat, or a printed cap),
 // "deal N damage to … unit", a unit dealing "damage equal to her/his/its power" (+1 if it can give itself an
@@ -471,9 +632,11 @@ function SWUBotRulesAfterFilter(): array {
     return [
         'initiative-for-lethal'    => 'SWUBotRuleInitiativeForLethal',
         'break-lethal'             => 'SWUBotRuleBreakLethal',
+        'krennic-plan'             => 'SWUBotRuleKrennicPlan',           // proposal 'krennicplan' — inert unless "@try-krennicplan"
         'control-wipe'             => 'SWUBotRuleControlWipe',
         'initiative-for-answer'    => 'SWUBotRuleInitiativeForAnswer',   // proposal 'initiative' — inert unless "@try-initiative"
         'kill-first'               => 'SWUBotRuleKillFirst',             // proposal 'killfirst'
+        'krennic-ramp'             => 'SWUBotRuleKrennicRamp',           // proposal 'krennicramp'
         'blocker-first'            => 'SWUBotRuleBlockerFirst',          // proposal 'blockerfirst'
         'free-kill'                => 'SWUBotRuleFreeKill',              // proposal 'freekill' — inert unless "@try-freekill"
         'shrink-first'             => 'SWUBotRuleShrinkFirst',           // proposal 'shrinkfirst' — inert unless "@try-shrinkfirst"

@@ -132,7 +132,29 @@ function _SWUBotBasePotentialThroughSentinels(int $seat, int $defSeat, bool $rea
 // Sentinel in its arena cannot reach my base, unless it has Saboteur.
 function SWUBotUnitBaseThreat(int $defSeat, array $v): int {
     $guarded = _SWUBotSentinelArenas($defSeat);
-    return (!$v['saboteur'] && ($guarded[$v['arena']] ?? false)) ? 0 : intval($v['attackPower']);
+    $own = (!$v['saboteur'] && ($guarded[$v['arena']] ?? false)) ? 0 : intval($v['attackPower']);
+    return $own + ((function_exists('SWUBotProposalOn') && SWUBotProposalOn('aurathreat')) ? _SWUBotAuraGrantedPower($v) : 0);
+}
+
+// PROPOSAL 'aurathreat' (default OFF) — owner ruling 4 (2026-09-22): a unit's threat includes the damage it GRANTS
+// its allies. Victor Leader ("each other friendly space unit gets +1/+1") with four other ships threatens its own 2
+// plus 4 more — removing it mitigates 6, where the 5/6 Stolen AT-Hauler mitigates 5. Read from printed text:
+// "Each other friendly [space|ground ]unit gets +N/…" × the other friendly units it reaches.
+function _SWUBotAuraGrantedPower(array $v): int {
+    static $parsed = [];
+    $cid = strval($v['cardID']);
+    if (!array_key_exists($cid, $parsed)) {
+        $parsed[$cid] = preg_match('/Each other friendly (space |ground )?unit gets \+(\d+)\/[+-]?\d+/i', strval(CardText($cid)), $m)
+            ? [trim(strtolower($m[1])), intval($m[2])] : null;
+    }
+    if ($parsed[$cid] === null) return 0;
+    [$arena, $n] = $parsed[$cid];
+    $others = 0;
+    foreach (SWUBotUnits(intval($v['controller'])) as $u) {
+        if ($u['uid'] === $v['uid']) continue;
+        if ($arena === '' || strtolower($u['arena']) === $arena) $others++;
+    }
+    return $n * $others;
 }
 
 // Rounds for $seat's board to reduce $defSeat's base to 0. Counts exhausted units: everything readies at
@@ -218,6 +240,12 @@ function SWUBotOverwhelmKills(array $att, array $def): bool {
 // that goes with the unit".
 function SWUBotUnitValue(array $v): float {
     if (function_exists('SWUBotProposalOn') && (SWUBotProposalOn('unitvalue') || SWUBotProposalOn('unitvalue2'))) return SWUBotUnitValueV2($v);
+    // 'aurathreat': what the unit grants its allies is worth removing too — one point of granted power per point.
+    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('aurathreat')) return _SWUBotUnitValueV1($v) + _SWUBotAuraGrantedPower($v);
+    return _SWUBotUnitValueV1($v);
+}
+
+function _SWUBotUnitValueV1(array $v): float {
     $cost = floatval($v['cost']);
     // A token has no printed cost; value it by its body (feature 'targeting', diagnosis 2026-09-14: a TIE token was
     // worth 0, so a ping that could defeat it hit a 4/5 instead).

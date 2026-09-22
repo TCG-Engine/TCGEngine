@@ -64,8 +64,10 @@ function SWUSetupGame($lobby, $opts = []) {
         // The live bot's chooser (SWUBotActiveChooserProfile reads SWUBotProfile): the heuristic stack for
         // the Play Style the menu sent (APIs/Lobbies/JoinQueue.php → $lobby->botStyle). Missing or unknown
         // means Normal — never the first-legal fallback. The bot's flavours come from its own leader + base.
+        // The five archetypes plus the three legacy names (see APIs/Lobbies/JoinQueue.php) — each is a registered
+        // chooser, "heuristic-<style>" (SWUSim/BotHeuristic.php).
         $botStyle = strtolower(strval($lobby->botStyle ?? ''));
-        if (!in_array($botStyle, ['aggro', 'normal', 'control'], true)) $botStyle = 'normal';
+        if (!in_array($botStyle, ['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 'hardcontrol', 'aggro', 'normal', 'control'], true)) $botStyle = 'normal';
         DecisionQueueController::StoreVariable('SWUBotProfile', 'heuristic-' . $botStyle);
     }
     // Team rules (2v2). A separate never-cleared flag rather than a value of $mode, because it is

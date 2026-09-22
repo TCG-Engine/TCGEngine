@@ -172,7 +172,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <button type="button" id="create-private-game-btn" class="swu-action" onclick="createPrivateGame()"><?php echo SWUMenuIcon('users'); ?><span class="swu-btn-label">Create Private Room</span></button>
         <button type="button" id="join-private-invite-btn" class="swu-action swu-action--primary" onclick="joinPrivateInvite()" style="display: none;"><?php echo SWUMenuIcon('join'); ?><span class="swu-btn-label">Join Private Invite</span></button>
       </div>
-      <div id="queue-inline-error" class="swu-note swu-note--error" style="display: none;"></div>
+      <div id="queue-inline-error" class="swu-note" style="display: none;"></div>
       <div id="private-invite-notice" class="swu-note" style="display: none;"></div>
       <?php if (!$swuLoggedIn): ?>
       <!-- Guest note. Guests play every format (owner, 2026-09-21); the one thing an account adds is in-game chat,
@@ -725,6 +725,45 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         if (!swuSelectFormat(SWU_MENU.defaultFormat, SWU_MENU.defaultPool, false)) { swuFillMenu(); swuWriteStored(); applyFormatUI(); }
       })();
 
+      // ── Arenabot: preselect "Bot play style" from the deck the BOT will play ────────────────────────────────────
+      // Its own deck link, or the host's list when that field is empty (JoinQueue.php falls back to the host's deck).
+      // APIs/SWUBotDeckStyle.php reads the list and answers with an archetype; the classifier is
+      // SWUSim/Custom/BotDeckStyle.php (spec docs/superpowers/specs/2026-09-22-swusim-deck-style-classifier-design.md).
+      // Owner, 2026-09-22: EVERY deck load re-picks, even over a manual change. A failed lookup changes nothing.
+      var _swuStyleSeq = 0;
+      function swuAutoPickBotStyle() {
+        var fmt = swuMenuEl('swu-format-select');
+        if (!fmt || fmt.value !== 'botpractice') return;
+        var sel = swuMenuEl('swu-botstyle-select');
+        if (!sel) return;
+        var d2 = swuMenuEl('swu-deck2-input');
+        var deck = (d2 && d2.value.trim()) ? d2.value.trim() : '';
+        if (!deck) {
+          var link = swuMenuEl('deck-link'), text = swuMenuEl('deck-text');
+          deck = (link && link.value.trim()) ? link.value.trim() : ((text && text.value.trim()) ? text.value.trim() : '');
+        }
+        if (!deck) return;
+        var seq = ++_swuStyleSeq;
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', swusimAppBase() + 'APIs/SWUBotDeckStyle.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+          if (seq !== _swuStyleSeq) return;            // a newer deck was entered while this was in flight
+          var j;
+          try { j = JSON.parse(xhr.responseText); } catch (e) { return; }
+          if (!j || !j.ok || !j.style) return;         // unreadable deck: leave the player's choice alone
+          sel.value = j.style;
+        };
+        xhr.onerror = function () {};
+        xhr.send('rootName=SWUSim&deckLink=' + encodeURIComponent(deck));
+      }
+      ['swu-deck2-input', 'deck-link', 'deck-text'].forEach(function (id) {
+        var el = swuMenuEl(id);
+        if (!el) return;
+        el.addEventListener('change', swuAutoPickBotStyle);
+        el.addEventListener('blur', swuAutoPickBotStyle);
+      });
+
       function createPrivateGame() {
         submitQueueJoin({
           createPrivate: true,
@@ -874,7 +913,9 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
       function showQueueInlineError(message) {
         var el = document.getElementById('queue-inline-error');
         if (!el) { StyledAlert(message); return; }
-        el.style.color = '#ff6b6b';
+        // The colour is a CLASS: the menu stylesheet sets .swu-note colours with !important, so an inline
+        // colour loses (the revamp's fixed swu-note--error class turned every success message red).
+        el.classList.remove('swu-note--ok'); el.classList.add('swu-note--error');
         el.style.display = '';
         var lines = (message || 'Unable to join queue.').split('\n');
         el.innerHTML = lines.map(function(l) {
@@ -886,7 +927,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         var el = document.getElementById('queue-inline-error');
         if (!el) return;
         el.textContent = message;
-        el.style.color = '#a8c8a0';
+        el.classList.remove('swu-note--error'); el.classList.add('swu-note--ok');
         el.style.display = '';
       }
 

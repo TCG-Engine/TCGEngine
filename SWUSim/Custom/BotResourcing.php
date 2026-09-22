@@ -158,6 +158,18 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         if ($budget > 0 && HasKeyword_Plot($c) && $plotInResources + $cost <= $budget) $keep = -1000.0 + $cost;
         $ranked[] = [$keep, $i];
     }
+    // PROPOSAL 'resourcing2' — the owner's resourcing rulings as ORDERED TIERS for the control wing. Tiers come first,
+    // the keep value above only breaks ties inside a tier.
+    // FEATURE 'resourcing3' (group p8) applies the tiers only vs an AGGRO-LEADER opponent: every ruling behind them was
+    // given for a position vs Vader, and vs a slow matchup the pre-p8 resourcer (which keeps the bombs) stands.
+    // '@try-resourcing2' still reproduces the measured forerunner (it takes precedence and switches the v3 rules off).
+    $r2 = SWUBotProposalOn('resourcing2');
+    if ($rank >= 3 && ($r2 || (SWUBotFeatureOn('resourcing3') && SWUBotOpponentIsAggroLeader($seat)))) {
+        $tiers = _SWUBotResourcing2Tiers($ctx, $seat, !$r2);
+        usort($ranked, fn($a, $b) => ($tiers[$a[1]][0] <=> $tiers[$b[1]][0]) ?: ($tiers[$a[1]][1] <=> $tiers[$b[1]][1])
+                                     ?: ($a[0] <=> $b[0]) ?: ($a[1] <=> $b[1]));
+        return array_map(fn($r) => 'myHand-' . $r[1], array_slice($ranked, 0, $n));
+    }
     usort($ranked, fn($a, $b) => $a[0] <=> $b[0] ?: $a[1] <=> $b[1]);
     return array_map(fn($r) => 'myHand-' . $r[1], array_slice($ranked, 0, $n));
 }
@@ -298,4 +310,85 @@ function _SWUBotAnswersSpace(string $cid): bool {
     if (preg_match('/defeat all (space )?units/i', $t)) return true;
     if (preg_match('/ground unit/i', $t) && !preg_match('/space unit/i', $t)) return false;
     return SWUBotRemovalClass($cid)[0] === 'bombkiller' || (bool)preg_match('/(defeat|take control of) (a|an)( enemy)?( non-leader)? unit|enemy non-leader unit\. If you do, defeat/i', $t);
+}
+
+
+// ── PROPOSAL 'resourcing2' — the owner's rulings, 2026-09-22 (bot-sweeps/2026-09-21_resourcing_rulings.md) ──────────
+// Precedence CONFIRMED by the owner, top wins. Returns [handIndex => [tier, keepWithinTier]]; LOWER is resourced first.
+//   PROTECTED (never resourced):  Hyperspace Disaster vs space aggro (ruling 3); Chimaera — A Frightening Reality
+//                                 (rulings 5, 10: "the best card in the format as of 2026-09-21" — meta-dependent).
+//   tier 0  duplicates: a second copy in hand goes first (ruling 6, Q4: "fine to resource since you have 2 in hand").
+//   tier 1  BEFORE THE LEADER FLIP, vs an aggressive opponent: the 7+ drops — "you may not survive to use them"
+//           (rulings 1, 9). Inside the tier a card that does not answer the matchup goes before one that does
+//           (ruling 2, Q1: Trask Walker before Pre Vizsla, whose multi-kill answers Vader's swarm).
+//   tier 2  everything else, by what it is worth to KEEP: removal is crucial vs aggro (Q3), a multi-kill vs a wide
+//           board (ruling 2), the cheap plays that keep a curve (ruling 7: "nothing to play in round 2 is worse"),
+//           and fewer copies left in the deck (ruling 6: a 3-of is cheaper to resource than a 2-of).
+// ⚠ The owner calibrates rulings 6-8 as "generally true, ~75% of the time" — preferences, not laws.
+const SWU_BOT_ENGINE_KEEPS = ['ASH_052'];   // Chimaera — A Frightening Reality
+
+// PROPOSAL 'resourcing3': leaders whose decks the meta fixtures label AGGRO (hyperaggro/aggro/softaggro) in most or
+// all of their lists. The bot cannot see an opponent's label in live play; its leader is the best proxy. Leaders that
+// also head midrange/control lists (Luke JTL_012, Piett, Maul, Talzin…) are left out: a slow matchup is the exception
+// the owner's ruling makes ("resource high-cost early unless you can ramp or the matchup is slow").
+const SWU_BOT_AGGRO_LEADERS = ['ASH_009', 'ASH_013', 'ASH_017', 'JTL_004', 'JTL_006', 'JTL_008', 'JTL_009', 'JTL_011',
+                               'JTL_013', 'JTL_015', 'LAW_002', 'LAW_010', 'LAW_013', 'LAW_016', 'LOF_010', 'SEC_006',
+                               'SEC_014'];
+
+function SWUBotOpponentIsAggroLeader(int $seat): bool {
+    return in_array(strval((GetLeader(SWUBotOpponent($seat))[0] ?? null)->CardID ?? ''), SWU_BOT_AGGRO_LEADERS, true);
+}
+
+function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array {
+    $opp = SWUBotOpponent($seat);
+    $oppFlavours = SWUBotDeckFlavours($opp);
+    $oppUnits = SWUBotUnits($opp);
+    $space = count(array_filter($oppUnits, fn($u) => $u['arena'] === 'Space'));
+    $spaceAggro = in_array('space', $oppFlavours, true) || ($space >= 2 && $space >= count($oppUnits) - $space);
+    $aggressive = $spaceAggro || in_array('hyper', $oppFlavours, true) || SWUBotBasePotential($opp, $seat, false) >= 4
+                  || count($oppUnits) >= 3;
+    // resourcing3: the matchup, not the board. A hard-control mirror with 3 units out is not an aggro matchup
+    // (resourcing2 vs Dedra: −142 / 1,000).
+    if ($v3) { $aggroOpp = SWUBotOpponentIsAggroLeader($seat); $spaceAggro = $spaceAggro && $aggroOpp; $aggressive = $aggroOpp; }
+    $capitalDeck = $v3 && in_array('capital-ship', SWUBotDeckFlavours($seat), true);
+    $leader = GetLeader($seat)[0] ?? null;
+    $deployed = $leader !== null && !empty($leader->Deployed) && strval($leader->Deployed) !== 'false';
+    $threshold = SWUBotLeaderDeployThreshold($seat);
+    $preflip = !$deployed && ($threshold > 0 ? SWUResourceCount($seat) < $threshold : intval(GetTurnNumber()) <= 5);
+    $opening = strval($ctx['tooltip'] ?? '') === 'Choose_2_cards_to_resource';
+    $cheapCap = $opening ? 2 : SWUResourceCount($seat) + 1;
+    $hand = [];
+    foreach (GetHand($seat) as $i => $o) { if ($o !== null && empty($o->removed)) $hand[$i] = strval($o->CardID ?? ''); }
+    $firstIdx = []; $inHand = [];
+    foreach ($hand as $i => $cid) { $inHand[$cid] = ($inHand[$cid] ?? 0) + 1; if (!isset($firstIdx[$cid])) $firstIdx[$cid] = $i; }
+    $inDeck = [];
+    foreach (GetDeck($seat) as $o) { if ($o !== null && empty($o->removed)) { $c = strval($o->CardID ?? ''); $inDeck[$c] = ($inDeck[$c] ?? 0) + 1; } }
+    // The curve is judged on what STAYS in hand: a duplicate is resourced first (tier 0), so it is not one of the cheap
+    // plays being kept. (Counting it made Q3 resource BOTH Night Troopers instead of one Trooper + one No Glory.)
+    $cheap = 0;
+    foreach ($hand as $i => $cid) { if (intval(CardCost($cid)) <= $cheapCap && $i === $firstIdx[$cid]) $cheap++; }
+    $out = [];
+    foreach ($hand as $i => $cid) {
+        $tags = SWUBotCardTags($cid);
+        $answer = (bool)array_intersect($tags, ['removal', 'wipe']);
+        $cost = intval(CardCost($cid));
+        if ($spaceAggro && preg_match('/defeat all space units/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
+        if (in_array($cid, SWU_BOT_ENGINE_KEEPS, true)) { $out[$i] = [9, 0.0]; continue; }
+        // resourcing3: a capital-ship deck cheats its Capital Ships out to trade and stall (owner, Piett vs Vader);
+        // they go last, the priciest first if one must go.
+        if ($capitalDeck && str_contains(strval(CardTrait($cid) ?? ''), 'Capital Ship')) { $out[$i] = [8, -1.0 * $cost]; continue; }
+        if (($inHand[$cid] ?? 0) >= 2 && $i !== $firstIdx[$cid]) { $out[$i] = [0, 0.0]; continue; }
+        if (!$opening && $preflip && $aggressive && $cost >= 7) {
+            $fitsMatchup = $answer && (in_array('wipe', $tags, true) ? count($oppUnits) >= 3 : true);
+            $out[$i] = [1, $fitsMatchup ? 1.0 : 0.0];
+            continue;
+        }
+        $keep = 0.0;
+        if ($answer) $keep += 100.0;
+        if ($answer && in_array('wipe', $tags, true) && count($oppUnits) >= 3) $keep += 100.0;
+        if ($cost <= $cheapCap) $keep += $cheap <= 2 ? 250.0 : 50.0;
+        $keep -= 20.0 * ($inDeck[$cid] ?? 0);
+        $out[$i] = [2, $keep];
+    }
+    return $out;
 }
