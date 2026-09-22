@@ -725,6 +725,45 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         if (!swuSelectFormat(SWU_MENU.defaultFormat, SWU_MENU.defaultPool, false)) { swuFillMenu(); swuWriteStored(); applyFormatUI(); }
       })();
 
+      // ── Arenabot: preselect "Bot play style" from the deck the BOT will play ────────────────────────────────────
+      // Its own deck link, or the host's list when that field is empty (JoinQueue.php falls back to the host's deck).
+      // APIs/SWUBotDeckStyle.php reads the list and answers with an archetype; the classifier is
+      // SWUSim/Custom/BotDeckStyle.php (spec docs/superpowers/specs/2026-09-22-swusim-deck-style-classifier-design.md).
+      // Owner, 2026-09-22: EVERY deck load re-picks, even over a manual change. A failed lookup changes nothing.
+      var _swuStyleSeq = 0;
+      function swuAutoPickBotStyle() {
+        var fmt = swuMenuEl('swu-format-select');
+        if (!fmt || fmt.value !== 'botpractice') return;
+        var sel = swuMenuEl('swu-botstyle-select');
+        if (!sel) return;
+        var d2 = swuMenuEl('swu-deck2-input');
+        var deck = (d2 && d2.value.trim()) ? d2.value.trim() : '';
+        if (!deck) {
+          var link = swuMenuEl('deck-link'), text = swuMenuEl('deck-text');
+          deck = (link && link.value.trim()) ? link.value.trim() : ((text && text.value.trim()) ? text.value.trim() : '');
+        }
+        if (!deck) return;
+        var seq = ++_swuStyleSeq;
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', swusimAppBase() + 'APIs/SWUBotDeckStyle.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+          if (seq !== _swuStyleSeq) return;            // a newer deck was entered while this was in flight
+          var j;
+          try { j = JSON.parse(xhr.responseText); } catch (e) { return; }
+          if (!j || !j.ok || !j.style) return;         // unreadable deck: leave the player's choice alone
+          sel.value = j.style;
+        };
+        xhr.onerror = function () {};
+        xhr.send('rootName=SWUSim&deckLink=' + encodeURIComponent(deck));
+      }
+      ['swu-deck2-input', 'deck-link', 'deck-text'].forEach(function (id) {
+        var el = swuMenuEl(id);
+        if (!el) return;
+        el.addEventListener('change', swuAutoPickBotStyle);
+        el.addEventListener('blur', swuAutoPickBotStyle);
+      });
+
       function createPrivateGame() {
         submitQueueJoin({
           createPrivate: true,

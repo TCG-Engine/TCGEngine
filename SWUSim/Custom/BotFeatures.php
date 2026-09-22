@@ -84,10 +84,26 @@ const SWU_BOT_PART8_FEATURES = ['resourcing3'];
 // opponent", 2026-09-22), like p7. '@no-p9' is the stack before it. Guard: SWUSim/DevTools/tests/bot_nogift_test.php.
 const SWU_BOT_PART9_FEATURES = ['nogift'];
 
+// Part 10 (2026-09-22): 'enablerfirst' — a card whose WHEN PLAYED text improves "the next unit you play this phase"
+// is played BEFORE the unit it improves, and is worth what it adds to it.
+// FOUND in a Bug Report (game 1105765): "Ahsoka played a 0 power unit before Neel. it should be the other way around
+// to be able to 1) ready Tarpals 2) buff him and start the game strong with 4 damage to base". ASH_248 Neel readies
+// the next unit played with 1 or less power; HMW_254 Captain Tarpals is 0 power with Raid 2. Neel → Tarpals (ready)
+// → Ahsoka's Action (+2/+0) → 4 damage at the base. The bot played Tarpals first and attacked with nothing.
+// Root cause: _SWUBotPlayValue is ORDER-BLIND (develop x cost + tags + unitPlay), so two 1-drops tie and the order
+// is whatever the enumerator lists first. _SWUBotEnablerFirstBonus (BotFallback.php) prices the grant the way
+// 'buffattack' prices a buff — the attack it unlocks, or the resources it saves — and only when an eligible payoff
+// is in hand AND still affordable after the enabler.
+// ⚠ SHIPPED ON THE REPORT, NOT ON A MEASUREMENT, like p7/p9: an unused "next unit you play this phase" grant is
+// strictly zero, so the floor is "no worse". '@no-p10' is the stack before it.
+// Guard: SWUSim/DevTools/tests/bot_enablerfirst_test.php.
+const SWU_BOT_PART10_FEATURES = ['enablerfirst'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
-                       SWU_BOT_PART7_FEATURES, SWU_BOT_PART8_FEATURES, SWU_BOT_PART9_FEATURES);   // part 2, then 3-9
+                       SWU_BOT_PART7_FEATURES, SWU_BOT_PART8_FEATURES, SWU_BOT_PART9_FEATURES,
+                       SWU_BOT_PART10_FEATURES);   // part 2, then 3-10
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -99,7 +115,7 @@ function SWUBotFeatureGroups(): array {
     $p3 = SWU_BOT_PART3_FEATURES;
     return ['p3' => $p3, 'p4' => SWU_BOT_PART4_FEATURES, 'p5' => SWU_BOT_PART5_FEATURES,
             'p6' => SWU_BOT_PART6_FEATURES, 'p7' => SWU_BOT_PART7_FEATURES, 'p8' => SWU_BOT_PART8_FEATURES,
-            'p9' => SWU_BOT_PART9_FEATURES,
+            'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,

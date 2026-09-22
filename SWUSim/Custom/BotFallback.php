@@ -155,6 +155,8 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                 // with only an enemy unit to heal and shield).
                 if (SWUBotFeatureOn('nogift') && _SWUBotPlayIsGift($seat, $action, $cid, $W)) return -0.5;
                 $v = _SWUBotPlayValue($seat, $cid, $W);
+                // Play an enabler BEFORE the unit it improves (feature 'enablerfirst').
+                if (SWUBotFeatureOn('enablerfirst')) $v += _SWUBotEnablerFirstBonus($seat, $action, $cid, $W);
                 // PROPOSAL 'earlyremoval' (default OFF). _SWUBotPlayValue is TARGET-BLIND — a removal event scores
                 // develop x cost + W['removal'] whether the best target is a 2-drop or a bomb. This gives it a target.
                 // 'threatholdall' (default OFF) lifts the control-wing gate on the shipped p5 hold.
@@ -519,6 +521,48 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W): float {
     return $v;
 }
 
+
+// An ENABLER — a card whose WHEN PLAYED text improves "the next unit you play this phase" — is worth what it adds
+// to that next unit, so it is played BEFORE it (feature 'enablerfirst'; Bug Report game 1105765, ASH_248 Neel and
+// HMW_254 Captain Tarpals). Two priced benefits, both read off the card text:
+//   · "enters play ready" → the attack that unit can now make this phase, priced like any attack (W['base'] x power,
+//     Raid included — a 0-power Tarpals with Raid 2 swings for 2);
+//   · "costs N resource(s) less" → the resources saved (W['develop'] x N).
+// Zero unless an ELIGIBLE payoff is in hand AND still affordable after this card is paid for — an unused grant is
+// worth nothing, and promoting the enabler then would just reorder two plays for no reason. Other benefits
+// ("gains Hidden / Shielded") are deliberately not priced: no number to price them with.
+function _SWUBotEnablerFirstBonus(int $seat, array $action, string $cid, array $W): float {
+    $text = strval(CardText($cid));
+    // The grant must come from PLAYING this card (When Played). "On Attack" / "When Defeated" versions of the same
+    // sentence say nothing about which card to play first.
+    if (!preg_match('/When Played/i', $text)) return 0.0;
+    if (!preg_match('/next unit you play this phase(.*?)\./is', $text, $m)) return 0.0;
+    $clause = $m[1];
+    $readies = stripos($clause, 'enters play ready') !== false;
+    $cheaper = preg_match('/costs (\d+) resource/i', $clause, $c) ? intval($c[1]) : 0;
+    if (!$readies && $cheaper <= 0) return 0.0;
+    // A condition this cannot evaluate ("if it shares a keyword with a friendly unit") — do not guess.
+    if (preg_match('/\bif\b/i', $clause)) return 0.0;
+    $maxPower = preg_match('/with (\d+) or less power/i', $clause, $p) ? intval($p[1]) : PHP_INT_MAX;
+    $i = intval(substr(SWUBotActionMz($action), strlen('myHand-')));
+    $self = GetHand($seat)[$i] ?? null;
+    if ($self === null) return 0.0;
+    $left = SWUTotalPaymentCapacity($seat) - intval(SWUComputePlayCost($seat, $self));
+    $best = 0.0;
+    foreach (GetHand($seat) as $j => $o) {
+        if ($j === $i || $o === null || !empty($o->removed)) continue;
+        $pid = strval($o->CardID ?? '');
+        if (!str_contains(strval(CardType($pid)), 'Unit')) continue;
+        $power = intval(CardPower($pid));
+        if ($power > $maxPower) continue;
+        $cost = intval(SWUComputePlayCost($seat, $o)) - $cheaper;
+        if ($cost > $left) continue;                       // the grant would expire unused
+        $raid = preg_match('/\bRaid (\d+)/i', strval(CardText($pid)), $r) ? intval($r[1]) : 0;
+        $gain = $readies ? $W['base'] * max(0, $power + $raid) : $W['develop'] * $cheaper;
+        $best = max($best, $gain);
+    }
+    return $best;
+}
 
 // Deploying a leader that makes cards in hand cheaper — Piett: "Each Capital Ship unit you play costs 2 resources
 // less." — comes before hard-casting them (feature 'enablers'). Judged by the lookahead: each hand card's play
