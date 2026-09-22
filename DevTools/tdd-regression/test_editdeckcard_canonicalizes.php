@@ -16,10 +16,15 @@ $checks['write path never uses the display map'] = strpos($code, 'SWUDisplayCard
 require_once $root . '/SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
 require_once $root . '/AppCore/SWU/Overrides.php';
 require_once $root . '/AppCore/SWU/DeckEditCardID.php';
+// The generated gamestate parser includes DeckValidation.php (plain include), so
+// the identity helper must not load it first or the live endpoint redeclares its functions.
+$checks['identity helper leaves deck validation for gamestate parser'] = strpos(file_get_contents($root . '/AppCore/SWU/DeckEditCardID.php'), 'DeckValidation.php') === false;
+require_once $root . '/SWUDeck/Custom/DeckValidation.php';
 $checks['LOF_164 folds back to SOR_164']  = CardIDOverride('LOF_164') === 'SOR_164';
 $checks['fold is idempotent']             = CardIDOverride(CardIDOverride('LOF_164')) === 'SOR_164';
 $checks['FFG UID maps to canonical printing'] = SWUDeckEditCardID('7965404100') === 'SOR_033';
 $checks['numeric JSON UID maps to canonical printing'] = SWUDeckEditCardID(7965404100) === 'SOR_033';
+$checks['reported remove UID maps to canonical printing'] = SWUDeckEditCardID('8318404945') === 'SOR_176';
 $checks['printing and UID match same stored card'] = SWUDeckEditCardID('SEC_030') === SWUDeckEditCardID('7965404100');
 $checks['canonical ID remains canonical'] = SWUDeckEditCardID('SOR_033') === 'SOR_033';
 $storedMain = [(object)['CardID' => '7965404100'], (object)['CardID' => 'SOR_033']];

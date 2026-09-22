@@ -4,7 +4,6 @@
 // either representation, so normalize both sides before comparing.
 require_once __DIR__ . '/../../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
 require_once __DIR__ . '/Overrides.php';
-require_once __DIR__ . '/../../SWUDeck/Custom/DeckValidation.php'; // SWUDeckMaxCopies
 
 function SWUDeckEditCardID($cardID): string
 {
