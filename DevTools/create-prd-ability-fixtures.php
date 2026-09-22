@@ -13139,6 +13139,81 @@ DECK,
     ],
 ];
 
+// --- Piquant Shieldbearer: Taunt forces attackers to target it first while awake ---
+$fixtures['piquant-shieldbearer-taunt-forces-target'] = [
+    'testedCards' => ['Cvvvxlf0hi'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Piquant Shieldbearer's element is NORM, so no lineage patch is needed. Rule 1.h blocks the
+    // game's first player from attacking on turn 1, so player 1 ends turn 1 and player 2 attacks
+    // on their own turn 1 instead. The starting champion's printed POWER is blank/0
+    // (CardPower() returns -1, verified live), so BeginCombatPhase() silently refuses to let it
+    // attack at all with no weapon equipped -- a Dungeon Guide (1 POWER) is seeded onto player 2's
+    // field as the actual attacker instead. Piquant Shieldbearer is seeded onto player 1's field,
+    // awake, so its printed Taunt (parsed generically by HasKeyword_Taunt from the card text,
+    // GeneratedCode/GeneratedKeywordCode.php) applies. GetLegalAttackTargets()/the Taunt filter in
+    // CombatLogic.php (~line 512-525) restricts targeting to awake Taunt units when any exist, so
+    // attempting to target the champion directly is an illegal selection -- rejected here as
+    // negative-path semantic evidence -- and only the Taunt unit itself may then be legally
+    // targeted.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'Cvvvxlf0hi'], // Piquant Shieldbearer (Taunt), awake
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (1 POWER) - actual attacker
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Dungeon Guide
+        [
+            'playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => '',
+            'expectFailure' => true, 'semantic' => true, 'label' => 'Cannot target the champion directly while an awake Taunt unit is present',
+        ],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // legal: target the Taunt unit itself
+    ],
+];
+
+// --- Hasty Messenger: On Attack, you may discard a card to draw a card ---
+$fixtures['hasty-messenger-on-attack-discard-draw'] = [
+    'testedCards' => ['DsiRzt0trX'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Hasty Messenger's element is FIRE, matching the starting champion, so no lineage patch is
+    // needed. Rule 1.h blocks the game's first player from attacking on turn 1, so player 1 ends
+    // turn 1 and player 2 attacks with Hasty Messenger on their own turn 1 instead.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'DsiRzt0trX'], // Hasty Messenger
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Hasty Messenger
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // discard a card
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
