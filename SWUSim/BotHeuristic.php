@@ -191,6 +191,9 @@ function _SWUBotHeuristicChooseStack(string $style, array $actions, array $legal
     $all = $ctx['actions'];
     if (($p = $run(SWUBotRulesBeforeFilter())) !== null) return SWUBotTrace($ctx, $all, SWUBotRandomiseClass($ctx, $p), 'rule');
     $ctx['actions'] = SWUBotStyleFilter($ctx);
+    // Proposal 'krennicplan' (BotRules.php): bank Credits for 7+ cards, attack before sacrificing. Inert unless enabled.
+    $kp = SWUBotKrennicPlanFilter($ctx);
+    if (count($kp) !== count($ctx['actions'])) { SWUBotRecordCoverage($seat, 'filter:krennic-plan'); $ctx['actions'] = $kp; }
     // Rule 10, the resourcing floor, as a fixed constraint: it removes PASS below the leader's deploy threshold
     // and leaves WHICH card to the fallback's keep values (and to the learned layer in training).
     $floored = SWUBotResourceFloorFilter($ctx);
