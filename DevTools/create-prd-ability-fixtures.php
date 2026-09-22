@@ -13332,6 +13332,153 @@ DECK,
     ],
 ];
 
+// --- Covert Manipulator: [Class Bonus] On Enter, reveal, optionally give opponent Crowd's Favor draw ---
+$fixtures['covert-manipulator-enter-reveal-crowds-favor'] = [
+    'testedCards' => ['A1jfgrWpiN'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Covert Manipulator's element is NORM; the starting champion's CardID is patched directly to
+    // Zander, Deft Executor (ASSASSIN) for the Class Bonus condition.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'fc4ic5fmaa']], // Zander, Deft Executor (ASSASSIN)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'A1jfgrWpiN'], // Covert Manipulator, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // choose an opponent for Crowd's Favor
+    ],
+];
+
+// --- Lurking Assailant: has stealth as long as it's awake ---
+$fixtures['lurking-assailant-stealth-while-awake'] = [
+    'testedCards' => ['uq2r6v374c'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Lurking Assailant's element is NORM, so no lineage patch is needed. Rule 1.h blocks the
+    // game's first player from attacking on turn 1, so player 1 ends turn 1 and player 2 attacks
+    // with a Dungeon Guide (1 POWER) on their own turn 1 instead. Lurking Assailant is seeded onto
+    // player 1's field, awake (Status 2) -- its unconditional stealth-while-awake (HasStealth() in
+    // GameLogic.php) is proven negatively: the attacker cannot target it directly (only the
+    // champion is a legal target, since HasTrueSight is false), even though it would otherwise be
+    // a legal attack target like any other awake unit.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'uq2r6v374c'], // Lurking Assailant (stealth while awake)
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (1 POWER) - actual attacker
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Dungeon Guide
+        [
+            'playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => '',
+            'expectFailure' => true, 'semantic' => true, 'label' => 'Cannot target a stealthed, awake Lurking Assailant without True Sight',
+        ],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // legal: target the champion instead
+    ],
+];
+
+// --- Extraction Incision: True Sight; [Class Bonus] On Kill, put a preparation counter on your champion ---
+$fixtures['extraction-incision-truesight-onkill-prepare'] = [
+    'testedCards' => ['zthwm68lgo'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Extraction Incision's element is NORM. The starting champion's CardID is patched directly to
+    // Zander, Deft Executor (ASSASSIN) for the Class Bonus condition. Rule 1.h blocks the game's
+    // first player from attacking on turn 1, so player 1 ends turn 1 and player 2 plays Extraction
+    // Incision on their own turn 1 instead. Wandering Glaivier (1 Life) is the kill target --
+    // Extraction Incision's printed 3 POWER is lethal on a single fresh hit with no precondition
+    // needed. The defender's "Retaliate?" MZMAYCHOOSE must be explicitly declined so
+    // CombatApplyAttackerDamage actually lands and kills it, firing the Class Bonus On Kill
+    // trigger.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'fc4ic5fmaa']], // Zander, Deft Executor (ASSASSIN)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'p6120p3f5d'], // Wandering Glaivier (1 Life) - kill target
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'zthwm68lgo'], // Extraction Incision, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target Wandering Glaivier
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so CombatApplyAttackerDamage actually lands the kill
+    ],
+];
+
+// --- Corhazi Courier: Stealth; [Class Bonus] On Hit, draw+discard, deal 1 damage if fire discarded ---
+$fixtures['corhazi-courier-onhit-draw-discard-damage'] = [
+    'testedCards' => ['YqQsXwEvv5'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Corhazi Courier's [Class Bonus] On Hit ability calls IsClassBonusActive($player) with no
+    // class filter, which is unconditionally true as long as any champion is on the field
+    // (GameLogic.php: $requiredClasses stays null, so the check short-circuits true) -- no class
+    // patch is needed. Rule 1.h blocks the game's first player from attacking on turn 1, so player
+    // 1 ends turn 1 and player 2 attacks with Corhazi Courier on their own turn 1 instead. A second
+    // copy of Corhazi Courier (FIRE element) is seeded into hand as discard fodder so the
+    // "if a fire element card was discarded" branch is reachable, dealing 1 damage to the chosen
+    // unit (the opponent's champion).
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'YqQsXwEvv5'], // Corhazi Courier
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'YqQsXwEvv5'], // second copy (FIRE), discard fodder, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // declare attack with Corhazi Courier
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // discard the second (FIRE) copy
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // choose the opponent's champion to deal 1 damage to
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

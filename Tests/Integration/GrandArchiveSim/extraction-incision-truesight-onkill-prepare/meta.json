@@ -1,0 +1,16 @@
+{
+    "name": "extraction-incision-truesight-onkill-prepare",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T18:50:05+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zthwm68lgo"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["zthwm68lgo"],
+        "mechanics": ["targeting", "counter", "status", "combat", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Kill: Put a preparation counter on your champion."
+        ]
+    }
+}
