@@ -22,9 +22,17 @@ $checks['FFG UID maps to canonical printing'] = SWUDeckEditCardID('7965404100') 
 $checks['numeric JSON UID maps to canonical printing'] = SWUDeckEditCardID(7965404100) === 'SOR_033';
 $checks['printing and UID match same stored card'] = SWUDeckEditCardID('SEC_030') === SWUDeckEditCardID('7965404100');
 $checks['canonical ID remains canonical'] = SWUDeckEditCardID('SOR_033') === 'SOR_033';
+$storedMain = [(object)['CardID' => '7965404100'], (object)['CardID' => 'SOR_033']];
+$storedSide = [(object)['CardID' => 'SEC_030']];
+$checks['copy count combines zones and identity forms'] = SWUDeckEditCopyCount($storedMain, $storedSide, 'SOR_033') === 3;
+$checks['premier copy limit is three'] = SWUDeckMaxCopies('SOR_033', 'premier') === 3;
+$checks['twin suns copy limit is one'] = SWUDeckMaxCopies('SOR_033', 'twinsuns') === 1;
+$checks['printed copy exception applies'] = SWUDeckMaxCopies('JTL_256', 'premier') === 15;
+$checks['open has no copy limit'] = SWUDeckMaxCopies('SOR_033', 'open') === PHP_INT_MAX;
 
 $bulkCode = file_get_contents($root . '/APIs/EditDeckCards.php');
 $checks['bulk edit normalizes input and both remove comparisons'] = substr_count($bulkCode, 'SWUDeckEditCardID(') === 3;
+$checks['bulk edit checks copy limits before write'] = strpos($bulkCode, 'Copy limit exceeded') < strpos($bulkCode, 'WriteGamestate(');
 
 $fail = array_keys(array_filter($checks, fn($v) => !$v));
 if ($fail) { fwrite(STDERR, "FAIL (" . count($fail) . "/" . count($checks) . "):\n  - " . implode("\n  - ", $fail) . "\n"); exit(1); }

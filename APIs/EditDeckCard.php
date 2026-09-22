@@ -104,7 +104,7 @@ require_once __DIR__ . '/../AppCore/SWU/DeckEditCardID.php';
   }
 
   // Verify ownership of the deck
-  $sql = "SELECT assetOwner FROM ownership WHERE assetType = 1 AND assetIdentifier = ?";
+  $sql = "SELECT assetOwner, format FROM ownership WHERE assetType = 1 AND assetIdentifier = ?";
   $stmt = mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt, $sql)) {
     http_response_code(500);
@@ -130,6 +130,7 @@ require_once __DIR__ . '/../AppCore/SWU/DeckEditCardID.php';
     mysqli_close($conn);
     exit;
   }
+  $deckFormat = $row['format'] ?? 'premier';
 
   // Load gamestate and edit the deck
   // We operate on p1MainDeck/p1Sideboard for the stored deck
@@ -150,6 +151,18 @@ require_once __DIR__ . '/../AppCore/SWU/DeckEditCardID.php';
   } else {
     global $p1Sideboard;
     $targetArray = &$p1Sideboard;
+  }
+
+  if ($action === 'add') {
+    global $p1MainDeck, $p1Sideboard;
+    $existingCopies = SWUDeckEditCopyCount($p1MainDeck, $p1Sideboard, $cardID);
+    $maxCopies = SWUDeckMaxCopies($cardID, $deckFormat);
+    if ($count > $maxCopies - $existingCopies) {
+      mysqli_close($conn);
+      http_response_code(400);
+      echo json_encode(["success" => false, "error" => "Copy limit exceeded", "cardID" => $cardID, "existingCopies" => $existingCopies, "requestedCount" => $count, "maxCopies" => $maxCopies]);
+      exit;
+    }
   }
 
   $modified = false;

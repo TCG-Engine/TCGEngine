@@ -149,7 +149,7 @@ require_once __DIR__ . '/../AppCore/SWU/DeckEditCardID.php';
   }
 
   // Verify ownership of the deck
-  $sql = "SELECT assetOwner FROM ownership WHERE assetType = 1 AND assetIdentifier = ?";
+  $sql = "SELECT assetOwner, format FROM ownership WHERE assetType = 1 AND assetIdentifier = ?";
   $stmt = mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt, $sql)) {
     http_response_code(500);
@@ -175,6 +175,7 @@ require_once __DIR__ . '/../AppCore/SWU/DeckEditCardID.php';
     mysqli_close($conn);
     exit;
   }
+  $deckFormat = $row['format'] ?? 'premier';
 
   // Load gamestate and edit the deck
   // We operate on p1MainDeck/p1Sideboard for the stored deck
@@ -190,6 +191,15 @@ require_once __DIR__ . '/../AppCore/SWU/DeckEditCardID.php';
   global $p1MainDeck, $p1Sideboard;
   if (!is_array($p1MainDeck)) $p1MainDeck = [];
   if (!is_array($p1Sideboard)) $p1Sideboard = [];
+
+  $originalCopies = [];
+  foreach ($changes as $change) {
+    if ($change['action'] !== 'add') continue;
+    $id = $change['cardID'];
+    if (!isset($originalCopies[$id])) {
+      $originalCopies[$id] = $overwrite ? 0 : SWUDeckEditCopyCount($p1MainDeck, $p1Sideboard, $id);
+    }
+  }
 
   if ($overwrite) {
     $p1MainDeck = [];
@@ -252,6 +262,20 @@ require_once __DIR__ . '/../AppCore/SWU/DeckEditCardID.php';
       $results[] = ["index" => $index, "action" => "remove", "cardID" => $change['cardID'], "zone" => $change['zone'], "removed" => $removed];
     }
     unset($targetArray); // break the reference before the next zone selection
+  }
+
+  // Enforce the format's copy limit on the final batch result, across both zones.
+  // Existing over-limit decks can still be edited as long as this batch does not
+  // increase the over-limit card's total.
+  foreach ($originalCopies as $cardID => $before) {
+    $after = SWUDeckEditCopyCount($p1MainDeck, $p1Sideboard, (string)$cardID);
+    $maxCopies = SWUDeckMaxCopies($cardID, $deckFormat);
+    if ($after > $maxCopies && $after > $before) {
+      mysqli_close($conn);
+      http_response_code(400);
+      echo json_encode(["success" => false, "error" => "Copy limit exceeded", "cardID" => $cardID, "existingCopies" => $before, "resultingCopies" => $after, "maxCopies" => $maxCopies]);
+      exit;
+    }
   }
 
   // Persist gamestate (single write for the whole batch)
