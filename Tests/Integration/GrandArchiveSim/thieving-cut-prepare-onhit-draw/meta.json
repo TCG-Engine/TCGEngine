@@ -1,0 +1,17 @@
+{
+    "name": "thieving-cut-prepare-onhit-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:15:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "7t9m4muq2r"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["7t9m4muq2r"],
+        "mechanics": ["draw-discard", "counter", "combat", "condition"],
+        "rulesClauses": [
+            "Prepare 1 (You may remove a preparation counter from your champion as you activate this card.)",
+            "On Hit: If Thieving Cut was prepared, draw a card."
+        ]
+    }
+}

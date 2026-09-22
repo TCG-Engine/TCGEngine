@@ -12439,6 +12439,281 @@ $fixtures['imperial-accord-negate-advanced-element'] = [
     ],
 ];
 
+// =============================================================================
+// Zander Pantheon Starter deck semantic fixtures
+// =============================================================================
+
+// --- Thieving Cut: Prepare 1, On Hit draw a card if it was prepared ---
+$fixtures['thieving-cut-prepare-onhit-draw'] = [
+    'testedCards' => ['7t9m4muq2r'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Thieving Cut's element is NORM, so no lineage patch is needed. ATTACK cards can't be
+    // activated by the game's first player on turn 1 (CanActivateAttackCardNow/
+    // IsFirstTurnAttackLocked in GameLogic.php), so player 1 ends turn 1 first and player 2 plays
+    // Thieving Cut on their own turn 1 instead (same turn-cycle shape as
+    // bulwark-sword-class-bonus-attack-cost). Player 2's champion is pre-seeded with 1 preparation
+    // counter directly (normally only reachable via a separate preparation-counter-granting
+    // effect) so its "Prepare 1" additional cost (remove 1 preparation counter as you activate it,
+    // CardActivated macro 7t9m4muq2r:0 in GeneratedMacroCode.php) can actually be paid. Answering
+    // YES stores wasPrepared=YES via DecisionQueueController; the On Hit macro (7t9m4muq2r:0
+    // onHitAbilities) reads that variable back and draws a card only when it is "YES" -- a card
+    // that was never marked prepared would not draw.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 1]]], // Prepare-ability cost fuel
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '7t9m4muq2r'], // Thieving Cut, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Insignia of the Corhazi: (3), REST: put a preparation counter on your champion ---
+$fixtures['insignia-of-corhazi-rest-prepare'] = [
+    'testedCards' => ['52u81v4c0z'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Insignia of the Corhazi is seeded directly onto the field (same pattern as
+    // necklace-of-foresight-banish-glimpse) rather than played from hand, so its materialize flow
+    // is out of scope -- this fixture is only about the always-available "(3), [REST]: put a
+    // preparation counter" activated ability (CardActivated macro 52u81v4c0z:0 in
+    // GeneratedMacroCode.php). Its element is LUXEM, and DoActivateCard()'s
+    // CanPlayerUseCardElement() gate applies to a field item's reserve-cost activated ability the
+    // same as a hand play (verified live -- with the default FIRE/NORM starting champion, the
+    // whole activation silently no-ops before ever reaching MZMove to the EffectStack), so the
+    // starting champion's CardID is patched directly to Zander, Blinding Steel (LUXEM, ASSASSIN).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE']], // Zander, Blinding Steel (LUXEM) - element-requirement precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '52u81v4c0z'], // Insignia of the Corhazi, seeded straight onto the field
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Orb of Choking Fumes: Banish -- opponents' cards cost 1 more this turn; Class Bonus draw ---
+$fixtures['orb-of-choking-fumes-banish-cost-cb-draw'] = [
+    'testedCards' => ['llQe0cg4xJ'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Orb of Choking Fumes is seeded directly onto the field (materialize flow out of scope, same
+    // as insignia-of-corhazi-rest-prepare). The starting champion's CardID is patched directly to
+    // Zander, Deft Executor (ASSASSIN) so IsClassBonusActive($player, ["ASSASSIN"]) is true for the
+    // ActivateAbility macro's Class Bonus draw clause.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'fc4ic5fmaa']], // Zander, Deft Executor (ASSASSIN) - Class Bonus precondition
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'llQe0cg4xJ'], // Orb of Choking Fumes, seeded straight onto the field
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Uncover the Plot: target player reveals memory, draw; Class Bonus +2 preparation ---
+$fixtures['uncover-the-plot-reveal-draw-prepare'] = [
+    'testedCards' => ['4zkTRt8qXn'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Uncover the Plot's element is LUXEM, so the starting champion's CardID is patched directly
+    // to Zander, Blinding Steel (LUXEM, ASSASSIN) -- both the element-requirement precondition to
+    // activate it at all and the Class Bonus preparation-counter clause. A filler card is seeded
+    // into the OPPONENT's memory ('theirMemory' with player=>1, i.e. player 2's memory -- setup
+    // zone names are relative to the acting player) so the "target player reveals all cards in
+    // their memory" half has something to reveal, observable via the "REVEAL:<cardID>" flash
+    // message DoRevealCard() sets (GameLogic.php).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE']], // Zander, Blinding Steel (LUXEM, ASSASSIN)
+        ['player' => 1, 'zone' => 'theirMemory', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide, seeded into the opponent's (player 2's) memory
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '4zkTRt8qXn'], // Uncover the Plot, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Bathe in Light: Recover 4; at the beginning of your next recollection phase, Recover 4 ---
+$fixtures['bathe-in-light-recover-delayed'] = [
+    'testedCards' => ['d9zax2g20h'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Bathe in Light's element is LUXEM; the starting champion's CardID is patched directly to
+    // Zander, Blinding Steel (LUXEM) so it can be legally activated, and its Damage is pre-set to
+    // 10 so the unconditional "Recover 4" is observable as a Damage decrease. The delayed "at your
+    // next recollection phase, Recover 4" half is out of scope (would require advancing a full
+    // turn cycle); the immediate Recover 4 and the BATHE_IN_LIGHT_RECOVER global effect it
+    // schedules (GameLogic.php CardActivated macro) are both directly asserted.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE', 'Damage' => 10]], // Zander, Blinding Steel (LUXEM) + damage precondition
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'd9zax2g20h'], // Bathe in Light, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Cunning Broker: [REST], remove two preparation counters from your champion: Draw a card ---
+$fixtures['cunning-broker-rest-remove-prep-draw'] = [
+    'testedCards' => ['oy34bro89w'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Cunning Broker is seeded directly onto the field (materialize flow out of scope). The
+    // starting champion is pre-seeded with 2 preparation counters so the activated ability's cost
+    // (remove 2 preparation counters from your champion, gated by ActivatedAbilityCost() in
+    // GameLogic.php requiring >= 2) can actually be paid.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 2]]], // Ability cost fuel
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'oy34bro89w'], // Cunning Broker, seeded straight onto the field
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Disenchant: Destroy target phantasia ---
+$fixtures['disenchant-destroy-phantasia'] = [
+    'testedCards' => ['zd83net7x0'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Disenchant's element is NORM, so no lineage patch is needed. Scorching Imperilment
+    // (aj7pz79wsp, a PHANTASIA card) is seeded onto the opponent's field as the destroy target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'theirField', 'cardID' => 'aj7pz79wsp'], // Scorching Imperilment (PHANTASIA), destroy target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zd83net7x0'], // Disenchant, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Nimble Court Assassin: Ambush, Vigor; On Enter you gain agility 3 for this turn ---
+$fixtures['nimble-court-assassin-enter-agility'] = [
+    'testedCards' => ['i2vPUpbPEl'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Nimble Court Assassin's element is EXALTED (an advanced element enabled only while another
+    // advanced element is enabled), so the starting champion's Subcards are patched with a real
+    // TERA champion to unlock element access generically the same way other advanced-element
+    // fixtures do (Exalted enables off ANY other advanced element being enabled).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock (enables Exalted too)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'i2vPUpbPEl'], // Nimble Court Assassin, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
