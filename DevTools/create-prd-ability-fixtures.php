@@ -13559,6 +13559,48 @@ DECK,
     ],
 ];
 
+// --- Zander, Blinding Steel: at your recollection phase, reveal memory; opponent puts hand cards into memory per luxem revealed ---
+$fixtures['zander-blinding-steel-recollection-luxem-memory'] = [
+    'testedCards' => ['UAF6Nr7GUE'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // The starting champion's CardID is patched directly to Zander, Blinding Steel so
+    // ChampionHasInLineage($turnPlayer, "UAF6Nr7GUE") is true (GameLogic.php ~line 9962) --
+    // testing only the passive recollection-phase trigger, not the real level-up flow. A LUXEM
+    // card is seeded directly into player 1's own memory as the revealed card -- specifically
+    // Corhazi Infiltrator (an ALLY), not a REGALIA card like Insignia of the Corhazi: AddMemory()'s
+    // MemoryAddReplacement() hook (GameLogic.php) silently redirects any REGALIA card added to
+    // memory into the Material zone instead (a real GA rule -- Regalia can't sit in memory), so a
+    // REGALIA seed here would silently land in Material and never be revealed (verified live: the
+    // seeded Insignia ended up counted in myMaterial, and GetMemory(1) read back empty). Both
+    // players end their first two turns (P1 -> P2) to reach player 1's OWN next turn, whose
+    // recollection phase reveals memory and, for each luxem card revealed (1 here), makes the
+    // opponent (player 2) put a card from their hand into their memory
+    // (ZanderBlindingSteelStep/ZanderBlindingSteelMemory in CardDQHandlers.php).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE']], // Zander, Blinding Steel lineage
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'VAFTR5taNG'], // Corhazi Infiltrator (LUXEM ALLY, not REGALIA) - revealed card
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 2, reaching player 1's recollection phase
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline the material-phase champion swap offer
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // opponent puts a hand card into memory
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Corhazi Infiltrator's own reveal-triggered offer (unrelated to Zander)
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
