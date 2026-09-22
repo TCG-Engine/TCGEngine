@@ -1,0 +1,9 @@
+{
+    "name": "veiling-breeze-prevent-champion-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T23:35:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "KoF3AMSlUe"
+    ]
+}

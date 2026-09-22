@@ -13601,6 +13601,307 @@ DECK,
     ],
 ];
 
+// ===========================================================================
+// Lorraine Pantheon Starter deck: semantic coverage fixtures
+// ===========================================================================
+const GA_LORRAINE_PANTHEON_DECK = <<<'DECK'
+# Material
+1 Spirit of Wind
+1 Lorraine, Wandering Warrior
+1 Lorraine, Blademaster
+1 Lorraine, Spirit Ruler
+1 Charm of Anticipation
+1 Drawn Blade
+1 Equinox Hour
+1 Safeguard Amulet
+1 Sword of Seeking
+1 Tariff Ring
+1 Prismatic Edge
+1 Quietus Blade
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK;
+
+// --- Dematerialize: Return target regalia to its owner's material deck ---
+$fixtures['dematerialize-return-regalia'] = [
+    'testedCards' => ['b1k0zi5h8a'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Dematerialize (b1k0zi5h8a, WIND) is played straight from hand (seeded at myHand-7, the
+    // starting-hand size for this deck/seed) against a Backup Charger (9gv4vm4kj3, REGALIA)
+    // seeded onto the opponent's field. Its reserve cost (3) is paid from hand
+    // (cardActivatedAbilities["b1k0zi5h8a:0"], GeneratedMacroCode.php), then both players decline
+    // the fast-opportunity response window before its own MZCHOOSE targets the regalia and moves
+    // it to theirMaterial (customDQHandlers["b1k0zi5h8a:0:CardActivated-1"]).
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '9gv4vm4kj3'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'b1k0zi5h8a'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Iridescent Resurgence: return a crux non-champion non-regalia card from GY to memory ---
+$fixtures['iridescent-resurgence-return-to-memory'] = [
+    'testedCards' => ['fK1IQGsUeh'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Iridescent Resurgence (fK1IQGsUeh, CRUX) needs the CRUX element, which the base Spirit of
+    // Wind starting champion doesn't have -- the field-0 champion is CardID-patched directly to
+    // Lorraine, Spirit Ruler (n2TKqNaODR, CRUX) to unlock it (same technique used throughout this
+    // file for advanced-element cards, bypassing a real level-up sequence). Ethereal Slime
+    // (n06zlhihka, CRUX ALLY) is seeded into the graveyard as the target. cardActivatedAbilities
+    // ["fK1IQGsUeh:0"] (GeneratedMacroCode.php) offers only CRUX, non-champion, non-regalia
+    // graveyard/banishment cards as MZCHOOSE targets; its handler moves the chosen card to myMemory.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'n2TKqNaODR']],
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'n06zlhihka'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'fK1IQGsUeh'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Halcyon Animus: materialize a regalia card from material deck or banishment ---
+$fixtures['halcyon-animus-materialize-regalia'] = [
+    'testedCards' => ['uvopjFSUj0'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Halcyon Animus (uvopjFSUj0, CRUX) needs CRUX -- champion CardID-patched to Lorraine, Spirit
+    // Ruler (n2TKqNaODR) as above. cardActivatedAbilities["uvopjFSUj0:0"] (GeneratedMacroCode.php)
+    // offers every REGALIA in myMaterial/myBanish as an MZCHOOSE target and routes the choice
+    // through the shared "MATERIALIZE" custom handler; Safeguard Amulet (yj2rJBREH8, 0-memory-cost
+    // REGALIA already in this deck's Material zone) is chosen so no further cost payment is needed,
+    // landing it directly on the field.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'n2TKqNaODR']],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uvopjFSUj0'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-6', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Zephyr: suppress (banish, returns at next end phase) target ally or regalia ---
+$fixtures['zephyr-suppress-ally'] = [
+    'testedCards' => ['idaRe7y3In'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Zephyr (idaRe7y3In, WIND -- native to the base Spirit of Wind champion, no patch needed)
+    // targets a Dungeon Guide (em6eEh9q8y, ALLY) seeded onto the opponent's field.
+    // cardActivatedAbilities["idaRe7y3In:0"] (GeneratedMacroCode.php) offers it as an MZCHOOSE
+    // target and calls SuppressAlly(), which banishes it immediately (and would return it to the
+    // field at the next end phase) -- observable here as the target vanishing from theirField.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'idaRe7y3In'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Wisp's Protection: prevent the next 4+X damage to target unit (X = regalia on field) ---
+$fixtures['wisps-protection-prevent-damage'] = [
+    'testedCards' => ['OmWFVRUr8I'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Wisp's Protection (OmWFVRUr8I, CRUX) needs CRUX -- champion patched to Lorraine, Spirit Ruler
+    // (n2TKqNaODR) as above. A Backup Charger (9gv4vm4kj3, REGALIA) is also seeded onto the
+    // player's own field so X=1, making the prevention amount 5 (distinguishing this from a bare
+    // "prevent 4" effect). cardActivatedAbilities["OmWFVRUr8I:0"] (GeneratedMacroCode.php) offers
+    // an MZCHOOSE of ALLY/CHAMPION targets; targeting the champion itself
+    // (customDQHandlers["OmWFVRUr8I:0:CardActivated-1"]) adds TurnEffect "PREVENT_ALL_5".
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'n2TKqNaODR']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '9gv4vm4kj3'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'OmWFVRUr8I'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Scatter Essence: destroy target phantasia ---
+$fixtures['scatter-essence-destroy-phantasia'] = [
+    'testedCards' => ['zi5h8asbie'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Scatter Essence (zi5h8asbie, WIND -- native, no champion patch needed) targets an Unstable
+    // Fractal (2o82fwl22v, PHANTASIA) seeded onto the opponent's field.
+    // cardActivatedAbilities["zi5h8asbie:0"] (GeneratedMacroCode.php) offers PHANTASIA objects as
+    // MZCHOOSE targets; its handler (customDQHandlers["zi5h8asbie:0:CardActivated-1"]) moves the
+    // chosen target to its owner's graveyard.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '2o82fwl22v'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'zi5h8asbie'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Bolstering Tempest: target Human ally gets +3 POWER until end of turn ---
+$fixtures['bolstering-tempest-human-ally-power'] = [
+    'testedCards' => ['PwHub76Fw4'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Bolstering Tempest (PwHub76Fw4, EXALTED) needs the EXALTED element, which auto-unlocks once
+    // any OTHER advanced element is enabled (GameLogic.php, GetPlayerEnabledElements) -- the
+    // champion is CardID-patched to Lorraine, Spirit Ruler (n2TKqNaODR, CRUX) *with* its Subcards
+    // set to the base Spirit of Wind (pNiyaGlIe7) so the real champion-lineage element union
+    // (GetChampionLineage/GetPlayerEnabledElements) grants both CRUX (-> EXALTED) and WIND, rather
+    // than losing WIND the way a bare CardID patch would. A Dungeon Guide (em6eEh9q8y, HUMAN ALLY)
+    // is seeded onto the player's own field as the only legal target.
+    // cardActivatedAbilities["PwHub76Fw4:0"] (GeneratedMacroCode.php) offers HUMAN allies as an
+    // MZMAYCHOOSE target; its handler adds TurnEffect "PwHub76Fw4-POWER-3".
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'n2TKqNaODR', 'Subcards' => ['pNiyaGlIe7']]],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'PwHub76Fw4'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Veiling Breeze: reveal wind cards from memory to prevent that much champion damage ---
+$fixtures['veiling-breeze-prevent-champion-damage'] = [
+    'testedCards' => ['KoF3AMSlUe'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Veiling Breeze (KoF3AMSlUe, WIND -- native, no patch needed) is played with a Diablerie
+    // (0plqbtjuxz, WIND ACTION) already seeded into memory. cardActivatedAbilities["KoF3AMSlUe:0"]
+    // (GeneratedMacroCode.php) calls VeilingBreezeStart() (CardDQHandlers.php), which offers an
+    // MZMULTICHOOSE of wind cards in memory; revealing the seeded card
+    // (customDQHandlers["VeilingBreezeChoose"]) adds TurnEffect "KoF3AMSlUe-1" (1 = the number of
+    // cards revealed) to the champion.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => '0plqbtjuxz'],
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'KoF3AMSlUe'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Beacon Knight: whenever regalia enter the field under your control, buff counter ---
+$fixtures['beacon-knight-regalia-enter-buff'] = [
+    'testedCards' => ['sucwQ9or0n'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Beacon Knight (sucwQ9or0n, WARRIOR [Class Bonus]) is seeded directly onto the field alongside
+    // a champion patched to Lorraine, Wandering Warrior (DpHDGaX2Pn) for the class bonus. Both
+    // players then end their first turns (reaching player 1's second turn, when a real Materialize
+    // opportunity is offered) and player 1 materializes Safeguard Amulet (yj2rJBREH8, 0-memory-cost
+    // REGALIA already in this deck's Material zone). The generic field-add hook in GameLogic.php
+    // (~line 8329, "Beacon Knight: whenever one or more regalia enter the field...") then adds a
+    // buff counter to Beacon Knight.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'sucwQ9or0n'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-6', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Templar of the Eternal: (2), Return a regalia -> buff counter + spellshroud ---
+$fixtures['templar-of-the-eternal-return-regalia'] = [
+    'testedCards' => ['peyG8Hfgqt'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Templar of the Eternal (peyG8Hfgqt, WARRIOR [Class Bonus]) and a Backup Charger (9gv4vm4kj3,
+    // REGALIA) are seeded directly onto the field, with the champion patched to Lorraine, Wandering
+    // Warrior (DpHDGaX2Pn) for the class bonus. Its activated ability is triggered via the
+    // CustomInput "Activate:0" click (ActivateAbility -> DoActivatedAbility ->
+    // activateAbilityAbilities["peyG8Hfgqt:0"], GeneratedMacroCode.php), which pays a 2-reserve
+    // cost (Custom/GameLogic.php's ActivatedAbilityCost, case "peyG8Hfgqt") from hand, then calls
+    // TemplarEternalAbility() (Custom/GameLogic.php), offering the Backup Charger as an MZCHOOSE
+    // target; choosing it returns it to material, and adds a buff counter plus SPELLSHROUD to
+    // Templar of the Eternal itself.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'peyG8Hfgqt'],
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '9gv4vm4kj3'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Drawn Blade: [Class Bonus] On Enter: Draw a card ---
+$fixtures['drawn-blade-class-bonus-draw'] = [
+    'testedCards' => ['eSAIP7mx9z'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Drawn Blade (eSAIP7mx9z, WARRIOR [Class Bonus], 1-memory REGALIA already in this deck's
+    // Material zone at myMaterial-4) is materialized for real: the champion is patched to
+    // Lorraine, Wandering Warrior (DpHDGaX2Pn) for the class bonus, a filler card is seeded into
+    // memory to pay its 1-memory cost, and both players end their first turns to reach a real
+    // Materialize opportunity on player 1's second turn. enterAbilities["eSAIP7mx9z:0"]
+    // (GeneratedMacroCode.php) then draws a card, observable as the hand gaining a card beyond
+    // what materializing alone would produce.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-4', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // NOTE: Silver Soldier (c3C6PjX0Vt, printed "Retort 2, Vigor") is intentionally NOT covered.
 // GeneratedKeywordCode.php has no entry at all for this card -- HasKeyword_Retort() and
 // HasKeyword_Vigor() both return false for it (verified live: GetRetortValue() computes 0, and a
