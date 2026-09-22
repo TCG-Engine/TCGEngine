@@ -20,7 +20,8 @@ plumbing that isn't documented elsewhere, a compact zone-schema, and a few load-
 
 ## Load-bearing rules
 - **NEVER hand-edit generated files** (`GeneratedMacroCode.php`, `GeneratedKeywordCode.php`, `GeneratedCardDictionaries.php`, `GamestateParser.php`, `GetNextTurn.php`, `ZoneAccessors.php`, `ZoneClasses.php`, `GeneratedAbilityStubs.php`) — a regen wipes hand-edits with no git trace. Edit the **generator** (gate by `$rootName`) and regenerate. See `reference-swusim-generated-engine-files` memory.
-- **CardID format `SET_NNN`** (`{2–5 upper}_{3-digit}`, e.g. `SOR_014`); tokens `SET_T##` (e.g. `SOR_T02` Shield). Primary key across zones, DQ vars, mzIDs, dictionaries, deck JSON.
+- **CardID format `SET_NNN`** — set code `[A-Z0-9]{2,5}`, number 2–4 digits (e.g. `SOR_014`); tokens `SET_T##` (e.g. `SOR_T02` Shield). Primary key across zones, DQ vars, mzIDs, dictionaries, deck JSON.
+  ⚠ **A SET CODE IS NOT LETTERS-ONLY AND THE NUMBER IS NOT ALWAYS 3 DIGITS.** `TS26_01` (Twin Suns, 88 cards, 2-digit numbers) and `IC27_001` both carry digits in the set code. A `[A-Z]{2,5}_\d{3}` regex matches neither set — it silently DROPS those cards, which is how a legal Twin Suns list reported itself as "1 leader, 79 cards" in prod (2026-09-22). The generated `DecomposeCardID()` / `BuildCardID()` (+ the `CardIDDoubleDigitSets` constant) are the reference grammar; match them rather than re-deriving one.
 
 ## Zone schema (compact — full field lists in the `swusim-implement-card` skill / `swusim-project.md`)
 - **GroundArena / SpaceArena** (units): `CardID`, `Status` (**1=ready, 0=exhausted** — there is NO "2"; units enter play exhausted), `Owner`, `Controller`, `Damage`, `TurnEffects[]`, `Subcards[]` (attached upgrades + face-down captives), `UniqueID` (equals `Leader.DeployedUniqueID` for a deployed leader). No serialized `Counters` field.

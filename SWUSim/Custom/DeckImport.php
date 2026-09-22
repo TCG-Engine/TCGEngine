@@ -153,9 +153,16 @@ function SWUResolveDeckInput($deckLink) {
  */
 // Accept a card ID if it passes the dictionary check OR matches the SET_NNN pattern.
 // Deck sources like SWUDB already guarantee valid IDs; pure format matching is safe here.
+//
+// ⚠ A SET CODE MAY CONTAIN DIGITS. The fallback used to demand `[A-Z]{2,5}`, which matches no TS26_
+// or IC27_ card at all — so whenever the dictionary was unreachable (see
+// SWUSim/DevTools/tests/lobby_adapter_deck_scope_test.php) a Twin Suns list silently lost its TS26
+// leader and every TS26 card, and reported itself as "1 leader, 79 cards". The generated
+// DecomposeCardID() has always used `[A-Z0-9]{2,5}`; this now agrees with it, less the token forms
+// (SET_T##), which are never deck entries. The leading letter keeps a purely numeric "set" out.
 function SWUIsAcceptableCardID($cardId) {
     if (function_exists('IsSWUCardID') && IsSWUCardID($cardId)) return true;
-    return (bool)preg_match('/^[A-Z]{2,5}_\d{2,4}$/', $cardId);
+    return (bool)preg_match('/^[A-Z][A-Z0-9]{1,4}_\d{2,4}$/', $cardId);
 }
 
 function SWUNormalizeStandardJSON($data) {

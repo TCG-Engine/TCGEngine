@@ -1,0 +1,341 @@
+{
+  "metadata": {
+    "name": "Twin Suns \u2014 TS26 leader (regression fixture)",
+    "author": "regression"
+  },
+  "leader": {
+    "id": "TS26_01",
+    "count": 1
+  },
+  "secondleader": {
+    "id": "LAW_008",
+    "count": 1
+  },
+  "base": {
+    "id": "ASH_023",
+    "count": 1
+  },
+  "deck": [
+    {
+      "id": "SHD_129",
+      "count": 1
+    },
+    {
+      "id": "ASH_048",
+      "count": 1
+    },
+    {
+      "id": "SOR_126",
+      "count": 1
+    },
+    {
+      "id": "SEC_070",
+      "count": 1
+    },
+    {
+      "id": "SEC_176",
+      "count": 1
+    },
+    {
+      "id": "SEC_075",
+      "count": 1
+    },
+    {
+      "id": "ASH_133",
+      "count": 1
+    },
+    {
+      "id": "ASH_116",
+      "count": 1
+    },
+    {
+      "id": "LAW_097",
+      "count": 1
+    },
+    {
+      "id": "ASH_097",
+      "count": 1
+    },
+    {
+      "id": "LAW_058",
+      "count": 1
+    },
+    {
+      "id": "ASH_030",
+      "count": 1
+    },
+    {
+      "id": "SHD_028",
+      "count": 1
+    },
+    {
+      "id": "TWI_131",
+      "count": 1
+    },
+    {
+      "id": "LOF_032",
+      "count": 1
+    },
+    {
+      "id": "JTL_132",
+      "count": 1
+    },
+    {
+      "id": "SOR_035",
+      "count": 1
+    },
+    {
+      "id": "SEC_087",
+      "count": 1
+    },
+    {
+      "id": "SEC_133",
+      "count": 1
+    },
+    {
+      "id": "ASH_239",
+      "count": 1
+    },
+    {
+      "id": "SEC_033",
+      "count": 1
+    },
+    {
+      "id": "ASH_029",
+      "count": 1
+    },
+    {
+      "id": "SHD_084",
+      "count": 1
+    },
+    {
+      "id": "ASH_247",
+      "count": 1
+    },
+    {
+      "id": "SOR_043",
+      "count": 1
+    },
+    {
+      "id": "SHD_093",
+      "count": 1
+    },
+    {
+      "id": "SHD_031",
+      "count": 1
+    },
+    {
+      "id": "LOF_235",
+      "count": 1
+    },
+    {
+      "id": "SEC_086",
+      "count": 1
+    },
+    {
+      "id": "LAW_044",
+      "count": 1
+    },
+    {
+      "id": "SOR_119",
+      "count": 1
+    },
+    {
+      "id": "JTL_038",
+      "count": 1
+    },
+    {
+      "id": "SEC_082",
+      "count": 1
+    },
+    {
+      "id": "SEC_039",
+      "count": 1
+    },
+    {
+      "id": "ASH_078",
+      "count": 1
+    },
+    {
+      "id": "SHD_122",
+      "count": 1
+    },
+    {
+      "id": "SOR_085",
+      "count": 1
+    },
+    {
+      "id": "SHD_079",
+      "count": 1
+    },
+    {
+      "id": "SHD_172",
+      "count": 1
+    },
+    {
+      "id": "SOR_087",
+      "count": 1
+    },
+    {
+      "id": "SEC_142",
+      "count": 1
+    },
+    {
+      "id": "JTL_033",
+      "count": 1
+    },
+    {
+      "id": "ASH_052",
+      "count": 1
+    },
+    {
+      "id": "ASH_103",
+      "count": 1
+    },
+    {
+      "id": "SHD_082",
+      "count": 1
+    },
+    {
+      "id": "SHD_085",
+      "count": 1
+    },
+    {
+      "id": "TS26_56",
+      "count": 1
+    },
+    {
+      "id": "ASH_127",
+      "count": 1
+    },
+    {
+      "id": "LOF_091",
+      "count": 1
+    },
+    {
+      "id": "SEC_123",
+      "count": 1
+    },
+    {
+      "id": "LAW_201",
+      "count": 1
+    },
+    {
+      "id": "JTL_063",
+      "count": 1
+    },
+    {
+      "id": "SHD_244",
+      "count": 1
+    },
+    {
+      "id": "LAW_031",
+      "count": 1
+    },
+    {
+      "id": "ASH_148",
+      "count": 1
+    },
+    {
+      "id": "LAW_101",
+      "count": 1
+    },
+    {
+      "id": "JTL_143",
+      "count": 1
+    },
+    {
+      "id": "LOF_132",
+      "count": 1
+    },
+    {
+      "id": "SOR_071",
+      "count": 1
+    },
+    {
+      "id": "LAW_052",
+      "count": 1
+    },
+    {
+      "id": "SOR_134",
+      "count": 1
+    },
+    {
+      "id": "SOR_031",
+      "count": 1
+    },
+    {
+      "id": "SEC_085",
+      "count": 1
+    },
+    {
+      "id": "JTL_119",
+      "count": 1
+    },
+    {
+      "id": "LAW_059",
+      "count": 1
+    },
+    {
+      "id": "SEC_090",
+      "count": 1
+    },
+    {
+      "id": "ASH_079",
+      "count": 1
+    },
+    {
+      "id": "LOF_059",
+      "count": 1
+    },
+    {
+      "id": "SEC_073",
+      "count": 1
+    },
+    {
+      "id": "SOR_090",
+      "count": 1
+    },
+    {
+      "id": "LAW_060",
+      "count": 1
+    },
+    {
+      "id": "LAW_057",
+      "count": 1
+    },
+    {
+      "id": "ASH_102",
+      "count": 1
+    },
+    {
+      "id": "ASH_073",
+      "count": 1
+    },
+    {
+      "id": "JTL_040",
+      "count": 1
+    },
+    {
+      "id": "LOF_130",
+      "count": 1
+    },
+    {
+      "id": "SEC_132",
+      "count": 1
+    },
+    {
+      "id": "JTL_032",
+      "count": 1
+    },
+    {
+      "id": "SOR_036",
+      "count": 1
+    },
+    {
+      "id": "ASH_095",
+      "count": 1
+    }
+  ],
+  "sideboard": []
+}

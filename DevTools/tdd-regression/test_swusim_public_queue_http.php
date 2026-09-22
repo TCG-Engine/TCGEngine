@@ -94,6 +94,24 @@ $last = end($seats)[1];
 check(empty($last['ready']), 'the full Team Suns room is NOT ready (the host starts it)', $last);
 check(empty($last['gameName']), 'the full Team Suns room created no game on its own', $last);
 check(intval($last['maxPlayers'] ?? 0) === 4 && ($last['isRoom'] ?? null) === true, 'the 4th seat is told it is a 4-player room', $last);
+
+// ⚠ EVERY SEAT'S DECK, NOT JUST THE CREATOR'S (prod report, 2026-09-22). The public-room JOIN branch
+// built the Player and appended it without ever resolving its deck — it was written when a public
+// lobby could only be a two-seat quick match, where the deck is resolved at pairing instead. So the
+// creator showed `deck ✓` and every OTHER seat showed "NO DECK / deck missing/invalid" forever, with
+// "Seat ? has an illegal or unreadable deck" permanently blocking Start. The private-invite join a
+// few lines away in the same file has always resolved it; only the public one did not. Assertions
+// above this line all ran on the CREATOR, which is why none of them could see it.
+$roster = poll($seats[0][0], $seats[0][1])['roster'] ?? [];
+check(count($roster) === 4, 'all four seats appear in the roster', $roster);
+foreach ($roster as $row) {
+    check(!empty($row['deckOk']), 'roster seat ' . ($row['playerID'] ?? '?') . ' has a resolved, legal deck', $row);
+    check(!empty($row['identity']['cards']), 'roster seat ' . ($row['playerID'] ?? '?') . ' shows an identity strip', $row);
+}
+$deckBlockers = array_values(array_filter(poll($seats[0][0], $seats[0][1])['blockers'] ?? [],
+                                          fn($b) => str_contains(strtolower((string)$b), 'deck')));
+check($deckBlockers === [], 'a room where every seat brought a legal deck has no deck blocker', $deckBlockers);
+
 // And the creator holds the room: only hostPlayerID may start it, so a NON-host start must be refused.
 $nonHost = $seats[1];
 $sr = post($L . 'StartRoom.php', ['rootName' => 'SWUSim', 'lobbyID' => $nonHost[1]['lobbyID'],

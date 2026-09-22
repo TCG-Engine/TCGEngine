@@ -581,12 +581,28 @@
             intval($lobby->numPlayers) < intval($lobby->maxPlayers)
           ) {
               if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // skip blocked host, keep scanning
-              // No deck resolution happens here, so nothing needs hoisting — but the seat-ID
-              // allocation and the capacity re-check are the same bugs as the private path.
               $targetKey = $entry['info'];
+
+              // ⚠ A PUBLIC ROOM'S JOINER NEEDS ITS DECK RESOLVED, exactly as the private-invite join
+              // and both create paths do. This branch predates public rooms: a public lobby could
+              // only be a two-seat QUICK MATCH, which resolves decks at pairing and shows no roster,
+              // so skipping it here was correct and the comment that used to sit on this line said
+              // so. Once the Twin Suns family started pairing into public ROOMS, every seat that
+              // JOINED one arrived with deckOk=false — "NO DECK / deck missing/invalid" on the tile,
+              // an empty identity strip, and "Seat ? has an illegal or unreadable deck" blocking
+              // Start forever. Only the seat that CREATED the room ever showed a deck.
+              //
+              // NETWORK I/O, deliberately before the lock — see the same hoist on the invite path.
+              // A quick match still resolves nothing, so its join stays byte-identical.
+              $publicResolved = $publicIsRoom
+                ? _SWURoomResolveDeck($lobby, $deckLink, $preconstructedDeck)
+                : ['ok' => true, 'leaders' => [], 'base' => '', 'cards' => []];
+
+              // No deck resolution happens inside the lock, so nothing there needs hoisting — but the
+              // seat-ID allocation and the capacity re-check are the same bugs as the private path.
               $joinErr = null; $newPlayer = null; $playerID = 0;
               $stored = LobbyMutate($targetKey, function ($lobby) use (
-                  $deckLink, $preconstructedDeck, $joiningUserId, $rootName,
+                  $deckLink, $preconstructedDeck, $joiningUserId, $rootName, $publicResolved,
                   $shareAnonymizedGameplayData, $swuTestFailAtPairing, $publicIsRoom, &$joinErr, &$newPlayer, &$playerID) {
                 // Re-checked under the lock: two people can reach a one-seat queue at once, and the
                 // loser must fall through to the next lobby rather than overfill this one.
@@ -603,11 +619,19 @@
                 if (!$publicIsRoom && $lobby->numPlayers == $lobby->maxPlayers) $lobby->ready = true;
                 $playerID  = _SWUNextPlayerID($lobby);
                 $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
+                if ($publicIsRoom) _SWURoomApplyResolvedDeck($newPlayer, $publicResolved);
                 $lobby->players[] = $newPlayer;
                 if ($swuTestFailAtPairing) {   // local-dev test hook (Task 11)
                   $lobby->testFailAtPairing = array_merge((array)($lobby->testFailAtPairing ?? []), [strval($newPlayer->getAuthKey())]);
                 }
                 LobbyEnsureFixedSeats($lobby);
+                // Team rooms: force the joiner onto the only team with room; otherwise they pick.
+                // Must run AFTER the player is appended so the counts include them — the same call,
+                // in the same position, as the private-invite join above.
+                if ($publicIsRoom) {
+                  $autoTeam = SWURoomAutoTeamOnJoin($lobby);
+                  if ($autoTeam !== null) SWURoomAssignTeam($lobby, $newPlayer, $autoTeam);
+                }
                 return true;
               });
               if ($joinErr !== null) continue;   // full: keep scanning for another lobby
