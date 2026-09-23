@@ -14338,6 +14338,140 @@ $fixtures['samaritan-reach-attacking-ally-damage'] = [
 // something a fixture can responsibly paper over -- writing a fixture against the current (buggy)
 // behavior would assert the wrong thing, and one against the intended behavior would just fail.
 
+// NOTE: Shade Striker (hVvsKqWsMl, printed "Ambush") is intentionally NOT covered.
+// CombatLogic.php's retaliation-eligibility check (~line 1079) hardcodes a short whitelist of
+// CardIDs that get generic-AMBUSH retaliator treatment (jozihslnhz, 0oyxjld8jh, itwys9kf4r,
+// 8tYVFYnK0T, TScoOwz80U) plus a generic `in_array("AMBUSH", $fieldObj->TurnEffects)` check --
+// Shade Striker's CardID is in neither list, and nothing ever adds an "AMBUSH" TurnEffect to it.
+// Its printed Ambush keyword is completely unwired; a fixture would either assert the (currently
+// nonexistent) retaliation or paper over the gap. Real pre-existing engine gap, out of scope here.
+
+// NOTE: Sanctified Paladin (ioLmt0S7op, printed "Foster") is intentionally NOT covered.
+// HasFoster() (GrandArchiveSim/Custom/CardLogic.php ~188) hardcodes the small set of CardIDs that
+// actually receive Foster processing at recollection (unconditional list plus a [Class Bonus]
+// list) -- Sanctified Paladin's CardID (ioLmt0S7op) is present in neither, so it can never become
+// fostered, its own +3/+3/vigor-while-fostered clause never applies, and its On Foster "draw two
+// cards" trigger never fires (confirmed by static inspection of the whitelist; consistent with
+// the sibling Pantheon-deck task's earlier finding). This is the same class of hardcoded-whitelist
+// gap already flagged there as a real, separately-tracked engine bug (out of scope to fix here).
+
+// ---------------------------------------------------------------------------
+// Arisanna Pantheon Starter: remaining semantic-coverage fixtures
+// ---------------------------------------------------------------------------
+const GA_ARISANNA_BASE_DECK = <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK;
+
+// --- Trine Recursion: put target graveyard card into owner's deck third from top ---
+$fixtures['trine-recursion-graveyard-to-deck-third'] = [
+    'testedCards' => ['dwZvL9K0Ke'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Trine Recursion (dwZvL9K0Ke, ASTRA, reserve 1) targets any graveyard card
+    // (cardActivatedAbilities["dwZvL9K0Ke:0"], GeneratedMacroCode.php) and its
+    // customDQHandlers["dwZvL9K0Ke:0:CardActivated-1"] removes the target and splices it into the
+    // OWNER's deck at index min(2, count) -- "third from the top". ASTRA is an advanced element
+    // (CanPlayerMeetCardElementRequirements/GetPlayerEnabledElements, GameLogic.php ~19784) --
+    // without unlocking it the FSM play silently no-ops (success:true, no decision queued, no
+    // state change at all), so the champion is CardID-patched to Arisanna, Astral Zenith
+    // (q3huqj5bba, CLERIC/ASTRA) to unlock ASTRA access (this also satisfies the Arisanna/CLERIC
+    // Class Bonus other Arisanna fixtures need). A single distinguishable card (Fluffy Shopkeep)
+    // is seeded into player 1's own graveyard as the target.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba']], // Arisanna, Astral Zenith - ASTRA/CLERIC/Arisanna-Bonus unlock
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'n8wyfG9hbY'], // Fluffy Shopkeep - graveyard target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'dwZvL9K0Ke'], // Trine Recursion, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Celestial Navigation: Glimpse 5 ---
+$fixtures['celestial-navigation-glimpse-5'] = [
+    'testedCards' => ['QAU8WVUZM0'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Celestial Navigation (QAU8WVUZM0, ASTRA, reserve 2) calls Glimpse($player, 5)
+    // (cardActivatedAbilities["QAU8WVUZM0:0"], GeneratedMacroCode.php). ASTRA is an advanced
+    // element (GameLogic.php ~593/19784) -- without unlocking it, playing the card silently
+    // no-ops (success:true, nothing queued), so the champion is CardID-patched to Arisanna,
+    // Astral Zenith (q3huqj5bba, CLERIC/ASTRA). Glimpse queues an MZREARRANGE decision with the
+    // exact param format 'Top=<cardIDs>;Bottom=<cardIDs>'; the response submitted here is that
+    // same string verbatim (a no-op reorder), which keeps the 5 glimpsed cards on top in their
+    // original order and proves Glimpse 5 actually ran (vs. a no-op or wrong count) via the exact
+    // card-ID sequence. Card IDs are deck-shuffle-dependent for this deck/seed and were confirmed
+    // via a direct probe before being hardcoded.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba']], // Arisanna, Astral Zenith - ASTRA unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'QAU8WVUZM0'], // Celestial Navigation, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y,em6eEh9q8y,n8wyfG9hbY,px60u5n1do;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Redirect Orbit: shuffle hand/memory cards into deck, then draw that many into memory ---
+$fixtures['redirect-orbit-shuffle-draw'] = [
+    'testedCards' => ['Tst4WbM6O8'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Redirect Orbit (Tst4WbM6O8, ASTRA, reserve 2) calls RedirectOrbitChoose($player, 0)
+    // (cardActivatedAbilities["Tst4WbM6O8:0"], GeneratedMacroCode.php ->
+    // GrandArchiveSim/Custom/CardDQHandlers.php ~4622), which loops an MZMAYCHOOSE over
+    // hand+memory cards; choosing a card shuffles it into the deck and recurses with count+1,
+    // and passing ends the loop with ShuffleZone(myDeck) + DrawIntoMemory($player, count). ASTRA
+    // is an advanced element -- without unlocking it, playing the card silently no-ops, so the
+    // champion is CardID-patched to Arisanna, Astral Zenith (q3huqj5bba, CLERIC/ASTRA). One known
+    // hand card (Fluffy Shopkeep) is chosen, then the loop is passed -- proving both halves (a
+    // card actually leaves hand into the deck, and exactly that many are then drawn into memory,
+    // not hand) via zone counts.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba']], // Arisanna, Astral Zenith - ASTRA unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Tst4WbM6O8'], // Redirect Orbit, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Refracted Twilight: Banish self -- tag target Potion to copy its next activation twice ---
+$fixtures['refracted-twilight-banish-copy-tag'] = [
+    'testedCards' => ['me0xxw0plq'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Refracted Twilight (me0xxw0plq) is seeded directly onto the field (its own Banish ability
+    // doesn't care how it got there, and Brewing isn't the clause under test). Its
+    // activateAbilityAbilities["me0xxw0plq:0"] (GeneratedMacroCode.php) offers a choice among
+    // ITEM/POTION-subtype field objects; customDQHandlers["me0xxw0plq:0:ActivateAbility-1"] tags
+    // the chosen target with TurnEffect "me0xxw0plq_COPY2" (consumed elsewhere,
+    // GrandArchiveSim/Custom/GameLogic.php ~6873, when that potion is next activated). A second
+    // Potion (Potion of Healing) is seeded onto the field as the only legal target.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'me0xxw0plq'], // Refracted Twilight - the activator
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'qtb31x97n2'], // Potion of Healing - only legal target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

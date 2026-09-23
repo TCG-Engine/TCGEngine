@@ -1,0 +1,6 @@
+[
+    {"step":4,"type":"zone_count","zone":"myDeck","viewerPlayerID":1,"value":5,"semantic":true,"label":"Glimpse 5 only looks and reorders the top of the deck -- deck count is unchanged"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Deck-0","property":"CardID","value":"em6eEh9q8y","semantic":true,"label":"Reordered response is honored -- deck top slot matches the submitted Top= order"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Deck-3","property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"Reordered response is honored -- fourth deck slot matches the submitted Top= order"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Graveyard-0","property":"CardID","value":"QAU8WVUZM0","semantic":true,"label":"Celestial Navigation itself resolves to the graveyard as a normal Action card"}
+]

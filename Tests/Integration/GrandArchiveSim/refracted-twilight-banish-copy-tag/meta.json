@@ -1,0 +1,17 @@
+{
+    "name": "refracted-twilight-banish-copy-tag",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Refracted Twilight is seeded directly onto the field (its own Banish ability doesn't care how it got there, and Brewing isn't the clause under test); it and a second Potion (Potion of Healing) are seeded at myField-1/myField-2, but activateAbilityAbilities['me0xxw0plq:0'] (GeneratedMacroCode.php) banishes Refracted Twilight itself as part of the activation cost BEFORE offering the target choice, which reindexes Potion of Healing down to myField-1 -- verified live by dumping the decision queue between actions (an initial guess of myField-2 for the target click failed with 'Invalid selection'). customDQHandlers['me0xxw0plq:0:ActivateAbility-1'] then tags the chosen target with TurnEffect 'me0xxw0plq_COPY2' (consumed elsewhere, GameLogic.php ~6873, when that potion is next activated -- out of scope for this fixture). Verified final state: myField-1 (Potion of Healing) carries TurnEffects ['ENTERED_THIS_TURN','me0xxw0plq_COPY2'], and Refracted Twilight itself sits in myBanish.",
+    "testedCards": [
+        "me0xxw0plq"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["me0xxw0plq"],
+        "mechanics": ["targeting", "zone-movement"],
+        "rulesClauses": [
+            "Banish Refracted Twilight: The next time you activate an ability of target Potion this turn, copy that ability twice. You may choose new targets for those copies."
+        ]
+    }
+}
