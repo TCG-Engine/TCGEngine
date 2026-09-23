@@ -1,0 +1,17 @@
+{
+    "name": "aqua-vitae-no-age-bonus-single-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Negative-path sibling of aqua-vitae-sacrifice-age-counters-double-draw: Aqua Vitae is seeded onto the field fresh (0 age counters). Sacrificing it draws only ONE card (hand 7 -> 8), proving the 'if 3+ age counters, draw an additional card' clause actually gates the second draw rather than it always firing regardless of the counter.",
+    "testedCards": [
+        "y5ttkat9hr"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["y5ttkat9hr"],
+        "mechanics": ["draw-discard", "counter", "condition"],
+        "rulesClauses": [
+            "Sacrifice Aqua Vitae: Draw a card. Then if there were three or more age counters on Aqua Vitae, draw an additional card. (negative path: 0 age counters draws only 1)"
+        ]
+    }
+}

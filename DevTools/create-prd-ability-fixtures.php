@@ -14472,6 +14472,110 @@ $fixtures['refracted-twilight-banish-copy-tag'] = [
     ],
 ];
 
+// --- Convalescent Tonic: Sacrifice self -- bottom up to 2 hand cards, draw that many, Recover 3 ---
+$fixtures['convalescent-tonic-sacrifice-bottom-draw-recover'] = [
+    'testedCards' => ['l8ao8bls6g'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Convalescent Tonic is seeded directly onto the field (its own Sacrifice ability doesn't
+    // care how it got there, and Brewing isn't the clause under test).
+    // activateAbilityAbilities["l8ao8bls6g:0"] (GeneratedMacroCode.php) offers an MZMULTICHOOSE
+    // of up to 2 hand cards; customDQHandlers["l8ao8bls6g:0:ActivateAbility-1"] moves the chosen
+    // cards to the bottom of the deck, draws that many back, then RecoverChampion($player, 3).
+    // The champion is pre-damaged by 5 so Recover 3 leaves 2 damage remaining, distinguishing
+    // "recovered" from "already at full life"; 2 known hand cards are chosen via the "&"-joined
+    // MZMULTICHOOSE response format (same shape as essence-crucible-razorgale-calling).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'l8ao8bls6g'], // Convalescent Tonic - the activator
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 5]], // pre-damage so Recover 3 is observable
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0&myHand-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Aqua Vitae: Sacrifice self -- draw a card, plus an extra if it had 3+ age counters ---
+$fixtures['aqua-vitae-sacrifice-age-counters-double-draw'] = [
+    'testedCards' => ['y5ttkat9hr'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Aqua Vitae is seeded directly onto the field with 3 age counters already on it (its own
+    // Sacrifice ability doesn't care how it got there). ActivatedAbilityCost's "sacrifice self"
+    // dispatch (GameLogic.php ~6454) stores the object's 'age' Counters value into the
+    // "ageCounters" decision-queue variable BEFORE removing it; activateAbilityAbilities
+    // ["y5ttkat9hr:0"] (GeneratedMacroCode.php) reads that variable and draws a second card only
+    // if it was >= 3. Verified live (see the sibling no-bonus fixture) that with 0 age counters
+    // only 1 card is drawn -- proving the age-counter condition actually gates the second draw,
+    // not just "always draws 2".
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'y5ttkat9hr'], // Aqua Vitae - the activator
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Counters' => ['age' => 3]]],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Aqua Vitae (negative path): Sacrifice with 0 age counters only draws 1 ---
+$fixtures['aqua-vitae-no-age-bonus-single-draw'] = [
+    'testedCards' => ['y5ttkat9hr'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'y5ttkat9hr'], // Aqua Vitae - the activator, 0 age counters (fresh)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Tonic of Remembrance: [CB] Banish self -- return up to 3 cards from memory to hand ---
+$fixtures['tonic-of-remembrance-banish-return-memory'] = [
+    'testedCards' => ['uqrptjej4m'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Tonic of Remembrance is seeded directly onto the field (Brewing isn't the clause under
+    // test). activateAbilityPrereqs["uqrptjej4m:0"] (GeneratedMacroCode.php) requires
+    // IsClassBonusActive($player, ["CLERIC"]) -- the champion is CardID-patched to Arisanna,
+    // Herbalist Prodigy (b31x97n2jn, CLERIC) to satisfy it. Two known cards are seeded into
+    // memory; activateAbilityAbilities["uqrptjej4m:0"] offers an MZMULTICHOOSE of up to 3 memory
+    // cards, and customDQHandlers["uqrptjej4m:0:ActivateAbility-1"] moves the chosen cards to
+    // hand.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'b31x97n2jn']], // Arisanna, Herbalist Prodigy - CLERIC Class Bonus unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'uqrptjej4m'], // Tonic of Remembrance - the activator
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // Fluffy Shopkeep - memory card 1
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'], // memory card 2
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMemory-0&myMemory-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Mendcall Mercy: target player recovers 3x champion base level; opponent target gains Crowd's Favor ---
+$fixtures['mendcall-mercy-recover-opponent-crowds-favor'] = [
+    'testedCards' => ['2RKjpzEFV6'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Mendcall Mercy (2RKjpzEFV6, NORM, reserve 3) is played from hand;
+    // cardActivatedAbilities["2RKjpzEFV6:0"] (GeneratedMacroCode.php) asks YESNO "Target
+    // yourself?" -- answering NO targets the opponent. customDQHandlers
+    // ["2RKjpzEFV6:0:CardActivated-1"] computes amount = 3 * CardLevel(targetChampion->CardID)
+    // and calls RecoverChampion(targetPlayer, amount), then GainCrowdsFavor($player) only when
+    // the target was the opponent. The opponent's champion is CardID-patched to a level-2
+    // champion (Arisanna, Master Alchemist, ltv5klryvf) and pre-damaged by 8, so amount = 3*2 = 6
+    // is directly observable (Damage 8 -> 2), distinguishing the level-scaled amount from a flat
+    // "always recover some fixed amount" bug.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'ltv5klryvf', 'Damage' => 8]], // opponent champion -> level 2, pre-damaged
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2RKjpzEFV6'], // Mendcall Mercy, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

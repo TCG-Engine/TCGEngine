@@ -1,0 +1,6 @@
+[
+    {"step":2,"type":"zone_count","zone":"myMemory","viewerPlayerID":1,"value":0,"semantic":true,"label":"Both chosen memory cards leave memory"},
+    {"step":2,"type":"card_property_equals","mzId":"p1Hand-7","property":"CardID","value":"n8wyfG9hbY","semantic":true,"label":"The first chosen memory card is returned to hand"},
+    {"step":2,"type":"card_property_equals","mzId":"p1Hand-8","property":"CardID","value":"px60u5n1do","semantic":true,"label":"The second chosen memory card is returned to hand"},
+    {"step":2,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"uqrptjej4m","semantic":true,"label":"Activating banishes Tonic of Remembrance itself"}
+]

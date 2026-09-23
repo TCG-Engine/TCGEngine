@@ -1,0 +1,17 @@
+{
+    "name": "mendcall-mercy-recover-opponent-crowds-favor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Mendcall Mercy (NORM, reserve 3) is played from hand; cardActivatedAbilities['2RKjpzEFV6:0'] asks YESNO 'Target yourself?' -- answering NO targets the opponent. customDQHandlers['2RKjpzEFV6:0:CardActivated-1'] computes amount = 3 * CardLevel(targetChampion->CardID) and calls RecoverChampion(targetPlayer, amount), then GainCrowdsFavor($player) only when the target was the opponent. The opponent's champion is CardID-patched to a level-2 champion (Arisanna, Master Alchemist, ltv5klryvf) and pre-damaged by 8, so amount = 3*2 = 6 is directly observable (Damage 8 -> 2) -- distinguishing the level-scaled amount from a flat/fixed-amount bug. Verified live: p2Field-0 Damage goes 8 -> 2, and p1GlobalEffects gains the Crowd's Favor token (gpmJdGYqoC).",
+    "testedCards": [
+        "2RKjpzEFV6"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["2RKjpzEFV6"],
+        "mechanics": ["cost", "targeting", "condition"],
+        "rulesClauses": [
+            "Target player recovers X, where X is three times their champion's base level. If that player is an opponent, you gain the Crowd's Favor status."
+        ]
+    }
+}
