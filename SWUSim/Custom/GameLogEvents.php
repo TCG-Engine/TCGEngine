@@ -795,3 +795,29 @@ function SWULogDeckPlacement(int $player, int $bottom, int $top = -1): void {
     // "P1 put 1 card on the bottom of their deck (Yoda)", matching SWULogToDeck's hand-origin line.
     AddGameLogEntry('REVEAL', 'P' . $player . ' ' . implode(' and ', $parts) . ' of their deck' . SWULogSourceSuffix(), 'ALL');
 }
+
+// ─── Reading the log back out ──────────────────────────────────────────────────────────────────
+//
+// THE game-log visibility rule: a line is visible when its visibility field is 'ALL', or when the
+// viewer is a seated player named in the field's comma list.
+//
+// ⚠ A SECOND COPY OF THIS RULE LIVES IN GENERATED SWUSim/GetNextTurn.php and cannot be removed —
+// that file is produced by zzGameCodeGenerator.php and must never be hand-edited. The two are pinned
+// against each other by SWUSim/DevTools/tests/gamelog_visibility_parity_test.php. If you change one,
+// change zzGameCodeGenerator.php too and re-run that test; a silent divergence means the Sideboard
+// log starts showing a player their opponent's private draws.
+//
+// ⚠ A MISSING visibility field defaults to ALL, matching the generated reader exactly. Do not
+// "harden" that to deny-by-default here alone — it would diverge, and the parity test would fail.
+function SWUFilterGameLogForViewer($rawLog, $viewerSeat, $isSpectator) {
+    $out = [];
+    $vSeatTag = 'P' . intval($viewerSeat);
+    foreach (explode('<NL>', strval($rawLog)) as $entry) {
+        if ($entry === '') continue;
+        $logVis = explode('|', $entry, 3)[1] ?? 'ALL';
+        if ($logVis === 'ALL' || (!$isSpectator && in_array($vSeatTag, array_map('trim', explode(',', $logVis)), true))) {
+            $out[] = $entry;
+        }
+    }
+    return $out;
+}

@@ -184,21 +184,33 @@ function IncrementCachePiece($gameName, $piece)
   return $oldVal+1;
 }
 
-function GetChatMessagesCacheKey($gameName)
+// ⚠ THE PARAMETER IS A SCOPE TOKEN, NOT NECESSARILY A GAME NAME. It may be a numeric gameName
+// (every existing caller, including generated GetNextTurn.php) or an explicit l:/m: conversation id
+// (the Waiting Room and the Sideboard). Resolving INSIDE these two functions is what lets a matched
+// game join its match's stream with no change to any caller — and therefore no generator edit and
+// no regeneration of GetNextTurn.php. See Core/ChatConversation.php.
+// Returns null for an unusable token; every caller must treat null as "no chat here".
+include_once __DIR__ . '/ChatConversation.php';
+
+function GetChatMessagesCacheKey($scopeToken)
 {
-  return "chat_" . strval($gameName);
+  $key = ChatScopeKey($scopeToken);
+  return $key === null ? null : "chat_" . $key;
 }
 
-function GetChatVersionCacheKey($gameName)
+function GetChatVersionCacheKey($scopeToken)
 {
-  return "chat_version_" . strval($gameName);
+  $key = ChatScopeKey($scopeToken);
+  return $key === null ? null : "chat_version_" . $key;
 }
 
 function GetChatUpdateVersion($gameName)
 {
   global $APCuEnabled;
   if(!$APCuEnabled || !function_exists('apcu_fetch')) return 0;
-  $version = apcu_fetch(GetChatVersionCacheKey($gameName));
+  $key = GetChatVersionCacheKey($gameName);
+  if($key === null) return 0;
+  $version = apcu_fetch($key);
   if($version === false) return 0;
   return intval($version);
 }
@@ -214,6 +226,7 @@ function IncrementChatUpdateVersion($gameName)
   if(!$APCuEnabled || !function_exists('apcu_inc') || !function_exists('apcu_store')) return 0;
   $success = false;
   $key = GetChatVersionCacheKey($gameName);
+  if($key === null) return 0;
   $newVersion = apcu_inc($key, 1, $success, 3600);
   if(!$success) {
     apcu_store($key, 1, 3600);
@@ -226,7 +239,9 @@ function GetChatMessagesSince($gameName, $lastChatID = 0, $viewerInfo = null)
 {
   global $APCuEnabled;
   if(!$APCuEnabled || !function_exists('apcu_fetch')) return [];
-  $messages = apcu_fetch(GetChatMessagesCacheKey($gameName));
+  $key = GetChatMessagesCacheKey($gameName);
+  if($key === null) return [];
+  $messages = apcu_fetch($key);
   if($messages === false || !is_array($messages)) return [];
   $lastChatID = intval($lastChatID);
   // Whisper rows are redacted for anyone who is not the sender or a recipient. $viewerInfo === null

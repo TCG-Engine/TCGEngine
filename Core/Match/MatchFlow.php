@@ -27,11 +27,44 @@ function MatchRefPath($rootName, $gameName) {
     if ($gameName === '') return '';
     return MatchGamesDir($rootName) . '/' . $gameName . '/MatchRef.json';
 }
+// Are the two participants of this MATCH blocked from each other? The per-game check cannot answer
+// for the Sideboard, which sits BETWEEN games and is addressed by a matchId. Same userIds, same
+// answer — this just reaches them through the match record instead of a gamestate.
+//
+// ⚠ A LOBBY needs no equivalent: JoinQueue.php's SWUJoinBlocked already refuses a blocked player a
+// seat, so two mutually-blocked players can never be in one room to begin with.
+function MatchArePlayersBlocked($rootName, $matchId) {
+    $m = MatchRead($rootName, $matchId);
+    if (!is_array($m)) return false;
+    $ids = [];
+    foreach (($m['players'] ?? []) as $p) { $u = intval($p['userId'] ?? 0); if ($u > 0) $ids[] = $u; }
+    if (count($ids) < 2) return false;
+    include_once MatchRepoRoot() . '/APIs/Lobbies/JoinQueue_blocklib.php';
+    return function_exists('SWUJoinBlocked') && SWUJoinBlocked($ids[0], $ids[1]);
+}
+
+// The conversation id for a lobby. One place, so the waiting room, the match and the sidecar can
+// never disagree about what a lobby's stream is called.
+function ChatLobbyConversationId($lobby) {
+    $id = strval(is_object($lobby) ? ($lobby->id ?? '') : '');
+    $id = preg_replace('/[^A-Za-z0-9_-]/', '', $id);
+    return $id === '' ? null : 'l:' . $id;
+}
+
 function MatchWriteRef($rootName, $gameName, $matchId, $gameNumber) {
     $path = MatchRefPath($rootName, $gameName);
     if ($path === '') return false;
     $directory = dirname($path);
     if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) return false;
+    // Publish this game's chat redirect once, HERE, because this is the one function every game of
+    // every match passes through exactly once — game 1 from MatchCreateFromLobby and each later game
+    // from MatchSpawnNextGame. Resolving it on a POLL instead would put a file read in the hot path
+    // of GetChat.php, which every open client hits continuously.
+    // A match with no chatId (every match that predates this feature) publishes nothing, and its
+    // games therefore keep the legacy per-game bucket.
+    include_once MatchRepoRoot() . '/Core/ChatConversation.php';
+    $m = MatchRead($rootName, $matchId);
+    if (is_array($m) && !empty($m['chatId'])) ChatPublishConversationForGame($gameName, $m['chatId']);
     return file_put_contents($path, json_encode(['matchId' => strval($matchId), 'gameNumber' => intval($gameNumber)]), LOCK_EX) !== false;
 }
 function MatchReadRef($rootName, $gameName) {
@@ -134,7 +167,11 @@ function MatchCreateFromLobby($rootName, $lobby) {
         if (empty($wrapper)) return null; // every present seat must have resolved
     }
 
-    $matchId = MatchCreate($rootName, $format, $queueType, $resolved, !empty($lobby->isPrivate));
+    // The match ADOPTS the lobby's stream rather than copying its messages into a new one: a copy is
+    // a one-way snapshot, so anything said in the room after Start (a late joiner, a spectator's
+    // "gl") would be orphaned in a bucket nobody reads again.
+    $matchId = MatchCreate($rootName, $format, $queueType, $resolved, !empty($lobby->isPrivate),
+                           ChatLobbyConversationId($lobby));
     if (isset($lobby->shareAnonymizedGameplayData)) {
         $shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData);
         MatchWithLock($rootName, $matchId, function (&$m) use ($shareAnonymizedGameplayData) {
@@ -289,6 +326,15 @@ function MatchAcceptRematch($rootName, $oldMatchId) {
         1 => ['originalDeck' => $m['players']['1']['originalDeck'] ?? [], 'authKey' => $m['players']['1']['authKey'] ?? ''],
         2 => ['originalDeck' => $m['players']['2']['originalDeck'] ?? [], 'authKey' => $m['players']['2']['authKey'] ?? ''],
     ], !empty($m['isPrivate']));   // a private match rematches private (no forced sideboard timer)
+    // A rematch has no originating lobby, so it opens its OWN conversation keyed on itself. Stamped
+    // here rather than passed to MatchCreate because the id does not exist until MatchCreate returns.
+    // ⚠ This must land BEFORE any MatchWriteRef below: that is where the per-game sidecar is
+    // published, and it reads this field. Without it a rematch Bo3 would silently fall back to a
+    // fresh chat bucket per game — the very reset this feature removes.
+    MatchWithLock($rootName, $newId, function (&$newMatch) use ($newId) {
+        $newMatch['chatId'] = 'm:' . $newId;
+    });
+    MatchPublishChatConversation($newId, 'm:' . $newId);   // so 'm:<id>' resolves, same as for games
     if (array_key_exists('shareAnonymizedGameplayData', $m)) {
         $shareAnonymizedGameplayData = !empty($m['shareAnonymizedGameplayData']);
         MatchWithLock($rootName, $newId, function (&$newMatch) use ($shareAnonymizedGameplayData) {

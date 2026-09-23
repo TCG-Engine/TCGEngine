@@ -20,6 +20,9 @@
   ],
   'head' => [
     'styles'  => [   // shared stack derived from `theme` (hud); only the app override remains
+      // ⚠ BEFORE the override file, which uses its tokens. The recipe is split out so the
+      // in-game board (GameLayout.php, which never loads swusim-overrides.css) can share it.
+      '/TCGEngine/SharedUI/Sites/SWUSim/css/petranaki-glass.css',
       '/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-overrides.css',
     ],
     'scripts' => ['/TCGEngine/Core/AppSettings.js',

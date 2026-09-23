@@ -21490,7 +21490,31 @@ function SWUGameIsPrivate(string $rootName = '', string $gameName = ''): bool {
     return SWUIsSoloMode() || SimGameIsPrivateGame($rootName, $gameName);
 }
 
+// Is this a LOCAL DEV BROWSER request? Undo consent is switched off for these (owner, 2026-09-22):
+// debugging a pulled bug report means driving BOTH seats yourself, so an approval popup you then
+// have to go and click as the other seat is pure friction.
+//
+// ⚠ DELIBERATELY NOT SWUIsLocalDevRequest() (SWUSim/Mod/DevGate.php). That one also returns true
+// whenever DEVENV=true — which is exactly the condition INSIDE the dev container, where the schema
+// suite runs, and the suite asserts that consent IS required (Tests/Cases/undo/ConsentGating.md,
+// RequestApprove.md, core/GameLog_Undo.md). Keying on the request host alone keeps the switch off
+// for the suite, which runs through the CLI SAPI via `docker exec` and has no HTTP_HOST at all, and
+// on for a browser pointed at localhost:3400.
+//
+// ⚠ PROD IS UNAFFECTED by construction: swustats.net never matches these hosts.
+function SWUUndoConsentDisabledForLocalDev(): bool {
+    if (PHP_SAPI === 'cli') return false;
+    $host = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
+    if ($host === '') return false;
+    return str_starts_with($host, 'localhost')
+        || str_starts_with($host, '127.0.0.1')
+        || str_starts_with($host, '[::1]');
+}
+
 function SWUUndoNeedsConsent(int $requesterSeat, int $targetOrdinal, string $kind = 'step', string $rootName = '', string $gameName = ''): bool {
+    // Local dev never asks. Checked above everything else, including the phase branch, for the same
+    // reason the private-game check is: Undo Phase ALWAYS requests otherwise.
+    if (SWUUndoConsentDisabledForLocalDev()) return false;
     // Checked FIRST — above the reveal-flag check as well as the phase check. Undo Phase ALWAYS
     // requests when not private, and MarkUndoRequiresConsent fires on every draw; in a solo mode a
     // request can never be answered, so either path would hang the undo forever.

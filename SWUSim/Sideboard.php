@@ -28,6 +28,16 @@ if (!is_array($m) || ($seat!==1 && $seat!==2)) { http_response_code(404); echo '
 $__p  = $m['players'][strval($seat)] ?? [];
 $deck = $__p['currentDeck'] ?? $__p['originalDeck'] ?? ['leader'=>'','base'=>'','mainDeck'=>[],'sideboard'=>[]];
 
+// Chat + the previous game's log, pinned left (owner, 2026-09-22). The panel is shared with the
+// Waiting Room; only the mode and the scope differ.
+require_once __DIR__ . '/../SharedUI/Render/ChatPanel.php';
+require_once __DIR__ . '/../Core/ChatPolicy.php';
+$sbAuthKey = strval($_GET['authKey'] ?? '');
+// A sideboard seat is always an authenticated match participant, so this is effectively always
+// allowed — asked through the policy anyway so this screen can never drift from the send endpoint.
+$sbChatRefusal = ChatSendRefusal('SWUSim', ['viewerSeat' => $seat, 'isSpectator' => false,
+                                            'userId' => intval(LoggedInUser())], 'm:' . $matchId);
+
 $mainCounts = array_count_values($deck['mainDeck'] ?? []);
 $sideCounts = array_count_values($deck['sideboard'] ?? []);
 
@@ -55,8 +65,10 @@ foreach (array_merge(array_keys($mainCounts), array_keys($sideCounts), [$deck['l
     --swu-font-ui:    "Aptos","Segoe UI Variable","Trebuchet MS",sans-serif;
     --swu-font-label: "Bahnschrift","Aptos Display","Franklin Gothic Medium",sans-serif;
   }
+  /* ⚠ The page padding moved to .sb-main. The chat panel is a flex sibling pinned to the left edge,
+     so padding on <body> would inset the panel too and leave a strip of background beside it. */
   body {
-    margin:0; padding:28px; min-height:100vh; box-sizing:border-box;
+    margin:0; padding:0; min-height:100vh; box-sizing:border-box;
     background:
       radial-gradient(1100px 560px at 50% -12%, rgba(46,98,150,0.28), transparent 62%),
       linear-gradient(180deg, #0c1622, var(--swu-bg));
@@ -111,6 +123,10 @@ foreach (array_merge(array_keys($mainCounts), array_keys($sideCounts), [$deck['l
     width:auto; height:auto; border-radius:12px; box-shadow:0 10px 34px rgba(0,0,0,0.75); }
 </style></head>
 <body>
+<div class="sb-row" style="display:flex; align-items:flex-start; gap:0; min-height:100vh;">
+<?php /* ⚠ A PLAIN & — RenderChatPanel htmlspecialchars() the title, so passing "&amp;" prints "&amp;amp;". */ ?>
+<?= RenderChatPanel(['mode' => 'chat+log', 'title' => 'GAME LOG & CHAT', 'folderPath' => 'SWUSim']) ?>
+<div class="sb-main" style="flex:1 1 auto; min-width:0; padding:28px; box-sizing:border-box;">
 <h2>Sideboard — game <?= count($m['games'])+1 ?> of best-of-<?= intval($m['bestOf']) ?></h2>
 <p class="hint">Click a Deck card to move one copy to your Sideboard. Click a Sideboard card to move it back. Then submit — the next game starts when both players are ready.</p>
 
@@ -145,6 +161,9 @@ var titles=<?= json_encode($titles, JSON_UNESCAPED_UNICODE) ?>;
 <script>
   window.SWU_LOGGED_IN = <?= $sbLoggedIn ? 'true' : 'false' ?>;
   window.SWU_ACCOUNT_CARD_LANGUAGE = <?= $sbCardLang === null ? 'null' : json_encode($sbCardLang) ?>;
+  // The composer's visibility comes from the SAME seam SubmitChat.php enforces (Core/ChatPolicy.php).
+  var SB_CAN_CHAT = <?= json_encode($sbChatRefusal === null) ?>;
+  var SB_CANNOT_CHAT_REASON = <?= json_encode($sbChatRefusal ?? '') ?>;
 </script>
 <script src="../Core/SWUCardI18n.js?v=<?= filemtime(__DIR__ . '/../Core/SWUCardI18n.js') ?>"></script>
 <script>
@@ -252,4 +271,38 @@ function poll(){ // re-submit is a no-op (first-submit-wins) but returns nextGam
         .catch(function(){ setTimeout(poll,2000); });
 }
 if(alreadyAdvanced && advancedGameName){ go(advancedGameName); } else { render(); }
-</script></body></html>
+
+// ── Chat + the log of the game just played ───────────────────────────────────────────────────────
+// ⚠ Card ids render as PLAIN NAMES. This page is standalone and does not load Core's Card()
+// renderer, so a raw [[SOR_014]] would reach the reader as an id.
+// ⚠ The names come from the ENDPOINT, not from this page's `titles`: `titles` only covers cards in
+// YOUR deck, so the opponent's whole board — most of what a log is about — would stay as raw ids.
+// `titles` remains the fallback, then the id itself.
+function sbLogLineText(entry, names){
+  var parts = entry.split('|');
+  var text = parts.length >= 3 ? parts.slice(2).join('|') : entry;
+  return text.replace(/\[\[([A-Z0-9]{2,5}_[A-Z0-9]{2,4})\]\]/g, function(_, id){
+    return (names && names[id]) || titles[id] || id;
+  });
+}
+
+window.TCGChatPanel.attach({
+  scope: { matchId: matchId },
+  playerID: seat,
+  authKey: authKey,
+  folderPath: 'SWUSim',
+  canSend: SB_CAN_CHAT,
+  cannotSendReason: SB_CANNOT_CHAT_REASON
+});
+
+// The log is fetched ONCE — the previous game is over and its log cannot change.
+fetch('./GetGameLog.php?matchId=' + encodeURIComponent(matchId) +
+      '&playerID=' + encodeURIComponent(seat) + '&authKey=' + encodeURIComponent(authKey))
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if(!d || !d.lines || !d.lines.length) return;
+    window.TCGChatPanel.appendLog('GAME ' + d.gameNumber + ' LOG',
+      d.lines.map(function(l){ return sbLogLineText(l, d.names); }));
+  })
+  .catch(function(){ /* no log is a normal state, not an error to put in front of the player */ });
+</script></div></div></body></html>

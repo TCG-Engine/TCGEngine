@@ -439,6 +439,27 @@ body.swu-home .swu-mb-base .swu-mb-dmgcounter { width: 34px; height: 34px; font-
     box-shadow: 0 1px 3px rgba(0,0,0,0.8);
     font: 800 calc(var(--swu-mb-unit) * 0.155)/1 var(--swu-font-label, sans-serif); }
 .swu-mb-upgcount:hover { background: #fff; border-color: var(--accent-strong, #f0c040); }
+/* ── Captive count badge ─────────────────────────────────────────────────────────────────────────
+   A GOLDENROD CIRCLE directly under the upgrade pill. Captives are split out of the upgrade count
+   because a held card is not a buff, and the colour is the same goldenrod as the base tile's ARRESTED
+   chip (.swu-mb-fxchip-arrest) and the full board's .swu-base-tab-arrest, so "someone is being held"
+   reads identically wherever it appears.
+   ⚠ Shape carries the meaning as much as the colour does: the upgrade badge is a PILL, this is a
+   CIRCLE, so the two are distinguishable at thumbnail size and by a colour-blind player.
+   ⚠ Stacked below the upgrade pill — top(0.03) + pill height(0.235) + a 0.02 gap = 0.285, which still
+   clears the centred damage token's top edge at ~0.29. Keep that sum under 0.29 if either is retuned.
+   ⚠ A circle cannot grow for a 2-digit count without becoming an oval, and it does not need to: a unit
+   holding 10+ captives does not exist. It is sized to the pill's height so the two align. */
+.swu-mb-capcount { position: absolute; z-index: 6; cursor: pointer; box-sizing: border-box;
+    top: calc(var(--swu-mb-unit) * 0.285); right: calc(var(--swu-mb-unit) * 0.035);
+    width: calc(var(--swu-mb-unit) * 0.235); height: calc(var(--swu-mb-unit) * 0.235);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(218,165,32,0.92); color: #1a1205;
+    border: 1px solid rgba(0,0,0,0.75);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    font: 800 calc(var(--swu-mb-unit) * 0.155)/1 var(--swu-font-label, sans-serif); }
+.swu-mb-capcount:hover { background: rgba(245,196,80,1); border-color: var(--accent-strong, #f0c040); }
 /* Full-card overlays. inset:0 rather than width/height:100% so they track the card's border box
    whatever --swu-mb-unit is, and they sit BELOW the damage token and badge strip by DOM order. */
 .swu-mb-ov { position: absolute; inset: 0; z-index: 2; pointer-events: none; border-radius: 3px;
@@ -584,6 +605,14 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
     box-shadow: 0 0 9px 3px rgba(46,204,113,0.9); filter: none; z-index: 3;
     animation: swuGoBackPulse 1.2s ease-in-out infinite; }
 .swu-mb-card.mini-selectable:hover { outline-color: #6cff9a; box-shadow: 0 0 13px 4px rgba(46,204,113,1); }
+/* A SUBCARD HOST: the offered target is an upgrade/token ON this tile, not the tile itself (bug
+   #1068). It glows like any other target — it IS the way to reach that upgrade — but clicking it opens
+   the attached-card panel instead of submitting, so the cue says "there is something here to pick"
+   rather than promising the unit is the answer. Dashed, to read as "opens something" the way the
+   solid ring reads as "is the target".
+   ⚠ The upgrade/captive badges must stay clickable in their own right, so the host's cue must never
+   cover them: an outline, never an overlay. */
+.swu-mb-card.mini-selectable.mini-subcard-host { outline-style: dashed; }
 /* An ALREADY-PICKED mini card in a multi-select. Amber, matching the main board's .selected-inline
    (--highlight-color rgba(255,198,46,1)), so a pick reads the same whether it was made on the board
    or from a preview tile. The pulse is dropped: a chosen target is settled, not still asking. */
@@ -2890,18 +2919,37 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             return 0;
         }
         var legal = {};   // "p{seat}{Suffix}-{idx}" (exact) or "p{seat}{Suffix}-*" (whole zone)
+        // ⚠ A SUBCARD SPEC NAMES AN UPGRADE, NOT ITS HOST ("p3GroundArena-0.u0" — see the parser's
+        // `subIndex`). Folding it into `legal` lit the HOST tile up as a target and
+        // swuPreviewTargetClick then submitted the bare host mzID, which the server refuses
+        // ("Invalid selection.", Core/EngineActionRunner.php) — bug #1068, LAW_078 Sabine Wren's
+        // "defeat an upgrade" against a Shield on seat 3. The home view is the ONLY rendering of a far
+        // seat, and its upgrades are a count badge, so that made EVERY subcard effect unplayable from
+        // the view the game defaults to. Subcard specs are bucketed separately: their host tile is
+        // reachable, but clicking it opens the panel (which addresses the upgrade) instead of
+        // submitting the unit.
+        var subHosts = {};
         specs.forEach(function (sp) {
             if (!sp || !sp.zone || sp.actionPayload) return;
             var seat = seatOfZone(sp.zone); if (!seat) return;
             var suffix = String(sp.zone).replace(/^(p\d+|my|their)/, '');   // GroundArena / SpaceArena / Base
+            if (sp.subIndex !== null && sp.subIndex !== undefined) {
+                // Only a SPECIFIC host can carry a subcard, so a whole-zone subcard spec cannot exist.
+                if (sp.isSpecificCard) subHosts['p' + seat + suffix + '-' + sp.specificIndex] = true;
+                return;
+            }
             if (sp.isSpecificCard) legal['p' + seat + suffix + '-' + sp.specificIndex] = true;
             else                   legal['p' + seat + suffix + '-*'] = true;
         });
         cards.forEach(function (el) {
             var mz = el.getAttribute('data-mz');                 // p{seat}{Suffix}-{idx}
             var m = /^(p\d+[A-Za-z]+)-(\d+)$/.exec(mz);
-            var hit = !!m && (!!legal[m[1] + '-' + m[2]] || !!legal[m[1] + '-*']);
-            el.classList.toggle('mini-selectable', hit);
+            var hit    = !!m && (!!legal[m[1] + '-' + m[2]] || !!legal[m[1] + '-*']);
+            // A tile glows for its OWN offered subcards only — never for merely HAVING upgrades, which
+            // would promise a click that opens a panel with nothing selectable in it.
+            var subHit = !!m && !!subHosts[m[1] + '-' + m[2]];
+            el.classList.toggle('mini-selectable', hit || subHit);
+            el.classList.toggle('mini-subcard-host', !hit && subHit);
         });
     }
     window.swuHighlightPreviewTargets = swuHighlightPreviewTargets;
@@ -2913,6 +2961,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var sm = window.SelectionMode;
         if (!(sm && sm.active)) return;
         var mz = cardEl.getAttribute('data-mz'); if (!mz) return;
+        // SUBCARD HOST (bug #1068): the offered target is an upgrade/token ON this tile, so the tile
+        // itself is not a legal answer. Open the attached-card panel — its entries carry the full
+        // "<host>.u<sub>" mzIDs — and let the pick come from there. The captive panel is tried as well,
+        // because a captive is a subcard too and an effect may name one.
+        if (cardEl.classList && cardEl.classList.contains('mini-subcard-host')) {
+            var badge = (cardEl.querySelector && (cardEl.querySelector('.swu-mb-upgcount')
+                                               || cardEl.querySelector('.swu-mb-capcount'))) || null;
+            if (badge && typeof window.swuClickPanel === 'function') window.swuClickPanel(badge);
+            return;
+        }
         // ⚠ A MULTI-SELECT IS ACCUMULATED, NOT SUBMITTED. OnSelectableCardClick branches on
         // inlineMultiActive before it ever reaches SelectionMode.callback; this path used to skip
         // straight to the callback, which is the single-target submit — and an MZMULTI_INLINE
@@ -2926,6 +2984,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // zone (body.swu-home), and seats past opps[0] are off-view entirely, so their units exist
         // nowhere on the board — only as preview tiles. A single-target-only preview click makes an
         // "up to N" effect unplayable from the view the game defaults to.
+        swuSubmitPreviewTarget(mz);
+    }
+
+    // Accumulate (inline-multi) or submit ONE preview-view target mzID. Split out of
+    // swuPreviewTargetClick so the attached-card panel's subcard picks go through exactly the same
+    // path — a subcard target must honour an "up to N" accumulation just like a unit target does.
+    // `mz` is the engine's seat-tagged id, optionally with a ".u<sub>" subcard tail.
+    function swuSubmitPreviewTarget(mz) {
+        var sm = window.SelectionMode;
+        if (!(sm && sm.active) || !mz) return;
         var inlineMultiActive = !!(Array.isArray(sm.multiSelected) && Number(sm.multiMax) > 0
             && document.getElementById('inline-multi-confirm'));
         if (inlineMultiActive) {
@@ -2945,9 +3013,41 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             return;
         }
         if (typeof sm.callback !== 'function') return;
-        var m = /^(.+)-(\d+)$/.exec(mz);
+        // ⚠ The ZONE is arg 1, and the regex has to tolerate the ".u<sub>" tail or a subcard mzID would
+        // pass the whole address as its own zone name.
+        var m = /^(.+)-(\d+)(?:\.u\d+)?$/.exec(mz);
         sm.callback(m ? m[1] : mz, mz, sm.decisionIndex);
     }
+
+    // ── Attached-card panel: subcard picking (bug #1068) ────────────────────────────────────────
+    // The panel (showLineageOverflowPopup) renders one entry per attached card. When its payload
+    // carries `mzids`, Core asks these two hooks whether an entry is a legal target and what to do
+    // when it is clicked — which is how a Shield token on a far seat's unit becomes reachable from the
+    // home view at all. Both are no-ops outside an active decision, so the panel stays a read-only
+    // glance the rest of the time.
+    // ⚠ Legality is read from _twAllSpecs (the RAW, seat-tagged specs), NOT from IsSelectableSubcard,
+    // which matches against inlineSpecs — those are remapped into the CURRENT view's my/their frame and
+    // a far seat is not in it at all.
+    window.PanelSubcardSelectable = function (mz) {
+        var sm = window.SelectionMode;
+        if (!(sm && sm.active) || !mz) return false;
+        var specs = sm._twAllSpecs || sm.allowedZones || [];
+        var m = /^(.+)-(\d+)\.u(\d+)$/.exec(String(mz)); if (!m) return false;
+        var zone = m[1], idx = parseInt(m[2], 10), sub = parseInt(m[3], 10);
+        for (var i = 0; i < specs.length; i++) {
+            var sp = specs[i];
+            if (!sp || !sp.zone || sp.actionPayload) continue;
+            if (sp.subIndex === null || sp.subIndex === undefined) continue;
+            if (sp.zone !== zone || sp.specificIndex !== idx || sp.subIndex !== sub) continue;
+            return true;
+        }
+        return false;
+    };
+    window.PanelSubcardPick = function (mz) {
+        if (!window.PanelSubcardSelectable(mz)) return;
+        if (typeof hideLineageOverflowPopup === 'function') hideLineageOverflowPopup();
+        swuSubmitPreviewTarget(mz);
+    };
 
     // ── Split-assign (MZSPLITASSIGN) target → element ──────────────────────────────────────────
     // Which DOM node should carry a target's −/+ overlay. Three places a target can live, tried in
@@ -3187,8 +3287,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         return html;
     }
 
-    // ── Attached-upgrade badge ───────────────────────────────────────────────────────────────────
-    // ONE count badge per unit; clicking it opens the full list.
+    // ── Attached-card badges ─────────────────────────────────────────────────────────────────────
+    // TWO count badges per unit — upgrades (neutral) and captives (goldenrod) — each opening its own
+    // panel. They are the unit-tile echo of the base tile's FORTIFIED / ARRESTED chips (swuMbFxColumn),
+    // and split for the same reason: a captive is not an upgrade, it is a card this unit is HOLDING, so
+    // one lumped total answered neither "how buffed is that unit" nor "who is being held".
     //
     // ⚠ THIS REPLACED A PER-UPGRADE RAIL (a vertical strip of art chips down the card's right edge).
     // The rail worked and was fully tested, and it still looked bad: at ~17px a concat crop is not
@@ -3204,22 +3307,31 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // ⚠ SUBCARD CardIDs ARRIVE SPACE-DELIMITED. swuParseZoneCard rewrites every '_' in the zone JSON to
     // a space, so "SOR_T01" reaches us as "SOR T01" and every popup image 404s unless the underscore is
     // put back — the same trap the base's FORTIFIED payload documents.
-    function swuMbUnitUpgrades(u) {
+    // $hostMz is the tile's own seat-tagged mzID ("p3GroundArena-0"); each entry's "<host>.u<raw>" is
+    // carried in the payload so the panel can submit it as a target (bug #1068).
+    // ⚠ THE INDEX IS THE RAW Subcards KEY, including entries this render skips. It is the index space
+    // the server addresses (SWUQueueMoveUpgrade / SWUQueueDefeatUpgrade emit "<hostMz>.u<i>"), so it
+    // must NOT be re-derived from the filtered list.
+    function swuMbUnitUpgrades(u, hostMz) {
         var subs = (u && Array.isArray(u.Subcards)) ? u.Subcards : [];
         if (!subs.length) return '';
-        var ids = [];
+        var upg = { ids: [], mzids: [] }, cap = { ids: [], mzids: [] };
         for (var i = 0; i < subs.length; i++) {
             var sc = subs[i];
             if (sc && (sc.removed === true || sc.removed === 'true')) continue;
             var id = (typeof sc === 'string') ? sc : (sc && sc.CardID ? sc.CardID : null);
             if (!id || id === '-') continue;
-            ids.push(String(id).replace(/ /g, '_'));      // ⚠ underscores back, see above
+            var isCaptive = !!(sc && (sc.IsCaptive === true || sc.IsCaptive === 'true'));
+            var bucket = isCaptive ? cap : upg;
+            bucket.ids.push(String(id).replace(/ /g, '_'));      // ⚠ underscores back, see above
+            bucket.mzids.push(hostMz ? (hostMz + '.u' + i) : null);
         }
-        if (!ids.length) return '';
+        if (!upg.ids.length && !cap.ids.length) return '';
         // EVERY attached card counts and is listed — real upgrades, token upgrades (Experience, Shield,
         // Weakness…), captives, unit PILOTS and pilot LEADERS. A pilot is attached as an upgrade and is
         // exactly what an opponent needs to see, so nothing is filtered out and nothing is collapsed:
-        // the number is the honest total of what is on that unit.
+        // the number is the honest total of what is on that unit. Captives are COUNTED SEPARATELY (see
+        // the header) but nothing is hidden — a captive is open information (CR 1077.1 / 207.1).
         //
         // ⚠ A PILOT DOES NOT SHOW ITS CONCAT FACE. Mirrors Core/UILibraries' board rule exactly:
         //   leader flown as a pilot -> WebpImages/<id>_back.webp  (its UNIT side; the leader front is
@@ -3231,7 +3343,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // dictionaries are published to the client; if either is missing we fall through to concat
         // rather than guessing a filename that would 404.
         var folder = swuBaseArtRoot();
-        var srcs = ids.map(function (id) {
+        function srcFor(id) {
             var rid = (typeof resolveCardImageID === 'function') ? resolveCardImageID(id) : id;
             var ty = (window.typeData  && window.typeData[id])  ? String(window.typeData[id])  : '';
             var tr = (window.traitData && window.traitData[id]) ? String(window.traitData[id]) : '';
@@ -3239,13 +3351,21 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             if (isPilot && ty.indexOf('Leader') !== -1) return './' + folder + '/WebpImages/' + rid + '_back.webp';
             if (isPilot && ty.indexOf('Unit')   !== -1) return './' + folder + '/WebpImages/' + rid + '.webp';
             return './' + folder + '/concat/' + rid + '.webp';
-        });
-        var payload = encodeURIComponent(JSON.stringify({
-            subcards: ids, srcs: srcs, folder: folder, size: 150, title: 'Attached Upgrades'
-        }));
-        return "<span class='swu-mb-upgcount' data-lineage-subcards='" + payload + "' tabindex='0'" +
-               " title='" + ids.length + " attached \u2014 click to view'" +
-               " onclick='event.stopPropagation(); swuClickPanel(this);'>" + ids.length + "</span>";
+        }
+        function badge(bucket, cls, title, noun) {
+            if (!bucket.ids.length) return '';
+            var payload = encodeURIComponent(JSON.stringify({
+                subcards: bucket.ids, srcs: bucket.ids.map(srcFor), mzids: bucket.mzids,
+                folder: folder, size: 150, title: title
+            }));
+            return "<span class='" + cls + "' data-lineage-subcards='" + payload + "' tabindex='0'" +
+                   " title='" + bucket.ids.length + " " + noun + " \u2014 click to view'" +
+                   " onclick='event.stopPropagation(); swuClickPanel(this);'>" + bucket.ids.length + "</span>";
+        }
+        // Captive badge second so it stacks BELOW the upgrade badge \u2014 the same order the base tile's
+        // fx column uses (Fortify above Arrest).
+        return badge(upg, 'swu-mb-upgcount', 'Attached Upgrades', 'attached')
+             + badge(cap, 'swu-mb-capcount', 'Captured Units', 'captured');
     }
 
     function swuMbUnitOverlays(u) {
@@ -3378,17 +3498,35 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // ⚠ The column is ALWAYS rendered at a fixed size, even when empty. Row 1 of every tile has to stay
     // the same width — the tiles are a comparison view — so this must not grow when a seat gains an
     // effect, exactly like the static RES chip on row 2.
-    function swuMbFxColumn(baseObj) {
+    // $hostMz ("p3Base-0") lets each chip carry its entries' "<host>.u<raw>" mzIDs, so a FORTIFY upgrade
+    // on a far seat's base is a reachable target from the home view (bug #1068 — same defect class as
+    // the unit tiles, and Fortify upgrades live ONLY on a base).
+    // ⚠ The mzIDs come from baseObj.Subcards (the raw index space the server addresses). The
+    // UpgradeCardIDs / CaptiveCardIDs counter strings are a display list with no indices, so when
+    // Subcards is absent the chip still renders — just without selectability.
+    function swuMbFxColumn(baseObj, hostMz) {
         var rows = [];
         if (baseObj) {
             var fort   = parseInt(baseObj.UpgradeCount, 10) || 0;
             var arrest = parseInt(baseObj.CaptiveCount, 10)  || 0;
+            var subs   = Array.isArray(baseObj.Subcards) ? baseObj.Subcards : [];
+            var fortMz = [], arrestMz = [];
+            for (var si = 0; si < subs.length; si++) {
+                var sc = subs[si];
+                if (sc && (sc.removed === true || sc.removed === 'true')) continue;
+                var scid = (typeof sc === 'string') ? sc : (sc && sc.CardID ? sc.CardID : null);
+                if (!scid || scid === '-') continue;
+                var mz = hostMz ? (hostMz + '.u' + si) : null;
+                if (sc && (sc.IsCaptive === true || sc.IsCaptive === 'true')) arrestMz.push(mz);
+                else                                                          fortMz.push(mz);
+            }
             // Order is arrival order. Nothing records which landed first, so this is the stable
             // fallback: Fortify (a persistent upgrade) above Arrest (which clears every regroup).
             if (fort > 0)   rows.push({cls: 'fort',   n: fort,   t: 'Fortify upgrades on this base',
-                                       ids: String(baseObj.UpgradeCardIDs || '')});
+                                       ids: String(baseObj.UpgradeCardIDs || ''), mzids: fortMz});
             if (arrest > 0) rows.push({cls: 'arrest', n: arrest, t: 'Units arrested and held under this base',
-                                       ids: String(baseObj.CaptiveCardIDs || ''), title: 'Captured Units'});
+                                       ids: String(baseObj.CaptiveCardIDs || ''), title: 'Captured Units',
+                                       mzids: arrestMz});
         }
         var html = "<span class='swu-mb-fx'>";
         for (var i = 0; i < 3; i++) {
@@ -3403,8 +3541,14 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 if (ids.length) {
                     // Same contract as the full board's tab: a data-lineage-subcards payload driven by
                     // showLineageOverflowPopup, so the tile and the zoomed board show the same panel.
+                    // mzids only when the raw Subcards list backed them AND it lines up with the
+                    // display list — a mismatch would address the wrong subcard, which is worse than
+                    // not offering the pick at all.
+                    var mzids = (Array.isArray(rows[i].mzids) && rows[i].mzids.length === ids.length
+                                 && rows[i].mzids.every(function (x) { return !!x; }))
+                        ? rows[i].mzids : null;
                     var payload = encodeURIComponent(JSON.stringify({
-                        subcards: ids, folder: swuBaseArtRoot(), size: 150,
+                        subcards: ids, mzids: mzids, folder: swuBaseArtRoot(), size: 150,
                         title: rows[i].title || 'Attached Upgrades'
                     }));
                     extra = " data-lineage-subcards='" + payload + "' tabindex='0'"
@@ -3495,7 +3639,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var baseHtml = '<span class="swu-mb-card swu-mb-base" data-mz="p' + seat + 'Base-0" ' + swuMbHoverAttrs(baseRid) +
             (baseCid ? ' style="background-image:url(/TCGEngine/AppCore/SWU/Images/concat/' + baseRid + '.webp)"' : '') +
             '>' + (dmg > 0 ? '<span class="swu-mb-dmgcounter">' + dmg + '</span>' : '')
-                + swuMbBaseOverlays(b.baseObj) + '</span>' + swuMbFxColumn(b.baseObj);
+                + swuMbBaseOverlays(b.baseObj) + '</span>' + swuMbFxColumn(b.baseObj, 'p' + seat + 'Base-0');
         // A single unit thumbnail, tagged with its engine mzID (p{seat}{arena}Arena-{idx}) so it can be
         // highlighted + clicked as a cross-view attack/ability target (matches the seat-tagged targets
         // SWUGetAllValidAttackTargets emits for Twin Suns).
@@ -3514,10 +3658,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 // Stacking order is DOM order, deliberately, so it cannot drift out of step with the
                 // schema's DrawOrder: full-card overlays underneath, then the centred damage token,
                 // then the keyword badge strip on top along the bottom edge.
-                return '<span class="' + cls + '" data-mz="p' + seat + arena + 'Arena-' + i + '" ' + swuMbHoverAttrs(urid) + ' ' +
+                var hostMz = 'p' + seat + arena + 'Arena-' + i;
+                return '<span class="' + cls + '" data-mz="' + hostMz + '" ' + swuMbHoverAttrs(urid) + ' ' +
                     'style="background-image:url(/TCGEngine/AppCore/SWU/Images/concat/' + urid + '.webp)">' +
                     swuMbUnitOverlays(u) + badge + swuMbUnitStats(u) + swuMbUnitBadges(u) +
-                    swuMbUnitUpgrades(u) + swuMbUnitEffects(u) + '</span>';
+                    swuMbUnitUpgrades(u, hostMz) + swuMbUnitEffects(u) + '</span>';
             };
         }
         var spaceHtml  = b.spaceUnits.map(unitHtml('Space')).join('');
@@ -3610,7 +3755,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         return "<div class='swu-seat-row' data-seat='" + seat + "' data-view='" + (parseInt(viewIndex, 10) || 0) + "'>" +
                  "<div class='swu-sr-a'>" +
                    swuSeatLabelHtml(seat, 'swu-sr-seat') + lead + base +
-                   swuMbFxColumn(b.baseObj) +
+                   // Same host address as the desktop tile: the mobile row's fortify/arrest bubbles
+                   // open the same panel, so a Fortify upgrade is pickable on a phone too.
+                   swuMbFxColumn(b.baseObj, 'p' + seat + 'Base-0') +
                    // Ground/Space moved up here from row B, stacked, so row B holds only the four
                    // ZONE counts (Res/Hand/Deck/Discard) and this row holds what is ON the board. Row B
                    // had grown to six chips and wrapped at phone width; splitting it by KIND rather

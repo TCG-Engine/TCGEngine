@@ -2497,7 +2497,22 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
             // object-fit:contain is a NO-OP for the square concat art every existing caller passes
             // (450x450 into a square box). It is what stops a NON-SQUARE entry — a pilot's full card
             // face is 450x628 portrait — from being squashed into that same square box.
-            html += "<span class='ga-lineage-popup-card' data-lineage-order='" + (i + 1) + "'>"
+            // OPTIONAL per-entry TARGET ADDRESS, parallel to payload.subcards. A caller that knows each
+            // attached card's engine mzID ("<host>.u<sub>") passes `mzids`, and an entry the active
+            // decision offers becomes clickable — which is the only way to pick an upgrade on a board
+            // that is rendered as a thumbnail (SWU's Twin Suns home view; bug #1068). Callers that pass
+            // no `mzids` — GrandArchive's champion lineage, and any panel opened outside a decision —
+            // render exactly as before: the two hooks are consulted only when an address exists, and a
+            // host that defines neither leaves every entry inert.
+            var entryMz = (Array.isArray(payload.mzids) && payload.mzids[i]) ? payload.mzids[i] : null;
+            var pickable = !!entryMz && typeof window.PanelSubcardSelectable === 'function'
+              && typeof window.PanelSubcardPick === 'function' && window.PanelSubcardSelectable(entryMz);
+            html += "<span class='ga-lineage-popup-card" + (pickable ? " ga-lineage-popup-pickable" : "") + "'"
+              + " data-lineage-order='" + (i + 1) + "'"
+              + (entryMz ? " data-mzid='" + entryMz + "'" : "")
+              + (pickable ? " tabindex='0' title='Click to choose this card'"
+                          + " onclick='event.stopPropagation(); window.PanelSubcardPick(\"" + entryMz + "\");'" : "")
+              + ">"
               + "<img data-subcard-id='" + cardId + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()'"
               + " loading='lazy' src='" + subSrc + "' alt='Lineage card' style='height:" + payload.size + "px; width:" + payload.size + "px; object-fit:contain;' />"
               + "</span>";
@@ -2772,6 +2787,28 @@ function ReplaceRenderedZoneHTML(zoneSlot, nextHTML) {
           border-radius: 10px;
           overflow: hidden;
           box-shadow: 0 10px 20px rgba(2, 6, 23, 0.34);
+        }
+
+        /* A PICKABLE entry — the active decision offers this attached card as a target. Green ring +
+           pointer, matching .mini-selectable on the preview tiles, so "this is choosable" reads the
+           same way whether you are looking at a tile or at the panel it opens. Entries WITHOUT this
+           class keep the panel's read-only look, which is what says "listed, but not a legal target". */
+        .ga-lineage-popup-card.ga-lineage-popup-pickable {
+          cursor: pointer;
+          outline: 2px solid #2ecc71;
+          outline-offset: 0;
+          box-shadow: 0 0 12px 3px rgba(46, 204, 113, 0.85);
+        }
+        .ga-lineage-popup-card.ga-lineage-popup-pickable:hover,
+        .ga-lineage-popup-card.ga-lineage-popup-pickable:focus-visible {
+          outline-color: #6cff9a;
+          box-shadow: 0 0 16px 5px rgba(46, 204, 113, 1);
+        }
+        /* A non-pickable entry alongside a pickable one is DIMMED rather than hidden: the panel is also
+           an information view, and hiding an illegal upgrade would misreport what is on the unit. */
+        .ga-lineage-popup-grid:has(.ga-lineage-popup-pickable) .ga-lineage-popup-card:not(.ga-lineage-popup-pickable) {
+          opacity: 0.45;
+          filter: saturate(0.6);
         }
 
         .ga-lineage-popup-card::after {

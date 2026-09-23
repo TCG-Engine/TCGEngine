@@ -20,6 +20,9 @@
 // opting in is one key.
 require_once __DIR__ . '/../../Database/functions.inc.php';
 require_once __DIR__ . '/DeckLibrary.php';
+// The chat panel, for EVERY sim with a waiting room (owner, 2026-09-22: "both sims get it"). It is
+// inert until the page's poll has resolved the lobbyID and this seat's authKey and calls attach().
+require_once __DIR__ . '/ChatPanel.php';
 
 // Returns null when the sim has not opted in. Null is a normal answer, not an error.
 function WaitingRoomConfigFromSiteDef(array $def): ?array {
@@ -175,8 +178,14 @@ function _WaitingRoomMarkup(array $cfg): string {
     $libBlock = $lib === '' ? '' :
         '<div id="wr-deck-library" style="margin-bottom:8px;">' . $lib . '</div>';
     $css = _WaitingRoomStyles();
+    // Pinned LEFT, with the room itself in the remaining space. align-items:flex-start so the panel's
+    // sticky positioning has something to stick within rather than being stretched to row height.
+    $chat = RenderChatPanel(['mode' => 'chat', 'title' => 'CHAT', 'folderPath' => $cfg['rootName']]);
     return <<<HTML
 {$css}
+<div class="wr-with-chat" style="display:flex; align-items:flex-start; gap:0;">
+{$chat}
+<div style="flex:1 1 auto; min-width:0;">
 <div class="row-wrapper">
   <div class="card ga-glass-card wr-panel" style="color:var(--text);">
     <div id="wr-root" data-root-name="{$root}" data-state="loading">
@@ -216,6 +225,8 @@ function _WaitingRoomMarkup(array $cfg): string {
       </div>
     </div>
   </div>
+</div>
+</div>
 </div>
 HTML;
 }
@@ -537,6 +548,20 @@ function _WaitingRoomScript(array $cfg): string {
   }
 
   function render(d) {
+    // Attach the chat panel ONCE, as soon as the poll has told us which lobby this is and we hold a
+    // key for it. ⚠ The room poll runs every 1.5s forever; attaching per render would stack another
+    // 2s chat poll on every tick.
+    if (!window.__tcgChatAttached && lobbyID && window.TCGChatPanel) {
+      window.__tcgChatAttached = true;
+      window.TCGChatPanel.attach({
+        scope: { lobbyID: lobbyID },
+        playerID: myPlayerID || 1,
+        authKey: loadKey(lobbyID) || '',
+        folderPath: ROOT,
+        canSend: !!d.canChat,
+        cannotSendReason: d.cannotChatReason || ''
+      });
+    }
     var seated = !!(myPlayerID && (d.roster || []).some(function (r) { return r.playerID === myPlayerID; }));
     iAmHost = (d.roster || []).some(function (r) { return r.isHost && r.playerID === myPlayerID; });
     setState(seated ? 'seated' : 'notseated');

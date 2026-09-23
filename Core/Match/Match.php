@@ -72,7 +72,16 @@ function MatchWithLock($rootName, $matchId, callable $fn) {
     return $match;
 }
 
-function MatchCreate($rootName, $format, $queueType, $players, $isPrivate = false) {
+// Publish "this match's chat lives at <chatId>" so an 'm:<matchId>' scope token (the Sideboard's)
+// resolves to the same bucket the games use. No-op when the match has no chatId — a pre-existing
+// match, which correctly keeps the legacy per-game buckets.
+function MatchPublishChatConversation($matchId, $chatId) {
+    if ($chatId === null || $chatId === '') return false;
+    include_once dirname(__DIR__) . '/ChatConversation.php';
+    return ChatPublishConversationForGame($matchId, $chatId);
+}
+
+function MatchCreate($rootName, $format, $queueType, $players, $isPrivate = false, $chatId = null) {
     $qt = MatchGetQueueType($queueType);
     $bestOf = $qt ? intval($qt['bestOf']) : 1;
     $winsNeeded = intval(floor($bestOf / 2)) + 1;
@@ -107,7 +116,17 @@ function MatchCreate($rootName, $format, $queueType, $players, $isPrivate = fals
         'createdAt'         => time(),
         'updatedAt'         => time(),
     ];
+    // The conversation this match's chat belongs to (Core/ChatConversation.php). Stamped from the
+    // originating lobby so the waiting-room conversation continues into every game and sideboard.
+    // ⚠ ABSENT, not empty, when there is none: every match created before this feature has no such
+    // key, and its games must keep falling back to the legacy per-game chat bucket. Writing '' here
+    // instead would be indistinguishable from "a lobby with a blank id" at the read site.
+    if ($chatId !== null && $chatId !== '') $match['chatId'] = strval($chatId);
     MatchWrite($match);
+    // ⚠ PUBLISH THE MATCH'S OWN REDIRECT TOO, not just each game's. The Sideboard addresses the
+    // conversation as 'm:<matchId>', but a match created from a lobby ADOPTS 'l:<lobbyID>' — without
+    // this the sideboard reads an empty bucket while the whole conversation sits under the lobby id.
+    MatchPublishChatConversation($matchId, $match['chatId'] ?? null);
     return $matchId;
 }
 

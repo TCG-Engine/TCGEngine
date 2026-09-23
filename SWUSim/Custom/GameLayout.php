@@ -23,6 +23,24 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         /* ── Layout ── */
         --swu-sidebar-w:    clamp(160px, 14vw, 200px);
         --swu-board-w:      calc(100vw - var(--swu-sidebar-w));
+        /* ⚠ WHERE THE BOARD'S BACKDROP STOPS — the sidebar's edge MINUS its chamfer, not the edge.
+           The sidebar is a HUD panel floating OVER the table, and a chamfer REMOVES a corner, so
+           whatever the cut exposes is simply what is behind the panel. When every backdrop layer
+           stopped dead at var(--swu-sidebar-w) there was nothing behind the 14px cut but the page
+           canvas (--swu-bg, #0b0f14) — which is invisible where the board art is dark and reads as a
+           BLACK WEDGE wherever it is light (owner, 2026-09-22: "this chamfer is revealing a black
+           box behind it"). Letting the table run under the cut is the honest scene and the only
+           version that stays right whatever the art underneath happens to be; painting the cut in a
+           fixed colour cannot track its backdrop and is the trap this corner has fallen into before.
+           ⚠ max(0px, …), because the <800px breakpoint sets --swu-sidebar-w: 0 and a bare calc()
+           would land on right:-14px — a fixed layer hanging past the viewport.
+           ⚠ ONLY the three ART layers use this (.swu-board-bg / .swu-starfield / .swu-vignette).
+           The flat .theirStuffWrapper / .myStuffWrapper slabs stay held to the sidebar edge: they
+           are featureless grey, and it was THEIR overhang that made the cut read as uncut before.
+           .swu-board-bg is opaque (it paints --swu-bg under the art) and sits above them, so the
+           strip is fully covered. */
+        --swu-board-bleed-r: max(0px, calc(var(--swu-sidebar-w) - var(--pa-cut, 14px)));
+
         /* Leader + base column width. Leader/base art FILLS this column
            (width:100% of the center col, via the object-fit rework), so this var
            IS their on-screen card size. The engine renders a LANDSCAPE card at
@@ -225,7 +243,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
        fixed layer that sits ABOVE those containers (like .swu-starfield does) but
        below the starfield, arenas, and all game content. */
     .swu-board-bg {
-        position: fixed; top: 0; bottom: 0; left: 0; right: var(--swu-sidebar-w);
+        position: fixed; top: 0; bottom: 0; left: 0; right: var(--swu-board-bleed-r);
         z-index: 9; pointer-events: none;
         background:
             linear-gradient(to right,
@@ -274,7 +292,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
        because the two layers need independent knobs. calc() inside an rgba() alpha is safe here —
        measured identical in Chromium and Firefox to within 0.001, same as .swu-arena-bg's scrim. */
     .swu-vignette {
-        position: fixed; top: 0; bottom: 0; left: 0; right: var(--swu-sidebar-w);
+        position: fixed; top: 0; bottom: 0; left: 0; right: var(--swu-board-bleed-r);
         z-index: 11; pointer-events: none;
         background:
             linear-gradient(to top,
@@ -291,8 +309,15 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     }
 
     /* ── Starfield ───────────────────────────────────────────────────────────── */
+    /* ⚠ inset: 0 <BLEED> 0 0 — NOT inset: 0. This layer was the odd one out: .swu-board-bg (z 9) and
+       .swu-vignette (z 11) were both held off the sidebar, and the vignette's own comment says so,
+       but the starfield spanned the FULL viewport — found 2026-09-22 by a DOM probe on the owner's
+       board, overhanging the panel edge by 172px at their viewport. It must travel with the other
+       two art layers, which now stop at --swu-board-bleed-r (the sidebar edge minus the chamfer, so
+       the cut shows the table rather than the page canvas — see that token). A layer that keeps
+       `inset: 0` paints under the WHOLE panel instead, which the glass then blurs into a band. */
     .swu-starfield {
-        position: fixed; inset: 0; pointer-events: none; z-index: 10;
+        position: fixed; inset: 0 var(--swu-board-bleed-r) 0 0; pointer-events: none; z-index: 10;
         background:
             radial-gradient(ellipse at 20% 30%, rgba(var(--accent-rgb),0.10) 0%, transparent 50%),
             radial-gradient(ellipse at 80% 70%, rgba(200,151,30,0.06) 0%, transparent 50%);
@@ -1305,13 +1330,97 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     #EffectStack > span { flex: 0 0 auto; }
 
     /* ── Right sidebar ───────────────────────────────────────────────────────── */
+    /* ⚠⚠ THE FLAT GREY SLABS MUST STOP AT THE BOARD EDGE, OR THE CHAMFER HAS NOTHING TO REVEAL.
+       Reported three times on 2026-09-22 ("corners are not getting cut properly"). The clip-path was
+       CORRECT every time — a chamfer REMOVES a corner, it does not paint one, so what you see in the
+       cut is whatever sits behind the panel. Behind it were .theirStuffWrapper / .myStuffWrapper and
+       their #theirStuff / #myStuff backdrop layers, all running the FULL viewport width — under a
+       sidebar that starts at var(--swu-board-w) — even though every other board element is held to
+       `right: var(--swu-sidebar-w)`. The cut revealed board-grey against a grey panel: invisible.
+
+       ⚠ AN OPAQUE STRIP BEHIND THE PANEL IS NOT THE FIX, though it looks like one. That was the
+       previous attempt: it painted a fixed dark colour into the cut, which matched only because the
+       board happened to be dark. The owner switched the background to white and it was instantly a
+       black wedge. A chamfer has to reveal WHAT IS ACTUALLY THERE, whatever that is.
+
+       So: shrink these four to the board area. One rule reaches all of them, because
+       #theirStuff / #myStuff are width:100% of these wrappers.
+       ⚠ THE ART LAYERS ARE DELIBERATELY NOT IN THIS RULE. .swu-board-bg / .swu-starfield /
+       .swu-vignette bleed 14px further right, to --swu-board-bleed-r, so the cut reveals the TABLE
+       instead of the page canvas — see that token. Holding THEM here is what left a black wedge in
+       the cut over light board art (owner, 2026-09-22). These four stay put because they are
+       featureless grey and it was their overhang that made the cut read as uncut in the first place.
+       ⚠ SAFE FOR THE SIDEBAR EVEN THOUGH IT IS A DOM CHILD of .myStuffWrapper: it is
+       position:fixed, so it is laid out against the viewport and a parent's width cannot move it.
+       ⚠ SAFE FOR THE BOARD: these four are pure backdrop panels — #theirStuff / #myStuff hold only a
+       <br> and two 0x0 wrappers; every card, arena and frame is fixed-positioned elsewhere and
+       already held left of var(--swu-sidebar-w). Verified by diffing every element's rect before and
+       after. `width` (not clip-path or mask) because a mask/filter on an ANCESTOR of the glass makes
+       it the backdrop root and kills #swuSidebar's backdrop-filter outright. */
+    /* ⚠ calc(100% - …), NOT var(--swu-board-w). --swu-board-w is calc(100vw - sidebar), and 100vw
+       INCLUDES a classic space-taking scrollbar while the sidebar is placed by `right: 0` INSIDE it.
+       With a ~15px scrollbar the wrappers would overhang the sidebar by ~15px — almost exactly the
+       14px chamfer — and the corner would look uncut again on exactly the machines that have one.
+       These wrappers' parent is the scrollbar-free content box, so 100% is the honest width. */
+    .theirStuffWrapper, .myStuffWrapper { width: calc(100% - var(--swu-sidebar-w)) !important; }
+
+    /* ── The sidebar IS a New Petranaki HUD panel (owner, 2026-09-22) ─────────────────────────────
+       The glass comes from SharedUI/Sites/SWUSim/css/petranaki-glass.css (linked by NextTurn.php for
+       SWUSim). Only the things that are SPECIFIC to an edge-mounted, full-height HUD column live
+       here; the blur, the fill and the hairline are the shared recipe and must not be restated or
+       they drift from every other surface.
+
+       ⚠ THE CHAMFER IS MIRRORED. The stock cut is top-left + bottom-right, which on a panel flush to
+       the RIGHT edge of the screen puts one cut in the corner of the monitor where nobody sees it.
+       Both visible corners of this panel are on its LEFT, facing the board, so that is where the
+       cuts and the gold glows go.
+       ⚠ overflow:hidden would clip the ::after shadow; the panel is at the screen edge so there is
+       nothing to bleed into, and the children that actually need clipping do it themselves. */
     #swuSidebar {
         position: fixed; right: 0; top: 0; bottom: 0; width: var(--swu-sidebar-w);
         z-index: 38; pointer-events: auto;
-        background: rgba(8,12,18,0.96); border-left: 1px solid var(--swu-border);
-        backdrop-filter: blur(16px) saturate(130%);
-        display: flex; flex-direction: column; overflow: hidden;
+        display: flex; flex-direction: column;
+        /* ⚠⚠ CLIP THE ELEMENT, NOT JUST THE GLASS. .pa-glass clips its ::before — the GLASS — but a
+           clip-path on a pseudo-element does nothing to the element's CHILDREN. The header, the
+           section hairlines and the composer are laid out in the full rectangular box, so they
+           painted straight through the chamfer and poked out as "spikes" at both cut corners
+           (reported 2026-09-22). The original #swuSidebar had `overflow: hidden`, which had been
+           hiding this; rewriting it for the glass dropped that and exposed it.
+           Clipping the element clips its content AND its ::after shadow — acceptable here because
+           the panel is flush to the screen edge, so the shadow has nowhere to fall (verified: the
+           corners render identically with ::after disabled). */
+        clip-path: var(--pa-glass-clip);
+        --pa-glass-clip: polygon(var(--pa-cut) 0, 100% 0, 100% 100%, var(--pa-cut) 100%, 0 calc(100% - var(--pa-cut)), 0 var(--pa-cut));
+        /* ⚠ A DARKER FILL FOR THIS SURFACE, and it is not optional. The stock --pa-glass is tuned for
+           the sandy arena backdrop of the SITE pages, where a translucent stone-grey DARKENS what is
+           behind it. The game board is near-black, so the same fill LIGHTENS it: the sidebar came out
+           paler than the table it sits beside and read as washed-out grey, not as a HUD panel.
+           Overriding the token (rather than restating the recipe) is the documented per-surface
+           escape hatch — the chamfer, hairline, glow and shadow all still come from .pa-glass. */
+        --pa-glass: linear-gradient(165deg, rgba(26, 32, 41, 0.90) 0%, rgba(8, 12, 18, 0.95) 100%);
+        /* ⚠ A BOTTOM-LEFT GLOW HAS TO BE ITS OWN ARTWORK. The shipped glows are drawn per corner —
+           --pa-glow-tl's stroke runs UP the left edge, across the cut and along the top. Re-using it
+           at `bottom left` (the obvious shortcut, and my first cut) draws that same stroke the wrong
+           way round and paints a gold WEDGE in the corner. This is the bottom-right artwork mirrored:
+           same gradient, same two-pass blur+crisp stroke, path and gradient origin moved to the left.
+           Keep it at 90×90 for a 14px cut or the diagonal misses the chamfer. */
+        --pa-glow-bl: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cdefs%3E%3CradialGradient id='g' cx='7' cy='83' r='84' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ffd998'/%3E%3Cstop offset='.35' stop-color='%23e9b866' stop-opacity='.8'/%3E%3Cstop offset='1' stop-color='%23e9b866' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cfilter id='b' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeGaussianBlur stdDeviation='2.6'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M1 0V76L14 89H90' fill='none' stroke='url(%23g)' stroke-width='5' filter='url(%23b)'/%3E%3Cpath d='M.9 0V76L14 89.1H90' fill='none' stroke='url(%23g)' stroke-width='1.6'/%3E%3C/svg%3E");
     }
+    /* Glows on the two LEFT corners — both of this panel's visible ones. The stock ::before also
+       paints a bottom-RIGHT glow, which here would sit in the corner of the monitor. */
+    #swuSidebar::before {
+        /* Less brightness reduction than the stock layer: over a dark board there is nothing to
+           darken, and 0.82 only muddied the fill. */
+        -webkit-backdrop-filter: blur(18px) saturate(118%);
+        backdrop-filter: blur(18px) saturate(118%);
+        background:
+            var(--pa-glow-tl) top left / 90px 90px no-repeat,
+            var(--pa-glow-bl) bottom left / 90px 90px no-repeat,
+            radial-gradient(ellipse 90% 70% at 30% 0%, rgba(255, 255, 255, 0.06), transparent 70%),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.045) 0, transparent 30%, transparent 65%, rgba(0, 0, 0, 0.28) 100%),
+            var(--pa-glass);
+    }
+    #swuSidebar::after { inset: var(--pa-cut) 0 var(--pa-cut) var(--pa-cut); }
     #swuSidebarHeader {
         flex: 0 0 auto; display: flex; align-items: center;
         justify-content: space-between; padding: 12px 14px 10px;
@@ -1441,13 +1550,50 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         overflow-y: auto; padding: 8px 10px;
         scrollbar-width: thin;
     }
+    /* ── The sidebar's insides, in the Petranaki idiom (2026-09-22) ──────────────────────────────
+       The panel itself is glass; its sections read as SUNKEN WELLS and steel hairlines, the same
+       vocabulary the room's seat tiles and the Games in Progress chips use. Padding on the left is
+       stepped in past --pa-cut so nothing collides with the mirrored chamfer. */
+    #swuSidebar #swuSidebarHeader,
+    #swuSidebar .swu-round-phase-row,
+    #swuSidebar #swuLastPlayedSection,
+    #swuSidebar #swuLogLabel,
+    #swuSidebar #swuLogPanel,
+    #swuSidebar #swuChatMount { padding-left: calc(10px + var(--pa-cut) - 6px); }
+    #swuSidebar #swuSidebarHeader,
+    #swuSidebar .swu-round-phase-row,
+    #swuSidebar #swuLastPlayedSection,
+    #swuSidebar #swuLogLabel,
+    #swuSidebar #swuChatMount { border-color: var(--pa-line); }
+    /* Last Played is the one section with real content of its own — give it a well so the card it
+       shows sits IN something, as the seat tiles do. */
+    #swuSidebar #swuLastPlayedSection {
+        margin: 6px 10px 6px calc(var(--pa-cut) - 2px);
+        padding: 8px 10px;
+        background: rgba(14, 17, 22, 0.34);
+        border: 1px solid rgba(196, 208, 220, 0.14);
+        border-radius: 4px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+    #swuSidebar .swu-sidebar-section-label {
+        font-family: 'Barlow', var(--swu-font-label), sans-serif;
+        font-size: 9px; font-weight: 700; letter-spacing: 0.16em;
+        color: rgba(226, 232, 240, 0.52);
+    }
+    /* The composer joins the same sunken-well + gold-focus family as every other SWUSim input. */
+    /* ⚠ The composer's own look is set by the `#chatWidget input#chatText` !important block further
+       down — a second rule here, however specific, loses to it. It is edited in place instead. */
+
     /* Composer only — the messages live in #swuLogPanel above (see TCGChatMessageSink). */
     #swuChatMount {
         flex: 0 0 auto; min-height: 0;
         display: flex; flex-direction: column;
         overflow: hidden;
-        border-top: 1px solid var(--swu-border);
+        padding: 8px 10px 10px;
+        border-top: 1px solid var(--pa-line);
     }
+    /* The row is a gap-separated pair now, not two flush-welded bars. */
+    #swuSidebar #chatWidget > * { gap: 6px; }
     /* Keep the always-visible input+send row from being squeezed by the log, and keep it
        inside the sidebar width so the Send button isn't clipped by #swuChatMount's overflow:hidden. */
     #chatComposer {
@@ -1558,24 +1704,27 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     #chatLog::before {
         content: '' !important; display: block !important; flex: 1 1 auto !important;
     }
+    /* A SUNKEN WELL, matching every other SWUSim input (the room's deck field, the chat panel's
+       composer). Was a flat 5%-white bar with a single top hairline. */
     #chatWidget input#chatText {
-        background: rgba(255,255,255,0.05) !important; border: none !important;
-        border-top: 1px solid var(--swu-border) !important;
-        color: rgba(255,255,255,0.88) !important; font: 13px var(--swu-font-ui) !important;
+        background: rgba(14,17,22,0.42) !important;
+        border: 1px solid rgba(196,208,220,0.14) !important;
+        color: rgba(238,242,246,0.92) !important; font: 13px var(--swu-font-ui) !important;
         padding: 8px 10px !important; height: auto !important;
-        border-radius: 0 !important; outline: none !important;
+        border-radius: 4px !important; outline: none !important;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), inset 0 2px 6px rgba(0,0,0,0.42) !important;
         /* Let the input shrink (default min-width:auto would otherwise push Send out of frame). */
         box-sizing: border-box !important; min-width: 0 !important; width: auto !important;
     }
     #chatWidget input#chatText:focus {
-        background: rgba(255,255,255,0.08) !important;
-        border-top-color: var(--swu-border-hi) !important;
+        border-color: rgba(233,184,102,0.75) !important;
+        box-shadow: inset 0 0 0 1px rgba(233,184,102,0.28), inset 0 2px 6px rgba(0,0,0,0.42) !important;
     }
     #chatWidget button:not(#chatToggleBtn) {
         background: rgba(200,151,30,0.15) !important; border: none !important;
         border-top: 1px solid var(--swu-border) !important;
         border-left: 1px solid var(--swu-border) !important;
-        border-radius: 0 !important; color: rgba(200,151,30,0.90) !important;
+        border-radius: 4px !important; color: rgba(233,184,102,0.95) !important;
         font: 600 12px var(--swu-font-label) !important;
         padding: 8px 14px !important; height: auto !important;
         cursor: pointer !important; box-shadow: none !important;
@@ -1943,7 +2092,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 </div>
 
 <!-- ═══════════════════ RIGHT SIDEBAR ══════════════════════════════════════════ -->
-<div id="swuSidebar">
+<div id="swuSidebar" class="pa-glass">
     <!-- Round condensed into the Phase row, LEFT of the dot+phase-text (user request 2026-09-03;
          was its own stacked label+number block up here beside Undo/gear — mirrors the mobile
          condense done earlier the same day). #swuRoundNumber is the SAME id GameLayoutShared's JS
