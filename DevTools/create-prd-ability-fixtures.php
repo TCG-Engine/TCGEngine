@@ -15352,6 +15352,51 @@ DECK,
     ],
 ];
 
+// --- Tactful Sergeant: On Enter -- if your champion has attacked this turn, draw into memory ---
+$fixtures['tactful-sergeant-enter-attacked-draw-memory'] = [
+    'testedCards' => ['7UXGwC7lSO'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+5 Fluffy Shopkeep
+DECK,
+    // Tactful Sergeant's On Enter (enterAbilities["7UXGwC7lSO:0"], GeneratedMacroCode.php) checks
+    // OnAttackCallCount($player) > 0 -- a per-player-per-turn attack counter incremented by any
+    // real attack declaration this turn (OnAttack(), ZoneAccessors.php), not specifically a
+    // champion attack despite the printed text. Tactful Sergeant's own element is WIND, so
+    // by8145w2u2_WIND is added as a global effect (Imperial Seal's basic-element unlock mechanic)
+    // to unlock playing it without a real WIND-lineage champion. Same real attack-declaration
+    // shape as blistering-insurgent-attack-buff: P1 pass, P2 pass, P1 declines the turn-3 MAT
+    // offer, then a Dungeon Guide ALLY (seeded awake onto P1's field) declares a real attack
+    // against the opposing champion, P2 declines Retaliate?, and only then is Tactful Sergeant
+    // played from hand (its own 4-reserve cost) -- proving materializing a card after an already-
+    // resolved attack, later in the same turn, is legal in this engine.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // Spirit of Wind (WIND) lineage patch - unlocks WIND element access permanently (AddGlobalEffects' by8145w2u2_WIND is only "until end of turn" and would expire before Tactful Sergeant is played, several turns later)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY, seeded awake (BridgeAddToZone defaults Status=2)
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '7UXGwC7lSO'], // Tactful Sergeant, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Dungeon Guide declares a real attack
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate?
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Tactful Sergeant after the attack -- fires On Enter
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/4
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/4
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
