@@ -1,0 +1,16 @@
+{
+    "name": "ritai-berserker-north-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:38:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "xrbffkghwt"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["xrbffkghwt"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "As long as your Shifting Currents face North, CARDNAME gets +1 POWER."
+        ]
+    }
+}
