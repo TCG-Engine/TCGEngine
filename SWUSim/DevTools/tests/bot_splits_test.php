@@ -1,6 +1,6 @@
 <?php
 // Phase 1b part 2, Task 2 — indirect and split damage (feature 'splits').
-// Diagnosis 2026-09-14 (aggro_boba_lakecountry): with 2+ targets the only indirect candidate was "-" and the engine
+// Diagnosis 2026-09-14 (boba_lakecountry): with 2+ targets the only indirect candidate was "-" and the engine
 // accepted it, so indirect damage never landed; "Choose a player" picked You 118/118; split answers were unscored.
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d apc.enable_cli=1 -d xdebug.mode=off SWUSim/DevTools/tests/bot_splits_test.php
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';

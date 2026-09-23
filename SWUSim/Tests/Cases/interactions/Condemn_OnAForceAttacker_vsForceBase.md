@@ -5,8 +5,8 @@
 #// its own are lost by the printed text).
 #//
 #// FOUND BY: sweep retro #2–#4 of run 2 (2026-09-13): ORDER LOF_020:LOF_020 + SEC_038:OnAttackFromUpgrade
-#//   (98×/41×/78×) from normal_maul_blueforce, and ORDER LOF_029 + SEC_038:OnAttackFromUpgrade (31×) from
-#//   normal_talzin_force. The Condemn was played by the control decks (Aurra, Dedra) onto the Force attacker.
+#//   (98×/41×/78×) from maul_blueforce, and ORDER LOF_029 + SEC_038:OnAttackFromUpgrade (31×) from
+#//   talzin_force. The Condemn was played by the control decks (Aurra, Dedra) onto the Force attacker.
 #//   All sections were green on first run: this file is REGRESSION COVERAGE, not a bug.
 #//
 #// Cards: SEC_038 Condemn ("While attached unit is attacking, it gains: 'On Attack: The defending player may

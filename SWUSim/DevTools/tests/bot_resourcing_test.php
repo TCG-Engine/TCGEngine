@@ -65,7 +65,7 @@ $build(function ($b) use ($hand) { $hand($b, ['SOR_046', 'SOR_095', 'SOR_164']);
 $check($pick('aggro') === ['myHand-0'], 'ties go to the lowest hand index');
 
 // ── Control keeps a hand it can cast (owner, 2026-09-13) ─────────────────────────────────────────────
-// The real opening that lost every game (fixture control_krennic_splash, seed s01): LAW_159 (4), ASH_133 (8),
+// The real opening that lost every game (fixture krennic_splash, seed s01): LAW_159 (4), ASH_133 (8),
 // SEC_078 (7), SEC_087 (6), ASH_053 (8), ASH_053 (8). v0 resourced the 4 and the 6 and could cast nothing for
 // three rounds. Now: 2 resources after the pick → castable soon = cost ≤ 4. The 4 and one bomb (the first
 // 8) are kept. Since tags v2 (owner OK 2026-09-14) Pre Vizsla and Hyperspace Disaster are wipes, and key cards go

@@ -69,6 +69,34 @@ function _SWUBotRedundantUniqueInHand(int $seat, string $cardID, int $index): bo
     return false;
 }
 
+// PROPOSAL 'mgcost' (default OFF, "@try-mgcost") — THE COST THIS SEAT ACTUALLY PAYS.
+// Owner ruling 2026-09-23 (6): "off-aspect cards cost +2 and must be judged at that cost. Chimaera technically
+// costs 9 for Luke (ASH) DV. it would be one of the first to go in an opening hand."
+// The whole resourcing engine reads PRINTED cost — CardCost() — so an off-aspect card is ranked as if the seat
+// could pay its printed price. Chimaera is treated as a 7-drop the deck can cast on 7 resources when it needs 9,
+// which corrupts both the "castable soon" horizon and the bomb pick. This is not a midrange bug: it reaches every
+// deck with an off-aspect card, which is most of them. Hence a proposal with its own safety check, not a fix.
+// The two sites NOT converted are the Plot budget (SWUBotChooseResourceCards, GetResources loop) and the leader
+// deploy thresholds above: both are printed-cost rules in the engine they mirror, and changing them here would
+// desync the bot from SWUDeployLeader().
+function _SWUBotSeatCost(int $seat, string $cid): int {
+    $c = intval(CardCost($cid));
+    if (!SWUBotProposalOn('mgcost') || !function_exists('SWUAspectPenalty')) return $c;
+    return $c + intval(SWUAspectPenalty($seat, $cid));
+}
+
+// Owner, 2026-09-23 (ruling 2): "a 2 power sentinel is almost pointless. but a 3+ power sentinel is good power to
+// start the race against control." Proposals 'mgsentinel' (resourcing) and its play half in BotFallback.php.
+const SWU_BOT_MG_SENTINEL_POWER = 3;
+
+// A body worth keeping on curve (proposal 'mgkeep'): a unit whose power + HP is at least twice its cost — the
+// shape of the owner's example, "a second Koska Reeves (4 cost, 4/4) was the wrong pick to resource".
+function _SWUBotIsEfficientBody(int $seat, string $cid): bool {
+    if (strval(CardType($cid)) !== 'Unit') return false;
+    $cost = _SWUBotSeatCost($seat, $cid);
+    return $cost > 0 && intval(CardPower($cid)) + intval(CardHp($cid)) >= 2 * $cost;
+}
+
 function SWUBotResourceFloorApplies(int $seat): bool {
     $t = SWUBotLeaderDeployThreshold($seat);
     return $t > 0 && SWUResourceCount($seat) < $t;
@@ -89,13 +117,13 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
     // Control keeps a hand it can CAST: every card castable within ~2 regroups of the resources it will have
     // after this pick, plus ONE copy of its biggest card (the bomb it builds toward). Everything else goes
     // to resources, the card furthest from castable first. Owner ruling 2026-09-13, replacing v0's "resource
-    // the cheapest": on real control lists (fixture control_krennic_splash) that resourced every cheap answer and
+    // the cheapest": on real control lists (fixture krennic_splash) that resourced every cheap answer and
     // left six 8–11-cost cards on 6 resources in round 5, so the deck cast nothing for three rounds.
     $soon = SWUResourceCount($seat) + $n + 2;
     $bombIndex = null; $bombCost = -1;
     foreach (GetHand($seat) as $i => $c) {
         if ($c === null || !empty($c->removed)) continue;
-        $cost = intval(CardCost(strval($c->CardID ?? '')));
+        $cost = _SWUBotSeatCost($seat, strval($c->CardID ?? ''));
         if ($cost > $bombCost) { $bombCost = $cost; $bombIndex = $i; }
     }
     // Feature 'wipekeep' (owner ruling 2026-09-16) refines that rule for WIPES — see _SWUBotProtectedWipe.
@@ -104,11 +132,17 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
     $early = SWUResourceCount($seat) <= 5;
     $protectedWipe = ($wipeRule && $early) ? _SWUBotProtectedWipe($seat, strval($ctx['style'])) : null;
     $stabilized = $wipeRule && !$early && _SWUBotIsStabilized($seat);
+    // Proposal 'mgkeep': the earliest copy of each card in hand. Every later copy is the spare duplicate.
+    $firstIndexOf = [];
+    foreach (GetHand($seat) as $i => $c) {
+        if ($c === null || !empty($c->removed)) continue;
+        $firstIndexOf[strval($c->CardID ?? '')] ??= $i;
+    }
     $ranked = [];
     foreach (GetHand($seat) as $i => $c) {
         if ($c === null || !empty($c->removed)) continue;
         $cid = strval($c->CardID ?? '');
-        $cost = intval(CardCost($cid));
+        $cost = _SWUBotSeatCost($seat, $cid);
         $keep = $rank >= 3
             ? ($i === $bombIndex ? 200.0 : ($cost <= $soon ? 100.0 + $cost : (float)($soon - $cost)))
             : (float)-$cost;   // the aggro wing resources its most expensive; midrange: FALLBACK default, not a rule
@@ -136,6 +170,33 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         if (SWUBotFeatureOn('sentinelkeep') && ($rank >= 3 || SWUBotProposalOn('sentinelkeepall')) && _SWUBotHasPrintedSentinel($cid)
             && !_SWUBotRedundantUniqueInHand($seat, $cid, $i)) {
             $keep += 50.0;
+        }
+        // ── THE MIDRANGE RESOURCING RULES (owner, 2026-09-23). Rank 2 has never had any: its keep value is the
+        // aggro wing's FALLBACK, -$cost, which says only "resource the most expensive card". Both arms below are
+        // midrange-only and default OFF, so no shipped bot moves.
+        // PROPOSAL 'mgkeep' (ruling 6): "resourcing ONE duplicate is fine… but do not resource an efficient
+        // on-curve body — a second Koska Reeves (4 cost, 4/4) was the wrong pick." The two clauses are ordered:
+        // an efficient body is kept even when it IS the duplicate, which is exactly the owner's example.
+        // MEASURED 2026-09-23 (`2026-09-23_midrange_arms_result.md`): +8.0 vs Krennic (BH q=0.027), +1.8 vs Ahsoka,
+        // the only one of the seven midrange arms to clear correction. THE SPLIT, per the ship rules — a two-clause
+        // arm is never shipped whole:
+        //   'mgkeepbody' — the efficient-body keep alone.
+        //   'mgkeepdup'  — the spare-duplicate resource alone. Note it carries NO body exception: isolating the
+        //                  clause means a duplicate efficient body IS resourced under this arm, which is the
+        //                  behaviour the ordering in 'mgkeep' exists to prevent. That contrast is the measurement.
+        $mgkBody = SWUBotFeatureOn('mgkeep') || SWUBotProposalOn('mgkeepbody');
+        $mgkDup  = SWUBotFeatureOn('mgkeep') || SWUBotProposalOn('mgkeepdup');
+        if ($rank === 2 && ($mgkBody || $mgkDup)) {
+            if ($mgkBody && _SWUBotIsEfficientBody($seat, $cid)) $keep += 100.0;
+            elseif ($mgkDup && ($i !== ($firstIndexOf[$cid] ?? $i))) $keep -= 50.0;   // a later copy: the spare duplicate
+        }
+        // PROPOSAL 'mgsentinel' — the RESOURCING half (ruling 2): "keep them against AGGRO. Against control it
+        // depends on the Sentinel — a 2 power sentinel is almost pointless, but a 3+ power sentinel is good power
+        // to start the race against control." The shipped 'sentinelkeep' (p4) is control-wing only and flat.
+        if (SWUBotProposalOn('mgsentinel') && $rank === 2 && _SWUBotHasPrintedSentinel($cid)
+            && !_SWUBotRedundantUniqueInHand($seat, $cid, $i)
+            && (SWUBotOpponentIsAggroLeader($seat) || intval(CardPower($cid)) >= SWU_BOT_MG_SENTINEL_POWER)) {
+            $keep += 100.0;
         }
         // PROPOSAL 'earlyremoval' — the RESOURCING half. Owner, Q13: "Crushing Blow only works on 2-cost non-leader
         // units. so late game, it's an auto resource." From round 6 (7 resources — past the owner's "5R turn") a
@@ -242,7 +303,7 @@ function _SWUBotProtectedWipe(int $seat, string $style): ?string {
         if ($c === null || !empty($c->removed)) continue;
         $cid = strval($c->CardID ?? '');
         if (!in_array('wipe', SWUBotCardTags($cid), true) || !_SWUBotWipeIsRelevant($seat, $cid)) continue;
-        $cost = intval(CardCost($cid));
+        $cost = _SWUBotSeatCost($seat, $cid);
         if ($cost < $bestCost) { $best = $cid; $bestCost = $cost; }
     }
     return $best;
@@ -272,7 +333,7 @@ function SWUBotResourceFloorFilter(array $ctx): array {
 function SWUBotResourceStop(int $seat, string $style): int {
     $top = 0; $answers = [];
     foreach (SWUBotOwnCardIDs($seat) as $cid) {
-        $cost = intval(CardCost($cid));
+        $cost = _SWUBotSeatCost($seat, $cid);
         $top = max($top, $cost);
         if ($cost <= 6 && array_intersect(SWUBotCardTags($cid), ['removal', 'wipe'])) $answers[] = $cost;
     }
@@ -366,12 +427,12 @@ function _SWUBotResourcing2Tiers(array $ctx, int $seat, bool $v3 = false): array
     // The curve is judged on what STAYS in hand: a duplicate is resourced first (tier 0), so it is not one of the cheap
     // plays being kept. (Counting it made Q3 resource BOTH Night Troopers instead of one Trooper + one No Glory.)
     $cheap = 0;
-    foreach ($hand as $i => $cid) { if (intval(CardCost($cid)) <= $cheapCap && $i === $firstIdx[$cid]) $cheap++; }
+    foreach ($hand as $i => $cid) { if (_SWUBotSeatCost($seat, $cid) <= $cheapCap && $i === $firstIdx[$cid]) $cheap++; }
     $out = [];
     foreach ($hand as $i => $cid) {
         $tags = SWUBotCardTags($cid);
         $answer = (bool)array_intersect($tags, ['removal', 'wipe']);
-        $cost = intval(CardCost($cid));
+        $cost = _SWUBotSeatCost($seat, $cid);
         if ($spaceAggro && preg_match('/defeat all space units/i', strval(CardText($cid)))) { $out[$i] = [9, 0.0]; continue; }
         if (in_array($cid, SWU_BOT_ENGINE_KEEPS, true)) { $out[$i] = [9, 0.0]; continue; }
         // resourcing3: a capital-ship deck cheats its Capital Ships out to trade and stall (owner, Piett vs Vader);

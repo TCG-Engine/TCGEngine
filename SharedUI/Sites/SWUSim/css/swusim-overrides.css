@@ -16,24 +16,18 @@ body {
      ::before (z -1) the glass, clipped to the cut: backdrop blur, fill, shading, hairline, corner glows.
    ⚠ Never put a `filter` on an ancestor of the glass: it becomes the backdrop root and the blur then sees nothing.
    ⚠ The glow SVGs are drawn for a 14px cut at 90×90 — keep --pa-cut at 14px or the diagonal stroke misses the cut. */
-:root {
-  --pa-cut:        14px;
-  --pa-line:       rgba(196, 208, 220, 0.24);
-  --pa-glass:      linear-gradient(165deg, rgba(62, 70, 81, 0.50) 0%, rgba(30, 36, 44, 0.70) 100%);
-  --pa-glow-tl:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cdefs%3E%3CradialGradient id='g' cx='7' cy='7' r='84' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ffd998'/%3E%3Cstop offset='.35' stop-color='%23e9b866' stop-opacity='.8'/%3E%3Cstop offset='1' stop-color='%23e9b866' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cfilter id='b' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeGaussianBlur stdDeviation='2.6'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M1 90V14L14 1H90' fill='none' stroke='url(%23g)' stroke-width='5' filter='url(%23b)'/%3E%3Cpath d='M.9 90V14L14 .9H90' fill='none' stroke='url(%23g)' stroke-width='1.6'/%3E%3C/svg%3E");
-  --pa-glow-br:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cdefs%3E%3CradialGradient id='g' cx='83' cy='83' r='84' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23ffd998'/%3E%3Cstop offset='.35' stop-color='%23e9b866' stop-opacity='.8'/%3E%3Cstop offset='1' stop-color='%23e9b866' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cfilter id='b' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeGaussianBlur stdDeviation='2.6'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M89 0V76L76 89H0' fill='none' stroke='url(%23g)' stroke-width='5' filter='url(%23b)'/%3E%3Cpath d='M89.1 0V76L76 89.1H0' fill='none' stroke='url(%23g)' stroke-width='1.6'/%3E%3C/svg%3E");
-  --pa-glass-clip: polygon(var(--pa-cut) 0, 100% 0, 100% calc(100% - var(--pa-cut)), calc(100% - var(--pa-cut)) 100%, 0 100%, 0 var(--pa-cut));
-}
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  :root { --pa-glass: linear-gradient(165deg, rgba(58, 66, 77, 0.92) 0%, rgba(30, 36, 44, 0.95) 100%); }
-}
+/* ⚠ THE TOKENS AND THE .pa-glass LAYERS NOW LIVE IN css/petranaki-glass.css, which SiteDef loads
+   immediately BEFORE this file (and which the in-game board loads on its own). Only the per-surface
+   selector lists below remain here — they must not run on the board. */
+
 /* The site pages' panels (Login, Signup, Profile, Previews — see "Site pages" below) join the same glass. A notice
    NESTED in another panel is a sunken well instead (no glass-in-glass), so it is excluded here with :not(). */
 body .container.bg-black:not(.container .container)::before, body .container.bg-blue:not(.container .container)::before,
 body .card.ga-glass-card:not(.swu-panel):not(.wr-panel)::before,
 .home-header .title::before,
 .nav-bar-user::before, .nav-bar-links::before,
-.row-wrapper > .card.wr-panel::before {
+.row-wrapper > .card.wr-panel::before,
+#tcg-chat-panel::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -56,7 +50,8 @@ body .container.bg-black:not(.container .container)::after, body .container.bg-b
 body .card.ga-glass-card:not(.swu-panel):not(.wr-panel)::after,
 .home-header .title::after,
 .nav-bar-user::after, .nav-bar-links::after,
-.row-wrapper > .card.wr-panel::after {
+.row-wrapper > .card.wr-panel::after,
+#tcg-chat-panel::after {
   content: '';
   position: absolute;
   inset: var(--pa-cut);
@@ -77,7 +72,11 @@ body .card.ga-glass-card:not(.swu-panel):not(.wr-panel)::after,
     0 calc(-1 * var(--pa-cut)));
 }
 
-/* ── Header plate: flush against the left viewport edge (the top-left cut sits right at the edge).
+/* ── Header plate: left edge ALIGNED WITH THE MENU PANELS below it (owner, 2026-09-22).
+   It used to sit flush at x=0, which read fine while the title was a rounded PILL; as a chamfered
+   plate the mismatch against the panel column at 16px is obvious. 16px is .swu-menu-grid's own
+   margin-left, and it also matches the ~14px the nav chips keep on the right, so the page stays
+   symmetric.
    Kept COMPACT (owner, 2026-09-21: early feedback said the title bar "demands too much attention"): about the height of
    the nav chips, not a banner. menuStyles.css pins .home-header to 140px, so the height is released here.
    Optional emblem: branding.logo (SiteDef) renders img.title-logo and adds .has-logo. */
@@ -90,7 +89,9 @@ body .card.ga-glass-card:not(.swu-panel):not(.wr-panel)::after,
   grid-template-rows: auto auto;
   column-gap: 14px;
   align-items: center;
-  margin-left: -40px;                 /* cancel .home-header's 40px left padding → flush left */
+  /* .home-header pads 40px; -24px leaves the plate at 16px = .swu-menu-grid's margin-left.
+     ⚠ These two numbers are a PAIR — change .home-header's padding and this must follow. */
+  margin-left: -24px;
   padding: 10px 40px 10px 28px;
   background: transparent;
 }
@@ -613,4 +614,66 @@ body .swu-preview-tabs button.swu-preview-tab.is-active {
 }
 @media (prefers-reduced-motion: reduce) {
   .swu-info-tip__bubble, .swu-info-tip:hover + .swu-info-tip__bubble { transition: none; }
+}
+
+/* ── Chat panel (SharedUI/Render/ChatPanel.php) in the New Petranaki HUD style (2026-09-22) ────────
+   THE RE-SKIN SEAM. The component is shared with FaBSim and ships a neutral, legible base; this file
+   is SWUSim-only, so everything Petranaki lives here and nothing in the component changed. Because
+   the skin is scoped to the component's own id, EVERY SWUSim screen that mounts it looks identical
+   for free — the waiting room and the sideboard today, anything added later with no extra work.
+   That is the whole point of the split (owner, 2026-09-22: "base component plus able to re-skin").
+
+   ⚠ The component's own <style> is printed in the BODY, after this file, so equal specificity would
+   LOSE. Everything here is id-scoped (#tcg-chat-panel …), which outranks it.
+   ⚠ The glass itself is the shared ::before / ::after recipe — this panel is simply added to both
+   selector lists above. Do not re-declare the blur or the glows here; they would drift from every
+   other surface. */
+#tcg-chat-panel {
+  position: relative;          /* the sticky above already positions it; this is for the pseudos */
+  isolation: isolate;          /* keeps ::before's z-index:-1 inside the panel, not behind the page */
+  background: transparent;     /* the glass is ::before — an element blur is a plain rectangle and
+                                  would square off the chamfer */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border: 0;
+  border-radius: 0;
+  padding: 18px 18px 16px;
+  color: #eef2f6;
+}
+/* The chamfer eats the top-left and bottom-right corners, so the label and the composer need to sit
+   clear of the cut or they collide with it. --pa-cut is 14px. */
+#tcg-chat-panel .tcgc-label {
+  padding-left: calc(var(--pa-cut) - 8px);
+  font-family: 'Barlow', sans-serif;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.64);
+}
+#tcg-chat-panel #tcgc-composer { padding-right: calc(var(--pa-cut) - 8px); }
+
+/* Sunken well + gold focus rim, matching the room's deck field and the Games in Progress chips. */
+#tcg-chat-panel #tcgc-input {
+  background: rgba(14, 17, 22, 0.42);
+  border: 1px solid rgba(196, 208, 220, 0.14);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 2px 6px rgba(0, 0, 0, 0.42);
+  color: #eef2f6;
+}
+#tcg-chat-panel #tcgc-input:focus {
+  border-color: rgba(233, 184, 102, 0.75);
+  box-shadow: inset 0 0 0 1px rgba(233, 184, 102, 0.28), inset 0 2px 6px rgba(0, 0, 0, 0.42);
+}
+#tcg-chat-panel #tcgc-send { height: 34px; padding: 0 14px; }
+
+#tcg-chat-panel .tcgc-row { padding: 3px 0 3px 9px; }
+#tcg-chat-panel .tcgc-row.tcgc-log { color: rgba(226, 232, 240, 0.66); }
+#tcg-chat-panel .tcgc-loghead {
+  font-family: 'Barlow', sans-serif;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.52);
+}
+#tcg-chat-toggle {
+  background: var(--pa-glass);
+  border: 1px solid var(--pa-line);
+  color: rgba(233, 184, 102, 0.95);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
 }

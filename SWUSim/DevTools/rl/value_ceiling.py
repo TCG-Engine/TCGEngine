@@ -2,7 +2,7 @@
 """CEILING DIAGNOSTIC (spec 2026-09-19 §6): gradient-boosted trees on the SAME split as value_train.py. Never a
 pass/fail. Trees ~= logistic => features are the bottleneck; trees clearly better => a small MLP is the v2.
     python3 SWUSim/DevTools/rl/value_ceiling.py --data /tmp/value_run1/chunks --holdout-seeds v0037,v0038,v0039,v0040 \
-        --holdout-decks control_thrawn_yellow,aggro_greef,normal_obiwan_vergence"""
+        --holdout-decks thrawn_yellow,greef,obiwan_vergence"""
 import argparse, json, os, sys
 import numpy as np
 from sklearn.experimental import enable_hist_gradient_boosting  # noqa: F401  (sklearn 0.23 needs this import)

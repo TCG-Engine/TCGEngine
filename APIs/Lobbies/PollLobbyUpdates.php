@@ -129,6 +129,17 @@ while (true) {
     $response->numPlayers = intval($lobby->numPlayers ?? 0);
     $response->maxPlayers = intval($lobby->maxPlayers ?? 4);
     $response->state = $lobby->state ?? 'open';
+    // May this viewer SEND chat? Answered by the SAME seam SubmitChat.php enforces
+    // (Core/ChatPolicy.php), so the panel can never render a composer whose messages will be refused
+    // — on SWUSim a guest reads the room's chat but gets no box (owner, 2026-09-21).
+    include_once __DIR__ . '/../../Core/ChatPolicy.php';
+    if (session_status() === PHP_SESSION_NONE) @session_start();
+    $pollChatRefusal = ChatSendRefusal(
+        strval($lobby->rootName ?? ''),
+        ['viewerSeat' => 1, 'isSpectator' => false, 'userId' => intval($_SESSION['userid'] ?? 0)],
+        'l:' . strval($lobby->id ?? ''));
+    $response->canChat = ($pollChatRefusal === null);
+    $response->cannotChatReason = $pollChatRefusal ?? '';
     $response->inviteCode = $lobby->inviteCode ?? '';
     $response->lobbyID = $lobbyID;   // resolved from ?invite=; the page replaceState()s to ?lobby=<id>
     // Hand the caller back the seat it CURRENTLY holds. StartRoom renumbers playerIDs at start (team

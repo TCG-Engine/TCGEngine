@@ -43,15 +43,29 @@ function InAlignmentClashFilter(cardID) {
 }
 window.InAlignmentClashFilter = InAlignmentClashFilter;
 
+// Cardaspect() returns NULL for any id outside the card dictionary, so every read of it needs the
+// same guard TraitContains/AspectContains below already use. Two ids here are NOT guaranteed to be
+// cards at all: GetNextTurn.php renders the literal sentinel "CardBack" for a zone the viewer may
+// not see (a deck URL without playerID is a SPECTATOR — the shared deck-link shape — so myLeaderData
+// reads "CardBack 0 -"), and "-" for an object with no CardID. Unguarded, that threw
+// `Cardaspect(...) is null` out of the Cards zone's filter and the pane rendered nothing.
+//
+// Unresolvable leader/base aspects mean there is nothing to filter BY, so nothing is filtered —
+// the same "can't tell, don't hide" answer AspectContains gives. Returning TRUE here would hide the
+// entire card pane instead.
 function InAspectFilter(cardID) {
   if(!window.myLeaderData || !window.myBaseData) {
     return false;
   }
   var leaderArr = window.myLeaderData.split(" ");
   var baseArr = window.myBaseData.split(" ");
-  var leaderAspects = Cardaspect(leaderArr[0]).split(",");
-  var baseAspects = Cardaspect(baseArr[0]).split(",");
-  var cardAspects = Cardaspect(cardID).split(",");
+  var leaderRaw = Cardaspect(leaderArr[0]);
+  var baseRaw = Cardaspect(baseArr[0]);
+  var cardRaw = Cardaspect(cardID);
+  if(leaderRaw == null || baseRaw == null || cardRaw == null) return false;
+  var leaderAspects = leaderRaw.split(",");
+  var baseAspects = baseRaw.split(",");
+  var cardAspects = cardRaw.split(",");
   if(cardAspects[0] == "") return false;
   for (var i = 0; i < cardAspects.length; i++) {
     if(!leaderAspects.includes(cardAspects[i]) && !baseAspects.includes(cardAspects[i])) return true;

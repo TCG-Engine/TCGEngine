@@ -11,8 +11,8 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_WARNING & ~E_NOTICE);
 $ROOT = dirname(__DIR__, 2);
 $URL = 'http://localhost/TCGEngine/APIs/Lobbies/JoinQueue.php';
 $sor     = file_get_contents($ROOT . '/SWUSim/Tests/BotFixtures/premier_deck_a.txt');                     // Premier ✗, Eternal ✓
-$ahsoka  = file_get_contents($ROOT . '/SWUSim/Tests/BotFixtures/meta-2026-09/aggro_ahsoka_blue.txt');     // Premier ✓
-$krennic = file_get_contents($ROOT . '/SWUSim/Tests/BotFixtures/meta-2026-09/control_krennic_splash.txt'); // Premier ✓
+$ahsoka  = file_get_contents($ROOT . '/SWUSim/Tests/BotFixtures/meta-2026-09/ahsoka_blue.txt');     // Premier ✓
+$krennic = file_get_contents($ROOT . '/SWUSim/Tests/BotFixtures/meta-2026-09/krennic_splash.txt'); // Premier ✓
 
 $post = function (array $fields) use ($URL): ?object {
     $ctx = stream_context_create(['http' => ['method' => 'POST', 'timeout' => 60, 'ignore_errors' => true,

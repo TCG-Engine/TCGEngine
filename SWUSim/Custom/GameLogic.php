@@ -25,6 +25,8 @@ include_once __DIR__ . '/SmuggleCost.php';
 include_once __DIR__ . '/../BotLegalActions.php';
 include_once __DIR__ . '/../BotHeuristic.php';
 include_once __DIR__ . '/../BotController.php';
+// BotData recorder (spec 2026-09-23): _SWUOpenAction() below calls SWUBotDataRecordAction().
+include_once __DIR__ . '/BotDataRecorder.php';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // SWU Core Game Logic — zone hooks, macro ChoiceFunctions, pregame DQ handlers
@@ -10849,6 +10851,11 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             OnWhenDefeated($player, $cardID, $mzID);
             SWUCollectThrawnReuse($player, $cardID, $mzID); // JTL_002 Thrawn "when you use a When Defeated ability"
             break;
+        // SEC_002 Jabba the Hutt (deployed) — ONE trigger per friendly unit dealt damage and surviving, so
+        // a single effect that damages several of them is several orderable triggers (CR 7.6.9) of which
+        // only the first to resolve may be used. $cardID is the DAMAGED UNIT (it is what the ordering
+        // prompt renders); $mzID = "U{uid}" of that unit, $extra[0] = the damage it took.
+        case 'SEC_002':   _SWUSec002ResolveTrigger(intval($player), (string)$mzID, intval($extra[0] ?? 0)); break;
         case 'HMW_062':   Hmw062WeakenedDefeatTrigger($player);          break;
         case 'JTL_169':   ShadowCasterReuseTrigger($player, $cardID, $mzID); break;
         // JTL_169 Shadow Caster reuse of a GRANTED When-Defeated: $cardID = the granting card's ID (the
@@ -13705,6 +13712,13 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
         // the duplicate is still running and owns the close. Finalising here would end the action
         // early, exactly as the REGROUP case above would.
         if ($continuation === 'UNIQINLINE') { $playerID = $savedPID; return; }
+        // A FIELD OBSERVER's own trigger batch (SEC_002 Jabba's "when another friendly unit is dealt damage
+        // and survives"). It is flushed from the damage funnel, not from an action ceremony: the action that
+        // dealt the damage owns its own close, and this batch usually resolves on the player who is NOT
+        // acting, so finalising here would both double-close and close for the wrong seat. Same shape as
+        // REGROUP above — order the triggers, resolve them, return. Paired with a batchStart so the resume
+        // only ever sees its own entries.
+        if ($continuation === 'OBSERVER') { $playerID = $savedPID; return; }
         if ($continuation === 'COMBAT' || $continuation === 'MAULCOMBAT') {
             // A defender's On Defense reaction (Captain Typho's disclose, LOF_047/067/252, …) is a
             // NON-active-player decision that must resolve BEFORE combat damage. When it was resolved in
@@ -21201,6 +21215,11 @@ function _SWUOpenAction(): void {
     // failed in the full suite for exactly that reason. Nothing nests before its own action opens, so
     // clearing here is safe: ActivateCard does not call SaveUndoVersion, only ActionMap/CustomInput do.
     $GLOBALS['gSWUActionDepth'] = 0;
+    // BotData recorder (spec 2026-09-23). This is the ONE seam reached by every user-initiated action
+    // and nothing else that acts, which is exactly the granularity the corpus wants. Suppressed inside
+    // SWUBotLookahead (whose in-memory dispatches also land here), a no-op outside botpractice, and
+    // wrapped so it can never break a live game. See Custom/BotDataRecorder.php.
+    if (function_exists('SWUBotDataRecordAction')) SWUBotDataRecordAction();
 }
 
 // ── THE ACTION-CLOSE GATE ─────────────────────────────────────────────────────────────────────
@@ -21371,6 +21390,11 @@ function LoadUndoSnapshot($restoreOrdinal) {
     _SWURestoreSerializedPayload($rec['payload']);
     UndoCursorSet($restoreOrdinal - 1);
     _SWUStampUndoAvailable();
+    // BotData recorder (spec 2026-09-23): the corpus is "what actually happened", and an undone action
+    // did not. History is appended to rather than rewritten — the retraction is itself a signal — so a
+    // reader drops the action rows back to this marker. The lookahead's own restore does NOT come
+    // through here (it calls _SWURestoreSerializedPayload directly), so this only marks real undos.
+    if (function_exists('SWUBotDataMarkUndone')) SWUBotDataMarkUndone();
     return true;
 }
 
@@ -21490,7 +21514,31 @@ function SWUGameIsPrivate(string $rootName = '', string $gameName = ''): bool {
     return SWUIsSoloMode() || SimGameIsPrivateGame($rootName, $gameName);
 }
 
+// Is this a LOCAL DEV BROWSER request? Undo consent is switched off for these (owner, 2026-09-22):
+// debugging a pulled bug report means driving BOTH seats yourself, so an approval popup you then
+// have to go and click as the other seat is pure friction.
+//
+// ⚠ DELIBERATELY NOT SWUIsLocalDevRequest() (SWUSim/Mod/DevGate.php). That one also returns true
+// whenever DEVENV=true — which is exactly the condition INSIDE the dev container, where the schema
+// suite runs, and the suite asserts that consent IS required (Tests/Cases/undo/ConsentGating.md,
+// RequestApprove.md, core/GameLog_Undo.md). Keying on the request host alone keeps the switch off
+// for the suite, which runs through the CLI SAPI via `docker exec` and has no HTTP_HOST at all, and
+// on for a browser pointed at localhost:3400.
+//
+// ⚠ PROD IS UNAFFECTED by construction: swustats.net never matches these hosts.
+function SWUUndoConsentDisabledForLocalDev(): bool {
+    if (PHP_SAPI === 'cli') return false;
+    $host = strtolower((string)($_SERVER['HTTP_HOST'] ?? ''));
+    if ($host === '') return false;
+    return str_starts_with($host, 'localhost')
+        || str_starts_with($host, '127.0.0.1')
+        || str_starts_with($host, '[::1]');
+}
+
 function SWUUndoNeedsConsent(int $requesterSeat, int $targetOrdinal, string $kind = 'step', string $rootName = '', string $gameName = ''): bool {
+    // Local dev never asks. Checked above everything else, including the phase branch, for the same
+    // reason the private-game check is: Undo Phase ALWAYS requests otherwise.
+    if (SWUUndoConsentDisabledForLocalDev()) return false;
     // Checked FIRST — above the reveal-flag check as well as the phase check. Undo Phase ALWAYS
     // requests when not private, and MarkUndoRequiresConsent fires on every draw; in a solo mode a
     // request can never be answered, so either path would hang the undo forever.
@@ -21625,6 +21673,10 @@ function SWULoadBookmark(int $seat, int $bookmarkId, string $rootName = '', stri
     }
     SetFlashMessage('Loaded bookmark — Round ' . intval($bm['round']) . '.');
     AddGameLogEntry('UNDO', "P{$seat} loaded a bookmark (Round " . intval($bm['round']) . ')', 'ALL');   // after the restore
+    // BotData recorder (spec 2026-09-23): undo's sibling rewind. Marks the backwards jump so a reader
+    // can see it, and clears any meta.json from an ending this load just undid — GAMEOVER_WINNER was
+    // cleared above, so the game can end again and that ending is the real one.
+    if (function_exists('SWUBotDataMarkRewound')) SWUBotDataMarkRewound('bookmark');
     return true;
 }
 
@@ -21823,6 +21875,10 @@ function CanActivateAttackCardNow($player, $cardID, $setFlash = true) {
 function ActionMap($actionCard, $allowDuringDecisionQueue = false)
 {
     global $playerID;
+    // BotData recorder (spec 2026-09-23) — see the twin line in Custom/CustomInput.php. 'FSM' is the
+    // wire verb for every ActionMap action (play / attack), matching the "<mz>!FSM!" form the bot
+    // enumerator and the client both use.
+    $GLOBALS['SWUBotDataInFlight'] = ['mz' => strval($actionCard), 'verb' => 'FSM'];
     $turnPlayer = &GetTurnPlayer();
     $currentPhase = GetCurrentPhase();
     $cardArr = explode("-", $actionCard);
@@ -23837,6 +23893,11 @@ function SWUDeclareGameWinner($winner, $flashMessage = null, string $logReason =
     DecisionQueueController::StoreVariable("GAMEOVER_WINNERS", strval($w));
     if ($flashMessage !== null) SetFlashMessage($flashMessage);
     SWULogGameEndLine('WIN', "P{$w} wins the game" . ($logReason !== '' ? " ({$logReason})" : ''));
+    // BotData finalize (spec 2026-09-23). ⚠ NOT the Match layer's captureGameDetail hook: an Arenabot
+    // game sets isGoldfish and never creates a Match, so that hook never fires for the games we record.
+    // This function is the unified commit point every ending reaches, and the early return above makes
+    // it fire exactly once. Placed AFTER the WIN log line so meta.json's gameLog includes it.
+    if (function_exists('SWUBotDataFinalize')) SWUBotDataFinalize($w);
 }
 
 // The game ends the INSTANT a win condition is met, so nothing queued behind it may still resolve.

@@ -3,15 +3,22 @@ include_once './Core/HTTPLibraries.php';
 include_once './Core/NetworkingLibraries.php';
 include_once './Core/ViewerIdentity.php';
 
-$gameName  = TryGET("gameName", "");
-$playerID  = TryGET("playerID", "");
-$authKey   = TryGET("authKey", "");
-$folderPath = TryGET("folderPath", "");
-$chatText  = TryGET("chatText", "");
+include_once './Core/ChatScopeAuth.php';
+include_once './APIs/Lobbies/Classes/Player.php';   // unserializing an APCu lobby needs the class
 
-if ($gameName === "" || !IsGameNameValid($gameName)) { echo "Invalid game name."; exit; }
+$playerID   = TryGET("playerID", "");
+$authKey    = TryGET("authKey", "");
+$folderPath = preg_replace('/[^A-Za-z0-9_\/\-]/', '', TryGET("folderPath", ""));
+$chatText   = TryGET("chatText", "");
+
+$scope = ChatResolveRequestScope($_GET, $folderPath);
+if ($scope['token'] === null) { echo $scope['error']; exit; }
+// The scope token; the name is kept so the rest of this file reads unchanged. For the game scope it
+// IS the gameName, exactly as before.
+$gameName = $scope['token'];
+
 $viewerInfo = NormalizeViewerIdentity($playerID, SimGameMaxSeats($folderPath));
-if ($viewerInfo['viewerID'] === '')                  { echo "Invalid player.";    exit; }
+if ($viewerInfo['viewerID'] === '') { echo "Invalid player."; exit; }
 $playerID = $viewerInfo['viewerID'];
 
 // Sanitize chat text
@@ -19,30 +26,46 @@ $chatText = trim(strip_tags($chatText));
 $chatText = substr($chatText, 0, 500);
 if ($chatText === "") { echo "Empty message."; exit; }
 
-// Validate auth key for real players (spectators skip auth)
-if ($folderPath !== "") {
-    $folderPath = preg_replace('/[^A-Za-z0-9_\/\-]/', '', $folderPath);
-    if (!SimGameValidateViewerAuth($folderPath, $gameName, $viewerInfo, $authKey)) {
+// ⚠ The game scope keeps its exact existing behaviour, including "an empty folderPath skips auth"
+// (spectators rely on it). The two new scopes ALWAYS authenticate — there is no anonymous write to a
+// room's or a match's conversation.
+if ($scope['kind'] === 'game') {
+    if ($folderPath !== "" && !SimGameValidateViewerAuth($folderPath, $gameName, $viewerInfo, $authKey)) {
         echo "Invalid auth key."; exit;
     }
+} else if (!ChatScopeAuthOk($scope['kind'], $gameName, $viewerInfo, $authKey, $folderPath)) {
+    echo "Invalid auth key."; exit;
 }
 
-if ($folderPath === 'SWUSim') {
-    // SWUSim needs no account to PLAY, only to CHAT (owner, 2026-09-21) — players and spectators alike. The game page
-    // (NextTurn.php) renders no message box for a guest; this is the enforcement behind it. Read the session and release
-    // its lock at once, so a chat send never serialises behind the same browser's game polls.
-    if (session_status() === PHP_SESSION_NONE) session_start();
-    $chatUserId = intval($_SESSION['userid'] ?? 0);
-    session_write_close();
-    if ($chatUserId <= 0) { echo "Log in to chat."; exit; }
+// The login gate, via the per-sim seam (Core/ChatPolicy.php) so it also holds on the Waiting Room and
+// the Sideboard, which have no gameName. SWUSim needs no account to PLAY, only to CHAT (owner,
+// 2026-09-21) — players and spectators alike. The game page renders no message box for a guest; this
+// is the enforcement behind it. Read the session and release its lock at once, so a chat send never
+// serialises behind the same browser's game polls.
+if (session_status() === PHP_SESSION_NONE) session_start();
+$chatUserId = intval($_SESSION['userid'] ?? 0);
+session_write_close();
+$viewerInfo['userId'] = $chatUserId;
 
-    // Blocked players cannot chat. Generic response — never reveals the block to the other side.
+include_once './Core/ChatPolicy.php';
+$chatRefusal = ChatSendRefusal($folderPath, $viewerInfo, $gameName);
+if ($chatRefusal !== null) { echo $chatRefusal; exit; }
+
+// Blocked players cannot chat. Generic response — never reveals the block to the other side.
+// ⚠ A LOBBY needs no check: JoinQueue.php's SWUJoinBlocked already refuses a blocked player a seat,
+// so two mutually-blocked players can never be in one room. A MATCH does need one — the Sideboard
+// sits BETWEEN games, where the per-game check has no gameName to work with.
+if ($folderPath === 'SWUSim') {
     $swuMatchFlow = __DIR__ . '/SWUSim/MatchFlow.php';
     if (is_file($swuMatchFlow)) {
         include_once $swuMatchFlow;
-        if (function_exists('SWUAreGamePlayersBlocked') && SWUAreGamePlayersBlocked($gameName)) {
-            echo "Chat disabled."; exit;
+        $chatBlocked = false;
+        if ($scope['kind'] === 'game' && function_exists('SWUAreGamePlayersBlocked')) {
+            $chatBlocked = SWUAreGamePlayersBlocked($gameName);
+        } else if ($scope['kind'] === 'match' && function_exists('MatchArePlayersBlocked')) {
+            $chatBlocked = MatchArePlayersBlocked('SWUSim', substr($gameName, 2));
         }
+        if ($chatBlocked) { echo "Chat disabled."; exit; }
     }
 }
 
@@ -51,6 +74,10 @@ $whisperTo = [];
 $whisperRaw = TryGET("whisperTo", "");
 if (trim(strval($whisperRaw)) !== "") {
     include_once './Core/ChatWhisper.php';
+    // Whispers are GAME-ONLY. Twin Suns seats are not assigned until the host presses Start, so a
+    // room whisper has no addressable target, and the Sideboard is two-player, where a whisper is
+    // just a message.
+    if ($scope['kind'] !== 'game')          { echo "Whispers are only available in a game."; exit; }
     if (!empty($viewerInfo['isSpectator'])) { echo "Spectators cannot whisper."; exit; }
     // An empty folderPath skips auth above, and there is no sim policy to consult — never a whisper.
     $whisperPolicy = ($folderPath !== "") ? __DIR__ . '/' . $folderPath . '/Custom/ChatWhisperPolicy.php' : '';

@@ -6,11 +6,11 @@
 #//   resulting from Support and any abilities triggered during the attack are resolved." (Ambush: the same, 7.5 f.)
 #//
 #// FOUND BY: sweep run 5, retro #1 (2026-09-14): ORDER ASH_009:SupportOnAttack + LAW_037:OnAttack +
-#//   SEC_099:SWU_PLOT_WINDOW (aggro_ahsoka_blue.normal_talzin_force.s047, round 5). Ahsoka deployed; P1 resolved
+#//   SEC_099:SWU_PLOT_WINDOW (ahsoka_blue.talzin_force.s047, round 5). Ahsoka deployed; P1 resolved
 #//   Support first; Han Solo attacked; the STILL-PENDING Plot window was offered beside the attack's two On
 #//   Attacks, the bot took it, and Jar Jar and Naboo Royal Starship were played MID-ATTACK (Jar Jar's +2/+2 landed
 #//   on the attacking Han). A sibling shape in the same retro: Blue Leader's pending Ambush offered beside Mando's
-#//   N-1 Support attack's On Attacks (aggro_ahsoka_yellow.control_dedra_colossus.s030, round 6).
+#//   N-1 Support attack's On Attacks (ahsoka_yellow.dedra_colossus.s030, round 6).
 #//
 #// FIXED 2026-09-14 (section 1 was RED): the combat resume already scoped its prompts to the attack's own batch
 #//   (bug #976d's batchStart), but FlushCombatTriggerBag's FIRST ordering prompt — and the cross-player

@@ -4,7 +4,7 @@
 #// order decides whether P2 discards: Ravager first removes the cheap target the discard needs.
 #//
 #// FOUND BY: sweep run 5, retro #7 (2026-09-14): ORDER ASH_102:ASH_102 + LAW_075:WhenPlayed (1×,
-#//   normal_luke_datavault.normal_piett_red.s085). Newly reachable: Piett red now casts Ravager.
+#//   luke_datavault.piett_red.s085). Newly reachable: Piett red now casts Ravager.
 #//
 #// Cards: LAW_075 Interrogation Droid 3/1 ground · SOR_095 Battlefield Marine 3/3 cost 2 (P2) · SOR_164 Wampa 4/5
 #//   cost 4 (P2) · P2 holds two cards.

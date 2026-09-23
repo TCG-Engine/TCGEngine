@@ -20,7 +20,7 @@ foreach (['preview' => 'premier', 'eternal-preview' => 'eternal', 'padawan-previ
 }
 
 // A real Premier list with one HMW card swapped in: Premier-legal now. An IC27 card: preview formats and Open only.
-$text = implode("\n", array_filter(explode("\n", file_get_contents('./SWUSim/Tests/BotFixtures/meta-2026-09/aggro_vader_yellow.txt')),
+$text = implode("\n", array_filter(explode("\n", file_get_contents('./SWUSim/Tests/BotFixtures/meta-2026-09/vader_yellow.txt')),
     fn($l) => !str_starts_with($l, '#')));
 $r = SWUResolveDeckInput($text);
 $checks['fixture resolves'] = !empty($r['success']);

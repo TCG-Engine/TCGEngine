@@ -15,7 +15,7 @@ as a counterpart to the owner-written guides in [bot-openers-research.md](bot-op
 knowledge; this is a hypothesis. Where the two disagree, the owner's file wins — and the disagreement is the
 interesting part, so corrections here are worth more than agreement.
 
-Deck: `normal_luke_datavault` — Luke Skywalker, Hero of Yavin (JTL_012) · Green Data Vault.
+Deck: `luke_datavault` — Luke Skywalker, Hero of Yavin (JTL_012) · Green Data Vault.
 Source list: melee.gg 438966, #6 of 72 (5-2-1).
 
 ## What the deck is
@@ -40,7 +40,7 @@ ground, `When Played: You may attack with a unit`) and **Sudden Ferocity** (3 �
 ---
 
 ## Luke · Green Data Vault | Midrange space aggro (Plot Cinta Kaz → Luke pilot)
-<sub>`normal_luke_datavault` — Luke Skywalker, Hero of Yavin - Data Vault</sub>
+<sub>`luke_datavault` — Luke Skywalker, Hero of Yavin - Data Vault</sub>
 
 Generally want to resource **one Cinta Kaz and one Sudden Ferocity** to Plot on the flip turn, plus Kelleran Beq
 (7) — it is the most expensive card in the deck and the least castable. Note 6 + 3 = 9 > the 6 resources the flip

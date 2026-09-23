@@ -2,7 +2,7 @@
 """Train the value model (spec 2026-09-19 §6): L2 logistic regression, solved exactly (Newton) over memory-mapped chunks.
     python3 SWUSim/DevTools/rl/value_train.py --data /tmp/value_run1/chunks --model /tmp/value_run1/value-model.json \
         --report /tmp/value_run1/report.json --holdout-seeds v0037,v0038,v0039,v0040 \
-        --holdout-decks control_thrawn_yellow,aggro_greef,normal_obiwan_vergence
+        --holdout-decks thrawn_yellow,greef,obiwan_vergence
 Deterministic: exact solve, chunks in file order. --drop removes collinear columns (the model names what it uses). Prints the pre-registered OFFLINE GATE."""
 import argparse, json, os
 import numpy as np

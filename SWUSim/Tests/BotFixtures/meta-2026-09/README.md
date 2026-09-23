@@ -25,35 +25,35 @@ authoritative; the filename prefix is now only a historical label and must not b
 
 | File | Style | Flavours |
 |---|---|---|
-| aggro_vader_yellow | hyperaggro | space |
-| aggro_ahsoka_yellow | softaggro | mixed-space |
-| aggro_ahsoka_blue | softaggro | ground, combo |
-| aggro_boba_lakecountry | softaggro | burn |
-| aggro_greef | softaggro | go-wide, mixed |
-| normal_maul_blueforce | midrange | tempo, force |
-| normal_talzin_force | midrange | tempo, force |
-| normal_luke_datavault | softaggro | space, combo, pilot |
-| normal_piett_red | midrange | capital-ship |
-| control_krennic_splash | softcontrol | credit-ramp |
-| control_lando_blue | softcontrol | credit-ramp, tempo |
-| control_piett_blue | softcontrol | capital-ship |
-| control_aurra_red | hardcontrol | hard |
-| control_dedra_colossus | hardcontrol | hard |
+| vader_yellow | hyperaggro | space |
+| ahsoka_yellow | softaggro | mixed-space |
+| ahsoka_blue | softaggro | ground, combo |
+| boba_lakecountry | softaggro | burn |
+| greef | softaggro | go-wide, mixed |
+| maul_blueforce | midrange | tempo, force |
+| talzin_force | midrange | tempo, force |
+| luke_datavault | softaggro | space, combo, pilot |
+| piett_red | midrange | capital-ship |
+| krennic_splash | softcontrol | credit-ramp |
+| lando_blue | softcontrol | credit-ramp, tempo |
+| piett_blue | softcontrol | capital-ship |
+| aurra_red | hardcontrol | hard |
+| dedra_colossus | hardcontrol | hard |
 
-**Second batch (2026-09-15)** — eight owner-supplied lists (a ninth, Mother Talzin on Crystal Caves, turned out to be the SAME decklist as `normal_talzin_force` and was dropped): B-tier decks and newer lists, several from events
+**Second batch (2026-09-15)** — eight owner-supplied lists (a ninth, Mother Talzin on Crystal Caves, turned out to be the SAME decklist as `talzin_force` and was dropped): B-tier decks and newer lists, several from events
 outside the research data (each header says which). They are not "best of archetype" picks. RL run 3 never
 saw them (the trainer lists its decks at startup), so they double as a held-out set for the learned layer.
 
 | File | Style | Flavours |
 |---|---|---|
-| normal_armorer_nabat | midrange | go-tall, upgrades |
-| normal_obiwan_vergence | midrange | go-wide, force, high-hp |
-| normal_greef_datavault | midrange | go-wide, mixed |
-| aggro_chewbacca_outpost | hyperaggro | hyper, credit |
-| control_thrawn_yellow | softcontrol | combo, when-defeated |
-| control_thrawn_datavault | softcontrol | bombs |
-| control_mando_colossus | hardcontrol | hard, combo |
-| control_aurra_datavault | softcontrol | setup |
+| armorer_nabat | midrange | go-tall, upgrades |
+| obiwan_vergence | midrange | go-wide, force, high-hp |
+| greef_datavault | midrange | go-wide, mixed |
+| chewbacca_outpost | hyperaggro | hyper, credit |
+| thrawn_yellow | softcontrol | combo, when-defeated |
+| thrawn_datavault | softcontrol | bombs |
+| mando_colossus | hardcontrol | hard, combo |
+| aurra_datavault | softcontrol | setup |
 
 **Third batch (2026-09-16)** — one deck, promoted from the field set at the owner's request because the gate set
 covered no **defensive / heal** deck at all. Every other fixture either races, trades, or stalls behind Sentinels;
@@ -61,13 +61,13 @@ none of them heals to win.
 
 | File | Style | Flavours |
 |---|---|---|
-| normal_lukeash_datavault | midrange | none — see its header |
+| lukeash_datavault | midrange | none — see its header |
 
-⚠ **`normal_lukeash_datavault` and `normal_luke_datavault` are DIFFERENT DECKS that share an archetype key.**
+⚠ **`lukeash_datavault` and `luke_datavault` are DIFFERENT DECKS that share an archetype key.**
 Two Luke leaders both play Green Data Vault:
-- `normal_lukeash_datavault` — ASH_005 *I Can Save Him*: grindy midrange blue-green Hero, defensive, heal-based.
+- `lukeash_datavault` — ASH_005 *I Can Save Him*: grindy midrange blue-green Hero, defensive, heal-based.
   35 entries, 46.4% over 207 matches.
-- `normal_luke_datavault` — JTL_012 *Hero of Yavin*: soft aggro / midrange SPACE, the Plot Cinta Kaz → Luke pilot
+- `luke_datavault` — JTL_012 *Hero of Yavin*: soft aggro / midrange SPACE, the Plot Cinta Kaz → Luke pilot
   deck. 94 entries, 52.5% over 575 matches.
 
 They differ by 6 points and play nothing alike, so "Luke DV" unqualified is always ambiguous — say Luke (ASH) or
@@ -79,8 +79,8 @@ Run a pairing with each deck on its own style's profile:
 
     docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d apc.enable_cli=1 -d xdebug.mode=off \
       DevTools/SWUSimBotSelfPlayTest.php --games=8 \
-      --deck=SWUSim/Tests/BotFixtures/meta-2026-09/aggro_vader_yellow.txt --chooser=heuristic-aggro \
-      --deck2=SWUSim/Tests/BotFixtures/meta-2026-09/control_krennic_splash.txt --chooser2=heuristic-control
+      --deck=SWUSim/Tests/BotFixtures/meta-2026-09/vader_yellow.txt --chooser=heuristic-aggro \
+      --deck2=SWUSim/Tests/BotFixtures/meta-2026-09/krennic_splash.txt --chooser2=heuristic-control
 
 With deterministic bots, a seed plays the same game whichever seat goes first. To get more distinct games,
 vary the seed and swap which deck sits in seat 1, rather than swapping the first player.

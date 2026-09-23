@@ -135,7 +135,21 @@ function SWUValueVector(array $features): array {
 // acting seat's own style from $ctx. SWU_VALUE_LOG_RATE (default 1) keeps a row pair with that probability, decided
 // by a hash of (SWU_VALUE_SEED, decision #) — deterministic, and the engine RNG is never touched.
 function SWUValueLogPosition(array $ctx): void {
+    // CLI sweeps keep the env var and are byte-for-byte unchanged; a live Arenabot game logs into
+    // BotData instead (spec 2026-09-23 §1.4, the optional fourth stream for the value model).
     $path = strval(getenv('SWU_VALUE_LOG') ?: '');
+    $liveGame = false;
+    if ($path === '' && function_exists('SWUBotDataDir')) {
+        $d = SWUBotDataDir();
+        // ⚠ Only take the BotData path if the directory really exists or can be made. Unlike a CLI
+        // sweep, this runs on a LIVE request: a bare file_put_contents warning here lands in the middle
+        // of the game's JSON response and the client's parse fails. CreateGame.php:29-38 documents that
+        // exact failure ("Unexpected server response while joining queue") from the same mistake.
+        if ($d !== '' && (is_dir($d) || @mkdir($d, 0777, true) || is_dir($d))) {
+            $path = $d . '/value.jsonl';
+            $liveGame = true;
+        }
+    }
     if ($path === '' || ($ctx['kind'] ?? '') !== 'free-play') return;
     $n = $GLOBALS['SWUValueLogN'] = intval($GLOBALS['SWUValueLogN'] ?? 0) + 1;
     $rate = getenv('SWU_VALUE_LOG_RATE');
@@ -150,5 +164,8 @@ function SWUValueLogPosition(array $ctx): void {
         $style = strval($styles[$s] ?? ($s === intval($ctx['seat']) ? $ctx['style'] : 'midrange'));
         $lines .= json_encode(array_merge([$s], SWUValueVector(SWUValueFeatures($s, SWUValueHandSnapshot($s), $style)))) . "\n";
     }
-    file_put_contents($path, $lines, FILE_APPEND);
+    // A live game's write is silenced and locked (an overlapping bot poll and human action share the
+    // file); a CLI sweep keeps the original bare call so a broken --out path still fails loudly there.
+    if ($liveGame) @file_put_contents($path, $lines, FILE_APPEND | LOCK_EX);
+    else file_put_contents($path, $lines, FILE_APPEND);
 }

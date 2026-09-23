@@ -82,6 +82,25 @@ function SWUSetupGame($lobby, $opts = []) {
     DecisionQueueController::StoreVariable('SWUCardPool', SWUCardPoolFor(strval($lobby->format ?? ''),
         isset($lobby->cardPool) ? strval($lobby->cardPool) : null));
 
+    // Rematch inputs (spec 2026-09-23 §3). ⚠ An Arenabot game sets isGoldfish and so creates NO Match
+    // record — the deck links exist only on this lobby, right now. Persist them here or the end-game
+    // menu has nothing to offer a rematch from. Inputs only: no authKey, no userId (JoinQueue.php mints
+    // fresh credentials for the new game).
+    if ($mode === 'botpractice') {
+        require_once __DIR__ . '/BotDataRematch.php';
+        $links = [];
+        foreach (($lobby->players ?? []) as $p) {
+            $links[] = method_exists($p, 'getDeckLink') ? strval($p->getDeckLink()) : '';
+        }
+        SWUBotDataWriteRematch(__DIR__ . '/Games/' . $gameName, [
+            'deckLink'  => strval($links[0] ?? ''),
+            'deckLink2' => strval($links[1] ?? ''),
+            'botStyle'  => strval($botStyle ?? ''),
+            'cardPool'  => SWUCardPoolFor(strval($lobby->format ?? ''),
+                               isset($lobby->cardPool) ? strval($lobby->cardPool) : null),
+        ]);
+    }
+
     // Optional fixed per-game RNG seed. Normally LoadPlayerDeck() mints one from random_bytes() the
     // first time it runs, which makes every game's shuffle unpredictable (the point) but also makes a
     // headless self-play run unreproducible — a bot stall found on one run could not be re-entered to

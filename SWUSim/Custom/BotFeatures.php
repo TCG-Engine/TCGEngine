@@ -96,14 +96,45 @@ const SWU_BOT_PART9_FEATURES = ['nogift'];
 // is in hand AND still affordable after the enabler.
 // ⚠ SHIPPED ON THE REPORT, NOT ON A MEASUREMENT, like p7/p9: an unused "next unit you play this phase" grant is
 // strictly zero, so the floor is "no worse". '@no-p10' is the stack before it.
-// Guard: SWUSim/DevTools/tests/bot_enablerfirst_test.php.
+//
+// ⚠ SECOND HALF, added 2026-09-23 from Bug Report #1071 (game 1139599), the SAME mistake one layer up: "it played
+// Han Solo before Neel. ideally, it should play Neel first, then Han Solo. then buff Han Solo with Ahsoka's
+// ability." A softaggro Ahsoka seat with Neel and LAW_037 Han Solo (1 cost, 1/1, 1 POWER, so Neel readies him)
+// both in hand. The scorer's bonus above was live and still lost: on the AGGRO WING the go-wide guide
+// (SWUBotAggroMaxUnitsPick, BotGuides.php) picks the card, it had already chosen to play BOTH — the subset with
+// the most units — and was only deciding which goes first, by "most expensive", which ties at cost 1 and falls
+// through to the HAND INDEX. Its weight is 3.0 soft aggro / 4.0 hyper aggro against the bonus's 0.6, so p10 was
+// inert for every aggro seat and the order was decided by where the cards sat in hand (measured both ways on the
+// reported board). The guide now puts an enabler in its own subset first, under the same switch — '@no-enablerfirst'
+// and '@no-p10' turn off BOTH halves, so they stay one A/B.
+// Guard: SWUSim/DevTools/tests/bot_enablerfirst_test.php (A-E the scorer half, F-J the guide half).
 const SWU_BOT_PART10_FEATURES = ['enablerfirst'];
+
+// Part 11 (2026-09-23): 'mgkeep' — THE FIRST MIDRANGE RULE THIS ENGINE HAS. Owner ruling 2026-09-23 (6):
+// "Resourcing ONE duplicate is fine. Do not resource an efficient on-curve body — a second Koska Reeves (4 cost,
+// 4/4) was the wrong pick." Until now the keep value at rank 2 was the AGGRO WING'S FALLBACK, -$cost ("resource
+// the most expensive card"), with every refinement in BotResourcing.php gated to rank >= 3. The 2026-09-23
+// ablation measured the consequence: every feature group shipped since part 4 changes ZERO games for a midrange
+// seat. Implementation and the clause ORDER (an efficient body is kept even when it IS the duplicate) are in
+// SWUBotChooseResourceCards.
+// MEASURED — and read the second line before trusting the first:
+//   Luke ASH DV vs Krennic: +8.0 on the screen (BH q=0.027 / 8,000 games) and +8.4 on FRESH seeds (51/30,
+//     p=0.026 / 1,000). A screen's winner normally shrinks on confirmation; this one did not.
+//   ⚠ THE GAIN DID NOT GENERALISE. The safety panel (2,016 games: Armorer Nabat, Obi-Wan Vergence, Piett Red,
+//     Talzin Force vs Vader Yellow and Krennic Splash) pooled to −0.2 points, 72/74 discordant, p=0.93. Nothing
+//     was significantly hurt anywhere (worst cell −4.0, q=0.88), which is what a safety panel tests — but at
+//     n=126 a cell can only rule out LARGE harm, and the +8 is so far a Luke ASH DV result, not a midrange one.
+//     Shipped because it is the owner's own ruling, it replicated on its own deck, and no cell shows harm.
+//     Re-measure on the new bot loop before treating the size as real.
+// Records: bot-sweeps/2026-09-23_midrange_arms_result.md, _mgkeep_split_result.md, _mgkeep_safety_result.md.
+// Guard: SWUSim/DevTools/tests/bot_mgresource_test.php.
+const SWU_BOT_PART11_FEATURES = ['mgkeep'];
 
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
                        SWU_BOT_PART7_FEATURES, SWU_BOT_PART8_FEATURES, SWU_BOT_PART9_FEATURES,
-                       SWU_BOT_PART10_FEATURES);   // part 2, then 3-10
+                       SWU_BOT_PART10_FEATURES, SWU_BOT_PART11_FEATURES);   // part 2, then 3-11
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -115,7 +146,7 @@ function SWUBotFeatureGroups(): array {
     $p3 = SWU_BOT_PART3_FEATURES;
     return ['p3' => $p3, 'p4' => SWU_BOT_PART4_FEATURES, 'p5' => SWU_BOT_PART5_FEATURES,
             'p6' => SWU_BOT_PART6_FEATURES, 'p7' => SWU_BOT_PART7_FEATURES, 'p8' => SWU_BOT_PART8_FEATURES,
-            'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES,
+            'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,
@@ -330,9 +361,8 @@ const SWU_BOT_PROPOSALS = [
     'removalready',    // spend removal on READY enemies; an exhausted one cannot attack this round
     'playsurvivor',    // prefer units that survive the opponent's best attacker
     'sentineltiming',  // play a Sentinel late in the round, so it guards their turn
-    // 2026-09-21: the p3d bisection named 'flavourrank' (+54 for Maul piloted as soft control, p=.0016). Its 'tempo'
-    // shift is correct for a tempo MIDRANGE deck and double-counts on a deck already labelled control.
-    'flavourcap',      // apply the flavour rank shift only when the deck's own label is below the control wing
+    // ('flavourcap' — cap the flavour rank shift below the control wing — was DELETED 2026-09-23 with the shift it
+    //  capped: SWU_BOT_FLAVOUR_RANK_SHIFT is now empty, so there is nothing left to cap. See BotFlavours.php.)
     // 2026-09-22 — built from the OWNER'S RESOURCING RULINGS (bot-sweeps/2026-09-21_resourcing_rulings.md), first
     // focused block: soft control vs Vader Yellow.
     'resourcing2',     // control-wing resourcing as the owner's ordered tiers (rulings 1-10, confirmed precedence)
@@ -346,6 +376,29 @@ const SWU_BOT_PROPOSALS = [
     // krennicplan LOST its canary (−44 / 1,000; base damage dealt 14.3 → 7.8). Its parts, for the split (BotRules.php
     // SWU_BOT_KRENNIC_PLAN_ARMS): K1 banking only, K2 only, K3 only, and all but the forced ramp.
     'kpbank', 'kphsd', 'kporder', 'kpnoramp',
+    // 2026-09-23 — the MIDRANGE rulings (bot-sweeps/2026-09-23_midrange_rulings.md). The ablation found every
+    // feature group since p4 changes ZERO games for a midrange seat: they are control-gated or need cards the deck
+    // does not have. These are midrange's first rules of its own.
+    'mgbuff',          // a buff-and-attack Action is priced by what it adds, even when the card applies the buff in
+                       // its own handler (the shipped 'buffattack' only reads the generic APPLY_PHASE_BUFF)
+    'mgtrade',         // while BEHIND ON BOARD POWER, a kill also earns the damage it prevents (target power x base
+                       // rate), so killing a cheap 3-power body beats swinging at the base. 73% of a midrange bot's
+                       // attacks went at the base while it lost the board (BotFallback.php _SWUBotThreatRemoved)
+    'mgsentinel',      // ruling 2/4: keep Sentinels against aggro (3+ power against anyone else), and play one
+                       // ahead of a bigger body against aggro — the only body midrange plays before attacking
+    'mgremoval',       // ruling 3: shrinkfirst's shape for midrange, barred on the target's COST (5+), not its power
+    'mgcost',          // ruling 6 + the defect found while asking: the resourcer judges every card at the cost THIS
+                       // SEAT pays (printed + aspect penalty), so Chimaera is a 9-drop for Luke ASH, not a 7.
+                       // ⚠ Reaches EVERY deck with off-aspect cards, not just midrange — needs its own safety check.
+    // ('mgkeep' SHIPPED 2026-09-23 as feature group 'p11' — its measurements are in the feature comment.) Its two
+    // clauses stay as arms: the split found the halves are NOT separable (+4.8 body alone, +0.8 duplicate alone,
+    // +8.4 together), and the owner intends to re-measure that on the new bot loop.
+    'mgkeepbody',      //   the efficient-body keep alone
+    'mgkeepdup',       //   the spare-duplicate resource alone (no body exception — that IS the isolation)
+    'mgmull',          // ruling 5: the matchup keep test. The bot has NEVER mulliganed; all three traced Luke ASH
+                       // openings were mulligans
+    'landomill',       // owner 2026-09-23, Lando LAW_018: mill MY deck pre-flip (guaranteed Credit → bombs); once the
+                       // leader has flipped and come back, mill THEIRS on a spare resource, or skip it
     'piettcheat',      // owner: "cheat out capital ships" — value a leader's discounted play-from-hand Action
                        // (Piett JTL_005) as the best card it can play, and pick the best card at its prompt.
                        // Measured +7 alone (11/1,000 games changed), 0 on top of resourcing3: kept OFF (owner 2026-09-22).

@@ -4,7 +4,7 @@
 // mulligan YESNO (block 10) and then a static PushPregameSnapshot + ChooseStartingResource (block 50). Nabat Village
 // skips the mulligan, so the static became the FRONT decision — and GetNextTurn renders the raw queue without running
 // statics, so nothing ever processed it: the game stalled in setup. FOUND 2026-09-15 by the bot fixture smoke
-// (normal_armorer_nabat in seat 1: "stalled after 20 consecutive no-op steps", gap "CUSTOM PushPregameSnapshot|1").
+// (armorer_nabat in seat 1: "stalled after 20 consecutive no-op steps", gap "CUSTOM PushPregameSnapshot|1").
 // With Nabat in seat 2 it hid: seat 1's actions drained seat 2's statics (ProcessGoldfishAutomation).
 // Sibling of DevTools/tdd-regression/test_mulligan_reprompt.php (the same "no static in front" rule).
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php DevTools/tdd-regression/test_nabat_pregame_front_decision.php

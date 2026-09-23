@@ -19,7 +19,7 @@ $post = function (array $fields) use ($URL) {
 $gamesBefore = count(glob($ROOT . '/SWUSim/Games/*') ?: []);
 
 // A) A pasted list (the fixture format the free-text importer accepts).
-$list = (string)file_get_contents($ROOT . '/SWUSim/Tests/BotFixtures/meta-2026-09/aggro_vader_yellow.txt');
+$list = (string)file_get_contents($ROOT . '/SWUSim/Tests/BotFixtures/meta-2026-09/vader_yellow.txt');
 $a = $post(['rootName' => 'SWUSim', 'deckLink' => $list]);
 $check(is_array($a) && ($a['ok'] ?? false) === true, 'a pasted list is classified', json_encode($a));
 $check(in_array($a['style'] ?? '', ['hyperaggro', 'softaggro', 'midrange', 'softcontrol', 'hardcontrol'], true),

@@ -4,7 +4,7 @@
 #// ground unit, so its 3 damage goes to a ground unit.
 #//
 #// FOUND BY: sweep run 3, retro #1 (2026-09-13): ORDER ASH_102:ASH_102 + LAW_038:Shielded (1×,
-#//   aggro_ahsoka_blue.control_piett_blue.s005, round 8, seat 2). Not seen in run 2 (its Shielded pairs were
+#//   ahsoka_blue.piett_blue.s005, round 8, seat 2). Not seen in run 2 (its Shielded pairs were
 #//   ASH_048 and LAW_118 — see Ravager_PlayTrigger_vsWhenPlayedAndShielded.md).
 #//
 #// Cards: LAW_038 Lepi Lookout 3/1 ground (Shielded, Overwhelm) · SOR_095 Battlefield Marine 3/3 (P2) · SOR_237

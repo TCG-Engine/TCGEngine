@@ -25,8 +25,8 @@ deck shape and NOT reviewed. Sizes are checked by `SWUSim/DevTools/check_fixture
 | `starter_twi_ahsoka` | starter (TWI) | 50 | 2.86 | 0 | aggro | 5 / 12 |
 | `starter_sor_vader` | starter (SOR) | 50 | 3.16 | 0 | aggro | **6 / 12** |
 
-**Baseline 2026-09-15: the bots convert 81%** (weak decks won 20 of 108 against aggro_vader_yellow,
-control_krennic_splash and normal_maul_blueforce, both seats, 2 seeds).
+**Baseline 2026-09-15: the bots convert 81%** (weak decks won 20 of 108 against vader_yellow,
+krennic_splash and maul_blueforce, both seats, 2 seeds).
 
 ★ **The two outliers are the finding.** A 2024 SOR starter deck goes EVEN with the September meta in bot hands, and
 the TWI Ahsoka starter takes 42%. Starter decks are simple: cheap units, attack. That our bots keep pace with the

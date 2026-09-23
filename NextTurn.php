@@ -374,6 +374,14 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         if ($__theme !== 'neutral' && @file_exists(($_SERVER['DOCUMENT_ROOT'] ?? '') . $__themePath)) {
           $__board[] = $__themePath;
         }
+        // SWUSim's New Petranaki HUD glass TOKENS + the .pa-glass layers, so the in-game sidebar can
+        // be the same surface as the rest of the site (owner, 2026-09-22).
+        // ⚠ Deliberately NOT swusim-overrides.css: that file carries per-surface selectors for SITE
+        // pages (nav chips, .container panels, the waiting-room card) which have no business running
+        // on a game board. css/petranaki-glass.css is the tokens and the reusable class only.
+        if ($folderPath === 'SWUSim') {
+          $__board[] = '/TCGEngine/SharedUI/Sites/SWUSim/css/petranaki-glass.css';
+        }
         foreach ($__board as $__f) {
           echo '      <link rel="stylesheet" href="' . _VersionAsset($__f) . "\">\n";
         }

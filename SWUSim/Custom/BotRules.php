@@ -260,8 +260,45 @@ function SWUBotRuleFreeKill(array $ctx): ?array {
 // (the play and its target answer), so the plan follows the line that actually removes the threat; among lines,
 // more ready enemy power removed wins, then the one that also draws.
 // 'shrinkfirst2' is the same rule with the threat bar at 2 power instead of 3 — the threshold test.
+// PROPOSAL 'mgremoval' (default OFF, "@try-mgremoval") — owner ruling 2026-09-23 (3). The midrange seat gets the
+// same rule with a DIFFERENT bar: "same shape as shrinkfirst, but the target must have COST 5+ — usually best to
+// remove a threat they just wasted resources on." So the filter is the enemy's INVESTMENT, not its power: a ready
+// 5-drop is worth answering before it swings even at 3 power, and a cheap 4-power body is not worth a card.
+// Cost is the cost THEY paid, so the aspect penalty is theirs — _SWUBotSeatCost is called for the opponent's seat.
+const SWU_BOT_MG_REMOVAL_COST = 5;
+
+// PROPOSAL 'mgsentinel' — the PLAY-ORDER half (the resourcing half is in BotResourcing.php, the "ahead of a
+// bigger body" half is a fallback bonus in BotFallback.php). Owner rulings 2026-09-23, 2 and 4:
+//   "Playing: priority against aggro — a Sentinel goes down ahead of a bigger non-Sentinel body."
+//   "Board presence when behind: play a body before attacking ONLY for SENTINELS. Otherwise judge the board by
+//    POWER, not by body count."
+// This is the owner's CORRECTION of 'blockerfirst' above, which plays ANY unit before attacking whenever it is
+// behind on BODIES. Two differences, both from the ruling: the body must be a Sentinel, and "behind" is measured
+// in power. Midrange only, and only against an aggro leader — against control the Sentinel is not what is holding
+// the game together, and the ruling says so.
+function SWUBotRuleMgSentinel(array $ctx): ?array {
+    if (!SWUBotProposalOn('mgsentinel') || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    if (SWUBotStyleRank(strval($ctx['style'] ?? '')) !== 2) return null;
+    $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
+    if (!SWUBotOpponentIsAggroLeader($seat)) return null;
+    $power = fn(int $s) => array_sum(array_map(fn($u) => intval($u['attackPower']), SWUBotUnits($s)));
+    if ($power($opp) <= $power($seat)) return null;                 // ruling 4: only while behind, and by POWER
+    $hasAttack = false;
+    foreach ($ctx['actions'] as $a) { if (SWUBotActionKind($a) === 'attack') { $hasAttack = true; break; } }
+    if (!$hasAttack) return null;                                   // nothing to go before: the fallback plays it
+    $plays = [];
+    foreach ($ctx['actions'] as $a) {
+        if (SWUBotActionKind($a) !== 'play') continue;
+        $o = _SWUBotHandObject($seat, $a);
+        if ($o !== null && _SWUBotHasPrintedSentinel(strval($o->CardID))) $plays[] = $a;
+    }
+    return empty($plays) ? null : SWUBotFallbackChoose(array_merge($ctx, ['actions' => $plays]));
+}
+
 function SWUBotRuleShrinkFirst(array $ctx): ?array {
-    if ((!SWUBotFeatureOn('shrinkfirst') && !SWUBotProposalOn('shrinkfirst2')) || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
+    $mg = SWUBotProposalOn('mgremoval') && SWUBotStyleRank(strval($ctx['style'] ?? '')) === 2;
+    if ((!SWUBotFeatureOn('shrinkfirst') && !SWUBotProposalOn('shrinkfirst2') && !$mg)
+        || !_SWUBotIsFreePlay($ctx) || strval(GetCurrentPhase()) !== 'MAIN') return null;
     $bar = SWUBotProposalOn('shrinkfirst2') ? 2 : SWU_BOT_THREAT_WORTH;
     $seat = intval($ctx['seat']); $opp = intval($ctx['opp']);
     // The CONTROL WING as measured: the archetype rank gates WHO uses the rule (soft/hard control — the only seats
@@ -271,11 +308,18 @@ function SWUBotRuleShrinkFirst(array $ctx): ?array {
     // ship check caught exactly that (mid 104/126 until the opponent was held at @no-p6, then 126/126).
     // PROPOSAL 'shrinkfirstall' (default OFF) lifts the control-wing gate: does the shipped p6 rule help every
     // archetype? It was only ever measured on control seats.
-    if (!SWUBotProposalOn('shrinkfirstall')
+    if (!$mg && !SWUBotProposalOn('shrinkfirstall')
         && (SWUBotStyleRank(strval($ctx['style'] ?? '')) < 3 || SWUBotRacingRank(strval($ctx['style'] ?? ''), $seat) < 3)) return null;
     if (!function_exists('SWUBotLookaheadBest')) return null;
-    $threats = array_values(array_filter(SWUBotUnits($opp), fn($u) => $u['ready'] && $u['attackPower'] >= $bar));
+    // 'mgremoval': the bar is the target's COST, not its power (owner ruling 3).
+    $threats = $mg
+        ? array_values(array_filter(SWUBotUnits($opp), fn($u) => $u['ready']
+              && _SWUBotSeatCost($opp, strval($u['cardID'])) >= SWU_BOT_MG_REMOVAL_COST))
+        : array_values(array_filter(SWUBotUnits($opp), fn($u) => $u['ready'] && $u['attackPower'] >= $bar));
     if (empty($threats)) return null;
+    // The line is worth taking when it removes the SMALLEST threat that qualified — under the cost bar a 5-drop
+    // may well hit for 2, and the power bar would then refuse every line that answered it.
+    if ($mg) $bar = max(1, min(array_map(fn($u) => intval($u['attackPower']), $threats)));
     $readyPow = fn() => array_sum(array_map(fn($u) => $u['ready'] ? $u['attackPower'] : 0, SWUBotUnits($opp)));
     $before = $readyPow();
     $handBefore = count(array_filter(GetHand($seat), fn($o) => $o !== null && empty($o->removed)));
@@ -638,6 +682,7 @@ function SWUBotRulesAfterFilter(): array {
         'kill-first'               => 'SWUBotRuleKillFirst',             // proposal 'killfirst'
         'krennic-ramp'             => 'SWUBotRuleKrennicRamp',           // proposal 'krennicramp'
         'blocker-first'            => 'SWUBotRuleBlockerFirst',          // proposal 'blockerfirst'
+        'mg-sentinel'              => 'SWUBotRuleMgSentinel',            // proposal 'mgsentinel' — blockerfirst, corrected
         'free-kill'                => 'SWUBotRuleFreeKill',              // proposal 'freekill' — inert unless "@try-freekill"
         'shrink-first'             => 'SWUBotRuleShrinkFirst',           // proposal 'shrinkfirst' — inert unless "@try-shrinkfirst"
         'no-unused-attacks'        => 'SWUBotRuleNoUnusedAttacks',

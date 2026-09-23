@@ -63,6 +63,9 @@ function SWUBotWeights(string $style, int $seat): array {
         'attackFirst' => [6.00, 6.00, 6.00, 6.00, 6.00],
         'maxUnits'    => [4.00, 3.00, 0.00, 0.00, 0.00],
         'stopPass'    => [1.50, 1.50, 1.50, 1.50, 1.50],
+        // PROPOSAL 'mgtrade' (default OFF) turns this on for MIDRANGE only, below. Zero everywhere means
+        // SWUBotTargetValue's threat term vanishes for every shipped bot.
+        'threat'      => [0.00,  0.00,  0.00,  0.00,  0.00],
     ];
     $col = SWUBotRacingRank($style, $seat);
     $out = [];
@@ -89,6 +92,14 @@ function SWUBotWeights(string $style, int $seat): array {
         && function_exists('SWUBotOverDamageBudget') && SWUBotOverDamageBudget($seat)) {
         foreach (SWU_BOT_DMGBUDGET_SHIFT as $k => $mult) { if (isset($out[$k])) $out[$k] *= $mult; }
     }
+    // PROPOSAL 'mgtrade' (default OFF, "@try-mgtrade"). A MIDRANGE seat prices the THREAT a kill removes, at the
+    // same rate as the base damage it gives up to take it (owner, 2026-09-23 A1/A5b: trade up while behind, and
+    // judge the board by POWER). The condition — only while behind on board power — lives in SWUBotTargetValue,
+    // which is the only reader; this is just the rate. Gated on the ARCHETYPE rank, not the racing rank: a
+    // midrange seat that is racing is ahead, and the behind-check would refuse it anyway.
+    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('mgtrade') && SWUBotStyleRank($style) === 2) {
+        $out['threat'] = $out['base'];
+    }
     return $out;
 }
 
@@ -102,16 +113,11 @@ const SWU_BOT_DMGBUDGET_SHIFT = ['kill' => 1.5, 'removal' => 1.5, 'heal' => 2.0,
 const SWU_BOT_RACING_SHIFT = 2;
 function SWUBotRacingRank(string $style, int $seat): int {
     $rank = SWUBotStyleRank($style);
-    if (function_exists('SWUBotFlavourRankShift')) {
-        $shift = SWUBotFlavourRankShift($seat);
-        // PROPOSAL 'flavourcap' (default OFF). The 'tempo' shift encodes the owner's 2026-09-17 ruling about a tempo
-        // MIDRANGE deck ("a tempo deck would trade") — it moves midrange one step toward control. Applied on top of
-        // a label that is ALREADY control it double-counts: Lando Blue is labelled softcontrol AND tempo, so the
-        // shipped bot pilots it as HARD control. Measured on Maul piloted as soft control (2026-09-21 p3d bisection):
-        // removing 'flavourrank' = +54, p = 0.0016. The cap applies the shift only to a label below the control wing.
-        if ($shift > 0 && $rank >= 3 && function_exists('SWUBotProposalOn') && SWUBotProposalOn('flavourcap')) $shift = 0;
-        $rank += $shift;
-    }
+    // No flavour has shifted rank since 2026-09-23 (SWU_BOT_FLAVOUR_RANK_SHIFT is empty — the owner's ruling, with
+    // the four decks' measurements in BotFlavours.php). The call stays because the table is data: adding a shift
+    // there is how a future flavour would earn one. The 'flavourcap' proposal that capped this shift was deleted
+    // with it — it existed only to undo the double-count on a control-labelled deck.
+    if (function_exists('SWUBotFlavourRankShift')) $rank += SWUBotFlavourRankShift($seat);
     $rank = max(0, min(count(SWU_BOT_ARCHETYPES) - 1, $rank));
     if (function_exists('SWUBotFeatureOn') && !SWUBotFeatureOn('baserace')) return $rank;
     $racing = $GLOBALS['SWUBotTestForceRacing']

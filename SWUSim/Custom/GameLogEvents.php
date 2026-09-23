@@ -61,6 +61,9 @@ function SWULogSourceSuffix(): string {
 function SWULogTriggerSource(string $triggerType, string $cardID): string {
     if ($triggerType === 'SWU_PLOT_WINDOW' || $triggerType === 'AdvantageShed') return '';
     if ($triggerType === 'JTL_169G') return 'JTL_169';        // Shadow Caster re-using a GRANTED When Defeated
+    // SEC_002 Jabba (deployed): the entry's CardID is the DAMAGED unit (so the ordering prompt can tell two
+    // of his triggers apart), but the ABILITY doing the work is Jabba's — the log must say so.
+    if ($triggerType === 'SEC_002') return 'SEC_002';
     $c = preg_replace('/#\d+$/', '', $cardID);
     if ($c === '') return '';
     if (CardTitle($c) !== null && CardTitle($c) !== '') return $c;
@@ -794,4 +797,30 @@ function SWULogDeckPlacement(int $player, int $bottom, int $top = -1): void {
     // Source suffix (user decision 2026-09-11, gamelog-updates #5): one style for every deck placement —
     // "P1 put 1 card on the bottom of their deck (Yoda)", matching SWULogToDeck's hand-origin line.
     AddGameLogEntry('REVEAL', 'P' . $player . ' ' . implode(' and ', $parts) . ' of their deck' . SWULogSourceSuffix(), 'ALL');
+}
+
+// ─── Reading the log back out ──────────────────────────────────────────────────────────────────
+//
+// THE game-log visibility rule: a line is visible when its visibility field is 'ALL', or when the
+// viewer is a seated player named in the field's comma list.
+//
+// ⚠ A SECOND COPY OF THIS RULE LIVES IN GENERATED SWUSim/GetNextTurn.php and cannot be removed —
+// that file is produced by zzGameCodeGenerator.php and must never be hand-edited. The two are pinned
+// against each other by SWUSim/DevTools/tests/gamelog_visibility_parity_test.php. If you change one,
+// change zzGameCodeGenerator.php too and re-run that test; a silent divergence means the Sideboard
+// log starts showing a player their opponent's private draws.
+//
+// ⚠ A MISSING visibility field defaults to ALL, matching the generated reader exactly. Do not
+// "harden" that to deny-by-default here alone — it would diverge, and the parity test would fail.
+function SWUFilterGameLogForViewer($rawLog, $viewerSeat, $isSpectator) {
+    $out = [];
+    $vSeatTag = 'P' . intval($viewerSeat);
+    foreach (explode('<NL>', strval($rawLog)) as $entry) {
+        if ($entry === '') continue;
+        $logVis = explode('|', $entry, 3)[1] ?? 'ALL';
+        if ($logVis === 'ALL' || (!$isSpectator && in_array($vSeatTag, array_map('trim', explode(',', $logVis)), true))) {
+            $out[] = $entry;
+        }
+    }
+    return $out;
 }

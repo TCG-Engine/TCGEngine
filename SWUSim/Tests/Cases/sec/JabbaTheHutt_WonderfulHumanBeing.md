@@ -177,6 +177,11 @@ P1LEADER:DEPLOYED
 #// SEC_002 Jabba the Hutt (deployed) — the reaction also fires on non-combat damage. P2 plays Open Fire
 #// (SOR_172, deal 4) onto P1's Consular Security Force (SOR_046, 3/7), which survives. Jabba then has that
 #// unit deal 4 to an enemy unit; P1 targets Death Star Stormtrooper (SOR_128, 3/1), defeating it.
+#// ⚠ The `P1>Drain` is a HARNESS step, not a game step: Jabba's trigger is queued as a static CUSTOM on
+#// the damaged unit's controller, who here is the NON-acting player. Production runs
+#// ProcessGoldfishAutomation after every action, which drains every live seat's static queue in the same
+#// request, so the offer reaches P1 immediately; the harness only drains the acting seat and has to be
+#// told. Same shape as core/SplitDamageFiresOnUnitDamagedObservers.md's `P2>Drain`.
 ## GIVEN
 CommonSetup: bbk/bbk/{myLeader:SEC_002:1:1:1;myBase:JTL_019;theirBase:SOR_021}
 SkipPreGame: true
@@ -190,6 +195,7 @@ WithP2GroundArena: SOR_128:1:0
 ## WHEN
 - P2>PlayHand:0
 - P2>AnswerDecision:theirGroundArena-0
+- P1>Drain
 - P1>AnswerDecision:theirGroundArena-0
 ## EXPECT
 P1GROUNDARENAUNIT:0:DAMAGE:4
@@ -371,3 +377,152 @@ P2GROUNDARENAUNIT:0:CARDID:LAW_124
 P2GROUNDARENAUNIT:0:DAMAGE:3
 P1GROUNDARENAUNIT:0:DAMAGE:4
 P1GROUNDARENAUNIT:1:DAMAGE:4
+
+---
+
+# Deployed_ONEEffectDamagesTWOFriendlies_StillOnlyONEUse
+#// ★ BUG (game 1110356). The once-each-round gate was read when the trigger was QUEUED but only written
+#// when the offer RESOLVED, so a single effect that damages SEVERAL friendly units at once observed each
+#// one before any offer had resolved: every hit saw an unspent round and every hit got its own offer.
+#// Live report: Twin Suns, P1 deployed Qi'ra (SHD_002 — "deal damage to each unit equal to half its
+#// remaining HP"), which damaged Bazine Netal AND Qi'ra herself in one event, and deployed Jabba let P1
+#// ping for 1 and then for 4.
+#// Driver here is the same divided-damage funnel the core file uses: P2's SHD_177 Vambrace Flamethrower
+#// splits 3 among P1's two Consular Security Forces (2 + 1, both survive on 7 HP). That is TWO qualifying
+#// "another friendly unit dealt damage and survives" hits from ONE effect, and Jabba may be used for only
+#// one of them — P1 takes the 2 and there must be no second prompt left over.
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_002:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SHD_177
+## WHEN
+- P2>AttackGroundArena:0:BASE
+- P2>AnswerDecision:YES
+- P2>AnswerDecision:theirGroundArena-0:2,theirGroundArena-1:1
+- P1>Drain
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P1GROUNDARENAUNIT:1:DAMAGE:1
+P2GROUNDARENAUNIT:0:DAMAGE:2
+P1NODECISION
+P2NODECISION
+#// ⚠ These two guard the OBSERVER continuation on the trigger resume. The batch is flushed from the DAMAGE
+#// funnel, where no action of its own is open — a bare resume would call SWUAfterAction here, closing P2's
+#// attack a second time and swapping the turn twice (which with two seats lands back on P2 and reads as a
+#// free extra action). Deliberately no P1OnlyActions in this section, or TURNPLAYER is unobservable.
+NOEXTRAACTION
+TURNPLAYER:1
+
+---
+
+# Deployed_TWOSimultaneousTriggers_TheOTHEROneIsChoosable
+#// ⚠ THE MIRROR of the section above, and the only thing that can tell a real CHOICE from a relabelled
+#// fixed order: same board, same split (2 onto P1's first Security Force, 1 onto the second), but P1
+#// picks the unit that took 1 instead of the one that took 2, so the enemy takes 1 rather than 2.
+#// CR 7.6.9 — two triggers of the same ability go off in one window and the controlling player chooses
+#// which resolves first; Jabba's "only once each round" then makes the loser fizzle. Without the
+#// ordering prompt P1 is silently locked into whichever unit the damage funnel happened to hit first.
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_002:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SHD_177
+## WHEN
+- P2>AttackGroundArena:0:BASE
+- P2>AnswerDecision:YES
+- P2>AnswerDecision:theirGroundArena-0:2,theirGroundArena-1:1
+- P1>Drain
+- P1>AnswerDecision:EffectStack-1
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P1GROUNDARENAUNIT:0:DAMAGE:2
+P1GROUNDARENAUNIT:1:DAMAGE:1
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P1NODECISION
+P2NODECISION
+
+---
+
+# Deployed_TWOSimultaneousTriggers_TheChoiceIsACTUALLYOffered
+#// The prompt itself, asserted before it is answered: with two simultaneous Jabba triggers pending, the
+#// FIRST thing P1 is asked is which damaged unit deals its damage — not an enemy target. Leaving the
+#// decision unanswered is what makes the tooltip readable; the two sections above then drive it.
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_002:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SHD_177
+## WHEN
+- P2>AttackGroundArena:0:BASE
+- P2>AnswerDecision:YES
+- P2>AnswerDecision:theirGroundArena-0:2,theirGroundArena-1:1
+- P1>Drain
+## EXPECT
+P1DECISIONTOOLTIP:Choose_trigger_to_resolve
+P1SELECTABLEEXACT:EffectStack-0&EffectStack-1
+
+---
+
+# Deployed_TWOSimultaneousTriggers_DecliningTheCHOSENOneStillOffersTheOther
+#// The branch the batching exists for, and the one the fizzle fix must NOT eat. USER RULING 2026-09-07:
+#// declining a triggered "you may" does not spend "once each round", so the trigger P1 did not pick is
+#// still owed to them. P1 picks the unit that took 2, DECLINES its offer (the round stays unspent), and
+#// the other trigger is then offered for 1 — which P1 takes.
+#// ⚠ Mirror-read this against Deployed_ONEEffectDamagesTWOFriendlies_StillOnlyONEUse: identical up to the
+#// decline, and there the second trigger must NOT appear. Accept → fizzle, decline → offered.
+## GIVEN
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_002:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+WithActivePlayer: 2
+WithInitiativePlayer: 2
+WithInitiativeClaimed: true
+WithP1GroundArena: SOR_046:1:0
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:SHD_177
+## WHEN
+- P2>AttackGroundArena:0:BASE
+- P2>AnswerDecision:YES
+- P2>AnswerDecision:theirGroundArena-0:2,theirGroundArena-1:1
+- P1>Drain
+- P1>AnswerDecision:EffectStack-0
+- P1>AnswerDecision:-
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:DAMAGE:1
+P1NODECISION
+P2NODECISION

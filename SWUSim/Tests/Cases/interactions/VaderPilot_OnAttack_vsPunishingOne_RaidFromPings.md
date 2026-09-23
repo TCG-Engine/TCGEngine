@@ -5,7 +5,7 @@
 #// (Raid, counted while attacking). Same family as VaderPilot_OnAttack_vsFiresprayAndJustifier.md.
 #//
 #// FOUND BY: sweep run 5, retro #4 (2026-09-14): ORDER JTL_142:OnAttackFromUpgrade + SEC_171:OnAttack (1×,
-#//   control_dedra_colossus.aggro_boba_lakecountry.s047).
+#//   dedra_colossus.boba_lakecountry.s047).
 #//
 #// Cards: Punishing One 3/5 space + Vader (+3/+3) = 6 · SOR_095 Battlefield Marine 3/3 · SOR_164 Wampa 4/5 (both P2,
 #//   ground; a ping damages but does not defeat them) · SOR_225 TIE/ln 2/1 (P2, space; a ping defeats it). On the

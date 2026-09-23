@@ -59,16 +59,45 @@ WithActivePlayer: 1
 TURNPLAYER:1
 MD;
 
+// ⚠ THESE CALLS MUST CARRY A LOGGED-IN SESSION.
+// SWUSim needs no account to PLAY but DOES need one to CHAT (owner ruling, 2026-09-21, shipped in
+// cda64549). This fixture used a bare file_get_contents with no cookie jar, so every SubmitChat.php
+// call was anonymous and answered "Log in to chat." — which silently turned both whisper suites red
+// (16 of 20 and 29 of 37) from that commit onward, INCLUDING the plain "public message still OK"
+// case. Nothing was wrong with the whisper code; the fixture simply could not speak any more.
+//
+// curl with a per-process cookie jar, not file_get_contents: the session cookie is the whole point.
+function swuchat_jar(): string
+{
+    static $jar = null;
+    if ($jar === null) {
+        $jar = tempnam(sys_get_temp_dir(), 'swuchat');
+        // Any real account will do — chat is gated on being logged in, not on who you are.
+        swuchat_http_raw('AccountFiles/AttemptPasswordLogin.php',
+                         ['submit' => '1', 'userID' => 'claudebot1', 'password' => 'pass'], $jar);
+    }
+    return $jar;
+}
+
+function swuchat_http_raw(string $path, ?array $post, string $jar): string
+{
+    $ch = curl_init(SWUCHAT_BASE . $path);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 60,
+        CURLOPT_COOKIEJAR => $jar, CURLOPT_COOKIEFILE => $jar,
+    ]);
+    if ($post !== null) {
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+    }
+    $r = curl_exec($ch);
+    curl_close($ch);
+    return $r === false ? '' : (string)$r;
+}
+
 function swuchat_http(string $path, ?array $post = null): string
 {
-    $opts = ['http' => ['timeout' => 60, 'ignore_errors' => true]];
-    if ($post !== null) {
-        $opts['http']['method'] = 'POST';
-        $opts['http']['header'] = "Content-Type: application/x-www-form-urlencoded\r\n";
-        $opts['http']['content'] = http_build_query($post);
-    }
-    $r = @file_get_contents(SWUCHAT_BASE . $path, false, stream_context_create($opts));
-    return $r === false ? '' : $r;
+    return swuchat_http_raw($path, $post, swuchat_jar());
 }
 
 function swuchat_make_game(string $schema): string

@@ -4,7 +4,7 @@
 #// BlueAce_AttacksThroughN1Support_TwoOnAttacks.md and Ahsoka_Deploy_SupportAndPlot.md.
 #//
 #// FOUND BY: sweep run 5, retro #9 (2026-09-14): ORDER ASH_009:SupportOnAttack + SEC_204:OnAttack (1×,
-#//   normal_talzin_force.aggro_ahsoka_yellow.s059).
+#//   talzin_force.ahsoka_yellow.s059).
 #//
 #// Cards: SEC_204 Blue Ace 4/5 space · SOR_095 Battlefield Marine 3/3 (P2, EXHAUSTED — Blue Ace's only target, and
 #//   with 3 < 4 power also the only unit Ahsoka's granted buff could pick). P2 has no space unit: the attack goes to

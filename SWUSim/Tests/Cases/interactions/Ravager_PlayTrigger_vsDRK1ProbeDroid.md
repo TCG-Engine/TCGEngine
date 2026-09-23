@@ -4,7 +4,7 @@
 #// Shield so Ravager's 2 lands; Ravager first spends its 2 on the Shield.
 #//
 #// FOUND BY: sweep run 5, retro #8 (2026-09-14): ORDER ASH_102:ASH_102 + LOF_155:WhenPlayed (2×,
-#//   normal_piett_red.aggro_boba_lakecountry.s086). Newly reachable: Piett red now casts Ravager.
+#//   piett_red.boba_lakecountry.s086). Newly reachable: Piett red now casts Ravager.
 #//
 #// Cards: LOF_155 DRK-1 Probe Droid 2/3 ground · SOR_128 Death Star Stormtrooper 3/1 (P2) with a Shield token (SOR_T02,
 #//   a non-unique upgrade — addressed as its host's subcard theirGroundArena-0.u0).

@@ -21,13 +21,13 @@ defensible. Where a divergence is clearly wrong, it becomes a unit test.
 Partial is fine — a deck with only turns 1-2 filled is still usable. Leave a deck empty if you'd rather not
 guess at it.
 
-> **Start here:** `aggro_ahsoka_blue` and `normal_luke_datavault`. Their head-to-head is the current
+> **Start here:** `ahsoka_blue` and `luke_datavault`. Their head-to-head is the current
 > investigation — real tournaments have it at 52.3% for Ahsoka, our bots at 19.0%, a 33-point miss.
 
 ---
 
 ## Ahsoka · Yellow 30HP | Aggro, mixed arenas / mostly space
-<sub>`aggro_ahsoka_yellow` — Ahsoka Tano, Trust in the Force - Chopper Base</sub>
+<sub>`ahsoka_yellow` — Ahsoka Tano, Trust in the Force - Chopper Base</sub>
 
 ### Turn 1
 - 
@@ -45,7 +45,7 @@ guess at it.
 ---
 
 ## Chewbacca · Alliance Outpost | Hyper aggro
-<sub>`aggro_chewbacca_outpost` — Chewbacca, Hero of Kessel - Alliance Outpost</sub>
+<sub>`chewbacca_outpost` — Chewbacca, Hero of Kessel - Alliance Outpost</sub>
 
 ### Turn 1
 - 
@@ -62,7 +62,7 @@ guess at it.
 ---
 
 ## Greef Karga · Green Data Vault | Go-wide aggro / soft aggro
-<sub>`aggro_greef` — Greef Karga, Gracious Magistrate - Data Vault</sub>
+<sub>`greef` — Greef Karga, Gracious Magistrate - Data Vault</sub>
 
 ### Turn 1
 - 
@@ -80,7 +80,7 @@ guess at it.
 ---
 
 ## Aurra Sing · Green Data Vault | Midrange control (value trades)
-<sub>`control_aurra_datavault` — Aurra Sing, Assassin - Data Vault</sub>
+<sub>`aurra_datavault` — Aurra Sing, Assassin - Data Vault</sub>
 
 ### Turn 1
 - 
@@ -97,7 +97,7 @@ guess at it.
 ---
 
 ## Aurra Sing · Red 30HP | Hard control
-<sub>`control_aurra_red` — Aurra Sing, Assassin - Dragonsnake Bog</sub>
+<sub>`aurra_red` — Aurra Sing, Assassin - Dragonsnake Bog</sub>
 
 ### Turn 1
 - 
@@ -114,7 +114,7 @@ guess at it.
 ---
 
 ## Dedra Meero · Blue Colossus | Hard control
-<sub>`control_dedra_colossus` — Dedra Meero, Not Wasting Time - Colossus</sub>
+<sub>`dedra_colossus` — Dedra Meero, Not Wasting Time - Colossus</sub>
 
 ### Turn 1
 - 
@@ -131,7 +131,7 @@ guess at it.
 ---
 
 ## Krennic · Blue Splash | Credit ramp control (soft/midrange control)
-<sub>`control_krennic_splash` — Director Krennic, Amidst My Achievement - Daimyo's Palace</sub>
+<sub>`krennic_splash` — Director Krennic, Amidst My Achievement - Daimyo's Palace</sub>
 
 ### Turn 1
 - 
@@ -148,7 +148,7 @@ guess at it.
 ---
 
 ## Lando · Blue 30HP | Credit ramp tempo soft control
-<sub>`control_lando_blue` — Lando Calrissian, Full Sabacc - Fortress of the Great Mothers</sub>
+<sub>`lando_blue` — Lando Calrissian, Full Sabacc - Fortress of the Great Mothers</sub>
 
 ### Turn 1
 - 
@@ -165,7 +165,7 @@ guess at it.
 ---
 
 ## The Mandalorian · Blue Colossus | Hard control with late-game bombs
-<sub>`control_mando_colossus` — The Mandalorian, We Can't Keep Running - Colossus</sub>
+<sub>`mando_colossus` — The Mandalorian, We Can't Keep Running - Colossus</sub>
 
 this deck plays under curve an plays minimalistic to be able to take initiative and draw for Mando's leader side ability. the goal is to build a huge hand for 6R Hammerhead strikes and for Aggressive Negotiations closers.
 
@@ -202,7 +202,7 @@ this deck plays under curve an plays minimalistic to be able to take initiative 
 ---
 
 ## Piett · Blue 30HP | Capital Ship soft control
-<sub>`control_piett_blue` — Admiral Piett, Commanding the Armada - Shield Generator Complex</sub>
+<sub>`piett_blue` — Admiral Piett, Commanding the Armada - Shield Generator Complex</sub>
 
 ### Turn 1
 - 
@@ -219,7 +219,7 @@ this deck plays under curve an plays minimalistic to be able to take initiative 
 ---
 
 ## Thrawn · Green Data Vault | Midrange / soft control (bombs)
-<sub>`control_thrawn_datavault` — Grand Admiral Thrawn, ...How Unfortunate - Data Vault</sub>
+<sub>`thrawn_datavault` — Grand Admiral Thrawn, ...How Unfortunate - Data Vault</sub>
 
 ### Turn 1
 - 
@@ -236,7 +236,7 @@ this deck plays under curve an plays minimalistic to be able to take initiative 
 ---
 
 ## Thrawn · Yellow 30HP | Midrange soft control (When-Defeated combo)
-<sub>`control_thrawn_yellow` — Grand Admiral Thrawn, ...How Unfortunate - Mount Tantiss</sub>
+<sub>`thrawn_yellow` — Grand Admiral Thrawn, ...How Unfortunate - Mount Tantiss</sub>
 
 ### Turn 1
 - 
@@ -253,7 +253,7 @@ this deck plays under curve an plays minimalistic to be able to take initiative 
 ---
 
 ## The Armorer · Nabat Village | Midrange aggro go-tall (upgrades)
-<sub>`normal_armorer_nabat` — The Armorer, Steel Shapes Us - Nabat Village</sub>
+<sub>`armorer_nabat` — The Armorer, Steel Shapes Us - Nabat Village</sub>
 
 ### Turn 1
 - 
@@ -270,7 +270,7 @@ this deck plays under curve an plays minimalistic to be able to take initiative 
 ---
 
 ## Greef Karga · Green Data Vault | Mixed midrange aggro go-wide
-<sub>`normal_greef_datavault` — Greef Karga, Gracious Magistrate - Data Vault</sub>
+<sub>`greef_datavault` — Greef Karga, Gracious Magistrate - Data Vault</sub>
 
 ### Turn 1
 - 
@@ -287,7 +287,7 @@ this deck plays under curve an plays minimalistic to be able to take initiative 
 ---
 
 ## Luke · Green Data Vault | Midrange space aggro (Plot Cinta Kaz → Luke pilot)
-<sub>`normal_luke_datavault` — Luke Skywalker, Hero of Yavin - Data Vault</sub>
+<sub>`luke_datavault` — Luke Skywalker, Hero of Yavin - Data Vault</sub>
 
 ### Turn 1
 - ideal T1 is Red Squad Y-Wing
@@ -305,7 +305,7 @@ this deck plays under curve an plays minimalistic to be able to take initiative 
 ---
 
 ## Maul · Blue Force | Tempo / midrange (Force)
-<sub>`normal_maul_blueforce` — Darth Maul, Sith Revealed - Nightsister Lair</sub>
+<sub>`maul_blueforce` — Darth Maul, Sith Revealed - Nightsister Lair</sub>
 
 ### Turn 1
 - 
@@ -322,7 +322,7 @@ this deck plays under curve an plays minimalistic to be able to take initiative 
 ---
 
 ## Obi-Wan · Vergence Temple | Midrange go-wide Force
-<sub>`normal_obiwan_vergence` — Obi-Wan Kenobi, Courage Makes Heroes - Vergence Temple</sub>
+<sub>`obiwan_vergence` — Obi-Wan Kenobi, Courage Makes Heroes - Vergence Temple</sub>
 
 ### Turn 1
 - 
@@ -339,7 +339,7 @@ this deck plays under curve an plays minimalistic to be able to take initiative 
 ---
 
 ## Piett · Red Splash | Capital Ship midrange
-<sub>`normal_piett_red` — Admiral Piett, Commanding the Armada - Stygeon Spire</sub>
+<sub>`piett_red` — Admiral Piett, Commanding the Armada - Stygeon Spire</sub>
 
 ### Turn 1
 - 
@@ -356,7 +356,7 @@ this deck plays under curve an plays minimalistic to be able to take initiative 
 ---
 
 ## Mother Talzin · Yellow Force | Aggressive midrange tempo (Force)
-<sub>`normal_talzin_force` — Mother Talzin, Power Through Magick - Crystal Caves</sub>
+<sub>`talzin_force` — Mother Talzin, Power Through Magick - Crystal Caves</sub>
 
 ### Turn 1
 - 

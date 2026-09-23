@@ -1,6 +1,11 @@
 <?php
 
 function CustomWidgetInput($playerID, $actionCard, $action = '') {
+    // BotData recorder (spec 2026-09-23): the ONLY place the in-flight action's identity exists. The
+    // seam that records it, _SWUOpenAction(), is reached via SaveUndoVersion($playerID) from ~15 sites
+    // below and sees no arguments at all, so the identity is stashed here instead of threaded through
+    // every one of them. Overwritten by the next action; never read outside one.
+    $GLOBALS['SWUBotDataInFlight'] = ['mz' => strval($actionCard), 'verb' => strval($action)];
     $cardArr = explode("-", $actionCard);
     $zone = $cardArr[0];
     switch ($zone) {

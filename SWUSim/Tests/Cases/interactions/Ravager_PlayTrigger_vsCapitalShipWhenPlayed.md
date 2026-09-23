@@ -3,7 +3,7 @@
 #// 9-power ship hits a space unit through Ravager.
 #//
 #// FOUND BY: sweep run 5, retro #5 (2026-09-14): ORDER ASH_102:ASH_102 + SEC_142:WhenPlayed / ASH_149:WhenPlayed /
-#//   JTL_143:WhenPlayed (1× each, control_dedra_colossus.normal_piett_red s092 / s004 / s088). Newly reachable:
+#//   JTL_143:WhenPlayed (1× each, dedra_colossus.piett_red s092 / s004 / s088). Newly reachable:
 #//   Piett red now casts its Capital Ships (Phase 1b part 2, 'keep').
 #//
 #// Cards: SEC_142 Fulminatrix 9/7 ("When Played/On Attack: You may deal 4 damage to a ground unit.") · ASH_149

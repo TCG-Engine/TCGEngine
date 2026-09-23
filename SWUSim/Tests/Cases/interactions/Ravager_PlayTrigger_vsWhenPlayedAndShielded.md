@@ -1,7 +1,7 @@
 #// ASH_102 Ravager (space, 8/10): "When you play a unit: You may have it deal damage equal to its power to a unit in
 #// the same arena." It triggers with the played unit's own When Played / Shielded, and P1 orders them (CR 7.6.9).
 #//
-#// FOUND BY: sweep retros #4–#6 of run 2 (2026-09-13), control_piett_blue: ORDER ASH_102 + LAW_101:WhenPlayed
+#// FOUND BY: sweep retros #4–#6 of run 2 (2026-09-13), piett_blue: ORDER ASH_102 + LAW_101:WhenPlayed
 #//   (28×) · ASH_102 + SEC_037:WhenPlayed (21×) · ASH_052:WhenPlayed + ASH_102 (20×) · ASH_102 + JTL_089 (17×) ·
 #//   ASH_048:Shielded / LAW_118:Shielded + ASH_102.
 #//   All sections were green on first run: this file is REGRESSION COVERAGE, not a bug.

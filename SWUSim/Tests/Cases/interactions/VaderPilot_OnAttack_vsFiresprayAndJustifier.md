@@ -4,8 +4,8 @@
 #// orders end differently. Same family as PilotOnAttack_vsFighterOnAttack_CrossSeatIndirect.md.
 #//
 #// FOUND BY: sweep run 3, retro #2 (2026-09-13): ORDER JTL_142:OnAttackFromUpgrade + JTL_240:OnAttack (e.g.
-#//   aggro_boba_lakecountry.control_lando_blue.s010) · ORDER ASH_146:OnAttack + JTL_142:OnAttackFromUpgrade (e.g.
-#//   aggro_boba_lakecountry.control_dedra_colossus.s029). Not seen in run 2.
+#//   boba_lakecountry.lando_blue.s010) · ORDER ASH_146:OnAttack + JTL_142:OnAttackFromUpgrade (e.g.
+#//   boba_lakecountry.dedra_colossus.s029). Not seen in run 2.
 #//
 #// Cards: JTL_142 Darth Vader (pilot upgrade +3/+3) · JTL_240 Fett's Firespray 4/4 space ("When Played/On Attack:
 #//   Deal 1 indirect damage to a player. If you control Boba Fett … 2 instead." — no Boba here, so 1) · ASH_146

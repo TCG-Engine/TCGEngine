@@ -24,7 +24,7 @@ const OUT = process.env.OUT || '/tmp/arenabot-menu-shots';
 fs.mkdirSync(OUT, { recursive: true });
 const readFixture = (rel) => fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/' + rel, import.meta.url), 'utf8')
   .split('\n').filter(l => !l.startsWith('#')).join('\n').trim();
-const DECK = readFixture('meta-2026-09/aggro_vader_yellow.txt');   // Premier-legal (verified 2026-09-16)
+const DECK = readFixture('meta-2026-09/vader_yellow.txt');   // Premier-legal (verified 2026-09-16)
 const SOR_DECK = readFixture('premier_deck_a.txt');                 // NOT Premier-legal
 
 const ALL = { chromium, firefox, webkit };
