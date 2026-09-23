@@ -1,0 +1,16 @@
+{
+    "name": "verdure-of-preservation-clockwise-preserve",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:43:27+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "wCAIuvPOAT"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["wCAIuvPOAT"],
+        "mechanics": ["zone-movement", "trigger", "condition"],
+        "rulesClauses": [
+            "[Kongming Bonus] Whenever your Shifting Currents change to facing the next clockwise direction, reveal the top card of your deck and put it into your material deck preserved."
+        ]
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "gem-of-searing-flame-north-west-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:41:21+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "v1jaidvvz2"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["v1jaidvvz2"],
+        "mechanics": ["targeting", "damage", "trigger"],
+        "rulesClauses": [
+            "As a Spell, whenever your Shifting Currents change from facing North to West, deal 2 damage to target champion."
+        ]
+    }
+}
