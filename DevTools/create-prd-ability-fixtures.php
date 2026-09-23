@@ -14747,6 +14747,138 @@ $fixtures['twinstar-tonic-sacrifice-starcall-copy'] = [
     ],
 ];
 
+// --- Altruistic Blacksmith: [Class Bonus] On Enter, each player summons a Cheap Sword token,
+// you gain Crowd's Favor ---
+$fixtures['altruistic-blacksmith-summon-cheap-sword'] = [
+    'testedCards' => ['Pd4hj3sveV'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Bug fix under test: Altruistic Blacksmith's On Enter closure (enterAbilities["Pd4hj3sveV:0"],
+    // GeneratedCode/GeneratedMacroCode.php) calls SummonCheapSwordToken() for both players
+    // (GrandArchiveSim/Custom/GameLogic.php ~20210), which previously (a) seeded a placeholder
+    // token ID ("gfq3j98h8d") that does not correspond to any real card, and (b) called
+    // OnWeaponEntered(), a function that was never defined anywhere in the codebase -- triggering
+    // this ability fataled the engine with "Call to undefined function OnWeaponEntered()".
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Pd4hj3sveV'], // Altruistic Blacksmith
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Cleansing Reunion: target player banishes three cards from their graveyard (six if imbued) ---
+$fixtures['cleansing-reunion-banish-graveyard'] = [
+    'testedCards' => ['xpnjvt9y59'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Bug fix under test: Cleansing Reunion is an ACTION card whose ability closure was generated
+    // into $enterAbilities (the ENTER-trigger table, for permanents entering the field) instead of
+    // $cardActivatedAbilities (the table OnCardActivated() dispatches ACTION-card resolution
+    // through). Since it is never a permanent entering the field, its closure was unreachable --
+    // playing it normally was silently a no-op. Cleansing Reunion is WIND element and isn't native
+    // to the "Spirit of Fire" starting champion -- like Deployment Beacon above, the champion's
+    // Subcards are patched with a real WIND champion (Spirit of Wind, pNiyaGlIe7) to unlock element
+    // access via CanPlayerUseCardElement(), or DoActivateCard silently no-ops before ever reaching
+    // reserve payment. The ability's own "target player" is hardcoded to the caster's opponent (no
+    // real MZCHOOSE target choice), so 4 graveyard cards are seeded for player 2 so the 3-card
+    // banish is observable (only 3 of the 4 get banished, proving the banish count and that the
+    // ability now actually runs). This card also carries the Imbue 2 keyword, which inserts a
+    // YESNO "reveal reserved cards?" decision before the ordinary per-card reserve-payment
+    // MZCHOOSE loop; answering NO declines Imbue and pays the plain 2-reserve cost.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide
+        ['player' => 2, 'zone' => 'myGraveyard', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'xpnjvt9y59'], // Cleansing Reunion
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        // Opportunity window: lets the effect stack resolve and reach OnCardActivated's dispatch,
+        // where the now-correctly-classified $cardActivatedAbilities["xpnjvt9y59:0"] closure fires.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        // First MZCHOOSE pick: a SEPARATE, pre-existing bug in this card's own ability body (not
+        // part of the dispatch-classification fix under test here) computes this first offer's
+        // zone name ("theirGraveyard-N") relative to the CASTER's $playerID at queue time, but
+        // player 2 answers it with THEIR OWN $playerID active, so it resolves against player 1's
+        // graveyard instead (banishing Cleansing Reunion itself, which is sitting there having just
+        // resolved) rather than player 2's graveyard. See meta.json notes.
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+        // The chained re-queue (CleansingReunionBanish, run under player 2's own $playerID) offers
+        // "myGraveyard-N" correctly relative to player 2 for the remaining picks.
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Sanctified Paladin: Foster keyword makes it eligible for the recollection-phase Foster
+// check, firing its onFosterAbilities closure (draw two cards) ---
+$fixtures['sanctified-paladin-foster-draw'] = [
+    'testedCards' => ['ioLmt0S7op'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Bug fix under test: HasFoster() (GrandArchiveSim/Custom/CardLogic.php) gates the Foster
+    // keyword behind a hardcoded per-card-ID whitelist that was missing Sanctified Paladin's ID
+    // (ioLmt0S7op), even though its printed text ("**Foster**<br>...<br>**On Foster:** Draw two
+    // cards.") and its onFosterAbilities closure are both correctly in place. Seed it onto the
+    // field freshly (no FOSTERED TurnEffect, no DAMAGED_SINCE_LAST_TURN) so the recollection-phase
+    // Foster check (GameLogic.php ~9852-9892) sees it transition to newly-fostered for the first
+    // time -- only a genuine wasFostered===false -> true transition fires OnFoster(), matching the
+    // same P1->P2->P1 recollection-phase cycle as weaponsmith-class-bonus-durability /
+    // berserker-plate-recollection-damage-draw (turn 1's recollection early-returns; turn 2 fires
+    // it).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ioLmt0S7op'], // Sanctified Paladin
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

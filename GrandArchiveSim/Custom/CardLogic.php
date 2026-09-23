@@ -197,6 +197,7 @@ function HasFoster($obj) {
         "xhi5jnsl7d" => true, // Embershield Keeper
         "zihslnhzj4" => true, // Cell Generator
         "8sugly4wif" => true, // Krustallan Patrol
+        "ioLmt0S7op" => true, // Sanctified Paladin
     ];
     if(isset($fosterCards[$obj->CardID])) return true;
     // [Class Bonus] Foster cards
