@@ -14328,15 +14328,71 @@ $fixtures['samaritan-reach-attacking-ally-damage'] = [
     ],
 ];
 
-// NOTE: Silver Soldier (c3C6PjX0Vt, printed "Retort 2, Vigor") is intentionally NOT covered.
-// GeneratedKeywordCode.php has no entry at all for this card -- HasKeyword_Retort() and
-// HasKeyword_Vigor() both return false for it (verified live: GetRetortValue() computes 0, and a
-// live retaliation dealt only 3 damage, its bare printed POWER, not 5). The generic keyword parser
-// misses comma-separated keyword lines ("Retort 2, Vigor" on one line), the same class of gap
-// GameLogic.php's own HasTaunt()/HasKeyword_Taunt() comments call out for other cards. This is a
-// real pre-existing engine gap (Silver Soldier's printed keywords are not functional), not
-// something a fixture can responsibly paper over -- writing a fixture against the current (buggy)
-// behavior would assert the wrong thing, and one against the intended behavior would just fail.
+// --- Silver Soldier: Retort 2, Vigor (fixed root-cause parser gap) ---
+// GeneratedKeywordCode.php used to have no entry at all for this card -- HasKeyword_Retort() and
+// HasKeyword_Vigor() both returned false for it, because the generic keyword parser
+// (Data/ProcessKeywordsGA.php) only ever recognized the FIRST bold "**Keyword**" span on a line,
+// and also didn't split a single bold span naming multiple keywords on one comma-separated line
+// ("Retort 2, Vigor"). The same class of gap is called out for other cards in GameLogic.php's own
+// HasTaunt()/HasVigor()/HasRetort() whitelist comments (Neos Elemental, Genbu, Guan Yu, etc).
+// The parser was fixed to scan every bold span on a line (not just the first) and to split a
+// single span's comma-separated keyword list, gated by a "pure keyword line" check so an
+// incidental bolded mid-sentence mention (e.g. "...with **floating memory** from your
+// graveyard...") isn't misread as a real grant. GeneratedKeywordCode.php was regenerated and both
+// keywords are now live for Silver Soldier (verified: HasKeyword_Retort=true value=2,
+// HasKeyword_Vigor=true). This fixture proves both mechanically in one scenario: pre-resting
+// Silver Soldier and ending its controller's turn shows Vigor waking it back up (Status 2) even
+// as turn control passes to the opponent -- which is also what makes it eligible to retaliate at
+// all (GetRetaliatorOptions requires Status==2) -- and then having the opponent attack it and
+// choosing to retaliate shows Retort adding its printed +2 on top of Silver Soldier's base 3
+// POWER (5 damage dealt to the attacker), confirmed via GetRetortValue().
+$fixtures['silver-soldier-retort-vigor'] = [
+    'testedCards' => ['c3C6PjX0Vt'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Windslice
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Silver Soldier is seeded directly onto player 1's field, pre-rested (Status 1) to construct
+    // the "Vigor wakes it up" precondition. Giant Tortoise (vanilla ALLY, power 1 / life 6, also
+    // used elsewhere in this file as a plain attacker) is seeded onto player 2's field to attack
+    // it next turn.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'c3C6PjX0Vt'], // Silver Soldier
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 1]], // pre-rest it so Vigor's wake-up is observable
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'L0RmNaDzhk'], // Giant Tortoise, the attacker
+    ],
+    // Verified live via a standalone replay harness (dumping decision-queue contents after each
+    // action) that this exact 4-action sequence is what's needed: after the attack target is
+    // chosen, player 1's very next decision IS the "Retaliate?" MZMAYCHOOSE (single option,
+    // myField-1) -- there is no separate fast-opportunity PASS in front of it for either player
+    // in this deck/scenario (no fast cards in either starting hand), so answering it directly
+    // with the retaliator's own mzID resolves the rest of combat (attacker damage + retaliation
+    // damage + cleanup) in one action. An earlier version of this fixture inserted two PASS
+    // actions here on the assumption the flow would mirror the (unrelated) champion-attack
+    // Samaritan's Reach fixture's extra opportunity passes -- but with nothing pending for player
+    // 2 and no opportunity decision queued ahead of player 1's MZMAYCHOOSE, that second PASS was
+    // instead consumed as declining the MZMAYCHOOSE itself (lastDecision "-"), which skipped
+    // retaliation entirely.
+    'actions' => [
+        // End player 1's turn: triggers Vigor's "wakes up at the beginning of your end phase" on
+        // Silver Soldier even as turn control passes to player 2.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        // Player 2 (now turn player) declares Giant Tortoise's attack against Silver Soldier.
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        // Defender (p1) chooses Silver Soldier as the retaliator, which resolves the whole combat.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
 
 // NOTE: Shade Striker (hVvsKqWsMl, printed "Ambush") is intentionally NOT covered.
 // CombatLogic.php's retaliation-eligibility check (~line 1079) hardcodes a short whitelist of
