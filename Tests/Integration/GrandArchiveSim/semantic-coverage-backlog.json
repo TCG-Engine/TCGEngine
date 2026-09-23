@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-23T00:59:21+00:00",
+    "generatedAt": "2026-09-23T13:28:57+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 437,
+        "cardsWithExistingFixtures": 451,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2053,
+        "cardsNeedingSemanticCoverage": 2039,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -87,26 +87,6 @@
             "priority": 114
         },
         {
-            "cardId": "l8ao8bls6g",
-            "name": "Convalescent Tonic",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "recover",
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "2Ch1Gp3jEL",
             "name": "Corhazi Lightblade",
             "type": "ALLY",
@@ -147,26 +127,6 @@
             "priority": 114
         },
         {
-            "cardId": "ShQkyQMBCT",
-            "name": "Starlit Apothecary",
-            "type": "UNIQUE,DOMAIN",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "token",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "Pd4hj3sveV",
             "name": "Altruistic Blacksmith",
             "type": "ALLY",
@@ -186,44 +146,6 @@
             "priority": 113
         },
         {
-            "cardId": "y5ttkat9hr",
-            "name": "Aqua Vitae",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "counter",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "TrK2lroxkz",
-            "name": "Buoyant Driftguard",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "vkL2RFh0yM",
             "name": "Charm of Anticipation",
             "type": "REGALIA,ITEM",
@@ -238,44 +160,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "qjt0ooffy4",
-            "name": "Lunar Seer",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "2RKjpzEFV6",
-            "name": "Mendcall Mercy",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -319,43 +203,6 @@
             "priority": 113
         },
         {
-            "cardId": "yBDxSHkT1s",
-            "name": "Twinstar Tonic",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "mloejozihs",
-            "name": "Astromech Attendant",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "Dkq7QnrGJI",
             "name": "Besieged Slash",
             "type": "ATTACK",
@@ -387,24 +234,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "me0xxw0plq",
-            "name": "Refracted Twilight",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -449,24 +278,6 @@
             "priority": 112
         },
         {
-            "cardId": "dwZvL9K0Ke",
-            "name": "Trine Recursion",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "uUWsgLmyTk",
             "name": "Unity's Gale",
             "type": "ACTION",
@@ -483,23 +294,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 112
-        },
-        {
-            "cardId": "QAU8WVUZM0",
-            "name": "Celestial Navigation",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
         },
         {
             "cardId": "4c7XZeezka",
@@ -531,23 +325,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "Tst4WbM6O8",
-            "name": "Redirect Orbit",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -605,40 +382,6 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "uqrptjej4m",
-            "name": "Tonic of Remembrance",
-            "type": "ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "tiymuyv3fp",
-            "name": "Waterveil Apostle",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -37593,6 +37336,30 @@
             "priority": 134
         },
         {
+            "cardId": "l8ao8bls6g",
+            "name": "Convalescent Tonic",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "recover",
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "convalescent-tonic-sacrifice-bottom-draw-recover"
+            ],
+            "semanticFixtures": [
+                "convalescent-tonic-sacrifice-bottom-draw-recover"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "BqDw4Mei4C",
             "name": "Creative Shock",
             "type": "ACTION",
@@ -38867,6 +38634,30 @@
             "priority": 134
         },
         {
+            "cardId": "ShQkyQMBCT",
+            "name": "Starlit Apothecary",
+            "type": "UNIQUE,DOMAIN",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "token",
+                "condition"
+            ],
+            "existingFixtures": [
+                "starlit-apothecary-recollection-copy-potion"
+            ],
+            "semanticFixtures": [
+                "starlit-apothecary-recollection-copy-potion"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "6wiHKD52Lw",
             "name": "Stoked Slice",
             "type": "ATTACK",
@@ -39055,6 +38846,31 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "y5ttkat9hr",
+            "name": "Aqua Vitae",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "counter",
+                "condition"
+            ],
+            "existingFixtures": [
+                "aqua-vitae-no-age-bonus-single-draw",
+                "aqua-vitae-sacrifice-age-counters-double-draw"
+            ],
+            "semanticFixtures": [
+                "aqua-vitae-no-age-bonus-single-draw",
+                "aqua-vitae-sacrifice-age-counters-double-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -39265,6 +39081,29 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "TrK2lroxkz",
+            "name": "Buoyant Driftguard",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "buoyant-driftguard-enter-control-transfer-crowds-favor"
+            ],
+            "semanticFixtures": [
+                "buoyant-driftguard-enter-control-transfer-crowds-favor"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -40042,6 +39881,29 @@
             "priority": 133
         },
         {
+            "cardId": "qjt0ooffy4",
+            "name": "Lunar Seer",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "lunar-seer-rest-glimpse-cb"
+            ],
+            "semanticFixtures": [
+                "lunar-seer-rest-glimpse-cb"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "uq2r6v374c",
             "name": "Lurking Assailant",
             "type": "ALLY",
@@ -40108,6 +39970,29 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "2RKjpzEFV6",
+            "name": "Mendcall Mercy",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "mendcall-mercy-recover-opponent-crowds-favor"
+            ],
+            "semanticFixtures": [
+                "mendcall-mercy-recover-opponent-crowds-favor"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -41131,6 +41016,29 @@
             "priority": 133
         },
         {
+            "cardId": "yBDxSHkT1s",
+            "name": "Twinstar Tonic",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "twinstar-tonic-sacrifice-starcall-copy"
+            ],
+            "semanticFixtures": [
+                "twinstar-tonic-sacrifice-starcall-copy"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "4zkTRt8qXn",
             "name": "Uncover the Plot",
             "type": "ACTION",
@@ -41477,6 +41385,28 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "mloejozihs",
+            "name": "Astromech Attendant",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "astromech-attendant-brew-trigger-draw"
+            ],
+            "semanticFixtures": [
+                "astromech-attendant-brew-trigger-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -42546,6 +42476,28 @@
             "priority": 132
         },
         {
+            "cardId": "me0xxw0plq",
+            "name": "Refracted Twilight",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "refracted-twilight-banish-copy-tag"
+            ],
+            "semanticFixtures": [
+                "refracted-twilight-banish-copy-tag"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "TZym0IOInK",
             "name": "Return Stroke",
             "type": "ATTACK",
@@ -43167,6 +43119,28 @@
             "priority": 132
         },
         {
+            "cardId": "dwZvL9K0Ke",
+            "name": "Trine Recursion",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "trine-recursion-graveyard-to-deck-third"
+            ],
+            "semanticFixtures": [
+                "trine-recursion-graveyard-to-deck-third"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "FCbKYZcbNq",
             "name": "Trusty Steed",
             "type": "ALLY",
@@ -43610,6 +43584,27 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "QAU8WVUZM0",
+            "name": "Celestial Navigation",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "celestial-navigation-glimpse-5"
+            ],
+            "semanticFixtures": [
+                "celestial-navigation-glimpse-5"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -44152,6 +44147,27 @@
             "priority": 131
         },
         {
+            "cardId": "Tst4WbM6O8",
+            "name": "Redirect Orbit",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "redirect-orbit-shuffle-draw"
+            ],
+            "semanticFixtures": [
+                "redirect-orbit-shuffle-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "xrbffkghwt",
             "name": "Ritai Berserker",
             "type": "ALLY",
@@ -44260,6 +44276,27 @@
             "priority": 131
         },
         {
+            "cardId": "uqrptjej4m",
+            "name": "Tonic of Remembrance",
+            "type": "ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "tonic-of-remembrance-banish-return-memory"
+            ],
+            "semanticFixtures": [
+                "tonic-of-remembrance-banish-return-memory"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "FwPdj4PkSS",
             "name": "Venerable Sage",
             "type": "ALLY",
@@ -44341,6 +44378,27 @@
             "starterDecks": [
                 "Lorraine Starter Deck",
                 "Lorraine Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "tiymuyv3fp",
+            "name": "Waterveil Apostle",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "waterveil-apostle-recollection-gather"
+            ],
+            "semanticFixtures": [
+                "waterveil-apostle-recollection-gather"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
