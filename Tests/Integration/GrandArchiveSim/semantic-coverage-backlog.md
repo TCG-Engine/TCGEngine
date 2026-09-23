@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **460**
+Cards linked to an existing fixture: **465**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2030**
+Implemented cards still needing semantic coverage: **2025**
 
 ## Mechanic groups
 
@@ -26,16 +26,11 @@ Implemented cards still needing semantic coverage: **2030**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Lorraine, Spirit Ruler (`n2TKqNaODR`) | CHAMPION | 1 | cost, targeting, zone-movement, trigger | Lorraine Pantheon Starter | — |
 | Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
 | Strike of Singularity (`AMv1u54B2s`) | ATTACK | 1 | damage, combat, condition | Zander Pantheon Starter | — |
-| Tactful Sergeant (`7UXGwC7lSO`) | ALLY | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
-| Besieged Slash (`Dkq7QnrGJI`) | ATTACK | 1 | cost, condition | Lorraine Pantheon Starter | — |
 | Slice and Dice (`3jg01o26b4`) | ATTACK | 1 | combat, condition | Zander Pantheon Starter | — |
 | Unity's Gale (`uUWsgLmyTk`) | ACTION | 1 | targeting, condition | Lorraine Pantheon Starter | — |
-| Quietus Blade (`4c7XZeezka`) | REGALIA,WEAPON | 1 | condition | Lorraine Pantheon Starter | — |
 | Reaping Legacy (`XDVIiIfKZk`) | ATTACK | 1 | unclassified | Lorraine Pantheon Starter | — |
-| Shred to Ribbons (`5j36gn1b2s`) | ATTACK | 1 | condition | Lorraine Pantheon Starter | — |
 | CookTech Mixer (`yZBIpXIDIo`) | ITEM | 4 | cost, damage, draw-discard | — | — |
 | ResonanTech Module (`qalnrTTPal`) | REGALIA,ITEM | 4 | cost, condition | — | — |
 | Golden Pawn (`Lewf9sfv9m`) | ALLY | 2 | damage, draw-discard, token, combat, trigger, condition | — | redslime-ondeath-sweep-stack-order-choice |
@@ -76,3 +71,8 @@ Implemented cards still needing semantic coverage: **2030**
 | Cloak of Stillwater (`2ha4dk88zq`) | REGALIA,ITEM | 2 | damage, prevention, draw-discard, zone-movement, trigger | — | — |
 | Coiled Fatestone (`ulh4lplwqe`) | ITEM | 2 | damage, draw-discard, counter, trigger, condition | — | — |
 | Combustible Potion (`GPsEkAfDjy`) | ITEM | 2 | cost, targeting, damage, draw-discard, trigger, condition | — | — |
+| Converge Reflections (`TBVLLRPiwP`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement, token, condition | — | — |
+| Crimson Prescience (`0dsdojl6l3`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
+| Crimson Rupture (`qeZRvGbXkF`) | ACTION | 2 | cost, targeting, damage, zone-movement, condition | — | — |
+| Decaying Reproach (`qXIKFip2t4`) | ACTION | 2 | cost, targeting, damage, recover, draw-discard | — | — |
+| Diffusive Block (`o7eanl1gxr`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
