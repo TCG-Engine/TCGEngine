@@ -5,6 +5,7 @@
 chdir('/var/www/html/TCGEngine');
 error_reporting(E_ALL & ~E_DEPRECATED); ini_set('display_errors', 1);
 require_once './SWUSim/Mod/BotDataBundle.php';
+require_once './SWUSim/Mod/BotDataPurge.php';
 
 $fails = 0;
 $check = function ($ok, $msg) use (&$fails) { echo ($ok ? 'PASS' : 'FAIL') . ": $msg\n"; if (!$ok) $fails++; };
@@ -39,6 +40,27 @@ if (is_string($tgz)) {
     @unlink($tgz);
 }
 
+// ⚠ THE FULL DOWNLOAD→PURGE ROUND TRIP, through the SAME function the HTTP endpoint calls.
+// SWUBotDataBuildBundle used to build its own manifest inline while SWUBotDataBuildManifest built a
+// different one, so the 'sizes' fingerprint existed only on the path the TESTS used. Production
+// downloaded a manifest with no sizes, purge skipped every game as unverifiable, and then consumed the
+// manifest — the owner saw "purge did nothing" with no way to retry. Two builders, one artifact.
+$rt = $root . '/../botdata_rt_' . getmypid();
+@mkdir($rt . '/9001', 0777, true); file_put_contents($rt . '/9001/states.jsonl', "{}\n");
+@mkdir($rt . '/9002', 0777, true); file_put_contents($rt . '/9002/states.jsonl', "{}\n");
+$tgzRt = SWUBotDataBuildBundle($rt);
+$check(is_string($tgzRt), 'round trip: the bundle builds');
+$mRt = json_decode(strval(file_get_contents(SWUBotDataManifestPath($rt))), true);
+$check(is_array($mRt['sizes'] ?? null) && count($mRt['sizes']) === 2,
+    'round trip: the DOWNLOAD path writes the sizes fingerprint; got ' . json_encode($mRt['sizes'] ?? null));
+$rRt = SWUBotDataPurge($rt);
+$check(intval($rRt['deleted'] ?? -1) === 2 && intval($rRt['skipped'] ?? -1) === 0,
+    'round trip: purge after a real download DELETES the games; got ' . json_encode($rRt));
+if (is_string($tgzRt)) @unlink($tgzRt);
+foreach (glob($rt . '/*/*') ?: [] as $f) @unlink($f);
+foreach (glob($rt . '/*', GLOB_ONLYDIR) ?: [] as $d) @rmdir($d);
+@unlink(SWUBotDataManifestPath($rt)); @rmdir($rt);
+
 // A game that appears AFTER the manifest is not in it — this is what protects an in-progress game.
 $mkGame('1003');
 $m2 = json_decode(strval(file_get_contents(SWUBotDataManifestPath($root))), true);
@@ -48,7 +70,6 @@ $check(!in_array('1003', $m2['games'] ?? [], true), 'a game created after the ma
 $check(!in_array('.manifest.json', $m['games'], true), 'the manifest is not listed as a game');
 
 // ── PURGE ────────────────────────────────────────────────────────────────────────────────────
-require_once './SWUSim/Mod/BotDataPurge.php';
 
 $mkGame('2001'); $mkGame('2002');
 SWUBotDataBuildManifest($root);              // manifest now covers 1001,1002,1003,2001,2002
@@ -63,6 +84,25 @@ $r2 = SWUBotDataPurge($root);
 $check(intval($r2['deleted'] ?? -1) === 0, 'purging twice deletes nothing more; got ' . json_encode($r2));
 $check(is_dir($root . '/2003'), 'and still does not touch the unmanifested game');
 
+// ⚠ A GAME THAT GREW SINCE THE DOWNLOAD IS NOT DELETED. The manifest names every directory present
+// when the bundle was built — including a game still being PLAYED. Deleting that on purge destroys a
+// live game's data mid-session, and the bundle the owner holds only has its first half anyway.
+// BotDataPurge's header claimed this already worked; it did not.
+// Its own root: SWUBotDataBuildManifest sweeps up EVERY directory present, so running it against the
+// shared root would manifest (and then purge) the games the sections below rely on.
+$grew = $root . '/../botdata_grew_' . getmypid();
+@mkdir($grew . '/3001', 0777, true); file_put_contents($grew . '/3001/states.jsonl', "{}\n");
+@mkdir($grew . '/3002', 0777, true); file_put_contents($grew . '/3002/states.jsonl', "{}\n");
+SWUBotDataBuildManifest($grew);
+file_put_contents($grew . '/3002/states.jsonl', "{}\n{}\n");   // 3002 kept recording after the download
+$r4 = SWUBotDataPurge($grew);
+$check(!is_dir($grew . '/3001'), 'an unchanged manifested game is still deleted');
+$check(is_dir($grew . '/3002'), 'a game that RECORDED MORE since the download survives');
+$check(intval($r4['skipped'] ?? -1) === 1, 'and purge reports it as skipped; got ' . json_encode($r4));
+foreach (glob($grew . '/*/*') ?: [] as $f) @unlink($f);
+foreach (glob($grew . '/*', GLOB_ONLYDIR) ?: [] as $d) @rmdir($d);
+@unlink(SWUBotDataManifestPath($grew)); @rmdir($grew);
+
 // ── REVIEW FOCUS 5 — purge with NO manifest at all must not wipe the corpus ──────────────────
 @unlink(SWUBotDataManifestPath($root));
 $r3 = SWUBotDataPurge($root);
@@ -71,7 +111,12 @@ $check(is_dir($root . '/2003'), 'the corpus survives a purge that was never prec
 
 // A manifest naming a path OUTSIDE the root must not escape it.
 @mkdir($root . '/victim', 0777, true); file_put_contents($root . '/victim/keep.txt', 'x');
-file_put_contents(SWUBotDataManifestPath($root), json_encode(['createdAt' => time(), 'games' => ['../victim', 'victim']]));
+file_put_contents($root . '/victim/states.jsonl', "{}\n");
+// 'sizes' must be present and matching, or the fingerprint check skips the entry before the traversal
+// guard is ever reached — which would make this section pass for the wrong reason.
+file_put_contents(SWUBotDataManifestPath($root), json_encode(
+    ['createdAt' => time(), 'games' => ['../victim', 'victim'],
+     'sizes' => ['victim' => SWUBotDataFingerprint($root, 'victim')]]));
 SWUBotDataPurge($root);
 $check(!is_dir($root . '/victim'), 'a plain id inside the root is purged normally');
 $check(is_dir($root), 'and a traversal attempt does not escape the root');

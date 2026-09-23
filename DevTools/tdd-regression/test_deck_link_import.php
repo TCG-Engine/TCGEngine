@@ -58,7 +58,12 @@ $checks['over-long id not stored (no truncation)'] = SWUDeckLinkStoredID(str_rep
 // ── melee.gg scraper ────────────────────────────────────────────────────────
 $record = fn($qty, $name) => "<div class=\"decklist-record\"><span class=\"decklist-record-quantity\">$qty</span><a class=\"decklist-record-name\" href=\"#\">$name</a></div>";
 $category = fn($title, $records) => "<div class=\"decklist-category\"><div class=\"decklist-category-title\">$title</div>" . implode('', $records) . "</div>";
-$page = fn($title, $cats) => "<html><body><div class=\"decklist-title\">$title</div>" . implode('', $cats) . "</body></html>";
+// ⚠ The <meta charset> is not decoration. DOMDocument::loadHTML() assumes ISO-8859-1 when a document
+// declares nothing, so a UTF-8 card name arrives mangled ("Mesa Propose…" -> "Mesa Proposeâ€¦") and
+// resolves to the wrong printing. The real melee.gg page DOES declare utf-8, so a fixture without it
+// fails for a reason production never hits — which is exactly what happened when these cases were
+// first written.
+$page = fn($title, $cats) => "<html><head><meta charset=\"utf-8\"></head><body><div class=\"decklist-title\">$title</div>" . implode('', $cats) . "</body></html>";
 
 $html = $page("Director Krennic, Amidst My Achievement - Daimyo&#39;s Palace", [
     $category('Leader (1)', [$record(1, 'Director Krennic | Amidst My Achievement')]),
@@ -87,6 +92,38 @@ $checks['melee: leader from title fallback'] = ($d2['leader']['id'] ?? null) ===
 $checks['melee: base from title fallback']   = ($d2['base']['id'] ?? null) === 'LAW_020';
 
 $checks['melee: page without a decklist → null'] = SWUMeleeDeckFromHtml('<html><body>Not found</body></html>') === null;
+
+// ⚠ PUNCTUATION DRIFT IN THE SUBTITLE. melee.gg writes a real U+2026 ellipsis ("Mesa Propose…");
+// the card dictionary spells the same subtitle with three ASCII periods ("Mesa Propose..."). The
+// subtitle comparison was a raw string equality, so it missed, fell through to the title-only retry,
+// and returned whichever of the FOUR "Jar Jar Binks" printings sits first in the dictionary —
+// TWI_202 'Foolish Gungan' instead of SEC_111. A wrong printing imported silently, with the card
+// never appearing in $unresolved.
+//
+// Titles already survived this class (SWURankCardTitleMatches tier 2 compares a non-alphanumeric-
+// stripped form); subtitles had no equivalent. Reported by the owner on decklist
+// fe49d18b-875d-44b7-b53d-b4ca007b6b00, reproduced against the live page.
+$ell = json_decode('"…"');   // U+2026 HORIZONTAL ELLIPSIS, as melee.gg serves it
+$dJar = SWUMeleeDeckFromHtml($page('Ahsoka Tano, Snips - Fortress of the Great Mothers', [
+    $category('Ground Unit (6)', [
+        $record(3, 'Jar Jar Binks | Mesa Propose' . $ell),      // melee's spelling
+        $record(3, 'Grand Admiral Thrawn | ' . $ell . 'How Unfortunate'),
+    ]),
+]));
+$checks['melee: U+2026 subtitle resolves the right printing (SEC_111, not TWI_202)']
+    = in_array(['id' => 'SEC_111', 'count' => 3], $dJar['deck'] ?? [], true);
+$checks['melee: leading-ellipsis subtitle too (JTL_002)']
+    = in_array(['id' => 'JTL_002', 'count' => 3], $dJar['deck'] ?? [], true);
+// The ASCII spelling must keep working — the fix widens the match, it does not move it.
+$dAscii = SWUMeleeDeckFromHtml($page('Ahsoka Tano, Snips - Fortress of the Great Mothers', [
+    $category('Ground Unit (3)', [$record(3, 'Jar Jar Binks | Mesa Propose...')]),
+]));
+$checks['melee: ASCII "..." subtitle still resolves to SEC_111']
+    = in_array(['id' => 'SEC_111', 'count' => 3], $dAscii['deck'] ?? [], true);
+// A subtitle that matches NOTHING must still fall back to the title, not to a stripped near-miss.
+$checks['melee: unknown subtitle still falls back to a printing of the title']
+    = ($id = SWUFindCardIdByName('Jar Jar Binks | Not A Real Subtitle')) !== null
+      && in_array($id, ['TWI_202', 'SEC_111', 'HMW_005', 'IC27_187'], true);
 
 // ── Entry points route through the shared importer ──────────────────────────
 function _codeOnlyDL($path) {

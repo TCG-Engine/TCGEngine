@@ -118,14 +118,38 @@ function SWUFindCardIdByName($cardName) {
         // "Spectre Four" asked for. A wrong printing is worse than the dropped card it replaces.
         $normalizedName = strtolower(trim(SWUCardNameAlias(strtolower($characterName))));
 
+        // Subtitle tiers, mirroring SWURankCardTitleMatches': exact first, then the same
+        // non-alphanumeric-stripped comparison, dictionary order within each tier.
+        //
+        // ⚠ THE STRIPPED TIER IS LOAD-BEARING, because sources and dictionaries spell the same
+        // subtitle differently. melee.gg writes a real U+2026 ellipsis ("Mesa Propose…",
+        // "…How Unfortunate"); SWUSim's dictionary spells SEC_111 with three ASCII periods while
+        // SWUDeck's uses U+2026, and BOTH spell JTL_002 with periods. Exact-only comparison therefore
+        // failed in different places per app, fell through to the title-only retry, and returned
+        // whichever printing sits first in that dictionary — "Jar Jar Binks | Mesa Propose…" imported
+        // as TWI_202 'Foolish Gungan' under SWUSim, and "Grand Admiral Thrawn | …How Unfortunate"
+        // imported as SOR_016 'Patient and Insightful' under both: a different card, silently, never
+        // appearing in $unresolved. Titles already survived this via their own stripped tier; subtitles
+        // had no equivalent.
+        //
+        // Safe by measurement, not assumption: across the whole dictionary there is NOT ONE pair of
+        // printings sharing a title whose subtitles differ only by punctuation, so stripping resolves
+        // no case that exact comparison did not already resolve the same way.
         global $titleData, $subtitleData;
         if (is_array($titleData)) {
+            $wantSub = strtolower($subtitle);
+            $wantSubStripped = preg_replace('/[^a-zA-Z0-9]/', '', $wantSub);
+            $strippedHit = null;
             foreach ($titleData as $cardID => $title) {
-                if (strtolower($title) == $normalizedName && isset($subtitleData[$cardID])
-                    && strtolower($subtitleData[$cardID]) == strtolower($subtitle)) {
-                    return $cardID;
+                if (strtolower($title) !== $normalizedName || !isset($subtitleData[$cardID])) continue;
+                $haveSub = strtolower((string)$subtitleData[$cardID]);
+                if ($haveSub === $wantSub) return $cardID;
+                if ($strippedHit === null && $wantSubStripped !== ''
+                    && preg_replace('/[^a-zA-Z0-9]/', '', $haveSub) === $wantSubStripped) {
+                    $strippedHit = $cardID;
                 }
             }
+            if ($strippedHit !== null) return $strippedHit;
         }
 
         $matches = SWURankCardTitleMatches($characterName);

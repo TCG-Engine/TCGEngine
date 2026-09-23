@@ -36,7 +36,15 @@ $post = function (string $host) {
 };
 $r = $post('localhost');
 $check(is_object($r) && ($r->success ?? false) === true, 'endpoint: from local dev it still creates a game');
-if (is_object($r) && !empty($r->gameName)) { array_map('unlink', glob("./SWUSim/Games/{$r->gameName}/*") ?: []); @rmdir("./SWUSim/Games/{$r->gameName}"); }
+// ⚠ Clean BotData too, not just Games. This creates a REAL Arenabot game, which the recorder now
+// captures into SWUSim/BotData — the same directory the owner's real games land in. Leaving it there
+// put a stray one-row game into a live 5-game corpus and it surfaced in the analysis report.
+if (is_object($r) && !empty($r->gameName)) {
+    foreach (["./SWUSim/Games/{$r->gameName}", "./SWUSim/BotData/{$r->gameName}"] as $d) {
+        array_map('unlink', glob("$d/*") ?: []);
+        @rmdir($d);
+    }
+}
 
 echo $fails === 0 ? "\nALL PASS\n" : "\n$fails FAILED\n";
 exit($fails ? 1 : 0);

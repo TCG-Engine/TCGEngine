@@ -9,15 +9,27 @@ function SWUBotDataManifestPath(string $root): string { return rtrim($root, '/')
 
 // Every game directory currently present. Dotfiles are never games — in particular the manifest
 // itself, which lives in the same directory and would otherwise be listed as one.
+// The FINGERPRINT a purge checks before deleting a game: the size of the trajectory the bundle took.
+// A game that has recorded more since — because it was still being PLAYED when the download ran — no
+// longer matches, and purge leaves it alone.
+function SWUBotDataFingerprint(string $root, string $game): int {
+    $p = rtrim($root, '/') . '/' . $game . '/states.jsonl';
+    return is_file($p) ? intval(filesize($p)) : -1;
+}
+
 function SWUBotDataBuildManifest(string $root): array {
+    $root = rtrim($root, '/');
     $games = [];
-    foreach (glob(rtrim($root, '/') . '/*', GLOB_ONLYDIR) ?: [] as $d) {
+    foreach (glob($root . '/*', GLOB_ONLYDIR) ?: [] as $d) {
         $b = basename($d);
         if ($b === '' || $b[0] === '.') continue;
         $games[] = $b;
     }
     sort($games);
-    $m = ['createdAt' => time(), 'games' => $games, 'count' => count($games)];
+    $m = ['createdAt' => time(), 'games' => $games, 'count' => count($games),
+          // Keyed by game id. Purge deletes a game only if its trajectory is still byte-for-byte the
+          // length the bundle captured — see SWUBotDataFingerprint.
+          'sizes' => array_combine($games, array_map(fn($g) => SWUBotDataFingerprint($root, $g), $games)) ?: []];
     @file_put_contents(SWUBotDataManifestPath($root), json_encode($m, JSON_PRETTY_PRINT), LOCK_EX);
     return $m;
 }
@@ -32,21 +44,20 @@ function SWUBotDataBuildManifest(string $root): array {
 function SWUBotDataBuildBundle(string $root): ?string {
     $root = rtrim($root, '/');
     if (!is_dir($root)) return null;
-    $games = [];
-    foreach (glob($root . '/*', GLOB_ONLYDIR) ?: [] as $d) {
-        $b = basename($d);
-        if ($b === '' || $b[0] === '.') continue;
-        $games[] = $b;
-    }
-    sort($games);
-    if (empty($games)) return null;
 
+    // ⚠ ONE manifest builder, not two. This used to construct its own manifest inline while
+    // SWUBotDataBuildManifest built a different one — so the 'sizes' fingerprint purge depends on
+    // existed only on the path the TESTS exercised. Every real download shipped a manifest without it,
+    // purge skipped every game as unverifiable and then consumed the manifest, and the owner saw
+    // "purge did nothing" with nothing left to retry against.
+    //
     // The manifest ships INSIDE the bundle, so an uploaded bundle is self-describing — which means it
-    // has to exist on disk before tar runs. If tar then fails, it is DELETED again, so it never
+    // has to exist on disk before tar runs. If tar then fails it is DELETED again, so it never
     // survives as an armed purge for a bundle nobody got.
     $mp = SWUBotDataManifestPath($root);
-    $m = ['createdAt' => time(), 'games' => $games, 'count' => count($games)];
-    if (@file_put_contents($mp, json_encode($m, JSON_PRETTY_PRINT), LOCK_EX) === false) return null;
+    $m = SWUBotDataBuildManifest($root);
+    $games = $m['games'] ?? [];
+    if (empty($games)) { @unlink($mp); return null; }
 
     $tmp = tempnam(sys_get_temp_dir(), 'swubotdata');
     if ($tmp === false) { @unlink($mp); return null; }

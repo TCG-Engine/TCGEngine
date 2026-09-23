@@ -2422,6 +2422,11 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
         SWUAfterAction($player);
         return;
     }
+    // BotData recorder (spec 2026-09-23). The ONLY point carrying both the attacker and the RESOLVED
+    // target — the per-action snapshot is taken before the target is chosen, which left the corpus
+    // unable to answer "did it attack the base or trade?", the decision behind the bot's flat base
+    // damage. Suppressed inside the lookahead and outside a human-vs-bot game; never throws.
+    if (function_exists('SWUBotDataRecordAttack')) SWUBotDataRecordAttack($attacker, strval($attackerMzID), strval($targetMzID));
 
     // ⚠ The attacker's lunge is NOT queued here. It depicts the strike, so it belongs to the COMBAT
     // DAMAGE step and is queued in the SWUCombatDamage handler — see the block there. Queuing it at

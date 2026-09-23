@@ -29,6 +29,8 @@ $act(1, 10002, 'myHand-0!FSM!');
 $check($rows() === [], 'and writes no rows');
 
 // ── B) A botpractice game records ONE row per real action ────────────────────────────────────
+// A REAL Arenabot game: seat 2 is the bot, seat 1 is the human. SetSWUBotPlayers matters — the
+// recorder only captures games that actually have a human in them (see section A2).
 $mkBot = function () use ($build) {
     $build(function ($b) {
         $b->MyLeader('ASH_009'); $b->MyBase('ASH_019');
@@ -41,9 +43,34 @@ $mkBot = function () use ($build) {
         $b->WithInitiativePlayerBeing(2);
         $b->WithInitiativeClaimed();
     });
+    SetSWUBotPlayers([2]);
 };
+// ── A2) ⚠ SELF-PLAY RECORDS NOTHING — the corpus is HUMAN-vs-bot only ────────────────────────
+// Owner ruling 2026-09-23: "BotData needs to be only human vs bot data." The self-play harness sets
+// botPlayers = [1,2] (SWUSimBotSelfPlayTest.php:533) and runs in botpractice mode, so a mode check
+// alone captures it too. Bot-vs-bot games are what the existing sweep tooling already covers, and a
+// sweep run during a recording session would silently dilute the bundle the analysis reads.
+$mkSelfPlay = function () use ($build) {
+    $build(function ($b) {
+        $b->MyLeader('ASH_009'); $b->MyBase('ASH_019');
+        $b->FillResourcesForPlayer(1, 'SOR_095', 3);
+        $b->WithCardInHandForPlayer(1, 'ASH_248');
+        $b->WithGlobalEffectForPlayer(1, 'SWU_MODE_BOTPRACTICE');
+    });
+    SetSWUBotPlayers([1, 2]);                    // EVERY seat is a bot
+};
+$mkSelfPlay();
+$check(SWUGameMode() === 'botpractice', 'fixture: self-play is still botpractice mode');
+$check(GetSWUBotPlayers() === [1, 2], 'fixture: both seats are bots; got ' . json_encode(GetSWUBotPlayers()));
+$check(SWUBotDataDir() === '', 'a BOT-VS-BOT game does not record; got ' . json_encode(SWUBotDataDir()));
+$act(1, 10002, 'myHand-0!FSM!');
+$check($rows() === [], 'and writes no rows');
+SWUBotDataFinalize(1);
+$check($rows() === [], 'nor does its finalize create anything');
+
 $mkBot(); $wipe(); $mkBot();
 $check(SWUGameMode() === 'botpractice', 'fixture: the game is botpractice');
+$check(GetSWUBotPlayers() === [2], 'fixture: exactly one seat is a bot; got ' . json_encode(GetSWUBotPlayers()));
 $check(SWUBotDataDir() !== '', 'botpractice records; dir=' . json_encode(SWUBotDataDir()));
 $before = count($rows());
 $act(1, 10002, 'myHand-1!FSM!');            // play Neel
@@ -52,6 +79,11 @@ $all = $rows();
 $row = json_decode($all[count($all) - 1], true);
 $check(is_array($row) && ($row['seats']['1']['base'] ?? '') === 'ASH_019', 'the row is a full snapshot');
 $check(($row['action']['kind'] ?? '') === 'play', 'the action kind is captured; got ' . json_encode($row['action'] ?? null));
+// ⚠ Seat 1 is the HUMAN here (bots = [2]). The whole corpus exists to capture how a person plays, so
+// an action by the human seat being labelled 'bot' would invert the one distinction that matters —
+// and no test asserted it until now.
+$check(($row['actor'] ?? '') === 'human', 'a seat-1 action is labelled HUMAN; got ' . json_encode($row['actor'] ?? null));
+$check(intval($row['seat'] ?? 0) === 1, 'and carries the acting seat; got ' . json_encode($row['seat'] ?? null));
 
 // ── C) ⚠ THE LOOKAHEAD RECORDS NOTHING ───────────────────────────────────────────────────────
 // SWUBotLookahead dispatches REAL actions in memory and rolls them back; they reach the same
@@ -137,6 +169,75 @@ $check(count($allBm) === $nBm + 1, 'a bookmark load appends a marker row; got ' 
 $check(($lastBm['action']['kind'] ?? '') === 'bookmark', 'the marker names itself; got ' . json_encode($lastBm['action'] ?? null));
 $check(!is_file($dirBm . '/meta.json'), 'and the now-stale meta.json is cleared so the real ending can re-finalize');
 
+// ── J) ATTACK TARGETS ────────────────────────────────────────────────────────────────────────
+// The open-time snapshot is taken BEFORE the target is chosen, so an 'attack' row says only who
+// swung. Analysing 5 real games, the one question the corpus could not answer was "is the bot hitting
+// units when it should be hitting the base?" — and that is exactly the decision behind its flat ~3
+// base damage per round. ExecuteSWUAttack is the single point where attacker AND resolved target are
+// both known, so it emits a second row, kind 'attack-resolved', carrying the target.
+$mkAtk = function ($withEnemyUnit) use ($build) {
+    $build(function ($b) use ($withEnemyUnit) {
+        $b->MyLeader('ASH_009'); $b->MyBase('ASH_019');
+        $b->TheirLeader('HMW_008'); $b->TheirBase('HMW_021');
+        $b->FillResourcesForPlayer(1, 'SOR_095', 3);
+        $b->WithGroundUnitForPlayer(1, 'LOF_093', true);          // ready attacker
+        if ($withEnemyUnit) $b->WithGroundUnitForPlayer(2, 'HMW_103', true);
+        $b->WithGlobalEffectForPlayer(1, 'SWU_MODE_BOTPRACTICE');
+        $b->WithInitiativePlayerBeing(2);
+        $b->WithInitiativeClaimed();
+    });
+    SetSWUBotPlayers([2]);
+};
+// (a) attacking the BASE
+$mkAtk(false); $wipe(); $mkAtk(false);
+$act(1, 10002, 'myGroundArena-0!FSM!');
+$resolved = array_values(array_filter(array_map(fn($l) => json_decode($l, true), $rows()),
+    fn($r) => ($r['action']['kind'] ?? '') === 'attack-resolved'));
+$check(count($resolved) === 1, 'an attack emits exactly one attack-resolved row; got ' . count($resolved));
+$check(($resolved[0]['action']['target']['kind'] ?? '') === 'base',
+    'a base attack records target kind base; got ' . json_encode($resolved[0]['action']['target'] ?? null));
+$check(($resolved[0]['action']['card'] ?? '') === 'LOF_093',
+    'and names the ATTACKER; got ' . json_encode($resolved[0]['action']['card'] ?? null));
+
+// (b) attacking a UNIT — the target's CardID is what makes "did it trade or race?" answerable.
+$mkAtk(true); $wipe(); $mkAtk(true);
+$act(1, 10002, 'myGroundArena-0!FSM!');
+// With an enemy unit on the board the attack raises a target prompt; declaring is not resolving.
+$act(1, 100, 'theirGroundArena-0');
+$rowsB = array_map(fn($l) => json_decode($l, true), $rows());
+$resB = array_values(array_filter($rowsB, fn($r) => ($r['action']['kind'] ?? '') === 'attack-resolved'));
+$check(count($resB) >= 1, 'a unit attack also emits attack-resolved; got ' . count($resB));
+if ($resB) {
+    $t = $resB[0]['action']['target'] ?? [];
+    $check(($t['kind'] ?? '') === 'unit' && ($t['id'] ?? '') === 'HMW_103',
+        'a unit attack records the DEFENDER card; got ' . json_encode($t));
+}
+
+// ── K) A FINAL STATE ROW CLOSES THE TRAJECTORY ───────────────────────────────────────────────
+// Every row is a PRE-action snapshot, so the last action of a game — the killing blow — has no
+// after-state and its effect is invisible. Finalize appends one.
+$mkBot(); $wipe(); $mkBot();
+$act(1, 10002, 'myHand-1!FSM!');
+$beforeFinal = count($rows());
+SWUBotDataFinalize(1);
+$allK = $rows();
+$lastK = json_decode($allK[count($allK) - 1], true);
+$check(count($allK) === $beforeFinal + 1, 'finalize appends one row; got ' . (count($allK) - $beforeFinal));
+$check(($lastK['action']['kind'] ?? '') === 'final', 'and it is marked final; got ' . json_encode($lastK['action'] ?? null));
+$check(isset($lastK['seats']['1']['baseHp']), 'carrying the closing board');
+
+// ── L) RESOURCE CARD IDS ─────────────────────────────────────────────────────────────────────
+// Which card a seat resources is a real decision (feature 'resourcing3'), and the snapshot recorded
+// only a COUNT — so the corpus could not show what was resourced. Card ids make the resource row a
+// readable decision without recording any new event.
+$mkBot(); $wipe(); $mkBot();
+$act(1, 10002, 'myHand-1!FSM!');
+$rowL = json_decode($rows()[count($rows()) - 1], true);
+$check(is_array($rowL['seats']['1']['resCards'] ?? null), 'the seat snapshot lists its resource cards');
+$check(count($rowL['seats']['1']['resCards']) === intval($rowL['seats']['1']['res']['total']),
+    'one entry per resource; got ' . json_encode($rowL['seats']['1']['resCards'] ?? null)
+    . ' vs total ' . json_encode($rowL['seats']['1']['res']['total'] ?? null));
+
 // ── G) REVIEW FOCUS 4 — two concurrent games write to SEPARATE directories ───────────────────
 $mkBot(); $wipe(); $mkBot();
 $dirA = SWUBotDataDir();
@@ -210,6 +311,7 @@ $mkReady = function () use ($build) {
         $b->WithInitiativePlayerBeing(2);
         $b->WithInitiativeClaimed();
     });
+    SetSWUBotPlayers([2]);
 };
 $kinds = [
     ['play',    10002, 'myHand-1!FSM!',                              $mkBot],
@@ -218,14 +320,15 @@ $kinds = [
 ];
 foreach ($kinds as [$want, $mode, $wire, $mk]) {
     $mk(); $wipe(); $mk();
-    $n = count($rows());
     $act(1, $mode, $wire);
-    $got = $rows();
-    $check(count($got) === $n + 1, "$want: exactly one row; got " . (count($got) - $n));
-    if (count($got) > $n) {
-        $r = json_decode($got[count($got) - 1], true);
-        $check(($r['action']['kind'] ?? '') === $want,
-            "$want: classified correctly; got " . json_encode($r['action'] ?? null));
+    // Count only OPEN rows: an attack also emits its own 'attack-resolved' row (section J), which is
+    // an addition to the trajectory, not a duplicate of the open one.
+    $open = array_values(array_filter(array_map(fn($l) => json_decode($l, true), $rows()),
+        fn($r) => ($r['action']['kind'] ?? '') !== 'attack-resolved'));
+    $check(count($open) === 1, "$want: exactly one open row; got " . count($open));
+    if ($open) {
+        $check(($open[0]['action']['kind'] ?? '') === $want,
+            "$want: classified correctly; got " . json_encode($open[0]['action'] ?? null));
     }
 }
 // NOT PROVEN here: deploy, initiative, smuggle, play-from-discard — this fixture cannot reach them

@@ -18,6 +18,7 @@ $mkBot = function () use ($build) {
         $b->WithInitiativePlayerBeing(2);
         $b->WithInitiativeClaimed();
     });
+    SetSWUBotPlayers([2]);   // human-vs-bot: the recorder ignores an all-bot game (see the recorder test)
 };
 $wipe = function () { $d = SWUBotDataDir(); if ($d !== '') { array_map('unlink', glob($d . '/*') ?: []); @rmdir($d); } };
 

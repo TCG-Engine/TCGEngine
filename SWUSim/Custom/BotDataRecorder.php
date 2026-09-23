@@ -25,8 +25,19 @@ function SWUBotDataSuppressed(): bool {
 }
 
 // The directory this game records into, or '' when it does not record at all.
+//
+// ⚠ HUMAN-VS-BOT ONLY (owner ruling 2026-09-23: "BotData needs to be only human vs bot data"). The
+// mode check alone is NOT enough: the self-play harness runs in botpractice mode too and sets
+// botPlayers = [1,2] (DevTools/SWUSimBotSelfPlayTest.php:533). Bot-vs-bot games are already covered by
+// the sweep tooling (sweep_fixtures.sh / retro.py / the strength test), and letting them in means a
+// sweep run during a recording session silently dilutes the bundle — measured: a 2-game self-play
+// smoke corpus produced a plausible-looking card finding that was an artifact of two 5-round bot
+// games. So: at least one seat must be a bot, and at least one must NOT be.
 function SWUBotDataDir(): string {
     if (!function_exists('SWUGameMode') || SWUGameMode() !== 'botpractice') return '';
+    $bots = function_exists('GetSWUBotPlayers') ? GetSWUBotPlayers() : [];
+    $seats = function_exists('SeatCountForGame') ? intval(SeatCountForGame()) : 2;
+    if (count($bots) < 1 || count($bots) >= $seats) return '';
     $g = preg_replace('/[^A-Za-z0-9_]/', '', strval($GLOBALS['gameName'] ?? ''));
     if ($g === '') return '';
     return __DIR__ . '/../BotData/' . $g;
@@ -98,6 +109,10 @@ function SWUBotDataFinalize(int $winner): void {
     if (is_file($dir . '/meta.json') && filesize($dir . '/meta.json') > 0) return;
     try {
         if (!is_dir($dir) && !@mkdir($dir, 0777, true) && !is_dir($dir)) return;
+        // Close the trajectory. Every other row is a PRE-action snapshot, so without this the last
+        // action of the game — the killing blow — has no after-state and its effect is invisible.
+        SWUBotDataAppend('states', SWUBotDataSnapshot(intval($GLOBALS['playerID'] ?? 0), 'system',
+            ['kind' => 'final', 'card' => '', 'mz' => '']));
         $live = fn($z) => array_values(array_filter((array)$z, fn($o) => $o !== null && empty($o->removed)));
         $meta = ['finished' => true, 'rootName' => 'SWUSim',
                  'rounds'   => function_exists('GetTurnNumber') ? intval(GetTurnNumber()) : 0,
@@ -183,6 +198,42 @@ function SWUBotDataMarkRewound(string $kind = 'undo'): void {
 
 // Back-compat alias for the undo hook's original name.
 function SWUBotDataMarkUndone(): void { SWUBotDataMarkRewound('undo'); }
+
+// Called from ExecuteSWUAttack(), the ONE point where the attacker and the RESOLVED target are both
+// known. The open-time snapshot cannot carry a target: it is taken before the target is chosen.
+//
+// Emitted as its own row (kind 'attack-resolved') rather than by patching the open row, so a declared
+// attack that never resolves is still visible and nothing is ever lost. ⚠ _SWUMaulBeginDoubleAttack
+// deliberately bypasses ExecuteSWUAttack (its own header says so), so that one card's double attack
+// produces the open row only.
+function SWUBotDataRecordAttack($attacker, string $attackerMz, string $targetMz): void {
+    if (SWUBotDataSuppressed() || SWUBotDataDir() === '') return;
+    try {
+        $seat = intval($GLOBALS['playerID'] ?? 0);
+        $botSeats = function_exists('GetSWUBotPlayers') ? GetSWUBotPlayers() : [];
+        $actor = in_array($seat, $botSeats, true) ? 'bot'
+               : (($seat >= 1 && $seat <= (function_exists('SeatCountForGame') ? SeatCountForGame() : 2)) ? 'human' : 'system');
+        $isBase = stripos($targetMz, 'Base') !== false;
+        $tObj = null;
+        if (!$isBase && $targetMz !== '') {
+            $saved = $GLOBALS['playerID'] ?? 0; $GLOBALS['playerID'] = $seat;
+            $tObj = GetZoneObject($targetMz);
+            $GLOBALS['playerID'] = $saved;
+        }
+        $row = SWUBotDataSnapshot($seat, $actor, [
+            'kind' => 'attack-resolved',
+            'card' => strval($attacker->CardID ?? ''),
+            'mz'   => $attackerMz,
+        ]);
+        $row['action']['target'] = [
+            'kind' => $isBase ? 'base' : 'unit',
+            'mz'   => $targetMz,
+            'id'   => $isBase ? '' : strval(is_object($tObj) ? ($tObj->CardID ?? '') : ''),
+        ];
+        SWUBotDataAppend('states', $row);
+    } catch (\Throwable $e) {
+    }
+}
 
 // Called from _SWUOpenAction(). One snapshot per real, user-initiated action.
 function SWUBotDataRecordAction(): void {

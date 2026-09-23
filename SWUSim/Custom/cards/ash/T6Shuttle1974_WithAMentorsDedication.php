@@ -20,8 +20,20 @@ $customDQHandlers["ASH_109#0"] = function($player, $parts, $lastDecision) {
     SWUApplyPhaseBuff($lastDecision, 2, 2, 'ASH_109');
     $o = GetZoneObject($lastDecision);
     $tuid = SWUObjUID($o, 0);
-    // "You may attack with that unit" — only if it's ready (a unit that's exhausted can't attack).
-    if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) {
+    // "You may attack with that unit" — only a ready FRIENDLY unit.
+    //
+    // The BUFF half is unqualified ("another unit") and may legally land on an enemy; the ATTACK half
+    // may not. "You can only attack with a ready friendly unit" is the general rule, printed as
+    // reminder text on IBH_021/023/030/036/064/092 (owner ruling 2026-09-24) — and the Support keyword
+    // already enforces it, SWUGetValidSupportAttackers() scanning myGroundArena/mySpaceArena only.
+    //
+    // ⚠ Without the controller check this card made an ENEMY unit attack ITS OWN SIDE. BeginSWUAttack()
+    // computes the target pool in the frame of the player passed to it — the ABILITY's controller — so
+    // an enemy attacker was offered its own allies AND ITSELF as targets. Bug Report game 1157583:
+    // "P2's The Mandalorian attacked P1's The Mandalorian". Controller, not the "my"/"their" mz prefix,
+    // so a unit taken with a control-change effect is judged by who actually controls it now.
+    if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1
+        && intval($o->Controller ?? 0) === intval($player)) {
         DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip: "Attack_with_that_unit?");
         DecisionQueueController::AddDecision($player, "CUSTOM", "ASH_109#1|{$tuid}", 1);
     } else {

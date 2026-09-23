@@ -64,6 +64,9 @@ function _SWUBotDataSeat(int $seat, array $botSeats): array {
                       'deployed' => $ldrObj !== null && !empty($ldrObj->Deployed),
                       'ready'    => $ldrObj !== null && intval($ldrObj->Status ?? 0) === 1],
         'res'     => ['total' => SWUResourceCount($seat), 'ready' => SWUResourceCount($seat, true)],
+        // WHICH cards were resourced. A count alone cannot show a resourcing decision, and which card
+        // a seat puts down is a real lever (feature 'resourcing3'). Free to record — no new event.
+        'resCards' => array_map(fn($o) => strval($o->CardID ?? ''), $live(GetResources($seat))),
         'hand'    => $hand,
         'ground'  => $ground,
         'space'   => $space,
