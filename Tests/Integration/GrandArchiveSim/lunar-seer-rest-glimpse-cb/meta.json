@@ -1,0 +1,17 @@
+{
+    "name": "lunar-seer-rest-glimpse-cb",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Lunar Seer is seeded directly onto the field (its own On Enter isn't the clause under test -- the [Class Bonus] REST: Glimpse 2 ability is). The champion is CardID-patched to Arisanna, Astral Zenith (q3huqj5bba, CLERIC) so IsClassBonusActive($player,['CLERIC']) is satisfied (activateAbilityPrereqs['qjt0ooffy4:0'], GeneratedMacroCode.php). Field allies with an activated ability are not clickable via a plain myField-N!FSM! action -- the ability is offered as a fast-action MZMAYCHOOSE opportunity once the turn player attempts to pass, answered with the encoded '{mzID}@Activate-{abilityIndex}@{label}' choice string (same shape as cosmic-astroscope-rest-glimpse). Verified live: activating Rests Lunar Seer (Status 2 -> 1) and queues an MZREARRANGE with exactly 2 card IDs (Glimpse 2, not some other count); the response submitted keeps the original deck order (a no-op reorder), and the deck count stays at 5 throughout, confirming Glimpse 2 fired and resolved cleanly without side effects.",
+    "testedCards": [
+        "qjt0ooffy4"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["qjt0ooffy4"],
+        "mechanics": ["cost", "zone-movement", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] REST: Glimpse 2."
+        ]
+    }
+}

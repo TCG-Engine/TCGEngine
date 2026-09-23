@@ -14576,6 +14576,119 @@ $fixtures['mendcall-mercy-recover-opponent-crowds-favor'] = [
     ],
 ];
 
+// --- Buoyant Driftguard: On Enter, opponent may gain control; if so, you gain Crowd's Favor ---
+$fixtures['buoyant-driftguard-enter-control-transfer-crowds-favor'] = [
+    'testedCards' => ['TrK2lroxkz'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Buoyant Driftguard (TrK2lroxkz, WATER, reserve 3) is played from hand. WATER is a basic
+    // element that still needs unlocking via champion lineage (GetPlayerEnabledElements only
+    // auto-enables NORM) -- the champion is CardID-patched to Spirit of Water (tafqldAGRF,
+    // WATER, level 0) to unlock it. enterAbilities["TrK2lroxkz:0"] (GeneratedMacroCode.php)
+    // queues a YESNO "Have target opponent gain control of CARDNAME?"; customDQHandlers
+    // ["TrK2lroxkz:0:Enter-1"] answers YES by setting $obj->Controller to the opponent and
+    // calling GainCrowdsFavor($player) for the original (still-owning) controller.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'tafqldAGRF']], // Spirit of Water - WATER unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'TrK2lroxkz'], // Buoyant Driftguard, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Waterveil Apostle: [CB][Memory 4+] at recollection, Gather ---
+$fixtures['waterveil-apostle-recollection-gather'] = [
+    'testedCards' => ['tiymuyv3fp'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Waterveil Apostle (WATER, CLERIC) is seeded directly onto the field. Its recollection
+    // trigger lives in ResolveBeforeRecollectionPhaseStart's plain CardID switch-case
+    // (GameLogic.php ~9552, the same dispatcher used for Foster/Starlit Apothecary/Domain
+    // upkeep), not a materialized Enter macro, so the field object doesn't need to have been
+    // played normally. It requires IsClassBonusActive($turnPlayer,["CLERIC"]) and >= 4 cards in
+    // memory -- the champion is CardID-patched to Arisanna, Astral Zenith (q3huqj5bba, CLERIC)
+    // with Subcards=[Spirit of Water] so CLERIC Class Bonus and WATER lineage-element access are
+    // both satisfied, and 4 filler cards are seeded into memory. Reaching player 1's own
+    // recollection phase uses the established 3-action shortcut (tonoris-genesis-aegis
+    // -recollection-obelisk): P1 ends turn 1, P2 ends their turn (still global turn 1), P1
+    // declines their own MAT-phase materialize offer, auto-advancing into P1's own BREC, where
+    // Gather() (PotionLogic.php ~35) summons a random herb token onto the field.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba', 'Subcards' => ['tafqldAGRF']]], // CLERIC Class Bonus + WATER unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'tiymuyv3fp'], // Waterveil Apostle - the recollection trigger source
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'px60u5n1do'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'em6eEh9q8y'],
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'],
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Astromech Attendant: whenever you brew a Potion, draw a card into memory ---
+$fixtures['astromech-attendant-brew-trigger-draw'] = [
+    'testedCards' => ['mloejozihs'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Astromech Attendant is seeded directly onto the field (its own On Enter Gather-3x isn't
+    // the clause under test here -- OnBrew's "whenever you brew" trigger is). The champion is
+    // CardID-patched to Arisanna, Astral Zenith (q3huqj5bba, CLERIC) so
+    // IsClassBonusActive($player,["CLERIC"]) is satisfied (OnBrew, PotionLogic.php ~247).
+    // Distilled Water (a NORM Potion, Brew -- One Herb) is seeded to hand along with its Herb
+    // ingredient (Blightroot) on the field; declaring Brew at materialize time (YES + choosing
+    // the herb) calls OnBrew($player), which -- because Astromech Attendant is on the field with
+    // its Class Bonus active -- draws a card into memory (same setup shape as
+    // distilled-water-brew-sacrifice-draw, but observing the OTHER field object's trigger
+    // instead of Distilled Water's own ability).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba']], // Arisanna, Astral Zenith - CLERIC Class Bonus unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'mloejozihs'], // Astromech Attendant - the trigger source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB token) - brew ingredient
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'O1OU62Zx2Y'], // Distilled Water, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+        // Astromech Attendant's own presence offers a fast-action Sacrifice opportunity on the
+        // other herb tokens still on the field -- decline it so Distilled Water fully resolves
+        // off the effect stack and onto the field (otherwise the interaction is left mid-resolution).
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Lunar Seer: [CB] REST: Glimpse 2 ---
+$fixtures['lunar-seer-rest-glimpse-cb'] = [
+    'testedCards' => ['qjt0ooffy4'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Lunar Seer is seeded directly onto the field (its own On Enter isn't the clause under
+    // test -- the [Class Bonus] REST: Glimpse 2 ability is). The champion is CardID-patched to
+    // Arisanna, Astral Zenith (q3huqj5bba, CLERIC) so IsClassBonusActive($player,["CLERIC"]) is
+    // satisfied (activateAbilityPrereqs["qjt0ooffy4:0"], GeneratedMacroCode.php). Field items
+    // with an activated ability are not clickable via a plain myField-N!FSM! action -- the
+    // ability is offered as a fast-action MZMAYCHOOSE opportunity once the turn player attempts
+    // to pass, answered with the encoded '{mzID}@Activate-{abilityIndex}@{label}' choice string
+    // (same shape as cosmic-astroscope-rest-glimpse). The MZREARRANGE response keeps the
+    // original deck order (a no-op reorder), confirming Glimpse 2 fired and resolved cleanly.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba']], // Arisanna, Astral Zenith - CLERIC Class Bonus unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'qjt0ooffy4'], // Lunar Seer - the activator
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1@Activate-0@Rest', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'Top=em6eEh9q8y,em6eEh9q8y;Bottom=', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------

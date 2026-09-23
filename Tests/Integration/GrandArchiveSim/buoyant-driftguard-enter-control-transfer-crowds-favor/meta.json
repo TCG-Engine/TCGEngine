@@ -1,0 +1,17 @@
+{
+    "name": "buoyant-driftguard-enter-control-transfer-crowds-favor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Buoyant Driftguard is WATER, a basic element that still needs unlocking via champion lineage (only NORM is free by default) -- the champion is CardID-patched to Spirit of Water (tafqldAGRF, WATER, level 0) to unlock it. enterAbilities['TrK2lroxkz:0'] queues a YESNO 'Have target opponent gain control of CARDNAME?'; customDQHandlers['TrK2lroxkz:0:Enter-1'] answers YES by setting the object's Controller to the opponent and calling GainCrowdsFavor for the original controller. Verified live: the field object stays stored under its OWNER's array (p1Field-1, since GetZoneObject resolves 'p1Field-N' via the owner-keyed storage array regardless of current Controller) but its Controller property flips to 2, and p1GlobalEffects gains the Crowd's Favor token (gpmJdGYqoC). dump-fixture-state.php independently confirms the object now displays as 'theirField-1' from player 1's own live perspective (i.e. it is genuinely opponent-controlled), which is what proves the transfer really happened rather than just a cosmetic property flip.",
+    "testedCards": [
+        "TrK2lroxkz"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["TrK2lroxkz"],
+        "mechanics": ["targeting", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: You may have target opponent gain control of Buoyant Driftguard. If you do, you gain the Crowd's Favor status."
+        ]
+    }
+}
