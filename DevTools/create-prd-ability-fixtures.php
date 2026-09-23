@@ -830,7 +830,7 @@ DECK,
 ];
 
 // --- Deployment Beacon: On Enter summons an Automaton Drone token ---
-// NOTE: Samaritan's Reach was attempted first but abandoned — its effect body
+// NOTE: Samaritan's Reach was attempted first but abandoned here — its effect body
 // (SamaritanReachResolve) reads the CombatAttacker/CombatAttackerPlayer/CombatTarget
 // decision-queue variables, but by the time the ACTION card's effect stack finishes resolving
 // (multiple EffectStackOpportunity/EffectStackActiveResponse/EffectStackOpponentResponse
@@ -838,7 +838,10 @@ DECK,
 // three read back NULL from the final gamestate, and the target's Damage stayed 0), so the
 // ability silently no-opped. Setting them via the setup primitive only works for effects that
 // read the variable immediately upon resolution, not ones buried behind several priority
-// windows — a real attack sequence would be needed to test this card properly. Deployment
+// windows — a real attack sequence was needed to test this card properly, and one was later
+// added for the Kongming Pantheon Starter deck coverage batch: see the
+// samaritan-reach-attacking-ally-damage fixture further down this file, which scripts a genuine
+// mid-combat attack instead of injecting dqVariables directly. Deployment
 // Beacon's WIND element also isn't native to the "Spirit of Fire" starting champion, so — same
 // technique as the advanced-element cards above — the champion's Subcards are patched with a
 // real WIND champion (Spirit of Wind) to unlock element access, even though WIND isn't in
@@ -14274,6 +14277,54 @@ $fixtures['verdure-of-preservation-clockwise-preserve'] = [
     'actions' => [
         ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EAST', 'chkInput' => [], 'inputText' => ''], // choose adjacent + clockwise-next direction EAST
+    ],
+];
+
+// --- Samaritan's Reach: deal 3 damage to the current attacking ally (fast, played mid-combat) ---
+$fixtures['samaritan-reach-attacking-ally-damage'] = [
+    'testedCards' => ['MskPCrbv0L'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Samaritan's Reach (reserve 3, Fast/Speed=true) calls SamaritanReachResolve() directly
+    // (GeneratedMacroCode.php cardActivatedAbilities["MskPCrbv0L:0"]), which reads the
+    // CombatAttacker decision-queue variable set by a REAL in-progress attack
+    // (CombatLogic.php MarkCombatAttacker/StoreCombatAttackerState) rather than taking a chosen
+    // target -- a prior attempt at this fixture (see abandoned note further up this file) found
+    // that seeding those dqVariables via the 'setup' primitive doesn't survive to resolution, so
+    // this fixture instead scripts a real attack: player 1 passes turn 1 (first-player attack
+    // lock), player 2 declares an attack with Giant Tortoise (an L0RmNaDzhk vanilla ALLY, power 1/
+    // life 6 so it easily survives the 3 damage) against player 1's champion, then during the
+    // pre-damage-step Opportunity window (turn player/attacker gets priority first, per
+    // FinalizeAttackDeclaration -> GrantOpportunityWindow) player 2 passes and player 1 -- who
+    // does not control the attacker -- plays Samaritan's Reach as a fast response instead of
+    // passing. The Crowd's Favor sub-clause ("if that ally is attacking a unit you don't
+    // control") never triggers here since player 1 is both caster and defender of their own
+    // champion (they DO control what's being attacked) -- that half needs a 3+ player pod and is
+    // out of scope; only the "deal 3 damage to the attacking ally" half is covered.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'L0RmNaDzhk'], // Giant Tortoise (vanilla ALLY, power 1 / life 6), the attacker
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'MskPCrbv0L'], // Samaritan's Reach, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1's turn 1 (first-player attack lock)
+        // Fully advancing from player 1's turn 1 to player 2's turn (MAIN phase, TurnPlayer==2)
+        // takes three more explicit passes -- one to close player 1's "play your fast card?"
+        // offer (TryPassFastOpportunityDecision, since they hold Samaritan's Reach), one from
+        // each player to close the BEOP (beginning/end-of-phase) window -- confirmed empirically
+        // by stepping through GetTurnPlayer()/GetCurrentPhase() one action at a time; without all
+        // three, ActionMap()'s "myField" case silently no-ops for player 2 ("Only turn player can
+        // declare attacks") and the FSM click below reports success without ever calling
+        // BeginCombatPhase, which is why an earlier version of this fixture had 0 damage land.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Giant Tortoise declares an attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target player 1's champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // turn player/attacker passes the pre-damage Opportunity first
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // player 1 plays Samaritan's Reach instead of passing
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
     ],
 ];
 

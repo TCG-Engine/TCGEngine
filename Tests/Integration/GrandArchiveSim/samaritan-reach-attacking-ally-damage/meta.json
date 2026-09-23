@@ -1,0 +1,16 @@
+{
+    "name": "samaritan-reach-attacking-ally-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:57:29+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "MskPCrbv0L"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["MskPCrbv0L"],
+        "mechanics": ["cost", "targeting", "damage", "condition"],
+        "rulesClauses": [
+            "Deal 3 damage to target attacking ally you don't control."
+        ]
+    }
+}
