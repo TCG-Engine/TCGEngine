@@ -20210,10 +20210,13 @@ function OnChessmanAllyEntered($player, $mzID) {
 function SummonCheapSwordToken($player, $count = 1) {
     global $playerID;
     for($i = 0; $i < $count; ++$i) {
-        // Summon Cheap Sword token - using generic weapon token
-        MZAddZone($player, "myField", "gfq3j98h8d"); // Placeholder token ID
+        // Summon Cheap Sword token (a40EMvoqYX). FieldAfterAdd's generic "Weapons enter with
+        // durability counters" hook already grants its printed durability automatically; OnEnter
+        // is the standard hook (also used by the Enter() macro wrapper for a normally-played card)
+        // that fires the token's own on-enter ability, if any, and any macro listeners for it.
+        MZAddZone($player, "myField", "a40EMvoqYX");
         $zone = $player == $playerID ? "myField" : "theirField";
-        OnWeaponEntered($player, $zone . "-" . (count(GetZone($zone)) - 1));
+        OnEnter($player, $zone . "-" . (count(GetZone($zone)) - 1));
     }
 }
 
