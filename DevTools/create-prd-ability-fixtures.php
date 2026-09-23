@@ -15143,6 +15143,45 @@ DECK,
     ],
 ];
 
+// --- Dazzling Courtesan: Kindle 3 -- may banish up to 3 fire cards from graveyard to pay its cost ---
+$fixtures['dazzling-courtesan-kindle-banish-fire-gy'] = [
+    'testedCards' => ['znk6g5o8ys'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Dazzling Courtesan is registered in $Kindle_Cards["znk6g5o8ys"] = 3 (GrandArchiveSim/Custom/
+    // GameLogic.php) -- its reserve-3 cost is paid entirely by banishing up to 3 FIRE cards from
+    // the graveyard instead of reserving hand cards (the KindleChoose/KindleProcess CUSTOM DQ
+    // handlers in GameLogic.php). Three copies of Escharotomy (CIU4gT14EE, FIRE) are seeded into
+    // the graveyard so all 3 Kindle payments are available; choosing all three at the repeated
+    // "Kindle: banish fire card from GY to reduce cost?" MZMAYCHOOSE fully pays the cost, so no
+    // ReserveCard (hand-card) payment decisions appear at all and the hand count never drops
+    // below its starting size (only the played card itself leaves hand, via the normal FSM play,
+    // not any reserve payment).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'CIU4gT14EE'], // Escharotomy (FIRE) 1/3
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'CIU4gT14EE'], // 2/3
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => 'CIU4gT14EE'], // 3/3
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'znk6g5o8ys'], // Dazzling Courtesan
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Dazzling Courtesan
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // Kindle: banish fire card 1/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-1', 'chkInput' => [], 'inputText' => ''], // Kindle: banish fire card 2/3
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // Kindle: banish fire card 3/3 -- cost fully paid
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
@@ -15287,6 +15326,33 @@ foreach ($fixtures as $slug => $def) {
                     SetDynamicPreserveCardIDs(array_fill_keys($setupStep['markPreserved'], true));
                     WriteGamestate('./' . $rootName . '/');
                     echo "  Setup: markPreserved " . implode(',', $setupStep['markPreserved']) . "\n";
+                    continue;
+                }
+                // 'emptyZone': directly move every live object out of a zone (default destination
+                // myBanish) via repeated MZMove of the zone's first live entry -- used to reach a
+                // "player has 0 cards in hand" precondition (e.g. Strike of Singularity's "attacking
+                // a unit controlled by a player with no cards in their hand" clause) without
+                // scripting a real multi-action hand-depletion sequence. Not a real gameplay event
+                // (no discard/hand-empty trigger fires), same spirit as patchMzId/dqVariables above.
+                if (isset($setupStep['emptyZone'])) {
+                    EngineLoadRootRuntime($rootName);
+                    ParseGamestate('./' . $rootName . '/');
+                    $GLOBALS['playerID'] = $setupStep['player'] ?? 1;
+                    $destZone = $setupStep['destZone'] ?? 'myBanish';
+                    $moved = 0;
+                    while (true) {
+                        $liveZone = GetZone($setupStep['emptyZone']);
+                        $foundIdx = null;
+                        foreach ($liveZone as $zi => $zObj) {
+                            if ($zObj !== null && empty($zObj->removed)) { $foundIdx = $zi; break; }
+                        }
+                        if ($foundIdx === null) break;
+                        MZMove($setupStep['player'] ?? 1, $setupStep['emptyZone'] . '-' . $foundIdx, $destZone);
+                        $moved++;
+                        if ($moved > 200) break; // safety valve
+                    }
+                    WriteGamestate('./' . $rootName . '/');
+                    echo "  Setup: emptyZone {$setupStep['emptyZone']} (player " . ($setupStep['player'] ?? 1) . ") moved $moved card(s) to $destZone\n";
                     continue;
                 }
                 // 'dqVariables': directly store arbitrary DecisionQueueController variables (e.g.
