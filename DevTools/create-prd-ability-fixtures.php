@@ -15244,6 +15244,58 @@ DECK,
     ],
 ];
 
+// --- Slice and Dice: Prepare 3, On Hit may declare additional attack with +3 POWER copy if prepared ---
+$fixtures['slice-and-dice-prepare-onhit-additional-attack'] = [
+    'testedCards' => ['3jg01o26b4'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Regression fixture for a genuine engine bug: the CardEditor ability database has no
+    // CardActivated row for Slice and Dice at all (unlike every other Prepare-cost ATTACK card,
+    // e.g. Thieving Cut/7t9m4muq2r just above), so nothing ever offered or paid its printed
+    // "Prepare 3" additional cost -- its onHitAbilities["3jg01o26b4:0"] "if prepared" branch
+    // (GeneratedCode/GeneratedMacroCode.php) was therefore permanently unreachable. No database
+    // access (local MySQL or a configured remote CardCodeService) was reachable in the environment
+    // this fix was developed in to author the missing row and regenerate, so the fix instead adds
+    // $cardActivatedAbilities["3jg01o26b4:0"] by hand in GrandArchiveSim/Custom/GameLogic.php,
+    // mirroring Thieving Cut's generated entry exactly (same DeclarePrepareCost/wasPrepared/
+    // PREPARED-TurnEffect mechanism, which is itself hand-written tracked code, not generated).
+    // This is additive and safe: GeneratedMacroCode.php has no competing entry for this key, so
+    // nothing is clobbered on regeneration; if the database row is ever authored, this hand-written
+    // entry becomes redundant and should be removed in favor of the generated one.
+    //
+    // Player 2's champion is pre-seeded with 3 preparation counters directly (same pattern as
+    // thieving-cut-prepare-onhit-draw, scaled to this card's Prepare 3 cost) so the cost can
+    // actually be paid. Answering YES to "Declare additional attack with copy?" is deliberately
+    // NOT exercised here (that path creates a whole second attack instance, out of scope for this
+    // fixture) -- the assertion is that the prompt appears at all, which only happens if the
+    // PREPARED TurnEffect was actually applied.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 3]]], // Prepare-ability cost fuel
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '3jg01o26b4'], // Slice and Dice, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 1/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 2/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // pay Prepare 3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so the hit actually lands
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline the "declare additional attack" offer -- its appearance alone proves PREPARED applied
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
