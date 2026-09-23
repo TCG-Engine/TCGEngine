@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **455**
+Cards linked to an existing fixture: **456**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2035**
+Implemented cards still needing semantic coverage: **2034**
 
 ## Mechanic groups
 
@@ -39,7 +39,6 @@ Implemented cards still needing semantic coverage: **2035**
 | Unity's Gale (`uUWsgLmyTk`) | ACTION | 1 | targeting, condition | Lorraine Pantheon Starter | — |
 | Quietus Blade (`4c7XZeezka`) | REGALIA,WEAPON | 1 | condition | Lorraine Pantheon Starter | — |
 | Reaping Legacy (`XDVIiIfKZk`) | ATTACK | 1 | unclassified | Lorraine Pantheon Starter | — |
-| Shade Striker (`hVvsKqWsMl`) | ALLY | 1 | combat | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
 | Shred to Ribbons (`5j36gn1b2s`) | ATTACK | 1 | condition | Lorraine Pantheon Starter | — |
 | CookTech Mixer (`yZBIpXIDIo`) | ITEM | 4 | cost, damage, draw-discard | — | — |
 | ResonanTech Module (`qalnrTTPal`) | REGALIA,ITEM | 4 | cost, condition | — | — |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2035**
 | Trained Birdroid (`84lj40Kyhv`) | ALLY | 2 | status, combat, trigger | — | — |
 | Quadrille's Gryphon (`84e2rfex54`) | ALLY | 2 | counter, trigger | — | — |
 | Aenean Guttering Flames (`JGQ9LO5DFv`) | PHANTASIA | 2 | cost, damage, draw-discard, trigger, condition | — | — |
+| Awaken Ombre (`OVoHxVwodU`) | ACTION | 2 | cost, targeting, zone-movement, status, condition | — | — |

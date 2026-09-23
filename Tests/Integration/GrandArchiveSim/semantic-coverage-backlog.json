@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-23T18:19:00+00:00",
+    "generatedAt": "2026-09-23T18:38:13+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 455,
+        "cardsWithExistingFixtures": 456,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2035,
+        "cardsNeedingSemanticCoverage": 2034,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -265,26 +265,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "hVvsKqWsMl",
-            "name": "Shade Striker",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter",
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -22563,7 +22543,7 @@
         },
         {
             "cardId": "zRG5hmBcsP",
-            "name": "Tidal Fractal ",
+            "name": "Tidal Fractal",
             "type": "PHANTASIA",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -44176,6 +44156,30 @@
             ],
             "starterDecks": [
                 "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "hVvsKqWsMl",
+            "name": "Shade Striker",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat"
+            ],
+            "existingFixtures": [
+                "shade-striker-ambush"
+            ],
+            "semanticFixtures": [
+                "shade-striker-ambush"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
