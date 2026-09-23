@@ -32,14 +32,28 @@ const SWU_BOT_FLAVOURS = [
 ];
 
 // Flavours that change the ARCHETYPE RANK rather than a single weight (feature 'flavourrank').
-// ⚠ History: giving flavours teeth as weight MULTIPLIERS failed its gate at 49.8%, and 'tempo' changed literally zero
-// games, because tempo is about SEQUENCING (when to take initiative, exhausting a blocker first) which the scorer
-// cannot express (part-3 plan, "Flavour layer, attempt 1 — REVERTED"). A rank shift is a much larger lever: it moves
-// the whole kill ladder a step, so midrange's "remove a 3-cost blocker" becomes soft control's "remove a 2-cost".
-// It is gated separately so the fidelity sweep can attribute it.
-const SWU_BOT_FLAVOUR_RANK_SHIFT = [
-    'tempo' => 1,   // owner, 2026-09-17: "a tempo deck would trade. a normal midrange deck would hit base"
-];
+//
+// ★★ EMPTY SINCE 2026-09-23 (owner ruling). 'tempo' => 1 lived here from 2026-09-17 ("a tempo deck would trade. a
+// normal midrange deck would hit base") because flavours as weight MULTIPLIERS had failed their gate at 49.8% and
+// tempo changed literally zero games — the scorer cannot express SEQUENCING, so a rank shift was reached for as a
+// bigger lever. It was never tempo: it was a per-deck LABEL CORRECTION, and it corrected three of four the wrong way.
+//
+//   deck (label)                removing the shift    measured
+//   Maul Blue Force (midrange)        +31             2026-09-23 vs Lando (and soft control is better still: +139)
+//   Talzin Yellow  (midrange)         +59 pooled      2026-09-23 vs Lando + Vader
+//   Talzin Red     (midrange)         +35 pooled      2026-09-23 vs Lando + Vader
+//   Lando Blue     (softcontrol)      −70 pooled      2026-09-23 vs Luke ASH (−68) + Vader (−2)
+//   (earlier: the p3d bisection put Maul at +54, replicated +81)
+//
+// Owner, 2026-09-22: "the tempo flavor should not shift it hard in one direction. it just changes what plays to take.
+// so debuffs before trades" and "make the tempo flavor a layer on top of whatever style we are playing as"; then
+// 2026-09-23, shown Lando's −70: "i don't think it hurts that much. so i'd still say we should remove it".
+// ⚠ OPEN: Lando is now one step below where it played best. Labelling it `hardcontrol` is NOT the same as the old
+// shift — the shift moved only SWUBotRacingRank (weights, kill ladder), while a label also moves SWUBotStyleRank
+// (the resourcer, control-wipe, threathold) — so it needs its own 3-arm run before anyone changes that fixture.
+// ⚠ Tempo still means NOTHING. The sequencing layer the owner described has not been built.
+// Records: bot-sweeps/2026-09-23_maul_tempo_2x2_*, _talzin_tempo_*, _lando_tempo_*.
+const SWU_BOT_FLAVOUR_RANK_SHIFT = [];
 
 function SWUBotFlavourRankShift(int $seat): int {
     if (function_exists('SWUBotFeatureOn') && !SWUBotFeatureOn('flavourrank')) return 0;

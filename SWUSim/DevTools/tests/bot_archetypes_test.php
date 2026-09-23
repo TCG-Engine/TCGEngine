@@ -123,9 +123,13 @@ $check(SWUBotDeriveStyle([]) === 'midrange', 'derive: an empty deck falls back t
 $check(SWUBotDeriveStyle($deck([[40, 3, 'Upgrade']])) === 'midrange',
     'derive: a deck with no units at all falls back to midrange');
 
-// ── Flavours can shift rank (feature 'flavourrank') ────────────────────────────────────────────────
-// Owner, 2026-09-17: "a tempo deck would trade. a normal midrange deck would hit base" — so tempo is +1 toward control.
-$check(SWU_BOT_FLAVOUR_RANK_SHIFT['tempo'] === 1, 'tempo shifts +1 toward control');
+// ── NO flavour shifts rank any more (owner ruling 2026-09-23) ─────────────────────────────────────
+// 'tempo' => 1 lived here from 2026-09-17 ("a tempo deck would trade. a normal midrange deck would hit base"). It was
+// never tempo — it was a per-deck LABEL correction, and it corrected three of four the wrong way: removing it gave
+// Maul +31, Talzin Yellow +59, Talzin Red +35, and Lando −70 (bot-sweeps/2026-09-23_*). The table stays as DATA, so a
+// future flavour can earn a shift; nothing carries one today.
+$check(SWU_BOT_FLAVOUR_RANK_SHIFT === [], 'no flavour shifts the archetype rank');
+$check(SWUBotFlavourRankShift(1) === 0, 'a tempo-flavoured seat is not shifted');
 $check(!isset(SWU_BOT_FLAVOUR_RANK_SHIFT['combo']) && !isset(SWU_BOT_FLAVOUR_RANK_SHIFT['space']),
     'only flavours with a measured reason carry a shift; the rest are descriptive');
 

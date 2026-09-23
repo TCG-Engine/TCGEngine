@@ -330,9 +330,8 @@ const SWU_BOT_PROPOSALS = [
     'removalready',    // spend removal on READY enemies; an exhausted one cannot attack this round
     'playsurvivor',    // prefer units that survive the opponent's best attacker
     'sentineltiming',  // play a Sentinel late in the round, so it guards their turn
-    // 2026-09-21: the p3d bisection named 'flavourrank' (+54 for Maul piloted as soft control, p=.0016). Its 'tempo'
-    // shift is correct for a tempo MIDRANGE deck and double-counts on a deck already labelled control.
-    'flavourcap',      // apply the flavour rank shift only when the deck's own label is below the control wing
+    // ('flavourcap' — cap the flavour rank shift below the control wing — was DELETED 2026-09-23 with the shift it
+    //  capped: SWU_BOT_FLAVOUR_RANK_SHIFT is now empty, so there is nothing left to cap. See BotFlavours.php.)
     // 2026-09-22 — built from the OWNER'S RESOURCING RULINGS (bot-sweeps/2026-09-21_resourcing_rulings.md), first
     // focused block: soft control vs Vader Yellow.
     'resourcing2',     // control-wing resourcing as the owner's ordered tiers (rulings 1-10, confirmed precedence)
