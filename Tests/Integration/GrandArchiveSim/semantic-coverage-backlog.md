@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **456**
+Cards linked to an existing fixture: **460**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2034**
+Implemented cards still needing semantic coverage: **2030**
 
 ## Mechanic groups
 
@@ -26,15 +26,11 @@ Implemented cards still needing semantic coverage: **2034**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
-| Zander, Deft Executor (`fc4ic5fmaa`) | CHAMPION | 1 | zone-movement, counter, combat, trigger, condition | Zander Pantheon Starter | — |
-| Corhazi Lightblade (`2Ch1Gp3jEL`) | ALLY | 1 | damage, combat, trigger, condition | Zander Pantheon Starter | — |
 | Lorraine, Spirit Ruler (`n2TKqNaODR`) | CHAMPION | 1 | cost, targeting, zone-movement, trigger | Lorraine Pantheon Starter | — |
 | Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
 | Strike of Singularity (`AMv1u54B2s`) | ATTACK | 1 | damage, combat, condition | Zander Pantheon Starter | — |
 | Tactful Sergeant (`7UXGwC7lSO`) | ALLY | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
 | Besieged Slash (`Dkq7QnrGJI`) | ATTACK | 1 | cost, condition | Lorraine Pantheon Starter | — |
-| Dazzling Courtesan (`znk6g5o8ys`) | ALLY | 1 | cost, zone-movement | Zander Pantheon Starter | — |
 | Slice and Dice (`3jg01o26b4`) | ATTACK | 1 | combat, condition | Zander Pantheon Starter | — |
 | Unity's Gale (`uUWsgLmyTk`) | ACTION | 1 | targeting, condition | Lorraine Pantheon Starter | — |
 | Quietus Blade (`4c7XZeezka`) | REGALIA,WEAPON | 1 | condition | Lorraine Pantheon Starter | — |
@@ -76,3 +72,7 @@ Implemented cards still needing semantic coverage: **2034**
 | Quadrille's Gryphon (`84e2rfex54`) | ALLY | 2 | counter, trigger | — | — |
 | Aenean Guttering Flames (`JGQ9LO5DFv`) | PHANTASIA | 2 | cost, damage, draw-discard, trigger, condition | — | — |
 | Awaken Ombre (`OVoHxVwodU`) | ACTION | 2 | cost, targeting, zone-movement, status, condition | — | — |
+| Cao Cao, Aspirant of Chaos (`d5og6z31q9`) | UNIQUE,ALLY | 2 | cost, damage, zone-movement, status, combat, trigger, condition | — | — |
+| Cloak of Stillwater (`2ha4dk88zq`) | REGALIA,ITEM | 2 | damage, prevention, draw-discard, zone-movement, trigger | — | — |
+| Coiled Fatestone (`ulh4lplwqe`) | ITEM | 2 | damage, draw-discard, counter, trigger, condition | — | — |
+| Combustible Potion (`GPsEkAfDjy`) | ITEM | 2 | cost, targeting, damage, draw-discard, trigger, condition | — | — |

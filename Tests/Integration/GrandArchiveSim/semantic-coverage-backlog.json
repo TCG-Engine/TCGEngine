@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-23T18:42:18+00:00",
+    "generatedAt": "2026-09-23T19:20:58+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 456,
+        "cardsWithExistingFixtures": 460,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2034,
+        "cardsNeedingSemanticCoverage": 2030,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,66 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "szene5o32m",
-            "name": "Incapacitate",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 123
-        },
-        {
-            "cardId": "fc4ic5fmaa",
-            "name": "Zander, Deft Executor",
-            "type": "CHAMPION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "counter",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 115
-        },
-        {
-            "cardId": "2Ch1Gp3jEL",
-            "name": "Corhazi Lightblade",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
         {
             "cardId": "n2TKqNaODR",
             "name": "Lorraine, Spirit Ruler",
@@ -177,24 +117,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "znk6g5o8ys",
-            "name": "Dazzling Courtesan",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -35488,6 +35410,29 @@
             "priority": 143
         },
         {
+            "cardId": "szene5o32m",
+            "name": "Incapacitate",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "incapacitate-negate-action-activation"
+            ],
+            "semanticFixtures": [
+                "incapacitate-negate-action-activation"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 143
+        },
+        {
             "cardId": "3qu7d6sopo",
             "name": "Incendiary Shot",
             "type": "ITEM",
@@ -36942,6 +36887,31 @@
             "priority": 135
         },
         {
+            "cardId": "fc4ic5fmaa",
+            "name": "Zander, Deft Executor",
+            "type": "CHAMPION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "counter",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "zander-deft-executor-enter-prep-return-assassin"
+            ],
+            "semanticFixtures": [
+                "zander-deft-executor-enter-prep-return-assassin"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 135
+        },
+        {
             "cardId": "NXGaB1dYwL",
             "name": "Aenean Frostlance",
             "type": "ACTION",
@@ -37279,6 +37249,30 @@
             ],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
+            "cardId": "2Ch1Gp3jEL",
+            "name": "Corhazi Lightblade",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "corhazi-lightblade-reveal-luxem-critical"
+            ],
+            "semanticFixtures": [
+                "corhazi-lightblade-reveal-luxem-critical"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 134
@@ -41622,6 +41616,28 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "znk6g5o8ys",
+            "name": "Dazzling Courtesan",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "dazzling-courtesan-kindle-banish-fire-gy"
+            ],
+            "semanticFixtures": [
+                "dazzling-courtesan-kindle-banish-fire-gy"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
