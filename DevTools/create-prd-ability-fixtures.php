@@ -13998,6 +13998,285 @@ $fixtures['savage-attack-floating-memory'] = [
     ],
 ];
 
+// ===========================================================================
+// Kongming Pantheon Starter deck: semantic coverage fixtures
+// ===========================================================================
+const GA_KONGMING_BASE_DECK = <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK;
+
+// --- Roots of Tomorrow: reveal top of deck into material preserved, draw into memory ---
+$fixtures['roots-of-tomorrow-preserve-draw'] = [
+    'testedCards' => ['MkhP6iKyLX'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Roots of Tomorrow (reserve 1, TERA) calls RootsOfTomorrowResolve() directly
+    // (GeneratedMacroCode.php cardActivatedAbilities["MkhP6iKyLX:0"]): moves the top deck card into
+    // myMaterial (preserved) then draws a separate card into myMemory. TERA-element access is
+    // unlocked the same way as the other Kongming fixtures (Subcards patched with Kongming, Fel
+    // Eidolon). Distinguishing evidence is the exact zone-count combination -- myDeck down 2 (1
+    // moved to material, 1 drawn to memory), myMaterial up 1, myMemory up 1 -- which nothing else
+    // in this bare fixture would produce.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'MkhP6iKyLX'], // Roots of Tomorrow, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Set Ablaze: deal 4 damage to target ally ---
+$fixtures['set-ablaze-damage-ally'] = [
+    'testedCards' => ['d4z3tj2nu8'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Set Ablaze (reserve 2, FIRE -- native to the Spirit of Fire starting champion, no element
+    // patch needed) deals a flat 4 damage to a chosen ally (GeneratedMacroCode.php
+    // customDQHandlers["d4z3tj2nu8:0:CardActivated-1"]); the [Class Bonus][Level 3+] extra
+    // champion-wide damage is intentionally not exercised (base deck has no MAGE class bonus and
+    // is level 1). A Dungeon Guide ally is seeded onto the opposing field as the target.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide (ALLY) target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'd4z3tj2nu8'], // Set Ablaze, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Petalfall Embrace: each player recovers 8+LV ---
+$fixtures['petalfall-embrace-recover-both'] = [
+    'testedCards' => ['uDWTjGarSL'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Petalfall Embrace (reserve 2, TERA) calls RecoverChampion(1, 8+PlayerLevel(1)) and
+    // RecoverChampion(2, 8+PlayerLevel(2)) directly (GeneratedMacroCode.php
+    // cardActivatedAbilities["uDWTjGarSL:0"]). Both champions are pre-damaged for 9 so the
+    // recovery (8 + level-1 = 9) is fully observable via their post-action Damage property instead
+    // of being capped by a full-health no-op.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1'], 'Damage' => 9]], // TERA lineage/element unlock + pre-damage
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Damage' => 9]], // pre-damage opponent's champion
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uDWTjGarSL'], // Petalfall Embrace, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Pyretic Prognosis: draw three cards, then discard two cards ---
+$fixtures['pyretic-prognosis-draw-discard'] = [
+    'testedCards' => ['Q5HV9nWS5r'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Pyretic Prognosis (reserve 3, EXALTED -- auto-enabled once another advanced element is
+    // enabled, same Fel Eidolon Subcards patch as the other EXALTED-cost Kongming fixtures) calls
+    // DoDrawCard($player,3) then DiscardCards($player,2) directly (GeneratedMacroCode.php
+    // cardActivatedAbilities["Q5HV9nWS5r:0"]). Net hand change after paying the 3-reserve cost and
+    // drawing 3/discarding 2 is +3-2=+1 relative to the post-cost hand, i.e. starting 7 + seeded 1
+    // - played 1 - 3 reserve + 3 drawn - 2 discarded = 5.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // EXALTED unlock via TERA lineage
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'Q5HV9nWS5r'], // Pyretic Prognosis, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Weaken Resistance: next Spell-source damage to target unit this turn gets +LV ---
+$fixtures['weaken-resistance-spell-damage-buff'] = [
+    'testedCards' => ['bb3oeup7oq'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Weaken Resistance (reserve 4, NORM) tags a chosen unit with a "WEAKEN_RES_<LV>" TurnEffect
+    // (GeneratedMacroCode.php customDQHandlers["bb3oeup7oq:0:CardActivated-1"]); CombatLogic.php's
+    // damage pipeline (~line 4985) then adds +LV to the NEXT Spell-source damage dealt to that unit
+    // and consumes the tag. Set Ablaze (also MAGE/SPELL, in this same deck's coverage) is played
+    // immediately afterward at the same target to actually deal that damage: it prints "deal 4
+    // damage", so 5 damage landing (instead of 4) is the distinguishing proof that Weaken
+    // Resistance's own +LV buff fired, not just that Set Ablaze's own base damage happened.
+    // Languid Toadtroll (6 LIFE) is the target instead of a 3-LIFE filler ally so it survives
+    // either way and its exact Damage property (4 vs 5) is directly observable afterward.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'pfavgpsj3r'], // Languid Toadtroll (ALLY, 6 LIFE) target
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'bb3oeup7oq'], // Weaken Resistance, seeded to a known hand slot
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'd4z3tj2nu8'], // Set Ablaze, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-3!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Ritai Berserker: +1 POWER while Shifting Currents face North ---
+$fixtures['ritai-berserker-north-power'] = [
+    'testedCards' => ['xrbffkghwt'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Ritai Berserker's static +1 POWER while facing North (GameLogic.php ~11947) is a pure
+    // computed-power check -- no action needed beyond seeding the mastery direction and the ally
+    // itself. 2 base POWER + 1 while facing North = 3.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'xrbffkghwt'], // Ritai Berserker
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Fractal of Mana: [Class Bonus] [REST]: Empower 1 ---
+$fixtures['fractal-of-mana-class-bonus-empower'] = [
+    'testedCards' => ['szeb8zzj86'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Fractal of Mana's [Class Bonus][REST] ability (GeneratedMacroCode.php
+    // activateAbilityAbilities["szeb8zzj86:0"], prereq requires IsClassBonusActive(["CLERIC",
+    // "MAGE"])) calls Empower($player,1,"szeb8zzj86"), tagging the champion's TurnEffects with
+    // ["szeb8zzj86","EMPOWERED","EMPOWER_PLUS_1"] (GameLogic.php). Same two-object MAGE Class
+    // Bonus setup as vernal-talisman-preserve-draw: Subcards patched for lineage, plus a second
+    // physical MAGE champion object on the field for IsClassBonusActive's physical-field scan.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // lineage unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7x2v4tdop1'], // Kongming, Fel Eidolon (MAGE CHAMPION), physically seeded for Class Bonus
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'szeb8zzj86'], // Fractal of Mana
+        ['player' => 1, 'patchMzId' => 'myField-2', 'setProperties' => ['Status' => 2]], // awake
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-2!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Minister of Ceremony: [REST] As a Spell, deal 3 damage to target unit, only while facing East ---
+$fixtures['minister-of-ceremony-east-rest-damage'] = [
+    'testedCards' => ['7gz0j8p4sx'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Minister of Ceremony's [REST] ability (GeneratedMacroCode.php
+    // activateAbilityAbilities["7gz0j8p4sx:0"], prereq requires GetShiftingCurrents(player) ===
+    // "EAST" and !HasOpportunity($player) -- i.e. only at slow speed on your own main phase) deals
+    // a flat 3 damage to a chosen unit. Targets its own controller's champion directly.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'EAST']], // Shifting Currents facing East
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '7gz0j8p4sx'], // Minister of Ceremony
+        ['player' => 1, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Gem of Searing Flame: North->West Shifting Currents transition deals 2 damage to target champion ---
+$fixtures['gem-of-searing-flame-north-west-damage'] = [
+    'testedCards' => ['v1jaidvvz2'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Gem of Searing Flame's North->West transition callback ($shiftingCurrentsTransitions,
+    // GameLogic.php ~20968) queues a YES/NO "deal 2 to your champion? (No=opponent)" choice.
+    // Answering NO deals it to the opponent's champion. Same Fel Eidolon Subcards patch as
+    // taiji-crystal-strategems-south-east-rest-damage/hydroguard-retainer-north-west-draw: it
+    // unlocks TERA (for playing Tera Sight) and grants the champion's own Inherited "may change SC
+    // to an adjacent direction on Spell activation" ability, which fires the transition.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA lineage/element unlock + Fel Eidolon Inherited trigger
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'v1jaidvvz2'], // Gem of Searing Flame
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight, to trigger the Inherited SC choice on activation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'WEST', 'chkInput' => [], 'inputText' => ''], // choose adjacent direction WEST
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // deal the 2 damage to the opponent's champion
+    ],
+];
+
+// --- Meiren of Verdancy: [Kongming Bonus] East->South Shifting Currents transition, recover 4 ---
+$fixtures['meiren-of-verdancy-east-south-recover'] = [
+    'testedCards' => ['y46R5C190v'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Meiren of Verdancy's East->South transition callback ($shiftingCurrentsTransitions,
+    // GameLogic.php ~20952) recovers 4 LIFE for the champion, but only when IsKongmingBonus() is
+    // true -- the same Fel Eidolon Subcards patch that unlocks the adjacent-direction Inherited
+    // trigger also makes the champion a Kongming lineage member, satisfying both gates at once.
+    // The champion is pre-damaged for 6 so the recovery is observable (not capped by full health).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1'], 'Damage' => 6]], // TERA unlock + Kongming Bonus + pre-damage
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'EAST']], // Shifting Currents facing East
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'y46R5C190v'], // Meiren of Verdancy
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight, to trigger the Inherited SC choice on activation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'SOUTH', 'chkInput' => [], 'inputText' => ''], // choose adjacent direction SOUTH
+    ],
+];
+
+// --- Venerable Sage: [Kongming Bonus] whenever Shifting Currents change, +1 POWER and +1 LIFE until EOT ---
+$fixtures['venerable-sage-direction-change-buff'] = [
+    'testedCards' => ['FwPdj4PkSS'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Venerable Sage's [Kongming Bonus] direction-change trigger (GameLogic.php ~20930, fires on
+    // ANY Shifting Currents direction change, not a specific pair) tags Venerable Sage itself with
+    // an "FwPdj4PkSS" TurnEffect that a separate power/life case statement (GameLogic.php ~12767 /
+    // ~14167) reads to grant +1 POWER and +1 LIFE until end of turn. Same Fel Eidolon lineage patch
+    // as the other transition fixtures.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA unlock + Kongming Bonus + Fel Eidolon Inherited trigger
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'FwPdj4PkSS'], // Venerable Sage
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight, to trigger the Inherited SC choice on activation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EAST', 'chkInput' => [], 'inputText' => ''], // choose adjacent direction EAST
+    ],
+];
+
+// --- Verdure of Preservation: [Kongming Bonus] SC change to next clockwise direction preserves top deck card ---
+$fixtures['verdure-of-preservation-clockwise-preserve'] = [
+    'testedCards' => ['wCAIuvPOAT'],
+    'deck' => GA_KONGMING_BASE_DECK,
+    // Verdure of Preservation's [Kongming Bonus] clockwise-transition trigger (GameLogic.php
+    // ChangeShiftingCurrents() ~20878-20892; clockwise map NORTH->EAST->SOUTH->WEST->NORTH) calls
+    // PutTopDeckCardIntoMaterialPreserved() only when the new direction is the clockwise-next one
+    // from the old direction AND IsKongmingBonus() is true. Starting at NORTH and choosing EAST
+    // (the clockwise-next direction, also one of NORTH's two adjacent options) satisfies both the
+    // Fel Eidolon Inherited adjacent-direction trigger and the clockwise condition in one action.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['7x2v4tdop1']]], // TERA unlock + Kongming Bonus + Fel Eidolon Inherited trigger
+        ['player' => 1, 'zone' => 'myMastery', 'cardID' => 'qh5mpkyl60', 'setProperties' => ['Direction' => 'NORTH']], // Shifting Currents facing North
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'wCAIuvPOAT'], // Verdure of Preservation
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => '2Ojrn7buPe'], // Tera Sight, to trigger the Inherited SC choice on activation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EAST', 'chkInput' => [], 'inputText' => ''], // choose adjacent + clockwise-next direction EAST
+    ],
+];
+
 // NOTE: Silver Soldier (c3C6PjX0Vt, printed "Retort 2, Vigor") is intentionally NOT covered.
 // GeneratedKeywordCode.php has no entry at all for this card -- HasKeyword_Retort() and
 // HasKeyword_Vigor() both return false for it (verified live: GetRetortValue() computes 0, and a

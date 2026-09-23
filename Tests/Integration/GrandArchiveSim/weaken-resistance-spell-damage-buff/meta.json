@@ -1,0 +1,16 @@
+{
+    "name": "weaken-resistance-spell-damage-buff",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:37:13+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "bb3oeup7oq"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["bb3oeup7oq"],
+        "mechanics": ["cost", "targeting", "damage"],
+        "rulesClauses": [
+            "The next time target unit would take damage from a Spell source this turn, it takes that much damage plus LV instead."
+        ]
+    }
+}
