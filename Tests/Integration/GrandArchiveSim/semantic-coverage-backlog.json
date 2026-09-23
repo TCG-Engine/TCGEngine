@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-22T23:58:55+00:00",
+    "generatedAt": "2026-09-23T00:59:21+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 424,
+        "cardsWithExistingFixtures": 437,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2066,
+        "cardsNeedingSemanticCoverage": 2053,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,27 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "MskPCrbv0L",
-            "name": "Samaritan's Reach",
-            "type": "ACTION",
-            "abilityCount": 2,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 124
-        },
         {
             "cardId": "szene5o32m",
             "name": "Incapacitate",
@@ -264,25 +243,6 @@
             "priority": 113
         },
         {
-            "cardId": "v1jaidvvz2",
-            "name": "Gem of Searing Flame",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "qjt0ooffy4",
             "name": "Lunar Seer",
             "type": "ALLY",
@@ -316,25 +276,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "7gz0j8p4sx",
-            "name": "Minister of Ceremony",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 113
@@ -397,44 +338,6 @@
             "priority": 113
         },
         {
-            "cardId": "wCAIuvPOAT",
-            "name": "Verdure of Preservation",
-            "type": "UNIQUE,PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "zone-movement",
-                "trigger",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "bb3oeup7oq",
-            "name": "Weaken Resistance",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
             "cardId": "mloejozihs",
             "name": "Astromech Attendant",
             "type": "ALLY",
@@ -489,42 +392,6 @@
             "priority": 112
         },
         {
-            "cardId": "szeb8zzj86",
-            "name": "Fractal of Mana",
-            "type": "PHANTASIA",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "y46R5C190v",
-            "name": "Meiren of Verdancy",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "recover",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
             "cardId": "me0xxw0plq",
             "name": "Refracted Twilight",
             "type": "ITEM",
@@ -538,24 +405,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "MkhP6iKyLX",
-            "name": "Roots of Tomorrow",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -577,24 +426,6 @@
                 "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "d4z3tj2nu8",
-            "name": "Set Ablaze",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "damage"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 112
@@ -671,40 +502,6 @@
             "priority": 111
         },
         {
-            "cardId": "uDWTjGarSL",
-            "name": "Petalfall Embrace",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "Q5HV9nWS5r",
-            "name": "Pyretic Prognosis",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
             "cardId": "4c7XZeezka",
             "name": "Quietus Blade",
             "type": "REGALIA,WEAPON",
@@ -751,23 +548,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "xrbffkghwt",
-            "name": "Ritai Berserker",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -842,23 +622,6 @@
             "semanticFixtures": [],
             "starterDecks": [
                 "Arisanna Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
-        {
-            "cardId": "FwPdj4PkSS",
-            "name": "Venerable Sage",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
             "priority": 111
@@ -35797,6 +35560,31 @@
             "priority": 144
         },
         {
+            "cardId": "MskPCrbv0L",
+            "name": "Samaritan's Reach",
+            "type": "ACTION",
+            "abilityCount": 2,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "samaritan-reach-attacking-ally-damage"
+            ],
+            "semanticFixtures": [
+                "samaritan-reach-attacking-ally-damage"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 144
+        },
+        {
             "cardId": "6v374coy34",
             "name": "Slay the King",
             "type": "ATTACK",
@@ -39969,6 +39757,29 @@
             "priority": 133
         },
         {
+            "cardId": "v1jaidvvz2",
+            "name": "Gem of Searing Flame",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "gem-of-searing-flame-north-west-damage"
+            ],
+            "semanticFixtures": [
+                "gem-of-searing-flame-north-west-damage"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "ddv1au7t9m",
             "name": "Gentle Respite",
             "type": "ACTION",
@@ -40297,6 +40108,29 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "7gz0j8p4sx",
+            "name": "Minister of Ceremony",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage",
+                "condition"
+            ],
+            "existingFixtures": [
+                "minister-of-ceremony-east-rest-damage"
+            ],
+            "semanticFixtures": [
+                "minister-of-ceremony-east-rest-damage"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -41343,6 +41177,29 @@
             "priority": 133
         },
         {
+            "cardId": "wCAIuvPOAT",
+            "name": "Verdure of Preservation",
+            "type": "UNIQUE,PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "zone-movement",
+                "trigger",
+                "condition"
+            ],
+            "existingFixtures": [
+                "verdure-of-preservation-clockwise-preserve"
+            ],
+            "semanticFixtures": [
+                "verdure-of-preservation-clockwise-preserve"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "dSSRtNnPtw",
             "name": "Water Resonance Bauble",
             "type": "REGALIA,ITEM",
@@ -41361,6 +41218,29 @@
             ],
             "starterDecks": [
                 "Rai Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "bb3oeup7oq",
+            "name": "Weaken Resistance",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "weaken-resistance-spell-damage-buff"
+            ],
+            "semanticFixtures": [
+                "weaken-resistance-spell-damage-buff"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42029,6 +41909,28 @@
             "priority": 132
         },
         {
+            "cardId": "szeb8zzj86",
+            "name": "Fractal of Mana",
+            "type": "PHANTASIA",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "condition"
+            ],
+            "existingFixtures": [
+                "fractal-of-mana-class-bonus-empower"
+            ],
+            "semanticFixtures": [
+                "fractal-of-mana-class-bonus-empower"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "SrBA7h2a1N",
             "name": "Freezing Hail",
             "type": "ACTION",
@@ -42397,6 +42299,28 @@
             "priority": 132
         },
         {
+            "cardId": "y46R5C190v",
+            "name": "Meiren of Verdancy",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "recover",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "meiren-of-verdancy-east-south-recover"
+            ],
+            "semanticFixtures": [
+                "meiren-of-verdancy-east-south-recover"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "WAFNy2lY5t",
             "name": "Melodious Flute",
             "type": "REGALIA,ITEM",
@@ -42644,6 +42568,28 @@
             "priority": 132
         },
         {
+            "cardId": "MkhP6iKyLX",
+            "name": "Roots of Tomorrow",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement"
+            ],
+            "existingFixtures": [
+                "roots-of-tomorrow-preserve-draw"
+            ],
+            "semanticFixtures": [
+                "roots-of-tomorrow-preserve-draw"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "v5klryvfq3",
             "name": "Rousing Slam",
             "type": "ATTACK",
@@ -42823,6 +42769,28 @@
             "starterDecks": [
                 "Arisanna Starter Deck",
                 "Arisanna Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "d4z3tj2nu8",
+            "name": "Set Ablaze",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "damage"
+            ],
+            "existingFixtures": [
+                "set-ablaze-damage-ally"
+            ],
+            "semanticFixtures": [
+                "set-ablaze-damage-ally"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
@@ -44056,6 +44024,27 @@
             "priority": 131
         },
         {
+            "cardId": "uDWTjGarSL",
+            "name": "Petalfall Embrace",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "petalfall-embrace-recover-both"
+            ],
+            "semanticFixtures": [
+                "petalfall-embrace-recover-both"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
             "cardId": "AnEPyfFfHj",
             "name": "Power Overwhelming",
             "type": "ACTION",
@@ -44073,6 +44062,27 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "Q5HV9nWS5r",
+            "name": "Pyretic Prognosis",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard"
+            ],
+            "existingFixtures": [
+                "pyretic-prognosis-draw-discard"
+            ],
+            "semanticFixtures": [
+                "pyretic-prognosis-draw-discard"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -44137,6 +44147,27 @@
             ],
             "starterDecks": [
                 "Tonoris Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "xrbffkghwt",
+            "name": "Ritai Berserker",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "condition"
+            ],
+            "existingFixtures": [
+                "ritai-berserker-north-power"
+            ],
+            "semanticFixtures": [
+                "ritai-berserker-north-power"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
@@ -44224,6 +44255,27 @@
             ],
             "starterDecks": [
                 "Jin Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "FwPdj4PkSS",
+            "name": "Venerable Sage",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "trigger"
+            ],
+            "existingFixtures": [
+                "venerable-sage-direction-change-buff"
+            ],
+            "semanticFixtures": [
+                "venerable-sage-direction-change-buff"
+            ],
+            "starterDecks": [
+                "Kongming Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131
