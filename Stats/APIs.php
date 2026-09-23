@@ -912,7 +912,7 @@ include_once "../SharedUI/Header.php";
                 <tr>
                     <td>request</td>
                     <td>string</td>
-                    <td>The natural language card search query (URL encoded)</td>
+                    <td>The card search query (URL encoded). Optional discrete pre-filters such as <code>aspect:Aggression cost&lt;=3 type:Unit shield</code> are applied before semantic ranking. Supported keys: aspect, cost, hp, power, upgradeHp, upgradePower, trait, arena, type, unique. Returns up to 10 cards.</td>
                 </tr>
                 <tr>
                     <td>access_token</td>
@@ -923,7 +923,7 @@ include_once "../SharedUI/Header.php";
             
             <h4>Example Response:</h4>
             <pre><code>{
-    "message": "specificCards=uuid1,uuid2,uuid3,uuid4,uuid5"
+    "message": "specificCards=uuid1,uuid2,uuid3"
 }</code></pre>
         </div>
     </div>

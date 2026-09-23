@@ -3694,6 +3694,11 @@ Aspect filtering (key: "aspect", alias "c")
 
   Note: for aspect, "!=" means "contains none of" — not "is not exactly".
   Every other property supports "!=" as ordinary negation, e.g. cost!=3, type!=unit.
+
+Conversational search (press Enter when the filter bar finds no cards):
+  Add explicit pre-filters to a semantic request, e.g. aspect:Aggression cost<=3 type:Unit shield.
+  Supported keys: aspect, cost, hp, power, upgradeHp, upgradePower, trait, arena, type, unique.
+  Search returns up to 10 matching cards.
 `;
         let modalOverlay = document.createElement('div');
         modalOverlay.style.position = 'fixed';
