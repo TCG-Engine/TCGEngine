@@ -1357,7 +1357,15 @@ for ($i = 0; $i < count($properties); ++$i) {
 }
 fwrite($handler, "      case \"specificcards\":\r\n");
 fwrite($handler, "        var cardArr = thisValue.split(',');\r\n");
-fwrite($handler, "        if(cardArr.indexOf(cardID) === -1) return true;\r\n");
+if($rootName == "SWUDeck") {
+  // ElasticSearch and public APIs return legacy UIDs, while browse zones now hold SET_NNN.
+  // Translate at the client boundary so the API's existing wire format remains stable.
+  fwrite($handler, "        var normalizedCardID = String(SWUNormalizeDictionaryKey(cardID));\r\n");
+  fwrite($handler, "        var foundCard = cardArr.some(function(id) { return String(SWUNormalizeDictionaryKey(id.trim())) === normalizedCardID; });\r\n");
+  fwrite($handler, "        if(!foundCard) return true;\r\n");
+} else {
+  fwrite($handler, "        if(cardArr.indexOf(cardID) === -1) return true;\r\n");
+}
 fwrite($handler, "        break;\r\n");
 // NOTE: the old standalone "c" case (a naive per-character substring loop) was removed. `c` is
 // now a plain alias for `aspect` (see _filterAliases above), and the aspect case routes through
