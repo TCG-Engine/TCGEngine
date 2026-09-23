@@ -47,7 +47,8 @@ $keywords = [
     [ 'name' => "Ally Link" ],
     [ 'name' => "Taunt" ],
     [ 'name' => "Steadfast" ],
-    [ 'name' => "Retort" ]
+    [ 'name' => "Retort" ],
+    [ 'name' => "Ambush" ]
 ];
 
 // Grand Archive Conditions

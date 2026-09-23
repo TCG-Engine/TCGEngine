@@ -954,6 +954,51 @@ function IsChampionBeingAttacked($player) {
 }
 
 /**
+ * Check whether a field object currently has Ambush.
+ * Ambush (Comprehensive Rules): "This unit may retaliate against attackers while it isn't
+ * defending." It lets an awake unit retaliate against an attack made on another unit its
+ * controller controls (i.e. it need not be the actual defender itself).
+ * Sources:
+ *   - Static keyword from generated dictionary (HasKeyword_Ambush) -- covers every printed
+ *     "Ambush" card generically, including the cards this check used to hardcode by CardID
+ *     (Sinister Mindreaver, Guan Yu Prime Exemplar, Cloaked Executioner, Lurching Rogue,
+ *     Aquaveil Ambusher) and Shade Striker, which the whitelist never covered because "Ambush"
+ *     was missing from Data/ProcessKeywordsGA.php's recognized keyword list (a parser gap, not
+ *     a card-specific issue -- confirmed all six cards' printed Ambush is now picked up after
+ *     adding it there and regenerating GeneratedKeywordCode.php).
+ *   - TurnEffect "AMBUSH" (temporary grant, e.g. Mortal Ambition's Ally/Human/Horse buff)
+ *   - Gloamspire Mantle (fooz13xfpk): while on the field, Umbra element Phantasia allies have Ambush
+ *   - Changban, Heroic Impasse (kmuuqzfvg8): while on the field, allies with buff counters have Ambush
+ *
+ * @param object $fieldObj The candidate retaliator.
+ * @param array $ownField The candidate's own field (to look for Gloamspire Mantle / Changban).
+ * @return bool
+ */
+function HasAmbush($fieldObj, array $ownField): bool {
+    if(HasNoAbilities($fieldObj)) return false;
+    if(HasKeyword_Ambush($fieldObj)) return true;
+    if(in_array("AMBUSH", $fieldObj->TurnEffects ?? [])) return true;
+    // Gloamspire Mantle (fooz13xfpk): Umbra element Phantasia allies have Ambush
+    if(PropertyContains(EffectiveCardType($fieldObj), "PHANTASIA")
+        && EffectiveCardElement($fieldObj) === "UMBRA") {
+        foreach($ownField as $mantleObj) {
+            if($mantleObj !== null && !$mantleObj->removed && $mantleObj->CardID === "fooz13xfpk" && !HasNoAbilities($mantleObj)) {
+                return true;
+            }
+        }
+    }
+    // Changban, Heroic Impasse (kmuuqzfvg8): allies with buff counters have Ambush
+    if(PropertyContains(EffectiveCardType($fieldObj), "ALLY") && GetCounterCount($fieldObj, "buff") > 0) {
+        foreach($ownField as $chObj) {
+            if($chObj !== null && !$chObj->removed && $chObj->CardID === "kmuuqzfvg8" && !HasNoAbilities($chObj)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+/**
  * Returns an array of mzID strings (from the defender's perspective: "myField-X")
  * for all units eligible to retaliate in the current single-target combat.
  *
@@ -1059,53 +1104,11 @@ function GetRetaliatorOptions(int $attackerPlayer): ?array {
             $retaliatorOptions[] = $mzID;
             continue;
         }
-        // Sinister Mindreaver (jozihslnhz): Ambush
-        if($fieldObj->CardID === "jozihslnhz" && !HasNoAbilities($fieldObj)) {
+        // Ambush (generic): static keyword (any printed-Ambush card, via HasKeyword_Ambush),
+        // a temporary "AMBUSH" TurnEffect grant, or a conditional static grant (Gloamspire
+        // Mantle, Changban). See HasAmbush() above for the full source list.
+        if(HasAmbush($fieldObj, $defenderField) && !in_array($mzID, $retaliatorOptions)) {
             $retaliatorOptions[] = $mzID;
-            continue;
-        }
-        // Guan Yu, Prime Exemplar (0oyxjld8jh): Ambush
-        if($fieldObj->CardID === "0oyxjld8jh" && !HasNoAbilities($fieldObj)) {
-            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
-        }
-        // Cloaked Executioner (itwys9kf4r): Ambush
-        if($fieldObj->CardID === "itwys9kf4r" && !HasNoAbilities($fieldObj)) {
-            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
-        }
-        // Lurching Rogue and Aquaveil Ambusher: printed Ambush.
-        if(($fieldObj->CardID === "8tYVFYnK0T" || $fieldObj->CardID === "TScoOwz80U") && !HasNoAbilities($fieldObj)) {
-            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
-        }
-        if(in_array("AMBUSH", $fieldObj->TurnEffects ?? [])) {
-            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
-        }
-        // Gloamspire Mantle (fooz13xfpk): Umbra element Phantasia allies have Ambush
-        if(!HasNoAbilities($fieldObj)
-            && PropertyContains(EffectiveCardType($fieldObj), "PHANTASIA")
-            && EffectiveCardElement($fieldObj) === "UMBRA") {
-            $hasMantleOnField = false;
-            foreach($defenderField as $mantleObj) {
-                if(!$mantleObj->removed && $mantleObj->CardID === "fooz13xfpk" && !HasNoAbilities($mantleObj)) {
-                    $hasMantleOnField = true;
-                    break;
-                }
-            }
-            if($hasMantleOnField && !in_array($mzID, $retaliatorOptions)) {
-                $retaliatorOptions[] = $mzID;
-            }
-        }
-        // Changban, Heroic Impasse (kmuuqzfvg8): allies with buff counters have Ambush
-        if(PropertyContains(EffectiveCardType($fieldObj), "ALLY") && GetCounterCount($fieldObj, "buff") > 0) {
-            $hasChangbanOnField = false;
-            foreach($defenderField as $chObj) {
-                if(!$chObj->removed && $chObj->CardID === "kmuuqzfvg8" && !HasNoAbilities($chObj)) {
-                    $hasChangbanOnField = true;
-                    break;
-                }
-            }
-            if($hasChangbanOnField && !in_array($mzID, $retaliatorOptions)) {
-                $retaliatorOptions[] = $mzID;
-            }
         }
     }
 

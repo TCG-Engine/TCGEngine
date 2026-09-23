@@ -14394,13 +14394,74 @@ DECK,
     ],
 ];
 
-// NOTE: Shade Striker (hVvsKqWsMl, printed "Ambush") is intentionally NOT covered.
-// CombatLogic.php's retaliation-eligibility check (~line 1079) hardcodes a short whitelist of
-// CardIDs that get generic-AMBUSH retaliator treatment (jozihslnhz, 0oyxjld8jh, itwys9kf4r,
-// 8tYVFYnK0T, TScoOwz80U) plus a generic `in_array("AMBUSH", $fieldObj->TurnEffects)` check --
-// Shade Striker's CardID is in neither list, and nothing ever adds an "AMBUSH" TurnEffect to it.
-// Its printed Ambush keyword is completely unwired; a fixture would either assert the (currently
-// nonexistent) retaliation or paper over the gap. Real pre-existing engine gap, out of scope here.
+// Shade Striker (hVvsKqWsMl, printed "Ambush") -- root-cause keyword-parser fix.
+// Ambush (Comprehensive Rules): "This unit may retaliate against attackers while it isn't
+// defending." CombatLogic.php's retaliation-eligibility check (GetRetaliatorOptions, ~line 1095)
+// used to hardcode a short whitelist of CardIDs that got generic-AMBUSH retaliator treatment
+// (jozihslnhz, 0oyxjld8jh, itwys9kf4r, 8tYVFYnK0T, TScoOwz80U) plus a TurnEffect "AMBUSH" check
+// for temporary grants -- Shade Striker's CardID was in neither list. The real root cause: "Ambush"
+// was entirely missing from Data/ProcessKeywordsGA.php's recognized keyword list, so the generic
+// keyword parser never emitted a HasKeyword_Ambush() entry for ANY card, printed or not -- the
+// whitelist was a workaround for that gap, not a card-specific issue. Fixed by adding "Ambush" to
+// the recognized keyword list and regenerating GeneratedKeywordCode.php (confirmed: all five
+// previously-whitelisted cards AND Shade Striker now get a HasKeyword_Ambush() entry from the
+// existing generic parser -- including the comma-separated "Ambush, Retort 2" / "Ambush, Retort 2,
+// Stealth" lines on Guan Yu and Aquaveil Ambusher, already handled by the sibling multi-keyword
+// parser fix). CombatLogic.php's whitelist was replaced with a generic HasAmbush() helper that
+// checks HasKeyword_Ambush() first (covering every printed-Ambush card, including future ones),
+// then falls back to the TurnEffect grant and the two conditional static grants (Gloamspire
+// Mantle, Changban) that were already generic. This fixture proves Shade Striker's Ambush actually
+// lets it retaliate against an attack made on a DIFFERENT ally it controls: player 1 controls
+// Giant Tortoise (the attack's actual target) and Shade Striker (power 2, not itself being
+// attacked); when player 2's Giant Tortoise attacks player 1's Giant Tortoise, the Retaliate
+// MZMAYCHOOSE offers both the actual defender (myField-0) and Shade Striker (myField-1, via
+// Ambush) -- choosing Shade Striker deals its printed 2 POWER to the attacker (instead of Giant
+// Tortoise's 1 POWER) and rests Shade Striker as the cost, while the actually-attacked Giant
+// Tortoise still takes the attacker's combat damage and is untouched by the retaliation cost.
+$fixtures['shade-striker-ambush'] = [
+    'testedCards' => ['hVvsKqWsMl'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Windslice
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Giant Tortoise (vanilla ALLY, power 1 / life 6) is seeded onto player 1's field as the unit
+    // that will actually be attacked (myField-0). Shade Striker (power 2 / life 3, printed Ambush)
+    // is seeded right after it (myField-1) -- ready, not the attack's target -- to prove Ambush
+    // lets a different ready ally retaliate on the defender's behalf. Player 2 gets its own Giant
+    // Tortoise as the attacker.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'L0RmNaDzhk'], // Giant Tortoise, the actual defender/target
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'hVvsKqWsMl'], // Shade Striker, the Ambush retaliator
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'L0RmNaDzhk'], // Giant Tortoise, the attacker
+    ],
+    // Verified live via a standalone replay harness (dumping decision-queue contents after each
+    // action): both players' pregame starting champion auto-occupies myField-0, so the seeded
+    // Giant Tortoise/Shade Striker land at myField-1/myField-2 (p1) and myField-1 (p2). After
+    // player 2's attack target is chosen, player 1's very next decision is the "Retaliate?"
+    // MZMAYCHOOSE offering BOTH myField-1 (the actual defender, Giant Tortoise) and myField-2
+    // (Shade Striker, via Ambush) -- there is no separate fast-opportunity PASS in front of it for
+    // either player in this deck/scenario (no fast cards in either starting hand). Answering it
+    // with Shade Striker's own mzID (myField-2) resolves the rest of combat in one action.
+    'actions' => [
+        // End player 1's turn so turn control passes to player 2, who can then declare an attack.
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        // Player 2 (now turn player) declares its Giant Tortoise's (myField-1, not the champion at
+        // myField-0) attack against player 1's Giant Tortoise.
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''],
+        // Defender (p1) chooses Shade Striker (myField-2), NOT the actual defender, as the retaliator.
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-2', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
 
 // NOTE: Sanctified Paladin (ioLmt0S7op, printed "Foster") is intentionally NOT covered.
 // HasFoster() (GrandArchiveSim/Custom/CardLogic.php ~188) hardcodes the small set of CardIDs that

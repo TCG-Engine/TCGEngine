@@ -1,0 +1,8 @@
+[
+    {"step":4,"type":"card_property_equals","mzId":"p2Field-1","property":"Damage","value":"2","viewerPlayerID":1,"semantic":true,"label":"Shade Striker's Ambush lets it retaliate: it deals its own printed 2 POWER to the attacker instead of the actual defender's 1 POWER"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"Damage","value":"1","viewerPlayerID":1,"semantic":true,"label":"The actually-attacked Giant Tortoise still takes the attacker's own combat damage (its printed 1 POWER) regardless of who retaliates"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-1","property":"Status","value":"2","viewerPlayerID":1,"semantic":true,"label":"The actually-attacked Giant Tortoise stays ready (Status 2): it did not retaliate, so it pays no retaliation cost"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-2","property":"Status","value":"1","viewerPlayerID":1,"semantic":true,"label":"Shade Striker rests (Status 1) as the cost of retaliating via Ambush, even though it was never the attack's target"},
+    {"step":4,"type":"card_property_equals","mzId":"p1Field-2","property":"Damage","value":"0","viewerPlayerID":1,"semantic":true,"label":"Shade Striker takes no combat damage itself: Ambush lets it retaliate without ever becoming the defender"},
+    {"step":4,"type":"decision_queue_empty","player":"all"}
+]
