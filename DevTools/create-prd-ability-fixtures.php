@@ -15264,6 +15264,94 @@ DECK,
     ],
 ];
 
+// --- Quietus Blade: [Class Bonus] while material deck is empty, +4 POWER ---
+$fixtures['quietus-blade-class-bonus-empty-material-power'] = [
+    'testedCards' => ['4c7XZeezka'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Quietus Blade's static [Class Bonus] power bonus (GameLogic.php ~13120, inside
+    // ObjectCurrentPower) adds +4 POWER to the weapon itself only while the controller's material
+    // deck is completely empty AND [Class Bonus] (WARRIOR) is active; GetTotalAttackPower
+    // (CombatLogic.php ~251-272) adds the selected weapon's ObjectCurrentPower into the attack
+    // total. The starting champion is patched to Lorraine, Wandering Warrior (WARRIOR) for the
+    // class bonus; Quietus Blade (printed 2 POWER) is seeded directly onto the field as an
+    // already-equipped weapon (same "seed weapon straight onto myField" shape as
+    // executioners-spear-jin-bonus-on-kill-durability); the remaining material deck (Clarent,
+    // Backup Charger, Purifying Thurible -- Spirit of Fire and Lorraine were already consumed/
+    // patched away) is emptied via the emptyZone primitive so the condition is met. Same real
+    // attack-declaration shape as executioners-spear-jin-bonus-on-kill-durability: P1 pass, P2
+    // pass, P1 declines the turn-3 MAT offer, then P1's champion (0 printed POWER) attacks,
+    // selecting Quietus Blade as the weapon (myField-1) and targeting the opposing champion
+    // (theirField-0); P2 declines the Retaliate? MZMAYCHOOSE. Total attack power is Quietus
+    // Blade's 2 printed POWER + 4 from the Class Bonus = 6, landing as Damage=6 on the defender
+    // (vs. Damage=2 if the Class Bonus bonus never applied).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']], // Lorraine, Wandering Warrior (WARRIOR) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => '4c7XZeezka'], // Quietus Blade, seeded as an already-equipped weapon
+        ['player' => 1, 'emptyZone' => 'myMaterial', 'destZone' => 'myBanish'], // empty material deck - satisfies the Class Bonus condition
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline turn-3 MAT offer
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // champion declares attack
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myField-1', 'chkInput' => [], 'inputText' => ''], // select Quietus Blade as the weapon
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target the opposing champion
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate?
+    ],
+];
+
+// --- Shred to Ribbons: [Class Bonus] +3 POWER while attacking an ally with 5+ LIFE ---
+$fixtures['shred-to-ribbons-class-bonus-attack-ally-5-life-power'] = [
+    'testedCards' => ['5j36gn1b2s'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Shred to Ribbons
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Shred to Ribbons's [Class Bonus] (GameLogic.php ~11658, inside the per-CardID POWER switch)
+    // adds +3 POWER to the ATTACK card's intent-loaded power when [Class Bonus] (GUARDIAN or
+    // WARRIOR) is active and the declared combat target is an ALLY with 5+ current LIFE
+    // (ObjectCurrentHP). P2 is patched to a WARRIOR champion (Lorraine, Wandering Warrior) for the
+    // class bonus; a Dungeon Guide ALLY is seeded onto P1's (the opponent's) field with its
+    // Counters overridden to potion_animate_life=5 (same "potion_animate_power" style override as
+    // blistering-insurgent-attack-buff, but for LIFE) since Dungeon Guide's printed LIFE is only 3.
+    // Same real attack-card-activation shape as heavy-swing-class-bonus-discount: P1 passes turn 1
+    // (Rule 1.h forbids the opening player from activating ATTACK cards turn 1), then P2 activates
+    // Shred to Ribbons on their own turn 1, paying its full 3 reserve (no [Class Bonus] cost
+    // discount on this card), then targets the seeded ally (theirField-1, not the champion at
+    // theirField-0) to satisfy the "attacking an ally with 5+ LIFE" condition.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']], // Lorraine, Wandering Warrior (WARRIOR) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['potion_animate_life' => 5]]], // Dungeon Guide ALLY w/ LIFE overridden to 5 - attack target
+        ['player' => 2, 'zone' => 'myIntent', 'cardID' => '5j36gn1b2s', 'setProperties' => ['Controller' => 2, 'Owner' => 2]], // Shred to Ribbons, seeded directly into Intent (bypassing the hand-play reserve/rearrange flow); BridgeAddToZone only auto-sets Controller/Owner for */Field zones, so it's set explicitly here for the [Class Bonus] IsClassBonusActive($obj->Controller, ...) check to resolve the correct player
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // champion declares the real attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target the seeded ally (LIFE 5), not P1's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate?
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
