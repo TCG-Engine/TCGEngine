@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-23T13:28:57+00:00",
+    "generatedAt": "2026-09-23T17:52:10+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 451,
+        "cardsWithExistingFixtures": 454,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2039,
+        "cardsNeedingSemanticCoverage": 2036,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -67,26 +67,6 @@
             "priority": 115
         },
         {
-            "cardId": "xpnjvt9y59",
-            "name": "Cleansing Reunion",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "cost",
-                "targeting",
-                "status",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 114
-        },
-        {
             "cardId": "2Ch1Gp3jEL",
             "name": "Corhazi Lightblade",
             "type": "ALLY",
@@ -125,25 +105,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 114
-        },
-        {
-            "cardId": "Pd4hj3sveV",
-            "name": "Altruistic Blacksmith",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "token",
-                "combat",
-                "trigger"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
         },
         {
             "cardId": "vkL2RFh0yM",
@@ -233,27 +194,6 @@
             "existingFixtures": [],
             "semanticFixtures": [],
             "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "ioLmt0S7op",
-            "name": "Sanctified Paladin",
-            "type": "ALLY",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Arisanna Pantheon Starter",
-                "Kongming Pantheon Starter",
-                "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": true,
@@ -37287,6 +37227,30 @@
             "priority": 134
         },
         {
+            "cardId": "xpnjvt9y59",
+            "name": "Cleansing Reunion",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "cost",
+                "targeting",
+                "status",
+                "condition"
+            ],
+            "existingFixtures": [
+                "cleansing-reunion-banish-graveyard"
+            ],
+            "semanticFixtures": [
+                "cleansing-reunion-banish-graveyard"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 134
+        },
+        {
             "cardId": "4d5vettczb",
             "name": "Cometfall",
             "type": "ACTION",
@@ -38846,6 +38810,29 @@
             ],
             "starterDecks": [
                 "Dante, Hemomancer Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
+            "cardId": "Pd4hj3sveV",
+            "name": "Altruistic Blacksmith",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "token",
+                "combat",
+                "trigger"
+            ],
+            "existingFixtures": [
+                "altruistic-blacksmith-summon-cheap-sword"
+            ],
+            "semanticFixtures": [
+                "altruistic-blacksmith-summon-cheap-sword"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 133
@@ -42602,6 +42589,31 @@
                 "sacred-barrier-prevent-noncombat"
             ],
             "starterDecks": [
+                "Lorraine Pantheon Starter",
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "ioLmt0S7op",
+            "name": "Sanctified Paladin",
+            "type": "ALLY",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "condition"
+            ],
+            "existingFixtures": [
+                "sanctified-paladin-foster-draw"
+            ],
+            "semanticFixtures": [
+                "sanctified-paladin-foster-draw"
+            ],
+            "starterDecks": [
+                "Arisanna Pantheon Starter",
+                "Kongming Pantheon Starter",
                 "Lorraine Pantheon Starter",
                 "Zander Pantheon Starter"
             ],

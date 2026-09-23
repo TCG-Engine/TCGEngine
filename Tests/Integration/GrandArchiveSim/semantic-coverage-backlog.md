@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **451**
+Cards linked to an existing fixture: **454**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2039**
+Implemented cards still needing semantic coverage: **2036**
 
 ## Mechanic groups
 
@@ -28,16 +28,13 @@ Implemented cards still needing semantic coverage: **2039**
 | --- | --- | ---: | --- | --- | --- |
 | Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
 | Zander, Deft Executor (`fc4ic5fmaa`) | CHAMPION | 1 | zone-movement, counter, combat, trigger, condition | Zander Pantheon Starter | — |
-| Cleansing Reunion (`xpnjvt9y59`) | ACTION | 1 | cost, targeting, status, condition | Lorraine Pantheon Starter | — |
 | Corhazi Lightblade (`2Ch1Gp3jEL`) | ALLY | 1 | damage, combat, trigger, condition | Zander Pantheon Starter | — |
 | Lorraine, Spirit Ruler (`n2TKqNaODR`) | CHAMPION | 1 | cost, targeting, zone-movement, trigger | Lorraine Pantheon Starter | — |
-| Altruistic Blacksmith (`Pd4hj3sveV`) | ALLY | 1 | token, combat, trigger | Lorraine Pantheon Starter | — |
 | Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
 | Strike of Singularity (`AMv1u54B2s`) | ATTACK | 1 | damage, combat, condition | Zander Pantheon Starter | — |
 | Tactful Sergeant (`7UXGwC7lSO`) | ALLY | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
 | Besieged Slash (`Dkq7QnrGJI`) | ATTACK | 1 | cost, condition | Lorraine Pantheon Starter | — |
 | Dazzling Courtesan (`znk6g5o8ys`) | ALLY | 1 | cost, zone-movement | Zander Pantheon Starter | — |
-| Sanctified Paladin (`ioLmt0S7op`) | ALLY | 1 | draw-discard, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
 | Slice and Dice (`3jg01o26b4`) | ATTACK | 1 | combat, condition | Zander Pantheon Starter | — |
 | Unity's Gale (`uUWsgLmyTk`) | ACTION | 1 | targeting, condition | Lorraine Pantheon Starter | — |
 | Quietus Blade (`4c7XZeezka`) | REGALIA,WEAPON | 1 | condition | Lorraine Pantheon Starter | — |
@@ -76,3 +73,6 @@ Implemented cards still needing semantic coverage: **2039**
 | Sneaky Raccoon (`jH6F9XYrL5`) | ALLY | 1 | status, condition | — | sneaky-raccoon-stealth |
 | ZENA, Echo Weaver (`vxzsjRxMIn`) | UNIQUE,ALLY | 1 | cost, zone-movement | — | prd-zena-alt-reserve |
 | Nightframe, Hound's Bike (`PboHrwPZgP`) | UNIQUE,ITEM | 2 | counter, trigger, condition | — | — |
+| Oasis Trading Post (`uy4xippor7`) | DOMAIN | 3 | token | — | — |
+| Trained Birdroid (`84lj40Kyhv`) | ALLY | 2 | status, combat, trigger | — | — |
+| Quadrille's Gryphon (`84e2rfex54`) | ALLY | 2 | counter, trigger | — | — |
