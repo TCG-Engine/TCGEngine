@@ -1,10 +1,11 @@
 <?php
 
 // Hosted Card Code API. Point developer checkouts at this endpoint instead of exposing MySQL.
-// All responses are JSON; all access requires a root-scoped bearer token.
+// All responses are JSON; all access requires a root-scoped Card Code token.
 
 include_once __DIR__ . '/../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../Database/CardCodeServiceDB.php';
+include_once __DIR__ . '/../Database/CardCodeRequestToken.php';
 include_once __DIR__ . '/../../Core/CardBaseMap.php';
 
 header('Content-Type: application/json; charset=utf-8');
@@ -16,13 +17,6 @@ function CardCodeServiceJson(int $status, array $payload): void
     http_response_code($status);
     echo json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     exit;
-}
-
-function CardCodeServiceBearerToken(): string
-{
-    $header = (string)($_SERVER['HTTP_AUTHORIZATION'] ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '');
-    if (!preg_match('/^Bearer\s+(.+)$/i', trim($header), $matches)) return '';
-    return trim($matches[1]);
 }
 
 function CardCodeServiceBody(): array
@@ -45,7 +39,8 @@ try {
 
     $conn = GetLocalMySQLConnection();
     $service = new CardCodeServiceDB($conn);
-    $token = $service->authenticate(CardCodeServiceBearerToken(), $root, $scope);
+    $headers = function_exists('getallheaders') ? getallheaders() : [];
+    $token = $service->authenticate(CardCodeRequestToken($_SERVER, is_array($headers) ? $headers : []), $root, $scope);
     $actor = (string)$token['token_name'];
 
     // Variant printings (borderless, alt art) share their base card's abilities: reads and writes

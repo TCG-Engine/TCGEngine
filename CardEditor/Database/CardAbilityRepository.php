@@ -129,7 +129,7 @@ final class RemoteCardAbilityRepository
     private function request(string $action, string $method = 'GET', array $parameters = []): array
     {
         $url = $this->config['url'] . '?action=' . rawurlencode($action);
-        $headers = ['Authorization: Bearer ' . $this->config['token'], 'Accept: application/json'];
+        $headers = ['X-Card-Code-Token: ' . $this->config['token'], 'Accept: application/json'];
         if ($method === 'GET') {
             $url .= '&' . http_build_query($parameters);
             $body = null;

@@ -164,7 +164,7 @@ final class CardCodeServiceDB
 
     public function authenticate(string $plainToken, string $rootName, string $requiredScope): array
     {
-        if ($plainToken === '') throw new RuntimeException('Missing bearer token');
+        if ($plainToken === '') throw new RuntimeException('Missing Card Code token');
         $rootName = self::NormalizeRoot($rootName);
         $hash = hash('sha256', $plainToken, true);
         $stmt = mysqli_prepare($this->conn, "
