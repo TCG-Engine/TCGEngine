@@ -4,7 +4,7 @@
 #// +1/+0 already counted in combat (7 to the base) whichever goes first.
 #//
 #// FOUND BY: sweep run 5, retro #1 (2026-09-14): ORDER ASH_T02:AdvantageShed + JTL_089:OnAttackEnd (3×, e.g.
-#//   aggro_ahsoka_blue.normal_piett_red.s029). Newly reachable: Piett red now CASTS its Capital Ships (Phase 1b part 2,
+#//   ahsoka_blue.piett_red.s029). Newly reachable: Piett red now CASTS its Capital Ships (Phase 1b part 2,
 #//   the 'keep' feature) instead of resourcing them.
 #//
 #// Cards: JTL_089 The Invisible Hand 6/6 space · ASH_T02 Advantage (+1/+0) · LOF_158 (a Droid, cost 3 → draw only,

@@ -1,7 +1,7 @@
 <?php
 // Feature 'noeffect' — an event the ENGINE says would do nothing is held. The dud gate ('dudgate') only checks
 // events that act on the enemy (removal, damage, exhaust, bounce, burn…), so a self-targeting event slipped through:
-// the Armorer fixture (normal_armorer_nabat, 0–8 in the 2026-09-15 smoke) opened round 1 with ASH_090 Reforge
+// the Armorer fixture (armorer_nabat, 0–8 in the 2026-09-15 smoke) opened round 1 with ASH_090 Reforge
 // ("Defeat an upgrade on a friendly unit. If you do, …") and no units — "P1's Reforge had no effect" — instead of
 // playing one of three affordable units. The engine logs "had no effect" only when the WHOLE gamestate is unchanged
 // by the ability (SWUSim/Custom/GameLogEvents.php), so the event is played in the lookahead and that line is read.

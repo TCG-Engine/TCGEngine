@@ -16,9 +16,9 @@ $reg = SWUBotDeckLabelRegistry();
 $check(count($reg) === 23, 'the registry holds the 23 labelled decks', strval(count($reg)));
 
 // ── overlap ─────────────────────────────────────────────────────────────────────────────────────
-$vader = $deckOf('aggro_vader_yellow');
+$vader = $deckOf('vader_yellow');
 $check(abs(SWUBotDeckOverlap($vader['cards'], $vader['cards']) - 1.0) < 1e-9, 'a deck overlaps itself fully');
-$check(SWUBotDeckOverlap($vader['cards'], $deckOf('control_krennic_splash')['cards']) < 0.3,
+$check(SWUBotDeckOverlap($vader['cards'], $deckOf('krennic_splash')['cards']) < 0.3,
     'Vader Yellow and Krennic Splash barely overlap');
 $half = array_slice($vader['cards'], 0, (int)floor(count($vader['cards']) / 2), true);
 $o = SWUBotDeckOverlap($vader['cards'], $half);
@@ -28,17 +28,17 @@ $check($o > 0.2 && $o < 0.85, 'a half list overlaps partially', strval(round($o,
 $r = SWUBotDeckStyle($vader);
 $check($r['source'] === 'label' && $r['style'] === 'hyperaggro', "the stock Vader list takes its label", $r['source'] . '/' . strval($r['style']));
 $check($r['confidence'] === 'high', 'an instant label is high confidence');
-$check(!empty($r['reasons']) && str_contains($r['reasons'][0], 'aggro_vader_yellow'), 'the reason names the matched deck');
+$check(!empty($r['reasons']) && str_contains($r['reasons'][0], 'vader_yellow'), 'the reason names the matched deck');
 
 // ── an off-meta list of the same leader falls through to the scan (owner, 2026-09-22) ───────────
 // Vader's leader, but a midrange shell: the labelled Vader list must no longer reach 75%.
-$offmeta = ['leader' => 'JTL_006', 'base' => 'JTL_020', 'cards' => $deckOf('normal_lukeash_datavault')['cards']];
+$offmeta = ['leader' => 'JTL_006', 'base' => 'JTL_020', 'cards' => $deckOf('lukeash_datavault')['cards']];
 $r2 = SWUBotDeckStyle($offmeta);
 $check($r2['source'] === 'shape', 'an off-meta Vader list is scanned, not labelled', $r2['source']);
 $check($r2['style'] !== 'hyperaggro', 'an off-meta Vader list is not mislabelled Hyper Aggro', strval($r2['style']));
 
 // ── no labelled deck for this leader, and unreadable decks ──────────────────────────────────────
-$unknown = ['leader' => 'SOR_001', 'base' => 'SOR_020', 'cards' => $deckOf('control_dedra_colossus')['cards']];
+$unknown = ['leader' => 'SOR_001', 'base' => 'SOR_020', 'cards' => $deckOf('dedra_colossus')['cards']];
 $check(SWUBotDeckStyle($unknown)['source'] === 'shape', 'an unknown leader is scanned');
 $none = SWUBotDeckStyle(['leader' => '', 'base' => '', 'cards' => []]);
 $check($none['style'] === null && $none['source'] === 'none', 'an empty deck returns no style');

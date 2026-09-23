@@ -4488,7 +4488,45 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var multiSeat = !!(info && info.seatCount > 2);
         if (spectator || !mid) {
             b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
-            if (!mid && !spectator && !multiSeat) b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
+            // Arenabot (spec 2026-09-23 §3): one click into a fresh game with the same two decks, the
+            // same Play Style and the same card pool — how a 100-game data session is survivable.
+            //
+            // ⚠ This REPLACES 'Quick Rematch' here, which cannot work for a local-mode game: mode 10013
+            // needs SWUReadMatchRef() to find a match, and an Arenabot/Goldfish/Hotseat game sets
+            // isGoldfish so JoinQueue never creates one — the button was always answering "Rematch
+            // unavailable." We re-POST the original creation inputs to JoinQueue.php instead, reusing
+            // the whole validated path (deck resolution, format legality, card pool).
+            if (!mid && !spectator && !multiSeat && info && info.rematch) {
+                b.push({label:'Rematch', onClick:function(){
+                    var f = new FormData();
+                    f.append('rootName', 'SWUSim');
+                    f.append('format',    info.rematch.format);
+                    f.append('queueType', 'bo1');
+                    f.append('deckLink',  info.rematch.deckLink);
+                    f.append('deckLink2', info.rematch.deckLink2);
+                    f.append('botStyle',  info.rematch.botStyle);
+                    f.append('cardPool',  info.rematch.cardPool);
+                    fetch('./APIs/Lobbies/JoinQueue.php', {method:'POST', body:f})
+                      .then(function(r){ return r.json(); })
+                      .then(function(j){
+                          if (j && j.success && j.gameName) {
+                              // Same navigation the waiting room uses (SharedUI/Render/WaitingRoom.php:764):
+                              // NextTurn.php with folderPath, and the auth key in the lastAuthKey COOKIE —
+                              // not in the URL.
+                              try {
+                                  document.cookie = 'lastAuthKey=' + encodeURIComponent(j.authKey)
+                                      + '; max-age=' + (30*24*60*60) + '; path=/; SameSite=Lax';
+                              } catch (e) {}
+                              window.location = './NextTurn.php?gameName=' + encodeURIComponent(j.gameName)
+                                  + '&playerID=' + encodeURIComponent(j.playerID)
+                                  + '&folderPath=SWUSim';
+                          } else { SWUGoMainMenu(); }
+                      })
+                      .catch(function(){ SWUGoMainMenu(); });
+                }});
+            } else if (!mid && !spectator && !multiSeat) {
+                b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
+            }
             b.push({label:'Report Bug', onClick: SWUReportBug});
             return b;
         }
@@ -4585,9 +4623,16 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 // locally-known winner — not a match menu whose buttons (Rematch / Next Game) don't apply.
                 if (!info || !info.isMatch) {
                     var ws = SWULocalGameWinners();
+                    // ⚠ This branch passes NULL buttons, which is why SWUBuildEndGameButtons' own
+                    // `!mid` arm was unreachable dead code — and why nobody noticed its 'Quick Rematch'
+                    // could never work here (mode 10013 needs a match record; a local-mode game has
+                    // none). An Arenabot game DOES have something to offer, so build the buttons when
+                    // EndGameInfo handed back rematch inputs, and keep the previous null for every
+                    // other local mode (goldfish / hotseat / harness), whose behaviour is unchanged.
+                    var localBtns = (info && info.rematch) ? SWUBuildEndGameButtons(info) : null;
                     // No match layer ⇒ goldfish / harness game, always 2 seats: no winners line.
                     ShowGameOver(ws.indexOf(parseInt(pid, 10)) !== -1, window.SWUMainMenuUrl || null, '',
-                                 null, SWUWinnersLine(ws, null, 2));
+                                 localBtns, SWUWinnersLine(ws, null, 2));
                     return;
                 }
                 // Prefer the match record's winner set; fall back to the gamestate's if this record

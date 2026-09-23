@@ -25,6 +25,8 @@ include_once __DIR__ . '/SmuggleCost.php';
 include_once __DIR__ . '/../BotLegalActions.php';
 include_once __DIR__ . '/../BotHeuristic.php';
 include_once __DIR__ . '/../BotController.php';
+// BotData recorder (spec 2026-09-23): _SWUOpenAction() below calls SWUBotDataRecordAction().
+include_once __DIR__ . '/BotDataRecorder.php';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // SWU Core Game Logic — zone hooks, macro ChoiceFunctions, pregame DQ handlers
@@ -21213,6 +21215,11 @@ function _SWUOpenAction(): void {
     // failed in the full suite for exactly that reason. Nothing nests before its own action opens, so
     // clearing here is safe: ActivateCard does not call SaveUndoVersion, only ActionMap/CustomInput do.
     $GLOBALS['gSWUActionDepth'] = 0;
+    // BotData recorder (spec 2026-09-23). This is the ONE seam reached by every user-initiated action
+    // and nothing else that acts, which is exactly the granularity the corpus wants. Suppressed inside
+    // SWUBotLookahead (whose in-memory dispatches also land here), a no-op outside botpractice, and
+    // wrapped so it can never break a live game. See Custom/BotDataRecorder.php.
+    if (function_exists('SWUBotDataRecordAction')) SWUBotDataRecordAction();
 }
 
 // ── THE ACTION-CLOSE GATE ─────────────────────────────────────────────────────────────────────
@@ -21383,6 +21390,11 @@ function LoadUndoSnapshot($restoreOrdinal) {
     _SWURestoreSerializedPayload($rec['payload']);
     UndoCursorSet($restoreOrdinal - 1);
     _SWUStampUndoAvailable();
+    // BotData recorder (spec 2026-09-23): the corpus is "what actually happened", and an undone action
+    // did not. History is appended to rather than rewritten — the retraction is itself a signal — so a
+    // reader drops the action rows back to this marker. The lookahead's own restore does NOT come
+    // through here (it calls _SWURestoreSerializedPayload directly), so this only marks real undos.
+    if (function_exists('SWUBotDataMarkUndone')) SWUBotDataMarkUndone();
     return true;
 }
 
@@ -21661,6 +21673,10 @@ function SWULoadBookmark(int $seat, int $bookmarkId, string $rootName = '', stri
     }
     SetFlashMessage('Loaded bookmark — Round ' . intval($bm['round']) . '.');
     AddGameLogEntry('UNDO', "P{$seat} loaded a bookmark (Round " . intval($bm['round']) . ')', 'ALL');   // after the restore
+    // BotData recorder (spec 2026-09-23): undo's sibling rewind. Marks the backwards jump so a reader
+    // can see it, and clears any meta.json from an ending this load just undid — GAMEOVER_WINNER was
+    // cleared above, so the game can end again and that ending is the real one.
+    if (function_exists('SWUBotDataMarkRewound')) SWUBotDataMarkRewound('bookmark');
     return true;
 }
 
@@ -21859,6 +21875,10 @@ function CanActivateAttackCardNow($player, $cardID, $setFlash = true) {
 function ActionMap($actionCard, $allowDuringDecisionQueue = false)
 {
     global $playerID;
+    // BotData recorder (spec 2026-09-23) — see the twin line in Custom/CustomInput.php. 'FSM' is the
+    // wire verb for every ActionMap action (play / attack), matching the "<mz>!FSM!" form the bot
+    // enumerator and the client both use.
+    $GLOBALS['SWUBotDataInFlight'] = ['mz' => strval($actionCard), 'verb' => 'FSM'];
     $turnPlayer = &GetTurnPlayer();
     $currentPhase = GetCurrentPhase();
     $cardArr = explode("-", $actionCard);
@@ -23873,6 +23893,11 @@ function SWUDeclareGameWinner($winner, $flashMessage = null, string $logReason =
     DecisionQueueController::StoreVariable("GAMEOVER_WINNERS", strval($w));
     if ($flashMessage !== null) SetFlashMessage($flashMessage);
     SWULogGameEndLine('WIN', "P{$w} wins the game" . ($logReason !== '' ? " ({$logReason})" : ''));
+    // BotData finalize (spec 2026-09-23). ⚠ NOT the Match layer's captureGameDetail hook: an Arenabot
+    // game sets isGoldfish and never creates a Match, so that hook never fires for the games we record.
+    // This function is the unified commit point every ending reaches, and the early return above makes
+    // it fire exactly once. Placed AFTER the WIN log line so meta.json's gameLog includes it.
+    if (function_exists('SWUBotDataFinalize')) SWUBotDataFinalize($w);
 }
 
 // The game ends the INSTANT a win condition is met, so nothing queued behind it may still resolve.

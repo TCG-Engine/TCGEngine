@@ -1,5 +1,5 @@
 <?php
-// Phase 1b part 2, Task 7 — enablers (feature 'enablers'). Diagnosis 2026-09-14 (normal_piett_red): a 5-cost ship
+// Phase 1b part 2, Task 7 — enablers (feature 'enablers'). Diagnosis 2026-09-14 (piett_red): a 5-cost ship
 // hard-cast before deploying Piett 46 times in 80 games (deploy 1.5 tied the play's 0.3 × 5 and lost the index
 // tie-break); Piett's front Action — "Play a Capital Ship unit from your hand. It costs 1 resource less." — scored
 // a flat 0.4 and lost even to a 2-drop.

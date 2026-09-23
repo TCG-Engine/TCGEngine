@@ -9,7 +9,7 @@
 // turn has exactly 6 to spend and the two Plot cards cost exactly 6 — ANY ordinary play made first makes the full
 // Plot unaffordable.
 //
-// Measured over 60 self-play games (aggro_ahsoka_blue vs normal_luke_datavault, 2026-09-16): Ahsoka deployed in 42,
+// Measured over 60 self-play games (ahsoka_blue vs luke_datavault, 2026-09-16): Ahsoka deployed in 42,
 // always on round 5 — the right turn — but plotted NOTHING in 24 of those 42. The discriminator was purely the
 // ordering: games that plotted had played 0.56 cards before deploying, games that plotted nothing had played 1.75.
 // The resourcer is not at fault — SWUBotChooseResourceCards already ranks Plot cards first (keep = -1000). The bot

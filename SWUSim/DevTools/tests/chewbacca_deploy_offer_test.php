@@ -4,7 +4,7 @@
 // Credit tokens, CR 3.13) and refuses when it can't; but SWUComputeActionsData — the Deploy glow the client lights and
 // the bot's legal-action list reads — used the generic "control ≥ printed cost" check. With 4 resources of which only 2
 // were ready, Deploy glowed, the click did nothing, and the bot re-picked it forever. FOUND 2026-09-15 by the fixture
-// smoke (aggro_chewbacca_outpost: 2 games with no result, "DeployLeader:Unit" repeated at round 3, capacity 2).
+// smoke (chewbacca_outpost: 2 games with no result, "DeployLeader:Unit" repeated at round 3, capacity 2).
 //   docker exec -w /var/www/html/TCGEngine otmtcge-swusim-web-server-1 php -d apc.enable_cli=1 -d xdebug.mode=off SWUSim/DevTools/tests/chewbacca_deploy_offer_test.php
 require __DIR__ . '/fixtures/bot_test_bootstrap.php';
 include_once './SWUSim/BotLegalActions.php';

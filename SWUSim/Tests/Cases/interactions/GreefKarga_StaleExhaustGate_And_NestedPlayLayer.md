@@ -8,7 +8,7 @@
 #//   layer that the ordering prompt and the bare resume see first.
 #//
 #// FOUND BY: sweep retro #3 of run 2 (2026-09-13): ORDER ASH_017 + ASH_017 + ASH_222:Support, and
-#//   aggro_greef.control_aurra_red.s057, where Admiral Ackbar fetched Yellow Aces Bomber and the log reads
+#//   greef.aurra_red.s057, where Admiral Ackbar fetched Yellow Aces Bomber and the log reads
 #//   "Greef gave an Advantage token to Yellow Aces Bomber" then "Greef had no effect". Reproduced below with
 #//   LOF_100 Kelleran Beq, which stays in play and so makes the result visible.
 #//

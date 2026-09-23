@@ -1,0 +1,43 @@
+# Real-deck self-play fixture — Lando Calrissian, Full Sabacc - Fortress of the Great Mothers
+# Source: melee.gg 445115, #12 of 180 (6-2-0)
+#   https://melee.gg/Decklist/View/68d504dd-5a39-4396-a01a-b4bd005ee0fc — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (15 entries).
+# Archetype (owner's label): Credit ramp control — tempo soft control, Heroism, early bombs
+# Style: hardcontrol
+#   ⚠ RELABELLED 2026-09-23 (owner) from softcontrol. '# Style:' is how the BOT PILOTS this deck, and hard control is
+#   MEASURED: vs Luke ASH DV + Vader, 1,000 paired games per arm — hard control +57 over soft control (52.9% → 58.6%
+#   pooled, 67.4% → 77.6% vs Luke ASH), while MIDRANGE was catastrophic at −226 (30.3%). It also recovers what the
+#   deleted tempo shift used to buy: that shift raced Lando at rank 4 and was worth +70 (BotFlavours.php).
+#   Record: bot-sweeps/2026-09-23_lando_style_landomill_prereg.md.
+#   ⚠ Lando is an OPPONENT in earlier runs (the Maul and Talzin tempo blocks), where it was piloted SOFT control.
+#   Those numbers are not comparable with anything measured after today.
+# DeckStyle: softcontrol
+#   What the deck IS, for the Main Menu's auto-pick: the owner's own label above. Unchanged by the piloting result.
+# Flavours: credit-ramp, tempo
+#   ⚠ 'tempo' has done NOTHING since 2026-09-23 — SWU_BOT_FLAVOUR_RANK_SHIFT is empty (BotFlavours.php).
+
+Leader
+1 LAW_018
+
+Base
+1 ASH_019
+
+Deck
+3 LOF_070
+3 ASH_044
+3 SEC_051
+3 LAW_118
+3 LOF_046
+3 SEC_046
+3 LAW_089
+3 ASH_079
+3 LOF_057
+3 ASH_062
+2 LAW_112
+2 ASH_060
+2 LAW_095
+3 ASH_052
+2 ASH_065
+3 JTL_078
+3 SEC_078
+3 LAW_133

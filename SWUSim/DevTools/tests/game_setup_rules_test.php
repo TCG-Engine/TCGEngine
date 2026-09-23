@@ -32,8 +32,8 @@ $check(SWUCardPoolFor('teamsuns-preview', null) === 'teamsuns-preview', 'Team Su
 
 // ── The deck refusal (real fixture decks; legality verified 2026-09-16) ─────────────────────────────
 $sor     = file_get_contents('./SWUSim/Tests/BotFixtures/premier_deck_a.txt');                     // Premier ✗, Eternal ✓
-$ahsoka  = file_get_contents('./SWUSim/Tests/BotFixtures/meta-2026-09/aggro_ahsoka_blue.txt');     // Premier ✓
-$krennic = file_get_contents('./SWUSim/Tests/BotFixtures/meta-2026-09/control_krennic_splash.txt'); // Premier ✓
+$ahsoka  = file_get_contents('./SWUSim/Tests/BotFixtures/meta-2026-09/ahsoka_blue.txt');     // Premier ✓
+$krennic = file_get_contents('./SWUSim/Tests/BotFixtures/meta-2026-09/krennic_splash.txt'); // Premier ✓
 
 $check(SWUArenabotDeckRefusal('premier', $ahsoka, '') === null, 'Premier: a legal deck and no bot deck (the bot mirrors it) → allowed');
 $check(SWUArenabotDeckRefusal('premier', $ahsoka, $krennic) === null, 'Premier: two legal decks → allowed');

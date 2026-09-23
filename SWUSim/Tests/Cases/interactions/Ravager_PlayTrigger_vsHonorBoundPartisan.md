@@ -3,7 +3,7 @@
 #// P1 orders them (CR 7.6.9). Same family as Ravager_PlayTrigger_vsWhenPlayedAndShielded.md.
 #//
 #// FOUND BY: sweep run 5, retro #3 (2026-09-14): ORDER ASH_102:ASH_102 + LAW_058:WhenPlayed (1×,
-#//   aggro_vader_yellow.normal_piett_red.s035). Newly reachable: Piett red now casts Ravager (Phase 1b part 2, 'keep').
+#//   vader_yellow.piett_red.s035). Newly reachable: Piett red now casts Ravager (Phase 1b part 2, 'keep').
 #//
 #// Cards: LAW_058 Honor-Bound Partisan 2/2 ground · ASH_102 Ravager 8/10 space · SOR_128 Death Star Stormtrooper 3/1
 #//   (P2, ground — Partisan's 2 defeats it) · SOR_095 Battlefield Marine 3/3 (P2, ground).

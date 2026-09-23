@@ -6,7 +6,7 @@
 #// tokens on friendly units lose all abilities. (They aren't defeated after combat.)") keeps them after the attack.
 #//
 #// FOUND BY: sweep run 3, retro #9 (2026-09-14): ORDER ASH_099:SupportOnAttack + ASH_149:OnAttack (1×,
-#//   normal_piett_red.control_lando_blue.s028, round 7, seat 1). Not seen in run 2.
+#//   piett_red.lando_blue.s028, round 7, seat 1). Not seen in run 2.
 #//
 #// Cards: ASH_099 Gozanti Assault Carrier 4/6 space (Support; On Attack: gains Sentinel for this phase) · ASH_149
 #//   Eviscerator 9/7 space (the static above; "When Played/On Attack: Give 2 Advantage tokens to each other

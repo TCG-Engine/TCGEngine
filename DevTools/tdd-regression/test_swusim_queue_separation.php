@@ -27,7 +27,7 @@ function _leave($jar, $r) {
         ['rootName' => 'SWUSim', 'playerID' => $r['playerID'] ?? 0, 'lobbyID' => $r['lobbyID'], 'authKey' => $r['authKey'] ?? ''], $jar);
 }
 
-$deck = trim(implode("\n", array_filter(explode("\n", file_get_contents(__DIR__ . '/../../SWUSim/Tests/BotFixtures/meta-2026-09/aggro_vader_yellow.txt')),
+$deck = trim(implode("\n", array_filter(explode("\n", file_get_contents(__DIR__ . '/../../SWUSim/Tests/BotFixtures/meta-2026-09/vader_yellow.txt')),
     fn($l) => !str_starts_with($l, '#'))));   // Premier-legal
 $p1 = _qsLogin('claudebot1');
 $p2 = _qsLogin('claudebot2');

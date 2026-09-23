@@ -2,7 +2,7 @@
 #// defender owes a decision mid-combat.
 #//
 #// FOUND BY: the real-deck self-play sweep, 2026-09-13 (SWUSim/DevTools/rl/sweep_fixtures.sh). Fixture
-#//   aggro_boba_lakecountry, e.g. aggro_ahsoka_blue v aggro_boba_lakecountry seed s009. 51 of the first 12k
+#//   boba_lakecountry, e.g. ahsoka_blue v boba_lakecountry seed s009. 51 of the first 12k
 #//   games froze here: the engine looped forever. A human playing that deck can hit it too.
 #//
 #// THE SHAPE (all four are needed):

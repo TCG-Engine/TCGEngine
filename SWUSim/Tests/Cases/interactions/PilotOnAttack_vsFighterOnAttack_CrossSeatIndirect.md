@@ -7,7 +7,7 @@
 #//   keeps running from that seat's queue (includeActor for the hand-back).
 #//
 #// FOUND BY: sweep retro #1/#2 of run 2 (2026-09-13). Uncovered combo shapes ORDER JTL_012:OnAttackFromUpgrade +
-#//   LOF_144:OnAttack (69×) / JTL_147 (44×) / JTL_149 (37×) / JTL_151 (10×) from normal_luke_datavault, and
+#//   LOF_144:OnAttack (69×) / JTL_147 (44×) / JTL_149 (37×) / JTL_151 (10×) from luke_datavault, and
 #//   ORDER JTL_142:OnAttackFromUpgrade + JTL_237:OnAttack (10×) from the Boba/Dedra lists.
 #//
 #// ★ WAS RED SECTIONS (4) — a candidate engine bug, same family as core/CrossPlayerDecisionPausesThePlay.md

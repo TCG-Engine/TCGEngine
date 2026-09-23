@@ -37,7 +37,7 @@ Screenshots land in /tmp/arenabot-menu-shots/. Then look, by eye, at the menu in
    for all seven pools, and Twin Suns shows it on BOTH branches (Free-for-all and Teams, Standard and Preview — four
    formats). Arenabot and 1P Mode never show it. Logged out, the same.
 10. **A real pairing.** claudebot1 in Chromium and claudebot2 in Firefox both pick Constructed → PvP → Premier, Bo1, with a
-    Premier-legal deck (e.g. SWUSim/Tests/BotFixtures/meta-2026-09/aggro_vader_yellow.txt without its # lines) and click
+    Premier-legal deck (e.g. SWUSim/Tests/BotFixtures/meta-2026-09/vader_yellow.txt without its # lines) and click
     Join Queue. The first sees the waiting popup; the second's click lands both in the SAME game.
 11. **An illegal deck.** PvP → Premier with an SOR list: Join Queue shows the format errors in red under the buttons and
     no waiting popup opens.

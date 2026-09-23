@@ -125,7 +125,7 @@ for (const [engine, driver] of Object.entries(ENGINES)) {
 
 // ── PART B (live) ────────────────────────────────────────────────────────────────────────────────────
 if (!process.env.SKIP_LIVE) {
-  const deckText = fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/meta-2026-09/aggro_vader_yellow.txt', import.meta.url), 'utf8')
+  const deckText = fs.readFileSync(new URL('../../SWUSim/Tests/BotFixtures/meta-2026-09/vader_yellow.txt', import.meta.url), 'utf8')
     .split('\n').filter(l => !l.startsWith('#')).join('\n').trim();
   const join = async () => {
     const r = await fetch(BASE + 'APIs/Lobbies/JoinQueue.php', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

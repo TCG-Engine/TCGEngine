@@ -6,7 +6,7 @@
 #// FIXED 2026-09-13 (all RED sections green; full suite 11895/0): DoGiveAdvantageToken (GameLogic.php) calls
 #//   _SWUAsh208OnUpgradeAttach like the Shield and Experience givers.
 #//
-#// FOUND BY: sweep retro #3 of run 2 (2026-09-13): ORDER ASH_017 + ASH_208:Shielded (60×), aggro_greef.
+#// FOUND BY: sweep retro #3 of run 2 (2026-09-13): ORDER ASH_017 + ASH_208:Shielded (60×), greef.
 #//
 #// ★ WAS RED (3 sections) — candidate engine bug, a bypassed observer (memory "parallel funnels skip the shared
 #//   chain"). DoGiveShieldToken, DoGiveExperienceToken and the generic token attach all call

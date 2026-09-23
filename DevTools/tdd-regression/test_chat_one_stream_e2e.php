@@ -33,7 +33,7 @@ req($B . 'AccountFiles/AttemptPasswordLogin.php', $jar2, ['submit'=>'1','userID'
 // (and Twin Suns needs 3 players anyway). Same fixture the public-queue test uses; its '#' lines are
 // comments the parser must not see.
 $deck = trim(implode("\n", array_filter(
-    explode("\n", file_get_contents(__DIR__ . '/../../SWUSim/Tests/BotFixtures/meta-2026-09/aggro_vader_yellow.txt')),
+    explode("\n", file_get_contents(__DIR__ . '/../../SWUSim/Tests/BotFixtures/meta-2026-09/vader_yellow.txt')),
     fn($l) => !str_starts_with($l, '#'))));
 $host = json_decode(req($L . 'JoinQueue.php', $jar1, ['rootName'=>'SWUSim','createPrivate'=>'1','format'=>'premier','deckLink'=>$deck]), true);
 check(!empty($host['success']), 'created a private premier room', $host);

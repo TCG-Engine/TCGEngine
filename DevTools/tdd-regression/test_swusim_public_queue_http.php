@@ -47,7 +47,7 @@ function fixture($rel) {
     return trim(implode("\n", array_filter(explode("\n", file_get_contents(__DIR__ . '/../../SWUSim/Tests/BotFixtures/' . $rel)), fn($l) => !str_starts_with($l, '#'))));
 }
 
-$LEGAL    = fixture('meta-2026-09/aggro_vader_yellow.txt');   // Premier-legal
+$LEGAL    = fixture('meta-2026-09/vader_yellow.txt');   // Premier-legal
 $ILLEGAL  = fixture('premier_deck_a.txt');                     // SOR — not Premier-legal; Open-legal
 $TWINSUNS = fixture('twinsuns_deck_a.txt');                    // 2 leaders + 80 highlander (CR §12.2)
 $bot1 = login('claudebot1');

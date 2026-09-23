@@ -5,7 +5,7 @@
 #// FIXED 2026-09-13 (all RED sections green; full suite 11895/0): EffectStack layers (GameLogic.php, _SWUEsLayers —
 #//   CR 7.6.11); see GreefKarga_StaleExhaustGate_And_NestedPlayLayer.md.
 #//
-#// FOUND BY: sweep retros #5–#6 of run 2 (2026-09-13), control_lando_blue: ORDER ASH_044:WhenPlayed + ASH_060
+#// FOUND BY: sweep retros #5–#6 of run 2 (2026-09-13), lando_blue: ORDER ASH_044:WhenPlayed + ASH_060
 #//   (92×) · ASH_060 + ASH_062:Shielded (67×) · ASH_060 + ASH_065:WhenPlayed (40×) · ASH_060 + LAW_018:WhenPlayed
 #//   + SEC_046:WhenPlayed (23×), plus PLOT LAW_018 → SEC_046 (148×).
 #//

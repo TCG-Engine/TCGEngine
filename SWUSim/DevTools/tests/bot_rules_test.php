@@ -165,7 +165,7 @@ $build(function ($b) use ($facing) {
     $b->WithGroundUnitForPlayer(1, 'LOF_084', false); $b->WithGroundUnitForPlayer(1, 'SOR_164', false);
 });
 $check($stack('normal')[1] === ['rule:initiative-for-lethal'], 'priority: rule 3 beats rule 4');
-// Cost bound — sweep run 3 timed out twice (games aggro_ahsoka_blue.aggro_vader_yellow s032 and s072): facing
+// Cost bound — sweep run 3 timed out twice (games ahsoka_blue.vader_yellow s032 and s072): facing
 // lethal, rule 4 searched every candidate's every answer three prompts deep before abstaining (62 s at a Name-a-card
 // prompt, 17 s at a 4-target attack prompt). Eight ready Marines against five: no single attack breaks 15 power
 // into 4 left, and unbounded this board costs 8 × (the attack + 6 target answers) = 56 lookaheads.

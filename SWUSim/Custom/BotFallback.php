@@ -20,17 +20,38 @@ function _SWUBotLossFactor(array $att): float {
     return $f;
 }
 
+// PROPOSAL 'mgtrade' (default OFF): what killing $def is worth BEYOND the card — the damage it will not deal.
+// The kill term prices a target by its VALUE, a cost proxy, so a cheap high-power body (Battlefield Marine, 2 for
+// 3/3) is worth 1.80 to a midrange seat while hitting the base for 4 is worth 2.40 — and the bot hits the base.
+// Measured 2026-09-23: 73% of a midrange bot's attacks went at the base across 40 traced games while it lost the
+// board 3.1 units to 4.8 and died in round 6. Here a kill also earns one round of the base damage it prevents
+// (target power x $W['threat'], which SWUBotWeights sets to $W['base'] for a midrange seat and 0 for everyone
+// else), so a swing and a kill are finally priced in the same currency.
+// ONLY WHILE BEHIND ON BOARD POWER (owner A1 "trade up while behind", A5b "judge the board by POWER, not bodies").
+// Ahead or level, the term is zero and the seat races exactly as it does today.
+// ⚠ Not the older 'tradewhenbehind' (above): that one only DISCOUNTS the loss side of a trade and counts BODIES.
+// This one pays the kill side, counts POWER, and reaches 'kill-survive' — which that one never touched.
+function _SWUBotThreatRemoved(array $att, array $def, array $W): float {
+    $rate = floatval($W['threat'] ?? 0.0);
+    if ($rate <= 0.0 || !function_exists('SWUBotUnits')) return 0.0;
+    $seat = intval($att['controller']);
+    $power = function (int $s): int { $n = 0; foreach (SWUBotUnits($s) as $v) $n += intval($v['attackPower']); return $n; };
+    if ($power(SWUBotOpponent($seat)) <= $power($seat)) return 0.0;
+    return $rate * intval($def['attackPower']);
+}
+
 function SWUBotTargetValue(array $att, ?array $def, array $W): float {
     if ($def === null) return $W['base'] * $att['attackPower'];
     $lossF = _SWUBotLossFactor($att);
     switch (SWUBotCombatOutcome($att, $def)) {
         case 'kill-survive':
-            $v = $W['kill'] * SWUBotUnitValue($def);
+            $v = $W['kill'] * SWUBotUnitValue($def) + _SWUBotThreatRemoved($att, $def, $W);
             // The Overwhelm excess reaches the base — which also makes Aggro prefer the lowest-HP kill.
             if (SWUBotOverwhelmKills($att, $def)) $v += $W['base'] * ($att['attackPower'] - $def['remaining']);
             return $v;
         case 'trade':
-            return $W['kill'] * SWUBotUnitValue($def) - $lossF * $W['loss'] * SWUBotUnitValue($att);
+            return $W['kill'] * SWUBotUnitValue($def) + _SWUBotThreatRemoved($att, $def, $W)
+                   - $lossF * $W['loss'] * SWUBotUnitValue($att);
         case 'bounce':
             // Guide: pop a Shield with the smallest attacker.
             if ($def['shields'] > 0 && !$att['saboteur']) return $W['chip'] - 0.05 * $att['attackPower'];
@@ -185,6 +206,22 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
                     foreach (SWUBotUnits(SWUBotOpponent($seat)) as $e) $worst = max($worst, intval($e['attackPower']));
                     if ($hp > 0 && $worst >= $hp) $v -= 1.0;
                 }
+                // PROPOSAL 'mgsentinel' — the PLAY half (owner, 2026-09-23, rulings 2 and 4). "Playing: priority
+                // against aggro — a Sentinel goes down ahead of a bigger non-Sentinel body", and "play a body
+                // before attacking ONLY for Sentinels; otherwise judge the board by POWER, not by body count."
+                // The magnitude is W['attackFirst'] (6.00), this engine's existing "this decides the action" weight,
+                // because the ruling is a PRIORITY and not a preference: a plain bonus the size of a deploy (1.50)
+                // loses to any expensive body — an 8-drop Reinforcement Walker scores 6.40 against Captain Typho's
+                // 1.60 — and would leave both rulings unexpressed. At 6.00 the Sentinel also outranks the attacks
+                // in the same list, which is ruling 4.
+                // Traced 2026-09-23: Luke ASH resourced Sentinels 32 times and played 17, while losing the board
+                // every round. The resourcing half lives in BotResourcing.php.
+                // ⚠ Reads the opposite way to 'sentineltiming' below, which holds a Sentinel back until the
+                // attacks are done. They are alternatives, never a pair: run at most one of them in an arm.
+                if (SWUBotProposalOn('mgsentinel') && SWUBotStyleRank(strval($ctx['style'] ?? '')) === 2
+                    && _SWUBotHasPrintedSentinel($cid) && SWUBotOpponentIsAggroLeader($seat)) {
+                    $v += $W['attackFirst'];
+                }
                 // PROPOSAL 'sentineltiming' (default OFF): a Sentinel is played to guard the OPPONENT'S turn, so it
                 // belongs at the END of my round — while I still have attacks to make, playing it early only exposes
                 // it to removal. Held back while any attack is still on offer.
@@ -229,6 +266,10 @@ function SWUBotScoreAction(array $ctx, array $action, int $index): float {
         if ($effect === 'sacrifice') return -1.0;
         return SWUBotAtResourceStop($ctx) ? $W['stopPass'] : 0.0;   // guide: the style's resource stop (rule 11)
     }
+    // PROPOSAL 'landomill' (default OFF): Lando's "choose an aspect, then discard a card from a deck" — which aspect,
+    // and whose deck. Inert unless the proposal is on and this seat's leader carries that Action.
+    $lando = _SWUBotLandoDecisionScore($ctx, $c, $index);
+    if ($lando !== null) return $lando;
     // Split damage and the indirect player pick (feature 'splits'). A heal split is not damage.
     if ($type === 'MZSPLITASSIGN' && stripos($tip, 'damage') !== false && stripos($tip, 'heal') === false && SWUBotFeatureOn('splits')) {
         return _SWUBotSplitScore($seat, $c, $W, stripos($tip, 'indirect') !== false);
@@ -404,6 +445,99 @@ function _SWUBotTargetsScore(int $seat, string $candidate, bool $hostile, int $a
     }
     return $sum;
 }
+
+// ── PROPOSAL 'landomill' (default OFF) — owner ruling 2026-09-23, Lando Calrissian Full Sabacc (LAW_018) ───────────
+// "Lando names my own deck early on to ramp up to bombs early. after flip turn (and after my leader unit is killed and
+// returned to the leader zone), i either don't use his ability, or i will mill the opponent based on their deck and
+// what is left in their deck" — with a spare resource left after the plays you wanted, and when their deck is low the
+// mill IS the win condition. Traced 2026-09-23: the shipped bot mills its OWN deck 50/50 times, right before the flip
+// and wrong after it.
+// ⚠ The Action is a FRONT-side ability, so it is unavailable while deployed: the phases are pre-flip
+// (EpicActionUsed false) and flipped-and-returned (EpicActionUsed true, Deployed false).
+// ⚠ PUBLIC INFORMATION ONLY. A live Arenabot game does not know the opponent's list, so "their deck" is read from
+// what they have SHOWN: their discard pile, their units in play, then their leader and base. Reading GetDeck($opp)
+// would be peeking at hidden information and would not transfer out of self-play.
+const SWU_BOT_LANDO_ACTION = '/Choose an aspect, then discard a card from a deck/i';
+
+// [$isLandoLeader, $postFlip] for this seat's undeployed leader.
+function _SWUBotLandoPhase(int $seat): array {
+    $l = GetLeader($seat)[0] ?? null;
+    if ($l === null) return [false, false];
+    $deployed = !empty($l->Deployed) && strval($l->Deployed) !== 'false';
+    if ($deployed || !preg_match(SWU_BOT_LANDO_ACTION, strval(CardText(strval($l->CardID ?? ''))))) return [false, false];
+    $flipped = !empty($l->EpicActionUsed) && strval($l->EpicActionUsed) !== 'false';
+    return [true, $flipped];
+}
+
+// How often an aspect appears across a bag of CardIDs.
+function _SWUBotAspectCounts(array $cardIDs): array {
+    $out = [];
+    foreach ($cardIDs as $id) {
+        foreach (explode(',', strval(CardAspect(strval($id)) ?? '')) as $a) {
+            $a = trim($a);
+            if ($a !== '') $out[$a] = ($out[$a] ?? 0) + 1;
+        }
+    }
+    return $out;
+}
+
+// The aspect worth naming: my own deck before the flip, what they have SHOWN after it.
+function _SWUBotLandoAspectCounts(int $seat, bool $postFlip): array {
+    if (!$postFlip) {
+        return _SWUBotAspectCounts(array_map(fn($o) => strval($o->CardID ?? ''),
+            array_filter(GetDeck($seat), fn($o) => $o !== null && empty($o->removed))));
+    }
+    $opp = SWUBotOpponent($seat);
+    $seen = array_map(fn($o) => strval($o->CardID ?? ''), array_filter(GetDiscard($opp), fn($o) => $o !== null && empty($o->removed)));
+    foreach (SWUBotUnits($opp) as $v) $seen[] = strval($v['cardID']);
+    $counts = _SWUBotAspectCounts($seen);
+    if (!empty($counts)) return $counts;
+    // Nothing shown yet: their leader and base are the only public read on what their deck is made of.
+    $ids = [];
+    foreach (GetLeader($opp) as $l) { if ($l !== null && empty($l->removed)) $ids[] = strval($l->CardID ?? ''); }
+    $b = GetBase($opp)[0] ?? null;
+    if ($b !== null) $ids[] = strval($b->CardID ?? '');
+    return _SWUBotAspectCounts($ids);
+}
+
+// The two prompts the Action raises. Returns null when this is not a landomill decision.
+function _SWUBotLandoDecisionScore(array $ctx, string $c, int $index): ?float {
+    if (!SWUBotProposalOn('landomill')) return null;
+    $seat = intval($ctx['seat']);
+    [$isLando, $post] = _SWUBotLandoPhase($seat);
+    if (!$isLando) return null;
+    $tip = strval($ctx['tooltip'] ?? '');
+    if ($tip === 'Choose_an_aspect') {
+        $counts = _SWUBotLandoAspectCounts($seat, $post);
+        return 1.0 + 0.01 * floatval($counts[$c] ?? 0) - $index * 1e-6;
+    }
+    if ($tip === 'Discard_from_which_deck?') {
+        $want = $post ? "Opponent's_deck" : 'Your_deck';
+        if ($c === $want) return 1.0;
+        return $c === 'PASS' || $c === '-' ? -1.0 : -$index * 1e-6;   // never decline the mill itself
+    }
+    return null;
+}
+
+// WHEN to use the Action once the leader has come back (the pre-flip half is already the bot's behaviour):
+//   - skip it while resources + Credits already cover the biggest card in hand — the Credit buys nothing;
+//   - with their deck nearly out, the mill IS the win condition, so it goes FIRST;
+//   - otherwise it is a spare-resource play: below the round's real plays, above passing.
+function _SWUBotLandoAbilityScore(array $ctx, array $W): ?float {
+    if (!SWUBotProposalOn('landomill')) return null;
+    $seat = intval($ctx['seat']);
+    [$isLando, $post] = _SWUBotLandoPhase($seat);
+    if (!$isLando || !$post) return null;
+    $theirDeck = count(array_filter(GetDeck(SWUBotOpponent($seat)), fn($o) => $o !== null && empty($o->removed)));
+    if ($theirDeck <= SWU_BOT_LANDO_MILL_KILL) return 10.0;            // milling them out is the plan now
+    $biggest = 0;
+    foreach (GetHand($seat) as $o) { if ($o !== null && empty($o->removed)) $biggest = max($biggest, intval(CardCost(strval($o->CardID ?? '')))); }
+    if ($biggest > 0 && SWUTotalPaymentCapacity($seat) >= $biggest) return -0.5;   // nothing left to ramp toward
+    return 0.02;                                                       // the spare-resource play, after everything else
+}
+
+// Their deck at or under this, and the mill outranks the round's plays: each card they cannot draw is damage.
+const SWU_BOT_LANDO_MILL_KILL = 5;
 
 // What losing one of my units costs: its value (cost + what dies with it), less what its When Defeated
 // ability gives back. Owner: Krennic's sacrificial ramp spends cheap units with beneficial When Defeated.
@@ -900,6 +1034,9 @@ function _SWUBotBoardSignature(int $seat): array {
 // If the lookahead cannot apply the action, the flat value stands (the pre-2026-09-13 behaviour).
 function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     $seat = intval($ctx['seat']);
+    // PROPOSAL 'landomill' (default OFF): once Lando has flipped and come back, the Action is a spare-resource play —
+    // or a skip, or the win condition when their deck is nearly out. Pre-flip it is left exactly as it was.
+    if (SWUBotActionKind($action) === 'leader-ability' && ($l = _SWUBotLandoAbilityScore($ctx, $W)) !== null) return $l;
     // PROPOSAL 'piettcheat' (default OFF). Owner, 2026-09-22: Piett "should cheat out capital ships to be able to trade
     // and stall against Vader". The lookahead stops at the ship prompt, so the discounted play scored as a bare
     // ability (1.5) — no more than playing the same ship at full price. Value it as the best ship it can play, plus
@@ -971,7 +1108,7 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     // …and an Action whose ONLY effect is +N/+0 for this phase, with no ready unit to spend it, is not used at all
     // (owner report 2026-09-21, Petranaki Arenabot: Ahsoka's Action "wasted" on an exhausted unit).
     if (SWUBotFeatureOn('buffattack')) {
-        $gain = _SWUBotBuffAttackGain($ctx, $seat, $before, $after, $W);
+        $gain = _SWUBotBuffAttackGain($ctx, $seat, $before, $after, $W, $action);
         if ($gain <= 0.0 && _SWUBotIsPowerOnlyPhaseBuff($before, $after, $handBefore)) return -0.5;
         $value = max($value, $W['ability'] + $gain);
     }
@@ -995,7 +1132,7 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
 //   · it is still pending → read the amount off the APPLY_PHASE_BUFF continuation and try each candidate.
 // Zero when the buff lands on an exhausted unit (it cannot attack this phase), on a unit with nothing worth
 // attacking, or on the enemy — so this never promotes an Action that does not improve an attack.
-function _SWUBotBuffAttackGain(array $ctx, int $seat, array $before, array $after, array $W): float {
+function _SWUBotBuffAttackGain(array $ctx, int $seat, array $before, array $after, array $W, ?array $action = null): float {
     $views = [];
     foreach (SWUBotUnits($seat) as $v) $views[$v['uid']] = $v;
     $bestAttack = function (array $att) use ($ctx, $W): float {
@@ -1016,6 +1153,21 @@ function _SWUBotBuffAttackGain(array $ctx, int $seat, array $before, array $afte
         $gain = max($gain, $gainFor($views[$uid] ?? null, intval($row[1]) - intval($prev[1])));
     }
     $d = $after['decision'] ?? null;
+    // PROPOSAL 'mgbuff' (default OFF) — owner ruling 2026-09-23. The branch below only reads the generic
+    // APPLY_PHASE_BUFF continuation, so a card that applies its buff inside its OWN handler is invisible and its
+    // Action keeps the flat W['ability'] — the T-6 Shuttle (ASH_109) was offered 16 times in 40 traced games and
+    // used 0. Six cards share that shape. Read the amount off the ACTION'S PRINTED TEXT instead, then price it with
+    // the same machinery, so mgbuff and buffattack agree on what a buff is worth.
+    if ($gain <= 0.0 && $d !== null && $action !== null && SWUBotProposalOn('mgbuff')
+        && !str_starts_with(strval($d['next'] ?? ''), 'APPLY_PHASE_BUFF')) {
+        $text = _SWUBotActionSourceText($seat, $action);
+        if (preg_match('/\+(\d+)\/\+\d+ for this phase/i', $text, $m)) {
+            foreach (array_filter(explode('&', strval($d['param'] ?? ''))) as $mz) {
+                if (!str_starts_with($mz, 'my')) continue;          // buffing THEIR unit adds nothing to my attacks
+                $gain = max($gain, $gainFor(SWUBotViewForMz($seat, $mz), intval($m[1])));
+            }
+        }
+    }
     if ($gain <= 0.0 && $d !== null) {
         $parts = explode('|', strval($d['next'] ?? ''));
         if (($parts[0] ?? '') === 'APPLY_PHASE_BUFF') {
@@ -1073,6 +1225,32 @@ function _SWUBotShouldMulligan(int $seat, string $style): ?bool {
     $atLeast = fn(int $n) => count(array_filter($costs, fn($c) => $c >= $n));
     if (SWUBotProposalOn('mullnocast')) return $atMost(3) < 2;
     if (SWUBotProposalOn('mullcurve'))  return $atMost(2) === 0 || $atLeast(6) >= 3;
+    // PROPOSAL 'mgmull' (default OFF, "@try-mgmull") — owner ruling 2026-09-23 (5), the MATCHUP-dependent keep.
+    // All three traced Luke ASH openings were mulligans ("one probably, two definitely") and the bot kept them all.
+    //   vs AGGRO:   a curve PLUS a body that blocks — a Sentinel, or a unit that survives their round-2 attack.
+    //   vs CONTROL: set aside the two cards you would resource; the remaining four must produce a play in R1-R3.
+    // ⚠ The owner also gave a third test (vs MIDRANGE: three castable by round 3, plus a play on curve in R1-2).
+    // It is NOT implemented, because at the mulligan the only read of the opponent is their LEADER and the engine
+    // has a list of aggro leaders but none of control ones — a midrange opponent is indistinguishable from a
+    // control one here. The control test is the milder of the two, so it is what an unknown opponent gets.
+    // Round N carries N+1 resources (CR 5.4): R2 = 3, R3 = 4. "Survives their round-2 attack" = 3+ HP.
+    if (SWUBotProposalOn('mgmull') && SWUBotStyleRank($style) === 2) {
+        $hp = []; $sentinel = [];
+        foreach (GetHand($seat) as $o) {
+            if ($o === null || !empty($o->removed)) continue;
+            $cid = strval($o->CardID ?? '');
+            $isUnit = strval(CardType($cid)) === 'Unit';
+            $hp[] = $isUnit ? intval(CardHp($cid)) : 0;
+            $sentinel[] = $isUnit && _SWUBotHasPrintedSentinel($cid);
+        }
+        if (function_exists('SWUBotOpponentIsAggroLeader') && SWUBotOpponentIsAggroLeader($seat)) {
+            $blocks = false;
+            foreach ($costs as $k => $c) { if ($c <= 4 && ($sentinel[$k] || $hp[$k] >= 3)) { $blocks = true; break; } }
+            return $atMost(3) < 2 || !$blocks;
+        }
+        $rest = $costs; rsort($rest); $rest = array_slice($rest, 2);        // the two I would resource are the priciest
+        return empty($rest) || min($rest) > 4;                             // nothing castable by round 3
+    }
     if (SWUBotProposalOn('mullstyle')) {
         $rank = SWUBotStyleRank($style);
         if ($rank <= 1) return $atMost(2) === 0;                                   // the aggro wing needs an early drop

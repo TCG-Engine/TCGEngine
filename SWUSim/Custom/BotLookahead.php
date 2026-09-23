@@ -103,10 +103,16 @@ function SWUBotLookahead(int $seat, array $action, callable $read): ?array {
         $saved[$name] = array_key_exists($name, $GLOBALS) ? $GLOBALS[$name] : null;
     }
     $out = null;
+    // BotData recorder (spec 2026-09-23): the dispatch below reaches _SWUOpenAction() exactly like a
+    // real action, so without this the corpus would fill with hypotheticals the bot only CONSIDERED.
+    // A depth, not a boolean — _SWUBotLookaheadContinue() nests these. Raised outside the try so the
+    // finally always lowers it, even if the dispatch throws.
+    if (function_exists('SWUBotDataEnterLookahead')) SWUBotDataEnterLookahead();
     ob_start();
     try {
         if (_SWUBotLookaheadDispatch($seat, $action)) $out = $read();
     } finally {
+        if (function_exists('SWUBotDataExitLookahead')) SWUBotDataExitLookahead();
         ob_end_clean();
         _SWURestoreSerializedPayload($payload);
         _SWUReapplyUndoBlocks($blocked);

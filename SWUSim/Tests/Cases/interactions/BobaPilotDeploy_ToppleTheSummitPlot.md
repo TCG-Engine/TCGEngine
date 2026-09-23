@@ -4,7 +4,7 @@
 #// damaged unit") the ORDER is the whole combo: Boba first damages the units that Topple then finishes.
 #//
 #// FOUND BY: sweep retro #2 of run 2 (2026-09-13). Uncovered combo shapes PLOT JTL_009 → SEC_183 (154×) and
-#//   ORDER JTL_009:WhenPlayedAsUpgrade + SEC_183:SWU_PLOT_WINDOW (64×), from aggro_boba_lakecountry.
+#//   ORDER JTL_009:WhenPlayedAsUpgrade + SEC_183:SWU_PLOT_WINDOW (64×), from boba_lakecountry.
 #//   All sections were green on first run: this file is REGRESSION COVERAGE, not a bug.
 #//
 #// Cards: JTL_237 TIE Bomber 0/4 (Boba's host) · SEC_028 Trayus Acolyte 2/4 · SOR_095 Battlefield Marine 3/3 ·

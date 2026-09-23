@@ -1,0 +1,50 @@
+# Real-deck self-play fixture — Darth Maul, Sith Revealed - Nightsister Lair
+# Source: melee.gg 445115, #6 of 180 (6-1-1)
+#   https://melee.gg/Decklist/View/db5168bf-9d3f-45af-bced-b4bb012b0928 — converted to SET_NNN by APIs/MeleeLinkToJson.php (sideboard dropped)
+#   The best-finishing list of its archetype in docs/superpowers/research/2026-09-premier-meta/ (14 entries).
+# Archetype (owner's label): Tempo / midrange (Force)
+# Style: softcontrol
+#   ⚠ RELABELLED 2026-09-23 (owner) from midrange. '# Style:' is how the BOT PILOTS this deck, and soft control is
+#   MEASURED: the 2×2 vs Lando Blue, 1,000 paired games per arm — soft control beat midrange by **+139** with the
+#   tempo shift off either side (34.6% → 48.5%), and by +119 with it on.
+#   The older "piloting it as control is worse" note (2026-09-21 p3d bisection, +54/+81) was about soft control PLUS
+#   the tempo rank shift, which stacked to HARD control. That shift no longer exists (BotFlavours.php), so the
+#   double-count it warned about cannot happen.
+#   ⚠ Measured in ONE matchup, vs Lando; no safety check vs other opponents (owner: "might as well").
+#   ⚠ Even the best arm was 48.5% — the owner expects Maul FAVOURED here, so something is still missing.
+#   Record: bot-sweeps/2026-09-23_maul_tempo_2x2_prereg.md, _tempo_and_labels_result.md.
+#   No '# DeckStyle:' line any more: piloting and identity now AGREE. It carried `softcontrol` from 2026-09-22, when
+#   the owner read the deck as control — "i do think it is borderline control. it just so happens that the blue red
+#   villainy top end is so good right now/in this meta" (12 cards at cost 6+ and 3 Pre Vizsla wipes, against 7 and 0
+#   for a Talzin Red list) — while the bot still piloted it as midrange. The 2026-09-23 measurement agreed with the
+#   owner, so '# Style:' alone says it and the classifier's registry falls back to it.
+#   ⚠ The FILENAME still reads 'normal_' (the old 3-way label). Renaming it would break the run records and pairs
+#   files that name it; the header is the source of truth.
+# Flavours: tempo, force
+
+Leader
+1 LOF_009
+
+Base
+1 LOF_020
+
+Deck
+3 LOF_129
+3 LOF_070
+3 LOF_132
+3 LOF_031
+3 ASH_030
+3 ASH_148
+3 ASH_053
+3 LOF_061
+3 LOF_035
+3 SEC_028
+2 SEC_170
+2 LOF_231
+2 ASH_079
+2 LOF_160
+1 LOF_057
+3 ASH_052
+2 JTL_140
+3 JTL_043
+3 SEC_038

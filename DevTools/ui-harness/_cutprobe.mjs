@@ -20,7 +20,7 @@ const OUT = process.env.OUT || '/tmp/cutprobe';
 const ENGINES = { chromium, firefox, webkit };
 const PICK = (process.env.ENGINES || 'chromium').split(',');
 fs.mkdirSync(OUT, { recursive: true });
-const DECK = fs.readFileSync('/Users/mt/Documents/GitHub/Karabast-SWU/OTMTCGE/SWUSim/Tests/BotFixtures/meta-2026-09/aggro_vader_yellow.txt', 'utf8')
+const DECK = fs.readFileSync('/Users/mt/Documents/GitHub/Karabast-SWU/OTMTCGE/SWUSim/Tests/BotFixtures/meta-2026-09/vader_yellow.txt', 'utf8')
   .split('\n').filter(l => !l.startsWith('#')).join('\n').trim();
 
 for (const name of PICK) {

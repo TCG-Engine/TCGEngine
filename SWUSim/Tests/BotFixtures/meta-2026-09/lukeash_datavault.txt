@@ -2,7 +2,7 @@
 # Source: melee.gg 438901, #3 of 119 (7-2-0)
 #   https://melee.gg/Decklist/View/1bbe5ddc-8a79-40d9-aa65-b4c3012c8d50 — converted to SET_NNN by APIs/MeleeLinkToJson.php (rootName=SWUDeck; sideboard dropped)
 #   Promoted into the CURATED gate set 2026-09-16 at the owner's request: the defensive/heal behaviour class
-#   was otherwise uncovered by the gate set. Previously field-set only (meta-2026-09-field/normal_lukeskywalker_green_datavault.txt).
+#   was otherwise uncovered by the gate set. Previously field-set only (meta-2026-09-field/lukeskywalker_green_datavault.txt).
 # Archetype: Luke (ASH) · Green Data Vault — 35 entries, 91-106-10 (46.4% match win, 95% CI 39.7-53.2) over 207
 #   non-mirror matches across twenty-three events; 4 top-8 finishes.
 # Archetype (owner's label): Grindy midrange blue-green Hero — defensive, heal-based
@@ -15,7 +15,7 @@
 #
 # ⚠ THE SET TAG IS LOAD-BEARING. Two different Luke leaders both play Green Data Vault:
 #     ASH_005 "I Can Save Him"  — THIS deck: grindy, defensive, heal. 35 entries, 46.4%.
-#     JTL_012 "Hero of Yavin"   — normal_luke_datavault.txt: soft aggro / midrange SPACE. 94 entries, 52.5%.
+#     JTL_012 "Hero of Yavin"   — luke_datavault.txt: soft aggro / midrange SPACE. 94 entries, 52.5%.
 #   They share the archetype key apart from the set tag and play nothing alike. Never call either one "Luke DV"
 #   unqualified, and never merge their tournament numbers.
 

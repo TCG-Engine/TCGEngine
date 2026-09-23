@@ -63,6 +63,9 @@ function SWUBotWeights(string $style, int $seat): array {
         'attackFirst' => [6.00, 6.00, 6.00, 6.00, 6.00],
         'maxUnits'    => [4.00, 3.00, 0.00, 0.00, 0.00],
         'stopPass'    => [1.50, 1.50, 1.50, 1.50, 1.50],
+        // PROPOSAL 'mgtrade' (default OFF) turns this on for MIDRANGE only, below. Zero everywhere means
+        // SWUBotTargetValue's threat term vanishes for every shipped bot.
+        'threat'      => [0.00,  0.00,  0.00,  0.00,  0.00],
     ];
     $col = SWUBotRacingRank($style, $seat);
     $out = [];
@@ -88,6 +91,14 @@ function SWUBotWeights(string $style, int $seat): array {
     if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('dmgbudget') && SWUBotStyleRank($style) >= 3
         && function_exists('SWUBotOverDamageBudget') && SWUBotOverDamageBudget($seat)) {
         foreach (SWU_BOT_DMGBUDGET_SHIFT as $k => $mult) { if (isset($out[$k])) $out[$k] *= $mult; }
+    }
+    // PROPOSAL 'mgtrade' (default OFF, "@try-mgtrade"). A MIDRANGE seat prices the THREAT a kill removes, at the
+    // same rate as the base damage it gives up to take it (owner, 2026-09-23 A1/A5b: trade up while behind, and
+    // judge the board by POWER). The condition — only while behind on board power — lives in SWUBotTargetValue,
+    // which is the only reader; this is just the rate. Gated on the ARCHETYPE rank, not the racing rank: a
+    // midrange seat that is racing is ahead, and the behind-check would refuse it anyway.
+    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('mgtrade') && SWUBotStyleRank($style) === 2) {
+        $out['threat'] = $out['base'];
     }
     return $out;
 }

@@ -3,7 +3,7 @@
 #// The order is load-bearing whenever the Advantage token (+1/+0, defeated when the unit's attack ends) could
 #// ride along on the Ambush attack.
 #//
-#// FOUND BY: sweep retro #2 of run 2 (2026-09-13). Uncovered combo shapes, all from aggro_greef:
+#// FOUND BY: sweep retro #2 of run 2 (2026-09-13). Uncovered combo shapes, all from greef:
 #//   ORDER ASH_017 + LAW_067:WhenPlayed (169×) · ASH_017 + LAW_219:Ambush (92×) · ASH_017 + JTL_096:Ambush (90×)
 #//   · ASH_017 + JTL_096:Ambush + JTL_096:WhenPlayed (86×) · ASH_017 + ASH_253:Support (78×) · ASH_017 +
 #//   SEC_204:Ambush (53×) · ASH_017 + JTL_096:WhenPlayed (49×).

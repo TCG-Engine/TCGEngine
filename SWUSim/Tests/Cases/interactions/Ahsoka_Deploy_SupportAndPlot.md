@@ -3,8 +3,8 @@
 #//
 #// FOUND BY: sweep retro #1 of run 2 (2026-09-13). The most frequent uncovered combo shapes of the first
 #//   2,110 games: ORDER ASH_009:Support + SEC_111:SWU_PLOT_WINDOW (340×) and ORDER ASH_009:SupportOnAttack +
-#//   ASH_248:OnAttack (344×), e.g. aggro_ahsoka_yellow v control_lando_blue s065, aggro_ahsoka_blue v
-#//   aggro_ahsoka_yellow s093. All sections were green on first run: this file is REGRESSION COVERAGE, not a bug.
+#//   ASH_248:OnAttack (344×), e.g. ahsoka_yellow v lando_blue s065, ahsoka_blue v
+#//   ahsoka_yellow s093. All sections were green on first run: this file is REGRESSION COVERAGE, not a bug.
 #//
 #// THE RULES.
 #//   - ASH_009 deployed: "Support (When you deploy this leader, you may attack with another unit. It gains this

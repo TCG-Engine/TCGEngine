@@ -63,6 +63,7 @@ SWUSim/crops
 SWUSim/WebpImages
 SWUSim/Games
 SWUSim/Matches
+SWUSim/BotData
 SWUSim/GeneratedCode
 SWUSim/TempImages
 SWUSim/GamestateParser.php

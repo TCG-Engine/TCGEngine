@@ -108,7 +108,7 @@ function SWUBotAggroMaxUnitsPick(array $ctx): ?array {
     // the plotted units plus the leader's own body. It has to be judged here rather than by its score alone,
     // because this guide's weight (4.0 for Aggro) otherwise decides the turn on its own and the deploy is not
     // even a candidate — so the bot plays a 2-drop, spends the Plot budget, and the flip turn produces nothing
-    // (feature 'plotdeploy'; measured on aggro_ahsoka_blue, 24 of 42 deploys plotted nothing). Deploying FIRST
+    // (feature 'plotdeploy'; measured on ahsoka_blue, 24 of 42 deploys plotted nothing). Deploying FIRST
     // costs nothing: an Epic Action gates on resources controlled and spends none, so the hand plays that lose
     // this comparison are still affordable afterwards.
     if (SWUBotFeatureOn('plotdeploy')) {
@@ -121,6 +121,26 @@ function SWUBotAggroMaxUnitsPick(array $ctx): ?array {
             }
             if ($units > 0 && $units + 1 > $bestCount) return $deploy;
         }
+    }
+    // An ENABLER inside the chosen subset goes FIRST (feature 'enablerfirst'; Bug Report #1071, game 1139599 —
+    // ASH_248 Neel and LAW_037 Han Solo, both 1 cost, both in the subset). Ordering the subset cannot cost
+    // anything: it is affordable AS A WHOLE, so whichever of its cards is played first the rest are still
+    // payable. But "most expensive" ties at equal cost and falls through to the hand INDEX, and this guide's
+    // weight (3.0 soft aggro / 4.0 hyper aggro) is five to seven times the ordering bonus the scorer adds
+    // (_SWUBotEnablerFirstBonus, BotFallback.php) — so without this the aggro wing's order is decided by where
+    // the two cards happen to sit in hand and p10 is inert for every aggro seat. Same gate as the scorer's
+    // half: the bonus is non-zero only when an ELIGIBLE payoff is in hand and still affordable afterwards.
+    if (SWUBotFeatureOn('enablerfirst')) {
+        $W = SWUBotWeights(strval($ctx['style'] ?? ''), $seat);
+        $enabler = null; $enablerGain = 0.0;
+        for ($i = 0; $i < $n; $i++) {
+            if (!($bestMask & (1 << $i))) continue;
+            $obj = _SWUBotHandObject($seat, $plays[$i][0]);
+            if ($obj === null) continue;
+            $gain = _SWUBotEnablerFirstBonus($seat, $plays[$i][0], strval($obj->CardID ?? ''), $W);
+            if ($gain > $enablerGain) { $enabler = $plays[$i][0]; $enablerGain = $gain; }
+        }
+        if ($enabler !== null) return $enabler;
     }
     $pick = null; $pickCost = -1;
     for ($i = 0; $i < $n; $i++) {
