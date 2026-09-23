@@ -1,0 +1,17 @@
+{
+    "name": "lorraine-spirit-ruler-enter-banish-sword-durability",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T19:38:54+00:00",
+    "createdBy": "Codex",
+    "notes": "Lorraine, Spirit Ruler's On Enter (enterAbilities[\"n2TKqNaODR:0\"] plus its n2TKqNaODR:0:Enter-1 CUSTOM continuation in GeneratedMacroCode.php) searches the banishment for a Sword regalia card with memory cost <=1 and puts it onto the field with 3 additional durability counters. The level-up gate (CanChampionLevelUpIntoCard, GameLogic.php) only checks level number, not the 'Lorraine Lineage' flavor text, so the starting champion is patched directly to Lorraine, Blademaster (TJTeWcZnsQ, level 2) to satisfy the level 2->3 gate, 3 filler cards are seeded into memory to pay the 3-memory level-up cost, and the deck's Material section carries an extra 'Lorraine, Spirit Ruler' entry so it's sitting in the material zone to level up into. Clarent, Sword of Peace (m31WVJ9F04, REGALIA/WEAPON, subtypes WARRIOR,SWORD, memory cost 1, printed durability 2) is seeded into the banishment as the sole legal MZMAYCHOOSE target; a trailing PASS declines Clarent's own [Class Bonus] prevent-damage fast action window so the decision queue ends empty.",
+    "testedCards": [
+        "n2TKqNaODR"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["n2TKqNaODR"],
+        "mechanics": ["cost", "targeting", "zone-movement", "trigger"],
+        "rulesClauses": [
+            "On Enter: Choose a Sword regalia card with memory cost 1 or less from your banishment and put it onto the field. It enters the field with three additional durability counters on it."
+        ]
+    }
+}

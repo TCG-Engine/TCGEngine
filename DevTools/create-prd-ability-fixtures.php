@@ -15182,6 +15182,88 @@ DECK,
     ],
 ];
 
+// --- Besieged Slash: Costs 2 less vs 3+ opposing units [Class Bonus] ---
+$fixtures['besieged-slash-class-bonus-3-units-discount'] = [
+    'testedCards' => ['Dkq7QnrGJI'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Besieged Slash
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Besieged Slash (activationCostModifierAbilities["Dkq7QnrGJI:0"], GeneratedMacroCode.php) costs
+    // 2 less (3 -> 1 reserve) when [Class Bonus] is active (player's champion is WARRIOR) AND the
+    // opponent controls 3+ ALLY/CHAMPION units. Player 2 is patched to a WARRIOR champion (Lorraine,
+    // Wandering Warrior) for the class bonus; player 1 (the opponent, from P2's perspective) gets 2
+    // extra Dungeon Guide allies seeded onto their field, which combined with their own already-
+    // present champion brings their unit count to exactly 3. Same real attack-card-activation shape
+    // as heavy-swing-class-bonus-discount: P1 passes turn 1 (Rule 1.h forbids the opening player from
+    // activating ATTACK cards turn 1), then P2 activates Besieged Slash on their own turn 1, paying
+    // only 1 rep of the reserve decision (not 3) before the mandatory attack-card target selection.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']], // Lorraine, Wandering Warrior (WARRIOR) - Class Bonus source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY 1/2 (plus P1's own champion = 3 units total)
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y'], // Dungeon Guide ALLY 2/2
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'Dkq7QnrGJI'], // Besieged Slash, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/1 (discounted from 3)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target P1's champion
+    ],
+];
+
+// --- Lorraine, Spirit Ruler: On Enter -- put a cheap Sword regalia from banishment onto field w/ +3 durability ---
+$fixtures['lorraine-spirit-ruler-enter-banish-sword-durability'] = [
+    'testedCards' => ['n2TKqNaODR'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Spirit Ruler
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+DECK,
+    // Lorraine, Spirit Ruler's On Enter (enterAbilities["n2TKqNaODR:0"] plus its n2TKqNaODR:0:Enter-1
+    // CUSTOM continuation in GeneratedMacroCode.php) searches the banishment for a Sword regalia card
+    // with memory cost <=1 and puts it onto the field with 3 additional durability counters. The
+    // level-up gate (CanChampionLevelUpIntoCard, GameLogic.php) only checks level number, not the
+    // "Lorraine Lineage" flavor text, so the starting champion is patched directly to Lorraine,
+    // Blademaster (TJTeWcZnsQ, level 2) to satisfy the level 2->3 gate, 3 filler cards are seeded into
+    // memory to pay the 3-memory level-up cost, and the deck's Material section carries an extra
+    // "Lorraine, Spirit Ruler" entry so it's sitting in the material zone to level up into (the
+    // pregame starting-champion pick consumes Spirit of Fire from myMaterial-0, shifting Lorraine,
+    // Spirit Ruler down to myMaterial-0 for the real level-up click). Clarent, Sword of Peace
+    // (m31WVJ9F04, REGALIA/WEAPON, subtypes WARRIOR,SWORD, memory cost 1) is seeded into the
+    // banishment as the sole legal target for the MZMAYCHOOSE.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'TJTeWcZnsQ']], // Lorraine, Blademaster (level 2) - satisfies level 2->3 gate
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // pays 3-memory level-up cost, card 1/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 2/3
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 3/3
+        ['player' => 1, 'zone' => 'myBanish', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace (Sword regalia, memory cost 1) - the sole legal On Enter target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Lorraine, Spirit Ruler -- fires On Enter
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myBanish-0', 'chkInput' => [], 'inputText' => ''], // choose Clarent from banishment
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // decline Clarent's own [Class Bonus] prevent-damage fast action window
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
