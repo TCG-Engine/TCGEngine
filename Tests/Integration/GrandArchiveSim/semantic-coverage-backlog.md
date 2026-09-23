@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **454**
+Cards linked to an existing fixture: **455**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2036**
+Implemented cards still needing semantic coverage: **2035**
 
 ## Mechanic groups
 
@@ -41,7 +41,6 @@ Implemented cards still needing semantic coverage: **2036**
 | Reaping Legacy (`XDVIiIfKZk`) | ATTACK | 1 | unclassified | Lorraine Pantheon Starter | — |
 | Shade Striker (`hVvsKqWsMl`) | ALLY | 1 | combat | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
 | Shred to Ribbons (`5j36gn1b2s`) | ATTACK | 1 | condition | Lorraine Pantheon Starter | — |
-| Silver Soldier (`c3C6PjX0Vt`) | ALLY | 1 | condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
 | CookTech Mixer (`yZBIpXIDIo`) | ITEM | 4 | cost, damage, draw-discard | — | — |
 | ResonanTech Module (`qalnrTTPal`) | REGALIA,ITEM | 4 | cost, condition | — | — |
 | Golden Pawn (`Lewf9sfv9m`) | ALLY | 2 | damage, draw-discard, token, combat, trigger, condition | — | redslime-ondeath-sweep-stack-order-choice |
@@ -76,3 +75,4 @@ Implemented cards still needing semantic coverage: **2036**
 | Oasis Trading Post (`uy4xippor7`) | DOMAIN | 3 | token | — | — |
 | Trained Birdroid (`84lj40Kyhv`) | ALLY | 2 | status, combat, trigger | — | — |
 | Quadrille's Gryphon (`84e2rfex54`) | ALLY | 2 | counter, trigger | — | — |
+| Aenean Guttering Flames (`JGQ9LO5DFv`) | PHANTASIA | 2 | cost, damage, draw-discard, trigger, condition | — | — |
