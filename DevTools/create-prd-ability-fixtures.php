@@ -14996,6 +14996,106 @@ DECK,
 ];
 
 
+// --- Incapacitate: Negate target action card activation ---
+$fixtures['incapacitate-negate-action-activation'] = [
+    'testedCards' => ['szene5o32m'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Incapacitate's activated ability (GeneratedMacroCode.php cardActivatedAbilities
+    // ["szene5o32m:0"]) calls QueueNegateActivation($player, ["types" => ["ACTION"]], "default",
+    // -1) -- negate target ACTION card activation, no pay-to-save (payAmount -1 short-circuits
+    // straight to NegateCardActivation in OpportunityLogic.php). Player 1 activates Escharotomy
+    // (CIU4gT14EE, reserve 1) as an ordinary main-phase ACTION; instead of passing the resulting
+    // opportunity window, player 2 responds with Incapacitate (itself Speed=true / Fast) targeting
+    // Escharotomy's still-pending effect-stack entry. Incapacitate resolves first (LIFO) and is
+    // itself moved off the stack to player 2's graveyard by OnCardActivated's own MZMove before
+    // cardActivatedAbilities runs (GameLogic.php ~5335), so GetEffectStackActivationTargets sees
+    // only Escharotomy as a legal ACTION target -- Escharotomy is negated straight to player 1's
+    // graveyard without ever resolving (its own "target player can't recover" modal never fires).
+    'setup' => [
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'CIU4gT14EE'], // Escharotomy, the target activation
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'szene5o32m'], // Incapacitate, the negator
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''], // play Escharotomy
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay 1 reserve
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 1 passes their own opportunity
+        // Player 2's pending decision here is an MZMAYCHOOSE "Take_a_fast_action?" offering
+        // myHand-7 (Incapacitate) as the only eligible response -- answered by selecting that
+        // mzID directly with mode 100 (NOT the mode 10002 "!FSM!" main-phase-play variant, which
+        // is for the wrong decision entirely and leaves this MZMAYCHOOSE unresolved/loops).
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-7', 'chkInput' => [], 'inputText' => ''], // player 2 takes a fast action instead of passing: Incapacitate
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 3/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 4/4
+        // Incapacitate resolves immediately (it was moved off the stack to player 2's graveyard by
+        // OnCardActivated's own MZMove BEFORE cardActivatedAbilities ran), leaving only
+        // Escharotomy's still-pending entry as the sole legal ACTION target for
+        // "Choose_activation_to_negate".
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'EffectStack-0', 'chkInput' => [], 'inputText' => ''], // choose Escharotomy's activation to negate
+    ],
+];
+
+// --- Corhazi Lightblade: [Class Bonus] On Attack: reveal a card from memory at random; if LUXEM, gain Critical 1 ---
+$fixtures['corhazi-lightblade-reveal-luxem-critical'] = [
+    'testedCards' => ['2Ch1Gp3jEL'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Corhazi Lightblade's On Attack ability (onAttackAbilities["2Ch1Gp3jEL:0"],
+    // GeneratedMacroCode.php) reveals a random card from memory and, if it's LUXEM, tags the
+    // attacker's mzID with the CRITICAL_1 TurnEffect. It's controlled by player 2 and declares
+    // its attack on player 2's own first turn (global turn 2) instead of player 1's -- Rule 1.h
+    // only blocks the game's FIRST player from attacking on turn 1 (CombatLogic.php
+    // "$currentTurn == 1 && $turnPlayer == $firstPlayer"), so player 2 can attack immediately
+    // after player 1 ends turn 1, with no recollection phase in between to clear the seeded
+    // memory (RecollectionPhase()/BeforeRecollectionPhase() both early-return while
+    // GetTurnNumber() === 1, and player 2's memory-return-to-hand step only runs at the start of
+    // player 2's OWN turn 2, which is later than this fixture goes). Its memory is seeded with
+    // exactly one card -- Bathe in Light (d9zax2g20h, LUXEM) -- so rand(0, count-1) always reveals
+    // index 0 deterministically, with no dependency on the seeded RNG stream. The generated
+    // "[Class Bonus]" gate here is IsClassBonusActive($player) called with NO required-classes
+    // list (unlike most other Class Bonus macros, which pass e.g. ["TAMER"]), so it only checks
+    // "does this player control any CHAMPION at all" and is always true -- verified live
+    // (classBonus=YES with the deck's default FIRE/NORM starting champion, no ASSASSIN needed).
+    // That looks like a real code-gen gap against the printed "[Class Bonus]" text, but it's a
+    // pre-existing condition-classification issue orthogonal to the reveal/critical logic this
+    // fixture targets, so it's left uncovered/unfixed here.
+    'setup' => [
+        ['player' => 2, 'zone' => 'myField', 'cardID' => '2Ch1Gp3jEL'], // Corhazi Lightblade
+        ['player' => 2, 'patchMzId' => 'myField-1', 'setProperties' => ['Status' => 2]], // awake, can attack
+        ['player' => 2, 'zone' => 'myMemory', 'cardID' => 'd9zax2g20h'], // Bathe in Light (LUXEM) - sole memory card, deterministic reveal
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // end player 1's turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // player 2 declines their own materialize offer
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-1!FSM!', 'chkInput' => [], 'inputText' => ''], // Corhazi Lightblade declares an attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target player 1's champion
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
