@@ -15096,6 +15096,53 @@ DECK,
     ],
 ];
 
+// --- Zander, Deft Executor: On Enter, put 2 preparation counters; may remove 1 to return an
+// Assassin action/attack card from graveyard to hand ---
+$fixtures['zander-deft-executor-enter-prep-return-assassin'] = [
+    'testedCards' => ['fc4ic5fmaa'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Zander, Deft Executor
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Zander, Deft Executor's On Enter ability (enterAbilities["fc4ic5fmaa:0"] plus its
+    // fc4ic5fmaa:0:Enter-1/Enter-2 CUSTOM continuations in GeneratedMacroCode.php) only fires via
+    // a real level-up, not by seeding the champion directly onto the field -- the starting
+    // champion's CardID is patched to Zander, Prepared Scout (T3CIBknts0, level 1, NORM) to
+    // satisfy the level-1->2 gate and element/lineage match, 2 filler cards are seeded into
+    // memory to pay the 2-memory level-up cost, and the deck's Material section carries an extra
+    // "Zander, Deft Executor" entry so it's sitting in the material zone to level up into (the
+    // pregame starting-champion pick consumes Spirit of Fire from myMaterial-0, shifting Zander,
+    // Deft Executor down to myMaterial-0 for the real level-up click). An Assassin ATTACK card
+    // (Slice and Dice, 3jg01o26b4) is seeded into the graveyard as the only legal target for the
+    // "return an Assassin action or attack card from your graveyard to your hand" clause.
+    // Answering YES to "Remove_a_preparation_counter_from_Zander?" drops the preparation counters
+    // from 2 to 1 and searches the graveyard for ASSASSIN ACTION/ATTACK cards
+    // (fc4ic5fmaa:0:Enter-1's CardClasses/CardType filter), finding exactly the seeded card and
+    // moving it to hand once selected.
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'T3CIBknts0']], // Zander, Prepared Scout (level 1, NORM) - satisfies level 1->2 gate
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // pays 2-memory level-up cost, card 1/2
+        ['player' => 1, 'zone' => 'myMemory', 'cardID' => 'n8wyfG9hbY'], // card 2/2
+        ['player' => 1, 'zone' => 'myGraveyard', 'cardID' => '3jg01o26b4'], // Slice and Dice (ASSASSIN ATTACK) - return-from-graveyard target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myMaterial-0', 'chkInput' => [], 'inputText' => ''], // level up to Zander, Deft Executor -- fires On Enter
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // remove a preparation counter
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myGraveyard-0', 'chkInput' => [], 'inputText' => ''], // return Slice and Dice from graveyard to hand
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
