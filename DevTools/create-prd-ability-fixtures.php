@@ -14689,6 +14689,64 @@ $fixtures['lunar-seer-rest-glimpse-cb'] = [
     ],
 ];
 
+// --- Starlit Apothecary: [Arisanna Bonus] at recollection, summon a token copy of a Potion/Herb unless opponent pays (4) ---
+$fixtures['starlit-apothecary-recollection-copy-potion'] = [
+    'testedCards' => ['ShQkyQMBCT'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Starlit Apothecary is seeded directly onto the field. Its recollection trigger is a plain
+    // CardID switch-case inside ResolveBeforeRecollectionPhaseStart (GameLogic.php ~25278, the
+    // same dispatcher used for Foster/Waterveil Apostle/Domain upkeep) gated on
+    // IsArisannaBonusActive($player) -- the champion is CardID-patched to Arisanna, Astral Zenith
+    // (q3huqj5bba, in the Arisanna lineage whitelist, GameLogic.php ~24072). A single Herb token
+    // (Blightroot -- a plain token with no activatable ability of its own, unlike a real Potion,
+    // which would otherwise intercept the turn-end transition with its own Sacrifice
+    // fast-opportunity) is seeded onto the field as the only Potion/Herb target;
+    // StarlitApothecaryRecollection (PotionLogic.php ~544) sees exactly one target and skips
+    // straight to StarlitApothecaryQueueCopy, which offers the OPPONENT a YESNO to pay (4) and
+    // prevent the copy. Declining (NO) lets StarlitApothecaryResolveCopy summon a token copy of
+    // the Herb onto the field. Reaching player 1's own recollection phase uses the established
+    // 3-action shortcut (tonoris-genesis-aegis-recollection-obelisk / waterveil-apostle
+    // -recollection-gather).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'q3huqj5bba']], // Arisanna, Astral Zenith - Arisanna Bonus unlock
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'ShQkyQMBCT'], // Starlit Apothecary - the recollection trigger source
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'i0a5uhjxhk'], // Blightroot (HERB token, no own ability) - the only copy target
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''],
+        // Recollection fires: Starlit Apothecary offers the opponent a YESNO to pay (4) and
+        // prevent the copy. Decline it so the copy actually resolves.
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Twinstar Tonic: Sacrifice self -- for the rest of the game, may copy starcalled activations ---
+$fixtures['twinstar-tonic-sacrifice-starcall-copy'] = [
+    'testedCards' => ['yBDxSHkT1s'],
+    'deck' => GA_ARISANNA_BASE_DECK,
+    // Twinstar Tonic is seeded directly onto the field (Brewing isn't the clause under test).
+    // activateAbilityAbilities["yBDxSHkT1s:0"] (GeneratedMacroCode.php) just calls
+    // AddGlobalEffects($player, "yBDxSHkT1s") -- a permanent, foreverEffects=true marker
+    // ($foreverEffects["yBDxSHkT1s"]=true, GameLogic.php ~18266). The "for the rest of the game,
+    // may copy that starcalled activation" half (GameLogic.php ~16552, checked every time a
+    // player starcalls) is a downstream consumer of this same flag and is out of scope for this
+    // fixture -- the flag itself, set once and meant to persist permanently, is what this card's
+    // own ability is responsible for, and that's what's asserted.
+    'setup' => [
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'yBDxSHkT1s'], // Twinstar Tonic - the activator
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
