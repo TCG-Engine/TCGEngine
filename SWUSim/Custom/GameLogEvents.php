@@ -61,6 +61,9 @@ function SWULogSourceSuffix(): string {
 function SWULogTriggerSource(string $triggerType, string $cardID): string {
     if ($triggerType === 'SWU_PLOT_WINDOW' || $triggerType === 'AdvantageShed') return '';
     if ($triggerType === 'JTL_169G') return 'JTL_169';        // Shadow Caster re-using a GRANTED When Defeated
+    // SEC_002 Jabba (deployed): the entry's CardID is the DAMAGED unit (so the ordering prompt can tell two
+    // of his triggers apart), but the ABILITY doing the work is Jabba's — the log must say so.
+    if ($triggerType === 'SEC_002') return 'SEC_002';
     $c = preg_replace('/#\d+$/', '', $cardID);
     if ($c === '') return '';
     if (CardTitle($c) !== null && CardTitle($c) !== '') return $c;

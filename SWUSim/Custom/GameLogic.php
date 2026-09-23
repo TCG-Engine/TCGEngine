@@ -10849,6 +10849,11 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
             OnWhenDefeated($player, $cardID, $mzID);
             SWUCollectThrawnReuse($player, $cardID, $mzID); // JTL_002 Thrawn "when you use a When Defeated ability"
             break;
+        // SEC_002 Jabba the Hutt (deployed) — ONE trigger per friendly unit dealt damage and surviving, so
+        // a single effect that damages several of them is several orderable triggers (CR 7.6.9) of which
+        // only the first to resolve may be used. $cardID is the DAMAGED UNIT (it is what the ordering
+        // prompt renders); $mzID = "U{uid}" of that unit, $extra[0] = the damage it took.
+        case 'SEC_002':   _SWUSec002ResolveTrigger(intval($player), (string)$mzID, intval($extra[0] ?? 0)); break;
         case 'HMW_062':   Hmw062WeakenedDefeatTrigger($player);          break;
         case 'JTL_169':   ShadowCasterReuseTrigger($player, $cardID, $mzID); break;
         // JTL_169 Shadow Caster reuse of a GRANTED When-Defeated: $cardID = the granting card's ID (the
@@ -13705,6 +13710,13 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
         // the duplicate is still running and owns the close. Finalising here would end the action
         // early, exactly as the REGROUP case above would.
         if ($continuation === 'UNIQINLINE') { $playerID = $savedPID; return; }
+        // A FIELD OBSERVER's own trigger batch (SEC_002 Jabba's "when another friendly unit is dealt damage
+        // and survives"). It is flushed from the damage funnel, not from an action ceremony: the action that
+        // dealt the damage owns its own close, and this batch usually resolves on the player who is NOT
+        // acting, so finalising here would both double-close and close for the wrong seat. Same shape as
+        // REGROUP above — order the triggers, resolve them, return. Paired with a batchStart so the resume
+        // only ever sees its own entries.
+        if ($continuation === 'OBSERVER') { $playerID = $savedPID; return; }
         if ($continuation === 'COMBAT' || $continuation === 'MAULCOMBAT') {
             // A defender's On Defense reaction (Captain Typho's disclose, LOF_047/067/252, …) is a
             // NON-active-player decision that must resolve BEFORE combat damage. When it was resolved in

@@ -2298,22 +2298,57 @@ function _SWUSec002CheckObserve($obj, int $amount): void
   if ($ctrl <= 0)
     return;
   if (GlobalEffectCount($ctrl, 'SWU_SEC002_USED') > 0)
-    return;   // once each round
-  $jabba = 0;
+    return;   // once each round — already spent by an EARLIER window this round
+  if (!_SWUSec002AnotherJabbaInPlay($ctrl, intval($obj->UniqueID ?? 0)))
+    return;
+  // ★ BUG (game 1110356), fixed 2026-09-22. The "once each round" gate above is READ here but only
+  // WRITTEN in SEC002_DEAL when an offer is accepted (the 2026-09-07 decline ruling below forces that
+  // split). One effect that damages SEVERAL friendly units — Qi'ra SHD_002's deploy, divided damage,
+  // indirect damage — calls this observer once per unit BEFORE any offer has resolved, so every hit saw
+  // an unspent round and every hit minted its own offer: the player got to use Jabba N times.
+  // So the hits of one window are BATCHED onto a single queued guard and the pool/eligibility are built
+  // when that guard DRAINS. The guard re-reads the round budget at resolution time, which is the check
+  // the observe-time read cannot make. One entry, not one per hit, is also what keeps the offers
+  // ORDERED: a second guard sitting at the same block would drain before the first offer was answered.
+  // (Damage is dealt before this runs, so a batch always drains inside the same request that opened it;
+  // the param carries everything anyway, so a boundary would only cost the batching, not a trigger.)
+  $hit = intval($obj->UniqueID ?? 0) . ':' . $amount;
+  foreach (GetDecisionQueue($ctrl) as $e) {
+    if (!empty($e->removed))
+      continue;
+    if (strtoupper((string) ($e->Type ?? '')) !== 'CUSTOM')
+      continue;
+    if (!str_starts_with((string) ($e->Param ?? ''), 'SEC002_HIT|'))
+      continue;
+    $e->Param = (string) $e->Param . ',' . $hit;   // same window → join the pending batch
+    return;
+  }
+  // dontSkipOnPass: a trigger is never an answer to anything, and this one is routinely queued while an
+  // unrelated "you may" decline is still leaving a sticky PASS behind it (the combat/damage funnels).
+  DecisionQueueController::AddDecision($ctrl, "CUSTOM", "SEC002_HIT|{$hit}", 1, dontSkipOnPass: 1);
+}
+
+// True if $ctrl controls a live deployed SEC_002 that is not the unit $selfUID — Jabba's reaction is for
+// "ANOTHER friendly unit", so Jabba being the damaged unit does not arm it.
+function _SWUSec002AnotherJabbaInPlay(int $ctrl, int $selfUID): bool
+{
   foreach (GetUnitsInPlay($ctrl) as $u) {
     if (SWUObjGone($u))
       continue;
     if (($u->CardID ?? '') !== 'SEC_002')
       continue;
-    if (intval($u->UniqueID ?? 0) === intval($obj->UniqueID ?? 0))
-      continue; // "another" unit
-    $jabba = intval($u->UniqueID ?? 0);
-    break;
+    if (intval($u->UniqueID ?? 0) === $selfUID)
+      continue;
+    return true;
   }
-  if ($jabba === 0)
-    return;
+  return false;
+}
+
+// SEC_002's "deal that much to an enemy unit" pool, in $player's own frame.
+function _SWUSec002EnemyTargets(int $player): array
+{
   global $playerID;
-  $playerID = $ctrl;   // resolve 'their' zones relative to the controller
+  $playerID = $player;   // resolve 'their' zones relative to the controller
   $targets = [];
   foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
     foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
@@ -2322,13 +2357,102 @@ function _SWUSec002CheckObserve($obj, int $amount): void
         $targets[] = $mz;
     }
   }
+  return $targets;
+}
+
+// SEC002_HIT|<uid>:<amount>[,<uid>:<amount>…] — one window's worth of Jabba triggers. Drains post-cleanup
+// so the enemy pool is built against the compacted board (same reason SEC143_OFFER defers).
+$customDQHandlers["SEC002_HIT"] = function($player, $parts, $lastDecision) {
+  _SWUSec002Offer(intval($player), (string) ($parts[0] ?? ''));
+};
+
+function _SWUSec002Offer(int $player, string $list): void
+{
+  if ($player <= 0 || $list === '')
+    return;
+  // ★ THE ONCE-EACH-ROUND GATE, read at RESOLUTION time. An earlier trigger of this very batch may have
+  // spent the round while this one waited in the queue; if it did, this one fizzles with no prompt.
+  if (GlobalEffectCount($player, 'SWU_SEC002_USED') > 0)
+    return;
+  global $playerID;
+  $playerID = $player;
+  $hits = [];
+  foreach (explode(',', $list) as $pair) {
+    $p = explode(':', $pair);
+    if (count($p) < 2)
+      continue;
+    $uid = intval($p[0]);
+    $amount = intval($p[1]);
+    if ($uid <= 0 || $amount <= 0)
+      continue;
+    // "have THAT unit deal that much damage" — the damaged unit is the dealer, so a trigger whose unit
+    // has left play since the damage landed has nothing to resolve with.
+    $mz = SWUFindMzByUID($uid);
+    if ($mz === null || SWUObjGone(GetZoneObject($mz)))
+      continue;
+    if (!_SWUSec002AnotherJabbaInPlay($player, $uid))
+      continue;   // Jabba left play, or is himself the damaged unit
+    $hits[] = ['uid' => $uid, 'amount' => $amount, 'cardID' => (string) (GetZoneObject($mz)->CardID ?? '')];
+  }
+  if (empty($hits))
+    return;
+  // CR 7.6.9 — each qualifying hit is its OWN trigger, and when several go off in one window the
+  // controlling player picks the order they resolve in. They ride the REAL EffectStack trigger bag rather
+  // than a bespoke prompt, which buys three things a hand-rolled chooser cannot: they order against
+  // anything else triggered in the same window, the ordering prompt is the engine's standard one, and the
+  // "you may" stays PER TRIGGER — resolve one, and the next re-reads the round budget when IT resolves
+  // (spent → fizzles silently; declined → still offered, per the 2026-09-07 ruling).
+  // ⚠ The entry's CardID is the DAMAGED UNIT, not SEC_002. The ordering prompt renders each entry by its
+  // CardID, so two SEC_002 entries would be indistinguishable — the player could not tell Bazine's 1 from
+  // Qi'ra's 4, which is the whole point of being asked. TriggerType is what dispatches, and
+  // SWULogTriggerSource maps it back to Jabba so the game log still names the ability.
+  $bs = count(GetEffectStack());
+  foreach ($hits as $h) {
+    // "U{uid}", not an mzID: the ordering prompt is answered in a LATER request and the arena reindexes
+    // on every defeat, so a positional mzID can name a different unit by the time this resolves.
+    AddTrigger($player, 'SEC_002', $h['cardID'], 'U' . $h['uid'], (string) $h['amount']);
+  }
+  // "|OBSERVER||||{$bs}" — two things, both load-bearing. OBSERVER: no action is open for THIS batch to
+  // finalise (the action that dealt the damage owns its own close), and a bare resume would call
+  // SWUAfterAction on a player who is usually not even the acting one. {$bs}: the batchStart scopes the
+  // resume to these entries, so an outer trigger batch still mid-resolution is left alone.
+  FlushEntryTriggerBag($player, "|OBSERVER||||{$bs}");
+}
+
+// One SEC_002 trigger resolving, dispatched from the ordered bag. $ref = "U{uid}" of the damaged unit,
+// $amount = the damage it took. Every gate is re-read HERE, at resolution time — that is the whole point
+// of the trigger being a bag entry rather than a pre-built offer.
+function _SWUSec002ResolveTrigger(int $player, string $ref, int $amount): void
+{
+  if ($player <= 0 || $amount <= 0)
+    return;
+  // ★ THE ONCE-EACH-ROUND GATE. An earlier trigger of this very window may have spent the round while this
+  // one waited its turn in the bag; if it did, this one fizzles with no prompt at all.
+  if (GlobalEffectCount($player, 'SWU_SEC002_USED') > 0)
+    return;
+  global $playerID;
+  $playerID = $player;
+  $uid = intval(ltrim($ref, 'U'));
+  $mz = $uid > 0 ? SWUFindMzByUID($uid) : null;
+  // "have THAT unit deal that much damage" — the damaged unit is the dealer, so a trigger whose unit left
+  // play while an earlier trigger resolved has nothing to resolve with.
+  if ($mz === null || SWUObjGone(GetZoneObject($mz)))
+    return;
+  if (!_SWUSec002AnotherJabbaInPlay($player, $uid))
+    return;   // Jabba left play, or is himself the damaged unit
+  _SWUSec002QueueOffer($player, $amount);
+}
+
+// The offer itself. ⚠ The round is spent in SEC002_DEAL, on an ACCEPTED target — never here. USER RULING
+// 2026-09-07: a triggered "you may" whose whole effect is the optional part is not USED by declining it,
+// so a later trigger the same round still offers.
+function _SWUSec002QueueOffer(int $player, int $amount): void
+{
+  $targets = _SWUSec002EnemyTargets($player);
   if (empty($targets))
-    return;                  // no enemy unit → ability does nothing (use not spent)
-  // ⚠ The round is spent in SEC002_DEAL below, on an accepted target — NOT here. USER RULING
-  // 2026-09-07: a triggered "you may" whose whole effect is the optional part is not USED by declining
-  // it, so a later trigger the same round still offers.
+    return;
   SWUQueueMayChooseTarget(
-    $ctrl,
+    $player,
     $targets,
     "Deal_{$amount}_damage_to_an_enemy_unit?",
     "Deal_{$amount}_damage_to_an_enemy_unit",
