@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-24T00:13:05+00:00",
+    "generatedAt": "2026-09-24T01:14:03+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 467,
+        "cardsWithExistingFixtures": 470,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2023,
+        "cardsNeedingSemanticCoverage": 2020,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -26,60 +26,6 @@
         }
     },
     "cards": [
-        {
-            "cardId": "vkL2RFh0yM",
-            "name": "Charm of Anticipation",
-            "type": "REGALIA,ITEM",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "draw-discard",
-                "zone-movement",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "uUWsgLmyTk",
-            "name": "Unity's Gale",
-            "type": "ACTION",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "targeting",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
-        },
-        {
-            "cardId": "XDVIiIfKZk",
-            "name": "Reaping Legacy",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "unclassified"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Lorraine Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 111
-        },
         {
             "cardId": "yZBIpXIDIo",
             "name": "CookTech Mixer",
@@ -22337,7 +22283,7 @@
         },
         {
             "cardId": "zRG5hmBcsP",
-            "name": "Tidal Fractal ",
+            "name": "Tidal Fractal",
             "type": "PHANTASIA",
             "abilityCount": 1,
             "listenerCount": 0,
@@ -38969,6 +38915,29 @@
             "priority": 133
         },
         {
+            "cardId": "vkL2RFh0yM",
+            "name": "Charm of Anticipation",
+            "type": "REGALIA,ITEM",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "draw-discard",
+                "zone-movement",
+                "condition"
+            ],
+            "existingFixtures": [
+                "charm-of-anticipation-banish-draw"
+            ],
+            "semanticFixtures": [
+                "charm-of-anticipation-banish-draw"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "LZ8JpWj27h",
             "name": "Clumsy Apprentice",
             "type": "ALLY",
@@ -43182,6 +43151,28 @@
             "priority": 132
         },
         {
+            "cardId": "uUWsgLmyTk",
+            "name": "Unity's Gale",
+            "type": "ACTION",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "targeting",
+                "condition"
+            ],
+            "existingFixtures": [
+                "unitys-gale-delayed-crowds-favor"
+            ],
+            "semanticFixtures": [
+                "unitys-gale-delayed-crowds-favor"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
             "cardId": "YTO70fFsBY",
             "name": "Venous Core",
             "type": "REGALIA,ITEM",
@@ -44095,6 +44086,27 @@
             "starterDecks": [
                 "Rai Starter Deck",
                 "Rai Starter Deck (Prelude)"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 131
+        },
+        {
+            "cardId": "XDVIiIfKZk",
+            "name": "Reaping Legacy",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "unclassified"
+            ],
+            "existingFixtures": [
+                "reaping-legacy-class-bonus-sword-banishment"
+            ],
+            "semanticFixtures": [
+                "reaping-legacy-class-bonus-sword-banishment"
+            ],
+            "starterDecks": [
+                "Lorraine Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 131

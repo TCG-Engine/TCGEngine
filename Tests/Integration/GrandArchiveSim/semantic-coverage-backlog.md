@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **467**
+Cards linked to an existing fixture: **470**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2023**
+Implemented cards still needing semantic coverage: **2020**
 
 ## Mechanic groups
 
@@ -26,9 +26,6 @@ Implemented cards still needing semantic coverage: **2023**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
-| Unity's Gale (`uUWsgLmyTk`) | ACTION | 1 | targeting, condition | Lorraine Pantheon Starter | — |
-| Reaping Legacy (`XDVIiIfKZk`) | ATTACK | 1 | unclassified | Lorraine Pantheon Starter | — |
 | CookTech Mixer (`yZBIpXIDIo`) | ITEM | 4 | cost, damage, draw-discard | — | — |
 | ResonanTech Module (`qalnrTTPal`) | REGALIA,ITEM | 4 | cost, condition | — | — |
 | Golden Pawn (`Lewf9sfv9m`) | ALLY | 2 | damage, draw-discard, token, combat, trigger, condition | — | redslime-ondeath-sweep-stack-order-choice |
@@ -76,3 +73,6 @@ Implemented cards still needing semantic coverage: **2023**
 | Diffusive Block (`o7eanl1gxr`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
 | Dusklight Communion (`5upufyoz23`) | UNIQUE,PHANTASIA | 2 | cost, targeting, zone-movement, trigger, condition | — | — |
 | Dynasty Chancellor (`do1blsupu0`) | ALLY | 2 | draw-discard, zone-movement, combat, trigger, condition | — | — |
+| Echoic Guard (`gn1b2sbrq9`) | ACTION | 2 | cost, targeting, damage, prevention, token, condition | — | — |
+| Endura, Reimagined (`X7rh3Yi26A`) | REGALIA,ITEM | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | — | — |
+| Expel the Departed (`9wxcgpy069`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement, condition | — | — |
