@@ -3056,6 +3056,22 @@ function _SWUControlsHera(int $player): bool {
     }
     return false;
 }
+// LAW_009 Hera Syndulla (Not Fighting Alone) — "While you control 2 or more units, ignore the aspect
+// penalties on Heroism units you play", printed on BOTH faces (front text + DeployText), so the player has
+// it while LAW_009 is their leader, deployed or not (the leader-zone entry persists either way). Same shape
+// as _SWUControlsHera / _SWUControlsMonMothma / _SWUControlsTarkinHmw004.
+// ⚠ Must be keyed on the CARD, never on the TITLE: three other cards are named "Hera Syndulla" and none of
+// them carries this passive (ASH_031 Renegade General and JTL_045 We've Lost Enough are plain units; SOR_008
+// Spectre Two waives SPECTRE cards only). A `_SWUControlsTitle(['Hera Syndulla'])` gate handed the waiver to
+// any player who merely had one of those on the field — live game 1208106 charged 8 for LAW_149 Rey -
+// Skywalker (Command/Heroism, cost 8, Command off-aspect → 10) under a Mandalorian leader, because ASH_031
+// happened to be in the player's own ground arena.
+function _SWUControlsLaw009Hera(int $player): bool {
+    foreach (GetLeader($player) as $l) {
+        if ($l !== null && empty($l->removed) && ($l->CardID ?? '') === 'LAW_009') return true;
+    }
+    return false;
+}
 // HMW_004 Grand Moff Tarkin — the aspect waiver is printed on BOTH faces ("Ignore the aspect penalties on
 // upgrades with Fortify you play"), so the player has it while HMW_004 is their leader, deployed or not
 // (the leader-zone entry persists either way). Same shape as _SWUControlsHera / _SWUControlsMonMothma.
@@ -3997,9 +4013,11 @@ function SWUComputePlayCost($player, $obj, $host = null): int {
         $cost -= SWUAspectPenalty($player, $cardID);
     }
     // LAW_009 Hera Syndulla — while controlling 2+ units, waive aspect penalties on Heroism units.
+    // Gated on the LAW_009 card (see _SWUControlsLaw009Hera), NOT on the title "Hera Syndulla" — three
+    // other cards share that title and none of them grants this waiver.
     if (stripos(CardType($cardID) ?? '', 'Unit') !== false
             && strpos(CardAspect($cardID) ?? '', 'Heroism') !== false
-            && _SWUControlsTitle(intval($player), ['Hera Syndulla'])) {
+            && _SWUControlsLaw009Hera(intval($player))) {
         $units = 0;
         foreach (GetUnitsInPlay(intval($player)) as $hu) { if (empty($hu->removed)) $units++; }
         if ($units >= 2) $cost -= SWUAspectPenalty(intval($player), $cardID);
@@ -9596,7 +9614,15 @@ function SWUAfterAction($player) {
     // Close the per-attack identity window. SWU_CURRENT_ATTACKER_UID is what lets a mid-attack ABILITY
     // defeat of the attacker count as "defeated while attacking"; leaving it set would make a later,
     // unrelated defeat of that same unit this phase look like one too.
-    SetSWUVar('SWU_CURRENT_ATTACKER_UID', '0');
+    // ⚠ NOT while the attack is still in flight (bug #1073). A SUPPORT bonus attack is nested inside the
+    // deploy that launched it, and that deploy's After Action deliberately runs BEFORE the nested combat
+    // commits (the SWU_COMBAT_SKIP_AFTERACTION branch of SWU_TRIGGER_RESUME skips the "wait for a queued
+    // COMBAT continuation" guard, because deferring there stranded the turn instead). Closing the window
+    // there made _SWUOfferCombatPreventions resolve the attacker to null and silently skip its whole
+    // ATTACKER-side block — SEC_101 Queen Amidala and ASH_062 The Mandalorian never got their offer on a
+    // Support attack. The window is closed instead by _SWUCombatFinishAction, which runs when the attack
+    // itself ends, whichever frame owns the action's close.
+    if (!_SWUCombatContinuationPending()) SetSWUVar('SWU_CURRENT_ATTACKER_UID', '0');
     // JTL_193 I Have You Now — "prevent all damage to the attacker THIS ATTACK." The marker is phase-lived so
     // it survives the mid-combat attack-sweep (covering a survivor-observer redirect that resolves after the
     // attack's damage), then cleared HERE at the action boundary — after all of the attack's queued triggers

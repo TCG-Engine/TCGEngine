@@ -6,6 +6,9 @@ require_once __DIR__ . '/BotFlavours.php';
 // Phase 1b part 2 (owner rulings 2026-09-14): key cards stay out of resources, and each style has a resource stop —
 // both GUIDES that training learns past; Normal's card choice, stops and mulligans are ultimately learned.
 // Keep value: LOWER = resource it first.
+
+// Keep bonus per point of board-dependent power surplus (proposal 'ctxpower', SWUBotContextSurplus).
+const SWU_BOT_CTXPOWER_KEEP = 2.0;
 // Spec: docs/superpowers/specs/2026-09-13-swusim-rl-bots-design.md, Section 2 ("The resourcing engine").
 
 // The resource count at which one leader can deploy right now, or 0 when it has no resource gate left to
@@ -143,7 +146,11 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         if ($c === null || !empty($c->removed)) continue;
         $cid = strval($c->CardID ?? '');
         $cost = _SWUBotSeatCost($seat, $cid);
-        $keep = $rank >= 3
+        // FEATURE 'mgbomb' (group p12, SHIPPED 2026-09-24, +3.14pp for midrange at p=0.0000 against both jitter
+        // nulls): the owner's castable-soon + one-bomb rule reaches MIDRANGE too. Only the KEEP VALUE moves — the
+        // `resourcing3` tier sort below stays gated at rank >= 3, so this changed exactly one thing.
+        $castableRule = $rank >= 3 || ($rank === 2 && SWUBotFeatureOn('mgbomb'));
+        $keep = $castableRule
             ? ($i === $bombIndex ? 200.0 : ($cost <= $soon ? 100.0 + $cost : (float)($soon - $cost)))
             : (float)-$cost;   // the aggro wing resources its most expensive; midrange: FALLBACK default, not a rule
         // Key cards (answers, burn, the flavour's key cards) go to resources after filler (feature 'keep'). Control
@@ -155,6 +162,14 @@ function SWUBotChooseResourceCards(array $ctx, int $n): array {
         if (SWUBotFeatureOn('keep') && SWUBotIsKeyCard($seat, $cid)) {
             $keep += ($rank >= 3 && !SWUBotProposalOn('keepequal')) ? 50.0 : 150.0;
         }
+        // PROPOSAL 'ctxpower' (default OFF): a card whose power depends on the board, judged ON the board.
+        // The list is sorted ASCENDING and the first entries are resourced, so a positive bonus pulls a card
+        // AWAY from the resource pick — it can only ever rescue one, never bury one.
+        // 2.0 a point against the aggro wing's `-$cost` means a 4-cost card needs a surplus of 2 before it is
+        // safe and 3 to clear the hand outright, which is the owner's line: "a 4/3/3 would be weak and easy to
+        // resource if i have no board. but when my board has 3+ units, this is a big unit" (2026-09-24).
+        // Proportional, not a threshold — a 9-power Clone Combat Squadron must outrank a 6-power one.
+        $keep += SWU_BOT_CTXPOWER_KEEP * SWUBotContextSurplus($seat, $cid);
         // PROPOSAL 'sentinelkeep' (default OFF, "@try-sentinelkeep"). Owner ruling 2026-09-18: "Sentinels in
         // general are good to keep… unless you have two of the same unique unit Sentinel. then it should be safe
         // to resource one." A Sentinel is how control mitigates early damage, and the deficit is a SURVIVAL

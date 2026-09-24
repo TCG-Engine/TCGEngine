@@ -59,7 +59,11 @@ $check(SWUBotLeaderDeployThreshold(1) === 0, 'Flipatine: never deploys → no fl
 $build(function ($b) use ($hand) { $hand($b, ['SOR_095', 'SOR_046', 'LOF_084']); });   // costs 2, 4, 3
 $check($pick('aggro') === ['myHand-1'], 'Aggro resources its most expensive card');
 $check($pick('control') === ['myHand-0'], 'Control resources its cheapest card (keeps its bombs)');
-$check($pick('normal') === ['myHand-1'], 'Normal: the fallback default is the most expensive');
+// p12 'mgbomb' (2026-09-24): midrange now uses the SAME castable-soon + protect-one-bomb rule as control,
+// so it resources its cheapest card and keeps its bomb. Before p12 this returned myHand-1 (the most
+// expensive) — the `-$cost` fallback. '@no-mgbomb' still reproduces the old pick.
+$check($pick('normal') === ['myHand-0'], 'Normal resources its cheapest card, exactly like Control (p12 mgbomb)');
+$check($pick('normal') === $pick('control'), 'Normal and Control now agree — that IS p12');
 $check($pick('control', 2) === ['myHand-0', 'myHand-2'], 'two picks, lowest keep value first');
 $build(function ($b) use ($hand) { $hand($b, ['SOR_046', 'SOR_095', 'SOR_164']); });   // costs 4, 2, 4
 $check($pick('aggro') === ['myHand-0'], 'ties go to the lowest hand index');
@@ -99,7 +103,8 @@ $check($pick('aggro') === ['myHand-1'], 'once the leader is deployed, Plot has n
 $build(function ($b) use ($hand) { $b->MyLeader('JTL_005', false); $b->MyBase('LAW_027'); $b->FillResourcesForPlayer(1, 'SOR_095', 5); $hand($b, ['JTL_143', 'ASH_099', 'SEC_110', 'SOR_095']); });
 $check($pick('normal', 2) === ['myHand-2', 'myHand-3'], 'Piett red resources the GNK and the Marine, keeps Devastator and the Gozanti');
 SWUBotSetDisabledFeatures(['keep']);
-$check($pick('normal', 2) === ['myHand-0', 'myHand-1'], '@no-keep: the old pick, both Capital Ships');
+// Under p12 the castable-soon rule reorders the pair (was myHand-0 + myHand-1 on the `-$cost` fallback).
+$check($pick('normal', 2) === ['myHand-0', 'myHand-2'], '@no-keep under p12: the castable-soon rule changes the second pick');
 SWUBotSetDisabledFeatures([]);
 // Krennic's wipe vs far filler: both 8s are far from castable at 2 resources; the answer stays, Trask Walker (heal
 // only) goes. Control's castable-soon rule still comes first (the Marine is kept either way).

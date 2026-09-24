@@ -9,6 +9,7 @@ node_modules
 .claude/skills/blast-radius/output/
 docs/superpowers/
 .superpowers/
+.impeccable/
 docs/history/
 McpServer/dist
 Lorcana

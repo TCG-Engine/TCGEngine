@@ -652,6 +652,12 @@ function _SWUBotPlayValue(int $seat, string $cid, array $W): float {
     foreach (SWUBotCardTags($cid) as $t) $v += ($W[$t] ?? 0.0) * ($t === 'draw' ? SWUBotDrawMultiplier($seat) : 1.0);
     if (str_contains(strval(CardType($cid)), 'Unit')) $v += $W['unitPlay'];
     $v += _SWUBotBombTimingValue($seat, $cid, $W);
+    // Proposal 'ctxpower': this function prices a unit by its COST, so a card whose power depends on the
+    // board is worth the same here whether it is a 3/3 or a 9/9. Add the board-dependent SURPLUS, priced
+    // per point like any other power (W['base'] — the same currency SWUBotTargetValue uses for a swing).
+    // Zero for every card without an arm, and zero on an empty board, so the default-OFF proposal changes
+    // nothing until it is switched on.
+    $v += $W['base'] * SWUBotContextSurplus($seat, $cid);
     return $v;
 }
 

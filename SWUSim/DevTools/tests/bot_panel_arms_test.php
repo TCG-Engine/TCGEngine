@@ -89,18 +89,29 @@ $check($score('midrange', ['try:threatholdall']) == -0.5, 'threatholdall: the mi
 
 // ── sentinelkeepall + keepequal (resourcing) ───────────────────────────────────────────────────────
 // SOR_063 Wing Guard is a printed Sentinel; JTL_043 No Glory is a key card (removal).
-$resourceFirst = function (string $style, string $prop = '') use ($botCtx, $on, $off) {
+// $prePl2 pins the seat to the PRE-p12 resourcer. 'mgbomb' shipped 2026-09-24 and gave midrange the
+// castable-soon + protect-one-bomb keep rule, which changes the baseline pick in these fixtures.
+$resourceFirst = function (string $style, string $prop = '', bool $prePl2 = false) use ($botCtx, $on, $off) {
+    SWUBotSetDisabledFeatures($prePl2 ? ['mgbomb'] : []);
     if ($prop !== '') $on($prop);
     $mz = SWUBotChooseResourceCards($botCtx($style), 1)[0];
     if ($prop !== '') $off();
+    SWUBotSetDisabledFeatures([]);
     return strval(GetHand(1)[intval(substr($mz, strlen('myHand-')))]->CardID ?? '?');
 };
 $build(function ($b) use ($quiet) {
     $quiet($b); $b->FillResourcesForPlayer(1, 'SOR_095', 2);
     foreach (['JTL_041', 'SOR_063', 'SOR_095'] as $c) $b->WithCardInHandForPlayer(1, $c);   // bomb, Sentinel, filler
 });
-$check($resourceFirst('midrange') === 'SOR_063' && $resourceFirst('midrange', 'sentinelkeepall') === 'SOR_095',
-    'sentinelkeepall: a midrange seat stops resourcing its Sentinel');
+// ⚠ PINNED PRE-p12. On the SHIPPED stack this arm is now a NO-OP in this position: p12's castable-soon rule
+// already resources the filler (SOR_095) rather than the Sentinel, so base and arm both return SOR_095 and the
+// assertion would prove nothing. Measured against the fallback it still shows the arm doing its job.
+// DEBT: 'sentinelkeepall' needs re-measuring on top of p12 — p12 may have subsumed it for midrange entirely.
+$check($resourceFirst('midrange', '', true) === 'SOR_063'
+    && $resourceFirst('midrange', 'sentinelkeepall', true) === 'SOR_095',
+    'sentinelkeepall (pre-p12): a midrange seat stops resourcing its Sentinel');
+$check($resourceFirst('midrange') === $resourceFirst('midrange', 'sentinelkeepall'),
+    '… and on the SHIPPED p12 stack the arm is inert here — p12 already keeps the Sentinel');
 $build(function ($b) use ($quiet) {
     $quiet($b); $b->FillResourcesForPlayer(1, 'SOR_095', 2);
     // LAW_133 Lost and Forgotten (6, removal): a key card too dear to be 'castable soon' at 2 resources, and NOT a
@@ -109,6 +120,7 @@ $build(function ($b) use ($quiet) {
 });
 $base = $resourceFirst('softcontrol'); $eq = $resourceFirst('softcontrol', 'keepequal');
 $check($base === 'LAW_133' && $eq === 'SOR_095', "keepequal: control keeps its removal and resources filler instead (was $base, now $eq)");
-$check($resourceFirst('midrange') === 'SOR_095', 'keepequal changes nothing for midrange (it already keeps key cards)');
+$check($resourceFirst('midrange') === $resourceFirst('midrange', 'keepequal'),
+    'keepequal changes nothing for midrange (it already keeps key cards)');
 
 bot_test_finish();

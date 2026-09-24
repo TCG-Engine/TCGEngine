@@ -35,8 +35,15 @@ $seat = function (array $hand, string $oppLeader) use ($build) {
     });
 };
 // What the resourcer picks, as CardIDs — and, where two copies matter, as hand mzIDs.
+// ⚠ EVERY arm in this file is pinned to the PRE-p12 resourcer by adding 'mgbomb' to the disabled set.
+// 'mgbomb' SHIPPED 2026-09-24 as feature group p12: midrange now uses the castable-soon + protect-one-bomb
+// keep rule instead of the `-$cost` fallback, which moves the pick in all of these fixtures. Every arm here
+// (mgcost, mgkeepbody, mgkeepdup, mgsentinel) was MEASURED on top of the fallback, so measuring them against
+// the new default would silently change what each test means.
+// ⚠ DEBT: those four proposals' measurements are now stale — they need re-screening ON TOP OF p12 before any
+// of them ships. See the OTMTCGE memory `midrange-wants-a-lower-kill-weight`.
 $picks = function (int $n, array $on, string $style = 'midrange') use ($botCtx) {
-    SWUBotSetDisabledFeatures($on);
+    SWUBotSetDisabledFeatures(array_values(array_unique(array_merge(['mgbomb'], $on))));
     $mz = SWUBotChooseResourceCards($botCtx($style), $n);
     SWUBotSetDisabledFeatures([]);
     return $mz;

@@ -331,7 +331,10 @@ $check([SWUBotResourceStop(1, 'hyperaggro'), SWUBotResourceStop(1, 'softaggro'),
 $check($stack('hyperaggro') === ['PASS', ['fallback', 'guide:stop']], 'stop (guide): hyper aggro at 6 resources passes');
 $check($stack('softaggro')[0] === 'myHand-1', 'soft aggro at 6 keeps resourcing — its stop is 7');
 $check($stack('aggro', 1, 'no-stop')[0] === 'myHand-1', '@no-stop: Aggro keeps resourcing');
-$check($stack('normal')[0] === 'myHand-1', 'Normal at 6 keeps resourcing');
+// The point here is that Normal does NOT pass at 6 (its stop is 8). The INDEX moved 1 -> 0 with p12
+// 'mgbomb', which resources the cheapest card rather than the most expensive.
+$check($stack('normal')[0] !== 'PASS', 'Normal at 6 keeps resourcing — its stop is 8');
+$check($stack('normal')[0] === 'myHand-0', '… and p12 makes that pick the cheapest card, not the dearest');
 $build($regroup('SOR_014', 5)); $toRegroup();
 $check($stack('aggro')[0] === 'myHand-1', 'Aggro at 5 still resources');
 $build($regroup('SOR_014', 8)); $toRegroup();

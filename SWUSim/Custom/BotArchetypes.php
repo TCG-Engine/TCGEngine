@@ -100,6 +100,15 @@ function SWUBotWeights(string $style, int $seat): array {
     if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('mgtrade') && SWUBotStyleRank($style) === 2) {
         $out['threat'] = $out['base'];
     }
+    // PROPOSAL 'mgkill' (default OFF, "@try-mgkill"). Midrange prices a kill at 1.50x a point of base damage
+    // (0.90 against a flat 0.60), so it prefers the trade to the swing before any board state is read. The
+    // 2026-09-24 screen measured the opposite preference as worth +2.2pp to midrange (p <= 0.004 against two
+    // independent nulls) via the GLOBAL `@w-kill-down` probe; 0.6 here reproduces that arm for midrange
+    // alone, taking the ratio to 0.9:1. Archetype rank, like 'mgtrade' — a racing midrange seat is ahead.
+    // ⚠ Directly contradicts 'mgtrade' above. They have never been screened against each other.
+    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('mgkill') && SWUBotStyleRank($style) === 2) {
+        $out['kill'] *= 0.6;
+    }
     return $out;
 }
 

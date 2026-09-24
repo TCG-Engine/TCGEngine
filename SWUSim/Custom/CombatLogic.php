@@ -2712,6 +2712,28 @@ function _SWUInTriggerResumeMode(): bool {
     return false;
 }
 
+// Narrower sibling of the above: is an ATTACK still in flight? True while a COMBAT (or MAULCOMBAT)
+// continuation is queued on any seat — that resume is what still owes SWUCombatDamage, so the attack's
+// damage step has not happened yet. Used to keep the per-attack identity window (SWU_CURRENT_ATTACKER_UID)
+// open across an outer action's close: a SUPPORT bonus attack is nested inside the deploy that launched
+// it, and that deploy's After Action is deliberately allowed to run FIRST (see the
+// SWU_COMBAT_SKIP_AFTERACTION branch in SWU_TRIGGER_RESUME) — closing the window there left the combat
+// prevention offers, the "defeated while attacking" marking and ObjectCurrentPowerInAttack reading 0 for
+// the rest of the attack. Bug #1073.
+function _SWUCombatContinuationPending(): bool {
+    foreach (GetLiveSeatsArray() as $p) {
+        foreach (GetDecisionQueue(intval($p)) as $entry) {
+            if (!empty($entry->removed)) continue;
+            $param = (string)($entry->Param ?? '');
+            // Both continuations: TWI_135 Darth Maul's two-defender attack rides MAULCOMBAT, which the
+            // older '|COMBAT' substring scan in SWU_TRIGGER_RESUME does not match ('|MAULCOMBAT').
+            if (str_starts_with($param, 'SWU_TRIGGER_RESUME')
+                && (strpos($param, '|COMBAT|') !== false || strpos($param, '|MAULCOMBAT|') !== false)) return true;
+        }
+    }
+    return false;
+}
+
 // A combat's terminal After Action must be skipped when the attack is a BONUS attack nested inside a
 // larger action (a Support attack launched by a deploy/play trigger) — that outer action owns the single
 // After Action via its deferred SWU_TRIGGER_RESUME terminal. _SWUInTriggerResumeMode() detects a pending
@@ -2723,9 +2745,21 @@ function _SWUInTriggerResumeMode(): bool {
 // which survives the boundary in the serialized gamestate. Consume it here so it can't leak to a later attack.
 function _SWUCombatFinishAction($player): void {
     $skip = _SWUInTriggerResumeMode();
-    if (GetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', '') === '1') $skip = true;
+    $supportSkip = GetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', '') === '1';
+    if ($supportSkip) $skip = true;
     SetSWUVar('SWU_COMBAT_SKIP_AFTERACTION', '');   // consume regardless of which combat terminal is reached
-    if ($skip) return;
+    if ($skip) {
+        // bug #1073 — close the per-attack identity window on the SUPPORT path, which is the one path where
+        // NO SWUAfterAction will ever run for this attack: the outer deploy's already ran, ahead of the
+        // damage, and SWUAfterAction now declines to close the window while a COMBAT continuation is queued.
+        // Left open it would outlive the attack, and a later unrelated defeat of the same unit this phase
+        // would read as "defeated while attacking" (SEC_013 Luthen Rael, SEC_158).
+        // ⚠ ONLY here. Every other path still reaches an SWUAfterAction, and it must close the window
+        // AFTER that call's SWUFlushDeferredReplacements — a self-defeating On Attack (SEC_150 Valiant
+        // Commando) is defeated there, and the marking reads this var at that moment.
+        if ($supportSkip) SetSWUVar('SWU_CURRENT_ATTACKER_UID', '0');
+        return;
+    }
     // The combat's own defeats flushed their When Defeated triggers through FlushTriggerBag, which queues a
     // RESOLVE_TRIGGER per trigger and NO finalising resume. Closing here ran the action end — the turn swap —
     // before those triggers resolved, so an attacker that died to the counter asked its controller "search your

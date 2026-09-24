@@ -334,3 +334,63 @@ WithP1Hand: SOR_142
 
 ## EXPECT
 P1RESAVAILABLE:2
+
+---
+
+# NoLaw009_HeraUNITDoesNotGrantTheWaiver
+#// REGRESSION (live game 1208106) — the waiver belongs to the LAW_009 LEADER CARD, not to "controlling
+#// something named Hera Syndulla". Every section above has LAW_009 as the leader, so a control-BY-TITLE
+#// gate was unobservable: ASH_031 Hera Syndulla - Renegade General is a vanilla unit with no cost text,
+#// and merely having her on the field refunded every Heroism unit's aspect penalty.
+#// Board: leader ASH_014 The Mandalorian (Aggression/Heroism) + base JTL_021 Colossus (Vigilance), so
+#// P1 covers Aggression/Heroism/Vigilance. LAW_149 Rey - Skywalker is Command/Heroism cost 8 → the
+#// Command pip is UNMATCHED → +2 → 10. P1 controls ASH_031 + SEC_080 (2 units, clearing LAW_009's
+#// "2 or more units" clause) but has NO LAW_009 anywhere, so nothing is waived.
+#// P1 has exactly 10 resources → 0 remain. (With the bug: charged 8, leaving 2.)
+
+## GIVEN
+CommonSetup: ggw/gyk/{
+  myLeader:ASH_014;
+  myBase:JTL_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 10
+WithP1GroundArena: [ASH_031:1:0 SEC_080:1:0]
+WithP1Hand: LAW_149
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1GROUNDARENAUNIT:2:CARDID:LAW_149
+P1RESAVAILABLE:0
+
+---
+
+# NoLaw009_Sor008HeraLeaderDoesNotGrantTheWaiver
+#// Same root cause, second reachable shape: SOR_008 Hera Syndulla - Spectre Two IS a Hera leader, but her
+#// waiver is SPECTRE-ONLY. A title gate let her stand in for LAW_009 and waive the penalty on any Heroism
+#// unit. ASH_152 Inspired Recruit (Aggression/Heroism, cost 1, Rebel/Trooper — NOT Spectre) is played
+#// while P1 covers Command/Heroism (SOR_008) + Cunning (SOR_028 Jedha City), so Aggression is off-aspect
+#// → +2 → 3. P1 controls 2 units, so the "2 or more units" clause is met and only the LAW_009 identity
+#// check stands between this and a wrong charge. P1 has 3 resources → 0 remain. (With the bug: 1, leaving 2.)
+
+## GIVEN
+CommonSetup: ggw/gyk/{
+  myLeader:SOR_008;
+  myBase:SOR_028
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 3
+WithP1GroundArena: [SEC_080:1:0 SEC_080:1:0]
+WithP1Hand: ASH_152
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:3
+P1RESAVAILABLE:0

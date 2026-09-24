@@ -378,3 +378,53 @@ function SWUBotOpponentCanGetSentinel(int $oppSeat): bool {
     }
     return false;
 }
+
+// ── CONTEXT VALUE (proposal 'ctxpower', default OFF) ────────────────────────────────────────────────────
+// What a card in HAND is worth ON THE CURRENT BOARD, over and above its printed stats. Returns the SURPLUS,
+// never the whole value, so every caller stays additive: 0.0 means "printed stats already price this card"
+// and no existing behaviour moves. That is also why an empty board must return exactly 0.0.
+//
+// WHY THIS EXISTS. The aggro wing resources by `-$cost` alone (BotResourcing.php) and _SWUBotPlayValue()
+// prices a unit by COST, so neither can see a card whose power depends on the board. Block 3 of the owner's
+// run measured the cost: the bot buried JTL_115 Clone Combat Squadron 17 times at an average effective power
+// of 5.9 (peak 9) while playing it 3 times at an average of 4.3 — burying it when big, playing it when small.
+//
+// Deliberately a small per-card table, not a text parser. Only two cards in that whole deck pool scale
+// ("for each"), a wrong guess here silently mis-prices a resource pick, and the repo already keeps per-card
+// knowledge per card. Add an arm when a card earns one.
+function SWUBotContextSurplus(int $seat, string $cid): float {
+    if (!function_exists('SWUBotProposalOn') || !SWUBotProposalOn('ctxpower')) return 0.0;
+    switch ($cid) {
+
+        // JTL_115 Clone Combat Squadron — "This unit gets +1/+1 for each other friendly space unit."
+        // Every friendly space unit counts once for that text. A friendly JTL_085 Victor Leader counts
+        // TWICE and both are real: it is another space unit AND its "each other friendly space unit gets
+        // +1/+1" lands on this card once it arrives. Owner 2026-09-24: "when my board has 3+ units, this is
+        // a big unit especially with Victor Leader on the board."
+        case 'JTL_115':
+            $n = 0.0;
+            foreach (SWUBotUnits($seat) as $v) {
+                if ($v['arena'] !== 'Space') continue;
+                $n += 1.0;
+                if ($v['cardID'] === 'JTL_085') $n += 1.0;   // the buff it grants, on top of being a body
+            }
+            return $n;
+
+        // SEC_179 Aggressive Negotiations — "Attack with a unit. For this attack, it gets +1/+0 for each
+        // card in your hand." The event has left hand by the time it resolves, so it counts the OTHERS.
+        // Worth NOTHING when no unit can reach the base: owner 2026-09-24, "+2 damage to base with a unit
+        // that is able to hit base (eg. no Sentinels)". _SWUBotBasePotentialThroughSentinels answers exactly
+        // that and already models Shields and Saboteur.
+        // The owner's "+2 a round after 6R" needs no round rule: a seat that stops resourcing draws 2 a
+        // round, so hand size — and this surplus — climbs by 2 on its own.
+        case 'SEC_179':
+            if (_SWUBotBasePotentialThroughSentinels($seat, SWUBotOpponent($seat), false) <= 0) return 0.0;
+            $others = 0.0;
+            foreach (GetHand($seat) as $c) {
+                if ($c === null || !empty($c->removed)) continue;
+                if (strval($c->CardID ?? '') !== 'SEC_179') $others += 1.0;
+            }
+            return $others;
+    }
+    return 0.0;
+}

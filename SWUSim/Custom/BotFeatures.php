@@ -130,11 +130,30 @@ const SWU_BOT_PART10_FEATURES = ['enablerfirst'];
 // Guard: SWUSim/DevTools/tests/bot_mgresource_test.php.
 const SWU_BOT_PART11_FEATURES = ['mgkeep'];
 
+// Part 12 (2026-09-24): 'mgbomb' — MIDRANGE gets the resourcing rule the control wing already had (owner ruling
+// 2026-09-13: "keep a hand it can CAST — everything castable within ~2 regroups, plus ONE copy of its biggest
+// card"). It was gated `$rank >= 3`, so midrange fell through to the bare `-$cost` fallback and buried its most
+// expensive card. FOUND in the owner's 99-game human-vs-bot run: the midrange bot's resource pick sat +0.67
+// (block 1) and +0.92 (block 4) ABOVE its own hand average and was the most expensive card 40-44% of the time,
+// while the owner's own pick sat -0.57 and -0.54 BELOW his — the SAME skew across two completely different
+// archetypes (Ahsoka Blue, hand avg 3.31; Colossus, 4.88), so his rule is "bury ~0.55 below your hand average"
+// and it is deck-independent. Shipping 'mgkeep' as p11 did NOT move the bot's skew; this does.
+// MEASURED (2026-09-24 screen, 5 arms x 8,000 games, FOCUS on the 5 midrange decks, 0 timeouts): paired McNemar
+// on the 4,400 shared midrange cells against BOTH jitter nulls — 590:454 vs jitter-up and 595:454 vs jitter-down,
+// **p = 0.0000 against each**. Midrange 44.59% against nulls at 41.50 / 41.39, i.e. **+3.14pp on a 0.11pp null
+// spread**. Beat the rival 'mgkill' arm head to head 599:503 (p=0.0042). No style regressed: every NEW column is
+// identical across arms (this touches rank 2 only) and the OLD columns fall only because their midrange
+// OPPONENTS improved. '@no-p12' / '@no-mgbomb' = the stack before it.
+// ⚠ Bot-vs-bot. Self-play rated hyperaggro the strongest style immediately before it went 0W/25L against the owner.
+// Guard: SWUSim/DevTools/tests/bot_midrange_levers_test.php.
+const SWU_BOT_PART12_FEATURES = ['mgbomb'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
                        SWU_BOT_PART7_FEATURES, SWU_BOT_PART8_FEATURES, SWU_BOT_PART9_FEATURES,
-                       SWU_BOT_PART10_FEATURES, SWU_BOT_PART11_FEATURES);   // part 2, then 3-11
+                       SWU_BOT_PART10_FEATURES, SWU_BOT_PART11_FEATURES,
+                       SWU_BOT_PART12_FEATURES);   // part 2, then 3-12
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -147,6 +166,7 @@ function SWUBotFeatureGroups(): array {
     return ['p3' => $p3, 'p4' => SWU_BOT_PART4_FEATURES, 'p5' => SWU_BOT_PART5_FEATURES,
             'p6' => SWU_BOT_PART6_FEATURES, 'p7' => SWU_BOT_PART7_FEATURES, 'p8' => SWU_BOT_PART8_FEATURES,
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
+            'p12' => SWU_BOT_PART12_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,
@@ -273,6 +293,21 @@ const SWU_BOT_WEIGHT_PROBES = [
     // both at once — the full horizon shift
     'horizon'     => ['draw' => 2.0, 'heal' => 2.0, 'develop' => 2.0, 'removal' => 2.0,
                       'base' => 0.5, 'chip' => 0.5, 'burn' => 0.5, 'damage' => 0.5],
+    // Is the TRADE PREFERENCE paying for itself? Block 2 of the owner's 100-game human-vs-bot run
+    // (2026-09-23): a hardcontrol Luke ASH_005 went 0W/24L into an Ahsoka ASH_009 go-wide deck. Against
+    // block 1's midrange arm on the SAME matchup, same human, only the style changed —
+    //     attacks at BASE   79% -> 57%      damage DEALT  14.4 -> 8.2 mean (permutation p = 0.0008)
+    //     damage TAKEN by round 5, cumulative   28.9 -> 30.2
+    // so the extra trading bought NO defence at all while halving the bot's own output. The suspect is
+    // this table: hardcontrol prices 'kill' at 1.50 against a FLAT 'base' of 0.60, a 2.5:1 preference for
+    // trading applied before any board state is read. 'kill-down' moves the ratio to 1.5:1; 'kill-base'
+    // pushes it to ~1.15:1 by paying the swing more as well.
+    // ⚠ GLOBAL, like every probe — SWUBotWeights() applies it to all five archetypes, so these also move
+    // aggro and midrange. That is intended for a first screen: strength_report.py splits the result per
+    // style, so "helps control, hurts aggro" is visible and fails the "raise the weak, never lower the
+    // strong" ruling. A style-scoped version is the follow-up if the screen says the direction is right.
+    'kill-down'   => ['kill' => 0.6],
+    'kill-base'   => ['kill' => 0.6, 'base' => 1.3],
 ];
 
 // WEIGHT FLOORS ("@w-<probe>", same namespace as the multipliers above). A MULTIPLIER cannot switch on a weight
@@ -381,6 +416,11 @@ const SWU_BOT_PROPOSALS = [
     // does not have. These are midrange's first rules of its own.
     'mgbuff',          // a buff-and-attack Action is priced by what it adds, even when the card applies the buff in
                        // its own handler (the shipped 'buffattack' only reads the generic APPLY_PHASE_BUFF)
+    // ⛔ MEASURED HARMFUL 2026-09-24 — DO NOT SHIP, DO NOT RE-SCREEN. Kept only so the result reproduces.
+    // Midrange lever screen (8,000 games, FOCUS on the 5 midrange decks): midrange 40.27% against jitter nulls
+    // at 41.50 / 41.39 — paired McNemar 97:151 and 110:159, p = 0.0008 and 0.0034, i.e. significantly WORSE
+    // than doing nothing. It also LOST head to head to the opposite-direction 'mgkill' 233:327 (p = 0.0001),
+    // which settles the direction: midrange wants a LOWER kill weight, not a higher one.
     'mgtrade',         // while BEHIND ON BOARD POWER, a kill also earns the damage it prevents (target power x base
                        // rate), so killing a cheap 3-power body beats swinging at the base. 73% of a midrange bot's
                        // attacks went at the base while it lost the board (BotFallback.php _SWUBotThreatRemoved)
@@ -406,6 +446,20 @@ const SWU_BOT_PROPOSALS = [
                        // gather data (2026-09-20). Memory `bot-heuristics-cause-the-anti-control-bias` calls this
                        // the most actionable lead: control resources its own answers before filler.
     // ('buffattack' was SHIPPED 2026-09-20 as feature group 'p7' — its history is in the feature comment.)
+    // Value a HAND card by what it is worth ON THE CURRENT BOARD, not by its printed stats — resourcing AND
+    // play scoring (SWUBotContextSurplus, BotEvaluator.php). Block 3 of the owner's run: the hyperaggro seat
+    // buried JTL_115 Clone Combat Squadron 17 times at an average EFFECTIVE power of 5.9 (peak 9) and played
+    // it 3 times at 4.3 — it buries the card when it is big and plays it when it is small, because the aggro
+    // wing resources by `-$cost` and _SWUBotPlayValue prices a unit by COST. Owner 2026-09-24.
+    'ctxpower',
+    // MIDRANGE kill weight x0.6 (0.90 -> 0.54 against a flat base 0.60, so the kill:base ratio inverts from
+    // 1.5:1 to 0.9:1 and the seat prefers the swing to the trade). The midrange-scoped version of the global
+    // `@w-kill-down` probe, which the 2026-09-24 screen measured at midrange +2.2pp (43.2% vs jitter nulls
+    // 41.1/40.8), paired McNemar p=0.0038 and p=0.0011 against two independent nulls, 4 of 5 decks, no aggro
+    // cost. The probe was global and therefore unshippable; this is not.
+    // ⚠ OPPOSITE in direction to 'mgtrade', which pays midrange MORE for a kill. Screen them head to head.
+    'mgkill',
+    // ('mgbomb' was SHIPPED 2026-09-24 as feature group 'p12' — its history is in the feature comment.)
 ];
 
 
