@@ -1,0 +1,144 @@
+[
+    {
+        "step": 8,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Damage",
+        "value": "8",
+        "semantic": true,
+        "label": "Champion takes double damage (4 printed POWER x2 = 8) attacking a unit whose controller has an empty hand"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "Counters",
+        "value": "{\"_champDamageThisTurn\":8}"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"WAS_ATTACKED\",\"DAMAGED_SINCE_LAST_TURN\",\"CHAMP_DMG_BY_P2\"]"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Status",
+        "value": "1"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "Counters",
+        "value": "{\"_champCombatDamageDealtThisTurn\":8}"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Field-0",
+        "property": "TurnEffects",
+        "value": "[\"AMv1u54B2s_DOUBLE\"]",
+        "semantic": true,
+        "label": "Self-referential DOUBLE tag lands on the attacking champion's own TurnEffects (the ambient onAttack mzID, not the intent card) -- the consumer must check both locations"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-0",
+        "property": "CardID",
+        "value": "n8wyfG9hbY"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-1",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-2",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Hand-3",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Graveyard-0",
+        "property": "CardID",
+        "value": "AMv1u54B2s"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-0",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-1",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-2",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2Memory-3",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 8,
+        "type": "card_property_equals",
+        "mzId": "p2GlobalEffects-0",
+        "property": "CardID",
+        "value": "CHAMP_DEALT_COMBAT_DMG"
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "theirHand",
+        "viewerPlayerID": 1,
+        "value": 4
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "theirGraveyard",
+        "viewerPlayerID": 1,
+        "value": 1
+    },
+    {
+        "step": 8,
+        "type": "zone_count",
+        "zone": "theirMemory",
+        "viewerPlayerID": 1,
+        "value": 4
+    }
+]

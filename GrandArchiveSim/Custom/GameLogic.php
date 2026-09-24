@@ -4648,6 +4648,34 @@ $customDQHandlers["DeclarePrepareCost"] = function($player, $parts, $lastDecisio
     }
 };
 
+/**
+ * Slice and Dice (3jg01o26b4): "Prepare 3" additional cost.
+ *
+ * The CardEditor ability database has no CardActivated row for this card (a data gap --
+ * every other Prepare-cost ATTACK card, e.g. Thieving Cut/7t9m4muq2r, has one, generated into
+ * GeneratedCode/GeneratedMacroCode.php's $cardActivatedAbilities). Without it, nothing ever
+ * offers/pays the Prepare 3 cost, so the card's own onHitAbilities["3jg01o26b4:0"] "if prepared"
+ * branch (which checks the generic PREPARED TurnEffect that OnCardActivated() applies whenever
+ * DeclarePrepareCost stores wasPrepared=YES) is permanently unreachable.
+ *
+ * This environment has no reachable CardEditor ability database (no local MySQL, no
+ * CARD_CODE_REMOTE_CONFIG/local connection file) to author the missing row there, so this hand
+ * -written entry fills the same $cardActivatedAbilities["3jg01o26b4:0"] slot the generator would
+ * have populated, using the same generic DeclarePrepareCost mechanism Thieving Cut uses. It is
+ * additive: GeneratedMacroCode.php has no competing entry for this key, so nothing gets clobbered
+ * on regeneration. If the database row is ever authored, this block becomes redundant and should
+ * be removed in favor of the generated entry.
+ */
+$cardActivatedAbilities["3jg01o26b4:0"] = function($player) { //Slice and Dice: Prepare 3
+    DecisionQueueController::StoreVariable("wasPrepared", "NO");
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return;
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null || GetCounterCount($champObj, "preparation") < 3) return;
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Pay_Prepare_3?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DeclarePrepareCost|" . $champMZ . "|3", 1);
+};
+
 function ResolveObelithEscort($player) {
     $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
     $field = &GetField($player);

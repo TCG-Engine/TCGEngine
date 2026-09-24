@@ -303,13 +303,29 @@ function GetTotalAttackPower($attackerObj, $player, $ignoredIntentMZ = null) {
     return $totalPower;
 }
 
-function AttackHasRendingFlamesDouble($player, $ignoredIntentMZ = null) {
+// $attackerObj is optional: pass it when the caller already has it resolved (e.g.
+// GetAttackThreatAmount), otherwise it's resolved here via GetCombatAttackerMZ() (ambient
+// $playerID, same perspective convention GetIntentCards($player) below already relies on).
+function AttackHasDamageDoubleEffect($player, $ignoredIntentMZ = null, $attackerObj = null) {
+    if($attackerObj === null) {
+        $attackerMZ = GetCombatAttackerMZ();
+        $attackerObj = $attackerMZ !== null ? GetZoneObject($attackerMZ) : null;
+    }
     $intentCards = GetIntentCards($player);
     foreach($intentCards as $intentMZ) {
         if($ignoredIntentMZ !== null && $intentMZ === $ignoredIntentMZ) continue;
         $intentObj = GetZoneObject($intentMZ);
-        if($intentObj !== null && !$intentObj->removed && $intentObj->CardID === "soO3hjaVfN"
-            && in_array("soO3hjaVfN_DOUBLE", $intentObj->TurnEffects ?? [])) {
+        if($intentObj === null || $intentObj->removed) continue;
+        $tag = $intentObj->CardID . "_DOUBLE";
+        if(in_array($tag, $intentObj->TurnEffects ?? [])) return true;
+        // Some generated onAttack closures for an ATTACK card played from hand tag the ambient
+        // "mzID" DQ variable directly (e.g. AddTurnEffect($mzID, ...)) instead of resolving the
+        // true intent-card mzID the way Rending Flames' own Custom-code implementation does. Per
+        // OnAttackTrigger()'s own doc comment, that ambient value is the ATTACKING UNIT's own field
+        // mzID for every onAttack closure fired during that dispatch, not the intent card -- so a
+        // naively-authored closure's tag lands on the attacker instead (confirmed live for Strike of
+        // Singularity/AMv1u54B2s). Check there too.
+        if($attackerObj !== null && !$attackerObj->removed && in_array($tag, $attackerObj->TurnEffects ?? [])) {
             return true;
         }
     }
@@ -319,7 +335,7 @@ function AttackHasRendingFlamesDouble($player, $ignoredIntentMZ = null) {
 function GetAttackThreatAmount($attackerObj, $player, $ignoredIntentMZ = null) {
     $totalPower = GetTotalAttackPower($attackerObj, $player, $ignoredIntentMZ);
     if($totalPower <= 0) return 0;
-    if(AttackHasRendingFlamesDouble($player, $ignoredIntentMZ)) {
+    if(AttackHasDamageDoubleEffect($player, $ignoredIntentMZ, $attackerObj)) {
         $totalPower *= 2;
     }
     return $totalPower;
@@ -3734,7 +3750,7 @@ function HasRendingFlamesCombatDouble($player, $source) {
     if($combatAttacker === null || $combatAttacker !== $source || $combatAttackerPlayer !== intval($player)) {
         return false;
     }
-    return AttackHasRendingFlamesDouble($combatAttackerPlayer);
+    return AttackHasDamageDoubleEffect($combatAttackerPlayer);
 }
 
 function ApplyCombatDamageReplacements($player, $source, $amount) {

@@ -15397,6 +15397,121 @@ DECK,
     ],
 ];
 
+
+// --- Strike of Singularity: [Class Bonus] attacking a unit whose controller has an empty hand ->
+// this attack deals double damage ---
+$fixtures['strike-of-singularity-onattack-empty-hand-double-damage'] = [
+    'testedCards' => ['AMv1u54B2s'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Regression fixture for a genuine engine bug: onAttackAbilities["AMv1u54B2s:0"] (GeneratedCode/
+    // GeneratedMacroCode.php) tagged the intent card with "soO3hjaVfN_DOUBLE" -- Rending Flames'
+    // (soO3hjaVfN) own CardID -- instead of its own, apparently copy-pasted from Rending Flames'
+    // implementation. The consumer, AttackHasRendingFlamesDouble() (GrandArchiveSim/Custom/
+    // CombatLogic.php), hardcoded a check for CardID === "soO3hjaVfN" in the intent zone, so Strike
+    // of Singularity's doubling could never fire no matter the game state. Fixed by renaming the
+    // consumer to the generic AttackHasDamageDoubleEffect(), which checks each intent card for a
+    // TurnEffect of the form "{$intentObj->CardID}_DOUBLE" (self-referential, matching every other
+    // card's own closure), and by correcting this card's own AddTurnEffect call to tag itself
+    // ("AMv1u54B2s_DOUBLE"). Verified this doesn't change Rending Flames' own behavior (its tag
+    // already matches its own CardID) via its existing rending-flames-onattack-banish-double-damage
+    // fixture, which still passes.
+    //
+    // Strike of Singularity's element is LUXEM (verified via CardElement()), so the starting
+    // champion's CardID is patched directly to Zander, Blinding Steel (UAF6Nr7GUE) -- LUXEM AND
+    // ASSASSIN on the same printed card (verified via CardElement()/CardClasses()) -- rather than
+    // Zander, Deft Executor (NORM/ASSASSIN, used for the other ASSASSIN-gated Zander Pantheon
+    // fixtures above): patching to a NORM champion left CanPlayerUseCardElement() blocking the LUXEM
+    // card, and the FSM play click silently no-op'd (reported success, changed nothing, same
+    // element-gating trap documented on insignia-of-corhazi-rest-prepare above -- confirmed live by
+    // instrumenting the replay: hand/field/DQ were byte-identical before and after the FSM click
+    // until the champion's element was corrected). Rule 1.h blocks the game's first player from
+    // attacking on turn 1, so player 1 ends turn 1 and player 2 plays Strike of Singularity on their
+    // own turn 1 instead. Player 1's starting hand is fully emptied (via the 'emptyZone' setup
+    // helper -- see its own comment above for why this doesn't script a real hand-depletion
+    // sequence) so their champion satisfies "attacking a unit controlled by a player with no cards
+    // in their hand." Strike of Singularity's printed POWER is 4; doubled damage (8) on the champion
+    // is only possible if the ability's "deals double that damage instead" effect actually applied.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'UAF6Nr7GUE']], // Zander, Blinding Steel (LUXEM, ASSASSIN) - element + Class Bonus precondition
+        ['player' => 1, 'emptyZone' => 'myHand', 'destZone' => 'myBanish'], // empty defender's hand - "no cards in their hand" precondition
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => 'AMv1u54B2s'], // Strike of Singularity, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 1/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 2/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 3/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 4/4
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's (empty-handed) champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so CombatApplyAttackerDamage actually lands
+    ],
+];
+
+// --- Slice and Dice: Prepare 3, On Hit may declare additional attack with +3 POWER copy if prepared ---
+$fixtures['slice-and-dice-prepare-onhit-additional-attack'] = [
+    'testedCards' => ['3jg01o26b4'],
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // Regression fixture for a genuine engine bug: the CardEditor ability database has no
+    // CardActivated row for Slice and Dice at all (unlike every other Prepare-cost ATTACK card,
+    // e.g. Thieving Cut/7t9m4muq2r just above), so nothing ever offered or paid its printed
+    // "Prepare 3" additional cost -- its onHitAbilities["3jg01o26b4:0"] "if prepared" branch
+    // (GeneratedCode/GeneratedMacroCode.php) was therefore permanently unreachable. No database
+    // access (local MySQL or a configured remote CardCodeService) was reachable in the environment
+    // this fix was developed in to author the missing row and regenerate, so the fix instead adds
+    // $cardActivatedAbilities["3jg01o26b4:0"] by hand in GrandArchiveSim/Custom/GameLogic.php,
+    // mirroring Thieving Cut's generated entry exactly (same DeclarePrepareCost/wasPrepared/
+    // PREPARED-TurnEffect mechanism, which is itself hand-written tracked code, not generated).
+    // This is additive and safe: GeneratedMacroCode.php has no competing entry for this key, so
+    // nothing is clobbered on regeneration; if the database row is ever authored, this hand-written
+    // entry becomes redundant and should be removed in favor of the generated one.
+    //
+    // Player 2's champion is pre-seeded with 3 preparation counters directly (same pattern as
+    // thieving-cut-prepare-onhit-draw, scaled to this card's Prepare 3 cost) so the cost can
+    // actually be paid. Answering YES to "Declare additional attack with copy?" is deliberately
+    // NOT exercised here (that path creates a whole second attack instance, out of scope for this
+    // fixture) -- the assertion is that the prompt appears at all, which only happens if the
+    // PREPARED TurnEffect was actually applied.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['Counters' => ['preparation' => 3]]], // Prepare-ability cost fuel
+        ['player' => 2, 'zone' => 'myHand', 'cardID' => '3jg01o26b4'], // Slice and Dice, seeded to a known hand slot
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1 (first-player attack lock)
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 1/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // reserve cost 2/2
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'YES', 'chkInput' => [], 'inputText' => ''], // pay Prepare 3
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so the hit actually lands
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline the "declare additional attack" offer -- its appearance alone proves PREPARED applied
+    ],
+];
+
 // ---------------------------------------------------------------------------
 // Filter if --fixture specified
 // ---------------------------------------------------------------------------
