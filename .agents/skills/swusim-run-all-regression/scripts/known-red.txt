@@ -1,0 +1,25 @@
+# Integration tests known to be failing for a reason we have accepted.
+#
+# ⚠ EMPTY IS THE GOAL, and it is empty today (2026-08-29). Every entry is a test telling you something
+# and being ignored. Delete a line the moment its test is fixed — a baseline that outlives its entries
+# stops being a baseline and becomes permission nobody remembers granting.
+#
+# All 7 original entries were cleared the same day they were recorded. Worth knowing WHY, because the
+# instinct "these are stale tests" was wrong six times out of seven:
+#
+#   test_swudeck_setnnn_dictionary   REAL BUG. SWUDeck's generated dictionary was stale and missing 34
+#                                    preview cards (HMW_011, HMW_016, ...) — invisible in its search and
+#                                    deckbuilder. The "magic numbers" 2302/2178 were correct all along.
+#   test_swudeck_client_format_data  Genuinely stale: asserted Premier had no bans after ASH_011 was
+#                                    deliberately banned. Now asserts against the format config.
+#   test_database_resolution         Pinned 'grandarchivesim' as a db name; it is now 'soulmastersdb'.
+#   test_swusim_authkeys             Asserted PRODUCTION auth semantics while DEVENV=true makes
+#                                    SimGameValidateSeatAuth return true unconditionally. Now forces
+#                                    the prod path around those two calls.
+#   test_swu_maintenance_guards      Its writer regex matched the SUBSTRING 'WriteGamestate' inside
+#                                    SimGameWriteGamestateCache (an APCu writer). Regex tightened.
+#   test_swudeck_deckstats_manual_format  Fixture used two ids that are not cards ('JTL_T012' — JTL
+#                                    tokens are T01-T04; 'ZZCARD'). SET_NNN validation rejects them, so
+#                                    the request 400'd before reaching SaveDeckStats.
+#   test_hellbreak_tutorial          Asserted UI COPY ('Learn to Play', 'Solo Rules Test') that was
+#                                    reworded. Now asserts the button ids and lobby values instead.

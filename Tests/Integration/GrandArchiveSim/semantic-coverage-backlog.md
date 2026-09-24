@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **465**
+Cards linked to an existing fixture: **467**
 Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2025**
+Implemented cards still needing semantic coverage: **2023**
 
 ## Mechanic groups
 
@@ -27,8 +27,6 @@ Implemented cards still needing semantic coverage: **2025**
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
 | Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
-| Strike of Singularity (`AMv1u54B2s`) | ATTACK | 1 | damage, combat, condition | Zander Pantheon Starter | — |
-| Slice and Dice (`3jg01o26b4`) | ATTACK | 1 | combat, condition | Zander Pantheon Starter | — |
 | Unity's Gale (`uUWsgLmyTk`) | ACTION | 1 | targeting, condition | Lorraine Pantheon Starter | — |
 | Reaping Legacy (`XDVIiIfKZk`) | ATTACK | 1 | unclassified | Lorraine Pantheon Starter | — |
 | CookTech Mixer (`yZBIpXIDIo`) | ITEM | 4 | cost, damage, draw-discard | — | — |
@@ -76,3 +74,5 @@ Implemented cards still needing semantic coverage: **2025**
 | Crimson Rupture (`qeZRvGbXkF`) | ACTION | 2 | cost, targeting, damage, zone-movement, condition | — | — |
 | Decaying Reproach (`qXIKFip2t4`) | ACTION | 2 | cost, targeting, damage, recover, draw-discard | — | — |
 | Diffusive Block (`o7eanl1gxr`) | ACTION | 2 | cost, targeting, damage, prevention, condition | — | — |
+| Dusklight Communion (`5upufyoz23`) | UNIQUE,PHANTASIA | 2 | cost, targeting, zone-movement, trigger, condition | — | — |
+| Dynasty Chancellor (`do1blsupu0`) | ALLY | 2 | draw-discard, zone-movement, combat, trigger, condition | — | — |

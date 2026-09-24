@@ -2,12 +2,12 @@
     "format": "grand-archive-semantic-coverage-backlog/v1",
     "rootName": "GrandArchiveSim",
     "inventoryExportedAt": "2026-09-22T19:10:14+00:00",
-    "generatedAt": "2026-09-23T23:52:19+00:00",
+    "generatedAt": "2026-09-24T00:13:05+00:00",
     "summary": {
         "implementedCards": 2477,
-        "cardsWithExistingFixtures": 465,
+        "cardsWithExistingFixtures": 467,
         "cardsInStarterDecks": 432,
-        "cardsNeedingSemanticCoverage": 2025,
+        "cardsNeedingSemanticCoverage": 2023,
         "mechanics": {
             "condition": 1324,
             "zone-movement": 857,
@@ -44,43 +44,6 @@
             ],
             "needsSemanticCoverage": true,
             "priority": 113
-        },
-        {
-            "cardId": "AMv1u54B2s",
-            "name": "Strike of Singularity",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "damage",
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 113
-        },
-        {
-            "cardId": "3jg01o26b4",
-            "name": "Slice and Dice",
-            "type": "ATTACK",
-            "abilityCount": 1,
-            "listenerCount": 0,
-            "mechanics": [
-                "combat",
-                "condition"
-            ],
-            "existingFixtures": [],
-            "semanticFixtures": [],
-            "starterDecks": [
-                "Zander Pantheon Starter"
-            ],
-            "needsSemanticCoverage": true,
-            "priority": 112
         },
         {
             "cardId": "uUWsgLmyTk",
@@ -40720,6 +40683,29 @@
             "priority": 133
         },
         {
+            "cardId": "AMv1u54B2s",
+            "name": "Strike of Singularity",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "damage",
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "strike-of-singularity-onattack-empty-hand-double-damage"
+            ],
+            "semanticFixtures": [
+                "strike-of-singularity-onattack-empty-hand-double-damage"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 133
+        },
+        {
             "cardId": "6eWmfzAmWr",
             "name": "Surged Coordinator",
             "type": "ALLY",
@@ -42776,6 +42762,28 @@
             ],
             "starterDecks": [
                 "Silvie Starter Deck"
+            ],
+            "needsSemanticCoverage": false,
+            "priority": 132
+        },
+        {
+            "cardId": "3jg01o26b4",
+            "name": "Slice and Dice",
+            "type": "ATTACK",
+            "abilityCount": 1,
+            "listenerCount": 0,
+            "mechanics": [
+                "combat",
+                "condition"
+            ],
+            "existingFixtures": [
+                "slice-and-dice-prepare-onhit-additional-attack"
+            ],
+            "semanticFixtures": [
+                "slice-and-dice-prepare-onhit-additional-attack"
+            ],
+            "starterDecks": [
+                "Zander Pantheon Starter"
             ],
             "needsSemanticCoverage": false,
             "priority": 132
