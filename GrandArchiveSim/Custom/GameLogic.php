@@ -4676,6 +4676,69 @@ $cardActivatedAbilities["3jg01o26b4:0"] = function($player) { //Slice and Dice: 
     DecisionQueueController::AddDecision($player, "CUSTOM", "DeclarePrepareCost|" . $champMZ . "|3", 1);
 };
 
+// --- Hand-authored ability entries for cards with no CardEditor ability database row reachable
+// in this sandbox (same workaround pattern as Cleansing Reunion/Sanctified Paladin/Slice and Dice
+// used elsewhere this project): these populate the same global dispatch tables
+// GeneratedCode/GeneratedMacroCode.php (gitignored, regenerated from that database) would
+// populate. Purely additive -- GeneratedMacroCode.php has no competing entries for any of these
+// keys, so nothing is clobbered on regeneration; these blocks should be removed once the
+// CardEditor ability database rows are authored for real and regenerated through the normal
+// pipeline.
+
+// Charm of Anticipation (vkL2RFh0yM, REGALIA/ITEM): "Banish Charm of Anticipation: Draw a card.
+// Activate this ability only if you have the Crowd's Favor status." Mirrors Grand Crusader's Ring
+// (2gv7DC0KID)'s generated "Banish CARDNAME: Draw a card" activated-ability shape exactly
+// (GeneratedCode/GeneratedMacroCode.php activateAbilityAbilities["2gv7DC0KID:0"]), plus a prereq
+// gating on the Crowd's Favor status (tracked as global effect "gpmJdGYqoC"; see
+// GainCrowdsFavor() below). $activateAbilityPrereqs is only consulted by the dynamic
+// ability-copying paths (Cheshire Cat, Tome of Sacred Lightning) -- DoActivatedAbility()'s own
+// direct-activation path never checks it (its CanActivateAbility() hook has no definition in this
+// codebase), so the condition is also enforced as a guard inside the ability body itself, matching
+// how every other conditional activated ability in this codebase self-enforces its own condition.
+$activateAbilityAbilities["vkL2RFh0yM:0"] = function($player) { //Charm of Anticipation: Banish, Draw a card
+    if(GlobalEffectCount($player, "gpmJdGYqoC") <= 0) return;
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    MZMove($player, $mzID, "myBanish");
+    Draw($player, 1);
+};
+$activateAbilityPrereqs["vkL2RFh0yM:0"] = function($player, $mzID, $abilityIndex) {
+    return GlobalEffectCount($player, "gpmJdGYqoC") > 0;
+};
+// NOTE: $CardActivateAbilityCountData["vkL2RFh0yM"] = 1 is intentionally NOT set here -- that
+// array is wholesale-reassigned by GeneratedCode/GeneratedMacroCode.php, which loads AFTER this
+// file (see GamestateParser.php's include order), so any addition made to it here would be
+// silently clobbered. See the $staticAbilityCount patch in DoActivatedAbility() instead, which is
+// the one call site that actually needs to know this card has 1 static activated ability.
+
+// Unity's Gale (uUWsgLmyTk, ACTION/CLERIC/SPELL/REACTION): "Target ally gets +3LIFE until end of
+// turn. At the beginning of the next end phase, if that ally is damaged and you don't control it,
+// you gain the Crowd's Favor status." ACTION cards resolve their play through
+// $cardActivatedAbilities (OnCardActivated()'s unconditional final dispatch, ~line 5365 below),
+// matching the Cleansing Reunion precedent -- not $enterAbilities, which is only for permanents
+// entering the field. Any ally (either player's field) is a legal target: the delayed clause only
+// makes sense if the target can be an ally the caster doesn't control. The LIFE buff is tagged
+// onto the target as a plain TurnEffect ("uUWsgLmyTk", read in ObjectCurrentHP below) -- like
+// every other "+X LIFE until end of turn" card in this codebase, it needs no manual removal
+// because ExpireEffects() (called from EndPhase()) wipes non-persistent TurnEffects from both
+// fields every end phase by default. The delayed Crowd's Favor check is a separate one-shot
+// marker ("uUWsgLmyTk_CF_<casterPlayer>") tagged onto the same target object and explicitly
+// checked+consumed once in EndPhase() (see block below) before ExpireEffects() would otherwise
+// wipe it, so it fires at the very next end phase regardless of whose turn it is.
+$cardActivatedAbilities["uUWsgLmyTk:0"] = function($player) { //Unity's Gale
+    $targets = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"]));
+    $targets = FilterSpellshroudTargets($targets);
+    if(empty($targets)) return;
+    $targetStr = implode("&", $targets);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "uUWsgLmyTk:0:Target-1", 1);
+};
+$customDQHandlers["uUWsgLmyTk:0:Target-1"] = function($player, $parts, $lastDecision) {
+    $chosen = $lastDecision;
+    if($chosen === "-" || $chosen === "" || $chosen === null) return;
+    AddTurnEffect($chosen, "uUWsgLmyTk");
+    AddTurnEffect($chosen, "uUWsgLmyTk_CF_" . $player);
+};
+
 function ResolveObelithEscort($player) {
     $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
     $field = &GetField($player);
@@ -6895,6 +6958,15 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     $activationMacro = DecisionQueueController::GetVariable("activationMacro");
     $isHandActivatedMacro = ($activationMacro === "HandActivatedAbility");
     $staticAbilityCount = $isHandActivatedMacro ? CardHandActivatedAbilityCount($cardID) : CardActivateAbilityCount($cardID);
+    // Charm of Anticipation (vkL2RFh0yM): hand-authored activateAbilityAbilities["vkL2RFh0yM:0"]
+    // entry above has no matching row in $CardActivateAbilityCountData -- that array is a wholesale
+    // literal assignment in GeneratedCode/GeneratedMacroCode.php (gitignored), which is included
+    // AFTER this file (see GamestateParser.php's include order: Custom/GameLogic.php, then
+    // GeneratedCode/GeneratedMacroCode.php), so any addition made to it from here is clobbered by
+    // that later wholesale reassignment. Patched here instead, at the one call site that actually
+    // gates static-vs-dynamic ability dispatch, since this file is tracked/hand-editable and
+    // GeneratedMacroCode.php is not.
+    if($cardID === "vkL2RFh0yM" && !$isHandActivatedMacro) $staticAbilityCount = 1;
     $refractedTwilightCopies = 0;
     if(PropertyContains(CardSubtypes($cardID), "POTION") && $selectedAbilityIndex < $staticAbilityCount) {
         foreach($sourceObject->TurnEffects as $rtIdx => $rtEffect) {
@@ -10843,6 +10915,29 @@ function EndPhase() {
         }
     }
 
+    // Unity's Gale (uUWsgLmyTk): at the beginning of the next end phase, if the targeted ally is
+    // damaged and its caster doesn't control it, the caster gains the Crowd's Favor status. The
+    // marker is tagged directly onto the target object (see cardActivatedAbilities["uUWsgLmyTk:0"]
+    // above) so it survives regardless of whose turn ends next; checked and consumed here, before
+    // ExpireEffects() below would otherwise silently wipe it as a non-persistent TurnEffect.
+    foreach(array_merge(GetField(1), GetField(2)) as $ugObj) {
+        if($ugObj === null || $ugObj->removed || empty($ugObj->TurnEffects)) continue;
+        $ugHasMarker = false;
+        foreach($ugObj->TurnEffects as $ugEffect) {
+            if(strpos($ugEffect, "uUWsgLmyTk_CF_") !== 0) continue;
+            $ugHasMarker = true;
+            $ugCaster = intval(substr($ugEffect, strlen("uUWsgLmyTk_CF_")));
+            if(intval($ugObj->Damage ?? 0) > 0 && intval($ugObj->Controller ?? 0) !== $ugCaster) {
+                GainCrowdsFavor($ugCaster);
+            }
+        }
+        if($ugHasMarker) {
+            $ugObj->TurnEffects = array_values(array_filter($ugObj->TurnEffects, function($e) {
+                return strpos($e, "uUWsgLmyTk_CF_") !== 0;
+            }));
+        }
+    }
+
     // Scorching Imperilment (aj7pz79wsp): At beginning of each player's end phase,
     // that player may discard a card. If they do, they draw a card.
     $hasImperilment = false;
@@ -11229,6 +11324,19 @@ function ObjectCurrentPower($obj) {
             break;
         case "mDN1CI9IEe": // Sealed Blade: [Class Bonus] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) $power += 1;
+            break;
+        case "XDVIiIfKZk": // Reaping Legacy: [Class Bonus] +1 POWER for each Sword regalia weapon card in your banishment
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                $swordCount = 0;
+                foreach(GetBanish($obj->Controller) as $bObj) {
+                    if($bObj === null || $bObj->removed) continue;
+                    if(!PropertyContains(CardType($bObj->CardID), "REGALIA")) continue;
+                    if(!PropertyContains(CardType($bObj->CardID), "WEAPON")) continue;
+                    if(!PropertyContains(CardSubtypes($bObj->CardID), "SWORD")) continue;
+                    $swordCount++;
+                }
+                $power += $swordCount;
+            }
             break;
         case "mt5zs1w6c0": // Mary Ann, Maladroit Maid: +1 POWER per omen with different reserve costs
             {
@@ -13725,6 +13833,10 @@ function ObjectCurrentHP($obj) {
     // Fluvial Fatestone (3h93tgm72l): target ally gets +2 LIFE until end of turn
     if(in_array("3h93tgm72l", $obj->TurnEffects ?? [])) {
         $cardLife += 2;
+    }
+    // Unity's Gale (uUWsgLmyTk): target ally gets +3 LIFE until end of turn
+    if(in_array("uUWsgLmyTk", $obj->TurnEffects ?? [])) {
+        $cardLife += 3;
     }
     if(in_array("7QmyDecqkk_LIFE", $obj->TurnEffects ?? [])) {
         $cardLife += 2;

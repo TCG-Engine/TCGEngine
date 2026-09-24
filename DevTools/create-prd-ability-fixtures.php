@@ -15397,7 +15397,6 @@ DECK,
     ],
 ];
 
-
 // --- Strike of Singularity: [Class Bonus] attacking a unit whose controller has an empty hand ->
 // this attack deals double damage ---
 $fixtures['strike-of-singularity-onattack-empty-hand-double-damage'] = [
@@ -15509,6 +15508,130 @@ DECK,
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-0', 'chkInput' => [], 'inputText' => ''], // target opponent's champion
         ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate so the hit actually lands
         ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'NO', 'chkInput' => [], 'inputText' => ''], // decline the "declare additional attack" offer -- its appearance alone proves PREPARED applied
+    ],
+];
+
+
+// --- Charm of Anticipation: Banish CARDNAME: Draw a card. Activate only if you have Crowd's
+// Favor. Hand-authored ability (see GrandArchiveSim/Custom/GameLogic.php,
+// activateAbilityAbilities["vkL2RFh0yM:0"] -- no CardEditor ability database row was reachable in
+// this sandbox) ---
+$fixtures['charm-of-anticipation-banish-draw'] = [
+    'testedCards' => ['vkL2RFh0yM'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Charm of Anticipation is seeded directly onto player 1's field (myField-1) and player 1 is
+    // granted the Crowd's Favor status (global effect gpmJdGYqoC) via the 'globalEffect' setup
+    // primitive, satisfying the ability's "Activate this ability only if you have the Crowd's
+    // Favor status" prereq. A single CustomInput "Activate:0" click drives
+    // ActivateAbility -> DoActivatedAbility -> activateAbilityAbilities["vkL2RFh0yM:0"], which
+    // banishes Charm of Anticipation and draws a card -- mirroring the Templar of the Eternal
+    // fixture's activation shape exactly.
+    'setup' => [
+        ['player' => 1, 'globalEffect' => 'gpmJdGYqoC'], // Crowd's Favor
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'vkL2RFh0yM'], // Charm of Anticipation
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myField-1!CustomInput!Activate:0', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Unity's Gale: Target ally gets +3LIFE until end of turn. At the beginning of the next end
+// phase, if that ally is damaged and you don't control it, you gain the Crowd's Favor status.
+// Hand-authored ability (see GrandArchiveSim/Custom/GameLogic.php,
+// cardActivatedAbilities["uUWsgLmyTk:0"] plus the EndPhase()/ObjectCurrentHP hooks -- no
+// CardEditor ability database row was reachable in this sandbox) ---
+$fixtures['unitys-gale-delayed-crowds-favor'] = [
+    'testedCards' => ['uUWsgLmyTk'],
+    'deck' => GA_LORRAINE_PANTHEON_DECK,
+    // Unity's Gale is WIND element, so the starting champion's Subcards are patched with a real
+    // WIND champion (Spirit of Wind, pNiyaGlIe7) to unlock element access, matching the Cleansing
+    // Reunion/Tactful Sergeant precedent. Player 2's Dungeon Guide is seeded onto their own field
+    // pre-damaged (Damage=2) -- the delayed clause only checks "is damaged" as a state, not how or
+    // when the damage was dealt, so seeding it directly is equivalent to and far simpler than
+    // scripting a real combat step. Player 1 plays Unity's Gale from hand (its own 2-reserve
+    // cost), both players decline the fast-opportunity window, then targets player 2's Dungeon
+    // Guide -- an ally player 1 does not control, satisfying "you don't control it". Player 1 then
+    // ends their turn (a single Pass reaches EndPhase(), per the Rumble Coordinator precedent),
+    // where the hand-authored EndPhase() block finds the marker, confirms Damage>0 and
+    // Controller!=caster, and calls GainCrowdsFavor(1).
+    'setup' => [
+        ['player' => 1, 'patchMzId' => 'myField-0', 'setProperties' => ['Subcards' => ['pNiyaGlIe7']]], // WIND lineage/element unlock
+        ['player' => 2, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Damage' => 2]], // Dungeon Guide, pre-damaged
+        ['player' => 1, 'zone' => 'myHand', 'cardID' => 'uUWsgLmyTk'], // Unity's Gale
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myHand-7!FSM!', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 1/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'myHand-0', 'chkInput' => [], 'inputText' => ''], // pay reserve 2/2
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target player 2's Dungeon Guide
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // P1 requests main-phase pass
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P1 declines their own fast-action offer
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''], // P2 declines too -> phase actually advances -> EndPhase()
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''],
+    ],
+];
+
+// --- Reaping Legacy: [Class Bonus] Reaping Legacy gets +1POWER for each Sword regalia weapon
+// card in your banishment. Hand-authored ability (see GrandArchiveSim/Custom/GameLogic.php,
+// ObjectCurrentPower()'s "Self power modifiers" switch, case "XDVIiIfKZk" -- no CardEditor ability
+// database row was reachable in this sandbox) ---
+$fixtures['reaping-legacy-class-bonus-sword-banishment'] = [
+    'testedCards' => ['XDVIiIfKZk'],
+    // A plain, minimal deck (mirroring shred-to-ribbons-class-bonus-attack-ally-5-life-power)
+    // rather than GA_LORRAINE_PANTHEON_DECK: that deck's richer starting hand leaves extra
+    // fast-speed material live, which turns the post-combat opportunity window into several extra
+    // undetermined decline rounds. Reaping Legacy itself is seeded directly into intent below, so
+    // it doesn't need to be in this deck at all.
+    'deck' => <<<'DECK'
+# Material
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Clarent, Sword of Peace
+1 Backup Charger
+1 Purifying Thurible
+# Main
+4 Dungeon Guide
+4 Fairy Whispers
+4 Fluffy Shopkeep
+4 Windslice
+DECK,
+    // ATTACK cards can't be freely FSM-activated from hand outside of a real attack declaration
+    // (confirmed empirically -- the click is silently a no-op); Reaping Legacy is instead seeded
+    // directly into player 2's myIntent (Controller/Owner set explicitly, same shortcut as the
+    // shred-to-ribbons-class-bonus-attack-ally-5-life-power fixture), bypassing the hand-play/
+    // reserve flow entirely. Player 2's champion is patched to Lorraine, Wandering Warrior
+    // (DpHDGaX2Pn, WARRIOR) for the [Class Bonus], and two Sword regalia weapon cards (Clarent,
+    // Sword of Peace, m31WVJ9F04) are seeded into player 2's own banishment ("your banishment" =
+    // the attacking player's). Player 1 passes turn 1 (Rule 1.h forbids the true first player from
+    // attacking turn 1), then player 2's champion (0 printed power, bare-handed) declares a real
+    // attack -- same 4-action shape as the Shred to Ribbons precedent (Pass, FSM attack, target,
+    // decline Retaliate?) -- against a Dungeon Guide ALLY seeded onto player 1's field (LIFE
+    // overridden to 4), with Reaping Legacy already loaded in intent: total attack power = 0
+    // (champion) + 3 (printed) + 2 (Class Bonus, one per Sword regalia weapon in banishment) = 5,
+    // dealt as real, observable combat damage -- exactly lethal to the Dungeon Guide (which then
+    // dies and moves to the graveyard) vs. only 3 damage (and survival) if the Class Bonus never
+    // applied.
+    'setup' => [
+        ['player' => 2, 'patchMzId' => 'myField-0', 'setProperties' => ['CardID' => 'DpHDGaX2Pn']], // Lorraine, Wandering Warrior (WARRIOR) -- Class Bonus source
+        // Dungeon Guide's printed LIFE (3) is overridden to 4 (same potion_animate_life trick as
+        // the Shred to Ribbons precedent) so it's lethal ONLY with the +2 Class Bonus applied
+        // (0 champion + 3 printed + 2 bonus = 5 >= 4) and would survive without it (0 + 3 = 3 < 4)
+        // -- isolating the bonus specifically, rather than a target any base attack would also kill.
+        ['player' => 1, 'zone' => 'myField', 'cardID' => 'em6eEh9q8y', 'setProperties' => ['Counters' => ['potion_animate_life' => 4]]], // Dungeon Guide ALLY, LIFE overridden to 4 -- attack target
+        ['player' => 2, 'zone' => 'myIntent', 'cardID' => 'XDVIiIfKZk', 'setProperties' => ['Controller' => 2, 'Owner' => 2]], // Reaping Legacy, seeded directly into Intent
+        ['player' => 2, 'zone' => 'myBanish', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace (REGALIA/WEAPON, SWORD)
+        ['player' => 2, 'zone' => 'myBanish', 'cardID' => 'm31WVJ9F04'], // Clarent, Sword of Peace (REGALIA/WEAPON, SWORD)
+    ],
+    'actions' => [
+        ['playerID' => 1, 'mode' => 10001, 'buttonInput' => '', 'cardID' => 'myHealth-0!CustomInput!Pass', 'chkInput' => [], 'inputText' => ''], // ends turn 1
+        ['playerID' => 2, 'mode' => 10002, 'buttonInput' => '', 'cardID' => 'myField-0!FSM!', 'chkInput' => [], 'inputText' => ''], // champion declares the real attack
+        ['playerID' => 2, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'theirField-1', 'chkInput' => [], 'inputText' => ''], // target player 1's Dungeon Guide
+        ['playerID' => 1, 'mode' => 100, 'buttonInput' => '', 'cardID' => '-', 'chkInput' => [], 'inputText' => ''], // decline Retaliate?
     ],
 ];
 

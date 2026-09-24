@@ -1,0 +1,22 @@
+{
+    "name": "unitys-gale-delayed-crowds-favor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-24T00:59:23+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "uUWsgLmyTk"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "uUWsgLmyTk"
+        ],
+        "mechanics": [
+            "targeting",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Target ally gets +3LIFE until end of turn.",
+            "At the beginning of the next end phase, if that ally is damaged and you don't control it, you gain the Crowd's Favor status."
+        ]
+    }
+}
