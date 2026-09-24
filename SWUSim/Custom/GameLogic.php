@@ -7439,9 +7439,24 @@ function RegroupPhaseStart(): void {
                     $jo = GetZoneObject($jmz);
                     if (SWUObjGone($jo)) continue;
                     $juid = intval($jo->UniqueID ?? 0);
-                    if (GlobalEffectCount(1, 'SWU_JTL235_RETURN_' . $juid) > 0 || GlobalEffectCount(2, 'SWU_JTL235_RETURN_' . $juid) > 0) {
-                        SWUClearGlobalEffectsByPrefix(1, 'SWU_JTL235_RETURN_' . $juid);
-                        SWUClearGlobalEffectsByPrefix(2, 'SWU_JTL235_RETURN_' . $juid);
+                    // The marker lives on the CASTER's seat (AddGlobalEffects($player, …) in
+                    // cards/jtl/Commandeer.php), so it must be looked for on EVERY seat — not on 1 and 2.
+                    // Bug report game 1157606: seat 3 commandeered seat 1's Jade Squadron Patrol in a
+                    // 3-seat game and the unit was never returned, because the marker sat unread in seat
+                    // 3's global effects. The scan above was already seat-count-correct; only this lookup
+                    // and its clear were hardcoded. Mirrors the HMW_200 Rish Loo block below.
+                    $jMarked = false;
+                    for ($js = 1; $js <= SeatCountForGame(); $js++) {
+                        if (GlobalEffectCount($js, 'SWU_JTL235_RETURN_' . $juid) > 0) { $jMarked = true; break; }
+                    }
+                    if ($jMarked) {
+                        // Cleared on EVERY seat, not just the one it was found on: two seats can each have
+                        // commandeered the same unit in the same round (seat 3 takes it from seat 1, seat 2
+                        // then takes it from seat 3), so the same UID marker can sit on more than one seat.
+                        // ⚠ HYGIENE, NOT BEHAVIOUR, and no test can see it: SWUBounceUnit re-creates the card
+                        // in hand via AddHand(CardID:), so the UniqueID dies with the arena object and a
+                        // leftover marker can never match anything again. This loop stops markers piling up.
+                        for ($js = 1; $js <= SeatCountForGame(); $js++) SWUClearGlobalEffectsByPrefix($js, 'SWU_JTL235_RETURN_' . $juid);
                         SWUBounceUnit($jp, $jmz);   // return to owner's hand
                         $j235Found = true;
                         break 3;
