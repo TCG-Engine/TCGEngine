@@ -324,13 +324,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
             <label class="u-vh" id="pvp-pool-lbl" for="pvp-pool">Card pool</label>
             <span class="selwrap ch">
               <select class="select" id="pvp-pool" name="pvp-pool">
-                    <option selected>Premier</option>
-                    <option>Premier Preview (IC27)</option>
-                    <option>Eternal</option>
-                    <option>Eternal Preview</option>
-                    <option>Padawan</option>
-                    <option>Padawan Preview (IC27)</option>
-                    <option>Open</option>
+<?php echo SWUSetupPoolOptions($swuMenuTreeFull, 'constructed', 'pvp'); ?>
               </select>
             </span>
           </span>
@@ -414,9 +408,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
             <label class="u-vh" id="ts-pool-lbl" for="ts-pool">Card pool</label>
             <span class="selwrap ch">
               <select class="select" id="ts-pool" name="ts-pool">
-                    <option selected>Twin Suns</option>
-                    <option>Twin Suns Preview (IC27)</option>
-                    <option>Open</option>
+<?php echo SWUSetupPoolOptions($swuMenuTreeFull, 'twinsuns', 'ffa'); ?>
               </select>
             </span>
           </span>
@@ -492,9 +484,9 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <fieldset class="fs">
           <legend class="lg">Arrangement</legend>
           <div class="seg">
-              <input class="seg__in u-vh" type="radio" name="ts-arr" id="ts-arr-1" checked>
+              <input class="seg__in u-vh" type="radio" name="ts-arr" id="ts-arr-1" data-group="twinsuns" data-opt="ffa" checked>
               <label class="seg__opt ch" for="ts-arr-1">Free-For-All</label>
-              <input class="seg__in u-vh" type="radio" name="ts-arr" id="ts-arr-2">
+              <input class="seg__in u-vh" type="radio" name="ts-arr" id="ts-arr-2" data-group="twinsuns" data-opt="teams">
               <label class="seg__opt ch" for="ts-arr-2">Team Suns</label>
           </div>
         </fieldset>
@@ -613,9 +605,9 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <fieldset class="fs">
           <legend class="lg">Mode</legend>
           <div class="seg">
-              <input class="seg__in u-vh" type="radio" name="sp-mode" id="sp-mode-1" checked>
+              <input class="seg__in u-vh" type="radio" name="sp-mode" id="sp-mode-1" data-format="goldfish" checked>
               <label class="seg__opt ch" for="sp-mode-1">Goldfish (Solo)</label>
-              <input class="seg__in u-vh hotpick" type="radio" name="sp-mode" id="sp-mode-2">
+              <input class="seg__in u-vh hotpick" type="radio" name="sp-mode" id="sp-mode-2" data-format="hotseat">
               <label class="seg__opt ch" for="sp-mode-2">Hotseat (2P local)</label>
           </div>
         </fieldset>
@@ -3095,6 +3087,53 @@ function PICK_SAY(dlg, slot, text) {
   }
 })();
 
+/* ── Twin Suns: the arrangement owns its own pools ───────────────────────────
+   The registry gives each arrangement its OWN format ids for the same two labels:
+     ffa   -> twinsuns : "Standard",  twinsuns-preview : "Preview (IC27)"
+     teams -> teamsuns : "Standard",  teamsuns-preview : "Preview (IC27)"
+   So the pool <select> cannot be a single static list -- its option VALUES change with the
+   segment. This repopulates it from SWU_MENU (the same tree Formats.php built) whenever the
+   arrangement changes, keeping the player's Standard/Preview choice by LABEL across the swap. */
+(function TS_ARRANGEMENT_POOLS() {
+  var dlg = document.getElementById('setup-twin-suns');
+  if (!dlg) return;
+
+  function poolsFor(groupId, optId) {
+    var tree = (window.SWU_MENU && (SWU_MENU.full || SWU_MENU.tree)) || [];
+    for (var i = 0; i < tree.length; i++) {
+      if (tree[i].id !== groupId) continue;
+      var opts = tree[i].options || [];
+      for (var j = 0; j < opts.length; j++) if (opts[j].id === optId) return opts[j].pools || [];
+    }
+    return [];
+  }
+
+  function apply(radio) {
+    var sel = dlg.querySelector('select[id$="-pool"]');
+    if (!sel || !radio || !radio.dataset.opt) return;
+    var pools = poolsFor(radio.dataset.group || 'twinsuns', radio.dataset.opt);
+    if (!pools.length) return;
+    var keepLabel = (sel.options[sel.selectedIndex] || {}).text || '';
+    sel.innerHTML = '';
+    pools.forEach(function (p) {
+      var o = document.createElement('option');
+      o.value = p.format; o.textContent = p.label || p.format;
+      sel.appendChild(o);
+    });
+    // the same CHOICE, in the other arrangement's vocabulary -- match on the label, not the id
+    for (var i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].text === keepLabel) { sel.selectedIndex = i; break; }
+    }
+    LB_SYNC(sel);        // the enhanced listbox is a VIEW of the select; ask it to re-read
+  }
+
+  dlg.addEventListener('change', function (ev) {
+    if (ev.target && ev.target.name === 'ts-arr') apply(ev.target);
+  });
+  var checked = dlg.querySelector('input[name="ts-arr"]:checked');
+  if (checked) apply(checked);
+})();
+
 /* A link, as opposed to a pasted list. The AUTHORITY is SWUDeckInputIsLink() in
    SWUSim/Custom/DeckImport.php, which ValidateDeck.php reports as `savable` — this is only the
    cheap local shape check used to decide what to put in a text box. Anything that decides
@@ -3127,10 +3166,27 @@ window.SYNC_ACTIVE_SETUP = function () {
   };
   var modeFormat = ({ 'setup-pvp': 'premier', 'setup-twin-suns': 'twinsuns',
                       'setup-arenabot': 'botpractice', 'setup-solo': 'goldfish' })[dlg.id] || 'premier';
-  var poolLabel = val('select[id$="-pool"]');
-  var pool = poolLabel ? slug(poolLabel) : '';
-  set('swu-format-select', (dlg.id === 'setup-pvp' || dlg.id === 'setup-twin-suns') ? (pool || modeFormat) : modeFormat);
-  set('swu-cardpool-input', pool || 'premier');
+
+  // THE FORMAT IS READ, NEVER RECONSTRUCTED.
+  // This used to slug the pool's DISPLAY LABEL back into an id, which cannot round-trip:
+  // "Premier Preview (IC27)" -> premierpreviewic27, when the registry id is `preview`. Every
+  // preview format in every modal submitted something that does not exist. And a SEGMENTED
+  // control was never read at all, so Hotseat started Goldfish and Team Suns started Twin Suns
+  // (owner report, 2026-09-26) -- the stylesheet keyed off the radio, so the UI responded while
+  // the submission did not.
+  //
+  // Now the markup carries the registry's own id: pool <option value> is the format, and a
+  // segmented radio either names its format outright (1P: goldfish / hotseat) or names the
+  // registry OPTION it selects (Twin Suns: ffa / teams), whose pools the block below installs.
+  // format ids are a PRIMARY KEY on the stats tables -- they have to be exact.
+  var seg = dlg.querySelector('input[type="radio"][data-format]:checked');
+  var poolSel = dlg.querySelector('select[id$="-pool"]');
+  var poolFmt = poolSel ? String(poolSel.value || '').trim() : '';
+  var fmt = (seg && seg.dataset.format) || poolFmt || modeFormat;
+  set('swu-format-select', fmt);
+  // The card pool IS the format for the constructed modals; the local modes have none, and
+  // 'premier' is the legacy default the queue expects there.
+  set('swu-cardpool-input', poolFmt || (dlg.id === 'setup-solo' || dlg.id === 'setup-arenabot' ? 'premier' : fmt));
 
   // "Best of 1" -> bo1. Anything else falls back to bo1 rather than sending an unknown value.
   var mt = slug(val('select[id$="-match"]'));

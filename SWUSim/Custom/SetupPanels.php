@@ -312,3 +312,34 @@ function SWUSetupPreviewStyles(array $keySets): string {
     }
     return $rules === '' ? '' : "<style>$rules</style>\n";
 }
+
+// ─── Card-pool options, straight from the format registry ────────────────────
+// The setup modals used to hardcode their pool lists as display labels lifted from the mockup
+// ("Premier Preview (IC27)", "Twin Suns", "Open"), and SYNC_ACTIVE_SETUP rebuilt the format id by
+// SLUGGING that label. A slug cannot round-trip to a registry id, so every preview format
+// submitted something that does not exist:
+//     "Premier Preview (IC27)" -> premierpreviewic27   (the real id is `preview`)
+//     "Eternal Preview"        -> eternalpreview       (the real id is `eternal-preview`)
+//     "Twin Suns Preview…"     -> twinsunspreviewic27  (the real id is `twinsuns-preview`)
+// Rendering the options from SWUMenuTree() and carrying the id in `value` removes the guesswork,
+// and removes three hardcoded lists that drift every time a preview set ships.
+// ⚠ Format ids are a PRIMARY KEY on the stats tables, so they must be exact, never reconstructed.
+function SWUSetupPoolOptions(array $tree, string $groupId, string $optionId, string $selected = ''): string {
+    $e = function ($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); };
+    foreach ($tree as $g) {
+        if (($g['id'] ?? '') !== $groupId) continue;
+        foreach (($g['options'] ?? []) as $o) {
+            if (($o['id'] ?? '') !== $optionId) continue;
+            $out = '';
+            foreach (($o['pools'] ?? []) as $i => $p) {
+                $fmt = (string)($p['format'] ?? '');
+                if ($fmt === '') continue;
+                $isSel = $selected !== '' ? ($fmt === $selected) : ($out === '');
+                $out .= '<option value="' . $e($fmt) . '"' . ($isSel ? ' selected' : '') . '>'
+                      . $e($p['label'] ?? $fmt) . '</option>';
+            }
+            return $out;
+        }
+    }
+    return '';
+}
