@@ -710,3 +710,23 @@ INSERT INTO `oauth_scopes` (`scope`, `is_default`, `description`) VALUES
 ('stats', 0, 'Access to user gameplay statistics');
 
 -- --------------------------------------------------------
+
+--
+-- Table structure for table `lastdeck`
+--
+-- The SWUSim main menu's "last deck used" pointer: one row per account, replaced on each new
+-- game, used to auto-fill the Deck Link box. Guests keep the same thing in localStorage.
+-- Only deck LINKS are stored (see SWUDeckInputIsLink) — a pasted list has no source to return to.
+--
+
+CREATE TABLE `lastdeck` (
+  `usersId`   int(11)      NOT NULL,
+  `deckInput` varchar(512) NOT NULL,
+  `format`    varchar(32)  NOT NULL DEFAULT '',
+  `leaders`   tinyint(4)   NOT NULL DEFAULT 1,
+  `deckName`  varchar(128) NOT NULL DEFAULT '',
+  `usedAt`    datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`usersId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------

@@ -32,7 +32,24 @@ function _RenderNavItem(array $item): string {
     $icon = !empty($item['icon'])
         ? "<img class=\"nav-item-icon\" src=\"/TCGEngine/Assets/Images/icons/{$item['icon']}\" alt=\"\" aria-hidden=\"true\">"
         : '';
-    return "<li><a href='{$item['href']}'$target class='NavBarItem'>$icon<span>{$item['label']}</span></a></li>";
+    $current = _NavItemIsCurrent($item) ? " aria-current='page'" : '';
+    return "<li><a href='{$item['href']}'$target class='NavBarItem'$current>$icon<span>{$item['label']}</span></a></li>";
+}
+
+// Is this nav item the page being viewed? Compared on PATH only: a nav href is a bare path
+// while the live URL routinely carries a query string (?redirect=…, ?error=…), and comparing
+// the whole thing would mark nothing on exactly the pages that need it most.
+//
+// External items (target=_blank, absolute URLs to other hosts) are never "current".
+function _NavItemIsCurrent(array $item): bool {
+    $href = (string)($item['href'] ?? '');
+    if ($href === '' || $href === '#') return false;
+    if (!empty($item['target'])) return false;
+    if (preg_match('#^[a-z]+://#i', $href)) return false;      // absolute → another site
+    $here = parse_url((string)($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH);
+    $there = parse_url($href, PHP_URL_PATH);
+    if (!is_string($here) || !is_string($there) || $here === '' || $there === '') return false;
+    return rtrim($here, '/') === rtrim($there, '/');
 }
 
 // Items in the separate nav-bar-links group: 'icon' (external link w/ image) or 'raw' (verbatim HTML, e.g. a settings button).
@@ -52,7 +69,9 @@ function RenderMenuBar(array $def, array $ctx): string {
         $out .= "  <button type=\"button\" class=\"burger-menu\" aria-label=\"Open navigation\" aria-expanded=\"false\"><span></span><span></span><span></span></button>\n";
         $out .= "  <div class=\"menu-overlay\" style=\"display: none;\"></div>\n\n";
     }
-    $out .= "  <div class='nav-bar'>\n    <div class='nav-bar-user'>\n      <ul class='rightnav'>\n        ";
+    // <nav aria-label>, not <div>: this is the page's navigation landmark. Class unchanged so
+    // every existing stylesheet still matches.
+    $out .= "  <nav class='nav-bar' aria-label='Main'>\n    <div class='nav-bar-user'>\n      <ul class='rightnav'>\n        ";
     foreach ($def['nav'] as $item) {
         if (!_NavVisible($item, $ctx)) continue;
         $out .= _RenderNavItem($item);
@@ -65,7 +84,7 @@ function RenderMenuBar(array $def, array $ctx): string {
         }
         $out .= "\n      </ul>\n    </div>\n";
     }
-    $out .= "\n  </div>\n";
+    $out .= "\n  </nav>\n";
     // Intentionally do NOT close </body></html> — including pages (MainMenu/Profile/Login/Signup)
     // render the rest of the document and close it themselves. Mirrors the top-level SharedUI/MenuBar.php.
     $out .= "<!-- Note: do not close </body> or </html> here. Pages that include MenuBar.php will render the rest of\n";

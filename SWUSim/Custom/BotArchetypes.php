@@ -106,7 +106,7 @@ function SWUBotWeights(string $style, int $seat): array {
     // independent nulls) via the GLOBAL `@w-kill-down` probe; 0.6 here reproduces that arm for midrange
     // alone, taking the ratio to 0.9:1. Archetype rank, like 'mgtrade' — a racing midrange seat is ahead.
     // ⚠ Directly contradicts 'mgtrade' above. They have never been screened against each other.
-    if (function_exists('SWUBotProposalOn') && SWUBotProposalOn('mgkill') && SWUBotStyleRank($style) === 2) {
+    if (function_exists('SWUBotFeatureOn') && SWUBotFeatureOn('mgkill') && SWUBotStyleRank($style) === 2) {
         $out['kill'] *= 0.6;
     }
     return $out;

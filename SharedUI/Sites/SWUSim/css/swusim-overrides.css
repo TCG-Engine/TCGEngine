@@ -4,7 +4,9 @@
 /* Main-menu backdrop: the sandy Petranaki arena, replacing the shared gamebg.jpg
    (menuStyles.css) so the menu matches the petranaki-hud palette. */
 body {
-  background-image: url('/TCGEngine/Assets/Images/petranaki-arena.webp') !important;
+  /* !important dropped: the redesigned menu (swusim-menu-2.css, loaded last) sets its own
+     arena plate scoped to body:has(.swu2-arena-wrap). Other SWUSim pages still get this. */
+  background-image: url('/TCGEngine/Assets/Images/petranaki-arena.webp');
 }
 
 /* ── Petranaki GLASS ("New Petranaki HUD", owner's name) — one look for the header plate, both nav chips, the main-menu
@@ -21,13 +23,17 @@ body {
    selector lists below remain here — they must not run on the board. */
 
 /* The site pages' panels (Login, Signup, Profile, Previews — see "Site pages" below) join the same glass. A notice
-   NESTED in another panel is a sunken well instead (no glass-in-glass), so it is excluded here with :not(). */
+   NESTED in another panel is a sunken well instead (no glass-in-glass), so it is excluded here with :not().
+
+   ⚠ THE WAITING ROOM PANEL AND THE CHAT PANEL ARE NO LONGER IN THESE LISTS. They were the last two surfaces
+   drawn by this corner-glint recipe (--pa-glow-tl / --pa-glow-br), which the 2026-09-25 redesign replaced with a
+   plain chamfered rim ring; recolouring the glints steel had made them quieter without making them the same panel,
+   and the owner spotted the difference. Both now come from swusim-menu-2.css, "INTERIOR PANELS GET THE MENU'S
+   PANEL". Do not add them back: two panel systems on one page is what this removes. */
 body .container.bg-black:not(.container .container)::before, body .container.bg-blue:not(.container .container)::before,
 body .card.ga-glass-card:not(.swu-panel):not(.wr-panel)::before,
 .home-header .title::before,
-.nav-bar-user::before, .nav-bar-links::before,
-.row-wrapper > .card.wr-panel::before,
-#tcg-chat-panel::before {
+.nav-bar-user::before, .nav-bar-links::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -49,9 +55,7 @@ body .card.ga-glass-card:not(.swu-panel):not(.wr-panel)::before,
 body .container.bg-black:not(.container .container)::after, body .container.bg-blue:not(.container .container)::after,
 body .card.ga-glass-card:not(.swu-panel):not(.wr-panel)::after,
 .home-header .title::after,
-.nav-bar-user::after, .nav-bar-links::after,
-.row-wrapper > .card.wr-panel::after,
-#tcg-chat-panel::after {
+.nav-bar-user::after, .nav-bar-links::after {
   content: '';
   position: absolute;
   inset: var(--pa-cut);
@@ -160,114 +164,12 @@ body .card.ga-glass-card:not(.swu-panel):not(.wr-panel)::after,
   color: #eef2f6 !important;
 }
 .row-wrapper > .card.wr-panel * { color: inherit; }
-#wr-root #wr-title {
-  font-family: 'Barlow', sans-serif; font-size: 26px; font-weight: 500;
-  letter-spacing: 0.07em; text-transform: uppercase; line-height: 1.1;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
-}
-#wr-root #wr-state:empty { display: none; }
-#wr-root #wr-invite { font-size: 14px; color: rgba(226, 232, 240, 0.72); }
-#wr-root #wr-invite b, #wr-root #wr-invite strong { color: #eef2f6; letter-spacing: 0.04em; }
-
-/* Seats: sunken wells, like the Games in Progress chips. Yours gets a gold rim instead of the old green. */
-#wr-root .wr-seat {
-  background: rgba(14, 17, 22, 0.34);
-  border: 1px solid rgba(196, 208, 220, 0.14);
-  border-radius: 4px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  padding: 14px 16px;
-}
-#wr-root .wr-seat-mine {
-  border-color: rgba(233, 184, 102, 0.75);
-  box-shadow: inset 0 0 0 1px rgba(233, 184, 102, 0.35), 0 0 14px rgba(233, 184, 102, 0.18);
-}
-#wr-root .wr-seat-empty {
-  background: rgba(14, 17, 22, 0.18);
-  border-style: dashed;
-  color: rgba(226, 232, 240, 0.55);
-}
-#wr-root .wr-seat-label {
-  font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-  color: rgba(226, 232, 240, 0.64);
-}
-#wr-root .wr-seat-who { font-size: 16px; font-weight: 600; margin: 3px 0 8px; }
-#wr-root .wr-teamhdr { font-size: 15px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; filter: brightness(1.25); text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6); }   /* colour is the renderer's inline team accent */
-#wr-root .wr-pill {
-  padding: 2px 9px; border-radius: 3px; border: 1px solid currentColor;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
-  background: rgba(0, 0, 0, 0.22);
-}
-#wr-root .wr-pill-ready    { color: #7fd6a0 !important; }
-#wr-root .wr-pill-notready { color: #e9b866 !important; }
-#wr-root .wr-pill-baddeck  { color: #ff7b72 !important; }
-#wr-root .wr-card { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); }
-
-/* Deck bar: the same sunken fields as the main menu. */
-#wr-root .wr-deckbar textarea,
-#wr-root #wr-deck-library .dl-select {
-  min-height: 42px; height: 42px; box-sizing: border-box;
-  padding: 10px 14px;
-  background: rgba(14, 17, 22, 0.58);
-  color: #eef2f6;
-  border: 1px solid rgba(196, 208, 220, 0.26);
-  border-bottom-color: rgba(196, 208, 220, 0.40);
-  border-radius: 3px;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(0, 0, 0, 0.35);
-  font: 500 15px/1.3 'Barlow', sans-serif;
-  outline: none;
-}
-#wr-root .wr-deckbar textarea::placeholder { color: rgba(226, 232, 240, 0.42); }
-#wr-root .wr-deckbar textarea:focus, #wr-root #wr-deck-library .dl-select:focus {
-  border-color: #e9b866;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(233, 184, 102, 0.35), 0 0 12px rgba(233, 184, 102, 0.25);
-}
-#wr-root #wr-deck-library .dl-select {
-  width: 100%;
-  -webkit-appearance: none; -moz-appearance: none; appearance: none;
-  padding-right: 38px; cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1.5 1.5 7 7l5.5-5.5' fill='none' stroke='%23e2e8f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 14px center;
-}
-#wr-root #wr-deck-library .dl-select option { background: #2c333c; color: #eef2f6; }
-#wr-root #wr-deck-library { margin-bottom: 10px !important; }
-
-/* Buttons: the menu's chamfered steel; Start is the gold primary (whole-px rims — see the theme). */
-#wr-root .btn {
-  --btn-rim: rgba(196, 208, 220, 0.55);
-  --btn-fill: linear-gradient(135deg, rgba(70, 80, 92, 0.94), rgba(40, 47, 56, 0.94));
-  --btn-cut: 9px; --btn-cut-inner: 7.83px; --btn-rim-width: 2px;
-  --btn-glow: 8px; --btn-glow-color: rgba(196, 208, 220, 0.35);
-  --btn-pad: 8px 16px;
-  font-size: 14px; letter-spacing: 0.08em;
-  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.45));
-}
-#wr-root .wr-deckbar .btn { height: 42px; }
-#wr-root .wr-kick { --btn-pad: 2px 8px; font-size: 11px; margin-left: 8px; filter: none; }
-#wr-root .wr-btn-start {
-  --btn-rim: linear-gradient(135deg, #ffd998, #e9b866 50%, #b98534);
-  --btn-fill: linear-gradient(135deg, rgba(74, 70, 64, 0.97), rgba(40, 40, 42, 0.97));
-  --btn-glow: 12px; --btn-glow-color: rgba(233, 184, 102, 0.65);
-  --btn-pad: 13px 34px;
-  font-size: 17px; letter-spacing: 0.08em;
-  color: #ffd998;
-  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 7px rgba(233, 184, 102, 0.40));
-}
-#wr-root .wr-btn-start:disabled, #wr-root .wr-btn-start[disabled] {
-  color: rgba(226, 232, 240, 0.7);
-  --btn-rim: rgba(196, 208, 220, 0.35);
-  filter: none;
-}
-
-/* Status strip: a sunken well along the bottom. */
-#wr-root .wr-status {
-  background: rgba(14, 17, 22, 0.34);
-  border: 1px solid rgba(196, 208, 220, 0.14);
-  border-radius: 4px;
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35);
-  color: rgba(226, 232, 240, 0.72);
-  font-size: 14px;
-}
-#wr-root .wr-count { font-size: 15px; }
+/* The #wr-root block that stood here (the 2026-09-21 HUD pass: title, invite, seats, pills, deck bar,
+   buttons, status strip) has MOVED to css/swusim-menu-2.css, section "THE WAITING ROOM".
+   It was written with ID specificity to beat the renderer's body <style>, which meant it also beat the
+   later redesign: the chamfer landed and this block then drew a 1px border and a 3px radius back on top
+   of it. One sheet owns the page now. The .row-wrapper > .card.wr-panel glass above is UNCHANGED — the
+   panel itself was never the problem, and it shares its selector list with the other site pages. */
 
 /* ── Site pages — Login, Signup, Profile, Previews — in the New Petranaki HUD style (2026-09-21) ──────────────────────
    Their panels are three shared classes: `.container.bg-black` (Login / Signup / Profile panes, Cosmetics, Sounds),

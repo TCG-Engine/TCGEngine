@@ -11,10 +11,34 @@ include_once __DIR__ . '/../../../SWUSim/GeneratedCode/GeneratedCardDictionaries
 include_once __DIR__ . '/../../../AppCore/SWU/Formats.php';
 include_once __DIR__ . '/../../../SWUSim/Mod/DevGate.php';   // SWUBotPracticeAllowed() — the Arenabot access gate
 require_once __DIR__ . '/../../Render/DeckLibrary.php';
+require_once __DIR__ . '/../../../SWUSim/Custom/SetupPanels.php';   // the setup modals' REAL data
+require_once __DIR__ . '/../../../SWUSim/Custom/MenuLobbyStats.php'; // the mode cards' REAL counts
 
 include_once __DIR__ . '/Header.php';
 
 $swuLoggedIn = isset($_SESSION['userid']);
+
+// The four setup modals were built from mockup fixtures: three invented saved decks, and one of
+// the four Twin Suns pre-cons that were already in TwinSunsPreCons.json. These are the real ones.
+$swuSetupSaved   = SWUSetupSavedDecks($swuLoggedIn ? (int)$_SESSION['userid'] : 0);
+$swuSetupTSPre   = SWUSetupTwinSunsPreCons();
+$swuSetupBotPre  = SWUSetupBotPreCons();
+// Saved decks are per-account, so the empty state is the honest one for a guest — and the copy
+// must not claim the decks live in this browser, because for this sim they do not.
+// Guests may save decks too (owner, 2026-09-25) — into this browser, since they have no account
+// row. Only LINKS are savable either way, so the copy says so once here.
+// The deck this player last STARTED A GAME with, rendered into the page rather than fetched —
+// the account copy is authoritative when signed in, and the client falls back to localStorage
+// for guests. Verified before it is used to prefill anything (see LAST_DECK below).
+$swuLastDeck = $swuLoggedIn ? LoadLastDeck((int)$_SESSION['userid']) : null;
+
+// The PvP and Twin Suns cards' stat lines. Rendered server-side as well as refreshed on the 20s
+// poll, so the first paint is the truth rather than a fixture that the poll corrects a beat later.
+$swuLobbyStats = SWUMenuLobbyStats(SWUMenuLobbyRows());
+
+$swuSavedNote = $swuLoggedIn
+    ? 'Saved decks are on your account, so they follow you to any device. Deck links only.'
+    : 'Saved decks are kept in this browser. Log in to keep them on your account and reach them anywhere. Deck links only.';
 // The game-setup menu is a VIEW over the format registry (docs/superpowers/specs/2026-09-16-swusim-format-menu-design.md):
 // game type → opponent / players / mode → card pool. SWUMenuTreeFor() applies this viewer's access: Arenabot only where
 // SWUBotPracticeAllowed() (APIs/Lobbies/JoinQueue.php enforces the same gate). Logging in no longer changes the tree
@@ -43,259 +67,629 @@ function SWUMenuIcon(string $name): string {
 }
 $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
 ?>
-<link rel="stylesheet" href="<?php echo _VersionAsset('/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-menu.css'); ?>">
-<div class="row-wrapper swu-menu-grid">
-  <!-- Games in Progress (left): public SWUSim matches anyone can spectate, one chip per game — leader vs leader (a
-       leader/leader/base stack per seat in Twin Suns / Team Suns) and a Spectate button. Data: SWUSim/PublicGames.php;
-       rendered by swuRenderPublicGames(). Layout modelled on the owner's reference (2026-09-21). -->
-  <div class="card ga-glass-card swu-panel swu-active-card">
-    <div class="swu-panel-head">
-      <h2 class="swu-panel-title">Games in Progress</h2>
-      <span class="swu-games-count" id="active-game-count" aria-label="Public games in progress">0</span>
-      <button type="button" class="swu-icon-btn" onclick="refreshOpenGames()" title="Refresh" aria-label="Refresh games in progress"><?php echo SWUMenuIcon('refresh'); ?></button>
-    </div>
-    <select id="swu-games-filter" class="swu-queue-select" aria-label="Filter by format">
-      <option value="">Filter by Format</option>
-    </select>
-    <hr class="swu-hr swu-games-rule">
-    <div id="active-games-list" class="swu-games-list" aria-live="polite"></div>
-    <!-- Empty state, shown only when no public game (or none in the chosen format) is running. -->
-    <div class="swu-active-empty" id="swu-active-empty">
-      <span class="swu-active-empty__icon"><?php echo SWUMenuIcon('users'); ?></span>
-      <div class="swu-active-empty__title" id="swu-active-empty-title">No games in progress</div>
-      <div class="swu-active-empty__text" id="swu-active-empty-text">Be the first to challenge an opponent in the arena!</div>
-      <button type="button" class="swu-refresh-btn" onclick="refreshOpenGames()"><?php echo SWUMenuIcon('refresh'); ?><span>Refresh</span></button>
-    </div>
-  </div>
+<div class="row-wrapper swu2-arena-wrap">
+  <main class="wrap arena">
 
-  <!-- Create a New Game (middle) -->
-  <div class="card ga-glass-card swu-panel swu-queue-card">
-    <div class="swu-panel-head">
-      <h2 class="swu-panel-title">Create a New Game</h2>
-      <span class="swu-panel-rule" aria-hidden="true"></span>
-      <span class="swu-panel-kicker" aria-hidden="true"></span>
-    </div>
-    <div>
-      <div class="swu-tabs">
-        <button type="button" id="tab-link" class="swu-tab is-active" onclick="switchDeckTab('link')">Deck Link</button>
-        <button type="button" id="tab-text" class="swu-tab" onclick="switchDeckTab('text')">Free Text</button>
+    <!-- ---------- the three modes ---------- -->
+    <section class="modes" aria-labelledby="swu-modes-h">
+      <h2 class="u-vh" id="swu-modes-h">Game modes</h2>
+
+<?php if (!$swuLoggedIn): /* it came across from the mockup ungated and told signed-in players they were guests */ ?>
+      <p class="guest ch gl">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/><path d="M12 11v5.4M12 7.5v.2"/>
+        </svg>
+        <span>Playing as a guest — log in to use in-game chat.</span>
+      </p>
+<?php endif; ?>
+
+      <ul class="modes__grid">
+
+        <li class="slot lift-3">
+          <a class="mode ch gl" href="#setup-pvp" style="--tint: var(--tint-pvp);">
+            <span class="mode__art" aria-hidden="true">
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-pvp.webp" alt="" width="1200" height="1600" decoding="async">
+              <span class="mode__stage">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M32 4v56" stroke-width="1" opacity="0.4"/>
+                <path d="M6 32 19.5 18.5M6 32l13.5 13.5" stroke-width="2.6"/>
+                <path d="M16.5 32 27.5 21M16.5 32l11 11" stroke-width="1.6" opacity="0.58"/>
+                <path d="M58 32 44.5 18.5M58 32 44.5 45.5" stroke-width="2.6"/>
+                <path d="M47.5 32 36.5 21M47.5 32l-11 11" stroke-width="1.6" opacity="0.58"/>
+                <path d="M32 24.6 39.4 32 32 39.4 24.6 32Z" stroke-width="2.2" fill="currentColor" fill-opacity="0.24"/>
+              </svg>
+              <span class="mode__pool"></span>
+              <span class="mode__floor"></span>
+              </span>
+            </span>
+            <span class="mode__body">
+              <span class="mode__kind">Live play</span>
+              <h3 class="mode__title">PvP</h3>
+              <span class="mode__desc">Queue against a live opponent, or open a private room.</span>
+              <span class="mode__foot">
+                <span class="mode__stat" data-stat="pvp"><?php echo htmlspecialchars(SWUMenuStatLabel('pvp', $swuLobbyStats), ENT_QUOTES, "UTF-8"); ?></span>
+                <span class="mode__go">Enter
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 12h15M13 6l6 6-6 6"/>
+                  </svg>
+                </span>
+              </span>
+            </span>
+          </a>
+        </li>
+
+        <li class="slot lift-3">
+          <a class="mode ch gl" href="#setup-twin-suns" style="--tint: var(--tint-duo);">
+            <span class="mode__art" aria-hidden="true">
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-twinsuns.webp" alt="" width="1200" height="1600" decoding="async">
+              <span class="mode__stage">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="24" cy="24" r="11" stroke-width="2.3" fill="currentColor" fill-opacity="0.12"/>
+                <path d="M24 5.2v3.4M10.6 10.6l2.4 2.4M5.2 24h3.4M37.4 10.6 35 13M10.6 37.4l2.4-2.4M39.5 24H43"
+                      stroke-width="1.9" opacity="0.8"/>
+                <circle cx="46" cy="34" r="6.4" stroke-width="2" fill="currentColor" fill-opacity="0.26"/>
+                <path d="M4 49.5q14-8.5 28 0t28-4" stroke-width="2.3"/>
+                <path d="M11 57.5q15-5.5 27 0t20-2.5" stroke-width="1.5" opacity="0.48"/>
+              </svg>
+              <span class="mode__pool"></span>
+              <span class="mode__floor"></span>
+              </span>
+            </span>
+            <span class="mode__body">
+              <span class="mode__kind">Multiplayer</span>
+              <h3 class="mode__title">Twin Suns</h3>
+              <span class="mode__desc">Two leaders each. Three or four players, free-for-all or in teams.</span>
+              <span class="mode__foot">
+                <span class="mode__stat" data-stat="multi"><?php echo htmlspecialchars(SWUMenuStatLabel('multi', $swuLobbyStats), ENT_QUOTES, "UTF-8"); ?></span>
+                <span class="mode__go">Enter
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 12h15M13 6l6 6-6 6"/>
+                  </svg>
+                </span>
+              </span>
+            </span>
+          </a>
+        </li>
+
+        <li class="slot lift-3">
+          <a class="mode ch gl" href="#setup-arenabot" style="--tint: var(--tint-bot);">
+            <span class="mode__art" aria-hidden="true">
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-arenabot.webp" alt="" width="1200" height="1600" decoding="async">
+              <span class="mode__stage">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M32 12.5V8.6" stroke-width="1.9"/>
+                <circle cx="32" cy="6" r="2.5" stroke-width="1.9" fill="currentColor" fill-opacity="0.34"/>
+                <path d="M14.5 21.5 21 15h22l6.5 6.5v16L43 44H21l-6.5-6.5Z" stroke-width="2.3" fill="currentColor" fill-opacity="0.08"/>
+                <path d="M22.5 25.5h19v8.5h-19Z" stroke-width="1.8" fill="currentColor" fill-opacity="0.26"/>
+                <path d="M27.3 29.7h1.6M35.1 29.7h1.6" stroke-width="2.8"/>
+                <path d="M32 44v6.5" stroke-width="1.8" opacity="0.7"/>
+                <path d="M17 59.5 23.5 51h17l6.5 8.5" stroke-width="2.3"/>
+              </svg>
+              <span class="mode__pool"></span>
+              <span class="mode__floor"></span>
+              </span>
+            </span>
+            <span class="mode__body">
+              <span class="mode__kind">Solo practice</span>
+              <h3 class="mode__title">Arenabot</h3>
+              <span class="mode__desc">Practice against five bot archetypes, from Hyper Aggro to Hard Control.</span>
+              <span class="mode__foot">
+                <span class="mode__stat">Beta · always available</span>
+                <span class="mode__go">Enter
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 12h15M13 6l6 6-6 6"/>
+                  </svg>
+                </span>
+              </span>
+            </span>
+          </a>
+        </li>
+
+        <li class="slot lift-3">
+          <a class="mode ch gl" href="#setup-solo" style="--tint: var(--tint-solo);">
+            <span class="mode__art" aria-hidden="true">
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-1p.webp" alt="" width="1200" height="1600" decoding="async">
+              <span class="mode__stage">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="32" cy="18" r="7.5" stroke-width="2.3" fill="currentColor" fill-opacity="0.10"/>
+                <path d="M17 44c0-8.3 6.7-13 15-13s15 4.7 15 13" stroke-width="2.3" fill="currentColor" fill-opacity="0.06"/>
+                <path d="M12 50.5h40" stroke-width="1.8" opacity="0.65"/>
+                <path d="M23.5 57.5h17" stroke-width="2.3"/>
+              </svg>
+              <span class="mode__pool"></span>
+              <span class="mode__floor"></span>
+              </span>
+            </span>
+            <span class="mode__body">
+              <span class="mode__kind">Local play</span>
+              <h3 class="mode__title">1P Mode</h3>
+              <span class="mode__desc">Goldfish a deck solo, or play both seats yourself in Hotseat.</span>
+              <span class="mode__foot">
+                <span class="mode__stat">Instant · no queue</span>
+                <span class="mode__go">Enter
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 12h15M13 6l6 6-6 6"/>
+                  </svg>
+                </span>
+              </span>
+            </span>
+          </a>
+        </li>
+
+      </ul>
+
+    </section>
+
+    <!-- ---------- right rail ---------- -->
+    <div class="rail">
+
+      <!-- Welcome / Replays -->
+      <div class="lift">
+        <section class="swu2-panel ch gl" aria-labelledby="swu-wr-h">
+          <h2 class="u-vh" id="swu-wr-h">Welcome and replays</h2>
+
+          <div class="tabs" role="tablist" aria-label="Welcome and replays">
+            <button class="swu2-tab ch" type="button" role="tab" id="ga-info-tab-welcome"
+                    aria-selected="true" aria-controls="ga-info-panel-welcome">Welcome</button>
+            <button class="swu2-tab ch" type="button" role="tab" id="ga-info-tab-replays"
+                    aria-selected="false" aria-controls="ga-info-panel-replays" tabindex="-1">Replays</button>
+          </div>
+
+          <div class="tabpanel" id="ga-info-panel-welcome" role="tabpanel" aria-labelledby="ga-info-tab-welcome" tabindex="0">
+            <h3 class="welcome__title">Welcome to Petranaki Arena</h3>
+            <p class="welcome__note">Everything plays in the browser. No install, no account needed.</p>
+            <ul class="keys" id="hotkey-list">
+              <li class="keys__row"><kbd class="ch">u</kbd> Undo most recent action</li>
+              <li class="keys__row"><kbd class="ch">Space</kbd> Pass optional decision</li>
+              <li class="keys__row"><kbd class="ch">Esc</kbd> Cancel matchmaking</li>
+            </ul>
+          </div>
+
+          <div class="tabpanel" id="ga-info-panel-replays" role="tabpanel" aria-labelledby="ga-info-tab-replays" tabindex="0" hidden>
+            <div class="empty">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4.5V10h5.5"/><path d="M12 8.5V12l2.8 1.8"/>
+              </svg>
+              <p class="empty__t">No replays yet</p>
+              <p class="empty__s">Finished games show up here for 30 days.</p>
+            </div>
+          </div>
+        </section>
       </div>
-      <div id="deck-input-link">
-        <!-- The supported-sites list lives in an info tooltip (owner, 2026-09-21). The bubble is positioned against the
-             whole ROW, not the icon, so it always fits the card on a phone. Opens on hover, keyboard focus, or a tap
-             (WebKit does not focus a button on click, so the tap toggles .is-open in JS); Escape or a click elsewhere
-             closes it. -->
-        <div class="swu-label-row">
-          <label for="deck-link" class="swu-label">Paste a deck link:</label>
-          <button type="button" class="swu-info-tip" id="deck-link-sites-btn" aria-label="Supported deck links"
-                  aria-describedby="deck-link-sites" aria-expanded="false">i</button>
-          <span class="swu-info-tip__bubble" id="deck-link-sites" role="tooltip">
-            <strong>Supported deck links:</strong> SWUStats, SWUDB, melee.gg, SWUBase, Protect the Pod, SWU Card Hub, SWUForge, SWU Meta Stats, SW-Unlimited-DB
+
+      <!-- Games in Progress -->
+      <div class="lift">
+        <section class="swu2-panel ch gl" aria-labelledby="swu-games-h">
+          <div class="panel__head">
+            <h2 class="panel__title" id="swu-games-h">Games in Progress</h2>
+            <span class="count" id="active-game-count" aria-label="Public games in progress">0</span>
+            <div class="filter">
+              <label class="filter__label" for="swu-games-filter">Format</label>
+              <span class="selwrap ch">
+                <select class="select" id="swu-games-filter" name="fmt">
+                  <option selected>All formats</option>
+                  <option>Premier</option>
+                  <option>Eternal</option>
+                  <option>Twin Suns</option>
+                  <option>Padawan</option>
+                </select>
+              </span>
+            </div>
+          </div>
+
+          <div class="games-frame">
+            <span class="games-rail" aria-hidden="true"><span class="games-rail__thumb"></span></span>
+            <div class="games-scroll" tabindex="0" role="region" aria-label="Games in progress">
+              <ul class="games" id="active-games-list" aria-live="off"></ul>
+              <div class="empty" id="swu-active-empty" hidden>
+                <p class="empty__t" id="swu-active-empty-title">No games in progress</p>
+                <p class="empty__s" id="swu-active-empty-text">Be the first to challenge an opponent in the arena.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+    <?php
+    // A .deckprev row is display:none until a rule for ITS key reveals it. The mockup could
+    // hard-code the ten rules its ten fixtures needed; real keys are per-account hashes, so the
+    // rules ship with the page. Without this the picker rendered as a BLANK BAR for anyone with
+    // saved decks — the deck was in the DOM, nothing was allowed to paint it.
+    echo SWUSetupPreviewStyles([array_column($swuSetupSaved, 'key')]);
+    // A guest's decks live in localStorage, so the client renders their pickers.
+    echo '<script>window.SWU_IS_GUEST = ' . ($swuLoggedIn ? 'false' : 'true') . ';'
+       . 'window.SWU_LAST_DECK = ' . json_encode($swuLastDeck ?: null) . ";</script>\n";
+    ?>
+    <!-- ── per-mode setup modals ──────────────────────────────────────────
+         Native <dialog> + showModal(): the platform supplies the focus trap,
+         Escape, ::backdrop and the inert background. The splash stays rendered
+         behind. A :target fallback keeps them reachable with JS off. -->
+      <dialog class="setup lift" id="setup-pvp" aria-labelledby="setup-pvp-t" style="--tint: var(--tint-pvp);">
+        <div class="setup__pane ch gl">
+          <a class="setup__x ch" href="#" aria-label="Close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a>
+          <div class="setup__scroll" tabindex="-1">
+      <div class="setup__head">
+        <span class="setup__tile ch" aria-hidden="true">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-pvp.webp" alt="" width="1200" height="1600" decoding="async">
+        </span>
+        <div class="setup__id">
+          <p class="setup__kind">Live play</p>
+          <h3 class="setup__title" id="setup-pvp-t">PvP</h3>
+          <p class="setup__desc">Queue against a live opponent, or open a private room.</p>
+        </div>
+        <div class="setup__tools">
+          <span class="poolpick">
+            <label class="u-vh" id="pvp-pool-lbl" for="pvp-pool">Card pool</label>
+            <span class="selwrap ch">
+              <select class="select" id="pvp-pool" name="pvp-pool">
+                    <option selected>Premier</option>
+                    <option>Premier Preview (IC27)</option>
+                    <option>Eternal</option>
+                    <option>Eternal Preview</option>
+                    <option>Padawan</option>
+                    <option>Padawan Preview (IC27)</option>
+                    <option>Open</option>
+              </select>
+            </span>
           </span>
         </div>
-        <input type="text" id="deck-link" name="deck_link" class="swu-input" placeholder="https://swustats.net/deck/...">
+        <!-- the detected-pool note. A SIBLING of .setup__tools, not a
+             child: as a flex item of the cluster its text grew the
+             head's max-content `auto` track and slid the chip and the
+             title 205px left the instant a deck resolved (measured in
+             all three engines). Here it spans the head's flexible
+             track, so per the grid sizing rules it contributes to no
+             track's intrinsic size and nothing beside it can move. -->
+        <span class="poolnote" hidden></span>
       </div>
-      <div id="deck-input-text" style="display: none;">
-        <label for="deck-text" class="swu-label">Paste deck list (e.g. from SWUDB or SWUDeck):</label>
-        <textarea id="deck-text" name="deck_text" class="swu-input swu-input--mono" rows="12" placeholder="# Leader&#10;1 Luke Skywalker, Faithful Friend&#10;&#10;# Base&#10;1 Echo Base&#10;&#10;# Main Deck&#10;3 Alliance X-Wing&#10;..."></textarea>
-      </div>
-      <!-- Hotseat / Arenabot: a second deck link for Player 2 (revealed only for those formats; the
-           label and placeholder switch in applyFormatUI). Arenabot may leave it empty: the bot then
-           plays the host's own list (APIs/Lobbies/JoinQueue.php). -->
-      <div id="swu-deck2-group" class="swu-field-block" style="display: none;">
-        <label id="swu-deck2-label" for="swu-deck2-input" class="swu-label">Player 2 deck link (Hotseat):</label>
-        <input type="text" id="swu-deck2-input" class="swu-input" placeholder="Second deck link">
-      </div>
-      <!-- Arenabot: the bot's Play Style (revealed only for Arenabot). Sent as botStyle; the game
-           stores SWUBotProfile = heuristic-<style> (SWUSim/CreateGame.php). -->
-      <div id="swu-botstyle-group" class="swu-field-block" style="display: none;">
-        <label for="swu-botstyle-select" class="swu-field-label">Bot play style:</label>
-        <select id="swu-botstyle-select" class="swu-queue-select">
-          <?php
-            // The five bot archetypes (AppCore-side registry: SWUSim/Custom/BotArchetypes.php). Five rather than
-            // three because a picker should not be forced to choose an extreme (owner, 2026-09-17).
-            foreach (['hyperaggro' => 'Hyper Aggro', 'softaggro' => 'Soft Aggro', 'midrange' => 'Midrange',
-                      'softcontrol' => 'Soft Control', 'hardcontrol' => 'Hard Control'] as $sid => $slabel):
-          ?>
-          <option value="<?php echo htmlspecialchars($sid, ENT_QUOTES); ?>"<?php echo $sid === 'midrange' ? ' selected' : ''; ?>><?php echo htmlspecialchars($slabel, ENT_QUOTES); ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-      <div class="swu-field-row">
-        <div class="swu-field">
-          <label for="swu-gametype-select" class="swu-field-label">Game type:</label>
-          <select id="swu-gametype-select" class="swu-queue-select"></select>
+          <div class="setup__body">
+        <!-- the reason a switch landed the player here. Hidden until
+             one does; the script points this dialog's
+             aria-describedby at .whyline__t before it opens. -->
+        <p class="whyline ch" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 12h14"/><path d="M13 6l6 6-6 6"/>
+          </svg>
+          <span class="whyline__t" id="setup-pvp-why"></span>
+        </p>
+        <div class="dblock">
+        <div class="drow">
+          <div>
+            <label class="flabel" for="pvp-link">Deck Link</label>
+            <span class="inwrap ch">
+              <input class="input" id="pvp-link" name="pvp-link" type="url" inputmode="url" data-detect
+                     autocomplete="off" spellcheck="false" placeholder="Paste your deck link here">
+            </span>
+          </div>
+          <button data-act="save" class="swu2-btn ch" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4.5h11l4 4v11h-15Z"/><path d="M8 4.5v5h7"/><path d="M8 19.5v-6h8v6"/></svg>Save Deck</button>
         </div>
-        <div class="swu-field">
-          <label id="swu-second-label" for="swu-second-select" class="swu-field-label">Opponent:</label>
-          <select id="swu-second-select" class="swu-queue-select"></select>
+        <!-- MOCKUP SCAFFOLDING, not product. There is no backend
+             behind this page, so these fill the field with one of
+             the four fixture links and run detection on it. -->
         </div>
-        <div id="swu-pool-group" class="swu-field">
-          <label for="swu-pool-select" class="swu-field-label">Card pool:</label>
-          <select id="swu-pool-select" class="swu-queue-select"></select>
+        <div>
+          <label class="flabel" for="pvp-saved">Saved Decks</label>
+          <?php echo SWUSetupDeckPicker('pvp-saved', $swuSetupSaved); ?>
+          <p class="note note--under"><?php echo htmlspecialchars($swuSavedNote, ENT_QUOTES, "UTF-8"); ?></p>
         </div>
-      </div>
-      <!-- ⚠ The STORED format and card pool. The three dropdowns above write these; everything else reads them — the request,
-           the Bo1 lock, and SharedUI/js/private-invite.js, which sets every [id$="-format-select"] to the host's format id.
-           So this select must keep its id and stay hidden, and the visible dropdowns' ids must NOT end in -format-select. -->
-      <select id="swu-format-select" style="display: none;" aria-hidden="true" tabindex="-1"></select>
-      <input type="hidden" id="swu-cardpool-input" value="">
-      <div class="swu-field-row">
-        <div class="swu-field">
-          <label for="swu-queuetype-select" class="swu-field-label">Match Type:</label>
-          <select id="swu-queuetype-select" class="swu-queue-select">
-            <?php foreach ($swuQueueTypes as $qid => $qdef): ?>
-            <option value="<?php echo htmlspecialchars($qid, ENT_QUOTES); ?>"<?php echo $qid === 'bo1' ? ' selected' : ''; ?>><?php echo htmlspecialchars($qdef['displayName'] ?? $qid, ENT_QUOTES); ?></option>
-            <?php endforeach; ?>
-          </select>
+            <div class="prow">
+          <div>
+            <label class="flabel" for="pvp-match">Match Type</label>
+            <span class="selwrap ch">
+              <select class="select" id="pvp-match" name="pvp-match">
+                  <option selected>Best of 1</option>
+                  <option>Best of 3</option>
+              </select>
+            </span>
+          </div>
+            </div>
+            <div class="arow">
+              <button data-act="join" class="swu2-btn swu2-btn--primary ch" type="button">Join Queue</button>
+              <button data-act="private" class="swu2-btn ch" type="button">Create Private Room</button>
+              <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
+            </div>
+          </div>
+          </div>
         </div>
-      </div>
-      <!-- Colour-coding these actions sets the BUTTON TOKENS (--btn-rim / --btn-fill, in swusim-menu.css), never a
-           flat `background-color`. Under a chamfer theme the element box is deliberately transparent and the shape is
-           drawn by the ::before rim + ::after fill pseudos, which are clip-path'd to the cut corners; an element
-           background is NOT clipped, so it paints a full rectangle that shows through as a solid triangle in each chamfer.
-           ⚠ Labels live in .swu-btn-label: applyFormatUI rewrites the text through swuSetBtnLabel(), which keeps the icon
-           (setting the button's textContent would wipe it). -->
-      <div class="swu-actions">
-        <!-- Public matchmaking (open since 2026-09-16): applyFormatUI shows this for a PvP card pool whose tree entry says
-             publicQueue — never Arenabot or 1P Mode. The server enforces the same rule (JoinQueue.php). -->
-        <button type="button" id="join-queue-btn" class="swu-action swu-action--primary" onclick="joinQueue()"><?php echo SWUMenuIcon('users'); ?><span class="swu-btn-label">Join Queue</span></button>
-        <!-- Solo / local modes (Goldfish, Hotseat, Arenabot) are NOT matchmade — JoinQueue.php creates the
-             game immediately; this button is their own entry point. Hidden unless a mode format is selected
-             (see applyFormatUI). -->
-        <button type="button" id="start-solo-btn" class="swu-action swu-action--primary" onclick="startSoloGame()" style="display: none;"><?php echo SWUMenuIcon('play'); ?><span class="swu-btn-label">Start 1P Game</span></button>
-        <button type="button" class="swu-action" onclick="saveCurrentDeck()" title="Save this deck link to your library"><?php echo SWUMenuIcon('save'); ?><span class="swu-btn-label">Save Deck</span></button>
-        <!-- Hidden when the URL carries a privateInvite code: that visitor is JOINING someone else's
-             invite, so offering "Create Private Room" right next to "Join Private Invite" is ambiguous
-             (and creating one would silently abandon the invite they followed). See
-             initializePrivateInviteFromUrl. -->
-        <button type="button" id="create-private-game-btn" class="swu-action" onclick="createPrivateGame()"><?php echo SWUMenuIcon('users'); ?><span class="swu-btn-label">Create Private Room</span></button>
-        <button type="button" id="join-private-invite-btn" class="swu-action swu-action--primary" onclick="joinPrivateInvite()" style="display: none;"><?php echo SWUMenuIcon('join'); ?><span class="swu-btn-label">Join Private Invite</span></button>
-      </div>
-      <div id="queue-inline-error" class="swu-note" style="display: none;"></div>
-      <div id="private-invite-notice" class="swu-note" style="display: none;"></div>
-      <?php if (!$swuLoggedIn): ?>
-      <!-- Guest note. Guests play every format (owner, 2026-09-21); the one thing an account adds is in-game chat,
-           which SubmitChat.php refuses for a logged-out SWUSim sender. Server-rendered: the logged-out state is known
-           at render time, so it never flashes on a logged-in page. -->
-      <div id="guest-format-notice" class="swu-note">
-        Playing as a guest —
-        <a href="/TCGEngine/SharedUI/LoginPage.php">log in</a>
-        to use in-game chat.
-      </div>
-      <?php endif; ?>
-      <?php
-        if (isset($_SESSION['userid'])) {
-            echo "<div class='saved-decks-panel swu-saved-decks'><h3 class='swu-section-label'>Saved Decks</h3>";
-            // Default (no action buttons): the dropdown only loads a deck into the queue box.
-            // Managing saved decks (favorite/rename/delete) lives on the Profile page.
-            echo RenderDeckLibrary((int)$_SESSION['userid'], $swuDeckLibraryConfig);
-            echo "</div>";
-        }
-      ?>
-    </div>
-  </div>
+      </dialog>
 
-  <!-- Welcome + Replays (right, tabbed) -->
-  <div class="card ga-glass-card swu-panel swu-info-card">
-    <div class="ga-info-tabs" role="tablist" aria-label="Petranaki information">
-      <button type="button" id="ga-info-tab-welcome" class="ga-info-tab swu-tab is-active" onclick="switchInfoTab('welcome')" role="tab" aria-selected="true" aria-controls="ga-info-panel-welcome">Welcome</button>
-      <button type="button" id="ga-info-tab-replays" class="ga-info-tab swu-tab" onclick="switchInfoTab('replays')" role="tab" aria-selected="false" aria-controls="ga-info-panel-replays">Replays</button>
-    </div>
-    <div id="ga-info-panel-welcome" class="ga-info-panel is-active" role="tabpanel" aria-labelledby="ga-info-tab-welcome">
-      <div class="swu-welcome">
-        <div class="swu-welcome__body">
-          <h2 class="swu-welcome__title">Welcome to Petranaki Arena!</h2>
-          <p class="login-message swu-welcome__text">Petranaki Arena is a fan-made online simulator for Star Wars: Unlimited.</p>
-        </div>        
+      <!-- ===== SETUP · Twin Suns ===== -->
+      <dialog class="setup lift" id="setup-twin-suns" aria-labelledby="setup-twin-suns-t" style="--tint: var(--tint-duo);">
+        <div class="setup__pane ch gl">
+          <a class="setup__x ch" href="#" aria-label="Close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a>
+          <div class="setup__scroll" tabindex="-1">
+      <div class="setup__head">
+        <span class="setup__tile ch" aria-hidden="true">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-twinsuns.webp" alt="" width="1200" height="1600" decoding="async">
+        </span>
+        <div class="setup__id">
+          <p class="setup__kind">Multiplayer</p>
+          <h3 class="setup__title" id="setup-twin-suns-t">Twin Suns</h3>
+          <p class="setup__desc">Two leaders each. Three or four players, free-for-all or in teams.</p>
+        </div>
+        <div class="setup__tools">
+          <span class="poolpick">
+            <label class="u-vh" id="ts-pool-lbl" for="ts-pool">Card pool</label>
+            <span class="selwrap ch">
+              <select class="select" id="ts-pool" name="ts-pool">
+                    <option selected>Twin Suns</option>
+                    <option>Twin Suns Preview (IC27)</option>
+                    <option>Open</option>
+              </select>
+            </span>
+          </span>
+        </div>
+        <!-- the detected-pool note. A SIBLING of .setup__tools, not a
+             child: as a flex item of the cluster its text grew the
+             head's max-content `auto` track and slid the chip and the
+             title 205px left the instant a deck resolved (measured in
+             all three engines). Here it spans the head's flexible
+             track, so per the grid sizing rules it contributes to no
+             track's intrinsic size and nothing beside it can move. -->
+        <span class="poolnote" hidden></span>
       </div>
-      <hr class="swu-hr">
+          <div class="setup__body">
+        <p class="whyline ch" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 12h14"/><path d="M13 6l6 6-6 6"/>
+          </svg>
+          <span class="whyline__t" id="setup-twin-suns-why"></span>
+        </p>
+        <div class="dblock">
+        <div class="drow">
+          <div>
+            <label class="flabel" for="ts-link">Deck Link</label>
+            <span class="inwrap ch">
+              <input class="input" id="ts-link" name="ts-link" type="url" inputmode="url" data-detect
+                     autocomplete="off" spellcheck="false" placeholder="https://swudb.com/deck/kWzBQPfCopFMV">
+            </span>
+          </div>
+          <button data-act="save" class="swu2-btn ch" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4.5h11l4 4v11h-15Z"/><path d="M8 4.5v5h7"/><path d="M8 19.5v-6h8v6"/></svg>Save Deck</button>
+        </div>
+        <!-- MOCKUP SCAFFOLDING, not product. See the PvP copy. -->
+        </div>
+        <div>
+          <label class="flabel" for="ts-saved">Saved Decks</label>
+          <?php echo SWUSetupDeckPicker('ts-saved', $swuSetupSaved); ?>
+          <p class="note note--under"><?php echo htmlspecialchars($swuSavedNote, ENT_QUOTES, "UTF-8"); ?></p>
+        </div>
+            <fieldset class="fs">
+              <legend class="lg">Pre-Cons</legend>
+              <p class="note note--over"><?php echo count($swuSetupTSPre); ?> pre-cons, each a complete Twin Suns deck.</p>
+              <div class="pool ch">
+                <div class="pool__scroll">
+                  <ul class="pcs">
+<?php foreach ($swuSetupTSPre as $_i => $_p)
+      echo SWUSetupPreConRow('ts-precon', 'ts', $_p, true, false), "\n"; ?>
+                  </ul>
+                </div>
+              </div>
+            </fieldset>
 
-      <!-- Did you know? -->
-      <div id="did-you-know-box" class="swu-dyk">
-        <div class="swu-dyk__head"><?php echo SWUMenuIcon('bolt'); ?><span>Did you know?</span></div>
-        <p id="did-you-know-text"></p>
-        <button type="button" class="swu-icon-btn swu-dyk__next" onclick="cycleDidYouKnow()" title="Next tip" aria-label="Next tip"><?php echo SWUMenuIcon('next'); ?></button>
-      </div>
+            <!-- The zero-pre-cons state, kept live in the stylesheet and parked
+                 here so it is one unwrap away when a format ships with none.
+                 A <template> renders nothing and validates. -->
+            <template id="ts-precons-empty">
+              <div class="pool ch">
+                <ul class="ghosts" aria-hidden="true">
+                  <li class="ghost ch"><span class="ghost__bar ghost__bar--name"></span><span class="ghost__bar ghost__bar--meta"></span><span class="ghost__tag"></span></li>
+                  <li class="ghost ch"><span class="ghost__bar ghost__bar--name"></span><span class="ghost__bar ghost__bar--meta"></span><span class="ghost__tag"></span></li>
+                  <li class="ghost ch"><span class="ghost__bar ghost__bar--name"></span><span class="ghost__bar ghost__bar--meta"></span><span class="ghost__tag"></span></li>
+                </ul>
+                <div class="empty">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5Z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/>
+                  </svg>
+                  <p class="empty__t">No pre-constructed decks yet</p>
+                  <p class="empty__s">Paste a deck link or pick a saved deck above to play Twin Suns now.</p>
+                </div>
+              </div>
+            </template>
 
-      <!-- Quick-reference hotkeys -->
-      <div>
-        <div class="swu-section-label">Quick Reference</div>
-        <div id="hotkey-list" class="swu-hotkeys"></div>
+            <div class="prow">
+        <fieldset class="fs">
+          <legend class="lg">Arrangement</legend>
+          <div class="seg">
+              <input class="seg__in u-vh" type="radio" name="ts-arr" id="ts-arr-1" checked>
+              <label class="seg__opt ch" for="ts-arr-1">Free-For-All</label>
+              <input class="seg__in u-vh" type="radio" name="ts-arr" id="ts-arr-2">
+              <label class="seg__opt ch" for="ts-arr-2">Team Suns</label>
+          </div>
+        </fieldset>
+            </div>
+            <div class="arow">
+              <button data-act="join" class="swu2-btn swu2-btn--primary ch" type="button">Join Queue</button>
+              <button data-act="private" class="swu2-btn ch" type="button">Create Private Room</button>
+              <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
+            </div>
+          </div>
+          </div>
+        </div>
+      </dialog>
+
+      <!-- ===== SETUP · Arenabot ===== -->
+      <dialog class="setup lift" id="setup-arenabot" aria-labelledby="setup-arenabot-t" style="--tint: var(--tint-bot);">
+        <div class="setup__pane ch gl">
+          <a class="setup__x ch" href="#" aria-label="Close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a>
+          <div class="setup__scroll" tabindex="-1">
+      <div class="setup__head">
+        <span class="setup__tile ch" aria-hidden="true">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-arenabot.webp" alt="" width="1200" height="1600" decoding="async">
+        </span>
+        <div class="setup__id">
+          <p class="setup__kind">Solo practice</p>
+          <h3 class="setup__title" id="setup-arenabot-t">Arenabot</h3>
+          <p class="setup__desc">Practice against five bot archetypes, from Hyper Aggro to Hard Control.</p>
+        </div>
       </div>
-      <div class="swu-flourish" aria-hidden="true"><span class="swu-flourish__gem">◇</span></div>
-    </div>
-    <div id="ga-info-panel-replays" class="ga-info-panel" role="tabpanel" aria-labelledby="ga-info-tab-replays">
-      <h2 class="swu-welcome__title">Your Replays</h2>
-      <p class="swu-welcome__text">Saved in this browser. Use the <strong>Save Replay</strong> button on the end-of-game screen to add one here.</p>
-      <div id="match-replay-menu-list" class="swu-replay-list"></div>
-    </div><!-- end replays panel -->
-  </div><!-- end info card -->
+          <div class="setup__body">
+        <div class="drow">
+          <div>
+            <label class="flabel" for="ab-link">Deck Link</label>
+            <span class="inwrap ch">
+              <input class="input" id="ab-link" name="ab-link" type="url" inputmode="url" data-detect
+                     autocomplete="off" spellcheck="false" placeholder="https://swudb.com/deck/PCQRTCWTgMLr">
+            </span>
+          </div>
+          <button data-act="save" class="swu2-btn ch" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4.5h11l4 4v11h-15Z"/><path d="M8 4.5v5h7"/><path d="M8 19.5v-6h8v6"/></svg>Save Deck</button>
+        </div>
+        <div>
+          <label class="flabel" for="ab-saved">Saved Decks<span class="u-vh"> for your deck</span></label>
+          <?php echo SWUSetupDeckPicker('ab-saved', $swuSetupSaved); ?>
+          <p class="note note--under"><?php echo htmlspecialchars($swuSavedNote, ENT_QUOTES, "UTF-8"); ?></p>
+        </div>
+        <div class="drow">
+          <div>
+            <label class="flabel" for="ab-bot-link">Bot Deck Link</label>
+            <span class="inwrap ch">
+              <input class="input" id="ab-bot-link" name="ab-bot-link" type="url" inputmode="url"
+                     autocomplete="off" spellcheck="false" placeholder="https://swudb.com/deck/rYBmXPaxDUaSY">
+            </span>
+          </div>
+          <button data-act="save" class="swu2-btn ch" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4.5h11l4 4v11h-15Z"/><path d="M8 4.5v5h7"/><path d="M8 19.5v-6h8v6"/></svg>Save Deck</button>
+        </div>
+        <div>
+          <label class="flabel" for="ab-bot-saved">Saved Decks<span class="u-vh"> for the bot's deck</span></label>
+          <?php echo SWUSetupDeckPicker('ab-bot-saved', $swuSetupSaved,
+                    'No saved decks yet — use a pre-con below',
+                    '— Use one of your saved decks or use a pre-con below —'); ?>
+          <p class="note note--under">One list, the same one as above &mdash; a saved deck here, or a pre-con below, never both.</p>
+        </div>
+            <fieldset class="fs">
+              <legend class="lg">Bot Pre-Cons</legend>
+              <p class="note note--over"><?php echo count($swuSetupBotPre); ?> tuned fixtures. Scroll for the rest.</p>
+              <div class="pool ch">
+                <div class="pool__scroll">
+                  <ul class="pcs">
+<?php foreach ($swuSetupBotPre as $_i => $_p)
+      echo SWUSetupPreConRow('ab-precon', 'ab', $_p, false, $_i === 0), "\n"; ?>
+                  </ul>
+                </div>
+              </div>
+            </fieldset>
+            <div class="prow">
+          <div>
+            <label class="flabel" for="ab-style">Bot Style</label>
+            <span class="selwrap ch">
+              <select class="select" id="ab-style" name="ab-style">
+                  <option>Hyper Aggro</option>
+                  <option>Soft Aggro</option>
+                  <option selected>Midrange</option>
+                  <option>Soft Control</option>
+                  <option>Hard Control</option>
+              </select>
+            </span>
+          </div>
+              <button data-act="solo" class="swu2-btn swu2-btn--primary ch" type="button">Start Arenabot</button>
+              <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
+            </div>
+            <?php /* OUTSIDE the .prow, deliberately. Inside it (even spanning 1/-1) a full-width
+                     item contributes its min-content to the row's `auto` button tracks, and
+                     Start Arenabot came out 195px against the mockup's 150px. */
+                  echo SWUSetupPickMsg('botstyle'); ?>
+          </div>
+          </div>
+        </div>
+      </dialog>
+
+      <!-- ===== SETUP · 1P Mode ===== -->
+      <dialog class="setup lift" id="setup-solo" aria-labelledby="setup-solo-t" style="--tint: var(--tint-solo);">
+        <div class="setup__pane ch gl">
+          <a class="setup__x ch" href="#" aria-label="Close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></a>
+          <div class="setup__scroll" tabindex="-1">
+      <div class="setup__head">
+        <span class="setup__tile ch" aria-hidden="true">
+          <img src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-1p.webp" alt="" width="1200" height="1600" decoding="async">
+        </span>
+        <div class="setup__id">
+          <p class="setup__kind">Local play</p>
+          <h3 class="setup__title" id="setup-solo-t">1P Mode</h3>
+          <p class="setup__desc">Goldfish a deck solo, or play both seats yourself in Hotseat.</p>
+        </div>
+      </div>
+          <div class="setup__body">
+        <fieldset class="fs">
+          <legend class="lg">Mode</legend>
+          <div class="seg">
+              <input class="seg__in u-vh" type="radio" name="sp-mode" id="sp-mode-1" checked>
+              <label class="seg__opt ch" for="sp-mode-1">Goldfish (Solo)</label>
+              <input class="seg__in u-vh hotpick" type="radio" name="sp-mode" id="sp-mode-2">
+              <label class="seg__opt ch" for="sp-mode-2">Hotseat (2P local)</label>
+          </div>
+        </fieldset>
+        <div class="drow">
+          <div>
+            <label class="flabel" for="sp-link">Deck Link</label>
+            <span class="inwrap ch">
+              <input class="input" id="sp-link" name="sp-link" type="url" inputmode="url" data-detect
+                     autocomplete="off" spellcheck="false" placeholder="https://swudb.com/deck/HeEAAQjVtrhee">
+            </span>
+          </div>
+          <button data-act="save" class="swu2-btn ch" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4.5h11l4 4v11h-15Z"/><path d="M8 4.5v5h7"/><path d="M8 19.5v-6h8v6"/></svg>Save Deck</button>
+        </div>
+        <div>
+          <label class="flabel" for="sp-saved">Saved Decks</label>
+          <?php echo SWUSetupDeckPicker('sp-saved', $swuSetupSaved); ?>
+          <p class="note note--under"><?php echo htmlspecialchars($swuSavedNote, ENT_QUOTES, "UTF-8"); ?></p>
+        </div>
+            <div class="hot">
+              <p class="hot__lede">Hotseat runs both seats from this browser, so the second player needs a deck too.</p>
+        <div class="drow">
+          <div>
+            <label class="flabel" for="sp-link-2">Second Deck Link</label>
+            <span class="inwrap ch">
+              <input class="input" id="sp-link-2" name="sp-link-2" type="url" inputmode="url" data-detect
+                     autocomplete="off" spellcheck="false" placeholder="https://swudb.com/deck/LImIrpIS">
+            </span>
+          </div>
+          <button data-act="save" class="swu2-btn ch" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4.5h11l4 4v11h-15Z"/><path d="M8 4.5v5h7"/><path d="M8 19.5v-6h8v6"/></svg>Save Deck</button>
+        </div>
+        <div>
+          <label class="flabel" for="sp-saved-2">Saved Decks<span class="u-vh"> for the second seat</span></label>
+          <?php echo SWUSetupDeckPicker('sp-saved-2', $swuSetupSaved, 'No saved decks yet', '', 'bot'); ?>
+          <p class="note note--under">Both seats are stored on this device only.</p>
+        </div>
+            </div>
+            <div class="arow">
+              <button data-act="solo" class="swu2-btn swu2-btn--primary ch" type="button">Start 1P Game</button>
+              <button data-act="cancel" class="swu2-btn swu2-btn--quiet ch" type="button" data-close>Cancel</button>
+            </div>
+          </div>
+          </div>
+        </div>
+      </dialog>
+
+    <!-- Legacy submission fields. getDeckSubmission() reads THESE ids; the modals write into
+         them via SYNC_ACTIVE_SETUP() just before submitting, so the proven queue/game-start path
+         is untouched. ⚠ #swu-format-select must keep its id and stay hidden: private-invite.js
+         assigns to every [id$="-format-select"]. -->
+    <input type="hidden" id="deck-link">
+    <input type="hidden" id="swu-deck2-input">
+    <input type="hidden" id="swu-queuetype-select" value="bo1">
+    <input type="hidden" id="swu-botstyle-select" value="midrange">
+    <!-- ⚠ hidden INPUT, not an empty <select>: assigning an arbitrary value to a select
+         with no matching <option> silently does nothing, so the format never reached
+         getDeckSubmission(). The id must stay *-format-select — private-invite.js
+         assigns to every [id$="-format-select"], and that selector matches an input too. -->
+    <input type="hidden" id="swu-format-select" value="premier">
+  <input type="hidden" id="swu-cardpool-input" value="premier">
+</main>
 </div>
+
 
 <script src="<?php echo _VersionAsset('/TCGEngine/Core/MatchReplayClient.js'); ?>"></script>
 <script src="<?php echo _VersionAsset('/TCGEngine/SharedUI/js/private-invite.js'); ?>"></script>
 
-<div id="ga-settings-modal" class="ga-settings-modal" aria-hidden="true">
-  <div class="ga-settings-modal__overlay" data-close-settings-modal="true"></div>
-  <div class="ga-settings-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="ga-settings-modal-title">
-    <div class="ga-settings-modal__header">
-      <h3 id="ga-settings-modal-title">Menu Settings</h3>
-      <button type="button" class="ga-settings-modal__close" id="ga-close-settings-btn" aria-label="Close settings modal">x</button>
-    </div>
-    <div class="ga-settings-modal__body">
-      <label for="ga-board-background-theme" class="ga-settings-row ga-settings-row--split">
-        <span>Board background</span>
-        <select id="ga-board-background-theme">
-          <option value="space">Dark Space</option>
-          <option value="desert">Geonosis Desert</option>
-        </select>
-      </label>
-    </div>
-  </div>
-</div>
-
 
 <script>
-  var _didYouKnowTips = [
-    { key: 'u', label: 'Undo your most recent action' },
-    { key: 'Space', label: 'Pass an optional decision when available' },
-    { text: 'Hover a card on the field to see its full text.' },
-    { text: 'You can paste a deck link directly from SWUStats, SWUDB, melee.gg and most other SWU deck builders.' },
-    { text: 'Private games generate a shareable invite link — send it to your opponent and they can join instantly.' },
-    { text: 'The queue matches you with the first available opponent. No need to refresh — it polls automatically.' },
-    { text: 'Units enter the arena exhausted when played from hand.' },
-    { text: 'Taking the initiative lets you pass the rest of the action phase to your opponent — use it wisely.' },
-    { key: 'Esc', label: 'Cancel matchmaking while waiting for an opponent' },
-  ];
-  var _dykIndex = 0;
 
   var _hotkeyList = [
     { key: 'u',   label: 'Undo most recent action' },
     { key: 'Space', label: 'Pass optional decision (when available)' },
     { key: 'Esc', label: 'Cancel matchmaking' },
   ];
-
-  function renderDidYouKnow() {
-    var tip = _didYouKnowTips[_dykIndex];
-    var el = document.getElementById('did-you-know-text');
-    if (!el) return;
-    var box = document.getElementById('did-you-know-box');
-    box.style.opacity = '0';
-    setTimeout(function() {
-      if (tip.key) {
-        el.innerHTML = 'Press <span class="hotkey-badge">' + tip.key + '</span> to <strong>' + tip.label + '</strong>.';
-      } else {
-        el.textContent = tip.text;
-      }
-      box.style.opacity = '1';
-    }, 200);
-  }
-
-  function cycleDidYouKnow() {
-    _dykIndex = (_dykIndex + 1) % _didYouKnowTips.length;
-    renderDidYouKnow();
-  }
 
   function renderHotkeyList() {
     var container = document.getElementById('hotkey-list');
@@ -307,71 +701,11 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
     container.innerHTML = html;
   }
 
-  function openGASettingsModal() {
-    var modal = document.getElementById('ga-settings-modal');
-    if (!modal) return;
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-  }
-
-  function closeGASettingsModal() {
-    var modal = document.getElementById('ga-settings-modal');
-    if (!modal) return;
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-  }
-
   document.addEventListener('DOMContentLoaded', function() {
-    if (window.TCGSettings) {
-      window.TCGSettings.registerSchema('SWUSim', {
-        BoardBackgroundTheme: {
-          type: 'string',
-          defaultValue: 'space'
-        }
-      });
-    }
-
-    renderDidYouKnow();
     renderHotkeyList();
-    var boardThemeSelect = document.getElementById('ga-board-background-theme');
-    if (boardThemeSelect && window.TCGSettings) {
-      var savedTheme = window.TCGSettings.get('BoardBackgroundTheme', { rootName: 'SWUSim', type: 'string', defaultValue: 'space' });
-      boardThemeSelect.value = (savedTheme === 'desert') ? 'desert' : 'space';
-      boardThemeSelect.addEventListener('change', function() {
-        var value = boardThemeSelect.value === 'desert' ? 'desert' : 'space';
-        window.TCGSettings.set('BoardBackgroundTheme', value, { rootName: 'SWUSim', type: 'string' });
-      });
-    }
-
-    window.openSWUSimSettingsModal = openGASettingsModal;
-    var openSettingsBtn = document.getElementById('ga-open-settings-btn');
-    if (openSettingsBtn) {
-      openSettingsBtn.addEventListener('click', openGASettingsModal);
-    }
-
-    var closeSettingsBtn = document.getElementById('ga-close-settings-btn');
-    if (closeSettingsBtn) {
-      closeSettingsBtn.addEventListener('click', closeGASettingsModal);
-    }
-
-    var settingsModal = document.getElementById('ga-settings-modal');
-    if (settingsModal) {
-      settingsModal.addEventListener('click', function(event) {
-        var target = event.target;
-        if (target && target.getAttribute('data-close-settings-modal') === 'true') {
-          closeGASettingsModal();
-        }
-      });
-    }
-
-    document.addEventListener('keydown', function(event) {
-      if (event.key !== 'Escape') return;
-      var modal = document.getElementById('ga-settings-modal');
-      if (!modal || !modal.classList.contains('is-open')) return;
-      closeGASettingsModal();
-    });
     // Rotate tips every 8 seconds
-    setInterval(cycleDidYouKnow, 8000);
+    // Did-you-know rotator removed with the menu redesign (also a WCAG 2.2.2 failure:
+    // auto-rotating content with no pause control).
   });
 </script>
 
@@ -391,21 +725,6 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
   };
   var _waitingEscHandler = null;
 
-      // Right-column info card: switch between the Welcome and Replays tabs.
-      function switchInfoTab(tab) {
-        var isReplays = tab === 'replays';
-        var welcomeTab = document.getElementById('ga-info-tab-welcome');
-        var replaysTab = document.getElementById('ga-info-tab-replays');
-        var welcomePanel = document.getElementById('ga-info-panel-welcome');
-        var replaysPanel = document.getElementById('ga-info-panel-replays');
-        if (!welcomeTab || !replaysTab || !welcomePanel || !replaysPanel) return;
-        welcomeTab.classList.toggle('is-active', !isReplays);
-        replaysTab.classList.toggle('is-active', isReplays);
-        welcomeTab.setAttribute('aria-selected', isReplays ? 'false' : 'true');
-        replaysTab.setAttribute('aria-selected', isReplays ? 'true' : 'false');
-        welcomePanel.classList.toggle('is-active', !isReplays);
-        replaysPanel.classList.toggle('is-active', isReplays);
-      }
       // Info tooltips (.swu-info-tip): hover and keyboard focus are pure CSS; a tap toggles .is-open, and Escape or a
       // click anywhere else closes every open one.
       (function () {
@@ -538,16 +857,64 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
       // from the root entry. Anchor to /TCGEngine/ from the live URL instead — depth-independent.
       function swusimAppBase(){ var p=location.pathname, i=p.indexOf('/TCGEngine/'); return i>=0 ? p.slice(0, i+11) : '/TCGEngine/'; }
       var SAVEDECKS_URL = swusimAppBase() + 'SWUSim/SavedDecks.php';
-      function saveCurrentDeck() {
-        var sub = getDeckSubmission();
-        if (!sub || !sub.deckLink) return;   // getDeckSubmission alerts when empty
-        var x = new XMLHttpRequest();
-        x.open('POST', SAVEDECKS_URL, true);
-        x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        x.onload = function(){ var r={}; try{ r=JSON.parse(x.responseText); }catch(e){}
-          if (r.success) location.reload();
-          else showQueueInlineError('Could not save deck: ' + (r.error || 'unknown')); };
-        x.send('action=save&deckInput=' + encodeURIComponent(sub.deckLink));
+      // Save the deck in ONE box — whichever Save Deck button was pressed. $link is the input
+      // beside it, so the Arenabot bot row saves the bot's deck and not the player's.
+      //
+      // Owner, 2026-09-25, two rules:
+      //   * only a LINK may be saved — a pasted JSON blob or free-text list has no source to
+      //     return to. The verdict comes from ValidateDeck.php's `savable`, which is
+      //     SWUDeckInputIsLink(); the client does not re-implement it. SavedDecks.php enforces
+      //     it again server-side, because the UI is not a boundary.
+      //   * a GUEST may save too — into this browser, since they have no account row.
+      function saveCurrentDeck(link, slot, dlg) {
+        link = String(link || '').trim();
+        if (!link) { StyledAlert('Enter a deck link first, then Save Deck.'); return; }
+        var tell = function (msg) {
+          if (dlg && typeof PICK_SAY === 'function') PICK_SAY(dlg, slot || 'own', msg);
+          else showQueueInlineError(msg);
+        };
+
+        var body = 'deckLink=' + encodeURIComponent(link) + '&format=premier';
+        fetch(swusimAppBase() + 'SWUSim/ValidateDeck.php',
+              { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body })
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            if (!d || !d.success) { tell('Could not read that deck: ' + ((d && d.message) || 'unknown')); return; }
+            if (!d.savable) {
+              tell('Only deck links can be saved — a pasted list has no source to return to. ' +
+                   'Paste a link from SWUDB, SWUStats, melee.gg or another deck site.');
+              return;
+            }
+            var name = d.deckName || [d.leaderName, d.baseName].filter(Boolean).join(' - ') || 'Untitled deck';
+
+            if (!IS_GUEST) {
+              var x = new XMLHttpRequest();
+              x.open('POST', SAVEDECKS_URL, true);
+              x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+              x.onload = function () {
+                var r = {}; try { r = JSON.parse(x.responseText); } catch (e) {}
+                if (r.success) location.reload();
+                else tell('Could not save deck: ' + (r.error === 'not_a_link'
+                          ? 'only deck links can be saved' : (r.error || 'unknown')));
+              };
+              x.send('action=save&deckInput=' + encodeURIComponent(link));
+              return;
+            }
+
+            var leaders = [].concat(d.leaderID || []).filter(Boolean);
+            var subtitle = [d.leaderName, d.baseName].filter(Boolean).join(' · ');
+            var stored = GUEST_DECKS.add({
+              key: GUEST_KEY_FOR(link), name: name, leaders: leaders, base: d.baseID || '',
+              subtitle: subtitle, count: d.deckCount || 0, input: link, format: d.detectedFormat || ''
+            });
+            if (!stored) {
+              tell('This browser would not let the deck be saved (private window or storage full).');
+              return;
+            }
+            tell('Saved "' + name + '" to this browser. Log in to keep your decks on your account.');
+            GUEST_RENDER_ALL();         // in place, so the line above survives to be read
+          })
+          .catch(function () { tell('Could not reach the server to check that deck link.'); });
       }
 
       // Load a saved deck's input into the correct deck box (URL → Link tab, raw JSON → Free Text tab).
@@ -725,44 +1092,8 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         if (!swuSelectFormat(SWU_MENU.defaultFormat, SWU_MENU.defaultPool, false)) { swuFillMenu(); swuWriteStored(); applyFormatUI(); }
       })();
 
-      // ── Arenabot: preselect "Bot play style" from the deck the BOT will play ────────────────────────────────────
-      // Its own deck link, or the host's list when that field is empty (JoinQueue.php falls back to the host's deck).
-      // APIs/SWUBotDeckStyle.php reads the list and answers with an archetype; the classifier is
-      // SWUSim/Custom/BotDeckStyle.php (spec docs/superpowers/specs/2026-09-22-swusim-deck-style-classifier-design.md).
-      // Owner, 2026-09-22: EVERY deck load re-picks, even over a manual change. A failed lookup changes nothing.
-      var _swuStyleSeq = 0;
-      function swuAutoPickBotStyle() {
-        var fmt = swuMenuEl('swu-format-select');
-        if (!fmt || fmt.value !== 'botpractice') return;
-        var sel = swuMenuEl('swu-botstyle-select');
-        if (!sel) return;
-        var d2 = swuMenuEl('swu-deck2-input');
-        var deck = (d2 && d2.value.trim()) ? d2.value.trim() : '';
-        if (!deck) {
-          var link = swuMenuEl('deck-link'), text = swuMenuEl('deck-text');
-          deck = (link && link.value.trim()) ? link.value.trim() : ((text && text.value.trim()) ? text.value.trim() : '');
-        }
-        if (!deck) return;
-        var seq = ++_swuStyleSeq;
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', swusimAppBase() + 'APIs/SWUBotDeckStyle.php', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = function () {
-          if (seq !== _swuStyleSeq) return;            // a newer deck was entered while this was in flight
-          var j;
-          try { j = JSON.parse(xhr.responseText); } catch (e) { return; }
-          if (!j || !j.ok || !j.style) return;         // unreadable deck: leave the player's choice alone
-          sel.value = j.style;
-        };
-        xhr.onerror = function () {};
-        xhr.send('rootName=SWUSim&deckLink=' + encodeURIComponent(deck));
-      }
-      ['swu-deck2-input', 'deck-link', 'deck-text'].forEach(function (id) {
-        var el = swuMenuEl(id);
-        if (!el) return;
-        el.addEventListener('change', swuAutoPickBotStyle);
-        el.addEventListener('blur', swuAutoPickBotStyle);
-      });
+      // The Arenabot bot-style auto-picker lives with the modals it drives — see
+      // BOT_STYLE_AUTOPICK below, next to SETUP_BIND_PICKERS.
 
       function createPrivateGame() {
         submitQueueJoin({
@@ -827,6 +1158,10 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
             summary += ' ⚠ ' + vres.warnings.join('; ');
           }
           showQueueInlineInfo(summary);
+          // This deck is valid and a game is about to start with it, so it becomes the deck the
+          // menu offers next time. Recorded HERE and not on resolve: a deck you pasted to look
+          // at and then rejected must not come back on your next visit.
+          if (typeof window.REMEMBER_DECK === 'function') window.REMEMBER_DECK(submission.deckLink, vres);
           // ── Step 2: join the queue now that we know the deck is valid ──────
           doJoinQueue(options, submission);
         };
@@ -1257,47 +1592,94 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
         });
       }
-      // One seat's identity: the base peeks out behind, the leader(s) sit in front. Card art is decorative next to the
-      // text title, so alt="" and the names go in the stack's title/aria-label.
-      function swuIdentityStack(seat) {
-        var leaders = seat.leaders || [];
-        var twin = leaders.length > 1;
-        var names = leaders.map(function (l) { return l.name; });
-        if (seat.base) names.push(seat.base.name);
-        var html = '<div class="swu-idstack' + (twin ? ' is-twin' : '') + '" role="img" aria-label="' + swuEsc(names.join(' · ')) + '" title="' + swuEsc(names.join('\n')) + '">';
-        if (seat.base) html += '<img class="swu-idstack__base" src="' + swuEsc(seat.base.url) + '" alt="" loading="lazy">';
-        leaders.slice(0, 2).forEach(function (l, i) {
-          html += '<img class="swu-idstack__leader' + (twin ? (i === 0 ? ' is-a' : ' is-b') : '') + '" src="' + swuEsc(l.url) + '" alt="" loading="lazy">';
-        });
-        return html + '</div>';
+      // ONE MATCH CHIP, in the approved shape (docs/superpowers/mockups/2026-09-24-swusim-main-menu.html).
+      // The stylesheet's MATCH CHIPS section was ported with the redesign and has been sitting unused,
+      // because this builder still emitted the older .swu-game-chip / .swu-idstack markup. That is why the
+      // panel looked nothing like the mockup: the CSS was right and nothing was wearing it.
+      //
+      // The shape, per seat: real leader + base art, the leader's title with its SET CODE, the base name
+      // underneath. Between the two seats a "VS" rule. On the side, the format, the round and how long the
+      // game has been running, then Spectate.
+      //
+      // Card art is DECORATIVE here -- every card is named in text beside it -- so the images carry alt=""
+      // and each seat gets one visually-hidden sentence naming its cards for a screen reader.
+      function swuCardThumb(c, kind) {
+        if (!c) return '';
+        return '<span class="tc tc--' + kind + '">'
+             + '<img src="' + swuEsc(c.url) + '" alt="" loading="lazy" decoding="async" width="628" height="450">'
+             + '</span>';
+      }
+      // "Ahsoka Tano, Snips" -> title "Ahsoka Tano" + the set code beside it. The subtitle is dropped from
+      // the chip: at 148px of rail the full string ellipsises before the name is even readable.
+      function swuLeaderName(c) {
+        var full = String((c && c.name) || '');
+        var title = full.split(',')[0].trim() || full;
+        var set = (c && c.set) ? ' <span class="seat__set">(' + swuEsc(c.set) + ')</span>' : '';
+        return '<span class="seat__leader">' + swuEsc(title) + set + '</span>';
+      }
+      function swuSeat(seat) {
+        var leaders = (seat && seat.leaders) || [];
+        var thumbs = leaders.slice(0, 2).map(function (l) { return swuCardThumb(l, 'leader'); }).join('')
+                   + swuCardThumb(seat.base, 'base');
+        // the dot only separates PAIRED leaders, and .match--multi hides it and stacks them instead
+        var names = leaders.slice(0, 2).map(swuLeaderName).join('<span class="seat__dot">&middot;</span>');
+        var spoken = leaders.map(function (l) { return l.name; });
+        if (seat.base) spoken.push('Base ' + seat.base.name);
+        return '<span class="seat">'
+             + '<span class="cards" aria-hidden="true">' + thumbs + '</span>'
+             + '<span class="seat__text">'
+             +   '<span class="seat__name">' + names + '</span>'
+             +   '<span class="seat__sub">' + swuEsc((seat.base && seat.base.name) || '') + '</span>'
+             + '</span>'
+             + '<span class="u-vh">' + swuEsc(spoken.join('. ')) + '.</span>'
+             + '</span>';
+      }
+      // "12m", "1h 04m". Anything under a minute reads as 0m rather than as seconds, because the poll is
+      // 20s and a ticking seconds counter would be wrong more often than right.
+      function swuElapsed(startedAt) {
+        if (!startedAt) return '';
+        var mins = Math.max(0, Math.floor((Date.now() / 1000 - startedAt) / 60));
+        if (mins < 60) return mins + 'm';
+        var h = Math.floor(mins / 60), m = mins % 60;
+        return h + 'h ' + (m < 10 ? '0' : '') + m + 'm';
       }
       function swuGameChip(g) {
         var seats = g.seats || [];
-        var body, layout;
-        if (g.isTeam) {
-          // Team Suns: partners side by side, the two teams stacked with "vs" between them.
-          var team = function (t) {
-            return '<div class="swu-game-team">' + seats.filter(function (s) { return s.team === t; }).map(swuIdentityStack).join('') + '</div>';
-          };
-          body = team(1) + '<span class="swu-game-vs">vs</span>' + team(2);
-          layout = ' is-team';
-        } else if (seats.length > 2) {
-          // Twin Suns free-for-all: every seat side by side (2×2 for four); the footer names the player count.
-          body = seats.map(swuIdentityStack).join('');
-          layout = ' is-ffa is-ffa-' + seats.length;
+        var multi = seats.length > 2;
+        var body;
+        if (multi) {
+          // 3 and 4 seats: seat-grouped, never three "vs" rules (the stylesheet's own note).
+          body = seats.map(swuSeat).join('');
         } else {
-          body = seats.map(swuIdentityStack).join('<span class="swu-game-vs">vs</span>');
-          layout = '';
+          body = swuSeat(seats[0]) + '<span class="match__vs" aria-hidden="true">VS</span>' + swuSeat(seats[1]);
         }
-        var label = g.formatName + (seats.length > 2 && !g.isTeam ? ' · ' + seats.length + ' players' : '');
-        return '<div class="swu-game-chip' + layout + '" data-format="' + swuEsc(g.format) + '">'
-          + '<div class="swu-game-chip__seats">' + body + '</div>'
-          + '<div class="swu-game-chip__foot">'
-          +   '<span class="swu-game-chip__format">' + swuEsc(label) + '</span>'
-          +   '<button type="button" class="swu-spectate-btn" data-href="' + swuEsc(g.spectateUrl) + '">Spectate</button>'
+        // left of the meta row names the format (and player count when that is the interesting part);
+        // right of it is where the game has got to.
+        var fmt = g.formatName + (multi && !g.isTeam ? ' · ' + seats.length + ' players' : '');
+        var when = [];
+        if (g.round > 0) when.push('Round ' + g.round);
+        var el = swuElapsed(g.startedAt);
+        if (el) when.push(el);
+        var vs = seats.map(function (s) {
+          return ((s.leaders || []).map(function (l) { return String(l.name || '').split(',')[0]; }).join(' and ')) || 'a player';
+        }).join(' versus ');
+
+        return '<li class="match ch' + (multi ? ' match--multi' : '') + '"'
+          + ' data-seats="' + seats.length + '" data-format="' + swuEsc(g.format) + '">'
+          + '<div class="match__seats">' + body + '</div>'
+          + '<div class="match__side">'
+          +   '<p class="match__meta">'
+          +     '<span class="match__fmt">' + swuEsc(fmt) + '</span>'
+          +     (when.length ? '<span>' + swuEsc(when.join(' · ')) + '</span>' : '')
+          +   '</p>'
+          +   '<button type="button" class="swu2-btn swu2-btn--block ch swu-spectate-btn" data-href="' + swuEsc(g.spectateUrl) + '">'
+          +     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.8-6 10-6 10 6 10 6-3.8 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="2.6"/></svg>'
+          +     'Spectate<span class="u-vh"> ' + swuEsc(vs) + '</span>'
+          +   '</button>'
           + '</div>'
-          + '</div>';
+          + '</li>';
       }
+
       function swuRenderPublicGames() {
         var list = document.getElementById('active-games-list');
         var filter = document.getElementById('swu-games-filter');
@@ -1329,6 +1711,19 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         title.textContent = filtered ? 'No games in this format' : 'No games in progress';
         text.textContent = filtered ? 'Try another format, or start one yourself!' : 'Be the first to challenge an opponent in the arena!';
       }
+      // The PvP and Twin Suns cards' stat lines. The SERVER already rendered them into the page
+      // (SWUMenuStatLabel in SWUSim/Custom/MenuLobbyStats.php), so this only keeps them current —
+      // and the labels come from that same function, so the first paint and every refresh cannot
+      // word the same state two different ways.
+      // A failed poll passes null and the line is LEFT ALONE: the last known count is closer to
+      // the truth than blanking it, and a card whose foot empties out reads as broken.
+      function swuRenderModeStats(labels) {
+        if (!labels) return;
+        ['pvp', 'multi'].forEach(function (k) {
+          var el = document.querySelector('.mode__stat[data-stat="' + k + '"]');
+          if (el && typeof labels[k] === 'string' && labels[k] !== '') el.textContent = labels[k];
+        });
+      }
       function refreshOpenGames() {
         var countEl = document.getElementById('active-game-count');
         var xhr = new XMLHttpRequest();
@@ -1340,11 +1735,13 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
           if (countEl) countEl.textContent = _swuPublicGames.length;
           swuFillGamesFilter(data ? data.formats : []);
           swuRenderPublicGames();
+          swuRenderModeStats(data ? data.lobbyLabels : null);
         };
         xhr.onerror = function () {
           _swuPublicGames = [];
           if (countEl) countEl.textContent = '0';
           swuRenderPublicGames();
+          swuRenderModeStats(null);      // a failed poll leaves the server-rendered line alone
         };
         xhr.send();
       }
@@ -1433,8 +1830,1359 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         initializePrivateInviteFromUrl();
         refreshOpenGames();
       });
-    </script>
+    
+// ── setup modals, rich listboxes and format detection ──────────────────────
+/* Progressive enhancement only: the Welcome tab is correct with JS off. */
+(function () {
+  var tablist = document.querySelector('[role="tablist"]');
+  if (!tablist) return;
+  var tabs = Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
 
-<?php
-include_once __DIR__ . '/Disclaimer.php';
-?>
+  function select(tab) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+
+  tabs.forEach(function (tab, i) {
+    tab.addEventListener('click', function () { select(tab); });
+    tab.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      var next = tabs[(i + d + tabs.length) % tabs.length];
+      select(next);
+      next.focus();
+    });
+  });
+})();
+
+/* Progressive enhancement only: the list scrolls, by wheel, touch and
+   keyboard, with or without this. All this adds is the two honest
+   affordances — a bottom fade that exists only while there really is
+   more below, and an always-visible steel scrollbar to replace the
+   overlay one the platform will not paint until it is too late. */
+(function () {
+  var frame = document.querySelector('.games-frame');
+  var scroller = frame && frame.querySelector('.games-scroll');
+  var thumb = frame && frame.querySelector('.games-rail__thumb');
+  if (!scroller || !thumb) return;
+
+  function sync() {
+    var max = scroller.scrollHeight - scroller.clientHeight;
+    frame.setAttribute('data-scrollable', String(max > 4));
+    frame.setAttribute('data-more', String(max - scroller.scrollTop > 4));
+    if (max <= 4) return;
+    var ratio = scroller.clientHeight / scroller.scrollHeight;
+    var h = Math.max(ratio * 100, 12);
+    thumb.style.setProperty('--thumb-h', h.toFixed(2) + '%');
+    thumb.style.setProperty('--thumb-y', ((scroller.scrollTop / max) * (100 - h)).toFixed(2) + '%');
+  }
+
+  thumb.addEventListener('pointerdown', function (e) {
+    e.preventDefault();
+    var rail = thumb.parentNode.getBoundingClientRect();
+    var start = e.clientY, from = scroller.scrollTop;
+    var max = scroller.scrollHeight - scroller.clientHeight;
+    var travel = rail.height - thumb.getBoundingClientRect().height;
+    thumb.setPointerCapture(e.pointerId);
+    function move(ev) {
+      if (travel <= 0) return;
+      scroller.scrollTop = from + ((ev.clientY - start) / travel) * max;
+    }
+    function up() {
+      thumb.removeEventListener('pointermove', move);
+      thumb.removeEventListener('pointerup', up);
+    }
+    thumb.addEventListener('pointermove', move);
+    thumb.addEventListener('pointerup', up);
+  });
+
+  scroller.addEventListener('scroll', sync, { passive: true });
+  if (window.ResizeObserver) new ResizeObserver(sync).observe(scroller);
+  window.addEventListener('resize', sync);
+  sync();
+})();
+
+/* ==================================================================
+   THE MODE SETUPS AS MODALS
+
+   Progressive enhancement. If <dialog>.showModal is missing this
+   whole block returns before setting `data-dlg`, and the CSS falls
+   straight back to the approved :target page states.
+
+   Everything a hand-rolled modal gets wrong is the platform's job
+   here: the focus trap, Escape, the ::backdrop, and making the
+   splash behind inert. What is left is the three things the
+   platform does NOT do — lock the page scroll, return focus to the
+   card that opened it, and close on a backdrop click.
+   ================================================================== */
+(function () {
+  var html = document.documentElement;
+  var dialogs = [].slice.call(document.querySelectorAll('dialog.setup'));
+  if (!dialogs.length || typeof dialogs[0].showModal !== 'function') return;
+
+  html.setAttribute('data-dlg', '');
+
+  function anyOpen() { return !!document.querySelector('dialog.setup[open]'); }
+
+  function openSetup(dlg, from) {
+    dlg.__opener = from || null;
+    dlg.showModal();
+    html.setAttribute('data-modal', '');
+    /* Focus the content region rather than whatever happens to be
+       first. It is the scroll container, and a scroll container with
+       no tabindex is unreachable by keyboard in Chromium and WebKit
+       — so this earns the tabindex twice over. */
+    var region = dlg.querySelector('.setup__scroll');
+    if (region) region.focus();
+  }
+
+  dialogs.forEach(function (dlg) {
+    dlg.addEventListener('close', function () {
+      if (!anyOpen()) html.removeAttribute('data-modal');
+      /* every listbox inside this dialog goes with it */
+      dlg.__closeListboxes && dlg.__closeListboxes();
+      var o = dlg.__opener;
+      dlg.__opener = null;
+      if (o && document.contains(o)) o.focus();
+    });
+
+    /* A click whose target is the dialog itself is a click on the
+       ::backdrop — the dialog's own box is filled edge to edge by
+       the pane, so nothing else can report it. */
+    dlg.addEventListener('click', function (e) {
+      if (e.target === dlg) dlg.close();
+    });
+
+    dlg.querySelectorAll('[data-close]').forEach(function (b) {
+      b.addEventListener('click', function (e) { e.preventDefault(); dlg.close(); });
+    });
+  });
+
+  document.querySelectorAll('a.mode[href^="#setup-"]').forEach(function (a) {
+    var dlg = document.getElementById(a.getAttribute('href').slice(1));
+    if (!dlg || dlg.tagName !== 'DIALOG') return;
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      openSetup(dlg, a);
+    });
+  });
+
+  /* a deep link still opens the right setup — as a modal, and
+     without leaving a fragment behind that the CSS would act on. */
+  var hash = location.hash;
+  if (/^#setup-[\w-]+$/.test(hash)) {
+    var deep = document.getElementById(hash.slice(1));
+    if (deep && deep.tagName === 'DIALOG') {
+      history.replaceState(null, '', location.pathname + location.search);
+      openSetup(deep, null);
+    }
+  }
+
+  /* the one seam format detection needs: it has to be able to open a
+     DIFFERENT setup than the one the player is in, and it must reuse
+     this opener rather than call showModal() itself — the scroll lock,
+     the focus target and the opener bookkeeping all live here. Also
+     the feature test: if this block bailed out above, SETUP_OPEN is
+     undefined and detection stands down with it, because with no
+     <dialog> there is nothing to switch. */
+  window.SETUP_OPEN = openSetup;
+})();
+
+/* ==================================================================
+   THE SAVED-DECK / CARD-POOL LISTBOX
+
+   One component, two skins. See the CSS block for why the popup is
+   parked in .lb-layer rather than inside .deckpick or on <body>.
+
+   The <select> remains the value. Nothing here reads state from the
+   DOM it built; it reads selectedIndex and writes selectedIndex.
+   ================================================================== */
+(function () {
+  var seq = 0;
+
+  function svgCaret() {
+    var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    s.setAttribute('class', 'lb__caret');
+    s.setAttribute('viewBox', '0 0 24 24');
+    s.setAttribute('fill', 'none');
+    s.setAttribute('stroke', 'currentColor');
+    s.setAttribute('stroke-width', '2.6');
+    s.setAttribute('stroke-linecap', 'round');
+    s.setAttribute('stroke-linejoin', 'round');
+    s.setAttribute('aria-hidden', 'true');
+    var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    p.setAttribute('d', 'M5 9l7 7 7-7');
+    s.appendChild(p);
+    return s;
+  }
+
+  function svgMark() {
+    var w = document.createElement('span');
+    w.className = 'mark';
+    w.setAttribute('aria-hidden', 'true');
+    w.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" ' +
+                  'stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>';
+    return w;
+  }
+
+  function build(root, kind) {
+    var sel = root.querySelector('select');
+    if (!sel) return;
+    var pane = root.closest('.setup__pane');
+    if (!pane) return;
+
+    var layer = pane.querySelector(':scope > .lb-layer');
+    if (!layer) {
+      layer = document.createElement('div');
+      layer.className = 'lb-layer';
+      pane.appendChild(layer);
+    }
+
+    var id = sel.id || ('lb' + (++seq));
+    var opts = [].slice.call(sel.options);
+    var label = sel.id ? document.querySelector('label[for="' + sel.id + '"]') : null;
+    if (label && !label.id) label.id = id + '-lbl';
+
+    /* the original rich rows, captured BEFORE they are moved, so the
+       clones can be matched to their option by slug */
+    var byValue = {};
+    root.querySelectorAll('.deckprev').forEach(function (p) {
+      var m = /(?:^|\s)deckprev--([\w-]+)/.exec(p.className);
+      if (m) byValue[m[1]] = p;
+    });
+
+    root.classList.add('lb', kind === 'chip' ? 'lb--chip' : 'lb--deck');
+
+    /* ---------------- the trigger ---------------- */
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = id + '-btn';
+    btn.className = 'lb__btn' + (kind === 'chip' ? ' ch' : '');
+    btn.setAttribute('aria-haspopup', 'listbox');
+    btn.setAttribute('aria-expanded', 'false');
+
+    var valText = document.createElement('span');
+    valText.id = id + '-val';
+    if (kind === 'chip') {
+      valText.className = 'lb__text';
+      btn.appendChild(valText);
+    } else {
+      valText.className = 'u-vh';
+      var visual = document.createElement('span');
+      visual.className = 'lb__val';
+      visual.setAttribute('aria-hidden', 'true');
+      opts.forEach(function (o) {
+        var p = byValue[o.value];
+        if (p) visual.appendChild(p);
+      });
+      btn.appendChild(visual);
+      btn.appendChild(valText);
+    }
+    btn.appendChild(svgCaret());
+    /* the accessible name is the FIELD then the value — a trigger
+       that announces only "Premier" names the value and not the
+       field it belongs to. */
+    btn.setAttribute('aria-labelledby', (label ? label.id + ' ' : '') + valText.id);
+    if (!label) btn.setAttribute('aria-label', 'Options');
+    root.appendChild(btn);
+
+    /* ---------------- the popup ---------------- */
+    var wrap = document.createElement('div');
+    wrap.className = 'lb__wrap lift';
+    var pop = document.createElement('div');
+    pop.className = 'lb__pop ch';
+    var list = document.createElement('div');
+    list.id = id + '-list';
+    list.className = 'lb__opts';
+    list.setAttribute('role', 'listbox');
+    list.tabIndex = -1;
+    if (label) list.setAttribute('aria-labelledby', label.id);
+    else list.setAttribute('aria-label', 'Options');
+
+    var rows = opts.map(function (o, i) {
+      var row = document.createElement('div');
+      row.id = id + '-opt-' + i;
+      row.className = 'lb__opt ch' + (kind === 'chip' ? ' lb__opt--text' : '');
+      row.setAttribute('role', 'option');
+      row.setAttribute('aria-selected', String(i === sel.selectedIndex));
+
+      if (kind === 'chip') {
+        var t = document.createElement('span');
+        t.className = 'lb__txt';
+        t.textContent = o.text;
+        row.appendChild(t);
+      } else {
+        var src = byValue[o.value];
+        if (src) {
+          var c = src.cloneNode(true);
+          c.classList.remove('ch');
+          /* the row's visible text IS its name; the sighted-hidden
+             restatement would only double it */
+          c.querySelectorAll('.u-vh').forEach(function (n) { n.remove(); });
+          row.appendChild(c);
+        } else {
+          var f = document.createElement('span');
+          f.className = 'lb__txt';
+          f.textContent = o.text;
+          row.appendChild(f);
+        }
+      }
+      row.appendChild(svgMark());
+      row.addEventListener('click', function () { commit(i); });
+      list.appendChild(row);
+      return row;
+    });
+
+    pop.appendChild(list);
+    wrap.appendChild(pop);
+    layer.appendChild(wrap);
+
+    var active = sel.selectedIndex < 0 ? 0 : sel.selectedIndex;
+
+    /* ---------------- value + sync ---------------- */
+    function valueLabel(i) {
+      var o = opts[i];
+      if (!o) return '';
+      if (kind === 'chip') return o.text;
+      var p = byValue[o.value];
+      if (!p) return o.text;
+      var name = p.querySelector('.deck__name');
+      var sub = p.querySelector('.deck__sub');
+      var n = p.querySelector('.deck__n');
+      if (!name) return (p.textContent || o.text).trim();
+      return [name.textContent, sub && sub.textContent, n && n.textContent]
+        .filter(Boolean).map(function (s) { return s.replace(/\s+/g, ' ').trim(); }).join(', ');
+    }
+
+    function sync() {
+      rows.forEach(function (r, j) { r.setAttribute('aria-selected', String(j === sel.selectedIndex)); });
+      valText.textContent = valueLabel(sel.selectedIndex);
+    }
+
+    function commit(i) {
+      if (sel.selectedIndex !== i) {
+        sel.selectedIndex = i;
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      sync();
+      close(true);
+    }
+
+    /* ---------------- open / close / place ---------------- */
+    function isOpen() { return wrap.hasAttribute('data-open'); }
+
+    function place() {
+      var r = btn.getBoundingClientRect();
+      var vw = document.documentElement.clientWidth;
+      var vh = document.documentElement.clientHeight;
+      var w = kind === 'chip' ? Math.max(r.width, 248) : r.width;
+      w = Math.min(w, vw - 16);
+      /* The deck popup is exactly as wide as its trigger, so it hangs
+         off the leading edge. The chip's is wider than the chip, and
+         the chip lives at the modal's top-RIGHT — aligned leading it
+         hung out past the modal's own edge, which read as a popup
+         belonging to the page rather than to the modal. Trailing-
+         aligned it stays inside. */
+      var left = kind === 'chip' ? r.right - w : r.left;
+      left = Math.min(Math.max(8, left), Math.max(8, vw - w - 8));
+      var below = vh - r.bottom - 14;
+      var above = r.top - 14;
+      var up = below < 190 && above > below;
+      var room = Math.max(110, Math.min(352, up ? above : below));
+      wrap.style.inlineSize = w + 'px';
+      wrap.style.left = left + 'px';
+      /* 10px of that room is the well's own padding and rim */
+      list.style.setProperty('--lb-max', (room - 12) + 'px');
+      if (up) {
+        wrap.style.top = 'auto';
+        wrap.style.bottom = (vh - r.top + 6) + 'px';
+      } else {
+        wrap.style.bottom = 'auto';
+        wrap.style.top = (r.bottom + 6) + 'px';
+      }
+    }
+
+    function setActive(i) {
+      active = (i + rows.length) % rows.length;
+      rows.forEach(function (r, j) {
+        if (j === active) r.setAttribute('data-active', '');
+        else r.removeAttribute('data-active');
+      });
+      list.setAttribute('aria-activedescendant', rows[active].id);
+      /* scrolled by hand: scrollIntoView() would scroll the dialog
+         and the page behind it as well */
+      var r = rows[active];
+      var top = r.offsetTop, bot = top + r.offsetHeight;
+      if (top < list.scrollTop) list.scrollTop = top;
+      else if (bot > list.scrollTop + list.clientHeight) list.scrollTop = bot - list.clientHeight;
+    }
+
+    function onOutside(e) {
+      if (wrap.contains(e.target) || btn.contains(e.target)) return;
+      close(false);
+    }
+
+    function open() {
+      if (isOpen()) return;
+      wrap.setAttribute('data-open', '');
+      btn.setAttribute('aria-expanded', 'true');
+      place();
+      setActive(sel.selectedIndex < 0 ? 0 : sel.selectedIndex);
+      list.focus();
+      document.addEventListener('pointerdown', onOutside, true);
+      window.addEventListener('resize', place);
+      window.addEventListener('scroll', place, true);
+    }
+
+    function close(focusTrigger) {
+      if (!isOpen()) return;
+      wrap.removeAttribute('data-open');
+      btn.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('pointerdown', onOutside, true);
+      window.removeEventListener('resize', place);
+      window.removeEventListener('scroll', place, true);
+      if (focusTrigger !== false) btn.focus();
+    }
+
+    /* the dialog closing takes its listboxes with it */
+    var dlg = root.closest('dialog');
+    if (dlg) {
+      var prev = dlg.__closeListboxes;
+      dlg.__closeListboxes = function () { prev && prev(); close(false); };
+    }
+
+    /* ---------------- keyboard ---------------- */
+    btn.addEventListener('click', function () { isOpen() ? close(true) : open(); });
+
+    btn.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Down' || e.key === 'Up') {
+        e.preventDefault();
+        open();
+      }
+    });
+
+    var buf = '', bufAt = 0;
+    function typeahead(ch) {
+      var now = Date.now();
+      buf = (now - bufAt < 800) ? buf + ch : ch;
+      bufAt = now;
+      var q = buf.toLowerCase();
+      /* one repeated letter cycles by first letter, which is what a
+         native <select> does */
+      var n = rows.length;
+
+      function hunt(needle, from) {
+        for (var k = 0; k < n; k++) {
+          var i = (from + k + n) % n;
+          if ((opts[i].text || '').trim().toLowerCase().indexOf(needle) === 0) { setActive(i); return true; }
+        }
+        return false;
+      }
+
+      /* one letter repeated cycles through the options starting with
+         it, which is what a native <select> does */
+      var all = /^(.)\1*$/.test(buf);
+      if (hunt(all ? q.charAt(0) : q, all ? active + 1 : active)) return;
+
+      /* the buffer matched nothing — "a" then "m" is not a hunt for
+         "am", it is a fresh hunt for "m". Without this the second
+         letter silently does nothing, which reads as a dead key. */
+      if (buf.length > 1) {
+        buf = ch;
+        hunt(ch.toLowerCase(), active + 1);
+      }
+    }
+
+    list.addEventListener('keydown', function (e) {
+      var k = e.key;
+      if (k === 'ArrowDown' || k === 'Down') { e.preventDefault(); setActive(active + 1); }
+      else if (k === 'ArrowUp' || k === 'Up') { e.preventDefault(); setActive(active - 1); }
+      else if (k === 'Home') { e.preventDefault(); setActive(0); }
+      else if (k === 'End') { e.preventDefault(); setActive(rows.length - 1); }
+      else if (k === 'Enter' || k === ' ' || k === 'Spacebar') { e.preventDefault(); commit(active); }
+      else if (k === 'Escape' || k === 'Esc') {
+        /* stop the dialog from taking the Escape as its own — the
+           listbox is the innermost layer, so it closes first, and
+           WITHOUT changing the selection */
+        e.preventDefault();
+        e.stopPropagation();
+        close(true);
+      }
+      else if (k === 'Tab') { e.preventDefault(); close(true); }
+      else if (k.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && /\S/.test(k)) {
+        e.preventDefault();
+        typeahead(k);
+      }
+    });
+
+    /* clicking the visible label should reach the trigger, not the
+       <select> it still points at */
+    if (label) {
+      label.addEventListener('click', function (e) { e.preventDefault(); btn.focus(); });
+    }
+
+    sel.addEventListener('change', sync);
+
+    /* Format detection writes selectedIndex directly and then calls
+       this. It deliberately does NOT dispatch `change`: `change` is
+       the PLAYER's signal on this page — detection listens for it to
+       know the chip has been taken over by hand — so firing it here
+       would make the machine look like the person. */
+    root.__lbSync = sync;
+
+    sync();
+    root.setAttribute('data-lb', kind);
+  }
+
+  // [data-empty] pickers have no <select> to enhance — dressing one up produced the blank
+  // bar a guest saw where the saved-deck dropdown should be.
+  document.querySelectorAll('.deckpick:not([data-empty])').forEach(function (r) { build(r, 'deck'); });
+  document.querySelectorAll('.poolpick').forEach(function (r) { build(r, 'chip'); });
+  // A guest's pickers are built from localStorage AFTER this ran, so they need the same
+  // enhancement applied to them on the way in.
+  window.BUILD_LISTBOX = build;
+})();
+
+/* ==================================================================
+   AUTOMATIC FORMAT DETECTION
+
+   When a deck link resolves, the page works out which format the
+   deck is and sets the Card Pool chip itself. Four decisions worth
+   writing down, because three of them are the difference between
+   this reading as help and reading as a bug.
+
+   1. THE BACKEND DECIDES. SWUDetectFormat() (AppCore/SWU/DeckValidation.php)
+      walks the ladder most-restrictive-first and returns the first
+      format the deck is legal in; Open is its floor, so a DETECTION
+      cannot fail and there is no "no legal format" state to design
+      for. The client deliberately keeps NO ladder of its own — a
+      second copy would drift from the format registry the first
+      time a set is added. (A link that will not PARSE is a
+      different thing: see resolve().)
+
+   2. IT SAYS SO. A silent change is the defect this product already
+      has: swuAutoPickBotStyle() overwrites a hand-picked bot style
+      on every deck blur, with no notice and no undo, and it reads
+      as a bug. So every detection writes the .poolnote beside the
+      chip. Quiet, not an alert — it is an explanation.
+
+   3. A MANUAL PICK DOES NOT SURVIVE A NEW PASTE (owner ruling).
+      Pasting re-detects and overwrites whatever the player chose.
+      That is exactly what makes (2) load-bearing: the player WILL
+      watch their own choice change, and the note is the only thing
+      that tells them why. A manual pick does clear the note while
+      it lasts, because "detected from your deck" would then be a
+      lie about a chip the player set themselves.
+
+   4. THE SWITCH FIRES ON INCOMPATIBILITY, NEVER ON BEST FIT, and
+      compatibility is ONE test: can this modal seat the deck's
+      leaders. A 50-card list is legal in Premier, Eternal AND Open
+      at once, so "best fit" would bounce the player between modals
+      for nothing. Two leaders genuinely cannot be played as 1v1
+      PvP — that one moves them, and says why.
+   ================================================================== */
+(function () {
+  /* With no <dialog> support the modal block bailed out and left
+     SETUP_OPEN undefined; the page is on its approved :target
+     fallback, where there is no modal to switch. Detection stands
+     down with it rather than half-working. */
+  var OPEN = window.SETUP_OPEN;
+  if (!OPEN) return;
+
+
+
+  /* Each modal: how many leaders it seats, what it is called when we
+     announce opening it, and which pool-chip option each format maps
+     to. `pool: null` means the modal has no Card Pool chip in the
+     approved design — Arenabot and 1P do not — so there is nothing
+     for detection to set there. They are still wired, because an
+     unseatable deck must still move the player out of them. */
+  var MODALS = {
+    'setup-pvp': {
+      name: 'PvP', leaders: 1,
+      pool: { padawan: 'Padawan', premier: 'Premier', eternal: 'Eternal', open: 'Open' }
+    },
+    'setup-twin-suns': {
+      name: 'Twin Suns', leaders: 2,
+      /* Team Suns is the Twin Suns pool played in teams; the chip
+         has no separate option and should not grow one. */
+      pool: { twinsuns: 'Twin Suns', teamsuns: 'Twin Suns', open: 'Open' }
+    },
+    'setup-arenabot': { name: 'Arenabot', leaders: 1, pool: null },
+    'setup-solo':     { name: '1P Mode',  leaders: 1, pool: null }
+  };
+
+  var NOTE = 'Detected from your deck — change if you need to';
+  /* the floor needs one more clause, or "detected" on the wildcard
+     pool looks like detection gave up rather than answered */
+  var NOTE_FLOOR = 'Detected from your deck — no tighter pool fits it. Change if you need to';
+
+
+  /* where a deck this modal cannot seat belongs. Among the modals
+     that CAN seat it, prefer one that also has a chip for the
+     detected pool, so a Twin Suns list lands in Twin Suns rather
+     than in whichever two-leader modal is first. */
+  function homeFor(deck, fmt) {
+    var want = deck.leaders.length, fallback = null, id, m;
+    for (id in MODALS) {
+      m = MODALS[id];
+      if (m.leaders !== want) continue;
+      if (m.pool && m.pool[fmt]) return id;
+      if (!fallback) fallback = id;
+    }
+    return fallback;
+  }
+
+  /* WRITTEN FROM THE DECK, NOT FROM THE FORMAT REGISTRY. "your deck
+     has two leaders" tells the player something true about the thing
+     in their hand. "this deck is Twin Suns legal" restates a label
+     they never asked about. */
+  function reason(deck) {
+    var n = deck.leaders.length;
+    if (n === 2) return 'your deck has two leaders';
+    if (n === 1) return 'your deck has one leader and ' + deck.cards + ' cards';
+    return 'your deck has ' + n + ' leaders';
+  }
+
+
+  /* ---------------- the chip and its note ---------------- */
+  function setPool(dlg, label) {
+    var pick = dlg.querySelector('.poolpick');
+    var sel = pick && pick.querySelector('select');
+    if (!sel) return false;
+    for (var i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].text !== label) continue;
+      sel.selectedIndex = i;
+      /* the listbox is a VIEW of the <select>; ask it to re-read.
+         No `change` — see the note on __lbSync. */
+      if (pick.__lbSync) pick.__lbSync();
+      return true;
+    }
+    return false;
+  }
+
+  function setNote(dlg, text) {
+    var n = dlg.querySelector('.poolnote');
+    if (!n) return;
+    n.textContent = text || '';
+    n.hidden = !text;
+  }
+
+  function apply(dlg, deck, fmt) {
+    var m = MODALS[dlg.id];
+    var label = m && m.pool && m.pool[fmt];
+    if (!label) return;                 /* no chip in this modal */
+    if (setPool(dlg, label)) setNote(dlg, fmt === 'open' ? NOTE_FLOOR : NOTE);
+  }
+
+  /* ---------------- the announced reason ----------------
+     The modal switches out from under the player, so the reason has
+     to reach assistive tech and not only sighted eyes. The channel is
+     the dialog's accessible DESCRIPTION, which is announced together
+     with its name the moment it opens — hence set BEFORE showModal().
+     Deliberately not a live region: a live region would race the
+     dialog's own announcement and read the reason twice. */
+  function say(dlg, text) {
+    var box = dlg.querySelector('.whyline');
+    var t = box && box.querySelector('.whyline__t');
+    if (!t) return;
+    t.textContent = text;
+    box.hidden = false;
+    dlg.setAttribute('aria-describedby', t.id);
+  }
+
+  function unsay(dlg) {
+    var box = dlg.querySelector('.whyline');
+    var t = box && box.querySelector('.whyline__t');
+    if (box) box.hidden = true;
+    if (t) t.textContent = '';
+    dlg.removeAttribute('aria-describedby');
+  }
+
+  function switchTo(from, to, deck, fmt, link) {
+    var input = to.querySelector('input[data-detect]');
+    if (input) input.value = link;      /* carry the deck link across */
+    /* ...and carry the CHOICE across too. Without this the destination's saved-deck picker
+       still showed whichever deck it defaults to, so the link box said one deck and the picker
+       said another. The link is what gets played, so the picker must not contradict it. */
+    SYNC_PICKER_TO_LINK(to, link);
+    apply(to, deck, fmt);
+    say(to, 'Opened ' + MODALS[to.id].name + ' — ' + reason(deck));
+    /* keep the card that started all this as the return address, so
+       Escape out of the modal the player did not ask for still lands
+       back on the splash where they left off. Read before close(),
+       which clears it. */
+    var opener = from.__opener || null;
+    from.close();
+    OPEN(to, opener);                   /* focuses the new .setup__scroll */
+  }
+
+  /* Ask the BACKEND. SWUDetectFormat() (AppCore/SWU/DeckValidation.php) walks the ladder
+     most-restrictive-first and returns the first format the deck is legal in, with Open as the
+     floor — so detection never fails. The client does not re-implement that ladder; it would
+     drift from the format registry the moment a set is added.
+     ⚠ This replaces the mockup's four-URL fixture table, which only ever worked for its samples. */
+  var _detectSeq = 0;
+
+  function resolve(input) {
+    var dlg = input.closest('dialog.setup');
+    if (!dlg) return;
+    var link = String(input.value || '').trim();
+    if (!link) return;
+
+    /* a sequence guard, so a slow response for an old link cannot land after a newer one and
+       drag the player into a modal for a deck they have already replaced */
+    var seq = ++_detectSeq;
+
+    var body = 'deckLink=' + encodeURIComponent(link) + '&format=premier';
+    fetch('/TCGEngine/SWUSim/ValidateDeck.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (seq !== _detectSeq) return;                 /* superseded */
+      /* A link that will not resolve is NOT this feature's business — the deck-link error path
+         owns it. Detection changes nothing: no note, no chip move, no switch. */
+      if (!data || !data.success || !data.detectedFormat) return;
+
+      var leaders = String(data.leaderName || '').split(' / ').filter(function (x) { return x.trim(); });
+      var deck = {
+        leaders: leaders.length ? leaders : [''],
+        base: data.baseName || '',
+        cards: data.deckCount || 0
+      };
+      var fmt = data.detectedFormat;
+      var here = MODALS[dlg.id];
+
+      /* playable where they already are → stay put, just set the chip */
+      if (here && here.leaders === deck.leaders.length) { apply(dlg, deck, fmt); return; }
+
+      var toId = homeFor(deck, fmt);
+      var to = toId && document.getElementById(toId);
+      if (!to || to === dlg) { apply(dlg, deck, fmt); return; }
+      switchTo(dlg, to, deck, fmt, link);
+    })
+    .catch(function () { /* network failure is the error path's business, not detection's */ });
+  }
+
+  /* ---------------- wiring ---------------- */
+  [].slice.call(document.querySelectorAll('dialog.setup input[data-detect]')).forEach(function (input) {
+    /* `change` is the resolve — blur or Enter, never a keystroke, so
+       nothing fires half way through a typed URL. `paste` is added on
+       top because a pasted link is the entire story of this feature,
+       and making the player blur the field before anything happens
+       feels broken. The timeout is what lets the value land first. */
+    input.addEventListener('change', function () { resolve(input); });
+    input.addEventListener('paste', function () {
+      setTimeout(function () { resolve(input); }, 0);
+    });
+  });
+
+  [].slice.call(document.querySelectorAll('dialog.setup')).forEach(function (dlg) {
+    /* a stale reason must not greet the player the next time they
+       open this modal by hand */
+    dlg.addEventListener('close', function () { unsay(dlg); });
+
+    var sel = dlg.querySelector('.poolpick select');
+    if (!sel) return;
+    /* the player taking the chip over. Only ever the player: setPool
+       writes selectedIndex without dispatching `change`. */
+    sel.addEventListener('change', function () { setNote(dlg, ''); });
+  });
+
+  /* mockup scaffolding: fill the field and resolve, so a reviewer can
+     reach all four fixtures without typing. */
+
+  /* Choosing a saved deck writes its link into the box, and the pool chip has to follow the
+     deck it just loaded. resolve() is scoped to this block, so the picker reaches it here. */
+  window.SETUP_RESOLVE = resolve;
+  /* "last deck used" needs the same two facts this block owns: how many leaders a modal seats,
+     and how to set its pool chip. */
+  window.SETUP_MODALS  = MODALS;
+  window.SETUP_SETPOOL = setPool;
+})();
+
+// ── Guest saved decks live in THIS BROWSER ────────────────────────────────────
+// Owner, 2026-09-25: guests may save decks too. They have no account row to write to, so the
+// list is localStorage — same key the shared DeckLibrary uses for its 'local' storage mode, so
+// the two never fork. The server renders an empty picker for a guest (it cannot know what is in
+// their browser) and this fills it in on load.
+//
+// ⚠ Only LINKS are stored, here and on the account (SWUDeckInputIsLink, enforced server-side).
+// The savable/name/leader/base facts all come from ValidateDeck.php — the client never
+// re-implements that rule, or it drifts from the resolver the first time a deck site is added.
+var GUEST_KEY = 'tcgengine:savedDecks:SWUSim';
+var IS_GUEST = !!window.SWU_IS_GUEST;
+
+var GUEST_DECKS = {
+  load: function () {
+    try {
+      var raw = localStorage.getItem(GUEST_KEY);
+      var list = raw ? JSON.parse(raw) : [];
+      return Array.isArray(list) ? list.filter(function (d) { return d && d.input; }) : [];
+    } catch (e) { return []; }        /* private window, blocked storage, corrupt JSON */
+  },
+  save: function (list) {
+    try { localStorage.setItem(GUEST_KEY, JSON.stringify(list)); return true; }
+    catch (e) { return false; }       /* quota or blocked — the caller reports it */
+  },
+  add: function (deck) {
+    var list = GUEST_DECKS.load();
+    // identity is the LINK, so re-saving the same deck updates rather than duplicates
+    list = list.filter(function (d) { return d.input !== deck.input; });
+    list.unshift(deck);
+    return GUEST_DECKS.save(list) ? list : null;
+  }
+};
+
+/* a stable key per deck, for the .deckprev--KEY rule that reveals its row */
+function GUEST_KEY_FOR(link) {
+  var h = 0, i;
+  for (i = 0; i < link.length; i++) { h = ((h << 5) - h + link.charCodeAt(i)) | 0; }
+  return 'g' + (h >>> 0).toString(36);
+}
+
+function CARD_IMG(id) {
+  return '/TCGEngine/AppCore/SWU/Images/WebpImages/' + encodeURIComponent(id) + '.webp';
+}
+
+/* ⚠ SECOND BUILDER. SWUSetupDeckPicker() in SWUSim/Custom/SetupPanels.php builds this same
+   markup server-side for an account. The two must agree on every class and data attribute the
+   stylesheet and SETUP_DECK_FOR() depend on — swusim-menu2-pickers.mjs asserts a guest-rendered
+   picker and an account-rendered one have the SAME shape, which is the only thing keeping them
+   honest. Change one, run that gate. */
+function GUEST_BUILD_PICKER(host, decks) {
+  var slot = host.getAttribute('data-slot') || 'own';
+  var selId = host.getAttribute('data-select-id') || ('guest-' + slot);
+  var noneLabel = host.getAttribute('data-none-label') || '';
+  var esc = function (s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[c];
+    });
+  };
+
+  var opts = '', rows = '', css = '';
+  if (noneLabel) {
+    opts += '<option value="none" data-deck-input="" selected>' + esc(noneLabel) + '</option>';
+    rows += '<span class="deckprev deckprev--none ch"><span>' + esc(noneLabel) + '</span></span>';
+  }
+  decks.forEach(function (d, i) {
+    var key = d.key || GUEST_KEY_FOR(d.input);
+    var subs = (d.leaders || []).concat(d.base ? [d.base] : []);
+    var sub = (d.subtitle || '') || subs.join(' · ');
+    var cards = '<span class="cards" aria-hidden="true">' +
+      (d.leaders || []).map(function (id) {
+        return '<span class="tc tc--leader"><img src="' + CARD_IMG(id) + '" alt="" decoding="async" width="628" height="450"></span>';
+      }).join('') +
+      (d.base ? '<span class="tc tc--base"><img src="' + CARD_IMG(d.base) + '" alt="" decoding="async" width="628" height="450"></span>' : '') +
+      '</span>';
+    opts += '<option value="' + esc(key) + '" data-deck-input="' + esc(d.input) + '"' +
+            ((i === 0 && !noneLabel) ? ' selected' : '') + '>' + esc(d.name) + '</option>';
+    rows += '<span class="deckprev deckprev--' + esc(key) + ' ch">' + cards +
+            '<span class="deck__text"><span class="deck__name">' + esc(d.name) + '</span>' +
+            '<span class="deck__sub">' + esc(sub) + '</span></span>' +
+            '<span class="deck__end">' +
+            (d.count ? '<span class="deck__n">' + (d.count | 0) + '&nbsp;cards</span>' : '') +
+            '</span><span class="u-vh">' + esc(sub) + (d.count ? '. ' + (d.count | 0) + ' cards.' : '') + '</span>' +
+            '</span>';
+    // the row is display:none until a rule for ITS key reveals it (same contract as the
+    // server-rendered keys — see SWUSetupPreviewStyles)
+    css += '.deckpick:has(option[value="' + key + '"]:checked) .deckprev--' + key + '{display:grid}';
+  });
+
+  if (css) {
+    var st = document.getElementById('guest-deck-styles') ||
+             document.head.appendChild(Object.assign(document.createElement('style'), { id: 'guest-deck-styles' }));
+    st.textContent += css;
+  }
+
+  var div = document.createElement('div');
+  div.className = 'deckpick ch';
+  div.setAttribute('data-slot', slot);
+  /* keep what it was built FROM, so a later save can rebuild it in place */
+  div.setAttribute('data-guest', '');
+  div.setAttribute('data-select-id', selId);
+  div.setAttribute('data-none-label', noneLabel);
+  div.innerHTML = '<span class="selwrap ch"><select class="select" id="' + esc(selId) +
+                  '" name="' + esc(selId) + '" data-slot="' + esc(slot) + '">' + opts +
+                  '</select></span>' + rows;
+  host.replaceWith(div);
+  return div;
+}
+
+function GUEST_RENDER_ALL() {
+  if (!IS_GUEST) return;
+  var decks = GUEST_DECKS.load();
+  if (!decks.length) return;                 /* leave the empty state exactly as rendered */
+  /* [data-guest] pickers are ones this function built earlier — after a save they are rebuilt in
+     place. Reloading the page would be simpler and would also throw away the "Saved X" line the
+     player just earned, which is the feedback this whole flow exists to give. */
+  document.querySelectorAll('.deckpick[data-empty], .deckpick[data-guest]').forEach(function (host) {
+    var wrap = host.closest('.lb') || host;   /* the enhancement wraps it; replace the whole thing */
+    if (wrap !== host) {
+      var fresh = host.cloneNode(false);
+      fresh.className = 'deckpick';
+      wrap.replaceWith(fresh);
+      host = fresh;
+    }
+    var built = GUEST_BUILD_PICKER(host, decks);
+    if (typeof window.BUILD_LISTBOX === 'function') window.BUILD_LISTBOX(built, 'deck');
+  });
+}
+GUEST_RENDER_ALL();
+
+// ── "Last deck used" (owner, 2026-09-25) ──────────────────────────────────────
+// Auto-fill the Deck Link box with the deck you last STARTED A GAME with; if that deck is no
+// longer available, leave it blank.
+//
+// Three decisions worth stating, because each rules out an obvious-looking alternative:
+//
+//  1. USED means a game actually started — recorded where the submission succeeds, not where a
+//     link resolves. A deck you pasted to look at and rejected must not come back next visit.
+//  2. It prefills only the modals that CAN SEAT IT, matched on leader count. Prefilling a
+//     two-leader deck into PvP would either leave an illegal deck in the box or let detection
+//     yank the player into Twin Suns for a modal they opened deliberately.
+//  3. It is remembered in BOTH places: localStorage always, the account too when signed in. The
+//     ACCOUNT COPY WINS on read, so the two cannot meaningfully disagree after you sign in on a
+//     machine you had used as a guest.
+var LAST_KEY = 'tcgengine:lastDeck:SWUSim';
+/* this block is a separate <script> from the legacy menu code, so it computes its own base
+   rather than borrowing swusimAppBase()/SAVEDECKS_URL out of that scope */
+function LAST_BASE() { var p = location.pathname, i = p.indexOf('/TCGEngine/'); return i >= 0 ? p.slice(0, i + 11) : '/TCGEngine/'; }
+function LAST_SAVEDECKS_URL() { return LAST_BASE() + 'SWUSim/SavedDecks.php'; }
+
+var LAST_DECK = {
+  read: function () {
+    if (window.SWU_LAST_DECK && window.SWU_LAST_DECK.deckInput) {
+      var a = window.SWU_LAST_DECK;
+      return { input: a.deckInput, format: a.format || '', leaders: +a.leaders || 1, name: a.deckName || '' };
+    }
+    try {
+      var raw = localStorage.getItem(LAST_KEY);
+      var d = raw ? JSON.parse(raw) : null;
+      return (d && d.input) ? d : null;
+    } catch (e) { return null; }
+  },
+  write: function (deck) {
+    try { localStorage.setItem(LAST_KEY, JSON.stringify(deck)); } catch (e) {}
+    if (IS_GUEST) return;
+    var body = 'action=lastdeck&deckInput=' + encodeURIComponent(deck.input) +
+               '&format=' + encodeURIComponent(deck.format || '') +
+               '&leaders=' + encodeURIComponent(deck.leaders || 1) +
+               '&deckName=' + encodeURIComponent(deck.name || '');
+    fetch(LAST_SAVEDECKS_URL(), { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body })
+      .catch(function () { /* the browser copy already landed; the account copy is a bonus */ });
+  },
+  forget: function () {
+    try { localStorage.removeItem(LAST_KEY); } catch (e) {}
+    window.SWU_LAST_DECK = null;
+    if (IS_GUEST) return;
+    fetch(LAST_SAVEDECKS_URL(), { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                           body: 'action=forgetlastdeck' }).catch(function () {});
+  }
+};
+
+/* Record it where the game actually starts, from the VALIDATED response — the server has just
+   resolved this exact deck, so its leader count and format are known good rather than guessed
+   from whichever modal happens to be open. Only links are remembered: a pasted list has no
+   source to return to and nothing to show in a link box. */
+function REMEMBER_DECK(input, vres) {
+  input = String(input || '').trim();
+  if (!input || !IS_LINK(input)) return;
+  vres = vres || {};
+  var leaders = [].concat(vres.leaderID || []).filter(Boolean).length || 1;
+  LAST_DECK.write({
+    input: input,
+    format: vres.detectedFormat || '',
+    leaders: leaders,
+    name: vres.deckName || ''
+  });
+}
+window.REMEMBER_DECK = REMEMBER_DECK;
+
+/* Verify ONCE, on load, and only prefill after it resolves. Filling first and clearing on
+   failure would flash a dead link into the box; starting blank and filling ~300ms later is
+   invisible, because the modals are closed at that point anyway. */
+var _lastDeckReady = null;
+function LAST_DECK_VERIFY() {
+  if (_lastDeckReady) return _lastDeckReady;
+  var d = LAST_DECK.read();
+  if (!d) { _lastDeckReady = Promise.resolve(null); return _lastDeckReady; }
+  _lastDeckReady = fetch(LAST_BASE() + 'SWUSim/ValidateDeck.php', {
+      method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'deckLink=' + encodeURIComponent(d.input) + '&format=premier'
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (j) {
+      if (!j || !j.success) { LAST_DECK.forget(); return null; }   // gone upstream → leave it blank
+      var leaders = [].concat(j.leaderID || []).filter(Boolean).length || d.leaders || 1;
+      return { input: d.input, format: j.detectedFormat || d.format || '', leaders: leaders,
+               name: j.deckName || d.name || '' };
+    })
+    .catch(function () { return null; });   // offline is NOT "no longer available" — forget nothing
+  return _lastDeckReady;
+}
+
+/* Fill a modal as it opens, if it can seat the deck and the player has not already put
+   something there. */
+function LAST_DECK_PREFILL(dlg) {
+  if (!dlg) return;
+  LAST_DECK_VERIFY().then(function (d) {
+    if (!d || !dlg.open) return;
+    var here = (window.SETUP_MODALS || {})[dlg.id];
+    if (!here || here.leaders !== d.leaders) return;      // cannot seat it — leave the modal blank
+    var link = dlg.querySelector('input[data-detect]');
+    if (!link || String(link.value || '').trim()) return; // never overwrite what the player typed
+    link.value = d.input;
+    SYNC_PICKER_TO_LINK(dlg, d.input);                    // keep the picker from contradicting it
+    if (here.pool && here.pool[d.format] && window.SETUP_SETPOOL) window.SETUP_SETPOOL(dlg, here.pool[d.format]);
+    /* deck names often carry their own closing punctuation ("… Lightmaker Explosion!"), and a
+       second full stop after one reads as a typo */
+    var tail = d.name ? ' — ' + d.name : '';
+    PICK_SAY(dlg, 'own', 'Filled in the deck you played last' + tail + (/[.!?]$/.test(tail) ? '' : '.'));
+  });
+}
+LAST_DECK_VERIFY();   // start the round trip now, so an opening modal rarely waits on it
+
+/* Watch the `open` attribute rather than wrapping one opener: a modal is opened by a mode card,
+   by a #hash on load, by a private invite and by format detection switching modals, and only the
+   attribute is common to all of them. */
+(function WATCH_SETUP_OPEN() {
+  var dialogs = document.querySelectorAll('dialog.setup');
+  if (!dialogs.length || typeof MutationObserver !== 'function') return;
+  var mo = new MutationObserver(function (recs) {
+    recs.forEach(function (r) { if (r.target.open) LAST_DECK_PREFILL(r.target); });
+  });
+  dialogs.forEach(function (d) { mo.observe(d, { attributes: true, attributeFilter: ['open'] }); });
+  dialogs.forEach(function (d) { if (d.open) LAST_DECK_PREFILL(d); });   // already open on load
+})();
+
+// ── What deck a slot ("own" / "bot") is actually set to ───────────────────────
+// Three controls can name a deck: the link field, the Saved Decks dropdown, and the pre-con
+// well. Whichever the player touched LAST is the one they meant, so each control clears the
+// others in its slot (see SETUP_BIND_PICKERS) and this simply reads whatever survived. Without
+// this the pickers were decoration — they changed the preview and not the deck that was played.
+function SETUP_DECK_FOR(dlg, slot, linkEl) {
+  var typed = linkEl ? String(linkEl.value || '').trim() : '';
+  if (typed) return typed;
+  var sel = dlg.querySelector('select[data-slot="' + slot + '"]');
+  if (sel && sel.selectedIndex >= 0) {
+    var o = sel.options[sel.selectedIndex];
+    var v = o && o.getAttribute('data-deck-input');
+    if (v) return v;
+  }
+  var pc = dlg.querySelector('input[data-slot="' + slot + '"][data-deck-input]:checked');
+  return pc ? String(pc.getAttribute('data-deck-input') || '') : '';
+}
+
+// Point a dialog's own-deck picker at the deck a link belongs to, so the picker and the Deck
+// Link box never disagree about what is about to be played. When the link is not one of the
+// saved decks, the picker says so rather than leaving its default sitting there looking chosen.
+function SYNC_PICKER_TO_LINK(dlg, link) {
+  var sel = dlg.querySelector('select[data-slot="own"]');
+  if (!sel) return;
+  var match = null, i;
+  for (i = 0; i < sel.options.length; i++) {
+    if (sel.options[i].getAttribute('data-deck-input') === link) { match = sel.options[i]; break; }
+  }
+  // a pre-con left checked in this slot would still look chosen next to the deck we just loaded
+  dlg.querySelectorAll('input[data-slot="own"][data-deck-input]:checked')
+     .forEach(function (r) { r.checked = false; });
+  if (match) {
+    sel.value = match.value;
+    PICK_SAY(dlg, 'own', 'Loaded ' + (match.textContent || '').trim() + ' — its deck link is in the box above.');
+  } else {
+    var none = sel.querySelector('option[value="none"]');
+    if (none) sel.value = 'none';
+    PICK_SAY(dlg, 'own', 'Playing the deck link above' + (none ? '.' : ', not a saved deck.'));
+  }
+  LB_SYNC(sel);
+}
+
+/* The enhanced listbox mirrors its <select>; when WE move the value under it, it has to be
+   told. build() parks that as root.__lbSync — there is no event for it. */
+function LB_SYNC(sel) {
+  var root = sel && sel.closest ? sel.closest('.lb') : null;
+  if (root && typeof root.__lbSync === 'function') root.__lbSync();
+}
+
+// Say what a pick just did. The picker changes three things at once (the link box, the format
+// chip, the preview), so without a sentence the player is left to infer which of them moved.
+function PICK_SAY(dlg, slot, text) {
+  var box = dlg.querySelector('[data-pickmsg="' + slot + '"]');
+  var t = box && box.querySelector('.pickmsg__t');
+  if (!t) return;
+  t.textContent = text || '';
+  box.hidden = !text;
+}
+
+// One chosen deck per slot. Picking a saved deck clears a stale pre-con and a stale typed link,
+// and vice versa — otherwise two controls both look chosen and only one of them counts.
+(function SETUP_BIND_PICKERS() {
+  document.addEventListener('change', function (ev) {
+    var el = ev.target;
+    if (!el || !el.closest) return;
+    var dlg = el.closest('dialog.setup, .setup');
+    if (!dlg) return;
+    var slot = el.getAttribute && el.getAttribute('data-slot');
+    if (!slot) return;
+    var isSelect = el.tagName === 'SELECT';
+    var opt = isSelect ? el.options[el.selectedIndex] : null;
+    var input = isSelect
+      ? (opt && opt.getAttribute('data-deck-input')) || ''
+      : el.getAttribute('data-deck-input') || '';
+    if (!input) {                             // the "use a pre-con below" row chooses nothing
+      if (isSelect) PICK_SAY(dlg, slot, '');
+      return;
+    }
+
+    var links = dlg.querySelectorAll('input[data-detect], input[type="url"], input[type="text"]');
+    var linkEl = links[slot === 'bot' ? 1 : 0];
+    var label = isSelect ? (opt.textContent || '').trim() : pcName(el);
+
+    if (isSelect) {
+      // clear a stale pre-con in this slot
+      dlg.querySelectorAll('input[data-slot="' + slot + '"][data-deck-input]:checked')
+         .forEach(function (r) { r.checked = false; });
+      // Owner, 2026-09-25: show the SOURCE LINK of the list you picked. Only links are savable,
+      // so a saved deck always has one — a legacy raw row (saved before that rule) has not, and
+      // the field is cleared rather than filled with a JSON blob.
+      if (linkEl) {
+        if (IS_LINK(input)) {
+          linkEl.value = input;
+          /* re-detect, so the pool chip follows the deck it just loaded */
+          if (typeof window.SETUP_RESOLVE === 'function') window.SETUP_RESOLVE(linkEl);
+          PICK_SAY(dlg, slot, 'Loaded ' + label + ' — its deck link is in the box above.');
+        } else {
+          linkEl.value = '';
+          PICK_SAY(dlg, slot, 'Loaded ' + label + ' — saved before deck links were required, so there is no link to show.');
+        }
+      }
+    } else {
+      var sel = dlg.querySelector('select[data-slot="' + slot + '"]');
+      if (sel) {
+        var none = sel.querySelector('option[value="none"]');
+        if (none) sel.value = 'none';
+        else sel.selectedIndex = -1;
+        LB_SYNC(sel);
+      }
+      // a pre-con is a full deck list, not a link — there is nothing to put in the box
+      if (linkEl) linkEl.value = '';
+      PICK_SAY(dlg, slot, 'Playing the ' + label + ' pre-con' +
+        (slot === 'bot' ? ' as the bot’s deck.' : '.'));
+    }
+  });
+
+  // typing a link drops whatever was picked in THAT slot, and says so.
+  // The selector has to be the same list the rest of this file uses to find a slot's link box:
+  // only the OWN box carries [data-detect] (format detection reads the player's deck, not the
+  // bot's), so matching on that alone left the bot's pre-con checked and looking chosen while
+  // SETUP_DECK_FOR was already playing the typed link instead.
+  var LINKBOX = 'input[data-detect], input[type="url"], input[type="text"]';
+  document.addEventListener('input', function (ev) {
+    var el = ev.target;
+    if (!el || !el.matches || !el.matches(LINKBOX)) return;
+    var dlg = el.closest('dialog.setup, .setup');
+    if (!dlg) return;
+    var links = [].slice.call(dlg.querySelectorAll(LINKBOX));
+    var slot = links.indexOf(el) === 1 ? 'bot' : 'own';
+    dlg.querySelectorAll('input[data-slot="' + slot + '"][data-deck-input]:checked')
+       .forEach(function (r) { r.checked = false; });
+    PICK_SAY(dlg, slot, '');
+  });
+
+  function pcName(radio) {
+    var lab = radio.parentElement && radio.parentElement.querySelector('.pc__name');
+    return lab ? (lab.childNodes[0].textContent || '').trim() : 'selected';
+  }
+})();
+
+/* ── Arenabot: the bot's play style follows the bot's DECK ────────────────────
+   Owner, 2026-09-22: EVERY deck load re-picks, even over a hand-picked style; a failed lookup
+   changes nothing. What is new here is that it SAYS SO — the old version rewrote the control on
+   every deck blur with no notice and no undo, which read as the control fighting you.
+
+   Registered AFTER SETUP_BIND_PICKERS so that, on a shared `change`, the binder has already done
+   its one-deck-per-slot clearing and this reads the state that survived.
+
+   Two sources, deliberately:
+     · a bot PRE-CON answers offline — BotDeckLabels.json's own `style` is what the classifier
+       would say, so asking the server would be a round trip to be told what we just rendered;
+     · a link or saved deck goes to APIs/SWUBotDeckStyle.php (classifier: Custom/BotDeckStyle.php).
+   With the bot slot empty, the player's own deck is the subject: JoinQueue.php hands the bot the
+   host's list, so the style must describe the deck the bot will actually play. */
+(function BOT_STYLE_AUTOPICK() {
+  var DLG = 'setup-arenabot';
+  var seq = 0;
+
+  function styleSlug(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ''); }
+
+  // The select carries DISPLAY LABELS ("Hard Control"), the classifier answers in slugs
+  // ("hardcontrol") — SWUSetupStyleLabel() in SetupPanels.php is the other half of this mapping.
+  function apply(dlg, style, why) {
+    var sel = document.getElementById('ab-style');
+    if (!sel || !style) return;                       // no answer: leave the player's choice alone
+    var opt = null;
+    for (var i = 0; i < sel.options.length; i++) {
+      if (styleSlug(sel.options[i].text) === styleSlug(style)) { opt = sel.options[i]; break; }
+    }
+    if (!opt) return;                                 // an archetype this menu does not offer
+    sel.value = opt.value;
+    LB_SYNC(sel);
+    PICK_SAY(dlg, 'botstyle', 'Bot style set to ' + (opt.text || '').trim() + ' — ' + why +
+                              '. Change it above for a different matchup.');
+  }
+
+  function pick() {
+    var dlg = document.getElementById(DLG);
+    if (!dlg) return;
+    var links = dlg.querySelectorAll('input[data-detect], input[type="url"], input[type="text"]');
+    var botLink = links[1], ownLink = links[0];
+    var typed = String((botLink && botLink.value) || '').trim();
+
+    var pc = typed ? null : dlg.querySelector('input[data-slot="bot"][data-style]:checked');
+    if (pc) {
+      seq++;                                          // cancel any lookup still in flight
+      var lab = pc.parentElement && pc.parentElement.querySelector('.pc__name');
+      var nm = lab ? (lab.childNodes[0].textContent || '').trim() : 'that pre-con';
+      apply(dlg, pc.getAttribute('data-style'), 'matching the ' + nm + ' pre-con');
+      return;
+    }
+
+    var deck = SETUP_DECK_FOR(dlg, 'bot', botLink);
+    var mine = false;
+    if (!deck) { deck = SETUP_DECK_FOR(dlg, 'own', ownLink); mine = true; }
+    if (!deck) return;
+
+    var mySeq = ++seq;
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', LAST_BASE() + 'APIs/SWUBotDeckStyle.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function () {
+      if (mySeq !== seq) return;                      // a newer deck was chosen while this was out
+      var j;
+      try { j = JSON.parse(xhr.responseText); } catch (e) { return; }
+      if (!j || !j.ok || !j.style) return;            // unreadable deck: changes nothing
+      apply(dlg, j.style, mine ? 'the bot will be playing your deck'
+                               : 'it matches the deck you gave the bot');
+    };
+    xhr.onerror = function () {};
+    xhr.send('rootName=SWUSim&deckLink=' + encodeURIComponent(deck));
+  }
+
+  document.addEventListener('change', function (ev) {
+    var el = ev.target;
+    if (!el || !el.closest) return;
+    if (el.id === 'ab-style') return;                 // the player moving it by hand is not a deck load
+    if (!el.closest('#' + DLG)) return;
+    pick();
+  });
+
+  // Opening the modal is itself a deck load: a pre-con is checked by default, and without this
+  // the control would sit on "Midrange" describing a deck that is not midrange.
+  var dlg = document.getElementById(DLG);
+  if (dlg && typeof MutationObserver === 'function') {
+    new MutationObserver(function (recs) {
+      recs.forEach(function (r) { if (r.target.open) pick(); });
+    }).observe(dlg, { attributes: true, attributeFilter: ['open'] });
+  }
+})();
+
+/* A link, as opposed to a pasted list. The AUTHORITY is SWUDeckInputIsLink() in
+   SWUSim/Custom/DeckImport.php, which ValidateDeck.php reports as `savable` — this is only the
+   cheap local shape check used to decide what to put in a text box. Anything that decides
+   whether a deck may be SAVED asks the server. */
+function IS_LINK(s) {
+  s = String(s || '').trim();
+  return s !== '' && s.charAt(0) !== '{' && s.indexOf('\n') === -1 && s.indexOf('\r') === -1;
+}
+
+// ── Task 17: the modals drive the EXISTING submission path ────────────────────
+// getDeckSubmission() reads a fixed set of legacy ids. Rather than rewrite that proven function,
+// copy the OPEN modal's values into those fields immediately before submitting.
+window.SYNC_ACTIVE_SETUP = function () {
+  var dlg = document.querySelector('dialog.setup[open]') ||
+            document.querySelector('.setup:target');
+  if (!dlg) return false;
+  var set = function (id, val) { var el = document.getElementById(id); if (el) el.value = val; };
+  var val = function (sel) { var el = dlg.querySelector(sel); return el ? String(el.value || '').trim() : ''; };
+
+  // the own-deck field is the first [data-detect] in the dialog; a second one is the bot's or
+  // the hotseat second seat
+  var links = dlg.querySelectorAll('input[data-detect], input[type="text"], input[type="url"]');
+  set('deck-link', SETUP_DECK_FOR(dlg, 'own', links[0]));
+  set('swu-deck2-input', SETUP_DECK_FOR(dlg, 'bot', links[1]));
+
+  // The modal selects follow an id-suffix convention (pvp-pool, ts-match, ab-botstyle...) and
+  // carry DISPLAY LABELS as their values ("Premier", "Best of 1"), not registry slugs. Normalise.
+  var slug = function (label) {
+    return String(label || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+  };
+  var modeFormat = ({ 'setup-pvp': 'premier', 'setup-twin-suns': 'twinsuns',
+                      'setup-arenabot': 'botpractice', 'setup-solo': 'goldfish' })[dlg.id] || 'premier';
+  var poolLabel = val('select[id$="-pool"]');
+  var pool = poolLabel ? slug(poolLabel) : '';
+  set('swu-format-select', (dlg.id === 'setup-pvp' || dlg.id === 'setup-twin-suns') ? (pool || modeFormat) : modeFormat);
+  set('swu-cardpool-input', pool || 'premier');
+
+  // "Best of 1" -> bo1. Anything else falls back to bo1 rather than sending an unknown value.
+  var mt = slug(val('select[id$="-match"]'));
+  set('swu-queuetype-select', mt === 'bestof3' ? 'bo3' : 'bo1');
+
+  var bs = slug(val('select[id$="-botstyle"]')) || slug(val('select[id$="-style"]'));
+  if (bs) set('swu-botstyle-select', bs);
+  return true;
+};
+
+document.addEventListener('click', function (ev) {
+  var btn = ev.target.closest ? ev.target.closest('button[data-act]') : null;
+  if (!btn) return;
+  var act = btn.dataset.act;
+  if (act === 'cancel') {
+    var d = btn.closest('dialog');
+    if (d && d.close) d.close(); else location.hash = '#';
+    return;
+  }
+  // Save acts on the box BESIDE the button, so Arenabot's bot row saves the bot's deck. It is
+  // not a submission, so it must not run SYNC first.
+  if (act === 'save') {
+    var dlg = btn.closest('dialog.setup, .setup');
+    var links = dlg ? [].slice.call(dlg.querySelectorAll('input[data-detect]')) : [];
+    var row = btn.closest('.drow') || btn.parentElement;
+    var own = (row && row.querySelector('input[data-detect]')) || links[0];
+    if (typeof saveCurrentDeck === 'function') {
+      saveCurrentDeck(own ? own.value : '', links.indexOf(own) === 1 ? 'bot' : 'own', dlg);
+    }
+    return;
+  }
+  // ⚠ ORDER: sync, THEN close, THEN act. SYNC_ACTIVE_SETUP() finds the open dialog with
+  // `dialog.setup[open]` and returns false if there isn't one, so closing first would silently
+  // submit whatever the legacy hidden fields happened to hold from a previous run.
+  window.SYNC_ACTIVE_SETUP();
+
+  // Owner, 2026-09-25: a submit dismisses the setup sheet. Every one of these three either opens
+  // the waiting popup over the page or navigates away, so leaving the modal stacked underneath
+  // was never right.
+  // It also hands Escape back: joinQueue()'s popup says "Esc to cancel", but a native <dialog>
+  // opened with showModal() eats the Escape key for itself, so that cancel could not fire while
+  // the modal stayed open. Failures do not need the modal either — SWUSim has no
+  // #queue-inline-error element, so showQueueInlineError() falls through to StyledAlert().
+  var open = btn.closest('dialog.setup');
+  if (open && open.close) open.close();
+
+  if (act === 'join'    && typeof joinQueue === 'function')         joinQueue();
+  if (act === 'private' && typeof createPrivateGame === 'function') createPrivateGame();
+  if (act === 'solo'    && typeof startSoloGame === 'function')     startSoloGame();
+});
+</script>
+
+<footer class="foot">
+<?php include_once __DIR__ . '/Disclaimer.php'; ?>
+</footer>

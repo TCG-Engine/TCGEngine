@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile Rework</title>
+<!-- ⚠ SUPERSEDED 2026-09-25: this design is IMPLEMENTED. The live page at
+     /TCGEngine/SharedUI/Sites/SWUSim/Profile.php is the reference now; this file is kept only
+     as the record of what was approved. It links the real stylesheet, so rules added for the
+     real markup can and do reach it. -->
+<!-- the REAL stylesheet stack, in SiteDef order — this mockup cannot drift from the product -->
+<link rel="stylesheet" href="/TCGEngine/SharedUI/css/system.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/css/menuStyles.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/css/tokens.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/css/components.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/Themes/petranaki-hud.tokens.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUSim/css/petranaki-glass.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-overrides.css">
+<link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-menu-2.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap" rel="stylesheet">
+
+<style>
+/* ══ PROPOSED: the Profile page ════════════════════════════════════════════
+   Class names are the LIVE ones, so this CSS ports to swusim-menu-2.css as-is.
+   The only PHP change is SiteDef profile.sections, which is config, not markup:
+     now  ['welcome+changePassword','savedDecks+blockedUsers','cosmetics','sounds']
+     next ['savedDecks','welcome+changePassword','cosmetics+sounds','blockedUsers']
+
+   Today it is four EQUAL flex columns holding wildly unequal content, so every
+   pane is as tall as the tallest and three of them end in dead space. Saved
+   Decks needs the most room and got a quarter; Game Settings holds two controls
+   and got the same quarter. */
+
+  /* ⚠ COLUMNS, not grid. A grid aligns rows, so with one pane twice the height of the others
+     (Game Settings: three selects, a preview and three toggles) every short pane in that row
+     leaves a hole, and the pane after it starts below the tall one — Blocked Users ended up
+     stranded at the bottom of the page with an empty column beside it. Multi-column lets each
+     column flow to its own length and balances them. `break-inside: avoid` keeps a pane whole. */
+  body:has(#cardDetail) .core-wrapper {
+    display: block;
+    columns: 1;
+    column-gap: var(--s-4);
+    inline-size: 100%;
+    max-inline-size: 1368px;
+    margin-inline: auto;
+    padding: var(--s-5) var(--s-6);
+  }
+  @media (min-width: 1000px) { body:has(#cardDetail) .core-wrapper { columns: 2; } }
+  @media (min-width: 1280px) { body:has(#cardDetail) .core-wrapper { columns: 3; } }
+
+  body:has(#cardDetail) .core-wrapper > * {
+    break-inside: avoid;
+    margin-block-end: var(--s-4);
+  }
+
+  /* the panes themselves: the menu's panel, not the old plate */
+  body:has(#cardDetail) .core-wrapper > * {
+    display: grid;
+    gap: var(--s-3);
+    padding: var(--s-4);
+    min-inline-size: 0;
+  }
+  body:has(#cardDetail) .core-wrapper h2 {
+    margin: 0;
+    font-size: var(--t-15);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  /* the divider between two panels sharing a pane */
+  body:has(#cardDetail) .profile-pane-sep {
+    block-size: 1px;
+    background: var(--edge);
+    margin-block: var(--s-2);
+  }
+
+  /* fields inherit the menu's treatment */
+  body:has(#cardDetail) .core-wrapper select,
+  body:has(#cardDetail) .core-wrapper input[type="text"],
+  body:has(#cardDetail) .core-wrapper input[type="password"] {
+    inline-size: 100%;
+    min-block-size: var(--tap);
+  }
+  body:has(#cardDetail) .prof-field { display: grid; gap: 6px; }
+
+  /* the deck actions were three bare buttons that wrapped onto two ragged rows */
+  body:has(#cardDetail) .prof-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+  body:has(#cardDetail) .prof-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--s-2);
+    align-items: end;
+  }
+
+  /* a real checkbox, chamfered — the same control the auth pages use */
+  body:has(#cardDetail) label.prof-check { display: flex; align-items: flex-start; gap: var(--s-2); min-block-size: var(--tap); }
+  body:has(#cardDetail) label.prof-check > span:first-child {
+    --cut: 5px; --rim: 1px;
+    --plane: var(--e-sunk); --plane-art: none;
+    --rim-hi: var(--edge-strong); --rim-lo: var(--edge);
+    position: relative; inline-size: 20px; block-size: 20px; flex: none;
+    margin-block-start: 11px; cursor: pointer;
+  }
+  body:has(#cardDetail) label.prof-check input { position: absolute; inset: 0; opacity: 0; cursor: pointer; margin: 0; }
+  body:has(#cardDetail) label.prof-check svg {
+    position: absolute; inset: 3px; color: var(--gold);
+    opacity: 0; scale: 0.7; transition: opacity 120ms var(--ease), scale 120ms var(--ease);
+  }
+  body:has(#cardDetail) label.prof-check > span:first-child:has(input:checked) { --plane: var(--e3); --rim-hi: var(--gold); }
+  body:has(#cardDetail) label.prof-check > span:first-child:has(input:checked) svg { opacity: 1; scale: 1; }
+  body:has(#cardDetail) label.prof-check label { font-size: var(--t-13); color: var(--ink-2); cursor: pointer; padding-block: 11px; }
+  body:has(#cardDetail) label.prof-check .prof-hint { display: block; font-size: var(--t-12); color: var(--ink-3); padding-block-start: 2px; }
+
+  body:has(#cardDetail) .prof-note { margin: 0; font-size: var(--t-12); line-height: 1.55; color: var(--ink-3); }
+  body:has(#cardDetail) .prof-empty {
+    margin: 0; padding: var(--s-3);
+    border: 1px dashed var(--edge); border-radius: 3px;
+    font-size: var(--t-13); color: var(--ink-3);
+  }
+  /* the cosmetics preview */
+  /* ⚠ A preview of a SETTING, not a hero image. At full pane width it was the biggest thing
+     on the page and pushed everything below it off the fold. */
+  body:has(#cardDetail) .cos-preview {
+    inline-size: 100%; max-inline-size: 300px;
+    aspect-ratio: 16 / 9; object-fit: cover;
+    border: 1px solid var(--edge); border-radius: 3px;
+  }
+  /* brand buttons keep their colour, take the chamfer */
+  body:has(#cardDetail) .prof-brand {
+    justify-self: start;        /* a secondary action does not span the pane */
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+    min-block-size: var(--tap); padding-inline: var(--s-4);
+    font-size: var(--t-14); font-weight: 600; color: #fff; text-decoration: none;
+    --cut: 10px; --rim: 1px;
+  }
+  body:has(#cardDetail) .prof-brand--discord { --plane: #5865f2; --plane-art: linear-gradient(135deg,#6b77f5,#4d5ae8);
+    --rim-hi: rgba(160,172,255,.72); --rim-lo: rgba(60,72,180,.4); }
+  body:has(#cardDetail) .prof-brand--patreon { --plane: #f1465a; --plane-art: linear-gradient(135deg,#ff5f70,#e03a4f);
+    --rim-hi: rgba(255,170,178,.7); --rim-lo: rgba(170,40,55,.4); }
+  body:has(#cardDetail) .prof-brand img { inline-size: 18px; block-size: 18px; }
+  body:has(#cardDetail) .prof-who { margin: 0; font-size: var(--t-13); color: var(--ink-3); }
+</style>
+</head>
+<body>
+
+<header class="home-header">
+  <a href="#" class="title has-logo">
+    <img class="title-logo" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/stadium.svg" alt="" aria-hidden="true">
+    <h1>Petranaki Arena</h1><p>Fan-made Star Wars: Unlimited simulator</p>
+  </a>
+</header>
+<nav class="nav-bar" aria-label="Main">
+  <div class="nav-bar-user"><ul class="rightnav">
+    <li><a href="#" class="NavBarItem"><span>Previews</span></a></li>
+    <li><a href="#" class="NavBarItem"><span>Support</span></a></li>
+    <li><a href="#" class="NavBarItem" aria-current="page"><span>Profile</span></a></li>
+    <li><a href="#" class="NavBarItem"><span>Log Out</span></a></li>
+  </ul></div>
+  <div class="nav-bar-links"><ul>
+    <li><a href="#"><img src="/TCGEngine/Assets/Images/icons/discord.svg" alt=""></a></li>
+    <li><a href="#"><img src="/TCGEngine/Assets/Images/icons/github.svg" alt=""></a></li>
+  </ul></div>
+</nav>
+
+<div id="cardDetail" style="display:none"></div>
+<main class="core-wrapper">
+
+  <!-- ── SAVED DECKS ────────────────────────────────────────────────── -->
+  <section class="profile-pane container bg-black">
+    <h2>Saved Decks</h2>
+    <div class="prof-field">
+      <label class="flabel" for="dl">Deck</label>
+      <span class="selwrap ch"><select class="select dl-select" id="dl">
+        <option>Maindeck's Yellow Ahsoka — Lightmaker Explosion!</option>
+        <option>Krennic Blue</option>
+      </select></span>
+    </div>
+    <div class="prof-actions">
+      <button class="swu2-btn ch dl-act" type="button">★ Favourite</button>
+      <button class="swu2-btn ch dl-act" type="button">Rename</button>
+      <button class="swu2-btn ch dl-act" type="button">Delete</button>
+    </div>
+    <p class="prof-note"><strong>12 W – 7 L</strong> · last played 2 days ago</p>
+    <p class="prof-empty">Matchup record appears here once you have played this deck.</p>
+  </section>
+
+  <!-- ── ACCOUNT ────────────────────────────────────────────────────── -->
+  <section class="profile-pane container bg-black">
+    <h2>Account</h2>
+    <p class="prof-who">Signed in as <strong>claudebot1</strong></p>
+    <a class="prof-brand prof-brand--discord ch" href="#">
+      <img src="/TCGEngine/Assets/Images/icons/discord.svg" alt="">Connect Discord</a>
+    <a class="prof-brand prof-brand--patreon ch" href="#">Link Patreon</a>
+
+    <div class="profile-pane-sep"></div>
+    <h2>Change Your Password</h2>
+    <div class="prof-field">
+      <label class="flabel" for="np">New password</label>
+      <span class="inwrap ch"><input class="input" id="np" type="password" autocomplete="new-password"></span>
+    </div>
+    <div class="prof-field">
+      <label class="flabel" for="cp">Confirm password</label>
+      <span class="inwrap ch"><input class="input" id="cp" type="password" autocomplete="new-password"></span>
+    </div>
+    <button class="swu2-btn ch" type="button">Change Password</button>
+  </section>
+
+  <!-- ── GAME SETTINGS (cosmetics + sounds merged) ──────────────────── -->
+  <section class="cosmetics container bg-black">
+    <h2>Game Settings</h2>
+    <div class="prof-field">
+      <label class="flabel" for="bg">Game background</label>
+      <span class="selwrap ch"><select class="select cos-select" id="bg"><option>Default</option><option>Death Star</option></select></span>
+    </div>
+    <div class="prof-field">
+      <label class="flabel" for="cb">Card back</label>
+      <span class="selwrap ch"><select class="select cos-select" id="cb"><option>Classic</option><option>Against The Galaxy</option></select></span>
+    </div>
+    <div class="prof-field">
+      <label class="flabel" for="pm">Playmat</label>
+      <span class="selwrap ch"><select class="select cos-select" id="pm"><option>None</option><option>Home One</option></select></span>
+    </div>
+    <img class="cos-preview" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/main-menu-bg.webp" alt="Preview of the selected playmat">
+    <div class="profile-pane-sep"></div>
+    <label class="prof-check"><span class="ch"><input type="checkbox" checked>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>
+      <label>Show playmats in game</label></label>
+    <label class="prof-check"><span class="ch"><input type="checkbox" checked>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>
+      <label>Card motion<span class="prof-hint">Slides and attack lunges.</span></label></label>
+    <label class="prof-check"><span class="ch"><input type="checkbox">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg></span>
+      <label>Mute sounds<span class="prof-hint">Turns off every in-game sound, including the chime when it becomes your turn.</span></label></label>
+    <div class="prof-field">
+      <label class="flabel" for="lang">Card language</label>
+      <span class="selwrap ch"><select class="select" id="lang"><option>English</option><option>Español</option></select></span>
+      <p class="prof-note">Card images use this language where a translation exists. Card names and game text stay in English.</p>
+    </div>
+  </section>
+
+  <!-- ── BLOCKED USERS ──────────────────────────────────────────────── -->
+  <section class="profile-pane container bg-black">
+    <h2>Blocked Users</h2>
+    <div class="prof-row">
+      <div class="prof-field">
+        <label class="flabel" for="blk">Username</label>
+        <span class="inwrap ch"><input class="input" id="blk" type="text" placeholder="Username to block"></span>
+      </div>
+      <button class="swu2-btn ch" type="button">Block</button>
+    </div>
+    <p class="prof-empty">You haven't blocked anyone.</p>
+  </section>
+
+</main>
+
+<footer class="foot"><div class="disclaimer"><p>Petranaki Arena is in no way affiliated with Fantasy Flight Games, Disney. Star Wars Unlimited characters, cards, logos, and art are property of Fantasy Flight Games, Disney. &nbsp;<a href="#">Terms of Use</a>&nbsp;<a href="#">Privacy Policy</a></p></div></footer>
+</body>
+</html>

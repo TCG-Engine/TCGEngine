@@ -37,10 +37,40 @@ function RenderSignupError(): string {
     return '<p class="signup-error" role="alert">' . htmlspecialchars($messages[$error], ENT_QUOTES, 'UTF-8') . '</p>';
 }
 
-function RenderSignupFields(array $def, string $safeRedirect = '', string $errorReturn = ''): string {
+function RenderSignupFields(array $def, string $safeRedirect = '', string $errorReturn = '', bool $arena = false): string {
     $redirect = htmlspecialchars($safeRedirect, ENT_QUOTES, 'UTF-8');
     $returnInput = $errorReturn === '' ? '' : '<input type="hidden" name="signup_return" value="' . htmlspecialchars($errorReturn, ENT_QUOTES, 'UTF-8') . '">';
     $discordButton = RenderDiscordAuthButton($def, 'signup', $safeRedirect);
+    if ($arena) {
+        return <<<HTML
+<div class="signup-form-form">
+  $discordButton
+  <form action="/TCGEngine/Database/signup.inc.php" method="post">
+    <input type="hidden" name="redirect" value="$redirect">
+    $returnInput
+    <div class="auth__fields">
+      <div class="auth__field">
+        <label class="flabel" for="uid">Username</label>
+        <span class="inwrap ch"><input class="input" id="uid" type="text" name="uid" autocomplete="username" required></span>
+      </div>
+      <div class="auth__field">
+        <label class="flabel" for="email">Email</label>
+        <span class="inwrap ch"><input class="input" id="email" type="email" name="email" placeholder="name@example.com" autocomplete="email" inputmode="email" required></span>
+      </div>
+      <div class="auth__field">
+        <label class="flabel" for="pwd">Password</label>
+        <span class="inwrap ch"><input class="input" id="pwd" type="password" name="pwd" autocomplete="new-password" required></span>
+      </div>
+      <div class="auth__field">
+        <label class="flabel" for="pwdrepeat">Repeat Password</label>
+        <span class="inwrap ch"><input class="input" id="pwdrepeat" type="password" name="pwdrepeat" autocomplete="new-password" required></span>
+      </div>
+    </div>
+    <button class="swu2-btn ch auth__submit" type="submit" name="submit">Create Account</button>
+  </form>
+</div>
+HTML;
+    }
     return <<<HTML
 <div class="signup-form-form">
   $discordButton
@@ -82,6 +112,66 @@ function RenderEmbeddedSignup(array $def, string $safeRedirect): string {
 HTML;
 }
 
+// ─── The 'arena' auth layout (owner, 2026-09-25) ─────────────────────────────
+// SWUSim's redesign replaces the stacked `.container.bg-black` shell with one centred glass
+// card. These renderers are shared with FaBSim, HellbreakSim, SWUDeck and HellbreakDeck, so
+// this is strictly OPT-IN: a site that does not set auth.layout renders byte-identical markup
+// to before. Styled in SWUSim/css/swusim-menu-2.css under `.auth`.
+function _AuthIsArena(array $def): bool {
+    return ($def['auth']['layout'] ?? '') === 'arena';
+}
+
+// The tick for the styled checkbox. The <input> underneath stays a real checkbox with its real
+// name — only the box around it is ours.
+function _AuthCheckIcon(): string {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" '
+         . 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+         . '<path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></svg>';
+}
+
+function _RenderArenaLogin(array $def, string $safeRedirect, string $oauthError, string $discordButton, string $signupHref): string {
+    $esc  = htmlspecialchars($safeRedirect, ENT_QUOTES);
+    $tick = _AuthCheckIcon();
+    return <<<HTML
+<main class="core-wrapper auth auth-page login-page">
+  <div class="auth__in">
+    <div class="auth__card ch gl">
+      <div class="auth__head">
+        <h2 class="auth__title">Log In</h2>
+        <p class="auth__sub">Use your username, not your email.</p>
+      </div>
+      $oauthError
+      $discordButton
+      <form action="/TCGEngine/AccountFiles/AttemptPasswordLogin.php" method="post" class="LoginForm">
+        <input type="hidden" name="redirect" value="$esc">
+        <div class="auth__fields">
+          <div class="auth__field">
+            <label class="flabel" for="auth-username">Username</label>
+            <span class="inwrap ch"><input class="input username" id="auth-username" type="text" name="userID" autocomplete="username"></span>
+          </div>
+          <div class="auth__field">
+            <label class="flabel" for="auth-password">Password</label>
+            <span class="inwrap ch"><input class="input password" id="auth-password" type="password" name="password" autocomplete="current-password"></span>
+          </div>
+          <div class="auth__check">
+            <span class="auth__box ch">
+              <input type="checkbox" checked="checked" id="rememberMe" name="rememberMe" value="rememberMe">
+              $tick
+            </span>
+            <label for="rememberMe">Keep me signed in</label>
+          </div>
+        </div>
+        <button class="swu2-btn ch auth__submit" type="submit" name="submit">Log In</button>
+      </form>
+      <p class="auth__alt">Need an account? <a href="$signupHref">Create one</a></p>
+    </div>
+    <p class="auth__note">Keeping you signed in stores a cookie in this browser so we can recognise
+      your account next visit. <a href="/TCGEngine/SharedUI/PrivacyPolicy.php">Privacy Policy</a></p>
+  </div>
+</main>
+HTML;
+}
+
 function RenderLoginPage(array $def, string $safeRedirect = ''): string {
     $esc = htmlspecialchars($safeRedirect, ENT_QUOTES);
     $discordButton = RenderDiscordAuthButton($def, 'login', $safeRedirect);
@@ -90,6 +180,9 @@ function RenderLoginPage(array $def, string $safeRedirect = ''): string {
     $signupHref = '/TCGEngine/SharedUI/Sites/' . $site . '/Signup.php';
     if ($safeRedirect !== '') $signupHref .= '?redirect=' . rawurlencode($safeRedirect);
     $signupHref = htmlspecialchars($signupHref, ENT_QUOTES, 'UTF-8');
+    if (_AuthIsArena($def)) {
+        return _RenderArenaLogin($def, $safeRedirect, $oauthError, $discordButton, $signupHref);
+    }
     return <<<HTML
 <div class="core-wrapper auth-page login-page">
 <div class="flex-padder"></div>
@@ -137,6 +230,33 @@ HTML;
 function RenderSignup(array $def, string $safeRedirect = ''): string {
     $oauthError = RenderOAuthError();
     $signupError = RenderSignupError();
+    if (_AuthIsArena($def)) {
+        $loginHref = '/TCGEngine/SharedUI/Sites/'
+                   . rawurlencode((string)($def['identity']['rootName'] ?? 'SWUDeck')) . '/LoginPage.php';
+        if ($safeRedirect !== '') $loginHref .= '?redirect=' . rawurlencode($safeRedirect);
+        $loginHref = htmlspecialchars($loginHref, ENT_QUOTES, 'UTF-8');
+        $fields = RenderSignupFields($def, $safeRedirect, '', true);
+        return <<<HTML
+<main class="core-wrapper auth auth-page signup-page">
+  <div class="auth__in">
+    <div class="auth__card ch gl">
+      <div class="auth__head">
+        <h2 class="auth__title">Sign Up</h2>
+        <p class="auth__sub">Everything plays in the browser. No install.</p>
+      </div>
+      $oauthError
+      $signupError
+      $fields
+      <p class="auth__alt">Already have an account? <a href="$loginHref">Log in</a></p>
+    </div>
+    <p class="auth__note">Creating an account uses essential cookies to keep you signed in, and
+      means you agree to the <a href="/TCGEngine/SharedUI/TermsOfUse.php">Terms of Use</a>. See the
+      <a href="/TCGEngine/SharedUI/PrivacyPolicy.php">Privacy Policy</a> for how we handle your
+      information.</p>
+  </div>
+</main>
+HTML;
+    }
     $signupFields = RenderSignupFields($def, $safeRedirect);
     ob_start();
     ?>

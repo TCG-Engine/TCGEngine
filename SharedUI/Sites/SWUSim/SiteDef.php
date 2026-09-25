@@ -24,10 +24,15 @@
       // in-game board (GameLayout.php, which never loads swusim-overrides.css) can share it.
       '/TCGEngine/SharedUI/Sites/SWUSim/css/petranaki-glass.css',
       '/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-overrides.css',
+      // The redesigned menu. UNLAYERED and LAST on purpose: menuStyles.css's unlayered
+      // bare-element resets would beat a layered stylesheet regardless of specificity.
+      '/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-menu-2.css',
     ],
     'scripts' => ['/TCGEngine/Core/AppSettings.js',
                   '/TCGEngine/SharedUI/js/burger-menu.js'],
-    'fonts'   => ['Barlow', 'Teko'],
+    // Archivo is the menu redesign's typeface; Barlow and Teko stay for the game board and the
+    // other pages, which are still set in them.
+    'fonts'   => ['Barlow', 'Teko', 'Archivo'],
   ],
   'nav' => [
     ['label'=>'Previews','href'=>'/TCGEngine/SharedUI/Sites/SWUSim/Previews.php'],
@@ -47,6 +52,12 @@
   'deckLibrary' => [
     'storage'  => 'account',
     'endpoint' => 'SWUSim/SavedDecks.php',
+  ],
+  // Opts Login/Signup into the redesigned single-card layout (SharedUI/Render/Auth.php).
+  // The renderers are shared with FaBSim, HellbreakSim, SWUDeck and HellbreakDeck; without this
+  // key they render exactly what they always did, which RunRenderTests asserts positively.
+  'auth' => [
+    'layout' => 'arena',
   ],
   // Opts this sim into the shared WaitingRoom page (SharedUI/Render/WaitingRoom.php).
   // Presence of this block IS the opt-in — the adapter supplies everything sim-specific (routing
@@ -79,7 +90,14 @@
   'pipelineActionsOrder' => ['site', 'turn', 'game', 'cards', 'keywords'],
 
   'profile' => [
-    'sections'         => ['welcome+changePassword','savedDecks+blockedUsers','cosmetics','sounds'],
+    // 'arena' drops RenderProfile's injected flex-row layout so swusim-menu-2.css can lay the
+    // panes out in columns; the pane-neutralisation half of that style is kept for every site.
+    'layout'           => 'arena',
+    // One pane per TASK, ordered so the columns balance. Cosmetics and sounds are merged
+    // because they are the same thing to a player — how the game looks and sounds — and were
+    // only ever separate because the config grew that way. Saved Decks stands alone (it is the
+    // substantial one) and Blocked Users stands alone (it is two controls).
+    'sections'         => ['savedDecks','welcome+changePassword','cosmetics+sounds','blockedUsers'],
     'oauthAppLabel'    => 'Petranaki Arena',
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
     'discordOAuth'     => true,

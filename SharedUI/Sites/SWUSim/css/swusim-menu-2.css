@@ -1,0 +1,4825 @@
+/* swusim-menu-2.css — the redesigned SWUSim main menu (splash + per-mode modals).
+ *
+ * ⚠ DELIBERATELY UNLAYERED. menuStyles.css's bare-element resets are unlayered, and an
+ *   UNLAYERED (0,0,1) rule beats a LAYERED (0,2,1) one — layer order outranks specificity.
+ *   A layered app sheet would lose every element rule and need !important. Loaded LAST instead.
+ * ⚠ Only .btn/.panel/.tab are prefixed (swu2-); they are the only names that collide.
+ * ⚠ A color-mix() may have at most ONE color-mix() operand — two crash the WebKit renderer.
+ * ⚠ No container-type/filter/clip-path/isolation on an ancestor of a frosted surface.
+ *
+ * Source of truth: docs/superpowers/mockups/2026-09-24-swusim-mode-setups.html
+ */
+/* ==============================================================
+   Petranaki Arena — splash, STEEL re-skin
+   Zero build. Cascade layers, so zero !important.
+
+   A RE-SKIN of the approved layout. The layout, proportions,
+   copy rhythm and accessibility floor are unchanged; the material
+   is: stone-grey steel, frosted glass, and a gold spent on exactly
+   two roles.
+
+   SIGNATURE GEOMETRY  (unchanged in kind, retuned in scale)
+   Every surface is chamfered top-left / bottom-right, and every
+   chamfered surface is TWO shapes: a lit rim and, inside it, the
+   plane. The rim is always a WHOLE number of pixels and the inner
+   cut is always  --cut − 0.586 × --rim , so the rim measures the
+   same on the diagonal as on the straight edges.
+
+     .ch   SOLID surface — the element paints the rim and clips
+           itself; ::before paints the plane.
+     .gl   GLASS surface — ::before is the frosted plane, ::after
+           is the rim drawn as a chamfered RING, and the element
+           itself paints nothing and CLIPS NOTHING.
+
+   ⚠ THE BACKDROP-ROOT RULE — measured in all three engines, and
+   it is stricter than the folklore. A backdrop-filter on a
+   descendant sees NOTHING if any ancestor is a backdrop root, and
+   these all are:
+       filter                            (all three)
+       clip-path on the element          (Chromium)
+       isolation: isolate                (Firefox, WebKit)
+       a z-index stacking context        (all three)
+       container-type: inline-size       (all three)
+   The first draft of this page had `clip-path` + `isolation` on
+   every .ch and a `filter: drop-shadow` on every wrapper, and the
+   blur was completely inert in Chromium, Firefox AND WebKit while
+   every geometry assertion passed. Hence:
+     · .gl clears clip-path and isolation, and shapes itself with
+       pseudo-element clips only;
+     · the cast shadows are box-shadows on a sibling ::after whose
+       clip-path punches the chamfered silhouette out of them, not
+       drop-shadow filters on the wrapper;
+     · the top bar and footer carry no z-index;
+     · the ONE `container-type` on this page is on .match, which
+       contains no glass. The old `modes` and `rail` containers
+       wrapped the glass and had to become media queries — the
+       mode column and the rail are both a fixed function of the
+       viewport, so nothing is lost but the keyword.
+   The glass pseudos therefore sit in the root's negative-z layer.
+   That is deliberate. Do not "tidy" it by adding a stacking
+   context — that is the bug.
+
+   LIGHT BUDGET
+   One key light, above and slightly left. Rims are bright at the
+   top and dim at the bottom, shadows fall down, tints wash down
+   from the top.
+
+   THE GOLD BUDGET
+   #e9b866 / #ffd998 are spent only on the PRIMARY ACTION (ENTER →),
+   the ACTIVE tab, the focus ring and the text selection. Every
+   other lit thing on this page is steel.
+   ============================================================== */
+/* Registered so it can be transitioned. */
+  @property --sweep {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: -40%;
+  }
+
+  :root {
+    color-scheme: dark;
+
+    /* --- ground + the key light -----------------------------
+       The steel is not neutral grey: it carries a small, constant
+       cool chroma at hue 253, which is what stops the page reading
+       washed out without adding a colour to it. */
+    --ground: oklch(0.160 0.024 253);
+    --lume:   oklch(0.845 0.030 253);
+
+    /* elevation ramp — systematic, depth-1 mixes only.
+       WebKit hard-crashes on a color-mix whose BOTH operands are
+       themselves color-mix values, so at most one operand of any
+       mix on this page is a mix. */
+    --e1: color-mix(in oklch, var(--ground) 95%, var(--lume));
+    --e2: color-mix(in oklch, var(--ground) 91%, var(--lume));
+    --e3: color-mix(in oklch, var(--ground) 86%, var(--lume));
+    --e4: color-mix(in oklch, var(--ground) 80%, var(--lume));
+    --e-sunk: color-mix(in oklch, var(--ground) 82%, black);
+
+    /* --- ink — the theme's --text / --text-muted ------------- */
+    --ink:   #eef2f6;
+    --ink-2: oklch(0.818 0.020 250);
+    --ink-3: oklch(0.704 0.024 250);
+
+    /* --- the accent is STEEL -------------------------------- */
+    --accent:      rgba(150, 163, 176, 0.95);
+    --accent-hi:   rgba(186, 198, 210, 1);
+    --accent-ink:  #161a1f;
+
+    /* --- the rationed warm highlight ------------------------ */
+    --gold:     #e9b866;
+    --gold-hi:  #ffd998;
+    --gold-ink: #1b1508;
+
+    /* --- per-mode lighting tints (chrome, not card data) -----
+       A wash, not a colour field: enough chroma to tell the three
+       cards apart in peripheral vision, never enough to out-shout
+       the steel. */
+    --tint-pvp:  oklch(0.780 0.110 54);
+    --tint-duo:  oklch(0.735 0.105 322);
+    --tint-bot:  oklch(0.770 0.086 208);
+    /* 1P — light green. Held at the same lightness and a slightly lower chroma
+       than its neighbours so the fourth card joins the set rather than shouting,
+       and kept off the Command-green hue so it never reads as an aspect colour. */
+    --tint-solo: oklch(0.795 0.092 148);
+
+    /* --- rim stops: a lit steel edge, translucent over glass - */
+    --rim-hi: rgba(196, 214, 238, 0.60);
+    --rim-lo: rgba(120, 142, 172, 0.18);
+
+    /* --- hairlines ------------------------------------------ */
+    --edge:        color-mix(in oklch, var(--ink) 12%, transparent);
+    --edge-strong: color-mix(in oklch, var(--ink) 21%, transparent);
+
+    /* --- the chamfered steel button (theme --btn-fill) ------- */
+    --btn-fill:    linear-gradient(135deg, rgba(66, 78, 96, 0.92) 0%, rgba(42, 51, 65, 0.92) 100%);
+    --btn-fill-hi: linear-gradient(135deg, rgba(88, 102, 122, 0.94) 0%, rgba(58, 70, 86, 0.94) 100%);
+
+    /* --- frosted glass -------------------------------------- */
+    --frost:     blur(16px) saturate(112%) brightness(0.86);
+    --frost-bar: blur(14px) saturate(110%) brightness(0.88);
+
+    /* The fill behind the blur is opaque enough that every string
+       still clears WCAG AA with the blur rendering weakly or not
+       at all — WebKit under-blurs, so contrast never depends on it. */
+    --pane-card:    rgba(34, 43, 56, 0.60);
+    --pane-card-hi: rgba(46, 57, 72, 0.66);
+    --pane-panel:   rgba(28, 36, 48, 0.62);
+    --pane-guest:   rgba(25, 32, 43, 0.60);
+    --pane-bar:     rgba(20, 26, 36, 0.76);
+
+    /* The MODAL pane is denser than the rail's, and deliberately so.
+       A rail panel sits over the arena plate; the modal sits over the
+       splash's own TYPE — card titles, the rail's headings, the guest
+       line. At the rail's 0.62 those strings read straight through
+       wherever the blur is weak, and WebKit under-blurs. At 0.80 the
+       splash behind is a dim presence rather than competing copy, and
+       the pane is still glass: the blur's colour still comes through,
+       and the scrim plus the cards are still plainly visible AROUND
+       the modal, which is the thing the modal has to show. */
+    --pane-modal:   rgba(24, 31, 42, 0.80);
+
+    /* --- arena plate + its scrim ----------------------------- */
+    --arena-plate: url("/TCGEngine/SharedUI/Sites/SWUSim/assets/main-menu-bg.webp");
+    --scrim-top:   oklch(0.17 0.020 253 / 0.58);
+    --scrim-bot:   oklch(0.14 0.018 253 / 0.74);
+
+    /* --- SWU aspects: card data only, never chrome ----------- */
+    --aspect-vigilance:  oklch(0.620 0.150 252);
+    --aspect-command:    oklch(0.665 0.145 149);
+    --aspect-aggression: oklch(0.595 0.195 26);
+    --aspect-cunning:    oklch(0.840 0.155 96);
+    --aspect-heroism:    oklch(0.940 0.018 92);
+    --aspect-villainy:   oklch(0.300 0.022 285);
+
+    /* --- rhythm --------------------------------------------- */
+    --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+    --s-5: 24px; --s-6: 32px; --s-7: 48px;
+
+    /* --- type scale ----------------------------------------- */
+    --t-9:  0.5625rem;  --t-10: 0.625rem;
+    --t-11: 0.6875rem;  --t-12: 0.75rem;   --t-13: 0.8125rem;
+    --t-14: 0.875rem;   --t-15: 0.9375rem; --t-17: 1.0625rem;
+    --t-20: 1.25rem;    --t-24: 1.5rem;    --t-28: 1.75rem;
+
+    --tap: 44px;
+    --ease: cubic-bezier(0.32, 0.72, 0.36, 1);
+  }
+
+  /* The documented fallback: with no backdrop-filter the panels
+     simply become near-opaque steel. Nothing else changes. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    :root {
+      --pane-card:    rgba(34, 43, 56, 0.95);
+      --pane-card-hi: rgba(46, 57, 72, 0.96);
+      --pane-panel:   rgba(28, 36, 48, 0.95);
+      --pane-guest:   rgba(25, 32, 43, 0.95);
+      --pane-bar:     rgba(20, 26, 36, 0.96);
+      --pane-modal:   rgba(24, 31, 42, 0.97);
+    }
+  }
+
+
+
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    background-color: var(--ground);
+  }
+
+  /* scoped: this sheet is in head.styles and loads on every SWUSim page; Previews and
+     Profile must keep the sandy arena. */
+  /* ⚠ SCOPE: body:has(.home-header) is EVERY SWUSim SiteDef page — menu, Login, Signup,
+     Profile, Previews, Waiting Room, Terms, Privacy — because this stylesheet is loaded by
+     SWUSim's SiteDef alone and every one of those pages renders the shared Header.php.
+     The GAMEBOARD (NextTurn.php) builds its own <head> and never loads this file, so it is
+     untouched by anything here. Rules that are genuinely menu-only are scoped by their own
+     component class (.mode, .setup, .deckpick …), which exists nowhere else. */
+  body:has(.home-header) {
+    margin: 0;
+    min-block-size: 100vh;
+    font-family: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: var(--t-15);
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums lining-nums;
+    color: var(--ink);
+    /* ⚠ THE ARENA FLOOR IS body's OWN BACKGROUND, and every glass
+       pseudo is at z-index:0 with the surface's content lifted to
+       z-index:1 above it (.gl > *). That combination is the only
+       one all three engines agree on.
+         · glass at z-index:-1 (the obvious choice, since the .gl
+           element is deliberately not a stacking context — a
+           stacking context is a backdrop root) puts the glass in
+           the ROOT's negative-z layer, which paints BEFORE every
+           element background. The plate was then painted straight
+           OVER the frosted panels: razor-sharp hatch on top of the
+           glass, and nothing behind it to blur.
+         · moving the plate to the canvas (html) fixed Chromium and
+           not WebKit; moving it to a fixed z-index:-2 layer fixed
+           Chromium and not WebKit either.
+         · ordinary paint order — body background at step 4, glass
+           at step 8 — works everywhere. Verified by A/B.
+
+       The arena's house light, one source above, over milled steel
+       plate: fine enough to read as machining at rest and to
+       dissolve under a 16px blur. It is an SVG tile and not a
+       repeating-linear-gradient because Firefox rasterises a 1px
+       hard stop on a 135° repeating gradient away to nothing. */
+    background-color: var(--ground);
+    /* ARENA PLATE — the main-menu artwork sits at the BOTTOM of the stack,
+       beneath the milled-steel mesh, so the machining still reads over it.
+       Between them is --scrim, a flat darkening plane whose only job is to
+       keep text contrast independent of whatever the artwork is doing at
+       that spot: the sand in the upper third is bright enough to push
+       through a 0.55-alpha panel and take body copy under 4.5:1.
+       Tune --scrim, not the panel opacities — the panels are carrying the
+       frost fallback and must stay as they are. */
+    background-image:
+      radial-gradient(128% 52% at 50% -16%, color-mix(in oklch, var(--accent-hi) 11%, transparent), transparent 66%),
+      radial-gradient(90% 40% at 50% 0%, oklch(0.32 0.026 253 / 0.55), transparent 72%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cg fill='none' stroke='%23e3ecf6' stroke-width='1'%3E%3Cpath d='M-1 1 1 -1M-1 15 15 -1M13 15 15 13' stroke-opacity='.13'/%3E%3Cpath d='M-1 13 1 15M-1 -1 15 15M13 -1 15 1' stroke-opacity='.07'/%3E%3C/g%3E%3C/svg%3E"),
+      linear-gradient(180deg, oklch(0.27 0.026 253 / 0.42), transparent 44%),
+      linear-gradient(180deg, var(--scrim-top), var(--scrim-bot)),
+      var(--arena-plate);
+    background-repeat: no-repeat, no-repeat, repeat, no-repeat, no-repeat, no-repeat;
+    background-size: auto, auto, 14px 14px, auto, auto, cover;
+    background-position: center, center, center, center, center, 50% 22%;
+    background-attachment: scroll, scroll, scroll, scroll, fixed, fixed;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+
+  h1, h2, h3, p, ul, ol, figure { margin: 0; }
+  ul, ol { padding: 0; list-style: none; }
+
+  h1, h2, h3 {
+    font-weight: 600;
+    line-height: 1.14;
+    letter-spacing: -0.012em;
+    font-variation-settings: "wdth" 108;
+  }
+
+  svg { display: block; }
+  img { display: block; max-inline-size: 100%; }
+
+  a { color: inherit; text-decoration: none; }
+
+  button, input, select { font: inherit; font-variant-numeric: inherit; color: inherit; }
+
+  /* The UA button border is drawn on the four straight edges and NOT on
+     the two clipped diagonals, which makes every chamfer read wrong.
+     The rim is the only border this design has. */
+  button { border: 0; padding: 0; background-color: transparent; }
+
+  /* Authored focus, in the design's own language: the rim ignites,
+     and it ignites GOLD — the one state worth the warm colour. */
+  :where(a, button, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  ::selection { background: color-mix(in oklch, var(--gold) 36%, transparent); }
+
+
+
+
+  /* ============================================================
+     THE CHAMFER PRIMITIVE — solid surfaces
+     ============================================================ */
+  .ch {
+    --cut: 14px;
+    --rim: 1px;                    /* whole pixels, always */
+    --ci: calc(var(--cut) - 0.586 * var(--rim));   /* the documented inner cut */
+    --plane: var(--e2);
+    --plane-art: none;
+    position: relative;
+    isolation: isolate;            /* so ::before may sit at z-index -1 */
+    background-color: transparent;
+    background-image: linear-gradient(180deg, var(--rim-hi), var(--rim-lo) 76%);
+    clip-path: polygon(
+      var(--cut) 0,
+      100% 0,
+      100% calc(100% - var(--cut)),
+      calc(100% - var(--cut)) 100%,
+      0 100%,
+      0 var(--cut)
+    );
+    transition:
+      background-image 150ms var(--ease),
+      translate 150ms var(--ease);
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: var(--rim);
+      clip-path: polygon(
+        var(--ci) 0,
+        100% 0,
+        100% calc(100% - var(--ci)),
+        calc(100% - var(--ci)) 100%,
+        0 100%,
+        0 var(--ci)
+      );
+      background-color: var(--plane);
+      background-image: var(--plane-art);
+      transition: background-color 150ms var(--ease), background-image 150ms var(--ease);
+    }
+
+    &:focus-visible {
+      --rim: 3px;
+      --rim-hi: var(--gold-hi);
+      --rim-lo: var(--gold);
+      outline: none;
+    }
+  }
+
+  /* ============================================================
+     THE GLASS VARIANT
+     No clip-path, no isolation — both are backdrop roots, and
+     either one silently kills the blur. The chamfer lives on the
+     pseudos: ::before is the frosted plane (clipped, so the blur
+     can never be a rectangle poking out of a cut) and ::after is
+     the rim, drawn as a chamfered RING over it.
+     ============================================================ */
+  .gl {
+    background-image: none;
+    clip-path: none;
+    isolation: auto;
+
+    /* the surface's own content sits ABOVE the glass; see the
+       paint-order note on body */
+    & > * { position: relative; z-index: 1; }
+
+    &::before {
+      inset: 0;
+      z-index: 0;
+      clip-path: polygon(
+        var(--cut) 0,
+        100% 0,
+        100% calc(100% - var(--cut)),
+        calc(100% - var(--cut)) 100%,
+        0 100%,
+        0 var(--cut)
+      );
+      -webkit-backdrop-filter: var(--frost);
+      backdrop-filter: var(--frost);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 0;                  /* after ::before in tree order → paints over it */
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(180deg, var(--rim-hi), var(--rim-lo) 76%);
+      transition: background-image 150ms var(--ease);
+      /* one path: the outer chamfer clockwise, then the inner
+         chamfer counter-clockwise, joined by a seam that is walked
+         twice. Opposite windings cancel, so the middle is a hole
+         under the default nonzero rule — no fill-rule keyword,
+         which not every engine accepts inside polygon(). */
+      clip-path: polygon(
+        var(--cut) 0,
+        100% 0,
+        100% calc(100% - var(--cut)),
+        calc(100% - var(--cut)) 100%,
+        0 100%,
+        0 var(--cut),
+        var(--cut) 0,
+        var(--rim) calc(var(--rim) + var(--ci)),
+        var(--rim) calc(100% - var(--rim)),
+        calc(100% - var(--rim) - var(--ci)) calc(100% - var(--rim)),
+        calc(100% - var(--rim)) calc(100% - var(--rim) - var(--ci)),
+        calc(100% - var(--rim)) var(--rim),
+        calc(var(--rim) + var(--ci)) var(--rim),
+        var(--rim) calc(var(--rim) + var(--ci))
+      );
+    }
+  }
+
+  /* a chamfered WRAPPER around a native control: the control's focus
+     ignites the wrapper's rim. Deliberately not `.ch:has(...)` — that
+     would light a whole panel when a button inside it took focus. */
+  .selwrap:has(:focus-visible) {
+    --rim: 3px;
+    --rim-hi: var(--gold-hi);
+    --rim-lo: var(--gold);
+  }
+
+  /* ============================================================
+     THE CAST SHADOW
+     A drop-shadow filter on the wrapper would make the wrapper the
+     backdrop root and every frosted panel inside it would blur
+     nothing. So the shadow is a box-shadow on a sibling ::after,
+     and its clip-path punches the surface's own chamfered
+     silhouette out of it — the cut corners stay honestly empty.
+     --sc MUST equal the --cut of the surface it wraps.
+     ============================================================ */
+  .lift, .lift-3 { position: relative; }
+
+  .lift::after, .lift-3::after {
+    content: "";
+    position: absolute;
+    z-index: 0;                    /* same layer as the glass, earlier in tree order */
+    inset: var(--sc);
+    border-radius: 12px;
+    box-shadow: var(--cast);
+    pointer-events: none;
+    transition: box-shadow 170ms var(--ease);
+    clip-path: polygon(
+      -400px -400px,
+      calc(100% + 400px) -400px,
+      calc(100% + 400px) calc(100% + 400px),
+      -400px calc(100% + 400px),
+      -400px -400px,
+      calc(-1 * var(--sc)) 0,
+      calc(-1 * var(--sc)) calc(100% + var(--sc)),
+      100% calc(100% + var(--sc)),
+      calc(100% + var(--sc)) 100%,
+      calc(100% + var(--sc)) calc(-1 * var(--sc)),
+      0 calc(-1 * var(--sc)),
+      calc(-1 * var(--sc)) 0
+    );
+  }
+
+  .lift {
+    --sc: 18px;                    /* = .swu2-panel --cut */
+    --cast:
+      0 2px 5px 6px oklch(0 0 0 / 0.34),
+      0 13px 22px 4px oklch(0 0 0 / 0.42),
+      0 26px 40px 0 oklch(0 0 0 / 0.26);
+  }
+
+  .lift-3 {
+    --sc: 24px;                    /* = .mode --cut */
+    --cast:
+      0 3px 7px 8px oklch(0 0 0 / 0.36),
+      0 18px 30px 6px oklch(0 0 0 / 0.46),
+      0 34px 54px 2px oklch(0 0 0 / 0.34);
+  }
+
+  /* ============================================================
+     SHELL
+     ============================================================ */
+
+  .wrap {
+    inline-size: 100%;
+    max-inline-size: 1368px;
+    margin-inline: auto;
+    padding-inline: var(--s-4);
+
+    @media (min-width: 760px) { padding-inline: var(--s-6); }
+  }
+
+  /* ============================================================
+     TOP BAR  —  a frosted steel bar. No z-index: a stacking
+     context here is a backdrop root and the frost dies.
+     ============================================================ */
+
+  /* The petranaki-spires emblem, the product's own mark (assets/stadium.svg).
+     No chamfered plate around it: the arena silhouette is distinctive enough
+     to stand alone, and boxing it forced the art down to 23px, where the
+     lattice and the spires turn to mush. */
+
+  /* ============================================================
+     BODY GRID  —  modes dominate, rail is secondary
+     ============================================================ */
+  .arena {
+    display: grid;
+    gap: var(--s-5);
+    /* start, not stretch: the mode cards keep their approved height
+       instead of being dragged out by however long the rail is. */
+    align-items: start;
+    padding-block: var(--s-5) var(--s-6);
+
+    @media (min-width: 760px) { padding-block: var(--s-6) var(--s-7); }
+
+    @media (min-width: 1140px) {
+      grid-template-columns: minmax(0, 1fr) 392px;
+      column-gap: var(--s-5);
+    }
+  }
+
+  /* left column: the three cards, then the guest line.
+     NO container-type here — it is a backdrop root and the cards
+     inside it are glass. 784px is the viewport width at which the
+     mode column first clears 720px in either arena layout. */
+  .modes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+    min-inline-size: 0;
+  }
+
+  .modes__grid {
+    display: grid;
+    flex: 1 1 auto;
+    gap: var(--s-4);
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: 1fr;
+
+    /* FOUR modes now, so the tracks must divide 4 exactly — 1, 2 or 4 across,
+       never 3, which would strand a single card on its own row. Two-up starts
+       as soon as a card clears ~300px; four-up waits until each still clears
+       ~210px, below which these tall cards read as splinters. */
+    @media (min-width: 620px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: auto;
+    }
+    @media (min-width: 1100px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  /* ============================================================
+     MODE CARD  —  the page
+     ============================================================ */
+  .slot {
+    display: flex;
+    min-inline-size: 0;
+  }
+
+  .mode {
+    --cut: 24px;                   /* scaled for a tall card … */
+    --rim: 2px;                    /* … at the theme's rim ratio, whole px */
+    --tint: var(--accent);
+    --plane: var(--pane-card);
+    --plane-art:
+      linear-gradient(104deg,
+        transparent calc(var(--sweep) - 16%),
+        rgba(255, 255, 255, 0.10) var(--sweep),
+        transparent calc(var(--sweep) + 16%)),
+      radial-gradient(112% 46% at 50% -6%, color-mix(in oklch, var(--tint) 20%, transparent), transparent 64%),
+      linear-gradient(162deg, rgba(255, 255, 255, 0.055) 0%, transparent 38%),
+      linear-gradient(180deg, color-mix(in oklch, var(--tint) 8%, transparent), transparent 54%);
+
+    display: flex;
+    flex-direction: column;
+    inline-size: 100%;
+    min-block-size: 292px;
+    color: var(--ink);
+    cursor: pointer;
+
+    /* Height is stated, not inherited from however tall the rail happens to be.
+       It drops at four-up because a 205px-wide card at the old 675px is 1:3.3 —
+       a splinter, not a card. */
+    @media (min-width: 620px) {
+      min-block-size: 520px;
+    }
+    @media (min-width: 1100px) {
+      min-block-size: 600px;
+    }
+
+    /* --plane-art is declared HERE, so var(--sweep) resolves against
+       THIS element — the sweep must therefore be animated here too,
+       not on the pseudo that paints it. */
+    transition:
+      background-image 150ms var(--ease),
+      translate 150ms var(--ease),
+      --sweep 760ms var(--ease);
+
+    &:hover {
+      --rim-hi: color-mix(in oklch, var(--tint) 34%, rgba(222, 236, 252, 0.86));
+      --plane: var(--pane-card-hi);
+      --sweep: 132%;
+      translate: 0 -3px;
+    }
+
+    &:active { translate: 0 -1px; }
+
+    &:focus-visible {
+      --rim: 4px;                  /* whole px at a 2px base rim */
+      --rim-hi: var(--gold-hi);
+      --rim-lo: var(--gold);
+      --plane: var(--pane-card-hi);
+    }
+  }
+
+  /* the shadow (and the focus halo) live on the slot's caster */
+  .slot:has(.mode:hover) {
+    --cast:
+      0 4px 9px 9px oklch(0 0 0 / 0.38),
+      0 24px 38px 8px oklch(0 0 0 / 0.50),
+      0 46px 70px 4px oklch(0 0 0 / 0.38);
+  }
+
+  .slot:has(.mode:focus-visible) {
+    --cast:
+      0 3px 7px 8px oklch(0 0 0 / 0.36),
+      0 18px 30px 6px oklch(0 0 0 / 0.46),
+      0 0 22px 3px color-mix(in oklch, var(--gold) 50%, transparent);
+  }
+
+  /* The art is a small lit SCENE: an emblem standing on an arena
+     floor. At rest the floor is UNLIT — only its machined edge
+     shows — and the stage light comes up under the emblem on
+     hover or focus, as if to present it. */
+  .mode__art {
+    position: relative;
+    flex: 1 1 auto;
+    display: grid;
+    place-items: center;
+    min-block-size: 112px;
+    padding: var(--s-5) var(--s-4);
+    overflow: hidden;
+
+    /* Stated height wherever cards share a row. The art used to be the flexible
+       element, so any card whose description wrapped an extra line stole height
+       from its own art and its bottom edge drifted out of line with its
+       neighbours (measured: 22-47px of spread at 900-1280). Fixing the art and
+       flexing the BODY instead makes the row align by construction. */
+    @media (min-width: 620px)  { flex: 0 0 auto; block-size: 320px; min-block-size: 0; }
+    @media (min-width: 1100px) { block-size: 336px; }
+
+    /* The card art plate. Crops are 350x270 landscape and the art well is tall,
+       so `cover` takes a centre-right slice — deliberately off 50% because the
+       left edge of every crop carries a sliver of the card's aspect icons.
+       No `filter` here: a filter makes an element a backdrop root, and these
+       cards are frosted glass. Opacity only. */
+    & .mode__plate {
+      position: absolute;
+      inset: 0;
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+      object-position: 58% 34%;
+      z-index: 0;
+      opacity: 0.46;
+      transition: opacity 190ms var(--ease), scale 240ms var(--ease);
+    }
+
+    /* Art sourced at full resolution (1200x1600 portrait) rather than recovered
+       from a 350x270 card crop. It needs no aspect rescue and it can carry more
+       opacity, because detail survives the downscale instead of being invented. */
+    & .mode__plate--hi {
+      object-position: 50% 30%;
+      opacity: 0.66;
+    }
+
+    /* Scrim: keeps the emblem readable over busy art and lands the foot of the
+       art well on solid ground so the title block never sits on illustration. */
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(180deg,
+          oklch(0.16 0.020 253 / 0.58) 0%,
+          oklch(0.16 0.020 253 / 0.26) 34%,
+          oklch(0.14 0.018 253 / 0.92) 100%),
+        radial-gradient(64% 50% at 50% 38%, transparent 34%, oklch(0.14 0.018 253 / 0.50) 100%);
+    }
+
+    & svg {
+      position: relative;
+      inline-size: 86px;
+      block-size: 86px;
+      translate: 0 -8%;
+      color: color-mix(in oklch, var(--tint) 30%, oklch(0.890 0.018 250));
+      transition: scale 160ms var(--ease), translate 160ms var(--ease), color 170ms var(--ease);
+
+      @media (min-width: 784px) { inline-size: 132px; block-size: 132px; }
+    }
+  }
+
+  /* The pool of light has to be directly under the thing casting
+     it, not parked at the card's bottom edge, or the key light
+     reads from two directions. */
+  .mode__stage {
+    position: relative;
+    z-index: 1;                    /* so the pool stays local, above the glass */
+    display: grid;
+    place-items: center;
+    inline-size: 100%;
+    padding-block-end: 30px;
+
+    @media (min-width: 784px) { padding-block-end: 38px; }
+  }
+
+  .mode__pool {
+    position: absolute;
+    z-index: -1;
+    inset-inline: 4%;
+    inset-block-end: 0;
+    block-size: 62px;
+    transform-origin: 50% 100%;
+    opacity: 0;
+    scale: 0.68 0.55;
+    background-image: radial-gradient(46% 100% at 50% 100%,
+      color-mix(in oklch, var(--tint) 66%, transparent), transparent 72%);
+    /* 40ms behind the lift, so the light reads as a CONSEQUENCE of
+       the hover rather than something that happened at the same time */
+    transition:
+      opacity 170ms var(--ease) 40ms,
+      scale 180ms var(--ease) 40ms;
+  }
+
+  /* the machined edge of the floor: present at rest so the emblem
+     has something to stand on, lit when the stage light comes up */
+  .mode__floor {
+    position: absolute;
+    inset-inline: 12%;
+    inset-block-end: 0;
+    block-size: 1px;
+    opacity: 0.42;
+    background-image: linear-gradient(90deg,
+      transparent,
+      color-mix(in oklch, var(--tint) 80%, transparent) 28%,
+      color-mix(in oklch, var(--tint) 80%, transparent) 72%,
+      transparent);
+    transition: opacity 170ms var(--ease) 40ms;
+  }
+
+  .mode:hover, .mode:focus-visible {
+    & .mode__pool  { opacity: 1; scale: 1 1; }
+    & .mode__floor { opacity: 1; }
+    & .mode__plate { opacity: 0.72; scale: 1.04; }
+    & .mode__plate--hi { opacity: 0.90; }
+    & .mode__art svg {
+      scale: 1.035;
+      translate: 0 -10%;
+      color: color-mix(in oklch, var(--tint) 44%, oklch(0.905 0.018 250));
+    }
+  }
+
+  /* A coarse pointer has no hover, so a touch user would never see
+     the stage light. There the pool is simply ON at rest. */
+  @media (hover: none), (pointer: coarse) {
+    .mode__pool  { opacity: 1; scale: 1 1; }
+    .mode__floor { opacity: 1; }
+  }
+
+  .mode__body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    padding: var(--s-4) var(--s-5) var(--s-5);
+    border-block-start: 1px solid var(--edge);
+  }
+
+  .mode__kind {
+    font-size: var(--t-11);
+    font-weight: 700;
+    letter-spacing: 0.185em;
+    text-transform: uppercase;
+    color: color-mix(in oklch, var(--tint) 56%, var(--ink-3));
+  }
+
+  .mode__title {
+    margin-block-start: 6px;
+    font-size: var(--t-24);
+    font-weight: 700;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+    font-variation-settings: "wdth" 112;
+    line-height: 1.08;
+    text-wrap: nowrap;
+
+    /* The title is sized to the NARROWEST card it has to live in, because the
+       longest word cannot break: at four-up the card is 210px inside and
+       ARENABOT overflows it by 28px at 28px type. Measured fit is 22px.
+       Sizing it down is what keeps every title on ONE line, which is in turn
+       what keeps the four cards' art areas ending at the same y — an earlier
+       attempt reserved two lines instead and just moved the problem into a
+       dead gap under every short title. */
+    @media (min-width: 620px)  { font-size: var(--t-28); }
+    @media (min-width: 1100px) {
+      /* fluid across the four-up range: the card narrows with the viewport, so
+         a fixed size that fits at 1440 still clipped ARENABOT at 1280 */
+      font-size: clamp(16px, 1.42vw, 22px);
+      letter-spacing: 0.03em;
+    }
+  }
+
+  .mode__desc {
+    margin-block-start: var(--s-2);
+    font-size: var(--t-14);
+    line-height: 1.45;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  .mode__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2) var(--s-3);
+    margin-block-start: auto;          /* sits on the card's foot, not under the copy */
+    padding-block-start: var(--s-3);
+    border-block-start: 1px solid var(--edge);
+  }
+
+  .mode__stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-inline-end: auto;
+    font-size: var(--t-11);
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    color: var(--ink-3);
+
+    &::before {
+      content: "";
+      inline-size: 7px;
+      block-size: 7px;
+      flex: none;
+      background-color: var(--tint);
+      clip-path: polygon(2px 0, 100% 0, 100% calc(100% - 2px), calc(100% - 2px) 100%, 0 100%, 0 2px);
+    }
+  }
+
+  /* THE PRIMARY ACTION — the one place the gold is spent on the card */
+  .mode__go {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: var(--t-13);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    transition: color 150ms var(--ease);
+
+    & svg {
+      inline-size: 15px;
+      block-size: 15px;
+      transition: translate 150ms var(--ease);
+    }
+  }
+
+  .mode:hover .mode__go, .mode:focus-visible .mode__go { color: var(--gold-hi); }
+  .mode:hover .mode__go svg { translate: 3px 0; }
+
+  /* ============================================================
+     GUEST LINE
+     ============================================================ */
+  .guest {
+    --cut: 11px;
+    --rim: 1px;
+    --plane: var(--pane-guest);
+    --plane-art: linear-gradient(165deg, rgba(255, 255, 255, 0.045) 0%, transparent 42%);
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    flex: none;
+    padding: var(--s-3) var(--s-4);
+    font-size: var(--t-13);
+    color: var(--ink-2);
+
+    & svg { inline-size: 16px; block-size: 16px; flex: none; color: var(--accent-hi); }
+  }
+
+  /* ============================================================
+     RIGHT RAIL
+     ============================================================ */
+  .rail {
+    display: grid;
+    align-content: start;
+    gap: var(--s-5);
+    min-inline-size: 0;
+    /* no container-type: the panels inside are glass */
+  }
+
+  .swu2-panel {
+    --cut: 18px;
+    --rim: 2px;
+    --plane: var(--pane-panel);
+    --plane-art:
+      radial-gradient(112% 62% at 26% 0%, rgba(255, 255, 255, 0.070), transparent 68%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045) 0, transparent 30%, transparent 66%, rgba(0, 0, 0, 0.22) 100%);
+    padding: var(--s-4) 18px 18px;
+  }
+
+  .panel__head {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2) var(--s-3);
+    flex-wrap: wrap;
+    padding-block-end: var(--s-3);
+    border-block-end: 1px solid var(--edge);
+  }
+
+  .panel__title {
+    margin-inline-end: auto;
+    font-size: var(--t-20);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .count {
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: 26px;
+    block-size: 22px;
+    padding-inline: 7px;
+    font-size: var(--t-12);
+    font-weight: 700;
+    color: var(--accent-ink);
+    background-color: var(--accent);
+    clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  }
+
+  .filter {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    flex-basis: 100%;
+    margin-block-start: var(--s-1);
+
+    @media (min-width: 400px) {
+      flex-basis: auto;
+      margin-block-start: 0;
+    }
+  }
+
+  .filter__label {
+    font-size: var(--t-11);
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .selwrap {
+    --cut: 9px;
+    --rim: 1px;
+    --plane: var(--e-sunk);
+    position: relative;
+    display: inline-flex;
+    min-block-size: var(--tap);
+    flex: 1 1 auto;
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      inset-inline-end: 12px;
+      inset-block-start: 50%;
+      inline-size: 9px;
+      block-size: 9px;
+      margin-block-start: -5px;
+      border-inline-end: 1.5px solid var(--ink-3);
+      border-block-end: 1.5px solid var(--ink-3);
+      rotate: 45deg;
+      pointer-events: none;
+    }
+  }
+
+  .select {
+    inline-size: 100%;
+    min-inline-size: 0;
+    min-block-size: var(--tap);
+    padding-inline: var(--s-3) 34px;
+    font-size: var(--t-13);
+    font-weight: 600;
+    color: var(--ink);
+    background-color: transparent;
+    border: 0;
+    appearance: none;
+    cursor: pointer;
+
+    &:focus-visible { outline: none; }
+  }
+
+  /* ============================================================
+     MATCH CHIPS
+     Each chip is its OWN container: the rail is ~332px wide on
+     desktop and ~298px on a phone, and a 4-seat Twin Suns game
+     carries twelve card thumbnails, so the chip has to answer to
+     its own width rather than the viewport's.
+       · a 2-seat chip at >=320px keeps the approved shape —
+         seats left, meta + Spectate right;
+       · below that, and for every 3/4-seat game, the seats take
+         the full width and the meta + Spectate become the row
+         underneath. Same reading order, more room.
+     ============================================================ */
+  /* ---------- the scroll frame ------------------------------
+     The list is the one thing on this page that grows without
+     bound, so it scrolls — but visibly. A styled scrollbar, a
+     bottom fade that only exists while there IS more below, and a
+     focusable region, because a scroll container without tabindex
+     is unreachable by keyboard in Chromium and WebKit. */
+  .games-frame {
+    position: relative;
+    margin-block-start: var(--s-3);
+
+    /* THE FADE. It exists only while there really IS more below —
+       the JS sets data-more — so it is never a decoration that
+       lies about the end of the list. It has to be strong: a
+       polite 60%-alpha wash over a dark chip reads as nothing. */
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 3;
+      inset-inline: 0;
+      inset-block-end: 0;
+      block-size: 46px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 180ms var(--ease);
+      background-image: linear-gradient(to top,
+        oklch(0.160 0.024 253 / 0.97) 0%,
+        oklch(0.160 0.024 253 / 0.78) 42%,
+        transparent 100%);
+    }
+
+    &[data-more="true"]::after { opacity: 1; }
+  }
+
+  .games-scroll {
+    overflow: hidden auto;
+    /* tied to the rail: tall enough for four 2-seat chips, never
+       taller than half the screen */
+    max-block-size: clamp(230px, 46vh, 560px);
+    overscroll-behavior: contain;
+
+    /* the region is focusable on purpose: a scroll container with
+       no tabindex is simply unreachable by keyboard in Chromium
+       and WebKit (Firefox grants it focus automatically). WCAG
+       2.1.1, and the reason this list has role + aria-label too. */
+    &:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+    /* Styled for the platforms that draw a real scrollbar. Where
+       the UA draws an OVERLAY scrollbar it paints nothing at all
+       until you are already scrolling — which is the invisible
+       truncation this panel must not repeat — so when scripting is
+       on we hide the UA bar and draw our own, always-visible one. */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(174, 190, 210, 0.72) rgba(11, 15, 21, 0.72);
+
+    &::-webkit-scrollbar { inline-size: 10px; }
+    &::-webkit-scrollbar-track { background-color: rgba(11, 15, 21, 0.72); }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(174, 190, 210, 0.72);
+      border: 2px solid rgba(11, 15, 21, 0.72);
+    }
+  }
+
+  html[data-js] .games-scroll {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar { inline-size: 0; block-size: 0; }
+  }
+
+  /* the authored scrollbar — steel, chamfered, and visible at rest */
+  .games-rail {
+    position: absolute;
+    z-index: 4;
+    inset-block: 1px;
+    inset-inline-end: 0;
+    inline-size: 9px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms var(--ease);
+    background-color: oklch(0.130 0.020 253 / 0.82);
+    box-shadow: inset 0 0 0 1px rgba(196, 214, 238, 0.20);
+    clip-path: polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px);
+  }
+
+  .games-frame[data-scrollable="true"] .games-rail { opacity: 1; pointer-events: auto; }
+
+  .games-rail__thumb {
+    position: absolute;
+    inset-inline: 1px;
+    inset-block-start: var(--thumb-y, 0%);
+    block-size: var(--thumb-h, 40%);
+    min-block-size: 28px;
+    cursor: grab;
+    background-image: linear-gradient(180deg, rgba(220, 232, 248, 0.94), rgba(138, 156, 180, 0.82));
+    clip-path: polygon(2px 0, 100% 0, 100% calc(100% - 2px), calc(100% - 2px) 100%, 0 100%, 0 2px);
+
+    &:hover { background-image: linear-gradient(180deg, rgba(236, 244, 255, 1), rgba(166, 184, 208, 0.9)); }
+    &:active { cursor: grabbing; }
+  }
+
+  /* .games is the chip CONTAINER: an element can never be its own
+     container, so this cannot live on .match. */
+  .games {
+    container-type: inline-size;
+    container-name: chip;
+    display: grid;
+    gap: 6px;
+  }
+
+  html[data-js] .games { padding-inline-end: 15px; }   /* room for the authored rail */
+
+  .match {
+    --cut: 11px;
+    --rim: 1px;
+    --plane: var(--e2);
+    --plane-art: linear-gradient(165deg, rgba(255, 255, 255, 0.050) 0%, transparent 46%);
+    --rim-hi: rgba(196, 214, 238, 0.38);
+    --rim-lo: rgba(120, 142, 172, 0.14);
+    /* thumbnail metrics — one place, so the VS rule stays aligned.
+       Scaled as a system: thumbs, type, padding and row height all
+       come down together so the panel reads as a live list. */
+    --tl-w: 38px; --tl-h: 27px;    /* leader — 1.41:1, the real card aspect (628x450) */
+    --tb-w: 38px; --tb-h: 27px;    /* base -- SAME SIZE as the leader (owner, 2026-09-25) */
+    --tc-gap: 3px;
+    --tc-lap: 6px;                 /* leader-on-leader overlap */
+    --tc-cut: 3px;
+    --cards-w: calc(var(--tl-w) + var(--tc-gap) + var(--tb-w));
+    display: grid;
+    gap: 5px;
+    padding: 7px 9px;
+  }
+
+  .match__seats {
+    display: grid;
+    gap: var(--s-2);
+    min-inline-size: 0;
+  }
+
+  .match__side {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--s-2);
+    padding-block-start: 6px;
+    border-block-start: 1px solid var(--edge);
+  }
+
+  .match__meta {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: start;
+    column-gap: 8px;
+    font-size: var(--t-10);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    white-space: nowrap;
+    min-inline-size: 0;
+    overflow: hidden;
+
+    & > span {
+      min-inline-size: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  /* On a 3/4-seat chip "TWIN SUNS · 4 PLAYERS" and "ROUND 5 · 17M"
+     do not both fit beside a 44px Spectate button — on one line the
+     second string ran underneath the button and lost its last
+     characters. Two short lines, same left/right split. */
+  .match--multi .match__meta {
+    grid-auto-flow: row;
+    justify-items: start;
+    row-gap: 2px;
+  }
+
+  .match__fmt { color: var(--ink-2); }
+
+  .match__vs {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    padding-inline-start: calc(var(--cards-w) + var(--s-2));
+    block-size: 10px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--ink-3);
+
+    &::after { content: ""; flex: 1; block-size: 1px; background-color: var(--edge); }
+  }
+
+  /* the approved 2-seat shape, once the chip is wide enough for it */
+  @container chip (min-width: 320px) {
+    .match:not(.match--multi) {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      column-gap: var(--s-3);
+
+      & .match__side {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: end;
+        row-gap: 5px;
+        padding-block-start: 0;
+        border-block-start: 0;
+      }
+
+      & .match__meta {
+        grid-auto-flow: row;
+        justify-items: end;
+        row-gap: 2px;
+      }
+
+      & .swu2-btn--block { inline-size: 100%; }
+    }
+  }
+
+  /* 3 and 4 seats: seat-grouped, never three "vs" rules */
+  .match--multi {
+    & .seat {
+      padding-inline-start: 6px;
+      border-inline-start: 2px solid var(--edge-strong);
+    }
+  }
+
+  .match--multi[data-seats="4"] {
+    --tl-w: 38px; --tl-h: 27px;
+    --tb-w: 38px; --tb-h: 27px;
+
+    & .match__seats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--s-3);
+    }
+
+    /* the cell is too narrow for thumbs and names side by side */
+    & .seat {
+      display: grid;
+      gap: 3px;
+      align-content: start;
+    }
+  }
+
+  @container chip (min-width: 470px) {
+    .match--multi[data-seats="4"] .match__seats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .match--multi[data-seats="4"] .seat { display: flex; align-items: center; }
+  }
+
+  .seat {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    min-inline-size: 0;
+  }
+
+  .match--multi .seat { gap: 6px; }
+
+  /* ---------- the card thumbnails --------------------------
+     CSS-drawn placeholders. Leaders are the taller, two-aspect
+     shape with a name plate; bases are shorter, single-aspect,
+     notched on the leading edge and stepped at the foot — so the
+     structure of a seat reads at a glance without any art. The
+     aspect colours are card data and stay exactly as published. */
+  .cards {
+    display: flex;
+    align-items: flex-end;
+    flex: none;
+    inline-size: max-content;
+  }
+
+  .tc {
+    position: relative;
+    flex: none;
+    box-shadow: 0 1px 2px oklch(0 0 0 / 0.55);
+  }
+
+  /* Real card art. Leader and base cards are landscape 628x450 (1.396:1) and the
+     thumbnails are cut to 1.42:1, so `cover` crops by ~2% — effectively nothing.
+     The art is pulled up slightly because the lower third of every card is the
+     text box, which is illegible at this size and not what identifies the card. */
+  .tc > img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: 50% 34%;
+  }
+  /* the synthetic name plate is redundant once the card carries its own */
+  .tc:has(> img)::after { content: none; }
+
+  .tc--leader {
+    z-index: 1;
+    inline-size: var(--tl-w);
+    block-size: var(--tl-h);
+    clip-path: polygon(var(--tc-cut) 0, 100% 0, 100% calc(100% - var(--tc-cut)), calc(100% - var(--tc-cut)) 100%, 0 100%, 0 var(--tc-cut));
+    background-image:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0 8%, rgba(0, 0, 0, 0.10) 40%, rgba(0, 0, 0, 0.52)),
+      radial-gradient(64% 78% at 32% 26%, rgba(255, 255, 255, 0.34), transparent 66%),
+      linear-gradient(152deg, var(--a1) 0 48%, var(--a2) 48% 100%);
+
+    /* the name plate across the foot of a leader card */
+    &::after {
+      content: "";
+      position: absolute;
+      inset-inline: 3px 2px;
+      inset-block-end: 2px;
+      block-size: 2px;
+      background-color: rgba(255, 255, 255, 0.66);
+    }
+  }
+
+  .tc--leader + .tc--leader { margin-inline-start: calc(-1 * var(--tc-lap)); z-index: 2; }
+
+  .tc--base {
+    z-index: 0;
+    margin-inline-start: var(--tc-gap);
+    inline-size: var(--tb-w);
+    block-size: var(--tb-h);
+    /* notched leading edge + stepped foot: unmistakably not a leader */
+    clip-path: polygon(
+      0 0, 100% 0, 100% calc(100% - var(--tc-cut)), calc(100% - var(--tc-cut)) 100%,
+      5px 100%, 0 calc(100% - 5px));
+    background-image:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0 10%, rgba(0, 0, 0, 0.22) 46%, rgba(0, 0, 0, 0.58)),
+      linear-gradient(180deg, var(--a1), var(--a1));
+
+    /* the base's HP bar */
+    &::after {
+      content: "";
+      position: absolute;
+      inset-inline: 2px;
+      inset-block-start: 2px;
+      block-size: 2px;
+      background-color: rgba(255, 255, 255, 0.50);
+    }
+  }
+
+  .seat__text { display: grid; min-inline-size: 0; }
+
+  .seat__name {
+    font-size: var(--t-12);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.002em;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .seat__sub {
+    font-size: var(--t-10);
+    line-height: 1.3;
+    color: var(--ink-3);
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* the set code sits with the leader title; the dot separates paired leaders */
+  .seat__set {
+    font-weight: 500;
+    color: var(--ink-3);
+    letter-spacing: 0.01em;
+  }
+  .seat__dot { color: var(--ink-3); margin-inline: 3px; }
+
+  /* Twin Suns seats carry TWO leaders. Inline they need ~238px against the 148px
+     the rail can give, so in multi-seat chips each leader takes its own line and
+     the separator retires — one name per row, ellipsised independently. */
+  .match--multi {
+    & .seat__name { white-space: normal; }
+    & .seat__leader {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    & .seat__dot { display: none; }
+  }
+
+  .match--multi .seat__name { font-size: var(--t-11); }
+  .match--multi[data-seats="4"] .seat__name { font-size: var(--t-10); line-height: 1.25; }
+  .match--multi[data-seats="4"] .seat__sub  { font-size: var(--t-9); }
+
+  /* ---------- buttons — the theme's signature steel chamfer -- */
+  .swu2-btn {
+    --cut: 10px;
+    --rim: 2px;                    /* whole px, per the theme token */
+    --plane: var(--e2);
+    --plane-art: var(--btn-fill);
+    --rim-hi: rgba(196, 214, 238, 0.62);
+    --rim-lo: rgba(120, 142, 172, 0.24);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--s-2);
+    min-block-size: var(--tap);
+    padding-inline: var(--s-4);
+    font-size: var(--t-12);
+    font-weight: 700;
+    letter-spacing: 0.04em;        /* --btn-tracking */
+    text-transform: uppercase;     /* --btn-transform */
+    color: var(--ink);             /* --btn-text */
+    cursor: pointer;
+
+    & svg { inline-size: 15px; block-size: 15px; }
+
+    &:hover {
+      --plane-art: var(--btn-fill-hi);
+      --rim-hi: rgba(214, 230, 250, 0.76);
+      translate: 0 -1px;           /* --btn-hover-transform */
+    }
+
+    &:active { translate: 0 0; }
+  }
+
+  .swu2-btn--block { inline-size: 100%; }
+
+  /* chip scale: everything shrinks except the 44px target */
+  .swu2-btn--chip {
+    --cut: 8px;
+    min-block-size: var(--tap);
+    padding-inline: var(--s-3);
+    font-size: var(--t-10);
+    gap: 6px;
+
+    & svg { inline-size: 13px; block-size: 13px; }
+  }
+
+  /* ---------- tabs ----------------------------------------- */
+  .tabs {
+    display: flex;
+    gap: var(--s-1);
+    padding-block-end: var(--s-3);
+    border-block-end: 1px solid var(--edge);
+  }
+
+  .swu2-tab {
+    --cut: 9px;
+    --rim: 1px;
+    --plane: transparent;
+    --rim-hi: transparent;
+    --rim-lo: transparent;
+    flex: 1 1 auto;
+    min-block-size: var(--tap);
+    padding-inline: var(--s-3);
+    font-size: var(--t-13);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    cursor: pointer;
+    transition: color 150ms var(--ease), background-image 150ms var(--ease);
+
+    &:hover { color: var(--ink-2); }
+
+    /* a transparent plane would let the ignited RIM flood the whole
+       shape on focus — give the rim something to sit on */
+    &:focus-visible { --plane: var(--e3); color: var(--ink); }
+
+    /* THE ACTIVE STATE — the page's other gold */
+    &[aria-selected="true"] {
+      color: var(--gold-hi);
+      --plane: var(--e3);
+      --plane-art: linear-gradient(180deg, color-mix(in oklch, var(--gold) 10%, transparent), transparent 62%);
+      --rim-hi: color-mix(in oklch, var(--gold) 70%, transparent);
+      --rim-lo: var(--edge);
+    }
+  }
+
+  .tabpanel { padding-block-start: var(--s-3); }
+
+  .welcome__title {
+    font-size: var(--t-17);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .welcome__note {
+    margin-block-start: 5px;
+    font-size: var(--t-13);
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  .keys {
+    display: grid;
+    gap: 6px;
+    margin-block-start: var(--s-3);
+  }
+
+  kbd {
+    --cut: 6px;
+    --rim: 1px;
+    --plane: var(--e2);
+    --plane-art: var(--btn-fill);
+    --rim-hi: rgba(196, 214, 238, 0.48);
+    --rim-lo: rgba(120, 142, 172, 0.16);
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    min-inline-size: 44px;
+    block-size: 26px;
+    padding-inline: 9px;
+    font-family: inherit;
+    font-size: var(--t-12);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+  }
+
+  .empty {
+    display: grid;
+    justify-items: center;
+    gap: var(--s-3);
+    padding-block: var(--s-5) var(--s-4);
+    text-align: center;
+
+    & svg { inline-size: 30px; block-size: 30px; color: var(--ink-3); opacity: 0.8; }
+  }
+
+  .empty__t { font-size: var(--t-14); font-weight: 600; color: var(--ink-2); }
+  .empty__s { font-size: var(--t-12); color: var(--ink-3); max-inline-size: 30ch; text-wrap: balance; }
+
+  /* ============================================================
+     FOOTER  —  legal, on its own frosted bar. No z-index here
+     either; see the backdrop-root note at the top.
+     ============================================================ */
+  .foot {
+    position: relative;
+    margin-block-start: auto;
+    background-color: transparent;
+    border-block-start: 1px solid var(--edge);
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      background-color: var(--pane-bar);
+      background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.040), transparent 52%);
+      -webkit-backdrop-filter: var(--frost-bar);
+      backdrop-filter: var(--frost-bar);
+    }
+  }
+
+
+/* ==============================================================
+   MODE SETUP SCREENS  —  ADDITIVE ONLY
+   Nothing above this comment is edited. This block re-opens
+   @layer components, so every rule here lands in the same layer
+   as the approved components and still needs zero !important.
+
+   THE SWITCH IS A <dialog>, OVER A :target FALLBACK.
+   Each .setup is a <dialog> opened with showModal(), so the splash
+   stays rendered behind a ::backdrop scrim and the platform
+   supplies the focus trap, Escape and the inert background. See
+   "the switch" below for the mechanics.
+
+   With script off nothing calls showModal, `data-dlg` is never set
+   on <html>, and the ORIGINAL rules still run: each .setup is a
+   sibling that PRECEDES .modes__grid, so the card grid hides with
+   a plain sibling combinator, and the way back is a real link to
+   "#" which clears :target in all three engines. With no fragment
+   in the URL — the state the page loads in, script or no script —
+   every .setup is display:none and the four approved mode cards
+   ARE the page. Measured, not asserted: the splash at rest is
+   pixel-identical to the pre-modal file in chromium, firefox and
+   webkit at 1440 and 390.
+
+   MATERIAL: no new visual language. Every surface here is the
+   existing .ch / .gl chamfer, every colour is an existing token,
+   the tint comes from --tint-pvp / --tint-duo / --tint-bot /
+   --tint-solo exactly as the cards use it, and the gold is still
+   rationed — the one gold FILL per screen is the primary action;
+   selection states get a gold RIM and ordinary ink, so they read
+   as active without competing with the button.
+
+   BACKDROP-ROOT DISCIPLINE: nothing here adds filter, clip-path,
+   isolation, container-type or a z-index to an ancestor of a
+   frosted surface. The .setup wrapper is a plain .lift caster
+   (the same wrapper the rail panels use) and the frosted pane is
+   its child, which is the arrangement already proven on the rail.
+
+   COLOR-MIX DEPTH: every mix below is depth 1 with at most one
+   mix operand — WebKit crashes on mix(mix, mix).
+   ============================================================== */
+
+
+  /* ---------- the switch: a GLASS MODAL, with the :target page
+     state kept alive underneath it as the no-JS fallback ------
+
+     Each .setup is a <dialog>. With script it is opened by
+     showModal(), which buys the focus trap, Escape, the ::backdrop
+     and an inert background from the platform — no hand-rolled
+     trap. With script OFF the dialog is never opened, `data-dlg`
+     is never set, and the ORIGINAL :target rules below still run:
+     the setup renders inline as a page state exactly as it did
+     when it was a <section>, and the way back is still href="#".
+
+     ⚠ MEASURED, not assumed: a modal dialog sits in the TOP LAYER,
+     and the Filter Effects spec lists a top-layer element as a
+     backdrop root — which would make the pane's frost inert. It
+     does not, in Chromium: an A/B of the pane's blur inside
+     showModal() came back 0.00 vs 4.40 gradient energy, i.e. the
+     blur samples the scrimmed page normally. So the ::backdrop is
+     a translucent DIM and nothing more — no blur of its own, or
+     the pane would have nothing left to frost and the glass would
+     read flat. The splash stays visible through both. */
+  .setup {
+    scroll-margin-block-start: var(--s-5);
+    /* the UA dialog box, undone */
+    margin: 0;
+    padding: 0;
+    border: 0;
+    inline-size: auto;
+    max-inline-size: none;
+    max-block-size: none;
+    color: var(--ink);
+    background-color: transparent;
+    /* visible, so .lift's cast shadow is not clipped away */
+    overflow: visible;
+  }
+
+  html:not([data-dlg]) .setup:target { display: block; position: static; }
+  html:not([data-dlg]) .setup:target ~ .modes__grid { display: none; }
+
+  .setup[open] {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    inline-size: min(100% - 2 * var(--s-5), 928px);
+    max-block-size: calc(100% - 2 * var(--s-5));
+  }
+
+  /* the dim. The rail, the top bar and the cards all stay readable
+     underneath it — this is a modal over the splash, not a page. */
+  .setup::backdrop { background-color: oklch(0.11 0.016 253 / 0.62); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .setup[open] { animation: setup-rise 180ms var(--ease); }
+    .setup[open]::backdrop { animation: scrim-in 180ms var(--ease); }
+  }
+
+  /* fill-mode NONE is load-bearing: `translate` must return to its
+     initial `none` when the animation ends, because any non-initial
+     translate makes the dialog a containing block for the listbox
+     popup, which is position: fixed. */
+  @keyframes setup-rise { from { translate: 0 12px; } to { translate: 0 0; } }
+  @keyframes scrim-in   { from { opacity: 0; } to { opacity: 1; } }
+
+  /* At phone width it is a full-height sheet, pinned to the bottom.
+     The 30px of scrim left above it is not decoration: at 100% of
+     the viewport there is no backdrop left to tap, and "clicking the
+     backdrop closes it" would quietly stop being true on a phone —
+     which is the one place it is most used. It also gives the
+     top-left chamfer something to cut into. */
+  @media (max-width: 559px) {
+    .setup[open] {
+      inline-size: 100%;
+      max-inline-size: none;
+      block-size: calc(100% - 30px);
+      max-block-size: none;
+      margin: auto 0 0;
+    }
+  }
+
+  /* the sheet/box scrolls its OWN content. Flex, never a
+     percentage height — a % height against a fit-content dialog
+     resolves in Chromium and not in Firefox or WebKit. */
+  .setup[open] .setup__pane {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ⚠ The scroll region carries tabindex="-1" — it is where focus is
+     put when the modal opens, and a scroll container with no tabindex
+     cannot be scrolled by keyboard in Chromium or WebKit. But the
+     base sheet gives every [tabindex] a gold :focus-visible ring, and
+     WebKit DOES match :focus-visible on focus moved by script: the
+     whole sheet came up ringed in gold at 390, in WebKit only, while
+     every geometry assertion passed. It is caught by looking at the
+     screenshot, and by nothing else.
+
+     Suppressed, not worked around: the region is not a control, it is
+     unreachable by Tab, and it is the standard tabindex="-1" focus
+     target whose ring is always suppressed. Every real control inside
+     it keeps its own authored ring. */
+  .setup__scroll:focus-visible { outline: none; }
+
+  .setup[open] .setup__scroll {
+    flex: 1 1 auto;
+    min-block-size: 0;
+    overflow: hidden auto;
+    overscroll-behavior: contain;
+    padding-inline-end: 2px;
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba(174, 190, 210, 0.72) rgba(11, 15, 21, 0.72);
+
+    &::-webkit-scrollbar { inline-size: 10px; }
+    &::-webkit-scrollbar-track { background-color: rgba(11, 15, 21, 0.72); }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(174, 190, 210, 0.72);
+      border: 2px solid rgba(11, 15, 21, 0.72);
+    }
+  }
+
+  /* the close X — pinned to the pane, not to the scroller, so it is
+     reachable at every scroll position. The pane's top-RIGHT corner
+     is the square one; the chamfers are top-left and bottom-right.
+
+     Its plane is deliberately DARKER than --btn-fill and its rim
+     brighter. Pinned, it has the body's own buttons sliding under
+     it, and in the same steel as theirs the two rims ran together —
+     the X read as part of whatever happened to be behind it. */
+  .setup__x {
+    --cut: 8px;
+    --rim: 1px;
+    --plane: var(--e-sunk);
+    --plane-art: linear-gradient(160deg, rgba(255, 255, 255, 0.070) 0%, transparent 52%);
+    --rim-hi: rgba(206, 224, 246, 0.66);
+    --rim-lo: rgba(120, 142, 172, 0.26);
+    position: absolute;
+    z-index: 2;
+    /* set to the PANE's own padding, so the X's top edge lines up
+       with the top of the header text block and the pool chip beside
+       it rather than floating 14px above them */
+    inset-block-start: var(--s-4);
+    inset-inline-end: 18px;
+    display: grid;
+    place-items: center;
+    inline-size: var(--tap);
+    block-size: var(--tap);
+    color: var(--ink-2);
+
+    @media (min-width: 620px) {
+      inset-block-start: var(--s-5);
+      inset-inline-end: var(--s-5);
+    }
+
+    & svg { inline-size: 16px; block-size: 16px; }
+
+    &:hover {
+      --plane: var(--e3);
+      --plane-art: var(--btn-fill-hi);
+      --rim-hi: rgba(222, 238, 255, 0.86);
+      color: var(--ink);
+    }
+  }
+
+  /* the header's right-hand cluster: the Card Pool chip. The
+     detected-pool note used to be reserved inside here and now sits
+     beside it as its own row of the head grid — see .poolnote.
+     The chip stops clear of the pinned X. */
+  .setup__tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2) var(--s-3);
+    grid-column: 2;
+    justify-self: start;
+
+    @media (min-width: 620px) {
+      grid-column: 3;
+      grid-row: 1;
+      justify-self: end;
+      justify-content: flex-end;
+    }
+  }
+
+  /* THE DETECTED-POOL NOTE. The slot was reserved empty; this is the
+     pass that fills it, and filling it changed two things about it.
+
+     SENTENCE CASE, not the slot's placeholder uppercase. Every other
+     10px uppercase string on this page is a LABEL of one or two words
+     ("Card Pool", "Live play"). This one is a sentence, and a tracked
+     uppercase sentence at 10px is the least readable text on the
+     page — which is the opposite of an explanation. Same size family,
+     one step up (11px), tracking dropped to near-normal, weight 600
+     instead of 700: still plainly subordinate to the chip beside it,
+     and actually readable.
+
+     flex-basis:100% IS LOAD-BEARING. .setup__tools is a wrap flex row
+     that is justified to the end on the wide layout. Sharing the
+     chip's line, the note appearing would push the chip left — the
+     header would visibly jump the instant a deck resolved. Given the
+     whole basis it always takes its own line UNDER the chip, so the
+     chip's box never moves. On the wide layout the tools column is
+     shorter than .setup__id beside it, so the extra line cannot grow
+     the head's row height either; measured both widths, all three
+     engines, and the chip and title rects are identical to the pixel
+     with the note shown and hidden.
+
+     WHERE IT SITS IS THE WHOLE TRICK. As a flex item of
+     .setup__tools it was part of that cluster's max-content, and
+     .setup__head sizes the cluster's column with `auto` — so the
+     note appearing widened column 3 and dragged the chip AND the
+     title 205px to the left. Measured, and in all three engines, so
+     it is the sizing rules and not a bug: dx -205.6 chromium,
+     -205.3 firefox, -205.6 webkit.
+
+     A grid item that SPANS A FLEXIBLE TRACK is skipped when
+     intrinsic track sizes are resolved. Spanning 1/-1 across the
+     head's minmax(0, 1fr), the note therefore contributes nothing to
+     either `auto` column, and the art tile, the identity block and
+     the chip cannot move. What it does do is add a second row, so
+     the head grows by the note's own height (~19px at 1440, ~39px at
+     390 where the string takes two lines) and the FORM below shifts
+     down by that much. That is the trade taken: nothing above the
+     head's rule moves, and no permanently empty gutter is reserved
+     in every modal for a note most sessions never see. */
+  .poolnote {
+    grid-column: 2;
+    max-inline-size: 52ch;
+    font-size: var(--t-11);
+    font-weight: 600;
+    letter-spacing: 0.012em;
+    line-height: 1.4;
+    color: var(--ink-3);
+    text-wrap: pretty;
+
+    /* its own row, right-aligned so it reads as belonging to the
+       chip it explains rather than to the description on the left */
+    @media (min-width: 620px) {
+      grid-column: 1 / -1;
+      justify-self: end;
+      text-align: end;
+    }
+
+    &[hidden] { display: none; }
+  }
+
+  /* with no script the chip is a small native select. Same place,
+     same accessible name (the <label> is visually hidden, never
+     absent — a chip that announces "Premier, button" names the
+     value and not the field). */
+  .poolpick {
+    display: inline-flex;
+    min-inline-size: 0;
+
+    & .selwrap { --cut: 8px; min-inline-size: 0; }
+
+    & .select {
+      font-size: var(--t-11);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+  }
+
+  .setup__pane {
+    --cut: 18px;
+    --rim: 2px;
+    --plane: var(--pane-modal);
+
+    /* THE MUTED INK IS LIFTED INSIDE THE MODAL, and only here.
+       Measured, not guessed: nine points sampled across the rendered
+       pane, the LIGHTEST one taken as the worst case, and the ink
+       photographed from a swatch rather than parsed out of the
+       computed style (oklch() now serialises as oklch(), and reading
+       "0.704 0.024 250" as if it were rgb reports a confident 1.1:1).
+       At the page's --ink-3 the muted strings came out 4.28-4.39:1 in
+       all three engines — under AA. The pane's own tint wash and
+       highlight peak at its top-left, which is exactly where a modal
+       puts its labels, and the modal sits over the splash rather than
+       over the arena plate, so it is brighter than the rail is.
+       Lifted here, the same strings measure 4.9-5.0:1, and --ink-3 is
+       still clearly a step below --ink-2. The global token is
+       untouched: the approved splash keeps its exact ink. */
+    --ink-3: oklch(0.745 0.022 250);
+    /* the mode's tint washes down from the top, exactly as on the card */
+    --plane-art:
+      radial-gradient(118% 56% at 26% 0%, color-mix(in oklch, var(--tint) 16%, transparent), transparent 66%),
+      radial-gradient(112% 62% at 26% 0%, rgba(255, 255, 255, 0.060), transparent 68%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045) 0, transparent 30%, transparent 66%, rgba(0, 0, 0, 0.22) 100%);
+    padding: var(--s-4) 18px 18px;
+
+    @media (min-width: 620px) { padding: var(--s-5) var(--s-5) var(--s-5); }
+  }
+
+  /* ---------- head: art tile, identity, way back ----------- */
+  .setup__head {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    column-gap: var(--s-4);
+    row-gap: var(--s-3);
+    padding-block-end: var(--s-4);
+    border-block-end: 1px solid var(--edge);
+    /* the pinned close X lives over this corner */
+    padding-inline-end: 56px;
+
+    @media (min-width: 620px) { grid-template-columns: auto minmax(0, 1fr) auto; }
+  }
+
+  /* The mode's own art, cropped nearly square-on: the source is
+     1200x1600, the tile is 0.84, so `cover` crops ~11% — the head
+     of the subject, not a mystery slice. */
+  .setup__tile {
+    --cut: 10px;
+    --rim: 1px;
+    --plane: var(--e-sunk);
+    position: relative;
+    overflow: hidden;
+    flex: none;
+    inline-size: 66px;
+    block-size: 78px;
+    grid-row: 1;
+
+    @media (min-width: 620px) { inline-size: 84px; block-size: 100px; }
+
+    & img {
+      position: absolute;
+      inset: 0;
+      inline-size: 100%;
+      block-size: 100%;
+      object-fit: cover;
+      object-position: 50% 26%;
+    }
+
+    /* the tint wash + a foot shadow, so the tile shares the card's light */
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(180deg, color-mix(in oklch, var(--tint) 24%, transparent), transparent 56%),
+        linear-gradient(180deg, transparent 42%, oklch(0.14 0.018 253 / 0.52) 100%);
+    }
+  }
+
+  .setup__id { min-inline-size: 0; grid-row: 1; }
+
+  /* NOT the card's mix. .mode__kind is 56% tint into --ink-3 because
+     it sits on the card BODY, under the art scrim, which is the
+     darkest surface on the page. The setup head is one of the
+     brightest: the pane's own tint wash peaks at the top-left and
+     the arena plate behind the frost is light there. Sampled
+     through the glass in all three engines, the card's mix came out
+     at 3.64-4.98 — under AA in Firefox and WebKit on three of the
+     four tints. Same hue, more lightness: measured 5.8-7.4. */
+  .setup__kind {
+    font-size: var(--t-11);
+    font-weight: 700;
+    letter-spacing: 0.185em;
+    text-transform: uppercase;
+    color: color-mix(in oklch, var(--tint) 38%, var(--ink));
+  }
+
+  .setup__title {
+    margin-block-start: 5px;
+    font-size: var(--t-24);
+    font-weight: 700;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+    font-variation-settings: "wdth" 112;
+    line-height: 1.08;
+
+    @media (min-width: 620px) { font-size: var(--t-28); }
+  }
+
+  .setup__desc {
+    margin-block-start: 6px;
+    font-size: var(--t-13);
+    line-height: 1.45;
+    color: var(--ink-2);
+    text-wrap: pretty;
+    max-inline-size: 58ch;
+  }
+
+  /* ---------- body: a stack of form blocks ----------------- */
+  .setup__body {
+    display: grid;
+    gap: var(--s-5);
+    padding-block-start: var(--s-4);
+  }
+
+  /* fieldset, de-chromed. min-inline-size:0 is load-bearing — a
+     fieldset's default min-content width is its content's, which
+     is what makes a long list overflow a 390px viewport. */
+  .fs {
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .lg,
+  .flabel {
+    display: block;
+    padding: 0;
+    margin-block-end: var(--s-2);
+    font-size: var(--t-11);
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .note {
+    font-size: var(--t-12);
+    line-height: 1.5;
+    color: var(--ink-3);
+    text-wrap: pretty;
+  }
+
+  .note--under { margin-block-start: var(--s-2); }
+  .note--over  { margin-block-end: var(--s-2); }
+
+  /* ---------- a deck-link row + its Save button ------------ */
+  .drow {
+    display: grid;
+    gap: var(--s-3);
+    grid-template-columns: minmax(0, 1fr);
+
+    @media (min-width: 560px) {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+    }
+
+    & > .swu2-btn {
+      inline-size: 100%;
+      @media (min-width: 560px) { inline-size: auto; }
+    }
+  }
+
+  .inwrap {
+    --cut: 9px;
+    --rim: 1px;
+    --plane: var(--e-sunk);
+    display: flex;
+    min-block-size: var(--tap);
+  }
+
+  /* the wrapper's rim ignites for the control inside it, exactly
+     as .selwrap already does for a <select> */
+  .inwrap:has(:focus-visible) {
+    --rim: 3px;
+    --rim-hi: var(--gold-hi);
+    --rim-lo: var(--gold);
+  }
+
+  .input {
+    inline-size: 100%;
+    min-inline-size: 0;
+    min-block-size: var(--tap);
+    padding-inline: var(--s-3);
+    font-size: var(--t-13);
+    color: var(--ink);
+    background-color: transparent;
+    border: 0;
+
+    &::placeholder { color: var(--ink-3); opacity: 1; }
+    &:focus-visible { outline: none; }
+  }
+
+  /* ---------- a two-up row of controls -------------------- */
+  .prow {
+    display: grid;
+    gap: var(--s-3);
+    grid-template-columns: minmax(0, 1fr);
+
+    /* Both cells capped at the same width so the row reads as a
+       pair rather than one 440px select beside one 140px one. */
+    @media (min-width: 560px) {
+      grid-template-columns: repeat(2, minmax(0, 264px));
+      justify-content: start;
+      align-items: end;
+      column-gap: var(--s-4);
+    }
+  }
+
+  .prow > .swu2-btn { inline-size: 100%; }
+
+  /* .selwrap is inline-flex, so left alone it shrinks to its widest
+     option and a "Card Pool" beside a "Match Type" comes out 190px
+     beside 100px — a ragged pair. In a .prow both cells fill their
+     (equal, capped) track instead. */
+  .prow .selwrap { display: flex; }
+
+  /* ---------- the action row ------------------------------- */
+  .arow {
+    display: grid;
+    gap: var(--s-3);
+
+    @media (min-width: 560px) {
+      grid-auto-flow: column;
+      grid-template-columns: none;
+      justify-content: start;
+    }
+  }
+
+  /* THE ONE GOLD FILL PER SCREEN */
+  .swu2-btn--primary {
+    --plane: var(--e3);
+    --plane-art: linear-gradient(135deg, #f2c67f 0%, #d8a251 100%);
+    --rim-hi: var(--gold-hi);
+    --rim-lo: color-mix(in oklch, var(--gold) 52%, transparent);
+    color: var(--gold-ink);
+
+    &:hover { --plane-art: linear-gradient(135deg, #ffd79a 0%, #e6b062 100%); }
+  }
+
+  /* ---------- segmented control (radios) ------------------ */
+  .seg {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: var(--s-1);
+    /* A two-option toggle stretched across an 840px pane reads as two
+       enormous buttons. Capped, it matches the one inside a .prow,
+       which its 264px track already caps — so the two segmented
+       controls on this page are the same size as each other. */
+    max-inline-size: 420px;
+  }
+
+  .seg__opt {
+    --cut: 9px;
+    --rim: 1px;
+    --plane: var(--e-sunk);
+    --rim-hi: rgba(196, 214, 238, 0.24);
+    --rim-lo: rgba(120, 142, 172, 0.10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-block-size: var(--tap);
+    padding-inline: var(--s-2);
+    font-size: var(--t-12);
+    font-weight: 700;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.15;
+    color: var(--ink-3);
+    cursor: pointer;
+    transition: color 150ms var(--ease), background-image 150ms var(--ease);
+
+    &:hover { color: var(--ink-2); }
+  }
+
+  /* active: a steel plane under a GOLD RIM, ink stays ink — the
+     gold fill is reserved for the primary button */
+  .seg__in:checked + .seg__opt {
+    --plane: var(--e3);
+    --plane-art: var(--btn-fill-hi);
+    --rim-hi: color-mix(in oklch, var(--gold) 74%, transparent);
+    --rim-lo: var(--edge-strong);
+    color: var(--ink);
+  }
+
+  .seg__in:focus + .seg__opt,
+  .seg__in:focus-visible + .seg__opt {
+    --rim: 3px;
+    --rim-hi: var(--gold-hi);
+    --rim-lo: var(--gold);
+  }
+
+  /* ---------- the saved-deck picker ("fat dropdown") -------
+     THE BASE LAYER, and the whole control when script is off: a
+     real <select> carrying the deck names, paired with a preview
+     panel in the same sunken well. The panel swaps with
+
+         .deckpick:has(option[value="x"]:checked) .deckprev--x
+
+     and that is the whole no-script mechanism.
+
+     ⚠ VERIFIED BEFORE IT WAS BUILT, not assumed. :has() with
+     option:checked re-evaluates in chromium, firefox AND webkit,
+     and it invalidates on the SELECTEDNESS ITSELF with no change
+     event fired at all — the probe set .value, then .selectedIndex,
+     then option.selected directly, and all three engines repainted
+     on each. The preview therefore cannot desync from the control.
+
+     That property is what the ENHANCED listbox is built on. The
+     script hides the <select> but never stops using it: it moves
+     these same .deckprev rows into the trigger and writes the
+     chosen index back to the <select>, so the collapsed rich row is
+     still switched by the rule above rather than by the script.
+     See "THE CUSTOM LISTBOX" at the end of this layer.
+
+     The preview keeps the three things the owner asked to keep —
+     the leader/base thumbnails, the "Leader · Base" subtitle, and
+     the card count — and the open list now shows the same row.
+
+     The slugs are scoped by the :has() to their own .deckpick, so
+     the same slug may repeat in another block without collision.
+     The popup's CLONES of these rows deliberately live outside
+     .deckpick, or that same :has() would hide all but one. */
+  .deckpick {
+    --cut: 12px;
+    --rim: 1px;
+    --plane: var(--e-sunk);
+    --rim-hi: rgba(196, 214, 238, 0.26);
+    --rim-lo: rgba(120, 142, 172, 0.09);
+    display: grid;
+    gap: 6px;
+    padding: 6px;
+  }
+
+  /* the control fills the well — this is the "fat" part */
+  .deckpick .selwrap {
+    --plane: var(--e2);
+    display: flex;
+    inline-size: 100%;
+  }
+
+  .deckpick .select { font-size: var(--t-14); }
+
+  /* position: relative is LOAD-BEARING, not tidying. A .u-vh radio
+     is position:absolute with no offsets, so without a positioned
+     wrapper its containing block is the pane — which means inside a
+     scroll container it is NOT clipped by the scroller, and the 23
+     pre-con radios laid themselves out down the page and added 630px
+     of empty document below the footer. Every geometry assertion
+     passed; the screenshot showed a black band. */
+  .pc,
+  .seg { position: relative; }
+
+  .deckprev {
+    --cut: 10px;
+    --rim: 1px;
+    --plane: var(--e2);
+    --plane-art: linear-gradient(165deg, rgba(255, 255, 255, 0.050) 0%, transparent 46%);
+    --rim-hi: rgba(196, 214, 238, 0.30);
+    --rim-lo: rgba(120, 142, 172, 0.12);
+    /* the thumbnail metrics the .tc component reads — declared here
+       because .match declares them and this is not a .match */
+    --tl-w: 38px; --tl-h: 27px;
+    --tb-w: 29px; --tb-h: 21px;
+    --tc-gap: 3px;
+    --tc-lap: 6px;
+    --tc-cut: 3px;
+    display: none;                 /* the :has() rules turn ONE on */
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--s-3);
+    min-block-size: var(--tap);
+    padding: 7px 10px;
+
+    /* At 390 the three-across layout leaves the text column ~90px on a
+       Twin Suns row (two leader thumbs AND a base), so the name wrapped
+       to two or three ragged lines. Dropping the count under the text
+       gives it ~176px — one line for the name, two at most below. */
+    @media (max-width: 559px) {
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: start;
+      row-gap: 4px;
+
+      & .deck__end { grid-column: 2; justify-content: flex-start; }
+      & .cards { margin-block-start: 2px; }
+    }
+  }
+
+  .deck__text { display: grid; min-inline-size: 0; }
+
+  /* These WRAP, they never ellipsise. The rail's chips can afford to
+     truncate a leader name because the chip is a link to a game you
+     already know; a saved deck is a thing you are picking, so losing
+     the end of "Kylo Ren · Major Vonreg · Command Center" is losing
+     the base you were choosing by. */
+  .deck__name {
+    font-size: var(--t-13);
+    font-weight: 600;
+    line-height: 1.25;
+    min-inline-size: 0;
+    overflow-wrap: break-word;
+  }
+
+  .deck__sub {
+    font-size: var(--t-11);
+    line-height: 1.32;
+    color: var(--ink-3);
+    min-inline-size: 0;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+  }
+
+  /* the "no saved deck" preview — the bot's block, where choosing a
+     pre-con instead is a real answer rather than an empty one */
+  .deckprev--none {
+    grid-template-columns: minmax(0, 1fr);
+    color: var(--ink-3);
+    font-size: var(--t-12);
+
+    @media (max-width: 559px) { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  /* Scoped by :has() to its own .deckpick, so the same value repeating in
+     another block cannot cross-fire. The mockup could hard-code one rule per
+     fixture slug; real saved-deck keys are per-account hashes, so those rules
+     ship with the page from SWUSetupPreviewStyles(). Only "none" is fixed —
+     it is the Arenabot bot picker's "use a pre-con below" row. */
+  .deckpick:has(option[value="none"]:checked) .deckprev--none { display: grid; }
+
+  .deck__end,
+  .pc__end {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    flex: none;
+  }
+
+  .deck__n {
+    font-size: var(--t-10);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+
+  /* selection is never colour alone — a mark comes on too */
+  .mark {
+    display: grid;
+    place-items: center;
+    inline-size: 16px;
+    block-size: 16px;
+    flex: none;
+    color: var(--gold);
+    opacity: 0;
+    transition: opacity 150ms var(--ease);
+
+    & svg { inline-size: 100%; block-size: 100%; }
+  }
+
+  .pc__in:checked + .pc__row .mark { opacity: 1; }
+
+  /* ---------- pre-con list -------------------------------
+     THE LIST IS A SUNKEN WELL, and that is the affordance.
+     Measured in all three engines at 1440 and 390: the platform
+     scrollbar here is an OVERLAY one — offsetWidth - clientWidth is
+     0 and it paints nothing until you are already scrolling — so a
+     styled scrollbar cannot be what tells you the list continues.
+     The rail solves this with a scripted bar; this list has no
+     script, so instead:
+       · the well is visibly sunken and rimmed, so it reads as a
+         WINDOW onto something longer rather than as the whole list;
+       · the frame height is tuned to cut a row in half rather than
+         land on a row boundary;
+       · the legend note says how many fixtures there are.
+     No bottom fade: with no script a fade cannot know whether there
+     really is more below, and a fade that lies about the end of a
+     list is the exact thing the rail's was written to avoid. */
+  .pool {
+    --cut: 10px;
+    --rim: 1px;
+    --plane: var(--e-sunk);
+    --rim-hi: rgba(196, 214, 238, 0.26);
+    --rim-lo: rgba(120, 142, 172, 0.09);
+    position: relative;
+    padding: 5px;
+  }
+
+  .pool__scroll {
+    overflow: hidden auto;
+    /* 6 rows of 48px + their 5px gaps is 313px; 344 leaves 26px of
+       row 7 showing, which reads as a cut row and not as a seam. */
+    max-block-size: clamp(232px, 34vh, 344px);
+    overscroll-behavior: contain;
+    padding-inline-end: 2px;
+
+    /* Kept for the platforms and settings that draw a CLASSIC bar —
+       there it is a real, always-visible affordance. It is simply
+       not one we can rely on. */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(174, 190, 210, 0.72) rgba(11, 15, 21, 0.72);
+
+    &::-webkit-scrollbar { inline-size: 10px; }
+    &::-webkit-scrollbar-track { background-color: rgba(11, 15, 21, 0.72); }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(174, 190, 210, 0.72);
+      border: 2px solid rgba(11, 15, 21, 0.72);
+    }
+
+    &:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  }
+
+  /* ---------- Arenabot fits on ONE PAGE ------------------------
+     Owner, 2026-09-25: four chips; then "fix the spacing so everything fits on
+     one page — making the well a little smaller is fine as long as it is
+     obvious that you can scroll".
+
+     Arenabot is the tallest modal: two deck slots, two saved-deck pickers, the
+     pre-con well and the bot-style row. At 900px of viewport it overflowed by
+     181px, which cut off Start Arenabot — the primary action invisible is the
+     actual bug in the screenshot.
+
+     ⚠ Everything here is scoped to THIS modal. .setup__body / .setup__head /
+     .setup__tile are shared by all four, and PvP, Twin Suns and 1P already fit
+     and are signed off against the mockup. Tightening them globally would
+     churn three approved screens to fix one.
+
+     THE WELL TAKES WHAT IS LEFT. A fixed height cannot honour both "four chips"
+     and "fits on one page" — which of the two is even possible depends on the
+     viewport. So the cap is the leftover space, bounded:
+       · ceiling 183px = 3 rows (48px) + their gaps + 24px of the 4th, so a tall
+         window shows four chips with the 4th visibly CUT;
+       · floor 120px = 2 rows + a cut 3rd, so it never collapses to a sliver;
+       · 780px is everything else in the modal once the trims below are applied.
+       Below ~900px of viewport the other content alone exceeds the window and
+       the modal scrolls; measured, not assumed — see the table in §21 of
+       Tests/Visual/MainMenu_SetupModals_RealData.md.
+     A cut row is the strongest "there is more below" signal there is, which is
+     the constraint the owner attached to shrinking it. The legend note ("23
+     tuned fixtures. Scroll for the rest.") and the sunken rim back it up. */
+  #setup-arenabot .pool__scroll {
+    max-block-size: clamp(120px, calc(100vh - 780px), 183px);
+  }
+  #setup-arenabot .setup__body { gap: var(--s-4); }
+  #setup-arenabot .setup__head { padding-block-end: var(--s-3); }
+  @media (min-width: 620px) {
+    #setup-arenabot .setup__tile { inline-size: 64px; block-size: 76px; }
+  }
+  #setup-arenabot .flabel { margin-block-end: 6px; }
+  #setup-arenabot .note--under { margin-block-start: 6px; }
+  #setup-arenabot .note--over  { margin-block-end: 6px; }
+  #setup-arenabot .lg { margin-block-end: 6px; }
+
+  .pcs { display: grid; gap: 5px; }
+
+  .pc { display: grid; min-inline-size: 0; }
+
+  .pc__row {
+    --cut: 9px;
+    --rim: 1px;
+    --plane: var(--e2);
+    --plane-art: linear-gradient(165deg, rgba(255, 255, 255, 0.045) 0%, transparent 46%);
+    --rim-hi: rgba(196, 214, 238, 0.30);
+    --rim-lo: rgba(120, 142, 172, 0.12);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: 3px var(--s-3);
+    min-block-size: var(--tap);
+    padding: 7px 10px;
+    cursor: pointer;
+
+    &:hover { --plane: var(--e3); --rim-hi: rgba(214, 230, 250, 0.48); }
+
+    /* the tag rides beside the text once there is room for it */
+    @media (min-width: 560px) {
+      grid-template-columns: minmax(0, 1fr) auto;
+
+      & .pc__end { grid-column: 2; grid-row: 1 / span 2; }
+    }
+  }
+
+  .pc__in:checked + .pc__row {
+    --plane: var(--e3);
+    --plane-art: linear-gradient(180deg, color-mix(in oklch, var(--gold) 9%, transparent), transparent 62%);
+    --rim-hi: color-mix(in oklch, var(--gold) 74%, transparent);
+    --rim-lo: var(--edge-strong);
+  }
+
+  .pc__in:focus + .pc__row,
+  .pc__in:focus-visible + .pc__row {
+    --rim: 3px;
+    --rim-hi: var(--gold-hi);
+    --rim-lo: var(--gold);
+  }
+
+  .pc__name {
+    grid-column: 1;
+    font-size: var(--t-13);
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .pc__meta {
+    grid-column: 1;
+    font-size: var(--t-11);
+    line-height: 1.35;
+    color: var(--ink-3);
+    text-wrap: pretty;
+  }
+
+  .pc__n { font-weight: 600; color: var(--ink-2); }
+
+  /* The style tag. Steel, never one of the six aspect colours, and
+     the style NAME is the whole tag.
+
+     It used to carry a five-step meter running Hyper Aggro to Hard
+     Control. Removed on the owner's ruling: a 1-to-5 indicator reads
+     as a difficulty ranking, and these are archetypes, not levels —
+     Hard Control is not "harder" than Hyper Aggro. Nothing ordinal
+     replaces it: no dots, no bars, no numbers. */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    flex: none;
+    min-block-size: 22px;
+    padding-inline: 9px;
+    font-size: var(--t-10);
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    white-space: nowrap;
+    background-color: color-mix(in oklch, var(--ink) 10%, transparent);
+    clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  }
+
+  /* ---------- a pre-con row that carries card art -----------
+     Twin Suns pre-cons name two leaders and a base, so the row shows
+     the same three thumbnails the deck preview does. Built as a
+     variant of .pc__row, not a second component, so a populated
+     Twin Suns well and the Arenabot well stay the same object. */
+  .pc__row--rich {
+    --tl-w: 38px; --tl-h: 27px;
+    --tb-w: 29px; --tb-h: 21px;
+    --tc-gap: 3px;
+    --tc-lap: 6px;
+    --tc-cut: 3px;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: var(--s-3);
+
+    & .pc__text { display: grid; min-inline-size: 0; gap: 2px; }
+
+    /* The selected-mark rides INLINE on the name rather than in a
+       .pc__end column. A rich row carries no style tag, so an end
+       column would hold nothing but a 16px mark — and at 390, where
+       the row stacks, that mark reserved a whole empty grid row
+       under the text. Inline, it costs nothing at any width and it
+       sits where the eye already is. */
+    @media (max-width: 559px) {
+      align-items: start;
+
+      & .cards { margin-block-start: 2px; }
+    }
+  }
+
+  .pc__name .mark {
+    display: inline-grid;
+    vertical-align: -3px;
+    margin-inline-start: 7px;
+  }
+
+  .pc__by {
+    font-weight: 500;
+    color: var(--ink-3);
+    letter-spacing: 0.01em;
+  }
+
+  /* ---------- the designed EMPTY pre-con state ------------
+     Ghost rows, then the message: the shape says what will land
+     here, the words say why it has not. */
+  .ghosts {
+    display: grid;
+    gap: 5px;
+    padding-block-end: var(--s-3);
+  }
+
+  .ghost {
+    --cut: 9px;
+    --rim: 1px;
+    --plane: var(--e1);
+    --rim-hi: rgba(196, 214, 238, 0.16);
+    --rim-lo: rgba(120, 142, 172, 0.07);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 5px var(--s-3);
+    min-block-size: var(--tap);
+    padding: 9px 10px;
+  }
+
+  .ghost__bar {
+    block-size: 8px;
+    grid-column: 1;
+    background-color: color-mix(in oklch, var(--ink) 11%, transparent);
+    clip-path: polygon(3px 0, 100% 0, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0 100%, 0 3px);
+  }
+
+  .ghost__bar--name { inline-size: 38%; }
+  .ghost__bar--meta { inline-size: 74%; block-size: 6px; }
+
+  .ghost__tag {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    inline-size: 84px;
+    block-size: 22px;
+    background-color: color-mix(in oklch, var(--ink) 8%, transparent);
+    clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  }
+
+  /* ---------- the Hotseat-only second seat ----------------
+     Zero JS again: the Mode radios sit ABOVE this block and
+     :has() reads which one is checked. Goldfish is solo, so with
+     Goldfish chosen the block is display:none — out of the layout
+     AND out of the tab order, not merely dimmed. */
+  .hot { display: none; }
+
+  .setup__body:has(.hotpick:checked) .hot {
+    display: grid;
+    gap: var(--s-5);
+    padding-inline-start: var(--s-4);
+    /* tinted, not neutral: a steel hairline here was invisible against
+       the pane, and the tint is what says "this belongs to 1P Mode" */
+    border-inline-start: 2px solid color-mix(in oklch, var(--tint) 46%, transparent);
+  }
+
+  .hot__lede {
+    font-size: var(--t-12);
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  /* the quiet third button: Cancel is a way out, not an action, so
+     it is the only button on the page with no fill at rest. */
+  .swu2-btn--quiet {
+    --plane: var(--e1);
+    --plane-art: none;
+    --rim-hi: rgba(196, 214, 238, 0.28);
+    --rim-lo: rgba(120, 142, 172, 0.10);
+    color: var(--ink-2);
+
+    &:hover {
+      --plane: var(--e2);
+      --plane-art: var(--btn-fill);
+      --rim-hi: rgba(214, 230, 250, 0.62);
+      color: var(--ink);
+    }
+  }
+
+  /* Arenabot's primary sits INSIDE the .prow beside Bot Style; with
+     Cancel next to it the row is three cells, not two. The pair is
+     matched by shape rather than by a new class so the primary does
+     not have to move out of the row it was signed off in. */
+  @media (min-width: 560px) {
+    .prow:has(> .swu2-btn + .swu2-btn) { grid-template-columns: minmax(0, 264px) auto auto; }
+  }
+
+  /* The bot-style announcement is a full-width line UNDER the row. It is a SIBLING of the .prow,
+     not a cell in it: inside the select's 264px track it wrapped to four lines and shoved
+     Start/Cancel down, and spanning it 1/-1 instead fed its min-content to the row's `auto`
+     button tracks (Start Arenabot 150px -> 195px against the mockup). */
+  .prow + .pickmsg { margin-block-start: var(--s-3); }
+
+  /* ============================================================
+     THE CUSTOM LISTBOX  —  progressive enhancement over <select>
+
+     WHY: the open list has to show the same rich row the collapsed
+     selection shows — thumbnails, name, "Leader · Base", count —
+     and a native <select> popup is drawn by the OS and cannot.
+
+     HOW: the <select> stays in the markup and stays the source of
+     truth. With no script it is the control, exactly as before.
+     With script, JS hides it, MOVES the existing .deckprev rows
+     into a <button aria-haspopup="listbox">, and builds the popup
+     from clones. Selecting writes back to the <select> and fires
+     `change`, so the collapsed row is still switched by the
+     approved `:has(option:checked)` rule — one source of truth,
+     and the preview cannot desync.
+
+     WHERE THE POPUP LIVES — two constraints, one answer:
+       · it must be a DESCENDANT OF THE DIALOG, because showModal()
+         makes everything outside the dialog inert: a popup parked
+         on <body> would be un-clickable and out of the focus trap;
+       · it must be OUTSIDE .deckpick, because the approved
+         `.deckpick:has(option[value=x]:checked) .deckprev--x` rule
+         would otherwise hide every cloned row but the selected one.
+     So it is parked in a zero-size .lb-layer pinned to the pane,
+     and positioned with position: fixed. Fixed is not clipped by
+     the scroller (the scroller is not its containing block), which
+     is what keeps the popup from being cut off by the dialog.
+
+     BACKDROP-ROOT DISCIPLINE: the popup is SOLID .ch, never .gl.
+     It sits inside .lb-layer, which needs a z-index to paint above
+     the scroller — and a z-index is a backdrop root, so glass in
+     there would have been inert. A solid steel well is also the
+     right material: it is the same one .pool uses.
+     ============================================================ */
+  .lb { position: relative; }
+
+  /* the native control, once the listbox has replaced it. It stays
+     in the DOM and keeps carrying the value for form submission. */
+  .lb > .selwrap { display: none; }
+
+  .lb__btn {
+    position: relative;
+    display: grid;
+    align-items: center;
+    inline-size: 100%;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .lb__caret {
+    inline-size: 11px;
+    block-size: 11px;
+    flex: none;
+    color: var(--ink-3);
+  }
+
+  /* ---- the deck skin: the trigger IS the rich row ---------- */
+  .lb--deck .lb__val { display: grid; min-inline-size: 0; }
+
+  /* room for the caret, matching .selwrap's own 34px */
+  .lb--deck .lb__val .deckprev { padding-inline-end: 34px; }
+
+  .lb--deck .lb__caret {
+    position: absolute;
+    inset-inline-end: 12px;
+    inset-block-start: calc(50% - 6px);
+  }
+
+  .lb--deck .lb__btn:hover .deckprev {
+    --plane: var(--e3);
+    --rim-hi: rgba(214, 230, 250, 0.48);
+  }
+
+  /* authored focus, in the page's own language: the row's rim
+     ignites gold, exactly as .selwrap:has(:focus-visible) does. */
+  .lb--deck .lb__btn:focus-visible {
+    outline: none;
+
+    & .deckprev {
+      --rim: 3px;
+      --rim-hi: var(--gold-hi);
+      --rim-lo: var(--gold);
+    }
+  }
+
+  /* ---- the chip skin: Card Pool in the modal header -------- */
+  .lb--chip { display: inline-flex; }
+
+  .lb--chip .lb__btn {
+    --cut: 8px;
+    --rim: 1px;
+    --plane: var(--e3);
+    --plane-art: var(--btn-fill);
+    --rim-hi: rgba(196, 214, 238, 0.46);
+    --rim-lo: rgba(120, 142, 172, 0.18);
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--s-2);
+    min-block-size: var(--tap);
+    padding-inline: var(--s-3) 10px;
+    font-size: var(--t-11);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+
+    &:hover { --plane-art: var(--btn-fill-hi); & .lb__caret { color: var(--ink-2); } }
+  }
+
+  .lb__text {
+    min-inline-size: 0;
+    overflow-wrap: break-word;
+  }
+
+  /* ---- the popup ------------------------------------------- */
+  .lb-layer {
+    position: absolute;
+    z-index: 3;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inline-size: 0;
+    block-size: 0;
+  }
+
+  .lb__wrap {
+    --sc: 12px;                    /* = .lb__pop --cut */
+    --cast:
+      0 2px 6px 5px oklch(0 0 0 / 0.40),
+      0 18px 34px 6px oklch(0 0 0 / 0.54);
+    position: fixed;
+    z-index: 3;
+    display: none;
+
+    &[data-open] { display: block; }
+  }
+
+  .lb__pop {
+    --cut: 12px;
+    --rim: 1px;
+    --plane: var(--e2);
+    --rim-hi: rgba(196, 214, 238, 0.42);
+    --rim-lo: rgba(120, 142, 172, 0.16);
+    padding: 5px;
+  }
+
+  .lb__opts {
+    position: relative;            /* offsetTop is measured against it */
+    display: grid;
+    gap: 5px;
+    overflow: hidden auto;
+    overscroll-behavior: contain;
+    max-block-size: var(--lb-max, 320px);
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba(174, 190, 210, 0.72) rgba(11, 15, 21, 0.72);
+
+    &::-webkit-scrollbar { inline-size: 10px; }
+    &::-webkit-scrollbar-track { background-color: rgba(11, 15, 21, 0.72); }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(174, 190, 210, 0.72);
+      border: 2px solid rgba(11, 15, 21, 0.72);
+    }
+
+    /* the focus indicator is the active row's rim, below — the
+       roving one, so it survives programmatic focus in WebKit,
+       where :focus-visible does not reliably match. */
+    &:focus-visible { outline: none; }
+  }
+
+  .lb__opt {
+    --cut: 9px;
+    --rim: 1px;
+    --plane: var(--e2);
+    --plane-art: linear-gradient(165deg, rgba(255, 255, 255, 0.045) 0%, transparent 46%);
+    --rim-hi: rgba(196, 214, 238, 0.30);
+    --rim-lo: rgba(120, 142, 172, 0.12);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--s-3);
+    min-block-size: var(--tap);
+    padding: 7px 10px;
+    cursor: pointer;
+
+    &:hover { --plane: var(--e3); --rim-hi: rgba(214, 230, 250, 0.48); }
+
+    /* selected: a gold RIM and ordinary ink, never a gold fill —
+       the one gold fill per screen is still the primary button. */
+    &[aria-selected="true"] {
+      --plane: var(--e3);
+      --plane-art: linear-gradient(180deg, color-mix(in oklch, var(--gold) 9%, transparent), transparent 62%);
+      --rim-hi: color-mix(in oklch, var(--gold) 74%, transparent);
+      --rim-lo: var(--edge-strong);
+
+      & .mark { opacity: 1; }
+    }
+
+    &[data-active] {
+      --rim: 3px;
+      --rim-hi: var(--gold-hi);
+      --rim-lo: var(--gold);
+    }
+  }
+
+  /* a cloned .deckprev, stripped of .ch by the script, so the row's
+     own rim and plane are the only ones. It has to be turned back
+     on explicitly: .deckprev is display:none by default and these
+     clones live outside the .deckpick that would switch them. */
+  .lb__opt > .deckprev {
+    display: grid;
+    padding: 0;
+    min-block-size: 0;
+  }
+
+  .lb__opt > .deckprev--none { grid-template-columns: minmax(0, 1fr); }
+
+  .lb__opt--text .lb__txt {
+    font-size: var(--t-13);
+    font-weight: 600;
+    line-height: 1.25;
+    min-inline-size: 0;
+    overflow-wrap: break-word;
+  }
+
+  /* ============================================================
+     FORMAT DETECTION  —  the reason line and the demo scaffolding
+
+     The detected-pool note itself is .poolnote, up in the head
+     block, because the slot was already reserved there. Two more
+     pieces live here.
+
+     .whyline is the switch's reason, and it is what the dialog's
+     aria-describedby points at. It is the FIRST CHILD OF
+     .setup__body, i.e. below the head's rule, so it can only push
+     the form down — the title, the art tile and the pool chip
+     above it do not move. It is not a live region and not an
+     alert: see the script for why the description is the right
+     channel and a live region is the wrong one.
+     ============================================================ */
+
+  .whyline {
+    --cut: 9px;
+    --rim: 1px;
+    --plane: var(--e2);
+    /* the mode's own tint, washing in from the leading edge — the
+       same language the pane and the art tile already use */
+    --plane-art:
+      linear-gradient(90deg,
+        color-mix(in oklch, var(--tint) 15%, transparent),
+        transparent 58%);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-4);
+    font-size: var(--t-13);
+    line-height: 1.45;
+    color: var(--ink);
+    text-wrap: pretty;
+
+    &[hidden] { display: none; }
+
+    & svg {
+      flex: none;
+      inline-size: 17px;
+      block-size: 17px;
+      margin-block-start: 2px;
+      color: var(--ink-2);
+    }
+  }
+
+  .whyline__t { min-inline-size: 0; }
+
+  /* --- mockup-only demo affordance ------------------------- */
+
+
+
+  /* the deck-link row and its scaffolding read as one block, at the
+     row's own rhythm rather than the body's 24px section gap */
+  .dblock {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+
+
+  /* THE PAGE BEHIND MUST NOT SCROLL. showModal() makes the
+     background inert but does NOT lock the scroller — measured:
+     a wheel over the backdrop moved the page 400px in chromium,
+     firefox AND webkit. scrollbar-gutter keeps the splash from
+     jumping sideways by the scrollbar's width as it locks, on the
+     platforms that draw a classic bar. */
+  html[data-modal] {
+    overflow: hidden;
+    scrollbar-gutter: stable;
+  }
+
+  .u-vh {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+
+@media (prefers-reduced-motion: reduce) {
+  
+    *, *::before, *::after {
+      animation-duration: 1ms;
+      animation-iteration-count: 1;
+      transition-duration: 1ms;
+      transition-delay: 0s;        /* the stage light switches, never travels */
+      scroll-behavior: auto;
+    }
+    .mode:hover { translate: none; --sweep: -40%; }
+    .mode:hover .mode__art svg, .mode:focus-visible .mode__art svg { scale: 1; }
+    .mode:hover .mode__pool, .mode:focus-visible .mode__pool { scale: 1 1; }
+    .mode:hover .mode__go svg { translate: none; }
+    .swu2-btn:hover,
+    .nav-bar-user .NavBarItem[aria-current="page"]:hover { translate: none; }
+  
+}
+
+/* ── Touch targets in the shared chrome ──────────────────────────────────────
+   The cross-browser gate measured these below 44x44 on every state, and the
+   original audit found the same: .NavBarItem 90x30, .burger-menu 52x40, the
+   Discord/GitHub links 30px wide. They are styled by swusim-overrides.css, so
+   this file — loaded last — raises them without touching the other five sims
+   or reaching for !important. WCAG 2.5.8 wants 24x24; 44x44 is the comfortable
+   touch target and what the rest of this design already meets. */
+.nav-bar-user .NavBarItem,
+.nav-bar-links .NavBarItem {
+  display: flex;
+  align-items: center;
+  min-block-size: 44px;
+}
+
+.burger-menu {
+  min-inline-size: 44px;
+  min-block-size: 44px;
+}
+
+/* The Discord/GitHub links wrap an <img>, not an <svg> — a :has(> svg) rule
+   silently misses them, which is how they stayed 30px wide. Target both. */
+nav a:has(> img),
+nav a:has(> svg),
+.nav-bar a:has(> img),
+.nav-bar a:has(> svg) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+}
+
+/* Footer legal links measured 68x14 and 71x14 — the smallest targets on the page,
+   and the ones carrying the legally required Terms and Privacy links. */
+footer a,
+.foot a,
+.disclaimer a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 44px;
+}
+
+/* ══ TOP BAR ═══════════════════════════════════════════════════════════════
+   The header and nav come from the SHARED generated renderers (Render/Header.php,
+   Render/MenuBar.php) that all six sims use, so their MARKUP is not ours to change.
+   This restyles them to the approved mockup's topbar from SWUSim's own stylesheet:
+   one dark glass bar, the emblem in steel rather than gold, spaced-caps wordmark,
+   plain nav links, and the icon links as a separate chip. Loaded last, so no
+   !important is needed. Other sims are untouched. */
+body:has(.home-header) {
+
+  & .home-header {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: var(--s-4, 18px);
+    inline-size: auto;
+    margin: 0;
+    padding: 10px clamp(14px, 3vw, 34px);
+    background: transparent;
+    border: 0;
+    border-block-end: 1px solid var(--edge, rgba(226, 232, 240, 0.14));
+    clip-path: none;                 /* drop the inherited chamfered plate */
+    box-shadow: 0 1px 0 oklch(0 0 0 / 0.5);
+  }
+  /* The mockup's plate is a FROSTED ::before, not a flat fill — the blur is what darkens the
+     arena art behind the bar. Painting a plain translucent colour instead left the wordmark at
+     2.92:1 over the busy part of the plate at 390px, just under the 3:1 large-text floor.
+     ⚠ No `isolation` and no `filter` on the header: both are backdrop roots and would silently
+     kill the blur. The plate sits at z-index 0 with the content lifted above it, which is
+     exactly what the mockup does. */
+  & .home-header::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    background-color: var(--pane-bar, rgba(20, 26, 36, 0.76));
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 48%);
+    -webkit-backdrop-filter: var(--frost-bar);
+    backdrop-filter: var(--frost-bar);
+  }
+  & .home-header .title { position: relative; z-index: 1; }
+  /* The gold chamfered plate is painted by pseudos on .title (swusim-overrides.css:29,53),
+     not on the header itself — targeting .home-header::before missed it entirely. */
+  & .home-header .title::before,
+  & .home-header .title::after { content: none; }
+
+  /* the shared renderer emits <a.title><img><h1><p></a> as three flat siblings, so the
+     emblem spans two rows and the wordmark stacks over the tagline */
+  & .home-header .title {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    column-gap: 14px;
+    text-decoration: none;
+    min-block-size: 44px;
+    padding: 0;
+    /* swusim-overrides positions the old gold plate with `margin: 10px 0 0 -24px`, which pulled
+       the wordmark 24px OUTSIDE the header's gutter (brand at x=44 against the mockup's 68) and
+       added 10px to the bar's height. */
+    margin: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    clip-path: none;
+  }
+  & .home-header .title-logo { grid-row: 1 / 3; }
+  & .home-header h1          { grid-column: 2; grid-row: 1; }
+  & .home-header .title p    { grid-column: 2; grid-row: 2; }
+
+  & .home-header .title-logo {
+    inline-size: 44px;
+    block-size: 44px;
+    /* steel, not gold: gold is rationed to the primary action and active state */
+    filter: brightness(0) saturate(100%) invert(84%) sepia(8%) saturate(360%)
+            hue-rotate(178deg) brightness(95%) contrast(90%);
+  }
+
+  & .home-header h1 {
+    margin: 0;
+    font-size: var(--t-17, 17px);
+    font-weight: 700;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+    color: var(--ink, #eef2f6);
+    line-height: 1.15;
+  }
+
+  & .home-header .title p {
+    margin: 1px 0 0;
+    font-size: var(--t-12, 12px);
+    font-weight: 400;
+    letter-spacing: 0.012em;
+    text-transform: none;
+    color: var(--ink-3, rgba(226, 232, 240, 0.66));
+  }
+
+  /* the nav sits on the same bar rather than floating as its own glass chip */
+  & .nav-bar {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-end: clamp(14px, 3vw, 34px);
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    min-block-size: 64px;
+    background: none;
+    border: 0;
+    box-shadow: none;
+  }
+
+  & .nav-bar-user,
+  & .nav-bar-links {
+    display: flex;
+    align-items: center;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+    clip-path: none;
+  }
+  /* the glass chips are pseudos (swusim-overrides.css:30,54), same trap as the header plate */
+  & .nav-bar-user::before,  & .nav-bar-links::before,
+  & .nav-bar-user::after,   & .nav-bar-links::after { content: none; }
+  /* the dividers belonged to the chip, not to a plain link row */
+  & .nav-bar-user li + li { border-inline-start: 0; }
+
+  & .nav-bar .rightnav {
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 1.4vw, 22px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  & .nav-bar-user .NavBarItem {
+    padding-inline: 8px;
+    font-size: var(--t-14, 14px);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--ink-2, rgba(226, 232, 240, 0.86));
+    text-shadow: none;
+  }
+  & .nav-bar-user .NavBarItem:hover { color: var(--ink, #eef2f6); text-decoration: none; }
+}
+
+/* renderHotkeyList() writes .hotkey-row/.hotkey-badge — the pre-redesign shape. The JS stays
+   authoritative (the list comes from _hotkeyList), so style what it actually emits rather than
+   freezing static markup that would drift from it. */
+body:has(.home-header) {
+  & #hotkey-list { display: flex; flex-direction: column; gap: 8px; margin-block-start: 12px; }
+  & .hotkey-row  { display: flex; align-items: center; gap: 12px; font-size: var(--t-13, 13px);
+                   color: var(--ink-2, rgba(226,232,240,0.86)); }
+  & .hotkey-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-inline-size: 44px; padding: 3px 10px;
+    font-size: var(--t-12, 12px); font-weight: 600; letter-spacing: 0.02em;
+    color: var(--ink, #eef2f6);
+    background: var(--btn-fill, linear-gradient(135deg, rgba(70,80,92,.92), rgba(46,54,64,.92)));
+    border: 1px solid var(--edge, rgba(226,232,240,0.16));
+    border-block-end-width: 2px;
+    border-radius: 3px;
+  }
+}
+
+/* The deck-link inputs measured 167x35 on the live page but not in the mockup: the site's own
+   `body .container input[type=text]` rule (swusim-overrides.css) is more specific than the
+   mockup's field rule, so it won the height. Raise them to the 44px touch target here, where
+   the selector is specific enough to win without !important. */
+body:has(.home-header) .setup input[type="text"],
+body:has(.home-header) .setup input[type="url"],
+body:has(.home-header) .setup input:not([type]) {
+  min-block-size: 44px;
+}
+
+/* ══ LEGACY CASCADE CORRECTIONS ════════════════════════════════════════════
+   Three rules from the pre-redesign stylesheets reach inside the new setup
+   modals and win, because this sheet never declared the property they set.
+   Each was MEASURED on the live page against the approved mockup, and each
+   is fixed at the lowest specificity that actually wins — no !important. */
+
+/* 1 ─ menuStyles.css:119  `input, select { margin: 10px 0 20px 0 }`
+   A bare-element rule, so it applies to every field in here that does not
+   declare a margin of its own. Measured: .inwrap 787x74 around a 44px input
+   — the extra 30px is exactly this 10+20. It also pushed the selects and the
+   "Best of 1" row well past the mockup's 44px field height. */
+/* ⚠ Scoped to the whole redesigned PAGE, not just .setup. It was .setup-only at first, which
+   left the Games-in-Progress format filter 30px too tall on the splash — the same 10+20 margin,
+   just outside the modals. The design spaces its fields with gaps, never with field margins. */
+body:has(.home-header) .input,
+body:has(.home-header) .select,
+body:has(.home-header) input,
+body:has(.home-header) select,
+body:has(.home-header) textarea {
+  margin: 0;
+}
+
+/* 2 ─ swusim-overrides.css  `input[type=checkbox], input[type=radio]`
+   Specificity 0-1-1 beats .u-vh's 0-1-0, so it re-imposed
+   `width:16px; height:16px; position:relative; margin:0 6px 0 0` on every
+   visually-hidden radio in the redesign. They were not hidden at all: each
+   one sat in the flow as a real 16px box. In the Arrangement control — a
+   grid with `grid-auto-flow: column` — the two radios took two of their own
+   tracks, so a two-option toggle became FOUR columns of 63px and
+   "Free-For-All" wrapped onto three lines.
+   Matching the same 0-1-1 and loading later is enough to win it back. */
+input.u-vh,
+select.u-vh,
+textarea.u-vh,
+button.u-vh {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* 3 ─ menuStyles.css:103  `button { text-align: center; white-space: nowrap }`
+   The saved-deck "fat dropdown" trigger is a <button>, so its deck name and
+   the leader/base line came out CENTRED and (via the sim's own button rule)
+   UPPERCASE — the mockup reads left-aligned, sentence case, name over
+   subtitle. The nowrap also stopped the label wrapping inside the segmented
+   control, which is why its text clipped rather than reflowed. */
+.lb--deck .lb__btn,
+.lb--deck .lb__val,
+.lb--deck .lb__opt {
+  text-align: start;
+  text-transform: none;
+  white-space: normal;
+}
+.lb--deck .deck__name {
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+.lb--deck .deck__sub {
+  text-transform: none;
+}
+/* ⚠ .deck__n is uppercase in the approved design ("50 CARDS"). An earlier sweep of this file
+   lower-cased it along with .deck__sub; the mockup diff caught it. */
+.seg__opt {
+  white-space: normal;
+}
+
+/* 4 ─ components.css  `button:not(.btn):not(.switch)` (specificity 0-2-1)
+   Beats .swu2-btn (0-1-0) and .swu2-btn--primary (0-1-0), so it was setting
+   display, color AND the `background` SHORTHAND on every button in here.
+   The shorthand is the damaging part: .ch paints its chamfer RIM as the
+   element's own background-image (the plane is a ::before), so resetting
+   background wiped the rim off every button on the page — which is why the
+   primary action lost its gold edge and read as one more grey button.
+   Measured on the live page: backgroundImage "none", color --ink not
+   --gold-ink, even though --rim-hi had correctly resolved to #ffd998.
+   Re-asserted at 0-3-1 / 0-3-0, mirroring the legacy selector's own shape. */
+button.ch:not(.btn):not(.switch) {
+  background-color: transparent;
+  background-image: linear-gradient(180deg, var(--rim-hi), var(--rim-lo) 76%);
+}
+.swu2-btn:not(.btn):not(.switch) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  color: var(--ink);
+}
+.swu2-btn--primary:not(.btn):not(.switch) { color: var(--gold-ink); }
+
+/* 5 ─ the saved-deck empty state.
+   A guest has no saved decks (they are per-account for this sim), so the
+   picker renders as a line of guidance rather than an inert dropdown. */
+.deckpick--empty {
+  display: flex;
+  align-items: center;
+  min-block-size: var(--tap);
+  padding: 10px 14px;
+  border: 1px dashed var(--edge, rgba(226, 232, 240, 0.18));
+  border-radius: 3px;
+  background: color-mix(in oklch, var(--e1, #12151b) 70%, transparent);
+}
+.deckpick__empty {
+  margin: 0;
+  font-size: var(--t-13, 13px);
+  color: var(--ink-3, rgba(226, 232, 240, 0.66));
+}
+
+/* 6 ─ TWO CHAMFER SYSTEMS ON ONE BUTTON.
+   components.css paints every bare <button> with its own chamfer — ::before
+   is the rim, ::after the fill, both driven by --btn-* tokens — at 0-2-1.
+   This design paints its chamfer with .ch: the rim is the ELEMENT's
+   background-image and ::before is the plane, at 0-1-0. The legacy one won,
+   so .ch's plane never rendered: measured on the primary action, ::before
+   came back inset:0 z-index:-2 background rgba(200,212,224,.55) — the legacy
+   rim — while --plane-art held the gold gradient nobody painted. The button
+   ended up dark-on-dark, since .swu2-btn--primary had already switched the
+   text to --gold-ink for a gold fill that was not there.
+   Hand chamfered buttons back to .ch, at 0-4-1. .gl (the glass variant) uses
+   both pseudos for something else and is excluded. */
+button.ch:not(.gl):not(.btn):not(.switch) {
+  padding-block: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+/* the legacy hover is `scale(1.1)`, which fights .ch's 1px lift and blurs the
+   chamfer's edges as it scales */
+button.ch:not(.gl):not(.btn):not(.switch):hover,
+button.ch:not(.gl):not(.btn):not(.switch):active { transform: none; }
+
+button.ch:not(.gl):not(.btn):not(.switch)::before {
+  content: "";
+  position: absolute;
+  inset: var(--rim);
+  z-index: -1;
+  background-color: var(--plane);
+  background-image: var(--plane-art);
+  clip-path: polygon(
+    var(--ci) 0,
+    100% 0,
+    100% calc(100% - var(--ci)),
+    calc(100% - var(--ci)) 100%,
+    0 100%,
+    0 var(--ci)
+  );
+}
+button.ch:not(.gl):not(.btn):not(.switch)::after { content: none; }
+
+/* ── The pick confirmation ───────────────────────────────────────────────────
+   Choosing a saved deck moves three things at once — the Deck Link box, the
+   pool chip and the preview — so a line says which. role="status" on the
+   element; this is only its look. It sits under the picker and is hidden
+   until there is something to report. */
+.pickmsg {
+  --cut: 8px;
+  --plane: var(--e1, #12151b);
+  --rim-hi: color-mix(in oklch, var(--gold, #e9b866) 38%, transparent);
+  --rim-lo: var(--edge, rgba(226, 232, 240, 0.14));
+  display: flex;
+  align-items: center;
+  gap: var(--s-2, 8px);
+  margin-block: 8px 0;
+  padding: 8px 12px;
+  font-size: var(--t-13, 13px);
+  line-height: 1.35;
+  color: var(--ink-2, rgba(226, 232, 240, 0.86));
+}
+.pickmsg[hidden] { display: none; }
+
+/* ══ MOCKUP FIDELITY ═══════════════════════════════════════════════════════
+   Measured against the approved preview (g-modes.html) with a computed-style
+   diff, element by element. Everything below is a property the legacy sheets
+   set on a BARE ELEMENT or a :not() selector, which the port's plain classes
+   could not outrank — the same family as the corrections above.
+
+   ⚠ The typeface was the big one and it hid in plain sight. The stylesheet
+   asks for "Archivo" and getComputedStyle happily reports "Archivo, …"
+   whether or not the face was ever downloaded, so every automated check
+   passed while the page rendered in the system UI font. The <link> is now
+   emitted (SiteDef fonts + Head.php's font map); these rules make the
+   CONTROLS use it too, since the legacy sheets name Barlow explicitly and
+   a font-family declaration on <body> never reaches a form control. */
+/* components.css sets buttons to `font-family: var(--font-display, inherit)`, and
+   SharedUI/css/tokens.css defines that as `barlow, sans-serif` for the whole design system.
+   Repointing the TOKEN inside the redesign is the right layer: it fixes buttons and anything
+   else keyed to the design-system font without another specificity fight, and it leaves the
+   token alone for the five other sims. */
+body:has(.home-header) {
+  --font-display: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-body: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* menuStyles.css:5 is one enormous element reset —
+     html, body, h1..h6, p, a, b, ul, ol, li, dl, dd, form, details, blockquote,
+     table, th, td, button, input, label, select, textarea, small, span, code
+   — setting `font-family: barlow`. It names the elements DIRECTLY, and a directly
+   matched rule always beats an inherited value, so body's Archivo never reached a
+   single paragraph, label, span or field. Re-point that same list at whatever it
+   should be inheriting. :where() keeps this at 0-1-1 so it outranks the reset's
+   0-0-1 without touching anything the design styles by class.
+   ⚠ The body:has() scope is load-bearing: this stylesheet is on EVERY SWUSim page
+   (Profile, Login, …) and only the menu carries .swu2-arena-wrap. */
+:where(body:has(.home-header)) :is(h1, h2, h3, h4, h5, h6, p, a, b, ul, ol, li, dl, dd,
+  form, details, blockquote, table, th, td, button, input, label, select, textarea,
+  small, span, code, legend, fieldset) {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* menuStyles.css:40 `p { line-height: 130% }` and its `p, label { font-size: 16px }` — same
+   shape, same trick. Matched EXACTLY to those two selectors rather than folded into the list
+   above: a blanket `font-size: inherit` over that element list would also tie (and then beat,
+   on source order) menuStyles' own `h1 { font-size: 28px }` and flatten every heading. */
+:where(body:has(.home-header)) p {
+  line-height: inherit;
+}
+:where(body:has(.home-header)) :is(p, label) {
+  font-size: inherit;
+}
+
+/* The buttons measured 102x44 against the mockup's 129x44 — `padding: var(--btn-pad, 5px 7px)`
+   from components.css replaced the design's 16px inline padding, and its font-weight:600 the
+   design's 700. Every button on the page was ~25% narrower and a weight light. */
+.swu2-btn:not(.btn):not(.switch) {
+  padding-inline: var(--s-4);
+  font-weight: 700;
+}
+
+/* Fields: `button, input, select, textarea { padding: 5px 7px }` (menuStyles.css:94) added
+   block padding the design does not have. The inline padding already matched. */
+body:has(.home-header) .setup .input {
+  padding-block: 1px;
+}
+body:has(.home-header) .setup .select {
+  padding-block: 0;
+  display: inline-block;
+}
+
+/* ⚠ THE SPECIFICITY TRICK ABOVE IS THE WHOLE POINT, and it took two wrong attempts to get
+   right. The reset also sets `color: white` where the design's ink is #eef2f6 — but a
+   correction written the obvious way, `body:has(.home-header) :where(p, span, …)`, lands
+   at 0-1-1 and therefore TRAMPLES every .note, .deck__sub and .pc__meta that declares its own
+   muted colour. Both of those regressions showed up in the mockup diff.
+   Wrapping the SCOPE in :where() instead drops it to 0-0-0 and leaves the element list at
+   0-0-1 — exactly tying menuStyles.css's reset, which this file then wins on source order,
+   while still losing to every single-class rule the design uses. */
+body:has(.home-header) dialog.setup {
+  color: var(--ink);
+}
+
+
+/* The fat dropdown's trigger is a <button>, so components.css's
+   `button:not(.btn):not(.switch)` (0-2-1) puts its 600 weight, its --btn-tracking letter
+   spacing and the reset's white onto the deck row inside it. The row is body text: 400, normal
+   tracking, --ink. Measured against the mockup, which has 400/normal/#eef2f6. */
+.lb--deck button.lb__btn:not(.btn):not(.switch),
+.lb--deck button.lb__btn:not(.btn):not(.switch) .deckprev,
+.lb--deck button.lb__btn:not(.btn):not(.switch) .deck__name,
+.lb--deck button.lb__btn:not(.btn):not(.switch) .deck__sub {
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+}
+button.lb__btn:not(.btn):not(.switch),
+body:has(.home-header) .lb__val,
+body:has(.home-header) .lb__val .deckprev,
+body:has(.home-header) .lb__opt .deckprev,
+button.lb__btn:not(.btn):not(.switch) .deck__name { color: var(--ink); }
+.lb--deck button.lb__btn:not(.btn):not(.switch) .deck__name { font-weight: 600; }
+/* .deck__sub keeps its own muted ink — it is the leader/base line, not the deck's name */
+
+/* The deck trigger measured 866x55 against the mockup's 866x45, with its inner .lb__val 14px
+   narrower than the button — exactly components.css's `padding: var(--btn-pad, 5px 7px)`.
+   build() only adds .ch to the CHIP trigger, so the deck trigger slipped past the chamfered-
+   button correction above and kept the legacy padding. The chip keeps its own. */
+/* BOTH listbox triggers are <button>s, so components.css's `display: inline-block` and
+   `padding: var(--btn-pad, 5px 7px)` (0-2-1) beat .lb__btn's own `display: grid` (0-1-0) and
+   each skin's padding (0-2-0). The deck trigger came out 10px too tall with its row 14px too
+   narrow; the CHIP collapsed to one column, so "PREMIER" and its caret stacked instead of
+   sitting side by side — 64px wide against the mockup's 97px. Re-assert the port's own values
+   at 0-3-1, then let each skin restore its padding at 0-4-1. */
+button.lb__btn:not(.btn):not(.switch) {
+  display: grid;
+  padding: 0;
+}
+/* ⚠ The two skins want OPPOSITE typography and it is easy to fix one onto the other. The deck
+   row is body text (400, sentence case); the CHIP is a control label (700, uppercase, tracked).
+   Both have to be re-asserted here, because components.css's font-weight:600 and
+   text-transform:var(--btn-transform) sit at 0-2-1 and outrank the port's own 0-2-0 rules. */
+.lb--chip button.lb__btn:not(.btn):not(.switch) {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.lb--deck button.lb__btn:not(.btn):not(.switch) {
+  grid-template-columns: minmax(0, 1fr);
+}
+.lb--chip button.lb__btn:not(.btn):not(.switch) {
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding-inline: var(--s-3) 10px;
+}
+
+/* ⚠ Only the MENU wraps the disclaimer in <footer class="foot">; Login, Signup and the rest
+   emit a bare `.disclaimer` at body level. The rules below therefore key on .disclaimer itself,
+   and a page without the .foot wrapper gets the bar treatment here instead. */
+body:has(.home-header) .disclaimer:not(.foot .disclaimer) {
+  margin-block-start: auto;
+  border-block-start: 1px solid var(--edge);
+  background-color: var(--pane-bar);
+  -webkit-backdrop-filter: var(--frost-bar);
+  backdrop-filter: var(--frost-bar);
+}
+
+/* ── The disclaimer footer ───────────────────────────────────────────────────
+   The footer's CONTENT comes from the shared SharedUI/Disclaimer.php, which every
+   sim includes, so its markup is not ours to change: one `.disclaimer > p` with
+   the legal text and both links inline, where the mockup had `.wrap.foot__in`
+   wrapping a `.foot__legal` and a `.foot__links`. None of the ported footer rules
+   matched it.
+
+   ⚠ The visible symptom was a COMPLETELY BLANK footer bar, and the cause is the
+   same one the chamfer notes warn about: `.foot::before` paints the footer's
+   plate across `inset: 0` at z-index 0, and the mockup lifts `.foot__in` to
+   z-index 1 to sit above it. `.disclaimer` never got that, so the text was
+   rendering at full size, in the right colour, UNDERNEATH its own background.
+   Measured 1440x74 with a 70x44 link in it and nothing on screen. */
+body:has(.home-header) .disclaimer {
+  position: relative;
+  z-index: 1;                       /* ← the fix for the blank bar */
+  inline-size: 100%;
+  max-inline-size: 1368px;
+  margin-inline: auto;
+  padding-inline: var(--s-4);
+  padding-block: var(--s-5);
+}
+@media (min-width: 760px) {
+  body:has(.home-header) .disclaimer { padding-inline: var(--s-6); }
+}
+
+body:has(.home-header) .disclaimer p {
+  margin: 0;
+  font-size: var(--t-12);
+  line-height: 1.65;
+  color: var(--ink-2);
+  max-inline-size: 84ch;
+}
+
+body:has(.home-header) .disclaimer a {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--tap);
+  padding-inline: var(--s-2);
+  font-size: var(--t-13);
+  font-weight: 600;
+  color: var(--ink-2);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--ink) 30%, transparent);
+  text-underline-offset: 3px;
+}
+body:has(.home-header) .disclaimer a:hover { color: var(--ink); }
+
+/* The page must fill the viewport so `.foot { margin-block-start: auto }` has somewhere to push
+   the footer TO — otherwise a short splash leaves it floating mid-page instead of sitting under
+   the content. */
+body:has(.home-header) {
+  display: flex;
+  flex-direction: column;
+}
+body:has(.home-header) .swu2-arena-wrap { flex: 1 0 auto; }
+body:has(.home-header) .foot { flex: none; }
+
+/* ══ NAV — the mockup's topbar treatment ═══════════════════════════════════
+   The header and nav come from the shared Render/Header.php + Render/MenuBar.php
+   that all six sims use, so the MARKUP is not ours to change. The mockup's
+   `.nav__link` / `.nav__link--edge` / `.iconlink` / `.icons__sep` are mapped onto
+   what those renderers actually emit:
+
+     .nav-bar-user .NavBarItem              → .nav__link      (chamfered hover plate)
+     .NavBarItem[aria-current="page"]        → .nav__link--edge (the steel plate, used
+                                               here as the CURRENT-PAGE marker, not
+                                               as a permanent call to action)
+     .nav-bar-links                         → .icons + its separator
+     .nav-bar-links a                       → .iconlink       (44px chamfered square)
+
+   ⚠ The icon links wrap an <img>, not an inline <svg>, so the mockup's
+   `color: var(--ink-3)` cannot reach them. A filter matches the intended weight
+   instead, and brightens on hover the way the mockup's currentColor does. */
+body:has(.home-header) {
+
+  /* Archivo is a VARIABLE font and the wordmark rides its width axis */
+  & .home-header h1 { font-variation-settings: "wdth" 115; }
+
+  & .nav-bar .rightnav { gap: var(--s-1); }
+
+  & .nav-bar-user .NavBarItem {
+    --cut: 9px;
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--tap);
+    padding-inline: var(--s-3);
+    font-size: var(--t-14);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--ink-2);
+    clip-path: polygon(
+      var(--cut) 0, 100% 0,
+      100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+      0 100%, 0 var(--cut));
+    transition: color 150ms var(--ease), background-color 150ms var(--ease);
+  }
+  & .nav-bar-user .NavBarItem:hover {
+    color: var(--ink);
+    background-color: color-mix(in oklch, var(--ink) 9%, transparent);
+    text-decoration: none;
+  }
+  /* clip-path would eat an outline — ignite a plane instead */
+  & .nav-bar-user .NavBarItem:focus-visible {
+    outline: none;
+    color: var(--gold-ink);
+    background-color: var(--gold);
+  }
+
+  /* ── "You are here" ──────────────────────────────────────────────────────
+     Owner, 2026-09-25: the plate is the CURRENT-PAGE marker, not a permanent
+     call to action. It used to sit on "Log In" on every page, where it read as
+     a focused or selected item — on Sign Up it looked like the selected tab
+     while you were standing on Sign Up, and on Log In it pointed at the page
+     you were already on.
+     Now any nav item marks itself when it is the page being viewed, which is
+     the indicator the nav never had. aria-current comes from MenuBar.php. */
+  & .nav-bar-user .NavBarItem[aria-current="page"] {
+    --rim: 2px;
+    --rim-hi: rgba(196, 214, 238, 0.62);
+    --rim-lo: rgba(120, 142, 172, 0.24);
+    --ci: calc(var(--cut) - 0.586 * var(--rim));
+    position: relative;
+    isolation: isolate;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: var(--t-13);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background-color: transparent;
+    background-image: linear-gradient(180deg, var(--rim-hi), var(--rim-lo) 76%);
+  }
+  & .nav-bar-user .NavBarItem[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: var(--rim);
+    background-color: var(--e3);
+    background-image: var(--btn-fill);
+    clip-path: polygon(
+      var(--ci) 0, 100% 0,
+      100% calc(100% - var(--ci)), calc(100% - var(--ci)) 100%,
+      0 100%, 0 var(--ci));
+  }
+  & .nav-bar-user .NavBarItem[aria-current="page"]:hover {
+    background-color: transparent;
+    translate: 0 -1px;
+  }
+  & .nav-bar-user .NavBarItem[aria-current="page"]:hover::before { background-image: var(--btn-fill-hi); }
+
+  /* the hairline that separates the account links from the icon links */
+  & .nav-bar-links { position: relative; padding-inline-start: var(--s-4); }
+  & .nav-bar-links::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: var(--s-2);
+    translate: 0 -50%;
+    inline-size: 1px;
+    block-size: 22px;
+    background-color: var(--edge-strong);
+  }
+  & .nav-bar-links ul { display: flex; align-items: center; gap: var(--s-1); margin: 0; padding: 0; list-style: none; }
+
+  & .nav-bar-links a {
+    --cut: 9px;
+    display: inline-grid;
+    place-items: center;
+    inline-size: var(--tap);
+    block-size: var(--tap);
+    clip-path: polygon(
+      var(--cut) 0, 100% 0,
+      100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+      0 100%, 0 var(--cut));
+    transition: background-color 150ms var(--ease);
+  }
+  & .nav-bar-links a img {
+    inline-size: 20px;
+    block-size: 20px;
+    /* stands in for the mockup's color: var(--ink-3) on an inline SVG */
+    opacity: 0.72;
+    transition: opacity 150ms var(--ease);
+  }
+  & .nav-bar-links a:hover {
+    background-color: color-mix(in oklch, var(--ink) 9%, transparent);
+  }
+  & .nav-bar-links a:hover img { opacity: 1; }
+  & .nav-bar-links a:focus-visible {
+    outline: none;
+    background-color: color-mix(in oklch, var(--ink) 14%, transparent);
+  }
+  & .nav-bar-links a:focus-visible img { opacity: 1; }
+
+  @media (max-width: 1039px) {
+    & .nav-bar-links::before { display: none; }
+  }
+}
+
+/* ── topbar geometry: brand | nav | icons, on the page's own gutter ──────────
+   The mockup's `.topbar__in` is a `.wrap` — max 1368px, centred, 32px gutter — laid
+   out as three columns with the nav CENTRED in the viewport and the icon links
+   flush right. Live, the <nav> is a SIBLING of <header> (Header.php and MenuBar.php
+   are separate renderers), so it cannot join the header's grid; it is stretched
+   across the same band instead and given the same gutter, which puts every element
+   on the mockup's alignment. */
+body:has(.home-header) {
+  /* what .wrap resolves to: 32px, plus half of whatever the page is wider than 1368 */
+  --bar-gutter: calc(max(0px, (100% - 1368px) / 2) + 32px);
+
+  & .home-header {
+    padding-block: var(--s-3);
+    padding-inline: var(--bar-gutter);
+  }
+
+  @media (min-width: 1040px) {
+    & .nav-bar {
+      inset-inline: 0;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      /* ⚠ NOT block-size:100%. The nav is absolutely positioned against the initial
+         containing block, not the header, so 100% is the whole VIEWPORT — it became a
+         1440x900 transparent sheet sitting over the page and elementFromPoint(720,500)
+         came back as the <nav>. Every mode card would have been unclickable. Its height is
+         the header band, stated explicitly. */
+      block-size: calc(var(--tap) + 2 * var(--s-3));
+      min-block-size: 0;
+      padding-inline: var(--bar-gutter);
+      /* ⚠ AND IT MUST NOT SWALLOW CLICKS. Stretching the nav across the band puts a
+         transparent 1440px-wide sheet over the brand, so every click on the logo or the
+         wordmark hit the <nav> instead of the home link behind it. The band is a layout
+         device; only its actual controls are interactive.
+         (Same family as the block-size:100% bug that covered the whole page — stretching
+         this element is how it keeps happening. swusim-menu2-xbrowser.mjs now asserts the
+         header's links are reachable with elementFromPoint.) */
+      pointer-events: none;
+    }
+    & .nav-bar-user,
+    & .nav-bar-links { pointer-events: auto; }
+    & .nav-bar-user  { grid-column: 2; justify-self: center; }
+    & .nav-bar-links { grid-column: 3; justify-self: end; }
+  }
+  /* Below 1040 the mockup drops the nav onto its own row. The live nav is absolutely
+     positioned over the header band, so it cannot reflow like that — it keeps the
+     right-aligned arrangement that already fits, rather than centring into the brand. */
+}
+
+/* ── narrow widths: the burger is the real mobile nav ────────────────────────
+   Below 900px the live site swaps the nav for a burger button; the mockup instead
+   reflows the links onto a second topbar row, so the two legitimately diverge
+   here. What must still hold is the mockup's PROPORTIONS and its contrast.
+
+   Two defects this fixes, both measured:
+     * the wordmark ran UNDER the burger — swusim-overrides forces
+       `font-size: 24px !important` at (max-width: 900px), which at 390px is wider
+       than the space left beside the button. Matched with the same weight, later
+       in the cascade, at the mockup's own narrow size.
+     * the wordmark measured 2.92:1 against the 3:1 large-text floor, because the
+       bar's 0.76 plate lets too much of a bright patch of arena art through at
+       this width. The mockup's own topbar passes here; ours did not. */
+@media (max-width: 900px) {
+  body:has(.home-header) {
+    & .home-header {
+      /* keep the wordmark clear of the burger button */
+      padding-inline-end: calc(var(--tap) + var(--s-4));
+    }
+    & .home-header::before {
+      /* the arena plate stays visible, just not through the type */
+      background-color: rgba(16, 21, 29, 0.93);
+    }
+    & .home-header h1 {
+      font-size: var(--t-15) !important;   /* ties the override, wins on order */
+      line-height: 1.15 !important;
+    }
+    & .home-header .title p {
+      font-size: var(--t-11) !important;
+      margin: 1px 0 0 !important;
+    }
+  }
+}
+
+/* ══ THE OTHER PAGES' PANELS ═══════════════════════════════════════════════
+   Login, Signup, Profile, Previews and the Waiting Room render their panels
+   through swusim-overrides.css's `.container.bg-black` / `.card.ga-glass-card`
+   selector lists, whose corner glints are the --pa-glow-* SVGs: a stroke that
+   runs #ffd998 -> #e9b866. That is the AMBER the redesign moved away from, and
+   it is what still tinted every interior panel after the chrome went steel.
+
+   Overridden at the TOKEN, not by re-plumbing that selector list — one change
+   reaches every surface those lists cover, including ones not yet reviewed.
+   Same geometry, same widths, steel stops. Gold is not banished from the page:
+   it still marks the active tab and the primary action, which is the whole
+   point of rationing it.
+   ⚠ Scoped to body:has(.home-header). petranaki-glass.css is ALSO loaded by the
+   in-game board, which has no .home-header — the board keeps its amber until we
+   get to it. */
+body:has(.home-header) {
+  --pa-glow-tl: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cdefs%3E%3CradialGradient id='g' cx='7' cy='7' r='84' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23dbe8fa'/%3E%3Cstop offset='.35' stop-color='%23a8bcd6' stop-opacity='.78'/%3E%3Cstop offset='1' stop-color='%23a8bcd6' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cfilter id='b' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeGaussianBlur stdDeviation='2.6'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M1 90V14L14 1H90' fill='none' stroke='url(%23g)' stroke-width='5' filter='url(%23b)'/%3E%3Cpath d='M.9 90V14L14 .9H90' fill='none' stroke='url(%23g)' stroke-width='1.6'/%3E%3C/svg%3E");
+  --pa-glow-br: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cdefs%3E%3CradialGradient id='g' cx='83' cy='83' r='84' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0' stop-color='%23dbe8fa'/%3E%3Cstop offset='.35' stop-color='%23a8bcd6' stop-opacity='.78'/%3E%3Cstop offset='1' stop-color='%23a8bcd6' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cfilter id='b' x='-30%25' y='-30%25' width='160%25' height='160%25'%3E%3CfeGaussianBlur stdDeviation='2.6'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M89 0V76L76 89H0' fill='none' stroke='url(%23g)' stroke-width='5' filter='url(%23b)'/%3E%3Cpath d='M89.1 0V76L76 89.1H0' fill='none' stroke='url(%23g)' stroke-width='1.6'/%3E%3C/svg%3E");
+}
+
+
+/* ══ AUTH PAGES — Login + Signup ═══════════════════════════════════════════
+   The 'arena' layout (SiteDef auth.layout), emitted by SharedUI/Render/Auth.php
+   for SWUSim only. One centred glass card instead of the old stacked
+   `.container.bg-black` plates, with the consent copy demoted from a competing
+   second panel to a quiet note beneath.
+
+   The submit button is STEEL, not the gold primary: gold is rationed by having
+   it compete with steel, and on a page whose only action is "log in" it has no
+   competition — the whole card would just be gold. The one warm accent left is
+   the checkbox tick, which is the thing that actually changes state.
+
+   Discord keeps its brand colour (it is a recognition cue, not our accent) but
+   takes the chamfer so it belongs to the page. Its markup comes from the shared
+   RenderDiscordAuthButton(), so it is restyled by its own classes rather than
+   re-emitted. */
+
+  .auth {
+    display: grid;
+    place-items: center;
+    padding: clamp(24px, 6vh, 72px) var(--s-4);
+    flex: 1 0 auto;
+  }
+  /* ⚠ a class-level `display` beats the UA's [hidden] rule, so state it back */
+  .auth[hidden] { display: none; }
+  .auth__in { inline-size: min(100%, 440px); display: grid; gap: var(--s-3); }
+
+  /* the card: the same frosted, chamfered surface as a setup modal */
+  .auth__card {
+    --cut: 16px;
+    display: grid;
+    gap: var(--s-4);
+    padding: clamp(22px, 4vw, 34px);
+  }
+  .auth__head { display: grid; gap: 4px; }
+  .auth__title {
+    margin: 0; font-size: var(--t-26); font-weight: 700;
+    letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink);
+  }
+  .auth__sub { margin: 0; font-size: var(--t-13); color: var(--ink-3); }
+
+  /* Discord keeps its brand colour — it is a recognition cue, not our accent —
+     but takes the chamfer so it belongs to the page. */
+  .auth .discord-auth-button {
+    --cut: 10px; --rim: 1px;
+    --plane: #5865f2; --plane-art: linear-gradient(135deg, #6b77f5, #4d5ae8);
+    --rim-hi: rgba(160, 172, 255, 0.72); --rim-lo: rgba(60, 72, 180, 0.4);
+    display: flex; align-items: center; justify-content: center; gap: var(--s-2);
+    min-block-size: var(--tap); padding-inline: var(--s-4);
+    font-size: var(--t-14); font-weight: 600; letter-spacing: 0.02em;
+    color: #fff; text-decoration: none;
+  }
+  .auth .discord-auth-button img, .auth .discord-auth-button svg { inline-size: 18px; block-size: 18px; }
+  .auth .discord-auth-button:hover { --plane-art: linear-gradient(135deg, #7b86f8, #5a67ee); }
+
+  .auth .oauth-separator {
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    gap: var(--s-3); font-size: var(--t-12); color: var(--ink-3);
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .auth .oauth-separator::before, .auth .oauth-separator::after { content: ""; block-size: 1px; background: var(--edge); }
+
+  .auth__fields { display: grid; gap: var(--s-3); }
+  .auth__field  { display: grid; gap: 6px; }
+
+  /* a real checkbox, chamfered like everything else */
+  .auth__check { display: flex; align-items: center; gap: var(--s-2); min-block-size: var(--tap); }
+  .auth__box {
+    --cut: 5px; --rim: 1px;
+    --plane: var(--e-sunk); --plane-art: none;
+    --rim-hi: var(--edge-strong); --rim-lo: var(--edge);
+    position: relative; inline-size: 20px; block-size: 20px; flex: none; cursor: pointer;
+  }
+  .auth__box input { position: absolute; inset: 0; opacity: 0; cursor: pointer; margin: 0; }
+  .auth__box svg {
+    position: absolute; inset: 3px; color: var(--gold);
+    opacity: 0; scale: 0.7; transition: opacity 120ms var(--ease), scale 120ms var(--ease);
+  }
+  .auth__box:has(input:checked) { --plane: var(--e3); --rim-hi: var(--gold); }
+  .auth__box:has(input:checked) svg { opacity: 1; scale: 1; }
+  .auth__box:has(input:focus-visible) { --rim: 2px; --rim-hi: var(--gold-hi); }
+  .auth__check label { font-size: var(--t-13); color: var(--ink-2); cursor: pointer; }
+
+  .auth__submit { inline-size: 100%; }
+
+  .auth__alt {
+    margin: 0; padding-block-start: var(--s-3); border-block-start: 1px solid var(--edge);
+    font-size: var(--t-13); color: var(--ink-3); text-align: center;
+  }
+  .auth__alt a { color: var(--ink-2); text-decoration: underline;
+                 text-decoration-color: color-mix(in oklch, var(--ink) 30%, transparent);
+                 text-underline-offset: 3px; }
+  .auth__alt a:hover { color: var(--ink); }
+
+  /* the consent copy is a NOTE, not a second panel competing with the form */
+  .auth__note {
+    margin: 0; font-size: var(--t-12); line-height: 1.6; color: var(--ink-3); text-align: center;
+  }
+  .auth__note a { color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; }
+
+
+/* ══ THE PRESSED STATE ═════════════════════════════════════════════════════
+   Owner, 2026-09-25: a button held down should look pressed IN, not merely
+   stop hovering. Until now :active only cancelled the hover lift, so the whole
+   press-and-release read as nothing happening.
+
+   A chamfered plate is lit from above, so sinking it does four things at once,
+   and all four are needed or it reads as a colour change rather than movement:
+     · it moves DOWN past its resting position, not just back to it;
+     · its plane darkens, because it has moved away from the light;
+     · the TOP rim highlight dims — that highlight is the lit upper edge, and a
+       recessed surface loses it first;
+     · a short inset shadow appears under that top edge, which is the shadow
+       the surrounding rim now casts into the well.
+
+   ⚠ `translate` is used, not `transform`: components.css already puts
+   `transform: var(--btn-hover-transform, scale(1.1))` on bare buttons, and a
+   transform here would fight it. translate is a separate property and composes.
+   ⚠ No transition on the way IN. A press must feel instant; easing into a
+   pressed state is the thing that makes a button feel unresponsive. The ease
+   back out is inherited from the element's own transition. */
+:where(body:has(.home-header)) {
+  /* the plane's own pressed fill: the resting gradient, dimmed, so the light still reads as
+     coming from above and the plate has simply sunk away from it */
+  --btn-fill-pressed: linear-gradient(135deg, rgba(38, 46, 58, 0.94) 0%, rgba(30, 37, 47, 0.94) 100%);
+
+  & .swu2-btn:active,
+  & button.ch:not(.gl):not(.btn):not(.switch):active,
+  & .nav-bar-user .NavBarItem[aria-current="page"]:active,
+  & .auth .discord-auth-button:active,
+  & .seg__in:active + .seg__opt,
+  & .pc__in:active + .pc__row,
+  & .lb__btn:active {
+    translate: 0 1px;
+    transition-duration: 0s;
+    --plane-art: var(--btn-fill-pressed, none);
+    --rim-hi: var(--rim-hi-pressed, rgba(120, 142, 172, 0.30));
+    filter: brightness(0.88) saturate(0.96);
+  }
+
+  /* the well's shadow, cast by the rim into the recess under the top edge */
+  & .swu2-btn:active::before,
+  & button.ch:not(.gl):not(.btn):not(.switch):active::before,
+  & .lb__btn:active::before,
+  & .seg__in:active + .seg__opt::before,
+  & .pc__in:active + .pc__row::before {
+    box-shadow: inset 0 2px 3px -1px rgba(0, 0, 0, 0.55);
+  }
+
+  /* The gold primary keeps its identity while pressed — it darkens and sinks, it does
+     not turn to steel, or the page's one warm control blinks out under the cursor. */
+  /* ⚠ Must out-specify the generic `button.ch:not(.gl):not(.btn):not(.switch):active` above,
+     which is 0-4-1 — a plain `.swu2-btn--primary:active` (0-2-0) loses to it and the gold
+     button pressed to STEEL, which looked like the primary blinking out under the cursor. */
+  & button.swu2-btn--primary.ch:not(.gl):not(.btn):not(.switch):active,
+  & .swu2-btn.swu2-btn--primary:active {
+    --plane-art: linear-gradient(135deg, #d2a85f 0%, #b8873c 100%);
+    --rim-hi: color-mix(in oklch, var(--gold) 60%, black);
+    filter: brightness(0.94);   /* gold carries the darkening in its own fill, not a wash */
+  }
+
+  /* The mode cards are buttons in all but name — the biggest click target on the page,
+     and the one where a dead press is most noticeable. */
+  & .mode:active {
+    translate: 0 1px;
+    transition-duration: 0s;
+    filter: brightness(0.92);
+  }
+}
+
+/* Reduced motion keeps the FEEDBACK and drops the movement: the press is direct
+   manipulation, not decoration, so it must still answer — just without travel. */
+@media (prefers-reduced-motion: reduce) {
+  :where(body:has(.home-header)) {
+    & .swu2-btn:active,
+    & button.ch:not(.gl):not(.btn):not(.switch):active,
+    & .nav-bar-user .NavBarItem[aria-current="page"]:active,
+    & .auth .discord-auth-button:active,
+    & .seg__in:active + .seg__opt,
+    & .pc__in:active + .pc__row,
+    & .lb__btn:active,
+    & .mode:active { translate: none; }
+  }
+}
+
+/* ══ INTERIOR PANELS GET THE MENU'S PANEL ══════════════════════════════════
+   Owner: "still has the corner gradients — match the main menu."
+
+   Two different panel systems were running side by side. The menu's panel is
+   `.swu2-panel.ch.gl`: a frosted plane behind a chamfered RIM RING, no corner
+   art at all. Every other page's panel is the legacy `.pa-glass` treatment
+   from swusim-overrides.css, whose ::before paints --pa-glow-tl / --pa-glow-br
+   — diagonal strokes in the top-left and bottom-right corners. Recolouring
+   those glints from amber to steel earlier made them quieter; it did not make
+   them the same panel. This does.
+
+   The markup is not ours (shared renderers), so the recipe is written against
+   the legacy classes instead of adding .ch .gl to them.
+
+   ⚠ SPECIFICITY. The rules being replaced are
+   `body .container.bg-black:not(.container .container)::before` = 0-4-1, where
+   the :not() contributes its argument's 0-2-0. Carrying the same :not() and
+   adding :has() puts this at 0-5-1, which is what it takes to win — and the
+   :not() has to stay anyway, because a panel NESTED in another panel is a
+   sunken well in this design, not a second sheet of glass.
+
+   ⚠ THE WAITING ROOM'S TWO PANELS WERE THE LAST HOLDOUTS (owner, 2026-09-25:
+   "the waiting room still has these glows"). This block used to carry
+   `:not(.wr-panel)` — inherited from the legacy list, where .wr-panel was
+   excluded because it had its own entry — and the chat panel was never in the
+   list at all. So the room and the chat card were the only surfaces still on
+   the corner-glint construction, steel-coloured but still the wrong panel.
+   Their legacy entries are now deleted from swusim-overrides.css, so one
+   system draws every panel on the page.
+
+   ⚠ #tcg-chat-panel gets its OWN SELECTOR IN THE LIST, never a slot inside the
+   :is(). `:is()` takes the specificity of its most specific argument, so an id
+   in there would lift the whole compound to 1-4-1 for EVERY panel it matches
+   and trample rules that currently win. Selectors in a list are matched
+   independently and keep their own specificity. */
+body:has(.home-header) :is(.container.bg-black, .card.ga-glass-card):not(.container .container):not(.swu-panel),
+body:has(.home-header) #tcg-chat-panel {
+  --cut: 18px;
+  --rim: 2px;
+  --ci: calc(var(--cut) - 0.586 * var(--rim));
+  --plane: var(--pane-panel);
+  --plane-art:
+    radial-gradient(112% 62% at 26% 0%, rgba(255, 255, 255, 0.070), transparent 68%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045) 0, transparent 30%, transparent 66%, rgba(0, 0, 0, 0.22) 100%);
+  --rim-hi: rgba(196, 214, 238, 0.60);
+  --rim-lo: rgba(120, 142, 172, 0.18);
+  position: relative;
+  isolation: auto;
+  background-color: transparent;
+  background-image: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  clip-path: none;
+}
+/* the surface's content sits above the glass */
+body:has(.home-header) :is(.container.bg-black, .card.ga-glass-card):not(.container .container):not(.swu-panel) > *,
+body:has(.home-header) #tcg-chat-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ::before — the frosted plane. NO corner artwork. */
+body:has(.home-header) :is(.container.bg-black, .card.ga-glass-card):not(.container .container):not(.swu-panel)::before,
+body:has(.home-header) #tcg-chat-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--plane);
+  background-image: var(--plane-art);
+  -webkit-backdrop-filter: var(--frost);
+  backdrop-filter: var(--frost);
+  box-shadow: none;
+  clip-path: polygon(
+    var(--cut) 0, 100% 0,
+    100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+    0 100%, 0 var(--cut));
+}
+
+/* ::after — the chamfered rim, drawn as a RING: outer chamfer clockwise, inner
+   chamfer counter-clockwise, so the middle cancels to a hole. */
+body:has(.home-header) :is(.container.bg-black, .card.ga-glass-card):not(.container .container):not(.swu-panel)::after,
+body:has(.home-header) #tcg-chat-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--rim-hi), var(--rim-lo) 76%);
+  clip-path: polygon(
+    var(--cut) 0, 100% 0,
+    100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+    0 100%, 0 var(--cut),
+    var(--cut) 0,
+    var(--rim) calc(var(--rim) + var(--ci)),
+    var(--rim) calc(100% - var(--rim)),
+    calc(100% - var(--rim) - var(--ci)) calc(100% - var(--rim)),
+    calc(100% - var(--rim)) calc(100% - var(--rim) - var(--ci)),
+    calc(100% - var(--rim)) var(--rim),
+    calc(var(--rim) + var(--ci)) var(--rim),
+    var(--rim) calc(var(--rim) + var(--ci)));
+}
+
+/* Interior pages' content sits on the same gutter as the menu's. Previews and
+   Profile render into a bare .row-wrapper / .core-wrapper with no max width, so
+   their panels ran edge to edge while the menu's stop at 1368px. The menu's own
+   wrapper is excluded — it has its own <main class="wrap"> inside. */
+body:has(.home-header) .row-wrapper:not(.swu2-arena-wrap) {
+  inline-size: 100%;
+  max-inline-size: 1368px;
+  margin-inline: auto;
+  padding-inline: var(--s-4);
+}
+@media (min-width: 760px) {
+  body:has(.home-header) .row-wrapper:not(.swu2-arena-wrap) { padding-inline: var(--s-6); }
+}
+
+
+/* ══ THE PROFILE PAGE ══════════════════════════════════════════════════════
+   Opted in by SiteDef profile.layout = 'arena', which drops RenderProfile's
+   injected flex-row layout (Render/Profile.php). The grouping is config too:
+   profile.sections now reads savedDecks / welcome+changePassword /
+   cosmetics+sounds / blockedUsers.
+
+   Before: four EQUAL flex columns holding wildly unequal content, so every pane
+   was as tall as the tallest and three ended in dead space. Saved Decks needed
+   the most room and got a quarter; Game Settings held two controls and got the
+   same quarter.
+
+   ⚠ Every selector below is keyed on what the REAL renderers emit
+   (.sound-settings-row, .blocked-user-addrow, .cosmetics-chooser …), not on the
+   mockup's own class names. The mockup proved the design; it does not ship its
+   markup, because these panels are shared renderers. */
+
+/* ⚠ COLUMNS, not grid. A grid aligns rows, so with one pane twice the height of
+   the others every short pane in that row leaves a hole and the pane after it
+   starts below the tall one — Blocked Users ended up stranded at the bottom of
+   the page with an empty column beside it. Multi-column lets each column flow to
+   its own length and balances them; break-inside keeps a pane whole. */
+body:has(#cardDetail) .core-wrapper {
+  display: block;
+  columns: 1;
+  column-gap: var(--s-4);
+  inline-size: 100%;
+  max-inline-size: 1368px;
+  margin-inline: auto;
+  padding: var(--s-5) var(--s-6);
+}
+@media (min-width: 1000px) { body:has(#cardDetail) .core-wrapper { columns: 2; } }
+@media (min-width: 1280px) { body:has(#cardDetail) .core-wrapper { columns: 3; } }
+
+body:has(#cardDetail) .core-wrapper > * {
+  break-inside: avoid;
+  margin-block-end: var(--s-4);
+  padding: var(--s-4);
+}
+
+body:has(#cardDetail) .core-wrapper h2 {
+  margin: 0 0 var(--s-3);
+  font-size: var(--t-15);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+body:has(#cardDetail) .profile-pane-sep {
+  block-size: 1px;
+  border: 0;
+  background: var(--edge);
+  margin-block: var(--s-4);
+}
+
+/* ── controls ───────────────────────────────────────────────────────────────
+   These panels predate the design system and lay themselves out with <br> and
+   bare labels, so the work here is turning that into fields rather than
+   restyling existing ones. */
+body:has(#cardDetail) .core-wrapper label {
+  display: block;
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+body:has(#cardDetail) .core-wrapper label input,
+body:has(#cardDetail) .core-wrapper label select {
+  display: block;
+  margin-block-start: 6px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+/* ⚠ Uppercase belongs to a FIELD LABEL, not to everything inside a <label>. These panels wrap
+   their hint text in the label ("Card motion" + "Slides and attack lunges"), so the blanket rule
+   above was shouting the hints. Nested text resets to sentence case; a span that really is a
+   field label opts back in below. */
+body:has(#cardDetail) .core-wrapper label :is(span, small, p) {
+  font-size: var(--t-13);
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--ink-2);
+}
+body:has(#cardDetail) .core-wrapper label :is(.prof-hint, .sound-settings-hint) {
+  display: block;
+  font-size: var(--t-12);
+  color: var(--ink-3);
+  padding-block-start: 2px;
+}
+body:has(#cardDetail) .core-wrapper br { display: none; }   /* the panels space with <br> */
+body:has(#cardDetail) .core-wrapper :is(select, input[type="text"], input[type="password"]) {
+  margin-block-end: var(--s-3);
+}
+
+/* ⚠ A REAL checkbox, restyled in place. These are bare <input type=checkbox> in
+   shared markup, and an <input> is a replaced element — ::before does not render
+   on one — so the box is the input itself under `appearance: none`, with the
+   tick as a background image. No wrapper span, no markup change. */
+body:has(#cardDetail) .core-wrapper input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  inline-size: 20px;
+  block-size: 20px;
+  min-block-size: 0;
+  margin: 0 var(--s-2) 0 0;
+  flex: none;
+  cursor: pointer;
+  background-color: var(--e-sunk);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px 14px;
+  border: 1px solid var(--edge-strong);
+  border-radius: 3px;
+  transition: background-color 120ms var(--ease), border-color 120ms var(--ease);
+}
+body:has(#cardDetail) .core-wrapper input[type="checkbox"]:checked {
+  background-color: var(--e3);
+  border-color: var(--gold);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e9b866' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12.5 9.5 17.5 19.5 6.5'/%3E%3C/svg%3E");
+}
+body:has(#cardDetail) .core-wrapper input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--gold-hi);
+  outline-offset: 2px;
+}
+
+/* the toggle rows: box left, label beside it
+   ⚠ `label.sound-settings-row`, not `.sound-settings-row`. `:has(#cardDetail)` contributes an
+   ID to the specificity, so the generic field-label rule above is 1-1-2 (id + .core-wrapper +
+   body + label) while a bare `.sound-settings-row` is only 1-1-1 — the generic won, and the
+   Mute Sounds row came out as a checkbox stacked above an UPPERCASE label. Naming the element
+   too takes this to 1-2-2. */
+body:has(#cardDetail) .core-wrapper label.sound-settings-row,
+body:has(#cardDetail) .cosmetics-chooser label:has(input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-block-size: var(--tap);
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: var(--t-13);
+  font-weight: 400;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+body:has(#cardDetail) .sound-settings-hint {
+  margin: 0 0 var(--s-3);
+  font-size: var(--t-12);
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+/* the card-language row is a label WRAPPING a select, so it stacks rather than
+   squeezing the label into a two-line column beside the control */
+body:has(#cardDetail) .core-wrapper label.sound-settings-lang {
+  display: block;
+  min-block-size: 0;
+  margin-block-start: var(--s-3);
+}
+body:has(#cardDetail) .core-wrapper label.sound-settings-lang > span {
+  display: block;
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-block-end: 6px;
+}
+
+/* ⚠ A PREVIEW OF A SETTING, not a hero. The chooser's own <style> caps it at
+   480px, which made it the biggest thing on the page. */
+body:has(#cardDetail) .cosmetics-chooser .cos-preview {
+  max-inline-size: 300px;
+  margin-block: var(--s-3) 0;
+}
+
+/* buttons: the menu's chamfered steel, on markup that has no .ch to hook */
+
+
+/* the deck actions used to wrap onto two ragged rows */
+body:has(#cardDetail) .dl-actions,
+body:has(#cardDetail) .blocked-user-addrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+}
+body:has(#cardDetail) .blocked-user-addrow input { flex: 1 1 160px; margin-block-end: 0; }
+body:has(#cardDetail) .blocked-user-addrow button { flex: none; }
+body:has(#cardDetail) .blocked-user-empty,
+body:has(#cardDetail) .blocked-user-list {
+  margin: var(--s-3) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--t-13);
+  color: var(--ink-3);
+}
+
+/* brand buttons keep their colour — a recognition cue — but are sized to their
+   label rather than spanning the pane: they are secondary actions */
+/* Discord and Patreon keep their brand colour — it is a recognition cue, not our accent — but
+   take the page's chamfer so they belong to it, and size to their label because they are
+   secondary actions. Patreon's own rule stretched it to 317px against a 191px Discord. */
+body:has(#cardDetail) .core-wrapper :is(.imgPatreon, .discord-button) {
+  --cut: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  inline-size: auto;
+  max-inline-size: max-content;
+  min-block-size: var(--tap);
+  padding-inline: var(--s-4);
+  margin-block-end: var(--s-3);
+  font-size: var(--t-14);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  clip-path: polygon(
+    var(--cut) 0, 100% 0,
+    100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+    0 100%, 0 var(--cut));
+}
+/* ⚠ .imgPatreon is an <img> — a raster "Login with Patreon" button — so flex sizing and
+   max-content do nothing to it: an image's max-content IS its intrinsic 317px. Size it by
+   HEIGHT and let the width follow, which lines it up with the 44px Discord button beside it. */
+/* The ANCHOR is the touch target; the image inside it is just artwork, so it is capped to sit
+   beside the 187px Discord button instead of running to its intrinsic 317px. */
+body:has(#cardDetail) .core-wrapper a.containerPatreon {
+  display: inline-flex;
+  align-items: center;
+  inline-size: auto;
+  max-inline-size: max-content;
+  min-block-size: var(--tap);
+  margin-block-end: var(--s-3);
+}
+body:has(#cardDetail) .core-wrapper .imgPatreon {
+  display: block;
+  inline-size: auto;
+  block-size: auto;
+  max-inline-size: 190px;
+  margin: 0;
+  padding-inline: 0;
+  object-fit: contain;
+}
+
+body:has(#cardDetail) .core-wrapper :is(.imgPatreon, .discord-button):active {
+  translate: 0 1px;
+  filter: brightness(0.88);
+}
+
+/* ⚠ "keeps its brand colour" was wrong about what the colour WAS. _DisplayDiscordOAuth()
+   (Render/Profile.php) emits its own <style> painting the button #007bff — BOOTSTRAP blue, not
+   Discord's. It read as the legacy blue link beside a purple one on the login page, which uses
+   the current blurple. Both pages now say #5865f2.
+
+   The renderer's <style> sits in the BODY, so it is later in source order than this sheet and
+   wins any specificity tie: these selectors are deliberately 0-3-1 / 0-4-1 against its 0-1-0 and
+   0-2-0. Restyled here rather than in the renderer because Profile.php is shared with five other
+   sites whose look was signed off with what it emits. */
+body:has(#cardDetail) .core-wrapper .discord-button {
+  background-color: #5865f2;
+  font-family: inherit;
+  transition: background-color 150ms var(--ease), translate 150ms var(--ease);
+}
+body:has(#cardDetail) .core-wrapper .discord-button:hover { background-color: #4752c4; }
+
+
+/* ══ THE PETRANAKI CONTROL PATTERNS ════════════════════════════════════════
+   Owner, 2026-09-25 — the six patterns the theme is built from, canonical on
+   the main menu:
+
+     1  important dropdown   .selwrap.ch  >  select.select      sunken well, big caret
+     2  minor dropdown       .poolpick -> .lb--chip             small steel plate, inline caret
+     3  input + button       .inwrap.ch > input.input  +  .swu2-btn.ch
+     4  options toggle       .seg  >  .seg__in.u-vh + .seg__opt.ch   gold rim on the active one
+     5  action / neutral / cancel   .swu2-btn--primary / .swu2-btn / .swu2-btn--quiet
+     6  deck dropdown        .deckpick -> .lb--deck             card art + name + subtitle
+
+   Patterns 1, 3 and 5 are the ones that recur off the menu, and the pages that
+   need them (Profile, Previews, the Waiting Room) render through SHARED
+   renderers whose markup cannot carry .selwrap / .inwrap / .swu2-btn. So the
+   recipes are mapped onto what those renderers actually emit, from the same
+   tokens — one source for the look, two sets of selectors reaching it.
+
+   ⚠ `:not(.select)` / `:not(.input)` is what keeps this off the canonical
+   controls. A control already wrapped in .selwrap/.inwrap has its well drawn by
+   the WRAPPER; applying it to the control as well would chamfer it twice. */
+body:has(.home-header) :is(.core-wrapper, .row-wrapper:not(.swu2-arena-wrap))
+  :is(select:not(.select), input[type="text"]:not(.input), input[type="password"]:not(.input),
+      input[type="email"]:not(.input), input[type="url"]:not(.input), textarea:not(.input)) {
+  --cut: 9px;
+  inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: var(--tap);
+  font-size: var(--t-13);
+  font-weight: 500;
+  color: var(--ink);
+  background-color: var(--e-sunk);
+  border: 0;
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px var(--edge-strong);
+  clip-path: polygon(
+    var(--cut) 0, 100% 0,
+    100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+    0 100%, 0 var(--cut));
+}
+body:has(.home-header) :is(.core-wrapper, .row-wrapper:not(.swu2-arena-wrap))
+  :is(select, input, textarea):not(.select):not(.input):focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 3px var(--gold);
+}
+body:has(.home-header) :is(.core-wrapper, .row-wrapper:not(.swu2-arena-wrap))
+  :is(input, textarea):not(.input)::placeholder { color: var(--ink-3); opacity: 1; }
+
+/* clear the legacy sunken-well gradient off text fields. Stated here rather than in the
+   shared rule above, because that rule's :is() list must not decide background-image — see
+   the trap noted on the caret below. */
+body:has(.home-header) :is(.core-wrapper, .row-wrapper:not(.swu2-arena-wrap))
+  :is(input[type="text"]:not(.input), input[type="password"]:not(.input),
+      input[type="email"]:not(.input), input[type="url"]:not(.input), textarea:not(.input)) {
+  background-image: none;
+  padding-inline: var(--s-3);
+}
+
+/* the dropdown's caret. The canonical .selwrap draws it with ::after; a bare
+   <select> has no wrapper to host one, so it rides in the background.
+   ⚠ :is() TAKES THE SPECIFICITY OF ITS MOST SPECIFIC ARGUMENT. The shared field rule's list
+   contains `input[type="text"]:not(.input)` (0-2-1), which lifts that whole compound above
+   this select-only one (0-1-1) — so its `background-image: none` silently won and every
+   dropdown on Profile lost its chevron while looking otherwise perfect. */
+body:has(.home-header) :is(.core-wrapper, .row-wrapper:not(.swu2-arena-wrap)) select:not(.select) {
+  -webkit-appearance: none;
+  appearance: none;
+  /* room for the caret, matching the canonical .selwrap's own 34px */
+  padding-inline: var(--s-3) 34px;
+  font-weight: 600;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23b7c4d4' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 9l7 7 7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+/* PATTERN 5 — buttons. A <button> can carry pseudos, so these get the real .ch
+   treatment: the element paints the rim, ::before paints the plane.
+   ⚠ ::after must be cancelled — components.css uses it for its own chamfer fill
+   and would paint over this one. */
+body:has(.home-header) :is(.core-wrapper, .row-wrapper:not(.swu2-arena-wrap))
+  button:not(.swu2-btn):not(.btn):not(.switch):not(.lb__btn) {
+  --cut: 9px;
+  --rim: 2px;
+  --ci: calc(var(--cut) - 0.586 * var(--rim));
+  --rim-hi: rgba(196, 214, 238, 0.62);
+  --rim-lo: rgba(120, 142, 172, 0.24);
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-block-size: var(--tap);
+  padding: 0 var(--s-4);
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  cursor: pointer;
+  background-color: transparent;
+  background-image: linear-gradient(180deg, var(--rim-hi), var(--rim-lo) 76%);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+  clip-path: polygon(
+    var(--cut) 0, 100% 0,
+    100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+    0 100%, 0 var(--cut));
+}
+body:has(.home-header) :is(.core-wrapper, .row-wrapper:not(.swu2-arena-wrap))
+  button:not(.swu2-btn):not(.btn):not(.switch):not(.lb__btn)::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: var(--rim);
+  background-color: var(--e3);
+  background-image: var(--btn-fill);
+  clip-path: polygon(
+    var(--ci) 0, 100% 0,
+    100% calc(100% - var(--ci)), calc(100% - var(--ci)) 100%,
+    0 100%, 0 var(--ci));
+}
+body:has(.home-header) :is(.core-wrapper, .row-wrapper:not(.swu2-arena-wrap))
+  button:not(.swu2-btn):not(.btn):not(.switch):not(.lb__btn)::after { content: none; }
+body:has(.home-header) :is(.core-wrapper, .row-wrapper:not(.swu2-arena-wrap))
+  button:not(.swu2-btn):not(.btn):not(.switch):not(.lb__btn):hover::before { background-image: var(--btn-fill-hi); }
+body:has(.home-header) :is(.core-wrapper, .row-wrapper:not(.swu2-arena-wrap))
+  button:not(.swu2-btn):not(.btn):not(.switch):not(.lb__btn):hover { transform: none; translate: 0 -1px; }
+body:has(.home-header) :is(.core-wrapper, .row-wrapper:not(.swu2-arena-wrap))
+  button:not(.swu2-btn):not(.btn):not(.switch):not(.lb__btn):active {
+  translate: 0 1px;
+  transition-duration: 0s;
+  filter: brightness(0.88) saturate(0.96);
+}
+
+
+/* ══ THE WAITING ROOM ══════════════════════════════════════════════════════
+   SharedUI/Render/WaitingRoom.php is a SHARED renderer (FaBSim uses it too) that prints its own
+   <style> in the body, so its rules are later in source order than this sheet and win any
+   specificity tie. Everything below is scoped `body:has(#wr-root)` (0-1-1) so the mapped recipes
+   outrank it without touching the renderer.
+
+   ⚠ This REPLACES the 2026-09-21 "New Petranaki HUD" block that used to live in
+   swusim-overrides.css under `#wr-root`. That block was written to beat the same body <style>,
+   and its ID specificity then beat THIS redesign too: the seats, pills, fields and status strip
+   kept a 1px border and a 3px radius while the redesign's chamfer landed underneath them — two
+   systems drawing the same control. It is deleted, not layered over.
+
+   The tell for this page, as everywhere: 44px, chamfered, border-radius 0, no border. */
+
+/* ---------- seats: chamfered wells, like the menu's pre-con rows ---------- */
+body:has(#wr-root) .wr-seat {
+  --cut: 10px;
+  --rim: 1px;
+  --ci: calc(var(--cut) - 0.586 * var(--rim));
+  position: relative;
+  isolation: isolate;
+  padding: var(--s-4);
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  background-image: linear-gradient(180deg, var(--rim-hi), var(--rim-lo) 76%);
+  box-shadow: none;
+  clip-path: polygon(
+    var(--cut) 0, 100% 0,
+    100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+    0 100%, 0 var(--cut));
+}
+body:has(#wr-root) .wr-seat::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: var(--rim);
+  background-color: var(--e-sunk);
+  clip-path: polygon(
+    var(--ci) 0, 100% 0,
+    100% calc(100% - var(--ci)), calc(100% - var(--ci)) 100%,
+    0 100%, 0 var(--ci));
+}
+/* YOUR seat takes the gold rim. It is the RIM that changes, not a border or a background: Team
+   Suns sets both of those inline per team, and either would be overridden there. */
+body:has(#wr-root) .wr-seat-mine {
+  --rim: 2px;
+  --rim-hi: var(--gold-hi);
+  --rim-lo: var(--gold);
+  box-shadow: none;
+}
+/* An empty seat reads as an absence: the same well, dimmer, with no rim to suggest an occupant. */
+body:has(#wr-root) .wr-seat-empty {
+  --rim-hi: var(--edge);
+  --rim-lo: var(--edge);
+  color: var(--ink-3);
+}
+body:has(#wr-root) .wr-seat-label {
+  font-size: var(--t-12);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+body:has(#wr-root) .wr-seat-who { font-size: var(--t-15); font-weight: 600; margin: 3px 0 var(--s-2); }
+body:has(#wr-root) .wr-teamhdr {
+  font-size: var(--t-15); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  filter: brightness(1.25);
+}
+body:has(#wr-root) .wr-card { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); }
+
+/* ---------- status pills: the menu's .tag, not a 999px lozenge ------------ */
+/* The renderer colours these with `color`, and the old rule drew the outline with
+   `border: 1px solid currentColor`. Chamfered tags carry the same colour on the TEXT and take
+   their fill from it, so the archetype colours still read without a border to fight the page. */
+body:has(#wr-root) .wr-pill {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 22px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 0;
+  font-size: var(--t-10);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background-color: color-mix(in oklch, currentColor 16%, transparent);
+  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+}
+
+/* ---------- the deck bar: pattern 3 (input + button) --------------------- */
+/* The renderer emits a bare <textarea> with no .inwrap wrapper, so the WELL is drawn on the
+   control itself here. That is the one place this page departs from the canonical markup, and it
+   is why the `:not(.input)` guard elsewhere in this sheet does not apply to it. */
+body:has(#wr-root) .wr-deckbar textarea,
+body:has(#wr-root) #wr-deck-library .dl-select {
+  --cut: 9px;
+  --rim: 1px;
+  --ci: calc(var(--cut) - 0.586 * var(--rim));
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  min-block-size: var(--tap);
+  height: var(--tap);
+  padding: 0 var(--s-3);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  font: 500 var(--t-13) / 1.3 inherit;
+  font-family: inherit;
+  color: var(--ink);
+  background-color: transparent;
+  background-image: linear-gradient(180deg, var(--rim-hi), var(--rim-lo) 76%);
+  clip-path: polygon(
+    var(--cut) 0, 100% 0,
+    100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+    0 100%, 0 var(--cut));
+}
+/* ⚠ A <textarea>/<select> cannot host a ::before plane the way .inwrap does — the control's own
+   box paints over it. The well is therefore built from STACKED BACKGROUND LAYERS: the sunken
+   plane sits on top of the rim gradient, inset by the rim on every side, and the chamfer is cut
+   from the pair. An inset box-shadow was the first attempt and it covered the caret as well as
+   the rim — the same "dropdown looks perfect but lost its arrow" failure as the Profile fields. */
+body:has(#wr-root) .wr-deckbar textarea,
+body:has(#wr-root) #wr-deck-library .dl-select {
+  background-origin: border-box;
+  background-repeat: no-repeat, no-repeat;
+  background-image:
+    linear-gradient(var(--e-sunk), var(--e-sunk)),
+    linear-gradient(180deg, var(--rim-hi), var(--rim-lo) 76%);
+  background-size: calc(100% - 2 * var(--rim)) calc(100% - 2 * var(--rim)), 100% 100%;
+  background-position: var(--rim) var(--rim), 0 0;
+}
+body:has(#wr-root) .wr-deckbar textarea {
+  padding-block: 11px;
+  resize: none;                      /* 44px is the pattern; a drag handle breaks the row */
+  white-space: pre;
+  overflow-x: auto;
+}
+body:has(#wr-root) .wr-deckbar textarea::placeholder { color: var(--ink-3); opacity: 1; }
+body:has(#wr-root) .wr-deckbar textarea:focus,
+body:has(#wr-root) #wr-deck-library .dl-select:focus {
+  --rim: 2px;
+  --rim-hi: var(--gold-hi);
+  --rim-lo: var(--gold);
+}
+/* the caret, matching .selwrap::after — a <select> cannot carry a pseudo, so it is a background */
+body:has(#wr-root) #wr-deck-library .dl-select {
+  inline-size: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-inline-end: 34px;
+  cursor: pointer;
+  /* the caret rides ON TOP of the two well layers, so all three are restated together */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1.5 1.5 7 7l5.5-5.5' fill='none' stroke='%23aeb9c6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
+    linear-gradient(var(--e-sunk), var(--e-sunk)),
+    linear-gradient(180deg, var(--rim-hi), var(--rim-lo) 76%);
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: right 13px center, var(--rim) var(--rim), 0 0;
+  background-size: auto, calc(100% - 2 * var(--rim)) calc(100% - 2 * var(--rim)), 100% 100%;
+}
+body:has(#wr-root) #wr-deck-library .dl-select option { background: var(--e3); color: var(--ink); }
+body:has(#wr-root) #wr-deck-library { margin-block-end: var(--s-3) !important; }
+
+/* ---------- buttons: pattern 5 ------------------------------------------- */
+/* .btn is the legacy button component, which draws its edge with two pseudo-elements and sizes
+   itself from --btn-* knobs. Those knobs are the supported seam, so this re-tunes the real
+   component to the redesign's steel rather than fighting it with a second edge.
+
+   ⚠ Scoped to .wr-panel, NOT to the page. `body:has(#wr-root) .btn` also matched
+   #tcg-chat-toggle — the chat drawer's handle, which lives OUTSIDE the room and is display:none
+   above 900px — and popped a 44px bubble onto the left edge of every desktop lobby. The block it
+   replaced was scoped `#wr-root .btn`, which never reached outside the room; widening the scope
+   was the regression. */
+body:has(#wr-root) .wr-panel .btn {
+  --btn-cut: 9px;
+  --btn-cut-inner: 7.83px;
+  --btn-rim-width: 1px;
+  --btn-rim: linear-gradient(180deg, var(--rim-hi), var(--rim-lo) 76%);
+  --btn-fill: linear-gradient(180deg, var(--e3), var(--e2));
+  --btn-glow: 0;
+  --btn-pad: 0 var(--s-4);
+  min-block-size: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--t-14);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  filter: none;
+}
+body:has(#wr-root) .wr-panel .btn:hover { color: var(--ink); }
+body:has(#wr-root) .wr-panel .btn:active { translate: 0 1px; transition-duration: 0s; filter: brightness(0.88); }
+body:has(#wr-root) .wr-panel .wr-deckbar .btn { height: var(--tap); }
+/* Remove sits INSIDE a seat beside a name, so it is the one button that is not 44px. */
+body:has(#wr-root) .wr-panel .wr-kick {
+  --btn-pad: 0 9px;
+  min-block-size: 24px;
+  font-size: var(--t-10);
+  margin-inline-start: var(--s-2);
+}
+/* Start is the page's terminal action and the only gold on it. */
+body:has(#wr-root) .wr-panel .wr-btn-start {
+  --btn-rim: linear-gradient(180deg, var(--gold-hi), var(--gold) 76%);
+  --btn-fill: var(--btn-fill-gold, linear-gradient(180deg, #f2c67f 0%, #d8a251 100%));
+  --btn-pad: 0 var(--s-6);
+  min-block-size: 52px;
+  font-size: var(--t-15);
+  letter-spacing: 0.06em;
+  color: var(--on-gold, #241a09);
+}
+body:has(#wr-root) .wr-panel .wr-btn-start:disabled,
+body:has(#wr-root) .wr-panel .wr-btn-start[disabled] {
+  --btn-rim: var(--edge);
+  --btn-fill: linear-gradient(180deg, var(--e2), var(--e2));
+  color: var(--ink-3);
+  filter: none;
+}
+
+/* ---------- the status strip: a sunken well along the bottom ------------- */
+body:has(#wr-root) .wr-status {
+  --cut: 9px;
+  --rim: 1px;
+  --ci: calc(var(--cut) - 0.586 * var(--rim));
+  position: relative;
+  isolation: isolate;
+  padding: var(--s-3) var(--s-4);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--ink-3);
+  font-size: var(--t-13);
+  background-color: transparent;
+  background-image: linear-gradient(180deg, var(--rim-hi), var(--rim-lo) 76%);
+  clip-path: polygon(
+    var(--cut) 0, 100% 0,
+    100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%,
+    0 100%, 0 var(--cut));
+}
+body:has(#wr-root) .wr-status::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: var(--rim);
+  background-color: var(--e-sunk);
+  clip-path: polygon(
+    var(--ci) 0, 100% 0,
+    100% calc(100% - var(--ci)), calc(100% - var(--ci)) 100%,
+    0 100%, 0 var(--ci));
+}
+body:has(#wr-root) .wr-count { font-size: var(--t-14); color: var(--ink); }
+
+/* ---------- title + invite ---------------------------------------------- */
+body:has(#wr-root) #wr-title {
+  font-size: var(--t-26);
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--ink);
+}
+body:has(#wr-root) #wr-state:empty { display: none; }
+body:has(#wr-root) #wr-invite { font-size: var(--t-13); color: var(--ink-3); }
+body:has(#wr-root) #wr-invite b, body:has(#wr-root) #wr-invite strong {
+  color: var(--ink); letter-spacing: 0.04em;
+}

@@ -99,10 +99,17 @@ $build(function ($b) {
     $b->WithGroundUnitForPlayer(1, 'LOF_084', true); $b->TheirBase('SOR_020', 22);
     $b->WithGroundUnitForPlayer(2, 'SOR_095', true);
 });
+// ⚠ ASYMMETRY, and it is deliberate. p13 'mgkill' scales the kill weight by 0.6 for MIDRANGE, gated on the
+// ARCHETYPE rank (SWUBotStyleRank), not the racing rank — same gate as 'mgtrade'. So a hard-control seat that
+// is RACING borrows midrange's COLUMN (kill 0.90) but NOT p13's scaling, while a midrange seat gets the
+// scaling whichever column it is racing in. That is exactly the behaviour the 2026-09-25 screen measured.
 $check(SWUBotWeights('hardcontrol', 1)['kill'] === 0.90,
-    'hard control racing shifts exactly 2 ranks, to midrange\'s kill 0.90 (a shift of 1 would give 1.30, a shift of 3 would give 0.60)');
+    'hard control racing shifts exactly 2 ranks, to midrange\'s column kill 0.90 — and p13 does NOT follow it there');
 $build(function ($b) { $b->WithGroundUnitForPlayer(1, 'LOF_084', true); });
-$check(SWUBotWeights('normal', 1)['kill'] === 0.90, 'Normal not racing → its own weights (kill 0.90)');
+$check(SWUBotWeights('normal', 1)['kill'] === 0.54, 'Normal not racing → its own weights, p13-scaled (0.90 x 0.6 = 0.54)');
+SWUBotSetDisabledFeatures(['mgkill']);
+$check(SWUBotWeights('normal', 1)['kill'] === 0.90, '@no-mgkill → the pre-p13 value (0.90)');
+SWUBotSetDisabledFeatures([]);
 
 // ── The base is a candidate for every archetype; only RULES remove it ─────────────────────────────
 $build(function ($b) { $b->WithGroundUnitForPlayer(1, 'LOF_084', true); $b->WithGroundUnitForPlayer(2, 'SOR_095', true); });

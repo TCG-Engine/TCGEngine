@@ -340,6 +340,110 @@ function LoadSavedDeckMatchups($userID, $decklink) {
     return $out;
 }
 
+// ─── Last deck used (SWUSim main menu, owner 2026-09-25) ─────────────────────
+// The menu auto-fills its Deck Link box with the deck you last STARTED A GAME with. Guests keep
+// theirs in localStorage; a signed-in player gets this copy as well so it follows them to another
+// device, and the account copy wins when both exist.
+//
+// ONE ROW PER ACCOUNT (usersId is the PK) — a convenience pointer, not a log. matchhistory is
+// where games are recorded.
+//
+// ⚠ Only a deck LINK is stored, the same rule AddSavedDeck's caller enforces: a pasted JSON blob
+// or free-text list has no source to return to, and nothing sensible to put in a link box. The
+// check lives HERE and not only in the caller, so a future caller cannot bypass it.
+
+// Is $table present in the CURRENT database? Memoised, so a page that calls several of these
+// costs one information_schema lookup, not one per call.
+//
+// ⚠ WHY THIS EXISTS, AND WHY `if (!$stmt)` IS NOT ENOUGH. Since PHP 8.1 mysqli defaults to
+// MYSQLI_REPORT_ERROR|MYSQLI_REPORT_STRICT, so prepare() on a missing table THROWS
+// mysqli_sql_exception rather than returning false — every `if (!$stmt) return false;` guard in
+// this file is unreachable for that case. Measured, not assumed. A site carrying a feature whose
+// migration has not been run therefore took an UNCAUGHT exception (a white page) on every page
+// that touched it, instead of simply doing without the feature.
+//
+// This matters because the schema is INSTALLED PER SIM (each has its own database: swusim,
+// fabsim, hellbreaksim…), so "code deployed, migration not yet run" is a normal intermediate
+// state, not an error. A feature gated on this degrades to "off" and the site stays up.
+//
+// The name cannot be parameterised — it is an identifier, not a value — so it is validated
+// against a strict pattern and rejected outright rather than interpolated hopefully.
+function DBTableExists(mysqli $conn, string $table): bool {
+    static $cache = [];
+    if (!preg_match('/^[A-Za-z0-9_]{1,64}$/', $table)) return false;
+    if (isset($cache[$table])) return $cache[$table];
+    try {
+        $stmt = $conn->prepare("SELECT 1 FROM information_schema.tables
+                                WHERE table_schema = DATABASE() AND table_name = ? LIMIT 1");
+        if (!$stmt) return $cache[$table] = false;
+        $stmt->bind_param("s", $table);
+        $stmt->execute();
+        $found = $stmt->get_result()->num_rows > 0;
+        $stmt->close();
+        return $cache[$table] = $found;
+    } catch (Throwable $e) {
+        return $cache[$table] = false;      // no information_schema access: assume not usable
+    }
+}
+
+function SetLastDeck($userID, $deckInput, $format = '', $leaders = 1, $deckName = '') {
+    $userID = (int)$userID;
+    if ($userID <= 0) return false;                    // a guest has no row; that is localStorage's job
+    $deckInput = trim((string)$deckInput);
+    if (!function_exists('SWUDeckInputIsLink')) {
+        require_once __DIR__ . '/../SWUSim/Custom/DeckImport.php';
+    }
+    if (!SWUDeckInputIsLink($deckInput)) return false;
+    if (strlen($deckInput) > 512) return false;        // longer than the column; refuse rather than truncate
+
+    $format   = substr((string)$format, 0, 32);
+    $deckName = substr((string)$deckName, 0, 128);
+    $leaders  = max(1, min(2, (int)$leaders));
+
+    $conn = GetLocalMySQLConnection();
+    // The feature is simply OFF where the migration has not been run -- see DBTableExists().
+    if (!DBTableExists($conn, 'lastdeck')) { $conn->close(); return false; }
+    $stmt = $conn->prepare("INSERT INTO lastdeck (usersId, deckInput, format, leaders, deckName, usedAt)
+                            VALUES (?,?,?,?,?,NOW())
+                            ON DUPLICATE KEY UPDATE deckInput=VALUES(deckInput), format=VALUES(format),
+                                                    leaders=VALUES(leaders), deckName=VALUES(deckName),
+                                                    usedAt=VALUES(usedAt)");
+    if (!$stmt) { $conn->close(); return false; }
+    $stmt->bind_param("issis", $userID, $deckInput, $format, $leaders, $deckName);
+    $ok = $stmt->execute();
+    $stmt->close(); $conn->close();
+    return (bool)$ok;
+}
+
+function LoadLastDeck($userID) {
+    $userID = (int)$userID;
+    if ($userID <= 0) return null;
+    $conn = GetLocalMySQLConnection();
+    if (!DBTableExists($conn, 'lastdeck')) { $conn->close(); return null; }
+    $stmt = $conn->prepare("SELECT deckInput, format, leaders, deckName, usedAt
+                            FROM lastdeck WHERE usersId=?");
+    if (!$stmt) { $conn->close(); return null; }
+    $stmt->bind_param("i", $userID);
+    $stmt->execute();
+    $row = $stmt->get_result()->fetch_assoc();
+    $stmt->close(); $conn->close();
+    return $row ?: null;
+}
+
+// Used when the remembered deck turns out to be unreachable — it must not keep prefilling.
+function DeleteLastDeck($userID) {
+    $userID = (int)$userID;
+    if ($userID <= 0) return false;
+    $conn = GetLocalMySQLConnection();
+    if (!DBTableExists($conn, 'lastdeck')) { $conn->close(); return false; }
+    $stmt = $conn->prepare("DELETE FROM lastdeck WHERE usersId=?");
+    if (!$stmt) { $conn->close(); return false; }
+    $stmt->bind_param("i", $userID);
+    $ok = $stmt->execute();
+    $stmt->close(); $conn->close();
+    return (bool)$ok;
+}
+
 // Cosmetics (Feature C): per-user slot choices, resolved through the SWUSim catalog.
 
 function _SWUCosmeticEnsureCatalog() {

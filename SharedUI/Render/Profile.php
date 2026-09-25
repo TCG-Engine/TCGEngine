@@ -298,7 +298,24 @@ function _ProfilePanelRegistry(): array {
 
 // CSS so two panels combined with '+' merge into a single pane (one bordered box) with a divider,
 // instead of showing as two nested boxes. Injected once by RenderProfile; app-agnostic.
-function _ProfilePaneStyle(): string {
+// $arena drops the LAYOUT half of this style — the flex row and the `margin: 0 !important` on
+// every pane. A site whose stylesheet lays the profile out itself (SWUSim puts the panes in
+// columns) needs that margin override gone, or the gap between stacked panes is stripped.
+// The pane-NEUTRALISATION half is kept either way: it is what makes two panels joined with '+'
+// read as one box rather than a card inside a card, which is not a layout choice.
+function _ProfilePaneStyle(bool $arena = false): string {
+    if ($arena) {
+        return "<style>\n"
+             . ".profile-pane > .container { background: transparent !important; backdrop-filter: none !important;"
+             . " -webkit-backdrop-filter: none !important; border: 0 !important; border-radius: 0 !important;"
+             . " box-shadow: none !important; margin: 0 !important; padding: 0 !important; }\n"
+             . ".profile-pane > .profile-pane-sep { border: 0; border-top: 1px solid rgba(255,255,255,0.14); margin: 18px 0; }\n"
+             . "</style>\n";
+    }
+    return _ProfilePaneStyleLegacy();
+}
+
+function _ProfilePaneStyleLegacy(): string {
     // The pane is the single box (keeps .container's own padding); the two inner panels contribute
     // only their content — no box chrome, no padding — so a+b read as ONE container, not two cards.
     return "<style>\n"
@@ -332,7 +349,7 @@ function RenderProfile(array $def, array $ctx, array $userData): string {
     $sections = $def['profile']['sections'] ?? [];
     $registry = _ProfilePanelRegistry();
     $out  = "<div id=\"cardDetail\" style=\"z-index:100000; display:none; position:fixed;\"></div>\n\n\n\n";
-    $out .= _ProfilePaneStyle();
+    $out .= _ProfilePaneStyle(($def['profile']['layout'] ?? '') === 'arena');
     $out .= "<div class=\"core-wrapper\">\n\n";
     foreach ($sections as $entry) {
         // An entry may combine up to 2 panels with '+' → one pane with a divider between them.

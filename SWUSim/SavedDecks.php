@@ -26,6 +26,10 @@ $action = $_POST['action'] ?? '';
 if ($action === 'save') {
     $input = trim($_POST['deckInput'] ?? '');
     if ($input === '') return $respond(['success'=>false,'error'=>'empty']);
+    // Owner, 2026-09-25: only a LINK may be saved — a pasted JSON blob or a free-text list has
+    // no source to return to. Enforced HERE and not only in the UI, because the UI is not a
+    // boundary: an older client (or a direct POST) will keep sending whatever it likes.
+    if (!SWUDeckInputIsLink($input)) return $respond(['success'=>false,'error'=>'not_a_link']);
     $resolved = SWUResolveDeckInput($input);
     // Resolved shape: {success, message, leader, base, mainDeck, sideboard, unresolved} — no name/format.
     if (empty($resolved['success']) || empty($resolved['leader'])) {
@@ -42,6 +46,15 @@ if ($action === 'save') {
     if (!$ok) return $respond(['success'=>false,'error'=>'db_insert_failed']);
     return $respond(['success'=>true,'decklink'=>$decklink,'leader'=>$leader,'base'=>$base]);
 }
+// The menu's "last deck used" pointer. Written when a game actually STARTS, and forgotten when
+// the remembered link stops resolving. Guests never reach here — theirs lives in localStorage.
+if ($action === 'lastdeck') {
+    $input = trim($_POST['deckInput'] ?? '');
+    if ($input === '') return $respond(['success'=>false,'error'=>'empty']);
+    $ok = SetLastDeck($uid, $input, $_POST['format'] ?? '', (int)($_POST['leaders'] ?? 1), $_POST['deckName'] ?? '');
+    return $respond(['success'=>$ok] + ($ok ? [] : ['error'=>'not_a_link']));
+}
+if ($action === 'forgetlastdeck') return $respond(['success'=>DeleteLastDeck($uid)]);
 if ($action === 'favorite') return $respond(['success'=>SetSavedDeckFavorite($uid, $_POST['decklink'] ?? '', (int)($_POST['value'] ?? 1))]);
 if ($action === 'rename')   return $respond(['success'=>RenameSavedDeck($uid, $_POST['decklink'] ?? '', trim($_POST['name'] ?? ''))]);
 if ($action === 'delete')   return $respond(['success'=>DeleteSavedDeck($uid, $_POST['decklink'] ?? '')]);

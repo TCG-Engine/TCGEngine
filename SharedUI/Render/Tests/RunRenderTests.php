@@ -44,6 +44,32 @@ checkContains('menubar has Support', $navOut, "https://www.patreon.com/c/ninintc
 checkContains('menubar has Stats dropdown', $navOut, "class='dropdown'");
 checkContains('menubar has Deck Stats child', $navOut, '/TCGEngine/Stats/DeckMetaStats.php');
 checkContains('menubar has github icon', $navOut, 'icons/github.svg');
+
+// --- The current page is marked (owner-reported, 2026-09-25) --------------------
+// The nav had no current-page indicator at all, so SWUSim's "Log In" call-to-action plate was
+// painted on every page — including Log In itself, where it points at the page you are already
+// on, and Sign Up, where it competes with that page's own Create Account button and reads as a
+// selected tab. aria-current is the honest fix: correct HTML, additive for every other sim, and
+// something the stylesheet can key on.
+// the FIRST INTERNAL item — nav[0] is an external Patreon link with target=_blank, which is
+// correctly never "current", so hard-coding index 0 tested nothing
+$navHref = '';
+foreach (($def['nav'] ?? []) as $n) {
+    $h = (string)($n['href'] ?? '');
+    if ($h !== '' && $h !== '#' && empty($n['target']) && !preg_match('#^[a-z]+://#i', $h)) { $navHref = $h; break; }
+}
+check('the test found an internal nav item to mark', $navHref !== '');
+$prevUri = $_SERVER['REQUEST_URI'] ?? null;
+$_SERVER['REQUEST_URI'] = $navHref . '?x=1';          // query string must not defeat the match
+$navHere = RenderMenuBar($def, ['isLoggedIn'=>false,'isPatron'=>false,'username'=>null,'userId'=>null]);
+checkContains('the nav marks the page you are on', $navHere, "aria-current='page'");
+check('only ONE item is marked current', substr_count($navHere, "aria-current='page'") === 1,
+    substr_count($navHere, "aria-current='page'") . ' marked');
+$_SERVER['REQUEST_URI'] = '/TCGEngine/somewhere/else.php';
+$navAway = RenderMenuBar($def, ['isLoggedIn'=>false,'isPatron'=>false,'username'=>null,'userId'=>null]);
+check('nothing is marked current on an unrelated page',
+    strpos($navAway, 'aria-current') === false);
+if ($prevUri === null) unset($_SERVER['REQUEST_URI']); else $_SERVER['REQUEST_URI'] = $prevUri;
 checkContains('menubar has discord icon', $navOut, 'discord.gg/5ZHXyVvVFC');
 checkContains('menubar renders burger on first paint', $navOut, 'class="burger-menu"');
 checkContains('menubar burger has accessible label', $navOut, 'aria-label="Open navigation"');
@@ -102,6 +128,35 @@ checkContains('profile welcomes user', $prof, 'Welcome tester');
 checkContains('profile has team mgmt', $prof, 'Team Management');
 checkContains('profile oauthDev app label', $prof, 'connect to SWUDeck');
 checkContains('disclaimer names site', RenderDisclaimer($def), 'SWU Stats is in no way affiliated');
+// --- The 'arena' profile layout (SWUSim only, owner 2026-09-25) -----------------
+// RenderProfile injects _ProfilePaneStyle(): a flex-row layout plus `margin: 0 !important` on
+// every pane. SWUSim's redesign lays the panes out in COLUMNS instead, and that !important
+// would strip the gap between stacked panes. Opting out of the layout half is additive — the
+// pane-neutralisation half (so two panels joined with '+' read as one box) is kept for everyone.
+$arenaProf = $def;
+$arenaProf['profile']['layout'] = 'arena';
+$legacyProfile = RenderProfile($def, $ctxIn, $ud);
+$arenaProfile  = RenderProfile($arenaProf, $ctxIn, $ud);
+
+check('a site that does not opt in keeps the flex pane layout',
+    strpos($legacyProfile, 'flex-wrap: wrap') !== false
+    && strpos($legacyProfile, 'flex: 1 1 320px') !== false);
+check('the arena profile drops the flex layout', strpos($arenaProfile, 'flex: 1 1 320px') === false);
+// ⚠ Assert the rule that would do the damage, not the string. `margin: 0 !important` also
+// appears on `.profile-pane > .container` — the INNER panel of a '+' pane — where it is
+// required and harmless. The one that kills column gaps is the one targeting the PANES.
+check('the arena profile drops the pane-level layout rule',
+    strpos($arenaProfile, '.core-wrapper > .container') === false
+    && strpos($arenaProfile, '.core-wrapper {') === false);
+check('and the legacy layout still has it',
+    strpos($legacyProfile, '.core-wrapper > .container') !== false);
+// the part every site still needs: two panels joined with '+' must read as ONE box
+checkContains('the arena profile still neutralises nested panel chrome', $arenaProfile,
+    '.profile-pane > .container');
+checkContains('the arena profile still styles the pane divider', $arenaProfile, 'profile-pane-sep');
+check('both layouts render the same panels',
+    substr_count($legacyProfile, 'container bg-black') === substr_count($arenaProfile, 'container bg-black'));
+
 $noPw = $def; $noPw['profile']['sections'] = ['team'];
 $prof2 = RenderProfile($noPw, $ctxIn, $ud);
 check('omitting password hides form', strpos($prof2, 'id="selfResetPasswordForm"') === false);
@@ -125,6 +180,59 @@ checkContains('signup has pwdrepeat', $signup, 'name="pwdrepeat"');
 checkContains('login has redirect field', $login, 'name="redirect"');
 checkContains('signup has redirect field', $signup, 'name="redirect"');
 checkContains('login redirect escapes value', RenderLoginPage($def, '/TCGEngine/x"y'), 'value="/TCGEngine/x&quot;y"');
+
+// --- The 'arena' auth layout (SWUSim only, owner 2026-09-25) --------------------
+// SWUSim's auth pages move to the redesigned card. RenderLoginPage/RenderSignup are shared with
+// FaBSim, HellbreakSim, SWUDeck and HellbreakDeck, so this is an OPT-IN: every site that does
+// not ask for it must render exactly what it rendered before.
+$arena = $def; $arena['auth'] = ['layout' => 'arena'];
+$aLogin  = RenderLoginPage($arena);
+$aSignup = RenderSignup($arena);
+
+// ⚠ Assert the DEFAULT positively, against the legacy shell's own markers. Comparing
+// RenderLoginPage($def) with a $login captured the same way is a tautology: flip the default to
+// arena and both sides become arena, so it passes while four other sites have just been
+// re-laid-out underneath them. (Caught by mutation — the first version of this check did that.)
+check('a site that does not opt in still gets the legacy login shell',
+    strpos($login, 'container bg-black') !== false
+    && strpos($login, 'flex-padder') !== false
+    && strpos($login, 'auth__card') === false);
+check('a site that does not opt in still gets the legacy signup shell',
+    strpos($signup, 'signup-disclosures') !== false
+    && strpos($signup, 'auth__card') === false);
+checkContains('arena login uses the new card', $aLogin, 'auth__card');
+checkContains('arena signup uses the new card', $aSignup, 'auth__card');
+check('the old auth shell is gone when opted in',
+    strpos($aLogin, 'container bg-black') === false && strpos($aLogin, 'flex-padder') === false);
+
+// ⚠ THE LOAD-BEARING PART. A beautiful form that posts the wrong field names is a broken login.
+// Every name, action and type the backend reads has to survive the re-layout.
+checkContains('arena login still posts to AttemptPasswordLogin', $aLogin, '/TCGEngine/AccountFiles/AttemptPasswordLogin.php');
+foreach (['name="userID"', 'name="password"', 'name="rememberMe"', 'name="redirect"', 'type="submit"'] as $needle) {
+    checkContains("arena login keeps $needle", $aLogin, $needle);
+}
+checkContains('arena login keeps remember-me checked by default', $aLogin, 'checked');
+checkContains('arena login still links signup', $aLogin, '/Signup.php');
+checkContains('arena login redirect still escapes',
+    RenderLoginPage($arena, '/TCGEngine/x"y'), 'value="/TCGEngine/x&quot;y"');
+
+checkContains('arena signup still posts to signup.inc', $aSignup, '/TCGEngine/Database/signup.inc.php');
+foreach (['name="uid"', 'name="email"', 'name="pwd"', 'name="pwdrepeat"', 'name="redirect"'] as $needle) {
+    checkContains("arena signup keeps $needle", $aSignup, $needle);
+}
+checkContains('arena signup keeps its autocomplete hints', $aSignup, 'autocomplete="new-password"');
+checkContains('arena signup keeps the responsive page hook', $aSignup, 'signup-page');
+
+// Errors must still reach the player, or a failed login looks like nothing happened.
+$_GET['error'] = 'invalidemail';
+checkContains('arena signup renders validation errors', RenderSignup($arena), 'Choose a valid email address.');
+unset($_GET['error']);
+$_GET['oauth_error'] = 'Discord said no';
+checkContains('arena login renders oauth errors', RenderLoginPage($arena), 'Discord said no');
+unset($_GET['oauth_error']);
+
+check('arena auth has no relative ../ urls',
+    strpos($aLogin, '"../') === false && strpos($aSignup, '"../') === false);
 
 // --- Site page generator: identity validator, templates, MobileViewport ---
 require_once __DIR__ . '/../Template.php';
@@ -192,7 +300,12 @@ checkContains('cosmetics has preview', $cos, "class='cos-preview'");
 checkContains('cosmetics has show-playmats toggle', $cos, "id='cos-show-playmats'");
 checkContains('cosmetics has card-motion toggle', $cos, "id='cos-card-motion'");
 checkContains('cosmetics posts to endpoint', $cos, 'SWUSim/Cosmetics.php');
-check('SWUSim profile enables cosmetics', in_array('cosmetics', $swusimDef['profile']['sections'] ?? [], true));
+// cosmetics now shares a pane with sounds, so it appears as 'cosmetics+sounds' — assert the
+// PANEL is enabled rather than the exact entry string, which is a grouping decision.
+check('SWUSim profile enables cosmetics',
+    in_array('cosmetics', array_merge(...array_map(
+        fn($e) => array_map('trim', explode('+', $e)),
+        $swusimDef['profile']['sections'] ?? [''])), true));
 check('validator accepts cosmetics', !in_array("profile.sections has unknown section 'cosmetics'", ValidateSiteDef($swusimDef), true));
 
 // --- Profile panel registry (order-driven) + welcome gating ---
@@ -218,7 +331,9 @@ check('Azuki profile omits Patreon login', strpos($azukiProfile, 'containerPatre
 // --- All sites validate under the new panel keys + render their listed panels ---
 $expectPanels = [
   'SWUDeck'         => ['welcome+changePassword','team','developerOptions'],
-  'SWUSim'          => ['welcome+changePassword','savedDecks+blockedUsers','cosmetics','sounds'],
+  // regrouped 2026-09-25 for the redesigned profile: one pane per task, ordered so the
+  // columns balance. cosmetics+sounds are merged because they are the same thing to a player.
+  'SWUSim'          => ['savedDecks','welcome+changePassword','cosmetics+sounds','blockedUsers'],
   'GrandArchiveSim' => ['welcome'],
   'AzukiSim'        => ['welcome'],
   'GudnakSim'       => ['welcome'],
@@ -546,6 +661,62 @@ checkContains('the flat roster sorts entries positionally', $wrHtml, 'roster.sli
 // ?lobby=<id> as soon as you join — so without adopting it from the poll payload, a player who lost
 // their seat pressed "Join with this deck" and was sent to the PUBLIC queue instead of back here.
 checkContains('the page adopts the invite code from the poll', $wrHtml, 'if (r.inviteCode) inviteCode = r.inviteCode;');
+
+// --- Menu redesign Task 1: the document must leave quirks mode ---
+// Before this, RenderHead() emitted "<head>" as the first bytes of the response, so every page
+// in the monolith rendered in BackCompat (verified in all three engines, 2026-09-24) with no
+// language set — mispronouncing "Petranaki", "Arenabot" and "Bo1" for every screen-reader user.
+check('head starts with a doctype', str_starts_with($head, '<!DOCTYPE html>'));
+checkContains('head opens html with lang', $head, '<html lang="en">');
+
+// --- Menu redesign Task 2: path-versioned CSS ---
+// ?v=<mtime> is a QUERY STRING, and a CDN configured to ignore query strings drops it — which is
+// why JS already ships as UILibraries<YYYYMMDD>.js. CSS had no equivalent lever, so restructuring
+// stylesheets risked serving a half-old sheet to returning players.
+$pv = _VersionAsset('/TCGEngine/SharedUI/css/tokens.css', true);
+check('path-versioned CSS carries the mtime in the filename', (bool)preg_match('#/tokens\.\d+\.css$#', $pv));
+check('path-versioned CSS has no query string', strpos($pv, '?v=') === false);
+check('default call still uses the query string', strpos(_VersionAsset('/TCGEngine/SharedUI/css/tokens.css'), '?v=') !== false);
+
+// --- Menu redesign Task 5: the layered token tier ---
+$sysPath = __DIR__ . '/../../css/system.css';
+check('system.css exists', file_exists($sysPath));
+$sysCss  = file_exists($sysPath) ? file_get_contents($sysPath) : '';
+checkContains('system.css declares the layer order first', $sysCss, '@layer tokens, base, components, utilities;');
+checkContains('system.css exposes a surface token', $sysCss, '--sys-surface-1:');
+checkContains('system.css exposes the six aspect colours', $sysCss, '--aspect-villainy:');
+// ⚠ A color-mix() whose operands are BOTH color-mix() hard-crashes the WebKit renderer — not a
+// mis-paint, a blank page. One mix operand is fine. This guards the whole token ramp.
+// Strip /* … */ comments first: the file DOCUMENTS the rule in prose, and counting the prose
+// made this assertion fail on a file that was actually correct.
+$sysCode = preg_replace('#/\*.*?\*/#s', '', $sysCss);
+$nested = 0;
+foreach (explode(';', $sysCode) as $decl) {
+    if (substr_count($decl, 'color-mix(') > 1) { $nested++; }
+}
+check('system.css has no nested color-mix (crashes WebKit)', $nested === 0);
+
+// --- Menu redesign Task 6: system.css leads every theme stack ---
+$sysHead = RenderHead($def);
+$sysPos  = strpos($sysHead, '/SharedUI/css/system.css');
+$tokPos  = strpos($sysHead, '/SharedUI/css/tokens.css');
+check('system.css is in the stack', $sysPos !== false);
+check('system.css loads before tokens.css', $sysPos !== false && $tokPos !== false && $sysPos < $tokPos);
+// clarent sites load no menuStyles; system.css must still lead THEIR stack too
+$claHead = RenderHead(LoadSiteDef('FaBSim'));
+$claSys  = strpos($claHead, '/SharedUI/css/system.css');
+$claTok  = strpos($claHead, '/SharedUI/css/tokens.css');
+check('system.css leads a clarent stack too', $claSys !== false && $claTok !== false && $claSys < $claTok);
+
+// --- Menu redesign Task 9: semantic landmarks in the shared chrome ---
+// The gate found NO-LANDMARK header,nav on every SWUSim state. These renderers emit plain divs,
+// so no page in the monolith has a banner or navigation landmark — a screen-reader user cannot
+// jump past the chrome. Fixing it here fixes it for all six sites.
+$lmHdr = RenderHeader($def);
+$lmNav = RenderMenuBar($def, ['isLoggedIn'=>false,'isPatron'=>false,'username'=>null,'userId'=>null]);
+check('header renders a <header> landmark', strpos($lmHdr, '<header') !== false);
+check('menu bar renders a <nav> landmark', strpos($lmNav, '<nav') !== false);
+check('the nav landmark is labelled', strpos($lmNav, 'aria-label') !== false);
 
 // (later tasks append their checks above this line)
 

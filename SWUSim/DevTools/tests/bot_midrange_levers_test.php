@@ -27,7 +27,12 @@ include_once './SWUSim/BotLegalActions.php';
 include_once './SWUSim/Custom/BotLookahead.php';
 include_once './SWUSim/BotHeuristic.php';
 
-$check(SWUBotVariantDisabled('try-mgkill') === ['try:mgkill'], 'mgkill is still a proposal (unproven, p~0.05-0.07)');
+// mgkill SHIPPED 2026-09-25 as feature group p13 — ON by default; '@no-mgkill' / '@no-p13' turn it off.
+$check(in_array('mgkill', SWUBotFeatureList(), true) && SWUBotFeatureGroups()['p13'] === ['mgkill'],
+    'mgkill is a shipped FEATURE, group p13');
+$check(SWUBotVariantDisabled('no-mgkill') === ['mgkill'] && SWUBotVariantDisabled('no-p13') === ['mgkill'],
+    "'@no-mgkill' and '@no-p13' both switch it off");
+$check(SWUBotVariantDisabled('try-mgkill') === null, 'mgkill is no longer a proposal');
 // mgbomb SHIPPED 2026-09-24 as feature group p12 — it is ON by default and '@no-mgbomb' / '@no-p12' turn it off.
 $check(in_array('mgbomb', SWUBotFeatureList(), true) && SWUBotFeatureGroups()['p12'] === ['mgbomb'],
     'mgbomb is a shipped FEATURE, group p12');
@@ -46,16 +51,16 @@ $w = function (string $style, array $flags) {
     SWUBotSetDisabledFeatures([]);
     return $o;
 };
-$ON = ['try:mgkill'];
-$base = $w('midrange', []);
-$check(abs($base['kill'] - 0.90) < 1e-9 && abs($base['base'] - 0.60) < 1e-9, 'shipped midrange is kill 0.90 / base 0.60');
-$on = $w('midrange', $ON);
-$check(abs($on['kill'] - 0.54) < 1e-9, 'mgkill scales midrange kill 0.90 -> 0.54');
-$check(abs($on['kill'] / $on['base'] - 0.9) < 1e-9, 'mgkill inverts the midrange kill:base ratio to 0.9:1');
-$check(count(array_diff_assoc($on, $base)) === 1, 'mgkill changes exactly one weight');
+$OFFK = ['mgkill'];   // '@no-mgkill' = the pre-p13 weights
+$base = $w('midrange', $OFFK);
+$check(abs($base['kill'] - 0.90) < 1e-9 && abs($base['base'] - 0.60) < 1e-9, 'pre-p13 midrange was kill 0.90 / base 0.60');
+$on = $w('midrange', []);
+$check(abs($on['kill'] - 0.54) < 1e-9, 'SHIPPED DEFAULT: midrange kill is 0.54 (0.90 x 0.6)');
+$check(abs($on['kill'] / $on['base'] - 0.9) < 1e-9, 'p13 inverts the midrange kill:base ratio to 0.9:1 — the swing beats the trade');
+$check(count(array_diff_assoc($on, $base)) === 1, 'p13 changes exactly one weight');
 // ⚠ the whole point of the scoped version: every OTHER archetype must be untouched.
 foreach (['hyperaggro', 'softaggro', 'softcontrol', 'hardcontrol'] as $s) {
-    $check($w($s, $ON) == $w($s, []), "mgkill leaves $s untouched (the screened probe was global; this is not)");
+    $check($w($s, $OFFK) == $w($s, []), "p13 leaves $s untouched (the screened probe was global; this is not)");
 }
 
 // ── mgbomb: midrange resources like control — cheapest castable first, and never its bomb ──────────────

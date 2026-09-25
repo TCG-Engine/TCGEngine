@@ -80,6 +80,32 @@ function SWUValidateDeckForQueue($deckLink, $preconstructedDeck = '') {
  *   sideboard  string[] expanded card IDs
  *   unresolved string[] names/IDs that could not be resolved
  */
+// May this input be SAVED to a deck library? Owner, 2026-09-25: only a LINK may be.
+//
+// A pasted JSON blob or a free-text list has no source to go back to. Saving one stores a
+// snapshot that can never be re-synced with the deck it came from, and there is nothing to show
+// in the Deck Link box when the player picks it later — which is the whole point of the saved
+// list. Links (and the bare friendly code, which is a link in short form) are re-resolvable.
+//
+// ⚠ Keep the branch order below in step with SWUResolveDeckInput(): this must say yes ONLY to
+// inputs that function routes to a link importer, or the library fills with links it cannot
+// read back.
+function SWUDeckInputIsLink($input): bool {
+    $input = trim((string)$input);
+    if ($input === '') return false;
+    if ($input[0] === '{') return false;                                  // pasted JSON
+    if (strpos($input, "\n") !== false || strpos($input, "\r") !== false) return false;  // free text
+
+    foreach (['swudeck.com', 'swudb.com', 'swustats.net'] as $host) {
+        if (stripos($input, $host) !== false) return true;
+    }
+    // The localhost form SWUResolveDeckInput accepts is dev-only and deliberately NOT savable:
+    // a library entry pointing at a loopback address is worthless on any other machine.
+    if (SWUDeckLinkParse($input) !== null) return true;                   // melee.gg, swubase, …
+    if (preg_match('/^[A-Za-z]{12}$/', $input)) return true;              // bare friendly code
+    return false;
+}
+
 function SWUResolveDeckInput($deckLink) {
     $deckLink = trim($deckLink);
     if ($deckLink === '') {

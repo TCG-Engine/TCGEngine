@@ -1,0 +1,14 @@
+# Path-versioned static assets.
+#
+# _VersionAsset($path, true) emits /SharedUI/css/tokens.<mtime>.css instead of
+# /SharedUI/css/tokens.css?v=<mtime>. The query-string form is invisible to a CDN configured to
+# ignore query strings — which is exactly why Core/UILibraries<YYYYMMDD>.js carries its version in
+# the FILENAME. This rule gives CSS and JS the same lever without renaming anything on disk:
+# the URL carries the mtime, the rewrite strips it, Apache serves the real file.
+#
+# The mtime is a 9-or-more digit unix timestamp, which is what keeps this from colliding with a
+# genuine file like `jquery.min.js` or `foo.2.css`.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^(.+)\.[0-9]{9,}\.(css|js)$ $1.$2 [L]
+</IfModule>

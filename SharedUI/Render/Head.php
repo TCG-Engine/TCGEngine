@@ -19,6 +19,12 @@ function _RenderFontLinks(array $fonts): string {
     $map = [
         'Barlow' => '  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">' . "\n",
         'Teko'   => '  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@700&display=swap" rel="stylesheet">' . "\n",
+        // The SWUSim menu redesign is set in Archivo — a VARIABLE font, width 62..125 and
+        // weight 400..700. The axes matter: the design uses the narrow widths for the spaced
+        // caps labels. Without this link the whole page silently fell back to the system UI
+        // font while the stylesheet still asked for "Archivo", which computed styles report as
+        // a match — so it looked correct to every automated check and wrong to the eye.
+        'Archivo' => '  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap" rel="stylesheet">' . "\n",
     ];
     $out = '';
     foreach ($fonts as $f) { $out .= $map[$f] ?? ''; }
@@ -43,7 +49,13 @@ const _THEME_MENU_BASE = ['hud' => true, 'petranaki-hud' => true, 'neutral' => t
 function _RenderThemeStack(array $def): string {
     $theme = is_string($def['theme'] ?? null) ? $def['theme'] : 'neutral';
     $docRoot = $_SERVER['DOCUMENT_ROOT'] ?? '';
-    $files = [];
+    // system.css FIRST, for every theme including the ones that skip menuStyles. It declares the
+    // @layer order and the oklch token tier. It is safe to lead with because unlayered CSS beats
+    // layered CSS — nothing below can be overridden by it until a file opts into a layer.
+    // NOTE: loaded with the ordinary ?v= form, NOT path-versioned. The .htaccess rewrite that
+    // path-versioning needs is inert here (AllowOverride None, mod_rewrite not enabled), so a
+    // path-versioned URL would 404 the whole token tier.
+    $files = ['/TCGEngine/SharedUI/css/system.css'];
     if (!empty(_THEME_MENU_BASE[$theme])) $files[] = '/TCGEngine/SharedUI/css/menuStyles.css';
     $files[] = '/TCGEngine/SharedUI/css/tokens.css';
     $files[] = '/TCGEngine/SharedUI/css/components.css';
@@ -59,7 +71,11 @@ function _RenderThemeStack(array $def): string {
 function RenderHead(array $def): string {
     $b = $def['branding']; $h = $def['head'];
     $headTitle = $b['headTitle'] ?? $b['title'];   // distinct browser-tab title; defaults to the h1 title
-    $out  = "<head>  <meta charset=\"utf-8\">\n";
+    // ⚠ The doctype and <html> MUST be the first bytes of the response. Without them every page
+    // in the monolith renders in quirks mode (document.compatMode === "BackCompat"), which changes
+    // the CSS box model, and screen readers get no language for the page.
+    $out  = "<!DOCTYPE html>\n<html lang=\"en\">\n";
+    $out .= "<head>  <meta charset=\"utf-8\">\n";
     $out .= "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n";
     $out .= "  <title>$headTitle</title>\n";
     $out .= "  <link rel=\"icon\" type=\"image/png\" href=\"{$b['favicon']}\">\n";

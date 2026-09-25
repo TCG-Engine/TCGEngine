@@ -168,6 +168,11 @@ body.swu-spectating #swuPassControl { display: none !important; }
     background: rgba(222,72,72,0.85); color: #fff; font: 700 11px/1 var(--swu-font-label, sans-serif);
     letter-spacing: 0.06em; pointer-events: none; }
 body.swu-spectating .swu-spectate-badge { display: block; }
+/* ⚠ On the HOME view the badge and the strip both want the top of the screen: the badge is fixed at 48px
+   and .swu-home-strips starts at 52px, so the badge lands on the first tiles and covers a Zoom In button.
+   They never collided before 2026-09-25 because an eliminated viewer was given a MATCHUP, never the home
+   panels. Dock it to the bottom in home mode — the strip owns the top there. */
+body.swu-home .swu-spectate-badge { top: auto; bottom: 10px; }
 
 /* 3-player home view — two minimal opponent status strips across the top (gateways into their matchup). */
 .swu-home-strips { position: fixed; top: 52px; left: 0; right: 0; z-index: 39;
@@ -207,6 +212,69 @@ body.swu-spectating .swu-spectate-badge { display: block; }
    ⚠ Deliberately NOT colour-only: .is-active-turn also prints a "TURN" pill next to the seat number,
    so the state survives a colourblind viewer and a screenshot. The ring uses box-shadow, not a border
    width change, so the strip does not reflow by a pixel when the turn passes. */
+/* ── A DEFEATED SEAT'S PANEL (owner ruling 2026-09-25) ────────────────────────────────────────
+   "keep the players' home panels up but with their units disappeared and then their leaders and base
+   greyed out. people like this view already."
+   The units are not drawn at all (swuRenderMiniBoard skips them when defeated), so nothing here needs to
+   hide them — this file only has to say "inactive". Greyscale + dim rather than opacity on the whole
+   tile, so the seat label and the numbers stay READABLE: the panel is still a record of where that
+   player finished, it is just not live any more.
+   ⚠ filter, not opacity, on the CARDS specifically. An opacity on the tile would fade the text too and
+   at this size the chips become unreadable — measured on the 4P board, where three tiles compete. */
+/* GRAYSCALE THE WHOLE TILE, including its PLAYMAT. Measured on the 4P board: greying only the cards left
+   the dead seats sitting on full-colour playmat art, so at a glance they read as the LIVELIEST tiles on
+   the strip — the opposite of the intent. Grayscale alone (no brightness drop) desaturates the art while
+   leaving the seat label and the numbers at full contrast, which is why the dimming below is applied to
+   the CARDS and CHIPS individually rather than to this element. */
+.swu-home-strip.is-defeated,
+.swu-seat-row.is-defeated { filter: grayscale(1); }
+.swu-home-strip.is-defeated .swu-mb-card,
+.swu-seat-row.is-defeated .swu-mb-card {
+    filter: brightness(0.45) contrast(0.9);
+}
+/* The chips grey WITH the leader and base (owner choice 2026-09-25) so the whole tile reads inactive. */
+.swu-home-strip.is-defeated .swu-mb-r2,
+.swu-home-strip.is-defeated .swu-mb-seat,
+.swu-seat-row.is-defeated .swu-sr-b,
+.swu-seat-row.is-defeated .swu-sr-seat { opacity: 0.55; }
+/* The empty arenas keep their frame — the panel must still read as a BOARD, just a cleared one. */
+.swu-home-strip.is-defeated .swu-mb-arena { opacity: 0.5; }
+/* Zoom In stays (owner choice 2026-09-25: it opens their emptied board) but must not look live. */
+.swu-home-strip.is-defeated .swu-mb-zoom { opacity: 0.7; }
+
+/* ZOOM IN on a defeated seat: the FULL board gets the same treatment as the tile. The opponent half is
+   greyed and its units are hidden — the server may still hold that seat's units, and a dead board must
+   not offer a clickable target. `my` zones are untouched: this is THEIR defeat, not yours. */
+body.swu-opp-defeated #theirLeaderSlot,
+body.swu-opp-defeated #theirBaseSlot,
+body.swu-opp-defeated #theirBaseTabs,
+body.swu-opp-defeated #theirPileRow,
+body.swu-opp-defeated #theirResourcesSlot {
+    filter: grayscale(1) brightness(0.5);
+}
+body.swu-opp-defeated #theirGroundArenaSlot > *,
+body.swu-opp-defeated #theirSpaceArenaSlot > * { display: none !important; }
+/* ...and their PLAYMAT with them. Same lesson as the tile: greying only the cards leaves the dead half
+   sitting on full-colour art, which reads as more alive than the living half. .swu-playmat-top is the
+   opponent side by construction (ApplyCosmeticPlaymats paints it from the current view's oppSeat), so
+   this follows the view automatically and never touches the viewer's own mat. */
+body.swu-opp-defeated .swu-playmat-top,
+body.swu-opp-defeated .swu-m-arena-row.is-theirs { filter: grayscale(1); }
+
+/* THE VIEWER'S OWN half, when THEY are the one who is out (owner ruling 2026-09-25: "keep them in the
+   home panels page. with themselves greyed out"). Mirror image of the block above — same treatment, `my`
+   selectors — so a dead player's board reads exactly like a dead opponent's rather than like a live one. */
+body.swu-self-defeated #myLeaderSlot,
+body.swu-self-defeated #myBaseSlot,
+body.swu-self-defeated #myBaseTabs,
+body.swu-self-defeated #myPileRow,
+body.swu-self-defeated #myResourcesSlot,
+body.swu-self-defeated #myHandSlot { filter: grayscale(1) brightness(0.5); }
+body.swu-self-defeated #myGroundArenaSlot > *,
+body.swu-self-defeated #mySpaceArenaSlot > * { display: none !important; }
+body.swu-self-defeated .swu-playmat-bot,
+body.swu-self-defeated .swu-m-arena-row.is-mine { filter: grayscale(1); }
+
 .swu-home-strip.is-active-turn {
     border-color: rgba(240,192,64,0.55);
     /* ⚠ Two BLURRED layers and no hard ring — the same idiom as 2P's .has-action glow
@@ -2602,15 +2670,40 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         //     ($canSeePrivatePlayerN), so another seat's hand is never sent to this viewer whatever the
         //     client renders. Face-down backs still show, which is the hand SIZE everyone can see.
         var seatedEver = String(window.SeatOrderData || '').trim();
-        if (seats.length === 2 && me >= 1 && seatedEver.indexOf(String(me)) !== -1
-            && seats.indexOf(me) === -1) {
-            return [{ viewSeat: seats[0], oppSeat: seats[1], mode: 'matchup', opps: [seats[1]],
-                      label: swuSeatName(seats[0]) + ' vs ' + swuSeatName(seats[1]) }];
-        }
-        if (seats.length <= 2) return [];
+        // ⚠ AN ELIMINATED PLAYER GETS THE HOME PANELS TOO (owner ruling 2026-09-25): "even for those
+        // defeated. keep them in the home panels page. with themselves greyed out."
+        // This used to short-circuit to a single `P{a} vs P{b}` matchup of the two survivors, which is why
+        // a knocked-out player saw "Read-only — viewing P1 vs P2" instead of the strip everyone likes.
+        // They now fall through to the SAME home + matchup build as a live player; their own board is
+        // greyed by body.swu-self-defeated and read-only is armed by swuViewerIsEliminated() rather than
+        // by handing them someone else's viewSeat.
+        // ⚠ DO NOT COLLAPSE A MULTI-SEAT GAME TO THE 2-PLAYER VIEW (owner ruling 2026-09-25). This was
+        // `if (seats.length <= 2) return [];`, which "zoomed in" on the last two survivors: the Home view
+        // and its preview tiles vanished and the board re-framed itself as a plain 1v1. Owner: "people
+        // actually like the Home panels" — so a 4P game that loses TWO seats and a 3P game that loses ONE
+        // both keep the multi-seat chrome, with the 4P -> 3P shift as the baseline. Eliminated seats drop
+        // out of `opps` and stop being tiled, which is exactly what already happens at 4P -> 3P.
+        //   • seats.length <= 1 — the game is over, there is no matchup left to build.
+        //   • A GENUINE two-player game (SeatOrder of 2) still returns [] and renders as it always has;
+        //     that is what `seatedEver.length <= 2` protects. Only a game that SEATED 3+ keeps the chrome.
+        if (seats.length <= 1) return [];
+        if (seats.length <= 2 && seatedEver.length <= 2) return [];
         var opps = seats.filter(function (s) { return s !== me; });
-        var views = [{ viewSeat: me, oppSeat: opps[0], mode: 'home', opps: opps, label: 'Home' }];
-        opps.forEach(function (o) {
+        // A DEFEATED SEAT KEEPS ITS PANEL (owner ruling 2026-09-25): "keep the players' home panels up but
+        // with their units disappeared and then their leaders and base greyed out. people like this view
+        // already." So the strip tiles every seat that was ever SEATED, not just the live ones, and each
+        // dead seat also keeps a matchup view so Zoom In still opens its emptied board.
+        // ⚠ `opps` stays LIVE-ONLY. It also supplies the home view's oppSeat, and a dead seat there would
+        // make swuRenderedZoneForSeat resolve a corpse as 'their' — the shape of bug #4160. `tiles` is the
+        // render list; `opps` remains the live-opponent list every other reader expects.
+        // ⚠ Fall back to the live order when SeatOrderData is missing (games older than Twin Suns ship
+        // neither field), or a 3+ seat game would suddenly tile nothing.
+        var seatedSrc = seatedEver.length ? seatedEver : order;
+        var tiles = seatedSrc.split('').map(function (c) { return parseInt(c, 10); })
+                             .filter(function (s) { return s !== me; });
+        var isDead = function (s) { return seats.indexOf(s) === -1; };
+        var views = [{ viewSeat: me, oppSeat: opps[0], mode: 'home', opps: opps, tiles: tiles, label: 'Home' }];
+        tiles.forEach(function (o) {
             // Team Suns: your teammate is not an opponent, so "vs P3" is wrong for them. ONLY the label
             // changes — the view list, its order, viewSeat/oppSeat/mode and the home view's `opps` array
             // are all untouched, so the board and preview tiles render exactly as in Twin Suns.
@@ -2618,7 +2711,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // home view and their entry from the carousel, breaking Zoom In on your own teammate — the
             // opposite of USER RULING 2026-08-25 (the home view stays as it is; Zoom In is how you look
             // at your ally's board).
-            views.push({ viewSeat: me, oppSeat: o, mode: 'matchup',
+            views.push({ viewSeat: me, oppSeat: o, mode: 'matchup', defeated: isDead(o),
                          label: (swuIsTeammate(o) ? '' : 'vs ') + swuSeatName(o) });
         });
         return views;
@@ -2642,9 +2735,12 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     }
     function swuRenderedZoneForSeat(seat) {
         var v = window.swuView;
-        // ⚠ NO VIEW ≠ NO MAPPING. swuBuildViews returns [] once there are two or fewer LIVE seats, so a
-        // Twin Suns game that has narrowed by elimination renders exactly like a 2-player game and has
-        // no swuView at all. The SERVER does not narrow with it: ZoneSearch's seat-tagged fan-out is
+        // ⚠ NO VIEW ≠ NO MAPPING. This branch is now reached only by a GENUINE two-player game and by a
+        // multi-seat game narrowed to its last single seat — since 2026-09-25 a Twin Suns game that has
+        // narrowed to two LIVE seats KEEPS its views (see swuBuildViews: the owner wants the Home panels),
+        // so it no longer falls through here. The branch is kept because the reasoning below still holds
+        // for the cases that do reach it, and because it is the safety net if views ever go missing.
+        // The SERVER does not narrow with the client: ZoneSearch's seat-tagged fan-out is
         // gated on SeatCountForGame(), which counts SEAT ORDER, so it keeps emitting `p3GroundArena-0`
         // for the rest of the game. Returning null here left those specs untranslated, and
         // IsSelectableCard compares spec.zone to the rendered zone as an EXACT string — so nothing on
@@ -2721,16 +2817,40 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // you can read/inspect it but not act — you're not that seat. Only a view whose bottom board is YOU
     // (viewSeat === MY_PLAYER_ID) is interactive. Cross-view targeting (below) selectively re-enables
     // clicking a legal target on such a view.
+    // Was this viewer SEATED in this game and is no longer live? Seat 0 (a true spectator, never seated)
+    // is NOT eliminated — it keeps its own path and must not be greyed as if it had lost.
+    function swuViewerIsEliminated() {
+        var seated = String(window.SeatOrderData || '').trim();
+        var live   = String(window.LiveSeatsData || seated).trim();
+        if (!seated || MY_PLAYER_ID < 1) return false;
+        return seated.indexOf(String(MY_PLAYER_ID)) !== -1 && live.indexOf(String(MY_PLAYER_ID)) === -1;
+    }
+    window.swuViewerIsEliminated = swuViewerIsEliminated;
+
     function swuApplySpectate() {
-        var spectating = !!(window.swuView && window.swuView.viewSeat !== MY_PLAYER_ID);
+        // ⚠ TWO ways to be read-only. Viewing someone else's seat is one; being ELIMINATED is the other,
+        // and it is not implied by the first — since 2026-09-25 a knocked-out player views their OWN seat
+        // on the home panels, so viewSeat === MY_PLAYER_ID and the old test alone would hand a dead player
+        // a live board.
+        var eliminated = swuViewerIsEliminated();
+        var spectating = !!(window.swuView && window.swuView.viewSeat !== MY_PLAYER_ID) || eliminated;
         window.swuSpectating = spectating;
         document.body.classList.toggle('swu-spectating', spectating);
         // Home "replace" mode: on the home view the preview windows take over the opponent's board
         // region entirely (opponent zones hidden via body.swu-home CSS).
         document.body.classList.toggle('swu-home', !!(window.swuView && window.swuView.mode === 'home'));
+        // Zoom In on a DEFEATED seat: the full board gets the same treatment as its tile — units gone,
+        // leader and base greyed. Owner ruling 2026-09-25.
+        document.body.classList.toggle('swu-opp-defeated', !!(window.swuView && window.swuView.defeated));
+        // The viewer's OWN half greys when they are the one who is out (owner ruling 2026-09-25).
+        document.body.classList.toggle('swu-self-defeated', eliminated);
         var badge = document.getElementById('swuSpectateBadge');
         if (badge && window.swuView) {
-            badge.textContent = '👁 Read-only — viewing ' + swuSeatName(window.swuView.viewSeat) + ' vs ' + swuSeatName(window.swuView.oppSeat);
+            // On the home view "viewing P1 vs P2" is meaningless — there is no single opponent. Say what
+            // is actually true instead, and say WHY it is read-only when the viewer has been knocked out.
+            badge.textContent = (window.swuView.mode === 'home')
+                ? (eliminated ? '👁 Read-only — you were eliminated' : '👁 Read-only — viewing ' + swuSeatName(window.swuView.viewSeat))
+                : '👁 Read-only — viewing ' + swuSeatName(window.swuView.viewSeat) + ' vs ' + swuSeatName(window.swuView.oppSeat);
         }
     }
 
@@ -2738,7 +2858,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var views = window.swuViews || [];
         if (!views.length || index < 0 || index >= views.length) return;
         var v = views[index];
-        window.swuView = { viewSeat: v.viewSeat, oppSeat: v.oppSeat, mode: v.mode, opps: v.opps, index: index };
+        window.swuView = { viewSeat: v.viewSeat, oppSeat: v.oppSeat, mode: v.mode, opps: v.opps,
+                           tiles: v.tiles, defeated: !!v.defeated, index: index };
         swuApplySpectate();
         // Cross-view targeting: RenderUpdate ALWAYS ClearSelectionMode()s and re-establishes selection only
         // from the response's decision data — but we repaint from the CACHED (pre-decision) responseArr, so
@@ -3106,7 +3227,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             return;
         }
         if (!window.swuView) window.swuView = { viewSeat: window.swuViews[0].viewSeat,
-            oppSeat: window.swuViews[0].oppSeat, mode: window.swuViews[0].mode, opps: window.swuViews[0].opps, index: 0 };
+            oppSeat: window.swuViews[0].oppSeat, mode: window.swuViews[0].mode, opps: window.swuViews[0].opps,
+            tiles: window.swuViews[0].tiles, defeated: !!window.swuViews[0].defeated, index: 0 };
         swuApplySpectate();
         // ⚠ ESTABLISHING A VIEW HAS TO REPAINT. This function runs from pollGlobals (on data change),
         // which is AFTER the render that just drew the board — so adopting a view here changed
@@ -3605,7 +3727,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                '<span class="swu-seat-name">' + esc + '</span><span class="swu-seat-pn">P' + s + '</span></span>';
     }
 
-    function swuRenderMiniBoard(seat) {
+    // $defeated (owner ruling 2026-09-25): this seat is eliminated. Its panel STAYS, but its units are
+    // not drawn at all and CSS greys the leader/base/chips (.swu-home-strip.is-defeated).
+    function swuRenderMiniBoard(seat, defeated) {
         var b = swuReadSeatBlock(seat) || { leaders: [], baseObj: null, groundUnits: [], spaceUnits: [] };
         // Leaders
         var leadHtml = b.leaders.map(function (ld) {
@@ -3665,8 +3789,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     swuMbUnitUpgrades(u, hostMz) + swuMbUnitEffects(u) + '</span>';
             };
         }
-        var spaceHtml  = b.spaceUnits.map(unitHtml('Space')).join('');
-        var groundHtml = b.groundUnits.map(unitHtml('Ground')).join('');
+        // ⚠ Emitted as NOTHING for a defeated seat rather than hidden with CSS, so "their units
+        // disappeared" holds whether or not the server still ships this seat's units after elimination —
+        // and so a stale unit can never be clicked as a cross-view target from a dead board.
+        var spaceHtml  = defeated ? '' : b.spaceUnits.map(unitHtml('Space')).join('');
+        var groundHtml = defeated ? '' : b.groundUnits.map(unitHtml('Ground')).join('');
         // Layout: [Leader1 Leader2 Base … Zoom in] / [Space arena] / [Ground arena]. The Zoom-in button
         // opens the you-vs-P{seat} matchup; the cards are clickable targets during a decision.
         return '' +
@@ -3721,9 +3848,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // unreadable, and a card small enough to fit is too small to tap. Targeting drills in instead
     // (spec D1/D2). Reads the SAME seat block the desktop tiles read, so the two views cannot
     // disagree about what a seat holds.
-    function swuRenderSeatRow(seat, viewIndex) {
+    // $defeated (owner ruling 2026-09-25): the mobile mirror of the desktop tile's defeated state —
+    // the row STAYS, its GROUND/SPACE counts read 0 (the units are gone, not merely hidden) and CSS
+    // greys it via .swu-seat-row.is-defeated.
+    function swuRenderSeatRow(seat, viewIndex, defeated) {
         var b = swuReadSeatBlock(seat) || {leaders:[], baseObj:null, groundCount:0, spaceCount:0,
                                            res:{ready:0,total:0,credits:0}, deckCount:0, discardCount:0};
+        if (defeated) { b = Object.assign({}, b, { groundCount: 0, spaceCount: 0 }); }
         var lead = b.leaders.map(function (ld) {
             var cid = String(ld).trim().split(' ')[0];
             var rid = (typeof resolveCardImageID === 'function') ? resolveCardImageID(cid) : cid;
@@ -3752,7 +3883,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // ⚠ data-view is what the Zoom button's click delegate reads to know which matchup to open —
         // the same contract the desktop tile carries. A row without it renders fine and its Zoom
         // button silently does nothing.
-        return "<div class='swu-seat-row' data-seat='" + seat + "' data-view='" + (parseInt(viewIndex, 10) || 0) + "'>" +
+        return "<div class='swu-seat-row" + (defeated ? ' is-defeated' : '') + "' data-seat='" + seat + "' data-view='" + (parseInt(viewIndex, 10) || 0) + "'>" +
                  "<div class='swu-sr-a'>" +
                    swuSeatLabelHtml(seat, 'swu-sr-seat') + lead + base +
                    // Same host address as the desktop tile: the mobile row's fortify/arrest bubbles
@@ -3794,7 +3925,11 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         if (!v || v.mode !== 'home' || !v.opps) { box.style.display = 'none'; return; }
         var views = window.swuViews || [];
         var html = '';
-        v.opps.forEach(function (opp) {
+        // `tiles` includes DEFEATED seats (owner ruling 2026-09-25); `opps` is live-only. Older cached
+        // views may predate `tiles`, so fall back rather than render an empty strip.
+        var liveRaw = String(window.LiveSeatsData || window.SeatOrderData || '').trim();
+        (v.tiles || v.opps).forEach(function (opp) {
+            var dead = liveRaw !== '' && liveRaw.indexOf(String(opp)) === -1;
             var mi = 0;
             for (var i = 0; i < views.length; i++) if (views[i].mode === 'matchup' && views[i].oppSeat === opp) { mi = i; break; }
             // ⚠ The tile's PLAYMAT is deliberately NOT written here. It used to be emitted as an
@@ -3808,8 +3943,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             // class in place rather than re-rendering, so a turn change never wipes the target chips.
             // Mobile gets stacked summary ROWS; desktop keeps the side-by-side tiles unchanged.
             html += (window.SWU_MOBILE_LAYOUT === true)
-                ? swuRenderSeatRow(opp, mi)
-                : ('<div class="swu-home-strip" data-seat="' + opp + '" data-view="' + mi + '">' + swuRenderMiniBoard(opp) + '</div>');
+                ? swuRenderSeatRow(opp, mi, dead)
+                : ('<div class="swu-home-strip' + (dead ? ' is-defeated' : '') + '" data-seat="' + opp
+                   + '" data-view="' + mi + '">' + swuRenderMiniBoard(opp, dead) + '</div>');
         });
         box.innerHTML = html;
         box.style.display = 'flex';

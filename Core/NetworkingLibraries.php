@@ -286,7 +286,11 @@ function WriteActiveGameIndex($index, $ttl = 60)
   apcu_store(ActiveGameIndexKey(), $index, $ttl);
 }
 
-function RegisterActiveGame($rootName, $gameName, $isPrivate = false)
+// $round is OPTIONAL and additive: a sim that does not pass one keeps whatever the entry already
+// held, so the five sims that share this index are unaffected. SWUSim's menu reads it to print
+// "Round 4" on a game chip -- the alternative was parsing each running game's full gamestate on a
+// 20s poll, when the engine is already writing this index on every action anyway.
+function RegisterActiveGame($rootName, $gameName, $isPrivate = false, $round = null)
 {
   if($rootName === "" || $gameName === "") return;
   $now = time();
@@ -300,22 +304,24 @@ function RegisterActiveGame($rootName, $gameName, $isPrivate = false)
     'casterMode' => SimGameIsCasterMode($rootName, $gameName),
     'createdAt' => isset($existing['createdAt']) ? intval($existing['createdAt']) : $now,
     'lastUpdatedAt' => $now,
+    'round' => $round === null ? intval($existing['round'] ?? 0) : max(0, intval($round)),
   ];
   WriteActiveGameIndex($index);
 }
 
-function TouchActiveGame($rootName, $gameName)
+function TouchActiveGame($rootName, $gameName, $round = null)
 {
   if($rootName === "" || $gameName === "") return;
   $key = strval($rootName) . ":" . strval($gameName);
   $index = ReadActiveGameIndex();
   if(!isset($index[$key]) || !is_array($index[$key])) {
-    RegisterActiveGame($rootName, $gameName, SimGameIsPrivateGame($rootName, $gameName));
+    RegisterActiveGame($rootName, $gameName, SimGameIsPrivateGame($rootName, $gameName), $round);
     return;
   }
   $index[$key]['isPrivate'] = SimGameIsPrivateGame($rootName, $gameName);
   $index[$key]['casterMode'] = SimGameIsCasterMode($rootName, $gameName);
   $index[$key]['lastUpdatedAt'] = time();
+  if($round !== null) $index[$key]['round'] = max(0, intval($round));
   WriteActiveGameIndex($index);
 }
 

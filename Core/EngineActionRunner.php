@@ -1161,7 +1161,10 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       SetFrameAnimationCache($gameName, $frameAnimations);
       GamestateUpdated($gameName);
       if (function_exists('TouchActiveGame')) {
-        TouchActiveGame($folderPath, $gameName);
+        // The gamestate globals are loaded here, so the round counter is free to read. A sim
+        // without one passes null and the index entry keeps whatever it had.
+        TouchActiveGame($folderPath, $gameName,
+                        isset($GLOBALS['gTurnNumber']) ? intval($GLOBALS['gTurnNumber']) : null);
       }
     }
     if ($result['recordAction'] && RegressionIsRecordingActive($folderPath, $gameName)) {

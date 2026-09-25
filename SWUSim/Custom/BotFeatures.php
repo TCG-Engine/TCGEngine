@@ -148,12 +148,30 @@ const SWU_BOT_PART11_FEATURES = ['mgkeep'];
 // Guard: SWUSim/DevTools/tests/bot_midrange_levers_test.php.
 const SWU_BOT_PART12_FEATURES = ['mgbomb'];
 
+// Part 13 (2026-09-25): 'mgkill' — MIDRANGE prices a kill at 0.54 instead of 0.90, against a flat base of 0.60.
+// The shipped table had kill at 1.5x base, so a midrange seat preferred the TRADE to the SWING before reading
+// the board at all; p13 inverts that to 0.9:1. The owner's 99-game run showed the consequence from the other
+// side: the bot's damage per base swing never moved across three decks and three styles.
+// MEASURED THREE TIMES. Screen 1 (global `@w-kill-down` probe, 10,120 games/arm): midrange +2.2pp. Screen 2
+// (scoped, 8,000/arm, PRE-p12 baseline): +0.96pp, paired p = 0.072 / 0.0525 — right direction, NOT significant.
+// CONFIRMATION (24,000 games/arm at 60 seeds, ON TOP OF the shipped p12): midrange **44.89% against jitter nulls
+// at 43.50 / 43.09 = +1.59pp**, paired McNemar **781:597 and 879:642, p < 0.00001 against BOTH**, on 1,378 and
+// 1,521 discordant pairs against the ~1,220 the run was sized for. No style regressed (hardcontrol, hyperaggro,
+// softaggro all PASS). '@no-p13' / '@no-mgkill' = the stack before it.
+// ⚠ THE NOISE FLOOR IS NOT ZERO: jitter-up vs jitter-down was itself 233:180, p = 0.0105. The two nulls are
+// opposite +/-3% develop nudges, not identical stacks, so a small real difference between them is expected.
+// mgkill's imbalance is ~4x theirs and its p is five orders of magnitude smaller, which is why it still reads
+// as confirmed — but do not treat "paired vs a null" as a zero-noise test.
+// ⚠ Its rival 'mgtrade' (pay MORE for a kill) was measured HARMFUL on the same bench — see its entry.
+// Guard: SWUSim/DevTools/tests/bot_midrange_levers_test.php.
+const SWU_BOT_PART13_FEATURES = ['mgkill'];
+
 function SWUBotFeatureList(): array {
     return array_merge(['splits', 'targeting', 'tags2', 'keep', 'stop', 'enablers', 'picks'], SWU_BOT_PART3_FEATURES,
                        SWU_BOT_PART4_FEATURES, SWU_BOT_PART5_FEATURES, SWU_BOT_PART6_FEATURES,
                        SWU_BOT_PART7_FEATURES, SWU_BOT_PART8_FEATURES, SWU_BOT_PART9_FEATURES,
                        SWU_BOT_PART10_FEATURES, SWU_BOT_PART11_FEATURES,
-                       SWU_BOT_PART12_FEATURES);   // part 2, then 3-12
+                       SWU_BOT_PART12_FEATURES, SWU_BOT_PART13_FEATURES);   // part 2, then 3-13
 }
 
 // Named groups a variant can switch off together: '@no-p3' = the stack as it was after part 2 (run 5);
@@ -166,7 +184,7 @@ function SWUBotFeatureGroups(): array {
     return ['p3' => $p3, 'p4' => SWU_BOT_PART4_FEATURES, 'p5' => SWU_BOT_PART5_FEATURES,
             'p6' => SWU_BOT_PART6_FEATURES, 'p7' => SWU_BOT_PART7_FEATURES, 'p8' => SWU_BOT_PART8_FEATURES,
             'p9' => SWU_BOT_PART9_FEATURES, 'p10' => SWU_BOT_PART10_FEATURES, 'p11' => SWU_BOT_PART11_FEATURES,
-            'p12' => SWU_BOT_PART12_FEATURES,
+            'p12' => SWU_BOT_PART12_FEATURES, 'p13' => SWU_BOT_PART13_FEATURES,
             'p3a' => array_slice($p3, 0, 4), 'p3b' => array_slice($p3, 4, 4),
             'p3c' => array_slice($p3, 8, 4), 'p3d' => array_slice($p3, 12, 4),
             // p3d bisected one feature at a time (2026-09-21): '@no-p3d' measured +82 for SOFT CONTROL (Maul,
@@ -452,13 +470,7 @@ const SWU_BOT_PROPOSALS = [
     // it 3 times at 4.3 — it buries the card when it is big and plays it when it is small, because the aggro
     // wing resources by `-$cost` and _SWUBotPlayValue prices a unit by COST. Owner 2026-09-24.
     'ctxpower',
-    // MIDRANGE kill weight x0.6 (0.90 -> 0.54 against a flat base 0.60, so the kill:base ratio inverts from
-    // 1.5:1 to 0.9:1 and the seat prefers the swing to the trade). The midrange-scoped version of the global
-    // `@w-kill-down` probe, which the 2026-09-24 screen measured at midrange +2.2pp (43.2% vs jitter nulls
-    // 41.1/40.8), paired McNemar p=0.0038 and p=0.0011 against two independent nulls, 4 of 5 decks, no aggro
-    // cost. The probe was global and therefore unshippable; this is not.
-    // ⚠ OPPOSITE in direction to 'mgtrade', which pays midrange MORE for a kill. Screen them head to head.
-    'mgkill',
+    // ('mgkill' was SHIPPED 2026-09-25 as feature group 'p13' — its history is in the feature comment.)
     // ('mgbomb' was SHIPPED 2026-09-24 as feature group 'p12' — its history is in the feature comment.)
 ];
 

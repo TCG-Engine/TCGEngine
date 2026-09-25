@@ -29,7 +29,12 @@ function SWUPublicGamesList(array $index, int $now, callable $readRef, callable 
     $card = function ($cid) use ($cardName) {
         $cid = strval($cid);
         if ($cid === '') return null;
-        return ['id' => $cid, 'name' => strval($cardName($cid)) ?: $cid, 'url' => SWUCardImagePath($cid, 'card')];
+        // The set code is the CardID's own prefix. NOTE: set codes CONTAIN DIGITS (TS26_01,
+        // IC27_001), so this splits on the first underscore rather than matching [A-Z]+.
+        $us = strpos($cid, '_');
+        return ['id' => $cid, 'name' => strval($cardName($cid)) ?: $cid,
+                'set' => $us === false ? '' : substr($cid, 0, $us),
+                'url' => SWUCardImagePath($cid, 'card')];
     };
     $games = [];
     foreach ($index as $entry) {
@@ -75,6 +80,16 @@ function SWUPublicGamesList(array $index, int $now, callable $readRef, callable 
             'isTeam'        => $isTeam,
             'spectateUrl'   => '/TCGEngine/NextTurn.php?playerID=S&gameName=' . rawurlencode($gameName) . '&folderPath=SWUSim',
             'lastUpdatedAt' => $touched,
+            // ROUND rides on the active-game index, which the engine already rewrites on every
+            // action, so it costs no extra read. It is 0 until the game's first action after the
+            // index was last built, and the chip simply omits "Round N" then rather than guessing.
+            'round'         => max(0, intval($entry['round'] ?? 0)),
+            // STARTED-AT IS THE MATCH RECORD'S, NOT THE INDEX'S. The index is an APCu cache with a
+            // 60s TTL: let a game go quiet for a minute and the entry is rebuilt with createdAt =
+            // now, so an elapsed time derived from it silently RESETS mid-game. Measured doing
+            // exactly that (1790366499 -> 1790366695 on one idle game). Match.json is a real file
+            // and its createdAt is the match's true start.
+            'startedAt'     => max(0, intval($match['createdAt'] ?? 0)),
             'seats'         => $seats,
         ];
     }
@@ -105,6 +120,7 @@ if (realpath($_SERVER['SCRIPT_FILENAME'] ?? '') === realpath(__FILE__)) {
         return;
     }
     require_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php';            // CardTitle / CardSubtitle
+    require_once __DIR__ . '/Custom/MenuLobbyStats.php';                              // the mode cards' counts
     $out = SWUPublicGamesList(
         ReadActiveGameIndex(),
         time(),
@@ -117,6 +133,17 @@ if (realpath($_SERVER['SCRIPT_FILENAME'] ?? '') === realpath(__FILE__)) {
             return $s !== '' ? "$t, $s" : $t;
         }
     );
+    // ADDITIVE: the main menu's PvP / Twin Suns cards need a queue count on the same 20s poll that
+    // already refreshes Games in Progress, so it rides along here rather than costing a second
+    // request per menu. Existing consumers see one more key and are unaffected.
+    // ⚠ This lands INSIDE the 10s cache above, so a count can be up to 10s stale. That is well
+    // under the 20s poll and invisible on a "players in queue" line; a lobby scan of its own on
+    // every request would not be worth the freshness.
+    $out['lobbyStats'] = SWUMenuLobbyStats(SWUMenuLobbyRows());
+    $out['lobbyLabels'] = [
+        'pvp'   => SWUMenuStatLabel('pvp', $out['lobbyStats']),
+        'multi' => SWUMenuStatLabel('multi', $out['lobbyStats']),
+    ];
     $json = json_encode($out);
     if (function_exists('apcu_store')) apcu_store($cacheKey, $json, 10);
     header('Content-Type: application/json');
