@@ -18,6 +18,11 @@ This document provides a concise developer-oriented guide to the repository, wit
 3. The frontend includes `InitialLayout.php` and the generated `GeneratedUI_*.js`. The `GeneratedUI_*.js` contains `GetZoneData()`, `OverlayRules`, `CounterRules`, and other generated helpers.
 4. `Core/UILibraries.js` (client) uses those helpers to render zones (`PopulateZone`) and per-card HTML (`createCardHTML`). We inject counters and overlays at well-known insertion points in `createCardHTML`.
 
+SWUSim's generated `WriteGamestate()` keeps its durable file write by default. A CLI harness may define
+`EngineShouldPersistGamestateFile($rootName, $gameName)` to return false for a game it keeps in APCu;
+the generated writer then requires a successful cache store. SWUSim's headless self-play runner uses
+this only with `--memory-only`, and writes one final state file if a game fails.
+
 If you change the schema or generator, re-run the generator and hard-refresh the browser so the client receives the updated `GeneratedUI_*.js` (the generator deletes old `GeneratedUI_*.js` files and writes a new timestamped one).
 
 ## Decision Queue — server-side (how it works)

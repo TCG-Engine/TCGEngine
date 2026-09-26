@@ -27,7 +27,7 @@ $ttl = 600;
 function SWUSetupGame($lobby, $opts = []) {
     global $gameName;
     // ⚠ SWUSim ALWAYS needs its game directory, even though it is apcu-mode. Unlike the other sims,
-    // SWUSim's generated WriteGamestate does a durable WRITE-THROUGH: it stores to APCu *and* always
+    // SWUSim's generated WriteGamestate normally does a durable WRITE-THROUGH: it stores to APCu *and*
     // writes Games/<id>/Gamestate.txt, because the APCu entry has a 600s TTL and ParseGamestate falls
     // back to that file — so a game idle for >10 minutes (or an FPM restart) would otherwise be lost.
     // `createGameDirectory: !GamestateUsesMemoryStorage()` is correct for GrandArchiveSim/AzukiSim

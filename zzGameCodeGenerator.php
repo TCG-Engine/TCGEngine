@@ -2392,15 +2392,25 @@ function AddWriteGamestate() {
     // Plan D: append per-game telemetry as the final field (backward-compat: absent -> '-').
     $writeGamestate .= "  global \$gTelemetry; \$gamestateText .= ((\$gTelemetry === null || \$gTelemetry === '') ? '-' : \$gTelemetry) . \"\\r\\n\";\r\n";
   }
+  if($rootName === 'SWUSim') $writeGamestate .= "  \$gamestateCached = false;\r\n";
   $writeGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"SimGameWriteGamestateCache\")) {\r\n";
-  $writeGamestate .= "    SimGameWriteGamestateCache('" . $rootName . "', \$gameName, \$gamestateText);\r\n";
+  $writeGamestate .= "    " . ($rootName === 'SWUSim' ? "\$gamestateCached = " : "")
+    . "SimGameWriteGamestateCache('" . $rootName . "', \$gameName, \$gamestateText);\r\n";
   $writeGamestate .= "  }\r\n";
   // Durable write-through for EVERY root, not just SWUSim: in apcu mode the cache is an accelerator,
   // but the file is the durable copy. A root that never writes the file (e.g. running in a CLI test
   // harness where apcu_store is unavailable) would otherwise persist NOTHING, so every action re-read
   // the stale initial state and multi-step flows (attacks, transforms) silently fizzled. ParseGamestate
   // already falls back to this file when the cache misses, so writing both keeps the two sides consistent.
-  $writeGamestate .= "  file_put_contents(\$filename, \$gamestateText);\r\n";
+  if($rootName === 'SWUSim') {
+    // SWUSim's CLI self-play harness can keep a game in process-local APCu. Web requests always
+    // write durably, and a failed cache store must never silently discard a memory-only state.
+    $writeGamestate .= "  \$persistToFile = PHP_SAPI !== 'cli' || !function_exists('EngineShouldPersistGamestateFile') || EngineShouldPersistGamestateFile('SWUSim', \$gameName);\r\n";
+    $writeGamestate .= "  if(!\$persistToFile && !\$gamestateCached) throw new RuntimeException('Memory-only gamestate cache write failed.');\r\n";
+    $writeGamestate .= "  if(\$persistToFile) file_put_contents(\$filename, \$gamestateText);\r\n";
+  } else {
+    $writeGamestate .= "  file_put_contents(\$filename, \$gamestateText);\r\n";
+  }
   return $writeGamestate;
 }
 

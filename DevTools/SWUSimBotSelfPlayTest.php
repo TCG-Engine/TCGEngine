@@ -72,10 +72,10 @@
 //     php -d apc.enable_cli=1 -d xdebug.mode=off DevTools/SWUSimBotSelfPlayTest.php \
 //     [--deck=<path>] [--deck2=<path>] [--max-steps=3000] [--verbose] [--first-player=1|2]
 //     [--seed=<string>|random] [--games=N] [--chooser=first-legal|random|heuristic-aggro|...]
-//     [--chooser2=<profile>]
+//     [--chooser2=<profile>] [--memory-only] [--workers=N]
 //
 // --chooser= selects a profile registered in SWUSim/BotHeuristic.php. The DEFAULT is 'first-legal',
-// so every pre-existing invocation of this file is byte-for-byte unchanged. 'random' selects
+// so pre-existing single-game chooser behavior is unchanged. 'random' selects
 // uniformly instead of always taking index 0, which is the only way the enumerator's rarely-first
 // arms (unit activated abilities, the second label of an OPTIONCHOOSE, the non-trivial SCRY /
 // REVEALARRANGE / NAMETRAIT answers) ever get executed — see the [COVERAGE] table below for the
@@ -90,6 +90,10 @@
 // aggregates them into [SWEEP METRICS] / [SWEEP RULES] lines: median rounds, mean base damage dealt per
 // seat, rule firings per seat, and the rules that never fired. An `invalid:<rule>` coverage entry — a
 // rule that answered outside the candidate set — fails the sweep.
+//
+// --memory-only keeps each headless game's gamestate in its child process's APCu cache during play.
+// A failed game gets one final Gamestate.txt snapshot for diagnosis. Normal games remain durable.
+// --workers=N bounds parallel child processes in a sweep (default 2; use 1 for serial execution).
 //
 // --games=N runs a SWEEP of N games instead of one. Use it: a single game is not sufficient
 // evidence for this harness. Of the three infinite loops Task 8 found, the third (a refused upgrade
@@ -143,7 +147,8 @@ $swuDir = __DIR__ . '/../SWUSim/';
 
 function SWUBotTestParseArgs($argv) {
   $args = ['deck' => null, 'deck2' => null, 'maxSteps' => 3000, 'maxRounds' => 0, 'verbose' => false, 'firstPlayer' => 1,
-           'seed' => 'swusimbotselfplay00000000000000', 'games' => 1, 'chooser' => 'first-legal', 'chooser2' => null];
+           'seed' => 'swusimbotselfplay00000000000000', 'games' => 1, 'chooser' => 'first-legal', 'chooser2' => null,
+           'memoryOnly' => false, 'workers' => 2];
   foreach (array_slice($argv, 1) as $arg) {
     if (str_starts_with($arg, '--deck=')) $args['deck'] = substr($arg, 7);
     elseif (str_starts_with($arg, '--deck2=')) $args['deck2'] = substr($arg, 8);
@@ -155,14 +160,33 @@ function SWUBotTestParseArgs($argv) {
     // of vanishing on the next run. --seed=random asks for a fresh unpredictable game.
     elseif (str_starts_with($arg, '--seed=')) $args['seed'] = substr($arg, 7);
     elseif (str_starts_with($arg, '--games=')) $args['games'] = max(1, intval(substr($arg, 8)));
+    elseif (str_starts_with($arg, '--workers=')) $args['workers'] = max(1, intval(substr($arg, 10)));
     elseif (str_starts_with($arg, '--chooser=')) $args['chooser'] = substr($arg, 10);
     elseif (str_starts_with($arg, '--chooser2=')) $args['chooser2'] = substr($arg, 11);
     elseif ($arg === '--verbose') $args['verbose'] = true;
+    elseif ($arg === '--memory-only') $args['memoryOnly'] = true;
   }
   return $args;
 }
 
 $args = SWUBotTestParseArgs($argv);
+$GLOBALS['SWUBotHeadlessMemoryOnly'] = $args['memoryOnly'];
+// Generated writers honor this hook only in CLI; a web request always writes durably.
+function EngineShouldPersistGamestateFile($rootName, $gameName) {
+  return !(PHP_SAPI === 'cli' && $rootName === 'SWUSim' && !empty($GLOBALS['SWUBotHeadlessMemoryOnly']));
+}
+if ($args['memoryOnly']) {
+  if (!GamestateUsesMemoryStorage() || !function_exists('SimGameWriteGamestateCache')) {
+    fwrite(STDERR, "--memory-only requires the APCu gamestate cache.\n");
+    exit(1);
+  }
+  $probeKey = 'swubot-headless-probe-' . getmypid();
+  if (!apcu_store($probeKey, 'ok', 10) || apcu_fetch($probeKey) !== 'ok') {
+    fwrite(STDERR, "--memory-only could not write to APCu. Enable apc.enable_cli.\n");
+    exit(1);
+  }
+  apcu_delete($probeKey);
+}
 $fixtureDir = __DIR__ . '/../SWUSim/Tests/BotFixtures';
 $deckPath1 = $args['deck'] ?? ($fixtureDir . '/premier_deck_a.txt');
 $deckPath2 = $args['deck2'] ?? ($fixtureDir . '/premier_deck_b.txt');
@@ -295,40 +319,65 @@ function SWUBotTestPrintCoverage($coverage, $heading) {
 // let game 7 inherit game 6's residue, and a sweep whose games are not independent cannot be used
 // as evidence that a game is reproducible from its seed — which is the whole reason the seed exists.
 // The child re-invocation costs ~1s of runtime load per game; independence is worth it.
+// Bounded parallel children preserve that isolation while shortening the sweep's wall time.
 function SWUBotTestRunSweep(array $args, $selfPath) {
   $games = intval($args['games']);
   $seeds = intdiv($games + 1, 2);
+  $workers = min($games, intval($args['workers']));
   echo "[SWEEP] {$games} game(s) — {$seeds} seed(s) x both first players, max-steps={$args['maxSteps']}"
-     . " chooser={$args['chooser']}" . ($args['chooser2'] !== null ? " chooser2={$args['chooser2']}" : '') . "\n";
+     . " chooser={$args['chooser']}" . ($args['chooser2'] !== null ? " chooser2={$args['chooser2']}" : '')
+     . " workers={$workers} memory-only=" . ($args['memoryOnly'] ? 'yes' : 'no') . "\n";
 
   $passed = 0; $failed = 0; $totalGaps = 0; $gapLines = []; $signals = []; $coverage = []; $metrics = [];
+  $running = []; $completed = []; $next = 1;
+  while ($next <= $games || !empty($running)) {
+    while ($next <= $games && count($running) < $workers) {
+      $game = $next++;
+      $seed = 's' . str_pad(strval(intdiv($game + 1, 2)), 2, '0', STR_PAD_LEFT);
+      $firstPlayer = (($game - 1) % 2) + 1;
+      // The array form bypasses shell quoting and works on Windows as well as Linux.
+      $cmd = [PHP_BINARY, '-d', 'apc.enable_cli=1', '-d', 'xdebug.mode=off',
+        '-d', 'xdebug.start_with_request=no', $selfPath, '--games=1',
+        '--seed=' . $seed, '--first-player=' . $firstPlayer,
+        '--max-steps=' . intval($args['maxSteps']), '--max-rounds=' . intval($args['maxRounds']),
+        '--chooser=' . $args['chooser']];
+      if ($args['deck'] !== null) $cmd[] = '--deck=' . $args['deck'];
+      if ($args['deck2'] !== null) $cmd[] = '--deck2=' . $args['deck2'];
+      if ($args['chooser2'] !== null) $cmd[] = '--chooser2=' . $args['chooser2'];
+      if ($args['memoryOnly']) $cmd[] = '--memory-only';
+      $stdoutPath = tempnam(sys_get_temp_dir(), 'swubot-out-');
+      $stderrPath = tempnam(sys_get_temp_dir(), 'swubot-err-');
+      $process = proc_open($cmd, [0 => ['pipe', 'r'], 1 => ['file', $stdoutPath, 'w'],
+        2 => ['file', $stderrPath, 'w']], $pipes, dirname(__DIR__), null, ['bypass_shell' => true]);
+      if (!is_resource($process)) {
+        @unlink($stdoutPath); @unlink($stderrPath);
+        throw new RuntimeException("Could not start SWUSim sweep child {$game}.");
+      }
+      fclose($pipes[0]);
+      $running[$game] = ['process' => $process, 'stdout' => $stdoutPath, 'stderr' => $stderrPath];
+    }
+    foreach ($running as $game => $child) {
+      $status = proc_get_status($child['process']);
+      if ($status['running']) continue;
+      $exitCode = intval($status['exitcode']);
+      $closedCode = proc_close($child['process']);
+      if ($exitCode < 0) $exitCode = $closedCode;
+      $output = file($child['stdout'], FILE_IGNORE_NEW_LINES) ?: [];
+      $stderr = file($child['stderr'], FILE_IGNORE_NEW_LINES) ?: [];
+      @unlink($child['stdout']); @unlink($child['stderr']);
+      if ($exitCode !== 0) foreach ($stderr as $line) $output[] = '[stderr] ' . $line;
+      $completed[$game] = ['output' => $output, 'exitCode' => $exitCode];
+      unset($running[$game]);
+      echo '[SWEEP PROGRESS] finished ' . count($completed) . "/{$games}\n";
+    }
+    if (!empty($running)) usleep(20000);
+  }
+
   for ($game = 1; $game <= $games; ++$game) {
     $seed = 's' . str_pad(strval(intdiv($game + 1, 2)), 2, '0', STR_PAD_LEFT);
     $firstPlayer = (($game - 1) % 2) + 1;
-
-    $cmd = escapeshellarg(PHP_BINARY)
-      . ' -d apc.enable_cli=1 -d xdebug.mode=off -d xdebug.start_with_request=no '
-      . escapeshellarg($selfPath)
-      . ' --games=1'
-      . ' --seed=' . escapeshellarg($seed)
-      . ' --first-player=' . intval($firstPlayer)
-      . ' --max-steps=' . intval($args['maxSteps'])
-      . ' --max-rounds=' . intval($args['maxRounds']);
-    if ($args['deck']  !== null) $cmd .= ' --deck='  . escapeshellarg($args['deck']);
-    if ($args['deck2'] !== null) $cmd .= ' --deck2=' . escapeshellarg($args['deck2']);
-    // Forwarded the same way --deck/--deck2 are: the sweep's children are separate PHP processes
-    // and inherit NOTHING from this one, so a flag that is not on the child command line does not
-    // reach the game. Always passed, not just when non-default, so the child's own [SWEEP]/[RESULT]
-    // reporting states the profile it actually ran under.
-    $cmd .= ' --chooser=' . escapeshellarg($args['chooser']);
-    if ($args['chooser2'] !== null) $cmd .= ' --chooser2=' . escapeshellarg($args['chooser2']);
-    // stderr carries the bot's own error_log chatter (the "excluding and retrying" lines), which is
-    // per-step diagnostic noise, not a result. Everything a verdict depends on is on stdout.
-    $cmd .= ' 2>/dev/null';
-
-    $output = [];
-    $exitCode = 0;
-    exec($cmd, $output, $exitCode);
+    $output = $completed[$game]['output'];
+    $exitCode = $completed[$game]['exitCode'];
 
     // The child emits one machine-readable [RESULT] line; fall back to the exit code if it is
     // missing (a fatal before the report, for example), so a crashed child can never read as a pass.
@@ -688,12 +737,11 @@ SWUBotTestCheck($checks, 'seat 2 took a non-pass action', $nonPassActions[2] > 0
 // mutates on a rejected write and is missing from SWUBotExcludedHashBlocks() — which would strand
 // the bot's no-op detector and, through it, the exclude-and-retry loop.
 //
-// These probes WRITE to the game. For a game that did not complete, the saved state is the stall point the
-// sweep keeps for diagnosis (SWUSim/DevTools/rl/sweep_fixtures.sh), and the probes were overwriting it: a
-// stalled prompt could vanish from the kept folder. So snapshot the file here and restore it after the probes.
-// The checks run exactly as before.
+// These probes WRITE to the game. Preserve the pre-probe state so a failed game's saved state
+// remains the stall point. Memory-only games keep the snapshot in APCu until reporting is done.
 $swuBotGamestatePath = $swuDir . "Games/{$gameName}/Gamestate.txt";
-$swuBotStallSnapshot = $gameOver ? null : @file_get_contents($swuBotGamestatePath);
+$swuBotPreProbeSnapshot = ($args['memoryOnly'] || !$gameOver)
+  ? RegressionCurrentGamestateText('SWUSim', $gameName) : null;
 ParseGamestate($swuDir);
 $before = SWUBotComparableGamestateHash($gameName);
 EngineExecuteLoadedAction(
@@ -717,7 +765,10 @@ EngineExecuteLoadedAction(
 $afterFsm = SWUBotComparableGamestateHash($gameName);
 SWUBotTestCheck($checks, 'illegal FSM play does not move the hash', $beforeFsm !== null && $beforeFsm === $afterFsm,
   substr(strval($beforeFsm), 0, 12) . ' vs ' . substr(strval($afterFsm), 0, 12));
-if (is_string($swuBotStallSnapshot) && $swuBotStallSnapshot !== '') @file_put_contents($swuBotGamestatePath, $swuBotStallSnapshot);
+if (is_string($swuBotPreProbeSnapshot) && $swuBotPreProbeSnapshot !== '') {
+  if ($args['memoryOnly']) SimGameWriteGamestateCache('SWUSim', $gameName, $swuBotPreProbeSnapshot);
+  else @file_put_contents($swuBotGamestatePath, $swuBotPreProbeSnapshot);
+}
 
 // ── Report ───────────────────────────────────────────────────────────────────────────────────────
 if ($args['verbose'] || !$gameOver) {
@@ -732,6 +783,12 @@ $failures = 0;
 foreach ($checks as [$label, $passed, $detail]) {
   echo ($passed ? '[PASS] ' : '[FAIL] ') . $label . ($detail !== '' ? " — {$detail}" : '') . "\n";
   if (!$passed) $failures++;
+}
+// A failing memory-only run still leaves a single durable snapshot for the existing fixture
+// triage tools. Successful games never write Gamestate.txt.
+if ($args['memoryOnly'] && $failures > 0 && is_string($swuBotPreProbeSnapshot)
+    && $swuBotPreProbeSnapshot !== '') {
+  file_put_contents($swuBotGamestatePath, $swuBotPreProbeSnapshot);
 }
 echo "[SUMMARY] Total: " . count($checks) . " | Pass: " . (count($checks) - $failures) . " | Fail: {$failures}\n";
 

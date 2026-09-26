@@ -277,10 +277,13 @@ function WriteGamestate($filepath="./") {
   $gamestateText .= $gMatchReplayCommands . "\r\n";
   $gamestateText .= $gRandomCounter . "\r\n";
   global $gTelemetry; $gamestateText .= (($gTelemetry === null || $gTelemetry === '') ? '-' : $gTelemetry) . "\r\n";
+  $gamestateCached = false;
   if(GamestateUsesMemoryStorage() && function_exists("SimGameWriteGamestateCache")) {
-    SimGameWriteGamestateCache('SWUSim', $gameName, $gamestateText);
+    $gamestateCached = SimGameWriteGamestateCache('SWUSim', $gameName, $gamestateText);
   }
-  file_put_contents($filename, $gamestateText);
+  $persistToFile = PHP_SAPI !== 'cli' || !function_exists('EngineShouldPersistGamestateFile') || EngineShouldPersistGamestateFile('SWUSim', $gameName);
+  if(!$persistToFile && !$gamestateCached) throw new RuntimeException('Memory-only gamestate cache write failed.');
+  if($persistToFile) file_put_contents($filename, $gamestateText);
 
 }
 
