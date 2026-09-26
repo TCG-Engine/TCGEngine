@@ -1,0 +1,150 @@
+[
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-3",
+        "property": "CardID",
+        "value": "loSCQzxqi1",
+        "semantic": true,
+        "label": "Red Slime's On Death sweep (mttsvbgl6f:0) killed Heavenly Drake simultaneously with Golden Pawn -- both awaiting the stacking-order choice"
+    },
+    {
+        "step": 9,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-4",
+        "property": "CardID",
+        "value": "Lewf9sfv9m",
+        "semantic": true,
+        "label": "Golden Pawn also died from the same sweep, giving player 1 two simultaneous On Death triggers"
+    },
+    {
+        "step": 9,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 5,
+        "semantic": true,
+        "label": "REGRESSION GUARD: hand must still be 5 (not yet 6) at this step -- before the fix, both On Death abilities auto-resolved immediately with no choice offered, so Golden Pawn's draw had already landed here; with the fix, both triggers stay queued pending the stacking-order MZCHOOSE and the draw hasn't happened yet"
+    },
+    {
+        "step": 10,
+        "type": "decision_queue_empty",
+        "player": "all",
+        "semantic": true,
+        "label": "The stacking-order choice (MZCHOOSE:myGraveyard-3&myGraveyard-4 / TriggerOrderPickResolve, introduced by BeginTriggeredAbilityBatch()/EndTriggeredAbilityBatch() wrapping ResolveTopOfEffectStack()) was answered and both On Death triggers fully resolved"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Field-0",
+        "property": "TurnEffects",
+        "value": "[\"vz4kc558yx-ACTION_ACTIVATED\"]"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-2",
+        "property": "CardID",
+        "value": "n8wyfG9hbY"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-3",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-4",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Hand-5",
+        "property": "CardID",
+        "value": "em6eEh9q8y"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-0",
+        "property": "CardID",
+        "value": "ra9950o14t"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-1",
+        "property": "CardID",
+        "value": "ra9950o14t"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-2",
+        "property": "CardID",
+        "value": "mttsvbgl6f"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-3",
+        "property": "CardID",
+        "value": "loSCQzxqi1"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Graveyard-4",
+        "property": "CardID",
+        "value": "Lewf9sfv9m"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-0",
+        "property": "CardID",
+        "value": "px60u5n1do"
+    },
+    {
+        "step": 10,
+        "type": "card_property_equals",
+        "mzId": "p1Memory-1",
+        "property": "CardID",
+        "value": "n8wyfG9hbY"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myHand",
+        "viewerPlayerID": 1,
+        "value": 6,
+        "semantic": true,
+        "label": "Golden Pawn's On Death (Draw a card) fired after the stacking-order choice resolved, growing hand from 5 to 6"
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myField",
+        "viewerPlayerID": 1,
+        "value": 2
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myGraveyard",
+        "viewerPlayerID": 1,
+        "value": 5
+    },
+    {
+        "step": 10,
+        "type": "zone_count",
+        "zone": "myMemory",
+        "viewerPlayerID": 1,
+        "value": 2
+    }
+]

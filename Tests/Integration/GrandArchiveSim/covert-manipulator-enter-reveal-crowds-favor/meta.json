@@ -1,0 +1,16 @@
+{
+    "name": "covert-manipulator-enter-reveal-crowds-favor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T18:50:04+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "A1jfgrWpiN"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["A1jfgrWpiN"],
+        "mechanics": ["targeting", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Enter: Look at the top card of each opponent's deck. Then you may choose an opponent. If you do, you gain the Crowd's Favor status, that opponent draws a card."
+        ]
+    }
+}

@@ -1,0 +1,4 @@
+[
+    {"step":1,"type":"card_property_equals","mzId":"myField-0","property":"TurnEffects","value":"[\"szeb8zzj86\",\"EMPOWERED\",\"EMPOWER_PLUS_1\"]","semantic":true,"label":"[Class Bonus][REST] Empower 1 tags the champion EMPOWERED/EMPOWER_PLUS_1"},
+    {"step":1,"type":"card_property_equals","mzId":"myField-2","property":"Status","value":"1","semantic":true,"label":"Fractal of Mana rests as part of paying its REST cost"}
+]

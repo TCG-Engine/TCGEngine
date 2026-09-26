@@ -1,0 +1,23 @@
+{
+    "name": "tempest-downfall-target-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-21T20:45:17+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "4etkr73opc"
+    ],
+    "notes": "Engine fix coverage: playCardAbilities[\"4etkr73opc:0\"] was unreachable before bf25c65c for the same reason as qtzsekkjn3 (see vainglory-retribution-play-card-trigger).",
+    "semanticCoverage": {
+        "testedCards": [
+            "4etkr73opc"
+        ],
+        "mechanics": [
+            "trigger",
+            "targeting",
+            "damage"
+        ],
+        "rulesClauses": [
+            "On play, deal 3 damage to target ally or champion."
+        ]
+    }
+}

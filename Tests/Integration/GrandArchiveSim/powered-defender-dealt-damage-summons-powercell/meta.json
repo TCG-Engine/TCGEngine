@@ -1,0 +1,17 @@
+{
+    "name": "powered-defender-dealt-damage-summons-powercell",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-21T13:57:38+00:00",
+    "createdBy": "batch-script",
+    "notes": "Effects Stack fixture-coverage gap fill: dealDamageAbilities[\"z07nau5sw9:0\"] (GeneratedCode/GeneratedMacroCode.php) had zero fixtures exercising its dispatch wiring before this. Real non-combat damage event (Charge the Soul, ra9950o14t) dealt to Powered Defender; the trigger fires via QueueDealDamageTriggeredAbility/FireDealDamageTriggeredAbility (GameLogic.php) and summons a Powercell token (qzzadf9q1v) at myField-2.",
+    "testedCards": [
+        "z07nau5sw9"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["z07nau5sw9"],
+        "mechanics": ["damage", "trigger", "token"],
+        "rulesClauses": [
+            "Whenever Powered Defender is dealt damage, summon a Powercell token."
+        ]
+    }
+}

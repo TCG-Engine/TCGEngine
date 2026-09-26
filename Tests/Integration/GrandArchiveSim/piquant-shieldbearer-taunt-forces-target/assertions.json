@@ -1,0 +1,16 @@
+[
+    {
+        "step": 5,
+        "type": "decision_queue_empty",
+        "player": "all"
+    },
+    {
+        "step": 5,
+        "type": "card_property_equals",
+        "mzId": "p1Field-1",
+        "property": "Damage",
+        "value": "1",
+        "semantic": true,
+        "label": "Combat lands on the Taunt unit itself once a legal target is chosen"
+    }
+]

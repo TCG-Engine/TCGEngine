@@ -1,0 +1,16 @@
+{
+    "name": "tenderheart-guard-enter-discard-draw-crowds-favor",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:22:57+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "0ZWcrEsFHA"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["0ZWcrEsFHA"],
+        "mechanics": ["draw-discard", "trigger"],
+        "rulesClauses": [
+            "On Enter: Each player may discard a card. Each player that does draws a card into their memory. Then you gain the Crowd's Favor status."
+        ]
+    }
+}

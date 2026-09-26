@@ -1,46 +1,46 @@
 [
     {
-        "step": 20,
+        "step": 22,
         "type": "decision_queue_empty",
         "player": "all"
     },
     {
-        "step": 20,
+        "step": 22,
         "type": "zone_count",
         "zone": "myHand",
         "viewerPlayerID": 1,
         "value": 4
     },
     {
-        "step": 20,
+        "step": 22,
         "type": "zone_count",
         "zone": "myField",
         "viewerPlayerID": 1,
         "value": 3
     },
     {
-        "step": 20,
+        "step": 22,
         "type": "zone_count",
         "zone": "myGraveyard",
         "viewerPlayerID": 1,
         "value": 0
     },
     {
-        "step": 20,
+        "step": 22,
         "type": "zone_count",
         "zone": "myMemory",
         "viewerPlayerID": 1,
         "value": 2
     },
     {
-        "step": 20,
+        "step": 22,
         "type": "zone_count",
         "zone": "theirHand",
         "viewerPlayerID": 1,
         "value": 4
     },
     {
-        "step": 20,
+        "step": 22,
         "type": "zone_count",
         "zone": "theirField",
         "viewerPlayerID": 1,

@@ -1,0 +1,17 @@
+{
+    "name": "orb-of-choking-fumes-banish-cost-cb-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:13:48+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "llQe0cg4xJ"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["llQe0cg4xJ"],
+        "mechanics": ["cost", "draw-discard", "zone-movement", "condition"],
+        "rulesClauses": [
+            "Banish CARDNAME: Cards your opponents activate this turn cost 1 more to activate.",
+            "Class Bonus: Draw a card."
+        ]
+    }
+}

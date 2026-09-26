@@ -1,0 +1,18 @@
+[
+    {
+        "step": 19,
+        "type": "card_property_equals",
+        "mzId": "p1Banish-0",
+        "property": "CardID",
+        "value": "DpHDGaX2Pn",
+        "semantic": true,
+        "label": "The chosen material-deck card (Lorraine, Wandering Warrior) is banished as a direct result of Slay the King's own on-attack trigger."
+    },
+    {
+        "step": 19,
+        "type": "zone_count",
+        "zone": "myBanish",
+        "viewerPlayerID": 1,
+        "value": 1
+    }
+]

@@ -1,0 +1,16 @@
+{
+    "name": "corhazi-courier-onhit-draw-discard-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T18:50:06+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "YqQsXwEvv5"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["YqQsXwEvv5"],
+        "mechanics": ["targeting", "damage", "draw-discard", "status", "combat", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] On Hit: Draw a card, then discard a card. If a fire element card was discarded, choose a unit and deal 1 damage to it."
+        ]
+    }
+}

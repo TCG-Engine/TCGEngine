@@ -2,5 +2,6 @@
     "name": "covenant-of-thorns",
     "rootName": "GrandArchiveSim",
     "createdAt": "2026-06-22T22:20:20+02:00",
-    "createdBy": "5"
+    "createdBy": "5",
+    "notes": "Updated for the on-attack/on-hit/on-kill Effects Stack migration: the attacker (Seiryuu, Azure Dragon, tf5f2n38g0) has an On Attack ability that now resolves through a real Opportunity window instead of firing synchronously, so both players get genuine priority passes before its MZMODAL choice appears -- this surfaces fast options (myHand-1 for p1, myField-0 then myHand-1 for p2) neither player had a chance to be offered under the old synchronous dispatch. Declining all of them (added PASS actions) reaches the same MZMODAL choice and same final state as before; only the action count (6 -> 10) and assertion step number changed, not the outcome."
 }

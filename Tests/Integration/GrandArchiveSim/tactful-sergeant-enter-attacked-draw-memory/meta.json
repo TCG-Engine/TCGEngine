@@ -1,0 +1,17 @@
+{
+    "name": "tactful-sergeant-enter-attacked-draw-memory",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "Codex",
+    "notes": "Tactful Sergeant's On Enter (enterAbilities[\"7UXGwC7lSO:0\"], GeneratedMacroCode.php) checks OnAttackCallCount($player) > 0 -- a per-player-per-turn attack counter incremented by any real attack declaration this turn (OnAttack(), ZoneAccessors.php), not specifically a champion attack despite the printed text -- and draws a card into memory if satisfied. Tactful Sergeant's own element is WIND; AddGlobalEffects' basic-element unlock (Imperial Seal's by8145w2u2_WIND) only lasts until end of turn and would already have expired by the time this fixture needs it (several end-turn boundaries later), so instead the starting champion's Subcards is patched to include Spirit of Wind (pNiyaGlIe7, WIND) for a permanent lineage-based unlock (same technique as Jovian Hilt X Ultra's ARCANE unlock). The Main deck's filler is kept to non-FAST-speed cards only (Dungeon Guide, Fluffy Shopkeep) -- Fairy Whispers (FAST speed) triggers a recurring Opportunity-window MZMAYCHOOSE (QueueShortcutAwareMayChoose, OpportunityLogic.php) that must be declined before every single subsequent action, and the deck needed at least 1 card left after the starting-hand draw and turn-2 draw-step so the On Enter's own draw has something to actually pull. Same real attack-declaration shape as blistering-insurgent-attack-buff: P1 pass, P2 pass, P1 declines the turn-3 MAT offer, then a Dungeon Guide ALLY (seeded awake onto P1's field) declares a real attack against the opposing champion, P2 declines Retaliate?, and only then is Tactful Sergeant played from hand (its own 4-reserve cost) -- proving materializing a card after an already-resolved attack, later in the same turn, is legal in this engine. Memory ends with 5 cards: 4 from paying the 4-reserve cost plus 1 more from the On Enter's own draw (would be 4 if the ability never ran).",
+    "testedCards": [
+        "7UXGwC7lSO"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["7UXGwC7lSO"],
+        "mechanics": ["draw-discard", "trigger", "condition"],
+        "rulesClauses": [
+            "On Enter: If your champion has attacked this turn, draw a card into your memory."
+        ]
+    }
+}

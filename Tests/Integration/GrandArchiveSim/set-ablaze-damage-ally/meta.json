@@ -1,0 +1,16 @@
+{
+    "name": "set-ablaze-damage-ally",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:23:56+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "d4z3tj2nu8"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["d4z3tj2nu8"],
+        "mechanics": ["targeting", "damage"],
+        "rulesClauses": [
+            "Deal 4 damage to target ally."
+        ]
+    }
+}

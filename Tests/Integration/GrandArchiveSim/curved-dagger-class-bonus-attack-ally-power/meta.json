@@ -1,0 +1,16 @@
+{
+    "name": "curved-dagger-class-bonus-attack-ally-power",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:46:52+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "Q2ugqVm04E"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["Q2ugqVm04E"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "[Class Bonus] As long as your champion is attacking an ally, CARDNAME gets +1 POWER."
+        ]
+    }
+}

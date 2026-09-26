@@ -1,0 +1,10 @@
+[
+    {
+        "step": 1,
+        "type": "computed_power_equals",
+        "mzId": "p1Field-1",
+        "value": 2,
+        "semantic": true,
+        "label": "Class Bonus gives Sable Remnant +1 POWER (1 printed + 1 = 2)"
+    }
+]

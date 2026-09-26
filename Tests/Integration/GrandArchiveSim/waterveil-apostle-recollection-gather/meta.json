@@ -1,0 +1,17 @@
+{
+    "name": "waterveil-apostle-recollection-gather",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Waterveil Apostle is seeded directly onto the field. Its recollection trigger lives in ResolveBeforeRecollectionPhaseStart's plain CardID switch-case (GameLogic.php ~9552, the same dispatcher used for Foster/Starlit Apothecary/Domain upkeep), not a materialized Enter macro, so the field object doesn't need to have been played normally. It requires IsClassBonusActive($turnPlayer,['CLERIC']) and >= 4 cards in memory -- the champion is CardID-patched to Arisanna, Astral Zenith (q3huqj5bba, CLERIC) with Subcards=[Spirit of Water] so CLERIC Class Bonus and WATER lineage-element access are both satisfied (WATER isn't strictly required for this fixture since the ally is seeded rather than played, but keeps the setup consistent with other Arisanna fixtures), and 4 filler cards are seeded into memory. Reaching player 1's own recollection phase uses the established 3-action shortcut (tonoris-genesis-aegis-recollection-obelisk): P1 ends turn 1, P2 ends their turn (still global turn 1), P1 declines their own MAT-phase materialize offer, auto-advancing into P1's own BREC. Verified live: a herb token (Manaroot, 5joh300z2s, one of Gather()'s 6 possible random outputs for this seed) appears on the field at myField-2.",
+    "testedCards": [
+        "tiymuyv3fp"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["tiymuyv3fp"],
+        "mechanics": ["condition"],
+        "rulesClauses": [
+            "[Class Bonus] [Memory 4+] At the beginning of your recollection phase, gather."
+        ]
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "annul-spell-negate-spell-activation",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-21T20:34:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "u817uqlk1j"
+    ],
+    "notes": "Engine fix coverage: playCardAbilities[\"u817uqlk1j:0\"] was unreachable before bf25c65c for the same reason as qtzsekkjn3 (see vainglory-retribution-play-card-trigger).",
+    "semanticCoverage": {
+        "testedCards": [
+            "u817uqlk1j"
+        ],
+        "mechanics": [
+            "trigger",
+            "targeting",
+            "zone-movement",
+            "cost",
+            "prevention"
+        ],
+        "rulesClauses": [
+            "On play, negate target SPELL activation unless its controller pays 3."
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "dematerialize-return-regalia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T23:35:22+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "b1k0zi5h8a"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "b1k0zi5h8a"
+        ],
+        "mechanics": [
+            "targeting",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Return target regalia to its owner's material deck."
+        ]
+    }
+}

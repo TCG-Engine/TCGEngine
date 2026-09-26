@@ -1,0 +1,5 @@
+[
+    {"step":2,"type":"card_exists","zone":"myBanish","viewerPlayerID":1,"cardID":"me0xxw0plq","semantic":true,"label":"Activating Refracted Twilight banishes it as its own cost"},
+    {"step":2,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"qtb31x97n2","semantic":true,"label":"The targeted Potion is still on the field"},
+    {"step":2,"type":"card_property_equals","mzId":"p1Field-1","property":"TurnEffects","value":"[\"ENTERED_THIS_TURN\",\"me0xxw0plq_COPY2\"]","semantic":true,"label":"The targeted Potion is tagged to copy its next activation twice"}
+]

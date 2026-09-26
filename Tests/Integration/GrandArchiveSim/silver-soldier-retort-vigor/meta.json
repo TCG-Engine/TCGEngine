@@ -1,0 +1,18 @@
+{
+    "name": "Silver Soldier's Retort 2 and Vigor both function (root-cause keyword-parser fix)",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T18:15:09+00:00",
+    "createdBy": "Claude",
+    "notes": "Regression fixture for a real, previously-reported engine bug: Silver Soldier's printed keyword line 'Retort 2, Vigor' is a single bolded, comma-separated multi-keyword line. The generic keyword parser (Data/ProcessKeywordsGA.php) only ever recognized the first bold **Keyword** span on a line and never split a single span naming multiple keywords, so GeneratedKeywordCode.php had no entry at all for this card and both HasKeyword_Retort()/HasKeyword_Vigor() returned false. The parser was fixed at the root (scan every bold span per line, not just the first; split a span's comma-separated keyword list; guarded by a 'pure keyword line' check so an incidental bolded mid-sentence mention like '...with **floating memory** from your graveyard...' is not misread as a grant), and GeneratedKeywordCode.php was regenerated. Silver Soldier is seeded directly onto player 1's field, pre-rested (Status 1), to construct the 'Vigor wakes it up' precondition. Ending player 1's turn (mode 10001 CustomInput Pass) triggers Vigor's wake-up during P1's own end phase (asserted at step 1), which is also what makes Silver Soldier eligible to retaliate at all (GetRetaliatorOptions requires Status==2). Player 2 then attacks with Giant Tortoise (vanilla ALLY, power 1 / life 6) and player 1 answers the resulting Retaliate MZMAYCHOOSE with Silver Soldier's own mzID, which resolves the whole combat in one action: Silver Soldier's Retort 2 adds its printed +2 to its base 3 POWER, dealing 5 damage to Giant Tortoise instead of 3 (asserted at step 4), while Silver Soldier itself rests (retaliation's cost) and takes Giant Tortoise's 1 POWER combat damage.",
+    "testedCards": [
+        "c3C6PjX0Vt"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["c3C6PjX0Vt"],
+        "mechanics": ["status", "trigger", "combat", "damage"],
+        "rulesClauses": [
+            "Vigor (This unit wakes up at the beginning of your end phase.)",
+            "Retort 2 (As long as this ally is retaliating, it gets +2 [POWER].)"
+        ]
+    }
+}

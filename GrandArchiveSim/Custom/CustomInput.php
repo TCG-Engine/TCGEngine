@@ -27,10 +27,9 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
             SetFlashMessage("Cannot pass while decisions are pending.");
             break;
         }
-        global $gCurrentPhase;
-        $gCurrentPhase = "MAIN";
-        AdvanceAndExecute("PASS");
-        AutoAdvanceAndExecute();
+        // Grand Archive rules: passing out of the main phase requires the non-turn
+        // player to also pass Opportunity before the phase actually advances.
+        RequestMainPhasePass($playerID);
         break;
       case "myField":
       case "myIntent":

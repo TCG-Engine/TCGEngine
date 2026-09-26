@@ -1,0 +1,16 @@
+{
+    "name": "wandering-glaivier-on-death-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T15:34:10+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "p6120p3f5d"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["p6120p3f5d"],
+        "mechanics": ["combat"],
+        "rulesClauses": [
+            "On Death: Each player draws a card."
+        ]
+    }
+}

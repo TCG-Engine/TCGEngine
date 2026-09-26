@@ -1,0 +1,23 @@
+{
+    "name": "slay-the-king-banish-material",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T23:47:11+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "6v374coy34"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "6v374coy34"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "combat",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "[Class Bonus] On Attack: You may banish a card from your material deck. If you do, Slay the King gains \"On Kill: You may play the banished card.\""
+        ]
+    }
+}

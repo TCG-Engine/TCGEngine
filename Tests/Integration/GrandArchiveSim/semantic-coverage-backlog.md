@@ -1,9 +1,9 @@
 # GrandArchiveSim semantic coverage backlog
 
 Implemented cards: **2477**
-Cards linked to an existing fixture: **359**
-Implemented cards in an official starter deck: **432**
-Implemented cards still needing semantic coverage: **2128**
+Cards linked to an existing fixture: **470**
+Implemented cards in an official starter deck: **619**
+Implemented cards still needing semantic coverage: **2020**
 
 ## Mechanic groups
 
@@ -26,53 +26,53 @@ Implemented cards still needing semantic coverage: **2128**
 
 | Card | Type | Abilities | Mechanics | Starter deck | Existing fixture |
 | --- | --- | ---: | --- | --- | --- |
-| Samaritan's Reach (`MskPCrbv0L`) | ACTION | 2 | cost, targeting, damage, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter | — |
-| Slay the King (`6v374coy34`) | ATTACK | 2 | zone-movement, combat, trigger, condition | Lorraine Pantheon Starter | — |
-| Thieving Cut (`7t9m4muq2r`) | ATTACK | 2 | draw-discard, counter, combat, condition | Zander Pantheon Starter | — |
-| Incapacitate (`szene5o32m`) | ACTION | 2 | cost, targeting, condition | Zander Pantheon Starter | — |
-| Assassin's Mantle (`3tcs0axa03`) | REGALIA,ITEM | 1 | damage, prevention, zone-movement, counter, condition | Zander Pantheon Starter | — |
-| Corhazi Courier (`YqQsXwEvv5`) | ALLY | 1 | targeting, damage, draw-discard, status, combat, condition | Zander Pantheon Starter | — |
-| Extraction Incision (`zthwm68lgo`) | ATTACK | 1 | targeting, counter, status, combat, condition | Zander Pantheon Starter | — |
-| Rending Flames (`soO3hjaVfN`) | ATTACK | 1 | damage, zone-movement, combat, trigger, condition | Zander Pantheon Starter | — |
-| Zander, Deft Executor (`fc4ic5fmaa`) | CHAMPION | 1 | zone-movement, counter, combat, trigger, condition | Zander Pantheon Starter | — |
-| Cleansing Reunion (`xpnjvt9y59`) | ACTION | 1 | cost, targeting, status, condition | Lorraine Pantheon Starter | — |
-| Convalescent Tonic (`l8ao8bls6g`) | ITEM | 1 | cost, recover, draw-discard, zone-movement | Arisanna Pantheon Starter | — |
-| Corhazi Lightblade (`2Ch1Gp3jEL`) | ALLY | 1 | damage, combat, trigger, condition | Zander Pantheon Starter | — |
-| Elyan, Lustre Loyalty (`2jgiM0p4dt`) | UNIQUE,ALLY | 1 | recover, status, trigger, condition | Zander Pantheon Starter | — |
-| Hasty Messenger (`DsiRzt0trX`) | ALLY | 1 | draw-discard, combat, trigger, condition | Kongming Pantheon Starter, Zander Pantheon Starter | — |
-| Insignia of the Corhazi (`52u81v4c0z`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, counter, trigger | Zander Pantheon Starter | — |
-| Lightveil Agent (`jcaLgesx0e`) | ALLY | 1 | recover, counter, status, trigger | Zander Pantheon Starter | — |
-| Lorraine, Spirit Ruler (`n2TKqNaODR`) | CHAMPION | 1 | cost, targeting, zone-movement, trigger | Lorraine Pantheon Starter | — |
-| Orb of Choking Fumes (`llQe0cg4xJ`) | REGALIA,ITEM | 1 | cost, draw-discard, zone-movement, condition | Zander Pantheon Starter | — |
-| Starlit Apothecary (`ShQkyQMBCT`) | UNIQUE,DOMAIN | 1 | cost, targeting, token, condition | Arisanna Pantheon Starter | — |
-| Templar of the Eternal (`peyG8Hfgqt`) | ALLY | 1 | damage, prevention, zone-movement, counter | Lorraine Pantheon Starter | — |
-| Altruistic Blacksmith (`Pd4hj3sveV`) | ALLY | 1 | token, combat, trigger | Lorraine Pantheon Starter | — |
-| Aqua Vitae (`y5ttkat9hr`) | ITEM | 1 | draw-discard, counter, condition | Arisanna Pantheon Starter | — |
-| Buoyant Driftguard (`TrK2lroxkz`) | ALLY | 1 | targeting, trigger, condition | Arisanna Pantheon Starter | — |
-| Charm of Anticipation (`vkL2RFh0yM`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, condition | Lorraine Pantheon Starter | — |
-| Corhazi Infiltrator (`VAFTR5taNG`) | ALLY | 1 | zone-movement, status, trigger | Zander Pantheon Starter | — |
-| Covert Manipulator (`A1jfgrWpiN`) | ALLY | 1 | targeting, trigger, condition | Zander Pantheon Starter | — |
-| Drawn Blade (`eSAIP7mx9z`) | REGALIA,WEAPON | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
-| Gem of Searing Flame (`v1jaidvvz2`) | REGALIA,ITEM | 1 | targeting, damage, trigger | Kongming Pantheon Starter | — |
-| Lunar Seer (`qjt0ooffy4`) | ALLY | 1 | cost, zone-movement, condition | Arisanna Pantheon Starter | — |
-| Lurking Assailant (`uq2r6v374c`) | ALLY | 1 | status, combat, condition | Lorraine Pantheon Starter, Zander Pantheon Starter | — |
-| Mendcall Mercy (`2RKjpzEFV6`) | ACTION | 1 | cost, targeting, condition | Arisanna Pantheon Starter | — |
-| Minister of Ceremony (`7gz0j8p4sx`) | ALLY | 1 | targeting, damage, condition | Kongming Pantheon Starter | — |
-| Photic Blade (`NRBO0nVMdl`) | REGALIA,WEAPON | 1 | recover, counter, trigger | Zander Pantheon Starter | — |
-| Piquant Shieldbearer (`Cvvvxlf0hi`) | ALLY | 1 | status, combat, condition | Arisanna Pantheon Starter, Kongming Pantheon Starter, Lorraine Pantheon Starter, Zander Pantheon Starter | — |
-| Scorching Imperilment (`aj7pz79wsp`) | PHANTASIA | 1 | cost, draw-discard, condition | Zander Pantheon Starter | — |
-| Strike of Singularity (`AMv1u54B2s`) | ATTACK | 1 | damage, combat, condition | Zander Pantheon Starter | — |
-| Tactful Sergeant (`7UXGwC7lSO`) | ALLY | 1 | draw-discard, trigger, condition | Lorraine Pantheon Starter | — |
-| Twinstar Tonic (`yBDxSHkT1s`) | ITEM | 1 | targeting, trigger, condition | Arisanna Pantheon Starter | — |
-| Uncover the Plot (`4zkTRt8qXn`) | ACTION | 1 | targeting, draw-discard, condition | Zander Pantheon Starter | — |
-| Veiling Breeze (`KoF3AMSlUe`) | ACTION | 1 | damage, prevention, condition | Lorraine Pantheon Starter | — |
-| Verdure of Preservation (`wCAIuvPOAT`) | UNIQUE,PHANTASIA | 1 | zone-movement, trigger, condition | Kongming Pantheon Starter | — |
-| Weaken Resistance (`bb3oeup7oq`) | ACTION | 1 | cost, targeting, damage | Kongming Pantheon Starter | — |
-| Wisp's Protection (`OmWFVRUr8I`) | ACTION | 1 | targeting, damage, prevention | Lorraine Pantheon Starter | — |
-| Zander, Prepared Scout (`T3CIBknts0`) | CHAMPION | 1 | zone-movement, counter, trigger | Zander Pantheon Starter | — |
-| Astromech Attendant (`mloejozihs`) | ALLY | 1 | draw-discard, trigger | Arisanna Pantheon Starter | — |
-| Bathe in Light (`d9zax2g20h`) | ACTION | 1 | damage, recover | Zander Pantheon Starter | — |
-| Beacon Knight (`sucwQ9or0n`) | ALLY | 1 | counter, trigger | Lorraine Pantheon Starter | — |
-| Besieged Slash (`Dkq7QnrGJI`) | ATTACK | 1 | cost, condition | Lorraine Pantheon Starter | — |
-| Bolstering Tempest (`PwHub76Fw4`) | ACTION | 1 | cost, targeting | Lorraine Pantheon Starter | — |
-| Cunning Broker (`oy34bro89w`) | ALLY | 1 | draw-discard, status | Zander Pantheon Starter | — |
+| Band of Burning Verdict (`7mmve2l328`) | REGALIA,ITEM | 3 | targeting, draw-discard, status, combat, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
+| Fatestone of Heaven (`al6pqkmgmz`) | ITEM | 3 | cost, targeting, zone-movement, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
+| Merlin, Amethyst's Glow (`dPP9I4nVn0`) | CHAMPION | 3 | cost, targeting, draw-discard, counter, trigger | Merlin Re:Collection, Brilliant Vestige | — |
+| Portentous Tanggu (`mb3iqw3kc6`) | REGALIA,ITEM | 3 | draw-discard, zone-movement, counter, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
+| Red Slime (`mttsvbgl6f`) | ALLY | 1 | damage, trigger, condition | Silvie Re:Collection, Slime Sovereign | redslime-ondeath-sweep-stack-order-choice |
+| Converge Reflections (`TBVLLRPiwP`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement, token, condition | Merlin Re:Collection, Brilliant Vestige | — |
+| Expel the Departed (`9wxcgpy069`) | ACTION | 2 | cost, targeting, draw-discard, zone-movement, condition | Guo Jia Re:Collection, Heaven's Favored | — |
+| Fatestone of Unrelenting (`o37qtuvlxa`) | ITEM | 2 | targeting, damage, zone-movement, status, trigger | Guo Jia Re:Collection, Heaven's Favored | — |
+| Poisoned Dagger (`0D6AfZyKXh`) | REGALIA,ITEM | 2 | targeting, damage, zone-movement, status, condition | Tristan Re:Collection, Shadowdancer, Merlin Re:Collection, Brilliant Vestige | — |
+| Slimeshield (`hcpetipurz`) | ACTION | 2 | cost, targeting, damage, prevention, counter, condition | Silvie Re:Collection, Slime Sovereign | — |
+| Storm Slime (`blqryebvwj`) | ALLY | 2 | targeting, damage, draw-discard, zone-movement, trigger, condition | Silvie Re:Collection, Slime Sovereign | — |
+| Tristan, Shadowdancer (`he6kd7hocc`) | CHAMPION | 2 | targeting, counter, token, combat, trigger | Tristan Re:Collection, Shadowdancer | — |
+| Blossoming Denial (`1nnpbddblx`) | ACTION | 2 | cost, targeting, recover, condition | Diao Chan Re:Collection, Idyll Corsage | — |
+| Fatestone of Revelations (`xd4kv0akqr`) | ITEM | 2 | cost, draw-discard, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
+| Frostlorn Caress (`4tqbok1g9w`) | ACTION | 2 | cost, targeting, counter, condition | Diao Chan Re:Collection, Idyll Corsage | — |
+| Frostnip Pirouette (`x79cuuw5vo`) | ACTION | 2 | cost, targeting, counter, condition | Diao Chan Re:Collection, Idyll Corsage | — |
+| Gearstride Gloves (`lcb6jhxctx`) | REGALIA,ITEM | 2 | cost, zone-movement, counter, trigger | Tristan Re:Collection, Shadowdancer | — |
+| Guo Jia, Heaven's Favored (`enxi6tshtu`) | CHAMPION | 2 | cost, recover, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
+| Leporine Masque (`pgysz2zfji`) | REGALIA,ITEM | 2 | cost, draw-discard, zone-movement, counter | Ciel, Mirage's Grave | — |
+| Light the Hunt (`edjgscy50x`) | ACTION | 2 | targeting, zone-movement, counter, trigger | Guo Jia Re:Collection, Heaven's Favored | — |
+| Nocturne's Oblivion (`1a5zdqgydt`) | ACTION | 2 | cost, targeting, zone-movement, condition | Ciel, Mirage's Grave | — |
+| Prismspire Scepter (`mgesApvmwS`) | REGALIA,ITEM | 2 | targeting, draw-discard, zone-movement, trigger | Merlin Re:Collection, Brilliant Vestige | — |
+| Protect Her At All Costs (`OzNHncAfFJ`) | ACTION | 2 | cost, targeting, token, combat | Merlin Re:Collection, Brilliant Vestige | — |
+| Ranger Boots (`fbs9qzo3f6`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, status, trigger | Diana, Moonpiercer | — |
+| Scepter of Fascination (`4864k12no2`) | REGALIA,ITEM | 2 | draw-discard, zone-movement, trigger, condition | Diao Chan Re:Collection, Idyll Corsage | — |
+| Staff of Blossoming Will (`4moumzcx9z`) | REGALIA,ITEM | 2 | targeting, draw-discard, token, trigger | Diao Chan Re:Collection, Idyll Corsage | — |
+| Lavaplume Fatestone (`0w5xyjuczy`) | ITEM | 2 | targeting, damage, trigger | Guo Jia Re:Collection, Heaven's Favored | — |
+| Lustrous Slime (`ejvddohjdu`) | ALLY | 2 | recover, counter, trigger | Silvie Re:Collection, Slime Sovereign | — |
+| Pleiades, Celestial Genesis (`rsps1qnzfl`) | REGALIA,WEAPON | 2 | token, combat, trigger | Diana, Moonpiercer | — |
+| Season's End (`ddggqvxw8f`) | ACTION | 2 | cost, zone-movement, counter | Diao Chan Re:Collection, Idyll Corsage | — |
+| Shattered Hope (`XOevViFTB3`) | ACTION | 2 | cost, draw-discard, counter | Merlin Re:Collection, Brilliant Vestige | — |
+| Shifting Mirage (`hmjr33ijq6`) | ACTION | 2 | cost, status, token | Tristan Re:Collection, Shadowdancer | — |
+| Spirit Blade: Terminus (`XsxmnGZxKz`) | ATTACK | 2 | zone-movement, combat, condition | Merlin Re:Collection, Brilliant Vestige | — |
+| Undeniable Truth (`UaUfw7yFTW`) | ACTION | 2 | cost, draw-discard, counter | Merlin Re:Collection, Brilliant Vestige | — |
+| Green Slime (`zgcxyky280`) | ALLY | 2 | targeting, trigger | Silvie Re:Collection, Slime Sovereign | — |
+| Silvie, Slime Sovereign (`mdwbkuhtjm`) | CHAMPION | 2 | cost, trigger | Silvie Re:Collection, Slime Sovereign | — |
+| Slime King (`f0ymeslfpw`) | UNIQUE,ALLY | 2 | cost, zone-movement | Silvie Re:Collection, Slime Sovereign | — |
+| Slime Nexus (`emoydelro8`) | REGALIA,ITEM | 2 | cost, zone-movement | Silvie Re:Collection, Slime Sovereign | — |
+| Find the Lost (`jTBNAEedbg`) | ATTACK | 2 | condition | Merlin Re:Collection, Brilliant Vestige | — |
+| Advent of the Shenju (`c53tomoaw3`) | ACTION | 1 | targeting, draw-discard, zone-movement, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
+| Betraying Blade (`qwxvzfkpaj`) | ATTACK | 1 | cost, zone-movement, counter, combat, trigger, condition | Tristan Re:Collection, Shadowdancer | — |
+| Crystalline Mirror (`9agwj4f15j`) | REGALIA,ITEM | 1 | cost, targeting, zone-movement, trigger, condition | Diao Chan Re:Collection, Idyll Corsage | — |
+| Diao Chan, Idyll Corsage (`d7l6i5thdy`) | CHAMPION | 1 | targeting, zone-movement, counter, token, trigger, condition | Diao Chan Re:Collection, Idyll Corsage | — |
+| Ethereal Slime (`n06zlhihka`) | ALLY | 1 | damage, prevention, draw-discard, zone-movement, counter, status, trigger, condition | Silvie Re:Collection, Slime Sovereign | — |
+| Fabled Azurite Fatestone (`6ce5rzrjd9`) | REGALIA,ITEM | 1 | draw-discard, zone-movement, counter, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
+| Fated Keepsake (`vi1uyifw6s`) | REGALIA,ITEM | 1 | damage, prevention, draw-discard, trigger, condition | Guo Jia Re:Collection, Heaven's Favored | — |
+| Frostsworn Paladin (`rpOaAjgtue`) | ALLY | 1 | draw-discard, zone-movement, counter, status, combat, trigger, condition | Mordred Re:Collection, Aurelian Regent | — |
+| Gildas, Faesworn Monarch (`g99PIuhU0O`) | UNIQUE,ALLY | 1 | cost, targeting, damage, prevention, status, condition | Mordred Re:Collection, Aurelian Regent | — |
+| Hairpin of Transience (`xl3tzqhlt1`) | REGALIA,ITEM | 1 | cost, targeting, zone-movement, counter, condition | Diao Chan Re:Collection, Idyll Corsage | — |
+| Luminous Quartz (`40lgjj1yS3`) | REGALIA,WEAPON | 1 | targeting, damage, counter, status, combat, condition | Merlin Re:Collection, Brilliant Vestige | — |

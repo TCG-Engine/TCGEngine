@@ -1,0 +1,18 @@
+{
+    "name": "Sanctified Paladin: Foster keyword recognition and On Foster draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T13:44:13+00:00",
+    "createdBy": "Claude",
+    "notes": "Engine bug fix: HasFoster() (GrandArchiveSim/Custom/CardLogic.php) gates the Foster keyword behind a hardcoded per-card-ID whitelist ($fosterCards) that was missing Sanctified Paladin's ID (ioLmt0S7op), even though its printed text ('**Foster**<br>As long as CARDNAME is fostered, it gets +3 POWER and +3 LIFE, and has vigor.<br>**On Foster:** Draw two cards.') genuinely has the unconditional Foster keyword and its onFosterAbilities closure is already correctly wired up. Added 'ioLmt0S7op' to the unconditional (non-Class-Bonus) whitelist. Seeded onto the field freshly (no FOSTERED TurnEffect, no DAMAGED_SINCE_LAST_TURN) so the recollection-phase Foster check (GameLogic.php ~9852-9892) sees a genuine wasFostered===false -> true transition -- only that transition fires OnFoster(); an already-fostered seed would not. Cycles P1->P2->P1 (same pattern as weaponsmith-class-bonus-durability / berserker-plate-recollection-damage-draw) since turn 1's recollection phase early-returns; turn 2's fires it.",
+    "testedCards": [
+        "ioLmt0S7op"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["ioLmt0S7op"],
+        "mechanics": ["draw-discard", "condition"],
+        "rulesClauses": [
+            "Foster.",
+            "On Foster: Draw two cards."
+        ]
+    }
+}

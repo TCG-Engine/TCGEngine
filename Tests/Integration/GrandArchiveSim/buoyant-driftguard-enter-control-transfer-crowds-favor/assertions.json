@@ -1,0 +1,5 @@
+[
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-1","property":"CardID","value":"TrK2lroxkz","semantic":true,"label":"Buoyant Driftguard is still physically in player 1's field storage"},
+    {"step":5,"type":"card_property_equals","mzId":"p1Field-1","property":"Controller","value":"2","semantic":true,"label":"Answering YES flips control of Buoyant Driftguard to the opponent"},
+    {"step":5,"type":"card_property_equals","mzId":"p1GlobalEffects-0","property":"CardID","value":"gpmJdGYqoC","semantic":true,"label":"The original controller gains the Crowd's Favor status for giving up control"}
+]

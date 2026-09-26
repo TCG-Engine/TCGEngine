@@ -1,0 +1,17 @@
+{
+    "name": "redirect-orbit-shuffle-draw",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T00:00:00+00:00",
+    "createdBy": "batch-script",
+    "notes": "Redirect Orbit is ASTRA, an advanced element -- without unlocking it, playing the card silently no-ops, so the champion is CardID-patched to Arisanna, Astral Zenith (q3huqj5bba, CLERIC/ASTRA). cardActivatedAbilities['Tst4WbM6O8:0'] calls RedirectOrbitChoose($player, 0) (CardDQHandlers.php ~4622), an MZMAYCHOOSE loop over hand+memory cards: choosing a card shuffles it into the deck and recurses with count+1; declining ends the loop with ShuffleZone(myDeck) + DrawIntoMemory($player, count). One hand card is chosen (hand 5->4, deck 5->6), then the loop is declined with '-' (the MZMAYCHOOSE decline token the handler checks for, GrandArchiveSim/Custom/CardDQHandlers.php ~4639) -- note 'PASS' does NOT work here (verified live: submitting 'PASS' for the decline left the deck at 6 and memory unmoved, i.e. the final Shuffle+Draw never fired at all). With the correct '-' decline, deck goes 6->5 and memory goes 2->3 in the same step, proving the shuffled-in card is genuinely drawn back out into MEMORY (not hand) in exactly the quantity chosen.",
+    "testedCards": [
+        "Tst4WbM6O8"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["Tst4WbM6O8"],
+        "mechanics": ["draw-discard"],
+        "rulesClauses": [
+            "Shuffle any amount of cards from your hand and/or memory into your deck. Then draw that many cards into your memory."
+        ]
+    }
+}

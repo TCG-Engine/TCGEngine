@@ -1,0 +1,24 @@
+{
+    "name": "zander-deft-executor-enter-prep-return-assassin",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T19:08:07+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "fc4ic5fmaa"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "fc4ic5fmaa"
+        ],
+        "mechanics": [
+            "zone-movement",
+            "counter",
+            "combat",
+            "trigger",
+            "condition"
+        ],
+        "rulesClauses": [
+            "On Enter: Put two preparation counters on CARDNAME. Then you may remove a preparation counter from him. If you do, return an Assassin action or an Assassin attack card from your graveyard to your hand."
+        ]
+    }
+}

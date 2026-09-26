@@ -1,0 +1,22 @@
+{
+    "name": "veiling-breeze-prevent-champion-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T23:35:37+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "KoF3AMSlUe"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "KoF3AMSlUe"
+        ],
+        "mechanics": [
+            "damage",
+            "prevention",
+            "condition"
+        ],
+        "rulesClauses": [
+            "Until end of turn, if damage would be dealt to your champion, prevent an amount of that damage equal to the amount of cards revealed this way."
+        ]
+    }
+}

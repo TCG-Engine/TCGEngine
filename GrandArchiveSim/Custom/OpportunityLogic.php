@@ -1252,6 +1252,263 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
 };
 
 /**
+ * Normalize a "my"/"their"-prefixed mzID string so it's unambiguous regardless of who's
+ * the ambient viewer at the moment it's read back.
+ *
+ * "my"/"their" zone names are only meaningful relative to whatever the ambient global
+ * $playerID happens to be *at the moment they're resolved*, not to who they were written
+ * down by. ResolveTopOfEffectStack() always sets $playerID = $cardOwner (the trigger's
+ * controller) right before firing a deferred ability -- so any mzID captured into a
+ * QueueTriggeredAbility() context must be re-expressed relative to that same controller
+ * *at capture time*, or it can silently flip meaning once replayed under a different
+ * ambient $playerID than was active when it was captured.
+ *
+ * @param string $mzID       A "my"/"their"-prefixed zone reference (or a global zone, unaffected).
+ * @param int    $controller The player this trigger's ability will run as (matches the
+ *                            Controller passed to QueueTriggeredAbility).
+ */
+function NormalizeMzIDForController($mzID, $controller) {
+    global $playerID;
+    return (intval($controller) === intval($playerID)) ? $mzID : FlipZonePerspective($mzID);
+}
+
+/**
+ * Generic helper to queue a triggered ability onto the EffectStack instead of firing it
+ * synchronously. This is the shared primitive for moving a trigger type off the old
+ * "look up the dispatch table and call it immediately" pattern and onto the stack, so
+ * both players get a real Opportunity window (and, for simultaneous triggers, proper
+ * turn-order stacking) before it resolves.
+ *
+ * $context is an associative array of ambient DQ variables (e.g. "mzID", or a card-specific
+ * snapshot value like a counter count read off the source object before it left the field)
+ * that the deferred ability closure will need. It's captured here -- at queue time, while the
+ * relevant game state is still fresh -- and stored on the stack entry's own Counters slot
+ * (a free-form JSON field, unused by any real card mechanic on EffectStack objects), then
+ * replayed into DQ variables by ResolveTopOfEffectStack() right before the closure runs.
+ * This avoids the entries clobbering each other's ambient state when multiple triggers of
+ * different kinds are queued back to back. Any "my"/"their"-prefixed mzID in $context must
+ * already be normalized via NormalizeMzIDForController() before being passed in here.
+ *
+ * If called between BeginTriggeredAbilityBatch()/EndTriggeredAbilityBatch(), the push is deferred:
+ * see those functions' docblocks for why (letting the controller choose stacking order among
+ * their own simultaneous triggers) and how (grouping by controller, an interactive choice for
+ * any group of 2+, immediate push for groups of 1 -- identical to the unbatched path below).
+ *
+ * @param int         $player      The ability's controller.
+ * @param string      $cardID      The source card's ID (dispatch tables are keyed by CardID).
+ * @param string      $triggerType A tag ResolveTopOfEffectStack() switches on (e.g. "ALLY_DESTROYED").
+ * @param array       $context     Ambient DQ variables to snapshot and replay at resolution time.
+ * @param string|null $sourceMZ    The triggering source's own currently-resolvable zone location,
+ *                                 used ONLY to render an ordering choice when this entry ends up
+ *                                 batched alongside another simultaneous trigger for the same
+ *                                 controller (see BeginTriggeredAbilityBatch()). Several dispatchers
+ *                                 (e.g. OnAttackTrigger) intentionally store the same shared mzID in
+ *                                 $context for ability-replay purposes even though the attacker,
+ *                                 intent card, and weapon are three distinct objects -- $sourceMZ
+ *                                 lets the choice UI tell them apart regardless. Defaults to
+ *                                 $context['mzID'] when omitted, which is already correct for
+ *                                 dispatchers where each candidate's own mzID *is* distinct.
+ * @return bool True if a stack entry was queued (or buffered for a batch).
+ */
+function QueueTriggeredAbility($player, $cardID, $triggerType, $context = [], $sourceMZ = null) {
+    global $__pendingTriggerBatch;
+    if (($__pendingTriggerBatch['depth'] ?? 0) > 0) {
+        $__pendingTriggerBatch['entries'][] = [
+            'player' => $player,
+            'cardID' => $cardID,
+            'triggerType' => $triggerType,
+            'context' => $context,
+            'sourceMZ' => $sourceMZ ?? ($context['mzID'] ?? null),
+        ];
+        return true;
+    }
+    return PushTriggeredAbilityNow($player, $cardID, $triggerType, $context);
+}
+
+/**
+ * Push a single stack entry and, if nothing is already mid-resolution, kick off its Opportunity
+ * window. This is exactly QueueTriggeredAbility()'s old unconditional body -- factored out so both
+ * the unbatched path and EndTriggeredAbilityBatch()'s single-entry-group case share one immediate-
+ * push behavior, byte-identical to pre-batching QueueTriggeredAbility().
+ */
+function PushTriggeredAbilityNow($player, $cardID, $triggerType, $context = []) {
+    $stackObj = AddEffectStack(
+        CardID: $cardID,
+        Controller: $player,
+        TriggerType: $triggerType,
+        Counters: $context
+    );
+    if($stackObj === null) return false;
+
+    if(DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES") {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        $dqController = new DecisionQueueController();
+        $dqController->ExecuteStaticMethods($player, "-");
+    }
+    return true;
+}
+
+/**
+ * Open a batching window: QueueTriggeredAbility() calls made before the matching
+ * EndTriggeredAbilityBatch() are buffered instead of pushed immediately.
+ *
+ * Why this exists: several dispatchers (OnAttackTrigger, OnHitTrigger, OnKillTrigger,
+ * OnDiscardCard, DestroyObjectSelection) make more than one QueueTriggeredAbility call in a row
+ * for triggers that all fire from the *same* game event (e.g. one attack's attacker + intent card
+ * + weapon, or one "destroy all" resolving several allies at once). Per rules, when 2+ of a
+ * player's own abilities would trigger simultaneously, that player chooses the order they go on
+ * the stack. Pushing each one immediately -- the pre-batch behavior -- pre-empts that choice with
+ * whatever order happened to be hardcoded at the call site, and worse, that order wasn't even
+ * consistent: if nobody had a fast response available, each push's own Opportunity check resolved
+ * it synchronously before the next call in the loop even ran (so they landed in *declaration*
+ * order), but the moment either player had something to respond with, the first push's Opportunity
+ * window paused instead of resolving, so the rest of the loop piled its pushes on top of it and
+ * they resolved in reverse-of-declaration (LIFO) order instead. Same event, same cards, two
+ * different outcomes depending on unrelated board state -- never the controller's choice either way.
+ *
+ * Batching fixes this by deferring every push in the window until EndTriggeredAbilityBatch(), which
+ * groups the buffered entries by controller and, for any controller with 2+ entries, asks them to
+ * choose. A lone entry (the overwhelming majority of dispatches -- most events only ever trigger
+ * one of a player's cards) is pushed immediately via PushTriggeredAbilityNow(), so single-trigger
+ * behavior is untouched.
+ *
+ * Calls nest via a depth counter: only the outermost End() flushes, so an inner batch (e.g.
+ * OnKillTrigger's own attacker/intent/weapon dispatch) can run inside an outer one (e.g.
+ * DispatchCombatKillTriggers batching an entire multi-kill Cleave swing) without either
+ * prematurely flushing the other's entries.
+ */
+function BeginTriggeredAbilityBatch() {
+    global $__pendingTriggerBatch;
+    if (!is_array($__pendingTriggerBatch)) $__pendingTriggerBatch = ['depth' => 0, 'entries' => []];
+    $__pendingTriggerBatch['depth']++;
+}
+
+/**
+ * Close a batching window opened by BeginTriggeredAbilityBatch(). See that function's docblock
+ * for why this exists. No-op until the outermost matching call (depth reaches 0).
+ */
+function EndTriggeredAbilityBatch() {
+    global $__pendingTriggerBatch;
+    if (!is_array($__pendingTriggerBatch) || $__pendingTriggerBatch['depth'] <= 0) return;
+    $__pendingTriggerBatch['depth']--;
+    if ($__pendingTriggerBatch['depth'] > 0) return;
+
+    $entries = $__pendingTriggerBatch['entries'];
+    $__pendingTriggerBatch['entries'] = [];
+    if (empty($entries)) return;
+
+    // Group by controller, preserving each controller's first-appearance order in $entries.
+    $controllerOrder = [];
+    $byController = [];
+    foreach ($entries as $e) {
+        $c = intval($e['player']);
+        if (!isset($byController[$c])) { $byController[$c] = []; $controllerOrder[] = $c; }
+        $byController[$c][] = $e;
+    }
+
+    foreach ($controllerOrder as $controller) {
+        $group = $byController[$controller];
+        if (count($group) === 1) {
+            PushTriggeredAbilityNow($group[0]['player'], $group[0]['cardID'], $group[0]['triggerType'], $group[0]['context']);
+        } else {
+            QueueTriggerStackOrderChoice($controller, $group);
+        }
+    }
+}
+
+/**
+ * Ask $controller to choose the resolution order for 2+ of their own abilities that just
+ * triggered simultaneously (see BeginTriggeredAbilityBatch()). Presents the remaining candidates
+ * as an MZCHOOSE over each entry's sourceMZ ("pick the one that resolves next"); the pick is
+ * appended to an already-chosen list and, once one candidate remains, the whole order is pushed.
+ *
+ * Falls back to auto-resolving in original (declaration) order -- no prompt -- if any candidate's
+ * sourceMZ is missing or two candidates share one (can't render a choice that isn't unambiguous).
+ */
+function QueueTriggerStackOrderChoice($controller, $group) {
+    $sourceMZs = array_map(fn($e) => $e['sourceMZ'], $group);
+    if (in_array(null, $sourceMZs, true) || in_array("", $sourceMZs, true) || count(array_unique($sourceMZs)) !== count($sourceMZs)) {
+        PushOrderedTriggeredAbilities($group);
+        return;
+    }
+    DecisionQueueController::StoreVariable("PendingTriggerOrderGroup", base64_encode(json_encode($group)));
+    DecisionQueueController::StoreVariable("PendingTriggerOrderChosen", base64_encode(json_encode([])));
+    QueueNextTriggerOrderPick($controller);
+}
+
+function QueueNextTriggerOrderPick($controller) {
+    $group = json_decode(base64_decode(DecisionQueueController::GetVariable("PendingTriggerOrderGroup") ?? "", true) ?: "[]", true) ?: [];
+    if (count($group) <= 1) {
+        FinishTriggerOrderChoice($controller);
+        return;
+    }
+    $choices = array_map(fn($e) => $e['sourceMZ'], $group);
+    DecisionQueueController::AddDecision($controller, "MZCHOOSE", implode("&", $choices), 100, "Choose_the_ability_to_resolve_next");
+    DecisionQueueController::AddDecision($controller, "CUSTOM", "TriggerOrderPickResolve", 100);
+}
+
+$customDQHandlers["TriggerOrderPickResolve"] = function($player, $parts, $lastDecision) {
+    $group = json_decode(base64_decode(DecisionQueueController::GetVariable("PendingTriggerOrderGroup") ?? "", true) ?: "[]", true) ?: [];
+    $chosen = json_decode(base64_decode(DecisionQueueController::GetVariable("PendingTriggerOrderChosen") ?? "", true) ?: "[]", true) ?: [];
+
+    $pickedIdx = null;
+    foreach ($group as $idx => $e) {
+        if (($e['sourceMZ'] ?? null) === $lastDecision) { $pickedIdx = $idx; break; }
+    }
+    if ($pickedIdx === null) $pickedIdx = 0; // defensive: malformed/unrecognized selection, don't stall the queue
+
+    $chosen[] = $group[$pickedIdx];
+    unset($group[$pickedIdx]);
+    $group = array_values($group);
+
+    DecisionQueueController::StoreVariable("PendingTriggerOrderGroup", base64_encode(json_encode($group)));
+    DecisionQueueController::StoreVariable("PendingTriggerOrderChosen", base64_encode(json_encode($chosen)));
+
+    if (count($group) <= 1) {
+        FinishTriggerOrderChoice($player);
+    } else {
+        QueueNextTriggerOrderPick($player);
+    }
+};
+
+function FinishTriggerOrderChoice($controller) {
+    $group = json_decode(base64_decode(DecisionQueueController::GetVariable("PendingTriggerOrderGroup") ?? "", true) ?: "[]", true) ?: [];
+    $chosen = json_decode(base64_decode(DecisionQueueController::GetVariable("PendingTriggerOrderChosen") ?? "", true) ?: "[]", true) ?: [];
+    DecisionQueueController::ClearVariable("PendingTriggerOrderGroup");
+    DecisionQueueController::ClearVariable("PendingTriggerOrderChosen");
+    // $chosen is in resolve-first..resolve-last order (earliest pick resolves first);
+    // any single leftover candidate resolves last, so it's appended, not prepended.
+    PushOrderedTriggeredAbilities(array_merge($chosen, $group));
+}
+
+/**
+ * Push every entry in $orderedEntries (resolve-first..resolve-last) onto the stack, then kick off
+ * exactly one Opportunity window -- mirroring PushTriggeredAbilityNow(), but for a whole batch at
+ * once so no earlier push in the list can synchronously resolve before a later one is even on the
+ * stack (which would silently re-serialize a "simultaneous" batch back into declaration order).
+ * Pushed in reverse ($orderedEntries[0], the one that should resolve first, goes on LAST) so the
+ * stack's own LIFO draw naturally resolves them in the chosen order.
+ */
+function PushOrderedTriggeredAbilities($orderedEntries) {
+    $pushed = false;
+    $lastPlayer = null;
+    foreach (array_reverse($orderedEntries) as $e) {
+        $stackObj = AddEffectStack(
+            CardID: $e['cardID'],
+            Controller: $e['player'],
+            TriggerType: $e['triggerType'],
+            Counters: $e['context']
+        );
+        if ($stackObj !== null) { $pushed = true; $lastPlayer = $e['player']; }
+    }
+    if ($pushed && DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES") {
+        DecisionQueueController::AddDecision($lastPlayer, "CUSTOM", "EffectStackOpportunity", 100);
+        $dqController = new DecisionQueueController();
+        $dqController->ExecuteStaticMethods($lastPlayer, "-");
+    }
+}
+
+/**
  * Resolve the top card of the EffectStack.
  *
  * Swaps $playerID to match the card owner so that all my/their zone references
@@ -1292,6 +1549,28 @@ function ResolveTopOfEffectStack() {
     DecisionQueueController::StoreVariable("ResolvingEffectStack", "YES");
     ClearDamageSourcesDealtThisResolution();
 
+    // Restore any ambient DQ variables (e.g. "mzID", or a card-specific snapshot value)
+    // that were captured into this entry's Counters slot when it was queued -- ability
+    // code reads these as ambient context, and since resolution is now deferred (an
+    // Opportunity window may have run, other things may have happened), they can't be
+    // recomputed live and must be replayed from what was true when the trigger fired.
+    $triggerContext = is_array($topObj->Counters) ? $topObj->Counters : [];
+    foreach($triggerContext as $ctxKey => $ctxValue) {
+        DecisionQueueController::StoreVariable($ctxKey, is_string($ctxValue) ? $ctxValue : strval($ctxValue));
+    }
+
+    // Batched (BeginTriggeredAbilityBatch()) so that whatever this entry's own resolution does --
+    // whether a hand-written Fire*TriggeredAbility dispatcher or a generated ability/macro closure
+    // (invoked below via CardActivated(), or transitively via any of the Fire*TriggeredAbility calls) --
+    // any QueueTriggeredAbility() calls it makes for the SAME controller are grouped into one
+    // stacking-order choice instead of landing in whatever order the closure happened to call them.
+    // This is what covers a generated closure's OWN self-contained multi-kill/multi-trigger effect
+    // (e.g. Red Slime's On Death dealing power damage to all allies, which can chain-kill several of
+    // its controller's own other allies in one synchronous sweep: each of THEIR On Death triggers
+    // queues here, inside this same window) without touching or regenerating any generated code.
+    // Nests safely inside any dispatcher's own inner batch (e.g. OnKillTrigger's attacker/intent/
+    // weapon batch) via BeginTriggeredAbilityBatch()'s depth counter.
+    BeginTriggeredAbilityBatch();
     if($triggerType === "ENTER") {
         $cardID = $topObj->CardID ?? "";
         $sourceUniqueID = intval($topObj->TriggerSourceUniqueID ?? 0);
@@ -1313,6 +1592,83 @@ function ResolveTopOfEffectStack() {
         }
         $topObj->Remove();
         DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ALLY_DESTROYED") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireAllyDestroyedTriggeredAbility")) {
+            FireAllyDestroyedTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "LEAVE_FIELD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireLeaveFieldTriggeredAbility")) {
+            FireLeaveFieldTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ON_BANISH") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireOnBanishTriggeredAbility")) {
+            FireOnBanishTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "DISCARD_CARD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireDiscardCardTriggeredAbility")) {
+            FireDiscardCardTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "REVEAL_CARD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireRevealTriggeredAbility")) {
+            FireRevealTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "PLAY_CARD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FirePlayCardTriggeredAbility")) {
+            FirePlayCardTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "REST_CARD") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireRestCardTriggeredAbility")) {
+            FireRestCardTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "DEAL_DAMAGE") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireDealDamageTriggeredAbility")) {
+            FireDealDamageTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ON_ATTACK") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireAttackTriggeredAbility")) {
+            FireAttackTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ON_HIT") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireHitTriggeredAbility")) {
+            FireHitTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "ON_KILL") {
+        $cardID = $topObj->CardID ?? "";
+        if(function_exists("FireKillTriggeredAbility")) {
+            FireKillTriggeredAbility($cardOwner, $cardID);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
     } else {
         // Call the generated CardActivated() wrapper, which:
         //  - Stores mzID variable for ability code
@@ -1321,6 +1677,7 @@ function ResolveTopOfEffectStack() {
         //  - Calls ExecuteStaticMethods to process any ability decisions
         CardActivated($cardOwner, $topMZ);
     }
+    EndTriggeredAbilityBatch();
     ReconcileEffectStackSourceZones();
 
     // Queue PostResolutionCheck to run after all ability interactions (block 200)

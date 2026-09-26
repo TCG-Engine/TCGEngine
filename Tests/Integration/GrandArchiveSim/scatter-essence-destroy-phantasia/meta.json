@@ -1,0 +1,21 @@
+{
+    "name": "scatter-essence-destroy-phantasia",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-22T23:35:36+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "zi5h8asbie"
+    ],
+    "semanticCoverage": {
+        "testedCards": [
+            "zi5h8asbie"
+        ],
+        "mechanics": [
+            "targeting",
+            "zone-movement"
+        ],
+        "rulesClauses": [
+            "Destroy target phantasia."
+        ]
+    }
+}

@@ -1,0 +1,36 @@
+[
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "CardID",
+        "value": "a40EMvoqYX",
+        "semantic": true,
+        "label": "Your own summoned token is the real Cheap Sword card, not the undefined placeholder ID"
+    },
+    {
+        "step": 4,
+        "type": "card_property_equals",
+        "mzId": "p1Field-2",
+        "property": "Counters",
+        "value": "{\"durability\":1}",
+        "semantic": true,
+        "label": "The summoned Cheap Sword token carries its printed durability counter"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "p2Field",
+        "cardID": "a40EMvoqYX",
+        "semantic": true,
+        "label": "Each player summons a Cheap Sword token, including the opponent"
+    },
+    {
+        "step": 4,
+        "type": "card_exists",
+        "zone": "p1GlobalEffects",
+        "cardID": "gpmJdGYqoC",
+        "semantic": true,
+        "label": "Controller gains the Crowd's Favor status"
+    }
+]

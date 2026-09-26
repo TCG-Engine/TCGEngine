@@ -1,0 +1,16 @@
+{
+    "name": "strike-of-singularity-onattack-empty-hand-double-damage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-09-23T23:34:33+00:00",
+    "createdBy": "batch-script",
+    "testedCards": [
+        "AMv1u54B2s"
+    ],
+    "semanticCoverage": {
+        "testedCards": ["AMv1u54B2s"],
+        "mechanics": ["damage", "combat", "trigger", "condition"],
+        "rulesClauses": [
+            "[Class Bonus] As long as the attacker is attacking a unit controlled by a player with no cards in their hand, CARDNAME has \"If this attack would deal damage, it deals double that damage instead.\""
+        ]
+    }
+}
