@@ -685,12 +685,17 @@ function SWULogCarryUndone(array $before, int $seat, callable $describe): void {
     }
     // This player's undo lines at the END of what was erased are the earlier presses of this same undo run:
     // drop them and count them into the new line instead.
+    // ⚠ MATCH THROUGH THE PARSER, never a hand-rolled prefix. This read `^UNDO\|ALL\|P{seat} undid `,
+    // which stopped matching the moment the '@<microtime>' field was inserted between the visibility and
+    // the text (a54a2ef5, 2026-09-25): every fold silently failed and three presses wrote three lines.
+    // The same rule the loop below already follows — see AddGameLogEntry's "nothing else may split these
+    // by hand", and note the parser also accepts the legacy 3-field shape every saved gamestate holds.
     $n = 1;
     while (!empty($carried)) {
-        $last = end($carried);
-        if (!preg_match('/^UNDO\|ALL\|P' . $seat . ' undid /', $last)) break;
+        $lp = SWUParseGameLogEntry(end($carried));
+        if ($lp['type'] !== 'UNDO' || !preg_match('/^P' . $seat . ' undid /', $lp['text'])) break;
         array_pop($carried);
-        $n += preg_match('/their last (\d+) actions/', $last, $m) ? intval($m[1]) : 1;
+        $n += preg_match('/their last (\d+) actions/', $lp['text'], $m) ? intval($m[1]) : 1;
     }
     foreach ($carried as $e) {
         // ⚠ Through the parser, not a hand split: field 2 is the TIMESTAMP now, so $p[2] would
@@ -711,7 +716,14 @@ function SWULogCarryUndone(array $before, int $seat, callable $describe): void {
 // both combat resolvers call after their ATTACK (and Overwhelm) lines.
 function SWULogGameEndLine(string $type, string $text): void {
     AddGameLogEntry($type, $text, 'ALL');
-    if (_SWULogInCombatDamage()) $GLOBALS['gSWULogGameEndToMove'][] = $type . '|ALL|' . $text;
+    if (!_SWULogInCombatDamage()) return;
+    // ⚠ Remember the entry EXACTLY AS STORED, by reading it back. This used to rebuild the string as
+    // "{$type}|ALL|{$text}", which the flush below looks up with a strict array_search — so when the
+    // '@<microtime>' field was inserted (a54a2ef5, 2026-09-25) the lookup stopped finding anything and
+    // the WIN line was silently left ABOVE the attack that won the game. Reading it back cannot drift
+    // with the entry format again.
+    $entries = SWULogEntries();
+    if (!empty($entries)) $GLOBALS['gSWULogGameEndToMove'][] = end($entries);
 }
 
 function SWULogFlushGameEndLines(): void {

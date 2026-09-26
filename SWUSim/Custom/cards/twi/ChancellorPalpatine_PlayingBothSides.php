@@ -20,7 +20,7 @@ $leaderAbilities["TWI_017"] = function(int $player): void {
     if ($lead === null) { SWUAfterAction($player); return; }
     if (empty($lead->Deployed)) {
         // HEROISM face: if a friendly Heroism unit was defeated this phase → draw 1, heal 2 from your base, flip.
-        if (GlobalEffectCount($player, 'SWU_FRIENDLY_HEROISM_DEFEATED') > 0) {
+        if (SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_HEROISM_DEFEATED') > 0) {
             DoDrawCard($player, 1);
             OnHealBase($player, $player, 2);
             $lead->Deployed = true;  // flip to the Villainy face

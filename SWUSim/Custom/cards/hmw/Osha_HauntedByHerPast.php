@@ -144,7 +144,7 @@ $customDQHandlers["HMW_017#1"] = function($player, $parts, $lastDecision) {
 // every SWU_FRIENDLY_DEFEATED (built for TWI_017, cleared at RegroupPhaseStart).
 $leaderAbilities["HMW_017"] = function($player) {
     global $playerID; $playerID = intval($player);
-    if (GlobalEffectCount(intval($player), 'SWU_FRIENDLY_HEROISM_DEFEATED') <= 0) {
+    if (SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_HEROISM_DEFEATED') <= 0) {
         SWUAfterAction($player);   // soft pass: the leader stays exhausted, nothing else happens
         return;
     }

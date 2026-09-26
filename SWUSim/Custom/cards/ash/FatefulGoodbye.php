@@ -5,8 +5,8 @@
 
 $whenPlayedAbilities["ASH_211:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);
-    $n = (GlobalEffectCount(intval($player), 'SWU_FRIENDLY_LEADER_LEFT_PLAY') > 0) ? 5
-       : ((GlobalEffectCount(intval($player), 'SWU_FRIENDLY_LEFT_PLAY') > 0) ? 3 : 0);
+    $n = (SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_LEADER_LEFT_PLAY') > 0) ? 5
+       : ((SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_LEFT_PLAY') > 0) ? 3 : 0);
     if ($n <= 0) return;   // nothing left play → no distribute
     $targets = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {

@@ -16,7 +16,8 @@ $customDQHandlers["SHD_106#0"] = function($player, $parts, $lastDecision) {
             $o = GetZoneObject($mz);
             if (SWUObjGone($o)) continue;
             $uid = intval($o->UniqueID ?? 0);
-            if ($uid > 0 && GlobalEffectCount(intval($o->Controller ?? 0), 'SWU_DEALT_BASEDMG_' . $uid) > 0) $uids[] = $uid;
+            // "attacked YOUR base" — read on the caster's seat, not the candidate's controller.
+            if ($uid > 0 && SWUUnitAttackedMyBaseThisPhase(intval($player), $o)) $uids[] = $uid;
         }
     }
     foreach ($uids as $uid) {
@@ -30,14 +31,17 @@ $customDQHandlers["SHD_106#0"] = function($player, $parts, $lastDecision) {
 // When Played (event) — migrated from OnPlayEvent.
 $whenPlayedAbilities["SHD_106:0"] = function($player, $mzID = '') {
 // Rule with Respect — "A friendly unit captures each enemy non-leader unit that
-                          // attacked your base this phase." (SWU_DEALT_BASEDMG_{uid} marks base-attackers.)
+                          // attacked your base this phase." SWU_MYBASE_ATTACKEDBY_{uid}, on YOUR seat,
+                          // marks base-attackers — see SWUUnitAttackedMyBaseThisPhase for why not
+                          // SWU_DEALT_BASEDMG_. The OFFER and the RESOLUTION below must use the same
+                          // predicate; they are two reads of one condition.
             global $playerID; $playerID = intval($player);
             $anyAttacker = false;
             foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
                 foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
                     $o = GetZoneObject($mz);
                     if (SWUObjGone($o)) continue;
-                    if (GlobalEffectCount(intval($o->Controller ?? 0), 'SWU_DEALT_BASEDMG_' . intval($o->UniqueID ?? 0)) > 0) { $anyAttacker = true; break 2; }
+                    if (SWUUnitAttackedMyBaseThisPhase(intval($player), $o)) { $anyAttacker = true; break 2; }
                 }
             }
             if (!$anyAttacker) return;

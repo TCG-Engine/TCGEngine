@@ -7,7 +7,9 @@
 // phase. When Defeated: if he had 7 or more power, return him to his owner's hand.
 $whenPlayedAbilities["SEC_035:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    $n = GlobalEffectCount(intval($player), 'SWU_ENEMY_DEFEATED');
+    // "for EACH enemy unit that was defeated this phase" — existential AND a count, so it must span
+    // every opponent. A seat-scoped read gave the wrong NUMBER of Experience tokens, not just a wrong gate.
+    $n = SWUEnemyUnitsDefeatedThisPhase(intval($player));
     for ($i = 0; $i < $n; $i++) DoGiveExperienceToken(intval($player), $mzID);
 };
 

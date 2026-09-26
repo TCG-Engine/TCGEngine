@@ -130,6 +130,111 @@ if (!function_exists('SWUUnitAttackedThisPhase')) {
         return GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_UNIT_ATTACKED_' . intval($obj->UniqueID ?? 0)) > 0;
     }
 }
+// ⚠ ANY-SEAT sibling, for text that asks "did this unit attack" about a unit on ANOTHER seat's board:
+// SOR_245 Medal Ceremony ("up to 3 REBEL units that attacked this phase" — no "friendly", so the pool
+// spans the table). Two things make the controller-scoped read above wrong there:
+//   1. the pool reaches seats you are not, and at 3+ seats a hardcoded "seat 1 or seat 2" read misses
+//      every far-seat attacker outright (bug report, local game 1310532: a seat-3 caster whose own
+//      Rebels had attacked got "had no effect");
+//   2. a unit whose CONTROL changed after it attacked still "attacked this phase", but its flag stayed
+//      on the seat that controlled it AT THE TIME — so keying on the current controller loses it.
+// Scanning every seat is correct for both, and UniqueIDs are globally unique so there is no collision.
+// Prefer SWUUnitAttackedThisPhase for self-scoped text ("a unit YOU control that attacked").
+if (!function_exists('SWUUnitAttackedThisPhaseAnySeat')) {
+    function SWUUnitAttackedThisPhaseAnySeat($obj): bool {
+        if ($obj === null) return false;
+        $uid = intval($obj->UniqueID ?? 0);
+        if ($uid <= 0) return false;
+        for ($p = 1; $p <= SeatCountForGame(); $p++) {
+            if (GlobalEffectCount($p, 'SWU_ATTACKED_' . $uid) > 0) return true;
+        }
+        return false;
+    }
+}
+
+// ─── "an enemy unit was defeated this phase" — EXISTENTIAL, across every opponent ─────────────
+// Counts enemy units defeated this phase from $player's seat, by summing each OPPONENT's own
+// SWU_FRIENDLY_DEFEATED. That is the flag to read, NOT the reader's SWU_ENEMY_DEFEATED, for two
+// independent reasons — each of which alone makes the direct read wrong:
+//
+//   1. SWU_ENEMY_DEFEATED is stamped on the DEFEATING seat (CombatLogic 3515/3545/4430), so at 3+
+//      seats a defeat between two OTHER seats is invisible to you, although both units are your
+//      enemies. Two seats cannot show this: there, the defeater is the only other seat.
+//   2. Its two remaining sites (CombatLogic 811/848) are guarded by `if ($owner !== $player)`, so a
+//      player defeating their OWN unit — Exploit, a self-sacrifice, any "defeat a unit you control"
+//      cost — stamps it on NOBODY. That one bites at TWO seats.
+//
+// SWU_FRIENDLY_DEFEATED, by contrast, is stamped UNCONDITIONALLY on the defeated unit's CONTROLLER at
+// all nine defeat sites, so summing it over OpponentsOf() is both complete and 1:1 with unit defeats.
+// Controller is also the right key where the two disagree: a unit you STOLE and then defeated was
+// yours when it died, and the old Owner-based guard counted it as an enemy defeat for you.
+//
+// OpponentsOf() is team-aware, so a TEAMMATE's defeated unit correctly does NOT count as an enemy's.
+//
+// ⚠ Use this ONLY for text that says "an enemy unit was defeated". Text that says "if YOU'VE defeated
+// an enemy unit" (SHD_182 Bravado) is actor-scoped and must keep reading SWU_ENEMY_DEFEATED.
+if (!function_exists('SWUEnemyUnitsDefeatedThisPhase')) {
+    function SWUEnemyUnitsDefeatedThisPhase(int $player): int {
+        $n = 0;
+        foreach (OpponentsOf($player) as $o) $n += GlobalEffectCount($o, 'SWU_FRIENDLY_DEFEATED');
+        return $n;
+    }
+}
+
+// UNQUALIFIED sibling: "the number of units that were defeated this phase" with no friendly/enemy
+// qualifier at all (TWI_188 Wartime Profiteering). Every seat's units count, INCLUDING a teammate's —
+// which is why this sums seats directly instead of going through OpponentsOf(). Same flag and the same
+// 1:1 guarantee as SWUEnemyUnitsDefeatedThisPhase above.
+if (!function_exists('SWUUnitsDefeatedThisPhase')) {
+    function SWUUnitsDefeatedThisPhase(): int {
+        $n = 0;
+        for ($p = 1; $p <= SeatCountForGame(); $p++) $n += GlobalEffectCount($p, 'SWU_FRIENDLY_DEFEATED');
+        return $n;
+    }
+}
+
+// "…that attacked YOUR base this phase" (SHD_088 Ephant Mon, SHD_106 Rule with Respect, HMW_078
+// Qui-Gon). Read against the READER's OWN seat, because SWU_MYBASE_ATTACKEDBY_{uid} is stamped on the
+// ATTACKED BASE'S OWNER — "your base" IS the namespace, so this is correct at any seat count and cannot
+// be lost when the attacker later changes control.
+//
+// ⚠ NOT SWU_DEALT_BASEDMG_{uid}, which these two used to read. That flag answers only "this unit damaged
+// A base", with no owner attached, so at 3+ seats a unit that hit a THIRD player's base qualified as
+// having attacked yours. It is also stamped only inside `if ($attackPower > 0)`, so a 0-power attacker
+// — or one whose damage was prevented — did not register although it plainly attacked. CombatLogic's
+// Overwhelm site already documents the distinction: combat damage splashed onto a base is NOT an attack
+// on that base, and deliberately skips this flag.
+if (!function_exists('SWUUnitAttackedMyBaseThisPhase')) {
+    function SWUUnitAttackedMyBaseThisPhase(int $player, $obj): bool {
+        if ($obj === null) return false;
+        $uid = intval($obj->UniqueID ?? 0);
+        return $uid > 0 && GlobalEffectCount($player, 'SWU_MYBASE_ATTACKEDBY_' . $uid) > 0;
+    }
+}
+
+// ─── "a FRIENDLY X happened this phase" — spans YOU AND YOUR TEAMMATE ────────────────────────
+// Owner ruling, 2026-09-26: "friendly" means the same thing in a phase-history condition as it does in
+// a target pool (spec §2) — a teammate's unit is friendly, you simply do not CONTROL it. The pool half
+// was converted in the Phase 3 friendly sweep; this is the flag half.
+//
+// Every flag in this family (SWU_FRIENDLY_DEFEATED / _LEFT_PLAY / _LEADER_LEFT_PLAY /
+// _HEROISM_DEFEATED / _UPGRADE_DEFEATED / _ATTACKED, SWU_REBEL_DEFEATED, SWU_IMPERIAL_DEFEATED,
+// SWU_ATTACKER_DEFEATED) is stamped on the CONTROLLER of the unit it happened to, so a teammate's event
+// lands on the teammate's seat and a self-only read cannot see it.
+//
+// ⚠ SWUTeammatesOf() returns [] outside a team game, so this is BYTE-IDENTICAL to the old self-only read
+// in Premier and in plain 4-player Twin Suns — where seat 3 is an ENEMY and must NOT count. That is what
+// the paired non-team CONTROL in Tests/Cases/teamsuns/FriendlyPhaseFlagsSpanTheTeam.md pins.
+//
+// ⚠ Do NOT use this for text that says "an ENEMY unit" (use SWUEnemyUnitsDefeatedThisPhase) or for
+// UNQUALIFIED text (use SWUUnitsDefeatedThisPhase) — a teammate belongs to neither of those sets.
+if (!function_exists('SWUTeamFlagCount')) {
+    function SWUTeamFlagCount(int $player, string $flag): int {
+        $n = GlobalEffectCount($player, $flag);
+        foreach (SWUTeammatesOf($player) as $mate) $n += GlobalEffectCount($mate, $flag);
+        return $n;
+    }
+}
 
 // ─── THE friendly / controlled split (Team Suns) ─────────────────────────────
 // These two are the API. Card code should call one of them rather than naming a zone spec, so that

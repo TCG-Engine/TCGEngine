@@ -2737,7 +2737,6 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         //     that is what `seatedEver.length <= 2` protects. Only a game that SEATED 3+ keeps the chrome.
         if (seats.length <= 1) return [];
         if (seats.length <= 2 && seatedEver.length <= 2) return [];
-        var opps = seats.filter(function (s) { return s !== me; });
         // A DEFEATED SEAT KEEPS ITS PANEL (owner ruling 2026-09-25): "keep the players' home panels up but
         // with their units disappeared and then their leaders and base greyed out. people like this view
         // already." So the strip tiles every seat that was ever SEATED, not just the live ones, and each
@@ -2748,8 +2747,33 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         // ⚠ Fall back to the live order when SeatOrderData is missing (games older than Twin Suns ship
         // neither field), or a 3+ seat game would suddenly tile nothing.
         var seatedSrc = seatedEver.length ? seatedEver : order;
-        var tiles = seatedSrc.split('').map(function (c) { return parseInt(c, 10); })
-                             .filter(function (s) { return s !== me; });
+        var seatedList = seatedSrc.split('').map(function (c) { return parseInt(c, 10); });
+
+        // OPPONENT ORDER IS RELATIVE TO THE VIEWER (owner request 2026-09-26). Both lists used to be
+        // plain ascending seat order with yourself filtered out, so P2 read "P1 P3 P4" — a sequence with
+        // a hole in it that tells you nothing about the table. They now START AT THE SEAT TO YOUR RIGHT
+        // and wrap:  P1 → P2 P3 P4 · P2 → P3 P4 P1 · P3 → P4 P1 P2 · P4 → P1 P2 P3.
+        // Reading the strip left to right is then the same walk as "the player to your right" (the
+        // adjacency TS26_80 Reveal Intentions and friends are worded in), and the last tile is the seat
+        // that comes back round to you.
+        // ⚠ ONE ranking drives BOTH lists on purpose. `tiles` orders the strip and the matchup carousel;
+        // `opps[0]` is the home view's oppSeat, i.e. the one opponent whose zones resolve as `their…`.
+        // Rotating the strip alone would leave P2 looking at a strip led by P3 while the board still
+        // treated P1 as `their` — a pairing every consumer here assumes is the same seat.
+        // ⚠ The anchor is the SEATED order, not the live one, so an ELIMINATED viewer (still watching,
+        // and absent from `seats`) keeps a stable rotation instead of silently falling back to ascending.
+        // A genuine SPECTATOR is not in `seatedList` at all: rank() then returns the seat number and the
+        // old ascending order is preserved for them, which is the only sensible reading with no "you".
+        var myIdx = seatedList.indexOf(me);
+        var rank = function (s) {
+            var i = seatedList.indexOf(s);
+            if (i === -1 || myIdx === -1) return s;
+            return (i - myIdx + seatedList.length) % seatedList.length;
+        };
+        var byRight = function (a, b) { return rank(a) - rank(b); };
+
+        var opps  = seats.filter(function (s) { return s !== me; }).sort(byRight);
+        var tiles = seatedList.filter(function (s) { return s !== me; }).sort(byRight);
         var isDead = function (s) { return seats.indexOf(s) === -1; };
         var views = [{ viewSeat: me, oppSeat: opps[0], mode: 'home', opps: opps, tiles: tiles, label: 'Home' }];
         tiles.forEach(function (o) {

@@ -114,14 +114,17 @@ for (const [engine, driver] of Object.entries({ chromium, firefox, webkit })) {
     ok(engine, 'the view list SURVIVES the narrowing (was [] before 2026-09-25)', r.modes.length > 0, r.modes);
     ok(engine, 'a HOME view is present', r.modes.includes('home'), r.modes);
     // One matchup PER SEATED OPPONENT, dead included — a defeated seat keeps its Zoom In (owner choice
-    // 2026-09-25), so a 3-seat game viewed by a survivor has Home + 'vs P1' (dead) + 'vs P3' (live).
-    ok(engine, 'a matchup per SEATED opponent, dead included',
-       JSON.stringify(r.labels) === JSON.stringify(['Home', 'vs P1', 'vs P3']), r.labels);
+    // 2026-09-25), so a 3-seat game viewed by a survivor has Home + a matchup for P1 (dead) and P3 (live).
+    // ⚠ ORDER IS VIEWER-RELATIVE since 2026-09-26: the list starts at the seat to the viewer's RIGHT and
+    // wraps, so seat 2 reads P3 then P1 — not ascending P1, P3. The SET is unchanged; only the walk is.
+    ok(engine, 'a matchup per SEATED opponent, dead included, starting to the viewer\'s right',
+       JSON.stringify(r.labels) === JSON.stringify(['Home', 'vs P3', 'vs P1']), r.labels);
     ok(engine, 'opps stays LIVE-ONLY (it also supplies the home view oppSeat)',
        JSON.stringify(r.homeOpps) === JSON.stringify([3]), r.homeOpps);
 
     // ── the DEFEATED seat keeps its panel (owner ruling 2026-09-25) ────────────────────────────────
-    ok(engine, 'tiles cover EVERY seated opponent, dead included', JSON.stringify(r.homeTiles) === JSON.stringify([1, 3]), r.homeTiles);
+    // Viewer-relative order (2026-09-26): seat 2's walk is P3 then P1, not ascending.
+    ok(engine, 'tiles cover EVERY seated opponent, dead included', JSON.stringify(r.homeTiles) === JSON.stringify([3, 1]), r.homeTiles);
     ok(engine, 'the ELIMINATED seat 1 IS still tiled', r.stripSeats.includes('1'), r.stripSeats);
     ok(engine, 'the live opponent IS tiled', r.stripSeats.includes('3'), r.stripSeats);
     const dead = r.strips.find(t => t.seat === '1') || {};
@@ -166,8 +169,10 @@ for (const [engine, driver] of Object.entries({ chromium, firefox, webkit })) {
          e.eliminated === true && e.spectating === true, e);
       ok(engine, 'ELIMINATED VIEWER: their own board is greyed', e.selfGrey === true, e);
       ok(engine, 'ELIMINATED VIEWER: the badge says why, not "viewing P1 vs P2"', /eliminated/i.test(e.badge), e.badge);
-      ok(engine, 'ELIMINATED VIEWER: sees the two live seats plus the other dead one',
-         JSON.stringify(e.tiles) === JSON.stringify(['1', '2', '4:DEAD']), e.tiles);
+      // Viewer-relative order (2026-09-26): an eliminated viewer keeps a stable rotation because the
+      // anchor is the SEATED order, not the live one — seat 3 reads P4, P1, P2.
+      ok(engine, 'ELIMINATED VIEWER: sees the two live seats plus the other dead one, from their right',
+         JSON.stringify(e.tiles) === JSON.stringify(['4:DEAD', '1', '2']), e.tiles);
     }
 
     // ── control: a genuine 1v1 must still have NO views ───────────────────────────────────────────

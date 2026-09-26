@@ -116,3 +116,62 @@ WithP1Hand: SOR_220
 P1GROUNDARENACOUNT:0
 P1HANDCOUNT:1
 P1DISCARDCOUNT:1
+
+---
+
+# EnemyDefeatedTwoOfItsOwn_TwoExperience
+#// SEC_035 — "for EACH enemy unit that was defeated this phase". This is a COUNT, so a seat-scoped read
+#// gives the wrong NUMBER of Experience tokens, not merely a wrong yes/no.
+#// P2 plays TWI_037 Droideka Security and pays its Exploit 2 by defeating BOTH of their own Battle Droid
+#// tokens. Two enemy units were defeated this phase, so Sion enters with 2 Experience → 7/7.
+#//
+#// ⚠ SWU_ENEMY_DEFEATED is guarded by `$owner !== $player` (CombatLogic 811/848): a player defeating
+#// their own units stamps it on NOBODY, so the old read counted 0. WhenPlayed_ExpPerEnemyDefeated above
+#// defeats the enemy through P1's own attack and therefore cannot observe this. Two seats suffice.
+
+## GIVEN
+CommonSetup: bbk/bbk
+WithActivePlayer: 2
+WithP1Resources: 6
+WithP1Hand: SEC_035
+WithP2GroundArena: TWI_T01:1:0
+WithP2GroundArena: TWI_T01:1:0
+WithP2Hand: TWI_037
+WithP2Resources: 8
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0&myGroundArena-1
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1GROUNDARENAUNIT:0:POWER:7
+
+---
+
+# ThreeSeat_DefeatBetweenTwoOtherSeats_CountsForExp
+#// The multi-seat half. P2 attacks and defeats P3's unit; P1 takes no part. That unit is P1's enemy, so
+#// Sion enters with 1 Experience → 6/6.
+#// ⚠ SWU_ENEMY_DEFEATED is stamped on the DEFEATING seat (CombatLogic 3545), so at 3+ seats a defeat
+#// between two other seats was invisible. Two seats cannot show this — the defeater is the only other seat.
+
+## GIVEN
+CommonSetup3P: bbk/rrk/bbk
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1Resources: 6
+WithP1Hand: SEC_035
+WithP2GroundArena: SOR_039:1:0
+WithP3GroundArena: SOR_128:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:P3G0
+- P3>Pass
+- P1>PlayHand:0
+
+## EXPECT
+P3GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:POWER:6

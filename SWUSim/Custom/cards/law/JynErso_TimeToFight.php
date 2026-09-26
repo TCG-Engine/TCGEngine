@@ -14,7 +14,7 @@ $leaderActionResourceCosts["LAW_005"] = 1;
 
 $onAttackAbilities["LAW_005:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    if (GlobalEffectCount(intval($player), 'SWU_REBEL_DEFEATED') <= 0) return;
+    if (SWUTeamFlagCount(intval($player), 'SWU_REBEL_DEFEATED') <= 0) return;
     if (count(GetDeck(intval($player))) === 0) return;
     DoTopDeckSearch(intval($player), 3, fn($c) => true, 1, 'cards');
 };
@@ -24,7 +24,7 @@ $onAttackAbilities["LAW_005:0"] = function($player, $mzID) {
 // phase, search the top 3 of your deck for a card and draw it.
 function JynErsoTimetoFightSearch(int $player): void {
     global $playerID; $playerID = $player;
-    if (GlobalEffectCount($player, 'SWU_REBEL_DEFEATED') <= 0) { SWUAfterAction($player); return; }
+    if (SWUTeamFlagCount(intval($player), 'SWU_REBEL_DEFEATED') <= 0) { SWUAfterAction($player); return; }
     if (count(GetDeck($player)) === 0) { SWUAfterAction($player); return; }
     DoTopDeckSearch($player, 3, fn($c) => true, 1, 'cards');
     SWUQueueAfterAction($player);

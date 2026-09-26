@@ -20,7 +20,10 @@ $leaderAbilities["LOF_005"] = function(int $player): void {
     foreach (SWUFriendlyUnits(null, AnyUnitFilter) as $mz) {
         $o = GetZoneObject($mz);
         if (SWUObjGone($o)) continue;
-        if (GlobalEffectCount($player, 'SWU_ATTACKED_' . intval($o->UniqueID ?? -1)) > 0) $attacked[] = $mz;
+        // ⚠ The POOL above was widened to the team but this flag read was not, so a teammate's
+        // attacker was OFFERED-then-filtered-out: SWU_ATTACKED_{uid} lives on the ATTACKER'S
+        // controller's seat, never the caster's. Any-seat read, which also survives a control change.
+        if (SWUUnitAttackedThisPhaseAnySeat($o)) $attacked[] = $mz;
     }
     if (empty($attacked)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $attacked, "Choose_a_friendly_unit_that_attacked_this_phase", "LOF_005#0");

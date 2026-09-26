@@ -263,6 +263,8 @@ var SWU_EFFECT_STACK_TRIGGER_LABELS = {
     // Unit Played
     'ASH_060': 'Unit Played', 'ASH_102': 'Unit Played', 'HMW_115': 'Unit Played',
     'HMW_124': 'Unit Played', 'LOF_087': 'Unit Played', 'SHD_014': 'Unit Played',
+    'HMW_216': 'Unit Played',   // Insurgent Camp (Fortify): "When you play a unit with 3 or less power"
+
     'SHD_255': 'Unit Played', 'SOR_109': 'Unit Played', 'TWI_018': 'Unit Played',
     'TWI_080': 'Unit Played', 'TWI_101': 'Unit Played',
     // Base Damaged
@@ -282,6 +284,10 @@ var SWU_EFFECT_STACK_TRIGGER_LABELS = {
     'LAW_119': 'Friendly Defeated',
     // Card Discarded
     'LAW_176': 'Card Discarded', 'SHD_163': 'Card Discarded',
+    // Friendly Damaged
+    'SEC_002': 'Friendly Damaged',   // deployed Jabba: "When another friendly unit is dealt damage and
+                                     // survives". ⚠ The stack entry's CardID is the DAMAGED UNIT, not
+                                     // Jabba, so the pill is the only thing naming the window.
     // Damages a Unit
     'JTL_120': 'Damages a Unit', 'SOR_085': 'Damages a Unit',
     // Event Played

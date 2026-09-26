@@ -967,6 +967,25 @@ class SchemaTestRunner {
     // A target choice stores its candidates in Param as an '&'-joined mzID list; MZMULTICHOOSE prefixes
     // it with "min|max|" (e.g. "1|2|theirGroundArena-0&theirSpaceArena-1"). Non-target decisions
     // (OPTIONCHOOSE labels, YESNO, TOPDECKSEARCH) return [] — SELECTABLE asserts don't apply to them.
+    // ── Game-log entry fields ────────────────────────────────────────────────
+    // A log entry is `type|visibility|@<microtime>|text`, and the TEXT ITSELF CONTAINS PIPES
+    // (GameLogCardRef emits `[[id|title]]`), so it can only be read with the engine's own parser.
+    // The four LOG assertions used to do `explode('|', $entry, 3)` and take field 2 as the text, which
+    // was right until the timestamp was inserted (a54a2ef5, 2026-09-25) and then silently returned
+    // "@1790430211.6202|P1's …" as the text. Substring needles kept matching, so nothing went red —
+    // only the failure messages gave it away — but any needle meant to sit at the START of a line was
+    // quietly unmatchable, and that is exactly what the two WIN/undo reds needed to express.
+    // ⚠ Guarded by function_exists so the framework still loads if it is ever used without the engine.
+    private static function _logField(string $entry, string $field): string {
+        if (function_exists('SWUParseGameLogEntry')) {
+            $p = SWUParseGameLogEntry($entry);
+            return (string)($p[$field] ?? '');
+        }
+        $p = explode('|', $entry, 3);                     // legacy 3-field fallback
+        return (string)($field === 'visibility' ? ($p[1] ?? 'ALL') : ($p[2] ?? ''));
+    }
+    private static function _logText(string $entry): string { return self::_logField($entry, 'text'); }
+
     private static function _selectableTargets(object $pending): array {
         $type  = strtoupper((string)($pending->Type ?? ''));
         // MZSPLITASSIGN ("total|target[:cap]&…|MODE|STEP"): its assignable targets are the pool. Added
@@ -2146,9 +2165,7 @@ class SchemaTestRunner {
                 $entries = $rawLog !== '' ? explode('<NL>', $rawLog) : [];
                 $found   = false;
                 foreach ($entries as $entry) {
-                    $parts = explode('|', $entry, 3);
-                    $text  = $parts[2] ?? '';
-                    if (str_contains($text, $needle)) { $found = true; break; }
+                    if (str_contains(self::_logText($entry), $needle)) { $found = true; break; }
                 }
                 if (!$found)
                     $failures[] = "{$line}: no log entry whose text contains '{$needle}'";
@@ -2163,8 +2180,7 @@ class SchemaTestRunner {
                 $entries = $rawLog !== '' ? explode('<NL>', $rawLog) : [];
                 $n = 0;
                 foreach ($entries as $entry) {
-                    $parts = explode('|', $entry, 3);
-                    if (str_contains($parts[2] ?? '', $needle)) $n++;
+                    if (str_contains(self::_logText($entry), $needle)) $n++;
                 }
                 if ($n !== $want)
                     $failures[] = "{$line}: expected {$want} log entr" . ($want === 1 ? 'y' : 'ies') . " containing '{$needle}', found {$n}";
@@ -2179,10 +2195,9 @@ class SchemaTestRunner {
                 $entries = $rawLog !== '' ? explode('<NL>', $rawLog) : [];
                 $sees = false;
                 foreach ($entries as $entry) {
-                    $parts = explode('|', $entry, 3);
-                    $vis   = $parts[1] ?? 'ALL';
-                    $ok    = $vis === 'ALL' || in_array($seat, array_map('trim', explode(',', $vis)), true);
-                    if ($ok && str_contains($parts[2] ?? '', $needle)) { $sees = true; break; }
+                    $vis = self::_logField($entry, 'visibility');
+                    $ok  = $vis === 'ALL' || in_array($seat, array_map('trim', explode(',', $vis)), true);
+                    if ($ok && str_contains(self::_logText($entry), $needle)) { $sees = true; break; }
                 }
                 if ($m[2] === 'SEES' && !$sees)
                     $failures[] = "{$line}: {$seat} cannot see any log entry containing '{$needle}'";
@@ -2194,8 +2209,7 @@ class SchemaTestRunner {
                 $rawLog  = $g->state->gameLog();
                 $entries = $rawLog !== '' ? array_filter(explode('<NL>', $rawLog)) : [];
                 $last    = end($entries);
-                $parts   = $last !== false ? explode('|', $last, 3) : [];
-                $text    = $parts[2] ?? '';
+                $text    = $last !== false ? self::_logText($last) : '';
                 if (!str_contains($text, $needle))
                     $failures[] = "{$line}: last log entry text '{$text}' does not contain '{$needle}'";
 

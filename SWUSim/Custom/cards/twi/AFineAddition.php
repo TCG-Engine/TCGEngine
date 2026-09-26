@@ -55,7 +55,9 @@ $whenPlayedAbilities["TWI_040:0"] = function($player, $mzID = '') {
                           // from your hand or from any player's discard pile, ignoring its aspect penalty."
             global $playerID; $playerID = intval($player);
             // Condition: you defeated an enemy unit this phase (SWU_ENEMY_DEFEATED, cleared at RGS).
-            if (GlobalEffectCount(intval($player), 'SWU_ENEMY_DEFEATED') <= 0) return; // condition unmet → fizzle
+            // "If AN ENEMY UNIT was defeated this phase" — existential: ANY enemy unit, defeated by
+            // anyone (including its own controller), not "you defeated one". See the helper's note.
+            if (SWUEnemyUnitsDefeatedThisPhase(intval($player)) <= 0) return; // condition unmet → fizzle
             // A Fine Addition is still a removed-but-uncompacted entry in its caster's hand right now, so
             // compact first — else a hand candidate's myHand-N index is offset by the stale slot (LOF_150/
             // SOR_167 gotcha) and the chosen mzID resolves to the wrong card.

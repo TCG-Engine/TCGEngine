@@ -8,7 +8,7 @@ $whenPlayedAbilities["LOF_263:0"] = function($player, $mzID = '') {
 // Last Words — "If a friendly unit was defeated this phase, give 2 Experience
                           // tokens to a unit."
             global $playerID; $playerID = intval($player);
-            if (GlobalEffectCount(intval($player), 'SWU_FRIENDLY_DEFEATED') <= 0) return;
+            if (SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_DEFEATED') <= 0) return;
             GiveTokenUpgrade(intval($player), '', [
                 'friendlyOnly' => false, 'amount' => 2,
                 'prompt' => "Give_2_Experience_tokens_to_a_unit",

@@ -879,7 +879,8 @@ function HasConditionalKeyword_Saboteur($obj) {
     // link by source UID and therefore sees a BD-1 ability COPIED onto another unit (TS26_34 Fives).
     if (_SWULof191BuffCount($obj) > 0) return true;
     // TWI_143 Jyn Erso — "While an enemy unit has been defeated this phase, this unit gains Saboteur."
-    if (($obj->CardID ?? '') === 'TWI_143' && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_ENEMY_DEFEATED') > 0) return true;
+    if (($obj->CardID ?? '') === 'TWI_143'
+        && SWUEnemyUnitsDefeatedThisPhase(intval($obj->Controller ?? 0)) > 0) return true;
     // SHD_190 Zuckuss: each friendly unit named 4-LOM gains Saboteur.
     if (SWUObjectTitle($obj) === '4-LOM'
         && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'SHD_190') > 0) return true;

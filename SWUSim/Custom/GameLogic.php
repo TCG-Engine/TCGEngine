@@ -598,8 +598,10 @@ function ObjectCurrentPower($obj) {
         && PlayerHasUnitWithTraitInPlay($controller, 'Trooper', $obj->UniqueID ?? null)) $base += 1;
     // TWI_143 Jyn Erso — "While an enemy unit has been defeated this phase, this unit gets +1/+0."
     $__n = _SWUStatIdentityCount($obj, 'TWI_143');
+    // "While AN ENEMY UNIT has been defeated" — existential, so read every opponent, not this seat's
+    // own SWU_ENEMY_DEFEATED. See SWUEnemyUnitsDefeatedThisPhase.
     if (!$lost && $__n > 0 && $controller > 0
-        && GlobalEffectCount($controller, 'SWU_ENEMY_DEFEATED') > 0) $base += 1;
+        && SWUEnemyUnitsDefeatedThisPhase($controller) > 0) $base += 1;
     // TWI_240 332nd Stalwart — "Coordinate - This unit gets +1/+1." (power half).
     $__n = _SWUStatIdentityCount($obj, 'TWI_240');
     if (!$lost && $__n > 0 && $controller > 0 && IsCoordinateActive($controller)) $base += $__n * (1);
@@ -3260,7 +3262,7 @@ $playCostModifiers = [];
 // file, because $playCostModifiers is initialized just above — AFTER cards/_loader.php runs — so a
 // registration from a per-card file would be wiped. Same reason LAW_179 / TS26_71 sit here.
 $playCostModifiers["IC27_022"] = function($player, $subjectObj) {
-    return GlobalEffectCount(intval($player), 'SWU_FRIENDLY_DEFEATED') > 0 ? -2 : 0;
+    return SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_DEFEATED') > 0 ? -2 : 0;
 };
 
 // HMW_240 Sandstorm: "While you control a Tatooine base, this event costs 1 resource less to play."
@@ -3408,7 +3410,7 @@ $playCostModifiers["LAW_110"] = function($player, $subjectObj) {
 
 // SEC_131 Let's Talk: costs 3 less if a friendly unit left play this phase.
 $playCostModifiers["SEC_131"] = function($player, $subjectObj) {
-    return GlobalEffectCount($player, 'SWU_FRIENDLY_LEFT_PLAY') > 0 ? -3 : 0;
+    return SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_LEFT_PLAY') > 0 ? -3 : 0;
 };
 
 // SOR_248 Volunteer Soldier: costs 1 less if you control a Trooper unit.
@@ -18579,7 +18581,7 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     // [Exhaust, defeat a resource] cost changes game state, so usable even with no smugglable card.
 
     // TWI_002 Nute Gunray: only if 2 or more friendly units were defeated this phase.
-    if ($cardID === 'TWI_002' && GlobalEffectCount($player, 'SWU_FRIENDLY_DEFEATED') < 2) return false;
+    if ($cardID === 'TWI_002' && SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_DEFEATED') < 2) return false;
     // SHD_011 Kylo Ren — Action [Exhaust, discard a card from your hand]. Same mandatory discard cost as
     // HMW_010/LAW_011: an empty hand makes the action unavailable, never a soft pass.
     if ($cardID === 'SHD_011') {
@@ -18647,9 +18649,9 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     // TS26_07 Asajj Ventress (front): "Attack with a token unit" — effect target only. NOT gated
     // (CR 6.4.587.c): the [Exhaust] cost changes game state, so usable even with no ready token unit.
     // TWI_006 Wat Tambor: only if a friendly unit was defeated this phase.
-    if ($cardID === 'TWI_006' && GlobalEffectCount($player, 'SWU_FRIENDLY_DEFEATED') <= 0) return false;
+    if ($cardID === 'TWI_006' && SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_DEFEATED') <= 0) return false;
     // TWI_007 Captain Rex: only if a friendly unit attacked this phase.
-    if ($cardID === 'TWI_007' && GlobalEffectCount($player, 'SWU_FRIENDLY_ATTACKED') <= 0) return false;
+    if ($cardID === 'TWI_007' && SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_ATTACKED') <= 0) return false;
     // TWI_008 Padmé Amidala: Coordinate — only while you control 3 or more units.
     if ($cardID === 'TWI_008' && !IsCoordinateActive($player)) return false;
     // TWI_011 Ahsoka Tano: Coordinate — only while you control 3 or more units.
@@ -18663,7 +18665,7 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     if ($cardID === 'TWI_010' && GlobalEffectCount($player, 'SWU_DREW_PHASE') <= 0) return false;
     // TWI_004 Yoda: only if a unit left play this phase (activation condition) — kept.
     if ($cardID === 'TWI_004'
-        && GlobalEffectCount($player, 'SWU_FRIENDLY_LEFT_PLAY') <= 0
+        && SWUTeamFlagCount(intval($player), 'SWU_FRIENDLY_LEFT_PLAY') <= 0
         && GlobalEffectCount($player, 'SWU_ENEMY_LEFT_PLAY') <= 0) return false;
 
     // IC27_001 Darth Vader (No One to Stop Us) — same shape as SOR_006 below: the front side's
@@ -20452,8 +20454,9 @@ function SWUDiscardModifierGrantsTo(string $mod, int $player): bool {
 // was defeated this phase (the SWU_ENEMY_DEFEATED flag, cleared at RegroupPhaseStart).
 function _SWUEffectiveDiscardModifier(int $player, object $entry): string {
     $mod = $entry->Modifier ?? '';
+    // "If AN ENEMY UNIT was defeated this phase" — existential across every opponent.
     if ($mod === '' && ($entry->CardID ?? '') === 'SHD_038'
-        && GlobalEffectCount($player, 'SWU_ENEMY_DEFEATED') > 0) {
+        && SWUEnemyUnitsDefeatedThisPhase($player) > 0) {
         return 'TPP';
     }
     return $mod;

@@ -68,6 +68,35 @@ P1SELECTABLEEXACT:theirGroundArena-0&theirGroundArena-1&theirGroundArena-2
 
 ---
 
+# DefeatNone_PassToken_NothingHappens
+#// ⚠ 'PASS' AND '-' ARE DIFFERENT DECLINES. '-' is the MZMAYCHOOSE token; a min-0 MZMULTICHOOSE shows a
+#// real Pass button, and that submits the literal 'PASS'. Without `dontSkipOnPass: 1` on the CUSTOM
+#// continuation, a 'PASS' answer SKIPS the continuation entirely instead of running it and returning —
+#// so every decline section that answers only '-' exercises the path the live Pass button never takes.
+#// Same board and same expectations as DefeatNone_NothingHappens below; only the decline token differs.
+
+## GIVEN
+CommonSetup: yyk/yyk/{myResources:2}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: HMW_253
+WithP1GroundArena: [SOR_095:1:0 SEC_080:1:0]
+WithP2GroundArena: [SOR_046:1:0 SOR_095:1:0]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:PASS
+
+## EXPECT
+P1GROUNDARENACOUNT:2
+P2GROUNDARENAUNIT:0:READY
+P2GROUNDARENAUNIT:1:READY
+P1DISCARDCOUNT:1
+P1NODECISION
+NOEXTRAACTION
+
+---
+
 # DefeatNone_NothingHappens
 
 ## GIVEN

@@ -9,7 +9,7 @@
 // from your hand. It costs 1 resource less. (SWU_IMPERIAL_DEFEATED gate; ActivateCard with discount 1.)
 $leaderAbilities["ASH_008"] = function(int $player): void {
     global $playerID; $playerID = $player;
-    if (GlobalEffectCount($player, 'SWU_IMPERIAL_DEFEATED') <= 0) { SWUAfterAction($player); return; }
+    if (SWUTeamFlagCount(intval($player), 'SWU_IMPERIAL_DEFEATED') <= 0) { SWUAfterAction($player); return; }
     $handUnits = [];
     foreach (ZoneSearch("myHand", ["Unit", "Token Unit"]) as $mz) {
         $o = GetZoneObject($mz);

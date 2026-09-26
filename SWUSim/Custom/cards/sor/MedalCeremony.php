@@ -17,9 +17,11 @@ $whenPlayedAbilities["SOR_245:0"] = function($player, $mzID = '') {
 // Medal Ceremony — "Give an Experience token to each of up to 3 Rebel units
                           // that attacked this phase." NO "friendly" in the text: enemy Rebel attackers
                           // are legal targets too (candidate #6 fix, 2026-08-14). The SWU_ATTACKED_{uid}
-                          // flag is stamped on the ATTACKER'S CONTROLLER's seat, so read BOTH seats —
-                          // UIDs are globally unique, and a caster-seat-only read misses every enemy
-                          // attacker (and a control-change since the attack).
+                          // flag is stamped on the ATTACKER'S CONTROLLER's seat, so the read must span
+                          // EVERY seat — UIDs are globally unique. A caster-seat-only read misses every
+                          // enemy attacker (and a control-change since the attack), and the seats-1-and-2
+                          // read this replaced missed every seat-3/4 attacker at a Twin Suns table
+                          // (bug report, local game 1310532).
             global $playerID;
             $playerID = intval($player);
             $targets = [];
@@ -27,9 +29,7 @@ $whenPlayedAbilities["SOR_245:0"] = function($player, $mzID = '') {
                 $o = GetZoneObject($mz);
                 if (SWUObjGone($o)) continue;
                 if (!TraitContains($o, 'Rebel')) continue;
-                $uid = intval($o->UniqueID ?? 0);
-                if (GlobalEffectCount(1, 'SWU_ATTACKED_' . $uid) <= 0
-                    && GlobalEffectCount(2, 'SWU_ATTACKED_' . $uid) <= 0) continue;
+                if (!SWUUnitAttackedThisPhaseAnySeat($o)) continue;
                 $targets[] = $mz;
             }
             if (empty($targets)) return;  // no eligible Rebel attacker → fizzle

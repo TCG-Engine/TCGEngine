@@ -8,6 +8,6 @@ $whenPlayedAbilities["SEC_158:0"] = function($player, $mzID = '') {
 // Oppression Breeds Rebellion — if a friendly unit was defeated WHILE ATTACKING
                           // this phase, draw 3 cards.
             global $playerID; $playerID = intval($player);
-            if (GlobalEffectCount(intval($player), 'SWU_ATTACKER_DEFEATED') > 0) DoDrawCard(intval($player), 3);
+            if (SWUTeamFlagCount(intval($player), 'SWU_ATTACKER_DEFEATED') > 0) DoDrawCard(intval($player), 3);
             return;
 };

@@ -143,3 +143,37 @@ WithP2GroundArena: SOR_128:1:0
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:POWER:5
 P1RESAVAILABLE:4
+
+---
+
+# EnemyDefeatedItsOwnUnit_ConditionMet
+#// TWI_040 — "If AN ENEMY UNIT was defeated this phase" is EXISTENTIAL, not "if you defeated one".
+#// P2 defeats their own Battle Droid token as TWI_182's Exploit 1 cost; P1 never attacks. The condition
+#// is met, so P1's A Fine Addition plays SOR_120 from hand (aspect penalty ignored → cost 2).
+#//
+#// ⚠ Every other section here defeats the enemy via P1's own attack — the one path that stamps
+#// SWU_ENEMY_DEFEATED (it is guarded by `$owner !== $player`, CombatLogic 811/848). A self-defeat by
+#// the opponent stamps it on nobody, so none of them could observe this. Two seats suffice.
+
+## GIVEN
+CommonSetup: brk/yyk/{myResources:6;handCardIds:TWI_040}
+WithActivePlayer: 2
+WithP1Hand: SOR_120
+WithP1GroundArena: SOR_046:1:0
+WithP2GroundArena: TWI_T01:1:0
+WithP2Hand: TWI_182
+WithP2Resources: 6
+
+## WHEN
+- P2>PlayHand:0
+- P2>AnswerDecision:myGroundArena-0
+- P1>PlayHand:0
+- P1>AnswerDecision:myHand-0
+- P1>AnswerDecision:myGroundArena-0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P1HANDCOUNT:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
+P1GROUNDARENAUNIT:0:POWER:5
+P1RESAVAILABLE:4

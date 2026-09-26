@@ -19,3 +19,30 @@ WithP2GroundArena: SHD_095:1:0
 
 ## EXPECT
 P2GROUNDARENACOUNT:0
+
+---
+
+# ThreeSeat_AttackedAnotherSeatsBase_NotCaptured
+#// SHD_106 captures "each enemy non-leader unit that attacked YOUR base this phase". P2's SHD_095 attacks
+#// P3's base, not P1's, so P1's Rule with Respect must capture nothing and SHD_095 stays in play.
+#//
+#// ⚠ Same root cause as SHD_088: the pool read SWU_DEALT_BASEDMG_{uid}, which records "damaged A base"
+#// with no owner. Two seats cannot show it — there, the only base that is not yours is theirs.
+
+## GIVEN
+CommonSetup3P: ggw/ggk/ggk
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1Resources: 4
+WithP1GroundArena: SOR_046:1:0
+WithP1Hand: SHD_106
+WithP2GroundArena: SHD_095:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:P3B
+- P3>Pass
+- P1>PlayHand:0
+
+## EXPECT
+P2GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0

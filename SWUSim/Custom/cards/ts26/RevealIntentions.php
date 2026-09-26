@@ -19,9 +19,23 @@ if (!function_exists('_SWUTs26_80Ask')) {
             $seat  = intval(array_shift($remaining));
             $right = SWUSeatToTheRight($seat);
             $playerID = $seat;                       // pool is minted in the DECIDER's frame
-            $hand = [];
-            foreach (ZoneSearch("theirHand") as $mz) {
-                if (SWUMzOwner($mz, $seat) === $right) $hand[] = $mz;   // ONLY the right neighbour's
+            // ⚠ THE CARD SAYS "EACH PLAYER", NOT "EACH OPPONENT" (owner ruling 2026-09-26): the seat to
+            // your right takes part even when it is your PARTNER. But `their<Zone>` is the OPPONENT
+            // fan-out and EXCLUDES a teammate, so filtering it by owner finds NOTHING for a partner —
+            // the pool came back empty, the walk `continue`d, and that seat was SILENTLY SKIPPED.
+            // Reachable in an ordinary Team Suns game: the lobby seats Red/Blue/Red/Blue so every right
+            // neighbour starts as an opponent, but "right" is the next LIVE seat, so one elimination
+            // (seats 1234, seat 2 gone → seat 1's right is seat 3) puts a partner there.
+            // A teammate is addressed directly by seat, in the same p{n}<Zone>-{i} form the fan-out
+            // itself emits. Outside a team game SWUTeamOf returns the seat, so this is never taken and
+            // Premier / free-for-all Twin Suns keep the byte-identical `theirHand` path.
+            if ($right !== $seat && SWUTeamOf($right) === SWUTeamOf($seat)) {
+                $hand = ZoneSearch("p{$right}Hand");
+            } else {
+                $hand = [];
+                foreach (ZoneSearch("theirHand") as $mz) {
+                    if (SWUMzOwner($mz, $seat) === $right) $hand[] = $mz;   // ONLY the right neighbour's
+                }
             }
             if (empty($hand)) continue;              // that neighbour holds nothing
             SWUQueueChooseTarget($seat, $hand, "Discard_a_card_from_the_hand_of_the_player_to_your_right",

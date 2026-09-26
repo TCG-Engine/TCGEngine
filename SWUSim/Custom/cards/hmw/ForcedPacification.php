@@ -11,7 +11,12 @@ $whenPlayedAbilities["HMW_253:0"] = function($player, $mzID = '') {
     if (empty($friendly)) return;
     DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE", "0|" . count($friendly) . "|" . implode('&', $friendly), 1,
         tooltip: "Defeat_any_number_of_friendly_units");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "HMW_253#0", 1);
+    // ⚠ dontSkipOnPass: the MZMULTICHOOSE above has a LITERAL-ZERO lower bound ("any number" includes
+    // zero), so the client shows a real Pass button and submits 'PASS' — which SKIPS a plain CUSTOM
+    // instead of running it. Harmless for this handler, whose first line declines anyway, but the
+    // invariant is enforced repo-wide (DevTools/tests/dontskiponpass_zero_min_test.php) precisely so
+    // nobody has to re-derive "is it harmless here?" per card. See DefeatNone_PassToken_NothingHappens.
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "HMW_253#0", 1, dontSkipOnPass: 1);
 };
 
 $customDQHandlers["HMW_253#0"] = function($player, $parts, $lastDecision) {
