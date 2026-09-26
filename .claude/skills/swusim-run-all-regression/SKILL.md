@@ -31,7 +31,7 @@ in the final line — read it before diagnosing anything.
 |---|---|---|---|
 | **unit** (schema) | `SWUSim/Tests/Cases/**.md` | 2123 files / 10054 sections | CLI helper from `swusim-debug-game` |
 | **integration** | `DevTools/tdd-regression/*.php` | 121 | CLI or HTTP — see below |
-| **integration** | `SWUSim/DevTools/tests/*.php` | 137 (133 `*_test.php`) | CLI, exit codes; needs `-d apc.enable_cli=1` |
+| **integration** | `SWUSim/DevTools/tests/*.php` | 143 (138 `*_test.php`) | CLI, exit codes; needs `-d apc.enable_cli=1` |
 | **render** | `SharedUI/Render/Tests/RunRenderTests.php` | 1 | CLI, exit code |
 | *(not run)* | `SWUSim/Tests/Visual/*.md` | 59 | browser — needs a human |
 | *(not run)* | `Tests/Integration/` | — | AzukiSim + GrandArchiveSim only, no SWUSim |

@@ -635,18 +635,84 @@
     }
     #swuLogPanel { max-height: 34vh; overflow-y: auto; font-size: 12px; }
 
+    /* ── Game-log palette ────────────────────────────────────────────────────────
+       ⚠ A VERBATIM COPY of the :root block in GameLayout.php. This layout does NOT load that file, so
+       until 2026-09-26 none of these existed here: every log line fell back to the panel's inherited
+       near-white, which made the LOG louder than the CHAT and inverted the whole hierarchy of the
+       merged panel (owner, looking at the phone board: "the chat patterns did not carry over").
+       Values are pinned to the desktop board's by
+       SWUSim/DevTools/tests/log_panel_desktop_mobile_parity_test.php — change them in BOTH files. */
+    :root {
+        --swu-log-default:    rgba(255,255,255,0.78);
+        --swu-log-phase:      #9b59b6;
+        --swu-log-overwhelm:  #e05050;
+        --swu-log-reveal:     #f0c040;
+        --swu-log-disclose:   var(--swu-log-reveal); /* disclose IS a reveal — share its color */
+        --swu-log-ability:    var(--swu-log-default);
+        --swu-log-play:       var(--swu-log-default);
+        --swu-log-draw:       var(--swu-log-default);
+        --swu-log-discard:    var(--swu-log-default);
+        --swu-log-defeat:     var(--swu-log-default);
+        --swu-log-attack:     var(--swu-log-default);
+        --swu-log-resource:   var(--swu-log-default);
+        --swu-log-namecard:   var(--swu-log-default);
+        --swu-log-pass:       var(--swu-log-default);
+        --swu-log-initiative: var(--swu-log-default);
+        --swu-log-undone-opacity: 0.45;
+        --swu-log-chat:       rgba(255,255,255,0.92);
+    }
+
+    /* The row: a SEPARATOR under each entry, not a box around it. A phone panel is the narrowest
+       place this log is ever read, so knowing where one entry ends matters more here than anywhere.
+       ⚠ Not on the LAST row — a trailing rule reads as a message that failed to render. */
+    .swu-log-entry {
+        color: var(--swu-log-default);
+        padding: 3px 0;
+        word-break: break-word;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.14);
+    }
+    .swu-log-entry:last-child { border-bottom: 0; }
+    .swu-log-PHASE { color: var(--swu-log-phase); font-style: italic; padding: 4px 0 2px; }
+    /* One rule per log type → its var, exactly as the desktop board does it. */
+    .swu-log-OVERWHELM  { color: var(--swu-log-overwhelm); }
+    .swu-log-REVEAL     { color: var(--swu-log-reveal); }
+    .swu-log-DISCLOSE   { color: var(--swu-log-disclose); }
+    .swu-log-ABILITY    { color: var(--swu-log-ability); }
+    .swu-log-PLAY       { color: var(--swu-log-play); }
+    .swu-log-DRAW       { color: var(--swu-log-draw); }
+    .swu-log-DISCARD    { color: var(--swu-log-discard); }
+    .swu-log-DEFEAT     { color: var(--swu-log-defeat); }
+    .swu-log-ATTACK     { color: var(--swu-log-attack); }
+    .swu-log-RESOURCE   { color: var(--swu-log-resource); }
+    .swu-log-NAMECARD   { color: var(--swu-log-namecard); }
+    .swu-log-PASS       { color: var(--swu-log-pass); }
+    .swu-log-INITIATIVE { color: var(--swu-log-initiative); }
+
+    /* Card names are links here too. `color: inherit` is what keeps a card named inside a CHAT line
+       in that seat's colour instead of snapping back to the log default. */
+    .swu-card-link {
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        cursor: pointer;
+        color: inherit;
+    }
+    .swu-card-link:hover { opacity: 0.8; }
+
     /* Chat lines inside the combined log — a seat-tinted rail so a run of chat reads as
        conversation rather than as game events. Mirrors the desktop rule set. */
     .swu-log-CHAT {
-        color: rgba(255,255,255,0.94); font-size: 12px;
+        color: var(--swu-log-chat); font-size: 12px;
         padding: 2px 0 2px 7px; margin: 1px 0;
         border-left: 2px solid rgba(255,255,255,0.18);
     }
     .swu-log-CHAT > span:first-child { color: rgba(255,255,255,0.70); }
-    .swu-log-CHAT.chatMsg-p1 { border-left-color: #6fb8ff; }
-    .swu-log-CHAT.chatMsg-p2 { border-left-color: #ff9b6f; }
-    .swu-log-CHAT.chatMsg-p3 { border-left-color: #7fd88f; }
-    .swu-log-CHAT.chatMsg-p4 { border-left-color: #d79bff; }
+    /* Seat colour on the ROW so the message BODY inherits it, matching the desktop board. ⚠ The hexes
+       here are a COPY of --swu-chat-p1..p4 in GameLayout.php; chat_seat_colour_surfaces_test.php pins
+       the two together, because a palette change applied to one board only looks complete. */
+    .swu-log-CHAT.chatMsg-p1 { border-left-color: #6fb8ff; color: #6fb8ff; }
+    .swu-log-CHAT.chatMsg-p2 { border-left-color: #ff9b6f; color: #ff9b6f; }
+    .swu-log-CHAT.chatMsg-p3 { border-left-color: #7fd88f; color: #7fd88f; }
+    .swu-log-CHAT.chatMsg-p4 { border-left-color: #d79bff; color: #d79bff; }
     .swu-log-CHAT.chatMsg-p1 > span:first-child { color: #6fb8ff; }
     .swu-log-CHAT.chatMsg-p2 > span:first-child { color: #ff9b6f; }
     .swu-log-CHAT.chatMsg-p3 > span:first-child { color: #7fd88f; }
@@ -654,7 +720,7 @@
 
     /* An undone line — struck through + dimmed. Mirrors the desktop rule (this layout does not load
        GameLayout's CSS). */
-    .swu-log-UNDONE { opacity: 0.45; text-decoration: line-through; text-decoration-thickness: 1px; }
+    .swu-log-UNDONE { opacity: var(--swu-log-undone-opacity); text-decoration: line-through; text-decoration-thickness: 1px; }
 
     /* Chat — only the COMPOSER lives in the drawer now; the messages go into the log above.
        mountChat() (shared) reparents #chatWidget into #swuChatMount; these overrides un-float it.

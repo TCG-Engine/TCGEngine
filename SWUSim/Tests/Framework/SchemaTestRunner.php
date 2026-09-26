@@ -174,6 +174,20 @@ class SchemaTestRunner {
         // Unterminated block: flush what we have so it surfaces downstream instead of vanishing.
         if ($braceBuf !== null && $current !== null) $sections[$current][] = trim($braceBuf);
 
+        // ⚠ NO GIVEN DIRECTIVES IS AN ERROR, NOT AN EMPTY BOARD. This used to return ok unconditionally,
+        // so three different mistakes — no '## GIVEN' heading, the heading with nothing under it, and a
+        // GIVEN whose lines are all commented out — all handed _buildInitialState an empty list, which
+        // builds the DEFAULT TWO-PLAYER state. In the Test Schema Editor that is a silent 200 and a game
+        // id: on screen, two empty arenas and "Card" placeholders, i.e. indistinguishable from a broken
+        // board. The owner pasted a Tests/Visual doc (all '#' comments) and got four of them before
+        // asking what was wrong. A parse that found no directives has not parsed a schema; say so.
+        if (empty($sections['given'])) {
+            return ['ok' => false, 'error' =>
+                'No GIVEN directives found. A schema needs a "## GIVEN" section with at least one '
+                . 'directive (e.g. "CommonSetup: bbw/rrk"). Check the heading is exactly "## GIVEN" and '
+                . 'that its lines are not all comments — a Tests/Visual doc is not a loadable schema.'];
+        }
+
         return ['ok' => true] + $sections;
     }
 
@@ -212,7 +226,8 @@ class SchemaTestRunner {
                              'WithP1ResourceControlled',    'WithP2ResourceControlled',
                              'WithP3ResourceControlled',    'WithP4ResourceControlled',
                              'WithP1Deck',                'WithP2Deck',
-                             'WithP3Deck',                'WithP4Deck'];
+                             'WithP3Deck',                'WithP4Deck',
+                             'WithGameLog',               'WithChat'];
         // List-valued keys accept either one spec per line OR a bracketed, whitespace-separated
         // array on a single line — e.g. "WithP2Deck: [SOR_225 SEC_080 SOR_128]" or
         // "WithP1GroundArena: [ASH_048:1:0 SEC_098:0:3]". Each token becomes its own accumulated
@@ -310,6 +325,7 @@ class SchemaTestRunner {
             'WithSeatOrder', 'WithLiveSeats', 'WithEliminatedSeats', 'WithDefeatedPlayer',
             'WithPrivateGame', 'WithRound',
             'InitChoice', 'InitRng', 'DeckSeed', 'WithTeams',
+            'WithGameLog', 'WithChat',
         ];
         static $perSeat = [
             'Deck', 'Hand', 'Discard', 'Resources', 'Credits', 'Force', 'Base', 'Leader', 'Leader2',
@@ -324,6 +340,110 @@ class SchemaTestRunner {
         throw new RuntimeException(
             "Unknown GIVEN directive '{$k}' — it would have been silently ignored. "
             . "Check the spelling, or add it to SchemaTestRunner::_assertKnownGivenKey() if it is new.");
+    }
+
+    /**
+     * Seed the GAME LOG and the CHAT stream — the two streams the board's merged sidebar panel
+     * interleaves. Added 2026-09-26 so a log/chat board can be a LOADABLE SCHEMA instead of a CLI
+     * fixture; Tests/Visual/Chat_4P_WhisperMatrix.md was the 1-in-5 Visual doc that would not open in
+     * the Test Schema Editor, and pasting it silently produced an empty two-seat game.
+     *
+     *   WithGameLog: TYPE|VISIBILITY|text        e.g. ATTACK|ALL|P1's [[SOR_046|Rebel Trooper]] attacked
+     *   WithChat:    SEAT|text                   a public message from that seat
+     *   WithChat:    SEAT>TARGETS|text           a whisper, e.g. "2>1,4|P1 and P4 — P3 is the threat"
+     *
+     * ⚠ WALKS THE RAW ORDERED LINES, NOT _parseGiven's MAP. The panel merges the two streams by
+     * TIMESTAMP alone, so the ONLY thing that makes a fixture useful is that chat and log can be
+     * declared in the order they should appear. A key→values map cannot express "chat, log, chat" —
+     * it would apply each key in its own pass and the board would show two clumps.
+     *
+     * ⚠ PIPES ARE LIMITED-SPLIT because the TEXT contains them: GameLogCardRef() emits [[id|title]].
+     * Same reason AddGameLogEntry() puts its timestamp in field 2 rather than last.
+     *
+     * ⚠ Both writes go through the functions PRODUCTION calls — AddGameLogEntry() and
+     * ChatAppendMessage() (the row builder SubmitChat.php uses) — so neither shape can drift here.
+     * The 200µs pause is what guarantees a distinct stamp: entries are stamped to 4 decimal places
+     * (100µs), and two entries sharing a stamp make the panel's ordering arbitrary.
+     */
+    private static function _applyChatAndLogDirectives(array $givenLines): void {
+        $seats = function_exists('SeatCountForGame') ? max(2, intval(SeatCountForGame())) : 2;
+
+        foreach ($givenLines as $line) {
+            $pos = strpos($line, ':');
+            if ($pos === false) continue;
+            $key = trim(substr($line, 0, $pos));
+            $val = trim(substr($line, $pos + 1));
+
+            if ($key === 'WithGameLog') {
+                $parts = explode('|', $val, 3);
+                if (count($parts) !== 3 || trim($parts[0]) === '' || trim($parts[1]) === '') {
+                    throw new RuntimeException(
+                        "WithGameLog needs three '|' fields — TYPE|VISIBILITY|text (e.g. "
+                        . "\"ATTACK|ALL|P1's base took 3 damage\"). Got: \"{$val}\"");
+                }
+                [$type, $vis, $text] = [trim($parts[0]), trim($parts[1]), $parts[2]];
+                if ($text === '') throw new RuntimeException("WithGameLog has an empty text field: \"{$val}\"");
+                if (!preg_match('/^(ALL|P\d(,P\d)*)$/', $vis)) {
+                    throw new RuntimeException(
+                        "WithGameLog visibility must be 'ALL' or a seat-tag list like 'P1,P3'. Got: \"{$vis}\"");
+                }
+                AddGameLogEntry($type, $text, $vis);
+                usleep(200);
+                continue;
+            }
+
+            if ($key !== 'WithChat') continue;
+
+            $parts = explode('|', $val, 2);
+            if (count($parts) !== 2) {
+                throw new RuntimeException(
+                    "WithChat needs a '|' between the sender and the message — SEAT|text, or "
+                    . "SEAT>TARGETS|text for a whisper. Got: \"{$val}\"");
+            }
+            [$who, $text] = [trim($parts[0]), $parts[1]];
+            if (trim($text) === '') throw new RuntimeException("WithChat has an empty message: \"{$val}\"");
+
+            $whisperTo  = [];
+            $targetSpec = '';
+            if (strpos($who, '>') !== false) [$who, $targetSpec] = array_map('trim', explode('>', $who, 2));
+
+            if (!ctype_digit($who) || intval($who) < 1 || intval($who) > $seats) {
+                throw new RuntimeException(
+                    "WithChat: seat '{$who}' does not exist — this game has {$seats} seat(s).");
+            }
+            $senderSeat = intval($who);
+
+            if ($targetSpec !== '') {
+                // The production parser, so the stored 'to' array is byte-identical to a real whisper's
+                // (it rejects self-targets, out-of-range seats and duplicates, and it sorts).
+                $whisperTo = function_exists('ChatParseWhisperTargets')
+                    ? ChatParseWhisperTargets($targetSpec, $senderSeat, $seats) : null;
+                if ($whisperTo === null || count($whisperTo) === 0) {
+                    throw new RuntimeException(
+                        "WithChat: \"{$targetSpec}\" is not a valid whisper target list for seat "
+                        . "{$senderSeat} in a {$seats}-seat game.");
+                }
+            }
+
+            // A chat row lives in APCu under the GAME's scope token, so this needs a game name and a
+            // live APCu. Both hold in the Test Schema Editor (it runs in the web SAPI and allocates the
+            // game before building). Under the CLI regression runner neither does — and a directive
+            // that silently wrote nothing there is exactly the failure this whole change removes.
+            $scope = strval($GLOBALS['gameName'] ?? '');
+            if ($scope === '' || !function_exists('ChatAppendMessage')) {
+                throw new RuntimeException(
+                    'WithChat needs a game scope (a $gameName) and Core/NetworkingLibraries.php. It is '
+                    . 'meant for the Test Schema Editor / a Tests/Visual board, not the CLI runner.');
+            }
+            $label = function_exists('NormalizeViewerIdentity')
+                ? NormalizeViewerIdentity((string)$senderSeat, $seats)['label'] : 'P' . $senderSeat;
+            if (ChatAppendMessage($scope, (string)$senderSeat, $label, $text, $whisperTo) === 0) {
+                throw new RuntimeException(
+                    "WithChat could not store a message for game '{$scope}' — APCu is off "
+                    . '(the CLI needs -d apc.enable_cli=1) or the scope token is unusable.');
+            }
+            usleep(200);
+        }
     }
 
     private static function _parseDeckList(string $val): array {
@@ -1302,6 +1422,7 @@ class SchemaTestRunner {
      */
     public static function applyPostSetupDirectives(array $givenLines): void {
         $given = self::_parseGiven($givenLines);
+        self::_applyChatAndLogDirectives($givenLines);
         // WithPrivateGame: true -> SimGameIsPrivateGame returns true, so undo is always free (no consent).
         // Default public (false). Reset every test so it never leaks across cases in one process.
         $GLOBALS['SWU_TEST_FORCE_PRIVATE'] = strtolower($given['WithPrivateGame'] ?? 'false') === 'true';

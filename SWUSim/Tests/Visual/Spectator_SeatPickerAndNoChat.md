@@ -1,3 +1,6 @@
+# ⚠⚠ NOT A SCHEMA FILE — DO NOT LOAD THIS IN THE TEST SCHEMA EDITOR.
+# It has no GIVEN/WHEN/EXPECT. The board comes from the CLI fixture below, which pins a FIXED game id.
+#
 # VISUAL CHECK — the spectator's seat picker, and a spectator's missing chat composer
 #
 # Visual-only (Tests/Visual/ is not scanned by the regression endpoint).

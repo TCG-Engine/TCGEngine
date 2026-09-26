@@ -1416,8 +1416,18 @@ body.swu-home .swu-mb-dmg { font-size: 10px; }
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.3l2.3 2.3 4.7-5' fill='none' stroke='%23180c2c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 @media (prefers-reduced-motion: reduce) { .swu-whisper-row label { transition: none; } }
+/* A whisper you can READ: italics plus a faint wash. ⚠ It must never set `color` — the seat colour
+   reaches whisper text by INHERITING from .chatMsg-p{N} on the row, which is what makes a whisper read
+   in its sender's colour (owner, 2026-09-26: "include that text coloring for Whisper chats. keep the
+   italics."). */
 .chatMsg-whisper, .swu-log-CHAT.chatMsg-whisper { font-style: italic; background: rgba(160,110,255,0.10); }
-.chatMsg-whisperStub, .swu-log-CHAT.chatMsg-whisperStub { opacity: 0.72; }
+/* The PUBLIC piece of a whisper — the redacted stub every non-party sees ("P2 whispered something to
+   P1 and P4"). Owner, 2026-09-26: "for all public pieces of whispers, keep the backwash to a grey hue
+   now". It is the neutral log grey (#aab6c4), the same family as the game-log rows it sits between,
+   because a stub IS an announcement rather than a message. This also retires a real collision: the
+   purple wash above is the same hue as P4's seat colour #d79bff, so purple used to mean both "private"
+   and "P4 said it". The stub rule follows the whisper rule on purpose — equal specificity, later wins. */
+.chatMsg-whisperStub, .swu-log-CHAT.chatMsg-whisperStub { opacity: 0.72; background: rgba(170,182,196,0.10); }
 /* ── Inactivity clock + kick vote ──
    z-index 4990: just BELOW the decision-modal tier (5000), because the stalled player is still allowed
    to act and their own prompt must always win. Fixed-position and outside the zone containers, so a

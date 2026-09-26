@@ -235,6 +235,48 @@ function IncrementChatUpdateVersion($gameName)
   return intval($newVersion);
 }
 
+// Append one message to a chat scope and bump its version. THE SINGLE WRITER — extracted from
+// SubmitChat.php 2026-09-26 so the schema DSL's WithChat: directive seeds rows through the very code
+// the endpoint uses, instead of hand-building an array that drifts the first time a field is added.
+//
+// ⚠ THE ROW SHAPE IS A CONTRACT with GetChatMessagesSince() and the poll's CHATONLY branch:
+//   id, playerID, playerLabel, text, time, ts — and 'to' ONLY on a whisper. Readers branch on the
+//   ABSENCE of 'to' to mean "public", so a public row must never carry an empty one.
+// 'ts' is the microtime the merged sidebar panel orders chat against game-log entries by; whole-second
+// 'time' cannot separate a message from the log lines around it, and stays untouched for old readers.
+//
+// Validation is the CALLER's job: SubmitChat.php applies the login / spectator / block / whisper-policy
+// gates before calling this, and the fixture directive applies its own. This function stores.
+// Returns the new message id, or 0 when the scope token is unusable or APCu is unavailable.
+function ChatAppendMessage($scopeToken, $playerID, $label, $text, array $whisperTo = [])
+{
+  if (!extension_loaded('apcu') || !apcu_enabled()) return 0;
+  $cacheKey = GetChatMessagesCacheKey($scopeToken);
+  if ($cacheKey === null) return 0;
+
+  $existing = apcu_fetch($cacheKey);
+  $messages = ($existing !== false) ? $existing : [];
+  $nextId   = empty($messages) ? 1 : (end($messages)['id'] + 1);
+
+  $row = [
+    'id'          => $nextId,
+    'playerID'    => $playerID,
+    'playerLabel' => $label,
+    'text'        => $text,
+    'time'        => time(),
+    'ts'          => round(microtime(true), 4),
+  ];
+  if (!empty($whisperTo)) $row['to'] = $whisperTo;   // public rows keep today's exact shape
+  $messages[] = $row;
+
+  // Keep at most 100 messages
+  if (count($messages) > 100) $messages = array_slice($messages, -100);
+
+  apcu_store($cacheKey, $messages, 3600);
+  IncrementChatUpdateVersion($scopeToken);
+  return $nextId;
+}
+
 function GetChatMessagesSince($gameName, $lastChatID = 0, $viewerInfo = null)
 {
   global $APCuEnabled;

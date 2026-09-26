@@ -1,3 +1,7 @@
+# ⚠⚠ NOT A SCHEMA FILE — DO NOT LOAD THIS IN THE TEST SCHEMA EDITOR.
+# It has no GIVEN/WHEN/EXPECT. The board comes from the CLI fixture below.
+# (It could become one: WithEliminatedSeats: now expresses a dead seat. Not converted yet.)
+#
 # VISUAL CHECK — Twin Suns: the Home panels SURVIVE narrowing to two live seats
 
 Owner ruling 2026-09-25: "remove the experience in Twin Suns when a 3P game goes down to a 2P game and it

@@ -1,3 +1,6 @@
+# ⚠⚠ NOT A SCHEMA FILE — DO NOT LOAD THIS IN THE TEST SCHEMA EDITOR.
+# It has no GIVEN/WHEN/EXPECT. It checks the MAIN MENU page in the browser — there is no game board.
+#
 # VISUAL CHECK — Main Menu setup modals: real data, and the chamfer that pays for it
 
 The four setup modals shipped with the mockup's fixtures baked in: three invented saved decks

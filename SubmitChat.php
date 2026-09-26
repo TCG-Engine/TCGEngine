@@ -52,9 +52,11 @@ $chatRefusal = ChatSendRefusal($folderPath, $viewerInfo, $gameName);
 if ($chatRefusal !== null) { echo $chatRefusal; exit; }
 
 // Blocked players cannot chat. Generic response — never reveals the block to the other side.
-// ⚠ A LOBBY needs no check: JoinQueue.php's SWUJoinBlocked already refuses a blocked player a seat,
-// so two mutually-blocked players can never be in one room. A MATCH does need one — the Sideboard
-// sits BETWEEN games, where the per-game check has no gameName to work with.
+// ⚠ A LOBBY needs no check: JoinQueue.php's SWUJoinBlockedFromLobby already refuses a blocked player
+// a seat, so two mutually-blocked players can never be in one room. That held only at TWO seats
+// until 2026-09-26 — the check tested the HOST alone, so at 3-4 seats a block pair could meet
+// through a third-party host. It now tests every seated player. A MATCH does need its own check —
+// the Sideboard sits BETWEEN games, where the per-game check has no gameName to work with.
 if ($folderPath === 'SWUSim') {
     $swuMatchFlow = __DIR__ . '/SWUSim/MatchFlow.php';
     if (is_file($swuMatchFlow)) {
@@ -94,29 +96,7 @@ if (trim(strval($whisperRaw)) !== "") {
 // Store message in APCu
 if (!extension_loaded('apcu') || !apcu_enabled()) { echo "Chat unavailable (APCu not enabled)."; exit; }
 
-$cacheKey = GetChatMessagesCacheKey($gameName);
-$existing = apcu_fetch($cacheKey);
-$messages = ($existing !== false) ? $existing : [];
-
-$nextId     = empty($messages) ? 1 : (end($messages)['id'] + 1);
-$row = [
-    'id'       => $nextId,
-    'playerID' => $playerID,
-    'playerLabel' => $viewerInfo['label'],
-    'text'     => $chatText,
-    'time'     => time(),
-    // Whole seconds cannot order a chat message against the game-log lines around it, and the
-    // panel interleaves the two streams. ADDITIVE: 'time' is untouched for every existing reader.
-    'ts'       => round(microtime(true), 4),
-];
-if (!empty($whisperTo)) $row['to'] = $whisperTo;   // public rows keep today's exact shape
-$messages[] = $row;
-
-// Keep at most 100 messages
-if (count($messages) > 100) {
-    $messages = array_slice($messages, -100);
-}
-
-apcu_store($cacheKey, $messages, 3600);
-IncrementChatUpdateVersion($gameName);
+// Every gate above has passed; the row shape and the version bump live in ONE place so the schema
+// DSL's WithChat: directive seeds boards through this exact code (Core/NetworkingLibraries.php).
+ChatAppendMessage($gameName, $playerID, $viewerInfo['label'], $chatText, $whisperTo);
 echo "OK";

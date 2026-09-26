@@ -359,7 +359,7 @@
       if (!isset($lobby->isPrivate) || !$lobby->isPrivate) continue;
       if (!isset($lobby->inviteCode) || strval($lobby->inviteCode) !== $privateInviteCode) continue;
       if (!empty($lobby->casterMode) !== $casterMode) continue;
-      if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // blocked: fall through to generic "invalid/expired/full"
+      if (SWUJoinBlockedFromLobby($joiningUserId, $lobby)) continue; // blocked by ANY seat: fall through to generic "invalid/expired/full"
       if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) continue;
       // A lobby whose match has begun cannot be joined. Was gated on SWUSim + a seat-count
       // predicate; now on the adapter, so it holds for every sim and every private format.
@@ -580,7 +580,9 @@
             empty($lobby->gameName) && (($lobby->state ?? '') !== 'matched') &&
             intval($lobby->numPlayers) < intval($lobby->maxPlayers)
           ) {
-              if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // skip blocked host, keep scanning
+              if (SWUJoinBlockedFromLobby($joiningUserId, $lobby)) continue; // blocked by ANY seat, keep scanning
+              // Finding nothing is the POINT of the ruling: the scan falls out and the create path
+              // below gives this player a room of their own, which other people can then join.
               $targetKey = $entry['info'];
 
               // ⚠ A PUBLIC ROOM'S JOINER NEEDS ITS DECK RESOLVED, exactly as the private-invite join
