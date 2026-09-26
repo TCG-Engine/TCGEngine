@@ -7,11 +7,17 @@
   require_once __DIR__ . "/Classes/TeamRooms.php";   // SWURoomAutoTeamOnJoin / SWURoomAssignTeam
   require_once __DIR__ . "/Classes/LobbyAdapter.php"; // LobbyAdapterFor — the per-sim lobby seam
   require_once __DIR__ . "/Classes/LobbyStore.php";  // LobbyMutate — the ONE locked lobby write
+  require_once __DIR__ . "/Classes/LobbySeatIdentity.php"; // LobbyFindExistingSeat — one human, one seat
   require_once __DIR__ . '/../../SWUSim/Mod/DevGate.php';  // SWUBotPracticeAllowed — Bot Practice is admin-only
 
   // Personal deck stats (Feature B): remember who created each seat so the match can attribute W/L.
   if (session_status() === PHP_SESSION_NONE) { @session_start(); }
   $joiningUserId = isset($_SESSION['userid']) ? (int)$_SESSION['userid'] : null;
+  // The seat key the client already holds for a room it has been in (localStorage
+  // `tcg:lobbyAuth:<lobbyID>`, 24h). Presenting it is how a GUEST proves which seat is theirs —
+  // their seat carries userId NULL, so once they sign in nothing else can match it. Never trusted
+  // for authorisation here, only for "which seat is already yours".
+  $presentedAuthKey = isset($_POST['authKey']) ? trim(strval($_POST['authKey'])) : '';
 
   $response = new stdClass();
   
@@ -128,7 +134,11 @@
   if ($privateInviteCode !== '') {
     $inviteKey   = LobbyKeyForInvite($privateInviteCode, $rootName);
     $inviteLobby = $inviteKey !== null ? apcu_fetch($inviteKey) : false;
-    if (is_object($inviteLobby) && !empty($inviteLobby->isPrivate)) {
+    // ⚠ The isPrivate test that used to be here is gone (2026-09-26): public Twin Suns waiting rooms
+    // are shareable by link too. LobbyKeyForInvite() has ALREADY verified that this lobby's
+    // inviteCode equals the code presented and that its rootName matches, so reaching this point
+    // means the caller holds this room's code — which is the only thing the check was ever for.
+    if (is_object($inviteLobby)) {
       $format    = strtolower(strval($inviteLobby->format ?? $format));
       $queueType = strtolower(strval($inviteLobby->queueType ?? $queueType));
     }
@@ -331,6 +341,26 @@
     exit;
   }
 
+  // ONE ACCOUNT, ONE ROOM (owner ruling, 2026-09-26). Once this request has secured a seat, drop any
+  // seat the same person still holds in a DIFFERENT open lobby. Abandoning a tab does not release a
+  // seat — only Leave does, deliberately — so without this a player who created a room, wandered off
+  // and queued again left their first seat holding a slot in a room other people could see and join
+  // for the rest of the 900s TTL.
+  //
+  // ⚠ REGISTERED ONCE, RUNS AFTER THE RESPONSE, AND ONLY ON SUCCESS. There are five separate success
+  // exits below, each with its own `echo json_encode($response); exit;`, and hand-patching all five
+  // is how one of them silently gets missed. A shutdown hook fires on every one of them, cannot
+  // change what the client was told, and keys off $response->lobbyID — which every lobby path sets
+  // and the local/bot path above (already exited) never does, because it has no lobby to leave.
+  // Releasing AFTER, never before: a join that fails deck validation must not cost someone the seat
+  // they were already sitting in.
+  register_shutdown_function(function () use (&$response, $rootName, $joiningUserId, $presentedAuthKey) {
+    if (empty($response->success)) return;
+    $keep = strval($response->lobbyID ?? '');
+    if ($keep === '') return;
+    LobbyReleaseOtherSeats($rootName, $joiningUserId, $presentedAuthKey, $keep);
+  });
+
   // First check if there's already someone in the queue
   $cacheInfo = apcu_cache_info();
   $matchFound = false;
@@ -356,7 +386,12 @@
       // Re-filtering on them here would reintroduce the original bug the moment the two disagree
       // (e.g. the pre-pass found nothing because the lobby expired between the two scans) — the join
       // would fail with a confusing "invalid or expired invite" instead of the real reason.
-      if (!isset($lobby->isPrivate) || !$lobby->isPrivate) continue;
+      // ⚠ NOT gated on isPrivate any more (owner feature request, 2026-09-26: a public Twin Suns room
+      // needs a shareable "Copy Link"). HOLDING THE CODE IS THE WHOLE TEST, and the line below is what
+      // performs it: a lobby with no inviteCode fails `isset` and can never match, and codes are minted
+      // ONLY for private lobbies and public WAITING ROOMS — never for a plain public queue. Nothing is
+      // widened for a public room that matchmaking would not already let this player into; every other
+      // guard (caster mode, blocks, capacity, already-started) is below and unchanged.
       if (!isset($lobby->inviteCode) || strval($lobby->inviteCode) !== $privateInviteCode) continue;
       if (!empty($lobby->casterMode) !== $casterMode) continue;
       if (SWUJoinBlockedFromLobby($joiningUserId, $lobby)) continue; // blocked by ANY seat: fall through to generic "invalid/expired/full"
@@ -385,9 +420,19 @@
       $joinErr = null; $newPlayer = null; $playerID = 0;
       $stored = LobbyMutate($targetKey, function ($lobby) use (
           $isRoom, $resolved, $deckLink, $preconstructedDeck, $joiningUserId, $rootName,
-          $shareAnonymizedGameplayData, &$joinErr, &$newPlayer, &$playerID) {
-        if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) { $joinErr = 'full'; return false; }
+          $presentedAuthKey, $shareAnonymizedGameplayData, &$joinErr, &$newPlayer, &$playerID) {
         if ($isRoom && !empty($lobby->gameName))                      { $joinErr = 'started'; return false; }
+        // ALREADY IN THIS ROOM? Re-seat them. Checked BEFORE the capacity gate on purpose: you are
+        // not a new occupant of a room you are already sitting in, and a full room would otherwise
+        // refuse its own player their seat back (reports 1 and 3, 2026-09-26).
+        $existing = LobbyFindExistingSeat($lobby, $joiningUserId, $presentedAuthKey);
+        if ($existing !== null) {
+          $newPlayer = _SWUReclaimSeat($existing, $isRoom, $resolved, $deckLink, $preconstructedDeck, $joiningUserId);
+          $playerID  = intval($existing->getPlayerID());
+          $lobby->numPlayers = count(array_filter($lobby->players, fn($p) => $p instanceof Player));
+          return true;
+        }
+        if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) { $joinErr = 'full'; return false; }
         $lobby->numPlayers++;
         if ($rootName === 'GrandArchiveSim') {
           $lobby->shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData) && $shareAnonymizedGameplayData;
@@ -560,6 +605,13 @@
   $publicProbe->rootName  = $rootName;
   $publicIsRoom = $publicAdapter !== null && $publicAdapter->wantsWaitingRoom($publicProbe);
 
+  // ⚠ NO "PREFER MY OWN ROOM" REORDER HERE, DELIBERATELY. An early cut hoisted a lobby the joiner
+  // already sat in to the front of this scan. It was measured DECORATIVE (removing it left every
+  // assertion green, because the reclaim branch in the mutation below catches the duplicate whenever
+  // the scan does reach that room, and LobbyReleaseOtherSeats clears the seat when it does not) and
+  // it is arguably WRONG: you queued to find an opponent, and being parked back in your own empty
+  // room is not matchmaking. Landing in somebody else's room is the better outcome, and your
+  // abandoned seat is released either way.
   if (isset($cacheInfo['cache_list'])) {
       foreach ($cacheInfo['cache_list'] as $entry) {
           if (!isset($entry['info'])) continue;
@@ -605,11 +657,19 @@
               $joinErr = null; $newPlayer = null; $playerID = 0;
               $stored = LobbyMutate($targetKey, function ($lobby) use (
                   $deckLink, $preconstructedDeck, $joiningUserId, $rootName, $publicResolved,
-                  $shareAnonymizedGameplayData, $swuTestFailAtPairing, $publicIsRoom, &$joinErr, &$newPlayer, &$playerID) {
+                  $presentedAuthKey, $shareAnonymizedGameplayData, $swuTestFailAtPairing, $publicIsRoom, &$joinErr, &$newPlayer, &$playerID) {
+                if (!empty($lobby->gameName) || (($lobby->state ?? '') === 'matched')) { $joinErr = 'full'; return false; }
+                // Already seated here? Re-seat, never append — see the invite path above.
+                $existing = LobbyFindExistingSeat($lobby, $joiningUserId, $presentedAuthKey);
+                if ($existing !== null) {
+                  $newPlayer = _SWUReclaimSeat($existing, $publicIsRoom, $publicResolved, $deckLink, $preconstructedDeck, $joiningUserId);
+                  $playerID  = intval($existing->getPlayerID());
+                  $lobby->numPlayers = count(array_filter($lobby->players, fn($p) => $p instanceof Player));
+                  return true;
+                }
                 // Re-checked under the lock: two people can reach a one-seat queue at once, and the
                 // loser must fall through to the next lobby rather than overfill this one.
                 if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) { $joinErr = 'full'; return false; }
-                if (!empty($lobby->gameName) || (($lobby->state ?? '') === 'matched')) { $joinErr = 'full'; return false; }
                 $lobby->numPlayers++;
                 if ($rootName === 'GrandArchiveSim') {
                   $lobby->shareAnonymizedGameplayData = !empty($lobby->shareAnonymizedGameplayData) && $shareAnonymizedGameplayData;
@@ -738,6 +798,13 @@
       if ($publicIsRoom) {
         $lobby->hostUserId   = $joiningUserId;
         $lobby->hostPlayerID = 1;
+        // A shareable link for a PUBLIC room (owner, 2026-09-26: "people are erroneously copying the
+        // URL and pasting it in a chat to find players"). Same mechanism as a private room's invite,
+        // and deliberately NOT a secret here — anyone can reach this room through matchmaking anyway,
+        // so the code is only an addressing device that names THIS room instead of the queue.
+        // ⚠ Only inside this branch. A plain public queue (Premier: maxPlayers 2) has no waiting-room
+        // page to share, and minting a code for it would make it joinable by link for no reason.
+        $lobby->inviteCode = bin2hex(random_bytes(12));
         if (LobbyUsesFixedSeats($lobby)) $newPlayer->setSeat(1);
         // Resolve the creator's deck so the roster shows a real identity strip immediately, exactly as
         // the private room create does. Never fatal.
@@ -747,9 +814,13 @@
       if ($swuTestFailAtPairing) $lobby->testFailAtPairing = [strval($newPlayer->getAuthKey())];   // local-dev test hook
 
       apcu_store($lobbyId, $lobby, $ttl);
+      // The O(1) invite index, same TTL as the lobby so it cannot outlive what it points at.
+      // Only a public ROOM has a code (see the mint above); a plain queue skips both lines.
+      if (!empty($lobby->inviteCode)) apcu_store('invite:' . $lobby->inviteCode, $lobbyId, $ttl);
 
       $response->success = true;
       $response->message = "Successfully created lobby.";
+      if (!empty($lobby->inviteCode)) $response->inviteCode = $lobby->inviteCode;
       $response->ready = false;
       $response->playerID = 1;
       $response->authKey = $newPlayer->getAuthKey();
@@ -806,6 +877,28 @@
     // Start the presence clock now: a seat that has not polled yet must not look absent.
     $player->touch();
     return $resolved['ok'];
+  }
+
+  // RE-SEAT someone who is already in this room, instead of appending a second seat for them.
+  //
+  // Keeps playerID, seat, team and authKey — the client is still holding that authKey, and playerID
+  // is what every other endpoint authenticates against — and swaps in whatever they just submitted.
+  //
+  // ⚠ AN EMPTY SUBMISSION MUST NOT WIPE A GOOD DECK. A rejoin that carries no deck (a bare page
+  // reload, a client that only wants its seat back) would otherwise run the resolver on '' and set
+  // deckOk=false, un-readying a seat whose deck was fine a second ago.
+  function _SWUReclaimSeat($existing, $isRoom, array $resolved, $deckLink, $preconstructedDeck, $joiningUserId) {
+    if (!($existing instanceof Player)) return null;
+    // One way only (Player::setUserId): a guest who signs in gains the account; a seat that already
+    // has one never changes hands.
+    if ($joiningUserId !== null && intval($joiningUserId) > 0) $existing->setUserId($joiningUserId);
+    if (strval($deckLink) !== '' || strval($preconstructedDeck) !== '') {
+      $existing->setDeckLink($deckLink);
+      $existing->setPreconstructedDeck($preconstructedDeck);
+      if ($isRoom) _SWURoomApplyResolvedDeck($existing, $resolved);
+    }
+    $existing->touch();   // they are demonstrably here; do not let them read as away
+    return $existing;
   }
 
   // The next free seat id: one above the highest in use, never the seat COUNT.

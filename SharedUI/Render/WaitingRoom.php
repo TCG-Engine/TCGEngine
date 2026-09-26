@@ -466,8 +466,18 @@ function _WaitingRoomScript(array $cfg): string {
     var host = el('wr-invite'); if (!host) return;
     if (!d.inviteCode) { host.innerHTML = ''; return; }
     var link = location.origin + appBase() + 'SharedUI/Sites/' + encodeURIComponent(ROOT) + '/WaitingRoom.php?invite=' + encodeURIComponent(d.inviteCode);
-    host.innerHTML = 'Invite: <strong>' + esc(d.inviteCode) + '</strong> ' +
-                     '<button id="wr-copy" type="button" class="btn" style="margin-left:8px;">Copy Invite Link</button>';
+    // A PUBLIC room (Twin Suns only — nothing else has a public waiting room) shows the button alone.
+    // The code is not a secret there: anyone can reach the room through matchmaking, so it is an
+    // address, not a password, and printing 24 hex characters next to the button is noise. A PRIVATE
+    // room keeps the code visible — there it IS the secret, and people read it out to each other.
+    // Owner, 2026-09-26: "a strict copy link would be nice."
+    // ⚠ d.isPrivate may be undefined when an older poll response is in flight; default to the
+    // private presentation, which is the shape this page has always had.
+    var isPublicRoom = d.isPrivate === false;
+    var label = isPublicRoom ? 'Copy Link' : 'Copy Invite Link';
+    host.innerHTML = (isPublicRoom ? '' : 'Invite: <strong>' + esc(d.inviteCode) + '</strong> ') +
+                     '<button id="wr-copy" type="button" class="btn"' +
+                     (isPublicRoom ? '' : ' style="margin-left:8px;"') + '>' + esc(label) + '</button>';
     el('wr-copy').onclick = function () {
       var b = el('wr-copy');
       // Never a native dialog — StyledDialog.js loads on every SiteDef site (Head.php) and provides
@@ -476,14 +486,14 @@ function _WaitingRoomScript(array $cfg): string {
       // whose clipboard was blocked can still copy the link by hand.
       var manual = function () {
         if (typeof StyledPrompt === 'function') {
-          StyledPrompt('Your browser blocked the clipboard. Copy this invite link:',
-                       { title: 'Invite Link', initial: link, confirmLabel: 'Done' });
+          StyledPrompt('Your browser blocked the clipboard. Copy this ' + (isPublicRoom ? 'link' : 'invite link') + ':',
+                       { title: isPublicRoom ? 'Room Link' : 'Invite Link', initial: link, confirmLabel: 'Done' });
         }
       };
       var copied = function () {
         b.textContent = 'Copied!';
-        setTimeout(function () { b.textContent = 'Copy Invite Link'; }, 1200);
-        if (typeof Toast === 'function') Toast('Invite link copied.', { type: 'success' });
+        setTimeout(function () { b.textContent = label; }, 1200);
+        if (typeof Toast === 'function') Toast((isPublicRoom ? 'Room' : 'Invite') + ' link copied.', { type: 'success' });
       };
       // WebKit needs the write inside the click turn, so nothing async may run before writeText.
       try {
@@ -621,8 +631,16 @@ function _WaitingRoomScript(array $cfg): string {
     // rather than assuming: this function also runs from the button's click handler.
     var btn = el('wr-deck-btn');
     if (btn) btn.disabled = true;
+    // ⚠ PRESENT THE SEAT KEY WE ALREADY HOLD, if there is one. Without it the server cannot tell
+    // that this browser is ALREADY sitting in the room and mints a second seat — which is exactly
+    // what a guest hit when they signed in so they could chat and came back to the same invite URL
+    // (reported 2026-09-26). Their seat carries userId NULL, so after signing in the account no
+    // longer matches it and this key is the ONLY thing that can identify them. lobbyID is read from
+    // the URL on boot, so it is known here on a return visit even before the first poll.
+    var heldKey = lobbyID ? loadKey(lobbyID) : '';
     post('APIs/Lobbies/JoinQueue.php',
       'rootName=' + encodeURIComponent(ROOT) + '&privateInviteCode=' + encodeURIComponent(inviteCode) +
+      (heldKey ? '&authKey=' + encodeURIComponent(heldKey) : '') +
       '&deckLink=' + encodeURIComponent(deck) + '&preconstructedDeck=&game_type=',
       function (r) {
         if (!r.success) {
