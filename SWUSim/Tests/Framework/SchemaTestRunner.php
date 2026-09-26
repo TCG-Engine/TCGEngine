@@ -307,7 +307,8 @@ class SchemaTestRunner {
             'SkipPreGame', 'P1OnlyActions', 'P2OnlyActions', 'P3OnlyActions', 'P4OnlyActions',
             'P1LeaderBase', 'P2LeaderBase', 'P3LeaderBase', 'P4LeaderBase',
             'WithActivePlayer', 'WithInitiativePlayer', 'WithInitiativeClaimed', 'WithGamePhase',
-            'WithSeatOrder', 'WithLiveSeats', 'WithDefeatedPlayer', 'WithPrivateGame', 'WithRound',
+            'WithSeatOrder', 'WithLiveSeats', 'WithEliminatedSeats', 'WithDefeatedPlayer',
+            'WithPrivateGame', 'WithRound',
             'InitChoice', 'InitRng', 'DeckSeed', 'WithTeams',
         ];
         static $perSeat = [
@@ -587,6 +588,23 @@ class SchemaTestRunner {
         }
         if (isset($given['WithSeatOrder'])) $b->WithSeatOrder(trim($given['WithSeatOrder']));
         if (isset($given['WithLiveSeats'])) $b->WithLiveSeats(trim($given['WithLiveSeats']));
+        // WithEliminatedSeats runs the REAL elimination at the end of build(). It is the complement of
+        // WithLiveSeats, not a synonym: one is the resulting STATE, the other is the ACTION plus its
+        // board cleanup. Giving both lets a fixture claim a live-seat list that the elimination then
+        // contradicts, so refuse rather than silently pick a winner between them.
+        if (isset($given['WithEliminatedSeats'])) {
+            if (isset($given['WithLiveSeats'])) {
+                throw new RuntimeException(
+                    "WithEliminatedSeats and WithLiveSeats are mutually exclusive: the first DERIVES the "
+                    . "live-seat list by eliminating, the second states it outright. Keep one.");
+            }
+            $elim = trim($given['WithEliminatedSeats']);
+            if (!preg_match('/^[1-4]+$/', $elim)) {
+                throw new RuntimeException(
+                    "WithEliminatedSeats takes a digit string of seats, e.g. '3' or '34' — got '{$elim}'.");
+            }
+            $b->WithEliminatedSeats($elim);
+        }
 
         // Explicit hand cards (multi-value: WithP1Hand / WithP2Hand).
         // Explicit hand / discard / deck cards (multi-value). Seats 3/4 (Twin Suns) supported.

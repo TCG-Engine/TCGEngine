@@ -1152,6 +1152,22 @@ function _SOR223Resolve(int $player, int $targetUID, array $revealed): void
     _topDeckPutRemainingToBottom($player, $revealed);  // shuffles → bottom
 }
 // ── "Choose two, in any order" modal (SOR_058/107/155/203) ───────────────────
+// Twin Suns continuations for the two modal "AN OPPONENT" modes below. Both collapse to nothing at two
+// seats (the modes take their inline path there), so these only ever run above two seats.
+$customDQHandlers["SOR_058#DISCARD6"] = function ($player, $parts, $lastDecision) {
+  global $playerID; $playerID = intval($player);
+  $opp = SWUPickedOpponent($lastDecision);
+  if ($opp <= 0) return;
+  for ($i = 0; $i < 6; $i++) SWUMillTopCard($opp);
+};
+
+$customDQHandlers["SOR_203#DISCARDRANDOM"] = function ($player, $parts, $lastDecision) {
+  global $playerID; $playerID = intval($player);
+  $opp = SWUPickedOpponent($lastDecision);
+  if ($opp <= 0) return;
+  _SWUOpponentDiscardRandom(intval($player), $opp);
+};
+
 // Resolve ONE chosen mode (queues that mode's own effect decisions at block 1).
 function _SWUModalResolveMode(int $player, string $cardID, string $label): void
 {
@@ -1159,7 +1175,15 @@ function _SWUModalResolveMode(int $player, string $cardID, string $label): void
   $playerID = intval($player);
   if ($cardID === 'SOR_058') {                         // Vigilance
     switch ($label) {
-      case 'Discard6':                              // discard 6 from an opponent's deck
+      case 'Discard6':                              // discard 6 from AN opponent's deck
+        // ⚠ "AN OPPONENT's deck" — the caster CHOOSES which one above two seats (official ruling). The
+        // inline path below is kept for the 2-player case so the common play avoids a queue round-trip,
+        // matching HMW_152 Babwa / JTL_155 They Hate That Ship.
+        if (SeatCountForGame() > 2) {
+          SWUQueueChooseOpponent(intval($player), "SOR_058#DISCARD6",
+            "Discard_6_from_which_opponent's_deck?");
+          return;
+        }
         for ($i = 0; $i < 6; $i++)
           SWUMillTopCard(OtherPlayer($player));
         return;
@@ -1262,7 +1286,13 @@ function _SWUModalResolveMode(int $player, string $cardID, string $label): void
         DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_203#0", 1, dontSkipOnPass: 1);
         return;
       }
-      case 'Discard':                               // an opponent discards a random card
+      case 'Discard':                               // AN opponent discards a random card
+        // Same "an opponent" choice as SOR_058's Discard6 above.
+        if (SeatCountForGame() > 2) {
+          SWUQueueChooseOpponent(intval($player), "SOR_203#DISCARDRANDOM",
+            "Which_opponent_discards_at_random?");
+          return;
+        }
         _SWUOpponentDiscardRandom($player);
         return;
     }
@@ -1322,11 +1352,14 @@ function _SWUPlayerDiscardRandom(int $targetPlayer): void
 }
 
 // "$player's opponent discards one random card from hand" (SOR_203 mode; mirrors SOR_190).
-function _SWUOpponentDiscardRandom(int $player): void
+// $target names WHICH opponent discards. null keeps the historical single-opponent behaviour, which is
+// correct ONLY where the seat is already determined. "EACH opponent discards" (SEC_223) must loop and
+// pass each seat; "AN opponent discards" (SOR_203) must pass the seat its caster chose.
+function _SWUOpponentDiscardRandom(int $player, ?int $target = null): void
 {
   global $playerID;
   $playerID = intval($player);
-  $opp = OtherPlayer($player);
+  $opp = ($target !== null && $target > 0) ? intval($target) : OtherPlayer($player);
   $hand = &GetHand($opp);
   $liveIdx = [];
   foreach ($hand as $i => $c) {
@@ -1724,7 +1757,12 @@ function SEC147EachDiscardTrigger($player, $mzID)
 {
   global $playerID;
   $savedPID = $playerID;
-  foreach ([intval($player), OtherPlayer(intval($player))] as $p) {   // active player first, then opponent
+  // ⚠ "EACH PLAYER" is UNQUALIFIED — every live seat, teammate included, not the literal pair
+  // [$player, OtherPlayer($player)] this used to loop (which left seats 3 and 4 holding their cards).
+  // The acting player still goes FIRST, so the resolution order is unchanged at two seats.
+  $seats = [intval($player)];
+  foreach (GetLiveSeatsArray() as $s) { if (intval($s) !== intval($player)) $seats[] = intval($s); }
+  foreach ($seats as $p) {
     $playerID = $p;
     SWUOfferDiscard($p, ['from'=>'own']);
   }
@@ -2181,7 +2219,21 @@ function _SWUOnUnitDamaged($obj, int $amount = 0, bool $isCombat = false, bool $
   // context (SWU_DMG_SRC) — only UNIT dispatch sets it, so event/base damage correctly doesn't qualify.
   $srcController = 0;
   if ($isCombat) {
-    $srcController = OtherPlayer(intval($obj->Controller ?? 0));
+    // ⚠ "the opposing unit in THIS combat", read from the published combat context — NOT
+    // OtherPlayer($obj->Controller), which names seat 2 for any seat-1 victim regardless of who
+    // attacked it. (The mirror arrangement happened to work, since OtherPlayer(3) == 1.)
+    $objUID  = intval($obj->UniqueID ?? 0);
+    $atkUID  = intval(GetSWUVar('SWU_CURRENT_ATTACKER_UID', '0'));
+    $defSeat = intval(GetSWUVar('SWU_CURRENT_DEFENDING_SEAT', '0'));
+    if ($atkUID > 0 && $objUID === $atkUID) {
+      $srcController = $defSeat;                 // the ATTACKER took counter damage from the defender
+    } elseif ($atkUID > 0) {
+      $atkMz  = SWUFindMzByUID($atkUID);
+      $atkObj = $atkMz !== null ? GetZoneObject($atkMz) : null;
+      if ($atkObj !== null) $srcController = intval($atkObj->Controller ?? 0);
+    }
+    // Pre-context fallback: paths that damage outside a declared attack publish no attacker.
+    if ($srcController <= 0) $srcController = OtherPlayer(intval($obj->Controller ?? 0));
   } else {
     $src = GetSWUVar('SWU_DMG_SRC', '');
     if ($src !== '') {

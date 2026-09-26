@@ -495,3 +495,60 @@ P1GROUNDARENACOUNT:2
 P1GROUNDARENAUNIT:1:CARDID:JTL_142
 P1RESAVAILABLE:2
 P1NODECISION
+
+---
+
+# ThreeSeat_MillsTheSEATHeAttacked_NotSeatTwo
+#// "Discard a card from THE DEFENDING PLAYER's deck." At 3+ seats the defending player is whoever Obi-Wan
+#// actually attacked — here SEAT 3. The trigger read `OtherPlayer($player)`, which is seat 2 for a seat-1
+#// attacker, so it milled a BYSTANDER's deck and marked a card Obi-Wan's controller could then play from
+#// the wrong pile. Two seats cannot show it: there, OtherPlayer IS the defender.
+#// Fixed via SWUCurrentDefendingSeat(), the determined-defending-seat accessor.
+
+## GIVEN
+CommonSetup3P: yyk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_205:1:0
+WithP1Resources: 2
+WithP2Deck: [SOR_095 SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:P3B
+
+## EXPECT
+SEATCOUNT:3
+P3BASEDMG:4
+P3DECKCOUNT:2
+P3DISCARDCOUNT:1
+P2DECKCOUNT:3
+P2DISCARDCOUNT:0
+
+---
+
+# FourSeat_MillsTheSEATHeAttacked_TwoBystandersUntouched
+#// 4P sibling: Obi-Wan attacks SEAT 4's base, so seat 4's deck is milled and BOTH other opponents are
+#// untouched. Two bystanders rather than one is what makes "the defending seat" distinguishable from
+#// "some other seat" — at three seats picking the wrong seat still has only one way to be wrong.
+
+## GIVEN
+CommonSetup4P: yyk/rrk/rrk/rrk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: SEC_205:1:0
+WithP1Resources: 2
+WithP2Deck: [SOR_095 SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095 SOR_095]
+WithP4Deck: [SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:0:P4B
+
+## EXPECT
+SEATCOUNT:4
+P4BASEDMG:4
+P4DECKCOUNT:2
+P4DISCARDCOUNT:1
+P2DECKCOUNT:3
+P3DECKCOUNT:3

@@ -95,3 +95,26 @@ WithP3GroundArena: SOR_128:1:0
 P3GROUNDARENACOUNT:0
 P1GROUNDARENAUNIT:0:POWER:4
 P1GROUNDARENAUNIT:0:HASKEYWORD:Saboteur
+
+---
+
+# FourSeat_DefeatBetweenTwoOtherSeats_Counts
+#// 4P sibling: seat 2 defeats SEAT 4's unit, with seat 3 an uninvolved bystander. Both are P1's enemies,
+#// so Jyn still gets +1/+0 and Saboteur.
+
+## GIVEN
+CommonSetup4P: rrw/rrk/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1GroundArena: TWI_143:1:0
+WithP2GroundArena: SOR_039:1:0
+WithP4GroundArena: SOR_128:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:P4G0
+
+## EXPECT
+SEATCOUNT:4
+P4GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:POWER:4
+P1GROUNDARENAUNIT:0:HASKEYWORD:Saboteur

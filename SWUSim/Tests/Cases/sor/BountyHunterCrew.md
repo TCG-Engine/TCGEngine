@@ -163,3 +163,51 @@ P2GROUNDARENACOUNT:1
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:DAMAGE:0
 P2DISCARDCOUNT:1
+
+---
+
+# ThreeSeat_ReturnsToTheOWNERSHandOnAFarSeat
+#// "Return an event from A DISCARD PILE to ITS OWNER's hand." At 3+ seats ZoneSearch('theirDiscard')
+#// fans out and mints SEAT-TAGGED mzIDs (p3Discard-N), but SWUReturnDiscardCardToOwnerHand only ever
+#// recognised the two-seat "theirDiscard" spelling — so a seat-3 pick fell through to the caster's own
+#// branch and the event went to P1's hand instead of seat 3's.
+#//
+#// ⚠ This is the exact failure the code generator warns about: ZoneSearch fans `their*` out across
+#// opponents while a literal `their<Zone>-N` resolver does not, so COLLECTION and RESOLUTION disagree.
+
+## GIVEN
+CommonSetup3P: yyk/rrk/rrk/{myResources:6;handCardIds:SOR_183}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP3Discard: SOR_172
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p3Discard-0
+
+## EXPECT
+SEATCOUNT:3
+P3HANDCOUNT:1
+P3DISCARDCOUNT:0
+P1HANDCOUNT:0
+
+---
+
+# FourSeat_ReturnsToTheOWNERSHandOnTheFarthestSeat
+#// 4P sibling: the event comes from SEAT 4's discard and must land in SEAT 4's hand.
+
+## GIVEN
+CommonSetup4P: yyk/rrk/rrk/rrk/{myResources:6;handCardIds:SOR_183}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP4Discard: SOR_172
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p4Discard-0
+
+## EXPECT
+SEATCOUNT:4
+P4HANDCOUNT:1
+P4DISCARDCOUNT:0
+P1HANDCOUNT:0

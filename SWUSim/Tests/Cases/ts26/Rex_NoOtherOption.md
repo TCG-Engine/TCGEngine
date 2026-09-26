@@ -338,3 +338,44 @@ WithP1Deck: [SEC_080 SOR_095]
 P1RESAVAILABLE:0
 P1BASEDMG:2
 P2GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# ThreeSeat_ExhaustedEnemyOnAFarSeat_ActionIsAffordable
+#// TS26_06's leader Action costs "[Exhaust, ready an exhausted ENEMY unit]" — any enemy. Seat 2's board
+#// is bare and only SEAT 3 has an exhausted unit, so the action IS affordable and readies it.
+#// The affordability gate scanned `GetUnitsInPlay(OtherPlayer($player))` — seat 2 — found nothing, and
+#// made the whole action silently unavailable while a legal cost sat one seat further out.
+
+## GIVEN
+CommonSetup3P: rrw/rrk/rrk/{myLeader:TS26_06;myResources:2}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP3GroundArena: SEC_080:0:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+SEATCOUNT:3
+P1LEADER:EXHAUSTED
+P3GROUNDARENAUNIT:0:READY
+
+---
+
+# FourSeat_ExhaustedEnemyOnTheFarthestSeat_ActionIsAffordable
+#// 4P sibling: seats 2 and 3 are bare and only SEAT 4 holds the exhausted enemy.
+
+## GIVEN
+CommonSetup4P: rrw/rrk/rrk/rrk/{myLeader:TS26_06;myResources:2}
+SkipPreGame: true
+WithActivePlayer: 1
+WithP4GroundArena: SEC_080:0:0
+
+## WHEN
+- P1>UseLeaderAbility
+
+## EXPECT
+SEATCOUNT:4
+P1LEADER:EXHAUSTED
+P4GROUNDARENAUNIT:0:READY

@@ -62,3 +62,46 @@ P1GROUNDARENAUNIT:0:CARDID:SHD_117
 P1RESAVAILABLE:1
 P2GROUNDARENAUNIT:0:CARDID:SOR_046
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:1
+
+---
+
+# ThreeSeat_BountyOnAFarSeat_StillCheaper
+#// "If AN ENEMY UNIT has a Bounty" — any enemy. The Bounty unit sits on SEAT 3; seat 2's board is bare.
+#// The discount must still apply, so 3 resources buy the 3-cost Hunter at 2 and leave 1.
+
+## GIVEN
+CommonSetup3P: ggk/ggk/ggk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 3
+WithP1Hand: SHD_117
+WithP3GroundArena: SHD_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENAUNIT:0:CARDID:SHD_117
+P1RESAVAILABLE:1
+
+---
+
+# FourSeat_BountyOnTheFarthestSeat_StillCheaper
+#// 4P sibling: the Bounty is on SEAT 4, two bystander boards bare.
+
+## GIVEN
+CommonSetup4P: ggk/ggk/ggk/ggk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1Resources: 3
+WithP1Hand: SHD_117
+WithP4GroundArena: SHD_095:1:0
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:CARDID:SHD_117
+P1RESAVAILABLE:1

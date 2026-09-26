@@ -82,7 +82,11 @@ if [ "$RUN_INT" = 1 ]; then
     echo '  ; do'
     echo '  b=$(basename "$f" .php)'
     echo '  echo "@@FILE $b"'
-    echo '  timeout 90 php -d xdebug.mode=off "$f" 2>&1 | grep -v Xdebug'
+    # ⚠ apc.enable_cli=1 IS REQUIRED. Tests that register a game's auth record go through APCu
+    # (SWUSetupGame), and APCu is off in CLI by default — so without this flag public_games_test.php
+    # reports 6 phantom failures on data that is perfectly fine. It sat "known-red" for exactly that
+    # reason until 2026-09-26. Harmless for every other file.
+    echo '  timeout 90 php -d xdebug.mode=off -d apc.enable_cli=1 "$f" 2>&1 | grep -v Xdebug'
     echo 'done'
   } > "$OUT/batch.sh"
   docker exec -i -w "$WEBROOT" "$CONTAINER" sh -s < "$OUT/batch.sh" > "$OUT/batch.out" 2>&1 || true

@@ -298,3 +298,105 @@ P1DISCARDCOUNT:1
 P1RESCOUNT:15
 P1RESAVAILABLE:3
 P1NODECISION
+
+---
+
+# ThreeSeat_AFarSeatHoldsTheArena_NoWin
+#// ⚠ A FALSE WIN. "if you are the ONLY PLAYER who controls units in that arena" — every other player
+#// counts, not just one. P1 chooses Ground and holds it; SEAT 2 has nothing there, but SEAT 3 does. P1
+#// is therefore NOT the only player controlling ground units and must NOT win.
+#//
+#// The check read `$opp = OtherPlayer($caster)` — seat 2 alone — so seat 3's units were invisible and
+#// P1 WON THE GAME outright. Two seats cannot observe this: there, the one opponent is every opponent,
+#// which is why SoleArenaControl_Wins and OpponentAlsoHasUnits_NoWin both pass against the broken read.
+
+## GIVEN
+CommonSetup3P: rrk/grw/grw
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Resources: 10
+WithP1Hand: SEC_145
+WithP1GroundArena: SOR_095:1:0
+WithP3GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Ground
+- P1>Pass
+- P2>Pass
+- P3>Pass
+
+## EXPECT
+SEATCOUNT:3
+NOGAMEWINNER
+
+---
+
+# ThreeSeat_NoOtherSeatHoldsTheArena_Wins
+#// THE CONTROL for the section above — identical board with seat 3's ground unit REMOVED (it is in SPACE
+#// instead, a different arena). Now P1 really is the only player with ground units, so the win still
+#// fires. Without this, a check that simply never won would pass the section above.
+
+## GIVEN
+CommonSetup3P: rrk/grw/grw
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Resources: 10
+WithP1Hand: SEC_145
+WithP1GroundArena: SOR_095:1:0
+WithP3SpaceArena: SOR_246:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Ground
+- P1>Pass
+- P2>Pass
+- P3>Pass
+
+## EXPECT
+SEATCOUNT:3
+P1WIN
+
+---
+
+# FourSeat_TheFARTHESTSeatHoldsTheArena_NoWin
+#// 4P sibling of the false-win guard. Seats 2 AND 3 are empty in the ground arena; only SEAT 4 holds it.
+#// `OtherPlayer(1)` is seat 2, so the old check saw two empty boards and declared the win twice over.
+#// With three opponents, "checked one of them" and "checked all of them" are finally different.
+
+## GIVEN
+CommonSetup4P: rrk/grw/grw/grw
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithGamePhase: ActionPhase
+WithP1Resources: 10
+WithP1Hand: SEC_145
+WithP1GroundArena: SOR_095:1:0
+WithP4GroundArena: SOR_095:1:0
+WithP1Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+WithP4Deck: [SOR_095 SOR_095 SOR_095 SOR_095]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Ground
+- P1>Pass
+- P2>Pass
+- P3>Pass
+- P4>Pass
+
+## EXPECT
+SEATCOUNT:4
+NOGAMEWINNER
