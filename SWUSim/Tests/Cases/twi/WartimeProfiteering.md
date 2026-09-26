@@ -60,3 +60,42 @@ P3GROUNDARENACOUNT:0
 P1HANDCOUNT:1
 P1HANDCARD:0:SOR_128
 P1DECKCOUNT:2
+
+---
+
+# FourSeat_DefeatsSpreadAcrossTWOFarSeats_AreSummed
+#// 4P sibling, and the one that proves the count SUMS every seat rather than reading one. Seat 2 kills a
+#// unit on seat 3 and then one on seat 4 — two units defeated this phase, on two different far boards,
+#// with P1 uninvolved. P1 looks at TWO cards and may draw the SECOND from the top (SOR_128).
+#// At three seats the whole count can only ever sit on one far seat, so summing and picking look alike.
+
+## GIVEN
+CommonSetup4P: yyk/rrk/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1Resources: 2
+WithP1Hand: TWI_188
+WithP1Deck: [SOR_046 SOR_128 SOR_039]
+WithP2GroundArena: SOR_039:1:0
+WithP2GroundArena: SOR_039:1:0
+WithP3GroundArena: SOR_128:1:0
+WithP4GroundArena: SOR_128:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:P3G0
+- P3>Pass
+- P4>Pass
+- P1>Pass
+- P2>AttackGroundArena:1:P4G0
+- P3>Pass
+- P4>Pass
+- P1>PlayHand:0
+- P1>AnswerDecision:SOR_128
+
+## EXPECT
+SEATCOUNT:4
+P3GROUNDARENACOUNT:0
+P4GROUNDARENACOUNT:0
+P1HANDCOUNT:1
+P1HANDCARD:0:SOR_128
+P1DECKCOUNT:2

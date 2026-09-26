@@ -63,6 +63,17 @@
         return $this->userId;
     }
 
+    // Attach an account to a seat that was taken anonymously. A guest who signs in mid-room (to
+    // chat, which is the one thing an account is required for) keeps their seat and gains the
+    // identity, so deck stats attribute to them and a later block check can see who they are.
+    // ⚠ ONE WAY ONLY: a seat that already belongs to an account never changes hands, or presenting
+    // a stale authKey after signing out would transfer someone's seat to a different person.
+    public function setUserId($userId) {
+        if ($this->userId !== null && intval($this->userId) > 0) return false;
+        $this->userId = ($userId === null) ? null : intval($userId);
+        return true;
+    }
+
     public function getGamePlayerID() {
         return $this->gamePlayerID;
     }

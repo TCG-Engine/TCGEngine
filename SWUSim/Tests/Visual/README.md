@@ -1,5 +1,12 @@
 # Tests/Visual — visual-check schemas
 
+> ⚠⚠ NOT A SCHEMA FILE — DO NOT LOAD THIS IN THE TEST SCHEMA EDITOR. This is the folder's README.
+>
+> Most files here **are** loadable schemas. The ones that are not open with that same banner on
+> line 1, and the editor refuses them by name rather than silently building an empty two-seat board
+> (`SchemaTestRunner::_parse`, guarded by `SWUSim/DevTools/tests/schema_requires_given_section_test.php`,
+> which also asserts that banner and the parser never disagree).
+
 Schemas in this folder exist **only to be loaded by hand in the Test Schema Editor**
 (`zzTestSchemaEditor.php`) so a human can eyeball board rendering — icons, layout,
 overlays, animations, etc. They assert nothing automatically.

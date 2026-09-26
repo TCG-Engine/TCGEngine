@@ -175,3 +175,39 @@ WithP3GroundArena: SOR_128:1:0
 P3GROUNDARENACOUNT:0
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:POWER:6
+
+---
+
+# FourSeat_DefeatsOnTWODifferentFarSeats_SumTo2Experience
+#// 4P sibling, and the section that proves the count SUMS ACROSS SEATS rather than reading one. Seat 2
+#// kills a unit on seat 3 and then one on seat 4 — two enemy units defeated this phase, on two different
+#// boards, neither of them P1's. Sion must enter with 2 Experience (7/7). A three-seat board can only
+#// ever put the whole count on one far seat, so it cannot tell summing from picking.
+
+## GIVEN
+CommonSetup4P: bbk/rrk/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1Resources: 6
+WithP1Hand: SEC_035
+WithP2GroundArena: SOR_039:1:0
+WithP2GroundArena: SOR_039:1:0
+WithP3GroundArena: SOR_128:1:0
+WithP4GroundArena: SOR_128:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:P3G0
+- P3>Pass
+- P4>Pass
+- P1>Pass
+- P2>AttackGroundArena:1:P4G0
+- P3>Pass
+- P4>Pass
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P3GROUNDARENACOUNT:0
+P4GROUNDARENACOUNT:0
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:2
+P1GROUNDARENAUNIT:0:POWER:7

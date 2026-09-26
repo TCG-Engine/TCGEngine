@@ -46,3 +46,31 @@ WithP2GroundArena: SHD_095:1:0
 ## EXPECT
 P2GROUNDARENACOUNT:1
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# FourSeat_AttackedAnotherSeatsBase_NotCaptured
+#// 4P sibling: seat 2's unit attacks SEAT 3's base and seat 4's attacks seat 3's too. Neither attacked
+#// SEAT 1's base, so Rule with Respect captures nothing and both stay in play.
+
+## GIVEN
+CommonSetup4P: ggw/ggk/ggk/ggk
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1Resources: 4
+WithP1GroundArena: SOR_046:1:0
+WithP1Hand: SHD_106
+WithP2GroundArena: SHD_095:1:0
+WithP4GroundArena: SHD_095:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:P3B
+- P3>Pass
+- P4>AttackGroundArena:0:P3B
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P2GROUNDARENACOUNT:1
+P4GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:UPGRADECOUNT:0

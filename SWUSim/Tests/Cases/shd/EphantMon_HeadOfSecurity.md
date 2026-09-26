@@ -75,3 +75,30 @@ WithP2GroundArena: SHD_028:1:0
 ## EXPECT
 P1BASEDMG:0
 P2GROUNDARENACOUNT:0
+
+---
+
+# FourSeat_AttackedAnotherSeatsBase_NotCapturable
+#// 4P sibling: seat 2's unit attacks SEAT 3's base, and seat 4 is a further bystander. Neither is a legal
+#// capture target for seat 1, whose base nobody touched — so Ephant Mon offers nothing at all.
+
+## GIVEN
+CommonSetup4P: ggk/ggk/ggk/ggk
+SkipPreGame: true
+WithActivePlayer: 2
+WithP1GroundArena: SHD_088:1:0
+WithP1GroundArena: SOR_095:1:0
+WithP2GroundArena: SEC_080:1:0
+WithP4GroundArena: SEC_080:1:0
+
+## WHEN
+- P2>AttackGroundArena:0:P3B
+- P3>Pass
+- P4>Pass
+- P1>AttackGroundArena:0:P2B
+
+## EXPECT
+SEATCOUNT:4
+P2GROUNDARENACOUNT:1
+P4GROUNDARENACOUNT:1
+P1NODECISION

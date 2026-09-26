@@ -91,7 +91,12 @@ check($allSets['HMW'] === $allSets['ASH'] + 1, 'HMW ordered directly after ASH')
 check($allSets['IC27'] === $allSets['HMW'] + 1, 'IC27 ordered directly after HMW');
 
 $previewSets = require __DIR__ . '/../../../AppCore/SWU/PreviewSets.php';
-check($previewSets === ['HMW', 'IC27'], 'preview-only sets declared');
+// ⚠ THIS LIST SHRINKS ON EVERY SET RELEASE, and this assertion has to shrink with it. HMW left
+// PreviewSets on its release day (owner, 2026-09-16) and this line was not updated, so the file sat
+// RED for weeks against data that was already correct. The release-specific claim ("HMW is legal in
+// Premier/Eternal and no longer preview") is owned by DevTools/tdd-regression/test_swusim_hmw_release.php;
+// what this line pins is only that PreviewSets is still DECLARED and still names the unreleased set.
+check($previewSets === ['IC27'], 'preview-only sets declared');
 
 // --- leader-unit-side dimensions exist and default to null ---
 require_once __DIR__ . '/../../GeneratedCode/GeneratedCardDictionaries.php';

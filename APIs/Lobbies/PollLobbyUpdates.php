@@ -191,6 +191,10 @@ while (true) {
     $response->canChat = ($pollChatRefusal === null);
     $response->cannotChatReason = $pollChatRefusal ?? '';
     $response->inviteCode = $lobby->inviteCode ?? '';
+    // ADDITIVE (2026-09-26). The page shows a bare "Copy Link" for a PUBLIC room and
+    // "Invite: <code> [Copy Invite Link]" for a private one — a public room has no secret to read
+    // aloud. Every existing field is untouched; callers that ignore this see no change.
+    $response->isPrivate = !empty($lobby->isPrivate);
     $response->lobbyID = $lobbyID;   // resolved from ?invite=; the page replaceState()s to ?lobby=<id>
     // Hand the caller back the seat it CURRENTLY holds. StartRoom renumbers playerIDs at start (team
     // rooms sort by picked seat first), so the playerID the client captured at join is stale for anyone

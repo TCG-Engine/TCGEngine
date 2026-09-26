@@ -437,6 +437,16 @@ checkContains('started state shows a plain Starting…', $wrHtml, "Starting…")
 check('page does NOT ship a match-found countdown', strpos($wrHtml, 'match-found-popup') === false);
 // The invite link must point at the page, not back at the menu.
 checkContains('invite link targets the waiting room', $wrHtml, 'WaitingRoom.php?invite=');
+// ⚠ PUBLIC ROOMS SHARE THE SAME LINK MECHANISM but not the same presentation. A public Twin Suns
+// room is reachable through matchmaking by anyone, so its code is an ADDRESS, not a password: the
+// page shows a bare "Copy Link" and never prints the code. A private room still reads out
+// "Invite: <code>", because there the code IS the secret. Owner feature request, 2026-09-26.
+checkContains('a public room offers a bare Copy Link', $wrHtml, "'Copy Link' : 'Copy Invite Link'");
+checkContains('public/private is decided by the poll payload', $wrHtml, 'd.isPrivate === false');
+// The code is printed ONLY on the private branch — guarded so a refactor cannot leak it onto the
+// public one, which is the whole distinction this feature turns on.
+checkContains('the code is printed only for a private room', $wrHtml,
+              "(isPublicRoom ? '' : 'Invite: <strong>'");
 
 // ⚠ TEAM PICKER REGRESSION GUARD. The first cut of this page ported the team COLUMNS but not the
 // team PICKING, so a Team Suns host saw four "open" seats, no Join buttons, and no sign of
@@ -562,7 +572,11 @@ check('no native window.prompt/alert/confirm',
       !preg_match('/\bwindow\.(prompt|alert|confirm)\s*\(/', $wrCode)
       && !preg_match('/(^|[^.\w])(prompt|alert|confirm)\s*\(/m', $wrCode));
 checkContains('the clipboard fallback uses StyledPrompt', $wrHtml, "typeof StyledPrompt === 'function'");
-checkContains('a successful copy toasts',                 $wrHtml, "Toast('Invite link copied.'");
+// The toast names which KIND of link was copied — "Room link copied." in a public room, "Invite link
+// copied." in a private one (2026-09-26). Asserting the built string rather than a literal, because
+// the wording is now chosen at click time from the same isPublicRoom flag as the button's label.
+checkContains('a successful copy toasts',                 $wrHtml, "' link copied.', { type: 'success' }");
+checkContains('and the toast names which kind of link',   $wrHtml, "(isPublicRoom ? 'Room' : 'Invite')");
 // Both are called through typeof guards, so a page that somehow lacks the primitive degrades to
 // silence rather than throwing mid-click.
 checkContains('the toast is guarded',   $wrHtml, "typeof Toast === 'function'");

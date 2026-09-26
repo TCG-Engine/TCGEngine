@@ -31,8 +31,11 @@ function MatchRefPath($rootName, $gameName) {
 // for the Sideboard, which sits BETWEEN games and is addressed by a matchId. Same userIds, same
 // answer — this just reaches them through the match record instead of a gamestate.
 //
-// ⚠ A LOBBY needs no equivalent: JoinQueue.php's SWUJoinBlocked already refuses a blocked player a
-// seat, so two mutually-blocked players can never be in one room to begin with.
+// ⚠ A LOBBY needs no equivalent: JoinQueue.php's SWUJoinBlockedFromLobby already refuses a blocked
+// player a seat, so two mutually-blocked players can never be in one room to begin with. That held
+// only at TWO seats until 2026-09-26 — the check tested the HOST alone, so at 3-4 seats a block pair
+// could meet through a third-party host. It now tests every seated player, which is what makes the
+// claim above true for Twin Suns / Team Suns as well.
 function MatchArePlayersBlocked($rootName, $matchId) {
     $m = MatchRead($rootName, $matchId);
     if (!is_array($m)) return false;

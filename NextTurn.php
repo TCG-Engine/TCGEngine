@@ -2185,7 +2185,17 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                         font-family:barlow,sans-serif; height:160px; overflow-y:auto; padding:4px 6px;'></div>
         </div>
         <div id='chatWidgetControls' style='display:flex; gap:4px; align-items:center;'>
-        <?php if ($folderPath === 'SWUSim' && intval($_SESSION['userid'] ?? 0) <= 0): ?>
+        <?php if ($isSpectatorViewer): ?>
+            <!-- SPECTATORS CANNOT CHAT (owner, 2026-09-26). Render NOTHING — no input, no send button,
+                 and deliberately NO explanation: a spectator is a guest of the table, not someone being
+                 refused something they were promised. Contrast the guest branch below, which DOES explain
+                 itself because logging in is an action the reader can take; there is nothing a spectator
+                 could do about this, so a notice would only be noise.
+                 Omitting #chatText also keeps the whisper row (GameLayoutShared.php) and the chat hotkeys
+                 out of the way, exactly as the guest branch does.
+                 SubmitChat.php enforces it server-side via SWUSim/Custom/ChatPolicy.php — this branch only
+                 hides a control that would not work. -->
+        <?php elseif ($folderPath === 'SWUSim' && intval($_SESSION['userid'] ?? 0) <= 0): ?>
             <!-- SWUSim guests can read chat but not send (owner, 2026-09-21); SubmitChat.php enforces it. No #chatText,
                  so the whisper row (GameLayoutShared.php) and the chat hotkeys stay out of the way too. -->
             <div id='chatGuestNote'
@@ -2261,23 +2271,47 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     <?php endif; ?>
 
     <?php if ($isSpectatorViewer): ?>
+    <?php
+      // WHICH SEATS A SPECTATOR MAY WATCH FROM. This used to be two hardcoded buttons, so a Twin Suns
+      // spectator simply could not see the game as P3 or P4 — the two far seats were unreachable from
+      // the UI even though the backend already accepted any perspective >= 1
+      // (Core/ViewerIdentity.php NormalizeViewerPerspective). The clamp was purely in this picker.
+      //
+      // Derived from the LIVE seat list, not the seat order: once a seat is eliminated its board has
+      // been cleaned out (units set aside, base removed), so a camera pointed at it would show an
+      // empty half-board. GetLiveSeatsArray() is SWUSim's, hence function_exists — this page serves
+      // every sim, and a 2-seat sim has no such function and needs no such choice.
+      $specSeats = [1, 2];
+      if (function_exists('GetLiveSeatsArray')) {
+          $live = array_values(array_filter(array_map('intval', (array)GetLiveSeatsArray()), fn($s) => $s >= 1));
+          if (count($live) >= 2) $specSeats = $live;
+      }
+    ?>
     <div id='spectatorControls'
-         style='position:fixed; top:16px; left:16px; z-index:12000; background:rgba(7, 18, 30, 0.92); color:#f0e6c8; border:1px solid #c9a84c; border-radius:10px; padding:10px 12px; box-shadow:0 8px 24px rgba(0,0,0,0.35);'>
+         style='position:fixed; top:16px; left:16px; z-index:12000; background:rgba(7, 18, 30, 0.92); color:#f0e6c8; border:1px solid #c9a84c; border-radius:6px; padding:10px 12px; font-family:barlow,sans-serif; font-size:13px;'>
+      <?php /* ⚠ LABELS ARE "P3", NOT "As P3". This box is a FIXED overlay and already sits on top of
+              the viewer's own home-strip stats (measured: it covers Hand/Deck/Discard at y=78). Going
+              from two seats to four widened it by ~94px and made that worse, so the labels carry only
+              the seat number — the "Spectator View" heading already supplies the verb. Where this
+              overlay BELONGS is a gameboard-design question, deliberately left for that review. */ ?>
       <div style='font-weight:700; margin-bottom:8px;'>Spectator View</div>
-      <div style='display:flex; gap:8px; align-items:center;'>
+      <div style='display:flex; gap:8px; align-items:center; flex-wrap:wrap;'>
+        <?php foreach ($specSeats as $specSeat): ?>
         <button type='button'
-                onclick='SetSpectatorPerspective(1)'
-                style='padding:6px 10px; <?php echo($viewerPerspective === 1 ? "background:#c9a84c; color:#0d1b2a;" : "background:#1d3a5e; color:#f0e6c8;"); ?>'>View P1 Side</button>
-        <button type='button'
-                onclick='SetSpectatorPerspective(2)'
-                style='padding:6px 10px; <?php echo($viewerPerspective === 2 ? "background:#c9a84c; color:#0d1b2a;" : "background:#1d3a5e; color:#f0e6c8;"); ?>'>View P2 Side</button>
+                onclick='SetSpectatorPerspective(<?php echo intval($specSeat); ?>)'
+                style='padding:6px 10px; <?php echo($viewerPerspective === $specSeat ? "background:#c9a84c; color:#0d1b2a;" : "background:#1d3a5e; color:#f0e6c8;"); ?> border:1px solid #c9a84c; border-radius:4px; cursor:pointer;'>P<?php echo intval($specSeat); ?></button>
+        <?php endforeach; ?>
       </div>
     </div>
     <script>
+      var SPECTATOR_SEATS = <?php echo json_encode(array_map('intval', $specSeats)); ?>;
       function SetSpectatorPerspective(perspective) {
+        // Only a seat this game actually has. An out-of-range value would be accepted by the server
+        // (perspective >= 1) and render a board nobody is sitting at.
+        var seat = SPECTATOR_SEATS.indexOf(perspective) >= 0 ? perspective : SPECTATOR_SEATS[0];
         var url = new URL(window.location.href);
         url.searchParams.set('playerID', 'S');
-        url.searchParams.set('viewerPerspective', perspective === 2 ? '2' : '1');
+        url.searchParams.set('viewerPerspective', String(seat));
         window.location.replace(url.toString());
       }
     </script>

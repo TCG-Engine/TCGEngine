@@ -22,7 +22,12 @@ $checks['TS whisper to two seats OK']              = swuchat_send($ts, '2', 'ts-
 $checks['TS self target rejected']                 = swuchat_send($ts, '1', 'x', '1') === 'Invalid whisper.';
 $checks['TS out-of-range rejected']                = swuchat_send($ts, '1', 'x', '5') === 'Invalid whisper.';
 $checks['TS malformed rejected']                   = swuchat_send($ts, '1', 'x', '2,a') === 'Invalid whisper.';
-$checks['TS spectator cannot whisper']             = swuchat_send($ts, 'S', 'x', '1') === 'Spectators cannot whisper.';
+// ⚠ THE GENERAL RULE ANSWERS FIRST, and that is deliberate. Since 2026-09-26 a SWUSim spectator may
+// not chat AT ALL (SWUSim/Custom/ChatPolicy.php), and ChatSendRefusal runs before SubmitChat's
+// whisper-specific spectator check — so the refusal a spectator gets is the broad one. The narrower
+// "Spectators cannot whisper." line in SubmitChat.php is NOT dead: it still answers for any sim that
+// has no spectator chat policy of its own.
+$checks['TS spectator cannot whisper']             = swuchat_send($ts, 'S', 'x', '1') === 'Spectators cannot chat.';
 
 // Team Suns: exactly the teammate (seat parity — 1&3 red, 2&4 blue).
 $checks['Team whisper to teammate OK']             = swuchat_send($tm, '1', 'team-red', '3') === 'OK';

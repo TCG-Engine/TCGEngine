@@ -1668,10 +1668,16 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     }
     /* The name span is the first child that Core builds (seat class rides the row). */
     .swu-log-CHAT > span:first-child { color: rgba(255,255,255,0.70); }
-    .swu-log-CHAT.chatMsg-p1 { border-left-color: var(--swu-chat-p1); }
-    .swu-log-CHAT.chatMsg-p2 { border-left-color: var(--swu-chat-p2); }
-    .swu-log-CHAT.chatMsg-p3 { border-left-color: var(--swu-chat-p3); }
-    .swu-log-CHAT.chatMsg-p4 { border-left-color: var(--swu-chat-p4); }
+    /* The ROW carries the seat colour so the MESSAGE BODY inherits it, not just the name (owner,
+       2026-09-26: "make the text a player sends the same color as their player color"). The body is a
+       bare second span with no class of its own, so the row is the only place this can live. Whisper
+       rows inherit it too — .chatMsg-whisper sets italics and a wash, never a colour. */
+    .swu-log-CHAT.chatMsg-p1 { border-left-color: var(--swu-chat-p1); color: var(--swu-chat-p1); }
+    .swu-log-CHAT.chatMsg-p2 { border-left-color: var(--swu-chat-p2); color: var(--swu-chat-p2); }
+    .swu-log-CHAT.chatMsg-p3 { border-left-color: var(--swu-chat-p3); color: var(--swu-chat-p3); }
+    .swu-log-CHAT.chatMsg-p4 { border-left-color: var(--swu-chat-p4); color: var(--swu-chat-p4); }
+    /* ⚠ NOT redundant with the rows above. The generic ".swu-log-CHAT > span:first-child" rule is more
+       specific than an inherited colour, so deleting these would hand every NAME back to white-70%. */
     .swu-log-CHAT.chatMsg-p1 > span:first-child { color: var(--swu-chat-p1); }
     .swu-log-CHAT.chatMsg-p2 > span:first-child { color: var(--swu-chat-p2); }
     .swu-log-CHAT.chatMsg-p3 > span:first-child { color: var(--swu-chat-p3); }

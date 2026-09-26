@@ -171,3 +171,45 @@ WithP2SpaceArena: SOR_044:1:0
 P1HASDECISION
 P1DECISIONTOOLTIP:Choose_a_Vehicle_to_pilot
 P1SELECTABLEEXACT:myGroundArena-0&mySpaceArena-0
+
+---
+
+# ThreeSeat_DamagedEnemyOnAFarSeat_StillBuffs
+#// "While AN ENEMY UNIT is damaged" — ANY enemy, on any seat. Only SEAT 3's unit is damaged; seat 2's is
+#// clean. IG-88 must still be 7. The check read `OtherPlayer($obj->Controller)`, i.e. seat 2 for a
+#// seat-1 IG-88, so a far seat's damaged units were invisible.
+
+## GIVEN
+CommonSetup3P: bbk/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: JTL_141:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:3
+
+## WHEN
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENAUNIT:0:POWER:7
+
+---
+
+# FourSeat_DamagedEnemyOnTheFarthestSeat_StillBuffs
+#// 4P sibling — the damaged enemy is on SEAT 4, with two clean bystander boards. `OtherPlayer()` answers
+#// 1 for seats 3 and 4 alike, so only four seats distinguish them.
+
+## GIVEN
+CommonSetup4P: bbk/bbk/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 1
+WithP1GroundArena: JTL_141:1:0
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:3
+
+## WHEN
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:POWER:7

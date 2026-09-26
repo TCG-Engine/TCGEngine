@@ -15,6 +15,14 @@
 if (!function_exists('SimChatSendRefusal')) {
 
 function SimChatSendRefusal(array $viewer, $scopeToken) {
+    // ★ OWNER RULING (2026-09-26): SPECTATORS CANNOT CHAT. Checked before the login gate so a
+    // logged-in spectator is refused too — watching a game is not a seat at the table.
+    //
+    // ⚠ The game page renders NO composer and NO notice for a spectator (NextTurn.php), so this
+    // string is only ever seen by a hand-crafted POST. It is deliberately terse for that reason;
+    // unlike 'Log in to chat.' it must NEVER be surfaced in the UI, because the ruling is that a
+    // spectator is told nothing.
+    if (!empty($viewer['isSpectator'])) return 'Spectators cannot chat.';
     if (intval($viewer['userId'] ?? 0) <= 0) return 'Log in to chat.';
     return null;
 }

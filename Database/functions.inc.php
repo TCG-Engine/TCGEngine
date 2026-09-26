@@ -825,6 +825,29 @@ function AreUsersBlocked($a, $b)
 	return $blocked;
 }
 
+// Is $a blocked with ANY of $others? One round trip rather than one per candidate — the lobby join
+// asks this inside the public-queue cache scan, once per candidate room, so a per-seat query would
+// multiply the scan's DB cost by the seat count.
+function AreUsersBlockedAny($a, array $others)
+{
+	$a = (int)$a;
+	if ($a <= 0) return false;
+	$ids = [];
+	foreach ($others as $o) { $o = (int)$o; if ($o > 0) $ids[$o] = true; }
+	$ids = array_keys($ids);
+	if (empty($ids)) return false;
+	$placeholders = implode(',', array_fill(0, count($ids), '?'));
+	$conn = GetLocalMySQLConnection();
+	$stmt = mysqli_prepare($conn, "SELECT 1 FROM `blocklist` WHERE (blockingPlayer = ? AND blockedPlayer IN ($placeholders)) OR (blockedPlayer = ? AND blockingPlayer IN ($placeholders)) LIMIT 1");
+	$params = array_merge([$a], $ids, [$a], $ids);
+	mysqli_stmt_bind_param($stmt, str_repeat('i', count($params)), ...$params);
+	mysqli_stmt_execute($stmt);
+	mysqli_stmt_store_result($stmt);
+	$blocked = mysqli_stmt_num_rows($stmt) > 0;
+	mysqli_stmt_close($stmt); mysqli_close($conn);
+	return $blocked;
+}
+
 function LoadBlockedUsersDetailed($userId)
 {
 	$userId = (int)$userId;

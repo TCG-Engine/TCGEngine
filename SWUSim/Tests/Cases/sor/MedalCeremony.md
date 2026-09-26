@@ -315,3 +315,29 @@ WithP3GroundArena: SOR_046:1:0
 P3GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P3GROUNDARENAUNIT:0:POWER:4
 P2GROUNDARENAUNIT:0:UPGRADECOUNT:0
+
+---
+
+# FourSeat_FarSeatRebelAttacker_InPool_TwoNonAttackersExcluded
+#// 4P sibling. The only Rebel that attacked sits on SEAT 4; seats 2 AND 3 field Rebels that did not.
+#// `OtherPlayer()` answers 1 for seat 3 and seat 4 alike, so a four-seat board is the only place a
+#// seat-4 attacker is distinguishable from a seat-3 one, and two non-attackers make the pool assertion
+#// discriminate in both directions at once.
+
+## GIVEN
+CommonSetup4P: bbk/bbk/bbk/bbk
+SkipPreGame: true
+WithActivePlayer: 4
+WithP1Resources: 6
+WithP1Hand: SOR_245
+WithP2GroundArena: SOR_046:1:0
+WithP3GroundArena: SOR_046:1:0
+WithP4GroundArena: SOR_046:1:0
+
+## WHEN
+- P4>AttackGroundArena:0:P1B
+- P1>PlayHand:0
+
+## EXPECT
+SEATCOUNT:4
+P1SELECTABLEEXACT:p4GroundArena-0

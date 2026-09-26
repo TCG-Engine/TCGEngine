@@ -703,7 +703,14 @@ function ObjectCurrentPower($obj) {
             if ($controller > 0 && PlayerHasIniative($controller)) $base += 2;
             break;
         case 'SEC_151': // Kazuda Xiono: while you control fewer resources than an opponent, +2/+0.
-            if ($controller > 0 && SWUResourceCount($controller, false) < SWUResourceCount(OtherPlayer($controller), false)) $base += 2;
+            // "AN OPPONENT" is existential — ANY opponent with more resources arms it. OtherPlayer()
+            // compared against one seat, so a far seat's bigger board never counted.
+            if ($controller > 0) {
+                $myRes = SWUResourceCount($controller, false);
+                foreach (OpponentsOf(intval($controller)) as $oppK) {
+                    if ($myRes < SWUResourceCount($oppK, false)) { $base += 2; break; }
+                }
+            }
             break;
         case 'SEC_112': // Orn Free Taa: +1/+0 for each Law card in your discard pile.
             if ($controller > 0) {
@@ -887,8 +894,12 @@ function ObjectCurrentPower($obj) {
     if (_SWUUnitHasUpgrade($obj, 'JTL_050')) $base += 3;
     // JTL_226 Radiant VII: each enemy non-leader unit gets -1/-0 for each damage on it (aura).
     if ($controller > 0 && !IsLeaderUnit($obj) && intval($obj->Damage ?? 0) > 0) {
-        foreach (GetUnitsInPlay(OtherPlayer($controller)) as $e) {
-            if (($e->CardID ?? '') === 'JTL_226' && empty($e->removed)) { $base -= intval($obj->Damage); break; }
+        // The aura is resolved from the AFFECTED unit's side: is there a Radiant VII among ITS enemies?
+        // OtherPlayer($controller) searched one board, so a Radiant on any other opponent's seat applied
+        // nothing. ⚠ The mirror case happens to work (OtherPlayer(3) == 1), which is why only a victim on
+        // seat 1 exposes it. _SWUAllEnemyUnits already filters removed units.
+        foreach (_SWUAllEnemyUnits(intval($controller)) as $e) {
+            if (($e->CardID ?? '') === 'JTL_226') { $base -= intval($obj->Damage); break; }
         }
     }
 
@@ -2318,10 +2329,13 @@ function _SWUHasPilotOnIt($obj): bool {
 
 // JTL_141 IG-88 — true if any enemy unit (an opponent of $obj's controller) is damaged.
 function _SWUEnemyUnitDamaged($obj): bool {
-    $opp = OtherPlayer(intval($obj->Controller ?? 0));
-    if ($opp <= 0) return false;
-    foreach (array_merge(GetGroundArena($opp), GetSpaceArena($opp)) as $u) {
-        if (empty($u->removed) && intval($u->Damage) > 0) return true;
+    // ⚠ "AN ENEMY unit" is EXISTENTIAL across EVERY opponent. OtherPlayer() named one seat (and seat 1
+    // for any far-seat IG-88), so a damaged unit on another opponent's board did not arm the buff.
+    // _SWUAllEnemyUnits is the shared seam for this family and is team-aware for free.
+    $ctrl = intval($obj->Controller ?? 0);
+    if ($ctrl <= 0) return false;
+    foreach (_SWUAllEnemyUnits($ctrl) as $u) {
+        if (intval($u->Damage) > 0) return true;
     }
     return false;
 }
@@ -2485,7 +2499,11 @@ function _SWUTs26059Offer(int $player): void {
             if (SWUObjGone($u) || intval($u->Status) !== 1) continue;   // ready
             if (!CardUnique($u->CardID ?? '')) continue;                                     // unique only
             if (in_array(strval(intval($u->UniqueID ?? 0)), $excl, true)) continue;
-            if (empty(SWUGetValidAttackTargets(OtherPlayer($player), $u, $u->Location ?? '', false))) continue; // bases allowed
+            // ⚠ EVERY opponent, not OtherPlayer()'s single seat. Normally harmless — an opponent's base
+            // is always a legal target, so the gate holds whichever seat it inspects — but when the seat
+            // OtherPlayer() names is ELIMINATED it has no base and no units, and this offered NO unique
+            // unit at all while another opponent sat there attackable.
+            if (empty(SWUGetAllValidAttackTargets(intval($player), $u, $u->Location ?? '', false))) continue; // bases allowed
             $units[] = "{$zone}-{$i}";
         }
     }
@@ -3430,8 +3448,9 @@ $playCostModifiers["SHD_091"] = function($player, $subjectObj) {
 
 // SHD_117 Reputable Hunter — costs 1 less if an enemy unit has a Bounty.
 $playCostModifiers["SHD_117"] = function($player, $subjectObj) {
-    foreach (GetUnitsInPlay(OtherPlayer(intval($player))) as $u) {
-        if (empty($u->removed) && ObjectHasBounty($u) > 0) return -1;
+    // "AN ENEMY unit has a Bounty" — existential across every opponent (was one seat).
+    foreach (_SWUAllEnemyUnits(intval($player)) as $u) {
+        if (ObjectHasBounty($u) > 0) return -1;
     }
     return 0;
 };
@@ -3457,10 +3476,16 @@ $playCostModifiers["LOF_056"] = function($player, $subjectObj) {
 
 // JTL_204 Home One: costs 3 less if an opponent controls 3 or more space units.
 $playCostModifiers["JTL_204"] = function($player, $subjectObj) {
-    $opp = GetOpponent($player);
+    // ⚠ "AN OPPONENT controls 3 OR MORE space units" — the threshold is PER OPPONENT, never a table
+    // total, so this counts each seat SEPARATELY and takes the largest. A flat union of every enemy
+    // unit would wrongly discount when three ships are spread two-and-one across two opponents
+    // (pinned by ThreeSeat_ThreeSpaceSPREADAcrossTwoOpponents_NoDiscount).
+    // GetOpponent() named one seat and returns NULL above seat 2, so a far fleet counted for nothing.
     $cnt = 0;
-    foreach (GetSpaceArena($opp) as $u) {
-        if (empty($u->removed)) $cnt++;
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        $n = 0;
+        foreach (GetSpaceArena($opp) as $u) { if (empty($u->removed)) $n++; }
+        if ($n > $cnt) $cnt = $n;
     }
     return $cnt >= 3 ? -3 : 0;
 };
@@ -3884,7 +3909,6 @@ function _SWUPlayCostModifierDelta($player, $obj, $host = null, bool $includeUse
     // SHD_202 Qi'ra — "each card with that name costs 3 resources more for your opponents." Surcharge
     // follows the player who PLAYED Qi'ra (matched by UID; survives a steal); matched by TITLE (excludes
     // subtitle). +3 iff the opponent has an in-play Qi'ra that named this title.
-    $qiraPlayer  = OtherPlayer(intval($player));
     $playedTitle = CardTitle($cardID);
     $qiraUids    = [];
     // ⚠ Scan EVERY seat: a Qi'ra on seat 3 or 4 imposed no surcharge at all because this only looked at
@@ -3897,7 +3921,12 @@ function _SWUPlayCostModifierDelta($player, $obj, $host = null, bool $includeUse
             if (($qUnit->CardID ?? '') === 'SHD_202' && empty($qUnit->removed)) $qiraUids[] = intval($qUnit->UniqueID ?? 0);
         }
     }
+    // ⚠ HALF-FIXED UNTIL NOW. The UID scan above already spans every seat, but the named-card flag was
+    // read from GetGlobalEffects(OtherPlayer($player)) — a single seat — so the two halves disagreed and
+    // a Qi'ra on seat 3 or 4 imposed no surcharge at all. "costs 3 more for YOUR OPPONENTS" means: does
+    // ANY opponent of the PAYER hold a naming flag? OpponentsOf() is length-1 at two seats.
     if (!empty($qiraUids)) {
+        foreach (OpponentsOf(intval($player)) as $qiraPlayer) {
         foreach (GetGlobalEffects($qiraPlayer) as $ge202) {
             $key = $ge202->CardID ?? '';
             if (strpos($key, 'SWU_SHD202_NAMED|') !== 0) continue;
@@ -3909,7 +3938,8 @@ function _SWUPlayCostModifierDelta($player, $obj, $host = null, bool $includeUse
             } else {                                          // legacy seeded form → any Qi'ra in play suffices
                 $named = $piece[0];
             }
-            if (CardTitle($named) === $playedTitle) { $delta += 3; break; }
+            if (CardTitle($named) === $playedTitle) { $delta += 3; break 2; }
+        }
         }
     }
     // Subject-keyed modifiers (the card discounts/surcharges itself). SEC_046 Galen Erso — a named card
@@ -4704,8 +4734,17 @@ function SWUReturnFromDiscardToHand($player, $discardMzID) {
 function SWUReturnDiscardCardToOwnerHand(int $player, string $discardMzID): bool {
     $parts = explode('-', $discardMzID);
     $idx   = intval($parts[1] ?? 0);
+    // ⚠ Above two seats ZoneSearch fans "theirDiscard" out and mints SEAT-TAGGED mzIDs ("p3Discard-N"),
+    // which this did not recognise at all: they fell through to the caster's own branch and the event
+    // landed in the CASTER's hand instead of its owner's. Resolve the owning seat from the mzID itself.
+    // (GetOpponent() was also NULL above seat 2, so even the "theirDiscard" spelling failed there.)
+    if (preg_match('/^p(\d+)Discard$/', $parts[0] ?? '', $m)) {
+        return SWUReturnFromDiscardToHand(intval($m[1]), "myDiscard-{$idx}");
+    }
     if (str_starts_with($discardMzID, 'theirDiscard')) {
-        return SWUReturnFromDiscardToHand(GetOpponent($player), "myDiscard-{$idx}");
+        $owner = SWUMzOwner($discardMzID, $player);
+        if ($owner <= 0 || $owner === $player) $owner = OtherPlayer($player);
+        return SWUReturnFromDiscardToHand($owner, "myDiscard-{$idx}");
     }
     return SWUReturnFromDiscardToHand($player, $discardMzID);
 }
@@ -5412,20 +5451,25 @@ function DoCaptureUnit($player, $capturingMZ, $capturedMZ) {
     // controller.) "Each enemy ground unit" = the ground units of IG-11's CONTROLLER's opponent — for an
     // enemy capture that opponent IS the captor, so the result matches the old capturer-frame version.
     if (($captive->CardID ?? '') === 'SHD_170') {
-        $igEnemy = OtherPlayer(intval($captive->Controller ?? $captive->Owner ?? $player));
+        // ⚠ "each ENEMY ground unit" = the ground units of EVERY opponent of IG-11's CONTROLLER.
+        // OtherPlayer() named one of them, so above two seats the rest of the table took nothing.
+        $igCtrl = intval($captive->Controller ?? $captive->Owner ?? $player);
         SWUDefeatUnit(intval($player), $capturedMZ);   // capturedMZ is in the capturer's frame
-        // Resolve "each enemy ground unit" in the IG-11-opponent's frame so the found mzIDs and the damage
-        // calls agree.
-        $savedPID2 = $playerID; $playerID = $igEnemy;
-        $uids = [];
-        foreach (ZoneSearch('myGroundArena', AnyUnitFilter) as $mz) {
-            $o = GetZoneObject($mz);
-            if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID ?? 0);
-        }
-        foreach ($uids as $uid) {
+        // Resolve each opponent's units in THAT opponent's own frame so the found mzIDs and the damage
+        // calls agree (a seat-tagged mzID minted under the wrong frame resolves to a different unit).
+        $savedPID2 = $playerID;
+        foreach (OpponentsOf($igCtrl) as $igEnemy) {
             $playerID = $igEnemy;
-            $mz = SWUFindMzByUID($uid);
-            if ($mz !== null) SWUDealDamageToUnit($mz, 3, $igEnemy);
+            $uids = [];
+            foreach (ZoneSearch('myGroundArena', AnyUnitFilter) as $mz) {
+                $o = GetZoneObject($mz);
+                if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID ?? 0);
+            }
+            foreach ($uids as $uid) {
+                $playerID = $igEnemy;
+                $mz = SWUFindMzByUID($uid);
+                if ($mz !== null) SWUDealDamageToUnit($mz, 3, $igEnemy);
+            }
         }
         $playerID = $savedPID2;
         return "-";
@@ -5625,12 +5669,24 @@ function _SWUCheckConfidenceWin(): void {
             $arena  = $parts[2] ?? '';
             array_splice($ge, $i, 1);                                  // one-shot regardless of outcome
             if ($caster <= 0 || $arena === '') continue;
-            $opp     = OtherPlayer($caster);
-            $myArr   = ($arena === 'Space') ? GetSpaceArena($caster) : GetGroundArena($caster);
-            $oppArr  = ($arena === 'Space') ? GetSpaceArena($opp)    : GetGroundArena($opp);
-            $myCnt = 0;  foreach ($myArr  as $u) { if (empty($u->removed)) $myCnt++; }
-            $opCnt = 0;  foreach ($oppArr as $u) { if (empty($u->removed)) $opCnt++; }
-            if ($myCnt > 0 && $opCnt === 0) {                          // caster is the only one with units there
+            // ⚠ "the ONLY PLAYER who controls units in that arena" — EVERY other live seat, not
+            // OtherPlayer($caster). That literal names seat 2 for a seat-1 caster, so above two seats a
+            // far seat holding the arena was invisible and the caster WON THE GAME outright. A false win
+            // is the worst failure mode in the two-seat-hardcode family, so this counts each seat.
+            $inArena = function (int $seat) use ($arena): int {
+                $n = 0;
+                foreach (($arena === 'Space') ? GetSpaceArena($seat) : GetGroundArena($seat) as $u) {
+                    if (empty($u->removed)) $n++;
+                }
+                return $n;
+            };
+            $myCnt = $inArena($caster);
+            $othersHold = false;
+            foreach (GetLiveSeatsArray() as $seat) {
+                if (intval($seat) === $caster) continue;
+                if ($inArena(intval($seat)) > 0) { $othersHold = true; break; }
+            }
+            if ($myCnt > 0 && !$othersHold) {                          // caster is the only one with units there
                 SWUDeclareGameWinner($caster, null, 'Confidence in Victory');
             }
         }
@@ -5761,9 +5817,15 @@ function _SWUCardEntersReadyFor(int $player, string $cardID): bool {
     $entersReady = SWUUnitEntersReady($cardID);
     // SEC_170 Corellian Hounds — "If an opponent controls no ground units, this unit enters play ready."
     if ($cardID === 'SEC_170') {
-        $oppGround = 0;
-        foreach (GetGroundArena(OtherPlayer($player)) as $gu) { if (empty($gu->removed)) $oppGround++; }
-        return ($oppGround === 0);
+        // ⚠ "If AN OPPONENT controls no ground units" — EXISTENTIAL: ONE empty opponent is enough, so
+        // this asks every seat rather than OtherPlayer()'s single one (which saw seat 2's units and
+        // entered the Hounds exhausted while a far seat sat empty).
+        foreach (OpponentsOf(intval($player)) as $opp) {
+            $oppGround = 0;
+            foreach (GetGroundArena($opp) as $gu) { if (empty($gu->removed)) $oppGround++; }
+            if ($oppGround === 0) return true;
+        }
+        return false;
     }
     // LAW_210 Salacious Crumb — "If you control Jabba the Hutt (as a leader or unit)."
     if ($cardID === 'LAW_210') return _SWUControlsTitle($player, ['Jabba the Hutt']);
@@ -6709,7 +6771,10 @@ function _SWUTs26063OnEnemyReady($readied): void {
     if (GetCurrentPhase() !== 'MAIN') return;                 // action phase only
     $rctrl = intval($readied->Controller ?? 0);
     if ($rctrl <= 0) return;
-    $p = OtherPlayer($rctrl);                                 // the host controller (enemy of the readied unit)
+    // ⚠ The host may sit on ANY opponent of the readied unit, not OtherPlayer($rctrl)'s single seat
+    // (which is seat 2 for a seat-1 readied unit, and seat 1 for seats 3 and 4 alike). The mirror
+    // arrangement happened to work, so only a readied unit on seat 1 exposed it.
+    foreach (OpponentsOf($rctrl) as $p) {
     foreach (GetField($p) as $host) {
         if (empty($host->removed) && _SWUUnitHasUpgrade($host, 'TS26_63')) {
             $huid = intval($host->UniqueID ?? 0);
@@ -6724,6 +6789,7 @@ function _SWUTs26063OnEnemyReady($readied): void {
             AddGlobalEffects($p, 'SWU_TS26063_USED_' . $huid);
             _SWUReadyInline($p, 'TS26_63', $host);            // ready the host directly (no recursion into OnReadyCard)
         }
+    }
     }
 }
 
@@ -10059,7 +10125,10 @@ function FlushEntryTriggerBag($activePlayer, string $resumeSuffix = ''): int {
             "SWU_TRIGGER_ORDER_CHOICE|{$activePlayer}", $gTriggerDepth);
     } else {
         // Single player has all triggers: go straight to MZCHOOSE.
-        $choosingPlayer = !empty($mine) ? intval($activePlayer) : (intval($activePlayer) === 1 ? 2 : 1);
+                // ⚠ The foreign seat comes from the TRIGGERS, never from `activePlayer === 1 ? 2 : 1` — that
+        // literal names seat 2 for any seat-1 actor, so above two seats this landed on a seat that owns
+        // none of the batch. See _SWUEffectStackForeignSeat.
+        $choosingPlayer = !empty($mine) ? intval($activePlayer) : intval($theirs[0]['player']);
         $targetStr = _SWUEffectStackTargetsForPlayer($choosingPlayer);
         DecisionQueueController::AddDecision($choosingPlayer, "MZCHOOSE", $targetStr, $gTriggerDepth,
             tooltip:"Choose_trigger_to_resolve");
@@ -10185,7 +10254,7 @@ function FlushCombatTriggerBag(int $activePlayer, string $attackerMzID, string $
     // Unreachable until TWI_135 Darth Maul's two-defender attack made "2+ triggers, all theirs" possible
     // (a normal attack has one defender). Every other shape keeps the active player, exactly as before.
     $resumeOwner = (empty($mine) && !empty($theirs))
-        ? (intval($activePlayer) === 1 ? 2 : 1)
+        ? intval($theirs[0]['player'])          // the seat that owns the batch — see _SWUEffectStackForeignSeat
         : intval($activePlayer);
     _SWUQueueOrchestration($resumeOwner, "SWU_TRIGGER_RESUME|{$activePlayer}|{$cont}", 20);
 
@@ -10200,7 +10269,10 @@ function FlushCombatTriggerBag(int $activePlayer, string $attackerMzID, string $
         _SWUQueueOrchestration(intval($activePlayer),
             "SWU_TRIGGER_ORDER_CHOICE|{$activePlayer}|{$batchStart}", $gTriggerDepth);
     } else {
-        $choosingPlayer = !empty($mine) ? intval($activePlayer) : (intval($activePlayer) === 1 ? 2 : 1);
+                // ⚠ The foreign seat comes from the TRIGGERS, never from `activePlayer === 1 ? 2 : 1` — that
+        // literal names seat 2 for any seat-1 actor, so above two seats this landed on a seat that owns
+        // none of the batch. See _SWUEffectStackForeignSeat.
+        $choosingPlayer = !empty($mine) ? intval($activePlayer) : intval($theirs[0]['player']);
         $targetStr = _SWUEffectStackTargetsForPlayer($choosingPlayer, $batchStart);
         DecisionQueueController::AddDecision($choosingPlayer, "MZCHOOSE", $targetStr, $gTriggerDepth,
             tooltip:"Choose_trigger_to_resolve");
@@ -10214,6 +10286,26 @@ function FlushCombatTriggerBag(int $activePlayer, string $attackerMzID, string $
 // Returns a &-delimited mzID string of non-removed EffectStack entries for the given player.
 // $batchStart — a COMBAT batch's boundary (bug #976d, FlushCombatTriggerBag): only entries at or after it are
 // this attack's triggers. 0 (every non-combat caller) = no floor, byte-identical.
+// The seat owning the eligible NON-active entries of a cross-player trigger batch — the "theirs" side.
+// Mirrors _SWUEffectStackTargetsForPlayer's eligibility rules exactly (removed / top layer / batchStart)
+// so the seat this returns is always a seat that function will actually yield entries for. 0 = none.
+//
+// ⚠ This exists because "the other player" was written as `activePlayer === 1 ? 2 : 1` in five places.
+// Above two seats that names SEAT 2 for a seat-1 actor no matter whose triggers are on the stack, so the
+// ordering prompt and the resume landed on a seat owning none of them — a stall, not a wrong number.
+function _SWUEffectStackForeignSeat(int $activePlayer, int $batchStart = 0): int {
+    $stack = GetEffectStack();
+    $top   = array_flip(_SWUEsTopLayerIndices());
+    foreach ($stack as $i => $e) {
+        if (!empty($e->removed)) continue;
+        if (!isset($top[$i])) continue;
+        if ($i < $batchStart) continue;
+        $c = intval($e->Controller);
+        if ($c > 0 && $c !== $activePlayer) return $c;
+    }
+    return 0;
+}
+
 function _SWUEffectStackTargetsForPlayer($player, int $batchStart = 0): string {
     $stack = GetEffectStack();
     $mzIDs = [];
@@ -10502,7 +10594,10 @@ function SEC150SacTrigger($player, $mzID): void {
 // at its cost, ignoring aspect penalties (the OTPN modifier; cleared at RegroupPhaseStart with the rest).
 function SEC205MillTrigger($player, $mzID): void {
     global $playerID; $playerID = intval($player);
-    $defender = OtherPlayer(intval($player));
+    // ⚠ "THE DEFENDING PLAYER's deck" is a DETERMINED seat — whoever this unit actually attacked — not
+    // OtherPlayer($player), which names seat 2 for any seat-1 attacker and so milled a bystander's deck
+    // (and marked a card playable from the wrong pile) at 3+ seats.
+    $defender = SWUCurrentDefendingSeat(intval($player));
     $milled = SWUMillTopCard($defender);                 // top of the defending player's deck → their discard
     if ($milled === null) return;                        // empty deck → nothing milled
     $discard = &GetDiscard($defender);                   // mark the just-milled entry (it was appended last)
@@ -10656,7 +10751,8 @@ function ChainedAttackTrigger($player, $spec): void {
 function JTL156AttackTrigger($player, $mzID): void {
     global $playerID;
     $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
+    // ⚠ "the DEFENDING player's deck" — the determined seat, not OtherPlayer(). See SEC205MillTrigger.
+    $opp = SWUCurrentDefendingSeat(intval($player));
     $c1  = SWUMillTopCard($opp);
     $c2  = SWUMillTopCard($opp);
     if ($c1 === null && $c2 === null) return;
@@ -10775,10 +10871,29 @@ function Law119Trigger($player): void {
 
 // LAW_141 Targeted For Removal — the attached unit's controller's opponent creates Credit tokens equal
 // to the host's printed cost ($mzID carries that cost as a string).
+// LAW_141's Twin Suns continuation: the picked seat arrives as "P{n}"; the amount rides $parts[0].
+$customDQHandlers["LAW_141#OPP"] = function($player, $parts, $lastDecision) {
+    global $playerID; $playerID = intval($player);
+    $opp  = SWUPickedOpponent($lastDecision);
+    $cost = intval($parts[0] ?? 0);
+    if ($opp <= 0 || $cost <= 0) return;
+    SWUCreateCreditToken($opp, $cost);
+};
+
 function Law141Trigger($player, $mzID): void {
     global $playerID; $playerID = intval($player);
     $cost = intval($mzID);
-    if ($cost > 0) SWUCreateCreditToken(OtherPlayer(intval($player)), $cost);
+    if ($cost <= 0) return;
+    // ⚠ "AN opponent creates Credit tokens" — a CHOICE made by this card's controller (official ruling:
+    // with multiple opponents the controlling player picks which one is "an opponent"). It is a DRAWBACK,
+    // so which seat gets the Credits is the whole decision. OtherPlayer() handed them to seat 2 with no
+    // prompt. SWUQueueChooseOpponent collapses to a PASSPARAMETER at two seats, but the inline path is
+    // kept there so the common case avoids a queue round-trip — same shape as HMW_152 / JTL_155.
+    if (SeatCountForGame() > 2) {
+        SWUQueueChooseOpponent(intval($player), "LAW_141#OPP|{$cost}", "Which_opponent_creates_the_Credits?");
+        return;
+    }
+    SWUCreateCreditToken(OtherPlayer(intval($player)), $cost);
 }
 
 // LAW_201 Thermal Detonator — if the host was ready ($mzID === '1'), deal 2 damage to each enemy ground
@@ -10786,9 +10901,12 @@ function Law141Trigger($player, $mzID): void {
 function Law201Trigger($player, $mzID): void {
     global $playerID; $playerID = intval($player);
     if ($mzID !== '1') return;
-    $opp = OtherPlayer(intval($player));
+    // ⚠ "EACH ENEMY ground unit" — every opponent's board. OtherPlayer() named seat 2 for a seat-1 host,
+    // so above two seats every other opponent's ground units took nothing at all.
     $uids = [];
-    foreach (GetGroundArena($opp) as $u) { if (empty($u->removed)) $uids[] = intval($u->UniqueID ?? 0); }
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        foreach (GetGroundArena($opp) as $u) { if (empty($u->removed)) $uids[] = intval($u->UniqueID ?? 0); }
+    }
     foreach ($uids as $uid) {
         if ($uid <= 0) continue;
         $mz = SWUFindMzByUID($uid);
@@ -10868,7 +10986,9 @@ function SEC156DefeatTrigger($player): void {
         if ($o !== null && empty($o->removed) && TraitContains($o, 'Rebel')) $rebels++;
     }
     if ($rebels <= 0) return;
-    SWUDealDamageToBase($rebels, OtherPlayer(intval($player)));  // 2-player: the one enemy base
+    // ⚠ "EACH ENEMY BASE" — one call per opponent. OtherPlayer() hit a single base, so at 3+ seats the
+    // rest of the table took nothing. 2-player: OpponentsOf() is length-1, byte-identical.
+    foreach (OpponentsOf(intval($player)) as $opp) SWUDealDamageToBase($rebels, $opp);
 }
 
 function JTL073DefeatTrigger($player): void {
@@ -13977,7 +14097,7 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
     // Every other shape keeps the active player as the resume owner, exactly as before.
     $resumeOwner = intval($activePlayer);
     if (count($remaining) > 1 && empty($myRemaining) && !empty($theirRemaining)) {
-        $resumeOwner = intval($activePlayer) === 1 ? 2 : 1;
+        $resumeOwner = intval(reset($theirRemaining)->Controller);   // whose triggers remain, not "the other seat"
     }
     // A resume that WAITED on another seat is now draining THAT seat's queue. Re-queue it there, not on the
     // actor's: the actor is not acting, so a lone CUSTOM parked on their queue never drains and the attack
@@ -14007,7 +14127,7 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
         _SWUQueueOrchestration($activePlayer, "RESOLVE_NEXT_TRIGGER|{$activePlayer}", 1);
     } elseif (empty($myRemaining) && !empty($theirRemaining)) {
         // Switch to other player's triggers.
-        $other = intval($activePlayer) === 1 ? 2 : 1;
+        $other = intval(reset($theirRemaining)->Controller);         // whose triggers remain
         $targetStr = _SWUEffectStackTargetsForPlayer($other);
         DecisionQueueController::AddDecision($other, "MZCHOOSE", $targetStr, 1,
             tooltip:"Choose_trigger_to_resolve");
@@ -14031,7 +14151,9 @@ $customDQHandlers["SWU_TRIGGER_ORDER_CHOICE"] = function($player, $parts, $lastD
     $playerID     = $activePlayer;
 
     $mineFirst = ($lastDecision === 'YES' || $lastDecision === '1');
-    $first  = $mineFirst ? $activePlayer : (intval($activePlayer) === 1 ? 2 : 1);
+    $first  = $mineFirst ? $activePlayer
+            : (_SWUEffectStackForeignSeat(intval($activePlayer), intval($parts[1] ?? 0))
+               ?: OtherPlayer(intval($activePlayer)));
     // parts[1] = a combat batch's boundary (FlushCombatTriggerBag); absent for entry batches → 0, no floor.
     $ids = array_values(array_filter(explode('&', _SWUEffectStackTargetsForPlayer($first, intval($parts[1] ?? 0)))));
 
@@ -18640,9 +18762,11 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     // leader stayed ready, the closure never ran, and nothing reported why.
     // TS26_06 Rex (front): the ready-an-exhausted-enemy cost needs an exhausted enemy unit in play.
     if ($cardID === 'TS26_06') {
+        // "ready an exhausted ENEMY unit" as a COST — any enemy, on any seat. OtherPlayer() checked one
+        // board, so an exhausted enemy one seat further out left the whole action silently unavailable.
         $hasExh = false;
-        foreach (GetUnitsInPlay(OtherPlayer($player)) as $u) {
-            if (empty($u->removed) && intval($u->Status ?? 1) === 0) { $hasExh = true; break; }
+        foreach (_SWUAllEnemyUnits(intval($player)) as $u) {
+            if (intval($u->Status ?? 1) === 0) { $hasExh = true; break; }
         }
         if (!$hasExh) return false;
     }
@@ -19498,9 +19622,15 @@ function _SWUSeparatistHandPlayables(int $player): array {
 function SWUUnitsWithNonBaseAttackTarget(int $player, int $excludeUID = -1): array {
     $out = [];
     foreach (['GroundArena', 'SpaceArena'] as $arena) {
-        $oppArr = GetZone("their{$arena}");
+        // ⚠ "an enemy NON-BASE target" — ask EVERY opponent, not the raw `their<Arena>` accessor, which
+        // is the two-player `$playerID == 1 ? 2 : 1` spelling (seat 2 for a seat-1 caster). With that
+        // one seat empty the action became a silent no-op while a legal target sat on another seat.
+        // Bases are deliberately not counted here: SOR_110/HMW_113 can't attack them.
         $hasEnemyUnit = false;
-        foreach ($oppArr as $u) { if ($u !== null && empty($u->removed)) { $hasEnemyUnit = true; break; } }
+        foreach (OpponentsOf($player) as $oppSeat) {
+            $oppArr = ($arena === 'GroundArena') ? GetGroundArena($oppSeat) : GetSpaceArena($oppSeat);
+            foreach ($oppArr as $u) { if ($u !== null && empty($u->removed)) { $hasEnemyUnit = true; break 2; } }
+        }
         if (!$hasEnemyUnit) continue;
         $myArr = GetZone("my{$arena}");
         for ($i = 0; $i < count($myArr); $i++) {
@@ -25888,14 +26018,24 @@ function CardCurrentEffects($obj) {
     //Now add global effects
     $controller = isset($obj->Controller) ? $obj->Controller : -1;
     if($controller != -1) {
-        $controllerEffects = $controller == $playerID ? GetZone("myGlobalEffects") : GetZone("theirGlobalEffects");
+        // ⚠ RESOLVE BY SEAT, never through the `their<Zone>` accessor. That accessor is the two-player
+        // idiom `$playerID == 1 ? 2 : 1` (ZoneAccessors is generated; see the generator's own note at
+        // zzGameCodeGenerator ~812), so a seat-3 unit inspected from seat 1 read SEAT 2's globals — a
+        // plausible-looking answer from the wrong board. The controller's seat is right here in $obj.
+        $controllerEffects = GetGlobalEffects(intval($controller));
         foreach($controllerEffects as $index => $effectObj) {
             if(!SWUGlobalEffectAttachesToUnit($effectObj->CardID, $obj)) continue;
             if(!isset($doesGlobalEffectApply[$effectObj->CardID]) || $doesGlobalEffectApply[$effectObj->CardID]($obj)) {
                 array_push($effects, $effectObj->CardID);
             }
         }
-        $otherEffects = $controller != $playerID ? GetZone("myGlobalEffects") : GetZone("theirGlobalEffects");
+        // The $effectAppliesToBoth half: EVERY other live seat's globals, not "the other one". At two
+        // seats that is the single opposing seat, so this stays byte-identical there.
+        $otherEffects = [];
+        foreach (GetLiveSeatsArray() as $oseat) {
+            if (intval($oseat) === intval($controller)) continue;
+            foreach (GetGlobalEffects(intval($oseat)) as $oe) $otherEffects[] = $oe;
+        }
         foreach($otherEffects as $index => $effectObj) {
             if(!SWUGlobalEffectAttachesToUnit($effectObj->CardID, $obj)) continue;
             if(isset($effectAppliesToBoth[$effectObj->CardID]) && (!isset($doesGlobalEffectApply[$effectObj->CardID]) || $doesGlobalEffectApply[$effectObj->CardID]($obj))) {

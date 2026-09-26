@@ -128,10 +128,13 @@ function _ChatPanelStyles(): string {
   border-bottom: 2px solid rgba(255, 255, 255, 0.14);
 }
 .tcgc-row:last-child { border-bottom: 0; }
-.tcgc-row.tcgc-p1 { border-left-color: #6fb8ff; } .tcgc-row.tcgc-p1 .tcgc-who { color: #6fb8ff; }
-.tcgc-row.tcgc-p2 { border-left-color: #ff9b6f; } .tcgc-row.tcgc-p2 .tcgc-who { color: #ff9b6f; }
-.tcgc-row.tcgc-p3 { border-left-color: #7fd88f; } .tcgc-row.tcgc-p3 .tcgc-who { color: #7fd88f; }
-.tcgc-row.tcgc-p4 { border-left-color: #d79bff; } .tcgc-row.tcgc-p4 .tcgc-who { color: #d79bff; }
+/* The message text is a bare text node next to .tcgc-who, so the seat colour goes on the ROW and the
+   body inherits it (owner, 2026-09-26). Waiting Room + Sideboard; the in-game board does the same in
+   GameLayout.php / GameLayoutMobile.php, and chat_seat_colour_surfaces_test.php pins all three. */
+.tcgc-row.tcgc-p1 { border-left-color: #6fb8ff; color: #6fb8ff; } .tcgc-row.tcgc-p1 .tcgc-who { color: #6fb8ff; }
+.tcgc-row.tcgc-p2 { border-left-color: #ff9b6f; color: #ff9b6f; } .tcgc-row.tcgc-p2 .tcgc-who { color: #ff9b6f; }
+.tcgc-row.tcgc-p3 { border-left-color: #7fd88f; color: #7fd88f; } .tcgc-row.tcgc-p3 .tcgc-who { color: #7fd88f; }
+.tcgc-row.tcgc-p4 { border-left-color: #d79bff; color: #d79bff; } .tcgc-row.tcgc-p4 .tcgc-who { color: #d79bff; }
 .tcgc-row.tcgc-log { color: #aab6c4; border-left-color: #ffffff14; }
 .tcgc-who { font-weight: 600; }
 .tcgc-loghead { margin: 6px 0 2px; font-size: 11px; letter-spacing: .08em; color: #9fadbd; }

@@ -237,3 +237,109 @@ P1GROUNDARENACOUNT:2
 P1DISCARDCOUNT:2
 P2GROUNDARENACOUNT:1
 P2DISCARDCOUNT:1
+
+---
+
+# ThreeSeat_TwoDefendersOnAFarSeat_PromptGoesToThatSeat
+#// ENGINE GUARD. The 2-seat sibling above pins "2+ triggers, ALL the non-active player's" — the only
+#// shape that reaches the trigger-ordering code's seat-picking branch at all (one probe over the whole
+#// 12k-section suite: it fires exactly once, and at two seats).
+#//
+#// Here seat 1's Maul attacks BOTH of SEAT 3's Guardians, so the two On Defense triggers belong to seat
+#// 3. The ordering prompt and the trigger-resume must both ride SEAT 3's queue.
+#//
+#// ⚠ THE BUG: five sites picked that seat as `activePlayer === 1 ? 2 : 1` — so with the attacker on
+#// seat 1 they all named SEAT 2, who owns neither trigger. Per the sibling's own notes the failure is
+#// not a wrong number but a STALL: "the resume fired unblocked and span (or queued a duplicate prompt
+#// and stalled)". Two seats cannot show it, because there `OtherPlayer(active)` IS the trigger's owner.
+
+## GIVEN
+CommonSetup3P: rrk/ggw/ggw
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP1GroundArena: SOR_164:1:0
+WithP1GroundArena: TWI_135:1:0
+WithP3GroundArena: TWI_083:1:0
+WithP3GroundArena: TWI_083:1:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:1:P3G0
+- P1>AnswerDecision:Units
+- P1>AnswerDecision:p3GroundArena-0&p3GroundArena-1
+
+## EXPECT
+SEATCOUNT:3
+P3DECISIONTOOLTIP:Choose_trigger_to_resolve
+P2NODECISION
+
+---
+
+# ThreeSeat_TwoDefendersOnAFarSeat_ChainResolves
+#// The RESOLUTION half of the section above, and the one that actually pins "no stall": the seat-3
+#// defender orders its two On Defense triggers, both Battle Droids are created, and combat damage then
+#// resolves. Mirrors the 2-seat TwoDefenders_… numbers one seat over — each Guardian makes a Battle
+#// Droid, Maul's 5 power kills both 4/4 Guardians, and their combined 4+4 counter kills Maul (6 HP).
+#// With the prompt on the wrong seat this chain never completes, so the board never reaches this state.
+
+## GIVEN
+CommonSetup3P: rrk/ggw/ggw
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP1GroundArena: SOR_164:1:0
+WithP1GroundArena: TWI_135:1:0
+WithP3GroundArena: TWI_083:1:0
+WithP3GroundArena: TWI_083:1:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP3Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:1:P3G0
+- P1>AnswerDecision:Units
+- P1>AnswerDecision:p3GroundArena-0&p3GroundArena-1
+- P3>AnswerDecision:EffectStack-0
+- P1>Drain
+
+## EXPECT
+SEATCOUNT:3
+P3GROUNDARENACOUNT:2
+P3DISCARDCOUNT:2
+P1GROUNDARENACOUNT:1
+P1DISCARDCOUNT:1
+
+---
+
+# FourSeat_TwoDefendersOnTheFARTHESTSeat_PromptGoesToThatSeat
+#// 4P sibling. Seat 1's Maul attacks both of SEAT 4's Guardians. ⚠ `OtherPlayer()` answers 1 for seat 3
+#// AND for seat 4, so a seat-4 owner is a distinct wrong answer from a seat-3 one — with two innocent
+#// seats now, "the prompt went somewhere else" can no longer be mistaken for "it went to the one other
+#// opponent". Both bystander seats must hold nothing.
+
+## GIVEN
+CommonSetup4P: rrk/ggw/ggw/ggw
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithInitiativeClaimed: true
+WithP1GroundArena: SOR_164:1:0
+WithP1GroundArena: TWI_135:1:0
+WithP4GroundArena: TWI_083:1:0
+WithP4GroundArena: TWI_083:1:0
+WithP1Deck: [SOR_095 SOR_095]
+WithP4Deck: [SOR_095 SOR_095]
+
+## WHEN
+- P1>AttackGroundArena:1:P4G0
+- P1>AnswerDecision:Units
+- P1>AnswerDecision:p4GroundArena-0&p4GroundArena-1
+
+## EXPECT
+SEATCOUNT:4
+P4DECISIONTOOLTIP:Choose_trigger_to_resolve
+P2NODECISION
+P3NODECISION

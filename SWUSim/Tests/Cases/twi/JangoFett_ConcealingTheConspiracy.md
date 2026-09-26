@@ -388,3 +388,53 @@ P2GROUNDARENAUNIT:0:DAMAGE:0
 P2GROUNDARENAUNIT:0:SHIELDCOUNT:0
 P2GROUNDARENAUNIT:0:READY
 P1NODECISION
+
+---
+
+# ThreeSeat_SourceOnAFarSeat_JangoStillObserves
+#// "When A FRIENDLY unit deals damage to AN ENEMY unit: you may exhaust that unit." The observer belongs
+#// to the SOURCE's controller. Here the deployed Jango is on SEAT 3 and attacks SEAT 1's unit, so seat 3
+#// must be offered the exhaust.
+#//
+#// ⚠ For combat the source controller was derived as `OtherPlayer($obj->Controller)` — seat 2 for a
+#// seat-1 victim, no matter who actually attacked. So the observer was looked up on a bystander's seat
+#// and never fired. ⚠ The MIRROR arrangement accidentally works (a seat-1 Jango hitting seat 3 gives
+#// OtherPlayer(3) == 1), so the DAMAGED unit must be on seat 1 for the bug to show.
+#// The source is now read from the published combat context (SWU_CURRENT_ATTACKER_UID / DEFENDING_SEAT).
+
+## GIVEN
+CommonSetup3P: bbk/bbk/yyk
+SkipPreGame: true
+WithActivePlayer: 3
+WithP3Leader: TWI_016:1:1
+WithP1GroundArena: SOR_046:1:0
+
+## WHEN
+- P3>AttackGroundArena:0:P1G0
+- P3>AnswerDecision:YES
+
+## EXPECT
+SEATCOUNT:3
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENAUNIT:0:EXHAUSTED
+
+---
+
+# FourSeat_SourceOnTheFarthestSeat_JangoStillObserves
+#// 4P sibling: the deployed Jango is on SEAT 4.
+
+## GIVEN
+CommonSetup4P: bbk/bbk/bbk/yyk
+SkipPreGame: true
+WithActivePlayer: 4
+WithP4Leader: TWI_016:1:1
+WithP1GroundArena: SOR_046:1:0
+
+## WHEN
+- P4>AttackGroundArena:0:P1G0
+- P4>AnswerDecision:YES
+
+## EXPECT
+SEATCOUNT:4
+P1GROUNDARENAUNIT:0:DAMAGE:3
+P1GROUNDARENAUNIT:0:EXHAUSTED

@@ -11,5 +11,10 @@ $whenPlayedAbilities["SEC_223:0"] = function($player, $mzID) {
 };
 
 $customDQHandlers["SEC_223#0"] = function($player, $parts, $lastDecision) {
-    _SWUOpponentDiscardRandom(intval($player));
+    // ⚠ "EACH OPPONENT discards a random card" — one call per opponent. The shared helper defaults to
+    // OtherPlayer(), so before this only seat 2 ever discarded. OpponentsOf() is length-1 at two seats,
+    // so Premier and 1v1 Twin Suns are byte-identical.
+    foreach (OpponentsOf(intval($player)) as $opp) {
+        _SWUOpponentDiscardRandom(intval($player), $opp);
+    }
 };
