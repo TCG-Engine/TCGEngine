@@ -2776,6 +2776,18 @@ function AddNextTurn() {
     } else {
       $setData .= "echo(\"window.my" . $zone->Name . "Data = responseArr[" . $index . " + (currentPlayerIndex-1)*" . count($zones) . "];\");\r\n";
       $setData .= "echo(\"window.their" . $zone->Name . "Data = responseArr[" . $index . " + (otherPlayerIndex-1)*" . count($zones) . "];\");\r\n";
+      // ── Per-SEAT aliases: window.p{n}<Zone>Data, for every seat in the payload ──────────────────
+      // "my"/"their" name only the two boards the current VIEW renders. Above two seats the server
+      // addresses a target by seat ("p2Hand-0"), and anything that resolves a spec by name — the
+      // MZChoose popup does exactly `window[spec.zone + 'Data']` — found nothing and silently drew
+      // no cards. Reported 2026-09-25 (game 1310334): choosing which opponent's hand to look at
+      // opened an EMPTY picker unless you happened to be zoomed into that seat.
+      // ⚠ This leaks nothing. It renames data the client already holds: responseArr is published whole
+      // as window.swuLastResponseArr, and each slot was already redacted per viewer server-side (the
+      // $canSee<Zone>Player{n} reveal gates). A hidden zone the viewer may not see is card backs here
+      // exactly as it is there.
+      $setData .= "echo(\"for (var _ps = 1; _ps * " . count($zones) . " <= responseArr.length; _ps++) "
+                . "window['p' + _ps + '" . $zone->Name . "Data'] = responseArr[" . $index . " + (_ps-1)*" . count($zones) . "];\");\r\n";
     }
   }
 

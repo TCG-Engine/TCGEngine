@@ -908,6 +908,11 @@ function _ShowChatToast(msg) {
 function _AppendChatMessage(msg, notify) {
   var div = document.createElement("div");
   div.className = "chatMsg chatMsg-p" + msg.playerID;
+  // The sink is handed the ELEMENT, not the message, so the send time rides along on it. A host
+  // that merges chat into a timestamped game log needs this to order the two streams; anything
+  // else simply ignores the attribute. ADDITIVE -- nothing else about the element changes.
+  var _cts = (msg.ts !== undefined && msg.ts !== null) ? msg.ts : msg.time;
+  if (_cts !== undefined && _cts !== null && !isNaN(parseFloat(_cts))) div.setAttribute('data-ts', _cts);
   div.style.cssText = "padding:2px 4px; word-break:break-word; font-size:13px;";
   var isWhisper = Array.isArray(msg.to) && msg.to.length > 0;
   if (isWhisper && msg.redacted) {
@@ -1063,6 +1068,33 @@ function SubmitEngineInput(mode, params, options) {
   });
 }
 
+// Surface a refused engine action to the player.
+//
+// ⚠ A REFUSAL RESOLVES, IT DOES NOT REJECT. ProcessInput answers one with HTTP 200 and the reason as the
+// response BODY (ProcessInputReply's non-JSON branch just echoes $message), so SubmitInput's .catch never
+// sees it — and SubmitInput discarded the resolved value entirely. Every refusal was therefore invisible:
+// the board simply did not change and the player was told nothing.
+//
+// That is what produced a live bug report. On a hosted game the seat auth keys live ONLY in APCu
+// (SimGameReadAuthKeys has no disk fallback, and SimGameRequiresManagedAuth('SWUSim') is true), so after
+// an APCu eviction or an httpd restart every action is answered "Invalid auth key" — and the player sees
+// absolutely nothing. Reported 2026-09-25 as "clicking Ability did nothing".
+//
+// What counts as a refusal: a SUCCESSFUL action's body is '' (EngineActionRunner's default) or 'OK'.
+// Every other string on this channel is a reason the action did not happen — "Nothing to undo.",
+// "Spectators are view-only.", "Invalid selection." — all of which were equally silent before.
+function ShowEngineRefusal(result) {
+  var msg = '';
+  if (typeof result === 'string') msg = result.trim();
+  else if (result && typeof result === 'object' && result.success === false) msg = String(result.message || '').trim();
+  if (msg === '' || msg === 'OK') return;
+  // Auth is the one refusal the player can actually act on, and reloading genuinely fixes it (the page
+  // re-authenticates from the lastAuthKey cookie), so say so rather than leaving them stuck.
+  if (/auth key/i.test(msg)) msg += ' — reload the page to reconnect.';
+  if (typeof showFlashMessage === 'function') showFlashMessage(msg, 6000);
+  else if (window.console && console.error) console.error(msg);
+}
+
 function SubmitInput(mode, params, fullRefresh = false) {
   // A submitted answer ends the current prompt immediately. Reset the delayed
   // undo affordance here so a following identical prompt gets its own delay.
@@ -1070,11 +1102,14 @@ function SubmitInput(mode, params, fullRefresh = false) {
       && typeof ResetDelayedDecisionUndoAffordance === 'function') {
     ResetDelayedDecisionUndoAffordance();
   }
-  SubmitEngineInput(mode, params, { fullRefresh: fullRefresh }).then(function() {
+  SubmitEngineInput(mode, params, { fullRefresh: fullRefresh }).then(function(result) {
+    ShowEngineRefusal(result);
     if (!fullRefresh && typeof window.QueueGameUpdate === "function") window.QueueGameUpdate();
     if(_openPopup != null) RefreshPopupContent(_openPopup);
   }).catch(function(error) {
     if (window.console && console.error) console.error(error);
+    // A transport failure was silent too — same dead end from the player's side.
+    if (typeof showFlashMessage === 'function') showFlashMessage('That action could not be sent. Check your connection and try again.', 6000);
   });
 }
 

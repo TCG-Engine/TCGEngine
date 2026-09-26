@@ -383,6 +383,77 @@ the alternative was parsing each running game's full gamestate on a 20s poll). I
 guessing. The gate compares the chip against the payload that drew it for the same reason: a flat
 "there must be a round" check goes red on a quiet board.
 
+## 22. The legal pages — Terms of Use / Privacy Policy
+
+Opted in by SiteDef `legal.layout = 'arena'`; `RenderLegalPage()` (Render/Template.php) frames the
+shared `templates/*.tmpl` in `.row-wrapper > .card.ga-glass-card > .legal-page__prose`. The panel
+therefore comes from the INTERIOR PANELS recipe (§ above) and only the prose is styled.
+
+Open either page at 1440px: the text sits in a chamfered panel on the 1368px measure, paragraphs
+bounded to **72ch**, headings in **Archivo**, no horizontal scroll. At 760px the panel keeps
+>=16px of padding.
+
+⚠ **Before this they had NO FRAME.** The templates are bare prose — every site supplies its own
+wrapper and SWUSim supplied none — so each line was a DIRECT CHILD OF `<body>`, running the full
+1440px hard against both screen edges. The gate measured paragraphs at **174ch**.
+
+⚠ **`PrivacyPolicy.tmpl` has no paragraphs.** Its body copy is bare text nodes separated by
+`<br><br>`, so a reading measure applied to `<p>` reaches none of it. The measure lives on
+`.legal-page__prose`, which bounds loose text whatever markup a template uses. A gate that
+requires a `<p>` is testing the template's markup, not readability — mine did, and was wrong.
+
+⚠ **Another previous-generation rule had to be retired**: `swusim-overrides.css`'s 2026-09-21
+title rule put Barlow on every heading inside a site panel at 0-4-2, beating the redesign at
+0-2-2. Removing it moved Login, Signup, Profile and Previews to Archivo as well.
+
+⚠ **The small-screen MENU trim was leaking**: `.card { padding: 12px !important }` fires on any
+page under 900px, which put legal prose against the panel edge. Now `:not(.legal-page)`.
+
+**Heading outline (owner, 2026-09-26).** `PrivacyPolicy.tmpl` used six `<h1>`s as section headings
+and had no page title; it is now one `h1` ("Privacy Policy"), six `h2` sections, eight `h3`
+subsections. Two malformed tags surfaced during the demotion and were fixed: `<h1>Sources</h2>`
+(mismatched) and a stray `</a>`. `RunRenderTests` now asserts one `h1`, that the document opens
+with it and names itself, and that no heading level is skipped — the rule passes `TermsOfUse`,
+which was already correct, and failed `PrivacyPolicy`, which is what makes it a real check.
+
+Gate: `DevTools/ui-harness/swusim-legal-xbrowser.mjs` — 108 checks, 3 engines, 1440px and 760px.
+
+## 23. The Sideboard (between games of a Bo3)
+
+    php SWUSim/DevTools/make-sideboard-fixture.php
+    http://localhost:3400/TCGEngine/SWUSim/Sideboard.php?matchId=zzsideboardfixture&playerID=1&authKey=fixture
+
+⚠ **That fixture is why this page was missed.** `Sideboard.php` 404s without a live match, so it
+sat out the entire redesign carrying its own self-contained cyan-on-navy stylesheet
+(`--swu-cyan`, Aptos/Bahnschrift). A page you cannot open is a page nobody re-skins. Run
+`--remove` to delete the fixture.
+
+It now renders `RenderHead()` + `RenderHeader()`, so it takes the site's fonts and stylesheet
+stack, and the header plate gives it `.home-header` — the scope hook the redesign's rules and the
+Petranaki chat skin key off, so the chat panel and buttons come along for free.
+⚠ **The MENU BAR is deliberately absent.** You are mid-match; a nav link out of a sideboard
+abandons the game.
+
+Check: Archivo throughout, Submit is the gold primary at 44px, both card grids chamfered with a
+gold quantity badge, hovering any card shows the large preview, no horizontal scroll.
+
+**Card links in the log (owner, 2026-09-26).** `GetGameLog.php` returns lines carrying
+`[[SET_NNN]]` tokens plus a server-built `names` map (only the server has the dictionary — the
+page's own `titles` covers just your deck, not the opponent's). The page used to flatten each
+token to plain text, so a log full of cards had nothing to hover. `TCGChatPanel.appendLog()` takes
+an optional `{cards}` map and renders them as elements.
+
+⚠ **DOM NODES, NEVER innerHTML.** Every other row in that panel is user-authored chat. A card name
+comes from the dictionary but still lands as a text node — the gate feeds it a name containing
+`<img onerror>` and asserts it renders as text.
+
+⚠ **A GATE THAT CALLS `appendLog()` DIRECTLY TESTS THE PANEL, NOT THE PAGE.** The first version of
+`swusim-sideboard-xbrowser.mjs` did exactly that, and the mutant restoring the reported bug
+(flattening the tokens) passed **39/39**. It now intercepts `GetGameLog.php` and asserts what the
+PAGE rendered from a real response. Same family as [[test-called-a-different-function-than-production]].
+
+Gate: `DevTools/ui-harness/swusim-sideboard-xbrowser.mjs` — 51 checks, 3 engines.
+
 ## What must NOT be here
 
 No "Krennic Blue", "Ahsoka Go Wide", "Maul Force Tempo", "Jabba Qi'ra Combo", "Kylo Vonreg Arenas",

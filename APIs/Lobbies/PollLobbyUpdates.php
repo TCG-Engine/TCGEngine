@@ -42,6 +42,56 @@ if (($lobbyID === '' || $lobbyID === 'invite') && isset($_POST['inviteCode']) &&
     if (is_object($cand) && !empty($cand->isPrivate)) $lobbyID = strval($cand->id ?? '');
   }
   if ($lobbyID === '' || $lobbyID === 'invite') {
+    // ── The lobby's APCu entry is gone. That is the NORMAL state mid-match, not an error. ──
+    // LOBBY_TTL_SECONDS is 900 and only this endpoint's own heartbeat refreshes it, so once everyone
+    // navigates into the game the lobby and its `invite:` index expire ~15 minutes in — long before a
+    // Bo3 finishes. Reported live 2026-09-25: the HOST refreshed during game 2 of a private Bo3 and was
+    // told their own invite had expired. Fall back to the durable index written beside the match, which
+    // outlives every game in it, and send a participant back into the game they are actually in.
+    //
+    // ⚠ Resolved through the MATCH, never the lobby: `$lobby->gameName` is only ever game 1, so a
+    // lobby-shaped fallback would land a game-2 refresh in a FINISHED game 1.
+    $inviteMatch   = null;
+    $matchFlowPath = __DIR__ . '/../../Core/Match/MatchFlow.php';
+    if (is_file($matchFlowPath)) {
+      require_once $matchFlowPath;
+      if (function_exists('MatchFindByInviteCode')) $inviteMatch = MatchFindByInviteCode($rootName, $wantCode);
+    }
+    if (is_array($inviteMatch)) {
+      // The waiting room polls with `loadKey(lobbyID)`, and on the invite path lobbyID is still '' —
+      // so the presented key is empty and the LASTAUTHKEY COOKIE is what identifies the viewer. That
+      // cookie is set for every seat at game start (WaitingRoom.php) and every game of a match reuses
+      // the same per-seat key (MatchSpawnNextGameWithDecks), so a game-1 cookie authenticates game 2.
+      require_once __DIR__ . '/../../Core/GameAuth.php';
+      $inviteKey  = SimGameResolvePresentedAuthKey(strval($_POST['authKey'] ?? ''));
+      $inviteSeat = MatchSeatForAuthKey($inviteMatch, $inviteKey);
+      $inviteGame = MatchCurrentGameName($inviteMatch);
+      $matchOver  = (strval($inviteMatch['state'] ?? '') === 'complete') || MatchIsOver($inviteMatch);
+
+      if ($matchOver) {
+        $response->success = false;
+        $response->gone    = true;
+        $response->message = 'That match has ended.';
+      } elseif ($inviteSeat > 0 && $inviteGame !== '') {
+        // A participant: hand back the same shape the started-lobby path does, so the waiting room's
+        // existing `r.started && r.gameName` branch redirects with no client change.
+        $response->success  = true;
+        $response->started  = true;
+        $response->gameName = $inviteGame;
+        $response->playerID = $inviteSeat;
+      } else {
+        // Someone who holds the link but no seat in this match. Do NOT redirect them into a game they
+        // cannot authenticate — that renders as "not currently authenticated as player N", which reads
+        // like a broken game rather than a closed door.
+        $response->success = false;
+        $response->gone    = true;
+        $response->message = 'That match is already in progress.';
+      }
+      header('Content-Type: application/json');
+      echo json_encode($response);
+      exit;
+    }
+
     $response->success = false;
     $response->gone    = true;      // the page renders GONE: expired, or a bad code
     $response->message = 'That invite is invalid or has expired.';

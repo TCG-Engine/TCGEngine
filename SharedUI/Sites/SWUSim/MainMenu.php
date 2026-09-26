@@ -88,19 +88,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <li class="slot lift-3">
           <a class="mode ch gl" href="#setup-pvp" style="--tint: var(--tint-pvp);">
             <span class="mode__art" aria-hidden="true">
-              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-pvp.webp" alt="" width="1200" height="1600" decoding="async">
-              <span class="mode__stage">
-              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M32 4v56" stroke-width="1" opacity="0.4"/>
-                <path d="M6 32 19.5 18.5M6 32l13.5 13.5" stroke-width="2.6"/>
-                <path d="M16.5 32 27.5 21M16.5 32l11 11" stroke-width="1.6" opacity="0.58"/>
-                <path d="M58 32 44.5 18.5M58 32 44.5 45.5" stroke-width="2.6"/>
-                <path d="M47.5 32 36.5 21M47.5 32l-11 11" stroke-width="1.6" opacity="0.58"/>
-                <path d="M32 24.6 39.4 32 32 39.4 24.6 32Z" stroke-width="2.2" fill="currentColor" fill-opacity="0.24"/>
-              </svg>
-              <span class="mode__pool"></span>
-              <span class="mode__floor"></span>
-              </span>
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-pvp.webp" alt="" width="1200" height="1600" decoding="async">              
             </span>
             <span class="mode__body">
               <span class="mode__kind">Live play</span>
@@ -121,19 +109,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <li class="slot lift-3">
           <a class="mode ch gl" href="#setup-twin-suns" style="--tint: var(--tint-duo);">
             <span class="mode__art" aria-hidden="true">
-              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-twinsuns.webp" alt="" width="1200" height="1600" decoding="async">
-              <span class="mode__stage">
-              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="24" cy="24" r="11" stroke-width="2.3" fill="currentColor" fill-opacity="0.12"/>
-                <path d="M24 5.2v3.4M10.6 10.6l2.4 2.4M5.2 24h3.4M37.4 10.6 35 13M10.6 37.4l2.4-2.4M39.5 24H43"
-                      stroke-width="1.9" opacity="0.8"/>
-                <circle cx="46" cy="34" r="6.4" stroke-width="2" fill="currentColor" fill-opacity="0.26"/>
-                <path d="M4 49.5q14-8.5 28 0t28-4" stroke-width="2.3"/>
-                <path d="M11 57.5q15-5.5 27 0t20-2.5" stroke-width="1.5" opacity="0.48"/>
-              </svg>
-              <span class="mode__pool"></span>
-              <span class="mode__floor"></span>
-              </span>
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-twinsuns.webp" alt="" width="1200" height="1600" decoding="async">              
             </span>
             <span class="mode__body">
               <span class="mode__kind">Multiplayer</span>
@@ -154,20 +130,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <li class="slot lift-3">
           <a class="mode ch gl" href="#setup-arenabot" style="--tint: var(--tint-bot);">
             <span class="mode__art" aria-hidden="true">
-              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-arenabot.webp" alt="" width="1200" height="1600" decoding="async">
-              <span class="mode__stage">
-              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M32 12.5V8.6" stroke-width="1.9"/>
-                <circle cx="32" cy="6" r="2.5" stroke-width="1.9" fill="currentColor" fill-opacity="0.34"/>
-                <path d="M14.5 21.5 21 15h22l6.5 6.5v16L43 44H21l-6.5-6.5Z" stroke-width="2.3" fill="currentColor" fill-opacity="0.08"/>
-                <path d="M22.5 25.5h19v8.5h-19Z" stroke-width="1.8" fill="currentColor" fill-opacity="0.26"/>
-                <path d="M27.3 29.7h1.6M35.1 29.7h1.6" stroke-width="2.8"/>
-                <path d="M32 44v6.5" stroke-width="1.8" opacity="0.7"/>
-                <path d="M17 59.5 23.5 51h17l6.5 8.5" stroke-width="2.3"/>
-              </svg>
-              <span class="mode__pool"></span>
-              <span class="mode__floor"></span>
-              </span>
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-arenabot.webp" alt="" width="1200" height="1600" decoding="async">              
             </span>
             <span class="mode__body">
               <span class="mode__kind">Solo practice</span>
@@ -188,17 +151,7 @@ $swuLogo = strval($swuSiteDef['branding']['logo'] ?? '');
         <li class="slot lift-3">
           <a class="mode ch gl" href="#setup-solo" style="--tint: var(--tint-solo);">
             <span class="mode__art" aria-hidden="true">
-              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-1p.webp" alt="" width="1200" height="1600" decoding="async">
-              <span class="mode__stage">
-              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="32" cy="18" r="7.5" stroke-width="2.3" fill="currentColor" fill-opacity="0.10"/>
-                <path d="M17 44c0-8.3 6.7-13 15-13s15 4.7 15 13" stroke-width="2.3" fill="currentColor" fill-opacity="0.06"/>
-                <path d="M12 50.5h40" stroke-width="1.8" opacity="0.65"/>
-                <path d="M23.5 57.5h17" stroke-width="2.3"/>
-              </svg>
-              <span class="mode__pool"></span>
-              <span class="mode__floor"></span>
-              </span>
+              <img class="mode__plate mode__plate--hi" src="/TCGEngine/SharedUI/Sites/SWUSim/assets/hmw-1p.webp" alt="" width="1200" height="1600" decoding="async">              
             </span>
             <span class="mode__body">
               <span class="mode__kind">Local play</span>

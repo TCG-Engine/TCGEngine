@@ -41,13 +41,19 @@ $has = function (string $needle) use ($entries): bool {
 SWULogPrivate(0, 'DRAW', 'You drew nothing');
 check(!$has('You drew nothing'), 'SWULogPrivate(0, …) writes nothing (a P0 line would be seen by nobody)');
 
+// ⚠ Asserted through the PARSER, not against the serialized string. These helpers are about the
+// TYPE, VISIBILITY and TEXT of the line they write; the wire format is AddGameLogEntry's business
+// and gained a '@<microtime>' field on 2026-09-26. A literal comparison here was testing the
+// serialization by accident, and went red on a change it has no opinion about.
 SWULogPrivate(2, 'DRAW', 'You drew X');
-$all = $entries(); $last = end($all);
-check($last === 'DRAW|P2|You drew X', 'SWULogPrivate(2, …) writes one line visible to P2 only (got ' . var_export($last, true) . ')');
+$all = $entries(); $last = SWUParseGameLogEntry(end($all));
+check($last['type'] === 'DRAW' && $last['visibility'] === 'P2' && $last['text'] === 'You drew X',
+    'SWULogPrivate(2, …) writes one line visible to P2 only (got ' . var_export(end($all), true) . ')');
 
 SWULogSeats([1, 3, 1, 0, -1], 'REVEAL', 'a private look');
-$all = $entries(); $last = end($all);
-check($last === 'REVEAL|P1,P3|a private look', 'SWULogSeats de-duplicates and drops non-seats (got ' . var_export($last, true) . ')');
+$all = $entries(); $last = SWUParseGameLogEntry(end($all));
+check($last['type'] === 'REVEAL' && $last['visibility'] === 'P1,P3' && $last['text'] === 'a private look',
+    'SWULogSeats de-duplicates and drops non-seats (got ' . var_export(end($all), true) . ')');
 
 SWULogSeats([0, -2], 'REVEAL', 'nobody sees this');
 check(!$has('nobody sees this'), 'SWULogSeats with no real seat writes nothing');

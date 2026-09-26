@@ -51,6 +51,70 @@ function ChatLobbyConversationId($lobby) {
     return $id === '' ? null : 'l:' . $id;
 }
 
+// ── Durable invite index (private lobbies) ───────────────────────────────────────────────────────
+// A lobby lives in APCu under LOBBY_TTL_SECONDS (900), and that TTL is refreshed ONLY by the waiting
+// room's own poll — PollLobbyUpdates' heartbeat. Once the match starts, every client navigates into
+// the game and nothing polls the lobby again, so the lobby and its `invite:<code>` index both age out
+// about 15 minutes into a match that routinely runs an hour. The invite link then resolves to nothing
+// and the room reports "That invite is invalid or has expired." (reported live 2026-09-25, game 2 of a
+// private Bo3). So the code is ALSO published here, on disk beside the match, which outlives every
+// game in it. This is a FALLBACK: APCu stays the fast path while the lobby is still alive.
+//
+// ⚠ Resolve through the MATCH, never through the lobby. `$lobby->gameName` is only ever set to GAME 1
+// (MatchCreateFromLobby); later games are spawned from a synthetic player with no lobby in sight. A
+// lobby-based fallback would therefore send a game-2 refresh into a FINISHED game 1 — worse than the
+// error it replaces.
+function MatchInvitesDir($rootName) {
+    $dir = MatchesDir($rootName) . '/invites';
+    if (!is_dir($dir) && !mkdir($dir, 0777, true) && !is_dir($dir)) return '';
+    return $dir;
+}
+function MatchInviteIndexPath($rootName, $code) {
+    // Same sanitising shape as MatchPath/MatchRefPath: an invite code is bin2hex(random_bytes(12)),
+    // so stripping to [A-Za-z0-9] is lossless for a real code and makes traversal impossible.
+    $code = preg_replace('/[^A-Za-z0-9]/', '', strval($code));
+    if ($code === '') return '';
+    $dir = MatchInvitesDir($rootName);
+    return $dir === '' ? '' : $dir . '/' . $code . '.json';
+}
+function MatchPublishInviteCode($rootName, $matchId, $code) {
+    $path = MatchInviteIndexPath($rootName, $code);
+    if ($path === '' || strval($matchId) === '') return false;
+    return file_put_contents($path, json_encode(['matchId' => strval($matchId)]), LOCK_EX) !== false;
+}
+// The match an invite code belongs to, or null. Returns the match ARRAY (not just the id) because
+// every caller needs its state and games to decide where to send the viewer.
+function MatchFindByInviteCode($rootName, $code) {
+    $path = MatchInviteIndexPath($rootName, $code);
+    if ($path === '' || !is_file($path)) return null;
+    $d = json_decode(strval(@file_get_contents($path)), true);
+    $matchId = is_array($d) ? strval($d['matchId'] ?? '') : '';
+    if ($matchId === '') return null;
+    $m = MatchRead($rootName, $matchId);
+    return is_array($m) ? $m : null;
+}
+// The game a viewer should be sent to right now: the most recently spawned one.
+// ⚠ During 'sideboarding' this is the game that just FINISHED, and that is correct — its end-game
+// screen is what follows the sideboard pointer (MatchSideboardPointerPath) on to the next game.
+function MatchCurrentGameName(array $match) {
+    $games = $match['games'] ?? [];
+    if (!is_array($games) || empty($games)) return '';
+    $last = $games[count($games) - 1];
+    return strval((is_array($last) ? ($last['gameName'] ?? '') : ''));
+}
+// Which seat holds this authKey, or 0. The key is a bearer token, so compare in constant time and
+// never treat an empty presented key as a match against a seat whose key is also somehow empty.
+function MatchSeatForAuthKey(array $match, $authKey) {
+    $authKey = trim(strval($authKey));
+    if ($authKey === '') return 0;
+    foreach (($match['players'] ?? []) as $seat => $p) {
+        if (!is_array($p)) continue;
+        $seatKey = strval($p['authKey'] ?? '');
+        if ($seatKey !== '' && hash_equals($seatKey, $authKey)) return intval($seat);
+    }
+    return 0;
+}
+
 function MatchWriteRef($rootName, $gameName, $matchId, $gameNumber) {
     $path = MatchRefPath($rootName, $gameName);
     if ($path === '') return false;
@@ -177,6 +241,18 @@ function MatchCreateFromLobby($rootName, $lobby) {
         MatchWithLock($rootName, $matchId, function (&$m) use ($shareAnonymizedGameplayData) {
             $m['shareAnonymizedGameplayData'] = $shareAnonymizedGameplayData;
         });
+    }
+
+    // Carry the private lobby's invite code onto the match so the link keeps resolving after the
+    // lobby's APCu entry has expired — see the durable invite index above.
+    // ⚠ ABSENT, not empty, when there is none (public queues, bot/goldfish lobbies), matching how
+    // 'chatId' is handled: a '' here would be indistinguishable from "a lobby with a blank code".
+    $inviteCode = preg_replace('/[^A-Za-z0-9]/', '', strval($lobby->inviteCode ?? ''));
+    if ($inviteCode !== '') {
+        MatchWithLock($rootName, $matchId, function (&$m) use ($inviteCode) {
+            $m['inviteCode'] = $inviteCode;
+        });
+        MatchPublishInviteCode($rootName, $matchId, $inviteCode);
     }
 
     // Spawn game 1 from the real lobby, injecting the already-resolved decks. matchId/gameNumber are
@@ -406,6 +482,16 @@ function MatchReapStale($rootName, $maxAgeSeconds = 86400, $nowTs = null) {
         $age = $now - intval($m['updatedAt'] ?? 0);
         if ($age < $maxAgeSeconds) continue;
         if ($state !== 'complete' && $state !== 'abandoned') continue;
+        // Take the durable invite index entry with the match. Read it BEFORE the directory goes: the
+        // code only exists inside Match.json, so after the unlink there is nothing left to find it by
+        // and the entry would sit there forever pointing at a directory that no longer exists.
+        // (A lookup through an orphan still degrades correctly — MatchRead fails and the caller reports
+        // the invite expired — so this is about not leaking files, not about correctness.)
+        $staleInvite = strval($m['inviteCode'] ?? '');
+        if ($staleInvite !== '') {
+            $idxPath = MatchInviteIndexPath($rootName, $staleInvite);
+            if ($idxPath !== '' && is_file($idxPath)) @unlink($idxPath);
+        }
         array_map('unlink', glob($mDir . '/*') ?: []);
         @rmdir($mDir);
         $reaped++;

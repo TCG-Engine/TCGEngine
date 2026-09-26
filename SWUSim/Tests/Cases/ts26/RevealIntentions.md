@@ -77,6 +77,84 @@ P2BASEDMG:3
 
 ---
 
+# TwinSuns_ThreeSeats_TheWalkReachesEVERYSeat
+#// THREE seats — the shape bug #1086 was reported against (game 1310526), and the one the file was
+#// missing: it had 2-seat sections and a 4-seat section, and an odd seat count is exactly where a
+#// "caster + one opponent" walk looks healthy for the caster and silently drops everyone else.
+#// The reported symptom was that the caster's discard resolved and then nothing else happened — no
+#// second or third discard, and no closing draw for anybody.
+#//
+#// ⚠ The CLOSING DRAW is the assertion that catches a dropped seat. The discard piles alone can't:
+#// if the walk stops after seat 1, seat 2's pile is empty, which is ALSO what "seat 2 was asked and
+#// picked nothing" would look like. The draws only run once every seat has been asked, so a deck of 3
+#// dropping to 2 on EVERY seat is what proves the walk ran to completion.
+#//   P1 takes from P2 · P2 takes from P3 · P3 wraps and takes from P1 · then all three draw.
+#// Each seat holds a DISTINCT card so its discard pile names who took from it.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:4}
+SkipPreGame: true
+WithSeatOrder: 123
+WithLiveSeats: 123
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_024:0
+WithP1Hand: [TS26_80 SOR_095 SOR_128]
+WithP2Hand: [SOR_046 SOR_046]
+WithP3Hand: [SEC_080 SEC_080]
+WithP1Deck: [SOR_237 SOR_237 SOR_237]
+WithP2Deck: [SOR_237 SOR_237 SOR_237]
+WithP3Deck: [SOR_237 SOR_237 SOR_237]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p2Hand-0
+- P2>AnswerDecision:p3Hand-0
+- P3>AnswerDecision:p1Hand-0
+
+## EXPECT
+SEATCOUNT:3
+P2DISCARDUNIT:0:CARDID:SOR_046
+P3DISCARDUNIT:0:CARDID:SEC_080
+P1DECKCOUNT:2
+P2DECKCOUNT:2
+P3DECKCOUNT:2
+
+---
+
+# TwinSuns_ThreeSeats_TheSECONDSeatIsReallyOffered
+#// The half of the report that a completed walk cannot show: that seat 2 is HANDED the decision rather
+#// than having it resolved for it. The run stops right after the caster's pick and asserts seat 2 is
+#// holding a real, correctly-worded choice over seat 3's hand — which is the state a live player at
+#// seat 2 said they never got to act on.
+#// ⚠ The decision is deliberately left UNANSWERED so it is still there to read.
+
+## GIVEN
+CommonSetup: yyk/rrk/{myResources:4}
+SkipPreGame: true
+WithSeatOrder: 123
+WithLiveSeats: 123
+WithActivePlayer: 1
+WithGamePhase: ActionPhase
+WithP3Base: SOR_024:0
+WithP1Hand: [TS26_80 SOR_095 SOR_128]
+WithP2Hand: [SOR_046 SOR_046]
+WithP3Hand: [SEC_080 SEC_080]
+WithP1Deck: [SOR_237 SOR_237 SOR_237]
+WithP2Deck: [SOR_237 SOR_237 SOR_237]
+WithP3Deck: [SOR_237 SOR_237 SOR_237]
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:p2Hand-0
+
+## EXPECT
+P2HASDECISION
+P2DECISIONTOOLTIP:Discard_a_card_from_the_hand_of_the_player_to_your_right
+P1NODECISION
+
+---
+
 # TwinSuns_EachSeatDiscardsFromTheSeatToITSRight
 #// ⚠ THE ADJACENCY CELL — added 2026-08-21 under the USER RULING that **RIGHT is the increment along
 #// SeatOrder** (so seat 1's right neighbour is seat 2, and seat 4's wraps to seat 1). Before this the

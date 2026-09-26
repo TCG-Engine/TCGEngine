@@ -1482,8 +1482,19 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     /* Split control: [Undo][v]. `!important` throughout — components.css ships
        `button:not(.btn):not(.switch)`, whose :not() args give it (0,2,1) specificity, which beats a
        plain id-less class and has previously hijacked both `display` and `position` on new buttons. */
-    #swuUndoSplit { position: relative !important; display: none; align-items: stretch; }
-    #swuUndoSplit.is-split { display: inline-flex !important; }
+    /* ⚠ THE WRAPPER'S DISPLAY IS NOT `.is-split`'s BUSINESS — that class means "show the CARET".
+       This used to be `display: none` with `.is-split { display: inline-flex !important }`, so the
+       wrapper only ever appeared when the caret did. The caret's rule is
+       `showCaret = isPrivate || seats <= 2`, which is FALSE in a public 3+ seat game — so the whole
+       control, Undo button included, was display:none there while swuUpdateUndoUI happily set the
+       button to inline-block. Reported 2026-09-26 (game 1310334): no Undo button for anyone.
+       The caret has its own independent gate (#swuUndoMenuBtn's base `display:none` plus the
+       `.is-split` reveal below), so nothing needs this one.
+       ⚠ NO `!important` on this display: swuUpdateUndoUI hides the control between actions with an
+       inline `style.display='none'`, and an !important stylesheet rule beats a non-important inline
+       style (the same trap documented at swuUpdateUndoMenuVisibility). `position` keeps its
+       !important — that is what components.css actually fights over. */
+    #swuUndoSplit { position: relative !important; display: inline-flex; align-items: stretch; }
     #swuUndoSplit #swuUndoBtn { border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important; }
     #swuUndoMenuBtn {
         display: none;
@@ -1601,12 +1612,22 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         box-sizing: border-box !important;
         width: 100% !important; max-width: 100% !important; min-width: 0 !important;
     }
+    /* Owner, 2026-09-26: a faint border between entries, chat and game events alike, so a long
+       log is easier to read. A hairline SEPARATOR rather than a box per row -- this panel runs to
+       hundreds of lines in a real game, and what makes that parseable is knowing where one entry
+       ends, not drawing a frame around each. Same treatment as the Sideboard's panel
+       (SharedUI/Render/ChatPanel.php .tcgc-row) -- 2px at 0.14 alpha, kept in step with it so the
+       three chat surfaces do not drift; the padding goes up a little with it, because a rule
+       between two 1px-padded rows reads as a cramped table.
+       ⚠ Not on the LAST row: a trailing rule looks like a message that failed to render. */
     .swu-log-entry {
         font: 11px/1.55 var(--swu-font-ui);
         color: var(--swu-log-default);
-        padding: 1px 0;
+        padding: 3px 0;
         word-break: break-word;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.14);
     }
+    .swu-log-entry:last-child { border-bottom: 0; }
     .swu-log-PHASE {
         color: var(--swu-log-phase);
         font-style: italic;
@@ -1640,9 +1661,10 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-log-CHAT {
         color: var(--swu-log-chat);
         font-size: 12px;
-        padding: 2px 0 2px 7px;
+        padding: 3px 0 3px 7px;
         margin: 1px 0;
         border-left: 2px solid rgba(255,255,255,0.18);
+        /* the seat rail is the left edge; the separator below comes from .swu-log-entry */
     }
     /* The name span is the first child that Core builds (seat class rides the row). */
     .swu-log-CHAT > span:first-child { color: rgba(255,255,255,0.70); }

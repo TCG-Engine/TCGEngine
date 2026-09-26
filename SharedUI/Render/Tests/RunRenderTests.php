@@ -718,6 +718,58 @@ check('header renders a <header> landmark', strpos($lmHdr, '<header') !== false)
 check('menu bar renders a <nav> landmark', strpos($lmNav, '<nav') !== false);
 check('the nav landmark is labelled', strpos($lmNav, 'aria-label') !== false);
 
+// --- The 'arena' legal layout (SWUSim only, owner 2026-09-26) -------------------
+// Terms of Use and Privacy Policy render templates/*.tmpl, which are BARE PROSE: <h1>, <h2>, <p>,
+// <ul> and nothing around them. On SWUSim that landed as direct children of <body>, so every line
+// ran the full 1440px of the viewport with no gutter and no panel -- measured, not assumed.
+//
+// The templates are shared with FaBSim, HellbreakSim, SWUDeck and HellbreakDeck, so the wrapper is
+// an OPT-IN, the same shape as auth.layout and profile.layout above.
+$legalDef = $def; $legalDef['legal'] = ['layout' => 'arena'];
+$plainTerms  = RenderLegalPage($def,       'TermsOfUse');
+$arenaTerms  = RenderLegalPage($legalDef,  'TermsOfUse');
+$arenaPriv   = RenderLegalPage($legalDef,  'PrivacyPolicy');
+
+// ⚠ The default is asserted POSITIVELY, against the bare prose itself -- not by comparing against
+// another call that would flip with it. That tautology is why the auth check above carries the
+// same warning.
+check('a site that does not opt in still gets bare prose',
+    strpos($plainTerms, '<h1>') !== false
+    && strpos($plainTerms, 'legal-page') === false
+    && strpos($plainTerms, 'row-wrapper') === false);
+checkContains('the arena legal page is wrapped', $arenaTerms, 'row-wrapper');
+checkContains('the arena legal page sits in a panel', $arenaTerms, 'ga-glass-card');
+checkContains('the arena legal page is marked for styling', $arenaTerms, 'legal-page');
+checkContains('the arena legal page keeps its content', $arenaTerms, 'Terms of Use');
+checkContains('privacy opts in the same way', $arenaPriv, 'legal-page');
+check('the wrapper adds no text of its own',
+    strip_tags($arenaTerms) === strip_tags($plainTerms));
+
+// --- Legal documents have a sane heading outline (owner 2026-09-26) -------------
+// PrivacyPolicy.tmpl used SIX <h1>s as section headings and had no page title at all, so a screen
+// reader (and any outline view) read it as six separate documents. TermsOfUse.tmpl was already
+// right, which is what makes the pair a useful check: the rule must pass one and fail the other.
+foreach (['TermsOfUse' => 'Terms of Use', 'PrivacyPolicy' => 'Privacy Policy'] as $tpl => $title) {
+    $doc = RenderTemplate($tpl, $def);
+    preg_match_all('/<h([1-6])\b[^>]*>(.*?)<\/h\1>/is', $doc, $hs, PREG_SET_ORDER);
+    $levels = array_map(fn($m) => (int)$m[1], $hs);
+
+    check("$tpl has exactly one h1", count(array_filter($levels, fn($l) => $l === 1)) === 1,
+        'h1 count = ' . count(array_filter($levels, fn($l) => $l === 1)));
+    check("$tpl opens with its h1", ($levels[0] ?? 0) === 1);
+    check("$tpl names itself in that h1",
+        isset($hs[0][2]) && stripos(strip_tags($hs[0][2]), $title) !== false,
+        $hs[0][2] ?? '(none)');
+
+    // no skipped levels: h1 -> h3 with no h2 between is an outline hole
+    $skips = [];
+    foreach ($levels as $i => $l) {
+        if ($i === 0) continue;
+        if ($l > $levels[$i - 1] + 1) $skips[] = "h{$levels[$i-1]} -> h$l";
+    }
+    check("$tpl skips no heading levels", $skips === [], implode(', ', $skips));
+}
+
 // (later tasks append their checks above this line)
 
 echo "PASS=$PASS FAIL=$FAIL\n";

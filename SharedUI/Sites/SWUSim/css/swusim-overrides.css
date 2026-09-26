@@ -207,13 +207,11 @@ body .container .container.bg-blue {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-/* Titles: the menu's spaced uppercase. */
-body .container.bg-black h1, body .container.bg-black h2, body .container.bg-black h3,
-body .card.ga-glass-card:not(.swu-panel):not(.wr-panel) h2 {
-  font-family: 'Barlow', sans-serif; font-weight: 500;
-  letter-spacing: 0.07em; text-transform: uppercase;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
-}
+/* The 2026-09-21 title rule stood here -- Barlow, spaced, uppercase, on every heading inside a
+   site-page panel, at 0-4-2. Every page it claimed (Login, Signup, Profile, Previews) has since
+   been redesigned and styles its own headings, and its specificity then beat those: a legal page
+   heading asking for the redesign's Archivo at 0-2-2 lost to it and rendered in Barlow.
+   Retired rather than layered over -- see the same call for the waiting room above. */
 /* Fields: sunken wells with a gold focus ring. */
 body .container input[type=text], body .container input[type=password], body .container input[type=email],
 body .container input:not([type]), body .container select, body .container textarea {
@@ -319,7 +317,9 @@ body .swu-preview-tabs button.swu-preview-tab.is-active {
   .home-header p             { font-size: 12px !important; margin: 2px 0 0 0 !important; }
   .home-header .title        { padding: 8px 32px 8px 40px; column-gap: 12px; }
   .home-header .title-logo   { width: 42px; height: 42px; }
-  .card                      { padding: 12px !important; }
+  /* .legal-page is excluded: this block is the small-screen MAIN MENU trim (see its heading),
+     and 12px on a wall of legal prose puts the text against the panel edge. */
+  .card:not(.legal-page)     { padding: 12px !important; }
   .card h2, h2.h2            { font-size: 18px !important; }
   .row-wrapper               { gap: 10px !important; }
 }

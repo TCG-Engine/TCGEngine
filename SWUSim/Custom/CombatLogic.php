@@ -1099,23 +1099,63 @@ function OnHealUnit($player, $mzCard, $amount) {
 // (cf. the CR 16.c attack-end list, where deriving the set from phrasing misclassified 11 cards).
 // _SWUCountActiveUnitsWithCardID (not a raw in-play scan) is what makes a blanked copy — SHD_072
 // Imprisoned, SOR_138 Force Lightning — correctly stop locking.
-if (!function_exists('_SWUBasesCantBeHealed')) {
-    function _SWUBasesCantBeHealed(): bool {
+if (!function_exists('_SWUBasesCantBeHealedBy')) {
+    // The locking CardID, or '' when no continuous locker is in play. The CardID (rather than a bool) is
+    // what lets the blocked-heal log line name the card the way every other prevention line does.
+    function _SWUBasesCantBeHealedBy(): string {
         static $lockers = ['TWI_132', 'HMW_159'];   // Confederate Tri-Fighter · General Grievous (Scourge of Dathomir)
+        // EVERY seat, not the seat-1/seat-2 pair this used to hard-code: "either side" is the whole
+        // table, and at 3-4 seats a far-seat copy was locking nothing at all.
         foreach ($lockers as $cid) {
-            if (_SWUCountActiveUnitsWithCardID(1, $cid) > 0 || _SWUCountActiveUnitsWithCardID(2, $cid) > 0) return true;
+            foreach (GetSeatOrderArray() as $seat) {
+                if (_SWUCountActiveUnitsWithCardID($seat, $cid) > 0) return $cid;
+            }
         }
-        return false;
+        return '';
+    }
+}
+if (!function_exists('_SWUBasesCantBeHealed')) {
+    function _SWUBasesCantBeHealed(): bool { return _SWUBasesCantBeHealedBy() !== ''; }
+}
+
+// The card locking base healing right now, or null when healing is allowed. Returns '' for a lock whose
+// source cannot be attributed — a phase flag with no companion SWU_NOHEAL_BASE_SRC_<CardID> marker,
+// which is what a gamestate saved before those markers existed looks like.
+if (!function_exists('_SWUBaseHealLockSource')) {
+    function _SWUBaseHealLockSource(): ?string {
+        static $phaseLockers = ['LAW_197', 'SOR_160'];   // Shifty Suspects · Wolffe (Suspicious Veteran)
+        foreach (GetSeatOrderArray() as $seat) {
+            if (GlobalEffectCount($seat, 'SWU_NOHEAL_BASE') <= 0) continue;
+            foreach ($phaseLockers as $cid) {
+                if (GlobalEffectCount($seat, 'SWU_NOHEAL_BASE_SRC_' . $cid) > 0) return $cid;
+            }
+            return '';
+        }
+        $continuous = _SWUBasesCantBeHealedBy();
+        return $continuous !== '' ? $continuous : null;
     }
 }
 
 // Remove up to $amount damage counters from player $targetPlayer's base. Clamps at 0.
 function OnHealBase($player, $targetPlayer, $amount) {
-    // SOR_160 Wolffe: "Bases can't be healed for this phase." A global lock set by either player —
-    // block ALL base healing (including Restore) while it's active.
-    if (GlobalEffectCount(1, 'SWU_NOHEAL_BASE') > 0 || GlobalEffectCount(2, 'SWU_NOHEAL_BASE') > 0) return;
-    // The continuous "Bases can't be healed." units (TWI_132, HMW_159) — see the list above.
-    if (_SWUBasesCantBeHealed()) return;
+    // "Bases can't be healed" — the phase flag (SOR_160 Wolffe, LAW_197 Shifty Suspects) or a continuous
+    // locker in play. Either way it is a GLOBAL lock set by ANY player, blocking ALL base healing
+    // (including Restore), and _SWUBaseHealLockSource scans the whole table: at 3-4 seats the old
+    // seat-1/seat-2 pair could not see a far-seat locker and seats 1 and 2 went on healing. It covers
+    // ELIMINATED seats too — per the Wolffe ruling the lock outlives its source, so a seat knocked out
+    // later in the phase must not release it.
+    $healLock = _SWUBaseHealLockSource();
+    if ($healLock !== null) {
+        // Log it, but ONLY when a heal would really have removed damage — on an undamaged base this is a
+        // no-op either way and the line would be a lie that repeats on every Restore. See
+        // SWULogBaseHealBlocked for why silence here was itself reported as a bug.
+        $lockedBase = &GetBase(intval($targetPlayer));
+        if (intval($amount) > 0 && !empty($lockedBase) && empty($lockedBase[0]->removed)
+            && intval($lockedBase[0]->Damage) > 0) {
+            SWULogBaseHealBlocked(intval($targetPlayer), $healLock);
+        }
+        return;
+    }
     $base = &GetBase(intval($targetPlayer));
     for ($i = 0; $i < count($base); $i++) {
         if (isset($base[$i]->removed) && $base[$i]->removed) continue;

@@ -105,6 +105,9 @@ $row = [
     'playerLabel' => $viewerInfo['label'],
     'text'     => $chatText,
     'time'     => time(),
+    // Whole seconds cannot order a chat message against the game-log lines around it, and the
+    // panel interleaves the two streams. ADDITIVE: 'time' is untouched for every existing reader.
+    'ts'       => round(microtime(true), 4),
 ];
 if (!empty($whisperTo)) $row['to'] = $whisperTo;   // public rows keep today's exact shape
 $messages[] = $row;

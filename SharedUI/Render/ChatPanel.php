@@ -114,7 +114,20 @@ function _ChatPanelStyles(): string {
 
 /* Seat rails — the rail is what separates conversation from game events at a glance; the name tint
    is secondary. Same four colours as the in-game log. */
-.tcgc-row { padding: 2px 0 2px 8px; border-left: 3px solid transparent; }
+/* Owner, 2026-09-26: a border on every message, log or chat, so the eye can tell one from the
+   next -- then "a little thicker and a little bolder": 2px at 0.14 alpha, up from a 1px hairline
+   at 0.07 which was too easy to miss against the panel.
+   A SEPARATOR rather than a box per row: in a hundred-line game log, a hundred boxes is noise,
+   and what makes a wall of text parseable is knowing where each entry ends.
+   The last row has no rule under it -- a trailing separator reads as a missing message.
+   ⚠ Kept in step with the in-game log (SWUSim/Custom/GameLayout.php .swu-log-entry): the three
+   chat surfaces -- lobby, sideboard, board -- should not drift apart. */
+.tcgc-row {
+  padding: 4px 0 4px 8px;
+  border-left: 3px solid transparent;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.14);
+}
+.tcgc-row:last-child { border-bottom: 0; }
 .tcgc-row.tcgc-p1 { border-left-color: #6fb8ff; } .tcgc-row.tcgc-p1 .tcgc-who { color: #6fb8ff; }
 .tcgc-row.tcgc-p2 { border-left-color: #ff9b6f; } .tcgc-row.tcgc-p2 .tcgc-who { color: #ff9b6f; }
 .tcgc-row.tcgc-p3 { border-left-color: #7fd88f; } .tcgc-row.tcgc-p3 .tcgc-who { color: #7fd88f; }
@@ -185,12 +198,98 @@ function _ChatPanelScript(): string {
   // message never yanks someone out of scrollback.
   function atBottom() { return (stream.scrollHeight - stream.scrollTop - stream.clientHeight) < 60; }
 
-  function addRow(cls, who, text) {
+  function addRow(cls, who, text, ts) {
     var pinned = atBottom();
     var row = document.createElement('div');
     row.className = 'tcgc-row ' + cls;
     row.innerHTML = (who ? '<span class="tcgc-who">' + esc(who) + '</span> ' : '') + esc(text);
-    stream.appendChild(row);
+    insertByTs(row, ts, false);   // a chat row is never history
+    if (pinned) stream.scrollTop = stream.scrollHeight;
+  }
+
+  // A log line can NAME CARDS. The server sends the line with [[SET_NNN]] tokens and a separate
+  // name map (SWUSim/GetGameLog.php), because only the server has the card dictionary.
+  //
+  // ⚠ BUILT AS DOM NODES, NEVER innerHTML. Every other row in this panel is user-authored chat
+  // and goes through esc(); a card name arrives from the dictionary but still lands as a TEXT node,
+  // so there is no path here that can turn a name into markup. The token itself is matched with the
+  // same shape GetGameLog.php uses -- set codes contain DIGITS (TS26_01, IC27_001), so the set part
+  // is [A-Z0-9], not [A-Z].
+  // ⚠ ROWS ARRIVE IN WHATEVER ORDER THEIR REQUESTS RESOLVE. The chat poll is a plain read; a game
+  // log has to be parsed out of a gamestate, so the chat almost always wins and the log used to be
+  // appended UNDERNEATH it -- which put the message you just sent at the TOP of the panel, above a
+  // wall of log lines. Owner, 2026-09-26: "after many game logs, [it] is hard to find."
+  //
+  // So the LOG SECTION IS ANCHORED: log blocks sit at the top of the stream, in the order they were
+  // added, and chat always continues below them. The two sources share no clock, so nothing is
+  // re-sorted -- but the layout is deterministic now instead of a race.
+  // ⚠ ROWS ARRIVE IN WHATEVER ORDER THEIR REQUESTS RESOLVE. The chat poll is a plain read; a game
+  // log is parsed out of a gamestate. So the stream is ordered by the rows' OWN timestamps, not by
+  // arrival: chat carries `ts` (SubmitChat.php) and a log line carries '@<microtime>' in field 2
+  // (AddGameLogEntry). Both are wall-clock microtime, which is the only reason they can interleave.
+  //
+  // A row with NO timestamp appends, which is what every legacy log line and every other sim's
+  // caller does -- so nothing that worked before changes shape.
+  //
+  // Scans from the END because rows normally arrive in order, so the common case is one comparison.
+  function insertByTs(node, ts, isHistory) {
+    var hasTs = (ts !== null && ts !== undefined && !isNaN(ts));
+    if (hasTs) node.setAttribute('data-ts', ts);
+    if (!hasTs) {
+      // ⚠ WHAT AN UNSTAMPED ROW MEANS DEPENDS ON WHICH KIND IT IS.
+      // A LOG line without a stamp is HISTORY -- a game played before 2026-09-26 -- and belongs
+      // above everything we can place. A CHAT row without one is a message that just ARRIVED with
+      // an unknown time, and belongs at the bottom. Using the history rule for both sent every
+      // such message to the top of the panel, which was worse than the original bug.
+      if (!isHistory) { stream.appendChild(node); return; }
+      // Appending it instead was the bug: a game log from before 2026-09-26 carries no timestamps,
+      // so a message sent today (which does) was inserted first and the whole log landed UNDER it
+      // -- "i send a chat, then refreshed and it moved to the top". Every game already in progress
+      // has an unstamped log, so this is the normal case right now, not an edge case.
+      // Unstamped rows keep their own arrival order: each goes before the first STAMPED row, which
+      // is after any unstamped row already there.
+      var firstStamped = null;
+      for (var j = 0; j < stream.children.length; j++) {
+        if (!isNaN(parseFloat(stream.children[j].getAttribute('data-ts')))) { firstStamped = stream.children[j]; break; }
+      }
+      stream.insertBefore(node, firstStamped);   // null => append, correct when nothing is stamped
+      return;
+    }
+    var rows = stream.children;
+    for (var i = rows.length - 1; i >= 0; i--) {
+      var t = parseFloat(rows[i].getAttribute('data-ts'));
+      if (!isNaN(t) && t <= ts) { stream.insertBefore(node, rows[i].nextSibling); return; }
+    }
+    // older than everything stamped: go above them, but below any unstamped preamble
+    var first = stream.firstChild;
+    while (first && first.nodeType === 1 && isNaN(parseFloat(first.getAttribute('data-ts')))) first = first.nextSibling;
+    stream.insertBefore(node, first);
+  }
+
+  function addLogRow(text, cards, ts) {
+    var pinned = atBottom();
+    var row = document.createElement('div');
+    row.className = 'tcgc-row tcgc-log';
+    // ⚠ TWO TOKEN FORMS, and both are in real logs:
+    //   [[SEC_111|Jar Jar Binks]]  GameLogCardRef() -- the NAME IS EMBEDDED (the engine has the
+    //                              dictionary at write time). This is the common one.
+    //   [[SEC_111]]                the bare form, named from the map GetGameLog.php builds.
+    // Matching only the bare form left "[[SEC_111|Jar Jar Binks]]" on screen verbatim.
+    var re = /\[\[([A-Za-z0-9]{2,6}_[A-Za-z0-9]{2,5})(?:\|([^\]]*))?\]\]/g;
+    var last = 0, m;
+    while ((m = re.exec(text)) !== null) {
+      if (m.index > last) row.appendChild(document.createTextNode(text.slice(last, m.index)));
+      var id = m[1];
+      var el = document.createElement('span');
+      el.className = 'tcgc-card';
+      el.setAttribute('data-card-id', id);
+      // the embedded name wins; otherwise the server's map; otherwise the id itself
+      el.textContent = m[2] || (cards && cards[id]) || id;   // text node: a name cannot be markup
+      row.appendChild(el);
+      last = re.lastIndex;
+    }
+    if (last < text.length) row.appendChild(document.createTextNode(text.slice(last)));
+    insertByTs(row, ts, true);    // an unstamped LOG line is history
     if (pinned) stream.scrollTop = stream.scrollHeight;
   }
 
@@ -207,7 +306,11 @@ function _ChatPanelScript(): string {
           if (m.id > lastId) lastId = m.id;
           var seat = parseInt(m.playerID, 10);
           var cls = (seat >= 1 && seat <= 4) ? 'tcgc-p' + seat : 'tcgc-log';
-          addRow(cls, (m.playerLabel || ('P' + m.playerID)) + ':', m.text);
+          // `ts` is microtime; `time` is the legacy whole-second field, used when a message
+          // predates the ts column so it still lands somewhere sensible.
+          var mts = (m.ts !== undefined && m.ts !== null) ? parseFloat(m.ts)
+                  : (m.time !== undefined ? parseFloat(m.time) : NaN);
+          addRow(cls, (m.playerLabel || ('P' + m.playerID)) + ':', m.text, mts);
         });
       })
       .catch(function () { /* a dropped poll is not an error the player needs to see */ })
@@ -271,14 +374,23 @@ function _ChatPanelScript(): string {
       poll();
     },
     detach: function () { if (timer) { clearTimeout(timer); timer = null; } },
-    appendLog: function (heading, lines) {
+    // opts.cards maps a [[SET_NNN]] token to a display name. Absent, a line renders exactly as it
+    // always did, so every existing caller is unaffected.
+    appendLog: function (heading, lines, opts) {
+      opts = opts || {};
+      // A line is a plain string (every existing caller) or {text, ts} when it is stamped.
+      var rows = (lines || []).map(function (l) {
+        return (l && typeof l === 'object') ? { text: String(l.text || ''), ts: parseFloat(l.ts) }
+                                            : { text: String(l), ts: NaN };
+      });
       if (heading) {
         var h = document.createElement('div');
         h.className = 'tcgc-loghead';
         h.textContent = heading;
-        stream.appendChild(h);
+        // the heading sits with the first line it introduces
+        insertByTs(h, rows.length ? rows[0].ts : NaN, true);
       }
-      (lines || []).forEach(function (l) { addRow('tcgc-log', '', l); });
+      rows.forEach(function (r) { addLogRow(r.text, opts.cards || null, r.ts); });
       stream.scrollTop = stream.scrollHeight;
     }
   };

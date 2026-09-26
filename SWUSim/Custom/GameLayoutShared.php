@@ -1991,15 +1991,45 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // ── Chat merged INTO the game log ─────────────────────────────────────────
     // ONE stream, no Log/Chat tabs. Players were not discovering that the panel could be switched,
     // so chat arrived in a tab nobody had open. Core's _AppendChatMessage builds the element and
-    // hands it here; we drop it into #swuLogPanel, where it interleaves with game events in
-    // ARRIVAL order (log entries carry no timestamp — "TYPE|VISIBILITY|text" — so true chronological
-    // interleaving is not available; on first load the chat backlog therefore lands after the log
-    // backlog, and everything after that is genuinely in order because both ride the same poll).
+    // hands it here; we drop it into #swuLogPanel.
+    //
+    // ⚠ MERGED BY TIME, NOT BY ARRIVAL (owner, 2026-09-26: "i send a chat, then refreshed and it
+    // moved to the top"). Both streams carry wall-clock microtime now — a log entry as
+    // '@<microtime>' in field 2 (AddGameLogEntry) and a chat row as `ts` (SubmitChat) — so the two
+    // can finally be ordered against each other. An UNSTAMPED row is history from before that
+    // change: it goes above everything stamped rather than on the end, which is what used to throw
+    // a fresh message to the top of an old game's log.
     // ⚠ Returns FALSE in floating-chat mode — the <800px desktop breakpoint hides #swuSidebar (and
     //   with it the log panel) and restores the "💬 Chat" launcher, so #chatLog + its toast are the
     //   only visible surface there. Core then falls back to them. Detected via a VISIBLE
     //   #chatToggleBtn rather than a width test: the mobile layout kills that button outright, so
     //   mobile always takes the merged path even while its drawer is closed.
+    // Place a row among rows that carry data-ts. Scans from the END because rows normally arrive
+    // in order. An unstamped row is older than anything we can place, so it goes above the stamped
+    // ones (and after any unstamped rows already there, keeping their order).
+    function swuLogInsertByTs(panel, node, ts, isHistory) {
+        // ⚠ WHAT AN UNSTAMPED ROW MEANS DEPENDS ON WHICH KIND IT IS.
+        // A LOG entry with no stamp is HISTORY -- a game played before 2026-09-26 -- and belongs
+        // above anything we can place. A CHAT row with no stamp just ARRIVED, and belongs at the
+        // bottom. One rule for both sent every unstamped message to the top of the panel.
+        if (isNaN(ts)) {
+            if (!isHistory) { panel.appendChild(node); return; }
+            var firstStamped = null;
+            for (var j = 0; j < panel.children.length; j++) {
+                if (!isNaN(parseFloat(panel.children[j].getAttribute('data-ts')))) { firstStamped = panel.children[j]; break; }
+            }
+            panel.insertBefore(node, firstStamped);   // null => append, right when nothing is stamped
+            return;
+        }
+        for (var i = panel.children.length - 1; i >= 0; i--) {
+            var t = parseFloat(panel.children[i].getAttribute('data-ts'));
+            if (!isNaN(t) && t <= ts) { panel.insertBefore(node, panel.children[i].nextSibling); return; }
+        }
+        var first = panel.firstChild;
+        while (first && first.nodeType === 1 && isNaN(parseFloat(first.getAttribute('data-ts')))) first = first.nextSibling;
+        panel.insertBefore(node, first);
+    }
+
     window.TCGChatMessageSink = function(el) {
         var toggle = document.getElementById('chatToggleBtn');
         if (toggle && toggle.getClientRects().length > 0) return false;
@@ -2008,7 +2038,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         el.style.cssText = '';                       // drop Core's inline sizing; SWUSim styles it
         el.classList.add('swu-log-entry', 'swu-log-CHAT');
         var nearBottom = (panel.scrollHeight - panel.scrollTop - panel.clientHeight) < 60;
-        panel.appendChild(el);
+        swuLogInsertByTs(panel, el, parseFloat(el.getAttribute('data-ts')), false);   // chat: never history
         if (nearBottom) panel.scrollTop = panel.scrollHeight;
         return true;
     };
@@ -2036,9 +2066,17 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var raw = window.GameLogData || '';
         if (!raw || raw === '-') return;
         var entries = raw.split('<NL>');
-        // Log shrank (undo) — rebuild from scratch instead of appending.
+        // Log shrank (undo, or the match advanced to a new game) — rebuild it.
+        //
+        // ⚠ REMOVE ONLY THE ROWS THIS RENDERER MADE. `panel.innerHTML = ''` also destroyed every
+        // CHAT row: chat lives in this panel but comes from the chat poll, which only ever sends
+        // messages NEWER than lastId -- so once wiped, the conversation never came back. At the
+        // end of a game the match advances to a fresh, shorter log, this branch fired, and the
+        // whole panel emptied: "if i refresh while the You Won screen pops up, then all the chats
+        // and gamelogs disappear completely" (owner, 2026-09-26).
         if (entries.length < _swuLogRenderedCount) {
-            panel.innerHTML = '';
+            var stale = panel.querySelectorAll('.swu-log-entry:not(.swu-log-CHAT)');
+            for (var d = 0; d < stale.length; d++) stale[d].remove();
             _swuLogRenderedCount = 0;
         }
         if (entries.length <= _swuLogRenderedCount) return;
@@ -2052,14 +2090,21 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             var parts = entry.split('|');
             if (parts.length < 3) continue;
             var type = parts[0];
-            var text = parts.slice(2).join('|');
+            // ⚠ Field 2 is the '@<microtime>' stamp on entries written since 2026-09-26; on any
+            // gamestate saved before that it is the TEXT. Both shapes have to render.
+            var stamped = parts[2].charAt(0) === '@' && !isNaN(parseFloat(parts[2].slice(1)));
+            var text = parts.slice(stamped ? 3 : 2).join('|');
             var div  = document.createElement('div');
             div.className = 'swu-log-entry swu-log-' + type;
+            if (stamped) div.setAttribute('data-ts', parts[2].slice(1));
             div.innerHTML = swuParseLogText(swuNameSeatsInLog(text.replace(/</g, '&lt;')));
-            frag.appendChild(div);
+            // ⚠ PLACED, not appended. On a refresh the chat poll normally resolves before this
+            // runs, so appending a fragment dropped the whole game log BELOW the chat -- which is
+            // exactly "i send a chat, then refreshed and it moved to the top", measured on a live
+            // game. Log entries are history: unstamped ones sort above anything stamped.
+            swuLogInsertByTs(panel, div, stamped ? parseFloat(parts[2].slice(1)) : NaN, true);
         }
         _swuLogRenderedCount = entries.length;
-        panel.appendChild(frag);
 
         if (wasNearBottom) panel.scrollTop = panel.scrollHeight;
     };
@@ -2648,6 +2693,10 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // downstream branch degenerates to Twin Suns behaviour.
     // ⚠ Keep the parity rule HERE ONLY, as it is server-side. Do not inline `% 2` anywhere else.
     function swuTeamOf(seat) { return window.SWUIsTeamGame ? (seat % 2) : seat; }
+    // Exported because swuUpdateUndoUI (a top-level function, outside this scope) needs the same rule to
+    // decide who is asked to answer an undo request. Exporting keeps the "HERE ONLY" instruction above
+    // intact — the alternative was inlining `% 2` a second time, which is exactly what it forbids.
+    window.swuTeamOf = swuTeamOf;
     function swuIsTeammate(seat) {
         return !!window.SWUIsTeamGame && seat !== MY_PLAYER_ID && swuTeamOf(seat) === swuTeamOf(MY_PLAYER_ID);
     }
@@ -2787,6 +2836,22 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             if (!/^p\d+/.test(spec.zone)) { inlineNormalized.push(spec); return; }   // already my/their
             var seat = parseInt((spec.zone.match(/^p(\d+)/) || [])[1], 10);
             var frame = swuRenderedZoneForSeat(seat);                                // 'my' | 'their' | null
+            // ⚠ A POPUP zone is NOT view-dependent, so it must never be held out as "off-view".
+            // The off-view holdout means "we cannot draw this here — show an arrow badge and let them
+            // Zoom In and click it". That is right for an arena unit, and useless for a hidden zone
+            // (a HAND, a deck): no view renders one as cards, so there is nothing to badge and nothing
+            // to click — the spec lands in neither inlineSpecs nor popupCards and the decision gets NO
+            // UI AT ALL. Reported 2026-09-25 (game 1310334): "play Remnant Lookouts, choose P2, nothing
+            // happens." It only appeared to work if you happened to be zoomed into the picked seat.
+            // ⚠ AND ZOOMING IN IS NOT THE ANSWER (owner, 2026-09-25): players do essentially everything
+            // from the Home panels, so a prompt that is only reachable after a Zoom In is a prompt they
+            // never see. Keep the seat-tagged spec here and let CategorizeMZChooseSpecs route it to the
+            // popup, which draws over the Home view just as happily.
+            if (frame === null && typeof window.ShouldUseMZChoosePopupForSpec === 'function'
+                && window.ShouldUseMZChoosePopupForSpec(spec)) {
+                inlineNormalized.push(spec);                                          // popup handles it
+                return;
+            }
             if (frame === null) { offViewSpecs.push(spec); return; }                 // off-view → badge only
             var suffix = spec.zone.replace(/^p\d+/, '');                             // 'GroundArena' | 'Base' | 'SpaceArena'
             inlineNormalized.push(Object.assign({}, spec, { zone: frame + suffix }));// originalSpec preserved
@@ -5332,11 +5397,21 @@ function swuUpdateUndoUI(myPlayerID) {
     btn.disabled = isBlocked;
     btn.title = isBlocked ? 'Your opponent has blocked undo requests.' : '';
 
-    // Undo request popup: show to the opponent of PENDING_UNDO_FROM
+    // Undo request popup: show to EVERY opponent of PENDING_UNDO_FROM.
+    // ⚠ OWNER RULING 2026-09-26: the request goes to all opponents and the first Allow or Deny settles
+    // it — it is not a vote. `otherPlayer = myPlayerID === 1 ? 2 : 1` asked exactly one seat, so above
+    // two seats a request from seat 3 was shown to nobody (and a request from seat 1 was shown only to
+    // seat 2, leaving seats 3 and 4 unable to answer a request they never saw).
+    // Mirrors the server's OpponentsOf(): not me, and — in a team game — not my teammate, whose answer
+    // the server would refuse anyway. swuTeamOf() returns the seat itself outside a team game, so this
+    // is "every other live seat" in Twin Suns and byte-identical to the old behaviour at two seats.
     var pendingFrom = GetSWUDQVar('PENDING_UNDO_FROM');
-    var otherPlayer = myPlayerID === 1 ? 2 : 1;
-    if (pendingFrom !== '' && parseInt(pendingFrom, 10) === otherPlayer) {
-        swuShowUndoRequestPopup(otherPlayer);
+    var requesterSeat = pendingFrom !== '' ? parseInt(pendingFrom, 10) : 0;
+    var iMayAnswer = requesterSeat >= 1 && requesterSeat !== myPlayerID
+        && (typeof window.swuTeamOf !== 'function'
+            || window.swuTeamOf(requesterSeat) !== window.swuTeamOf(myPlayerID));
+    if (iMayAnswer) {
+        swuShowUndoRequestPopup(requesterSeat);
     } else {
         var reqModal = document.getElementById('swu-undo-request-modal');
         if (reqModal) reqModal.remove();

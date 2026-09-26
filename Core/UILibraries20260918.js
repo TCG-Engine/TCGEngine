@@ -6586,7 +6586,15 @@ function ShouldUseMZChoosePopupForSpec(spec) {
   const visibility = String(zoneData.Visibility || 'Public').toLowerCase();
   const displayMode = String(zoneData.DisplayMode || 'All').toLowerCase();
   const display = String(zoneData.Display || 'Normal').toLowerCase();
-  const isOpponentZone = String(spec.zone || '').indexOf('their') === 0;
+  // ⚠ 'their<Zone>' is the TWO-SEAT spelling. Above two seats the server names the seat instead
+  // ('p2Hand-0' — SWULookAtOpponentHand switches on SeatCountForGame), and testing only for 'their'
+  // classified an opponent's HAND as an ordinary inline pick. Nothing renders an opponent's hand as
+  // cards, so that is a decision with no UI at all: reported 2026-09-25 (game 1310334) as "play Remnant
+  // Lookouts, choose P2, nothing happens".
+  // A p{n} prefix always names a seat OTHER than the deciding player — the decider's own zones are
+  // emitted as 'my<Zone>' — so it is an opponent (or teammate) zone by construction.
+  const zoneName = String(spec.zone || '');
+  const isOpponentZone = zoneName.indexOf('their') === 0 || /^p\d+/.test(zoneName);
 
   return visibility === 'private'
     || visibility === 'none'
@@ -7195,6 +7203,8 @@ function EnableDraggableModal(modal, handle, positionStorageKey) {
 // popupCards: array of specs with { zone, specificIndex, originalSpec, ... }
 // Each card will display with a label showing the zone name
 function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
+  // Declared up here because BOTH the panel (width) and the card grid below branch on it.
+  const isNarrowPicker = (window.innerWidth || 1024) <= 640;
   // Remove any existing popup
   HideMZChoosePopup();
 
@@ -7230,6 +7240,10 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
   modal.style.backdropFilter = 'var(--mz-choose-panel-filter, blur(14px) saturate(140%))';
   modal.style.webkitBackdropFilter = 'var(--mz-choose-panel-filter, blur(14px) saturate(140%))';
   modal.style.maxWidth = 'min(860px, calc(100vw - 24px))';
+  // ⚠ The panel's width was CONTENT-DRIVEN, so on a phone a one- or two-card pick rendered a narrow
+  // sliver rather than using the screen. Claim the width on a narrow viewport (owner, 2026-09-25) so the
+  // two-column grid below has room to make the cards legible.
+  if (isNarrowPicker) modal.style.width = 'min(860px, calc(100vw - 24px))';
   modal.style.maxHeight = '80vh';
   modal.style.overflow = 'auto';
   modal.style.pointerEvents = 'auto';
@@ -7315,14 +7329,34 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
   // Cards container - horizontal wrap
   let cardsContainer = document.createElement('div');
   cardsContainer.className = 'mzchoose-popup-cards';
-  cardsContainer.style.display = 'flex';
-  cardsContainer.style.flexWrap = 'wrap';
-  cardsContainer.style.justifyContent = 'center';
+  if (isNarrowPicker) {
+    // Phone: a fixed TWO-COLUMN grid that scrolls vertically (owner, 2026-09-25). A wrapping flex row
+    // re-flows to as many small columns as fit, which is what made a multi-card pick unreadable; a grid
+    // keeps the cards big and predictable however many there are.
+    // ⚠ The scroll must live HERE, not on the modal: the modal also holds the PASS button, and scrolling
+    // the whole panel pushes the only way to decline off-screen.
+    cardsContainer.style.display = 'grid';
+    cardsContainer.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
+    cardsContainer.style.justifyItems = 'center';
+    cardsContainer.style.alignItems = 'start';
+    cardsContainer.style.maxHeight = '52vh';
+    cardsContainer.style.overflowY = 'auto';
+    cardsContainer.style.overflowX = 'hidden';
+    cardsContainer.style.width = '100%';
+  } else {
+    cardsContainer.style.display = 'flex';
+    cardsContainer.style.flexWrap = 'wrap';
+    cardsContainer.style.justifyContent = 'center';
+  }
   cardsContainer.style.gap = '16px';
   cardsContainer.style.marginBottom = '20px';
 
-  // Get card size from window or use default
-  const cardSize = window.cardSize || 96;
+  // Get card size from window or use default.
+  // ⚠ On a phone window.cardSize is the BOARD's card size (~36px wide / 52px tall), which is fine for a
+  // crowded arena and far too small to CHOOSE from — the picker is a deliberate, one-at-a-time decision.
+  // Owner, 2026-09-25: bigger modal, two columns, scroll. So on a narrow viewport the picker sizes its
+  // own cards instead of inheriting the board's.
+  const cardSize = isNarrowPicker ? Math.max(window.cardSize || 96, 132) : (window.cardSize || 96);
   const rootPath = window.rootPath || '.';
 
   // For each popup card spec, find and display the card
@@ -7389,7 +7423,29 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
 
     // Zone label at bottom of card. Prefer an explicit action label when present; otherwise show the
     // source zone — but never surface internal staging zones (TempZone) to the player.
-    let displayZoneName = spec.selectionLabel ? spec.selectionLabel.replace(/_/g, ' ') : spec.zone.replace(/^(my|their)/, '');
+    // ⚠ A p{n} zone must be humanised too. Stripping only my/their left the raw transport name on screen
+    // ("p2Hand"), which players never saw before because a seat-tagged zone had no popup to appear in —
+    // it does now. Name the seat the way every other seat-facing string does (the picker's own
+    // optionDisplayLabel: account username, else the match display name, else "Player N").
+    let displayZoneName;
+    let shortZoneName = '';   // the bare zone, for cards too small to carry the seat-qualified form
+    if (spec.selectionLabel) {
+      displayZoneName = spec.selectionLabel.replace(/_/g, ' ');
+    } else {
+      const seatMatch = /^p(\d+)/.exec(String(spec.zone || ''));
+      const bareZone = String(spec.zone || '').replace(/^(my|their|p\d+)/, '');
+      if (seatMatch) {
+        const sn = seatMatch[1];
+        const seatNames = window.SWU_SEAT_USERNAMES || {};
+        const shownNames = window.SWU_SEAT_DISPLAY_NAMES || {};
+        const who = (seatNames[sn] && String(seatNames[sn]).trim() !== '') ? String(seatNames[sn])
+                  : ((shownNames[sn] && String(shownNames[sn]).trim() !== '') ? String(shownNames[sn]) : ('Player ' + sn));
+        displayZoneName = who + "'s " + bareZone;
+        shortZoneName = bareZone;
+      } else {
+        displayZoneName = bareZone;
+      }
+    }
     if (displayZoneName && displayZoneName !== 'TempZone') {
       let zoneLabel = document.createElement('div');
       zoneLabel.className = 'mzchoose-popup-zone-label';
@@ -7399,11 +7455,30 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
       zoneLabel.style.right = '0';
       zoneLabel.style.background = 'var(--mz-choose-zone-label-bg, rgba(0,0,0,0.8))';
       zoneLabel.style.color = 'var(--mz-choose-zone-label-text, #fff)';
-      zoneLabel.style.fontSize = '11px';
-      zoneLabel.style.padding = '4px 6px';
+      // ⚠ SCALE WITH THE CARD. The popup's cards are far smaller on a phone (~52px tall vs ~112px), and a
+      // fixed 11px/4px strip that reads as a caption on desktop covers ~40% of the art there. Sized off
+      // cardSize so the label stays a caption at every card size.
+      const smallCard = cardSize < 80;
+      zoneLabel.style.fontSize = smallCard ? '8px' : '11px';
+      zoneLabel.style.padding = smallCard ? '1px 3px' : '4px 6px';
+      zoneLabel.style.lineHeight = smallCard ? '1.1' : '';
       zoneLabel.style.textAlign = 'center';
       zoneLabel.style.borderRadius = '0 0 6px 6px';
-      zoneLabel.textContent = displayZoneName;
+      // ⚠ ONE LINE, ALWAYS. This strip is absolutely positioned across the bottom of the card, so it
+      // grows UPWARD over the art as it wraps — and the label is no longer the short zone word it was
+      // built for ("Hand"): it now carries a seat name, which can be an arbitrary username. Unconstrained,
+      // "Player 2's Hand" wrapped to three lines and covered the whole card preview on a phone.
+      // The full text stays reachable as the title.
+      zoneLabel.style.whiteSpace = 'nowrap';
+      zoneLabel.style.overflow = 'hidden';
+      zoneLabel.style.textOverflow = 'ellipsis';
+      zoneLabel.style.boxSizing = 'border-box';
+      // ⚠ On a small card the seat-qualified form ellipsises to "Player 2's …", which truncates away the
+      // part that carries the meaning and is strictly worse than the bare zone. Show the short form there
+      // and keep the full one as the title. The seat is not lost: the player picked it a moment ago and
+      // the game log names it.
+      zoneLabel.title = displayZoneName;
+      zoneLabel.textContent = (smallCard && shortZoneName) ? shortZoneName : displayZoneName;
       cardWrapper.appendChild(zoneLabel);
     }
 

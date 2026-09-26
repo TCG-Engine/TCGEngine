@@ -387,6 +387,25 @@ function SWULogUpgradeRefusal($host, string $upgradeCardID, string $verb): void 
     SWULogEffect('EFFECT', "couldn't {$verb} {$what}", "{$what} was unaffected");
 }
 
+// A base heal a "bases can't be healed" lock stopped (SOR_160 Wolffe / LAW_197 Shifty Suspects for the
+// phase, TWI_132 Confederate Tri-Fighter / HMW_159 General Grievous continuously). OnHealBase returns
+// silently, so the ability that asked for the heal printed its "P1 used X's Action" line and nothing
+// else — indistinguishable from the ability misfiring, and the source of a live bug report on game
+// 1310526. $byCardID is the locking card; '' when it cannot be attributed.
+// NO combat/non-combat split, unlike the prevention helpers above. A Restore blocked mid-attack writes
+// its own line ABOVE the ATTACK summary rather than becoming a note on it: base heals never run inside
+// the combat-damage log window (instrumented across all 12832 suite sections — the branch was reached
+// zero times), so a split here would be untestable decoration. Printing above the summary is the same
+// ordering the user already ruled correct for On Attack effect lines.
+// ⚠ The caller must only reach here when a heal would otherwise have removed damage. On an undamaged
+// base the heal is a no-op regardless of the lock, and a line would both mislead and repeat on every
+// Restore for the rest of the game.
+function SWULogBaseHealBlocked(int $owner, string $byCardID): void {
+    if ($owner <= 0) return;
+    $by = $byCardID !== '' ? ' (' . GameLogCardRef($byCardID) . ')' : '';
+    SWULogEffect('EFFECT', "couldn't heal P{$owner}'s base{$by}", "P{$owner}'s base couldn't be healed{$by}");
+}
+
 // " — P2's X's Shield token prevented the damage" notes collected during a combat, appended to its ATTACK
 // line. One-shot: reading clears them (and SWULogClearSource clears any an aborted attack left behind).
 function SWULogCombatNotes(): string {
@@ -674,11 +693,13 @@ function SWULogCarryUndone(array $before, int $seat, callable $describe): void {
         $n += preg_match('/their last (\d+) actions/', $last, $m) ? intval($m[1]) : 1;
     }
     foreach ($carried as $e) {
-        $p = explode('|', $e, 3);
-        if (count($p) < 3) continue;
-        // Already-carried lines (an earlier undo's) and other undo lines keep their form.
-        AddGameLogEntry(in_array($p[0], ['UNDONE', 'UNDO'], true) ? $p[0] : 'UNDONE',
-            in_array($p[0], ['UNDONE', 'UNDO'], true) ? $p[2] : '(undone) ' . $p[2], $p[1]);
+        // ⚠ Through the parser, not a hand split: field 2 is the TIMESTAMP now, so $p[2] would
+        // re-log "@1790368123.4567" as the message text.
+        $p = SWUParseGameLogEntry($e);
+        if ($p['text'] === '' && $p['type'] === '') continue;
+        $isUndo = in_array($p['type'], ['UNDONE', 'UNDO'], true);
+        AddGameLogEntry($isUndo ? $p['type'] : 'UNDONE',
+            $isUndo ? $p['text'] : '(undone) ' . $p['text'], $p['visibility']);
     }
     AddGameLogEntry('UNDO', $describe($n), 'ALL');
 }
@@ -812,6 +833,25 @@ function SWULogDeckPlacement(int $player, int $bottom, int $top = -1): void {
 //
 // ⚠ A MISSING visibility field defaults to ALL, matching the generated reader exactly. Do not
 // "harden" that to deny-by-default here alone — it would diverge, and the parity test would fail.
+// THE one reader of a game-log entry's fields. Handles both shapes:
+//   current: type|visibility|@<microtime>|text
+//   legacy:  type|visibility|text            (every gamestate saved before 2026-09-26)
+// Returns ['type','visibility','ts','text'] with ts === null for a legacy entry.
+//
+// ⚠ Split with a LIMIT so the text keeps its own pipes -- GameLogCardRef() emits [[id|title]].
+function SWUParseGameLogEntry(string $entry): array {
+    $p = explode('|', $entry, 4);
+    if (count($p) < 3) return ['type' => $p[0] ?? '', 'visibility' => 'ALL', 'ts' => null, 'text' => ''];
+    $stamped = isset($p[2]) && $p[2] !== '' && $p[2][0] === '@' && is_numeric(substr($p[2], 1));
+    if ($stamped) {
+        return ['type' => $p[0], 'visibility' => $p[1],
+                'ts' => (float)substr($p[2], 1), 'text' => $p[3] ?? ''];
+    }
+    // legacy: field 2 IS the text, and a limit-4 split may have cut it -- rejoin.
+    $rest = explode('|', $entry, 3);
+    return ['type' => $p[0], 'visibility' => $p[1], 'ts' => null, 'text' => $rest[2] ?? ''];
+}
+
 function SWUFilterGameLogForViewer($rawLog, $viewerSeat, $isSpectator) {
     $out = [];
     $vSeatTag = 'P' . intval($viewerSeat);

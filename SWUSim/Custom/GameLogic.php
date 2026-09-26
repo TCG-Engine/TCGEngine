@@ -42,9 +42,20 @@ include_once __DIR__ . '/BotDataRecorder.php';
 // private look be addressed to exactly the seats involved (SWULogPrivateReveal) and is the seam for
 // team-scoped log lines. ⚠ The reader is GENERATED — it lives in zzGameCodeGenerator.php's GameLog
 // block, NOT in the gitignored GetNextTurn.php. Guarded by DevTools/tests/gamelog_visibility_test.php.
+// Entry shape: type|visibility|@<microtime>|text
+//
+// ⚠ THE TIMESTAMP IS FIELD 2 AND IT CARRIES AN '@'. It cannot go last, because the TEXT contains
+// pipes -- GameLogCardRef() emits [[id|title]] -- so a trailing field would be ambiguous. And it
+// is marked with '@' rather than sniffed as "looks like a number", so a legacy 3-field entry
+// (type|visibility|text, which every already-saved gamestate holds) can never be mistaken for a
+// stamped one. SWUParseGameLogEntry() reads both shapes; nothing else may split these by hand.
+//
+// Wall-clock microtime, because it is compared against CHAT timestamps to interleave the two
+// streams in the panel, and whole seconds cannot order a chat message against the log lines
+// around it (owner, 2026-09-26).
 function AddGameLogEntry(string $type, string $text, string $visibility = 'ALL'): void {
     global $gGameLog;
-    $entry = $type . '|' . $visibility . '|' . $text;
+    $entry = $type . '|' . $visibility . '|@' . sprintf('%.4f', microtime(true)) . '|' . $text;
     if (!isset($gGameLog) || $gGameLog === '' || $gGameLog === '0' || $gGameLog === '-') {
         $gGameLog = $entry;
     } else {
@@ -21625,9 +21636,30 @@ function SWUDoUndo(int $playerID, string $kind = 'step', string $rootName = '', 
     }
 }
 
-function SWUApproveUndo(): void {
+// ── Answering an undo request (OWNER RULING 2026-09-26) ──────────────────────────────────────────
+// "Request Undo in Twin Suns should be presented to ALL opponents. Any Allow or any Deny fulfills as
+// the answer. It does not have to be unanimous."
+//
+// So: every opponent of the requester is asked, and the FIRST one to answer settles it — there is no
+// vote to collect and no quorum to reach. That makes the answerer's seat load-bearing (it names the
+// approver/denier in the log and it is what these guards check), so it is passed in rather than
+// assumed. `$answerer = 0` falls back to the acting seat for any caller that has not been updated.
+//
+// ⚠ Both halves were seat-range guarded (`< 1 || > 2`), which did not merely mislabel the answerer —
+// SWUApproveUndo RETURNED EARLY for a seat-3/4 requester, so their request could never be answered by
+// anyone and simply sat pending forever.
+// ⚠ The requester is NOT an opponent of themselves, and OpponentsOf() also excludes a TEAMMATE and any
+// dead seat. Without that check, widening the range would let a player approve their own request and
+// make every public undo free.
+function _SWUUndoAnswererIsEligible(int $requestingPlayer, int $answerer): bool {
+    if ($requestingPlayer < 1 || $answerer < 1) return false;
+    return in_array($answerer, OpponentsOf($requestingPlayer), true);
+}
+
+function SWUApproveUndo(int $answerer = 0): void {
     $requestingPlayer = intval(GetSWUVar('PENDING_UNDO_FROM', '0'));
-    if ($requestingPlayer < 1 || $requestingPlayer > 2) return;
+    $approver = $answerer > 0 ? $answerer : intval($GLOBALS['playerID'] ?? 0);
+    if (!_SWUUndoAnswererIsEligible($requestingPlayer, $approver)) return;
     $blocked = _SWUCaptureUndoBlocks();
     // Revert to the SAME target the requester chose (multi-step / Undo Phase), not just the top action.
     $target = intval(GetSWUVar('PENDING_UNDO_TARGET', (string)UndoCursor()));
@@ -21637,22 +21669,26 @@ function SWUApproveUndo(): void {
     SetSWUVar('PENDING_UNDO_FROM', '');
     SetSWUVar('PENDING_UNDO_TARGET', '');
     SetFlashMessage('Undo approved.');
-    $approver = ($requestingPlayer === 1) ? 2 : 1;   // this path is 2-seat only (guarded above)
+    // The REAL approver, not "the other of seats 1/2" — above two seats that named the wrong player.
     SWULogCarryUndone($logBefore, $requestingPlayer, fn(int $n) => "P{$requestingPlayer} undid an action (approved by P{$approver})");   // after the load — see SWUDoUndo
 }
 
-function SWUDenyUndo(): void {
+function SWUDenyUndo(int $answerer = 0): void {
     $requestingPlayer = intval(GetSWUVar('PENDING_UNDO_FROM', '0'));
+    $denier = $answerer > 0 ? $answerer : intval($GLOBALS['playerID'] ?? 0);
+    // ⚠ The clears used to happen BEFORE any seat check, so a request could be wiped by a caller who was
+    // not entitled to answer it. Nothing is consumed until the denier is known to be an opponent —
+    // otherwise an ineligible answer silently cancels the request and the requester is left with
+    // neither an undo nor a pending ask.
+    if (!_SWUUndoAnswererIsEligible($requestingPlayer, $denier)) return;
     SetSWUVar('PENDING_UNDO_FROM', '');
     SetSWUVar('PENDING_UNDO_TARGET', '');
     SetSWUVar('UNDO_REQUIRES_CONSENT', 'false');
-    if ($requestingPlayer >= 1 && $requestingPlayer <= 2) {
-        $denyKey = 'UNDO_DENY_COUNT_' . $requestingPlayer;
-        $newCount = intval(GetSWUVar($denyKey, '0')) + 1;
-        SetSWUVar($denyKey, (string)$newCount);
-        if ($newCount >= 2) SetSWUVar('PENDING_BLOCK_PROMPT_FOR', (string)$requestingPlayer);
-        AddGameLogEntry('UNDO', 'P' . (($requestingPlayer === 1) ? 2 : 1) . " denied P{$requestingPlayer}'s undo request", 'ALL');
-    }
+    $denyKey = 'UNDO_DENY_COUNT_' . $requestingPlayer;
+    $newCount = intval(GetSWUVar($denyKey, '0')) + 1;
+    SetSWUVar($denyKey, (string)$newCount);
+    if ($newCount >= 2) SetSWUVar('PENDING_BLOCK_PROMPT_FOR', (string)$requestingPlayer);
+    AddGameLogEntry('UNDO', "P{$denier} denied P{$requestingPlayer}'s undo request", 'ALL');
     SetFlashMessage('Undo denied.');
 }
 

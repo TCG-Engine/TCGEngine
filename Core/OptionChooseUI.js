@@ -23,6 +23,12 @@
   'use strict';
 
   const OPTION_CHOOSE_STYLES = `
+    /* ⚠ THIS BANNER IS CENTER-ANCHORED, SO ANY OVERFLOW SPILLS OFF **BOTH** EDGES.
+       It is fixed + translateX(-50%) here, and SWUSim's HUD sweep (GameLayoutShared.php) re-centers it
+       on both axes. A center-anchored box cannot be scrolled back into view, so content that does not
+       fit is not merely ugly — it is UNREACHABLE. It must therefore WRAP rather than grow.
+       Reported 2026-09-25 (game 1310334): with three opponents to choose between, all three buttons
+       rendered past the right edge of a 390px phone and the prompt could not be answered at all. */
     .optchoose-banner {
       position: fixed;
       bottom: 16px;
@@ -31,9 +37,11 @@
       z-index: 9999;
       display: flex;
       align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
       gap: 18px;
       padding: 16px 32px;
-      max-width: 80vw;
+      max-width: min(92vw, 760px);
       box-sizing: border-box;
       background: linear-gradient(145deg, #0D1B2A, #162d44);
       border: 1.5px solid rgba(95,208,255,0.45);
@@ -42,12 +50,14 @@
       font-family: 'Orbitron', 'Segoe UI', monospace;
       user-select: none;
     }
+    /* ⚠ NOT flex-shrink:0. Both children used to refuse to shrink AND the row could not wrap, so the
+       banner's max-width was decorative — the children simply overflowed it. */
     .optchoose-label {
       color: #d0ecff;
       font-size: 14px;
       max-width: 260px;
+      min-width: 0;
       text-align: center;
-      flex-shrink: 0;
     }
     /* Card strip scrolls horizontally so a large searched zone (e.g. a 30+ card deck)
        stays within the 80vw banner while the prompt and OK button remain visible. */
@@ -75,9 +85,22 @@
       display: block;
       flex: 0 0 auto;
     }
-    .optchoose-options { display: flex; gap: 10px; flex-shrink: 0; }
+    .optchoose-options { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; min-width: 0; }
     /* Skin from .btn (button.css); layout only kept here. */
-    .optchoose-btn { padding: 10px 24px; font-size: 15px; }
+    .optchoose-btn { padding: 10px 24px; font-size: 15px; max-width: 100%; }
+
+    /* Phone: give the prompt its own full-width row so the options always get the banner's whole
+       width, and trim the chrome that was eating it. The options themselves still wrap.
+       ⚠ The option labels here are USERNAMES (optionDisplayLabel humanises the P<n> seat tokens), so
+       they are arbitrarily long and arbitrarily many — this must not assume a short "Ground"/"Space"
+       pair, which is what the original sizing was built for. */
+    @media (max-width: 640px) {
+      .optchoose-banner  { max-width: 94vw; padding: 12px 14px; gap: 10px; }
+      .optchoose-label   { flex-basis: 100%; max-width: 100%; }
+      .optchoose-options { flex-basis: 100%; }
+      .optchoose-btn     { padding: 10px 16px; font-size: 14px; }
+      .optchoose-card    { height: 104px; }
+    }
   `;
 
   let styleEl = null;

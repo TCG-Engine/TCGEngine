@@ -707,11 +707,13 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       break;
     case 10008:
       // Approve undo request (called by the opponent)
-      if (function_exists('SWUApproveUndo')) SWUApproveUndo();
+      // Pass the ANSWERING seat: any opponent may answer (owner ruling 2026-09-26) and the seat is
+      // what both the eligibility check and the game-log line are built from.
+      if (function_exists('SWUApproveUndo')) SWUApproveUndo(intval($playerID));
       break;
     case 10009:
       // Deny undo request (called by the opponent)
-      if (function_exists('SWUDenyUndo')) SWUDenyUndo();
+      if (function_exists('SWUDenyUndo')) SWUDenyUndo(intval($playerID));
       break;
     case 10010:
       // Block future undo requests permanently (called by the opponent)

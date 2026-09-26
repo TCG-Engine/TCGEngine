@@ -421,12 +421,14 @@ class GameTestAdapter {
     /** Opponent approves a pending undo request (public-queue consent flow). */
     public function approveUndo(int $player): void {
         global $playerID; $saved = $playerID; $playerID = $player;
-        ob_start(); SWUApproveUndo(); $this->_drainDQ($player); ob_end_clean();
+        ob_start(); SWUApproveUndo($player); $this->_drainDQ($player); ob_end_clean();
         $playerID = $saved;
     }
     /** Opponent denies a pending undo request. */
     public function denyUndo(int $player): void {
-        ob_start(); SWUDenyUndo(); ob_end_clean();
+        // ⚠ Pass the seat, like production (EngineActionRunner case 10009). This helper never even set
+        // $playerID, so without the argument the denier was whatever seat happened to be current.
+        ob_start(); SWUDenyUndo($player); ob_end_clean();
     }
 
     /** Use a leader's action ability (exhausts the leader, fires its handler). */

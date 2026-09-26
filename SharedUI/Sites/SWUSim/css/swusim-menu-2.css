@@ -4130,6 +4130,63 @@ body:has(.home-header) #tcg-chat-panel::after {
     var(--rim) calc(var(--rim) + var(--ci)));
 }
 
+/* ⚠ The port above sets `position: relative` so its ::before/::after glass layers have a
+   containing block. On #tcg-chat-panel that overrode the panel's OWN `position: sticky`
+   (ChatPanel.php) at higher specificity -- and its `top: calc(var(--tcgc-top) + gutter)`, meant as
+   a sticky offset, then became a plain downward nudge that started the panel ~117px below the
+   content beside it. Measured on the Sideboard: content top 69px, panel top 186px.
+   sticky establishes a containing block just as relative does, so the glass is unaffected. */
+/* ⚠ DESKTOP ONLY, and the breakpoint must match ChatPanel's own. Below 900px that component
+   turns the panel into a FIXED off-canvas drawer; this override is id-level (1-1-1) and beat its
+   media-query rule (1-0-0), so on a phone the drawer stayed in flow and kept its 335px of flex
+   width -- squashing the page's main column to 64px and pushing 149px of it off-screen. */
+/* The interior-panel port above sets `position: relative` on everything in its list so the glass
+   pseudo-layers have a containing block. On #tcg-chat-panel that blanket rule (1-1-1) overrides
+   the component's OWN positioning (1-0-0) at BOTH breakpoints, so each one is restored here:
+     >=901px  sticky -- the panel scrolls with the page and then pins;
+     <=900px  fixed  -- it is an off-canvas drawer, and must leave the flow entirely.
+   Left in flow on a phone it kept its 335px of flex width, squashing the page's main column to
+   64px and pushing 149px off-screen. Both are containing blocks, so the glass is unaffected. */
+@media (min-width: 901px) {
+  body:has(.home-header) #tcg-chat-panel { position: sticky; }
+}
+@media (max-width: 900px) {
+  body:has(.home-header) #tcg-chat-panel { position: fixed; }
+}
+
+/* ── The Sideboard's log panel is NOT a drawer on a phone ───────────────────
+   Owner, 2026-09-26: "chat is still stuck open. i would prefer it go to the bottom. below the
+   submit/ready button."
+   ChatPanel's mobile default is an off-canvas drawer with a floating launcher, which is right for
+   a game board where the board itself must own the viewport. The Sideboard is a scrolling page, so
+   the panel simply becomes the last block on it -- no launcher, nothing overlaying the cards.
+   ⚠ 1-2-1 (`.sb-row #tcg-chat-panel`) so it beats the drawer rule above at 1-1-1 on purpose, not
+   by source order. It undoes every drawer property: fixed, the off-screen transform, the 100vh
+   height and the 86vw width. */
+@media (max-width: 900px) {
+  body:has(.sb-row) .sb-row { flex-direction: column; }
+  body:has(.sb-row) .sb-row .sb-main { order: 1; }
+  body:has(.sb-row) .sb-row #tcg-chat-panel {
+    order: 2;                      /* the markup puts the panel FIRST; this moves it last */
+    /* ⚠ ChatPanel sets align-self: flex-start so the panel hugs its content as a desktop COLUMN.
+       In a column flex row that is the cross axis, so it shrank the panel to 156px of a 390px
+       screen. Stretch is what makes it a full-width block here. */
+    align-self: stretch;
+    position: static;
+    transform: none;
+    flex: 0 0 auto;
+    inline-size: auto;
+    max-inline-size: none;
+    margin: 0 clamp(var(--s-3), 4vw, var(--s-6)) var(--s-5);
+    block-size: auto;
+    min-block-size: 0;
+    max-block-size: 70vh;          /* long conversations scroll inside it, not down the page */
+    z-index: auto;
+  }
+  /* the launcher has nothing to launch once the panel is on the page */
+  body:has(.sb-row) #tcg-chat-toggle { display: none; }
+}
+
 /* Interior pages' content sits on the same gutter as the menu's. Previews and
    Profile render into a bare .row-wrapper / .core-wrapper with no max width, so
    their panels ran edge to edge while the menu's stop at 1368px. The menu's own
@@ -4823,3 +4880,255 @@ body:has(#wr-root) #wr-invite { font-size: var(--t-13); color: var(--ink-3); }
 body:has(#wr-root) #wr-invite b, body:has(#wr-root) #wr-invite strong {
   color: var(--ink); letter-spacing: 0.04em;
 }
+
+
+/* ══ THE LEGAL PAGES — Terms of Use / Privacy Policy ═══════════════════════
+   Opted in by SiteDef legal.layout = 'arena', which frames templates/*.tmpl in
+   .row-wrapper > .card.ga-glass-card (Render/Template.php RenderLegalPage).
+   The panel itself therefore comes from INTERIOR PANELS above -- nothing is
+   redrawn here. What is left is the prose, which had no styling at all: the
+   templates emit bare <h1>/<h2>/<p>/<ul> and every site supplies its own.
+
+   ⚠ A READING MEASURE IS THE POINT. Before the wrapper these ran the full
+   1440px of the viewport with no gutter; a wrapper alone would still give a
+   ~1300px line. 72ch is the measure, and it is set on the CHILDREN rather than
+   the panel so the panel keeps its full width and the text sits inside it. */
+body:has(.legal-page) .legal-page { padding: clamp(20px, 4vw, 44px); }
+
+/* The measure lives on the PROSE wrapper, not on <p>: PrivacyPolicy.tmpl is bare text nodes and
+   <br><br>, so a per-paragraph rule reaches none of its body copy. */
+body:has(.legal-page) .legal-page__prose {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-3);
+  max-inline-size: 72ch;
+  font-size: var(--t-14);
+  line-height: 1.65;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+body:has(.legal-page) .legal-page :is(p, ul, ol) {
+  max-inline-size: 72ch;
+  margin: 0;
+  font-size: var(--t-14);
+  line-height: 1.65;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+body:has(.legal-page) .legal-page h1 {
+  max-inline-size: 30ch;
+  margin: 0;
+  font-family: inherit;
+  font-size: var(--t-24);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: var(--ink);
+}
+@media (min-width: 620px) { body:has(.legal-page) .legal-page h1 { font-size: var(--t-28); } }
+
+/* Section headings carry the rule that separates clauses -- these documents are
+   scanned for a clause, not read top to bottom, so the break matters more than
+   the size. */
+body:has(.legal-page) .legal-page h2 {
+  max-inline-size: 72ch;
+  inline-size: 100%;
+  /* the legacy bare-element rule (menuStyles.css `h1, h2, ... { font-family: barlow }`) still
+     wins on a heading the redesign has not claimed, so the family is stated, not assumed */
+  font-family: inherit;
+  margin-block-start: var(--s-4);
+  padding-block-start: var(--s-3);
+  border-block-start: 1px solid var(--edge);
+  font-size: var(--t-15);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+body:has(.legal-page) .legal-page h1 + p { font-size: var(--t-15); color: var(--ink-2); }
+
+/* h3 is a SUBSECTION (Privacy's "Remember Me Cookie" under "Cookies"), so it reads as a label on
+   the paragraph beneath it: no rule above it, and not uppercase -- the h2 owns the break. */
+body:has(.legal-page) .legal-page h3 {
+  max-inline-size: 72ch;
+  margin: var(--s-3) 0 0;
+  font-family: inherit;
+  font-size: var(--t-14);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+body:has(.legal-page) .legal-page :is(ul, ol) { padding-inline-start: var(--s-5); }
+body:has(.legal-page) .legal-page li { margin-block-end: 6px; }
+body:has(.legal-page) .legal-page strong { color: var(--ink); font-weight: 600; }
+
+/* A link in a wall of grey text has to be findable without being loud: the gold
+   is the page's one accent, and the underline is what makes it a link. */
+body:has(.legal-page) .legal-page a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+body:has(.legal-page) .legal-page a:hover { color: var(--gold-hi); }
+
+
+/* ══ THE SIDEBOARD ═════════════════════════════════════════════════════════
+   SWUSim/Sideboard.php — the screen between games of a Bo3. It shipped with its
+   own self-contained stylesheet in a different palette entirely (cyan-on-navy,
+   --swu-cyan, Aptos/Bahnschrift) and sat out the whole redesign, because the
+   page 404s without a live match and so was never opened. (There is a fixture
+   now: SWUSim/DevTools/make-sideboard-fixture.php.)
+
+   The page renders RenderHeader(), so it carries .home-header and every scoped
+   rule above already applies to it — the chat skin, the buttons, the panels.
+   Only its own layout is written here. */
+body:has(.sb-row) {
+  margin: 0;
+  min-block-size: 100vh;
+  color: var(--ink);
+  font-size: var(--t-14);
+}
+
+/* ⚠ The row's height comes from its TALLER COLUMN, not from the viewport. It used to carry an
+   inline min-height:100vh, which made the main column full-height and dropped the action row to
+   the bottom of the screen -- nowhere near the log panel. The log panel keeps align-self:
+   flex-start (ChatPanel's own rule), so it still hugs its content and only the main column
+   stretches. */
+body:has(.sb-row) .sb-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+/* A column, so the action row can be pushed to its foot. Its block padding matches the log
+   panel's own margin, which is what makes the two bottom edges land together. */
+body:has(.sb-row) .sb-main {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  /* 32px a side is 18% of a 360px phone. The gutter shrinks with the screen; the deck grid is the
+     thing that needs the room. */
+  padding: var(--s-4) clamp(var(--s-3), 4vw, var(--s-6));
+}
+@media (min-width: 700px) {
+  body:has(.sb-row) .sb-main { padding: var(--s-5) var(--s-6); }
+}
+
+/* Owner, 2026-09-26: the Submit button's bottom edge lines up with the log panel's.
+   `margin-block-start: auto` takes whatever space is left, so it holds when the log is long
+   AND when the deck grids are the taller side -- no fixed offset to drift. */
+body:has(.sb-row) .sb-actions {
+  display: flex;
+  align-items: center;
+  margin-block-start: auto;
+  padding-block-start: var(--s-4);
+}
+
+body:has(.sb-row) .sb-main h2 {
+  margin: 0 0 var(--s-2);
+  font-size: var(--t-24);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+body:has(.sb-row) .hint { margin: 0 0 var(--s-4); font-size: var(--t-13); color: var(--ink-3); }
+
+body:has(.sb-row) .section { margin-block-start: var(--s-5); }
+body:has(.sb-row) .section h3 {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  margin: 0 0 var(--s-3);
+  padding-block-end: var(--s-2);
+  border-block-end: 1px solid var(--edge);
+  font-size: var(--t-15);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+body:has(.sb-row) .ct { font-size: var(--t-12); font-weight: 600; letter-spacing: 0.06em; color: var(--ink-3); }
+
+/* The card grids. A tile is the click target for moving a copy between deck and
+   sideboard, so it gets a real hover state — this is the page's main verb. */
+body:has(.sb-row) .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: var(--s-3);
+}
+body:has(.sb-row) .grid .card {
+  position: relative;
+  cursor: pointer;
+  border-radius: 0;
+  transition: translate 120ms var(--ease), filter 120ms var(--ease);
+}
+body:has(.sb-row) .grid .card img { inline-size: 100%; display: block; }
+body:has(.sb-row) .grid .card:hover { translate: 0 -2px; filter: brightness(1.12); }
+body:has(.sb-row) .grid .card:active { translate: 0 1px; }
+
+/* The quantity badge is the menu's .tag, chamfered and flat. */
+body:has(.sb-row) .qty {
+  position: absolute;
+  inset-block-start: 4px;
+  inset-inline-end: 4px;
+  min-inline-size: 20px;
+  padding: 1px 5px;
+  font-size: var(--t-11);
+  font-weight: 700;
+  text-align: center;
+  color: var(--on-gold, #241a09);
+  background-color: var(--gold);
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+}
+
+body:has(.sb-row) .empty {
+  grid-column: 1 / -1;
+  padding: var(--s-4);
+  font-size: var(--t-13);
+  color: var(--ink-3);
+}
+
+/* Leader + base: fixed for the match, so they are shown rather than offered.
+   ⚠ These are the FULL LANDSCAPE art ('card' -> WebpImages/), not the 'tile' variant, which is a
+   450x450 square CROP of a 628x450 card (see _SWUCardImageParts). object-fit: contain plus the
+   card's own aspect-ratio guarantees the whole image is shown whatever a parent rule asks for --
+   the point is that nothing is cut off. */
+body:has(.sb-row) .fixed { display: flex; gap: var(--s-3); margin-block-end: var(--s-4); }
+body:has(.sb-row) .fixed .slot { inline-size: clamp(180px, 20vw, 248px); }
+body:has(.sb-row) .fixed .slot img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 628 / 450;
+  object-fit: contain;
+}
+
+body:has(.sb-row) #status { margin-inline-start: var(--s-3); font-size: var(--t-13); color: var(--ink-2); }
+
+/* the floating card preview, matching the deck grid's */
+body:has(.sb-row) #sbPreview {
+  position: fixed;
+  z-index: 60;
+  display: none;
+  inline-size: 300px;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.7));
+}
+
+/* A card NAMED IN THE GAME LOG. It is the one interactive thing in that panel, so it reads as
+   interactive — the gold the rest of the page rations, plus a hover underline. */
+body:has(.sb-row) .tcgc-card,
+body:has(.home-header) .tcgc-card {
+  color: var(--gold);
+  cursor: help;
+  text-underline-offset: 2px;
+}
+body:has(.sb-row) .tcgc-card:hover,
+body:has(.home-header) .tcgc-card:hover { color: var(--gold-hi); text-decoration: underline; }

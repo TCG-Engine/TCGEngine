@@ -59,6 +59,12 @@
   'auth' => [
     'layout' => 'arena',
   ],
+  // Terms of Use / Privacy Policy render bare prose from templates/*.tmpl -- no wrapper at all,
+  // so without this they land as direct children of <body> and run the full width of the screen.
+  // Opting in frames them in the redesign's own .row-wrapper + .card.ga-glass-card.
+  'legal' => [
+    'layout' => 'arena',
+  ],
   // Opts this sim into the shared WaitingRoom page (SharedUI/Render/WaitingRoom.php).
   // Presence of this block IS the opt-in — the adapter supplies everything sim-specific (routing
   // predicate, seat model, deck validation, start gate), so nothing else here needs a key.

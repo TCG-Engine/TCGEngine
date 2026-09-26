@@ -103,6 +103,8 @@ SharedUI/Profile.php
 SharedUI/LoginPage.php
 SharedUI/Signup.php
 SharedUI/WaitingRoom.php
+SharedUI/PrivacyPolicy.php
+SharedUI/TermsOfUse.php
 
 # --- Local dev DB snapshot tooling (kept local for now) ---
 DevTools/snapshot-prod-db.sh

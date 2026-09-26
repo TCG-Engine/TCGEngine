@@ -52,87 +52,34 @@ $titles = [];
 foreach (array_merge(array_keys($mainCounts), array_keys($sideCounts), [$deck['leader'], $deck['base']]) as $id) {
     if ($id !== '' && !isset($titles[$id])) $titles[$id] = $titleFor($id);
 }
-?><!doctype html><html><head><meta charset="utf-8"><title>Sideboard</title>
-<style>
-  /* SWUSim HUD aesthetic — cyan-on-navy, chamfered panels/buttons. Self-contained
-     (this is a standalone page, so the in-game CSS vars aren't available here). */
-  :root {
-    --swu-bg:        #0b0f14;
-    --swu-rim:       rgba(140,210,255,0.85);
-    --swu-fill:      rgba(20,42,70,0.95);
-    --swu-cyan:      rgba(205,238,255,0.98);
-    --swu-cyan-soft: rgba(160,200,235,0.78);
-    --swu-font-ui:    "Aptos","Segoe UI Variable","Trebuchet MS",sans-serif;
-    --swu-font-label: "Bahnschrift","Aptos Display","Franklin Gothic Medium",sans-serif;
-  }
-  /* ⚠ The page padding moved to .sb-main. The chat panel is a flex sibling pinned to the left edge,
-     so padding on <body> would inset the panel too and leave a strip of background beside it. */
-  body {
-    margin:0; padding:0; min-height:100vh; box-sizing:border-box;
-    background:
-      radial-gradient(1100px 560px at 50% -12%, rgba(46,98,150,0.28), transparent 62%),
-      linear-gradient(180deg, #0c1622, var(--swu-bg));
-    color: rgba(225,238,250,0.92); font-family: var(--swu-font-ui);
-  }
-  h2 {
-    margin:0 0 6px; font-family: var(--swu-font-label);
-    text-transform:uppercase; letter-spacing:0.14em; font-size:22px; font-weight:700;
-    color: var(--swu-cyan); text-shadow:0 0 12px rgba(120,200,255,0.35);
-  }
-  .hint { color: var(--swu-cyan-soft); margin:0 0 20px; font-size:13px; }
-  .fixed { display:flex; gap:16px; align-items:flex-end; margin-bottom:18px; flex-wrap:wrap; }
-  .fixed .slot { text-align:center; }
-  .fixed .slot img { height:96px; border-radius:6px; display:block;
-                     border:1px solid rgba(120,200,255,0.25); box-shadow:0 0 10px rgba(0,0,0,.5); }
-  .fixed .slot .lbl { font-family:var(--swu-font-label); text-transform:uppercase; letter-spacing:0.12em;
-                      font-size:11px; color: var(--swu-cyan-soft); margin-top:6px; }
-  .section { margin-bottom:24px; }
-  .section h3 { margin:0 0 10px; font-family:var(--swu-font-label); text-transform:uppercase; letter-spacing:0.12em;
-                font-size:15px; font-weight:700; color: rgba(195,228,255,0.95); display:flex; align-items:center; gap:8px; }
-  .section h3 .ct { color: rgba(150,185,220,0.65); font-weight:normal; letter-spacing:0.06em; font-size:12px; }
-  .grid { display:flex; flex-wrap:wrap; gap:10px; min-height:150px; align-content:flex-start;
-          border:1px solid rgba(120,200,255,0.28); border-radius:8px; padding:14px;
-          background: linear-gradient(180deg, rgba(18,34,54,0.62), rgba(12,22,34,0.62));
-          box-shadow: inset 0 0 24px rgba(8,18,30,0.6); }
-  .card { position:relative; width:104px; cursor:pointer; transition:transform .08s; }
-  .card:hover { transform:translateY(-3px); }
-  .card img { width:100%; border-radius:6px; display:block; box-shadow:0 2px 6px rgba(0,0,0,.5); }
-  .card .qty { position:absolute; bottom:6px; right:6px; min-width:20px; height:20px; line-height:20px;
-               padding:0 5px; border-radius:11px; background:rgba(11,22,34,0.95); color:#fff; font-size:13px; font-weight:bold;
-               text-align:center; border:1px solid rgba(120,200,255,0.45); box-shadow:0 1px 3px rgba(0,0,0,.6); }
-  .empty { color: rgba(120,160,200,0.55); font-style:italic; align-self:center; }
-  /* Chamfered HUD button — ::before = cyan rim, ::after = flat fill, text on top. */
-  #submit {
-    position:relative; z-index:0; isolation:isolate; border:0; border-radius:0; background:transparent; box-shadow:none;
-    padding:11px 26px; cursor:pointer; font-family:var(--swu-font-label); font-weight:700; font-size:14px;
-    text-transform:uppercase; letter-spacing:0.12em; color: var(--swu-cyan);
-    text-shadow:0 0 6px rgba(120,200,255,0.5); filter:drop-shadow(0 0 5px rgba(110,190,255,0.45));
-    transition: filter 150ms, color 150ms, transform 110ms;
-  }
-  #submit::before { content:''; position:absolute; inset:0; z-index:-2; background: var(--swu-rim);
-    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
-  #submit::after { content:''; position:absolute; inset:1.5px; z-index:-1; background: var(--swu-fill);
-    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px); }
-  #submit:not(:disabled):hover { color:#fff; filter:drop-shadow(0 0 10px rgba(125,205,255,0.65)); transform:translateY(-1px); }
-  #submit:not(:disabled):hover::before { background: rgba(180,228,255,1); }
-  #submit:not(:disabled):active { transform:translateY(1px); filter:drop-shadow(0 0 4px rgba(110,190,255,0.4)); }
-  #submit:disabled { opacity:.4; filter:none; transform:none; cursor:default; color: rgba(200,225,245,0.7); }
-  #submit:disabled::before { background: rgba(120,200,255,0.30); }
-  #status { margin-left:14px; color: var(--swu-cyan-soft); font-family:var(--swu-font-label); letter-spacing:0.06em; font-size:13px; }
-  #sbPreview { position:fixed; display:none; pointer-events:none; z-index:9999; max-height:70vh; max-width:340px;
-    width:auto; height:auto; border-radius:12px; box-shadow:0 10px 34px rgba(0,0,0,0.75); }
-</style></head>
+?><?php
+// The theme comes from the SITE, not from a private copy. This page carried its own
+// self-contained cyan-on-navy CSS (--swu-cyan, Aptos/Bahnschrift) and so sat out the whole
+// Petranaki redesign -- it 404s without a live match, so nobody opened it.
+// RenderHead gives it the same font + stylesheet stack every other page gets; RenderHeader gives
+// it the title plate, which is ALSO the scope hook (`body:has(.home-header)`) that the redesign's
+// rules and the Petranaki chat skin key off.
+// ⚠ The MENU BAR is deliberately NOT rendered: you are mid-match here, and a nav link out of a
+// sideboard abandons the game.
+require_once __DIR__ . '/../SharedUI/Render/SiteDef.php';
+require_once __DIR__ . '/../SharedUI/Render/Head.php';
+require_once __DIR__ . '/../SharedUI/Render/Header.php';
+$sbDef = LoadSiteDef('SWUSim');
+$sbDef['branding'] = ['headTitle' => 'Sideboard'] + $sbDef['branding'];
+echo RenderHead($sbDef);
+?>
 <body>
-<div class="sb-row" style="display:flex; align-items:flex-start; gap:0; min-height:100vh;">
+<?= RenderHeader($sbDef) ?>
+<div class="sb-row">
 <?php /* ⚠ A PLAIN & — RenderChatPanel htmlspecialchars() the title, so passing "&amp;" prints "&amp;amp;". */ ?>
 <?= RenderChatPanel(['mode' => 'chat+log', 'title' => 'GAME LOG & CHAT', 'folderPath' => 'SWUSim']) ?>
-<div class="sb-main" style="flex:1 1 auto; min-width:0; padding:28px; box-sizing:border-box;">
+<div class="sb-main">
 <h2>Sideboard — game <?= count($m['games'])+1 ?> of best-of-<?= intval($m['bestOf']) ?></h2>
 <p class="hint">Click a Deck card to move one copy to your Sideboard. Click a Sideboard card to move it back. Then submit — the next game starts when both players are ready.</p>
 
 <div class="fixed">
-  <div class="slot"><img data-card-id="<?= htmlspecialchars($deck['leader']) ?>" src="<?= htmlspecialchars(SWUCardImagePath($deck['leader'], 'tile')) ?>" alt="<?= htmlspecialchars($titles[$deck['leader']] ?? $deck['leader']) ?>" title="<?= htmlspecialchars($titles[$deck['leader']] ?? $deck['leader']) ?>"><div class="lbl">Leader</div></div>
-  <div class="slot"><img data-card-id="<?= htmlspecialchars($deck['base']) ?>" src="<?= htmlspecialchars(SWUCardImagePath($deck['base'], 'tile')) ?>" alt="<?= htmlspecialchars($titles[$deck['base']] ?? $deck['base']) ?>" title="<?= htmlspecialchars($titles[$deck['base']] ?? $deck['base']) ?>"><div class="lbl">Base</div></div>
+  <div class="slot"><img data-card-id="<?= htmlspecialchars($deck['leader']) ?>" src="<?= htmlspecialchars(SWUCardImagePath($deck['leader'], 'card')) ?>" alt="Leader: <?= htmlspecialchars($titles[$deck['leader']] ?? $deck['leader']) ?>" title="<?= htmlspecialchars($titles[$deck['leader']] ?? $deck['leader']) ?>"></div>
+  <div class="slot"><img data-card-id="<?= htmlspecialchars($deck['base']) ?>" src="<?= htmlspecialchars(SWUCardImagePath($deck['base'], 'card')) ?>" alt="Base: <?= htmlspecialchars($titles[$deck['base']] ?? $deck['base']) ?>" title="<?= htmlspecialchars($titles[$deck['base']] ?? $deck['base']) ?>"></div>
 </div>
 
 <div class="section">
@@ -144,8 +91,8 @@ foreach (array_merge(array_keys($mainCounts), array_keys($sideCounts), [$deck['l
   <div class="grid" id="sideGrid"></div>
 </div>
 
-<div style="margin-top:4px;">
-  <button id="submit">Submit &amp; Ready</button> <span id="status"></span>
+<div class="sb-actions">
+  <button id="submit" class="swu2-btn swu2-btn--primary ch" type="button">Submit &amp; Ready</button> <span id="status"></span>
 </div>
 
 <script>
@@ -278,13 +225,32 @@ if(alreadyAdvanced && advancedGameName){ go(advancedGameName); } else { render()
 // ⚠ The names come from the ENDPOINT, not from this page's `titles`: `titles` only covers cards in
 // YOUR deck, so the opponent's whole board — most of what a log is about — would stay as raw ids.
 // `titles` remains the fallback, then the id itself.
-function sbLogLineText(entry, names){
+// Split a log entry into {text, ts}, keeping its [[SET_NNN]] tokens INTACT -- the panel turns those
+// into hoverable elements, given the name map.
+//
+// ⚠ Field 2 is '@<microtime>' on entries written since 2026-09-26 and the TEXT on anything saved
+// before that. The stamp is what lets the panel interleave this log with the chat instead of
+// showing one block after the other; a legacy line has no ts and simply keeps its arrival order.
+function sbLogLine(entry){
   var parts = entry.split('|');
-  var text = parts.length >= 3 ? parts.slice(2).join('|') : entry;
-  return text.replace(/\[\[([A-Z0-9]{2,5}_[A-Z0-9]{2,4})\]\]/g, function(_, id){
-    return (names && names[id]) || titles[id] || id;
-  });
+  if (parts.length < 3) return { text: entry, ts: NaN };
+  var stamped = parts[2].charAt(0) === '@' && !isNaN(parseFloat(parts[2].slice(1)));
+  return { text: parts.slice(stamped ? 3 : 2).join('|'),
+           ts: stamped ? parseFloat(parts[2].slice(1)) : NaN };
 }
+
+// Hover a card named in the log and get the same preview the deck grid gives. Delegated, because
+// the log arrives after this runs and grows as the panel polls.
+document.addEventListener('mouseover', function(ev){
+  var el = ev.target.closest && ev.target.closest('.tcgc-card[data-card-id]');
+  if (el) showSbPreview(el.getAttribute('data-card-id'), ev);
+});
+document.addEventListener('mousemove', function(ev){
+  if (ev.target.closest && ev.target.closest('.tcgc-card[data-card-id]')) positionSbPreview(ev);
+});
+document.addEventListener('mouseout', function(ev){
+  if (ev.target.closest && ev.target.closest('.tcgc-card[data-card-id]')) hideSbPreview();
+});
 
 window.TCGChatPanel.attach({
   scope: { matchId: matchId },
@@ -301,8 +267,11 @@ fetch('./GetGameLog.php?matchId=' + encodeURIComponent(matchId) +
   .then(function(r){ return r.json(); })
   .then(function(d){
     if(!d || !d.lines || !d.lines.length) return;
+    // d.names covers every card in the lines THIS SEAT may see -- including the opponent's, which
+    // `titles` (built from your own deck) cannot. Merged so a token is never left as a raw id.
+    var cards = Object.assign({}, titles, d.names || {});
     window.TCGChatPanel.appendLog('GAME ' + d.gameNumber + ' LOG',
-      d.lines.map(function(l){ return sbLogLineText(l, d.names); }));
+      d.lines.map(sbLogLine), { cards: cards });
   })
   .catch(function(){ /* no log is a normal state, not an error to put in front of the player */ });
 </script></div></div></body></html>
