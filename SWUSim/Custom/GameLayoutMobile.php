@@ -192,8 +192,14 @@
         font: 700 11px/1.2 var(--swu-font-label, sans-serif); color: var(--text, #dde);
     }
     .swu-sr-seat  { font-weight: 800; color: #eef; min-width: 22px; flex: 0 0 auto; }
+    /* LANDSCAPE, ~628:450 — leaders AND bases are both landscape cards, and both are drawn from
+       WebpImages (the whole card). The height DERIVES from the width so background-size:cover has
+       nothing to crop; it was a flat 31px (ratio 1.419) and shaved the card's edges. Keep the ratio
+       if you retune the width. Owner, 2026-09-26: "use the whole base image instead of a crop." */
     .swu-sr-lead,
-    .swu-sr-base  { width: 44px; height: 31px; border-radius: 3px; flex: 0 0 auto; position: relative;
+    .swu-sr-base  { --swu-sr-card-w: 44px;
+                    width: var(--swu-sr-card-w); height: calc(var(--swu-sr-card-w) * 0.717);
+                    border-radius: 3px; flex: 0 0 auto; position: relative;
                     background-size: cover; background-position: center; border: 1px solid #10151f; }
     .swu-sr-base  { display: flex; align-items: center; justify-content: center; }
     .swu-sr-stat  { display: inline-flex; align-items: baseline; gap: 3px; padding: 2px 5px; flex: 0 0 auto;
@@ -658,6 +664,11 @@
         --swu-log-namecard:   var(--swu-log-default);
         --swu-log-pass:       var(--swu-log-default);
         --swu-log-initiative: var(--swu-log-default);
+        /* Deliberately RED — see the desktop palette in GameLayout.php for why. Kept in step with it;
+           these two stylesheets are the only surfaces that define the log palette. */
+        --swu-log-eliminated: #e05050;
+        /* Kicked / conceded — plain on purpose; see the desktop palette for why. */
+        --swu-log-removed:    var(--swu-log-default);
         --swu-log-undone-opacity: 0.45;
         --swu-log-chat:       rgba(255,255,255,0.92);
     }
@@ -687,6 +698,8 @@
     .swu-log-NAMECARD   { color: var(--swu-log-namecard); }
     .swu-log-PASS       { color: var(--swu-log-pass); }
     .swu-log-INITIATIVE { color: var(--swu-log-initiative); }
+    .swu-log-ELIMINATED { color: var(--swu-log-eliminated); font-weight: 600; }
+    .swu-log-REMOVED    { color: var(--swu-log-removed); }
 
     /* Card names are links here too. `color: inherit` is what keeps a card named inside a CHAT line
        in that seat's colour instead of snapping back to the log default. */

@@ -121,7 +121,9 @@ function SWUApplyKick(int $target): void
     }
     // Twin Suns free-for-all: the seat leaves and NOBODY heals — a null killer skips the CR §12.6.2
     // heal, which is for a defeat by an opponent, not an administrative removal. User decision 2026-09-17.
-    SWUEliminateSeat($target, null);
+    // $administrative: for the same reason it heals nobody, it must not END the game either — a kick
+    // is not an elimination for CR 12.7.1's "once one player is eliminated" (owner ruling 2026-09-26).
+    SWUEliminateSeat($target, null, true);
 }
 
 // ── Facts + the per-viewer payload (stage 2) ──────────────────────────────────────────────────────

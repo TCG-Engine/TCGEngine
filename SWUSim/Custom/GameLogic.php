@@ -8817,7 +8817,13 @@ function _SWUEliminationCleanup(int $seat): void {
     DecisionQueueController::CleanupRemovedCards();
 }
 
-function SWUEliminateSeat(int $seat, ?int $killer = null): void {
+// $administrative — the seat was REMOVED rather than beaten: an inactivity kick today. Owner ruling
+// 2026-09-26: being kicked must not count toward the Twin Suns win condition. CR 12.7.1 ends the game
+// at the next phase boundary once a player is eliminated, so routing a kick through the normal path
+// handed the win to whoever happened to lead on base HP — reported on game 1311538, where P2 was
+// kicked, P3 later took the Blast counter (which both ends the phase AND damages every other base),
+// and the game ended on the spot with P3 declared the winner.
+function SWUEliminateSeat(int $seat, ?int $killer = null, bool $administrative = false): void {
     if (SeatCountForGame() <= 2) return;                 // Twin Suns only
     $live = GetLiveSeatsArray();
     if (!in_array($seat, $live, true)) return;           // idempotent — already eliminated
@@ -8838,7 +8844,25 @@ function SWUEliminateSeat(int $seat, ?int $killer = null): void {
         && SWUTeamOf($killer) !== SWUTeamOf($seat)) {
         OnHealBase($killer, $killer, 5);
     }
-    SWULogGameEndLine('ELIMINATED', "Player {$seat} has been eliminated!");
+    // The elimination line — plus, for a REAL free-for-all elimination, the warning that the game is
+    // now on a timer. Owner request 2026-09-26: in game 1311538 the removal and the abrupt ending
+    // were three turns apart, so nothing on screen connected them and the ending looked like a bug.
+    // ⚠ IT MUST TRACK THE RULING, NOT THE WORD "ELIMINATED". An administrative exit (kick, concede)
+    // still removes the seat and still prints the first sentence, but the game is NOT ending, so
+    // promising that it is would be a lie shown to every remaining player.
+    // ⚠ TEAM SUNS IS EXCLUDED: it has no phase-end base-HP scoring at all (the game ends the moment
+    // a whole team is gone), so the sentence would be false there too.
+    // ⚠ TWO DIFFERENT CONDITIONS, DELIBERATELY. They came apart once the owner ruled on the colour:
+    //   • the TYPE is the STYLING (the client builds the row class as 'swu-log-' + type, no
+    //     whitelist), and ELIMINATED is red. Red means "somebody was genuinely knocked out" — owner
+    //     2026-09-26, "only genuine eliminations should be red to create the urgency of the end
+    //     game" — so it keys on $administrative ALONE. A Team Suns base defeat is still genuine.
+    //   • the WARNING SENTENCE is about CR 12.7.1's phase-end scoring, which Team Suns does not use
+    //     at all (its game ends when a whole team is gone), so it excludes teams as well.
+    $genuine         = !$administrative;
+    $warnsGameEnding = $genuine && !SWUIsTeamGame();
+    SWULogGameEndLine($genuine ? 'ELIMINATED' : 'REMOVED', "Player {$seat} has been eliminated!"
+        . ($warnsGameEnding ? " The game will end at the end of this phase — highest base HP wins." : ''));
 
     if (SWUIsTeamGame()) {
         // Team Suns: the round does NOT end on an elimination. The game ends the moment one team has
@@ -8860,10 +8884,21 @@ function SWUEliminateSeat(int $seat, ?int $killer = null): void {
         return;
     }
 
-    // 4. Flag the game to end at the next phase boundary (deferred scoring below).
-    SetSWUVar('SWU_TS_GAME_ENDING', '1');
+    // 4. Flag the game to end at the next phase boundary (deferred scoring below) — but ONLY for a
+    //    real elimination. An ADMINISTRATIVE removal is not "a player was eliminated" for CR 12.7.1;
+    //    the remaining players simply play on (owner ruling 2026-09-26, see the note on the
+    //    signature). Everyone still in the game keeps playing for the win rather than having it
+    //    decided for them by someone else's connection dropping.
+    if (!$administrative) SetSWUVar('SWU_TS_GAME_ENDING', '1');
     // 5. Safety net: a single survivor has nothing left to play — score immediately (CR §12.7).
-    if (count(GetLiveSeatsArray()) <= 1) _SWUScoreTwinSunsEndOfPhase();
+    //    ⚠ THIS RUNS HOWEVER THE OTHERS LEFT. A last player standing has won even if every other
+    //    seat was kicked, so the flag is forced here rather than relying on step 4 having armed it —
+    //    otherwise an administrative removal that empties the table would leave the game unscored
+    //    and the survivor sitting in a room that can never end.
+    if (count(GetLiveSeatsArray()) <= 1) {
+        SetSWUVar('SWU_TS_GAME_ENDING', '1');
+        _SWUScoreTwinSunsEndOfPhase();
+    }
 }
 
 // Team Suns: if exactly one team has been wiped out, return the SURVIVING team's live seats;
@@ -24069,8 +24104,13 @@ function TriggerGameOver($loserPlayer) {
     $loser = intval($loserPlayer);
     if (SeatCountForGame() > 2) {
         // Game log: the concession, then SWUEliminateSeat's own "has been eliminated" line.
+        // $administrative: a concession must not count toward the Twin Suns win condition either
+        // (owner ruling 2026-09-26, alongside the inactivity kick). Otherwise conceding is a way to
+        // END the game and gift the win to whoever currently leads on base HP, which is the same
+        // exploit the kick had. The conceding player is still out — they leave LiveSeats — but the
+        // remaining players keep playing for the win rather than having it decided for them.
         AddGameLogEntry('CONCEDE', "P{$loser} conceded", 'ALL');
-        SWUEliminateSeat($loser, null);
+        SWUEliminateSeat($loser, null, true);
         return;
     }
     // Two seats: conceding really is an immediate loss — there is nobody else left to play.

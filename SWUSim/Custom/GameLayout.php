@@ -156,6 +156,15 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         --swu-log-namecard:   var(--swu-log-default);
         --swu-log-pass:       var(--swu-log-default);
         --swu-log-initiative: var(--swu-log-default);
+        /* The loudest line in the log, and the only one that is deliberately RED (owner, 2026-09-26):
+           a real elimination puts the whole game on a timer (CR 12.7.1 — it ends at the end of this
+           phase, highest base HP wins) and players were missing that entirely. Shares the overwhelm
+           red rather than inventing a second one. */
+        --swu-log-eliminated: #e05050;
+        /* Its counterpart: a seat that was KICKED or CONCEDED. Deliberately the plain default — an
+           administrative exit creates no end-game urgency, and reddening it would spend the one
+           alarm colour on the case that does not mean the game is ending (owner, 2026-09-26). */
+        --swu-log-removed:    var(--swu-log-default);
         /* A line an UNDO erased — kept in the log, struck through and dimmed (gamelog-updates #3). Dimmed
            with opacity, not color, so card-name links inside the line fade with it. */
         --swu-log-undone-opacity: 0.45;
@@ -1647,6 +1656,9 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-log-NAMECARD   { color: var(--swu-log-namecard); }
     .swu-log-PASS       { color: var(--swu-log-pass); }
     .swu-log-INITIATIVE { color: var(--swu-log-initiative); }
+    /* Bold as well as red: this line changes how the rest of the game is scored. */
+    .swu-log-ELIMINATED { color: var(--swu-log-eliminated); font-weight: 600; }
+    .swu-log-REMOVED    { color: var(--swu-log-removed); }
     /* An undone line ("(undone) P1 played X"): struck through + dimmed. line-through propagates to the
        inline card links, and opacity fades them too — a color alone would leave the links bright. */
     .swu-log-UNDONE {

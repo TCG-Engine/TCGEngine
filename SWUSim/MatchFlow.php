@@ -20,6 +20,7 @@ function SWUSpawnNextMatchGameWithDecks($matchId, $firstPlayer, $priorGame, $res
 }
 function SWUSpawnNextMatchGame($matchId, $loserSeat, $priorGame) { return MatchSpawnNextGame('SWUSim', $matchId, $loserSeat, $priorGame); }
 function SWUSideboardTimeoutCheck($matchId)         { return MatchSideboardTimeoutCheck('SWUSim', $matchId); }
+function SWUSideboardWarningCheck($matchId)         { return MatchSideboardWarningCheck('SWUSim', $matchId); }
 function SWUMaybeSpawnAfterSideboard($matchId)      { return MatchMaybeSpawnAfterSideboard('SWUSim', $matchId); }
 function SWUConcedeMatch($matchId, $concedingSeat)  { return MatchConcede('SWUSim', $matchId, $concedingSeat); }
 function SWUReapStaleMatches($maxAgeSeconds = 86400, $nowTs = null) { return MatchReapStale('SWUSim', $maxAgeSeconds, $nowTs); }

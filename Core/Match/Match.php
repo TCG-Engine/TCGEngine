@@ -258,6 +258,10 @@ function MatchGameIsSealed($match, $gameName) {
 
 // ── Sideboarding (Bo3 between-games) ──────────────────────────────────────────
 if (!defined('MATCH_SIDEBOARD_SECONDS')) define('MATCH_SIDEBOARD_SECONDS', 180);
+// Seconds-remaining marks at which the sideboard warns the players (owner, 2026-09-26). DESCENDING,
+// because a clock that jumps from 120s to 10s between two polls must emit both, in order — a hidden
+// tab does exactly that. Emitted by MatchSideboardWarningCheck in MatchFlow.php.
+if (!defined('MATCH_SIDEBOARD_WARN_MARKS')) define('MATCH_SIDEBOARD_WARN_MARKS', [90, 30]);
 // A spawn-claim older than this (seconds) is considered stale (spawner crashed) and may be retaken,
 // so a mid-spawn failure can never strand both players in sideboarding forever.
 if (!defined('MATCH_SPAWN_CLAIM_TTL')) define('MATCH_SPAWN_CLAIM_TTL', 15);

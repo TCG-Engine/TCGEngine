@@ -65,6 +65,30 @@ $checks['game did not end']           = DecisionQueueController::GetVariable('GA
 $checks['kicked seat queue drained']  = empty(GetDecisionQueue(1));   // or the table soft-locks
 $checks['removal is logged']          = strpos(strval(GetGameLog()), 'removed for inactivity') !== false;
 
+// ── A KICK MUST NOT COUNT TOWARD THE TWIN SUNS WIN CONDITION (owner ruling, 2026-09-26) ──────────
+// CR 12.7.1 ends the game at the next phase boundary once a player is ELIMINATED, scoring by highest
+// remaining base HP. An inactivity kick routed straight through SWUEliminateSeat, so being kicked
+// armed that ending and the next player to finish the phase won outright — reported on game 1311538,
+// where P2 was kicked, P3 later took the Blast counter, and the game ended on the spot.
+//
+// ⚠ THE 'game did not end' CHECK ABOVE CANNOT CATCH THIS. Scoring is DEFERRED to the phase boundary,
+// so GAMEOVER_WINNER is legitimately still null the instant after the kick — that assertion passed
+// throughout the bug's life. The arming flag is the thing to assert, plus the boundary itself.
+$checks['kick does NOT arm the end-game']   = GetSWUVar('SWU_TS_GAME_ENDING') !== '1';
+_SWUScoreTwinSunsEndOfPhase();
+$checks['no winner at the phase boundary']  = DecisionQueueController::GetVariable('GAMEOVER_WINNER') === null;
+$checks['survivors still live after it']    = GetLiveSeatsArray() === [2, 3, 4];
+
+// ── …BUT A LAST PLAYER STANDING HAS STILL WON ───────────────────────────────────────────────────
+// The other half of the ruling, and the branch the fix adds: not arming the end-game must not leave
+// a table that can NEVER end. Kick everyone but seat 4 and the game has to score, with the survivor
+// winning — base HP is irrelevant when only one seat is left (seat 4 carries the MOST damage of the
+// three here, 8, so a scoring path that still ranked by HP would pick someone else).
+SWUApplyKick(2);
+SWUApplyKick(3);
+$checks['kicks down to one survivor']       = GetLiveSeatsArray() === [4];
+$checks['last player standing wins']        = DecisionQueueController::GetVariable('GAMEOVER_WINNER') === '4';
+
 $fail = 0;
 foreach ($checks as $name => $ok) { echo ($ok ? 'PASS' : 'FAIL') . "  $name\n"; if (!$ok) $fail++; }
 echo "game=$gameNameArg bases before=" . json_encode($before) . " after=" . json_encode($after) . "\n";

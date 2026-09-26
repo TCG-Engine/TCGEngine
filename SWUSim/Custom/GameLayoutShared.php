@@ -332,7 +332,13 @@ body.swu-self-defeated .swu-m-arena-row.is-mine { filter: grayscale(1); }
    unit's shape, not a leader's; the art was cropped to fit it. Keep the ratio if you retune the size. */
 .swu-mb-leader { --swu-mb-leader-w: 40px;
     width: var(--swu-mb-leader-w); height: calc(var(--swu-mb-leader-w) * 0.717); }
-.swu-mb-base   { width: 44px; height: 30px; display: flex; align-items: center; justify-content: center; }
+/* LANDSCAPE, ~628:450 — the real proportions of a BASE card, same treatment as the leader above.
+   It was 44x30 (ratio 1.467) holding the 450x450 concat crop, so cover discarded 29% of the image's
+   height. The thumbnail now draws the WHOLE card from WebpImages (628x450), and deriving the height
+   from the width means cover has nothing left to crop. Keep the ratio if you retune the size. */
+.swu-mb-base   { --swu-mb-base-w: 44px;
+    width: var(--swu-mb-base-w); height: calc(var(--swu-mb-base-w) * 0.717);
+    display: flex; align-items: center; justify-content: center; }
 /* SQUARE, 1:1 — a unit thumbnail draws the concat crop (450x450), not the portrait card. See the
    folder choice in unitHtml(). --swu-mb-unit is the single knob; the arena grid below derives its
    track height and floor from it, so retuning the size never needs a second edit. */
@@ -709,7 +715,10 @@ body.swu-home .swu-mb-statlbl { font-size: 9px; }
    layout's own zone geometry). Only applies on the home view (body.swu-home). */
 body.swu-home .swu-home-strip { max-width: none; justify-content: center; }
 body.swu-home .swu-mb-leader { --swu-mb-leader-w: 61px; }   /* landscape, ~628:450 (see .swu-mb-leader) */
-body.swu-home .swu-mb-base   { width: 66px; height: 46px; }
+/* ⚠ Set the WIDTH ONLY. The height derives from it in .swu-mb-base above (* 0.717) so the box keeps a
+   base card's 628:450 ratio and the whole card shows. An explicit height here re-introduces the crop
+   the 2026-09-26 change removed — it was `width: 66px; height: 46px`, i.e. ratio 1.435. */
+body.swu-home .swu-mb-base   { --swu-mb-base-w: 66px; }
 /* The home view REPLACES the opponent's whole board region with these tiles, so the space is there to
    be used — the old 34x48 thumbnails left most of each arena box empty (and a 15-unit board still
    scrolled). Two rows of a much larger square crop is the same footprint spent on legibility.
@@ -3859,8 +3868,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var dmg = b.baseObj ? (parseInt(b.baseObj.Damage, 10) || 0) : 0;
         var baseCid = b.baseObj ? String(b.baseObj.CardID || '').replace(/ /g, '_') : '';
         var baseRid = baseCid ? ((typeof resolveCardImageID === 'function') ? resolveCardImageID(baseCid) : baseCid) : '';
+        // WebpImages, NOT concat — the same decision as the leaders above and for the same reason.
+        // A base card is natively LANDSCAPE (628x450), so the whole card fits the box's own ratio:
+        // title, HP shield and aspect icon included. concat/ is the 450x450 SQUARE art crop, and
+        // cover threw away 29% of its height to fit this box — the title and the HP were simply
+        // outside the thumbnail. Owner, 2026-09-26: "use the whole base image instead of a crop."
+        // ⚠ Units stay on concat/ (see unitHtml): their WebpImages is the PORTRAIT card, two thirds
+        // rules box at this size. The folder follows the card's SHAPE, never a blanket rule.
         var baseHtml = '<span class="swu-mb-card swu-mb-base" data-mz="p' + seat + 'Base-0" ' + swuMbHoverAttrs(baseRid) +
-            (baseCid ? ' style="background-image:url(/TCGEngine/AppCore/SWU/Images/concat/' + baseRid + '.webp)"' : '') +
+            (baseCid ? ' style="background-image:url(/TCGEngine/AppCore/SWU/Images/WebpImages/' + baseRid + '.webp)"' : '') +
             '>' + (dmg > 0 ? '<span class="swu-mb-dmgcounter">' + dmg + '</span>' : '')
                 + swuMbBaseOverlays(b.baseObj) + '</span>' + swuMbFxColumn(b.baseObj, 'p' + seat + 'Base-0');
         // A single unit thumbnail, tagged with its engine mzID (p{seat}{arena}Arena-{idx}) so it can be
@@ -3963,8 +3979,10 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var baseCid = b.baseObj ? String(b.baseObj.CardID || '').replace(/ /g, '_') : '';
         var brid = baseCid ? ((typeof resolveCardImageID === 'function') ? resolveCardImageID(baseCid) : baseCid) : '';
         var dmg = b.baseObj ? (parseInt(b.baseObj.Damage, 10) || 0) : 0;
+        // WebpImages, NOT concat — the phone's Home Panel is the desktop tile's other layout and must
+        // show the same thing: the WHOLE landscape base card (2026-09-26). See swuRenderMiniBoard.
         var base = "<span class='swu-sr-base swu-mb-card' " + swuMbHoverAttrs(brid) +
-                   (brid ? " style=\"background-image:url(/TCGEngine/AppCore/SWU/Images/concat/" + brid + ".webp)\"" : "") +
+                   (brid ? " style=\"background-image:url(/TCGEngine/AppCore/SWU/Images/WebpImages/" + brid + ".webp)\"" : "") +
                    ">" + (dmg > 0 ? "<span class='swu-mb-dmgcounter'>" + dmg + "</span>" : "") +
                    swuMbBaseOverlays(b.baseObj) + "</span>";
         // ⚠ Fixed-width value box, same reason as desktop: rows are a COMPARISON view, so a chip that

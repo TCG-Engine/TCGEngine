@@ -5,6 +5,14 @@
 // prefix stripped, $rootName threaded, game-specific work routed through hooks.
 require_once __DIR__ . '/Match.php';
 require_once __DIR__ . '/Hooks.php';
+// ⚠ AT FILE SCOPE, NOT INSIDE THE FUNCTION THAT NEEDS IT. MatchSideboardWarningCheck posts to the
+// match conversation via ChatAppendMessage, which lives here. An include placed INSIDE a function
+// still declares that file's functions globally but makes its top-level variables FUNCTION-LOCAL —
+// so `$APCuEnabled = extension_loaded('apcu')` (line 7 there) never reaches the global scope, and
+// GetChatMessagesSince, which reads `global $APCuEnabled`, then silently returns [] for everyone.
+// Measured exactly that way. Safe here: this library declares functions and that one assignment,
+// emits no output, and nothing in its include chain reaches back into MatchFlow.
+require_once __DIR__ . '/../NetworkingLibraries.php';
 
 // A lobby-player stand-in for spawning child games (mid-match, no real lobby).
 class MatchSyntheticPlayer {
@@ -332,6 +340,69 @@ function MatchSideboardTimeoutCheck($rootName, $matchId) {
     MatchMaybeSpawnAfterSideboard($rootName, $matchId);
 }
 
+// The sideboard countdown warnings (owner, 2026-09-26). The deadline auto-submits an un-ready seat's
+// PRIOR deck and nothing used to say it was coming — the deadline was computed server-side and never
+// surfaced anywhere at all.
+//
+// ⚠ DRIVEN FROM A READ, so it is called constantly and by both seats at once. GetChat.php's match
+// branch is the only tick that runs while NEITHER player has submitted: SubmitSideboard's poll only
+// starts after you submit, and a spectator's GetNextTurn poll may not exist. (GetNextTurn.php
+// already ticks MatchSideboardTimeoutCheck from a read for the same reason.) Everything below is
+// therefore written to be idempotent under concurrent callers rather than merely "called once".
+function MatchSideboardWarningCheck($rootName, $matchId) {
+    $m = MatchRead($rootName, $matchId);
+    if (!is_array($m) || ($m['state'] ?? '') !== 'sideboarding') return;
+    // A PRIVATE match never gets a deadline (MatchBeginSideboarding leaves it unset), so there is
+    // nothing to count down to. This is the whole private-match carve-out, inherited for free.
+    // ⚠ MEASURED REDUNDANT, AND KEPT ANYWAY. Deleting this line leaves every assertion green,
+    // because a missing deadline reads as 0 and the `$remaining < 0` guard below then catches it.
+    // It stays because that is an accident of integer arithmetic, not an expression of the rule:
+    // relying on it would make private-match safety depend on `0 - time()` staying negative and on
+    // that second guard never being loosened to `<= 0`. Neither guard can be pinned individually
+    // for the private case — each one covers it alone — so this is recorded, not faked.
+    $deadline = intval($m['sideboardDeadline'] ?? 0);
+    if ($deadline <= 0) return;
+    $remaining = $deadline - time();
+    // Past the deadline the auto-submit has already taken over; a warning then is noise about a
+    // decision the player no longer has.
+    if ($remaining < 0) return;
+
+    // ⚠ CHECKED *BEFORE* CLAIMING ANYTHING. Claiming a mark and then discovering we cannot post
+    // would CONSUME it and send nothing — the warning lost for good, because the mark reads as
+    // already sent forever after. The library is required at the top of this file, so this is a
+    // backstop rather than the load; it must still sit above the claim.
+    if (!function_exists('ChatAppendMessage')) return;
+
+    // ⚠ CLAIM THE MARKS UNDER THE LOCK, POST OUTSIDE IT. Two polls landing in the same second both
+    // see "90s not yet sent"; only the one that wins the lock gets a non-empty $due, so the message
+    // is posted exactly once. Deciding outside and writing inside would post twice.
+    $due = [];
+    MatchWithLock($rootName, $matchId, function (&$mm) use ($remaining, &$due) {
+        if (($mm['state'] ?? '') !== 'sideboarding') return;      // re-read: it may have advanced
+        $sent = array_map('intval', (array)($mm['sideboardWarned'] ?? []));
+        foreach (MATCH_SIDEBOARD_WARN_MARKS as $mark) {
+            if ($remaining > $mark || in_array($mark, $sent, true)) continue;
+            $sent[] = $mark;
+            $due[]  = $mark;
+        }
+        if (!empty($due)) $mm['sideboardWarned'] = $sent;
+    });
+
+    if (empty($due)) return;
+    // playerID 0: the chat panel maps any seat outside 1-4 to its existing `tcgc-log` class, so this
+    // renders as a log line rather than as somebody's chat message. No CSS needed.
+    foreach ($due as $mark) {
+        ChatAppendMessage('m:' . $matchId, 0, 'Sideboard', MatchSideboardWarningText(intval($mark)));
+    }
+}
+
+// The wording, in one place so the test and the player read the same sentence.
+function MatchSideboardWarningText(int $mark): string {
+    return $mark <= 30
+        ? '30 seconds left — your current deck will be submitted automatically.'
+        : $mark . ' seconds left to submit your deck.';
+}
+
 // Spawn the next game once both sideboards are in (or a timeout forced them). Idempotent.
 // Concurrency-safe: both seats' submit/poll may call this at once — an atomic spawn-claim ensures
 // exactly ONE caller spawns the next game (else two games would spawn and the players desync). The
@@ -374,7 +445,10 @@ function MatchMaybeSpawnAfterSideboard($rootName, $matchId) {
                 $mm['players'][$s]['currentDeck'] = $decks[intval($s)];
             }
         }
-        unset($mm['sideboard'], $mm['sideboardDeadline'], $mm['pendingFirstPlayer'], $mm['spawnClaimedAt']);
+        // ⚠ sideboardWarned goes WITH the deadline it belongs to. Leaving it behind makes a Bo3's
+        // SECOND sideboard silent: both marks already read as sent.
+        unset($mm['sideboard'], $mm['sideboardDeadline'], $mm['sideboardWarned'],
+              $mm['pendingFirstPlayer'], $mm['spawnClaimedAt']);
     });
     return $next;
 }
@@ -521,7 +595,7 @@ function MatchConcede($rootName, $matchId, $concedingSeat) {
         $m['wins'][strval($opp)] = intval($m['winsNeeded'] ?? 1); // clinch
         $m['state'] = 'complete';
         $m['winner'] = $opp;
-        unset($m['sideboard'], $m['sideboardDeadline'], $m['pendingFirstPlayer']);
+        unset($m['sideboard'], $m['sideboardDeadline'], $m['sideboardWarned'], $m['pendingFirstPlayer']);
     });
 }
 

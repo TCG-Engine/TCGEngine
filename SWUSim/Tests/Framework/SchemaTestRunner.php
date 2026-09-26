@@ -2309,6 +2309,31 @@ class SchemaTestRunner {
                 if (!$found)
                     $failures[] = "{$line}: no log entry whose text contains '{$needle}'";
 
+            // LOGTYPE:<TYPE>:<text> — the entry whose text contains <text> carries log type <TYPE>.
+            //
+            // The type is NOT cosmetic: the client builds the row's class as 'swu-log-' + type with no
+            // whitelist (GameLayoutShared.php), so the type IS the styling, and since 2026-09-26 it also
+            // carries meaning — ELIMINATED is red to signal "the game is ending this phase", while an
+            // administrative exit (kick / concede) must stay neutral.
+            // ⚠ THE OTHER LOG ASSERTIONS CANNOT EXPRESS THIS. They all match the entry TEXT and never
+            // its TYPE| prefix, so `LOGCOUNT:0:ELIMINATED|` is vacuously true and a build that reddened
+            // every removal would pass every one of them.
+            } elseif (preg_match('/^LOGTYPE:([A-Z_]+):(.+)$/', $line, $m)) {
+                $wantType = $m[1];
+                $needle   = trim($m[2]);
+                $rawLog   = $g->state->gameLog();
+                $entries  = $rawLog !== '' ? explode('<NL>', $rawLog) : [];
+                $seen     = [];
+                foreach ($entries as $entry) {
+                    if (!str_contains(self::_logText($entry), $needle)) continue;
+                    $seen[] = self::_logField($entry, 'type');
+                }
+                if (empty($seen))
+                    $failures[] = "{$line}: no log entry whose text contains '{$needle}'";
+                elseif (!in_array($wantType, $seen, true))
+                    $failures[] = "{$line}: entr" . (count($seen) === 1 ? 'y has' : 'ies have')
+                                . " type [" . implode(',', $seen) . "], expected {$wantType}";
+
             // LOGCOUNT:<n>:<text> — exactly N log entries whose text contains <text>. The duplicate guard
             // for the game-log sweep: a central log line plus a leftover per-card one reads fine under
             // LOGCONTAINS and shows the player the same event twice.
